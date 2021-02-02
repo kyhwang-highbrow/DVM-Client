@@ -284,7 +284,7 @@ function ServerData:getInstance()
     -- 드래곤 이미지 퀴즈 이벤트
     g_eventImageQuizData = ServerData_EventImageQuiz()
 
-    -- 복주머니 이벤트
+    -- 소원 구슬 이벤트
     g_eventLFBagData = ServerData_EventLFBag()
 
     -- 죄악의 화신 토벌작전 이벤트
@@ -755,7 +755,7 @@ function ServerData:networkCommonRespone_addedItems(ret)
     end
 
     -- [이벤트 재화]
-    -- 복주머니
+    -- 소원 구슬
     if (t_added_items['lucky_fortune']) then
         g_eventLFBagData:addLFBag(t_added_items['lucky_fortune'])
         t_added_items['lucky_fortune'] = nil

@@ -69,7 +69,7 @@ function UI_EventLFBag:refresh()
 
     -- 레벨
     local lv = self.m_structLFBag:getLv()
-    vars['levelLabel']:setString(Str('복주머니 {1}단계', lv))
+    vars['levelLabel']:setString(Str('소원 구슬 {1}단계', lv))
     vars['levelLabel']:stopAllActions()
     cca.uiReactionSlow(vars['levelLabel'], 1, 1, 1.2)
 
@@ -115,7 +115,7 @@ function UI_EventLFBag:refresh()
         cca.uiReactionSlow(last_node,0.8, 0.8, 1.5)
     end
     
-    -- 복주머니 애니메이션 4,3,2,1
+    -- 소원 구슬 애니메이션 4,3,2,1
     local lfbag_ani_lv
     if (lv == 10) then
         lfbag_ani_lv = 4
@@ -276,14 +276,14 @@ function UI_EventLFBag:click_openBtn()
 
     elseif (not self.m_structLFBag:canStart()) then
         self:click_packageBtn()
-        UIManager:toastNotificationRed(Str('복주머니가 부족합니다.'))
+        UIManager:toastNotificationRed(Str('소원 구슬이 부족합니다.'))
         return
     end
 
      -- 레벨
     local lv = self.m_structLFBag:getLv()
 
-    -- 복주머니 열기
+    -- 소원 구슬 열기
     local function do_open()
         local function finish_cb(ret)
             -- 성공
@@ -309,9 +309,9 @@ function UI_EventLFBag:click_openBtn()
                 local msg = Str('열기 실패')
                 local submsg = ''
                 if (lv <= 7) then
-                    submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n복주머니의 단계가 초기화됩니다.')
+                    submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
                 else
-                    submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n복주머니의 단계가 초기화됩니다.')
+                    submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n소원 구슬의 단계가 초기화됩니다.')
                 end
 
                 MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
@@ -331,7 +331,7 @@ function UI_EventLFBag:click_openBtn()
 
     -- 누적보상 받지 못할 리스크가 있는 경우
     if (self.m_structLFBag:hasRisk()) then
-        local msg = Str('복주머니를 여시겠습니까?')
+        local msg = Str('소원 구슬을 여시겠습니까?')
         local submsg = Str('{1} 단계 이상에서 열기에 실패하면,\n이전 단계까지 누적된 보상을 받을 수 없으니 신중하세요!', 8)
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, do_open)
     else
@@ -376,7 +376,7 @@ function UI_EventLFBag:click_stopBtn()
     end
 
     local msg = Str('열기를 중단하시겠습니까?')
-    local submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n복주머니의 단계가 초기화됩니다.')
+    local submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
     local function ok_btn_cb()
         local function finish_cb(ret)
             -- 보상 수령
@@ -398,13 +398,13 @@ end
 function UI_EventLFBag:click_infoBtn()
     local ui = MakePopup('event_lucky_fortune_bag_info_popup.ui')
     local vars = ui.vars
-    vars['descLabel01']:setString(Str('복주머니 열기를 하면, 성공하거나 실패할 수 있습니다.'))
-    vars['descLabel02']:setString(Str('열기에 성공하면 보상이 누적되며, 복주머니의 단계가 증가합니다.'))
-    vars['descLabel03']:setString(Str('{1}단계 이하에서 열기에 실패하면 이전 단계까지의 누적 보상을 받고, 복주머니의 단계가 초기화됩니다.', 7))
+    vars['descLabel01']:setString(Str('소원 구슬 열기를 하면, 성공하거나 실패할 수 있습니다.'))
+    vars['descLabel02']:setString(Str('열기에 성공하면 보상이 누적되며, 소원 구슬의 단계가 증가합니다.'))
+    vars['descLabel03']:setString(Str('{1}단계 이하에서 열기에 실패하면 이전 단계까지의 누적 보상을 받고, 소원 구슬의 단계가 초기화됩니다.', 7))
     vars['descLabel04']:setString(Str('{@yellow}{1}단계 이상에서 열기에 실패하면 누적된 모든 보상을 받을 수 없습니다.', 8))
-    vars['descLabel05']:setString(Str('중단을 하면 확보한 누적 보상을 받을 수 있으며, 복주머니의 단계가 초기화됩니다.'))
-    vars['descLabel06']:setString(Str('복주머니는 주사위 이벤트, 상점을 통해 획득할 수 있습니다.'))
-    vars['descLabel07']:setString(Str('복주머니를 열어 {@yellow}획득한 점수에 따라 랭킹 보상을 지급합니다.'))
+    vars['descLabel05']:setString(Str('중단을 하면 확보한 누적 보상을 받을 수 있으며, 소원 구슬의 단계가 초기화됩니다.'))
+    vars['descLabel06']:setString(Str('소원 구슬는 주사위 이벤트, 상점을 통해 획득할 수 있습니다.'))
+    vars['descLabel07']:setString(Str('소원 구슬를 열어 {@yellow}획득한 점수에 따라 랭킹 보상을 지급합니다.'))
 
 end
 

@@ -2,7 +2,7 @@ local PARENT = StructUserInfo
 
 -------------------------------------
 -- class StructEventLFBagRanking
--- @brief 복주머니
+-- @brief 소원 구슬
 -------------------------------------
 StructEventLFBagRanking = class(PARENT, {
         m_rp = 'number',         -- ranking point

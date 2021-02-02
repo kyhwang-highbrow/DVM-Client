@@ -2,7 +2,7 @@ local PARENT = Structure
 
 -------------------------------------
 -- class StructEventLFBag
--- @brief 복주머니
+-- @brief 소원 구슬
 -------------------------------------
 StructEventLFBag = class(PARENT, {
         -- raw data      
@@ -123,7 +123,7 @@ end
 
 -------------------------------------
 -- function canStart
--- @brief 복주머니를 열 수 있는지 체크
+-- @brief 소원 구슬 열 수 있는지 체크
 -------------------------------------
 function StructEventLFBag:canStart()
     return self['level'] > 0 or self['lucky_fortune'] > 0

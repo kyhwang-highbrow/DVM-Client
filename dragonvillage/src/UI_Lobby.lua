@@ -182,7 +182,7 @@ function UI_Lobby:entryCoroutine()
         end
 
         if (g_eventLFBagData:canPlay()) then
-            co:work('# 복주머니 이벤트 정보 받는 중')
+            co:work('# 소원 구슬 이벤트 정보 받는 중')
             g_eventLFBagData:request_eventLFBagInfo(false, co.NEXT, required_fail_cb)
             if co:waitWork() then return end
         end
@@ -767,7 +767,7 @@ function UI_Lobby:initButton()
     vars['bingoBtn']:registerScriptTapHandler(function() self:click_bingoBtn() end) -- 빙고 이벤트
     vars['halloweenEventBtn']:registerScriptTapHandler(function() self:click_halloweenEventBtn() end) -- 빙고 이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
-    vars['luckyfortunebagEventBtn']:registerScriptTapHandler(function() self:click_lfbagBtn() end) -- 복주머니 이벤트
+    vars['luckyfortunebagEventBtn']:registerScriptTapHandler(function() self:click_lfbagBtn() end) -- 소원 구슬 이벤트
     vars['alphabetBtn']:registerScriptTapHandler(function() self:click_alphabetBtn() end) -- 알파벳 이벤트
     vars['quizEventBtn']:registerScriptTapHandler(function() self:click_quizEventBtn() end) -- 드래곤 이미지 퀴즈 이벤트
     vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
@@ -1132,7 +1132,7 @@ function UI_Lobby:update_highlight()
             end
         end
 
-        do -- 복주머니 이벤트
+        do -- 소원 구슬 이벤트
             if (g_eventLFBagData) then
                 vars['luckyfortunebagNotiSprite']:setVisible(g_eventLFBagData:isHighlightRed())
                 --vars['quizEventNotiYellow']:setVisible(g_eventLFBagData:isHighlightYellow())
@@ -1924,7 +1924,7 @@ function UI_Lobby:update(dt)
         map_check_event['event_alphabet'] = 'alphabetLabel' -- 알파벳 이벤트
         map_check_event['event_exchange'] = 'exchangeLabel' -- 수집 이벤트
         map_check_event['event_bingo'] = 'bingoLabel' -- 빙고 이벤트
-        map_check_event['event_lucky_fortune_bag'] = 'luckyfortunebagLabel' -- 복주머니 이벤트
+        map_check_event['event_lucky_fortune_bag'] = 'luckyfortunebagLabel' -- 소원 구슬 이벤트
         
         for event_name, label_name in pairs(map_check_event) do
             local remain_text = g_hotTimeData:getEventRemainTimeText(event_name)
@@ -2078,7 +2078,7 @@ function UI_Lobby:update_rightButtons()
     -- 드래곤 이미지 퀴즈 이벤트
     vars['quizEventBtn']:setVisible(g_hotTimeData:isActiveEvent('event_image_quiz'))
     
-    -- 복주머니 이벤트
+    -- 소원 구슬 이벤트
     vars['luckyfortunebagEventBtn']:setVisible(g_eventLFBagData:isActive())
     
     -- 황금던전 버튼

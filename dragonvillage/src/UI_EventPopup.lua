@@ -316,7 +316,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
         local inner_ui = UI_EventImageQuiz()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
-    -- 복주머니 이벤트
+    -- 소원 구슬 이벤트
     elseif (tab == 'event_lucky_fortune_bag') then
         ui = UI_EventLFBag()
 

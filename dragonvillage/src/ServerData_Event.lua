@@ -650,7 +650,7 @@ function ServerData_Event:openEventPopup(tab, close_cb)
         end
         
         if (g_eventLFBagData:canPlay()) then
-            co:work('# 복주머니 이벤트 정보 받는 중')
+            co:work('# 소원 구슬 이벤트 정보 받는 중')
             g_eventLFBagData:request_eventLFBagInfo(false, co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
