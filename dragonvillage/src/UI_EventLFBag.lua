@@ -206,12 +206,12 @@ function UI_EventLFBag:makeScrollView()
     local interval = 53
     local cell_count = 5
     local normal_size = self.vars['rewardListNode']:getContentSize()
-    local content_size = cc.size(200, interval * cell_count)
+    local content_size = cc.size(296, interval * cell_count)
 
     -- 스크롤뷰 설정
-    scroll_view:setDockPoint(ZERO_POINT)
-    scroll_view:setAnchorPoint(ZERO_POINT)
-    scroll_view:setPosition(ZERO_POINT)
+    scroll_view:setDockPoint(TOP_CENTER)
+    scroll_view:setAnchorPoint(TOP_CENTER)
+    scroll_view:setPosition(TOP_CENTER)
     scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     scroll_view:setNormalSize(normal_size)
     scroll_view:setContentSize(content_size)
