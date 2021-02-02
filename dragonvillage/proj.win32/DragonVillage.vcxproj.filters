@@ -4819,6 +4819,12 @@
     <None Include="..\src\UI_ClanWarTournamentTreeLeaf.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EventLFBagRankingDailtyTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventLFBagRankingTotalTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

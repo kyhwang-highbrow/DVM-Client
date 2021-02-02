@@ -77,6 +77,8 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
         mInit = true
         require('UI_EventLFBag')
         require('UI_EventLFBagRankingPopup')
+        require('UI_EventLFBagRankingDailtyTab')
+        require('UI_EventLFBagRankingTotalTab')
         require('UI_EventLFBagRankingRewardPopup')
         require('StructEventLFBag')
         require('StructEventLFBagRanking')

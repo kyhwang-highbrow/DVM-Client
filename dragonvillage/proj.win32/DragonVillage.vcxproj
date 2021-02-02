@@ -1339,8 +1339,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventIncarnationOfSinsRankingTotalTab.lua" />
     <None Include="..\src\UI_EventIncarnationOfSinsRewardPopup.lua" />
     <None Include="..\src\UI_EventLFBag.lua" />
+    <None Include="..\src\UI_EventLFBagRankingDailtyTab.lua" />
     <None Include="..\src\UI_EventLFBagRankingPopup.lua" />
     <None Include="..\src\UI_EventLFBagRankingRewardPopup.lua" />
+    <None Include="..\src\UI_EventLFBagRankingTotalTab.lua" />
     <None Include="..\src\UI_EventMandragoraQuest.lua" />
     <None Include="..\src\UI_EventMandragoraQuestListItem.lua" />
     <None Include="..\src\UI_EventMatchCard.lua" />

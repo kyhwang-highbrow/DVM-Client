@@ -18,7 +18,7 @@ StructEventLFBag = class(PARENT, {
     })
 
 local THIS = StructEventLFBag
-local MAX_LV = 10
+local MAX_LV = 5
 local RISK_LV = 8
 
 -------------------------------------

@@ -10,6 +10,8 @@ UI_EventLFBag = class(PARENT,{
 
         m_toastUI = 'cc.Node',
         m_scrollView = 'cc.ScrollView',
+        m_rewardHistoryView = 'cc.Node', -- 보상획득 히스토리 노드
+        m_rewardHistoryLabel = 'UIC_ScrollLabel'
     })
 
 -------------------------------------
@@ -37,7 +39,7 @@ end
 -------------------------------------
 function UI_EventLFBag:initUI()
     local vars = self.vars
-
+    self.m_rewardHistoryView = vars['textNode']
     self:makeScrollView()
 end
 
@@ -75,10 +77,14 @@ function UI_EventLFBag:refresh()
     if self.m_structLFBag:isMax() then
         vars['openLabel']:setString(Str('수령하기'))
         vars['percentageLabel']:setString('')
+        vars['percentageLabel2']:setString('')
     else
         vars['openLabel']:setString(Str('{1}단계 열기', lv))
         vars['percentageLabel']:setString(Str('성공 확률 {1}%', self.m_structLFBag:getSuccessProb()))
         vars['percentageLabel']:stopAllActions()
+        cca.uiReactionSlow(vars['percentageLabel'], 1, 1, 1.2)
+        vars['percentageLabel2']:setString(Str('성공 확률 {1}%', self.m_structLFBag:getSuccessProb()))
+        vars['percentageLabel2']:stopAllActions()
         cca.uiReactionSlow(vars['percentageLabel'], 1, 1, 1.2)
     end
     
@@ -88,18 +94,19 @@ function UI_EventLFBag:refresh()
     -- 누적 보상 목록
     local l_cum_reward_list = self.m_structLFBag:getCumulativeRewardList()
     local last_node = nil
-    for i = 1, 10 do
+    for i = 1, 5 do
         vars['itemNode' .. i]:removeAllChildren()
 
         local t_item = l_cum_reward_list[i]
         if (t_item) then
             local card_ui = MakeItemCard(t_item)
+            card_ui.root:setScale(0.8)
             vars['itemNode' .. i]:addChild(card_ui.root)
             last_node = card_ui.root
         end
     end
     if last_node then
-        cca.uiReactionSlow(last_node,1, 1, 1.5)
+        cca.uiReactionSlow(last_node,0.8, 0.8, 1.5)
     end
     
     -- 복주머니 애니메이션 4,3,2,1
@@ -114,6 +121,8 @@ function UI_EventLFBag:refresh()
         lfbag_ani_lv = 1
     end
     vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d', lfbag_ani_lv), true)
+
+    self:updateRewardHistory()
 end
 
 -------------------------------------
@@ -166,8 +175,10 @@ function UI_EventLFBag:showCurrntReward(item_str)
 
     -- 정보 입력
     local item_id = t_item['item_id']
+    local itemIcon = IconHelper:getItemIcon(item_id)
+
     vars['itemNode']:removeAllChildren(true)
-    vars['itemNode']:addChild(IconHelper:getItemIcon(item_id))
+    vars['itemNode']:addChild(itemIcon)
     local item_count_str = string.format('%s x%s', TableItem:getItemName(item_id), comma_value(t_item['count']))
     vars['itemLabel']:setString(item_count_str)
 
@@ -187,7 +198,7 @@ function UI_EventLFBag:makeScrollView()
 
     -- 스크롤뷰에서 사용할 사이즈
     local interval = 53
-    local cell_count = 10
+    local cell_count = 5
     local normal_size = self.vars['rewardListNode']:getContentSize()
     local content_size = cc.size(200, interval * cell_count)
 
@@ -206,7 +217,7 @@ function UI_EventLFBag:makeScrollView()
 
     -- 컨테이너 상단 이동
     local container_node = scroll_view:getContainer()
-    container_node:setPositionY(-height_half - interval/2)
+    container_node:setPositionY(-height_half + interval/2)
 
     -- 셀 미리 생성
     for i = 1, cell_count do
@@ -223,6 +234,7 @@ end
 -------------------------------------
 function UI_EventLFBag:updateScrollView()
     local l_reward_list = self.m_structLFBag:getRewardList()
+
     for i, cell_ui in ipairs(self.m_cellUIList) do
         self.updateCellUI(cell_ui, l_reward_list[i])
     end
@@ -436,4 +448,55 @@ function UI_EventLFBag.updateCellUI(cell_ui, t_data)
     vars['itemNode']:addChild(icon)
     vars['probLabel']:setString(string.format('%s%%', t_data['pick_percent']))
     vars['countLabel']:setString(comma_value(t_data['val']))
+end
+
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_EventLFBag:updateRewardHistory()
+    if (self.m_rewardHistoryView == nil) then
+        return
+    end
+
+    local nodeWidth, nodeHeight = self.m_rewardHistoryView:getNormalSize()
+
+    -- rich_label 생성
+	local rich_label = UIC_RichLabel()
+	rich_label:setDimension(nodeWidth, nodeHeight)
+	rich_label:setFontSize(20)
+	rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
+    rich_label:setDefualtColor(COLOR['white'])
+    rich_label.m_root:setSwallowTouch(false)
+    rich_label.m_lineHeight = 1.4
+    rich_label.m_wordSpacing = 1.1
+
+    local width, height = rich_label:getNormalSize()
+    local verticalAlignment = cc.VERTICAL_TEXT_ALIGNMENT_CENTER
+
+    rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, verticalAlignment)
+
+	-- scroll label  생성
+	self.m_rewardHistoryLabel = UIC_ScrollLabel:create(rich_label)
+	self.m_rewardHistoryLabel:setDockPoint(CENTER_POINT)
+	self.m_rewardHistoryLabel:setAnchorPoint(CENTER_POINT)
+
+	self.m_rewardHistoryView:addChild(self.m_rewardHistoryLabel.m_node)
+
+    if self.m_rewardHistoryLabel then
+        local finalStr = ''
+
+        for i = 3, 1, -1 do
+            local nickName = '{@SKYBLUE}' .. '엉님' .. '{@Default}'
+            local itemName = '{@RED}' .. '아이템' .. '{@Default}'
+
+            finalStr = finalStr .. Str('{1}이 {2}을 획득함' .. tostring(i), nickName, itemName)
+
+            if (i > 1) then
+                finalStr = finalStr ..  '\n'
+            end
+        end
+        
+        self.m_rewardHistoryLabel:setString(finalStr)
+    end
 end
