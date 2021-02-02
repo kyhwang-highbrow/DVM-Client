@@ -73,7 +73,6 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_EventLFBagRankingTotalTab:onEnterTab(first)
-    cclog('refresh rank')
     if (first == true) then
         self:initUI()
         self:initButton()
@@ -108,7 +107,7 @@ function UI_EventLFBagRankingTotalTab:refreshRank(type) -- 다음/이전 버튼 
 
     local rank_type = self.m_rankType
     local offset = self.m_rankOffset
-    g_eventLFBagData:request_eventLFBagRank(rank_type, offset, finish_cb)
+    g_eventLFBagData:request_eventLFBagRank(rank_type, offset, 'world', finish_cb)
 end
 
 -------------------------------------
@@ -195,20 +194,6 @@ function UI_EventLFBagRankingTotalTab:refresh_playerUserInfo()
 end
 
 -------------------------------------
--- function request_rank
--------------------------------------
-function UI_EventLFBagRankingTotalTab:request_rank()
-    local function finish_cb()
-        self.m_rankOffset = g_eventLFBagData.m_nGlobalOffset
-        self:makeRankTableView()
-        self:refresh_playerUserInfo()
-    end
-    local rank_type = self.m_rankType
-    local offset = self.m_rankOffset
-    g_eventLFBagData:request_eventLFBagRank(rank_type, offset, finish_cb)
-end
-
--------------------------------------
 -- function makeRankTableView
 -------------------------------------
 function UI_EventLFBagRankingTotalTab:makeRankTableView()
@@ -233,7 +218,7 @@ function UI_EventLFBagRankingTotalTab:makeRankTableView()
     local function click_prevBtn()
         self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
         self.m_rankOffset = math_max(self.m_rankOffset, 0)
-        self:request_rank()
+        self:refresh_rank()
     end
 
     -- 다음 랭킹 보기
@@ -244,7 +229,7 @@ function UI_EventLFBagRankingTotalTab:makeRankTableView()
             return
         end
         self.m_rankOffset = self.m_rankOffset + add_offset
-        self:request_rank()
+        self:refresh_rank()
     end
 
     -- 생성 콜백
@@ -399,7 +384,7 @@ function UI_EventLFBagRankingTotalTab:onChangeRankingType(type)
 
     end
 
-    self:request_rank()
+    self:refresh_rank()
 end
 
 --@CHECK

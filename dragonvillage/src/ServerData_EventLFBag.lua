@@ -8,6 +8,7 @@ ServerData_EventLFBag = class({
         -- 시즌 보상 수령 시 사용
         m_lastInfo = '',
         m_rewardInfo = '',
+        m_rewardDailyInfo = '',
 
         -- 랭킹 정보에 사용
         m_nGlobalOffset = 'number', -- 랭킹
@@ -108,6 +109,12 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
             self.m_rewardInfo = nil
         end
 
+        if (ret['reward_info_daily']) then
+            self.m_rewardDailyInfo = ret['reward_info_daily']
+        else
+            self.m_rewardDailyInfo = nil
+        end
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -206,7 +213,7 @@ end
 -------------------------------------
 -- function request_eventLFBagRank
 -------------------------------------
-function ServerData_EventLFBag:request_eventLFBagRank(rank_type, offset, finish_cb, fail_cb)
+function ServerData_EventLFBag:request_eventLFBagRank(rank_type, offset, division, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
     local offset = offset or 0
@@ -239,6 +246,7 @@ function ServerData_EventLFBag:request_eventLFBagRank(rank_type, offset, finish_
     ui_network:setParam('offset', offset)
     ui_network:setParam('limit', rank_cnt)
     ui_network:setParam('type', rank_type)
+    ui_network:setParam('division', division)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

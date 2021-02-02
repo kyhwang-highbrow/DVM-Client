@@ -79,8 +79,6 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_EventLFBagRankingDailtyTab:onEnterTab(first)
-    cclog('refresh rank')
-    
     if (first == true) then
         self:initUI()
         self:initButton()
@@ -108,7 +106,7 @@ function UI_EventLFBagRankingDailtyTab:refreshRank(type) -- 다음/이전 버튼
 
     local rank_type = self.m_rankType
     local offset = self.m_rankOffset
-    g_eventLFBagData:request_eventLFBagRank(rank_type, offset, finish_cb)
+    g_eventLFBagData:request_eventLFBagRank(rank_type, offset, 'today', finish_cb)
 end
 
 -------------------------------------
@@ -212,7 +210,6 @@ end
 -- function makeRankTableView
 -------------------------------------
 function UI_EventLFBagRankingDailtyTab:makeRankTableView()
-    cclog('???')
     local vars = self.vars
     local node = vars['rankListNode']
     node:removeAllChildren()
@@ -234,7 +231,7 @@ function UI_EventLFBagRankingDailtyTab:makeRankTableView()
     local function click_prevBtn()
         self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
         self.m_rankOffset = math_max(self.m_rankOffset, 0)
-        self:request_rank()
+        self:refresh_rank()
     end
 
     -- 다음 랭킹 보기
@@ -245,7 +242,7 @@ function UI_EventLFBagRankingDailtyTab:makeRankTableView()
             return
         end
         self.m_rankOffset = self.m_rankOffset + add_offset
-        self:request_rank()
+        self:refresh_rank()
     end
 
     -- 생성 콜백
@@ -369,7 +366,7 @@ function UI_EventLFBagRankingDailtyTab:onChangeRankingType(type)
 
     end
 
-    self:request_rank()
+    self:refresh_rank()
 end
 
 --@CHECK
