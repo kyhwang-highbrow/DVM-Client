@@ -76,10 +76,16 @@ function UI_EventLFBag:refresh()
     -- 최대 레벨 처리 .. 열기 버튼으로 보상을 수령한다.
     if self.m_structLFBag:isMax() then
         vars['openLabel']:setString(Str('수령하기'))
+        vars['openLabel']:setScale(1.5)
+        vars['openLabel']:setPosition(-17, 0)
+
         vars['percentageLabel']:setString('')
         vars['percentageLabel2']:setString('')
     else
         vars['openLabel']:setString(Str('{1}단계 열기', lv))
+        vars['openLabel']:setScale(1)
+        vars['openLabel']:setPosition(-17, -12)
+
         vars['percentageLabel']:setString(Str('성공 확률 {1}%', self.m_structLFBag:getSuccessProb()))
         vars['percentageLabel']:stopAllActions()
         cca.uiReactionSlow(vars['percentageLabel'], 1, 1, 1.2)
