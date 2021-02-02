@@ -45,9 +45,15 @@ def merge_upload(backup_sheet_name, spreadsheet_id, data_list, header, locale_li
     # 시트에 데이터를 삽입합니다 
     row_size = len(backup_datas) + 2
     work_sheet.resize(rows=row_size)
+    
     if len(no_dup_data_list) > 0:
         work_sheet.insert_rows(no_dup_data_list, row_size, value_input_option='RAW')
-    work_sheet.resize(rows=len(work_sheet.get_all_values()) - 1)
+    
+    final_row_size = len(work_sheet.get_all_values())
+    if len(backup_datas) > 0:
+        final_row_size -= 1
+    
+    work_sheet.resize(rows=final_row_size)
 
     # 시트의 크기를 보기 좋게 조정합니다.
     sheet_id = work_sheet._properties['sheetId']
