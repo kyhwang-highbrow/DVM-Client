@@ -299,6 +299,11 @@ function UI_EventLFBag:click_openBtn()
             else
                 SoundMgr:playEffect('UI', 'ui_eat')
                 
+                local function ok_cb()
+                    if (self.m_structLFBag:canStart() == false) then
+                        self:click_packageBtn()
+                    end
+                end
                 
 
                 local msg = Str('열기 실패')
@@ -308,7 +313,8 @@ function UI_EventLFBag:click_openBtn()
                 else
                     submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n복주머니의 단계가 초기화됩니다.')
                 end
-                MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg)
+
+                MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
                 
                 -- 보상 수령
                 if (ret['new_mail']) then
