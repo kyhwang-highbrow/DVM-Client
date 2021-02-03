@@ -651,7 +651,7 @@ function ServerData_Event:openEventPopup(tab, close_cb)
         
         if (g_eventLFBagData:canPlay()) then
             co:work('# 소원 구슬 이벤트 정보 받는 중')
-            g_eventLFBagData:request_eventLFBagInfo(false, co.NEXT, co.ESCAPE)
+            g_eventLFBagData:request_eventLFBagInfo(true, co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
