@@ -87,7 +87,6 @@ local mInit = false
 -- @brief 이벤트 정보
 -------------------------------------
 function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb, fail_cb)
-    cclog(request_eventLFBagInfo)
     -- @mskim require 컨텐츠 별로 모아서 할 필요가 있다. 구조는 고민중
     if (not mInit) then
         mInit = true
@@ -109,8 +108,6 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
 
     -- 콜백
     local function success_cb(ret)
-        ccdump(ret)
-        
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
 
         -- 보상이 들어왔을 경우 정보 저장, nil 여부로 보상 확인
@@ -148,8 +145,6 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
     ui_network:setReuse(false)
 	ui_network:hideBGLayerColor()
     ui_network:request()
-
-    ccdump(ui_network)
 
     return ui_network
 end
@@ -271,8 +266,6 @@ function ServerData_EventLFBag:request_eventLFBagRank(rank_type, offset, divisio
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
-
-    ccdump(ui_network)
 
 	return ui_network
 end
