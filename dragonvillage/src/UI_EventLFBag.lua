@@ -116,7 +116,7 @@ function UI_EventLFBag:refresh()
     end
     
     -- 소원 구슬 애니메이션 4,3,2,1
-    local lfbag_ani_lv
+    --[[local lfbag_ani_lv
     if (lv == 10) then
         lfbag_ani_lv = 4
     elseif (lv >= 8) then
@@ -125,8 +125,8 @@ function UI_EventLFBag:refresh()
         lfbag_ani_lv = 2
     else
         lfbag_ani_lv = 1
-    end
-    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d', lfbag_ani_lv), true)
+    end]]
+    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d_effect', lv), true)
 
     self:updateRewardHistory()
 end
@@ -514,7 +514,7 @@ function UI_EventLFBag:updateRewardHistory()
                 local nickName = '{@GOLD}' .. v['data']['nick'] .. '{@Default}'
                 local itemName = '{@cyan}' .. TableItem:getItemName(v['data']['item_id']) .. '{@Default}'
                 local itemCount = v['data']['count']
-                finalStr = finalStr .. Str('{1}님이 {2}을(를) {@light_green}{3}개{@Default} 획득', nickName, itemName, tostring(itemCount))
+                finalStr = finalStr .. Str('{1}님이 {2}을(를) {3}개 획득', nickName, itemName, tostring(itemCount))
 
                 if (i < #broadcastTable) then
                     finalStr = finalStr ..  '\n'
