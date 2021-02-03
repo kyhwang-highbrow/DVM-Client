@@ -24,7 +24,7 @@ function UI_EventLFBag:init()
 
     self.m_structLFBag = g_eventLFBagData:getLFBag()
     self.m_lastAniLevel = self.m_structLFBag:getLv()
-    vars['luckyFortuneBagVisual']:setScale(aniScale)
+    vars['luckyFortuneBagVisual']:setScale(self:getAniScale(self.m_lastAniLevel))
     vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_effect', self.m_lastAniLevel), true)
 
     self.m_toastUI = self:makeToast()
