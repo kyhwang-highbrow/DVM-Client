@@ -557,15 +557,18 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
 
     elseif type == 'EditBox' then
         UILoader.checkTranslate(data)
-        if (data.normal == nil) or (data.normal == '') then
-            data.normal = EMPTY_PNG
+        if (data.normal_bg == nil) or (data.normal_bg == '') then
+            data.normal_bg = 'common/empty.png'
         end
-        local normalBGFilename = uiRoot .. data.normal_bg
+        local normalBGFilename = data.normal_bg ~= '' and uiRoot .. data.normal_bg or nil
         local pressedBGFilename = data.pressed_bg ~= '' and uiRoot .. data.pressed_bg or nil
         local disabledBGFilename = data.disabled_bg ~= '' and uiRoot .. data.disabled_bg or nil
         local normalBG = cc.Scale9Sprite:create(normalBGFilename)
         local pressedBG = cc.Scale9Sprite:create(pressedBGFilename)
         local disabledBG = cc.Scale9Sprite:create(disabledBGFilename)
+
+        -- @sgkim 2021.02.03 EditBox:create에서 사이즈와, normalBG는 필수 인자이다.
+        -- ui파일에서 지정된 normalBG 리소스가 없을 경우 EMPTY_PNG를 생성하도록 한다.
         node = cc.EditBox:create(cc.size(data.width, data.height), normalBG, pressedBG, disabledBG)
         setPropsForEditBox(node, data)
     elseif type == 'TextFieldTTF' then
