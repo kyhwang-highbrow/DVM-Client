@@ -158,7 +158,7 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, include_ta
     ui_network:setUrl('/shop/lucky_fortune_bag/info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('reward', include_reward or false) -- 랭킹 보상 지급 여부
-    ui_network:setParam('include_tables', true) -- 보상 정보 추가 여부
+    ui_network:setParam('include_tables', include_tables) -- 보상 정보 추가 여부
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
