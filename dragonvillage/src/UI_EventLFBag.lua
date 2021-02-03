@@ -328,18 +328,14 @@ function UI_EventLFBag:click_openBtn()
         return
     end
 
-    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), false)
-
      -- 레벨
     local lv = self.m_structLFBag:getLv()
     self.m_lastAniLevel = lv
-
+    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), false)
 
     -- 소원 구슬 열기
     local function do_open()
         local function finish_cb(ret)
-            self:onActOpen()
-
             -- 성공
             if (ret['is_success']) then
                 SoundMgr:playEffect('UI', 'ui_in_item_get')
@@ -375,6 +371,7 @@ function UI_EventLFBag:click_openBtn()
                 end
             end
 
+            self:onActOpen()
             g_serverData:receiveReward(ret)
 
             self:refresh()
