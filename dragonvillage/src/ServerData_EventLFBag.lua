@@ -135,6 +135,18 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
             self.m_lastInfoDaily = nil
         end
 
+        if (ret['ranking_reward']) then
+            self.m_lastInfoDaily = ret['daily']
+        else
+            self.m_lastInfoDaily = nil
+        end
+
+        if (ret['ranking_reward']) then
+            self.m_rewardInfo = ret['world']
+        else
+            self.m_rewardInfo = nil
+        end
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -145,12 +157,15 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
     ui_network:setUrl('/shop/lucky_fortune_bag/info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('reward', include_reward or false) -- 랭킹 보상 지급 여부
+    ui_network:setParam('include_tables ', true) -- 보상 정보 추가 여부
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
 	ui_network:hideBGLayerColor()
     ui_network:request()
+
+    ccdump(ui_network)
 
     return ui_network
 end
@@ -326,4 +341,21 @@ function ServerData_EventLFBag:isHighlightRed()
     end
 
     return true
+end
+
+
+-------------------------------------
+-- function getTotalRankRewardList
+-- @brief 전체랭킹 보상 테이블
+-------------------------------------
+function ServerData_EventLFBag:getTotalRankRewardList()
+    return self.m_rewardInfo
+end
+
+-------------------------------------
+-- function isHighlightRed
+-- @brief 일일랭킹 보상 테이블
+-------------------------------------
+function ServerData_EventLFBag:getDailyRankRewardList()
+    return self.m_lastInfoDaily
 end

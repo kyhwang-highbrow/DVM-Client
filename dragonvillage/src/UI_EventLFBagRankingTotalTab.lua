@@ -305,7 +305,8 @@ end
 function UI_EventLFBagRankingTotalTab:makeRankRewardTableView()
     local node = self.vars['rewardNode']
 
-    local l_item_list = TableEventLFBagRank():getRankRewardList()
+    --local l_item_list = TableEventLFBagRank():getRankRewardList()
+    local l_item_list = g_eventLFBagData:getTotalRankRewardList()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)

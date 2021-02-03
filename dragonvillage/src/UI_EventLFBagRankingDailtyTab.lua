@@ -318,9 +318,8 @@ end
 function UI_EventLFBagRankingDailtyTab:makeRankRewardTableView()
     local node = self.vars['rewardNode']
 
-    local l_item_list = TableEventLFBagRank():getRankRewardList()
-
-    local nodeWidth, nodeHeight = node:getNormalSize()
+    --local l_item_list = TableEventLFBagRank():getRankRewardList()
+    local l_item_list = g_eventLFBagData:getDailyRankRewardList()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
