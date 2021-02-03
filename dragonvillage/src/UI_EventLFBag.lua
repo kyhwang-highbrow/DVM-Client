@@ -11,7 +11,9 @@ UI_EventLFBag = class(PARENT,{
         m_toastUI = 'cc.Node',
         m_scrollView = 'cc.ScrollView',
         m_rewardHistoryView = 'cc.Node', -- 보상획득 히스토리 노드
-        m_rewardHistoryLabel = 'UIC_ScrollLabel'
+        m_rewardHistoryLabel = 'UIC_ScrollLabel',
+
+        m_lastAniLevel = 'number'
     })
 
 -------------------------------------
@@ -21,6 +23,10 @@ function UI_EventLFBag:init()
     local vars = self:load('event_lucky_fortune_bag.ui')
 
     self.m_structLFBag = g_eventLFBagData:getLFBag()
+    self.m_lastAniLevel = self.m_structLFBag:getLv()
+    vars['luckyFortuneBagVisual']:setScale(aniScale)
+    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_effect', self.m_lastAniLevel), true)
+
     self.m_toastUI = self:makeToast()
     self.m_toastUI.root:setPosition(-196, -30)
     self.m_cellUIList = {}
@@ -67,7 +73,7 @@ function UI_EventLFBag:refresh()
     -- 보유 수
     local count_str = self.m_structLFBag:getCount()
     vars['numberLabel']:setString(comma_value(count_str))
-
+    
     -- 레벨
     local lv = self.m_structLFBag:getLv()
     vars['levelLabel']:setString(Str('소원 구슬 {1}단계', lv))
@@ -115,32 +121,58 @@ function UI_EventLFBag:refresh()
     if last_node then
         cca.uiReactionSlow(last_node,0.8, 0.8, 1.5)
     end
-    
-    -- 소원 구슬 애니메이션 1, 2, 3, 4, 5
-    local aniNode = vars['luckyFortuneBagVisual']
-    local aniString = ''
-
-    if (lv == 1) then
-        aniNode:setScale(0.53)
-    elseif (lv == 2) then
-        aniNode:setScale(0.6)
-    elseif (lv == 3) then
-        aniNode:setScale(0.64)
-    elseif (lv == 4) then
-        aniNode:setScale(0.72)
-    elseif (lv == 5) then
-        aniNode:setScale(0.82)
-    end
-
-    if (not self.m_structLFBag:isMax()) then
-        aniString = string.format('bag_%.2d_effect', lv)
-    end
-
-    vars['luckyFortuneBagVisual']:changeAni(aniString, true)
-
 
     self:updateRewardHistory()
 end
+
+-------------------------------------
+-- function onActOpen
+-------------------------------------
+function UI_EventLFBag:onActOpen()
+    local vars = self.vars
+
+    -- 레벨
+    local currentLevel = self.m_structLFBag:getLv()
+
+    -- 소원 구슬 애니메이션 1, 2, 3, 4, 5
+    local aniNode = vars['luckyFortuneBagVisual']
+    local aniScale = self:getAniScale(currentLevel)
+
+    if (not self.m_structLFBag:isMax()) then
+        vars['luckyFortuneBagVisual']:addAniHandler(function()
+            vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), false)
+            vars['luckyFortuneBagVisual']:addAniHandler(function()
+                aniNode:setScale(aniScale)
+                vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_effect', currentLevel), true)
+                self.m_lastAniLevel = currentLevel
+            end)
+        end)
+    else
+        vars['luckyFortuneBagVisual']:changeAni('')
+    end
+end
+
+-------------------------------------
+-- function getAniScale
+-------------------------------------
+function UI_EventLFBag:getAniScale(level)
+    local aniScale = 0.53
+    
+    if (level == 1) then
+        aniScale = 0.53
+    elseif (level == 2) then
+        aniScale = 0.6
+    elseif (level == 3) then
+        aniScale = 0.64
+    elseif (level == 4) then
+        aniScale = 0.72
+    elseif (level == 5) then
+        aniScale = 0.82
+    end
+
+    return aniScale
+end
+
 
 -------------------------------------
 -- function update
@@ -302,6 +334,8 @@ function UI_EventLFBag:click_openBtn()
     -- 소원 구슬 열기
     local function do_open()
         local function finish_cb(ret)
+            self:onActOpen()
+
             -- 성공
             if (ret['is_success']) then
                 SoundMgr:playEffect('UI', 'ui_in_item_get')
@@ -310,7 +344,6 @@ function UI_EventLFBag:click_openBtn()
                 if (ret['item_info']) then
                     self:showCurrntReward(ret['item_info'])
                 end
-
             -- 실패
             else
                 SoundMgr:playEffect('UI', 'ui_eat')
