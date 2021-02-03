@@ -7,8 +7,9 @@ ServerData_EventLFBag = class({
 
         -- 시즌 보상 수령 시 사용
         m_lastInfo = '',
+        m_lastInfoDaily = ''
         m_rewardInfo = '',
-        m_rewardDailyInfo = '',
+        m_rewardInfoDaily = '',
 
         -- 랭킹 정보에 사용
         m_nGlobalOffset = 'number', -- 랭킹
@@ -86,7 +87,7 @@ local mInit = false
 -- @brief 이벤트 정보
 -------------------------------------
 function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb, fail_cb)
-    
+    cclog(request_eventLFBagInfo)
     -- @mskim require 컨텐츠 별로 모아서 할 필요가 있다. 구조는 고민중
     if (not mInit) then
         mInit = true
@@ -108,6 +109,8 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
 
     -- 콜백
     local function success_cb(ret)
+        ccdump(ret)
+        
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
 
         -- 보상이 들어왔을 경우 정보 저장, nil 여부로 보상 확인
@@ -145,6 +148,8 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
     ui_network:setReuse(false)
 	ui_network:hideBGLayerColor()
     ui_network:request()
+
+    ccdump(ui_network)
 
     return ui_network
 end
@@ -267,6 +272,8 @@ function ServerData_EventLFBag:request_eventLFBagRank(rank_type, offset, divisio
     ui_network:setReuse(false)
     ui_network:request()
 
+    ccdump(ui_network)
+
 	return ui_network
 end
 
@@ -287,13 +294,21 @@ function ServerData_EventLFBag:openRankingPopupForLobby()
         UI_EventLFBagRankingPopup()
 
         local last_info = self.m_lastInfo
+        local lastinfo_daily = self.m_lastInfoDaily
         local reward_info = self.m_rewardInfo
+        local reward_info_daily = self.m_rewardInfoDaily
 
         if (last_info and reward_info) then
             -- 랭킹 보상 팝업
             UI_EventLFBagRankingRewardPopup(last_info, reward_info)
         end
+
+        if (lastinfo_daily and reward_info_daily) then
+            -- 일일랭킹 보상 팝업
+            UI_EventLFBagRankingRewardPopup(lastinfo_daily, reward_info_daily)
+        end
     end
+
     self:request_eventLFBagInfo(true, finish_cb, nil)
 end
 
