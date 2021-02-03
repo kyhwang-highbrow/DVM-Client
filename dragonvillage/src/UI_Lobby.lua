@@ -181,7 +181,7 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        if (g_eventLFBagData:canPlay()) then
+        if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then
             co:work('# 소원 구슬 이벤트 정보 받는 중')
             g_eventLFBagData:request_eventLFBagInfo(false, true, co.NEXT, required_fail_cb)
             if co:waitWork() then return end

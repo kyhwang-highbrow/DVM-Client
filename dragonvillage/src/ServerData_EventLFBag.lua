@@ -326,8 +326,6 @@ end
 -- @brief 소원 구슬 일일/전체 랭킹 보상을 받기 위한 로직
 -------------------------------------
 function ServerData_EventLFBag:tryShowRewardPopup()
-    cclog('보상')
-    
     local last_info = self.m_lastInfo
     local lastinfo_daily = self.m_lastInfoDaily
     local reward_info = self.m_rewardInfo
