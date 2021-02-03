@@ -117,6 +117,12 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
             self.m_lastInfo = nil
         end
 
+        if (ret['lastinfo_daily']) then
+            self.m_lastInfo = StructEventLFBagRanking():apply(ret['lastinfo_daily'])
+        else
+            self.m_lastInfo = nil
+        end
+
         if (ret['reward_info']) then
             self.m_rewardInfo = ret['reward_info']
         else
@@ -124,9 +130,9 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
         end
 
         if (ret['reward_info_daily']) then
-            self.m_rewardDailyInfo = ret['reward_info_daily']
+            self.m_lastInfoDaily = ret['reward_info_daily']
         else
-            self.m_rewardDailyInfo = nil
+            self.m_lastInfoDaily = nil
         end
 
         if finish_cb then
