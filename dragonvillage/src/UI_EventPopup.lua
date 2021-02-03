@@ -319,6 +319,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     -- 소원 구슬 이벤트
     elseif (tab == 'event_lucky_fortune_bag') then
         ui = UI_EventLFBag()
+        g_eventLFBagData:tryShowRewardPopup()
 
     -- 죄악의 화신 토벌작전 이벤트
     elseif (tab == 'event_incarnation_of_sins') then
