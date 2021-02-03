@@ -424,7 +424,9 @@ end
 -- function click_rankBtn
 -------------------------------------
 function UI_EventLFBag:click_rankBtn()
-    UI_EventLFBagRankingPopup()
+    --UI_EventLFBagRankingPopup()
+    -- 일일랭킹 때문에 여기서도 매번 보상을 요청한다.
+    g_eventLFBagData:openRankingPopupForLobby()
 end
 
 
