@@ -478,12 +478,12 @@ function UI_EventLFBag:updateRewardHistory()
     -- rich_label 생성
 	local rich_label = UIC_RichLabel()
 	rich_label:setDimension(nodeWidth, nodeHeight)
-	rich_label:setFontSize(16)
+	rich_label:setFontSize(14)
 	rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
     rich_label:setDefualtColor(COLOR['white'])
     rich_label.m_root:setSwallowTouch(false)
     rich_label.m_lineHeight = 1.4
-    rich_label.m_wordSpacing = 1.2
+    rich_label.m_wordSpacing = 1.4
 
     local width, height = rich_label:getNormalSize()
     local verticalAlignment = cc.VERTICAL_TEXT_ALIGNMENT_CENTER
@@ -508,8 +508,8 @@ function UI_EventLFBag:updateRewardHistory()
             if (v['event'] == 'lkft') then
                 local nickName = '{@GOLD}' .. v['data']['nick'] .. '{@Default}'
                 local itemName = '{@cyan}' .. TableItem:getItemName(v['data']['item_id']) .. '{@Default}'
-
-                finalStr = finalStr .. Str('{1}님이 {2}을(를) 획득', nickName, itemName)
+                local itemCount = v['data']['count']
+                finalStr = finalStr .. Str('{1}님이 {2}을(를) {@light_green}{3}개{@Default} 획득', nickName, itemName, tostring(itemCount))
 
                 if (i < #broadcastTable) then
                     finalStr = finalStr ..  '\n'

@@ -143,6 +143,8 @@ function UI_EventLFBagRankingTotalTab:refresh_playerUserInfo()
     
     local ratio = (struct_user_info.m_rankPercent or 1) * 100
 
+    if (self.m_rewardTableView == nil) then return end
+
     -- 보상 정보 ?
     local l_item_list = self.m_rewardTableView.m_itemList
     local idx = nil
@@ -307,6 +309,8 @@ function UI_EventLFBagRankingTotalTab:makeRankRewardTableView()
 
     --local l_item_list = TableEventLFBagRank():getRankRewardList()
     local l_item_list = g_eventLFBagData:getTotalRankRewardList()
+
+    if (l_item_list == nil) then return end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
