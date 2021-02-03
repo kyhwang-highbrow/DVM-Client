@@ -86,7 +86,7 @@ local mInit = false
 -- function request_eventLFBagInfo
 -- @brief 이벤트 정보
 -------------------------------------
-function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb, fail_cb)
+function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, include_tables, finish_cb, fail_cb)
     -- @mskim require 컨텐츠 별로 모아서 할 필요가 있다. 구조는 고민중
     if (not mInit) then
         mInit = true
@@ -157,7 +157,7 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
     ui_network:setUrl('/shop/lucky_fortune_bag/info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('reward', include_reward or false) -- 랭킹 보상 지급 여부
-    ui_network:setParam('include_tables ', true) -- 보상 정보 추가 여부
+    ui_network:setParam('include_tables ', include_tables) -- 보상 정보 추가 여부
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -323,7 +323,7 @@ function ServerData_EventLFBag:openRankingPopupForLobby()
         end
     end
 
-    self:request_eventLFBagInfo(true, finish_cb, nil)
+    self:request_eventLFBagInfo(true, false, finish_cb, nil)
 end
 
 -------------------------------------
