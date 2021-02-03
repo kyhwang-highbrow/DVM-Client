@@ -7,7 +7,7 @@ ServerData_EventLFBag = class({
 
         -- 시즌 보상 수령 시 사용
         m_lastInfo = '',
-        m_lastInfoDaily = ''
+        m_lastInfoDaily = '',
         m_rewardInfo = '',
         m_rewardInfoDaily = '',
 
