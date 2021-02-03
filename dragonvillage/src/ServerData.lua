@@ -757,7 +757,7 @@ function ServerData:networkCommonRespone_addedItems(ret)
     -- [이벤트 재화]
     -- 소원 구슬
     if (t_added_items['lucky_fortune']) then
-        g_eventLFBagData:addLFBag(t_added_items['lucky_fortune'])
+        g_eventLFBagData:setLFBagCount(t_added_items['lucky_fortune'])
         t_added_items['lucky_fortune'] = nil
     end
 

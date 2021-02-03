@@ -32,6 +32,20 @@ end
 -------------------------------------
 -- function addLFBag
 -------------------------------------
+function ServerData_EventLFBag:setLFBagCount(lfbag_count)
+    if (not self:canPlay()) then
+        return
+    end
+    if (not self.m_structLFBag) then
+        return
+    end
+
+    self.m_structLFBag:setCount(lfbag_count)
+end
+
+-------------------------------------
+-- function addLFBag
+-------------------------------------
 function ServerData_EventLFBag:addLFBag(lfbag_count)
     if (not self:canPlay()) then
         return
@@ -292,7 +306,7 @@ function ServerData_EventLFBag:isHighlightRed()
         return false
     end
     
-    -- 복주머니 없음
+    -- 소원 구슬 없음
     if (self.m_structLFBag:isEmpty()) then
         return false
     end

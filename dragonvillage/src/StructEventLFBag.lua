@@ -79,6 +79,13 @@ end
 -------------------------------------
 -- function addCount
 -------------------------------------
+function StructEventLFBag:setCount(lfbag)
+    self['lucky_fortune'] = lfbag
+end
+
+-------------------------------------
+-- function addCount
+-------------------------------------
 function StructEventLFBag:addCount(lfbag)
     self['lucky_fortune'] = self['lucky_fortune'] + lfbag
 end
