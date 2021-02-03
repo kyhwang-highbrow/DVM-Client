@@ -118,9 +118,9 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
         end
 
         if (ret['lastinfo_daily']) then
-            self.m_lastInfo = StructEventLFBagRanking():apply(ret['lastinfo_daily'])
+            self.m_lastInfoDaily = StructEventLFBagRanking():apply(ret['lastinfo_daily'])
         else
-            self.m_lastInfo = nil
+            self.m_lastInfoDaily = nil
         end
 
         if (ret['reward_info']) then
