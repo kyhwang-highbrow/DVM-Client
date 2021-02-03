@@ -398,13 +398,13 @@ end
 function UI_EventLFBag:click_infoBtn()
     local ui = MakePopup('event_lucky_fortune_bag_info_popup.ui')
     local vars = ui.vars
-    vars['descLabel01']:setString(Str('소원 구슬 열기를 하면, 성공하거나 실패할 수 있습니다.'))
-    vars['descLabel02']:setString(Str('열기에 성공하면 보상이 누적되며, 소원 구슬의 단계가 증가합니다.'))
-    vars['descLabel03']:setString(Str('{1}단계 이하에서 열기에 실패하면 이전 단계까지의 누적 보상을 받고, 소원 구슬의 단계가 초기화됩니다.', 7))
-    vars['descLabel04']:setString(Str('{@yellow}{1}단계 이상에서 열기에 실패하면 누적된 모든 보상을 받을 수 없습니다.', 8))
-    vars['descLabel05']:setString(Str('중단을 하면 확보한 누적 보상을 받을 수 있으며, 소원 구슬의 단계가 초기화됩니다.'))
-    vars['descLabel06']:setString(Str('소원 구슬는 주사위 이벤트, 상점을 통해 획득할 수 있습니다.'))
-    vars['descLabel07']:setString(Str('소원 구슬를 열어 {@yellow}획득한 점수에 따라 랭킹 보상을 지급합니다.'))
+    vars['descLabel01']:setString(Str('소원 구슬을 열 때, 성공하거나 실패할 수 있습니다.'))
+    vars['descLabel02']:setString(Str('성공하면 보상이 누적되며 다음 단계의 소원 구슬이 나옵니다.'))
+    vars['descLabel03']:setString(Str('{1}단계 이하에서 실패하면 이 전 단계까지의 누적 보상을 받고 소원 구슬의 단계가 초기화됩니다.', 2))
+    vars['descLabel04']:setString(Str('{@yellow}{1}단계 이상의 소원 구슬의 경우, 실패 시 누적 보상을 받을 수 없습니다.', 3))
+    vars['descLabel05']:setString(Str('중단을 선택하면 확보한 누적 보상을 우편으로 받을 수 있으며, 구슬의  단계가 초기화됩니다.'))
+    vars['descLabel06']:setString(Str('소원 구슬은 주사위 이벤트와 소원 구슬 패키지를 통해 획득할 수 있습니다.'))
+    vars['descLabel07']:setString(Str('소원 구슬을 통해 획득한 점수에 따라 일일 랭킹, 종합 랭킹 보상을 지급합니다.'))
 
 end
 
