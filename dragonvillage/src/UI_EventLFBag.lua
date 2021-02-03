@@ -140,12 +140,9 @@ function UI_EventLFBag:onActOpen()
 
     if (not self.m_structLFBag:isMax()) then
         vars['luckyFortuneBagVisual']:addAniHandler(function()
-            vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), false)
-            vars['luckyFortuneBagVisual']:addAniHandler(function()
-                aniNode:setScale(aniScale)
-                vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_effect', currentLevel), true)
-                self.m_lastAniLevel = currentLevel
-            end)
+            aniNode:setScale(aniScale)
+            vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_effect', currentLevel), true)
+            self.m_lastAniLevel = currentLevel
         end)
     else
         vars['luckyFortuneBagVisual']:changeAni('')
@@ -312,8 +309,11 @@ end
 -- function click_openBtn
 -------------------------------------
 function UI_EventLFBag:click_openBtn()
+    local vars = self.vars
     if (self.m_structLFBag:isMax()) then
         self:receiveMaxReward()
+        self.m_lastAniLevel = 1
+        vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_effect', self.m_lastAniLevel), true)
         return
     end
 
@@ -328,8 +328,12 @@ function UI_EventLFBag:click_openBtn()
         return
     end
 
+    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), false)
+
      -- 레벨
     local lv = self.m_structLFBag:getLv()
+    self.m_lastAniLevel = lv
+
 
     -- 소원 구슬 열기
     local function do_open()
@@ -408,8 +412,11 @@ end
 -- function click_stopBtn
 -------------------------------------
 function UI_EventLFBag:click_stopBtn()
+    local vars = self.vars
     if (self.m_structLFBag:isMax()) then
         self:receiveMaxReward()
+        self.m_lastAniLevel = 1
+        vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_effect', self.m_lastAniLevel), true)
         return
     end
 
@@ -427,7 +434,11 @@ function UI_EventLFBag:click_stopBtn()
     local msg = Str('열기를 중단하시겠습니까?')
     local submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
     local function ok_btn_cb()
+        
+        vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), false)
+
         local function finish_cb(ret)
+            self:onActOpen()
             -- 보상 수령
             if (ret['new_mail']) then
                 self:reset()
