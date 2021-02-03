@@ -240,9 +240,14 @@ end
 -------------------------------------
 function UI_EventLFBag:updateScrollView()
     local l_reward_list = self.m_structLFBag:getRewardList()
+    local reverseList = {}
+
+    for i=#l_reward_list, 1, -1 do
+	    reverseList[#reverseList+1] = l_reward_list[i]
+    end
 
     for i, cell_ui in ipairs(self.m_cellUIList) do
-        self.updateCellUI(cell_ui, l_reward_list[i])
+        self.updateCellUI(cell_ui, reverseList[i])
     end
 end
 
@@ -253,7 +258,7 @@ function UI_EventLFBag:makeToast()
     local ui = UI()   
     ui:load('popup_toast_with_icon.ui')
     self.root:addChild(ui.root)
-    
+
     ui.root:setOpacity(0)
     ui.root:setPositionY(100)
 
@@ -458,7 +463,7 @@ function UI_EventLFBag.updateCellUI(cell_ui, t_data)
     local vars = cell_ui.vars
     vars['itemNode']:removeAllChildren(true)
     local icon = IconHelper:getItemIcon(t_data['item_id'])
-    icon:setScale(1.13) -- 아이콘 크기 확대
+    icon:setScale(0.8) -- 아이콘 크기 확대
     vars['itemNode']:addChild(icon)
     vars['probLabel']:setString(string.format('%s%%', t_data['pick_percent']))
     vars['countLabel']:setString(comma_value(t_data['val']))

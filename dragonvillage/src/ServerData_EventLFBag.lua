@@ -15,6 +15,8 @@ ServerData_EventLFBag = class({
         m_nGlobalOffset = 'number', -- 랭킹
         m_lGlobalRank = 'list',
         m_myRanking = 'StructEventLFBagRanking',
+        m_rankingRewardList = '',
+        m_rankingRewardDailyList = '',
     })
 
 -------------------------------------
@@ -108,8 +110,6 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, include_ta
 
     -- 콜백
     local function success_cb(ret)
-        ccdump(ret)
-
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
 
         -- 보상이 들어왔을 경우 정보 저장, nil 여부로 보상 확인
@@ -125,28 +125,38 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, include_ta
             self.m_lastInfoDaily = nil
         end
 
+
+        -- 보상 아이템 정보 들어왔을 경우 정보 저장, nil 여부로 보상 확인
+        if (ret['reward_info']) then
+            self.m_rewardInfo = ret['reward_info']
+        else
+            self.m_rewardInfo = nil
+        end
+
+        if (ret['reward_info_daily']) then
+            self.m_rewardInfoDaily = ret['reward_info_daily']
+        else
+            self.m_rewardInfoDaily = nil
+        end
+
         -- 보상정보 분류
         if (ret['table_lucky_fortune_bag_rank']) then
             local rewardData = ret['table_lucky_fortune_bag_rank']
-            self.m_rewardInfoDaily = {}
-            self.m_rewardInfo = {}
+            self.m_rankingRewardDailyList = {}
+            self.m_rankingRewardList = {}
 
             for i, reward in ipairs(rewardData) do
                 if (reward and reward['version']) then
                     if (string.find(reward['version'], 'daily')) then
                         -- 일일랭킹
-                        table.insert(self.m_rewardInfoDaily, reward)
+                        table.insert(self.m_rankingRewardDailyList, reward)
                     else
                         -- 전체랭킹
-                        table.insert(self.m_rewardInfo, reward)
+                        table.insert(self.m_rankingRewardList, reward)
                     end
                 end
             end
-        else
-            self.m_lastInfoDaily = nil
-            self.m_rewardInfo = nil
         end
-
 
         if finish_cb then
             finish_cb(ret)
@@ -305,24 +315,33 @@ function ServerData_EventLFBag:openRankingPopupForLobby()
     local function finish_cb()
         -- 랭킹 팝업
         UI_EventLFBagRankingPopup()
-
-        local last_info = self.m_lastInfo
-        local lastinfo_daily = self.m_lastInfoDaily
-        local reward_info = self.m_rewardInfo
-        local reward_info_daily = self.m_rewardInfoDaily
-
-        if (last_info and reward_info) then
-            -- 랭킹 보상 팝업
-            UI_EventLFBagRankingRewardPopup(last_info, reward_info)
-        end
-
-        if (lastinfo_daily and reward_info_daily) then
-            -- 일일랭킹 보상 팝업
-            UI_EventLFBagRankingRewardPopup(lastinfo_daily, reward_info_daily)
-        end
+        self:tryShowRewardPopup()
     end
 
     self:request_eventLFBagInfo(true, false, finish_cb, nil)
+end
+
+-------------------------------------
+-- function isHighlightRed
+-- @brief 소원 구슬 일일/전체 랭킹 보상을 받기 위한 로직
+-------------------------------------
+function ServerData_EventLFBag:tryShowRewardPopup()
+    cclog('보상')
+    
+    local last_info = self.m_lastInfo
+    local lastinfo_daily = self.m_lastInfoDaily
+    local reward_info = self.m_rewardInfo
+    local reward_info_daily = self.m_rewardInfoDaily
+
+    if (last_info and reward_info) then
+        -- 랭킹 보상 팝업
+        UI_EventLFBagRankingRewardPopup(last_info, reward_info, false)
+    end
+    
+    if (lastinfo_daily and reward_info_daily) then
+        -- 일일랭킹 보상 팝업
+        UI_EventLFBagRankingRewardPopup(lastinfo_daily, reward_info_daily, true)
+    end
 end
 
 -------------------------------------
@@ -348,7 +367,7 @@ end
 -- @brief 전체랭킹 보상 테이블
 -------------------------------------
 function ServerData_EventLFBag:getTotalRankRewardList()
-    return self.m_rewardInfo
+    return self.m_rankingRewardList
 end
 
 -------------------------------------
@@ -356,5 +375,5 @@ end
 -- @brief 일일랭킹 보상 테이블
 -------------------------------------
 function ServerData_EventLFBag:getDailyRankRewardList()
-    return self.m_rewardInfoDaily
+    return self.m_rankingRewardDailyList
 end

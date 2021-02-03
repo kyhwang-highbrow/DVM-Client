@@ -9,14 +9,14 @@ UI_EventLFBagRankingRewardPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventLFBagRankingRewardPopup:init(user_info, reward_info)
+function UI_EventLFBagRankingRewardPopup:init(user_info, reward_info, isDaily)
     local vars = self:load('event_lucky_fortune_bag_ranking_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventLFBagRankingRewardPopup')
 
-    self:initUI(user_info, reward_info)
+    self:initUI(user_info, reward_info, isDaily)
     self:initButton()
     self:refresh()
 end
@@ -24,7 +24,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_EventLFBagRankingRewardPopup:initUI(user_info, reward_info)
+function UI_EventLFBagRankingRewardPopup:initUI(user_info, reward_info, isDaily)
     local vars = self.vars
     
     -- 플레이어 정보 받아옴
@@ -33,8 +33,13 @@ function UI_EventLFBagRankingRewardPopup:initUI(user_info, reward_info)
     -- 지난 시즌 랭킹 정보
     vars['rankNode']:addChild(rank_ui.root)
 
-    vars['descLabel']:setString(Str('이벤트가 종료되었습니다.'))
-    vars['rankLabel']:setString(Str('랭킹'))
+    if (isDaily) then
+        vars['descLabel']:setString(Str('일일 랭킹 보상이 지급되었습니다.'))
+        vars['rankLabel']:setString(Str('일일 랭킹'))
+    else
+        vars['descLabel']:setString(Str('이벤트가 종료되었습니다.'))
+        vars['rankLabel']:setString(Str('종합 랭킹'))
+    end
 
     -- 보상 카드
     local interval = 95

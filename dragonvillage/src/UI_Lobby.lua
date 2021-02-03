@@ -1551,7 +1551,7 @@ end
 -------------------------------------
 function UI_Lobby:click_lfbagBtn()
     if (g_eventLFBagData:canPlay()) then
-        g_eventData:openEventPopup('event_lucky_fortune_bag')
+        g_eventData:openEventPopup('event_lucky_fortune_bag', g_eventLFBagData:tryShowRewardPopup())
     
     elseif (g_eventLFBagData:canReward()) then
         g_eventLFBagData:openRankingPopupForLobby()
