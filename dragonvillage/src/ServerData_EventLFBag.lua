@@ -108,6 +108,8 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, include_ta
 
     -- 콜백
     local function success_cb(ret)
+        ccdump(ret)
+
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
 
         -- 보상이 들어왔을 경우 정보 저장, nil 여부로 보상 확인
@@ -123,29 +125,28 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, include_ta
             self.m_lastInfoDaily = nil
         end
 
-        if (ret['reward_info']) then
-            self.m_rewardInfo = ret['reward_info']
+        -- 보상정보 분류
+        if (ret['table_lucky_fortune_bag_rank']) then
+            local rewardData = ret['table_lucky_fortune_bag_rank']
+            self.m_rewardInfoDaily = {}
+            self.m_rewardInfo = {}
+
+            for i, reward in ipairs(rewardData) do
+                if (reward and reward['version']) then
+                    if (string.find(reward['version'], 'daily')) then
+                        -- 일일랭킹
+                        table.insert(self.m_rewardInfoDaily, reward)
+                    else
+                        -- 전체랭킹
+                        table.insert(self.m_rewardInfo, reward)
+                    end
+                end
+            end
         else
+            self.m_lastInfoDaily = nil
             self.m_rewardInfo = nil
         end
 
-        if (ret['reward_info_daily']) then
-            self.m_lastInfoDaily = ret['reward_info_daily']
-        else
-            self.m_lastInfoDaily = nil
-        end
-
-        if (ret['ranking_reward']) then
-            self.m_lastInfoDaily = ret['daily']
-        else
-            self.m_lastInfoDaily = nil
-        end
-
-        if (ret['ranking_reward']) then
-            self.m_rewardInfo = ret['world']
-        else
-            self.m_rewardInfo = nil
-        end
 
         if finish_cb then
             finish_cb(ret)
@@ -157,15 +158,13 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, include_ta
     ui_network:setUrl('/shop/lucky_fortune_bag/info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('reward', include_reward or false) -- 랭킹 보상 지급 여부
-    ui_network:setParam('include_tables ', include_tables) -- 보상 정보 추가 여부
+    ui_network:setParam('include_tables', true) -- 보상 정보 추가 여부
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
 	ui_network:hideBGLayerColor()
     ui_network:request()
-
-    ccdump(ui_network)
 
     return ui_network
 end
@@ -357,5 +356,5 @@ end
 -- @brief 일일랭킹 보상 테이블
 -------------------------------------
 function ServerData_EventLFBag:getDailyRankRewardList()
-    return self.m_lastInfoDaily
+    return self.m_rewardInfoDaily
 end
