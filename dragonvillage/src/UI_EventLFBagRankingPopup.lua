@@ -88,6 +88,13 @@ end
 
 
 -------------------------------------
+-- function onExitTab
+-------------------------------------
+function UI_EventLFBagRankingPopup:onExitTab()
+
+end
+
+-------------------------------------
 -- function onChangeTab
 -------------------------------------
 function UI_EventLFBagRankingPopup:onChangeTab(tab, first)

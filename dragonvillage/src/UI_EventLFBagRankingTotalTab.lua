@@ -1,4 +1,4 @@
-local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
+local PARENT = UI_IndivisualTab
 
 local OFFSET_GAP = 30 -- 한번에 보여주는 랭커 수
 

@@ -22,6 +22,7 @@ function UI_EventLFBag:init()
 
     self.m_structLFBag = g_eventLFBagData:getLFBag()
     self.m_toastUI = self:makeToast()
+    self.m_toastUI.root:setPosition(-196, -30)
     self.m_cellUIList = {}
 
     self:initUI()
@@ -115,18 +116,28 @@ function UI_EventLFBag:refresh()
         cca.uiReactionSlow(last_node,0.8, 0.8, 1.5)
     end
     
-    -- 소원 구슬 애니메이션 4,3,2,1
-    --[[local lfbag_ani_lv
-    if (lv == 10) then
-        lfbag_ani_lv = 4
-    elseif (lv >= 8) then
-        lfbag_ani_lv = 3
-    elseif (lv >= 4) then
-        lfbag_ani_lv = 2
-    else
-        lfbag_ani_lv = 1
-    end]]
-    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d_effect', lv), true)
+    -- 소원 구슬 애니메이션 1, 2, 3, 4, 5
+    local aniNode = vars['luckyFortuneBagVisual']
+    local aniString = ''
+
+    if (lv == 1) then
+        aniNode:setScale(0.53)
+    elseif (lv == 2) then
+        aniNode:setScale(0.6)
+    elseif (lv == 3) then
+        aniNode:setScale(0.64)
+    elseif (lv == 4) then
+        aniNode:setScale(0.72)
+    elseif (lv == 5) then
+        aniNode:setScale(0.82)
+    end
+
+    if (not self.m_structLFBag:isMax()) then
+        aniString = string.format('bag_%.2d_effect', lv)
+    end
+
+    vars['luckyFortuneBagVisual']:changeAni(aniString, true)
+
 
     self:updateRewardHistory()
 end
@@ -174,7 +185,7 @@ end
 -------------------------------------
 function UI_EventLFBag:showCurrntReward(item_str)
     local vars = self.m_toastUI.vars
-
+    
     -- 현재 보상 정보 파싱
     local l_item_list = g_itemData:parsePackageItemStr(item_str)
     local t_item = l_item_list[1]
@@ -463,7 +474,7 @@ function UI_EventLFBag.updateCellUI(cell_ui, t_data)
     local vars = cell_ui.vars
     vars['itemNode']:removeAllChildren(true)
     local icon = IconHelper:getItemIcon(t_data['item_id'])
-    icon:setScale(0.8) -- 아이콘 크기 확대
+    icon:setScale(0.86) -- 아이콘 크기 확대
     vars['itemNode']:addChild(icon)
     vars['probLabel']:setString(string.format('%s%%', t_data['pick_percent']))
     vars['countLabel']:setString(comma_value(t_data['val']))

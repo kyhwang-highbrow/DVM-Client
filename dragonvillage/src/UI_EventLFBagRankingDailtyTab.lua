@@ -1,4 +1,4 @@
-local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
+local PARENT = UI_IndivisualTab
 
 local OFFSET_GAP = 30 -- 한번에 보여주는 랭커 수
 
@@ -72,7 +72,14 @@ end
 -- function refresh
 -------------------------------------
 function UI_EventLFBagRankingDailtyTab:refresh()
-    self:refresh_playerUserInfo()
+    --self:refresh_playerUserInfo()
+end
+
+-------------------------------------
+-- function onExitTab
+-------------------------------------
+function UI_EventLFBagRankingDailtyTab:onExitTab()
+
 end
 
 -------------------------------------
