@@ -203,7 +203,7 @@ function UI_EventLFBag:makeScrollView()
     self.m_scrollView = scroll_view
 
     -- 스크롤뷰에서 사용할 사이즈
-    local interval = 53
+    local interval = 45
     local cell_count = 5
     local normal_size = self.vars['rewardListNode']:getContentSize()
     local content_size = cc.size(296, interval * cell_count)
@@ -223,7 +223,7 @@ function UI_EventLFBag:makeScrollView()
 
     -- 컨테이너 상단 이동
     local container_node = scroll_view:getContainer()
-    container_node:setPositionY(-height_half + interval/2)
+    container_node:setPositionY(-height_half + interval)
 
     -- 셀 미리 생성
     for i = 1, cell_count do
@@ -505,7 +505,7 @@ function UI_EventLFBag:updateRewardHistory()
         for i, v in ipairs(broadcastTable) do
             if (v['event'] == 'lkft') then
                 local nickName = '{@GOLD}' .. v['data']['nick'] .. '{@Default}'
-                local itemName = '{@LIGHTGREEN}' .. TableItem:getItemName(v['data']['item_id']) .. '{@Default}'
+                local itemName = '{@cyan}' .. TableItem:getItemName(v['data']['item_id']) .. '{@Default}'
 
                 finalStr = finalStr .. Str('{1}님이 {2}을(를) 획득', nickName, itemName)
 
