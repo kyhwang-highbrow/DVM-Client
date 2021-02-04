@@ -96,7 +96,7 @@ function UI_EventLFBag:removeAllParticles()
     if (not self.m_tableParticles) then return end
 
     for i,v in ipairs(self.m_tableParticles) do
-        if (v) then v:removeFromParent() end
+        if (v) then self.root:removeChild(v) end
     end
 end
 
