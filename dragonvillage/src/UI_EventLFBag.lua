@@ -395,11 +395,7 @@ function UI_EventLFBag:click_openBtn()
                         if(self.m_structLFBag:isMax()) then 
                             local msg = Str('5단계 성공')
                             local submsg = ''
-                            if (lv < 3) then
-                                submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
-                            else
-                                submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n소원 구슬의 단계가 초기화됩니다.')
-                            end
+                            submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
 
                             local score = ret['score'] ~= nil and ret['score'] or self:getCurrentEndScore()
                             local scoreMsg = ''
