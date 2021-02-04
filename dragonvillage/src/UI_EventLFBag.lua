@@ -78,6 +78,9 @@ function UI_EventLFBag:refresh()
     local lv = self.m_structLFBag:getLv()
     vars['levelLabel']:setString(Str('소원 구슬 {1}단계', lv))
     vars['levelLabel']:stopAllActions()
+
+    vars['scoreLabel']:setString(tostring(self.m_structLFBag:getScore()))
+
     cca.uiReactionSlow(vars['levelLabel'], 1, 1, 1.2)
 
     -- 최대 레벨 처리 .. 열기 버튼으로 보상을 수령한다.
@@ -243,7 +246,7 @@ function UI_EventLFBag:makeScrollView()
     self.m_scrollView = scroll_view
 
     -- 스크롤뷰에서 사용할 사이즈
-    local interval = 45
+    local interval = 55
     local cell_count = 5
     local normal_size = self.vars['rewardListNode']:getContentSize()
     local content_size = cc.size(296, interval * cell_count)
