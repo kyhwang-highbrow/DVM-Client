@@ -90,8 +90,6 @@ function UI_EventLFBag:refresh()
 
         vars['percentageLabel']:setString('')
         vars['percentageLabel2']:setString('축하합니다!')
-        vars['stopBtn']:setEnabled(false)
-        vars['stopBtnLabel']:setColor(cc.c3b(200, 200, 200))
     else
         vars['openLabel']:setString(Str('{1}단계 열기', lv))
         vars['openLabel']:setScale(1)
@@ -103,9 +101,11 @@ function UI_EventLFBag:refresh()
         vars['percentageLabel2']:setString(Str('성공 확률 {1}%', self.m_structLFBag:getSuccessProb()))
         vars['percentageLabel2']:stopAllActions()
         cca.uiReactionSlow(vars['percentageLabel'], 1, 1, 1.2)
-        vars['stopBtn']:setEnabled(true)
-        vars['stopBtnLabel']:setColor(COLOR['white'])
     end
+
+    local isStopBtnEnabled = (self.m_structLFBag:isMax() == false) and (lv ~= 1)
+    vars['stopBtn']:setEnabled(isStopBtnEnabled)
+    vars['stopBtnLabel']:setColor(isStopBtnEnabled and COLOR['white'] or cc.c3b(200, 200, 200))
     
     -- 현재 레벨의 보상 목록
     self:updateScrollView()
@@ -340,7 +340,7 @@ function UI_EventLFBag:click_openBtn()
 
                 self.root:stopAllActions()
 
-                self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1.05), cc.CallFunc:create(toast_cb)))
+                self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1.02), cc.CallFunc:create(toast_cb)))
 
                 self:onActOpen()
             -- 실패
