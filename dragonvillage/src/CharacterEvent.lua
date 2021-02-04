@@ -334,23 +334,19 @@ end
 -- function onEvent_getStatusEffect
 -------------------------------------
 function Character:onEvent_getStatusEffect(t_event, target_str, target_char)
-    local status_effect_name = target_str .. 'get_' .. 'status_effect'
+    local status_effect_name = 'get_status_effect'
     local list = self:getSkillIndivisualInfo(status_effect_name)
-
     if (not list) then return end
     if (not self.m_statusCalc) then return end
 
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             local status_effect = v:getChanceValue()
-            local l_se = pl.stringx.split(status_effect, ';')
-            local col, name = l_se[1], l_se[2]
-            if (name == t_event[col]) then
+            if (status_effect == t_event['name']) then
                 self:doSkill(v.m_skillID, 0, 0)
             end
         end
     end
-
 end
 
 -------------------------------------
