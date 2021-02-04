@@ -89,7 +89,7 @@ function UI_EventLFBag:refresh()
         vars['openLabel']:setPosition(-17, 0)
 
         vars['percentageLabel']:setString('')
-        vars['percentageLabel2']:setString('')
+        vars['percentageLabel2']:setString('축하합니다!')
     else
         vars['openLabel']:setString(Str('{1}단계 열기', lv))
         vars['openLabel']:setScale(1)
@@ -351,7 +351,7 @@ function UI_EventLFBag:click_openBtn()
 
                 local msg = Str('열기 실패')
                 local submsg = ''
-                if (lv <= 3) then
+                if (lv < 3) then
                     submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
                 else
                     submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n소원 구슬의 단계가 초기화됩니다.')
