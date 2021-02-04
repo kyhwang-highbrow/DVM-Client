@@ -14,8 +14,6 @@ UI_EventLFBag = class(PARENT,{
         m_rewardHistoryLabel = 'UIC_ScrollLabel',
 
         m_lastAniLevel = 'number',
-
-        isSpecial = ''
     })
 
 -------------------------------------
@@ -26,11 +24,10 @@ function UI_EventLFBag:init()
 
     self.m_structLFBag = g_eventLFBagData:getLFBag()
     self.m_lastAniLevel = self.m_structLFBag:getLv()
-    self:setAniScaleByLevel(self.m_lastAniLevel)
     vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
 
     self.m_toastUI = self:makeToast()
-    self.m_toastUI.root:setPosition(-196, -30)
+    self.m_toastUI.root:setPosition(-136, -30)
     self.m_cellUIList = {}
 
     self:initUI()
@@ -142,7 +139,6 @@ function UI_EventLFBag:onActOpen()
     -- 소원 구슬 애니메이션 1, 2, 3, 4, 5
     if (not self.m_structLFBag:isMax()) then
         vars['luckyFortuneBagVisual']:addAniHandler(function()
-            self:setAniScaleByLevel(currentLevel)
             self:playOpenAnimation('normal', currentLevel, true)
             self.m_lastAniLevel = currentLevel
         end)
@@ -157,44 +153,10 @@ end
 -- function getAniScale
 -------------------------------------
 function UI_EventLFBag:playOpenAnimation(aniType, level, loop)
-    level = 5
-    if (self.isSpecial and aniType == 'effect') then
-        self.isSpecial = false
-        aniType = 'special'
-    else
-        self.isSpecial = true
-    end
-
     local aniObj = self.vars['luckyFortuneBagVisual']
 
-    aniObj:changeAni(string.format('bag_%.2d' .. '_' .. aniType, level), loop)
+    aniObj:changeAni(string.format('bag_%.2d' .. '_' .. aniType, tostring(level)), loop)
 end
-
-
--------------------------------------
--- function setAniScaleByLevel
--------------------------------------
-function UI_EventLFBag:setAniScaleByLevel(level)
-    local aniNode = self.vars['luckyFortuneBagVisual']
-    local aniScale = 0.53
-    
-    if (level == 1) then
-        aniScale = 0.53
-    elseif (level == 2) then
-        aniScale = 0.6
-    elseif (level == 3) then
-        aniScale = 0.64
-    elseif (level == 4) then
-        aniScale = 0.72
-    elseif (level == 5) then
-        aniScale = 0.82
-    end
-
-    if (aniNode) then
-        aniNode:setScale(aniScale)
-    end
-end
-
 
 -------------------------------------
 -- function update
@@ -338,8 +300,7 @@ function UI_EventLFBag:click_openBtn()
     if (self.m_structLFBag:isMax()) then
         self:receiveMaxReward()
         self.m_lastAniLevel = 1
-        self:setAniScaleByLevel(self.m_lastAniLevel)
-        self:playOpenAnimation('normal', currentLevel, true)
+        self:playOpenAnimation('normal', self.m_lastAniLevel, true)
         return
     end
 
@@ -367,9 +328,17 @@ function UI_EventLFBag:click_openBtn()
                 SoundMgr:playEffect('UI', 'ui_in_item_get')
                 
                 -- 이번 성공으로 획득한 보상
-                if (ret['item_info']) then
-                    self:showCurrntReward(ret['item_info'])
+                local function toast_cb()
+                    if (ret['item_info']) then
+                        self:showCurrntReward(ret['item_info'])
+                    end
                 end
+
+                self.root:stopAllActions()
+
+                self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1.05), cc.CallFunc:create(toast_cb)))
+
+                self:onActOpen()
             -- 실패
             else
                 SoundMgr:playEffect('UI', 'ui_eat')
@@ -394,9 +363,11 @@ function UI_EventLFBag:click_openBtn()
                 if (ret['new_mail']) then
                     self:reset()
                 end
+
+                self:onActOpen()
             end
 
-            self:onActOpen()
+            
             g_serverData:receiveReward(ret)
 
             self:refresh()
