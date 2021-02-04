@@ -577,7 +577,7 @@ function UI_EventLFBag:setHistoryText()
                 local nickName = '{@GOLD}' .. v['data']['nick'] .. '{@Default}'
                 local itemName = '{@cyan}' .. TableItem:getItemName(v['data']['item_id']) .. '{@Default}'
                 local itemCount = v['data']['count']
-                local itemString = Str(itemName) .. ' ' .. Str('{1}개', tostring(itemCount)) .. ''
+                local itemString = Str(itemName) .. ' ' .. Str('{1}개', tostring(itemCount)) .. ' '
                 finalStr = finalStr .. Str('{1}님이 {2}획득', nickName, itemString)
 
                 if (i < #broadcastTable) then
