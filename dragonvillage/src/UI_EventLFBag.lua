@@ -57,6 +57,8 @@ end
 -------------------------------------
 function UI_EventLFBag:createLobbyParticles()
     local root = self.root
+    
+    self:removeAllParticles()
 
     self.m_tableParticles = {}
 
