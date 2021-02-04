@@ -27,9 +27,6 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         key = '\'' .. key .. '\''
     end
 
-    local str_string = 
-        'local atk_down = \'atk_down\'' 
-
     local str_param = 
         ' local atk = owner:getStat(\'atk\')' ..
         ' local def = owner:getStat(\'def\')' ..
@@ -193,7 +190,6 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
 
     local func = pl.utils.load(
         'EQUATION_FUNC[\'' .. table_name .. '\'][' .. key .. '][\'' .. column ..'\'] = function(owner, target, add_param, skill_id)' ..
-        str_string ..
         str_param ..
         str_add_param .. 
         ' local ret = ' .. source .. 
