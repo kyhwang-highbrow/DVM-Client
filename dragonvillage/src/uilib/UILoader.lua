@@ -409,10 +409,20 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     elseif type == 'Scale9Sprite' then
         UILoader.checkTranslate(data)
         local rect = cc.rect(data.center_rect_x, data.center_rect_y, data.center_rect_width, data.center_rect_height)
+
+        if (data.file_name == nil) or (data.file_name == '') then
+            data.file_name = 'common/empty.png'
+        end
+
+        -- @ochoi 20210204
+        -- ui파일에서 지정된 Scale9Sprite 리소스가 없을 경우 EMPTY_PNG를 생성하도록 한다.
+        local filePath = data.file_name ~= '' and uiRoot .. data.file_name or nil
+
         node = cc.Scale9Sprite:create(
             rect
-            , uiRoot .. data.file_name
+            , uiRoot .. filePath
         )
+
         setPropsForScale9Sprite(node, data)
     elseif type == 'LabelSystemFont' then
         --TODO: 디폴트 폰트 셋팅 과정이 필요        
