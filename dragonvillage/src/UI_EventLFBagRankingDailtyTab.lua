@@ -12,7 +12,6 @@ UI_EventLFBagRankingDailtyTab = class(PARENT,{
         m_rankOffset = 'number',
         
         m_ownerUI = 'UI_EventIncarnationOfSinsRankingPopup', -- 현재 검색 타입에 대해 받아올 때 필요
-        m_searchType = 'string', -- 검색 타입 (world, clan, friend)
 
         m_rewardTableView = '',
         m_selectedUI = '',
@@ -26,7 +25,7 @@ function UI_EventLFBagRankingDailtyTab:init(owner_ui)
     local vars = self:load('event_lucky_fortune_bag_ranking_popup_daily.ui')
 
     self.m_ownerUI = owner_ui
-    self.m_searchType = owner_ui.m_rankType
+    self.m_rankType = owner_ui.m_rankType
 end
 
 -------------------------------------
@@ -89,9 +88,9 @@ function UI_EventLFBagRankingDailtyTab:onEnterTab(first)
     if (first == true) then
         self:initUI()
         self:initButton()
-        self.m_searchType = self.m_ownerUI.m_rankType
+        self.m_rankType = self.m_ownerUI.m_rankType
 
-        self:refreshRank(self.m_searchType)
+        self:refreshRank(self.m_rankType)
     end
 
     self:refresh()
@@ -102,7 +101,7 @@ end
 -------------------------------------
 function UI_EventLFBagRankingDailtyTab:refreshRank(type) -- 다음/이전 버튼 눌렀을 경우 offset계산되어서 param으로 줌
     
-    self.m_searchType = type
+    self.m_rankType = type
     self.m_rankOffset = (type == 'my') and -1 or 1
 
     local function finish_cb()
@@ -240,7 +239,7 @@ function UI_EventLFBagRankingDailtyTab:makeRankTableView()
     local function click_prevBtn()
         self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
         self.m_rankOffset = math_max(self.m_rankOffset, 0)
-        self:refresh_rank()
+        self:refreshrank()
     end
 
     -- 다음 랭킹 보기
@@ -251,7 +250,7 @@ function UI_EventLFBagRankingDailtyTab:makeRankTableView()
             return
         end
         self.m_rankOffset = self.m_rankOffset + add_offset
-        self:refresh_rank()
+        self:refreshrank()
     end
 
     -- 생성 콜백
@@ -344,39 +343,6 @@ function UI_EventLFBagRankingDailtyTab:makeRankRewardTableView()
     table_view:relocateContainerFromIndex(idx) -- 해당하는 보상에 포커싱
 
     self.m_rewardTableView = table_view
-end
-
--------------------------------------
--- function onChangeRankingType
--- @brief
--------------------------------------
-function UI_EventLFBagRankingDailtyTab:onChangeRankingType(type)
-
-    if (type == 'clan' and g_clanData:isClanGuest()) then
-        local msg = Str('소속된 클랜이 없습니다.')
-        UIManager:toastNotificationRed(msg)
-        return
-    end
-
-    if (type == 'my') then
-        self.m_rankType = 'world'
-        self.m_rankOffset = -1
-
-    elseif (type == 'top') then
-        self.m_rankType = 'world'
-        self.m_rankOffset = 1
-
-    elseif (type == 'friend') then
-        self.m_rankType = 'friend'
-        self.m_rankOffset = 1
-
-    elseif (type == 'clan') then
-        self.m_rankType = 'clan'
-        self.m_rankOffset = 1
-
-    end
-
-    self:refresh_rank()
 end
 
 --@CHECK

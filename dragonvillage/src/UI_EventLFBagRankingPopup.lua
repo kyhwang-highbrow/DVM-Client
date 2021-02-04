@@ -108,7 +108,7 @@ function UI_EventLFBagRankingPopup:onChangeTab(tab, first)
             if (self.m_mTabData[self.m_currTab]) then
                 -- 현재 팝업에서의 탭상태 vs 탭 UI의 상태
                 -- 다르면 리프레시 해주자.
-                local tabViewSearchType = self.m_mTabData[self.m_currTab]['ui'].m_searchType
+                local tabViewSearchType = self.m_mTabData[self.m_currTab]['ui'].m_rankType
 
                 if (self.m_rankType ~= tabViewSearchType) then
                     self.m_mTabData[self.m_currTab]['ui']:refreshRank(self.m_rankType)
