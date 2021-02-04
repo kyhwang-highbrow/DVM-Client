@@ -343,8 +343,11 @@ function UI_EventLFBag:click_openBtn()
                 self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1.02), cc.CallFunc:create(toast_cb)))
 
                 self:onActOpen()
+
+                g_serverData:receiveReward(ret)
             -- 실패
             else
+                self.m_lastAniLevel = 1
                 SoundMgr:playEffect('UI', 'ui_eat')
                 
                 local function ok_cb()
@@ -368,11 +371,12 @@ function UI_EventLFBag:click_openBtn()
                     self:reset()
                 end
 
-                self:onActOpen()
-            end
+                vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
 
-            
-            g_serverData:receiveReward(ret)
+                if (lv < 3) then 
+                    g_serverData:receiveReward(ret)
+                end
+            end
 
             self:refresh()
         end    
