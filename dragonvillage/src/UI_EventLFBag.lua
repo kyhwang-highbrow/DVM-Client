@@ -78,7 +78,7 @@ function UI_EventLFBag:refresh()
     vars['levelLabel']:setString(Str('소원 구슬 {1}단계', lv))
     vars['levelLabel']:stopAllActions()
 
-    vars['scoreLabel']:setString(tostring(self.m_structLFBag:getScore()))
+    vars['scoreLabel']:setString(tostring(comma_value(self.m_structLFBag:getScore())))
 
     cca.uiReactionSlow(vars['levelLabel'], 1, 1, 1.2)
 
@@ -90,6 +90,8 @@ function UI_EventLFBag:refresh()
 
         vars['percentageLabel']:setString('')
         vars['percentageLabel2']:setString('축하합니다!')
+        vars['stopBtn']:setEnabled(false)
+        vars['stopBtnLabel']:setColor(cc.c3b(200, 200, 200))
     else
         vars['openLabel']:setString(Str('{1}단계 열기', lv))
         vars['openLabel']:setScale(1)
@@ -101,6 +103,8 @@ function UI_EventLFBag:refresh()
         vars['percentageLabel2']:setString(Str('성공 확률 {1}%', self.m_structLFBag:getSuccessProb()))
         vars['percentageLabel2']:stopAllActions()
         cca.uiReactionSlow(vars['percentageLabel'], 1, 1, 1.2)
+        vars['stopBtn']:setEnabled(true)
+        vars['stopBtnLabel']:setColor(COLOR['white'])
     end
     
     -- 현재 레벨의 보상 목록
@@ -572,7 +576,7 @@ function UI_EventLFBag:setHistoryText()
                 local nickName = '{@GOLD}' .. v['data']['nick'] .. '{@Default}'
                 local itemName = '{@cyan}' .. TableItem:getItemName(v['data']['item_id']) .. '{@Default}'
                 local itemCount = v['data']['count']
-                local itemString = Str(itemName) .. ' ' .. Str('{1}개', tostring(itemCount)) .. ' '
+                local itemString = Str(itemName) .. ' ' .. Str('{1}개', tostring(comma_value(itemCount))) .. ' '
                 finalStr = finalStr .. Str('{1}님이 {2}획득', nickName, itemString)
 
                 if (i < #broadcastTable) then
