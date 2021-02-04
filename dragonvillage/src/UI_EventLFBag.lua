@@ -14,6 +14,8 @@ UI_EventLFBag = class(PARENT,{
         m_rewardHistoryLabel = 'UIC_ScrollLabel',
 
         m_lastAniLevel = 'number',
+
+        m_tableParticles = 'table',
     })
 
 -------------------------------------
@@ -50,6 +52,56 @@ function UI_EventLFBag:initUI()
 end
 
 -------------------------------------
+-- function initLobbyParticles
+-- @brief confetti 파티클을 생성한다.
+-------------------------------------
+function UI_EventLFBag:createLobbyParticles()
+    local root = self.root
+
+    self.m_tableParticles = {}
+
+    -- 축하종이
+    self:makeParticle(root, 'confetti/particle_confetti_0301')
+    self:makeParticle(root, 'confetti/particle_confetti_0302')
+    self:makeParticle(root, 'confetti/particle_confetti_0303')
+    self:makeParticle(root, 'confetti/particle_confetti_0401')
+    self:makeParticle(root, 'confetti/particle_confetti_0402')
+    self:makeParticle(root, 'confetti/particle_confetti_0301')
+    self:makeParticle(root, 'confetti/particle_confetti_0302')
+    self:makeParticle(root, 'confetti/particle_confetti_0303')
+    self:makeParticle(root, 'confetti/particle_confetti_0401')
+    self:makeParticle(root, 'confetti/particle_confetti_0402')
+end
+
+-------------------------------------
+-- function makeParticle
+-- @brief 파티클을 생성한다.
+-------------------------------------
+function UI_EventLFBag:makeParticle(node, name)
+    local particle_res = string.format('res/ui/particle/%s.plist', name)
+	local particle = cc.ParticleSystemQuad:create(particle_res)
+	particle:setAnchorPoint(CENTER_POINT)
+	particle:setDockPoint(CENTER_POINT)
+	node:addChild(particle)
+    particle:setSpeed(140)
+    particle:setScale(1.1)
+    table.insert(self.m_tableParticles, particle)
+end
+
+-------------------------------------
+-- function setParticleEnable
+-- @brief 파티클을 생성한다.
+-------------------------------------
+function UI_EventLFBag:removeAllParticles()
+    if (not self.m_tableParticles) then return end
+
+    for i,v in ipairs(self.m_tableParticles) do
+        if (v) then v:removeFromParent() end
+    end
+end
+
+
+-------------------------------------
 -- function initButton
 -------------------------------------
 function UI_EventLFBag:initButton()
@@ -68,7 +120,7 @@ end
 -------------------------------------
 function UI_EventLFBag:refresh()
     local vars = self.vars
-    
+
     -- 보유 수
     local count_str = self.m_structLFBag:getCount()
     vars['numberLabel']:setString(comma_value(count_str))
@@ -90,7 +142,10 @@ function UI_EventLFBag:refresh()
 
         vars['percentageLabel']:setString('')
         vars['percentageLabel2']:setString('축하합니다!')
+
+        self:createLobbyParticles()
     else
+        self:removeAllParticles()
         vars['openLabel']:setString(Str('{1}단계 열기', lv))
         vars['openLabel']:setScale(1)
         vars['openLabel']:setPosition(-17, -12)
