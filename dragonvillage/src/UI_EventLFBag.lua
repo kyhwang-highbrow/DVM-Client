@@ -393,7 +393,7 @@ function UI_EventLFBag:click_openBtn()
                         self:showCurrntReward(ret['item_info'])
 
                         if(self.m_structLFBag:isMax()) then 
-                            local msg = Str('열기 실패')
+                            local msg = Str('5단계 성공')
                             local submsg = ''
                             if (lv < 3) then
                                 submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
@@ -401,9 +401,14 @@ function UI_EventLFBag:click_openBtn()
                                 submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n소원 구슬의 단계가 초기화됩니다.')
                             end
 
-                            local score = ret['score'] ~= nil and comma_value(ret['score']) or comma_value(self:getCurrentEndScore())
+                            local score = ret['score'] ~= nil and ret['score'] or self:getCurrentEndScore()
+                            local scoreMsg = ''
 
-                            local scoreMsg = Str('점수: {1}점', score)
+                            if (score > 50) then
+                                scoreMsg = Str('대박 점수: {1}점', score)
+                            else
+                                scoreMsg = Str('점수: {1}점', score)
+                            end
 
                             UI_EventLFBagNoticePopup(POPUP_TYPE.OK, msg, scoreMsg, submsg, ok_cb)
                         end
