@@ -420,7 +420,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
 
         node = cc.Scale9Sprite:create(
             rect
-            , uiRoot .. filePath
+            , filePath
         )
 
         setPropsForScale9Sprite(node, data)
