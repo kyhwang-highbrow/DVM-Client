@@ -47,16 +47,13 @@ function UI_EventLFBagRankingTotalTab:setParentAndInit(parent_node)
     self:initUI()
     self:initButton()
     self:refresh()
+    self:makeRankRewardTableView()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_EventLFBagRankingTotalTab:initUI()
-    local vars = self.vars
-
-    -- 보상 테이블뷰
-    self:makeRankRewardTableView()
 end
 
 -------------------------------------
