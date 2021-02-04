@@ -93,6 +93,7 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, include_ta
     if (not mInit) then
         mInit = true
         require('UI_EventLFBag')
+        require('UI_EventLFBagNoticePopup')
         require('UI_EventLFBagRankingPopup')
         require('UI_EventLFBagRankingDailtyTab')
         require('UI_EventLFBagRankingTotalTab')

@@ -19,7 +19,7 @@ StructEventLFBag = class(PARENT, {
 
 local THIS = StructEventLFBag
 local MAX_LV = 5
-local RISK_LV = 8
+local RISK_LV = 3
 
 -------------------------------------
 -- function init
@@ -95,6 +95,13 @@ end
 -------------------------------------
 function StructEventLFBag:getLv()
     return math_min(self['level'] + 1, MAX_LV)
+end
+
+-------------------------------------
+-- function getCurrentLv
+-------------------------------------
+function StructEventLFBag:getCurrentLv()
+    return math_min(self['level'])
 end
 
 -------------------------------------

@@ -376,11 +376,12 @@ function UI_EventLFBag:click_openBtn()
 
     -- 레벨
     local lv = self.m_structLFBag:getLv()
-    self.m_lastAniLevel = lv
-    self:playOpenAnimation('effect', self.m_lastAniLevel, false)
 
     -- 소원 구슬 열기
     local function do_open()
+        self.m_lastAniLevel = lv
+        self:playOpenAnimation('effect', self.m_lastAniLevel, false)
+
         local function finish_cb(ret)
             -- 성공
             if (ret['is_success']) then
@@ -390,6 +391,22 @@ function UI_EventLFBag:click_openBtn()
                 local function toast_cb()
                     if (ret['item_info']) then
                         self:showCurrntReward(ret['item_info'])
+
+                        if(self.m_structLFBag:isMax()) then 
+                            local msg = Str('열기 실패')
+                            local submsg = ''
+                            if (lv < 3) then
+                                submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
+                            else
+                                submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n소원 구슬의 단계가 초기화됩니다.')
+                            end
+
+                            local score = ret['score'] ~= nil and comma_value(ret['score']) or comma_value(self:getCurrentEndScore())
+
+                            local scoreMsg = Str('점수: {1}점', score)
+
+                            UI_EventLFBagNoticePopup(POPUP_TYPE.OK, msg, scoreMsg, submsg, ok_cb)
+                        end
                     end
                 end
 
@@ -419,7 +436,9 @@ function UI_EventLFBag:click_openBtn()
                     submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n소원 구슬의 단계가 초기화됩니다.')
                 end
 
-                MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
+                local scoreMsg = Str('점수: {1}점', comma_value(ret['score']))
+
+                UI_EventLFBagNoticePopup(POPUP_TYPE.OK, msg, scoreMsg, submsg, ok_cb)
 
                 -- 보상 수령
                 if (ret['new_mail']) then
@@ -441,7 +460,7 @@ function UI_EventLFBag:click_openBtn()
     -- 누적보상 받지 못할 리스크가 있는 경우
     if (self.m_structLFBag:hasRisk()) then
         local msg = Str('소원 구슬을 여시겠습니까?')
-        local submsg = Str('{1} 단계 이상에서 열기에 실패하면,\n이전 단계까지 누적된 보상을 받을 수 없으니 신중하세요!', 8)
+        local submsg = Str('{1} 단계 이상에서 열기에 실패하면,\n이전 단계까지 누적된 보상을 받을 수 없으니 신중하세요!', 3)
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, do_open)
     else
         do_open()
@@ -504,7 +523,9 @@ function UI_EventLFBag:click_stopBtn()
         g_eventLFBagData:request_eventLFBagReward(finish_cb)
     end
 
-    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    local scoreMsg = Str('점수: {1}점', self:getCurrentEndScore())
+
+    UI_EventLFBagNoticePopup(POPUP_TYPE.YES_NO, msg, scoreMsg, submsg, ok_btn_cb)
 end
 
 -------------------------------------
@@ -646,4 +667,26 @@ function UI_EventLFBag:setHistoryText()
 
         self.m_rewardHistoryLabel:setString(Str(finalStr))
     end
+end
+
+-------------------------------------
+-- function setHistoryText
+-------------------------------------
+function UI_EventLFBag:getCurrentEndScore()
+    local lv = self.m_structLFBag:getCurrentLv()
+    local score = 0
+
+    if (lv == 1) then
+        score = 10
+    elseif (lv == 2) then
+        score = 20
+    elseif (lv == 3) then
+        score = 30
+    elseif (lv == 4) then
+        score = 40
+    elseif (lv == 5) then
+        score = 50
+    end
+
+    return score
 end
