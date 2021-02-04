@@ -523,10 +523,15 @@ end
 
 
 -------------------------------------
--- function update
+-- function updateRewardHistory
 -------------------------------------
 function UI_EventLFBag:updateRewardHistory()
     if (self.m_rewardHistoryView == nil) then
+        return
+    end
+
+    if (self.m_rewardHistoryLabel) then
+        self:setHistoryText()
         return
     end
 
@@ -535,12 +540,12 @@ function UI_EventLFBag:updateRewardHistory()
     -- rich_label 생성
 	local rich_label = UIC_RichLabel()
 	rich_label:setDimension(nodeWidth, nodeHeight)
-	rich_label:setFontSize(14)
+	rich_label:setFontSize(15)
 	rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
     rich_label:setDefualtColor(COLOR['white'])
     rich_label.m_root:setSwallowTouch(false)
     rich_label.m_lineHeight = 1.4
-    rich_label.m_wordSpacing = 1.4
+    rich_label.m_wordSpacing = 1.5
 
     local width, height = rich_label:getNormalSize()
     local verticalAlignment = cc.VERTICAL_TEXT_ALIGNMENT_CENTER
@@ -554,19 +559,26 @@ function UI_EventLFBag:updateRewardHistory()
 
 	self.m_rewardHistoryView:addChild(self.m_rewardHistoryLabel.m_node)
 
+    self:setHistoryText()
+end
+
+-------------------------------------
+-- function setHistoryText
+-------------------------------------
+function UI_EventLFBag:setHistoryText()
     local broadcastTable = g_broadcastManager.m_tMessage
 
     if (broadcastTable == nil or #broadcastTable < 1) then return end
-    
-    if self.m_rewardHistoryLabel then  
 
+    if self.m_rewardHistoryLabel then
         local finalStr = ''
         for i, v in ipairs(broadcastTable) do
             if (v['event'] == 'lkft') then
                 local nickName = '{@GOLD}' .. v['data']['nick'] .. '{@Default}'
                 local itemName = '{@cyan}' .. TableItem:getItemName(v['data']['item_id']) .. '{@Default}'
                 local itemCount = v['data']['count']
-                finalStr = finalStr .. Str('{1}님이 {2}을(를) {3}개 획득', nickName, itemName, tostring(itemCount))
+                local itemString = Str('{1}/{2}개', itemName, tostring(itemCount))
+                finalStr = finalStr .. Str('{1}님이 {2}획득', nickName, itemString)
 
                 if (i < #broadcastTable) then
                     finalStr = finalStr ..  '\n'
