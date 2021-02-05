@@ -461,7 +461,8 @@ function UI_EventLFBag:click_openBtn()
     end
 
     -- 누적보상 받지 못할 리스크가 있는 경우
-    if (self.m_structLFBag:hasRisk()) then
+    -- 3단계 한번만 안내한다
+    if (self.m_structLFBag:getLv() == 3) then
         local msg = Str('소원 구슬을 여시겠습니까?')
         local submsg = Str('{1} 단계 이상에서 열기에 실패하면,\n이전 단계까지 누적된 보상을 받을 수 없으니 신중하세요!', 3)
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, do_open)
