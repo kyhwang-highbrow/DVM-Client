@@ -19,7 +19,7 @@ function UI_ChatPopup:init()
     --UIManager:open(self, UIManager.NORMAL)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ChatPopup')
+    --g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ChatPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -397,6 +397,9 @@ end
 -------------------------------------
 function UI_ChatPopup:openPopup()
     UIManager:open(self, UIManager.NORMAL)
+    -- backkey 지정
+    -- 매번 열어줄 때마다 한번씩 씬 backkey를 설정해 주어야 한다.
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ChatPopup')
     self.closed = false
 
     -- @UI_ACTION
