@@ -170,15 +170,21 @@ function BroadcastMgr:requestMsg()
 
         self.m_tMessage = {}
         self.m_tNotice = {}
-        
-        for i, v in ipairs(ret['broadcast']) do
-            if (v['timestamp']) then
-                v['timestamp'] = math_floor(v['timestamp'] / 1000)
 
-                self.m_recentTimeStamp = math_max(self.m_recentTimeStamp, v['timestamp'])
+        -- 최근순으로 보여줄려면 역순회 해야함
+        for i = #ret['broadcast'], 1, -1 do
+            local timestamp = ret['broadcast'][i]['timestamp']
+            if (timestamp) then
+                timestamp = math_floor(timestamp / 1000)
+
+                self.m_recentTimeStamp = math_max(self.m_recentTimeStamp, timestamp)
             end
 
-            table.insert(self.m_tMessage, v)
+            table.insert(self.m_tMessage, ret['broadcast'][i])
+        end
+
+        for i, v in ipairs(ret['broadcast']) do
+            
         end
 
         self.m_bExistNotice = false
