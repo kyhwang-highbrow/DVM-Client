@@ -633,12 +633,9 @@ end
 -- function updateRewardHistory
 -------------------------------------
 function UI_EventLFBag:updateRewardHistory()
-    if (self.m_rewardHistoryView == nil) then
-        return
-    end
+    if (self.m_rewardHistoryView) then self.m_rewardHistoryView:removeAllChildren() end
 
-    if (self.m_rewardHistoryLabel) then
-        self:setHistoryText()
+    if (self.m_rewardHistoryView == nil) then
         return
     end
 
@@ -684,7 +681,6 @@ function UI_EventLFBag:setHistoryText()
             if (broadcastTable[i]['event'] == 'lkft') then
                 local isRareItem = self:isRareItem(broadcastTable[i]['item_id'])
 
-
                 if (israre) then 
                     isRareItem = true 
                     israre = false
@@ -692,7 +688,6 @@ function UI_EventLFBag:setHistoryText()
                     isRareItem = false 
                     israre = true
                 end
-
 
                 local colorValue = isRareItem and '{@Y}' or '{@item_highlight}'
 
