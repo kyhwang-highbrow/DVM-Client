@@ -444,6 +444,7 @@ function UI_EventLFBag:click_openBtn()
                     self:reset()
                 end
 
+                self:updateCumulativeRewardList()
                 self:playNormalAni()
 
                 if (lv < 3) then 
@@ -518,6 +519,7 @@ function UI_EventLFBag:click_stopBtn()
                 self:reset()
             end
 
+            self:updateCumulativeRewardList()
             self:refresh()
         end
         g_eventLFBagData:request_eventLFBagReward(finish_cb)
