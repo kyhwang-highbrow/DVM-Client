@@ -324,8 +324,6 @@ function UI_EventLFBag:updateScrollView()
     local l_reward_list = self.m_structLFBag:getRewardList()
     local reverseList = {}
     
-    ccdump(l_reward_list)
-
     table.sort(l_reward_list, function(a, b) 
             return (tonumber(a['pick_percent']) < tonumber(b['pick_percent']))
         end)
@@ -676,26 +674,51 @@ end
 -------------------------------------
 function UI_EventLFBag:setHistoryText()
     local broadcastTable = g_broadcastManager.m_tMessage
-
     if (broadcastTable == nil or #broadcastTable < 1) then return end
     -- 희귀 YELLOW/일반 item_highlight
     if self.m_rewardHistoryLabel then
         local finalStr = ''
-        for i, v in ipairs(broadcastTable) do
-            if (v['event'] == 'lkft') then
-                local nickName = v['data']['nick']
-                local itemName = '{@item_highlight}' .. TableItem:getItemName(v['data']['item_id']) .. '{@Default}'
-                local itemCount = v['data']['count']
+        
+        for i = #broadcastTable, 1, -1 do
+        --for i, v in ipairs(broadcastTable) do
+            if (broadcastTable[i]['event'] == 'lkft') then
+                local isRareItem = self:isRareItem(broadcastTable[i]['item_id'])
+                local colorValue = isRareItem and '{@item_highlight}' or '{@Y}'
+
+                local nickName = broadcastTable[i]['data']['nick']
+                local itemName = colorValue .. TableItem:getItemName(broadcastTable[i]['data']['item_id']) .. '{@Default}'
+                local itemCount = broadcastTable[i]['data']['count']
                 local itemString = Str(itemName) .. ' ' .. Str('{1}개', tostring(comma_value(itemCount))) .. ' '
                 finalStr = finalStr .. Str('{1}님이 {2}획득', nickName, itemString)
 
-                if (i < #broadcastTable) then
+                if (i <= #broadcastTable and i > 1) then
                     finalStr = finalStr ..  '\n'
                 end
             end
         end
 
         self.m_rewardHistoryLabel:setString(Str(finalStr))
+    end
+end
+
+-------------------------------------
+-- function isRareItem
+-------------------------------------
+function UI_EventLFBag:isRareItem(itemID)
+    if (not itemID) then return false end
+
+    local table_lfbag_reward_info = TABLE:get('table_arena_rank')
+    if (not table_lfbag_reward_info) then return false end
+
+    local resultItem = nil
+    for _, v in ipairs(table_lfbag_reward_info) do 
+        if (itemID == v['item_id']) then item = resultItem end
+    end
+
+    if (resultItem and tonumber(resultItem['noti_level']) > 1) then
+        return true
+    else
+        return false
     end
 end
 
