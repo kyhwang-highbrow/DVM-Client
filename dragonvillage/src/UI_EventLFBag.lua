@@ -284,8 +284,8 @@ function UI_EventLFBag:makeScrollView()
     self.m_scrollView = scroll_view
 
     -- 스크롤뷰에서 사용할 사이즈
-    local interval = 55
-    local cell_count = 5
+    local interval = 60
+    local cell_count = #self.m_structLFBag:getRewardList()
     local normal_size = self.vars['rewardListNode']:getContentSize()
     local content_size = cc.size(296, interval * cell_count)
 
@@ -303,8 +303,8 @@ function UI_EventLFBag:makeScrollView()
     local height_half = content_size['height'] / 2
 
     -- 컨테이너 상단 이동
-    local container_node = scroll_view:getContainer()
-    container_node:setPositionY(-height_half + interval)
+    local container_node = self.m_scrollView:getContainer()
+    container_node:setPositionY(self.m_scrollView:minContainerOffset()['y'])
 
     -- 셀 미리 생성
     for i = 1, cell_count do
@@ -322,14 +322,24 @@ end
 function UI_EventLFBag:updateScrollView()
     local l_reward_list = self.m_structLFBag:getRewardList()
     local reverseList = {}
+    
+    ccdump(l_reward_list)
 
-    for i=#l_reward_list, 1, -1 do
-	    reverseList[#reverseList+1] = l_reward_list[i]
-    end
+    table.sort(l_reward_list, function(a, b) 
+            return (tonumber(a['pick_percent']) < tonumber(b['pick_percent']))
+        end)
+
+    --for i=#l_reward_list, 1, -1 do
+	--    reverseList[#reverseList+1] = l_reward_list[i]
+    --end
 
     for i, cell_ui in ipairs(self.m_cellUIList) do
-        self.updateCellUI(cell_ui, reverseList[i])
+        self.updateCellUI(cell_ui, l_reward_list[i])
     end
+
+    -- 컨테이너 상단 이동
+    local container_node = self.m_scrollView:getContainer()
+    container_node:setPositionY(self.m_scrollView:minContainerOffset()['y'])
 end
 
 -------------------------------------
@@ -575,6 +585,7 @@ function UI_EventLFBag.makeCellUI()
     local cell_ui = class(UI, ITableViewCell:getCloneTable())()
     cell_ui:load('event_lucky_fortune_bag_item.ui')
     cell_ui.vars['countLabel']:setString(math_random(1, 100))
+
     cell_ui.root:setDockPoint(TOP_CENTER)
     cell_ui.root:setAnchorPoint(TOP_CENTER)
 
@@ -591,12 +602,31 @@ function UI_EventLFBag.updateCellUI(cell_ui, t_data)
         return
     end
 
+    local isRareItem = false
+
+    if (t_data['noti_level'] == nil or t_data['noti_level'] == '') then
+        isRareItem = false
+    elseif (tonumber(t_data['noti_level']) > 1) then
+        isRareItem = true
+    end
+
     -- update cell
     cell_ui.root:setVisible(true)
     local vars = cell_ui.vars
     vars['itemNode']:removeAllChildren(true)
     local icon = IconHelper:getItemIcon(t_data['item_id'])
     icon:setScale(1.1) -- 아이콘 크기 확대
+    
+    if (isRareItem) then
+        -- 빤짝이 추가
+        local animator = MakeAnimator('ui/a2d/card_summon/card_summon.vrp')
+        animator:setScale(1.7)
+        animator:changeAni('summon_hero', true)
+        icon:addChild(animator.m_node, 3)
+
+        cell_ui.vars['rareEffect'] = animator
+    end
+
     vars['itemNode']:addChild(icon)
     vars['probLabel']:setString(string.format('%s%%', t_data['pick_percent']))
     vars['countLabel']:setString(comma_value(t_data['val']))
