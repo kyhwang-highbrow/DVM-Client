@@ -127,8 +127,7 @@ function UI_DragonGoodbyeSelectNew2:refresh_dragonMaterialTableView()
     self.m_mtrlTableViewTD = table_view_td
 
     -- 리스트가 비었을 때
-    --table_view_td:makeDefaultEmptyDescLabel(Str('판매할 드래곤이 없어요 ㅠㅠ'))
-    table_view_td:makeDefaultEmptyDescLabel(Str(''))
+    table_view_td:makeDefaultEmptyDescLabel(Str('판매할 드래곤이 없어요 ㅠㅠ'))
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonMaterialList()

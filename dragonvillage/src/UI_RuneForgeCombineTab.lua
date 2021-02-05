@@ -114,6 +114,7 @@ function UI_RuneForgeCombineTab:initTableView()
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)
+    table_view_td:makeDefaultEmptyDescLabel(Str('룬 가방이 비어있습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))
     self.m_tableView = table_view_td
 
     -- 재료로 사용 가능한 리스트를 얻어옴
