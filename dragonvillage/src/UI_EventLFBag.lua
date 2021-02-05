@@ -40,7 +40,6 @@ function UI_EventLFBag:init()
     self:initUI()
     self:initButton()
     self:refresh()
-    self:updateCumulativeRewardList()
 
     -- UI 설정
     self:setOpacityChildren(true)
@@ -174,6 +173,8 @@ function UI_EventLFBag:refresh()
     self:updateScrollView()
 
     self:updateRewardHistory()
+
+    self:updateCumulativeRewardList()
 end
 
 
@@ -396,7 +397,6 @@ function UI_EventLFBag:click_openBtn()
                 local function toast_cb()
                     if (ret['item_info']) then
                         self:showCurrntReward(ret['item_info'])
-                        self:updateCumulativeRewardList()
 
                         if(self.m_structLFBag:isMax()) then 
                             local msg = Str('{1}단계', 5) .. ' ' .. Str('성공')
@@ -454,7 +454,6 @@ function UI_EventLFBag:click_openBtn()
                     self:reset()
                 end
 
-                self:updateCumulativeRewardList()
                 self:playNormalAni()
 
                 if (lv < 3) then 
@@ -529,7 +528,6 @@ function UI_EventLFBag:click_stopBtn()
                 self:reset()
             end
 
-            self:updateCumulativeRewardList()
             self:refresh()
         end
         g_eventLFBagData:request_eventLFBagReward(finish_cb)
