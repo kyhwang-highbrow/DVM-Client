@@ -187,13 +187,9 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' end'
     end
 
-    -- 수식, 숫자, 일반 키워드 등 너무나 다양하기 때문에 필요에 따라 정의해 주자.
-    local str_source_implementation = 
-        'local atk_down = \'atk_down\'' 
 
     local func = pl.utils.load(
         'EQUATION_FUNC[\'' .. table_name .. '\'][' .. key .. '][\'' .. column ..'\'] = function(owner, target, add_param, skill_id)' ..
-        str_source_implementation ..
         str_param ..
         str_add_param .. 
         ' local ret = ' .. source .. 
