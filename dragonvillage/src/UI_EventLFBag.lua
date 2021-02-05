@@ -25,8 +25,13 @@ function UI_EventLFBag:init()
     local vars = self:load('event_lucky_fortune_bag.ui')
 
     self.m_structLFBag = g_eventLFBagData:getLFBag()
-    self.m_lastAniLevel = self.m_structLFBag:getLv()
-    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
+
+    if (self.m_structLFBag:isMax()) then
+        self:setSelebrateAni()
+    else
+        self.m_lastAniLevel = self.m_structLFBag:getLv()
+        self:playNormalAni()
+    end
 
     self.m_toastUI = self:makeToast()
     self.m_toastUI.root:setPosition(-136, -30)
@@ -35,6 +40,7 @@ function UI_EventLFBag:init()
     self:initUI()
     self:initButton()
     self:refresh()
+    self:updateCumulativeRewardList()
 
     -- UI 설정
     self:setOpacityChildren(true)
@@ -167,6 +173,16 @@ function UI_EventLFBag:refresh()
     -- 현재 레벨의 보상 목록
     self:updateScrollView()
 
+    self:updateRewardHistory()
+end
+
+
+-------------------------------------
+-- function getAniScale
+-------------------------------------
+function UI_EventLFBag:updateCumulativeRewardList()
+    local vars = self.vars
+
     -- 누적 보상 목록
     local l_cum_reward_list = self.m_structLFBag:getCumulativeRewardList()
     local last_node = nil
@@ -184,30 +200,7 @@ function UI_EventLFBag:refresh()
     if last_node then
         cca.uiReactionSlow(last_node,0.8, 0.8, 1.5)
     end
-
-    self:updateRewardHistory()
 end
-
--------------------------------------
--- function onActOpen
--------------------------------------
-function UI_EventLFBag:onActOpen()
-    local vars = self.vars
-
-    -- 레벨
-    local currentLevel = self.m_structLFBag:getLv()
-
-    -- 소원 구슬 애니메이션 1, 2, 3, 4, 5
-    if (not self.m_structLFBag:isMax()) then
-        vars['luckyFortuneBagVisual']:addAniHandler(function()
-            self:playOpenAnimation('normal', currentLevel, true)
-            self.m_lastAniLevel = currentLevel
-        end)
-    else
-        vars['luckyFortuneBagVisual']:changeAni('')
-    end
-end
-
 
 
 -------------------------------------
@@ -361,7 +354,7 @@ function UI_EventLFBag:click_openBtn()
     if (self.m_structLFBag:isMax()) then
         self:receiveMaxReward()
         self.m_lastAniLevel = 1
-        self:playOpenAnimation('normal', self.m_lastAniLevel, true)
+        self:playNormalAni()
         return
     end
 
@@ -393,9 +386,10 @@ function UI_EventLFBag:click_openBtn()
                 local function toast_cb()
                     if (ret['item_info']) then
                         self:showCurrntReward(ret['item_info'])
+                        self:updateCumulativeRewardList()
 
                         if(self.m_structLFBag:isMax()) then 
-                            local msg = Str('5단계 성공')
+                            local msg = Str('{1}단계', 5) .. ' ' .. Str('성공')
                             local submsg = ''
                             submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
 
@@ -409,6 +403,8 @@ function UI_EventLFBag:click_openBtn()
                             end
 
                             UI_EventLFBagNoticePopup(POPUP_TYPE.OK, msg, scoreMsg, submsg, ok_cb)
+
+                            self:setSelebrateAni()
                         end
                     end
                 end
@@ -448,7 +444,7 @@ function UI_EventLFBag:click_openBtn()
                     self:reset()
                 end
 
-                vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
+                self:playNormalAni()
 
                 if (lv < 3) then 
                     g_serverData:receiveReward(ret)
@@ -674,7 +670,7 @@ function UI_EventLFBag:setHistoryText()
 end
 
 -------------------------------------
--- function setHistoryText
+-- function getCurrentEndScore
 -------------------------------------
 function UI_EventLFBag:getCurrentEndScore()
     local lv = self.m_structLFBag:getCurrentLv()
@@ -693,4 +689,54 @@ function UI_EventLFBag:getCurrentEndScore()
     end
 
     return score
+end
+
+-------------------------------------
+-- function playNormalAni
+-------------------------------------
+function UI_EventLFBag:playNormalAni()
+    local vars = self.vars
+
+    if (vars['completeNode']) then vars['completeNode']:setVisible(false) end
+    if (vars['luckyFortuneBagVisual']) then vars['luckyFortuneBagVisual']:setVisible(true) end
+    
+    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
+end
+
+-------------------------------------
+-- function setSelebrateAni
+-------------------------------------
+function UI_EventLFBag:setSelebrateAni()
+    local vars = self.vars
+
+    if (vars['luckyFortuneBagVisual']) then vars['luckyFortuneBagVisual']:setVisible(false) end
+
+    if (vars['completeNode']) then 
+        vars['completeNode']:setVisible(true) 
+
+        if (vars['celebrateSprite']) then cca.pickMePickMe(vars['celebrateSprite'], 27) end
+    end
+end
+
+-------------------------------------
+-- function onActOpen
+-------------------------------------
+function UI_EventLFBag:onActOpen()
+    local vars = self.vars
+
+    if (vars['completeNode']) then vars['completeNode']:setVisible(false) end
+    if (vars['luckyFortuneBagVisual']) then vars['luckyFortuneBagVisual']:setVisible(true) end
+
+    -- 레벨
+    local currentLevel = self.m_structLFBag:getLv()
+
+    -- 소원 구슬 애니메이션 1, 2, 3, 4, 5
+    if (self.m_structLFBag:isMax()) then
+        self:setSelebrateAni()
+    else
+        vars['luckyFortuneBagVisual']:addAniHandler(function()
+            self:playOpenAnimation('normal', currentLevel, true)
+            self.m_lastAniLevel = currentLevel
+        end)
+    end
 end
