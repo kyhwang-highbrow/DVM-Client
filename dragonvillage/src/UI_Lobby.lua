@@ -1718,6 +1718,10 @@ function UI_Lobby:click_googleGameBtn()
             cc.Show:create(),
             cca.makeBasicEaseMove(0.2, game_pos_x + 73, achv_pos_y)
         ))
+
+        -- 컴포넌트에 최신 좌표를 알려줘야 한다.
+        -- 안그러면 원래 자리로 돌아감
+        vars['googleAchievementBtn'].m_originPosX = game_pos_x + 73
     end
 end
 
