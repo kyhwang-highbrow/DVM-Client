@@ -678,12 +678,23 @@ function UI_EventLFBag:setHistoryText()
     -- 희귀 YELLOW/일반 item_highlight
     if self.m_rewardHistoryLabel then
         local finalStr = ''
-        
+        local israre = false
         for i = #broadcastTable, 1, -1 do
         --for i, v in ipairs(broadcastTable) do
             if (broadcastTable[i]['event'] == 'lkft') then
                 local isRareItem = self:isRareItem(broadcastTable[i]['item_id'])
-                local colorValue = isRareItem and '{@item_highlight}' or '{@Y}'
+
+
+                if (israre) then 
+                    isRareItem = true 
+                    israre = false
+                else
+                    isRareItem = false 
+                    israre = true
+                end
+
+
+                local colorValue = isRareItem and '{@Y}' or '{@item_highlight}'
 
                 local nickName = broadcastTable[i]['data']['nick']
                 local itemName = colorValue .. TableItem:getItemName(broadcastTable[i]['data']['item_id']) .. '{@Default}'
