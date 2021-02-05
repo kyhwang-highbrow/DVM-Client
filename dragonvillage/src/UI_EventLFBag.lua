@@ -619,8 +619,8 @@ function UI_EventLFBag:updateRewardHistory()
     -- rich_label 생성
 	local rich_label = UIC_RichLabel()
 	rich_label:setDimension(nodeWidth, nodeHeight)
-	rich_label:setFontSize(15)
-	rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
+	rich_label:setFontSize(16)
+	--rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
     rich_label:setDefualtColor(COLOR['white'])
     rich_label.m_root:setSwallowTouch(false)
     rich_label.m_lineHeight = 1.4
@@ -648,13 +648,13 @@ function UI_EventLFBag:setHistoryText()
     local broadcastTable = g_broadcastManager.m_tMessage
 
     if (broadcastTable == nil or #broadcastTable < 1) then return end
-
+    -- 희귀 YELLOW/일반 item_highlight
     if self.m_rewardHistoryLabel then
         local finalStr = ''
         for i, v in ipairs(broadcastTable) do
             if (v['event'] == 'lkft') then
-                local nickName = '{@GOLD}' .. v['data']['nick'] .. '{@Default}'
-                local itemName = '{@cyan}' .. TableItem:getItemName(v['data']['item_id']) .. '{@Default}'
+                local nickName = v['data']['nick']
+                local itemName = '{@item_highlight}' .. TableItem:getItemName(v['data']['item_id']) .. '{@Default}'
                 local itemCount = v['data']['count']
                 local itemString = Str(itemName) .. ' ' .. Str('{1}개', tostring(comma_value(itemCount))) .. ' '
                 finalStr = finalStr .. Str('{1}님이 {2}획득', nickName, itemString)
@@ -731,12 +731,14 @@ function UI_EventLFBag:onActOpen()
     local currentLevel = self.m_structLFBag:getLv()
 
     -- 소원 구슬 애니메이션 1, 2, 3, 4, 5
-    if (self.m_structLFBag:isMax()) then
-        self:setSelebrateAni()
-    else
-        vars['luckyFortuneBagVisual']:addAniHandler(function()
+    vars['luckyFortuneBagVisual']:addAniHandler(function()
             self:playOpenAnimation('normal', currentLevel, true)
             self.m_lastAniLevel = currentLevel
+        end)
+
+    if (self.m_structLFBag:isMax()) then
+        vars['luckyFortuneBagVisual']:addAniHandler(function()
+            self:setSelebrateAni()
         end)
     end
 end
