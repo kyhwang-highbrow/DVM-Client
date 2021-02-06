@@ -203,6 +203,12 @@ function ServerData_EventLFBag:request_eventLFBagOpen(finish_cb, fail_cb)
     -- 콜백
     local function success_cb(ret)
         --g_serverData:receiveReward(ret)
+        
+        if (ret['score_bonus'] and ret['lucky_fortune_bag_info']) then 
+            if (ret['score'] and ret['lucky_fortune_bag_info']['score']) then 
+                ret['lucky_fortune_bag_info']['score'] = tonumber(ret['lucky_fortune_bag_info']['score']) + tonumber(ret['score'])
+            end
+        end
 
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
 

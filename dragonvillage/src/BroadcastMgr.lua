@@ -171,16 +171,16 @@ function BroadcastMgr:requestMsg()
         self.m_tMessage = {}
         self.m_tNotice = {}
 
-        -- 최근순으로 보여줄려면 역순회 해야함
-        for i = #ret['broadcast'], 1, -1 do
-            local timestamp = ret['broadcast'][i]['timestamp']
+        for i, v in ipairs(ret['broadcast']) do
+            local timestamp = v['timestamp']
+
             if (timestamp) then
                 timestamp = math_floor(timestamp / 1000)
 
                 self.m_recentTimeStamp = math_max(self.m_recentTimeStamp, timestamp)
             end
 
-            table.insert(self.m_tMessage, ret['broadcast'][i])
+            table.insert(self.m_tMessage, v)
         end
 
         table.sort(self.m_tMessage, function(a, b) 

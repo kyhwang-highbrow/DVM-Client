@@ -22,6 +22,7 @@ function UIC_ChatView:init(node)
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
+
     self:makeScrollView(content_size)
 
 
@@ -98,6 +99,9 @@ function UIC_ChatView:update(dt)
 
             elseif (content_type == 'msg') then
                 t_item['ui'] = UI_ChatListItem_msg(chat_content)
+
+            elseif (content_type == 'broadcast') then
+                t_item['ui'] = UI_ChatListItem_broadcast(chat_content)
 
             else
                 t_item['ui'] = UI_ChatListItem_systemMsg(chat_content)

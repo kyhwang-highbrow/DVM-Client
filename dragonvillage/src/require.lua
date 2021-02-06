@@ -1439,6 +1439,7 @@ local t_module = {
     'UI_ChatListItem_msg',
     'UI_ChatListItem_myMsg',
     'UI_ChatListItem_systemMsg',
+    'UI_ChatListItem_broadcast', -- 소원 구슬 이벤트용 (커스텀해서 다른데서 돌려써도 됨)
     'UI_ChatIgnoreListItem',
     'UI_ChatMacroListItem',
 

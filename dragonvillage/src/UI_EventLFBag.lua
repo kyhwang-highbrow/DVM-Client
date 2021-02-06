@@ -11,7 +11,7 @@ UI_EventLFBag = class(PARENT,{
         m_toastUI = 'cc.Node',
         m_scrollView = 'cc.ScrollView',
         m_rewardHistoryView = 'cc.Node', -- 보상획득 히스토리 노드
-        m_rewardHistoryLabel = 'UIC_ScrollLabel',
+        m_rewardHistoryBoard = 'UIC_ChatView',
 
         m_lastAniLevel = 'number',
 
@@ -633,35 +633,11 @@ end
 -- function updateRewardHistory
 -------------------------------------
 function UI_EventLFBag:updateRewardHistory()
-    if (self.m_rewardHistoryView) then self.m_rewardHistoryView:removeAllChildren() end
-
-    if (self.m_rewardHistoryView == nil) then
-        return
+    if (self.m_rewardHistoryBoard == nil) then
+        self.m_rewardHistoryBoard = UIC_ChatView(self.m_rewardHistoryView)
     end
 
     local nodeWidth, nodeHeight = self.m_rewardHistoryView:getNormalSize()
-
-    -- rich_label 생성
-	local rich_label = UIC_RichLabel()
-	rich_label:setDimension(nodeWidth, nodeHeight)
-	rich_label:setFontSize(16)
-	--rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
-    rich_label:setDefualtColor(COLOR['white'])
-    rich_label.m_root:setSwallowTouch(false)
-    rich_label.m_lineHeight = 1.4
-    rich_label.m_wordSpacing = 1.5
-
-    local width, height = rich_label:getNormalSize()
-    local verticalAlignment = cc.VERTICAL_TEXT_ALIGNMENT_CENTER
-
-    rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, verticalAlignment)
-
-	-- scroll label  생성
-	self.m_rewardHistoryLabel = UIC_ScrollLabel:create(rich_label)
-	self.m_rewardHistoryLabel:setDockPoint(CENTER_POINT)
-	self.m_rewardHistoryLabel:setAnchorPoint(CENTER_POINT)
-
-	self.m_rewardHistoryView:addChild(self.m_rewardHistoryLabel.m_node)
 
     self:setHistoryText()
 end
@@ -673,30 +649,50 @@ function UI_EventLFBag:setHistoryText()
     local broadcastTable = g_broadcastManager.m_tMessage
     if (broadcastTable == nil or #broadcastTable < 1) then return end
     -- 희귀 YELLOW/일반 item_highlight
-    if self.m_rewardHistoryLabel then
-        local finalStr = ''
+    if self.m_rewardHistoryBoard then
+        
         for i = #broadcastTable, 1, -1 do
-        --for i, v in ipairs(broadcastTable) do
-            if (broadcastTable[i]['event'] == 'lkft') then
+            if (broadcastTable[i]['event'] == 'lkft' and  self:isMsgExsist(broadcastTable[i]['timestamp']) == false) then
+                local finalStr = ''
                 local isRareItem = self:isRareItem(broadcastTable[i]['item_id'])
 
                 local colorValue = isRareItem and '{@Y}' or '{@item_highlight}'
 
-                local nickName = broadcastTable[i]['data']['nick']
-                local itemName = colorValue .. TableItem:getItemName(broadcastTable[i]['data']['item_id']) .. '{@Default}'
+                local nickName = '{@WHITE}' .. broadcastTable[i]['data']['nick']
+                local itemName = TableItem:getItemName(broadcastTable[i]['data']['item_id'])
                 local itemCount = broadcastTable[i]['data']['count']
-                local itemString = Str(itemName) .. ' ' .. Str('{1}개', tostring(comma_value(itemCount))) .. ' '
+
+                local itemString = colorValue .. Str(itemName) .. ' {@WHITE}' .. Str('{1}개', tostring(comma_value(itemCount))) .. ' '
                 finalStr = finalStr .. Str('{1}님이 {2}획득', nickName, itemString)
 
-                if (i <= #broadcastTable and i > 1) then
-                    finalStr = finalStr ..  '\n'
-                end
+                local msg_content = ChatContent()
+                msg_content.m_contentType = 'broadcast'
+                msg_content.m_timestamp = broadcastTable[i]['timestamp']
+                msg_content['message'] = finalStr
+
+                self.m_rewardHistoryBoard:addChatContent(msg_content)
             end
         end
-
-        self.m_rewardHistoryLabel:setString(Str(finalStr))
     end
 end
+
+-------------------------------------
+-- function isRareItem
+-------------------------------------
+function UI_EventLFBag:isMsgExsist(timestamp)
+    if (not self.m_rewardHistoryBoard) then return false end
+
+    if (not self.m_rewardHistoryBoard.m_itemList or #self.m_rewardHistoryBoard.m_itemList < 1) then return false end
+   
+    for i, v in ipairs(self.m_rewardHistoryBoard.m_itemList) do
+        if (v['data'] and v['data'].m_timestamp == timestamp) then
+            return true
+        end
+    end
+
+    return false
+end
+
 
 -------------------------------------
 -- function isRareItem
