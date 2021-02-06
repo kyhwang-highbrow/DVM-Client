@@ -16,6 +16,9 @@ UI_EventLFBag = class(PARENT,{
         m_lastAniLevel = 'number',
 
         m_tableParticles = 'table',
+
+        m_broadcastCheckPeriod = 'number',
+        m_broadcastUpdateTime = 'number',
     })
 
 -------------------------------------
@@ -44,6 +47,8 @@ function UI_EventLFBag:init()
     -- UI 설정
     self:setOpacityChildren(true)
     self:setSwallowTouch()
+    self.m_broadcastCheckPeriod = 10
+    self.m_broadcastUpdateTime = os.time() + self.m_broadcastCheckPeriod
     self:startUpdate(function(dt) self:update(dt) end)
 end
 
@@ -234,6 +239,15 @@ function UI_EventLFBag:update(dt)
             time_label:setString('')
         end
     end
+
+    
+    local cur_time = os.time()
+
+    -- 메세지를 서버에 요청
+	if (cur_time >= (self.m_broadcastUpdateTime + self.m_broadcastCheckPeriod)) then
+        self.m_broadcastUpdateTime = cur_time
+		self:updateRewardHistory()
+	end
 end
 
 -------------------------------------
