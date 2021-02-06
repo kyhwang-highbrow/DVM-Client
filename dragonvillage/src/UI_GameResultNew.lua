@@ -29,6 +29,8 @@ UI_GameResultNew = class(PARENT, {
 
         m_content_open = 'boolean', -- 컨텐츠 오픈
         m_scoreCalc = '', -- 스코어 
+        
+        m_staminaInfo = 'UI_StaminaInfo',   -- 날개UI
      })
 
 -------------------------------------
@@ -437,6 +439,10 @@ function UI_GameResultNew:direction_start()
 
             if (g_supply:isActiveSupply_autoPickup()) then
                 btn:stopAllActions()
+            end
+
+            if (self.m_staminaInfo) then
+                self.m_staminaInfo:refresh()
             end
         end
         self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
@@ -1475,14 +1481,26 @@ end
 function UI_GameResultNew:show_staminaInfo()
     local vars = self.vars
     vars['energyNode']:setVisible(true)
-    local stamina_type = self.m_staminaType
 
-    local st_ad = g_staminasData:getStaminaCount(stamina_type)
-    local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
-    vars['energyLabel']:setString(Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt)))
+    self.m_staminaInfo = UI_StaminaInfo:create('st')
 
-    local icon = IconHelper:getStaminaInboxIcon(stamina_type)
-    vars['energyIconNode']:addChild(icon)
+    do -- addChild, 위치 조정
+        local ui = self.m_staminaInfo
+        local x_pos_idx = 1
+
+        self.vars['energyNode']:addChild(ui.root)
+    end
+
+    self.m_staminaInfo:refresh()
+
+    --local stamina_type = self.m_staminaType
+
+    --local st_ad = g_staminasData:getStaminaCount(stamina_type)
+    --local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
+    --vars['energyLabel']:setString(Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt)))
+
+    --local icon = IconHelper:getStaminaInboxIcon(stamina_type)
+    --vars['energyIconNode']:addChild(icon)
 end
 
 -------------------------------------
