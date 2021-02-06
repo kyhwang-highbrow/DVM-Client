@@ -685,6 +685,11 @@ function UI_EventLFBag:setHistoryText()
                 msg_content['message'] = finalStr
 
                 self.m_rewardHistoryBoard:addChatContent(msg_content)
+
+                if (self.m_rewardHistoryBoard.m_scrollView) then
+                    local container_node = self.m_rewardHistoryBoard.m_scrollView:getContainer()
+                    container_node:setPositionY(self.m_rewardHistoryBoard.m_scrollView:maxContainerOffset()['y'])
+                end
             end
         end
     end
