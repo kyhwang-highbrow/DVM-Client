@@ -182,11 +182,10 @@ function BroadcastMgr:requestMsg()
 
             table.insert(self.m_tMessage, ret['broadcast'][i])
         end
-        ccdump(self.m_tMessage)
+
         table.sort(self.m_tMessage, function(a, b) 
             return (tonumber(a['timestamp']) > tonumber(b['timestamp']))
         end)
-        ccdump(self.m_tMessage)
 
         self.m_bExistNotice = false
         for i, v in ipairs(ret['notice']) do
