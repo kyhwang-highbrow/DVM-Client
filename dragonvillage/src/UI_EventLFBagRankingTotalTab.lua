@@ -313,6 +313,8 @@ end
 -- @brief 보상 정보 테이블 뷰 생성
 -------------------------------------
 function UI_EventLFBagRankingTotalTab:makeRankRewardTableView()
+    if (self.m_rewardTableView) then return end
+
     local node = self.vars['rewardNode']
 
     --local l_item_list = TableEventLFBagRank():getRankRewardList()

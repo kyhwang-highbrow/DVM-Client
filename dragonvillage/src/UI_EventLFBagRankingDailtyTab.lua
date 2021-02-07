@@ -186,8 +186,6 @@ function UI_EventLFBagRankingDailtyTab:refresh_playerUserInfo()
         end
     end
 
-
-
     if (not idx) then
         return
     end
@@ -338,6 +336,8 @@ end
 -- @brief 보상 정보 테이블 뷰 생성
 -------------------------------------
 function UI_EventLFBagRankingDailtyTab:makeRankRewardTableView()
+    if (self.m_rewardTableView) then return end
+
     local node = self.vars['rewardNode']
 
     --local l_item_list = TableEventLFBagRank():getRankRewardList()
