@@ -495,12 +495,13 @@ function UI_EventLFBagRankingTotalTab.makeCellUIRankReward(t_reward_info)
             rank_str = Str('{1}위', t_reward_info['rank_min'])
         end
     end
+
     vars['rankLabel']:setString(rank_str) 
 
     -- 보상 정보
     local l_item_list = g_itemData:parsePackageItemStr(t_reward_info['reward'])
-    for i, t_item in pairs(l_item_list) do
 
+    for i, t_item in pairs(l_item_list) do
         -- 라벨 크기 확대 (아이템 숫자가 잘 안보여서 확대)
         local card_ui = MakeItemCard(t_item)
         if (card_ui['vars'] and card_ui['vars']['numberLabel']) then
@@ -509,6 +510,16 @@ function UI_EventLFBagRankingTotalTab.makeCellUIRankReward(t_reward_info)
 
         card_ui.root:setScale(100/150)
         vars['itemNode' .. i]:addChild(card_ui.root)
+    end
+
+    -- 1위면 특별 보상이 있음
+    -- 하드코딩으로 해당 보상의 아이콘만 추가
+    if (tonumber(t_reward_info['rank_min']) == 1) then
+        --메테오라(어둠)
+        local itemIcon = IconHelper:getItemIcon(771595)
+        itemIcon:setScale(0.66)
+        vars['itemNode' .. #l_item_list + 1]:removeAllChildren(true)
+        vars['itemNode' .. #l_item_list + 1]:addChild(itemIcon)
     end
 
     return ui
