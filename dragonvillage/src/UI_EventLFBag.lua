@@ -19,6 +19,8 @@ UI_EventLFBag = class(PARENT,{
 
         m_broadcastCheckPeriod = 'number',
         m_broadcastUpdateTime = 'number',
+
+        m_isNeedPickMePickMe = 'bool',
     })
 
 -------------------------------------
@@ -27,6 +29,7 @@ UI_EventLFBag = class(PARENT,{
 function UI_EventLFBag:init()
     local vars = self:load('event_lucky_fortune_bag.ui')
 
+    self.m_isNeedPickMePickMe = true
     self.m_structLFBag = g_eventLFBagData:getLFBag()
 
     if (self.m_structLFBag:isMax()) then
@@ -804,8 +807,6 @@ function UI_EventLFBag:playNormalAni()
     vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
 end
 
-local isNeedPickMePickMe = true
-
 -------------------------------------
 -- function setSelebrateAni
 -------------------------------------
@@ -817,8 +818,8 @@ function UI_EventLFBag:setSelebrateAni()
     if (vars['completeNode']) then 
         vars['completeNode']:setVisible(true) 
 
-        if (vars['celebrateSprite'] and isNeedPickMePickMe ) then
-            isNeedPickMePickMe = false
+        if (vars['celebrateSprite'] and self.m_isNeedPickMePickMe ) then
+            self.m_isNeedPickMePickMe = false
             cca.pickMePickMe(vars['celebrateSprite'], 27) 
         end
     end
