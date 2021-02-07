@@ -674,7 +674,7 @@ function UI_EventLFBag:setHistoryText()
                 local finalStr = ''
                 local isRareItem = self:isRareItem(broadcastTable[i]['data']['item_id'])
 
-                local colorValue = isRareItem and '{@Y}' or '{@item_highlight}'
+                local colorValue = isRareItem and '{@light}' or '{@item_highlight}'
 
                 local nickName = '{@WHITE}' .. broadcastTable[i]['data']['nick']
                 local itemName = TableItem:getItemName(broadcastTable[i]['data']['item_id'])
@@ -802,6 +802,8 @@ function UI_EventLFBag:playNormalAni()
     vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
 end
 
+local isNeedPickMePickMe = true
+
 -------------------------------------
 -- function setSelebrateAni
 -------------------------------------
@@ -813,7 +815,10 @@ function UI_EventLFBag:setSelebrateAni()
     if (vars['completeNode']) then 
         vars['completeNode']:setVisible(true) 
 
-        if (vars['celebrateSprite']) then cca.pickMePickMe(vars['celebrateSprite'], 27) end
+        if (vars['celebrateSprite'] and isNeedPickMePickMe ) then
+            isNeedPickMePickMe = false
+            cca.pickMePickMe(vars['celebrateSprite'], 27) 
+        end
     end
 end
 

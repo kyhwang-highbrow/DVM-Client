@@ -172,7 +172,7 @@ COLOR = {
     ['rank_down'] = cc.c3b(28,119,255),
 
     -- 전광판 아이템 표기용 색상
-    ['item_highlight'] = cc.c3b(230,190,0),
+    ['item_highlight'] = cc.c3b(230,150,255),
 }
 
 -- 재정의 색상들
