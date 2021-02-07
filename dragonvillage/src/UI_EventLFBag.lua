@@ -665,7 +665,9 @@ function UI_EventLFBag:setHistoryText()
     -- 희귀 YELLOW/일반 item_highlight
     if self.m_rewardHistoryBoard then
         
-        for i = #broadcastTable, 1, -1 do
+        local maxListNumber = #broadcastTable > 100 and 100 or #broadcastTable
+
+        for i = maxListNumber, 1, -1 do
             local notiLevel = self:getNotiLevel(broadcastTable[i]['data']['item_id'])
 
             if (broadcastTable[i]['event'] == 'lkft' and 
