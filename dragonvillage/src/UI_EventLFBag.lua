@@ -676,7 +676,7 @@ function UI_EventLFBag:setHistoryText()
                 local finalStr = ''
                 local isRareItem = self:isRareItem(broadcastTable[i]['data']['item_id'])
 
-                local colorValue = isRareItem and '{@light}' or '{@item_highlight}'
+                local colorValue = isRareItem and '{@item_highlight}' or '{@light}'
 
                 local nickName = '{@WHITE}' .. broadcastTable[i]['data']['nick']
                 local itemName = TableItem:getItemName(broadcastTable[i]['data']['item_id'])
