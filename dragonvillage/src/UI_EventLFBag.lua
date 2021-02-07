@@ -666,7 +666,11 @@ function UI_EventLFBag:setHistoryText()
     if self.m_rewardHistoryBoard then
         
         for i = #broadcastTable, 1, -1 do
-            if (broadcastTable[i]['event'] == 'lkft' and  self:isMsgExsist(broadcastTable[i]['timestamp']) == false) then
+            local notiLevel = self:getNotiLevel(broadcastTable[i]['data']['item_id'])
+
+            if (broadcastTable[i]['event'] == 'lkft' and 
+                self:isMsgExsist(broadcastTable[i]['timestamp']) == false and
+                notiLevel > 0) then
                 local finalStr = ''
                 local isRareItem = self:isRareItem(broadcastTable[i]['data']['item_id'])
 
@@ -714,6 +718,33 @@ end
 
 
 -------------------------------------
+-- function getNotiLevel
+-- noti_level
+-- 아이템의 레어도를 나타내는 수치를 얻어온다
+-------------------------------------
+function UI_EventLFBag:getNotiLevel(itemID)
+    if (not itemID) then return 0 end
+
+    local table_lfbag_reward_info = self.m_structLFBag:getRewardList()
+    if (not table_lfbag_reward_info) then return 0 end
+
+    local resultItem = nil
+
+    for _, v in ipairs(table_lfbag_reward_info) do
+        if (itemID == v['item_id']) then resultItem = v end
+    end
+
+    if (not resultItem or resultItem['noti_level'] == '') then return 0 end
+
+    if (type(resultItem['noti_level']) == 'number') then
+        return tonumber(resultItem['noti_level'])
+    else
+        return 0
+    end
+end
+
+
+-------------------------------------
 -- function isRareItem
 -------------------------------------
 function UI_EventLFBag:isRareItem(itemID)
@@ -733,7 +764,6 @@ function UI_EventLFBag:isRareItem(itemID)
     if (type(resultItem['noti_level']) == 'number' and tonumber(resultItem['noti_level']) > 1) then
         return true
     else
-        cclog('not has resultItem')
         return false
     end
 end
