@@ -668,7 +668,7 @@ function UI_EventLFBag:setHistoryText()
         for i = #broadcastTable, 1, -1 do
             if (broadcastTable[i]['event'] == 'lkft' and  self:isMsgExsist(broadcastTable[i]['timestamp']) == false) then
                 local finalStr = ''
-                local isRareItem = self:isRareItem(broadcastTable[i]['item_id'])
+                local isRareItem = self:isRareItem(broadcastTable[i]['data']['item_id'])
 
                 local colorValue = isRareItem and '{@Y}' or '{@item_highlight}'
 
@@ -696,7 +696,7 @@ function UI_EventLFBag:setHistoryText()
 end
 
 -------------------------------------
--- function isRareItem
+-- function isMsgExsist
 -------------------------------------
 function UI_EventLFBag:isMsgExsist(timestamp)
     if (not self.m_rewardHistoryBoard) then return false end
@@ -719,17 +719,21 @@ end
 function UI_EventLFBag:isRareItem(itemID)
     if (not itemID) then return false end
 
-    local table_lfbag_reward_info = TABLE:get('table_arena_rank')
+    local table_lfbag_reward_info = self.m_structLFBag:getRewardList()
     if (not table_lfbag_reward_info) then return false end
 
     local resultItem = nil
-    for _, v in ipairs(table_lfbag_reward_info) do 
-        if (itemID == v['item_id']) then item = resultItem end
+
+    for _, v in ipairs(table_lfbag_reward_info) do
+        if (itemID == v['item_id']) then resultItem = v end
     end
 
-    if (resultItem and tonumber(resultItem['noti_level']) > 1) then
+    if (not resultItem or resultItem['noti_level'] == '') then return false end
+
+    if (type(resultItem['noti_level']) == 'number' and tonumber(resultItem['noti_level']) > 1) then
         return true
     else
+        cclog('not has resultItem')
         return false
     end
 end
