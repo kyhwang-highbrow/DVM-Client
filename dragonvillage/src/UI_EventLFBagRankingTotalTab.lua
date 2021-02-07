@@ -90,10 +90,12 @@ end
 -------------------------------------
 -- function refreshRank
 -------------------------------------
-function UI_EventLFBagRankingTotalTab:refreshRank(type) -- 다음/이전 버튼 눌렀을 경우 offset계산되어서 param으로 줌
+function UI_EventLFBagRankingTotalTab:refreshRank(type, offset) -- 다음/이전 버튼 눌렀을 경우 offset계산되어서 param으로 줌
     
     self.m_rankType = type
-    self.m_rankOffset = (type == 'my') and -1 or 1
+    if (not offset) then
+        self.m_rankOffset = (type == 'my') and -1 or 1
+    end
 
     local function finish_cb()
         self.m_rankOffset = g_eventLFBagData.m_nGlobalOffset
@@ -201,6 +203,16 @@ function UI_EventLFBagRankingTotalTab:makeRankTableView()
 
     local l_item_list = g_eventLFBagData.m_lGlobalRank
 
+    if (1 < self.m_rankOffset) then
+        local prev_data = { m_tag = 'prev' }
+        l_item_list['prev'] = prev_data
+    end
+
+    if (#l_item_list > 0) then
+        local next_data = { m_tag = 'next' }
+        l_item_list['next'] = next_data
+    end
+
     -- 이전, 다음 버튼은 전체 랭킹에서만 사용
     if (self.m_rankType == 'world') then
         if (1 < self.m_rankOffset) then
@@ -216,7 +228,7 @@ function UI_EventLFBagRankingTotalTab:makeRankTableView()
     local function click_prevBtn()
         self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
         self.m_rankOffset = math_max(self.m_rankOffset, 0)
-        self:refreshrank()
+        self:refreshRank(self.m_rankType, self.m_rankOffset)
     end
 
     -- 다음 랭킹 보기
@@ -227,7 +239,7 @@ function UI_EventLFBagRankingTotalTab:makeRankTableView()
             return
         end
         self.m_rankOffset = self.m_rankOffset + add_offset
-        self:refreshrank()
+        self:refreshRank(self.m_rankType, self.m_rankOffset)
     end
 
     -- 생성 콜백
