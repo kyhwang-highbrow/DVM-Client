@@ -406,14 +406,18 @@ function UI_EventLFBag:click_openBtn()
         local function finish_cb(ret)
             -- 성공
             if (ret['is_success']) then
-                SoundMgr:playEffect('UI', 'ui_in_item_get')
+                if (self.m_structLFBag:getCurrentLv() < 3) then
+                    SoundMgr:playEffect('UI', 'ui_in_item_get')
+                else
+                    SoundMgr:playEffect('UI', 'ui_game_start')
+                end
                 
                 -- 이번 성공으로 획득한 보상
                 local function toast_cb()
                     if (ret['item_info']) then
                         self:showCurrntReward(ret['item_info'])
 
-                        if(self.m_structLFBag:isMax()) then 
+                        if (self.m_structLFBag:isMax()) then 
                             local msg = Str('{1}단계', 5) .. ' ' .. Str('성공')
                             local submsg = ''
                             submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
@@ -428,6 +432,8 @@ function UI_EventLFBag:click_openBtn()
                             end
 
                             UI_EventLFBagNoticePopup(POPUP_TYPE.OK, msg, scoreMsg, submsg, ok_cb)
+
+                            SoundMgr:playEffect('UI', 'ui_grow_result')
 
                             self:setSelebrateAni()
                         end
