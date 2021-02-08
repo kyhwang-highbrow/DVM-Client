@@ -175,7 +175,7 @@ function BroadcastMgr:requestMsg()
             local timestamp = v['timestamp']
 
             if (timestamp) then
-                timestamp = math_floor(timestamp / 1000)
+                --timestamp = math_floor(timestamp / 1000)
 
                 self.m_recentTimeStamp = math_max(self.m_recentTimeStamp, timestamp)
             end
