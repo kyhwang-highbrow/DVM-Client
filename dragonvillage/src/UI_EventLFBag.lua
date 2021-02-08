@@ -637,20 +637,29 @@ function UI_EventLFBag.updateCellUI(cell_ui, t_data)
     cell_ui.root:setVisible(true)
     local vars = cell_ui.vars
     vars['itemNode']:removeAllChildren(true)
-    local icon = IconHelper:getItemIcon(t_data['item_id'])
-    icon:setScale(1.1) -- 아이콘 크기 확대
-    
+    local icon = MakeItemCard(t_data)--IconHelper:getItemIcon(t_data['item_id'])
+    icon.root:setScale(1.1) -- 아이콘 크기 확대
+    if (icon.vars) then
+        if (icon.vars['commonSprite']) then
+            icon.vars['commonSprite']:setVisible(false)
+        end
+
+        if (icon.vars['bgSprite']) then
+            icon.vars['bgSprite']:setVisible(false)
+        end
+    end
+
     if (isRareItem) then
         -- 빤짝이 추가
         local animator = MakeAnimator('ui/a2d/card_summon/card_summon.vrp')
         animator:setScale(1.7)
         animator:changeAni('summon_hero', true)
-        icon:addChild(animator.m_node, 3)
+        icon.root:addChild(animator.m_node, 3)
 
         cell_ui.vars['rareEffect'] = animator
     end
 
-    vars['itemNode']:addChild(icon)
+    vars['itemNode']:addChild(icon.root)
     vars['probLabel']:setString(string.format('%s%%', t_data['pick_percent']))
     vars['countLabel']:setString(comma_value(t_data['val']))
 end
