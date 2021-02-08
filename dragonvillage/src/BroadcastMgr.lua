@@ -162,7 +162,7 @@ end
 -------------------------------------
 -- function requestMsg
 -------------------------------------
-function BroadcastMgr:requestMsg()
+function BroadcastMgr:requestMsg(finish_cb)
 
     local function success_cb(ret)
         if (ret['status'] ~= 0) then return end
@@ -182,10 +182,6 @@ function BroadcastMgr:requestMsg()
 
             table.insert(self.m_tMessage, v)
         end
-
-        table.sort(self.m_tMessage, function(a, b) 
-            return (tonumber(a['timestamp']) > tonumber(b['timestamp']))
-        end)
 
         self.m_bExistNotice = false
         for i, v in ipairs(ret['notice']) do
@@ -216,6 +212,8 @@ function BroadcastMgr:requestMsg()
         -- 정렬
         table.sort(self.m_tMessage, function(a,b) return a['timestamp'] < b['timestamp'] end)
         table.sort(self.m_tNotice, function(a,b) return a['timestamp'] < b['timestamp'] end)
+
+        if (finish_cb) then finish_cb() end
     end
 
 	local t_request = {}

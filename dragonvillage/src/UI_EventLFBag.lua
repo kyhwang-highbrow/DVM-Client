@@ -49,6 +49,9 @@ function UI_EventLFBag:init()
     self:initButton()
     self:refresh()
 
+    g_broadcastManager.m_recentTimeStamp = 0
+    g_broadcastManager:requestMsg(self:updateRewardHistory())
+
     -- UI 설정
     self:setOpacityChildren(true)
     self:setSwallowTouch()
@@ -183,8 +186,6 @@ function UI_EventLFBag:refresh()
     
     -- 현재 레벨의 보상 목록
     self:updateScrollView()
-
-    self:updateRewardHistory()
 
     self:updateCumulativeRewardList()
 end
