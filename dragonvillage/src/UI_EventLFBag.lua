@@ -702,7 +702,7 @@ function UI_EventLFBag:setHistoryText()
                 msg_content.m_timestamp = broadcastTable[i]['timestamp']
                 msg_content['message'] = finalStr
 
-                self.m_rewardHistoryBoard:addChatContent(msg_content)
+                --self.m_rewardHistoryBoard:addChatContent(msg_content)
 
                 if (self.m_rewardHistoryBoard.m_scrollView) then
                     local container_node = self.m_rewardHistoryBoard.m_scrollView:getContainer()
@@ -758,8 +758,6 @@ function UI_EventLFBag:getNotiLevel(itemID)
     end
 
     if (not resultItem or resultItem['noti_level'] == '') then return 0 end
-
-    ccdump(resultItem)
 
     if (type(resultItem['noti_level']) == 'number') then
         return tonumber(resultItem['noti_level'])
