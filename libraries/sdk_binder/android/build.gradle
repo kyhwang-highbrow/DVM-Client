@@ -76,7 +76,7 @@ dependencies {
     // @unity-ads
     implementation 'com.unity3d.ads:unity-ads:3.4.8'
     // @facebook Audience Network
-    implementation 'com.facebook.android:audience-network-sdk:6.2.0'
+    implementation 'com.facebook.android:audience-network-sdk:6.2.1'
     //implementation files('libs/AudienceNetwork-6.2.1.aar')
 
     // @onestore IAP
