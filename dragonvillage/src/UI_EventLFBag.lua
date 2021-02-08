@@ -405,9 +405,18 @@ function UI_EventLFBag:click_openBtn()
     -- 소원 구슬 열기
     local function do_open()
         self.m_lastAniLevel = lv
-        self:playOpenAnimation('effect', self.m_lastAniLevel, false)
 
         local function finish_cb(ret)
+            local hasBonusScore = ret['score_bonus'] and ret['score_bonus'] == 1
+
+            local openAnimationType = 'effect'
+            if (isLowEndMode()) then
+		        openAnimationType = 'effect_low'
+            elseif (hasBonusScore) then
+                openAnimationType = 'special'
+	        end
+
+            self:playOpenAnimation(openAnimationType, self.m_lastAniLevel, false)
             -- 성공
             if (ret['is_success']) then
                 if (self.m_structLFBag:getCurrentLv() < 3) then
@@ -429,7 +438,7 @@ function UI_EventLFBag:click_openBtn()
                             local score = ret['score'] ~= nil and ret['score'] or self:getCurrentEndScore()
                             local scoreMsg = ''
 
-                            if (score > 50) then
+                            if (hasBonusScore) then
                                 scoreMsg = Str('대박 점수: {1}점', score)
                             else
                                 scoreMsg = Str('점수: {1}점', score)
