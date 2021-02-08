@@ -22,7 +22,7 @@ function AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
 
     if animator then
         animator.m_node:setMix('idle', 'attack', 0.1)
-        animator.m_node:setMix('idle', 'idle', 0.5)
+        animator.m_node:setMix('idle', 'idle', 0.3)
         animator.m_node:setMix('idle', 'skill_appear', 0.5)
         animator.m_node:setMix('attack', 'skill_appear', 0.5)
         
