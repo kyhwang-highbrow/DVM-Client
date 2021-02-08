@@ -710,13 +710,14 @@ function UI_EventLFBag:setHistoryText()
                 end
             end
         end
+    end
 
-        local isNoItem = not self.m_rewardHistoryBoard.m_itemList or #self.m_rewardHistoryBoard.m_itemList < 1
+    local isNoItem = self.m_rewardHistoryBoard.m_itemList and #self.m_rewardHistoryBoard.m_itemList < 1
+    local isNoQueue = self.m_rewardHistoryBoard.m_contentQueue and #self.m_rewardHistoryBoard.m_contentQueue < 1
 
-        if (self.m_noticeBlankLabel) then
-            -- 기록 없음
-            self.m_noticeBlankLabel:setVisible(isNoItem)
-        end
+    if (self.m_noticeBlankLabel) then
+        -- 기록 없음
+        self.m_noticeBlankLabel:setVisible(isNoItem and isNoQueue)
     end
 end
 
