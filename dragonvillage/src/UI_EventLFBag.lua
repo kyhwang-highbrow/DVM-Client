@@ -407,7 +407,7 @@ function UI_EventLFBag:click_openBtn()
         self.m_lastAniLevel = lv
 
         local function finish_cb(ret)
-            local hasBonusScore = ret['score_bonus'] and ret['score_bonus'] == 1
+            local hasBonusScore = ret['score_bonus'] and ret['score_bonus'] == 1 and ret['score'] > 50
 
             local openAnimationType = 'effect'
             if (isLowEndMode()) then
