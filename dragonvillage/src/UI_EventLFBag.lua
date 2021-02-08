@@ -1,5 +1,5 @@
 local PARENT = UI
-local LFBAG_QUEUE_COUNT_PER_CYCLE = 1
+
 -------------------------------------
 -- class UI_EventLFBag
 -------------------------------------
@@ -23,9 +23,6 @@ UI_EventLFBag = class(PARENT,{
         m_isNeedPickMePickMe = 'bool',
 
         m_noticeBlankLabel = 'cc.LabelTTF',
-
-        m_messageTable = 'table',           -- 현재 노출할 메세지
-        m_messageQueueTable = 'table',      -- 큐에 들어가있는 메세지
     })
 
 -------------------------------------
@@ -43,10 +40,6 @@ function UI_EventLFBag:init()
         self.m_lastAniLevel = self.m_structLFBag:getLv()
         self:playNormalAni()
     end
-
-    self.m_messageTable = {}
-
-    self.m_messageQueueTable = self:deepcopy(g_broadcastManager.m_tMessage)
 
     self.m_toastUI = self:makeToast()
     self.m_toastUI.root:setPosition(-136, -30)
@@ -191,10 +184,7 @@ function UI_EventLFBag:refresh()
     -- 현재 레벨의 보상 목록
     self:updateScrollView()
 
-    LFBAG_QUEUE_COUNT_PER_CYCLE = 1
-    self:makeMessageTable()
     self:updateRewardHistory()
-    LFBAG_QUEUE_COUNT_PER_CYCLE = 1
 
     self:updateCumulativeRewardList()
 end
@@ -262,31 +252,8 @@ function UI_EventLFBag:update(dt)
 
     -- 메세지를 서버에 요청
 	if (cur_time >= (self.m_broadcastUpdateTime + self.m_broadcastCheckPeriod)) then
-        self.m_broadcastUpdateTime = cur_time
-        
-        if (not self.m_messageQueueTable or #self.m_messageQueueTable < 1) then return end
-
-        -- 조회
-        self:makeMessageTable()
-
 		self:updateRewardHistory()
 	end
-end
-
--------------------------------------
--- function makeMessageTable
--- @brief
--------------------------------------
-function UI_EventLFBag:makeMessageTable()
-    local tableCount = math.max(#self.m_messageQueueTable, 0)
-    if (tableCount >= LFBAG_QUEUE_COUNT_PER_CYCLE) then tableCount = LFBAG_QUEUE_COUNT_PER_CYCLE end
-
-    local searchLastIndex = math.min(tableCount - LFBAG_QUEUE_COUNT_PER_CYCLE, 1)
-
-    for i = tableCount, searchLastIndex, -1 do
-        table.insert(self.m_messageTable, self.m_messageQueueTable[i])
-        table.remove(self.m_messageQueueTable, i)
-    end
 end
 
 -------------------------------------
@@ -723,7 +690,7 @@ end
 -- function setHistoryText
 -------------------------------------
 function UI_EventLFBag:setHistoryText()
-    local broadcastTable = self.m_messageTable
+    local broadcastTable = g_broadcastManager.m_tMessage
 
     if (broadcastTable == nil or #broadcastTable < 1) then return end
     -- 희귀 YELLOW/일반 item_highlight
@@ -762,8 +729,6 @@ function UI_EventLFBag:setHistoryText()
             end
         end
     end
-
-    self.m_messageTable = {}
 
     local isNoItem = self.m_rewardHistoryBoard.m_itemList and #self.m_rewardHistoryBoard.m_itemList < 1
     local isNoQueue = self.m_rewardHistoryBoard.m_contentQueue and #self.m_rewardHistoryBoard.m_contentQueue < 1
