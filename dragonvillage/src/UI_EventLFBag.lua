@@ -22,7 +22,7 @@ UI_EventLFBag = class(PARENT,{
 
         m_isNeedPickMePickMe = 'bool',
 
-        m_noticeBlankLabel = 'cc.Label',
+        m_noticeBlankLabel = 'cc.LabelTTF',
     })
 
 -------------------------------------
@@ -702,7 +702,7 @@ function UI_EventLFBag:setHistoryText()
                 msg_content.m_timestamp = broadcastTable[i]['timestamp']
                 msg_content['message'] = finalStr
 
-                --self.m_rewardHistoryBoard:addChatContent(msg_content)
+                self.m_rewardHistoryBoard:addChatContent(msg_content)
 
                 if (self.m_rewardHistoryBoard.m_scrollView) then
                     local container_node = self.m_rewardHistoryBoard.m_scrollView:getContainer()
@@ -711,11 +711,11 @@ function UI_EventLFBag:setHistoryText()
             end
         end
 
-        local hasItem = not self.m_rewardHistoryBoard.m_itemList or #self.m_rewardHistoryBoard.m_itemList < 1
+        local isNoItem = not self.m_rewardHistoryBoard.m_itemList or #self.m_rewardHistoryBoard.m_itemList < 1
 
         if (self.m_noticeBlankLabel) then
             -- 기록 없음
-            self.m_noticeBlankLabel:setVisible(not hasItem)
+            self.m_noticeBlankLabel:setVisible(isNoItem)
         end
     end
 end
