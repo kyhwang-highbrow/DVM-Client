@@ -191,7 +191,7 @@ function UI_EventLFBag:refresh()
     -- 현재 레벨의 보상 목록
     self:updateScrollView()
 
-    LFBAG_QUEUE_COUNT_PER_CYCLE = 10
+    LFBAG_QUEUE_COUNT_PER_CYCLE = 1
     self:makeMessageTable()
     self:updateRewardHistory()
     LFBAG_QUEUE_COUNT_PER_CYCLE = 1
