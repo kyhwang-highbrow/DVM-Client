@@ -791,6 +791,22 @@ void itAdShow(int funcID) {
     [[PerpleSDK sharedInstance] itAdShow];
 }
 
+#pragma mark - Facebook Audience Network
+void facebookAudienceNetworkInitRewardedVideoAd(int funcID) {
+	
+}
+
+void rvFacebookAudienceNetworkSetResultCallback(int funcID) {
+	
+}
+
+void rvFacebookAudienceNetworkLoadWithId(int funcID) {
+	
+}
+
+void rvFacebookAudienceNetworkAdShow(int funcID) {
+	
+}
 
 #pragma mark - Xsolla // not support iOS
 BOOL xsollaIsAvailable(int funcID) {
@@ -815,6 +831,10 @@ void crashlyticsSetUid(int funcID, const char* uid) {
 
 void crashlyticsSetLog(int funcID, const char* message) {
     [[PerpleSDK sharedInstance] crashlyticsSetLog:[NSString stringWithUTF8String:message]];
+}
+
+void crashlyticsSetExceptionLog(int funcID, const char* message) {
+	
 }
 
 void crashlyticsSetKeyString(int funcID, const char* key, const char* value) {
