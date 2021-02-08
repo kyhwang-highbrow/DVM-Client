@@ -64,6 +64,7 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
 	-- dragon 생성 시작
 	local size = g_constant:get('INGAME', 'DRAGON_BODY_SIZE') or 20
     local dragon = Dragon(nil, {0, 0, size})
+
     self:addToUnitList(dragon)
 
     dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, bPossibleRevive)
@@ -74,6 +75,11 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
 
 	dragon:initState()
 	dragon:initFormation()
+
+    local animator = dragon.m_animator
+    if (animator) then
+        animator.m_node:setMix('idle', 'idle', '0.5') 
+    end
 
     if (self.m_gameMode ~= GAME_MODE_COLOSSEUM and
         self.m_gameMode ~= GAME_MODE_ARENA and
