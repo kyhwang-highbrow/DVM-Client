@@ -21,6 +21,8 @@ UI_EventLFBag = class(PARENT,{
         m_broadcastUpdateTime = 'number',
 
         m_isNeedPickMePickMe = 'bool',
+
+        m_noticeBlankLabel = 'cc.Label',
     })
 
 -------------------------------------
@@ -61,6 +63,8 @@ end
 function UI_EventLFBag:initUI()
     local vars = self.vars
     self.m_rewardHistoryView = vars['textNode']
+
+    self.m_noticeBlankLabel = vars['blanckLabel']
     self:makeScrollView()
 end
 
@@ -683,9 +687,8 @@ function UI_EventLFBag:setHistoryText()
                 self:isMsgExsist(broadcastTable[i]['timestamp']) == false and
                 notiLevel > 0) then
                 local finalStr = ''
-                local isRareItem = self:isRareItem(broadcastTable[i]['data']['item_id'])
 
-                local colorValue = isRareItem and '{@item_highlight}' or '{@light}'
+                local colorValue = notiLevel > 1 and '{@item_highlight}' or '{@light}'
 
                 local nickName = '{@WHITE}' .. broadcastTable[i]['data']['nick']
                 local itemName = TableItem:getItemName(broadcastTable[i]['data']['item_id'])
@@ -706,6 +709,13 @@ function UI_EventLFBag:setHistoryText()
                     container_node:setPositionY(self.m_rewardHistoryBoard.m_scrollView:maxContainerOffset()['y'])
                 end
             end
+        end
+
+        local hasItem = not self.m_rewardHistoryBoard.m_itemList or #self.m_rewardHistoryBoard.m_itemList < 1
+
+        if (self.m_noticeBlankLabel) then
+            -- 기록 없음
+            self.m_noticeBlankLabel:setVisible(not hasItem)
         end
     end
 end
@@ -736,16 +746,20 @@ end
 function UI_EventLFBag:getNotiLevel(itemID)
     if (not itemID) then return 0 end
 
-    local table_lfbag_reward_info = self.m_structLFBag:getRewardList()
+    local table_lfbag_reward_info = self.m_structLFBag.getFullRewardList()
     if (not table_lfbag_reward_info) then return 0 end
 
     local resultItem = nil
 
     for _, v in ipairs(table_lfbag_reward_info) do
-        if (itemID == v['item_id']) then resultItem = v end
+        for __, vv in ipairs(v) do
+            if (itemID == vv['item_id']) then resultItem = vv end
+        end
     end
 
     if (not resultItem or resultItem['noti_level'] == '') then return 0 end
+
+    ccdump(resultItem)
 
     if (type(resultItem['noti_level']) == 'number') then
         return tonumber(resultItem['noti_level'])

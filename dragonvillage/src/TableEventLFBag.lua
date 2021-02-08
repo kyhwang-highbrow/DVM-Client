@@ -31,6 +31,17 @@ function TableEventLFBag:getRewardList(lv)
 end
 
 -------------------------------------
+-- function getFullRewardList
+-------------------------------------
+function TableEventLFBag:getFullRewardList()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self.m_rewardList
+end
+
+-------------------------------------
 -- function makeRewardList
 -------------------------------------
 function TableEventLFBag:makeRewardList()

@@ -170,6 +170,17 @@ function StructEventLFBag:getRewardList()
 end
 
 -------------------------------------
+-- function getFullRewardList
+-------------------------------------
+function StructEventLFBag:getFullRewardList()
+    if (mCachedTable == nil) then
+        require('TableEventLFBag')
+        mCachedTable = TableEventLFBag()
+    end
+    return mCachedTable:getFullRewardList()
+end
+
+-------------------------------------
 -- function getCumulativeRewardList
 -------------------------------------
 function StructEventLFBag:getCumulativeRewardList()
