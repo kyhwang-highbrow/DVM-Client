@@ -82,6 +82,8 @@ end
 -- function getBase
 -------------------------------------
 function GameTimeScale:getBase()
+
+    cclog('timescale ' .. tostring(self.m_baseTimeScale))
     return self.m_baseTimeScale
 end
 
