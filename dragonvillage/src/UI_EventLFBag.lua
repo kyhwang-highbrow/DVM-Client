@@ -747,7 +747,7 @@ function UI_EventLFBag:isMsgExsist(timestamp)
     if (not self.m_rewardHistoryBoard) then return false end
 
     local hasNoItem = not self.m_rewardHistoryBoard.m_itemList or #self.m_rewardHistoryBoard.m_itemList < 1
-    local hasNoQueue = not self.m_rewardHistoryBoard.m_itemList or #self.m_rewardHistoryBoard.m_itemList < 1
+    local hasNoQueue = not self.m_rewardHistoryBoard.m_contentQueue or #self.m_rewardHistoryBoard.m_contentQueue < 1
 
     if (hasNoItem and hasNoQueue) then return false end
    
