@@ -253,6 +253,7 @@ function UI_EventLFBag:update(dt)
 
     -- 메세지를 서버에 요청
 	if (cur_time >= (self.m_broadcastUpdateTime + self.m_broadcastCheckPeriod)) then
+        self.m_broadcastUpdateTime = cur_time
 		self:updateRewardHistory()
 	end
 end
@@ -692,7 +693,6 @@ end
 -------------------------------------
 function UI_EventLFBag:setHistoryText()
     local broadcastTable = g_broadcastManager.m_tMessage
-
     if (broadcastTable == nil or #broadcastTable < 1) then return end
     -- 희귀 YELLOW/일반 item_highlight
     if self.m_rewardHistoryBoard then
@@ -746,10 +746,19 @@ end
 function UI_EventLFBag:isMsgExsist(timestamp)
     if (not self.m_rewardHistoryBoard) then return false end
 
-    if (not self.m_rewardHistoryBoard.m_itemList or #self.m_rewardHistoryBoard.m_itemList < 1) then return false end
+    local hasNoItem = not self.m_rewardHistoryBoard.m_itemList or #self.m_rewardHistoryBoard.m_itemList < 1
+    local hasNoQueue = not self.m_rewardHistoryBoard.m_itemList or #self.m_rewardHistoryBoard.m_itemList < 1
+
+    if (hasNoItem and hasNoQueue) then return false end
    
     for i, v in ipairs(self.m_rewardHistoryBoard.m_itemList) do
         if (v['data'] and v['data'].m_timestamp == timestamp) then
+            return true
+        end
+    end
+
+    for i, v in ipairs(self.m_rewardHistoryBoard.m_contentQueue) do
+        if (v and v.m_timestamp == timestamp) then
             return true
         end
     end
