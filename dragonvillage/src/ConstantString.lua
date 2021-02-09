@@ -323,7 +323,10 @@ function getContentName(content_type)
     
     elseif (content_type == 'colosseum') then
         content_name = Str('콜로세움')
-    
+
+    elseif (content_type == 'arena_new') then
+        content_name = Str('신규 아레나')
+
     elseif (content_type == 'ancient') then
         content_name = Str('고대의 탑')
 

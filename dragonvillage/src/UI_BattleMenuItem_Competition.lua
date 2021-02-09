@@ -83,6 +83,10 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 	elseif (content_type == 'colosseum') then
 		t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_colosseum()
         
+    -- 신규 아레나 code name : arena_new
+	elseif (content_type == 'arena_new') then
+		t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_colosseum()
+
 	-- 그림자의 신전
 	elseif (content_type == 'challenge_mode') then
         t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_challengeMode()

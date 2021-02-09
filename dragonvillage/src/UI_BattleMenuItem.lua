@@ -128,6 +128,10 @@ function UI_BattleMenuItem:refresh()
     elseif (content_type == 'colosseum') then
         local visible = g_fevertimeData:isActiveFevertime_pvpHonorUp()
         self.vars['HotSprite']:setVisible(visible)
+
+    elseif (content_type == 'arena_new') then
+        local visible = g_fevertimeData:isActiveFevertime_pvpHonorUp()
+        self.vars['HotSprite']:setVisible(visible)
         
     elseif (content_type == 'exploration') then
         has_noti = g_highlightData:isHighlightExploration()
@@ -196,6 +200,10 @@ function UI_BattleMenuItem:click_enterBtn()
     -- 콜로세움
     elseif (content_type == 'colosseum') then
         UINavigator:goTo('colosseum')
+
+    -- 콜로세움
+    elseif (content_type == 'arena_new') then
+        UINavigator:goTo('arena_new')
 
     -- 진화재료 던전
     elseif (content_type == 'nest_evo_stone') then

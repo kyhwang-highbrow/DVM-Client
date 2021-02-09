@@ -450,6 +450,8 @@ function UI_BattleMenu:initCompetitionTab()
         end
     end 
 
+    table.insert(l_content_str, 'arena_new')
+
     -- 리스트 갯수에 따라 interval_x 간격 조절
     local list_count = table.count(l_content_str)
     if (list_count == 4) then

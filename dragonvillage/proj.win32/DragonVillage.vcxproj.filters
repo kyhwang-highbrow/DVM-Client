@@ -4843,6 +4843,9 @@
     <None Include="..\src\GameWorldArenaNew.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ArenaNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
