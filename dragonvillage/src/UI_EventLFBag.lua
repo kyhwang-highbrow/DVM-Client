@@ -55,7 +55,7 @@ function UI_EventLFBag:init()
     -- UI 설정
     self:setOpacityChildren(true)
     self:setSwallowTouch()
-    self.m_broadcastCheckPeriod = 2
+    self.m_broadcastCheckPeriod = 5
     self.m_broadcastUpdateTime = os.time() + self.m_broadcastCheckPeriod
     self:startUpdate(function(dt) self:update(dt) end)
 end
