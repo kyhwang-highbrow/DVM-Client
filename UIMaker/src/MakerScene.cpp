@@ -2219,8 +2219,8 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
         }
         else if (field_name == "scale_x") node->setScaleX(reflect->GetFloat(msg, field));
 		else if (field_name == "scale_y") node->setScaleY(reflect->GetFloat(msg, field));
-		else if (field_name == "skew_x") node->setSkewX(reflect->GetFloat(msg, field));
-		else if (field_name == "skew_y") node->setSkewY(reflect->GetFloat(msg, field));
+		else if (field_name == "skew_y") node->setSkewX(reflect->GetFloat(msg, field)); // @sgkim 2021.02.10 드빌M에서 사용하는 cocos2d-x 3.1.1과 드빌A, 드빌NEW에 사용하는 cocos2d-x 3.17.2 버전의 차이로 x,y가 반대로 적용됨
+		else if (field_name == "skew_x") node->setSkewY(reflect->GetFloat(msg, field)); // @sgkim 2021.02.10 드빌M에서 사용하는 cocos2d-x 3.1.1과 드빌A, 드빌NEW에 사용하는 cocos2d-x 3.17.2 버전의 차이로 x,y가 반대로 적용됨
 		else if (field_name == "rotation") node->setRotation(reflect->GetFloat(msg, field));
 		else if (field_name == "visible") node->setVisible(reflect->GetBool(msg, field));
 		else
