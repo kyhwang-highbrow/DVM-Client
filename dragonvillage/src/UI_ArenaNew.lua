@@ -115,6 +115,22 @@ function UI_ArenaNew:init(sub_data)
 
     -- @ TUTORIAL : colosseum (튜토리얼 후에 처리)
 --    TutorialManager.getInstance():startTutorial(TUTORIAL.COLOSSEUM, self)
+
+    self:updateRivalList()
+end
+
+function UI_ArenaNew:updateRivalList()
+    local vars = self.vars
+    local node = vars['itemNode']
+
+    local l_item_list = {'', '', '', '', ''}
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(720, 100 + 5)
+    table_view:setCellUIClass(UI_ArenaNewRivalListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
 end
 
 -------------------------------------

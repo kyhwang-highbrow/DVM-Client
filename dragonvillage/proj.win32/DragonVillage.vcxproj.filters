@@ -4849,6 +4849,9 @@
     <None Include="..\src\ServerData_ArenaNew.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ArenaNewRivalListItem.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
