@@ -4852,6 +4852,12 @@
     <None Include="..\src\UI_ArenaNewRivalListItem.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ArenaNewRankInfoPopup.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_LoadingArenaNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

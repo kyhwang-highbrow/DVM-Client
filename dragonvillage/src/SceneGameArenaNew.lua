@@ -80,7 +80,7 @@ end
 -- @brief scene전환 중 로딩화면 생성
 -------------------------------------
 function SceneGameArenaNew:makeLoadingUI()
-    return UI_LoadingArena(self)
+    return UI_LoadingArenaNew(self)
 end
 
 -------------------------------------

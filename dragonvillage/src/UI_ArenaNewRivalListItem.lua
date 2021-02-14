@@ -87,10 +87,43 @@ end
 -- function initButton
 -------------------------------------
 function UI_ArenaNewRivalListItem:initButton()
+    local vars = self.vars 
+    vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)    
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ArenaNewRivalListItem:refresh()
+end
+
+-------------------------------------
+-- function click_challengeBtn
+-- @brief 랭커 pvp 정보 받아와서 세팅후 개발 모드로 게임 실행
+-------------------------------------
+function UI_ArenaNewRivalListItem:click_startBtn()
+    local l_dragon_deck = g_arenaData.m_playerUserInfo:getDeck_dragonList()
+    if (table.count(l_dragon_deck) <= 0) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
+        return
+    end
+
+    local uid = g_userData:get('uid')
+    local peer_uid = self.m_rankInfo.m_uid
+
+    local function success_cb(ret)
+        g_arenaData:makeMatchUserInfo(ret['pvpuser_info'])
+
+        local scene = SceneGameArenaNew(nil, nil, nil, true)
+        scene:runScene()
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setRevocable(true)
+    ui_network:setUrl('/game/arena/user_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('peer', peer_uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
 end
