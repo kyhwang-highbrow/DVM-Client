@@ -45,7 +45,7 @@ function UI_ArenaNew:init(sub_data)
     local ui_res = 'arena_new_scene.ui'
 
     -- TODO
-    --if (g_arenaData:isStartClanWarContents()) then
+    --if (g_arenaNewData:isStartClanWarContents()) then
     --    ui_res = 'arena_scene_new.ui'
     --end
 
@@ -74,7 +74,7 @@ function UI_ArenaNew:init(sub_data)
             local tar_ui  
 
             -- 기존 콜로세움 보상이라면 기존 UI 열자
-            if (g_arenaData.m_bLastPvpReward) then
+            if (g_arenaNewData.m_bLastPvpReward) then
                 tar_ui = UI_ColosseumRankingRewardPopup(t_info, is_clan)
 
             -- 신규 콜로세움 보상
@@ -86,17 +86,17 @@ function UI_ArenaNew:init(sub_data)
         end
 
         -- 시즌 보상 팝업 (보상이 있다면)
-		if (g_arenaData.m_tSeasonRewardInfo) then
-            local t_info = g_arenaData.m_tSeasonRewardInfo
+		if (g_arenaNewData.m_tSeasonRewardInfo) then
+            local t_info = g_arenaNewData.m_tSeasonRewardInfo
             local is_clan = false
             ui = get_target_ui(t_info, is_clan)
             
-            g_arenaData.m_tSeasonRewardInfo = nil
+            g_arenaNewData.m_tSeasonRewardInfo = nil
 		end
 
         -- 클랜 보상 팝업 (보상이 있다면)
-        if (g_arenaData.m_tClanRewardInfo) then
-            local t_info = g_arenaData.m_tClanRewardInfo
+        if (g_arenaNewData.m_tClanRewardInfo) then
+            local t_info = g_arenaNewData.m_tClanRewardInfo
             local is_clan = true
 
             if (ui) then
@@ -107,7 +107,7 @@ function UI_ArenaNew:init(sub_data)
                 ui = get_target_ui(t_info, is_clan)
             end
 
-            g_arenaData.m_tClanRewardInfo = nil
+            g_arenaNewData.m_tClanRewardInfo = nil
         end
     end
 
@@ -124,7 +124,7 @@ function UI_ArenaNew:updateRivalList()
     local node = vars['itemNode']
 
     local function finish_cb()
-        local l_item_list = g_arenaData.m_lGlobalRank
+        local l_item_list = g_arenaNewData.m_lGlobalRank
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
@@ -135,7 +135,7 @@ function UI_ArenaNew:updateRivalList()
     end
 
     local offset = self.m_rankOffset
-    g_arenaData:request_arenaRank(offset, nil, finish_cb)
+    g_arenaNewData:request_arenaRank(offset, nil, finish_cb)
 end
 
 -------------------------------------
@@ -197,7 +197,7 @@ end
 function UI_ArenaNew:refresh()
     local vars = self.vars
 
-    local struct_user_info = g_arenaData:getPlayerArenaUserInfo()
+    local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
     do
         -- 티어 아이콘
         vars['tierIconNode']:removeAllChildren()
@@ -267,7 +267,7 @@ function UI_ArenaNew:showBegginerNoRewardPopup()
         return
     end
 
-    local struct_user_info = g_arenaData:getPlayerArenaUserInfo()
+    local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
     local tier = struct_user_info.m_tier
     if (tier ~= 'beginner') then
         return
@@ -324,7 +324,7 @@ end
 -- @brief 테스트 모드로 진입
 -------------------------------------
 function UI_ArenaNew:click_testModeBtn()
-    local combat_power = g_arenaData.m_playerUserInfo:getDefDeckCombatPower(true)
+    local combat_power = g_arenaNewData.m_playerUserInfo:getDefDeckCombatPower(true)
     if (combat_power == 0) then
         MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
         return
@@ -379,7 +379,7 @@ function UI_ArenaNew:update(dt)
     if self.m_bClosedTag then
         return
 
-    elseif (not g_arenaData:isOpenArena()) then
+    elseif (not g_arenaNewData:isOpenArena()) then
         local function ok_cb()
             -- 로비로 이동
             UINavigator:goTo('lobby')
@@ -389,7 +389,7 @@ function UI_ArenaNew:update(dt)
         return
     end
 
-    local str = g_arenaData:getArenaStatusText()
+    local str = g_arenaNewData:getArenaStatusText()
     vars['timeLabel']:setString(str)
 end
 

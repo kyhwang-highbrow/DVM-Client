@@ -99,7 +99,9 @@ end
 -- @breif 콜로세움 오픈 여부 (시간 체크와 별도로 진입시 검사)
 -------------------------------------
 function ServerData_ArenaNew:isOpen()
-    return self.m_bOpen
+    -- TODO
+    --return self.m_bOpen
+    return true
 end
 
 -------------------------------------
@@ -111,7 +113,9 @@ function ServerData_ArenaNew:isOpenArena()
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
 	
-	return (start_time <= curr_time) and (curr_time <= end_time)
+    -- TODO
+	--return (start_time <= curr_time) and (curr_time <= end_time)
+    return true
 end
 
 -------------------------------------

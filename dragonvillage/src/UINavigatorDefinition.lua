@@ -511,15 +511,15 @@ function UINavigatorDefinition:goTo_arena_new(...)
 
     local function finish_cb()
 
-         -- 오픈 상태 여부 체크
-        if (not g_arenaData:isOpenArena()) then
+        -- 오픈 상태 여부 체크
+        if (not g_arenaNewData:isOpenArena()) then
             local msg = Str('콜로세움 오픈 전입니다.\n오픈까지 {1}', g_arenaData:getArenaStatusText())
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return
 		end
 
         -- 긴급하게 닫아야 할 경우 
-        if (not g_arenaData:isOpen()) then
+        if (not g_arenaNewData:isOpen()) then
             local msg = Str('오픈시간이 아닙니다.')
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return
@@ -542,7 +542,7 @@ function UINavigatorDefinition:goTo_arena_new(...)
             local battle_menu_ui = UI_BattleMenu()
             battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
             battle_menu_ui:resetButtonsPosition()
-            UI_Arena(sub_data)
+            UI_ArenaNew(sub_data)
             return
         end
 
@@ -561,7 +561,7 @@ function UINavigatorDefinition:goTo_arena_new(...)
     end
 
     -- 정보 요청
-    g_arenaData:request_arenaInfo(finish_cb, fail_cb)
+    g_arenaNewData:request_arenaInfo(finish_cb, fail_cb)
 end
 
 
