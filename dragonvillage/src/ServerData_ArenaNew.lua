@@ -64,7 +64,7 @@ function ServerData_ArenaNew:request_arenaInfo(finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/arena/info')
+    ui_network:setUrl('/game/arena_new/info')
     ui_network:setParam('uid', uid)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
@@ -429,7 +429,7 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/arena/start')
+    ui_network:setUrl('/game/arena_new/start')
     ui_network:setParam('uid', uid)
     ui_network:setParam('is_cash', is_cash)
     ui_network:setParam('combat_power', combat_power)
@@ -523,7 +523,7 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/arena/finish')
+    ui_network:setUrl('/game/arena_new/finish')
     ui_network:setParam('uid', uid)
     ui_network:setParam('is_win', is_win and 1 or 0)
     ui_network:setParam('clear_time', play_time)
@@ -608,7 +608,7 @@ function ServerData_ArenaNew:request_arenaRank(offset, type, finish_cb, fail_cb,
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/arena/ranking')
+    ui_network:setUrl('/game/arena_new/ranking')
     ui_network:setParam('uid', uid)
     ui_network:setParam('offset', offset)
     ui_network:setParam('type', _type)
@@ -652,7 +652,7 @@ function ServerData_ArenaNew:request_arenaHistory(type, finish_cb, fail_cb)
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/arena/history')
+    ui_network:setUrl('/game/arena_new/history')
     ui_network:setParam('uid', uid)
     ui_network:setParam('type', type) -- atk 공격 기록 , def 방어 기록
     ui_network:setSuccessCB(success_cb)
