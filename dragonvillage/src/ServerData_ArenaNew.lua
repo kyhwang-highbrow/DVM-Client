@@ -110,6 +110,9 @@ end
 -------------------------------------
 function ServerData_ArenaNew:isOpenArena()
     local curr_time = Timer:getServerTime()
+
+    if (not self.m_startTime or not self.m_endTime) then return true end
+
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
 	
@@ -178,6 +181,8 @@ function ServerData_ArenaNew:_refresh_playerUserInfo(struct_user_info, t_data)
     struct_user_info.m_nickname = g_userData:get('nick')
     struct_user_info.m_lv = g_userData:get('lv')
 
+    if (not t_data) then return end
+
     do -- 콜로세움 정보 갱신
         if t_data['win'] then
             struct_user_info.m_winCnt = t_data['win']
@@ -229,6 +234,7 @@ end
 function ServerData_ArenaNew:getArenaStatusText()
     local curr_time = Timer:getServerTime()
 
+    if (not self.m_startTime or not self.m_endTime) then return true end
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
 
@@ -761,6 +767,8 @@ function ServerData_ArenaNew:makeDragonToken()
     local token = ''
 
     local l_deck = self.m_playerUserInfo:getDeck_dragonList(true)
+
+    if (not l_deck) then return end
 
     for i = 1, 5 do
         local t_dragon_data
