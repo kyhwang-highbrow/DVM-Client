@@ -251,6 +251,9 @@ function ServerData:getInstance()
     -- 콜로세움 (신규)
     g_arenaData = ServerData_Arena(g_serverData)
 
+    -- 콜로세움 (개편 후)
+    g_arenaData = ServerData_ArenaNew(g_serverData)
+
     -- 그랜드 콜로세움
     g_grandArena = ServerData_GrandArena(g_serverData)
 

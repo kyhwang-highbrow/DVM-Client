@@ -42,10 +42,12 @@ function UI_ArenaNew:init(sub_data)
     self.m_rankOffset = 1 -- 최상위 랭크를 받겠다는 뜻
     self.m_bClosedTag = false
     
-    local ui_res = 'arena_scene.ui'
-    if (g_arenaData:isStartClanWarContents()) then
-        ui_res = 'arena_scene_new.ui'
-    end
+    local ui_res = 'arena_new_scene.ui'
+
+    -- TODO
+    --if (g_arenaData:isStartClanWarContents()) then
+    --    ui_res = 'arena_scene_new.ui'
+    --end
 
     local vars = self:load_keepZOrder(ui_res)
     UIManager:open(self, UIManager.SCENE)
@@ -144,25 +146,28 @@ end
 function UI_ArenaNew:initButton()
     local vars = self.vars
     vars['testModeBtn']:setVisible(false)
-    vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
-    vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
+    --vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    --vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
 	
+    -- TODO 
+    --[[
 	do
 		vars['valorShopBtn']:registerScriptTapHandler(function() self:click_valorShopBtn() end)
 		vars['valorShopLabel']:setString(Str('용맹훈장') .. '\n' .. Str('상점'))
 	end
+    ]]
 
     -- 명예의 전당으로 이동
-    vars['fameBtn']:registerScriptTapHandler(function() self:click_fameBtn() end)
-    vars['fameBtn']:setVisible(false)
+    --vars['fameBtn']:registerScriptTapHandler(function() self:click_fameBtn() end)
+    --vars['fameBtn']:setVisible(false)
     
     -- 랭킹 팝업으로 이동
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['rankBtn']:setVisible(true)
 
     -- 콜로세움 안내 (네이버 sdk 링크)
-    NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'arena_help')
+    NaverCafeManager:setPluginInfoBtn(vars['InfoBtn'], 'arena_help')
 end
 
 -------------------------------------
@@ -197,7 +202,10 @@ function UI_ArenaNew:refresh()
 	else
 		temp = math_floor(curr_cnt/5)
 	end
-	vars['rewardVisual']:changeAni('reward_' .. temp, true)
+
+    --TODO
+    -- 참여 횟수 보상
+	--vars['rewardVisual']:changeAni('reward_' .. temp, true)
 
     self:refreshHotTimeInfo()
 end
@@ -316,12 +324,12 @@ end
 -- @brief 랭킹, 기록 탭
 -------------------------------------
 function UI_ArenaNew:initTab()
-    local vars = self.vars
-    self:addTabAuto(UI_ArenaNew['RANK'], vars, vars['rankingMenu'])
-    self:addTabAuto(UI_ArenaNew['HISTORY'], vars, vars['historyMenu'])
-    self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+    --local vars = self.vars
+    --self:addTabAuto(UI_ArenaNew['RANK'], vars, vars['rankingMenu'])
+    --self:addTabAuto(UI_ArenaNew['HISTORY'], vars, vars['historyMenu'])
+    --self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 
-    self:setTab(UI_ArenaNew['RANK'])
+    --self:setTab(UI_ArenaNew['RANK'])
 end
 
 -------------------------------------

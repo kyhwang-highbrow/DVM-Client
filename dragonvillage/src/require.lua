@@ -225,6 +225,7 @@ local t_module = {
     'ServerData_AncientRuin',
     'ServerData_RandomShop',
     'ServerData_Arena',
+    'ServerData_ArenaNew',
     'ServerData_GrandArena',
     'ServerData_EventMatchCard',
     'ServerData_EventMandragoraQuest',

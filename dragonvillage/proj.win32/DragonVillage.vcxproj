@@ -516,6 +516,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_AncientRuin.lua" />
     <None Include="..\src\ServerData_AncientTower.lua" />
     <None Include="..\src\ServerData_Arena.lua" />
+    <None Include="..\src\ServerData_ArenaNew.lua" />
     <None Include="..\src\ServerData_Attendance.lua" />
     <None Include="..\src\ServerData_AttrTower.lua" />
     <None Include="..\src\ServerData_AttrTowerPackage.lua" />
