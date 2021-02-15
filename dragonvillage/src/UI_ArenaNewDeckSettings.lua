@@ -1,9 +1,9 @@
 local PARENT = UI_ReadySceneNew
 
 -------------------------------------
--- class UI_ArenaDeckSettings
+-- class UI_ArenaNewDeckSettings
 -------------------------------------
-UI_ArenaDeckSettings = class(PARENT,{
+UI_ArenaNewDeckSettings = class(PARENT,{
         m_changeMode = 'boolean', -- true : 덱 변경만 가능, false : 덱변경 후 시작
         m_currTamerID = 'number',
     })
@@ -14,9 +14,9 @@ local NEED_CASH = 50 -- 유료 입장 다이아 개수
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_ArenaDeckSettings:initParentVariable()
+function UI_ArenaNewDeckSettings:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_ArenaDeckSettings'
+    self.m_uiName = 'UI_ArenaNewDeckSettings'
     self.m_bVisible = true
     --self.m_titleStr = nil -- refresh에서 스테이지명 설정
     self.m_bUseExitBtn = true
@@ -38,7 +38,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaDeckSettings:init(stage_id, sub_info)
+function UI_ArenaNewDeckSettings:init(stage_id, sub_info)
     local vars = self.vars
     self.m_changeMode = sub_info or false -- 바로 시작인지 덱만 바꾸는 건지
 
@@ -65,9 +65,9 @@ end
 -- function update_stamina
 -- @brief
 -------------------------------------
-function UI_ArenaDeckSettings:update_stamina(dt)    
+function UI_ArenaNewDeckSettings:update_stamina(dt)    
     local vars = self.vars
-    local is_enough = g_staminasData:checkStageStamina(ARENA_STAGE_ID)
+    local is_enough = g_staminasData:checkStageStamina(ARENA_NEW_STAGE_ID)
     local is_enough_ext = g_staminasData:hasStaminaCount('arena_ext', 1)
 
     -- 기본 입장권 없을 경우엔 유료 입장권 개수 보여줌
@@ -95,7 +95,7 @@ end
 -------------------------------------
 -- function refresh_buffInfo_TamerBuff
 -------------------------------------
-function UI_ArenaDeckSettings:refresh_buffInfo_TamerBuff()
+function UI_ArenaNewDeckSettings:refresh_buffInfo_TamerBuff()
     local vars = self.vars
 
     -- 테이머 버프
@@ -112,7 +112,7 @@ end
 -------------------------------------
 -- function getCurrTamerID
 -------------------------------------
-function UI_ArenaDeckSettings:getCurrTamerID()
+function UI_ArenaNewDeckSettings:getCurrTamerID()
     if (not self.m_currTamerID) then
         local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
         self.m_currTamerID = tamer_id
@@ -124,7 +124,7 @@ end
 -- function click_tamerBtn
 -- @breif
 -------------------------------------
-function UI_ArenaDeckSettings:click_tamerBtn()
+function UI_ArenaNewDeckSettings:click_tamerBtn()
     local tamer_id = self:getCurrTamerID()
 
     local ui = UI_TamerManagePopup_Colosseum(tamer_id)
@@ -141,7 +141,7 @@ end
 -------------------------------------
 -- function click_backBtn
 -------------------------------------
-function UI_ArenaDeckSettings:click_backBtn()
+function UI_ArenaNewDeckSettings:click_backBtn()
 	self:click_exitBtn()
 end
 
@@ -149,7 +149,7 @@ end
 -- function click_startBtn
 -- @brief 시작 버튼
 -------------------------------------
-function UI_ArenaDeckSettings:click_startBtn()
+function UI_ArenaNewDeckSettings:click_startBtn()
     -- 콜로세움 공격 덱이 설정되었는지 여부 체크
     local l_dragon_list = self.m_readySceneDeck.m_lDeckList
     if (table.count(l_dragon_list) <= 0) then
@@ -187,14 +187,13 @@ function UI_ArenaDeckSettings:click_startBtn()
                 UI_BlockPopup()
                 -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
                 self.vars['itemMenu']:unscheduleUpdate()
-                local scene = SceneGameArena()
-                --local scene = SceneGameArenaNew() -- PVP 개편 테스트용 임시 커밋
+                local scene = SceneGameArenaNew() -- PVP 개편 테스트용 임시 커밋
                 scene:runScene()
             end
 
             -- 덱 변경 확인후 api 요청
             self:checkChangeDeck(function()
-                g_arenaData:request_arenaStart(is_cash, nil, cb)
+                g_arenaNewData:request_arenaStart(is_cash, nil, cb)
             end)
         end
 
