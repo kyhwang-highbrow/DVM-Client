@@ -170,7 +170,8 @@ function UI_ArenaNew:initButton()
     --vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
     --vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
-	
+	vars['defenseBtn']:registerScriptTapHandler(function() self:click_defendDeckBtn() end)
+
     -- TODO 
     --[[
 	do
@@ -277,6 +278,14 @@ function UI_ArenaNew:showBegginerNoRewardPopup()
     local sub_msg = Str('콜로세움 시즌마다 1회 이상 전투를 진행해야 순위가 집계되고 시즌 보상을 받을 수 있습니다.')
     MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
     g_settingData:applySettingData(true, 'arena_guide', save_key)
+end
+
+-------------------------------------
+-- function click_defendDeckBtn
+-- @brief 콜로세움 랭킹 정보 팝업 (최고 순위 기록 시즌, 현재 시즌)
+-------------------------------------
+function UI_ArenaNew:click_defendDeckBtn()
+	UI_ArenaNewDefenceDeckSettings(ARENA_STAGE_ID, true)
 end
 
 -------------------------------------
