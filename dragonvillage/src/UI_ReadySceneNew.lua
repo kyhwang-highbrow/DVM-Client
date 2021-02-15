@@ -199,6 +199,16 @@ function UI_ReadySceneNew:checkDeckProper()
         return
     end
 
+    -- 아레나 (개편 후) 별도 처리
+    if (self.m_stageID == ARENA_NEW_STAGE_ID) then
+        if (self.m_subInfo == 'attack') then
+            g_deckData:setSelectedDeck('arena_new_a')
+        elseif (self.m_subInfo == 'def') then
+            g_deckData:setSelectedDeck('arena_new_d')
+        end
+        return
+    end
+
     -- 챌린지 모드 별도 처리
     if (self.m_stageID == CHALLENGE_MODE_STAGE_ID) then
         g_deckData:setSelectedDeck(DECK_CHALLENGE_MODE)
@@ -807,7 +817,7 @@ function UI_ReadySceneNew:refresh_combatPower()
     local stage_id = self.m_stageID
     local game_mode = self.m_gameMode
 
-	if (stage_id == COLOSSEUM_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID or game_mode == GAME_MODE_CLAN_RAID or stage_id == ARENA_STAGE_ID or stage_id == CLAN_WAR_STAGE_ID) then
+	if (stage_id == COLOSSEUM_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID or game_mode == GAME_MODE_CLAN_RAID or stage_id == ARENA_NEW_STAGE_ID or stage_id == ARENA_STAGE_ID or stage_id == CLAN_WAR_STAGE_ID) then
 		vars['cp_Label']:setString('')
         vars['cp_Label2']:setString('')
 
