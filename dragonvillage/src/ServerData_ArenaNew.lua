@@ -384,7 +384,7 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
     local uid = g_userData:get('uid')
 
     -- 공격자의 콜로세움 전투력 저장
-    local combat_power = g_arenaData.m_playerUserInfo:getDeckCombatPower(true)
+    local combat_power = g_arenaNewData.m_playerUserInfo:getDeckCombatPower(true)
     
     -- 성공 콜백
     local function success_cb(ret)
@@ -421,7 +421,7 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
             -- 비슷한 티어 매칭 상대가 없는 상태
             -- 콜로세움 UI로 이동
             local function ok_cb()
-                UINavigator:goTo('arena')
+                UINavigator:goTo('arena_new')
             end 
             MakeSimplePopup(POPUP_TYPE.OK, Str('현재 점수 구간 내의 대전 가능한 상대가 없습니다.\n다른 상대의 콜로세움 참여를 기다린 후에 다시 시도해 주세요.'), ok_cb)
             return true

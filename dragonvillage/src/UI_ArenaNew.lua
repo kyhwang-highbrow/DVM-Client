@@ -171,6 +171,7 @@ function UI_ArenaNew:initButton()
     --vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
 	vars['defenseBtn']:registerScriptTapHandler(function() self:click_defendDeckBtn() end)
+    vars['defenseRecordBtn']:registerScriptTapHandler(function() self:click_defendHistoryBtn() end)
 
     -- TODO 
     --[[
@@ -286,6 +287,15 @@ end
 -------------------------------------
 function UI_ArenaNew:click_defendDeckBtn()
 	UI_ArenaNewDefenceDeckSettings(ARENA_STAGE_ID, true)
+end
+
+-------------------------------------
+-- function click_defendHistoryBtn
+-- @brief 콜로세움 랭킹 정보 팝업 (최고 순위 기록 시즌, 현재 시즌)
+-------------------------------------
+function UI_ArenaNew:click_defendHistoryBtn()
+    cclog('showpopup')
+	UI_ArenaNewHistory()
 end
 
 -------------------------------------

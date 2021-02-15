@@ -416,7 +416,7 @@ function GameState_ArenaNew:makeResultUI(is_win)
     
     if (self.m_world.m_bDevelopMode) then
         local t_data = { added_rp = 0, added_honor = 0 }
-        UI_ArenaResult(is_win, t_data)
+        UI_ArenaNewResult(is_win, t_data)
 
     elseif (self.m_world.m_bFriendMatch) then
         UI_FriendMatchResultArena(is_win)
@@ -436,7 +436,7 @@ function GameState_ArenaNew:makeResultUI(is_win)
         -- 2. UI 생성
         func_ui_result = function(ret)
             local t_data = ret
-            UI_ArenaResult(is_win, t_data)
+            UI_ArenaNewResult(is_win, t_data)
         end
 
         -- 최초 실행

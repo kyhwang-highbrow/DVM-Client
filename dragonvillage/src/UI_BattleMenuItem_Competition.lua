@@ -85,7 +85,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
         
     -- 신규 아레나 code name : arena_new
 	elseif (content_type == 'arena_new') then
-		t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_colosseum()
+		t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_arenaNew()
 
 	-- 그림자의 신전
 	elseif (content_type == 'challenge_mode') then
@@ -234,6 +234,33 @@ end
 function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_colosseum()
 	-- 판수
 	local struct_user = g_arenaData:getPlayerArenaUserInfo()
+	local cnt = struct_user and struct_user:getWinCnt() + struct_user:getLoseCnt() or 0
+
+	-- 다음 판수 보상
+	local next_reward_info = TableArenaWinReward:getNextReawardInfo(cnt)
+	if (not next_reward_info) then
+		return nil, nil, nil
+	end
+
+	local t_item = next_reward_info['t_item']
+
+	local item_name = UIHelper:makeItemNamePlain(t_item)
+	local text_1 = Str('{1} 획득까지', item_name)
+
+	local left_cnt = next_reward_info['play_cnt'] - cnt
+	local text_2 = Str('{1}회 남음', left_cnt)
+    local desc = nil
+
+	return t_item, text_1, text_2, desc
+end
+
+-------------------------------------
+-- function initCompetitionRewardInfo_arenaNew
+-- @brief 콜로세움
+-------------------------------------
+function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_arenaNew()
+	-- 판수
+	local struct_user = g_arenaNewData:getPlayerArenaUserInfo()
 	local cnt = struct_user and struct_user:getWinCnt() + struct_user:getLoseCnt() or 0
 
 	-- 다음 판수 보상

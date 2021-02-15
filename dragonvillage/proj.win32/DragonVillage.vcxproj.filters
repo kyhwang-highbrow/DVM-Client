@@ -4858,6 +4858,15 @@
     <None Include="..\src\UI_LoadingArenaNew.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ArenaNewDefenceDeckSettings.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaNewHistory.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaNewResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
