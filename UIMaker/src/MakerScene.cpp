@@ -2124,6 +2124,11 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
 				Size size = node->getNormalSize();
                 updateContentSizeWidthInTool(entity_id, node, size.width);
 				updateStencil(dynamic_cast<ClippingNode*>(node)); 
+
+				// @jslors 2020.12.10 화면 크기 변경시 msg에 남아있는 width 수치가 이 후에 반영되어 relative_size를 덮어버리는 현상 수정
+				auto width_field = desc->FindFieldByName("width");
+				auto no_const_msg = const_cast<::google::protobuf::Message*>(&msg);
+				reflect->SetInt32(no_const_msg, width_field, size.width);
 			}
 		}
 		else if (field_name == "rel_height")
@@ -2145,6 +2150,11 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
                 updateContentSizeHeightInTool(entity_id, node, size.height);
 
 				updateStencil(dynamic_cast<ClippingNode*>(node));
+
+				// @jslors 2020.12.10 화면 크기 변경시 msg에 남아있는 width 수치가 이 후에 반영되어 relative_size를 덮어버리는 현상 수정
+				auto height_field = desc->FindFieldByName("height");
+				auto no_const_msg = const_cast<::google::protobuf::Message*>(&msg);
+				reflect->SetInt32(no_const_msg, height_field, size.height);
 			}
 		}
         else if (field_name == "width")
