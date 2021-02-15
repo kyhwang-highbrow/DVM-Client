@@ -4,14 +4,14 @@ local PARENT = class(UI, IRankListItem:getCloneTable())
 -- class UI_ArenaNewRivalListItem
 -------------------------------------
 UI_ArenaNewRivalListItem = class(PARENT, {
-        m_rankInfo = '',
+        m_rivalInfo = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaNewRivalListItem:init(t_rank_info)
-    self.m_rankInfo = t_rank_info
+function UI_ArenaNewRivalListItem:init(t_rival_info)
+    self.m_rivalInfo = t_rival_info
     local vars = self:load('arena_new_scene_item_01.ui')
 
     self:initUI()
@@ -24,12 +24,33 @@ end
 -------------------------------------
 function UI_ArenaNewRivalListItem:initUI()
     local vars = self.vars
+    
+    local t_rival_info = self.m_rivalInfo
+
+    vars['userLabel']:setString(Str('레벨 {1}/{2}', t_rival_info.m_lv, t_rival_info.m_nickname))
+    vars['scoreLabel']:setString(Str('{1}점', t_rival_info.m_rp))
+
+    if (t_rival_info.m_structClan) then
+        vars['clanLabel']:setString(t_rival_info.name)
+    else
+        vars['clanLabel']:setString('')
+    end
+
+    -- 드래곤 리스트
+    local t_deck_dragon_list = t_rival_info:getDefDeck_dragonList()
+
+   -- for i,v in pairs(t_deck_dragon_list) do
+    for i = 1, 5 do
+        local card_ui = IconHelper:getItemIcon(771683)
+        card_ui:setScale(1)
+        vars['dragonNode' .. i]:addChild(card_ui)
+        --local icon = UI_DragonCard(v)
+        --icon.root:setSwallowTouch(false)
+        --vars['dragonNode' .. i]:addChild(icon.root)
+    end
     --[[
-    local t_rank_info = self.m_rankInfo
-    local rank = t_rank_info.m_rank
-
     local tag = t_rank_info.m_tag
-
+    
     -- 다음 랭킹 보기 
     if (tag == 'next') then
         vars['nextBtn']:setVisible(true)
@@ -109,10 +130,10 @@ function UI_ArenaNewRivalListItem:click_startBtn()
     end
 
     local uid = g_userData:get('uid')
-    local peer_uid = self.m_rankInfo.m_uid
+    local peer_uid = self.m_rivalInfo.m_uid
 
     local function success_cb(ret)
-        g_arenaData:makeMatchUserInfo(ret['pvpuser_info'])
+        g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])
 
         local scene = SceneGameArenaNew(nil, nil, nil, true)
         scene:runScene()
@@ -120,7 +141,7 @@ function UI_ArenaNewRivalListItem:click_startBtn()
 
     local ui_network = UI_Network()
     ui_network:setRevocable(true)
-    ui_network:setUrl('/game/arena/user_info')
+    ui_network:setUrl('/game/arena_new/user_info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('peer', peer_uid)
     ui_network:setSuccessCB(success_cb)

@@ -365,7 +365,7 @@ end
 -------------------------------------
 function SceneGameArenaNew:getStructUserInfo_Player()
     local is_friendMatch = self.m_bFriendMatch
-    local user_info = is_friendMatch and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
+    local user_info = is_friendMatch and g_friendMatchData.m_playerUserInfo or g_arenaNewData:getPlayerArenaUserInfo()
     return user_info
 end
 
@@ -378,14 +378,14 @@ function SceneGameArenaNew:getStructUserInfo_Opponent()
 
     -- 개발 모드일 경우
     if (self.m_bDevelopMode == true) then
-        local user_info = g_arenaData:getMatchUserInfo()
+        local user_info = g_arenaNewData:getMatchUserInfo()
         if user_info then
             return user_info
         end
     end
 
     local is_friendMatch = self.m_bFriendMatch
-    local user_info = is_friendMatch and g_friendMatchData.m_matchInfo  or g_arenaData:getMatchUserInfo()
+    local user_info = is_friendMatch and g_friendMatchData.m_matchInfo  or g_arenaNewData:getMatchUserInfo()
     return user_info
 end
 

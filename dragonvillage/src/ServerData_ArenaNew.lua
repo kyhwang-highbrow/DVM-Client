@@ -8,6 +8,7 @@ ServerData_ArenaNew = class({
         m_playerUserInfoHighRecord = 'StructUserInfoArena',
 
         m_matchUserInfo = 'StructUserInfoArena',
+        m_matchUserList = 'list',
 
         m_startTime = 'timestamp', -- 콜로세움 오픈 시간
         m_endTime = 'timestamp', -- 콜로세움 종료 시간
@@ -89,6 +90,13 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
 
     self:refresh_playerUserInfo(ret['season'], ret['deck'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
+
+    self.m_matchUserList = {}
+    
+    for i = 1, #ret['list'] do
+        local userInfo = self:makeMatchUserInfo(ret['list'][i])
+        table.insert(self.m_matchUserList, userInfo)
+    end
 
     -- 주간 보상
     self:setRewardInfo(ret)
@@ -318,6 +326,8 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
 
     local uid = data['uid']
     self.m_matchUserInfo = struct_user_info
+
+    return struct_user_info
 end
 
 -------------------------------------
@@ -640,13 +650,13 @@ function ServerData_ArenaNew:request_arenaHistory(type, finish_cb, fail_cb)
         if (type == 'atk') then
             self.m_matchAtkHistory = {}
             for i,v in pairs(ret['history']) do
-                local user_info = StructUserInfoArena:create_forHistory(v)
+                local user_info = StructUserInfoArenaNew:create_forHistory(v)
                 table.insert(self.m_matchAtkHistory, user_info)
             end
         else
             self.m_matchDefHistory = {}
             for i,v in pairs(ret['history']) do
-                local user_info = StructUserInfoArena:create_forHistory(v)
+                local user_info = StructUserInfoArenaNew:create_forHistory(v)
                 table.insert(self.m_matchDefHistory, user_info)
             end
         end

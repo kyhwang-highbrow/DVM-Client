@@ -123,19 +123,17 @@ function UI_ArenaNew:updateRivalList()
     local vars = self.vars
     local node = vars['itemNode']
 
-    local function finish_cb()
-        local l_item_list = g_arenaNewData.m_lGlobalRank
+    local l_item_list = g_arenaNewData.m_matchUserList
 
-        -- 테이블 뷰 인스턴스 생성
-        local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(720, 100 + 5)
-        table_view:setCellUIClass(UI_ArenaNewRivalListItem, create_func)
-        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList(l_item_list)
-    end
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(720, 100 + 5)
+    table_view:setCellUIClass(UI_ArenaNewRivalListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
 
-    local offset = self.m_rankOffset
-    g_arenaNewData:request_arenaRank(offset, nil, finish_cb)
+    --local offset = self.m_rankOffset
+    --g_arenaNewData:request_arenaRank(offset, nil, finish_cb)
 end
 
 -------------------------------------

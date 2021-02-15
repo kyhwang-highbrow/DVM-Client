@@ -4867,6 +4867,9 @@
     <None Include="..\src\UI_ArenaNewResult.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructUserInfoArenaNew.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
