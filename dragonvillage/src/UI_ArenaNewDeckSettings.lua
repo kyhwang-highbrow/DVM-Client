@@ -38,9 +38,9 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaNewDeckSettings:init(stage_id, sub_info)
+function UI_ArenaNewDeckSettings:init(stage_id, sub_info, bChangeMode)
     local vars = self.vars
-    self.m_changeMode = sub_info or false -- 바로 시작인지 덱만 바꾸는 건지
+    self.m_changeMode = bChangeMode or false -- 바로 시작인지 덱만 바꾸는 건지
 
     -- 덱 변경만 가능
     if (self.m_changeMode) then

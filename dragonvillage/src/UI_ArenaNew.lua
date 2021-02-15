@@ -316,7 +316,7 @@ end
 -- @brief 출전 덱 설정 버튼
 -------------------------------------
 function UI_ArenaNew:click_startBtn()
-    UI_ArenaDeckSettings(ARENA_NEW_STAGE_ID)
+	UI_ArenaNewDeckSettings(ARENA_NEW_STAGE_ID, 'attack', false)
 end
 
 -------------------------------------
