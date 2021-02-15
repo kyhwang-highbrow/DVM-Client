@@ -234,7 +234,7 @@ end
 function ServerData_ArenaNew:getArenaStatusText()
     local curr_time = Timer:getServerTime()
 
-    if (not self.m_startTime or not self.m_endTime) then return true end
+    if (not self.m_startTime or not self.m_endTime) then return '' end
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
 

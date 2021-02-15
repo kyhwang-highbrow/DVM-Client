@@ -294,7 +294,6 @@ end
 -- @brief 콜로세움 랭킹 정보 팝업 (최고 순위 기록 시즌, 현재 시즌)
 -------------------------------------
 function UI_ArenaNew:click_defendHistoryBtn()
-    cclog('showpopup')
 	UI_ArenaNewHistory()
 end
 
@@ -397,7 +396,7 @@ function UI_ArenaNew:update(dt)
     -- UI내에서 시즌이 종료되는 경우 예외처리
     if self.m_bClosedTag then
         return
-
+    
     elseif (not g_arenaNewData:isOpenArena()) then
         local function ok_cb()
             -- 로비로 이동

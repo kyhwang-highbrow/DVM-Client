@@ -22,8 +22,13 @@ local CLAN_OFFSET_GAP = 20
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaNewHistory:init(owner_ui)
+function UI_ArenaNewHistory:init()
     local vars = self:load('arena_new_popup_defense.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ColosseumRankingRewardPopup')
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 
     --self.root = owner_ui.vars['historyMenu'] -- root가 있어야 보임
     --self.vars = owner_ui.vars
