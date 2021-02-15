@@ -4870,6 +4870,9 @@
     <None Include="..\src\StructUserInfoArenaNew.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ArenaNewDeckSettings.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
