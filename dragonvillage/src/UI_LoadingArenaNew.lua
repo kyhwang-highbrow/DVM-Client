@@ -15,16 +15,14 @@ UI_LoadingArenaNew = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_LoadingArenaNew:init(curr_scene)
+function UI_LoadingArenaNew:init()
 	self.m_uiName = 'UI_LoadingArenaNew'
-    self.m_bFriendMatch = curr_scene.m_bFriendMatch
 
     self.m_remainTimer = WAITING_TIME
     self.m_bSelected = false
 
-	local vars = self:load('arena_loading.ui')
+	local vars = self:load('arena_new_loading.ui')
 
-    local guide_type = curr_scene.m_loadingGuideType
 	if (guide_type) then
 		self.m_lLoadingStrList = table.sortRandom(GetLoadingStrList())
 	end
@@ -44,11 +42,11 @@ function UI_LoadingArenaNew:initUI()
     local is_friend_match = self.m_bFriendMatch
 
 	vars['arenaVisual']:setVisible(true)
-	vars['challengeModeVisual']:setVisible(false)
+	--vars['challengeModeVisual']:setVisible(false)
 
 	-- 플레이어
     do
-		local struct_user_info = is_friend_match and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
+		local struct_user_info = is_friend_match and g_friendMatchData.m_playerUserInfo or g_arenaNewData:getPlayerArenaUserInfo()
 		if (struct_user_info) then
 			-- 덱
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
@@ -63,10 +61,12 @@ function UI_LoadingArenaNew:initUI()
 
 	 -- 상대방
     do
-		local struct_user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
+		local struct_user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaNewData:getMatchUserInfo()
 		if (struct_user_info) then
 			-- 덱
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
+
+            ccdump(struct_user_info.m_pvpDeck)
 			local leader = struct_user_info.m_pvpDeck['leader']
 			local formation = struct_user_info.m_pvpDeck['formation']
 			self:initDeckUI('right', l_dragon_obj, leader, formation)

@@ -48,7 +48,7 @@ function UI_ArenaNewRankInfoPopup:refresh()
     local vars = self.vars
 
     do -- 최고 기록 데이터
-        local struct_user_info = g_arenaData:getPlayerArenaUserInfoHighRecord()
+        local struct_user_info = g_arenaNewData:getPlayerArenaUserInfoHighRecord()
 
         -- 티어 아이콘
         vars['tierIconNode1']:removeAllChildren()
@@ -68,7 +68,7 @@ function UI_ArenaNewRankInfoPopup:refresh()
     end
 
     do -- 현재 시즌 기록
-        local struct_user_info = g_arenaData:getPlayerArenaUserInfo()
+        local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
 
         -- 티어 아이콘
         vars['tierIconNode2']:removeAllChildren()

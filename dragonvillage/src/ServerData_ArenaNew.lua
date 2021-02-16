@@ -146,7 +146,7 @@ end
 function ServerData_ArenaNew:refresh_playerUserInfo(t_data, l_deck)
     if (not self.m_playerUserInfo) then
         -- 플레이어 유저 정보 생성
-        local struct_user_info = StructUserInfoArena()
+        local struct_user_info = StructUserInfoArenaNew()
         struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info:setStructClan(g_clanData:getClanStruct())
         self.m_playerUserInfo = struct_user_info
@@ -173,7 +173,7 @@ end
 function ServerData_ArenaNew:refresh_playerUserInfo_highRecord(t_data)
     if (not self.m_playerUserInfoHighRecord) then
         -- 플레이어 유저 정보 생성
-        local struct_user_info = StructUserInfoArena()
+        local struct_user_info = StructUserInfoArenaNew()
         struct_user_info.m_uid = g_userData:get('uid')
         self.m_playerUserInfoHighRecord = struct_user_info
     end
@@ -295,7 +295,7 @@ end
 -- function makeMatchUserInfo
 -------------------------------------
 function ServerData_ArenaNew:makeMatchUserInfo(data)
-    local struct_user_info = StructUserInfoArena()
+    local struct_user_info = StructUserInfoArenaNew()
 
     -- 기본 유저 정보
     struct_user_info.m_uid = data['uid']
@@ -306,7 +306,10 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_tier = data['tier']
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
-    
+    struct_user_info.m_pvpDeck = data['pvp']
+
+    struct_user_info.m_pvpDeckDids = data['deck_dids']
+
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = data['rp']
     struct_user_info.m_matchResult = data['match']
@@ -315,7 +318,11 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info:applyDragonsDataList(data['dragons'])
 
     -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
-    struct_user_info:applyPvpDeckData(data['deck'])
+    if (data['pvpuser_info']) then
+        struct_user_info:applyPvpDeckData(data['pvpuser_info']['deck'])
+    elseif (data['deckPVP']) then
+        struct_user_info:applyPvpDeckData(data['deckPVP'])
+    end
 
     -- 클랜
     if (data['clan_info']) then
@@ -612,7 +619,7 @@ function ServerData_ArenaNew:request_arenaRank(offset, type, finish_cb, fail_cb,
         -- 유저 리스트 저장
         self.m_lGlobalRank = {}
         for i,v in pairs(ret['list']) do
-            local user_info = StructUserInfoArena:create_forRanking(v)
+            local user_info = StructUserInfoArenaNew:create_forRanking(v)
             table.insert(self.m_lGlobalRank, user_info)
         end
         

@@ -51,6 +51,7 @@ StructUserInfoArenaNew = class(PARENT, {
 
         -- 덱 정보 (공격덱, 방어덱 분리 안함)
         m_pvpDeck = 'table',
+        m_pvpDeckDids = 'table',
         m_pvpDeckCombatPower = 'number',
 
         -- 여러 덱 정보
@@ -117,12 +118,15 @@ function StructUserInfoArenaNew:create_forHistory(t_data)
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     
+    -- 덱 드래곤 id
+    user_info.m_pvpDeckDids = t_data['deck_dids']
+
     -- 룬 & 드래곤 리스트 저장
     user_info:applyRunesDataList(t_data['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
     user_info:applyDragonsDataList(t_data['dragons'])
 
     -- 공격 덱 저장
-    user_info:applyPvpDeckData(t_data['deck'])
+    user_info:applyPvpDeckData(t_data['deckPVP'])
 
     -- 매치 한 시간
     user_info.m_matchTime = t_data['match_at']
@@ -165,8 +169,9 @@ function StructUserInfoArenaNew:createUserInfo(t_data)
     -- 룬 & 드래곤 리스트 저장
     user_info:applyRunesDataList(t_data['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
     user_info:applyDragonsDataList(t_data['dragons'])
+
     -- 덱 저장
-    user_info:applyPvpDeckData(t_data['deck'])
+    user_info:applyPvpDeckData(t_data['deckPVP'])
 
     return user_info
 end
@@ -548,6 +553,18 @@ function StructUserInfoArenaNew:getDeck_dragonList(use_doid)
 end
 
 -------------------------------------
+-- function getDeck_didList
+-- @brief 메인화면에서 덱의 아이콘들을 보여주기 위한 리스트
+-------------------------------------
+function StructUserInfoArenaNew:getDeck_didList()
+    if (not self.m_pvpDeckDids) then
+        return {}
+    end
+
+    return self.m_pvpDeckDids
+end
+
+-------------------------------------
 -- function getDeck_dragonObjList
 -- @brief
 -------------------------------------
@@ -635,25 +652,25 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfoArenaNew:getDefDeck_dragonList(use_doid)
---    if (not self.m_pvpDefDeck) then
---        return {}
---    end
+    if (not self.m_pvpDeck) then
+        return {}
+    end
 
---    local t_deck = {}
+    local t_deck = {}
 
---    for i,v in pairs(self.m_pvpDefDeck['deck']) do
---        local idx = tonumber(i)
---        local doid = v
+    for i,v in pairs(self.m_pvpDeck['deck']) do
+        local idx = tonumber(i)
+        local doid = v
 
---        -- doid로 저장 혹은 오브젝트로 저장
---        if use_doid then
---            t_deck[idx] = doid
---        else
---            t_deck[idx] = self:getDragonObject(doid)
---        end
---    end
+        -- doid로 저장 혹은 오브젝트로 저장
+        if use_doid then
+            t_deck[idx] = doid
+        else
+            t_deck[idx] = self:getDragonObject(doid)
+        end
+    end
 
---    return t_deck
+    return t_deck
 end
 
 -------------------------------------

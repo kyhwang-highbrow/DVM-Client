@@ -37,71 +37,22 @@ function UI_ArenaNewRivalListItem:initUI()
     end
 
     -- 드래곤 리스트
-    local t_deck_dragon_list = t_rival_info:getDefDeck_dragonList()
+    local t_deck_dragon_list = t_rival_info:getDeck_didList()
 
-   -- for i,v in pairs(t_deck_dragon_list) do
-    for i = 1, 5 do
-        local card_ui = IconHelper:getItemIcon(771683)
-        card_ui:setScale(1)
-        vars['dragonNode' .. i]:addChild(card_ui)
-        --local icon = UI_DragonCard(v)
-        --icon.root:setSwallowTouch(false)
-        --vars['dragonNode' .. i]:addChild(icon.root)
+    ccdump(t_deck_dragon_list)
+
+    for i,v in pairs(t_deck_dragon_list) do
+    --for i = 1, 5 do
+        --local card_ui = UI_ItemCard(771683)
+        --card_ui.root:setScale(1)
+        --vars['dragonNode' .. i]:addChild(card_ui.root)
+        -- 드래곤 이름
+	    local item_id = TableItem:getItemIDByDid(v, 3)
+
+        local icon = UI_ItemCard(item_id)
+        icon.root:setSwallowTouch(false)
+        vars['dragonNode' .. i]:addChild(icon.root)
     end
-    --[[
-    local tag = t_rank_info.m_tag
-    
-    -- 다음 랭킹 보기 
-    if (tag == 'next') then
-        vars['nextBtn']:setVisible(true)
-        vars['itemMenu']:setVisible(false)
-        return
-    end
-
-    -- 이전 랭킹 보기 
-    if (tag == 'prev') then
-        vars['prevBtn']:setVisible(true)
-        vars['itemMenu']:setVisible(false)
-        return
-    end
-
-    -- 점수 표시
-    vars['scoreLabel']:setString(t_rank_info:getRPText())
-
-    -- 유저 정보 표시 (레벨, 닉네임)
-    vars['userLabel']:setString(t_rank_info:getUserText())
-
-    -- 순위 표시
-    vars['rankingLabel']:setString(t_rank_info:getRankText())
-
-    do -- 리더 드래곤 아이콘
-        local ui = t_rank_info:getLeaderDragonCard()
-        if ui then
-            ui.root:setSwallowTouch(false)
-            vars['profileNode']:addChild(ui.root)
-            
-			ui.vars['clickBtn']:registerScriptTapHandler(function() 
-				local is_visit = true
-				UI_UserInfoDetailPopup:open(t_rank_info, is_visit, nil)
-			end)
-        end
-    end
-
-    do -- 티어 아이콘
-        local icon = t_rank_info:makeTierIcon(nil, 'big')
-        vars['tierIconNode']:addChild(icon)
-
-        vars['tierLabel']:setString(t_rank_info:getTierName())
-    end
-
-    do -- 내 순위 UI일 경우
-        local uid = g_userData:get('uid')
-        local is_my_rank = (uid == t_rank_info.m_uid)
-        vars['meSprite']:setVisible(is_my_rank)
-    end
-
-    -- 공통의 정보
-    self:initRankInfo(vars, t_rank_info)]]
 end
 
 -------------------------------------
@@ -134,9 +85,9 @@ function UI_ArenaNewRivalListItem:click_startBtn()
 
     local function success_cb(ret)
         g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])
-
-        local scene = SceneGameArenaNew(nil, nil, nil, true)
-        scene:runScene()
+        UI_LoadingArenaNew()
+        --local scene = SceneGameArenaNew(nil, nil, nil, true)
+        --scene:runScene()
     end
 
     local ui_network = UI_Network()
