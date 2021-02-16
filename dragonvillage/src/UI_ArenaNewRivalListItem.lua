@@ -31,7 +31,8 @@ function UI_ArenaNewRivalListItem:initUI()
     vars['scoreLabel']:setString(Str('{1}점', t_rival_info.m_rp))
 
     if (t_rival_info.m_structClan) then
-        vars['clanLabel']:setString(t_rival_info.name)
+        ccdump(t_rival_info.m_structClan)
+        vars['clanLabel']:setString(t_rival_info.m_structClan.name)
     else
         vars['clanLabel']:setString('')
     end
@@ -83,7 +84,7 @@ function UI_ArenaNewRivalListItem:click_startBtn()
 
     local function success_cb(ret)
         g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])
-        --UI_LoadingArenaNew()
+        UI_LoadingArenaNew()
         --local scene = SceneGameArenaNew(nil, nil, nil, false)
         --scene:runScene()
     end
