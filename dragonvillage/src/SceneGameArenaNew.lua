@@ -26,6 +26,9 @@ function SceneGameArenaNew:init(game_key, stage_id, stage_name, develop_mode, fr
 
     -- 아레나 로딩은 상대방 덱을 확인하기 위해 5초간 유지
     self.m_minLoadingTime = 5
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() UINavigator:goTo('arena_new') end, 'SceneGameArenaNew')
 end
 
 -------------------------------------

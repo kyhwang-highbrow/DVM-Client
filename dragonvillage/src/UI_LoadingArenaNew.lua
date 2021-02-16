@@ -1,5 +1,5 @@
 local PARENT = UI
-local WAITING_TIME = 10
+local WAITING_TIME = 3
 
 -------------------------------------
 -- class UI_LoadingArenaNew
@@ -7,6 +7,8 @@ local WAITING_TIME = 10
 UI_LoadingArenaNew = class(PARENT,{
         m_lLoadingStrList = 'List<string>',
         m_bFriendMatch = 'boolean',
+
+        m_myDeckList = 'table',
 
         m_remainTimer = 'number',
         m_bSelected = 'boolean',
@@ -27,12 +29,14 @@ function UI_LoadingArenaNew:init(curr_scene)
     end
 
     self.m_remainTimer = WAITING_TIME
-    self.m_bSelected = false
+
+    self.m_myDeckList = {}
 
 	local vars = self:load('arena_new_loading.ui')
+    -- UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoadingArenaNew')
+    -- g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoadingArenaNew')
 
 	if (guide_type) then
 		self.m_lLoadingStrList = table.sortRandom(GetLoadingStrList())
@@ -40,8 +44,6 @@ function UI_LoadingArenaNew:init(curr_scene)
     
 	self:initUI()
     self:initButton()
-
-    self.m_bSelected = true
 
     -- 자체적으로 업데이트를 돌린다.
 	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
@@ -67,12 +69,6 @@ function UI_LoadingArenaNew:update(dt)
         local label = self.vars['countdownLabel']
         label:setString(msg)
         cca.uiReactionSlow(label)
-    end
-
-    if (next == 0) then
-        self.m_bSelected = true
-        local scene = SceneGameArenaNew(nil, nil, nil, true)
-        scene:runScene()
     end
 end
 
@@ -135,6 +131,8 @@ function UI_LoadingArenaNew:initMyDeckUI()
 
 			-- 유저 정보
 			self:initUserInfo('left', struct_user_info)
+
+            self.m_myDeckList = l_dragon_obj
 		end
 end
 
@@ -307,6 +305,77 @@ end
 function UI_LoadingArenaNew:click_startButton()
     self.m_bSelected = false
     self.vars['setDeckBtn']:setVisible(false)
+end
+
+-------------------------------------
+-- function startGame
+-------------------------------------
+function UI_LoadingArenaNew:startGame()
+    -- 콜로세움 공격 덱이 설정되었는지 여부 체크
+    local l_dragon_list = self.m_myDeckList
+    if (not l_dragon_list or table.count(l_dragon_list) <= 0) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
+        return
+    end
+
+    local check_dragon_inven
+    local check_item_inven
+    local start_game
+
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_dragon_inven = function()
+        local function manage_func()
+            self:click_manageBtn()
+        end
+        g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
+    end
+
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            -- UI_Inventory() @kwkang 룬 업데이트로 룬 관리쪽으로 이동하게 변경 
+            UI_RuneForge('manage')
+        end
+        g_inventoryData:checkMaximumItems(start_game, manage_func)
+    end
+
+    start_game = function()
+        -- 콜로세움 시작 요청
+        local is_cash = false
+        local function request()
+            local function cb(ret)
+                -- 시작이 두번 되지 않도록 하기 위함
+                UI_BlockPopup()
+                -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
+                self.root:unscheduleUpdate()
+                local scene = SceneGameArenaNew() -- PVP 개편 테스트용 임시 커밋
+                scene:runScene()
+            end
+
+            g_arenaNewData:request_arenaStart(is_cash, nil, cb)
+        end
+
+        -- 기본 입장권 부족시
+        -- TODO ARENA_NEW_STAGE_ID
+        if (not g_staminasData:checkStageStamina(ARENA_STAGE_ID)) then
+            -- 유료 입장권 체크
+            local is_enough, insufficient_num = g_staminasData:hasStaminaCount('arena_ext', 1)
+            if (is_enough) then
+                is_cash = true
+                local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', NEED_CASH)
+                MakeSimplePopup_Confirm('cash', NEED_CASH, msg, request)
+
+            -- 유료 입장권 부족시 입장 불가 
+            else
+                -- 스케쥴러에서 버튼 비활성화로 막음
+            end
+        else
+            is_cash = false
+            request()
+        end
+    end
+
+    check_dragon_inven()
 end
 
 

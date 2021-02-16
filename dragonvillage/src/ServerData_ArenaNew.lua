@@ -405,10 +405,11 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
     -- 성공 콜백
     local function success_cb(ret)
         -- 상대방 정보 여기서 설정
+
         if (ret['match_user']) then
             self:makeMatchUserInfo(ret['match_user'])
         else
-            error('콜로세움 상대방 정보 없음')
+            --error('콜로세움 상대방 정보 없음')
         end
 
         -- @analytics
