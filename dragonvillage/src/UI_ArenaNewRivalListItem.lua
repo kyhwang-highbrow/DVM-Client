@@ -83,9 +83,9 @@ function UI_ArenaNewRivalListItem:click_startBtn()
 
     local function success_cb(ret)
         g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])
-        UI_LoadingArenaNew()
-        --local scene = SceneGameArenaNew(nil, nil, nil, true)
-        --scene:runScene()
+        --UI_LoadingArenaNew()
+        local scene = SceneGameArenaNew(nil, nil, nil, true)
+        scene:runScene()
     end
 
     local ui_network = UI_Network()

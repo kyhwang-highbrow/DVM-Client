@@ -167,9 +167,7 @@ function GameWorldArenaNew:initTamer()
     -- 적군 테이머 생성
     do
         local user_info = g_gameScene:getStructUserInfo_Opponent()
-        ccdump(user_info)
         local t_tamer_data = clone(user_info:getDeckTamerInfo())
-        ccdump(t_tamer_data)
         local costume_id = user_info:getDefDeckCostumeID()
         local t_costume = TableTamerCostume():get(costume_id)
         local t_costume_data = StructTamerCostume(t_costume)

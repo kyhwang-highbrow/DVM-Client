@@ -15,14 +15,21 @@ UI_LoadingArenaNew = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_LoadingArenaNew:init()
+function UI_LoadingArenaNew:init(curr_scene)
 	self.m_uiName = 'UI_LoadingArenaNew'
+    if (curr_scene) then
+        self.m_bFriendMatch = curr_scene.m_bFriendMatch
+
+        local guide_type = curr_scene.m_loadingGuideType
+	    if (guide_type) then
+		    self.m_lLoadingStrList = table.sortRandom(GetLoadingStrList())
+	    end
+    end
 
     self.m_remainTimer = WAITING_TIME
     self.m_bSelected = false
 
 	local vars = self:load('arena_new_loading.ui')
-    UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoadingArenaNew')
@@ -33,6 +40,40 @@ function UI_LoadingArenaNew:init()
     
 	self:initUI()
     self:initButton()
+
+    self.m_bSelected = true
+
+    -- 자체적으로 업데이트를 돌린다.
+	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_LoadingArenaNew:update(dt)
+    if (self.m_bSelected) then return end
+
+    local prev = math_floor(self.m_remainTimer)
+    self.m_remainTimer = self.m_remainTimer - dt
+
+    local next = math_floor(self.m_remainTimer)
+
+    if (self.m_remainTimer <= 0) then
+        -- 타임아웃시 자동모드 강제 설정
+        self:selectAuto(true)
+
+    elseif (prev ~= next) then
+        local msg = Str('{1}초 후 전투가 시작됩니다.', next)
+        local label = self.vars['countdownLabel']
+        label:setString(msg)
+        cca.uiReactionSlow(label)
+    end
+
+    if (next == 0) then
+        self.m_bSelected = true
+        local scene = SceneGameArenaNew(nil, nil, nil, true)
+        scene:runScene()
+    end
 end
 
 -------------------------------------
@@ -43,7 +84,7 @@ function UI_LoadingArenaNew:initUI()
     local is_friend_match = self.m_bFriendMatch
 
 	vars['arenaVisual']:setVisible(true)
-
+    self.vars['countdownLabel']:setString('')
 	-- 플레이어
     do
 		self:initMyDeckUI()
@@ -58,8 +99,6 @@ function UI_LoadingArenaNew:initUI()
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
 			local leader = struct_user_info.m_pvpDeck['leader']
 			local formation = struct_user_info.m_pvpDeck['formation']
-
-            ccdump(l_dragon_obj)
 
 			self:initDeckUI('right', l_dragon_obj, leader, formation)
 
@@ -107,6 +146,7 @@ function UI_LoadingArenaNew:initButton()
     local vars = self.vars
     
     vars['setDeckBtn']:registerScriptTapHandler( function() self:click_setAttackDeck() end)
+    vars['startBtn']:registerScriptTapHandler( function() self:click_startButton() end)
 end
 
 -------------------------------------
@@ -260,6 +300,15 @@ function UI_LoadingArenaNew:click_setAttackDeck()
 
     ui:setCloseCB(function() self:initMyDeckUI() end)
 end
+
+-------------------------------------
+-- function click_startButton
+-------------------------------------
+function UI_LoadingArenaNew:click_startButton()
+    self.m_bSelected = false
+    self.vars['setDeckBtn']:setVisible(false)
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_LoadingArenaNew)
