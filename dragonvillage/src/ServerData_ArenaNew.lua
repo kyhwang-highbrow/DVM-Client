@@ -306,7 +306,6 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_tier = data['tier']
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
-    struct_user_info.m_pvpDeck = data['pvp']
 
     struct_user_info.m_pvpDeckDids = data['deck_dids']
 

@@ -22,6 +22,10 @@ function UI_LoadingArenaNew:init()
     self.m_bSelected = false
 
 	local vars = self:load('arena_new_loading.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoadingArenaNew')
 
 	if (guide_type) then
 		self.m_lLoadingStrList = table.sortRandom(GetLoadingStrList())
@@ -29,9 +33,6 @@ function UI_LoadingArenaNew:init()
     
 	self:initUI()
     self:initButton()
-
-    -- 자체적으로 업데이트를 돌린다.
-	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -62,11 +63,11 @@ function UI_LoadingArenaNew:initUI()
 	 -- 상대방
     do
 		local struct_user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaNewData:getMatchUserInfo()
+        ccdump(g_arenaNewData:getMatchUserInfo())
+
 		if (struct_user_info) then
 			-- 덱
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
-
-            ccdump(struct_user_info.m_pvpDeck)
 			local leader = struct_user_info.m_pvpDeck['leader']
 			local formation = struct_user_info.m_pvpDeck['formation']
 			self:initDeckUI('right', l_dragon_obj, leader, formation)
@@ -92,15 +93,6 @@ end
 function UI_LoadingArenaNew:initButton()
     local vars = self.vars
 
-    -- 수동 전투
-    vars['manualBtn']:registerScriptTapHandler(function()
-        self:selectAuto(false)
-    end)
-
-    -- 자동 전투
-    vars['autoBtn']:registerScriptTapHandler(function()
-        self:selectAuto(true)
-    end)
 end
 
 -------------------------------------
@@ -189,29 +181,6 @@ end
 -------------------------------------
 function UI_LoadingArenaNew:prepare()
     return self.m_bSelected
-end
-
--------------------------------------
--- function update
--------------------------------------
-function UI_LoadingArenaNew:update(dt)
-    if (self.m_bSelected) then return end
-
-    local prev = math_floor(self.m_remainTimer)
-    self.m_remainTimer = self.m_remainTimer - dt
-
-    local next = math_floor(self.m_remainTimer)
-
-    if (self.m_remainTimer <= 0) then
-        -- 타임아웃시 자동모드 강제 설정
-        self:selectAuto(true)
-
-    elseif (prev ~= next) then
-        local msg = Str('{1}초 후 전투가 시작됩니다.', next)
-        local label = self.vars['countdownLabel']
-        label:setString(msg)
-        cca.uiReactionSlow(label)
-    end
 end
 
 -------------------------------------
