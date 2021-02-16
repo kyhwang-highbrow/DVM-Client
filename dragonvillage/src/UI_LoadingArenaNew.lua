@@ -42,8 +42,10 @@ function UI_LoadingArenaNew:init(curr_scene)
 	self:initUI()
     self:initButton()
 
-    -- 자체적으로 업데이트를 돌린다.
-	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    if (curr_scene) then
+        -- 자체적으로 업데이트를 돌린다.
+	    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    end
 end
 
 -------------------------------------

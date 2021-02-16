@@ -31,7 +31,6 @@ function UI_ArenaNewRivalListItem:initUI()
     vars['scoreLabel']:setString(Str('{1}점', t_rival_info.m_rp))
 
     if (t_rival_info.m_structClan) then
-        ccdump(t_rival_info.m_structClan)
         vars['clanLabel']:setString(t_rival_info.m_structClan.name)
     else
         vars['clanLabel']:setString('')

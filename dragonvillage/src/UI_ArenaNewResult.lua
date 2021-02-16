@@ -211,8 +211,9 @@ function UI_ArenaNewResult:direction_end()
         score_label1:setNumber(rp)
 
         -- 획득 점수
-        score_label2:setString(Str('{1}점', comma_value(t_data['added_rp'])))
-        compare_func(t_data['added_rp'], vars['scoreArrowSprite1'], vars['scoreArrowSprite2'], score_label2)
+        local addedRp = t_data['added_rp'] and t_data['added_rp'] or 0
+        score_label2:setString(Str('{1}점', comma_value(addedRp)))
+        compare_func(addedRp, vars['scoreArrowSprite1'], vars['scoreArrowSprite2'], score_label2)
 
         -- 현재 명예
         local honor = g_userData:get('honor')

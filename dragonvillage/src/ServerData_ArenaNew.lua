@@ -514,7 +514,7 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
         local season_data = ret['season']
         self:refresh_playerUserInfo(season_data)
 
-        if (season_data['win'] == 1) then
+        if (season_data and season_data['win'] == 1) then
             -- @analytics
             Analytics:firstTimeExperience('Arena_new_Win')
         end
