@@ -82,7 +82,7 @@ function UI_ArenaNewRivalListItem:click_startBtn()
     local peer_uid = self.m_rivalInfo.m_uid
 
     local function success_cb(ret)
-        g_arenaNewData:makeMatchUserInfo(ret)
+        g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])
         UI_LoadingArenaNew()
         --local scene = SceneGameArenaNew(nil, nil, nil, true)
         --scene:runScene()

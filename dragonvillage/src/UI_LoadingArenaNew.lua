@@ -69,6 +69,9 @@ function UI_LoadingArenaNew:initUI()
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
 			local leader = struct_user_info.m_pvpDeck['leader']
 			local formation = struct_user_info.m_pvpDeck['formation']
+
+            ccdump(l_dragon_obj)
+
 			self:initDeckUI('right', l_dragon_obj, leader, formation)
 
 			-- 유저 정보

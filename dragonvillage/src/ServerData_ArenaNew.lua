@@ -317,8 +317,8 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info:applyDragonsDataList(data['dragons'])
 
     -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
-    if (data['pvpuser_info']) then
-        struct_user_info:applyPvpDeckData(data['pvpuser_info']['deck'])
+    if (data['deck']) then
+        struct_user_info:applyPvpDeckData(data['deck'])
     elseif (data['deckPVP']) then
         struct_user_info:applyPvpDeckData(data['deckPVP'])
     end
