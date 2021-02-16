@@ -1014,7 +1014,6 @@ local t_module = {
     'UI_GoldDungeonScene',
     'UI_PurchasePointListItem',
     'UI_MatchReady',
-    'UI_MatchReadyArenaNew',
     'UI_MatchReadyChallengeMode',
     'UI_MatchReadyClanWar',
     'UI_RuneGuardianDungeonScene',

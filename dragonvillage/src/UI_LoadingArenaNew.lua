@@ -63,7 +63,6 @@ function UI_LoadingArenaNew:initUI()
 	 -- 상대방
     do
 		local struct_user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaNewData:getMatchUserInfo()
-        ccdump(g_arenaNewData:getMatchUserInfo())
 
 		if (struct_user_info) then
 			-- 덱
