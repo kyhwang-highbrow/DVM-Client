@@ -19,6 +19,10 @@ UI_LoadingArenaNew = class(PARENT,{
 -------------------------------------
 function UI_LoadingArenaNew:init(curr_scene)
 	self.m_uiName = 'UI_LoadingArenaNew'
+    local vars = self:load('arena_new_loading.ui')
+    self.m_remainTimer = WAITING_TIME
+    self.m_myDeckList = {}
+
     if (curr_scene) then
         self.m_bFriendMatch = curr_scene.m_bFriendMatch
 
@@ -26,21 +30,14 @@ function UI_LoadingArenaNew:init(curr_scene)
 	    if (guide_type) then
 		    self.m_lLoadingStrList = table.sortRandom(GetLoadingStrList())
 	    end
+
+        self.vars['setDeckBtn']:setVisible(false)
+        self.vars['startBtn']:setVisible(false)
+    else
+        -- backkey 지정
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoadingArenaNew')
+        UIManager:open(self, UIManager.POPUP)
     end
-
-    self.m_remainTimer = WAITING_TIME
-
-    self.m_myDeckList = {}
-
-	local vars = self:load('arena_new_loading.ui')
-    -- UIManager:open(self, UIManager.POPUP)
-
-    -- backkey 지정
-    -- g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoadingArenaNew')
-
-	if (guide_type) then
-		self.m_lLoadingStrList = table.sortRandom(GetLoadingStrList())
-	end
     
 	self:initUI()
     self:initButton()
@@ -303,14 +300,7 @@ end
 -- function click_startButton
 -------------------------------------
 function UI_LoadingArenaNew:click_startButton()
-    self.m_bSelected = false
-    self.vars['setDeckBtn']:setVisible(false)
-end
 
--------------------------------------
--- function startGame
--------------------------------------
-function UI_LoadingArenaNew:startGame()
     -- 콜로세움 공격 덱이 설정되었는지 여부 체크
     local l_dragon_list = self.m_myDeckList
     if (not l_dragon_list or table.count(l_dragon_list) <= 0) then
@@ -336,11 +326,12 @@ function UI_LoadingArenaNew:startGame()
             -- UI_Inventory() @kwkang 룬 업데이트로 룬 관리쪽으로 이동하게 변경 
             UI_RuneForge('manage')
         end
+
         g_inventoryData:checkMaximumItems(start_game, manage_func)
     end
 
     start_game = function()
-        -- 콜로세움 시작 요청
+        -- 아레나 시작 요청
         local is_cash = false
         local function request()
             local function cb(ret)
@@ -348,8 +339,7 @@ function UI_LoadingArenaNew:startGame()
                 UI_BlockPopup()
                 -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
                 self.root:unscheduleUpdate()
-                local scene = SceneGameArenaNew() -- PVP 개편 테스트용 임시 커밋
-                scene:runScene()
+                self:startGame()
             end
 
             g_arenaNewData:request_arenaStart(is_cash, nil, cb)
@@ -376,6 +366,16 @@ function UI_LoadingArenaNew:startGame()
     end
 
     check_dragon_inven()
+
+end
+
+-------------------------------------
+-- function startGame
+-------------------------------------
+function UI_LoadingArenaNew:startGame()
+    self:close()
+    local scene = SceneGameArenaNew() -- PVP 개편 테스트용 임시 커밋
+    scene:runScene()
 end
 
 

@@ -516,7 +516,7 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
 
         if (season_data['win'] == 1) then
             -- @analytics
-            Analytics:firstTimeExperience('Arena_Win')
+            Analytics:firstTimeExperience('Arena_new_Win')
         end
 
         -- 변경 데이터
@@ -543,7 +543,7 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
 
         return false
     end
-
+    cclog('result')
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/game/arena_new/finish')

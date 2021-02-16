@@ -167,7 +167,7 @@ function SceneGameArenaNew:networkGameFinish(t_param, t_result_ref, next_func)
         end
     end
 
-    local api_url = '/game/colosseum/finish'
+    local api_url = '/game/arena_new/finish'
     
     local ui_network = UI_Network()
     ui_network:setUrl(api_url)
