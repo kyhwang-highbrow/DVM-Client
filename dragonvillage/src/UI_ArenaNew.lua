@@ -127,7 +127,8 @@ function UI_ArenaNew:updateRivalList()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(720, 100 + 5)
+    table_view:setScrollLock(true)
+    table_view.m_defaultCellSize = cc.size(720, 98)
     table_view:setCellUIClass(UI_ArenaNewRivalListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)

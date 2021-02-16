@@ -66,8 +66,6 @@ function UI_LoadingArena:initUI()
     do
 		local struct_user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
 
-        ccdump(struct_user_info)
-
 		if (struct_user_info) then
 			-- 덱
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
