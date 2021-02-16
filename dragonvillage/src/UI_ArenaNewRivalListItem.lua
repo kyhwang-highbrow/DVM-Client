@@ -39,8 +39,6 @@ function UI_ArenaNewRivalListItem:initUI()
     -- 드래곤 리스트
     local t_deck_dragon_list = t_rival_info:getDeck_didList()
 
-    ccdump(t_deck_dragon_list)
-
     for i,v in pairs(t_deck_dragon_list) do
     --for i = 1, 5 do
         --local card_ui = UI_ItemCard(771683)
