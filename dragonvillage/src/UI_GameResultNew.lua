@@ -1482,25 +1482,34 @@ function UI_GameResultNew:show_staminaInfo()
     local vars = self.vars
     vars['energyNode']:setVisible(true)
 
-    self.m_staminaInfo = UI_StaminaInfo:create('st')
+    local isStamina = self.m_staminaType == 'st'
+    
+    vars['energyLabel']:setVisible(not isStamina)
+    vars['energyIconNode']:setVisible(not isStamina)
+    vars['energyBgSprite']:setVisible(not isStamina)
 
-    do -- addChild, 위치 조정
-        local ui = self.m_staminaInfo
-        local x_pos_idx = 1
+    -- 스태미너 타입이면 클릭 가능한 버튼으로 추가
+    if (isStamina) then
+        self.m_staminaInfo = UI_StaminaInfo:create('st')
 
-        self.vars['energyNode']:addChild(ui.root)
+        do -- addChild, 위치 조정
+            local ui = self.m_staminaInfo
+            local x_pos_idx = 1
+
+            self.vars['energyNode']:addChild(ui.root)
+        end
+
+        self.m_staminaInfo:refresh()
+    else
+        local stamina_type = self.m_staminaType
+
+        local st_ad = g_staminasData:getStaminaCount(stamina_type)
+        local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
+        vars['energyLabel']:setString(Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt)))
+
+        local icon = IconHelper:getStaminaInboxIcon(stamina_type)
+        vars['energyIconNode']:addChild(icon)
     end
-
-    self.m_staminaInfo:refresh()
-
-    --local stamina_type = self.m_staminaType
-
-    --local st_ad = g_staminasData:getStaminaCount(stamina_type)
-    --local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
-    --vars['energyLabel']:setString(Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt)))
-
-    --local icon = IconHelper:getStaminaInboxIcon(stamina_type)
-    --vars['energyIconNode']:addChild(icon)
 end
 
 -------------------------------------
