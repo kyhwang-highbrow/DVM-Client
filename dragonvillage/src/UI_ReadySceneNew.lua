@@ -51,7 +51,7 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     -- 아레나모드 (콜로세움 진입, 친구대전 진입시)
     self.m_bArena = false
     --if (stage_id == ARENA_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID) then
-    if isExistValue(stage_id, ARENA_STAGE_ID, FRIEND_MATCH_STAGE_ID, CHALLENGE_MODE_STAGE_ID, GRAND_ARENA_STAGE_ID, CLAN_WAR_STAGE_ID) then
+    if isExistValue(stage_id, ARENA_NEW_STAGE_ID, ARENA_STAGE_ID, FRIEND_MATCH_STAGE_ID, CHALLENGE_MODE_STAGE_ID, GRAND_ARENA_STAGE_ID, CLAN_WAR_STAGE_ID) then
         self.m_bArena = true
     end
 

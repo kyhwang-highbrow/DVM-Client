@@ -43,21 +43,10 @@ function UI_LoadingArenaNew:initUI()
     local is_friend_match = self.m_bFriendMatch
 
 	vars['arenaVisual']:setVisible(true)
-	--vars['challengeModeVisual']:setVisible(false)
 
 	-- 플레이어
     do
-		local struct_user_info = is_friend_match and g_friendMatchData.m_playerUserInfo or g_arenaNewData:getPlayerArenaUserInfo()
-		if (struct_user_info) then
-			-- 덱
-			local l_dragon_obj = struct_user_info:getDeck_dragonList()
-			local leader = struct_user_info.m_pvpDeck['leader']
-			local formation = struct_user_info.m_pvpDeck['formation']
-			self:initDeckUI('left', l_dragon_obj, leader, formation)
-
-			-- 유저 정보
-			self:initUserInfo('left', struct_user_info)
-		end
+		self:initMyDeckUI()
     end
 
 	 -- 상대방
@@ -89,12 +78,35 @@ function UI_LoadingArenaNew:initUI()
 end
 
 -------------------------------------
+-- function initMyDeckUI
+-------------------------------------
+function UI_LoadingArenaNew:initMyDeckUI()
+    local struct_user_info = self.m_bFriendMatch and g_friendMatchData.m_playerUserInfo or g_arenaNewData:getPlayerArenaUserInfo()
+
+		if (struct_user_info) then
+			-- 덱
+			local tData = g_deckData:getDeck_lowData('arena_new_a')
+		    struct_user_info:applyPvpDeckData(tData)
+
+            local l_dragon_obj = struct_user_info:getDeck_dragonList()
+			local leader = struct_user_info.m_pvpDeck['leader']
+			local formation = struct_user_info.m_pvpDeck['formation']
+
+			self:initDeckUI('left', l_dragon_obj, leader, formation)
+
+			-- 유저 정보
+			self:initUserInfo('left', struct_user_info)
+		end
+end
+
+-------------------------------------
 -- function initButton
 -- @brief 버튼 UI 초기화
 -------------------------------------
 function UI_LoadingArenaNew:initButton()
     local vars = self.vars
-
+    
+    vars['setDeckBtn']:registerScriptTapHandler( function() self:click_setAttackDeck() end)
 end
 
 -------------------------------------
@@ -116,6 +128,8 @@ function UI_LoadingArenaNew:initDeckUI(direction, l_dragon_obj, leader, formatio
     elseif (direction == 'right') then
         parent_node = vars['formationNode2']
     end
+
+    if (parent_node) then parent_node:removeAllChildren(true) end
 
     local player_2d_deck = UI_2DDeck(true, true)
     player_2d_deck:setDirection(direction)
@@ -236,6 +250,15 @@ function UI_LoadingArenaNew:selectAuto(auto_mode)
 
     -- 서버 Log를 위해 임시저장
     g_arenaData.m_tempLogData['is_auto'] = auto_mode
+end
+
+-------------------------------------
+-- function click_setAttackDeck
+-------------------------------------
+function UI_LoadingArenaNew:click_setAttackDeck()
+    local ui = UI_ArenaNewDeckSettings(ARENA_NEW_STAGE_ID, 'attack', true)
+
+    ui:setCloseCB(function() self:initMyDeckUI() end)
 end
 
 --@CHECK

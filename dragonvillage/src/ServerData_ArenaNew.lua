@@ -158,7 +158,7 @@ function ServerData_ArenaNew:refresh_playerUserInfo(t_data, l_deck)
 
     -- 덱 설정
     if l_deck then
-        l_deck['deckName'] = 'arena' -- 서버 작업이 안되서 arena로 일딴 설정
+        l_deck['deckName'] = 'arena_new' -- 서버 작업이 안되서 arena로 일딴 설정
         self.m_playerUserInfo:applyPvpDeckData(l_deck)
     end
 
@@ -412,7 +412,7 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
         end
 
         -- @analytics
-        Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_COL, 1, '콜로세움')
+        Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_COL, 1, '최신 아레나')
 
         -- staminas, cash 동기화
         g_serverData:networkCommonRespone(ret)
