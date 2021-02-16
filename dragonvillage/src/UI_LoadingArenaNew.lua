@@ -44,7 +44,7 @@ function UI_LoadingArenaNew:init(curr_scene)
 
     if (curr_scene) then
         -- 자체적으로 업데이트를 돌린다.
-	    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+	    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end
 end
 
@@ -88,7 +88,6 @@ function UI_LoadingArenaNew:initUI()
 	 -- 상대방
     do
 		local struct_user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaNewData:getMatchUserInfo()
-
 		if (struct_user_info) then
 			-- 덱
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()

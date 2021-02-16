@@ -23,6 +23,7 @@ StructUserInfoArenaNew = class(PARENT, {
         -- StructUserInfo의 변수들 참고용 (2017-06-30)
         m_bStruct = 'boolean',
 
+        m_no = 'number',
         m_uid = 'number',
         m_lv = 'number',
         m_nickname = 'string',

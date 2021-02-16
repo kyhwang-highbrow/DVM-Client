@@ -294,10 +294,11 @@ end
 -------------------------------------
 -- function makeMatchUserInfo
 -------------------------------------
-function ServerData_ArenaNew:makeMatchUserInfo(data)
+function ServerData_ArenaNew:makeMatchUserInfo(data, match_number)
     local struct_user_info = StructUserInfoArenaNew()
 
     -- 기본 유저 정보
+    struct_user_info.m_no = data['no']
     struct_user_info.m_uid = data['uid']
     struct_user_info.m_nickname = data['nick']
     struct_user_info.m_lv = data['lv']
@@ -313,14 +314,36 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_rp = data['rp']
     struct_user_info.m_matchResult = data['match']
 
-    struct_user_info:applyRunesDataList(data['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
-    struct_user_info:applyDragonsDataList(data['dragons'])
+    local matchUserData = data['dragons']
+    local matchUserDeck = {}
+    local matchRuneDeck = data['runes']
 
     -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
     if (data['deck']) then
-        struct_user_info:applyPvpDeckData(data['deck'])
+        matchUserDeck = data['deck']
     elseif (data['deckPVP']) then
-        struct_user_info:applyPvpDeckData(data['deckPVP'])
+        matchUserDeck = data['deckPVP']
+    elseif (data['info'] and data['info']['deck'] ) then
+        matchUserDeck = data['info']['deck']
+    end
+
+    if (data['info'] and data['info']['runes'] ) then
+        matchRuneDeck = data['info']['runes']
+    end
+
+    if (match_number) then
+        for i, v in pairs(self.m_matchUserList) do
+            if (v.m_no and v.m_no == match_number) then 
+                struct_user_info.m_dragonsObject = v.m_dragonsObject
+                struct_user_info.m_pvpDeck = v.m_pvpDeck
+                struct_user_info.m_runesObject = v.m_runesObject
+                break
+            end
+        end
+    else
+        struct_user_info:applyRunesDataList(matchRuneDeck) --반드시 드래곤 설정 전에 룬을 설정해야함
+        struct_user_info:applyDragonsDataList(matchUserData)
+        struct_user_info:applyPvpDeckData(matchUserDeck)
     end
 
     -- 클랜

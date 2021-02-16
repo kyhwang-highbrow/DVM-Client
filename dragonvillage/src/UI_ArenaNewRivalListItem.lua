@@ -37,19 +37,16 @@ function UI_ArenaNewRivalListItem:initUI()
     end
 
     -- 드래곤 리스트
-    local t_deck_dragon_list = t_rival_info:getDeck_didList()
+    local t_deck_dragon_list = t_rival_info.m_dragonsObject
+    local dragonMaxCount = 5
+    local dragonSlotIndex = 1
 
     for i,v in pairs(t_deck_dragon_list) do
-    --for i = 1, 5 do
-        --local card_ui = UI_ItemCard(771683)
-        --card_ui.root:setScale(1)
-        --vars['dragonNode' .. i]:addChild(card_ui.root)
-        -- 드래곤 이름
-	    local item_id = TableItem:getItemIDByDid(v, 3)
-
-        local icon = UI_ItemCard(item_id)
+        local icon = UI_DragonCard(v)
         icon.root:setSwallowTouch(false)
-        vars['dragonNode' .. i]:addChild(icon.root)
+        vars['dragonNode' .. dragonSlotIndex]:addChild(icon.root)
+
+        dragonSlotIndex =  dragonSlotIndex + 1
     end
 end
 
@@ -72,7 +69,7 @@ end
 -- @brief 랭커 pvp 정보 받아와서 세팅후 개발 모드로 게임 실행
 -------------------------------------
 function UI_ArenaNewRivalListItem:click_startBtn()
-    local l_dragon_deck = g_arenaData.m_playerUserInfo:getDeck_dragonList()
+    local l_dragon_deck = g_arenaNewData.m_playerUserInfo:getDeck_dragonList()
     if (table.count(l_dragon_deck) <= 0) then
         MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
         return
@@ -82,8 +79,12 @@ function UI_ArenaNewRivalListItem:click_startBtn()
     local peer_uid = self.m_rivalInfo.m_uid
 
     local function success_cb(ret)
-        g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])
-        UI_LoadingArenaNew()
+        local t_rival_info = self.m_rivalInfo
+
+        if (t_rival_info.m_no) then
+            g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'], t_rival_info.m_no)
+            UI_LoadingArenaNew()
+        end
         --local scene = SceneGameArenaNew(nil, nil, nil, false)
         --scene:runScene()
     end
