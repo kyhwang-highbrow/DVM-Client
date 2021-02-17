@@ -357,6 +357,12 @@ function ServerData_ArenaNew:request_rivalRefresh(finish_cb)
     local function success_cb(ret)
         self.m_rewardInfo = ret['reward_info']
 
+        self.m_matchUserList = {}
+        for i = 1, #ret['list'] do
+            local userInfo = self:makeMatchUserInfo(ret['list'][i])
+            table.insert(self.m_matchUserList, userInfo)
+        end
+
         if finish_cb then
             finish_cb(ret)
         end

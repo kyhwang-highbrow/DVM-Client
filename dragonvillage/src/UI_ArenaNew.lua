@@ -128,6 +128,7 @@ end
 function UI_ArenaNew:updateRivalList()
     local vars = self.vars
     local node = vars['itemNode']
+    node:removeAllChildren()
 
     local l_item_list = g_arenaNewData.m_matchUserList
 
@@ -174,15 +175,6 @@ function UI_ArenaNew:initButton()
     vars['defenseRecordBtn']:registerScriptTapHandler(function() self:click_defendHistoryBtn() end)
     vars['honorBtn']:registerScriptTapHandler(function() self:click_honorMedalBtn() end)
     vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
-    
-
-    -- TODO 
-    --[[
-	do
-		vars['valorShopBtn']:registerScriptTapHandler(function() self:click_valorShopBtn() end)
-		vars['valorShopLabel']:setString(Str('용맹훈장') .. '\n' .. Str('상점'))
-	end
-    ]]
 
     -- 명예의 전당으로 이동
     --vars['fameBtn']:registerScriptTapHandler(function() self:click_fameBtn() end)
@@ -444,6 +436,7 @@ end
 function UI_ArenaNew:click_refreshBtn()
     local function success_cb(ret)
         self:refreshRewardInfo()
+        self:updateRivalList()
     end
 
 	 g_arenaNewData:request_rivalRefresh(success_cb)
