@@ -94,7 +94,7 @@ function UI_LoadingArenaNew:initUI()
 		if (struct_user_info) then
 			-- 덱
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
-            ccdump(struct_user_info)
+
 			local leader = struct_user_info.m_pvpDeck['leader']
 			local formation = struct_user_info.m_pvpDeck['formation']
 

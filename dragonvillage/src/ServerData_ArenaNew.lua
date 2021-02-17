@@ -357,9 +357,6 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
         local t_data = nil
         local l_deck = ret['deck']
 
-        ccdump(t_data)
-        cclog(deckname)
-
         if (deckname == 'arena_new_a' or deckname == 'arena_new_d') then
             self:refresh_playerUserInfo(t_data, l_deck, deckname)
         end
