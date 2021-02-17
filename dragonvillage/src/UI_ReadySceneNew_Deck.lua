@@ -752,7 +752,7 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
 
     local formation_lv = b_arena and 1 or g_formationData:getFormationInfo(formation)['formation_lv']
     -- 최소 1명 출전 확인 (일단 콜로세움만)
-    if (deckname == 'arena_new') or (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) or (deckname == 'clanwar') then
+    if (deckname == 'arena_new_a') or (deckname == 'arena_new_d') or (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) or (deckname == 'clanwar') then
         local setted_number = table.count(self.m_lDeckList)
         if (setted_number <= 0) then
             local msg = Str('최소 1명 이상은 출전시켜야 합니다.')
@@ -798,7 +798,7 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
 	end
 
     -- pvp는 테이머까지 처리
-    if (deckname == 'arena_new') or (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) or g_deckData:isUsedDeckPvpDB(deckname) then
+    if (deckname == 'arena_new_d') or (deckname == 'arena_new_a') or (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) or g_deckData:isUsedDeckPvpDB(deckname) then
         if (self.m_uiReadyScene:getCurrTamerID() ~= tamer_id) then
             b_change = true
         end

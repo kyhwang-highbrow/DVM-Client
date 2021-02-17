@@ -180,7 +180,7 @@ function ServerData_ArenaNew:refresh_playerUserInfo(t_data, l_deck)
 
     -- 덱 설정
     if l_deck then
-        l_deck['deckName'] = 'arena_new' -- 서버 작업이 안되서 arena로 일딴 설정
+        l_deck['deckName'] = 'arena_new_a' -- 서버 작업이 안되서 arena로 일딴 설정
         self.m_playerUserInfo:applyPvpDeckData(l_deck)
     end
 

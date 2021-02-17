@@ -157,7 +157,7 @@ function UI_ArenaNew:initUI()
         end
     end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
-    self:initTab()
+    --self:initTab()
 end
 
 -------------------------------------
@@ -216,6 +216,15 @@ function UI_ArenaNew:refresh()
         vars['powerLabel']:setString(struct_user_info:getPowerText())
         vars['winLabel']:setString(tostring(struct_user_info:getWinCnt()))
         vars['scoreLabel']:setString(struct_user_info:getRPText())
+
+        -- 티어 게이지
+        local rate = struct_user_info:getWinRateText()
+        vars['scoreGgLabel']:setString(rate)
+
+        local gauge = vars['scoreGg']
+        gauge:setPercentage(0)
+        --local action = cc.ProgressTo:create(0.3, rate)
+        --gauge:runAction(action)
     end
 
 	-- 주간 승수 보상 -> 참여 보상으로 변경

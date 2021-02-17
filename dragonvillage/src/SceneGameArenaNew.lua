@@ -21,7 +21,7 @@ function SceneGameArenaNew:init(game_key, stage_id, stage_name, develop_mode, fr
     if (self.m_bFriendMatch) then
         g_deckData:setSelectedDeck('fpvp_atk')
     else
-        g_deckData:setSelectedDeck('arena')
+        g_deckData:setSelectedDeck('arena_new_a')
     end
 
     -- 아레나 로딩은 상대방 덱을 확인하기 위해 5초간 유지
@@ -36,7 +36,7 @@ end
 -- @brief 스테이지 ID와 게임 모드 저장
 -------------------------------------
 function SceneGameArenaNew:init_gameMode()
-    self.m_stageID = ARENA_STAGE_ID
+    self.m_stageID = ARENA_NEW_STAGE_ID
     self.m_gameMode = GAME_MODE_ARENA
     self.m_bgmName = 'bgm_colosseum'
 
