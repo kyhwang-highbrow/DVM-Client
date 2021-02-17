@@ -4,10 +4,10 @@
 ServerData_ArenaNew = class({
         m_serverData = 'ServerData',
 
-        m_playerUserInfo = 'StructUserInfoArena',
-        m_playerUserInfoHighRecord = 'StructUserInfoArena',
+        m_playerUserInfo = 'StructUserInfoArenaNew',
+        m_playerUserInfoHighRecord = 'StructUserInfoArenaNew',
 
-        m_matchUserInfo = 'StructUserInfoArena',
+        m_matchUserInfo = 'StructUserInfoArenaNew',
         m_matchUserList = 'list',
 
         m_startTime = 'timestamp', -- 콜로세움 오픈 시간
@@ -98,8 +98,28 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
         table.insert(self.m_matchUserList, userInfo)
     end
 
-    -- 주간 보상
+    -- 보상
     self:setRewardInfo(ret)
+end
+
+-------------------------------------
+-- function getMatchUserInfo
+-------------------------------------
+function ServerData_ArenaNew:getMatchUser()
+    if (not self.m_matchUserInfo) then
+        return nil
+    end
+
+    return self.m_matchUserInfo
+end
+
+-------------------------------------
+-- function setMatchUser
+-------------------------------------
+function ServerData_ArenaNew:setMatchUser(match_user)    
+    if (not match_user) then return end
+
+    self.m_matchUserInfo = match_user
 end
 
 -------------------------------------
@@ -354,21 +374,11 @@ function ServerData_ArenaNew:makeMatchUserInfo(data, match_number)
     end
 
     local uid = data['uid']
-    self.m_matchUserInfo = struct_user_info
 
     return struct_user_info
 end
 
--------------------------------------
--- function getMatchUserInfo
--------------------------------------
-function ServerData_ArenaNew:getMatchUserInfo()
-    if (not self.m_matchUserInfo) then
-        return nil
-    end
 
-    return self.m_matchUserInfo
-end
 
 -------------------------------------
 -- function request_setDeck
@@ -418,7 +428,7 @@ end
 -------------------------------------
 -- function request_arenaStart
 -------------------------------------
-function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, fail_cb)
+function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, fail_cb, target_number)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -481,6 +491,8 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
     ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setParam('team_bonus', self:getTeamBonusIds())
+    if (target_number) then ui_network:setParam('target_no', target_number) end
+
     if (history_id) then -- 복수전, 재도전
         ui_network:setParam('history_id', history_id)
     end
@@ -566,7 +578,7 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
 
         return false
     end
-    cclog('result')
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/game/arena_new/finish')
@@ -835,8 +847,6 @@ function ServerData_ArenaNew:makeDragonToken()
             token = token .. ','
         end
     end
-
-    --cclog('token = ' .. token)
 
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
     

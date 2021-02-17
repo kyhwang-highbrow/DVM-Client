@@ -12,6 +12,9 @@ UI_LoadingArenaNew = class(PARENT,{
 
         m_remainTimer = 'number',
         m_bSelected = 'boolean',
+
+        m_targetRivalInfo = 'StructUserInfoArenaNew',
+        m_targetNumber = 'number',
     })
 
 -------------------------------------
@@ -22,6 +25,8 @@ function UI_LoadingArenaNew:init(curr_scene)
     local vars = self:load('arena_new_loading.ui')
     self.m_remainTimer = WAITING_TIME
     self.m_myDeckList = {}
+
+    if (target_no) then self.m_targetNumber = target_no end
 
     if (curr_scene) then
         self.m_bFriendMatch = curr_scene.m_bFriendMatch
@@ -43,6 +48,7 @@ function UI_LoadingArenaNew:init(curr_scene)
     self:initButton()
 
     if (curr_scene) then
+        self:selectAuto(true)
         -- 자체적으로 업데이트를 돌린다.
 	    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end
@@ -87,12 +93,14 @@ function UI_LoadingArenaNew:initUI()
 
 	 -- 상대방
     do
-		local struct_user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaNewData:getMatchUserInfo()
+		local struct_user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaNewData:getMatchUser()
 		if (struct_user_info) then
 			-- 덱
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
 			local leader = struct_user_info.m_pvpDeck['leader']
 			local formation = struct_user_info.m_pvpDeck['formation']
+
+            self.m_targetNumber = struct_user_info.m_no
 
 			self:initDeckUI('right', l_dragon_obj, leader, formation)
 
@@ -343,7 +351,7 @@ function UI_LoadingArenaNew:click_startButton()
                 self:startGame()
             end
 
-            g_arenaNewData:request_arenaStart(is_cash, nil, cb)
+            g_arenaNewData:request_arenaStart(is_cash, nil, cb, nil, self.m_targetNumber)
         end
 
         -- 기본 입장권 부족시

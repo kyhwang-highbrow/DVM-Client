@@ -13,6 +13,7 @@ UI_ArenaNewRivalListItem = class(PARENT, {
 function UI_ArenaNewRivalListItem:init(t_rival_info)
     self.m_rivalInfo = t_rival_info
     local vars = self:load('arena_new_scene_item_01.ui')
+    self.root:setSwallowTouch(true)
 
     self:initUI()
     self:initButton()
@@ -43,7 +44,7 @@ function UI_ArenaNewRivalListItem:initUI()
 
     for i,v in pairs(t_deck_dragon_list) do
         local icon = UI_DragonCard(v)
-        icon.root:setSwallowTouch(false)
+        icon.root:setSwallowTouch(true)
         vars['dragonNode' .. dragonSlotIndex]:addChild(icon.root)
 
         dragonSlotIndex =  dragonSlotIndex + 1
@@ -82,7 +83,8 @@ function UI_ArenaNewRivalListItem:click_startBtn()
         local t_rival_info = self.m_rivalInfo
 
         if (t_rival_info.m_no) then
-            g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'], t_rival_info.m_no)
+            --g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'], t_rival_info.m_no)
+            g_arenaNewData:setMatchUser(self.m_rivalInfo)
             UI_LoadingArenaNew()
         end
         --local scene = SceneGameArenaNew(nil, nil, nil, false)
