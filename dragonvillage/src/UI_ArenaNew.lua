@@ -296,7 +296,7 @@ end
 -- @brief 콜로세움 랭킹 정보 팝업 (최고 순위 기록 시즌, 현재 시즌)
 -------------------------------------
 function UI_ArenaNew:click_defendDeckBtn()
-	UI_ArenaNewDefenceDeckSettings(ARENA_NEW_STAGE_ID, 'def', true)
+	UI_ArenaNewDefenceDeckSettings(ARENA_NEW_STAGE_ID, 'arena_new_d', true)
 end
 
 -------------------------------------
@@ -328,7 +328,7 @@ end
 -- @brief 출전 덱 설정 버튼
 -------------------------------------
 function UI_ArenaNew:click_startBtn()
-	UI_ArenaNewDeckSettings(ARENA_NEW_STAGE_ID, 'attack', false)
+	UI_ArenaNewDeckSettings(ARENA_NEW_STAGE_ID, 'arena_new_a', false)
 end
 
 -------------------------------------

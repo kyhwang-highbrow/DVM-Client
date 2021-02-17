@@ -200,12 +200,8 @@ function UI_ReadySceneNew:checkDeckProper()
     end
 
     -- 아레나 (개편 후) 별도 처리
-    if (self.m_stageID == ARENA_NEW_STAGE_ID) then
-        if (self.m_subInfo == 'attack') then
-            g_deckData:setSelectedDeck('arena_new_a')
-        elseif (self.m_subInfo == 'def') then
-            g_deckData:setSelectedDeck('arena_new_d')
-        end
+    if (self.m_stageID == ARENA_NEW_STAGE_ID and self.m_subInfo) then
+        g_deckData:setSelectedDeck(self.m_subInfo)
         return
     end
 

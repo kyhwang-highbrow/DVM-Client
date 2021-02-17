@@ -187,7 +187,7 @@ function UI_LoadingArenaNew:initDeckUI(direction, l_dragon_obj, leader, formatio
     player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
         
     -- 진형 설정
-    --player_2d_deck:setFormation(formation)
+    player_2d_deck:setFormation(formation)
 end
 
 -------------------------------------
@@ -303,7 +303,7 @@ end
 -- function click_setAttackDeck
 -------------------------------------
 function UI_LoadingArenaNew:click_setAttackDeck()
-    local ui = UI_ArenaNewDeckSettings(ARENA_NEW_STAGE_ID, 'attack', true)
+    local ui = UI_ArenaNewDeckSettings(ARENA_NEW_STAGE_ID, 'arena_new_a', true)
 
     ui:setCloseCB(function() self:initMyDeckUI() end)
 end

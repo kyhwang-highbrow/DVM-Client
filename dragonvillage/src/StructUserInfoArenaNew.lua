@@ -53,6 +53,7 @@ StructUserInfoArenaNew = class(PARENT, {
 
         -- 덱 정보 (공격덱, 방어덱 분리 안함)
         m_pvpDeck = 'table',
+        m_pvpDefenseDeck = 'table',
         m_pvpDeckDids = 'table',
         m_pvpDeckCombatPower = 'number',
 
@@ -564,6 +565,41 @@ function StructUserInfoArenaNew:getDeck_dragonList(use_doid)
     return t_deck
 end
 
+
+-------------------------------------
+-- function applyPvpDefenseDeckData
+-- @brief
+-------------------------------------
+function StructUserInfoArenaNew:applyPvpDefenseDeckData(t_data)
+    self.m_pvpDefenseDeck = t_data
+end
+
+-------------------------------------
+-- function getDefenseDeck_dragonList
+-- @brief
+-------------------------------------
+function StructUserInfoArenaNew:getDefenseDeck_dragonList(use_doid)
+    if (not self.m_pvpDefenseDeck) then
+        return {}
+    end
+
+    local t_deck = {}
+    if (self.m_pvpDefenseDeck['deck']) then
+        for i,v in pairs(self.m_pvpDefenseDeck['deck']) do
+            local idx = tonumber(i)
+            local doid = v
+        
+            -- doid로 저장 혹은 오브젝트로 저장
+            if use_doid then
+                t_deck[idx] = doid
+            else
+                t_deck[idx] = self:getDragonObject(doid)
+            end
+        end
+    end
+
+    return t_deck
+end
 -------------------------------------
 -- function getDeck_didList
 -- @brief 메인화면에서 덱의 아이콘들을 보여주기 위한 리스트
@@ -693,8 +729,11 @@ function StructUserInfoArenaNew:getDeck(type)
     local tamer_id = g_tamerData:getCurrTamerID()
     -- 공격덱
     if (type == 'arena_new_a' or type == 'arena_new_d') then
-        local l_doid = self:getDeck_dragonList(true)
-        local formation = type == 'arena_new_a' and 'attack' or 'def'
+        local dragonList = type == 'arena_new_a' and self:getDeck_dragonList(true) or self:getDefenseDeck_dragonList(true)
+        local l_doid = dragonList
+
+
+        local formation = 'attack'
         local leader = 0
         local formation_lv = 1
         if self.m_pvpDeck then
