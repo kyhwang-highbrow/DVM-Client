@@ -90,6 +90,8 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
 
     self:refresh_playerUserInfo(ret['season'], ret['deck'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
+    local combat_power = self.m_playerUserInfo:getDeckCombatPowerByDeckname('arena_new_a', false)
+    self.m_playerUserInfo.m_power = combat_power
 
     self.m_matchUserList = {}
     
@@ -327,6 +329,7 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_tier = data['tier']
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
+    struct_user_info.m_power = data['power']
 
     struct_user_info.m_pvpDeckDids = data['deck_dids']
 
@@ -341,18 +344,14 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
     if (data['deck']) then
         matchUserDeck = data['deck']
-        cclog(matchUserDeck)
     elseif (data['deckPVP']) then
         matchUserDeck = data['deckPVP']
-        cclog(matchUserDeck)
     elseif (data['info'] and data['info']['deck'] ) then
         matchUserDeck = data['info']['deck']
-        cclog(matchUserDeck)
     end
 
     if (data['info'] and data['info']['runes'] ) then
         matchRuneDeck = data['info']['runes']
-        cclog(matchRuneDeck)
     end
 
     struct_user_info:applyRunesDataList(matchRuneDeck) --반드시 드래곤 설정 전에 룬을 설정해야함
@@ -432,11 +431,11 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
     local function success_cb(ret)
         -- 상대방 정보 여기서 설정
 
-        if (ret['match_user']) then
-            self:makeMatchUserInfo(ret['match_user'])
-        else
+        --if (ret['match_user']) then
+        --    self:makeMatchUserInfo(ret['match_user'])
+        --else
             --error('콜로세움 상대방 정보 없음')
-        end
+        --end
 
         -- @analytics
         Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_COL, 1, '최신 아레나')

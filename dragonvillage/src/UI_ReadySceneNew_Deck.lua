@@ -831,7 +831,7 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             g_arenaData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
 
         -- 콜로세움 (신규) 전용 덱 처리
-        elseif (deckname == 'arena_new') then
+        elseif (deckname == 'arena_new_a' or deckname == 'arena_new_d') then
             local l_edoid = {}
             l_edoid[1] = self.m_lDeckList[1]
             l_edoid[2] = self.m_lDeckList[2]

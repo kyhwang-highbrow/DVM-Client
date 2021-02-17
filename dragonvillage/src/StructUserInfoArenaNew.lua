@@ -49,6 +49,7 @@ StructUserInfoArenaNew = class(PARENT, {
         m_rankPercent = 'float',-- 월드 랭킹 퍼센트
         m_tier = 'string',       -- 티어
         m_straight = 'number',   -- 연승 정보
+        m_power = 'number',
 
         -- 덱 정보 (공격덱, 방어덱 분리 안함)
         m_pvpDeck = 'table',
@@ -366,6 +367,16 @@ function StructUserInfoArenaNew:getUserText()
         str = self.m_nickname
     end
     return str
+end
+
+-------------------------------------
+-- function getPowerText
+-- @brief
+-------------------------------------
+function StructUserInfoArenaNew:getPowerText()
+    if (not self.m_power) then return '-' end
+
+    return tostring(self.m_power)
 end
 
 -------------------------------------

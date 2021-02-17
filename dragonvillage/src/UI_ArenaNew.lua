@@ -210,10 +210,11 @@ function UI_ArenaNew:refresh()
         vars['tierLabel']:setString(tier_name)
 
         -- 순위, 점수, 승률
-        local str = struct_user_info:getRankText(true) .. '\n'
-            .. struct_user_info:getRPText()  .. '\n'
-            .. struct_user_info:getWinRateText()  .. '\n'
+        local str = struct_user_info:getRankText(true)
         vars['rankingLabel']:setString(str)
+        vars['powerLabel']:setString(struct_user_info:getPowerText())
+        vars['winLabel']:setString(tostring(struct_user_info:getWinCnt()))
+        vars['scoreLabel']:setString(struct_user_info:getRPText())
     end
 
 	-- 주간 승수 보상 -> 참여 보상으로 변경
