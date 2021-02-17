@@ -107,6 +107,8 @@ local TableInfo = {
         table_arena_rank = {'table_arena_rank', 'rank_id', false}, -- 콜로세움 랭킹 보상
         table_arena = {'table_arena', 'tid', false}, -- 티어 정보 표기하는데 사용
 
+        table_arena_new_rank = {'table_arena_new_rank', 'tier_id', false}, -- 콜로세움 개선 후 랭킹 보상
+
         table_clanwar_group = {'table_clanwar_group', 'idx', true}, -- 클랜전 조별리그 매치 방식
         anc_floor_reward = {'table_ancient_reward', 'stage', false}, -- 고대의 탑(시험의 탑)
         table_fevertime = {'table_fevertime', 'type', false}, -- 핫타임

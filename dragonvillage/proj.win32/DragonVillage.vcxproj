@@ -873,6 +873,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructAdventureStageInfo.lua" />
     <None Include="..\src\StructAiSkillInfo.lua" />
     <None Include="..\src\StructAncientTowerFloorData.lua" />
+    <None Include="..\src\StructArenaNewRankReward.lua" />
     <None Include="..\src\StructAttendanceData.lua" />
     <None Include="..\src\StructAttrTowerFloorData.lua" />
     <None Include="..\src\StructBookData.lua" />

@@ -50,6 +50,8 @@ function UI_ArenaNewRankInfoPopup:refresh()
     do -- 최고 기록 데이터
         local struct_user_info = g_arenaNewData:getPlayerArenaUserInfoHighRecord()
 
+        if (not struct_user_info) then return end
+
         -- 티어 아이콘
         vars['tierIconNode1']:removeAllChildren()
         local icon = struct_user_info:makeTierIcon(nil, 'big')

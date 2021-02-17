@@ -8,10 +8,12 @@ UI_ArenaNew = class(PARENT, {
         m_topRankTableView = 'UIC_TableView',
         m_friendRankTableView = 'UIC_TableView',
 
+        m_tierProgressBar = 'ProgressTimer',
+        m_rewardProgressBar = 'ProgressTimer',
+
         m_weekRankOffset = 'number', -- 서버에 랭킹 리스트 요청용
         m_topRankOffset = 'number', -- 서버에 랭킹 리스트 요청용
 
-        m_rankOffset = 'number',
         m_bClosedTag = 'boolean', -- 시즌이 종료되어 처리를 했는지 여부
      })
 
@@ -39,7 +41,6 @@ end
 -- function init
 -------------------------------------
 function UI_ArenaNew:init(sub_data)
-    self.m_rankOffset = 1 -- 최상위 랭크를 받겠다는 뜻
     self.m_bClosedTag = false
     
     local ui_res = 'arena_new_scene.ui'
@@ -53,8 +54,15 @@ function UI_ArenaNew:init(sub_data)
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_ArenaNew'
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ArenaNew')
+
+    self.m_rewardProgressBar = vars['starBoxGg']
+    self.m_tierProgressBar = vars['scoreGg']
+
+    if (self.m_rewardProgressBar) then self.m_rewardProgressBar:setPercentage(0) end
+    if (self.m_tierProgressBar) then self.m_tierProgressBar:setPercentage(0) end
 
     -- @UI_ACTION
     self:doActionReset()
@@ -115,8 +123,6 @@ function UI_ArenaNew:init(sub_data)
 
     -- @ TUTORIAL : colosseum (튜토리얼 후에 처리)
 --    TutorialManager.getInstance():startTutorial(TUTORIAL.COLOSSEUM, self)
-
-    self:updateRivalList()
 end
 
 function UI_ArenaNew:updateRivalList()
@@ -132,8 +138,6 @@ function UI_ArenaNew:updateRivalList()
     table_view:setCellUIClass(UI_ArenaNewRivalListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
-
-    --local offset = self.m_rankOffset
     --g_arenaNewData:request_arenaRank(offset, nil, finish_cb)
 end
 
@@ -157,7 +161,6 @@ function UI_ArenaNew:initUI()
         end
     end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
-    --self:initTab()
 end
 
 -------------------------------------
@@ -166,13 +169,13 @@ end
 function UI_ArenaNew:initButton()
     local vars = self.vars
     vars['testModeBtn']:setVisible(false)
-    --vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
-    --vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
 	vars['defenseBtn']:registerScriptTapHandler(function() self:click_defendDeckBtn() end)
     vars['defenseRecordBtn']:registerScriptTapHandler(function() self:click_defendHistoryBtn() end)
     vars['honorBtn']:registerScriptTapHandler(function() self:click_honorMedalBtn() end)
+    vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
     
+
     -- TODO 
     --[[
 	do
@@ -216,15 +219,6 @@ function UI_ArenaNew:refresh()
         vars['powerLabel']:setString(struct_user_info:getPowerText())
         vars['winLabel']:setString(tostring(struct_user_info:getWinCnt()))
         vars['scoreLabel']:setString(struct_user_info:getRPText())
-
-        -- 티어 게이지
-        local rate = struct_user_info:getWinRateText()
-        vars['scoreGgLabel']:setString(rate)
-
-        local gauge = vars['scoreGg']
-        gauge:setPercentage(0)
-        --local action = cc.ProgressTo:create(0.3, rate)
-        --gauge:runAction(action)
     end
 
 	-- 주간 승수 보상 -> 참여 보상으로 변경
@@ -240,7 +234,51 @@ function UI_ArenaNew:refresh()
     -- 참여 횟수 보상
 	--vars['rewardVisual']:changeAni('reward_' .. temp, true)
 
+    self:refreshTierGauge()
+    self:refreshRewardInfo()
+    self:updateRivalList()
     self:refreshHotTimeInfo()
+end
+
+-------------------------------------
+-- function refreshHotTimeInfo
+-- @breif 핫타임 정보 갱신
+-------------------------------------
+function UI_ArenaNew:refreshTierGauge()
+    local table_arena_rank = TABLE:get('table_arena_new_rank')
+    local struct_rank_reward = StructArenaNewRankReward(table_arena_rank, true)
+    local l_rank_reward = struct_rank_reward:getRankRewardList()
+
+    -- 티어 게이지
+    local curRp = math_floor(g_arenaNewData.m_playerUserInfo.m_rp, 0)
+    local rate = 0
+    local nextMinRp = -1
+    
+    for i = 1, #l_rank_reward do
+        local curMinRp = l_rank_reward[i]['score_min']
+
+        if (i == #l_rank_reward) then
+            nextMinRp = -1
+        else
+            local totalRp = nextMinRp - curMinRp
+            nextMinRp = l_rank_reward[i]['score_min']
+            rate = curRp - curMinRp / totalRp
+        end
+
+        if (curRp < curMinRp) then break end
+    end
+    
+    local finalString = ''
+    if (nextMinRp <= 0) then
+        rate = 100
+    else
+        finalString = tostring(curRp) .. '/' .. tostring(nextMinRp)
+    end
+
+    self.vars['scoreGgLabel']:setString(finalString)
+
+    local action = cc.ProgressTo:create(0.3, rate)
+    self.m_tierProgressBar:runAction(action)
 end
 
 -------------------------------------
@@ -265,6 +303,23 @@ function UI_ArenaNew:refreshHotTimeInfo()
     
     for i,v in ipairs(l_active_hot) do
         vars[v]:setVisible(true)
+    end
+end
+
+-------------------------------------
+-- function refreshRewardInfo
+-- @breif 핫타임 정보 갱신
+-------------------------------------
+function UI_ArenaNew:refreshRewardInfo()
+    local vars = self.vars
+    local rewardInfo = g_arenaNewData.m_rewardInfo
+    local strRewardLabelPrefix = 'rewardLabel'
+
+    if (self.m_rewardProgressBar and rewardInfo) then
+        local rate = rewardInfo['win_cnt'] / rewardInfo['straight_max'] * 100
+
+        local action = cc.ProgressTo:create(0.3, rate)
+        self.m_rewardProgressBar:runAction(action)
     end
 end
 
@@ -383,16 +438,14 @@ function UI_ArenaNew:click_valorShopBtn()
 end
 
 -------------------------------------
--- function initTab
--- @brief 랭킹, 기록 탭
+-- function click_valorShopBtn
 -------------------------------------
-function UI_ArenaNew:initTab()
-    --local vars = self.vars
-    --self:addTabAuto(UI_ArenaNew['RANK'], vars, vars['rankingMenu'])
-    --self:addTabAuto(UI_ArenaNew['HISTORY'], vars, vars['historyMenu'])
-    --self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+function UI_ArenaNew:click_refreshBtn()
+    local function success_cb(ret)
+        self:refreshRewardInfo()
+    end
 
-    --self:setTab(UI_ArenaNew['RANK'])
+	 g_arenaNewData:request_rivalRefresh(success_cb)
 end
 
 -------------------------------------

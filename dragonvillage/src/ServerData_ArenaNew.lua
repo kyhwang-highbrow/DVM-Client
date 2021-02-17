@@ -12,6 +12,7 @@ ServerData_ArenaNew = class({
 
         m_startTime = 'timestamp', -- 콜로세움 오픈 시간
         m_endTime = 'timestamp', -- 콜로세움 종료 시간
+        m_rewardInfo = 'table',
 
         m_gameKey = 'number',
         m_nGlobalOffset = 'number', -- 랭킹
@@ -87,6 +88,7 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
 	self.m_bOpen = ret['open']
     self.m_startTime = ret['start_time']
     self.m_endTime = ret['end_time'] or ret['endtime']
+    self.m_rewardInfo = ret['reward_info']
 
     self:refresh_playerUserInfo(ret['season'], ret['deck'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
@@ -343,6 +345,33 @@ function ServerData_ArenaNew:getMatchUserInfo()
     return self.m_matchUserInfo
 end
 
+
+
+-------------------------------------
+-- function request_rivalRefresh
+-- @brief 게임 중도 포기
+-------------------------------------
+function ServerData_ArenaNew:request_rivalRefresh(finish_cb)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        self.m_rewardInfo = ret['reward_info']
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/arena_new/refresh')
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', 13) -- 콜로세움은 서버에서 stage를 11로 처리 중
+    ui_network:setParam('gamekey', gamekey)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
+
 -------------------------------------
 -- function request_setDeck
 -------------------------------------
@@ -399,7 +428,7 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
     local uid = g_userData:get('uid')
 
     -- 공격자의 콜로세움 전투력 저장
-    local combat_power = g_arenaData.m_playerUserInfo:getDeckCombatPower(true)
+    local combat_power = g_arenaNewData.m_playerUserInfo:getDeckCombatPower(true)
     
     -- 성공 콜백
     local function success_cb(ret)
@@ -449,6 +478,8 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
     ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setParam('team_bonus', self:getTeamBonusIds())
+    ui_network:setParam('targer_no', g_arenaNewData.m_matchUserInfo.m_no)
+
     if (history_id) then -- 복수전, 재도전
         ui_network:setParam('history_id', history_id)
     end

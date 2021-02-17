@@ -1,0 +1,137 @@
+
+--[[    
+    ex) table_arena_rank.csv
+        m_lRankRewardData의 구성물 구조
+
+        rank_id = 'number',
+        rank_min = 'number',
+        rank_max = 'number',
+        ratio_min = 'number',
+        ratio_max = 'number',
+        reward = 'string', -- cash;6000,valor;100
+        week = 'number',
+--]]
+
+
+-------------------------------------
+-- class StructArenaNewRankReward
+-- @brief 콜로세움 랭킹 보상 리스트
+-------------------------------------
+StructArenaNewRankReward = class({
+		m_lRankRewardData = 'list',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function StructArenaNewRankReward:init(table_reward, is_skip_filter_week)
+    local l_rank_reward = {}
+
+    -- week값이 1인 정보만 저장
+    if (not is_skip_filter_week) then
+        for _, _data in pairs(table_reward) do
+            if (_data['week'] == 1) then
+                table.insert(l_rank_reward, _data)
+            end
+        end
+    else
+        l_rank_reward = table.MapToList(table_reward)
+    end
+
+    local sort_func = function(a, b)
+        return a['tier_id'] > b['tier_id']
+    end
+    -- 테이블 정렬
+    table.sort(l_rank_reward, sort_func) 
+
+    self.m_lRankRewardData = l_rank_reward or {}
+end
+
+-------------------------------------
+-- function getRankRewardList
+-------------------------------------
+function StructArenaNewRankReward:getRankRewardList()
+    return self.m_lRankRewardData or {}
+end
+
+-------------------------------------
+-- function getPossibleReward
+-------------------------------------
+function StructArenaNewRankReward:getPossibleReward(my_rank, my_ratio)
+    local my_rank = tonumber(my_rank)
+    local my_rank_rate = tonumber(my_ratio) * 100
+
+    local l_rank_list = self.m_lRankRewardData
+
+    -- 한번도 플레이 하지 않은 경우, 최상위 보여줌
+    if (my_rank <= 0) then
+        return nil, 0
+    end
+    
+    for i,data in ipairs(l_rank_list) do
+        
+        local rank_min = tonumber(data['rank_min'])
+        local rank_max = tonumber(data['rank_max'])
+
+        local ratio_min = tonumber(data['ratio_min'])
+        local ratio_max = tonumber(data['ratio_max'])
+
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= my_rank) and (my_rank <= rank_max) then
+                return data, i
+            end
+
+        -- 비율 필터
+        elseif (ratio_min and ratio_max) then
+            if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
+                return data, i
+            end
+        end
+    end
+
+    -- 마지막 보상 리턴
+    local last_ind = #l_rank_list
+    return l_rank_list[last_ind], last_ind or 0  
+end
+
+-------------------------------------
+-- function getRankName
+-- @brief 순위 값으로 21위 ~ 30위 와 같은 형식의 순위 이름 생성
+-- @param
+-- {
+--      ['tier_id']=17;
+--      ['r_name']='21위~30위';
+--      ['ratio_min']='';
+--      ['rank_min']=21;
+--      ['ratio_max']='';
+--      ['rank_max']=30;
+--      ['r_comment']='';
+--      ['week']=1;
+--      ['rank_id']=7;
+--      ['reward']='cash;4100,valor;50';
+--}
+-------------------------------------
+function StructArenaNewRankReward.getRankName(t_list_item)
+    local data = t_list_item or {}
+    local min = data['rank_min']
+	local max = data['rank_max']
+	local rank_str = ''
+	
+    -- rank 값만 있을 경우
+    if (min == max) then
+		rank_str =  Str('{1}위', min)
+	else
+		rank_str = string.format('%d ~ %s', min, Str('{1}위', max))
+	end
+
+    local ratio_max = data['ratio_max'] or ''
+    -- rank 값이 없을 경우
+    if (min == '') then
+        if (max == '') then
+            rank_str = Str('상위 {1}%', ratio_max)
+        end
+    end
+
+	return rank_str
+end
