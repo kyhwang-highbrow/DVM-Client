@@ -215,8 +215,9 @@ function UI_ArenaNew:refresh()
 
         -- 순위, 점수, 승률
         local str = struct_user_info:getRankText(true)
+
         vars['rankingLabel']:setString(str)
-        vars['powerLabel']:setString(struct_user_info:getPowerText())
+        vars['powerLabel']:setString(struct_user_info:getDeckCombatPower(true))
         vars['winLabel']:setString(tostring(struct_user_info:getWinCnt()))
         vars['scoreLabel']:setString(struct_user_info:getRPText())
     end
