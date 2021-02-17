@@ -113,6 +113,9 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
         elseif (stage_id == ARENA_STAGE_ID) then
             vars['contentsLabel']:setString(Str('콜로세움'))
 
+        elseif (stage_id == ARENA_NEW_STAGE_ID) then
+            vars['contentsLabel']:setString(Str('콜로세움'))
+
         elseif (stage_id == CHALLENGE_MODE_STAGE_ID) then
             vars['contentsLabel']:setString(Str('그림자의 신전'))
 
@@ -270,6 +273,11 @@ function UI_GamePause:confirmExit(exit_cb)
 
         -- 아레나인 경우 강제 종료 로그 남김
         if (self.m_stageID == ARENA_STAGE_ID) then
+            g_arenaData.m_tempLogData['force_exit'] = true
+        end
+
+        -- 아레나인 경우 강제 종료 로그 남김
+        if (self.m_stageID == ARENA_NEW_STAGE_ID) then
             g_arenaData.m_tempLogData['force_exit'] = true
         end
 

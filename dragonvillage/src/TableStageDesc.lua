@@ -22,6 +22,7 @@ end
 function TableStageDesc:get(key, skip_error_msg)
     if (key == COLOSSEUM_STAGE_ID) then return end
     if (key == ARENA_STAGE_ID) then return end
+    if (key == ARENA_NEW_STAGE_ID) then return end
     if (key == CHALLENGE_MODE_STAGE_ID) then return end
 
     return PARENT.get(self, key, skip_error_msg)

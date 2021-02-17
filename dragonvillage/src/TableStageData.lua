@@ -21,6 +21,7 @@ end
 -------------------------------------
 function TableStageData:get(key, skip_error_msg)
     if (key == COLOSSEUM_STAGE_ID) then return end
+    if (key == ARENA_NEW_STAGE_ID) then return end
         
     return PARENT.get(self, key, skip_error_msg)
 end

@@ -187,7 +187,7 @@ function UI_LoadingArenaNew:initDeckUI(direction, l_dragon_obj, leader, formatio
     player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
         
     -- 진형 설정
-    player_2d_deck:setFormation(formation)
+    --player_2d_deck:setFormation(formation)
 end
 
 -------------------------------------

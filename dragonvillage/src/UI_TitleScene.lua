@@ -1217,7 +1217,7 @@ function UI_TitleScene:workGetServerInfo()
 
                 if (ret['arenanew_deck_d_info']) then
                     cclog('# 콜로세움(arena_new) 방어덱')
-                    g_arenaNewData:response_playerArenaDeck(ret['arenanew_deck_d_info'])
+                    g_arenaNewData:response_playerArenaDefenceDeck(ret['arenanew_deck_d_info'])
                 end
 
                 if (ret['season_info']) then

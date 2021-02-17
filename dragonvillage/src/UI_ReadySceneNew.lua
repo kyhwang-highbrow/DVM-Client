@@ -477,7 +477,7 @@ function UI_ReadySceneNew:initUI()
 
 	-- 콜로세움 예외처리
 	--if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID or self.m_stageID == ARENA_STAGE_ID) then
-    if isExistValue(self.m_stageID, COLOSSEUM_STAGE_ID, FRIEND_MATCH_STAGE_ID, ARENA_STAGE_ID, CHALLENGE_MODE_STAGE_ID) then
+    if isExistValue(self.m_stageID, COLOSSEUM_STAGE_ID, FRIEND_MATCH_STAGE_ID, ARENA_NEW_STAGE_ID, ARENA_STAGE_ID, CHALLENGE_MODE_STAGE_ID) then
         vars['cpNode2']:setVisible(false)
         
 		-- 배경 아무거나 넣어준다
@@ -699,6 +699,9 @@ function UI_ReadySceneNew:refresh()
             end
 
         elseif (stage_id == ARENA_STAGE_ID) then
+            str = Str('콜로세움')
+
+        elseif (stage_id == ARENA_NEW_STAGE_ID) then
             str = Str('콜로세움')
 
 	    elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
@@ -1955,6 +1958,9 @@ function UI_ReadySceneNew:getStageStaminaInfo()
 		cost_type = 'fpvp'
 		cost_value = 1
     elseif (stage_id == ARENA_STAGE_ID) then
+        cost_type = 'arena'
+		cost_value = 1
+    elseif (stage_id == ARENA_NEW_STAGE_ID) then
         cost_type = 'arena'
 		cost_value = 1
 	else

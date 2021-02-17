@@ -69,7 +69,7 @@ end
 -------------------------------------
 function UI_ArenaNewDefenceDeckSettings:update_stamina(dt)    
     local vars = self.vars
-    local is_enough = g_staminasData:checkStageStamina(ARENA_NEW_STAGE_ID)
+    local is_enough = g_staminasData:checkStageStamina(ARENA_STAGE_ID)
     local is_enough_ext = g_staminasData:hasStaminaCount('arena_ext', 1)
 
     -- 기본 입장권 없을 경우엔 유료 입장권 개수 보여줌
@@ -201,7 +201,7 @@ function UI_ArenaNewDefenceDeckSettings:click_startBtn()
         end
 
         -- 기본 입장권 부족시
-        if (not g_staminasData:checkStageStamina(ARENA_NEW_STAGE_ID)) then
+        if (not g_staminasData:checkStageStamina(ARENA_STAGE_ID)) then
             -- 유료 입장권 체크
             local is_enough, insufficient_num = g_staminasData:hasStaminaCount('arena_ext', 1)
             if (is_enough) then
