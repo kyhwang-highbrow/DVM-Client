@@ -138,7 +138,9 @@ end
 -- function refresh_playerUserInfo
 -- @brief 플레이어 정보 갱신
 -------------------------------------
-function ServerData_ArenaNew:refresh_playerUserInfo(t_data, l_deck)
+function ServerData_ArenaNew:refresh_playerUserInfo(t_data, l_deck, str_deckName)
+    local deckname = str_deckName ~= nil and str_deckName or 'arena_new_a'
+    
     if (not self.m_playerUserInfo) then
         -- 플레이어 유저 정보 생성
         local struct_user_info = StructUserInfoArenaNew()
@@ -153,8 +155,13 @@ function ServerData_ArenaNew:refresh_playerUserInfo(t_data, l_deck)
 
     -- 덱 설정
     if l_deck then
-        l_deck['deckName'] = 'arena' -- 서버 작업이 안되서 arena로 일딴 설정
-        self.m_playerUserInfo:applyPvpDeckData(l_deck)
+        l_deck['deckName'] = deckname
+
+        if (str_deckName == 'arena_new_a') then
+            self.m_playerUserInfo:applyPvpDeckData(l_deck)
+        elseif (str_deckName == 'arena_new_d') then
+            self.m_playerUserInfo:applyPvpDefenseDeckData(l_deck)
+        end
     end
 
     -- 클랜 정보는 항상 갱신
@@ -349,8 +356,14 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
     local function success_cb(ret)
         local t_data = nil
         local l_deck = ret['deck']
-        self:refresh_playerUserInfo(t_data, l_deck)
 
+        ccdump(t_data)
+        cclog(deckname)
+
+        if (deckname == 'arena_new_a' or deckname == 'arena_new_d') then
+            self:refresh_playerUserInfo(t_data, l_deck, deckname)
+        end
+        
         if finish_cb then
             finish_cb(ret)
         end
@@ -740,7 +753,7 @@ end
 function ServerData_ArenaNew:response_playerArenaDeck(l_deck)
     local deckType = l_deck['deckName']
 
-	self:refresh_playerUserInfo(nil, l_deck)
+    self:refresh_playerUserInfo(nil, l_deck, l_deck['deckName'])
 end
 
 -------------------------------------
