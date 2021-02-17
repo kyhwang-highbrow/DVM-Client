@@ -310,7 +310,7 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info:applyDragonsDataList(data['dragons'])
 
     -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
-    struct_user_info:applyPvpDeckData(data['deck'])
+    struct_user_info:applyPvpDeckData(data['info']['deck'])
 
     -- 클랜
     if (data['clan_info']) then
@@ -393,13 +393,6 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
     
     -- 성공 콜백
     local function success_cb(ret)
-        -- 상대방 정보 여기서 설정
-        if (ret['match_user']) then
-            self:makeMatchUserInfo(ret['match_user'])
-        else
-            error('콜로세움 상대방 정보 없음')
-        end
-
         -- @analytics
         Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_COL, 1, '콜로세움')
 
@@ -826,4 +819,13 @@ function ServerData_ArenaNew:getTeamBonusIds()
     end
     
     return ids
+end
+
+-------------------------------------
+-- function setMatchUser
+-------------------------------------
+function ServerData_ArenaNew:setMatchUser(match_user)    
+    if (not match_user) then return end
+
+    self.m_matchUserInfo = match_user
 end

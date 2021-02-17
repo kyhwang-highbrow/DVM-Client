@@ -16,13 +16,7 @@ function SceneGameArenaNew:init(game_key, stage_id, stage_name, develop_mode, fr
     self.m_bFriendMatch = friend_match or false
 
     self.m_sceneName = 'SceneGameArenaNew'
-
-    -- 친구대전 
-    if (self.m_bFriendMatch) then
-        g_deckData:setSelectedDeck('fpvp_atk')
-    else
-        g_deckData:setSelectedDeck('arena_new_a')
-    end
+    g_deckData:setSelectedDeck('arena_new_a')
 
     -- 아레나 로딩은 상대방 덱을 확인하기 위해 5초간 유지
     self.m_minLoadingTime = 5

@@ -94,6 +94,7 @@ function UI_LoadingArenaNew:initUI()
 		if (struct_user_info) then
 			-- 덱
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
+            ccdump(struct_user_info)
 			local leader = struct_user_info.m_pvpDeck['leader']
 			local formation = struct_user_info.m_pvpDeck['formation']
 
@@ -388,6 +389,23 @@ function UI_LoadingArenaNew:startGame()
     self:close()
     local scene = SceneGameArenaNew() -- PVP 개편 테스트용 임시 커밋
     scene:runScene()
+end
+
+-------------------------------------
+-- function click_manageBtn
+-- @brief 시작 버튼
+-------------------------------------
+function UI_LoadingArenaNew:click_manageBtn()
+    local ui = UI_DragonManageInfo()
+    local function close_cb()
+        local function func()
+            -- 콜로세움 덱(atk, def)에 출전 중인 드래곤은
+            -- 삭제(작별or판매)가 불가하기 때문에 덱 정보가 변경되지 않는다는 가정 하에
+            -- refresh 작업을 별도로 하지 않음
+        end
+        self:sceneFadeInAction(func)
+    end
+    ui:setCloseCB(close_cb)
 end
 
 

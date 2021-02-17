@@ -80,24 +80,11 @@ function UI_ArenaNewRivalListItem:click_startBtn()
     local uid = g_userData:get('uid')
     local peer_uid = self.m_rivalInfo.m_uid
 
-    local function success_cb(ret)
-        local t_rival_info = self.m_rivalInfo
+    local t_rival_info = self.m_rivalInfo
 
-        if (t_rival_info.m_no) then
-            --g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])
-            g_arenaNewData:setMatchUser(self.m_rivalInfo)
-            UI_LoadingArenaNew()
-        end
-        --local scene = SceneGameArenaNew(nil, nil, nil, false)
-        --scene:runScene()
+    if (t_rival_info.m_no) then
+        --g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])
+        g_arenaNewData:setMatchUser(self.m_rivalInfo)
+        UI_LoadingArenaNew()
     end
-
-    local ui_network = UI_Network()
-    ui_network:setRevocable(true)
-    ui_network:setUrl('/game/arena_new/user_info')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('peer', peer_uid)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:request()
 end
