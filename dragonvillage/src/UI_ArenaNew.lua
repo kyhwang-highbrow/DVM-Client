@@ -171,7 +171,8 @@ function UI_ArenaNew:initButton()
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
 	vars['defenseBtn']:registerScriptTapHandler(function() self:click_defendDeckBtn() end)
     vars['defenseRecordBtn']:registerScriptTapHandler(function() self:click_defendHistoryBtn() end)
-
+    vars['honorBtn']:registerScriptTapHandler(function() self:click_honorMedalBtn() end)
+    
     -- TODO 
     --[[
 	do
@@ -320,6 +321,16 @@ end
 function UI_ArenaNew:click_startBtn()
 	UI_ArenaNewDeckSettings(ARENA_NEW_STAGE_ID, 'attack', false)
 end
+
+-------------------------------------
+-- function click_honorMedalBtn
+-- @brief 명예훈장 버튼
+-------------------------------------
+function UI_ArenaNew:click_honorMedalBtn()
+	local ui_shop_popup = UI_Shop()
+    ui_shop_popup:setTab('honor')
+end
+    
 
 -------------------------------------
 -- function click_fameBtn
