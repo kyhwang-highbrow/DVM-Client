@@ -83,7 +83,7 @@ function UI_ArenaNewRivalListItem:click_startBtn()
         local t_rival_info = self.m_rivalInfo
 
         if (t_rival_info.m_no) then
-            --g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'], t_rival_info.m_no)
+            --g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])
             g_arenaNewData:setMatchUser(self.m_rivalInfo)
             UI_LoadingArenaNew()
         end

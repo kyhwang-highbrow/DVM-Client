@@ -314,7 +314,7 @@ end
 -------------------------------------
 -- function makeMatchUserInfo
 -------------------------------------
-function ServerData_ArenaNew:makeMatchUserInfo(data, match_number)
+function ServerData_ArenaNew:makeMatchUserInfo(data)
     local struct_user_info = StructUserInfoArenaNew()
 
     -- 기본 유저 정보
@@ -341,30 +341,23 @@ function ServerData_ArenaNew:makeMatchUserInfo(data, match_number)
     -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
     if (data['deck']) then
         matchUserDeck = data['deck']
+        cclog(matchUserDeck)
     elseif (data['deckPVP']) then
         matchUserDeck = data['deckPVP']
+        cclog(matchUserDeck)
     elseif (data['info'] and data['info']['deck'] ) then
         matchUserDeck = data['info']['deck']
+        cclog(matchUserDeck)
     end
 
     if (data['info'] and data['info']['runes'] ) then
         matchRuneDeck = data['info']['runes']
+        cclog(matchRuneDeck)
     end
 
-    if (match_number) then
-        for i, v in pairs(self.m_matchUserList) do
-            if (v.m_no and v.m_no == match_number) then 
-                struct_user_info.m_dragonsObject = v.m_dragonsObject
-                struct_user_info.m_pvpDeck = v.m_pvpDeck
-                struct_user_info.m_runesObject = v.m_runesObject
-                break
-            end
-        end
-    else
-        struct_user_info:applyRunesDataList(matchRuneDeck) --반드시 드래곤 설정 전에 룬을 설정해야함
-        struct_user_info:applyDragonsDataList(matchUserData)
-        struct_user_info:applyPvpDeckData(matchUserDeck)
-    end
+    struct_user_info:applyRunesDataList(matchRuneDeck) --반드시 드래곤 설정 전에 룬을 설정해야함
+    struct_user_info:applyDragonsDataList(matchUserData)
+    struct_user_info:applyPvpDeckData(matchUserDeck)
 
     -- 클랜
     if (data['clan_info']) then
