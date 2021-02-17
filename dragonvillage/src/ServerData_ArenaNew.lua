@@ -428,7 +428,7 @@ end
 -------------------------------------
 -- function request_arenaStart
 -------------------------------------
-function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, fail_cb, target_number)
+function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -491,7 +491,7 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
     ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setParam('team_bonus', self:getTeamBonusIds())
-    if (target_number) then ui_network:setParam('target_no', target_number) end
+    if (self.m_matchUserInfo and self.m_matchUserInfo.m_no) then ui_network:setParam('target_no', self.m_matchUserInfo.m_no) end
 
     if (history_id) then -- 복수전, 재도전
         ui_network:setParam('history_id', history_id)
@@ -534,6 +534,9 @@ end
 function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
+
+    -- 공격자의 콜로세움 전투력 저장
+    local combat_power = g_arenaNewData.m_playerUserInfo:getDeckCombatPower(true)
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -587,6 +590,7 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
     ui_network:setParam('clear_time', play_time)
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
     ui_network:setParam('gamekey', self.m_gameKey)
+    ui_network:setParam('combat_power', combat_power)
 
     -- 서버 Log를 위해 클라에서 넘기는 값들
     do 

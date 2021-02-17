@@ -14,7 +14,6 @@ UI_LoadingArenaNew = class(PARENT,{
         m_bSelected = 'boolean',
 
         m_targetRivalInfo = 'StructUserInfoArenaNew',
-        m_targetNumber = 'number',
     })
 
 -------------------------------------
@@ -25,8 +24,6 @@ function UI_LoadingArenaNew:init(curr_scene)
     local vars = self:load('arena_new_loading.ui')
     self.m_remainTimer = WAITING_TIME
     self.m_myDeckList = {}
-
-    if (target_no) then self.m_targetNumber = target_no end
 
     if (curr_scene) then
         self.m_bFriendMatch = curr_scene.m_bFriendMatch
@@ -99,8 +96,6 @@ function UI_LoadingArenaNew:initUI()
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
 			local leader = struct_user_info.m_pvpDeck['leader']
 			local formation = struct_user_info.m_pvpDeck['formation']
-
-            self.m_targetNumber = struct_user_info.m_no
 
 			self:initDeckUI('right', l_dragon_obj, leader, formation)
 
@@ -351,7 +346,7 @@ function UI_LoadingArenaNew:click_startButton()
                 self:startGame()
             end
 
-            g_arenaNewData:request_arenaStart(is_cash, nil, cb, nil, self.m_targetNumber)
+            g_arenaNewData:request_arenaStart(is_cash, nil, cb, nil)
         end
 
         -- 기본 입장권 부족시
