@@ -105,7 +105,7 @@ end
 -------------------------------------
 -- function getMatchUserInfo
 -------------------------------------
-function ServerData_ArenaNew:getMatchUser()
+function ServerData_ArenaNew:getMatchUserInfo()
     if (not self.m_matchUserInfo) then
         return nil
     end
