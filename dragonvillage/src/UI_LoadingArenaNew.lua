@@ -153,6 +153,7 @@ function UI_LoadingArenaNew:initButton()
     
     vars['setDeckBtn']:registerScriptTapHandler( function() self:click_setAttackDeck() end)
     vars['startBtn']:registerScriptTapHandler( function() self:click_startButton() end)
+    vars['closeBtn']:registerScriptTapHandler( function() self:close() end)
 end
 
 -------------------------------------
