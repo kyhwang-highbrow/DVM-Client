@@ -35,6 +35,7 @@ function UI_LoadingArenaNew:init(curr_scene)
 
         self.vars['setDeckBtn']:setVisible(false)
         self.vars['startBtn']:setVisible(false)
+        self.vars['closeBtn']:setVisible(false)
     else
         -- backkey 지정
         g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoadingArenaNew')

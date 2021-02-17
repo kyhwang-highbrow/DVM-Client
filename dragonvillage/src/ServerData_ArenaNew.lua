@@ -522,6 +522,9 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
     -- 유저 ID
     local uid = g_userData:get('uid')
 
+    -- 공격자의 콜로세움 전투력 저장
+    local combat_power = g_arenaNewData.m_playerUserInfo:getDeckCombatPower(true)
+
     -- 성공 콜백
     local function success_cb(ret)
         -- 이전 데이터
@@ -574,6 +577,7 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
     ui_network:setParam('clear_time', play_time)
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
     ui_network:setParam('gamekey', self.m_gameKey)
+    ui_network:setParam('combat_power', combat_power)
 
     -- 서버 Log를 위해 클라에서 넘기는 값들
     do 
