@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_ArenaNew
@@ -230,7 +230,7 @@ function UI_ArenaNew:refresh()
     self:refreshTierGauge()
     self:refreshRewardInfo()
     self:updateRivalList()
-    self:refreshHotTimeInfo()
+    --self:refreshHotTimeInfo()
 end
 
 -------------------------------------
@@ -313,6 +313,23 @@ function UI_ArenaNew:refreshRewardInfo()
 
         local action = cc.ProgressTo:create(0.3, rate)
         self.m_rewardProgressBar:runAction(action)
+    end
+
+    -- 보상테이블 받기
+    local table_arena_new = TABLE:get('table_arena_new')
+
+    for i = 1, #table_arena_new do
+        if (table_arena_new[i]) then
+            local label = vars[strRewardLabelPrefix .. tostring(i)] 
+            local score = table_arena_new[i]['win_score']
+            if (score and label) then
+                label:setString(tostring(score))
+            end
+
+            if (table_arena_new[i]['win_reward'] and label) then
+                
+            end
+        end
     end
 end
 
