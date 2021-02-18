@@ -39,7 +39,7 @@ function UI_ArenaNewHistoryListItem:initUI()
 
     local time = t_rival_info.m_matchTime
 
-    vars['timeLabel']:setString(Str('{1}분', need_time/60)
+    --vars['timeLabel']:setString(Str('{1}분', need_time/60)
 
     --vars['powerLabel']:setString(self.m_rivalInfo:getDeckCombatPower(true))
 
