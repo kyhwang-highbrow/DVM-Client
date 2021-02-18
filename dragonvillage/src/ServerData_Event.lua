@@ -760,6 +760,25 @@ function ServerData_Event:response_eventList(ret, finish_cb)
 end
 
 -------------------------------------
+-- function getEventInByEventId
+-- @brief (이벤트 기간이) 유효한 로비 데이터 저장
+-------------------------------------
+function ServerData_Event:getEventInByEventId(event_id)
+    if (not event_id or not self.m_eventList) then return nil end
+    if (#self.m_eventList <= 0) then return nil end
+
+    local result = nil
+
+    for i, v in ipairs(self.m_eventList) do
+        if (v and v['event_id'] and v['event_id'] == event_id) then
+            result = v
+        end
+    end
+
+    return result
+end
+
+-------------------------------------
 -- function setLobbyDecoData
 -- @brief (이벤트 기간이) 유효한 로비 데이터 저장
 -------------------------------------

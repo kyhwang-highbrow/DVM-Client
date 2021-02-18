@@ -12,8 +12,8 @@ UI_AttendanceSpecialListItem_Common = class(PARENT, {
 -------------------------------------
 function UI_AttendanceSpecialListItem_Common:init(struct_attendance_data)
     self.m_structAttendanceData = struct_attendance_data
-
     local ui_res = struct_attendance_data:getUIRes() -- event_attendance_children.ui, event_attendance_1st_anniversary.ui
+
     local vars = self:load(ui_res)
 
     self:initUI()
@@ -38,6 +38,63 @@ function UI_AttendanceSpecialListItem_Common:initUI()
             local cur_step = i
             ui:setTodayStep(struct_attendance_data['today_step'], cur_step)
             vars['rewardNode' .. i]:addChild(ui.root)
+        end
+    end
+
+    self:setTimeLabel()
+    self:changeTitleSprite()
+end
+
+-------------------------------------
+-- function setTimeLabel
+-- @brief timeLabel 이 있으면 세팅해주자
+-------------------------------------
+function UI_AttendanceSpecialListItem_Common:setTimeLabel()
+    local timeLabel = self.vars['timeLabel']
+    if (not timeLabel) then return end
+
+    local finalText = ''
+    local eventInfo = nil
+
+    if (self.m_structAttendanceData) then
+        eventInfo = g_eventData:getEventInByEventId(self.m_structAttendanceData.atd_id)
+    end
+
+    if (eventInfo) then
+        eventInfo['start_date'] = '2021-02-15 00:00:00'
+        eventInfo['end_date'] = '2021-02-13 00:00:00'
+
+        local startDate = eventInfo['start_date']
+        local endDate = eventInfo['end_date']
+
+        if (startDate and startDate ~= '' and endDate and endDate ~= '') then
+            local startDateSplit = pl.stringx.split(startDate, ' ')
+            local endDateSplit = pl.stringx.split(endDate, ' ')
+
+            finalText = Str('이벤트 기간') .. ' ' .. startDateSplit[1] .. ' ~ ' .. endDateSplit[1]
+        end
+    end
+    
+    timeLabel:setString(finalText) 
+end
+
+
+-------------------------------------
+-- function changeTitleSprite
+-- @brief 구글 피쳐드 선정 기념. 구글 apk -> '구글 피처드 선정 기념 ~', 아니면 '피처드 선정 기념 ~'
+-- @brief UI_GoogleFeaturedContentChange를 상속받아 함수의 중복을 없앤다. (쓸모 없는 코드지만 이미 작업을 완료 하였으니 피처드 끝난 이후 커밋하여 코드를 깔끔하게 한다.)
+-------------------------------------
+function UI_AttendanceSpecialListItem_Common:changeTitleSprite()
+    local ui = self.vars
+    if (not ui) then return end
+    if (ui['googleSprite'] and ui['otherMarketSprite']) then
+        local market, os = GetMarketAndOS()
+        ui['googleSprite']:setVisible(false)
+        ui['otherMarketSprite']:setVisible(false)
+        if (market == 'google') then
+            ui['googleSprite']:setVisible(true)
+        else
+            ui['otherMarketSprite']:setVisible(true)
         end
     end
 end
