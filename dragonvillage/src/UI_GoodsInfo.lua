@@ -129,6 +129,10 @@ function UI_GoodsInfo:click_chargeBtn()
         UINavigatorDefinition:goTo('shop', 'gold')
     elseif (goods_type == 'cash') then
         UINavigatorDefinition:goTo('shop', 'cash')
+    elseif (goods_type == 'honor') then
+        UINavigatorDefinition:goTo('shop', 'honor')
+    elseif (goods_type == 'valor') then
+        UINavigatorDefinition:goTo('shop', 'valor')
     elseif (goods_type == 'capsule_coin') then
         local capsule_coin_package_popup = PackageManager:getTargetUI('package_capsule_coin', true)
     elseif (goods_type == 'st') then
