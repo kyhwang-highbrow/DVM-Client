@@ -61,9 +61,6 @@ function UI_AttendanceSpecialListItem_Common:setTimeLabel()
     end
 
     if (eventInfo) then
-        eventInfo['start_date'] = '2021-02-15 00:00:00'
-        eventInfo['end_date'] = '2021-02-13 00:00:00'
-
         local startDate = eventInfo['start_date']
         local endDate = eventInfo['end_date']
 
