@@ -72,15 +72,26 @@ end
 -------------------------------------
 function UI_ArenaNewRivalListItem:click_startBtn()
     local l_dragon_deck = g_arenaNewData.m_playerUserInfo:getDeck_dragonList()
+    local t_rival_info = self.m_rivalInfo
+
     if (table.count(l_dragon_deck) <= 0) then
-        MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
+        local ui = MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
+
+        local function close_cb()
+            if (t_rival_info.m_no) then
+                g_arenaNewData:setMatchUser(self.m_rivalInfo)
+                local loadingUI = UI_LoadingArenaNew()
+                loadingUI:click_setAttackDeck()
+            end
+        end
+
+        ui:setCloseCB(close_cb)
+
         return
     end
 
     local uid = g_userData:get('uid')
     local peer_uid = self.m_rivalInfo.m_uid
-
-    local t_rival_info = self.m_rivalInfo
 
     if (t_rival_info.m_no) then
         --g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])

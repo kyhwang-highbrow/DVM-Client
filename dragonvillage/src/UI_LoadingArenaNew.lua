@@ -120,6 +120,9 @@ end
 -------------------------------------
 function UI_LoadingArenaNew:initMyDeckUI()
     local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
+
+    if (not struct_user_info or not struct_user_info.m_pvpDeck) then return end
+
 	if (struct_user_info) then
 		-- 덱
 		local tData = g_deckData:getDeck_lowData('arena_new_a')
@@ -130,11 +133,15 @@ function UI_LoadingArenaNew:initMyDeckUI()
         local l_dragon_obj = struct_user_info:getDeck_dragonList()
 		local leader = nil
 
-        if (struct_user_info and struct_user_info.m_pvpDeck and struct_user_info.m_pvpDeck['leader']) then
+        if (struct_user_info.m_pvpDeck['leader']) then
             leader = struct_user_info.m_pvpDeck['leader']
         end
 
-		local formation = struct_user_info.m_pvpDeck['formation']
+		local formation = nil
+        
+        if (struct_user_info.m_pvpDeck['formation']) then
+            formation = struct_user_info.m_pvpDeck['formation']
+        end
 
 		self:initDeckUI('left', l_dragon_obj, leader, formation)
 
