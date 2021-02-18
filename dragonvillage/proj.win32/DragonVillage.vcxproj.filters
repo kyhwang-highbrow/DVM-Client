@@ -4876,6 +4876,9 @@
     <None Include="..\src\StructArenaNewRankReward.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ArenaNewHistoryListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

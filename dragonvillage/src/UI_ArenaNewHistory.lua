@@ -9,6 +9,8 @@ local PARENT = UI
 UI_ArenaNewHistory = class(PARENT,{
         vars = '',
         
+        m_matchDefHistory = 'table',
+
         m_arenaAtkTableView = 'UIC_TableView',        
         m_arenaDefTableView = 'UIC_TableView',
     })
@@ -24,11 +26,15 @@ local CLAN_OFFSET_GAP = 20
 -------------------------------------
 function UI_ArenaNewHistory:init()
     local vars = self:load('arena_new_popup_defense.ui')
+	self.m_uiName = 'UI_ArenaNewHistory'
     UIManager:open(self, UIManager.POPUP)
 
+    self.m_matchDefHistory = g_arenaNewData.m_matchDefHistory
+
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ColosseumRankingRewardPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ArenaNewHistory')
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['okBtn']:registerScriptTapHandler(function() self:close() end)
 
     --self.root = owner_ui.vars['historyMenu'] -- root가 있어야 보임
     --self.vars = owner_ui.vars
@@ -40,35 +46,45 @@ end
 -- function initUI
 -------------------------------------
 function UI_ArenaNewHistory:initUI()
-    --self:initTab()
-end
-
--------------------------------------
--- function initTab
--------------------------------------
-function UI_ArenaNewHistory:initTab()
     local vars = self.vars
 
-    self:addTabAuto(UI_ArenaNewHistory['ATK'], vars, vars['atkListNode'])
-    self:addTabAuto(UI_ArenaNewHistory['DEF'], vars, vars['defListNode'])
-    
-    self:setTab(UI_ArenaNewHistory['ATK'])
-end
+    local historyList = self.m_matchDefHistory
+    local totalWin = 0
+    local totalLose = 0
+    local totalScore = 0
 
--------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_ArenaNewHistory:onChangeTab(tab, first)
-    local vars = self.vars
-    if (not first) then
-        return
+    if (historyList and #historyList > 1) then
+        --match 
+        for i, v in ipairs(historyList) do
+            ccdump(v)
+            local isWin = v.m_matchResult == 1
+
+            if (isWin) then
+                totalWin = totalWin + 1
+            else
+                totalLose = totalLose + 1
+            end
+
+            totalScore = totalScore + v.m_matchScore
+        end
     end
 
-    if (tab == UI_ArenaNewHistory['ATK']) then
-        self:request_atkHistory()
-    elseif (tab == UI_ArenaNewHistory['DEF']) then
-        self:request_defHistory()
-    end
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(vars['listNode'])
+    table_view:setScrollLock(true)
+    table_view.m_defaultCellSize = cc.size(720, 98)
+    table_view:setCellUIClass(UI_ArenaNewHistoryListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(historyList)
+
+    local sum = totalWin + totalLose
+    local win_rate_text = math_floor(totalWin / sum * 100)
+    local strRecord = Str('{1}승 {2}패 ({3}%)', totalWin, totalLose, win_rate_text)
+    local strScore = tostring(totalScore)
+
+    vars['winLabel']:setString(strRecord)
+    vars['scoreLabel']:setString(strScore)
+
 end
 
 -------------------------------------

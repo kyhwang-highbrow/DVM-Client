@@ -1129,6 +1129,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ArenaNewDeckSettings.lua" />
     <None Include="..\src\UI_ArenaNewDefenceDeckSettings.lua" />
     <None Include="..\src\UI_ArenaNewHistory.lua" />
+    <None Include="..\src\UI_ArenaNewHistoryListItem.lua" />
     <None Include="..\src\UI_ArenaNewRankInfoPopup.lua" />
     <None Include="..\src\UI_ArenaNewResult.lua" />
     <None Include="..\src\UI_ArenaNewRivalListItem.lua" />

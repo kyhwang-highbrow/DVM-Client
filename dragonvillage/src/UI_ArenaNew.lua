@@ -371,7 +371,12 @@ end
 -- @brief 콜로세움 랭킹 정보 팝업 (최고 순위 기록 시즌, 현재 시즌)
 -------------------------------------
 function UI_ArenaNew:click_defendHistoryBtn()
-	UI_ArenaNewHistory()
+    local function finish_cb(ret)
+	    UI_ArenaNewHistory()
+    end
+    
+    g_arenaNewData:request_arenaHistory(finish_cb, nil)
+
 end
 
 -------------------------------------

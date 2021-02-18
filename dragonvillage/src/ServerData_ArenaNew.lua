@@ -473,7 +473,7 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
         return false
     end
 
-    -- Log를 위해 arena/finish에 던질 데이터들 임시 저장
+    -- Log를 위해 arena_new/finish에 던질 데이터들 임시 저장
     self.m_tempLogData['is_cash'] = is_cash
 
     -- 네트워크 통신
@@ -680,24 +680,16 @@ end
 -------------------------------------
 -- function request_arenaHistory
 -------------------------------------
-function ServerData_ArenaNew:request_arenaHistory(type, finish_cb, fail_cb)
+function ServerData_ArenaNew:request_arenaHistory(finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
-    local function success_cb(ret)
-        if (type == 'atk') then
-            self.m_matchAtkHistory = {}
-            for i,v in pairs(ret['history']) do
-                local user_info = StructUserInfoArenaNew:create_forHistory(v)
-                table.insert(self.m_matchAtkHistory, user_info)
-            end
-        else
-            self.m_matchDefHistory = {}
-            for i,v in pairs(ret['history']) do
-                local user_info = StructUserInfoArenaNew:create_forHistory(v)
-                table.insert(self.m_matchDefHistory, user_info)
-            end
+    local function callback_cb(ret)
+        self.m_matchDefHistory = {}
+        for i,v in pairs(ret['history']) do
+            local user_info = StructUserInfoArenaNew:create_forHistory(v)
+            table.insert(self.m_matchDefHistory, user_info)
         end
         
         if finish_cb then
@@ -709,8 +701,7 @@ function ServerData_ArenaNew:request_arenaHistory(type, finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/arena_new/history')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('type', type) -- atk 공격 기록 , def 방어 기록
-    ui_network:setSuccessCB(success_cb)
+    ui_network:setSuccessCB(callback_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)

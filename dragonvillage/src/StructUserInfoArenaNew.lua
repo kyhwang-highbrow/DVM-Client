@@ -64,6 +64,7 @@ StructUserInfoArenaNew = class(PARENT, {
         m_matchResult = 'number', -- -1:매치 전, 0:패, 1:승
         m_matchTime = 'timestamp',
 
+        m_matchScore = 'number',    -- 방어전 스코어 획득 정보
         m_history_revenge = 'boolean',
         m_history_id = 'number',
         m_retry_cnt = 'number', -- 재도전, 복수전 가능 회수
@@ -137,6 +138,8 @@ function StructUserInfoArenaNew:create_forHistory(t_data)
     -- 승패 결과
     user_info.m_matchResult = t_data['match']
 
+    user_info.m_matchScore = t_data['score']
+
     -- 재도전, 복수전 가능 회수
     user_info.m_retry_cnt = t_data['retry_cnt']
 
@@ -191,6 +194,8 @@ function StructUserInfoArenaNew:init()
     self.m_rankPercent = nil
     self.m_tier = 'beginner'
     self.m_straight = 0
+
+    self.m_matchScore = 0
 
     self.m_deckDataList = {}
     self.m_deckCombatPowerList = {}

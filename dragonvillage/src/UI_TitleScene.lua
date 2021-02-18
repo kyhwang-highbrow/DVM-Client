@@ -1210,11 +1210,6 @@ function UI_TitleScene:workGetServerInfo()
                     g_arenaData:response_playerArenaDeck(ret['arenadeck_info'])
                 end
 
-                if (ret['arenadeck_info']) then
-                    cclog('# 콜로세움(신규) 공격덱 방어덱')
-                    g_arenaData:response_playerArenaDeck(ret['arenadeck_info'])
-                end
-
                 if (ret['arenanew_deck_a_info']) then
                     cclog('# 콜로세움 2021 공격덱')
                     g_arenaNewData:response_playerArenaDeck(ret['arenanew_deck_a_info'])
