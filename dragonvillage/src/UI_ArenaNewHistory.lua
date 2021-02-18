@@ -56,7 +56,7 @@ function UI_ArenaNewHistory:initUI()
     if (historyList and #historyList > 1) then
         --match 
         for i, v in ipairs(historyList) do
-            ccdump(v)
+
             local isWin = v.m_matchResult == 1
 
             if (isWin) then

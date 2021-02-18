@@ -28,7 +28,19 @@ function UI_ArenaNewHistoryListItem:initUI()
     
     local t_rival_info = self.m_rivalInfo
 
-    vars['scoreLabel']:setString(Str('{1}점', t_rival_info.m_rp))
+    -- 승패 이미지
+    local isWin = t_rival_info.m_matchResult == 1
+
+    vars['winSprite']:setVisible(isWin)
+    vars['loseSprite']:setVisible(not isWin)
+
+    vars['userScoreLabel']:setString(Str('{1}점', t_rival_info.m_rp))
+    vars['scoreLabel']:setString(t_rival_info.m_matchScore)
+
+    local time = t_rival_info.m_matchTime
+
+    vars['timeLabel']:setString(Str('{1}분', need_time/60)
+
     --vars['powerLabel']:setString(self.m_rivalInfo:getDeckCombatPower(true))
 
     -- 드래곤 리스트
