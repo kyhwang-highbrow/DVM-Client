@@ -25,8 +25,21 @@ function UI_ArenaNewTierInfoListItem:initUI()
     
     local tierInfo = self.m_tierInfo
     local activeRewardInfo = tierInfo['achieve_reward']
+    local l_reward = g_itemData:parsePackageItemStr(activeRewardInfo)
 
-    vars['rewardLabel']:setString(tierInfo['achieve_reward'])
+    -- 보상
+    if (l_reward and #l_reward > 0) then
+        -- 보상은 오직 다이아 뿐임
+        local itemCount = comma_value(l_reward[1]['count'])
+
+        vars['rewardLabel']:setString(itemCount)
+    else    
+        vars['rewardLabel']:setString('-')
+    end
+
+    local scoreMin = comma_value(tierInfo['score_min'])
+    vars['scoreLabel']:setString(scoreMin)
+    
 end
 
 -------------------------------------

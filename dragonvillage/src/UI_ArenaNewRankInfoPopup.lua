@@ -54,6 +54,7 @@ function UI_ArenaNewRankInfoPopup:refresh()
     local struct_rank_reward = StructArenaNewRankReward(table_arena_rank, true)
     local l_rank_reward = struct_rank_reward:getRankRewardList()
 
+    table.sort(l_rank_reward, function(a,b) return a['tier_id'] < b['tier_id'] end)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
