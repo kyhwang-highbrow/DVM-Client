@@ -83,7 +83,7 @@ function UI_LoadingArenaNew:initUI()
     local is_friend_match = self.m_bFriendMatch
 
 	vars['arenaVisual']:setVisible(true)
-    self.vars['countdownLabel']:setString('')
+    --self.vars['countdownLabel']:setString('')
 	-- 플레이어
     do
 		self:initMyDeckUI()

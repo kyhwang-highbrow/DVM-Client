@@ -24,6 +24,9 @@ function UI_ArenaNewTierInfoListItem:initUI()
     local vars = self.vars
     
     local tierInfo = self.m_tierInfo
+    local activeRewardInfo = tierInfo['achieve_reward']
+
+    vars['rewardLabel']:setString(tierInfo['achieve_reward'])
 end
 
 -------------------------------------
