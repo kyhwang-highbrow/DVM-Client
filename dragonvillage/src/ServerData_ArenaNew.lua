@@ -29,6 +29,8 @@ ServerData_ArenaNew = class({
 
         m_bLastPvpReward = 'boolean',
 
+        m_firstArchivedInfo = 'table',
+
         m_tempLogData = 'table',
     })
 
@@ -89,6 +91,9 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
     self.m_startTime = ret['start_time']
     self.m_endTime = ret['end_time'] or ret['endtime']
     self.m_rewardInfo = ret['reward_info']
+    self.m_firstArchivedInfo = ret['first_archived_info']
+    ccdump(self.m_firstArchivedInfo)
+    cclog(self.m_firstArchivedInfo)
 
     self:refresh_playerUserInfo(ret['season'], ret['deck'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
@@ -104,6 +109,25 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
 
     -- 주간 보상
     self:setRewardInfo(ret)
+end
+
+-------------------------------------
+-- function isAchieveRewarded
+-- @breif 최초달성보상을 받았나?
+-------------------------------------
+function ServerData_ArenaNew:isAchieveRewarded(tier_id)
+
+    cclog(self.m_firstArchivedInfo['71'])
+    for i = 1, #self.m_firstArchivedInfo do 
+        ccdump(self.m_firstArchivedInfo[i])
+    end
+
+    if (not self.m_firstArchivedInfo or type(self.m_firstArchivedInfo) ~= 'table') then return false end
+    if (self.m_firstArchivedInfo[tier_id]) then
+        if (self.m_firstArchivedInfo[tier_id] == 1) then return true end
+    end
+
+    return false
 end
 
 -------------------------------------
@@ -401,6 +425,9 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
         end
     end
 
+    -- 공격자의 콜로세움 전투력 저장
+    local combat_power = g_arenaNewData.m_playerUserInfo:getDeckCombatPower(true)
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/game/pvp/set_deck')
@@ -410,7 +437,7 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
     ui_network:setParam('formation', formation)
     ui_network:setParam('leader', leader)
     ui_network:setParam('tamer', tamer)
-    
+    ui_network:setParam('combat_power', combat_power)
 
     for i,doid in pairs(l_edoid) do
         ui_network:setParam('edoid' .. i, doid)

@@ -74,6 +74,14 @@ function UI_ArenaNewTierInfoListItem:initUI()
         icon:setScale(0.7)
         vars['tierNode']:addChild(icon)
     end
+    cclog(tierInfo['tier_id'])
+    if (g_arenaNewData:isAchieveRewarded(tierInfo['tier_id'])) then
+        cclog('클리어')
+        vars['clearNode']:setVisible(true)
+    else
+        cclog('놋클리어')
+        vars['clearNode']:setVisible(false)
+    end
 
 end
 
