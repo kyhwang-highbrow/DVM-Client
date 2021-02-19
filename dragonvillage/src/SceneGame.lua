@@ -574,6 +574,8 @@ function SceneGame:networkGamePlayStart(next_func)
         self:networkGamePlayStart_response(ret)
     end
 
+
+    cclog('start')
     local t_request = {}
     t_request['url'] = '/game/stage/play'
     t_request['method'] = 'POST'

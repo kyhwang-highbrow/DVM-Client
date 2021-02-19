@@ -4,10 +4,6 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_ArenaNew
 -------------------------------------
 UI_ArenaNew = class(PARENT, {
-        m_weekRankTableView = 'UIC_TableView',
-        m_topRankTableView = 'UIC_TableView',
-        m_friendRankTableView = 'UIC_TableView',
-
         m_tierProgressBar = 'ProgressTimer',
         m_rewardProgressBar = 'ProgressTimer',
 

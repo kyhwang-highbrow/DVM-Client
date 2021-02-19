@@ -4834,9 +4834,6 @@
     <None Include="..\src\SceneGameArenaNew.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_GameArenaNew.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\GameState_ArenaNew.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -4847,12 +4844,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\ServerData_ArenaNew.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_ArenaNewRivalListItem.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_ArenaNewRankInfoPopup.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_LoadingArenaNew.lua">
@@ -4877,6 +4868,18 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_ArenaNewHistoryListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaNewRankInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaNewRivalListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameArenaNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaNewTierInfoListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

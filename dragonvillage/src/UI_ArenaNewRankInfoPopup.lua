@@ -24,7 +24,7 @@ function UI_ArenaNewRankInfoPopup:init()
 
     self:initUI()
     self:initButton()
-    --self:refresh()
+    self:refresh()
 end
 
 -------------------------------------
@@ -48,7 +48,20 @@ end
 -------------------------------------
 function UI_ArenaNewRankInfoPopup:refresh()
     local vars = self.vars
+    local node = vars['listNode']
 
+    local table_arena_rank = TABLE:get('table_arena_new_rank')
+    local struct_rank_reward = StructArenaNewRankReward(table_arena_rank, true)
+    local l_rank_reward = struct_rank_reward:getRankRewardList()
+
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view:setScrollLock(true)
+    table_view.m_defaultCellSize = cc.size(720, 50)
+    table_view:setCellUIClass(UI_ArenaNewTierInfoListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_rank_reward)
 end
 
 --@CHECK

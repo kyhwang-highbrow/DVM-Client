@@ -1150,6 +1150,7 @@ local t_module = {
     'UI_ArenaTabHistory',
     'UI_ArenaNewHistory',
     'UI_ArenaNewHistoryListItem',
+    'UI_ArenaNewTierInfoListItem',
     'UI_ArenaTabRank',
     'UI_ArenaDeckSettings',
     'UI_ArenaNewDeckSettings',
