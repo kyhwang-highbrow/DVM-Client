@@ -127,18 +127,27 @@ end
 
 function UI_ArenaNew:updateRivalList()
     local vars = self.vars
-    local node = vars['itemNode']
-    node:removeAllChildren()
+    local rivalNodeCount = 5
+
+    for i = 1, rivalNodeCount do
+        local node = vars['itemNode' .. tostring(i)]
+        node:removeAllChildren()
+    end
 
     local l_item_list = g_arenaNewData.m_matchUserList
 
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view:setScrollLock(true)
-    table_view.m_defaultCellSize = cc.size(720, 98)
-    table_view:setCellUIClass(UI_ArenaNewRivalListItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list)
+    if (not l_item_list and #l_item_list <= 0) then return end
+
+    for i = 1, #l_item_list do
+        local itemNode = vars['itemNode' .. tostring(i)]
+        local item = l_item_list[i]
+
+        if (item and itemNode) then
+            local ui = UI_ArenaNewRivalListItem(item)
+            itemNode:addChild(ui.root)
+        end
+    end
+
     --g_arenaNewData:request_arenaRank(offset, nil, finish_cb)
 end
 
