@@ -244,39 +244,70 @@ end
 -------------------------------------
 function UI_ArenaNew:refreshTierGauge()
     local table_arena_rank = TABLE:get('table_arena_new_rank')
-    local struct_rank_reward = StructArenaNewRankReward(table_arena_rank, true)
-    local l_rank_reward = struct_rank_reward:getRankRewardList()
+    local struct_rank = StructArenaNewRankReward(table_arena_rank, true)
+    local l_rank = struct_rank:getRankRewardList()
 
     -- 티어 게이지
     local curRp = math_floor(g_arenaNewData.m_playerUserInfo.m_rp, 0)
+    local curRank = math_floor(g_arenaNewData.m_playerUserInfo.m_rank, 0)   -- 등수
     local rate = 0
     local nextMinRp = -1
+    local myRankItem = nil
     
-    for i = 1, #l_rank_reward do
-        local curMinRp = l_rank_reward[i]['score_min']
+    -- 게이지에 필요한 수치 계산
+    for i = 1, #l_rank do
+        local curMinRp = l_rank[i]['score_min']
 
-        if (i == #l_rank_reward) then
+        if (i == #l_rank) then
             nextMinRp = -1
         else
             local totalRp = nextMinRp - curMinRp
-            nextMinRp = l_rank_reward[i]['score_min']
-            rate = curRp - curMinRp / totalRp
+            nextMinRp = l_rank[i]['score_min']
+            rate = (curRp - curMinRp) / totalRp
+            myRankItem = l_rank[i]
         end
 
         if (curRp < curMinRp) then break end
     end
-    
+
     local finalString = ''
-    if (nextMinRp <= 0) then
+
+    if (not myRankItem) then
+        finalString = ''
+
+    -- 백분위가 있을 때 
+    elseif (myRankItem['ratio_max'] and myRankItem['ratio_max'] ~= '') then
         rate = 100
+        finalString = Str('{1}점', curRp)
+
+    -- 순위제한 있을 때 
+    elseif (myRankItem['rank_max'] and myRankItem['rank_max'] ~= '') then
+        local isInTopTen = curRank >= 10
+
+        if (isInTopTen) then
+            rate = 100
+            finalString = Str('{1}위', curRp)
+        else
+            rate = curRank * 100
+            finalString = Str('{1}위', curRp)
+        end
+
+    -- 일반
     else
         finalString = tostring(curRp) .. '/' .. tostring(nextMinRp)
     end
 
-    self.vars['scoreGgLabel']:setString(finalString)
-
     local action = cc.ProgressTo:create(0.3, rate)
     self.m_tierProgressBar:runAction(action)
+    self.vars['scoreGgLabel']:setString(finalString)
+end
+
+-------------------------------------
+-- function makeCommonTierProgressString
+-- @breif 진행상황 기본 점수 / 달성점수
+-------------------------------------
+function UI_ArenaNew:makeCommonTierProgressString()
+
 end
 
 -------------------------------------
