@@ -35,11 +35,15 @@ function UI_ArenaNewHistoryListItem:initUI()
     vars['loseSprite']:setVisible(not isWin)
 
     vars['userScoreLabel']:setString(Str('{1}점', t_rival_info.m_rp))
-    vars['scoreLabel']:setString(t_rival_info.m_matchScore)
 
-    local time = t_rival_info.m_matchTime
+    local matchScore = t_rival_info.m_matchScore == 0 and '-' or t_rival_info.m_matchScore
 
-    --vars['timeLabel']:setString(Str('{1}분', need_time/60)
+    vars['scoreLabel']:setString(tostring(matchScore))
+
+    local passedTime = socket.gettime() - (t_rival_info.m_matchTime / 1000)
+    local passedTimeText = Str('{1} 전', datetime.makeTimeDesc(passedTime, true, true))
+
+    vars['timeLabel']:setString(Str('{1}', passedTimeText))
 
     --vars['powerLabel']:setString(self.m_rivalInfo:getDeckCombatPower(true))
 
