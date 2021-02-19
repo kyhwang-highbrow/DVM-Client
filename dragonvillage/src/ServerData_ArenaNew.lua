@@ -92,8 +92,6 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
     self.m_endTime = ret['end_time'] or ret['endtime']
     self.m_rewardInfo = ret['reward_info']
     self.m_firstArchivedInfo = ret['first_archived_info']
-    ccdump(self.m_firstArchivedInfo)
-    cclog(self.m_firstArchivedInfo)
 
     self:refresh_playerUserInfo(ret['season'], ret['deck'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
@@ -116,15 +114,10 @@ end
 -- @breif 최초달성보상을 받았나?
 -------------------------------------
 function ServerData_ArenaNew:isAchieveRewarded(tier_id)
-
-    cclog(self.m_firstArchivedInfo['71'])
-    for i = 1, #self.m_firstArchivedInfo do 
-        ccdump(self.m_firstArchivedInfo[i])
-    end
-
     if (not self.m_firstArchivedInfo or type(self.m_firstArchivedInfo) ~= 'table') then return false end
-    if (self.m_firstArchivedInfo[tier_id]) then
-        if (self.m_firstArchivedInfo[tier_id] == 1) then return true end
+
+    if (self.m_firstArchivedInfo[tostring(tier_id)]) then
+        if (self.m_firstArchivedInfo[tostring(tier_id)] == 1) then return true end
     end
 
     return false
