@@ -73,7 +73,7 @@ function UI_ArenaNewHistory:initUI()
     table_view:setCellUIClass(UI_ArenaNewHistoryListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(historyList)
-    table_view_td:makeDefaultEmptyDescLabel(Str('방어 기록이 없습니다.'))
+    table_view:makeDefaultEmptyDescLabel(Str('방어 기록이 없습니다.'))
 
     local sum = totalWin + totalLose
     local win_rate_text = math_floor(totalWin / sum * 100)
