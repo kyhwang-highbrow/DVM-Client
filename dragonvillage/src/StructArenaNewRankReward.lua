@@ -113,25 +113,21 @@ end
 --}
 -------------------------------------
 function StructArenaNewRankReward.getRankName(t_list_item)
-    local data = t_list_item or {}
-    local min = data['rank_min']
-	local max = data['rank_max']
-	local rank_str = ''
-	
-    -- rank 값만 있을 경우
-    if (min == max) then
-		rank_str =  Str('{1}위', min)
-	else
-		rank_str = string.format('%d ~ %s', min, Str('{1}위', max))
-	end
+    local tierInfo = t_list_item or {}
+    local strRankRange = ''
+    if (tierInfo['rank_min'] and tierInfo['rank_max'] and tierInfo['rank_min'] ~= '' and tierInfo['rank_max'] ~= '') then
+        local isSameRank = tierInfo['rank_min'] == tierInfo['rank_max']
 
-    local ratio_max = data['ratio_max'] or ''
-    -- rank 값이 없을 경우
-    if (min == '') then
-        if (max == '') then
-            rank_str = Str('상위 {1}%', ratio_max)
+        if (isSameRank) then
+            strRankRange = Str('{1}위', tierInfo['rank_min'])
+        else
+            strRankRange = Str('{1}위', tierInfo['rank_min']) .. " ~ " .. Str('{1}위', tierInfo['rank_max'])
         end
     end
 
-	return rank_str
+    if (tierInfo['ratio_max'] and tierInfo['ratio_max'] ~= '') then
+        strRankRange = Str('상위 {1}%', tierInfo['ratio_max'])
+    end
+
+	return strRankRange
 end

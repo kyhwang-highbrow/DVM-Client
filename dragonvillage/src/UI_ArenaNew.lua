@@ -464,7 +464,7 @@ end
 -- @brief 랭킹으로 이동
 -------------------------------------
 function UI_ArenaNew:click_rankBtn()
-    UI_ArenaRankPopup()
+    UI_ArenaNewRankPopup()
 end
 
 -------------------------------------

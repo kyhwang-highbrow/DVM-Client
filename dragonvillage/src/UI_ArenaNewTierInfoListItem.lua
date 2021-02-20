@@ -56,8 +56,8 @@ function UI_ArenaNewTierInfoListItem:initUI()
         end
     end
 
-    if (tierInfo['ratio_min'] and tierInfo['ratio_max'] and tierInfo['ratio_min'] ~= '' and tierInfo['ratio_max'] ~= '') then
-        strRankRange = tierInfo['ratio_min'] .. "% ~ " .. tierInfo['ratio_max'] .. '%'
+    if (tierInfo['ratio_max'] and tierInfo['ratio_max'] ~= '') then
+        strRankRange = Str('상위 {1}%', tierInfo['ratio_max'])
     end
 
     vars['rankLabel']:setString(strRankRange)

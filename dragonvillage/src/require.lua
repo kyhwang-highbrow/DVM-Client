@@ -1167,9 +1167,11 @@ local t_module = {
     'UI_ArenaReady',
     'UI_ArenaRankingListItem',
     'UI_ArenaRankingRewardListItem',
+    'UI_ArenaNewRankingRewardListItem',
     'UI_ArenaClanRankRewardListItem',
 	'UI_ArenaRankClanPopup',
     'UI_ArenaRankPopup',
+    'UI_ArenaNewRankPopup',
     'UI_EventArenaResult',
 
     -- UI : 친선전
