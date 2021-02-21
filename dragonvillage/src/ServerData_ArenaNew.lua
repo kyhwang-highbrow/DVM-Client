@@ -35,7 +35,7 @@ ServerData_ArenaNew = class({
         m_costInfo = 'table',
 
         m_nextScore = 'number',
-
+        m_tierRewardInfo = 'table',
     })
 
 -------------------------------------
@@ -94,7 +94,7 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
 	self.m_bOpen = ret['open']
     self.m_startTime = ret['start_time']
     self.m_endTime = ret['end_time'] or ret['endtime']
-    self.m_rewardInfo = ret['tier_reward_info']
+    self.m_tierRewardInfo = ret['tier_reward_info']
     self.m_firstArchivedInfo = ret['first_archived_info']
     self.m_costInfo = ret['refresh_cost_info']
 
@@ -407,9 +407,9 @@ function ServerData_ArenaNew:request_rivalRefresh(finish_cb)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
-        if (ret['tier_reward_info']) then
-            self.m_rewardInfo = ret['tier_reward_info']
-        end
+        --if (ret['tier_reward_info']) then
+        --    self.m_tierRewardInfo = ret['tier_reward_info']
+        --end
 
         self.m_matchUserList = {}
         for i = 1, #ret['list'] do
@@ -934,7 +934,8 @@ end
 -------------------------------------
 function ServerData_ArenaNew:hasArchiveReward(tier_id)    
     if (not self.m_firstArchivedInfo or type(self.m_firstArchivedInfo) ~= 'table') then return false end
-    if (not self.m_firstArchivedInfo[tostring(tier_id)]) then return true end
+
+    if (self.m_firstArchivedInfo[tostring(tier_id)] and self.m_firstArchivedInfo[tostring(tier_id)] ~= 1) then return true end
 
     return false
 end

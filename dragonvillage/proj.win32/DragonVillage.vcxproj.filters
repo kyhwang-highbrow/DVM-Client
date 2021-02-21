@@ -4891,6 +4891,9 @@
     <None Include="..\src\UI_ArenaNewRivalListResetPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ArenaNewTierRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -111,6 +111,11 @@ function UI_ArenaNew:init(sub_data)
 
             g_arenaNewData.m_tClanRewardInfo = nil
         end
+
+        -- 티어 달성 보상 팝업
+        if(g_arenaNewData.m_tierRewardInfo) then
+            UI_ArenaNewTierRewardPopup()
+        end
     end
 
     self:sceneFadeInAction(nil, finich_cb)
@@ -287,8 +292,9 @@ function UI_ArenaNew:refreshTierGauge()
     elseif (myRankItem['rank_max'] and myRankItem['rank_max'] ~= '') then
         local isInTopTen = curRank >= 10
 
+
         if (isInTopTen) then
-            rate = 100
+            rate = curRank * 10
             finalString = Str('{1}위', curRp)
         else
             rate = curRank * 100
@@ -396,7 +402,7 @@ end
 -------------------------------------
 function UI_ArenaNew:refreshRewardInfo()
     local vars = self.vars
-    local rewardInfo = g_arenaNewData.m_rewardInfo
+    --local rewardInfo = g_arenaNewData.m_rewardInfo
     local l_item_list = g_arenaNewData.m_matchUserList
 
     if (not l_item_list or #l_item_list <= 0) then return end
@@ -423,7 +429,7 @@ function UI_ArenaNew:refreshRewardInfo()
     -- 다음 승리시 점수 조회용
     -- 승리 수가 5일 때 다시 1로 바꾼다.
     local nextWinCnt = self.m_winCnt >= 5 and 1 or self.m_winCnt + 1
-    cclog(nextWinCnt)
+
     for i = 1, #table_arena_new do
         if (table_arena_new[i]) then
             local score = 0
