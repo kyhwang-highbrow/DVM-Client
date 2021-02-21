@@ -32,6 +32,8 @@ ServerData_ArenaNew = class({
         m_firstArchivedInfo = 'table',
 
         m_tempLogData = 'table',
+        m_costInfo = 'table',
+
     })
 
 -------------------------------------
@@ -92,6 +94,7 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
     self.m_endTime = ret['end_time'] or ret['endtime']
     self.m_rewardInfo = ret['reward_info']
     self.m_firstArchivedInfo = ret['first_archived_info']
+    self.m_costInfo = ret['cost_info']
 
     self:refresh_playerUserInfo(ret['season'], ret['deck'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
@@ -107,6 +110,26 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
 
     -- 주간 보상
     self:setRewardInfo(ret)
+end
+
+-------------------------------------
+-- function getCost
+-- @breif 행위에 대한 대가 지불
+-- 서버데이터의 키워드를 참조하여 가져올것
+-------------------------------------
+function ServerData_ArenaNew:getCostInfo(key)
+    ccdump(self.m_costInfo)
+    cclog(key)
+    ccdump(self.m_costInfo[tostring(key)])
+    ccdump(self.m_costInfo[key])
+
+    if (not self.m_costInfo or not self.m_costInfo[tostring(key)]) then return 0 end
+
+    local cost = 0
+
+    cost = self.m_costInfo[tostring(key)]
+
+    return cost
 end
 
 -------------------------------------

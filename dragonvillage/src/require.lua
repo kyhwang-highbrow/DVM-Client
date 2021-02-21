@@ -1147,6 +1147,7 @@ local t_module = {
     'UI_Arena',
     'UI_ArenaNew',
     'UI_ArenaNewRivalListItem',
+    'UI_ArenaNewRivalListResetPopup',
     'UI_ArenaTabHistory',
     'UI_ArenaNewHistory',
     'UI_ArenaNewHistoryListItem',

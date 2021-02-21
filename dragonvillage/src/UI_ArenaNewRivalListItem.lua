@@ -27,7 +27,7 @@ function UI_ArenaNewRivalListItem:initUI()
     local vars = self.vars
     
     local t_rival_info = self.m_rivalInfo
-    local rivalScore = t_rival_info.m_rp < 0 and '-' or Str('{1}점', t_rival_info.m_rp)
+    local rivalScore = t_rival_info.m_rp < 0 and '0' or Str('{1}점', t_rival_info.m_rp)
 
 
     vars['userLabel']:setString(Str('레벨 {1}/{2}', t_rival_info.m_lv, t_rival_info.m_nickname))
@@ -52,6 +52,10 @@ function UI_ArenaNewRivalListItem:initUI()
 
         dragonSlotIndex =  dragonSlotIndex + 1
     end
+
+    -- battle_info 조회
+    -- 0 도전하지 않은 상태, 1 승리, 2 패배
+    
 end
 
 -------------------------------------

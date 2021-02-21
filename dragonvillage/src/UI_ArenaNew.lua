@@ -492,12 +492,13 @@ end
 -- function click_valorShopBtn
 -------------------------------------
 function UI_ArenaNew:click_refreshBtn()
-    local function success_cb(ret)
+    local function ok_cb()
         self:refreshRewardInfo()
         self:updateRivalList()
     end
 
-	 g_arenaNewData:request_rivalRefresh(success_cb)
+    UI_ArenaNewRivalListResetPopup(ok_cb)
+
 end
 
 -------------------------------------
