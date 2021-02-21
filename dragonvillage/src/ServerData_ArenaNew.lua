@@ -395,7 +395,9 @@ function ServerData_ArenaNew:request_rivalRefresh(finish_cb)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
-        self.m_rewardInfo = ret['reward_info']
+        if (ret['reward_info']) then
+            self.m_rewardInfo = ret['reward_info']
+        end
 
         self.m_matchUserList = {}
         for i = 1, #ret['list'] do
