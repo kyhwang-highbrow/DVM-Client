@@ -299,8 +299,9 @@ function UI_ArenaNewResult:direction_winReward()
 		-- 판수 표시
 		local win = t_data['season']['win']
         local lose = t_data['season']['lose']
+        local winCount = t_data['winCount'] and t_data['winCount'] or 5
 
-		ui.vars['playLabel']:setString(Str('승리 {1}회 달성 보상', win))
+		ui.vars['playLabel']:setString(Str('승리 {1}회 달성 보상', winCount))
 
 		-- 보상 아이템 표기
 		local t_item = itemsList[1]
