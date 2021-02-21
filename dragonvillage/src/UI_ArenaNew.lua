@@ -302,6 +302,8 @@ function UI_ArenaNew:refreshTierGauge()
         end
 
     -- 일반
+    elseif (curRp < 0) then
+        finalString = '-'
     else
         finalString = comma_value(curRp) .. '/' .. comma_value(nextMinRp)
     end
