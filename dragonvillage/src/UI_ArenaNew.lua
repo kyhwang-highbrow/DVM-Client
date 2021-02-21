@@ -406,7 +406,7 @@ function UI_ArenaNew:refreshRewardInfo()
     local l_item_list = g_arenaNewData.m_matchUserList
 
     local strRewardLabelPrefix = 'rewardLabel'
-    for i = 1, #table_arena_new do
+    for i = 1, 5 do
         local label = vars[strRewardLabelPrefix .. tostring(i)] 
         if (label) then
             label:setString('')
