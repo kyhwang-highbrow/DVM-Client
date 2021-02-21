@@ -69,6 +69,7 @@ ITEM_ID_MAP['staminas_st'] = 700101
 ITEM_ID_MAP['staminas_pvp'] = 700102
 ITEM_ID_MAP['staminas_tower'] = 700103
 ITEM_ID_MAP['staminas_arena'] = 700106
+ITEM_ID_MAP['staminas_arena_new'] = 700109
 
 ITEM_ID_MAP['exp_booster'] = 700402
 ITEM_ID_MAP['gold_booster'] = 700403

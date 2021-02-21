@@ -96,7 +96,7 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
     self.m_firstArchivedInfo = ret['first_archived_info']
     self.m_costInfo = ret['refresh_cost_info']
 
-    self:refresh_playerUserInfo(ret['season'], ret['deck'])
+    self:refresh_playerUserInfo(ret['season'], ret['deck'], nil, ret['my_info'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
 
     local combat_power = self.m_playerUserInfo:getDeckCombatPowerByDeckname('arena_new_a', false)
@@ -118,11 +118,6 @@ end
 -- 서버데이터의 키워드를 참조하여 가져올것
 -------------------------------------
 function ServerData_ArenaNew:getCostInfo(key)
-    ccdump(self.m_costInfo)
-    cclog(key)
-    ccdump(self.m_costInfo[tostring(key)])
-    ccdump(self.m_costInfo[key])
-
     if (not self.m_costInfo or not self.m_costInfo[tostring(key)]) then return 0 end
 
     local cost = 0
@@ -170,7 +165,7 @@ end
 -- function setInfoForLobby
 -------------------------------------
 function ServerData_ArenaNew:setInfoForLobby(t_info)
-	self:refresh_playerUserInfo(t_info['season'], nil)
+	self:refresh_playerUserInfo(t_info['season'], nil, t_info['my_info'])
 	self.m_bOpen = t_info['open']
 	self.m_startTime = t_info['start_time']
 	self.m_endTime = t_info['end_time']
@@ -180,9 +175,9 @@ end
 -- function refresh_playerUserInfo
 -- @brief 플레이어 정보 갱신
 -------------------------------------
-function ServerData_ArenaNew:refresh_playerUserInfo(t_data, l_deck, str_deckName)
+function ServerData_ArenaNew:refresh_playerUserInfo(t_data, l_deck, str_deckName, my_info)
     local deckname = str_deckName ~= nil and str_deckName or 'arena_new_a'
-    
+
     if (not self.m_playerUserInfo) then
         -- 플레이어 유저 정보 생성
         local struct_user_info = StructUserInfoArenaNew()
@@ -192,7 +187,7 @@ function ServerData_ArenaNew:refresh_playerUserInfo(t_data, l_deck, str_deckName
     end
 
     if t_data then
-        self:_refresh_playerUserInfo(self.m_playerUserInfo, t_data)
+        self:_refresh_playerUserInfo(self.m_playerUserInfo, t_data, my_info)
     end
 
     -- 덱 설정
@@ -230,10 +225,16 @@ end
 -------------------------------------
 -- function _refresh_playerUserInfo
 -------------------------------------
-function ServerData_ArenaNew:_refresh_playerUserInfo(struct_user_info, t_data)
+function ServerData_ArenaNew:_refresh_playerUserInfo(struct_user_info, t_data, my_info)
     -- 최신 정보로 갱신
     struct_user_info.m_nickname = g_userData:get('nick')
     struct_user_info.m_lv = g_userData:get('lv')
+
+    if (my_info) then
+        struct_user_info.m_tier = my_info['tier']
+        struct_user_info.m_rp = my_info['rp']
+        struct_user_info.m_rank = my_info['rank']
+    end
 
     do -- 콜로세움 정보 갱신
         if t_data['win'] then
@@ -245,7 +246,7 @@ function ServerData_ArenaNew:_refresh_playerUserInfo(struct_user_info, t_data)
         end
 
         if t_data['rank'] then
-            struct_user_info.m_rank = t_data['rank']
+            struct_user_info.m_seasonRank = t_data['rank']
         end
 
         if t_data['rate'] then
@@ -253,7 +254,7 @@ function ServerData_ArenaNew:_refresh_playerUserInfo(struct_user_info, t_data)
         end
 
         if t_data['rp'] then
-            struct_user_info.m_rp = t_data['rp']
+            struct_user_info.m_seasonRp = t_data['rp']
         end
 
         if t_data['tier'] then
@@ -353,6 +354,7 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = data['rp']
+
     struct_user_info.m_matchResult = data['match']
 
     struct_user_info:applyRunesDataList(data['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
@@ -508,7 +510,7 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
             -- 비슷한 티어 매칭 상대가 없는 상태
             -- 콜로세움 UI로 이동
             local function ok_cb()
-                UINavigator:goTo('arena')
+                UINavigator:goTo('arena_new')
             end 
             MakeSimplePopup(POPUP_TYPE.OK, Str('현재 점수 구간 내의 대전 가능한 상대가 없습니다.\n다른 상대의 콜로세움 참여를 기다린 후에 다시 시도해 주세요.'), ok_cb)
             return true

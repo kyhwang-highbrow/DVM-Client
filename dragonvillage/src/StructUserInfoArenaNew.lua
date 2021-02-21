@@ -51,6 +51,10 @@ StructUserInfoArenaNew = class(PARENT, {
         m_straight = 'number',   -- 연승 정보
         m_power = 'number',
 
+        m_seasonRank = 'number',       
+        m_seasonTier = 'string',
+        m_seasonRp = 'number',
+
         -- 덱 정보 (공격덱, 방어덱 분리 안함)
         m_pvpDeck = 'table',
         m_pvpDefenseDeck = 'table',

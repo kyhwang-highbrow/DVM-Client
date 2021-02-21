@@ -27,7 +27,7 @@ function UI_ArenaNew:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_ArenaNew'
     self.m_titleStr = Str('콜로세움')
-	self.m_staminaType = 'arena'
+	self.m_staminaType = 'arena_new'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'honor'
@@ -261,6 +261,8 @@ function UI_ArenaNew:refreshTierGauge()
     local nextMinRp = -1
     local myRankItem = nil
     
+    cclog(curRp)
+
     -- 게이지에 필요한 수치 계산
     for i = 1, #l_rank do
         local curMinRp = l_rank[i]['score_min']
@@ -301,7 +303,7 @@ function UI_ArenaNew:refreshTierGauge()
 
     -- 일반
     else
-        finalString = tostring(curRp) .. '/' .. tostring(nextMinRp)
+        finalString = comma_value(curRp) .. '/' .. comma_value(nextMinRp)
     end
 
     local action = cc.ProgressTo:create(0.3, rate)
