@@ -214,7 +214,7 @@ function UI_ArenaNew:refresh()
         local str = struct_user_info:getRankText(true)
 
         vars['rankingLabel']:setString(str)
-        vars['powerLabel']:setString(struct_user_info:getDeckCombatPower(true))
+        vars['powerLabel']:setString(comma_value(struct_user_info:getDeckCombatPower(true)))
         vars['winLabel']:setString(tostring(struct_user_info:getWinCnt()))
         vars['scoreLabel']:setString(struct_user_info:getRPText())
     end
@@ -278,7 +278,7 @@ function UI_ArenaNew:refreshTierGauge()
     -- 백분위가 있을 때 
     elseif (myRankItem['ratio_max'] and myRankItem['ratio_max'] ~= '') then
         rate = 100
-        finalString = Str('{1}점', curRp)
+        finalString = Str('{1}점', comma_value(curRp))
 
     -- 순위제한 있을 때 
     elseif (myRankItem['rank_max'] and myRankItem['rank_max'] ~= '') then

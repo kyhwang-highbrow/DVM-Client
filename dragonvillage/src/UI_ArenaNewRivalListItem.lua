@@ -27,10 +27,12 @@ function UI_ArenaNewRivalListItem:initUI()
     local vars = self.vars
     
     local t_rival_info = self.m_rivalInfo
+    local rivalScore = t_rival_info.m_rp < 0 and '-' or Str('{1}점', t_rival_info.m_rp)
+
 
     vars['userLabel']:setString(Str('레벨 {1}/{2}', t_rival_info.m_lv, t_rival_info.m_nickname))
-    vars['scoreLabel']:setString(Str('{1}점', t_rival_info.m_rp))
-    vars['powerLabel']:setString(self.m_rivalInfo:getDeckCombatPower(true))
+    vars['scoreLabel']:setString(Str(rivalScore))
+    vars['powerLabel']:setString(comma_value(self.m_rivalInfo:getDeckCombatPower(true)))
 
     if (t_rival_info.m_structClan) then
         vars['clanLabel']:setString(t_rival_info.m_structClan.name)
