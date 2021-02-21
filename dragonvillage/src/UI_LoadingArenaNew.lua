@@ -370,10 +370,10 @@ function UI_LoadingArenaNew:click_startButton()
         end
 
         -- 기본 입장권 부족시
-        -- TODO ARENA_NEW_STAGE_ID
-        if (not g_staminasData:checkStageStamina(ARENA_STAGE_ID)) then
+        -- ARENA_NEW_STAGE_ID
+        if (not g_staminasData:checkStageStamina(ARENA_NEW_STAGE_ID)) then
             -- 유료 입장권 체크
-            local is_enough, insufficient_num = g_staminasData:hasStaminaCount('arena_ext', 1)
+            local is_enough, insufficient_num = g_staminasData:hasStaminaCount('arena_new', 1)
             if (is_enough) then
                 is_cash = true
                 local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', NEED_CASH)

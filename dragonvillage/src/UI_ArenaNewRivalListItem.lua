@@ -60,13 +60,15 @@ function UI_ArenaNewRivalListItem:initUI()
     if (state == 0) then
         vars['startBtn']:setVisible(true)
         vars['reStartBtn']:setVisible(false)
+        vars['winNode']:setVisible(false)
     elseif (state == 1) then
         vars['startBtn']:setVisible(false)
         vars['reStartBtn']:setVisible(false)
+        vars['winNode']:setVisible(true)
     elseif (state == 2) then
-        vars['startBtn']:setVisible(true)
+        vars['startBtn']:setVisible(false)
         vars['reStartBtn']:setVisible(true)
-
+        vars['winNode']:setVisible(false)
     end
 end
 
@@ -109,12 +111,35 @@ function UI_ArenaNewRivalListItem:click_startBtn()
         return
     end
 
-    local uid = g_userData:get('uid')
-    local peer_uid = self.m_rivalInfo.m_uid
+    if (not g_staminasData:checkStageStamina(ARENA_NEW_STAGE_ID)) then
+        local is_cash = false
+        local function request()
+            local function cb(ret)
+                -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
+                self.root:unscheduleUpdate()
+            end
+
+            g_staminasData:staminaCharge('arena_new')
+        end
+
+        -- 유료 입장권 체크
+        local is_enough, insufficient_num = g_staminasData:hasStaminaCount(ARENA_NEW_STAGE_ID, 1)
+        if (is_enough) then
+            is_cash = true
+            local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', NEED_CASH)
+            MakeSimplePopup_Confirm('cash', NEED_CASH, msg, request)
+
+        -- 유료 입장권 부족시 입장 불가 
+        else
+            g_staminasData:staminaCharge(ARENA_NEW_STAGE_ID)
+        end
+        
+        return
+    end
 
     if (t_rival_info.m_no) then
-        --g_arenaNewData:makeMatchUserInfo(ret['pvpuser_info'])
         g_arenaNewData:setMatchUser(self.m_rivalInfo)
         UI_LoadingArenaNew()
     end
+
 end
