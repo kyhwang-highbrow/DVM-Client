@@ -281,12 +281,13 @@ end
 -------------------------------------
 function UI_ArenaNewResult:direction_winReward()
 	local t_data = self.m_resultData
-	--if (not t_data['mail_item_info']) then
-	--	self:doNextWork()
-	--	return
-	--end
-    t_data['mail_item_info'] = {}
-	-- 주간 승리 보상 (승수에 따라 고정 지급)
+    if (not t_data['added_items'] or not t_data['added_items']['items_list'] or #t_data['added_items']['items_list'] <= 0) then
+        self:doNextWork()
+		return
+    end
+
+    local itemsList = t_data['added_items']['items_list']
+    local total_cnt = table.count(itemsList)
 	local ui = UI()
 	ui:load('arena_play_reward_popup.ui')
 	UIManager:open(ui, UIManager.POPUP)
@@ -294,15 +295,15 @@ function UI_ArenaNewResult:direction_winReward()
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'temp')
 
-	if (table.count(t_data['mail_item_info']) == 1) then
+	if (total_cnt == 1) then
 		-- 판수 표시
 		local win = t_data['season']['win']
         local lose = t_data['season']['lose']
 
-		ui.vars['playLabel']:setString(Str('콜로세움 {1}회 참여 보상', win + lose))
+		ui.vars['playLabel']:setString(Str('승리 {1}회 달성 보상', win))
 
 		-- 보상 아이템 표기
-		local t_item = t_data['mail_item_info'][1]
+		local t_item = itemsList[1]
 		local icon = IconHelper:getItemIcon(t_item['item_id'])
 		ui.vars['rewardNode']:addChild(icon)
 		local count = comma_value(t_item['count'])
@@ -310,8 +311,7 @@ function UI_ArenaNewResult:direction_winReward()
 
 	-- 패치후 최초 업데이트 시점을 위한 분기 처리 (나중에 정리)
 	else
-		local total_cnt = table.count(t_data['mail_item_info'])
-		for idx, t_item in ipairs(t_data['mail_item_info']) do
+		for idx, t_item in ipairs(itemsList) do
 			local item_id = t_item['item_id']
 			local item_cnt = t_item['count']
 			local card = UI_ItemCard(item_id, item_cnt)
