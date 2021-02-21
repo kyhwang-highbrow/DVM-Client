@@ -199,8 +199,9 @@ function UI_ArenaNewRankPopup:createRewardFunc(ui, data, my_info)
     local my_ratio = my_data['rate'] or 0
 
     local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
+
     if (reward_data) then
-        if (data['rank_id'] == reward_data['rank_id']) then
+        if (data['tier_id'] == reward_data['tier_id']) then
             vars['meSprite']:setVisible(true)
         end
     end
