@@ -356,7 +356,7 @@ function UI_ArenaNew:refreshRewardInfo()
     local winRewardAniName5 = rewardInfo['win_cnt'] >= 5 and 'arena_box_03' or 'arena_box_01'
 
     if (vars['winRewardSprite3']) then vars['winRewardSprite3']:changeAni(winRewardAniName3, true) end
-    if (vars['winRewardSprite5']) then vars['winRewardSprite5']:changeAni(winRewardAniName3, true) end
+    if (vars['winRewardSprite5']) then vars['winRewardSprite5']:changeAni(winRewardAniName5, true) end
 
     -- 보상테이블 받기
     local table_arena_new = TABLE:get('table_arena_new')
