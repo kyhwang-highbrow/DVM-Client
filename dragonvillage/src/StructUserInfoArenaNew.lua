@@ -296,7 +296,7 @@ end
 -------------------------------------
 function StructUserInfoArenaNew:getUserText()
     local str
-    if self.m_lv and (0 < self.m_lv) then
+    if self.m_lv and (0 < tonumber(self.m_lv)) then
         str = Str('Lv.{1} {2}', self.m_lv, self.m_nickname)
     else
         str = self.m_nickname

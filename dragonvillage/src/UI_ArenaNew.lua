@@ -327,6 +327,8 @@ function UI_ArenaNew:setNextTierIcon()
     local l_rank = struct_rank:getRankRewardList()
     local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
     local nextTier = struct_user_info.m_tier
+    local nextTierId = 99
+    local nextTierReward = 0
 
     -- 게이지에 필요한 수치 계산
     for i = 1, #l_rank do
@@ -337,6 +339,13 @@ function UI_ArenaNew:setNextTierIcon()
 
         if (l_rank[i]['tier'] == struct_user_info.m_tier) then
             nextTier = l_rank[i + 1]['tier']
+            nextTierId = l_rank[i + 1]['tier_id']
+
+            local l_reward = plSplit(l_rank[i + 1]['achieve_reward'], ';')
+
+            if (l_reward and #l_reward >= 2) then
+                nextTierReward = tonumber(l_reward[2])
+            end
             break
         end
     end
@@ -346,6 +355,17 @@ function UI_ArenaNew:setNextTierIcon()
 
         local icon = struct_user_info:makeTierIcon(nextTier, 'small')
         vars['nextTierNode']:addChild(icon)
+    end
+
+    -- 보상 받았는지?
+    local hasArchiveReward = g_arenaNewData:hasArchiveReward(nextTierId) and  nextTierReward > 0
+    if (vars['tierRewardBtn']) then vars['tierRewardBtn']:setVisible(hasArchiveReward) end
+    if (vars['tierRewardLabel']) then 
+        if (nextTierReward > 0) then
+            vars['tierRewardLabel']:setString(comma_value(nextTierReward)) 
+        else
+            vars['tierRewardLabel']:setString('') 
+        end
     end
 end
 

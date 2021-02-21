@@ -926,3 +926,13 @@ function ServerData_ArenaNew:setMatchUser(match_user)
 
     self.m_matchUserInfo = match_user
 end
+
+-------------------------------------
+-- function setMatchUser
+-------------------------------------
+function ServerData_ArenaNew:hasArchiveReward(tier_id)    
+    if (not self.m_firstArchivedInfo or type(self.m_firstArchivedInfo) ~= 'table') then return false end
+    if (not self.m_firstArchivedInfo[tostring(tier_id)]) then return true end
+
+    return false
+end
