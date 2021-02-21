@@ -92,9 +92,9 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
 	self.m_bOpen = ret['open']
     self.m_startTime = ret['start_time']
     self.m_endTime = ret['end_time'] or ret['endtime']
-    self.m_rewardInfo = ret['reward_info']
+    self.m_rewardInfo = ret['tier_reward_info']
     self.m_firstArchivedInfo = ret['first_archived_info']
-    self.m_costInfo = ret['cost_info']
+    self.m_costInfo = ret['refresh_cost_info']
 
     self:refresh_playerUserInfo(ret['season'], ret['deck'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
@@ -386,7 +386,6 @@ function ServerData_ArenaNew:getMatchUserInfo()
 end
 
 
-
 -------------------------------------
 -- function request_rivalRefresh
 -- @brief 게임 중도 포기
@@ -395,8 +394,8 @@ function ServerData_ArenaNew:request_rivalRefresh(finish_cb)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
-        if (ret['reward_info']) then
-            self.m_rewardInfo = ret['reward_info']
+        if (ret['tier_reward_info']) then
+            self.m_rewardInfo = ret['tier_reward_info']
         end
 
         self.m_matchUserList = {}

@@ -11,6 +11,8 @@ UI_ArenaNew = class(PARENT, {
         m_topRankOffset = 'number', -- 서버에 랭킹 리스트 요청용
 
         m_bClosedTag = 'boolean', -- 시즌이 종료되어 처리를 했는지 여부
+
+        m_winCnt =  'number',
      })
 
 -- 탭 자동 등록을 위해 UI 네이밍과 맞춰줌
@@ -134,6 +136,7 @@ function UI_ArenaNew:updateRivalList()
 
     if (not l_item_list and #l_item_list <= 0) then return end
 
+    self.m_winCnt = 0
     for i = 1, #l_item_list do
         local itemNode = vars['itemNode' .. tostring(i)]
         local item = l_item_list[i]
@@ -141,6 +144,10 @@ function UI_ArenaNew:updateRivalList()
         if (item and itemNode) then
             local ui = UI_ArenaNewRivalListItem(item)
             itemNode:addChild(ui.root)
+        end
+
+        if (item.m_state == 1) then
+            self.m_winCnt = self.m_winCnt + 1
         end
     end
 
@@ -232,9 +239,9 @@ function UI_ArenaNew:refresh()
     -- 참여 횟수 보상
 	--vars['rewardVisual']:changeAni('reward_' .. temp, true)
 
+    self:updateRivalList()
     self:refreshTierGauge()
     self:refreshRewardInfo()
-    self:updateRivalList()
     --self:refreshHotTimeInfo()
 end
 
@@ -300,14 +307,45 @@ function UI_ArenaNew:refreshTierGauge()
     local action = cc.ProgressTo:create(0.3, rate)
     self.m_tierProgressBar:runAction(action)
     self.vars['scoreGgLabel']:setString(finalString)
+
+    -- 다음 티어 아이콘
+    self:setNextTierIcon()
 end
 
--------------------------------------
--- function makeCommonTierProgressString
--- @breif 진행상황 기본 점수 / 달성점수
--------------------------------------
-function UI_ArenaNew:makeCommonTierProgressString()
 
+
+-------------------------------------
+-- function setNextTierIcon
+-- @breif 
+-------------------------------------
+function UI_ArenaNew:setNextTierIcon()
+    local vars = self.vars
+    if (not vars['nextTierNode']) then return end
+
+    local table_arena_rank = TABLE:get('table_arena_new_rank')
+    local struct_rank = StructArenaNewRankReward(table_arena_rank, true)
+    local l_rank = struct_rank:getRankRewardList()
+    local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
+    local nextTier = struct_user_info.m_tier
+
+    -- 게이지에 필요한 수치 계산
+    for i = 1, #l_rank do
+        if (i == #l_rank) then
+            nextTier = l_rank[i]['tier']
+            break
+        end
+
+        if (l_rank[i]['tier'] == struct_user_info.m_tier) then
+            nextTier = l_rank[i + 1]['tier']
+        end
+    end
+
+    if (vars['nextTierNode']) then 
+        vars['nextTierNode']:removeAllChildren()
+
+        local icon = struct_user_info:makeTierIcon(nextTier, 'small')
+        vars['nextTierNode']:addChild(icon)
+    end
 end
 
 -------------------------------------
@@ -342,18 +380,23 @@ end
 function UI_ArenaNew:refreshRewardInfo()
     local vars = self.vars
     local rewardInfo = g_arenaNewData.m_rewardInfo
+    local l_item_list = g_arenaNewData.m_matchUserList
+
+    if (not l_item_list or #l_item_list <= 0) then return end
+
     local strRewardLabelPrefix = 'rewardLabel'
 
+
     if (self.m_rewardProgressBar and rewardInfo) then
-        local rate = rewardInfo['win_cnt'] / rewardInfo['straight_max'] * 100
+        local rate = self.m_winCnt / #l_item_list * 100
 
         local action = cc.ProgressTo:create(0.3, rate)
         self.m_rewardProgressBar:runAction(action)
     end
 
     -- 3승 5승 이미지 설정
-    local winRewardAniName3 = rewardInfo['win_cnt'] >= 3 and 'arena_box_03' or 'arena_box_01'
-    local winRewardAniName5 = rewardInfo['win_cnt'] >= 5 and 'arena_box_03' or 'arena_box_01'
+    local winRewardAniName3 = self.m_winCnt >= 3 and 'arena_box_03' or 'arena_box_01'
+    local winRewardAniName5 = self.m_winCnt >= 5 and 'arena_box_03' or 'arena_box_01'
 
     if (vars['winRewardSprite3']) then vars['winRewardSprite3']:changeAni(winRewardAniName3, true) end
     if (vars['winRewardSprite5']) then vars['winRewardSprite5']:changeAni(winRewardAniName5, true) end
@@ -497,8 +540,8 @@ end
 -------------------------------------
 function UI_ArenaNew:click_refreshBtn()
     local function ok_cb()
-        self:refreshRewardInfo()
         self:updateRivalList()
+        self:refreshRewardInfo()
     end
 
     UI_ArenaNewRivalListResetPopup(ok_cb)

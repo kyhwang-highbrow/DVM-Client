@@ -69,6 +69,7 @@ StructUserInfoArenaNew = class(PARENT, {
         m_history_id = 'number',
         m_retry_cnt = 'number', -- 재도전, 복수전 가능 회수
         m_rerty_max_cnt = 'number', -- 재도전, 복수전 최대 가능 회수
+        m_state = 'number'  -- 공략 상태 0 공격 전 1 승리 2 패배
     })
 
 -------------------------------------
@@ -85,6 +86,7 @@ function StructUserInfoArenaNew:create_forRanking(t_data)
     user_info.m_rankPercent = t_data['rate']
     user_info.m_tier = t_data['tier']
     user_info.m_rp = t_data['rp']
+    user_info.m_state = t_data['state']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
 
@@ -194,6 +196,7 @@ function StructUserInfoArenaNew:init()
     self.m_rankPercent = nil
     self.m_tier = 'beginner'
     self.m_straight = 0
+    self.m_state = 0
 
     self.m_matchScore = 0
 
