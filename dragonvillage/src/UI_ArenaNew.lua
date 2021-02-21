@@ -405,9 +405,15 @@ function UI_ArenaNew:refreshRewardInfo()
     --local rewardInfo = g_arenaNewData.m_rewardInfo
     local l_item_list = g_arenaNewData.m_matchUserList
 
-    if (not l_item_list or #l_item_list <= 0) then return end
-
     local strRewardLabelPrefix = 'rewardLabel'
+
+    if (not l_item_list or #l_item_list <= 0) then return end
+    for i = 1, #table_arena_new do
+        local label = vars[strRewardLabelPrefix .. tostring(i)] 
+        if (label) then
+            label:setString('')
+        end
+    end
 
     if (self.m_rewardProgressBar) then
         local rate = self.m_winCnt / #l_item_list * 100
