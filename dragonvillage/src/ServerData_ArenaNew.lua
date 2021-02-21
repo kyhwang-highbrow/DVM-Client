@@ -340,12 +340,21 @@ end
 -------------------------------------
 function ServerData_ArenaNew:makeMatchUserInfo(data)
     local struct_user_info = StructUserInfoArenaNew()
+    local userLevel = 1
+
+    if (data['infos'] and data['infos']['uinfo']) then
+        l_str = plSplit(data['infos']['uinfo'], '|')
+
+        if (l_str and #l_str > 0 and l_str[1]) then
+            userLevel = l_str[1]
+        end
+    end
 
     -- 기본 유저 정보
     struct_user_info.m_no = data['no']
     struct_user_info.m_uid = data['uid']
     struct_user_info.m_nickname = data['nick']
-    struct_user_info.m_lv = data['lv']
+    struct_user_info.m_lv = data['lv'] and data['lv'] or userLevel
     struct_user_info.m_tamerID = data['tamer']
     struct_user_info.m_leaderDragonObject = StructDragonObject(data['leader'])
     struct_user_info.m_tier = data['tier']

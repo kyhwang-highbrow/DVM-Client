@@ -260,8 +260,6 @@ function UI_ArenaNew:refreshTierGauge()
     local rate = 0
     local nextMinRp = -1
     local myRankItem = nil
-    
-    cclog(curRp)
 
     -- 게이지에 필요한 수치 계산
     for i = 1, #l_rank do

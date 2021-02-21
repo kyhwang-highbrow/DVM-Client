@@ -55,7 +55,19 @@ function UI_ArenaNewRivalListItem:initUI()
 
     -- battle_info 조회
     -- 0 도전하지 않은 상태, 1 승리, 2 패배
-    
+    local state = t_rival_info.m_state and t_rival_info.m_state or 1
+
+    if (state == 0) then
+        vars['startBtn']:setVisible(true)
+        vars['reStartBtn']:setVisible(false)
+    elseif (state == 1) then
+        vars['startBtn']:setVisible(false)
+        vars['reStartBtn']:setVisible(false)
+    elseif (state == 2) then
+        vars['startBtn']:setVisible(true)
+        vars['reStartBtn']:setVisible(true)
+
+    end
 end
 
 -------------------------------------
@@ -63,6 +75,7 @@ end
 -------------------------------------
 function UI_ArenaNewRivalListItem:initButton()
     local vars = self.vars 
+
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)    
 end
 
