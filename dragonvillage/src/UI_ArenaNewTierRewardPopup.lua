@@ -67,7 +67,7 @@ function UI_ArenaNewTierRewardPopup:initUI()
 			local pos_x = UIHelper:getCardPosX(total_cnt, idx)
 			card.root:setPositionX(pos_x)
 		end
-        ui.vars['rewardFrameNode']:setVisible(false)
+        vars['rewardFrameNode']:setVisible(false)
 	end
 
 end
