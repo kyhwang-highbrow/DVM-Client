@@ -47,7 +47,9 @@ function UI_ArenaNewTierRewardPopup:initUI()
     if (vars['tierLabel']) then vars['tierLabel']:setString(titleStr) end
 
     local itemsList = g_arenaNewData.m_tierRewardInfo
-    local total_cnt = table.count(itemsList)
+    local finalList = self:combineItems(itemsList)
+    local total_cnt = table.count(finalList)
+
 	if (total_cnt == 1) then
 		-- 보상 아이템 표기
 		local t_item = itemsList[1]
@@ -58,10 +60,10 @@ function UI_ArenaNewTierRewardPopup:initUI()
 
 	-- 패치후 최초 업데이트 시점을 위한 분기 처리 (나중에 정리)
 	else
-		for idx, t_item in ipairs(itemsList) do
+		for idx, t_item in ipairs(finalList) do
 			local item_id = t_item['item_id']
 			local item_cnt = t_item['count']
-			local card = UI_ItemCard(item_id, item_cnt)
+			local card = UI_ItemCard(tonumber(item_id), item_cnt)
 			vars['rewardTempNode']:addChild(card.root)
 
 			local pos_x = UIHelper:getCardPosX(total_cnt, idx)
@@ -70,6 +72,31 @@ function UI_ArenaNewTierRewardPopup:initUI()
         vars['rewardFrameNode']:setVisible(false)
 	end
 
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ArenaNewTierRewardPopup:combineItems(itemsList)
+    local finalList = {}
+	for idx, t_item in ipairs(itemsList) do
+        local item_id = t_item['item_id']
+        local count = t_item['count']
+        local hasAttached = false
+
+	    for i, v in ipairs(finalList) do
+            if (v['item_id'] == t_item['item_id']) then
+                v['count'] = v['count'] + tonumber(count)
+                hasAttached = true
+            end
+        end
+
+        if (not hasAttached) then
+            table.insert(finalList, t_item)
+        end
+    end
+
+    return finalList
 end
 
 -------------------------------------
