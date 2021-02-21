@@ -60,6 +60,7 @@ ITEM_ID_MAP['tower'] = 700103
 ITEM_ID_MAP['cldg'] = 700104
 ITEM_ID_MAP['cldg_tr'] = 700108
 ITEM_ID_MAP['arena'] = 700106
+ITEM_ID_MAP['arena_new'] = 700109
 ITEM_ID_MAP['grindstone'] = 704900
 --
 

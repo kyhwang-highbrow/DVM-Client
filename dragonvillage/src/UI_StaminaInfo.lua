@@ -144,6 +144,8 @@ function UI_StaminaInfo:showToolTip()
         desc = Str('친구가 된 테이머와 강함을 겨룰 수 있는 친선전 입장권.')
     else
         local stamina_id = TableItem():getItemIDFromItemType(stamina_type)
+        cclog(stamina_type)
+        cclog(stamina_id)
         local t_item = TABLE:get('item')[stamina_id]
         name = Str(t_item['t_name'])
         desc = Str(t_item['t_desc'])
