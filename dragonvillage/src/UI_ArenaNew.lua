@@ -330,13 +330,14 @@ function UI_ArenaNew:setNextTierIcon()
 
     -- 게이지에 필요한 수치 계산
     for i = 1, #l_rank do
-        if (i == #l_rank) then
+        if (i == #l_rank and l_rank[i]['tier'] == struct_user_info.m_tier) then
             nextTier = l_rank[i]['tier']
             break
         end
 
         if (l_rank[i]['tier'] == struct_user_info.m_tier) then
             nextTier = l_rank[i + 1]['tier']
+            break
         end
     end
 
