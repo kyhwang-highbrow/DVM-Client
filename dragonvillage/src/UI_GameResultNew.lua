@@ -1621,7 +1621,8 @@ function UI_GameResultNew:countAutoPlay()
     self.m_autoCount = true
     local vars = self.vars
     local node = vars['autoBattleNode']
-    node:setVisible(true)
+
+    if (node) then node:setVisible(true) end
 
     local count_label = vars['countLabel']
     count_label:setString('')
