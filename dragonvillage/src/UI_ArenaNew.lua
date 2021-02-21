@@ -351,19 +351,23 @@ function UI_ArenaNew:refreshRewardInfo()
         self.m_rewardProgressBar:runAction(action)
     end
 
+    -- 3승 5승 이미지 설정
+    local winRewardAniName3 = rewardInfo['win_cnt'] >= 3 and 'arena_box_03' or 'arena_box_01'
+    local winRewardAniName5 = rewardInfo['win_cnt'] >= 5 and 'arena_box_03' or 'arena_box_01'
+
+    if (vars['winRewardSprite3']) then vars['winRewardSprite3']:changeAni(winRewardAniName3, true) end
+    if (vars['winRewardSprite5']) then vars['winRewardSprite5']:changeAni(winRewardAniName3, true) end
+
     -- 보상테이블 받기
     local table_arena_new = TABLE:get('table_arena_new')
 
     for i = 1, #table_arena_new do
         if (table_arena_new[i]) then
+            local score = 0
             local label = vars[strRewardLabelPrefix .. tostring(i)] 
-            local score = table_arena_new[i]['win_score']
+            score = table_arena_new[i]['win_score']
             if (score and label) then
                 label:setString(tostring(score))
-            end
-
-            if (table_arena_new[i]['win_reward'] and label) then
-                
             end
         end
     end
