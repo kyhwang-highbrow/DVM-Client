@@ -437,6 +437,8 @@ function GameState_ArenaNew:makeResultUI(is_win)
         func_ui_result = function(ret)
             local t_data = ret
             UI_ArenaNewResult(is_win, t_data)
+
+
         end
 
         -- 최초 실행

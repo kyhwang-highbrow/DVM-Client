@@ -88,7 +88,7 @@ function UI_ArenaNewResult:direction_showTamer()
     local is_win = self.m_isWin
     local vars = self.vars
 
-	local user_info = g_arenaData.m_playerUserInfo
+	local user_info = g_arenaNewData.m_playerUserInfo
     local tamer_id = user_info:getDeckTamerID()
 
 	local t_tamer =  TableTamer():get(tamer_id)
@@ -207,7 +207,7 @@ function UI_ArenaNewResult:direction_end()
     local number_act = cc.CallFunc:create(function()
       
         -- 현재 점수
-        local rp = g_arenaData.m_playerUserInfo.m_rp
+        local rp = g_arenaNewData.m_playerUserInfo.m_rp
         score_label1:setNumber(rp)
 
         -- 획득 점수
@@ -281,11 +281,11 @@ end
 -------------------------------------
 function UI_ArenaNewResult:direction_winReward()
 	local t_data = self.m_resultData
-	if (not t_data['mail_item_info']) then
-		self:doNextWork()
-		return
-	end
-
+	--if (not t_data['mail_item_info']) then
+	--	self:doNextWork()
+	--	return
+	--end
+    t_data['mail_item_info'] = {}
 	-- 주간 승리 보상 (승수에 따라 고정 지급)
 	local ui = UI()
 	ui:load('arena_play_reward_popup.ui')
@@ -505,7 +505,7 @@ function UI_ArenaNewResult:startGame()
         scene:runScene()
     end
 
-    g_arenaData:request_arenaStart(is_cash, nil, cb)
+    g_arenaNewData:request_arenaStart(is_cash, nil, cb)
 end
 
 -------------------------------------

@@ -34,6 +34,8 @@ ServerData_ArenaNew = class({
         m_tempLogData = 'table',
         m_costInfo = 'table',
 
+        m_nextScore = 'number',
+
     })
 
 -------------------------------------

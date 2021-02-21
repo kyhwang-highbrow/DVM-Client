@@ -15,10 +15,6 @@ UI_ArenaNew = class(PARENT, {
         m_winCnt =  'number',
      })
 
--- 탭 자동 등록을 위해 UI 네이밍과 맞춰줌
-UI_ArenaNew['RANK'] = 'ranking'
-UI_ArenaNew['HISTORY'] = 'history'
-
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
@@ -407,11 +403,10 @@ function UI_ArenaNew:refreshRewardInfo()
 
     local strRewardLabelPrefix = 'rewardLabel'
 
-
-    if (self.m_rewardProgressBar and rewardInfo) then
+    if (self.m_rewardProgressBar) then
         local rate = self.m_winCnt / #l_item_list * 100
-
         local action = cc.ProgressTo:create(0.3, rate)
+
         self.m_rewardProgressBar:runAction(action)
     end
 
@@ -425,6 +420,10 @@ function UI_ArenaNew:refreshRewardInfo()
     -- 보상테이블 받기
     local table_arena_new = TABLE:get('table_arena_new')
 
+    -- 다음 승리시 점수 조회용
+    -- 승리 수가 5일 때 다시 1로 바꾼다.
+    local nextWinCnt = self.m_winCnt >= 5 and 1 or self.m_winCnt + 1
+    cclog(nextWinCnt)
     for i = 1, #table_arena_new do
         if (table_arena_new[i]) then
             local score = 0
@@ -432,6 +431,13 @@ function UI_ArenaNew:refreshRewardInfo()
             score = table_arena_new[i]['win_score']
             if (score and label) then
                 label:setString(tostring(score))
+            end
+
+            -- 마지막 인덱스 조회면 처음으로
+            if (nextWinCnt >= #table_arena_new) then
+                g_arenaNewData.m_nextScore = table_arena_new[1]['win_score']
+            elseif (i == nextWinCnt) then
+                g_arenaNewData.m_nextScore = table_arena_new[i]['win_score']
             end
         end
     end
@@ -567,22 +573,6 @@ function UI_ArenaNew:click_refreshBtn()
 
     UI_ArenaNewRivalListResetPopup(ok_cb)
 
-end
-
--------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_ArenaNew:onChangeTab(tab, first)
-    if (not first) then
-        return
-    end
-
-    if (tab == UI_ArenaNew['RANK']) then
-        UI_ArenaTabRank(self)
-
-    elseif (tab == UI_ArenaNew['HISTORY']) then
-        UI_ArenaTabHistory(self)
-    end
 end
 
 -------------------------------------
