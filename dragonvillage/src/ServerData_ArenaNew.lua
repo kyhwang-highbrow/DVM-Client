@@ -411,6 +411,7 @@ function ServerData_ArenaNew:request_rivalRefresh(finish_cb)
         --    self.m_tierRewardInfo = ret['tier_reward_info']
         --end
 
+        self.m_costInfo = ret['refresh_cost_info']
         self.m_matchUserList = {}
         for i = 1, #ret['list'] do
             local userInfo = self:makeMatchUserInfo(ret['list'][i])
