@@ -226,10 +226,10 @@ function UI_ArenaNewResult:direction_end()
 
     -- 이벤트 아이템 표시
     local event_act = cc.CallFunc:create(function()
-        if (not t_data['added_items']) then 
+        if (not t_data['win_item_list']) then 
             return 
         end
-        local drop_list = t_data['added_items']['items_list'] or {}
+        local drop_list = t_data['win_item_list'] or {}
 		local idx = 1
         for _, item in ipairs(drop_list) do
 			-- 보호 장치
@@ -281,12 +281,12 @@ end
 -------------------------------------
 function UI_ArenaNewResult:direction_winReward()
 	local t_data = self.m_resultData
-    if (not t_data['added_items'] or not t_data['added_items']['items_list'] or #t_data['added_items']['items_list'] <= 0) then
+    if (not t_data['bonus_item_list'] or #t_data['bonus_item_list'] <= 0) then
         self:doNextWork()
 		return
     end
 
-    local itemsList = t_data['added_items']['items_list']
+    local itemsList = t_data['bonus_item_list']
     local total_cnt = table.count(itemsList)
 	local ui = UI()
 	ui:load('arena_play_reward_popup.ui')
