@@ -117,7 +117,7 @@ function ServerData_Deck:getDeck_core(deck_name)
         return l_doid, self:adjustFormationName(formation), deck_name, leader, tamer_id
 
     -- 콜로세움 (신규) 덱 예외처리
-    elseif (deck_name == 'arena_new_a' or deck_name == 'arena_new_d') then
+    elseif (deck_name == 'arena_new_a' or deck_name == 'arena_new_d' or  deck_name == 'arena_new') then
         if (not g_arenaNewData.m_playerUserInfo) then
             return {}, self:adjustFormationName('default'), deck_name, 1
         end

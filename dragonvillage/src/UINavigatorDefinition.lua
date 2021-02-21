@@ -545,6 +545,7 @@ function UINavigatorDefinition:goTo_arena_new(...)
             UI_ArenaNew(sub_data)
             return
         end
+          
 
         do-- Scene으로 동작
             local function close_cb()
@@ -557,7 +558,14 @@ function UINavigatorDefinition:goTo_arena_new(...)
     end
 
     local function fail_cb()
+            --local ui = MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
 
+            local function finish_cb()
+                
+                --UI_ArenaNew(sub_data)
+            end
+
+            local deckSetUI = UI_ArenaNewDefenceDeckSettings(ARENA_NEW_STAGE_ID, 'arena_new', true)
     end
 
     -- 정보 요청

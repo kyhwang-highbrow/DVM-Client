@@ -6,6 +6,8 @@ local PARENT = UI_ReadySceneNew
 UI_ArenaNewDefenceDeckSettings = class(PARENT,{
         m_changeMode = 'boolean', -- true : 덱 변경만 가능, false : 덱변경 후 시작
         m_currTamerID = 'number',
+
+        m_setdeck_cb = 'function',
     })
 
 local NEED_CASH = 50 -- 유료 입장 다이아 개수
@@ -38,9 +40,10 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaNewDefenceDeckSettings:init(stage_id, sub_info, bChangeMode)
+function UI_ArenaNewDefenceDeckSettings:init(stage_id, sub_info, bChangeMode, setdeck_cb)
     local vars = self.vars
     self.m_changeMode = bChangeMode or false -- 바로 시작인지 덱만 바꾸는 건지
+    self.m_setdeck_cb = setdeck_cb
 
     -- 덱 변경만 가능
     if (self.m_changeMode) then

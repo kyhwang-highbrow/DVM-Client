@@ -499,7 +499,6 @@ function StructUserInfoArenaNew:getDeck_dragonList(use_doid)
     return t_deck
 end
 
-
 -------------------------------------
 -- function applyPvpDefenseDeckData
 -- @brief

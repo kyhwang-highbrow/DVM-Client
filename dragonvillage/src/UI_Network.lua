@@ -334,6 +334,9 @@ local S_ERROR_STATUS = {
     -- 클랜
     [-1103] = Str('존재하지 않는 클랜입니다.'), -- not exist clan
 
+    -- 신규 아레나
+    [-1360] = Str('콜로세움 덱이 설정되지 않았습니다.'), -- not exist clan
+
 	-- common
 	[-1391] = Str('잘못된 요청입니다.')
 }
