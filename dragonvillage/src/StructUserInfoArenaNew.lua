@@ -175,6 +175,7 @@ function StructUserInfoArenaNew:createUserInfo(t_data)
     user_info.m_rankPercent = t_data['rate']
     user_info.m_tier = t_data['tier']
     user_info.m_rp = t_data['rp']
+    user_info.m_state = t_data['state']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     

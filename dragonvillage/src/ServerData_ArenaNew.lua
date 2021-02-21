@@ -362,6 +362,7 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_tier = data['tier']
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
+    struct_user_info.m_state = data['state']
     
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = data['rp']
