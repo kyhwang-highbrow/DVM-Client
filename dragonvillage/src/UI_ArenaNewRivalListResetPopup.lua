@@ -11,6 +11,7 @@ UI_ArenaNewRivalListResetPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ArenaNewRivalListResetPopup:init(ok_cb)
+    self.m_uiName = 'UI_ArenaNewRivalListResetPopup'
     local vars = self:load('arena_new_popup_refresh.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -42,7 +43,7 @@ function UI_ArenaNewRivalListResetPopup:initUI(ok_cb)
             vars['priceLabel']:setString(Str('무료'))
         else
             local maxRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_max_count')
-            local curRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_count')
+            local curRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_cur_count')
 
             if (curRefreshCount >= maxRefreshCount) then
                 refillGuideText = Str('사용 가능한 횟수를 초과했습니다.')
