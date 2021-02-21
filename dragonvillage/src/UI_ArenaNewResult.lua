@@ -295,13 +295,12 @@ function UI_ArenaNewResult:direction_winReward()
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'temp')
 
+    local winCount = t_data['winCount'] and t_data['winCount'] or 5
+
 	if (total_cnt == 1) then
 		-- 판수 표시
 		local win = t_data['season']['win']
         local lose = t_data['season']['lose']
-        local winCount = t_data['winCount'] and t_data['winCount'] or 5
-
-		ui.vars['playLabel']:setString(Str('승리 {1}회 달성 보상', winCount))
 
 		-- 보상 아이템 표기
 		local t_item = itemsList[1]
@@ -321,11 +320,12 @@ function UI_ArenaNewResult:direction_winReward()
 			local pos_x = UIHelper:getCardPosX(total_cnt, idx)
 			card.root:setPositionX(pos_x)
 
-			ui.vars['playLabel']:setString(Str('승리 달성 보상'))
 			ui.vars['rewardFrameNode']:setVisible(false)
 			ui.vars['rewardLabel']:setVisible(false)
 		end
 	end
+
+	ui.vars['playLabel']:setString(Str('승리 {1}회 달성 보상', winCount))
 
 	-- 버튼
 	ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
