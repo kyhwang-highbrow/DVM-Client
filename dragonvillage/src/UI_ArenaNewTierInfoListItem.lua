@@ -60,6 +60,14 @@ function UI_ArenaNewTierInfoListItem:initUI()
         strRankRange = Str('상위 {1}%', tierInfo['ratio_max'])
     end
 
+    if (not strRankRange or strRankRange == '') then
+        if (not tierInfo['score_min'] or tierInfo['score_min'] == '' or tierInfo['score_min'] <= 0) then
+            strRankRange = '-'
+        else
+            strRankRange = Str('{1}점 이상', tierInfo['score_min'])
+        end 
+    end
+
     vars['rankLabel']:setString(strRankRange)
 
     -- 티어아이콘
