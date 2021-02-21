@@ -79,6 +79,7 @@ function UI_ArenaNewRivalListItem:initButton()
     local vars = self.vars 
 
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)    
+    vars['reStartBtn']:registerScriptTapHandler(function() self:click_startBtn() end)   
 end
 
 -------------------------------------

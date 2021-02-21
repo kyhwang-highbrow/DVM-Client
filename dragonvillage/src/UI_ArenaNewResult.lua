@@ -295,7 +295,7 @@ function UI_ArenaNewResult:direction_winReward()
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'temp')
 
-    local winCount = t_data['winCount'] and t_data['winCount'] or 5
+    local winCount = t_data['win_count'] and t_data['win_count'] or 5
 
 	if (total_cnt == 1) then
 		-- 판수 표시
