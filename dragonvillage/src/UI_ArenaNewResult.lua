@@ -320,7 +320,7 @@ function UI_ArenaNewResult:direction_winReward()
 			local pos_x = UIHelper:getCardPosX(total_cnt, idx)
 			card.root:setPositionX(pos_x)
 
-			ui.vars['playLabel']:setString(Str('콜로세움 주간 참여 보상'))
+			ui.vars['playLabel']:setString(Str('승리 달성 보상'))
 			ui.vars['rewardFrameNode']:setVisible(false)
 			ui.vars['rewardLabel']:setVisible(false)
 		end
