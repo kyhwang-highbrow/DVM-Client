@@ -471,6 +471,7 @@ end
 -------------------------------------
 function UI_DragonRunes:onChangeTab(tab, first)
     self:refreshTableViewList()
+    self.m_tableViewTD:relocateContainerDefault()
 
     -- 슬롯 타입이 변경되었을 때
     local slot_idx = tab

@@ -727,6 +727,9 @@ function UIC_TableViewTD:relocateContainerDefault(animated)
 
     -- 세로
     else
+        if (self.m_bDirtyItemList == true) then
+            self:update(0)
+        end
         local min_offset_x, min_offset_y = self:minContainerOffset()
         self.m_scrollView:setContentOffset(cc.p(0, min_offset_y), animated)
     end
