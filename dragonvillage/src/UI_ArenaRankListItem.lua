@@ -12,7 +12,7 @@ UI_ArenaRankListItem = class(PARENT, {
 -------------------------------------
 function UI_ArenaRankListItem:init(t_rank_info)
     self.m_rankInfo = t_rank_info
-    local vars = self:load('arena_new_rank_popup_item_user_ranking.ui')
+    local vars = self:load('arena_scene_ranking_item.ui')
 
     self:initUI()
     self:initButton()
