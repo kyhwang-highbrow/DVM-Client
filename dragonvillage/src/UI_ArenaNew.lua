@@ -214,6 +214,29 @@ function UI_ArenaNew:refresh()
         local icon = struct_user_info:makeTierIcon(nil, 'big')
         vars['tierIconNode']:addChild(icon)
 
+        local aniString = ''
+        local hasAni = false
+
+        if (string.match(struct_user_info.m_tier, "platinum")) then
+            aniString = 'tier_04'
+            hasAni = true
+        elseif (string.match(struct_user_info.m_tier, "diamond")) then
+            aniString = 'tier_05'
+            hasAni = true
+        elseif (string.match(struct_user_info.m_tier, "master")) then
+            aniString = 'tier_06'
+            hasAni = true
+        elseif (string.match(struct_user_info.m_tier, "hero")) then
+            aniString = 'tier_07'
+            hasAni = true
+        elseif (string.match(struct_user_info.m_tier, "legend")) then
+            aniString = 'tier_08'
+            hasAni = true
+        end
+
+        vars['tierVisual']:setVisible(hasAni)
+        vars['tierVisual']:changeAni(tierVisual)
+
         -- 티어 이름
         local tier_name = struct_user_info:getTierName()
         vars['tierLabel']:setString(tier_name)
