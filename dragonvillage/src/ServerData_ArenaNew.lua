@@ -110,6 +110,8 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
         table.insert(self.m_matchUserList, userInfo)
     end
 
+    table.sort(self.m_matchUserList, function(a, b) return tonumber(a.m_power) > tonumber(b.m_power) end)
+
     -- 주간 보상
     self:setRewardInfo(ret)
 end
@@ -363,6 +365,7 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
     struct_user_info.m_state = data['state']
+    struct_user_info.m_power = data['power']
     
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = data['rp']

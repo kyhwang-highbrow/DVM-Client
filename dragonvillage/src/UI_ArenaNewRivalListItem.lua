@@ -32,7 +32,7 @@ function UI_ArenaNewRivalListItem:initUI()
 
     vars['userLabel']:setString(Str('Lv. {1}', t_rival_info.m_lv) .. ' ' .. tostring(t_rival_info.m_nickname))
     vars['scoreLabel']:setString(Str(rivalScore))
-    vars['powerLabel']:setString(comma_value(self.m_rivalInfo:getDeckCombatPower(true)))
+    vars['powerLabel']:setString(comma_value(t_rival_info.m_power))
 
     if (t_rival_info.m_structClan) then
         vars['clanLabel']:setString(t_rival_info.m_structClan.name)
