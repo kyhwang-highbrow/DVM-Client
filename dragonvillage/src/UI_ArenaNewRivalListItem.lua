@@ -15,6 +15,11 @@ function UI_ArenaNewRivalListItem:init(t_rival_info)
     local vars = self:load('arena_new_scene_item_01.ui')
     self.root:setSwallowTouch(true)
 
+    -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.4)
+    self:doActionReset()
+    self:doAction(nil, false)
+
     self:initUI()
     self:initButton()
     self:refresh()
