@@ -119,14 +119,14 @@ function StructArenaNewRankReward.getRankName(t_list_item)
         local isSameRank = tierInfo['rank_min'] == tierInfo['rank_max']
 
         if (isSameRank) then
-            strRankRange = Str('{1}위', tierInfo['rank_min'])
+            strRankRange = Str('{1}위', tierInfo['rank_min'])  .. '\n' .. Str('{1}점 이상', tierInfo['score_min'])
         else
-            strRankRange = Str('{1}위', tierInfo['rank_min']) .. " ~ " .. Str('{1}위', tierInfo['rank_max'])
+            strRankRange = Str('{1}위', tierInfo['rank_min']) .. " ~ " .. Str('{1}위', tierInfo['rank_max']) .. '\n' .. Str('{1}점 이상', tierInfo['score_min'])
         end
     end
 
     if (tierInfo['ratio_max'] and tierInfo['ratio_max'] ~= '') then
-        strRankRange = Str('상위 {1}%', tierInfo['ratio_max'])
+        strRankRange = Str('상위 {1}%', tierInfo['ratio_max']) .. '\n' .. Str('{1}점 이상', tierInfo['score_min'])
     end
 
     if (not strRankRange or strRankRange == '') then
