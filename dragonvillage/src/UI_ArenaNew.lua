@@ -235,7 +235,8 @@ function UI_ArenaNew:refresh()
         end
 
         vars['tierVisual']:setVisible(hasAni)
-        vars['tierVisual']:changeAni(tierVisual)
+        vars['tierVisual']:changeAni(aniString)
+        vars['tierVisual']:setRepeat(true)
 
         -- 티어 이름
         local tier_name = struct_user_info:getTierName()
