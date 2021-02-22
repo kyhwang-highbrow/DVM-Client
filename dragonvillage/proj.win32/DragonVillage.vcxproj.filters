@@ -4897,6 +4897,12 @@
     <None Include="..\src\UI_ArenaNewRankingRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ArenaNewRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaNewRankingListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

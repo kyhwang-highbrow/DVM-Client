@@ -76,8 +76,9 @@ function UI_ArenaNewHistory:initUI()
     table_view:makeDefaultEmptyDescLabel(Str('방어 기록이 없습니다.'))
 
     local sum = totalWin + totalLose
-    local win_rate_text = math_floor(totalWin / sum * 100)
-    if (not type(win_rate_text) ~= 'number') then win_rate_text = '0' end
+    local win_rate_text = sum ~= 0 and math_floor(totalWin / sum * 100) or 0
+    if (type(tonumber(win_rate_text)) ~= 'number') then win_rate_text = '0' end
+
     local strRecord = Str('{1}승 {2}패 ({3}%)', totalWin, totalLose, win_rate_text)
     local strScore = tostring(totalScore)
 
