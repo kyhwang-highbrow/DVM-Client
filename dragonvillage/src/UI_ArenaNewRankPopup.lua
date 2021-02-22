@@ -95,7 +95,7 @@ function UI_ArenaNewRankPopup:makeArenaRankTableView(data)
     end
     
     local rank_list = UIC_RankingList()
-    rank_list:setRankUIClass(UI_ArenaRankingListItem, create_cb)
+    rank_list:setRankUIClass(UI_ArenaNewRankingListItem, create_cb)
     rank_list:setRankList(l_rank_list)
     rank_list:setEmptyStr('랭킹 정보가 없습니다')
     rank_list:setMyRank(make_my_rank_cb)

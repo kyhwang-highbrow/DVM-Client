@@ -1,18 +1,18 @@
 local PARENT = class(UI, IRankListItem:getCloneTable())
 
 -------------------------------------
--- class UI_ColosseumRankListItem
+-- class UI_ArenaNewRankListItem
 -------------------------------------
-UI_ColosseumRankListItem = class(PARENT, {
+UI_ArenaNewRankListItem = class(PARENT, {
         m_rankInfo = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ColosseumRankListItem:init(t_rank_info)
+function UI_ArenaNewRankListItem:init(t_rank_info)
     self.m_rankInfo = t_rank_info
-    local vars = self:load('colosseum_scene_ranking_item.ui')
+    local vars = self:load('arena_new_rank_popup_item_user_ranking.ui')
 
     self:initUI()
     self:initButton()
@@ -22,7 +22,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ColosseumRankListItem:initUI()
+function UI_ArenaNewRankListItem:initUI()
     local vars = self.vars
     local t_rank_info = self.m_rankInfo
     local rank = t_rank_info.m_rank
@@ -87,11 +87,11 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_ColosseumRankListItem:initButton()
+function UI_ArenaNewRankListItem:initButton()
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_ColosseumRankListItem:refresh()
+function UI_ArenaNewRankListItem:refresh()
 end
