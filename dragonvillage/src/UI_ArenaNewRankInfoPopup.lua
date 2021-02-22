@@ -53,8 +53,16 @@ function UI_ArenaNewRankInfoPopup:refresh()
     local table_arena_rank = TABLE:get('table_arena_new_rank')
     local struct_rank_reward = StructArenaNewRankReward(table_arena_rank, true)
     local l_rank_reward = struct_rank_reward:getRankRewardList()
+    local finalList = {}
 
-    table.sort(l_rank_reward, function(a,b) return a['tier_id'] < b['tier_id'] end)
+    for i, v in ipairs(l_rank_reward) do
+        -- 입문자는 버리기
+        if (v['tier_id'] ~= 99) then
+            table.insert(finalList, v)
+        end
+    end
+
+    table.sort(finalList, function(a,b) return a['tier_id'] < b['tier_id'] end)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
@@ -62,7 +70,7 @@ function UI_ArenaNewRankInfoPopup:refresh()
     table_view.m_defaultCellSize = cc.size(720, 50)
     table_view:setCellUIClass(UI_ArenaNewTierInfoListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_rank_reward)
+    table_view:setItemList(finalList)
 end
 
 --@CHECK
