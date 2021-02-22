@@ -13,7 +13,7 @@ UI_ArenaNewRankListItem = class(PARENT, {
 function UI_ArenaNewRankListItem:init(t_rank_info)
     self.m_rankInfo = t_rank_info
     local vars = self:load('arena_new_rank_popup_item_user_ranking.ui')
-    ccdump(t_rank_info)
+
     self:initUI()
     self:initButton()
     self:refresh()
@@ -28,8 +28,6 @@ function UI_ArenaNewRankListItem:initUI()
     local rank = t_rank_info.m_rank
 
     local tag = t_rank_info.m_tag
-
-    ccdump(t_rank_info)
 
     -- 다음 랭킹 보기 
     if (tag == 'next') then

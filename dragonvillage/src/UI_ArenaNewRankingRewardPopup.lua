@@ -12,12 +12,17 @@ UI_ArenaNewRankingRewardPopup = class(PARENT,{
 function UI_ArenaNewRankingRewardPopup:init(t_info, is_clan)
     local vars = self:load('arena_ranking_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
+    self.m_uiName = 'UI_ArenaNewRankingRewardPopup'
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ArenaNewRankingRewardPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+
+
+    -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
 

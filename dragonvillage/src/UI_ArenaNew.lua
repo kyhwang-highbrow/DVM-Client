@@ -15,6 +15,7 @@ UI_ArenaNew = class(PARENT, {
         m_winCnt =  'number',
      })
 
+
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
@@ -38,13 +39,8 @@ function UI_ArenaNew:init(sub_data)
     self.m_bClosedTag = false
 
     local ui_res = 'arena_new_scene.ui'
-
-    -- TODO
-    --if (g_arenaNewData:isStartClanWarContents()) then
-    --    ui_res = 'arena_scene_new.ui'
-    --end
-
     local vars = self:load_keepZOrder(ui_res)
+
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_ArenaNew'
@@ -168,13 +164,35 @@ end
 function UI_ArenaNew:initUI()
     local vars = self.vars
 
-    -- UI가 enter로 진입되었을 때 update함수 호출
-    self.root:registerScriptHandler(function(event)
-        if (event == 'enter') then
-            self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ArenaNew:update(dt)
+    cclog('1')
+    local vars = self.vars
+    local time_label = vars['refreshLabel']
+    if time_label then
+        local curr_time = Timer:getServerTime()
+        local endtime = g_arenaNewData.m_costInfo['refresh_enable_time']
+        if (not endtime) then 
+            endtime = 0 
+        else
+            endtime = tonumber(endtime) / 1000 + 600000
         end
-    end)
-    self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+
+
+        if (0 < endtime) and (curr_time < endtime) then
+            local remain_time = (endtime - curr_time)
+            local str = datetime.makeTimeDesc_timer_filledByZero(remain_time * 1000)
+            time_label:setString(str)
+        else
+            time_label:setString('')
+        end
+    end
+
 end
 
 -------------------------------------
