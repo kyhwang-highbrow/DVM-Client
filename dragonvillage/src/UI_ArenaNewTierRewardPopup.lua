@@ -34,7 +34,7 @@ function UI_ArenaNewTierRewardPopup:initUI()
 
     for i = 1, #l_rank do
         local item = l_rank[i]
-        if (item['tier_id'] and g_arenaNewData:hasArchiveReward(item['tier_id'])) then
+        if (item['tier_id'] and tonumber(item['tier_id']) and g_arenaNewData:hasArchiveReward(item['tier_id'])) then
             highestRewardTierId = math.min(highestRewardTierId, tonumber(item['tier_id']))
             titleStr = item['t_name']
         end

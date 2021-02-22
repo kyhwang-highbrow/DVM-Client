@@ -207,7 +207,7 @@ function UI_ArenaNewResult:direction_end()
     local number_act = cc.CallFunc:create(function()
       
         -- 현재 점수
-        local rp = g_arenaNewData.m_playerUserInfo.m_rp
+        local rp = t_data['point'] and t_data['point'] or 0
         score_label1:setNumber(rp)
 
         -- 획득 점수

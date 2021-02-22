@@ -613,7 +613,7 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
         end
 
         -- 변경 데이터
-        ret['added_rp'] = (self.m_playerUserInfo.m_rp - prev_rp)
+        ret['added_rp'] = (self.m_playerUserInfo.m_seasonRp - prev_rp)
         --ret['added_rp'] = ret['point'] -- 실시간으로 변경된 값이 있을 수 있으므로 서버에서 넘어오는 값을 표기
         ret['added_honor'] = (g_userData:get('honor') - prev_honor)
 
