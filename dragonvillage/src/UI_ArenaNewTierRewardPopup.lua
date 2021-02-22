@@ -30,12 +30,12 @@ function UI_ArenaNewTierRewardPopup:initUI()
     local struct_rank = StructArenaNewRankReward(table_arena_rank, true)
     local l_rank = struct_rank:getRankRewardList()
     local titleStr = Str('입문자')
-    local highestTierRewardId = -1
+    local highestTierRewardId = 99
 
     for i = 1, #l_rank do
         local item = l_rank[i]
-        if (item['tier_id'] and tonumber(item['tier_id']) and g_arenaNewData:hasArchiveReward(item['tier_id'])) then
-            highestRewardTierId = math.min(highestRewardTierId, tonumber(item['tier_id']))
+        if (item['tier_id'] and tonumber(item['tier_id']) and not g_arenaNewData:hasArchiveReward(item['tier_id'])) then
+            highestTierRewardId = math.min(highestTierRewardId, tonumber(item['tier_id']))
             titleStr = item['t_name']
         end
     end

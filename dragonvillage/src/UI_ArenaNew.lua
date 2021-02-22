@@ -491,7 +491,7 @@ function UI_ArenaNew:refreshRewardInfo()
 
             -- 마지막 인덱스 조회면 처음으로
             if (nextWinCnt >= #table_arena_new) then
-                g_arenaNewData.m_nextScore = table_arena_new[1]['win_score']
+                g_arenaNewData.m_nextScore = table_arena_new[#table_arena_new]['win_score']
             elseif (i == nextWinCnt) then
                 g_arenaNewData.m_nextScore = table_arena_new[i]['win_score']
             end
