@@ -62,9 +62,9 @@ function UI_GameArenaNew:initUI()
     end
 
      -- 연속 전투 정보
-    if (not g_gameScene.m_bFriendMatch) then
-        self:setAutoPlayUI()
-    end
+    --if (not g_gameScene.m_bFriendMatch) then
+    --    self:setAutoPlayUI()
+    --end
 
     -- 하단 패널
     vars['panelBgSprite']:setLocalZOrder(-1)

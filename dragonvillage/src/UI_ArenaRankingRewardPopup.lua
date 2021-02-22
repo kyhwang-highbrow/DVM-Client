@@ -10,7 +10,7 @@ UI_ArenaRankingRewardPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ArenaRankingRewardPopup:init(t_info, is_clan)
-    local vars = self:load('arena_ranking_reward_popup.ui')
+    local vars = self:load('arena_new_ranking_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
