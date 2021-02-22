@@ -15,6 +15,10 @@ function UI_ArenaNewRivalListResetPopup:init(ok_cb)
     local vars = self:load('arena_new_popup_refresh.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
     self.m_ok_cb = ok_cb
 
     -- backkey 지정

@@ -22,6 +22,13 @@ function UI_ArenaNewRankPopup:init()
     local vars = self:load('arena_new_rank_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     
+    
+    -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+
     self.m_rankOffset = 1
     self.m_rankType = 'world'
 

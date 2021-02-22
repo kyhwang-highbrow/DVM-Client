@@ -26,6 +26,11 @@ function UI_ArenaNewHistory:init()
 	self.m_uiName = 'UI_ArenaNewHistory'
     UIManager:open(self, UIManager.POPUP)
 
+    -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
     self.m_matchDefHistory = g_arenaNewData.m_matchDefHistory
 
     -- backkey 지정
