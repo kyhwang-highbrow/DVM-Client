@@ -18,7 +18,7 @@ function UI_ArenaNewRankInfoPopup:init()
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ArenaNewRankInfoPopup')
 
     -- @UI_ACTION
-    self:addAction(self.root, UI_ACTION_TYPE_LEFT, 0, 0.2)
+    self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
 
