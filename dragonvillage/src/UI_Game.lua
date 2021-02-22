@@ -311,6 +311,19 @@ function UI_Game:initHotTimeUI()
                 t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
             end
         end
+    -- 신규 콜로세움
+	elseif (game_mode == GAME_MODE_ARENA_NEW) then
+        local stage_id = self.m_gameScene.m_stageID
+        if (stage_id == ARENA_NEW_STAGE_ID) then
+            -- 친선전 체크
+            if (self.m_gameScene.m_bFriendMatch == false) then
+                local type = 'pvp_honor_up'
+                local is_active, value = g_fevertimeData:isActiveFevertimeByType(type)
+                value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+                t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
+            end
+        end
+
     end
 
 
@@ -513,6 +526,8 @@ function UI_Game:click_pauseButton()
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
         self.m_pauseUI = UI_GamePause_Colosseum(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_ARENA) then
+        self.m_pauseUI = UI_GamePause_Arena(stage_id, gamekey, start_cb, end_cb)
+    elseif (game_mode == GAME_MODE_ARENA_NEW) then
         self.m_pauseUI = UI_GamePause_Arena(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_CHALLENGE_MODE) then
         --self.m_pauseUI = UI_GamePause_ChallengeMode(stage_id, gamekey, start_cb, end_cb)

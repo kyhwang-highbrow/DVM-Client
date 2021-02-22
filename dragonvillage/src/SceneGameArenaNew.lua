@@ -31,7 +31,7 @@ end
 -------------------------------------
 function SceneGameArenaNew:init_gameMode()
     self.m_stageID = ARENA_NEW_STAGE_ID
-    self.m_gameMode = GAME_MODE_ARENA
+    self.m_gameMode = GAME_MODE_ARENA_NEW
     self.m_bgmName = 'bgm_colosseum'
 
     -- @E.T.

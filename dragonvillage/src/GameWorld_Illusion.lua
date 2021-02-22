@@ -136,6 +136,7 @@ function GameWorld_Illusion:makeDragonNew(t_dragon_data, bRightFormation, status
 
     if (self.m_gameMode ~= GAME_MODE_COLOSSEUM and
         self.m_gameMode ~= GAME_MODE_ARENA and
+        self.m_gameMode ~= GAME_MODE_ARENA_NEW and
         self.m_gameMode ~= GAME_MODE_CHALLENGE_MODE and
         self.m_gameMode ~= GAME_MODE_EVENT_ARENA and
         bRightFormation) then

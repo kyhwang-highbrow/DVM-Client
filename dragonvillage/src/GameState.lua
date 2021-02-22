@@ -1406,7 +1406,7 @@ function GameState:applyEnrage(t_info)
         
         -- 아군 버프 적용(콜로세움일 경우만)
         --if (world.m_gameMode == GAME_MODE_COLOSSEUM or world.m_gameMode == GAME_MODE_ARENA) then
-        if isExistValue(world.m_gameMode, GAME_MODE_ARENA, GAME_MODE_COLOSSEUM, GAME_MODE_CHALLENGE_MODE, GAME_MODE_EVENT_ARENA) then
+        if isExistValue(world.m_gameMode, GAME_MODE_ARENA, GAME_MODE_ARENA_NEW, GAME_MODE_COLOSSEUM, GAME_MODE_CHALLENGE_MODE, GAME_MODE_EVENT_ARENA) then
             for i, v in ipairs(world.m_leftParticipants) do
                 if (v.m_statusCalc) then
                     v.m_statusCalc:addOption(action, status, value)

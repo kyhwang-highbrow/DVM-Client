@@ -39,7 +39,7 @@ function UI_StatisticsPopup:init(world)
 	-- 멤버 변수 초기화
 	self.m_mode = world.m_gameMode
 	self.m_stageId = world.m_stageID
-    self.m_isPvp = isExistValue(world.m_gameMode, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_CHALLENGE_MODE, GAME_MODE_EVENT_ARENA)
+    self.m_isPvp = isExistValue(world.m_gameMode, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_ARENA_NEW, GAME_MODE_CHALLENGE_MODE, GAME_MODE_EVENT_ARENA)
     self.m_bFriendMatch = (self.m_isPvp) and world.m_bFriendMatch or false
 
 	self.m_charList_A = world.m_myDragons
@@ -106,6 +106,10 @@ function UI_StatisticsPopup:initUserInfo()
 	elseif (self.m_mode == GAME_MODE_ARENA) then
 		my_struct_user_info = g_arenaData:getPlayerArenaUserInfo()
 		enemy_struct_user_info = g_arenaData:getMatchUserInfo()
+
+	elseif (self.m_mode == GAME_MODE_ARENA_NEW) then
+		my_struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
+		enemy_struct_user_info = g_arenaNewData:getMatchUserInfo()
 
 	elseif (self.m_mode == GAME_MODE_COLOSSEUM) then
 		my_struct_user_info = g_colosseumData.m_playerUserInfo

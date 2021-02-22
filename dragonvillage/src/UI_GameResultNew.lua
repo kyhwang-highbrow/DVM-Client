@@ -1703,7 +1703,7 @@ function UI_GameResultNew:getDragonList()
     local game_mode = g_stageData:getGameMode(self.m_stageID)
 
     -- 드래곤 그릴 필요 없는 게임 모드
-    if (isExistValue(game_mode, GAME_MODE_ANCIENT_RUIN, GAME_MODE_CLAN_RAID, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_EVENT_ARENA, GAME_MODE_CLAN_WAR)) then
+    if (isExistValue(game_mode, GAME_MODE_ANCIENT_RUIN, GAME_MODE_CLAN_RAID, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_ARENA_NEW, GAME_MODE_EVENT_ARENA, GAME_MODE_CLAN_WAR)) then
         
     else
         local l_deck, formation, deck_name, leader = g_deckData:getDeck()

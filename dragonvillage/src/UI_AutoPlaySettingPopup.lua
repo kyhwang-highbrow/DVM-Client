@@ -128,6 +128,12 @@ function UI_AutoPlaySettingPopup:initUI()
 		vars['autoMenu5']:setVisible(false)
         vars['autoMenu6']:setVisible(true)
 
+    -- 신규 콜로세움 분기처리
+	elseif (self.m_gameMode == GAME_MODE_ARENA_NEW) then
+		vars['autoMenu4']:setVisible(false)
+		vars['autoMenu5']:setVisible(false)
+        vars['autoMenu6']:setVisible(true)
+
     -- 그랜드 콜로세움 분기처리
 	elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
 		vars['autoMenu4']:setVisible(false)
