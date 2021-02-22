@@ -1166,6 +1166,7 @@ local t_module = {
     'UI_ArenaRankInfoPopup',
     'UI_ArenaNewRankInfoPopup',
     'UI_ArenaRankingRewardPopup',
+    'UI_ArenaNewRankingRewardPopup',
     'UI_ArenaReady',
     'UI_ArenaRankingListItem',
     'UI_ArenaRankingRewardListItem',
