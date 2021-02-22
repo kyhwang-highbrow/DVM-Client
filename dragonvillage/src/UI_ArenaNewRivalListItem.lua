@@ -120,7 +120,7 @@ function UI_ArenaNewRivalListItem:click_startBtn()
                 self.root:unscheduleUpdate()
             end
 
-            g_staminasData:staminaCharge('arena_new')
+            g_staminasData:staminaCharge(ARENA_NEW_STAGE_ID)
         end
 
         -- 유료 입장권 체크

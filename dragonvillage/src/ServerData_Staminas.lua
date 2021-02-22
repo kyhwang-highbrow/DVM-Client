@@ -353,6 +353,13 @@ function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
         if self:canDailyCharge(stamina_type) then
             local t_stamina_info = self:getRef(stamina_type)
             local charge_cnt = (t_stamina_info['charge_cnt'] or 0)
+
+            -- 당장 급하니 여기서 분기처리 ...
+            -- max 5개가 아닌 하나씩 충전
+            if (stamina_type == 'arena_new') then
+                cnt = TableStaminaInfo:getChargingCount(stamina_type)
+            end
+
             local msg = Str('입장권이 부족합니다.\n{@possible}입장권 {1}개{@default}를 충전하시겠습니까?\n{@impossible}(1일 {2}회 구매 가능. 현재 {3}회 구매)', cnt, charge_limit, charge_cnt)
             UI_ConfirmPopup('cash', price, msg, ok_btn_cb)
 
