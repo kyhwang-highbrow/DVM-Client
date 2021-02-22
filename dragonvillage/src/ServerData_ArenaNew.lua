@@ -942,7 +942,7 @@ end
 -- function setMatchUser
 -------------------------------------
 function ServerData_ArenaNew:hasArchiveReward(tier_id)    
-    if (not self.m_firstArchivedInfo or type(self.m_firstArchivedInfo) ~= 'table') then return true end
+    if (not self.m_firstArchivedInfo or type(self.m_firstArchivedInfo) ~= 'table') then return false end
 
     if (self.m_firstArchivedInfo[tostring(tier_id)] and self.m_firstArchivedInfo[tostring(tier_id)] ~= 1) then return false end
 
