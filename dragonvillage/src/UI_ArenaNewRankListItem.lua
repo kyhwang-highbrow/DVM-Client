@@ -13,7 +13,7 @@ UI_ArenaNewRankListItem = class(PARENT, {
 function UI_ArenaNewRankListItem:init(t_rank_info)
     self.m_rankInfo = t_rank_info
     local vars = self:load('arena_new_rank_popup_item_user_ranking.ui')
-
+    ccdump(t_rank_info)
     self:initUI()
     self:initButton()
     self:refresh()
@@ -46,13 +46,13 @@ function UI_ArenaNewRankListItem:initUI()
     end
 
     -- 점수 표시
-    vars['scoreLabel']:setString(t_rank_info:getRPText())
+    vars['scoreLabel']:setString(tostring(t_rank_info.m_seasonRp))
 
     -- 유저 정보 표시 (레벨, 닉네임)
     vars['userLabel']:setString(t_rank_info:getUserText())
 
     -- 순위 표시
-    vars['rankingLabel']:setString(t_rank_info:getRankText())
+    vars['rankingLabel']:setString(tostring(t_rank_info.m_seasonRank))
 
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()
@@ -68,8 +68,8 @@ function UI_ArenaNewRankListItem:initUI()
     end
 
     do -- 티어 아이콘
-        local icon = t_rank_info:makeTierIcon(nil, 'big')
-        vars['tierIconNode']:addChild(icon)
+        local icon = t_rank_info:makeTierIcon(nil, 'small')
+        vars['tierNode']:addChild(icon)
 
         vars['tierLabel']:setString(t_rank_info:getTierName())
     end

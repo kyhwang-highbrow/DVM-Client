@@ -811,14 +811,15 @@ function ServerData_ArenaNew:setRewardInfo(ret)
     if (not ret['reward']) then
         return
     end
-    
     -- 개인
     if (ret['lastinfo']) then
+        cclog('sssss')
         -- 플레이어 유저 정보 생성
         local struct_user_info = StructUserInfoArenaNew()
         struct_user_info.m_uid = g_userData:get('uid')
-
         self:_refresh_playerUserInfo(struct_user_info, ret['lastinfo'])
+
+        ccdump(struct_user_info)
 
         -- 클랜
         if (ret['my_info'] and ret['my_info']['clan_info']) then
@@ -833,6 +834,8 @@ function ServerData_ArenaNew:setRewardInfo(ret)
 
         -- @analytics
         Analytics:trackGetGoodsWithRet(ret, '콜로세움(주간보상)')
+
+        ccdump(ret['lastinfo'])
     end
 
     -- 클랜
@@ -842,6 +845,8 @@ function ServerData_ArenaNew:setRewardInfo(ret)
         self.m_tClanRewardInfo['reward_info'] = ret['reward_clan_info']
     end
 
+    ccdump(self.m_tSeasonRewardInfo['rank'])
+    cclog('eeeeee')
 end
 
 -------------------------------------
