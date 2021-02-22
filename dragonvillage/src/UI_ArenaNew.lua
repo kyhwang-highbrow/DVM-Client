@@ -36,7 +36,7 @@ end
 -------------------------------------
 function UI_ArenaNew:init(sub_data)
     self.m_bClosedTag = false
-    
+
     local ui_res = 'arena_new_scene.ui'
 
     -- TODO
@@ -583,6 +583,15 @@ function UI_ArenaNew:click_refreshBtn()
     local function ok_cb()
         self:updateRivalList()
         self:refreshRewardInfo()
+    end
+
+
+    -- cost_info 조회
+    local maxRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_max_count')
+    local curRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_cur_count')
+    if (curRefreshCount >= maxRefreshCount) then
+        UIManager:toastNotificationRed(Str('사용 가능한 횟수를 초과했습니다.'))
+        return
     end
 
     UI_ArenaNewRivalListResetPopup(ok_cb)
