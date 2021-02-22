@@ -289,7 +289,7 @@ function UI_ArenaNewResult:direction_winReward()
     local itemsList = t_data['bonus_item_list']
     local total_cnt = table.count(itemsList)
 	local ui = UI()
-	ui:load('arena_play_reward_popup.ui')
+	ui:load('arena_new_play_reward_popup.ui')
 	UIManager:open(ui, UIManager.POPUP)
 
 	-- backkey 지정
@@ -325,7 +325,7 @@ function UI_ArenaNewResult:direction_winReward()
 		end
 	end
 
-	ui.vars['playLabel']:setString(Str('승리 {1}회 달성 보상', winCount))
+	ui.vars['infoLabel']:setString(Str('승리 {1}회 달성 보상', winCount))
 
 	-- 버튼
 	ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)

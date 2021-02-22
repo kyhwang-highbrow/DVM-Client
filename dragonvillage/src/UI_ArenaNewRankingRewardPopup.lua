@@ -38,17 +38,16 @@ function UI_ArenaNewRankingRewardPopup:initUI(t_info, is_clan)
     -- 데이터 구성
     local rank_ui, str_1, str_2
     if (is_clan) then
-        rank_ui = UI_ColosseumClanRankListItem(struct_data)
+        rank_ui = UI_ArenaNewRankingListItem(struct_data)
         str_1 = Str('지난 시즌 클랜 랭킹')
         str_2 = Str('지난 시즌 클랜 랭킹 보상')
 
     else
-        rank_ui = UI_ColosseumRankListItem(struct_data)
+        rank_ui = UI_ArenaNewRankingListItem(struct_data)
         str_1 = Str('지난 시즌 개인 랭킹')
         str_2 = Str('지난 시즌 개인 랭킹 보상')
-
     end
-    
+
     -- 지난 시즌 랭킹 정보
     vars['rankNode']:addChild(rank_ui.root)
     vars['rankLabel']:setString(str_1)

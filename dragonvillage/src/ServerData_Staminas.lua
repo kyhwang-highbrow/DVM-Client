@@ -375,7 +375,7 @@ function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
             UI_ConfirmPopup('cash', price, msg, ok_btn_cb)
 
         else
-            local msg = Str('{입장권을 모두 소모하였습니다.\n오늘은 더 이상 구매할 수 없습니다.\n{@impossible}(1일 {1}회 구매 가능)', charge_limit)
+            local msg = Str('입장권을 모두 소모하였습니다.\n오늘은 더 이상 구매할 수 없습니다.\n{@impossible}(1일 {1}회 구매 가능)', charge_limit)
             MakeSimplePopup(POPUP_TYPE.OK, msg)
         end
     end

@@ -70,7 +70,7 @@ function UI_ArenaNewRankPopup:makeArenaRankTableView(data)
 
     local make_my_rank_cb = function()
         local my_data = rank_data['my_info'] or {}
-        local me_rank = UI_ArenaRankingListItem(my_data)
+        local me_rank = UI_ArenaNewRankingListItem(my_data)
         vars['userMeNode']:addChild(me_rank.root)
         me_rank.vars['meSprite']:setVisible(true)
     end

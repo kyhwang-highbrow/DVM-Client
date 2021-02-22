@@ -817,6 +817,13 @@ function ServerData_ArenaNew:setRewardInfo(ret)
 
         self:_refresh_playerUserInfo(struct_user_info, ret['lastinfo'])
 
+        -- 클랜
+        if (ret['my_info'] and ret['my_info']['clan_info']) then
+            local struct_clan = StructClan({})
+            struct_clan:applySimple(ret['my_info']['clan_info'])
+            struct_user_info:setStructClan(struct_clan)
+        end
+
         self.m_tSeasonRewardInfo = {}
         self.m_tSeasonRewardInfo['rank'] = struct_user_info
         self.m_tSeasonRewardInfo['reward_info'] =ret['reward_info']
