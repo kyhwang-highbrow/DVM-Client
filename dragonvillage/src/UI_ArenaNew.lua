@@ -141,6 +141,12 @@ function UI_ArenaNew:updateRivalList()
         if (item and itemNode) then
             local ui = UI_ArenaNewRivalListItem(item)
             itemNode:addChild(ui.root)
+
+        -- @UI_ACTION
+        ui:addAction(ui.root, UI_ACTION_TYPE_SCALE, 0, 0.3 + 0.1 * tonumber(i))
+        ui:doActionReset()
+        ui:doAction(nil, false)
+
         end
 
         if (item.m_state == 1) then
