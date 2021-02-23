@@ -214,6 +214,7 @@ function UI_ArenaNew:initButton()
     local vars = self.vars
     vars['testModeBtn']:setVisible(false)
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
+    vars['tierRewardBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
 	vars['defenseBtn']:registerScriptTapHandler(function() self:click_defendDeckBtn() end)
     vars['defenseRecordBtn']:registerScriptTapHandler(function() self:click_defendHistoryBtn() end)
     vars['honorBtn']:registerScriptTapHandler(function() self:click_honorMedalBtn() end)
