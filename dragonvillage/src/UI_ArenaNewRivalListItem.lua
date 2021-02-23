@@ -5,6 +5,7 @@ local PARENT = class(UI, IRankListItem:getCloneTable())
 -------------------------------------
 UI_ArenaNewRivalListItem = class(PARENT, {
         m_rivalInfo = '',
+        m_isReChallenge = 'boolean',
     })
 
 -------------------------------------
@@ -14,6 +15,7 @@ function UI_ArenaNewRivalListItem:init(t_rival_info)
     self.m_rivalInfo = t_rival_info
     local vars = self:load('arena_new_scene_item_01.ui')
     self.root:setSwallowTouch(true)
+    self.m_isReChallenge = false
 
     self:initUI()
     self:initButton()
@@ -61,14 +63,17 @@ function UI_ArenaNewRivalListItem:initUI()
         vars['startBtn']:setVisible(true)
         vars['reStartBtn']:setVisible(false)
         vars['winNode']:setVisible(false)
+
     elseif (state == 1) then
         vars['startBtn']:setVisible(false)
         vars['reStartBtn']:setVisible(false)
         vars['winNode']:setVisible(true)
+
     elseif (state == 2) then
         vars['startBtn']:setVisible(false)
         vars['reStartBtn']:setVisible(true)
         vars['winNode']:setVisible(false)
+        self.m_isReChallenge = true
     end
 end
 
@@ -79,13 +84,43 @@ function UI_ArenaNewRivalListItem:initButton()
     local vars = self.vars 
 
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)    
-    vars['reStartBtn']:registerScriptTapHandler(function() self:click_startBtn() end)   
+    vars['reStartBtn']:registerScriptTapHandler(function() self:click_restartBtn() end)   
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ArenaNewRivalListItem:refresh()
+end
+
+-------------------------------------
+-- function click_challengeBtn
+-- @brief 랭커 pvp 정보 받아와서 세팅후 개발 모드로 게임 실행
+-------------------------------------
+function UI_ArenaNewRivalListItem:click_restartBtn()
+    local l_dragon_deck = g_arenaNewData.m_playerUserInfo:getDeck_dragonList()
+    local t_rival_info = self.m_rivalInfo
+
+    if (table.count(l_dragon_deck) <= 0) then
+        local ui = MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
+
+        local function close_cb()
+            if (t_rival_info.m_no) then
+                g_arenaNewData:setMatchUser(self.m_rivalInfo)
+                local loadingUI = UI_LoadingArenaNew(nil, self.m_isReChallenge)
+                loadingUI:click_setAttackDeck()
+            end
+        end
+
+        ui:setCloseCB(close_cb)
+
+        return
+    end
+
+    if (t_rival_info.m_no) then
+        g_arenaNewData:setMatchUser(self.m_rivalInfo)
+        UI_LoadingArenaNew(nil, self.m_isReChallenge)
+    end
 end
 
 -------------------------------------
@@ -102,7 +137,7 @@ function UI_ArenaNewRivalListItem:click_startBtn()
         local function close_cb()
             if (t_rival_info.m_no) then
                 g_arenaNewData:setMatchUser(self.m_rivalInfo)
-                local loadingUI = UI_LoadingArenaNew()
+                local loadingUI = UI_LoadingArenaNew(nil, self.m_isReChallenge)
                 loadingUI:click_setAttackDeck()
             end
         end
@@ -140,7 +175,7 @@ function UI_ArenaNewRivalListItem:click_startBtn()
 
     if (t_rival_info.m_no) then
         g_arenaNewData:setMatchUser(self.m_rivalInfo)
-        UI_LoadingArenaNew()
+        UI_LoadingArenaNew(nil, self.m_isReChallenge)
     end
 
 end

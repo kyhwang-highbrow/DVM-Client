@@ -383,8 +383,6 @@ function UI_ArenaNew:refreshTierGauge()
         finalString = comma_value(curRp) .. '/' .. comma_value(nextMinRp)
     end
 
-    cclog(rate)
-
     local action = cc.ProgressTo:create(0.3, rate)
     self.m_tierProgressBar:runAction(action)
 

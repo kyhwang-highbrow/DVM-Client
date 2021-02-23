@@ -14,16 +14,18 @@ UI_LoadingArenaNew = class(PARENT,{
         m_bSelected = 'boolean',
 
         m_targetRivalInfo = 'StructUserInfoArenaNew',
+        m_isReChallenge = 'boolean', --재도전 통해서 들어왔나?
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_LoadingArenaNew:init(curr_scene)
+function UI_LoadingArenaNew:init(curr_scene, isReChallenge)
 	self.m_uiName = 'UI_LoadingArenaNew'
     local vars = self:load('arena_new_loading.ui')
     self.m_remainTimer = WAITING_TIME
     self.m_myDeckList = {}
+    self.m_isReChallenge = isReChallenge
 
     -- @UI_ACTION
     self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
@@ -385,9 +387,11 @@ function UI_LoadingArenaNew:click_startButton()
                 MakeSimplePopup_Confirm('cash', NEED_CASH, msg, request)
 
             -- 유료 입장권 부족시 입장 불가 
-            else
-                -- 스케쥴러에서 버튼 비활성화로 막음
+            elseif (self.m_isReChallenge) then
+                is_cash = false
+                request()
             end
+            cclog(self.m_isReChallenge)
         else
             is_cash = false
             request()
