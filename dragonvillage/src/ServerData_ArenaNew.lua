@@ -367,6 +367,21 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_state = data['state']
     struct_user_info.m_power = data['power']
     
+    if (not data['rank'] and data['rankInfo']) then
+        if (not data['rank'] and data['rankInfo']['rank']) then
+            struct_user_info.m_rank = data['rankInfo']['rank']
+        end
+
+        if (not data['rate'] and data['rankInfo']['rate']) then
+            struct_user_info.m_rankPercent = data['rankInfo']['rate']
+        end
+
+        if (not data['tier'] and data['rankInfo']['tier']) then
+            struct_user_info.m_tier = data['rankInfo']['tier']
+        end
+    end
+
+
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = data['rp']
 
