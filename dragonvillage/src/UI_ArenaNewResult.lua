@@ -80,7 +80,7 @@ function UI_ArenaNewResult:setWorkList()
     table.insert(self.m_lWorkList, 'direction_end')
 
 	local t_data = self.m_resultData
-    if (t_data['bonus_item_list'] or #t_data['bonus_item_list'] > 0) then
+    if (t_data['bonus_item_list'] and #t_data['bonus_item_list'] > 0) then
         table.insert(self.m_lWorkList, 'direction_showBox')
         table.insert(self.m_lWorkList, 'direction_openBox')
     end
