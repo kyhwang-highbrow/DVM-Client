@@ -255,10 +255,10 @@ function UI_ArenaNew:refresh()
             aniString = 'tier_05'
             hasAni = true
         elseif (string.match(struct_user_info.m_tier, "master")) then
-            aniString = 'tier_06'
+            aniString = 'tier_07'
             hasAni = true
         elseif (string.match(struct_user_info.m_tier, "hero")) then
-            aniString = 'tier_07'
+            aniString = 'tier_06'
             hasAni = true
         elseif (string.match(struct_user_info.m_tier, "legend")) then
             aniString = 'tier_08'
