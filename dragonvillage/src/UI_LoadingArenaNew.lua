@@ -27,10 +27,6 @@ function UI_LoadingArenaNew:init(curr_scene, isReChallenge)
     self.m_myDeckList = {}
     self.m_isReChallenge = isReChallenge
 
-    -- @UI_ACTION
-    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
-    self:doActionReset()
-    self:doAction(nil, false)
 
     if (curr_scene) then
         self.m_bFriendMatch = curr_scene.m_bFriendMatch
@@ -47,6 +43,12 @@ function UI_LoadingArenaNew:init(curr_scene, isReChallenge)
         -- backkey 지정
         g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoadingArenaNew')
         UIManager:open(self, UIManager.POPUP)
+
+        -- @UI_ACTION
+        self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+        self:doActionReset()
+        self:doAction(nil, false)
+
     end
     
 	self:initUI()

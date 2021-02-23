@@ -110,7 +110,7 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
         table.insert(self.m_matchUserList, userInfo)
     end
 
-    table.sort(self.m_matchUserList, function(a, b) return tonumber(a.m_power) < tonumber(b.m_power) end)
+    table.sort(self.m_matchUserList, function(a, b) return tonumber(a:getDeckCombatPower(true)) < tonumber(b:getDeckCombatPower(true)) end)
 
     -- 주간 보상
     self:setRewardInfo(ret)
@@ -455,6 +455,7 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
 
         if (deckname == 'arena_new_a' or deckname == 'arena_new_d' or deckname == 'arena_new') then
             self:refresh_playerUserInfo(t_data, l_deck, deckname)
+            self.m_playerUserInfo:applyPvpDeckData(l_deck)
             self.m_playerUserInfo:applyPvpDefenseDeckData(l_deck)
         end
         
@@ -464,7 +465,7 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
     end
 
     -- 공격자의 콜로세움 전투력 저장
-    local combat_power = g_arenaNewData.m_playerUserInfo:getDeckCombatPower(true)
+    local combatPower = combat_power and combat_power or g_arenaNewData.m_playerUserInfo:getDeckCombatPower(true)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
@@ -475,7 +476,8 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
     ui_network:setParam('formation', formation)
     ui_network:setParam('leader', leader)
     ui_network:setParam('tamer', tamer)
-    ui_network:setParam('combat_power', combat_power)
+
+    ui_network:setParam('combat_power', combatPower)
 
     for i,doid in pairs(l_edoid) do
         ui_network:setParam('edoid' .. i, doid)

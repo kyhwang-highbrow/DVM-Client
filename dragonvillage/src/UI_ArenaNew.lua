@@ -349,9 +349,7 @@ function UI_ArenaNew:refreshTierGauge()
             nextMinRp = l_rank[i + 1]['score_min']
 
             local totalRp = nextMinRp - curMinRp
-            cclog('total ' .. tostring(totalRp))
             rate = (curRp - curMinRp) / totalRp * 100
-            cclog('rate ' .. tostring(rate))
             myRankItem = l_rank[i]
         end
 
