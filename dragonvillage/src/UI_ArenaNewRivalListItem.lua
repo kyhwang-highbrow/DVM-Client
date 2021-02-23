@@ -38,9 +38,17 @@ function UI_ArenaNewRivalListItem:initUI()
 
     if (t_rival_info.m_structClan) then
         vars['clanLabel']:setString(t_rival_info.m_structClan.name)
+        -- 클랜 마크
+        local icon = t_rival_info.m_structClan:makeClanMarkIcon()
+        if (icon) then
+            vars['markNode']:addChild(icon)
+        end
+
     else
         vars['clanLabel']:setString('')
     end
+        
+    
 
     -- 드래곤 리스트
     local t_deck_dragon_list = t_rival_info.m_dragonsObject
