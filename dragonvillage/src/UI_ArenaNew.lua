@@ -13,6 +13,8 @@ UI_ArenaNew = class(PARENT, {
         m_bClosedTag = 'boolean', -- 시즌이 종료되어 처리를 했는지 여부
 
         m_winCnt =  'number',
+
+        m_isRefreshOnCooltime = 'boolean', -- 무료갱신 쿨타임중 ...
      })
 
 
@@ -198,18 +200,12 @@ function UI_ArenaNew:updateTimer(dt)
             local remain_time = (endtime - curr_time)
             local str = datetime.makeTimeDesc_timer_filledByZero(remain_time * 1000)
             time_label:setString(str)
+            self.m_isRefreshOnCooltime = true
         else
             time_label:setString(Str('갱신'))
-            shouldEnable = true
-        end
-
-        if (vars['refreshBtn']) then
-            if (vars['refreshBtn']:isEnabled() ~= shouldEnable) then
-                vars['refreshBtn']:setEnabled(shouldEnable)
-            end
+            self.m_isRefreshOnCooltime = false
         end
     end
-
     
     -- UI내에서 시즌이 종료되는 경우 예외처리
     if self.m_bClosedTag then
@@ -676,7 +672,7 @@ function UI_ArenaNew:click_refreshBtn()
         self:refreshRewardInfo()
     end
 
-
+    cclog(self.m_isRefreshOnCooltime)
     -- cost_info 조회
     local maxRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_max_count')
     local curRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_cur_count')
@@ -685,7 +681,7 @@ function UI_ArenaNew:click_refreshBtn()
         return
     end
 
-    UI_ArenaNewRivalListResetPopup(ok_cb)
+    UI_ArenaNewRivalListResetPopup(ok_cb, self.m_isRefreshOnCooltime)
 
 end
 

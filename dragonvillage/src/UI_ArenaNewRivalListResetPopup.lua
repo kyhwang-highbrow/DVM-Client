@@ -5,15 +5,18 @@ local PARENT = UI
 -------------------------------------
 UI_ArenaNewRivalListResetPopup = class(PARENT,{
     m_ok_cb = 'function',
+    m_isOnCooltime = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaNewRivalListResetPopup:init(ok_cb)
+function UI_ArenaNewRivalListResetPopup:init(ok_cb, isOnCooltime)
     self.m_uiName = 'UI_ArenaNewRivalListResetPopup'
     local vars = self:load('arena_new_popup_refresh.ui')
     UIManager:open(self, UIManager.POPUP)
+
+    self.m_isOnCooltime = isOnCooltime
 
     -- @UI_ACTION
     self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
@@ -42,7 +45,7 @@ function UI_ArenaNewRivalListResetPopup:initUI(ok_cb)
         local cost = g_arenaNewData:getCostInfo('refresh_cash_cost')
         local refillGuideText
 
-        if (cost < 0) then 
+        if (cost <= 0 or not self.m_isOnCooltime) then 
             refillGuideText = Str('무료 갱신은 일일 갱신 횟수가 감소하지 않습니다.')
             vars['priceLabel']:setString(Str('무료'))
         else
