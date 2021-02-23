@@ -69,8 +69,7 @@ function StructArenaNewRankReward:getPossibleReward(my_tier, my_ratio)
     end
     
     for i,data in ipairs(l_rank_list) do
-        cclog(data['tier'])
-        cclog(my_rank)
+
         if (my_rank == data['tier']) then return data, i end
 
         --[[

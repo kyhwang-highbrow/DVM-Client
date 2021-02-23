@@ -4906,6 +4906,9 @@
     <None Include="..\src\UI_ArenaNewHelp.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ArenaNewStepRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

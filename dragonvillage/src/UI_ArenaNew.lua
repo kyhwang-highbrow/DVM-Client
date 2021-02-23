@@ -505,11 +505,16 @@ function UI_ArenaNew:refreshRewardInfo()
     end
 
     -- 3승 5승 이미지 설정
-    local winRewardAniName3 = self.m_winCnt >= 3 and 'arena_box_03' or 'arena_box_01'
-    local winRewardAniName5 = self.m_winCnt >= 5 and 'arena_box_03' or 'arena_box_01'
+    local isThirdReached = self.m_winCnt >= 3
+    local isFIfthReached = self.m_winCnt >= 5
+    local winRewardAniName3 = isThirdReached and 'arena_box_03' or 'arena_box_01'
+    local winRewardAniName5 = isFIfthReached and 'arena_box_03' or 'arena_box_01'
 
     if (vars['winRewardSprite3']) then vars['winRewardSprite3']:changeAni(winRewardAniName3, true) end
     if (vars['winRewardSprite5']) then vars['winRewardSprite5']:changeAni(winRewardAniName5, true) end
+
+    if (vars['rewardBtn1']) then vars['rewardBtn1']:setEnabled(not isThirdReached) end
+    if (vars['rewardBtn2']) then vars['rewardBtn2']:setEnabled(not isFIfthReached) end
 
     -- 보상테이블 받기
     local table_arena_new = TABLE:get('table_arena_new')
@@ -686,18 +691,22 @@ function UI_ArenaNew:click_refreshBtn()
 end
 
 -------------------------------------
--- function click_valorShopBtn
+-- function click_rewardInfoBtn3
+-- 눈갱 미리 사과드림. 급해서 그랬음...
+-- 3단계 보상 미리보기
 -------------------------------------
 function UI_ArenaNew:click_rewardInfoBtn3()
-    
+    UI_ArenaNewStepRewardPopup(3, self.m_winCnt)
 
 end
 
 -------------------------------------
--- function click_valorShopBtn
+-- function click_rewardInfoBtn5
+-- 눈갱 미리 사과드림. 급해서 그랬음...
+-- 5단계 보상 미리보기
 -------------------------------------
 function UI_ArenaNew:click_rewardInfoBtn5()
-    
+    UI_ArenaNewStepRewardPopup(5, self.m_winCnt)
 
 end
 
