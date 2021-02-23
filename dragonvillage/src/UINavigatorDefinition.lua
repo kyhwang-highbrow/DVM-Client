@@ -343,8 +343,13 @@ end
 -- @usage UINavigatorDefinition:goTo('colosseum')
 -------------------------------------
 function UINavigatorDefinition:goTo_colosseum(...)
+    
+    -- 캐편 후 콜로세움
+    if IS_ARENA_NEW_OPEN() and HAS_ARENA_NEW_SEASON() then
+        self:goTo('arena_new')
+
     -- 콜로세움 (신규)
-    if IS_ARENA_OPEN() then
+    elseif IS_ARENA_OPEN() then
         self:goTo('arena')
 
     -- 콜로세움 (예전)
