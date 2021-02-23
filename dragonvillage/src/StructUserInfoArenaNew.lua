@@ -396,7 +396,7 @@ end
 -- function getRPText
 -- @brief
 -------------------------------------
-function StructUserInfoArenaNew:getRPText()
+function StructUserInfoArenaNew:getRPText(isLocalizing)
     if (not self.m_rp) then
         return Str('기록 없음')
     end
@@ -405,7 +405,8 @@ function StructUserInfoArenaNew:getRPText()
     if (tonumber(self.m_rp) < 0) then
         return '-'
     end
-    local text = Str('{1}점', comma_value(self.m_rp))
+
+    local text = isLocalizing and Str('{1}점', comma_value(self.m_rp)) or comma_value(self.m_rp)
     return text
 end
 

@@ -28,7 +28,7 @@ function UI_ArenaNewRivalListItem:initUI()
     
     local t_rival_info = self.m_rivalInfo
     local rivalScore = t_rival_info.m_rp < 0 and 0 or t_rival_info.m_rp
-    rivalScore = Str('{1}점', rivalScore)
+    rivalScore = comma_value(tonumber(rivalScore))
 
     vars['userLabel']:setString(Str('Lv. {1}', t_rival_info.m_lv) .. ' ' .. tostring(t_rival_info.m_nickname))
     vars['scoreLabel']:setString(Str(rivalScore))

@@ -205,6 +205,23 @@ function UI_ArenaNew:updateTimer(dt)
         end
     end
 
+    
+    -- UI내에서 시즌이 종료되는 경우 예외처리
+    if self.m_bClosedTag then
+        return
+    
+    elseif (not g_arenaNewData:isOpenArena()) then
+        local function ok_cb()
+            -- 로비로 이동
+            UINavigator:goTo('lobby')
+        end
+        MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 시즌이 종료되었습니다.'), ok_cb)
+        self.m_bClosedTag = true
+        return
+    end
+
+    local str = g_arenaNewData:getArenaStatusText()
+    vars['timeLabel']:setString(str)
 end
 
 -------------------------------------
@@ -281,7 +298,7 @@ function UI_ArenaNew:refresh()
         vars['rankingLabel']:setString(str)
         vars['powerLabel']:setString(comma_value(struct_user_info:getDeckCombatPower(true)))
         vars['winLabel']:setString(tostring(struct_user_info:getWinCnt()))
-        vars['scoreLabel']:setString(struct_user_info:getRPText())
+        vars['scoreLabel']:setString(struct_user_info:getRPText(false))
     end
 
 	-- 주간 승수 보상 -> 참여 보상으로 변경
@@ -343,7 +360,7 @@ function UI_ArenaNew:refreshTierGauge()
     -- 백분위가 있을 때 
     elseif (myRankItem['ratio_max'] and myRankItem['ratio_max'] ~= '') then
         rate = 100
-        finalString = Str('{1}점', comma_value(curRp))
+        finalString = comma_value(curRp)
 
     -- 순위제한 있을 때 
     elseif (myRankItem['rank_max'] and myRankItem['rank_max'] ~= '') then
@@ -662,30 +679,6 @@ function UI_ArenaNew:click_refreshBtn()
 
     UI_ArenaNewRivalListResetPopup(ok_cb)
 
-end
-
--------------------------------------
--- function update
--------------------------------------
-function UI_ArenaNew:update(dt)
-    local vars = self.vars
-
-    -- UI내에서 시즌이 종료되는 경우 예외처리
-    if self.m_bClosedTag then
-        return
-    
-    elseif (not g_arenaNewData:isOpenArena()) then
-        local function ok_cb()
-            -- 로비로 이동
-            UINavigator:goTo('lobby')
-        end
-        MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 시즌이 종료되었습니다.'), ok_cb)
-        self.m_bClosedTag = true
-        return
-    end
-
-    local str = g_arenaNewData:getArenaStatusText()
-    vars['timeLabel']:setString(str)
 end
 
 --@CHECK
