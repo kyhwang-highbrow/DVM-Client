@@ -5,7 +5,6 @@ local PARENT = UI
 -- @brief 
 -------------------------------------
 UI_ArenaNewHelp = class(PARENT,{
-        vars = '',
     })
 
 -------------------------------------
@@ -22,12 +21,9 @@ function UI_ArenaNewHelp:init()
     self:doActionReset()
     self:doAction(nil, false)
 
-    self.m_matchDefHistory = g_arenaNewData.m_matchDefHistory
-
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ArenaNewHelp')
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-    vars['okBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------
