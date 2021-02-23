@@ -10,6 +10,7 @@ UI_ArenaNewTierRewardPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ArenaNewTierRewardPopup:init()
+    self.m_uiName = 'UI_ArenaNewTierRewardPopup'
     local vars = self:load('arena_new_tier_attain_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 

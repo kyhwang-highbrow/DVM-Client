@@ -116,7 +116,7 @@ function UI_ArenaNew:init(sub_data)
         end
 
         -- 티어 달성 보상 팝업
-        if(g_arenaNewData.m_tierRewardInfo) then
+        if(g_arenaNewData.m_tierRewardInfo and #g_arenaNewData.m_tierRewardInfo > 0) then
             UI_ArenaNewTierRewardPopup()
         end
     end
@@ -344,9 +344,10 @@ function UI_ArenaNew:refreshTierGauge()
         if (i == #l_rank) then
             nextMinRp = -1
         else
+            nextMinRp = l_rank[i + 1]['score_min']
+
             local totalRp = nextMinRp - curMinRp
-            nextMinRp = l_rank[i]['score_min']
-            rate = (curRp - curMinRp) / totalRp * 100
+            rate = (curMinRp - curRp) / totalRp * 100
             myRankItem = l_rank[i]
         end
 
@@ -357,16 +358,13 @@ function UI_ArenaNew:refreshTierGauge()
 
     if (not myRankItem) then
         finalString = ''
-
     -- 백분위가 있을 때 
     elseif (myRankItem['ratio_max'] and myRankItem['ratio_max'] ~= '') then
         rate = 100
         finalString = comma_value(curRp)
-
     -- 순위제한 있을 때 
     elseif (myRankItem['rank_max'] and myRankItem['rank_max'] ~= '') then
         local isInTopTen = curRank >= 10
-
 
         if (isInTopTen) then
             rate = curRank * 10
@@ -669,8 +667,6 @@ function UI_ArenaNew:click_refreshBtn()
         self:updateRivalList()
         self:refreshRewardInfo()
     end
-
-    cclog(self.m_isRefreshOnCooltime)
     -- cost_info 조회
     local maxRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_max_count')
     local curRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_cur_count')
