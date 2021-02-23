@@ -455,7 +455,6 @@ function UI_BattleMenu:initCompetitionTab()
             end
 
             if (HAS_ARENA_NEW_SEASON()) then
-                cclog(arenaNewAttached)
                 -- 시즌정보가 있으면?
                 if (dungeon_name == 'colosseum' and not arenaNewAttached) then
                     -- 기존 콜로세움?

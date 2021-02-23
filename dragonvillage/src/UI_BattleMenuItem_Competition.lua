@@ -71,12 +71,6 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 	vars['rewardLabel2']:setString('')
     vars['descLabel']:setString('')
 
-    -- 개편 후 진행 된 아레나 시즌이 있으면
-    -- arena_new로 진입한다.
-    if (content_type == 'colosseum' and HAS_ARENA_NEW_SEASON()) then
-        content_type = 'arena_new'
-    end
-
 	-- 고대의 탑
 	if (content_type == 'ancient') then
 		t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_ancient()
@@ -275,13 +269,13 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_arenaNew()
 		return nil, nil, nil
 	end
 
-	local t_item = next_reward_info['t_item']
+	local t_item = {['item_id'] = 700013, ['count'] = 1} -- 용맹훈장
 
-	local item_name = UIHelper:makeItemNamePlain(t_item)
-	local text_1 = Str('{1} 획득까지', item_name)
+	local item_name = ''
+	local text_1 = ''
 
-	local left_cnt = next_reward_info['play_cnt'] - cnt
-	local text_2 = Str('{1}회 남음', left_cnt)
+	local left_cnt = ''
+	local text_2 = ''
     local desc = nil
 
 	return t_item, text_1, text_2, desc
