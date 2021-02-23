@@ -350,7 +350,7 @@ function UI_ArenaNew:refreshTierGauge()
         else
             local totalRp = nextMinRp - curMinRp
             nextMinRp = l_rank[i]['score_min']
-            rate = (curRp - curMinRp) / totalRp
+            rate = (curRp - curMinRp) / totalRp * 100
             myRankItem = l_rank[i]
         end
 
@@ -387,8 +387,11 @@ function UI_ArenaNew:refreshTierGauge()
         finalString = comma_value(curRp) .. '/' .. comma_value(nextMinRp)
     end
 
+    cclog(rate)
+
     local action = cc.ProgressTo:create(0.3, rate)
     self.m_tierProgressBar:runAction(action)
+
     self.vars['scoreGgLabel']:setString(finalString)
 
     -- 다음 티어 아이콘

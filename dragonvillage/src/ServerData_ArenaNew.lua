@@ -110,7 +110,7 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
         table.insert(self.m_matchUserList, userInfo)
     end
 
-    table.sort(self.m_matchUserList, function(a, b) return tonumber(a.m_power) > tonumber(b.m_power) end)
+    table.sort(self.m_matchUserList, function(a, b) return tonumber(a.m_power) < tonumber(b.m_power) end)
 
     -- 주간 보상
     self:setRewardInfo(ret)
@@ -421,6 +421,8 @@ function ServerData_ArenaNew:request_rivalRefresh(finish_cb)
             local userInfo = self:makeMatchUserInfo(ret['list'][i])
             table.insert(self.m_matchUserList, userInfo)
         end
+
+        table.sort(self.m_matchUserList, function(a, b) return tonumber(a.m_power) < tonumber(b.m_power) end)
 
         if finish_cb then
             finish_cb(ret)
