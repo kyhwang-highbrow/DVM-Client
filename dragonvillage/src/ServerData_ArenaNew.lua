@@ -424,6 +424,9 @@ function ServerData_ArenaNew:request_rivalRefresh(finish_cb)
 
         table.sort(self.m_matchUserList, function(a, b) return tonumber(a.m_power) < tonumber(b.m_power) end)
 
+
+        g_serverData:networkCommonRespone(ret)
+
         if finish_cb then
             finish_cb(ret)
         end
