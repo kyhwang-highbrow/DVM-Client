@@ -25,6 +25,11 @@ function UI_LoadingArenaNew:init(curr_scene)
     self.m_remainTimer = WAITING_TIME
     self.m_myDeckList = {}
 
+    -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+    self:doActionReset()
+    self:doAction(nil, false)
+
     if (curr_scene) then
         self.m_bFriendMatch = curr_scene.m_bFriendMatch
 

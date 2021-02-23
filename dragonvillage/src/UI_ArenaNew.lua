@@ -43,6 +43,11 @@ function UI_ArenaNew:init(sub_data)
 
     UIManager:open(self, UIManager.SCENE)
 
+    -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.4)
+    self:doActionReset()
+    self:doAction(nil, false)
+
     self.m_uiName = 'UI_ArenaNew'
 
     -- backkey 지정
