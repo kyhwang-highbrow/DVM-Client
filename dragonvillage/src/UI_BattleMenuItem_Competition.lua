@@ -269,7 +269,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_arenaNew()
 		return nil, nil, nil
 	end
 
-	local t_item = {['item_id'] = 700005, ['count'] = 1} -- 용맹훈장
+	local t_item = {['item_id'] = 700005, ['count'] = 1} -- 명예
 
 	local item_name = ''
 	local text_1 = ''
