@@ -1,4 +1,4 @@
-local PARENT = StructUserInfoArena
+local PARENT = StructUserInfoArenaNew
 
 local L_TIER = {}
 L_TIER['beginner'] = 1
@@ -135,6 +135,8 @@ function StructUserInfoClanWar:createUserInfo(t_data)
     user_info.m_rank = t_data['rank']
     user_info.m_rankPercent = t_data['rate']
     user_info.m_tier = t_data['tier']
+    if (t_data['debris'] and t_data['debris']['tier']) then user_info.m_tier = t_data['debris']['tier'] end
+
     user_info.m_rp = t_data['rp']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])

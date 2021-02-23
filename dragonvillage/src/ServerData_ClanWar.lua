@@ -435,6 +435,8 @@ function ServerData_ClanWar:makeEnemyUserInfo(data)
     struct_user_info.m_tamerID = data['tamer']
     struct_user_info.m_leaderDragonObject = StructDragonObject(data['leader'])
     struct_user_info.m_tier = data['tier']
+    if (data['debris'] and data['debris']['tier']) then struct_user_info.m_tier = data['debris']['tier'] end
+
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
 
