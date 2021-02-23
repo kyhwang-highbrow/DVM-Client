@@ -379,9 +379,14 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info:applyPvpDeckData(data['info']['deck'])
 
     -- 클랜
+    local struct_clan = nil
     if (data['clan_info']) then
-        local struct_clan = StructClan({})
+        struct_clan = StructClan({})
         struct_clan:applySimple(data['clan_info'])
+        struct_user_info:setStructClan(struct_clan)
+    elseif (data['rankInfo'] and data['rankInfo']['clan_info']) then
+        struct_clan = StructClan({})
+        struct_clan:applySimple(data['rankInfo']['clan_info'])
         struct_user_info:setStructClan(struct_clan)
     end
 

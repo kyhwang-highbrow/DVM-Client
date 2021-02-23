@@ -238,6 +238,10 @@ function UI_ArenaNew:initButton()
     vars['honorBtn']:registerScriptTapHandler(function() self:click_honorMedalBtn() end)
     vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
     vars['InfoBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
+
+    vars['rewardBtn1']:registerScriptTapHandler(function() self:click_rewardInfoBtn3() end)
+    vars['rewardBtn2']:registerScriptTapHandler(function() self:click_rewardInfoBtn5() end)
+    
     
 
     -- 명예의 전당으로 이동
@@ -680,6 +684,23 @@ function UI_ArenaNew:click_refreshBtn()
     UI_ArenaNewRivalListResetPopup(ok_cb, self.m_isRefreshOnCooltime)
 
 end
+
+-------------------------------------
+-- function click_valorShopBtn
+-------------------------------------
+function UI_ArenaNew:click_rewardInfoBtn3()
+    
+
+end
+
+-------------------------------------
+-- function click_valorShopBtn
+-------------------------------------
+function UI_ArenaNew:click_rewardInfoBtn5()
+    
+
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_ArenaNew)
