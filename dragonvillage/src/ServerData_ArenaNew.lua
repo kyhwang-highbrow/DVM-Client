@@ -455,6 +455,7 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
 
         if (deckname == 'arena_new_a' or deckname == 'arena_new_d' or deckname == 'arena_new') then
             self:refresh_playerUserInfo(t_data, l_deck, deckname)
+            self.m_playerUserInfo:applyPvpDefenseDeckData(l_deck)
         end
         
         if finish_cb then
@@ -463,7 +464,7 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
     end
 
     -- 공격자의 콜로세움 전투력 저장
-    local combat_power = combat_power and combat_power or g_arenaNewData.m_playerUserInfo:getDeckCombatPower(true)
+    local combat_power = g_arenaNewData.m_playerUserInfo:getDeckCombatPower(true)
 
     -- 네트워크 통신
     local ui_network = UI_Network()

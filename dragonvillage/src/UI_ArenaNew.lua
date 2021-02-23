@@ -339,19 +339,24 @@ function UI_ArenaNew:refreshTierGauge()
 
     -- 게이지에 필요한 수치 계산
     for i = 1, #l_rank do
+        -- 조회중인 점수 조건
         local curMinRp = l_rank[i]['score_min']
 
         if (i == #l_rank) then
             nextMinRp = -1
         else
+            -- 다음 티어달성 조건
             nextMinRp = l_rank[i + 1]['score_min']
 
             local totalRp = nextMinRp - curMinRp
-            rate = (curMinRp - curRp) / totalRp * 100
+            cclog(curRp)
+
+            rate = (nextMinRp - curRp) / totalRp * 100
+
             myRankItem = l_rank[i]
         end
 
-        if (curRp < curMinRp) then break end
+        if (curRp < nextMinRp) then break end
     end
 
     local finalString = ''
