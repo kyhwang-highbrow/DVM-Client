@@ -255,7 +255,7 @@ function UI_ChallengeMode:setEntrancePopup()
     if (is_popup_show) then
         -- 입장팝업
         local entrance_ui = UI()
-        entrance_ui:load('challenge_mode_enter_popup.ui')
+        entrance_ui:load('challenge_mode_enter_popup_02.ui')
         UIManager:open(entrance_ui, UIManager.POPUP)
         g_currScene:pushBackKeyListener(entrance_ui, function() entrance_ui:close() end, 'UI_EntranceChallenge')
 
