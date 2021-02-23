@@ -219,6 +219,8 @@ function UI_ArenaNew:initButton()
     vars['defenseRecordBtn']:registerScriptTapHandler(function() self:click_defendHistoryBtn() end)
     vars['honorBtn']:registerScriptTapHandler(function() self:click_honorMedalBtn() end)
     vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+    vars['InfoBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
+    
 
     -- 명예의 전당으로 이동
     --vars['fameBtn']:registerScriptTapHandler(function() self:click_fameBtn() end)
@@ -229,7 +231,7 @@ function UI_ArenaNew:initButton()
     vars['rankBtn']:setVisible(true)
 
     -- 콜로세움 안내 (네이버 sdk 링크)
-    NaverCafeManager:setPluginInfoBtn(vars['InfoBtn'], 'arena_help')
+    --NaverCafeManager:setPluginInfoBtn(vars['InfoBtn'], 'arena_help')
 end
 
 -------------------------------------
@@ -630,6 +632,15 @@ end
 function UI_ArenaNew:click_valorShopBtn()
 	 UINavigator:goTo('shop', 'valor')
 end
+
+-------------------------------------
+-- function click_helpBtn
+-------------------------------------
+function UI_ArenaNew:click_helpBtn()
+	 UI_ArenaNewHelp()
+end
+
+
 
 -------------------------------------
 -- function click_valorShopBtn

@@ -1146,6 +1146,7 @@ local t_module = {
     -- UI : 콜로세움 (ARENA)
     'UI_Arena',
     'UI_ArenaNew',
+    'UI_ArenaNewHelp',
     'UI_ArenaNewTierRewardPopup',
     'UI_ArenaNewRivalListItem',
     'UI_ArenaNewRivalListResetPopup',

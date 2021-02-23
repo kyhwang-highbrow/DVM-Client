@@ -4903,6 +4903,9 @@
     <None Include="..\src\UI_ArenaNewRankingListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ArenaNewHelp.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
