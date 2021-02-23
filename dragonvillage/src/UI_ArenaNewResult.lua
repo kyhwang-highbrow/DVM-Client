@@ -50,6 +50,7 @@ function UI_ArenaNewResult:initUI()
     vars['resultMenu']:setPositionY(ori_y - ACTION_MOVE_Y)
 
 	vars['colosseumNode']:setVisible(true)
+    vars['normalBtnMenu']:setVisible(false)
 end
 
 -------------------------------------
@@ -77,6 +78,13 @@ function UI_ArenaNewResult:setWorkList()
 --    table.insert(self.m_lWorkList, 'direction_hideTamer')
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')
+
+	local t_data = self.m_resultData
+    if (t_data['bonus_item_list'] or #t_data['bonus_item_list'] > 0) then
+        table.insert(self.m_lWorkList, 'direction_showBox')
+        table.insert(self.m_lWorkList, 'direction_openBox')
+    end
+
 	table.insert(self.m_lWorkList, 'direction_winReward')
     table.insert(self.m_lWorkList, 'direction_masterRoad')
 end
@@ -344,6 +352,56 @@ function UI_ArenaNewResult:direction_winReward_click()
 end
 
 -------------------------------------
+-- function direction_showBox
+-- @brief 상자 연출 시작
+-------------------------------------
+function UI_ArenaNewResult:direction_showBox()
+    local vars = self.vars
+    local is_success = self.m_isWin
+    if (not is_success) then 
+        self:doNextWork()
+        return
+    end
+
+    vars['boxVisual']:setVisible(true)
+    vars['boxVisual']:changeAni('box_01', false)
+    vars['boxVisual']:addAniHandler(function()
+        --vars['boxVisual']:changeAni('box_02', true)
+        self:doNextWork()
+    end)
+end
+
+-------------------------------------
+-- function direction_showBox_click
+-- @brief 상자 연출 시작
+-------------------------------------
+function UI_ArenaNewResult:direction_showBox_click()
+    self:doNextWork()
+end
+
+-------------------------------------
+-- function direction_openBox
+-- @brief 상자 연출 시작
+-------------------------------------
+function UI_ArenaNewResult:direction_openBox()
+    local vars = self.vars
+    local is_success = self.m_isWin
+    if (not is_success) then 
+        self:doNextWork()
+        return
+    end
+
+    vars['boxVisual']:changeAni('box_03', false)
+    vars['boxVisual']:addAniHandler(function()
+        vars['boxVisual']:setVisible(false) 
+        self:doNextWork()
+    end)
+	
+	-- 상자가 열리면서 사운드
+    -- SoundMgr:playEffect('UI', 'ui_reward')
+end
+
+-------------------------------------
 -- function direction_masterRoad
 -------------------------------------
 function UI_ArenaNewResult:direction_masterRoad()
@@ -353,8 +411,11 @@ function UI_ArenaNewResult:direction_masterRoad()
 
     -- @ GOOGLE ACHIEVEMENT
     GoogleHelper.updateAchievement(t_data)
-    
-    UI_GameResultNew.checkAutoPlay(self)
+
+    self.vars['normalBtnMenu']:setVisible(true)
+
+
+    --UI_GameResultNew.checkAutoPlay(self)
 end
 
 -------------------------------------
@@ -450,7 +511,7 @@ function UI_ArenaNewResult:click_screenBtn()
 
     local func_name = self.m_lWorkList[self.m_workIdx] .. '_click'
     if func_name and (self[func_name]) then
-        if (UI_GameResultNew.checkAutoPlayRelease(self)) then return end
+        --if (UI_GameResultNew.checkAutoPlayRelease(self)) then return end
         self[func_name](self)
     end
 end
