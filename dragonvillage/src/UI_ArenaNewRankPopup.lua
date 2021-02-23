@@ -202,7 +202,7 @@ function UI_ArenaNewRankPopup:createRewardFunc(ui, data, my_info)
     local vars = ui.vars
     local my_data = my_info or {}
 
-    local my_rank = my_data['rank'] or 0
+    local my_rank = my_data['tier'] or 'beginner'
     local my_ratio = my_data['rate'] or 0
 
     local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
@@ -220,9 +220,9 @@ end
 function UI_ArenaNewRankPopup:onFocusMyReward(my_info)
     local my_data = my_info or {}
 
-    local my_rank = my_data['rank'] or 0
+    local my_tier = my_data['tier'] or 'beginner'
     local my_ratio = my_data['rate'] or 0
-    local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
+    local reward_data, ind = self.m_structRankReward:getPossibleReward(my_tier, my_ratio)
 
     if (ind) then
         self.m_rewardTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.

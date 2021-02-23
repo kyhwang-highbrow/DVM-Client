@@ -57,19 +57,23 @@ end
 -------------------------------------
 -- function getPossibleReward
 -------------------------------------
-function StructArenaNewRankReward:getPossibleReward(my_rank, my_ratio)
-    local my_rank = tonumber(my_rank)
+function StructArenaNewRankReward:getPossibleReward(my_tier, my_ratio)
+    local my_rank = my_tier
     local my_rank_rate = tonumber(my_ratio) * 100
 
     local l_rank_list = self.m_lRankRewardData
 
     -- 한번도 플레이 하지 않은 경우, 최하위 보여줌
-    if (my_rank <= 0) then
+    if (not my_rank) then
         return l_rank_list[#l_rank_list], #l_rank_list
     end
     
     for i,data in ipairs(l_rank_list) do
-        
+        cclog(data['tier'])
+        cclog(my_rank)
+        if (my_rank == data['tier']) then return data, i end
+
+        --[[
         local rank_min = tonumber(data['rank_min'])
         local rank_max = tonumber(data['rank_max'])
 
@@ -88,6 +92,7 @@ function StructArenaNewRankReward:getPossibleReward(my_rank, my_ratio)
                 return data, i
             end
         end
+        ]]--
     end
 
     -- 마지막 보상 리턴
