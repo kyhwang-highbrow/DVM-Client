@@ -459,9 +459,9 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
 
         if (deckname == 'arena_new_a' or deckname == 'arena_new_d') then
             self.m_playerUserInfo:applyPvpDeckData(l_deck)
-        elseif (deckname == 'arena_new_d')
+        elseif (deckname == 'arena_new_d') then
             self.m_playerUserInfo:applyPvpDefenseDeckData(l_deck)
-        elseif(deckname == 'arena_new')
+        elseif(deckname == 'arena_new') then
             self.m_playerUserInfo:applyPvpDeckData(l_deck)
             self.m_playerUserInfo:applyPvpDefenseDeckData(l_deck)
         end
