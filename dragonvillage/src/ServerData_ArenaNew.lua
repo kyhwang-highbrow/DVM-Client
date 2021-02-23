@@ -457,7 +457,7 @@ function ServerData_ArenaNew:request_setDeck(deckname, formation, leader, l_edoi
         local l_deck = ret['deck']
         self:refresh_playerUserInfo(t_data, l_deck, deckname)
 
-        if (deckname == 'arena_new_a' or deckname == 'arena_new_d') then
+        if (deckname == 'arena_new_a') then
             self.m_playerUserInfo:applyPvpDeckData(l_deck)
         elseif (deckname == 'arena_new_d') then
             self.m_playerUserInfo:applyPvpDefenseDeckData(l_deck)
