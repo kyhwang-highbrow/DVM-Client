@@ -170,14 +170,13 @@ end
 function UI_ArenaNew:initUI()
     local vars = self.vars
 
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
-function UI_ArenaNew:update(dt)
-    cclog('1')
+function UI_ArenaNew:updateTimer(dt)
     local vars = self.vars
     local time_label = vars['refreshLabel']
     if time_label then
@@ -186,16 +185,23 @@ function UI_ArenaNew:update(dt)
         if (not endtime) then 
             endtime = 0 
         else
-            endtime = tonumber(endtime) / 1000 + 600000
+            endtime = tonumber(endtime) / 1000
         end
 
-
+        local shouldEnable = false
         if (0 < endtime) and (curr_time < endtime) then
             local remain_time = (endtime - curr_time)
             local str = datetime.makeTimeDesc_timer_filledByZero(remain_time * 1000)
             time_label:setString(str)
         else
-            time_label:setString('')
+            time_label:setString(Str('갱신'))
+            shouldEnable = true
+        end
+
+        if (vars['refreshBtn']) then
+            if (vars['refreshBtn']:isEnabled() ~= shouldEnable) then
+                vars['refreshBtn']:setEnabled(shouldEnable)
+            end
         end
     end
 
