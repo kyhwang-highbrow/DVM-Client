@@ -7,6 +7,9 @@ ServerData_Season = class({
         m_clandungeonWeek = 'number',   -- 클랜던전 주차(모든 서버 공통)
 
         m_bArenaOpen = 'boolean', -- 콜로세움 (신규 모드) 오픈 여부 
+
+        m_ArenaNewSeason = 'number',
+        m_ArenaNewOpen = 'boolean',
     })
 
 -------------------------------------
@@ -16,7 +19,9 @@ function ServerData_Season:init(server_data)
     self.m_serverData = server_data
     
     self.m_clandungeonWeek = 0
+    self.m_ArenaNewSeason = 0
     self.m_bArenaOpen = false
+    self.m_ArenaNewOpen = false
 end
 
 -------------------------------------
@@ -26,6 +31,14 @@ end
 function ServerData_Season:applyInfo(ret)
     if (ret['clandungeon_week']) then
         self.m_clandungeonWeek = ret['clandungeon_week']
+    end
+
+    if (ret['arena_new_season']) then
+        self.m_ArenaNewSeason = ret['arena_new_season']
+    end
+
+    if (ret['arena_new_open']) then
+        self.m_ArenaNewOpen = ret['arena_new_open']
     end
 
     if (ret['arena_week']) then

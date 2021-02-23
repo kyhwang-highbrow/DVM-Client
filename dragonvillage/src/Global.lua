@@ -37,6 +37,30 @@ function IS_ARENA_OPEN()
 end
 
 -------------------------------------
+-- function IS_ARENA_NEW_SEASON
+-- @brief 개편 후 콜로세움 적용 여부를 리턴
+-------------------------------------
+function IS_ARENA_NEW_OPEN()
+    if g_seasonData then
+        return g_seasonData.m_ArenaNewSeason > 0
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function IS_ARENA_NEW_SEASON
+-- @brief 개편 후 콜로세움 적용 여부를 리턴
+-------------------------------------
+function HAS_ARENA_NEW_SEASON()
+    if g_seasonData then
+        return g_seasonData.m_ArenaNewSeason > 0
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function IS_ARENA_AUTOPLAY
 -- @brief 신규 콜로세움 연속전투 적용 여부를 리턴
 -------------------------------------

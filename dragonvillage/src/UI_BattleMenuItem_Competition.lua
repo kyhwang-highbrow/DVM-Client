@@ -71,6 +71,12 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 	vars['rewardLabel2']:setString('')
     vars['descLabel']:setString('')
 
+    -- 개편 후 진행 된 아레나 시즌이 있으면
+    -- arena_new로 진입한다.
+    if (content_type == 'colosseum' and HAS_ARENA_NEW_SEASON()) then
+        content_type = 'arena_new'
+    end
+
 	-- 고대의 탑
 	if (content_type == 'ancient') then
 		t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_ancient()

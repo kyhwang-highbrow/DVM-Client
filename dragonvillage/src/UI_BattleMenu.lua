@@ -444,9 +444,34 @@ function UI_BattleMenu:initCompetitionTab()
     local pos_y = -80
 
     local l_content_str = {}
+    -- 개편아레나 아이템 추가여부 확인
+    local arenaNewAttached = false
+
     for _, dungeon_name in ipairs(L_TAB_CONTENTS['competition']) do
         if (not g_contentLockData:isContentLock(dungeon_name)) then
-            table.insert(l_content_str, dungeon_name)
+            -- 콜로세움 혹은 개편 후아레나 아니면 그냥 추가            
+            if (dungeon_name ~= 'colosseum' and dungeon_name ~= 'arena_new') then
+                table.insert(l_content_str, dungeon_name)
+            end
+
+            if (HAS_ARENA_NEW_SEASON()) then
+                cclog(arenaNewAttached)
+                -- 시즌정보가 있으면?
+                if (dungeon_name == 'colosseum' and not arenaNewAttached) then
+                    -- 기존 콜로세움?
+                    arenaNewAttached = true
+                    table.insert(l_content_str, 'arena_new')
+                elseif (dungeon_name == 'arena_new' and not arenaNewAttached) then
+                    -- 신규 콜로세움?
+                    arenaNewAttached = true
+                    table.insert(l_content_str, dungeon_name)
+                end
+            else
+                if (dungeon_name == 'colosseum') then
+                    --콜로세움일 때만 추가
+                    table.insert(l_content_str, dungeon_name)
+                end
+            end
         end
     end 
 
