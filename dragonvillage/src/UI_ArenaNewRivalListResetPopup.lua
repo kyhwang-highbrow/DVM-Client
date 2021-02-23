@@ -54,8 +54,8 @@ function UI_ArenaNewRivalListResetPopup:initUI(ok_cb)
                 if (vars['priceLabel']) then vars['priceLabel']:setString(Str('구매 불가')) end
                 vars['okBtn']:setEnabled(false)
             else
-                refillGuideText = Str('1일 남은 횟수: {1}/{2}', curRefreshCount, maxRefreshCount)
-                if (vars['priceLabel']) then vars['priceLabel']:setString(comma_value) end
+                refillGuideText = Str('1일 남은 횟수: {1}/{2}', math.max(maxRefreshCount - curRefreshCount, 0), maxRefreshCount)
+                if (vars['priceLabel']) then vars['priceLabel']:setString(comma_value(cost)) end
             end
         end
 
