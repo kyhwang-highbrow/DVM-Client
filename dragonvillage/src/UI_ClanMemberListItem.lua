@@ -198,11 +198,13 @@ end
 -- @brief 클랜원 친선전
 -------------------------------------
 function UI_ClanMemberListItem:click_friendlyBattleBtn()
+    UIManager:toastNotificationRed(Str('준비 중입니다.'))
+    --[[
     local user_info = self.m_structUserInfo
     local mode = FRIEND_MATCH_MODE.CLAN
     local vs_uid = user_info:getUid() 
 
-    g_friendMatchData:request_arenaInfo(mode, vs_uid)
+    g_friendMatchData:request_arenaInfo(mode, vs_uid)]]
 end
 
 -------------------------------------
