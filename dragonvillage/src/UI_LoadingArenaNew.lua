@@ -250,7 +250,7 @@ function UI_LoadingArenaNew:initUserInfo(direction, struct_user_info)
     end
 
     -- 전투력
-    local str = struct_user_info:getDeckCombatPower(true)
+    local str = comma_value(struct_user_info:getDeckCombatPower(true))
     vars['powerLabel' .. idx]:setString(Str('전투력 : {1}', str))
 
     -- 아이콘
@@ -428,6 +428,14 @@ function UI_LoadingArenaNew:click_manageBtn()
         self:sceneFadeInAction(func)
     end
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function setScoreLabelCenter
+-- @brief 승리 시 획득 승점라벨 길이에 따라 중앙정렬하기
+-------------------------------------
+function UI_LoadingArenaNew:setScoreLabelCenter()
+    
 end
 
 

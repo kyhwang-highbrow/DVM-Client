@@ -37,7 +37,7 @@ end
 -------------------------------------
 function UI_ArenaNewStepRewardPopup:initUI()
     local vars = self.vars
-    local titleStr = Str('승리{1}회 달성 보상', tostring(self.m_stepNum))
+    local titleStr = Str('승리 {1}회 달성 보상', tostring(self.m_stepNum))
     local subTitle = Str('현재 승리 {@yellow}{1}회{@default}', tostring(self.m_winCount))
     vars['titleLabel']:setString(titleStr)
     vars['winLabel']:setString(subTitle)

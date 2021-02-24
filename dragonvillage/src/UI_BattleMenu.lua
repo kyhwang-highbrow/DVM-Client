@@ -122,6 +122,8 @@ function UI_BattleMenu:getContentCntByType(tab_name)
     local l_contens = L_TAB_CONTENTS[tab_name]
     local cnt = 0
     for i, content_name in ipairs(l_contens) do
+        if (content_name == 'arena_new') then content_name = 'colosseum' end
+
         if (not g_contentLockData:isContentLock(content_name)) then
             cnt = cnt + 1
         end
