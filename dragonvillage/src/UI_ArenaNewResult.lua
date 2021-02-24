@@ -213,7 +213,6 @@ function UI_ArenaNewResult:direction_end()
 
     local show_act = cc.EaseExponentialOut:create(cc.MoveBy:create(0.3, cc.p(0, ACTION_MOVE_Y)))
     local number_act = cc.CallFunc:create(function()
-      
         -- 현재 점수
         local rp = t_data['point'] and t_data['point'] or 0
         score_label1:setNumber(rp)
@@ -223,12 +222,14 @@ function UI_ArenaNewResult:direction_end()
         score_label2:setString(Str('{1}점', comma_value(addedRp)))
         compare_func(addedRp, vars['scoreArrowSprite1'], vars['scoreArrowSprite2'], score_label2)
 
+        local bonusHonor = self:getRewardeHonorIfExsist()
+        cclog(bonusHonor)
         -- 현재 명예
         local honor = g_userData:get('honor')
-        honer_label1:setNumber(honor)
+        honer_label1:setNumber(honor - bonusHonor)
 
         -- 획득 명예
-        honer_label2:setString(Str('{1}', comma_value(t_data['added_honor'])))
+        honer_label2:setString(Str('{1}', comma_value(t_data['added_honor'] - bonusHonor)))
         compare_func(t_data['added_honor'], vars['honorArrowSprite1'], vars['honorArrowSprite2'], honer_label2)
     end)
 
@@ -282,6 +283,43 @@ end
 -- function direction_end_click
 -------------------------------------
 function UI_ArenaNewResult:direction_end_click()
+end
+
+-------------------------------------
+-- function getRewardeHonorIfExsist
+-------------------------------------
+function UI_ArenaNewResult:getRewardeHonorIfExsist()
+    local t_data = self.m_resultData
+    if (not t_data['bonus_item_list'] or #t_data['bonus_item_list'] <= 0) then
+		return 0
+    end
+
+    local itemsList = t_data['bonus_item_list']
+    local total_cnt = table.count(itemsList)
+
+	if (total_cnt == 1) then
+		-- 보상 아이템 표기
+		local t_item = itemsList[1]
+        local id = t_item['item_id']
+		local count = t_item['count']
+
+        if (tonumber(id) == 700005 or tostring(id) == 'honor') then
+            return tonumber(count)
+        end
+
+	-- 패치후 최초 업데이트 시점을 위한 분기 처리 (나중에 정리)
+	else
+		for idx, t_item in ipairs(itemsList) do
+			local item_id = t_item['item_id']
+			local item_cnt = t_item['count']
+			
+            if (tonumber(item_id) == 700005 or tostring(item_id) == 'honor') then
+                return tonumber(item_cnt)
+            end
+		end
+	end
+
+    return 0
 end
 
 -------------------------------------
