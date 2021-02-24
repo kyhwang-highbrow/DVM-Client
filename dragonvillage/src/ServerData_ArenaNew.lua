@@ -442,8 +442,7 @@ function ServerData_ArenaNew:request_rivalRefresh(finish_cb)
             table.insert(self.m_matchUserList, userInfo)
         end
 
-        table.sort(self.m_matchUserList, function(a, b) return tonumber(a.m_power) < tonumber(b.m_power) end)
-
+        table.sort(self.m_matchUserList, function(a, b) return tonumber(a:getDeckCombatPower(true)) < tonumber(b:getDeckCombatPower(true)) end)
 
         g_serverData:networkCommonRespone(ret)
 
