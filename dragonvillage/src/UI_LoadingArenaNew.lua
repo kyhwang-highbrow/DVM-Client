@@ -55,7 +55,7 @@ function UI_LoadingArenaNew:init(curr_scene, isReChallenge)
     self:initButton()
 
     if (curr_scene) then
-        self:selectAuto(true)
+        self:selectAuto(false)
         -- 자체적으로 업데이트를 돌린다.
 	    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end
@@ -76,7 +76,7 @@ function UI_LoadingArenaNew:update(dt)
 
     if (self.m_remainTimer <= 0) then
         -- 타임아웃시 자동모드 강제 설정
-        self:selectAuto(true)
+        --self:selectAuto(true)
 
     elseif (prev ~= next) then
         local msg = Str('{1}초 후 전투가 시작됩니다.', next)
