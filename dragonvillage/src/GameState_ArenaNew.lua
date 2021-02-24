@@ -3,7 +3,7 @@ local PARENT = GameState
 local HERO_TAMER_POS_X = 320 - 50
 local ENEMY_TAMER_POS_X = 960 + 50
 
-local FURY_EFFECT_START_TIME_FROM_BUFF_TIME = 4
+local FURY_EFFECT_START_TIME_FROM_BUFF_TIME = 0
 
 -------------------------------------
 -- class GameState_ArenaNew
