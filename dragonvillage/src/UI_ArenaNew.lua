@@ -681,11 +681,20 @@ function UI_ArenaNew:click_refreshBtn()
     -- cost_info 조회
     local maxRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_max_count')
     local curRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_cur_count')
+
+    -- 무료가능?
+    if (not self.m_isRefreshOnCooltime) then
+        UI_ArenaNewRivalListResetPopup(ok_cb, self.m_isRefreshOnCooltime)
+        return
+    end
+
+    -- 유료 다썼음?
     if (curRefreshCount >= maxRefreshCount) then
         UIManager:toastNotificationRed(Str('사용 가능한 횟수를 초과했습니다.'))
         return
     end
 
+    -- 그것도 아님 ㅇㅋ
     UI_ArenaNewRivalListResetPopup(ok_cb, self.m_isRefreshOnCooltime)
 
 end
