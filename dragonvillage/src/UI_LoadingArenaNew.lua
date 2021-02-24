@@ -450,7 +450,7 @@ function UI_LoadingArenaNew:setScoreLabelCenter()
         if (strWidth == 1) then
             parentNode:setPosition(46, 125)
         elseif(strWidth == 2) then
-            parentNode:setPosition(42, 125)
+            parentNode:setPosition(41, 125)
         elseif(strWidth == 3) then
             parentNode:setPosition(35, 125)
         end
