@@ -55,7 +55,7 @@ function UI_LoadingArenaNew:init(curr_scene, isReChallenge)
     self:initButton()
 
     if (curr_scene) then
-        self:selectAuto(false)
+        self:selectAuto(true)
         -- 자체적으로 업데이트를 돌린다.
 	    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end
@@ -313,7 +313,7 @@ function UI_LoadingArenaNew:selectAuto(auto_mode)
 
     self.m_bSelected = true
 
-    g_autoPlaySetting:set('auto_mode', auto_mode)
+    --g_autoPlaySetting:set('auto_mode', auto_mode)
 
     vars['btnNode']:setVisible(false)
     vars['loadingNode']:setVisible(true)

@@ -383,11 +383,13 @@ end
 -------------------------------------
 function GameWorldArenaNew:isPossibleControl()
     -- 항상 조작을 막기 위한 처리(드래곤 터치나 패널 조작)
-    if (self.m_bStartedAuto) then
+    --[[if (self.m_bStartedAuto) then
         return false
     else
         return PARENT.isPossibleControl(self)
-    end
+    end]]
+
+    return PARENT.isPossibleControl(self)
 end
 
 -------------------------------------
