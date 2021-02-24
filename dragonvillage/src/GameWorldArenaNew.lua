@@ -28,7 +28,7 @@ function GameWorldArenaNew:init(game_mode, stage_id, world_node, game_node1, gam
         cclog('자동모드 : ' .. luadump(self.m_bStartedAuto))
     end
 
-    ui:lockButton()
+    --ui:lockButton()
     if (stage_id == CLAN_WAR_STAGE_ID) then
         ui:lockAutoButton()
     end
