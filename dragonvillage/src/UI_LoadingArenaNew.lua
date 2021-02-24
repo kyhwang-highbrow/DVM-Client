@@ -59,6 +59,8 @@ function UI_LoadingArenaNew:init(curr_scene, isReChallenge)
         -- 자체적으로 업데이트를 돌린다.
 	    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end
+
+    self:setScoreLabelCenter()
 end
 
 -------------------------------------
@@ -435,7 +437,25 @@ end
 -- @brief 승리 시 획득 승점라벨 길이에 따라 중앙정렬하기
 -------------------------------------
 function UI_LoadingArenaNew:setScoreLabelCenter()
-    
+    local vars = self.vars
+    -- 전체길이
+    local strWidth = string.len(vars['scoreLabel']:getString())
+    local parentNode = vars['scoreWinLabel']:getParent()
+
+    -- 뇌정지가 와서 일단 하드코딩함...
+    -- 최대 100점이 세자리만 노출하니 일단 맞춤...
+    -- 절대 따라 하지 마시오
+    -- 700, 695, 690
+    if (strWidth) then
+        if (strWidth == 1) then
+            parentNode:setPosition(700, 125)
+        elseif(strWidth == 2) then
+            parentNode:setPosition(695, 125)
+        elseif(strWidth == 3) then
+            parentNode:setPosition(690, 125)
+        end
+    end
+
 end
 
 

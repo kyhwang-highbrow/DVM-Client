@@ -122,6 +122,7 @@ function UI_BattleMenu:getContentCntByType(tab_name)
     local l_contens = L_TAB_CONTENTS[tab_name]
     local cnt = 0
     for i, content_name in ipairs(l_contens) do
+        -- 개편 후 콜로세움 데이터 추가가 당장 어려운 관계로 arena_new는 colosseum과 동일하게 체크
         if (content_name == 'arena_new') then content_name = 'colosseum' end
 
         if (not g_contentLockData:isContentLock(content_name)) then
