@@ -797,6 +797,10 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
 		b_change = true
 	end
 
+    if (deckname == 'arena_new') then
+		b_change = true
+    end
+
     -- pvp는 테이머까지 처리
     if (deckname == 'arena_new') or (deckname == 'arena_new_d') or (deckname == 'arena_new_a') or (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) or g_deckData:isUsedDeckPvpDB(deckname) then
         if (self.m_uiReadyScene:getCurrTamerID() ~= tamer_id) then
