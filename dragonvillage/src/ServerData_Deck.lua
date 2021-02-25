@@ -92,7 +92,6 @@ end
 -------------------------------------
 function ServerData_Deck:getDeck(deck_name)
     local l_deck, formation, deckname, leader, tamer_id = self:getDeck_core(deck_name)
-
     if (not tamer_id) or (0 == tamer_id) then
         tamer_id = g_tamerData:getCurrTamerID()
     end
@@ -106,24 +105,30 @@ end
 -------------------------------------
 function ServerData_Deck:getDeck_core(deck_name)
     deck_name = deck_name or self.m_selectedDeck or 'adv'
-
+    cclog(deck_name)
     -- 콜로세움 (신규) 덱 예외처리
-    if (deck_name == 'arena') then
+    if (deck_name == 'arena' or  deck_name == 'arena_new') then
+        local finalDeckName = deck_name
+        if (deck_name == 'arena_new') then
+            finalDeckName = 'arena'
+        end
+
         if (not g_arenaData.m_playerUserInfo) then
-            return {}, self:adjustFormationName('default'), deck_name, 1
+            return {}, self:adjustFormationName('default'), finalDeckName, 1
         end
 
-        local l_doid, formation, deck_name, leader, tamer_id = g_arenaData.m_playerUserInfo:getDeck(deck_name)
+        local l_doid, formation, deck_name, leader, tamer_id = g_arenaData.m_playerUserInfo:getDeck(finalDeckName)
         return l_doid, self:adjustFormationName(formation), deck_name, leader, tamer_id
 
-    -- 콜로세움 (신규) 덱 예외처리
-    elseif (deck_name == 'arena_new_a' or deck_name == 'arena_new_d' or  deck_name == 'arena_new') then
+    -- 콜로세움 개편 후 덱 예외처리
+    elseif (deck_name == 'arena_new_a' or deck_name == 'arena_new_d') then
+
         if (not g_arenaNewData.m_playerUserInfo) then
-            return {}, self:adjustFormationName('default'), deck_name, 1
+            return {}, self:adjustFormationName('default'), finalDeckName, 1
         end
-
+        
         local l_doid, formation, deck_name, leader, tamer_id = g_arenaNewData.m_playerUserInfo:getDeck(deck_name)
-        return l_doid, self:adjustFormationName(formation), deck_name, leader, tamer_id
+        return l_doid, self:adjustFormationName(formation), finalDeckName, leader, tamer_id
 
     -- 콜로세움 덱 예외처리
     elseif (deck_name == 'pvp_atk') or (deck_name == 'pvp_def') then
