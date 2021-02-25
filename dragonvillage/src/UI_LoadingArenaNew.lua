@@ -410,7 +410,7 @@ end
 -- function startGame
 -------------------------------------
 function UI_LoadingArenaNew:startGame()
-    self:close()
+    --self:close()
     local scene = SceneGameArenaNew() -- PVP 개편 테스트용 임시 커밋
     scene:runScene()
 end
