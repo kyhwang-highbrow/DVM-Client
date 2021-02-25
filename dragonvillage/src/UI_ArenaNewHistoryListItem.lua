@@ -54,7 +54,7 @@ function UI_ArenaNewHistoryListItem:initUI()
 
     for i,v in pairs(t_deck_dragon_list) do
         local icon = UI_DragonCard(v)
-        icon.root:setSwallowTouch(true)
+        icon.root:setSwallowTouch(false)
         vars['dragonNode' .. dragonSlotIndex]:addChild(icon.root)
 
         dragonSlotIndex =  dragonSlotIndex + 1
