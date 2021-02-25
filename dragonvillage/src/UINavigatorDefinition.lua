@@ -562,15 +562,13 @@ function UINavigatorDefinition:goTo_arena_new(...)
         end
     end
 
-    local function fail_cb()
+    local function fail_cb(ret)
             --local ui = MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
-
-            local function finish_cb()
-                
-                --UI_ArenaNew(sub_data)
+            if (tonumber(ret['status']) ~= -1360) then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'))
+            else
+                local deckSetUI = UI_ArenaNewDefenceDeckSettings(ARENA_NEW_STAGE_ID, 'arena_new', true)
             end
-
-            local deckSetUI = UI_ArenaNewDefenceDeckSettings(ARENA_NEW_STAGE_ID, 'arena_new', true)
     end
 
     -- 정보 요청
