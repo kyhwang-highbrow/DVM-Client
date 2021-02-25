@@ -447,7 +447,7 @@ function UI_LoadingArenaNew:setScoreLabelCenter()
 
     -- 스코어
     -- 이상하게 컨텐츠 사이즈가 크게 나온다
-    local strWidth = vars['scoreLabel']:getContentSize().width * 1.3
+    local strWidth = vars['scoreLabel']:getContentSize().width * 1.4
 
     -- 가운데까지 필요한 너비
     local centerWidth = (winLabelWidth + iconWidth + strWidth) / 2
