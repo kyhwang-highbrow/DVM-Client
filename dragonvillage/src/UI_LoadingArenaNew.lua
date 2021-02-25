@@ -438,20 +438,23 @@ end
 -------------------------------------
 function UI_LoadingArenaNew:setScoreLabelCenter()
     local vars = self.vars
+    ccdump(vars['scoreWinLabel']:getContentSize())
+
     -- 타이틀
-    local winLabelWidth = vars['scoreWinLabel']:getContentSize()['width']
+    local winLabelWidth = vars['scoreWinLabel']:getContentSize().width
 
     -- 아이콘
-    local iconWidth = vars['scoreSprite']:getContentSize()['width']
+    local iconWidth = vars['scoreSprite']:getContentSize().width
     iconWidth = iconWidth * 0.7
 
     -- 스코어
-    local strWidth = vars['scoreLabel']:getContentSize()['width']
+    -- 이상하게 컨텐츠 사이즈가 크게 나온다
+    local strWidth = vars['scoreLabel']:getContentSize().width
 
     -- 가운데까지 필요한 너비
-    local centerWidth = (strWidth + iconWidth + strWidth) / 2
+    local centerWidth = (winLabelWidth + iconWidth + strWidth) / 2
 
-    cclog(winLabelWidth)
+    ccdump(winLabelWidth)
     cclog(iconWidth)
     cclog(strWidth)
 
@@ -461,17 +464,16 @@ function UI_LoadingArenaNew:setScoreLabelCenter()
 
     -- 타티틀이 반 이상을 차지하면?
     if (winLabelWidth >= centerWidth) then
-        winLabelX = winLabelWidth - centerWidth + 10 -- 그려진 딱 맞는 너비값이기 때문에 미묘하게 갭이 좀 있음
+        winLabelX = winLabelWidth - centerWidth -- 그려진 딱 맞는 너비값이기 때문에 미묘하게 갭이 좀 있음
 
         -- 아이콘은 좌표축이 왼쪽에 있음
-        iconX = (winLabelWidth - centerWidth) + (iconWidth) - 10    -- 얘도 미묘하게 차이남
+        iconX = (winLabelWidth - centerWidth) + (iconWidth / 2)    -- 얘도 미묘하게 차이남
 
         -- 얜 아이콘 X
         scoreX = iconX + (iconWidth / 2)
         
         vars['scoreWinLabel']:setPositionX(winLabelX)
         vars['scoreSprite']:setPositionX(iconX)
-        vars['scoreLabel']:setPositionX(scoreX)
 
     else
         -- 아이콘 왕방울만하고
