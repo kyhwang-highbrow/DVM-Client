@@ -438,23 +438,21 @@ end
 -------------------------------------
 function UI_LoadingArenaNew:setScoreLabelCenter()
     local vars = self.vars
-    ccdump(vars['scoreWinLabel']:getContentSize())
 
     -- 타이틀
-    local winLabelWidth = vars['scoreWinLabel']:getContentSize().width
+    local winLabelWidth = vars['scoreWinLabel']:getContentSize().width * 0.9
 
     -- 아이콘
-    local iconWidth = vars['scoreSprite']:getContentSize().width
-    iconWidth = iconWidth * 0.7
+    local iconWidth = vars['scoreSprite']:getContentSize().width * 0.7
 
     -- 스코어
     -- 이상하게 컨텐츠 사이즈가 크게 나온다
-    local strWidth = vars['scoreLabel']:getContentSize().width
+    local strWidth = vars['scoreLabel']:getContentSize().width * 1.3
 
     -- 가운데까지 필요한 너비
     local centerWidth = (winLabelWidth + iconWidth + strWidth) / 2
 
-    ccdump(winLabelWidth)
+    cclog(winLabelWidth)
     cclog(iconWidth)
     cclog(strWidth)
 
