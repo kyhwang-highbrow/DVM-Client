@@ -59,6 +59,7 @@ return {['1일 남은 횟수: {1}/{2}']='Recuento restante de 1 día: {1} / {2}'
 ['공격팀']='Equipo de ataque',
 ['방어팀']='Equipo de defensa',
 ['{1} {2}개를 사용하여\n{3}(을)를 구매하시겠습니까?']='¿Deseas comprar{3}\nusando {2} {1}?',
+['입장권을 모두 소모하였습니다.\n오늘은 더 이상 구매할 수 없습니다.\n{@impossible}(1일 {1}회 구매 가능)']='Has usado todos los billetes de entrada.\nNo puedes comprar más el día de hoy.\n{@impossible}(Disponible {1} veces por día)',
 ['판매할 드래곤이 없어요.']='No tienes dragones que vender',
 ['공격형 드래곤입니다.\n강력한 피해량으로 적들을 제합할 수 있습니다.']='Dragón de Tipo Ataque.\nPuede derrotar a enemigos con su enorme poder.',
 ['공격형 드래곤입니다. 강력한 피해량으로 적들을 제합할 수 있습니다.']='Dragón de Tipo Ataque.\nPuede derrotar a enemigos con su enorme poder.',
