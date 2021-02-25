@@ -438,22 +438,45 @@ end
 -------------------------------------
 function UI_LoadingArenaNew:setScoreLabelCenter()
     local vars = self.vars
-    -- 전체길이
-    local strWidth = string.len(vars['scoreLabel']:getString())
-    local parentNode = vars['scoreWinLabel']:getParent()
+    -- 타이틀
+    local winLabelWidth = vars['scoreWinLabel']:getContentSize()['width']
 
-    -- 뇌정지가 와서 일단 하드코딩함...
-    -- 최대 100점이 세자리만 노출하니 일단 맞춤...
-    -- 절대 따라 하지 마시오
-    -- 700, 695, 690
-    if (strWidth) then
-        if (strWidth == 1) then
-            parentNode:setPosition(46, 125)
-        elseif(strWidth == 2) then
-            parentNode:setPosition(41, 125)
-        elseif(strWidth == 3) then
-            parentNode:setPosition(35, 125)
-        end
+    -- 아이콘
+    local iconWidth = vars['scoreSprite']:getContentSize()['width']
+    iconWidth = math.floor(iconWidth * 0.7)
+
+    -- 스코어
+    local strWidth = vars['scoreLabel']:getContentSize()['width']
+
+    -- 가운데까지 필요한 너비
+    local centerWidth = (strWidth + iconWidth + strWidth) / 2
+
+    cclog(winLabelWidth)
+    cclog(iconWidth)
+    cclog(strWidth)
+
+    local winLabelX
+    local iconX
+    local scoreX
+
+    -- 타티틀이 반 이상을 차지하면?
+    if (winLabelWidth >= centerWidth) then
+        winLabelX = winLabelWidth - centerWidth + 10 -- 그려진 딱 맞는 너비값이기 때문에 미묘하게 갭이 좀 있음
+
+        -- 아이콘은 좌표축이 왼쪽에 있음
+        iconX = (winLabelWidth - centerWidth) + (iconWidth / 2)
+
+        -- 얜 아이콘 X
+        scoreX = iconX + (iconWidth / 2)
+        
+        vars['scoreWinLabel']:setPositionX(winLabelX)
+        vars['scoreSprite']:setPositionX(iconX)
+        vars['scoreLabel']:setPositionX(scoreX)
+
+    else
+        -- 아이콘 왕방울만하고
+        -- 점수 5천만점 주고
+        -- 그러면 여기 들어와야함
     end
 
 end
