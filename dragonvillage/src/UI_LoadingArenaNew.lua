@@ -443,7 +443,7 @@ function UI_LoadingArenaNew:setScoreLabelCenter()
 
     -- 아이콘
     local iconWidth = vars['scoreSprite']:getContentSize()['width']
-    iconWidth = math.floor(iconWidth * 0.7)
+    iconWidth = iconWidth * 0.7
 
     -- 스코어
     local strWidth = vars['scoreLabel']:getContentSize()['width']
@@ -464,7 +464,7 @@ function UI_LoadingArenaNew:setScoreLabelCenter()
         winLabelX = winLabelWidth - centerWidth + 10 -- 그려진 딱 맞는 너비값이기 때문에 미묘하게 갭이 좀 있음
 
         -- 아이콘은 좌표축이 왼쪽에 있음
-        iconX = (winLabelWidth - centerWidth) + (iconWidth / 2)
+        iconX = (winLabelWidth - centerWidth) + (iconWidth) - 10    -- 얘도 미묘하게 차이남
 
         -- 얜 아이콘 X
         scoreX = iconX + (iconWidth / 2)
