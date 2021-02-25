@@ -34,7 +34,7 @@ function UI_ArenaNewHistoryListItem:initUI()
     vars['winSprite']:setVisible(isWin)
     vars['loseSprite']:setVisible(not isWin)
 
-    vars['userScoreLabel']:setString(Str('{1}점', t_rival_info.m_rp))
+    vars['userScoreLabel']:setString(comma_value(t_rival_info.m_rp))
 
     local matchScore = t_rival_info.m_matchScore == 0 and '-' or t_rival_info.m_matchScore
 

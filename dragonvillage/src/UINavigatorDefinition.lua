@@ -560,19 +560,22 @@ function UINavigatorDefinition:goTo_arena_new(...)
             local scene = SceneCommon(UI_ArenaNew, close_cb, sub_data)
             scene:runScene()
         end
+
     end
 
-    local function fail_cb(ret)
-            --local ui = MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
-            if (ret and tonumber(ret['status']) ~= -1360) then
-                MakeSimplePopup(POPUP_TYPE.OK, Str('일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'))
-            else
-                local deckSetUI = UI_ArenaNewDefenceDeckSettings(ARENA_NEW_STAGE_ID, 'arena_new', true)
-            end
+    
+    local function response_status_cb(ret)
+        --local ui = MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
+        -- 요일에 맞지 않는 속성
+        if (ret and tonumber(ret['status']) == -1360) then
+            UI_ArenaNewDefenceDeckSettings(ARENA_NEW_STAGE_ID, 'arena_new', true)
+        elseif (ret and tonumber(ret['status']) ~= 0) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'))
+        end
     end
 
     -- 정보 요청
-    g_arenaNewData:request_arenaInfo(finish_cb, fail_cb)
+    g_arenaNewData:request_arenaInfo(finish_cb, fail_cb, response_status_cb)
 end
 
 

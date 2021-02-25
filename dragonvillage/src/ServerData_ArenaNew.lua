@@ -57,7 +57,7 @@ end
 -------------------------------------
 -- function request_arenaInfo
 -------------------------------------
-function ServerData_ArenaNew:request_arenaInfo(finish_cb, fail_cb)
+function ServerData_ArenaNew:request_arenaInfo(finish_cb, fail_cb, response_status_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -77,6 +77,9 @@ function ServerData_ArenaNew:request_arenaInfo(finish_cb, fail_cb)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    if (response_status_cb) then
+        ui_network:setResponseStatusCB(response_status_cb)
+    end
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
