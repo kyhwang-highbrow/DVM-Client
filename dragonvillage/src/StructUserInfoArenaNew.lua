@@ -671,12 +671,29 @@ function StructUserInfoArenaNew:getDeck(type)
         local formation = 'attack'
         local leader = 0
         local formation_lv = 1
-        if self.m_pvpDeck then
+
+        if (type == 'arena_new_a') then
             formation = self.m_pvpDeck['formation']
             leader = self.m_pvpDeck['leader']
-            tamer_id = self.m_pvpDeck['tamer'] or tamer_id
+
+            tamer_id = self.m_pvpDeck['tamerInfo']['tid'] or tamer_id
             formation_lv = self.m_pvpDeck['formationlv'] 
+
+        elseif (type == 'arena_new_d') then
+            formation = self.m_pvpDefenseDeck['formation']
+            leader = self.m_pvpDefenseDeck['leader']
+            tamer_id = self.m_pvpDefenseDeck['tamerInfo']['tid'] or tamer_id
+            formation_lv = self.m_pvpDefenseDeck['formationlv'] 
+
+        else
+            formation = self.m_pvpDeck['formation']
+            leader = self.m_pvpDeck['leader']
+
+            tamer_id = self.m_pvpDeck['tamerInfo']['tid'] or tamer_id
+            formation_lv = self.m_pvpDeck['formationlv'] 
+
         end
+
         return l_doid, formation, type, leader, tamer_id, formation_lv
 
     else

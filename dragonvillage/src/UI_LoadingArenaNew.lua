@@ -255,6 +255,7 @@ function UI_LoadingArenaNew:initUserInfo(direction, struct_user_info)
     local str = comma_value(struct_user_info:getDeckCombatPower(true))
     vars['powerLabel' .. idx]:setString(Str('전투력 : {1}', str))
 
+    vars['tamerNode' .. idx]:removeAllChildren()
     -- 아이콘
     icon = struct_user_info:getDeckTamerIcon()
     if (icon) then
