@@ -223,7 +223,7 @@ function UI_ArenaNewResult:direction_end()
         compare_func(addedRp, vars['scoreArrowSprite1'], vars['scoreArrowSprite2'], score_label2)
 
         local bonusHonor = self:getRewardeHonorIfExsist()
-        cclog(bonusHonor)
+
         -- 현재 명예
         local honor = g_userData:get('honor')
         honer_label1:setNumber(honor - bonusHonor)

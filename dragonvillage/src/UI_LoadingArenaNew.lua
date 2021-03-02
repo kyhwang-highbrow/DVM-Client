@@ -396,7 +396,7 @@ function UI_LoadingArenaNew:click_startButton()
                 is_cash = false
                 request()
             end
-            cclog(self.m_isReChallenge)
+
         else
             is_cash = false
             request()
@@ -452,10 +452,6 @@ function UI_LoadingArenaNew:setScoreLabelCenter()
 
     -- 가운데까지 필요한 너비
     local centerWidth = (winLabelWidth + iconWidth + strWidth) / 2
-
-    cclog(winLabelWidth)
-    cclog(iconWidth)
-    cclog(strWidth)
 
     local winLabelX
     local iconX
