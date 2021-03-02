@@ -4912,6 +4912,8 @@
     <None Include="..\src\UI_ButtonSpecialOfferProductNurture.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_BattlePass.lua" />
+    <None Include="..\src\StructBattlePassInfo.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -153,6 +153,7 @@ local t_module = {
     'StructClanWarMatchItem',
     'StructClanWarMatch',
     'StructPackageState',
+    'StructBattlePassInfo',
 
 	-- ServerData
     'ServerData',
@@ -247,6 +248,7 @@ local t_module = {
     'ServerData_AttrTowerPackage',
     'ServerData_EventIncarnationOfSins', -- 죄악의 화신 토벌작전
     'ServerData_RuneMemo', -- 룬 메모
+    'ServerData_BattlePass', -- 패틀패스
 
 
     -- Interface

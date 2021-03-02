@@ -522,6 +522,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_AttrTowerPackage.lua" />
     <None Include="..\src\ServerData_AutoItemPick.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
+    <None Include="..\src\ServerData_BattlePass.lua" />
     <None Include="..\src\ServerData_Book.lua" />
     <None Include="..\src\ServerData_CapsuleBox.lua" />
     <None Include="..\src\ServerData_ChallengeMode.lua" />
@@ -876,6 +877,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructArenaNewRankReward.lua" />
     <None Include="..\src\StructAttendanceData.lua" />
     <None Include="..\src\StructAttrTowerFloorData.lua" />
+    <None Include="..\src\StructBattlePassInfo.lua" />
     <None Include="..\src\StructBookData.lua" />
     <None Include="..\src\StructCalendarDay.lua" />
     <None Include="..\src\StructCapsuleBox.lua" />
