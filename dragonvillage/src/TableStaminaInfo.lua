@@ -65,10 +65,6 @@ function TableStaminaInfo:getDailyChargeInfo(stamina_type, charge_cnt)
     -- charge_add_price_interval 비용 증가가 발생하는 간격
     local charge_add_price_count = self:getValue(stamina_type, 'charge_add_price_count')
     local charge_add_price_interval = self:getValue(stamina_type, 'charge_add_price_interval')
-
-            cclog(charge_add_price_count)
-            cclog(charge_add_price_interval)
-            cclog(charge_cnt)
     -- 비용 증가가 발생하는 횟수를 넘었을 경우 비용 증가 처리
     if (charge_add_price_count and charge_add_price_count > 0) then
         -- 비용 증가가 시작되는 횟수를 초과했을 경우 비용 증가 처리
