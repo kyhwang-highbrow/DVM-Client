@@ -24,31 +24,20 @@ function ServerData_BattlePass:init(server_data)
     t_fake_info["max_exp"] = 10000
     t_fake_info["cur_exp"] = 10
 
-    t_fake_info["item_list_normal"] = {
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = false},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = false},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = false},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = false},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = false},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = false}
+    t_fake_info["item_list"] = {
+        {itemIndex = 1, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
+        {itemIndex = 2, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
+        {itemIndex = 3, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
+        {itemIndex = 4, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
+        {itemIndex = 5, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
+        {itemIndex = 6, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
+        {itemIndex = 7, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
+        {itemIndex = 8, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
+        {itemIndex = 9, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
+        {itemIndex = 10, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true}
     }
 
-    t_fake_info["item_list_special"] = {
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = true},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = false},
-        {itemIndex = "", itemInfo = "779255;1,703016;3", isReceived = false}
-    }
+    table.sort(t_fake_info["item_list"], function(a, b) return (tonumber(a['itemIndex']) < tonumber(b['itemIndex'])) end)
 
     self.m_battlePathInfo:updateInfo(t_fake_info)
 end
@@ -57,22 +46,11 @@ end
 -------------------------------------
 -- function getNormalRewardInfo
 -------------------------------------
-function ServerData_BattlePass:getNormalRewardInfo()
+function ServerData_BattlePass:getRewardList()
     local tResult = {}
     if (not self.m_battlePathInfo) then return tResult end
 
-    return self.m_battlePathInfo:getNormalRewardInfo()
-end
-
-
--------------------------------------
--- function getSpecialRewardInfo
--------------------------------------
-function ServerData_BattlePass:getSpecialRewardInfo()
-    local tResult = {}
-    if (not self.m_battlePathInfo) then return tResult end
-
-    return self.m_battlePathInfo:getSpecialRewardInfo()
+    return self.m_battlePathInfo:getRewardList()
 end
 
 -------------------------------------

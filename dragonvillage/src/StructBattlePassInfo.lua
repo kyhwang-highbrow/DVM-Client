@@ -9,8 +9,7 @@ StructBattlePassInfo = class(PARENT, {
         m_curExp = 'number',
         m_maxExp = 'number',
 
-        m_normalRewardInfo = 'table',     -- 일반 보상
-        m_specialRewardInfo = 'table',    -- 스페셜 보상
+        m_RewardList = 'table',     -- 보상 테이블
 
     })
 
@@ -19,10 +18,7 @@ StructBattlePassInfo = class(PARENT, {
 -- function init
 -------------------------------------
 function StructBattlePassInfo:init()
-    self.m_normalRewardInfo = {}
-    self.m_specialRewardInfo = {}
-
-
+    self.m_RewardList = {}
 end
 
 -------------------------------------
@@ -33,29 +29,17 @@ function StructBattlePassInfo:updateInfo(data)
     self.m_curExp = data['cur_exp']
     self.m_maxExp = data['max_exp']
 
-    self.m_normalRewardInfo = data['item_list_normal']
-    self.m_specialRewardInfo = data['item_list_special']
+    self.m_RewardList = data['item_list']
 end
 
 -------------------------------------
--- function getNormalRewardInfo
+-- function getRewardList
 -------------------------------------
-function StructBattlePassInfo:getNormalRewardInfo()
+function StructBattlePassInfo:getRewardList()
     local tResult = {}
-    if (not self.m_normalRewardInfo) then return tResult end
+    if (not self.m_RewardList) then return tResult end
 
-    return self.m_normalRewardInfo
-end
-
-
--------------------------------------
--- function getSpecialRewardInfo
--------------------------------------
-function StructBattlePassInfo:getSpecialRewardInfo()
-    local tResult = {}
-    if (not self.m_specialRewardInfo) then return tResult end
-
-    return self.m_specialRewardInfo
+    return self.m_RewardList
 end
 
 -------------------------------------
