@@ -339,7 +339,8 @@ function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
         --end
     else
         local charge_limit = TableStaminaInfo:getDailyChargeLimit(stamina_type)
-
+        local t_stamina_info = self:getRef(stamina_type)
+        local charge_cnt = (t_stamina_info['charge_cnt'] or 0)
         local price, cnt = TableStaminaInfo:getDailyChargeInfo(stamina_type, charge_cnt)
         local function ok_btn_cb()
             -- 캐쉬가 충분히 있는지 확인
@@ -351,8 +352,6 @@ function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
         end
         
         if self:canDailyCharge(stamina_type) then
-            local t_stamina_info = self:getRef(stamina_type)
-            local charge_cnt = (t_stamina_info['charge_cnt'] or 0)
 
             -- 당장 급하니 여기서 분기처리 ...
             -- max 5개가 아닌 하나씩 충전
