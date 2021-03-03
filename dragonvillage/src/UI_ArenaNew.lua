@@ -367,7 +367,7 @@ function UI_ArenaNew:refreshTierGauge()
     -- 백분위가 있을 때 
     elseif (myRankItem['ratio_max'] and myRankItem['ratio_max'] ~= '') then
         rate = 100
-        finalString = comma_value(curRp)
+        finalString = Str('{1}점', comma_value(curRp))
     -- 순위제한 있을 때 
     elseif (myRankItem['rank_max'] and myRankItem['rank_max'] ~= '') then
         local isInTopTen = curRank <= 10 and curRank >= 1
@@ -377,7 +377,7 @@ function UI_ArenaNew:refreshTierGauge()
             finalString = Str('{1}위', curRank)
         else
             rate = curRank * 100
-            finalString = Str('{1}점', curRp)
+            finalString = Str('{1}점', comma_value(curRp))
         end
 
     -- 일반
