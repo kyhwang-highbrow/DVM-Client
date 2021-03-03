@@ -370,14 +370,14 @@ function UI_ArenaNew:refreshTierGauge()
         finalString = comma_value(curRp)
     -- 순위제한 있을 때 
     elseif (myRankItem['rank_max'] and myRankItem['rank_max'] ~= '') then
-        local isInTopTen = curRank >= 10
+        local isInTopTen = curRank <= 10 and curRank >= 1
 
         if (isInTopTen) then
-            rate = curRank * 10
-            finalString = Str('{1}위', curRp)
+            rate = 100 - (curRank - 1) * 10
+            finalString = Str('{1}위', curRank)
         else
             rate = curRank * 100
-            finalString = Str('{1}위', curRp)
+            finalString = Str('{1}점', curRp)
         end
 
     -- 일반
