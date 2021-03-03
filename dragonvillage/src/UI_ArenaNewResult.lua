@@ -214,11 +214,14 @@ function UI_ArenaNewResult:direction_end()
     local show_act = cc.EaseExponentialOut:create(cc.MoveBy:create(0.3, cc.p(0, ACTION_MOVE_Y)))
     local number_act = cc.CallFunc:create(function()
         -- 현재 점수
+        --local rp = t_data['point'] and t_data['point'] or 0
+        local rpBefore = t_data['before_point'] and t_data['before_point'] or 0
         local rp = t_data['point'] and t_data['point'] or 0
         score_label1:setNumber(rp)
 
         -- 획득 점수
-        local addedRp = t_data['added_rp'] and t_data['added_rp'] or 0
+        --local addedRp = t_data['added_rp'] and t_data['added_rp'] or 0
+        local addedRp = rp - rpBefore
         score_label2:setString(Str('{1}점', comma_value(addedRp)))
         compare_func(addedRp, vars['scoreArrowSprite1'], vars['scoreArrowSprite2'], score_label2)
 
