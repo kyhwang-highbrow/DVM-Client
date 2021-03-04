@@ -773,6 +773,9 @@ end
 function UIC_TableViewTD:expandTemp(duration, animated)
     local duration = duration or 0.15
 
+    -- contentSize 변화에 따른 cell들의 위치 조정을 위한 값 캐싱
+    local before_content_offset = self.m_scrollView:getContentOffset()
+
     -- 현재 보여지는 애들 리스트
     local l_visible_cells = {}
     for i,v in ipairs(self._cellsUsed) do
@@ -803,8 +806,34 @@ function UIC_TableViewTD:expandTemp(duration, animated)
         end
     end
 
-    -- cell들 이동
-    for i,v in ipairs(self.m_itemList) do
+    if (animated == nil) then
+        animated = true
+    else
+        animated = false
+    end
+
+    self:relocateContainer(animated)
+
+    local after_content_offset = self.m_scrollView:getContentOffset()
+    
+    -- content, offset size 변화에 따른 셀들 위치 조정(자연스럽게 셀들이 이동 액션하도록)
+    -- 위의 값들이 변경되어도 UI 상으로 셀은 그대로 있게 만든다.
+    local m_dup_check = {}
+    for i, v in pairs(l_visible_cells) do
+        local idx = v['idx']
+        local ui = v['ui']
+
+        if ((ui ~= nil) and (m_dup_check[idx] == nil)) then
+            m_dup_check[idx] = true
+            local before_pos_x, before_pos_y = ui.root:getPosition()
+            local real_pos_x, real_pos_y = before_pos_x + before_content_offset['x'], before_pos_y + before_content_offset['y']
+            local after_pos_x, after_pos_y = real_pos_x - after_content_offset['x'] , real_pos_y - after_content_offset['y']
+            ui.root:setPosition(cc.p(after_pos_x, after_pos_y))
+        end
+    end 
+
+     -- cell들 이동
+     for i,v in ipairs(self.m_itemList) do
         local ui = self.m_itemList[i]['ui']
 
         if ui then
@@ -812,13 +841,6 @@ function UIC_TableViewTD:expandTemp(duration, animated)
             ui:cellMoveTo(duration, offset)
         end
     end
-
-    if (animated == nil) then
-        animated = true
-    else
-        animated = false
-    end
-    self:relocateContainer(animated)
 end
 
 -------------------------------------
