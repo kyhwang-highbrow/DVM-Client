@@ -425,7 +425,12 @@ function UI_ReadySceneNew_Deck:init_deck()
 
     for idx,doid in pairs(l_deck) do
         local skip_sort = true
-        self:setSlot(idx, doid, skip_sort)
+
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
+        if (t_dragon_data) then
+            self:setSlot(idx, doid, skip_sort)
+        end
         
         if (idx == leader) then
             self.m_currLeaderOID = doid
@@ -694,6 +699,7 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
         self.m_tDeckMap[doid] = idx
 
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
         self:makeSettedDragonCard(t_dragon_data, idx)
 
         -- 친구 드래곤 선택 체크
