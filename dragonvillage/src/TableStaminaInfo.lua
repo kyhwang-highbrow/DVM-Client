@@ -73,7 +73,7 @@ function TableStaminaInfo:getDailyChargeInfo(stamina_type, charge_cnt)
 
         -- 비용 증가가 시작되는 횟수를 초과했을 경우 비용 증가 처리
         if (charge_cnt >= tonumber(charge_add_price_count)) then
-            local overflowCount = charge_cnt - tonumber(charge_add_price_count)
+            local overflowCount = charge_cnt + 1 - tonumber(charge_add_price_count)
             local invervalCount = math.ceil(overflowCount / tonumber(charge_add_price_interval))
 
             charge_price = charge_price + invervalCount * charge_add_price
