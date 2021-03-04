@@ -73,6 +73,12 @@ function UI_ArenaNewTierRewardPopup:initUI()
         vars['rewardFrameNode']:setVisible(false)
 	end
 
+    -- 티어아이콘
+    local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
+    if (struct_user_info) then
+        local icon = struct_user_info:makeTierIcon(nil, 'big')
+        vars['tierIconNode']:addChild(icon)
+    end
 end
 
 -------------------------------------
