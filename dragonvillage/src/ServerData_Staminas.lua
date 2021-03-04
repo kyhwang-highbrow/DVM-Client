@@ -391,6 +391,11 @@ function ServerData_Staminas:request_staminaCharge(stamina_type, finish_cb, fail
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
 
+        -- 날짜가 변경되었습니다 보여주기
+        if (ret['day_reset'] and ret['day_reset'] == true) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('날짜가 변경되었습니다.'), ok_cb)
+        end
+
         if finish_cb then
             return finish_cb(ret)
         end
