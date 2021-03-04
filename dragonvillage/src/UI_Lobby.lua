@@ -774,6 +774,11 @@ function UI_Lobby:initButton()
     vars['matchCardBtn']:registerScriptTapHandler(function() self:click_matchCardBtn() end) -- 카드 짝 맞추기 이벤트
     vars['mandragoraBtn']:registerScriptTapHandler(function() self:click_mandragoraBtn() end) -- 만드라고라의 모험 이벤트
     vars['adventBtn']:registerScriptTapHandler(function() self:click_adventBtn() end) -- 깜짝 출현 이벤트
+    --
+    vars['battlePassBtn']:registerScriptTapHandler(function() self:click_battlePassBtn() end) -- 배틀패스 버튼
+    vars['cashShopBtn']:registerScriptTapHandler(function() self:click_packageShopBtn() end) -- 패키지(상점) 버튼
+
+
 
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
     vars['levelupBtn2']:registerScriptTapHandler(function() self:click_lvUpPackBtn2() end) -- 레벨업 패키지 2
@@ -1625,6 +1630,18 @@ function UI_Lobby:click_adventBtn()
     g_eventData:openEventPopup('event_advent')
 end
 
+
+-------------------------------------
+-- function click_packageShopBtn
+-- @brief temp package shop button for season pass
+-------------------------------------
+function UI_Lobby:click_packageShopBtn()
+    UINavigator:goTo('package_shop')
+end
+
+function UI_Lobby:click_battlePassBtn()
+    UINavigator:goTo('battle_pass_shop')
+end
 -------------------------------------
 -- function click_lvUpPackBtn
 -- @brief 레벨업 패키지 버튼
@@ -2241,6 +2258,19 @@ function UI_Lobby:update_rightButtons()
         end
     end
 
+    do -- 배틀 패스
+        -- TODO (YOUNGJIN) : Change all the conditions
+        local is_visible = true
+        vars['battlePassBtn']:setVisible(is_visible)
+        vars['battlePassNotiSprite']:setVisible(is_visible)
+    end
+
+    do -- 패키지
+        -- TODO (YOUNGJIN) : Change all the conditions
+        local is_visible = true
+        vars['cashShopBtn']:setVisible(is_visible)
+        vars['cashShopNotiSprite']:setVisible(is_visible)
+    end
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {}
     table.insert(t_btn_name, 'capsuleBtn')
@@ -2273,6 +2303,8 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'randomShopBtn')
     table.insert(t_btn_name, 'fevertimeBtn')
     table.insert(t_btn_name, 'eventBtn')
+    table.insert(t_btn_name, 'battlePassBtn')
+    table.insert(t_btn_name, 'cashShopBtn')
     
     -- visible이 켜진 버튼들 리스트
     local l_btn_list = {}

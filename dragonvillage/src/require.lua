@@ -1005,6 +1005,8 @@ local t_module = {
     'UI_DragonGuidePopup',
     'UI_DragonGuideListItem',
     'UI_DragonDiaryPopup',
+    'UI_BattlePassPopup',
+    'UI_BattlePassTabButton',
     'UI_PackagePopup',
     'UI_PackageTabButton',
     'UI_TeamBonus',
@@ -1065,6 +1067,7 @@ local t_module = {
     'UI_ProductSmall',
 	'UI_Package',
     'UI_Package_Bundle',
+
     'UI_Package_LevelUp',
     'UI_Package_LevelUp_02',
     'UI_Package_LevelUp_03',
@@ -1093,6 +1096,10 @@ local t_module = {
     'UI_PromoteAutoPick',
     'UI_PromoteQuestDouble',
     'UI_SummonDrawInfo',
+
+    -- UI : 배틀패스 상점 관련
+    'UI_BattlePass_Nurture',
+    'UI_BattlePass_NurtureCell',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

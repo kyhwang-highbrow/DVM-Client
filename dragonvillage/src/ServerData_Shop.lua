@@ -326,6 +326,33 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
         end
     end
 
+    -- TODO (YOUNGJIN) : NEED TO REMOVE
+    tempTable = {
+        price_type='money';
+        price=33000;
+        icon='res/ui/package/icon_levelup.png';
+        lock='';
+        mail_content='';
+        t_name='배틀패스';
+        max_buy_term='permanent';
+        ui_pos='';
+        badge='';
+        max_buy_count=1;
+        product_content='';
+        t_desc='겁나혜자아이템';
+        bundle=1;
+        ui_scale='';
+        product_id=999999;
+        subscription='';
+        }
+        local fakeProduct = StructProduct(tempTable)
+        fakeProduct:setTabCategory('package')
+        fakeProduct:setStartDate('') -- 판매 시작 시간
+        fakeProduct:setEndDate('') -- 판매 종료 시간
+        fakeProduct:setDependency('') -- 상품 의존성 (대체 상품)
+        fakeProduct:setUIPriority(0) -- UI정렬 순선 (높으면 앞쪽에 노출)
+        self:insertProduct(fakeProduct)
+
     -- 상품별 구매 횟수 정보 갱신
     if (ret['buycnt']) then
         self.m_dicBuyCnt = ret['buycnt']

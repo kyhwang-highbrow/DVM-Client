@@ -362,7 +362,17 @@ function UI_ItemCard:setSwallowTouch()
 end
 
 
+function UI_ItemCard:SetBackgroundVisible(bool_value)
+    local vars = self.vars
 
+    if(vars['commonSprite']) then
+        vars['commonSprite']:setVisible(bool_value)
+    end
+
+    if(vars['bgSprite']) then
+        vars['bgSprite']:setVisible(bool_value)
+    end
+end
 
 
 

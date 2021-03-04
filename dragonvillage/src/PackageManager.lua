@@ -10,6 +10,7 @@ function PackageManager:getTargetUI(package_name, is_popup)
     local target_ui = nil
     local _package_name = package_name
     
+    print('Package Name : ' .. _package_name)
     -- 패키지에 뜨는 UI와 풀팝업에 뜨는 UI를 구분하고 싶은 경우
     -- 패키지 네임 뒤에 _popup 추가하고, 아래 조건문에서 분기로 구분하여 사용
     if (string.find(package_name, '_popup')) then
@@ -135,11 +136,16 @@ function PackageManager:getTargetUI(package_name, is_popup)
         require('UI_Package_DragonChoiceHero')
         target_ui = UI_Package_DragonChoiceHero(_package_name, is_popup)
 
+    -- TODO (YOUNGJIN) : NEED TO REMOVE
+    elseif(_package_name == 'package_battle_pass') then
+        local _struct_product = {}
+        target_ui = UI_BattlePass_Nurture(_struct_product, is_popup)
+
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
     elseif (TablePackageBundle:checkBundleWithName(_package_name)) then
         target_ui = UI_Package_Bundle(_package_name, is_popup)
-
+    
     else
         error('등록 되지 않은 package name : '.. _package_name .. ' TABLE_PACKAGE_BUNDLE 등록')
     end
