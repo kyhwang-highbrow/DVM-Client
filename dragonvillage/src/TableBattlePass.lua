@@ -18,10 +18,16 @@ local THIS = TableBattlePass
 -------------------------------------
 function TableBattlePass:init()
     self.m_tableName = 'table_battle_pass'
+    self:initTables()
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function TableBattlePass:initTables()
     self.m_battlePassTable = TABLE:get(self.m_tableName)
     self.m_battlePassRewardTable = TABLE:get('table_battle_pass_reward')
 end
-
 
 -------------------------------------
 -- function getNormalRewardList
@@ -61,6 +67,8 @@ end
 -- @brief 전반적인 배틀패스 정보를 업데이트 한다.
 -------------------------------------
 function TableBattlePass:updateTableMap()
+    self:initTables()
+
     -- 테이블 정보 그릇 초기화
     self.m_battlePassInfoMap = {}
 

@@ -132,6 +132,8 @@ function ServerData_BattlePass:request_battlePassInfo(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        self.m_tPassData = ret
+
         if finish_cb then
             finish_cb(ret)
         end
