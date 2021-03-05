@@ -5,19 +5,35 @@ local PARENT = Structure
 -- @brief 
 -------------------------------------
 StructBattlePassInfo = class(PARENT, {
-        
-        m_curExp = 'number',
-        m_maxExp = 'number',
-
-        
+        -- 서버에서 받음
+        normal = 'table',
+        premium = 'table',
+        cur_level = 'number',
+        end_date = 'TimeStamp',
+        cur_exp = 'number',
+        start_date = 'TimeStamp',
+        is_premium = 'boolean',
     })
 
+local THIS = StructBattlePassInfo
 
+-------------------------------------
+-- function getThis
+-------------------------------------
+function StructBattlePassInfo:getThis()
+    return THIS
+end
+
+-------------------------------------
+-- function getClassName
+-------------------------------------
+function StructBattlePassInfo:getClassName()
+    return 'StructBattlePassInfo'
+end
 -------------------------------------
 -- function init
 -------------------------------------
 function StructBattlePassInfo:init(data)
-    self.m_RewardList = {}
 end
 
 -------------------------------------
@@ -25,27 +41,19 @@ end
 -- 전체 데이터 업뎃
 -------------------------------------
 function StructBattlePassInfo:updateInfo(data)
-    self.m_battlePassData = data
 end
 
 -------------------------------------
 -- function getRewardList
 -------------------------------------
-function StructBattlePassInfo:getRewardList(passId)
-    local tResult = {}
-    if (not self.m_RewardList) then return tResult end
-
-    return self.m_RewardList
+function StructBattlePassInfo:getRewardList(product_id)
 end
 
 -------------------------------------
 -- function getExp
--- curExp, maxExp 반환
+-- curExp, maxExp 한꺼번에 반환해도 됨
 -------------------------------------
 function StructBattlePassInfo:getExp()
-    if (not self.m_curExp or not self.m_maxExp) then return 0, 0 end
-
-    return self.m_curExp, self.m_maxExp
 end
 
 

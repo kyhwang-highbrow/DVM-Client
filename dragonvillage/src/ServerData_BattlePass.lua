@@ -7,7 +7,9 @@ ServerData_BattlePass = class({
         m_serverData = 'ServerData',
 
         m_battlePassTable = 'TableBattlePass',
-        m_tPassData = 'StructBattlePassInfo',
+        -- StructBattlePassInfo Map
+        -- keyword : product id
+        m_tPassData = 'map',
     })
 
 -------------------------------------
@@ -25,11 +27,11 @@ end
 -- function isPurchased
 -- 결제 여부
 -------------------------------------
-function ServerData_BattlePass:isPurchased(pass_id)
-    local t_data = m_tPassData[tostring(pass_id)]
+function ServerData_BattlePass:isPurchased(product_id)
+    local t_data = m_tPassData[tostring(product_id)]
 
     if (not t_data or t_data['is_premium']) then return false end
-    if (not m_tPassData[pass_id]['is_premium'] ~= 1) then return false end
+    if (not m_tPassData[product_id]['is_premium'] ~= 1) then return false end
 
     -- 1:결제O or 0:결제X
     return true
@@ -39,7 +41,7 @@ end
 -- function getNormalList
 -- 일반보상 리스트
 -------------------------------------
-function ServerData_BattlePass:getNormalList(pass_id)
+function ServerData_BattlePass:getNormalList(product_id)
     return self.m_battlePassTable:getNormalRewardList()
 end
 
@@ -47,7 +49,7 @@ end
 -- function getPremiumList
 -- 패스보상 리스트
 -------------------------------------
-function ServerData_BattlePass:getPremiumList(pass_id)
+function ServerData_BattlePass:getPremiumList(product_id)
     return self.m_battlePassTable:getPremiumRewardList()
 end
 
@@ -56,7 +58,7 @@ end
 -- function getRewardedNormalList
 -- 받은 일반보상 리스트
 -------------------------------------
-function ServerData_BattlePass:getRewardedNormalList(pass_id)
+function ServerData_BattlePass:getRewardedNormalList(product_id)
     
 end
 
@@ -64,7 +66,7 @@ end
 -- function getRewardedPremiumList
 -- 받은 패스보상 리스트
 -------------------------------------
-function ServerData_BattlePass:getRewardedPremiumList(pass_id)
+function ServerData_BattlePass:getRewardedPremiumList(product_id)
     
 end
 
@@ -72,7 +74,7 @@ end
 -- function getMaxLevel
 -- 달성할 수 있는 맥스 레벨
 -------------------------------------
-function ServerData_BattlePass:getMaxLevel(pass_id)
+function ServerData_BattlePass:getMaxLevel(product_id)
     
 end
 
@@ -80,7 +82,7 @@ end
 -- function getCurLevel
 -- 현재 유저 레벨
 -------------------------------------
-function ServerData_BattlePass:getCurLevel(pass_id)
+function ServerData_BattlePass:getCurLevel(product_id)
     
 end
 
@@ -88,7 +90,7 @@ end
 -- function getTotalExp
 -- 현재 유저 경험치
 -------------------------------------
-function ServerData_BattlePass:getTotalExp(pass_id)
+function ServerData_BattlePass:getTotalExp(product_id)
     
 end
 
@@ -96,7 +98,7 @@ end
 -- function getRequiredExpForLevelUp
 -- 레벨업에 필요한 경험치
 -------------------------------------
-function ServerData_BattlePass:getRequiredExpForLevelUp(pass_id)
+function ServerData_BattlePass:getRequiredExpForLevelUp(product_id)
     
 end
 
@@ -104,7 +106,7 @@ end
 -- function getExp
 -- 레벨 구간 기준 현재 유저 경험치
 -------------------------------------
-function ServerData_BattlePass:getExp(pass_id)
+function ServerData_BattlePass:getExp(product_id)
     
 end
 
@@ -112,7 +114,7 @@ end
 -- function getRemainTimeStr
 -- 남은 시간
 -------------------------------------
-function ServerData_BattlePass:getRemainTimeStr(pass_id)
+function ServerData_BattlePass:getRemainTimeStr(product_id)
     
 end
 
@@ -132,7 +134,9 @@ function ServerData_BattlePass:request_battlePassInfo(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        self.m_tPassData = ret
+        self:updateBattlePassInfo(ret['battle_pass_info'])
+
+        ccdump(self.m_tPassData)
 
         if finish_cb then
             finish_cb(ret)
@@ -182,16 +186,17 @@ function ServerData_BattlePass:request_battlePremiumReward(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function updateBattlePathInfo
+-- function updateBattlePassInfo
 -- 전체 정보 업데이트
 -------------------------------------
-function ServerData_BattlePass:updateBattlePathInfo(data)
-    if (not data) then return end
-    m_tPassData = {}
+function ServerData_BattlePass:updateBattlePassInfo(data)
+    self.m_tPassData = {}
 
-    for id, tData in data do
+    if (not data) then return self.m_tPassData end
+
+    for id, tData in pairs(data) do
         if (tData) then
-            m_tPassData[id] = StructBattlePassInfo(tData)
+            self.m_tPassData[tostring(id)] = StructBattlePassInfo(tData)
         end
     end
 end
