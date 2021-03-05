@@ -22,6 +22,7 @@ local L_KEY_INDEX = {
 
 	'ancient_score',
 	'tier',
+    'arena_new_tier',
 	'pvp_cnt',
 	'pvp_win',
 }
@@ -40,6 +41,7 @@ local L_KEY_INDEX_VISIT = {
 
 	'ancient_score',
 	'tier',
+    'arena_new_tier',
 	'pvp_cnt',
 	'pvp_win',
 }
@@ -389,8 +391,11 @@ function UI_UserInfoDetailPopup:makeContextByTitle(key, value)
 
 		str = string.format('%.2f%%', value)
 
+	elseif (key == 'arena_new_tier') then
+		str = StructUserInfoArenaNew:getTierName(value)
+
 	elseif (key == 'tier') then
-		str = StructUserInfoArena:getTierName(value)
+		str = StructUserInfoArenaNew:getTierName(value)
 
 	elseif (key == 'created_at') then
 		-- 날짜 정보 세팅
