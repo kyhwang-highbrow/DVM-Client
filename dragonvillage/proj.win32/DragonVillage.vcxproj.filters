@@ -4914,6 +4914,11 @@
     </None>
     <None Include="..\src\ServerData_BattlePass.lua" />
     <None Include="..\src\StructBattlePassInfo.lua" />
+    <None Include="..\src\UI_BattlePassTabButton.lua" />
+    <None Include="..\src\UI_BattlePassPopup.lua" />
+    <None Include="..\src\UI_BattlePass_NurtureCell.lua" />
+    <None Include="..\src\UI_BattlePass_Nurture.lua" />
+    <None Include="..\src\TableBattlePass.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

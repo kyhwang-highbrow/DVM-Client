@@ -953,6 +953,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\Table.lua" />
     <None Include="..\src\TableAlphabetEvent.lua" />
     <None Include="..\src\TableArenaWinReward.lua" />
+    <None Include="..\src\TableBattlePass.lua" />
     <None Include="..\src\TableCalendar.lua" />
     <None Include="..\src\TableClanMark.lua" />
     <None Include="..\src\TableClanMarkCustom.lua" />
@@ -1186,6 +1187,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_BattleMenuItem_Clan.lua" />
     <None Include="..\src\UI_BattleMenuItem_Competition.lua" />
     <None Include="..\src\UI_BattleMenuItem_Dungeon.lua" />
+    <None Include="..\src\UI_BattlePassPopup.lua" />
+    <None Include="..\src\UI_BattlePassTabButton.lua" />
+    <None Include="..\src\UI_BattlePass_Nurture.lua" />
+    <None Include="..\src\UI_BattlePass_NurtureCell.lua" />
     <None Include="..\src\UI_BlockSplashPopup.lua" />
     <None Include="..\src\UI_Book.lua" />
     <None Include="..\src\UI_BookDetailPopup.lua" />

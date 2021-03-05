@@ -49,8 +49,10 @@ MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'camera_move_right'
 MAP_KEY_FUNC[KEY_UP_ARROW] = 'camera_move_up'
 MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
 ]]--
+MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'kill_one_enemy_dragon'
 MAP_KEY_FUNC[KEY_LEFT_ARROW] = 'kill_one_dragon'
 MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'print_skill_info'
+
 
 -- 테스트
 MAP_KEY_FUNC[KEY_5] = 'test_1'
@@ -532,6 +534,19 @@ end
 -------------------------------------
 function GameWorld:kill_one_dragon(dragon)
     for i, v in ipairs(self:getDragonList()) do
+        if (not v:isDead()) then
+            v:doDie()
+            break
+        end
+    end
+end
+
+-------------------------------------
+-- function kill_one_enemy_dragon
+-- @brief 아군 하나 죽이기
+-------------------------------------
+function GameWorld:kill_one_enemy_dragon(dragon)
+    for i, v in ipairs(self:getEnemyList()) do
         if (not v:isDead()) then
             v:doDie()
             break

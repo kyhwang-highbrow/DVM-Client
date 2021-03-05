@@ -63,3 +63,91 @@ function ServerData_BattlePass:getExp()
     return self.m_battlePathInfo:getExp()
 end
 
+-------------------------------------
+-- function getRemainTime
+-------------------------------------
+function ServerData_BattlePass:getRemainTime()
+    --Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
+    local tResult = {}
+    if (not self.m_battlePathInfo) then return tResult end
+
+    return self.m_battlePathInfo:getRemainTime()
+end
+
+-------------------------------------
+-- function getExp
+-- curExp, maxExp 반환
+-------------------------------------
+function ServerData_BattlePass:getNormalRewardInfo()
+    if (not self.m_battlePathInfo) then return 0, 0 end
+
+    return self.m_battlePathInfo:getExp()
+end
+
+-------------------------------------
+-- function getExp
+-- curExp, maxExp 반환
+-------------------------------------
+function ServerData_BattlePass:getSpecialRewardInfo()
+    if (not self.m_battlePathInfo) then return 0, 0 end
+
+    return self.m_battlePathInfo:getExp()
+end
+
+-------------------------------------
+-- function request_battlePassInfo
+-------------------------------------
+function ServerData_BattlePass:request_battlePassInfo(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/battle_pass/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_battlePassReward
+-------------------------------------
+function ServerData_BattlePass:request_battlePassReward(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/battle_pass/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
