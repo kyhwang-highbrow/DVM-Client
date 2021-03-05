@@ -105,7 +105,7 @@ function ServerData_BattlePass:getRequiredExpForLevelUp(pass_id)
 end
 
 -------------------------------------
--- function getCurLevel
+-- function getExp
 -- 레벨 구간 기준 현재 유저 경험치
 -------------------------------------
 function ServerData_BattlePass:getExp(pass_id)
@@ -113,7 +113,7 @@ function ServerData_BattlePass:getExp(pass_id)
 end
 
 -------------------------------------
--- function getCurLevel
+-- function getRemainTimeStr
 -- 남은 시간
 -------------------------------------
 function ServerData_BattlePass:getRemainTimeStr(pass_id)
