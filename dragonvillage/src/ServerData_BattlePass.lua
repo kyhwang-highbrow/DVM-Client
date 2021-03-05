@@ -6,10 +6,8 @@
 ServerData_BattlePass = class({
         m_serverData = 'ServerData',
 
-        m_battlePassInfo = 'StructBattlePassInfo',
-        m_packageTable = 'TableBattlePass',
-        m_tPassData = 'table',  -- StructBattlePassInfo
-        m_focusingPathId = '',
+        m_battlePassTable = 'TableBattlePass',
+        m_tPassData = 'StructBattlePassInfo',
     })
 
 -------------------------------------
@@ -17,7 +15,7 @@ ServerData_BattlePass = class({
 -------------------------------------
 function ServerData_BattlePass:init(server_data)
     self.m_serverData = server_data
-    self.m_packageTable = TableBattlePass()
+    self.m_battlePassTable = TableBattlePass()
     self.m_tPassData = {}
 end
 
@@ -44,7 +42,7 @@ end
 function ServerData_BattlePass:getNormalList(pass_id)
     local resultList = {}
     
-    if (self.m_packageTable) then
+    if (self.m_battlePassTable) then
         
     end
 
@@ -132,7 +130,7 @@ end
 -------------------------------------
 function ServerData_BattlePass:request_battlePassInfo(finish_cb, fail_cb)
     -- 테이블 정보 한번 업뎃해주기
-    self.m_packageTable:updateTableMap()
+    self.m_battlePassTable:updateTableMap()
 
     -- 유저 ID
     local uid = g_userData:get('uid')
