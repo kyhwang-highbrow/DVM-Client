@@ -205,6 +205,10 @@ local TableInfo_fromServer = {
         ['table_rune_opt_status'] = {'table_rune_opt_status', 'id'}, -- 옵션 최대치
         ['table_supply'] = {'table_supply', 'supply_id'}, -- 보급소(정액제)
         ['table_newcomer_shop'] = {'table_newcomer_shop', 'ncm_id'}, -- 초보자 선물(신규 유저 전용 상점)
+
+        -- 배틀패스
+        ['table_battle_pass'] = {'table_battle_pass', 'index'},
+        ['table_battle_pass_reward'] = {'table_battle_pass_reward', 'id'},
     }
 
 -------------------------------------
@@ -304,7 +308,6 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
     -- window
     local content = TABLE:loadTableFile(filename, '.csv')
     if (content == nil) then
-        cclog('failed to load table file(' .. filename .. ')')
         return
     end
 
@@ -362,9 +365,9 @@ function TABLE:loadTableFile(filename, extension)
         end
     end
 
-    -- data에서 파일 로드
     if not content then
         local path = 'data/' .. filename .. extension
+
         if LuaBridge:isFileExist(path) then
             local filePath = LuaBridge:fullPathForFilename(path)
             if (filePath ~= path) then

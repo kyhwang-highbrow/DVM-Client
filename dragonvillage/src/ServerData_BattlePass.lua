@@ -19,8 +19,6 @@ function ServerData_BattlePass:init(server_data)
     self.m_serverData = server_data
     self.m_packageTable = TableBattlePass()
     self.m_tPassData = {}
-    
-    --self.m_battlePassInfo:updateInfo(self:generateTestData())
 end
 
 
@@ -44,7 +42,12 @@ end
 -- 일반보상 리스트
 -------------------------------------
 function ServerData_BattlePass:getNormalList(pass_id)
+    local resultList = {}
     
+    if (self.m_packageTable) then
+        
+    end
+
 end
 
 -------------------------------------
@@ -128,6 +131,9 @@ end
 -- function request_battlePassInfo
 -------------------------------------
 function ServerData_BattlePass:request_battlePassInfo(finish_cb, fail_cb)
+    -- 테이블 정보 한번 업뎃해주기
+    self.m_packageTable:updateTableMap()
+
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -153,9 +159,9 @@ function ServerData_BattlePass:request_battlePassInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_battlePassReward
+-- function request_battlePremiumReward
 -------------------------------------
-function ServerData_BattlePass:request_battlePassReward(finish_cb, fail_cb)
+function ServerData_BattlePass:request_battlePremiumReward(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
