@@ -9,15 +9,14 @@ StructBattlePassInfo = class(PARENT, {
         m_curExp = 'number',
         m_maxExp = 'number',
 
-        m_RewardList = 'table',     -- 보상 테이블
-
+        
     })
 
 
 -------------------------------------
 -- function init
 -------------------------------------
-function StructBattlePassInfo:init()
+function StructBattlePassInfo:init(data)
     self.m_RewardList = {}
 end
 
@@ -26,16 +25,13 @@ end
 -- 전체 데이터 업뎃
 -------------------------------------
 function StructBattlePassInfo:updateInfo(data)
-    self.m_curExp = data['cur_exp']
-    self.m_maxExp = data['max_exp']
-
-    self.m_RewardList = data['item_list']
+    self.m_battlePassData = data
 end
 
 -------------------------------------
 -- function getRewardList
 -------------------------------------
-function StructBattlePassInfo:getRewardList()
+function StructBattlePassInfo:getRewardList(passId)
     local tResult = {}
     if (not self.m_RewardList) then return tResult end
 

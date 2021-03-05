@@ -6,8 +6,10 @@
 ServerData_BattlePass = class({
         m_serverData = 'ServerData',
 
-        m_battlePathInfo = 'StructBattlePassInfo',
-
+        m_battlePassInfo = 'StructBattlePassInfo',
+        m_packageTable = 'TableBattlePass',
+        m_tPassData = 'table',  -- StructBattlePassInfo
+        m_focusingPathId = '',
     })
 
 -------------------------------------
@@ -15,85 +17,113 @@ ServerData_BattlePass = class({
 -------------------------------------
 function ServerData_BattlePass:init(server_data)
     self.m_serverData = server_data
-    self.m_battlePathInfo = StructBattlePassInfo()
+    self.m_packageTable = TableBattlePass()
+    self.m_tPassData = {}
+    
+    --self.m_battlePassInfo:updateInfo(self:generateTestData())
+end
 
-    -- 테스트 데이터
-    -- 필요한것을 아래에 가라로 집어넣으면 됨
-    local t_fake_info = {}
-    t_fake_info["isPurchased"] = true
-    t_fake_info["max_exp"] = 10000
-    t_fake_info["cur_exp"] = 10
 
-    t_fake_info["item_list"] = {
-        {itemIndex = 1, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
-        {itemIndex = 2, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
-        {itemIndex = 3, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
-        {itemIndex = 4, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
-        {itemIndex = 5, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
-        {itemIndex = 6, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
-        {itemIndex = 7, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
-        {itemIndex = 8, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
-        {itemIndex = 9, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
-        {itemIndex = 10, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true}
-    }
+-- getter, setter
+-------------------------------------
+-- function isPurchased
+-- 결제 여부
+-------------------------------------
+function ServerData_BattlePass:isPurchased(pass_id)
+    local t_data = m_tPassData[pass_id]
 
-    table.sort(t_fake_info["item_list"], function(a, b) return (tonumber(a['itemIndex']) < tonumber(b['itemIndex'])) end)
+    if (not t_data or t_data['is_premium']) then return false end
+    if (not m_tPassData[pass_id]['is_premium'] ~= 1) then return false end
 
-    self.m_battlePathInfo:updateInfo(t_fake_info)
+    -- 1:결제O or 0:결제X
+    return true
+end
+
+-------------------------------------
+-- function getNormalList
+-- 일반보상 리스트
+-------------------------------------
+function ServerData_BattlePass:getNormalList(pass_id)
+    
+end
+
+-------------------------------------
+-- function getPassList
+-- 패스보상 리스트
+-------------------------------------
+function ServerData_BattlePass:getPassList(pass_id)
+    
 end
 
 
 -------------------------------------
--- function getNormalRewardInfo
+-- function getNormalList
+-- 받은 일반보상 리스트
 -------------------------------------
-function ServerData_BattlePass:getRewardList()
-    local tResult = {}
-    if (not self.m_battlePathInfo) then return tResult end
-
-    return self.m_battlePathInfo:getRewardList()
+function ServerData_BattlePass:getNormalList(pass_id)
+    
 end
 
 -------------------------------------
--- function getExp
--- curExp, maxExp 반환
+-- function getPassList
+-- 받은 패스보상 리스트
 -------------------------------------
-function ServerData_BattlePass:getExp()
-    if (not self.m_battlePathInfo) then return 0, 0 end
-
-    return self.m_battlePathInfo:getExp()
+function ServerData_BattlePass:getPassList(pass_id)
+    
 end
 
 -------------------------------------
--- function getRemainTime
+-- function getMaxLevel
+-- 달성할 수 있는 맥스 레벨
 -------------------------------------
-function ServerData_BattlePass:getRemainTime()
-    --Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
-    local tResult = {}
-    if (not self.m_battlePathInfo) then return tResult end
-
-    return self.m_battlePathInfo:getRemainTime()
+function ServerData_BattlePass:getMaxLevel(pass_id)
+    
 end
 
 -------------------------------------
--- function getExp
--- curExp, maxExp 반환
+-- function getCurLevel
+-- 현재 유저 레벨
 -------------------------------------
-function ServerData_BattlePass:getNormalRewardInfo()
-    if (not self.m_battlePathInfo) then return 0, 0 end
-
-    return self.m_battlePathInfo:getExp()
+function ServerData_BattlePass:getCurLevel(pass_id)
+    
 end
 
 -------------------------------------
--- function getExp
--- curExp, maxExp 반환
+-- function getTotalExp
+-- 현재 유저 경험치
 -------------------------------------
-function ServerData_BattlePass:getSpecialRewardInfo()
-    if (not self.m_battlePathInfo) then return 0, 0 end
-
-    return self.m_battlePathInfo:getExp()
+function ServerData_BattlePass:getTotalExp(pass_id)
+    
 end
 
+-------------------------------------
+-- function getRequiredExpForLevelUp
+-- 레벨업에 필요한 경험치
+-------------------------------------
+function ServerData_BattlePass:getRequiredExpForLevelUp(pass_id)
+    
+end
+
+-------------------------------------
+-- function getCurLevel
+-- 레벨 구간 기준 현재 유저 경험치
+-------------------------------------
+function ServerData_BattlePass:getExp(pass_id)
+    
+end
+
+-------------------------------------
+-- function getCurLevel
+-- 남은 시간
+-------------------------------------
+function ServerData_BattlePass:getRemainTimeStr(pass_id)
+    
+end
+
+
+
+
+-- server communication
 -------------------------------------
 -- function request_battlePassInfo
 -------------------------------------
@@ -103,8 +133,6 @@ function ServerData_BattlePass:request_battlePassInfo(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        
-
         if finish_cb then
             finish_cb(ret)
         end
@@ -150,4 +178,50 @@ function ServerData_BattlePass:request_battlePassReward(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function updateBattlePathInfo
+-- 전체 정보 업데이트
+-------------------------------------
+function ServerData_BattlePass:updateBattlePathInfo(data)
+    if (not data) then return end
+    m_tPassData = {}
+
+    for id, tData in data do
+        if (tData) then
+            m_tPassData[id] = StructBattlePassInfo(tData)
+        end
+    end
+end
+
+-------------------------------------
+-- function generateTestData
+-- 테스트 데이터 만들어서 반환
+-------------------------------------
+function ServerData_BattlePass:generateTestData()
+
+    -- 테스트 데이터
+    -- 필요한것을 아래에 가라로 집어넣으면 됨
+    local t_fake_info = {}
+    t_fake_info["isPurchased"] = true
+    t_fake_info["max_exp"] = 10000
+    t_fake_info["cur_exp"] = 10
+
+    t_fake_info["item_list"] = {
+        {itemIndex = 1, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
+        {itemIndex = 2, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
+        {itemIndex = 3, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
+        {itemIndex = 4, item_normal = "779255;1", item_pass = "703016;3", isReceived = true, isPassReceived = true},
+        {itemIndex = 5, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
+        {itemIndex = 6, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
+        {itemIndex = 7, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
+        {itemIndex = 8, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
+        {itemIndex = 9, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true},
+        {itemIndex = 10, item_normal = "779255;1", item_pass = "703016;3", isReceived = false, isPassReceived = true}
+    }
+
+    table.sort(t_fake_info["item_list"], function(a, b) return (tonumber(a['itemIndex']) < tonumber(b['itemIndex'])) end)
+
+    return t_fake_info
 end
