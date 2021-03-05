@@ -438,6 +438,7 @@ local t_module = {
     'TableSkillSound',
     'TableEvolutionItemCombine',
     'TablePackageBundle',
+    'TableBattlePass',
     'TableClanMark',
 	'TableClanMarkCustom',
 	'TableDailyMission',
