@@ -26,7 +26,7 @@ end
 -- 결제 여부
 -------------------------------------
 function ServerData_BattlePass:isPurchased(pass_id)
-    local t_data = m_tPassData[pass_id]
+    local t_data = m_tPassData[tostring(pass_id)]
 
     if (not t_data or t_data['is_premium']) then return false end
     if (not m_tPassData[pass_id]['is_premium'] ~= 1) then return false end
@@ -40,36 +40,31 @@ end
 -- 일반보상 리스트
 -------------------------------------
 function ServerData_BattlePass:getNormalList(pass_id)
-    local resultList = {}
-    
-    if (self.m_battlePassTable) then
-        
-    end
-
+    return self.m_battlePassTable:getNormalRewardList()
 end
 
 -------------------------------------
--- function getPassList
+-- function getPremiumList
 -- 패스보상 리스트
 -------------------------------------
-function ServerData_BattlePass:getPassList(pass_id)
-    
+function ServerData_BattlePass:getPremiumList(pass_id)
+    return self.m_battlePassTable:getPremiumRewardList()
 end
 
 
 -------------------------------------
--- function getNormalList
+-- function getRewardedNormalList
 -- 받은 일반보상 리스트
 -------------------------------------
-function ServerData_BattlePass:getNormalList(pass_id)
+function ServerData_BattlePass:getRewardedNormalList(pass_id)
     
 end
 
 -------------------------------------
--- function getPassList
+-- function getRewardedPremiumList
 -- 받은 패스보상 리스트
 -------------------------------------
-function ServerData_BattlePass:getPassList(pass_id)
+function ServerData_BattlePass:getRewardedPremiumList(pass_id)
     
 end
 
