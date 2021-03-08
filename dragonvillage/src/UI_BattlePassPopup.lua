@@ -111,7 +111,7 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePassPopup:initTableView()
 
-    local l_item_list = g_shopDataNew:getProductList('etc')
+    local l_item_list = g_shopDataNew:getProductList('pass')
     local tableView = UIC_TableView(self.m_listNode)
 
     -- TODO (YOUNGJIN) : ui 파일에서 노드 생성후 사이즈 적용으로 바꾸기

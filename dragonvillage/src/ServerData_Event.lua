@@ -469,10 +469,10 @@ function ServerData_Event:checkEventTime(start_date, end_date, optional_data)
 end
 
 -------------------------------------
--- function checkEtcTime
+-- function checkPassTime
 -- @brief true : 활성화, false : 비활성화
 -------------------------------------
-function ServerData_Event:checkEtcTime(start_date, end_date, optional_data)
+function ServerData_Event:checkPassTime(start_date, end_date, optional_data)
     local start_time
     local end_time
     local cur_time = Timer:getServerTime()

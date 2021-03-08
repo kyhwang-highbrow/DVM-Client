@@ -46,7 +46,7 @@ function UI_BattlePassTabButton:initUI()
     -- 버튼 이름 (패키지 번들 참조)
 
     local pid = self.m_structProduct['product_id']
-    local l_item_list = g_shopDataNew:getProductList('etc')
+    local l_item_list = g_shopDataNew:getProductList('pass')
     local name = l_item_list[pid]['t_name']
 
     if (name) then

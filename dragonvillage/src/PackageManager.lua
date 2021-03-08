@@ -139,7 +139,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
 
 
 
-        
+
 
     elseif (_package_name == 'battle_pass_nurture.ui') then
         local _struct_product = {}
@@ -271,9 +271,9 @@ function PackageManager:isExist(package_name)
     end
 
     
-    -- etc 검사 (배틀패스 포함)
-    local etc_product_list = g_shopDataNew:getProductList('etc')
-    for key, data in pairs(etc_product_list) do 
+    -- pass  검사 (배틀패스 포함)
+    local pass_product_list = g_shopDataNew:getProductList('pass')
+    for key, data in pairs(pass_product_list) do 
         if data['package_res'] == package_name then
             return true
         end
