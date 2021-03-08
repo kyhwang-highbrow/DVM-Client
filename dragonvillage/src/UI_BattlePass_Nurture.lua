@@ -19,7 +19,10 @@ UI_BattlePass_Nurture = class(PARENT, {
     m_listNode = 'cc.Node',
     m_itemNode = 'cc.Node',
 
+    m_timeLabel = '',
+
     m_levelExpBar = 'cc.Node',          -- 레벨당 경험치바 (게이지)
+    m_originTotalExpScale = 'number',
     m_totalExpBar = 'cc.Node',          -- 패스 전체 경험치바 (게이지)
 
     m_questBtn = '',
@@ -28,10 +31,13 @@ UI_BattlePass_Nurture = class(PARENT, {
     m_normalRewardBtn = '',
     m_passRewardBtn = '',
 
-    
+    m_originNextPointStr = '',
     m_nextPointLabel = '',
     
+    m_originLevelStr = '',
     m_levelLabel = '',
+
+    m_originNextLevelStr = '',
     m_nextLevelLabel = '',
 })
 
@@ -110,11 +116,14 @@ function UI_BattlePass_Nurture:initMember(struct_product)
     self.m_normal_key = 'normal'
     self.m_premium_key = 'premium'
 
+    
 
     self.m_listNode = vars['listNode']
     self.m_itemNode = vars['itemNode']
     self.m_levelExpBar = vars['nextLevelGauge']
     self.m_totalExpBar = vars['passGauge']
+
+    self.m_originTotalExpScale = self.m_totalExpBar:getScaleX()
 
     self.m_questBtn = vars['questBtn']
     self.m_infoBtn = vars['infoBtn']
@@ -122,10 +131,15 @@ function UI_BattlePass_Nurture:initMember(struct_product)
     self.m_normalRewardBtn = vars['normalRewardBtn']
     self.m_passRewardBtn = vars['passRewardBtn']
 
-    
+    self.m_timeLabel = vars['timeLabel']
     self.m_nextPointLabel = vars['nextPointLabel']
     self.m_nextLevelLabel = vars['nextLevelLabel']
     self.m_levelLabel = vars['levelLabel']
+
+    self.m_originNextPointStr = self.m_nextPointLabel:getString()
+    
+    self.m_originLevelStr = self.m_nextLevelLabel:getString()
+    self.m_originNextLevelStr = self.m_levelLabel:getString()
 end
 
 --------------------------------------------------------------------------
@@ -169,7 +183,7 @@ function UI_BattlePass_Nurture:updateProgressBar()
     local percent = (g_battlePassData:getUserExpPerLevel(self.m_pass_id) / g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)) * 100
     self.m_levelExpBar:setPercentage(percent)
 
-    local scale = self.m_totalExpBar:getScaleX() * g_battlePassData:getLevelNum(self.m_pass_id)
+    local scale = self.m_originTotalExpScale * g_battlePassData:getLevelNum(self.m_pass_id)
     self.m_totalExpBar:setScaleX(scale)
 
     local user_exp = g_battlePassData:getUserExp(self.m_pass_id)
@@ -184,14 +198,16 @@ end
 
 function UI_BattlePass_Nurture:updateTextLabel()
 
-    self.m_nextPointLabel:setString(Str(self.m_nextPointLabel:getString(), 
+    self.m_timeLabel:setString(g_battlePassData:getRemainTimeStr(self.m_pass_id))
+
+    self.m_nextPointLabel:setString(Str(self.m_originNextPointStr, 
             g_battlePassData:getUserExpPerLevel(self.m_pass_id),
             g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)))
 
     local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
 
-    self.m_nextLevelLabel:setString(Str(self.m_nextLevelLabel:getString(), userLevel + 1))
-    self.m_levelLabel:setString(Str(self.m_levelLabel:getString(), userLevel))
+    self.m_nextLevelLabel:setString(Str(self.m_originNextLevelStr, userLevel + 1))
+    self.m_levelLabel:setString(Str(self.m_originLevelStr, userLevel))
 end
 
 
@@ -303,7 +319,9 @@ end
 function UI_BattlePass_Nurture:click_normalRewardBtn()
    
     local function finish_cb(ret)
-        --g_serverData:receiveReward(ret)
+        if(ret['added_items']) then
+            g_serverData:receiveReward(ret)
+        end
 
         for i, v in ipairs(self.m_tableView.m_itemList) do
             local ui = v['ui'] or v['generated_ui']
@@ -329,7 +347,9 @@ end
 function UI_BattlePass_Nurture:click_passRewardBtn()
     
     local function finish_cb(ret)
-            --g_serverData:receiveReward(ret)
+        if(ret['added_items']) then
+            g_serverData:receiveReward(ret)
+        end
        
         for i, v in ipairs(self.m_tableView.m_itemList) do
             local ui = v['ui'] or v['generated_ui']

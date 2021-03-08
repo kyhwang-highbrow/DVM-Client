@@ -16,8 +16,6 @@ UI_PackagePopup = class(PARENT,{
 function UI_PackagePopup:init(initial_tab)
     self.m_initial_tab = initial_tab
 
-    ccdump(initial_tab)
-
     local vars = self:load('shop_package.ui')
     UIManager:open(self, UIManager.SCENE)
 

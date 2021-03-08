@@ -12,10 +12,14 @@ UI_Package_Bundle = class(PARENT,{
         m_package_name = 'string',
     })
 
+
+
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_Package_Bundle:init(package_name, is_popup)
+    
+    ccdump('UI_Package_Bundle:init')
     self.m_package_name = package_name
     local vars = self:load(string.format('%s.ui', package_name))
     self.m_data = TablePackageBundle:getDataWithName(package_name) 
@@ -41,6 +45,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_Package_Bundle:initUI()
+    ccdump('UI_Package_Bundle:initUI')
     local vars = self.vars
     if (not self.m_isPopup) then
         vars['closeBtn']:setVisible(false)
@@ -75,6 +80,7 @@ end
 -- function initButton
 -------------------------------------
 function UI_Package_Bundle:initButton()
+    ccdump('UI_Package_Bundle:initButton')
     local vars = self.vars
     local t_pids = self.m_pids
 

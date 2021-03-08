@@ -13,6 +13,7 @@ UI_Package = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_Package:init(struct_product, is_popup)
+    ccdump('UI_Package:init')
     local ui_name = struct_product and struct_product['package_res']
     if (not ui_name) then 
         return 
