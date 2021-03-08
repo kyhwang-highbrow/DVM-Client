@@ -36,6 +36,13 @@ function UI_MailRewardPopup:initUI()
     local vars = self.vars
     local item_info = self.m_itemInfo
 
+    -- 아이템이 리스트 형태로 내려왔을 수도 있다.
+    if (item_info and not item_info['item_id']) then
+        for _, v in ipairs(item_info) do
+            if (v) then item_info = v end
+        end
+    end
+
     if (item_info) then
         local id = item_info['item_id']
         local cnt = item_info['count']
