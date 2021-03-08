@@ -498,6 +498,8 @@ function UI_QuestListItem:click_questLinkBtn(ui_quest_popup)
 
     -- 퀘스트 팝업은 꺼버린다.
     if (ui_quest_popup and ui_quest_popup.closed == false) then
+        popupUI:setCloseCB(nil)
+
         ui_quest_popup:close()
     end
 end
