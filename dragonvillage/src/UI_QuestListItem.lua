@@ -493,13 +493,11 @@ function UI_QuestListItem:click_questLinkBtn(ui_quest_popup)
 			return
         end
     end
-    
-    QuickLinkHelper.quickLink(clear_type)
 
     -- 퀘스트 팝업은 꺼버린다.
     if (ui_quest_popup and ui_quest_popup.closed == false) then
-        popupUI:setCloseCB(nil)
-
-        ui_quest_popup:close()
+        ui_quest_popup:closeWithoutCB()
     end
+
+    QuickLinkHelper.quickLink(clear_type)
 end
