@@ -136,11 +136,10 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
         require('UI_Package_DragonChoiceHero')
         target_ui = UI_Package_DragonChoiceHero(_package_name, is_popup)
 
-    -- TODO (YOUNGJIN) : NEED TO REMOVE 배틀 패스
-    elseif(_package_name == 'package_battle_pass') then
-        local _struct_product = {}
+
+
+
         
-        target_ui = UI_BattlePass_Nurture(_struct_product, is_popup)
 
     elseif (_package_name == 'battle_pass_nurture.ui') then
         local _struct_product = {}
