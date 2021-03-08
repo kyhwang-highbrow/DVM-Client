@@ -5,14 +5,20 @@ local PARENT = UI
 -------------------------------------
 UI_EventPopupTab_Package = class(PARENT,{
         m_package_name = 'string',
+        m_product_id = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopupTab_Package:init(package_name)
+function UI_EventPopupTab_Package:init(package_name, product_id)
     local vars = self:load('event_shop.ui')
     self.m_package_name = package_name
+    if product_id then 
+        self.m_product_id = product_id
+    else 
+        self.m_product_id = -1
+    end
 
     self:initUI()
 	self:initButton()
@@ -26,7 +32,12 @@ function UI_EventPopupTab_Package:initUI()
 	local package_name = self.m_package_name
 
     local is_popup = false
-    local ui = PackageManager:getTargetUI(package_name, is_popup)
+    local ui = nil
+    if self.m_product_id > 0 then 
+        ui = PackageManager:getTargetUI(package_name, is_popup, self.m_product_id)
+    else 
+        ui = PackageManager:getTargetUI(package_name, is_popup)
+    end
     
     self:setAfter(ui)
 

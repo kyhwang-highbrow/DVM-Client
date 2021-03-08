@@ -6,7 +6,7 @@ PackageManager = {}
 -- @param package_name : table_bundle_package에 등록된 패키지 네임
 -- @param is_popup : true - 팝업, false - 이벤트 탭에 등록 (종료 버튼 없음)
 -------------------------------------
-function PackageManager:getTargetUI(package_name, is_popup)
+function PackageManager:getTargetUI(package_name, is_popup, product_id)
     local target_ui = nil
     local _package_name = package_name
     
@@ -25,7 +25,7 @@ function PackageManager:getTargetUI(package_name, is_popup)
         package_name = TablePackageBundle:getPackageNameWithPid(pid)   
         _package_name = package_name
     end
-
+    
     -- 서버에서 받은 상품 정보가 없다면 nil 반환
     if (self:isExist(package_name) == false) then
         return nil
@@ -139,6 +139,19 @@ function PackageManager:getTargetUI(package_name, is_popup)
     -- TODO (YOUNGJIN) : NEED TO REMOVE 배틀 패스
     elseif(_package_name == 'package_battle_pass') then
         local _struct_product = {}
+        
+        target_ui = UI_BattlePass_Nurture(_struct_product, is_popup)
+
+    elseif (_package_name == 'battle_pass_nurture.ui') then
+        local _struct_product = {}
+        _struct_product['product_id'] = product_id
+        _struct_product['ui_file_name'] = _package_name
+        target_ui = UI_BattlePass_Nurture(_struct_product, is_popup)
+
+    elseif (_package_name == 'battle_pass_nurture_premium.ui') then
+        local _struct_product = {}
+        _struct_product['product_id'] = product_id
+        _struct_product['ui_file_name'] = _package_name
         target_ui = UI_BattlePass_Nurture(_struct_product, is_popup)
 
     -- 패키지 상품 묶음 UI 
@@ -180,6 +193,7 @@ end
 -- @brief 묶음 UI에서 상품정보가 하나라도 있는지 (모두 구매해서 없거나, 기간이 자니서 없거나 하는 경우)
 -------------------------------------
 function PackageManager:isExist(package_name)
+    
     -- 레벨업 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-10-25
     if (package_name == 'package_levelup') then
         return g_levelUpPackageData:isVisibleAtPackageShop(LEVELUP_PACKAGE_PRODUCT_ID)
@@ -254,6 +268,15 @@ function PackageManager:isExist(package_name)
     for _, pid in ipairs(target_product) do
         if (l_shop_list[tonumber(pid)]) then
             is_exist = true
+        end
+    end
+
+    
+    -- etc 검사 (배틀패스 포함)
+    local etc_product_list = g_shopDataNew:getProductList('etc')
+    for key, data in pairs(etc_product_list) do 
+        if data['package_res'] == package_name then
+            return true
         end
     end
 

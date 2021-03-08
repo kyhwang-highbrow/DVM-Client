@@ -369,8 +369,8 @@ function ServerData_BattlePass:request_allRewards(pid, type, finish_cb, fail_cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('pid', pid)
     --  normal, premium, all
-    ui_network:setParam('type', 'all')
-    ui_network:setParam('level', 0)
+    ui_network:setParam('type', type)
+    ui_network:setParam('level', -1)
 
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)

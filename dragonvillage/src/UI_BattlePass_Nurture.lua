@@ -50,7 +50,7 @@ UI_BattlePass_Nurture = class(PARENT, {
 function UI_BattlePass_Nurture:init(struct_product, is_popup)
     self.m_isPopup = is_popup or false
 
-    local vars = self:load('battle_pass_nurture.ui')
+    local vars = self:load(struct_product['ui_file_name'])
     -- if(self.m_isPopup) then
     --     UIManager:open(self, UIManager.POPUP)
     --     g_currScene.pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_BattlePass_Nurture')
@@ -59,7 +59,7 @@ function UI_BattlePass_Nurture:init(struct_product, is_popup)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initMember()
+    self:initMember(struct_product)
     self:initUI()
     self:initButton()
     self:refresh()
@@ -117,10 +117,10 @@ end
 -- @param 
 -- @brief
 --------------------------------------------------------------------------
-function UI_BattlePass_Nurture:initMember()
+function UI_BattlePass_Nurture:initMember(struct_product)
     local vars = self.vars
 
-    self.m_pass_id = 121701
+    self.m_pass_id = struct_product['product_id']
     self.m_normal_key = 'normal'
     self.m_premium_key = 'premium'
 
@@ -242,6 +242,9 @@ function UI_BattlePass_Nurture:click_questBtn()
         -- ui 업뎃하는 로직을 집어넣는다.
         local function cb_popup_close()
             local function cb_finish(ret)
+                
+                self:refresh()
+
                 for i, v in ipairs(self.m_tableView.m_itemList) do
                     local ui = v['ui'] or v['generated_ui']
                     if ui then
@@ -254,19 +257,13 @@ function UI_BattlePass_Nurture:click_questBtn()
                         end
                     end
                 end
-            
-                local isPurchased = g_battlePassData:isPurchased(self.m_pass_id)
-
-                self.m_buyBtn:setVisible(not isPurchased)
-                self.m_buyBtn:setEnabled(not isPurchased)
             end
 
             ItemObtainResult_Shop(ret, true) -- param : ret, show_all
             g_battlePassData:request_battlePassInfo(cb_finish)
-
         end
 
-        popupUI:setCloseCB(refresh_cb)
+        popupUI:setCloseCB(cb_popup_close)
     end
 end
 

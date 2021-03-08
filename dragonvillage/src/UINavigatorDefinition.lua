@@ -1661,23 +1661,14 @@ function UINavigatorDefinition:goTo_battle_pass_shop(...)
     end
 
     local function finish_cb()
-
-        -- 이벤트 팝업이 열려있을 경우
-        local is_opend, idx, ui = self:findOpendUI('UI_EventPopup')
+        -- 퀘스트 팝업이 열려있을 경우
+        local is_opened, idx, ui = self:findOpenedUI("UI_QuestPopup")
         if (is_opend == true) then
             self:closeUIList(idx)
             local ui = UI_BattlePassPopup(initial_tab)
             ui:setCloseCB(refresh_cb)
             return
         end
-
-        -- 상점이 열려있을 경우
-        local is_opend, idx, ui = self:findOpendUI('UI_Shop')
-        if (is_opend == true) then
-            self:closeUIList(idx)
-            local ui = UI_BattlePassPopup(initial_tab)
-            ui:setCloseCB(refresh_cb)
-            return
         end
 
         -- 로비가 열려있을 경우
@@ -1688,17 +1679,6 @@ function UINavigatorDefinition:goTo_battle_pass_shop(...)
             ui:setCloseCB(refresh_cb)
             return
         end
-
-        do -- Scene으로 동작
-            local function close_cb()
-                refresh_cb()
-                UINavigatorDefinition:goTo('lobby')
-            end
-
-            local scene = SceneCommon(UI_BattlePassPopup, close_cb, initial_tab)
-            scene:runScene()
-        end
-    end
 
     -- 정보 요청
     g_shopDataNew:request_shopInfo(finish_cb)

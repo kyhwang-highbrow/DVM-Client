@@ -244,7 +244,7 @@ function UI_BattlePass_NurtureCell:click_normalRewardBtn()
         self:updateNormalRewardStatus()
 
         if ret['mail_item_info'] then
-            --g_serverData:receiveReward(ret)
+            g_serverData:receiveReward(ret)
         end
     end
 
@@ -264,7 +264,7 @@ function UI_BattlePass_NurtureCell:click_passRewardBtn()
         self:updatePremiumRewardStatus()
 
         if ret['mail_item_info'] then
-            --g_serverData:receiveReward(ret)
+            g_serverData:receiveReward(ret)
         end
     end
 

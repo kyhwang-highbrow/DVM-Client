@@ -26,6 +26,7 @@ UI_BattlePassTabButton = class(PARENT, {
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePassTabButton:init(struct_product)
+
     local vars = self:load('shop_battle_pass_list.ui')
 
     self:initMember(struct_product)
@@ -45,20 +46,12 @@ function UI_BattlePassTabButton:initUI()
     -- 버튼 이름 (패키지 번들 참조)
 
     local pid = self.m_structProduct['product_id']
+    local l_item_list = g_shopDataNew:getProductList('etc')
+    local name = l_item_list[pid]['t_name']
 
-    -- TODO (YOUNGJIN) : 바꾸기
-      local desc = TablePackageBundle:getPackageDescWithPid(pid)
-    --local desc = '배틀패스'
-
-    if (desc) then
-        self.m_listLabel:setString(desc)
+    if (name) then
+        self.m_listLabel:setString(name)
     end
-
-    -- 패키지 뱃지
-    -- local badge = self.m_structProduct:makeBadgeIcon()
-    -- if (badge) then
-    --     self.m_badgeNode:addChild(badge)
-    -- end
 end
 
 --------------------------------------------------------------------------
@@ -91,7 +84,6 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePassTabButton:initMember(struct_product)
     local vars = self.vars
-    ccdump(struct_product)
 
     self.m_structProduct = struct_product
 

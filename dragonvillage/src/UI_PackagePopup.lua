@@ -16,6 +16,8 @@ UI_PackagePopup = class(PARENT,{
 function UI_PackagePopup:init(initial_tab)
     self.m_initial_tab = initial_tab
 
+    ccdump(initial_tab)
+
     local vars = self:load('shop_package.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -145,7 +147,7 @@ function UI_PackagePopup:makeEventPopupTab(tab)
 
     local ui = nil
     local item = self.m_tableView:getItem(tab)
-    self.m_mTabUI[tab] = ui
+    self.m_mTabUI[tab] = item
 
     local package_name = TablePackageBundle:getPackageNameWithPid(tab)
     if (TablePackageBundle:checkBundleWithName(package_name)) then

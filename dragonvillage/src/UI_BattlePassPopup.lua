@@ -2,9 +2,10 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 
 UI_BattlePassPopup = class(PARENT, {
     m_tableView = 'UIC_TableView',
-    m_initTab = '',
-    m_lContainerForEachType = 'list[node]', -- (tab)타입별 컨테이너
-    m_tabUIMap = 'map',
+    m_containerList = '',
+    m_tabUIList = '',
+    -- m_lContainerForEachType = 'list[node]', -- (tab)타입별 컨테이너
+    -- m_tabUIMap = 'map',
 
     -- Nodes in ui file
     m_contentsNode = '',
@@ -24,7 +25,7 @@ UI_BattlePassPopup = class(PARENT, {
 -- @param 
 -- @brief
 --------------------------------------------------------------------------
-function UI_BattlePassPopup:init(init_tab)
+function UI_BattlePassPopup:init()
     local vars = self:load('shop_battle_pass.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -35,7 +36,7 @@ function UI_BattlePassPopup:init(init_tab)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initMember(init_tab)
+    self:initMember()
     self:initUI()
     self:initButton()
     self:refresh()
@@ -82,7 +83,7 @@ end
 -- @param 
 -- @brief
 --------------------------------------------------------------------------
-function UI_BattlePassPopup:initMember(init_tab)
+function UI_BattlePassPopup:initMember()
     local vars = self.vars
 
     -- base class variables
@@ -92,10 +93,10 @@ function UI_BattlePassPopup:initMember(init_tab)
     self.m_subCurrency = 'amethyst'
     self.m_addSubCurrency = 'fp'
 
+    self.m_containerList = {}
+
 
     -- Inherited class variables
-
-    self.m_initTab = init_tab
 
     -- Nodes in ui files
     self.m_contentsNode = vars['contentsNode']
@@ -109,28 +110,26 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePassPopup:initTableView()
-    
-    -- TODO (YOUNGJIN) : 
-    local l_item_list = g_battlePassData.m_battlePassTable:getInfoMap()
-    --TablePackageBundle():getTableViewMap()
 
+    local l_item_list = g_shopDataNew:getProductList('etc')
     local tableView = UIC_TableView(self.m_listNode)
+
     -- TODO (YOUNGJIN) : ui 파일에서 노드 생성후 사이즈 적용으로 바꾸기
     tableView.m_defaultCellSize = cc.size(264, 104 + 5)
     tableView:setCellUIClass(UI_BattlePassTabButton)
     tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
+    local function sort_func()
+        table.sort(tableView.m_itemList, function(a, b)
+            if a['data']['m_uiPriority'] == b['data']['m_uiPriority']  then
+                return a['data']['product_id'] < b['data']['product_id']
+            else
+                return a['data']['m_uiPriority'] > b['data']['m_uiPriority']
+            end
+        end)
+    end
 
-    -- 테이블 뷰 아이템 바로 생성하고 정렬할 경우 애니메이션이 예쁘지 않음.
-    -- 애니메이션 생략하고 바로 정렬하게 수정
-    -- TODO (YOUNGJIN) : 애니메이션 발생 원인 찾고 해결하기.
-    -- local function sort_func()
-    --     table.sort(tableView.m_itemList, function(a, b)
-    --         return a['product']['product_id'] > b['product']['product_id']
-    --     end)
-    -- end
-
-    tableView:setItemList3(l_item_list)--, sort_func)
+    tableView:setItemList3(l_item_list, sort_func)
     self.m_tableView = tableView
 end
 
@@ -142,29 +141,48 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePassPopup:initTab()
     local vars = self.vars
-    
-    self.m_lContainerForEachType = {}
+    local init_tab
 
-    local initial_tab = self.m_initTab
+    for i , v in pairs(self.m_tableView.m_itemList) do
+        local node = cc.Node:create()
+        node:setDockPoint(cc.p(0.5, 0.5))
+        node:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_eventNode:addChild(node)
 
-    for i,v in pairs(self.m_tableView.m_itemList) do
-        local pid = v['data']['product_id']
-        local ui = v['ui'] or v['generated_ui']
+        local pid = v['unique_id']
+        local ui = v['ui']
 
-        local container_node = cc.Node:create()
-        container_node:setDockPoint(cc.p(0.5, 0.5))
-        container_node:setAnchorPoint(cc.p(0.5, 0.5))
-        self.m_eventNode:addChild(container_node)
-        self.m_lContainerForEachType[pid] = container_node
-        self:addTab(pid, ui.m_listBtn, container_node, ui.m_selectSprite)
+        self.m_containerList[pid] = node
 
-        if (not initial_tab) then
-            initial_tab = pid
-        end
+        self:addTab(pid, ui.m_listBtn, node, ui.m_selectSprite)
+        if not init_tab then init_tab = pid end
     end
 
-    -- TODO (YOUNGJIN) : PARENT:setTab 으로 바꾸기
-    self:setTab(initial_tab)
+    self:setTab(init_tab)
+    --local initial_tab = self.m_initTab
+    
+    -- self.m_lContainerForEachType = {}
+
+    
+
+    -- for i,v in pairs(self.m_tableView.m_itemList) do
+    --     local pid = v['data']['product_id']
+    --     local ui = v['ui'] or v['generated_ui']
+
+    --     local container_node = cc.Node:create()
+    --     container_node:setDockPoint(cc.p(0.5, 0.5))
+    --     container_node:setAnchorPoint(cc.p(0.5, 0.5))
+    --     self.m_eventNode:addChild(container_node)
+    --     self.m_lContainerForEachType[pid] = container_node
+    --     self:addTab(pid, ui.m_listBtn, container_node, ui.m_selectSprite)
+
+    --     if (not initial_tab) then
+    --         initial_tab = pid
+    --     end
+    -- end
+
+    -- -- TODO (YOUNGJIN) : PARENT:setTab 으로 바꾸기
+    -- self:setTab(initial_tab)
 end
 
 
@@ -189,17 +207,23 @@ end
 -- @param 
 -- @brief
 --------------------------------------------------------------------------
-function UI_BattlePassPopup:onChangeTab(tab, first)
+function UI_BattlePassPopup:onChangeTab(tab_id, first)
+    -- if first then
+    --     local container = self.m_lContainerForEachType[tab]
+    --     local ui = self:makeEventPopupTab(tab)
+    --     if ui then
+    --         container:addChild(ui.root)
+    --     end
+    -- else
+    --     if (self.m_tabUIMap[tab]) then
+    --         self.m_tabUIMap[tab]:onEnterTab()
+    --     end
+    -- end
     if first then
-        local container = self.m_lContainerForEachType[tab]
-        local ui = self:makeEventPopupTab(tab)
-        if ui then
-            container:addChild(ui.root)
-        end
-    else
-        if (self.m_tabUIMap[tab]) then
-            self.m_tabUIMap[tab]:onEnterTab()
-        end
+        local containerNode = self.m_containerList[tab_id]
+        local ui = self:makeEventPopupTab(tab_id)
+        if ui then containerNode:addChild(ui.root) end
+    else   
     end
 end
 
@@ -216,20 +240,30 @@ end
 -- @param 
 -- @brief
 --------------------------------------------------------------------------
-function UI_BattlePassPopup:makeEventPopupTab(tab)
-    if (not self.m_tabUIMap) then
-        self.m_tabUIMap = {}
-    end
+function UI_BattlePassPopup:makeEventPopupTab(tab_id)
 
-    local ui = nil
-    local item = self.m_tableView:getItem(tab)
-    self.m_tabUIMap[tab] = ui
-
-    -- TODO (YOUNGJIN) : Need to change
-    local package_name = TablePackageBundle:getPackageNameWithPid(tab)
-    if (TablePackageBundle:checkBundleWithName(package_name)) then
-        ui = UI_EventPopupTab_Package(package_name)
-    end
-
+    local item = self.m_tableView:getItem(tab_id)
+    local package_res = item['data']['package_res']
+    local product_id = item['data']['product_id']
+    
+    local ui = UI_EventPopupTab_Package(package_res, product_id)
     return ui
+    
+    --UI_EventPopupTab_Package()
+    -- if (not self.m_tabUIMap) then
+    --     self.m_tabUIMap = {}
+    -- end
+
+    -- local ui = nil
+    -- local item = self.m_tableView:getItem(tab)
+    -- ccdump(item)
+
+    -- -- TODO (YOUNGJIN) : Need to change
+    -- local package_res = item['package_res']
+    -- if(package_res) then
+    --     ui = UI_EventPopupTab_Package(package_res)
+    -- end
+
+    -- self.m_tabUIMap[tab] = ui
+    -- return ui
 end

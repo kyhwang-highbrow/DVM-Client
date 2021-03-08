@@ -321,8 +321,14 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
                 struct_product:setUIPos(ui_pos) 
                 struct_product:setUIScale(ui_scale) 
             end
+            if(tab_category == 'etc') then
+                if g_eventData:checkEtcTime(start_date, end_date) then
+                    self:insertProduct(struct_product)
+                end
+            else
+                self:insertProduct(struct_product)
+            end
 
-            self:insertProduct(struct_product)
         end
     end
 
