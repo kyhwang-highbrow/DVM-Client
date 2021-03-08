@@ -375,7 +375,35 @@ function UI_ItemCard:SetBackgroundVisible(bool_value)
 end
 
 
+------------------------------------
+-- function UI_BattlePassCard
+-- @brief UI에서 사용하기 위한 배틀패스 경험치 카드, itemCard를 사용하지는 않음
+-------------------------------------
+function UI_BattlePassCard(pass_exp)
+	local ui = UI()
+    local vars = ui:load('icon_item_item.ui')
+    
+    local icon = IconHelper:getBattlePassExpIcon()
+    vars['stoneNode']:addChild(icon)
+    vars['icon'] = icon
 
+    if (not pass_exp) or (pass_exp == 0) then
+        vars['numberLabel']:setString('')
+    else
+        vars['numberLabel']:setString(comma_value(pass_exp))
+    end
+
+    vars['disableSprite']:setVisible(false)
+
+	-- 클릭 시 툴팁
+	vars['clickBtn']:registerScriptTapHandler(function()
+		local str = '{@SKILL_NAME}' .. Str('배틀패스 경험치')
+		local tool_tip = UI_Tooltip_Skill(70, -145, str)
+		tool_tip:autoPositioning(vars['clickBtn'])
+	end)
+
+	return ui
+end
 
 
 ------------------------------------

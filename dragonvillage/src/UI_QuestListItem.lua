@@ -234,6 +234,23 @@ function UI_QuestListItem:setRewardCard()
 		end
 	end
 
+	-- 배틀패스 포인트
+	if (g_questData:isBattlePassActive()) then
+        -- 당분간 고정으로 10만 지급함
+		local battlePassExp = 10
+        local battle_pass_exp_card = UI_BattlePassCard(battlePassExp)
+        battle_pass_exp_card.root:setSwallowTouch(false)
+        local reward_node = vars['rewardNode' .. reward_idx]
+        if (reward_node) then
+            if (battle_pass_exp_card) then
+                reward_node:removeAllChildren()
+                reward_node:addChild(battle_pass_exp_card.root)
+                reward_idx = reward_idx + 1
+                table.insert(l_rewardCardUI, battle_pass_exp_card)
+            end
+        end
+	end
+
     local max_reward = reward_idx - 1
     -- 아이템 카드에 보상 받음 여부 표시(체크 표시)
     for i = 1, max_reward do

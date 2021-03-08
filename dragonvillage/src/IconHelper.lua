@@ -687,6 +687,13 @@ function IconHelper:getClanExpIcon()
 end
 
 -------------------------------------
+-- function getBattlePassExpIcon
+-------------------------------------
+function IconHelper:getBattlePassExpIcon()
+    return IconHelper:getIcon('res/ui/icons/item/battle_pass_point.png')
+end
+
+-------------------------------------
 -- function getClanBuffIcon
 -------------------------------------
 function IconHelper:getClanBuffIcon(clan_buff_type)

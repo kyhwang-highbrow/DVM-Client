@@ -12,6 +12,8 @@ ServerData_Quest = class({
         m_dailyQuestSubscription = 'table',
         m_lDailyQuest = 'table',
 
+        m_battlePassActive = 'boolean',
+
         
         --"daily_quest_subscription":{
         --    "max_day":14,
@@ -47,6 +49,7 @@ function ServerData_Quest:init(server_data)
 	self.m_tableQuest = TableQuest()
 	self.m_tQuestInfo = {}
     self.m_lDailyQuest = {}
+    self.m_battlePassActive = false
 end
 
 -------------------------------------
@@ -274,6 +277,10 @@ function ServerData_Quest:requestQuestInfo(cb_func)
             self:applyQuestInfo(ret['quest_info'])
         end
 
+        if (ret['battle_pass_active']) then
+            self.m_battlePassActive = ret['battle_pass_active']
+        end
+
         -- 일일 퀘스트 보상 2배
         self.m_dailyQuestSubscription = ret['daily_quest_subscription']
 
@@ -384,6 +391,16 @@ function ServerData_Quest:isSubscriptionActive()
     local is_active = self.m_dailyQuestSubscription['active']
     return is_active -- boolean
 end
+
+-------------------------------------
+-- function isBattlePassActive
+-- @brief 배틀패스 구독상태인지 체크
+-- @return boolean
+-------------------------------------
+function ServerData_Quest:isBattlePassActive()
+    return self.m_battlePassActive
+end
+
 
 -------------------------------------
 -- function subscriptionDayInfo
