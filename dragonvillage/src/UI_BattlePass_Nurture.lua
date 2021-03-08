@@ -190,8 +190,12 @@ function UI_BattlePass_Nurture:updateProgressBar()
     if(g_battlePassData:getMinLevel(self.m_pass_id) == 0) then
         user_exp = user_exp + g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)
     end
-
-    percent = user_exp / g_battlePassData:getMaxExp(self.m_pass_id) * 100   
+    
+    if user_exp >= g_battlePassData:getMaxExp(self.m_pass_id) then
+        percent = 100
+    else
+        percent = user_exp / g_battlePassData:getMaxExp(self.m_pass_id) * 100   
+    end
     self.m_totalExpBar:setPercentage(percent)
 
 end
