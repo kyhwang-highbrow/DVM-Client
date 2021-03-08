@@ -245,8 +245,8 @@ function UI_BattlePassPopup:makeEventPopupTab(tab_id)
     local item = self.m_tableView:getItem(tab_id)
     local package_res = item['data']['package_res']
     local product_id = item['data']['product_id']
-    
-    local ui = UI_EventPopupTab_Package(package_res, product_id)
+    local package_name = TablePackageBundle:getPackageNameWithPid(tab_id)
+    local ui = UI_EventPopupTab_Package(package_name)
     return ui
     
     --UI_EventPopupTab_Package()

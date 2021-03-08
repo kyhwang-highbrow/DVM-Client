@@ -136,21 +136,16 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
         require('UI_Package_DragonChoiceHero')
         target_ui = UI_Package_DragonChoiceHero(_package_name, is_popup)
 
-
-
-
-
-
-    elseif (_package_name == 'battle_pass_nurture.ui') then
+    -- 육성패스 
+    elseif (_package_name == 'battle_pass_nurture' or _package_name == 'battle_pass_nurture_premium') then
+        local pid = TablePackageBundle:getPidsWithName(_package_name)
+        local pass_list = g_shopDataNew:getProductList('pass')
+        ccdump(pid)
+        ccdump(pass_list)
+        ccdump(pass_list[tonumber(pid)])
         local _struct_product = {}
-        _struct_product['product_id'] = product_id
-        _struct_product['ui_file_name'] = _package_name
-        target_ui = UI_BattlePass_Nurture(_struct_product, is_popup)
-
-    elseif (_package_name == 'battle_pass_nurture_premium.ui') then
-        local _struct_product = {}
-        _struct_product['product_id'] = product_id
-        _struct_product['ui_file_name'] = _package_name
+        _struct_product['product_id'] = product_data[pid]['product_id']
+        _struct_product['package_res'] = product_data[pid]['package_res']
         target_ui = UI_BattlePass_Nurture(_struct_product, is_popup)
 
     -- 패키지 상품 묶음 UI 
@@ -255,26 +250,22 @@ function PackageManager:isExist(package_name)
         return is_exist
     end
 
-    -- 일반 패키지 검사
-    local l_shop_list = g_shopDataNew:getProductList('package')
+    
+    -- table_package_bundle.csv
     local target_product = TablePackageBundle:getPidsWithName(package_name)
-    local is_exist = false
-
+    
     if (not target_product) then
         error('package_name : ' .. package_name)
     end
+    
+    -- 일반 패키지 & 패스 검사
+    local shop_list = g_shopDataNew:getProductList('package')
+    local pass_list = g_shopDataNew:getProductList('pass')
 
     for _, pid in ipairs(target_product) do
-        if (l_shop_list[tonumber(pid)]) then
-            is_exist = true
-        end
-    end
-
-    
-    -- pass  검사 (배틀패스 포함)
-    local pass_product_list = g_shopDataNew:getProductList('pass')
-    for key, data in pairs(pass_product_list) do 
-        if data['package_res'] == package_name then
+        if (shop_list[tonumber(pid)]) then
+            return true
+        elseif (pass_list[tonumber(pid)]) then
             return true
         end
     end

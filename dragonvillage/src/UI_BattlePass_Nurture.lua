@@ -50,7 +50,7 @@ UI_BattlePass_Nurture = class(PARENT, {
 function UI_BattlePass_Nurture:init(struct_product, is_popup)
     self.m_isPopup = is_popup or false
 
-    local vars = self:load(struct_product['ui_file_name'])
+    local vars = self:load(struct_product['package_res'])
     -- if(self.m_isPopup) then
     --     UIManager:open(self, UIManager.POPUP)
     --     g_currScene.pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_BattlePass_Nurture')

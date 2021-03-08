@@ -14,20 +14,6 @@ local THIS = TablePackageBundle
 function TablePackageBundle:init()
     self.m_tableName = 'table_package_bundle'
     self.m_orgTable = TABLE:get(self.m_tableName)
-    -- TODO (YOUNGJIN) : NEED TO REMOVE
-    local fakePackage = {
-        ['t_pids']='999999';
-        ['buyable_from_lv']='';
-        ['t_name']='package_battle_pass';
-        ['use_desc']=0;
-        ['is_detail']=1;
-        ['t_desc']='배틀패스';
-        ['select_one']='';
-        ['buyable_to_lv']='';
-        ['bid']=43;
-        ['buyable_unlock_content']='';
-    }
-    table.insert(self.m_orgTable, fakePackage)
 
 end
 

@@ -862,6 +862,7 @@ function ServerData:receiveReward(ret)
 
     -- 우편, 보상 리스트 팝업
     elseif (ret['mail_item_info']) then
+        ccdump(ret['mail_item_info'])
         UI_MailRewardPopup(ret['mail_item_info'])
         
 
