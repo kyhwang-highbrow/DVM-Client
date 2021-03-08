@@ -169,6 +169,8 @@ function UI_BattlePass_Nurture:initTableView()
     table_view.m_scrollView:addChild(self.m_totalExpBar)
 
     self.m_tableView = table_view
+    self.m_tableView:update(0)
+    self.m_tableView:relocateContainerFromIndex(g_battlePassData:getUserLevel(self.m_pass_id))
 end
 
 
@@ -187,10 +189,10 @@ function UI_BattlePass_Nurture:updateProgressBar()
     self.m_totalExpBar:setScaleX(scale)
 
     local user_exp = g_battlePassData:getUserExp(self.m_pass_id)
-    if(g_battlePassData:getMinLevel(self.m_pass_id) == 0) then
+    if(g_battlePassData:getMinLevel(self.m_pass_id)  == 0) and (user_exp == 0) then
         user_exp = user_exp + g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)
     end
-    
+
     if user_exp >= g_battlePassData:getMaxExp(self.m_pass_id) then
         percent = 100
     else
@@ -209,8 +211,12 @@ function UI_BattlePass_Nurture:updateTextLabel()
             g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)))
 
     local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
-
-    self.m_nextLevelLabel:setString(Str(self.m_originNextLevelStr, userLevel + 1))
+    local maxLevel = g_battlePassData:getMaxLevel(self.m_pass_id)
+    if(userLevel < maxLevel) then 
+        self.m_nextLevelLabel:setString(Str(self.m_originNextLevelStr, userLevel + 1))
+    else
+        self.m_nextLevelLabel:setString(Str(self.m_originNextLevelStr, maxLevel))
+    end
     self.m_levelLabel:setString(Str(self.m_originLevelStr, userLevel))
 end
 
