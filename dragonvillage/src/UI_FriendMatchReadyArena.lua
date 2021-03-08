@@ -275,7 +275,7 @@ function UI_FriendMatchReadyArena:click_startBtn()
             UI_BlockPopup()
 
             local friend_match = true
-            local scene = SceneGameArena(nil, nil, nil, nil, friend_match)
+            local scene = SceneGameArenaNew(nil, nil, nil, nil, friend_match)
             scene:runScene()
         end
 
