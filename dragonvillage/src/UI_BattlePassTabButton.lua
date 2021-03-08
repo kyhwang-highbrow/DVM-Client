@@ -55,10 +55,10 @@ function UI_BattlePassTabButton:initUI()
     end
 
     -- 패키지 뱃지
-    local badge = self.m_structProduct:makeBadgeIcon()
-    if (badge) then
-        self.m_badgeNode:addChild(badge)
-    end
+    -- local badge = self.m_structProduct:makeBadgeIcon()
+    -- if (badge) then
+    --     self.m_badgeNode:addChild(badge)
+    -- end
 end
 
 --------------------------------------------------------------------------
@@ -91,6 +91,7 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePassTabButton:initMember(struct_product)
     local vars = self.vars
+    ccdump(struct_product)
 
     self.m_structProduct = struct_product
 

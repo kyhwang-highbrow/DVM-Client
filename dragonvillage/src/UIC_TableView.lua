@@ -855,6 +855,32 @@ function UIC_TableView:setItemList3(list, sort_func)
     self:setDirtyItemList()
 end
 
+
+function UIC_TableView:CreateCellUIClass(id, num)
+    self:clearItemList()
+
+    for i = 1, num do
+        local t_item = {}
+        local data = {}
+        data['parent_key'] = id
+        data['id'] = i
+        
+        t_item['unique_id'] = i
+        t_item['data'] = data
+        t_item['ui'] = self:makeItemUI(data)
+        
+        table.insert(self.m_itemList, t_item)
+
+        self.m_itemMap[i] = t_item
+    end
+
+    self:_updateCellPositions()
+    self:_updateContentSize()
+    self:scrollViewDidScroll()
+
+    self:setDirtyItemList()
+end
+
 -------------------------------------
 -- function makeAllItemUI
 -- @brief

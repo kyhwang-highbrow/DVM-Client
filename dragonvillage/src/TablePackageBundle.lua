@@ -31,6 +31,14 @@ function TablePackageBundle:init()
 
 end
 
+-- function TableP:getEtcTableViewMap()
+--     local map = {}
+
+--     local item_list = g_shopDataNew:getProductList('etc')
+--     for i, v in ipairs(self.m_orgTable) do
+--     end
+-- end
+
 -------------------------------------
 -- function getTableViewMap
 -- @brief 패키지 번들 테이블에 등록되있고 서버에서 상품 정보를 주는 것들만 테이블뷰 맵형태로 반환

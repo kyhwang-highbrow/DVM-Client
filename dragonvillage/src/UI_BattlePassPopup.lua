@@ -111,7 +111,8 @@ end
 function UI_BattlePassPopup:initTableView()
     
     -- TODO (YOUNGJIN) : 
-    local l_item_list = TablePackageBundle():getTableViewMap()
+    local l_item_list = g_battlePassData.m_battlePassTable:getInfoMap()
+    --TablePackageBundle():getTableViewMap()
 
     local tableView = UIC_TableView(self.m_listNode)
     -- TODO (YOUNGJIN) : ui 파일에서 노드 생성후 사이즈 적용으로 바꾸기
@@ -123,13 +124,13 @@ function UI_BattlePassPopup:initTableView()
     -- 테이블 뷰 아이템 바로 생성하고 정렬할 경우 애니메이션이 예쁘지 않음.
     -- 애니메이션 생략하고 바로 정렬하게 수정
     -- TODO (YOUNGJIN) : 애니메이션 발생 원인 찾고 해결하기.
-    local function sort_func()
-        table.sort(tableView.m_itemList, function(a, b)
-            return a['data']['m_uiPriority'] > b['data']['m_uiPriority']
-        end)
-    end
+    -- local function sort_func()
+    --     table.sort(tableView.m_itemList, function(a, b)
+    --         return a['product']['product_id'] > b['product']['product_id']
+    --     end)
+    -- end
 
-    tableView:setItemList3(l_item_list, sort_func)
+    tableView:setItemList3(l_item_list)--, sort_func)
     self.m_tableView = tableView
 end
 

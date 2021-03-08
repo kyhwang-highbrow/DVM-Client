@@ -350,7 +350,7 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
         fakeProduct:setStartDate('') -- 판매 시작 시간
         fakeProduct:setEndDate('') -- 판매 종료 시간
         fakeProduct:setDependency('') -- 상품 의존성 (대체 상품)
-        fakeProduct:setUIPriority(65535) -- UI정렬 순선 (높으면 앞쪽에 노출)
+        fakeProduct:setUIPriority(0) -- UI정렬 순선 (높으면 앞쪽에 노출)
         self:insertProduct(fakeProduct)
 
     -- 상품별 구매 횟수 정보 갱신

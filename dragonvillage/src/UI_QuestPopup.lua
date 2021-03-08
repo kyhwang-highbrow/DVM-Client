@@ -349,6 +349,11 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_QuestPopup:click_exitBtn()
+    local function cb_func()
+        g_battlePassData:request_battlePassInfo()
+    end
+
+    self:setCloseCB(cb_func)
     self:close()
 end
 

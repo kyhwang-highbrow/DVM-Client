@@ -130,6 +130,10 @@ function UI_Lobby:entryCoroutine()
         -- lobby 공통 함수
         self:entryCoroutine_requestUsersLobby(co)
 
+        do
+            
+        end
+
 		if (g_hotTimeData:isActiveEvent('event_exchange')) then
             co:work()
             cclog('# 교환 이벤트 정보 받는 중')
@@ -222,6 +226,15 @@ function UI_Lobby:entryCoroutine()
             g_capsuleBoxData:request_capsuleBoxStatus(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
+
+        do 
+            co:work('###### 배틀패스 테이블 테스트 중 ######### ')
+                g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
+
+            if co:waitWork() then return end
+        end
+        -- local id = 121701
+        -- ccdump(g_battlePassData:getExp(id))
 
         -- hard refresh
         cclog('# UI 갱신')

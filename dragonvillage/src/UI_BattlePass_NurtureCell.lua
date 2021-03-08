@@ -2,29 +2,35 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 --------------------------------------------------------------------------
 -- @classmod UI_BattlePass_NurtureCell
--- @brief 
+-- @brief battle_pass_nurture_item.ui 와 관련된 item cell의 기능 동작 관리
 --------------------------------------------------------------------------
 UI_BattlePass_NurtureCell = class(PARENT, {
-    m_data = '',
+    m_pass_id = 'number',
+    m_cell_id = 'number',
+
+    m_normal_key = '',  -- 'normal'
+    m_premium_key = '', -- 'premium'
 
 
     -- Nodes in ui file
-    m_levelSprite = '',
-    m_levelLabel = '',
+    m_swallowTouchMenu = '',    -- 해당 노드가 ui에 존재시 button의 swallowTouch를 false로.
 
-    m_normalRewardBtn = '',
-    m_normalClearSprite = '',
-    m_normalLockSprite = '',
-    m_normalItemNode = '',
-    m_normalItemLabel = '',
+    m_levelSprite = '',         -- 레벨 스프라이트 노드
+    m_levelLabel = '',          -- 레벨 텍스트 노드
 
-    m_passRewardBtn = '',
-    m_passClearSprite = '',
-    m_passLockSprite = '',
-    m_passItemNode = '',
-    m_passItemLabel = '',
+    m_normalRewardBtn = '',     -- 일반 보상 버튼 노드
+    m_normalClearSprite = '',   -- 일반 보상 수령 완료 표시 스프라이트 노드
+    m_normalLockSprite = '',    -- 일반 보상 비활성화 표시 스프라이트 노드
+    m_normalItemNode = '',      -- 일반 보상 이미지용 노드
+    m_normalItemLabel = '',     -- 일반 보상 텍스트 노드
 
-    m_passPurchaseSprite = '',
+    m_premiumRewardBtn = '',       -- 패스 보상 버튼 노드
+    m_premiumClearSprite = '',     -- 패스 보상 수령완료 표시 스프라이트 노드
+    m_premiumLockSprite = '',      -- 패스 보상 비활성화 표시 스프라이트 노드
+    m_premiumItemNode = '',        -- 패스 보상 이미지용 노드
+    m_premiumItemLabel = '',       -- 패스 보상 텍스트 노드
+
+    m_premiumPurchaseSprite = '',  -- 패스 구매여부 (자물쇠) 스프라이트 노드
 })
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +40,8 @@ UI_BattlePass_NurtureCell = class(PARENT, {
 
 --------------------------------------------------------------------------
 -- @function init 
--- @brief 
+-- @param 데이터 테이블   {['id']=21; ['parent_key']=121701;}
+-- @brief 모든 init 함수를 실행
 --------------------------------------------------------------------------
 function UI_BattlePass_NurtureCell:init(data)
     local vars = self:load('battle_pass_nurture_item.ui')
@@ -47,33 +54,32 @@ end
 
 --------------------------------------------------------------------------
 -- @function initUI 
--- @brief 
+-- @brief UI와 관련된 변수 및 기능 초기화
 --------------------------------------------------------------------------
 function UI_BattlePass_NurtureCell:initUI()
     local vars = self.vars
-    local data = self.m_data
     
-    local normalItemId, normalItemNum = self:CreateItemCardToNode(self.m_normalItemNode, data['item_normal'])
-    local passItemId, passItemNum = self:CreateItemCardToNode(self.m_passItemNode, data['item_pass'])
+    self:InitNormalItemNode()
+    self:InitPremiumItemNode()
 
-    -- self:SetItemCellName(vars['itemLabel1'], normalItemId)
-    -- self:SetItemCellName(vars['itemLabel2'], passItemId)
-
-    self:SetItemCellName(self.m_normalItemLabel, normalItemNum)
-    self:SetItemCellName(self.m_passItemLabel, passItemNum)
-
-    local label = self.m_levelLabel
-    label:setString(Str(label:getString(), self.m_data['itemIndex']))
+    local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, self.m_cell_id)
+    self.m_levelLabel:setString(Str(self.m_levelLabel:getString(), targetLevel))
 end
 
 
 --------------------------------------------------------------------------
 -- @function initButton 
--- @brief 
+-- @brief button과 관련된 변수 및 기능 초기화
 --------------------------------------------------------------------------
 function UI_BattlePass_NurtureCell:initButton()
     self.m_normalRewardBtn:registerScriptTapHandler(function() self:click_normalRewardBtn() end)
-    self.m_passRewardBtn:registerScriptTapHandler(function() self:click_passRewardBtn() end)
+    self.m_premiumRewardBtn:registerScriptTapHandler(function() self:click_passRewardBtn() end)
+    
+    if(self.m_swallowTouchMenu ~= nil) then
+        -- 버튼 드래그시 scroll view 이동이 되도록 함.
+        self.m_normalRewardBtn:getParent():setSwallowTouch(false)
+        self.m_premiumRewardBtn:getParent():setSwallowTouch(false)
+    end
 end
 
 
@@ -83,6 +89,11 @@ end
 -- @brief 
 --------------------------------------------------------------------------
 function UI_BattlePass_NurtureCell:refresh()
+    self:updatePassLock()
+    self:updateLevelSprites()
+
+    self:updateNormalRewardStatus()
+    self:updatePremiumRewardStatus()
 end
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,13 +104,20 @@ end
 
 --------------------------------------------------------------------------
 -- @function initMember 
+-- @param 데이터 테이블   {['id']=21; ['parent_key']=121701;}
 -- @brief init function 내부에서 멤버 변수 정의
 --------------------------------------------------------------------------
 function UI_BattlePass_NurtureCell:initMember(data)
     local vars = self.vars
-    self.m_data = data
+
+    self.m_pass_id = data['parent_key']
+    self.m_cell_id = data['id']
+    self.m_normal_key = 'normal'
+    self.m_premium_key = 'premium'
 
     -- Node
+    self.m_swallowTouchMenu = vars['swallowTouchMenu']
+
     self.m_levelSprite = vars['levelSprite']
     self.m_levelLabel = vars['levelLabel']
 
@@ -109,117 +127,104 @@ function UI_BattlePass_NurtureCell:initMember(data)
     self.m_normalItemNode = vars['normalItemNode']
     self.m_normalItemLabel = vars['normalItemLabel']
 
-    self.m_passRewardBtn = vars['passRewardBtn']
-    self.m_passClearSprite = vars['passClearSprite']
-    self.m_passLockSprite = vars['passLockSprite']
-    self.m_passItemNode = vars['passItemNode']
-    self.m_passItemLabel = vars['passItemLabel']
+    self.m_premiumRewardBtn = vars['passRewardBtn']
+    self.m_premiumClearSprite = vars['passClearSprite']
+    self.m_premiumLockSprite = vars['passLockSprite']
+    self.m_premiumItemNode = vars['passItemNode']
+    self.m_premiumItemLabel = vars['passItemLabel']
 
-    self.m_passPurchaseSprite = vars['passPurchaseSprite']
+    self.m_premiumPurchaseSprite = vars['passPurchaseSprite']
 end
 
-
-
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---// Getter & Setter
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
-
---------------------------------------------------------------------------
--- @function SetItemCellName 
--- @brief 
---------------------------------------------------------------------------
-function UI_BattlePass_NurtureCell:SetItemCellName(textLabel, item_id)
-    textLabel:setString(Str(TableItem:getItemName(item_id)))
-end
-
---------------------------------------------------------------------------
--- @function SetItemCellName 
--- @brief 
---------------------------------------------------------------------------
-function UI_BattlePass_NurtureCell:SetItemCellName(textLabel, item_num)
-    textLabel:setString(Str('x{1}', comma_value(item_num)))
-    -- TODO (YOUNGJIN) : REMOVE IT
-    textLabel:setFontSize(18)
-end
-
---------------------------------------------------------------------------
--- @function SetReceivedMarkNormalReward 
--- @brief
--- @todo Check All the cases whether it is possible to twisted btw all these functions
---------------------------------------------------------------------------
-function UI_BattlePass_NurtureCell:SetReceivedMarkNormalReward(bool_value)
-    self.m_normalClearSprite:setVisible(bool_value)
-    self.m_normalRewardBtn:setEnabled(not bool_value)
-    self.m_normalRewardBtn:setVisible(not bool_value)
-end
-
---------------------------------------------------------------------------
--- @function SetReceivedMarkPassReward 
--- @brief
---------------------------------------------------------------------------
-function UI_BattlePass_NurtureCell:SetReceivedMarkPassReward(bool_value)
-    self.m_passClearSprite:setVisible(bool_value)
-    self.m_passRewardBtn:setEnabled(not bool_value)
-    self.m_passRewardBtn:setVisible(not bool_value)
-end
-
---------------------------------------------------------------------------
--- @function SetPassLock
--- @param 배틀패스 구매여부 
--- @brief
---------------------------------------------------------------------------
-function UI_BattlePass_NurtureCell:SetPassLock(bool_value)
-    
---[[
-배틀 패스 샀고 노멀 보상 안받음 : rewardBtn:visible true
-true 노랑 on   = 
-배틀 패스 샀고 노멀 보상 받음 : rewardBtn:visible false
-true 노랑 off  =
-배틀 패스 안샀고 노멀 보상 안받음 : rewardBtn:visible true
-false 노랑 on   = 
-배틀 패스 안샀고 노멀 보상 받음 : rewardBtn:visible false
-false 노랑 off  = 
-]]--
-    self.m_passPurchaseSprite:setVisible(bool_value)
-    self.m_passRewardBtn:setEnabled(not bool_value)
-    
-end
-
---------------------------------------------------------------------------
--- @function SetLevelSpritesVisible 
--- @param 레벨이 되냐 안되냐
--- @brief
---------------------------------------------------------------------------
-function UI_BattlePass_NurtureCell:SetLevelSpritesVisible(bool_value)
-    --[[
-        레벨 되고 노멀 보상 안받음 : rewardBtn:visible true
-        true 노랑 on   = 
-        레벨 되고 노멀 보상 받음 : rewardBtn:visible false
-        true 노랑 off  =
-        레벨 안되고 노멀 보상 안받음 : rewardBtn:visible false
-        false 노랑 on   = 
-        레벨 안되고 노멀 보상 받음 : rewardBtn:visible false
-        false 노랑 off  = 
-    ]]--
-    self.m_normalLockSprite:setVisible(not bool_value)
-    self.m_passLockSprite:setVisible(not bool_value)
-    self.m_levelSprite:setVisible(bool_value)
-
-    local isReceived = not self.m_normalClearSprite:isVisible()
-    self.m_normalRewardBtn:setVisible(bool_value and isReceived)
-
-    isReceived = not self.m_passClearSprite:isVisible()
-    self.m_passRewardBtn:setVisible(bool_value and isReceived)
+function  UI_BattlePass_NurtureCell:InitNormalItemNode()
+    local item_id, item_num = g_battlePassData:getNormalItemInfo(self.m_pass_id, self.m_cell_id)
     
 
-    -- TODO (YOUNGJIN) : Check right function btw setEnabled and setTouchEnabled
-    -- TODO (YOUNGJIN) : Check these is required here or is it better to put out these as seperate function? 
-    --self.m_passRewardBtn:setEnabled(bool_value)
-    --self.m_normalRewardBtn:setEnabled(bool_value)
+    local itemCard = UI_ItemCard(item_id)
+    itemCard:setEnabledClickBtn(false)
+    itemCard:SetBackgroundVisible(false)
+
+    self.m_normalItemNode:addChild(itemCard.root)
+
+    self.m_normalItemLabel:setString(Str('x{1}', comma_value(item_num)))
 end
 
+function  UI_BattlePass_NurtureCell:InitPremiumItemNode()
+    local item_id, item_num = g_battlePassData:getPremiumItemInfo(self.m_pass_id, self.m_cell_id)
+    
+    local itemCard = UI_ItemCard(item_id)
+    itemCard:setEnabledClickBtn(false)
+    itemCard:SetBackgroundVisible(false)
+
+    self.m_premiumItemNode:addChild(itemCard.root)
+
+    self.m_premiumItemLabel:setString(Str('x{1}', comma_value(item_num)))
+end
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--// Update Helper Functions
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+--------------------------------------------------------------------------
+-- @function updatePassLock
+-- @brief 패스 구매 여부에 따라 잠금 표시 및 버튼 활성화
+--------------------------------------------------------------------------
+function UI_BattlePass_NurtureCell:updatePassLock()
+    local isPurchased = g_battlePassData:isPurchased(self.m_pass_id)
+
+    self.m_premiumPurchaseSprite:setVisible(not isPurchased)
+    self.m_premiumRewardBtn:setEnabled(isPurchased)
+end
+
+function UI_BattlePass_NurtureCell:updateLevelSprites()
+    local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
+    local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, self.m_cell_id)
+    
+    local isAvailableLevel = (userLevel >= targetLevel)
+    
+    -- 레벨이 되면 밝게, 레벨이 되면 어둡게 설정
+    self.m_normalLockSprite:setVisible(not isAvailableLevel)
+    self.m_premiumLockSprite:setVisible(not isAvailableLevel)
+    self.m_levelSprite:setVisible(isAvailableLevel)
+
+    -- 버튼 스프라이트 활성화 표시 
+    self.m_normalRewardBtn:setVisible(isAvailableLevel)
+    self.m_premiumRewardBtn:setVisible(isAvailableLevel)
+end
+
+function UI_BattlePass_NurtureCell:updateNormalRewardStatus()
+    local normalStatus = g_battlePassData:GetRewardStatus(self.m_pass_id, self.m_normal_key, self.m_cell_id)
+
+    if (normalStatus == REWARD_STATUS.RECEIVED) then     
+        self.m_normalClearSprite:setVisible(true)  -- 체크표시 보여주기
+        self.m_normalRewardBtn:setVisible(false)   -- 버튼 어둡게 하기
+        self.m_normalRewardBtn:setEnabled(false)   -- 버튼 비활성화
+    elseif (normalStatus == REWARD_STATUS.POSSIBLE) then
+        self.m_normalClearSprite:setVisible(false)  -- 체크표시 보여주기
+        self.m_normalRewardBtn:setVisible(true)   -- 버튼 어둡게 하기
+        self.m_normalRewardBtn:setEnabled(true)   -- 버튼 비활성화
+    else -- normalStatus == REWARD_STATUS.NOT_AVAILABLE
+
+    end
+end
+
+function UI_BattlePass_NurtureCell:updatePremiumRewardStatus()
+    local premiumStatus = g_battlePassData:GetRewardStatus(self.m_pass_id, self.m_premium_key, self.m_cell_id)
+        
+    if (premiumStatus == REWARD_STATUS.RECEIVED) then
+        self.m_premiumClearSprite:setVisible(true)  -- 체크표시 보여주기
+        self.m_premiumRewardBtn:setVisible(false)   -- 버튼 어둡게 하기
+        self.m_premiumRewardBtn:setEnabled(false)   -- 버튼 비활성화
+    elseif (premiumStatus == REWARD_STATUS.POSSIBLE) then
+        self.m_premiumClearSprite:setVisible(false)  -- 체크표시 보여주기
+        self.m_premiumRewardBtn:setVisible(true)   -- 버튼 어둡게 하기
+        self.m_premiumRewardBtn:setEnabled(true)   -- 버튼 비활성화
+    else -- premiumStatus == REWARD_STATUS.NOT_AVAILABLE
+        
+    end
+end
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -231,29 +236,41 @@ end
 
 --------------------------------------------------------------------------
 -- @function click_normalRewardBtn 
--- @param 
--- @brief
+-- @brief 일반 보상 버튼 액션
 --------------------------------------------------------------------------
 function UI_BattlePass_NurtureCell:click_normalRewardBtn()
-    
-    local isLevelRecievable = self.m_levelSprite:isVisible()
-    if(isLevelRecievable) then 
-        self:SetReceivedMarkNormalReward(true)
+
+    local function finish_cb(ret)
+        self:updateNormalRewardStatus()
+
+        if ret['mail_item_info'] then
+            --g_serverData:receiveReward(ret)
+        end
     end
+
+    g_battlePassData:request_reward(self.m_pass_id, self.m_normal_key, 
+            g_battlePassData:getLevelFromIndex(self.m_pass_id, self.m_cell_id),
+        finish_cb)
+    
 end
 
 --------------------------------------------------------------------------
 -- @function click_passRewardBtn 
--- @param 
--- @brief
+-- @brief 패스 보상 버튼 액션
 --------------------------------------------------------------------------
 function UI_BattlePass_NurtureCell:click_passRewardBtn()
-    
-    local isLevelRecievable = self.m_levelSprite:isVisible()
-    local isPassPurchased = not self.m_passPurchaseSprite:isVisible()
-    if isLevelRecievable and isPassPurchased then
-        self:SetReceivedMarkPassReward(true)
+   
+    local function finish_cb(ret)
+        self:updatePremiumRewardStatus()
+
+        if ret['mail_item_info'] then
+            --g_serverData:receiveReward(ret)
+        end
     end
+
+    g_battlePassData:request_reward(self.m_pass_id, self.m_premium_key, 
+            g_battlePassData:getLevelFromIndex(self.m_pass_id, self.m_cell_id),
+            finish_cb)
 end
 
 
@@ -263,29 +280,3 @@ end
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 
---------------------------------------------------------------------------
--- @function CreateItemCardToNode 
--- @param 
--- @brief
---------------------------------------------------------------------------
-function UI_BattlePass_NurtureCell:CreateItemCardToNode(node, item_list)
-    local ITEM_TYPE = 1
-    local ITEM_NUM = 2
-
-    itemStrList = seperate(item_list, ';')
-
-    local itemType = itemStrList[ITEM_TYPE]
-    local itemNum = itemStrList[ITEM_NUM]
-
-    local itemId = TableItem:getItemIDFromItemType(itemType) or tonumber(itemType)
-
-    local itemCard = UI_ItemCard(itemId)--, itemNum)
-    itemCard:setEnabledClickBtn(false)
-
-    -- TODO (YOUNGJIN) : 적절하지 못한 위치.
-    itemCard:SetBackgroundVisible(false)
-
-    node:addChild(itemCard.root)
-
-    return itemId, itemNum
-end

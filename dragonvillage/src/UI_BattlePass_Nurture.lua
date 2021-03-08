@@ -5,20 +5,15 @@ local PARENT = UI_Package
 -- @brief 
 --------------------------------------------------------------------------
 UI_BattlePass_Nurture = class(PARENT, {
-    m_bIsUserOwnedBattlePass = 'bool',  -- 배틀패스 구매여부
-    m_rewardList = '',                  -- 보상 서버 리스트
-    m_userRewardedList = '',            -- 유저 습득 보상 리스트 (일반, 패스 나눌지?)
+    m_pass_id = 'number',
+    m_normal_key = '',
+    m_premium_key = '',
 
-    m_currUserTotalExp = 'number',      -- 유저 현재 경험치
-    m_passMaxExp = 'number',            -- 패스 맥스 경험치
-
-    m_passMaxLevel = 'number',          -- 패스 맥스 레벨
-
-    m_currUserLevel = 'number',         -- 현재 유저 레벨
-    m_requiredExpForLevelUp = 'number', -- 레벨업당 필요 경험치
-    m_currUserExpForLevelUp = 'number', -- 1레벨 기준 현재 유저 경험치
 
     m_tableView = 'UIC_TableView',      -- 스크롤뷰 (횡스크롤)
+
+
+
 
     -- Nodes in ui file
     m_listNode = 'cc.Node',
@@ -32,21 +27,13 @@ UI_BattlePass_Nurture = class(PARENT, {
     m_buyBtn = '',
     m_normalRewardBtn = '',
     m_passRewardBtn = '',
-})
---[[
-    function clickPurchasePassBtn() end
-    function clickReceiveNormalItemsAtOnceBtn() end
-    function clickReceivePassItemsAtOnceBtn() end -- 나눌 필요가 있을까? 리스트를 param으로 받으면?
-    function clickQuestBtn() end
 
-    function refreshCurrExpBar() 
-        vars['']:runAction(cc.ProgressTo:create())
-    end
-    function refreshTotalExpBar() end
     
-    -- m_bIsUserOwnedBattlePass 에 따라 언락
-    function unlockPassItems() end
-]]--
+    m_nextPointLabel = '',
+    
+    m_levelLabel = '',
+    m_nextLevelLabel = '',
+})
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,12 +51,10 @@ function UI_BattlePass_Nurture:init(struct_product, is_popup)
     self.m_isPopup = is_popup or false
 
     local vars = self:load('battle_pass_nurture.ui')
-    if(self.m_isPopup) then
-        UIManager:open(self, UIManager.POPUP)
-        g_currScene.pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_BattlePass_Nurture')
-    end
-
-    
+    -- if(self.m_isPopup) then
+    --     UIManager:open(self, UIManager.POPUP)
+    --     g_currScene.pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_BattlePass_Nurture')
+    -- end
 
     self:doActionReset()
     self:doAction(nil, false)
@@ -86,9 +71,7 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:initUI()
-    self:initProgressBar()
     self:initTableView()
-    self:initTextLabel()
 end
 
 --------------------------------------------------------------------------
@@ -105,6 +88,10 @@ function UI_BattlePass_Nurture:initButton()
     self.m_normalRewardBtn:registerScriptTapHandler(function() self:click_normalRewardBtn() end)
     self.m_passRewardBtn:registerScriptTapHandler(function() self:click_passRewardBtn() end)
 
+
+    local isPurchased = g_battlePassData:isPurchased(self.m_pass_id)
+    self.m_buyBtn:setVisible(not isPurchased)
+    self.m_buyBtn:setEnabled(not isPurchased)
 end
 
 --------------------------------------------------------------------------
@@ -113,8 +100,8 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:refresh()
-    --PARENT:refresh(self)
-    self:refreshCellStatus()
+    self:updateProgressBar()
+    self:updateTextLabel()
 end
 
 
@@ -133,16 +120,10 @@ end
 function UI_BattlePass_Nurture:initMember()
     local vars = self.vars
 
-    self.m_bIsUserOwnedBattlePass = false -- TODO (YOUNGJIN) : 서버 데이터로 확인
-    self.m_rewardList  = g_battlePassData:getRewardList()--{}    -- TODO (YOUNGJIN) : 서버 데이터로 확인
-    
-    self.m_userRewardedList  = {}    -- TODO (YOUNGJIN) : 서버 데이터로 확인
+    self.m_pass_id = 121701
+    self.m_normal_key = 'normal'
+    self.m_premium_key = 'premium'
 
-    -- TODO (YOUNGJIN) : normalRewardList, passRewardList 길이 비교
-    self.m_passMaxLevel = #self.m_rewardList
-
-    self.m_currUserTotalExp = 522     -- TODO (YOUNGJIN) : 서버 데이터로 확인
-    self.m_passMaxExp = 1000           -- TODO (YOUNGJIN) : 서버 데이터로 확인
 
     self.m_listNode = vars['listNode']
     self.m_itemNode = vars['itemNode']
@@ -155,28 +136,17 @@ function UI_BattlePass_Nurture:initMember()
     self.m_normalRewardBtn = vars['normalRewardBtn']
     self.m_passRewardBtn = vars['passRewardBtn']
 
-
-    self:refreshMember()
+    
+    self.m_nextPointLabel = vars['nextPointLabel']
+    self.m_nextLevelLabel = vars['nextLevelLabel']
+    self.m_levelLabel = vars['levelLabel']
 end
 
 --------------------------------------------------------------------------
--- @function initTextLabel 
+-- @function initTableView 
 -- @param 
 -- @brief
 --------------------------------------------------------------------------
-function UI_BattlePass_Nurture:initTextLabel()
-    local vars = self.vars
-    -- TODO (YOUNGJIN) : 하드코딩식. 바꾸어야함.
-    local label = vars['nextPointLabel']
-    label:setString(Str(label:getString(), self.m_currUserExpForLevelUp, self.m_requiredExpForLevelUp))
-
-    label = vars['nextLevelLabel']
-    label:setString(Str(label:getString(), self.m_currUserLevel + 1))
-
-    label = vars['levelLabel']
-    label:setString(Str(label:getString(), self.m_currUserLevel))
-end
-
 function UI_BattlePass_Nurture:initTableView()
     local vars = self.vars
 
@@ -190,7 +160,8 @@ function UI_BattlePass_Nurture:initTableView()
     --table_view.m_defaultCellSize = cc.size(120, 385)
     table_view:setCellUIClass(UI_BattlePass_NurtureCell, create_cb_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    table_view:setItemList3(self.m_rewardList)
+
+    table_view:CreateCellUIClass(self.m_pass_id, g_battlePassData:getLevelNum(self.m_pass_id))
     
     self.m_totalExpBar:retain()
     self.m_totalExpBar:removeFromParent()
@@ -200,109 +171,50 @@ function UI_BattlePass_Nurture:initTableView()
     self.m_tableView = table_view
 end
 
---------------------------------------------------------------------------
--- @function initMember 
--- @param 
--- @brief
---------------------------------------------------------------------------
-function UI_BattlePass_Nurture:initProgressBar()
-    local vars = self.vars
-
-    -- TODO (YOUNGJIN) : member으로서 필요한지 확인. 
-    --local listNodeWidth, listNodeHeight = self.m_listNode:getNormalSize()
-    --local itemNodeWidth, itemNodeHeight = self.m_itemNode:getNormalSize()
-
-    --local progressBarRatio = itemNodeWidth / listNodeWidth
-
-    -- 
-    self.m_levelExpBar:setPercentage((self.m_currUserExpForLevelUp / self.m_requiredExpForLevelUp) * 100)
-    self.m_totalExpBar:setScaleX(self.m_totalExpBar:getScaleX() * self.m_passMaxLevel)
-    self.m_totalExpBar:setPercentage((self.m_currUserTotalExp / self.m_passMaxExp) * 100)
-
-end
-
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --// refresh Helper Functions (local)
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
+function UI_BattlePass_Nurture:updateProgressBar()
+    local vars = self.vars
 
+    local percent = (g_battlePassData:getUserExpPerLevel(self.m_pass_id) / g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)) * 100
+    self.m_levelExpBar:setPercentage(percent)
 
---------------------------------------------------------------------------
--- @function refreshMember 
--- @param 
--- @brief
---------------------------------------------------------------------------
-function UI_BattlePass_Nurture:refreshMember()
-    -- 현재 유저 레벨
-    self.m_currUserLevel = math.floor((self.m_currUserTotalExp / self.m_passMaxExp) * self.m_passMaxLevel)
-    -- 레벨업당 필요 경험치
-    self.m_requiredExpForLevelUp = (self.m_passMaxExp / self.m_passMaxLevel)
-    -- 1레벨 기준 현재 유저 경험치
-    self.m_currUserExpForLevelUp = (self.m_currUserTotalExp % self.m_requiredExpForLevelUp)
-end
+    local scale = self.m_totalExpBar:getScaleX() * g_battlePassData:getLevelNum(self.m_pass_id)
+    self.m_totalExpBar:setScaleX(scale)
 
---------------------------------------------------------------------------
--- @function refreshProgressBar 
--- @param 
--- @brief
---------------------------------------------------------------------------
-function UI_BattlePass_Nurture:refreshProgressBar()
-
-end
---------------------------------------------------------------------------
--- @function click_infoBtn 
--- @param 
--- @brief
---------------------------------------------------------------------------
-function UI_BattlePass_Nurture:refreshCellStatus()
-    for i, v in ipairs(self.m_tableView.m_itemList) do
-        local ui = v['ui'] or v['generated_ui']
-        if ui then
-            ui:SetLevelSpritesVisible(self.m_currUserLevel >= i)
-            ui:SetPassLock(not self.m_bIsUserOwnedBattlePass)
-        end
+    local user_exp = g_battlePassData:getUserExp(self.m_pass_id)
+    if(g_battlePassData:getMinLevel(self.m_pass_id) == 0) then
+        user_exp = user_exp + g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)
     end
+
+    percent = user_exp / g_battlePassData:getMaxExp(self.m_pass_id) * 100   
+    self.m_totalExpBar:setPercentage(percent)
+
+end
+
+function UI_BattlePass_Nurture:updateTextLabel()
+
+    self.m_nextPointLabel:setString(Str(self.m_nextPointLabel:getString(), 
+            g_battlePassData:getUserExpPerLevel(self.m_pass_id),
+            g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)))
+
+    local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
+
+    self.m_nextLevelLabel:setString(Str(self.m_nextLevelLabel:getString(), userLevel + 1))
+    self.m_levelLabel:setString(Str(self.m_levelLabel:getString(), userLevel))
 end
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
---// Getter & Setter
+--// 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 
---------------------------------------------------------------------------
--- @function SetLockBattlePass 
--- @param 
--- @brief
---------------------------------------------------------------------------
-function UI_BattlePass_Nurture:SetLockBattlePass(bool_value)
-
-end
-
-
---------------------------------------------------------------------------
--- @function click_infoBtn 
--- @param 
--- @brief
--- @todo 
---------------------------------------------------------------------------
--- function UI_BattlePass_Nurture:TempSetBattlePassLock(bool_value)
---     for i, v in ipairs(self.m_tableView.m_itemList) do
---         local ui = v['ui'] or v['generated_ui']
---         if ui then
-
---         end
---     end
--- end
-
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---// Click Button Actions
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 --------------------------------------------------------------------------
 -- @function click_infoBtn 
@@ -329,15 +241,33 @@ end
 -- @todo replace refreshCellStatus to refresh after test
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_buyBtn()
-    if(self.m_bIsUserOwnedBattlePass) then 
-        -- ERROR CASE. It shouldn't be hapened\
-        return
-    end
+    local targetProduct = g_shopDataNew:getTargetProduct(self.m_pass_id)
+    
+    local function cb_func(ret)
+        local function cb_finish(ret)
+            for i, v in ipairs(self.m_tableView.m_itemList) do
+                local ui = v['ui'] or v['generated_ui']
+                if ui then
+                    local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, i)
+                    local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
+                    ui:updatePassLock()
 
-    self.m_bIsUserOwnedBattlePass = true
-    self.m_buyBtn:setVisible(false)
-    self.m_buyBtn:setEnabled(false)
-    self:refreshCellStatus()
+                    if(targetLevel <= userLevel) then 
+                        ui:updatePremiumRewardStatus()
+                    end
+                end
+            end
+            
+            local isPurchased = g_battlePassData:isPurchased(self.m_pass_id)
+            self.m_buyBtn:setVisible(not isPurchased)
+            self.m_buyBtn:setEnabled(not isPurchased)
+        end
+
+        ItemObtainResult_Shop(ret, true) -- param : ret, show_all
+        g_battlePassData:request_battlePassInfo(cb_finish)
+	end
+
+    targetProduct:buy(cb_func)
 end
 
 --------------------------------------------------------------------------
@@ -346,12 +276,24 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_normalRewardBtn()
-    for i, v in ipairs(self.m_tableView.m_itemList) do
-        local ui = v['ui'] or v['generated_ui']
-        if ui then
-            ui:click_normalRewardBtn()
+   
+    local function finish_cb(ret)
+        --g_serverData:receiveReward(ret)
+
+        for i, v in ipairs(self.m_tableView.m_itemList) do
+            local ui = v['ui'] or v['generated_ui']
+            if ui then
+                local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, i)
+                local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
+                if(targetLevel <= userLevel) then 
+                    ui:updateNormalRewardStatus()
+                end
+            end
         end
     end
+
+    -- level:0, type:all 로 요청 시 모든 보상 수령 요청
+    g_battlePassData:request_allRewards(self.m_pass_id, self.m_normal_key, finish_cb)
 end
 
 --------------------------------------------------------------------------
@@ -360,11 +302,23 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_passRewardBtn()
-    for i, v in ipairs(self.m_tableView.m_itemList) do
-        local ui = v['ui'] or v['generated_ui']
-        if ui then
-            ui:click_passRewardBtn()
+    
+    local function finish_cb(ret)
+            --g_serverData:receiveReward(ret)
+       
+        for i, v in ipairs(self.m_tableView.m_itemList) do
+            local ui = v['ui'] or v['generated_ui']
+            if ui then
+                local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, i)
+                local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
+                if(targetLevel <= userLevel) then 
+                    ui:updatePremiumRewardStatus()
+                end
+            end
         end
     end
+   
+    -- level:0, type:all 로 요청 시 모든 보상 수령 요청
+    g_battlePassData:request_allRewards(self.m_pass_id, self.m_premium_key, finish_cb)
 end
 
