@@ -232,6 +232,42 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_questBtn() 
     UINavigator:goTo('quest')
+
+    -- 퀘스트 팝업 찾고
+    local is_opend, idx, popupUI = UINavigatorDefinition:findOpendUI('UI_QuestPopup')
+
+    if (popupUI) then
+        -- ui 가 있으면 팝업 클로즈 콜백에
+        -- info request response 후
+        -- ui 업뎃하는 로직을 집어넣는다.
+        local function cb_popup_close()
+            local function cb_finish(ret)
+                for i, v in ipairs(self.m_tableView.m_itemList) do
+                    local ui = v['ui'] or v['generated_ui']
+                    if ui then
+                        local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, i)
+                        local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
+                        ui:updatePassLock()
+
+                        if(targetLevel <= userLevel) then 
+                            ui:updatePremiumRewardStatus()
+                        end
+                    end
+                end
+            
+                local isPurchased = g_battlePassData:isPurchased(self.m_pass_id)
+
+                self.m_buyBtn:setVisible(not isPurchased)
+                self.m_buyBtn:setEnabled(not isPurchased)
+            end
+
+            ItemObtainResult_Shop(ret, true) -- param : ret, show_all
+            g_battlePassData:request_battlePassInfo(cb_finish)
+
+        end
+
+        popupUI:setCloseCB(refresh_cb)
+    end
 end
 
 --------------------------------------------------------------------------
