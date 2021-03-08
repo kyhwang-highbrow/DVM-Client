@@ -778,12 +778,14 @@ end
 -- @brief 개발 스테이지 버튼
 --        sgkim 2018.11.07 10vs10 PvP 테스트 버튼으로 사용 중
 --        jhakim 2019.08.07 룬 수호자 던전 테스트 버튼
+--        ochoi 2021.03.08 시련던전 테스트 버튼
 -------------------------------------
 function UI_AdventureSceneNew:click_devStageBtn()
     --self:openAdventureStageInfoPopup(DEV_STAGE_ID)
     --local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
     --scene:runScene()
-    UI_AdventureStageInfo(1119801)
+    --UI_AdventureStageInfo(1119801)
+    self:openAdventureStageInfoPopup(DEV_STAGE_ID)
 end
 
 -------------------------------------
