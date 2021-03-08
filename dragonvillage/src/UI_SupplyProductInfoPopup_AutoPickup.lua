@@ -84,11 +84,6 @@ function UI_SupplyProductInfoPopup_AutoPickup:refresh()
     local cash_cnt = ingame_drop_info['cash'] or 0
     local gold_cnt = ingame_drop_info['gold'] or 0
     local amethyst_cnt = ingame_drop_info['amethyst'] or 0
-
-    local daily_play_cnt = ingame_drop_info['daily_play_cnt'] or 0
-    local daily_cash_cnt = ingame_drop_info['daily_cash'] or 0
-    local daily_gold_cnt = ingame_drop_info['daily_gold'] or 0
-    local daily_amethyst_cnt = ingame_drop_info['daily_amethyst'] or 0
     
     -- 플레이 횟수
     vars['playLabel']:setString(Str('{1}회', comma_value(play_cnt)))
@@ -104,6 +99,12 @@ function UI_SupplyProductInfoPopup_AutoPickup:refresh()
 
 
     -- 오해하지 마세요, 다른 작업 때문에 1초가 아쉬워서 부득이하게 이렇게 했습니다.
+    local daily_ingame_drop_info = g_subscriptionData:getDailyIngameDropInfo()
+    local daily_play_cnt = daily_ingame_drop_info['play_cnt'] or 0
+    local daily_cash_cnt = daily_ingame_drop_info['cash'] or 0
+    local daily_gold_cnt = daily_ingame_drop_info['gold'] or 0
+    local daily_amethyst_cnt = daily_ingame_drop_info['amethyst'] or 0
+
     -- 1일 플레이 횟수
     vars['dailyPlayLabel']:setString(Str('{1}회', comma_value(daily_play_cnt)))
 

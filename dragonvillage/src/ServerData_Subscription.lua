@@ -14,6 +14,7 @@ ServerData_Subscription = class({
         m_dicProduct = '[subscription_category][struct_product]',
         m_subscribedInfoList = 'list[StructSubscribedInfo]', -- 구독 중인 상품 정보
         m_ingameDropInfoMap = 'map', -- 인게임 드랍 정보 
+        m_dailyIngameDropInfoMap = 'map', -- 일일 인게임 드랍 정보 
     })
 
 -------------------------------------
@@ -24,6 +25,7 @@ function ServerData_Subscription:init(server_data)
 
     self.m_dicProduct = {}
     self.m_ingameDropInfoMap = {}
+    self.m_dailyIngameDropInfoMap = {}
 end
 
 -------------------------------------
@@ -122,6 +124,9 @@ function ServerData_Subscription:request_useAutoPickItem(cb_func, fail_cb)
         -- 인게임 드랍 정보 갱신
         self:response_ingameDropInfo(ret)
 
+        -- 인게임 일일 드랍 정보 갱신
+        self:response_dailyIngameDropInfo(ret)
+
         -- 보급소(정액제)
         g_supply:applySupplyList_fromRet(ret)
 
@@ -174,6 +179,7 @@ function ServerData_Subscription:response_subscriptionInfo(ret)
     end
 
     self:response_ingameDropInfo(ret)
+    self:response_dailyIngameDropInfo(ret)
 end
 
 -------------------------------------
@@ -186,6 +192,15 @@ function ServerData_Subscription:response_ingameDropInfo(ret)
     end
 end
 
+-------------------------------------
+-- function response_dailyIngameDropInfo
+-------------------------------------
+function ServerData_Subscription:response_dailyIngameDropInfo(ret)
+    -- 인게임 일일 드랍 정보
+    if (ret['ingame_drop_stats_daily']) then
+        self.m_dailyIngameDropInfoMap = ret['ingame_drop_stats_daily']
+    end
+end
 -------------------------------------
 -- function ckechDirty
 -------------------------------------
@@ -318,6 +333,13 @@ function ServerData_Subscription:getIngameDropInfo()
     return self.m_ingameDropInfoMap
 end
 
+-------------------------------------
+-- function getDailyIngameDropInfo
+-- @brief 인게임 일일 드랍 정보
+-------------------------------------
+function ServerData_Subscription:getDailyIngameDropInfo()
+    return self.m_dailyIngameDropInfoMap
+end
 
 -------------------------------------
 -- function getSubscribedInfo
