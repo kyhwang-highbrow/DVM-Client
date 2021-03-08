@@ -1187,6 +1187,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_BattleMenuItem_Clan.lua" />
     <None Include="..\src\UI_BattleMenuItem_Competition.lua" />
     <None Include="..\src\UI_BattleMenuItem_Dungeon.lua" />
+    <None Include="..\src\UI_BattlePassInfoPopup.lua" />
     <None Include="..\src\UI_BattlePassPopup.lua" />
     <None Include="..\src\UI_BattlePassTabButton.lua" />
     <None Include="..\src\UI_BattlePass_Nurture.lua" />

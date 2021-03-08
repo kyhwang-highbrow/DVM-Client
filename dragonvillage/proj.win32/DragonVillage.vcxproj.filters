@@ -4919,6 +4919,7 @@
     <None Include="..\src\UI_BattlePass_NurtureCell.lua" />
     <None Include="..\src\UI_BattlePass_Nurture.lua" />
     <None Include="..\src\TableBattlePass.lua" />
+    <None Include="..\src\UI_BattlePassInfoPopup.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

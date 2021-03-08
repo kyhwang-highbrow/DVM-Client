@@ -1007,6 +1007,7 @@ local t_module = {
     'UI_DragonGuideListItem',
     'UI_DragonDiaryPopup',
     'UI_BattlePassPopup',
+    'UI_BattlePassInfoPopup',
     'UI_BattlePassTabButton',
     'UI_PackagePopup',
     'UI_PackageTabButton',
