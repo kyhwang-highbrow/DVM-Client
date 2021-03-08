@@ -138,14 +138,15 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
 
     -- 육성패스 
     elseif (_package_name == 'battle_pass_nurture' or _package_name == 'battle_pass_nurture_premium') then
-        local pid = TablePackageBundle:getPidsWithName(_package_name)
+        local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
         local pass_list = g_shopDataNew:getProductList('pass')
-        ccdump(pid)
-        ccdump(pass_list)
-        ccdump(pass_list[tonumber(pid)])
+
+        local pid = tonumber(pid_strs[1])
+        
         local _struct_product = {}
-        _struct_product['product_id'] = product_data[pid]['product_id']
-        _struct_product['package_res'] = product_data[pid]['package_res']
+        _struct_product['product_id'] = pass_list[pid]['product_id']
+        _struct_product['package_res'] = pass_list[pid]['package_res']
+        
         target_ui = UI_BattlePass_Nurture(_struct_product, is_popup)
 
     -- 패키지 상품 묶음 UI 

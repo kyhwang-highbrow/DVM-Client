@@ -48,8 +48,13 @@ UI_BattlePass_Nurture = class(PARENT, {
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:init(struct_product, is_popup)
-    self.m_isPopup = is_popup or false
+    cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    ccdump(struct_product)
+    --ccdump(struct_product['product_id'])
+    --ccdump(struct_product['package_res'])
 
+    self.m_isPopup = is_popup or false
+    --ccdump(struct_product['package_res'])
     local vars = self:load(struct_product['package_res'])
     -- if(self.m_isPopup) then
     --     UIManager:open(self, UIManager.POPUP)
