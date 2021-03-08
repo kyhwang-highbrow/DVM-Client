@@ -48,26 +48,6 @@ UI_BattlePass_Nurture = class(PARENT, {
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:init(struct_product, is_popup)
-    cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-    ccdump(struct_product)
-    --ccdump(struct_product['product_id'])
-    --ccdump(struct_product['package_res'])
-
-    self.m_isPopup = is_popup or false
-    --ccdump(struct_product['package_res'])
-    local vars = self:load(struct_product['package_res'])
-    -- if(self.m_isPopup) then
-    --     UIManager:open(self, UIManager.POPUP)
-    --     g_currScene.pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_BattlePass_Nurture')
-    -- end
-
-    self:doActionReset()
-    self:doAction(nil, false)
-
-    self:initMember(struct_product)
-    self:initUI()
-    self:initButton()
-    self:refresh()
 end
 
 --------------------------------------------------------------------------
@@ -76,6 +56,7 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:initUI()
+    self:initMember(self.m_structProduct)
     self:initTableView()
 end
 
