@@ -227,6 +227,9 @@ end
 -- @brief 상품 노출 여부
 -------------------------------------
 function StructProduct:isDisplayed()
+
+    if self.m_tabCategory == 'pass' then return true end
+
     local sku = self['sku']
 
     -- 원스토어에서만 노출되어야 하는 상품 필터

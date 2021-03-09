@@ -1651,6 +1651,7 @@ end
 -- TODO (YOUNGJIN) : 임시 복붙 상태. 수정바람
 function UINavigatorDefinition:goTo_battle_pass_shop(...)
     local args = {...}
+    local initial_tab = args[1]
 
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_BattlePassPopup')
@@ -1660,15 +1661,13 @@ function UINavigatorDefinition:goTo_battle_pass_shop(...)
     end
 
     local function finish_cb(ret)
-        -- 퀘스트 팝업이 열려있을 경우
-        local is_opened, idx, ui = self:findOpendUI("UI_QuestPopup")
-        local ui
+        do -- Scene으로 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+                end
 
-        if (is_opend == true) then
-            self:closeUIList(idx)
-            ui = UI_BattlePassPopup()
-        else
-            ui = UI_BattlePassPopup()
+            local scene = SceneCommon(UI_BattlePassPopup, close_cb, initial_tab)
+            scene:runScene()
         end
     end
 

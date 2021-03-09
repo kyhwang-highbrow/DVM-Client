@@ -113,6 +113,7 @@ end
 function UI_BattlePassPopup:initTableView()
 
     local item_list = g_shopDataNew:getProductList('pass')
+   
     local tableView = UIC_TableView(self.m_listNode)
     local tabList = {}
     for k, v in pairs(item_list) do
@@ -124,7 +125,7 @@ function UI_BattlePassPopup:initTableView()
             table.insert(tabList, v)
         end
     end
-    
+
     -- TODO (YOUNGJIN) : ui 파일에서 노드 생성후 사이즈 적용으로 바꾸기
     tableView.m_defaultCellSize = cc.size(264, 104 + 5)
     tableView:setCellUIClass(UI_BattlePassTabButton)

@@ -61,7 +61,6 @@ function ServerData_Shop:localTableTest()
 
 
     local date = parser:parse(date_str)
-    --ccdump(date)
 
     --local 
     for i,v in pairs(table_shop_list) do
@@ -143,6 +142,7 @@ end
 -------------------------------------
 function ServerData_Shop:getProductList(tab_category)
     local l_product = self.m_dicProduct[tab_category]
+    
     return self:getProductList_(l_product)
 end
 
@@ -202,11 +202,12 @@ function ServerData_Shop:checkIsDisplay(struct_product)
 	if (not struct_product) then
 		return false
 	end
-
+    
 	-- Role1 : weekly, montly 등 기간이 있으면 구매해도 무조건 display 해줌
 	-- Role2 : permenent 상품의 경우 한 번 사면 display를 해주지 않음
+
 	if struct_product:isDisplayed() then
-	    
+        
 		-- Role1 을 따르지 않는 예외처리
 		-- @jhakim 20191212 한정 단계별 패키지가 생김
 		-- 한정 단계별 패키지의 경우 monthly라는 제한이 있지만 한 번 사면 display 해주지 말아야함
@@ -308,6 +309,7 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
 
         if t_product then
             local struct_product = StructProduct(t_product)
+
             struct_product:setTabCategory(tab_category)
             struct_product:setStartDate(start_date) -- 판매 시작 시간
             struct_product:setEndDate(end_date) -- 판매 종료 시간
@@ -316,12 +318,15 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
             
             -- 2018.01.30 - klee 상품별 UI 포지션, 스케일 정보 추가 
             local t_basic_info = table_shop_basic[product_id]
+            
             if (t_basic_info) then
                 local ui_pos = t_basic_info['ui_pos']
                 local ui_scale = t_basic_info['ui_scale']
                 struct_product:setUIPos(ui_pos) 
                 struct_product:setUIScale(ui_scale) 
             end
+
+            
             if(tab_category == 'pass') then
                 if g_eventData:checkEventTime(start_date, end_date) then
                     self:insertProduct(struct_product)

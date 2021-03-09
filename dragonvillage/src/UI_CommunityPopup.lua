@@ -90,13 +90,13 @@ function UI_CommunityPopup:refresh()
     -- 추후 커뮤니티는 절대 늘리지는 않는다고 하니 위치를 박아넣어도 무방하다고 판단됨
 
 
-    if isNaverActive then
-        self.m_naverBtn:setPosition(self.m_naverBtn:getPosition())
-        self.m_facebookBtn:setPosition(self.m_facebookBtn:getPosition())
-        self.m_instagramBtn:setPosition(self.m_instagramBtn:getPosition())
-    else
+    -- if isNaverActive then
+    --     self.m_naverBtn:setPosition(self.m_naverBtn:getPosition())
+    --     self.m_facebookBtn:setPosition(self.m_facebookBtn:getPosition())
+    --     self.m_instagramBtn:setPosition(self.m_instagramBtn:getPosition())
+    -- else
         
-    end
+    --end
 end
 
 -------------------------------------

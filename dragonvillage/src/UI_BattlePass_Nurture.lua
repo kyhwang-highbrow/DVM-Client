@@ -271,13 +271,15 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_questBtn() 
-    UINavigator:goTo('quest')
-    -- 퀘스트 팝업 찾고
-    local is_opend, idx, popupUI = UINavigatorDefinition:findOpendUI('UI_QuestPopup')
+    local is_opend, idx, popupUI = UINavigatorDefinition:findOpendUI('UI_BattlePassPopup')
 
     if (popupUI) then
         popupUI:setCloseCB(function() self:onReceiveBattlePassInfo() end)
     end
+    
+    UINavigator:goTo('quest')
+    -- 퀘스트 팝업 찾고
+    
 end
 
 --------------------------------------------------------------------------
