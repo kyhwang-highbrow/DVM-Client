@@ -105,6 +105,19 @@ function UI_AttendanceSpecialListItem:initCustomUI()
     local t_step_list = self.m_tItemData['step_list']
     local today_step = self.m_tItemData['today_step']
 
+    local isNewUser = self.m_eventId == 'newbie'
+    local isComebackUser = self.m_eventId == 'comeback'
+
+    -- 신규 or 복귀?
+    if (vars['newUserSprite']) then
+        vars['newUserSprite']:setVisible(isNewUser)
+    end
+
+    if (vars['returnSprite']) then
+        vars['newUserSprite']:setVisible(isComebackUser)
+    end
+
+
     for i, v in ipairs(t_step_list) do
         local t_item_data = v
 		
