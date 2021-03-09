@@ -105,14 +105,9 @@ function UI_AttendanceSpecialListItem:initCustomUI()
     local t_step_list = self.m_tItemData['step_list']
     local today_step = self.m_tItemData['today_step']
 
-    local category = 'newbie'
 
-    if (self.m_tItemData and self.m_tItemData['category']) then
-        category = tostring(self.m_tItemData['category'])
-    end
-
-    local isNewUser = category == 'newbie'
-    local isComebackUser = category == 'comeback'
+    local isNewUser = self.m_eventId == 'newbie'
+    local isComebackUser = self.m_eventId == 'comeback'
 
     -- 신규 or 복귀?
     if (vars['newUserSprite']) then
@@ -120,9 +115,8 @@ function UI_AttendanceSpecialListItem:initCustomUI()
     end
 
     if (vars['returnSprite']) then
-        vars['newUserSprite']:setVisible(isComebackUser)
+        vars['returnSprite']:setVisible(isComebackUser)
     end
-
 
     for i, v in ipairs(t_step_list) do
         local t_item_data = v
@@ -133,6 +127,8 @@ function UI_AttendanceSpecialListItem:initCustomUI()
 		-- 아이콘
 		local item_icon = IconHelper:getItemIcon(item_id, nil)
         vars['itemNode'..i]:addChild(item_icon)
+        item_icon:setScale(0.9)
+
 
 		-- 이름
         local item_name = TableItem():getValue(item_id, 't_name')
