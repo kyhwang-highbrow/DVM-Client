@@ -10,6 +10,9 @@ UI_AttendanceSpecialListItem = class(PARENT, {
         m_messageTimer = '',
         m_lMessagePosY = '',
         m_effectTimer = '',
+        
+        m_eventId = '',
+        m_hasCustomUI = '',
     })
 
 -------------------------------------
@@ -17,6 +20,8 @@ UI_AttendanceSpecialListItem = class(PARENT, {
 -------------------------------------
 function UI_AttendanceSpecialListItem:init(t_item_data, event_id)
     self.m_tItemData = t_item_data
+    self.m_eventId = event_id
+    self.m_hasCustomUI = false
 
     local ui_name 
     if (event_id == 'comeback') then
@@ -27,6 +32,7 @@ function UI_AttendanceSpecialListItem:init(t_item_data, event_id)
 
     -- 데이터에 ui파일명 들어가 있으면?
     if (self.m_tItemData and self.m_tItemData['ui'] and self.m_tItemData['ui'] ~= '') then 
+        self.m_hasCustomUI = true
         ui_name = tostring(self.m_tItemData['ui']) 
     end
 
@@ -41,6 +47,17 @@ end
 -- function initUI
 -------------------------------------
 function UI_AttendanceSpecialListItem:initUI()
+    if (self.m_hasCustomUI) then
+        self:initCustomUI()
+    else
+        self:initCommonUI()
+    end
+end
+
+-------------------------------------
+-- function initCommonUI
+-------------------------------------
+function UI_AttendanceSpecialListItem:initCommonUI()
     local vars = self.vars
     
     local t_step_list = self.m_tItemData['step_list']
@@ -78,6 +95,24 @@ function UI_AttendanceSpecialListItem:initUI()
         --vars['timeLabel']:setString(self:getRemainTimeStr())
     end
 end
+
+-------------------------------------
+-- function initCustomUI
+-------------------------------------
+function UI_AttendanceSpecialListItem:initCustomUI()
+    local vars = self.vars
+    
+    local t_step_list = self.m_tItemData['step_list']
+    local today_step = self.m_tItemData['today_step']
+
+    for i, v in ipairs(t_step_list) do
+		-- 수령 표시
+        if (i <= today_step) then
+            vars['checkSprite'..i]:setVisible(true)
+        end
+    end
+end
+
 
 -------------------------------------
 -- function initButton
