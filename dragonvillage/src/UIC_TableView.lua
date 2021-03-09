@@ -856,7 +856,7 @@ function UIC_TableView:setItemList3(list, sort_func)
 end
 
 
-function UIC_TableView:CreateCellUIClass(id, num)
+function UIC_TableView:CreateCellUIClass(id, num, isPreload)
     self:clearItemList()
 
     for i = 1, num do
@@ -867,15 +867,21 @@ function UIC_TableView:CreateCellUIClass(id, num)
         
         t_item['unique_id'] = i
         t_item['data'] = data
-        t_item['ui'] = self:makeItemUI(data)
+
+        if (isPreload) then
+            t_item['ui'] = self:makeItemUI(data)
+        end
         
         table.insert(self.m_itemList, t_item)
 
         self.m_itemMap[i] = t_item
     end
 
-    self:_updateCellPositions()
-    self:_updateContentSize()
+    if (isPreload) then
+        self:_updateCellPositions()
+        self:_updateContentSize()
+    end
+
     self:scrollViewDidScroll()
 
     self:setDirtyItemList()

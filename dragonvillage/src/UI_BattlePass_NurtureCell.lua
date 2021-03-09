@@ -53,6 +53,11 @@ function UI_BattlePass_NurtureCell:init(data)
     
     local vars = self:load(ui_file_name)
 
+    -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
+    self:doActionReset()
+    self:doAction(nil, false)
+
     self:initMember(data)
     self:initUI()
     self:initButton()

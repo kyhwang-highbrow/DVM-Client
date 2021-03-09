@@ -54,6 +54,10 @@ UI_BattlePass_Nurture = class(PARENT, {
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:init(struct_product, is_popup)
+    -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
+    self:doActionReset()
+    self:doAction(nil, false)
 end
 
 --------------------------------------------------------------------------
@@ -285,7 +289,7 @@ function UI_BattlePass_Nurture:onReceiveBattlePassInfo()
 
     local function finish_cb(ret)
         self:refresh()
-
+        
         for i, v in ipairs(self.m_tableView.m_itemList) do
             local ui = v['ui'] or v['generated_ui']
             if ui then

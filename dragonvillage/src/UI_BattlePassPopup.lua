@@ -33,6 +33,7 @@ function UI_BattlePassPopup:init()
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_BattlePassPopup')
 
     -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.3)
     self:doActionReset()
     self:doAction(nil, false)
 
