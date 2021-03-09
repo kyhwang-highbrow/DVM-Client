@@ -105,8 +105,14 @@ function UI_AttendanceSpecialListItem:initCustomUI()
     local t_step_list = self.m_tItemData['step_list']
     local today_step = self.m_tItemData['today_step']
 
-    local isNewUser = self.m_eventId == 'newbie'
-    local isComebackUser = self.m_eventId == 'comeback'
+    local category = 'newbie'
+
+    if (self.m_tItemData and self.m_tItemData['category']) then
+        category = tostring(self.m_tItemData['category'])
+    end
+
+    local isNewUser = category == 'newbie'
+    local isComebackUser = category == 'comeback'
 
     -- 신규 or 복귀?
     if (vars['newUserSprite']) then
