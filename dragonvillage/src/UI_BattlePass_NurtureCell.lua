@@ -183,13 +183,6 @@ function UI_BattlePass_NurtureCell:updateLevelSprites()
     local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, self.m_cell_id)
     
     local isAvailableLevel = (userLevel >= targetLevel)
-
-    if isAvailableLevel == false then
-        cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-        cclog('index : ' .. self.m_cell_id)
-        cclog('userLevel : ' .. userLevel .. '   targtLevel : ' .. targetLevel)
-        cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-    end
     
     -- 레벨이 되면 밝게, 레벨이 되면 어둡게 설정
     self.m_normalLockSprite:setVisible(not isAvailableLevel)
