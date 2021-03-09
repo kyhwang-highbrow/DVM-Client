@@ -17,9 +17,6 @@ function UI_EventPopupTab_EventAttendance:init(event_id)
     self.m_structAttendanceData = g_attendanceData:getAttendanceData(event_id)
 
     self.m_uiName = 'event_attendance_special.ui'
-    if (self.m_structAttendanceData and self.m_structAttendanceData['ui'] and self.m_structAttendanceData['ui'] ~= '') then 
-        self.m_uiName = tostring(self.m_structAttendanceData['ui']) 
-    end
 
     local vars = self:load(self.m_uiName)
 
