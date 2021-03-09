@@ -138,12 +138,15 @@ end
 -------------------------------------
 function UI_ArenaHistoryListItem:click_friendlyBattleBtn()
     UIManager:toastNotificationRed(Str('준비 중입니다.'))
-    --[[
-    local user_info = self.m_userInfo
-    local mode = (self.m_type == 'atk') and FRIEND_MATCH_MODE.RETRY or FRIEND_MATCH_MODE.REVENGE
-    local history_id = user_info.m_history_id
+    if IS_TEST_MODE() then
+        local user_info = self.m_userInfo
+        local mode = (self.m_type == 'atk') and FRIEND_MATCH_MODE.RETRY or FRIEND_MATCH_MODE.REVENGE
+        local history_id = user_info.m_history_id
 
-    g_friendMatchData:request_arenaInfo(mode, history_id)]]
+        g_friendMatchData:request_arenaInfo(mode, history_id)
+    else
+        UIManager:toastNotificationRed(Str('준비 중입니다.'))
+    end
 end
 
 -------------------------------------
