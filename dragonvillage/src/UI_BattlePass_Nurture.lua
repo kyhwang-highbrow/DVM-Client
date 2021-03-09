@@ -183,34 +183,29 @@ end
 function UI_BattlePass_Nurture:updateProgressBar()
     local vars = self.vars
 
+    local requiredExpPerLevel = g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)
+
     -- 상단 레벨당 경험치 progress bar : self.m_levelExpBar
     local percent
     -- 맥스 레벨 상태 시 100% 표시.
-    if(g_battlePassData:getUserLevel(self.m_pass_id) == g_battlePassData:getMaxLevel(self.m_pass_id)) then
+    if(g_battlePassData:getUserLevel(self.m_pass_id) >= g_battlePassData:getMaxLevel(self.m_pass_id)) then
         percent = 100
     else
-        percent = (g_battlePassData:getUserExpPerLevel(self.m_pass_id) / g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)) * 100
+        percent =  g_battlePassData:getUserExpPerLevel(self.m_pass_id) / requiredExpPerLevel * 100
     end
-    self.m_levelExpBar:setPercentage(percent)
 
+    self.m_levelExpBar:setPercentage(percent)
 
     -- 하단 전체 경험치 progress bar : self.m_totalExpBar
     local scale = self.m_originTotalExpScale * g_battlePassData:getLevelNum(self.m_pass_id)
     self.m_totalExpBar:setScaleX(scale)
-    local user_exp = g_battlePassData:getUserExp(self.m_pass_id)
 
-    -- 패스 시작 레벨이 0이고 현재 유저 경험치가 0일 때 0레벨까지 경험치바 표시를 위해
-    if(g_battlePassData:getMinLevel(self.m_pass_id)  == 0) and (user_exp == 0) then
-        user_exp = user_exp + g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)
-    end
 
-    -- 현재 경험치 상태가 맥스일 때 100%로 표시.
-    if user_exp >= g_battlePassData:getMaxExp(self.m_pass_id) then
-        percent = 100
-    else
-        percent = user_exp / g_battlePassData:getMaxExp(self.m_pass_id) * 100   
-    end
-    self.m_totalExpBar:setPercentage(percent)
+    local maxExp = g_battlePassData:getMaxExp(self.m_pass_id)
+    local expRatioPerLevel = requiredExpPerLevel / maxExp
+    local userExpRatio = g_battlePassData:getUserExp(self.m_pass_id) / maxExp
+
+     self.m_totalExpBar:setPercentage((expRatioPerLevel + userExpRatio) * 100)
 
 end
 
