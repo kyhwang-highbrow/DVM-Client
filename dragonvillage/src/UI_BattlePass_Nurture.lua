@@ -358,25 +358,26 @@ function UI_BattlePass_Nurture:click_normalRewardBtn()
    
     local function finish_cb(ret)
         if(ret['added_items']) then
-            --g_serverData:receiveReward(ret)
-        end
+            g_serverData:receiveReward(ret)
+        
+            if(g_battlePassData:getUserLevel(self.m_pass_id) == g_battlePassData:getMaxLevel(self.m_pass_id)) then
+                self:updateTimeLabel()
+            end
 
-        if(g_battlePassData:getUserLevel(self.m_pass_id) == g_battlePassData:getMaxLevel(self.m_pass_id)) then
-            self:updateTimeLabel()
-        end
-
-        for i, v in ipairs(self.m_tableView.m_itemList) do
-            local ui = v['ui'] or v['generated_ui']
-            if ui then
-                local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, i)
-                local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
-                if(targetLevel <= userLevel) then 
-                    ui:updateNormalRewardStatus()
+            for i, v in ipairs(self.m_tableView.m_itemList) do
+                local ui = v['ui'] or v['generated_ui']
+                if ui then
+                    local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, i)
+                    local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
+                    if(targetLevel <= userLevel) then 
+                        ui:updateNormalRewardStatus()
+                    end
                 end
             end
+        else
+            UIManager:toastNotificationRed('수령할 수 있는 아이템이 없습니다.')
         end
-
-
+        
     end
 
     -- level:0, type:all 로 요청 시 모든 보상 수령 요청
@@ -392,22 +393,24 @@ function UI_BattlePass_Nurture:click_passRewardBtn()
     
     local function finish_cb(ret)
         if(ret['added_items']) then
-            --g_serverData:receiveReward(ret)
-        end
-
-        if(g_battlePassData:getUserLevel(self.m_pass_id) == g_battlePassData:getMaxLevel(self.m_pass_id)) then
-            self:updateTimeLabel()
-        end
-       
-        for i, v in ipairs(self.m_tableView.m_itemList) do
-            local ui = v['ui'] or v['generated_ui']
-            if ui then
-                local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, i)
-                local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
-                if(targetLevel <= userLevel) then 
-                    ui:updatePremiumRewardStatus()
+            g_serverData:receiveReward(ret)
+        
+            if(g_battlePassData:getUserLevel(self.m_pass_id) == g_battlePassData:getMaxLevel(self.m_pass_id)) then
+                self:updateTimeLabel()
+            end
+        
+            for i, v in ipairs(self.m_tableView.m_itemList) do
+                local ui = v['ui'] or v['generated_ui']
+                if ui then
+                    local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, i)
+                    local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
+                    if(targetLevel <= userLevel) then 
+                        ui:updatePremiumRewardStatus()
+                    end
                 end
             end
+        else
+            UIManager:toastNotificationRed('수령할 수 있는 아이템이 없습니다.')
         end
     end
    
