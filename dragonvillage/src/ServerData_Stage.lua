@@ -138,6 +138,11 @@ function ServerData_Stage:getStageName(stage_id)
     -- 환상 던전 이벤트
     elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 		name = g_illusionDungeonData:getIllusionStageTitle()
+
+    -- 환상 던전 이벤트
+    elseif (game_mode == GAME_MODE_TRIAL) then
+		name = Str('시련 던전')
+
     end
 
     return name
@@ -193,6 +198,10 @@ function ServerData_Stage:isOpenStage(stage_id)
 
     -- 그랜드 콜로세움 (이벤트 PvP 10대10)
     elseif (game_mode == GAME_MODE_EVENT_ARENA) then
+        ret = true
+
+    -- 시련 던전
+    elseif (game_mode == GAME_MODE_TRIAL) then
         ret = true
 
     end
