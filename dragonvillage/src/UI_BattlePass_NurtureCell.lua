@@ -44,7 +44,15 @@ UI_BattlePass_NurtureCell = class(PARENT, {
 -- @brief 모든 init 함수를 실행
 --------------------------------------------------------------------------
 function UI_BattlePass_NurtureCell:init(data)
-    local vars = self:load('battle_pass_nurture_item.ui')
+    self.m_pass_id = data['parent_key']
+    self.m_cell_id = data['id']
+
+    local pass_list = g_shopDataNew:getProductList('pass')
+    local ui_strs = plSplit(pass_list[self.m_pass_id]['package_res'], '.')
+    local ui_file_name = Str(ui_strs[1] .. '_item.' .. ui_strs[2])
+    
+    local vars = self:load(ui_file_name)
+
     self:initMember(data)
     self:initUI()
     self:initButton()
@@ -56,9 +64,7 @@ end
 -- @function initUI 
 -- @brief UI와 관련된 변수 및 기능 초기화
 --------------------------------------------------------------------------
-function UI_BattlePass_NurtureCell:initUI()
-    local vars = self.vars
-    
+function UI_BattlePass_NurtureCell:initUI()    
     self:InitNormalItemNode()
     self:InitPremiumItemNode()
 
@@ -109,9 +115,6 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePass_NurtureCell:initMember(data)
     local vars = self.vars
-
-    self.m_pass_id = data['parent_key']
-    self.m_cell_id = data['id']
     self.m_normal_key = 'normal'
     self.m_premium_key = 'premium'
 

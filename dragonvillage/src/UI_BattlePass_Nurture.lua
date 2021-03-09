@@ -214,31 +214,35 @@ function UI_BattlePass_Nurture:updateProgressBar()
 end
 
 function UI_BattlePass_Nurture:updateTextLabel()
+
     local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
     local maxLevel = g_battlePassData:getMaxLevel(self.m_pass_id)
 
+    -- 상단 시간 표기
     self.m_timeLabel:setString(g_battlePassData:getRemainTimeStr(self.m_pass_id))
+    -- 상단 레벨 표기
+    self.m_levelLabel:setString(Str(self.m_originLevelStr, userLevel))
     
     local userExpPerLevel
     local userRequiredExpPerLevel = g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)
+
     if(userLevel == maxLevel) then
         userExpPerLevel = userRequiredExpPerLevel        
     else
         userExpPerLevel = g_battlePassData:getUserExpPerLevel(self.m_pass_id)
     end
     
-    
+    -- 경험치 표기    
     self.m_nextPointLabel:setString(Str(self.m_originNextPointStr,
                                         userExpPerLevel,
                                         userRequiredExpPerLevel))
 
-
+    -- 우상단 레벨 
     if(userLevel < maxLevel) then 
         self.m_nextLevelLabel:setString(Str(self.m_originNextLevelStr, userLevel + 1))
     else
         self.m_nextLevelLabel:setString(Str(self.m_originNextLevelStr, maxLevel))
     end
-    self.m_levelLabel:setString(Str(self.m_originLevelStr, userLevel))
 end
 
 
