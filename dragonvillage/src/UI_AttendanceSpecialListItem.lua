@@ -106,6 +106,20 @@ function UI_AttendanceSpecialListItem:initCustomUI()
     local today_step = self.m_tItemData['today_step']
 
     for i, v in ipairs(t_step_list) do
+        local t_item_data = v
+		
+		local item_id = t_item_data['item_id']
+		local item_cnt = t_item_data['value']
+        
+		-- 아이콘
+		local item_icon = IconHelper:getItemIcon(item_id, nil)
+        vars['itemNode'..i]:addChild(item_icon)
+
+		-- 이름
+        local item_name = TableItem():getValue(item_id, 't_name')
+		local name = UIHelper:makeItemNamePlainByParam(item_id, item_cnt)
+        vars['quantityLabel'..i]:setString(name)
+
 		-- 수령 표시
         if (i <= today_step) then
             vars['checkSprite'..i]:setVisible(true)
