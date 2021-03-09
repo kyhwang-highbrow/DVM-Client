@@ -25,6 +25,13 @@ function UI_AttendanceSpecialListItem:init(t_item_data, event_id)
         ui_name = 'event_attendance_special_item.ui'
     end
 
+    -- 데이터에 ui파일명 들어가 있으면?
+    if (self.m_tItemData and self.m_tItemData['ui'] and self.m_tItemData['ui'] ~= '') then 
+        ui_name = tostring(self.m_tItemData['ui']) 
+    end
+
+    local vars = self:load(self.m_uiName)
+
     local vars = self:load(ui_name)
 
     self:initUI()
