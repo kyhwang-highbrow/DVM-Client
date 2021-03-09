@@ -286,10 +286,30 @@ function ServerData_Supply:openAutoPickupPopup(buy_cb_func)
         UI_AutoItemPickPopup()
     else
         require('UI_SupplyProductInfoPopup_AutoPickup')
+        --local hide_ad = false
+        --UI_SupplyProductInfoPopup_AutoPickup(buy_cb_func, hide_ad)
+        self:refreshSubscriptionInfoAndShowSupplyPopup(buy_cb_func)
+    end
+end
+
+-------------------------------------
+-- function refreshSubscriptionInfoAndShowSupplyPopup
+-- 일일 획득 정보가 추가됨에 따라
+-- 팝업이 뜰 때마다 한번씩 정보가 업뎃 되어야 한다.
+-------------------------------------
+function ServerData_Supply:refreshSubscriptionInfoAndShowSupplyPopup(buy_cb_func)
+    local function cb_func()
         local hide_ad = false
         UI_SupplyProductInfoPopup_AutoPickup(buy_cb_func, hide_ad)
     end
+
+    local function fail_cb()
+
+    end
+
+    g_subscriptionData:request_subscriptionInfo(cb_func, fail_cb)
 end
+
 
 -------------------------------------
 -- function getSupplyTimeRemainingSimpleStringAutoPickup
