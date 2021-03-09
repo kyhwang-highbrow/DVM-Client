@@ -1479,7 +1479,7 @@ function UI_Lobby:click_bookBtn()
 end
 
 -------------------------------------
--- function click_naverCafeBtn
+-- function click_communityBtn
 -------------------------------------
 function UI_Lobby:click_communityBtn()
     UI_CommunityPopup()

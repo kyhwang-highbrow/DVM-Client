@@ -361,7 +361,7 @@ function UI_BattlePass_Nurture:click_normalRewardBtn()
             g_serverData:receiveReward(ret)
         end
 
-        if(g_battlePassData:getUserLevel() == g_battlePassData:getMaxLevel()) then
+        if(g_battlePassData:getUserLevel(self.m_pass_id) == g_battlePassData:getMaxLevel(self.m_pass_id)) then
             self:updateTimeLabel()
         end
 
@@ -375,6 +375,8 @@ function UI_BattlePass_Nurture:click_normalRewardBtn()
                 end
             end
         end
+
+        
     end
 
     -- level:0, type:all 로 요청 시 모든 보상 수령 요청
@@ -393,7 +395,7 @@ function UI_BattlePass_Nurture:click_passRewardBtn()
             g_serverData:receiveReward(ret)
         end
 
-        if(g_battlePassData:getUserLevel() == g_battlePassData:getMaxLevel()) then
+        if(g_battlePassData:getUserLevel(self.m_pass_id) == g_battlePassData:getMaxLevel(self.m_pass_id)) then
             self:updateTimeLabel()
         end
        
