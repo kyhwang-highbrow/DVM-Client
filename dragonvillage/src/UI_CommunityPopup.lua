@@ -88,13 +88,14 @@ function UI_CommunityPopup:refresh()
 
     -- 활성화 상태는 네이버만 체크하면 된다.
     -- 추후 커뮤니티는 절대 늘리지는 않는다고 하니 위치를 박아넣어도 무방하다고 판단됨
+
+
     if isNaverActive then
-        self.m_naverBtn:setPosition(0, 44)
-        self.m_facebookBtn:setPosition(0, -30)
-        self.m_instagramBtn:setPosition(0, -105)
+        self.m_naverBtn:setPosition(self.m_naverBtn:getPosition())
+        self.m_facebookBtn:setPosition(self.m_facebookBtn:getPosition())
+        self.m_instagramBtn:setPosition(self.m_instagramBtn:getPosition())
     else
-        self.m_facebookBtn:setPosition(0, 6)
-        self.m_instagramBtn:setPosition(0, -67)
+        
     end
 end
 
