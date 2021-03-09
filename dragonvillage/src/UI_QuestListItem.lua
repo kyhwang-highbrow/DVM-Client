@@ -182,29 +182,30 @@ function UI_QuestListItem:setRewardCard()
         end
     end
 
-    -- 기본 퀘스트 보상
-    for i, v in ipairs(l_reward_info) do
-        local reward_card = UI_ItemCard(v['item_id'], v['count'])
-        reward_card.root:setSwallowTouch(false)
-        local reward_node = vars['rewardNode' .. reward_idx]
-        if (reward_node) then
-            if (reward_card) then
-                reward_node:removeAllChildren()
-                reward_node:addChild(reward_card.root)
-                reward_idx = reward_idx + 1
-                table.insert(l_rewardCardUI, reward_card)
-            end
-        end
-    end
-
     -- 일일 퀘스트 보상 2배 적용 중일 경우
     if self.m_questData:isDailyType() and g_supply:isActiveSupply_dailyQuest() then
         for i, v in ipairs(l_reward_info) do
-            local reward_card = UI_ItemCard(v['item_id'], v['count'])
+            local drainage = 2 -- 2배
+            local reward_card = UI_ItemCard(v['item_id'], tonumber(v['count']) * drainage)
             reward_card.root:setSwallowTouch(false)
             local reward_node = vars['rewardNode' .. reward_idx]
             reward_card.vars['bonusSprite']:setVisible(true)
             reward_card.vars['bonusLabel']:setString('')
+            if (reward_node) then
+                if (reward_card) then
+                    reward_node:removeAllChildren()
+                    reward_node:addChild(reward_card.root)
+                    reward_idx = reward_idx + 1
+                    table.insert(l_rewardCardUI, reward_card)
+                end
+            end
+        end
+    else
+        -- 기본 퀘스트 보상
+        for i, v in ipairs(l_reward_info) do
+            local reward_card = UI_ItemCard(v['item_id'], v['count'])
+            reward_card.root:setSwallowTouch(false)
+            local reward_node = vars['rewardNode' .. reward_idx]
             if (reward_node) then
                 if (reward_card) then
                     reward_node:removeAllChildren()
