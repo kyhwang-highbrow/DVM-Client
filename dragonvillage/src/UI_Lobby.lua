@@ -813,7 +813,7 @@ function UI_Lobby:initButton()
         etc_vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end) -- 친구
         etc_vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
         etc_vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
-        etc_vars['naverCafeBtn']:registerScriptTapHandler(function() self:click_naverCafeBtn() end) -- 네이버 카페 버튼
+        etc_vars['communityBtn']:registerScriptTapHandler(function() self:click_naverCafeBtn() end) -- 네이버 카페 버튼
     end
 
     do -- 클랜 버튼 잠금 상태 처리

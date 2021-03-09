@@ -70,7 +70,7 @@ function TableBattlePass:updateTableMap()
     self.m_battlePassInfoMap = {}
 
     -- 패스 상품정보를 받아온다.
-    local item_list = g_shopDataNew:getProductList('etc')
+    local item_list = g_shopDataNew:getProductList('pass')
 
     if (not self.m_battlePassTable) then return end
 
@@ -79,7 +79,7 @@ function TableBattlePass:updateTableMap()
     for i, v in ipairs(self.m_battlePassTable) do
         -- pid = 프로덕트 id
         local pid = v['pid']
-
+        
         -- 상품정보를 받아온다.
         local struct_product = item_list[tonumber(pid)]
 
@@ -94,6 +94,8 @@ function TableBattlePass:updateTableMap()
         end
 
         self.m_battlePassInfoMap[tostring(pid)]["product"] = struct_product
+
+        self.m_battlePassInfoMap[tostring(pid)]['active_level'] = self.m_battlePassTable['active_lv']
 
         -- 일반, 프리미업 보상 리스트를 초기화 한 다음
         local normalList = {}
@@ -218,7 +220,7 @@ function TableBattlePass:getPremiumItemInfo(pass_id, index)
 
     local itemInfo = self.m_battlePassInfoMap[tostring(pass_id)]['premium'][index]['item']
     -- TODO (YOUNGJIN) : table_pass_reward 파일 premium item 중에 빈 칸이 있음. 
-    if itemInfo == '' then itemInfo = '760005;55' end
+    -- if itemInfo == '' then itemInfo = '760005;55' end
     local strList = seperate(itemInfo, ';')
     
     return tonumber(strList[ITEM_ID]), tonumber(strList[ITEM_NUM])
@@ -226,4 +228,14 @@ end
 
 function TableBattlePass:getLevelFromIndex(pass_id, index)
     return tonumber(self.m_battlePassInfoMap[tostring(pass_id)]['normal'][index]['level'])
+end
+
+function TableBattlePass:IsActiveLevel(pass_id)
+    local active_level = self.m_battlePassInfoMap[tostring(pass_id)]['active_level']
+    local user_level = g_userData:get('lv')
+    ccdump('active level : ' .. tostring(active_level))
+    ccdump('user level : ' .. tostring(user_level))
+    if(active_level < user_level) then return false end
+
+    return true
 end
