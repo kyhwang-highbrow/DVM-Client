@@ -228,7 +228,7 @@ function UI_Lobby:entryCoroutine()
         end
 
         do 
-            co:work('###### 배틀패스 테이블 테스트 중 ######### ')
+            co:work('# 배틀패스 정보 받는 중')
                 g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
 
             if co:waitWork() then return end
