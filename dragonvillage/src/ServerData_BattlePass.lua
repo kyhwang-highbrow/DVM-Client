@@ -357,6 +357,7 @@ function ServerData_BattlePass:update_reward(data)
 
     self.m_passInfoData[pid]['normal']  = info_table['n_level_info']
     self.m_passInfoData[pid]['premium'] = info_table['p_level_info']
+    self.m_passInfoData[pid]['end_date'] = info_table['end_date']
     --self.m_passInfoData[pid]['mail_item_info'] = data['mail_item_info']
 end
 

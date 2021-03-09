@@ -93,6 +93,7 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:refresh()
     self:updateProgressBar()
+    self:updateTimeLabel()
     self:updateTextLabel()
 end
 
@@ -213,13 +214,16 @@ function UI_BattlePass_Nurture:updateProgressBar()
 
 end
 
+function UI_BattlePass_Nurture:updateTimeLabel()
+    -- 상단 시간 표기
+    self.m_timeLabel:setString(g_battlePassData:getRemainTimeStr(self.m_pass_id))
+end
+
 function UI_BattlePass_Nurture:updateTextLabel()
 
     local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
     local maxLevel = g_battlePassData:getMaxLevel(self.m_pass_id)
 
-    -- 상단 시간 표기
-    self.m_timeLabel:setString(g_battlePassData:getRemainTimeStr(self.m_pass_id))
     -- 상단 레벨 표기
     self.m_levelLabel:setString(Str(self.m_originLevelStr, userLevel))
     
@@ -358,6 +362,10 @@ function UI_BattlePass_Nurture:click_normalRewardBtn()
             g_serverData:receiveReward(ret)
         end
 
+        if(g_battlePassData:getUserLevel() == g_battlePassData:getMaxLevel()) then
+            self:updateTimeLabel()
+        end
+
         for i, v in ipairs(self.m_tableView.m_itemList) do
             local ui = v['ui'] or v['generated_ui']
             if ui then
@@ -384,6 +392,10 @@ function UI_BattlePass_Nurture:click_passRewardBtn()
     local function finish_cb(ret)
         if(ret['added_items']) then
             g_serverData:receiveReward(ret)
+        end
+
+        if(g_battlePassData:getUserLevel() == g_battlePassData:getMaxLevel()) then
+            self:updateTimeLabel()
         end
        
         for i, v in ipairs(self.m_tableView.m_itemList) do
