@@ -123,8 +123,8 @@ end
 -- function click_naver
 -------------------------------------
 function UI_CommunityPopup:click_naver(lua_name, callback)
-    local plug_url = NaverCafeManager:getUrlByChannel(nil) -- article_id
-    SDKManager:goToWeb(plug_url)
+    --local plug_url = NaverCafeManager:getUrlByChannel(nil) -- article_id
+    SDKManager:goToWeb('https://bit.ly/3cdMWCm')
 end
 
 -------------------------------------
@@ -133,7 +133,7 @@ end
 function UI_CommunityPopup:click_facebook()
     -- TODO
     -- 링크를 저장할 곳을 찾아서 보금자리를 마련해주자
-    SDKManager:goToWeb('https://www.facebook.com/DragonVillageM')
+    SDKManager:goToWeb('https://bit.ly/2XYU1js')
 end
 
 -------------------------------------
@@ -142,5 +142,5 @@ end
 function UI_CommunityPopup:click_instagram()
     -- TODO
     -- 링크를 저장할 곳을 찾아서 보금자리를 마련해주자
-    SDKManager:goToWeb('https://www.instagram.com/dragonvillage_m/')
+    SDKManager:goToWeb('https://bit.ly/304r5YA')
 end

@@ -813,7 +813,7 @@ function UI_Lobby:initButton()
         etc_vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end) -- 친구
         etc_vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
         etc_vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
-        etc_vars['communityBtn']:registerScriptTapHandler(function() self:click_naverCafeBtn() end) -- 네이버 카페 버튼
+        etc_vars['communityBtn']:registerScriptTapHandler(function() self:click_communityBtn() end) -- 네이버 카페 버튼
     end
 
     do -- 클랜 버튼 잠금 상태 처리
@@ -1481,8 +1481,9 @@ end
 -------------------------------------
 -- function click_naverCafeBtn
 -------------------------------------
-function UI_Lobby:click_naverCafeBtn()
-    NaverCafeManager:naverCafeStart(0) -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
+function UI_Lobby:click_communityBtn()
+    UI_CommunityPopup()
+    --NaverCafeManager:naverCafeStart(0) -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
 end
 
 -------------------------------------
