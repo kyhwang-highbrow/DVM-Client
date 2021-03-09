@@ -30,14 +30,11 @@ function UI_AttendanceSpecialListItem:init(t_item_data, event_id)
         ui_name = tostring(self.m_tItemData['ui']) 
     end
 
-    local vars = self:load(self.m_uiName)
-
     local vars = self:load(ui_name)
 
     self:initUI()
     self:initButton()
     self:refresh()
-
 end
 
 -------------------------------------
@@ -75,6 +72,11 @@ function UI_AttendanceSpecialListItem:initUI()
 			vars['dscLabel' .. i]:setString(desc)
 		end
     end
+
+    -- 남은 시간
+    if vars['timeLabel'] then
+        --vars['timeLabel']:setString(self:getRemainTimeStr())
+    end
 end
 
 -------------------------------------
@@ -87,4 +89,28 @@ end
 -- function refresh
 -------------------------------------
 function UI_AttendanceSpecialListItem:refresh()
+end
+
+-------------------------------------
+-- function getRemainTimeStr
+-- 남은 시간
+-------------------------------------
+function UI_AttendanceSpecialListItem:getRemainTimeStr()
+    local curr_time = Timer:getServerTime()
+    local start_time = self.m_tItemData['start']
+    start_time = start_time and (tonumber(start_time) / 1000) or 0
+
+    local end_time = self.m_passInfoData[key]['end']
+    end_time = end_time and (tonumber(end_time) / 1000) or 0
+
+    local str = ''
+    if (start_time <= curr_time) and (curr_time <= end_time) then
+        local time = (end_time - curr_time)
+        str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
+
+    else
+        str = ''
+    end
+
+    return str
 end
