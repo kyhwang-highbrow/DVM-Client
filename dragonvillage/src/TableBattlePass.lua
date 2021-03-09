@@ -95,7 +95,7 @@ function TableBattlePass:updateTableMap()
 
         self.m_battlePassInfoMap[tostring(pid)]["product"] = struct_product
 
-        self.m_battlePassInfoMap[tostring(pid)]['active_level'] = self.m_battlePassTable['active_lv']
+        self.m_battlePassInfoMap[tostring(pid)]['active_level'] = tonumber(v['active_lv'])
 
         -- 일반, 프리미업 보상 리스트를 초기화 한 다음
         local normalList = {}
@@ -231,11 +231,22 @@ function TableBattlePass:getLevelFromIndex(pass_id, index)
 end
 
 function TableBattlePass:IsActiveLevel(pass_id)
-    local active_level = self.m_battlePassInfoMap[tostring(pass_id)]['active_level']
-    local user_level = g_userData:get('lv')
-    ccdump('active level : ' .. tostring(active_level))
-    ccdump('user level : ' .. tostring(user_level))
-    if(active_level < user_level) then return false end
 
-    return true
+    local active_level = self.m_battlePassInfoMap[tostring(pass_id)]['active_level']
+    local user_level = tonumber(g_userData:get('lv'))
+
+    if(active_level <= user_level) then return true end
+
+    return false
 end
+
+function TableBattlePass:IsBattlePassProduct(product_id)
+    local result
+    for k, v in pairs(self.m_battlePassInfoMap) do
+        if tonumber(product_id) == tonumber(k) then 
+            return true 
+        end
+    end
+    return false
+end
+
