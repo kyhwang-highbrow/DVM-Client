@@ -230,11 +230,11 @@ function UI_Lobby:entryCoroutine()
         do 
             co:work('# 배틀패스 정보 받는 중')
                 g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
-
             if co:waitWork() then return end
         end
         -- local id = 121701
         -- ccdump(g_battlePassData:getExp(id))
+        
 
         -- hard refresh
         cclog('# UI 갱신')
@@ -2277,7 +2277,7 @@ function UI_Lobby:update_rightButtons()
         -- TODO (YOUNGJIN) : Change all the conditions
         local is_visible = true
         vars['battlePassBtn']:setVisible(is_visible)
-        vars['battlePassNotiSprite']:setVisible(is_visible)
+        vars['battlePassNotiSprite']:setVisible(g_battlePassData:isVisible_battlePassNoti())
     end
 
     do -- 패키지

@@ -113,7 +113,7 @@ end
 function UI_BattlePassPopup:initTableView()
 
     local item_list = g_shopDataNew:getProductList('pass')
-   
+    
     local tableView = UIC_TableView(self.m_listNode)
     local tabList = {}
     for k, v in pairs(item_list) do

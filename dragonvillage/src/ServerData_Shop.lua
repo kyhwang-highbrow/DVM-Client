@@ -306,9 +306,9 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
         local t_product = nil
 
         t_product = table_shop_cash[product_id] or table_shop_basic[product_id]
-
         if t_product then
             local struct_product = StructProduct(t_product)
+           
 
             struct_product:setTabCategory(tab_category)
             struct_product:setStartDate(start_date) -- 판매 시작 시간

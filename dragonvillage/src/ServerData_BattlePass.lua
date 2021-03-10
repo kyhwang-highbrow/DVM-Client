@@ -99,6 +99,36 @@ function ServerData_BattlePass:GetRewardStatus(pass_id, type_key, index)
     return rewardsStatus[level]
 end
 
+-------------------------------------
+-- function isExistAvailableReward
+-- 
+-------------------------------------
+function ServerData_BattlePass:isExistAvailableReward(pass_id, type_key)
+    local key = tostring(pass_id)
+
+    for k, v in pairs(self.m_passInfoData[key][type_key]) do
+        if(v == 1) then return true end
+    end
+
+    return false
+end
+
+--functino ServerData_BattlePass:isExistAvailableReward
+function ServerData_BattlePass:isVisible_battlePassNoti()
+    -- TODO (YOUNGJIN) : move out these from here to ServerData_BattlePass
+    local normal_key = 'normal'
+    local premium_key = 'premium'
+
+    for key, table in pairs(self.m_passInfoData) do
+        if self:isExistAvailableReward(key, normal_key) or self:isExistAvailableReward(key, premium_key) then
+            return true
+        end
+    end
+
+    return false
+end
+
+
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -188,11 +188,11 @@ function UI_BattlePass_Nurture:updateProgressBar()
     local vars = self.vars
 
     local requiredExpPerLevel = g_battlePassData:getRequiredExpPerLevel(self.m_pass_id)
-
+    local isMaxLevel = g_battlePassData:getUserLevel(self.m_pass_id) >= g_battlePassData:getMaxLevel(self.m_pass_id)
     -- 상단 레벨당 경험치 progress bar : self.m_levelExpBar
     local percent
     -- 맥스 레벨 상태 시 100% 표시.
-    if(g_battlePassData:getUserLevel(self.m_pass_id) >= g_battlePassData:getMaxLevel(self.m_pass_id)) then
+    if(isMaxLevel) then
         percent = 100
     else
         percent =  g_battlePassData:getUserExpPerLevel(self.m_pass_id) / requiredExpPerLevel * 100
@@ -201,15 +201,21 @@ function UI_BattlePass_Nurture:updateProgressBar()
     self.m_levelExpBar:setPercentage(percent)
 
     -- 하단 전체 경험치 progress bar : self.m_totalExpBar
-    local scale = self.m_originTotalExpScale * g_battlePassData:getLevelNum(self.m_pass_id)
+    local scale
+    
+    if isMaxLevel then
+        scale = self.m_originTotalExpScale * (g_battlePassData:getLevelNum(self.m_pass_id))
+        percent = 100
+    else
+        scale = self.m_originTotalExpScale * (g_battlePassData:getLevelNum(self.m_pass_id) - 0.5)
+
+        local halfReqrequiredExpPerLevel = requiredExpPerLevel / 2
+        local ratio = (g_battlePassData:getUserExp(self.m_pass_id) + halfReqrequiredExpPerLevel) / (g_battlePassData:getMaxExp(self.m_pass_id) + halfReqrequiredExpPerLevel)
+        percent = ratio * 100
+    end
     self.m_totalExpBar:setScaleX(scale)
 
-
-    local maxExp = g_battlePassData:getMaxExp(self.m_pass_id)
-    local expRatioPerLevel = requiredExpPerLevel / maxExp
-    local userExpRatio = g_battlePassData:getUserExp(self.m_pass_id) / maxExp
-
-     self.m_totalExpBar:setPercentage((expRatioPerLevel + userExpRatio) * 100)
+    self.m_totalExpBar:setPercentage(percent)
 
 end
 
@@ -297,10 +303,10 @@ function UI_BattlePass_Nurture:onReceiveBattlePassInfo()
             if ui then
                 local targetLevel = g_battlePassData:getLevelFromIndex(self.m_pass_id, i)
                 local userLevel = g_battlePassData:getUserLevel(self.m_pass_id)
-                ui:updatePassLock()
+                if(targetLevel <= userLevel) then
+                    ui:refresh()
+                else
 
-                if(targetLevel <= userLevel) then 
-                    ui:updatePremiumRewardStatus()
                 end
             end
         end
