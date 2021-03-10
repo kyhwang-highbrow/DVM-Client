@@ -42,15 +42,16 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePassTabButton:initUI()
     local vars = self.vars
-
-    -- 버튼 이름 (패키지 번들 참조)
-
+    
     local pid = self.m_structProduct['product_id']
-    local l_item_list = g_shopDataNew:getProductList('pass')
-    local name = l_item_list[pid]['t_name']
+    local desc = TablePackageBundle:getPackageDescWithPid(pid)
+    if(desc) then
+        self.m_listLabel:setString(desc)
+    end
 
-    if (name) then
-        self.m_listLabel:setString(name)
+    local badge = self.m_structProduct:makeBadgeIcon()
+    if(badge) then
+        vars['badgeNode']:addChild(badge)
     end
 end
 
