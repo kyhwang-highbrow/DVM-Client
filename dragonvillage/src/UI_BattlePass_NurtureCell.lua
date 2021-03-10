@@ -147,11 +147,10 @@ end
 function  UI_BattlePass_NurtureCell:InitNormalItemNode()
     local item_id, item_num = g_battlePassData:getNormalItemInfo(self.m_pass_id, self.m_cell_id)
     
-
     local itemCard = UI_ItemCard(item_id)
     itemCard:setEnabledClickBtn(true)
     itemCard:SetBackgroundVisible(false)
-
+    itemCard:setSwallowTouch()
     self.m_normalItemNode:addChild(itemCard.root)
 
     self.m_normalItemLabel:setString(Str('x{1}', comma_value(item_num)))
