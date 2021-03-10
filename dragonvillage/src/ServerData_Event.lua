@@ -110,7 +110,7 @@ function ServerData_Event:getEventPopupTabList()
 		elseif (string.find(event_type, 'attendance')) then
             -- table_attendance_event_list에서 event_type, event_id
             local category = event_id
-            local atd_id = event_id
+            local atd_id = tonumber(event_id)
 
             -- event_id를 atd_id로 사용하는 것이 우선이다.
             if g_attendanceData:getAttendanceDataByAtdId(atd_id) then
