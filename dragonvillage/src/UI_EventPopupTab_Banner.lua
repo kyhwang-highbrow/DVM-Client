@@ -148,7 +148,7 @@ function UI_EventPopupTab_Banner:init_customUI()
         -- 인스타그램 페이지로 이동
         if vars['gameLinkBtn'] then
             vars['gameLinkBtn']:registerScriptTapHandler(function()
-                    SDKManager:goToWeb('https://www.instagram.com/p/CLtY7W3HEmf/')
+                    SDKManager:goToWeb('https://bit.ly/3v9ZCCJ')
                 end)
         end
     end
