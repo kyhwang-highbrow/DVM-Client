@@ -361,19 +361,9 @@ function UI_QuestPopup:setNotiRewardable(tab)
 end
 
 -------------------------------------
--- function close
--------------------------------------
-function UI_QuestPopup:close()
-    self:setCloseCB(nil)
-    PARENT.close(self)
-end
-
--------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_QuestPopup:click_exitBtn()
-    if (self.m_closeCB) then self.m_closeCB() end
-
     self:close()
 end
 
