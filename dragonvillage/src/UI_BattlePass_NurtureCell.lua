@@ -149,7 +149,7 @@ function  UI_BattlePass_NurtureCell:InitNormalItemNode()
     
 
     local itemCard = UI_ItemCard(item_id)
-    itemCard:setEnabledClickBtn(false)
+    itemCard:setEnabledClickBtn(true)
     itemCard:SetBackgroundVisible(false)
 
     self.m_normalItemNode:addChild(itemCard.root)
@@ -161,7 +161,7 @@ function  UI_BattlePass_NurtureCell:InitPremiumItemNode()
     local item_id, item_num = g_battlePassData:getPremiumItemInfo(self.m_pass_id, self.m_cell_id)
     
     local itemCard = UI_ItemCard(item_id)
-    itemCard:setEnabledClickBtn(false)
+    itemCard:setEnabledClickBtn(true)
     itemCard:SetBackgroundVisible(false)
 
     self.m_premiumItemNode:addChild(itemCard.root)
