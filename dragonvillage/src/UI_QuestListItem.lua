@@ -404,6 +404,16 @@ function UI_QuestListItem:makeRewardList()
 		end
     end
 
+	-- 배틀패스 포인트
+	if (self.m_questData:isDailyType() and g_questData:isBattlePassActive()) then
+        -- 당분간 고정으로 10만 지급함
+		local battlePassExp = 10
+        local t_data = {}
+        t_data['item_id'] = 'pass_point'
+        t_data['count'] = battlePassExp
+        table.insert(l_total_reward, t_data)
+	end
+
     -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트, event_daily_quest)
     local l_event_reward_list = self.m_questData:getEventRewardInfoList()
     if (l_event_reward_list) then

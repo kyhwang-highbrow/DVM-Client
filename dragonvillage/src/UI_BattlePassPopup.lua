@@ -27,7 +27,7 @@ UI_BattlePassPopup = class(PARENT, {
 --------------------------------------------------------------------------
 function UI_BattlePassPopup:init()
     local vars = self:load('shop_battle_pass.ui')
-    UIManager:open(self, UIManager.POPUP, true)
+    UIManager:open(self, UIManager.SCENE, true)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_BattlePassPopup')

@@ -37,6 +37,12 @@ function UI_ItemCard:setItemData()
         if (self.m_itemID == 'clan_exp') then
             self:init_clanExp(self.m_itemCount)
             return
+
+        elseif (self.m_itemID == 'pass_point') then
+        -- 패스 포인트도 table_item에 없음, 특이 케이스
+            self:init_battlePassExp(self.m_itemCount)
+            return
+
         else
             error('존재하지 않는 ID ' .. self.m_itemID)
         end
@@ -211,6 +217,15 @@ function UI_ItemCard:init_clanExp(count)
     self.vars = card.vars
 end
 
+-------------------------------------
+-- function init_battlePassExp
+-- @brief 클랜 경험치
+-------------------------------------
+function UI_ItemCard:init_battlePassExp(count)
+    local card = UI_BattlePassCard(count)
+    self.root = card.root
+    self.vars = card.vars
+end
 -------------------------------------
 -- function init_masteryMaterial
 -------------------------------------
