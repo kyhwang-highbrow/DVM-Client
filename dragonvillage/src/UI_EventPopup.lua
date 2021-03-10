@@ -194,14 +194,26 @@ function UI_EventPopup:makeEventPopupTab(tab)
         local event_type = struct_event_popup_tab.m_eventData['event_type']
 		local event_id = struct_event_popup_tab.m_eventData['event_id']
         local atd_id = tonumber(event_id)
+
+        -- 신규, 복귀유저 이벤트인지 구분하기 위함
+        -- 어텐던스 정보를 받아와서 있으면 event_id를 category로 설정
+        if (atd_id and atd_id ~= '') then
+            local attendanceInfo = g_attendanceData:getAttendanceDataByAtdId(atd_id)
+            if (attendanceInfo and attendanceInfo['category']) then
+                local category = attendanceInfo['category']
+
+                if (category == 'open_event' or category == 'newbie' or category == 'comeback') then
+                    event_id = category
+                end
+            end
+        end
+
         -- 기본 출석
 		if (event_id == 'normal') then
 			ui = UI_EventPopupTab_Attendance()
         -- 이벤트 출석 (오픈, 신규, 복귀)
 		elseif (event_id == 'open_event' or event_id == 'newbie' or event_id == 'comeback') then
-            local uniqueId = struct_event_popup_tab.m_eventData['atd_id'] and struct_event_popup_tab.m_eventData['atd_id'] or 0
-
-			ui = UI_EventPopupTab_EventAttendance(uniqueId)
+			ui = UI_EventPopupTab_EventAttendance(event_id, atd_id)
         
         -- 1주년 스페셜 7일 출석, 축하 메세지 전광판
         -- 2주년 스페셜 7일 출석, 축하 메세지 전광판
