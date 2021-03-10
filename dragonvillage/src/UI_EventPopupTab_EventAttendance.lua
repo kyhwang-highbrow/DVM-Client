@@ -13,8 +13,10 @@ UI_EventPopupTab_EventAttendance = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopupTab_EventAttendance:init(event_id)
-    self.m_structAttendanceData = g_attendanceData:getAttendanceData(event_id)
+--function UI_EventPopupTab_EventAttendance:init(event_id)
+function UI_EventPopupTab_EventAttendance:init(event_id, atd_id)
+    --self.m_structAttendanceData = g_attendanceData:getAttendanceData(event_id)
+    self.m_structAttendanceData = g_attendanceData:getAttendanceDataByAtdId(atd_id)
 
     self.m_uiName = 'event_attendance_special.ui'
 

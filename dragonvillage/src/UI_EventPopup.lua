@@ -199,7 +199,9 @@ function UI_EventPopup:makeEventPopupTab(tab)
 			ui = UI_EventPopupTab_Attendance()
         -- 이벤트 출석 (오픈, 신규, 복귀)
 		elseif (event_id == 'open_event' or event_id == 'newbie' or event_id == 'comeback') then
-			ui = UI_EventPopupTab_EventAttendance(event_id)
+            local uniqueId = struct_event_popup_tab.m_eventData['atd_id'] and struct_event_popup_tab.m_eventData['atd_id'] or 0
+
+			ui = UI_EventPopupTab_EventAttendance(uniqueId)
         
         -- 1주년 스페셜 7일 출석, 축하 메세지 전광판
         -- 2주년 스페셜 7일 출석, 축하 메세지 전광판
