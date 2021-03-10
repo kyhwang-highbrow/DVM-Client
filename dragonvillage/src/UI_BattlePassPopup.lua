@@ -27,7 +27,7 @@ UI_BattlePassPopup = class(PARENT, {
 --------------------------------------------------------------------------
 function UI_BattlePassPopup:init()
     local vars = self:load('shop_battle_pass.ui')
-    UIManager:open(self, UIManager.SCENE)
+    UIManager:open(self, UIManager.POPUP, true)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_BattlePassPopup')
@@ -54,6 +54,17 @@ function UI_BattlePassPopup:initUI()
     self:initTab()
 end
 
+
+-------------------------------------
+-- function initParentVariable
+-- ITopUserInfo_EventListener
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_BattlePassPopup:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_bVisible = true
+    self.m_bUseExitBtn = true
+end
 
 --------------------------------------------------------------------------
 -- @function  

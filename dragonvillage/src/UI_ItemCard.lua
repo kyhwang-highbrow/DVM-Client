@@ -377,7 +377,7 @@ end
 
 ------------------------------------
 -- function UI_BattlePassCard
--- @brief UI에서 사용하기 위한 배틀패스 경험치 카드, itemCard를 사용하지는 않음
+-- @brief UI에서 사용하기 위한 패스 포인트 카드, itemCard를 사용하지는 않음
 -------------------------------------
 function UI_BattlePassCard(pass_exp)
 	local ui = UI()
@@ -397,7 +397,7 @@ function UI_BattlePassCard(pass_exp)
 
 	-- 클릭 시 툴팁
 	vars['clickBtn']:registerScriptTapHandler(function()
-		local str = '{@SKILL_NAME}' .. Str('배틀패스 경험치')
+		local str = '{@SKILL_NAME}' .. Str('패스 포인트')
 		local tool_tip = UI_Tooltip_Skill(70, -145, str)
 		tool_tip:autoPositioning(vars['clickBtn'])
 	end)
