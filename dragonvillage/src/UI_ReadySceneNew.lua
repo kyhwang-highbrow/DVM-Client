@@ -1344,6 +1344,12 @@ function UI_ReadySceneNew:click_startBtn()
             scene:runScene()
         end)
         return
+    elseif (self.m_gameMode == GAME_MODE_TRIAL) then
+        self:checkChangeDeck(function()
+            local scene = SceneGameTrial(nil, stage_id, 'stage_' .. stage_id, true)
+            scene:runScene()
+        end)
+        return
     end
 
     -- 시작 가능한지 확인 (스태미나 등등)

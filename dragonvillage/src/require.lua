@@ -476,6 +476,7 @@ local t_module = {
     'SceneGameIllusion',
     'SceneRuneGuardianDungeon',
     'SceneGameClanWar',
+    'SceneGameTrial',
 
     -- Phys
 	'PhysWorld',
@@ -503,6 +504,7 @@ local t_module = {
     'GameWorldClanRaid',
     'GameWorldEventArena',
     'GameWorld_Illusion',
+    'GameWorldTrial',   -- 시련
     'GameState',
     'GameState_AncientRuin',
     'GameState_AncientTower',

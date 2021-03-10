@@ -368,6 +368,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameWorldForDoubleTeam_Unit.lua" />
     <None Include="..\src\GameWorldIntro.lua" />
     <None Include="..\src\GameWorldClanRaid.lua" />
+    <None Include="..\src\GameWorldTrial.lua" />
     <None Include="..\src\GameWorld_Gold.lua" />
     <None Include="..\src\GameWorld_Illusion.lua" />
     <None Include="..\src\GameWorld_KeyEvent.lua" />
@@ -499,6 +500,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SceneGameIllusion.lua" />
     <None Include="..\src\SceneGameIntro.lua" />
     <None Include="..\src\SceneGameClanRaid.lua" />
+    <None Include="..\src\SceneGameTrial.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
     <None Include="..\src\SceneRuneGuardianDungeon.lua" />
     <None Include="..\src\SceneSecretDungeon.lua" />
