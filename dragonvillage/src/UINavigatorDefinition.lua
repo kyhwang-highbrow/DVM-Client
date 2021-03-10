@@ -1661,14 +1661,15 @@ function UINavigatorDefinition:goTo_battle_pass_shop(...)
     end
 
     local function finish_cb(ret)
-        do -- Scene으로 동작
+        UI_BattlePassPopup()
+        --[[do -- Scene으로 동작
             local function close_cb()
                 UINavigatorDefinition:goTo('lobby')
                 end
 
             local scene = SceneCommon(UI_BattlePassPopup, close_cb, initial_tab)
             scene:runScene()
-        end
+        end]]
     end
 
     -- 정보 요청
