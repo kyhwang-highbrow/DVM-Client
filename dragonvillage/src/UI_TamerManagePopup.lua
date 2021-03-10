@@ -40,6 +40,8 @@ function UI_TamerManagePopup:init(tamer_id)
 	self.m_skillUI = UI_SkillDetailPopup_Tamer()
 	self.m_skillUI:setCloseCB(function() self:setTamerSkill() end)
 
+
+
 	-- 초기화
     self:initUI()
     self:initButton()
@@ -60,10 +62,10 @@ function UI_TamerManagePopup:onFocus()
         g_tamerCostumeData.m_bDirtyCostumeInfo = false
     end
     
-    -- 코스튬을 구매한 경우, 결과 적용하기 위해 통신 
-    if (g_tamerCostumeData.m_bDirtyCostumeInfo) then
+    -- 코스튬을 구매한 경우, 결과 적용하기 위해 통신 (우편함에서 받는 경우가 생겨 일단 상시화)
+    --if (g_tamerCostumeData.m_bDirtyCostumeInfo) then
         g_tamerCostumeData:request_costumeInfo(cb_func, false)
-    end
+    --end
 end
 
 -------------------------------------
