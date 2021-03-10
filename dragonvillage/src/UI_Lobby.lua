@@ -1654,7 +1654,8 @@ function UI_Lobby:click_packageShopBtn()
 end
 
 function UI_Lobby:click_battlePassBtn()
-    UINavigator:goTo('battle_pass_shop')
+    -- UINavigator:goTo('battle_pass_shop')
+    g_battlePassData:openBattlePassPopup()
 end
 -------------------------------------
 -- function click_lvUpPackBtn
@@ -2283,10 +2284,10 @@ function UI_Lobby:update_rightButtons()
     end
 
     do -- 패키지
-        -- TODO (YOUNGJIN) : Change all the conditions
-        local is_visible = true
+        
         vars['cashShopBtn']:setVisible(is_visible)
-        vars['cashShopNotiSprite']:setVisible(is_visible)
+        -- TODO (YOUNGJIN) : TEMP 
+        vars['cashShopNotiSprite']:setVisible(false)
     end
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {}

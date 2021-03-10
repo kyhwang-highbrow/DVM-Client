@@ -311,8 +311,6 @@ function UI_BattlePass_Nurture:onReceiveBattlePassInfo()
 
 end
 
-
-
 --------------------------------------------------------------------------
 -- @function click_buyBtn 
 -- @param 
