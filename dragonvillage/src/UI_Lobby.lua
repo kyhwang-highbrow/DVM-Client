@@ -2277,7 +2277,9 @@ function UI_Lobby:update_rightButtons()
         -- TODO (YOUNGJIN) : Change all the conditions
         local is_visible = true
         vars['battlePassBtn']:setVisible(is_visible)
-        vars['battlePassNotiSprite']:setVisible(g_battlePassData:isVisible_battlePassNoti())
+        vars['battlePassNotiSprite']:setVisible(g_battlePassData:isVisible_battlePassNoti()
+            or g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_3_PRODUCT_ID)
+            or g_adventureClearPackageData03:isVisible_adventureClearPackNoti())
     end
 
     do -- 패키지
