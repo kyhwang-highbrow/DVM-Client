@@ -73,6 +73,18 @@ function ServerData_BattlePass:isPurchased(pass_id)
 end
 
 -------------------------------------
+-- function isPurchased
+-- 결제 여부
+-------------------------------------
+function ServerData_BattlePass:isProduct(product_id)
+    local t_data = self.m_passInfoData[tostring(product_id)]
+    
+    if(not t_data) then return false end
+
+    return true
+end
+
+-------------------------------------
 -- function getUserExp
 -- 현재 유저 경험치
 -------------------------------------

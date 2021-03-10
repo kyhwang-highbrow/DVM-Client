@@ -36,6 +36,13 @@ function ServerData_AdventureClearPackage03:ckechDirty()
 end
 
 -------------------------------------
+-- function isProduct
+-------------------------------------
+function ServerData_AdventureClearPackage03:isBattlePassProduct(product_id)
+       return self.m_productID == tonumber(product_id)
+end
+
+-------------------------------------
 -- function setDirty
 -------------------------------------
 function ServerData_AdventureClearPackage03:setDirty() 
@@ -113,6 +120,26 @@ function ServerData_AdventureClearPackage03:isVisible_adventureClearPack()
 
     return false
 end
+-------------------------------------
+-- function isVisibleAtBattlePassShop
+-- @breif 구매 전에는 출력하고 구매 후에는 보상이 남은 경우 출력
+-------------------------------------
+function ServerData_AdventureClearPackage03:isVisibleAtBattlePassShop()
+    if (not self:isActive()) then 
+        return true 
+    end
+
+    local l_item_list = TABLE:get('table_package_stage_03')
+    for i, v in pairs(l_item_list) do
+        local stage_id = v['stage']
+        if (self:isReceived(stage_id) == false) then 
+            return true 
+        end
+    end
+
+    return false
+end
+
 
 -------------------------------------
 -- function isVisible_adventureClearPack

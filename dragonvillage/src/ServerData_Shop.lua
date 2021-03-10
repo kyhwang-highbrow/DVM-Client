@@ -325,12 +325,25 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
                 struct_product:setUIPos(ui_pos) 
                 struct_product:setUIScale(ui_scale) 
             end
+            -- if g_eventData:checkEventTime(start_date, end_date) then    
+            --     if g_adventureClearPackageData03:isProduct(product_id) 
+            --         and  g_adventureClearPackageData03:isVisibleAtBattlePassShop() then
+            --             self:insertProduct(struct_product)
+            --     elseif g_levelUpPackageData:isProduct(product_id) 
+            --         and g_levelUpPackageData:isVisibleAtBattlePassShop(product_id) then
+            --             self:insertProduct(struct_product)
+            --     elseif g_battlePassData:isProduct(product_id) then
+            --         --self:insertProduct(struct_product)
+            --     else
 
+            --     end
             
             if(tab_category == 'pass') then
+                --
                 if g_eventData:checkEventTime(start_date, end_date) then
                     self:insertProduct(struct_product)
                 end
+               
             else
                 self:insertProduct(struct_product)
             end
