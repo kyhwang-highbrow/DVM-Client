@@ -8,6 +8,8 @@ UI_QuestPopup = class(PARENT, {
         m_allClearQuestCell = 'UI_QuestListItem',
 		m_blockUI = 'UI_BlockPopup',
 
+        m_battlePassBtn = 'Button',
+
         m_isActiveEventDailyQuest = 'bool'
     })
 
@@ -31,6 +33,8 @@ function UI_QuestPopup:init()
 	vars['dailyQuestLabel']:setString('')
 	vars['dailyQuestLabel2']:setString('')
     vars['periodLabel']:setString('')
+
+    self.m_battlePassBtn = vars['battlePassBtn']
 
 	-- 통신 후 UI 출력
 	local cb_func = function()
@@ -90,6 +94,9 @@ end
 -- function initButton
 -------------------------------------
 function UI_QuestPopup:initButton()
+    if (self.m_battlePassBtn) then
+       self.m_battlePassBtn:registerScriptTapHandler(function() self:click_battlePassBtn() end)
+    end
 end
 
 -------------------------------------
@@ -144,6 +151,14 @@ function UI_QuestPopup:onChangeTab(tab, first)
 	        -- all clear 는 따로 보여준다
 	        self:setAllClearQuest(tab)
 	    end
+    end
+
+    -- 일일 보상 올클 갱신
+    local isDailyTab = self.m_currTab == TableQuest.DAILY
+
+    --배틀패스 버튼 show hide
+    if (self.m_battlePassBtn) then
+        self.m_battlePassBtn:setVisible(isDailyTab)
     end
 end
 
@@ -480,6 +495,14 @@ function UI_QuestPopup:click_subscriptionBuyBtn()
 
 	    struct_product:buy(cb_func)
     end
+end
+
+-------------------------------------
+-- function click_battlePassBtn
+-- @brief 배틀패스 진입
+-------------------------------------
+function UI_QuestPopup:click_battlePassBtn()
+    UINavigator:goTo('battle_pass_shop')
 end
 
 -------------------------------------
