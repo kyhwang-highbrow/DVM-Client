@@ -502,7 +502,7 @@ end
 -- @brief 배틀패스 진입
 -------------------------------------
 function UI_QuestPopup:click_battlePassBtn()
-    
+    self:close()
     --UINavigator:goTo('battle_pass_shop')
     g_battlePassData:openBattlePassPopup()
 end
