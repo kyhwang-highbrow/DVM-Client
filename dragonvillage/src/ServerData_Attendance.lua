@@ -268,7 +268,13 @@ end
 -------------------------------------
 function ServerData_Attendance:openEventPopup(t_info)
     local category = t_info['category']
+    local atd_id = t_info['atd_id']
+    local eventInfo = g_attendanceData:getAttendanceDataByAtdId(atd_id)
     local event_tab
+
+    if (eventInfo and eventInfo['category']) then 
+        category = atd_id
+    end
       
     if (category == 'normal') then
         event_tab = 'attendance_basic'
