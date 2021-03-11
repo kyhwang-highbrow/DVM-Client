@@ -2285,7 +2285,7 @@ function UI_Lobby:update_rightButtons()
 
     do -- 패키지
         
-        vars['cashShopBtn']:setVisible(is_visible)
+        vars['cashShopBtn']:setVisible(true)
         -- TODO (YOUNGJIN) : TEMP 
         vars['cashShopNotiSprite']:setVisible(false)
     end
