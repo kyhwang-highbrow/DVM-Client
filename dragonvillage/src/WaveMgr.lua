@@ -464,14 +464,12 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     local phys_group = phys_group or PHYS.ENEMY
 
     -- Enemy 생성
-    --[[if (isMonster(enemy_id)) then
+    if (isMonster(enemy_id)) then
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
     else
         local enemy_dragon_data = self:getEnemyDragonData(enemy_id, level, isBoss)
         enemy = self.m_world:makeDragonNew(enemy_dragon_data, true)
-    end]]
-    
-    enemy = self.m_world:createSummonObject(200000, 10)
+    end
 
     if (isBoss) then
         enemy.m_isBoss = true
