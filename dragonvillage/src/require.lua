@@ -454,6 +454,7 @@ local t_module = {
     'TableSupply',
     'TableFevertime', -- 핫타임
     'TablePersonalpack',
+    'TableSummonObject',
 
     -- Scene
     'SceneCommon',
@@ -526,6 +527,7 @@ local t_module = {
     'GameState_RuneGuardianDungeon',
     'GameState_Illusion',
     'GameState_ClanWar',
+    'GameState_Trial',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
@@ -587,6 +589,7 @@ local t_module = {
     'Monster_ClanRaidBoss',
     'Monster_AncientRuinDragon',
     'Monster_AncientRuinDragonBodyPart',
+    'SummonedCreature',
     'Tamer',
 	'TamerSkill',
     'require_EnemyLua',

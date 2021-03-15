@@ -1192,6 +1192,8 @@ function GetSkillTable(char_type)
 		return TableMonsterSkill()
 	elseif (char_type == 'tamer') then
 		return TableTamerSkill()
+    elseif (char_type == 'summon_object') then
+        return TableMonsterSkill()
 	end
 end
 

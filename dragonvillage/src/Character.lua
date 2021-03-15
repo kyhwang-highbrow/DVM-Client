@@ -414,6 +414,10 @@ function Character:initStatus(t_char, level, grade, evolution, doid, eclv)
         end
     elseif (self.m_charType == 'monster') then
         statusCalc = StatusCalculator(self.m_charType, self.m_charTable['mid'], level, grade, evolution, eclv)
+
+    elseif (self.m_charType == 'summon_object') then
+        statusCalc = StatusCalculator(self.m_charType, self.m_charTable['sobj_id'], level, grade, evolution, eclv)
+
     else
         error('self.m_charType : ' .. self.m_charType)
     end

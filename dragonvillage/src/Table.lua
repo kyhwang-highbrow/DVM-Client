@@ -73,6 +73,9 @@ local TableInfo = {
         table_dragon_phrase = {'table_dragon_phrase',        'did',          false},
         table_dragon_recommend = {'table_dragon_recommend',  'did',          false},
 
+        -- 소환체
+        summon_object        = {'table_summon_object',        'sobj_id',      false},
+
         scenario_resource   = {'scenario/scenario_resource', 'key',         false},
 
 		mail_template		  = {'table_mail_template',		 'mail_type',	false},

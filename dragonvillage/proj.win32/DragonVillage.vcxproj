@@ -339,6 +339,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameEnrageDirector.lua" />
     <None Include="..\src\GameHighlightMgr.lua" />
     <None Include="..\src\GameMana.lua" />
+    <None Include="..\src\GameState_Trial.lua" />
     <None Include="..\src\GameState_AncientRuin.lua" />
     <None Include="..\src\GameState_AncientTower.lua" />
     <None Include="..\src\GameState_Arena.lua" />
@@ -950,6 +951,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructUserInfoForest.lua" />
     <None Include="..\src\StructUserInfoFriend.lua" />
     <None Include="..\src\StructWaveRegenGroup.lua" />
+    <None Include="..\src\SummonedCreature.lua" />
     <None Include="..\src\SumRandom.lua" />
     <None Include="..\src\SwipeGesture.lua" />
     <None Include="..\src\Table.lua" />
@@ -1026,6 +1028,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableStatus.lua" />
     <None Include="..\src\TableStatusEffect.lua" />
     <None Include="..\src\TableSummonGacha.lua" />
+    <None Include="..\src\TableSummonObject.lua" />
     <None Include="..\src\TableSupply.lua" />
     <None Include="..\src\TableTalkDeet.lua" />
     <None Include="..\src\TableTamer.lua" />

@@ -19,5 +19,5 @@ end
 function GameWorldTrial:createComponents()
     PARENT.createComponents(self)
 
-    self.m_gameState = GameState(self)
+    self.m_gameState = GameState_Trial(self)
 end

@@ -301,6 +301,10 @@ end
 function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 	local vars = self.vars
 
+    t_dragon_data['did'] = 121683
+    t_dragon_data['grade'] = 5
+    t_dragon_data['evolution'] = 3
+
     local did = t_dragon_data['did']
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']

@@ -131,6 +131,33 @@ function AnimatorHelper:makeMonsterAnimator(res_name, attr, evolution)
 end
 
 -------------------------------------
+-- function makeSummonCreatureAnimator
+-------------------------------------
+function AnimatorHelper:makeSummonCreatureAnimator(res_name, attr, evolution)
+
+    local res_name = self:getMonsterResName(res_name, attr, evolution)
+    local animator
+
+    if (self:isIntegratedSpineResName(res_name)) then
+        animator = MakeAnimatorSpineToIntegrated(res_name)
+    else
+        animator = MakeAnimator(res_name)
+    end
+
+    if (not animator.m_node) then
+        animator = MakeAnimator('res/character/dragon/developing_dragon/developing_dragon.spine')
+    end
+
+    if animator then
+        animator.m_node:setMix('idle', 'attack', 0.1)
+        animator.m_node:setMix('idle', 'idle', 0.1)
+        animator.m_node:setMix('attack', 'idle', 0.1)
+    end
+
+    return animator
+end
+
+-------------------------------------
 -- function getDragonResName
 -------------------------------------
 function AnimatorHelper:getDragonResName(res_name, evolution, attr)

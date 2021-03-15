@@ -164,6 +164,66 @@ function GameWorld:makeMonsterNew(monster_id, level)
 	return monster
 end
 
+
+-------------------------------------
+-- function createSummonObject
+-------------------------------------
+function GameWorld:createSummonObject(summonObj_id, level)
+
+    local t_summonObj = TableSummonObject():get(summonObj_id)
+
+    if (not t_summonObj) then
+        error(tostring('소환체 ID가 존재하지 않습니다 : ' .. summonObj_id))
+    end
+
+    -- 소환체 생성
+    -- 소환체 테이블의 size_type 받아서
+    -- constant.json 에 있는 INGAME 필드에 담겨있는 값으로 설정
+	local body_size = SummonedCreature:getBodySize(t_summonObj['size_type'])
+    summonedCreature = SummonedCreature(t_summonObj['res'], body_size)
+
+    self:addToUnitList(summonedCreature)
+
+    summonedCreature:init_creature(t_summonObj, summonObj_id, level)
+    summonedCreature:initState()
+	summonedCreature:initFormation(body_size)
+
+    local body_list = TableMonsterHitPos():getBodyList(t_summonObj)
+    if (body_list) then
+        summonedCreature:initPhys(body_list)
+    end
+
+    -- 스테이지 버프 적용
+    summonedCreature.m_statusCalc:applyStageBonus(self.m_stageID, true)
+
+    -- 광폭화 버프 적용
+    self.m_gameState:applyAccumEnrage(summonedCreature)
+    
+    -- 고대의 탑일 경우 도전횟수에 따른 디버프 적용
+    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        -- 시험의 탑 디버프 제외
+        if (not g_ancientTowerData:isAttrChallengeMode()) then
+            local value = g_ancientTowerData:getEnemyDeBuffValue()
+            if (value < 0) then
+                summonedCreature.m_statusCalc:addStageMulti('atk', value)
+                summonedCreature.m_statusCalc:addStageMulti('def', value)
+                summonedCreature.m_statusCalc:addStageMulti('hp', value)
+            end
+        end
+    end
+
+    -- 스테이지별 hp_ratio 적용(클랜 던전의 경우는 서버로부터 실제 체력값을 받음)
+    if (self.m_gameMode ~= GAME_MODE_CLAN_RAID) then
+        local hp_ratio = TableStageData():getValue(self.m_stageID, 'hp_ratio') or 1
+        summonedCreature.m_statusCalc:appendHpRatio(hp_ratio)
+    end
+    
+    summonedCreature:setStatusCalc(summonedCreature.m_statusCalc)
+    self:dispatch('make_monster', {['monster']=summonedCreature})
+	return summonedCreature
+end
+
+
 -------------------------------------
 -- function tryPatternMonster
 -- @brief 패턴을 가진 적군
