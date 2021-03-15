@@ -2279,14 +2279,13 @@ function UI_Lobby:update_rightButtons()
         local is_visible = true
         vars['battlePassBtn']:setVisible(is_visible)
         vars['battlePassNotiSprite']:setVisible(g_battlePassData:isVisible_battlePassNoti()
-            or g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_3_PRODUCT_ID)
-            or g_adventureClearPackageData03:isVisible_adventureClearPackNoti())
+            or g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID)
+            or g_adventureClearPackageData03:isVisibleNotiAtLobby())
     end
 
     do -- 패키지
-        
+        -- TODO (YOUNGJIN) : TEMP         
         vars['cashShopBtn']:setVisible(true)
-        -- TODO (YOUNGJIN) : TEMP 
         vars['cashShopNotiSprite']:setVisible(false)
     end
     -- 인덱스 1번이 오른쪽

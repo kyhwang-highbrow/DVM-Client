@@ -165,6 +165,44 @@ function ServerData_LevelUpPackage:isActive(product_id)
     end
     return struct_product_state:isActive()
 end
+-------------------------------------
+-- function isVisibleAtBattlePassShop
+-- @breif 구매 전에는 출력하고 구매 후에는 보상이 남은 경우 출력
+-------------------------------------
+function ServerData_LevelUpPackage:isVisibleAtBattlePassShop(product_id)
+    if (not self:isActive(product_id)) then 
+        return true 
+    end
+
+    local table_package = self:getLevelUpPackageTable(product_id)
+    for i, v in pairs(table_package) do
+        local lv = v['level']
+        
+        if (self:isReceived(product_id, lv) == false) then 
+            return true 
+        end
+    end
+
+    return false
+end
+
+function ServerData_LevelUpPackage:isVisibleNotiAtLobby(product_id)
+    if(not self:isActive(product_id)) then
+        return false
+    end
+
+    local table_package = self:getLevelUpPackageTable(product_id)
+
+    for i, v in pairs(table_package) do
+        local lv = v['level']
+
+        if(self:isReceived(product_id, lv) == false) then
+            return true
+        end
+    end
+
+    return false
+end
 
 -------------------------------------
 -- function isVisible_lvUpPack
@@ -197,27 +235,6 @@ function ServerData_LevelUpPackage:isVisibleAtPackageShop(product_id)
     else
         return true
     end    
-end
-
--------------------------------------
--- function isVisibleAtBattlePassShop
--- @breif 구매 전에는 출력하고 구매 후에는 보상이 남은 경우 출력
--------------------------------------
-function ServerData_LevelUpPackage:isVisibleAtBattlePassShop(product_id)
-    if (not self:isActive(product_id)) then 
-        return true 
-    end
-
-    local table_package = self:getLevelUpPackageTable(product_id)
-    for i, v in pairs(table_package) do
-        local lv = v['level']
-        
-        if (self:isReceived(product_id, lv) == false) then 
-            return true 
-        end
-    end
-
-    return false
 end
 
 -------------------------------------

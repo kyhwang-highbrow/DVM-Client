@@ -140,6 +140,22 @@ function ServerData_AdventureClearPackage03:isVisibleAtBattlePassShop()
     return false
 end
 
+function ServerData_AdventureClearPackage03:isVisibleNotiAtLobby()
+    if(not self:isActive()) then
+        return false
+    end
+
+    local table = TABLE:get('table_package_stage_03')
+    for i, v in pairs(table) do
+        local stage_id = v['stage']
+        if(self:isReceived(stage_id) == false) then
+            return true
+        end
+    end
+
+    return false
+end
+
 
 -------------------------------------
 -- function isVisible_adventureClearPack

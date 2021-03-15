@@ -34,6 +34,8 @@ ServerData_BattlePass = class({
         -- StructBattlePassInfo Map
         -- keyword : product id
         m_passInfoData = 'map',
+        m_normalKey = '',
+        m_premiumKey = '',
     })
 
 REWARD_STATUS = {
@@ -49,6 +51,8 @@ function ServerData_BattlePass:init(server_data)
     self.m_serverData = server_data
     self.m_battlePassTable = TableBattlePass()
     self.m_passInfoData = {}
+    self.m_normalKey = 'normal'
+    self.m_premiumKey = 'premium'
 end
 
 
@@ -104,6 +108,7 @@ function ServerData_BattlePass:getUserLevel(pass_id)
 end
 
 function ServerData_BattlePass:GetRewardStatus(pass_id, type_key, index)
+    
     local key = tostring(pass_id)
     local rewardsStatus = self.m_passInfoData[key][type_key]
     local level = tostring(self:getLevelFromIndex(pass_id, index))
@@ -116,6 +121,11 @@ end
 -- 
 -------------------------------------
 function ServerData_BattlePass:isExistAvailableReward(pass_id, type_key)
+
+    if(type_key == premium_key) and (not self:isPurchased(type_key)) then
+        return false
+    end
+
     local key = tostring(pass_id)
 
     for k, v in pairs(self.m_passInfoData[key][type_key]) do
@@ -127,12 +137,9 @@ end
 
 --functino ServerData_BattlePass:isExistAvailableReward
 function ServerData_BattlePass:isVisible_battlePassNoti()
-    -- TODO (YOUNGJIN) : move out these from here to ServerData_BattlePass
-    local normal_key = 'normal'
-    local premium_key = 'premium'
 
     for key, table in pairs(self.m_passInfoData) do
-        if self:isExistAvailableReward(key, normal_key) or self:isExistAvailableReward(key, premium_key) then
+        if self:isExistAvailableReward(key, self.m_normalKey) or self:isExistAvailableReward(key, self.m_premiumKey) then
             return true
         end
     end
