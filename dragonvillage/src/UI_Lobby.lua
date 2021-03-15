@@ -232,8 +232,6 @@ function UI_Lobby:entryCoroutine()
                 g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
-        -- local id = 121701
-        -- ccdump(g_battlePassData:getExp(id))
         
 
         -- hard refresh
@@ -2275,12 +2273,14 @@ function UI_Lobby:update_rightButtons()
     end
 
     do -- 배틀 패스
-        -- TODO (YOUNGJIN) : Change all the conditions
         local is_visible = true
         vars['battlePassBtn']:setVisible(is_visible)
         vars['battlePassNotiSprite']:setVisible(g_battlePassData:isVisible_battlePassNoti()
             or g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID)
             or g_adventureClearPackageData03:isVisibleNotiAtLobby())
+        --vars['battlePassNotiSprite']:setVisible(g_battlePassData:isVisible_battlePassNoti())
+        --vars['battlePassNotiSprite']:setVisible(g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID))
+        --vars['battlePassNotiSprite']:setVisible(g_adventureClearPackageData03:isVisibleNotiAtLobby())
     end
 
     do -- 패키지

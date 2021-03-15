@@ -192,11 +192,12 @@ function ServerData_LevelUpPackage:isVisibleNotiAtLobby(product_id)
     end
 
     local table_package = self:getLevelUpPackageTable(product_id)
+    local user_level = g_userData:get('lv')
 
     for i, v in pairs(table_package) do
         local lv = v['level']
 
-        if(self:isReceived(product_id, lv) == false) then
+        if(lv <= user_level) and (self:isReceived(product_id, lv) == false) then
             return true
         end
     end

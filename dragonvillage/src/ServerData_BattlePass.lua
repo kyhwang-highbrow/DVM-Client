@@ -122,7 +122,7 @@ end
 -------------------------------------
 function ServerData_BattlePass:isExistAvailableReward(pass_id, type_key)
 
-    if(type_key == premium_key) and (not self:isPurchased(type_key)) then
+    if(type_key == self.m_premiumKey) and (not self:isPurchased(pass_id)) then
         return false
     end
 
@@ -422,7 +422,6 @@ function ServerData_BattlePass:request_allRewards(pid, type, finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        --ccdump(ret)
         self:update_reward(ret)
 
         if finish_cb then

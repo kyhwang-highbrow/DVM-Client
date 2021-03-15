@@ -149,7 +149,12 @@ function ServerData_AdventureClearPackage03:isVisibleNotiAtLobby()
     for i, v in pairs(table) do
         local stage_id = v['stage']
         if(self:isReceived(stage_id) == false) then
-            return true
+            local stage_info = g_adventureData:getStageInfo(stage_id)
+            local star = stage_info:getNumberOfStars()
+            -- 보상 받을 수 있는 항목이 있음
+            if (star >= 3) then 
+                return true 
+            end
         end
     end
 
