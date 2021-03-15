@@ -3,7 +3,7 @@ local L_TAB = {'adventure', 'dungeon', 'competition', 'clan'}
 
 local L_TAB_CONTENTS = {}
 L_TAB_CONTENTS['adventure'] = {'adventure', 'exploration'}
-L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'secret_relation'}
+L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'dimension_gate','secret_relation'}
 L_TAB_CONTENTS['competition'] = {'ancient', 'attr_tower', 'colosseum', 'challenge_mode', 'grand_arena', 'arena_new'}
 L_TAB_CONTENTS['clan'] = {'clan_raid', 'rune_guardian', 'clan_war'}
 
@@ -124,7 +124,7 @@ function UI_BattleMenu:getContentCntByType(tab_name)
     for i, content_name in ipairs(l_contens) do
         -- 개편 후 콜로세움 데이터 추가가 당장 어려운 관계로 arena_new는 colosseum과 동일하게 체크
         if (content_name == 'arena_new') then content_name = 'colosseum' end
-
+        
         if (not g_contentLockData:isContentLock(content_name)) then
             cnt = cnt + 1
         end
@@ -387,7 +387,7 @@ function UI_BattleMenu:initDungeonTab()
     local l_item = {}
 
     for _, dungeon_name in ipairs(L_TAB_CONTENTS['dungeon']) do
-        if (not g_contentLockData:isContentLock(dungeon_name)) then
+        if (not g_contentLockData:isContentLock(dungeon_name) or dungeon_name == 'dimension_gate') then
             table.insert(l_item, dungeon_name)
         end
     end 
@@ -435,6 +435,21 @@ function UI_BattleMenu:initDungeonTab()
 
     self.m_lDungeonBtnUI = l_btn_ui
 end
+
+-------------------------------------
+-- function initTestDungeonTab
+-- @brief 던전 초기화
+-------------------------------------
+function UI_BattleMenu:initTestDungeonTab()
+    local tableView = UIC_TableView()
+
+    table_veiw.m_defaultCellSize = cc.size()
+
+end
+
+
+
+
 
 -------------------------------------
 -- function initCompetitionTab

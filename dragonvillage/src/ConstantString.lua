@@ -386,6 +386,9 @@ function getContentName(content_type)
 
     elseif (content_type == 'clan_war') then
         content_name = Str('클랜전')
+        
+    elseif (content_type == 'dimension_gate') then
+        content_name = Str('차원문')
     else
         error('content_type : ' .. content_type)
     end

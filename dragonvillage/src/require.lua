@@ -1108,6 +1108,13 @@ local t_module = {
     'UI_BattlePass_Nurture',
     'UI_BattlePass_NurtureCell',
 
+    
+    
+    -- UI : 시련
+    'UI_DimensionGateScene',
+    'UI_DimensionGateShop',
+
+
 	-- UI : 모험
     'UI_AdventureSceneNew',
     'UI_AdventureStageButton',

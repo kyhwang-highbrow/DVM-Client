@@ -2223,6 +2223,32 @@ function UINavigatorDefinition:goTo_clan_war(...)
 end
 
 -------------------------------------
+-- function goTo_dimension_gate
+-- @brief 차원문으로 이동
+-- @usage UINavigatorDefinition:goTo('dimension_gate')
+-------------------------------------
+function UINavigatorDefinition:goTo_dimension_gate(...)
+   
+    local is_opened, idx, ui = self:findOpendUI('UI_BattleMenu')
+    if (is_opened == true) then
+        self:closeUIList(idx) 
+        ui:setTab('dungeon')
+        ui:resetButtonsPosition()
+        UI_DimensionGateScene()
+        return
+    end
+
+    -- do -- Scene으로 동작
+    --     local function close_cb()
+    --         UINavigatorDefinition:goTo('lobby')
+    --     end
+
+    --     local scene = SceneCommon(UI_DimensionGateScene, close_cb)
+    --     scene:runScene()
+    -- end
+end
+
+-------------------------------------
 -- function goTo_slime_combine
 -- @brief 슈퍼 슬라임 합성으로 이동
 -- @usage UINavigatorDefinition:goTo('slime_combine')

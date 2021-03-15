@@ -4922,6 +4922,8 @@
     <None Include="..\src\UI_BattlePassInfoPopup.lua" />
     <None Include="..\src\GameWorldTrial.lua" />
     <None Include="..\src\SceneGameTrial.lua" />
+    <None Include="..\src\UI_DimensionGateShop.lua" />
+    <None Include="..\src\UI_DimensionGateScene.lua" />
     <None Include="..\src\GameState_Trial.lua" />
     <None Include="..\src\SummonedCreature.lua" />
     <None Include="..\src\TableSummonObject.lua" />
