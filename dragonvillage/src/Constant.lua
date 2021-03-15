@@ -297,7 +297,7 @@ end
 -------------------------------------
 function isMonster(id)
     local id  = math_floor(id / 10000)
-    return (id == 13 or id == 14 or id == 15)
+    return (id == 13 or id == 14 or id == 15 or id == 20)
 end
 
 -------------------------------------
