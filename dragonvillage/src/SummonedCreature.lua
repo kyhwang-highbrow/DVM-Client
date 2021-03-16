@@ -26,9 +26,9 @@ SummonedCreature = class(PARENT, {
 
 -------------------------------------
 -------------------------------------
--------------------------------------
+--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 -- object lifecycles
--------------------------------------
+--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 -------------------------------------
 -------------------------------------
 
@@ -78,9 +78,9 @@ end
 
 -------------------------------------
 -------------------------------------
--------------------------------------
+--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 -- Initializer
--------------------------------------
+--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 -------------------------------------
 -------------------------------------
 
@@ -182,9 +182,9 @@ end
 
 -------------------------------------
 -------------------------------------
--------------------------------------
+--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 -- getter, setter
--------------------------------------
+--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 -------------------------------------
 -------------------------------------
 
@@ -212,5 +212,23 @@ function SummonedCreature:setWaitState(is_wait_state)
         if (self.m_state == 'wait') then
             self:changeState('attackDelay')
         end
+    end
+end
+
+-------------------------------------
+-- function setDamage
+-------------------------------------
+function SummonedCreature:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+    if (not self.m_charTable or not self.m_charTable['attacked_type']) then return end
+
+    local attacked_type = self.m_charTable['attacked_type']
+    local is_active_skill = t_info and t_info['attack_type'] and t_info['attack_type'] == 'active'
+
+    if (attacked_type == 'active_only' and is_active_skill) then
+        PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+
+    elseif (attacked_type == 'both') then
+        PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+
     end
 end

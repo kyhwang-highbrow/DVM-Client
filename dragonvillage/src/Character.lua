@@ -306,7 +306,7 @@ end
 -- function getTargetListByTable
 -- @brief skill table을 인자로 받는 경우..
 -------------------------------------
-function Character:getTargetListByTable(t_skill, t_data)
+function Character:getTargetListByTable(t_skill, t_data, is_all)
 	local target_type = t_skill['target_type']
 	local target_count = t_skill['target_count']
     local target_formation = t_skill['target_formation']
@@ -317,14 +317,48 @@ function Character:getTargetListByTable(t_skill, t_data)
 		error('타겟 타입이 없네요..ㅠ 테이블 수정해주세요 ' .. sid .. ' ' .. name)
 	end
 
-    return self:getTargetListByType(target_type, target_count, target_formation, t_data)
+    return self:getTargetListByType(target_type, target_count, target_formation, t_data, is_all)
+end
+
+-------------------------------------
+-- function generateFinalTargetList
+-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+-- 얽힌게 많아서 여기서만 깔짝대기로 결정
+-- 타깃리스트와 스킬정보를 받아서 최종 리스트를 반환
+-------------------------------------
+function Character:generateFinalTargetList(l_target)
+    local l_result = {}
+
+    if (not l_target) then return l_result end
+
+    for _, character in pairs(l_target) do
+        -- attacked_type 지정되어 있고
+        -- attacked_type 에 따라 공격 가능한 리스트 리턴
+        -- 본인이 알아서 죽을 때까지 내버려 둬야함으로
+        -- 리스트에서 제외
+        if (character.m_charTable and character.m_charTable['attacked_type']) then
+            local isSkillOnly = character.m_charTable['attacked_type'] == 'active_only'
+            local isBoth = character.m_charTable['attacked_type'] == 'both'
+            local isInvincible = character.m_charTable['attacked_type'] == 'invincible'
+
+            if (isBoth) then
+                -- 스킬인데 스킬만 먹는 타입이라면?
+                table.insert(l_result, character)
+
+            end
+        else
+            table.insert(l_result, character)
+        end
+    end
+
+    return l_result
 end
 
 -------------------------------------
 -- function getTargetListByType
 -- @param target_formation은 없어도 된다
 -------------------------------------
-function Character:getTargetListByType(target_type, target_count, target_formation, t_data)
+function Character:getTargetListByType(target_type, target_count, target_formation, t_data, is_all)
     local t_data = t_data or {}
 
 	if (target_type == '') then 
@@ -344,7 +378,7 @@ function Character:getTargetListByType(target_type, target_count, target_formati
 	--> target_count = 3
 	local target_count = target_count
 
-	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule, t_data)
+	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule, t_data, is_all)
 
     -- 고대 유적 던전의 경우 아군의 일반 공격은 보스를 우선으로 공격하도록 처리
     if (self.m_world.m_gameMode == GAME_MODE_ANCIENT_RUIN and self.m_bLeftFormation) then
@@ -375,7 +409,7 @@ end
 -------------------------------------
 -- function checkTarget
 -------------------------------------
-function Character:checkTarget(t_skill, t_data)
+function Character:checkTarget(t_skill, t_data, is_all)
     if (not t_skill) then return false end
 
 	if (t_data and t_data['target']) then
@@ -383,7 +417,7 @@ function Character:checkTarget(t_skill, t_data)
 		self.m_targetChar = t_data['target']
 	else
 		-- 없다면 탐색
-		local t_ret = self:getTargetListByTable(t_skill)
+		local t_ret = self:getTargetListByTable(t_skill, nil, is_all)
 		self.m_targetChar = t_ret[1]
 	end
 

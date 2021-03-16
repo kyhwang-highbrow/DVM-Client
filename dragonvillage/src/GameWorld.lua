@@ -1184,14 +1184,53 @@ function GameWorld:isPossibleControl()
 end
 
 -------------------------------------
+-- function generateFinalTargetList
+-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+-- 얽힌게 많아서 여기서만 깔짝대기로 결정
+-- 타깃리스트와 스킬정보를 받아서 최종 리스트를 반환
+-------------------------------------
+function GameWorld:generateFinalTargetList(l_target)
+    local l_result = {}
+
+    if (not l_target) then return l_result end
+
+    for _, character in pairs(l_target) do
+        -- attacked_type 지정되어 있고
+        -- attacked_type 에 따라 공격 가능한 리스트 리턴
+        -- 본인이 알아서 죽을 때까지 내버려 둬야함으로
+        -- 리스트에서 제외
+        if (character.m_charTable and character.m_charTable['attacked_type']) then
+            local isSkillOnly = character.m_charTable['attacked_type'] == 'active_only'
+            local isInvincible = character.m_charTable['attacked_type'] == 'invincible'
+            local isBoth = character.m_charTable['attacked_type'] == 'both'
+
+            if (self.m_skillIndicatorMgr:isControlling() and isSkillOnly) then
+                -- 스킬인데 스킬만 먹는 타입이라면?
+                table.insert(l_result, character)
+            elseif (isBoth) then
+                table.insert(l_result, character)
+
+            end
+        else
+            table.insert(l_result, character)
+        end
+    end
+
+    return l_result
+end
+
+
+-------------------------------------
 -- function getTargetList
 -------------------------------------
-function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
+function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data, is_all)
     local formation_type = formation_type or ''
     local group_key = char:getPhysGroup()
     local unit_group = self:getUnitGroupConsideredTamer(char)
 
     local t_data = t_data or {}
+
+    local l_result = {}
 
     t_data['self'] = char
     t_data['team_type'] = team_type
@@ -1270,7 +1309,16 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
         -- 만약 해당 그룹에 적이 하나도 없을 경우 모든 적을 대상으로 변경
         if (for_mgr_delegate:isEmpty() and rule_type ~= 'all' and not t_data['all']) then
             t_data['all'] = true
-            return self:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
+            local origin_list = self:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
+
+            -- 액티브 스킬이 아닐 때 체크
+            -- 액티브 스킬에만 반응하는 오브젝트를 위해서
+            -- 해당값이 false면 리스트 가공 안함
+            if (is_all) then
+                l_result = origin_list
+            else
+                l_result = self:generateFinalTargetList(origin_list)
+            end
         end
 
     elseif (team_type == 'all') then
@@ -1308,7 +1356,19 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
 
     end
 
-    return for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
+    if (not l_result or #l_result <= 0) then
+        local default_origin_list = for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
+        -- 액티브 스킬이 아닐 때 체크
+        -- 액티브 스킬에만 반응하는 오브젝트를 위해서
+        -- 해당값이 false면 리스트 가공 안함
+        if (is_all) then
+            l_result = default_origin_list
+        else
+            l_result = self:generateFinalTargetList(default_origin_list)
+        end
+    end
+
+    return l_result
 end
 
 -------------------------------------

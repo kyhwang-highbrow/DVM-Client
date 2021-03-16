@@ -3,10 +3,12 @@
 -- 외곽 여유분 + 
 -- 기준은 좌측 중간
 -- 화면 밖의 적은 삭제되지 않으므로 충분히 멀리서 소환하면 됨
+-- T 탑 M 미들(세로기준가운데) B 바텀 C 센터(가로기준가운데) R 오른쪽 L 왼쪽 O 끝자락
 ----------------------------------------------------------------------------
 
 local alpha_test_1 = 0
 local alpha_test_2 = 300
+local pos_center = 1280 / 2
 local pos_x_r = 740
 local pos_x_l = 0
 local pos_x_add = 95
@@ -192,6 +194,10 @@ ENEMY_POS['LB25'] = {x=pos_x_l + (pos_x_add * 5), y=pos_y + (pos_y_add * 4)}
 ENEMY_POS['LB26'] = {x=pos_x_l + (pos_x_add * 5), y=pos_y + (pos_y_add * 5)}
 ENEMY_POS['LB27'] = {x=pos_x_l + (pos_x_add * 5), y=pos_y + (pos_y_add * 6)}
 
+-- 가운데 좌표
+ENEMY_POS['MC01'] = {x=pos_center, y=0}
+ENEMY_POS['MT01'] = {x=pos_center, y=200}
+ENEMY_POS['MB01'] = {x=pos_center, y=-200}
 
 
 ENEMY_POS['RC01'] = {x=960, y=0}

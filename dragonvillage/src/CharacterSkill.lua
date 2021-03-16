@@ -101,7 +101,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
         
     -- 코드형 스킬
     elseif (skill_form == 'code') then
-        self:checkTarget(t_skill, t_data)
+        self:checkTarget(t_skill, t_data, true)
 
         if (not self.m_targetChar) then
             return false
@@ -109,7 +109,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 		local skill_type = t_skill['skill_type']
 		local chance_type = t_skill['chance_type']
-        
+
 		-- [패시브]
 		if (chance_type == 'leader' or chance_type == 'passive') then
             -- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
@@ -155,6 +155,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end
+
 			-- 공용탄 영역-------------------------------------------
 			if (skill_type == 'missile_move_straight') then
 				CommonMissile_Straight:makeMissileInstance(self, t_skill, t_data)

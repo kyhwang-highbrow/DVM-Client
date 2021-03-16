@@ -176,7 +176,7 @@ end
 -- function summonCreature
 -- 소환체 생성
 -------------------------------------
-function WaveMgr:summonCreature(dynamic_wave)
+function WaveMgr:summonCreature(dynamic_wave, summon_type)
 	local enemy = self:spawnEnemy_dynamic(
 		dynamic_wave.m_enemyID, 
 		dynamic_wave.m_enemyLevel, 
@@ -188,8 +188,10 @@ function WaveMgr:summonCreature(dynamic_wave)
         dynamic_wave.m_physGroup
 		)
 
+    local summonType = summon_type
+    local isObjectType = summonType == 'object'
     if enemy and enemy.m_hpNode then
-        enemy.m_hpNode:setVisible(true)
+        enemy.m_hpNode:setVisible(not isObjectType)
     end
 end
 

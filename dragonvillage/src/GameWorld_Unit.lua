@@ -179,8 +179,9 @@ function GameWorld:createSummonObject(summonObj_id, level)
     -- 소환체 생성
     -- 소환체 테이블의 size_type 받아서
     -- constant.json 에 있는 INGAME 필드에 담겨있는 값으로 설정
+    local file_path = AnimatorHelper:getMonsterResName(t_summonObj['res'], t_summonObj['attr'])
 	local body_size = SummonedCreature:getBodySize(t_summonObj['size_type'])
-    summonedCreature = SummonedCreature(t_summonObj['res'], body_size)
+    summonedCreature = SummonedCreature(file_path, body_size)
 
     self:addToUnitList(summonedCreature)
 
