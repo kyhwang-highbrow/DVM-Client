@@ -129,7 +129,6 @@ local TableInfo = {
 -------------------------------------
 local TableInfo_fromServer = {
         -- ['csv 테이블 이름'] = {'테이블 약어', 'key'},
-
 		-- 룬 
         ['table_rune_enhance'] = {'table_rune_enhance', 'rune_lv'},
         ['table_rune_grade'] = {'table_rune_grade', 'grade'},
@@ -212,6 +211,9 @@ local TableInfo_fromServer = {
         -- 배틀패스
         ['table_battle_pass'] = {'table_battle_pass', 'index'},
         ['table_battle_pass_reward'] = {'table_battle_pass_reward', 'id'},
+
+        -- 시련 (차원문)
+        ['table_dmgate_stage'] = {'table_dmgate_stage', 'stage_id'},
     }
 
 -------------------------------------

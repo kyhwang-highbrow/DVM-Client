@@ -40,6 +40,11 @@ NEST_DUNGEON_SUB_MODE_JEWEL = 0
 SECRET_DUNGEON_GOLD = 1
 SECRET_DUNGEON_RELATION = 2
 
+
+-- 시련 던전 하위 던전 모드
+TRIAL_DUNGEON_DIMENSION_GATE = 1
+
+
 --------------------------------------------
 -- constant.json 과 GAME_MODE 의 bridge
 --------------------------------------------
@@ -60,6 +65,7 @@ IN_GAME_MODE[GAME_MODE_EVENT_ILLUSION_DUNSEON] = "EVENT_GOLD"
 IN_GAME_MODE[GAME_MODE_ANCIENT_RUIN] = "ANCIENT_RUIN"
 IN_GAME_MODE[GAME_MODE_CLAN_WAR] = "ARENA"
 IN_GAME_MODE[GAME_MODE_ARENA_NEW] = "ARENA_NEW"
+IN_GAME_MODE[GAME_MODE_TRIAL] = "TRIAL"
 
 NEST_MODE = {}
 NEST_MODE[NEST_DUNGEON_EVO_STONE] = "EVOLUTION_STONE"
@@ -70,6 +76,9 @@ NEST_MODE[NEST_DUNGEON_GOLD] = "GOLD"
 SECRET_MODE = {}
 SECRET_MODE[SECRET_DUNGEON_GOLD] = "GOLD"
 SECRET_MODE[SECRET_DUNGEON_RELATION] = "RELATION"
+
+TRIAL_MODE = {}
+TRIAL_MODE[TRIAL_DUNGEON_DIMENSION_GATE] = "DIMENSION_GATE"
 
 --------------------------------------------
 -- skill에서 발동 조건으로 검색할 수 있게.
@@ -91,6 +100,7 @@ PLAYER_VERSUS_MODE[GAME_MODE_CLAN_RAID] = 'pve'
 PLAYER_VERSUS_MODE[GAME_MODE_ANCIENT_RUIN] = 'pve'
 PLAYER_VERSUS_MODE[GAME_MODE_EVENT_ILLUSION_DUNSEON] = 'pve'
 PLAYER_VERSUS_MODE[GAME_MODE_CLAN_WAR] = 'pvp'
+PLAYER_VERSUS_MODE[GAME_MODE_TRIAL] = 'pve'
 
 -------------------------------------
 -- function getInGameConstant
@@ -137,12 +147,18 @@ function getInGameConstant(type)
 		local dungeon_str = SECRET_MODE[dungeonMode]
 
         ret = t_game_mode_constant[game_mode_str][dungeon_str][type]
+    -- 시련 (차원문)
+    elseif gameMode == GAME_MODE_TRIAL then
+        local dungeon_table = g_trialData:parseTrialID(stage_ID)
+        local dungeonMode = dungeon_table['dungeon_mode']
+        local dungeon_str = TRIAL_MODE[dungeonMode]
 
+        ret = t_game_mode_constant[game_mode_str][dungeon_str][type]
     --
     elseif (t_game_mode_constant[game_mode_str] and t_game_mode_constant[game_mode_str][type]) then
 		
         ret = t_game_mode_constant[game_mode_str][type]
-
+    
     else
         ret = t_game_mode_constant["ANCIENT_TOWER"][type]
 

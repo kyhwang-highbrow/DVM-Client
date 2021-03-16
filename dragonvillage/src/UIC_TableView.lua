@@ -18,6 +18,9 @@ UIC_TableView = class(PARENT, {
 
         m_bVariableCellSize = 'boolean', -- 셀별 개별 크기 적용 여부(사용시 _size세팅 필수!!)
         m_defaultCellSize = '', -- cell이 생성되기 전이라면 기본 사이즈를 지정
+        m_bFixedCellSize = 'boolean', -- 셀별 크기 노드 사이즈와 동일하게 적용 여부
+        m_gapBtwCellsSize = 'number', -- cell 사이의 갭 크기 지정
+
 
         _cellsUsed = 'list',
         _vCellsPositions = 'list',
@@ -73,6 +76,10 @@ function UIC_TableView:init(node)
     -- 기본값 설정
     self.m_bVariableCellSize = false
     self.m_defaultCellSize = cc.size(100, 100)
+    self.m_bFixedCellSize = false
+    self.m_gapBtwCellsSize = 0
+
+
     self._vordering = cc.TABLEVIEW_FILL_TOPDOWN
     self.m_bFirstLocation = true
     self.m_bDirtyItemList = false
@@ -1187,9 +1194,14 @@ function UIC_TableView:makeItemUI(data)
     ui.root:setAnchorPoint(cc.p(0.5, 0.5))
 
 	-- cell size를 정의 하지 않는다면 디폴트 사이즈를 넣는다.
-	if (ui:getCellSize() == nil) then
+    if (self.m_bFixedCellSize) and (ui.root:getChildrenCount() == 1) then
+        local size = ui.root:getChildren()[1]:getContentSize()
+        self.m_defaultCellSize = cc.size(size['width'] + self.m_gapBtwCellsSize, size['height'] + self.m_gapBtwCellsSize)
+        ui:setCellSize(self.m_defaultCellSize)
+	elseif (ui:getCellSize() == nil) then
 		ui:setCellSize(self.m_defaultCellSize)
-	end
+    end
+	
 
     self.m_scrollView:addChild(ui.root)
 
@@ -1635,4 +1647,30 @@ function UIC_TableView:getItemFromIndex(idx)
 
     -- nil이 리턴될 수 있음
     return item
+end
+
+
+
+
+function UIC_TableView:setCellSizeToNodeSize(isFixedSize)
+    self.m_bFixedCellSize = isFixedSize
+end
+
+function UIC_TableView:setGapBtwCells(gap)
+    self.m_gapBtwCellsSize = gap
+end
+
+function UIC_TableView:setVisible(isVisible)
+
+    -- for i,item in ipairs(self.m_itemList) do
+    --     local ui = item['ui'] or item['generated_ui']
+    --     ui.root:setVisible(isVisible)
+    --     ui.root:setEnabled(isVisible)
+    -- end
+    self.m_scrollView:setVisible(isVisible)
+    --self.m_scrollView:setEnabled(false)
+end
+
+function UIC_TableView:isVisible()
+    return self.m_scrollView:isVisible()
 end

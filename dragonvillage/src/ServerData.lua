@@ -299,6 +299,9 @@ function ServerData:getInstance()
     -- 룬 메모
     g_runeMemoData = ServerData_RuneMemo(g_serverData)
 
+    -- 시련 (차원문)
+    g_trialData = ServerData_Trial(g_verserData)
+
     return g_serverData
 end
 
@@ -812,7 +815,7 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
         for table_name,_ in pairs(server_table_info) do
             self:setServerTable(ret, table_name)
         end
-
+        --ccdump(ret['table_dmgate_stage'])
         if finish_cb then
             finish_cb(ret)
         end
