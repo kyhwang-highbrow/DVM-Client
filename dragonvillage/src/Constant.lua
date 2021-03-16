@@ -301,6 +301,15 @@ function isMonster(id)
 end
 
 -------------------------------------
+-- function isSummonObject
+-- @brief id를 가지고 소환체인지 판별
+-------------------------------------
+function isSummonObject(id)
+    local id  = math_floor(id / 10000)
+    return (id == 30)
+end
+
+-------------------------------------
 -- function getRelationItemId
 -- @brief 드래곤 아이디(did)로부터 해당 드래곤 인연 포인트 아이템id를 얻음
 -------------------------------------

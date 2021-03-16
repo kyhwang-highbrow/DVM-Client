@@ -126,6 +126,9 @@ end
 -- function update_enemy_appear
 -------------------------------------
 function GameState_Trial:startFight()
+    local world = self.m_world
+    world:actStagePreparation()
+
     self:fight()
     self:changeState(GAME_STATE_FIGHT)
 end

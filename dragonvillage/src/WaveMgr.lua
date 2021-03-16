@@ -87,6 +87,34 @@ function WaveMgr:getScriptData()
 end
 
 -------------------------------------
+-- function getCurrentWaveScriptData
+-- @brief 다음 웨이브 정보, 최종 웨이브인지 여부를 리턴
+-------------------------------------
+function WaveMgr:getCurrentWaveScriptData()
+    if (self.m_bDevelopMode == true) then
+        self.m_currWave = 0
+    end
+
+    local wave = self.m_currWave
+
+    local t_script_data = self:getScriptData()
+
+    -- 다음 웨이브가 없다는 뜻(스테이지 클리어를 의미)
+    if (not t_script_data['wave'][wave]) then
+        return false
+    end
+
+    -- 한번 더 검증
+    if (self.m_maxWave < wave) then
+        return false
+    end
+
+    local is_final_wave = (wave == self.m_maxWave)
+
+    return t_script_data['wave'][wave], is_final_wave
+end
+
+-------------------------------------
 -- function getNextWaveScriptData
 -- @brief 다음 웨이브 정보, 최종 웨이브인지 여부를 리턴
 -------------------------------------
@@ -142,6 +170,27 @@ function WaveMgr:setSummonData(script)
 			end
 		end
 	end
+end
+
+-------------------------------------
+-- function summonCreature
+-- 소환체 생성
+-------------------------------------
+function WaveMgr:summonCreature(dynamic_wave)
+	local enemy = self:spawnEnemy_dynamic(
+		dynamic_wave.m_enemyID, 
+		dynamic_wave.m_enemyLevel, 
+		dynamic_wave.m_appearType,
+		dynamic_wave.m_luaValue1,
+		dynamic_wave.m_luaValue2,
+		dynamic_wave.m_luaValue3,
+		dynamic_wave.m_movement,
+        dynamic_wave.m_physGroup
+		)
+
+    if enemy and enemy.m_hpNode then
+        enemy.m_hpNode:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -466,6 +515,10 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     -- Enemy 생성
     if (isMonster(enemy_id)) then
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
+
+    elseif (isSummonObject(enemy_id)) then
+        enemy = self.m_world:createSummonObject(enemy_id, level)
+
     else
         local enemy_dragon_data = self:getEnemyDragonData(enemy_id, level, isBoss)
         enemy = self.m_world:makeDragonNew(enemy_dragon_data, true)
