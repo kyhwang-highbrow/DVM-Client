@@ -61,6 +61,7 @@ function ServerData_Deck:setDeck(deck_name, t_deck)
 
     self.m_serverData:applyServerData(t_deck, 'deck', idx)
     self:resetDragonDeckInfo()
+    ResetMultiDeckCached()
 end
 
 -------------------------------------
@@ -84,6 +85,7 @@ function ServerData_Deck:setDeck_usedDeckPvp(deck_name, t_deck)
 
     self.m_serverData:applyServerData(t_deck, 'deckpvp', idx)
     self:resetDragonDeckInfo()
+    ResetMultiDeckCached()
 end
 
 -------------------------------------

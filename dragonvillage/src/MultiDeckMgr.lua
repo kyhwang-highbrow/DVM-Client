@@ -305,8 +305,18 @@ end
 -------------------------------------
 -- function CheckMultiDeckWithName
 -- @brief 덱네임으로 멀티덱인지 검사
+-- @comment 21.03.17 kwkang 사용하는 곳이 CharacterCard에서 단순히 멀티덱인지 판단하는 용도이기 때문에 캐싱해서 사용해도 문제 없음 
+-- @comment 다만 덱 정보가 바뀔 때마다 캐싱되어 있던 cached_deck_mgr 새로 생성해줄 필요가 있음 (ResetMultiDeckCached())
 -------------------------------------
+local cached_deck_name = nil 
+local cached_is_multi_deck = nil
+local cached_deck_mgr = nil
 function CheckMultiDeckWithName(deck_name)
+    -- 매번 계산할 필요 없이 캐싱되어 있다면 캐싱된 값 사용하도록 변경
+    if (cached_deck_name == deck_name) then
+        return cached_is_multi_deck, cached_deck_mgr
+    end
+
     local is_multi_deck = false
     local multi_deck_mgr
 
@@ -332,5 +342,20 @@ function CheckMultiDeckWithName(deck_name)
         end
     end
 
+    -- 캐싱
+    cached_deck_name = deck_name 
+    cached_is_multi_deck = is_multi_deck
+    cached_deck_mgr = multi_deck_mgr
+
     return is_multi_deck, multi_deck_mgr
+end
+
+-------------------------------------
+-- function ResetMultiDeckCached
+-- @brief 멀티덱 검사 관련 캐시값 제거
+-------------------------------------
+function ResetMultiDeckCached()
+    cached_deck_name = nil 
+    cached_is_multi_deck = nil
+    cached_deck_mgr = nil
 end
