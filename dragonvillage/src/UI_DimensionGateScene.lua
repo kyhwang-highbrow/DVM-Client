@@ -210,6 +210,7 @@ function UI_DimensionGateScene:initTableView(node, list)
     --table_view:setGapBtwCells(0)
     table_view:setCellUIClass(UI_DimensionGateItem, create_callback)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    ccdump(list)
     table_view:setItemList(list, true)
 
     return table_view

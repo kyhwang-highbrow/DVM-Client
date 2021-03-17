@@ -2,7 +2,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 
 UI_DimensionGateItem = class(PARENT, {
-
+    m_data = '',
 })
 
 
@@ -10,8 +10,10 @@ UI_DimensionGateItem = class(PARENT, {
 -- function init
 -- @brief virtual function of UI
 -------------------------------------
-function UI_DimensionGateItem:init() 
+function UI_DimensionGateItem:init(data) 
     local vars = self:load('dmgate_scene_item_top.ui')
+    self.m_data = data
+    ccdump(self.m_data)
 end
 
 -------------------------------------

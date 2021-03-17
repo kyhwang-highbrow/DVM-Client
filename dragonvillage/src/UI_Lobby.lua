@@ -233,6 +233,11 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
         
+        do 
+            co:work('# 시련 정보 받는 중')
+            g_dimensionGateData:request_dimensionGateInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
 
         -- hard refresh
         cclog('# UI 갱신')

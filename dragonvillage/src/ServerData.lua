@@ -300,7 +300,7 @@ function ServerData:getInstance()
     g_runeMemoData = ServerData_RuneMemo(g_serverData)
 
     -- 시련 (차원문)
-    g_trialData = ServerData_Trial(g_verserData)
+    g_dimensionGateData = ServerData_DimensionGate(g_serverData)
 
     return g_serverData
 end
