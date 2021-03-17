@@ -1344,7 +1344,7 @@ function UI_ReadySceneNew:click_startBtn()
             scene:runScene()
         end)
         return
-    elseif (self.m_gameMode == GAME_MODE_TRIAL) then
+    elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
         self:checkChangeDeck(function()
             local scene = SceneGameTrial(nil, stage_id, 'stage_' .. stage_id, true)
             scene:runScene()

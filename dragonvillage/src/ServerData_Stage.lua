@@ -140,7 +140,7 @@ function ServerData_Stage:getStageName(stage_id)
 		name = g_illusionDungeonData:getIllusionStageTitle()
 
     -- 환상 던전 이벤트
-    elseif (game_mode == GAME_MODE_TRIAL) then
+    elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
 		name = Str('시련 던전')
 
     end
@@ -201,7 +201,7 @@ function ServerData_Stage:isOpenStage(stage_id)
         ret = true
 
     -- 시련 던전
-    elseif (game_mode == GAME_MODE_TRIAL) then
+    elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
         ret = true
 
     end
