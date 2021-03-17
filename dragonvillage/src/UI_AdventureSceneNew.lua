@@ -785,7 +785,7 @@ function UI_AdventureSceneNew:click_devStageBtn()
     --local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
     --scene:runScene()
     --UI_AdventureStageInfo(1119801)
-    self:openAdventureStageInfoPopup(3000101)
+    self:openAdventureStageInfoPopup(3010101)
 end
 
 -------------------------------------

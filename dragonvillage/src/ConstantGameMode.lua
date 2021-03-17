@@ -149,9 +149,14 @@ function getInGameConstant(type)
         ret = t_game_mode_constant[game_mode_str][dungeon_str][type]
     -- 시련 (차원문)
     elseif gameMode == GAME_MODE_TRIAL then
-        local dungeon_table = g_trialData:parseTrialID(stage_ID)
+        local dungeon_table = g_trialData:parseTrialID(stageID)
         local dungeonMode = dungeon_table['dungeon_mode']
         local dungeon_str = TRIAL_MODE[dungeonMode]
+
+        cclog(game_mode_str)
+        cclog(dungeonMode)
+        cclog(dungeon_str)
+        cclog(type)
 
         ret = t_game_mode_constant[game_mode_str][dungeon_str][type]
     --
