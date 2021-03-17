@@ -50,7 +50,7 @@ end
 -------------------------------------
 function GameState_Trial.update_enemy_appear(self, dt)
     local world = self.m_world
-    local enemy_count = #world:getEnemyList()
+    local enemy_count = world:getEnemyCount()
 
     if (self.m_stateTimer == 0) then
         local dynamic_wave = #world.m_waveMgr.m_lDynamicWave

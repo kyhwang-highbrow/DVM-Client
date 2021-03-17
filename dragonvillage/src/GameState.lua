@@ -1115,7 +1115,7 @@ end
 function GameState:checkWaveClear(dt)
     local world = self.m_world
     local hero_count = #world:getDragonList()
-    local enemy_count = #world:getEnemyList()
+    local enemy_count = world:getEnemyCount()
 
     -- 벤치마크 중 60초를 넘어가면 웨이브 종료
     if (g_benchmarkMgr and g_benchmarkMgr:isActive()) then

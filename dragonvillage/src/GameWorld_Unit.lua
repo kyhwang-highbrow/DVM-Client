@@ -648,6 +648,26 @@ function GameWorld:getEnemyList(char)
 end
 
 -------------------------------------
+-- function getEnemyCount
+-- 소환체를 제외한 적 숫자
+-------------------------------------
+function GameWorld:getEnemyCount(char)
+   local count = 0
+
+   if (not self.m_rightParticipants) then return count end
+
+   for _, v in ipairs(self.m_rightParticipants) do
+        if (v and v.m_charTable and v.m_charTable['attacked_type']) then
+            -- DO NOTHING
+        else
+            count = count + 1
+        end
+   end
+
+   return count
+end
+
+-------------------------------------
 -- function getDragonList
 -- @brief char가 소속된 그룹의 살아있는 아군 리스트를 반환
 -------------------------------------
