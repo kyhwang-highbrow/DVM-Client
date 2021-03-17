@@ -153,11 +153,6 @@ function getInGameConstant(type)
         local dungeonMode = dungeon_table['dungeon_mode']
         local dungeon_str = TRIAL_MODE[dungeonMode]
 
-        cclog(game_mode_str)
-        cclog(dungeonMode)
-        cclog(dungeon_str)
-        cclog(type)
-
         ret = t_game_mode_constant[game_mode_str][dungeon_str][type]
     --
     elseif (t_game_mode_constant[game_mode_str] and t_game_mode_constant[game_mode_str][type]) then
