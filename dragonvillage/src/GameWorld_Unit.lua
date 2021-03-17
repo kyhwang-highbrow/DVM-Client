@@ -651,7 +651,7 @@ end
 -- function getEnemyCount
 -- 소환체를 제외한 적 숫자
 -------------------------------------
-function GameWorld:getEnemyCount(char)
+function GameWorld:getEnemyCount()
    local count = 0
 
    if (not self.m_rightParticipants) then return count end

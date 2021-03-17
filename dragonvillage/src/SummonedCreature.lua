@@ -11,6 +11,8 @@ SummonedCreature = class(PARENT, {
         m_skillOffsetX = 'number',
         m_skillOffsetY = 'number',
 
+        m_reservedSkillPos = 'cc.p',    -- 예약된 스킬이 가지는 특정 위치값(해당 위치로 이동해서 스킬 사용)
+
         -- 스킬 마나
         m_activeSkillManaCost = 'SecurityNumberClass',
         m_originActiveSkillManaCost = 'SecurityNumberClass',
@@ -19,6 +21,12 @@ SummonedCreature = class(PARENT, {
 		
         m_isUseMovingAfterImage = 'boolean',
 		m_bWaitState = 'boolean',
+		m_regenInfo = 'boolean',
+
+        m_lBodyToUseBone = 'table',     -- bone(spine)의 위치를 기준값으로 사용하는 body 리스트
+        -- 몬스터 드래곤 관련
+        m_mBoneEffect = 'table',        -- 본 위치에 표시되는 추가 이펙트(m_mBoneEffect[effect] = bone_name 형태로 사용)
+
      })
 
 
