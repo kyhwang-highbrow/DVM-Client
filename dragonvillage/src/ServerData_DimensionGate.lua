@@ -25,26 +25,6 @@ function ServerData_DimensionGate:init(server_data)
     self.m_dimensionGateKey = {}
 end
 
--------------------------------------
--- function parseDimensionGateID
--- 3011001
--- 30xxxxx 던전 구분 (차원문, ...)
---   1xxxx 차원문 던전 세부 구분 (마누스의 차원문, ...)
---    1xxx 던전 세부 모드 (상위층/하위층)
---     1xx 난이도 (1, 2, 3)
---      01 스테이지 번호 (통상적으로 1~10)
--------------------------------------
-function ServerData_DimensionGate:parseDimensionGateID(stage_id)
-    local id = {}
-    id['stage_mode'] = getDigit(stage_id, 100000, 2)
-    id['dungeon_mode'] = getDigit(stage_id, 10000, 1)
-    id['detail_mode'] = getDigit(stage_id, 1000, 1)
-    id['difficulty'] = getDigit(stage_id, 100, 1)
-    id['tier'] = getDigit(stage_id, 1, 2)
-
-    return id
-end
-
 
 
 -------------------------------------
@@ -91,6 +71,7 @@ function ServerData_DimensionGate:response_dimensionGateInfo(ret)
     -- 테이블에 한해서는 게임 시작시 한번만 하면 됨. 하지만 init에 넣으면 
     -- TABLE의 load 순서에 따라 비어 있을 수도 있기 때문에 일단 여기 넣음. 
     self:request_dmgateTable()
+    
 
     self.m_bDirtyDimensionGateInfo = false
 end
@@ -159,3 +140,73 @@ end
 
 
 --function ServerData_DimensionGate:getDimensionGateList
+
+
+
+
+
+-------------------------------------
+-- function parseDimensionGateID
+-- 3011001
+-- 30xxxxx 던전(dungeon)        : 차원문, ...
+--   1xxxx 모드(mode)           : 마누스의 차원문, ...
+--    1xxx 챕터(chapter)        : 상위층, 하위층, ...
+--     1xx 난이도(difficulty)   : 쉬움, 보통, 어려움, ...
+--      01 스테이지(stage)      : 스테이지 번호
+-------------------------------------
+function ServerData_DimensionGate:parseDimensionGateID(stage_id)
+    local mode_id = self:getModeID(stage_id)
+    local chapter_id = self:getChapterID(stage_id)
+    local difficulty_id = self:getDifficultyID(stage_id)
+    local stage_id = self:getStageID(stage_id)
+
+    return mode_id, chapter_id, difficulty_id, stage_id
+end
+
+-------------------------------------
+-- function getDungeonID
+-- 3011001
+-- 30xxxxx 던전(dungeon)        : 차원문, ...
+-------------------------------------
+function ServerData_DimensionGate:getDungeonID(stage_id)
+    return getDigit(stage_id, 100000, 2)
+end
+
+-------------------------------------
+-- function getDungeonID
+-- 3011001
+--   1xxxx 모드(mode)           : 마누스의 차원문, ...
+-------------------------------------
+function ServerData_DimensionGate:getModeID(stage_id)
+    return getDigit(stage_id, 10000, 1)
+end
+
+
+-------------------------------------
+-- function getChapterID
+-- 3011001
+--    1xxx 챕터(chapter)        : 상위층, 하위층, ...
+-------------------------------------
+function ServerData_DimensionGate:getChapterID(stage_id)
+    return getDigit(stage_id, 1000, 1)
+end
+
+
+-------------------------------------
+-- function getDifficultyID
+-- 3011001
+--     1xx 난이도(difficulty)   : 쉬움, 보통, 어려움, ...
+-------------------------------------
+function ServerData_DimensionGate:getDifficultyID(stage_id)
+    return getDigit(stage_id, 100, 1)
+end
+
+
+-------------------------------------
+-- function getStageID
+-- 3011001
+--      01 스테이지(stage)      : 스테이지 번호
+-------------------------------------
+function ServerData_DimensionGate:getStageID(stage_id)
+    return getDigit(stage_id, 100, 1)
+end

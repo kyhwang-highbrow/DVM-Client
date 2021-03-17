@@ -149,8 +149,7 @@ function getInGameConstant(type)
         ret = t_game_mode_constant[game_mode_str][dungeon_str][type]
     -- 차원문
     elseif gameMode == GAME_MODE_DIMENSION_GATE then
-        local dungeon_table = g_dimensionGateData:parseTrialID(stageID)
-        local dungeonMode = dungeon_table['dungeon_mode']
+        local dungeonMode = g_dimensionGateData:getModeID(stageID)
         local dungeon_str = DIMENSION_GATE_MODE[dungeonMode]
 
         ret = t_game_mode_constant[game_mode_str][dungeon_str][type]
