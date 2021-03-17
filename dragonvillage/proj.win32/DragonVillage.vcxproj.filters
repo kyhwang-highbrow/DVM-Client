@@ -4928,6 +4928,7 @@
     <None Include="..\src\SummonedCreature.lua" />
     <None Include="..\src\TableSummonObject.lua" />
     <None Include="..\src\ServerData_Trial.lua" />
+    <None Include="..\src\ServerData_DimensionGate.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
