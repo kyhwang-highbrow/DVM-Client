@@ -193,6 +193,21 @@ end
 -- function getTitleAnimator
 -- @brief 언어별 타이틀 애니를 생성한다
 -------------------------------------
+function AnimatorHelper:isSameDate(month, day)
+    local cur_month = os.date("%m")
+    local cur_day = os.date("%d")
+
+    if (month == cur_month and day == cur_day) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function getTitleAnimator
+-- @brief 언어별 타이틀 애니를 생성한다
+-------------------------------------
 function AnimatorHelper:getTitleAnimator()
 	local lang = g_localData:getLang()
 	
@@ -206,7 +221,11 @@ function AnimatorHelper:getTitleAnimator()
 	elseif (lang == 'es') then
 		res = 'res/ui/spine/title_es/title_es.spine'
 	else
-		res = 'res/ui/spine/title/title.spine'
+        if (self:isSameDate('04', '01')) then
+            res = 'res/ui/spine/title_april_fool/title.spine'
+        else
+            res = 'res/ui/spine/title/title.spine'
+        end
 	end
 
 	local animator = MakeAnimator(res)
