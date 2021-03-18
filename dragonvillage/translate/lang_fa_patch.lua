@@ -1,4 +1,6 @@
 return {['일정 시간마다 후방 아군의 치명 확률을 {1}초간 증가시킵니다.\n또한 대상에게 걸려 있는 공격력 감소 효과를 모두 해제합니다.']='Periodically increases rear allies\' CRIT Rate for {1} sec.\nAlso removes ATK Reduction effects cast on the targets.',
+['대상의 생명력을 회복하고 {1}초간 치명 확률을 증가시킵니다.\n자신의 최대 생명력에 따라 회복량이 증가합니다.']='Recover target\'s HP, and increase Critical Rate for {1} sec.\nThe amount recovered is increased proportionally to your Max HP.',
+['용돈 주머니']='Pocket Money Pouch',
 ['{1} {2}개를 사용하여\n{3}(을)를 구매하시겠습니까?']='استفاده {2} از {1}/ n برای خرید {3}؟',
 ['입장권을 모두 소모하였습니다.\n오늘은 더 이상 구매할 수 없습니다.\n{@impossible}(1일 {1}회 구매 가능)']='شما همه بلیط های ورودی را مصرف کرده اید ./n شما امروز نمی توانید چیزی بخرید /n {impossible@} یکبار در روز در دسترس است',
 ['룬 강화']='طلسم را ارتقا دهید',

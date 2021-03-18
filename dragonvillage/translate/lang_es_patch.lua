@@ -1,4 +1,6 @@
 return {['일정 시간마다 후방 아군의 치명 확률을 {1}초간 증가시킵니다.\n또한 대상에게 걸려 있는 공격력 감소 효과를 모두 해제합니다.']='aumenta periódicamente aliados traseros CRIT El precio de {1} seg.\ntambién elimina los efectos de reducción de ATK emitidos en los objetivos.',
+['대상의 생명력을 회복하고 {1}초간 치명 확률을 증가시킵니다.\n자신의 최대 생명력에 따라 회복량이 증가합니다.']='Restauraciones de un objetivo de HP y aumenta CRI para {1} seg.\nLa de dragón Max HP afecta a la cantidad de curación.',
+['용돈 주머니']='Bolsa de dinero de bolsillo',
 ['{1} {2}개를 사용하여\n{3}(을)를 구매하시겠습니까?']='¿Deseas comprar{3}\nusando {2} {1}?',
 ['입장권을 모두 소모하였습니다.\n오늘은 더 이상 구매할 수 없습니다.\n{@impossible}(1일 {1}회 구매 가능)']='Has usado todos los billetes de entrada.\nNo puedes comprar más el día de hoy.\n{@impossible}(Disponible {1} veces por día)',
 ['판매할 드래곤이 없어요.']='No tienes dragones que vender',
