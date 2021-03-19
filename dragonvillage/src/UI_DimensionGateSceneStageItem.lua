@@ -20,6 +20,11 @@ UI_DimensionGateSceneStageItem = class(PARENT, {
     m_stageID = '',
     m_mode = '',
     m_currDifficultyLevel = '',
+
+
+    -- nodes in ui file
+    m_selectedBtn = '',
+
     m_defaultStarSprites = '', -- 흑백별
     m_clearedStarSprites = '', -- 노란별
     m_lockSprite = '', -- 자물쇠
@@ -52,6 +57,7 @@ function UI_DimensionGateSceneStageItem:initMember(data)
     self.m_mode = g_dimensionGateData:getModeID(self.m_stageID)
     self.m_currDifficultyLevel = g_dimensionGateData:getDifficultyID(self.m_stageID)
 
+    self.m_selectedBtn = vars['selectedBtn']
     self.m_lockSprite = vars['lockSprite']
 
     self.m_defaultStarSprites = {}
@@ -87,11 +93,17 @@ end
 
 function UI_DimensionGateSceneStageItem:refreshLockSprite()
     -- 열렸냐 닫혔냐
-    if g_dimensionGateData:isStageOpen(self.m_mode, self.m_stageID) == false then
-        self.m_lockSprite:setVisible(true)
-    else
+    local prevDiffID = g_dimensionGateData:getPrevDifficultyID(self.m_stageID)
+
+    if(prevDiffID == nil) then
         self.m_lockSprite:setVisible(false)
+        self.m_selectedBtn:setEnabled(true)
+        return
     end
+    local isCleared = g_dimensionGateData:isStageCleared(self.m_mode, prevDiffID)
+
+    self.m_lockSprite:setVisible(not isCleared)
+    self.m_selectedBtn:setEnabled(isCleared)
 end
 
 function UI_DimensionGateSceneStageItem:refreshStarSprite()

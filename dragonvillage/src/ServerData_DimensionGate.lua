@@ -79,19 +79,19 @@ function ServerData_DimensionGate:response_dimensionGateInfo(ret)
     ret[DIMENSION_GATE_MANUS]['stage']['3012102'] = 1
     ret[DIMENSION_GATE_MANUS]['stage']['3012103'] = 1
     ret[DIMENSION_GATE_MANUS]['stage']['3012104'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3012105'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3012105'] = 0
 
     ret[DIMENSION_GATE_MANUS]['stage']['3012201'] = 1
     ret[DIMENSION_GATE_MANUS]['stage']['3012202'] = 1
     ret[DIMENSION_GATE_MANUS]['stage']['3012203'] = 0
     ret[DIMENSION_GATE_MANUS]['stage']['3012204'] = 0
-    ret[DIMENSION_GATE_MANUS]['stage']['3012205'] = 0
+    --ret[DIMENSION_GATE_MANUS]['stage']['3012205'] = 0
 
     ret[DIMENSION_GATE_MANUS]['stage']['3012301'] = 0
     ret[DIMENSION_GATE_MANUS]['stage']['3012302'] = 0
-    ret[DIMENSION_GATE_MANUS]['stage']['3012303'] = 0
-    ret[DIMENSION_GATE_MANUS]['stage']['3012304'] = 0
-    ret[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012303'] = 0
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012304'] = 0
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
 
 
     self.m_dimensionGateInfo = ret
@@ -241,6 +241,19 @@ end
 -- end
 
 -------------------------------------
+-- function makeDimensionGateID
+-- 3011001
+-- 30xxxxx 던전(dungeon)        : 차원문, ...
+--   1xxxx 모드(mode)           : 마누스의 차원문, ...
+--    1xxx 챕터(chapter)        : 상위층, 하위층, ...
+--     1xx 난이도(difficulty)   : 쉬움, 보통, 어려움, ...
+--      01 스테이지(stage)      : 스테이지 번호
+-------------------------------------
+function ServerData_DimensionGate:makeDimensionGateID(mode, chapter, difficulty, stage)
+    return (GAME_MODE_DIMENSION_GATE * 100000) + (mode * 10000) + (chapter * 1000) + (difficulty * 100) + stage
+end
+
+-------------------------------------
 -- function parseDimensionGateID
 -- 3011001
 -- 30xxxxx 던전(dungeon)        : 차원문, ...
@@ -304,6 +317,24 @@ end
 -------------------------------------
 function ServerData_DimensionGate:getStageID(stage_id)
     return getDigit(stage_id, 1, 2)
+end
+
+
+function ServerData_DimensionGate:getPrevStageID(stage_id)
+    if (getStageID(stage_id) <= 1) then
+        return nil
+    else
+        return stage_id - 1
+    end
+end
+
+function ServerData_DimensionGate:getPrevDifficultyID(stage_id)
+    local diff_id = self:getDifficultyID(stage_id)
+
+    if diff_id <= 1 then return nil end
+
+    return self:makeDimensionGateID(self:getModeID(stage_id), self:getChapterID(stage_id),
+                    diff_id - 1, self:getStageID(stage_id))
 end
 
 

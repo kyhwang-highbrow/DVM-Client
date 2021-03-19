@@ -331,7 +331,9 @@ function UI_DimensionGateScene:closeStageNode()
     --self.m_topBtn:setTouchEnabled(true)
     --self.m_bottomBtn:setTouchEnabled(true)
     self.m_selectedDimensionGateInfo = nil
-    self.m_diffLevelTableView:clearItemList()
+    if(self.m_diffLevelTableView ~= nil) then
+        self.m_diffLevelTableView:clearItemList()
+    end
     self.m_diffLevelTableView = nil
 
 end
