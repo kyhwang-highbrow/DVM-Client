@@ -86,6 +86,11 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
            pl.stringx.startswith(type, 'supporter') or pl.stringx.startswith(type, 'healer') then
 		return TargetRule_getTargetList_role(org_list, type)
 
+    -- @kwkang 21.03.19 추가
+    -- 액티브 스킬 코스트 관련
+    elseif pl.stringx.startswith(type, 'cost1') or pl.stringx.startswith(type, 'cost2') or pl.stringx.startswith(type, 'cost3') then
+        return TargetRule_getTargetList_active_cost(org_list, type)
+
 	elseif (type == 'buff') then
 		return TargetRule_getTargetList_buff(org_list)
 
@@ -638,6 +643,53 @@ function TargetRule_getTargetList_role(org_list, str)
 	-- 직업군이 같은 아이들을 추출한다
     for i = #t_char, 1, -1 do
 		if (string.find(role, t_char[i]:getRole())) then
+			table.insert(t_ret, t_char[i])
+			table.remove(t_char, i)
+		end
+	end
+    
+    if (sub_type and sub_type ~= '' and sub_type ~= 'only') then
+        -- 부조건 타입이 존재하는 경우는 무조건 only로 처리(남은 애들을 다시 담지 않음)
+        t_ret = TargetRule_getTargetList(sub_type, t_ret)
+
+    elseif(not pl.stringx.endswith(str, 'only')) then
+	    -- 남은 애들도 다시 담는다.
+	    for i, char in pairs(t_char) do
+		    table.insert(t_ret, char)
+	    end
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_active_cost
+-- @brief 해당 스킬 코스트를 가진 드래곤 리스트 반환
+-------------------------------------
+function TargetRule_getTargetList_active_cost(org_list, str)
+	-- 테이블을 복사한 후 무작위로 섞는다
+	local t_char = table.sortRandom(table.clone(org_list))
+    local t_ret = {}
+
+    -- active_cost = ('active3' OR 'active2')
+    local active_cost_type
+    local sub_type
+
+    -- 부조건 타입을 가져오기 위한 처리
+    if (string.find(str, '_')) then
+        active_cost_type = string.gsub(str, '_.+', '')
+        sub_type = string.gsub(str, '[%l%d]+_', '', 1)
+    else
+        active_cost_type = str
+    end
+    local active_cost = string.gsub(active_cost_type, 'cost', '')
+    active_cost = string.gsub(active_cost_type, 'cost', '')
+    active_cost = tonumber(active_cost) 
+
+	-- 스킬 코스트가 같은 아이들을 추출한다
+    for i = #t_char, 1, -1 do
+        local dragon_mana_cost = t_char[i]:getSkillManaCost()
+		if (active_cost == dragon_mana_cost) then
 			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
 		end
