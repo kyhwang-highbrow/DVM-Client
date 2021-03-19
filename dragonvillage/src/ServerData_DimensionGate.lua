@@ -23,6 +23,8 @@ function ServerData_DimensionGate:init(server_data)
     self.m_dimensionGateInfo = {}
     self.m_dimensionGateTable = {}
     self.m_dimensionGateKey = {}
+
+    
 end
 
 
@@ -45,7 +47,7 @@ function ServerData_DimensionGate:request_dimensionGateInfo(cb_func, fail_cb)
 
     -- callback for success
     local function success_cb(ret)
-        self:response_dimensionGateInfo(ret)
+        self:response_dimensionGateInfo(ret['dmgate_info'])
 
         if cb_func then cb_func(ret) end
     end
@@ -65,8 +67,7 @@ end
 -- function response_dimensionGateInfo
 -------------------------------------
 function ServerData_DimensionGate:response_dimensionGateInfo(ret)
-    self.m_dimensionGateInfo[DIMENSION_GATE_MANUS] = ret
-    
+    self.m_dimensionGateInfo = ret
     -- TODO (YOUNGJIN) : 지금은 request 할 때마다 table을 가져오고 sorting 하지만
     -- 테이블에 한해서는 게임 시작시 한번만 하면 됨. 하지만 init에 넣으면 
     -- TABLE의 load 순서에 따라 비어 있을 수도 있기 때문에 일단 여기 넣음. 
@@ -79,6 +80,7 @@ end
 function ServerData_DimensionGate:request_dmgateTable()
     local temp = TABLE:get("table_dmgate_stage")
     local dimensionGate_list = table.MapToList(temp)
+    
     
     local function sort_func(a, b) return a['stage_id'] < b['stage_id'] end
     table.sort(dimensionGate_list, sort_func)
@@ -128,7 +130,7 @@ end
 -- function getDimensionGateInfoListByType
 -------------------------------------
 function ServerData_DimensionGate:getDimensionGateInfoList()
-
+    
 end
 
 
@@ -139,11 +141,77 @@ end
 -- end
 
 
---function ServerData_DimensionGate:getDimensionGateList
+function ServerData_DimensionGate:getDimensionGateList(mode_id, chapter_id)
+    local table = self.m_dimensionGateTable[mode_id]
+    local list = {}
+
+    for _, v in pairs(table) do
+
+    end
+end
 
 
 
 
+
+
+
+
+
+
+
+-------------------------------------
+-- function getChapterNum
+-- @param for example, DIMENSION_GATE_MANUS in ConstantGameMode.lua
+-------------------------------------
+function ServerData_DimensionGate:getMaxChapterNum(mode_id)
+    -- local table = self.m_dimensionGateTable[mode_id]
+    -- --self.m_dimensionGateKey[mode_id]
+    -- local chapter_id
+    -- local max = 0
+    -- for key, data in pairs(table) do 
+    --     chapter_id = getChapterID(data['stage_id'])
+    --     if chapter_id > max then max = chapter_id end
+    -- end
+
+    -- return max
+end
+
+-------------------------------------
+-- function getDifficultyNum
+-- @param 
+-------------------------------------
+function ServerData_DimensionGate:getMaxDifficultyNum(mode_id, target_chapter_id)
+    -- local table = self.m_dimensionGateTable[mode_id]
+    -- local temp_chapter_id
+    -- local diff_id
+    -- local max = 0
+
+    -- for key, data in pairs(table) do 
+    --     temp_chapter_id = getChapterID(data['stage_id'])
+    --     diff_id = getDifficultyID(data['stage_id'])
+
+    --     if (temp_chapter_id == target_chapter_id) and (diff_id > max) then
+    --         max = diff_id
+    --     end
+    -- end
+end
+
+-------------------------------------
+-- function getStageNum
+-- @param 
+-------------------------------------
+function ServerData_DimensionGate:getMaxStageNum(mode_id, chapter_id, diff_id)
+
+end
+
+
+
+-- function getDigit(id, base_digit, range)
+--     local range = range or 1
+--     local digit = math_floor((id % (base_digit * math_pow(10, range)))/base_digit)
+--     return digit
+-- end
 
 -------------------------------------
 -- function parseDimensionGateID
@@ -208,5 +276,139 @@ end
 --      01 스테이지(stage)      : 스테이지 번호
 -------------------------------------
 function ServerData_DimensionGate:getStageID(stage_id)
-    return getDigit(stage_id, 100, 1)
+    return getDigit(stage_id, 1, 2)
+end
+
+
+-------------------------------------
+-- function MakeDimensionGateID
+-- 30xxxxx 던전(dungeon)        : 차원문, ...
+--   1xxxx 모드(mode)           : 마누스의 차원문, ...
+--    1xxx 챕터(chapter)        : 상위층, 하위층, ...
+--     1xx 난이도(difficulty)   : 쉬움, 보통, 어려움, ...
+--      01 스테이지(stage)      : 스테이지 번호
+-------------------------------------
+function ServerData_DimensionGate:MakeDimensionGateID(mode_id, chapter_id, difficulty_id, stage_id)
+    return GAME_MODE_DIMENSION_GATE * 100000
+                + mode_id * 10000
+                + chapter_id * 1000
+                + difficulty_id * 100
+                + stage_id
+end
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--// 
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-------------------------------------
+-- function getStageInfoList
+-------------------------------------
+function ServerData_DimensionGate:getStageInfoList(mode_type)
+    if not mode_type then return nil end
+
+    return self.m_dimensionGateInfo[mode_type]['stage']
+end
+
+-------------------------------------
+-- function getStageStatus
+-------------------------------------
+function ServerData_DimensionGate:getStageStatus(mode_type, stage_id)
+   
+    return self.m_dimensionGateInfo[mode_type]['stage'][tostring(stage_id)] or -1
+end
+
+-------------------------------------
+-- function isStageOpen
+-------------------------------------
+function ServerData_DimensionGate:isStageOpen(mode_type, stage_id)
+    return self:getStageStatus(mode_type, stage_id) >= 0
+end
+
+-------------------------------------
+-- function isStageCleared
+-------------------------------------
+function ServerData_DimensionGate:isStageCleared(mode_type, stage_id)
+    return self:getStageStatus(mode_type, stage_id) > 0
+end
+
+-------------------------------------
+-- function getMaxDifficultyInList
+-- @TODO : NEED TO CHANGE NAME
+-------------------------------------
+function ServerData_DimensionGate:getMaxDifficultyInList(mode_type, list)
+    
+    if #list == 0 or #list == nil then return 0 end
+
+    local diffLevel
+
+    for _, data in pairs(list) do
+        local id = data['stage_id']
+        if(id == nil) then error('received wrong list as param or stage_id is different with csv table') end
+
+        diffLevel = self:getDifficultyID(id)
+
+        if (not self:isStageCleared(mode_type, id)) then
+            return diffLevel
+        end
+    end
+
+    return diffLevel
+end
+
+
+
+
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--// 
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+function ServerData_DimensionGate:GetTempLowChapterList()
+    local LOW_CHAPTER = 1
+    local dmgate_table = self.m_dimensionGateTable[DIMENSION_GATE_MANUS]
+    
+    local list = {}
+
+    for _, data in pairs(dmgate_table) do
+        
+        if self:getChapterID(data['stage_id']) == LOW_CHAPTER then
+            table.insert(list, data)
+        end
+    end
+
+    return list
+end
+
+function ServerData_DimensionGate:GetTempHighChapterList()
+    local HIGH_CHAPTER = 2
+    local dmgate_table = self.m_dimensionGateTable[DIMENSION_GATE_MANUS]
+    local list = {}
+
+    local diff_id
+    local stage_id
+
+    for _, data in pairs(dmgate_table) do
+        
+        if self:getChapterID(data['stage_id']) == HIGH_CHAPTER then
+
+            diff_id = self:getDifficultyID(data['stage_id'])
+            stage_id = self:getStageID(data['stage_id'])
+
+            if(list[stage_id] == nil) then list[stage_id] = {} end
+            --if(list[stage_id][diff_id] == nil) then list[stage_id][diff_id] = {} end
+            table.insert(list[stage_id], data)
+        end
+    end
+
+    return list
 end

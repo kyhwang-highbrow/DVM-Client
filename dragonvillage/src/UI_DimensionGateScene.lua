@@ -11,6 +11,9 @@ UI_DimensionGateScene = class(PARENT, {
     m_topNode = '',
     m_bottomNode = '',
 
+    m_topSprite = '',
+    m_bottomSprite = '',
+
     -- ui buttons
     m_blessBtn = '',
     m_infoBtn = '',
@@ -27,8 +30,7 @@ function UI_DimensionGateScene:init()
     local vars = self:load('dmgate_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DimensionGateScene')
-    
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DimensionGateScene')    
     --self:doActionReset()
     --self:doAction(nil, false)
     self:initMemberVariable()
@@ -46,12 +48,15 @@ end
 function UI_DimensionGateScene:initUI()
     local table = self:getFakeData()
 
-    self.m_topTableView = self:initTableView(self.m_topNode, table)
-    self.m_bottomTableView = self:initTableView(self.m_bottomNode, table)
+    local lhsTemp = g_dimensionGateData:GetTempLowChapterList()
+    local rhsTemp =  g_dimensionGateData:GetTempHighChapterList()
 
+    self.m_bottomTableView = self:initTableView(self.m_bottomNode, lhsTemp)
+    self.m_topTableView = self:initTableView(self.m_topNode, rhsTemp)
     
-    self.m_topTableView:setVisible(false)
     self.m_bottomTableView:setVisible(false)
+    self.m_topTableView:setVisible(false)
+    
     self:click_bottomBtn()
 end
 
@@ -95,8 +100,11 @@ function UI_DimensionGateScene:initMemberVariable()
     self.m_bottomBtn = vars['bottomBtn']
     self.m_shopBtn = vars['shopBtn']
 
+    self.m_topSprite = vars['topSprite']
+    self.m_bottomSprite = vars['bottomSprite']
 
-    self.m_clickedNode = nil
+
+    self.m_clickedNode = self.m_topBtn
 end
 
 
@@ -163,9 +171,15 @@ function UI_DimensionGateScene:click_blessBtn()
 end
 
 function UI_DimensionGateScene:click_topBtn()
-    if(self.m_clickedNode ~= self.m_topBtn) and (not self.m_topTableView:isVisible()) then
+    if(self.m_clickedNode ~= self.m_topBtn) then
         cclog("clicked_topBtn")
+        self.m_topSprite:setVisible(true)
+        self.m_bottomSprite:setVisible(false)
+
+        self.m_clickedNode:setEnabled(true)
         self.m_clickedNode = self.m_topBtn
+        self.m_clickedNode:setEnabled(false)
+        
         self.m_topTableView:setVisible(true)
         self.m_bottomTableView:setVisible(false)
 
@@ -174,9 +188,15 @@ function UI_DimensionGateScene:click_topBtn()
 end
 
 function UI_DimensionGateScene:click_bottomBtn()
-    if(self.m_clickedNode ~= self.m_bottomBtn) and (not self.m_bottomTableView:isVisible()) then
+    if(self.m_clickedNode ~= self.m_bottomBtn) then
         cclog("clicked_bottomBtn")
+        self.m_bottomSprite:setVisible(true)
+        self.m_topSprite:setVisible(false)
+
+        self.m_clickedNode:setEnabled(true)
         self.m_clickedNode = self.m_bottomBtn
+        self.m_clickedNode:setEnabled(false)
+
         self.m_bottomTableView:setVisible(true)
         self.m_topTableView:setVisible(false)
 
@@ -205,13 +225,15 @@ function UI_DimensionGateScene:initTableView(node, list)
     --table_view.m_defaultCellSize = cc.size(195, 523)
     table_view:setAlignCenter(true)
     --table_view:setMakeLookingCellFirst(true)
-    
+    --table_view:setScrollLock(true)
     table_view:setCellSizeToNodeSize(true)
     --table_view:setGapBtwCells(0)
     table_view:setCellUIClass(UI_DimensionGateItem, create_callback)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    ccdump(list)
     table_view:setItemList(list, true)
+
+    table_view:setScrollLock(true)
+    
 
     return table_view
 end
