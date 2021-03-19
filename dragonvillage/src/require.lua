@@ -1113,6 +1113,7 @@ local t_module = {
     
     -- UI : 시련
     'UI_DimensionGateScene',
+    'UI_DimensionGateSceneStageItem',
     'UI_DimensionGateItem',
     'UI_DimensionGateShop',
 

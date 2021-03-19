@@ -4929,6 +4929,8 @@
     <None Include="..\src\TableSummonObject.lua" />
     <None Include="..\src\ServerData_Trial.lua" />
     <None Include="..\src\ServerData_DimensionGate.lua" />
+    <None Include="..\src\UI_DimensionGateSceneStageItem.lua" />
+    <None Include="..\src\UI_DimensionGateItem.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -1,15 +1,21 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 UI_DimensionGateScene = class(PARENT, {
-    
     m_topTableView = '',
     m_bottomTableView = '',
+    m_diffLevelTableView = '',
 
     m_clickedNode = '',
+
+    m_selectedDimensionGateInfo = '',
     
     -- ui nodes
     m_topNode = '',
     m_bottomNode = '',
+
+    m_stageNode = '',
+    m_stageTopMenu = '',
+    m_stageItemNode = '',
 
     m_topSprite = '',
     m_bottomSprite = '',
@@ -93,6 +99,10 @@ function UI_DimensionGateScene:initMemberVariable()
     self.m_topNode = vars['topNode']
     self.m_bottomNode = vars['bottomNode']
 
+    self.m_stageNode = vars['stageNode']
+    self.m_stageTopMenu = vars['topMenu']
+    self.m_stageItemNode = vars['stageItemNode']
+
     -- init ui buttons
     self.m_blessBtn = vars['blessBtn']
     self.m_infoBtn = vars['infoBtn']
@@ -141,7 +151,12 @@ end
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 -------------------------------------
 function UI_DimensionGateScene:click_exitBtn()
-   self:close()
+
+    if self.m_selectedDimensionGateInfo then
+        self:closeStageNode()
+    else
+        self:close()
+    end
 end
 
 
@@ -218,7 +233,7 @@ end
 function UI_DimensionGateScene:initTableView(node, list)
 
     create_callback = function(ui, data)
-        ui.vars['stageBtn']:registerScriptTapHandler(function() self:click_stageBtn(ui, data) end)
+        ui.m_stageBtn:registerScriptTapHandler(function() self:click_stageBtn(ui, data) end)
     end
 
     local table_view = UIC_TableView(node)
@@ -230,6 +245,7 @@ function UI_DimensionGateScene:initTableView(node, list)
     --table_view:setGapBtwCells(0)
     table_view:setCellUIClass(UI_DimensionGateItem, create_callback)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    
     table_view:setItemList(list, true)
 
     table_view:setScrollLock(true)
@@ -238,7 +254,91 @@ function UI_DimensionGateScene:initTableView(node, list)
     return table_view
 end
 
+-- ['level']=1;
+-- ['dm_id']=3010000;
+-- ['reset_unlock']=1;
+-- ['condition_stage_id']='';
+-- ['start_date']=20213115;
+-- ['reset_reward']=0;
+-- ['end_date']=29211231;
+-- ['type']=1;
+-- ['item']='700901;10';
+-- ['stage_id']=3011001;
+-- ['grade']=0;
+function UI_DimensionGateScene:click_stageBtn(ui, data)
+    local vars = self.vars
+
+    
+    if self.m_selectedDimensionGateInfo then
+        self:closeStageNode()
+        return
+    end
+
+    -- local node = ui.root
+    -- local node_pos = convertToAnoterParentSpace(node, self.root)
+
+    -- node:retain()
+    -- node:removeFromParent()
+    -- node:setPosition(node_pos['x'], node_pos['y'])
+    -- node:setScale(1)
+
+    -- self.root:addChild(node)
+    -- node:release()
+
+    local key = data['stage_id']
+
+    self.m_selectedDimensionGateInfo = {ui = ui, key = key, data = data}
+
+    self.m_stageNode:stopAllActions()
+    cca.reserveFunc(self.m_stageNode, 0.25, function() self:PopupStageNode(data) end)
+
+
+    local node = ui.root
+
+    --local target_pos = convertToAnotherNodeSpace(node, self.vars[''])
+end
+
+function UI_DimensionGateScene:PopupStageNode(data)
+    self.m_stageNode:setVisible(true)
+    -- block to touch 
+    --self.m_topBtn:setTouchEnabled(false)
+    --self.m_bottomBtn:setTouchEnabled(false)
+
+    if #data == 0 or #data == nil then 
+        self.m_stageTopMenu:setVisible(false)
+        return
+    else
+        self.m_stageTopMenu:setVisible(true)
+    end
+
+    local function create_callback(ui, data)
+        return true
+    end
+
+    local table_view = UIC_TableView(self.m_stageItemNode)
+    table_view:setCellSizeToNodeSize(true)
+    table_view:setCellUIClass(UI_DimensionGateSceneStageItem, create_callback)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(data, create_callback)
+    self.m_diffLevelTableView = table_view
+
+
+
+end
+
+function UI_DimensionGateScene:closeStageNode()
+    self.m_stageNode:setVisible(false)
+    --self.m_topBtn:setTouchEnabled(true)
+    --self.m_bottomBtn:setTouchEnabled(true)
+    self.m_selectedDimensionGateInfo = nil
+    self.m_diffLevelTableView:clearItemList()
+    self.m_diffLevelTableView = nil
+
+end
+
 
 function UI_DimensionGateScene:getFakeData()
    return g_nestDungeonData:getNestDungeonListForUIByType(NEST_DUNGEON_EVO_STONE)
 end
+
+

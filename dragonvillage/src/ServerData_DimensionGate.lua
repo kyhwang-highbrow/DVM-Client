@@ -67,6 +67,33 @@ end
 -- function response_dimensionGateInfo
 -------------------------------------
 function ServerData_DimensionGate:response_dimensionGateInfo(ret)
+    -- TODO (YOUNGJIN) : TEMP DATA
+    --ret['stage'][3011002] = {}
+    ret[DIMENSION_GATE_MANUS]['stage']['3011001'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3011002'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3011003'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3011004'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3011005'] = 1
+  
+    ret[DIMENSION_GATE_MANUS]['stage']['3012101'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3012102'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3012103'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3012104'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3012105'] = 1
+
+    ret[DIMENSION_GATE_MANUS]['stage']['3012201'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3012202'] = 1
+    ret[DIMENSION_GATE_MANUS]['stage']['3012203'] = 0
+    ret[DIMENSION_GATE_MANUS]['stage']['3012204'] = 0
+    ret[DIMENSION_GATE_MANUS]['stage']['3012205'] = 0
+
+    ret[DIMENSION_GATE_MANUS]['stage']['3012301'] = 0
+    ret[DIMENSION_GATE_MANUS]['stage']['3012302'] = 0
+    ret[DIMENSION_GATE_MANUS]['stage']['3012303'] = 0
+    ret[DIMENSION_GATE_MANUS]['stage']['3012304'] = 0
+    ret[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
+
+
     self.m_dimensionGateInfo = ret
     -- TODO (YOUNGJIN) : 지금은 request 할 때마다 table을 가져오고 sorting 하지만
     -- 테이블에 한해서는 게임 시작시 한번만 하면 됨. 하지만 init에 넣으면 
@@ -332,6 +359,20 @@ end
 -------------------------------------
 function ServerData_DimensionGate:isStageCleared(mode_type, stage_id)
     return self:getStageStatus(mode_type, stage_id) > 0
+end
+
+-------------------------------------
+-- function getDifficultyStatus
+-------------------------------------
+function ServerData_DimensionGate:getDifficultyStatus(mode_type, stage_id)
+    return self.m_dimensionGateInfo[mode_type]['stage'][tostring(stage_id)] or -1
+end
+
+-------------------------------------
+-- function isDifficultyOpen
+-------------------------------------
+function ServerData_DimensionGate:isDifficultyOpen(mode_type, stage_id)
+
 end
 
 -------------------------------------

@@ -1,0 +1,119 @@
+local PARENT = class(UI, ITableViewCell:getCloneTable())
+
+-- ['level']=2;
+-- ['dm_id']=3010000;
+-- ['reset_unlock']=0;
+-- ['condition_stage_id']=3012201;
+-- ['start_date']=20213115;
+-- ['reset_reward']=1;
+-- ['end_date']=29211231;
+-- ['type']=2;
+-- ['item']='700901;10';
+-- ['stage_id']=3012202;
+-- ['grade']=2;
+
+----------------------------------------------------------------------
+-- class UI_DimensionGateSceneStageItem
+----------------------------------------------------------------------
+UI_DimensionGateSceneStageItem = class(PARENT, {
+    m_data = '',
+    m_stageID = '',
+    m_mode = '',
+    m_currDifficultyLevel = '',
+    m_defaultStarSprites = '', -- 흑백별
+    m_clearedStarSprites = '', -- 노란별
+    m_lockSprite = '', -- 자물쇠
+})
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_DimensionGateSceneStageItem:init(data)
+    local vars = self:load('dmgate_scene_stage_item.ui')
+
+    self:initMember(data)
+    self:initUI()
+    self:initButton()
+    self:refresh()
+
+end
+
+
+----------------------------------------------------------------------
+-- function initUI
+----------------------------------------------------------------------
+function UI_DimensionGateSceneStageItem:initMember(data)
+    local vars = self.vars
+
+    self.m_data = data
+    
+    self.m_stageID = self.m_data['stage_id']
+    
+    self.m_mode = g_dimensionGateData:getModeID(self.m_stageID)
+    self.m_currDifficultyLevel = g_dimensionGateData:getDifficultyID(self.m_stageID)
+
+    self.m_lockSprite = vars['lockSprite']
+
+    self.m_defaultStarSprites = {}
+    table.insert(self.m_defaultStarSprites, vars['noClearSprite1'])
+    table.insert(self.m_defaultStarSprites, vars['noClearSprite2'])
+    table.insert(self.m_defaultStarSprites, vars['noClearSprite3'])
+
+    self.m_clearedStarSprites = {}
+    table.insert(self.m_clearedStarSprites, vars['clearSprite1'])
+    table.insert(self.m_clearedStarSprites, vars['clearSprite2'])
+    table.insert(self.m_clearedStarSprites, vars['clearSprite3'])
+end
+
+----------------------------------------------------------------------
+-- function initUI
+----------------------------------------------------------------------
+function UI_DimensionGateSceneStageItem:initUI()
+end
+
+----------------------------------------------------------------------
+-- function initButton
+----------------------------------------------------------------------
+function UI_DimensionGateSceneStageItem:initButton()
+end
+
+----------------------------------------------------------------------
+-- function refresh
+----------------------------------------------------------------------
+function UI_DimensionGateSceneStageItem:refresh()
+    self:refreshStarSprite()
+    self:refreshLockSprite()
+end
+
+function UI_DimensionGateSceneStageItem:refreshLockSprite()
+    -- 열렸냐 닫혔냐
+    if g_dimensionGateData:isStageOpen(self.m_mode, self.m_stageID) == false then
+        self.m_lockSprite:setVisible(true)
+    else
+        self.m_lockSprite:setVisible(false)
+    end
+end
+
+function UI_DimensionGateSceneStageItem:refreshStarSprite()
+    local level = self.m_currDifficultyLevel
+    local isCleared = g_dimensionGateData:isStageCleared(self.m_mode, self.m_stageID)
+    
+    for index, starSprite in pairs(self.m_defaultStarSprites) do
+       
+        if index <= level then
+            starSprite:setVisible(true)
+        else
+            starSprite:setVisible(false)
+        end
+    end
+
+   
+    for index, starSprite in pairs(self.m_clearedStarSprites) do
+
+        if index <= level and isCleared then
+            starSprite:setVisible(true)
+        else
+            starSprite:setVisible(false)
+        end
+    end
+end

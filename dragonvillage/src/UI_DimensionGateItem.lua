@@ -104,6 +104,8 @@ function UI_DimensionGateItem:init(data)
 
 
     self:initUI()
+    self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -114,9 +116,6 @@ function UI_DimensionGateItem:initUI()
     local stage_id = g_dimensionGateData:getStageID(self.m_stageID)
     self.m_stageLevelText:setString(Str(self.m_originStageLevelText, stage_id))
 
-    self:setStarSprites()
-    self:setBackgroundVRP()
-    --self:setLockVRP()
 end
 
 
@@ -134,6 +133,10 @@ function UI_DimensionGateItem:initButton() end
 function UI_DimensionGateItem:refresh() 
     self.root:setOpacity(0)
     self.root:runAction(cc.FadeIn:create(1))
+    
+    self:setStarSprites()
+    self:setBackgroundVRP()
+    self:setLockVRP()
 end
 
 
@@ -257,4 +260,9 @@ end
 
 function UI_DimensionGateItem:setRewardVRP()
 
+end
+
+
+function UI_DimensionGateItem:click_stageBtn()
+    
 end
