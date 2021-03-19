@@ -219,12 +219,6 @@ function UI_DimensionGateScene:click_bottomBtn()
     end
 end
 
-function UI_DimensionGateScene:click_stageBtn()
-    local vars = self.vars
-    cclog('clicked')
-end
-
-
 
 -------------------------------------
 -- function initParentVariable
@@ -274,28 +268,33 @@ function UI_DimensionGateScene:click_stageBtn(ui, data)
         return
     end
 
-    -- local node = ui.root
-    -- local node_pos = convertToAnoterParentSpace(node, self.root)
-
-    -- node:retain()
-    -- node:removeFromParent()
-    -- node:setPosition(node_pos['x'], node_pos['y'])
-    -- node:setScale(1)
-
-    -- self.root:addChild(node)
-    -- node:release()
-
     local key = data['stage_id']
 
     self.m_selectedDimensionGateInfo = {ui = ui, key = key, data = data}
 
     self.m_stageNode:stopAllActions()
-    cca.reserveFunc(self.m_stageNode, 0.25, function() self:PopupStageNode(data) end)
+    cca.reserveFunc(self.m_stageNode, 0.25, 
+    function() self:PopupStageNode(data) end)
+
 
 
     local node = ui.root
 
     --local target_pos = convertToAnotherNodeSpace(node, self.vars[''])
+end
+
+function UI_DimensionGateScene:click_difficultyLevelBtn(ui, data)
+    local vars = self.vars
+
+    local target_stage_id = tonumber(data['stage_id'])
+    local target_ui = self.m_selectedDimensionGateInfo.ui
+
+    if target_ui:getStageID() ~= target_stage_id then
+        target_ui:setStageID(target_stage_id)
+        target_ui:refresh()
+    end
+
+    self:closeStageNode()
 end
 
 function UI_DimensionGateScene:PopupStageNode(data)
@@ -312,6 +311,7 @@ function UI_DimensionGateScene:PopupStageNode(data)
     end
 
     local function create_callback(ui, data)
+        ui.m_selectedBtn:registerScriptTapHandler(function() self:click_difficultyLevelBtn(ui, data) end)
         return true
     end
 

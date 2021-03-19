@@ -17,6 +17,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 ----------------------------------------------------------------------
 UI_DimensionGateSceneStageItem = class(PARENT, {
     m_data = '',
+
     m_stageID = '',
     m_mode = '',
     m_currDifficultyLevel = '',
@@ -52,11 +53,9 @@ function UI_DimensionGateSceneStageItem:initMember(data)
 
     self.m_data = data
     
-    self.m_stageID = self.m_data['stage_id']
-    
-    self.m_mode = g_dimensionGateData:getModeID(self.m_stageID)
-    self.m_currDifficultyLevel = g_dimensionGateData:getDifficultyID(self.m_stageID)
+    self:setStageID(self.m_data['stage_id'])
 
+    -- nodes in ui file
     self.m_selectedBtn = vars['selectedBtn']
     self.m_lockSprite = vars['lockSprite']
 
@@ -91,6 +90,9 @@ function UI_DimensionGateSceneStageItem:refresh()
     self:refreshLockSprite()
 end
 
+----------------------------------------------------------------------
+-- function refreshLockSprite
+----------------------------------------------------------------------
 function UI_DimensionGateSceneStageItem:refreshLockSprite()
     -- 열렸냐 닫혔냐
     local prevDiffID = g_dimensionGateData:getPrevDifficultyID(self.m_stageID)
@@ -106,6 +108,9 @@ function UI_DimensionGateSceneStageItem:refreshLockSprite()
     self.m_selectedBtn:setEnabled(isCleared)
 end
 
+----------------------------------------------------------------------
+-- function refreshStarSprite
+----------------------------------------------------------------------
 function UI_DimensionGateSceneStageItem:refreshStarSprite()
     local level = self.m_currDifficultyLevel
     local isCleared = g_dimensionGateData:isStageCleared(self.m_mode, self.m_stageID)
@@ -128,4 +133,20 @@ function UI_DimensionGateSceneStageItem:refreshStarSprite()
             starSprite:setVisible(false)
         end
     end
+end
+
+----------------------------------------------------------------------
+-- function set
+----------------------------------------------------------------------
+function UI_DimensionGateSceneStageItem:getStageID()
+    return self.m_stageID
+end
+
+----------------------------------------------------------------------
+-- function set
+----------------------------------------------------------------------
+function UI_DimensionGateSceneStageItem:setStageID(stage_id)
+    self.m_stageID = stage_id
+    self.m_mode = g_dimensionGateData:getModeID(self.m_stageID)
+    self.m_currDifficultyLevel = g_dimensionGateData:getDifficultyID(self.m_stageID)
 end

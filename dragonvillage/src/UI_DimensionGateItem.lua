@@ -264,5 +264,32 @@ end
 
 
 function UI_DimensionGateItem:click_stageBtn()
+
+end
+
+
+
+----------------------------------------------------------------------
+-- function set
+----------------------------------------------------------------------
+function UI_DimensionGateItem:getStageID()
+    return self.m_stageID
+end
+
+----------------------------------------------------------------------
+-- function set
+----------------------------------------------------------------------
+function UI_DimensionGateItem:setStageID(stage_id)
+    -- TODO (YOUNGJIN) : MAKE ERROR CONDITION FOR SAFETY
+    self.m_currDifficultyLevel = g_dimensionGateData:getDifficultyID(stage_id)
     
+    if self.m_hasDifficulty then
+        self.m_targetData = self.m_data[self.m_currDifficultyLevel]
+    else
+        self.m_targetData = self.m_data
+    end
+    -- update member data depend on the clear status of stage
+    self.m_stageID = stage_id
+    self.m_mode = g_dimensionGateData:getModeID(self.m_stageID)
+    self.m_chapter = g_dimensionGateData:getChapterID(self.m_stageID)
 end
