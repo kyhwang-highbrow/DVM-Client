@@ -78,13 +78,13 @@ function ServerData_DimensionGate:response_dimensionGateInfo(ret)
     ret[DIMENSION_GATE_MANUS]['stage']['3012101'] = 1
     ret[DIMENSION_GATE_MANUS]['stage']['3012102'] = 1
     ret[DIMENSION_GATE_MANUS]['stage']['3012103'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3012104'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3012105'] = 0
+    --ret[DIMENSION_GATE_MANUS]['stage']['3012104'] = 1
+    --ret[DIMENSION_GATE_MANUS]['stage']['3012105'] = 0
 
     ret[DIMENSION_GATE_MANUS]['stage']['3012201'] = 1
     ret[DIMENSION_GATE_MANUS]['stage']['3012202'] = 1
     ret[DIMENSION_GATE_MANUS]['stage']['3012203'] = 0
-    ret[DIMENSION_GATE_MANUS]['stage']['3012204'] = 0
+    --ret[DIMENSION_GATE_MANUS]['stage']['3012204'] = 0
     --ret[DIMENSION_GATE_MANUS]['stage']['3012205'] = 0
 
     ret[DIMENSION_GATE_MANUS]['stage']['3012301'] = 0

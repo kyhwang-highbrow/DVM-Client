@@ -26,6 +26,8 @@ UI_DimensionGateScene = class(PARENT, {
     m_topBtn = '',
     m_bottomBtn = '',
     m_shopBtn = '',
+
+    m_startBtn = '',
 })
 
 -------------------------------------
@@ -78,6 +80,8 @@ function UI_DimensionGateScene:initButton()
 
     self.m_topBtn:registerScriptTapHandler(function() self:click_topBtn() end)
     self.m_bottomBtn:registerScriptTapHandler(function() self:click_bottomBtn() end)
+
+    self.m_startBtn:registerScriptTapHandler(function() self:click_startBtn() end)
 end
 
 -------------------------------------
@@ -99,9 +103,10 @@ function UI_DimensionGateScene:initMemberVariable()
     self.m_topNode = vars['topNode']
     self.m_bottomNode = vars['bottomNode']
 
-    self.m_stageNode = vars['stageNode']
+    self.m_stageNode = vars['stageMenu']
     self.m_stageTopMenu = vars['topMenu']
     self.m_stageItemNode = vars['stageItemNode']
+    
 
     -- init ui buttons
     self.m_blessBtn = vars['blessBtn']
@@ -113,7 +118,7 @@ function UI_DimensionGateScene:initMemberVariable()
     self.m_topSprite = vars['topSprite']
     self.m_bottomSprite = vars['bottomSprite']
 
-
+    self.m_startBtn = vars['startBtn']
     self.m_clickedNode = self.m_topBtn
 end
 
@@ -272,7 +277,7 @@ function UI_DimensionGateScene:click_stageBtn(ui, data)
 
     self.m_selectedDimensionGateInfo = {ui = ui, key = key, data = data}
 
-    self.m_stageNode:stopAllActions()
+    --self.m_stageNode:stopAllActions()
     cca.reserveFunc(self.m_stageNode, 0.25, 
     function() self:PopupStageNode(data) end)
 
@@ -289,12 +294,12 @@ function UI_DimensionGateScene:click_difficultyLevelBtn(ui, data)
     local target_stage_id = tonumber(data['stage_id'])
     local target_ui = self.m_selectedDimensionGateInfo.ui
 
-    if target_ui:getStageID() ~= target_stage_id then
-        target_ui:setStageID(target_stage_id)
-        target_ui:refresh()
-    end
+    -- if target_ui:getStageID() ~= target_stage_id then
+    --     target_ui:setStageID(target_stage_id)
+    --     target_ui:refresh()
+    -- end
 
-    self:closeStageNode()
+    -- self:closeStageNode()
 end
 
 function UI_DimensionGateScene:PopupStageNode(data)
@@ -321,9 +326,6 @@ function UI_DimensionGateScene:PopupStageNode(data)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(data, create_callback)
     self.m_diffLevelTableView = table_view
-
-
-
 end
 
 function UI_DimensionGateScene:closeStageNode()
@@ -343,4 +345,13 @@ function UI_DimensionGateScene:getFakeData()
    return g_nestDungeonData:getNestDungeonListForUIByType(NEST_DUNGEON_EVO_STONE)
 end
 
+
+function UI_DimensionGateScene:click_startBtn()
+    if self.m_selectedDimensionGateInfo == nil then
+        error('m_selectedDimensionGateInfo is not initialized.')
+    end
+
+    local stage_id = self.m_selectedDimensionGateInfo.ui:getStageID()
+    UI_AdventureStageInfo(stage_id)
+end
 
