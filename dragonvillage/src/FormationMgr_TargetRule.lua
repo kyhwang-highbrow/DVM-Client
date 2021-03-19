@@ -664,7 +664,7 @@ end
 
 -------------------------------------
 -- function TargetRule_getTargetList_active_cost
--- @brief 해당 스킬 코스트를 가진 드래곤 리스트 반환
+-- @brief 해당 스킬 코스트를 가진 드래곤 리스트 반환 (스킬 코스트는 테이블 값으로 판단)
 -------------------------------------
 function TargetRule_getTargetList_active_cost(org_list, str)
 	-- 테이블을 복사한 후 무작위로 섞는다
@@ -688,8 +688,8 @@ function TargetRule_getTargetList_active_cost(org_list, str)
 
 	-- 스킬 코스트가 같은 아이들을 추출한다
     for i = #t_char, 1, -1 do
-        local dragon_mana_cost = t_char[i]:getSkillManaCost()
-		if (active_cost == dragon_mana_cost) then
+        local dragon_origin_mana_cost = t_char[i]:getOriginSkillManaCost()
+		if (active_cost == dragon_origin_mana_cost) then
 			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
 		end
