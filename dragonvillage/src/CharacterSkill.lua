@@ -148,7 +148,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 		-- 소환체 소환
 		elseif string.find(skill_type, 'summon') then
-            CommonSummonedCreature:makeInstance(self, t_skill, t_data)
+            CommonSummoning:makeInstance(self, t_skill, t_data)
 
 		-- [스킬]
 		else

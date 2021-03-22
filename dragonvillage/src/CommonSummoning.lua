@@ -1,10 +1,10 @@
 local PARENT = class(Entity, ISkillSound:getCloneTable())
 
 -------------------------------------
--- class CommonSummonedCreature
+-- class CommonSummoning
 -- @brief 공용탄을 쏘기 위한 클래스, 일종의 간이 미사일런처 
 -------------------------------------
-CommonSummonedCreature = class(PARENT, {
+CommonSummoning = class(PARENT, {
 		m_owner = 'Character',
 		m_target = 'Charater',
         m_lTarget = 'table',
@@ -39,13 +39,13 @@ CommonSummonedCreature = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function CommonSummonedCreature:init(file_name, body)
+function CommonSummoning:init(file_name, body)
 end
 
 -------------------------------------
--- function initCommonSummonedCreature
+-- function initCommonSummoning
 -------------------------------------
-function CommonSummonedCreature:initCommonSummonedCreature(owner, t_skill, t_data)
+function CommonSummoning:initCommonSummoning(owner, t_skill, t_data)
     -- 변수 초기화
 	self.m_owner = owner
     self.m_world = owner.m_world
@@ -103,7 +103,7 @@ end
 -------------------------------------
 -- function initActvityCarrier
 -------------------------------------
-function CommonSummonedCreature:initActvityCarrier()    
+function CommonSummoning:initActvityCarrier()    
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
 
     self.m_activityCarrier:setSkillId(self.m_skillId)
@@ -144,9 +144,9 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function CommonSummonedCreature:initState()    
-    self:addState('attack', CommonSummonedCreature.st_attack, nil, nil)
-    self:addState('dying_wait', CommonSummonedCreature.st_dying_wait, nil, nil, 3)
+function CommonSummoning:initState()    
+    self:addState('attack', CommonSummoning.st_attack, nil, nil)
+    self:addState('dying_wait', CommonSummoning.st_dying_wait, nil, nil, 3)
     self:addState('dying', function(owner, dt) return true end, nil, nil, 3)
 end
 
@@ -154,7 +154,7 @@ end
 -- function getRandomTargetByRule
 -- @brief 테이블 target_type 에 따른 랜덤한 타겟 선택 
 -------------------------------------
-function CommonSummonedCreature:getRandomTargetByRule()
+function CommonSummoning:getRandomTargetByRule()
     local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil , nil, { skill_type = self.m_chanceType })
     local target = l_target[1]
 
@@ -168,7 +168,7 @@ end
 -------------------------------------
 -- function getDir
 -------------------------------------
-function CommonSummonedCreature:getDir(target)
+function CommonSummoning:getDir(target)
 	if (not self.m_target) then 
 		return self:getDefaultDir() 
 	end
@@ -181,7 +181,7 @@ end
 -- function getDefaultDir
 -- @brief 타겟을 못가져왔을 때 
 -------------------------------------
-function CommonSummonedCreature:getDefaultDir()
+function CommonSummoning:getDefaultDir()
 	cclog('-- 공용탄 타겟을 못찾아 기본 발사각 0 or 180 으로 발사합니다.')
     if self.m_owner.m_bLeftFormation then   
 		return 0
@@ -194,7 +194,7 @@ end
 -- function initAttackPos
 -- @brief 캐릭터의 중심을 기준으로 실제 공격이 시작 지점 설정
 -------------------------------------
-function CommonSummonedCreature:initAttackPos()
+function CommonSummoning:initAttackPos()
     -- 1. 초기화
 	local pos_x = self.m_owner.pos.x
 	local pos_y = self.m_owner.pos.y
@@ -238,14 +238,14 @@ end
 -------------------------------------
 -- function setMissile
 -------------------------------------
-function CommonSummonedCreature:setMissile()
+function CommonSummoning:setMissile()
 	error('KMS - 공용탄은 자식클래스에서 탄을 정의합니다.')
 end
 
 -------------------------------------
 -- function fireMissile
 -------------------------------------
-function CommonSummonedCreature:fireMissile()
+function CommonSummoning:fireMissile()
 	if (not self.m_target) then return end
 
     local world = self.m_world
@@ -261,7 +261,7 @@ end
 -------------------------------------
 -- function update
 -------------------------------------
-function CommonSummonedCreature:update(dt)
+function CommonSummoning:update(dt)
     PARENT.update(self, dt)
 
     -- 사운드 업데이트
@@ -271,7 +271,7 @@ end
 -------------------------------------
 -- function st_attack
 -------------------------------------
-function CommonSummonedCreature.st_attack(owner, dt)
+function CommonSummoning.st_attack(owner, dt)
 	-- 1. missile timer 따로 계산
 	owner.m_missileTimer = owner.m_missileTimer + dt
     
@@ -309,7 +309,7 @@ end
 -------------------------------------
 -- function st_dying_wait
 -------------------------------------
-function CommonSummonedCreature.st_dying_wait(owner, dt)
+function CommonSummoning.st_dying_wait(owner, dt)
     if (owner:isEndSkillSound()) then
         owner:changeState('dying', true)
     end
@@ -318,9 +318,9 @@ end
 -------------------------------------
 -- function makeMissileInstance
 -------------------------------------
-function CommonSummonedCreature:makeInstance(owner, t_skill, t_data)
-	--local creature = CommonSummonedCreature()
-	--creature:initCommonSummonedCreature(owner, t_skill, t_data)
+function CommonSummoning:makeInstance(owner, t_skill, t_data)
+	--local creature = CommonSummoning()
+	--creature:initCommonSummoning(owner, t_skill, t_data)
     if (not t_skill or not t_skill['res_1']) then return end
 
     -- data_ ex : "300202;1;test;T7;R5"

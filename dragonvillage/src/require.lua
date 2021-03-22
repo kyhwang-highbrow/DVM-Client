@@ -610,8 +610,8 @@ local t_module = {
 	'CommonMissile_Bounce',
 	'CommonMissile_Multi',
 
-    -- COMMON SUMMONED CREATURE
-    'CommonSummonedCreature',
+    -- COMMON Summoning Skill
+    'CommonSummoning',
 
     -- ITEM
     'DropItem',
