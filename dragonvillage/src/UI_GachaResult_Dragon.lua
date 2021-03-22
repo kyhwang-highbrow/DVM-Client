@@ -270,16 +270,12 @@ function UI_GachaResult_Dragon:refresh()
 		-- 드래곤 애니메이터 및 정보 갱신
 		self:refresh_dragon(t_gacha_dragon)
 
-		-- 해당 드래곤 카드 visible on
-		local card = self.m_lDragonCardList[t_gacha_dragon]
-		if (card) then
-			card.root:setVisible(true)
-		end
-
 		-- 항상 모든 등급 이펙트 off
 		for card, rarity_effect in pairs(self.m_tDragonCardEffectTable) do
 			rarity_effect:setOpacity(0)
 		end
+
+		--self:doActionReverse(set_card_visible_cb, 3.0)
 	end
 
     -- 마지막에만 보여야 하는 UI들을 관리
@@ -353,10 +349,19 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 				vars['bgNode']:addChild(animator.m_node)
 			end
 
+			-- 연출 이후 드래곤 카드 visible, button on
+			local card = self.m_lDragonCardList[t_dragon_data]
+			
+			if (card) then
+				card.root:setVisible(true)
+				card.root:setEnabled(true)
+				card.vars['clickBtn']:setEnabled(true)
+			end
+
 			-- ui 연출
 			local function directing_done()
-				self.m_isDirecting = false
-
+				self.m_isDirecting = falselocal 
+			
                 -- 중복 클릭을 방지하기 위해 막았던 버튼을 풀어줌
                 vars['okBtn']:setEnabled(true)
 
@@ -463,6 +468,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
 		-- 카드..처리
 		card.root:setPositionX(pos_x)
 		card.root:setVisible(false)
+		card.root:setEnabled(false)
 		card_node:addChild(card.root, 2)
 		
 		-- 등급에 따른 연출
@@ -486,6 +492,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
 				self.m_currDragonAnimator:forceSkipDirecting()
 			end
 		end)
+		card.vars['clickBtn']:setEnabled(false)
 
 		-- 리스트에 저장 (연출을 위해)
 		self.m_lDragonCardList[t_data] = card
@@ -585,6 +592,9 @@ function UI_GachaResult_Dragon:click_skipBtn()
 		-- 남은 드래곤 카드들도 오픈한다.
 		for _, card in pairs(self.m_lDragonCardList) do
 			card.root:setVisible(true)
+			card.root:setEnabled(true)
+			
+			card.vars['clickBtn']:setEnabled(true)
 			if (self.m_tDragonCardEffectTable[card]) then
 				self.m_tDragonCardEffectTable[card]:runAction(cc.FadeIn:create(2))
 			end
