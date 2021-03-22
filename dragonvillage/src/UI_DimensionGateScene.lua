@@ -1,34 +1,43 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
+----------------------------------------------------------------------
+-- class UI_DimensionGateScene
+----------------------------------------------------------------------
 UI_DimensionGateScene = class(PARENT, {
-    m_topTableView = '',
-    m_bottomTableView = '',
-    m_diffLevelTableView = '',
+    m_bottomTableView = '',             -- 하위층 TableView
+    m_topTableView = '',                -- 상위층 TableView 
 
-    m_clickedNode = '',
+    m_diffLevelTableView = '',          -- 난이도 선택 팝업의 difficulty TableView from dmgate_scene_stage_item.ui
 
-    m_selectedDimensionGateInfo = '',
+    m_selectedChapter = '',             -- 상위층, 하위층 선택 구분을 위한 포인터
+    m_selectedDimensionGateInfo = '',   -- 선택된 챕터의 테이블 정보
     
-    -- ui nodes
-    m_topNode = '',
-    m_bottomNode = '',
-
-    m_stageNode = '',
-    m_stageTopMenu = '',
-    m_stageItemNode = '',
-
-    m_topSprite = '',
-    m_bottomSprite = '',
+    -- nodes from ui file
+    m_bottomNode = '',                  -- 하위층 node
+    m_topNode = '',                     -- 상위층 node
+    m_bottomSprite = '',                -- 하위층 배경
+    m_topSprite = '',                   -- 상위층 배경
+    
+    m_stageNode = '',                   -- 
+    m_stageTopMenu = '',                -- 
+    m_stageItemNode = '',               -- 
 
     -- ui buttons
-    m_blessBtn = '',
-    m_infoBtn = '',
-    m_topBtn = '',
-    m_bottomBtn = '',
-    m_shopBtn = '',
+    m_bottomBtn = '',                   -- 하위 챕터 버튼
+    m_topBtn = '',                      -- 상위 챕터 버튼
+    m_blessBtn = '',                    -- 축복 정보 버튼
+    m_infoBtn = '',                     -- 모드 정보 버튼
+    
+    m_shopBtn = '',                     -- 상점 버튼
 
-    m_startBtn = '',
+    m_startBtn = '',                    -- 난이도 팝업 게임 시작 버튼
 })
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  Virtual functions of UI class
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -------------------------------------
 -- function init
@@ -41,6 +50,7 @@ function UI_DimensionGateScene:init()
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DimensionGateScene')    
     --self:doActionReset()
     --self:doAction(nil, false)
+
     self:initMemberVariable()
     self:initUI()
     self:initButton()
@@ -92,6 +102,12 @@ function UI_DimensionGateScene:refresh()
 
 end
 
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  Virtual functions of ITopUserInfo_EventListener class
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 -------------------------------------
 -- function initParentVariable
 -- @brief pure virtual function of ITopUserInfo_EventListener 
@@ -119,7 +135,7 @@ function UI_DimensionGateScene:initMemberVariable()
     self.m_bottomSprite = vars['bottomSprite']
 
     self.m_startBtn = vars['startBtn']
-    self.m_clickedNode = self.m_topBtn
+    self.m_selectedChapter = self.m_topBtn
 end
 
 
@@ -164,66 +180,11 @@ function UI_DimensionGateScene:click_exitBtn()
     end
 end
 
-
--------------------------------------
--- function click_shopBtn
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:click_shopBtn()
-    UI_DimensionGateShop()
-end
-
-
--------------------------------------
--- function click_infoBtn
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:click_infoBtn()
-
-end
-
--------------------------------------
--- function click_blessBtn
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:click_blessBtn()
-
-end
-
-function UI_DimensionGateScene:click_topBtn()
-    if(self.m_clickedNode ~= self.m_topBtn) then
-        cclog("clicked_topBtn")
-        self.m_topSprite:setVisible(true)
-        self.m_bottomSprite:setVisible(false)
-
-        self.m_clickedNode:setEnabled(true)
-        self.m_clickedNode = self.m_topBtn
-        self.m_clickedNode:setEnabled(false)
-        
-        self.m_topTableView:setVisible(true)
-        self.m_bottomTableView:setVisible(false)
-
-        self.m_topTableView:refreshAllItemUI()
-    end
-end
-
-function UI_DimensionGateScene:click_bottomBtn()
-    if(self.m_clickedNode ~= self.m_bottomBtn) then
-        cclog("clicked_bottomBtn")
-        self.m_bottomSprite:setVisible(true)
-        self.m_topSprite:setVisible(false)
-
-        self.m_clickedNode:setEnabled(true)
-        self.m_clickedNode = self.m_bottomBtn
-        self.m_clickedNode:setEnabled(false)
-
-        self.m_bottomTableView:setVisible(true)
-        self.m_topTableView:setVisible(false)
-
-        self.m_bottomTableView:refreshAllItemUI()
-    end
-end
-
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -------------------------------------
 -- function initParentVariable
@@ -253,6 +214,83 @@ function UI_DimensionGateScene:initTableView(node, list)
     return table_view
 end
 
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  Click events
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-------------------------------------
+-- function click_shopBtn
+-- @brief 
+-------------------------------------
+function UI_DimensionGateScene:click_shopBtn()
+    UI_DimensionGateShop()
+end
+
+
+-------------------------------------
+-- function click_infoBtn
+-- @brief 
+-------------------------------------
+function UI_DimensionGateScene:click_infoBtn()
+
+end
+
+-------------------------------------
+-- function click_blessBtn
+-- @brief 
+-------------------------------------
+function UI_DimensionGateScene:click_blessBtn()
+
+end
+
+-------------------------------------
+-- function click_topBtn
+-- @brief 
+-------------------------------------
+function UI_DimensionGateScene:click_topBtn()
+    if(self.m_selectedChapter ~= self.m_topBtn) then
+        cclog("clicked_topBtn")
+        self.m_topSprite:setVisible(true)
+        self.m_bottomSprite:setVisible(false)
+
+        self.m_selectedChapter:setEnabled(true)
+        self.m_selectedChapter = self.m_topBtn
+        self.m_selectedChapter:setEnabled(false)
+        
+        self.m_topTableView:setVisible(true)
+        self.m_bottomTableView:setVisible(false)
+
+        self.m_topTableView:refreshAllItemUI()
+    end
+end
+
+-------------------------------------
+-- function click_bottomBtn
+-- @brief 
+-------------------------------------
+function UI_DimensionGateScene:click_bottomBtn()
+    if(self.m_selectedChapter ~= self.m_bottomBtn) then
+        cclog("clicked_bottomBtn")
+        self.m_bottomSprite:setVisible(true)
+        self.m_topSprite:setVisible(false)
+
+        self.m_selectedChapter:setEnabled(true)
+        self.m_selectedChapter = self.m_bottomBtn
+        self.m_selectedChapter:setEnabled(false)
+
+        self.m_bottomTableView:setVisible(true)
+        self.m_topTableView:setVisible(false)
+
+        self.m_bottomTableView:refreshAllItemUI()
+    end
+end
+
+-------------------------------------
+-- function click_stageBtn
+-- @brief 
+-- @param data
 -- ['level']=1;
 -- ['dm_id']=3010000;
 -- ['reset_unlock']=1;
@@ -264,6 +302,7 @@ end
 -- ['item']='700901;10';
 -- ['stage_id']=3011001;
 -- ['grade']=0;
+-------------------------------------
 function UI_DimensionGateScene:click_stageBtn(ui, data)
     local vars = self.vars
 
@@ -288,6 +327,10 @@ function UI_DimensionGateScene:click_stageBtn(ui, data)
     --local target_pos = convertToAnotherNodeSpace(node, self.vars[''])
 end
 
+-------------------------------------
+-- function click_difficultyLevelBtn
+-- @brief 
+-------------------------------------
 function UI_DimensionGateScene:click_difficultyLevelBtn(ui, data)
     local vars = self.vars
 
@@ -302,6 +345,30 @@ function UI_DimensionGateScene:click_difficultyLevelBtn(ui, data)
     -- self:closeStageNode()
 end
 
+-------------------------------------
+-- function click_startBtn
+-- @brief 
+-------------------------------------
+function UI_DimensionGateScene:click_startBtn()
+    if self.m_selectedDimensionGateInfo == nil then
+        error('m_selectedDimensionGateInfo is not initialized.')
+    end
+
+    local stage_id = self.m_selectedDimensionGateInfo.ui:getStageID()
+    UI_AdventureStageInfo(stage_id)
+end
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-------------------------------------
+-- function PopupStageNode
+-- @brief 
+-------------------------------------
 function UI_DimensionGateScene:PopupStageNode(data)
     self.m_stageNode:setVisible(true)
     -- block to touch 
@@ -328,6 +395,10 @@ function UI_DimensionGateScene:PopupStageNode(data)
     self.m_diffLevelTableView = table_view
 end
 
+-------------------------------------
+-- function closeStageNode
+-- @brief 
+-------------------------------------
 function UI_DimensionGateScene:closeStageNode()
     self.m_stageNode:setVisible(false)
     --self.m_topBtn:setTouchEnabled(true)
@@ -344,14 +415,3 @@ end
 function UI_DimensionGateScene:getFakeData()
    return g_nestDungeonData:getNestDungeonListForUIByType(NEST_DUNGEON_EVO_STONE)
 end
-
-
-function UI_DimensionGateScene:click_startBtn()
-    if self.m_selectedDimensionGateInfo == nil then
-        error('m_selectedDimensionGateInfo is not initialized.')
-    end
-
-    local stage_id = self.m_selectedDimensionGateInfo.ui:getStageID()
-    UI_AdventureStageInfo(stage_id)
-end
-
