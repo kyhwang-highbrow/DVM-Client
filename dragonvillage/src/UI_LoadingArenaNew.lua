@@ -15,6 +15,8 @@ UI_LoadingArenaNew = class(PARENT,{
 
         m_targetRivalInfo = 'StructUserInfoArenaNew',
         m_isReChallenge = 'boolean', --재도전 통해서 들어왔나?
+
+        m_currScene = 'SceneGameArenaNew',
     })
 
 -------------------------------------
@@ -26,7 +28,7 @@ function UI_LoadingArenaNew:init(curr_scene, isReChallenge)
     self.m_remainTimer = WAITING_TIME
     self.m_myDeckList = {}
     self.m_isReChallenge = isReChallenge
-
+    self.m_currScene = curr_scene
 
     if (curr_scene) then
         self.m_bFriendMatch = curr_scene.m_bFriendMatch
@@ -60,7 +62,12 @@ function UI_LoadingArenaNew:init(curr_scene, isReChallenge)
 	    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end
 
-    self:setScoreLabelCenter()
+    if (self.m_bFriendMatch) then
+        if (vars['scoreSprite']) then vars['scoreSprite']:setVisible(false) end
+        if (vars['scoreWinLabel']) then vars['scoreWinLabel']:setVisible(false) end
+    else
+        self:setScoreLabelCenter()
+    end
 end
 
 -------------------------------------
@@ -134,7 +141,7 @@ end
 -- function initMyDeckUI
 -------------------------------------
 function UI_LoadingArenaNew:initMyDeckUI()
-    local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
+    local struct_user_info = self.m_currScene:getStructUserInfo_Player()
 
     if (not struct_user_info or not struct_user_info.m_pvpDeck) then return end
 

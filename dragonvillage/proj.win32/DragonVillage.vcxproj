@@ -291,6 +291,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\CollisionHelper.lua" />
     <None Include="..\src\CommonMissile_Guide.lua" />
     <None Include="..\src\CommonMissile_Multi.lua" />
+    <None Include="..\src\CommonSummonedCreature.lua" />
     <None Include="..\src\ConstantColor.lua" />
     <None Include="..\src\ConstantColosseum.lua" />
     <None Include="..\src\ConstantData.lua" />
