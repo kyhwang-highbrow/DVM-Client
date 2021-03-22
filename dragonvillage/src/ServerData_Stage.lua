@@ -449,7 +449,11 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     -- 룬 수호자 던전
     elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
         api_url = '/game/rune_guardian/start'
-
+        
+    -- 차원의 문
+    elseif (game_mode == GAME_MODE_DIMENSION_GATE) then 
+        api_url = '/dmgate/start'
+        --ccdump()
     end
 
     local function success_cb(ret)

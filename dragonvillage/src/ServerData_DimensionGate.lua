@@ -27,6 +27,31 @@ function ServerData_DimensionGate:init(server_data)
     
 end
 
+-------------------------------------
+-- function request_dimensionGateInfo
+-------------------------------------
+function ServerData_DimensionGate:request_gameStart(stage_id, deck_name, combat_power, finish_cb, is_cash)
+    local uid = g_userData:get('uid')
+    local api_url = '/dmgate/start'
+
+
+    -- callback funciton
+    local function success_cb(ret)
+    end
+
+    local response_status_cb
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl(api_url)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage_id)
+    ui_network:setParam('deck_name', deck_name)
+    ui_network:setParam('token', token)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
 
 
 -------------------------------------

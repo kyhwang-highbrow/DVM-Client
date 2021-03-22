@@ -332,6 +332,10 @@ function GameWorld:createComponents()
 
             -- 마나가 동작 하지 않음
             self.m_mUnitGroup[PHYS.HERO]:getMana():setManaZero()
+
+        -- 7. 차원문 던전
+        elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
+            self.m_gameState = GameState_DimensionGate(self)
         end
         
         -- 7. 깜짝 출현 던전

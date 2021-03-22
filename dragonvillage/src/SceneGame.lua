@@ -695,6 +695,9 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     -- 룬 수호자 던전
     elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
         api_url = '/game/rune_guardian/finish'
+
+    elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
+        api_url = '/dmgate/finish'
     end
 
     local ui_network = UI_Network()

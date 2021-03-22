@@ -4932,6 +4932,7 @@
     <None Include="..\src\UI_DimensionGateSceneStageItem.lua" />
     <None Include="..\src\UI_DimensionGateItem.lua" />
     <None Include="..\src\CommonSummonedCreature.lua" />
+    <None Include="..\src\GameState_DimensionGate.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

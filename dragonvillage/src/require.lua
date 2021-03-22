@@ -529,6 +529,7 @@ local t_module = {
     'GameState_Illusion',
     'GameState_ClanWar',
     'GameState_Trial',
+    'GameState_DimensionGate',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',

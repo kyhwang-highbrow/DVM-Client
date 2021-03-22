@@ -1344,13 +1344,13 @@ function UI_ReadySceneNew:click_startBtn()
             scene:runScene()
         end)
         return
-    elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
-        self:checkChangeDeck(function()
-            local scene = SceneGameTrial(nil, stage_id, 'stage_' .. stage_id, true)
-            scene:runScene()
-        end)
-        return
-    end
+    -- elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
+    --     self:checkChangeDeck(function()
+    --         local scene = SceneGameTrial(nil, stage_id, 'stage_' .. stage_id, true)
+    --         scene:runScene()
+    --     end)
+    --     return
+     end
 
     -- 시작 가능한지 확인 (스태미나 등등)
     if (not self:check_startCondition(stage_id)) then    
@@ -1903,7 +1903,8 @@ function UI_ReadySceneNew:networkGameStart()
     -- 그랜드 콜로세움 (이벤트 PvP 10대10)
     elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
         finish_cb(game_key)
-
+    --elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
+        
     else
         g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
     end
