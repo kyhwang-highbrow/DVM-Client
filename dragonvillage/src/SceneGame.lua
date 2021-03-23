@@ -633,10 +633,10 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         self:networkGameFinish_response(ret, t_result_ref, is_success)
 
         if next_func then
-            -- if ret['stage'] == nil then
-            --     ret['stage'] = self.m_stageID
-            -- end
-            next_func()
+            if ret['stage'] == nil then
+                ret['stage'] = self.m_stageID
+            end
+            next_func(ret)
         end
     end
 

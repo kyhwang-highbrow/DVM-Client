@@ -9,6 +9,8 @@ ServerData_DimensionGate = class({
     m_dimensionGateTable = '',
     m_dimensionGateKey = '',
 
+    m_unlockStageList = '',
+
     m_bDirtyDimensionGateInfo = 'boolean'
 })
 
@@ -24,7 +26,7 @@ function ServerData_DimensionGate:init(server_data)
     self.m_dimensionGateTable = {}
     self.m_dimensionGateKey = {}
 
-    
+    self.m_unlockStageList = {}    
 end
 
 -------------------------------------
@@ -72,7 +74,7 @@ function ServerData_DimensionGate:request_dimensionGateInfo(cb_func, fail_cb)
 
     -- callback for success
     local function success_cb(ret)
-        self:response_dimensionGateInfo(ret['dmgate_info'])
+        self:response_dimensionGateInfo(ret)
 
         if cb_func then cb_func(ret) end
     end
@@ -94,31 +96,50 @@ end
 function ServerData_DimensionGate:response_dimensionGateInfo(ret)
     -- TODO (YOUNGJIN) : TEMP DATA
     --ret['stage'][3011002] = {}
-    ret[DIMENSION_GATE_MANUS]['stage']['3011001'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3011002'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3011003'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3011004'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3011005'] = 1
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3011001'] = 1
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3011002'] = 1
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3011003'] = 1
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3011004'] = 1
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3011005'] = 1
   
-    ret[DIMENSION_GATE_MANUS]['stage']['3012101'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3012102'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3012103'] = 1
-    --ret[DIMENSION_GATE_MANUS]['stage']['3012104'] = 1
-    --ret[DIMENSION_GATE_MANUS]['stage']['3012105'] = 0
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012101'] = 1
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012102'] = 1
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012103'] = 1
+    -- --ret[DIMENSION_GATE_MANUS]['stage']['3012104'] = 1
+    -- --ret[DIMENSION_GATE_MANUS]['stage']['3012105'] = 0
 
-    ret[DIMENSION_GATE_MANUS]['stage']['3012201'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3012202'] = 1
-    ret[DIMENSION_GATE_MANUS]['stage']['3012203'] = 0
-    --ret[DIMENSION_GATE_MANUS]['stage']['3012204'] = 0
-    --ret[DIMENSION_GATE_MANUS]['stage']['3012205'] = 0
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012201'] = 1
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012202'] = 1
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012203'] = 0
+    -- --ret[DIMENSION_GATE_MANUS]['stage']['3012204'] = 0
+    -- --ret[DIMENSION_GATE_MANUS]['stage']['3012205'] = 0
 
-    ret[DIMENSION_GATE_MANUS]['stage']['3012301'] = 0
-    ret[DIMENSION_GATE_MANUS]['stage']['3012302'] = 0
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012303'] = 0
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012304'] = 0
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012301'] = 0
+    -- ret[DIMENSION_GATE_MANUS]['stage']['3012302'] = 0
+    -- -- ret[DIMENSION_GATE_MANUS]['stage']['3012303'] = 0
+    -- -- ret[DIMENSION_GATE_MANUS]['stage']['3012304'] = 0
+    -- -- ret[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
 
-    self.m_dimensionGateInfo = ret
+    local dmgate_info = ret['dmgate_info']
+
+    if #self.m_dimensionGateInfo ~= 0 then
+        local stage_id = ret['stage']
+        local mode_id = self:getModeID(stage_id)
+        if self.m_dimensionGateInfo[mode_id]['stage'][tostring(stage_id)]
+        ~= dmgate_info[mode_id]['stage'][tostring(stage_id)] then
+            
+            self.m_unlockStageList[stage_id] = {}
+            self.m_dimensionGateInfo = dmgate_info
+            return
+        end
+    -- --        if self.m_dimensionGateInfo
+    --     ccdump(ret)
+    --     for key, table in pairs(ret['dmgate_info']) do
+    --         ccdump(#table['stage'])
+    --     end
+    end
+
+    self.m_dimensionGateInfo = dmgate_info
     
     -- TODO (YOUNGJIN) : 지금은 request 할 때마다 table을 가져오고 sorting 하지만
     -- 테이블에 한해서는 게임 시작시 한번만 하면 됨. 하지만 init에 넣으면 
@@ -146,7 +167,14 @@ function ServerData_DimensionGate:request_dmgateTable()
     self.m_dimensionGateKey[DIMENSION_GATE_MANUS] = key
 end
 
+function ServerData_DimensionGate:checkInUnlockList(stage_id)
+    if self.m_unlockStageList[tonumber(stage_id)] ~= nil then
+        self.m_unlockStageList[tonumber(stage_id)] = nil
+        return true
+    end
 
+    return false
+end
 
 --[[
     TODO (YOUNGJIN) : 
@@ -155,11 +183,12 @@ end
     BUT IN CASE OF PORTAL, LOW TYPE ONLY HAVE 5 STAGES and HIGH TYPE HAVE 15 STAGES.
     MAKE CONCLUSION HOW TO DEAL WITH HIGH TYPES.
     
-    -- 1310101
-    -- 13xxxxx 모드 구분 (시련 던전 모드) 
-    --   1xxxx 시련 던전 구분 (차원문, ...)
-    --    01xx 세부 모드 (난이도)
-    --      01 티어 - 스테이지 번호 (통상적으로 1~10)
+    -- 3011001
+    -- 30xxxxx 던전(dungeon)        : 차원문, ...
+    --   1xxxx 모드(mode)           : 마누스의 차원문, ...
+    --    1xxx 챕터(chapter)        : 상위층, 하위층, ...
+    --     1xx 난이도(difficulty)   : 쉬움, 보통, 어려움, ...
+    --      01 스테이지(stage)      : 스테이지 번호
 ]]
 
 -------------------------------------

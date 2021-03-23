@@ -41,7 +41,10 @@ function GameState_DimensionGate:makeResultUI(isSuccess)
     end
 
     -- 2. UI 생성
-    func_ui_result = function()
+    func_ui_result = function(ret)
+
+        g_dimensionGateData:response_dimensionGateInfo(ret)
+        
         local world = self.m_world
         local stage_id = world.m_stageID
 

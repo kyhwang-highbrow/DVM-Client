@@ -136,6 +136,7 @@ function UI_DimensionGateItem:refresh()
     
     self:setStarSprites()
     self:setBackgroundVRP()
+
     self:setLockVRP()
 end
 
@@ -250,9 +251,11 @@ function UI_DimensionGateItem:setLockVRP()
         self.m_lockVisual:changeAni('dmgate_lock')
         self.m_stageBtn:setEnabled(false)
     else -- opened
-        self.m_lockVisual:setVisible(true)
-        self.m_lockVisual:changeAni('dmgate_unlock')
-        self.m_stageBtn:setEnabled(true)
+        --if g_dimensionGateData:checkInUnlockList(self.m_stageID) then
+            self.m_lockVisual:setVisible(true)
+            self.m_lockVisual:changeAni('dmgate_unlock')
+            self.m_stageBtn:setEnabled(true)
+        --end
     end
 end
 
