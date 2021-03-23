@@ -65,11 +65,10 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
     
     -- 자코 몹들은 1.5배로 키워서 출력!
     if (t_dragon['birthgrade'] == 1) then
+        -- 골드라고라만 귀여운 사이즈로 적용
         if (self.m_did == 128004) then
-            cclog('0.6')
             self.m_animator:setScale(0.6)
         else
-            cclog('1.5')
             self.m_animator:setScale(1.5)
         end
     end
