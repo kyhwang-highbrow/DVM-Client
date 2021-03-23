@@ -479,6 +479,7 @@ local t_module = {
     'SceneRuneGuardianDungeon',
     'SceneGameClanWar',
     'SceneGameTrial',
+    'SceneDimensionGate',
 
     -- Phys
 	'PhysWorld',
@@ -1259,6 +1260,7 @@ local t_module = {
     'UI_GameResult_RuneGuardianDungeon',
     'UI_GameResult_Illusion',
     'UI_GameResult_ClanWar',
+    'UI_GameResult_DimensionGate',
     'UI_GamePause',
     'UI_GamePause_AncientTower',
     'UI_GamePause_NestDungeon',

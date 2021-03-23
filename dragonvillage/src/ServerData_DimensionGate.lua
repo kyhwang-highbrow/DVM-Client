@@ -118,8 +118,9 @@ function ServerData_DimensionGate:response_dimensionGateInfo(ret)
     -- ret[DIMENSION_GATE_MANUS]['stage']['3012304'] = 0
     -- ret[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
 
-
+    ccdump(#self.m_dimensionGateInfo)
     self.m_dimensionGateInfo = ret
+    ccdump(#self.m_dimensionGateInfo)
     -- TODO (YOUNGJIN) : 지금은 request 할 때마다 table을 가져오고 sorting 하지만
     -- 테이블에 한해서는 게임 시작시 한번만 하면 됨. 하지만 init에 넣으면 
     -- TABLE의 load 순서에 따라 비어 있을 수도 있기 때문에 일단 여기 넣음. 
@@ -345,6 +346,11 @@ function ServerData_DimensionGate:getStageID(stage_id)
 end
 
 
+-------------------------------------
+-- function getPrevStageID
+-- 3011001
+--      01 스테이지(stage)      : 스테이지 번호
+-------------------------------------
 function ServerData_DimensionGate:getPrevStageID(stage_id)
     if (getStageID(stage_id) <= 1) then
         return nil
@@ -352,6 +358,7 @@ function ServerData_DimensionGate:getPrevStageID(stage_id)
         return stage_id - 1
     end
 end
+
 
 function ServerData_DimensionGate:getPrevDifficultyID(stage_id)
     local diff_id = self:getDifficultyID(stage_id)
@@ -362,6 +369,13 @@ function ServerData_DimensionGate:getPrevDifficultyID(stage_id)
                     diff_id - 1, self:getStageID(stage_id))
 end
 
+-- function ServerData_DimensionGate:getPrevStageID(stage_id)
+
+-- end
+
+-- function ServerData_DimensionGate:getNextStageID(stage_id)
+
+-- end
 
 -------------------------------------
 -- function MakeDimensionGateID

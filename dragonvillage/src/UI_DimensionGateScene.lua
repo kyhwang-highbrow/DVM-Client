@@ -43,7 +43,7 @@ UI_DimensionGateScene = class(PARENT, {
 -- function init
 -- @brief virtual function of UI
 -------------------------------------
-function UI_DimensionGateScene:init()
+function UI_DimensionGateScene:init(stage_id)
     local vars = self:load('dmgate_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -175,6 +175,10 @@ function UI_DimensionGateScene:click_exitBtn()
 
     if self.m_selectedDimensionGateInfo then
         self:closeStageNode()
+    elseif (g_currScene.m_sceneName == 'SceneDimensionGate') then
+        local is_use_loading = false
+        local scene = SceneLobby(is_use_loading)
+        scene:runScene()
     else
         self:close()
     end

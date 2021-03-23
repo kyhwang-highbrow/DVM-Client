@@ -148,7 +148,7 @@ end
 -- function makeBg
 -------------------------------------
 function UI_CharacterCard:makeBg(attr)
-    local res = 'card_cha_bg_' .. attr .. '.png'
+    local res = 'card_cha_bg_' .. tostring(attr) .. '.png'
     if (self.m_attrBgRes == res) then
         return
     end

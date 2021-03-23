@@ -22,9 +22,10 @@ function UI_DragonGoodbyeResult:init(dragon_data, info_data)
     self:doAction(nil, false)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonGoodbyeResult')
+    --g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonGoodbyeResult')
+    g_currScene:pushBackKeyListener(self, function() self:click_skipBtn() end, 'UI_DragonGoodbyeResult')
     -- 백키 블럭
-    UIManager:blockBackKey(true)
+    --UIManager:blockBackKey(true)
 
     self:sceneFadeInAction()
 
@@ -157,6 +158,10 @@ function UI_DragonGoodbyeResult:click_skipBtn()
     end
 
     self:showResult()
+end
+
+function UI_DragonGoodbyeResult:click_exitBtn()
+    
 end
 
 --@CHECK

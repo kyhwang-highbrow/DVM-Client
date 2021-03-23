@@ -633,7 +633,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         self:networkGameFinish_response(ret, t_result_ref, is_success)
 
         if next_func then
-            next_func()
+            next_func(ret)
         end
     end
 
@@ -1067,6 +1067,7 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
             g_ancientTowerData:setClearStage(ret['ancient_clear_stage'])
         end
     end
+    ccdump(ret)
 
     if (not ret['stage_clear_info']) then
         return
@@ -1075,8 +1076,9 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
     -- 리스트 형태로 넘어와서 한개만 추출
     local stage_clear_info = table.getFirst(ret['stage_clear_info'])
     local stage_id = ret['stage']
-
+   
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+        
         -- 스테이지 정보 갱신이 필요한 경우 설정
         g_adventureData:setDirtyStageList()
 
@@ -1127,6 +1129,11 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
             -- @analytics
             Analytics:firstTimeExperience('AncientTower_1_Clear')
         end
+
+    -- 차원문
+    elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
+
+        
     end
 end
 

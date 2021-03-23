@@ -764,6 +764,10 @@ function UI_GameResultNew:set_modeButton()
     elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
         moveToCenterBtn()
 
+    -- 차원의 문
+    elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
+        moveToCenterBtn()
+
     -- 룬 페스티벌 (모험 모드로 간주)
     elseif (g_stageData:isRuneFestivalStage(stage_id) == true) then
         moveToCenterBtn()
@@ -771,7 +775,6 @@ function UI_GameResultNew:set_modeButton()
         --vars['statsBtn']:setVisible(false)
         --vars['homeBtn']:setVisible(false)
         self:adjustMenuButtonPos()
-
 
     -- 모험 
     else
