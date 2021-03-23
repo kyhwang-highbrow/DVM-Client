@@ -1360,6 +1360,8 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
 
     end
 
+    -- 필드에 적이 아무도 없을 때 
+    -- pvp 상대 테이머 그룹에서 살아있는 덱정보를 가져온다.
     if (not l_result or #l_result <= 0) then
         local default_origin_list = for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
         -- 액티브 스킬이 아닐 때 체크
