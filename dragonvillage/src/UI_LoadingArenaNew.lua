@@ -16,24 +16,24 @@ UI_LoadingArenaNew = class(PARENT,{
         m_targetRivalInfo = 'StructUserInfoArenaNew',
         m_isReChallenge = 'boolean', --재도전 통해서 들어왔나?
 
-        m_currScene = 'SceneGameArenaNew',
+        m_curScene = 'SceneGameArenaNew',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_LoadingArenaNew:init(curr_scene, isReChallenge)
+function UI_LoadingArenaNew:init(cur_scene, isReChallenge)
 	self.m_uiName = 'UI_LoadingArenaNew'
     local vars = self:load('arena_new_loading.ui')
     self.m_remainTimer = WAITING_TIME
     self.m_myDeckList = {}
     self.m_isReChallenge = isReChallenge
-    self.m_currScene = curr_scene
+    self.m_curScene = cur_scene
 
-    if (curr_scene) then
-        self.m_bFriendMatch = curr_scene.m_bFriendMatch
+    if (self.m_curScene) then
+        self.m_bFriendMatch = self.m_curScene.m_bFriendMatch
 
-        local guide_type = curr_scene.m_loadingGuideType
+        local guide_type = self.m_curScene.m_loadingGuideType
 	    if (guide_type) then
 		    self.m_lLoadingStrList = table.sortRandom(GetLoadingStrList())
 	    end
@@ -56,7 +56,7 @@ function UI_LoadingArenaNew:init(curr_scene, isReChallenge)
 	self:initUI()
     self:initButton()
 
-    if (curr_scene) then
+    if (self.m_curScene) then
         self:selectAuto(true)
         -- 자체적으로 업데이트를 돌린다.
 	    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
@@ -141,7 +141,13 @@ end
 -- function initMyDeckUI
 -------------------------------------
 function UI_LoadingArenaNew:initMyDeckUI()
-    local struct_user_info = self.m_currScene:getStructUserInfo_Player()
+    local struct_user_info
+
+    if (self.m_curScene) then
+        struct_user_info = self.m_curScene:getStructUserInfo_Player()
+    else
+        struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
+    end
 
     if (not struct_user_info or not struct_user_info.m_pvpDeck) then return end
 

@@ -893,7 +893,19 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
     end
 
     -- 콜로세움 정보 확인
-    if IS_ARENA_OPEN() then
+    if IS_ARENA_NEW_OPEN() and HAS_ARENA_NEW_SEASON() then
+        if g_arenaNewData then
+            local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo() -- return : StructUserInfoArena
+            if struct_user_info then
+                -- 덱
+                local l_pvp_deck = struct_user_info:getDeck_dragonList(true) -- param : use_doid
+                if table.find(l_pvp_deck, doid) then
+                    return false, Str('콜로세움 덱에 설정된 드래곤입니다.')
+                end
+            end
+        end
+
+    elseif IS_ARENA_OPEN() then
         if g_arenaData then
             local struct_user_info = g_arenaData:getPlayerArenaUserInfo() -- return : StructUserInfoArena
             if struct_user_info then
@@ -904,6 +916,7 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
                 end
             end
         end
+
     else
         if g_colosseumData then
             local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo() -- return : StructUserInfoColosseum
