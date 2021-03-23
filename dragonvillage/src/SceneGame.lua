@@ -633,7 +633,10 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         self:networkGameFinish_response(ret, t_result_ref, is_success)
 
         if next_func then
-            next_func(ret)
+            -- if ret['stage'] == nil then
+            --     ret['stage'] = self.m_stageID
+            -- end
+            next_func()
         end
     end
 
@@ -1067,7 +1070,6 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
             g_ancientTowerData:setClearStage(ret['ancient_clear_stage'])
         end
     end
-    ccdump(ret)
 
     if (not ret['stage_clear_info']) then
         return

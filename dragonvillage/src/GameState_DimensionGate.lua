@@ -20,16 +20,10 @@ end
 -- function makeResultUI
 -------------------------------------
 function GameState_DimensionGate:makeResultUI(isSuccess)
-    
     isSuccess = true
-
-
     -- 작업 함수들
     local func_network_game_finish
-
-    local function network_finish_cb(ret)
-        
-    end
+    local func_ui_result
     
     -- UI연출에 필요한 테이블들
     local result_table = {}
@@ -43,7 +37,7 @@ function GameState_DimensionGate:makeResultUI(isSuccess)
     -- 1. 네트워크 통신
     func_network_game_finish = function()
         local param_table = self:makeGameFinishParam(isSuccess)
-        g_gameScene:networkGameFinish(param_table, result_table, network_finish_cb)
+        g_gameScene:networkGameFinish(param_table, result_table, func_ui_result)
     end
 
     -- 2. UI 생성

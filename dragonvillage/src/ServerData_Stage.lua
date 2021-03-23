@@ -453,7 +453,6 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     -- 차원의 문
     elseif (game_mode == GAME_MODE_DIMENSION_GATE) then 
         api_url = '/dmgate/start'
-        --ccdump()
     end
 
     local function success_cb(ret)

@@ -118,9 +118,8 @@ function ServerData_DimensionGate:response_dimensionGateInfo(ret)
     -- ret[DIMENSION_GATE_MANUS]['stage']['3012304'] = 0
     -- ret[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
 
-    ccdump(#self.m_dimensionGateInfo)
     self.m_dimensionGateInfo = ret
-    ccdump(#self.m_dimensionGateInfo)
+    
     -- TODO (YOUNGJIN) : 지금은 request 할 때마다 table을 가져오고 sorting 하지만
     -- 테이블에 한해서는 게임 시작시 한번만 하면 됨. 하지만 init에 넣으면 
     -- TABLE의 load 순서에 따라 비어 있을 수도 있기 때문에 일단 여기 넣음. 
