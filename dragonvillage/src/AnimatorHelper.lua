@@ -152,6 +152,11 @@ function AnimatorHelper:makeSummonCreatureAnimator(res_name, attr, evolution)
         animator.m_node:setMix('idle', 'attack', 0.1)
         animator.m_node:setMix('idle', 'idle', 0.1)
         animator.m_node:setMix('attack', 'idle', 0.1)
+
+
+        animator.m_node:setMix('idle', 'die_appear', 0.5)
+        animator.m_node:setMix('die_appear', 'die_idle', 0.5)
+        animator.m_node:setMix('die_idle', 'idle', 0.5)
     end
 
     return animator
