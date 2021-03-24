@@ -166,6 +166,7 @@ function UI_EventBingo:initButton()
 
     self.m_bingoPackageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
     self.m_bingoPackageBtn:getParent():setSwallowTouch(false)
+    self.m_bingoPackageBtn:setAutoShake(true)
 
     vars['cancleBtn']:setVisible(false)
     vars['cancleBtn']:getParent():setSwallowTouch(false)
