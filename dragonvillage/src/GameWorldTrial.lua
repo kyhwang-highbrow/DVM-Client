@@ -26,7 +26,7 @@ end
 -- function actStagePreparation
 -------------------------------------
 function GameWorldTrial:actStagePreparation()
-    -- ÆÄÀÏ¿¡¼­ »çÀüÁØºñ Á¤º¸¸¦ ¾ò¾î¿È
+    -- íŒŒì¼ì—ì„œ ì‚¬ì „ì¤€ë¹„ ì •ë³´ë¥¼ ì–»ì–´ì˜´
     local script = self.m_waveMgr:getCurrentWaveScriptData()
 
     if (not script or not script['preparation']) then return end
@@ -35,7 +35,7 @@ function GameWorldTrial:actStagePreparation()
 
     -- data_ ex : "300202;1;test;T7;R5"
     local l_str = seperate(preparationData, ';')
-    local summonObj_id = tonumber(l_str[1])   -- ¼ÒÈ¯Ã¼ ID
+    local summonObj_id = tonumber(l_str[1])   -- ì†Œí™˜ì²´ ID
     local t_summonObj = TableSummonObject():get(summonObj_id)
 
     if (not t_summonObj or not t_summonObj['type']) then return end
