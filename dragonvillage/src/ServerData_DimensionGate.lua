@@ -82,6 +82,27 @@ function ServerData_DimensionGate:request_gameStart(stage_id, deck_name, combat_
     ui_network:request()
 end
 
+function ServerData_DimensionGate:request_reward(stage_id, cb_func, fail_cb)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        self:response_dimensionGateInfo(ret)
+
+        if cb_func then cb_func(ret) end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dmgate/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage_id)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+
+    return ui_network
+end
+
 
 -------------------------------------
 -- function request_dimensionGateInfo
@@ -151,7 +172,7 @@ function ServerData_DimensionGate:response_dimensionGateInfo(ret)
     -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
     --ccdump(dmgate_info)
 
-    if #self.m_dimensionGateInfo ~= 0 then
+    if #self.m_dimensionGateInfo ~= 0  and ret['added_items'] == nil then
         local stage_id = ret['stage']
         local mode_id = self:getModeID(stage_id)
         if self.m_dimensionGateInfo[mode_id]['stage'][tostring(stage_id)]
@@ -527,6 +548,12 @@ end
 function ServerData_DimensionGate:isStageCleared(mode_type, stage_id)
     return self:getStageStatus(mode_type, stage_id) > 0
 end
+
+-- function ServerData_DimensionGate:isRewarded(stage_id)
+--     local mode_id = self:getModeID(stage_id)
+--     -- 0 : 클리어 x // 1 : 클리어 o, 보상 x // 2: 클리어 o, 보상 o
+--     return self:getStageStatus(mode_id, stage_id) == 2
+-- end
 
 -------------------------------------
 -- function getDifficultyStatus

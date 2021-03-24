@@ -52,6 +52,8 @@ UI_DimensionGateItem = class(PARENT, {
     m_mode = 'number',      --
     m_chapter = 'number',   -- 
 
+    m_stageStatus = 'number',
+
     m_hasDifficulty = 'boolean',
     m_currDifficultyLevel = 'number',
 
@@ -96,11 +98,6 @@ function UI_DimensionGateItem:init(data)
 
     -- 6. 스테이지 보상을 받았냐 안받았냐
 
-    
-    
-
-
-
 
 
     self:initUI()
@@ -115,7 +112,7 @@ end
 function UI_DimensionGateItem:initUI() 
     local stage_id = g_dimensionGateData:getStageID(self.m_stageID)
     self.m_stageLevelText:setString(Str(self.m_originStageLevelText, stage_id))
-
+    
 end
 
 
@@ -123,7 +120,9 @@ end
 -- function initButton
 -- @brief virtual function of UI
 -------------------------------------
-function UI_DimensionGateItem:initButton() end
+function UI_DimensionGateItem:initButton() 
+    self.m_rewardBtn:registerScriptTapHandler(function() self:click_rewardBtn() end)
+end
 
 
 -------------------------------------
@@ -138,6 +137,10 @@ function UI_DimensionGateItem:refresh()
     self:setBackgroundVRP()
 
     self:setLockVRP()
+
+    self.m_stageStatus = g_dimensionGateData:getStageStatus(self.m_mode, self.m_stageID)
+
+    self:setRewardVRP()
 end
 
 
@@ -153,7 +156,7 @@ function UI_DimensionGateItem:initMember(data)
 
     self.m_hasDifficulty = (#data > 0)
     self.m_currDifficultyLevel = g_dimensionGateData:getMaxDifficultyInList(DIMENSION_GATE_MANUS, self.m_data)
-    ccdump(self.m_currDifficultyLevel)
+    
     if self.m_hasDifficulty then
         self.m_targetData = self.m_data[self.m_currDifficultyLevel]
     else
@@ -163,6 +166,8 @@ function UI_DimensionGateItem:initMember(data)
     self.m_stageID = self.m_targetData['stage_id']
     self.m_mode = g_dimensionGateData:getModeID(self.m_stageID)
     self.m_chapter = g_dimensionGateData:getChapterID(self.m_stageID)
+
+    self.m_stageStatus =  g_dimensionGateData:getStageStatus(self.m_mode, self.m_stageID)
 
 
     -- Nodes in .ui file
@@ -239,11 +244,17 @@ function UI_DimensionGateItem:setStarSprites()
 end
 
 
+----------------------------------------------------------------------
+-- function setBackgroundVRP
+----------------------------------------------------------------------
 function UI_DimensionGateItem:setBackgroundVRP()
     local stage_id = g_dimensionGateData:getStageID(self.m_stageID)
     self.m_bgVisual:changeAni('dmgate_0' .. tostring(stage_id))
 end
 
+----------------------------------------------------------------------
+-- function setLockVRP
+----------------------------------------------------------------------
 function UI_DimensionGateItem:setLockVRP()
     -- is it locked ?
 
@@ -272,19 +283,43 @@ end
 
 
 
-function UI_DimensionGateItem:setRewardVRP()
+----------------------------------------------------------------------
+-- function setRewardVRP
+----------------------------------------------------------------------
+function UI_DimensionGateItem:setRewardVRP()  
+    self.m_rewardVisual:changeAni('dmgate_box_' .. tostring(self.m_stageStatus), true)
 
+    if self.m_stageStatus == 2 then 
+        self.m_rewardBtn:setEnabled(false)
+    end
 end
-
-
-function UI_DimensionGateItem:click_stageBtn()
-
-end
-
 
 
 ----------------------------------------------------------------------
--- function set
+-- function click_rewardBtn
+----------------------------------------------------------------------
+function UI_DimensionGateItem:click_rewardBtn()
+    if(self.m_stageStatus == 0) then 
+        UI_DimensionGateItemRewardPopup(self.m_data)
+    elseif self.m_stageStatus == 1 then
+        local function finish_cb(ret)
+            if(ret['added_items']) then
+                g_serverData:receiveReward(ret)
+                self:refresh()
+            else
+                UIManager:toastNotificationRed('수령할 수 있는 아이템이 없습니다.')
+            end
+            
+        end
+
+        g_dimensionGateData:request_reward(self.m_stageID, finish_cb)
+    else
+    end
+end
+
+
+----------------------------------------------------------------------
+-- function getStageID
 ----------------------------------------------------------------------
 function UI_DimensionGateItem:getStageID()
     return self.m_stageID
