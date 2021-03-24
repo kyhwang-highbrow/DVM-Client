@@ -898,13 +898,13 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
             local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo() -- return : StructUserInfoArena
             if struct_user_info then
                 -- 덱
-                local l_pvp_deck = struct_user_info:getDeck_dragonList(true) -- param : use_doid
+                local l_pvp_deck = struct_user_info:getDefenseDeck_dragonList(true) -- param : use_doid
                 if table.find(l_pvp_deck, doid) then
                     return false, Str('콜로세움 덱에 설정된 드래곤입니다.')
                 end
             end
         end
-
+    --[[
     elseif IS_ARENA_OPEN() then
         if g_arenaData then
             local struct_user_info = g_arenaData:getPlayerArenaUserInfo() -- return : StructUserInfoArena
@@ -934,6 +934,8 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
                 end
             end
         end
+    ]]
+
     end
 
     return true
