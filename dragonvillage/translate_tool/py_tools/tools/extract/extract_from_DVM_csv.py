@@ -42,13 +42,17 @@ def parse(result_data, file_path, header_datas, body_datas, ignore_krs):
             
 
 def get_str(result_data, file_path, ignore_krs):
-    with open(file_path, 'r', encoding='utf-8') as f:
-        csv_file = csv.reader(f)
-        csv_data = []
-        for line in csv_file:
-            csv_data.append(line)
-        header_data, body_data = csv_data[0], csv_data[1:]
-        parse(result_data, file_path, header_data, body_data, ignore_krs)
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            csv_file = csv.reader(f)
+            csv_data = []
+            for line in csv_file:
+                csv_data.append(line)
+            header_data, body_data = csv_data[0], csv_data[1:]
+            parse(result_data, file_path, header_data, body_data, ignore_krs)
+    except:
+        print('해당 파일을 읽는 도중 문제가 발생했습니다. :', file_path)
+        os.system('pause')
 
 
 def extract_from_DVM_csv(path, ignoreFiles, ignoreFolders, ignore_krs): # 딕셔너리 반환
