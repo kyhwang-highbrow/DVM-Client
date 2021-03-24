@@ -1367,6 +1367,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventArenaResult.lua" />
     <None Include="..\src\UI_EventBingo.lua" />
     <None Include="..\src\UI_EventBingoListItem.lua" />
+    <None Include="..\src\UI_EventBingoPackagePopup.lua" />
     <None Include="..\src\UI_EventBingoRewardListItem.lua" />
     <None Include="..\src\UI_EventDragonLaunchLegend.lua" />
     <None Include="..\src\UI_EventDungeon.lua" />

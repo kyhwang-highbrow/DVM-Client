@@ -4935,6 +4935,7 @@
     <None Include="..\src\GameState_DimensionGate.lua" />
     <None Include="..\src\SceneDimensionGate.lua" />
     <None Include="..\src\UI_GameResult_DimensionGate.lua" />
+    <None Include="..\src\UI_EventBingoPackagePopup.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -153,7 +153,7 @@ function UI_DimensionGateItem:initMember(data)
 
     self.m_hasDifficulty = (#data > 0)
     self.m_currDifficultyLevel = g_dimensionGateData:getMaxDifficultyInList(DIMENSION_GATE_MANUS, self.m_data)
-
+    ccdump(self.m_currDifficultyLevel)
     if self.m_hasDifficulty then
         self.m_targetData = self.m_data[self.m_currDifficultyLevel]
     else
@@ -246,16 +246,16 @@ end
 
 function UI_DimensionGateItem:setLockVRP()
     -- is it locked ?
-    if g_dimensionGateData:isStageOpen(self.m_mode, self.m_stageID) ==  false then
+    if g_dimensionGateData:isStageOpened(self.m_mode, self.m_stageID) == false then
         self.m_lockVisual:setVisible(true)
         self.m_lockVisual:changeAni('dmgate_lock')
         self.m_stageBtn:setEnabled(false)
     else -- opened
-        --if g_dimensionGateData:checkInUnlockList(self.m_stageID) then
+        if g_dimensionGateData:checkInUnlockList(self.m_stageID) then
             self.m_lockVisual:setVisible(true)
             self.m_lockVisual:changeAni('dmgate_unlock')
             self.m_stageBtn:setEnabled(true)
-        --end
+        end
     end
 end
 

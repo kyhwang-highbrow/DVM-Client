@@ -13,6 +13,10 @@ UI_EventBingo = class(PARENT,{
         m_container = 'ScrolView Container',
         m_containerTopPosY = 'number',
         m_isContainerMoving = 'bool',
+
+
+        -- 빙고 패키지 결제 팝업 버튼
+        m_bingoPackageBtn = '',
     })
 
 local BINGO_TYPE = {['HORIZONTAL'] = 1, ['VERTICAL'] = 2, ['CROSS_RIGHT_TO_LEFT'] = 3, ['CROSS_LEFT_TO_RIGHT'] = 4}
@@ -23,6 +27,8 @@ local BINGO_FOCUS_POS = {['DEFUALT'] = -680, ['BINGO'] = -400, ['EXCHANGE'] = 0}
 -------------------------------------
 function UI_EventBingo:init()
     local vars = self:load('event_bingo.ui')
+
+    self.m_bingoPackageBtn = vars['bingoBtn']
 
     self:initUI()
     self:initButton()
@@ -157,6 +163,9 @@ function UI_EventBingo:initButton()
 
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end)
     vars['exchangeBtn']:getParent():setSwallowTouch(false)
+
+    self.m_bingoPackageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
+    self.m_bingoPackageBtn:getParent():setSwallowTouch(false)
 
     vars['cancleBtn']:setVisible(false)
     vars['cancleBtn']:getParent():setSwallowTouch(false)
@@ -746,6 +755,10 @@ function UI_EventBingo:click_cancelPick()
     local vars = self.vars
     self:bingoNumBtnEnabled(false)
     self:setPickingMode(false)
+end
+
+function UI_EventBingo:click_packageBtn()
+    UI_EventBingoPackagePopup()
 end
 
 -------------------------------------

@@ -1474,9 +1474,10 @@ local t_module = {
     'UI_EventAlphabetInfoPopup',
     'UI_EventAlphabetConfirmPopup',
     'UI_EventAdvent',
+    'UI_EventBingoPackagePopup',
     'UI_EventBingoRewardListItem',
     'UI_EventBingoListItem',
-    'UI_EventBingo',
+    'UI_EventBingo',   -- 빙고 이벤트
     'UI_IllusionShop',-- 환상 던전 교환소
     'UI_IllusionRewardPopup', -- 환상 던전 보상 팝업
 	'UI_ItemPickPopup',

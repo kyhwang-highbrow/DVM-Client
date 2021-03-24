@@ -401,9 +401,22 @@ end
 
 -- end
 
--- function ServerData_DimensionGate:getNextStageID(stage_id)
+function ServerData_DimensionGate:getNextStageID(stage_id)
+    -- 모드
+    local mode_id = self:getModeID(stage_id)
+    -- 챕터
+    local chapter_id = self:getChapterID(stage_id)
+    -- 난이도
+    local difficulty_id = self:getDifficultyID(stage_id)
+    -- 스테이지
+    local stage_id = self:getStageID(stage_id)
 
--- end
+    -- id 조합
+    -- 스테이지 + 1 
+    -- 없으면 난이도 +1
+    -- 난이도 없으면 챕터 +1 ?? 애매.
+    -- 챕터 없으면 Max 상태
+end
 
 -------------------------------------
 -- function MakeDimensionGateID
@@ -446,9 +459,9 @@ function ServerData_DimensionGate:getStageStatus(mode_type, stage_id)
 end
 
 -------------------------------------
--- function isStageOpen
+-- function isStageOpened
 -------------------------------------
-function ServerData_DimensionGate:isStageOpen(mode_type, stage_id)
+function ServerData_DimensionGate:isStageOpened(mode_type, stage_id)
     return self:getStageStatus(mode_type, stage_id) >= 0
 end
 
@@ -490,7 +503,11 @@ function ServerData_DimensionGate:getMaxDifficultyInList(mode_type, list)
         diffLevel = self:getDifficultyID(id)
 
         if (not self:isStageCleared(mode_type, id)) then
-            return diffLevel
+            if diffLevel == 1 then 
+                return diffLevel
+            else 
+                return diffLevel - 1
+            end
         end
     end
 
