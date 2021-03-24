@@ -14,6 +14,33 @@ ServerData_DimensionGate = class({
     m_bDirtyDimensionGateInfo = 'boolean'
 })
 
+
+--[[
+    mode : {
+        min : 
+        max :
+        num : 
+
+        chapter : {
+            min : 
+            max :
+            num :
+
+            difficulty : {
+                min : 
+                max : 
+                num :
+
+                stage : {
+                    min : 
+                    max : 
+                    num : 
+                }
+            }
+        }
+    }
+]]
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -96,39 +123,46 @@ end
 function ServerData_DimensionGate:response_dimensionGateInfo(ret)
     -- TODO (YOUNGJIN) : TEMP DATA
     --ret['stage'][3011002] = {}
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3011001'] = 1
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3011002'] = 1
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3011003'] = 1
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3011004'] = 1
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3011005'] = 1
-  
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012101'] = 1
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012102'] = 1
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012103'] = 1
-    -- --ret[DIMENSION_GATE_MANUS]['stage']['3012104'] = 1
-    -- --ret[DIMENSION_GATE_MANUS]['stage']['3012105'] = 0
-
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012201'] = 1
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012202'] = 1
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012203'] = 0
-    -- --ret[DIMENSION_GATE_MANUS]['stage']['3012204'] = 0
-    -- --ret[DIMENSION_GATE_MANUS]['stage']['3012205'] = 0
-
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012301'] = 0
-    -- ret[DIMENSION_GATE_MANUS]['stage']['3012302'] = 0
-    -- -- ret[DIMENSION_GATE_MANUS]['stage']['3012303'] = 0
-    -- -- ret[DIMENSION_GATE_MANUS]['stage']['3012304'] = 0
-    -- -- ret[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
 
     local dmgate_info = ret['dmgate_info']
+    
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3011001'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3011002'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3011003'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3011004'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3011005'] = 1
+  
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012101'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012102'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012103'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012104'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012105'] = 1
+
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012201'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012202'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012203'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012204'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012205'] = 1
+
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012301'] = 1
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012302'] = 0
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012303'] = 0
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012304'] = 0
+    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
+    --ccdump(dmgate_info)
 
     if #self.m_dimensionGateInfo ~= 0 then
         local stage_id = ret['stage']
         local mode_id = self:getModeID(stage_id)
         if self.m_dimensionGateInfo[mode_id]['stage'][tostring(stage_id)]
         ~= dmgate_info[mode_id]['stage'][tostring(stage_id)] then
+
+            local key = self.m_dimensionGateKey[mode_id][stage_id]
+            local next_stage_id = self.m_dimensionGateTable[mode_id][key+1]['stage_id']
             
-            self.m_unlockStageList[stage_id] = {}
+            if next_stage_id ~= nil then
+                self.m_unlockStageList[next_stage_id] = {}
+            end
             self.m_dimensionGateInfo = dmgate_info
             return
         end
@@ -165,6 +199,7 @@ function ServerData_DimensionGate:request_dmgateTable()
     
     self.m_dimensionGateTable[DIMENSION_GATE_MANUS] = dimensionGate_list
     self.m_dimensionGateKey[DIMENSION_GATE_MANUS] = key
+    
 end
 
 function ServerData_DimensionGate:checkInUnlockList(stage_id)
@@ -402,6 +437,7 @@ end
 -- end
 
 function ServerData_DimensionGate:getNextStageID(stage_id)
+
     -- 모드
     local mode_id = self:getModeID(stage_id)
     -- 챕터
@@ -412,10 +448,30 @@ function ServerData_DimensionGate:getNextStageID(stage_id)
     local stage_id = self:getStageID(stage_id)
 
     -- id 조합
+    local temp_id = self:MakeDimensionGateID(mode_id, chapter_id, difficulty_id, stage_id)
+
+
+
+    -- while (self.m_dimensionGateInfo[mode_id][tostring(temp_id)] == nil) do -- chapter
+    --     while() do -- difficulty
+    --         while() do -- stage
+    --             stage_id = stage_i + 1
+
+    --         end
+
+    --         difficulty_id = difficulty_id + 1
+    --         stage_id = 1
+    --     end
+
+    --     chapter_id = chapter_id + 1
+    --     difficulty_id = 1
+
+    -- end
     -- 스테이지 + 1 
-    -- 없으면 난이도 +1
-    -- 난이도 없으면 챕터 +1 ?? 애매.
-    -- 챕터 없으면 Max 상태
+
+    -- 없으면 난이도 +1 스테이지 1부터.
+    -- 난이도 없으면 챕터 +1 스테이지 1부터. 난이도는? 0부터? 1부터? 어라? 챕터애매.
+    -- 챕터 없으면 Max 상태. 모드 바뀌는건 다른 모드 나왔을 때 생각.
 end
 
 -------------------------------------
