@@ -353,11 +353,13 @@ function UI_Package_Bundle:click_rewardBtn()
 
     -- 만원의 행복
     if (self.m_package_name == 'package_lucky_box') then
-        category = 'lucky'
+        category = 'luckybox'
     elseif (self.m_package_name == 'package_lucky_box_9.9k') then
-        category = 'lucky_9.9k'
+        category = 'luckybox_9.9k'
     elseif (self.m_package_name == 'package_lucky_box_9.9k_02') then
-        category = 'lucky_9.9k_02'
+        category = 'luckybox_9.9k_02'
+    elseif (self.m_package_name == 'package_lucky_box_dia') then
+        category = 'luckybox_9.9k_03'
     
     -- 드래곤 100개 뽑기 패키지 
     elseif (self.m_package_name == 'package_dragon_summon_100') then
