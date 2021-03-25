@@ -264,7 +264,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 
     -- 정말 원해서 한건 아니지만, 당장은 이런 방법밖에 없음
     -- 나중에 이걸 개선을 해야함
-    elseif (status_effect_type == 'cldg_dmg_add' and caster.m_charTable['type'] == 'ancient_word_c') then
+    elseif (status_effect_type == 'cldg_dmg_add' and caster.m_charTable['type'] == 'fallen_angel') then
         -- 클랜 보스가 사용하는 받는 피해 증가 효과는 저항할 수 없도록 처리
         
     elseif (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then

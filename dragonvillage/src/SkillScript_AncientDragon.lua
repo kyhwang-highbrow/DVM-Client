@@ -130,10 +130,6 @@ function SkillScript_AncientDragon.st_charge(owner, dt)
         local unit = owner.m_owner
         unit.m_animator:changeAni('skill_1_appear', false)
 
-        -- 여기서 충전중 정보 설정
-        owner.m_reactingInfo = {  }
-
-
         -- 약점 이펙트 표시
         if (owner.m_effectRootNode) then
             owner.m_effectRootNode:setVisible(true)
