@@ -316,18 +316,19 @@ end
 -- function getTargetListByTable
 -- @brief skill table을 인자로 받는 경우..
 -------------------------------------
-function Character:getTargetListByTable(t_skill, t_data, is_all)
+function Character:getTargetListByTable(t_skill, t_data)
 	local target_type = t_skill['target_type']
 	local target_count = t_skill['target_count']
     local target_formation = t_skill['target_formation']
-
+    local is_active_skill = t_skill['chance_type'] == 'active'
+    
     if (target_type == '') then 
         local sid = tostring(t_skill['sid'])
         local name = tostring(t_skill['t_name'])
 		error('타겟 타입이 없네요..ㅠ 테이블 수정해주세요 ' .. sid .. ' ' .. name)
 	end
 
-    return self:getTargetListByType(target_type, target_count, target_formation, t_data, is_all)
+    return self:getTargetListByType(target_type, target_count, target_formation, t_data, is_active_skill)
 end
 
 -------------------------------------
@@ -368,7 +369,7 @@ end
 -- function getTargetListByType
 -- @param target_formation은 없어도 된다
 -------------------------------------
-function Character:getTargetListByType(target_type, target_count, target_formation, t_data, is_all)
+function Character:getTargetListByType(target_type, target_count, target_formation, t_data, is_active_skill)
     local t_data = t_data or {}
 
 	if (target_type == '') then 
@@ -387,8 +388,8 @@ function Character:getTargetListByType(target_type, target_count, target_formati
 
 	--> target_count = 3
 	local target_count = target_count
-
-	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule, t_data, is_all)
+    
+	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule, t_data, is_active_skill)
 
     -- 고대 유적 던전의 경우 아군의 일반 공격은 보스를 우선으로 공격하도록 처리
     if (self.m_world.m_gameMode == GAME_MODE_ANCIENT_RUIN and self.m_bLeftFormation) then
@@ -419,7 +420,7 @@ end
 -------------------------------------
 -- function checkTarget
 -------------------------------------
-function Character:checkTarget(t_skill, t_data, is_all)
+function Character:checkTarget(t_skill, t_data)
     if (not t_skill) then return false end
 
 	if (t_data and t_data['target']) then
@@ -427,7 +428,7 @@ function Character:checkTarget(t_skill, t_data, is_all)
 		self.m_targetChar = t_data['target']
 	else
 		-- 없다면 탐색
-		local t_ret = self:getTargetListByTable(t_skill, nil, is_all)
+		local t_ret = self:getTargetListByTable(t_skill, nil)
 		self.m_targetChar = t_ret[1]
 	end
 

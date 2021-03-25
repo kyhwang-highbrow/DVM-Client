@@ -1193,12 +1193,14 @@ end
 -- 얽힌게 많아서 여기서만 깔짝대기로 결정
 -- 타깃리스트와 스킬정보를 받아서 최종 리스트를 반환
 -------------------------------------
-function GameWorld:generateFinalTargetList(l_target)
+function GameWorld:generateFinalTargetList(l_target, is_active_skill)
     local l_result = {}
 
     if (not l_target) then return l_result end
 
-    for _, character in pairs(l_target) do
+    local modified_target_list = self:resetListByStatusEffect(l_target, is_active_skill)
+
+    for _, character in pairs(modified_target_list) do
         -- attacked_type 지정되어 있고
         -- attacked_type 에 따라 공격 가능한 리스트 리턴
         -- 본인이 알아서 죽을 때까지 내버려 둬야함으로
@@ -1223,11 +1225,66 @@ function GameWorld:generateFinalTargetList(l_target)
     return l_result
 end
 
+-------------------------------------
+-- function generateFinalTargetList
+-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+-- 얽힌게 많아서 여기서만 깔짝대기로 결정
+-- 타깃리스트와 스킬정보를 받아서 최종 리스트를 반환
+-------------------------------------
+function GameWorld:resetListByStatusEffect(l_target, is_active_skill)
+    local l_result = {}
+    if (not l_target) then return l_result end
+
+    for _, character in pairs(l_target) do
+        local statusEffectList = character:getStatusEffectList()
+        if (not statusEffectList) then statusEffectList = {} end
+
+        local has_attack_limit = false
+
+        for k, v in pairs(statusEffectList) do
+            -- 공격제한 타입이 있다면?
+            if (v.m_type == 'atk_limit') then
+
+                local effect_name = v.m_statusEffectName
+
+                -- 아예 못떄림
+                if (effect_name == 'target_disabled') then
+                    has_attack_limit = true
+                    break
+
+                -- 액티브만 먹을 때
+                elseif (is_active_skill and effect_name == 'target_active_skill_only') then
+                    table.insert(l_result, character)
+                    has_attack_limit = true
+                    break
+
+                -- 액티브 뺴고 다먹어야 할 때
+                elseif (effect_name == 'target_without_skill') then
+                    -- 액티브가 아니면 리스트에 추가
+                    if (not is_active_skill) then
+                        table.insert(l_result, character)
+                    end
+
+                    has_attack_limit = true
+                    break
+                end
+            end
+        end
+
+        if (not has_attack_limit) then
+            table.insert(l_result, character)
+        end
+    end
+
+    return l_result
+end
+
+
 
 -------------------------------------
 -- function getTargetList
 -------------------------------------
-function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data, is_all)
+function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data, is_active_skill)
     local formation_type = formation_type or ''
     local group_key = char:getPhysGroup()
     local unit_group = self:getUnitGroupConsideredTamer(char)
@@ -1318,11 +1375,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
             -- 액티브 스킬이 아닐 때 체크
             -- 액티브 스킬에만 반응하는 오브젝트를 위해서
             -- 해당값이 false면 리스트 가공 안함
-            if (is_all) then
-                l_result = origin_list
-            else
-                l_result = self:generateFinalTargetList(origin_list)
-            end
+            l_result = self:generateFinalTargetList(origin_list, is_active_skill)
         end
 
     elseif (team_type == 'all') then
@@ -1364,14 +1417,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
     -- pvp 상대 테이머 그룹에서 살아있는 덱정보를 가져온다.
     if (not l_result or #l_result <= 0) then
         local default_origin_list = for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
-        -- 액티브 스킬이 아닐 때 체크
-        -- 액티브 스킬에만 반응하는 오브젝트를 위해서
-        -- 해당값이 false면 리스트 가공 안함
-        if (is_all) then
-            l_result = default_origin_list
-        else
-            l_result = self:generateFinalTargetList(default_origin_list)
-        end
+        l_result = self:generateFinalTargetList(default_origin_list, is_active_skill)
     end
 
     return l_result

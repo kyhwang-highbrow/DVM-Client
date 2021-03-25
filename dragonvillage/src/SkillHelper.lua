@@ -389,7 +389,7 @@ function SkillHelper:getTargetToUseActiveSkill(unit)
 
     -- 공격형
     if (string.find(target_type, 'enemy')) then
-        l_target = unit:getTargetListByType(target_type, nil, target_formation)
+        l_target = unit:getTargetListByType(target_type, nil, target_formation, nil, true)
 
     else
         -- AI 대상으로 변경
@@ -399,7 +399,7 @@ function SkillHelper:getTargetToUseActiveSkill(unit)
             error('invalid ai_division : ' .. ai_division)
         end
 
-        l_target = unit:getTargetListByType(target_type, nil, target_formation)
+        l_target = unit:getTargetListByType(target_type, nil, target_formation, nil, true)
         fixed_target = l_target[1]
     end
 

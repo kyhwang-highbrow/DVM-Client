@@ -101,7 +101,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
         
     -- 코드형 스킬
     elseif (skill_form == 'code') then
-        self:checkTarget(t_skill, t_data, true)
+        self:checkTarget(t_skill, t_data)
 
         if (not self.m_targetChar) then
             return false
