@@ -591,6 +591,9 @@ end
 -- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
 -------------------------------------
 function StatusEffect:onApplyOverlab(unit)
+    if (not self.m_statusEffectTable) then return end
+
+    self:setOverlabScaleByVariables(unit)
 end
 
 -------------------------------------
@@ -1020,4 +1023,32 @@ end
 -------------------------------------
 function StatusEffect:initValue(value)
     self.m_keep_value = value
+end
+
+
+-------------------------------------
+-- function setOffsetPos
+-- 중첩 가능한 상태일 때
+-- 그 중첩에 따라 스케일값 변동하는
+-- 값이 들어가 있는지 확인
+-------------------------------------
+function StatusEffect:setOverlabScaleByVariables(unit)
+    if (not self.m_owner) then return end
+
+    local act_type = self.m_statusEffectTable['val_1']
+    local period = self.m_statusEffectTable['val_2']
+    local rate = self.m_statusEffectTable['val_3']
+
+    -- 셋중에 하나도 비어있으면 암것도 안함
+    if (isNullOrEmpty(act_type) or isNullOrEmpty(period) or isNullOrEmpty(rate)) then return end
+    if (act_type ~= 'scale') then return end
+
+    -- 0이 되었을 때를 대비 
+    period = math.max(tonumber(period), 1)
+
+    local original_scale = self.m_owner.m_animator:getScale()
+    local add_scale = original_scale + tonumber(rate)
+    local final_scale = add_scale
+
+    self.m_owner.m_animator:setScale(final_scale)
 end
