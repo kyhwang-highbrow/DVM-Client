@@ -138,7 +138,7 @@ function UI_DimensionGateItem:refresh()
 
     self:setLockVRP()
 
-    self.m_stageStatus = g_dimensionGateData:getStageStatus(self.m_mode, self.m_stageID)
+    self.m_stageStatus = g_dimensionGateData:getRewardStatus(self.m_stageID)
 
     self:setRewardVRP()
 end
@@ -286,7 +286,8 @@ end
 ----------------------------------------------------------------------
 -- function setRewardVRP
 ----------------------------------------------------------------------
-function UI_DimensionGateItem:setRewardVRP()  
+function UI_DimensionGateItem:setRewardVRP() 
+    
     self.m_rewardVisual:changeAni('dmgate_box_' .. tostring(self.m_stageStatus), true)
 
     if self.m_stageStatus == 2 then 

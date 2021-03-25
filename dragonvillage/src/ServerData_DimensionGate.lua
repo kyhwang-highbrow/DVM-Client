@@ -549,6 +549,17 @@ function ServerData_DimensionGate:isStageCleared(mode_type, stage_id)
     return self:getStageStatus(mode_type, stage_id) > 0
 end
 
+-------------------------------------
+-- function getRewardStatus
+-------------------------------------
+function ServerData_DimensionGate:getRewardStatus(stage_id)
+    local mode_id = self:getModeID(stage_id)
+    local status = self:getStageStatus(mode_id, stage_id)
+    if status == -1 then status = 0 end
+
+    return status
+end
+
 -- function ServerData_DimensionGate:isRewarded(stage_id)
 --     local mode_id = self:getModeID(stage_id)
 --     -- 0 : 클리어 x // 1 : 클리어 o, 보상 x // 2: 클리어 o, 보상 o
