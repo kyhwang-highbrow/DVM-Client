@@ -135,7 +135,10 @@ function Monster:initAnimatorMonster(file_name, attr, scale, size_type)
 
     self.m_rootNode:addChild(self.m_animator.m_node)
 	if (scale) then
+        self.m_originScale = scale
 		self.m_animator:setScale(scale)
+    else
+        self.m_originScale = 1
 	end
 
     -- 각종 쉐이더 효과 시 예외 처리할 슬롯 설정(Spine)

@@ -788,6 +788,19 @@ function convertToParentCoord(parent, target)
     return CCPoint(x, y)
 end
 
+-------------------------------------
+-- function isNullOrEmpty
+-- 널이나 빈 스트링인지?
+-------------------------------------
+function isNullOrEmpty(v)
+    if (not v or v == '') then
+        return true
+    end
+
+    return false
+end
+
+
 --add number format(2012/11/13 by jjo)
 function comma_value(n) -- credit http://richard.warburton.it
     local left,num,right = string.match(n,'^([^%d]*%d)(%d*)(.-)$')

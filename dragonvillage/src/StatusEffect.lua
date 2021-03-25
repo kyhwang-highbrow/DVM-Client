@@ -1046,9 +1046,9 @@ function StatusEffect:setOverlabScaleByVariables(unit)
     -- 0이 되었을 때를 대비 
     period = math.max(tonumber(period), 1)
 
-    local original_scale = self.m_owner.m_animator:getScale()
-    local add_scale = original_scale + tonumber(rate)
-    local final_scale = add_scale
+    local original_scale = self.m_owner.m_originScale
+    local add_scale = math.max(self.m_overlabCnt / period, 0) * tonumber(rate)
+    local final_scale = original_scale + add_scale
 
-    self.m_owner.m_animator:setScale(final_scale)
+    self.m_owner.m_rootNode:setScale(final_scale)
 end

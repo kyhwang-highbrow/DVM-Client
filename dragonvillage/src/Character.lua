@@ -22,6 +22,7 @@ Character = class(PARENT, {
         m_aspdRatio = '',
 		m_attribute = '',
 		m_attributeOrg = '',
+        m_originScale = 'num',  -- 생성 시 스케일
 
 		-- 기초 유틸
         m_statusCalc = '',
@@ -157,6 +158,13 @@ Character = class(PARENT, {
 
         -- ICharacterBinding 사용 여부
         m_bUseBinding = 'boolean',
+
+        -- 리액션이 필요할 때 설정되는 정보
+        m_reactingInfo  = 'table',
+
+        m_characterSpeechNode = '',
+        m_characterSpeech = '',
+        m_characterSpeechLabel = '',
      })
 
 local SpasticityTime = 0.2
@@ -248,6 +256,8 @@ function Character:initWorld(game_world)
         self.m_lockOnNode = cc.Node:create()
         self.m_world.m_lockOnNode:addChild(self.m_lockOnNode)
     end
+
+    --self:initSpeechUI()
 end
 
 -------------------------------------
@@ -3280,4 +3290,63 @@ end
 -------------------------------------
 function Character:isMetamorphosis()
     return self.m_bMetamorphosis
+end
+
+
+-------------------------------------
+-- function initSpeechUI
+-------------------------------------
+function Character:initSpeechUI()
+    -- 말풍선
+    self.m_characterSpeech = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
+    self.m_characterSpeech:setScale(0.6)
+    self.m_characterSpeech:setVisual('skill_gauge', 'bubble_2')
+    self.m_characterSpeech:setRepeat(false)
+    self.m_characterSpeech:setVisible(true)
+    self:getEnemySpeechNode():addChild(self.m_characterSpeech.m_node, 5)
+    self.m_characterSpeech:setPosition(-500, 0)
+    
+    local speechNode = self.m_characterSpeech.m_node:getSocketNode('skill_bubble')
+    local font_scale_x, font_scale_y = Translate:getFontScaleRate()
+
+    self.m_characterSpeechLabel = cc.Label:createWithTTF('', Translate:getFontPath(), 24, 0, cc.size(340, 100), 1, 1)
+    self.m_characterSpeechLabel:setAnchorPoint(cc.p(0.5, 0.5))
+	self.m_characterSpeechLabel:setDockPoint(cc.p(0, 0))
+	self.m_characterSpeechLabel:setColor(cc.c3b(0,0,0))
+    self.m_characterSpeechLabel:setScale(font_scale_x * 1.4, font_scale_y * 1.4)
+    speechNode:addChild(self.m_characterSpeechLabel)
+    self.m_characterSpeechLabel:setString('')
+
+    self:showSpeech('핫하 죽어라!')
+end
+
+
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function Character:showSpeech(strSpeech)
+    if (not self.m_characterSpeech) then return end
+
+    self.m_characterSpeechLabel:setString(strSpeech)
+
+    self.m_characterSpeech:setPosition(300, 150)
+    
+    self.m_characterSpeech:setFrame(0)
+    self.m_characterSpeech:addAniHandler(function()
+        self.m_characterSpeech:setFrame(30)
+        self.m_characterSpeech:setAnimationPause(true)
+    end)
+
+    self.m_characterSpeech:setVisible(true)
+end
+
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function Character:hideSpeech()
+    self.m_characterSpeech:setAnimationPause(false)
+
+    self.m_characterSpeech:addAniHandler(function()
+        self.m_characterSpeech:setVisible(false)
+    end)
 end

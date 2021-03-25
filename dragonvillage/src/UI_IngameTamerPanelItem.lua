@@ -11,6 +11,9 @@ UI_IngameTamerPanelItem = class(PARENT, {
         m_bVisible = 'boolean',
         m_menuPosX = 'number',
         m_menuPosY = 'number',
+
+        m_tamerSpeech = '',
+        m_tamerSpeechLabel = '',
      })
 
 -------------------------------------
@@ -30,6 +33,7 @@ function UI_IngameTamerPanelItem:init(world, tamer)
     
     self:initUI()
 	self:initButton()
+    self:initSpeechUI()
 end
 
 -------------------------------------
@@ -199,4 +203,61 @@ function UI_IngameTamerPanelItem:setTemporaryPause(pause)
     else
         vars['tamerSkillVisual']:setVisible(tamer.m_bActiveSKillUsable)
     end 
+end
+
+-------------------------------------
+-- function initSpeechUI
+-------------------------------------
+function UI_IngameTamerPanelItem:initSpeechUI()
+    local vars = self.vars
+    local tamer_node = vars['panelMenu']
+
+    -- 말풍선
+    self.m_tamerSpeech = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
+    self.m_tamerSpeech:setScale(1)
+    self.m_tamerSpeech:setVisual('skill_gauge', 'bubble_2')
+    self.m_tamerSpeech:setRepeat(false)
+    self.m_tamerSpeech:setVisible(false)
+    tamer_node:addChild(self.m_tamerSpeech.m_node)
+    self.m_tamerSpeech:setPosition(280, 100)
+    
+    local speechNode = self.m_tamerSpeech.m_node:getSocketNode('skill_bubble')
+    local font_scale_x, font_scale_y = Translate:getFontScaleRate()
+
+    self.m_tamerSpeechLabel = cc.Label:createWithTTF('', Translate:getFontPath(), 24, 0, cc.size(340, 100), 1, 1)
+    self.m_tamerSpeechLabel:setAnchorPoint(cc.p(0.5, 0.5))
+	self.m_tamerSpeechLabel:setDockPoint(cc.p(0, 0))
+	self.m_tamerSpeechLabel:setColor(cc.c3b(0,0,0))
+    self.m_tamerSpeechLabel:setScale(font_scale_x, font_scale_y)
+    speechNode:addChild(self.m_tamerSpeechLabel)
+    self.m_tamerSpeechLabel:setString('')
+end
+
+
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function UI_IngameTamerPanelItem:showSpeech(strSpeech)
+    self.m_tamerSpeechLabel:setString(strSpeech)
+
+    self.m_tamerSpeech:setPosition(300, 150)
+    
+    self.m_tamerSpeech:setFrame(0)
+    self.m_tamerSpeech:addAniHandler(function()
+        self.m_tamerSpeech:setFrame(30)
+        self.m_tamerSpeech:setAnimationPause(true)
+    end)
+
+    self.m_tamerSpeech:setVisible(true)
+end
+
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function UI_IngameTamerPanelItem:hideSpeech()
+    self.m_tamerSpeech:setAnimationPause(false)
+
+    self.m_tamerSpeech:addAniHandler(function()
+        self.m_tamerSpeech:setVisible(false)
+    end)
 end
