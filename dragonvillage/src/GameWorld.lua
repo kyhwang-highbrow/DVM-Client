@@ -1198,7 +1198,9 @@ function GameWorld:generateFinalTargetList(l_target, is_active_skill)
 
     if (not l_target) then return l_result end
 
-    for _, character in pairs(l_target) do
+    local l_status_effect_filtered = self:resetListByStatusEffect(l_target, is_active_skill)
+
+    for _, character in pairs(l_status_effect_filtered) do
         -- attacked_type 지정되어 있고
         -- attacked_type 에 따라 공격 가능한 리스트 리턴
         -- 본인이 알아서 죽을 때까지 내버려 둬야함으로
@@ -1224,12 +1226,12 @@ function GameWorld:generateFinalTargetList(l_target, is_active_skill)
 end
 
 -------------------------------------
--- function generateFinalTargetList
+-- function resetListByStatusEffect
 -- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 -- 얽힌게 많아서 여기서만 깔짝대기로 결정
 -- 타깃리스트와 스킬정보를 받아서 최종 리스트를 반환
 -------------------------------------
-function GameWorld:resetListByStatusEffect(l_target)
+function GameWorld:resetListByStatusEffect(l_target, is_active_skill)
     local l_result = {}
     if (not l_target) then return l_result end
 
@@ -1286,7 +1288,7 @@ end
 -------------------------------------
 -- function getTargetList
 -------------------------------------
-function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
+function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data, is_active_skill)
     local formation_type = formation_type or ''
     local group_key = char:getPhysGroup()
     local unit_group = self:getUnitGroupConsideredTamer(char)
@@ -1416,11 +1418,18 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
 
     end
 
+
     -- 필드에 적이 아무도 없을 때 
     -- pvp 상대 테이머 그룹에서 살아있는 덱정보를 가져온다.
     if (not l_result or #l_result <= 0) then
         local default_origin_list = for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
-        l_result = self:generateFinalTargetList(default_origin_list, is_active_skill)
+
+        -- 나자신에게 쓰는것이 아니면 타게팅 제한 버프 체크
+        if (team_type ~= 'self') then
+            l_result = self:generateFinalTargetList(default_origin_list, is_active_skill)
+        else
+            l_result = default_origin_list
+        end
     end
 
     return l_result

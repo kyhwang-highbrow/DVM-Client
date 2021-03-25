@@ -335,7 +335,7 @@ end
 -- function getTargetListByType
 -- @param target_formation은 없어도 된다
 -------------------------------------
-function Character:getTargetListByType(target_type, target_count, target_formation, t_data)
+function Character:getTargetListByType(target_type, target_count, target_formation, t_data, is_active_skill)
     local t_data = t_data or {}
 
 	if (target_type == '') then 
@@ -355,7 +355,7 @@ function Character:getTargetListByType(target_type, target_count, target_formati
 	--> target_count = 3
 	local target_count = target_count
     
-	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule, t_data)
+	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule, t_data, is_active_skill)
 
     -- 고대 유적 던전의 경우 아군의 일반 공격은 보스를 우선으로 공격하도록 처리
     if (self.m_world.m_gameMode == GAME_MODE_ANCIENT_RUIN and self.m_bLeftFormation) then
