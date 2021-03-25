@@ -760,6 +760,7 @@ end
 
 function UI_EventBingo:click_packageBtn()
     --UI_EventBingoPackagePopup()
+    -- 빙고 패키지 팝업 
     PackageManager:getTargetUI('package_bingo_token', true)
 end
 

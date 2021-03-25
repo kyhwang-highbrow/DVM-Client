@@ -18,6 +18,8 @@ function UI_PackageRandomBoxInfo:init(l_item, package_name)
         ui_name = 'package_lucky_box_9.9k_popup.ui'
     elseif (package_name == 'package_lucky_box_9.9k_02') then
         ui_name = 'package_lucky_box_9.9k_popup_02.ui'
+    elseif (package_name == 'package_lucky_box_dia') then 
+        ui_name = 'package_lucky_box_dia_popup.ui'
     else
         ui_name = 'package_lucky_box_popup.ui'
     end
