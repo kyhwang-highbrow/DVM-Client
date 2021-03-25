@@ -759,7 +759,8 @@ function UI_EventBingo:click_cancelPick()
 end
 
 function UI_EventBingo:click_packageBtn()
-    UI_EventBingoPackagePopup()
+    --UI_EventBingoPackagePopup()
+    PackageManager:getTargetUI('package_bingo_token', true)
 end
 
 -------------------------------------
