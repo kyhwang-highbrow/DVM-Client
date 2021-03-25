@@ -1253,8 +1253,11 @@ function GameWorld:resetListByStatusEffect(l_target, is_active_skill)
                     break
 
                 -- 액티브만 먹을 때
-                elseif (is_active_skill and effect_name == 'target_active_skill_only') then
-                    table.insert(l_result, character)
+                elseif (effect_name == 'target_active_skill_only') then
+                    if (is_active_skill) then
+                        table.insert(l_result, character)
+                    end
+
                     has_attack_limit = true
                     break
 
