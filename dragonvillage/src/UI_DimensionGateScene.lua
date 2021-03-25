@@ -327,7 +327,9 @@ end
 
 -------------------------------------
 -- function click_stageBtn
--- @brief 
+-- @brief callback function of UI_DimensionGateItem
+-- @param target_ui 
+-- @param data 사용 x
 -------------------------------------
 function UI_DimensionGateScene:click_stageBtn(target_ui, data)
     local vars = self.vars
@@ -337,19 +339,13 @@ function UI_DimensionGateScene:click_stageBtn(target_ui, data)
         self:closeStageNode()
         return
     end
-    
-    -- ServerData_dimensionGate 에서 'stage_id'에 의해 sort가 되지 않아
-    -- index에 의해 sort 했기 때문에 이에 동일한 'level'을 이용.
-    local key
 
     -- Chapter에 따라 해당하는 tableview를 선택
     local target_tableView
     if self.m_selectedChapter == self.m_bottomBtn then
         target_tableView = self.m_bottomTableView
-        key = data['level']
     else
         target_tableView = self.m_topTableView
-        key = data[1]['level']
     end
 
     for i,v in ipairs(target_tableView.m_itemList) do
@@ -468,121 +464,3 @@ end
 --//  
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
--------------------------------------
--- function click_stageBtn
--- @brief 
--- @param data
--- ['level']=1;
--- ['dm_id']=3010000;
--- ['reset_unlock']=1;
--- ['condition_stage_id']='';
--- ['start_date']=20213115;
--- ['reset_reward']=0;
--- ['end_date']=29211231;
--- ['type']=1;
--- ['item']='700901;10';
--- ['stage_id']=3011001;
--- ['grade']=0;
--------------------------------------
-function UI_DimensionGateScene:old_click_stageBtn(ui, data)
-    local vars = self.vars
-
-    -- 스테이지 팝업 상태에서 클릭시 팝업 닫고 tableview 다시 보여주기
-    if self.m_selectedDimensionGateInfo then
-        self:closeStageNode()
-        return
-    end
-
-    --
-    local node = ui.root
-    local node_pos = convertToAnoterParentSpace(node, self.root)
-
-    node:retain()
-    node:removeFromParent()
-    node:setPosition(node_pos['x'], node_pos['y'])
-
-    self.root:addChild(node)
-    node:release()
-    --
-
-    -- ServerData_dimensionGate 에서 'stage_id'에 의해 sort가 되지 않아
-    -- index에 의해 sort 했기 때문에 이에 동일한 'level'을 이용.
-    local key
-
-    -- Chapter에 따라 해당하는 tableview를 선택
-    local target_tableView
-    if self.m_selectedChapter == self.m_bottomBtn then
-        target_tableView = self.m_bottomTableView
-        key = data['level']
-    else
-        target_tableView = self.m_topTableView
-        key = data[1]['level']
-    end
-    -- TableView에서 해당 Item 선택
-    local target_item = target_tableView:getItem(key)
-    -- 해당 tableview에서 item 삭제
-    target_item['ui'] = nil
-    -- target_item['generated_ui'] = nil
-
-
-    local target_pos = convertToAnoterNodeSpace(node, self.vars['dmgateNode'])
-    ui:cellMoveTo(0.5, target_pos)
-
-    target_tableView:setVisible(false)
-    
-
-    self.m_selectedDimensionGateInfo = {ui = ui, key = key, data = data}
-
-    --self.m_stageNode:stopAllActions()
-    cca.reserveFunc(self.m_stageNode, 0.25, 
-    function() self:PopupStageNode(data) end)
-
-    --local target_pos = convertToAnotherNodeSpace(node, self.vars[''])
-end
-
--------------------------------------
--- function closeStageNode
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:old_closeStageNode()
-    self.m_stageNode:setVisible(false)
-
-    local ui = self.m_selectedDimensionGateInfo.ui
-    local key = self.m_selectedDimensionGateInfo.key
-    
-    local target_tableView
-    if(self.m_selectedChapter == self.m_bottomBtn) then
-        target_tableView = self.m_bottomTableView
-    else
-        target_tableView = self.m_topTableView
-    end
-
-    local target_item = target_tableView:getItem(key)
-
-    local node = ui.root
-    local container = target_tableView.m_scrollView:getContainer()
-    local node_pos = convertToAnoterParentSpace(node, container)
-
-    node:retain()
-    node:removeFromParent()
-    -- node:setPosition(node_pos['x'], node_pos['y'])
-
-    container:addChild(node)--, 100 - target_item['idx'])
-    node:release()
-
-    target_item['ui'] = ui
-    local data = target_item['data']
-
-    target_tableView:setDirtyItemList()
-    target_tableView:setVisible(true)
-
-
-    self.m_selectedDimensionGateInfo = nil
-    --self.m_topBtn:setTouchEnabled(true)
-    --self.m_bottomBtn:setTouchEnabled(true)
-    if(self.m_diffLevelTableView ~= nil) then
-        self.m_diffLevelTableView:clearItemList()
-    end
-    self.m_diffLevelTableView = nil
-
-end

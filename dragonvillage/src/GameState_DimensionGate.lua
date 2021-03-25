@@ -20,7 +20,6 @@ end
 -- function makeResultUI
 -------------------------------------
 function GameState_DimensionGate:makeResultUI(isSuccess)
-    isSuccess = true
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
