@@ -751,7 +751,7 @@ end
 function Skill:getDefaultTarget()
     if (self.m_targetChar) then return self.m_targetChar end
 
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation, nil, true)
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation)
 	local target = l_target[1]
 
 	if (not target) then

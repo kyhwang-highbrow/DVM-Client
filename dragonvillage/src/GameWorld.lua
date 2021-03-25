@@ -1198,9 +1198,7 @@ function GameWorld:generateFinalTargetList(l_target, is_active_skill)
 
     if (not l_target) then return l_result end
 
-    local modified_target_list = self:resetListByStatusEffect(l_target, is_active_skill)
-
-    for _, character in pairs(modified_target_list) do
+    for _, character in pairs(l_target) do
         -- attacked_type 지정되어 있고
         -- attacked_type 에 따라 공격 가능한 리스트 리턴
         -- 본인이 알아서 죽을 때까지 내버려 둬야함으로
@@ -1231,7 +1229,7 @@ end
 -- 얽힌게 많아서 여기서만 깔짝대기로 결정
 -- 타깃리스트와 스킬정보를 받아서 최종 리스트를 반환
 -------------------------------------
-function GameWorld:resetListByStatusEffect(l_target, is_active_skill)
+function GameWorld:resetListByStatusEffect(l_target)
     local l_result = {}
     if (not l_target) then return l_result end
 
@@ -1242,6 +1240,7 @@ function GameWorld:resetListByStatusEffect(l_target, is_active_skill)
         local has_attack_limit = false
 
         for k, v in pairs(statusEffectList) do
+
             -- 공격제한 타입이 있다면?
             if (v.m_type == 'atk_limit') then
 
@@ -1287,7 +1286,7 @@ end
 -------------------------------------
 -- function getTargetList
 -------------------------------------
-function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data, is_active_skill)
+function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
     local formation_type = formation_type or ''
     local group_key = char:getPhysGroup()
     local unit_group = self:getUnitGroupConsideredTamer(char)
@@ -1295,6 +1294,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
     local t_data = t_data or {}
 
     local l_result = {}
+
 
     t_data['self'] = char
     t_data['team_type'] = team_type

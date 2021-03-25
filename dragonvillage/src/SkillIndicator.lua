@@ -614,7 +614,7 @@ end
 -- @brief 타겟룰에 의해 적절한 타겟리스트 가져옴
 -------------------------------------
 function SkillIndicator:getProperTargetList()
-	return self.m_hero:getTargetListByType(self.m_targetType, nil, self.m_targetFormation, nil, true)
+	return self.m_hero:getTargetListByType(self.m_targetType, nil, self.m_targetFormation)
 end
 
 -------------------------------------
