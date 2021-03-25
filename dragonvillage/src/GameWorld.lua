@@ -1424,11 +1424,11 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
     if (not l_result or #l_result <= 0) then
         local default_origin_list = for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
 
-        -- 나자신에게 쓰는것이 아니면 타게팅 제한 버프 체크
-        if (team_type ~= 'self') then
-            l_result = self:generateFinalTargetList(default_origin_list, is_active_skill)
-        else
+        -- 나자신이나 아군에게 쓰는것이 아니면 타게팅 제한 버프 체크
+        if (isExistValue(team_type, 'self', 'teammate', 'ally') ) then
             l_result = default_origin_list
+        else
+            l_result = self:generateFinalTargetList(default_origin_list, is_active_skill)
         end
     end
 
