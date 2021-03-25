@@ -8,6 +8,8 @@ UI_EventBingo = class(PARENT,{
         m_lBingoCntReward = 'table', -- 빙고 횟수에 따른 보상 테이블
         m_lBingoLineReward = 'table', -- 빙고 라인 보상 테이블
 
+        m_packageName = '',
+
         m_lExchangeUI = 'UI_EventBingoExchangeListItem', -- 교환 상품 UI 리스트
 
         m_container = 'ScrolView Container',
@@ -28,8 +30,9 @@ local BINGO_FOCUS_POS = {['DEFUALT'] = -680, ['BINGO'] = -400, ['EXCHANGE'] = 0}
 function UI_EventBingo:init()
     local vars = self:load('event_bingo.ui')
 
-    self.m_bingoPackageBtn = vars['bingoBtn']
+    self.m_packageName = 'package_bingo_token'
 
+    self.m_bingoPackageBtn = vars['bingoBtn']
     self:initUI()
     self:initButton()
     self:initExchangeReward()
@@ -164,9 +167,13 @@ function UI_EventBingo:initButton()
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end)
     vars['exchangeBtn']:getParent():setSwallowTouch(false)
 
-    self.m_bingoPackageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
-    self.m_bingoPackageBtn:getParent():setSwallowTouch(false)
-    self.m_bingoPackageBtn:setAutoShake(true)
+    if self:check_packagesOnTime() then 
+        self.m_bingoPackageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
+        self.m_bingoPackageBtn:getParent():setSwallowTouch(false)
+        self.m_bingoPackageBtn:setAutoShake(true)
+    else
+        self.m_bingoPackageBtn:setVisible(false)
+    end
 
     vars['cancleBtn']:setVisible(false)
     vars['cancleBtn']:getParent():setSwallowTouch(false)
@@ -758,10 +765,23 @@ function UI_EventBingo:click_cancelPick()
     self:setPickingMode(false)
 end
 
+-------------------------------------
+-- function click_packageBtn
+-------------------------------------
 function UI_EventBingo:click_packageBtn()
     --UI_EventBingoPackagePopup()
     -- 빙고 패키지 팝업 
-    PackageManager:getTargetUI('package_bingo_token', true)
+    PackageManager:getTargetUI(self.m_packageName, true)
+end
+
+
+-------------------------------------
+-- function check_packagesOnTime
+-------------------------------------
+function UI_EventBingo:check_packagesOnTime()
+    package_pids = TablePackageBundle:getPidsWithName(self.m_packageName)
+    
+    return g_shopDataNew:isOnTimePackage(package_pids)
 end
 
 -------------------------------------

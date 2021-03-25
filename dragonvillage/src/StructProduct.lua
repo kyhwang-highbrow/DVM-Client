@@ -209,6 +209,31 @@ function StructProduct:getUIScale()
 end
 
 -------------------------------------
+-- function isItOnTime
+-- param
+-- local server_timestamp = Timer:getServerTime()
+-- local date = TimeLib:convertToServerDate(server_timestamp)
+-------------------------------------
+function StructProduct:isItOnTime()
+    --m_startDate = 'pl.Date' = '2021-03-24 00:00:00'
+    --m_endDate = 'pl.Date'  = '2021-03-24 00:00:00'
+    
+    local start_time = tonumber(TimeLib:strToTimeStamp(self.m_startDate))
+    local end_time = tonumber(TimeLib:strToTimeStamp(self.m_endDate))
+
+    
+    local server_timestamp = Timer:getServerTime()
+    local time_table = TimeLib:convertToServerDate(server_timestamp)
+    local curr_time = time_table['time']
+    
+    if start_time <= curr_time and curr_time <= end_time then
+        return true
+    end
+
+     return false
+end
+
+-------------------------------------
 -- function isItBuyable
 -------------------------------------
 function StructProduct:isItBuyable()

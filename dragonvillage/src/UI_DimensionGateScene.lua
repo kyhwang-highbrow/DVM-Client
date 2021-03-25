@@ -255,7 +255,6 @@ end
 -------------------------------------
 function UI_DimensionGateScene:click_topBtn()
     if(self.m_selectedChapter ~= self.m_topBtn) and self.m_selectedDimensionGateInfo == nil then
-        cclog("clicked_topBtn")
         self.m_topSprite:setVisible(true)
         self.m_bottomSprite:setVisible(false)
 
@@ -276,7 +275,6 @@ end
 -------------------------------------
 function UI_DimensionGateScene:click_bottomBtn()
     if(self.m_selectedChapter ~= self.m_bottomBtn)  and self.m_selectedDimensionGateInfo == nil then
-        cclog("clicked_bottomBtn")
         self.m_bottomSprite:setVisible(true)
         self.m_topSprite:setVisible(false)
 
@@ -329,7 +327,7 @@ end
 -- function click_stageBtn
 -- @brief callback function of UI_DimensionGateItem
 -- @param target_ui 
--- @param data 사용 x
+-- @param data 
 -------------------------------------
 function UI_DimensionGateScene:click_stageBtn(target_ui, data)
     local vars = self.vars

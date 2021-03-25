@@ -465,9 +465,11 @@ end
 
 -------------------------------------
 -- function getProduct
+-- param product_id number
 -------------------------------------
 function ServerData_Shop:getProduct(category, product_id)
     local shop_list = self:getProductList(category)
+
     return shop_list[product_id]
 end
 
@@ -1230,4 +1232,26 @@ function ServerData_Shop:isBuyablePackage(l_pid)
     end
 
 	return is_package_buyable
+end
+
+-------------------------------------
+-- function isBuyablePackage
+-- @brief 패키지 중 하나라도 시간 안이면 true를 리
+-------------------------------------
+function ServerData_Shop:isOnTimePackage(pid_list)
+    if(not pid_list) then return false end
+    
+    local is_on_time = false
+
+    for i, pid in ipairs(pid_list) do
+        local struct_product = g_shopDataNew:getProduct('package', tonumber(pid))
+
+        if struct_product then
+            if struct_product:isItOnTime() then
+                is_on_time = true
+                break
+            end
+        end
+    end
+    return is_on_time   
 end
