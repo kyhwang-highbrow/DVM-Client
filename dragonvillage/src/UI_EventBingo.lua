@@ -19,6 +19,11 @@ UI_EventBingo = class(PARENT,{
 
         -- 빙고 패키지 결제 팝업 버튼
         m_bingoPackageBtn = '',
+        m_maskingUI = '',
+
+
+        m_exchangeResult = '',
+        m_exchangeItemIndex = ''
     })
 
 local BINGO_TYPE = {['HORIZONTAL'] = 1, ['VERTICAL'] = 2, ['CROSS_RIGHT_TO_LEFT'] = 3, ['CROSS_LEFT_TO_RIGHT'] = 4}
@@ -33,6 +38,9 @@ function UI_EventBingo:init()
     self.m_packageName = 'package_bingo_token'
 
     self.m_bingoPackageBtn = vars['bingoBtn']
+    self.m_exchangeResult = nil
+    self.m_exchangeItemIndex = nil
+
     self:initUI()
     self:initButton()
     self:initExchangeReward()
@@ -64,6 +72,22 @@ function UI_EventBingo:initUI()
     -- 빙고 완성 전에는 교환 버튼 비활성화
     vars['lockSprite']:setVisible(true)
     vars['exchangeBtn']:setEnabled(false)
+
+    do
+        local masking_ui = UI_BlockPopup()
+        --masking_ui:load('empty.ui')
+        local function touch_func(touch, event)
+            --self:exchange_callback()
+            --cclog('clicked')
+        end
+        
+        UIManager:makeSkipAndMaskingLayer(masking_ui, touch_func)
+        --self.root:addChild(masking_ui.root)
+        masking_ui.root:setVisible(false)
+        self.m_maskingUI = masking_ui
+    end
+
+    
 end
 
 -------------------------------------
@@ -505,6 +529,35 @@ end
 -------------------------------------
 -- function click_exchangeBtn
 -------------------------------------
+function UI_EventBingo:exchange_callback()
+    if self.m_exchangeResult ~= nil and self.m_exchangeItemIndex ~= nil then
+        self.root:stopAllActions()
+
+        for index, ui in ipairs(self.m_lExchangeUI) do
+            if index == self.m_exchangeItemIndex then
+                ui:setHighlight(true)
+            else
+                ui:setHighlight(false)
+            end
+            
+        end
+
+        self:confirm_reward(self.m_exchangeResult)
+
+        
+        UIManager:blockBackKey(false)
+        self.m_maskingUI.root:setVisible(false)
+        
+        self.m_exchangeResult = nil
+        self.m_exchangeItemIndex = nil
+    end
+end
+
+
+
+-------------------------------------
+-- function click_exchangeBtn
+-------------------------------------
 function UI_EventBingo:click_exchangeBtn()
     local struct_bingo = g_eventBingoData.m_structBingo
     local eventCnt = struct_bingo:getEventItemCnt()
@@ -515,18 +568,31 @@ function UI_EventBingo:click_exchangeBtn()
     end
 
     -- 통신 전, 블럭 팝업 생성
-    local block_ui = UI_BlockPopup()
+    --local block_ui = UI_BlockPopup()
+    
+    UIManager:blockBackKey(true)
+    self.m_maskingUI.root:setVisible(true)
+    self.m_maskingUI.root:setOpacity(0)
 
     local cb_func = function(ret)
         -- 번호 뽑힌 후 콜백
         local finish_cb = function()
-            block_ui:close()
+            --block_ui:close()
+            UIManager:blockBackKey(false)
+            self.m_maskingUI.root:setVisible(false)
             self:confirm_reward(ret)
+
+            self.m_exchangeResult = nil
+            self.m_exchangeItemIndex = nil
         end
 
         self:refresh()
         -- 랜덤하게 보여주다가, 뽑힌 번호 보여주는 액션
         local picked_item_number = self:getExchangeNumber(ret)
+
+        self.m_exchangeResult = ret
+        self.m_exchangeItemIndex = picked_item_number
+
         self:startExchangePickAction(picked_item_number, finish_cb)  
     end
 
@@ -572,14 +638,16 @@ end
 -- @brief 보상 정보
 -------------------------------------
 function UI_EventBingo:confirm_reward(ret)
-    local item_info = ret['item_info'] or nil
-    if (item_info) then
-        UI_MailRewardPopup(item_info)
-    else
-        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-        UI_ToastPopup(toast_msg)
+    if ret then
+        local item_info = ret['item_info'] or nil
+        if (item_info) then
+            UI_MailRewardPopup(item_info)
+        else
+            local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+            UI_ToastPopup(toast_msg)
 
-        g_highlightData:setHighlightMail()
+            g_highlightData:setHighlightMail()
+        end
     end
 end
 
