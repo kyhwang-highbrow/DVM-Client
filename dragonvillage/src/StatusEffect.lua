@@ -1050,5 +1050,9 @@ function StatusEffect:setOverlabScaleByVariables(unit)
     local add_scale = math.max(self.m_overlabCnt / period, 0) * tonumber(rate)
     local final_scale = original_scale + add_scale
 
+    if (final_scale > 1.5) then
+        cca.stopAction(self.m_owner.m_animator.m_node, CHARACTER_ACTION_TAG__FLOATING)
+    end
+
     self.m_owner.m_rootNode:setScale(final_scale)
 end

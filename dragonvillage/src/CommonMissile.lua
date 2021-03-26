@@ -54,6 +54,18 @@ function CommonMissile:initCommonMissile(owner, t_skill, t_data)
 	self.m_motionStreakRes = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
 	self.m_lStatusEffect = SkillHelper:makeStructStatusEffectList(t_skill)
 	self.m_resScale = SkillHelper:getValid(t_skill['res_scale'])
+
+
+    -- 스킬 스케일을 시전자와 맞추기
+    if (not isNullOrEmpty(self.m_resScale) and owner and owner.m_originScale ~= owner.m_rootNode:getScale()) then
+        local scale_rate = owner.m_rootNode:getScale() / owner.m_originScale
+
+        self.m_resScale = self.m_resScale * scale_rate
+
+        cclog(self.m_resScale)
+    end
+
+
 	self.m_missileSpeed = SkillHelper:getValid(t_skill['val_3'], 1000)
 
     self.m_skillId = t_skill['sid']
