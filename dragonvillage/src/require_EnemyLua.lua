@@ -252,10 +252,30 @@ ENEMY_POS['NEST'] = {x=1300, y=0}
 ENEMY_POS['NEST_T'] = {x=1500, y=300}
 ENEMY_POS['NEST_B'] = {x=1500, y=-200}
 
-
-
-
-
+-- 화면 확대 활용 (기본보다 조금 오른쪽으로)
+ENEMY_POS['RB31'] = {x=pos_x_r + (pos_x_add * 6), y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['RB32'] = {x=pos_x_r + (pos_x_add * 6), y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['RB33'] = {x=pos_x_r + (pos_x_add * 6), y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['RB34'] = {x=pos_x_r + (pos_x_add * 6), y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['RB35'] = {x=pos_x_r + (pos_x_add * 6), y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['RB36'] = {x=pos_x_r + (pos_x_add * 6), y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['RB37'] = {x=pos_x_r + (pos_x_add * 6), y=pos_y + (pos_y_add * 6)}
+-- 화면 확대 활용 (기본보다 조금 위쪽으로)
+ENEMY_POS['RF10'] = {x=pos_x_r + (pos_x_add * 0), y=pos_y + (pos_y_add * -1)}
+ENEMY_POS['RF20'] = {x=pos_x_r + (pos_x_add * 1), y=pos_y + (pos_y_add * -1)}
+ENEMY_POS['RM10'] = {x=pos_x_r + (pos_x_add * 2), y=pos_y + (pos_y_add * -1)}
+ENEMY_POS['RM20'] = {x=pos_x_r + (pos_x_add * 3), y=pos_y + (pos_y_add * -1)}
+ENEMY_POS['RB10'] = {x=pos_x_r + (pos_x_add * 4), y=pos_y + (pos_y_add * -1)}
+ENEMY_POS['RB20'] = {x=pos_x_r + (pos_x_add * 5), y=pos_y + (pos_y_add * -1)}
+ENEMY_POS['RB30'] = {x=pos_x_r + (pos_x_add * 6), y=pos_y + (pos_y_add * -1)}
+-- 화면 확대 활용 (기본보다 조금 아래쪽으로)
+ENEMY_POS['RF18'] = {x=pos_x_r + (pos_x_add * 0), y=pos_y + (pos_y_add * 7)}
+ENEMY_POS['RF28'] = {x=pos_x_r + (pos_x_add * 1), y=pos_y + (pos_y_add * 7)}
+ENEMY_POS['RM18'] = {x=pos_x_r + (pos_x_add * 2), y=pos_y + (pos_y_add * 7)}
+ENEMY_POS['RM28'] = {x=pos_x_r + (pos_x_add * 3), y=pos_y + (pos_y_add * 7)}
+ENEMY_POS['RB18'] = {x=pos_x_r + (pos_x_add * 4), y=pos_y + (pos_y_add * 7)}
+ENEMY_POS['RB28'] = {x=pos_x_r + (pos_x_add * 5), y=pos_y + (pos_y_add * 7)}
+ENEMY_POS['RB38'] = {x=pos_x_r + (pos_x_add * 6), y=pos_y + (pos_y_add * 7)}
 
 
 -------------------------------------
