@@ -61,8 +61,6 @@ function CommonMissile:initCommonMissile(owner, t_skill, t_data)
         local scale_rate = owner.m_rootNode:getScale() / owner.m_originScale
 
         self.m_resScale = self.m_resScale * scale_rate
-
-        cclog(self.m_resScale)
     end
 
 

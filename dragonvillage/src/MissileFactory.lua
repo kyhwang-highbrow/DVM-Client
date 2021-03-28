@@ -471,7 +471,8 @@ function MissileFactory:makeInstantMissile(res, visual, x, y, body_size, owner, 
     t_option['pos_y'] = y
     t_option['movement'] = 'instant'
     t_option['missile_type'] = 'PASS'
-    self:makeMissile(t_option)
+    
+    return self:makeMissile(t_option)
 end
 
 -------------------------------------
