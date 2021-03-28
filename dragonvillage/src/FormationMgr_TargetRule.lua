@@ -60,6 +60,8 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
 	-- self 
 	elseif (type == 'self') then			return TargetRule_getTargetList_self(org_list, t_data)
 
+    elseif (type == 'boss') then            return TargetRule_getTargetList_boss(org_list, t_data)
+
 	-- 거리 관련
 	elseif (type == 'distance_line') then   return TargetRule_getTargetList_distance_line(org_list, x, y)
 	elseif (type == 'far_line') then		return TargetRule_getTargetList_far_line(org_list, x, y)
@@ -150,6 +152,22 @@ function TargetRule_getTargetList_self(org_list, t_data)
     return t_ret
 end
 
+-------------------------------------
+-- function TargetRule_getTargetList_boss
+-- @brief 보스
+-------------------------------------
+function TargetRule_getTargetList_boss(org_list, t_data)
+    local t_ret = {}
+	local t_char = table.sortRandom(table.clone(org_list))
+
+    for i, char in pairs(t_char) do
+		if (char and char:isBoss()) then
+			table.insert(t_ret, char)
+		end
+    end
+
+    return t_ret
+end
 -------------------------------------
 -- function TargetRule_getTargetList_lastAttack
 -- @brief 일반 공격의 타겟이 우선인 적군 리스트

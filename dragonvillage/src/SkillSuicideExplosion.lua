@@ -23,16 +23,44 @@ function SkillSuicideExplosion:init_skill(explosion_res, jump_res)
 	
 	self.m_explosionRes = explosion_res
 
-    -- 목표 좌표 설정
-    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
-    if (self:isRightFormation()) then
-        self.m_targetPos = { x = 320 + cameraHomePosX, y = cameraHomePosY }
+    local is_boss = string.find(self.m_targetType, 'boss')
+
+    if (is_boss) then
+        local l_target = self.m_owner:getTargetListByType('boss')
+
+        local target
+        if (l_target and #l_target > 0) then
+            target = l_target[1]
+            local pos_x, pos_y = target:getPosForFormation()
+            self.m_targetPos =  { x = pos_x, y = pos_y }
+        else
+            self:setDefaultTargetPosition()
+        end
     else
-        self.m_targetPos = { x = 960 + cameraHomePosX, y = cameraHomePosY }
+        self:setDefaultTargetPosition()
     end
 
     -- 사용자 무적 처리
     self.m_owner:setZombie(true)
+end
+
+-------------------------------------
+-- function setDefaultTargetPosition
+-------------------------------------
+function SkillSuicideExplosion:setDefaultTargetPosition()
+    -- 목표 좌표 설정
+    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+    local is_atk_teammate = string.find(self.m_targetType, 'teammate')
+    local left_target_pos = { x = 320 + cameraHomePosX, y = cameraHomePosY }
+    local right_target_pos = { x = 960 + cameraHomePosX, y = cameraHomePosY }
+
+    if (self:isRightFormation()) then
+        self.m_targetPos = is_atk_teammate and right_target_pos or left_target_pos
+
+    else
+        self.m_targetPos = is_atk_teammate and left_target_pos or right_target_pos
+
+    end
 end
 
 -------------------------------------

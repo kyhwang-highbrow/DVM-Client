@@ -1311,6 +1311,13 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
         for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
         for_mgr_delegate:addDiedList(mgr.m_diedCharList)
     
+    elseif (isExistValue(team_type, 'boss')) then
+        for_mgr_delegate:addGlobalList(self.m_leftParticipants)
+        for_mgr_delegate:addGlobalList(self.m_rightParticipants)
+        for_mgr_delegate:addDiedList(self.m_leftNonparticipants)
+        for_mgr_delegate:addDiedList(self.m_rightNonparticipants)
+        l_result = for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
+        
     elseif (isExistValue(team_type, 'teammate', 'ally')) then
         local l_attackable_group_key = {}
 
