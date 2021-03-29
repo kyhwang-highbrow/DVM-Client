@@ -75,13 +75,22 @@ function UI_EventBingo:initUI()
 
     do
         local masking_ui = UI_BlockPopup()
-        --masking_ui:load('empty.ui')
         local function touch_func(touch, event)
-            --self:exchange_callback()
-            --cclog('clicked')
+            self:exchange_callback()
         end
+
+        local layer = cc.Layer:create()
+        masking_ui.root:addChild(layer, -100)
+
+        local listener = cc.EventListenerTouchOneByOne:create()
+
+        listener:registerScriptHandler(function() return true end, cc.Handler.EVENT_TOUCH_BEGAN)
+        listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_ENDED)
+
+        local eventDispatcher = layer:getEventDispatcher()
+        eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
         
-        UIManager:makeSkipAndMaskingLayer(masking_ui, touch_func)
+        --UIManager:makeSkipAndMaskingLayer(masking_ui, touch_func)
         --self.root:addChild(masking_ui.root)
         masking_ui.root:setVisible(false)
         self.m_maskingUI = masking_ui
@@ -125,6 +134,7 @@ function UI_EventBingo:setBingoLineReward()
     local struct_bingo = g_eventBingoData.m_structBingo
 
     local click_bingo_reward_cb = function(ind)
+
         self:click_rewardBingo(ind)
     end
 
@@ -539,7 +549,6 @@ function UI_EventBingo:exchange_callback()
             else
                 ui:setHighlight(false)
             end
-            
         end
 
         self:confirm_reward(self.m_exchangeResult)
