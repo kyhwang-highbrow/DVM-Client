@@ -3,7 +3,7 @@ local L_TAB = {'adventure', 'dungeon', 'competition', 'clan'}
 
 local L_TAB_CONTENTS = {}
 L_TAB_CONTENTS['adventure'] = {'adventure', 'exploration'}
-L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'secret_relation'} -- 'dimension_gate', ochoi
+L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'secret_relation'} --  ochoi , 'dimension_gate'
 L_TAB_CONTENTS['competition'] = {'ancient', 'attr_tower', 'colosseum', 'challenge_mode', 'grand_arena', 'arena_new'}
 L_TAB_CONTENTS['clan'] = {'clan_raid', 'rune_guardian', 'clan_war'}
 
@@ -46,6 +46,13 @@ function UI_BattleMenu:init()
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BattleMenu')
+
+    local target_server = CppFunctions:getTargetServer()
+
+    -- ochoi
+    if (IS_DEV_SERVER()) then
+        L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'dimension_gate', 'secret_relation'}
+    end
 
     -- @UI_ACTION
     self:doActionReset()

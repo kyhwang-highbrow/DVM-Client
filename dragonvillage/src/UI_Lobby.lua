@@ -234,12 +234,13 @@ function UI_Lobby:entryCoroutine()
         end
 
         -- ochoi
-        --[[
-        do 
-            co:work('# 시련 정보 받는 중')
-            g_dimensionGateData:request_dimensionGateInfo(co.NEXT, co.ESCAPE)
-            if co:waitWork() then return end
-        end]]
+        if (IS_DEV_SERVER()) then
+            do 
+                co:work('# 시련 정보 받는 중')
+                g_dimensionGateData:request_dimensionGateInfo(co.NEXT, co.ESCAPE)
+                if co:waitWork() then return end
+            end
+        end
 
         -- hard refresh
         cclog('# UI 갱신')
