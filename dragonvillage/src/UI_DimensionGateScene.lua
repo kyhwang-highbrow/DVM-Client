@@ -216,7 +216,7 @@ function UI_DimensionGateScene:initTableView(node, list)
     
     table_view:setItemList(list, true)
     
-    --table_view:setScrollLock(true)
+    table_view:setScrollLock(true)
     
 
     return table_view

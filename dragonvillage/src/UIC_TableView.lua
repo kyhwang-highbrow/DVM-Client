@@ -65,6 +65,7 @@ UIC_TableView = class(PARENT, {
 		m_scrollEndIdx = 'number',
 
 		m_scrollLock = 'bool',
+        m_isScrollEnd = 'bool', -- 스크롤 상태가 limit에 근접할 시 초기화
     })
 
 -------------------------------------
@@ -85,6 +86,7 @@ function UIC_TableView:init(node)
     self.m_bDirtyItemList = false
 
 	self.m_scrollLock = false
+    self.m_isScrollEnd = false
 	self.m_bAlignCenterInInsufficient = false
 
     -- 스크롤 뷰 생성
@@ -252,7 +254,7 @@ function UIC_TableView:update(dt)
         self:refreshCellsAndContainer(self.m_refreshDuration, animated)
 
 		--dirty후에 풀리도록 고정
-		self:setScrollLock(false)
+        self.m_isScrollEnd = false
 
 		-- 정렬된 cell들을 처리하는 의미
 		self:scrollViewDidScroll()
@@ -342,10 +344,12 @@ end
 function UIC_TableView:scrollViewDidScroll()
     local cellsCount = #self.m_itemList
 
+    if(self.m_scrollLock) then return end
+
     if (0 == cellsCount) then
         return
     end
-	if (self.m_scrollLock) then
+	if (self.m_isScrollEnd) then
 		return
 	end
 
@@ -529,8 +533,7 @@ function UIC_TableView:scrollEndEventHandler(offset, end_idx)
 					따라서 현재 마지막idx를 갱신한 후에 화면에 계속 출력할 수 있도록 idx를 저장한다.
 					다른 사용용도가 생긴다면 그때 추가 개발 할 예정
 				]]
-
-				self:setScrollLock(true)
+                self.m_isScrollEnd = true
 				self.m_scrollEndCB()
 			end
 		end
