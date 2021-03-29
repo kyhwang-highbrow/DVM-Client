@@ -95,12 +95,12 @@ end
 -- function click_friendshipBtn
 -------------------------------------
 function UI_FriendListItem:click_friendshipBtn()
-    if IS_TEST_MODE() then
-        local vs_uid = self.m_friendUid
+    --if IS_TEST_MODE() then
+    local vs_uid = self.m_friendUid
     
-        if IS_ARENA_NEW_OPEN() then
-            g_friendMatchData:request_arenaInfo(FRIEND_MATCH_MODE.FRIEND, vs_uid)
-        else
+    if IS_ARENA_NEW_OPEN() then
+        g_friendMatchData:request_arenaInfo(FRIEND_MATCH_MODE.FRIEND, vs_uid)
+    else
 
         local function goto_ready()
             UI_FriendMatchReady(FRIEND_MATCH_MODE.FRIEND)
@@ -108,7 +108,7 @@ function UI_FriendListItem:click_friendshipBtn()
 
         g_friendMatchData:request_colosseumInfo(vs_uid, goto_ready)
     end
-    else
-        UIManager:toastNotificationRed(Str('준비 중입니다.'))
-    end
+    --else
+    --    UIManager:toastNotificationRed(Str('준비 중입니다.'))
+    --end
 end

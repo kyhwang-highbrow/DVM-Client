@@ -137,16 +137,16 @@ end
 -- @brief 복수전, 재도전에 대한 친선전
 -------------------------------------
 function UI_ArenaHistoryListItem:click_friendlyBattleBtn()
-    UIManager:toastNotificationRed(Str('준비 중입니다.'))
-    if IS_TEST_MODE() then
-        local user_info = self.m_userInfo
-        local mode = (self.m_type == 'atk') and FRIEND_MATCH_MODE.RETRY or FRIEND_MATCH_MODE.REVENGE
-        local history_id = user_info.m_history_id
+    --UIManager:toastNotificationRed(Str('준비 중입니다.'))
+    --if IS_TEST_MODE() then
+    local user_info = self.m_userInfo
+    local mode = (self.m_type == 'atk') and FRIEND_MATCH_MODE.RETRY or FRIEND_MATCH_MODE.REVENGE
+    local history_id = user_info.m_history_id
 
-        g_friendMatchData:request_arenaInfo(mode, history_id)
-    else
-        UIManager:toastNotificationRed(Str('준비 중입니다.'))
-    end
+    g_friendMatchData:request_arenaInfo(mode, history_id)
+    --else
+    --    UIManager:toastNotificationRed(Str('준비 중입니다.'))
+    --end
 end
 
 -------------------------------------
