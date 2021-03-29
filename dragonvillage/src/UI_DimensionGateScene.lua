@@ -7,6 +7,7 @@ UI_DimensionGateScene = class(PARENT, {
     m_bottomTableView = '',             -- 하위층 TableView
     m_topTableView = '',                -- 상위층 TableView 
 
+    m_monsterInfoTableView = '',        -- 난이도 선택 팝업의 몬스터 정보
     m_diffLevelTableView = '',          -- 난이도 선택 팝업의 difficulty TableView from dmgate_scene_stage_item.ui
 
     m_selectedChapter = '',             -- 상위층, 하위층 선택 버튼 구분을 위한 포인터
@@ -17,10 +18,13 @@ UI_DimensionGateScene = class(PARENT, {
     m_bottomSprite = '',                -- 하위층 배경
     m_topSprite = '',                   -- 상위층 배경
     
-    m_stagePosNode = '', 
-    m_stageNode = '',                   -- 
-    m_stageTopMenu = '',                -- 
-   -- m_stageItemNode = '',               -- 
+    m_stagePosNode = '',                -- 스테이지 선택시 이동할 위치
+
+    -- 난이도 선택
+    m_stageNode = '',                   -- 스테이지 선택 전체 메뉴
+    m_stageMonsterListNode = '',        -- 출현 몬스터
+    m_stageTopMenu = '',                -- 난이도 선택 메뉴
+    m_stageItemNode = '',               -- 난이도 선택 노드
 
     -- ui buttons
     m_bottomBtn = '',                   -- 하위 챕터 버튼
@@ -97,7 +101,6 @@ end
 -- @brief virtual function of UI
 -------------------------------------
 function UI_DimensionGateScene:refresh() 
-
 end
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -118,7 +121,9 @@ function UI_DimensionGateScene:initMemberVariable()
 
     self.m_stageNode = vars['stageMenu']
     self.m_stageTopMenu = vars['topMenu']
-    --self.m_stageItemNode = vars['stageItemNode']
+    self.m_stageMonsterListNode = vars['monsterListNode']
+    self.m_stageItemNode = vars['stageItemNode']
+    
     self.m_stagePosNode = vars['stagePosNode']
     
 
@@ -198,21 +203,20 @@ function UI_DimensionGateScene:initTableView(node, list)
     create_callback = function(ui, data)
         --ui.m_stageBtn:registerScriptTapHandler(function() self:click_stageBtn(ui, data) end)
         ui.m_stageBtn:registerScriptTapHandler(function() self:click_stageBtn(ui, data) end)
+        ui.root:setSwallowTouch(false)
     end
 
     local table_view = UIC_TableView(node)
-    --table_view.m_defaultCellSize = cc.size(195, 523)
     table_view:setAlignCenter(true)
     --table_view:setMakeLookingCellFirst(true)
-    --table_view:setScrollLock(true)
     table_view:setCellSizeToNodeSize(true)
-    --table_view:setGapBtwCells(0)
+    table_view:setGapBtwCells(15)
     table_view:setCellUIClass(UI_DimensionGateItem, create_callback)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     
     table_view:setItemList(list, true)
-
-    table_view:setScrollLock(true)
+    
+    --table_view:setScrollLock(true)
     
 
     return table_view
@@ -262,6 +266,7 @@ function UI_DimensionGateScene:click_topBtn()
         self.m_selectedChapter = self.m_topBtn
         self.m_selectedChapter:setEnabled(false)
         
+        
         self.m_topTableView:setVisible(true)
         self.m_bottomTableView:setVisible(false)
 
@@ -282,6 +287,7 @@ function UI_DimensionGateScene:click_bottomBtn()
         self.m_selectedChapter = self.m_bottomBtn
         self.m_selectedChapter:setEnabled(false)
 
+        
         self.m_bottomTableView:setVisible(true)
         self.m_topTableView:setVisible(false)
 
@@ -356,6 +362,7 @@ function UI_DimensionGateScene:click_stageBtn(target_ui, data)
     else
         target_tableView = self.m_topTableView
     end
+    --target_tableView:setScrollLock(true)
 
     for i,v in ipairs(target_tableView.m_itemList) do
         local temp_ui = v['ui']
@@ -364,9 +371,9 @@ function UI_DimensionGateScene:click_stageBtn(target_ui, data)
         end
     end
 
-
     local node = target_ui.root
     --local node_pos = convertToAnoterParentSpace(node, self.m_dmgateNode)
+    
 
     node:retain()
     node:removeFromParent()
@@ -426,6 +433,7 @@ function UI_DimensionGateScene:closeStageNode()
 
     
     target_tableView:setDirtyItemList()
+    --target_tableView:setScrollLock(true)
 
     self.m_selectedDimensionGateInfo = nil
     --self.m_topBtn:setTouchEnabled(true)
@@ -446,6 +454,40 @@ function UI_DimensionGateScene:PopupStageNode(data)
     --self.m_topBtn:setTouchEnabled(false)
     --self.m_bottomBtn:setTouchEnabled(false)
 
+   
+    -- 출현 몬스터 테이블뷰---------------------------------------------
+    --self.m_stageMonsterListNode
+    self.m_stageMonsterListNode:removeAllChildren()
+
+    local stage_id =  self.m_selectedDimensionGateInfo.ui.m_stageID
+    local monsterIDList = g_stageData:getMonsterIDList(stage_id)
+
+    local function cb_monsterCardUI(data)
+        local ui = UI_MonsterCard(data)
+        ui:setStageID(stage_id)
+        return ui
+    end
+
+    local size = self.m_stageMonsterListNode:getContentSize()
+    local function create_callback(ui, data)
+        
+        --ui.root:setNormalSize(size['height'], size['height'])
+        ui.root:setScale(0.6)
+        ui.root:setSwallowTouch(false)
+    end
+
+    local table_view = UIC_TableView(self.m_stageMonsterListNode)
+    --table_view:setCellSizeToNodeSize(true)
+    table_view:setCellUIClass(cb_monsterCardUI, create_callback)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setAlignCenter(true)
+    
+    table_view:setItemList(monsterIDList)
+    table_view.m_scrollView:setTouchEnabled(false)
+
+    self.m_monsterInfoTableView = table_view
+
+    -- 난이도 ---------------------------------------------
     if #data == 0 or #data == nil then 
         self.m_stageTopMenu:setVisible(false)
         return
@@ -453,17 +495,19 @@ function UI_DimensionGateScene:PopupStageNode(data)
         self.m_stageTopMenu:setVisible(true)
     end
 
-    -- local function create_callback(ui, data)
-    --     ui.m_selectedBtn:registerScriptTapHandler(function() self:click_difficultyLevelBtn(ui, data) end)
-    --     return true
-    -- end
+    local function create_callback(ui, data)
+        ui.m_selectedBtn:registerScriptTapHandler(function() self:click_difficultyLevelBtn(ui, data) end)
+        return true
+    end
 
-    -- local table_view = UIC_TableView(self.m_stageItemNode)
-    -- table_view:setCellSizeToNodeSize(true)
-    -- table_view:setCellUIClass(UI_DimensionGateSceneStageItem, create_callback)
-    -- table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    -- table_view:setItemList(data, create_callback)
-    -- self.m_diffLevelTableView = table_view
+    local table_view = UIC_TableView(self.m_stageItemNode)
+    table_view:setCellSizeToNodeSize(true)
+    table_view:setCellUIClass(UI_DimensionGateSceneStageItem, create_callback)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setItemList(data, create_callback)
+    table_view:setAlignCenter(true)
+
+    self.m_diffLevelTableView = table_view
 end
 
 

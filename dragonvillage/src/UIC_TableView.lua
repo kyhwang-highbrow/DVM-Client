@@ -1196,7 +1196,15 @@ function UIC_TableView:makeItemUI(data)
 	-- cell size를 정의 하지 않는다면 디폴트 사이즈를 넣는다.
     if (self.m_bFixedCellSize) and (ui.root:getChildrenCount() == 1) then
         local size = ui.root:getChildren()[1]:getContentSize()
-        self.m_defaultCellSize = cc.size(size['width'] + self.m_gapBtwCellsSize, size['height'] + self.m_gapBtwCellsSize)
+        local width = size['width']
+        local height = size['height']
+        if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL or self._direction == cc.SCROLLVIEW_DIRECTION_BOTH) then
+            width = width + self.m_gapBtwCellsSize
+        end  
+        if (self._direction == cc.SCROLLVIEW_DIRECTION_VERTICAL or self._direction == cc.SCROLLVIEW_DIRECTION_BOTH) then
+            height = height + self.m_gapBtwCellsSize
+        end
+        self.m_defaultCellSize = cc.size(width, height)
         ui:setCellSize(self.m_defaultCellSize)
 	elseif (ui:getCellSize() == nil) then
 		ui:setCellSize(self.m_defaultCellSize)
