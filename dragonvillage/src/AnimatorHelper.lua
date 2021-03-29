@@ -213,9 +213,9 @@ end
 -- function getTitleAnimator
 -- @brief 언어별 타이틀 애니를 생성한다
 -------------------------------------
-function AnimatorHelper:getTitleAnimator()
+function AnimatorHelper:getTitleAnimator(is_first_enter)
 	local lang = g_localData:getLang()
-	
+
 	local res
 	if (lang == 'ja') then
 		res = 'res/ui/spine/title_ja/title_ja.spine'
@@ -226,7 +226,7 @@ function AnimatorHelper:getTitleAnimator()
 	elseif (lang == 'es') then
 		res = 'res/ui/spine/title_es/title_es.spine'
 	else
-        if (self:isSameDate('04', '01')) then
+        if (self:isSameDate('03', '29') and not is_first_enter) then
             res = 'res/ui/spine/title_april_fool/title.spine'
         else
             res = 'res/ui/spine/title/title.spine'

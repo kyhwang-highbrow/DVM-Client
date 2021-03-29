@@ -54,7 +54,9 @@ function ScenePatch:onEnter()
     end
 
     do -- spine으로 리소스 변경
-        local animator = AnimatorHelper:getTitleAnimator()
+        -- 패치씬에서는 디폴트 배경을 노출하기 위해 파라미터 전달
+        -- is_first_enter
+        local animator = AnimatorHelper:getTitleAnimator(true)
         self.m_vars['animatorNode']:addChild(animator.m_node)
         self.m_vars['animator'] = animator
         self.m_vars['animator']:changeAni('01_patch')
