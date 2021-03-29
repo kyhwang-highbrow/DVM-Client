@@ -20,7 +20,7 @@ UI_DimensionGateScene = class(PARENT, {
     m_stagePosNode = '', 
     m_stageNode = '',                   -- 
     m_stageTopMenu = '',                -- 
-    m_stageItemNode = '',               -- 
+   -- m_stageItemNode = '',               -- 
 
     -- ui buttons
     m_bottomBtn = '',                   -- 하위 챕터 버튼
@@ -118,7 +118,7 @@ function UI_DimensionGateScene:initMemberVariable()
 
     self.m_stageNode = vars['stageMenu']
     self.m_stageTopMenu = vars['topMenu']
-    self.m_stageItemNode = vars['stageItemNode']
+    --self.m_stageItemNode = vars['stageItemNode']
     self.m_stagePosNode = vars['stagePosNode']
     
 
@@ -314,12 +314,23 @@ end
 -- @brief 
 -------------------------------------
 function UI_DimensionGateScene:click_startBtn()
-    if self.m_selectedDimensionGateInfo == nil then
-        error('m_selectedDimensionGateInfo is not initialized.')
+    local callback_func = function()
+        if self.m_selectedDimensionGateInfo == nil then
+            error('m_selectedDimensionGateInfo is not initialized.')
+        end
+
+        local stage_id = self.m_selectedDimensionGateInfo.ui:getStageID()
+        --UI_AdventureStageInfo(stage_id)
+
+        local function close_cb()
+            self:sceneFadeInAction()
+        end
+
+        local ui = UI_ReadySceneNew(stage_id)
+        ui:setCloseCB(close_cb)
     end
 
-    local stage_id = self.m_selectedDimensionGateInfo.ui:getStageID()
-    UI_AdventureStageInfo(stage_id)
+    self:sceneFadeOutAndCallFunc(callback_func)
 end
 
 
@@ -442,17 +453,17 @@ function UI_DimensionGateScene:PopupStageNode(data)
         self.m_stageTopMenu:setVisible(true)
     end
 
-    local function create_callback(ui, data)
-        ui.m_selectedBtn:registerScriptTapHandler(function() self:click_difficultyLevelBtn(ui, data) end)
-        return true
-    end
+    -- local function create_callback(ui, data)
+    --     ui.m_selectedBtn:registerScriptTapHandler(function() self:click_difficultyLevelBtn(ui, data) end)
+    --     return true
+    -- end
 
-    local table_view = UIC_TableView(self.m_stageItemNode)
-    table_view:setCellSizeToNodeSize(true)
-    table_view:setCellUIClass(UI_DimensionGateSceneStageItem, create_callback)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(data, create_callback)
-    self.m_diffLevelTableView = table_view
+    -- local table_view = UIC_TableView(self.m_stageItemNode)
+    -- table_view:setCellSizeToNodeSize(true)
+    -- table_view:setCellUIClass(UI_DimensionGateSceneStageItem, create_callback)
+    -- table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    -- table_view:setItemList(data, create_callback)
+    -- self.m_diffLevelTableView = table_view
 end
 
 
