@@ -218,11 +218,11 @@ function MissileLua.lua_angle(owner)
 		local missile = owner.m_world.m_missileFactory:makeInstantMissile(explosion_res, 'center_idle', target_x, target_y, explosion_size, owner, {attr_name = attr})
 
         -- 스킬 스케일을 시전자와 맞추기
-        if (missile.m_animator and owner.m_owner and owner.m_owner.m_originScale ~= owner.m_owner.m_rootNode:getScale()) then
-            local scale_rate = owner.m_owner.m_rootNode:getScale() / owner.m_owner.m_originScale * 0.4
-            missile_scale = missile.m_animator:getScale() * scale_rate
-            missile.m_animator:setScale(missile_scale)
-        end
+        --if (missile.m_animator and owner.m_owner and owner.m_owner.m_originScale ~= owner.m_owner.m_rootNode:getScale()) then
+        --   local scale_rate = owner.m_owner.m_rootNode:getScale() / owner.m_owner.m_originScale * 0.4
+        --    missile_scale = missile.m_animator:getScale() * scale_rate
+        --    missile.m_animator:setScale(missile_scale)
+        --end
 
 		owner:changeState('dying')	
 	end)
