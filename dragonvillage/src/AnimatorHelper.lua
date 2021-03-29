@@ -226,7 +226,7 @@ function AnimatorHelper:getTitleAnimator(is_first_enter)
 	elseif (lang == 'es') then
 		res = 'res/ui/spine/title_es/title_es.spine'
 	else
-        if (self:isSameDate('03', '29') and not is_first_enter) then
+        if (self:isSameDate('04', '01') and not is_first_enter) then
             res = 'res/ui/spine/title_april_fool/title.spine'
         else
             res = 'res/ui/spine/title/title.spine'
