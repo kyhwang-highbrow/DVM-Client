@@ -34,6 +34,9 @@ end
 -- function init_monster
 -------------------------------------
 function Monster:init_monster(t_monster, monster_id, level)
+    -- 몬스터는 상시 부활 가능한 상태
+    self.m_bPossibleRevive = true
+
     -- 각종 init 함수 실행
 	do
 		self:initDragonSkillManager('monster', monster_id, 6, true) -- monster는 skill_1~skill_6을 모두 사용
