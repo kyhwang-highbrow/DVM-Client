@@ -133,8 +133,8 @@ function ConfirmPrice(price_type, price_value)
 
     elseif (price_type == 'ancient') then
         amount = g_userData:get('ancient')
-
     else
+        
         return true
     end
 
@@ -148,6 +148,44 @@ function ConfirmPrice(price_type, price_value)
     end
 
     return ConfirmPrice_original(price_type, price_value)
+end
+
+-------------------------------------
+-- function ConfirmPriceByItemID
+-- @brief
+-- @return bool
+-------------------------------------
+function ConfirmPriceByItemID(item_id, item_price)
+    local item_data = TABLE:get('item')[tonumber(item_id)]
+    local item_type = item_data['type']
+
+    local user_data = g_userData:get(item_type)
+    local own_value
+
+    if(type(user_data) ~= 'table') then
+        own_value = user_data
+    else
+        if item_type == 'medal' then
+            own_value = user_data[tostring(item_id)]
+        else
+            if (IS_DEV_SERVER()) then
+                error('의도치 않게 table 형식을 가지고 있는 재화 형태입니다.')
+            end
+            own_value = 0
+        end
+    end
+
+    if item_price <= own_value then
+        return true
+    end
+
+    -- -- 깜짝 할인 상품이 있는지 확인
+    -- if (ServerData_SpotSale:checkSpotSale(item_type)) then
+    --     return false
+    -- end
+
+    MakeSimplePopup(POPUP_TYPE.OK, Str(item_data['t_name'] ..'이 부족합니다.\n'))
+    return false
 end
 
 -------------------------------------

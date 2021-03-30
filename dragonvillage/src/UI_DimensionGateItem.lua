@@ -343,3 +343,7 @@ function UI_DimensionGateItem:setStageID(stage_id)
     self.m_mode = g_dimensionGateData:getModeID(self.m_stageID)
     self.m_chapter = g_dimensionGateData:getChapterID(self.m_stageID)
 end
+
+function UI_DimensionGateItem:setTouchEnabled(isTouchable)
+    self.m_stageBtn:setEnabled(isTouchable)
+end

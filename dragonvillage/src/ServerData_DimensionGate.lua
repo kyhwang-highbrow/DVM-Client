@@ -4,42 +4,19 @@
 -------------------------------------
 ServerData_DimensionGate = class({
     m_serverData = 'ServerData',
-    m_dimensionGateInfo = '',
-    --m_dimensionGateInfo = '',
-    m_dimensionGateTable = '',
+
+    m_dimensionGateInfo = '',   -- request_dmgateInfo() from server
+
+    m_dimensionGateTable = '',  -- request_dmgateTable() from table
     m_dimensionGateKey = '',
+
+    m_shopInfo = '', -- request_shopInfo() from server
+    m_shopProductCounts = '', 
 
     m_unlockStageList = '',
 
     m_bDirtyDimensionGateInfo = 'boolean'
 })
-
-
---[[
-    mode : {
-        min : 
-        max :
-        num : 
-
-        chapter : {
-            min : 
-            max :
-            num :
-
-            difficulty : {
-                min : 
-                max : 
-                num :
-
-                stage : {
-                    min : 
-                    max : 
-                    num : 
-                }
-            }
-        }
-    }
-]]
 
 -------------------------------------
 -- function init
@@ -52,6 +29,10 @@ function ServerData_DimensionGate:init(server_data)
     self.m_dimensionGateInfo = {}
     self.m_dimensionGateTable = {}
     self.m_dimensionGateKey = {}
+
+    -- SHOP
+    self.m_shopInfo = {}
+    self.m_shopProductCounts = {}
 
     self.m_unlockStageList = {}    
 end
@@ -109,7 +90,6 @@ end
 -------------------------------------
 function ServerData_DimensionGate:request_dimensionGateInfo(cb_func, fail_cb)
 
-    
     if(not self.m_bDirtyDimensionGateInfo) then
         if cb_func then
             cb_func()
@@ -142,36 +122,8 @@ end
 -- function response_dimensionGateInfo
 -------------------------------------
 function ServerData_DimensionGate:response_dimensionGateInfo(ret)
-    -- TODO (YOUNGJIN) : TEMP DATA
-    --ret['stage'][3011002] = {}
-
     local dmgate_info = ret['dmgate_info']
     
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3011001'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3011002'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3011003'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3011004'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3011005'] = 1
-  
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012101'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012102'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012103'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012104'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012105'] = 1
-
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012201'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012202'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012203'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012204'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012205'] = 1
-
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012301'] = 1
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012302'] = 0
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012303'] = 0
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012304'] = 0
-    -- dmgate_info[DIMENSION_GATE_MANUS]['stage']['3012305'] = 0
-    --ccdump(dmgate_info)
-
     if #self.m_dimensionGateInfo ~= 0  and ret['added_items'] == nil then
         local stage_id = ret['stage']
         local mode_id = self:getModeID(stage_id)
@@ -187,11 +139,7 @@ function ServerData_DimensionGate:response_dimensionGateInfo(ret)
             self.m_dimensionGateInfo = dmgate_info
             return
         end
-    -- --        if self.m_dimensionGateInfo
-    --     ccdump(ret)
-    --     for key, table in pairs(ret['dmgate_info']) do
-    --         ccdump(#table['stage'])
-    --     end
+
     end
 
     self.m_dimensionGateInfo = dmgate_info
@@ -200,15 +148,16 @@ function ServerData_DimensionGate:response_dimensionGateInfo(ret)
     -- 테이블에 한해서는 게임 시작시 한번만 하면 됨. 하지만 init에 넣으면 
     -- TABLE의 load 순서에 따라 비어 있을 수도 있기 때문에 일단 여기 넣음. 
     self:request_dmgateTable()
-    
 
     self.m_bDirtyDimensionGateInfo = false
 end
 
+-------------------------------------
+-- function request_dmgateTable
+-------------------------------------
 function ServerData_DimensionGate:request_dmgateTable()
     local temp = TABLE:get("table_dmgate_stage")
     local dimensionGate_list = table.MapToList(temp)
-    
     
     local function sort_func(a, b) return a['stage_id'] < b['stage_id'] end
     table.sort(dimensionGate_list, sort_func)
@@ -223,6 +172,102 @@ function ServerData_DimensionGate:request_dmgateTable()
     
 end
 
+-------------------------------------
+-- function request_dmgateTable
+-------------------------------------
+function ServerData_DimensionGate:request_shopInfo(cb_func, fail_cb)
+
+    -- if(not self.m_bDirtyDimensionGateInfo) then
+    -- if cb_func then
+    --     cb_func()
+    -- end
+
+    --     return nil
+    -- end
+
+    local uid = g_userData:get('uid')
+
+    -- callback for success
+    local function success_cb(ret)
+        self:response_shopInfo(ret)
+        
+        if cb_func then cb_func(ret) end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dmgate/shop_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setRevocable(true)  -- 게임 종료 통신이 아니면 취소
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+
+    return ui_network
+end
+
+
+-------------------------------------
+-- function request_dmgateTable
+-------------------------------------
+function ServerData_DimensionGate:response_shopInfo(ret)
+    self.m_shopInfo[DIMENSION_GATE_MANUS] = ret['table_shop_dmgate']
+    self.m_shopProductCounts[DIMENSION_GATE_MANUS] = ret['buycnt']
+end
+
+-------------------------------------
+-- function getShopInfoProductList
+-------------------------------------
+function ServerData_DimensionGate:getShopInfoProductList(mode_id)
+    return self.m_shopInfo[mode_id]
+
+    -- local result = {}
+
+    -- if(self.m_shopInfo[mode_id]) then
+    --     for i, v in pairs(self.m_shopInfo[mode_id]) do
+    --         local struct_item = StructProduct(v)
+    --         struct_item['product_idx'] = tonumber(i)
+    --         table.insert(result, struct_item)
+    --     end
+    -- end
+
+    -- table.sort(result, function(a, b)
+    --     local a_priority = a['product_idx'] or 99
+    --     local b_priority = b['product_idx'] or 99
+    --     return a_priority < b_priority
+    -- end)
+    -- ccdump(result)
+    -- return result
+end
+
+-------------------------------------
+-- function request_dmgateTable
+-------------------------------------
+function ServerData_DimensionGate:request_buy(product_id, count, cb_func, fail_cb)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+
+        if(cb_func) then
+            cb_func(ret)
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dmgate/shop_buying')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('product_id', tonumber(product_id)) 
+    ui_network:setParam('count', tonumber(count))
+    ui_network:setRevocable(true)  -- 게임 종료 통신이 아니면 취소
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function checkInUnlockList
+-------------------------------------
 function ServerData_DimensionGate:checkInUnlockList(stage_id)
     if self.m_unlockStageList[tonumber(stage_id)] ~= nil then
         self.m_unlockStageList[tonumber(stage_id)] = nil
@@ -232,123 +277,6 @@ function ServerData_DimensionGate:checkInUnlockList(stage_id)
     return false
 end
 
---[[
-    TODO (YOUNGJIN) : 
-    THERE IS TWO CHOICES YOU NEED TO CHOOSE.
-    YOU HAVE TO SEND THE LIST WHICH EXACTLY SHOWS THE NUMBER OF ITEM FOR UI.
-    BUT IN CASE OF PORTAL, LOW TYPE ONLY HAVE 5 STAGES and HIGH TYPE HAVE 15 STAGES.
-    MAKE CONCLUSION HOW TO DEAL WITH HIGH TYPES.
-    
-    -- 3011001
-    -- 30xxxxx 던전(dungeon)        : 차원문, ...
-    --   1xxxx 모드(mode)           : 마누스의 차원문, ...
-    --    1xxx 챕터(chapter)        : 상위층, 하위층, ...
-    --     1xx 난이도(difficulty)   : 쉬움, 보통, 어려움, ...
-    --      01 스테이지(stage)      : 스테이지 번호
-]]
-
--------------------------------------
--- function getDimensionGateInfoListByType
--------------------------------------
-function ServerData_DimensionGate:getDimensionGateInfoListByType(type)
-    --return self.m_dimensionGateInfo[type] 
-    local list = {}
-    --self.m_dimensionGateInfo['dmgate_info']
-
-    for key, data in pairs(self.m_dimensionGateTable[type]) do
-        
-    end
-    -- self.m_dimensionGateInfo[type]
-    -- self.m_dimensionGateTable[type]
-end
-
-
--------------------------------------
--- function getDimensionGateInfoListByType
--------------------------------------
-function ServerData_DimensionGate:getDimensionGateInfoList()
-    
-end
-
-
-
-
--- function ServerData_DimensionGate:getDimensionGateTable()
---     return self.m_dimensionGateTable[DIMENSION_GATE_MANUS]
--- end
-
-
-function ServerData_DimensionGate:getDimensionGateList(mode_id, chapter_id)
-    local table = self.m_dimensionGateTable[mode_id]
-    local list = {}
-
-    for _, v in pairs(table) do
-
-    end
-end
-
-
-
-
-
-
-
-
-
-
-
--------------------------------------
--- function getChapterNum
--- @param for example, DIMENSION_GATE_MANUS in ConstantGameMode.lua
--------------------------------------
-function ServerData_DimensionGate:getMaxChapterNum(mode_id)
-    -- local table = self.m_dimensionGateTable[mode_id]
-    -- --self.m_dimensionGateKey[mode_id]
-    -- local chapter_id
-    -- local max = 0
-    -- for key, data in pairs(table) do 
-    --     chapter_id = getChapterID(data['stage_id'])
-    --     if chapter_id > max then max = chapter_id end
-    -- end
-
-    -- return max
-end
-
--------------------------------------
--- function getDifficultyNum
--- @param 
--------------------------------------
-function ServerData_DimensionGate:getMaxDifficultyNum(mode_id, target_chapter_id)
-    -- local table = self.m_dimensionGateTable[mode_id]
-    -- local temp_chapter_id
-    -- local diff_id
-    -- local max = 0
-
-    -- for key, data in pairs(table) do 
-    --     temp_chapter_id = getChapterID(data['stage_id'])
-    --     diff_id = getDifficultyID(data['stage_id'])
-
-    --     if (temp_chapter_id == target_chapter_id) and (diff_id > max) then
-    --         max = diff_id
-    --     end
-    -- end
-end
-
--------------------------------------
--- function getStageNum
--- @param 
--------------------------------------
-function ServerData_DimensionGate:getMaxStageNum(mode_id, chapter_id, diff_id)
-
-end
-
-
-
--- function getDigit(id, base_digit, range)
---     local range = range or 1
---     local digit = math_floor((id % (base_digit * math_pow(10, range)))/base_digit)
---     return digit
--- end
 
 -------------------------------------
 -- function makeDimensionGateID
@@ -662,3 +590,148 @@ function ServerData_DimensionGate:GetTempHighChapterList()
 
     return list
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--[[
+    TODO (YOUNGJIN) : 
+    THERE IS TWO CHOICES YOU NEED TO CHOOSE.
+    YOU HAVE TO SEND THE LIST WHICH EXACTLY SHOWS THE NUMBER OF ITEM FOR UI.
+    BUT IN CASE OF PORTAL, LOW TYPE ONLY HAVE 5 STAGES and HIGH TYPE HAVE 15 STAGES.
+    MAKE CONCLUSION HOW TO DEAL WITH HIGH TYPES.
+    
+    -- 3011001
+    -- 30xxxxx 던전(dungeon)        : 차원문, ...
+    --   1xxxx 모드(mode)           : 마누스의 차원문, ...
+    --    1xxx 챕터(chapter)        : 상위층, 하위층, ...
+    --     1xx 난이도(difficulty)   : 쉬움, 보통, 어려움, ...
+    --      01 스테이지(stage)      : 스테이지 번호
+]]
+
+-------------------------------------
+-- function getDimensionGateInfoListByType
+-------------------------------------
+function ServerData_DimensionGate:getDimensionGateInfoListByType(type)
+    local list = {}
+    --self.m_dimensionGateInfo['dmgate_info']
+
+    for key, data in pairs(self.m_dimensionGateTable[type]) do
+        
+    end
+    -- self.m_dimensionGateInfo[type]
+    -- self.m_dimensionGateTable[type]
+end
+
+
+-------------------------------------
+-- function getDimensionGateInfoListByType
+-------------------------------------
+function ServerData_DimensionGate:getDimensionGateInfoList()
+    
+end
+
+
+
+
+-- function ServerData_DimensionGate:getDimensionGateTable()
+--     return self.m_dimensionGateTable[DIMENSION_GATE_MANUS]
+-- end
+
+
+function ServerData_DimensionGate:getDimensionGateList(mode_id, chapter_id)
+    local table = self.m_dimensionGateTable[mode_id]
+    local list = {}
+
+    for _, v in pairs(table) do
+
+    end
+end
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- function getChapterNum
+-- @param for example, DIMENSION_GATE_MANUS in ConstantGameMode.lua
+-------------------------------------
+function ServerData_DimensionGate:getMaxChapterNum(mode_id)
+    -- local table = self.m_dimensionGateTable[mode_id]
+    -- --self.m_dimensionGateKey[mode_id]
+    -- local chapter_id
+    -- local max = 0
+    -- for key, data in pairs(table) do 
+    --     chapter_id = getChapterID(data['stage_id'])
+    --     if chapter_id > max then max = chapter_id end
+    -- end
+
+    -- return max
+end
+
+-------------------------------------
+-- function getDifficultyNum
+-- @param 
+-------------------------------------
+function ServerData_DimensionGate:getMaxDifficultyNum(mode_id, target_chapter_id)
+    -- local table = self.m_dimensionGateTable[mode_id]
+    -- local temp_chapter_id
+    -- local diff_id
+    -- local max = 0
+
+    -- for key, data in pairs(table) do 
+    --     temp_chapter_id = getChapterID(data['stage_id'])
+    --     diff_id = getDifficultyID(data['stage_id'])
+
+    --     if (temp_chapter_id == target_chapter_id) and (diff_id > max) then
+    --         max = diff_id
+    --     end
+    -- end
+end
+
+-------------------------------------
+-- function getStageNum
+-- @param 
+-------------------------------------
+function ServerData_DimensionGate:getMaxStageNum(mode_id, chapter_id, diff_id)
+
+end
+
+
+
+-- function getDigit(id, base_digit, range)
+--     local range = range or 1
+--     local digit = math_floor((id % (base_digit * math_pow(10, range)))/base_digit)
+--     return digit
+-- end

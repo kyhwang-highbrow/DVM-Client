@@ -54,7 +54,18 @@ function UI_GoodsInfo:refresh()
 
     -- 재화 수량 갱신
     local goods_type = self.m_goodsType
+
     local value = g_userData:get(goods_type)
+
+    if (value == nil) then
+        local goods_id = TableItem():getItemIDFromItemType(goods_type)
+        local type_in_table_item = TABLE:get('item')[goods_id]['type'] -- type column in table_item.csv
+        local data = g_userData:get(type_in_table_item) -- 
+
+        if type_in_table_item == 'medal' then --
+            value = data[tostring(goods_id)]            
+        end 
+    end
 
     -- 캐시 중인 숫자가 다를 경우만 호출 (임의로 탑바의 숫자를 변경하는 경우에 동작하는 것을 방지하기 위함)
     if (self.m_realNumber ~= value) then
@@ -76,9 +87,21 @@ function UI_GoodsInfo:makeGoodsIcon(goods_name)
     if (goods_name == 'event_illusion') then
         goods_name = 'staminas_event_illusion_01'
     end
-    
+
     local res_icon = string.format('res/ui/icons/inbox/inbox_%s.png', goods_name)
     local icon = cc.Sprite:create(res_icon)
+    
+    if (not icon) then
+        local goods_id = TableItem():getItemIDFromItemType(goods_name)
+        local iconPathStrs = TABLE:get('item')[goods_id]['icon']
+        local strList = seperate(iconPathStrs, '/')
+        icon = cc.Sprite:create('res/ui/icons/inbox/inbox_' .. strList[#strList])
+
+        if (not icon) then
+            icon = cc.Sprite:create(iconPathStrs)
+        end
+    end
+    
 
     if (not icon) then
         icon = cc.Sprite:create('res/ui/icons/cha/developing.png')

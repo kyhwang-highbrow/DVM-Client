@@ -527,6 +527,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['ancient'], 'user', 'ancient')
         end
 
+        -- 메달 (210330 기준 차원문 보상)
+        if ret['medal'] then
+            self:applyServerData(ret['medal'], 'user', 'medal')
+        end
+
         -- 자동줍기 아이템
         if ret['auto_root'] then
             self:applyServerData(ret['auto_root'], 'user', 'auto_root')
@@ -738,6 +743,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
    -- 특성 재료
     RefreshGoods(t_added_items, 'mastery_materials')
+
+    -- 메달 (210330 기준 차원의 문 보상)
+    RefreshGoods(t_added_items, 'medal')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then

@@ -75,8 +75,14 @@ ITEM_ID_MAP['staminas_arena_new'] = 700109
 ITEM_ID_MAP['exp_booster'] = 700402
 ITEM_ID_MAP['gold_booster'] = 700403
 
+-- 차원문
+ITEM_ID_MAP['medal_angra'] = 700901
+ITEM_ID_MAP['medal_manus'] = 700902
+
 ITEM_ID_MAP['max_fixed_ticket'] = 704901
 ITEM_ID_MAP['opt_keep_ticket'] = 704902
+
+
 
 -- 특성 재료
 ITEM_ID_MAP['mastery_material_02'] = 741021
