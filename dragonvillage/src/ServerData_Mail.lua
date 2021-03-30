@@ -183,6 +183,11 @@ function ServerData_Mail:sortNoticeList(sort_target_list)
             local a_data = a['data']
             local b_data = b['data']
 
+            -- 메일이 회수되면서 데이터가 무효할 수도 있음
+            if (not a_data or not b_data or not a_data['custom'] or not b_data['custom'])
+                retuen nil
+            end
+
             local a_value = a_data['custom']['received']
             local b_value = b_data['custom']['received']
 
