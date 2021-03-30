@@ -226,6 +226,8 @@ function Character:init(file_name, body, ...)
     self.m_mNonTargetEffect = {}
 
     self.m_unitInfoOffset = { 0, 0 }
+
+    self.m_originScale = 0.8
 end
 
 -------------------------------------
