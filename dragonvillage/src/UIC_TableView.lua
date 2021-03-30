@@ -18,9 +18,6 @@ UIC_TableView = class(PARENT, {
 
         m_bVariableCellSize = 'boolean', -- 셀별 개별 크기 적용 여부(사용시 _size세팅 필수!!)
         m_defaultCellSize = '', -- cell이 생성되기 전이라면 기본 사이즈를 지정
-        m_bFixedCellSize = 'boolean', -- 셀별 크기 노드 사이즈와 동일하게 적용 여부
-        m_gapBtwCellsSize = 'number', -- cell 사이의 갭 크기 지정
-
 
         _cellsUsed = 'list',
         _vCellsPositions = 'list',
@@ -65,7 +62,6 @@ UIC_TableView = class(PARENT, {
 		m_scrollEndIdx = 'number',
 
 		m_scrollLock = 'bool',
-        m_isScrollEnd = 'bool', -- 스크롤 상태가 limit에 근접할 시 초기화
     })
 
 -------------------------------------
@@ -77,16 +73,11 @@ function UIC_TableView:init(node)
     -- 기본값 설정
     self.m_bVariableCellSize = false
     self.m_defaultCellSize = cc.size(100, 100)
-    self.m_bFixedCellSize = false
-    self.m_gapBtwCellsSize = 0
-
-
     self._vordering = cc.TABLEVIEW_FILL_TOPDOWN
     self.m_bFirstLocation = true
     self.m_bDirtyItemList = false
 
 	self.m_scrollLock = false
-    self.m_isScrollEnd = false
 	self.m_bAlignCenterInInsufficient = false
 
     -- 스크롤 뷰 생성
@@ -254,7 +245,7 @@ function UIC_TableView:update(dt)
         self:refreshCellsAndContainer(self.m_refreshDuration, animated)
 
 		--dirty후에 풀리도록 고정
-        self.m_isScrollEnd = false
+		self:setScrollLock(false)
 
 		-- 정렬된 cell들을 처리하는 의미
 		self:scrollViewDidScroll()
@@ -344,12 +335,10 @@ end
 function UIC_TableView:scrollViewDidScroll()
     local cellsCount = #self.m_itemList
 
-    if(self.m_scrollLock) then return end
-
     if (0 == cellsCount) then
         return
     end
-	if (self.m_isScrollEnd) then
+	if (self.m_scrollLock) then
 		return
 	end
 
@@ -533,7 +522,8 @@ function UIC_TableView:scrollEndEventHandler(offset, end_idx)
 					따라서 현재 마지막idx를 갱신한 후에 화면에 계속 출력할 수 있도록 idx를 저장한다.
 					다른 사용용도가 생긴다면 그때 추가 개발 할 예정
 				]]
-                self.m_isScrollEnd = true
+
+				self:setScrollLock(true)
 				self.m_scrollEndCB()
 			end
 		end
@@ -1197,22 +1187,9 @@ function UIC_TableView:makeItemUI(data)
     ui.root:setAnchorPoint(cc.p(0.5, 0.5))
 
 	-- cell size를 정의 하지 않는다면 디폴트 사이즈를 넣는다.
-    if (self.m_bFixedCellSize) and (ui.root:getChildrenCount() == 1) then
-        local size = ui.root:getChildren()[1]:getContentSize()
-        local width = size['width']
-        local height = size['height']
-        if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL or self._direction == cc.SCROLLVIEW_DIRECTION_BOTH) then
-            width = width + self.m_gapBtwCellsSize
-        end  
-        if (self._direction == cc.SCROLLVIEW_DIRECTION_VERTICAL or self._direction == cc.SCROLLVIEW_DIRECTION_BOTH) then
-            height = height + self.m_gapBtwCellsSize
-        end
-        self.m_defaultCellSize = cc.size(width, height)
-        ui:setCellSize(self.m_defaultCellSize)
-	elseif (ui:getCellSize() == nil) then
+	if (ui:getCellSize() == nil) then
 		ui:setCellSize(self.m_defaultCellSize)
-    end
-	
+	end
 
     self.m_scrollView:addChild(ui.root)
 
@@ -1658,30 +1635,4 @@ function UIC_TableView:getItemFromIndex(idx)
 
     -- nil이 리턴될 수 있음
     return item
-end
-
-
-
-
-function UIC_TableView:setCellSizeToNodeSize(isFixedSize)
-    self.m_bFixedCellSize = isFixedSize
-end
-
-function UIC_TableView:setGapBtwCells(gap)
-    self.m_gapBtwCellsSize = gap
-end
-
-function UIC_TableView:setVisible(isVisible)
-
-    -- for i,item in ipairs(self.m_itemList) do
-    --     local ui = item['ui'] or item['generated_ui']
-    --     ui.root:setVisible(isVisible)
-    --     ui.root:setEnabled(isVisible)
-    -- end
-    self.m_scrollView:setVisible(isVisible)
-    --self.m_scrollView:setEnabled(false)
-end
-
-function UIC_TableView:isVisible()
-    return self.m_scrollView:isVisible()
 end
