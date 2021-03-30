@@ -73,7 +73,6 @@ function UI_ArenaNewHistory:initUI()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['listNode'])
-    table_view:setScrollLock(true)
     table_view.m_defaultCellSize = cc.size(720, 85)
     table_view:setCellUIClass(UI_ArenaNewHistoryListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
