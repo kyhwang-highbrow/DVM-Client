@@ -1122,6 +1122,7 @@ local t_module = {
     'UI_DimensionGateItem',
     'UI_DimensionGateItemRewardPopup',
     'UI_DimensionGateShop',
+    'UI_DimensionGatePopup',
 
 
 	-- UI : 모험
