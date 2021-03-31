@@ -234,15 +234,21 @@ function UI_DimensionGateShopItem:initUI()
     
     self.m_priceLabel:setString(tostring(self.m_itemData['price']))
 
-
     
+    local maxCount = self.m_itemData['max_buy_count']
+    local productCount = g_dimensionGateData:getProductCount(DIMENSION_GATE_MANUS, self.m_itemData['product_id'])
+    if productCount == nil or maxCount == '' then
+        self.m_maxProductNumLabel:setVisible(false)
+    else
+        self.m_maxProductNumLabel:setString(string.format('%d / %d', productCount, maxCount))
+    end
 end
 
 -------------------------------------
 -- function UI_DimensionGateShopItem
 -------------------------------------
 function UI_DimensionGateShopItem:initButton()
-    self.m_buyBtn:registerScriptTapHandler(function() end)
+    self.m_buyBtn:registerScriptTapHandler(function() self:click_buyBtn() end)
 end
 
 -------------------------------------
@@ -258,6 +264,9 @@ end
 -------------------------------------
 function UI_DimensionGateShopItem:click_buyBtn()
 
+    local item_data = TABLE:get('item')[tonumber(self.m_itemData['medal'])]
+    local item_type = item_data['type']
+
     -- 재화 부족
     if ConfirmPriceByItemID(self.m_itemData['medal'], self.m_itemData['price']) == false then
        return 
@@ -267,8 +276,15 @@ function UI_DimensionGateShopItem:click_buyBtn()
         ItemObtainResult_Shop(ret)
 
     end
-    
-    local product_id = self.m_itemData['product_id']
-    local count = 1--self.m_itemData['bundle']
-    g_dimensionGateData:request_buy(product_id, count, buy_callback_func)
+    local function ok_button_callback()
+        local product_id = self.m_itemData['product_id']
+        local count = 1--self.m_itemData['bundle']
+        g_dimensionGateData:request_buy(product_id, count, buy_callback_func)
+    end
+
+    local name = self.m_itemData['t_name']
+    local count = 1
+    local msg = Str('{@item_name}"{1} x{2}"\n{@default}구매하시겠습니까?', name, count)
+
+    UI_ConfirmPopup(item_type, self.m_itemData['price'], msg, ok_button_callback)
 end

@@ -239,6 +239,10 @@ function ServerData_DimensionGate:getShopInfoProductList(mode_id)
     -- return result
 end
 
+function ServerData_DimensionGate:getProductCount(mode_id, product_id)
+    return self.m_shopProductCounts[mode_id][tostring(product_id)]
+end
+
 -------------------------------------
 -- function request_dmgateTable
 -------------------------------------
