@@ -1194,8 +1194,6 @@ function UIC_TableView:makeItemUI(data)
     if ui.vars['swallowTouchMenu'] then
         ui.vars['swallowTouchMenu']:setSwallowTouch(false)
     end
-    ui.root:setDockPoint(cc.p(0, 0))
-    ui.root:setAnchorPoint(cc.p(0.5, 0.5))
 
 	-- cell size를 정의 하지 않는다면 디폴트 사이즈를 넣는다.
     if (self.m_bFixedCellSize) and (ui.root:getChildrenCount() == 1) then
@@ -1213,6 +1211,10 @@ function UIC_TableView:makeItemUI(data)
 	elseif (ui:getCellSize() == nil) then
 		ui:setCellSize(self.m_defaultCellSize)
     end
+
+    ui.root:setDockPoint(cc.p(0, 0))
+    ui.root:setAnchorPoint(cc.p(0.5, 0.5))
+
 	
 
     self.m_scrollView:addChild(ui.root)

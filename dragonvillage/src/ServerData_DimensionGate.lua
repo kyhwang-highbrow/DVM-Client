@@ -15,6 +15,8 @@ ServerData_DimensionGate = class({
 
     m_unlockStageList = '',
 
+    m_blessTable = '',
+
     m_bDirtyDimensionGateInfo = 'boolean'
 })
 
@@ -34,7 +36,7 @@ function ServerData_DimensionGate:init(server_data)
     self.m_shopInfo = {}
     self.m_shopProductCounts = {}
 
-    self.m_unlockStageList = {}    
+    self.m_unlockStageList = {}
 end
 
 -------------------------------------
@@ -219,26 +221,11 @@ end
 -------------------------------------
 function ServerData_DimensionGate:getShopInfoProductList(mode_id)
     return self.m_shopInfo[mode_id]
-
-    -- local result = {}
-
-    -- if(self.m_shopInfo[mode_id]) then
-    --     for i, v in pairs(self.m_shopInfo[mode_id]) do
-    --         local struct_item = StructProduct(v)
-    --         struct_item['product_idx'] = tonumber(i)
-    --         table.insert(result, struct_item)
-    --     end
-    -- end
-
-    -- table.sort(result, function(a, b)
-    --     local a_priority = a['product_idx'] or 99
-    --     local b_priority = b['product_idx'] or 99
-    --     return a_priority < b_priority
-    -- end)
-    -- ccdump(result)
-    -- return result
 end
 
+-------------------------------------
+-- function getProductCount
+-------------------------------------
 function ServerData_DimensionGate:getProductCount(mode_id, product_id)
     return self.m_shopProductCounts[mode_id][tostring(product_id)]
 end
@@ -466,6 +453,25 @@ function ServerData_DimensionGate:getStageInfoList(mode_type)
     if not mode_type then return nil end
 
     return self.m_dimensionGateInfo[mode_type]['stage']
+end
+
+-------------------------------------
+-- function getBuffList
+-------------------------------------
+function ServerData_DimensionGate:getBuffList(mode_id)
+    if not mode_id then return nil end
+
+    local str = tostring(self.m_dimensionGateInfo[mode_id]['buff'])
+    local buffList = plSplit(str, ';')   
+
+    local blessTable = TABLE:get('dmgate_bless')
+    local result = {}
+
+    for _, value in pairs(buffList) do
+        table.insert(result, blessTable[tonumber(value)])
+    end
+
+    return result
 end
 
 -------------------------------------

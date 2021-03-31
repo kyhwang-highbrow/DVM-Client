@@ -495,16 +495,16 @@ function UI_DimensionGateScene:PopupStageNode(data)
         ui.root:setSwallowTouch(false)
     end
 
-    local table_view = UIC_TableView(self.m_stageMonsterListNode)
-    --table_view:setCellSizeToNodeSize(true)
-    table_view:setCellUIClass(cb_monsterCardUI, create_callback)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    table_view:setAlignCenter(true)
+    local monster_table_view = UIC_TableView(self.m_stageMonsterListNode)
+    --monster_table_view:setCellSizeToNodeSize(true)
+    monster_table_view:setCellUIClass(cb_monsterCardUI, create_callback)
+    monster_table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    monster_table_view:setAlignCenter(true)
     
-    table_view:setItemList(monsterIDList)
-    table_view.m_scrollView:setTouchEnabled(false)
+    monster_table_view:setItemList(monsterIDList)
+    monster_table_view.m_scrollView:setTouchEnabled(false)
 
-    self.m_monsterInfoTableView = table_view
+    self.m_monsterInfoTableView = monster_table_view
 
     -- 난이도 ---------------------------------------------
     if #data == 0 or #data == nil then 
@@ -519,14 +519,21 @@ function UI_DimensionGateScene:PopupStageNode(data)
         return true
     end
 
-    local table_view = UIC_TableView(self.m_stageItemNode)
-    table_view:setCellSizeToNodeSize(true)
-    table_view:setCellUIClass(UI_DimensionGateSceneStageItem, create_callback)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    table_view:setItemList(data, create_callback)
-    table_view:setAlignCenter(true)
+    self.m_stageItemNode:removeAllChildren()
 
-    self.m_diffLevelTableView = table_view
+    local level_table_view = UIC_TableView(self.m_stageItemNode)
+    level_table_view:setAlignCenter(true)
+    --level_table_view.m_defaultCellSize = cc.size(230, 0)
+    level_table_view:setCellSizeToNodeSize(true)
+    level_table_view:setGapBtwCells(15)
+    level_table_view:setCellUIClass(UI_DimensionGateSceneStageItem, create_callback)
+    level_table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+
+    level_table_view:setItemList(data, create_callback)
+
+    level_table_view:setScrollLock(true)
+    
+    self.m_diffLevelTableView = level_table_view
 end
 
 

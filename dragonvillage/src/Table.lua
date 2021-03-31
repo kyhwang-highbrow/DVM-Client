@@ -122,6 +122,10 @@ local TableInfo = {
         table_lucky_fortune_bag_rank = {'table_lucky_fortune_bag_rank', 'rank_id', false},
 
         table_talk_deet = {'table_talk_deet', 'text_id', false},
+
+
+        -- 차원의 문
+        dmgate_bless = {'table_dmgate_bless', 'type_id', false} -- 차원의 문 축복
     }
 
 -------------------------------------
@@ -213,7 +217,7 @@ local TableInfo_fromServer = {
         ['table_battle_pass_reward'] = {'table_battle_pass_reward', 'id'},
 
         -- 시련 (차원문)
-        ['table_dmgate_stage'] = {'table_dmgate_stage', 'stage_id'},
+        ['table_dmgate_stage'] = {'table_dmgate_stage', 'stage_id'}, -- 스테이지 정보
     }
 
 -------------------------------------
