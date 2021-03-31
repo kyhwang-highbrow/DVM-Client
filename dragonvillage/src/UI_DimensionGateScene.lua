@@ -25,6 +25,8 @@ UI_DimensionGateScene = class(PARENT, {
     m_stageMonsterListNode = '',        -- 출현 몬스터
     m_stageTopMenu = '',                -- 난이도 선택 메뉴
     m_stageItemNode = '',               -- 난이도 선택 노드
+    m_stageInfoLabel = '',
+    m_stageLabel = '',
 
     -- ui buttons
     m_bottomBtn = '',                   -- 하위 챕터 버튼
@@ -120,9 +122,14 @@ function UI_DimensionGateScene:initMemberVariable()
     self.m_dmgateNode = vars['dmgateNode']
 
     self.m_stageNode = vars['stageMenu']
+
     self.m_stageTopMenu = vars['topMenu']
+
     self.m_stageMonsterListNode = vars['monsterListNode']
     self.m_stageItemNode = vars['stageItemNode']
+
+    self.m_stageInfoLabel = vars['stageInfoLabel']
+    self.m_stageLabel = vars['stageInfoLabel']
     
     self.m_stagePosNode = vars['stagePosNode']
     
@@ -453,13 +460,18 @@ function UI_DimensionGateScene:PopupStageNode(data)
     -- block to touch 
     --self.m_topBtn:setTouchEnabled(false)
     --self.m_bottomBtn:setTouchEnabled(false)
+    local stage_id =  self.m_selectedDimensionGateInfo.ui.m_stageID
+
+    -- 스테이지 설명 ---------------------------------------------
+    self.m_stageLabel:setString(g_stageData:getStageName(stage_id))
+    self.m_stageInfoLabel:setString(g_stageData:getStageDesc(stage_id))
+
 
    
     -- 출현 몬스터 테이블뷰---------------------------------------------
     --self.m_stageMonsterListNode
     self.m_stageMonsterListNode:removeAllChildren()
 
-    local stage_id =  self.m_selectedDimensionGateInfo.ui.m_stageID
     local monsterIDList = g_stageData:getMonsterIDList(stage_id)
 
     local function cb_monsterCardUI(data)

@@ -141,13 +141,21 @@ function ServerData_Stage:getStageName(stage_id)
 
     -- 환상 던전 이벤트
     elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
-		name = Str('시련 던전')
+		name = Str('차원문')
 
     end
 
     return name
 end
 
+-------------------------------------
+-- function getStageName
+-------------------------------------
+function ServerData_Stage:getStageDesc(stage_id)
+    local table_stage_desc = TableStageDesc()
+
+    return table_stage_desc:getStageDesc(stage_id)
+end
 -------------------------------------
 -- function isOpenStage
 -------------------------------------
