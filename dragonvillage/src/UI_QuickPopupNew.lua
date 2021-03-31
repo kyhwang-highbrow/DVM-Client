@@ -80,7 +80,7 @@ function UI_QuickPopupNew:init_dungeonBtn()
     local vars = self.vars
     local l_content = {}
 
-    local l_dungeon = {'ancient_ruin','nest_tree', 'nest_evo_stone', 'nest_nightmare', 'secret_relation'}
+    local l_dungeon = {'ancient_ruin','nest_tree', 'nest_evo_stone', 'nest_nightmare', 'dmgate', 'secret_relation'}
     for i, dungeon_name in ipairs(l_dungeon) do
         if (not g_contentLockData:isContentLock(dungeon_name)) then
             table.insert(l_content, dungeon_name) 
