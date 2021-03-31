@@ -365,6 +365,9 @@ function UI_DimensionGateScene:click_stageBtn(target_ui, data)
     
     -- 스테이지 팝업 상태에서 클릭시 팝업 닫고 tableview 다시 보여주기
     if self.m_selectedDimensionGateInfo then
+        
+        -- cca.reserveFunc(self.m_stageNode, 0.25, 
+        -- function() self:closeStageNode(data) end)
         self:closeStageNode()
         return
     end
@@ -403,6 +406,7 @@ function UI_DimensionGateScene:click_stageBtn(target_ui, data)
 
     cca.reserveFunc(self.m_stageNode, 0.25, 
     function() self:PopupStageNode(data) end)
+    --self:PopupStageNode(data)
 end
 
 
@@ -463,6 +467,9 @@ end
 -- @brief 
 -------------------------------------
 function UI_DimensionGateScene:PopupStageNode(data)
+
+    if (not self.m_selectedDimensionGateInfo) then return end
+
     self.m_stageNode:setVisible(true)
     -- block to touch 
     --self.m_topBtn:setTouchEnabled(false)

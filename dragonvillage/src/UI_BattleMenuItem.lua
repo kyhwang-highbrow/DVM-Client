@@ -78,11 +78,8 @@ function UI_BattleMenuItem:initUI()
     elseif (self.m_listCnt >= 5) then
         ani_num = '_03'
     end
-    if(content_type == 'dmgate') then
-        vars['itemVisual']:changeAni('dmgate' .. ani_num, true)
-    else
-        vars['itemVisual']:changeAni(content_type .. ani_num, true)
-    end
+    
+    vars['itemVisual']:changeAni(content_type .. ani_num, true)
     vars['titleLabel']:setString(getContentName(content_type))
 end
 
