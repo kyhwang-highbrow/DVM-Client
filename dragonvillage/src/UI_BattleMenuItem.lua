@@ -62,7 +62,7 @@ function UI_BattleMenuItem:initUI()
 	--]]
     -- 베타 버튼 표시
     if vars['betaLabel'] then
-        if g_contentLockData:isContentBeta(content_type) or content_type == 'dimension_gate' then
+        if g_contentLockData:isContentBeta(content_type) then
             vars['betaLabel']:setVisible(true) 
         else
             vars['betaLabel']:setVisible(false)
@@ -79,7 +79,7 @@ function UI_BattleMenuItem:initUI()
         ani_num = '_03'
     end
     if(content_type == 'dimension_gate') then
-        vars['itemVisual']:changeAni('secret_relation' .. ani_num, true)
+        vars['itemVisual']:changeAni('dmgate' .. ani_num, true)
     else
         vars['itemVisual']:changeAni(content_type .. ani_num, true)
     end

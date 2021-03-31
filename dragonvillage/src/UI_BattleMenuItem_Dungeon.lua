@@ -74,7 +74,10 @@ function UI_BattleMenuItem_Dungeon:getDescStr(content_type)
     -- 황금 던전
     elseif (content_type == 'gold_dungeon') then
         desc = Str('골드 획득 가능')
-    end
 
+    -- 차원문
+    elseif (content_type == 'dimension_gate') then
+        desc = Str('인장 획득 가능')
+    end
     return desc
 end
