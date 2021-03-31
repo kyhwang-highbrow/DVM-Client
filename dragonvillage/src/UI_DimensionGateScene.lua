@@ -265,7 +265,10 @@ end
 -- @brief 
 -------------------------------------
 function UI_DimensionGateScene:click_topBtn()
-    if(self.m_selectedChapter ~= self.m_topBtn) and self.m_selectedDimensionGateInfo == nil then
+    if(self.m_selectedChapter ~= self.m_topBtn) then
+        if self.m_selectedDimensionGateInfo then
+            self:closeStageNode()
+        end
         self.m_topSprite:setVisible(true)
         self.m_bottomSprite:setVisible(false)
 
@@ -286,7 +289,11 @@ end
 -- @brief 
 -------------------------------------
 function UI_DimensionGateScene:click_bottomBtn()
-    if(self.m_selectedChapter ~= self.m_bottomBtn)  and self.m_selectedDimensionGateInfo == nil then
+    if(self.m_selectedChapter ~= self.m_bottomBtn) then
+        if self.m_selectedDimensionGateInfo then
+            self:closeStageNode()
+        end
+
         self.m_bottomSprite:setVisible(true)
         self.m_topSprite:setVisible(false)
 
