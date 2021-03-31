@@ -2238,14 +2238,14 @@ function UINavigatorDefinition:goTo_dimension_gate(...)
         return
     end
 
-    -- do -- Scene으로 동작
-    --     local function close_cb()
-    --         UINavigatorDefinition:goTo('lobby')
-    --     end
+    do -- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
 
-    --     local scene = SceneCommon(UI_DimensionGateScene, close_cb)
-    --     scene:runScene()
-    -- end
+        local scene = SceneCommon(UI_DimensionGateScene, close_cb)
+        scene:runScene()
+    end
 end
 
 -------------------------------------

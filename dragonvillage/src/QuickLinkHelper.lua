@@ -78,6 +78,9 @@ function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
     elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
         link_type = 'play_rune_guardian'
 
+    elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
+        link_type = 'ply_dmgate'
+
     -- 모험 모드
     else
         link_type = 'ply_adv'
@@ -240,6 +243,11 @@ T_LINK_FUNC = {
     -- 인연 던전 발견
     ['fnd_rel'] = function()
         UINavigator:goTo('secret_relation')
+    end,
+
+    -- 차원문
+    ['ply_dmgate'] = function ()
+        UINavigator:goTo('dimension_gate')
     end,
 
     -- 클랜 던전 플레이
