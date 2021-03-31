@@ -704,7 +704,10 @@ function UIC_TableView:_offsetFromIndex(index)
 
         -- 가로
         if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
-            offset['y'] = offset['y'] + ((viewSize['height'] - cellSize['height']) / 2)
+            -- 아이템이 가지는 상하 빈공간 높이
+            -- y + 위 / - 아래
+            local blank_gap = ((viewSize['height'] - cellSize['height']) / 2)
+            offset['y'] = offset['y'] - blank_gap
 
         -- 세로
         else
