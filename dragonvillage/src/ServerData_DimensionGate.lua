@@ -443,6 +443,15 @@ function ServerData_DimensionGate:MakeDimensionGateID(mode_id, chapter_id, diffi
                 + stage_id
 end
 
+function ServerData_DimensionGate:isStageDimensionGate(stage_id)
+    local dungeon_id = self:getDungeonID(stage_id)
+    if dungeon_id == GAME_MODE_DIMENSION_GATE then
+        return true
+    end
+
+    return false
+end
+
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////

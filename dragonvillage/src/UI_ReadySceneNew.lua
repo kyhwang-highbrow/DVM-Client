@@ -618,8 +618,9 @@ function UI_ReadySceneNew:initButton()
         vars['attrInfoBtn']:setVisible(false)
     end
 
-    -- 콜로세움일 경우
-    if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID or self.m_stageID == CLAN_WAR_STAGE_ID) then
+    -- 콜로세움이거나 차원문일 경우
+    if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID or self.m_stageID == CLAN_WAR_STAGE_ID )
+        or g_dimensionGateData:isStageDimensionGate(self.m_stageID) then
         vars['actingPowerNode']:setVisible(false)
         vars['startBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
         vars['startBtnLabel']:setPositionX(0)
