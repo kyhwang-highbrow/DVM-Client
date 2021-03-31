@@ -73,7 +73,7 @@ function UI_EventBingo:initUI()
     vars['lockSprite']:setVisible(true)
     vars['exchangeBtn']:setEnabled(false)
 
-    do
+    do -- 
         local masking_ui = UI_BlockPopup()
         local function touch_func(touch, event)
             self:exchange_callback()
@@ -90,8 +90,6 @@ function UI_EventBingo:initUI()
         local eventDispatcher = layer:getEventDispatcher()
         eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
         
-        --UIManager:makeSkipAndMaskingLayer(masking_ui, touch_func)
-        --self.root:addChild(masking_ui.root)
         masking_ui.root:setVisible(false)
         self.m_maskingUI = masking_ui
     end

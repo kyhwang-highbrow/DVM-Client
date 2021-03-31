@@ -232,11 +232,18 @@ function UI_DimensionGateItem:setStarSprites()
 
     -- 현재 난이도가 몇인가?
     local level = self.m_currDifficultyLevel
-    for index, starSprite in pairs(self.m_starSprites) do
-        if index <= level then
-            starSprite:setVisible(true)
-        else
-            starSprite:setVisible(false)
+    if level == 1 then
+        for index, starSprite in pairs(self.m_starSprites) do
+           starSprite:setVisible(false)           
+        end
+        self.m_starSprites[2]:setVisible(true)
+    else
+        for index, starSprite in pairs(self.m_starSprites) do
+            if index <= level then
+                starSprite:setVisible(true)
+            else
+                starSprite:setVisible(false)
+            end
         end
     end
 
