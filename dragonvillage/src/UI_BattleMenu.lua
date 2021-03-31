@@ -3,7 +3,7 @@ local L_TAB = {'adventure', 'dungeon', 'competition', 'clan'}
 
 local L_TAB_CONTENTS = {}
 L_TAB_CONTENTS['adventure'] = {'adventure', 'exploration'}
-L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'secret_relation'} --  ochoi , 'dimension_gate'
+L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'secret_relation'} --  ochoi , 'dmgate'
 L_TAB_CONTENTS['competition'] = {'ancient', 'attr_tower', 'colosseum', 'challenge_mode', 'grand_arena', 'arena_new'}
 L_TAB_CONTENTS['clan'] = {'clan_raid', 'rune_guardian', 'clan_war'}
 
@@ -51,7 +51,7 @@ function UI_BattleMenu:init()
 
     -- ochoi
     if (IS_DEV_SERVER()) then
-        L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'dimension_gate', 'secret_relation'}
+        L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'dmgate', 'secret_relation'}
     end
 
     -- @UI_ACTION
@@ -394,7 +394,7 @@ function UI_BattleMenu:initDungeonTab()
     local l_item = {}
 
     for _, dungeon_name in ipairs(L_TAB_CONTENTS['dungeon']) do
-        if (not g_contentLockData:isContentLock(dungeon_name) or dungeon_name == 'dimension_gate') then
+        if (not g_contentLockData:isContentLock(dungeon_name) or dungeon_name == 'dmgate') then
             table.insert(l_item, dungeon_name)
         end
     end 

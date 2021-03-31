@@ -78,7 +78,7 @@ function UI_BattleMenuItem:initUI()
     elseif (self.m_listCnt >= 5) then
         ani_num = '_03'
     end
-    if(content_type == 'dimension_gate') then
+    if(content_type == 'dmgate') then
         vars['itemVisual']:changeAni('dmgate' .. ani_num, true)
     else
         vars['itemVisual']:changeAni(content_type .. ani_num, true)
@@ -252,8 +252,8 @@ function UI_BattleMenuItem:click_enterBtn()
     elseif (content_type == 'clan_war') then
         UINavigator:goTo('clan_war')
     -- 시련 (차원문)
-    elseif (content_type == 'dimension_gate') then
-        UINavigator:goTo('dimension_gate')
+    elseif (content_type == 'dmgate') then
+        UINavigator:goTo('dmgate')
     else
         error('content_type : ' .. content_type)
     end

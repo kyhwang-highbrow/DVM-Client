@@ -247,7 +247,7 @@ T_LINK_FUNC = {
 
     -- 차원문
     ['ply_dmgate'] = function ()
-        UINavigator:goTo('dimension_gate')
+        UINavigator:goTo('dmgate')
     end,
 
     -- 클랜 던전 플레이

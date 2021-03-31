@@ -2225,9 +2225,9 @@ end
 -------------------------------------
 -- function goTo_dimension_gate
 -- @brief 차원문으로 이동
--- @usage UINavigatorDefinition:goTo('dimension_gate')
+-- @usage UINavigatorDefinition:goTo('dmgate')
 -------------------------------------
-function UINavigatorDefinition:goTo_dimension_gate(...)
+function UINavigatorDefinition:goTo_dmgate(...)
    
     local is_opened, idx, ui = self:findOpendUI('UI_BattleMenu')
     if (is_opened == true) then
