@@ -71,6 +71,7 @@ function UI_DimensionGateShop:initUI()
         local animator = MakeAnimator(resource_json) -- 'res/character/dragon/angra_water_03/angra_water_03.spine'
         if (animator.m_node) then
             animator:changeAni('idle', true)
+            animator:setTimeScale(0.5)
             self.m_dragonNode:addChild(animator.m_node)
         end
     end
