@@ -103,3 +103,20 @@ end
 function UI_DragonReinforceItem:disable()
 	self.vars['clickBtn']:setEnabled(false)
 end
+
+function UI_DragonReinforceItem:showMaxRelationPoint()
+	if (self.m_type == 'dragon') then
+		local did = self.m_tData:getDid()
+		point = g_bookData:getRelationPoint(did)
+		max_point = TableDragon:getRelationPoint(did)
+
+		local string_format
+		if point >= max_point then
+			string_format = '{@w}%s / %s'
+		else
+			string_format = '{@red}%s {@w}/ %s'
+		end
+
+		self.vars['relationLabel']:setString(string.format(string_format, point, max_point))
+	end
+end

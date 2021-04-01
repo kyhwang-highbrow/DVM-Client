@@ -60,17 +60,33 @@ end
 -------------------------------------
 function UI_DimensionGateShop:initUI() 
     local vars = self.vars
+    local dragon_id = 120742
+
+    local resource_spine = TableDragon:getDragonRes(dragon_id) -- 'res/character/dragon/angra_water_03/angra_water_03.spine'
+    local resource_json = string.gsub(resource_spine, '.spine', '.json')
     
 
-    do -- 나르비 테이머 추가
-        --local res = 'res/character/npc/arahan/arahan.json'
-        local res = 'res/character/dragon/angra_water_03/angra_water_03.json'
+    do -- 앙그라 추가
         self.m_dragonNode:removeAllChildren(true)
-        local animator = MakeAnimator(res)
+        local animator = MakeAnimator(resource_json) -- 'res/character/dragon/angra_water_03/angra_water_03.spine'
         if (animator.m_node) then
             animator:changeAni('idle', true)
             self.m_dragonNode:addChild(animator.m_node)
         end
+    end
+
+    do -- 
+        -- 데이터
+        local t_data = {
+            ['did'] = dragon_id,
+            ['grade'] = TableDragon:getBirthGrade(dragon_id)
+        }
+        local struct_dragon = StructDragonObject(t_data)
+
+        -- 카드 생성
+        local ui = UI_DragonReinforceItem('dragon', struct_dragon)
+        ui:showMaxRelationPoint()
+        self.m_relationNode:addChild(ui.root)
     end
 
     self:initTableView()
