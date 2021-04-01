@@ -30,6 +30,7 @@ end
 --        nest_nightmare [네스트] 악몽 던전
 --        ancient_ruin   [네스트] 고대 유적 던전
 --        rune_guardian  룬 수호자의 던전
+--        dmgate         차원문
 -------------------------------------
 function ServerData_ContentLock:isContentLock(content_name)
     local table_content_lock = TABLE:get('table_content_lock')

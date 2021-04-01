@@ -63,7 +63,8 @@ function UI_DimensionGateShop:initUI()
     
 
     do -- 나르비 테이머 추가
-        local res = 'res/character/npc/arahan/arahan.json'
+        --local res = 'res/character/npc/arahan/arahan.json'
+        local res = 'res/character/dragon/angra_water_03/angra_water_03.json'
         self.m_dragonNode:removeAllChildren(true)
         local animator = MakeAnimator(res)
         if (animator.m_node) then
@@ -105,8 +106,8 @@ function UI_DimensionGateShop:initTableView()
     -- create TableView
     local table_view = UIC_TableViewTD(self.m_listNode)
     --table_view:setCellSizeToNodeSize(true)
-    table_view.m_cellSize = cc.size(225, 275)
-    table_view.m_nItemPerCell = 3
+    table_view.m_cellSize = cc.size(225 + 5, 275 + 5)
+    table_view.m_nItemPerCell = 2
     table_view:setCellUIClass(UI_DimensionGateShopItem, create_callback)
     
     table_view:setItemList(product_list)

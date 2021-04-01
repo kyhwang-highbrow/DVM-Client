@@ -237,6 +237,11 @@ function ServerData_DimensionGate:request_buy(product_id, count, cb_func, fail_c
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
+        -- 재화 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        -- 아이템 수령
+        g_serverData:networkCommonRespone_addedItems(ret)
 
         if(cb_func) then
             cb_func(ret)
