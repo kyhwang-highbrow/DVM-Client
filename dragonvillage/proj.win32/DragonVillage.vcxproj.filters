@@ -4938,6 +4938,7 @@
     <None Include="..\src\UI_EventBingoPackagePopup.lua" />
     <None Include="..\src\UI_DimensionGateItemRewardPopup.lua" />
     <None Include="..\src\UI_DimensionGatePopup.lua" />
+    <None Include="..\src\SkillScript_Charging.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -1327,10 +1327,16 @@ function Character:getSkillTable(skill_id)
     if (skill_indivisual_info) then
 	    t_skill = skill_indivisual_info:getSkillTable()
 
+        --[[
         if (not t_skill and self.m_charType == 'monster') then
             t_skill = TableMonsterSkill():get(skill_id)
             --error('skill_id = ' .. skill_id)
-        end
+        end]]
+    end
+
+    -- 그래도 없으면?
+    if (not t_skill and self.m_charType == 'monster') then
+        t_skill = TableMonsterSkill():get(skill_id)
     end
 
     return t_skill

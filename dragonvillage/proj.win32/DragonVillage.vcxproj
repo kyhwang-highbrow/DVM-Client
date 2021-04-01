@@ -673,6 +673,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SkillRush.lua" />
     <None Include="..\src\SkillScript.lua" />
     <None Include="..\src\SkillScript_AncientDragon.lua" />
+    <None Include="..\src\SkillScript_Charging.lua" />
     <None Include="..\src\SkillScript_ClanRaidBoss.lua" />
     <None Include="..\src\SkillScript_ClanRaidBossFinish.lua" />
     <None Include="..\src\SkillScript_Illusion.lua" />

@@ -445,7 +445,12 @@ function Character:doSkillBySkillTable(t_skill, t_data)
                 return true
 			elseif (skill_type == 'skill_illusion_fury') then
                 SkillScript_Illusion:makeSkillInstance(self, t_skill, t_data)
-                return true                
+                return true
+                
+            elseif (skill_type == 'skill_power_charge') then
+                SkillScript_Charging:makeSkillInstance(self, t_skill, t_data)
+                return true
+                                
             end
 
 			cclog('미구현 코드 스킬 : ' .. skill_type)
