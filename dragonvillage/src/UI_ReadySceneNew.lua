@@ -628,6 +628,7 @@ function UI_ReadySceneNew:initButton()
 
     -- 차원문
     if (g_dimensionGateData:isStageDimensionGate(self.m_stageID)) then
+        vars['startBtnLabel']:setPositionX(0)
         vars['actingPowerNode']:setVisible(false)
     end
 
