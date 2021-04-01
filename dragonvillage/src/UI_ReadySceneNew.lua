@@ -229,6 +229,14 @@ function UI_ReadySceneNew:checkDeckProper()
 
     local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 
+    
+    -- 차원문
+    if (g_dimensionGateData:isStageDimensionGate(self.m_stageID)) then
+        local dmgate_stage_id = g_dimensionGateData:getStageID(self.m_stageID)
+        g_deckData:setSelectedDeck(curr_mode .. '_' .. tostring(dmgate_stage_id))
+        return 
+    end
+
     -- 시험의 탑인 경우 고대의 탑과 STAGE ID 같이 쓰이므로 덱네임 다시 받아옴
     if (curr_mode == 'ancient') then
         local deck_name = g_attrTowerData:getDeckName()
