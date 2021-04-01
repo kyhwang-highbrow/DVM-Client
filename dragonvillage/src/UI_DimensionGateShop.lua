@@ -264,9 +264,11 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_DimensionGateShopItem:click_buyBtn()
-
+    ccdump(self.m_itemData)
     local item_data = TABLE:get('item')[tonumber(self.m_itemData['medal'])]
-    local item_type = item_data['type']
+
+    -- type : medal // full_type : medal_angra
+    local item_type = item_data['full_type']
 
     -- 재화 부족
     if ConfirmPriceByItemID(self.m_itemData['medal'], self.m_itemData['price']) == false then
