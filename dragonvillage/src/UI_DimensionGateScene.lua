@@ -156,6 +156,7 @@ end
 function UI_DimensionGateScene:initParentVariable()
     self.m_uiName = 'UI_DimensionGateScene'
     self.m_titleStr = Str('차원문')
+    self.m_subCurrency = 'medal_angra' -- 
     self.m_bVisible = true
     self.m_bUseExitBtn = true
 end
