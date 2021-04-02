@@ -4939,6 +4939,7 @@
     <None Include="..\src\UI_DimensionGateItemRewardPopup.lua" />
     <None Include="..\src\UI_DimensionGatePopup.lua" />
     <None Include="..\src\SkillScript_Charging.lua" />
+    <None Include="..\src\SkillScript_Groggy.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

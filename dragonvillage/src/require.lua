@@ -728,6 +728,7 @@ local t_module = {
     'SkillScript_ClanRaidBossFinish',
     'SkillScript_Illusion',
     'SkillScript_Charging',
+    'SkillScript_Groggy',
 
     'SkillHealSingle',
     'SkillHealLine',

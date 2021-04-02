@@ -388,11 +388,15 @@ end
 function SkillScript_Charging:updateEffectPos()
     if (self.m_effectRootNode) then
         local unit = self.m_owner
+        --[[
         local bone_pos = unit.m_animator.m_node:getBonePosition(WEAK_POINT_BONE)
         local x = unit.pos['x'] + bone_pos['x'] * unit.m_animator.m_node:getScaleX()
         local y = unit.pos['y'] + bone_pos['y'] * unit.m_animator.m_node:getScaleY()
         
         self.m_effectRootNode:setPosition(x, y)
+        ]]
+
+        self.m_effectRootNode:setPosition(unit.pos['x'], unit.pos['y'])
     end
 end
 
