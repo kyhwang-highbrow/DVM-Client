@@ -451,6 +451,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
                 SkillScript_Charging:makeSkillInstance(self, t_skill, t_data)
                 return true
                                 
+            elseif (skill_type == 'skill_groggy') then
+                SkillScript_Groggy:makeSkillInstance(self, t_skill, t_data)
+                return true
+                               
             end
 
 			cclog('미구현 코드 스킬 : ' .. skill_type)
