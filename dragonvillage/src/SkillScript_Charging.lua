@@ -10,8 +10,8 @@ SkillScript_Charging = class(PARENT, {
     m_totalDamage = 'number',
     m_totalDamageForCancel = 'number',
 
-    m_chargeAniName = 'str',
-    m_attackAniName = 'str', 
+    m_appearAniName = 'str',
+    m_chargeAniName = 'str', 
     m_failAniName = 'str', 
     m_returnAniName = 'str',
 
@@ -43,10 +43,10 @@ function SkillScript_Charging:init()
     self.m_totalDamageForCancel = 65535
 
     -- animation
-    self.m_chargeAniName = 'idle'
-    self.m_attackAniName = 'attack'
-    self.m_failAniName = 'idle'
-    self.m_returnAniName = 'idle'
+    self.m_appearAniName = 'idle'
+    self.m_chargeAniName = 'attack'
+    self.m_failAniName = ''
+    self.m_returnAniName = ''
 
     -- val_1
     self.m_attackSkillId = -1
@@ -145,22 +145,22 @@ function SkillScript_Charging:setSkillParams(owner, t_skill, t_data)
 
     if (l_animation) then
         if (#l_animation >= 4) then
-            self.m_chargeAniName = l_animation[1]
-	        self.m_attackAniName = l_animation[2]
+            self.m_appearAniName = l_animation[1]
+	        self.m_chargeAniName = l_animation[2]
             self.m_failAniName = l_animation[3]
             self.m_returnAniName = l_animation[4]
 
         elseif (#l_animation >= 3) then
-            self.m_chargeAniName = l_animation[1]
-	        self.m_attackAniName = l_animation[2]
+            self.m_appearAniName = l_animation[1]
+	        self.m_chargeAniName = l_animation[2]
             self.m_failAniName = l_animation[3]
 
         elseif (#l_animation >= 2) then
-            self.m_chargeAniName = l_animation[1]
-	        self.m_attackAniName = l_animation[2]
+            self.m_appearAniName = l_animation[1]
+	        self.m_chargeAniName = l_animation[2]
 
         elseif (#l_animation >= 1) then
-            self.m_attackAniName = l_animation[1]
+            self.m_chargeAniName = l_animation[1]
 
         end
     end
@@ -206,7 +206,7 @@ end
 function SkillScript_Charging:initState()
     self:setCommonState(self)
     self:addState('start', SkillScript_Charging.st_start, nil, false)
-    self:addState('charge', SkillScript_Charging.st_charge, self.m_attackAniName, false)
+    self:addState('charge', SkillScript_Charging.st_charge, nil, false)
     self:addState('attack', SkillScript_Charging.st_attack, nil, false)
     self:addState('cancel', SkillScript_Charging.st_cancel, nil, false)
     self:addState('end', SkillScript_Charging.st_disappear, nil, false)
@@ -224,7 +224,12 @@ function SkillScript_Charging.st_start(owner, dt)
 
         owner:updateEffectPos()
         owner:updateGauge()
-		owner:changeState('charge')  
+
+        owner.m_owner.m_animator:changeAni(owner.m_appearAniName, false)
+        owner.m_owner.m_animator:addAniHandler(function()
+            owner:changeState('charge')
+        end)
+		
     end
 end
 
@@ -254,13 +259,9 @@ function SkillScript_Charging.st_attack(owner, dt)
         -- 이펙트 삭제
         owner:removeEffect()
 
-        -- 미사일 발사
+        -- 공격 찍
         owner:runAttack()
-
-		owner.m_owner.m_animator:changeAni(owner.m_attackAniName, false)
-        owner.m_owner.m_animator:addAniHandler(function()
-            owner:changeState('end')
-        end)
+		owner:changeState('end')
 	end
 
     -- 공격상태 유지시간
@@ -278,6 +279,11 @@ function SkillScript_Charging.st_cancel(owner, dt)
 	if (owner.m_stateTimer == 0) then
         -- 이펙트 삭제
         owner:removeEffect()
+
+        if (isNullOrEmpty(owner.m_failAniName)) then
+            owner:changeState('dying')
+            return
+        end
 
 		owner.m_owner.m_animator:changeAni(owner.m_failAniName, false) 
         owner.m_owner.m_animator:addAniHandler(function()
@@ -298,6 +304,11 @@ function SkillScript_Charging.st_disappear(owner, dt)
 	if (owner.m_stateTimer == 0) then
         -- 이펙트 삭제
         owner:removeEffect()
+
+        if (isNullOrEmpty(owner.m_returnAniName)) then
+            owner:changeState('dying')
+            return
+        end
 
         -- 주체 유닛 애니 설정
         local unit = owner.m_owner
@@ -390,13 +401,8 @@ end
 -------------------------------------
 function SkillScript_Charging:updateGauge()
     if (self.m_hpGauge) then
-        local damage = math_min(self.m_totalDamage, self.m_totalDamageForCancel)
-        local ratio = (self.m_totalDamageForCancel - damage) / self.m_totalDamageForCancel
-
-        cclog('필요한 총데미지')
-        cclog(self.m_totalDamageForCancel)
-        cclog('가한 총데미지')
-        cclog(self.m_totalDamage)
+        local hitCount = math_min(self.m_totalDamage, self.m_totalDamageForCancel)
+        local ratio = (self.m_totalDamageForCancel - hitCount) / self.m_totalDamageForCancel
 
         self.m_hpGauge:setScaleX(ratio)
     end
