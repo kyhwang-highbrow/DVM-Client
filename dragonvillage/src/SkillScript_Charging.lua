@@ -6,18 +6,31 @@ local WEAK_POINT_BONE = 'bone79'
 -- class SkillScript_Charging
 -------------------------------------
 SkillScript_Charging = class(PARENT, {
-    m_hitCount = 'number',
-    m_hitCountForCancel = 'number',
+    -- 받은 데미지
+    m_totalDamage = 'number',
+    m_totalDamageForCancel = 'number',
 
-    m_chargeAniName = 'str', 
-    m_castingTime = 'number',
+    m_chargeAniName = 'str',
+    m_attackAniName = 'str', 
+    m_failAniName = 'str', 
+    m_returnAniName = 'str',
 
+    -- val_1 성공발동스킬
     m_attackSkillId = 'number', -- 스크립트 파일일 수도 있음
     m_failSkillId = 'number',
 
+    -- val_2 캐스팅시간;취소에 필요한 데미지 퍼센트(0~100)
+    m_castingTime = 'number',
+    m_abortDamageRate = 'number',
+
+    -- val_3 예상 : 타겟 위치정보
+    m_weakBoneName = 'string',
+
+    -- 약점이펙트
     m_effectRootNode = '',
     m_effectWeakPoint = '',
 
+    -- 캐스팅 캔슬 가능시 노출할 체력바
     m_hpGaugeFrame = '',
     m_hpGauge = '',
 })
@@ -26,8 +39,26 @@ SkillScript_Charging = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillScript_Charging:init()
-    self.m_hitCount = 0
-    self.m_hitCountForCancel = 10
+    self.m_totalDamage = 0
+    self.m_totalDamageForCancel = 65535
+
+    -- animation
+    self.m_chargeAniName = 'idle'
+    self.m_attackAniName = 'attack'
+    self.m_failAniName = 'idle'
+    self.m_returnAniName = 'idle'
+
+    -- val_1
+    self.m_attackSkillId = -1
+    self.m_failSkillId = -1
+
+    -- val_2
+    self.m_castingTime = 15
+    self.m_abortDamageRate = 1
+
+    -- val_3
+    self.m_weakBoneName = nil
+
 
     self.m_effectRootNode = nil
     self.m_effectWeakPoint = nil
@@ -40,7 +71,10 @@ end
 -- function init_skill
 -------------------------------------
 function SkillScript_Charging:init_skill(script_name, duration)
-    PARENT.init_skill(self, script_name, duration)
+    local durataion_value = duration and duration or 0
+    local script_name_value = script_name and script_name or ''
+
+    PARENT.init_skill(self, script_name_value, durataion_value)
 
     -- 약점 이펙트 생성
     if (not self.m_effectRootNode) then
@@ -102,25 +136,68 @@ function SkillScript_Charging:setSkillParams(owner, t_skill, t_data)
 
     self.m_owner = owner
     self.m_lTargetChar = self.m_world:getDragonList()
+    self.m_duration = 0
 
-    -- skill 테이블의 animation 은 사전 연출 animation이기 때문에
-    -- 다른 컬럼을 사용해야 한다.
-	self.m_chargeAniName = t_skill['animation']
+    -- 애니메이션 설정
+    -- skill 테이블의 animation 에 정보가 여러개 들어가 있을 수도 있다.
+    -- {animation_name};{animation_name}
+    local l_animation = pl.stringx.split(t_skill['animation'], ';')
 
-	local l_casting_info = pl.stringx.split(t_skill['val_3'], ';')
+    if (l_animation) then
+        if (#l_animation >= 4) then
+            self.m_chargeAniName = l_animation[1]
+	        self.m_attackAniName = l_animation[2]
+            self.m_failAniName = l_animation[3]
+            self.m_returnAniName = l_animation[4]
 
-    -- 1 충전 시 어떤 애니메이션 사용?
-    -- 2 캐스팅 시간
-    -- 3 중단에 필요한 데미지 체력 % 수?
-    -- 4 실패시 발동될 스킬
-    if (l_casting_info) then
-        if (#l_casting_info >= 4) then
-            self.m_chargeAniName = l_casting_info[1]
-            self.m_castingTime = tonumber(l_casting_info[2])
-            self.m_hitCountForCancel = tonumber(l_casting_info[3]) * self.m_owner.m_maxHp
-            self.m_failSkillId = tonumber(l_casting_info[4])
+        elseif (#l_animation >= 3) then
+            self.m_chargeAniName = l_animation[1]
+	        self.m_attackAniName = l_animation[2]
+            self.m_failAniName = l_animation[3]
+
+        elseif (#l_animation >= 2) then
+            self.m_chargeAniName = l_animation[1]
+	        self.m_attackAniName = l_animation[2]
+
+        elseif (#l_animation >= 1) then
+            self.m_attackAniName = l_animation[1]
+
         end
     end
+
+    -- 스킬설정
+    -- 인덱스 1 성공스킬
+    -- 인덱스 2 실패스킬
+    local l_skill = pl.stringx.split(t_skill['val_1'], ';')
+
+    if (l_skill) then
+        if (#l_skill >= 2) then
+            self.m_attackSkillId = tonumber(l_skill[1])
+	        self.m_failSkillId = tonumber(l_skill[2])
+
+        elseif (#l_skill >= 1) then
+            self.m_attackSkillId = tonumber(l_skill[1])
+
+        end
+    end
+
+    -- 캐스팅 정보
+    -- {캐스팅 시간(초)};{캐스팅 중단에 필요한 데미지}
+    local l_customValue = pl.stringx.split(t_skill['val_2'], ';')
+
+    if (l_customValue) then
+        if (#l_customValue >= 2) then
+            self.m_castingTime = tonumber(l_customValue[1])
+	        self.m_abortDamageRate = tonumber(l_customValue[2])
+
+        elseif (#l_customValue >= 1) then
+            self.m_castingTime = tonumber(l_customValue[1])
+
+        end
+    end
+
+    self.m_totalDamageForCancel = self.m_abortDamageRate / 100 * self.m_owner.m_maxHp
+
 end
 
 -------------------------------------
@@ -129,34 +206,11 @@ end
 function SkillScript_Charging:initState()
     self:setCommonState(self)
     self:addState('start', SkillScript_Charging.st_start, nil, false)
-    self:addState('charge', SkillScript_Charging.st_charge, self.m_chargeAniName, false)
+    self:addState('charge', SkillScript_Charging.st_charge, self.m_attackAniName, false)
     self:addState('attack', SkillScript_Charging.st_attack, nil, false)
     self:addState('cancel', SkillScript_Charging.st_cancel, nil, false)
     self:addState('end', SkillScript_Charging.st_disappear, nil, false)
 end
-
--------------------------------------
--- function changeState
--- @param state
--- @param forced
--- @return boolean
--------------------------------------
-function SkillScript_Charging:changeState(state)
-    local char = self.m_owner
-    local ani_name = self.m_tStateAni[state] and self.m_tStateAni[state]
-
-    if (char and not isNullOrEmpty(ani_name)) then
-        -- 주체 유닛 애니 설정
-        char.m_animator:changeAni(ani_name, false)
-    end
-
-    if (state == 'cancel') then
-        char:doSkill(self.m_failSkillId)
-    end
-
-    return PARENT.changeState(self, state)
-end
-
 
 -------------------------------------
 -- function st_charge
@@ -170,8 +224,7 @@ function SkillScript_Charging.st_start(owner, dt)
 
         owner:updateEffectPos()
         owner:updateGauge()
-
-        owner:changeState('charge')
+		owner:changeState('charge')  
     end
 end
 
@@ -180,15 +233,15 @@ end
 -------------------------------------
 function SkillScript_Charging.st_charge(owner, dt)
 	if (owner.m_stateTimer == 0) then
-
+		owner.m_owner.m_animator:changeAni(owner.m_chargeAniName, false)
     end
 
     owner:updateEffectPos()
     owner:updateGauge()
 
-    if (owner.m_hitCount >= owner.m_hitCountForCancel) then
+    if (owner.m_totalDamage >= owner.m_totalDamageForCancel) then
         owner:changeState('cancel')
-    elseif (owner.m_stateTimer > 3) then
+    elseif (owner.m_stateTimer > owner.m_castingTime) then
         owner:changeState('attack')
     end
 end
@@ -204,14 +257,18 @@ function SkillScript_Charging.st_attack(owner, dt)
         -- 미사일 발사
         owner:runAttack()
 
-        cclog(owner.m_hitCountForCancel)
-
-        owner:changeState('end')
+		owner.m_owner.m_animator:changeAni(owner.m_attackAniName, false)
+        owner.m_owner.m_animator:addAniHandler(function()
+            owner:changeState('end')
+        end)
 	end
 
+    -- 공격상태 유지시간
+    --[[
     if (owner.m_stateTimer >= owner.m_duration) then
         owner:changeState('end')
     end
+    ]]
 end
 
 -------------------------------------
@@ -221,7 +278,16 @@ function SkillScript_Charging.st_cancel(owner, dt)
 	if (owner.m_stateTimer == 0) then
         -- 이펙트 삭제
         owner:removeEffect()
-        owner:changeState('dying')
+
+		owner.m_owner.m_animator:changeAni(owner.m_failAniName, false) 
+        owner.m_owner.m_animator:addAniHandler(function()
+            owner:changeState('dying')
+
+            -- 캐스팅 실패 스킬
+            if (owner.m_failSkillId and owner.m_failSkillId > 0) then
+                owner.m_owner:doSkill(owner.m_failSkillId)
+            end  
+        end)
     end
 end
 
@@ -235,13 +301,10 @@ function SkillScript_Charging.st_disappear(owner, dt)
 
         -- 주체 유닛 애니 설정
         local unit = owner.m_owner
-        --[[
-        unit.m_animator:changeAni('skill_1_disappear', false)
+        unit.m_animator:changeAni(owner.m_returnAniName, false)
         unit.m_animator:addAniHandler(function()
             owner:changeState('dying')
-        end)]]
-
-        owner:changeState('dying')
+        end)
     end
 end
 
@@ -268,7 +331,7 @@ function SkillScript_Charging:runAttack()
     if (self:isScriptSkill()) then
         self:do_script_shot(pos['x'], pos['y'], PHYS.MISSILE.ENEMY)
     else
-        self.m_owner:doSkill(tonumber(self.m_attackSkillId))
+        self.m_owner:doSkill(tonumber(self.m_attackSkillId), pos['x'], pos['y'])
     end
 end
 
@@ -284,11 +347,22 @@ function SkillScript_Charging:onEvent(event_name, t_event, ...)
             local body = self.m_owner:getBody(body_key)
 
             if (not body) then
+            
+            --[[    
             elseif (body['bone'] == WEAK_POINT_BONE) then
-                self.m_hitCount = self.m_hitCount + t_event['damage']
+                self.m_totalDamage = self.m_totalDamage + t_event['damage']
 
                 -- 게이지 갱신
                 self:updateGauge()
+                ]]
+
+            -- 전신맛사지중이면? 어디에 맞든 데미지 계산
+            elseif (self:isFullBodyAttack()) then
+                self.m_totalDamage = self.m_totalDamage + t_event['damage']
+
+                -- 게이지 갱신
+                self:updateGauge()
+
             end
         end
     else
@@ -316,8 +390,13 @@ end
 -------------------------------------
 function SkillScript_Charging:updateGauge()
     if (self.m_hpGauge) then
-        local hitCount = math_min(self.m_hitCount, self.m_hitCountForCancel)
-        local ratio = (self.m_hitCountForCancel - hitCount) / self.m_hitCountForCancel
+        local damage = math_min(self.m_totalDamage, self.m_totalDamageForCancel)
+        local ratio = (self.m_totalDamageForCancel - damage) / self.m_totalDamageForCancel
+
+        cclog('필요한 총데미지')
+        cclog(self.m_totalDamageForCancel)
+        cclog('가한 총데미지')
+        cclog(self.m_totalDamage)
 
         self.m_hpGauge:setScaleX(ratio)
     end
@@ -344,15 +423,13 @@ function SkillScript_Charging:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local res = t_skill['res_1']
-    local duration = t_skill['val_2']
-    local script_name = t_skill['val_1']
+    --local duration = t_skill['val_2']
+    --local script_name = t_skill['val_1']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
     local skill = SkillScript_Charging(res)
-
-    skill.m_attackSkillId = script_name
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
@@ -367,6 +444,13 @@ function SkillScript_Charging:makeSkillInstance(owner, t_skill, t_data)
     local missileNode = world:getMissileNode('bottom')
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
+end
+
+-------------------------------------
+-- function isFullBodyAttack
+-------------------------------------
+function SkillScript_Charging:isFullBodyAttack()
+    return isNullOrEmpty(self.m_weakBoneName)
 end
 
 -------------------------------------
