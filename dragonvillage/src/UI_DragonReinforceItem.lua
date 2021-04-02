@@ -8,6 +8,8 @@ UI_DragonReinforceItem = class(PARENT, {
 		m_type = 'string',
 		m_tData = 'table',
         m_card = 'UI_Card',
+
+		m_bShowMaxRelationPoint = 'boolean',
     })
 
 -------------------------------------
@@ -17,6 +19,7 @@ function UI_DragonReinforceItem:init(item_type, t_data)
     --self.m_did = t_data['did']
 	self.m_type = item_type
 	self.m_tData = t_data
+	self.m_bShowMaxRelationPoint = false
     local vars = self:load('hatchery_relation_item.ui')
 
     self:initUI()
@@ -93,19 +96,8 @@ function UI_DragonReinforceItem:refresh()
 		return
 
 	end
-	vars['relationLabel']:setString(string.format('{@w}%s', comma_value(point)))
-end
 
--------------------------------------
--- function disable
--- @brief
--------------------------------------
-function UI_DragonReinforceItem:disable()
-	self.vars['clickBtn']:setEnabled(false)
-end
-
-function UI_DragonReinforceItem:showMaxRelationPoint()
-	if (self.m_type == 'dragon') then
+	if (self.m_type == 'dragon') and self.m_bShowMaxRelationPoint then
 		local did = self.m_tData:getDid()
 		point = g_bookData:getRelationPoint(did)
 		max_point = TableDragon:getRelationPoint(did)
@@ -118,5 +110,28 @@ function UI_DragonReinforceItem:showMaxRelationPoint()
 		end
 
 		self.vars['relationLabel']:setString(string.format(string_format, point, max_point))
+	else
+		vars['relationLabel']:setString(string.format('{@w}%s', comma_value(point)))
 	end
+end
+
+-------------------------------------
+-- function disable
+-- @brief
+-------------------------------------
+function UI_DragonReinforceItem:disable()
+	self.vars['clickBtn']:setEnabled(false)
+end
+
+-------------------------------------
+-- function showMaxRelationPoint
+-- @brief
+-------------------------------------
+function UI_DragonReinforceItem:showMaxRelationPoint(isTrue)
+	if isTrue == nil then
+		isTrue = true
+	end
+
+	self.m_bShowMaxRelationPoint = isTrue
+	--self:refresh()
 end

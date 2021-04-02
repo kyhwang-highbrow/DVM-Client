@@ -37,6 +37,10 @@ UI_DimensionGateScene = class(PARENT, {
     m_shopBtn = '',                     -- 상점 버튼
 
     m_startBtn = '',                    -- 난이도 팝업 게임 시작 버튼
+
+
+    m_chapterButtons = '',
+    m_chapterLabels = '',
 })
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,7 +61,7 @@ function UI_DimensionGateScene:init(stage_id)
     --self:doActionReset()
     --self:doAction(nil, false)
 
-    self:initMemberVariable()
+    self:initMemberVariable(stage_id)
     self:initUI()
     self:initButton()
     self:refresh()
@@ -78,8 +82,13 @@ function UI_DimensionGateScene:initUI()
     
     self.m_bottomTableView:setVisible(false)
     self.m_topTableView:setVisible(false)
+
+    if self.m_selectedChapter == self.m_topBtn then
+        self:click_bottomBtn()
+    else
+        self:click_topBtn()
+    end
     
-    self:click_bottomBtn()
 end
 
 -------------------------------------
@@ -92,6 +101,9 @@ function UI_DimensionGateScene:initButton()
     self.m_infoBtn:registerScriptTapHandler(function() self:click_infoBtn() end)
     self.m_blessBtn:registerScriptTapHandler(function() self:click_blessBtn() end)
 
+    -- for _, button in self.m_chapterButtons do 
+    --     button:registerScriptTapHandler(function() end)
+    -- end
     self.m_topBtn:registerScriptTapHandler(function() self:click_topBtn() end)
     self.m_bottomBtn:registerScriptTapHandler(function() self:click_bottomBtn() end)
 
@@ -115,7 +127,7 @@ end
 -- function initParentVariable
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 -------------------------------------
-function UI_DimensionGateScene:initMemberVariable()
+function UI_DimensionGateScene:initMemberVariable(stage_id)
     local vars = self.vars
 
     -- init ui nodes
@@ -135,6 +147,17 @@ function UI_DimensionGateScene:initMemberVariable()
     
 
     -- init ui buttons
+    -- self.m_chapterButtons = {}
+    -- self.m_chapterLabels = {}
+    -- local buttonNum = 1
+    -- while(vars['chapterBtn' .. tostring(buttonNum)] ~= nil) do
+    --     self.m_chapterButtons[buttonNum] = vars['chapterBtn' .. tostring(buttonNum)]
+    --     self.m_chapterLabels[buttonNum] = vars['chapterLabel' .. tostring(buttonNum)]
+    --     buttonNum = buttonNum + 1
+    -- end
+
+
+
     self.m_blessBtn = vars['blessBtn']
     self.m_infoBtn = vars['infoBtn']
     self.m_topBtn = vars['topBtn']
@@ -145,7 +168,19 @@ function UI_DimensionGateScene:initMemberVariable()
     self.m_bottomSprite = vars['bottomSprite']
 
     self.m_startBtn = vars['startBtn']
-    self.m_selectedChapter = self.m_topBtn
+
+    local chapter_id 
+    if stage_id then
+        chapter_id = g_dimensionGateData:getChapterID(stage_id)
+    else
+        chapter_id = 1
+    end
+    
+    if chapter_id == 2 then
+        self.m_selectedChapter = self.m_bottomBtn
+    else
+        self.m_selectedChapter = self.m_topBtn
+    end
 end
 
 
@@ -316,16 +351,16 @@ end
 -- function click_difficultyLevelBtn
 -- @brief 
 -------------------------------------
-function UI_DimensionGateScene:click_difficultyLevelBtn(ui, data)
+function UI_DimensionGateScene:click_difficultyLevelBtn(ui)
     local vars = self.vars
 
-    local target_stage_id = tonumber(data['stage_id'])
+    local target_stage_id = ui:getStageID()
     local target_ui = self.m_selectedDimensionGateInfo.ui
 
-    -- if target_ui:getStageID() ~= target_stage_id then
-    --     target_ui:setStageID(target_stage_id)
-    --     target_ui:refresh()
-    -- end
+    if target_ui:getStageID() ~= target_stage_id then
+        target_ui:setStageID(target_stage_id)
+        target_ui:refresh()
+    end
 
     -- self:closeStageNode()
 end
@@ -521,9 +556,11 @@ function UI_DimensionGateScene:PopupStageNode(data)
     else
         self.m_stageTopMenu:setVisible(true)
     end
-
+    local test = 3
     local function create_callback(ui, data)
-        ui.m_selectedBtn:registerScriptTapHandler(function() self:click_difficultyLevelBtn(ui, data) end)
+        ui.m_selectedBtn:registerScriptTapHandler(function() 
+            self:click_difficultyLevelBtn(ui) 
+        end)
         return true
     end
 

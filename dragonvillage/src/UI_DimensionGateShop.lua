@@ -12,6 +12,9 @@ UI_DimensionGateShop = class(PARENT, {
     m_listNode = '',
     m_npcNode = '',
 
+
+
+    m_relationUI = '',
 })
 
 
@@ -87,6 +90,7 @@ function UI_DimensionGateShop:initUI()
         -- 카드 생성
         local ui = UI_DragonReinforceItem('dragon', struct_dragon)
         ui:showMaxRelationPoint()
+        self.m_relationUI = ui
         self.m_relationNode:addChild(ui.root)
     end
 
@@ -103,8 +107,10 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_DimensionGateShop:refresh() 
-
+function UI_DimensionGateShop:refresh()
+    if self.m_relationUI then
+        self.m_relationUI:refresh()
+    end
 end
 
 -------------------------------------
@@ -118,6 +124,12 @@ function UI_DimensionGateShop:initTableView()
     local product_list = g_dimensionGateData:getShopInfoProductList(DIMENSION_GATE_MANUS)
 
     local function create_callback(ui, data)
+        -- ui.m_buyBtn:registerScriptTapHandler(function() 
+        --     self:click_buyBtn(ui.m_itemData)
+        --     -- cca.reserveFunc(self.m_relationNode, 0.25, 
+        --     --     function() self:refresh() end)
+        --     self:refresh()
+        -- end)
     end
 
     -- create TableView
@@ -169,6 +181,37 @@ end
 function UI_DimensionGateShop:click_exitBtn()
    self:close()
 end
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+-- function UI_DimensionGateShop:click_buyBtn(data)
+--     local item_data = TABLE:get('item')[tonumber(data['medal'])]
+
+--     -- type : medal // full_type : medal_angra
+--     local item_type = item_data['full_type']
+
+--     -- 재화 부족
+--     if ConfirmPriceByItemID(data['medal'], data['price']) == false then
+--        return 
+--     end
+
+--     local function buy_callback_func(ret)
+--         ItemObtainResult_Shop(ret)
+        
+--     end
+--     local function ok_button_callback()
+--         local product_id = data['product_id']
+--         local count = 1--data['bundle']
+--         g_dimensionGateData:request_buy(product_id, count, buy_callback_func)
+--     end
+
+--     local name = data['t_name']
+--     local count = 1
+--     local msg = Str('{@item_name}"{1} x{2}"\n{@default}구매하시겠습니까?', name, count)
+
+--     UI_ConfirmPopup(item_type, data['price'], msg, ok_button_callback)
+-- end
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -281,7 +324,6 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_DimensionGateShopItem:click_buyBtn()
-    ccdump(self.m_itemData)
     local item_data = TABLE:get('item')[tonumber(self.m_itemData['medal'])]
 
     -- type : medal // full_type : medal_angra
@@ -294,7 +336,7 @@ function UI_DimensionGateShopItem:click_buyBtn()
 
     local function buy_callback_func(ret)
         ItemObtainResult_Shop(ret)
-
+        
     end
     local function ok_button_callback()
         local product_id = self.m_itemData['product_id']

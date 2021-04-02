@@ -394,7 +394,7 @@ function UI_BattleMenu:initDungeonTab()
     local l_item = {}
 
     for _, dungeon_name in ipairs(L_TAB_CONTENTS['dungeon']) do
-        if (not g_contentLockData:isContentLock(dungeon_name) or dungeon_name == 'dmgate') then
+        if (not g_contentLockData:isContentLock(dungeon_name)) then
             table.insert(l_item, dungeon_name)
         end
     end 
