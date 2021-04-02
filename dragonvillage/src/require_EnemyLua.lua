@@ -276,8 +276,16 @@ ENEMY_POS['RM28'] = {x=pos_x_r + (pos_x_add * 3), y=pos_y + (pos_y_add * 7)}
 ENEMY_POS['RB18'] = {x=pos_x_r + (pos_x_add * 4), y=pos_y + (pos_y_add * 7)}
 ENEMY_POS['RB28'] = {x=pos_x_r + (pos_x_add * 5), y=pos_y + (pos_y_add * 7)}
 ENEMY_POS['RB38'] = {x=pos_x_r + (pos_x_add * 6), y=pos_y + (pos_y_add * 7)}
-
-
+-- 화면 확대 활용 (0.6배율 기준 화면 오른쪽 끝)
+ENEMY_POS['RO11'] = {x=1580, y=pos_y + (pos_y_add * 0)}
+ENEMY_POS['RO12'] = {x=1580, y=pos_y + (pos_y_add * 1)}
+ENEMY_POS['RO13'] = {x=1580, y=pos_y + (pos_y_add * 2)}
+ENEMY_POS['RO14'] = {x=1580, y=pos_y + (pos_y_add * 3)}
+ENEMY_POS['RO15'] = {x=1580, y=pos_y + (pos_y_add * 4)}
+ENEMY_POS['RO16'] = {x=1580, y=pos_y + (pos_y_add * 5)}
+ENEMY_POS['RO17'] = {x=1580, y=pos_y + (pos_y_add * 6)}
+-- 화면 확대 활용 (0.6배율 화면 정 중앙 상단 = 타이머 바로 밑)
+ENEMY_POS['MD06'] = {x=pos_x_r + (pos_x_add * -1), y=pos_y + (pos_y_add * -1.5)}
 -------------------------------------
 -- function getEnemyPos
 -- @brief 적군의 절대 위치
