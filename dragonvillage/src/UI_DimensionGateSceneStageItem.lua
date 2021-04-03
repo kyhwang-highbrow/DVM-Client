@@ -19,7 +19,6 @@ UI_DimensionGateSceneStageItem = class(PARENT, {
     m_data = '',
 
     m_stageID = '',
-    m_mode = '',
     m_currDifficultyLevel = '',
 
 
@@ -102,7 +101,7 @@ function UI_DimensionGateSceneStageItem:refreshLockSprite()
         self.m_selectedBtn:setEnabled(true)
         return
     end
-    local isCleared = g_dimensionGateData:isStageCleared(self.m_mode, prevDiffID)
+    local isCleared = g_dimensionGateData:isStageCleared(prevDiffID)
 
     self.m_lockSprite:setVisible(not isCleared)
     self.m_selectedBtn:setEnabled(isCleared)
@@ -113,7 +112,7 @@ end
 ----------------------------------------------------------------------
 function UI_DimensionGateSceneStageItem:refreshStarSprite()
     local level = self.m_currDifficultyLevel
-    local isCleared = g_dimensionGateData:isStageCleared(self.m_mode, self.m_stageID)
+    local isCleared = g_dimensionGateData:isStageCleared(self.m_stageID)
     
     for index, starSprite in pairs(self.m_defaultStarSprites) do
        
@@ -147,6 +146,5 @@ end
 ----------------------------------------------------------------------
 function UI_DimensionGateSceneStageItem:setStageID(stage_id)
     self.m_stageID = stage_id
-    self.m_mode = g_dimensionGateData:getModeID(self.m_stageID)
     self.m_currDifficultyLevel = g_dimensionGateData:getDifficultyID(self.m_stageID)
 end

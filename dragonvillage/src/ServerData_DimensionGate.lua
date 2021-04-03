@@ -1,23 +1,27 @@
-
 -------------------------------------
 -- class ServerData_DimensionGate
 -------------------------------------
 ServerData_DimensionGate = class({
-    m_serverData = 'ServerData',
+    --
+    m_serverData = 'ServerData', -- ServerData.lua
+    m_bDirtyDimensionGateInfo = 'boolean', -- lobby 진입 후 최초 request_dmgateInfo() 이 후에 로비 진입시 마다 반복되는 것을 방지
 
-    m_dimensionGateInfo = '',   -- request_dmgateInfo() from server
+    m_stageTableName = 'string',
 
-    m_dimensionGateTable = '',  -- request_dmgateTable() from table
-    m_dimensionGateKey = '',
+    
 
-    m_shopInfo = '', -- request_shopInfo() from server
+    m_unlockStageList = '',  -- 스테이지 클리어후 스테이지 언락 VRP를 보여주기 위함
+    --m_blessTable = '',      -- table_bless
+
+
+    -- Refactoring
+    m_stageTable = '', -- request_stageTable() from table_dmgate_stage.csv
+    m_stageTableKeys = '', -- [mode_id][stage_id] = index of m_stageTable[mode_id]
+    m_dmgateInfo = '', -- 
+
+    
+    m_shopInfo = '',            -- request_shopInfo() from server
     m_shopProductCounts = '', 
-
-    m_unlockStageList = '',
-
-    m_blessTable = '',
-
-    m_bDirtyDimensionGateInfo = 'boolean'
 })
 
 -------------------------------------
@@ -27,51 +31,113 @@ function ServerData_DimensionGate:init(server_data)
     self.m_serverData = server_data
     self.m_bDirtyDimensionGateInfo = true
 
-    
-    self.m_dimensionGateInfo = {}
-    self.m_dimensionGateTable = {}
-    self.m_dimensionGateKey = {}
-
     -- SHOP
     self.m_shopInfo = {}
     self.m_shopProductCounts = {}
 
     self.m_unlockStageList = {}
+
+    -- TEST
+    self.m_stageTableName = 'table_dmgate_stage' -- csv from server
 end
 
--------------------------------------
--- function request_dimensionGateInfo
--------------------------------------
-function ServerData_DimensionGate:request_gameStart(stage_id, deck_name, combat_power, finish_cb, is_cash)
-    local uid = g_userData:get('uid')
-    local api_url = '/dmgate/start'
+-- ******************************************************************************************************
+-- ** request and response functions from server and csv file
+-- ******************************************************************************************************
 
+----------------------------------------------------------------------------
+-- function request_dmgateInfo
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:request_dmgateInfo(success_cb, fail_cb)
+    local user_id = g_userData:get('uid')
 
-    -- callback funciton
-    local function success_cb(ret)
+    -- 처음 불린 이후에 false
+    if (not self.m_bDirtyDimensionGateInfo) then
+        if success_cb then
+            success_cb()
+        end
+
+        return
     end
 
-    local response_status_cb
+    -- callback for success
+    local function callback_for_success(ret)
+        self:response_dmgateInfo(ret)
 
-    -- 네트워크 통신 UI 생성
+        if(success_cb) then success_cb(ret) end
+    end
+    
     local ui_network = UI_Network()
-    ui_network:setUrl(api_url)
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', stage_id)
-    ui_network:setParam('deck_name', deck_name)
-    ui_network:setParam('token', token)
-    ui_network:setResponseStatusCB(response_status_cb)
-    ui_network:setSuccessCB(success_cb)
+    ui_network:setUrl('/dmgate/info')
+    ui_network:setParam('uid', user_id)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(callback_for_success)
+    ui_network:setFailCB(fail_cb)
     ui_network:request()
+
+    return ui_network
 end
 
-function ServerData_DimensionGate:request_reward(stage_id, cb_func, fail_cb)
+----------------------------------------------------------------------------
+-- function response_dmgateInfo
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:response_dmgateInfo(ret)
+    local dmgate_info = ret['dmgate_info']
+   
+
+    if dmgate_info == nil then
+        error('key for accessing the table is changed from \'dmgate_info\' to other from server')
+    end
+
+    -- request_dmgateInfo()를 처음 부르는 경우
+    if (self.m_dmgateInfo == nil) then
+        self.m_dmgateInfo = {}
+        self:request_stageTable()
+    end
+
+    -- 차원문 스테이지 종료 후 GameStage_DimensionGate에서 '/dmgate/finish'을 통해 불린 경우
+    if (#self.m_dmgateInfo > 0) and (ret['added_item'] == nil) and (ret['stage'] ~= nil) then
+        local stage_id = ret['stage'] -- 클리어한 스테이지 (type : number)
+        if (stage_id == nil) then error('cannot find cleared stage id with the key \'stage\' from the table which is result from \'/dmgate/finish\'') end
+        -- TODO : need error check stage id is included in table_dmgate_stage.csv
+        local mode_id = self:getModeID(stage_id)
+        -- CHECK : need to check length of ret['stage']
+   
+        -- 클리어한 스테이지의 보상 정보가 바뀐 경우 0->1, 1->2 을 체크하기 위함
+        local prev_reward_status = self.m_dmgateInfo[mode_id]['stage'][tostring(stage_id)]
+        local curr_reward_status = dmgate_info[mode_id]['stage'][tostring(stage_id)]
+        
+        -- 0->1만 체크해야 하지만 1->2 인'/dmgate/reward' 의 경우 이 조건문을 들어올 수 없기에 별도 조건문 생략.
+        if (prev_reward_status ~= curr_reward_status) then
+            local stage_key = self.m_stageTableKeys[mode_id][stage_id]
+            local next_stage_data = self.m_stageTable[mode_id][stage_key + 1]
+            -- 다음 스테이지가 같은 모드 안에 존재하는지 체크
+            if next_stage_data ~= nil then 
+                local next_stage_id = next_stage_data['stage_id']
+                if (next_stage_id ~= nil) then 
+                    self.m_unlockStageList[next_stage_id] = true
+                end
+            end
+        end
+    end
+
+    self.m_dmgateInfo = dmgate_info
+
+    self.m_bDirtyDimensionGateInfo = false
+end
+
+----------------------------------------------------------------------------
+-- function request_reward
+-- @brief 차원문 보상 수령 서버에 요청
+-- UI_DimensionGateItem:click_rewardBtn()
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:request_reward(stage_id, success_cb, fail_cb)
     local uid = g_userData:get('uid')
 
-    local function success_cb(ret)
-        self:response_dimensionGateInfo(ret)
+    local function callback_for_success(ret)
+        self:response_dmgateInfo(ret)
 
-        if cb_func then cb_func(ret) end
+        if success_cb then success_cb(ret) end
     end
 
     local ui_network = UI_Network()
@@ -79,7 +145,7 @@ function ServerData_DimensionGate:request_reward(stage_id, cb_func, fail_cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', stage_id)
     ui_network:setRevocable(true)
-    ui_network:setSuccessCB(success_cb)
+    ui_network:setSuccessCB(callback_for_success)
     ui_network:setFailCB(fail_cb)
     ui_network:request()
 
@@ -88,119 +154,56 @@ end
 
 
 -------------------------------------
--- function request_dimensionGateInfo
+-- function request_stageTable
+-- @brief table_dmgate_stage.csv 를 서버에서 가져와 stage_id 기준으로 sort된 리스트와 
+-- stage_id를 키값으로 가지는 리스트를 생성한다.
 -------------------------------------
-function ServerData_DimensionGate:request_dimensionGateInfo(cb_func, fail_cb)
-
-    if(not self.m_bDirtyDimensionGateInfo) then
-        if cb_func then
-            cb_func()
-        end
-
-        return nil
-    end
-
-    local uid = g_userData:get('uid')
-
-    -- callback for success
-    local function success_cb(ret)
-        self:response_dimensionGateInfo(ret)
-
-        if cb_func then cb_func(ret) end
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dmgate/info')
-    ui_network:setParam('uid', uid)
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:request()
-
-    return ui_network
-end
-
--------------------------------------
--- function response_dimensionGateInfo
--------------------------------------
-function ServerData_DimensionGate:response_dimensionGateInfo(ret)
-    local dmgate_info = ret['dmgate_info']
+function ServerData_DimensionGate:request_stageTable()
+    -- key 값을 별도로 가지고 있을 경우 sort가 작동하지 않기 때문에 변환
+    local dimensionGate_list = table.MapToList(TABLE:get(self.m_stageTableName))
     
-    if #self.m_dimensionGateInfo ~= 0  and ret['added_items'] == nil then
-        local stage_id = ret['stage']
-        local mode_id = self:getModeID(stage_id)
-        if self.m_dimensionGateInfo[mode_id]['stage'][tostring(stage_id)]
-        ~= dmgate_info[mode_id]['stage'][tostring(stage_id)] then
-
-            local key = self.m_dimensionGateKey[mode_id][stage_id]
-            local next_stage_id = self.m_dimensionGateTable[mode_id][key+1]['stage_id']
-            
-            if next_stage_id ~= nil then
-                self.m_unlockStageList[next_stage_id] = {}
-            end
-            self.m_dimensionGateInfo = dmgate_info
-            return
-        end
-
-    end
-
-    self.m_dimensionGateInfo = dmgate_info
-    
-    -- TODO (YOUNGJIN) : 지금은 request 할 때마다 table을 가져오고 sorting 하지만
-    -- 테이블에 한해서는 게임 시작시 한번만 하면 됨. 하지만 init에 넣으면 
-    -- TABLE의 load 순서에 따라 비어 있을 수도 있기 때문에 일단 여기 넣음. 
-    self:request_dmgateTable()
-
-    self.m_bDirtyDimensionGateInfo = false
-end
-
--------------------------------------
--- function request_dmgateTable
--------------------------------------
-function ServerData_DimensionGate:request_dmgateTable()
-    local temp = TABLE:get("table_dmgate_stage")
-    local dimensionGate_list = table.MapToList(temp)
-    
+    -- sort by elss-than operation
     local function sort_func(a, b) return a['stage_id'] < b['stage_id'] end
     table.sort(dimensionGate_list, sort_func)
-    
-    local key = {}
-    for k, v in pairs(dimensionGate_list) do
-        key[v['stage_id']] = k
-    end
-    
-    self.m_dimensionGateTable[DIMENSION_GATE_MANUS] = dimensionGate_list
-    self.m_dimensionGateKey[DIMENSION_GATE_MANUS] = key
-    
+
+    local mode_id
+    local stage_id
+    self.m_stageTable = {}
+    self.m_stageTableKeys = {}
+    for key, data in pairs(dimensionGate_list) do
+        -- 모드 id (앙그라, 마누스, ..)에 따라 stage 정보 분류
+        stage_id = data['stage_id'] -- number
+        mode_id = self:getModeID(stage_id) -- number
+
+        if(self.m_stageTable[mode_id] == nil) then 
+            self.m_stageTable[mode_id] = {}
+            self.m_stageTableKeys[mode_id] = {}
+        end
+
+        table.insert(self.m_stageTable[mode_id], data)
+        -- stage_id 로 검색하기 위해 index 키값을 따로 저장
+        self.m_stageTableKeys[mode_id][stage_id] = #self.m_stageTable[mode_id]
+    end    
 end
 
 -------------------------------------
--- function request_dmgateTable
+-- function request_shopInfo
 -------------------------------------
-function ServerData_DimensionGate:request_shopInfo(cb_func, fail_cb)
-
-    -- if(not self.m_bDirtyDimensionGateInfo) then
-    -- if cb_func then
-    --     cb_func()
-    -- end
-
-    --     return nil
-    -- end
-
+function ServerData_DimensionGate:request_shopInfo(success_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     -- callback for success
-    local function success_cb(ret)
+    local function callback_for_success(ret)
         self:response_shopInfo(ret)
         
-        if cb_func then cb_func(ret) end
+        if success_cb then success_cb(ret) end
     end
 
     local ui_network = UI_Network()
     ui_network:setUrl('/dmgate/shop_info')
     ui_network:setParam('uid', uid)
     ui_network:setRevocable(true)  -- 게임 종료 통신이 아니면 취소
-    ui_network:setSuccessCB(success_cb)
+    ui_network:setSuccessCB(callback_for_success)
     ui_network:setFailCB(fail_cb)
     ui_network:request()
 
@@ -209,29 +212,15 @@ end
 
 
 -------------------------------------
--- function request_dmgateTable
+-- function response_shopInfo
 -------------------------------------
 function ServerData_DimensionGate:response_shopInfo(ret)
-    self.m_shopInfo[DIMENSION_GATE_MANUS] = ret['table_shop_dmgate']
-    self.m_shopProductCounts[DIMENSION_GATE_MANUS] = ret['buycnt']
+    self.m_shopInfo = ret['table_shop_dmgate']
+    self.m_shopProductCounts = ret['buycnt']
 end
 
 -------------------------------------
--- function getShopInfoProductList
--------------------------------------
-function ServerData_DimensionGate:getShopInfoProductList(mode_id)
-    return self.m_shopInfo[mode_id]
-end
-
--------------------------------------
--- function getProductCount
--------------------------------------
-function ServerData_DimensionGate:getProductCount(mode_id, product_id)
-    return self.m_shopProductCounts[mode_id][tostring(product_id)]
-end
-
--------------------------------------
--- function request_dmgateTable
+-- function request_buy
 -------------------------------------
 function ServerData_DimensionGate:request_buy(product_id, count, cb_func, fail_cb)
     local uid = g_userData:get('uid')
@@ -261,9 +250,123 @@ function ServerData_DimensionGate:request_buy(product_id, count, cb_func, fail_c
     return ui_network
 end
 
--------------------------------------
+-- ******************************************************************************************************
+-- ** Help functions related with 
+-- ******************************************************************************************************
+
+
+----------------------------------------------------------------------------
+-- function isStageDimensionGate
+-- @brief 
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:isStageDimensionGate(stage_id)
+    if (not self:isStageInTable(stage_id)) then return false end 
+
+    local dungeon_id = self:getDungeonID(stage_id) -- GAME_MODE_DIMENSION_GATE = 30
+    return dungeon_id == GAME_MODE_DIMENSION_GATE
+end
+
+----------------------------------------------------------------------------
+-- function isStageInMode
+-- @brief 
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:isStageInMode(mode_id, stage_id)
+    if mode_id == nil or stage_id == nil then 
+        error('Missed out more than one parameter')
+    end
+    
+    return mode_id == self:getModeID(stage_id)
+end
+
+----------------------------------------------------------------------------
+-- function isStageInTable
+-- @brief 
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:isStageInTable(stage_id)
+    local mode_id = self:getModeID(stage_id)
+    local key = self.m_stageTableKeys[mode_id][stage_id]
+    return self.m_stageTable[mode_id][key] ~= nil
+end
+
+----------------------------------------------------------------------------
+-- function getPrevStageID
+-- @brief 
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:getPrevStageID(stage_id)
+    local mode_id = self:getModeID(stage_id)
+    local curr_stage_key = self.m_stageTableKeys[mode_id][stage_id]
+
+    if (not key) then 
+        error('This stage_id is not included in table_dmgate_stage.')
+    end
+
+    local prev_stage_data = self.m_stageTable[mode_id][curr_stage_key - 1]
+
+    if prev_stage_data == nil then return nil end
+
+    return prev_stage_data['stage_id']
+end
+
+----------------------------------------------------------------------------
+-- function getPrevStageID
+-- @brief 
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:CheckBothStagesInSameChapater(lhs, rhs)
+    return self:getChapterID(lhs) == self:getChapterID(rhs)
+end
+
+----------------------------------------------------------------------------
+-- function getNextStageID
+-- @brief 
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:getNextStageID(stage_id)
+    local mode_id = self:getModeID(stage_id)
+    local curr_stage_key = self.m_stageTableKeys[mode_id][stage_id]
+
+    if (not key) then 
+        error('This stage_id is not included in table_dmgate_stage.')
+    end
+
+    local prev_stage_data = self.m_stageTable[mode_id][curr_stage_key + 1]
+
+    if prev_stage_data == nil then return nil end
+
+    return prev_stage_data['stage_id']
+end
+
+
+
+
+
+-- ******************************************************************************************************
+-- ** Help functions related with request_shopInfo
+-- ******************************************************************************************************
+
+
+
+----------------------------------------------------------------------------
+-- function getShopInfoProductList
+-- @brief 
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:getShopInfoProductList()
+    return self.m_shopInfo
+end
+
+
+----------------------------------------------------------------------------
+-- function getProductCount
+-- @brief 
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:getProductCount( product_id)
+    return self.m_shopProductCounts[tostring(product_id)]
+end
+
+
+
+----------------------------------------------------------------------------
 -- function checkInUnlockList
--------------------------------------
+-- @brief 
+----------------------------------------------------------------------------
 function ServerData_DimensionGate:checkInUnlockList(stage_id)
     if self.m_unlockStageList[tonumber(stage_id)] ~= nil then
         self.m_unlockStageList[tonumber(stage_id)] = nil
@@ -273,6 +376,10 @@ function ServerData_DimensionGate:checkInUnlockList(stage_id)
     return false
 end
 
+
+-- ******************************************************************************************************
+-- ** 
+-- ******************************************************************************************************
 
 -------------------------------------
 -- function makeDimensionGateID
@@ -354,20 +461,6 @@ function ServerData_DimensionGate:getStageID(stage_id)
 end
 
 
--------------------------------------
--- function getPrevStageID
--- 3011001
---      01 스테이지(stage)      : 스테이지 번호
--------------------------------------
-function ServerData_DimensionGate:getPrevStageID(stage_id)
-    if (getStageID(stage_id) <= 1) then
-        return nil
-    else
-        return stage_id - 1
-    end
-end
-
-
 function ServerData_DimensionGate:getPrevDifficultyID(stage_id)
     local diff_id = self:getDifficultyID(stage_id)
 
@@ -377,47 +470,7 @@ function ServerData_DimensionGate:getPrevDifficultyID(stage_id)
                     diff_id - 1, self:getStageID(stage_id))
 end
 
--- function ServerData_DimensionGate:getPrevStageID(stage_id)
 
--- end
-
-function ServerData_DimensionGate:getNextStageID(stage_id)
-
-    -- 모드
-    local mode_id = self:getModeID(stage_id)
-    -- 챕터
-    local chapter_id = self:getChapterID(stage_id)
-    -- 난이도
-    local difficulty_id = self:getDifficultyID(stage_id)
-    -- 스테이지
-    local stage_id = self:getStageID(stage_id)
-
-    -- id 조합
-    local temp_id = self:MakeDimensionGateID(mode_id, chapter_id, difficulty_id, stage_id)
-
-
-
-    -- while (self.m_dimensionGateInfo[mode_id][tostring(temp_id)] == nil) do -- chapter
-    --     while() do -- difficulty
-    --         while() do -- stage
-    --             stage_id = stage_i + 1
-
-    --         end
-
-    --         difficulty_id = difficulty_id + 1
-    --         stage_id = 1
-    --     end
-
-    --     chapter_id = chapter_id + 1
-    --     difficulty_id = 1
-
-    -- end
-    -- 스테이지 + 1 
-
-    -- 없으면 난이도 +1 스테이지 1부터.
-    -- 난이도 없으면 챕터 +1 스테이지 1부터. 난이도는? 0부터? 1부터? 어라? 챕터애매.
-    -- 챕터 없으면 Max 상태. 모드 바뀌는건 다른 모드 나왔을 때 생각.
-end
 
 -------------------------------------
 -- function MakeDimensionGateID
@@ -435,16 +488,6 @@ function ServerData_DimensionGate:MakeDimensionGateID(mode_id, chapter_id, diffi
                 + stage_id
 end
 
-function ServerData_DimensionGate:isStageDimensionGate(stage_id)
-    local dungeon_id = self:getDungeonID(stage_id)
-    if dungeon_id == GAME_MODE_DIMENSION_GATE then
-        return true
-    end
-
-    return false
-end
-
-
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --// 
@@ -457,7 +500,7 @@ end
 function ServerData_DimensionGate:getStageInfoList(mode_type)
     if not mode_type then return nil end
 
-    return self.m_dimensionGateInfo[mode_type]['stage']
+    return self.m_dmgateInfo[mode_type]['stage']
 end
 
 -------------------------------------
@@ -466,7 +509,7 @@ end
 function ServerData_DimensionGate:getBuffList(mode_id)
     if not mode_id then return nil end
 
-    local str = tostring(self.m_dimensionGateInfo[mode_id]['buff'])
+    local str = tostring(self.m_dmgateInfo[mode_id]['buff'])
     local buffList = plSplit(str, ';')   
 
     local blessTable = TABLE:get('dmgate_bless')
@@ -482,31 +525,31 @@ end
 -------------------------------------
 -- function getStageStatus
 -------------------------------------
-function ServerData_DimensionGate:getStageStatus(mode_type, stage_id)
+function ServerData_DimensionGate:getStageStatus(stage_id)
+    local mode_id = self:getModeID(stage_id)
    
-    return self.m_dimensionGateInfo[mode_type]['stage'][tostring(stage_id)] or -1
+    return self.m_dmgateInfo[mode_id]['stage'][tostring(stage_id)] or -1
 end
 
 -------------------------------------
 -- function isStageOpened
 -------------------------------------
-function ServerData_DimensionGate:isStageOpened(mode_type, stage_id)
-    return self:getStageStatus(mode_type, stage_id) >= 0
+function ServerData_DimensionGate:isStageOpened(stage_id)
+    return self:getStageStatus(stage_id) >= 0
 end
 
 -------------------------------------
 -- function isStageCleared
 -------------------------------------
-function ServerData_DimensionGate:isStageCleared(mode_type, stage_id)
-    return self:getStageStatus(mode_type, stage_id) > 0
+function ServerData_DimensionGate:isStageCleared(stage_id)
+    return self:getStageStatus(stage_id) > 0
 end
 
 -------------------------------------
 -- function getRewardStatus
 -------------------------------------
 function ServerData_DimensionGate:getRewardStatus(stage_id)
-    local mode_id = self:getModeID(stage_id)
-    local status = self:getStageStatus(mode_id, stage_id)
+    local status = self:getStageStatus(stage_id)
     if status == -1 then status = 0 end
 
     return status
@@ -521,14 +564,15 @@ end
 -------------------------------------
 -- function getDifficultyStatus
 -------------------------------------
-function ServerData_DimensionGate:getDifficultyStatus(mode_type, stage_id)
-    return self.m_dimensionGateInfo[mode_type]['stage'][tostring(stage_id)] or -1
+function ServerData_DimensionGate:getDifficultyStatus(stage_id)
+    local mode_id = self:getModeID(stage_id)
+    return self.m_dmgateInfo[stage_id]['stage'][tostring(stage_id)] or -1
 end
 
 -------------------------------------
 -- function isDifficultyOpen
 -------------------------------------
-function ServerData_DimensionGate:isDifficultyOpen(mode_type, stage_id)
+function ServerData_DimensionGate:isDifficultyOpen(stage_id)
 
 end
 
@@ -548,7 +592,7 @@ function ServerData_DimensionGate:getMaxDifficultyInList(mode_type, list)
 
         diffLevel = self:getDifficultyID(id)
 
-        if (not self:isStageCleared(mode_type, id)) then
+        if (not self:isStageCleared(id)) then
             if diffLevel == 1 then 
                 return diffLevel
             else 
@@ -570,14 +614,24 @@ end
 --// 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
+-- 3011001
+-- 30xxxxx 던전(dungeon)        : 차원문, ...
+--   1xxxx 모드(mode)           : 마누스의 차원문, ...
+--    1xxx 챕터(chapter)        : 상위층, 하위층, ...
+--     1xx 난이도(difficulty)   : 쉬움, 보통, 어려움, ...
+--      01 스테이지(stage)      : 스테이지 번호
+-- function ServerData_DimensionGate:getChapterList(mode_id)
+--     local chapters = {}
+--     local dmgate_table = self.m_stageTable[DIMENSION_GATE_MANUS]
 
+-- end
 
 
 
 
 function ServerData_DimensionGate:GetTempLowChapterList()
     local LOW_CHAPTER = 1
-    local dmgate_table = self.m_dimensionGateTable[DIMENSION_GATE_MANUS]
+    local dmgate_table = self.m_stageTable[DIMENSION_GATE_MANUS]
     
     local list = {}
 
@@ -593,7 +647,7 @@ end
 
 function ServerData_DimensionGate:GetTempHighChapterList()
     local HIGH_CHAPTER = 2
-    local dmgate_table = self.m_dimensionGateTable[DIMENSION_GATE_MANUS]
+    local dmgate_table = self.m_stageTable[DIMENSION_GATE_MANUS]
     local list = {}
 
     local diff_id
@@ -663,13 +717,13 @@ end
 -------------------------------------
 function ServerData_DimensionGate:getDimensionGateInfoListByType(type)
     local list = {}
-    --self.m_dimensionGateInfo['dmgate_info']
+    --self.m_dmgateInfo['dmgate_info']
 
-    for key, data in pairs(self.m_dimensionGateTable[type]) do
+    for key, data in pairs(self.m_stageTable[type]) do
         
     end
-    -- self.m_dimensionGateInfo[type]
-    -- self.m_dimensionGateTable[type]
+    -- self.m_dmgateInfo[type]
+    -- self.m_stageTable[type]
 end
 
 
@@ -684,12 +738,12 @@ end
 
 
 -- function ServerData_DimensionGate:getDimensionGateTable()
---     return self.m_dimensionGateTable[DIMENSION_GATE_MANUS]
+--     return self.m_stageTable[DIMENSION_GATE_MANUS]
 -- end
 
 
 function ServerData_DimensionGate:getDimensionGateList(mode_id, chapter_id)
-    local table = self.m_dimensionGateTable[mode_id]
+    local table = self.m_stageTable[mode_id]
     local list = {}
 
     for _, v in pairs(table) do
@@ -712,7 +766,7 @@ end
 -- @param for example, DIMENSION_GATE_MANUS in ConstantGameMode.lua
 -------------------------------------
 function ServerData_DimensionGate:getMaxChapterNum(mode_id)
-    -- local table = self.m_dimensionGateTable[mode_id]
+    -- local table = self.m_stageTable[mode_id]
     -- --self.m_dimensionGateKey[mode_id]
     -- local chapter_id
     -- local max = 0
@@ -729,7 +783,7 @@ end
 -- @param 
 -------------------------------------
 function ServerData_DimensionGate:getMaxDifficultyNum(mode_id, target_chapter_id)
-    -- local table = self.m_dimensionGateTable[mode_id]
+    -- local table = self.m_stageTable[mode_id]
     -- local temp_chapter_id
     -- local diff_id
     -- local max = 0

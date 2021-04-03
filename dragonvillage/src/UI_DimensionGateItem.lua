@@ -49,7 +49,6 @@ UI_DimensionGateItem = class(PARENT, {
     m_targetData = '', -- 난이도가 나뉠 경우 여러 테이블 중 현재 적용중인 테이블 정보 혹은 id
 
     m_stageID = 'number',
-    m_mode = 'number',      --
     m_chapter = 'number',   -- 
 
     m_stageStatus = 'number',
@@ -137,9 +136,6 @@ function UI_DimensionGateItem:refresh()
     self:setBackgroundVRP()
 
     self:setLockVRP()
-
-    self.m_stageStatus = g_dimensionGateData:getRewardStatus(self.m_stageID)
-
     self:setRewardVRP()
 end
 
@@ -164,10 +160,9 @@ function UI_DimensionGateItem:initMember(data)
     end
     -- update member data depend on the clear status of stage
     self.m_stageID = self.m_targetData['stage_id']
-    self.m_mode = g_dimensionGateData:getModeID(self.m_stageID)
     self.m_chapter = g_dimensionGateData:getChapterID(self.m_stageID)
 
-    self.m_stageStatus =  g_dimensionGateData:getStageStatus(self.m_mode, self.m_stageID)
+    self.m_stageStatus =  g_dimensionGateData:getStageStatus(self.m_stageID)
 
 
     -- Nodes in .ui file
@@ -188,35 +183,6 @@ function UI_DimensionGateItem:initMember(data)
     self.m_rewardVisual = vars['rewardVisual']   
 
 end
-
-
-
-
-
-function UI_DimensionGateItem:setLockVisual(isLocked)
-
-end
-
-function UI_DimensionGateItem:setRewardVisual()
-
-end
-
-function UI_DimensionGateItem:setDifficulty(diff_level)
-
-end
-
-
-
-
-function GetNameContainsString(target, str)
-    if #target > 0 then
-
-    else
-
-    end
-end
-
-
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -265,7 +231,7 @@ end
 function UI_DimensionGateItem:setLockVRP()
     -- is it locked ?
 
-    if g_dimensionGateData:isStageOpened(self.m_mode, self.m_stageID) == false then
+    if g_dimensionGateData:isStageOpened(self.m_stageID) == false then
     
         self.m_lockVisual:setVisible(true)
         self.m_lockVisual:changeAni('dmgate_lock')
@@ -295,6 +261,8 @@ end
 ----------------------------------------------------------------------
 function UI_DimensionGateItem:setRewardVRP() 
     
+    self.m_stageStatus = g_dimensionGateData:getRewardStatus(self.m_stageID)
+
     self.m_rewardVisual:changeAni('dmgate_box_' .. tostring(self.m_stageStatus), true)
 
     if self.m_stageStatus == 2 then 
@@ -307,6 +275,7 @@ end
 -- function click_rewardBtn
 ----------------------------------------------------------------------
 function UI_DimensionGateItem:click_rewardBtn()
+
     if(self.m_stageStatus == 0) then 
         UI_DimensionGateItemRewardPopup(self.m_data)
     elseif self.m_stageStatus == 1 then
@@ -347,7 +316,6 @@ function UI_DimensionGateItem:setStageID(stage_id)
     end
     -- update member data depend on the clear status of stage
     self.m_stageID = stage_id
-    self.m_mode = g_dimensionGateData:getModeID(self.m_stageID)
     self.m_chapter = g_dimensionGateData:getChapterID(self.m_stageID)
 end
 

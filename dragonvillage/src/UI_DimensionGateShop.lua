@@ -121,7 +121,7 @@ function UI_DimensionGateShop:initTableView()
 
     self.m_listNode:removeAllChildren()
 
-    local product_list = g_dimensionGateData:getShopInfoProductList(DIMENSION_GATE_MANUS)
+    local product_list = g_dimensionGateData:getShopInfoProductList()
 
     local function create_callback(ui, data)
         -- ui.m_buyBtn:registerScriptTapHandler(function() 
@@ -297,7 +297,7 @@ function UI_DimensionGateShopItem:initUI()
 
     
     local maxCount = self.m_itemData['max_buy_count']
-    local productCount = g_dimensionGateData:getProductCount(DIMENSION_GATE_MANUS, self.m_itemData['product_id'])
+    local productCount = g_dimensionGateData:getProductCount(self.m_itemData['product_id'])
     if productCount == nil or maxCount == '' then
         self.m_maxProductNumLabel:setVisible(false)
     else
