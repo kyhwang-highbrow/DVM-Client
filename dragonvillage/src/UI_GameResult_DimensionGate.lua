@@ -51,6 +51,32 @@ function UI_GameResult_DimensionGate:set_modeButton()
 end
 
 -------------------------------------
+-- function direction_showBox
+-- @brief PARENT class인 UI_GameResultNew의 보상 관련 연출 function.
+-- 차원문의 경우 별도의 보상이 없으므로 보상 연출 삭제를 위함.
+-------------------------------------
+function UI_GameResult_DimensionGate:direction_showBox()
+    self:doNextWork()
+end
+
+-------------------------------------
+-- function direction_openBox
+-- @brief PARENT class인 UI_GameResultNew의 보상 관련 연출 function.
+-- 차원문의 경우 별도의 보상이 없으므로 보상 연출 삭제를 위함.
+-------------------------------------
+function UI_GameResult_DimensionGate:direction_openBox()
+    self:doNextWork()
+end
+
+-------------------------------------
+-- function direction_dropItem
+-- @brief PARENT class인 UI_GameResultNew의 보상 관련 연출 function.
+-- 차원문의 경우 별도의 보상이 없으므로 보상 연출 삭제를 위함.
+-------------------------------------
+function UI_GameResult_DimensionGate:direction_dropItem()
+    self:doNextWork()
+end
+-------------------------------------
 -- function click_againBtn
 -- @brief 바로 재시작
 -------------------------------------
