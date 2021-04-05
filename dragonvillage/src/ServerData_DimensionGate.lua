@@ -283,7 +283,11 @@ end
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:isStageInTable(stage_id)
     local mode_id = self:getModeID(stage_id)
+    if mode_id == nil then return false end
+    if self.m_stageTableKeys[mode_id] == nil then return false end
+
     local key = self.m_stageTableKeys[mode_id][stage_id]
+    if key == nil then return false end
     return self.m_stageTable[mode_id][key] ~= nil
 end
 
