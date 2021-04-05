@@ -141,8 +141,7 @@ function ServerData_Stage:getStageName(stage_id)
 
     -- 환상 던전 이벤트
     elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
-		name = Str('차원문')
-
+		name =  TABLE:get('stage_data')[stage_id]['t_name']
     end
 
     return name

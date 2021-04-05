@@ -24,6 +24,7 @@ UI_DimensionGateSceneStageItem = class(PARENT, {
 
     -- nodes in ui file
     m_selectedBtn = '',
+    m_stageLabel = '',
 
     m_defaultStarSprites = '', -- 흑백별
     m_clearedStarSprites = '', -- 노란별
@@ -54,6 +55,7 @@ function UI_DimensionGateSceneStageItem:initMember(data)
 
     -- nodes in ui file
     self.m_selectedBtn = vars['selectedBtn']
+    self.m_stageLabel = vars['stageLabel']
     self.m_lockSprite = vars['lockSprite']
 
     self.m_defaultStarSprites = {}
@@ -71,6 +73,8 @@ end
 -- function initUI
 ----------------------------------------------------------------------
 function UI_DimensionGateSceneStageItem:initUI()
+    self.m_stageLabel:setString(g_dimensionGateData:getStageDiffText(self.m_stageID))
+    self.m_stageLabel:setTextColor(g_dimensionGateData:getStageDiffTextColor(self.m_stageID))
 end
 
 ----------------------------------------------------------------------
@@ -91,14 +95,6 @@ end
 -- function refreshLockSprite
 ----------------------------------------------------------------------
 function UI_DimensionGateSceneStageItem:refreshLockSprite()
-    -- 열렸냐 닫혔냐
-    -- local prevDiffID = g_dimensionGateData:getPrevDifficultyID(self.m_stageID)
-
-    -- if(prevDiffID == nil) then
-    --     self.m_lockSprite:setVisible(false)
-    --     self.m_selectedBtn:setEnabled(true)
-    --     return
-    -- end
     local isStageOpened = g_dimensionGateData:isStageOpened(self.m_stageID)
 
     self.m_lockSprite:setVisible(not isStageOpened)

@@ -396,8 +396,8 @@ function UI_DimensionGateScene:openStageNode(data)
     local target_stage_id = self.m_selectedDimensionGateInfo.ui:getStageID()
 
     -- 스테이지 설명
-    self.m_stageLabel:setString(g_stageData:getStageName(target_stage_id))
-    self.m_stageInfoLabel:setString(g_stageData:getStageDesc(target_stage_id))
+    self.m_stageLabel:setString(g_dimensionGateData:getStageName(target_stage_id))
+    self.m_stageInfoLabel:setString(g_dimensionGateData:getStageDesc(target_stage_id))
 
     -- 출현 몬스터 테이블뷰 ------------------------------------------------------------------
     self.m_monsterListNode:removeAllChildren()
