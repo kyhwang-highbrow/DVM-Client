@@ -238,7 +238,7 @@ end
 -------------------------------------
 function SkillScript_Charging.st_charge(owner, dt)
 	if (owner.m_stateTimer == 0) then
-		owner.m_owner.m_animator:changeAni(owner.m_chargeAniName, false)
+		owner.m_owner.m_animator:changeAni(owner.m_chargeAniName, true)
     end
 
     owner:updateEffectPos()

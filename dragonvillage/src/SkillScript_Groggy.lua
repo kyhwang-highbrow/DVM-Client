@@ -130,7 +130,7 @@ function SkillScript_Groggy.st_start(owner, dt)
 
         owner.m_owner.m_animator:changeAni(owner.m_disappearAniName, false)
         owner.m_owner.m_animator:addAniHandler(function()
-            owner.m_owner.m_animator:changeAni(owner.m_groggyAniName, false)
+            owner.m_owner.m_animator:changeAni(owner.m_groggyAniName, true)
             owner.m_owner.m_animator:addAniHandler(function()
                 owner:changeState('end')
             end)
