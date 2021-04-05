@@ -35,12 +35,10 @@ UI_DimensionGateSceneStageItem = class(PARENT, {
 ----------------------------------------------------------------------
 function UI_DimensionGateSceneStageItem:init(data)
     local vars = self:load('dmgate_scene_stage_item.ui')
-
     self:initMember(data)
     self:initUI()
     self:initButton()
     self:refresh()
-
 end
 
 
@@ -94,17 +92,17 @@ end
 ----------------------------------------------------------------------
 function UI_DimensionGateSceneStageItem:refreshLockSprite()
     -- 열렸냐 닫혔냐
-    local prevDiffID = g_dimensionGateData:getPrevDifficultyID(self.m_stageID)
+    -- local prevDiffID = g_dimensionGateData:getPrevDifficultyID(self.m_stageID)
 
-    if(prevDiffID == nil) then
-        self.m_lockSprite:setVisible(false)
-        self.m_selectedBtn:setEnabled(true)
-        return
-    end
-    local isCleared = g_dimensionGateData:isStageCleared(prevDiffID)
+    -- if(prevDiffID == nil) then
+    --     self.m_lockSprite:setVisible(false)
+    --     self.m_selectedBtn:setEnabled(true)
+    --     return
+    -- end
+    local isStageOpened = g_dimensionGateData:isStageOpened(self.m_stageID)
 
-    self.m_lockSprite:setVisible(not isCleared)
-    self.m_selectedBtn:setEnabled(isCleared)
+    self.m_lockSprite:setVisible(not isStageOpened)
+    self.m_selectedBtn:setEnabled(isStageOpened)
 end
 
 ----------------------------------------------------------------------

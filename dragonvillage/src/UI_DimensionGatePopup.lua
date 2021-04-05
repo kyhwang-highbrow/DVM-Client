@@ -99,7 +99,7 @@ end
 -------------------------------------
 function UI_DimensionGateBlessPopup:initUI()
 
-    local buff_list = g_dimensionGateData:getBuffList(DIMENSION_GATE_MANUS)
+    local buff_list = g_dimensionGateData:getBuffList(DIMENSION_GATE_ANGRA)
     self.m_titleNode:setString('주간 축복')
     self.m_infoNode:setString(Str(buff_list[1]['t_desc'], buff_list[1]['effect_val']))
 end

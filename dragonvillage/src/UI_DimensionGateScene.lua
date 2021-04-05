@@ -4,43 +4,47 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_DimensionGateScene
 ----------------------------------------------------------------------
 UI_DimensionGateScene = class(PARENT, {
-    m_bottomTableView = '',             -- 하위층 TableView
-    m_topTableView = '',                -- 상위층 TableView 
-
     m_monsterInfoTableView = '',        -- 난이도 선택 팝업의 몬스터 정보
-    m_diffLevelTableView = '',          -- 난이도 선택 팝업의 difficulty TableView from dmgate_scene_stage_item.ui
-
-    m_selectedChapter = '',             -- 상위층, 하위층 선택 버튼 구분을 위한 포인터
-    m_selectedDimensionGateInfo = '',   -- 선택된 챕터의 테이블 정보
     
     -- nodes from ui file
     m_dmgateNode = '',
-    m_bottomSprite = '',                -- 하위층 배경
-    m_topSprite = '',                   -- 상위층 배경
-    
-    m_stagePosNode = '',                -- 스테이지 선택시 이동할 위치
-
-    -- 난이도 선택
-    m_stageNode = '',                   -- 스테이지 선택 전체 메뉴
-    m_stageMonsterListNode = '',        -- 출현 몬스터
-    m_stageTopMenu = '',                -- 난이도 선택 메뉴
-    m_stageItemNode = '',               -- 난이도 선택 노드
-    m_stageInfoLabel = '',
-    m_stageLabel = '',
 
     -- ui buttons
-    m_bottomBtn = '',                   -- 하위 챕터 버튼
-    m_topBtn = '',                      -- 상위 챕터 버튼
-    m_blessBtn = '',                    -- 축복 정보 버튼
-    m_infoBtn = '',                     -- 모드 정보 버튼
-    
-    m_shopBtn = '',                     -- 상점 버튼
-
-    m_startBtn = '',                    -- 난이도 팝업 게임 시작 버튼
 
 
+    -- 리팩토링
+    m_stageItemGap = 'number', -- 스테이지 버튼 사이 거리
     m_chapterButtons = '',
     m_chapterLabels = '',
+    m_chapterBgSprites = '',
+    m_chapterTableViews = '',
+
+    -- Test
+    m_selectedDimensionGateInfo = '',
+    m_currChapter = '',
+    m_currMode = '',
+
+    -- 
+    m_blessBtn = '',
+    m_infoBtn = '',
+    m_shopBtn = '',
+
+    -- 스테이지 선택 메뉴
+    m_stageMenu = '',       -- 스테이지 선택 메뉴 전체 노드
+    m_stageLabel = '',      -- 스테이지 이름 텍스트 노드
+    m_stageInfoLabel = '',  -- 스테이지 설명 텍스트 노드
+    
+    m_monsterListNode = '', -- 출현몬스터 테이블뷰를 위한 노드
+    m_monsterInfoTableView = '', -- 출현 몬스터 테이블뷰
+
+    m_difficultyMenu = '',  -- 난이도 선택 메뉴 노드
+    m_stageItemNode = '',   -- 난이도 선택 테이블뷰를 위한 노드
+    m_difficultyTableView = '', -- 난이도 선택 테이블뷰
+
+    m_startBtn = '',        -- 게임 준비 버튼
+    
+
+    m_stagePosNode = '',
 })
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +67,7 @@ function UI_DimensionGateScene:init(stage_id)
 
     self:initMemberVariable(stage_id)
     self:initUI()
-    self:initButton()
+    self:initButton(stage_id)
     self:refresh()
 
     self:sceneFadeInAction()
@@ -74,40 +78,26 @@ end
 -- @brief virtual function of UI
 -------------------------------------
 function UI_DimensionGateScene:initUI()
-    local lhsTemp = g_dimensionGateData:GetTempLowChapterList()
-    local rhsTemp =  g_dimensionGateData:GetTempHighChapterList()
-
-    self.m_bottomTableView = self:initTableView(self.m_dmgateNode, lhsTemp)
-    self.m_topTableView = self:initTableView(self.m_dmgateNode, rhsTemp)
-    
-    self.m_bottomTableView:setVisible(false)
-    self.m_topTableView:setVisible(false)
-
-    if self.m_selectedChapter == self.m_topBtn then
-        self:click_bottomBtn()
-    else
-        self:click_topBtn()
-    end
-    
+    self:initTableView()
 end
 
 -------------------------------------
 -- function initButton
 -- @brief virtual function of UI
 -------------------------------------
-function UI_DimensionGateScene:initButton() 
-    --local vars = self.vars
-    self.m_shopBtn:registerScriptTapHandler(function() self:click_shopBtn() end)
-    self.m_infoBtn:registerScriptTapHandler(function() self:click_infoBtn() end)
-    self.m_blessBtn:registerScriptTapHandler(function() self:click_blessBtn() end)
+function UI_DimensionGateScene:initButton(stage_id) 
+    for index, button in pairs(self.m_chapterButtons) do 
+        button:registerScriptTapHandler(function() self:click_chapterBtn(index) end)
+    end
 
-    -- for _, button in self.m_chapterButtons do 
-    --     button:registerScriptTapHandler(function() end)
-    -- end
-    self.m_topBtn:registerScriptTapHandler(function() self:click_topBtn() end)
-    self.m_bottomBtn:registerScriptTapHandler(function() self:click_bottomBtn() end)
+    self:click_chapterBtn(self.m_currChapter)
 
+    --
     self.m_startBtn:registerScriptTapHandler(function() self:click_startBtn() end)
+    self.m_blessBtn:registerScriptTapHandler(function() self:click_blessBtn() end)
+    self.m_infoBtn:registerScriptTapHandler(function() self:click_infoBtn() end)
+    self.m_shopBtn:registerScriptTapHandler(function() self:click_shopBtn() end)
+
 end
 
 -------------------------------------
@@ -129,60 +119,90 @@ end
 -------------------------------------
 function UI_DimensionGateScene:initMemberVariable(stage_id)
     local vars = self.vars
+    -- TODO : temp code
+    self.m_currMode = DIMENSION_GATE_ANGRA
+    self.m_stageItemGap = 15 -- 스테이지 버튼 사이 거리
 
     -- init ui nodes
     self.m_dmgateNode = vars['dmgateNode']
 
-    self.m_stageNode = vars['stageMenu']
-
-    self.m_stageTopMenu = vars['topMenu']
-
-    self.m_stageMonsterListNode = vars['monsterListNode']
-    self.m_stageItemNode = vars['stageItemNode']
-
-    self.m_stageInfoLabel = vars['stageInfoLabel']
-    self.m_stageLabel = vars['stageInfoLabel']
-    
-    self.m_stagePosNode = vars['stagePosNode']
     
 
-    -- init ui buttons
-    -- self.m_chapterButtons = {}
-    -- self.m_chapterLabels = {}
-    -- local buttonNum = 1
-    -- while(vars['chapterBtn' .. tostring(buttonNum)] ~= nil) do
-    --     self.m_chapterButtons[buttonNum] = vars['chapterBtn' .. tostring(buttonNum)]
-    --     self.m_chapterLabels[buttonNum] = vars['chapterLabel' .. tostring(buttonNum)]
-    --     buttonNum = buttonNum + 1
-    -- end
+    --init ui buttons
+    self.m_chapterButtons = {}
+    self.m_chapterLabels = {}
+    self.m_chapterBgSprites = {}
+    self.m_chapterTableViews = {}
+    local buttonNum = 1
+    while(vars['chapterBtn' .. tostring(buttonNum)] ~= nil) do
+        self.m_chapterButtons[buttonNum] = vars['chapterBtn' .. tostring(buttonNum)]
+        self.m_chapterLabels[buttonNum] = vars['chapterLabel' .. tostring(buttonNum)]
+        self.m_chapterBgSprites[buttonNum] = vars['chapterBgSprite' .. tostring(buttonNum)]
+        buttonNum = buttonNum + 1
+    end
 
+    --
+    if ((#self.m_chapterButtons ~= #self.m_chapterLabels)
+        and (#self.m_chapterButtons ~= #self.m_chapterBgSprites)) then
+        error('The number between chapter buttons, labels and bgSprites is not corresponded. Check .ui file.')
+    end
 
-
-    self.m_blessBtn = vars['blessBtn']
-    self.m_infoBtn = vars['infoBtn']
-    self.m_topBtn = vars['topBtn']
-    self.m_bottomBtn = vars['bottomBtn']
-    self.m_shopBtn = vars['shopBtn']
-
-    self.m_topSprite = vars['topSprite']
-    self.m_bottomSprite = vars['bottomSprite']
-
-    self.m_startBtn = vars['startBtn']
-
-    local chapter_id 
+    
     if stage_id then
-        chapter_id = g_dimensionGateData:getChapterID(stage_id)
+        self.m_currChapter = g_dimensionGateData:getChapterID(stage_id)
     else
-        chapter_id = 1
+        local clearedMaxStage_id = g_dimensionGateData:getClearedMaxStageInList(self.m_currMode)
+        self.m_currChapter = g_dimensionGateData:getChapterID(clearedMaxStage_id)
     end
+
+    --
     
-    if chapter_id == 2 then
-        self.m_selectedChapter = self.m_bottomBtn
-    else
-        self.m_selectedChapter = self.m_topBtn
-    end
+    self.m_blessBtn = vars['blessBtn']  -- 주간축복 버튼
+    self.m_infoBtn = vars['infoBtn']    -- 도움말 버튼
+    self.m_shopBtn = vars['shopBtn']    -- 상점 버튼
+
+    
+    -- 스테이지 선택 메뉴
+    self.m_stageMenu = vars['stageMenu']             -- 스테이지 선택 메뉴 전체 노드
+    self.m_stageLabel = vars['stageLabel']           -- 스테이지 이름 텍스트 노드
+    self.m_stageInfoLabel = vars['stageInfoLabel']   -- 스테이지 설명 텍스트 노드
+    
+    self.m_monsterListNode = vars['monsterListNode'] -- 출현몬스터 테이블뷰를 위한 노드
+    self.m_difficultyMenu = vars['difficultyMenu']   -- 난이도 선택 메뉴 노드
+    self.m_stageItemNode = vars['stageItemNode']     -- 난이도 선택 테이블뷰를 위한 노드
+
+    self.m_startBtn = vars['startBtn']               -- 게임 준비 버튼
+    self.m_stagePosNode = vars['stagePosNode']
 end
 
+function UI_DimensionGateScene:initTableView()
+
+    create_callback = function(ui, data)
+        ui.m_stageBtn:registerScriptTapHandler(function() self:click_stageBtn(ui, data) end)
+        --ui.m_stageBtn:registerScriptTapHandler(function() self:click_stageBtn(ui, data) end)
+        ui.root:setSwallowTouch(false)
+    end
+
+    for i = 1, #self.m_chapterButtons do 
+        local table_view = UIC_TableView(self.m_dmgateNode)
+        table_view:setAlignCenter(true)
+        table_view:setCellSizeToNodeSize(true)
+        table_view:setGapBtwCells(self.m_stageItemGap)
+        table_view:setCellUIClass(UI_DimensionGateItem, create_callback)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+        
+        local list = g_dimensionGateData:getStageListByChapter(self.m_currMode, i)
+        
+        if (list == nil) then error('there isn\'t any stage corresponding with mode_id \'' .. tostring(mode_id) .. '\' and chapter_id \'' .. tostring(i) .. '\'') end
+        table_view:setItemList(list, true)
+
+        table_view:setScrollLock(true)
+        -- 
+        table_view:setVisible(self.m_currChapter == i)
+
+        self.m_chapterTableViews[i] = table_view
+    end
+end
 
 -------------------------------------
 -- function initParentVariable
@@ -220,7 +240,6 @@ end
 function UI_DimensionGateScene:click_exitBtn()
 
     if self.m_selectedDimensionGateInfo then
-        --self:closeStageNode()
         self:closeStageNode()
     elseif (g_currScene.m_sceneName == 'SceneDimensionGate') then
         local is_use_loading = false
@@ -237,121 +256,108 @@ end
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 
--------------------------------------
--- function initParentVariable
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:initTableView(node, list)
-
-    create_callback = function(ui, data)
-        --ui.m_stageBtn:registerScriptTapHandler(function() self:click_stageBtn(ui, data) end)
-        ui.m_stageBtn:registerScriptTapHandler(function() self:click_stageBtn(ui, data) end)
-        ui.root:setSwallowTouch(false)
+----------------------------------------------------------------------------
+-- function click_chapterBtn
+----------------------------------------------------------------------------
+function UI_DimensionGateScene:click_chapterBtn(index)
+    
+    --if(self.m_chapterButtons[index]:getEnableD
+    --if(self.m_selectedChapter == self.m_chapterButtons[index]) then return end
+    if (self.m_selectedDimensionGateInfo) then
+        self:closeStageNode()
+        
     end
 
-    local table_view = UIC_TableView(node)
-    table_view:setAlignCenter(true)
-    --table_view:setMakeLookingCellFirst(true)
-    table_view:setCellSizeToNodeSize(true)
-    table_view:setGapBtwCells(15)
-    table_view:setCellUIClass(UI_DimensionGateItem, create_callback)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    
-    table_view:setItemList(list, true)
-    
-    table_view:setScrollLock(true)
-    
+    self.m_currChapter = index
+    local isSameIndex
 
-    return table_view
+    for i = 1, #self.m_chapterButtons do
+        isSameIndex = (i == index)
+        self.m_chapterButtons[i]:setEnabled(not isSameIndex)
+        --self.m_chapterLabels
+        self.m_chapterBgSprites[i]:setVisible(isSameIndex)
+
+        self.m_chapterTableViews[i]:setVisible(isSameIndex)
+    end
+
+    self.m_chapterTableViews[index]:refreshAllItemUI()
 end
 
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---//  Click events
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
+----------------------------------------------------------------------------
+-- function click_stageBtn
+----------------------------------------------------------------------------
+function UI_DimensionGateScene:click_stageBtn(target_ui, data)
+    if (self.m_selectedDimensionGateInfo) then
+        self:closeStageNode()
+        return
+    end
 
--------------------------------------
--- function click_shopBtn
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:click_shopBtn()
-    UI_DimensionGateShop()
+    local tableview = self.m_chapterTableViews[self.m_currChapter]
+
+    for _, item in ipairs(tableview.m_itemList) do
+        local item_ui = item['ui']
+        if (item_ui ~= target_ui) then
+            item_ui:setVisible(false)
+        end
+    end
+
+    local node = target_ui.root
+
+    node:retain()
+    node:removeFromParent()
+    self.m_dmgateNode:addChild(node)
+    node:release()
+
+    local target_pos = convertToAnoterNodeSpace(node, self.m_stagePosNode)
+    target_ui:cellMoveTo(0.5, target_pos)
+
+    self.m_selectedDimensionGateInfo = {ui = target_ui}
+
+    cca.reserveFunc(self.m_stageMenu, 0.25, function() self:openStageNode(data) end)
 end
 
+----------------------------------------------------------------------------
+-- function click_startBtn
+----------------------------------------------------------------------------
+function UI_DimensionGateScene:click_startBtn()
+    local callback_func = function ()
+        if self.m_selectedDimensionGateInfo == nil then
+            error('m_selectedDimensionGateInfo is not initialized.')
+        end
 
--------------------------------------
--- function click_infoBtn
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:click_infoBtn()
-    UI_DimensionGateInfoPopup()
+        local stage_id = self.m_selectedDimensionGateInfo.ui:getStageID()
+
+        local function close_cb() self:sceneFadeInAction() end
+
+        local ui = UI_ReadySceneNew(stage_id)
+        ui:setCloseCB(close_cb)
+    end
+
+    self:sceneFadeOutAndCallFunc(callback_func)
 end
 
--------------------------------------
+----------------------------------------------------------------------------
 -- function click_blessBtn
--- @brief 
--------------------------------------
+----------------------------------------------------------------------------
 function UI_DimensionGateScene:click_blessBtn()
     UI_DimensionGateBlessPopup()
 end
 
--------------------------------------
--- function click_topBtn
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:click_topBtn()
-    if(self.m_selectedChapter ~= self.m_topBtn) then
-        if self.m_selectedDimensionGateInfo then
-            self:closeStageNode()
-        end
-        self.m_topSprite:setVisible(true)
-        self.m_bottomSprite:setVisible(false)
-
-        self.m_selectedChapter:setEnabled(true)
-        self.m_selectedChapter = self.m_topBtn
-        self.m_selectedChapter:setEnabled(false)
-        
-        
-        self.m_topTableView:setVisible(true)
-        self.m_bottomTableView:setVisible(false)
-
-        self.m_topTableView:refreshAllItemUI()
-    end
+----------------------------------------------------------------------------
+-- function click_infoBtn
+----------------------------------------------------------------------------
+function UI_DimensionGateScene:click_infoBtn()
+    UI_DimensionGateInfoPopup()
 end
 
--------------------------------------
--- function click_bottomBtn
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:click_bottomBtn()
-    if(self.m_selectedChapter ~= self.m_bottomBtn) then
-        if self.m_selectedDimensionGateInfo then
-            self:closeStageNode()
-        end
-
-        self.m_bottomSprite:setVisible(true)
-        self.m_topSprite:setVisible(false)
-
-        self.m_selectedChapter:setEnabled(true)
-        self.m_selectedChapter = self.m_bottomBtn
-        self.m_selectedChapter:setEnabled(false)
-
-        
-        self.m_bottomTableView:setVisible(true)
-        self.m_topTableView:setVisible(false)
-
-        self.m_bottomTableView:refreshAllItemUI()
-    end
+----------------------------------------------------------------------------
+-- function click_shopBtn
+----------------------------------------------------------------------------
+function UI_DimensionGateScene:click_shopBtn()
+    UI_DimensionGateShop()
 end
 
-
-
--------------------------------------
--- function click_difficultyLevelBtn
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:click_difficultyLevelBtn(ui)
+function UI_DimensionGateScene:click_difficultyBtn(ui)
     local vars = self.vars
 
     local target_stage_id = ui:getStageID()
@@ -361,88 +367,6 @@ function UI_DimensionGateScene:click_difficultyLevelBtn(ui)
         target_ui:setStageID(target_stage_id)
         target_ui:refresh()
     end
-
-    -- self:closeStageNode()
-end
-
--------------------------------------
--- function click_startBtn
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:click_startBtn()
-    local callback_func = function()
-        if self.m_selectedDimensionGateInfo == nil then
-            error('m_selectedDimensionGateInfo is not initialized.')
-        end
-
-        local stage_id = self.m_selectedDimensionGateInfo.ui:getStageID()
-        --UI_AdventureStageInfo(stage_id)
-
-        local function close_cb()
-            self:sceneFadeInAction()
-        end
-
-        local ui = UI_ReadySceneNew(stage_id)
-        ui:setCloseCB(close_cb)
-    end
-
-    self:sceneFadeOutAndCallFunc(callback_func)
-end
-
-
--------------------------------------
--- function click_stageBtn
--- @brief callback function of UI_DimensionGateItem
--- @param target_ui 
--- @param data 
--------------------------------------
-function UI_DimensionGateScene:click_stageBtn(target_ui, data)
-    local vars = self.vars
-    
-    -- 스테이지 팝업 상태에서 클릭시 팝업 닫고 tableview 다시 보여주기
-    if self.m_selectedDimensionGateInfo then
-        
-        -- cca.reserveFunc(self.m_stageNode, 0.25, 
-        -- function() self:closeStageNode(data) end)
-        self:closeStageNode()
-        return
-    end
-
-    -- Chapter에 따라 해당하는 tableview를 선택
-    local target_tableView
-    if self.m_selectedChapter == self.m_bottomBtn then
-        target_tableView = self.m_bottomTableView
-    else
-        target_tableView = self.m_topTableView
-    end
-    --target_tableView:setScrollLock(true)
-
-    for i,v in ipairs(target_tableView.m_itemList) do
-        local temp_ui = v['ui']
-        if temp_ui ~= target_ui then
-            temp_ui:setVisible(false)
-        end
-    end
-
-    local node = target_ui.root
-    --local node_pos = convertToAnoterParentSpace(node, self.m_dmgateNode)
-    
-
-    node:retain()
-    node:removeFromParent()
-    --node:setPosition(node_pos['x'], node_pos['y'])
-    self.m_dmgateNode:addChild(node)
-    node:release()
-
-    local target_pos = convertToAnoterNodeSpace(node, self.m_stagePosNode)
-    target_ui:cellMoveTo(0.5, target_pos)
-
-    self.m_selectedDimensionGateInfo = {ui = target_ui}
-
-
-    cca.reserveFunc(self.m_stageNode, 0.25, 
-    function() self:PopupStageNode(data) end)
-    --self:PopupStageNode(data)
 end
 
 
@@ -452,140 +376,106 @@ end
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 
--------------------------------------
--- function closeStageNode
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:closeStageNode()
-    self.m_stageNode:setVisible(false)
+----------------------------------------------------------------------------
+-- function openStageNode
+----------------------------------------------------------------------------
+function UI_DimensionGateScene:openStageNode(data)
+    -- click_stageBtn 에서 target_ui 가 지정 안된 경우
+    if (self.m_selectedDimensionGateInfo == nil) then return end
 
-    -- Chapter에 따라 해당하는 tableview를 선택
-    local target_tableView
-    if self.m_selectedChapter == self.m_bottomBtn then
-        target_tableView = self.m_bottomTableView
-    else
-        target_tableView = self.m_topTableView
-    end
+    self.m_stageMenu:setVisible(true)
 
-    local target_ui = self.m_selectedDimensionGateInfo.ui
-    
-    for i,v in ipairs(target_tableView.m_itemList) do
-        local temp_ui = v['ui']
-        if temp_ui ~= target_ui then
-            temp_ui:setVisible(true)
-        end
-    end
-    
-    local node = target_ui.root
-    local container = target_tableView.m_scrollView:getContainer()
-    
-    node:retain()
-    node:removeFromParent()
+    local target_stage_id = self.m_selectedDimensionGateInfo.ui:getStageID()
 
-    container:addChild(node)
-    node:release()
+    -- 스테이지 설명
+    self.m_stageLabel:setString(g_stageData:getStageName(target_stage_id))
+    self.m_stageInfoLabel:setString(g_stageData:getStageDesc(target_stage_id))
 
-    
-    target_tableView:setDirtyItemList()
-    --target_tableView:setScrollLock(true)
-
-    self.m_selectedDimensionGateInfo = nil
-    --self.m_topBtn:setTouchEnabled(true)
-    --self.m_bottomBtn:setTouchEnabled(true)
-    if(self.m_diffLevelTableView ~= nil) then
-        self.m_diffLevelTableView:clearItemList()
-    end
-    self.m_diffLevelTableView = nil
-end
-
--------------------------------------
--- function PopupStageNode
--- @brief 
--------------------------------------
-function UI_DimensionGateScene:PopupStageNode(data)
-
-    if (not self.m_selectedDimensionGateInfo) then return end
-
-    self.m_stageNode:setVisible(true)
-    -- block to touch 
-    --self.m_topBtn:setTouchEnabled(false)
-    --self.m_bottomBtn:setTouchEnabled(false)
-    local stage_id =  self.m_selectedDimensionGateInfo.ui.m_stageID
-
-    -- 스테이지 설명 ---------------------------------------------
-    self.m_stageLabel:setString(g_stageData:getStageName(stage_id))
-    self.m_stageInfoLabel:setString(g_stageData:getStageDesc(stage_id))
-
-
-   
-    -- 출현 몬스터 테이블뷰---------------------------------------------
-    --self.m_stageMonsterListNode
-    self.m_stageMonsterListNode:removeAllChildren()
-
-    local monsterIDList = g_stageData:getMonsterIDList(stage_id)
+    -- 출현 몬스터 테이블뷰 ------------------------------------------------------------------
+    self.m_monsterListNode:removeAllChildren()
+    local monster_list = g_stageData:getMonsterIDList(target_stage_id)
 
     local function cb_monsterCardUI(data)
         local ui = UI_MonsterCard(data)
-        ui:setStageID(stage_id)
+        ui:setStageID(target_stage_id)
         return ui
     end
 
-    local size = self.m_stageMonsterListNode:getContentSize()
     local function create_callback(ui, data)
-        
-        --ui.root:setNormalSize(size['height'], size['height'])
         ui.root:setScale(0.6)
         ui.root:setSwallowTouch(false)
     end
 
-    local monster_table_view = UIC_TableView(self.m_stageMonsterListNode)
-    --monster_table_view:setCellSizeToNodeSize(true)
+    local monster_table_view = UIC_TableView(self.m_monsterListNode)
     monster_table_view:setCellUIClass(cb_monsterCardUI, create_callback)
     monster_table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     monster_table_view:setAlignCenter(true)
-    
-    monster_table_view:setItemList(monsterIDList)
+    --monster_table_view:setCellSize(true)
+    --monster_table_view:setSrollLocl()
+    monster_table_view:setItemList(monster_list, true)
     monster_table_view.m_scrollView:setTouchEnabled(false)
 
     self.m_monsterInfoTableView = monster_table_view
 
-    -- 난이도 ---------------------------------------------
-    if #data == 0 or #data == nil then 
-        self.m_stageTopMenu:setVisible(false)
-        return
-    else
-        self.m_stageTopMenu:setVisible(true)
-    end
-    local test = 3
+    -- 난이도 선택 테이블뷰  ------------------------------------------------------------------
+    self.m_stageItemNode:removeAllChildren()
+
+    self.m_difficultyMenu:setVisible(#data ~= 1)
+    
+
     local function create_callback(ui, data)
         ui.m_selectedBtn:registerScriptTapHandler(function() 
-            self:click_difficultyLevelBtn(ui) 
+            self:click_difficultyBtn(ui)
         end)
+
         return true
     end
 
-    self.m_stageItemNode:removeAllChildren()
+    local difficulty_table_view = UIC_TableView(self.m_stageItemNode)
+    difficulty_table_view:setAlignCenter(true)
+    difficulty_table_view:setCellSizeToNodeSize(true)
+    difficulty_table_view:setGapBtwCells(15)
+    difficulty_table_view:setCellUIClass(UI_DimensionGateSceneStageItem, create_callback)
+    difficulty_table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
 
-    local level_table_view = UIC_TableView(self.m_stageItemNode)
-    level_table_view:setAlignCenter(true)
-    --level_table_view.m_defaultCellSize = cc.size(230, 0)
-    level_table_view:setCellSizeToNodeSize(true)
-    level_table_view:setGapBtwCells(15)
-    level_table_view:setCellUIClass(UI_DimensionGateSceneStageItem, create_callback)
-    level_table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    difficulty_table_view:setItemList(data, create_callback)
+    difficulty_table_view:setScrollLock(true)
 
-    level_table_view:setItemList(data, create_callback)
-
-    level_table_view:setScrollLock(true)
-    
-    self.m_diffLevelTableView = level_table_view
+    self.m_difficultyTableView = difficulty_table_view
 end
 
+----------------------------------------------------------------------------
+-- function closeStageNode
+----------------------------------------------------------------------------
+function UI_DimensionGateScene:closeStageNode()
+    self.m_stageMenu:setVisible(false)
 
+    local tableview = self.m_chapterTableViews[self.m_currChapter]
 
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---//  
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
+    local target_ui = self.m_selectedDimensionGateInfo.ui
+
+    for _, item in ipairs(tableview.m_itemList) do
+        local item_ui = item['ui']
+        if item_ui ~= target_ui then
+            item_ui:setVisible(true)
+        end
+    end
+
+    local node = target_ui.root
+    local container = tableview.m_scrollView:getContainer()
+
+    node:retain()
+    node:removeFromParent()
+    container:addChild(node)
+    node:release()
+
+    tableview:setDirtyItemList()
+
+    self.m_selectedDimensionGateInfo = nil
+
+    if(self.m_difficultyTableView ~= nil) then
+        self.m_difficultyTableView:clearItemList()
+    end
+    self.m_difficultyTableView = nil
+end
 

@@ -48,23 +48,21 @@ UI_DimensionGateItem = class(PARENT, {
     m_data = '',
     m_targetData = '', -- 난이도가 나뉠 경우 여러 테이블 중 현재 적용중인 테이블 정보 혹은 id
 
-    m_stageID = 'number',
-    m_chapter = 'number',   -- 
+    m_stageID = 'number',   -- stage button의 현재 id
 
     m_stageStatus = 'number',
 
-    m_hasDifficulty = 'boolean',
-    m_currDifficultyLevel = 'number',
+    m_currDiffIndex = 'number', -- 현재 해당하는 난이도에 따른 m_data의 index 값
 
 
 
     -- Nodes in ui
-    m_stageBtn = '',
-    m_lockVisual = '',
-    m_bgVisual = '',
-    m_stageNameText = '',
-    m_stageLevelText = '',
-    m_originStageLevelText = '',
+    m_stageBtn = '',                -- 스테이지 버튼
+    m_lockVisual = '',              -- 잠금 VRP
+    m_bgVisual = '',                -- 보스 배경 VRP
+    m_stageNameText = '',           -- 하단 스테이지 이름 텍스트
+    m_stageLevelText = '',          -- 상단 
+    m_originStageLevelText = '',    -- 상단 
 
     
     m_entireStar = '',
@@ -73,6 +71,9 @@ UI_DimensionGateItem = class(PARENT, {
 
     m_rewardBtn = '',
     m_rewardVisual = '',
+
+    m_clearedStarSpriteName = '',
+    m_unclearedStarSpriteName = '',
 })
 
 
@@ -84,21 +85,6 @@ function UI_DimensionGateItem:init(data)
     local vars = self:load('dmgate_scene_item_top.ui')
 
     self:initMember(data)
-
-    -- 1. 마누사냐 다른 용 모드냐
-
-    -- 2. 챕터가 하위층이냐 상위층이냐
-
-    -- 3. 스테이지가 몇번이냐(bgVisual)
-
-    -- 4. 스테이지가 열려있냐 안열려있냐
-
-    -- 5. 스테이지 난이도가 무엇이냐
-
-    -- 6. 스테이지 보상을 받았냐 안받았냐
-
-
-
     self:initUI()
     self:initButton()
     self:refresh()
@@ -132,11 +118,11 @@ function UI_DimensionGateItem:refresh()
     self.root:setOpacity(0)
     self.root:runAction(cc.FadeIn:create(1))
     
-    self:setStarSprites()
-    self:setBackgroundVRP()
+    self:refreshStarSprites()
+    self:refreshBackgroundVRP()
 
-    self:setLockVRP()
-    self:setRewardVRP()
+    self:refreshLockVRP()
+    self:refreshRewardVRP()
 end
 
 
@@ -147,21 +133,31 @@ end
 -------------------------------------
 function UI_DimensionGateItem:initMember(data) 
     local vars = self.vars
-
     self.m_data = data
 
-    self.m_hasDifficulty = (#data > 0)
-    self.m_currDifficultyLevel = g_dimensionGateData:getMaxDifficultyInList(DIMENSION_GATE_MANUS, self.m_data)
-    
-    if self.m_hasDifficulty then
-        self.m_targetData = self.m_data[self.m_currDifficultyLevel]
-    else
-        self.m_targetData = self.m_data
+    -- 언락된 난이도가 있으면 고정
+    for key, data in pairs(self.m_data) do
+        
+        -- TODO : checkInUnlockList를 부를시 내용을 nil 처리 하기에 임시적으로 직접 리스트를 부름.
+        if g_dimensionGateData.m_unlockStageList[tonumber(data['stage_id'])] then 
+            self.m_currDiffIndex = key
+        end
     end
+    -- 언락된 난이도가 없으면 현재 도전 가능한 최고 난이도 설정
+    if self.m_currDiffIndex == nil then
+        self.m_currDiffIndex = g_dimensionGateData:getCurrDiffInList(self.m_data)
+        -- 난이도가 0인경우 index를 위해 1로 고정
+        -- TODO : 윗 라인에 or 1 을 하면 되지 않음?
+        if(self.m_currDiffIndex == 0) then self.m_currDiffIndex = 1 end
+    end
+
+    self.m_targetData = self.m_data[self.m_currDiffIndex]
+    self.m_clearedStarSpriteName = 'ui/icons/star/stage_clear_star_0101.png'
+    self.m_unclearedStarSpriteName = 'ui/icons/star/stage_clear_star_0102.png'
+    
+
     -- update member data depend on the clear status of stage
     self.m_stageID = self.m_targetData['stage_id']
-    self.m_chapter = g_dimensionGateData:getChapterID(self.m_stageID)
-
     self.m_stageStatus =  g_dimensionGateData:getStageStatus(self.m_stageID)
 
 
@@ -189,38 +185,37 @@ end
 --//  TEMP (NEED TO REFACTORING)
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////\
-function UI_DimensionGateItem:setStarSprites()
+function UI_DimensionGateItem:refreshStarSprites()
     -- 레벨이 있는가?
-    if self.m_hasDifficulty == false then
+    if #self.m_data == 1 then
         self.m_entireStar:setVisible(false)
         return
     end
 
     -- 현재 난이도가 몇인가?
-    local level = self.m_currDifficultyLevel
-    if level == 1 then
-        for index, starSprite in pairs(self.m_starSprites) do
-           starSprite:setVisible(false)           
-        end
-        self.m_starSprites[2]:setVisible(true)
-    else
-        for index, starSprite in pairs(self.m_starSprites) do
-            if index <= level then
-                starSprite:setVisible(true)
+    local level = self.m_currDiffIndex
+    local isCleared =  g_dimensionGateData:isStageCleared(self.m_stageID)
+    
+
+    for index, starSprite in pairs(self.m_starSprites) do
+        if index <= level then
+            starSprite:setVisible(true)        
+            if isCleared then
+                starSprite:setTexture(self.m_clearedStarSpriteName)
             else
-                starSprite:setVisible(false)
+                starSprite:setTexture(self.m_unclearedStarSpriteName)
             end
+        else
+            starSprite:setVisible(false)
         end
     end
-
-    -- 클리어 했는가?
 end
 
 
 ----------------------------------------------------------------------
 -- function setBackgroundVRP
 ----------------------------------------------------------------------
-function UI_DimensionGateItem:setBackgroundVRP()
+function UI_DimensionGateItem:refreshBackgroundVRP()
     local stage_id = g_dimensionGateData:getStageID(self.m_stageID)
     self.m_bgVisual:changeAni('dmgate_0' .. tostring(stage_id))
 end
@@ -228,9 +223,8 @@ end
 ----------------------------------------------------------------------
 -- function setLockVRP
 ----------------------------------------------------------------------
-function UI_DimensionGateItem:setLockVRP()
+function UI_DimensionGateItem:refreshLockVRP()
     -- is it locked ?
-
     if g_dimensionGateData:isStageOpened(self.m_stageID) == false then
     
         self.m_lockVisual:setVisible(true)
@@ -259,15 +253,15 @@ end
 ----------------------------------------------------------------------
 -- function setRewardVRP
 ----------------------------------------------------------------------
-function UI_DimensionGateItem:setRewardVRP() 
+function UI_DimensionGateItem:refreshRewardVRP() 
     
     self.m_stageStatus = g_dimensionGateData:getRewardStatus(self.m_stageID)
 
     self.m_rewardVisual:changeAni('dmgate_box_' .. tostring(self.m_stageStatus), true)
 
-    if self.m_stageStatus == 2 then 
-        self.m_rewardBtn:setEnabled(false)
-    end
+    -- if self.m_stageStatus == 2 then 
+    --     self.m_rewardBtn:setEnabled(false)
+    -- end
 end
 
 
@@ -275,10 +269,7 @@ end
 -- function click_rewardBtn
 ----------------------------------------------------------------------
 function UI_DimensionGateItem:click_rewardBtn()
-
-    if(self.m_stageStatus == 0) then 
-        UI_DimensionGateItemRewardPopup(self.m_data)
-    elseif self.m_stageStatus == 1 then
+    if(self.m_stageStatus == 1) then 
         local function finish_cb(ret)
             if(ret['added_items']) then
                 g_serverData:receiveReward(ret)
@@ -291,6 +282,7 @@ function UI_DimensionGateItem:click_rewardBtn()
 
         g_dimensionGateData:request_reward(self.m_stageID, finish_cb)
     else
+        UI_DimensionGateItemRewardPopup(self.m_data)
     end
 end
 
@@ -307,18 +299,16 @@ end
 ----------------------------------------------------------------------
 function UI_DimensionGateItem:setStageID(stage_id)
     -- TODO (YOUNGJIN) : MAKE ERROR CONDITION FOR SAFETY
-    self.m_currDifficultyLevel = g_dimensionGateData:getDifficultyID(stage_id)
+    self.m_currDiffIndex = g_dimensionGateData:getDifficultyID(stage_id)
+    if (self.m_currDiffIndex == 0) then self.m_currDiffIndex = 1 end
     
-    if self.m_hasDifficulty then
-        self.m_targetData = self.m_data[self.m_currDifficultyLevel]
-    else
-        self.m_targetData = self.m_data
-    end
+    self.m_targetData = self.m_data[self.m_currDiffIndex]
+
     -- update member data depend on the clear status of stage
-    self.m_stageID = stage_id
-    self.m_chapter = g_dimensionGateData:getChapterID(self.m_stageID)
+    self.m_stageID = self.m_targetData['stage_id']
+    self.m_stageStatus =  g_dimensionGateData:getStageStatus(self.m_stageID)
 end
 
-function UI_DimensionGateItem:setTouchEnabled(isTouchable)
-    self.m_stageBtn:setEnabled(isTouchable)
-end
+-- function UI_DimensionGateItem:setTouchEnabled(isTouchable)
+--     self.m_stageBtn:setEnabled(isTouchable)
+-- end
