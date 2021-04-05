@@ -42,81 +42,99 @@ local function sortDescending(a, b)
     end
 end
 
-
-
 -------------------------------------
 -- function TargetRule_getTargetList
 -- @param type : target_rule( ex) 'enemy_status_atk_down' -> 'status_atk_down' )
 -------------------------------------
-function TargetRule_getTargetList(type, org_list, x, y, t_data)
+function TargetRule_getTargetList(target_type, org_list, x, y, t_data)
     -- 모든 대상
-    if (type == 'none') then                return TargetRule_getTargetList_none(org_list)
-    elseif (type == 'random') then          return TargetRule_getTargetList_random(org_list)
-    elseif (type == 'arena_attack') then    return TargetRule_getTargetList_arena_attack(org_list, t_data)
-    elseif (type == 'arena_heal') then      return TargetRule_getTargetList_arena_heal(org_list, t_data)
-    
-    elseif (type == 'last_attack') then     return TargetRule_getTargetList_lastAttack(org_list, t_data)
-    elseif (type == 'last_under_atk') then  return TargetRule_getTargetList_lastUnderAtk(org_list, t_data)
-	-- self 
-	elseif (type == 'self') then			return TargetRule_getTargetList_self(org_list, t_data)
+    if (target_type == 'none' or target_type == 'all') then
+        return TargetRule_getTargetList_none(org_list)
+    elseif (target_type == 'random') then
+        return TargetRule_getTargetList_random(org_list)
+    elseif (target_type == 'arena_attack') then
+        return TargetRule_getTargetList_arena_attack(org_list, t_data)
+    elseif (target_type == 'arena_heal') then
+        return TargetRule_getTargetList_arena_heal(org_list, t_data)
+    elseif (target_type == 'last_attack') then
+        return TargetRule_getTargetList_lastAttack(org_list, t_data)
+    elseif (target_type == 'last_under_atk') then
+        return TargetRule_getTargetList_lastUnderAtk(org_list, t_data)
+    elseif (target_type == 'self') then
+        return TargetRule_getTargetList_self(org_list, t_data)
+    elseif (target_type == 'boss') then
+        return TargetRule_getTargetList_boss(org_list)
+    elseif (target_type == 'dead') then
+        return TargetRule_getTargetList_dead(org_list)
 
-    elseif (type == 'boss') then            return TargetRule_getTargetList_boss(org_list, t_data)
 
-	-- 거리 관련
-	elseif (type == 'distance_line') then   return TargetRule_getTargetList_distance_line(org_list, x, y)
-	elseif (type == 'far_line') then		return TargetRule_getTargetList_far_line(org_list, x, y)
-    elseif (type == 'distance_x') then      return TargetRule_getTargetList_distance_x(org_list, x)
-    elseif (type == 'distance_y') then      return TargetRule_getTargetList_distance_y(org_list, y)
+        -- 거리 관련
+    elseif (target_type == 'distance_line') then
+        return TargetRule_getTargetList_distance_line(org_list, x, y)
+    elseif (target_type == 'far_line') then
+        return TargetRule_getTargetList_far_line(org_list, x, y)
+    elseif (target_type == 'distance_x') then
+        return TargetRule_getTargetList_distance_x(org_list, x)
+    elseif (target_type == 'distance_y') then
+        return TargetRule_getTargetList_distance_y(org_list, y)
 
-    -- 상태효과 관련
-	elseif pl.stringx.startswith(type, 'status') then
-		return TargetRule_getTargetList_status_effect(org_list, type)
+        -- 상태효과 관련
+    elseif pl.stringx.startswith(target_type, 'status') then
+        return TargetRule_getTargetList_status_effect(org_list, target_type)
 
-    -- 스탯 관련
-    elseif pl.stringx.startswith(type, 'def') or pl.stringx.startswith(type, 'atk') or pl.stringx.startswith(type, 'hp') or
-           pl.stringx.startswith(type, 'aspd') or pl.stringx.startswith(type, 'avoid') or pl.stringx.startswith(type, 'cri') or
-           pl.stringx.startswith(type, 'hit_rate') then
-		return TargetRule_getTargetList_stat(org_list, type, t_data)
+        -- 스탯 관련
+    elseif pl.stringx.startswith(target_type, 'def') or pl.stringx.startswith(target_type, 'atk') or pl.stringx.startswith(target_type, 'hp') or
+        pl.stringx.startswith(target_type, 'aspd') or pl.stringx.startswith(target_type, 'avoid') or pl.stringx.startswith(target_type, 'cri') or
+        pl.stringx.startswith(target_type, 'hit_rate') then
+        return TargetRule_getTargetList_stat(org_list, target_type, t_data)
 
-    -- 속성 관련
-	elseif pl.stringx.startswith(type, 'earth') or pl.stringx.startswith(type, 'water') or pl.stringx.startswith(type, 'fire') or
-           pl.stringx.startswith(type, 'light') or pl.stringx.startswith(type, 'dark') then
-		return TargetRule_getTargetList_attr(org_list, type)
+        -- 속성 관련
+    elseif pl.stringx.startswith(target_type, 'earth') or pl.stringx.startswith(target_type, 'water') or pl.stringx.startswith(target_type, 'fire') or
+        pl.stringx.startswith(target_type, 'light') or pl.stringx.startswith(target_type, 'dark') then
+        return TargetRule_getTargetList_attr(org_list, target_type)
 
-	-- 직군 관련
-	elseif pl.stringx.startswith(type, 'tanker') or pl.stringx.startswith(type, 'dealer') or
-           pl.stringx.startswith(type, 'supporter') or pl.stringx.startswith(type, 'healer') then
-		return TargetRule_getTargetList_role(org_list, type)
+        -- 직군 관련
+    elseif pl.stringx.startswith(target_type, 'tanker') or pl.stringx.startswith(target_type, 'dealer') or
+        pl.stringx.startswith(target_type, 'supporter') or pl.stringx.startswith(target_type, 'healer') then
+        return TargetRule_getTargetList_role(org_list, target_type)
 
-    -- @kwkang 21.03.19 추가
-    -- 액티브 스킬 코스트 관련
-    elseif pl.stringx.startswith(type, 'cost1') or pl.stringx.startswith(type, 'cost2') or pl.stringx.startswith(type, 'cost3') then
-        return TargetRule_getTargetList_active_cost(org_list, type)
+        -- @kwkang 21.03.19 추가
+        -- 액티브 스킬 코스트 관련
+    elseif pl.stringx.startswith(target_type, 'cost1') or pl.stringx.startswith(target_type, 'cost2') or pl.stringx.startswith(target_type, 'cost3') then
+        return TargetRule_getTargetList_active_cost(org_list, target_type)
 
-	elseif (type == 'buff') then
-		return TargetRule_getTargetList_buff(org_list)
+    elseif (target_type == 'buff') then
+        return TargetRule_getTargetList_buff(org_list)
 
-	elseif (pl.stringx.startswith(type, 'debuff')) then		
-		local t_debuff, t_not_debuff =  TargetRule_getTargetList_debuff(org_list, type)
-        if (pl.stringx.startswith(type, 'debuff_not')) then
+    elseif (pl.stringx.startswith(target_type, 'debuff')) then
+        local t_debuff, t_not_debuff = TargetRule_getTargetList_debuff(org_list, target_type)
+        if (pl.stringx.startswith(target_type, 'debuff_not')) then
             return t_not_debuff
         else
             return t_debuff
         end
 
-    elseif (type == 'front') then
-		return TargetRule_getTargetList_front(org_list)
+    elseif (target_type == 'front') then
+        return TargetRule_getTargetList_front(org_list)
 
-    elseif (type == 'back') then
-		return TargetRule_getTargetList_back(org_list)
+    elseif (target_type == 'back') then
+        return TargetRule_getTargetList_back(org_list)
 
-	else
-        error("미구현 Target Rule!! : " .. type)
+    else
+        error("미구현 Target Rule!! : " .. target_type)
     end
 
 end
 
 
+
+
+
+-------------------------------------
+-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+-- 리스트 받아오기 구현부
+-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+-------------------------------------
 -------------------------------------
 -- function TargetRule_getTargetList_none
 -- @brief 모든 대상
@@ -153,10 +171,30 @@ function TargetRule_getTargetList_self(org_list, t_data)
 end
 
 -------------------------------------
+-- function TargetRule_getTargetList_dead
+-- @brief 사망
+-------------------------------------
+function TargetRule_getTargetList_dead(org_list)
+    local t_ret = {}
+	local t_char = table.sortRandom(table.clone(org_list))
+
+    for i, char in pairs(t_char) do
+        -- 죽는 도중이 아닌 확실히 죽은 대상만 선별
+        if (char:isDead(true) and char.m_bPossibleRevive) then
+            table.insert(t_ret, v)
+        end
+
+        t_ret = randomShuffle(t_ret)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
 -- function TargetRule_getTargetList_boss
 -- @brief 보스
 -------------------------------------
-function TargetRule_getTargetList_boss(org_list, t_data)
+function TargetRule_getTargetList_boss(org_list)
     local t_ret = {}
 	local t_char = table.sortRandom(table.clone(org_list))
 
@@ -168,6 +206,7 @@ function TargetRule_getTargetList_boss(org_list, t_data)
 
     return t_ret
 end
+
 -------------------------------------
 -- function TargetRule_getTargetList_lastAttack
 -- @brief 일반 공격의 타겟이 우선인 적군 리스트

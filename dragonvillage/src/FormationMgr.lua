@@ -92,6 +92,19 @@ function FormationMgr:isEmpty()
     return (#self.m_globalCharList == 0)
 end
 
+
+
+
+
+
+
+
+
+-------------------------------------
+-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+-- FormationMgrDelegate
+-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+-------------------------------------
 -------------------------------------
 -- class FormationMgrDelegate
 -------------------------------------
@@ -160,51 +173,38 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
     local game_mode = t_data['game_mode']
 
     local t_ret = {}
+    local target_type = rule_type
+    local l_origin = self.m_globalCharList
 
     -- 18/02/02 formation_type(front, middle, back)의 기능 변경
     -- front : 가장 가까운 적 우선
     -- back : 가장 먼 적 우선
+    -- 4/5/2021 타게팅 로직 개선 
     if (string.find(formation_type, 'front')) then
-        local t_org_list_1 = self.m_globalCharList
-        self:addList(t_ret, TargetRule_getTargetList('front', t_org_list_1, x, y, t_data))
+        target_type = 'front'
         
     elseif (string.find(formation_type, 'back')) then
-        local t_org_list_1 = self.m_globalCharList
-        self:addList(t_ret, TargetRule_getTargetList('back', t_org_list_1, x, y, t_data))
+        target_type = 'back'
 
     elseif (team_type == 'self') then
-		local t_org_list_1 = self.m_globalCharList
-        self:addList(t_ret, TargetRule_getTargetList('self', t_org_list_1, x, y, t_data))
+        target_type = 'self'
 
     elseif (team_type == 'boss') then
-        for i, v in ipairs(self.m_globalCharList) do
-            if (v and v:isBoss()) then
-                table.insert(t_ret, v)
-            end
-        end
+        target_type = 'boss'
 
     elseif (rule_type == 'all') then
-        for i, v in ipairs(self.m_globalCharList) do
-            table.insert(t_ret, v)
-        end
+        target_type = 'all'
 
-    -- 죽은 대상
     elseif (rule_type == 'dead') then
-        for i, v in ipairs(self.m_diedCharList) do
-            -- 죽는 도중이 아닌 확실히 죽은 대상만 선별
-            if (v:isDead(true) and v.m_bPossibleRevive) then
-                table.insert(t_ret, v)
-            end
+        target_type = 'dead'
+		l_origin = self.m_diedCharList
 
-            t_ret = randomShuffle(t_ret)
-        end
-
-    -- 항목에 데이터가 없다면 전, 중, 후 구별을 하지 않고 모두를 타겟
 	else
-        local t_org_list_1 = self.m_globalCharList
-        self:addList(t_ret, TargetRule_getTargetList(rule_type, t_org_list_1, x, y, t_data))
+        -- 항목에 데이터가 없다면 전, 중, 후 구별을 하지 않고 모두를 타겟
 
     end
+
+    self:addList(t_ret, TargetRule_getTargetList(target_type, l_origin, x, y, t_data))
 
     -- 자기 자신은 제외
     if (team_type == 'teammate') then
