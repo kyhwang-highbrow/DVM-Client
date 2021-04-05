@@ -450,7 +450,7 @@ function Character:setStatusCalc(status_calc)
 
     -- hp 설정
     local hp = self:getStat('hp')
-    local hp_multi = self.m_statusCalc:getHiddenInto('hp_multi') or 1
+    local hp_multi = self.m_statusCalc:getHiddenInfo('hp_multi') or 1
 
     self.m_maxHp = hp * hp_multi
     self.m_hp = self.m_maxHp

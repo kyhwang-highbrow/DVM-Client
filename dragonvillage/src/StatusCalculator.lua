@@ -321,9 +321,9 @@ function StatusCalculator:getAttackTick()
 end
 
 -------------------------------------
--- function getHiddenInto
+-- function getHiddenInfo
 -------------------------------------
-function StatusCalculator:getHiddenInto(key)
+function StatusCalculator:getHiddenInfo(key)
     return self.m_tHiddenInfo[key]
 end
 

@@ -266,7 +266,7 @@ function Character:onEvent_updateStat(t_event)
 	if (not self.m_statusCalc) then return end
 
     if (t_event['hp']) then
-        local new_max_hp = self:getStat('hp') * (self.m_statusCalc:getHiddenInto('hp_multi') or 1)
+        local new_max_hp = self:getStat('hp') * (self.m_statusCalc:getHiddenInfo('hp_multi') or 1)
         local game_state = self.m_world.m_gameState
         local is_start_buff = false -- 시작 버프 여부
 
