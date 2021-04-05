@@ -259,9 +259,11 @@ function SkillScript_Charging.st_attack(owner, dt)
         -- 이펙트 삭제
         owner:removeEffect()
 
+        local ani_name = owner.m_owner:getAttackAnimationName(tonumber(owner.m_attackSkillId))
+        owner.m_owner.m_animator:changeAni(ani_name, false)
         -- 공격 찍
         owner:runAttack()
-		owner:changeState('end')
+        owner:changeState('end')
 	end
 
     -- 공격상태 유지시간
