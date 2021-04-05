@@ -128,6 +128,10 @@ UI_DimensionGateItemRewardPopup = class(PARENT, {
     m_closeBtn = '',
     m_itemNodes = '',
     m_itemMenues = '',
+    m_itemCompleteNotes = '',
+
+
+    m_checkBoxSpriteName = '',
 })
 
 function UI_DimensionGateItemRewardPopup:init(data)
@@ -146,15 +150,20 @@ end
 function UI_DimensionGateItemRewardPopup:initMember(data)
     local vars = self.vars
     self.m_parentData = data
+
+    self.m_checkBoxSpriteName = 'res/ui/icons/stage_box_check.png'
+
     self.m_closeBtn = vars['closeBtn']
     
     self.m_itemNodes = {}
     self.m_itemMenues = {}
+    self.m_itemCompleteNotes = {}
     
     local itemNum = 1
     while(vars['itemMenu' .. tostring(itemNum)]) do
         self.m_itemMenues[itemNum] = vars['itemMenu' .. tostring(itemNum)]
         self.m_itemNodes[itemNum] = vars['itemNode' .. tostring(itemNum)]
+        self.m_itemCompleteNotes[itemNum] = vars['completeNode' .. tostring(itemNum)]
         itemNum = itemNum + 1
     end
 
@@ -177,7 +186,7 @@ function UI_DimensionGateItemRewardPopup:refresh()
 
     if(itemCount > 1) then
         for i = 1, itemCount do
-            self:create_itemCard(self.m_parentData[i]['item'], i)            
+            self:create_itemCard(self.m_parentData[i]['item'], i)
         end
     else
         self:create_itemCard(self.m_parentData[1]['item'], 1)
@@ -188,6 +197,7 @@ function UI_DimensionGateItemRewardPopup:refresh()
 
         self.m_itemMenues[1]:setPositionX(self.m_itemMenues[2]:getPositionX())
     end
+    
 
     -- local itemNum = #self.m_parentData
     -- local menuNum = #self.m_itemMenues
@@ -221,4 +231,21 @@ function UI_DimensionGateItemRewardPopup:create_itemCard(str, index)
 
     local card = UI_ItemCard(item_id, item_num)
     self.m_itemNodes[index]:addChild(card.root)
+
+    if(g_dimensionGateData:isStageRewarded(self.m_parentData[index]['stage_id'])) then
+        self.m_itemCompleteNotes[index]:setVisible(true)
+        -- local checkBoxSprite = cc.Sprite:create(self.m_checkBoxSpriteName)
+        -- if (checkBoxSprite) then
+        --     --checkBoxSprite:setPosition(self.m_itemNodes[index]:getPosition())
+        --     --checkBoxSprite:setScale(size)
+            
+	    --     checkBoxSprite:setDockPoint(CENTER_POINT)
+	    --     checkBoxSprite:setAnchorPoint(CENTER_POINT)
+        --     --checkBoxSprite:setContentSize(size)
+        --     checkBoxSprite:setScale(2)
+        --     --checkBoxSprite:setDockPoint(cc.p(0.5, 0.5))
+        --     --checkBoxSprite:setAnchorPoint(cc.p(0.5, 0.5))
+        --     self.m_itemNodes[index]:addChild(checkBoxSprite)
+        -- end
+    end
 end
