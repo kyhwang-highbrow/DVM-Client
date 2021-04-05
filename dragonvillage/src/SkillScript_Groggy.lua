@@ -89,23 +89,18 @@ function SkillScript_Groggy:setSkillParams(owner, t_skill, t_data)
     local l_animation = pl.stringx.split(t_skill['animation'], ';')
 
     if (l_animation) then
-        if (#l_animation >= 4) then
-            self.m_appearAniName = l_animation[1]
-	        self.m_chargeAniName = l_animation[2]
-            self.m_failAniName = l_animation[3]
-            self.m_returnAniName = l_animation[4]
 
-        elseif (#l_animation >= 3) then
-            self.m_appearAniName = l_animation[1]
-	        self.m_chargeAniName = l_animation[2]
-            self.m_failAniName = l_animation[3]
+        if (#l_animation >= 3) then
+            self.m_disappearAniName = l_animation[1]
+	        self.m_groggyAniName = l_animation[2]
+            self.m_wakeAniName = l_animation[3]
 
         elseif (#l_animation >= 2) then
-            self.m_appearAniName = l_animation[1]
-	        self.m_chargeAniName = l_animation[2]
+            self.m_disappearAniName = l_animation[1]
+	        self.m_groggyAniName = l_animation[2]
 
         elseif (#l_animation >= 1) then
-            self.m_chargeAniName = l_animation[1]
+            self.m_disappearAniName = l_animation[1]
 
         end
     end
