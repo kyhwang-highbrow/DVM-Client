@@ -245,7 +245,7 @@ end
 -------------------------------------
 -- function st_attackDelay
 -------------------------------------
-function Character.st_attackDelay(owner, dt)
+function SummonedCreature.st_attackDelay(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_bEnableSpasticity = true
 
