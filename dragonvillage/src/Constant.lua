@@ -306,7 +306,7 @@ end
 -------------------------------------
 function isSummonObject(id)
     local id  = math_floor(id / 10000)
-    return (id == 30)
+    return (id == 300)
 end
 
 -------------------------------------
