@@ -1122,7 +1122,6 @@ local t_module = {
     'UI_DimensionGateScene',
     'UI_DimensionGateSceneStageItem',
     'UI_DimensionGateItem',
-    'UI_DimensionGateItemRewardPopup',
     'UI_DimensionGateShop',
     'UI_DimensionGatePopup',
 

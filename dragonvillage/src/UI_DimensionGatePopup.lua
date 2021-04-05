@@ -115,3 +115,110 @@ end
 -------------------------------------
 function UI_DimensionGateBlessPopup:refresh()
 end
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+UI_DimensionGateItemRewardPopup = class(PARENT, {
+    m_parentData = '',
+    m_closeBtn = '',
+    m_itemNodes = '',
+    m_itemMenues = '',
+})
+
+function UI_DimensionGateItemRewardPopup:init(data)
+    local vars = self:load('dmgate_scene_item_reward_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DimensionGateItemRewardPopup')
+
+    self:initMember(data)
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+
+function UI_DimensionGateItemRewardPopup:initMember(data)
+    local vars = self.vars
+    self.m_parentData = data
+    self.m_closeBtn = vars['closeBtn']
+    
+    self.m_itemNodes = {}
+    self.m_itemMenues = {}
+    
+    local itemNum = 1
+    while(vars['itemMenu' .. tostring(itemNum)]) do
+        self.m_itemMenues[itemNum] = vars['itemMenu' .. tostring(itemNum)]
+        self.m_itemNodes[itemNum] = vars['itemNode' .. tostring(itemNum)]
+        itemNum = itemNum + 1
+    end
+
+    --if (#self.m_itemMenues ~= #self.m_itemNodes) then error('') end
+end
+
+
+function UI_DimensionGateItemRewardPopup:initUI()
+end
+
+
+function UI_DimensionGateItemRewardPopup:initButton()
+    self.m_closeBtn:registerScriptTapHandler(function() self:click_closeBtn() end)
+end
+
+
+function UI_DimensionGateItemRewardPopup:refresh()
+
+    local itemCount = #self.m_parentData
+
+    if(itemCount > 1) then
+        for i = 1, itemCount do
+            self:create_itemCard(self.m_parentData[i]['item'], i)            
+        end
+    else
+        self:create_itemCard(self.m_parentData[1]['item'], 1)
+        
+        for i = 2, #self.m_itemMenues do
+            self.m_itemMenues[i]:setVisible(false)
+        end
+
+        self.m_itemMenues[1]:setPositionX(self.m_itemMenues[2]:getPositionX())
+    end
+
+    -- local itemNum = #self.m_parentData
+    -- local menuNum = #self.m_itemMenues
+    -- local diffNum = (menuNum - itemNum)
+
+    -- for i = diffNum, menuNum do 
+    --     self.m_itemMenues[i]:setVisible(false)
+    -- end
+
+    -- for i = 1, itemNum do
+    --     self:create_itemCard(self.m_parentData[i]['item'], i)            
+    -- end
+
+    -- -- TODO : 임시 재배치. 자동으로 배치되도록 수정 필요
+    -- if itemNum == 1 then
+    --     self.m_itemMenues[1]:setPositionX(self.m_itemMenues[2]:getPositionX())
+    -- end
+
+end
+
+function UI_DimensionGateItemRewardPopup:click_closeBtn()
+    self:close()
+end
+
+function UI_DimensionGateItemRewardPopup:create_itemCard(str, index)
+    local ITEM_ID = 1
+    local ITEM_NUM = 2
+    local itemString = seperate(str, ';')
+    local item_id = tonumber(itemString[ITEM_ID])
+    local item_num = tonumber(itemString[ITEM_NUM])
+
+    local card = UI_ItemCard(item_id, item_num)
+    self.m_itemNodes[index]:addChild(card.root)
+end
