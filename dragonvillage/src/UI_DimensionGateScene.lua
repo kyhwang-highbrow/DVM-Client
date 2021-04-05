@@ -365,15 +365,19 @@ function UI_DimensionGateScene:click_difficultyBtn(ui)
 
     local target_stage_id = ui:getStageID()
     local target_ui = self.m_selectedDimensionGateInfo.ui
-
+ 
     if target_ui:getStageID() ~= target_stage_id then
         target_ui:setStageID(target_stage_id)
         target_ui:refresh()
+    else
+        return
     end
-   
+
     for _, item in ipairs(self.m_difficultyTableView.m_itemList) do
         local item_ui = item['ui']
-        item_ui.m_selectedBtn:setEnabled(item_ui ~= ui)
+        local item_id = item_ui:getStageID()
+        local isEnabled = g_dimensionGateData:isStageOpened(item_id) and item_ui:getStageID() ~= target_ui:getStageID()
+        item_ui.m_selectedBtn:setEnabled(isEnabled)
     end
 end
 
@@ -433,7 +437,8 @@ function UI_DimensionGateScene:openStageNode(data)
 
     local function create_callback(ui, data)
         ui.m_selectedBtn:registerScriptTapHandler(function() self:click_difficultyBtn(ui) end)
-        ui.m_selectedBtn:setEnabled(data['stage_id'] ~= target_stage_id)
+        local isEnabled = g_dimensionGateData:isStageOpened(data['stage_id']) and data['stage_id'] ~= target_stage_id
+        ui.m_selectedBtn:setEnabled(isEnabled)
         return true
     end
 
@@ -446,6 +451,14 @@ function UI_DimensionGateScene:openStageNode(data)
 
     difficulty_table_view:setItemList(data, create_callback)
     difficulty_table_view:setScrollLock(true)
+
+    -- for key, item in ipairs(difficulty_table_view.m_itemList) do
+    --     local item_ui = item['ui']
+
+    --     local isSame = item_ui['stage_id'] == target_stage_id
+    --     item_ui.m_selectedBtn:setEnabled(not isSame)
+    -- end
+    
 
     self.m_difficultyTableView = difficulty_table_view
 end
