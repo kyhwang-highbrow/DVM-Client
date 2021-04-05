@@ -281,6 +281,11 @@ function SkillScript_Charging.st_cancel(owner, dt)
         owner:removeEffect()
 
         if (isNullOrEmpty(owner.m_failAniName)) then
+            -- 캐스팅 실패 스킬
+            if (owner.m_failSkillId and owner.m_failSkillId > 0) then
+                owner.m_owner:doSkill(owner.m_failSkillId)
+            end  
+
             owner:changeState('dying')
             return
         end

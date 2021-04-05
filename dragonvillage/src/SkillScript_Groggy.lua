@@ -6,14 +6,14 @@ local WEAK_POINT_BONE = 'bone79'
 -- class SkillScript_Groggy
 -------------------------------------
 SkillScript_Groggy = class(PARENT, {
-    -- 받은 데미지
-    m_totalDamage = 'number',
-    m_totalDamageForCancel = 'number',
-
     -- 그로기 집입 전, 그로기 중, 그로기 후 애니메이션
     m_disappearAniName = 'str',
     m_groggyAniName = 'str', 
     m_wakeAniName = 'str', 
+
+    -- val_1
+    -- 그로기 유지시간
+    m_groggyTime = 'number',
 
     -- val_3 예상 : 타겟 위치정보
     m_weakBoneName = 'string',
@@ -32,9 +32,7 @@ function SkillScript_Groggy:init()
     self.m_groggyAniName = 'idle'
     self.m_wakeAniName = 'idle'
 
-    -- val_1
-    self.m_attackSkillId = -1
-    self.m_failSkillId = -1
+    self.m_groggyTime = 5
 
     -- val_3
     self.m_weakBoneName = nil
@@ -67,9 +65,6 @@ end
 -------------------------------------
 function SkillScript_Groggy:initEventListener()
     PARENT.initEventListener(self)
-
-    -- 스킬 사용자 피격시 이벤트 등록
-    self.m_owner:addListener('under_atk', self)
 end
 
 -------------------------------------
@@ -105,6 +100,9 @@ function SkillScript_Groggy:setSkillParams(owner, t_skill, t_data)
         end
     end
 
+    -- 그로기 정보
+    -- {그로기 유지시간 시간(초)}
+    self.m_groggyTime = tonumber(t_skill['val_1'])
 end
 
 -------------------------------------
@@ -113,6 +111,7 @@ end
 function SkillScript_Groggy:initState()
     self:setCommonState(self)
     self:addState('start', SkillScript_Groggy.st_start, nil, false)
+    self:addState('groggy', SkillScript_Groggy.st_groggy, nil, false)
     self:addState('end', SkillScript_Groggy.st_disappear, nil, false)
 end
 
@@ -130,14 +129,25 @@ function SkillScript_Groggy.st_start(owner, dt)
 
         owner.m_owner.m_animator:changeAni(owner.m_disappearAniName, false)
         owner.m_owner.m_animator:addAniHandler(function()
-            owner.m_owner.m_animator:changeAni(owner.m_groggyAniName, true)
-            owner.m_owner.m_animator:addAniHandler(function()
-                owner:changeState('end')
-            end)
+            owner:changeState('groggy')
         end)
     end
 end
 
+-------------------------------------
+-- function st_charge
+-------------------------------------
+function SkillScript_Groggy.st_groggy(owner, dt)
+	if (owner.m_stateTimer == 0) then
+		owner.m_owner.m_animator:changeAni(owner.m_groggyAniName, true)
+    end
+
+    owner:updateEffectPos()
+
+    if (owner.m_stateTimer > owner.m_groggyTime) then
+        owner:changeState('end')
+    end
+end
 
 -------------------------------------
 -- function st_disappear
@@ -149,6 +159,7 @@ function SkillScript_Groggy.st_disappear(owner, dt)
 
         -- 주체 유닛 애니 설정
         local unit = owner.m_owner
+
         unit.m_animator:changeAni(owner.m_wakeAniName, false)
         unit.m_animator:addAniHandler(function()
             owner:changeState('dying')
