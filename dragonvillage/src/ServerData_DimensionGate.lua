@@ -384,11 +384,83 @@ function ServerData_DimensionGate:getClearedMaxStageInList(mode_id)
     for key, stage_status in pairs(self:getStageInfoList(mode_id)) do
         stage_id = tonumber(key)
         if (stage_id > maxStage_id) then
-            maxStage_id = stage_id
+            if self:checkStageTime(stage_id) then
+                maxStage_id = stage_id
+            end
         end
     end
 
     return maxStage_id
+end
+
+----------------------------------------------------------------------------
+-- function checkStageTime
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:checkStageTime(stage_id)
+    if not stage_id then error('Forgot to pass mode_id as param') end
+
+    local mode_id = self:getModeID(stage_id)
+    local stage_key = self.m_stageTableKeys[mode_id][stage_id]
+
+    if (not stage_key) then 
+        error('This stage_id is not included in table_dmgate_stage.')
+    end
+
+    local stage_table = self.m_stageTable[mode_id][stage_key]
+    local start_date = tostring(stage_table['start_date'])
+    local end_date = tostring(stage_table['end_date'])
+
+    local date_format = 'yyyymmdd'
+    local parser = pl.Date.Format(date_format)
+
+    -- 단말기(local)의 타임존 (단위 : 초)
+    local timezone_local = datetime.getTimeZoneOffset()
+
+    -- 서버(server)의 타임존 (단위 : 초)
+    local timezone_server = Timer:getServerTimeZoneOffset()
+    local offset = (timezone_local - timezone_server)
+
+    local start_time
+    local end_time
+    local curr_time = Timer:getServerTime()
+
+    if (start_date ~= '' or start_date) then
+        local parse_start_date = parser:parse(start_date)
+        if(parse_start_date) then
+            if (parse_start_date['time'] == nil) then
+                --start_time = nil
+                error('parse_start_date[\'time\'] is nil')
+            else
+                start_time = parse_start_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
+            end
+        end
+    end
+
+    if (end_date ~= '' or end_date) then
+        local parse_end_date = parser:parse(end_date)
+        if(parse_end_date) then
+            if (parse_end_date['time'] == nil) then
+                error('parse_start_date[\'time\'] is nil')
+            else
+                end_time = parse_end_date['time'] + offset  -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
+            end
+        end
+    end
+ 
+    -- 시작 종료 시간 모두 걸려있는 경우
+    if (start_time) and (end_time) then
+        return (start_time < curr_time and curr_time < end_time)
+        
+    -- 시작 시간만 걸려있는 경우
+    elseif (start_time) then
+        return (start_time < curr_time)
+
+    -- 종료 시간만 걸려있는 경우
+    elseif (end_time) then
+        return (curr_time < end_time)
+    end
+
+    return true
 end
 
 ----------------------------------------------------------------------------
@@ -452,7 +524,7 @@ function ServerData_DimensionGate:getCurrDiffInList(list)
         if(stage_id == nil) then error('received wrong list as param or stage_id is different with csv table.') end
 
         -- 스테이지가 열려있으면 현재 난이도를 해당 스테이지로 업데이트
-        if self:isStageOpened(stage_id) then
+        if self:isStageOpened(stage_id) and self:checkStageTime(stage_id) then
             currDiffLevel = self:getDifficultyID(stage_id)
             
         else
@@ -461,6 +533,9 @@ function ServerData_DimensionGate:getCurrDiffInList(list)
             break;
         end
     end
+
+    -- TODO : 모든 스테이지의 checkStageTime()이 FALSE 인 경우 가장 낮은 난이도가 리턴됨.
+    -- UI 자체에서 막을 것임.
 
     return currDiffLevel
 end

@@ -225,7 +225,8 @@ end
 ----------------------------------------------------------------------
 function UI_DimensionGateItem:refreshLockVRP()
     -- is it locked ?
-    if g_dimensionGateData:isStageOpened(self.m_stageID) == false then
+    if (g_dimensionGateData:isStageOpened(self.m_stageID) == false)
+        or (g_dimensionGateData:checkStageTime(self.m_stageID) == false) then
     
         self.m_lockVisual:setVisible(true)
         self.m_lockVisual:changeAni('dmgate_lock')

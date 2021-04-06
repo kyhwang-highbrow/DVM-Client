@@ -437,7 +437,8 @@ function UI_DimensionGateScene:openStageNode(data)
 
     local function create_callback(ui, data)
         ui.m_selectedBtn:registerScriptTapHandler(function() self:click_difficultyBtn(ui) end)
-        local isEnabled = g_dimensionGateData:isStageOpened(data['stage_id']) and data['stage_id'] ~= target_stage_id
+        local isEnabled = g_dimensionGateData:isStageOpened(data['stage_id']) and (data['stage_id'] ~= target_stage_id)
+        isEnabled = (isEnabled) and (g_dimensionGateData:checkStageTime(data['stage_id']))
         ui.m_selectedBtn:setEnabled(isEnabled)
         return true
     end

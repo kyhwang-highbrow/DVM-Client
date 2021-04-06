@@ -95,7 +95,7 @@ end
 -- function refreshLockSprite
 ----------------------------------------------------------------------
 function UI_DimensionGateSceneStageItem:refreshLockSprite()
-    local isStageOpened = g_dimensionGateData:isStageOpened(self.m_stageID)
+    local isStageOpened = g_dimensionGateData:isStageOpened(self.m_stageID) and g_dimensionGateData:checkStageTime(self.m_stageID)
 
     self.m_lockSprite:setVisible(not isStageOpened)
     self.m_selectedBtn:setEnabled(isStageOpened)
