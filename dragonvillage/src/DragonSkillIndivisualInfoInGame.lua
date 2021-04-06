@@ -73,7 +73,8 @@ function DragonSkillIndivisualInfoInGame:initRuntimeInfo()
     local skill_id = self.m_skillID
     local t_skill = self.m_tSkill or GetSkillTable(self.m_charType):get(skill_id)
 
-    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
+    --if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short' or self.m_skillType == 'indie_time_fix') then
+    if (string.find(self.m_skillType, 'indie_time')) then
         self.m_chanceValueType = CHANCE_VALUE_TYPE.TIMER
 
         -- 특정 스킬 아이디는 적용 시키지 않음(팀보너스, 고대룬 세트 효과)
@@ -86,6 +87,10 @@ function DragonSkillIndivisualInfoInGame:initRuntimeInfo()
 
         elseif (t_skill['skill_type'] == 'skill_metamorphosis') then
             -- 변신 스킬의 경우
+            self.m_curChanceValue = self:getChanceValue()
+
+        elseif (string.find(self.m_skillType, 'fix')) then
+            -- 픽스값인 경우
             self.m_curChanceValue = self:getChanceValue()
 
         else

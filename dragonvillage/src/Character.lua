@@ -2165,6 +2165,18 @@ function Character:updateBasicSkillTimer(dt)
             end
         end
 
+        -- indie_time_fix 타입 스킬
+        -- 랜덤값이 아닌 확정 값으로 사용하기 위해 사용
+        do
+            local list = self:getSkillIndivisualInfo('indie_time_fix') or {}
+
+            for i, v in pairs(list) do
+                if (v:isEndCoolTime()) then
+                    self:doSkill(v.m_skillID, 0, 0)
+                end
+            end
+        end
+
         -- hp_rate_short 타입 스킬
         do
             local list = self:getSkillIndivisualInfo('hp_rate_short') or {}
