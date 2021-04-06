@@ -172,8 +172,10 @@ function Skill:initEventListener()
 	self:addListener(CON_SKILL_HIT, self)
 	self:addListener(CON_SKILL_END, self)
 
+    local is_active_skill = self.m_chanceType == 'active'
+
     -- 특정 이벤트 추가
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, nil)
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, nil, nil, is_active_skill)
     local target
 
     for _, unit in pairs(l_target) do
@@ -761,8 +763,9 @@ end
 -------------------------------------
 function Skill:getDefaultTarget()
     if (self.m_targetChar) then return self.m_targetChar end
+    local is_active_skill = self.m_chanceType == 'active'
 
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation)
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation, nil, is_active_skill)
 	local target = l_target[1]
 
 	if (not target) then
@@ -777,8 +780,9 @@ end
 -------------------------------------
 function Skill:getDefaultTargetList(idx)
     if (self.m_targetChar) then return self.m_targetChar end
+    local is_active_skill = self.m_chanceType == 'active'
 
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation)
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation, nil, is_active_skill)
 	
 	return l_target or {}
 end

@@ -44,6 +44,21 @@ function SkillLeap:initSkillSize()
 end
 
 -------------------------------------
+-- function setSkillParams
+-- @brief 
+-------------------------------------
+function SkillLeap:setSkillParams(owner, t_skill, t_data)
+    PARENT.setSkillParams(self, owner, t_skill, t_data)
+
+    if (t_skill and t_skill['val_1'] and tonumber(t_skill['val_1'])) then
+        -- 회전각도 비율 * 360
+        -- 정수 부수 모두 가능
+        self.m_rotateCount = tonumber(t_skill['val_1'])
+    end
+
+end
+
+-------------------------------------
 -- function initState
 -------------------------------------
 function SkillLeap:initState()
