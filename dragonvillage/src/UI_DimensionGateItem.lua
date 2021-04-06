@@ -240,8 +240,10 @@ function UI_DimensionGateItem:refreshLockVRP()
 
     else -- opened
         if g_dimensionGateData:checkInUnlockList(self.m_stageID) then
+            self.m_lockVisual:setVisible(true)
+            self.m_lockVisual:changeAni('dmgate_lock')
             self.root:runAction(cc.Sequence:create(cc.DelayTime:create(0.8), cc.CallFunc:create(function() 
-                self.m_lockVisual:setVisible(true)
+                
                 self.m_lockVisual:changeAni('dmgate_unlock')
                 self.m_stageBtn:setEnabled(true)
             end)))
