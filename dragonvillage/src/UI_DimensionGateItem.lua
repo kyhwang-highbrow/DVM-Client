@@ -95,9 +95,10 @@ end
 -- @brief virtual function of UI
 -------------------------------------
 function UI_DimensionGateItem:initUI() 
-    local stage_id = g_dimensionGateData:getStageID(self.m_stageID)
-    self.m_stageLevelText:setString(Str(self.m_originStageLevelText, stage_id))
+    local stage_index = g_dimensionGateData:getStageID(self.m_stageID)
+    self.m_stageLevelText:setString(Str(self.m_originStageLevelText, stage_index))
     
+    self.m_stageNameText:setString(g_dimensionGateData:getStageName(self.m_stageID))
 end
 
 

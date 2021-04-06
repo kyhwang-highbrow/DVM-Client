@@ -739,7 +739,17 @@ end
 
 
 function ServerData_DimensionGate:getStageName(stage_id)
-    return g_stageData:getStageName(stage_id)
+    if not stage_id then error('Forgot to pass mode_id as param') end
+
+    local mode_id = self:getModeID(stage_id)
+    local stage_key = self.m_stageTableKeys[mode_id][stage_id]
+
+    if (not stage_key) then 
+        error('This stage_id is not included in table_dmgate_stage.')
+    end
+
+    local stage_table = self.m_stageTable[mode_id][stage_key]
+    return stage_table['t_name']
 end
 
 function ServerData_DimensionGate:getStageDiffTextColor(stage_id)
