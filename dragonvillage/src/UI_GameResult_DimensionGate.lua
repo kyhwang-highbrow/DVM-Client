@@ -89,5 +89,5 @@ end
 -- @brief 
 -------------------------------------
 function UI_GameResult_DimensionGate:click_contentBtn() 
-    SceneDimensionGate(self.m_stageID):runScene()
+    SceneDimensionGate():runScene()
 end
