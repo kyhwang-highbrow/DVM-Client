@@ -63,8 +63,11 @@ end
 -- @brief 
 -------------------------------------
 UI_DimensionGateBlessPopup = class(PARENT,{
+    m_spriteName = '',
+
     m_titleNode = '',
     m_infoNode = '',
+    m_buffSpriteNode = '',
 })
 
 -------------------------------------
@@ -72,12 +75,13 @@ UI_DimensionGateBlessPopup = class(PARENT,{
 -------------------------------------
 function UI_DimensionGateBlessPopup:init()
 self.m_uiName = 'UI_DimensionGateBlessPopup'
-local vars = self:load('dmgate_bless_popup.ui ')
-
+self.m_spriteName = 'res/ui/icons/buff/${spriteName}.png'
+local vars = self:load('dmgate_bless_popup.ui')
 UIManager:open(self, UIManager.POPUP)
 
 self.m_titleNode = vars['blessLabel']
 self.m_infoNode = vars['blessInfoLabel']
+self.m_buffSpriteNode = vars['buffSpriteNode']
 
 -- @UI_ACTION
 --self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
@@ -102,6 +106,13 @@ function UI_DimensionGateBlessPopup:initUI()
     local buff_list = g_dimensionGateData:getBuffList(DIMENSION_GATE_ANGRA)
     self.m_titleNode:setString('주간 축복')
     self.m_infoNode:setString(Str(buff_list[1]['t_desc'], buff_list[1]['effect_val']))
+
+    resource_name = string.gsub(self.m_spriteName, '${spriteName}', tostring(buff_list[1]['type_id']))
+
+    local icon = cc.Sprite:create(resource_name)
+    icon:setDockPoint(CENTER_POINT)
+    icon:setAnchorPoint(CENTER_POINT)
+    self.m_buffSpriteNode:addChild(icon)
 end
 
 -------------------------------------
