@@ -48,7 +48,7 @@ end
 -------------------------------------
 function TargetRule_getTargetList(target_type, org_list, x, y, t_data)
     -- 모든 대상
-    if (target_type == 'none' or target_type == 'all') then
+    if (isNullOrEmpty(target_type) or target_type == 'none' or target_type == 'all') then
         return TargetRule_getTargetList_none(org_list)
     elseif (target_type == 'random') then
         return TargetRule_getTargetList_random(org_list)

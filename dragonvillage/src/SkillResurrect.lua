@@ -3,7 +3,9 @@ local PARENT = Skill
 -------------------------------------
 -- class SkillResurrect
 -------------------------------------
-SkillResurrect = class(PARENT, {})
+SkillResurrect = class(PARENT, {
+    m_effectAnimationName = 'str'
+})
 
 -------------------------------------
 -- function init
@@ -11,6 +13,7 @@ SkillResurrect = class(PARENT, {})
 -- @param body
 -------------------------------------
 function SkillResurrect:init(file_name, body, ...)
+    self.m_effectAnimationName = ''
 end
 
 -------------------------------------
@@ -31,6 +34,10 @@ end
 -------------------------------------
 function SkillResurrect:setSkillParams(owner, t_skill, t_data)
     PARENT.setSkillParams(self, owner, t_skill, t_data)
+
+    if (t_skill and t_skill['res_1']) then
+        self.m_effectAnimationName = t_skill['res_1']
+    end
 
     if (self.m_targetChar) then
         self.m_targetChar.m_resurrect = self
@@ -69,11 +76,28 @@ function SkillResurrect:runResurrect()
         local atk_dmg = self.m_activityCarrier:getAtkDmg(target)
         local heal = HealCalc_M(atk_dmg) * self.m_activityCarrier:getPowerRate() / 100
 
+        -- 이펙트
+        self:makeEffect(target)
+
         target:doRevive(heal, self.m_owner, true)
 
         self:onHeal(target)
     end
 end
+
+
+-------------------------------------
+-- function makeEffect
+-- 이펙트가 있으면 이펙트 출력
+-------------------------------------
+function SkillResurrect:makeEffect(target)
+    if (not target or isNullOrEmpty(self.m_effectAnimationName)) then return end
+
+    local pos_x, pos_y = target:getPosForFormation()
+    local res = self.m_effectAnimationName
+    local effect = self.m_world:addInstantEffect(res, 'idle', pos_x, pos_y)
+end
+
 
 -------------------------------------
 -- function findTarget
