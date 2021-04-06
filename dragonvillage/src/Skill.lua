@@ -738,8 +738,9 @@ end
 -------------------------------------
 function Skill:getProperTargetList()
     local target_count
+    local is_active_skill = self.m_chanceType == 'active'
 
-    if (self.m_chanceType == 'active') then
+    if (is_active_skill) then
         if (self.m_lTargetChar) then
             return self.m_lTargetChar
         end
@@ -749,7 +750,7 @@ function Skill:getProperTargetList()
         target_count = self.m_targetLimit
     end
 
-	return self.m_owner:getTargetListByType(self.m_targetType, target_count, self.m_targetFormation)
+	return self.m_owner:getTargetListByType(self.m_targetType, target_count, self.m_targetFormation, nil, is_active_skill)
 end
 
 -------------------------------------
