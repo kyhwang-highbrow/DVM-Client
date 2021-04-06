@@ -66,6 +66,11 @@ function SkillTransform:doTransform()
     enemy:setPosition(pos_x, pos_y)
 	enemy:setHomePos(pos_x, pos_y)
 
+    -- 세상이 멈춰있는가?
+    if (world.m_bPauseMode) then
+        enemy:setTemporaryPause(true)
+    end
+
 	if (enemy.m_hpNode) then
 		enemy.m_hpNode:setVisible(true)
 	end
