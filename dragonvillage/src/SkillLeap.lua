@@ -6,6 +6,8 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 SkillLeap = class(PARENT, {
 		m_jumpRes = 'str',
         m_rotateCount = 'number',
+
+        m_attackAniName = 'string',
      })
 
 -------------------------------------
@@ -50,11 +52,15 @@ end
 function SkillLeap:setSkillParams(owner, t_skill, t_data)
     PARENT.setSkillParams(self, owner, t_skill, t_data)
 
-    if (t_skill and t_skill['val_1'] and tonumber(t_skill['val_1'])) then
+    if (not t_skill) then return end
+
+    if (t_skill['val_1'] and tonumber(t_skill['val_1'])) then
         -- 회전각도 비율 * 360
         -- 정수 부수 모두 가능
         self.m_rotateCount = tonumber(t_skill['val_1'])
     end
+
+    if (t_skill['animation']) then self.m_attackAniName = t_skill['animation'] end
 
 end
 
@@ -91,6 +97,7 @@ function SkillLeap.st_move(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_owner:resetMove()
 		owner.m_owner:setAfterImage(true)
+        owner.m_owner.m_animator:changeAni(owner.m_attackAniName, true)
 
 		-- 점프 이펙트
 		local animator = MakeAnimator(owner.m_jumpRes)
