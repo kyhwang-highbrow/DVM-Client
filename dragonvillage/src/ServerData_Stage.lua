@@ -139,7 +139,7 @@ function ServerData_Stage:getStageName(stage_id)
     elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 		name = g_illusionDungeonData:getIllusionStageTitle()
 
-    -- 환상 던전 이벤트
+    -- 차원문
     elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
 		name =  TABLE:get('stage_data')[stage_id]['t_name']
     end

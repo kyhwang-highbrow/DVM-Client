@@ -360,14 +360,21 @@ end
 ----------------------------------------------------------------------------
 -- function click_difficultyBtn
 ----------------------------------------------------------------------------
-function UI_DimensionGateScene:click_difficultyBtn(ui)
+function UI_DimensionGateScene:click_difficultyBtn(itemUI)
     local vars = self.vars
 
-    local target_stage_id = ui:getStageID()
+    local item_stage_id = itemUI:getStageID()
+
     local target_ui = self.m_selectedDimensionGateInfo.ui
+    local target_stage_id = target_ui:getStageID()
  
-    if target_ui:getStageID() ~= target_stage_id then
-        target_ui:setStageID(target_stage_id)
+    if target_stage_id ~= item_stage_id then
+        if not g_dimensionGateData:isStageOpened(item_stage_id) then
+            g_dimensionGateData:Test(item_stage_id)
+            return 
+        end
+
+        target_ui:setStageID(item_stage_id)
         target_ui:refresh()
     else
         return
@@ -437,7 +444,7 @@ function UI_DimensionGateScene:openStageNode(data)
 
     local function create_callback(ui, data)
         ui.m_selectedBtn:registerScriptTapHandler(function() self:click_difficultyBtn(ui) end)
-        local isEnabled = g_dimensionGateData:isStageOpened(data['stage_id']) and (data['stage_id'] ~= target_stage_id)
+        local isEnabled = (data['stage_id'] ~= target_stage_id) --g_dimensionGateData:isStageOpened(data['stage_id']) and (data['stage_id'] ~= target_stage_id)
         isEnabled = (isEnabled) and (g_dimensionGateData:checkStageTime(data['stage_id']))
         ui.m_selectedBtn:setEnabled(isEnabled)
         return true

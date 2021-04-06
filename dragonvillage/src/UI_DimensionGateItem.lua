@@ -97,7 +97,7 @@ end
 function UI_DimensionGateItem:initUI() 
     local stage_index = g_dimensionGateData:getStageID(self.m_stageID)
     self.m_stageLevelText:setString(Str(self.m_originStageLevelText, stage_index))
-    
+
     self.m_stageNameText:setString(g_dimensionGateData:getStageName(self.m_stageID))
 end
 
@@ -312,7 +312,3 @@ function UI_DimensionGateItem:setStageID(stage_id)
     self.m_stageID = self.m_targetData['stage_id']
     self.m_stageStatus =  g_dimensionGateData:getStageStatus(self.m_stageID)
 end
-
--- function UI_DimensionGateItem:setTouchEnabled(isTouchable)
---     self.m_stageBtn:setEnabled(isTouchable)
--- end

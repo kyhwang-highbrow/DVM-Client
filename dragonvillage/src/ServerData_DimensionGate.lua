@@ -1,3 +1,11 @@
+
+local DmgateStringTable = {
+        ['mode'] = {'앙그라', '마누스'},
+        ['chapter'] = {'하위층', '상위층'},
+        ['difficulty'] = {[0] = '', '보통', '하드', '어려움'},
+        ['diff_color'] = {[0] = 'white', 'diff_normal', 'diff_hard', 'diff_hell'},
+}
+
 -------------------------------------
 -- class ServerData_DimensionGate
 -------------------------------------
@@ -308,6 +316,24 @@ function ServerData_DimensionGate:getPrevStageID(stage_id)
     if prev_stage_data == nil then return nil end
 
     return prev_stage_data['stage_id']
+end
+
+----------------------------------------------------------------------------
+-- function getConditionStageID
+-- @brief 
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:getConditionStageID(stage_id)
+    if not stage_id then error('Forgot to pass mode_id as param') end
+
+    local mode_id = self:getModeID(stage_id)
+    local stage_key = self.m_stageTableKeys[mode_id][stage_id]
+
+    if (not stage_key) then 
+        error('This stage_id is not included in table_dmgate_stage.')
+    end
+
+    local stage_table = self.m_stageTable[mode_id][stage_key]
+    return stage_table['condition_stage_id']
 end
 
 ----------------------------------------------------------------------------
@@ -733,11 +759,17 @@ function ServerData_DimensionGate:getRewardStatus(stage_id)
     return status
 end
 
+----------------------------------------------------------------------------
+-- function getStageDesc
+----------------------------------------------------------------------------
 function ServerData_DimensionGate:getStageDesc(stage_id)
     return g_stageData:getStageDesc(stage_id)
 end
 
 
+----------------------------------------------------------------------------
+-- function getStageName
+----------------------------------------------------------------------------
 function ServerData_DimensionGate:getStageName(stage_id)
     if not stage_id then error('Forgot to pass mode_id as param') end
 
@@ -752,30 +784,35 @@ function ServerData_DimensionGate:getStageName(stage_id)
     return stage_table['t_name']
 end
 
+----------------------------------------------------------------------------
+-- function getStageDiffTextColor
+----------------------------------------------------------------------------
 function ServerData_DimensionGate:getStageDiffTextColor(stage_id)
     local diff_level = self:getDifficultyID(stage_id)
-
-    if (diff_level == 1) then
-        return COLOR['diff_normal']
-    elseif (diff_level == 2) then
-        return COLOR['diff_hard']
-    elseif (diff_level == 3) then
-        return COLOR['diff_hell']
-    else
-        return COLOR['white']
-    end
+    
+    return COLOR[DmgateStringTable['diff_color'][diff_level]]
 end
 
+----------------------------------------------------------------------------
+-- function getStageDiffText
+----------------------------------------------------------------------------
 function ServerData_DimensionGate:getStageDiffText(stage_id)
     local diff_level = self:getDifficultyID(stage_id)
 
-    if (diff_level == 1) then
-        return '보통'
-    elseif (diff_level == 2) then
-        return '어려움'
-    elseif (diff_level == 3) then
-        return '지옥'
-    else
-        return ''
-    end
+    return DmgateStringTable['difficulty'][diff_level]
+end
+
+
+function ServerData_DimensionGate:Test(stage_id)
+    local required_stage_id = self:getConditionStageID(stage_id)
+
+    local chapter_id = self:getChapterID(required_stage_id)
+    local diff_id = self:getDifficultyID(required_stage_id)
+    local stage_index = self:getStageID(required_stage_id)
+
+    local message = DmgateStringTable['chapter'][chapter_id] .. ' '
+    message = message .. tostring(stage_index) .. ' 스테이지 '
+    message = message .. DmgateStringTable['difficulty'][diff_id] .. ' 클리어가 필요합니다.'
+
+    UIManager:toastNotificationRed(message)
 end

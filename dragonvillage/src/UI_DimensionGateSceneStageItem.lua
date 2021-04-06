@@ -142,3 +142,11 @@ function UI_DimensionGateSceneStageItem:setStageID(stage_id)
     self.m_stageID = stage_id
     self.m_currDifficultyLevel = g_dimensionGateData:getDifficultyID(self.m_stageID)
 end
+
+
+----------------------------------------------------------------------
+-- function is
+----------------------------------------------------------------------
+function UI_DimensionGateSceneStageItem:isStageLocked()
+    return not self.m_lockSprite:isVisible()
+end
