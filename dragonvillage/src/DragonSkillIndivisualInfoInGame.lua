@@ -177,7 +177,7 @@ end
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:updateTimer(dt)
     -- indie_time 타이머
-    if (self.m_chanceValueType == CHANCE_VALUE_TYPE.TIMER and not self.m_owner.m_world.m_bPauseMode) then
+    if (self.m_chanceValueType == CHANCE_VALUE_TYPE.TIMER) then
         if (self.m_curChanceValue > 0) then
             self.m_curChanceValue = self.m_curChanceValue - dt
 
