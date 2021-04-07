@@ -2,7 +2,7 @@
 local DmgateStringTable = {
         ['mode'] = {'앙그라', '마누스'},
         ['chapter'] = {'하층', '상층'},
-        ['difficulty'] = {[0] = '', '보통', '하드', '어려움'},
+        ['difficulty'] = {[0] = '', '보통', '어려움', '지옥'},
         ['diff_color'] = {[0] = 'white', 'diff_normal', 'diff_hard', 'diff_hell'},
 }
 
