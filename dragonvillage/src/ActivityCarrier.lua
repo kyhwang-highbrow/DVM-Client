@@ -37,6 +37,8 @@ ActivityCarrier = class({
         m_bIgnoreProtect = 'bool',  -- 피해면역(무적)
         m_bIgnoreRevive = 'bool',
 
+        m_ignoreTable = 'table',    -- 무시요소들을 모아놓은 테이블
+
         m_bDefiniteDeath = 'bool',  -- 피격 대상을 무조건 죽임
         
         m_realAttackType = 'str',
@@ -262,9 +264,14 @@ function ActivityCarrier:cloneForMissile()
     activity_carrier:setPowerRate(self.m_skillCoefficient)
     activity_carrier:setAddCriPowerRate(self.m_skillAddCriCoefficient)
 
+    activity_carrier:setIgnoreByTable(self.m_ignoreTable)
+
+    --[[
     activity_carrier:setIgnoreAll(self:isIgnoreAll())
     activity_carrier:setIgnoreDef(self:isIgnoreDef())
     activity_carrier:setIgnoreAvoid(self:isIgnoreAvoid())
+    ]]
+
     activity_carrier:setDefiniteDeath(self:isDefiniteDeath())
 	
 	activity_carrier.m_lFinalStat = clone(self.m_lFinalStat)
@@ -580,4 +587,51 @@ end
 -------------------------------------
 function ActivityCarrier:getActivityOwner()
 	return self.m_activityCarrierOwner
+end
+
+
+-------------------------------------
+-- function setIgnoreByTable
+-------------------------------------
+function ActivityCarrier:setIgnoreByTable(ignore_table)
+    self.m_ignoreTable = ignore_table and ignore_table or self.m_ignoreTable
+
+    if (not self.m_ignoreTable) then return end
+
+	-- 전체 무시
+    if (self.m_ignoreTable['all']) then
+        cclog('오올')
+        self:setIgnoreAll(true)
+        return
+    end
+
+    -- 방무
+    if (self.m_ignoreTable['def']) then
+		self:setIgnoreDef(true)
+    end
+
+    -- 저항무시
+    if (self.m_ignoreTable['avoid']) then
+		self:setIgnoreAvoid(true)
+    end
+
+    -- 보호막 무시
+    if (self.m_ignoreTable['barrier']) then 
+		self:setIgnoreBarrier(true)
+    end
+
+    -- 무적무시
+    if (self.m_ignoreTable['protect']) then 
+		self:setIgnoreProtect(true)
+    end
+
+    -- 부활무시
+    if (self.m_ignoreTable['resurrect']) then 
+		self:setIgnoreRevive(true)
+	end
+
+    -- 트루뎀지
+    if (self.m_ignoreTable['calc']) then
+		self:setIgnoreCalc(true)
+    end
 end

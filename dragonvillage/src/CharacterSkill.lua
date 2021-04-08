@@ -516,7 +516,12 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
     activity_carrier:setSkillHitCount(t_skill['hit'])
     activity_carrier:setPowerRate(t_skill['power_rate'])
     activity_carrier:setAddCriPowerRate(t_skill['critical_damage_add'])
-		
+
+    local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
+    if (skill_indivisual_info) then
+        activity_carrier:setIgnoreByTable(skill_indivisual_info:getMapToIgnore())
+    end
+
     self.m_world:addToMissileList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
 

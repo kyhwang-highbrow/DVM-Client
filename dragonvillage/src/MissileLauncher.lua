@@ -110,7 +110,7 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
 
 	-- 상태 효과 적용
 	local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
-    activity_carrier:insertStatusEffectRate(l_status_effect_struct)
+    self.m_activityCarrier:insertStatusEffectRate(l_status_effect_struct)
 
     -- 미사일 패턴 초기화
     self:init_missilePattern(self.m_attackIdx)

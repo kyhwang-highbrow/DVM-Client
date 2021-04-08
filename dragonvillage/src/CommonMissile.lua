@@ -130,25 +130,7 @@ function CommonMissile:initActvityCarrier()
     -- 수식에서 사용하기 위한 값을 세팅
     EquationHelper:setEquationParamOnMapForSkill(self.m_activityCarrier.m_tParam, self)
     
-	-- 방어 무시 -> 차후에 좀더 구조화 해서 늘려나감
-	if (self.m_powerIgnore['def']) then
-		self.m_activityCarrier:setIgnoreDef(true)
-    end
-    if (self.m_powerIgnore['avoid']) then
-		self.m_activityCarrier:setIgnoreAvoid(true)
-    end
-    if (self.m_powerIgnore['barrier']) then 
-		self.m_activityCarrier:setIgnoreBarrier(true)
-    end
-    if (self.m_powerIgnore['protect']) then 
-		self.m_activityCarrier:setIgnoreProtect(true)
-    end
-    if (self.m_powerIgnore['resurrect']) then 
-		self.m_activityCarrier:setIgnoreRevive(true)
-	end
-    if (self.m_powerIgnore['calc']) then
-		self.m_activityCarrier:setIgnoreCalc(true)
-    end
+    self.m_activityCarrier:setIgnoreByTable(self.m_powerIgnore)
 end
 
 -------------------------------------

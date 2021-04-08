@@ -710,6 +710,7 @@ function Missile:fireAddScriptMissile()
     activity_carrier:setSkillHitCount(self.m_activityCarrier:getSkillHitCount())
 	activity_carrier:setPowerRate(self.m_activityCarrier:getPowerRate())
     activity_carrier:setAddCriPowerRate(self.m_activityCarrier:getAddCriPowerRate())
+    activity_carrier:setIgnoreByTable(self.m_activityCarrier.m_ignoreTable)
     
     self.m_world:addToUnitList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
