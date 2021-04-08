@@ -269,6 +269,10 @@ function UI_DimensionGateScene:click_chapterBtn(index)
     end
 
     self.m_currChapter = index
+
+    -- TODO : 210408 기준 앙그라 2챕터 중에 1챕터는 축복버튼을 숨기지만 조건이 달라질 수 있기에 변경 필요
+    self.m_blessBtn:setVisible(self.m_currChapter ~= 1)
+
     local isSameIndex
 
     for i = 1, #self.m_chapterButtons do
