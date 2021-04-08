@@ -77,7 +77,7 @@ function UI_BattleMenuItem_Dungeon:getDescStr(content_type)
 
     -- 차원문
     elseif (content_type == 'dmgate') then
-        desc = Str('인장 획득 가능')
+        desc = Str('차원문 토큰 획득 가능')
     end
     return desc
 end
