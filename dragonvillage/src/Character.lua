@@ -631,8 +631,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
 
-    -- 공격 가능한지 체크한다
-    if (not self:isAttackable(attack_type == 'active')) then return end
+    -- 우선 공격 가능한지 체크한다
+    if (not self:isAttackable(attack_type == 'active', attack_activity_carrier)) then return end
 
     local attack_add_cri_dmg = attack_activity_carrier:getAddCriPowerRate()
     local attack_hit_count = attack_activity_carrier:getSkillHitCount()
@@ -2200,11 +2200,11 @@ end
 -------------------------------------
 -- function isAttackable
 -------------------------------------
-function Character:isAttackable(is_active_skill)
+function Character:isAttackable(is_active_skill, attack_activity_carrier)
+    local is_attackable = true
+
     local statusEffectList = self:getStatusEffectList()
     if (not statusEffectList) then statusEffectList = {} end
-
-    local has_attack_limit = false
 
     for k, v in pairs(statusEffectList) do
 
@@ -2214,23 +2214,40 @@ function Character:isAttackable(is_active_skill)
 
             -- 아예 못떄림
             if (effect_name == 'target_disabled') then
-                has_attack_limit = true
+                is_attackable = false
                 break
 
             -- 액티브만 먹을 때
             elseif (effect_name == 'target_active_skill_only') then
-                has_attack_limit = true
-                break
+                is_attackable = is_active_skill
 
             -- 액티브 뺴고 다먹어야 할 때
             elseif (effect_name == 'target_without_skill') then
-                has_attack_limit = true
-                break
+                is_attackable = not is_active_skill
+
             end
         end
     end
+    
+    -- 액티비티 캐리어가 없으면 그냥 결과 반환
+    if (not attack_activity_carrier) then return is_attackable end
 
-    return not has_attack_limit
+    -- 일부 특별한 공격은 패스해줘야 한다.
+    -- 보스
+    local skill_id = attack_activity_carrier:getSkillId()
+    local t_skill = self:getSkillTable(skill_id)
+
+    if (t_skill and t_skill['target_type']) then 
+        local target_type = t_skill['target_type']
+        local is_teammate = string.find(target_type, 'teammate')
+        local is_self = string.find(target_type, 'self')
+        local is_ally = string.find(target_type, 'ally')
+        local is_boss = string.find(target_type, 'boss')
+
+        return is_teammate or is_self or is_ally or is_boss
+    end
+
+    return is_attackable
 end
 
 -------------------------------------
