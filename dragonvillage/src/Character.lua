@@ -630,6 +630,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	local attack_activity_carrier = attacker.m_activityCarrier
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
+
+    -- 공격 가능한지 체크한다
+    if (not self:isAttackable(attack_type == 'active')) then return end
+
     local attack_add_cri_dmg = attack_activity_carrier:getAddCriPowerRate()
     local attack_hit_count = attack_activity_carrier:getSkillHitCount()
     local is_critical = nil
@@ -2191,6 +2195,46 @@ function Character:updateBasicSkillTimer(dt)
             end
         end
     end
+end
+
+-------------------------------------
+-- function isAttackable
+-------------------------------------
+function Character:isAttackable(is_active_skill)
+    local statusEffectList = self:getStatusEffectList()
+    if (not statusEffectList) then statusEffectList = {} end
+
+    local has_attack_limit = false
+
+    for k, v in pairs(statusEffectList) do
+
+        -- 공격제한 타입이 있다면?
+        if (v.m_type == 'atk_limit') then
+            local effect_name = v.m_statusEffectName
+
+            -- 아예 못떄림
+            if (effect_name == 'target_disabled') then
+                has_attack_limit = true
+                break
+
+            -- 액티브만 먹을 때
+            elseif (effect_name == 'target_active_skill_only') then
+                if (is_active_skill) then table.insert(l_result, character) end
+
+                has_attack_limit = true
+                break
+
+            -- 액티브 뺴고 다먹어야 할 때
+            elseif (effect_name == 'target_without_skill') then
+            -- 액티브가 아니면 리스트에 추가
+                if (not is_active_skill) then table.insert(l_result, character) end
+                has_attack_limit = true
+                break
+            end
+        end
+    end
+
+    return not has_attack_limit
 end
 
 -------------------------------------
