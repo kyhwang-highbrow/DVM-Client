@@ -92,6 +92,13 @@ function UI_DimensionGateScene:initButton(stage_id)
 
     self:click_chapterBtn(self.m_currChapter)
 
+    if (self.m_currChapter == 1) and (not g_dimensionGateData:isChapterCleared(self.m_currMode, self.m_currChapter)) then 
+        for index, chapter_button in pairs(self.m_chapterButtons) do 
+            chapter_button:setVisible(false)
+        end
+    end
+        
+
     -- m
     self.m_startBtn:registerScriptTapHandler(function() self:click_startBtn() end)
     self.m_blessBtn:registerScriptTapHandler(function() self:click_blessBtn() end)

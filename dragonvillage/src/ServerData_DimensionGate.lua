@@ -108,6 +108,7 @@ function ServerData_DimensionGate:response_dmgateInfo(ret)
         if (stage_id == nil) then error('cannot find cleared stage id with the key \'stage\' from the table which is result from \'/dmgate/finish\'') end
         -- TODO : need error check stage id is included in table_dmgate_stage.csv
         local mode_id = self:getModeID(stage_id)
+        local chapter_id = self:getChapterID(stage_id)
         -- CHECK : need to check length of ret['stage']
    
         -- 클리어한 스테이지의 보상 정보가 바뀐 경우 0->1, 1->2 을 체크하기 위함
@@ -116,8 +117,8 @@ function ServerData_DimensionGate:response_dmgateInfo(ret)
         
         -- 0->1만 체크해야 하지만 1->2 인'/dmgate/reward' 의 경우 이 조건문을 들어올 수 없기에 별도 조건문 생략.
         if (prev_reward_status ~= curr_reward_status) then
-            local stage_key = self.m_stageTableKeys[mode_id][stage_id]
-            local next_stage_data = self.m_stageTable[mode_id][stage_key + 1]
+            local stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
+            local next_stage_data = self.m_stageTable[mode_id][chapter_id][stage_key + 1]
             -- 다음 스테이지가 같은 모드 안에 존재하는지 체크
             if next_stage_data ~= nil then 
                 local next_stage_id = next_stage_data['stage_id']
@@ -174,6 +175,7 @@ function ServerData_DimensionGate:request_stageTable()
     table.sort(dimensionGate_list, sort_func)
 
     local mode_id
+    local chapter_id
     local stage_id
     self.m_stageTable = {}
     self.m_stageTableKeys = {}
@@ -187,9 +189,19 @@ function ServerData_DimensionGate:request_stageTable()
             self.m_stageTableKeys[mode_id] = {}
         end
 
-        table.insert(self.m_stageTable[mode_id], data)
-        -- stage_id 로 검색하기 위해 index 키값을 따로 저장
-        self.m_stageTableKeys[mode_id][stage_id] = #self.m_stageTable[mode_id]
+        chapter_id = self:getChapterID(stage_id)
+
+        if(self.m_stageTable[mode_id][chapter_id] == nil) then
+            self.m_stageTable[mode_id][chapter_id] = {}
+            self.m_stageTableKeys[mode_id][chapter_id] = {}
+        end
+
+        table.insert(self.m_stageTable[mode_id][chapter_id], data)
+        self.m_stageTableKeys[mode_id][chapter_id][stage_id] = #self.m_stageTable[mode_id][chapter_id]
+
+        -- table.insert(self.m_stageTable[mode_id], data)
+        -- -- stage_id 로 검색하기 위해 index 키값을 따로 저장
+        -- self.m_stageTableKeys[mode_id][stage_id] = #self.m_stageTable[mode_id]
     end    
 end
 
@@ -291,12 +303,15 @@ end
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:isStageInTable(stage_id)
     local mode_id = self:getModeID(stage_id)
+    local chapter_id = self:getChapterID(stage_id)
     if mode_id == nil then return false end
+    
     if self.m_stageTableKeys[mode_id] == nil then return false end
+    if self.m_stageTableKeys[mode_id][mode_id] == nil then return false end
 
-    local key = self.m_stageTableKeys[mode_id][stage_id]
+    local key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
     if key == nil then return false end
-    return self.m_stageTable[mode_id][key] ~= nil
+    return self.m_stageTable[mode_id][chapter_id][key] ~= nil
 end
 
 ----------------------------------------------------------------------------
@@ -305,13 +320,14 @@ end
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:getPrevStageID(stage_id)
     local mode_id = self:getModeID(stage_id)
-    local curr_stage_key = self.m_stageTableKeys[mode_id][stage_id]
+    local chapter_id = self:getChapterID(stage_id)
+    local curr_stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
 
     if (not key) then 
         error('This stage_id is not included in table_dmgate_stage.')
     end
 
-    local prev_stage_data = self.m_stageTable[mode_id][curr_stage_key - 1]
+    local prev_stage_data = self.m_stageTable[mode_id][chapter_id][curr_stage_key - 1]
 
     if prev_stage_data == nil then return nil end
 
@@ -326,13 +342,14 @@ function ServerData_DimensionGate:getConditionStageID(stage_id)
     if not stage_id then error('Forgot to pass mode_id as param') end
 
     local mode_id = self:getModeID(stage_id)
-    local stage_key = self.m_stageTableKeys[mode_id][stage_id]
+    local chapter_id = self:getChapterID(stage_id)
+    local stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
 
     if (not stage_key) then 
         error('This stage_id is not included in table_dmgate_stage.')
     end
 
-    local stage_table = self.m_stageTable[mode_id][stage_key]
+    local stage_table = self.m_stageTable[mode_id][chapter_id][stage_key]
     return stage_table['condition_stage_id']
 end
 
@@ -350,7 +367,8 @@ end
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:getNextStageID(stage_id)
     local mode_id = self:getModeID(stage_id)
-    local curr_stage_key = self.m_stageTableKeys[mode_id][stage_id]
+    local chapter_id = self:getChapterID(stage_id)
+    local curr_stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
 
     if (not key) then 
         error('This stage_id is not included in table_dmgate_stage.')
@@ -369,23 +387,34 @@ end
 function ServerData_DimensionGate:getStageListByChapter(mode_id, chapter_id)
    local mode_table = self.m_stageTable[mode_id]
    if (mode_table == nil) then error('there is not any mode with this mode_id ' .. tostring(mode_id)) end
+   local chapter_table = mode_table[chapter_id]
+   if (chapter_table == nil) then error('there is not any chapter with this chapter_id ' .. tostring(chapter_id)) end
    local result = {}
 
    local stage_id
    local result_index
    local diff_id
-   
-   for _, data in pairs(mode_table) do
+
+   for _, data in pairs(chapter_table) do
         stage_id = data['stage_id']
 
-        if (self:getChapterID(stage_id) ==  chapter_id) then 
-            diff_id = self:getDifficultyID(stage_id)
-            result_index = self:getStageID(stage_id)
-            if (result[result_index] == nil) then result[result_index] = {} end
-
-            table.insert(result[result_index], data)
-        end
+        diff_id = self:getDifficultyID(stage_id)
+        result_index = self:getStageID(stage_id)
+        if (result[result_index] == nil) then result[result_index] = {} end
+        table.insert(result[result_index], data)
    end
+   
+--    for _, data in pairs(mode_table) do
+--         stage_id = data['stage_id']
+
+--         if (self:getChapterID(stage_id) ==  chapter_id) then 
+--             diff_id = self:getDifficultyID(stage_id)
+--             result_index = self:getStageID(stage_id)
+--             if (result[result_index] == nil) then result[result_index] = {} end
+
+--             table.insert(result[result_index], data)
+--         end
+--    end
 
    return result
 end
@@ -426,13 +455,14 @@ function ServerData_DimensionGate:checkStageTime(stage_id)
     if not stage_id then error('Forgot to pass mode_id as param') end
 
     local mode_id = self:getModeID(stage_id)
-    local stage_key = self.m_stageTableKeys[mode_id][stage_id]
+    local chapter_id = self:getChapterID(stage_id)
+    local stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
 
     if (not stage_key) then 
         error('This stage_id is not included in table_dmgate_stage.')
     end
 
-    local stage_table = self.m_stageTable[mode_id][stage_key]
+    local stage_table = self.m_stageTable[mode_id][chapter_id][stage_key]
     local start_date = tostring(stage_table['start_date'])
     local end_date = tostring(stage_table['end_date'])
 
@@ -523,6 +553,26 @@ end
 function ServerData_DimensionGate:isStageCleared(stage_id)
     return self:getStageStatus(stage_id) > 0
 end
+
+----------------------------------------------------------------------------
+-- function isChapterCleared
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:isChapterCleared(mode_id, chapter_id)
+    local stage_id
+    local stage_status
+    local result = true
+    for key, stage_data in pairs(self.m_stageTable[mode_id][chapter_id]) do
+        stage_id = stage_data['stage_id']
+        stage_status = self:getStageStatus(stage_id)
+
+        if stage_status <= 0 then 
+            result = false
+            break
+        end
+    end
+
+    return result
+end 
 
 
 ----------------------------------------------------------------------------
@@ -781,13 +831,14 @@ function ServerData_DimensionGate:getStageName(stage_id)
     if not stage_id then error('Forgot to pass mode_id as param') end
 
     local mode_id = self:getModeID(stage_id)
-    local stage_key = self.m_stageTableKeys[mode_id][stage_id]
+    local chapter_id = self:getChapterID(stage_id)
+    local stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
 
     if (not stage_key) then 
         error('This stage_id is not included in table_dmgate_stage.')
     end
 
-    local stage_table = self.m_stageTable[mode_id][stage_key]
+    local stage_table = self.m_stageTable[mode_id][chapter_id][stage_key]
     return stage_table['t_name']
 end
 
