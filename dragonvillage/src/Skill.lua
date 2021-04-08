@@ -297,7 +297,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 
     -- 스킬 스케일을 시전자와 맞추기
     if (not isNullOrEmpty(self.m_resScale) and owner and owner.m_originScale and owner.m_originScale ~= owner.m_rootNode:getScale()) then
-        local scale_rate = owner.m_rootNode:getScale() / owner.m_originScale
+        local scale_rate = owner.m_animator:getScale() / owner.m_originScale
 
         self.m_resScale = self.m_resScale * scale_rate
 
