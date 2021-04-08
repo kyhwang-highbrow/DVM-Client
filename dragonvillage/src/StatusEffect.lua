@@ -1040,7 +1040,7 @@ function StatusEffect:setOverlabScaleByVariables(unit)
     local rate = self.m_statusEffectTable['val_3']
 
     -- 셋중에 하나도 비어있으면 암것도 안함
-    if (isNullOrEmpty(act_type) or isNullOrEmpty(period) or isNullOrEmpty(rate)) then return end
+    if (self.m_overlabCnt <= 0 or isNullOrEmpty(act_type) or isNullOrEmpty(period) or isNullOrEmpty(rate)) then return end
     if (act_type ~= 'scale') then return end
 
     -- 0이 되었을 때를 대비 
@@ -1054,5 +1054,5 @@ function StatusEffect:setOverlabScaleByVariables(unit)
         cca.stopAction(self.m_owner.m_animator.m_node, CHARACTER_ACTION_TAG__FLOATING)
     end
 
-    self.m_owner.m_rootNode:setScale(final_scale)
+    self.m_owner.m_animator:setScale(final_scale)
 end
