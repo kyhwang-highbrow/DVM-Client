@@ -24,6 +24,10 @@ UI_DimensionGateScene = class(PARENT, {
     m_currChapter = '',
     m_currMode = '',
 
+    -- 시즌 시간
+    m_timeNode = '',
+    m_timeLabel = '',
+
     -- 
     m_blessBtn = '',
     m_infoBtn = '',
@@ -79,6 +83,8 @@ end
 -------------------------------------
 function UI_DimensionGateScene:initUI()
     self:initTableView()
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
 
 -------------------------------------
@@ -112,6 +118,14 @@ end
 -- @brief virtual function of UI
 -------------------------------------
 function UI_DimensionGateScene:refresh() 
+end
+
+-------------------------------------
+-- function updateTimer
+-------------------------------------
+function UI_DimensionGateScene:updateTimer(dt)
+    local str = g_dimensionGateData:getTimeStatusText(self.m_currMode, self.m_currChapter)
+    self.m_timeLabel:setString(str)
 end
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -167,6 +181,10 @@ function UI_DimensionGateScene:initMemberVariable(stage_id)
     self.m_blessBtn = vars['blessBtn']  -- 주간축복 버튼
     self.m_infoBtn = vars['infoBtn']    -- 도움말 버튼
     self.m_shopBtn = vars['shopBtn']    -- 상점 버튼
+
+    -- 
+    self.m_timeNode = vars['timeNode']      -- 시간 메뉴 for visible(true or false)
+    self.m_timeLabel = vars['timeLabel']    -- 시간 텍스트 노드
 
     
     -- 스테이지 선택 메뉴
@@ -279,6 +297,7 @@ function UI_DimensionGateScene:click_chapterBtn(index)
 
     -- TODO : 210408 기준 앙그라 2챕터 중에 1챕터는 축복버튼을 숨기지만 조건이 달라질 수 있기에 변경 필요
     self.m_blessBtn:setVisible(self.m_currChapter ~= 1)
+    self.m_timeNode:setVisible(self.m_currChapter ~= 1)
 
     local isSameIndex
 

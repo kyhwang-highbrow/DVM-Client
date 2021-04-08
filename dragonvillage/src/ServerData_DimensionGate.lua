@@ -16,6 +16,8 @@ ServerData_DimensionGate = class({
 
     m_stageTableName = 'string',
 
+    m_seasonEndTime = '',  -- dmgateInfo로 받아오는 end_time
+
 
 
     m_unlockStageList = '',  -- 스테이지 클리어후 스테이지 언락 VRP를 보여주기 위함
@@ -131,6 +133,8 @@ function ServerData_DimensionGate:response_dmgateInfo(ret)
 
     self.m_dmgateInfo = dmgate_info
 
+    if ret['end_time'] then self.m_seasonEndTime = ret['end_time'] end
+
     self.m_bDirtyDimensionGateInfo = false
 end
 
@@ -234,7 +238,6 @@ end
 -- function response_shopInfo
 -------------------------------------
 function ServerData_DimensionGate:response_shopInfo(ret)
-    ccdump(ret)
     self.m_shopInfo = ret['table_shop_dmgate']
     self.m_shopProductCounts = ret['buycnt']
 end
@@ -452,7 +455,7 @@ end
 -- function checkStageTime
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:checkStageTime(stage_id)
-    if not stage_id then error('Forgot to pass mode_id as param') end
+    if not stage_id then error('Forgot to pass stage_id as param') end
 
     local mode_id = self:getModeID(stage_id)
     local chapter_id = self:getChapterID(stage_id)
@@ -466,7 +469,14 @@ function ServerData_DimensionGate:checkStageTime(stage_id)
     local start_date = tostring(stage_table['start_date'])
     local end_date = tostring(stage_table['end_date'])
 
-    local date_format = 'yyyymmdd'
+    if (#pl.stringx.split(start_date, ' ') == 1) then
+        start_date = start_date .. ' 0000'
+    end
+    if (#pl.stringx.split(end_date, ' ') == 1) then
+        end_date = end_date .. ' 0000'
+    end
+
+    local date_format = 'yyyymmdd HHMM'
     local parser = pl.Date.Format(date_format)
 
     -- 단말기(local)의 타임존 (단위 : 초)
@@ -481,7 +491,7 @@ function ServerData_DimensionGate:checkStageTime(stage_id)
     local curr_time = Timer:getServerTime()
 
     if (start_date ~= '' or start_date) then
-        local parse_start_date = parser:parse(start_date)
+        local parse_start_date = parser:parse(start_date .. ' 0000')
         if(parse_start_date) then
             if (parse_start_date['time'] == nil) then
                 --start_time = nil
@@ -896,4 +906,72 @@ function ServerData_DimensionGate:getModeCurrencyIcon(data)
     local icon = IconHelper:getIcon(resource)
     
     return icon
+end
+
+-------------------------------------
+-- function getTimeStatusText
+-------------------------------------
+-- function ServerData_DimensionGate:isOpenDimensionGate()
+--     local curr_time = Timer:getServerTime()
+
+--     local start_time = (self.m_startTime / 1000)
+--     local end_time = (self.m_endTime / 1000)
+
+-- 	return (start_time <= curr_time) and (curr_time <= end_time)
+-- end
+
+-------------------------------------
+-- function getTimeStatusText
+-------------------------------------
+function ServerData_DimensionGate:getTimeStatusText(mode_id, chapter_id)
+    if not mode_id then error('Forgot to pass mode_id as param') end
+    if not chapter_id then error('Forgot to pass chapter_id as param') end
+
+    local first_stage_data = self.m_stageTable[mode_id][chapter_id][1]
+
+    local start_date = tostring(first_stage_data['start_date'])
+    if (#pl.stringx.split(start_date, ' ') == 1) then
+        start_date = start_date .. ' 0000'
+    end
+    
+    local end_time = (self.m_seasonEndTime / 1000)
+    
+    local date_format = 'yyyymmdd HHMM'
+    local parser = pl.Date.Format(date_format)
+    -- 단말기(local)의 타임존 (단위 : 초)
+    local timezone_local = datetime.getTimeZoneOffset()
+
+    -- 서버(server)의 타임존 (단위 : 초)
+    local timezone_server = Timer:getServerTimeZoneOffset()
+    local offset = (timezone_local - timezone_server)
+
+    local start_time
+    local parse_start_date
+    if (start_date ~= '' or start_date) then
+        parse_start_date = parser:parse(start_date)
+        if(parse_start_date) then
+            if (parse_start_date['time'] == nil) then
+                --start_time = nil
+                error('parse_start_date[\'time\'] is nil')
+            else
+                start_time = parse_start_date['time']  -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
+            end
+        end
+    end
+
+    local curr_time = Timer:getServerTime()
+
+
+    local str = ''
+    if (curr_time < start_time) then
+        local time = (start_time - curr_time)
+        str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
+    elseif (start_time <= curr_time) and (curr_time <= end_time) then
+        local time = (end_time - curr_time)
+        str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
+    else
+        str = Str('시즌이 종료되었습니다.')
+    end
+
+    return str
 end
