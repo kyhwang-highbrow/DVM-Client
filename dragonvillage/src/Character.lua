@@ -2219,15 +2219,11 @@ function Character:isAttackable(is_active_skill)
 
             -- 액티브만 먹을 때
             elseif (effect_name == 'target_active_skill_only') then
-                if (is_active_skill) then table.insert(l_result, character) end
-
                 has_attack_limit = true
                 break
 
             -- 액티브 뺴고 다먹어야 할 때
             elseif (effect_name == 'target_without_skill') then
-            -- 액티브가 아니면 리스트에 추가
-                if (not is_active_skill) then table.insert(l_result, character) end
                 has_attack_limit = true
                 break
             end
