@@ -216,6 +216,20 @@ function Animator:isIgnoreLowEndMode(ignore)
 end
 
 -------------------------------------
+-- function hasAni
+-- @breif 애니가 있는지?
+-------------------------------------
+function Animator:hasAni(ani_name)
+    local visualList = self:getVisualList()
+
+    if (not visualList or #visualList <= 0) then return false end
+
+    for _, aniName in ipairs(visualList) do
+        if (aniName == ani_name) then return true end
+    end
+end
+
+-------------------------------------
 -- function setTimeScale
 -------------------------------------
 function Animator:setTimeScale(time_scale)
@@ -831,3 +845,4 @@ end
 function isLowEndMode()
     return (sp.SkeletonAnimation:isLowEndMode() and cc.AzVRP:isLowEndMode())
 end
+

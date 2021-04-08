@@ -45,10 +45,22 @@ end
 -------------------------------------
 function SkillTransform.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
-        owner:doTransform()
-                
+        local enemy = owner:doTransform()
+          
+        if (owner.m_owner.m_animator:hasAni('die')) then
+            owner.m_owner.m_animator:changeAni('die')
+            owner.m_owner.m_animator:setTimeScale(1)
+        end
+        
+        owner.m_owner.m_animator:addAniHandler(function()
+             owner.m_owner.m_rootNode:setVisible(false)
+		end)
+
         owner.m_animator:addAniHandler(function()
             owner:changeState('dying')
+
+            enemy.m_rootNode:setVisible(true)
+            enemy.m_animator:changeAni('idle')
 		end)
     end
 end
@@ -69,11 +81,14 @@ function SkillTransform:doTransform()
     -- 세상이 멈춰있는가?
     if (world.m_bPauseMode) then
         enemy:setTemporaryPause(true)
+        enemy.m_rootNode:setVisible(false)
     end
 
 	if (enemy.m_hpNode) then
 		enemy.m_hpNode:setVisible(true)
 	end
+
+    return enemy
 end
 
 -------------------------------------
