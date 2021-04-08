@@ -65,15 +65,17 @@ UI_DimensionGateItem = class(PARENT, {
     m_originStageLevelText = '',    -- 상단 
 
     
-    m_entireStar = '',
-    m_starSprites = '',
+    --m_entireStar = '',
+    --m_starSprites = '',
+
+    m_stageDiffLabel = '',
 
 
     m_rewardBtn = '',
     m_rewardVisual = '',
 
-    m_clearedStarSpriteName = '',
-    m_unclearedStarSpriteName = '',
+    --m_clearedStarSpriteName = '',
+    --m_unclearedStarSpriteName = '',
 })
 
 
@@ -153,8 +155,8 @@ function UI_DimensionGateItem:initMember(data)
     end
 
     self.m_targetData = self.m_data[self.m_currDiffIndex]
-    self.m_clearedStarSpriteName = 'ui/icons/star/stage_clear_star_0101.png'
-    self.m_unclearedStarSpriteName = 'ui/icons/star/stage_clear_star_0102.png'
+    --self.m_clearedStarSpriteName = 'ui/icons/star/stage_clear_star_0101.png'
+    --self.m_unclearedStarSpriteName = 'ui/icons/star/stage_clear_star_0102.png'
     
 
     -- update member data depend on the clear status of stage
@@ -170,11 +172,14 @@ function UI_DimensionGateItem:initMember(data)
     self.m_stageLevelText = vars['stageLevelLabel']
     self.m_originStageLevelText = self.m_stageLevelText:getString()
 
-    self.m_entireStar = vars['starMenu']
-    self.m_starSprites = {}
-    table.insert(self.m_starSprites, vars['starSprite1'])
-    table.insert(self.m_starSprites, vars['starSprite2'])
-    table.insert(self.m_starSprites, vars['starSprite3'])
+
+    self.m_stageDiffLabel = vars['stageDiffLabel']
+
+    -- self.m_entireStar = vars['starMenu']
+    -- self.m_starSprites = {}
+    -- table.insert(self.m_starSprites, vars['starSprite1'])
+    -- table.insert(self.m_starSprites, vars['starSprite2'])
+    -- table.insert(self.m_starSprites, vars['starSprite3'])
 
     self.m_rewardBtn = vars['rewardBtn']
     self.m_rewardVisual = vars['rewardVisual']   
@@ -187,33 +192,43 @@ end
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////\
 function UI_DimensionGateItem:refreshStarSprites()
-    -- 레벨이 있는가?
+        -- -- 레벨이 있는가?
     if #self.m_data == 1 then
-        self.m_entireStar:setVisible(false)
+        self.m_stageDiffLabel:setVisible(false)
         return
     end
 
-    -- 현재 난이도가 몇인가?
-    --local level = self.m_currDiffIndex 
+    self.m_stageDiffLabel:setVisible(true)
+    self.m_stageDiffLabel:setString(g_dimensionGateData:getStageDiffText(self.m_stageID))
+    self.m_stageDiffLabel:setTextColor(g_dimensionGateData:getStageDiffTextColor(self.m_stageID))
+
+    -- -- 레벨이 있는가?
+    -- if #self.m_data == 1 then
+    --     self.m_entireStar:setVisible(false)
+    --     return
+    -- end
+
+    -- -- 현재 난이도가 몇인가?
+    -- --local level = self.m_currDiffIndex 
     
-    local isCleared
-    for index, starSprite in pairs(self.m_starSprites) do
-        --if index <= level then
-            starSprite:setVisible(true)
-            if index <= self.m_currDiffIndex then
-                isCleared = g_dimensionGateData:isStageCleared(self.m_data[index]['stage_id'])
-            else
-                isCleared = false
-            end
-            if isCleared then
-                starSprite:setTexture(self.m_clearedStarSpriteName)
-            else
-                starSprite:setTexture(self.m_unclearedStarSpriteName)
-            end
-        --else
-        --    starSprite:setVisible(false)
-        --end
-    end
+    -- local isCleared
+    -- for index, starSprite in pairs(self.m_starSprites) do
+    --     --if index <= level then
+    --         starSprite:setVisible(true)
+    --         if index <= self.m_currDiffIndex then
+    --             isCleared = g_dimensionGateData:isStageCleared(self.m_data[index]['stage_id'])
+    --         else
+    --             isCleared = false
+    --         end
+    --         if isCleared then
+    --             starSprite:setTexture(self.m_clearedStarSpriteName)
+    --         else
+    --             starSprite:setTexture(self.m_unclearedStarSpriteName)
+    --         end
+    --     --else
+    --     --    starSprite:setVisible(false)
+    --     --end
+    -- end
 end
 
 
