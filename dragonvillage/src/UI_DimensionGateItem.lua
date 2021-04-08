@@ -199,8 +199,12 @@ function UI_DimensionGateItem:refreshStarSprites()
     local isCleared
     for index, starSprite in pairs(self.m_starSprites) do
         --if index <= level then
-            starSprite:setVisible(true)        
-            isCleared = g_dimensionGateData:isStageCleared(self.m_data[index]['stage_id'])
+            starSprite:setVisible(true)
+            if index <= self.m_currDiffIndex then
+                isCleared = g_dimensionGateData:isStageCleared(self.m_data[index]['stage_id'])
+            else
+                isCleared = false
+            end
             if isCleared then
                 starSprite:setTexture(self.m_clearedStarSpriteName)
             else

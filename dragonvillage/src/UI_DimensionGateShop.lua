@@ -136,7 +136,7 @@ function UI_DimensionGateShop:initTableView()
     local table_view = UIC_TableViewTD(self.m_listNode)
     --table_view:setCellSizeToNodeSize(true)
     table_view.m_cellSize = cc.size(225 + 5, 275 + 5)
-    table_view.m_nItemPerCell = 2
+    table_view.m_nItemPerCell = 3
     table_view:setCellUIClass(UI_DimensionGateShopItem, create_callback)
     
     table_view:setItemList(product_list)

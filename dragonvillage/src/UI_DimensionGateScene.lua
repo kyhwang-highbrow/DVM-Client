@@ -92,7 +92,7 @@ function UI_DimensionGateScene:initButton(stage_id)
 
     self:click_chapterBtn(self.m_currChapter)
 
-    --
+    -- m
     self.m_startBtn:registerScriptTapHandler(function() self:click_startBtn() end)
     self.m_blessBtn:registerScriptTapHandler(function() self:click_blessBtn() end)
     self.m_infoBtn:registerScriptTapHandler(function() self:click_infoBtn() end)
@@ -379,12 +379,18 @@ function UI_DimensionGateScene:click_difficultyBtn(itemUI)
     else
         return
     end
+    
+    target_stage_id = target_ui:getStageID()
 
     for _, item in ipairs(self.m_difficultyTableView.m_itemList) do
         local item_ui = item['ui']
         local item_id = item_ui:getStageID()
-        local isEnabled = g_dimensionGateData:isStageOpened(item_id) and item_ui:getStageID() ~= target_ui:getStageID()
-        item_ui.m_selectedBtn:setEnabled(isEnabled)
+
+        
+        item_ui.m_selectedBtn:setEnabled(target_stage_id ~= item_id)
+
+        -- local isEnabled = g_dimensionGateData:isStageOpened(item_id) and item_ui:getStageID() ~= target_ui:getStageID()
+        -- item_ui.m_selectedBtn:setEnabled(isEnabled)
     end
 end
 

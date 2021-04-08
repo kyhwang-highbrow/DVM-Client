@@ -45,6 +45,10 @@ StructProduct = class(PARENT, {
 
         -- Google 결제 시 상품 ID
         sku = 'stock keeping unit', -- product id
+
+
+        -- 차원문 상점
+        medal = 'number', -- item id in table_item
     })
 
 local THIS = StructProduct
@@ -243,7 +247,14 @@ function StructProduct:isItBuyable()
 	end
 
     -- 구매 제한 횟수 체크 (판매 시간은 상품 리스트 구성 시 확인한다고 가정)
-    local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    local buy_cnt
+    
+	if (self['medal'] == nil) then
+	    buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    else
+        buy_cnt = g_dimensionGateData:getBuyCount(self['product_id'])
+    end 
+
     return (buy_cnt < self['max_buy_count'])
 end
 
@@ -412,7 +423,12 @@ end
 -------------------------------------
 function StructProduct:getBuyCountDesc()
 	local max_buy_cnt = self['max_buy_count']
-	local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    local buy_cnt
+    if (self['medal'] == nil) then
+	    buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    else
+        buy_cnt = g_dimensionGateData:getBuyCount(self['product_id'])
+    end
 	local cnt_str = Str('구매 횟수 {1} / {2}', buy_cnt, max_buy_cnt)
 
 	-- 구매 제한 term 체크
@@ -505,6 +521,9 @@ function StructProduct:makePriceIcon()
         else
             price_type = 'krw'
         end
+    elseif (price_type == 'medal') then
+        local item_data = TABLE:get('item')[tonumber(self['medal'])]
+        price_type = item_data['full_type']
     end
 
     return IconHelper:getPriceIcon(price_type)
@@ -692,7 +711,16 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
         end
 
 		local price = (self['price_type'] == 'money') and self:getPriceStr() or self:getPrice()
-		local ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
+        local ui
+        if (self['medal'] == nil) then
+		    ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
+        else
+            local item_data = TABLE:get('item')[tonumber(self['medal'])]
+
+            -- type : medal // full_type : medal_angra
+            price_type = item_data['full_type']
+            ui = MakeSimplePopup_Confirm(price_type, price, msg, ok_cb, nil)
+        end
 
         -- @sgkim 2020.06.24 게스트 계정으로 구매 시도 시 경고 문구와, 계정 연동 안내 버튼이 구매 심리를 축소한다고 판단하여 제거함.
         --                   드빌M 출시 전에 큐로드 QA팀으로부터 ios정책상 문제가 될 수 있으니 게스트 계정의 경우 경고 문구를 띄우라는 권고를 받았었다.
@@ -752,8 +780,13 @@ function StructProduct:checkMaxBuyCount()
 	if (not isNumber(max_buy_cnt)) then
 		return true
 	end
-	
-	local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    local buy_cnt
+
+	if (self['medal'] == nil) then
+	    buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    else
+        buy_cnt = g_dimensionGateData:getBuyCount(self['product_id'])
+    end
 	
 	-- 구매 횟수 초과한 경우
 	if (buy_cnt >= max_buy_cnt) then
@@ -769,6 +802,13 @@ end
 function StructProduct:checkPrice()
 	local price_type = self['price_type']
     local price = self:getPrice()
+
+    if (price_type == 'medal') then   
+        local item_data = TABLE:get('item')[tonumber(self['medal'])]
+
+        -- type : medal // full_type : medal_angra
+        price_type = item_data['full_type']
+    end
 
     return UIHelper:checkPrice(price_type, price)
 end
@@ -825,7 +865,13 @@ function StructProduct:getMaxBuyTermStr(use_rich)
     end
 
     local product_id = self['product_id']
-    local buy_cnt = g_shopDataNew:getBuyCount(product_id)    
+    local buy_cnt
+    
+	if (self['medal'] == nil) then
+	    buy_cnt = g_shopDataNew:getBuyCount(product_id)
+    else
+        buy_cnt = g_dimensionGateData:getBuyCount(product_id)
+    end 
 
     local str = ''
     if (max_buy_term == 'permanent') then
@@ -936,7 +982,14 @@ function StructProduct:isBuyAll()
     end
 
 	local product_id = self['product_id']
-    local buy_cnt = g_shopDataNew:getBuyCount(product_id)    
+
+    local buy_cnt
+    
+	if (self['medal'] == nil) then
+	    buy_cnt = g_shopDataNew:getBuyCount(product_id)
+    else
+        buy_cnt = g_dimensionGateData:getBuyCount(product_id)
+    end 
 
 	return (buy_cnt >= max_buy_cnt)
 end

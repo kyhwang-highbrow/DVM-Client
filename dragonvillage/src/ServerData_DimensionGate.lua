@@ -91,7 +91,6 @@ end
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:response_dmgateInfo(ret)
     local dmgate_info = ret['dmgate_info']
-   
 
     if dmgate_info == nil then
         error('key for accessing the table is changed from \'dmgate_info\' to other from server')
@@ -223,6 +222,7 @@ end
 -- function response_shopInfo
 -------------------------------------
 function ServerData_DimensionGate:response_shopInfo(ret)
+    ccdump(ret)
     self.m_shopInfo = ret['table_shop_dmgate']
     self.m_shopProductCounts = ret['buycnt']
 end
@@ -582,7 +582,14 @@ end
 -- @brief 
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:getShopInfoProductList()
-    return self.m_shopInfo
+    --return self.m_shopInfo
+    local result = {}
+    for i, v in pairs(self.m_shopInfo) do
+        struct_product = StructProduct(v)
+        table.insert(result, struct_product)
+    end
+
+    return result
 end
 
 
@@ -590,7 +597,7 @@ end
 -- function getProductCount
 -- @brief 
 ----------------------------------------------------------------------------
-function ServerData_DimensionGate:getProductCount( product_id)
+function ServerData_DimensionGate:getProductCount(product_id)
     return self.m_shopProductCounts[tostring(product_id)]
 end
 
@@ -803,6 +810,9 @@ function ServerData_DimensionGate:getStageDiffText(stage_id)
 end
 
 
+----------------------------------------------------------------------------
+-- function @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+----------------------------------------------------------------------------
 function ServerData_DimensionGate:Test(stage_id)
     local required_stage_id = self:getConditionStageID(stage_id)
 
@@ -815,4 +825,24 @@ function ServerData_DimensionGate:Test(stage_id)
     message = message .. DmgateStringTable['difficulty'][diff_id] .. ' 클리어가 필요합니다.'
 
     UIManager:toastNotificationRed(message)
+end
+
+
+function ServerData_DimensionGate:getModeCurrencyIcon(data)
+    if data == nil then return nil end
+    if (data['price_type'] == nil) then return nil end
+
+    local price_type = data['price_type']
+    
+    if (price_type == 'medal') then
+        local item_data = TABLE:get('item')[tonumber(data['medal'])]
+
+        -- type : medal // full_type : medal_angra
+        price_type = item_data['full_type']
+    end
+
+    local resource = string.format('res/ui/icons/item/%s.png', price_type)
+    local icon = IconHelper:getIcon(resource)
+    
+    return icon
 end
