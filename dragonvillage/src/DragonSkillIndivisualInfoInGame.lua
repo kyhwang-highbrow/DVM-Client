@@ -132,7 +132,7 @@ function DragonSkillIndivisualInfoInGame:applySkillLevel(old_skill_info)
 
     -- 무시 속성 정보 맵형태로 저장
     if (self.m_tSkill['ignore'] and self.m_tSkill['ignore'] ~= '') then
-        local l_str = plSplit(self.m_tSkill['ignore'], ',')
+        local l_str = plSplit(self.m_tSkill['ignore'], ';')
         for _, v in pairs(l_str) do
 	        self.m_mIgnore[v] = true
         end

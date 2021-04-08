@@ -600,7 +600,6 @@ function ActivityCarrier:setIgnoreByTable(ignore_table)
 
 	-- 전체 무시
     if (self.m_ignoreTable['all']) then
-        cclog('오올')
         self:setIgnoreAll(true)
         return
     end
