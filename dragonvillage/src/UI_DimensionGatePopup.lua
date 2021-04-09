@@ -99,7 +99,7 @@ end
 function UI_DimensionGateBlessPopup:initUI()
 
     local buff_list = g_dimensionGateData:getBuffList(DIMENSION_GATE_ANGRA)
-    self.m_titleNode:setString('주간 축복')
+    self.m_titleNode:setString('시즌 효과')
 
 
     local function create_callback(ui, data)
@@ -108,11 +108,15 @@ function UI_DimensionGateBlessPopup:initUI()
 
     -- -- 
     local tableview = UIC_TableView(self.m_scrollNode)
+    tableview:setCellSizeToNodeSize(true)
+    tableview:setGapBtwCells(5)
     tableview:setCellUIClass(UI_DimensionGateBlessPopupItem, create_callback)
     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     tableview:setAlignCenter(true)
     tableview:setItemList(buff_list, true)
-    tableview.m_scrollView:setTouchEnabled(false)
+    if #buff_list <= 2 then
+        tableview.m_scrollView:setTouchEnabled(false)
+    end
 end
 
 -------------------------------------
@@ -134,8 +138,6 @@ end
 -- @brief 
 -------------------------------------
 UI_DimensionGateBlessPopupItem = class(UI, ITableViewCell:getCloneTable(),{
-    m_spriteName = '',
-
     m_buffNode = '',
     m_buffInfoLabel = '',
 })
@@ -145,18 +147,19 @@ UI_DimensionGateBlessPopupItem = class(UI, ITableViewCell:getCloneTable(),{
 -- function init
 -------------------------------------
 function UI_DimensionGateBlessPopupItem:init(data)
+    ccdump(data)
     self.m_uiName = 'UI_DimensionGateBlessPopupItem'
-    self.m_spriteName = 'res/ui/icons/buff/${spriteName}.png'
+    --self.m_spriteName = 'res/ui/icons/buff/${spriteName}.png'
     local vars = self:load('dmgate_bless_popup_item.ui')
 
     self.m_buffNode = vars['buffNode']
     self.m_buffInfoLabel = vars['buffInfoLabel']
     
-    self.m_buffInfoLabel:setString(Str(data['t_desc'], data['effect_val']))
+    self.m_buffInfoLabel:setString(data['t_desc'])
+    self.m_buffInfoLabel:setTextColor(data['color'])
+    --resource_name =  data['res_icon']--string.gsub(self.m_spriteName, '${spriteName}', tostring(data['type_id']))
 
-    resource_name = string.gsub(self.m_spriteName, '${spriteName}', tostring(data['type_id']))
-
-    local icon = cc.Sprite:create(resource_name)
+    local icon = cc.Sprite:create( data['res_icon'])
     icon:setDockPoint(CENTER_POINT)
     icon:setAnchorPoint(CENTER_POINT)
     self.m_buffNode:addChild(icon)

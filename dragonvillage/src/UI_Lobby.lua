@@ -232,12 +232,17 @@ function UI_Lobby:entryCoroutine()
                 g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
-
+     
         do 
-            co:work('# 시련 정보 받는 중')
+            co:work('# 차원문 정보 받는 중')
             g_dimensionGateData:request_dmgateInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
+
+            -- co:work('# 차원문 상점 정보 받는 중')
+            -- g_dimensionGateData:request_shopInfo(co.NEXT, co.ESCAPE)
+            -- if co:waitWork() then return end
         end
+       
 
         -- hard refresh
         cclog('# UI 갱신')

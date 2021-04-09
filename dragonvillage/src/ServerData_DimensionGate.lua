@@ -13,6 +13,7 @@ ServerData_DimensionGate = class({
     --
     m_serverData = 'ServerData', -- ServerData.lua
     m_bDirtyDimensionGateInfo = 'boolean', -- lobby 진입 후 최초 request_dmgateInfo() 이 후에 로비 진입시 마다 반복되는 것을 방지
+    m_bDirtyDimensionGateShopInfo = 'boolean',
 
     m_stageTableName = 'string',
 
@@ -40,6 +41,7 @@ ServerData_DimensionGate = class({
 function ServerData_DimensionGate:init(server_data)
     self.m_serverData = server_data
     self.m_bDirtyDimensionGateInfo = true
+    self.m_bDirtyDimensionGateShopInfo = true
 
     -- SHOP
     self.m_shopInfo = {}
@@ -210,11 +212,21 @@ function ServerData_DimensionGate:request_stageTable()
     end    
 end
 
+
 -------------------------------------
 -- function request_shopInfo
 -------------------------------------
 function ServerData_DimensionGate:request_shopInfo(success_cb, fail_cb)
     local uid = g_userData:get('uid')
+
+     -- 처음 불린 이후에 false
+    if (not self.m_bDirtyDimensionGateShopInfo) then
+        if success_cb then
+            success_cb()
+        end
+
+        return
+    end
 
     -- callback for success
     local function callback_for_success(ret)
@@ -241,6 +253,8 @@ end
 function ServerData_DimensionGate:response_shopInfo(ret)
     self.m_shopInfo = ret['table_shop_dmgate']
     self.m_shopProductCounts = ret['buycnt']
+
+    --self.m_bDirtyDimensionGateShopInfo = false
 end
 
 -------------------------------------
@@ -283,6 +297,7 @@ end
 -- @brief 
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:isStageDimensionGate(stage_id)
+    if stage_id == nil then return false end
     if (not self:isStageInTable(stage_id)) then return false end 
 
     local dungeon_id = self:getDungeonID(stage_id) -- GAME_MODE_DIMENSION_GATE = 30
@@ -823,12 +838,13 @@ function ServerData_DimensionGate:getBuffList(mode_id)
     local data
     for _, skill_id in pairs(buff_list) do
         data = dragon_skill_table[tonumber(skill_id)]
-        --data['isBuff'] = true
+        data['color'] = cc.c4b(0, 248, 15, 255)
         table.insert(result, data)
     end
 
     for _, skill_id in pairs(debuff_list) do
         data = dragon_skill_table[tonumber(skill_id)]
+        data['color'] = cc.c4b(255, 0, 0, 255)
         table.insert(result, data)
     end
 

@@ -35,6 +35,7 @@ function UI_DimensionGateShop:init()
 
         co:close()
 
+        self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
         self:doActionReset()
         self:doAction(nil, false)
 
@@ -140,6 +141,7 @@ function UI_DimensionGateShop:initTableView()
     table_view:setCellUIClass(UI_DimensionGateShopItem, create_callback)
     
     table_view:setItemList(product_list)
+    table_view.m_scrollView:setTouchEnabled(false)
 end
 
 
