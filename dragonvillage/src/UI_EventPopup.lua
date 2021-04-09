@@ -321,7 +321,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
 		ui = UI_Event1stComeback()
     
     -- 2주년 이벤트 : 2주년 기념 감사 이벤트
-	elseif (string.find(tab, 'event_thanks_anniversary')) then
+	elseif (string.find(tab, 'event_thanks_anniversary') or string.find(tab, 'event_dmgate_01')) then
 		ui = UI_EventThankAnniversaryNoChoice()--UI_EventThankAnniversary()
 
     -- 3주년 이벤트 : 이미지 퀴즈 이벤트
