@@ -693,9 +693,10 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
         self:applyOverlab(add_unit)
     end
 
-     -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
-     local bSkipAdd = false
+    -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
+    local bSkipAdd = false
 
+    -- overlab_option 이 0 이면 중첩불가 / 몬스터가 드래곤에 거는 디버프도 중첩 불가
     if (t_status_effect['overlab_option'] == 0 or (caster:getCharType() == 'monster' and self.m_owner.m_bLeftFormation)) then
         for i, unit in ipairs(self.m_mUnit[char_key]) do
             -- 주체와 스킬id가 같고 지속시간이 짧을 경우 삭제 후 추가 시킴
