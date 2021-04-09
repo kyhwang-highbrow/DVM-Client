@@ -97,7 +97,8 @@ function ServerData_DimensionGate:response_dmgateInfo(ret)
     local dmgate_info = ret['dmgate_info']
 
     if dmgate_info == nil then
-        error('key for accessing the table is changed from \'dmgate_info\' to other from server')
+        --error('key for accessing the table is changed from \'dmgate_info\' to other from server')
+        return 
     end
 
 
@@ -298,10 +299,15 @@ end
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:isStageDimensionGate(stage_id)
     if stage_id == nil then return false end
+    
+    local dungeon_id = self:getDungeonID(stage_id) -- GAME_MODE_DIMENSION_GATE = 30
+
+    if dungeon_id ~= GAME_MODE_DIMENSION_GATE then return false end
+
     if (not self:isStageInTable(stage_id)) then return false end 
 
-    local dungeon_id = self:getDungeonID(stage_id) -- GAME_MODE_DIMENSION_GATE = 30
-    return dungeon_id == GAME_MODE_DIMENSION_GATE
+    
+    return true
 end
 
 ----------------------------------------------------------------------------
@@ -326,7 +332,7 @@ function ServerData_DimensionGate:isStageInTable(stage_id)
     if mode_id == nil then return false end
     
     if self.m_stageTableKeys[mode_id] == nil then return false end
-    if self.m_stageTableKeys[mode_id][mode_id] == nil then return false end
+    if self.m_stageTableKeys[mode_id][chapter_id] == nil then return false end
 
     local key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
     if key == nil then return false end
