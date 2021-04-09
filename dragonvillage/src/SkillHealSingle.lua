@@ -52,11 +52,20 @@ end
 -------------------------------------
 function SkillHealSingle.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
-		-- 힐
+        
+        if (not owner.m_owner.m_reactingInfo) then
+            owner.m_owner.m_reactingInfo = {}
+        end
+        
+        -- 죽을 애니메이션 플레이 할지?
+        owner.m_owner.m_reactingInfo["is_play_die_animation"] = true
+
+        -- 힐
         owner:runHeal()
 
-		owner.m_animator:addAniHandler(function()
-			owner:changeState('dying')
+        owner.m_animator:addAniHandler(function()
+
+            owner:changeState('dying')
 		end)
     end
 end

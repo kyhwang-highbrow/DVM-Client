@@ -46,21 +46,25 @@ end
 function SkillTransform.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
         local enemy = owner:doTransform()
-          
-        if (owner.m_owner.m_animator:hasAni('die')) then
-            owner.m_owner.m_animator:changeAni('die')
-            owner.m_owner.m_animator:setTimeScale(1)
-        end
         
-        owner.m_owner.m_animator:addAniHandler(function()
-             owner.m_owner.m_rootNode:setVisible(false)
-		end)
+        -- 죽음 애니메이션이 있다
+        if (owner.m_owner.m_animator:hasAni('die')) then
+            -- 일단 만들어놓은걸 하이드
+            enemy.m_rootNode:setVisible(false)
+
+            -- 애니메이션 재생
+            owner.m_owner.m_animator:changeAni('die', false)
+            owner.m_owner.m_animator:setTimeScale(1)
+
+            -- 후속 애니 등록
+            owner.m_owner.m_animator:addAniHandler(function()
+                owner.m_owner.m_rootNode:setVisible(false)
+		    end)
+        end
 
         owner.m_animator:addAniHandler(function()
-            owner:changeState('dying')
-
             enemy.m_rootNode:setVisible(true)
-            enemy.m_animator:changeAni('idle')
+            owner:changeState('dying')
 		end)
     end
 end
@@ -81,7 +85,6 @@ function SkillTransform:doTransform()
     -- 세상이 멈춰있는가?
     if (world.m_bPauseMode) then
         enemy:setTemporaryPause(true)
-        enemy.m_rootNode:setVisible(false)
     end
 
 	if (enemy.m_hpNode) then

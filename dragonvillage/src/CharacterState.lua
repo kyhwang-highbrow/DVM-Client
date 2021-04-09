@@ -53,15 +53,32 @@ function Character.st_dying(owner, dt)
 	    end
 
         if (owner.m_animator and owner.m_animator.m_node) then
+            -- 먼저 죽음 애니메이션 있는지 체크하고
             local has_die_animation = owner.m_animator:hasAni('die')
 
             if (has_die_animation) then
-                owner.m_animator:setAlpha(0)
+                -- 플레이 한다면
+                local is_play_die_animation = owner.m_reactingInfo and owner.m_reactingInfo["is_play_die_animation"] or false
+
+                -- 애니 바꿔주고
+                if (is_play_die_animation) then
+                    owner.m_animator:changeAni('die', false)
+
+                    -- 후속 액션을 등록해준다
+                    owner.m_animator:addAniHandler(function()
+                        owner.m_animator:setAlpha(0)
+                    end)
+                else
+                    -- 아니면 바로 하이드
+                    owner.m_animator:setAlpha(0)
+                end 
+
             else
                 local action1 = cc.FadeTo:create(0.5, 0)
                 local action2 = cc.RotateTo:create(0.5, -45)
                 local action = cc.Spawn:create(action1, action2)
                 cca.runAction(owner.m_animator.m_node, action, CHARACTER_ACTION_TAG__DYING)
+
             end
         end
 
