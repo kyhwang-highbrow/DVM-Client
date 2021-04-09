@@ -496,7 +496,7 @@ function ServerData_DimensionGate:checkStageTime(stage_id)
         if(parse_start_date) then
             if (parse_start_date['time'] == nil) then
                 --start_time = nil
-                error('parse_start_date[\'time\'] is nil')
+                --error('parse_start_date[\'time\'] is nil')
             else
                 start_time = parse_start_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
             end
@@ -507,7 +507,7 @@ function ServerData_DimensionGate:checkStageTime(stage_id)
         local parse_end_date = parser:parse(end_date)
         if(parse_end_date) then
             if (parse_end_date['time'] == nil) then
-                error('parse_start_date[\'time\'] is nil')
+                --error('parse_end_date[\'time\'] is nil')
             else
                 end_time = parse_end_date['time'] + offset  -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
             end
