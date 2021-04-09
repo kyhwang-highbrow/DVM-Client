@@ -98,6 +98,7 @@ function ServerData_DimensionGate:response_dmgateInfo(ret)
         error('key for accessing the table is changed from \'dmgate_info\' to other from server')
     end
 
+
     -- request_dmgateInfo()를 처음 부르는 경우
     if (self.m_dmgateInfo == nil) then
         self.m_dmgateInfo = {}
@@ -491,7 +492,7 @@ function ServerData_DimensionGate:checkStageTime(stage_id)
     local curr_time = Timer:getServerTime()
 
     if (start_date ~= '' or start_date) then
-        local parse_start_date = parser:parse(start_date .. ' 0000')
+        local parse_start_date = parser:parse(start_date)
         if(parse_start_date) then
             if (parse_start_date['time'] == nil) then
                 --start_time = nil
@@ -584,6 +585,17 @@ function ServerData_DimensionGate:isChapterCleared(mode_id, chapter_id)
     return result
 end 
 
+----------------------------------------------------------------------------
+-- function isStageRewarded
+-- @todo : need to change the name of function
+-- nil : not opened
+-- 0 : opened but not cleared
+-- 1 : cleared but not received reward yet
+-- 2 : received reward
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:hasStageReward(stage_id)
+    return self:getStageStatus(stage_id) == 1
+end
 
 ----------------------------------------------------------------------------
 -- function isStageRewarded
@@ -800,16 +812,32 @@ end
 -------------------------------------
 function ServerData_DimensionGate:getBuffList(mode_id)
     if not mode_id then return nil end
-
-    local str = tostring(self.m_dmgateInfo[mode_id]['buff'])
-    local buffList = plSplit(str, ';')   
-
-    local blessTable = TABLE:get('dmgate_bless')
     local result = {}
+    
+    local buff_str = tostring(self.m_dmgateInfo[mode_id]['buff'])
+    local buff_list = plSplit(buff_str, ';')   
+    local debuff_str = tostring(self.m_dmgateInfo[mode_id]['debuff'])
+    local debuff_list = plSplit(debuff_str, ';')   
 
-    for _, value in pairs(buffList) do
-        table.insert(result, blessTable[tonumber(value)])
+    local dragon_skill_table = TABLE:get('dragon_skill')
+    local data
+    for _, skill_id in pairs(buff_list) do
+        data = dragon_skill_table[tonumber(skill_id)]
+        --data['isBuff'] = true
+        table.insert(result, data)
     end
+
+    for _, skill_id in pairs(debuff_list) do
+        data = dragon_skill_table[tonumber(skill_id)]
+        table.insert(result, data)
+    end
+
+
+    -- ccdump(buffTable)
+
+    -- for _, value in pairs(buffList) do
+    --     table.insert(result, buffTable[tonumber(value)])
+    -- end
 
     return result
 end
@@ -873,6 +901,8 @@ end
 
 ----------------------------------------------------------------------------
 -- function @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+-- @todo : need to change the name of function
+
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:Test(stage_id)
     local required_stage_id = self:getConditionStageID(stage_id)
@@ -949,12 +979,13 @@ function ServerData_DimensionGate:getTimeStatusText(mode_id, chapter_id)
     local parse_start_date
     if (start_date ~= '' or start_date) then
         parse_start_date = parser:parse(start_date)
+        
         if(parse_start_date) then
             if (parse_start_date['time'] == nil) then
                 --start_time = nil
                 error('parse_start_date[\'time\'] is nil')
             else
-                start_time = parse_start_date['time']  -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
+                start_time = parse_start_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
             end
         end
     end
