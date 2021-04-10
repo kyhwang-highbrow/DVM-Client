@@ -916,6 +916,7 @@ local t_module = {
     'UI_StaminaChargePopup',
     'UI_RuneAutoSellAgreePopup',
     'UI_ValorCostumeInfoPopup', -- 용맹 코스튬 안내(구매) 팝업
+    'UI_LobbyBanner',
     'UI_BannerChallengeMode',
 	'UI_BannerClanWarAttacking',
     'UI_BannerGrandArena',

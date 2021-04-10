@@ -36,7 +36,15 @@ function UI_BattleMenuItem_Dungeon:initUI()
     PARENT.initUI(self)
 
     local vars = self.vars
+    --content_type = (content_type or self.m_contentType)
+
     vars['dscLabel']:setString(self:getDescStr(content_type))
+
+    -- ccdump(content_type)
+    -- if (content_type == 'dmgate' and g_dimensionGateData:checkDmgateContentUnlocked()) then
+    --     vars['newSprite']:setVisible(true)
+    -- end
+
 end
 
 -------------------------------------
@@ -78,6 +86,9 @@ function UI_BattleMenuItem_Dungeon:getDescStr(content_type)
     -- 차원문
     elseif (content_type == 'dmgate') then
         desc = Str('차원문 토큰 획득 가능')
+        if g_dimensionGateData:isShowLobbyBanner() then
+            self.vars['newSprite']:setVisible(true)
+        end
     end
     return desc
 end

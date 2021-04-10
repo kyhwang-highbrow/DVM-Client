@@ -12,7 +12,7 @@ UI_DimensionGateShop = class(PARENT, {
     m_listNode = '',
     m_npcNode = '',
 
-
+    m_productTableview = '',
 
     m_relationUI = '',
 })
@@ -26,26 +26,31 @@ function UI_DimensionGateShop:init()
     UIManager:open(self, UIManager.SCENE)
 
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DimensionGateShop')
+    
+    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+    self:doActionReset()
+    self:doAction(nil, false)
 
-    local function coroutine_function()
-        local co = CoroutineHelper()
-        co:work('# 차원문 상점 정보 받는 중')
-        g_dimensionGateData:request_shopInfo(co.NEXT, co.ESCAPE)
-        if co:waitWork() then return end
+    -- local function coroutine_function()
+    --     local co = CoroutineHelper()
+    --     co:work('# 차원문 상점 정보 받는 중')
+    --     g_dimensionGateData:request_shopInfo(co.NEXT, co.ESCAPE)
+    --     if co:waitWork() then return end
 
-        co:close()
+    --     co:close()
 
-        self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
-        self:doActionReset()
-        self:doAction(nil, false)
+    --     self:initMember()
+    --     self:initUI()
+    --     self:initButton()
+    --     self:refresh()
+    -- end
 
-        self:initMember()
-        self:initUI()
-        self:initButton()
-        self:refresh()
-    end
-
-    Coroutine(coroutine_function, "DimensionGate Shop UI Coroutine")
+    -- Coroutine(coroutine_function, "DimensionGate Shop UI Coroutine")
+    
+    self:initMember()
+    self:initUI()
+    self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -112,6 +117,10 @@ function UI_DimensionGateShop:refresh()
     if self.m_relationUI then
         self.m_relationUI:refresh()
     end
+
+    if self.m_productTableview then
+        self.m_productTableview:refreshAllItemUI()
+    end
 end
 
 -------------------------------------
@@ -131,6 +140,9 @@ function UI_DimensionGateShop:initTableView()
         --     --     function() self:refresh() end)
         --     self:refresh()
         -- end)
+
+        --ui.m_buyCallbackFun = self.refresh
+        ui.m_parent = self
     end
 
     -- create TableView
@@ -142,6 +154,8 @@ function UI_DimensionGateShop:initTableView()
     
     table_view:setItemList(product_list)
     table_view.m_scrollView:setTouchEnabled(false)
+
+    self.m_productTableview = table_view
 end
 
 
@@ -249,6 +263,9 @@ UI_DimensionGateShopItem = class(PARENT, {
 
     m_buyBtn = '',              -- 
     m_priceLabel = '',          -- 
+
+    m_buyCallbackFun = '',
+    m_parent = '',
 })
 
 
@@ -296,15 +313,6 @@ function UI_DimensionGateShopItem:initUI()
     
     
     self.m_priceLabel:setString(tostring(self.m_itemData['price']))
-
-    
-    local maxCount = self.m_itemData['max_buy_count']
-    local productCount = g_dimensionGateData:getProductCount(self.m_itemData['product_id'])
-    if productCount == nil or maxCount == '' then
-        self.m_maxProductNumLabel:setVisible(false)
-    else
-        self.m_maxProductNumLabel:setString(string.format('%d / %d', productCount, maxCount))
-    end
 end
 
 -------------------------------------
@@ -318,7 +326,13 @@ end
 -- function UI_DimensionGateShopItem
 -------------------------------------
 function UI_DimensionGateShopItem:refresh()
-
+    local maxCount = self.m_itemData['max_buy_count']
+    local productCount = g_dimensionGateData:getProductCount(self.m_itemData['product_id'])
+    if productCount == nil or maxCount == '' then
+        self.m_maxProductNumLabel:setVisible(false)
+    else
+        self.m_maxProductNumLabel:setString(string.format('%d / %d', productCount, maxCount))
+    end
 end
 
 
@@ -339,6 +353,11 @@ function UI_DimensionGateShopItem:click_buyBtn()
     local function buy_callback_func(ret)
         ItemObtainResult_Shop(ret)
         
+        if (self.m_parent) then
+            self.m_parent:refresh()
+        end
+
+        self:refresh()
     end
     local function ok_button_callback()
         local product_id = self.m_itemData['product_id']

@@ -2640,6 +2640,24 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
+    -- 차원문 오픈 배너
+    if g_dimensionGateData:isShowLobbyBanner() then
+        if (not vars['banner_dmgate']) then
+            local banner = UI_BannerDmgate()
+            vars['bannerMenu']:addChild(banner.root)
+            banner.root:setDockPoint(TOP_RIGHT)
+            banner.root:setAnchorPoint(TOP_RIGHT)
+            vars['banner_dmgate'] = banner
+        else
+            vars['banner_dmgate']:refresh()
+        end
+    else
+        if vars['banner_dmgate'] then
+            vars['banner_dmgate'].root:removeFromParent()
+            vars['banner_dmgate'] = nil
+        end
+    end
+
     self:onRefresh_banner()
 end
 
@@ -2694,6 +2712,11 @@ function UI_Lobby:onRefresh_banner()
     -- 죄악의 화신 토벌작전 이벤트 배너
     if vars['banner_incarnation_of_sins'] then
         table.insert(l_node, vars['banner_incarnation_of_sins'].root)
+    end
+
+    -- 차원문 오픈 배너
+    if vars['banner_dmgate'] then
+        table.insert(l_node, vars['banner_dmgate'].root)
     end
 
     local pos_y = 0

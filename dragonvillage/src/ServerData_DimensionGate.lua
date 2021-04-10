@@ -10,6 +10,9 @@ local DmgateStringTable = {
 -- class ServerData_DimensionGate
 -------------------------------------
 ServerData_DimensionGate = class({
+    -- 
+    m_bRevealBanner = 'boolean',
+
     --
     m_serverData = 'ServerData', -- ServerData.lua
     m_bDirtyDimensionGateInfo = 'boolean', -- lobby 진입 후 최초 request_dmgateInfo() 이 후에 로비 진입시 마다 반복되는 것을 방지
@@ -39,6 +42,8 @@ ServerData_DimensionGate = class({
 -- function init
 -------------------------------------
 function ServerData_DimensionGate:init(server_data)
+    self.m_bRevealBanner = true
+
     self.m_serverData = server_data
     self.m_bDirtyDimensionGateInfo = true
     self.m_bDirtyDimensionGateShopInfo = true
@@ -51,6 +56,18 @@ function ServerData_DimensionGate:init(server_data)
 
     -- TEST
     self.m_stageTableName = 'table_dmgate_stage' -- csv from server
+end
+
+----------------------------------------------------------------------------
+-- function checkDmgateContentUnlocked
+-- @brief 모험 지옥 12-7 스테이지 클리어 후 서버에서 dmgateInfo를 내려주는가
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:checkDmgateContentUnlocked()
+    return self.m_dmgateInfo ~= nil
+end
+
+function ServerData_DimensionGate:isShowLobbyBanner()
+    return self.m_bRevealBanner
 end
 
 -- ******************************************************************************************************
@@ -74,9 +91,11 @@ function ServerData_DimensionGate:request_dmgateInfo(success_cb, fail_cb)
 
     -- callback for success
     local function callback_for_success(ret)
-        self:response_dmgateInfo(ret)
+        if ret ~= nil then 
+            self:response_dmgateInfo(ret)
 
-        if(success_cb) then success_cb(ret) end
+            if(success_cb) then success_cb(ret) end
+        end
     end
     
     local ui_network = UI_Network()
@@ -252,8 +271,14 @@ end
 -- function response_shopInfo
 -------------------------------------
 function ServerData_DimensionGate:response_shopInfo(ret)
-    self.m_shopInfo = ret['table_shop_dmgate']
-    self.m_shopProductCounts = ret['buycnt']
+
+    if ret['table_shop_dmgate'] then
+        self.m_shopInfo = ret['table_shop_dmgate']
+    end
+
+    if ret['buycnt'] then 
+        self.m_shopProductCounts = ret['buycnt']
+    end
 
     --self.m_bDirtyDimensionGateShopInfo = false
 end
@@ -270,6 +295,9 @@ function ServerData_DimensionGate:request_buy(product_id, count, cb_func, fail_c
 
         -- 아이템 수령
         g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 상품 정보 갱신
+        self:response_shopInfo(ret)
 
         if(cb_func) then
             cb_func(ret)

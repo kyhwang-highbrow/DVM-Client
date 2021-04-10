@@ -384,7 +384,10 @@ end
 -- function click_shopBtn
 ----------------------------------------------------------------------------
 function UI_DimensionGateScene:click_shopBtn()
-    UI_DimensionGateShop()
+    local function finish_cb()
+        local ui = UI_DimensionGateShop()
+    end
+    g_dimensionGateData:request_shopInfo(finish_cb)
 end
 
 ----------------------------------------------------------------------------

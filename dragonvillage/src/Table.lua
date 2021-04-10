@@ -125,7 +125,7 @@ local TableInfo = {
 
 
         -- 차원의 문
-        dmgate_bless = {'table_dmgate_bless', 'type_id', false}, -- 차원의 문 축복
+        --dmgate_bless = {'table_dmgate_bless', 'type_id', false}, -- 차원의 문 축복
         --dmgate_stage = {'table_dmgate_stage', 'stage_id', false}, -- 차원의 문 스테이지 (테스트용)
     }
 
@@ -219,6 +219,7 @@ local TableInfo_fromServer = {
 
         -- 시련 (차원문)
         ['table_dmgate_stage'] = {'table_dmgate_stage', 'stage_id'}, -- 스테이지 정보
+        ['table_dmgate_buff_schedule'] = {'table_dmgate_buff_schedule', 'week'}
     }
 
 -------------------------------------
