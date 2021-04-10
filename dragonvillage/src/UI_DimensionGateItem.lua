@@ -121,8 +121,9 @@ end
 -- @brief virtual function of UI
 -------------------------------------
 function UI_DimensionGateItem:refresh() 
-    self.root:setOpacity(0)
-    self.root:runAction(cc.FadeIn:create(1))
+    --self.root:setOpacity(0)
+    
+    --cca.reserveFunc(self.root, 0.1, function() self.root:runAction(cc.FadeIn:create(1)) end)
     
     self:refreshStarSprites()
     self:refreshBackgroundVRP()
