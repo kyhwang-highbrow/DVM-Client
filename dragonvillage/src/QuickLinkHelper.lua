@@ -497,6 +497,23 @@ T_LINK_FUNC = {
         UINavigator:goTo('gold_dungeon')
     end,
 
+    -- 룬 대장간
+    ['rune_forge'] = function () 
+        UINavigator:goTo('rune_forge')
+    end,
+    ['rune_info'] = function () 
+        UINavigator:goTo('rune_forge', 'info')
+    end,
+    ['rune_manage'] = function () 
+        UINavigator:goTo('rune_forge', 'manage')
+    end,
+    ['rune_combine'] = function () 
+        UINavigator:goTo('rune_forge', 'combine')
+    end,
+    ['rune_gacha'] = function () 
+        UINavigator:goTo('rune_forge', 'gacha')
+    end,
+
     -- 바로가기 키를 띄우지 않을 것들
 	--[[
 	r_6grcnt_sq : 6성 룬 획득
