@@ -303,19 +303,20 @@ end
 function UI_DimensionGateItem:refreshRewardVRP() 
     --local isAllStageRewarded = 
     --local hasSomeStageReward = 
-    local status = 2
+    -- local status = 2
     
-    for key, data in pairs(self.m_data) do
-        if g_dimensionGateData:isStageOpened(data['stage_id']) then
-            if g_dimensionGateData:hasStageReward(data['stage_id']) then
-                status = 1
-            else
-                if status ~= 1 then status = 0 end
-            end
-        else break end
-    end
-    
-    self.m_rewardVisual:changeAni('dmgate_box_' .. tostring(status), true)
+    -- for key, data in pairs(self.m_data) do
+    --     if g_dimensionGateData:isStageOpened(data['stage_id']) then
+    --         if g_dimensionGateData:hasStageReward(data['stage_id']) then
+    --             status = 1
+    --         else
+    --             if status ~= 1 then status = 0 end
+    --         end
+    --     else break end
+    -- end
+    self.m_stageStatus = g_dimensionGateData:getRewardStatus(self.m_stageID)
+
+    self.m_rewardVisual:changeAni('dmgate_box_' .. tostring(self.m_stageStatus), true)
 
     if #self.m_data > 1 then
         
