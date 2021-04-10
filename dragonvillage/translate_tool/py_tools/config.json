@@ -44,6 +44,8 @@
                     ,"func" : "extract_DVM_ui"
                     ,"ignore_files" : 
                     [
+						"rune_select_dev_api_popup.ui",
+						"rune_dev_api_popup.ui"
                     ]
                     ,"ignore_folders" :
                     [
