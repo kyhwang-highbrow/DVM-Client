@@ -23,6 +23,7 @@ function UI_BannerDmgate:init()
     self:refresh()
 end
 
+--local text_color = TableFriendship:getTextColorWithFlv(flv)
 
 ----------------------------------------------------------------------
 -- class initUI
@@ -52,7 +53,9 @@ function UI_BannerDmgate:click_bannerBtn()
     if g_dimensionGateData:checkDmgateContentUnlocked() then
         UINavigator:goTo('dmgate')
     else
-        UIManager:toastNotification('모험 : 지옥 12-7 스테이지 클리어가 필요합니다.', COLOR['purple'])
+        local text = self.vars['conditionLabel']:getString()
+        local text_color = self.vars['conditionLabel'].m_node:getTextColor()
+        UIManager:toastNotification(text, text_color)
     end
 end
 
