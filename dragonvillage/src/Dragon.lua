@@ -134,7 +134,16 @@ function Dragon:initDragonSkillManager(t_dragon_data)
     end
 
     --차원문 주간축복
+    local is_dmgate_stage = g_dimensionGateData:isStageDimensionGate(self.m_world.m_stageID)
+
+    if (not is_dmgate_stage) then return end
+
+    local chapter_id = g_dimensionGateData:getChapterID(tonumber(self.m_world.m_stageID))
+
+    if (chapter_id <= 1) then return end
+
     local buff_list = g_dimensionGateData:getBuffList(DIMENSION_GATE_ANGRA)
+
     if (#buff_list <= 0) then return end
 
     for _, t_skill in pairs(buff_list) do
@@ -144,7 +153,7 @@ function Dragon:initDragonSkillManager(t_dragon_data)
             error('invalid bless skill : ' .. skill_id)
         end
 
-        cclog('bless skill name : ' .. Str(t_skill['t_name']) .. '(' .. _ .. ')')
+        -- cclog('bless skill name : ' .. Str(t_skill['t_name']) .. '(' .. _ .. ')')
 
         local skill_indivisual_info = self:setSkillID('bless', skill_id, 1, 'new')
         skill_indivisual_info:setToIgnoreCC(true)
