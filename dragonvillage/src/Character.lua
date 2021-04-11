@@ -259,7 +259,7 @@ function Character:initWorld(game_world)
         self.m_world.m_lockOnNode:addChild(self.m_lockOnNode)
     end
 
-    --self:initSpeechUI()
+    self:initSpeechUI()
 end
 
 -------------------------------------
@@ -3346,9 +3346,9 @@ function Character:initSpeechUI()
     self.m_characterSpeech:setScale(0.6)
     self.m_characterSpeech:setVisual('skill_gauge', 'bubble_2')
     self.m_characterSpeech:setRepeat(false)
-    self.m_characterSpeech:setVisible(true)
+    self.m_characterSpeech:setVisible(false)
+    self.m_characterSpeech.m_node:setPosition(100, 150)
     self:getEnemySpeechNode():addChild(self.m_characterSpeech.m_node, 5)
-    self.m_characterSpeech:setPosition(-500, 0)
     
     local speechNode = self.m_characterSpeech.m_node:getSocketNode('skill_bubble')
     local font_scale_x, font_scale_y = Translate:getFontScaleRate()
@@ -3359,9 +3359,6 @@ function Character:initSpeechUI()
 	self.m_characterSpeechLabel:setColor(cc.c3b(0,0,0))
     self.m_characterSpeechLabel:setScale(font_scale_x * 1.4, font_scale_y * 1.4)
     speechNode:addChild(self.m_characterSpeechLabel)
-    self.m_characterSpeechLabel:setString('')
-
-    self:showSpeech('핫하 죽어라!')
 end
 
 
@@ -3372,16 +3369,17 @@ function Character:showSpeech(strSpeech)
     if (not self.m_characterSpeech) then return end
 
     self.m_characterSpeechLabel:setString(strSpeech)
-
-    self.m_characterSpeech:setPosition(300, 150)
     
-    self.m_characterSpeech:setFrame(0)
-    self.m_characterSpeech:addAniHandler(function()
-        self.m_characterSpeech:setFrame(30)
-        self.m_characterSpeech:setAnimationPause(true)
-    end)
+    self.m_characterSpeech:setFrame(30)
+    self.m_characterSpeech:setAnimationPause(true)
 
     self.m_characterSpeech:setVisible(true)
+
+    local function hide_func()
+    self.m_characterSpeech:setVisible(false)
+    end
+
+    self.m_characterSpeech.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(3), cc.CallFunc:create(hide_func)))
 end
 
 -------------------------------------

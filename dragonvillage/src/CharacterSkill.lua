@@ -79,6 +79,13 @@ function Character:doSkillBySkillTable(t_skill, t_data)
     local skill_form = t_skill['skill_form']
 
     ----------------------------------------------
+    -- 스킬 말풍선 연출
+    local skill_speech_text = t_skill['t_speech']
+    if (not isNullOrEmpty(skill_speech_text)) then
+        self:showSpeech(Str(skill_speech_text))
+    end
+
+    ----------------------------------------------
     -- [스크립트] (스크립트에서 읽어와 미사일 탄막 생성)
     if (skill_form == 'script') then
 		local x = self.m_attackOffsetX or 0
