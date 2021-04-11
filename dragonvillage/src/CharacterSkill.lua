@@ -625,6 +625,15 @@ function Character:doSkill_passive()
         end
     end
 
+    local l_bless = self:getSkillIndivisualInfo('bless')
+
+    if (l_bless) then
+        for _, skill_info in ipairs(l_bless) do
+            local skill_id = skill_info.m_skillID
+            self:doSkill(skill_id, 0, 0)
+        end
+    end
+
     self.m_bActivePassive = true
 end
 

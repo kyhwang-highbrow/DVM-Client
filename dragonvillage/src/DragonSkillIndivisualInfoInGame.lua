@@ -428,6 +428,10 @@ function DragonSkillIndivisualInfoInGame:getChanceValue()
         chance_value = chance_value
     end
 
+    if (isNullOrEmpty(chance_value)) then
+        chance_value = 0
+    end
+
     return chance_value
 end
 

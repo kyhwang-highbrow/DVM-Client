@@ -146,7 +146,7 @@ function Dragon:initDragonSkillManager(t_dragon_data)
 
         cclog('bless skill name : ' .. Str(t_skill['t_name']) .. '(' .. _ .. ')')
 
-        local skill_indivisual_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+        local skill_indivisual_info = self:setSkillID('bless', skill_id, 1, 'new')
         skill_indivisual_info:setToIgnoreCC(true)
         skill_indivisual_info:setToIgnoreReducedCool(true)
     end
