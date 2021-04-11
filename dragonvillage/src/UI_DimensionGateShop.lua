@@ -198,36 +198,7 @@ function UI_DimensionGateShop:click_exitBtn()
    self:close()
 end
 
--------------------------------------
--- function click_buyBtn
--------------------------------------
--- function UI_DimensionGateShop:click_buyBtn(data)
---     local item_data = TABLE:get('item')[tonumber(data['medal'])]
 
---     -- type : medal // full_type : medal_angra
---     local item_type = item_data['full_type']
-
---     -- 재화 부족
---     if ConfirmPriceByItemID(data['medal'], data['price']) == false then
---        return 
---     end
-
---     local function buy_callback_func(ret)
---         ItemObtainResult_Shop(ret)
-        
---     end
---     local function ok_button_callback()
---         local product_id = data['product_id']
---         local count = 1--data['bundle']
---         g_dimensionGateData:request_buy(product_id, count, buy_callback_func)
---     end
-
---     local name = data['t_name']
---     local count = 1
---     local msg = Str('{@item_name}"{1} x{2}"\n{@default}구매하시겠습니까?', name, count)
-
---     UI_ConfirmPopup(item_type, data['price'], msg, ok_button_callback)
--- end
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -303,7 +274,7 @@ function UI_DimensionGateShopItem:initUI()
     -- if (self:isRuneItem()) then
     --     t_sub_data = self:getRuneData()
     -- end
-    --ccdump(parsedItem)
+
     local card = UI_ItemCard(parsedItem['item_id'], parsedItem['count'])
     self.m_itemNode:addChild(card.root)
     
@@ -331,7 +302,11 @@ function UI_DimensionGateShopItem:refresh()
     if productCount == nil or maxCount == '' then
         self.m_maxProductNumLabel:setVisible(false)
     else
-        self.m_maxProductNumLabel:setString(string.format('%d / %d', productCount, maxCount))
+        --self.m_maxProductNumLabel:setString(string.format('%d / %d', productCount, maxCount))
+        self.m_maxProductNumLabel:setString(self.m_itemData:getBuyCountDesc())
+        if (productCount >= maxCount) then
+            self.m_maxProductNumLabel:setTextColor(cc.c4b(233, 0, 0, 255))
+        end
     end
 end
 
@@ -340,14 +315,12 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_DimensionGateShopItem:click_buyBtn()
-    local item_data = TABLE:get('item')[tonumber(self.m_itemData['medal'])]
-
-    -- type : medal // full_type : medal_angra
-    local item_type = item_data['full_type']
-
     -- 재화 부족
-    if ConfirmPriceByItemID(self.m_itemData['medal'], self.m_itemData['price']) == false then
-       return 
+    -- if ConfirmPriceByItemID(self.m_itemData['medal'], self.m_itemData['price']) == false then
+    --    return 
+    -- end
+    if (not self.m_itemData:isBuyable()) then
+        return
     end
 
     local function buy_callback_func(ret)
@@ -359,15 +332,6 @@ function UI_DimensionGateShopItem:click_buyBtn()
 
         self:refresh()
     end
-    local function ok_button_callback()
-        local product_id = self.m_itemData['product_id']
-        local count = 1--self.m_itemData['bundle']
-        g_dimensionGateData:request_buy(product_id, count, buy_callback_func)
-    end
 
-    local name = self.m_itemData['t_name']
-    local count = 1
-    local msg = Str('{@item_name}"{1} x{2}"\n{@default}구매하시겠습니까?', name, count)
-
-    UI_ConfirmPopup(item_type, self.m_itemData['price'], msg, ok_button_callback)
+    self.m_itemData:buy(buy_callback_func)
 end

@@ -199,7 +199,7 @@ end
 -------------------------------------
 -- function checkPrice
 -------------------------------------
-function UIHelper:checkPrice(price_type, price)
+function UIHelper:checkPrice(price_type, price, price_type_id)
     if (price_type == 'money') then
 		return true
 
@@ -299,6 +299,15 @@ function UIHelper:checkPrice(price_type, price)
             return false
         end
 
+    elseif (price_type == 'medal') then
+        local item_data = TABLE:get('item')[price_type_id]
+        local own_medal = g_userData:get(price_type, tostring(price_type_id))
+
+        if(own_medal < price) then
+            -- TODO : 이/가 조사 처리 필요
+            MakeSimplePopup(POPUP_TYPE.OK, Str(item_data['t_name'] .. '이 부족합니다.'))
+            return false
+        end
     else
         error('price_type : ' .. price_type)
     end
@@ -309,7 +318,7 @@ end
 -------------------------------------
 -- function checkPrice_toastMessage
 -------------------------------------
-function UIHelper:checkPrice_toastMessage(price_type, price)
+function UIHelper:checkPrice_toastMessage(price_type, price, price_type_id)
     if (price_type == 'money') then
 		return true
 
@@ -409,6 +418,16 @@ function UIHelper:checkPrice_toastMessage(price_type, price)
             return false
         end
 
+    -- 차원문 상점 메달
+    elseif (price_type == 'medal') then
+        local item_data = TABLE:get('item')[price_type_id]
+        local own_medal = g_userData:get(price_type, tostring(price_type_id))
+
+        -- type : medal // full_type : medal_angra
+        if(own_medal < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str(item_data['t_name'] .. '이 부족합니다.'))
+            return false
+        end
     else
         error('price_type : ' .. price_type)
     end

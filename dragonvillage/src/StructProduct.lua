@@ -248,11 +248,18 @@ function StructProduct:isItBuyable()
 
     -- 구매 제한 횟수 체크 (판매 시간은 상품 리스트 구성 시 확인한다고 가정)
     local buy_cnt
-    
-	if (self['medal'] == nil) then
-	    buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    local price_type = self:getPriceType()
+
+	if rawget(self, price_type) then
+        if (self[price_type] ~= nil) then
+	        buy_cnt = g_dimensionGateData:getProductCount(self['product_id'])
+        else
+            -- 
+            if IS_DEV_SERVER() then error('') end
+            return false
+        end
     else
-        buy_cnt = g_dimensionGateData:getBuyCount(self['product_id'])
+        buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
     end 
 
     return (buy_cnt < self['max_buy_count'])
@@ -424,10 +431,17 @@ end
 function StructProduct:getBuyCountDesc()
 	local max_buy_cnt = self['max_buy_count']
     local buy_cnt
-    if (self['medal'] == nil) then
-	    buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    local price_type = self:getPriceType()
+    if (rawget(self, price_type)) then
+        if (self[price_type] ~= nil) then
+	        buy_cnt = g_dimensionGateData:getProductCount(self['product_id'])
+        else
+            -- 
+            if IS_DEV_SERVER() then error('') end
+            return ''
+        end
     else
-        buy_cnt = g_dimensionGateData:getBuyCount(self['product_id'])
+        buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
     end
 	local cnt_str = Str('구매 횟수 {1} / {2}', buy_cnt, max_buy_cnt)
 
@@ -521,9 +535,14 @@ function StructProduct:makePriceIcon()
         else
             price_type = 'krw'
         end
-    elseif (price_type == 'medal') then
-        local item_data = TABLE:get('item')[tonumber(self['medal'])]
-        price_type = item_data['full_type']
+    end
+
+    if (rawget(self, price_type)) then
+        local price_type_id = self[price_type]
+        if(price_type_id ~= nil) then
+            local item_data = TABLE:get('item')[tonumber(price_type_id)]
+            price_type = item_data['full_type']
+        end
     end
 
     return IconHelper:getPriceIcon(price_type)
@@ -643,54 +662,71 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
     if (not self:isBuyable()) then
         return
     end
-
+    local price_type = self:getPriceType()
 	-- 묶음 구매의 경우 count에 구매 수량을 넣어주고
 	-- 단일 구매의 경우 nil로 처리하여 request_buy 내부에서 1로 치환
-	local function ok_cb(count)
-        local function finish_cb(ret)
-            
-            -- 상품 리스트 갱신이 필요할 경우
-            if (g_shopDataNew.m_bDirty == true) then
-                ret['need_refresh'] = true
-                local function info_refresh_cb()
-                    if (cb_func) then
-				        cb_func(ret)
-			        end
+    local ok_cb
+    if (rawget(self, price_type)) then
+        if self[price_type] ~= nil then
+            ok_cb = function(count)
+                local function finish_cb(ret)
 
-                    -- 로비 노티 갱신
-			        g_highlightData:setDirty(true)
+                    if(cb_func) then
+                        cb_func(ret)
+                    end
                 end
-                g_shopDataNew:request_shopInfo(info_refresh_cb)
-            else
-                ret['need_refresh'] = false
-                if (cb_func) then
-				    cb_func(ret)
-			    end
-
-                -- 로비 노티 갱신
-			    g_highlightData:setDirty(true)
-            end
-        end
-
-        -- 마켓에서 구매하는 상품
-        if self:isPaymentProduct() then
-            if isWin32() then
-                self:payment_win(finish_cb)
-			else
-				-- 엑솔라 or 원스토어 or 구글
-				if (PerpleSdkManager:xsollaIsAvailable()) then
-					self:payment_xsolla(finish_cb)
-				elseif (PerpleSdkManager:onestoreIsAvailable()) then
-                    self:payment_onestore(finish_cb)
-                else
-					self:payment(finish_cb)
-				end
+                if count == nil then count = 1 end
+                g_dimensionGateData:request_buy(self, count, finish_cb)
             end
         else
-            g_shopDataNew:request_buy(self, count, finish_cb)
+            return
         end
-	end
+    else
+        ok_cb =  function(count)
+            local function finish_cb(ret)
+                
+                -- 상품 리스트 갱신이 필요할 경우
+                if (g_shopDataNew.m_bDirty == true) then
+                    ret['need_refresh'] = true
+                    local function info_refresh_cb()
+                        if (cb_func) then
+                            cb_func(ret)
+                        end
 
+                        -- 로비 노티 갱신
+                        g_highlightData:setDirty(true)
+                    end
+                    g_shopDataNew:request_shopInfo(info_refresh_cb)
+                else
+                    ret['need_refresh'] = false
+                    if (cb_func) then
+                        cb_func(ret)
+                    end
+
+                    -- 로비 노티 갱신
+                    g_highlightData:setDirty(true)
+                end
+            end
+
+            -- 마켓에서 구매하는 상품
+            if self:isPaymentProduct() then
+                if isWin32() then
+                    self:payment_win(finish_cb)
+                else
+                    -- 엑솔라 or 원스토어 or 구글
+                    if (PerpleSdkManager:xsollaIsAvailable()) then
+                        self:payment_xsolla(finish_cb)
+                    elseif (PerpleSdkManager:onestoreIsAvailable()) then
+                        self:payment_onestore(finish_cb)
+                    else
+                        self:payment(finish_cb)
+                    end
+                end
+            else
+                g_shopDataNew:request_buy(self, count, finish_cb)
+            end
+        end
+    end
     -- 2018-11-23 구매 팝업 안뜨는 옵션 추가
     -- 여러개 고르는 기능을 제공하는 팝업이 없으니 해당 옵션은 묶음 구매 아닌 상품만 이용
     if (no_popup) then
@@ -710,17 +746,25 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
             msg = (msg .. '\n{@sub_msg}' .. sub_msg)
         end
 
-		local price = (self['price_type'] == 'money') and self:getPriceStr() or self:getPrice()
+        local price_type = self:getPriceType()
+		local price = (price_type == 'money') and self:getPriceStr() or self:getPrice()
         local ui
-        if (self['medal'] == nil) then
-		    ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
-        else
-            local item_data = TABLE:get('item')[tonumber(self['medal'])]
+        if (rawget(struct_product, price_type)) then
+            if (self[price_type] ~= nil) then    
+                local item_data = TABLE:get('item')[tonumber(self[price_type])]
 
-            -- type : medal // full_type : medal_angra
-            price_type = item_data['full_type']
-            ui = MakeSimplePopup_Confirm(price_type, price, msg, ok_cb, nil)
+                -- type : medal // full_type : medal_angra
+                price_type = item_data['full_type']
+                --ui = MakeSimplePopup_Confirm(price_type, price, msg, ok_cb, nil)
+                ui = UI_ConfirmPopup(price_type, price, msg, ok_cb)
+                return
+            else
+                -- 
+                if IS_DEV_SERVER() then error('') end
+            end            
         end
+
+        ui = MakeSimplePopup_Confirm(price_type, price, msg, ok_cb, nil)
 
         -- @sgkim 2020.06.24 게스트 계정으로 구매 시도 시 경고 문구와, 계정 연동 안내 버튼이 구매 심리를 축소한다고 판단하여 제거함.
         --                   드빌M 출시 전에 큐로드 QA팀으로부터 ios정책상 문제가 될 수 있으니 게스트 계정의 경우 경고 문구를 띄우라는 권고를 받았었다.
@@ -775,19 +819,25 @@ end
 -------------------------------------
 function StructProduct:checkMaxBuyCount()
 	local max_buy_cnt = self['max_buy_count']
-
+    local price_type = self:getPriceType()
 	-- 숫자가 아니라면 구매 횟수 제한이 없는 것
 	if (not isNumber(max_buy_cnt)) then
 		return true
 	end
     local buy_cnt
 
-	if (self['medal'] == nil) then
-	    buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
+    if (rawget(self, price_type)) then
+	    if (self[price_type] ~= nil) then
+	        buy_cnt = g_dimensionGateData:getProductCount(self['product_id'])
+        else
+            -- 
+            if IS_DEV_SERVER() then error('') end
+            return true
+        end
     else
-        buy_cnt = g_dimensionGateData:getBuyCount(self['product_id'])
+        buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
     end
-	
+    
 	-- 구매 횟수 초과한 경우
 	if (buy_cnt >= max_buy_cnt) then
 		return false	
@@ -800,17 +850,14 @@ end
 -- function checkPrice
 -------------------------------------
 function StructProduct:checkPrice()
-	local price_type = self['price_type']
+	local price_type = self:getPriceType()
     local price = self:getPrice()
-
-    if (price_type == 'medal') then   
-        local item_data = TABLE:get('item')[tonumber(self['medal'])]
-
-        -- type : medal // full_type : medal_angra
-        price_type = item_data['full_type']
+    local price_type_id
+    if (rawget( self, price_type)) then
+        price_type_id = self[price_type]
     end
 
-    return UIHelper:checkPrice(price_type, price)
+    return UIHelper:checkPrice(price_type, price, price_type_id)
 end
 
 -------------------------------------
@@ -865,12 +912,19 @@ function StructProduct:getMaxBuyTermStr(use_rich)
     end
 
     local product_id = self['product_id']
+    local price_type = self:getPriceType()
     local buy_cnt
     
-	if (self['medal'] == nil) then
-	    buy_cnt = g_shopDataNew:getBuyCount(product_id)
+    if (rawget(self, price_type)) then
+        if (self[price_type] ~= nil) then
+            buy_cnt = g_dimensionGateData:getProductCount(product_id)
+        else
+            -- 
+            if IS_DEV_SERVER() then error('') end
+            return ''
+        end
     else
-        buy_cnt = g_dimensionGateData:getBuyCount(product_id)
+	    buy_cnt = g_shopDataNew:getBuyCount(product_id)
     end 
 
     local str = ''
@@ -982,13 +1036,18 @@ function StructProduct:isBuyAll()
     end
 
 	local product_id = self['product_id']
-
+    local price_type = self:getPriceType()
     local buy_cnt
-    
-	if (self['medal'] == nil) then
-	    buy_cnt = g_shopDataNew:getBuyCount(product_id)
+	if rawget(self, price_type) then
+        if (self[price_type] ~= nil) then
+            buy_cnt = g_dimensionGateData:getProductCount(product_id)
+        else
+            -- 
+            if IS_DEV_SERVER() then error('') end
+            return false
+        end
     else
-        buy_cnt = g_dimensionGateData:getBuyCount(product_id)
+        buy_cnt = g_shopDataNew:getBuyCount(product_id)
     end 
 
 	return (buy_cnt >= max_buy_cnt)

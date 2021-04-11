@@ -178,7 +178,7 @@ function UI_DimensionGateItem:initMember(data)
 
 
     self.m_stageDiffLabel = vars['stageDiffLabel']
-
+    self.m_stageDiffLabel:setVisible(false)
     -- self.m_entireStar = vars['starMenu']
     -- self.m_starSprites = {}
     -- table.insert(self.m_starSprites, vars['starSprite1'])
@@ -197,23 +197,22 @@ end
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////\
 function UI_DimensionGateItem:refreshStarSprites()
-        -- -- 레벨이 있는가?
-    if #self.m_data == 1 then
-        self.m_stageDiffLabel:setVisible(false)
-        return
-    end
+        -- 난이도 텍스트
+    -- if #self.m_data == 1 then
+    --     self.m_stageDiffLabel:setVisible(false)
+    --     return
+    -- end
 
-    self.m_stageDiffLabel:setVisible(true)
-    self.m_stageDiffLabel:setString(g_dimensionGateData:getStageDiffText(self.m_stageID))
-    self.m_stageDiffLabel:setTextColor(g_dimensionGateData:getStageDiffTextColor(self.m_stageID))
+    -- self.m_stageDiffLabel:setVisible(true)
+    -- self.m_stageDiffLabel:setString(g_dimensionGateData:getStageDiffText(self.m_stageID))
+    -- self.m_stageDiffLabel:setTextColor(g_dimensionGateData:getStageDiffTextColor(self.m_stageID))
 
-    -- -- 레벨이 있는가?
+    -- 난이도 별 스프라이트
     -- if #self.m_data == 1 then
     --     self.m_entireStar:setVisible(false)
     --     return
     -- end
 
-    -- -- 현재 난이도가 몇인가?
     -- --local level = self.m_currDiffIndex 
     
     -- local isCleared
@@ -279,76 +278,37 @@ end
 ----------------------------------------------------------------------
 -- function setRewardVRP
 ----------------------------------------------------------------------
-function UI_DimensionGateItem:getRewardStatus() 
-    for key, data in pairs(self.m_data) do
-        g_dimensionGateData:isStageRewarded(data['stage_id'])
-        g_dimensionGateData:hasStageReward(data['stage_id'])
-    end
-    
-
-end
-
--- 1스테이지 클리어 안한 상태 -> 비활성화 0
--- 1스테이지 클리어 안한 상태, 2 스테이지 클리어 안한 상태 -> 비활성화 0 / 비활성화 0
--- 1스테이지 클리어, 2 스테이지 클리어 안한 상태, 보상 수령 x -> 활성화 1 / 활성화 1
--- 1스테이지 클리어, 2 스테이지 클리어 안한 상태, 보상 수령 o -> 수령완료 2 / 비활성화 0
--- 1스테이지 클리어, 2 스테이지 클리어, 보상수령 x -> 활성화 1 / 활성화 1
--- 1스테이지 클리어, 2 스테이지 클리어, 보상수령 o -> 수령완료 2 / 수령완료 2
--- 1스테이지 클리어, 2 스테이지 클리어, 3스테이지 클리어 x, 보상 수령 x -> 활성화 1 / 활성화 1 / 활성화 1
-
-
-
-----------------------------------------------------------------------
--- function setRewardVRP
-----------------------------------------------------------------------
 function UI_DimensionGateItem:refreshRewardVRP() 
-    --local isAllStageRewarded = 
-    --local hasSomeStageReward = 
-    -- local status = 2
-    
-    -- for key, data in pairs(self.m_data) do
-    --     if g_dimensionGateData:isStageOpened(data['stage_id']) then
-    --         if g_dimensionGateData:hasStageReward(data['stage_id']) then
-    --             status = 1
-    --         else
-    --             if status ~= 1 then status = 0 end
-    --         end
-    --     else break end
-    -- end
-    self.m_stageStatus = g_dimensionGateData:getRewardStatus(self.m_stageID)
+   
+    local status = 0
+    local stage_id
+    local rewardNum = 0
+    for key, data in pairs(self.m_data) do
+        stage_id = data['stage_id']
 
-    self.m_rewardVisual:changeAni('dmgate_box_' .. tostring(self.m_stageStatus), true)
-
-    if #self.m_data > 1 then
-        
-        local rewardNum = 0
-
-        for key, data in pairs(self.m_data) do
-            if g_dimensionGateData:isStageCleared(data['stage_id']) then
+        if g_dimensionGateData:isStageOpened(stage_id) then
+            if g_dimensionGateData:hasStageReward(stage_id) then 
+                status = g_dimensionGateData:getStageStatus(stage_id)
+            end
+            
+            if g_dimensionGateData:isStageCleared(stage_id) then
                 rewardNum = rewardNum + 1
             end
-        end
+        else break end
+    end
 
+    if (status == 0) and (rewardNum == #self.m_data) then
+        status = 2
+    end
+
+
+    self.m_rewardVisual:changeAni('dmgate_box_' .. tostring(status), true)
+
+    if #self.m_data > 1 then
         self.m_rewardLabel:setString(Str(self.m_originRewardText, rewardNum, #self.m_data))
     else
         self.m_rewardLabel:setVisible(false)
     end
-
-    -- for key, data in pairs(self.m_data) do
-    --     g_dimensionGateData:isStageOpened(data['stage_id']) and 
-
-    --     g_dimensionGateData:isStageRewarded(data['stage_id'])
-
-    --     g_dimensionGateData:hasStageReward(data['stage_id'])
-    -- end
-    
-    --self.m_stageStatus = g_dimensionGateData:getRewardStatus(self.m_stageID)
-
-    --self.m_rewardVisual:changeAni('dmgate_box_' .. tostring(self.m_stageStatus), true)
-
-    -- if self.m_stageStatus == 2 then 
-    --     self.m_rewardBtn:setEnabled(false)
-    -- end
 end
 
 

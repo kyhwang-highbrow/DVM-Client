@@ -286,8 +286,9 @@ end
 -------------------------------------
 -- function request_buy
 -------------------------------------
-function ServerData_DimensionGate:request_buy(product_id, count, cb_func, fail_cb)
+function ServerData_DimensionGate:request_buy(struct_product, count, cb_func, fail_cb)
     local uid = g_userData:get('uid')
+    local product_id = struct_product['product_id']
 
     local function success_cb(ret)
         -- 재화 갱신
@@ -719,7 +720,8 @@ end
 -- @brief 
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:getProductCount(product_id)
-    return self.m_shopProductCounts[tostring(product_id)]
+    local rst = self.m_shopProductCounts[tostring(product_id)] or 0
+    return rst
 end
 
 

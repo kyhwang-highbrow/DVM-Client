@@ -104,9 +104,21 @@ function UI_BundlePopupBtnPress:update(dt)
 		    return
 	    end
 
+        local price_type = struct_product:getPriceType()
+
         -- 구매 한도 예외처리
         local max_buy_cnt = tonumber(struct_product['max_buy_count'])
-        local cur_buy_cnt = g_shopDataNew:getBuyCount(struct_product['product_id'])
+        local cur_buy_cnt
+        if (rawget(struct_product, price_type)) then
+            if (struct_product[price_type] ~= nil) then
+                cur_buy_cnt = g_dimensionGateData:getProductCount(struct_product['product_id'])
+            else
+                return
+            end
+        else
+            cur_buy_cnt = g_shopDataNew:getBuyCount(struct_product['product_id'])
+        end
+
         if (max_buy_cnt) then
             if (count > max_buy_cnt - cur_buy_cnt) then
                 self:resetQuantityBtnPress()
@@ -116,8 +128,12 @@ function UI_BundlePopupBtnPress:update(dt)
 
         -- 재화 부족 예외처리
         local price = struct_product:getPrice()
-        local price_type = struct_product:getPriceType()
-        if (not UIHelper:checkPrice_toastMessage(price_type, price * count)) then
+        
+        local price_type_id
+        if (rawget( struct_product, price_type)) then
+            price_type_id = struct_product[price_type]
+        end
+        if (not UIHelper:checkPrice_toastMessage(price_type, price * count, price_type_id)) then
             self:resetQuantityBtnPress()
             return
         end
