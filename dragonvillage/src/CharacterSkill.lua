@@ -106,7 +106,13 @@ function Character:doSpeechBySkillTable(t_skill)
     ----------------------------------------------
     -- 조건을 만족하면 스킬 말풍선 연출
     if (is_show) then
-        self:showSpeech(Str(speech_text))
+        if (is_tamer) then
+            self.m_world.m_inGameUI.m_tamerUI:showSpeech(Str(speech_text))
+
+        else
+            self:showSpeech(Str(speech_text))
+
+        end
     end
 end
 

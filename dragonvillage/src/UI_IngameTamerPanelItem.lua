@@ -230,25 +230,28 @@ function UI_IngameTamerPanelItem:initSpeechUI()
 	self.m_tamerSpeechLabel:setColor(cc.c3b(0,0,0))
     self.m_tamerSpeechLabel:setScale(font_scale_x, font_scale_y)
     speechNode:addChild(self.m_tamerSpeechLabel)
-    self.m_tamerSpeechLabel:setString('')
 end
 
 
 -------------------------------------
 -- function setTemporaryPause
+-- 말풍선
 -------------------------------------
 function UI_IngameTamerPanelItem:showSpeech(strSpeech)
-    self.m_tamerSpeechLabel:setString(strSpeech)
+    if (not self.m_tamerSpeech) then return end
 
-    self.m_tamerSpeech:setPosition(300, 150)
+    self.m_tamerSpeechLabel:setString(strSpeech)
     
-    self.m_tamerSpeech:setFrame(0)
-    self.m_tamerSpeech:addAniHandler(function()
-        self.m_tamerSpeech:setFrame(30)
-        self.m_tamerSpeech:setAnimationPause(true)
-    end)
+    self.m_tamerSpeech:setFrame(30)
+    self.m_tamerSpeech:setAnimationPause(true)
 
     self.m_tamerSpeech:setVisible(true)
+
+    local function hide_func()
+    self.m_tamerSpeech:setVisible(false)
+    end
+
+    self.m_tamerSpeech.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(3), cc.CallFunc:create(hide_func)))
 end
 
 -------------------------------------

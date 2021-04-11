@@ -3349,7 +3349,6 @@ function Character:initSpeechUI()
     self.m_characterSpeech:setVisual('skill_gauge', 'bubble_2')
     self.m_characterSpeech:setRepeat(false)
     self.m_characterSpeech:setVisible(false)
-    self.m_characterSpeech.m_node:setPosition(100, 150)
     self:getEnemySpeechNode():addChild(self.m_characterSpeech.m_node, 5)
     
     local speechNode = self.m_characterSpeech.m_node:getSocketNode('skill_bubble')
@@ -3372,6 +3371,8 @@ function Character:showSpeech(strSpeech)
 
     self.m_characterSpeechLabel:setString(strSpeech)
     
+    UIHelper:autoPositioning(self:getEnemySpeechNode(), self.m_characterSpeech, self.m_characterSpeechLabel)
+
     self.m_characterSpeech:setFrame(30)
     self.m_characterSpeech:setAnimationPause(true)
 
