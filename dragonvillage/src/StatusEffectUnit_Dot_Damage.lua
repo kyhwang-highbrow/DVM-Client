@@ -50,6 +50,7 @@ function StatusEffectUnit_Dot_Damage:calculateDotDmg()
     local unit_type = self.m_owner.m_charTable['type']
 	local damage_org
     local damage
+    local dungeon_id = self:getDungeonID(self.m_owner.m_world.m_stageID)
 
     -----------------------------------------------------------
     -- 데미지 계산
@@ -68,6 +69,12 @@ function StatusEffectUnit_Dot_Damage:calculateDotDmg()
 
     elseif (t_status_effect['abs_switch'] == 1) then 
 		damage_org = self.m_value
+
+    elseif (self.m_owner:isBoss() and dungeon_id == GAME_MODE_DIMENSION_GATE) then
+        -- 상대가 보스고 
+        -- 차원문에 있는 놈이면
+        damage_org = 10000
+
 	else
 		-- 데미지 계산, 방어는 무시
 	    local atk_dmg = self:getStandardStat()

@@ -1,6 +1,7 @@
 local SKILL_SET = {
     BASE = 1,
-    METAMORPHOSIS = 2
+    METAMORPHOSIS = 2,
+    BLESS = 3
 }
 
 -------------------------------------

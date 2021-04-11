@@ -1341,7 +1341,7 @@ function Character:getSkillTable(skill_id)
     end
 
     -- 그래도 없으면?
-    if (not t_skill and self.m_charType == 'monster') then
+    if (not t_skill and self.m_charType == 'monster' and TableMonsterSkill():exists(skill_id)) then
         t_skill = TableMonsterSkill():get(skill_id)
     end
 
@@ -2193,6 +2193,17 @@ function Character:updateBasicSkillTimer(dt)
                     if (hp_rate <= v:getChanceValue()) then
                         self:doSkill(v.m_skillID, 0, 0)
                     end
+                end
+            end
+        end
+
+        --  차원문 주간축복 
+        do
+            local list = self:getSkillIndivisualInfo('bless') or {}
+
+            for i, v in pairs(list) do
+                if (v:isEndCoolTime()) then
+                    self:doSkill(v.m_skillID, 0, 0)
                 end
             end
         end
