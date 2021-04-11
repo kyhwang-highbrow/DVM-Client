@@ -18,7 +18,7 @@ UI_DimensionGateInfoPopup = class(PARENT,{
 function UI_DimensionGateInfoPopup:init()
 	self.m_uiName = 'UI_DimensionGateInfoPopup'
 
-    local vars = self:load('dmgate_info_popup.ui ')
+    local vars = self:load('dmgate_info_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- @UI_ACTION
