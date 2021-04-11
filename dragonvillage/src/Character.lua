@@ -228,6 +228,8 @@ function Character:init(file_name, body, ...)
     self.m_unitInfoOffset = { 0, 0 }
 
     self.m_originScale = 0.8
+
+    self.m_reactingInfo = {}
 end
 
 -------------------------------------

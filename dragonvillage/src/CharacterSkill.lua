@@ -71,6 +71,49 @@ end
 -- function doSkillBySkillTable
 -- @brief 스킬의 시발점
 -------------------------------------
+function Character:doSpeechBySkillTable(t_skill)
+    local speech_text = t_skill['t_speech']
+    local speech_option = tonumber(t_skill['speech_option'])
+
+    if (isNullOrEmpty(speech_text)) then return end
+
+    -- 0 : 스킬 발동 시 마다 출력
+    -- 1 : 스킬 최초 발동시 1회만 출력
+    -- 2 : 특별한 조건을 만족할 때 출력 -- val 을 쓸것을 고려
+    local normal = 0
+    local first_time = 1
+    local optional = 2
+    local skill_id = tostring(t_skill['sid'])
+    local is_show = true
+
+    -- 최초 1회?
+    if (speech_option == first_time) then
+        local has_shown = self.m_reactingInfo[skill_id]
+        if (has_shown) then 
+            is_show = false
+
+        else
+            self.m_reactingInfo[skill_id] = true 
+
+        end
+        
+
+    elseif (speech_option == optional) then
+        -- 특정 조건 만족
+
+    end
+
+    ----------------------------------------------
+    -- 조건을 만족하면 스킬 말풍선 연출
+    if (is_show) then
+        self:showSpeech(Str(speech_text))
+    end
+end
+
+-------------------------------------
+-- function doSkillBySkillTable
+-- @brief 스킬의 시발점
+-------------------------------------
 function Character:doSkillBySkillTable(t_skill, t_data)
     if (not t_skill) then
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
@@ -79,11 +122,8 @@ function Character:doSkillBySkillTable(t_skill, t_data)
     local skill_form = t_skill['skill_form']
 
     ----------------------------------------------
-    -- 스킬 말풍선 연출
-    local skill_speech_text = t_skill['t_speech']
-    if (not isNullOrEmpty(skill_speech_text)) then
-        self:showSpeech(Str(skill_speech_text))
-    end
+    -- 스킬에 따른 말풍선 생성
+    self:doSpeechBySkillTable(t_skill)
 
     ----------------------------------------------
     -- [스크립트] (스크립트에서 읽어와 미사일 탄막 생성)
