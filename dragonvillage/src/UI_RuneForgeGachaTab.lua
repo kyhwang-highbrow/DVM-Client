@@ -56,6 +56,10 @@ function UI_RuneForgeGachaTab:initUI()
         --vars['dscLabel' .. i]:setString(package_desc)
     end
 
+    if g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.RUNE_GACHA_UP) then
+        vars['runeEventMenu']:setVisible(true)
+    end
+
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end

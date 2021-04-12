@@ -749,7 +749,7 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
         local price_type = self:getPriceType()
 		local price = (price_type == 'money') and self:getPriceStr() or self:getPrice()
         local ui
-        if (rawget(struct_product, price_type)) then
+        if (rawget(self, price_type)) then
             if (self[price_type] ~= nil) then    
                 local item_data = TABLE:get('item')[tonumber(self[price_type])]
 

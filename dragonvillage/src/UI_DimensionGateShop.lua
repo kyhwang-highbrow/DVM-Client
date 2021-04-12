@@ -234,6 +234,7 @@ UI_DimensionGateShopItem = class(PARENT, {
 
     m_buyBtn = '',              -- 
     m_priceLabel = '',          -- 
+    --m_priceMenu = '',
 
     m_buyCallbackFun = '',
     m_parent = '',
@@ -254,6 +255,7 @@ function UI_DimensionGateShopItem:init(data)
 
     self.m_buyBtn = vars['buyBtn']
     self.m_priceLabel = vars['priceLabel']
+    --self.m_priceMenu = vars['priceMenu']
 
     self:initUI()
     self:initButton()

@@ -24,6 +24,9 @@ FEVERTIME_SALE_EVENT = {
     TREE_ST_DC = 'dg_gt_st_dc',
     ANCIENT_RUIN_ST_DC = 'dg_ar_st_dc',
     RUNE_GUARDIAN_ST_DC = 'dg_rg_st_dc',
+
+    RUNE_GACHA_UP = 'rune_gacha_up',
+    RUNE_COMBINE_UP = 'rune_combine_up',
 }
 
 -------------------------------------
@@ -498,6 +501,9 @@ function ServerData_Fevertime:isActiveFevertime_dungeonRgStDc()
 
     return is_active_dg_rg_st_dc
 end
+
+
+
 
 -------------------------------------
 -- function getRemainTimeTextDetail
