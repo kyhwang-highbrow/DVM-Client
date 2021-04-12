@@ -879,14 +879,20 @@ function ServerData_DimensionGate:getBuffList(mode_id)
     local data
     for _, skill_id in pairs(buff_list) do
         data = dragon_skill_table[tonumber(skill_id)]
-        data['color'] = cc.c4b(0, 248, 15, 255)
-        table.insert(result, data)
+
+        if (data) then
+            data['color'] = cc.c4b(0, 248, 15, 255)
+            table.insert(result, data)
+        end
     end
 
     for _, skill_id in pairs(debuff_list) do
         data = dragon_skill_table[tonumber(skill_id)]
-        data['color'] = cc.c4b(255, 0, 0, 255)
-        table.insert(result, data)
+
+        if (data) then
+            data['color'] = cc.c4b(255, 0, 0, 255)
+            table.insert(result, data)
+        end
     end
 
 
