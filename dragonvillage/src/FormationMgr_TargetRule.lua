@@ -413,7 +413,7 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
         local is_invincibility = false
 
         -- 무적 무시가 있는 경우
-        if (not ignore['protect']) then
+        if (not ignore['protect'] and not ignore['all']) then
             is_invincibility = v:isExistStatusEffectName('barrier_protection_time')
         end
                 
