@@ -262,6 +262,7 @@ function SkillGuardian:onEvent(event_name, t_event, ...)
 	PARENT.onEvent(self, event_name, t_event, ...)
 
 	if (event_name == 'guardian') then
+		local attacker = t_event['attacker']
 
 	    -- 공격자 정보
 	    local attack_activity_carrier = attacker.m_activityCarrier
@@ -272,7 +273,6 @@ function SkillGuardian:onEvent(event_name, t_event, ...)
         end
 
 		self:onHit(t_event['defender'])
-		local attacker = t_event['attacker']
 		local defender = self.m_owner
 		defender:undergoAttack(attacker, defender, defender.pos.x, defender.pos.y, 0, false, true)
 	end
