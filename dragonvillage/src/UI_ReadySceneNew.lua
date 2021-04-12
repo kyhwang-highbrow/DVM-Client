@@ -479,6 +479,10 @@ function UI_ReadySceneNew:initUI()
         vars['teamBonusBtn']:setPositionX(-80)
     end
 
+    if isExistValue(self.m_gameMode, GAME_MODE_DIMENSION_GATE) then
+        set_autobtn_off()
+    end
+
 	-- 콜로세움 예외처리
 	--if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID or self.m_stageID == ARENA_STAGE_ID) then
     if isExistValue(self.m_stageID, COLOSSEUM_STAGE_ID, FRIEND_MATCH_STAGE_ID, ARENA_NEW_STAGE_ID, ARENA_STAGE_ID, CHALLENGE_MODE_STAGE_ID) then
