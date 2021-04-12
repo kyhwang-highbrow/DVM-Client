@@ -132,6 +132,10 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_stageID = stage_id
     self.m_inGameUI = ui
     
+    if isExistValue(self.m_gameMode, GAME_MODE_DIMENSION_GATE) then
+        self.m_inGameUI:lockAutoButton()
+    end
+
     self.m_worldLayer = world_node
     self.m_worldLayer:setPosition(-640, 0)
     self:makeDebugLayer()
