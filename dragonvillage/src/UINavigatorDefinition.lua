@@ -2228,24 +2228,51 @@ end
 -- @usage UINavigatorDefinition:goTo('dmgate')
 -------------------------------------
 function UINavigatorDefinition:goTo_dmgate(...)
-   
-    local is_opened, idx, ui = self:findOpendUI('UI_BattleMenu')
-    if (is_opened == true) then
-        self:closeUIList(idx) 
-        ui:setTab('dungeon')
-        ui:resetButtonsPosition()
-        UI_DimensionGateScene()
+    local args = {...}
+    local stage = args[1]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opened, index, ui = self:findOpendUI('UI_DimensionGateScene')
+    if is_opened then 
+        self:closeUIList(index)
         return
     end
 
-    do -- Scene으로 동작
-        local function close_cb()
-            UINavigatorDefinition:goTo('lobby')
+    local function finish_cb()
+
+        -- 전투 메뉴가 열려 있을 경우
+        local is_opened, index, ui = self:findOpendUI('UI_BattleMenu')
+        if is_opened then
+            self:closeUIList(index) 
+            ui:setTab('dungeon')
+            ui:resetButtonsPosition()
+            UI_DimensionGateScene()
+            return
         end
 
-        local scene = SceneCommon(UI_DimensionGateScene, close_cb)
-        scene:runScene()
+        -- 로비가 열려있을 경우
+        local is_opened, index, ui = self:findOpendUI('UI_Lobby')
+        if is_opened then
+            self:closeUIList(index) 
+            UI_DimensionGateScene()
+            return
+        end
+   
+        do -- Scene으로 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_DimensionGateScene, close_cb)
+            scene:runScene()
+        end
     end
+
+    local function fail_cb() end
+
+    -- TODO : 업데이트하는 조건 추가 필요.
+    g_dimensionGateData.m_bDirtyDimensionGateInfo = true
+    g_dimensionGateData:request_dmgateInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
