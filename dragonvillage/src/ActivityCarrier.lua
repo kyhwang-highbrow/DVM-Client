@@ -36,6 +36,7 @@ ActivityCarrier = class({
         m_bIgnoreBarrier = 'bool',  -- 보호막(무적 제외)
         m_bIgnoreProtect = 'bool',  -- 피해면역(무적)
         m_bIgnoreRevive = 'bool',
+        m_bIgnoreGuardian = 'bool', -- 대신맞기
 
         m_ignoreTable = 'table',    -- 무시요소들을 모아놓은 테이블
 
@@ -66,6 +67,7 @@ function ActivityCarrier:init()
     self.m_bIgnoreBarrier = false
     self.m_bIgnoreProtect = false
     self.m_bIgnoreRevive = false
+    self.m_bIgnoreGuardian = false
     self.m_bDefiniteDeath = false
     self.m_tParam = {}
 end
@@ -498,6 +500,20 @@ function ActivityCarrier:isIgnoreRevive()
 end
 
 -------------------------------------
+-- function setIgnoreGuardian
+-------------------------------------
+function ActivityCarrier:setIgnoreGuardian(bool)
+	self.m_bIgnoreGuardian = bool
+end
+
+-------------------------------------
+-- function isIgnoreGuardian
+-------------------------------------
+function ActivityCarrier:isIgnoreGuardian()
+	return self.m_bIgnoreGuardian or self.m_bIgnoreAll
+end
+
+-------------------------------------
 -- function setDefiniteDeath
 -------------------------------------
 function ActivityCarrier:setDefiniteDeath(bool)
@@ -633,4 +649,10 @@ function ActivityCarrier:setIgnoreByTable(ignore_table)
     if (self.m_ignoreTable['calc']) then
 		self:setIgnoreCalc(true)
     end
+
+    -- 대신맞기
+    if (self.m_bIgnoreGuardian['guardian']) then
+		self:setIgnoreGuardian(true)
+    end
+    
 end

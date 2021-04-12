@@ -678,7 +678,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
     -- 수호(guard) 상태 체크
-    if (attack_activity_carrier:isIgnoreAll()) then
+    if (attack_activity_carrier:isIgnoreGuardian()) then
         -- 수호 무시
 
     elseif (not is_guard and self:checkGuard(attacker, defender)) then

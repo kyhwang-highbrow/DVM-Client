@@ -261,6 +261,14 @@ end
 function SkillGuardian:onEvent(event_name, t_event, ...)
 	PARENT.onEvent(self, event_name, t_event, ...)
 
+	-- 공격자 정보
+	local attack_activity_carrier = attacker.m_activityCarrier
+
+    -- ignore 체크
+    if (attack_activity_carrier) then
+        if (attack_activity_carrier:isIgnoreGuardian()) then return end
+    end
+
 	if (event_name == 'guardian') then
 		self:onHit(t_event['defender'])
 		local attacker = t_event['attacker']
