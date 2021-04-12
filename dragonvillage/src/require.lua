@@ -478,7 +478,6 @@ local t_module = {
     'SceneGameIllusion',
     'SceneRuneGuardianDungeon',
     'SceneGameClanWar',
-    'SceneGameTrial',
     'SceneDimensionGate',
 
     -- Phys
@@ -507,7 +506,6 @@ local t_module = {
     'GameWorldClanRaid',
     'GameWorldEventArena',
     'GameWorld_Illusion',
-    'GameWorldTrial',   -- 시련
     'GameState',
     'GameState_AncientRuin',
     'GameState_AncientTower',
@@ -529,7 +527,6 @@ local t_module = {
     'GameState_RuneGuardianDungeon',
     'GameState_Illusion',
     'GameState_ClanWar',
-    'GameState_Trial',
     'GameState_DimensionGate',
     'GameAuto',
     'GameAuto_Hero',
