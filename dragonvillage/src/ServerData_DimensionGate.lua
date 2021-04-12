@@ -720,8 +720,7 @@ end
 -- @brief 
 ----------------------------------------------------------------------------
 function ServerData_DimensionGate:getProductCount(product_id)
-    local rst = self.m_shopProductCounts[tostring(product_id)] or 0
-    return rst
+    return self.m_shopProductCounts[tostring(product_id)] or 0
 end
 
 
@@ -767,6 +766,7 @@ end
 --      01 스테이지(stage)      : 스테이지 번호
 -------------------------------------
 function ServerData_DimensionGate:parseDimensionGateID(stage_id)
+    stage_id = tonumber(stage_id)
     local mode_id = self:getModeID(stage_id)
     local chapter_id = self:getChapterID(stage_id)
     local difficulty_id = self:getDifficultyID(stage_id)
@@ -781,6 +781,7 @@ end
 -- 30xxxxx 던전(dungeon)        : 차원문, ...
 -------------------------------------
 function ServerData_DimensionGate:getDungeonID(stage_id)
+    stage_id = tonumber(stage_id)
     return getDigit(stage_id, 100000, 2)
 end
 
@@ -790,6 +791,7 @@ end
 --   1xxxx 모드(mode)           : 마누스의 차원문, ...
 -------------------------------------
 function ServerData_DimensionGate:getModeID(stage_id)
+    stage_id = tonumber(stage_id)
     return getDigit(stage_id, 10000, 1)
 end
 
@@ -800,6 +802,7 @@ end
 --    1xxx 챕터(chapter)        : 상위층, 하위층, ...
 -------------------------------------
 function ServerData_DimensionGate:getChapterID(stage_id)
+    stage_id = tonumber(stage_id)
     return getDigit(stage_id, 1000, 1)
 end
 
@@ -810,6 +813,7 @@ end
 --     1xx 난이도(difficulty)   : 쉬움, 보통, 어려움, ...
 -------------------------------------
 function ServerData_DimensionGate:getDifficultyID(stage_id)
+    stage_id = tonumber(stage_id)
     return getDigit(stage_id, 100, 1)
 end
 
@@ -820,6 +824,7 @@ end
 --      01 스테이지(stage)      : 스테이지 번호
 -------------------------------------
 function ServerData_DimensionGate:getStageID(stage_id)
+    stage_id = tonumber(stage_id)
     return getDigit(stage_id, 1, 2)
 end
 
