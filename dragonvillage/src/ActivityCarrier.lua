@@ -651,7 +651,7 @@ function ActivityCarrier:setIgnoreByTable(ignore_table)
     end
 
     -- 대신맞기
-    if (self.m_bIgnoreGuardian['guardian']) then
+    if (self.m_ignoreTable['guardian']) then
 		self:setIgnoreGuardian(true)
     end
     
