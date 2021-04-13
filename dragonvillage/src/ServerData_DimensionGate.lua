@@ -1,6 +1,5 @@
 
 local DmgateStringTable = {
-        ['mode'] = {'앙그라', '마누스'},
         ['chapter'] = {'하층', '상층'},
         ['difficulty'] = {[0] = '', '보통', '어려움', '지옥'},
         ['diff_color'] = {[0] = 'white', 'diff_normal', 'diff_hard', 'diff_hell'},
@@ -940,7 +939,7 @@ function ServerData_DimensionGate:getStageName(stage_id)
     end
 
     local stage_table = self.m_stageTable[mode_id][chapter_id][stage_key]
-    return stage_table['t_name']
+    return Str(stage_table['t_name'])
 end
 ----------------------------------------------------------------------------
 -- function getStageChapterText
@@ -948,7 +947,7 @@ end
 function ServerData_DimensionGate:getStageChapterText(stage_id)
     local chapter_id = self:getChapterID(stage_id)
     
-    return DmgateStringTable['chapter'][chapter_id]
+    return Str(DmgateStringTable['chapter'][chapter_id])
 end
 
 ----------------------------------------------------------------------------
@@ -966,7 +965,7 @@ end
 function ServerData_DimensionGate:getStageDiffText(stage_id)
     local diff_level = self:getDifficultyID(stage_id)
 
-    return DmgateStringTable['difficulty'][diff_level]
+    return Str(DmgateStringTable['difficulty'][diff_level])
 end
 
 

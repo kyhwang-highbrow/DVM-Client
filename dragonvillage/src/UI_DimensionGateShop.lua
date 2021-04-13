@@ -267,7 +267,7 @@ end
 -------------------------------------
 function UI_DimensionGateShopItem:initUI()
 
-    self.m_itemLabel:setString(self.m_itemData['t_name']) -- 상품 이름
+    self.m_itemLabel:setString(Str(self.m_itemData['t_name'])) -- 상품 이름
     
     local parsedItem = ServerData_Item:parsePackageItemStr(self.m_itemData['product_content'])[1]
 
@@ -282,7 +282,7 @@ function UI_DimensionGateShopItem:initUI()
     
 
 
-    self.m_descriptionLabel:setString(self.m_itemData['t_desc'])
+    self.m_descriptionLabel:setString(Str(self.m_itemData['t_desc']))
     
     
     self.m_priceLabel:setString(tostring(self.m_itemData['price']))
