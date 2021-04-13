@@ -147,7 +147,7 @@ UI_DimensionGateBlessPopupItem = class(UI, ITableViewCell:getCloneTable(),{
 -- function init
 -------------------------------------
 function UI_DimensionGateBlessPopupItem:init(data)
-    ccdump(data)
+
     self.m_uiName = 'UI_DimensionGateBlessPopupItem'
     --self.m_spriteName = 'res/ui/icons/buff/${spriteName}.png'
     local vars = self:load('dmgate_bless_popup_item.ui')

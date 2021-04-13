@@ -942,6 +942,14 @@ function ServerData_DimensionGate:getStageName(stage_id)
     local stage_table = self.m_stageTable[mode_id][chapter_id][stage_key]
     return stage_table['t_name']
 end
+----------------------------------------------------------------------------
+-- function getStageChapterText
+----------------------------------------------------------------------------
+function ServerData_DimensionGate:getStageChapterText(stage_id)
+    local chapter_id = self:getChapterID(stage_id)
+    
+    return DmgateStringTable['chapter'][chapter_id]
+end
 
 ----------------------------------------------------------------------------
 -- function getStageDiffTextColor

@@ -132,7 +132,7 @@ UI_GameResult_Test = class(UI, {
 
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function init
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:init(stage_id, is_success, time)
     local vars = self:load('dmgate_result.ui')
@@ -186,25 +186,29 @@ function UI_GameResult_Test:init(stage_id, is_success, time)
 end
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function initUI
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:initUI()
     local vars = self.vars
     
     --
     self:initGameResultVRP()
+    self:initDragonList()
 
     --
-    self.m_titleLabel:setString('')
-    self.m_gradeLabel:setString('')
+    local stage_name = g_dimensionGateData:getStageName(self.m_stage_id)
+    local chapter_name = g_dimensionGateData:getStageChapterText(self.m_stage_id)
+    self.m_titleLabel:setString(chapter_name .. '-' .. stage_name)
+    local diff_name = g_dimensionGateData:getStageDiffText(self.m_stage_id)
+    local diff_color = g_dimensionGateData:getStageDiffTextColor(self.m_stage_id)
+    self.m_gradeLabel:setString(diff_name)
+    self.m_gradeLabel:setTextColor(diff_color)
     self.m_timeLabel:setNumber(self.m_time)
-
-
 end
 
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function initButton
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:initButton()
     self.m_statusInfoBtn:registerScriptTapHandler(function() self:click_statusInfoBtn() end)
@@ -219,7 +223,7 @@ end
 
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function refresh
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:refresh()
 
@@ -227,12 +231,12 @@ end
 
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function initGameResultVRP
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:initGameResultVRP()
     self.m_gameResultVisual:setVisible(true)
     if (self.m_bSuccess) then
-        SoundMgr:playBGM('bgm_dungeon_lose', false)
+        SoundMgr:playBGM('bgm_dungeon_victory', false)
         self.m_gameResultVisual:changeAni('success', false)
         self.m_gameResultVisual:addAniHandler(function() self.m_gameResultVisual:changeAni('success_idle', true) end)
 
@@ -242,15 +246,58 @@ function UI_GameResult_Test:initGameResultVRP()
         self.m_gameResultVisual:addAniHandler(function() self.m_gameResultVisual:changeAni('fail_idle', true) end)
     end
 end
+
 ----------------------------------------------------------------------------
--- function startGame
+-- function initDragonList
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:initDragonList()
-    --local deck_list = 
+    local deck_list = g_deckData:getDeck()
+
+    local dragon_list = {}
+
+    for _, doid in pairs(deck_list) do
+        local user_data = g_dragonsData:getDragonDataFromUid(doid)
+        local did = user_data['did']
+        local dragon_data = TableDragon():get(did)
+        local result = {['user_data'] = user_data, ['dragon_data'] = dragon_data}
+        table.insert(dragon_list, result)
+    end
+
+    self:sortDragonNodes(#dragon_list)
+
+    for i, v in ipairs(dragon_list) do
+        local user_data = v['user_data']
+        local dragon_data = v['dragon_data']
+
+        local resource_name = dragon_data['res']
+        local evolution = user_data['evolution']
+        local scale = dragon_data['scale_' .. evolution]
+
+        -- 외형 변환 적용 Animator
+        local animator = AnimatorHelper:makeDragonAnimatorByTransform(user_data)
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+
+        -- 스케일 적용
+        animator.m_node:setScale(math_clamp(scale, 1, 2))
+
+        self.m_dragonNodes[i]:addChild(animator.m_node)
+
+        -- 등급
+        local sprite = IconHelper:getDragonGradeIcon(user_data, 1)
+        self.m_dragonStarNodes[i]:removeAllChildren()
+        self.m_dragonStarNodes[i]:addChild(sprite)
+
+        -- 레벨
+        self.m_dragonLvLabels[i]:setVisible(true)
+        self.m_dragonLvLabels[i]:setString('Lv.' .. user_data['lv'])
+        
+    end
+
 end
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function click_statusInfoBtn
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:click_statusInfoBtn()
     UI_HelpStatus()
@@ -258,14 +305,14 @@ end
 
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function click_readyBtn
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:click_readyBtn()
     SceneDimensionGate(self.m_stage_id, true):runScene()
 end
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function click_quickStartBtn
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:click_quickStartBtn()
     --SceneDimensionGate(self.m_stageID, true):runScene()
@@ -276,7 +323,7 @@ function UI_GameResult_Test:click_quickStartBtn()
 end
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function click_dmgateBtn
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:click_dmgateBtn()
     SceneDimensionGate():runScene()
@@ -284,7 +331,7 @@ end
 
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function click_homeBtn
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:click_homeBtn()
     -- 씬 전환을 두번 호출 하지 않도록 하기 위함
@@ -297,7 +344,7 @@ end
 
 
 ----------------------------------------------------------------------------
--- function startGame
+-- function click_statsBtn
 ----------------------------------------------------------------------------
 function UI_GameResult_Test:click_statsBtn()
 	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
@@ -323,4 +370,32 @@ function UI_GameResult_Test:startGame()
     -- url : dmgate/start
     -- required params : user_id, stage_id, deck_name, token
     g_stageData:requestGameStart(self.m_stage_id, deck_name, nil, finish_cb)
+end
+
+
+----------------------------------------------------------------------------
+-- function sortDragonNodes
+----------------------------------------------------------------------------
+function UI_GameResult_Test:sortDragonNodes(dragon_num)
+    local interval = self.m_dragonBoards[2]:getPositionX() - self.m_dragonBoards[1]:getPositionX()
+    
+    local gap
+
+    if (dragon_num % 2) then -- 홀수
+        gap = -((dragon_num - 1) / 2)
+    else
+        gap = -((dragon_num / 2) - 0.5)
+    end
+
+    local start_pos_x = (gap * interval)
+
+    for index, dragonBoard in pairs(self.m_dragonBoards) do
+        
+        if (index <= dragon_num) then
+            dragonBoard:setPositionX(start_pos_x)
+            start_pos_x = start_pos_x + interval
+        else
+            dragonBoard:setVisible(false)
+        end
+    end
 end
