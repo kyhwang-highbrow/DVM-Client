@@ -24,7 +24,11 @@ function UI_BattleMenuItem_Dungeon:init(content_type, count)
 
     local vars = self:load(res)
 
-    self:initUI()
+    if (content_type == 'dmgate') then
+        self.root:setLocalZOrder(self.root:getLocalZOrder() + 1)
+    end
+
+    self:initUI(content_type)
     self:initButton()
     self:refresh()
 end

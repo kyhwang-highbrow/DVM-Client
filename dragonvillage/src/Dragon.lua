@@ -92,7 +92,39 @@ function Dragon:initDragonSkillManager(t_dragon_data)
     local evolution = t_dragon_data['evolution'] or 1
     local table_dragon_skill = TableDragonSkill()
 
+    --차원문 주간축복
+    local is_dmgate_stage = g_dimensionGateData:isStageDimensionGate(self.m_world.m_stageID)
+
+    local is_skip_rune_skill = false
+
     PARENT.initDragonSkillManager(self, 'dragon', self.m_dragonID, evolution, true)
+
+    if (is_dmgate_stage) then 
+        local chapter_id = g_dimensionGateData:getChapterID(tonumber(self.m_world.m_stageID))
+
+        if (chapter_id > 1) then
+            local buff_list = g_dimensionGateData:getBuffList(DIMENSION_GATE_ANGRA)
+
+            if (#buff_list > 0) then
+                for _, t_skill in pairs(buff_list) do
+                    local skill_id = t_skill['sid']
+
+                    if (isNullOrEmpty(t_skill) or isNullOrEmpty(skill_id)) then
+                        error('invalid bless skill : ' .. skill_id)
+                    end
+
+                    local skill_indivisual_info = self:setSkillID('bless', skill_id, 1, 'new')
+                    skill_indivisual_info:setToIgnoreCC(true)
+                    skill_indivisual_info:setToIgnoreReducedCool(true)
+                end
+
+            end
+        else
+            is_skip_rune_skill = true
+        end
+    end
+
+    if (is_skip_rune_skill) then return end
 
     -- 룬 셋트 스킬 적용
     local dragon_obj = StructDragonObject(t_dragon_data)
@@ -131,33 +163,6 @@ function Dragon:initDragonSkillManager(t_dragon_data)
                 skill_indivisual_info:addBuff('chance_value', add_value, 'add', true)
             end
         end
-    end
-
-    --차원문 주간축복
-    local is_dmgate_stage = g_dimensionGateData:isStageDimensionGate(self.m_world.m_stageID)
-
-    if (not is_dmgate_stage) then return end
-
-    local chapter_id = g_dimensionGateData:getChapterID(tonumber(self.m_world.m_stageID))
-
-    if (chapter_id <= 1) then return end
-
-    local buff_list = g_dimensionGateData:getBuffList(DIMENSION_GATE_ANGRA)
-
-    if (#buff_list <= 0) then return end
-
-    for _, t_skill in pairs(buff_list) do
-        local skill_id = t_skill['sid']
-
-        if (isNullOrEmpty(t_skill) or isNullOrEmpty(skill_id)) then
-            error('invalid bless skill : ' .. skill_id)
-        end
-
-        -- cclog('bless skill name : ' .. Str(t_skill['t_name']) .. '(' .. _ .. ')')
-
-        local skill_indivisual_info = self:setSkillID('bless', skill_id, 1, 'new')
-        skill_indivisual_info:setToIgnoreCC(true)
-        skill_indivisual_info:setToIgnoreReducedCool(true)
     end
 end
 

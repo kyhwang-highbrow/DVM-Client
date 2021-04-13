@@ -755,6 +755,8 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
     local eclv = t_dragon_data['eclv']
+    local is_dm_gate_mode = game_mode == GAME_MODE_DIMENSION_GATE
+
 
     local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
 	
@@ -779,6 +781,18 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
     -- 룬(rune) (개별 룬, 세트 포함)
     do
         local l_add_status, l_multi_status = t_dragon_data:getRuneStatus()
+
+        -- 차원문 모드일 때
+        -- 현재 하층이면
+        if (is_dm_gate_mode) then
+            local chapter_id = g_dimensionGateData:getChapterID(tonumber(g_gameScene.m_stageID))
+            -- 리스트를 비워서 룬 효과를 무시한다.
+            if (chapter_id <= 1) then
+                l_add_status = {}
+                l_multi_status = {}
+            end
+        end
+
         for stat_type,value in pairs(l_add_status) do
             local indivisual_status = status_calc.m_lStatusList[stat_type]
             if (indivisual_status) then

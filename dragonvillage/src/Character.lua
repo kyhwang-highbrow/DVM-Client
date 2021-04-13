@@ -423,7 +423,7 @@ function Character:initStatus(t_char, level, grade, evolution, doid, eclv)
 
     if (self.m_charType == 'dragon') then
         if doid then
-            statusCalc = MakeOwnDragonStatusCalculator(doid)
+            statusCalc = MakeOwnDragonStatusCalculator(doid, nil, self.m_world.m_gameMode)
         else
             statusCalc = MakeDragonStatusCalculator(self.m_charTable['did'], level, grade, evolution, eclv)
         end
