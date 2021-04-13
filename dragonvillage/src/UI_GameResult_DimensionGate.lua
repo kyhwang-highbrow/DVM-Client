@@ -153,8 +153,8 @@ function UI_GameResult_Test:init(stage_id, is_success, time)
     self.m_gradeLabel = vars['gradeLabel']          -- 난이도 텍스트
 
     self.m_timeMenu = vars['timeMenu']              -- 시간 메뉴
-    self.m_timeLabel = NumberLabel(vars['timeLabel'], 0, 1)            -- 시간 텍스트
-
+    --self.m_timeLabel = NumberLabel(vars['timeLabel'], 0, 1)            -- 시간 텍스트
+    self.m_timeLabel = vars['timeLabel']
     -- buttons
     self.m_btnMenu = vars['btnMenu']                -- 버튼 전체 관리를 위한 메뉴
     self.m_statusInfoBtn = vars['statusInfoBtn']                -- 상태 효과
@@ -203,7 +203,10 @@ function UI_GameResult_Test:initUI()
     local diff_color = g_dimensionGateData:getStageDiffTextColor(self.m_stage_id)
     self.m_gradeLabel:setString(diff_name)
     self.m_gradeLabel:setTextColor(diff_color)
-    self.m_timeLabel:setNumber(self.m_time)
+    --self.m_timeLabel:setNumber(self.m_time)
+    local min = math.modf(self.m_time / 60)
+    local sec = self.m_time % 60
+    self.m_timeLabel:setString(string.format('%02d:%02d', min, sec))
 end
 
 
