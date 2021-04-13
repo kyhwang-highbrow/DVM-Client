@@ -6,6 +6,8 @@ UI_GamePause = class(UI, {
         m_gameKey = 'number',
         m_startCB = 'function',
         m_endCB = 'function',
+
+        m_buttons = '',
      })
 
 -------------------------------------
@@ -26,6 +28,38 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
     local vars = self:load('ingame_pause_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    if g_dimensionGateData:isStageDimensionGate(self.m_stageID) then
+        vars['quickStartBtn']:setVisible(true)
+        vars['quickStartBtn']:setEnabled(true)
+    end
+
+    self.m_buttons = {}
+    if vars['quickStartBtn'] and vars['quickStartBtn']:isVisible() then table.insert(self.m_buttons, vars['quickStartBtn']) end
+    if vars['continueButton'] and vars['continueButton']:isVisible() then table.insert(self.m_buttons, vars['continueButton']) end
+    if vars['retryButton'] and vars['retryButton']:isVisible() then table.insert(self.m_buttons, vars['retryButton']) end
+    if vars['settingButton'] and vars['settingButton']:isVisible() then table.insert(self.m_buttons, vars['settingButton']) end
+
+    local button_num = #self.m_buttons
+    local interval = self.m_buttons[2]:getPositionX() - self.m_buttons[1]:getPositionX()
+    local gap
+
+    if (button_num % 2) then
+        gap = -((button_num - 1) / 2)
+    else
+        gap = -((button_num / 2) - 0.5)
+    end
+
+    local start_pos_x = (gap * interval)
+
+    for index, button in ipairs(self.m_buttons) do
+        if (index <= button_num) then
+            button:setPositionX(start_pos_x)
+            start_pos_x = start_pos_x + interval
+        else
+            button:setVisible(false)
+        end
+    end   
+
     vars['quickStartBtn']:registerScriptTapHandler(function() self:click_quickStartBtn() end)
     vars['retryButton']:registerScriptTapHandler(function() self:click_retryButton() end)
     vars['homeButton']:registerScriptTapHandler(function() self:click_homeButton() end)
@@ -34,8 +68,6 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
     vars['settingButton']:registerScriptTapHandler(function() self:click_settingButton() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfoBtn() end)
     vars['infoBtn']:setVisible(true)
-
-    
 
     -- 디버그용 버튼
     if (IS_TEST_MODE()) then
