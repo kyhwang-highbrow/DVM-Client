@@ -26,6 +26,7 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
     local vars = self:load('ingame_pause_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    vars['quickStartBtn']:registerScriptTapHandler(function() self:click_quickStartBtn() end)
     vars['retryButton']:registerScriptTapHandler(function() self:click_retryButton() end)
     vars['homeButton']:registerScriptTapHandler(function() self:click_homeButton() end)
     vars['contentsButton']:registerScriptTapHandler(function() self:click_homeButton() end)
@@ -33,6 +34,8 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
     vars['settingButton']:registerScriptTapHandler(function() self:click_settingButton() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfoBtn() end)
     vars['infoBtn']:setVisible(true)
+
+    
 
     -- 디버그용 버튼
     if (IS_TEST_MODE()) then
@@ -195,6 +198,24 @@ end
 -------------------------------------
 function UI_GamePause:click_settingButton()
     UI_Setting()
+end
+
+function UI_GamePause:click_quickStartBtn()
+    local block_ui = UI_BlockPopup()
+
+    local deck_name = g_deckData:getSelectedDeckName()
+
+    local function finish_cb(game_key)
+        local stage_name = 'stage_' .. self.m_stageID
+
+        scene = SceneGame(game_key, self.m_stageID, stage_name, false)
+
+        scene:runScene()
+    end
+    
+    -- url : dmgate/start
+    -- required params : user_id, stage_id, deck_name, token
+    g_stageData:requestGameStart(self.m_stageID, deck_name, nil, finish_cb)
 end
 
 -------------------------------------
