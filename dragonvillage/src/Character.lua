@@ -626,15 +626,19 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     if (not self.m_world.m_gameState:isFight()) then return end
     if (not attacker.m_activityCarrier) then return end
 
+    --------------------------------------------------------------------------
+    -- variable
+    --------------------------------------------------------------------------
     local use_debug_log = g_constant:get('DEBUG', 'PRINT_ATTACK_INFO')
 
 	-- 공격자 정보
 	local attack_activity_carrier = attacker.m_activityCarrier
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
+    local is_active_skill = attack_type == 'active'
 
     -- 우선 공격 가능한지 체크한다
-    if (not self:isAttackable(attack_type == 'active', attack_activity_carrier)) then return end
+    if (not self:isAttackable(is_active_skill, attack_activity_carrier)) then return end
 
     local attack_add_cri_dmg = attack_activity_carrier:getAddCriPowerRate()
     local attack_hit_count = attack_activity_carrier:getSkillHitCount()
@@ -663,12 +667,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local reflex_damage = 0
     local reflex_rate = 0
 
-    if (attack_type == 'active') then 
-        reflex_rate = math_max(self:getStat('reflex_skill'), 0) / 100
-    else
-        reflex_rate = math_max(self:getStat('reflex_normal'), 0) / 100
-    end
-    
+    --------------------------------------------------------------------------
+    -- variable end
+    --------------------------------------------------------------------------
+
+
+    --------------------------------------------------------------------------
+    -- ignore
+    --------------------------------------------------------------------------
+
     -- 무적 상태 체크
     if (attack_activity_carrier:isIgnoreProtect()) then
         -- 무적 무시
@@ -698,7 +705,16 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		self.m_charLogRecorder:recordLog('avoid', 1)
         return
     end
-	
+
+    --------------------------------------------------------------------------
+    -- ignore end
+    --------------------------------------------------------------------------
+
+    
+    --------------------------------------------------------------------------
+    -- damage calc
+    --------------------------------------------------------------------------
+
     -- 데미지 계산
     do
         --------------------------------------------------------------
@@ -727,7 +743,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
                 atk_dmg = atk_dmg + basic_dmg
 
-            elseif (attack_type == 'active') then
+            elseif (is_active_skill) then
                 -- 드래그 스킬 추가 공격력 적용
                 local drag_dmg_rate = attack_activity_carrier:getStat('drag_dmg') / 100
                 drag_dmg = atk_dmg * drag_dmg_rate
@@ -837,6 +853,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
     end
 
+    --------------------------------------------------------------------------
+    -- damage calc end
+    --------------------------------------------------------------------------
+
+
+    --------------------------------------------------------------------------
+    -- critical damage calc
+    --------------------------------------------------------------------------
+
     -- 크리티컬 계산
     if (not attack_activity_carrier:isIgnoreCalc()) then
         if (is_miss) then
@@ -862,8 +887,23 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
     end
 
+    --------------------------------------------------------------------------
+    -- critical damage calc end
+    --------------------------------------------------------------------------
+
+
+    --------------------------------------------------------------------------
+    -- final damage calc
+    --------------------------------------------------------------------------
+
     do -- 최종 데미지 계산
         local damage_multifly = 1
+
+        if (is_active_skill) then 
+            reflex_rate = math_max(self:getStat('reflex_skill'), 0) / 100
+        else
+            reflex_rate = math_max(self:getStat('reflex_normal'), 0) / 100
+        end
 
         -- 크리티컬 데미지
         local cri_dmg_rate = 0
@@ -1009,6 +1049,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
     end
 
+    --------------------------------------------------------------------------
+    -- final damage calc end
+    --------------------------------------------------------------------------
+
+
+    --------------------------------------------------------------------------
+    -- apply Damage
+    --------------------------------------------------------------------------
+
     -- Event Carrier 세팅
 	local t_event = clone(EVENT_HIT_CARRIER)
     t_event['skill_id'] = attack_activity_carrier:getSkillId()
@@ -1040,20 +1089,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	end
 	
     -- 효과음
-    if (attack_type == 'active') then
-        if (is_critical) then
-            SoundMgr:playEffect('EFX', 'efx_damage_critical')
-        else
-            SoundMgr:playEffect('EFX', 'efx_damage_normal')
-        end
-    else
-        if (is_critical) then
-            SoundMgr:playEffect('EFX', 'efx_damage_critical')
-        else
-            SoundMgr:playEffect('EFX', 'efx_damage_normal')
-        end
-    end
-        	
+    local str_sound_name = is_critical and 'efx_damage_critical' or 'efx_damage_normal'
+    SoundMgr:playEffect('EFX', str_sound_name)
+    
 	-- 공격 데미지 전달
 	do
 		local t_info = {}
@@ -1101,6 +1139,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         StatusEffectHelper:statusEffectCheck_onHit(attack_activity_carrier, self)
     end
 
+    --------------------------------------------------------------------------
+    -- apply Damage end
+    --------------------------------------------------------------------------
+
+
+    --------------------------------------------------------------------------
+    -- after damage event
+    --------------------------------------------------------------------------
+
 	-- @LOG_CHAR : 방어자 피격 횟수
 	self.m_charLogRecorder:recordLog('under_atk', 1)
 	
@@ -1130,8 +1177,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 			attacker_char:dispatch('under_atk_basic', t_event, self, attack_activity_carrier)
 
 		-- 액티브 피격
-		elseif (attack_type == 'active') then
+		elseif (is_active_skill) then
 			attacker_char:dispatch('under_atk_active', t_event, self, attack_activity_carrier)
+
 		end
 	end
 
@@ -1150,7 +1198,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
             if (real_attack_type == 'basic') then
 			    attacker_char:dispatch('basic_cri', t_event)
-            elseif (attack_type == 'active') then
+            elseif (is_active_skill) then
                 attacker_char:dispatch('skill_cri', t_event)
             end
 		end
@@ -1159,7 +1207,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         if (not no_event) then
             local b = false
 
-            if (attack_type == 'active') then
+            if (is_active_skill) then
                 b = self:isZeroHp()
             else
                 b = self:isDead()
@@ -1178,7 +1226,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 self.m_world.m_logRecorder:recordLog('basic_attack_cnt', 1)
 
 		    -- 액티브 공격시
-		    elseif (attack_type == 'active') then
+		    elseif (is_active_skill) then
 			    attacker_char:dispatch('hit_active', t_event, self, attack_activity_carrier)
 		    end
         end
@@ -1189,6 +1237,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             self:runAction_Shake()
         end
     end
+
+    --------------------------------------------------------------------------
+    -- after damage event end
+    --------------------------------------------------------------------------
+
 end
 
 -------------------------------------
