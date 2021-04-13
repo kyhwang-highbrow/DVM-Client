@@ -755,9 +755,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
     local eclv = t_dragon_data['eclv']
-    local is_dm_gate_mode = game_mode == GAME_MODE_DIMENSION_GATE
-
-
+    local is_dm_gate_mode = g_gameScene and g_gameScene.m_gameMode == GAME_MODE_DIMENSION_GATE or false
     local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
 	
 	-- 드래곤 강화 수치 와 친밀도(friendship)
