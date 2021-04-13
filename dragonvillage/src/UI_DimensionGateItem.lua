@@ -304,6 +304,8 @@ function UI_DimensionGateItem:refreshRewardVRP()
 
     self.m_rewardVisual:changeAni('dmgate_box_' .. tostring(status), true)
 
+    self.m_stageStatus = status
+
     if #self.m_data > 1 then
         self.m_rewardLabel:setString(Str(self.m_originRewardText, rewardNum, #self.m_data))
     else
