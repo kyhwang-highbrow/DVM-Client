@@ -47,16 +47,17 @@ function GameState_DimensionGate:makeResultUI(isSuccess)
         local world = self.m_world
         local stage_id = world.m_stageID
 
-        UI_GameResult_DimensionGate(stage_id,
-        isSuccess,
-        self.m_fightTimer,
-        result_table['default_gold'],
-        result_table['user_levelup_data'],
-        result_table['dragon_levelu_data_list'],
-        result_table['drop_reward_grade'],
-        result_table['drop_reward_list'],
-        result_table['secret_dungeon'],
-        result_table['content_open'])
+        -- UI_GameResult_DimensionGate(stage_id,
+        -- isSuccess,
+        -- self.m_fightTimer,
+        -- result_table['default_gold'],
+        -- result_table['user_levelup_data'],
+        -- result_table['dragon_levelu_data_list'],
+        -- result_table['drop_reward_grade'],
+        -- result_table['drop_reward_list'],
+        -- result_table['secret_dungeon'],
+        -- result_table['content_open'])
+        UI_GameResult_Test(stage_id, isSuccess, self.m_fightTimer)
     end
 
     -- 최초 실행
