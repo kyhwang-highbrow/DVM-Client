@@ -425,6 +425,8 @@ function UI_BattleMenu:initDungeonTab()
         ui.root:setSwallowTouch(false)
         scroll_view:addChild(ui.root)
         table.insert(l_btn_ui, {['ui']=ui, ['x']=pos_x, ['y']=pos_y})
+
+        ui:notifiyNewContent()
     end
 
     -- 중앙포지션 설정
