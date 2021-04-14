@@ -997,7 +997,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         -- 피해 반사에 따른 받는 피해 감소
         -- 상태효과에 따른 반사뎀 적용
         -- isAttackable 은 액티브, 평타, 무적 status_effect 로 제어된다. 
-        if (reflex_rate > 0 and isAttackable) then
+        local is_reflectable = attacker_char:isAttackable(false)
+
+        if (reflex_rate > 0 and is_reflectable) then
             damage_multifly = damage_multifly * (1 - reflex_rate)
 
             -- 반사 데미지 계산
@@ -2265,30 +2267,22 @@ end
 function Character:isAttackable(is_active_skill, attack_activity_carrier)
     local is_attackable = true
 
-    local statusEffectList = self:getStatusEffectList()
-    if (not statusEffectList) then statusEffectList = {} end
+    local has_active_only_passive = self:isExistStatusEffectName('target_active_skill_only')
+    local has_without_skill_passive = self:isExistStatusEffectName('target_without_skill')
+    local has_disabled_passive = self:isExistStatusEffectName('target_disabled')
 
-    for k, v in pairs(statusEffectList) do
+    -- 아예 못떄림
+    if (has_disabled_passive) then
+        is_attackable = false
 
-        -- 공격제한 타입이 있다면?
-        if (v.m_type == 'atk_limit') then
-            local effect_name = v.m_statusEffectName
+    -- 액티브만 먹을 때
+    elseif (has_active_only_passive) then
+        is_attackable = is_active_skill
 
-            -- 아예 못떄림
-            if (effect_name == 'target_disabled') then
-                is_attackable = false
-                break
+    -- 액티브 뺴고 다먹어야 할 때
+    elseif (has_without_skill_passive) then
+        is_attackable = not is_active_skill
 
-            -- 액티브만 먹을 때
-            elseif (effect_name == 'target_active_skill_only') then
-                is_attackable = is_active_skill
-
-            -- 액티브 뺴고 다먹어야 할 때
-            elseif (effect_name == 'target_without_skill') then
-                is_attackable = not is_active_skill
-
-            end
-        end
     end
     
     -- 액티비티 캐리어가 없으면 그냥 결과 반환
