@@ -54,6 +54,7 @@ function UI_RuneForgeGachaTab:initUI()
 
         if (can_buy) then
             start_product_id = SPECIAL_RUNE_PACKAGE_ID
+            vars['runeEventMenu']:setVisible(true)
         end
     end
 
@@ -82,16 +83,17 @@ function UI_RuneForgeGachaTab:initUI()
     local l_ret 
     is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
     if is_active then
-        vars['runeEventMenu']:setVisible(true)
-        vars['eventInfoMenu']:setVisible(true)
+        vars['runeFeverMenu']:setVisible(true)
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
-        
     end
 
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
+-------------------------------------
+-- function updateTimer
+-------------------------------------
 function UI_RuneForgeGachaTab:updateTimer(dt)
     local vars = self.vars
 
@@ -108,6 +110,9 @@ function UI_RuneForgeGachaTab:updateTimer(dt)
             str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
             vars['timeLabel']:setString(str)
         end
+    else
+        vars['runeFeverMenu']:setVisible(false)
+        --UINavigator:goto('lobby')
     end
 end
 

@@ -1034,7 +1034,10 @@ function UI_Lobby:update_highlight()
                 vars['runeEventSprite1']:setVisible(true)
                 if #combine_ret then combine_ret = combine_ret[1] end
                 vars['runeEventLabel1']:setString(Str(combine_ret['title']))
+            else
+                vars['runeEventSprite1']:setVisible(false)
             end
+            
         end
 
         -- 퀘스트
@@ -2079,6 +2082,25 @@ function UI_Lobby:refresh_hottime()
         or g_fevertimeData:isActiveFevertime_pvpHonorUp()
     ) then
         vars['battleHotSprite']:setVisible(true)
+    end
+
+    
+    local is_gacha_active local gacha_value local gacha_ret
+    local is_comebine_active local combine_value local combine_ret
+
+    is_gacha_active, gacha_value, gacha_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
+    is_comebine_active, combine_value, combine_ret = g_fevertimeData:isActiveFevertime_runeCombineUp()
+
+    if is_gacha_active then
+        vars['runeEventSprite1']:setVisible(true)
+        if #gacha_ret then gacha_ret = gacha_ret[1] end
+        vars['runeEventLabel1']:setString(Str(gacha_ret['title']))
+    elseif is_comebine_active then
+        vars['runeEventSprite1']:setVisible(true)
+        if #combine_ret then combine_ret = combine_ret[1] end
+        vars['runeEventLabel1']:setString(Str(combine_ret['title']))
+    else
+        vars['runeEventSprite1']:setVisible(false)
     end
 	
 	-- 할인 이벤트
