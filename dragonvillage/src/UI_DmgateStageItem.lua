@@ -197,7 +197,7 @@ function UI_DmgateStageItem:refreshLockVRP()
     -- is it locked ?
     if (g_dmgateData:isStageOpened(self.m_stageID) == false)
         or (g_dmgateData:checkStageTime(self.m_stageID) == false) then
-    
+
         self.m_lockVisual:setVisible(true)
         self.m_lockVisual:changeAni('dmgate_lock')
         self.m_stageBtn:setEnabled(false)

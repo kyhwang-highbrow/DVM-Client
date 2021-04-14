@@ -125,7 +125,7 @@ function ServerData_Dmgate:response_dmgateInfo(ret)
         self.m_dmgateInfo = {}
         self:request_stageTable()
     end
-
+    ccdump(ret)
     -- 차원문 스테이지 종료 후 GameStage_DimensionGate에서 '/dmgate/finish'을 통해 불린 경우
     if (#self.m_dmgateInfo > 0) and (ret['added_item'] == nil) and (ret['stage'] ~= nil) then
         local stage_id = ret['stage'] -- 클리어한 스테이지 (type : number)
@@ -136,19 +136,31 @@ function ServerData_Dmgate:response_dmgateInfo(ret)
         -- CHECK : need to check length of ret['stage']
    
         -- 클리어한 스테이지의 보상 정보가 바뀐 경우 0->1, 1->2 을 체크하기 위함
-        local prev_reward_status = self.m_dmgateInfo[mode_id]['stage'][tostring(stage_id)]
-        local curr_reward_status = dmgate_info[mode_id]['stage'][tostring(stage_id)]
+        -- local prev_reward_status = self.m_dmgateInfo[mode_id]['stage'][tostring(stage_id)]
+        -- local curr_reward_status = dmgate_info[mode_id]['stage'][tostring(stage_id)]
         
-        -- 0->1만 체크해야 하지만 1->2 인'/dmgate/reward' 의 경우 이 조건문을 들어올 수 없기에 별도 조건문 생략.
-        if (prev_reward_status ~= curr_reward_status) then
-            local stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
-            local next_stage_data = self.m_stageTable[mode_id][chapter_id][stage_key + 1]
-            -- 다음 스테이지가 같은 모드 안에 존재하는지 체크
-            if next_stage_data ~= nil then 
-                local next_stage_id = next_stage_data['stage_id']
-                if (next_stage_id ~= nil) then 
-                    self.m_unlockStageList[next_stage_id] = true
-                end
+        -- -- 0->1만 체크해야 하지만 1->2 인'/dmgate/reward' 의 경우 이 조건문을 들어올 수 없기에 별도 조건문 생략.
+        -- if (prev_reward_status ~= curr_reward_status) then
+        --     local stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
+        --     local next_stage_data = self.m_stageTable[mode_id][chapter_id][stage_key + 1]
+        --     -- 다음 스테이지가 같은 모드 안에 존재하는지 체크
+        --     if next_stage_data ~= nil then 
+        --         local next_stage_id = next_stage_data['stage_id']
+        --         if (next_stage_id ~= nil) then 
+        --             ccdump('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        --             self.m_unlockStageList[next_stage_id] = true
+        --         end
+        --     end
+        -- end
+
+        local stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
+        local next_stage_data = self.m_stageTable[mode_id][chapter_id][stage_key + 1]
+        if next_stage_data ~= nil then
+            local next_stage_id = next_stage_data['stage_id']
+            local prev_reward_status = self.m_dmgateInfo[mode_id]['stage'][tostring(next_stage_id)]
+            local curr_reward_status = dmgate_info[mode_id]['stage'][tostring(next_stage_id)]
+            if prev_reward_status == nil  and prev_reward_status ~= curr_reward_status then
+                self.m_unlockStageList[next_stage_id] = true
             end
         end
     end
@@ -452,7 +464,7 @@ function ServerData_Dmgate:getStageListByChapterId(mode_id, chapter_id)
 
         local diff_id = self:getDifficultyID(stage_id)
         local result_index = self:getStageID(stage_id)
-        
+
         if (result[result_index] == nil) then result[result_index] = {} end
         table.insert(result[result_index], data)
    end
