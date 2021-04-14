@@ -2232,7 +2232,7 @@ function UINavigatorDefinition:goTo_dmgate(...)
     local stage = args[1]
 
     -- 해당 UI가 열려있을 경우
-    local is_opened, index, ui = self:findOpendUI('UI_DimensionGateScene')
+    local is_opened, index, ui = self:findOpendUI('UI_DmgateScene')
     if is_opened then 
         self:closeUIList(index)
         return
@@ -2246,7 +2246,7 @@ function UINavigatorDefinition:goTo_dmgate(...)
             self:closeUIList(index) 
             ui:setTab('dungeon')
             ui:resetButtonsPosition()
-            UI_DimensionGateScene()
+            UI_DmgateScene()
             return
         end
 
@@ -2254,7 +2254,7 @@ function UINavigatorDefinition:goTo_dmgate(...)
         local is_opened, index, ui = self:findOpendUI('UI_Lobby')
         if is_opened then
             self:closeUIList(index) 
-            UI_DimensionGateScene()
+            UI_DmgateScene()
             return
         end
    
@@ -2263,7 +2263,7 @@ function UINavigatorDefinition:goTo_dmgate(...)
                 UINavigatorDefinition:goTo('lobby')
             end
 
-            local scene = SceneCommon(UI_DimensionGateScene, close_cb)
+            local scene = SceneCommon(UI_DmgateScene, close_cb)
             scene:runScene()
         end
     end
@@ -2271,8 +2271,8 @@ function UINavigatorDefinition:goTo_dmgate(...)
     local function fail_cb() end
 
     -- TODO : 업데이트하는 조건 추가 필요.
-    g_dimensionGateData.m_bDirtyDimensionGateInfo = true
-    g_dimensionGateData:request_dmgateInfo(finish_cb, fail_cb)
+    g_dmgateData.m_bDirtyDimensionGateInfo = true
+    g_dmgateData:request_dmgateInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------

@@ -231,8 +231,8 @@ function UI_ReadySceneNew:checkDeckProper()
 
     
     -- 차원문
-    if (g_dimensionGateData:isStageDimensionGate(self.m_stageID)) then
-        local dmgate_stage_id = g_dimensionGateData:getStageID(self.m_stageID)
+    if (g_dmgateData:isStageDimensionGate(self.m_stageID)) then
+        local dmgate_stage_id = g_dmgateData:getStageID(self.m_stageID)
         g_deckData:setSelectedDeck(curr_mode .. '_' .. tostring(dmgate_stage_id))
         return 
     end
@@ -639,7 +639,7 @@ function UI_ReadySceneNew:initButton()
     end
 
     -- 차원문
-    if (g_dimensionGateData:isStageDimensionGate(self.m_stageID)) then
+    if (g_dmgateData:isStageDimensionGate(self.m_stageID)) then
         vars['startBtnLabel']:setPositionX(0)
         vars['actingPowerNode']:setVisible(false)
     end

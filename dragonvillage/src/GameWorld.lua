@@ -339,7 +339,7 @@ function GameWorld:createComponents()
 
         -- 7. 차원문 던전
         elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
-            self.m_gameState = GameState_DimensionGate(self)
+            self.m_gameState = GameState_Dmgate(self)
         end
         
         -- 7. 깜짝 출현 던전

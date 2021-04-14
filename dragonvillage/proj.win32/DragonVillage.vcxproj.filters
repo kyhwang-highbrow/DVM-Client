@@ -4922,24 +4922,23 @@
     <None Include="..\src\UI_BattlePassInfoPopup.lua" />
     <None Include="..\src\GameWorldTrial.lua" />
     <None Include="..\src\SceneGameTrial.lua" />
-    <None Include="..\src\UI_DimensionGateShop.lua" />
-    <None Include="..\src\UI_DimensionGateScene.lua" />
     <None Include="..\src\GameState_Trial.lua" />
     <None Include="..\src\SummonedCreature.lua" />
     <None Include="..\src\TableSummonObject.lua" />
     <None Include="..\src\ServerData_Trial.lua" />
-    <None Include="..\src\ServerData_DimensionGate.lua" />
-    <None Include="..\src\UI_DimensionGateSceneStageItem.lua" />
-    <None Include="..\src\UI_DimensionGateItem.lua" />
     <None Include="..\src\CommonSummonedCreature.lua" />
-    <None Include="..\src\GameState_DimensionGate.lua" />
-    <None Include="..\src\SceneDimensionGate.lua" />
-    <None Include="..\src\UI_GameResult_DimensionGate.lua" />
     <None Include="..\src\UI_EventBingoPackagePopup.lua" />
-    <None Include="..\src\UI_DimensionGateItemRewardPopup.lua" />
-    <None Include="..\src\UI_DimensionGatePopup.lua" />
     <None Include="..\src\SkillScript_Charging.lua" />
     <None Include="..\src\SkillScript_Groggy.lua" />
+    <None Include="..\src\UI_GameResult_Dmgate.lua" />
+    <None Include="..\src\GameState_Dmgate.lua" />
+    <None Include="..\src\UI_DmgateDifficultyItem.lua" />
+    <None Include="..\src\UI_DmgatePopup.lua" />
+    <None Include="..\src\UI_DmgateScene.lua" />
+    <None Include="..\src\UI_DmgateShop.lua" />
+    <None Include="..\src\UI_DmgateStageItem.lua" />
+    <None Include="..\src\ServerData_Dmgate.lua" />
+    <None Include="..\src\SceneDmgate.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

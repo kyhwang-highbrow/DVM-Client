@@ -1,9 +1,9 @@
 local PARENT = GameState
 
 -------------------------------------
--- class GameState_DimensionGate
+-- class GameState_Dmgate
 -------------------------------------
-GameState_DimensionGate = class(PARENT, {
+GameState_Dmgate = class(PARENT, {
 
 })
 
@@ -12,14 +12,14 @@ GameState_DimensionGate = class(PARENT, {
 -- function init
 -- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
-function GameState_DimensionGate:init()
+function GameState_Dmgate:init()
     self.m_bgmBoss = 'bgm_dungeon_boss'
 end
 
 -------------------------------------
 -- function makeResultUI
 -------------------------------------
-function GameState_DimensionGate:makeResultUI(isSuccess)
+function GameState_Dmgate:makeResultUI(isSuccess)
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
@@ -42,12 +42,12 @@ function GameState_DimensionGate:makeResultUI(isSuccess)
     -- 2. UI 생성
     func_ui_result = function(ret)
 
-        g_dimensionGateData:response_dmgateInfo(ret)
+        g_dmgateData:response_dmgateInfo(ret)
         
         local world = self.m_world
         local stage_id = world.m_stageID
 
-        -- UI_GameResult_DimensionGate(stage_id,
+        -- UI_GameResult_Dmgate(stage_id,
         -- isSuccess,
         -- self.m_fightTimer,
         -- result_table['default_gold'],

@@ -249,7 +249,7 @@ local t_module = {
     'ServerData_EventIncarnationOfSins', -- 죄악의 화신 토벌작전
     'ServerData_RuneMemo', -- 룬 메모
     'ServerData_BattlePass', -- 패틀패스
-    'ServerData_DimensionGate', -- 시련(차원문)
+    'ServerData_Dmgate', -- 시련(차원문)
 
 
     -- Interface
@@ -478,7 +478,7 @@ local t_module = {
     'SceneGameIllusion',
     'SceneRuneGuardianDungeon',
     'SceneGameClanWar',
-    'SceneDimensionGate',
+    'SceneDmgate',
 
     -- Phys
 	'PhysWorld',
@@ -527,7 +527,7 @@ local t_module = {
     'GameState_RuneGuardianDungeon',
     'GameState_Illusion',
     'GameState_ClanWar',
-    'GameState_DimensionGate',
+    'GameState_Dmgate',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
@@ -1117,11 +1117,11 @@ local t_module = {
     
     
     -- UI : 시련
-    'UI_DimensionGateScene',
-    'UI_DimensionGateSceneStageItem',
-    'UI_DimensionGateItem',
-    'UI_DimensionGateShop',
-    'UI_DimensionGatePopup',
+    'UI_DmgateScene',
+    'UI_DmgateStageItem',
+    'UI_DmgateDifficultyItem',
+    'UI_DmgateShop',
+    'UI_DmgatePopup',
 
 
 	-- UI : 모험
@@ -1261,7 +1261,7 @@ local t_module = {
     'UI_GameResult_RuneGuardianDungeon',
     'UI_GameResult_Illusion',
     'UI_GameResult_ClanWar',
-    'UI_GameResult_DimensionGate',
+    'UI_GameResult_Dmgate',
     'UI_GamePause',
     'UI_GamePause_AncientTower',
     'UI_GamePause_NestDungeon',

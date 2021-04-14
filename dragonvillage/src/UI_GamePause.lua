@@ -28,7 +28,7 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
     local vars = self:load('ingame_pause_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
-    if g_dimensionGateData:isStageDimensionGate(self.m_stageID) then
+    if g_dmgateData:isStageDimensionGate(self.m_stageID) then
         vars['quickStartBtn']:setVisible(true)
         vars['quickStartBtn']:setEnabled(true)
     end
@@ -166,7 +166,8 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
             end
 	    elseif (stage_id == CLAN_WAR_STAGE_ID) then
             vars['contentsLabel']:setString(Str('클랜전'))
-
+        elseif (stage_id == GAME_MODE_DIMENSION_GATE) then
+            vars['contentsLabel']:setString(Str('차원문'))
 		else
             local table_drop = TableDrop()
             local t_drop = table_drop:get(stage_id)

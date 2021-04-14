@@ -784,7 +784,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
         -- 현재 하층이면
         --[[
         if (is_dm_gate_mode) then
-            local chapter_id = g_dimensionGateData:getChapterID(tonumber(g_gameScene.m_stageID))
+            local chapter_id = g_dmgateData:getChapterID(tonumber(g_gameScene.m_stageID))
             -- 리스트를 비워서 룬 효과를 무시한다.
             if (chapter_id <= 1) then
                 l_add_status = {}

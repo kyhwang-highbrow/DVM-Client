@@ -252,7 +252,7 @@ function StructProduct:isItBuyable()
 
 	if rawget(self, price_type) then
         if (self[price_type] ~= nil) then
-	        buy_cnt = g_dimensionGateData:getProductCount(self['product_id'])
+	        buy_cnt = g_dmgateData:getProductCount(self['product_id'])
         else
             -- 
             if IS_DEV_SERVER() then error('') end
@@ -434,7 +434,7 @@ function StructProduct:getBuyCountDesc()
     local price_type = self:getPriceType()
     if (rawget(self, price_type)) then
         if (self[price_type] ~= nil) then
-	        buy_cnt = g_dimensionGateData:getProductCount(self['product_id'])
+	        buy_cnt = g_dmgateData:getProductCount(self['product_id'])
         else
             -- 
             if IS_DEV_SERVER() then error('') end
@@ -676,7 +676,7 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
                     end
                 end
                 if count == nil then count = 1 end
-                g_dimensionGateData:request_buy(self, count, finish_cb)
+                g_dmgateData:request_buy(self, count, finish_cb)
             end
         else
             return
@@ -828,7 +828,7 @@ function StructProduct:checkMaxBuyCount()
 
     if (rawget(self, price_type)) then
 	    if (self[price_type] ~= nil) then
-	        buy_cnt = g_dimensionGateData:getProductCount(self['product_id'])
+	        buy_cnt = g_dmgateData:getProductCount(self['product_id'])
         else
             -- 
             if IS_DEV_SERVER() then error('') end
@@ -917,7 +917,7 @@ function StructProduct:getMaxBuyTermStr(use_rich)
     
     if (rawget(self, price_type)) then
         if (self[price_type] ~= nil) then
-            buy_cnt = g_dimensionGateData:getProductCount(product_id)
+            buy_cnt = g_dmgateData:getProductCount(product_id)
         else
             -- 
             if IS_DEV_SERVER() then error('') end
@@ -1040,7 +1040,7 @@ function StructProduct:isBuyAll()
     local buy_cnt
 	if rawget(self, price_type) then
         if (self[price_type] ~= nil) then
-            buy_cnt = g_dimensionGateData:getProductCount(product_id)
+            buy_cnt = g_dmgateData:getProductCount(product_id)
         else
             -- 
             if IS_DEV_SERVER() then error('') end

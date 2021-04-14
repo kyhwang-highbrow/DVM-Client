@@ -50,7 +50,7 @@ end
 -- class click_bannerBtn
 ----------------------------------------------------------------------
 function UI_BannerDmgate:click_bannerBtn()
-    if g_dimensionGateData:checkDmgateContentUnlocked() then
+    if g_dmgateData:checkDmgateContentUnlocked() then
         UINavigator:goTo('dmgate')
     else
         local text = self.vars['conditionLabel']:getString()

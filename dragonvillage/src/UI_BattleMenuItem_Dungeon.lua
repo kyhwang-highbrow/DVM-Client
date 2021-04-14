@@ -45,7 +45,7 @@ function UI_BattleMenuItem_Dungeon:initUI()
     vars['dscLabel']:setString(self:getDescStr(content_type))
 
     -- ccdump(content_type)
-    -- if (content_type == 'dmgate' and g_dimensionGateData:checkDmgateContentUnlocked()) then
+    -- if (content_type == 'dmgate' and g_dmgateData:checkDmgateContentUnlocked()) then
     --     vars['newSprite']:setVisible(true)
     -- end
 
@@ -97,7 +97,7 @@ end
 function UI_BattleMenuItem_Dungeon:notifiyNewContent()
     
         -- 차원문 컨텐츠 오픈 띠지
-        if (self.m_contentType == 'dmgate') and g_dimensionGateData:isShowLobbyBanner() then
+        if (self.m_contentType == 'dmgate') and g_dmgateData:isShowLobbyBanner() then
             local node = self.vars['newSprite']
             node:setVisible(true)
             -- node:setGlobalZOrder(node:getGlobalZOrder() + 1)

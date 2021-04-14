@@ -93,17 +93,17 @@ function Dragon:initDragonSkillManager(t_dragon_data)
     local table_dragon_skill = TableDragonSkill()
 
     --차원문 주간축복
-    local is_dmgate_stage = g_dimensionGateData:isStageDimensionGate(self.m_world.m_stageID)
+    local is_dmgate_stage = g_dmgateData:isStageDimensionGate(self.m_world.m_stageID)
 
     local is_skip_rune_skill = false
 
     PARENT.initDragonSkillManager(self, 'dragon', self.m_dragonID, evolution, true)
     --[[
     if (is_dmgate_stage) then 
-        local chapter_id = g_dimensionGateData:getChapterID(tonumber(self.m_world.m_stageID))
+        local chapter_id = g_dmgateData:getChapterID(tonumber(self.m_world.m_stageID))
 
         if (chapter_id > 1) then
-            local buff_list = g_dimensionGateData:getBuffList(DIMENSION_GATE_ANGRA)
+            local buff_list = g_dmgateData:getBuffList(DIMENSION_GATE_ANGRA)
 
             if (#buff_list > 0) then
                 for _, t_skill in pairs(buff_list) do

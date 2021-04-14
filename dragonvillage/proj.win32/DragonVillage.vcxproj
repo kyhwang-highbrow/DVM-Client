@@ -340,7 +340,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameEnrageDirector.lua" />
     <None Include="..\src\GameHighlightMgr.lua" />
     <None Include="..\src\GameMana.lua" />
-    <None Include="..\src\GameState_DimensionGate.lua" />
+    <None Include="..\src\GameState_Dmgate.lua" />
     <None Include="..\src\GameState_Trial.lua" />
     <None Include="..\src\GameState_AncientRuin.lua" />
     <None Include="..\src\GameState_AncientTower.lua" />
@@ -493,7 +493,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\RenderTextureBatchNode.lua" />
     <None Include="..\src\ResHelper.lua" />
     <None Include="..\src\ScenarioViewingHistory.lua" />
-    <None Include="..\src\SceneDimensionGate.lua" />
+    <None Include="..\src\SceneDmgate.lua" />
     <None Include="..\src\SceneForest.lua" />
     <None Include="..\src\SceneGameArena.lua" />
     <None Include="..\src\SceneGameArenaNew.lua" />
@@ -540,7 +540,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Colosseum.lua" />
     <None Include="..\src\ServerData_ContentLock.lua" />
     <None Include="..\src\ServerData_DailyMission.lua" />
-    <None Include="..\src\ServerData_DimensionGate.lua" />
+    <None Include="..\src\ServerData_Dmgate.lua" />
     <None Include="..\src\ServerData_DragonBoard.lua" />
     <None Include="..\src\ServerData_DragonDiary.lua" />
     <None Include="..\src\ServerData_Eggs.lua" />
@@ -1312,12 +1312,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_CouponPopup_Confirm.lua" />
     <None Include="..\src\UI_DailyMisson_Clan.lua" />
     <None Include="..\src\UI_DiceEvent.lua" />
-    <None Include="..\src\UI_DimensionGateItem.lua" />
-    <None Include="..\src\UI_DimensionGateItemRewardPopup.lua" />
-    <None Include="..\src\UI_DimensionGatePopup.lua" />
-    <None Include="..\src\UI_DimensionGateScene.lua" />
-    <None Include="..\src\UI_DimensionGateSceneStageItem.lua" />
-    <None Include="..\src\UI_DimensionGateShop.lua" />
+    <None Include="..\src\UI_DmgateDifficultyItem.lua" />
+    <None Include="..\src\UI_DmgatePopup.lua" />
+    <None Include="..\src\UI_DmgateScene.lua" />
+    <None Include="..\src\UI_DmgateShop.lua" />
+    <None Include="..\src\UI_DmgateStageItem.lua" />
     <None Include="..\src\UI_DragonCard_Gacha.lua" />
     <None Include="..\src\UI_DragonChanceUp.lua" />
     <None Include="..\src\UI_DragonChanceUpListItem.lua" />
@@ -1465,7 +1464,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_GamePause_EventGoldDungeon.lua" />
     <None Include="..\src\UI_GameResult_AncientRuin.lua" />
     <None Include="..\src\UI_GameResult_ClanWar.lua" />
-    <None Include="..\src\UI_GameResult_DimensionGate.lua" />
+    <None Include="..\src\UI_GameResult_Dmgate.lua" />
     <None Include="..\src\UI_GameResult_Illusion.lua" />
     <None Include="..\src\UI_GameResult_RuneGuardianDungeon.lua" />
     <None Include="..\src\UI_Game_Mana.lua" />

@@ -145,7 +145,7 @@ function UI_BundlePopup:click_quantityBtn(is_add)
 
 	if (rawget(struct_product, price_type)) then
 		if (struct_product[price_type] ~= nil) then
-			cur_buy_cnt = g_dimensionGateData:getProductCount(struct_product['product_id'])
+			cur_buy_cnt = g_dmgateData:getProductCount(struct_product['product_id'])
 		else
 			return
 		end 

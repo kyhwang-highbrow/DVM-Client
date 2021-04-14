@@ -142,7 +142,7 @@ function ServerData_Stage:getStageName(stage_id)
     -- 차원문
     elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
 		--name = TABLE:get('stage_data')[stage_id]['t_name']
-        name = g_dimensionGateData:getStageName(stage_id)
+        name = g_dmgateData:getStageName(stage_id)
     end
 
     return name

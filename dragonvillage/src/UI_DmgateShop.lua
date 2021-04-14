@@ -6,7 +6,7 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 
-UI_DimensionGateShop = class(PARENT, {
+UI_DmgateShop = class(PARENT, {
     m_dragonNode = '',
     m_relationNode = '',
     m_listNode = '',
@@ -21,11 +21,11 @@ UI_DimensionGateShop = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DimensionGateShop:init() 
+function UI_DmgateShop:init() 
     local vars = self:load('dmgate_shop.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DimensionGateShop')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DmgateShop')
     
     self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
     self:doActionReset()
@@ -34,7 +34,7 @@ function UI_DimensionGateShop:init()
     -- local function coroutine_function()
     --     local co = CoroutineHelper()
     --     co:work('# 차원문 상점 정보 받는 중')
-    --     g_dimensionGateData:request_shopInfo(co.NEXT, co.ESCAPE)
+    --     g_dmgateData:request_shopInfo(co.NEXT, co.ESCAPE)
     --     if co:waitWork() then return end
 
     --     co:close()
@@ -56,7 +56,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DimensionGateShop:initMember() 
+function UI_DmgateShop:initMember() 
     local vars = self.vars
 
     self.m_dragonNode = vars['dragonNode']
@@ -67,7 +67,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DimensionGateShop:initUI() 
+function UI_DmgateShop:initUI() 
     local vars = self.vars
     local dragon_id = 120742
 
@@ -106,14 +106,14 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_DimensionGateShop:initButton() 
+function UI_DmgateShop:initButton() 
 
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_DimensionGateShop:refresh()
+function UI_DmgateShop:refresh()
     if self.m_relationUI then
         self.m_relationUI:refresh()
     end
@@ -126,12 +126,12 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DimensionGateShop:initTableView() 
+function UI_DmgateShop:initTableView() 
     local vars = self.vars
 
     self.m_listNode:removeAllChildren()
 
-    local product_list = g_dimensionGateData:getShopInfoProductList()
+    local product_list = g_dmgateData:getShopInfoProductList()
 
     local function create_callback(ui, data)
         -- ui.m_buyBtn:registerScriptTapHandler(function() 
@@ -150,7 +150,7 @@ function UI_DimensionGateShop:initTableView()
     --table_view:setCellSizeToNodeSize(true)
     table_view.m_cellSize = cc.size(205 + 5, 275 + 5)
     table_view.m_nItemPerCell = 4
-    table_view:setCellUIClass(UI_DimensionGateShopItem, create_callback)
+    table_view:setCellUIClass(UI_DmgateShopItem, create_callback)
     
     table_view:setItemList(product_list)
     table_view.m_scrollView:setTouchEnabled(false)
@@ -165,8 +165,8 @@ end
 -- function initParentVariable
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 -------------------------------------
-function UI_DimensionGateShop:initParentVariable()
-    self.m_uiName = 'UI_DimensionGateShop'
+function UI_DmgateShop:initParentVariable()
+    self.m_uiName = 'UI_DmgateShop'
     self.m_titleStr = Str('차원문 상점')
     self.m_subCurrency = 'medal_angra' -- 
     self.m_bVisible = true
@@ -177,7 +177,7 @@ end
 -- function onClose
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 -------------------------------------
-function UI_DimensionGateShop:onClose() 
+function UI_DmgateShop:onClose() 
     self:releaseI_TopUserInfo_EventListener()
     g_currScene:removeBackKeyListener(self)
 end
@@ -185,7 +185,7 @@ end
 -- function onFocus
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 -------------------------------------
-function UI_DimensionGateShop:onFocus() 
+function UI_DmgateShop:onFocus() 
 
 end
 
@@ -194,7 +194,7 @@ end
 -- function click_exitBtn
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 -------------------------------------
-function UI_DimensionGateShop:click_exitBtn()
+function UI_DmgateShop:click_exitBtn()
    self:close()
 end
 
@@ -221,9 +221,9 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- ['product_id']=10102;
 -- ['price']=20;
 -------------------------------------
--- function UI_DimensionGateShopItem
+-- function UI_DmgateShopItem
 -------------------------------------
-UI_DimensionGateShopItem = class(PARENT, {
+UI_DmgateShopItem = class(PARENT, {
     m_itemData = '',
 
     -- nodes in ui
@@ -242,9 +242,9 @@ UI_DimensionGateShopItem = class(PARENT, {
 
 
 -------------------------------------
--- function UI_DimensionGateShopItem
+-- function UI_DmgateShopItem
 -------------------------------------
-function UI_DimensionGateShopItem:init(data)
+function UI_DmgateShopItem:init(data)
     local vars = self:load('dmgate_shop_item.ui')
     self.m_itemData = data
     self.m_itemNode = vars['itemNode']
@@ -263,9 +263,9 @@ function UI_DimensionGateShopItem:init(data)
 end
 
 -------------------------------------
--- function UI_DimensionGateShopItem
+-- function UI_DmgateShopItem
 -------------------------------------
-function UI_DimensionGateShopItem:initUI()
+function UI_DmgateShopItem:initUI()
 
     self.m_itemLabel:setString(Str(self.m_itemData['t_name'])) -- 상품 이름
     
@@ -289,18 +289,18 @@ function UI_DimensionGateShopItem:initUI()
 end
 
 -------------------------------------
--- function UI_DimensionGateShopItem
+-- function UI_DmgateShopItem
 -------------------------------------
-function UI_DimensionGateShopItem:initButton()
+function UI_DmgateShopItem:initButton()
     self.m_buyBtn:registerScriptTapHandler(function() self:click_buyBtn() end)
 end
 
 -------------------------------------
--- function UI_DimensionGateShopItem
+-- function UI_DmgateShopItem
 -------------------------------------
-function UI_DimensionGateShopItem:refresh()
+function UI_DmgateShopItem:refresh()
     local maxCount = self.m_itemData['max_buy_count']
-    local productCount = g_dimensionGateData:getProductCount(self.m_itemData['product_id'])
+    local productCount = g_dmgateData:getProductCount(self.m_itemData['product_id'])
     if productCount == nil or maxCount == '' then
         self.m_maxProductNumLabel:setVisible(false)
     else
@@ -316,7 +316,7 @@ end
 -------------------------------------
 -- function click_buyBtn
 -------------------------------------
-function UI_DimensionGateShopItem:click_buyBtn()
+function UI_DmgateShopItem:click_buyBtn()
     -- 재화 부족
     -- if ConfirmPriceByItemID(self.m_itemData['medal'], self.m_itemData['price']) == false then
     --    return 

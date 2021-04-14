@@ -1,22 +1,20 @@
 local PARENT = UI
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
 --//  
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
--------------------------------------
--- class UI_BattlePassInfoPopup
+
+----------------------------------------------------------------------
+-- class UI_DmgateInfoBtnPopup
 -- @brief 
--------------------------------------
-UI_DimensionGateInfoPopup = class(PARENT,{
-    })
+----------------------------------------------------------------------
+UI_DmgateInfoBtnPopup = class(PARENT, {})
  
--------------------------------------
+----------------------------------------------------------------------
 -- function init
--------------------------------------
-function UI_DimensionGateInfoPopup:init()
-	self.m_uiName = 'UI_DimensionGateInfoPopup'
+----------------------------------------------------------------------
+function UI_DmgateInfoBtnPopup:init()
+	self.m_uiName = 'UI_DmgateInfoBtnPopup'
 
     local vars = self:load('dmgate_info_popup.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -27,42 +25,19 @@ function UI_DimensionGateInfoPopup:init()
     self:doAction(nil, false)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DimensionGateInfoPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DmgateInfoBtnPopup')
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
--------------------------------------
--- function initUI
--------------------------------------
-function UI_DimensionGateInfoPopup:initUI()
-end
-
--------------------------------------
--- function initButton
--------------------------------------
-function UI_DimensionGateInfoPopup:initButton()
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_DimensionGateInfoPopup:refresh()
-end
-
-
-
-
---////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --//  
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
 
--------------------------------------
--- class UI_DimensionGateBlessPopup
+----------------------------------------------------------------------
+-- class UI_DmgateBlessBtnPopup
 -- @brief 
--------------------------------------
-UI_DimensionGateBlessPopup = class(PARENT,{
+----------------------------------------------------------------------
+UI_DmgateBlessBtnPopup = class(PARENT,{
     m_titleNode = '',
 
     m_scrollNode = '',
@@ -71,8 +46,8 @@ UI_DimensionGateBlessPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DimensionGateBlessPopup:init()
-    self.m_uiName = 'UI_DimensionGateBlessPopup'
+function UI_DmgateBlessBtnPopup:init()
+    self.m_uiName = 'UI_DmgateBlessBtnPopup'
     local vars = self:load('dmgate_bless_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -85,7 +60,7 @@ function UI_DimensionGateBlessPopup:init()
     self:doAction(nil, false)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DimensionGateBlessPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DmgateBlessBtnPopup')
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 
     self:initUI()
@@ -96,21 +71,19 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DimensionGateBlessPopup:initUI()
+function UI_DmgateBlessBtnPopup:initUI()
 
-    local buff_list = g_dimensionGateData:getBuffList(DIMENSION_GATE_ANGRA)
+    local buff_list = g_dmgateData:getBuffList(DIMENSION_GATE_ANGRA)
     self.m_titleNode:setString('시즌 효과')
 
 
     local function create_callback(ui, data)
-
     end
-
-    -- -- 
+    
     local tableview = UIC_TableView(self.m_scrollNode)
     tableview:setCellSizeToNodeSize(true)
     tableview:setGapBtwCells(5)
-    tableview:setCellUIClass(UI_DimensionGateBlessPopupItem, create_callback)
+    tableview:setCellUIClass(UI_DmgateBlessItem, create_callback)
     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     tableview:setAlignCenter(true)
     tableview:setItemList(buff_list, true)
@@ -122,22 +95,22 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_DimensionGateBlessPopup:initButton()
+function UI_DmgateBlessBtnPopup:initButton()
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_DimensionGateBlessPopup:refresh()
+function UI_DmgateBlessBtnPopup:refresh()
 end
 
 
 
 -------------------------------------
--- class UI_DimensionGateBlessPopup
+-- class UI_DmgateBlessBtnPopup
 -- @brief 
 -------------------------------------
-UI_DimensionGateBlessPopupItem = class(UI, ITableViewCell:getCloneTable(),{
+UI_DmgateBlessItem = class(UI, ITableViewCell:getCloneTable(),{
     m_buffNode = '',
     m_buffInfoLabel = '',
 })
@@ -146,9 +119,9 @@ UI_DimensionGateBlessPopupItem = class(UI, ITableViewCell:getCloneTable(),{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DimensionGateBlessPopupItem:init(data)
+function UI_DmgateBlessItem:init(data)
 
-    self.m_uiName = 'UI_DimensionGateBlessPopupItem'
+    self.m_uiName = 'UI_DmgateBlessItem'
     --self.m_spriteName = 'res/ui/icons/buff/${spriteName}.png'
     local vars = self:load('dmgate_bless_popup_item.ui')
 
@@ -164,16 +137,12 @@ function UI_DimensionGateBlessPopupItem:init(data)
     icon:setAnchorPoint(CENTER_POINT)
     self.m_buffNode:addChild(icon)
 end
-    
 
-
---////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --//  
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-UI_DimensionGateItemRewardPopup = class(PARENT, {
+UI_DmgateRewardBtnPopup = class(PARENT, {
     m_parentData = '',
     m_closeBtn = '',
     m_itemNodes = '',
@@ -184,11 +153,11 @@ UI_DimensionGateItemRewardPopup = class(PARENT, {
     m_checkBoxSpriteName = '',
 })
 
-function UI_DimensionGateItemRewardPopup:init(data)
+function UI_DmgateRewardBtnPopup:init(data)
     local vars = self:load('dmgate_scene_item_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DimensionGateItemRewardPopup')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DmgateRewardBtnPopup')
 
     self:initMember(data)
     self:initUI()
@@ -197,7 +166,7 @@ function UI_DimensionGateItemRewardPopup:init(data)
 end
 
 
-function UI_DimensionGateItemRewardPopup:initMember(data)
+function UI_DmgateRewardBtnPopup:initMember(data)
     local vars = self.vars
     self.m_parentData = data
 
@@ -221,16 +190,16 @@ function UI_DimensionGateItemRewardPopup:initMember(data)
 end
 
 
-function UI_DimensionGateItemRewardPopup:initUI()
+function UI_DmgateRewardBtnPopup:initUI()
 end
 
 
-function UI_DimensionGateItemRewardPopup:initButton()
+function UI_DmgateRewardBtnPopup:initButton()
     self.m_closeBtn:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 
-function UI_DimensionGateItemRewardPopup:refresh()
+function UI_DmgateRewardBtnPopup:refresh()
 
     local itemCount = #self.m_parentData
 
@@ -247,32 +216,13 @@ function UI_DimensionGateItemRewardPopup:refresh()
 
         self.m_itemMenues[1]:setPositionX(self.m_itemMenues[2]:getPositionX())
     end
-    
-
-    -- local itemNum = #self.m_parentData
-    -- local menuNum = #self.m_itemMenues
-    -- local diffNum = (menuNum - itemNum)
-
-    -- for i = diffNum, menuNum do 
-    --     self.m_itemMenues[i]:setVisible(false)
-    -- end
-
-    -- for i = 1, itemNum do
-    --     self:create_itemCard(self.m_parentData[i]['item'], i)            
-    -- end
-
-    -- -- TODO : 임시 재배치. 자동으로 배치되도록 수정 필요
-    -- if itemNum == 1 then
-    --     self.m_itemMenues[1]:setPositionX(self.m_itemMenues[2]:getPositionX())
-    -- end
-
 end
 
-function UI_DimensionGateItemRewardPopup:click_closeBtn()
+function UI_DmgateRewardBtnPopup:click_closeBtn()
     self:close()
 end
 
-function UI_DimensionGateItemRewardPopup:create_itemCard(str, index)
+function UI_DmgateRewardBtnPopup:create_itemCard(str, index)
     local ITEM_ID = 1
     local ITEM_NUM = 2
     local itemString = seperate(str, ';')
@@ -282,20 +232,7 @@ function UI_DimensionGateItemRewardPopup:create_itemCard(str, index)
     local card = UI_ItemCard(item_id, item_num)
     self.m_itemNodes[index]:addChild(card.root)
 
-    if(g_dimensionGateData:isStageRewarded(self.m_parentData[index]['stage_id'])) then
+    if(g_dmgateData:isStageRewarded(self.m_parentData[index]['stage_id'])) then
         self.m_itemCompleteNotes[index]:setVisible(true)
-        -- local checkBoxSprite = cc.Sprite:create(self.m_checkBoxSpriteName)
-        -- if (checkBoxSprite) then
-        --     --checkBoxSprite:setPosition(self.m_itemNodes[index]:getPosition())
-        --     --checkBoxSprite:setScale(size)
-            
-	    --     checkBoxSprite:setDockPoint(CENTER_POINT)
-	    --     checkBoxSprite:setAnchorPoint(CENTER_POINT)
-        --     --checkBoxSprite:setContentSize(size)
-        --     checkBoxSprite:setScale(2)
-        --     --checkBoxSprite:setDockPoint(cc.p(0.5, 0.5))
-        --     --checkBoxSprite:setAnchorPoint(cc.p(0.5, 0.5))
-        --     self.m_itemNodes[index]:addChild(checkBoxSprite)
-        -- end
     end
 end

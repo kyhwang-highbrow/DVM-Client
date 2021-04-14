@@ -213,7 +213,7 @@ function UI_Lobby:entryCoroutine()
         -- 차원문 
         do 
             co:work('# 차원문 정보 받는 중')
-            g_dimensionGateData:request_dmgateInfo(co.NEXT, co.ESCAPE)
+            g_dmgateData:request_dmgateInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
@@ -2648,7 +2648,7 @@ function UI_Lobby:refresh_rightBanner()
     end
 
     -- 차원문 오픈 배너
-    if g_dimensionGateData:isShowLobbyBanner() then
+    if g_dmgateData:isShowLobbyBanner() then
         if (not vars['banner_dmgate']) then
             local banner = UI_BannerDmgate()
             vars['bannerMenu']:addChild(banner.root)

@@ -50,7 +50,7 @@ function StatusEffectUnit_Dot_Damage:calculateDotDmg()
     local unit_type = self.m_owner.m_charTable['type']
 	local damage_org
     local damage
-    local dungeon_id = g_dimensionGateData:getDungeonID(self.m_owner.m_world.m_stageID)
+    local dungeon_id = g_dmgateData:getDungeonID(self.m_owner.m_world.m_stageID)
 
     -----------------------------------------------------------
     -- 데미지 계산

@@ -13,9 +13,9 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- ['grade']=2;
 
 ----------------------------------------------------------------------
--- class UI_DimensionGateSceneStageItem
+-- class UI_DmgateDifficultyItem
 ----------------------------------------------------------------------
-UI_DimensionGateSceneStageItem = class(PARENT, {
+UI_DmgateDifficultyItem = class(PARENT, {
     m_data = '',
 
     m_stageID = '',
@@ -34,7 +34,7 @@ UI_DimensionGateSceneStageItem = class(PARENT, {
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_DimensionGateSceneStageItem:init(data)
+function UI_DmgateDifficultyItem:init(data)
     local vars = self:load('dmgate_scene_stage_item.ui')
     self:initMember(data)
     self:initUI()
@@ -46,7 +46,7 @@ end
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
-function UI_DimensionGateSceneStageItem:initMember(data)
+function UI_DmgateDifficultyItem:initMember(data)
     local vars = self.vars
 
     self.m_data = data
@@ -72,21 +72,21 @@ end
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
-function UI_DimensionGateSceneStageItem:initUI()
-    self.m_stageLabel:setString(g_dimensionGateData:getStageDiffText(self.m_stageID))
-    self.m_stageLabel:setTextColor(g_dimensionGateData:getStageDiffTextColor(self.m_stageID))
+function UI_DmgateDifficultyItem:initUI()
+    self.m_stageLabel:setString(g_dmgateData:getStageDiffText(self.m_stageID))
+    self.m_stageLabel:setTextColor(g_dmgateData:getStageDiffTextColor(self.m_stageID))
 end
 
 ----------------------------------------------------------------------
 -- function initButton
 ----------------------------------------------------------------------
-function UI_DimensionGateSceneStageItem:initButton()
+function UI_DmgateDifficultyItem:initButton()
 end
 
 ----------------------------------------------------------------------
 -- function refresh
 ----------------------------------------------------------------------
-function UI_DimensionGateSceneStageItem:refresh()
+function UI_DmgateDifficultyItem:refresh()
     self:refreshStarSprite()
     self:refreshLockSprite()
 end
@@ -94,8 +94,8 @@ end
 ----------------------------------------------------------------------
 -- function refreshLockSprite
 ----------------------------------------------------------------------
-function UI_DimensionGateSceneStageItem:refreshLockSprite()
-    local isStageOpened = g_dimensionGateData:isStageOpened(self.m_stageID) and g_dimensionGateData:checkStageTime(self.m_stageID)
+function UI_DmgateDifficultyItem:refreshLockSprite()
+    local isStageOpened = g_dmgateData:isStageOpened(self.m_stageID) and g_dmgateData:checkStageTime(self.m_stageID)
 
     self.m_lockSprite:setVisible(not isStageOpened)
     self.m_selectedBtn:setEnabled(isStageOpened)
@@ -104,9 +104,9 @@ end
 ----------------------------------------------------------------------
 -- function refreshStarSprite
 ----------------------------------------------------------------------
-function UI_DimensionGateSceneStageItem:refreshStarSprite()
+function UI_DmgateDifficultyItem:refreshStarSprite()
     local level = self.m_currDifficultyLevel
-    local isCleared = g_dimensionGateData:isStageCleared(self.m_stageID)
+    local isCleared = g_dmgateData:isStageCleared(self.m_stageID)
     
     for index, starSprite in pairs(self.m_defaultStarSprites) do
        
@@ -131,22 +131,22 @@ end
 ----------------------------------------------------------------------
 -- function set
 ----------------------------------------------------------------------
-function UI_DimensionGateSceneStageItem:getStageID()
+function UI_DmgateDifficultyItem:getStageID()
     return self.m_stageID
 end
 
 ----------------------------------------------------------------------
 -- function set
 ----------------------------------------------------------------------
-function UI_DimensionGateSceneStageItem:setStageID(stage_id)
+function UI_DmgateDifficultyItem:setStageID(stage_id)
     self.m_stageID = stage_id
-    self.m_currDifficultyLevel = g_dimensionGateData:getDifficultyID(self.m_stageID)
+    self.m_currDifficultyLevel = g_dmgateData:getDifficultyID(self.m_stageID)
 end
 
 
 ----------------------------------------------------------------------
 -- function is
 ----------------------------------------------------------------------
-function UI_DimensionGateSceneStageItem:isStageLocked()
+function UI_DmgateDifficultyItem:isStageLocked()
     return not self.m_lockSprite:isVisible()
 end
