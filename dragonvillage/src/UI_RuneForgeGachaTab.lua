@@ -1,5 +1,8 @@
 local PARENT = UI_IndivisualTab
 
+STANDARD_RUNE_PACKAGE_ID = 121401    -- 1+1 상품 id 121401 ~ 121404
+SPECIAL_RUNE_PACKAGE_ID = 121405    -- 1+1 상품 id 121405 ~ 121408
+
 -------------------------------------
 -- class UI_RuneForgeGachaTab
 -------------------------------------
@@ -40,9 +43,25 @@ end
 -------------------------------------
 function UI_RuneForgeGachaTab:initUI()
     local vars = self.vars
+    local start_product_id = STANDARD_RUNE_PACKAGE_ID
+
+    -- 상품에서 특별할인상품이 판매기간인지 체크
+    local special_product = g_shopDataNew:getTargetProduct(SPECIAL_RUNE_PACKAGE_ID)
+
+    if (special_product) then
+        remain_time = special_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변경
+        local can_buy = special_product:isItBuyable()
+
+        if (can_buy) then
+            start_product_id = SPECIAL_RUNE_PACKAGE_ID
+        end
+    end
+
+    -- 설정된 프로덕트 아이디도 포함시켜야 함
+    start_product_id = start_product_id - 1
 
     for i = 1, 4 do
-        local product_id = 121400 + i
+        local product_id = start_product_id + i
         vars['buyBtn' .. i]:registerScriptTapHandler(function() self:click_buyBtn(product_id) end)
         
         local struct_product = g_shopDataNew:getTargetProduct(product_id)
