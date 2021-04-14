@@ -2,13 +2,13 @@
 -- class UI_GamePause
 -------------------------------------
 UI_GamePause = class(UI, {
-        m_stageID = 'number',
-        m_gameKey = 'number',
-        m_startCB = 'function',
-        m_endCB = 'function',
+    m_stageID = 'number',
+    m_gameKey = 'number',
+    m_startCB = 'function',
+    m_endCB = 'function',
 
-        m_buttons = '',
-     })
+    m_buttons = 'List[UIC_Button]',
+ })
 
 -------------------------------------
 -- function init
@@ -33,34 +33,33 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
         vars['quickStartBtn']:setEnabled(true)
     end
 
-    -- self.m_buttons = {}
-    -- if vars['quickStartBtn'] and vars['quickStartBtn']:isVisible() then table.insert(self.m_buttons, vars['quickStartBtn']) end
-    -- if vars['continueButton'] and vars['continueButton']:isVisible() then table.insert(self.m_buttons, vars['continueButton']) end
-    -- if vars['retryButton'] and vars['retryButton']:isVisible() then table.insert(self.m_buttons, vars['retryButton']) end
-    -- if vars['settingButton'] and vars['settingButton']:isVisible() then table.insert(self.m_buttons, vars['settingButton']) end
+    self.m_buttons = {}
+    if vars['quickStartBtn'] and vars['quickStartBtn']:isVisible() then table.insert(self.m_buttons, vars['quickStartBtn']) end
+    if vars['continueButton'] and vars['continueButton']:isVisible() then table.insert(self.m_buttons, vars['continueButton']) end
+    if vars['retryButton'] and vars['retryButton']:isVisible() then table.insert(self.m_buttons, vars['retryButton']) end
+    if vars['settingButton'] and vars['settingButton']:isVisible() then table.insert(self.m_buttons, vars['settingButton']) end
 
-    -- local button_num = #self.m_buttons
-    -- local interval = self.m_buttons[2]:getPositionX() - self.m_buttons[1]:getPositionX()
-    -- local gap
+    local button_num = #self.m_buttons
+    local interval = self.m_buttons[2]:getPositionX() - self.m_buttons[1]:getPositionX()
+    local gap
 
-    -- if (button_num % 2) then
-    --     gap = -((button_num - 1) / 2)
-    -- else
-    --     gap = -((button_num / 2) - 0.5)
-    -- end
+    if (button_num % 2) then
+        gap = -((button_num - 1) / 2)
+    else
+        gap = -((button_num / 2) - 0.5)
+    end
 
-    -- local start_pos_x = (gap * interval)
+    local start_pos_x = (gap * interval)
 
-    -- for index, button in ipairs(self.m_buttons) do
-    --     if (index <= button_num) then
-    --         button:setPositionX(start_pos_x)
-    --         start_pos_x = start_pos_x + interval
-    --     else
-    --         button:setVisible(false)
-    --     end
-    -- end   
+    for index, button in ipairs(self.m_buttons) do
+        if (index <= button_num) then
+            button:setPositionX(start_pos_x)
+            start_pos_x = start_pos_x + interval
+        else
+            button:setVisible(false)
+        end
+    end  
 
-    vars['quickStartBtn']:registerScriptTapHandler(function() self:click_quickStartBtn() end)
     vars['retryButton']:registerScriptTapHandler(function() self:click_retryButton() end)
     vars['homeButton']:registerScriptTapHandler(function() self:click_homeButton() end)
     vars['contentsButton']:registerScriptTapHandler(function() self:click_homeButton() end)
@@ -100,7 +99,7 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
             vars['difficultyLabel']:setString(Str('불지옥'))
         end
     end
-    
+
     -- 스테이지 이름
     do
         local stage_name = g_stageData:getStageName(stage_id)
@@ -164,17 +163,16 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
             else
                 vars['contentsLabel']:setString(Str('고대의 탑'))
             end
-	    elseif (stage_id == CLAN_WAR_STAGE_ID) then
+        elseif (stage_id == CLAN_WAR_STAGE_ID) then
             vars['contentsLabel']:setString(Str('클랜전'))
-        elseif (stage_id == GAME_MODE_DIMENSION_GATE) then
-            vars['contentsLabel']:setString(Str('차원문'))
-		else
+
+        else
             local table_drop = TableDrop()
             local t_drop = table_drop:get(stage_id)
             vars['contentsLabel']:setString(Str(t_drop['t_name']))
         end
     end
-    
+
     self:doActionReset()
     self:doAction()
 
@@ -186,69 +184,51 @@ end
 -- function click_homeButton
 -------------------------------------
 function UI_GamePause:click_homeButton()
-    local function home_func()
-        local game_mode = g_gameScene.m_gameMode
-        local dungeon_mode = g_gameScene.m_dungeonMode
-        local condition = self.m_stageID
-        QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
-    end
-    
-    self:confirmExit(home_func)
+local function home_func()
+    local game_mode = g_gameScene.m_gameMode
+    local dungeon_mode = g_gameScene.m_dungeonMode
+    local condition = self.m_stageID
+    QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
+end
+
+self:confirmExit(home_func)
 end
 
 -------------------------------------
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause:click_retryButton()
-    local function retry_func()
-        local stage_id = g_currScene.m_stageID
-        UINavigator:goTo('adventure', stage_id)
-    end
-    
-    self:confirmExit(retry_func)
+local function retry_func()
+    local stage_id = g_currScene.m_stageID
+    UINavigator:goTo('adventure', stage_id)
+end
+
+self:confirmExit(retry_func)
 end
 
 -------------------------------------
 -- function click_statusInfoBtn
 -------------------------------------
 function UI_GamePause:click_statusInfoBtn()
-    UI_HelpStatus()
+UI_HelpStatus()
 end
 
 -------------------------------------
 -- function click_continueButton
 -------------------------------------
 function UI_GamePause:click_continueButton()
-    if self.m_endCB then
-        self.m_endCB()
-    end
+if self.m_endCB then
+    self.m_endCB()
+end
 
-    self:close()
+self:close()
 end
 
 -------------------------------------
 -- function click_settingButton
 -------------------------------------
 function UI_GamePause:click_settingButton()
-    UI_Setting()
-end
-
-function UI_GamePause:click_quickStartBtn()
-    local block_ui = UI_BlockPopup()
-
-    local deck_name = g_deckData:getSelectedDeckName()
-
-    local function finish_cb(game_key)
-        local stage_name = 'stage_' .. self.m_stageID
-
-        scene = SceneGame(game_key, self.m_stageID, stage_name, false)
-
-        scene:runScene()
-    end
-    
-    -- url : dmgate/start
-    -- required params : user_id, stage_id, deck_name, token
-    g_stageData:requestGameStart(self.m_stageID, deck_name, nil, finish_cb)
+UI_Setting()
 end
 
 -------------------------------------
@@ -256,31 +236,31 @@ end
 -- @brief 아군 상세 정보를 표시
 -------------------------------------
 function UI_GamePause:click_debug_heroInfoButton()
-    local world = g_gameScene.m_gameWorld
-    local str = ''
-    local list = {}
+local world = g_gameScene.m_gameWorld
+local str = ''
+local list = {}
 
-    for _, v in ipairs(world:getDragonList()) do
-        table.insert(list, v)
-    end
+for _, v in ipairs(world:getDragonList()) do
+    table.insert(list, v)
+end
 
-    -- 이름 순으로 정렬
-    if (#list > 1) then
-        table.sort(list, function(a, b)
-            return a:getName() < b:getName()
-        end)
-    end
-
-    for _, v in ipairs(list) do
-        local str_info = v:getAllInfomationString()
-        str = str .. str_info
-    end
-
-    self.root:setVisible(false)
-
-    UI_GameDebug_InfoPopup(str, function()  
-        self.root:setVisible(true)
+-- 이름 순으로 정렬
+if (#list > 1) then
+    table.sort(list, function(a, b)
+        return a:getName() < b:getName()
     end)
+end
+
+for _, v in ipairs(list) do
+    local str_info = v:getAllInfomationString()
+    str = str .. str_info
+end
+
+self.root:setVisible(false)
+
+UI_GameDebug_InfoPopup(str, function()  
+    self.root:setVisible(true)
+end)
 end
 
 -------------------------------------
@@ -288,70 +268,70 @@ end
 -- @brief 적군 상세 정보를 표시
 -------------------------------------
 function UI_GamePause:click_debug_enemyInfoButton()
-    local world = g_gameScene.m_gameWorld
-    local str = ''
-    local list = {}
+local world = g_gameScene.m_gameWorld
+local str = ''
+local list = {}
 
-    for _, v in ipairs(world:getEnemyList()) do
-        table.insert(list, v)
-    end
+for _, v in ipairs(world:getEnemyList()) do
+    table.insert(list, v)
+end
 
-    -- 이름 순으로 정렬
-    if (#list > 1) then
-        table.sort(list, function(a, b)
-            return a:getName() < b:getName()
-        end)
-    end
-
-    for _, v in ipairs(list) do
-        local str_info = v:getAllInfomationString()
-        str = str .. str_info
-    end
-
-    self.root:setVisible(false)
-
-    UI_GameDebug_InfoPopup(str, function()  
-        self.root:setVisible(true)
+-- 이름 순으로 정렬
+if (#list > 1) then
+    table.sort(list, function(a, b)
+        return a:getName() < b:getName()
     end)
+end
+
+for _, v in ipairs(list) do
+    local str_info = v:getAllInfomationString()
+    str = str .. str_info
+end
+
+self.root:setVisible(false)
+
+UI_GameDebug_InfoPopup(str, function()  
+    self.root:setVisible(true)
+end)
 end
 
 -------------------------------------
 -- function confirmExit
 -------------------------------------
 function UI_GamePause:confirmExit(exit_cb)
-    local msg = Str('지금 퇴장하면 {@RED}패배로 처리{@default}됩니다.\n그래도 나가시겠습니까?')
+local msg = Str('지금 퇴장하면 {@RED}패배로 처리{@default}됩니다.\n그래도 나가시겠습니까?')
 
-    local function ok_cb()
-        -- 게임 도중 나기기 버튼 클릭시 오토플레이 종료
-        g_autoPlaySetting:setAutoPlay(false)
+local function ok_cb()
+    -- 게임 도중 나기기 버튼 클릭시 오토플레이 종료
+    g_autoPlaySetting:setAutoPlay(false)
 
-        -- 아레나인 경우 강제 종료 로그 남김
-        if (self.m_stageID == ARENA_STAGE_ID) then
-            g_arenaData.m_tempLogData['force_exit'] = true
-        end
-
-        -- 아레나인 경우 강제 종료 로그 남김
-        if (self.m_stageID == ARENA_NEW_STAGE_ID) then
-            g_arenaData.m_tempLogData['force_exit'] = true
-        end
-
-        -- 아레나인 경우 강제 종료 로그 남김
-        if (self.m_stageID == GRAND_ARENA_STAGE_ID) then
-            g_grandArena.m_tempLogData['force_exit'] = true
-        end
-
-        -- 멈춘 상태에서 바로 종료될시 어색하므로 resume 시키고 종료
-        local world = g_gameScene.m_gameWorld
-        world.m_gameState:changeState(GAME_STATE_FAILURE)
-
-        if self.m_endCB then
-            self.m_endCB()
-        end
-
-        -- 터치는 안되게 
-        UI_BlockPopup()
-        self.root:setVisible(false)
+    -- 아레나인 경우 강제 종료 로그 남김
+    if (self.m_stageID == ARENA_STAGE_ID) then
+        g_arenaData.m_tempLogData['force_exit'] = true
     end
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
+    -- 아레나인 경우 강제 종료 로그 남김
+    if (self.m_stageID == ARENA_NEW_STAGE_ID) then
+        g_arenaData.m_tempLogData['force_exit'] = true
+    end
+
+    -- 아레나인 경우 강제 종료 로그 남김
+    if (self.m_stageID == GRAND_ARENA_STAGE_ID) then
+        g_grandArena.m_tempLogData['force_exit'] = true
+    end
+
+    -- 멈춘 상태에서 바로 종료될시 어색하므로 resume 시키고 종료
+    local world = g_gameScene.m_gameWorld
+    world.m_gameState:changeState(GAME_STATE_FAILURE)
+
+    if self.m_endCB then
+        self.m_endCB()
+    end
+
+    -- 터치는 안되게 
+    UI_BlockPopup()
+    self.root:setVisible(false)
+end
+
+MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
 end
