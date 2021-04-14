@@ -69,6 +69,8 @@ function UI_QuestPopup:initUI()
 	self.m_blockUI:setVisible(false)
 	g_currScene:removeBackKeyListener(self.m_blockUI)
 
+    self.m_blockUI.m_uiName = 'UI_QuestPopup'
+
     -- 일일 퀘스트 이벤트 활성화 여부, nil, true, false 3가지 상태를 사용한다.
     -- nil : 정의되지 않음. 어떤 상태로든 변화 가능
     -- true : 이벤트 활성화 상태, refresh 할때마다 이벤트의 상태를 체크한다.
