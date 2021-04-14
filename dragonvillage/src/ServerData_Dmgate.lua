@@ -423,8 +423,8 @@ function ServerData_Dmgate:getNextStageID(stage_id)
     local chapter_id = self:getChapterID(stage_id)
     local curr_stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
 
-    if (not key) then 
-        error('This stage_id is not included in table_dmgate_stage.')
+    if (not curr_stage_key) then 
+        error('This stage_id is not included in table_dmgate_stage. stage_id = ' .. tostring(stage_id))
     end
 
     local prev_stage_data = self.m_stageTable[mode_id][curr_stage_key + 1]
