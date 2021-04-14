@@ -636,9 +636,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
     local is_active_skill = attack_type == 'active'
+    local isAttackable = self:isAttackable(is_active_skill, attack_activity_carrier)
 
     -- 우선 공격 가능한지 체크한다
-    if (not self:isAttackable(is_active_skill, attack_activity_carrier)) then return end
+    if (not isAttackable) then return end
 
     local attack_add_cri_dmg = attack_activity_carrier:getAddCriPowerRate()
     local attack_hit_count = attack_activity_carrier:getSkillHitCount()
@@ -994,7 +995,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
 
         -- 피해 반사에 따른 받는 피해 감소
-        if (reflex_rate > 0) then
+        -- 상태효과에 따른 반사뎀 적용
+        -- isAttackable 은 액티브, 평타, 무적 status_effect 로 제어된다. 
+        if (reflex_rate > 0 and isAttackable) then
             damage_multifly = damage_multifly * (1 - reflex_rate)
 
             -- 반사 데미지 계산
