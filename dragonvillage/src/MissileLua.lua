@@ -35,6 +35,10 @@ end
 -- function st_move
 -------------------------------------
 function MissileLua.st_move(owner, dt)
+    if (not owner.m_target) then
+        owner:changeState('dying')
+    end
+
     local x, y = owner.m_rootNode:getPosition()
 
     local is_change_pos = false
