@@ -423,8 +423,8 @@ function ServerData_Dmgate:getNextStageID(stage_id)
     local chapter_id = self:getChapterID(stage_id)
     local curr_stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
 
-    if (not curr_stage_key) then 
-        error('This stage_id is not included in table_dmgate_stage. stage_id = ' .. tostring(stage_id))
+    if (not key) then 
+        error('This stage_id is not included in table_dmgate_stage.')
     end
 
     local prev_stage_data = self.m_stageTable[mode_id][curr_stage_key + 1]
@@ -981,11 +981,11 @@ function ServerData_Dmgate:Test(stage_id)
     local diff_id = self:getDifficultyID(required_stage_id)
     local stage_index = self:getStageID(required_stage_id)
 
-    local message = Str(DmgateStringTable['chapter'][chapter_id]) .. ' '
-    message = message .. tostring(stage_index) .. ' ' .. Str('스테이지') .. ' '
-    message = message .. Str(DmgateStringTable['difficulty'][diff_id]) .. ' ' .. Str('클리어 달성 시 오픈됩니다.')
+    local message = DmgateStringTable['chapter'][chapter_id] .. ' '
+    message = message .. tostring(stage_index) .. ' 스테이지 '
+    message = message .. DmgateStringTable['difficulty'][diff_id] .. ' 클리어가 필요합니다.'
 
-    UIManager:toastNotificationRed(message)
+    UIManager:toastNotificationRed(Str(message))
 end
 
 
