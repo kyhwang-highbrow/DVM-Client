@@ -3402,7 +3402,7 @@ end
 function Character:initSpeechUI()
     -- 말풍선
     self.m_characterSpeech = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
-    self.m_characterSpeech:setScale(0.6)
+    self.m_characterSpeech:setScale(0.9)
     self.m_characterSpeech:setVisual('skill_gauge', 'bubble_2')
     self.m_characterSpeech:setRepeat(false)
     self.m_characterSpeech:setVisible(false)
@@ -3415,7 +3415,7 @@ function Character:initSpeechUI()
     self.m_characterSpeechLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	self.m_characterSpeechLabel:setDockPoint(cc.p(0, 0))
 	self.m_characterSpeechLabel:setColor(cc.c3b(0,0,0))
-    self.m_characterSpeechLabel:setScale(font_scale_x * 1.4, font_scale_y * 1.4)
+    self.m_characterSpeechLabel:setScale(font_scale_x * 1.5, font_scale_y * 1.5)
     speechNode:addChild(self.m_characterSpeechLabel)
 end
 
