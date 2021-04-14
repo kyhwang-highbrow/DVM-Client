@@ -970,25 +970,8 @@ end
 
 
 ----------------------------------------------------------------------------
--- function @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
--- @todo : need to change the name of function
-
+-- function getModeCurrencyIcon
 ----------------------------------------------------------------------------
-function ServerData_Dmgate:Test(stage_id)
-    local required_stage_id = self:getConditionStageID(stage_id)
-
-    local chapter_id = self:getChapterID(required_stage_id)
-    local diff_id = self:getDifficultyID(required_stage_id)
-    local stage_index = self:getStageID(required_stage_id)
-
-    local message = DmgateStringTable['chapter'][chapter_id] .. ' '
-    message = message .. tostring(stage_index) .. ' 스테이지 '
-    message = message .. DmgateStringTable['difficulty'][diff_id] .. ' 클리어가 필요합니다.'
-
-    UIManager:toastNotificationRed(Str(message))
-end
-
-
 function ServerData_Dmgate:getModeCurrencyIcon(data)
     if data == nil then return nil end
     if (data['price_type'] == nil) then return nil end

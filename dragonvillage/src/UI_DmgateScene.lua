@@ -364,7 +364,7 @@ function UI_DmgateScene:click_difficultyBtn(itemUI)
  
     if target_stage_id ~= item_stage_id then
         if not g_dmgateData:isStageOpened(item_stage_id) then
-            g_dmgateData:Test(item_stage_id)
+            UIManager:toastNotificationRed(Str('이전 스테이지를 클리어하세요.'))
             return 
         end
 

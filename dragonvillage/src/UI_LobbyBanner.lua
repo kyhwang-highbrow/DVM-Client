@@ -53,9 +53,15 @@ function UI_BannerDmgate:click_bannerBtn()
     if g_dmgateData:checkDmgateContentUnlocked() then
         UINavigator:goTo('dmgate')
     else
-        local text = self.vars['conditionLabel']:getString()
+        local str = '입장 조건: {1}'
+
+        local table_content_lock = TABLE:get('table_content_lock')
+        local dmgate_data = table_content_lock['dmgate']
+        
+        local condition_str = UI_QuestListItem_Contents.makeConditionDesc(dmgate_data['req_stage_id'], dmgate_data['t_desc'])
+
         local text_color = self.vars['conditionLabel'].m_node:getTextColor()
-        UIManager:toastNotification(text, text_color)
+        UIManager:toastNotification(Str(str, condition_str), text_color)
     end
 end
 
