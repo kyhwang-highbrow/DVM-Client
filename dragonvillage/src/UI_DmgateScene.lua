@@ -70,13 +70,16 @@ function UI_DmgateScene:init(stage_id)
     UIManager:open(self, UIManager.SCENE)
 
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DmgateScene')    
-    --self:doActionReset()
-    --self:doAction(nil, false)
+    self:doActionReset()
+    self:doAction(nil, false)
 
     self:initMember(stage_id)
     self:initUI()
     self:initButton()
     self:refresh()
+
+    -- 시즌 타이머
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 
     self:sceneFadeInAction()
 end
@@ -146,9 +149,6 @@ end
 function UI_DmgateScene:initUI()
     -- UI_DmgateSceneItem의 TableView 
     self:initTableView()
-
-    -- 시즌 타이머
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
 
 ----------------------------------------------------------------------
@@ -171,7 +171,6 @@ function UI_DmgateScene:initButton()
         end
     end
         
-
     -- 시즌 효과 버튼
     self.m_seasonBtn:registerScriptTapHandler(function() self:click_seasonBtn() end)
     -- 도움말 버튼
@@ -199,6 +198,7 @@ end
 
 ----------------------------------------------------------------------
 -- function initTableView
+-- brief : 챕터 버튼 별로 UIC_TableView 생성을 위한 help function
 ----------------------------------------------------------------------
 function UI_DmgateScene:initTableView()
 
@@ -207,7 +207,8 @@ function UI_DmgateScene:initTableView()
         ui.root:setSwallowTouch(false)
     end
 
-    for i = 1, #self.m_chapterButtons do 
+    -- 챕터 버튼 수 만큼 TableView 생성
+    for i = 1, #self.m_chapterButtons do
         local tableview = UIC_TableView(self.m_dmgateNode)
         tableview:setAlignCenter(true)
         tableview:setCellSizeToNodeSize(true)

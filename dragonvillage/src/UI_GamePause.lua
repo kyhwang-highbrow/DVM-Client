@@ -60,6 +60,7 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
         end
     end  
 
+    vars['quickStartBtn']:registerScriptTapHandler(function() self:click_quickStartBtn() end)
     vars['retryButton']:registerScriptTapHandler(function() self:click_retryButton() end)
     vars['homeButton']:registerScriptTapHandler(function() self:click_homeButton() end)
     vars['contentsButton']:registerScriptTapHandler(function() self:click_homeButton() end)
@@ -178,6 +179,27 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_continueButton() end, 'UI_GamePause')
+end
+
+-------------------------------------
+-- function click_quickStartBtn
+-------------------------------------
+function UI_GamePause:click_quickStartBtn()
+    local block_ui = UI_BlockPopup()
+
+    local deck_name = g_deckData:getSelectedDeckName()
+
+    local function finish_cb(game_key)
+        local stage_name = 'stage_' .. self.m_stageID
+
+        scene = SceneGame(game_key, self.m_stageID, stage_name, false)
+
+        scene:runScene()
+    end
+    
+    -- url : dmgate/start
+    -- required params : user_id, stage_id, deck_name, token
+    g_stageData:requestGameStart(self.m_stageID, deck_name, nil, finish_cb)
 end
 
 -------------------------------------
