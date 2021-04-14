@@ -96,7 +96,8 @@ function UI_DmgateDifficultyItem:refreshLockSprite()
     self.m_selectedBtn:setEnabled(isStageOpened)
 end
 
-----------------------------------------------------------------------
+-------------------------------------------------------------
+---------
 -- function set
 ----------------------------------------------------------------------
 function UI_DmgateDifficultyItem:getStageID()
