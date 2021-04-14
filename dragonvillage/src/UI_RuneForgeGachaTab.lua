@@ -70,7 +70,10 @@ function UI_RuneForgeGachaTab:initUI()
 
         --local package_name = struct_product:getProductName()
         --vars['itemLabel' .. i]:setString(package_name)
---
+
+        local package_desc = struct_product:getProductDesc()
+        vars['itemLabel' .. i]:setString(Str(package_desc))
+
         --local package_desc = struct_product:getProductDesc()
         --vars['dscLabel' .. i]:setString(package_desc)
     end
