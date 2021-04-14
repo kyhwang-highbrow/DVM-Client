@@ -782,6 +782,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
 
         -- 차원문 모드일 때
         -- 현재 하층이면
+        --[[
         if (is_dm_gate_mode) then
             local chapter_id = g_dimensionGateData:getChapterID(tonumber(g_gameScene.m_stageID))
             -- 리스트를 비워서 룬 효과를 무시한다.
@@ -789,7 +790,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
                 l_add_status = {}
                 l_multi_status = {}
             end
-        end
+        end]]
 
         for stat_type,value in pairs(l_add_status) do
             local indivisual_status = status_calc.m_lStatusList[stat_type]
