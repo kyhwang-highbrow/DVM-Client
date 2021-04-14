@@ -384,7 +384,7 @@ end
 -- @brief 바로 가기 버튼을 누른 경우 
 -------------------------------------
 function UI_Package_Bundle:click_quickBtn()
-    if (self.m_package_name == 'package_rune_box') then
+    if (string.find(self.m_package_name, 'rune')) then
         UINavigator:goTo('rune_forge', 'gacha')
     elseif (self.m_package_name == 'package_super_slime_swarm') then
         UINavigator:goTo('slime_combine')
