@@ -266,12 +266,11 @@ end
 -- function UI_DmgateShopItem
 -------------------------------------
 function UI_DmgateShopItem:initUI()
-
+    local vars = self.vars
     self.m_itemLabel:setString(Str(self.m_itemData['t_name'])) -- 상품 이름
     
     local parsedItem = ServerData_Item:parsePackageItemStr(self.m_itemData['product_content'])[1]
-
-
+    
     -- -- 룬인 경우 능력치 표시
     -- if (self:isRuneItem()) then
     --     t_sub_data = self:getRuneData()
@@ -286,6 +285,9 @@ function UI_DmgateShopItem:initUI()
     
     
     self.m_priceLabel:setString(tostring(self.m_itemData['price']))
+    
+    UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
+
 end
 
 -------------------------------------
