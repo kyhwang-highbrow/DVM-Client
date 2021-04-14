@@ -981,9 +981,9 @@ function ServerData_Dmgate:Test(stage_id)
     local diff_id = self:getDifficultyID(required_stage_id)
     local stage_index = self:getStageID(required_stage_id)
 
-    local message = DmgateStringTable['chapter'][chapter_id] .. ' '
-    message = message .. tostring(stage_index) .. ' 스테이지 '
-    message = message .. DmgateStringTable['difficulty'][diff_id] .. ' 클리어가 필요합니다.'
+    local message = Str(DmgateStringTable['chapter'][chapter_id]) .. ' '
+    message = message .. tostring(stage_index) .. ' ' .. Str('스테이지') .. ' '
+    message = message .. Str(DmgateStringTable['difficulty'][diff_id]) .. ' ' .. Str('클리어 달성 시 오픈됩니다.')
 
     UIManager:toastNotificationRed(message)
 end
