@@ -236,6 +236,8 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
 		if (scale) then
 			self.m_animator:setScale(scale / 2)
 		end
+
+        self.m_originScale = self.m_animator:getScale()
     end
 
     -- 각종 쉐이더 효과 시 예외 처리할 슬롯 설정(Spine)
