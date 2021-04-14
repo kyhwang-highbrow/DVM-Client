@@ -26,6 +26,16 @@ function UI_ContentOpenPopup:init(content_type)
     self:doActionReset()
     self:doAction(function() self.m_bIsDoneUIAction = true end, false)
 
+    -- 차원문일 때 로컬에 저장해서
+    -- 로비 진입 시 컨텐츠 오픈 여부의 판단을 도와야 한다.
+    if (content_type == 'dmgate') then
+        -- 차원문은 로비 진입 시 보여줘야 할 수도 있기 때문에 
+        local has_dmgate_key = g_settingData:get('lobby_dmgate_open_notice') or false
+
+        if not has_dmgate_key then
+            g_settingData:applySettingData(true, 'lobby_dmgate_open_notice')
+        end 
+    end
 
     self:initUI()
     self:initButton()
