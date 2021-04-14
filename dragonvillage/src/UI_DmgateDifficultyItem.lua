@@ -16,19 +16,18 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_DmgateDifficultyItem
 ----------------------------------------------------------------------
 UI_DmgateDifficultyItem = class(PARENT, {
-    m_data = '',
+    m_data = 'table',
 
-    m_stageID = '',
-    m_currDifficultyLevel = '',
+    m_stageId = 'number',
+    m_currDifficultyLevel = 'number',
 
 
     -- nodes in ui file
-    m_selectedBtn = '',
-    m_stageLabel = '',
+    m_selectedBtn = 'UIC_Button',
+    m_stageLabel = 'UIC_LabelTTF',
 
-    m_defaultStarSprites = '', -- 흑백별
-    m_clearedStarSprites = '', -- 노란별
-    m_lockSprite = '', -- 자물쇠
+    m_lockSprite = 'Animator', -- 자물쇠
+    m_completeSprite = 'Animator', -- 스테이지 클리어
 })
 
 ----------------------------------------------------------------------
@@ -57,24 +56,15 @@ function UI_DmgateDifficultyItem:initMember(data)
     self.m_selectedBtn = vars['selectedBtn']
     self.m_stageLabel = vars['stageLabel']
     self.m_lockSprite = vars['lockSprite']
-
-    self.m_defaultStarSprites = {}
-    table.insert(self.m_defaultStarSprites, vars['noClearSprite1'])
-    table.insert(self.m_defaultStarSprites, vars['noClearSprite2'])
-    table.insert(self.m_defaultStarSprites, vars['noClearSprite3'])
-
-    self.m_clearedStarSprites = {}
-    table.insert(self.m_clearedStarSprites, vars['clearSprite1'])
-    table.insert(self.m_clearedStarSprites, vars['clearSprite2'])
-    table.insert(self.m_clearedStarSprites, vars['clearSprite3'])
+    self.m_completeSprite = vars['completeSprite']
 end
 
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
 function UI_DmgateDifficultyItem:initUI()
-    self.m_stageLabel:setString(g_dmgateData:getStageDiffText(self.m_stageID))
-    self.m_stageLabel:setTextColor(g_dmgateData:getStageDiffTextColor(self.m_stageID))
+    self.m_stageLabel:setString(g_dmgateData:getStageDiffText(self.m_stageId))
+    self.m_stageLabel:setTextColor(g_dmgateData:getStageDiffTextColor(self.m_stageId))
 end
 
 ----------------------------------------------------------------------
@@ -87,7 +77,12 @@ end
 -- function refresh
 ----------------------------------------------------------------------
 function UI_DmgateDifficultyItem:refresh()
-    self:refreshStarSprite()
+    if g_dmgateData:isStageCleared(self.m_stageId) then
+        self.m_completeSprite:setVisible(true)
+    else
+        self.m_completeSprite:setVisible(false)
+    end
+
     self:refreshLockSprite()
 end
 
@@ -95,52 +90,25 @@ end
 -- function refreshLockSprite
 ----------------------------------------------------------------------
 function UI_DmgateDifficultyItem:refreshLockSprite()
-    local isStageOpened = g_dmgateData:isStageOpened(self.m_stageID) and g_dmgateData:checkStageTime(self.m_stageID)
+    local isStageOpened = g_dmgateData:isStageOpened(self.m_stageId) and g_dmgateData:checkStageTime(self.m_stageId)
 
     self.m_lockSprite:setVisible(not isStageOpened)
     self.m_selectedBtn:setEnabled(isStageOpened)
 end
 
 ----------------------------------------------------------------------
--- function refreshStarSprite
-----------------------------------------------------------------------
-function UI_DmgateDifficultyItem:refreshStarSprite()
-    local level = self.m_currDifficultyLevel
-    local isCleared = g_dmgateData:isStageCleared(self.m_stageID)
-    
-    for index, starSprite in pairs(self.m_defaultStarSprites) do
-       
-        if index <= level then
-            starSprite:setVisible(true)
-        else
-            starSprite:setVisible(false)
-        end
-    end
-
-   
-    for index, starSprite in pairs(self.m_clearedStarSprites) do
-
-        if index <= level and isCleared then
-            starSprite:setVisible(true)
-        else
-            starSprite:setVisible(false)
-        end
-    end
-end
-
-----------------------------------------------------------------------
 -- function set
 ----------------------------------------------------------------------
 function UI_DmgateDifficultyItem:getStageID()
-    return self.m_stageID
+    return self.m_stageId
 end
 
 ----------------------------------------------------------------------
 -- function set
 ----------------------------------------------------------------------
 function UI_DmgateDifficultyItem:setStageID(stage_id)
-    self.m_stageID = stage_id
-    self.m_currDifficultyLevel = g_dmgateData:getDifficultyID(self.m_stageID)
+    self.m_stageId = stage_id
+    self.m_currDifficultyLevel = g_dmgateData:getDifficultyID(self.m_stageId)
 end
 
 

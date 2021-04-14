@@ -64,10 +64,6 @@ UI_DmgateStageItem = class(PARENT, {
     m_stageLevelText = '',          -- 상단 
     m_originStageLevelText = '',    -- 상단 
 
-    
-    --m_entireStar = '',
-    --m_starSprites = '',
-
     m_stageDiffLabel = '',
 
 
@@ -76,9 +72,6 @@ UI_DmgateStageItem = class(PARENT, {
 
     m_rewardLabel = '',
     m_originRewardText = '',
-
-    --m_clearedStarSpriteName = '',
-    --m_unclearedStarSpriteName = '',
 })
 
 
@@ -124,8 +117,6 @@ function UI_DmgateStageItem:refresh()
     --self.root:setOpacity(0)
     
     --cca.reserveFunc(self.root, 0.1, function() self.root:runAction(cc.FadeIn:create(1)) end)
-    
-    self:refreshStarSprites()
     self:refreshBackgroundVRP()
 
     self:refreshLockVRP()
@@ -159,9 +150,7 @@ function UI_DmgateStageItem:initMember(data)
     end
 
     self.m_targetData = self.m_data[self.m_currDiffIndex]
-    --self.m_clearedStarSpriteName = 'ui/icons/star/stage_clear_star_0101.png'
-    --self.m_unclearedStarSpriteName = 'ui/icons/star/stage_clear_star_0102.png'
-    
+
 
     -- update member data depend on the clear status of stage
     self.m_stageID = self.m_targetData['stage_id']
@@ -179,11 +168,6 @@ function UI_DmgateStageItem:initMember(data)
 
     self.m_stageDiffLabel = vars['stageDiffLabel']
     self.m_stageDiffLabel:setVisible(false)
-    -- self.m_entireStar = vars['starMenu']
-    -- self.m_starSprites = {}
-    -- table.insert(self.m_starSprites, vars['starSprite1'])
-    -- table.insert(self.m_starSprites, vars['starSprite2'])
-    -- table.insert(self.m_starSprites, vars['starSprite3'])
 
     self.m_rewardBtn = vars['rewardBtn']
     self.m_rewardVisual = vars['rewardVisual']   
@@ -196,44 +180,6 @@ end
 --//  TEMP (NEED TO REFACTORING)
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////\
-function UI_DmgateStageItem:refreshStarSprites()
-        -- 난이도 텍스트
-    -- if #self.m_data == 1 then
-    --     self.m_stageDiffLabel:setVisible(false)
-    --     return
-    -- end
-
-    -- self.m_stageDiffLabel:setVisible(true)
-    -- self.m_stageDiffLabel:setString(g_dmgateData:getStageDiffText(self.m_stageID))
-    -- self.m_stageDiffLabel:setTextColor(g_dmgateData:getStageDiffTextColor(self.m_stageID))
-
-    -- 난이도 별 스프라이트
-    -- if #self.m_data == 1 then
-    --     self.m_entireStar:setVisible(false)
-    --     return
-    -- end
-
-    -- --local level = self.m_currDiffIndex 
-    
-    -- local isCleared
-    -- for index, starSprite in pairs(self.m_starSprites) do
-    --     --if index <= level then
-    --         starSprite:setVisible(true)
-    --         if index <= self.m_currDiffIndex then
-    --             isCleared = g_dmgateData:isStageCleared(self.m_data[index]['stage_id'])
-    --         else
-    --             isCleared = false
-    --         end
-    --         if isCleared then
-    --             starSprite:setTexture(self.m_clearedStarSpriteName)
-    --         else
-    --             starSprite:setTexture(self.m_unclearedStarSpriteName)
-    --         end
-    --     --else
-    --     --    starSprite:setVisible(false)
-    --     --end
-    -- end
-end
 
 
 ----------------------------------------------------------------------
