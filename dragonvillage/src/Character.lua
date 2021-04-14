@@ -996,10 +996,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 피해 반사에 따른 받는 피해 감소
         -- 상태효과에 따른 반사뎀 적용
-        -- isAttackable 은 액티브, 평타, 무적 status_effect 로 제어된다. 
-        local is_reflectable = attacker_char:isAttackable(false)
-
-        if (reflex_rate > 0 and is_reflectable) then
+        if (reflex_rate > 0) then
             damage_multifly = damage_multifly * (1 - reflex_rate)
 
             -- 반사 데미지 계산
@@ -1117,6 +1114,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	end
 
     if (not no_event and attacker_char) then
+        -- isAttackable 은 액티브, 평타, 무적 status_effect 로 제어된다. 
+        local is_reflectable = attacker_char:isAttackable(false)
+        reflex_damage = is_reflectable and reflex_damage or 0
+
         -- 공격자 반사 데미지 처리
         if (reflex_damage > 0) then
             -- 진형에 따른 데미지 배율 적용
