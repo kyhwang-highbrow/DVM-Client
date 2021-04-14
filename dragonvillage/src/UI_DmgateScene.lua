@@ -202,6 +202,7 @@ end
 ----------------------------------------------------------------------
 function UI_DmgateScene:initTableView()
 
+    -- 생성되는 UI_DmgateStageItem 가 가지고 있는 'stageBtn'에 UI_DmgateScene:click_stageBtn()을 등록
     create_callback = function(ui, data)
         ui.m_stageBtn:registerScriptTapHandler(function() self:click_stageBtn(ui, data) end)
         ui.root:setSwallowTouch(false)
@@ -216,9 +217,9 @@ function UI_DmgateScene:initTableView()
         tableview:setCellUIClass(UI_DmgateStageItem, create_callback)
         tableview:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
         
-        local list = g_dmgateData:getStageListByChapter(self.m_modeId, i)
+        local list = g_dmgateData:getStageListByChapterId(self.m_modeId, i)
         
-        if (list == nil) then 
+        if (list == nil) then   -- 
             error('there isn\'t any stage corresponding with mode_id \'' .. tostring(mode_id) .. '\' and chapter_id \'' .. tostring(i) .. '\'') 
         end
 
@@ -239,6 +240,7 @@ function UI_DmgateScene:onClose()
     self:releaseI_TopUserInfo_EventListener()
     g_currScene:removeBackKeyListener(self)
 end
+
 ----------------------------------------------------------------------
 -- function onFocus
 -- @brief pure virtual function of ITopUserInfo_EventListener 
@@ -248,12 +250,15 @@ function UI_DmgateScene:onFocus()
 end
 
 
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  click functions
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ----------------------------------------------------------------------
 -- function click_exitBtn
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 ----------------------------------------------------------------------
 function UI_DmgateScene:click_exitBtn()
-
     if self.m_stageBtnUI then
         self:closeStageNode()
     elseif (g_currScene.m_sceneName == 'SceneDmgate') then
@@ -265,16 +270,12 @@ function UI_DmgateScene:click_exitBtn()
     end
 end
 
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---//  click functions
---////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 -------------------------------------------------------------------------------------------------------------
 -- function click_chapterBtn
 -------------------------------------------------------------------------------------------------------------
 function UI_DmgateScene:click_chapterBtn(chapter_id)
 
-    -- 스테이지 선택 후 정보 화면
+    -- 스테이지 선택 후 스테이지 정보 화면 닫음
     if (self.m_stageBtnUI) then
         self:closeStageNode()
     end
@@ -282,7 +283,8 @@ function UI_DmgateScene:click_chapterBtn(chapter_id)
     self.m_chapterId = chapter_id
 
     -- TODO : 210408 기준 앙그라 2챕터 중에 1챕터는 시즌 효과을 숨기지만 조건이 달라질 수 있기에 변경 필요
-    self.m_seasonBtn:setVisible(self.m_chapterId ~= 1)
+    --self.m_seasonBtn:setVisible(self.m_chapterId ~= 1)
+    self.m_seasonBtn:setVisible(false)
     self.m_timeNode:setVisible(self.m_chapterId ~= 1)
 
     local isSameIndex
@@ -298,6 +300,7 @@ end
 
 ----------------------------------------------------------------------------
 -- function click_blessBtn
+-- brief 시즌 효과 버튼 팝업
 ----------------------------------------------------------------------------
 function UI_DmgateScene:click_seasonBtn()
     UI_DmgateBlessBtnPopup()
@@ -305,6 +308,7 @@ end
 
 ----------------------------------------------------------------------------
 -- function click_infoBtn
+-- breif 도움말 버튼 팝업
 ----------------------------------------------------------------------------
 function UI_DmgateScene:click_infoBtn()
     UI_DmgateInfoBtnPopup()
@@ -312,6 +316,7 @@ end
 
 ----------------------------------------------------------------------------
 -- function click_shopBtn
+-- brief 상점 버튼 팝업
 ----------------------------------------------------------------------------
 function UI_DmgateScene:click_shopBtn()
     local function finish_cb()
@@ -322,8 +327,10 @@ end
 
 ----------------------------------------------------------------------------
 -- function click_stageBtn
+-- UI_DmgateStageItem의 'stageBtn'에 등록될 function
 ----------------------------------------------------------------------------
 function UI_DmgateScene:click_stageBtn(target_ui, data)
+    -- 
     if (self.m_stageBtnUI) then
         self:closeStageNode()
         return

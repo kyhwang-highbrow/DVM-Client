@@ -501,6 +501,29 @@ function ServerData_Fevertime:isActiveFevertime_dungeonRgStDc()
 
     return is_active_dg_rg_st_dc
 end
+-------------------------------------
+-- function isActiveFevertime_runeGachaUp
+-- @brief 7등급 룬 뽑기 확률 증가
+-- @return boolean
+-- is_active, value, l_ret 
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_runeGachaUp()
+    local is_active local value local l_ret
+    is_active, value, l_ret = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.RUNE_GACHA_UP)
+    return is_active, value, l_ret
+end
+
+-------------------------------------
+-- function isActiveFevertime_runeCombineUp
+-- @brief 7등급 룬 합성 확률 증가
+-- @return boolean
+-- is_active, value, l_ret 
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_runeCombineUp()
+    local is_active local value local l_ret
+    is_active, value, l_ret = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.RUNE_COMBINE_UP)
+    return is_active, value, l_ret
+end
 
 
 

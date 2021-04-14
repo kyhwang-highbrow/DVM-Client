@@ -77,13 +77,38 @@ function UI_RuneForgeGachaTab:initUI()
         --local package_desc = struct_product:getProductDesc()
         --vars['dscLabel' .. i]:setString(package_desc)
     end
-
-    if g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.RUNE_GACHA_UP) then
+    local is_active 
+    local value
+    local l_ret 
+    is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
+    if is_active then
         vars['runeEventMenu']:setVisible(true)
+        vars['eventInfoMenu']:setVisible(true)
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
+        
     end
 
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+end
+
+function UI_RuneForgeGachaTab:updateTimer(dt)
+    local vars = self.vars
+
+    is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
+    if is_active then
+        if #l_ret then l_ret = l_ret[1] end
+        
+        local start_time = l_ret['start_date']/1000
+        local end_time = l_ret['end_date']/1000
+        local curr_time = Timer:getServerTime()
+  
+        if (start_time <= curr_time) and (curr_time <= end_time) then
+            local time = (end_time - curr_time)
+            str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
+            vars['timeLabel']:setString(str)
+        end
+    end
 end
 
 -------------------------------------

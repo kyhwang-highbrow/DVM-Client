@@ -436,38 +436,26 @@ end
 
 ----------------------------------------------------------------------------
 -- function getStageListByChapter
+-- param mode_id     = number
+-- param chapter_id  = number
+-- return List[table]
 ----------------------------------------------------------------------------
-function ServerData_Dmgate:getStageListByChapter(mode_id, chapter_id)
+function ServerData_Dmgate:getStageListByChapterId(mode_id, chapter_id)
    local mode_table = self.m_stageTable[mode_id]
    if (mode_table == nil) then error('there is not any mode with this mode_id ' .. tostring(mode_id)) end
    local chapter_table = mode_table[chapter_id]
    if (chapter_table == nil) then error('there is not any chapter with this chapter_id ' .. tostring(chapter_id)) end
    local result = {}
 
-   local stage_id
-   local result_index
-   local diff_id
-
    for _, data in pairs(chapter_table) do
-        stage_id = data['stage_id']
+        local stage_id = data['stage_id']
 
-        diff_id = self:getDifficultyID(stage_id)
-        result_index = self:getStageID(stage_id)
+        local diff_id = self:getDifficultyID(stage_id)
+        local result_index = self:getStageID(stage_id)
+        
         if (result[result_index] == nil) then result[result_index] = {} end
         table.insert(result[result_index], data)
    end
-   
---    for _, data in pairs(mode_table) do
---         stage_id = data['stage_id']
-
---         if (self:getChapterID(stage_id) ==  chapter_id) then 
---             diff_id = self:getDifficultyID(stage_id)
---             result_index = self:getStageID(stage_id)
---             if (result[result_index] == nil) then result[result_index] = {} end
-
---             table.insert(result[result_index], data)
---         end
---    end
 
    return result
 end
