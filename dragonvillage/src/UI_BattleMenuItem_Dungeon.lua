@@ -99,12 +99,8 @@ function UI_BattleMenuItem_Dungeon:notifiyNewContent()
         -- 차원문 컨텐츠 오픈 띠지
         if (self.m_contentType == 'dmgate') and g_dmgateData:isShowLobbyBanner() then
             local node = self.vars['newSprite']
-            node:setVisible(true)
-            -- node:setGlobalZOrder(node:getGlobalZOrder() + 1)
-            -- -- sprite만 z order이 바뀌고 하위 노드는 적용되지 않아 하위 노드 따로 적용
-            -- local child_list = node:getChildren()
-            -- for _, child in pairs(child_list) do
-            --     child:setGlobalZOrder(child:getGlobalZOrder() + 1)
-            -- end
+            if node then
+                node:setVisible(true)
+            end
         end
 end
