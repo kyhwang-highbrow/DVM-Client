@@ -74,7 +74,7 @@ end
 function UI_DmgateBlessBtnPopup:initUI()
 
     local buff_list = g_dmgateData:getBuffList(DIMENSION_GATE_ANGRA)
-    self.m_titleNode:setString('시즌 효과')
+    self.m_titleNode:setString(Str('시즌 효과'))
 
 
     local function create_callback(ui, data)
