@@ -47,7 +47,7 @@ function ServerData_ContentLock:isContentLock(content_name)
 
 	-- [클랜전]
 	-- 1.클랜이 열려야 함 2.클랜에 가입되어 있어야함
-    local is_clan_open = self:isContentOepnByServer('clan')
+    local is_clan_open = self:isContentOpenByServer('clan')
     if (content_name == 'clan_war') then
         if (is_clan_open) then  
             local is_guest = g_clanData:isClanGuest()
@@ -74,7 +74,7 @@ function ServerData_ContentLock:isContentLock(content_name)
 
 	-- [클랜 던전]
 	-- 1.클랜이 열려야 함 2.클랜에 가입되어 있어야함
-    local is_clan_open = self:isContentOepnByServer('clan')
+    local is_clan_open = self:isContentOpenByServer('clan')
     if (content_name == 'clan_raid') then
         if (is_clan_open) then  
             local is_guest = g_clanData:isClanGuest()
@@ -85,7 +85,7 @@ function ServerData_ContentLock:isContentLock(content_name)
 
 	-- [룬 수호자의 던전]
 	-- 1.클랜이 열려야 함 2.클랜에 가입되어 있어야함 3. 악몽던전 10을 깨야함
-    local is_clan_open = self:isContentOepnByServer('clan')
+    local is_clan_open = self:isContentOpenByServer('clan')
     if (content_name == 'rune_guardian') then
         if (is_clan_open) then  
             local is_guest = g_clanData:isClanGuest()
@@ -102,7 +102,7 @@ function ServerData_ContentLock:isContentLock(content_name)
 	-- [캡슐 뽑기]
 	-- 스테이지 조건에 맞아야하고, 캡슐뽑기 열렸을 때에만 오픈
 	if (content_name == 'capsule') then
-		if (self:isContentOepnByServer(content_name)) then
+		if (self:isContentOpenByServer(content_name)) then
 			if (g_capsuleBoxData:getIsOpen()) then
 				return false
 			end	
@@ -117,7 +117,7 @@ function ServerData_ContentLock:isContentLock(content_name)
         return (not is_open)
     end
 
-    return not self:isContentOepnByServer(content_name)
+    return not self:isContentOpenByServer(content_name)
 end
 
 -------------------------------------
@@ -192,11 +192,11 @@ function ServerData_ContentLock:getContentsQuestList()
 end
 
 -------------------------------------
--- function isContentOepnByServer
+-- function isContentOpenByServer
 -- @param 로비통신에서 받는 콘텐츠 해금 여부
 -- @brief 서버 값에만 의존한 결과, 종합적으로 판단한 콘텐츠 해금 여부는 isContentLock 함수를 사용해야함
 -------------------------------------
-function ServerData_ContentLock:isContentOepnByServer(content_name)
+function ServerData_ContentLock:isContentOpenByServer(content_name)
     local t_content = self.m_tContentOpen or {}
     
     -- 언락 리스트에 없다면 잠금 조건없이 원래 열려있어야 하는 컨텐츠
