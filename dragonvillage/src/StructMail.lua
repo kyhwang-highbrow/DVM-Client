@@ -391,8 +391,10 @@ function StructMail:isPickItem()
     if (not self:getItemList()[1]) then
         return false
     end
+
+    -- 아이템 선택권 ID
     local item_id = self:getItemList()[1]['item_id']
-    return (item_id == 700701)
+    return (item_id == 700701 or item_id == 700702)
 end
 
 -------------------------------------
