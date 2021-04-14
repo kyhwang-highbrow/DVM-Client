@@ -101,7 +101,7 @@ end
 function ServerData_AutoPlaySetting:get(key)
     -- 차원문에서는 오토모드 항상 false
     if (key == 'auto_mode') then
-        if (g_gameScene and g_gameScene.m_gameMode == GAME_MODE_DIMENSION_GATE) then return false
+        if (g_gameScene and g_gameScene.m_gameMode == GAME_MODE_DIMENSION_GATE) then return false end
     end
 
     local ret = g_settingData:get('auto_play_setting', self.m_autoMode, key)
