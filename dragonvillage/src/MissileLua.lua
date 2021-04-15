@@ -22,7 +22,7 @@ MissileLua = class(Missile, {
 -- @param body
 -------------------------------------
 function MissileLua:init(file_name, body, ...)
-    self.m_deleteTimer = 2
+    self.m_deleteTimer = 7
 end
 
 -------------------------------------
@@ -39,7 +39,7 @@ end
 -------------------------------------
 function MissileLua.st_move(owner, dt)
     if (owner.m_stateTimer > owner.m_deleteTimer) then
-        if (owner.m_bHasTarget and not owner.m_target) then
+        if (not owner.m_target) then
             owner:changeState('dying')
         end
     end
