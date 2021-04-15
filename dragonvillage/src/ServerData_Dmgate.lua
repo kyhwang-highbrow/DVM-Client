@@ -125,7 +125,7 @@ function ServerData_Dmgate:response_dmgateInfo(ret)
         self.m_dmgateInfo = {}
         self:request_stageTable()
     end
-    ccdump(ret)
+
     -- 차원문 스테이지 종료 후 GameStage_DimensionGate에서 '/dmgate/finish'을 통해 불린 경우
     if (#self.m_dmgateInfo > 0) and (ret['added_item'] == nil) and (ret['stage'] ~= nil) then
         local stage_id = ret['stage'] -- 클리어한 스테이지 (type : number)

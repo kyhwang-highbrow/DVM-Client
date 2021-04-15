@@ -1115,8 +1115,19 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
     if (not no_event and attacker_char) then
         -- isAttackable 은 액티브, 평타, 무적 status_effect 로 제어된다. 
+        -- 반사뎀지 면역이면 데미지 0으로 설정
         local is_reflectable = attacker_char:isAttackable(false)
         reflex_damage = is_reflectable and reflex_damage or 0
+
+        -- 만약에 보스에 반 데미지 받을 수 있다면?
+        local is_boss = attacker_char:isBoss()
+        if (is_boss and is_reflectable) then
+            -- 반사 상태효과를 받고 있는 드래곤의 최대 체력의 20%를 넘을 수 없다.
+            local max_damage = self.m_maxHp * 0.2
+
+            -- 데미지 상한천 초과하면 상한선 값으로 데미지 고정
+            reflex_damage = math.min(reflex_damage, max_damage)
+        end
 
         -- 공격자 반사 데미지 처리
         if (reflex_damage > 0) then
