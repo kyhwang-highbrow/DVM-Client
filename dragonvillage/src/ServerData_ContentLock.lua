@@ -36,7 +36,6 @@ function ServerData_ContentLock:isContentLock(content_name)
     local table_content_lock = TABLE:get('table_content_lock')
     local t_content_lock = table_content_lock[content_name]
 
-
     -- 테이블에 없는데 조건 검사해야하는 던전들 =====================
 
     -- [그랜드 아레나 이벤트]
@@ -114,6 +113,11 @@ function ServerData_ContentLock:isContentLock(content_name)
 	-- 악몽 던전 클리어 여부로 검사
     if (content_name == 'ancient_ruin') then
         local is_open = g_ancientRuinData:isOpenAncientRuin()
+        return (not is_open)
+    end
+
+    if (content_name == 'dmgate') then
+        local is_open = g_dmgateData:checkDmgateContentUnlocked() 
         return (not is_open)
     end
 

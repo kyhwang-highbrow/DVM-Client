@@ -482,6 +482,8 @@ end
 function ServerData_Dmgate:getStageInfoList(mode_id)
     if not mode_id then error('Forgot to pass mode_id as param') end
 
+    if self.m_dmgateInfo[mode_id] == nil then return {} end
+
     return self.m_dmgateInfo[mode_id]['stage']
 end
 
@@ -493,7 +495,10 @@ function ServerData_Dmgate:getClearedMaxStageInList(mode_id)
 
     local maxStage_id = 0
     local stage_id
-    for key, stage_status in pairs(self:getStageInfoList(mode_id)) do
+    local list = self:getStageInfoList(mode_id)
+
+
+    for key, stage_status in pairs(list) do
         stage_id = tonumber(key)
         if (stage_id > maxStage_id) then
             if self:checkStageTime(stage_id) then

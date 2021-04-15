@@ -57,7 +57,7 @@ function GameState_Dmgate:makeResultUI(isSuccess)
         -- result_table['drop_reward_list'],
         -- result_table['secret_dungeon'],
         -- result_table['content_open'])
-        UI_GameResult_Test(stage_id, isSuccess, self.m_fightTimer)
+        UI_GameResult_Dmgate(stage_id, isSuccess, self.m_fightTimer)
 
         -- 나중에 팝업띄우고 싶으면 수석풀고 기능 완성시킴
         --if (isSuccess) then self:showChapterOpenPopup() end
