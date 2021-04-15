@@ -16,6 +16,8 @@ function SkillIndicatorMgr_ClanRaid:update(dt)
         else
             -- 인디케이터 충돌 정보를 매프레임 체크해야한다...
             self.m_selectHero:getSkillIndicator().m_bDirty = true
+
+            self:setPauseMode(true)
         end
 
     elseif (not self.m_world.m_gameState:isFight()) then
