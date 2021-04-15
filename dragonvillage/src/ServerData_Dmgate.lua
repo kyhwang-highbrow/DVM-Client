@@ -125,7 +125,6 @@ function ServerData_Dmgate:response_dmgateInfo(ret)
         self.m_dmgateInfo = {}
         self:request_stageTable()
     end
-
     -- 차원문 스테이지 종료 후 GameStage_DimensionGate에서 '/dmgate/finish'을 통해 불린 경우
     if (#self.m_dmgateInfo > 0) and (ret['added_item'] == nil) and (ret['stage'] ~= nil) then
         local stage_id = ret['stage'] -- 클리어한 스테이지 (type : number)
@@ -153,10 +152,9 @@ function ServerData_Dmgate:response_dmgateInfo(ret)
         --     end
         -- end
 
-        local stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
-        local next_stage_data = self.m_stageTable[mode_id][chapter_id][stage_key + 1]
-        if next_stage_data ~= nil then
-            local next_stage_id = next_stage_data['stage_id']
+        local next_stage_id = self:getNextStageID(stage_id)
+
+        if next_stage_id ~= nil then
             local prev_reward_status = self.m_dmgateInfo[mode_id]['stage'][tostring(next_stage_id)]
             local curr_reward_status = dmgate_info[mode_id]['stage'][tostring(next_stage_id)]
             if prev_reward_status == nil  and prev_reward_status ~= curr_reward_status then
@@ -435,15 +433,21 @@ function ServerData_Dmgate:getNextStageID(stage_id)
     local chapter_id = self:getChapterID(stage_id)
     local curr_stage_key = self.m_stageTableKeys[mode_id][chapter_id][stage_id]
 
-    if (not key) then 
+    if (not curr_stage_key) then 
         error('This stage_id is not included in table_dmgate_stage.')
     end
+    
+    local next_stage_data = self.m_stageTable[mode_id][chapter_id][curr_stage_key + 1]
 
-    local prev_stage_data = self.m_stageTable[mode_id][curr_stage_key + 1]
+    if next_stage_data == nil then 
+        if self.m_stageTable[mode_id][chapter_id + 1] then
+            next_stage_data = self.m_stageTable[mode_id][chapter_id + 1][1]
+        end
+    end
 
-    if prev_stage_data == nil then return nil end
+    if next_stage_data == nil then return nil end
 
-    return prev_stage_data['stage_id']
+    return next_stage_data['stage_id']
 end
 
 ----------------------------------------------------------------------------

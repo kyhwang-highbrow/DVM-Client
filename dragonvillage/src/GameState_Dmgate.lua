@@ -75,6 +75,7 @@ function GameState_Dmgate:showChapterOpenPopup()
 
     -- 다음 스테이지 id 받아오고
     local next_stage_id = g_dmgateData:getNextStageID(tonumber(g_gameScene.m_stageID))
+
     if (not next_stage_id) then return end
 
     -- 그 스테이지가 마침 상층 1스테이지며
@@ -83,7 +84,7 @@ function GameState_Dmgate:showChapterOpenPopup()
     if (not chapter_id or chapter_id < 2 or stage_id ~= 1) then return end
 
     -- 언락 연출을 보여줘야 한다면
-    local is_first_unlock = g_dmgateData:checkInUnlockList(next_stage_id)
+    --local is_first_unlock = g_dmgateData:checkInUnlockList(next_stage_id)
     
     --if (is_first_unlock) then UI_DmgateChapterOpenPopup() end
 end
