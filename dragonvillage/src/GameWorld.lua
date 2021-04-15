@@ -1242,7 +1242,7 @@ function GameWorld:resetListByStatusEffect(l_target, is_active_skill)
     for _, character in pairs(l_target) do
         local isAttackable = character:isAttackable(is_active_skill)
 
-        if (isAttackable) then
+        if (isAttackable == true) then
             table.insert(l_result, character)
         end
     end

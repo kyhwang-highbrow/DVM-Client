@@ -636,7 +636,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
     local is_active_skill = attack_type == 'active'
-    local isAttackable = defender:isAttackable(is_active_skill, attack_activity_carrier)
+    local isAttackable = self:isAttackable(is_active_skill, attack_activity_carrier)
 
     -- 우선 공격 가능한지 체크한다
     if (not isAttackable or isAttackable == false) then return end
@@ -2283,6 +2283,11 @@ function Character:isAttackable(is_active_skill, attack_activity_carrier)
     local has_without_skill_passive = self:isExistStatusEffectName('target_without_skill')
     local has_disabled_passive = self:isExistStatusEffectName('target_disabled')
 
+    cclog('가능')
+    cclog(has_active_only_passive)
+    cclog(has_without_skill_passive)
+    cclog(has_disabled_passive)
+
     -- 아예 못떄림
     if (has_disabled_passive) then
         is_attackable = false
@@ -2296,14 +2301,14 @@ function Character:isAttackable(is_active_skill, attack_activity_carrier)
         is_attackable = not is_active_skill
 
     end
-    
+
     -- 액티비티 캐리어가 없으면 그냥 결과 반환
     if (not attack_activity_carrier) then return is_attackable end
 
-    -- 일부 특별한 공격은 패스해줘야 한다.
-    -- 보스
+    -- 일부 특별한 공격은 무조건 적중.
     local skill_id = attack_activity_carrier:getSkillId()
     local t_skill = self:getSkillTable(skill_id)
+    local is_definite_target = false
 
     if (t_skill and t_skill['target_type']) then 
         local target_type = t_skill['target_type']
@@ -2312,10 +2317,15 @@ function Character:isAttackable(is_active_skill, attack_activity_carrier)
         local is_ally = string.find(target_type, 'ally')
         local is_boss = string.find(target_type, 'boss')
 
-        is_attackable = is_teammate or is_self or is_ally or is_boss
+        -- 이 중에 하나라도 해다된다면 타겟 지정 가능
+        if (is_teammate or is_self or is_ally or is_boss) then 
+            is_definite_target = true 
+        end
     end
 
-    if (not is_attackable) then is_attackable = true end
+    if (is_definite_target) then 
+        is_attackable = true
+    end
 
     return is_attackable
 end
