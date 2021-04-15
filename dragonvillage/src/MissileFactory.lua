@@ -235,7 +235,6 @@ function MissileFactory:makeMissile_(t_option)
 
     if missile then
         missile.m_owner = owner
-        missile.m_bHasTarget = target and true or false
 
 		-- 스킬 애니 속성 세팅
 		missile.m_animator:setAniAttr(t_option['attr_name'])

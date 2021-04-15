@@ -89,8 +89,6 @@ Missile = class(PARENT, {
 		m_lAddScriptTime = 'list',			-- 탄 발사 시간을 저장해놓아 프레임 저하가 있어도 전부 발사되도록함
 		m_fireCnt = '',
 
-        m_bHasTarget = '',
-
      })
 
 -------------------------------------
@@ -140,8 +138,6 @@ function Missile:init(file_name, body, ...)
     self.m_addScriptTargetList = nil
     self.m_addScriptTargetIdx = nil
 	self.m_fireCnt  = 0
-
-    self.m_bHasTarget = false
 end
 
 -------------------------------------

@@ -38,12 +38,6 @@ end
 -- function st_move
 -------------------------------------
 function MissileLua.st_move(owner, dt)
-    if (owner.m_stateTimer > owner.m_deleteTimer) then
-        if (owner.m_bHasTarget == true and not owner.m_target) then
-            owner:changeState('dying')
-        end
-    end
-
     local x, y = owner.m_rootNode:getPosition()
 
     local is_change_pos = false
@@ -71,6 +65,12 @@ function MissileLua.st_move(owner, dt)
 
         owner.m_beforePosX = x
         owner.m_beforePosY = y
+    else
+        if (owner.m_stateTimer > owner.m_deleteTimer) then
+            if (not owner.m_target) then
+                owner:changeState('dying')
+            end
+        end
     end
 end
 
