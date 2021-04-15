@@ -373,7 +373,7 @@ function UI_Lobby:entryCoroutine()
         -- 콘텐츠 오픈 팝업
         local has_dmgate_key = g_settingData:get('lobby_dmgate_open_notice') or false
 
-        if (not g_contentLockData:isContentLock('dmgate') and not has_dmgate_key) then
+        if (not g_contentLockData:isContentLock('dmgate') and g_dmgateData:checkDmgateContentUnlocked() and not has_dmgate_key) then
             UI_ContentOpenPopup('dmgate')
         end
 
