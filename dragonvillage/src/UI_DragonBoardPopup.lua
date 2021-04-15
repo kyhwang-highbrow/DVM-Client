@@ -308,7 +308,7 @@ end
 -------------------------------------
 function UI_DragonBoardPopup:click_assessBtn()
 	local did = self.m_did
-	local my_rate = self.m_tBoardData['myrate']
+	local my_rate = self.m_tBoardData and self.m_tBoardData['myrate'] or 0
 	local reveiw_func = function() self:click_writeBtn() end
 
 	local ui = UI_DragonBoardPopup_Evaluate(did, my_rate, reveiw_func)
