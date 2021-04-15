@@ -11,6 +11,8 @@ MissileLua = class(Missile, {
         m_value4 = '',
         m_value5 = '',
 
+        m_deleteTimer = '',
+
         m_lTarget = 'table',
      })
 
@@ -20,6 +22,7 @@ MissileLua = class(Missile, {
 -- @param body
 -------------------------------------
 function MissileLua:init(file_name, body, ...)
+    self.m_deleteTimer = 2
 end
 
 -------------------------------------
@@ -35,8 +38,10 @@ end
 -- function st_move
 -------------------------------------
 function MissileLua.st_move(owner, dt)
-    if (not owner.m_target) then
-        owner:changeState('dying')
+    if (owner.m_stateTimer > owner.m_deleteTimer) then
+        if (self.m_bHasTarget and not owner.m_target) then
+            owner:changeState('dying')
+        end
     end
 
     local x, y = owner.m_rootNode:getPosition()
