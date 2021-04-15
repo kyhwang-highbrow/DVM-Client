@@ -83,6 +83,10 @@ function UI_AcquisitionRegionListItem:initUI()
 			title_str = Str('토파즈 드래곤')
 			content_str = Str('토파즈 상점에서 구매')
 
+        elseif (get_type == 'dmgate') then
+			title_str = Str('차원문')
+			content_str = Str('차원문에서 획득')
+
         -- 슬라임
         elseif (get_type == 'slime_combine') then
             title_str = Str('슈퍼 슬라임 합성')
@@ -164,8 +168,10 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 		elseif (get_type == 'relation') then
 			UINavigator:goTo('hatchery', get_type)
         elseif (get_type == 'cardpack') then
-			UINavigator:goTo('shop', 'topaz') 
+			UINavigator:goTo('shop', 'topaz')
 
+        elseif (get_type == 'dmgate') then
+			UINavigator:goTo('dmgate')
         elseif (get_type == 'challenge_mode') then
             -- 그림자 신전이 열려있지 않다면 이동시키지 않음
             if (not g_challengeMode:isOpen_challengeMode()) then

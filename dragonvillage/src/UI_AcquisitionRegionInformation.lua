@@ -172,6 +172,11 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 			table.insert(l_region, 'cardpack')
 		end
 
+        -- 차원문
+		if (category == 'dmgate') then
+			table.insert(l_region, 'dmgate')
+		end
+
 		-- 아무것도 없다면 하나 출력해준다... 뭐...
 		if (#l_region == 0) then
 			table.insert(l_region, 'empty')
