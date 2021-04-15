@@ -39,7 +39,7 @@ end
 -------------------------------------
 function MissileLua.st_move(owner, dt)
     if (owner.m_stateTimer > owner.m_deleteTimer) then
-        if (self.m_bHasTarget and not owner.m_target) then
+        if (owner.m_bHasTarget and not owner.m_target) then
             owner:changeState('dying')
         end
     end
