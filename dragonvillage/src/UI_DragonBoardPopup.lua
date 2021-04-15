@@ -145,7 +145,7 @@ function UI_DragonBoardPopup:makeTableView()
 	local node = self.vars['listNode']
 	node:removeAllChildren(true)
 
-	local l_item_list = self.m_tBoardData['boards']
+	local l_item_list = self.m_tBoardData and self.m_tBoardData['boards'] or {}
 
 	-- 생성 콜백
     local function create_func(ui, data)
