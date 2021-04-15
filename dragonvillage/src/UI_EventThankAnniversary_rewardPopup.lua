@@ -36,7 +36,8 @@ function UI_EventThankAnniversary_rewardPopup:initUI()
     if (self.m_rewardNum == 1) then
         item_str = '700001;5000,700612;1' -- 다이아 5000, 전설 추천 드래곤 선택권
     else
-        item_str = '700001;5000,700701;1' -- -- 다이아 5000, 성장 재료 선택권
+        item_str = '700651;1,700701;1' -- -- 룬 11개 뽑기 상자, 성장 재료 선택권
+        --item_str = '700001;5000,700701;1' -- -- 다이아 5000, 성장 재료 선택권
     end
 
     local l_item_str = pl.stringx.split(item_str, ',')
