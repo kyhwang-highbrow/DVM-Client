@@ -636,10 +636,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
     local is_active_skill = attack_type == 'active'
-    local isAttackable = self:isAttackable(is_active_skill, attack_activity_carrier)
+    local isAttackable = defender:isAttackable(is_active_skill, attack_activity_carrier)
 
     -- 우선 공격 가능한지 체크한다
-    if (not isAttackable) then return end
+    if (not isAttackable or isAttackable == false) then return end
 
     local attack_add_cri_dmg = attack_activity_carrier:getAddCriPowerRate()
     local attack_hit_count = attack_activity_carrier:getSkillHitCount()
@@ -2312,8 +2312,10 @@ function Character:isAttackable(is_active_skill, attack_activity_carrier)
         local is_ally = string.find(target_type, 'ally')
         local is_boss = string.find(target_type, 'boss')
 
-        return is_teammate or is_self or is_ally or is_boss
+        is_attackable = is_teammate or is_self or is_ally or is_boss
     end
+
+    if (not is_attackable) then is_attackable = true end
 
     return is_attackable
 end
