@@ -2283,11 +2283,6 @@ function Character:isAttackable(is_active_skill, attack_activity_carrier)
     local has_without_skill_passive = self:isExistStatusEffectName('target_without_skill')
     local has_disabled_passive = self:isExistStatusEffectName('target_disabled')
 
-    cclog('가능')
-    cclog(has_active_only_passive)
-    cclog(has_without_skill_passive)
-    cclog(has_disabled_passive)
-
     -- 아예 못떄림
     if (has_disabled_passive) then
         is_attackable = false
