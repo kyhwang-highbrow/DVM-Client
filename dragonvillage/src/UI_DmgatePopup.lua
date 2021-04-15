@@ -142,6 +142,79 @@ end
 --//  
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+----------------------------------------------------------------------
+-- class UI_DmgateRewardBtnPopup
+----------------------------------------------------------------------
+UI_DmgateSeasonResetPopup = class(PARENT, {
+    m_seasonMenu = 'cc.Menu',   -- 시즌 초기화시 보여줄 메뉴
+    m_openMenu = 'cc.Menu',     -- 상층 개방시 보여줄 메뉴
+
+    --m_seasonEffectMenu = 'cc.Menu', -- 시즌효과를 보여줄 메뉴
+    m_scrollNode = 'cc.Node',   -- 시즌 효과 아이템 배치를 위한 아이템 노드
+})
+
+----------------------------------------------------------------------
+-- function init
+-- param mode_id 차원문 별로 구분하기 위한 index id (앙그라 1, 마누스 2, ...)
+----------------------------------------------------------------------
+function UI_DmgateSeasonResetPopup:init(mode_id)
+    self.m_uiName = 'UI_dmgateSeasonResetPopup'
+    local vars = self:load('dmgate_scene_open_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+    
+    -- @UI_ACTION
+    --self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DmgateBlessBtnPopup')
+
+    self:initUI(mode_id)
+    self:initButton()
+    self:refresh()
+end
+
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_DmgateSeasonResetPopup:initUI()
+    local buff_list = g_dmgateData:getBuffList(mode_id)
+
+    local function create_callback(ui, data) end
+
+    local tableview = UIC_TableView(self.m_scrollNode)
+    tableview:setCellSizeToNodeSize(true)
+    tableview:setGapBtwCells(5)
+    tableview:setCellUIClass(UI_DmgateBlessItem, create_callback)
+    tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    tableview:setAlignCenter(true)
+    tableview:setItemList(buff_list, true)
+    if #buff_list <= 2  then
+        tableview.m_scrollView:setTouchEnabled(false)
+    end
+end
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_DmgateSeasonResetPopup:initButton()
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+end
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_DmgateSeasonResetPopup:refresh()
+end
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+----------------------------------------------------------------------
+-- class UI_DmgateRewardBtnPopup
+----------------------------------------------------------------------
 UI_DmgateRewardBtnPopup = class(PARENT, {
     m_parentData = '',
     m_closeBtn = '',
@@ -153,6 +226,9 @@ UI_DmgateRewardBtnPopup = class(PARENT, {
     m_checkBoxSpriteName = '',
 })
 
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
 function UI_DmgateRewardBtnPopup:init(data)
     local vars = self:load('dmgate_scene_item_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -166,6 +242,9 @@ function UI_DmgateRewardBtnPopup:init(data)
 end
 
 
+----------------------------------------------------------------------
+-- function initMember
+----------------------------------------------------------------------
 function UI_DmgateRewardBtnPopup:initMember(data)
     local vars = self.vars
     self.m_parentData = data
@@ -190,15 +269,24 @@ function UI_DmgateRewardBtnPopup:initMember(data)
 end
 
 
+----------------------------------------------------------------------
+-- function initUI
+----------------------------------------------------------------------
 function UI_DmgateRewardBtnPopup:initUI()
 end
 
 
+----------------------------------------------------------------------
+-- function initButton
+----------------------------------------------------------------------
 function UI_DmgateRewardBtnPopup:initButton()
     self.m_closeBtn:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 
+----------------------------------------------------------------------
+-- function refresh
+----------------------------------------------------------------------
 function UI_DmgateRewardBtnPopup:refresh()
 
     local itemCount = #self.m_parentData
@@ -218,10 +306,16 @@ function UI_DmgateRewardBtnPopup:refresh()
     end
 end
 
+----------------------------------------------------------------------
+-- function click_closeBtn
+----------------------------------------------------------------------
 function UI_DmgateRewardBtnPopup:click_closeBtn()
     self:close()
 end
 
+----------------------------------------------------------------------
+-- function create_itemCard
+----------------------------------------------------------------------
 function UI_DmgateRewardBtnPopup:create_itemCard(str, index)
     local ITEM_ID = 1
     local ITEM_NUM = 2
@@ -236,3 +330,5 @@ function UI_DmgateRewardBtnPopup:create_itemCard(str, index)
         self.m_itemCompleteNotes[index]:setVisible(true)
     end
 end
+
+

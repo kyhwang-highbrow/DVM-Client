@@ -390,6 +390,31 @@ function UI_DmgateScene:click_difficultyBtn(itemUI)
         
         item_ui.m_selectedBtn:setEnabled(target_stage_id ~= item_id)
     end
+    
+    self.m_monstersNode:removeAllChildren()
+    local monster_list = g_stageData:getMonsterIDList(target_stage_id)
+
+    local function cb_monsterCardUI(data)
+        local ui = UI_MonsterCard(data)
+        ui:setStageID(target_stage_id)
+        return ui
+    end
+
+    local function create_callback(ui, data)
+        ui.root:setScale(0.6)
+        ui.root:setSwallowTouch(false)
+    end
+
+    local monster_table_view = UIC_TableView(self.m_monstersNode)
+    monster_table_view:setCellUIClass(cb_monsterCardUI, create_callback)
+    monster_table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    monster_table_view:setAlignCenter(true)
+    --monster_table_view:setCellSize(true)
+    --monster_table_view:setSrollLocl()
+    monster_table_view:setItemList(monster_list, true)
+    monster_table_view.m_scrollView:setTouchEnabled(false)
+
+    self.m_monstersTableView = monster_table_view
 end
 
 ----------------------------------------------------------------------------
