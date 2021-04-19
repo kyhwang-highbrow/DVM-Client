@@ -78,9 +78,6 @@ function UI_DmgateScene:init(stage_id)
     self:initButton()
     self:refresh()
 
-    -- 시즌 타이머
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
-
     self:sceneFadeInAction()
 end
 
@@ -186,7 +183,13 @@ end
 -- @brief virtual function of UI
 ----------------------------------------------------------------------
 function UI_DmgateScene:refresh() 
-
+    if self.m_chapterId ~= 1 then
+        self.root:unscheduleUpdate()
+        -- 시즌 타이머
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
+    else
+        self.root:unscheduleUpdate()
+    end
 end
 
 ----------------------------------------------------------------------
@@ -255,7 +258,6 @@ end
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 ----------------------------------------------------------------------
 function UI_DmgateScene:onFocus() 
-
 end
 
 
@@ -305,6 +307,8 @@ function UI_DmgateScene:click_chapterBtn(chapter_id)
     end
 
     self.m_chapterTableViews[chapter_id]:refreshAllItemUI()
+
+    self:refresh()
 end
 
 ----------------------------------------------------------------------------

@@ -1001,6 +1001,22 @@ function ServerData_Dmgate:getModeCurrencyIcon(data)
 end
 
 ----------------------------------------------------------------------------
+-- function getTimeStatus
+----------------------------------------------------------------------------
+function ServerData_Dmgate:getTimeStatus()
+    local end_time = (self.m_seasonEndTime / 1000)
+    
+    local curr_time = Timer:getServerTime()
+    local is_season_ended = false
+
+    if (curr_time > end_time) then
+        is_season_ended = true
+    end
+
+    return is_season_ended
+end
+
+----------------------------------------------------------------------------
 -- function getTimeStatusText
 ----------------------------------------------------------------------------
 function ServerData_Dmgate:getTimeStatusText(mode_id, chapter_id)
@@ -1070,21 +1086,4 @@ function ServerData_Dmgate:MakeSeasonEndedPopup()
     end
 
     MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
-end
-
-
-----------------------------------------------------------------------------
--- function getTimeStatusText
-----------------------------------------------------------------------------
-function ServerData_Dmgate:getTimeStatus()
-    local end_time = (self.m_seasonEndTime / 1000)
-    
-    local curr_time = Timer:getServerTime()
-    local is_season_ended = false
-
-    if (curr_time > end_time) then
-        is_season_ended = true
-    end
-
-    return is_season_ended
 end
