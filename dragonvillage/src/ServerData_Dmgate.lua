@@ -1000,21 +1000,9 @@ function ServerData_Dmgate:getModeCurrencyIcon(data)
     return icon
 end
 
--------------------------------------
+----------------------------------------------------------------------------
 -- function getTimeStatusText
--------------------------------------
--- function ServerData_Dmgate:isOpenDimensionGate()
---     local curr_time = Timer:getServerTime()
-
---     local start_time = (self.m_startTime / 1000)
---     local end_time = (self.m_endTime / 1000)
-
--- 	return (start_time <= curr_time) and (curr_time <= end_time)
--- end
-
--------------------------------------
--- function getTimeStatusText
--------------------------------------
+----------------------------------------------------------------------------
 function ServerData_Dmgate:getTimeStatusText(mode_id, chapter_id)
     if not mode_id then error('Forgot to pass mode_id as param') end
     if not chapter_id then error('Forgot to pass chapter_id as param') end
@@ -1053,6 +1041,7 @@ function ServerData_Dmgate:getTimeStatusText(mode_id, chapter_id)
     end
 
     local curr_time = Timer:getServerTime()
+    local is_season_ended = false
 
 
     local str = ''
@@ -1063,8 +1052,39 @@ function ServerData_Dmgate:getTimeStatusText(mode_id, chapter_id)
         local time = (end_time - curr_time)
         str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
     else
+        is_season_ended = true
         str = Str('시즌이 종료되었습니다.')
     end
 
-    return str
+    return str, is_season_ended
+end
+
+----------------------------------------------------------------------------
+-- function MakeSeasonEndedPopup
+----------------------------------------------------------------------------
+function ServerData_Dmgate:MakeSeasonEndedPopup()
+    local msg = '시즌이 종료되었습니다.'
+
+    local function ok_callback()
+        UINavigator:goTo('lobby')
+    end
+
+    MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
+end
+
+
+----------------------------------------------------------------------------
+-- function getTimeStatusText
+----------------------------------------------------------------------------
+function ServerData_Dmgate:getTimeStatus()
+    local end_time = (self.m_seasonEndTime / 1000)
+    
+    local curr_time = Timer:getServerTime()
+    local is_season_ended = false
+
+    if (curr_time > end_time) then
+        is_season_ended = true
+    end
+
+    return is_season_ended
 end

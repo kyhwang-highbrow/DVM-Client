@@ -186,14 +186,23 @@ end
 -- @brief virtual function of UI
 ----------------------------------------------------------------------
 function UI_DmgateScene:refresh() 
+
 end
 
 ----------------------------------------------------------------------
 -- function updateTimer
 ----------------------------------------------------------------------
 function UI_DmgateScene:updateTimer(dt)
-    local str = g_dmgateData:getTimeStatusText(self.m_modeId, self.m_chapterId)
+    local str
+    local is_season_ended
+    str, is_season_ended = g_dmgateData:getTimeStatusText(self.m_modeId, self.m_chapterId)
+
     self.m_timeLabel:setString(str)
+
+    if is_season_ended then 
+        g_dmgateData:MakeSeasonEndedPopup()
+        self.root:unscheduleUpdate()
+    end
 end
 
 ----------------------------------------------------------------------

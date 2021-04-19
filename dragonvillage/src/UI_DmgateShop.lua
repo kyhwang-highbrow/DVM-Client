@@ -51,6 +51,10 @@ function UI_DmgateShop:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    
+    -- 시즌 타이머
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
 
 -------------------------------------
@@ -122,6 +126,19 @@ function UI_DmgateShop:refresh()
         self.m_productTableview:refreshAllItemUI()
     end
 end
+
+----------------------------------------------------------------------
+-- function updateTimer
+----------------------------------------------------------------------
+function UI_DmgateShop:updateTimer(dt)
+    local is_season_ended = g_dmgateData:getTimeStatus()
+
+    if is_season_ended then 
+        g_dmgateData:MakeSeasonEndedPopup()
+        self.root:unscheduleUpdate()
+    end
+end
+
 
 -------------------------------------
 -- function initUI
