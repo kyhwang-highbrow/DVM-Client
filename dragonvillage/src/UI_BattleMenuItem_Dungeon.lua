@@ -24,10 +24,6 @@ function UI_BattleMenuItem_Dungeon:init(content_type, count)
 
     local vars = self:load(res)
 
-    if (content_type == 'dmgate') then
-        self.root:setLocalZOrder(self.root:getLocalZOrder() + 1)
-    end
-
     self:initUI(content_type)
     self:initButton()
     self:refresh()
@@ -44,11 +40,16 @@ function UI_BattleMenuItem_Dungeon:initUI()
 
     vars['dscLabel']:setString(self:getDescStr(content_type))
 
-    -- ccdump(content_type)
-    -- if (content_type == 'dmgate' and g_dmgateData:checkDmgateContentUnlocked()) then
-    --     vars['newSprite']:setVisible(true)
-    -- end
-
+    -- 차원문 컨텐츠 오픈 띠지
+    if (self.m_contentType == 'dmgate') 
+        and g_dmgateData:isShowLobbyBanner()
+        and (not g_contentLockData:isContentLock(self.m_contentType)) then
+            local node = self.vars['newSprite']
+            if node then
+                node:setVisible(true)
+                self.root:setLocalZOrder(self.root:getLocalZOrder() + 1)
+            end
+    end
 end
 
 -------------------------------------

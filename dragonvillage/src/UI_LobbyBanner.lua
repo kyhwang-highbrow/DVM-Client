@@ -50,7 +50,7 @@ end
 -- class click_bannerBtn
 ----------------------------------------------------------------------
 function UI_BannerDmgate:click_bannerBtn()
-    if g_dmgateData:checkDmgateContentUnlocked() then
+    if (not g_contentLockData:isContentLock('dmgate')) then
         UINavigator:goTo('dmgate')
     else
         local str = '입장 조건: {1}'

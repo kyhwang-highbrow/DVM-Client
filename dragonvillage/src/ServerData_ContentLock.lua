@@ -56,7 +56,7 @@ function ServerData_ContentLock:isContentLock(content_name)
     end
 
     -- 테이블에 있어서 조건 검사해야하는 던전들 =====================
-
+    
     -- 테이블에 없는 컨텐츠 이름은 다 풀어준다.
     if (not t_content_lock) then
         --error('content_name : ' .. content_name)
@@ -113,11 +113,6 @@ function ServerData_ContentLock:isContentLock(content_name)
 	-- 악몽 던전 클리어 여부로 검사
     if (content_name == 'ancient_ruin') then
         local is_open = g_ancientRuinData:isOpenAncientRuin()
-        return (not is_open)
-    end
-
-    if (content_name == 'dmgate') then
-        local is_open = g_dmgateData:checkDmgateContentUnlocked() 
         return (not is_open)
     end
 
@@ -199,13 +194,18 @@ end
 -- function isContentOpenByServer
 -- @param 로비통신에서 받는 콘텐츠 해금 여부
 -- @brief 서버 값에만 의존한 결과, 종합적으로 판단한 콘텐츠 해금 여부는 isContentLock 함수를 사용해야함
+-- 스테이지 클리어가 조건인 경우는 서버에서 컨텐츠 상태 값의 default가 0(신규유저) 혹은 안내려오지만(기존 유저중 조건이 안되는 경우)
+-- 그 외의 조건인 경우 default 값이 1로 내려오기 때문에 클라에서 추가적인 조건이 필요함.
 -------------------------------------
 function ServerData_ContentLock:isContentOpenByServer(content_name)
     local t_content = self.m_tContentOpen or {}
     
-    -- 언락 리스트에 없다면 잠금 조건없이 원래 열려있어야 하는 컨텐츠
+    -- 언락 리스트에 없다면 잠금 처리
+    -- [21/04/16] 차원문과 같이 신규 컨텐츠가 들어가는 경우 기존 유저 중에 신규 컨텐츠 언락 조건이 안되는 유저들은
+    -- 서버에서 신규 컨텐츠에 대한 정보가 내려오지 않기 때문에 조건이 안되어도 보상 수령이 가능하고 수령 이후에는
+    -- 서버에서 컨텐츠 해금 처리를 하기 때문에 이와 같은 상황을 막기 위해 return 값을 true에서 false로 수정.
     if (not t_content[content_name]) then
-        return true
+        return false
     end
 
     -- 0 이라면 lock이 걸린 상태
