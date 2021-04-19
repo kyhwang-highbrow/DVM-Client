@@ -1550,7 +1550,10 @@ end
 -- @brief 선물상자 버튼 (광고 보기)
 -------------------------------------
 function UI_Lobby:click_giftBoxBtn()
-    g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
+    --g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
+    
+    -- TODO : TEST CODE FOR EVENT ROULETTES
+    UI_EventRoulette()
 end
 
 -------------------------------------

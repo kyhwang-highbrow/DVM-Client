@@ -6,9 +6,9 @@ local PARENT = UI_GameResultNew
 -- class UI_GameResult_Dmgate
 ----------------------------------------------------------------------------
 UI_GameResult_Dmgate = class(UI, {
-    m_stage_id = '',
-    m_bSuccess = '',
-    m_time = '',
+    m_stage_id = 'number',
+    m_bSuccess = 'boolean',
+    m_time = 'number',
 
     -- 
     m_gameResultVisual = '', 

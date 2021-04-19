@@ -45,8 +45,8 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- };
 
 UI_DmgateStageItem = class(PARENT, {
-    m_data = '',
-    m_targetData = '', -- 난이도가 나뉠 경우 여러 테이블 중 현재 적용중인 테이블 정보 혹은 id
+    m_data = 'table',
+    m_targetData = 'table', -- 난이도가 나뉠 경우 여러 테이블 중 현재 적용중인 테이블 정보 혹은 id
 
     m_stageID = 'number',   -- stage button의 현재 id
 
@@ -57,21 +57,21 @@ UI_DmgateStageItem = class(PARENT, {
 
 
     -- Nodes in ui
-    m_stageBtn = '',                -- 스테이지 버튼
-    m_lockVisual = '',              -- 잠금 VRP
-    m_bgVisual = '',                -- 보스 배경 VRP
-    m_stageNameText = '',           -- 하단 스테이지 이름 텍스트
-    m_stageLevelText = '',          -- 상단 
-    m_originStageLevelText = '',    -- 상단 
+    m_stageBtn = 'UIC_Button',                -- 스테이지 버튼
+    m_lockVisual = 'AnimatorVrp',              -- 잠금 VRP
+    m_bgVisual = 'AnimatorVrp',                -- 보스 배경 VRP
+    m_stageNameText = 'UIC_LabelTTF',           -- 하단 스테이지 이름 텍스트
+    m_stageLevelText = 'UIC_LabelTTF',          -- 상단 
+    m_originStageLevelText = 'UIC_LabelTTF',    -- 상단 
 
-    m_stageDiffLabel = '',
+    m_stageDiffLabel = 'UIC_LabelTTF',
 
 
-    m_rewardBtn = '',
-    m_rewardVisual = '',
+    m_rewardBtn = 'UIC_Button',
+    m_rewardVisual = 'AnimatorVrp',
 
-    m_rewardLabel = '',
-    m_originRewardText = '',
+    m_rewardLabel = 'UIC_LabelTTF',
+    m_originRewardText = 'string',
 })
 
 

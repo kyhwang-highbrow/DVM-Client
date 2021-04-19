@@ -4939,6 +4939,7 @@
     <None Include="..\src\UI_DmgateStageItem.lua" />
     <None Include="..\src\ServerData_Dmgate.lua" />
     <None Include="..\src\SceneDmgate.lua" />
+    <None Include="..\src\UI_EventRoulette.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -143,9 +143,12 @@ end
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ----------------------------------------------------------------------
--- class UI_DmgateRewardBtnPopup
+-- class UI_DmgateSeasonResetPopup
 ----------------------------------------------------------------------
 UI_DmgateSeasonResetPopup = class(PARENT, {
+    m_state = 'number',
+    m_modeId = 'number',
+
     m_seasonMenu = 'cc.Menu',   -- 시즌 초기화시 보여줄 메뉴
     m_openMenu = 'cc.Menu',     -- 상층 개방시 보여줄 메뉴
 
@@ -153,11 +156,19 @@ UI_DmgateSeasonResetPopup = class(PARENT, {
     m_scrollNode = 'cc.Node',   -- 시즌 효과 아이템 배치를 위한 아이템 노드
 })
 
+UI_DmgateSeasonResetPopup.STATE = {
+    SEASON_RESET = 1,
+    NEW_CHAPTER = 2,
+}
+
 ----------------------------------------------------------------------
 -- function init
 -- param mode_id 차원문 별로 구분하기 위한 index id (앙그라 1, 마누스 2, ...)
 ----------------------------------------------------------------------
-function UI_DmgateSeasonResetPopup:init(mode_id)
+function UI_DmgateSeasonResetPopup:init(state, mode_id)
+    self.m_state = state
+    self.m_modeId = mode_id
+
     self.m_uiName = 'UI_dmgateSeasonResetPopup'
     local vars = self:load('dmgate_scene_open_popup.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -170,17 +181,26 @@ function UI_DmgateSeasonResetPopup:init(mode_id)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DmgateBlessBtnPopup')
 
-    self:initUI(mode_id)
+    self:initUI()
     self:initButton()
     self:refresh()
 end
 
 
 ----------------------------------------------------------------------
--- function init
+-- function initUI
 ----------------------------------------------------------------------
 function UI_DmgateSeasonResetPopup:initUI()
-    local buff_list = g_dmgateData:getBuffList(mode_id)
+
+    -- STATE에 따라 보여줄 텍스트 레이블
+    if (self.m_state == self.STATE.SEASON_RESET) then
+        self.m_seasonMenu:setVisible(true)
+    elseif (self.m_state == self.NEW_CHAPTER) then
+        self.m_openMenu:setVisible(true)
+    end
+
+    -- 시즌 효과 테이블 뷰
+    local buff_list = g_dmgateData:getBuffList(self.m_modeId)
 
     local function create_callback(ui, data) end
 
@@ -195,14 +215,15 @@ function UI_DmgateSeasonResetPopup:initUI()
         tableview.m_scrollView:setTouchEnabled(false)
     end
 end
+
 ----------------------------------------------------------------------
--- function init
+-- function initButton
 ----------------------------------------------------------------------
 function UI_DmgateSeasonResetPopup:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 ----------------------------------------------------------------------
--- function init
+-- function refresh
 ----------------------------------------------------------------------
 function UI_DmgateSeasonResetPopup:refresh()
 end
