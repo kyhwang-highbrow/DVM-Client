@@ -72,6 +72,11 @@ function Dragon.st_charge(owner, dt)
             owner:changeState('attack')
         end
 
+    --[[
+    elseif (owner.m_chargeDuration >= owner.m_attackPeriod) then
+        -- 공속이 준비보다 빠르다면?
+        owner:changeState('attack')]]
+
     elseif (owner.m_stateTimer >= owner.m_chargeDuration) then
         owner:changeState('attack')
 
