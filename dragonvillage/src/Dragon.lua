@@ -119,8 +119,9 @@ function Dragon:initDragonSkillManager(t_dragon_data)
                 end
 
             end
+        --[[
         else
-            is_skip_rune_skill = true
+            is_skip_rune_skill = true]]
         end
     end
 
