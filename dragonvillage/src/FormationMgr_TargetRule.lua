@@ -126,7 +126,7 @@ function TargetRule_getTargetList(target_type, org_list, x, y, t_data)
     elseif (target_type == 'hero' or target_type == 'limited') then
         return TargetRule_getTargetList_category(target_type, org_list)
 
-    elseif (target_type == 'leader')
+    elseif (target_type == 'leader') then
         return TargetRule_getTargetList_leader(org_list)
 
     else
