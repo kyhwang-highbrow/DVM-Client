@@ -183,7 +183,7 @@ function TargetRule_getTargetList_selfCustom(target_type, org_list, x, y, t_data
             -- 한마리의 드래곤이 여러개 역할, 속성, 희귀도를 가질 수 없으므로 중복체크 없어도 ㄱㅊ
             for _, target in ipairs(l_target) do
                 if (target == self_char) then
-                	cclog('조회 성공!')
+                	cclog(target:getName() .. ' :: 조회 성공!')
                     table.insert(t_ret, target)
                     is_attached = true
                     break
