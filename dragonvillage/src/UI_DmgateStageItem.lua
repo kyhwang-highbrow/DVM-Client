@@ -1,49 +1,8 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
--- {
---     ['level']=5;
---     ['dm_id']=3010000;
---     ['reset_unlock']=0;
---     ['condition_stage_id']=3012104;
---     ['start_date']=20213115;
---     ['reset_reward']=1;
---     ['end_date']=29211231;
---     ['type']=2;
---     ['item']='700901;10';
---     ['stage_id']=3012105;
---     ['grade']=1;
--- };
--- };
--- {
--- {
---     ['level']=5;
---     ['dm_id']=3010000;
---     ['reset_unlock']=0;
---     ['condition_stage_id']=3012204;
---     ['start_date']=20213115;
---     ['reset_reward']=1;
---     ['end_date']=29211231;
---     ['type']=2;
---     ['item']='700901;10';
---     ['stage_id']=3012205;
---     ['grade']=2;
--- };
--- };
--- {
--- {
---     ['level']=5;
---     ['dm_id']=3010000;
---     ['reset_unlock']=0;
---     ['condition_stage_id']=3012304;
---     ['start_date']=20213115;
---     ['reset_reward']=1;
---     ['end_date']=29211231;
---     ['type']=2;
---     ['item']='700901;10';
---     ['stage_id']=3012305;
---     ['grade']=3;
--- };
-
+----------------------------------------------------------------------------
+-- class UI_DmgateStageItem
+----------------------------------------------------------------------------
 UI_DmgateStageItem = class(PARENT, {
     m_data = 'table',
     m_targetData = 'table', -- 난이도가 나뉠 경우 여러 테이블 중 현재 적용중인 테이블 정보 혹은 id
@@ -74,11 +33,9 @@ UI_DmgateStageItem = class(PARENT, {
     m_originRewardText = 'string',
 })
 
-
--------------------------------------
+----------------------------------------------------------------------------
 -- function init
--- @brief virtual function of UI
--------------------------------------
+----------------------------------------------------------------------------
 function UI_DmgateStageItem:init(data) 
     local vars = self:load('dmgate_scene_item_top.ui')
 
@@ -88,47 +45,9 @@ function UI_DmgateStageItem:init(data)
     self:refresh()
 end
 
--------------------------------------
--- function initUI
--- @brief virtual function of UI
--------------------------------------
-function UI_DmgateStageItem:initUI() 
-    local stage_index = g_dmgateData:getStageID(self.m_stageID)
-    self.m_stageLevelText:setString(Str(self.m_originStageLevelText, stage_index))
-
-    self.m_stageNameText:setString(g_dmgateData:getStageName(self.m_stageID))
-end
-
-
--------------------------------------
--- function initButton
--- @brief virtual function of UI
--------------------------------------
-function UI_DmgateStageItem:initButton() 
-    self.m_rewardBtn:registerScriptTapHandler(function() self:click_rewardBtn() end)
-end
-
-
--------------------------------------
--- function refresh
--- @brief virtual function of UI
--------------------------------------
-function UI_DmgateStageItem:refresh() 
-    --self.root:setOpacity(0)
-    
-    --cca.reserveFunc(self.root, 0.1, function() self.root:runAction(cc.FadeIn:create(1)) end)
-    self:refreshBackgroundVRP()
-
-    self:refreshLockVRP()
-    self:refreshRewardVRP()
-end
-
-
-
--------------------------------------
+----------------------------------------------------------------------------
 -- function initMember
--- @brief virtual function of UI
--------------------------------------
+----------------------------------------------------------------------------
 function UI_DmgateStageItem:initMember(data) 
     local vars = self.vars
     self.m_data = data
@@ -144,8 +63,8 @@ function UI_DmgateStageItem:initMember(data)
     -- 언락된 난이도가 없으면 현재 도전 가능한 최고 난이도 설정
     if self.m_currDiffIndex == nil then
         self.m_currDiffIndex = g_dmgateData:getCurrDiffInList(self.m_data)
-        -- 난이도가 0인경우 index를 위해 1로 고정
-        -- TODO : 윗 라인에 or 1 을 하면 되지 않음?
+
+        -- 난이도 구분이 없어 0인 경우 index를 위해 1로 고정
         if(self.m_currDiffIndex == 0) then self.m_currDiffIndex = 1 end
     end
 
@@ -175,15 +94,39 @@ function UI_DmgateStageItem:initMember(data)
     self.m_originRewardText = self.m_rewardLabel:getString()
 end
 
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---//  TEMP (NEED TO REFACTORING)
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---////////////////////////////////////////////////////////////////////////////////////////////////////////\
 
+----------------------------------------------------------------------------
+-- function initUI
+----------------------------------------------------------------------------
+function UI_DmgateStageItem:initUI() 
+    local stage_index = g_dmgateData:getStageID(self.m_stageID)
+    self.m_stageLevelText:setString(Str(self.m_originStageLevelText, stage_index))
+
+    self.m_stageNameText:setString(g_dmgateData:getStageName(self.m_stageID))
+end
+
+
+
+----------------------------------------------------------------------------
+-- function initButton
+----------------------------------------------------------------------------
+function UI_DmgateStageItem:initButton() 
+    self.m_rewardBtn:registerScriptTapHandler(function() self:click_rewardBtn() end)
+end
+
+
+
+----------------------------------------------------------------------------
+-- function refresh
+----------------------------------------------------------------------------
+function UI_DmgateStageItem:refresh() 
+    self:refreshBackgroundVRP()
+    self:refreshLockVRP()
+    self:refreshRewardVRP()
+end
 
 ----------------------------------------------------------------------
--- function setBackgroundVRP
+-- function refreshBackgroundVRP
 ----------------------------------------------------------------------
 function UI_DmgateStageItem:refreshBackgroundVRP()
     local stage_id = g_dmgateData:getStageID(self.m_stageID)
@@ -191,7 +134,7 @@ function UI_DmgateStageItem:refreshBackgroundVRP()
 end
 
 ----------------------------------------------------------------------
--- function setLockVRP
+-- function refreshLockVRP
 ----------------------------------------------------------------------
 function UI_DmgateStageItem:refreshLockVRP()
     -- is it locked ?
@@ -218,13 +161,14 @@ function UI_DmgateStageItem:refreshLockVRP()
 end
 
 ----------------------------------------------------------------------
--- function setRewardVRP
+-- function refreshRewardVRP
 ----------------------------------------------------------------------
 function UI_DmgateStageItem:refreshRewardVRP() 
    
     local status = 0
-    local stage_id
     local rewardNum = 0
+    local stage_id
+    
     for key, data in pairs(self.m_data) do
         stage_id = data['stage_id']
 
@@ -286,7 +230,7 @@ function UI_DmgateStageItem:getStageID()
 end
 
 ----------------------------------------------------------------------
--- function set
+-- function setStageID
 ----------------------------------------------------------------------
 function UI_DmgateStageItem:setStageID(stage_id)
     -- TODO (YOUNGJIN) : MAKE ERROR CONDITION FOR SAFETY
