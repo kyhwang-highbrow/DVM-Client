@@ -1272,7 +1272,8 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
     -- 팀 타입에 따른 델리게이트
     local for_mgr_delegate = FormationMgrDelegate()
 
-    if (team_type == 'self') then
+    --if (team_type == 'self') then
+    if (string.find(team_type, 'self')) then
         local mgr = unit_group:getFormationMgr()
 
         for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
@@ -1399,7 +1400,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
         local default_origin_list = for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
 
         -- 나자신이나 아군에게 쓰는것이 아니면 타게팅 제한 버프 체크
-        if (isExistValue(team_type, 'self', 'teammate', 'ally') ) then
+        if (isExistValue(team_type, 'teammate', 'ally')) or (string.find(team_type, 'self')) then
             l_result = default_origin_list
         else
             l_result = self:generateFinalTargetList(default_origin_list, is_active_skill)
