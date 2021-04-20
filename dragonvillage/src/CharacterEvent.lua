@@ -146,7 +146,7 @@ function Character:onEvent_underSelfHp(hp, max_hp)
         for i, v in ipairs(list) do
             if (v:isEndCoolTime()) then
                 if (percentage <= v:getChanceValue()) then
-                    -- chance_value값(ex)무적 50%, 생존 30%)이 다른 스킬은 동시에 발동 안됨
+                    -- chance_value값(ex)무적 50%, 생존 30%)이 다른 스킬은 동시에 발동 안됨 skill_1 skill_2 chance value 같으면 둘다 발동함
                     local is_diff_chance_value = self:isDiffChanceValue(v.m_skillID)
                     if (is_diff_chance_value) then            
                         break

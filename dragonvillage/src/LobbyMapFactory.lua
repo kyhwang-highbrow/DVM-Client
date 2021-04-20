@@ -23,6 +23,7 @@ local DECO_TYPE = {
     ['ANNIVERSARY_2ST_GLOBAL'] = '2st_anniversary_global',
 
     ['ANNIVERSARY_3RD'] = '3rd_anniversary',
+    ['WEIDEL_FESTIVAL'] = 'event_weidel_festival',
 }
 
 -- ## 장식 추가 스텝 ##
@@ -84,6 +85,11 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby)
     elseif (string.find(deco_type, 'anniversary')) then
         self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
         self:makeLobbyParticleConfetti(ui_lobby) -- 종이 조각 파티클
+
+    elseif (string.find(deco_type, DECO_TYPE.WEIDEL_FESTIVAL)) then
+        self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
+        self:makeLobbyParticle(ui_lobby, deco_type) -- 축제용 꽃 파티클
+
     end
 
     return lobby_map
@@ -274,7 +280,54 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 			animator:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
 			node:addChild(animator.m_node, 1)
 		end
+
+    elseif (deco_type == DECO_TYPE.WEIDEL_FESTIVAL) then
+        self:makeLobbyEffectByMode(node)
 	end
+end
+
+-------------------------------------
+-- function makeLobbyFirecracker
+-- @brief ui_lobby에 폭죽이펙트를 생성한다.
+-- 낮이면 꽃가루가 날리고 밤이면 폭죽이 터진다
+-------------------------------------
+function LobbyMapFactory:makeLobbyEffectByMode(node)
+    if (USE_NIGHT == false) then return end
+
+    local temp_pos = -150
+
+    -- 생성
+    for i = 1, 5 do
+        local pos_x = 150 + temp_pos
+        local pos_y = math.random(340, 380)
+        local scale = math.random(8, 15) * 0.1
+        local speed = math.random(5, 10) * 0.1
+
+        if (i % 2 ~= 0) then scale = 0 - scale end
+
+        temp_pos = pos_x
+
+        local firecracker_instance = MakeAnimator('res/ui/a2d/result/result.vrp')
+        firecracker_instance:setScale(scale)
+        node:addChild(firecracker_instance.m_node)
+        firecracker_instance:setPosition(pos_x, pos_y)
+        firecracker_instance:setTimeScale(speed)
+        firecracker_instance:setVisible(false)
+        firecracker_instance:setLocalZOrder(-1)
+
+        function loop_func(firecracker)
+            -- 스케쥴링
+            if (firecracker:isVisible() == false) then firecracker:setVisible(true) end
+
+            local delay = cc.DelayTime:create(math.random(8, 24) * 0.1)
+            local sequence = cc.Sequence:create(delay, cc.CallFunc:create(function() firecracker:changeAni('event_firework', true) end))
+
+            node:runAction(sequence)
+        end
+
+        loop_func(firecracker_instance)
+    end
+
 end
 
 -------------------------------------
@@ -295,6 +348,10 @@ function LobbyMapFactory:makeLobbyParticle(ui_lobby, deco_type)
     -- 벚꽃
     elseif (deco_type == DECO_TYPE.BLOSSOM) then
         particle_res = 'particle_cherry'
+
+    -- 바이델 축제용 (사실상)벛꽃
+    elseif (deco_type == DECO_TYPE.WEIDEL_FESTIVAL) and (USE_NIGHT == false) then
+        particle_res = 'particle_weidel'
 
     -- 정의되지 않은 타입은 파티클 생성안함
     else
