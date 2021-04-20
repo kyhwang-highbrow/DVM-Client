@@ -98,7 +98,7 @@ function Dragon:initDragonSkillManager(t_dragon_data)
     local is_skip_rune_skill = false
 
     PARENT.initDragonSkillManager(self, 'dragon', self.m_dragonID, evolution, true)
-    --[[
+
     if (is_dmgate_stage) then 
         local chapter_id = g_dmgateData:getChapterID(tonumber(self.m_world.m_stageID))
 
@@ -122,7 +122,7 @@ function Dragon:initDragonSkillManager(t_dragon_data)
         else
             is_skip_rune_skill = true
         end
-    end]]
+    end
 
     if (is_skip_rune_skill) then return end
 
