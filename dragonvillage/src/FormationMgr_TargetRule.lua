@@ -123,8 +123,11 @@ function TargetRule_getTargetList(target_type, org_list, x, y, t_data)
     elseif (target_type == 'back') then
         return TargetRule_getTargetList_back(org_list)
 
-    elseif (target_type == 'hero' or target_type == 'limited' or target_type == 'leader') then
-        return TargetRule_getTargetList_category(org_list)
+    elseif (target_type == 'hero' or target_type == 'limited') then
+        return TargetRule_getTargetList_category(target_type, org_list)
+
+    elseif (target_type == 'leader')
+        return TargetRule_getTargetList_leader(org_list)
 
     else
         error("미구현 Target Rule!! : " .. target_type)
@@ -1038,4 +1041,31 @@ function TargetRule_getTargetList_category(target_type, org_list)
             end
         end
     end
+
+    return t_ret
+end
+
+
+-------------------------------------
+-- function TargetRule_getTargetList_leader
+-- @brief 드래곤 리더 받아오기
+-------------------------------------
+function TargetRule_getTargetList_leader(org_list)
+    local t_ret = {}
+
+    if  (not g_gameScene) or 
+        (not g_gameScene.m_gameWorld) or 
+        (not g_gameScene.m_gameWorld.m_mUnitGroup[PHYS.HERO]) or 
+        (not g_gameScene.m_gameWorld.m_mUnitGroup[PHYS.HERO]:getLeader()) then 
+            return t_ret 
+        end
+
+    local leader = g_gameScene.m_gameWorld.m_mUnitGroup[PHYS.HERO]:getLeader()
+
+    -- 받은 리스트에 리더가 있나?
+    for _, target in ipairs(org_list) do
+        if (leader == target) then table.insert(t_ret, target) end
+    end
+
+    return t_ret
 end
