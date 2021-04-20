@@ -62,6 +62,9 @@ function TargetRule_getTargetList(target_type, org_list, x, y, t_data)
         return TargetRule_getTargetList_lastUnderAtk(org_list, t_data)
     elseif (target_type == 'self') then
         return TargetRule_getTargetList_self(org_list, t_data)
+    elseif (pl.stringx.startswith(target_type, 'self')) then
+        return TargetRule_getTargetList_attrSelf(org_list, target_type, t_data)
+
     elseif (target_type == 'boss') then
         return TargetRule_getTargetList_boss(org_list)
     elseif (target_type == 'dead') then
@@ -144,6 +147,41 @@ function TargetRule_getTargetList_none(org_list)
 
     for i,v in pairs(org_list) do
         table.insert(t_ret, v)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_attrSelf
+-- @brief 자기 자신이 1번인 아군 리스트
+-- 속성이 해당 되어야만 추가
+-------------------------------------
+function TargetRule_getTargetList_attrSelf(org_list, target_type, t_data)
+    -- 나자신을 받아오고 속성체크를 해서 통과되면 리스트에 추가
+    local t_ret = {}
+	local self_char = t_data['self']
+    local l_attr = pl.stringx.split(start_date, '_')
+
+    if (not self_char) or (not l_attr) or (#l_attr < 2) then return t_ret end
+
+    local is_match = false
+    for _, attr in ipairs(l_attr) do
+        if (self_char:getAttribute() == attr) then 
+            has_match = true 
+            break 
+        end
+    end
+
+    if (is_match == false) then return t_ret end
+
+	-- 자기 자신을 제일 먼저 넣는다.
+	table.insert(t_ret, self_char)
+
+    for i, char in pairs(t_char) do
+		if (char ~= self_char) then
+			table.insert(t_ret, char)
+		end
     end
 
     return t_ret
