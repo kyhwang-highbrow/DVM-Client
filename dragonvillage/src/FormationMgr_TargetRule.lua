@@ -63,7 +63,7 @@ function TargetRule_getTargetList(target_type, org_list, x, y, t_data)
     elseif (target_type == 'self') then
         return TargetRule_getTargetList_self(org_list, t_data)
     elseif (pl.stringx.startswith(target_type, 'self')) then
-        return TargetRule_getTargetList_attrSelf(org_list, target_type, t_data)
+        return TargetRule_getTargetList_selfCustom(target_type, org_list, x, y, t_data)
 
     elseif (target_type == 'boss') then
         return TargetRule_getTargetList_boss(org_list)
@@ -123,6 +123,9 @@ function TargetRule_getTargetList(target_type, org_list, x, y, t_data)
     elseif (target_type == 'back') then
         return TargetRule_getTargetList_back(org_list)
 
+    elseif (target_type == 'hero' or target_type == 'limited' or target_type == 'leader') then
+        return TargetRule_getTargetList_category(org_list)
+
     else
         error("미구현 Target Rule!! : " .. target_type)
     end
@@ -153,35 +156,28 @@ function TargetRule_getTargetList_none(org_list)
 end
 
 -------------------------------------
--- function TargetRule_getTargetList_attrSelf
--- @brief 자기 자신이 1번인 아군 리스트
--- 속성이 해당 되어야만 추가
+-- function TargetRule_getTargetList_selfCustom
+-- @brief self 이후에 추가 속성 체크가 있을 경우
 -------------------------------------
-function TargetRule_getTargetList_attrSelf(org_list, target_type, t_data)
-    -- 나자신을 받아오고 속성체크를 해서 통과되면 리스트에 추가
+function TargetRule_getTargetList_selfCustom(target_type, org_list, x, y, t_data)
     local t_ret = {}
 	local self_char = t_data['self']
-    local l_attr = pl.stringx.split(start_date, '_')
+    local l_subType = pl.stringx.split(target_type, '_')
 
-    if (not self_char) or (not l_attr) or (#l_attr < 2) then return t_ret end
+    if (not self_char) or (not l_subType) or (#l_subType < 2) then return t_ret end
 
-    local is_match = false
-    for _, attr in ipairs(l_attr) do
-        if (self_char:getAttribute() == attr) then 
-            has_match = true 
-            break 
+    local l_self = TargetRule_getTargetList_self(org_list, t_data)
+
+    -- 서브타겟마다 한번씩 루프를 돌아 타겟을 받아온다.
+    for _, subType in ipairs(l_subType) do
+        local l_target = TargetRule_getTargetList(subType, l_self, x, y, t_data)
+
+        -- 한마리의 드래곤이 여러개 역할, 속성, 희귀도를 가질 수 없으므로 중복체크 없어도 ㄱㅊ
+        for _, target in ipairs(l_target) do
+            if (target and target ~= self_char) then
+                table.insert(t_ret, target)
+            end
         end
-    end
-
-    if (is_match == false) then return t_ret end
-
-	-- 자기 자신을 제일 먼저 넣는다.
-	table.insert(t_ret, self_char)
-
-    for i, char in pairs(t_char) do
-		if (char ~= self_char) then
-			table.insert(t_ret, char)
-		end
     end
 
     return t_ret
@@ -1021,4 +1017,25 @@ function TargetRule_getTargetList_back(org_list)
     end
 
     return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_category
+-- @brief 드래곤 희귀도로 받아오기
+-------------------------------------
+function TargetRule_getTargetList_category(target_type, org_list)
+    local t_ret = {}
+    local l_subType = pl.stringx.split(target_type, '_')
+
+    if (not self_char) or (not l_subType) or (#l_subType < 1) then return t_ret end
+
+    -- 서브타겟마다 한번씩 루프를 돌아 타겟을 받아온다.
+    for _, subType in ipairs(l_subType) do
+        -- 카테고리가 고유값이라 중복추가 걱정은 없음
+        for _, target in ipairs(org_list) do
+            if (target and target.m_charTable and target.m_charTable['category'] and target.m_charTable['category'] == subType) then
+                table.insert(t_ret, target)
+            end
+        end
+    end
 end
