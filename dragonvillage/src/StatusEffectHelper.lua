@@ -101,7 +101,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
             end
             
         else
-            if (target_type == 'self') then
+            if (pl.stringx.startswith(target_type, 'self')) then
                 target_count = 1
             end
 
@@ -130,10 +130,15 @@ end
 function StatusEffectHelper:doStatusEffectByTable(char, t_skill, cb_func, t_data)
 	-- 1. skill의 타겟룰로 상태효과의 대상 리스트를 얻어옴
 	local l_target = char:getTargetListByTable(t_skill, t_data)
-			
+
+    local log = t_skill['sid'] .. '버프받는 캐릭터 ' .. tostring(#l_target) .. ' 개... 이름 : '
+    for i, v in ipairs(l_target) do
+        log = log .. v:getName() .. ' :: '
+    end
+
 	-- 2. 상태효과 구조체
 	local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
-			
+
 	-- 3. 타겟에 상태효과생성
 	StatusEffectHelper:doStatusEffectByStruct(char, l_target, l_status_effect_struct, cb_func, t_skill['sid'])
 end

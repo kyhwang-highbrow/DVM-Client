@@ -1273,7 +1273,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
     local for_mgr_delegate = FormationMgrDelegate()
 
     --if (team_type == 'self') then
-    if (string.find(team_type, 'self')) then
+    if (pl.stringx.startswith(team_type, 'self')) then
         local mgr = unit_group:getFormationMgr()
 
         for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
@@ -1397,17 +1397,11 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
     -- 필드에 적이 아무도 없을 때 
     -- pvp 상대 테이머 그룹에서 살아있는 덱정보를 가져온다.
     if (not l_result or #l_result <= 0) then
-        local search_teamType = team_type
-        if (string.find(team_type, 'self')) and (isNullOrEmpty(rule_type) == false) then
-            search_teamType = team_type .. '_' .. rule_type
-        end
-
-        local default_origin_list = for_mgr_delegate:getTargetList(x, y, search_teamType, formation_type, rule_type, t_data)
+        local default_origin_list = for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
 
         -- 나자신이나 아군에게 쓰는것이 아니면 타게팅 제한 버프 체크
-        if (isExistValue(team_type, 'teammate', 'ally')) then
+        if (isExistValue(team_type, 'teammate', 'ally') or pl.stringx.startswith(team_type, 'self')) then
             l_result = default_origin_list
-           
 
         else
             l_result = self:generateFinalTargetList(default_origin_list, is_active_skill)

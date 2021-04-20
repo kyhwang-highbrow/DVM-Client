@@ -189,6 +189,9 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
     elseif (team_type == 'self') then
         target_type = 'self'
 
+    elseif (pl.stringx.startswith(team_type, 'self')) then
+        target_type = team_type
+
     elseif (team_type == 'boss') then
         target_type = 'boss'
 

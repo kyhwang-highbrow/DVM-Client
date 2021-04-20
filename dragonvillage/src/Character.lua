@@ -342,22 +342,29 @@ end
 function Character:getTargetListByType(target_type, target_count, target_formation, t_data, is_active_skill)
     local t_data = t_data or {}
 
-	if (target_type == '') then 
+	if (isNullOrEmpty(target_type) == true) then 
 		error('타겟 타입이 없네요..ㅠ 테이블 수정해주세요')
 	end
     
 	local target_formation = target_formation or nil
-	
-	-- parsing : target_type = 'enemy_low_hp'
 
-	--> target_team = 'enemy'
-	local target_team = string.gsub(target_type, '_.+', '')		
+    --> target_team = 'enemy'
+    local target_team
 
-	--> target_rule = 'low_hp'
-    local target_rule = string.gsub(target_type, '%l+_', '', 1)
+    --> target_rule = 'low_hp'
+    local target_rule
 
-	--> target_count = 3
-	local target_count = target_count
+    --> target_count = 3
+    local target_count = target_count
+
+    -- self 시작이면 target_type 그대로 전달
+    if (pl.stringx.startswith(target_type, 'self')) then
+        target_team = target_type
+        target_rule = ''
+    else
+	    target_team = string.gsub(target_type, '_.+', '')		
+        target_rule = string.gsub(target_type, '%l+_', '', 1)
+    end
     
 	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule, t_data, is_active_skill)
 

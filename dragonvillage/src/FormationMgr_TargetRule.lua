@@ -170,16 +170,27 @@ function TargetRule_getTargetList_selfCustom(target_type, org_list, x, y, t_data
     if (not self_char) or (not l_subType) or (#l_subType < 2) then return t_ret end
 
     local l_self = TargetRule_getTargetList_self(org_list, t_data)
+    local is_attached = false
 
     -- 서브타겟마다 한번씩 루프를 돌아 타겟을 받아온다.
     for _, subType in ipairs(l_subType) do
-        local l_target = TargetRule_getTargetList(subType, l_self, x, y, t_data)
+        if (subType ~= 'self') then
+            local search_type = subType .. '_only'
+            local l_target = TargetRule_getTargetList(search_type, l_self, x, y, t_data)
 
-        -- 한마리의 드래곤이 여러개 역할, 속성, 희귀도를 가질 수 없으므로 중복체크 없어도 ㄱㅊ
-        for _, target in ipairs(l_target) do
-            if (target and target ~= self_char) then
-                table.insert(t_ret, target)
+            cclog('타입 :: ' .. subType .. ' 조회 중')
+
+            -- 한마리의 드래곤이 여러개 역할, 속성, 희귀도를 가질 수 없으므로 중복체크 없어도 ㄱㅊ
+            for _, target in ipairs(l_target) do
+                if (target == self_char) then
+                	cclog('조회 성공!')
+                    table.insert(t_ret, target)
+                    is_attached = true
+                    break
+                end
             end
+
+            if (is_attached == true) then break end
         end
     end
 
