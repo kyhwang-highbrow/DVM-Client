@@ -645,6 +645,11 @@ function StructDragonObject:getIconRes()
     local evolution = self['evolution']
     local attr = t_dragon['attr']
 
+    -- 성체부터 외형변환 적용
+    if (evolution == POSSIBLE_TRANSFORM_CHANGE_EVO) then
+        evolution = self['transform'] or evolution
+    end
+
     res = string.gsub(res, '#', '0' .. evolution)
     res = string.gsub(res, '@', attr)
 
