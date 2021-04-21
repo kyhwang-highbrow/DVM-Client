@@ -1553,7 +1553,12 @@ function UI_Lobby:click_giftBoxBtn()
     --g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
     
     -- TODO : TEST CODE FOR EVENT ROULETTES
-    UI_EventRoulette()
+    local function finish_cb()
+        UI_EventRoulette()
+    end
+    local function fail_cb() end 
+
+    ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, finish_cb, fail_cb)
 end
 
 -------------------------------------

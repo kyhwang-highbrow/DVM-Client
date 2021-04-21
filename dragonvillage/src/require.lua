@@ -250,6 +250,7 @@ local t_module = {
     'ServerData_RuneMemo', -- 룬 메모
     'ServerData_BattlePass', -- 패틀패스
     'ServerData_Dmgate', -- 시련(차원문)
+	'ServerData_EventRoulette', -- 어린이날 룰렛 이벤트
 
 
     -- Interface

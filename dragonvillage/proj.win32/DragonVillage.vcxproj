@@ -555,6 +555,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_EventLFBag.lua" />
     <None Include="..\src\ServerData_EventMandragoraQuest.lua" />
     <None Include="..\src\ServerData_EventMatchCard.lua" />
+    <None Include="..\src\ServerData_EventRoulette.lua" />
     <None Include="..\src\ServerData_EventRuneFestival.lua" />
     <None Include="..\src\ServerData_EvolutionStone.lua" />
     <None Include="..\src\ServerData_Exchange.lua" />
