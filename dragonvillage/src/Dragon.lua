@@ -114,8 +114,11 @@ function Dragon:initDragonSkillManager(t_dragon_data)
                     end
 
                     local skill_indivisual_info = self:setSkillID('bless', skill_id, 1, 'new')
-                    skill_indivisual_info:setToIgnoreCC(true)
-                    skill_indivisual_info:setToIgnoreReducedCool(true)
+
+                    if (skill_indivisual_info) then
+                        skill_indivisual_info:setToIgnoreCC(true)
+                        skill_indivisual_info:setToIgnoreReducedCool(true)
+                    end
                 end
 
             end
