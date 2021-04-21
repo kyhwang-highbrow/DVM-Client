@@ -512,3 +512,20 @@ function UIHelper:autoPositioning(root_node, item, label)
     -- 위치 설정
    item:setPosition(pos_x, pos_y)
 end
+
+
+-------------------------------------
+-- function CreateParticle
+-- @brief 파티클을 지정된 노드에 생성
+-------------------------------------
+function UIHelper:CreateParticle(node, file_name)
+    local file_name = file_name and file_name or 'particle_star_crash'
+    local particle_res = string.format('res/ui/particle/%s.plist', file_name)
+    local particle = cc.ParticleSystemQuad:create(particle_res)
+
+    if (particle) then
+        particle:setAnchorPoint(CENTER_POINT)
+        particle:setDockPoint(CENTER_POINT)
+        node:addChild(particle)
+    end
+end
