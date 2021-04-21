@@ -294,8 +294,7 @@ function UI_DmgateScene:click_chapterBtn(chapter_id)
     self.m_chapterId = chapter_id
 
     -- TODO : 210408 기준 앙그라 2챕터 중에 1챕터는 시즌 효과을 숨기지만 조건이 달라질 수 있기에 변경 필요
-    --self.m_seasonBtn:setVisible(self.m_chapterId ~= 1)
-    self.m_seasonBtn:setVisible(false)
+    self.m_seasonBtn:setVisible(self.m_chapterId ~= 1)
     self.m_timeNode:setVisible(self.m_chapterId ~= 1)
 
     local isSameIndex

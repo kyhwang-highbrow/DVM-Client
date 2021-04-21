@@ -132,7 +132,8 @@ function UI_DmgateBlessItem:init(data)
     self.m_buffInfoLabel:setTextColor(data['color'])
     --resource_name =  data['res_icon']--string.gsub(self.m_spriteName, '${spriteName}', tostring(data['type_id']))
 
-    local icon = cc.Sprite:create( data['res_icon'])
+    local icon_path = isNullOrEmpty(data['res_icon']) and 'res/ui/icons/skill/skill_empty.png' or data['res_icon']
+    local icon = cc.Sprite:create(icon_path)
     icon:setDockPoint(CENTER_POINT)
     icon:setAnchorPoint(CENTER_POINT)
     self.m_buffNode:addChild(icon)
