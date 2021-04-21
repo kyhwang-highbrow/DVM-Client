@@ -625,6 +625,7 @@ function Character:doSkill_passive()
         end
     end
 
+    -- 시즌효과 있으면 걸어준다
     local l_bless = self:getSkillIndivisualInfo('bless') or {}
 
     if (l_bless) and (#l_bless > 0) then

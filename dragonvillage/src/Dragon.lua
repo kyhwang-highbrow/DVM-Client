@@ -92,7 +92,7 @@ function Dragon:initDragonSkillManager(t_dragon_data)
     local evolution = t_dragon_data['evolution'] or 1
     local table_dragon_skill = TableDragonSkill()
 
-    --차원문 주간축복
+    --차원문 시즌효과
     local is_dmgate_stage = g_dmgateData:isStageDimensionGate(self.m_world.m_stageID)
 
     local is_skip_rune_skill = false
