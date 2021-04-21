@@ -32,6 +32,8 @@ ServerData_Dmgate = class({
 
     
     m_unlockStageList = 'List[stage_id]',       -- 스테이지 클리어후 스테이지 언락 VRP를 보여주기 위함
+
+    m_testSeasonBuffList = 'List[sid]';         -- 평소엔 비워두고 시즌효과 테스트 할 때만 세팅한다.
 })
 
 ----------------------------------------------------------------------------
@@ -828,11 +830,22 @@ end
 ----------------------------------------------------------------------------
 function ServerData_Dmgate:getBuffList(mode_id)
     if not mode_id then return nil end
-    local result = {}
     
-    local buff_str = tostring(self.m_dmgateInfo[mode_id]['buff'])
+    local result = {}
+    local buff_str
+    local debuff_str
+
+    -- 테스트 기능을 위한 분기처리
+    -- 설정된 테스트 데이터가 있으면 그것으로 설정
+    if not isNullOrEmpty(self.m_testSeasonBuffList) and IS_TEST_MODE() then 
+        buff_str = self.m_testSeasonBuffList
+        debuff_str = ''
+    else
+        buff_str = tostring(self.m_dmgateInfo[mode_id]['buff'])
+        debuff_str = tostring(self.m_dmgateInfo[mode_id]['debuff'])
+    end
+
     local buff_list = plSplit(buff_str, ';')   
-    local debuff_str = tostring(self.m_dmgateInfo[mode_id]['debuff'])
     local debuff_list = plSplit(debuff_str, ';')   
 
     local dragon_skill_table = TABLE:get('dragon_skill')

@@ -39,7 +39,7 @@ UI_DmgateScene = class(PARENT, {
     m_difficultyTableView = 'UIC_TableView', -- 난이도 선택 테이블뷰
 
     m_startBtn = 'UIC_Button',        -- 게임 준비 버튼
-    
+    m_manageDevBtn = 'UIC_Button',      -- 개발버튼
 
     m_stageBtnUI = 'UI_DmgateSceneItem',    -- 선택된 스테이지 버튼 UI
     m_stagePosNode = 'cc.Node',    -- 선택된 스테이지 버튼 ui의 translation을 위한 노드
@@ -122,6 +122,9 @@ function UI_DmgateScene:initMember(stage_id)
 
     self.m_startBtn = vars['startBtn']               -- 게임 준비 버튼   
 
+    self.m_manageDevBtn = vars['manageDevBtn']       -- 개발버튼 (현재 시즌효과 설정에 사용 중)   
+    
+
     -- 챕터 관련 버튼, 배경 스프라이트, 테이블뷰
     self.m_chapterButtons = {}
     self.m_chapterBgSprites = {}
@@ -168,6 +171,10 @@ function UI_DmgateScene:initButton()
         end
     end
         
+    if IS_TEST_MODE() then
+        self.m_manageDevBtn:setVisible(true)
+    end
+
     -- 시즌 효과 버튼
     self.m_seasonBtn:registerScriptTapHandler(function() self:click_seasonBtn() end)
     -- 도움말 버튼
@@ -176,6 +183,8 @@ function UI_DmgateScene:initButton()
     self.m_shopBtn:registerScriptTapHandler(function() self:click_shopBtn() end)
     -- 시작 버튼
     self.m_startBtn:registerScriptTapHandler(function() self:click_startBtn() end)
+    -- 개발 버튼
+    self.m_manageDevBtn:registerScriptTapHandler(function() self:click_devBtn() end)
 end
 
 ----------------------------------------------------------------------
@@ -448,6 +457,54 @@ function UI_DmgateScene:click_startBtn()
 
     self:sceneFadeOutAndCallFunc(callback_func)
 end
+
+----------------------------------------------------------------------------
+-- function click_devBtn
+----------------------------------------------------------------------------
+function UI_DmgateScene:click_devBtn()
+    local edit_box = UI_SimpleEditBoxPopup()
+    edit_box:setPopupTitle(Str(''))
+    edit_box:setPopupDsc(Str('시준효과 설정'))
+    edit_box:setPlaceHolder(Str('스킬아이디를 세미콜론으로 구분하여 쭈우욱 입력하시오.'))
+    edit_box:setMaxLength(100)
+
+    local function confirm_cb(str)
+        if (isNullOrEmpty(str) == false) then
+            local buff_list = plSplit(str, ';')   
+            local dragon_skill_table = TABLE:get('dragon_skill')
+            local data
+            for _, skill_id in pairs(buff_list) do
+                data = dragon_skill_table[tonumber(skill_id)]
+
+                if not data then
+                    UIManager:toastNotificationRed('잘못된 스킬아이디 입력. sid :: ' .. tostring(skill_id))
+                    return false
+                end
+            end
+        end
+
+        return true
+    end
+
+    edit_box:setConfirmCB(confirm_cb)
+
+    local function close_cb()
+        if (edit_box.m_retType == 'ok') then
+            local buff_str = edit_box.m_str
+
+            if (isNullOrEmpty(buff_str) == true) then
+                UIManager:toastNotificationRed('입력한 데이터가 없어서 써버데이터를 사용합니다.')
+            end
+
+            if (confirm_cb(buff_str) == false) then return end
+
+            g_dmgateData.m_testSeasonBuffList = buff_str
+        end
+    end
+
+    edit_box:setCloseCB(close_cb)
+end
+
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --//  private member functions
