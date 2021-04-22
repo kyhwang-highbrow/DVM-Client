@@ -314,7 +314,15 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 		end
 
         local function touch_event()
-            ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, function() UI_EventRoulette() end)
+            local function show_event_roulette()
+                local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_EventRoulette')
+
+                if (is_opend) then return end
+
+                UI_EventRoulette()
+            end
+
+            ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, show_event_roulette)
         end
 			
         local button = ccui.Button:create()
@@ -324,7 +332,11 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
         button:setScale(4.7, 8.5)
         button:setOpacity(0.01)
         button:setDockPoint(cc.p(0.5, 0))
-        button:addTouchEventListener(function() touch_event() end)
+        button:addTouchEventListener(function(sender,eventType)
+            if eventType == ccui.TouchEventType.ended then
+                touch_event()
+            end
+        end)
         node:addChild(button, 3)
 
         self:makeLobbyEffectByMode(node)
