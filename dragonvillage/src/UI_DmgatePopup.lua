@@ -72,24 +72,8 @@ end
 -- function initUI
 -------------------------------------
 function UI_DmgateBlessBtnPopup:initUI()
-
-    local buff_list = g_dmgateData:getBuffList(DIMENSION_GATE_ANGRA)
     self.m_titleNode:setString(Str('시즌 효과'))
-
-
-    local function create_callback(ui, data)
-    end
-    
-    local tableview = UIC_TableView(self.m_scrollNode)
-    tableview:setCellSizeToNodeSize(true)
-    tableview:setGapBtwCells(5)
-    tableview:setCellUIClass(UI_DmgateBlessItem, create_callback)
-    tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    tableview:setAlignCenter(true)
-    tableview:setItemList(buff_list, true)
-    if #buff_list <= 2 then
-        tableview.m_scrollView:setTouchEnabled(false)
-    end
+    self:addBlessTableView(self.m_scrollNode)
 end
 
 -------------------------------------
@@ -105,6 +89,28 @@ function UI_DmgateBlessBtnPopup:refresh()
 end
 
 
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_DmgateBlessBtnPopup:addBlessTableView(scroll_node)
+    local buff_list = g_dmgateData:getBuffList(DIMENSION_GATE_ANGRA)
+
+    if (not buff_list) or (#buff_list <= 0) then return end
+
+    local function create_callback(ui, data)
+    end
+    
+    local tableview = UIC_TableView(scroll_node)
+    tableview:setCellSizeToNodeSize(true)
+    tableview:setGapBtwCells(5)
+    tableview:setCellUIClass(UI_DmgateBlessItem, create_callback)
+    tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    tableview:setAlignCenter(true)
+    tableview:setItemList(buff_list, true)
+    if #buff_list <= 2 then
+        tableview.m_scrollView:setTouchEnabled(false)
+    end
+end
 
 -------------------------------------
 -- class UI_DmgateBlessBtnPopup

@@ -131,10 +131,25 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
                 vars['infoLabel' .. i]:setString(desc_list[i])
             end
         end
+        
     else
-        vars['btnMenu']:setPositionY(0)
+        -- 차원문 시즌효과
+        -- 상층이면 버튼들 이동 안하고 효과를 보여줌
+        local is_dmgate_stage = game_mode == GAME_MODE_DIMENSION_GATE
+        local chapter_id = is_dmgate_stage and g_dmgateData:getChapterID(tonumber(g_gameScene.m_gameWorld.m_stageID)) or -1
+        local is_upper_floor = chapter_id > 1
+
+        -- dmgate 스테이지가 아니면
+        -- is_upper_floor 이 값은 항상 false임
+        if (is_upper_floor) then
+            UI_DmgateBlessBtnPopup:addBlessTableView(vars['blessMenu'])
+        else
+            vars['btnMenu']:setPositionY(0)
+        end
+
         vars['starMenu']:setVisible(false)
         vars['difficultyLabel']:setVisible(false)
+
     end
 
     -- 모험 버튼 설정
