@@ -20,6 +20,8 @@ UI_EventRoulette = class(PARENT, {
     m_rouletteVisual = 'AnimatorVrp', -- 돌림판 Sprite
     m_appearVisual = 'AnimatorVrp', -- 연출 Animation
 
+    m_itemNodes = 'List[cc.Node]', -- 돌림판 위에 상품 아이콘을 위한 노드
+
     -- Middle Right
     m_totalScoreLabel = 'UIC_LabelTTF', -- 누적점수
     m_rewardListNode = 'cc.Node',   -- 등장 가능 보상 테이블뷰를 위한 노드
@@ -84,12 +86,20 @@ function UI_EventRoulette:initMember()
     
     self.m_rouletteMenues = {}
     self.m_startBtns = {}
+    self.m_itemNodes = {}
 
     local step = 1
     while(vars['rouletteMenu' .. step]) do
         self.m_rouletteMenues[step] = vars['rouletteMenu' .. step] -- 룰렛
         self.m_startBtns[step] = vars['startBtn' .. step]    -- 시작 버튼
         step = step + 1
+    end
+
+    local node_index = 1
+    while(vars['itemNode' .. tostring(node_index)]) do
+        self.m_itemNodes[node_index] = vars['itemNode' .. tostring(node_index)]
+
+        node_index = node_index + 1
     end
     
 
@@ -175,6 +185,14 @@ function UI_EventRoulette:refresh()
         self.m_startBtns[step]:setVisible(self.m_currStep == step)
 
         step = step + 1
+    end
+
+    local index = 1
+    while(self.m_itemNodes[index]) do
+        self.m_itemNodes[index]:removeAllChildren()
+        local icon = g_eventRouletteData:getIcon(index)
+        self.m_itemNodes[index]:addChild(icon)
+        index = index + 1
     end
 
     self.m_rouletteVisual:changeAni('roulette_' .. tostring(self.m_currStep), true)
