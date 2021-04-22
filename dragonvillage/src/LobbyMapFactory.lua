@@ -90,14 +90,14 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby)
         self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
         self:makeLobbyParticle(ui_lobby, deco_type) -- 축제용 꽃 파티클
 
-        --[[
+        
         ServerData_Forest:getInstance():request_myForestInfo(function()
             local t_dragon_object = ServerData_Forest:getInstance():getMyDragons()
 
             for doid, struct_dragon_object in pairs(t_dragon_object) do
                 lobby_map:makeDragon(struct_dragon_object)
             end
-        end)]]
+        end)
     end
 
     return lobby_map
