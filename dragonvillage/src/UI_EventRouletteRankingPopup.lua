@@ -15,6 +15,7 @@ UI_EventRouletteRankPopup = class(UI, ITabUI:getCloneTable(),
     m_rankOffset = 'number',
 })
 
+local OFFSET_GAP = 30
 
 ----------------------------------------------------------------------
 -- function init
@@ -358,7 +359,7 @@ end
 -------------------------------------
 function UI_EventRouletteRankTab:makeRankTableView()
     local vars = self.m_parentVars
-    local node = vars['rankListNode']
+    local node = vars['rankListNode_' .. self.m_tabType]
     node:removeAllChildren()
 
     local l_item_list = g_eventRouletteData.m_lGlobalRank
