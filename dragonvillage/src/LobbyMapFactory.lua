@@ -97,7 +97,7 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby)
 
             if (not t_dragon_object) or (#t_dragon_object <= 0) then return end
 
-            local max_loop_count = math.min(#t_dragon_object, 10)
+            local max_loop_count = math.min(#t_dragon_object, 5)
 
             for doid, struct_dragon_object in pairs(t_dragon_object) do
                 if (loop_count > max_loop_count) then break end
