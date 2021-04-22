@@ -26,6 +26,7 @@ function UI_Setting:init_devTab()
     vars['benchmarkBtn']:registerScriptTapHandler(function() self:click_benchmarkBtn() end)
     vars['clanCacheResetBtn']:registerScriptTapHandler(function() self:click_clanCacheResetBtn() end)
     vars['setUidBtn']:registerScriptTapHandler(function() self:click_setUidBtn() end)
+    vars['dayNightChangeBtn']:registerScriptTapHandler(function() self:click_changeDayNightBtn() end)
     vars['popupCacheResetBtn']:registerScriptTapHandler(function() self:click_popupCacheResetBtn() end)
     vars['lobbyGuideResetBtn']:registerScriptTapHandler(function() self:click_lobbyGuideResetBtn() end)
     vars['colosseumOldBtn']:registerScriptTapHandler(function() self:click_colosseumOldBtn() end)
@@ -780,6 +781,16 @@ function UI_Setting:click_setUidBtn()
         end
     end
     edit_box:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_popupCacheResetBtn
+-- @brief 낮/밤 교체
+-------------------------------------
+function UI_Setting:click_changeDayNightBtn()
+    SKIP_CHECK_DAY_OR_NIGHT = true
+    USE_NIGHT = not USE_NIGHT
+    SceneLobby(true):runScene()
 end
 
 -------------------------------------
