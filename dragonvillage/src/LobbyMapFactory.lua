@@ -92,10 +92,19 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby)
 
         
         ServerData_Forest:getInstance():request_myForestInfo(function()
-            local t_dragon_object = ServerData_Forest:getInstance():getMyDragons()
+            local t_dragon_object = table.sortRandom(ServerData_Forest:getInstance():getMyDragons())
+            local loop_count = 0
+
+            if (not t_dragon_object) or (#t_dragon_object <= 0) then return end
+
+            local max_loop_count = math.min(#t_dragon_object, 10)
 
             for doid, struct_dragon_object in pairs(t_dragon_object) do
+                if (loop_count > max_loop_count) then break end
+
                 lobby_map:makeDragon(struct_dragon_object)
+
+                loop_count = loop_count + 1
             end
         end)
     end
