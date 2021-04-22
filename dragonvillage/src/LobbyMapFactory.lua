@@ -299,11 +299,18 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 		end
 
     elseif (deco_type == DECO_TYPE.WEIDEL_FESTIVAL) then
-        animator = MakeAnimator('res/lobby/lobby_season_deco/weidel_festival/lobby_weidel_festival_center.vrp')
-		if (animator.m_node) then
-			animator:setPosition(0, 0)
-			animator:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
-			node:addChild(animator.m_node, 1)
+        for _, l_info in ipairs(LAYER_INFO_LIST) do
+			local name = l_info[1]
+			local pos_x = l_info[2]
+			local full_path = string.format('res/lobby/lobby_season_deco/weidel_festival/lobby_weidel_festival_%s.vrp', name)
+			animator = MakeAnimator(full_path, skip_error_msg)
+			if (animator.m_node) then
+				animator:setDockPoint(CENTER_POINT)
+				animator:setAnchorPoint(CENTER_POINT)
+				animator:setPositionX(pos_x)
+			    animator:setPositionY(0)
+				node:addChild(animator.m_node, 1)
+			end
 		end
 
         self:makeLobbyEffectByMode(node)
