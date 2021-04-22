@@ -140,7 +140,7 @@ function ServerData_Dmgate:response_dmgateInfo(ret)
                 self.m_unlockStageList[next_stage_id] = true
 
                 local curr_chapter_id = self:getChapterID(stage_id)
-                local next_chapter_id = self:getChpaterID(next_stage_id)
+                local next_chapter_id = self:getChapterID(next_stage_id)
                 
                 if (curr_chapter_id == 1) and (curr_chapter_id ~= next_chapter_id) then
                     self.m_bNewChapterPopup = true
