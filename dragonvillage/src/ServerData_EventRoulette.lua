@@ -62,10 +62,9 @@ function ServerData_EventRoulette:request_rouletteInfo(is_table_required, is_rew
             self.m_rouletteInfo = ret['roulette_info']
             self.m_rouletteInfo['start_date'] = self.m_rouletteInfo['start_date'] / 1000
             self.m_rouletteInfo['end_date'] = self.m_rouletteInfo['end_date'] / 1000
-            ccdump(self.m_rouletteInfo)
         end
 
-        if ret['table_event_probability'] then -- 룰렛 확률 테이블
+        if ret['table_event_probability'] and (self.m_probabilityTable == nil) and (self.m_probIndexKeyList == nil) then -- 룰렛 확률 테이블
             --self.m_probabilityTable = ret['table_event_probability']
             for key, data in pairs(ret['table_event_probability']) do
                 local step = data['step']
@@ -79,18 +78,27 @@ function ServerData_EventRoulette:request_rouletteInfo(is_table_required, is_rew
                 if (step == 1) then 
                     table.insert(self.m_probabilityTable[step], data)
                     self.m_probIndexKeyList[data['group_code']] = #self.m_probabilityTable[step]
+                    if (#self.m_probabilityTable[step] > 8) then
+                        ccdump(self.m_probabilityTable)
+                        ccerror('')
+                    end
                 elseif (step == 2) then
                     local group_code = data['group_code']
                     
                     if (not self.m_probabilityTable[step][group_code]) then self.m_probabilityTable[step][group_code] = {} end
                     table.insert(self.m_probabilityTable[step][group_code], data)
-                    self.m_probIndexKeyList[data['item_id']] = #self.m_probabilityTable[step][group_code]
+                    self.m_probIndexKeyList[tostring(data['id'])] = #self.m_probabilityTable[step][group_code]
+                    if (#self.m_probabilityTable[step][group_code] > 8) then
+                        ccdump(self.m_probabilityTable)
+                        ccerror('')
+                    end
                 else
                     if IS_DEV_SERVER() then
                         error('There isn\'t any steps over 2 in table_event_probability')
                     end
                 end
             end
+            ccdump(self.m_probIndexKeyList)
             ccdump(self.m_probabilityTable)
         end
 
@@ -146,11 +154,20 @@ end
 -- param step   몇번째 룰렛을 돌리는지 (step : 1, 2)
 -- picked_group step 2에 필요한 당첨된 그룹 (step 1으로 받는 return 값)
 ----------------------------------------------------------------------
-function ServerData_EventRoulette:request_rouletteStart(step, picked_group, finish_cb, fail_cb)
+function ServerData_EventRoulette:request_rouletteStart(finish_cb, fail_cb) 
     local user_id = g_userData:get('uid')
+    local step = self:getCurrStep()
+    local picked_group = self:getPickedGroup()
+
+    ccdump(step)
+    ccdump(picked_group)
     
     local function success_cb(ret)
         self.m_rouletteInfo = ret['roulette_info']
+        if ret['picked_id'] then
+            self.m_rouletteInfo['picked_id'] = tostring(ret['picked_id'])
+        end
+        ccdump(self.m_rouletteInfo)
 
         --_serverData:receiveReward(ret)
         if(finish_cb) then finish_cb(ret) end
@@ -264,10 +281,11 @@ end
 -- return step (1 or 2)
 ----------------------------------------------------------------------
 function ServerData_EventRoulette:getCurrStep()
-    if self.m_rouletteInfo['picked_group'] then
-        return 2
-    else
+    if (not self.m_rouletteInfo['picked_group']) 
+        or (self.m_rouletteInfo['picked_group'] == '') then
         return 1
+    else
+        return 2
     end
 end
 ----------------------------------------------------------------------
@@ -312,7 +330,37 @@ function ServerData_EventRoulette:getRandAngle()
 
     -- 100, -20, 5s : 1
     -- 1000, -200, 5s : 10
+end
 
+function ServerData_EventRoulette:getPickedItemIndex()
+    cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    local step = self:getCurrStep()
+    cclog('step : ' .. tostring(step))
+    local index
+
+    if (step == 2) then -- 1단계에서 STOP 이후 step이 바뀐 상태
+        local key = self:getPickedGroup()
+        cclog('key : ' .. tostring(key))
+        index = self.m_probIndexKeyList[key]
+    elseif (step == 1) then -- 2단계에서 STOP 이후 step이 바뀐 상태
+        local key = self.m_rouletteInfo['picked_id']
+        cclog('key : ' .. tostring(key))
+        index = self.m_probIndexKeyList[key]
+    else
+        if IS_DEV_SERVER() then
+            error('There isn\'t any steps over 2 in table_event_probability')
+        end
+    end
+    ccdump(index)
+        if(index > 8) then
+            if step == 2 then
+                cclog('picked :' .. self:getPickedGroup())
+            else
+                cclog('picked :' .. self.m_rouletteInfo['picked_id'])
+            end
+            ccdump(self.m_probIndexKeyList)
+        end
+    return index
 end
 
 -------------------------------------

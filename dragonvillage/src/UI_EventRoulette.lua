@@ -19,7 +19,6 @@ UI_EventRoulette = class(PARENT, {
     m_wheel = 'cc.Menu', -- 돌림판 Sprite & nodes
     m_rouletteVisual = 'AnimatorVrp', -- 돌림판 Sprite
     m_appearVisual = 'AnimatorVrp', -- 연출 Animation
-    --m_rouletteSprites = 'List[Animator]', -- 돌림판 Sprite
 
     -- Middle Right
     m_totalScoreLabel = 'UIC_LabelTTF', -- 누적점수
@@ -71,8 +70,6 @@ function UI_EventRoulette:initMember()
     self.m_angular_accel = -500
     self.m_time = 0
 
-    self.m_currStep = g_eventRouletteData:getCurrStep()
-
     -- TOP
     self.m_timeLabel = vars['timeLabel']   -- 남은 시간 텍스트
     self.m_rankBtn = vars['rankBtn']       -- 랭킹 버튼
@@ -110,12 +107,7 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:initUI()
     -- event_roulette_item.ui
-    local step = 1
-    while(self.m_rouletteMenues[step]) do
-        self.m_rouletteMenues[step]:setVisible(self.m_currStep == step)
-        step = step + 1
-    end
-
+    
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
 
@@ -174,6 +166,18 @@ end
 function UI_EventRoulette:refresh()
     self.m_ticketNumLabel:setString(g_eventRouletteData:getTicketNum())
     self.m_totalScoreLabel:setString(g_eventRouletteData:getTotalScore())
+    
+    self.m_currStep = g_eventRouletteData:getCurrStep()
+
+    local step = 1
+    while(self.m_rouletteMenues[step]) do
+        self.m_rouletteMenues[step]:setVisible(self.m_currStep == step)
+        self.m_startBtns[step]:setVisible(self.m_currStep == step)
+
+        step = step + 1
+    end
+
+    self.m_rouletteVisual:changeAni('roulette_' .. tostring(self.m_currStep), true)
 end
 
 ----------------------------------------------------------------------
@@ -204,14 +208,14 @@ function UI_EventRoulette:AdjustRoulette(dt)
     if (self.m_wheel:getNumberOfRunningActions() == 0) then
         self.m_wheel:setRotation(0)
         self.root:unscheduleUpdate()
-        local index = math.random(1, 8)
+        local index = g_eventRouletteData:getPickedItemIndex()
         local elementNum = 8
         local gap = 2
 
         local angle = 360 / elementNum
         local rand_angle = math.random(0 + gap, angle - gap)
 
-        local target_angle = angle * (index - 1) + rand_angle
+        local target_angle = angle * (index - 1) + rand_angle + 360
         self.m_wheel:runAction(cc.RotateBy:create(3, target_angle))
 
         
@@ -228,6 +232,7 @@ end
 function UI_EventRoulette:StopRoulette(dt)
     if (self.m_wheel:getNumberOfRunningActions() == 0) then
         self.root:unscheduleUpdate()
+        self:refresh()
     end
 end
 
@@ -270,17 +275,15 @@ function UI_EventRoulette:click_stopTest()
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:AdjustRoulette(dt) end, 0)
     end
 
-    local function fail_cb()
+    local function fail_cb(ret)
         UINavigator:goTo('lobby')
     end
-
-    -- g_eventRouletteData:request_rouletteStart(
-    --     g_eventRouletteData:getCurrStep(),
-    --     g_eventRouletteData:getPickedGroup(),
-    --     finish_callback(),
-    --     fail_cb()
-    -- )
-    finish_callback()
+    
+    g_eventRouletteData:request_rouletteStart(
+        finish_callback,
+        fail_cb
+    )
+   -- finish_callback()
 end
 
 
