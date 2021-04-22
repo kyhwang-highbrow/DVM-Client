@@ -7,9 +7,12 @@
 ServerData_EventRoulette = class({
     m_rouletteInfo = 'table',
     m_probabilityTable = 'table',
+    m_probIndexKeyList = 'list[index]',
     m_rankTable = 'table',
 
     --m_bDirtyTable = 'boolean',
+
+    m_resultIndex = 'number',
 
 
 })
@@ -54,10 +57,36 @@ function ServerData_EventRoulette:request_rouletteInfo(is_table_required, is_rew
             self.m_rouletteInfo = ret['roulette_info']
             self.m_rouletteInfo['start_date'] = self.m_rouletteInfo['start_date'] / 1000
             self.m_rouletteInfo['end_date'] = self.m_rouletteInfo['end_date'] / 1000
+            ccdump(self.m_rouletteInfo)
         end
 
         if ret['table_event_probability'] then -- 룰렛 확률 테이블
-            self.m_probabilityTable = ret['table_event_probability']
+            --self.m_probabilityTable = ret['table_event_probability']
+            for key, data in pairs(ret['table_event_probability']) do
+                local step = data['step']
+
+                if (self.m_probabilityTable == nil) then 
+                    self.m_probabilityTable = {} 
+                    self.m_probIndexKeyList = {}
+                end
+                if (self.m_probabilityTable[step] == nil) then self.m_probabilityTable[step] = {} end
+
+                if (step == 1) then 
+                    table.insert(self.m_probabilityTable[step], data)
+                    self.m_probIndexKeyList[data['group_code']] = #self.m_probabilityTable[step]
+                elseif (step == 2) then
+                    local group_code = data['group_code']
+                    
+                    if (not self.m_probabilityTable[step][group_code]) then self.m_probabilityTable[step][group_code] = {} end
+                    table.insert(self.m_probabilityTable[step][group_code], data)
+                    self.m_probIndexKeyList[data['item_id']] = #self.m_probabilityTable[step][group_code]
+                else
+                    if IS_DEV_SERVER() then
+                        error('There isn\'t any steps over 2 in table_event_probability')
+                    end
+                end
+            end
+            ccdump(self.m_probabilityTable)
         end
 
         if ret['table_event_rank'] then -- 랭킹 정보 테이블
@@ -91,9 +120,11 @@ end
 ----------------------------------------------------------------------
 function ServerData_EventRoulette:request_rouletteStart(step, picked_group, finish_cb, fail_cb)
     local user_id = g_userData:get('uid')
-
+    
     local function success_cb(ret)
+        self.m_rouletteInfo = ret['roulette_info']
 
+        --_serverData:receiveReward(ret)
         if(finish_cb) then finish_cb(ret) end
     end
 
@@ -185,4 +216,61 @@ function ServerData_EventRoulette:getTimeText()
     end
 
     return str
+end
+
+
+----------------------------------------------------------------------
+-- function getCurrStep
+-- return step (1 or 2)
+----------------------------------------------------------------------
+function ServerData_EventRoulette:getCurrStep()
+    if self.m_rouletteInfo['picked_group'] then
+        return 2
+    else
+        return 1
+    end
+end
+----------------------------------------------------------------------
+-- function getPickedGroup
+-- return 
+----------------------------------------------------------------------
+function ServerData_EventRoulette:getPickedGroup()
+    return self.m_rouletteInfo['picked_group']
+end
+
+
+----------------------------------------------------------------------
+-- function getCurrStep
+----------------------------------------------------------------------
+function ServerData_EventRoulette:getRandAngle()
+    local gap = 2
+    local step = self:getCurrStep()
+    local group_code = self.m_rouletteInfo['picked_group']
+
+    local elementNum
+    if (step == 1) then
+        elementNum = #self.m_probabilityTable[step]
+    elseif (step == 2) then
+        elementNum = #self.m_probabilityTable[step][group_code]
+    end
+
+     local angle = 360 / elementNum
+
+     local rand_angle = math.random(0 + gap, angle - gap)
+
+    local target_angle =  angle * (self.m_resultIndex - 1) + rand_angle
+    --stringx.split
+
+    
+    --local error = velocity / 100 
+
+    -- 100, -2, 50s : 200
+
+    -- 100, -50, 2s : 1
+    -- 1000, -500, 2s : 10
+    -- 10000, -5000, 2s : 100
+
+    -- 100, -20, 5s : 1
+    -- 1000, -200, 5s : 10
+
 end

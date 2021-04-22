@@ -10,25 +10,32 @@ UI_EventRoulette = class(PARENT, {
     m_timeLabel = 'UIC_LabelTTF',   -- 남은 시간 텍스트
     m_rankBtn = 'UIC_Button',       -- 랭킹 버튼
     m_infoBtn = 'UIC_Button',       -- 도움말 버튼
+    m_closeBtn = 'UIC_Button',      -- 닫기 버튼
 
     -- Middle Left
-    m_startBtn = 'UIC_Button',      -- 시작 버튼
-    m_stopBtn = 'UIC_Button',       -- 정지 버튼
-    m_closeBtn = 'UIC_Button',      -- 닫기 버튼
-    
-    m_rouletteSprite = 'Animator',  -- 돌림판 Sprite
+    m_rouletteMenues = 'List[cc.Menu]',
+    m_startBtns = 'List[UIC_Button]',   -- 시작 버튼
+    m_stopBtn = 'UIC_Button',-- 정지 버튼
+    m_wheel = 'cc.Menu', -- 돌림판 Sprite & nodes
+    m_rouletteVisual = 'AnimatorVrp', -- 돌림판 Sprite
+    m_appearVisual = 'AnimatorVrp', -- 연출 Animation
+    --m_rouletteSprites = 'List[Animator]', -- 돌림판 Sprite
 
     -- Middle Right
     m_totalScoreLabel = 'UIC_LabelTTF', -- 누적점수
     m_rewardListNode = 'cc.Node',   -- 등장 가능 보상 테이블뷰를 위한 노드
 
     -- Bottom
+
     m_packageBtn = 'UIC_Button',    -- 패키지 연결 버튼
     m_ticketNumLabel = 'UIC_LabelTTF', -- 티켓 수량
 
 
     -- TEMP
+    m_currStep = 'number', -- 현재 step
+
     m_angular_vel = 'number',
+    m_origin_angular_vel = 'number',
     m_angular_accel = 'number',
     m_time = 'number',
     m_packageName = 'string',
@@ -60,21 +67,34 @@ function UI_EventRoulette:initMember()
     local vars = self.vars
     
     self.m_packageName = 'package_roulette'
-    self.m_angular_vel = 500
-    self.m_angular_accel = -100
+    self.m_origin_angular_vel = 1000
+    self.m_angular_accel = -500
     self.m_time = 0
+
+    self.m_currStep = g_eventRouletteData:getCurrStep()
 
     -- TOP
     self.m_timeLabel = vars['timeLabel']   -- 남은 시간 텍스트
     self.m_rankBtn = vars['rankBtn']       -- 랭킹 버튼
     self.m_infoBtn = vars['infoBtn']       -- 도움말 버튼
+    self.m_closeBtn = vars['closeBtn']      -- 닫기 버튼
 
     -- Middle Left
-    self.m_startBtn = vars['startBtn']      -- 시작 버튼
-    self.m_stopBtn = vars['stopBtn']       -- 정지 버튼
-    self.m_closeBtn = vars['closeBtn']      -- 닫기 버튼
+    self.m_stopBtn = vars['stopBtn']
+    self.m_wheel = vars['wheelMenu'] -- 돌림판 Sprite
+    self.m_rouletteVisual = vars['rouletteVisual'] -- 돌림판 Sprite
+    self.m_appearVisual = vars['appearVisual'] -- 연출 Animation
     
-    self.m_rouletteSprite = vars['rouletteSprite']   -- 돌림판 Sprite
+    self.m_rouletteMenues = {}
+    self.m_startBtns = {}
+
+    local step = 1
+    while(vars['rouletteMenu' .. step]) do
+        self.m_rouletteMenues[step] = vars['rouletteMenu' .. step] -- 룰렛
+        self.m_startBtns[step] = vars['startBtn' .. step]    -- 시작 버튼
+        step = step + 1
+    end
+    
 
     -- Middle Right
     self.m_totalScoreLabel = vars['scoreLabel']  -- 누적점수
@@ -85,27 +105,55 @@ function UI_EventRoulette:initMember()
     self.m_ticketNumLabel = vars['numberLabel']  -- 티켓 수량
 end
 
-
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
 function UI_EventRoulette:initUI()
     -- event_roulette_item.ui
+    local step = 1
+    while(self.m_rouletteMenues[step]) do
+        self.m_rouletteMenues[step]:setVisible(self.m_currStep == step)
+        step = step + 1
+    end
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
 
 ----------------------------------------------------------------------
+-- function initRewardTableView
+----------------------------------------------------------------------
+-- function UI_EventRoulette:initRewardTableView()
+
+--     self.m_rewardListNode:removeAllChildren()
+
+--     local function create_callback(ui, data)
+
+--     end
+
+--     local tableview = UIC_TableView(self.m_rewardListNode)
+--     tableview:setCellUIClass(UI_EventRoulette.UI_RewardItem, create_callback)
+--     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+--     --tableview:set
+--     tableview:setItemList(, true)
+-- end
+
+----------------------------------------------------------------------
 -- function initButton
 ----------------------------------------------------------------------
 function UI_EventRoulette:initButton()
-    self.m_startBtn:registerScriptTapHandler(function() 
-        self:click_startBtn() 
-    end)
-    self.m_stopBtn:registerScriptTapHandler(function() 
-        self:click_stopBtn() 
-    end)
 
+    local step = 1
+    while(self.m_rouletteMenues[step]) do 
+        self.m_startBtns[step]:registerScriptTapHandler(function()
+            self:click_startTest()     
+        end)
+
+        step = step + 1
+    end
+
+    self.m_stopBtn:registerScriptTapHandler(function()
+        self:click_stopTest()     
+    end)
     self.m_closeBtn:registerScriptTapHandler(function() 
         self:close() 
     end)
@@ -119,11 +167,6 @@ function UI_EventRoulette:initButton()
         PackageManager:getTargetUI(self.m_packageName, true)
     end)
 end
-
--- 1. Start를 누름 (일정한 속도로 계속 돌아감) 
-
--- 2. Stop을 누름 (360 - 현재 각도) + 일정한 바퀴수 + rand()
-
 
 ----------------------------------------------------------------------
 -- function refresh
@@ -143,113 +186,104 @@ function UI_EventRoulette:updateTimer(dt)
 end
 
 
-
-
 ----------------------------------------------------------------------
--- function click_startBtn
+-- function keepRotateRoulette
 ----------------------------------------------------------------------
-function UI_EventRoulette:click_startBtn()
-    self.m_startBtn:setVisible(false)
-    self.m_stopBtn:setVisible(true)
-
-    self.m_rouletteSprite:setRotation(self.m_rouletteSprite:getRotation() % 360)
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:Test1(dt) end, 0)
-
-    -- self.m_rouletteSprite:stopAllActions()
-    -- self.m_rouletteSprite:setRotation(self.m_rouletteSprite:getRotation() % 360)
-    -- ccdump(self.m_rouletteSprite:getRotation())
-    -- local rand_angle = math.random(0, 360)
-    -- local rot1 = cc.RotateBy:create(2, 2880 + rand_angle)
-    -- self.m_rouletteSprite:runAction(rot1)
-    --ccdump(self.m_rouletteSprite:getRotation())
-end
-
-
-----------------------------------------------------------------------
--- function click_stopBtn
-----------------------------------------------------------------------
-function UI_EventRoulette:click_stopBtn()
-    self.m_stopBtn:setVisible(false)
-    self.m_startBtn:setVisible(true)
-
-    self.root:unscheduleUpdate()
-    --self.m_rouletteSprite:setRotation(0)
-    self.m_time = 0
-    self.m_rouletteSprite:setRotation(self.m_rouletteSprite:getRotation() % 360)
-    
-    cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-    cclog(self.m_rouletteSprite:getRotation())
-
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:Test2(dt) end, 0)
-    --self:stopSpinningRoulette()
-end
-
-
-
-
-
-
-
-
-----------------------------------------------------------------------
--- function click_stopBtn
-----------------------------------------------------------------------
-function UI_EventRoulette:keepSpinningRoulette(dt)
-    if self.m_rouletteSprite:getNumberOfRunningActions() == 0 then
-    self.m_rouletteSprite:runAction(cc.RotateBy:create(0.7, 360))
+function UI_EventRoulette:keepRotateRoulette(dt)
+    if (self.m_wheel:getNumberOfRunningActions() == 0) then
+        local angle = self.m_wheel:getRotation() % 360
+        self.m_wheel:setRotation(angle)
+        self.m_wheel:runAction(cc.RotateBy:create(0.7, 360))
     end
 end
 
 ----------------------------------------------------------------------
--- function click_stopBtn
+-- function AdjustRoulette
 ----------------------------------------------------------------------
-function UI_EventRoulette:Test1(dt)
-    self.m_angular_vel = 500
-    local rot = self.m_rouletteSprite:getRotation()
-    self.m_rouletteSprite:setRotation(rot + self.m_angular_vel * dt)
+function UI_EventRoulette:AdjustRoulette(dt)
+    if (self.m_wheel:getNumberOfRunningActions() == 0) then
+        self.m_wheel:setRotation(0)
+        self.root:unscheduleUpdate()
+        local index = math.random(1, 8)
+        local elementNum = 8
+        local gap = 2
+
+        local angle = 360 / elementNum
+        local rand_angle = math.random(0 + gap, angle - gap)
+
+        local target_angle = angle * (index - 1) + rand_angle
+        self.m_wheel:runAction(cc.RotateBy:create(3, target_angle))
+
+        
+        cclog('index : ' .. tostring(index))
+        cclog('angle : ' .. tostring(target_angle))
+        cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:StopRoulette(dt) end, 0)
+    end
 end
 
 ----------------------------------------------------------------------
--- function click_stopBtn
+-- function StopRoulette
 ----------------------------------------------------------------------
-function UI_EventRoulette:Test2(dt) 
-    self.m_time = self.m_time + dt
-    self.m_angular_vel = self.m_angular_vel + self.m_angular_accel * dt
-
-    local rot = self.m_rouletteSprite:getRotation()
-    self.m_rouletteSprite:setRotation(rot + self.m_angular_vel * dt)
-
-    if (self.m_angular_vel <= 0) then
-        ccdump('total : ' .. self.m_rouletteSprite:getRotation())
-        ccdump('actual : ' .. self.m_rouletteSprite:getRotation() % 360)
-        
-        ccdump('time : ' .. self.m_time)
+function UI_EventRoulette:StopRoulette(dt)
+    if (self.m_wheel:getNumberOfRunningActions() == 0) then
         self.root:unscheduleUpdate()
     end
 end
 
-----------------------------------------------------------------------
--- function click_stopBtn
-----------------------------------------------------------------------
-function UI_EventRoulette:stopSpinningRoulette(dt)
-    --local cycle = 360 * 3
-    self.m_rouletteSprite:setRotation(self.m_rouletteSprite:getRotation() % 360)
-    self.m_rouletteSprite:stopAllActions()
-    local angle = 360 - self.m_rouletteSprite:getRotation()
-    self.m_rouletteSprite:runAction(cc.RotateBy:create(0.7, angle + 360 * 3 + 270))
-    --ccdump(self.m_rouletteSprite:getRotation())
 
+----------------------------------------------------------------------
+-- function click_startTest
+----------------------------------------------------------------------
+function UI_EventRoulette:click_startTest()
+    -- 첫번째 룰렛에서 재료가 모자른 경우
+    if (g_eventRouletteData:getCurrStep() == 1) and (g_eventRouletteData:getTicketNum() <= 0) then
+        local msg = Str('이벤트 아이템이 부족합니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
+        return
+    end
+
+    self.m_startBtns[self.m_currStep]:setVisible(false)
+    self.m_stopBtn:setVisible(true)
+    local angle = self.m_wheel:getRotation() % 360
+    self.m_wheel:setRotation(angle)
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:keepRotateRoulette(dt) end, 0)
+end
+
+----------------------------------------------------------------------
+-- function click_startTest
+----------------------------------------------------------------------
+function UI_EventRoulette:click_stopTest()
+    local function finish_callback()
+        self.m_startBtns[self.m_currStep]:setVisible(true)
+        self.m_stopBtn:setVisible(false)
+        self.root:unscheduleUpdate()
+
+        local current_angle = self.m_wheel:getRotation()
+        local rand_cycle = math.random(1, 2)
+        cclog('rand_cycle : ' .. tostring(rand_cycle))
+        cclog('adjust angle : ' .. tostring(rand_cycle * 360 + (360 - current_angle)))
+        local rotate_action = cc.RotateBy:create(2, rand_cycle * 360 + (360 - current_angle))
+        self.m_wheel:runAction(rotate_action)
+
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:AdjustRoulette(dt) end, 0)
+    end
+
+    local function fail_cb()
+        UINavigator:goTo('lobby')
+    end
+
+    -- g_eventRouletteData:request_rouletteStart(
+    --     g_eventRouletteData:getCurrStep(),
+    --     g_eventRouletteData:getPickedGroup(),
+    --     finish_callback(),
+    --     fail_cb()
+    -- )
+    finish_callback()
 end
 
 
--- local rot1 = cc.RotateBy:create(2, -2880)
--- local rot2 = cc.RotateBy:create(3, -1800)
--- local rot3 = cc.RotateBy:create(3, -720)
--- local rot4 = cc.RotateBy:create(3, -270)
--- local test = cc.Sequence:create(cc.Sequence:create(cc.Sequence:create(rot1, rot2), rot3), rot4)
--- if vars['quickBtn'] ~= nil then
---     vars['quickBtn']:runAction(test)
--- end
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
