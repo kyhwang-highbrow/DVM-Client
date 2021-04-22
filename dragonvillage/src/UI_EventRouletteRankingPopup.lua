@@ -11,6 +11,8 @@ UI_EventRouletteRankPopup = class(UI, ITabUI:getCloneTable(),
     m_sortBtn = 'UIC_Button',
 
     m_rankType = 'string',
+
+    m_rankOffset = 'number',
 })
 
 
@@ -37,8 +39,6 @@ function UI_EventRouletteRankPopup:init()
 
 
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-    --self.m_dailyBtn:registerScriptTapHandler(function() self:click_dailyBtn() end)
-    --self.m_totalBtn:registerScriptTapHandler(function() self:click_totalBtn() end)
 end
 
 ----------------------------------------------------------------------
@@ -82,12 +82,43 @@ function UI_EventRouletteRankPopup:initTab()
     local daily_rank_tab = UI_EventRouletteRankTab(self, vars, 'daily')
     local total_rank_tab = UI_EventRouletteRankTab(self, vars, 'total')
 
-    self:addTabWithTabUIAndLabel('dailyRank', self.m_dailyBtn, vars['dailyTabLabel'], daily_rank_tab) -- 종합 랭킹
-    self:addTabWithTabUIAndLabel('totalRank', self.m_totalBtn, vars['totalTabLabel'], total_rank_tab) -- 속성별 랭킹
+    self:addTabWithTabUIAndLabel('dailyRank', self.m_dailyBtn, vars['dailyTabLabel'], daily_rank_tab, self.m_dailyMenu, vars['dailyNode']) -- 종합 랭킹
+    self:addTabWithTabUIAndLabel('totalRank', self.m_totalBtn, vars['totalTabLabel'], total_rank_tab, self.m_totalMenu, vars['totalNode']) -- 속성별 랭킹
 
     self:setTab('dailyRank')
 end
 
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_EventRouletteRankPopup:onChangeTab(tab, first)
+    self.m_currTab = tab
+
+    -- 초기화 다 된 탭들이면
+    if not first then
+        -- 현재 세팅 된 탭 기준으로 refreshRank를 호출해준다.
+        -- 각 탭들은 자신을 세팅하기 위해 모두 refreshRank 함수를 가진다.
+        if (self.m_currTab and self.m_mTabData) then
+            if (self.m_mTabData[self.m_currTab]) then
+                -- 현재 팝업에서의 탭상태 vs 탭 UI의 상태
+                -- 다르면 리프레시 해주자.
+                local tabViewSearchType = self.m_mTabData[self.m_currTab]['ui'].m_rankType
+
+                if (self.m_rankType ~= tabViewSearchType) then
+                    self.m_mTabData[self.m_currTab]['ui']:refreshRank(self.m_rankType)
+                end
+            end
+        end
+
+    end
+end
+
+-------------------------------------
+-- function onExitTab
+-------------------------------------
+function UI_EventRouletteRankPopup:onExitTab()
+
+end
 
 ----------------------------------------------------------------------
 -- function onChangeSortType
@@ -99,22 +130,41 @@ function UI_EventRouletteRankPopup:onChangeSortType(sort_type)
         UIManager:toastNotificationRed(msg)
         return
     end
+
+    if (sort_type == 'my') then
+        self.m_rankType = 'world'
+        self.m_rankOffset = -1
+
+    elseif (sort_type == 'top') then
+        self.m_rankType = 'world'
+        self.m_rankOffset = 1
+
+    elseif (sort_type == 'friend') then
+        self.m_rankType = 'friend'
+        self.m_rankOffset = 1
+
+    elseif (sort_type == 'clan') then
+        self.m_rankType = 'clan'
+        self.m_rankOffset = 1
+
+    end
+    
+    -- 그냥 타입을 써도 되지만 혹시 모르니 세팅은 해주자.
+    self.m_rankType = sort_type
+
+    -- 현재 세팅 된 탭 기준으로 refreshRank를 호출해준다.
+    -- 각 탭들은 자신을 세팅하기 위해 모두 refreshRank 함수를 가진다.
+    if (self.m_currTab and self.m_mTabData) then
+        if (self.m_mTabData[self.m_currTab]) then
+            self.m_mTabData[self.m_currTab]['ui']:refreshRank(self.m_rankType)
+        end
+    end
 end
 
-----------------------------------------------------------------------
--- function onChangeSortType
-----------------------------------------------------------------------
-function UI_EventRouletteRankPopup:click_dailyBtn()
-    self.m_dailyMenu:setVisible(true)
-    self.m_totalMenu:setVisible(false)
 
-end
 
-function UI_EventRouletteRankPopup:click_totalBtn()
-    self.m_dailyMenu:setVisible(false)
-    self.m_totalMenu:setVisible(true)
 
-end
+
 
 
 
@@ -142,6 +192,7 @@ UI_EventRouletteRankTab = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventRouletteRankTab:init(owner_ui, parent_vars, tab_type)
+    cclog(self.root)
     self.m_rankOffset = 1
     self.m_parentVars = parent_vars
     self.m_tabType = tab_type
@@ -174,6 +225,14 @@ function UI_EventRouletteRankTab:onEnterTab(first)
         self:refreshRank(self.m_rankType)
     end
 end
+
+-------------------------------------
+-- function onExitTab
+-------------------------------------
+function UI_EventRouletteRankTab:onExitTab()
+
+end
+
 
 -------------------------------------
 -- function refreshRank
