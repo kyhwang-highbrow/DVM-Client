@@ -1481,6 +1481,7 @@ local t_module = {
     'UI_EventBingoListItem',
     'UI_EventBingo',   -- 빙고 이벤트
 	'UI_EventRoulette', -- 룰렛 이벤트
+	'UI_EventRouletteRankingPopup',
     'UI_IllusionShop',-- 환상 던전 교환소
     'UI_IllusionRewardPopup', -- 환상 던전 보상 팝업
 	'UI_ItemPickPopup',

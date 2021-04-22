@@ -158,7 +158,7 @@ function UI_EventRoulette:initButton()
         self:close() 
     end)
     self.m_rankBtn:registerScriptTapHandler(function() 
-        UI_EventRoulette.UI_RankPopup() 
+        UI_EventRouletteRankPopup() 
     end)
     self.m_infoBtn:registerScriptTapHandler(function() 
         UI_EventRoulette.UI_InfoPopup() 
@@ -326,98 +326,3 @@ function UI_EventRoulette.UI_InfoPopup:init()
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
-
---////////////////////////////////////////////////////////////////////////////////////////////////////////
---//  UI_EventRoulette.UI_RankPopup
---////////////////////////////////////////////////////////////////////////////////////////////////////////
-UI_EventRoulette.UI_RankPopup = class(UI, {
-    m_dailyBtn = 'UIC_Button',
-    m_dailyMenu = 'cc.Menu', 
-    m_totalBtn = 'UIC_Button',
-    m_totalMenu = 'cc.Menu', 
-    m_sortBtn = 'UIC_Button',
-})
-
-
-----------------------------------------------------------------------
--- function init
-----------------------------------------------------------------------
-function UI_EventRoulette.UI_RankPopup:init()
-    local vars = self:load('event_roulette_ranking_popup.ui')
-    UIManager:open(self, UIManager.POPUP)
-
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette.UI_RankPopup')
-
-    self.m_uiName = 'UI_EventRoulette.UI_RankPopup'
-
-    self.m_dailyBtn = vars['dailyTabBtn']
-    self.m_dailyMenu = vars['dailyMenu']
-    self.m_totalBtn = vars['totalTabBtn']
-    self.m_totalMenu = vars['totalMenu']
-    self.m_sortBtn = vars['sortBtn']
-
-
-    self:init_sortList()
-
-    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-    self.m_dailyBtn:registerScriptTapHandler(function() self:click_dailyBtn() end)
-    self.m_totalBtn:registerScriptTapHandler(function() self:click_totalBtn() end)
-end
-
-----------------------------------------------------------------------
--- function init_sortList
-----------------------------------------------------------------------
-function UI_EventRoulette.UI_RankPopup:init_sortList()
-    local width, height = self.m_sortBtn:getNormalSize()
-    local parent = self.m_sortBtn:getParent()
-    local x, y = self.m_sortBtn:getPosition()
-
-    local sort_list = UIC_SortList()
-
-    sort_list.m_direction = UIC_SORT_LIST_TOP_TO_BOT
-    sort_list:setNormalSize(width, height)
-    sort_list:setPosition(x, y)
-    sort_list:setDockPoint(self.m_sortBtn:getDockPoint())
-    sort_list:setAnchorPoint(self.m_sortBtn:getAnchorPoint())
-    sort_list:init_container()
-
-    sort_list:setExtendButton(self.m_sortBtn)
-    sort_list:setSortTypeLabel(self.vars['sortLabel'])
-
-    parent:addChild(sort_list.m_node)
-
-
-    sort_list:addSortType('my', Str('내 랭킹'))
-    sort_list:addSortType('top', Str('최상위 랭킹'))
-    sort_list:addSortType('friend', Str('친구 랭킹'))
-    sort_list:addSortType('clan', Str('클랜원 랭킹'))
-
-    sort_list:setSortChangeCB(function(sort_type) self:onChangeSortType(sort_type) end)
-end
-
-----------------------------------------------------------------------
--- function onChangeSortType
-----------------------------------------------------------------------
-function UI_EventRoulette.UI_RankPopup:onChangeSortType(sort_type)
-    
-    if (sort_type == 'clan' and g_clanData:isClanGuest()) then
-        local msg = Str('소속된 클랜이 없습니다.')
-        UIManager:toastNotificationRed(msg)
-        return
-    end
-end
-
-----------------------------------------------------------------------
--- function onChangeSortType
-----------------------------------------------------------------------
-function UI_EventRoulette.UI_RankPopup:click_dailyBtn()
-    self.m_dailyMenu:setVisible(true)
-    self.m_totalMenu:setVisible(false)
-
-end
-
-function UI_EventRoulette.UI_RankPopup:click_totalBtn()
-    self.m_dailyMenu:setVisible(false)
-    self.m_totalMenu:setVisible(true)
-
-end

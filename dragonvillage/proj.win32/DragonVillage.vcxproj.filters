@@ -4941,6 +4941,7 @@
     <None Include="..\src\SceneDmgate.lua" />
     <None Include="..\src\UI_EventRoulette.lua" />
     <None Include="..\src\ServerData_EventRoulette.lua" />
+    <None Include="..\src\UI_EventRouletteRankingPopup.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
