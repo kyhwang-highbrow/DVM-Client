@@ -723,7 +723,36 @@ function LobbyMap:onEvent(event_name, t_event, ...)
         self.m_lobbyIndicator:setVisible(true)
     elseif (event_name == 'lobby_character_move_end') then
         self.m_lobbyIndicator:setVisible(false)
+
+    -- 드래곤 자유 이동
+    elseif (event_name == 'forest_dragon_move_free') then
+        -- 받은 정보
+        local dragon = t_event:getObject()
+        local speed = t_event:getSpeed()
+        local pos_x, pos_y = t_event:getPosition()
         
+        -- 랜덤 좌표
+        local tar_x, tar_y = self:getRandomPos()
+        
+        -- 거리 제한이 있는 좌표 계산
+        local distance = getDistance(pos_x, pos_y, tar_x, tar_y)
+        if (distance > (speed * 2)) then
+            local angle = getAdjustDegree(getDegree(pos_x, pos_y, tar_x, tar_y))
+            local new_dist = speed * (math_random(20, 25) / 10)
+            local pos = getPointFromAngleAndDistance(angle, new_dist)
+            tar_x = pos_x + pos.x
+            tar_y = pos_y + pos.y
+        end
+
+        dragon:setMove(tar_x, tar_y, speed)
+
+        -- Y위치에 따라 ZOrder를 변경
+        local z_order = self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_DRAGON, pos_y)
+        dragon.m_rootNode:setLocalZOrder(z_order)
+
+        -- Y위치에 따라 Scale을 변경
+        local scale = self:getScaleAtYPosY(pos_y)
+        dragon.m_rootNode:setScale(scale)
     end
 end
 
@@ -930,4 +959,64 @@ end
 function LobbyMap:onDestroy()
     self:release_EventDispatcher()
     self:release_EventListener()
+end
+
+
+-------------------------------------
+-- function makeDragon
+-- @brief 하나의 드래곤 생성 로직
+-------------------------------------
+function LobbyMap:makeDragon(struct_dragon_object)
+    -- 드래곤 생성
+    local dragon = ForestDragon_Simple(struct_dragon_object)
+    do
+        local left, right, bottom, top = self:getGroundRange()
+
+        dragon:initState()
+        dragon:changeState('idle')
+        dragon:initSchedule()
+        dragon:setPosition(self:getRandomPos())
+        dragon:setMove(dragon:getPosition())
+
+        local pos_x, pos_y = dragon.m_rootNode:getPosition()
+        local z_order = self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_DRAGON, pos_y)
+
+        self.m_groudNode:addChild(dragon.m_rootNode, z_order)
+    end
+ 
+    -- 그림자 생성
+    local forest_shadow = ForestShadow()
+    do
+        local evolution = struct_dragon_object:getEvolution()
+        local scale = 0.5 + (0.25 * (evolution - 1))
+        forest_shadow:initAnimator(scale)
+
+        self.m_groudNode:addChild(forest_shadow.m_rootNode)
+        dragon.m_shadow = forest_shadow
+    end
+
+    -- 이벤트 등록
+    do
+        -- 드래곤 -> 마이룸
+        dragon:addListener('forest_dragon_move_free', self)
+        dragon:addListener('forest_dragon_move_stuff', self)
+
+        -- 드래곤 -> 그림자
+        dragon:addListener('forest_character_move', forest_shadow)
+        dragon:addListener('forest_dragon_jump', forest_shadow)
+    end
+
+    return dragon
+end
+
+-------------------------------------
+-- function getRandomPos
+-- @brief 범위안의 임의의 좌표
+-------------------------------------
+function LobbyMap:getRandomPos()
+    local left, right, bottom, top = self:getGroundRange()
+    local pos_x = math_random(left, right)
+    local pos_y = math_random(bottom, top)
+
+    return pos_x, pos_y
 end

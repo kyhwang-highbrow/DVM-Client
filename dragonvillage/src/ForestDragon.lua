@@ -435,3 +435,59 @@ function ForestDragon:doForestAction()
     struct_event:setSpeed(speed)
     self:dispatch('forest_dragon_move_free', struct_event)
 end
+
+
+local PARENT = ForestDragon
+
+-------------------------------------
+-- class ForestDragon
+-------------------------------------
+ForestDragon_Simple = class(PARENT, {
+     })
+
+
+-------------------------------------
+-- function update
+-- @brief 하트는 보여줄 필요가 없음 
+-------------------------------------
+function ForestDragon_Simple:update(dt)
+	PARENT.update(self, dt)
+
+    if (self.m_state == 'touched') then
+        return
+    end
+    if (self.m_state == 'touched_end') then
+        return
+    end
+
+    if (self.m_stateTimer > self.m_moveTerm) then
+        self:doForestAction()
+
+        self.m_stateTimer = self.m_stateTimer - self.m_moveTerm
+    end
+
+end
+
+-------------------------------------
+-- function setForestZOrder
+-- @brief 
+-------------------------------------
+function ForestDragon_Simple:setForestZOrder()
+    -- DoNothing
+end
+
+-------------------------------------
+-- function getHappy
+-- @brief 
+-------------------------------------
+function ForestDragon_Simple:getHappy()
+
+end
+
+-------------------------------------
+-- function happyFull
+-- @brief 만족도가 찼을 경우의 연출을 한다.
+-------------------------------------
+function ForestDragon_Simple:happyFull()
+
+end
