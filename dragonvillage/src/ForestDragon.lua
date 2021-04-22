@@ -437,14 +437,22 @@ function ForestDragon:doForestAction()
 end
 
 
-local PARENT = ForestDragon
+local PARENT_ForestDragon = ForestDragon
 
 -------------------------------------
--- class ForestDragon
+-- class ForestDragon_Simple
 -------------------------------------
-ForestDragon_Simple = class(PARENT, {
+ForestDragon_Simple = class(PARENT_ForestDragon, {
      })
 
+-------------------------------------
+-- function init
+-------------------------------------
+function ForestDragon_Simple:init(struct_dragon_object)
+    PARENT:init(struct_dragon_object)
+    -- 이동 관련 정보
+    self.m_moveTerm = (math_random(INTERVER_MIN, INTERVER_MAX)/100) / 3
+end
 
 -------------------------------------
 -- function update
