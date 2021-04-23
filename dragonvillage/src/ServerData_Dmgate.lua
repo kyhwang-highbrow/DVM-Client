@@ -847,24 +847,52 @@ function ServerData_Dmgate:getBuffList(mode_id)
 
     local buff_list = plSplit(buff_str, ';')   
     local debuff_list = plSplit(debuff_str, ';')   
-
-    local dragon_skill_table = TABLE:get('dragon_skill')
+    
     local data
     for _, skill_id in pairs(buff_list) do
-        data = dragon_skill_table[tonumber(skill_id)]
+        if (not skill_id) or (skill_id == '') then
+            --vars['skillInfoLabel']:setString(Str('스킬이 지정되지 않았습니다.'))
+        else
+            local t_skill = clone(GetSkillTable('dragon'):get(tonumber(skill_id)))
 
-        if (data) then
-            data['color'] = cc.c4b(0, 248, 15, 255)
-            table.insert(result, data)
+            if t_skill then
+                DragonSkillCore.substituteSkillDesc(t_skill)
+                DragonSkillCore.getSkillDescPure(t_skill)
+
+                local val_1 = (t_skill['desc_1'])
+                local val_2 = (t_skill['desc_2'])
+                local val_3 = (t_skill['desc_3'])
+                local val_4 = (t_skill['desc_4'])
+                local val_5 = (t_skill['desc_5'])
+                
+                t_skill['t_desc'] = Str(t_skill['t_desc'], val_1, val_2, val_3, val_4, val_5)
+                
+                t_skill['color'] = cc.c4b(0, 248, 15, 255)
+                table.insert(result, t_skill)
+            end
         end
     end
 
     for _, skill_id in pairs(debuff_list) do
-        data = dragon_skill_table[tonumber(skill_id)]
+        if (not skill_id) or (skill_id == '') then
+            --vars['skillInfoLabel']:setString(Str('스킬이 지정되지 않았습니다.'))
+        else
+            local t_skill = clone(GetSkillTable('dragon'):get(tonumber(skill_id)))
 
-        if (data) then
-            data['color'] = cc.c4b(255, 0, 0, 255)
-            table.insert(result, data)
+            if t_skill then
+                DragonSkillCore.substituteSkillDesc(t_skill)
+                DragonSkillCore.getSkillDescPure(t_skill)
+                local val_1 = (t_skill['desc_1'])
+                local val_2 = (t_skill['desc_2'])
+                local val_3 = (t_skill['desc_3'])
+                local val_4 = (t_skill['desc_4'])
+                local val_5 = (t_skill['desc_5'])
+                
+                t_skill['t_desc'] = Str(t_skill['t_desc'], val_1, val_2, val_3, val_4, val_5)
+                
+                t_skill['color'] = cc.c4b(255, 0, 0, 255)
+                table.insert(result, t_skill)
+            end
         end
     end
 
