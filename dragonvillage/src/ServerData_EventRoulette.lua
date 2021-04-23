@@ -377,7 +377,22 @@ function ServerData_EventRoulette:getIcon(index)
         return IconHelper:getItemIcon(tonumber(data['item_id']))
     else
     end
-    
+end
+function ServerData_EventRoulette:getAngle(index)
+    local step = self:getCurrStep()
+    local num
+
+    if step == 1 then
+        num = #self.m_probabilityTable[step]
+    elseif step == 2 then
+        local group_code = self:getPickedGroup()
+        num = #self.m_probabilityTable[step][group_code]
+    else
+    end
+
+    local angle = 360 / num
+
+    return ((index - 1) * (360 - angle)) % 360
 end
 
 -------------------------------------

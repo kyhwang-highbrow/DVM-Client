@@ -98,7 +98,7 @@ function UI_EventRoulette:initMember()
     local node_index = 1
     while(vars['itemNode' .. tostring(node_index)]) do
         self.m_itemNodes[node_index] = vars['itemNode' .. tostring(node_index)]
-
+        self.m_itemNodes[node_index]:setRotation(g_eventRouletteData:getAngle(node_index))
         node_index = node_index + 1
     end
     
@@ -192,6 +192,7 @@ function UI_EventRoulette:refresh()
         self.m_itemNodes[index]:removeAllChildren()
         local icon = g_eventRouletteData:getIcon(index)
         self.m_itemNodes[index]:addChild(icon)
+
         index = index + 1
     end
 
