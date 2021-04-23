@@ -106,6 +106,7 @@ function UI_EventRoulette:initMember()
     while(vars['itemNode' .. tostring(node_index)]) do
         self.m_itemNodes[node_index] = vars['itemNode' .. tostring(node_index)]
         self.m_itemNodes[node_index]:setRotation(g_eventRouletteData:getAngle(node_index))
+
         node_index = node_index + 1
     end
     
@@ -200,6 +201,11 @@ function UI_EventRoulette:refresh()
         local icon = g_eventRouletteData:getIcon(index)
         self.m_itemNodes[index]:addChild(icon)
 
+        -- local test = UIC_LabelTTF(self.vars['itemLabel'].m_node)
+        -- test:setString('test')
+        -- self.m_itemNodes[index]:addChild(test)
+        
+        
         index = index + 1
     end
 
@@ -234,7 +240,7 @@ function UI_EventRoulette:refresh_rewradList()
     local tableview = UIC_TableView(self.m_rewardListNode)
     tableview:setCellUIClass(UI_EventRoulette.UI_RewardItem, create_callback)
     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    tableview:setCellSizeToNodeSize()
+    tableview:setCellSizeToNodeSize(true)
     --tableview:setAlignCenter(true)
     tableview:setItemList(target_list, true)
 end
@@ -399,11 +405,12 @@ UI_EventRoulette.UI_RewardItem = class(class(UI, ITableViewCell:getCloneTable())
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_EventRoulette.UI_RewardItem:init(data)
+function UI_EventRoulette.UI_RewardItem:init(data, key)
+    ccdump(self.m_cellSize)
     local vars = self:load('event_roulette_item.ui')
 
-    --local icon = g_eventRouletteData:getIcon()
-    --vars['itemNode']
+    local icon = g_eventRouletteData:getIcon(key)
+    vars['itemNode']:addChild(icon)
 
     if (data['val'] == nil) or (data['val'] == '') then
         vars['countLabel']:setString(Str(data['item_name']))

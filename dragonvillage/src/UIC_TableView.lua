@@ -804,7 +804,7 @@ function UIC_TableView:setItemList(list, make_item)
 
         -- UI를 미리 생성
         if make_item then
-            t_item['generated_ui'] = self:makeItemUI(data)
+            t_item['generated_ui'] = self:makeItemUI(data, key)
             t_item['generated_ui'].root:setVisible(false)
         end
 
@@ -838,7 +838,7 @@ function UIC_TableView:setItemList3(list, sort_func)
         local idx = #self.m_itemList + 1
 
         -- UI를 미리 생성
-        t_item['ui'] = self:makeItemUI(data)
+        t_item['ui'] = self:makeItemUI(data, key)
 
         -- 리스트에 추가
         table.insert(self.m_itemList, t_item)
@@ -883,7 +883,7 @@ function UIC_TableView:CreateCellUIClass(id, num, isPreload)
         t_item['data'] = data
 
         if (isPreload) then
-            t_item['ui'] = self:makeItemUI(data)
+            t_item['ui'] = self:makeItemUI(data, i)
         end
         
         table.insert(self.m_itemList, t_item)
@@ -942,7 +942,7 @@ end
 function UIC_TableView:makeAllItemUINoAction()
     for i,item in ipairs(self.m_itemList) do
         if (not item['ui']) then
-            item['ui'] = self:makeItemUI(item['data'])
+            item['ui'] = self:makeItemUI(item['data'], i)
             
             -- 생성 예약 리스트에서 삭제
             for i, v in ipairs(self.m_makeReserveQueue) do
@@ -1190,8 +1190,8 @@ end
 -------------------------------------
 -- function makeItemUI
 -------------------------------------
-function UIC_TableView:makeItemUI(data)
-    local ui = self.m_cellUIClass(data)
+function UIC_TableView:makeItemUI(data, key)
+    local ui = self.m_cellUIClass(data, key)
     ui:setTableView(self)
     ui.root:setSwallowTouch(false)
     if ui.vars['swallowTouchMenu'] then
