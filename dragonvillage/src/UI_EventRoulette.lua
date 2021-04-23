@@ -19,6 +19,7 @@ UI_EventRoulette = class(PARENT, {
     m_wheel = 'cc.Menu', -- 돌림판 Sprite & nodes
     m_rouletteVisual = 'AnimatorVrp', -- 돌림판 Sprite
     m_appearVisual = 'AnimatorVrp', -- 연출 Animation
+    m_receiveSprite = 'Animator', -- 당첨 표시용 Sprite
 
     m_itemNodes = 'List[cc.Node]', -- 돌림판 위에 상품 아이콘을 위한 노드
 
@@ -83,6 +84,7 @@ function UI_EventRoulette:initMember()
     self.m_wheel = vars['wheelMenu'] -- 돌림판 Sprite
     self.m_rouletteVisual = vars['rouletteVisual'] -- 돌림판 Sprite
     self.m_appearVisual = vars['appearVisual'] -- 연출 Animation
+    self.m_receiveSprite = vars['receiveSprite'] -- 당첨 표시용 Sprite
     
     self.m_rouletteMenues = {}
     self.m_startBtns = {}
@@ -165,9 +167,8 @@ function UI_EventRoulette:initButton()
     self.m_infoBtn:registerScriptTapHandler(function() 
         UI_EventRoulette.UI_InfoPopup() 
     end)
-    self.m_packageBtn:registerScriptTapHandler(function() 
-        PackageManager:getTargetUI(self.m_packageName, true)
-    end)
+    
+    self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
 end
 
 ----------------------------------------------------------------------
@@ -176,6 +177,7 @@ end
 function UI_EventRoulette:refresh()
     self.m_ticketNumLabel:setString(g_eventRouletteData:getTicketNum())
     self.m_totalScoreLabel:setString(g_eventRouletteData:getTotalScore())
+
     
     self.m_currStep = g_eventRouletteData:getCurrStep()
 
@@ -196,7 +198,40 @@ function UI_EventRoulette:refresh()
         index = index + 1
     end
 
+    self.m_receiveSprite:setVisible(false)
     self.m_rouletteVisual:changeAni('roulette_' .. tostring(self.m_currStep), true)
+
+    self:refresh_rewradList()
+    self.m_stopBtn:setEnabled(true)
+    self.m_stopBtn:setVisible(false)
+    self.m_startBtns[self.m_currStep]:setEnabled(true)
+end
+
+function UI_EventRoulette:refresh_TextLabels()
+    
+end
+
+function UI_EventRoulette:refresh_roulette()
+
+end
+
+
+function UI_EventRoulette:refresh_rewradList()
+    
+    
+    self.m_rewardListNode:removeAllChildren()
+    local target_list = g_eventRouletteData:getItemList()
+
+    local function create_callback(ui, data)
+
+    end
+    
+    local tableview = UIC_TableView(self.m_rewardListNode)
+    tableview:setCellUIClass(UI_EventRoulette.UI_RewardItem, create_callback)
+    tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    tableview:setCellSizeToNodeSize()
+    --tableview:setAlignCenter(true)
+    tableview:setItemList(target_list, true)
 end
 
 ----------------------------------------------------------------------
@@ -250,8 +285,28 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:StopRoulette(dt)
     if (self.m_wheel:getNumberOfRunningActions() == 0) then
-        self.root:unscheduleUpdate()
+        self.m_receiveSprite:setVisible(true)
+
+        function disappear_cb()
+            self.m_appearVisual:changeAni('roulette_disappear', false)
+            
+        end
+        self.m_appearVisual:setVisible(true)
+        self.m_appearVisual:changeAni('roulette_appear')
+        self.m_appearVisual:addAniHandler(function() disappear_cb() end)
+
+        -- local cb = cc.CallFunc:create(function() 
+        --     g_eventRouletteData:MakeRewardPopup()
+        --     self:refresh()
+        --     self.root:unscheduleUpdate()
+        -- end)
+        g_eventRouletteData:MakeRewardPopup()
         self:refresh()
+        self.root:unscheduleUpdate()
+
+        -- cc.CallFunc:create()
+        
+        -- cc.Sequence()
     end
 end
 
@@ -260,6 +315,7 @@ end
 -- function click_startTest
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_startTest()
+    
     -- 첫번째 룰렛에서 재료가 모자른 경우
     if (g_eventRouletteData:getCurrStep() == 1) and (g_eventRouletteData:getTicketNum() <= 0) then
         local msg = Str('이벤트 아이템이 부족합니다.')
@@ -269,6 +325,7 @@ function UI_EventRoulette:click_startTest()
 
     self.m_startBtns[self.m_currStep]:setVisible(false)
     self.m_stopBtn:setVisible(true)
+
     local angle = self.m_wheel:getRotation() % 360
     self.m_wheel:setRotation(angle)
 
@@ -280,8 +337,8 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_stopTest()
     local function finish_callback()
-        self.m_startBtns[self.m_currStep]:setVisible(true)
-        self.m_stopBtn:setVisible(false)
+        self.m_stopBtn:setEnabled(false)
+
         self.root:unscheduleUpdate()
 
         local current_angle = self.m_wheel:getRotation()
@@ -306,6 +363,25 @@ function UI_EventRoulette:click_stopTest()
 end
 
 
+----------------------------------------------------------------------
+-- function click_packageBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:click_packageBtn()
+
+    local target_ui = PackageManager:getTargetUI(self.m_packageName, true)
+    local function buy_cb()
+        UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM, 
+        function() 
+            g_eventRouletteData:request_rouletteInfo(false, false, function() self:refresh() end)
+        end)
+    end
+    target_ui:setBuyCB(buy_cb)
+
+end
+
+
+
+
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -319,7 +395,18 @@ UI_EventRoulette.UI_RewardItem = class(class(UI, ITableViewCell:getCloneTable())
 -- function init
 ----------------------------------------------------------------------
 function UI_EventRoulette.UI_RewardItem:init(data)
-    local vars = self:load('event_roulette_item.ui') 
+    local vars = self:load('event_roulette_item.ui')
+
+    --local icon = g_eventRouletteData:getIcon()
+    --vars['itemNode']
+
+    if (data['val'] == nil) or (data['val'] == '') then
+        vars['countLabel']:setString(Str(data['item_name']))
+    else
+        vars['countLabel']:setString(Str(comma_value(data['val'])))
+    end
+    
+    vars['probLabel']:setString(Str(data['real_weight']))
     
     -- vars['itemMenu']
     -- vars['itemNode']

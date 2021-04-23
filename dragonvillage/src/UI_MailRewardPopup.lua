@@ -11,6 +11,7 @@ UI_MailRewardPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_MailRewardPopup:init(item_info)
+    ccdump(item_info)
     local vars = self:load('popup_ad_confirm.ui')
     UIManager:open(self, UIManager.POPUP)
 

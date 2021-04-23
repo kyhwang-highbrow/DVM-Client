@@ -19,6 +19,10 @@ ServerData_EventRoulette = class({
     m_nGlobalOffset = 'number', -- 현재 랭킹 시작하는 등수
     m_lGlobalRank = 'table',
     m_myRanking = 'StructEventRouletteRanking',
+
+
+    -- TEMP
+    m_resultTable = 'table', -- 최종 수령 상품 및 점수 임시저장용 테이블
 })
 
 ----------------------------------------------------------------------
@@ -98,8 +102,6 @@ function ServerData_EventRoulette:request_rouletteInfo(is_table_required, is_rew
                     end
                 end
             end
-            ccdump(self.m_probIndexKeyList)
-            ccdump(self.m_probabilityTable)
         end
 
         if ret['table_event_rank'] then -- 랭킹 정보 테이블
@@ -158,16 +160,10 @@ function ServerData_EventRoulette:request_rouletteStart(finish_cb, fail_cb)
     local user_id = g_userData:get('uid')
     local step = self:getCurrStep()
     local picked_group = self:getPickedGroup()
-
-    ccdump(step)
-    ccdump(picked_group)
     
     local function success_cb(ret)
-        self.m_rouletteInfo = ret['roulette_info']
-        if ret['picked_id'] then
-            self.m_rouletteInfo['picked_id'] = tostring(ret['picked_id'])
-        end
-        ccdump(self.m_rouletteInfo)
+
+        self:response_rouletteStart(ret)
 
         --_serverData:receiveReward(ret)
         if(finish_cb) then finish_cb(ret) end
@@ -186,6 +182,37 @@ function ServerData_EventRoulette:request_rouletteStart(finish_cb, fail_cb)
 
     return network
 end 
+----------------------------------------------------------------------
+-- function response_rouletteStart
+-- ret 룰렛의 결과 정보
+----------------------------------------------------------------------
+function ServerData_EventRoulette:response_rouletteStart(ret)
+
+    if IS_DEV_SERVER() then
+        local step = self:getCurrStep()
+        local group = self:getPickedGroup()
+
+        cclog('------------------------------------------------')
+        cclog('')
+        cclog('------------------------------------------------')
+    end
+
+    self.m_rouletteInfo = ret['roulette_info']
+
+    -- 2단계 룰렛의 결과에 해당하는 index를 이용해 각도를 계산하기 위한 변수
+    if ret['picked_id'] then
+        self.m_rouletteInfo['picked_id'] = tostring(ret['picked_id'])
+    end
+
+    -- 연출 이후 보상 결과 팝업을 위해 저장
+    --if 
+    if (self.m_resultTable == nil) then self.m_resultTable = {} end
+    self.m_resultTable['item_info'] = ret['item_info'] -- '779154;1'
+    self.m_resultTable['mail_item_info'] = ret['mail_item_info']
+    self.m_resultTable['bonus_score'] = ret['bonus_score'] -- number
+    self.m_resultTable['score'] = ret['score'] -- number
+end
+
 
 ----------------------------------------------------------------------
 -- function request_rouletteRanking
@@ -225,6 +252,26 @@ function ServerData_EventRoulette:request_rouletteRanking(offset, limit, type, d
 
     return network
 end
+
+----------------------------------------------------------------------
+-- function getItemList
+----------------------------------------------------------------------
+function ServerData_EventRoulette:getItemList()
+    local step = self:getCurrStep()
+    local result
+
+    if (step == 1) then
+        result = self.m_probabilityTable[step]
+    elseif (step == 2) then
+        local group = self:getPickedGroup()
+        result = self.m_probabilityTable[step][group]
+    else
+        --result = {}
+    end
+
+    return result
+end
+
 
 ----------------------------------------------------------------------
 -- function getTotalScore
@@ -362,7 +409,9 @@ function ServerData_EventRoulette:getPickedItemIndex()
         end
     return index
 end
-
+----------------------------------------------------------------------
+-- function getIcon
+----------------------------------------------------------------------
 function ServerData_EventRoulette:getIcon(index)
     local step = self:getCurrStep()
 
@@ -378,6 +427,9 @@ function ServerData_EventRoulette:getIcon(index)
     else
     end
 end
+----------------------------------------------------------------------
+-- function getAngle
+----------------------------------------------------------------------
 function ServerData_EventRoulette:getAngle(index)
     local step = self:getCurrStep()
     local num
@@ -393,6 +445,15 @@ function ServerData_EventRoulette:getAngle(index)
     local angle = 360 / num
 
     return ((index - 1) * (360 - angle)) % 360
+end
+----------------------------------------------------------------------
+-- function getAngle
+----------------------------------------------------------------------
+function ServerData_EventRoulette:MakeRewardPopup()
+    if self.m_resultTable['mail_item_info'] then
+        g_serverData:receiveReward(self.m_resultTable)
+        self.m_resultTable = nil
+    end
 end
 
 -------------------------------------
