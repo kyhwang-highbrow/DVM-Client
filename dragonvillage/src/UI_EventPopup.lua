@@ -335,6 +335,12 @@ function UI_EventPopup:makeEventPopupTab(tab)
         ui = UI_EventLFBag()
         g_eventLFBagData:tryShowRewardPopup()
 
+    -- 어린이날 룰렛 이벤트
+    elseif (tab == 'event_roulette') then
+        local inner_ui = UI_EventRoulette()
+        ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
+        ui.m_scrollView:setTouchEnabled(false)
+ 
     -- 죄악의 화신 토벌작전 이벤트
     elseif (tab == 'event_incarnation_of_sins') then
         require('UI_EventIncarnationOfSins')

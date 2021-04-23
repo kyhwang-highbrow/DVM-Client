@@ -47,14 +47,19 @@ UI_EventRoulette = class(PARENT, {
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_EventRoulette:init()
-    self.m_uiName = 'UI_EventRoulette'
+function UI_EventRoulette:init(is_popup)
     local vars = self:load('event_roulette.ui')
-    UIManager:open(self, UIManager.POPUP)
+    if is_popup == nil or is_popup == false then
+        vars['closeBtn']:setVisible(false)
+    else
+        self.m_uiName = 'UI_EventRoulette'
+        UIManager:open(self, UIManager.POPUP)
 
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
-    self:doActionReset()
-    self:doAction(nil, false)
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
+
+        self:doActionReset()
+        self:doAction(nil, false)
+    end
 
     self:initMember()
     self:initUI()

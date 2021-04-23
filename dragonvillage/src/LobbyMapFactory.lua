@@ -318,8 +318,8 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
                 local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_EventRoulette')
 
                 if (is_opend) then return end
-
-                UI_EventRoulette()
+				local is_popup = true
+                UI_EventRoulette(is_popup)
             end
 
             ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, show_event_roulette)

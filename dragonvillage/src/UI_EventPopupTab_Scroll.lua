@@ -26,6 +26,7 @@ function UI_EventPopupTab_Scroll:init(owner, struct_event_popup_tab, inner_ui)
     local menu = inner_ui.vars['scrollMenu']
     menu:setSwallowTouch(false)
     local target_size = menu:getContentSize()
+  
 
     -- 스크롤 뷰 위에 해당 이벤트 UI 올려줌
     local scroll_node = vars['scrollNode']

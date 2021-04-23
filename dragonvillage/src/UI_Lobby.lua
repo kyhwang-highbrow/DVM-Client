@@ -191,11 +191,18 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if g_hotTimeData:isActiveEvent('event_roulette') then
+            co:work('# 룰렛 이벤트 정보 받는 중')
+            ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
+        end
+
         if (g_eventIncarnationOfSinsData:isActive()) then
             co:work('# 죄악의 화신 토벌작전 이벤트 정보 받는 중')
             g_eventIncarnationOfSinsData:request_eventIncarnationOfSinsInfo(false, co.NEXT, required_fail_cb)
             if co:waitWork() then return end
         end
+
 
         -- 그랜드 콜로세움 (이벤트 PvP 10대10)
         if (g_hotTimeData:isActiveEvent('event_grand_arena') or g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
@@ -1550,15 +1557,7 @@ end
 -- @brief 선물상자 버튼 (광고 보기)
 -------------------------------------
 function UI_Lobby:click_giftBoxBtn()
-    --g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
-    
-    -- TODO : TEST CODE FOR EVENT ROULETTES
-    local function finish_cb()
-        UI_EventRoulette()
-    end
-    local function fail_cb() end 
-
-    ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, finish_cb, fail_cb)
+    g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
 end
 
 -------------------------------------
