@@ -23,6 +23,11 @@ UI_EventRoulette = class(PARENT, {
 
     m_itemNodes = 'List[cc.Node]', -- 돌림판 위에 상품 아이콘을 위한 노드
 
+    m_rewardItemInfo = 'cc.Node', -- 2단계 상품의 상세 확률 표시를 위한 그룹 노드 (메뉴로 바꾸는게 좋을 듯)
+    m_infoItemNodes = 'List[cc.Node]', -- 2단계 상품의 상세 확률 표시를 위한 노드 리스트
+    m_infoItemLabels = 'List[UIC_LabelTTF', -- 2단계 상품의 상세 확률 표시를 위한 텍스트 리스트
+    m_targetGroupIndex = 'number', -- 현재 보여주고 있는 2단계 상품의 그룹 index
+
     -- Middle Right
     m_totalScoreLabel = 'UIC_LabelTTF', -- 누적점수
     m_rewardListNode = 'cc.Node',   -- 등장 가능 보상 테이블뷰를 위한 노드
@@ -95,6 +100,9 @@ function UI_EventRoulette:initMember()
     self.m_startBtns = {}
     self.m_itemNodes = {}
 
+    self.m_infoItemNodes = {}
+    self.m_infoItemLabels = {}
+
     local step = 1
     while(vars['rouletteMenu' .. step]) do
         self.m_rouletteMenues[step] = vars['rouletteMenu' .. step] -- 룰렛
@@ -104,11 +112,18 @@ function UI_EventRoulette:initMember()
 
     local node_index = 1
     while(vars['itemNode' .. tostring(node_index)]) do
+        -- 돌림판
         self.m_itemNodes[node_index] = vars['itemNode' .. tostring(node_index)]
         self.m_itemNodes[node_index]:setRotation(g_eventRouletteData:getAngle(node_index))
 
+        -- 보상 리스트
+        self.m_infoItemNodes[node_index] = vars['infoItemNode' .. tostring(node_index)]
+        self.m_infoItemLabels[node_index] = vars['itemLabel' .. tostring(node_index)]
+
         node_index = node_index + 1
     end
+
+    self.m_rewardItemInfo = vars['rewardInfoNode']
     
 
     -- Middle Right
@@ -160,6 +175,7 @@ function UI_EventRoulette:initButton()
 
         step = step + 1
     end
+
 
     self.m_stopBtn:registerScriptTapHandler(function()
         self:click_stopTest()     
@@ -234,7 +250,7 @@ function UI_EventRoulette:refresh_rewradList()
     local target_list = g_eventRouletteData:getItemList()
 
     local function create_callback(ui, data)
-
+        ui.vars['itemBtn']:registerScriptTapHandler(function() self:click_rewardItemBtn(ui.m_key) end)
     end
     
     local tableview = UIC_TableView(self.m_rewardListNode)
@@ -390,6 +406,45 @@ function UI_EventRoulette:click_packageBtn()
 
 end
 
+----------------------------------------------------------------------
+-- function click_rewardItemBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:click_rewardItemBtn(index)
+    if g_eventRouletteData:getCurrStep() == 2 then return end
+
+    if self.m_targetGroupIndex then
+        if (self.m_targetGroupIndex == index) and self.m_rewardItemInfo:isVisible() then
+            self.m_rewardItemInfo:setVisible(false)
+            self.m_targetGroupIndex = nil
+            return
+        end
+    end
+
+    self.m_rewardItemInfo:setVisible(true)
+
+    self.m_targetGroupIndex = index
+    local group_code = g_eventRouletteData:getGroupCodeFromIndex(index)
+
+    local icon
+    local count
+    local prob
+    -- 보상 리스트
+    local node_index = 1
+    while(self.m_infoItemNodes[node_index]) do
+        self.m_infoItemNodes[node_index]:removeAllChildren()
+
+        icon, count, prob = g_eventRouletteData:getRewardIcon(2, group_code, node_index)
+
+        self.m_infoItemNodes[node_index]:addChild(icon)
+        self.m_infoItemLabels[node_index]:setString(tostring(count) .. '    ' .. tostring(prob))
+
+        node_index = node_index + 1
+    end
+
+    -- self.m_infoItemNodes
+    -- self.m_infoItemLabels
+end
+
 
 
 
@@ -399,14 +454,14 @@ end
 --//  class UI_EventRoulette.UI_RewardItem
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 UI_EventRoulette.UI_RewardItem = class(class(UI, ITableViewCell:getCloneTable()), {
-
+    m_key = 'number',
 })
 
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
 function UI_EventRoulette.UI_RewardItem:init(data, key)
-    ccdump(self.m_cellSize)
+    self.m_key = key
     local vars = self:load('event_roulette_item.ui')
 
     local icon = g_eventRouletteData:getIcon(key)

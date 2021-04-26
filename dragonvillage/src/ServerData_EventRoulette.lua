@@ -62,51 +62,8 @@ function ServerData_EventRoulette:request_rouletteInfo(is_table_required, is_rew
     local user_id = g_userData:get('uid')
 
     local function success_cb(ret)
-        if ret['roulette_info'] then -- 룰렛 관련 정보
-            self.m_rouletteInfo = ret['roulette_info']
-            self.m_rouletteInfo['start_date'] = self.m_rouletteInfo['start_date'] / 1000
-            self.m_rouletteInfo['end_date'] = self.m_rouletteInfo['end_date'] / 1000
-        end
 
-        if ret['table_event_probability'] and (self.m_probabilityTable == nil) and (self.m_probIndexKeyList == nil) then -- 룰렛 확률 테이블
-            --self.m_probabilityTable = ret['table_event_probability']
-            for key, data in pairs(ret['table_event_probability']) do
-                local step = data['step']
-
-                if (self.m_probabilityTable == nil) then 
-                    self.m_probabilityTable = {} 
-                    self.m_probIndexKeyList = {}
-                end
-                if (self.m_probabilityTable[step] == nil) then self.m_probabilityTable[step] = {} end
-
-                if (step == 1) then 
-                    table.insert(self.m_probabilityTable[step], data)
-                    self.m_probIndexKeyList[data['group_code']] = #self.m_probabilityTable[step]
-                    if (#self.m_probabilityTable[step] > 8) then
-                        ccdump(self.m_probabilityTable)
-                        ccerror('')
-                    end
-                elseif (step == 2) then
-                    local group_code = data['group_code']
-                    
-                    if (not self.m_probabilityTable[step][group_code]) then self.m_probabilityTable[step][group_code] = {} end
-                    table.insert(self.m_probabilityTable[step][group_code], data)
-                    self.m_probIndexKeyList[tostring(data['id'])] = #self.m_probabilityTable[step][group_code]
-                    if (#self.m_probabilityTable[step][group_code] > 8) then
-                        ccdump(self.m_probabilityTable)
-                        ccerror('')
-                    end
-                else
-                    if IS_DEV_SERVER() then
-                        error('There isn\'t any steps over 2 in table_event_probability')
-                    end
-                end
-            end
-        end
-
-        if ret['table_event_rank'] then -- 랭킹 정보 테이블
-            self:updateRankingInfo(ret['table_event_rank'])
-        end
+        self:response_rouletteInfo(ret)
 
         -- if (self.m_rankTable and self.m_probabilityTable) then 
         --     self.m_bDirtyTable = false
@@ -126,6 +83,58 @@ function ServerData_EventRoulette:request_rouletteInfo(is_table_required, is_rew
     network:request()
 
     return network
+end
+
+----------------------------------------------------------------------
+-- function request_rouletteInfo
+-- param is_table_required  probability와 rank 테이블 정보를 받을 것인지 여부
+-- param is_reward_required 랭킹 보상을 받을 것인지에 대한 여부
+function ServerData_EventRoulette:response_rouletteInfo(ret)
+    if ret['roulette_info'] then -- 룰렛 관련 정보
+        self.m_rouletteInfo = ret['roulette_info']
+        self.m_rouletteInfo['start_date'] = self.m_rouletteInfo['start_date'] / 1000
+        self.m_rouletteInfo['end_date'] = self.m_rouletteInfo['end_date'] / 1000
+    end
+
+    if ret['table_event_probability'] and (self.m_probabilityTable == nil) and (self.m_probIndexKeyList == nil) then -- 룰렛 확률 테이블
+        --self.m_probabilityTable = ret['table_event_probability']
+        for key, data in pairs(ret['table_event_probability']) do
+            local step = data['step']
+
+            if (self.m_probabilityTable == nil) then 
+                self.m_probabilityTable = {} 
+                self.m_probIndexKeyList = {}
+            end
+            if (self.m_probabilityTable[step] == nil) then self.m_probabilityTable[step] = {} end
+
+            if (step == 1) then 
+                table.insert(self.m_probabilityTable[step], data)
+                self.m_probIndexKeyList[data['group_code']] = #self.m_probabilityTable[step]
+                if (#self.m_probabilityTable[step] > 8) then
+                    ccdump(self.m_probabilityTable)
+                    ccerror('')
+                end
+            elseif (step == 2) then
+                local group_code = data['group_code']
+                
+                if (not self.m_probabilityTable[step][group_code]) then self.m_probabilityTable[step][group_code] = {} end
+                table.insert(self.m_probabilityTable[step][group_code], data)
+                self.m_probIndexKeyList[tostring(data['id'])] = #self.m_probabilityTable[step][group_code]
+                if (#self.m_probabilityTable[step][group_code] > 8) then
+                    ccdump(self.m_probabilityTable)
+                    ccerror('')
+                end
+            else
+                if IS_DEV_SERVER() then
+                    error('There isn\'t any steps over 2 in table_event_probability')
+                end
+            end
+        end
+    end
+
+    if ret['table_event_rank'] then -- 랭킹 정보 테이블
+        self:updateRankingInfo(ret['table_event_rank'])
+    end
 end
 
 ----------------------------------------------------------------------
@@ -409,6 +418,7 @@ function ServerData_EventRoulette:getPickedItemIndex()
         end
     return index
 end
+
 ----------------------------------------------------------------------
 -- function getIcon
 ----------------------------------------------------------------------
@@ -426,6 +436,42 @@ function ServerData_EventRoulette:getIcon(index)
         return IconHelper:getItemIcon(tonumber(data['item_id']))
     else
     end
+end
+
+----------------------------------------------------------------------
+-- function getIcon
+----------------------------------------------------------------------
+function ServerData_EventRoulette:getRewardIcon(step, group_code, index)
+    local data
+    local icon
+    local probability
+    local count
+
+    if (step == 1) then
+        data = self.m_probabilityTable[step][index]
+        local file_name = data['group_code']
+        icon =  IconHelper:getIcon('res/ui/icons/item_group/' .. file_name .. '.png')
+
+    elseif (step == 2) then
+        --local group_code = self:getPickedGroup()
+        data = self.m_probabilityTable[step][group_code][index]
+
+        icon =  IconHelper:getItemIcon(tonumber(data['item_id']))
+    else
+
+    end
+
+    probability = data['real_weight']
+    count = data['val']
+
+    return icon, count, probability
+end
+
+----------------------------------------------------------------------
+-- function getAngle
+----------------------------------------------------------------------
+function ServerData_EventRoulette:getGroupCodeFromIndex(index)
+    return self.m_probabilityTable[1][index]['group_code']
 end
 ----------------------------------------------------------------------
 -- function getAngle
