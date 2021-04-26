@@ -458,7 +458,7 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
     button:setTouchEnabled(false)
     button:loadTextures('res/common/tool/a_button_0801.png', 'res/common/tool/a_button_0802.png', '')
     button:setPosition(234, 180)
-    button:setOpacity(255)
+    button:setOpacity(0)
     button:setDockPoint(cc.p(0.5, 0))
     lobby_ground:addChild(button, 5)
 
