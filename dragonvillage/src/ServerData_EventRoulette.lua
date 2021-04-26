@@ -425,17 +425,23 @@ end
 function ServerData_EventRoulette:getIcon(index)
     local step = self:getCurrStep()
 
+    local icon
+    local count
+
     if step == 1 then
         local data = self.m_probabilityTable[step][index]
         local file_name = data['group_code']
-        return IconHelper:getIcon('res/ui/icons/item_group/' .. file_name .. '.png')
+        icon =  IconHelper:getIcon('res/ui/icons/item_group/' .. file_name .. '.png')
+        count = data['val']
     elseif step == 2 then
         local group_code = self:getPickedGroup()
         local data = self.m_probabilityTable[step][group_code][index]
-
-        return IconHelper:getItemIcon(tonumber(data['item_id']))
+        count = data['val']
+        icon =  IconHelper:getItemIcon(tonumber(data['item_id']))
     else
     end
+
+    return icon, count
 end
 
 ----------------------------------------------------------------------

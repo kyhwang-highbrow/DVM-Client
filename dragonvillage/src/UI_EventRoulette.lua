@@ -13,7 +13,7 @@ UI_EventRoulette = class(PARENT, {
     m_closeBtn = 'UIC_Button',      -- 닫기 버튼
 
     -- Middle Left
-    m_rouletteMenues = 'List[cc.Menu]',
+    m_rouletteMenues = 'List[cc.Menu]', -- 
     m_startBtns = 'List[UIC_Button]',   -- 시작 버튼
     m_stopBtn = 'UIC_Button',-- 정지 버튼
     m_wheel = 'cc.Menu', -- 돌림판 Sprite & nodes
@@ -21,7 +21,11 @@ UI_EventRoulette = class(PARENT, {
     m_appearVisual = 'AnimatorVrp', -- 연출 Animation
     m_receiveSprite = 'Animator', -- 당첨 표시용 Sprite
 
+    m_itemUIList = 'List[UI_EventRoulette.UI_RouletteItem]', -- 돌림판 위에 상품 표기를 위한 리스트
+    m_itemNodeList = 'List[cc.Node]',
+
     m_itemNodes = 'List[cc.Node]', -- 돌림판 위에 상품 아이콘을 위한 노드
+    m_itemLabels = 'List[UIC_LabelTTF]', -- 돌림판 위에 상품 갯수 표기를 위한 노드
 
     m_rewardItemInfo = 'cc.Node', -- 2단계 상품의 상세 확률 표시를 위한 그룹 노드 (메뉴로 바꾸는게 좋을 듯)
     m_infoItemNodes = 'List[cc.Node]', -- 2단계 상품의 상세 확률 표시를 위한 노드 리스트
@@ -98,7 +102,11 @@ function UI_EventRoulette:initMember()
     
     self.m_rouletteMenues = {}
     self.m_startBtns = {}
-    self.m_itemNodes = {}
+
+    -- self.m_itemNodes = {}
+    -- self.m_itemLabels = {}
+    self.m_itemNodeList = {}
+    self.m_itemUIList = {}
 
     self.m_infoItemNodes = {}
     self.m_infoItemLabels = {}
@@ -113,12 +121,22 @@ function UI_EventRoulette:initMember()
     local node_index = 1
     while(vars['itemNode' .. tostring(node_index)]) do
         -- 돌림판
-        self.m_itemNodes[node_index] = vars['itemNode' .. tostring(node_index)]
-        self.m_itemNodes[node_index]:setRotation(g_eventRouletteData:getAngle(node_index))
+        -- self.m_itemNodes[node_index] = vars['itemNode' .. tostring(node_index)]
+        -- self.m_itemNodes[node_index]:setRotation(g_eventRouletteData:getAngle(node_index))
+
+        -- self.m_itemLabels[node_index] = vars['itemLabel' .. tostring(node_index)]
+        -- self.m_itemLabels[node_index]:setRotation(g_eventRouletteData:getAngle(node_index))
+        self.m_itemNodeList[node_index] = vars['itemNode' .. tostring(node_index)]
+
+        local ui = UI_EventRoulette.UI_Item(node_index)
+        self.m_itemUIList[node_index] = ui
+
+        self.m_itemNodeList[node_index]:addChild(ui.root)
+        self.m_itemNodeList[node_index]:setRotation(g_eventRouletteData:getAngle(node_index))
 
         -- 보상 리스트
         self.m_infoItemNodes[node_index] = vars['infoItemNode' .. tostring(node_index)]
-        self.m_infoItemLabels[node_index] = vars['itemLabel' .. tostring(node_index)]
+        self.m_infoItemLabels[node_index] = vars['infoItemLabel' .. tostring(node_index)]
 
         node_index = node_index + 1
     end
@@ -212,18 +230,27 @@ function UI_EventRoulette:refresh()
     end
 
     local index = 1
-    while(self.m_itemNodes[index]) do
-        self.m_itemNodes[index]:removeAllChildren()
-        local icon = g_eventRouletteData:getIcon(index)
-        self.m_itemNodes[index]:addChild(icon)
-
-        -- local test = UIC_LabelTTF(self.vars['itemLabel'].m_node)
-        -- test:setString('test')
-        -- self.m_itemNodes[index]:addChild(test)
-        
+    while(self.m_itemUIList[index]) do
+        self.m_itemUIList[index]:refresh()
         
         index = index + 1
     end
+
+    -- local index = 1
+    -- while(self.m_itemNodes[index]) do
+    --     self.m_itemNodes[index]:removeAllChildren()
+    --     local icon = g_eventRouletteData:getIcon(index)
+    --     self.m_itemNodes[index]:addChild(icon)
+
+    --     -- local test = UIC_LabelTTF(self.vars['itemLabel'].m_node)
+    --     -- test:setString('test')
+    --     -- self.m_itemNodes[index]:addChild(test)
+        
+        
+    --     index = index + 1
+    -- end
+
+    self.m_rewardItemInfo:setVisible(false)
 
     self.m_receiveSprite:setVisible(false)
     self.m_rouletteVisual:changeAni('roulette_' .. tostring(self.m_currStep), true)
@@ -292,12 +319,17 @@ function UI_EventRoulette:AdjustRoulette(dt)
         local index = g_eventRouletteData:getPickedItemIndex()
         local elementNum = 8
         local gap = 2
+        local time = 1
 
         local angle = 360 / elementNum
         local rand_angle = math.random(0 + gap, angle - gap)
 
-        local target_angle = angle * (index - 1) + rand_angle + 360
-        self.m_wheel:runAction(cc.RotateBy:create(3, target_angle))
+        local target_angle = angle * (index - 1) + rand_angle
+        if target_angle <= 180 then 
+            target_angle = target_angle + 360
+            time = 2
+        end
+        self.m_wheel:runAction(cc.RotateBy:create(time, target_angle))
 
         
         cclog('index : ' .. tostring(index))
@@ -314,10 +346,14 @@ function UI_EventRoulette:StopRoulette(dt)
     if (self.m_wheel:getNumberOfRunningActions() == 0) then
         self.m_receiveSprite:setVisible(true)
 
-        function disappear_cb()
-            self.m_appearVisual:changeAni('roulette_disappear', false)
-            
+        local function test_cb()
         end
+
+        local function disappear_cb()
+            self.m_appearVisual:changeAni('roulette_disappear', false)
+            g_eventRouletteData:MakeRewardPopup()
+        end
+
         self.m_appearVisual:setVisible(true)
         self.m_appearVisual:changeAni('roulette_appear')
         self.m_appearVisual:addAniHandler(function() disappear_cb() end)
@@ -327,9 +363,10 @@ function UI_EventRoulette:StopRoulette(dt)
         --     self:refresh()
         --     self.root:unscheduleUpdate()
         -- end)
-        g_eventRouletteData:MakeRewardPopup()
+        
         self:refresh()
         self.root:unscheduleUpdate()
+
 
         -- cc.CallFunc:create()
         
@@ -372,7 +409,7 @@ function UI_EventRoulette:click_stopTest()
         local rand_cycle = math.random(1, 2)
         cclog('rand_cycle : ' .. tostring(rand_cycle))
         cclog('adjust angle : ' .. tostring(rand_cycle * 360 + (360 - current_angle)))
-        local rotate_action = cc.RotateBy:create(2, rand_cycle * 360 + (360 - current_angle))
+        local rotate_action = cc.RotateBy:create(1, 1 * 360 + (360 - current_angle))
         self.m_wheel:runAction(rotate_action)
 
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:AdjustRoulette(dt) end, 0)
@@ -446,6 +483,33 @@ function UI_EventRoulette:click_rewardItemBtn(index)
 end
 
 
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  class UI_EventRoulette.UI_RouletteItem
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+UI_EventRoulette.UI_Item = class(UI, {
+    m_index = 'number',
+})
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_EventRoulette.UI_Item:init(index)
+    local vars = self:load('event_roulette_reward_item.ui')
+    self.m_index = index
+
+    self:refresh()
+end
+
+function UI_EventRoulette.UI_Item:refresh()
+    self.vars['itemNode']:removeAllChildren()
+
+    local count
+    local icon 
+    icon, count = g_eventRouletteData:getIcon(self.m_index)
+
+    self.vars['itemNode']:addChild(icon)
+    self.vars['itemLabel']:setString(tostring(count))
+end
 
 
 
