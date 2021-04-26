@@ -27,6 +27,7 @@ UI_EventRoulette = class(PARENT, {
     m_rewardItemInfo = 'cc.Node', -- 2단계 상품의 상세 확률 표시를 위한 그룹 노드 (메뉴로 바꾸는게 좋을 듯)
     m_infoItemNodes = 'List[cc.Node]', -- 2단계 상품의 상세 확률 표시를 위한 노드 리스트
     m_infoItemLabels = 'List[UIC_LabelTTF', -- 2단계 상품의 상세 확률 표시를 위한 텍스트 리스트
+    m_arrowSprite = 'Animator', -- 2단계 상세 확률을 가리키는 Sprite
     m_targetGroupIndex = 'number', -- 현재 보여주고 있는 2단계 상품의 그룹 index
 
     -- Middle Right
@@ -133,7 +134,7 @@ function UI_EventRoulette:initMember()
 
         node_index = node_index + 1
     end
-
+    self.m_arrowSprite = vars['arrowSprite']
     self.m_rewardItemInfo = vars['rewardInfoNode']
     
 
@@ -269,7 +270,13 @@ function UI_EventRoulette:refresh_rewradList()
     local target_list = g_eventRouletteData:getItemList()
 
     local function create_callback(ui, data)
-        ui.vars['itemBtn']:registerScriptTapHandler(function() self:click_rewardItemBtn(ui.m_key) end)
+        ui.vars['itemBtn']:registerScriptTapHandler(function() 
+            local world_pos = convertToWorldSpace(ui.vars['itemNode'])
+            local node_space = convertToNodeSpace(self.m_rewardItemInfo, world_pos)
+            self.m_arrowSprite:setPositionY(node_space['y'])
+
+            self:click_rewardItemBtn(ui.m_key) 
+        end)
     end
     
     local tableview = UIC_TableView(self.m_rewardListNode)
@@ -430,7 +437,7 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_rewardItemBtn(index)
     if g_eventRouletteData:getCurrStep() == 2 then return end
-
+    
     if self.m_targetGroupIndex then
         if (self.m_targetGroupIndex == index) and self.m_rewardItemInfo:isVisible() then
             self.m_rewardItemInfo:setVisible(false)
@@ -466,7 +473,7 @@ end
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
---//  class UI_EventRoulette.UI_RouletteItem
+--//  class UI_EventRoulette.UI_Item
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 UI_EventRoulette.UI_Item = class(UI, {
     m_index = 'number',
@@ -484,6 +491,9 @@ function UI_EventRoulette.UI_Item:init(index)
     self:refresh()
 end
 
+----------------------------------------------------------------------
+-- function refresh
+----------------------------------------------------------------------
 function UI_EventRoulette.UI_Item:refresh()
     self.vars['itemNode']:removeAllChildren()
     self.m_receiveSprite:setVisible(false)
@@ -496,6 +506,9 @@ function UI_EventRoulette.UI_Item:refresh()
     self.vars['itemLabel']:setString(tostring(count))
 end
 
+----------------------------------------------------------------------
+-- function setVisibleReceiveSprite
+----------------------------------------------------------------------
 function UI_EventRoulette.UI_Item:setVisibleReceiveSprite(isVisible)
     if (not isVisible) then isVisible = true end
     self.m_receiveSprite:setVisible(isVisible)
@@ -519,12 +532,13 @@ function UI_EventRoulette.UI_RewardItem:init(data, key)
     local vars = self:load('event_roulette_item.ui')
 
     local icon = g_eventRouletteData:getIcon(key)
+    
     vars['itemNode']:addChild(icon)
 
     if (data['val'] == nil) or (data['val'] == '') then
         vars['countLabel']:setString(Str(data['item_name']))
     else
-        vars['countLabel']:setString(Str(comma_value(data['val'])))
+        vars['countLabel']:setString(Str(string.format('%5d', data['val'])))
     end
     
     vars['probLabel']:setString(Str(data['real_weight']))
