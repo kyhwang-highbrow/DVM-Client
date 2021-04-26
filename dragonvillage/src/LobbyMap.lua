@@ -36,6 +36,9 @@ LobbyMap = class(PARENT, {
         m_chatServer_posSyncTimer = 'bool',
         m_chatServer_x = 'number',
         m_chatServer_y = 'number',
+
+        m_touchStartTime = 'number',   -- 클릭인정 시간
+        m_customTouchCb = 'function',
     })
 
 LobbyMap.Z_ORDER_TYPE_SHADOW = 1
@@ -83,7 +86,13 @@ end
 -- function makeTouchLayer
 -- @brief 터치 레이어 생성
 -------------------------------------
-function LobbyMap:makeTouchLayer(target_node)
+function LobbyMap:makeTouchLayer(target_node, customTouchCb)
+    if (customTouchCb) then
+        -- 중복이벤트 등록 방지
+        self.m_customTouchCb = customTouchCb
+        return
+    end
+
     local listener = cc.EventListenerTouchAllAtOnce:create()
     listener:registerScriptHandler(function(touches, event) return self:onTouchBegan(touches, event) end, cc.Handler.EVENT_TOUCHES_BEGAN)
     listener:registerScriptHandler(function(touches, event) return self:onTouchMoved(touches, event) end, cc.Handler.EVENT_TOUCHES_MOVED)
@@ -133,11 +142,13 @@ end
 -- function onTouchBegan
 -------------------------------------
 function LobbyMap:onTouchBegan(touches, event)
-
     -- 터치 처리가 되었을 경우 skip
     if event:isStopped() or (event.isStoppedForMenu and event:isStoppedForMenu()) then
         return false
     end
+
+    -- 터치 시작 시 저장
+    self.m_touchStartTime = tonumber(socket.gettime() * 1000)
 
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
@@ -177,7 +188,18 @@ function LobbyMap:onTouchEnded(touches, event)
             self.m_touchTamer:showEmotionEffect()
         end
         self.m_touchTamer = nil
+    else
+        -- 드래곤 터치를 안먹었으면 커스텀 터치 ㄲ
+        -- 꾸욱 누르면서 이동 중일 수도 있기 때문에 0.2초의 클릭 판정을 만들어줌 
+        local is_dragon_touched = self:checkDragonTouch(self.m_touchPosition, self.m_lobbyTamerUser)
+        local is_touch_event = self.m_touchStartTime > 0 and (tonumber(socket.gettime() * 1000) - self.m_touchStartTime) <= 200
+
+        if ( is_dragon_touched == false) and (self.m_customTouchCb) and (is_touch_event == true) then
+            self.m_customTouchCb(touches, event)
+        end
     end
+
+    self.m_touchStartTime = - 1
 end
 
 -------------------------------------
