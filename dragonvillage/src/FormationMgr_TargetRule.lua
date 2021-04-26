@@ -103,7 +103,7 @@ function TargetRule_getTargetList(target_type, org_list, x, y, t_data)
 
         -- @kwkang 21.03.19 추가
         -- 액티브 스킬 코스트 관련
-    elseif pl.stringx.startswith(target_type, 'cost1') or pl.stringx.startswith(target_type, 'cost2') or pl.stringx.startswith(target_type, 'cost3') then
+    elseif string.find(target_type, 'cost1') or string.find(target_type, 'cost2') or string.find(target_type, 'cost3') then
         return TargetRule_getTargetList_active_cost(org_list, target_type)
 
     elseif (target_type == 'buff') then
