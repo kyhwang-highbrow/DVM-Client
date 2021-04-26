@@ -312,7 +312,7 @@ function UI_EventRoulette:AdjustRoulette(dt)
         local angle = 360 / elementNum
         local rand_angle = math.random(0 + gap, angle - gap)
 
-        local target_angle = angle * (index - 1) + rand_angle
+        local target_angle = angle * (index - 1) + rand_angle - angle / 2
         if target_angle <= 180 then 
             target_angle = target_angle + 360
             time = 2
@@ -340,23 +340,13 @@ function UI_EventRoulette:StopRoulette(dt)
             self.m_appearVisual:changeAni('roulette_disappear', false)
             g_eventRouletteData:MakeRewardPopup()
         end
+        self.m_itemUIList[g_eventRouletteData:getPickedItemIndex()]:setVisibleReceiveSprite()
 
         self.m_appearVisual:setVisible(true)
         self.m_appearVisual:changeAni('roulette_appear')
         self.m_appearVisual:addAniHandler(function() disappear_cb() end)
-
-        -- local cb = cc.CallFunc:create(function() 
-        --     g_eventRouletteData:MakeRewardPopup()
-        --     self:refresh()
-        --     self.root:unscheduleUpdate()
-        -- end)
     
         self.root:unscheduleUpdate()
-
-
-        -- cc.CallFunc:create()
-        
-        -- cc.Sequence()
     end
 end
 
@@ -474,6 +464,7 @@ end
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 UI_EventRoulette.UI_Item = class(UI, {
     m_index = 'number',
+    m_receiveSprite = 'Animator',
 })
 
 ----------------------------------------------------------------------
@@ -482,12 +473,14 @@ UI_EventRoulette.UI_Item = class(UI, {
 function UI_EventRoulette.UI_Item:init(index)
     local vars = self:load('event_roulette_reward_item.ui')
     self.m_index = index
+    self.m_receiveSprite = vars['receiveSprite']
 
     self:refresh()
 end
 
 function UI_EventRoulette.UI_Item:refresh()
     self.vars['itemNode']:removeAllChildren()
+    self.m_receiveSprite:setVisible(false)
 
     local count
     local icon 
@@ -495,6 +488,11 @@ function UI_EventRoulette.UI_Item:refresh()
 
     self.vars['itemNode']:addChild(icon)
     self.vars['itemLabel']:setString(tostring(count))
+end
+
+function UI_EventRoulette.UI_Item:setVisibleReceiveSprite(isVisible)
+    if (not isVisible) then isVisible = true end
+    self.m_receiveSprite:setVisible(isVisible)
 end
 
 
