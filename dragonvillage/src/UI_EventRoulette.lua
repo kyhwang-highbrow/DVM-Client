@@ -19,13 +19,9 @@ UI_EventRoulette = class(PARENT, {
     m_wheel = 'cc.Menu', -- 돌림판 Sprite & nodes
     m_rouletteVisual = 'AnimatorVrp', -- 돌림판 Sprite
     m_appearVisual = 'AnimatorVrp', -- 연출 Animation
-    m_receiveSprite = 'Animator', -- 당첨 표시용 Sprite
 
-    m_itemUIList = 'List[UI_EventRoulette.UI_RouletteItem]', -- 돌림판 위에 상품 표기를 위한 리스트
-    m_itemNodeList = 'List[cc.Node]',
-
-    m_itemNodes = 'List[cc.Node]', -- 돌림판 위에 상품 아이콘을 위한 노드
-    m_itemLabels = 'List[UIC_LabelTTF]', -- 돌림판 위에 상품 갯수 표기를 위한 노드
+    m_itemUIList = 'List[UI_EventRoulette.UI_RouletteItem]', -- 돌림판 위에 상품 표기를 위한 Item UI 리스트
+    m_itemNodeList = 'List[cc.Node]', -- 돌림판 위에 상품 표기를 위한 Item Node 리스트
 
     m_rewardItemInfo = 'cc.Node', -- 2단계 상품의 상세 확률 표시를 위한 그룹 노드 (메뉴로 바꾸는게 좋을 듯)
     m_infoItemNodes = 'List[cc.Node]', -- 2단계 상품의 상세 확률 표시를 위한 노드 리스트
@@ -98,7 +94,6 @@ function UI_EventRoulette:initMember()
     self.m_wheel = vars['wheelMenu'] -- 돌림판 Sprite
     self.m_rouletteVisual = vars['rouletteVisual'] -- 돌림판 Sprite
     self.m_appearVisual = vars['appearVisual'] -- 연출 Animation
-    self.m_receiveSprite = vars['receiveSprite'] -- 당첨 표시용 Sprite
     
     self.m_rouletteMenues = {}
     self.m_startBtns = {}
@@ -121,11 +116,6 @@ function UI_EventRoulette:initMember()
     local node_index = 1
     while(vars['itemNode' .. tostring(node_index)]) do
         -- 돌림판
-        -- self.m_itemNodes[node_index] = vars['itemNode' .. tostring(node_index)]
-        -- self.m_itemNodes[node_index]:setRotation(g_eventRouletteData:getAngle(node_index))
-
-        -- self.m_itemLabels[node_index] = vars['itemLabel' .. tostring(node_index)]
-        -- self.m_itemLabels[node_index]:setRotation(g_eventRouletteData:getAngle(node_index))
         self.m_itemNodeList[node_index] = vars['itemNode' .. tostring(node_index)]
 
         local ui = UI_EventRoulette.UI_Item(node_index)
@@ -251,8 +241,6 @@ function UI_EventRoulette:refresh()
     -- end
 
     self.m_rewardItemInfo:setVisible(false)
-
-    self.m_receiveSprite:setVisible(false)
     self.m_rouletteVisual:changeAni('roulette_' .. tostring(self.m_currStep), true)
 
     self:refresh_rewradList()
@@ -344,12 +332,11 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:StopRoulette(dt)
     if (self.m_wheel:getNumberOfRunningActions() == 0) then
-        self.m_receiveSprite:setVisible(true)
-
         local function test_cb()
         end
 
         local function disappear_cb()
+            self:refresh()
             self.m_appearVisual:changeAni('roulette_disappear', false)
             g_eventRouletteData:MakeRewardPopup()
         end
@@ -363,8 +350,7 @@ function UI_EventRoulette:StopRoulette(dt)
         --     self:refresh()
         --     self.root:unscheduleUpdate()
         -- end)
-        
-        self:refresh()
+    
         self.root:unscheduleUpdate()
 
 
