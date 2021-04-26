@@ -123,7 +123,7 @@ function TargetRule_getTargetList(target_type, org_list, x, y, t_data)
     elseif (target_type == 'back') then
         return TargetRule_getTargetList_back(org_list)
 
-    elseif (target_type == 'hero' or target_type == 'limited') then
+    elseif string.find(target_type, 'hero') or string.find(target_type, 'limited') then
         return TargetRule_getTargetList_category(target_type, org_list)
 
     elseif (pl.stringx.startswith(target_type, 'leader')) then
@@ -1041,14 +1041,18 @@ function TargetRule_getTargetList_category(target_type, org_list)
     local t_ret = {}
     local l_subType = pl.stringx.split(target_type, '_')
 
-    if (not self_char) or (not l_subType) or (#l_subType < 1) then return t_ret end
+    if (not l_subType) or (#l_subType < 1) then return t_ret end
 
     -- 서브타겟마다 한번씩 루프를 돌아 타겟을 받아온다.
     for _, subType in ipairs(l_subType) do
         -- 카테고리가 고유값이라 중복추가 걱정은 없음
         for _, target in ipairs(org_list) do
-            if (target and target.m_charTable and target.m_charTable['category'] and target.m_charTable['category'] == subType) then
-                table.insert(t_ret, target)
+            if (target and target.m_charTable) then
+                if (target.m_charTable['category'] and target.m_charTable['category'] == subType) then
+                    table.insert(t_ret, target)
+                elseif (target.m_charTable['rarity'] and target.m_charTable['rarity'] == subType) then
+                    table.insert(t_ret, target)
+                end
             end
         end
     end
