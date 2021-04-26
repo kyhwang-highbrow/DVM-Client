@@ -498,7 +498,9 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
         is_requested = true
     end
 
-    ui_lobby.m_lobbyWorldAdapter.m_lobbyMap:makeTouchLayer(button, touch_event)
+    if (ui_lobby) and (ui_lobby.m_lobbyWorldAdapter) and (ui_lobby.m_lobbyWorldAdapter.m_lobbyMap) then
+        ui_lobby.m_lobbyWorldAdapter.m_lobbyMap:makeTouchLayer(button, touch_event)
+    end
 
     ServerData_Forest:getInstance():request_myForestInfo(
         function()
