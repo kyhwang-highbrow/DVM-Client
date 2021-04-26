@@ -5,6 +5,7 @@ local PARENT = UI
 -- @brief 
 ----------------------------------------------------------------------
 UI_EventRoulette = class(PARENT, {
+    m_blockUI = 'UI_BlockPopup', 
 
     -- TOP
     m_timeLabel = 'UIC_LabelTTF',   -- 남은 시간 텍스트
@@ -83,6 +84,8 @@ function UI_EventRoulette:initMember()
     self.m_angular_accel = -500
     self.m_time = 0
 
+    self.m_blockUI = UI_BlockPopup()
+
     -- TOP
     self.m_timeLabel = vars['timeLabel']   -- 남은 시간 텍스트
     self.m_rankBtn = vars['rankBtn']       -- 랭킹 버튼
@@ -148,6 +151,7 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:initUI()
     -- event_roulette_item.ui
+    self.m_blockUI:setVisible(false)
     
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
@@ -339,6 +343,7 @@ function UI_EventRoulette:StopRoulette(dt)
             self:refresh()
             self.m_appearVisual:changeAni('roulette_disappear', false)
             g_eventRouletteData:MakeRewardPopup()
+            self.m_blockUI:setVisible(false)
         end
         self.m_itemUIList[g_eventRouletteData:getPickedItemIndex()]:setVisibleReceiveSprite()
 
@@ -376,6 +381,7 @@ end
 -- function click_startTest
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_stopTest()
+    self.m_blockUI:setVisible(true)
     local function finish_callback()
         self.m_stopBtn:setEnabled(false)
 
