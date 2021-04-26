@@ -62,6 +62,8 @@ function LobbyMap:init(parent, z_order)
     -- 채팅서버와의 position 동기화 최적화
     self.m_chatServer_bDirtyPos = false
     self.m_chatServer_posSyncTimer = 0
+
+    self.m_touchStartTime = 0
 end
 
 -------------------------------------

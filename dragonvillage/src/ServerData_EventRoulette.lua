@@ -217,7 +217,17 @@ function ServerData_EventRoulette:response_rouletteStart(ret)
     --if 
     if (self.m_resultTable == nil) then self.m_resultTable = {} end
     self.m_resultTable['item_info'] = ret['item_info'] -- '779154;1'
-    self.m_resultTable['mail_item_info'] = ret['mail_item_info']
+    local item_info = ret['mail_item_info']
+
+    -- 아이템이 리스트 형태로 내려왔을 수도 있다.
+    if (item_info and not item_info['item_id']) then
+        for _, v in ipairs(item_info) do
+            if (v) then item_info = v end
+        end
+    end
+    self.m_resultTable['mail_item_info'] = item_info
+
+
     self.m_resultTable['bonus_score'] = ret['bonus_score'] -- number
     self.m_resultTable['score'] = ret['score'] -- number
 end
@@ -432,7 +442,7 @@ function ServerData_EventRoulette:getIcon(index)
         local data = self.m_probabilityTable[step][index]
         local file_name = data['group_code']
         icon =  IconHelper:getIcon('res/ui/icons/item_group/' .. file_name .. '.png')
-        icon:setColor(cc.c3b(150, 150, 150))
+        
         count = data['val']
     elseif step == 2 then
         local group_code = self:getPickedGroup()
@@ -503,10 +513,17 @@ end
 -- function getAngle
 ----------------------------------------------------------------------
 function ServerData_EventRoulette:MakeRewardPopup()
+    -- if self.m_resultTable['mail_item_info'] then
+    --     g_serverData:receiveReward(self.m_resultTable)
+    --     self.m_resultTable = nil
+    -- end
+
     if self.m_resultTable['mail_item_info'] then
-        g_serverData:receiveReward(self.m_resultTable)
+        ccdump(self.m_resultTable)
+        UI_EventRoulette.UI_RewardPopup(self.m_resultTable)
         self.m_resultTable = nil
     end
+
 end
 
 -------------------------------------

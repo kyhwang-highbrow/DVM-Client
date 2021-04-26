@@ -211,7 +211,7 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:refresh()
     self.m_ticketNumLabel:setString(g_eventRouletteData:getTicketNum())
-    self.m_totalScoreLabel:setString(g_eventRouletteData:getTotalScore())
+    self.m_totalScoreLabel:setString(Str('{1}점', g_eventRouletteData:getTotalScore()))
 
     
     self.m_currStep = g_eventRouletteData:getCurrStep()
@@ -329,11 +329,6 @@ function UI_EventRoulette:AdjustRoulette(dt)
             time = 2
         end
         self.m_wheel:runAction(cc.RotateBy:create(time, target_angle))
-
-        
-        cclog('index : ' .. tostring(index))
-        cclog('angle : ' .. tostring(target_angle))
-        cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:StopRoulette(dt) end, 0)
     end
 end
@@ -396,8 +391,7 @@ function UI_EventRoulette:click_stopTest()
 
         local current_angle = self.m_wheel:getRotation()
         local rand_cycle = math.random(1, 2)
-        cclog('rand_cycle : ' .. tostring(rand_cycle))
-        cclog('adjust angle : ' .. tostring(rand_cycle * 360 + (360 - current_angle)))
+
         local rotate_action = cc.RotateBy:create(1, 1 * 360 + (360 - current_angle))
         self.m_wheel:runAction(rotate_action)
 
@@ -462,7 +456,8 @@ function UI_EventRoulette:click_rewardItemBtn(index)
         icon, count, prob = g_eventRouletteData:getRewardIcon(2, group_code, node_index)
 
         self.m_infoItemNodes[node_index]:addChild(icon)
-        self.m_infoItemLabels[node_index]:setString(tostring(count) .. '    ' .. tostring(prob))
+
+        self.m_infoItemLabels[node_index]:setString(string.format('%7d', count) .. string.format('%13s', prob))
 
         node_index = node_index + 1
     end
@@ -501,6 +496,9 @@ function UI_EventRoulette.UI_Item:refresh()
     local count
     local icon 
     icon, count = g_eventRouletteData:getIcon(self.m_index)
+    if (g_eventRouletteData:getCurrStep() == 1) then
+        icon:setColor(cc.c3b(150, 150, 150))
+    end
 
     self.vars['itemNode']:addChild(icon)
     self.vars['itemLabel']:setString(tostring(count))
@@ -532,7 +530,7 @@ function UI_EventRoulette.UI_RewardItem:init(data, key)
     local vars = self:load('event_roulette_item.ui')
 
     local icon = g_eventRouletteData:getIcon(key)
-    
+
     vars['itemNode']:addChild(icon)
 
     if (data['val'] == nil) or (data['val'] == '') then
@@ -570,3 +568,55 @@ function UI_EventRoulette.UI_InfoPopup:init()
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  UI_EventRoulette.UI_RewardPopup
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+UI_EventRoulette.UI_RewardPopup = class(UI, {
+
+})
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_EventRoulette.UI_RewardPopup:init(reward_table)
+    local vars = self:load('event_roulette_popup_reward.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette.UI_RewardPopup')    
+
+    self.m_uiName = 'UI_EventRoulette.UI_RewardPopup'  
+
+    vars['okBtn']:registerScriptTapHandler(function() self:close() end)    
+
+
+    if (reward_table) then
+        local msg
+        -- score
+        if (not reward_table['bonus_score']) and (not reward_table['bonus_score'] == '') then
+            msg = Str('대박 점수: {1}점', reward_table['bonus_score'])
+        else
+            msg = Str('점수: {1}점', reward_table['score'])
+        end
+
+        -- item
+        if reward_table['mail_item_info'] then
+            local id = reward_table['mail_item_info']['item_id']
+            local count = reward_table['mail_item_info']['count']
+            local item_card = UI_ItemCard(id, count)
+
+            if item_card then
+                vars['itemNode']:addChild(item_card.root)
+            end
+        end
+
+        vars['scoreLabel']:setString(msg)
+
+        g_highlightData:setHighlightMail()
+
+    end
+
+
+
+
+end
