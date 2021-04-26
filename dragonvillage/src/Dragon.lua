@@ -113,11 +113,17 @@ function Dragon:initDragonSkillManager(t_dragon_data)
                         error('invalid bless skill : ' .. skill_id)
                     end
 
-                    local skill_indivisual_info = self:setSkillID('bless', skill_id, 1, 'new')
+                    local bless_skill_info = self:setSkillID('bless', skill_id, 1, 'new')
+                    local normal_skill_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+                    
+                    if (bless_skill_info) then
+                        bless_skill_info:setToIgnoreCC(true)
+                        bless_skill_info:setToIgnoreReducedCool(true)
+                    end
 
-                    if (skill_indivisual_info) then
-                        skill_indivisual_info:setToIgnoreCC(true)
-                        skill_indivisual_info:setToIgnoreReducedCool(true)
+                    if (normal_skill_info) then
+                        normal_skill_info:setToIgnoreCC(true)
+                        normal_skill_info:setToIgnoreReducedCool(true)
                     end
                 end
 
