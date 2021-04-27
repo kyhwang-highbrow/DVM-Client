@@ -157,6 +157,10 @@ function UI_EventRoulette:initUI()
     self.m_blockUI:setVisible(false)
     
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
+
+    if (not PackageManager:isExist(self.m_packageName)) then
+        self.m_packageBtn:setVisible(false)
+    end
 end
 
 ----------------------------------------------------------------------
@@ -418,14 +422,17 @@ end
 function UI_EventRoulette:click_packageBtn()
 
     local target_ui = PackageManager:getTargetUI(self.m_packageName, true)
+    
     local function buy_cb()
         UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM, 
         function() 
             g_eventRouletteData:request_rouletteInfo(false, false, function() self:refresh() end)
         end)
     end
-    target_ui:setBuyCB(buy_cb)
 
+    if target_ui then
+        target_ui:setBuyCB(buy_cb)
+    end
 end
 
 ----------------------------------------------------------------------

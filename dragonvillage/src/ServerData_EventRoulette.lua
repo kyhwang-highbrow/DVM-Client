@@ -144,28 +144,24 @@ function ServerData_EventRoulette:response_rouletteInfo(ret)
     -- 보상이 들어왔을 경우 정보 저장, nil 여부로 보상 확인
     if (ret['lastinfo']) then
         self.m_lastInfo = StructEventRouletteRanking():apply(ret['lastinfo'])
-        ccdump(ret['lastinfo'])
     else
         self.m_lastInfo = nil
     end
 
     if (ret['lastinfo_daily']) then
         self.m_lastInfoDaily = StructEventRouletteRanking():apply(ret['lastinfo_daily'])
-        ccdump(ret['lastinfo_daily'])
     else
         self.m_lastInfoDaily = nil
     end
     -- 보상 아이템 정보 들어왔을 경우 정보 저장, nil 여부로 보상 확인
     if (ret['reward_info']) then
         self.m_rewardInfo = ret['reward_info']
-        ccdump(ret['reward_info'])
     else
         self.m_rewardInfo = nil
     end
 
     if (ret['reward_info_daily']) then
         self.m_rewardInfoDaily = ret['reward_info_daily']
-        ccdump(ret['reward_info_daily'])
     else
         self.m_rewardInfoDaily = nil
     end
@@ -502,6 +498,7 @@ function ServerData_EventRoulette:getRewardIcon(step, group_code, index)
     local probability
     local count
 
+    
     if (step == 1) then
         data = self.m_probabilityTable[step][index]
         local file_name = data['group_code']
@@ -510,7 +507,6 @@ function ServerData_EventRoulette:getRewardIcon(step, group_code, index)
     elseif (step == 2) then
         --local group_code = self:getPickedGroup()
         data = self.m_probabilityTable[step][group_code][index]
-
         icon =  IconHelper:getItemIcon(tonumber(data['item_id']))
     else
 
