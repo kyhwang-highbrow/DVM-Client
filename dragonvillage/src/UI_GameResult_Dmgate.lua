@@ -137,7 +137,7 @@ end
 -- function refresh
 ----------------------------------------------------------------------------
 function UI_GameResult_Dmgate:refresh()
-
+    g_dmgateData:MakeSeasonResetPopup(g_dmgateData:getModeID(self.m_stage_id), false)
 end
 
 

@@ -11,9 +11,12 @@ local DmgateStringTable = {
 ServerData_Dmgate = class({
     m_serverData = 'ServerData',                -- ServerData.lua
 
+    m_bIsNewSeason = 'boolean', -- 시즌 초기화 팝업 boolean
+    m_bNewChapterPopup = 'boolean', -- 상층 개방시 팝업 boolean
+
     -- TEMP
     m_bRevealBanner = 'boolean',    -- 차원문 출시용 배너 to set visible()
-    m_bNewChapterPopup = 'boolean', -- 상층 개방시 팝업을 위한 변수
+
     m_stageTableName = 'string',    -- 테스트를 위해 로컬로 csv 파일을 읽을 때 사용하는 변수. 
 
     -- stage
@@ -42,6 +45,7 @@ ServerData_Dmgate = class({
 function ServerData_Dmgate:init(server_data)
     self.m_bRevealBanner = true
     self.m_bNewChapterPopup = false
+    self.m_bIsNewSeason = false
     self.m_stageTableName = 'table_dmgate_stage' -- csv from server
 
     self.m_serverData = server_data
@@ -61,16 +65,6 @@ end
 ----------------------------------------------------------------------------
 function ServerData_Dmgate:isShowLobbyBanner()
     return self.m_bRevealBanner
-end
-
-----------------------------------------------------------------------------
--- function MakeSeasonResetPopup
-----------------------------------------------------------------------------
-function ServerData_Dmgate:MakeSeasonResetPopup(popup_state, mode_id)
-    local state = popup_state or UI_DmgateSeasonResetPopup.STATE.SEASON_RESET
-    local id = mode_id or DIMENSION_GATE_ANGRA
-    
-    UI_DmgateSeasonResetPopup(state, id)
 end
 
 -- ******************************************************************************************************
@@ -142,7 +136,9 @@ function ServerData_Dmgate:response_dmgateInfo(ret)
                 local curr_chapter_id = self:getChapterID(stage_id)
                 local next_chapter_id = self:getChapterID(next_stage_id)
                 
+                -- 앙그라 하층에서 처음 상층 클리어 했을 때
                 if (curr_chapter_id == 1) and (curr_chapter_id ~= next_chapter_id) then
+                    -- TODO : 앙그라 이후 차원문이 나올 시 여러 차원문에 동시에 진입 가능하게 바뀌면 문제가 됨.
                     self.m_bNewChapterPopup = true
                 end
             end
@@ -154,6 +150,21 @@ function ServerData_Dmgate:response_dmgateInfo(ret)
     if ret['end_time'] then self.m_seasonEndTime = ret['end_time'] end
 
     self.m_bDirtyDimensionGateInfo = false
+
+
+    local local_data = self:getLocalData('season')
+    --ccdump(local_data)
+    --ccdump(type(local_data))
+    --ccdump(self.m_dmgateInfo[1]['season'])
+    --ccdump(type(self.m_dmgateInfo[1]['season']))
+    
+    if (local_data ~= self.m_dmgateInfo[1]['season']) then
+        self:setLocalData(self.m_dmgateInfo[1]['season'], 'season')
+        self.m_bIsNewSeason = true
+
+        --local_data = self:getLocalData('season')
+        --ccdump(local_data)
+    end
 end
 
 ----------------------------------------------------------------------------
@@ -1038,3 +1049,38 @@ function ServerData_Dmgate:MakeSeasonEndedPopup()
 
     MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
 end
+
+----------------------------------------------------------------------------
+-- function getLocalData
+----------------------------------------------------------------------------
+function ServerData_Dmgate:getLocalData(...)
+    return g_settingData:get('dmgate', ...)
+end
+
+----------------------------------------------------------------------------
+-- function setLocalData
+----------------------------------------------------------------------------
+function ServerData_Dmgate:setLocalData(data, ...)
+    g_settingData:applySettingData(data, 'dmgate', ...)
+end
+
+----------------------------------------------------------------------------
+-- function MakeSeasonResetPopup
+----------------------------------------------------------------------------
+function ServerData_Dmgate:MakeSeasonResetPopup(mode_id, is_season_reset)
+    local id = mode_id or DIMENSION_GATE_ANGRA
+
+    local isBuffExist = #self:getBuffList(id) ~= 0
+
+    if is_season_reset and self.m_bIsNewSeason and isBuffExist then
+    --if is_season_reset and isBuffExist then
+        
+        UI_DmgateSeasonResetPopup(id, is_season_reset)
+        self.m_bIsNewSeason = false
+    elseif (not is_season_reset) and self.m_bNewChapterPopup and isBuffExist then
+        UI_DmgateSeasonResetPopup(id, is_season_reset)
+        self.m_bNewChapterPopup = false
+    --else
+    end
+end
+

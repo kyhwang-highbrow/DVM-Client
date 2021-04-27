@@ -79,6 +79,8 @@ function UI_DmgateScene:init(stage_id)
     self:refresh()
 
     self:sceneFadeInAction()
+
+    g_dmgateData:MakeSeasonResetPopup(nil, true)
 end
 
 ----------------------------------------------------------------------

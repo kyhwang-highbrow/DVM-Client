@@ -157,7 +157,6 @@ end
 -- class UI_DmgateSeasonResetPopup
 ----------------------------------------------------------------------
 UI_DmgateSeasonResetPopup = class(PARENT, {
-    m_state = 'number',
     m_modeId = 'number',
 
     m_seasonMenu = 'cc.Menu',   -- 시즌 초기화시 보여줄 메뉴
@@ -167,17 +166,12 @@ UI_DmgateSeasonResetPopup = class(PARENT, {
     m_scrollNode = 'cc.Node',   -- 시즌 효과 아이템 배치를 위한 아이템 노드
 })
 
-UI_DmgateSeasonResetPopup.STATE = {
-    SEASON_RESET = 1,
-    NEW_CHAPTER = 2,
-}
 
 ----------------------------------------------------------------------
 -- function init
 -- param mode_id 차원문 별로 구분하기 위한 index id (앙그라 1, 마누스 2, ...)
 ----------------------------------------------------------------------
-function UI_DmgateSeasonResetPopup:init(state, mode_id)
-    self.m_state = state
+function UI_DmgateSeasonResetPopup:init(mode_id, is_season_reset)
     self.m_modeId = mode_id
 
     self.m_uiName = 'UI_dmgateSeasonResetPopup'
@@ -192,21 +186,24 @@ function UI_DmgateSeasonResetPopup:init(state, mode_id)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DmgateBlessBtnPopup')
 
-    self:initUI()
+    self.m_seasonMenu = vars['seasonMenu']
+    self.m_openMenu = vars['openMenu']
+    self.m_scrollNode = vars['scrollNode']
+
+    self:initUI(is_season_reset)
     self:initButton()
     self:refresh()
 end
 
-
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
-function UI_DmgateSeasonResetPopup:initUI()
+function UI_DmgateSeasonResetPopup:initUI(is_season_reset)
 
     -- STATE에 따라 보여줄 텍스트 레이블
-    if (self.m_state == self.STATE.SEASON_RESET) then
+    if is_season_reset then
         self.m_seasonMenu:setVisible(true)
-    elseif (self.m_state == self.NEW_CHAPTER) then
+    else
         self.m_openMenu:setVisible(true)
     end
 
@@ -231,7 +228,7 @@ end
 -- function initButton
 ----------------------------------------------------------------------
 function UI_DmgateSeasonResetPopup:initButton()
-    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 ----------------------------------------------------------------------
 -- function refresh
