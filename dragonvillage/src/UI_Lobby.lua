@@ -191,7 +191,7 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        if g_hotTimeData:isActiveEvent('event_roulette') then
+        if g_hotTimeData:isActiveEvent('event_roulette') or g_hotTimeData:isActiveEvent('event_roulette_reward') then
             co:work('# 룰렛 이벤트 정보 받는 중')
             ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, co.NEXT, required_fail_cb)
             if co:waitWork() then return end

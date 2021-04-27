@@ -514,8 +514,10 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
 
             is_requested = false
         end
-
-        g_eventRouletteData:request_rouletteInfo(false, true, show_event_roulette)
+        
+        if g_hotTimeData:isActiveEvent('event_roulette') or g_hotTimeData:isActiveEvent('event_roulette_reward') then
+            g_eventRouletteData:request_rouletteInfo(false, true, show_event_roulette)
+        end
         is_requested = true
     end
 

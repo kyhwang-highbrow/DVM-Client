@@ -661,7 +661,7 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             if co:waitWork() then return end
         end
 
-        if(g_hotTimeData:isActiveEvent('event_roulette')) then
+        if g_hotTimeData:isActiveEvent('event_roulette') or g_hotTimeData:isActiveEvent('event_roulette_reward') then
             co:work('# 룰렛 이벤트 정보 받는 중')
             g_eventRouletteData:request_rouletteInfo(false, true, co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
