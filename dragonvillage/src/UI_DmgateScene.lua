@@ -303,6 +303,7 @@ function UI_DmgateScene:click_chapterBtn(chapter_id)
     self.m_chapterId = chapter_id
 
     -- TODO : 210408 기준 앙그라 2챕터 중에 1챕터는 시즌 효과을 숨기지만 조건이 달라질 수 있기에 변경 필요
+    -- 벞 없으면 버튼 노출 X
     local isSeasonBtnActive = self.m_chapterId ~= 1
     local buff_list = g_dmgateData:getBuffList(DIMENSION_GATE_ANGRA)
     if (not buff_list) or (#buff_list <= 0) then isSeasonBtnActive = false end
