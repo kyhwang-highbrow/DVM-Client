@@ -460,14 +460,24 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
     local lobby_ground = lobby_map.m_groudNode
 
     -- 돌림판
-    local roulette = MakeAnimator('res/lobby/lobby_season_deco/weidel_festival/weidel_roulette.vrp')
+    local roulette_name = 'weidel_roulette'
+    local candy_shop_name = 'weidel_candyshop'
+    local photo_board_name = 'weidel_board'
+
+    if USE_NIGHT then
+        roulette_name = roulette_name .. '_night'
+        candy_shop_name = candy_shop_name .. '_night'
+        photo_board_name = photo_board_name .. '_night'
+    end
+
+    local roulette = MakeAnimator(string.format('res/lobby/lobby_season_deco/weidel_festival/%s.vrp', roulette_name))
     roulette:changeAni('idle', true)
     roulette.m_node:setContentSize(0, 350)
     roulette.m_node:setPosition(235, 180)
     lobby_ground:addChild(roulette.m_node, 5)
 
     -- 민초 솜사탕 가게
-    local candy_shop = MakeAnimator('res/lobby/lobby_season_deco/weidel_festival/weidel_candyshop.vrp')
+    local candy_shop = MakeAnimator(string.format('res/lobby/lobby_season_deco/weidel_festival/%s.vrp', candy_shop_name))
     candy_shop:changeAni('idle_01', true)
     candy_shop.m_node:setContentSize(0, 300)
     candy_shop.m_node:setPosition(-240, 80)
@@ -475,7 +485,7 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
     lobby_ground:addChild(candy_shop.m_node, shop_z_order)
 
     -- 사진판
-    local photo_board = MakeAnimator('res/lobby/lobby_season_deco/weidel_festival/weidel_board.vrp')
+    local photo_board = MakeAnimator(string.format('res/lobby/lobby_season_deco/weidel_festival/%s.vrp', photo_board_name))
     photo_board:changeAni('idle', true)
     photo_board.m_node:setContentSize(0, 300)
     photo_board.m_node:setPosition(-750, -42)
