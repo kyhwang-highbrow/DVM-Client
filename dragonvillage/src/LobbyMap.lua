@@ -750,7 +750,19 @@ function LobbyMap:onEvent(event_name, t_event, ...)
     elseif (event_name == 'lobby_character_move_end') then
         self.m_lobbyIndicator:setVisible(false)
 
-    -- 드래곤 자유 이동
+    elseif (event_name == 'forest_character_move') then
+        local dragon = t_event:getObject()
+        local pos_x, pos_y = t_event:getPosition()
+
+        -- Y위치에 따라 ZOrder를 변경
+        local z_order = self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_DRAGON, pos_y)
+        dragon.m_rootNode:setLocalZOrder(z_order)
+
+        -- Y위치에 따라 Scale을 변경
+        local scale = self:getScaleAtYPosY(pos_y)
+        dragon.m_rootNode:setScale(scale)
+
+    -- 드래곤 자유 이동 시작
     elseif (event_name == 'forest_dragon_move_free') then
         -- 받은 정보
         local dragon = t_event:getObject()
@@ -771,14 +783,6 @@ function LobbyMap:onEvent(event_name, t_event, ...)
         end
 
         dragon:setMove(tar_x, tar_y, speed)
-
-        -- Y위치에 따라 ZOrder를 변경
-        local z_order = self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_DRAGON, pos_y)
-        dragon.m_rootNode:setLocalZOrder(z_order)
-
-        -- Y위치에 따라 Scale을 변경
-        local scale = self:getScaleAtYPosY(pos_y)
-        dragon.m_rootNode:setScale(scale)
     end
 end
 
@@ -1026,7 +1030,7 @@ function LobbyMap:makeDragon(struct_dragon_object)
         -- 드래곤 -> 마이룸
         dragon:addListener('forest_dragon_move_free', self)
         dragon:addListener('forest_dragon_move_stuff', self)
-
+        dragon:addListener('forest_character_move', self)
         -- 드래곤 -> 그림자
         dragon:addListener('forest_character_move', forest_shadow)
         dragon:addListener('forest_dragon_jump', forest_shadow)
