@@ -95,7 +95,7 @@ end
 function UI_DmgateBlessBtnPopup:addBlessTableView(scroll_node)
     local buff_list = g_dmgateData:getBuffList(DIMENSION_GATE_ANGRA)
 
-    if (not buff_list) or (#buff_list <= 0) then return end
+    if (not buff_list) or (#buff_list <= 0) then return false end
 
     local function create_callback(ui, data)
     end
@@ -110,6 +110,8 @@ function UI_DmgateBlessBtnPopup:addBlessTableView(scroll_node)
     if #buff_list <= 2 then
         tableview.m_scrollView:setTouchEnabled(false)
     end
+
+    return true
 end
 
 -------------------------------------

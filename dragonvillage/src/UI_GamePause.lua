@@ -139,10 +139,12 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
         local chapter_id = is_dmgate_stage and g_dmgateData:getChapterID(tonumber(g_gameScene.m_gameWorld.m_stageID)) or -1
         local is_upper_floor = chapter_id > 1
 
-        -- dmgate 스테이지가 아니면
-        -- is_upper_floor 이 값은 항상 false임
+        -- dmgate 스테이지가 아니면 is_upper_floor 이 값은 항상 false임
         if (is_upper_floor) then
-            UI_DmgateBlessBtnPopup:addBlessTableView(vars['blessMenu'])
+            -- 추가된 시즌 효과가 아예 없으면 위로 떙김
+            if (UI_DmgateBlessBtnPopup:addBlessTableView(vars['blessMenu']) == false) then
+                vars['btnMenu']:setPositionY(0)
+            end
         else
             vars['btnMenu']:setPositionY(0)
         end
