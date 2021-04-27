@@ -192,7 +192,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 			    StatusEffectHelper:doStatusEffectByTable(self, t_skill, nil, t_data)
             
                 -- 텍스트
-                if ( self.m_charType == 'dragon') then
+                if (self.m_charType == 'dragon' and isNullOrEmpty(t_skill['t_name']) == false) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end

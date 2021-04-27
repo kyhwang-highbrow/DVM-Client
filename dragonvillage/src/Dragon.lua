@@ -113,17 +113,14 @@ function Dragon:initDragonSkillManager(t_dragon_data)
                         error('invalid bless skill : ' .. skill_id)
                     end
 
-                    local bless_skill_info = self:setSkillID('bless', skill_id, 1, 'new')
-                    local normal_skill_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+                    -- bless  로 시작 패시브를 걸거나
+                    -- {chance_type}로 다른 타입의 스킬을 저장
+                    local bless_skill_type = t_skill['chance_type'] == 'passive' and 'bless' or t_skill['chance_type']
+                    local bless_skill_info = self:setSkillID(bless_skill_type, skill_id, 1, 'new')
                     
                     if (bless_skill_info) then
                         bless_skill_info:setToIgnoreCC(true)
                         bless_skill_info:setToIgnoreReducedCool(true)
-                    end
-
-                    if (normal_skill_info) then
-                        normal_skill_info:setToIgnoreCC(true)
-                        normal_skill_info:setToIgnoreReducedCool(true)
                     end
                 end
 
