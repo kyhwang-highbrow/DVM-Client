@@ -270,6 +270,10 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
     elseif (deco_type == DECO_TYPE.WEIDEL_FESTIVAL) then
         for _, l_info in ipairs(LAYER_INFO_LIST) do
             local name = l_info[1]
+            if USE_NIGHT then
+                name = name .. '_night'
+            end
+
             local pos_x = l_info[2]
             local full_path =
                 string.format('res/lobby/lobby_season_deco/weidel_festival/lobby_weidel_festival_%s.vrp', name)
@@ -279,7 +283,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
                 animator:setAnchorPoint(CENTER_POINT)
                 animator:setPositionX(pos_x)
                 animator:setPositionY(0)
-                node:addChild(animator.m_node, 1)
+                node:addChild(animator.m_node, 0)
             end
         end
 
