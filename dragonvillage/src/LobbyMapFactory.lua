@@ -455,28 +455,42 @@ end
 function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
     local lobby_ground = lobby_map.m_groudNode
 
-    -- 바이델 축제를 위한 레이아웃 생성
-    local button = ccui.Button:create()
-    button:setTouchEnabled(false)
-    button:loadTextures('res/common/tool/a_button_0801.png', 'res/common/tool/a_button_0802.png', '')
-    button:setPosition(234, 180)
-    button:setOpacity(0)
-    button:setDockPoint(cc.p(0.5, 0))
-    lobby_ground:addChild(button, 5)
+    -- 돌림판
+    local roulette = MakeAnimator('res/lobby/lobby_season_deco/weidel_festival/weidel_roulette.vrp')
+    roulette:changeAni('idle', true)
+    roulette.m_node:setContentSize(0, 350)
+    roulette.m_node:setPosition(235, 180)
+    lobby_ground:addChild(roulette.m_node, 5)
+
+    -- 민초 솜사탕 가게
+    local candy_shop = MakeAnimator('res/lobby/lobby_season_deco/weidel_festival/weidel_candyshop.vrp')
+    candy_shop:changeAni('idle_01', true)
+    candy_shop.m_node:setContentSize(0, 300)
+    candy_shop.m_node:setPosition(-240, 80)
+    local shop_z_order = lobby_map:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_DRAGON, -120)
+    lobby_ground:addChild(candy_shop.m_node, shop_z_order)
+
+    -- 사진판
+    local photo_board = MakeAnimator('res/lobby/lobby_season_deco/weidel_festival/weidel_board.vrp')
+    photo_board:changeAni('idle', true)
+    photo_board.m_node:setContentSize(0, 300)
+    photo_board.m_node:setPosition(-750, -30)
+    local board_z_order = lobby_map:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_DRAGON, -180)
+    lobby_ground:addChild(photo_board.m_node, board_z_order)
 
     local is_requested = false
     local function touch_event(touches, event)
         if (is_requested == true) then
             return
         end
-        local world_pos = convertToWorldSpace(button)
+        local world_pos = convertToWorldSpace(roulette.m_node)
         local touch_pos = touches[1]:getLocation()
 
         -- 화면상에 보이는 Y스케일을 얻어옴
-        local transform = button:getNodeToWorldTransform()
+        local transform = roulette.m_node:getNodeToWorldTransform()
         local scale_y = transform[5 + 1]
 
-        local std_distance = (150 * scale_y)
+        local std_distance = (180 * scale_y)
 
         local distance = getDistance(touch_pos['x'], touch_pos['y'], world_pos['x'], world_pos['y'])
 
@@ -485,6 +499,7 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
         end
 
         local function show_event_roulette()
+            UIHelper:CreateParticle(roulette.m_node)
             local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_EventRoulette')
 
             if (is_opend) then
@@ -501,7 +516,7 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
     end
 
     if (self.m_lobbyMap) then
-        self.m_lobbyMap:makeTouchLayer(button, touch_event)
+        self.m_lobbyMap:makeTouchLayer(roulette, touch_event)
     end
 
     ServerData_Forest:getInstance():request_myForestInfo(

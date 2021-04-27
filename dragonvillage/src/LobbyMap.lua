@@ -192,11 +192,11 @@ function LobbyMap:onTouchEnded(touches, event)
         self.m_touchTamer = nil
     else
         -- 드래곤 터치를 안먹었으면 커스텀 터치 ㄲ
-        -- 꾸욱 누르면서 이동 중일 수도 있기 때문에 0.2초의 클릭 판정을 만들어줌 
+        -- 꾸욱 누르면서 이동 중일 수도 있기 때문에 0.5초의 클릭 판정을 만들어줌 
         if (not self.m_touchPosition) then return end
 
         local is_dragon_touched = self:checkDragonTouch(self.m_touchPosition, self.m_lobbyTamerUser)
-        local is_touch_event = self.m_touchStartTime > 0 and (tonumber(socket.gettime() * 1000) - self.m_touchStartTime) <= 200
+        local is_touch_event = self.m_touchStartTime > 0 and (tonumber(socket.gettime() * 1000) - self.m_touchStartTime) <= 500
 
         if ( is_dragon_touched == false) and (self.m_customTouchCb) and (is_touch_event == true) then
             self.m_customTouchCb(touches, event)

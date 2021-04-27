@@ -527,5 +527,6 @@ function UIHelper:CreateParticle(node, file_name)
         particle:setAnchorPoint(CENTER_POINT)
         particle:setDockPoint(CENTER_POINT)
         node:addChild(particle)
+        particle:setGlobalZOrder(node:getGlobalZOrder() + 1)
     end
 end
