@@ -854,6 +854,7 @@ local t_module = {
     'UI_ButtonSpecialOfferProduct',
     'UI_ButtonSpecialOfferProductGold',
     'UI_ButtonSpecialOfferProductNurture',
+    'UI_ButtonSpecialOfferWeidel',
     'UI_ButtonSupplyDepot',
     'UI_ButtonNewcomerShop',
     'UI_DragonInfoListItem',

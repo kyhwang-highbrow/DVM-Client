@@ -993,6 +993,34 @@ function ServerData_Shop:getSpecialOfferProductNurture()
 end
 
 -------------------------------------
+-- function getSpecialOfferProductNurture
+-- @brief 특별 할인 골드
+-- @return StructProduct
+-------------------------------------
+function ServerData_Shop:getSpecialOfferProductWeidel()
+
+    -- 바이델 축제 패키지 상품 product_id (하드코딩)
+    local l_product_id = {}
+    table.insert(l_product_id, {122401, 800}) -- 800% 이상의 혜택
+    table.insert(l_product_id, {122402, 1000}) -- 1000% 이상의 혜택
+
+    -- 상품의 순서대로 구매가능하면 리턴
+    for i,t_data in ipairs(l_product_id) do
+        local product_id = t_data[1]
+        local bonus_num = t_data[2]
+        local struct_product = self:getTargetProduct(product_id)
+
+        if struct_product and
+            struct_product:checkIsSale() and -- 판매중인 상품인지 확인
+            struct_product:isItBuyable() then -- 구매 횟수 제한 확인
+            return struct_product, i, bonus_num
+        end
+    end
+    
+    return nil, 0, 0
+end
+
+-------------------------------------
 -- function getSkuList_Monthly
 -- @brief 인앱상품 프러덕트 아이들을 'x;x;x;'형태로 반환 - 월정액 상품
 -------------------------------------

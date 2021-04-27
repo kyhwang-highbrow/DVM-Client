@@ -25,6 +25,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     self.m_lManagedButtonUI = {}
     self.m_interval = 10
     self.PRIORITY = {}
+    self.PRIORITY.WEIDEL_PACK = 1200
     self.PRIORITY.PERSONALPACK = 1100
     self.PRIORITY.PAYMENT_SHOP = 1000
     self.PRIORITY.FIRST_PURCHASE_REWARD = 900
@@ -44,6 +45,8 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PRODUCT, UI_ButtonSpecialOfferProductNurture}) -- 특별 할인 패키지 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPOT_SALE_PRODUCT, UI_ButtonSpotSale}) -- 깜짝 할인 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SUPPLY_DEPOT, UI_ButtonSupplyDepot}) -- 보급소(정액제)
+
+    table.insert(l_managed_button_info, {self.PRIORITY.WEIDEL_PACK, UI_ButtonSpecialOfferWeidel}) -- 바이델 축제 패키지
     
     for i,v in ipairs(l_managed_button_info) do
         local priority = v[1]
