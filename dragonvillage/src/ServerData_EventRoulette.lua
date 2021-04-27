@@ -13,8 +13,14 @@ ServerData_EventRoulette = class({
 
     m_resultIndex = 'number',
 
-    m_dailyRankingRewardList = 'table',
-    m_totalRankingRewardList = 'table',
+    m_dailyRankingRewardList = 'table', -- 일일랭킹 보상 리스트
+    m_totalRankingRewardList = 'table', -- 전체랭킹 보상 리스트
+
+    -- 시즌 보상 수령 시 사용
+    m_lastInfo = 'table',           -- 
+    m_lastInfoDaily = 'table',      -- 
+    m_rewardInfo = 'table',         --
+    m_rewardInfoDaily = 'table',    -- 
 
     m_nGlobalOffset = 'number', -- 현재 랭킹 시작하는 등수
     m_lGlobalRank = 'table',
@@ -46,6 +52,10 @@ function ServerData_EventRoulette:init()
     --self.m_bDirtyTable = true
     self.m_myRanking = StructEventRouletteRanking()
 end
+
+-- function ServerData_EventRoulette:isActiveEvent()
+--     return g_hotTimeData:isActiveEvent('event_roulette')
+-- end
 
 ----------------------------------------------------------------------
 -- function request_rouletteInfo
@@ -86,9 +96,8 @@ function ServerData_EventRoulette:request_rouletteInfo(is_table_required, is_rew
 end
 
 ----------------------------------------------------------------------
--- function request_rouletteInfo
--- param is_table_required  probability와 rank 테이블 정보를 받을 것인지 여부
--- param is_reward_required 랭킹 보상을 받을 것인지에 대한 여부
+-- function response_rouletteInfo
+----------------------------------------------------------------------
 function ServerData_EventRoulette:response_rouletteInfo(ret)
     if ret['roulette_info'] then -- 룰렛 관련 정보
         self.m_rouletteInfo = ret['roulette_info']
@@ -130,6 +139,35 @@ function ServerData_EventRoulette:response_rouletteInfo(ret)
                 end
             end
         end
+    end
+
+    -- 보상이 들어왔을 경우 정보 저장, nil 여부로 보상 확인
+    if (ret['lastinfo']) then
+        self.m_lastInfo = StructEventRouletteRanking():apply(ret['lastinfo'])
+        ccdump(ret['lastinfo'])
+    else
+        self.m_lastInfo = nil
+    end
+
+    if (ret['lastinfo_daily']) then
+        self.m_lastInfoDaily = StructEventRouletteRanking():apply(ret['lastinfo_daily'])
+        ccdump(ret['lastinfo_daily'])
+    else
+        self.m_lastInfoDaily = nil
+    end
+    -- 보상 아이템 정보 들어왔을 경우 정보 저장, nil 여부로 보상 확인
+    if (ret['reward_info']) then
+        self.m_rewardInfo = ret['reward_info']
+        ccdump(ret['reward_info'])
+    else
+        self.m_rewardInfo = nil
+    end
+
+    if (ret['reward_info_daily']) then
+        self.m_rewardInfoDaily = ret['reward_info_daily']
+        ccdump(ret['reward_info_daily'])
+    else
+        self.m_rewardInfoDaily = nil
     end
 
     if ret['table_event_rank'] then -- 랭킹 정보 테이블
@@ -509,21 +547,35 @@ function ServerData_EventRoulette:getAngle(index)
 
     return ((index - 1) * (360 - angle)) % 360
 end
+
 ----------------------------------------------------------------------
--- function getAngle
+-- function MakeRewardPopup
 ----------------------------------------------------------------------
 function ServerData_EventRoulette:MakeRewardPopup()
-    -- if self.m_resultTable['mail_item_info'] then
-    --     g_serverData:receiveReward(self.m_resultTable)
-    --     self.m_resultTable = nil
-    -- end
-
     if self.m_resultTable['mail_item_info'] then
-        ccdump(self.m_resultTable)
         UI_EventRoulette.UI_RewardPopup(self.m_resultTable)
         self.m_resultTable = nil
     end
+end
 
+----------------------------------------------------------------------
+-- function MakeRankingRewardPopup
+----------------------------------------------------------------------
+function ServerData_EventRoulette:MakeRankingRewardPopup()
+    local last_info = self.m_lastInfo
+    local lastinfo_daily = self.m_lastInfoDaily
+    local reward_info = self.m_rewardInfo
+    local reward_info_daily = self.m_rewardInfoDaily
+
+    if (last_info and reward_info) then
+        -- 랭킹 보상 팝업
+        UI_EventRankingRewardPopup(false, UI_EventRouletteRankListItem, last_info, reward_info)
+    end
+    
+    if (lastinfo_daily and reward_info_daily) then
+        -- 일일랭킹 보상 팝업
+        UI_EventRankingRewardPopup(true, UI_EventRouletteRankListItem, lastinfo_daily, reward_info_daily)
+    end
 end
 
 -------------------------------------

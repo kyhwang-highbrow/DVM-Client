@@ -1341,6 +1341,8 @@ local t_module = {
 	'UI_RecommendedDragonInfoListItem_Party',
 	'UI_OverallRankingPopup',
 	'UI_OverallRankingListItem',
+    
+    'UI_RankingRewardPopup',
 
     -- UI : 도감 관련
 	'UI_Book',

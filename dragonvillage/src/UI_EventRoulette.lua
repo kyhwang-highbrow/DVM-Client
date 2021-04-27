@@ -72,6 +72,8 @@ function UI_EventRoulette:init(is_popup)
     self:initUI()
     self:initButton()
     self:refresh()
+    
+    g_eventRouletteData:MakeRankingRewardPopup()
 end
 
 ----------------------------------------------------------------------

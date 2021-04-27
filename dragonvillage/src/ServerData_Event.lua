@@ -661,6 +661,12 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             if co:waitWork() then return end
         end
 
+        if(g_hotTimeData:isActiveEvent('event_roulette')) then
+            co:work('# 룰렛 이벤트 정보 받는 중')
+            g_eventRouletteData:request_rouletteInfo(false, true, co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
         co:work('# 핫타임(fevertime) 정보 요청 여부 확인')
         if (g_fevertimeData:needToUpdateFevertimeInfo() == true) then
             co:work('# 핫타임(fevertime) 정보 요청 중')

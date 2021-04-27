@@ -511,7 +511,7 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
             is_requested = false
         end
 
-        ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, show_event_roulette)
+        g_eventRouletteData:request_rouletteInfo(false, true, show_event_roulette)
         is_requested = true
     end
 
