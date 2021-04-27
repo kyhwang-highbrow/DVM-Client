@@ -474,7 +474,7 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
     local photo_board = MakeAnimator('res/lobby/lobby_season_deco/weidel_festival/weidel_board.vrp')
     photo_board:changeAni('idle', true)
     photo_board.m_node:setContentSize(0, 300)
-    photo_board.m_node:setPosition(-750, -30)
+    photo_board.m_node:setPosition(-750, -42)
     local board_z_order = lobby_map:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_DRAGON, -180)
     lobby_ground:addChild(photo_board.m_node, board_z_order)
 
