@@ -748,7 +748,6 @@ function ServerData_Event:response_eventList(ret, finish_cb)
 	local event_list = ret['table_event_list']
 	if (event_list) then
 		for _, v in ipairs(event_list) do
-            ccdump(v)
 			-- 두칼럼 모두 비어있으면 제외 아니라면 등록
 			if (v['ui_priority'] ~= '') or (v['full_popup'] ~= '') then
 				table.insert(self.m_eventList, v)
