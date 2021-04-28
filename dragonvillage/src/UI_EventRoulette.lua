@@ -186,15 +186,14 @@ function UI_EventRoulette:initButton()
     local step = 1
     while(self.m_rouletteMenues[step]) do 
         self.m_startBtns[step]:registerScriptTapHandler(function()
-            self:click_startTest()     
+            self:click_startBtn()     
         end)
 
         step = step + 1
     end
 
-
     self.m_stopBtn:registerScriptTapHandler(function()
-        self:click_stopTest()     
+        self:click_stopBtn()     
     end)
     self.m_closeBtn:registerScriptTapHandler(function() 
         self:close() 
@@ -235,20 +234,6 @@ function UI_EventRoulette:refresh()
         
         index = index + 1
     end
-
-    -- local index = 1
-    -- while(self.m_itemNodes[index]) do
-    --     self.m_itemNodes[index]:removeAllChildren()
-    --     local icon = g_eventRouletteData:getIcon(index)
-    --     self.m_itemNodes[index]:addChild(icon)
-
-    --     -- local test = UIC_LabelTTF(self.vars['itemLabel'].m_node)
-    --     -- test:setString('test')
-    --     -- self.m_itemNodes[index]:addChild(test)
-        
-        
-    --     index = index + 1
-    -- end
 
     self.m_rewardItemInfo:setVisible(false)
     self.m_rouletteVisual:changeAni('roulette_' .. tostring(self.m_currStep), true)
@@ -303,9 +288,9 @@ end
 
 
 ----------------------------------------------------------------------
--- function click_startTest
+-- function click_startBtn
 ----------------------------------------------------------------------
-function UI_EventRoulette:click_startTest()
+function UI_EventRoulette:click_startBtn()
    
     -- 첫번째 룰렛에서 재료가 모자른 경우
     if (g_eventRouletteData:getCurrStep() == 1) and (g_eventRouletteData:getTicketNum() <= 0) then
@@ -337,9 +322,9 @@ function UI_EventRoulette:keepRotateRoulette(dt)
 end
 
 ----------------------------------------------------------------------
--- function click_startTest
+-- function click_stopBtn
 ----------------------------------------------------------------------
-function UI_EventRoulette:click_stopTest()
+function UI_EventRoulette:click_stopBtn()
     self.m_blockUI:setVisible(true)
 
     local function finish_callback()
@@ -366,7 +351,6 @@ function UI_EventRoulette:click_stopTest()
         finish_callback,
         fail_cb
     )
-   -- finish_callback()
 end
 
 ----------------------------------------------------------------------
@@ -613,8 +597,6 @@ function UI_EventRoulette.UI_RewardPopup:init(reward_table)
     if (reward_table) then
         local msg
         -- score
-        ccdump(reward_table['bonus_score'])
-        ccdump(reward_table['score'])
         if reward_table['bonus_score'] and (reward_table['bonus_score'] ~= '') then
             msg = Str('대박 점수: {1}점', reward_table['bonus_score'])
         elseif reward_table['score'] and (reward_table['score'] ~= '') then
@@ -622,8 +604,6 @@ function UI_EventRoulette.UI_RewardPopup:init(reward_table)
         else
             msg = ''
         end
-
-        ccdump(msg)
 
         -- item
         if reward_table['mail_item_info'] then
