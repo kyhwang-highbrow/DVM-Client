@@ -205,9 +205,7 @@ function UI_EventRoulette:initButton()
         UI_EventRoulette.UI_InfoPopup() 
     end)
 
-    if (PackageManager:isExist(self.m_packageName)) then
-        self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
-    end
+    self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
 end
 
 ----------------------------------------------------------------------
@@ -420,6 +418,10 @@ end
 -- function click_packageBtn
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_packageBtn()
+    if (not PackageManager:isExist(self.m_packageName)) then
+        UIManager:toastNotificationRed(Str('판매가 종료되었습니다.'))
+        return
+    end
 
     local target_ui = PackageManager:getTargetUI(self.m_packageName, true)
     
