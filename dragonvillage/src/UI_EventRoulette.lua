@@ -157,11 +157,7 @@ function UI_EventRoulette:initUI()
     -- event_roulette_item.ui
     self.m_blockUI:setVisible(false)
     
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
-
-    if (not PackageManager:isExist(self.m_packageName)) then
-        self.m_packageBtn:setVisible(false)
-    end
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)    
 end
 
 ----------------------------------------------------------------------
@@ -209,8 +205,10 @@ function UI_EventRoulette:initButton()
     self.m_infoBtn:registerScriptTapHandler(function() 
         UI_EventRoulette.UI_InfoPopup() 
     end)
-    
-    self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
+
+    if (PackageManager:isExist(self.m_packageName)) then
+        self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
+    end
 end
 
 ----------------------------------------------------------------------
@@ -315,11 +313,11 @@ function UI_EventRoulette:click_startTest()
         MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
         return
     end
-    
-    UIHelper:CreateParticle(self.m_stopBtn.m_node)
 
     self.m_startBtns[self.m_currStep]:setVisible(false)
     self.m_stopBtn:setVisible(true)
+    
+    UIHelper:CreateParticle(self.m_stopBtn.m_node)
 
     local angle = self.m_wheel:getRotation() % 360
     self.m_wheel:setRotation(angle)
@@ -409,6 +407,10 @@ function UI_EventRoulette:StopRoulette(dt)
             self.m_appearVisual:changeAni('roulette_disappear', false)
             g_eventRouletteData:MakeRewardPopup()
             self.m_blockUI:setVisible(false)
+
+            if self.m_currStep == 2 then
+                UIHelper:CreateParticle(self.m_startBtns[self.m_currStep].m_node)
+            end
         end
         self.m_itemUIList[g_eventRouletteData:getPickedItemIndex()]:setVisibleReceiveSprite()
 

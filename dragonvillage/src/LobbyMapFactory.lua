@@ -513,7 +513,7 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
         end
 
         local function show_event_roulette()
-            UIHelper:CreateParticle(roulette.m_node)
+            --UIHelper:CreateParticle(roulette.m_node)
             local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_EventRoulette')
 
             if (is_opend) then
