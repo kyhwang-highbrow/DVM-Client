@@ -350,8 +350,22 @@ function UI_Lobby:entryCoroutine()
                 g_fullPopupManager:setTitleToLobby(false)
             end
             
-            
-            
+
+            -- 바이델 축제 패키지
+            local struct_product, idx, bonus_num = g_shopDataNew:getSpecialOfferProductWeidel()
+
+            if (struct_product and g_shopDataNew:shouldShowWeidelOfferPopup() == true) then
+                cclog('# 바이델 축제 패키지')
+                co:work()
+                local str_uid = g_userData:get('uid') and tostring(g_userData:get('uid')) or ''
+                local weidel_offer_save_key = 'lobby_weidel_package_notice_' .. str_uid
+                local currentTime = tonumber(socket.gettime())
+                g_settingData:applySettingData(currentTime, weidel_offer_save_key)
+
+                local ui = UI_ButtonSpecialOfferWeidel:showOfferPopup(struct_product)
+                ui:setCloseCB(co.NEXT)
+                if co:waitWork() then return end
+            end
 
             -- @ MASTER ROAD
             cclog('# 마스터의 길 확인 중')

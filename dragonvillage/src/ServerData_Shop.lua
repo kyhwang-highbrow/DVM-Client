@@ -1021,6 +1021,34 @@ function ServerData_Shop:getSpecialOfferProductWeidel()
 end
 
 -------------------------------------
+-- function canBuyWeidelPackage
+-- @brief 바이델 축제상품 당일 노출 여부
+-------------------------------------
+function ServerData_Shop:shouldShowWeidelOfferPopup()
+    local str_uid = g_userData:get('uid') and tostring(g_userData:get('uid')) or ''
+    local weidel_offer_save_key = 'lobby_weidel_package_notice_' .. str_uid
+
+    local saved_timestamp = g_settingData:get(weidel_offer_save_key) or -1
+
+    --날짜값이 의미없는 값이면 공지 확인!
+    if (not saved_timestamp) or (not tonumber(saved_timestamp)) or (tonumber(saved_timestamp) < 0) then return true end
+
+    local year_month, t_time = Timer:getGameServerDate()
+    local day = t_time['day']
+
+    local date = TimeLib:convertToServerDate(tonumber(saved_timestamp))
+    if (not date) or (not date['tab']) then
+        g_settingData:applySettingData(-1, weidel_offer_save_key)
+        return false 
+    end
+
+    local saved_day = date:day()
+
+    -- 더 작은 날짜로 저장되어 있으니 새 공지가 있음
+    return day ~= saved_day
+end
+
+-------------------------------------
 -- function getSkuList_Monthly
 -- @brief 인앱상품 프러덕트 아이들을 'x;x;x;'형태로 반환 - 월정액 상품
 -------------------------------------
