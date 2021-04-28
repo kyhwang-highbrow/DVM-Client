@@ -235,10 +235,6 @@ function ServerData_EventRoulette:response_rouletteStart(ret)
     if IS_DEV_SERVER() then
         local step = self:getCurrStep()
         local group = self:getPickedGroup()
-
-        cclog('------------------------------------------------')
-        cclog('')
-        cclog('------------------------------------------------')
     end
 
     self.m_rouletteInfo = ret['roulette_info']
@@ -434,33 +430,21 @@ function ServerData_EventRoulette:getRandAngle()
 end
 
 function ServerData_EventRoulette:getPickedItemIndex()
-    cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
     local step = self:getCurrStep()
-    cclog('step : ' .. tostring(step))
     local index
 
     if (step == 2) then -- 1단계에서 STOP 이후 step이 바뀐 상태
         local key = self:getPickedGroup()
-        cclog('key : ' .. tostring(key))
         index = self.m_probIndexKeyList[key]
     elseif (step == 1) then -- 2단계에서 STOP 이후 step이 바뀐 상태
         local key = self.m_rouletteInfo['picked_id']
-        cclog('key : ' .. tostring(key))
         index = self.m_probIndexKeyList[key]
     else
         if IS_DEV_SERVER() then
             error('There isn\'t any steps over 2 in table_event_probability')
         end
     end
-    ccdump(index)
-        if(index > 8) then
-            if step == 2 then
-                cclog('picked :' .. self:getPickedGroup())
-            else
-                cclog('picked :' .. self.m_rouletteInfo['picked_id'])
-            end
-            ccdump(self.m_probIndexKeyList)
-        end
+
     return index
 end
 

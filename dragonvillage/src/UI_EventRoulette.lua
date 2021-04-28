@@ -6,6 +6,7 @@ local PARENT = UI
 ----------------------------------------------------------------------
 UI_EventRoulette = class(PARENT, {
     m_blockUI = 'UI_BlockPopup', 
+    m_targetAngle = 'number',
 
     -- TOP
     m_timeLabel = 'UIC_LabelTTF',   -- 남은 시간 텍스트
@@ -63,7 +64,7 @@ function UI_EventRoulette:init(is_popup)
         self.m_uiName = 'UI_EventRoulette'
         UIManager:open(self, UIManager.POPUP)
 
-        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
+        g_currScene:pushBackKeyListener(self, function() self:click_close() end, 'UI_EventRoulette')
 
         self:doActionReset()
         self:doAction(nil, false)
@@ -73,8 +74,26 @@ function UI_EventRoulette:init(is_popup)
     self:initUI()
     self:initButton()
     self:refresh()
+
+    --SoundMgr:playEffect('UI', 'ui_in_item_get') -- 버튼
+    --SoundMgr:playEffect('UI', 'ui_eat') -- 애매. 부글부글
+
+    --SoundMgr:playEffect('EFFECT', 'fever')
+    --SoundMgr:playEffect('UI', 'ui_dragon_level_up')
+
+
     
+    --SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
+    
+    --SoundMgr:playEffect('UI', 'ui_grow_result') -- 보상 획득
     g_eventRouletteData:MakeRankingRewardPopup()
+
+    SoundMgr:playBGM('bgm_event_roulette')
+end
+
+function UI_EventRoulette:click_close()
+    SoundMgr:playBGM('bgm_lobby')
+    self:close()
 end
 
 ----------------------------------------------------------------------
@@ -88,9 +107,32 @@ function UI_EventRoulette:initMember()
     self.m_angular_accel = -500
     self.m_time = 0
 
-    self.m_blockUI = UI_BlockPopup()
+    --self.m_blockUI = UI_BlockPopup()
     -- 팝업 이름이 덮어씌워지는 현상 수정
-    self.m_blockUI.m_uiName = 'UI_EventRoulette'
+    --self.m_blockUI.m_uiName = 'UI_EventRoulette'
+
+    self.m_blockUI = UI_BlockPopup()
+    -- do -- 
+    --     local masking_ui = UI_BlockPopup()
+    --     local function touch_func(touch, event)
+    --         self:SkipRoulette()
+    --     end
+
+    --     local layer = cc.Layer:create()
+    --     masking_ui.root:addChild(layer, -100)
+
+    --     local listener = cc.EventListenerTouchOneByOne:create()
+
+    --     listener:registerScriptHandler(function() return true end, cc.Handler.EVENT_TOUCH_BEGAN)
+    --     listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_ENDED)
+
+    --     local eventDispatcher = layer:getEventDispatcher()
+    --     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
+        
+    --     masking_ui.root:setVisible(false)
+    --     self.m_blockUI = masking_ui
+    -- end
+
 
     -- TOP
     self.m_timeLabel = vars['timeLabel']   -- 남은 시간 텍스트
@@ -189,6 +231,7 @@ function UI_EventRoulette:initButton()
     while(self.m_rouletteMenues[step]) do 
         self.m_startBtns[step]:registerScriptTapHandler(function()
             self:click_startBtn()     
+            --self:test_stopBtn()
         end)
 
         step = step + 1
@@ -196,9 +239,10 @@ function UI_EventRoulette:initButton()
 
     self.m_stopBtn:registerScriptTapHandler(function()
         self:click_stopBtn()     
+        --self:test_stopBtn()
     end)
     self.m_closeBtn:registerScriptTapHandler(function() 
-        self:close() 
+        self:click_close() 
     end)
     self.m_rankBtn:registerScriptTapHandler(function() 
         UI_EventRouletteRankPopup() 
@@ -299,6 +343,12 @@ function UI_EventRoulette:click_startBtn()
         return
     end
 
+    
+    
+
+    SoundMgr:playEffect('EFFECT', 'fever')
+    SoundMgr:playEffect('UI', 'ui_target', true)
+
     self.m_startBtns[self.m_currStep]:setVisible(false)
     self.m_stopBtn:setVisible(true)
     
@@ -325,19 +375,20 @@ end
 -- function click_stopBtn
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_stopBtn()
-    self.m_blockUI:setVisible(true)
+
+    SoundMgr:playEffect('UI', 'ui_in_item_get')
 
     local function finish_callback()
+        
+        self.m_blockUI:setVisible(true)
         self.m_stopBtn:setEnabled(false)
-
-        UIHelper:CreateParticle(self.m_stopBtn.m_node)
 
         self.root:unscheduleUpdate()
 
         local current_angle = self.m_wheel:getRotation()
         local rand_cycle = math.random(1, 2)
 
-        local rotate_action = cc.RotateBy:create(1, 1 * 360 + (360 - current_angle))
+        local rotate_action = cc.RotateBy:create(2, 3 * 360 + (360 - current_angle))
         self.m_wheel:runAction(rotate_action)
 
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:AdjustRoulette(dt) end, 0)
@@ -353,6 +404,22 @@ function UI_EventRoulette:click_stopBtn()
     )
 end
 
+-- function UI_EventRoulette:SkipRoulette()
+--     self.root:unscheduleUpdate()
+--     local index = g_eventRouletteData:getPickedItemIndex()
+--     local elementNum = 8
+--     local gap = 2
+--     local time = 2
+
+--     local angle = 360 / elementNum
+--     local rand_angle = math.random(0 + gap, angle - gap)
+
+--     local target_angle = angle * (index - 1) + rand_angle - angle / 2
+
+--     self.m_wheel:setRotation(target_angle)
+--     self:StopRoulette()
+-- end
+
 ----------------------------------------------------------------------
 -- function AdjustRoulette
 ----------------------------------------------------------------------
@@ -363,15 +430,16 @@ function UI_EventRoulette:AdjustRoulette(dt)
         local index = g_eventRouletteData:getPickedItemIndex()
         local elementNum = 8
         local gap = 2
-        local time = 1
+        local time = 2
 
         local angle = 360 / elementNum
         local rand_angle = math.random(0 + gap, angle - gap)
 
         local target_angle = angle * (index - 1) + rand_angle - angle / 2
         if target_angle <= 180 then 
+            target_angle = target_angle + 360 * 2
+        else
             target_angle = target_angle + 360
-            time = 2
         end
         self.m_wheel:runAction(cc.RotateBy:create(time, target_angle))
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:StopRoulette(dt) end, 0)
@@ -383,9 +451,8 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:StopRoulette(dt)
     if (self.m_wheel:getNumberOfRunningActions() == 0) then
-        local function test_cb()
-        end
 
+        SoundMgr:stopAllEffects()
         
         local function disappear_cb()
             self:refresh()
@@ -394,7 +461,10 @@ function UI_EventRoulette:StopRoulette(dt)
             self.m_blockUI:setVisible(false)
 
             if self.m_currStep == 2 then
+                SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
                 UIHelper:CreateParticle(self.m_startBtns[self.m_currStep].m_node)
+            else
+                SoundMgr:playEffect('UI', 'ui_grow_result')
             end
         end
 
@@ -408,7 +478,7 @@ function UI_EventRoulette:StopRoulette(dt)
 
         end)
 
-        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1.0), callback))
+        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(0.3), callback))
 
     
         self.root:unscheduleUpdate()
@@ -420,6 +490,7 @@ end
 -- function click_packageBtn
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_packageBtn()
+    
     if (not PackageManager:isExist(self.m_packageName)) then
         UIManager:toastNotificationRed(Str('판매가 종료되었습니다.'))
         return
@@ -586,6 +657,8 @@ function UI_EventRoulette.UI_InfoPopup:init()
 end
 
 
+
+
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --//  UI_EventRoulette.UI_RewardPopup
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -634,4 +707,154 @@ function UI_EventRoulette.UI_RewardPopup:init(reward_table)
         g_highlightData:setHighlightMail()
 
     end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+-- function click_startBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:test_startBtn()    
+    self.m_startBtns[self.m_currStep]:setVisible(false)
+    self.m_stopBtn:setVisible(true)
+    local angle = self.m_wheel:getRotation() % 360
+    self.m_wheel:setRotation(angle)
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:Test1(dt) end, 0)
+    
+
+    --g_eventRouletteData:request_rouletteStart()
+
+
+
+    -- self.m_rouletteSprites:stopAllActions()
+    -- self.m_rouletteSprites:setRotation(self.m_rouletteSprites:getRotation() % 360)
+    -- ccdump(self.m_rouletteSprites:getRotation())
+    -- local rand_angle = math.random(0, 360)
+    -- local rot1 = cc.RotateBy:create(2, 2880 + rand_angle)
+    -- self.m_rouletteSprites:runAction(rot1)
+    --ccdump(self.m_rouletteSprites:getRotation())
+end
+
+
+----------------------------------------------------------------------
+-- function click_stopBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:test_stopBtn()
+    self.m_startBtns[self.m_currStep]:setVisible(true)
+    self.m_stopBtn:setVisible(false)
+
+    self.root:unscheduleUpdate()
+
+
+
+    -- --self.m_rouletteSprites:setRotation(0)
+    -- self.m_time = 0
+    -- --self.m_wheel:setRotationself.m_wheel:getRotation() % 360)
+    
+    -- cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    -- cclog(self.m_wheel:getRotation() % 360)
+
+    -- self.root:scheduleUpdateWithPriorityLua(function(dt) self:Test2(dt) end, 0)
+    -- --self:stopSpinningRoulette()
+    self.m_time = 0
+    self.m_wheel:setRotation(self.m_wheel:getRotation() % 360)
+    self.m_angular_vel = ((90) - self.m_wheel:getRotation()) / 2
+    self.m_angular_accel = -self.m_angular_vel / 2
+
+    -- cclog('===================================================')
+    -- cclog('curr angle : ' .. tostring(self.m_wheel:getRotation()))
+    -- cclog('target angle : ' .. tostring(90))
+    -- cclog('delta angle : ' .. tostring((360*10 + 90) - self.m_wheel:getRotation()))
+    -- cclog('vel : ' .. tostring(self.m_angular_vel))
+    -- cclog('accel : ' .. tostring(self.m_angular_accel))
+    -- cclog('===================================================')
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:Test2(dt) end, 0)
+end
+
+
+
+-- self.m_origin_angular_vel = 1000
+-- self.m_angular_accel = -500
+
+----------------------------------------------------------------------
+-- function click_stopBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:Test1(dt)
+    self.m_angular_vel = self.m_origin_angular_vel
+    local rot = self.m_wheel:getRotation()
+    self.m_wheel:setRotation(rot + self.m_angular_vel * dt)
+end
+
+----------------------------------------------------------------------
+-- function click_stopBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:Test2(dt) 
+    self.m_time = self.m_time + dt
+    self.m_angular_vel = self.m_angular_vel + self.m_angular_accel * dt
+
+    local rot = self.m_wheel:getRotation()
+    self.m_wheel:setRotation(rot + self.m_angular_vel * dt)
+
+    if (self.m_angular_vel <= 0) then
+        ccdump('total : ' .. self.m_wheel:getRotation())
+        ccdump('actual : ' .. self.m_wheel:getRotation() % 360)
+        
+        ccdump('time : ' .. self.m_time)
+        self.root:unscheduleUpdate()
+    end
+end
+
+
+
+----------------------------------------------------------------------
+-- function click_stopBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:Test3(dt) 
+
 end
