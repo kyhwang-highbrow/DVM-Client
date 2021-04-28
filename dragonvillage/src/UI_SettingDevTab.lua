@@ -798,8 +798,10 @@ end
 -- @brief 팝업 캐시 리셋
 -------------------------------------
 function UI_Setting:click_popupCacheResetBtn()
+    local weidel_offer_save_key = 'lobby_weidel_package_notice_' .. str_uid
     g_settingData:clearDataList('event_full_popup')
     g_settingData:applySettingData(-1, 'lobby_ingame_notice')
+    g_settingData:applySettingData(-1, weidel_offer_save_key)
     UIManager:toastNotificationGreen('팝업 캐시가 초기화되었습니다!')
 end
 
