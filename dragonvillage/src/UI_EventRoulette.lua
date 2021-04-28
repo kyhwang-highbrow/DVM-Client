@@ -386,6 +386,7 @@ function UI_EventRoulette:StopRoulette(dt)
         local function test_cb()
         end
 
+        
         local function disappear_cb()
             self:refresh()
             self.m_appearVisual:changeAni('roulette_disappear', false)
@@ -396,11 +397,19 @@ function UI_EventRoulette:StopRoulette(dt)
                 UIHelper:CreateParticle(self.m_startBtns[self.m_currStep].m_node)
             end
         end
+
         self.m_itemUIList[g_eventRouletteData:getPickedItemIndex()]:setVisibleReceiveSprite()
 
-        self.m_appearVisual:setVisible(true)
-        self.m_appearVisual:changeAni('roulette_appear')
-        self.m_appearVisual:addAniHandler(function() disappear_cb() end)
+        
+        local callback = cc.CallFunc:create(function()
+            self.m_appearVisual:setVisible(true)
+            self.m_appearVisual:changeAni('roulette_appear')
+            self.m_appearVisual:addAniHandler(function() disappear_cb() end)
+
+        end)
+
+        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1.0), callback))
+
     
         self.root:unscheduleUpdate()
     end
