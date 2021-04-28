@@ -336,7 +336,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
         g_eventLFBagData:tryShowRewardPopup()
 
     -- 어린이날 룰렛 이벤트
-    elseif (tab == 'event_roulette') then
+    elseif (tab == 'event_roulette') or (tab == 'event_roulette_reward') then
         local inner_ui = UI_EventRoulette()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
         ui.m_scrollView:setTouchEnabled(false)
