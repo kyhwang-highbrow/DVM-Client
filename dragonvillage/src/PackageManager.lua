@@ -262,11 +262,14 @@ function PackageManager:isExist(package_name)
     -- 일반 패키지 & 패스 검사
     local shop_list = g_shopDataNew:getProductList('package')
     local pass_list = g_shopDataNew:getProductList('pass')
+    local etc_list = g_shopDataNew:getProductList('etc')
 
     for _, pid in ipairs(target_product) do
         if (shop_list[tonumber(pid)]) then
             return true
         elseif (pass_list[tonumber(pid)]) then
+            return true
+        elseif (etc_list[tonumber(pid)]) then
             return true
         end
     end

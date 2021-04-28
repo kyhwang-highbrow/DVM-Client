@@ -484,15 +484,17 @@ function ServerData_EventRoulette:getItemCard(data, is_item_card)
             item_card:setScale(0.8)
         end
     end
+    
+    local ani_name
+    if (data['noti_level'] == 1) then 
+        ani_name = 'summon_hero'
+    elseif (data['noti_level'] == 2) then
+        ani_name = 'summon_regend_2'
+    end
 
-
-    if (item_type == 'dragon') or (item_type == 'relation_point') then
+    if ani_name then
         local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
-        if (item_type == 'dragon') then
-            rarity_effect:changeAni('summon_regend', true)
-        elseif (item_type == 'relation_point') then
-            rarity_effect:changeAni('summon_hero', true)
-        end
+        rarity_effect:changeAni(ani_name, true)
 		rarity_effect:setScale(1.7)
 		--rarity_effect:setAlpha(0)
 		item_card:addChild(rarity_effect.m_node)
