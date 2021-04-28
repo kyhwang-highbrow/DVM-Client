@@ -56,7 +56,8 @@ UI_EventRoulette = class(PARENT, {
 ----------------------------------------------------------------------
 function UI_EventRoulette:init(is_popup)
     local vars = self:load('event_roulette.ui')
-    if is_popup == nil or is_popup == false then
+
+    if (not is_popup) then
         vars['closeBtn']:setVisible(false)
     else
         self.m_uiName = 'UI_EventRoulette'
@@ -304,14 +305,68 @@ end
 
 
 ----------------------------------------------------------------------
+-- function click_startTest
+----------------------------------------------------------------------
+function UI_EventRoulette:click_startTest()
+   
+    -- 첫번째 룰렛에서 재료가 모자른 경우
+    if (g_eventRouletteData:getCurrStep() == 1) and (g_eventRouletteData:getTicketNum() <= 0) then
+        local msg = Str('이벤트 아이템이 부족합니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
+        return
+    end
+
+    self.m_startBtns[self.m_currStep]:setVisible(false)
+    self.m_stopBtn:setVisible(true)
+
+    local angle = self.m_wheel:getRotation() % 360
+    self.m_wheel:setRotation(angle)
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:keepRotateRoulette(dt) end, 0)
+end
+
+----------------------------------------------------------------------
 -- function keepRotateRoulette
 ----------------------------------------------------------------------
 function UI_EventRoulette:keepRotateRoulette(dt)
     if (self.m_wheel:getNumberOfRunningActions() == 0) then
         local angle = self.m_wheel:getRotation() % 360
         self.m_wheel:setRotation(angle)
-        self.m_wheel:runAction(cc.RotateBy:create(0.7, 360))
+        self.m_wheel:runAction(cc.RotateBy:create(0.5, 360))
     end
+end
+
+----------------------------------------------------------------------
+-- function click_startTest
+----------------------------------------------------------------------
+function UI_EventRoulette:click_stopTest()
+    self.m_blockUI:setVisible(true)
+
+    local function finish_callback()
+        self.m_stopBtn:setEnabled(false)
+
+        UIHelper:CreateParticle(self.m_stopBtn.m_node)
+
+        self.root:unscheduleUpdate()
+
+        local current_angle = self.m_wheel:getRotation()
+        local rand_cycle = math.random(1, 2)
+
+        local rotate_action = cc.RotateBy:create(1, 1 * 360 + (360 - current_angle))
+        self.m_wheel:runAction(rotate_action)
+
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:AdjustRoulette(dt) end, 0)
+    end
+
+    local function fail_cb(ret)
+        UINavigator:goTo('lobby')
+    end
+    
+    g_eventRouletteData:request_rouletteStart(
+        finish_callback,
+        fail_cb
+    )
+   -- finish_callback()
 end
 
 ----------------------------------------------------------------------
@@ -361,58 +416,6 @@ function UI_EventRoulette:StopRoulette(dt)
     
         self.root:unscheduleUpdate()
     end
-end
-
-
-----------------------------------------------------------------------
--- function click_startTest
-----------------------------------------------------------------------
-function UI_EventRoulette:click_startTest()
-    
-    -- 첫번째 룰렛에서 재료가 모자른 경우
-    if (g_eventRouletteData:getCurrStep() == 1) and (g_eventRouletteData:getTicketNum() <= 0) then
-        local msg = Str('이벤트 아이템이 부족합니다.')
-        MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
-        return
-    end
-
-    self.m_startBtns[self.m_currStep]:setVisible(false)
-    self.m_stopBtn:setVisible(true)
-
-    local angle = self.m_wheel:getRotation() % 360
-    self.m_wheel:setRotation(angle)
-
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:keepRotateRoulette(dt) end, 0)
-end
-
-----------------------------------------------------------------------
--- function click_startTest
-----------------------------------------------------------------------
-function UI_EventRoulette:click_stopTest()
-    self.m_blockUI:setVisible(true)
-    local function finish_callback()
-        self.m_stopBtn:setEnabled(false)
-
-        self.root:unscheduleUpdate()
-
-        local current_angle = self.m_wheel:getRotation()
-        local rand_cycle = math.random(1, 2)
-
-        local rotate_action = cc.RotateBy:create(1, 1 * 360 + (360 - current_angle))
-        self.m_wheel:runAction(rotate_action)
-
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:AdjustRoulette(dt) end, 0)
-    end
-
-    local function fail_cb(ret)
-        UINavigator:goTo('lobby')
-    end
-    
-    g_eventRouletteData:request_rouletteStart(
-        finish_callback,
-        fail_cb
-    )
-   -- finish_callback()
 end
 
 
@@ -509,6 +512,10 @@ function UI_EventRoulette.UI_Item:refresh()
         icon:setColor(cc.c3b(150, 150, 150))
     end
 
+    --icon:setContentSize(self.vars['itemNode']:getContentSize())
+    --icon:setContentSize(0.5)
+    
+
     self.vars['itemNode']:addChild(icon)
     self.vars['itemLabel']:setString(tostring(count))
 end
@@ -602,11 +609,17 @@ function UI_EventRoulette.UI_RewardPopup:init(reward_table)
     if (reward_table) then
         local msg
         -- score
-        if (not reward_table['bonus_score']) and (not reward_table['bonus_score'] == '') then
+        ccdump(reward_table['bonus_score'])
+        ccdump(reward_table['score'])
+        if reward_table['bonus_score'] and (reward_table['bonus_score'] ~= '') then
             msg = Str('대박 점수: {1}점', reward_table['bonus_score'])
-        else
+        elseif reward_table['score'] and (reward_table['score'] ~= '') then
             msg = Str('점수: {1}점', reward_table['score'])
+        else
+            msg = ''
         end
+
+        ccdump(msg)
 
         -- item
         if reward_table['mail_item_info'] then
@@ -624,8 +637,4 @@ function UI_EventRoulette.UI_RewardPopup:init(reward_table)
         g_highlightData:setHighlightMail()
 
     end
-
-
-
-
 end
