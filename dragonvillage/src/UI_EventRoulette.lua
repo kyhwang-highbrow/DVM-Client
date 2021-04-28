@@ -315,6 +315,8 @@ function UI_EventRoulette:click_startTest()
         MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
         return
     end
+    
+    UIHelper:CreateParticle(self.m_stopBtn.m_node)
 
     self.m_startBtns[self.m_currStep]:setVisible(false)
     self.m_stopBtn:setVisible(true)
@@ -545,7 +547,7 @@ function UI_EventRoulette.UI_RewardItem:init(data, key)
     self.m_key = key
     local vars = self:load('event_roulette_item.ui')
 
-    local icon = g_eventRouletteData:getIcon(key)
+    local icon = g_eventRouletteData:getIcon(key, true)
 
     vars['itemNode']:addChild(icon)
 

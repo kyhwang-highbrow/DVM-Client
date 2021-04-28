@@ -464,9 +464,47 @@ function ServerData_EventRoulette:getPickedItemIndex()
 end
 
 ----------------------------------------------------------------------
+-- function getItemCard
+----------------------------------------------------------------------
+function ServerData_EventRoulette:getItemCard(data, is_item_card)
+    local item_id = data['item_id']
+    local count = data['val']
+    local item_type = TableItem:getItemType(item_id)
+
+
+    local item_card 
+    if is_item_card then
+        item_card = UI_ItemCard(item_id, count)
+        item_card = item_card.root
+    else
+        item_card = IconHelper:getItemIcon(tonumber(data['item_id']))
+
+        if (item_type == 'dragon') or (item_type == 'relation_point') or (item_type == 'slime') or (item_type == 'reinforce_point') then
+            item_card:setScale(0.8)
+        end
+    end
+
+
+    if (item_type == 'dragon') or (item_type == 'relation_point') then
+        local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
+        if (item_type == 'dragon') then
+            rarity_effect:changeAni('summon_regend', true)
+        elseif (item_type == 'relation_point') then
+            rarity_effect:changeAni('summon_hero', true)
+        end
+		rarity_effect:setScale(1.7)
+		--rarity_effect:setAlpha(0)
+		item_card:addChild(rarity_effect.m_node)
+        --rarity_effect.m_node:runAction(cc.FadeIn:create(ANI_DURATION))
+    end
+
+    return item_card
+end
+
+----------------------------------------------------------------------
 -- function getIcon
 ----------------------------------------------------------------------
-function ServerData_EventRoulette:getIcon(index)
+function ServerData_EventRoulette:getIcon(index, is_item_card)
     local step = self:getCurrStep()
 
     local icon
@@ -484,42 +522,13 @@ function ServerData_EventRoulette:getIcon(index)
         count = data['val']
 
         --icon =  IconHelper:getItemIcon(tonumber(data['item_id']))
-        icon = self:getItemCard(data)
+            icon = self:getItemCard(data, is_item_card)
     else
     end
 
     return icon, count
 end
 
-function ServerData_EventRoulette:getItemCard(data)
-    local item_id = data['item_id']
-    local count = data['val']
-
-    local item_card = UI_ItemCard(item_id, count)
-
-    local item_type = TableItem:getItemType(item_id)
-
-
-
-    if (item_type == 'dragon') or (item_type == 'relation_point') then
-        local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
-        if (item_type == 'dragon') then
-            rarity_effect:changeAni('summon_regend', true)
-        elseif (item_type == 'relation_point') then
-            rarity_effect:changeAni('summon_hero', true)
-        end
-		rarity_effect:setScale(1.7)
-		--rarity_effect:setAlpha(0)
-		item_card.root:addChild(rarity_effect.m_node)
-        --rarity_effect.m_node:runAction(cc.FadeIn:create(ANI_DURATION))
-
-    elseif (item_type == 'slime') or (item_type == 'relation_point') or (item_type == 'reinforce_point') then
-
-    else
-    end
-
-    return item_card.root
-end
 
 ----------------------------------------------------------------------
 -- function getIcon
@@ -541,7 +550,7 @@ function ServerData_EventRoulette:getRewardIcon(step, group_code, index)
         data = self.m_probabilityTable[step][group_code][index]
         --icon =  IconHelper:getItemIcon(tonumber(data['item_id']))
 
-        icon = self:getItemCard(data)
+        icon = self:getItemCard(data, true)
     else
 
     end
