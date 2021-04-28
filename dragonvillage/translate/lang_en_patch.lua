@@ -121,6 +121,8 @@ return {['1단계 돌림판 시작 시 8개의 항목 중 1개의 항목이 랜�
 ['이벤트 기간 한정']='For event period only',
 ['계정당 1회 한정']='Once per account only',
 ['강화 포인트']='Enhancement Points',
+['자동 줍기 7일']='Auto Pick-up\n(7 days)',
+['자동 줍기 35일']='Auto Pick-up\n(35 days)',
 ['{1} {2}개를 사용하여\n{3}(을)를 구매하시겠습니까?']='Use {2} of {1}\nto purchase {3}?',
 ['입장권을 모두 소모하였습니다.\n오늘은 더 이상 구매할 수 없습니다.\n{@impossible}(1일 {1}회 구매 가능)']='You\'ve used all your Entry Tickets.\nYou can’t purchase anymore today.\n{@impossible}(available {1} time(s) a day)',
 ['판매할 드래곤이 없어요.']='There are no dragons to sell.',
