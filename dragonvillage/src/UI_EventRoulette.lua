@@ -89,6 +89,8 @@ function UI_EventRoulette:initMember()
     self.m_time = 0
 
     self.m_blockUI = UI_BlockPopup()
+    -- 팝업 이름이 덮어씌워지는 현상 수정
+    self.m_blockUI.m_uiName = 'UI_EventRoulette'
 
     -- TOP
     self.m_timeLabel = vars['timeLabel']   -- 남은 시간 텍스트
