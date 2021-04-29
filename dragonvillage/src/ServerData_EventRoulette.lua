@@ -597,7 +597,7 @@ end
 -- function MakeRewardPopup
 ----------------------------------------------------------------------
 function ServerData_EventRoulette:MakeRewardPopup()
-    if self.m_resultTable['mail_item_info'] then
+    if self.m_resultTable and self.m_resultTable['mail_item_info'] then
         UI_EventRoulette.UI_RewardPopup(self.m_resultTable)
         self.m_resultTable = nil
     end
