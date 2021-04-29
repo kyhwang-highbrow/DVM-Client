@@ -13,8 +13,11 @@ function IconHelper:getIcon(res_name, default_res)
 		g_errorTracker:appendFailedRes(res_name)
     end
 
-	sprite:setDockPoint(CENTER_POINT)
-	sprite:setAnchorPoint(CENTER_POINT)
+    if (sprite) then
+	    sprite:setDockPoint(CENTER_POINT)
+	    sprite:setAnchorPoint(CENTER_POINT)
+    end
+
 	return sprite, is_exist
 end
 
