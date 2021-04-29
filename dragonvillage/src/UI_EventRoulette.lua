@@ -96,7 +96,6 @@ function UI_EventRoulette:init(is_popup)
     local function onNodeEvent(event)   
         
         if event == 'exit' then
-            cclog(event)
             self:onDestroy()
         end        
     end
