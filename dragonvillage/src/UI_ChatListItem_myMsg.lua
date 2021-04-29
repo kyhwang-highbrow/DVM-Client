@@ -61,7 +61,7 @@ function UI_ChatListItem_myMsg:init(chat_content)
 
     do -- 리더 드래곤 아이콘
         local dragon_id = chat_content.m_dragonID
-        local evolution = chat_content.m_dragonEvolution
+        local evolution = chat_content.transform and chat_content.transform or chat_content.m_dragonEvolution
         local grade = 0
         local eclv = 0
         local icon = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
