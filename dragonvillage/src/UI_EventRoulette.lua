@@ -136,6 +136,7 @@ end
 
 function UI_EventRoulette:destroyBlockPopup()
     self.m_eventDispatcher:removeEventListener(self.m_eventListener)    
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
 
     self.m_bIsSkipped = false
 end
