@@ -532,6 +532,6 @@ function UIHelper:CreateParticle(node, file_name)
         particle:setDockPoint(CENTER_POINT)
         node:addChild(particle)
         particle:setGlobalZOrder(node:getGlobalZOrder() + 1)
-        particle:setAutoRemoveOnFinish(true)
+        --particle:setAutoRemoveOnFinish(true)
     end
 end
