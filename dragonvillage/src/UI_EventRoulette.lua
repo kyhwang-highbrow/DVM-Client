@@ -67,7 +67,7 @@ function UI_EventRoulette:init(is_popup)
         self.m_uiName = 'UI_EventRoulette'
         UIManager:open(self, UIManager.POPUP)
 
-        g_currScene:pushBackKeyListener(self, function() self:click_close() end, 'UI_EventRoulette')
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
 
         self:doActionReset()
         self:doAction(nil, false)
@@ -92,15 +92,16 @@ function UI_EventRoulette:init(is_popup)
     g_eventRouletteData:MakeRankingRewardPopup()
 
     SoundMgr:playBGM('bgm_event_roulette')
-end
 
-function UI_EventRoulette:click_close()
-    SoundMgr:playBGM('bgm_lobby')
-    --self.m_eventDispatcher:unregisterScriptLoopHandler()
-    --self.m_eventDispatcher:release_EventList
-    self.m_eventDispatcher:removeEventListener(self.m_eventListener)
+    local function onNodeEvent(event)   
+        
+        if event == 'exit' then
+            cclog(event)
+            self:onDestroy()
+        end        
+    end
 
-    self:close()
+    self.root:registerScriptHandler(onNodeEvent)
 end
 
 ----------------------------------------------------------------------
@@ -126,7 +127,7 @@ function UI_EventRoulette:initMember(is_popup)
         end
         
         if (is_popup) then
-            g_currScene:pushBackKeyListener(self, function() self:click_close() end, 'UI_BlockPopup')
+            g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BlockPopup')
         end
 
         local layer = cc.Layer:create()
@@ -256,7 +257,7 @@ function UI_EventRoulette:initButton()
         --self:test_stopBtn()
     end)
     self.m_closeBtn:registerScriptTapHandler(function() 
-        self:click_close() 
+        self:close() 
     end)
     self.m_rankBtn:registerScriptTapHandler(function() 
         UI_EventRouletteRankPopup() 
@@ -336,6 +337,26 @@ function UI_EventRoulette:refresh_rewradList()
     tableview:setItemList(target_list, true)
 end
 
+
+-------------------------------------
+-- function onDestroyUI
+-- @brief
+-------------------------------------
+function UI_EventRoulette:onDestroy()
+    SoundMgr:playBGM('bgm_lobby')
+    --self.m_eventDispatcher:unregisterScriptLoopHandler()
+    --self.m_eventDispatcher:release_EventList
+    self.m_eventDispatcher:removeEventListener(self.m_eventListener)
+end
+
+-------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_EventRoulette:onEnterTab()
+    self:refresh()
+end
+
 ----------------------------------------------------------------------
 -- function updateTimer
 ----------------------------------------------------------------------
@@ -344,6 +365,7 @@ function UI_EventRoulette:updateTimer(dt)
     local str = g_eventRouletteData:getTimeText()
     self.m_timeLabel:setString(str)
 end
+
 
 
 ----------------------------------------------------------------------
@@ -732,3 +754,4 @@ function UI_EventRoulette.UI_RewardPopup:init(reward_table)
 
     end
 end
+
