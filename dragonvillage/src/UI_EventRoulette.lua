@@ -7,6 +7,7 @@ local PARENT = UI
 UI_EventRoulette = class(PARENT, {
     m_blockUI = 'UI_BlockPopup', 
     m_targetAngle = 'number',
+    m_bIsSkipped = 'boolean',
 
     -- TOP
     m_timeLabel = 'UIC_LabelTTF',   -- 남은 시간 텍스트
@@ -49,6 +50,8 @@ UI_EventRoulette = class(PARENT, {
     m_angular_accel = 'number',
     m_time = 'number',
     m_packageName = 'string',
+    m_eventDispatcher = '',
+    m_eventListener = '',
 
 })
 
@@ -70,7 +73,7 @@ function UI_EventRoulette:init(is_popup)
         self:doAction(nil, false)
     end
 
-    self:initMember(is_popup)
+    self:initMember()
     self:initUI()
     self:initButton()
     self:refresh()
@@ -93,6 +96,10 @@ end
 
 function UI_EventRoulette:click_close()
     SoundMgr:playBGM('bgm_lobby')
+    --self.m_eventDispatcher:unregisterScriptLoopHandler()
+    --self.m_eventDispatcher:release_EventList
+    self.m_eventDispatcher:removeEventListener(self.m_eventListener)
+
     self:close()
 end
 
@@ -111,32 +118,33 @@ function UI_EventRoulette:initMember(is_popup)
     -- 팝업 이름이 덮어씌워지는 현상 수정
     --self.m_blockUI.m_uiName = 'UI_EventRoulette'
 
-    self.m_blockUI = UI_BlockPopup()
-
-    if (is_popup) then
-        g_currScene:pushBackKeyListener(self, function() self:click_close() end, 'UI_BlockPopup')
-    end
-
-    -- do -- 
-    --     local masking_ui = UI_BlockPopup()
-    --     local function touch_func(touch, event)
-    --         self:SkipRoulette()
-    --     end
-
-    --     local layer = cc.Layer:create()
-    --     masking_ui.root:addChild(layer, -100)
-
-    --     local listener = cc.EventListenerTouchOneByOne:create()
-
-    --     listener:registerScriptHandler(function() return true end, cc.Handler.EVENT_TOUCH_BEGAN)
-    --     listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_ENDED)
-
-    --     local eventDispatcher = layer:getEventDispatcher()
-    --     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
+    --self.m_blockUI = UI_BlockPopup()
+    do -- 
+        local masking_ui = UI_BlockPopup()
+        local function touch_func(touch, event)
+            self:SkipRoulette()
+        end
         
-    --     masking_ui.root:setVisible(false)
-    --     self.m_blockUI = masking_ui
-    -- end
+        if (is_popup) then
+            g_currScene:pushBackKeyListener(self, function() self:click_close() end, 'UI_BlockPopup')
+        end
+
+        local layer = cc.Layer:create()
+        masking_ui.root:addChild(layer, -100)
+
+        local listener = cc.EventListenerTouchOneByOne:create()
+
+        listener:registerScriptHandler(function() return true end, cc.Handler.EVENT_TOUCH_BEGAN)
+        listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_ENDED)
+
+        local eventDispatcher = layer:getEventDispatcher()
+        eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
+        self.m_eventDispatcher = eventDispatcher
+        self.m_eventListener = listener
+        masking_ui.root:setVisible(false)
+        self.m_blockUI = masking_ui
+        self.m_bIsSkipped = false
+    end
 
 
     -- TOP
@@ -150,6 +158,7 @@ function UI_EventRoulette:initMember(is_popup)
     self.m_wheel = vars['wheelMenu'] -- 돌림판 Sprite
     self.m_rouletteVisual = vars['rouletteVisual'] -- 돌림판 Sprite
     self.m_appearVisual = vars['appearVisual'] -- 연출 Animation
+    self.m_appearVisual:setTimeScale(2)
     
     self.m_rouletteMenues = {}
     self.m_startBtns = {}
@@ -204,7 +213,7 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:initUI()
     -- event_roulette_item.ui
-    self.m_blockUI:setVisible(false)
+    -- self.m_blockUI.root:setVisible(false)
     
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)    
 end
@@ -289,6 +298,7 @@ function UI_EventRoulette:refresh()
 
     self:refresh_rewradList()
     self.m_stopBtn:setEnabled(true)
+    self.m_bIsSkipped = false
     self.m_stopBtn:setVisible(false)
     self.m_startBtns[self.m_currStep]:setEnabled(true)
 end
@@ -384,11 +394,10 @@ function UI_EventRoulette:click_stopBtn()
     SoundMgr:playEffect('UI', 'ui_in_item_get')
 
     local function finish_callback()
-        
-        self.m_blockUI:setVisible(true)
-        self.m_stopBtn:setEnabled(false)
-
         self.root:unscheduleUpdate()
+
+        self.m_blockUI.root:setVisible(true)
+        self.m_stopBtn:setEnabled(false)
 
         local current_angle = self.m_wheel:getRotation()
         local rand_cycle = math.random(1, 2)
@@ -409,21 +418,30 @@ function UI_EventRoulette:click_stopBtn()
     )
 end
 
--- function UI_EventRoulette:SkipRoulette()
---     self.root:unscheduleUpdate()
---     local index = g_eventRouletteData:getPickedItemIndex()
---     local elementNum = 8
---     local gap = 2
---     local time = 2
+function UI_EventRoulette:SkipRoulette()
+    if self.m_stopBtn:isEnabled() == false and self.m_bIsSkipped == false then
+        self.m_bIsSkipped = true
+        self.root:unscheduleUpdate()
+        self.m_wheel:stopAllActions()
 
---     local angle = 360 / elementNum
---     local rand_angle = math.random(0 + gap, angle - gap)
+        local index = g_eventRouletteData:getPickedItemIndex()
+        -- local step = g_eventRouletteData:getCurrStep()
+        -- local key = g_eventRouletteData.m_rouletteInfo['picked_id']
+        -- local index = g_eventRouletteData.m_probIndexKeyList[key]
 
---     local target_angle = angle * (index - 1) + rand_angle - angle / 2
+        local elementNum = 8
+        local gap = 2
+        local time = 2
 
---     self.m_wheel:setRotation(target_angle)
---     self:StopRoulette()
--- end
+        local angle = 360 / elementNum
+        local rand_angle = math.random(0 + gap, angle - gap)
+
+        local target_angle = angle * (index - 1) + rand_angle - angle / 2
+
+        self.m_wheel:setRotation(target_angle)
+        self:StopRoulette()
+    end
+end
 
 ----------------------------------------------------------------------
 -- function AdjustRoulette
@@ -446,6 +464,7 @@ function UI_EventRoulette:AdjustRoulette(dt)
         else
             target_angle = target_angle + 360
         end
+        
         self.m_wheel:runAction(cc.RotateBy:create(time, target_angle))
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:StopRoulette(dt) end, 0)
     end
@@ -463,7 +482,7 @@ function UI_EventRoulette:StopRoulette(dt)
             self:refresh()
             self.m_appearVisual:changeAni('roulette_disappear', false)
             g_eventRouletteData:MakeRewardPopup()
-            self.m_blockUI:setVisible(false)
+            self.m_blockUI.root:setVisible(false)
 
             if self.m_currStep == 2 then
                 SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
@@ -811,13 +830,13 @@ function UI_EventRoulette:test_stopBtn()
     self.m_angular_vel = ((90) - self.m_wheel:getRotation()) / 2
     self.m_angular_accel = -self.m_angular_vel / 2
 
-    -- cclog('===================================================')
-    -- cclog('curr angle : ' .. tostring(self.m_wheel:getRotation()))
-    -- cclog('target angle : ' .. tostring(90))
-    -- cclog('delta angle : ' .. tostring((360*10 + 90) - self.m_wheel:getRotation()))
-    -- cclog('vel : ' .. tostring(self.m_angular_vel))
-    -- cclog('accel : ' .. tostring(self.m_angular_accel))
-    -- cclog('===================================================')
+    cclog('===================================================')
+    cclog('curr angle : ' .. tostring(self.m_wheel:getRotation()))
+    cclog('target angle : ' .. tostring(90))
+    cclog('delta angle : ' .. tostring((360*10 + 90) - self.m_wheel:getRotation()))
+    cclog('vel : ' .. tostring(self.m_angular_vel))
+    cclog('accel : ' .. tostring(self.m_angular_accel))
+    cclog('===================================================')
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:Test2(dt) end, 0)
 end

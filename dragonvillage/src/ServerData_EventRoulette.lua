@@ -429,6 +429,25 @@ function ServerData_EventRoulette:getRandAngle()
     -- 1000, -200, 5s : 10
 end
 
+function ServerData_EventRoulette:getPickedItemIndexForSkip()
+    local step = self:getCurrStep()
+    local index
+
+    if (step == 1) then -- 1단계에서 STOP 이후 step이 바뀐 상태
+        local key = self:getPickedGroup()
+        index = self.m_probIndexKeyList[key]
+    elseif (step == 2) then -- 2단계에서 STOP 이후 step이 바뀐 상태
+        local key = self.m_rouletteInfo['picked_id']
+        index = self.m_probIndexKeyList[key]
+    else
+        if IS_DEV_SERVER() then
+            error('There isn\'t any steps over 2 in table_event_probability')
+        end
+    end
+    
+    return index
+end
+
 function ServerData_EventRoulette:getPickedItemIndex()
     local step = self:getCurrStep()
     local index
