@@ -22,6 +22,7 @@ ChatContent = class({
         uid = '',
         message = '',
         did = '',
+        transform = '',
         json = 'string',
 
         -- 귓속말에서 사용
