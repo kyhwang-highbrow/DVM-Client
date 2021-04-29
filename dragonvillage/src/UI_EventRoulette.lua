@@ -131,7 +131,7 @@ function UI_EventRoulette:createBlockPopup()
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
     self.m_eventDispatcher = eventDispatcher
     self.m_eventListener = listener
-    masking_ui:setVisible(false)
+    masking_ui:setVisible(true)
     self.m_blockUI = masking_ui
     self.m_bIsSkipped = false
 
@@ -142,17 +142,18 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:destroyBlockPopup()
     self.m_eventDispatcher:removeEventListener(self.m_eventListener)
+    
     if (self.m_blockUI) then self.m_blockUI:close() end
      
-    if self.m_bIsPopup then
-        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
-    else
-        local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_EventPopup')
+    -- if self.m_bIsPopup then
+    --     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
+    -- else
+    --     local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_EventPopup')
 
-        if (is_opend == true) then
-            g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_EventPopup')
-        end
-    end
+    --     if (is_opend == true) then
+    --         g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_EventPopup')
+    --     end
+    -- end
 
     self.m_bIsSkipped = false
 end
@@ -458,7 +459,6 @@ function UI_EventRoulette:click_stopBtn()
         UIManager:blockBackKey(true)
         self:createBlockPopup()
 
-        self.m_blockUI:setVisible(true)
         self.m_stopBtn:setEnabled(false)
 
         local current_angle = self.m_wheel:getRotation()
@@ -543,7 +543,6 @@ function UI_EventRoulette:StopRoulette(dt)
         local function disappear_cb()
             self:refresh()
             self.m_appearVisual:changeAni('roulette_disappear', false)
-            self.m_blockUI:setVisible(false)
             
             UIManager:blockBackKey(false)
             self:destroyBlockPopup()
