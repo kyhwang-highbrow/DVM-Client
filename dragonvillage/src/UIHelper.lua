@@ -528,5 +528,11 @@ function UIHelper:CreateParticle(node, file_name)
         particle:setDockPoint(CENTER_POINT)
         node:addChild(particle)
         particle:setGlobalZOrder(node:getGlobalZOrder() + 1)
+
+        local duration = particle:getDuration() and particle:getDuration() * 5 or 3
+        local delay = cc.DelayTime:create(duration)
+        local action = cc.Sequence:create(delay, cc.CallFunc:create(function() particle:removeFromParent() end))
+
+        node:runAction(action)
     end
 end
