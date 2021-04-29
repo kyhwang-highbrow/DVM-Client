@@ -260,9 +260,11 @@ function UI_EventRoulette:initButton()
         self:close() 
     end)
     self.m_rankBtn:registerScriptTapHandler(function() 
+        self:reset_start()
         UI_EventRouletteRankPopup() 
     end)
     self.m_infoBtn:registerScriptTapHandler(function() 
+        self:reset_start()
         UI_EventRoulette.UI_InfoPopup() 
     end)
 
@@ -344,9 +346,11 @@ end
 -------------------------------------
 function UI_EventRoulette:onDestroy()
     SoundMgr:playBGM('bgm_lobby')
+    self.m_blockUI:setVisible(false)
     --self.m_eventDispatcher:unregisterScriptLoopHandler()
     --self.m_eventDispatcher:release_EventList
     self.m_eventDispatcher:removeEventListener(self.m_eventListener)
+    
 end
 
 -------------------------------------
@@ -366,7 +370,18 @@ function UI_EventRoulette:updateTimer(dt)
     self.m_timeLabel:setString(str)
 end
 
+function UI_EventRoulette:reset_start()
+    
+    if (not self.m_startBtns[self.m_currStep]:isVisible())
+            and self.m_stopBtn:isVisible() then
+        SoundMgr:stopAllEffects()
 
+        self.m_startBtns[self.m_currStep]:setVisible(true)
+        self.m_stopBtn:setVisible(false)
+        self.m_wheel:setRotation(0)
+        self.root:unscheduleUpdate()
+    end
+end
 
 ----------------------------------------------------------------------
 -- function click_startBtn
@@ -379,9 +394,6 @@ function UI_EventRoulette:click_startBtn()
         MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
         return
     end
-
-    
-    
 
     SoundMgr:playEffect('EFFECT', 'fever')
     SoundMgr:playEffect('UI', 'ui_target', true)
@@ -419,6 +431,7 @@ function UI_EventRoulette:click_stopBtn()
         self.root:unscheduleUpdate()
 
         self.m_blockUI.root:setVisible(true)
+        UIManager:blockBackKey(true)
         self.m_stopBtn:setEnabled(false)
 
         local current_angle = self.m_wheel:getRotation()
@@ -505,6 +518,7 @@ function UI_EventRoulette:StopRoulette(dt)
             self.m_appearVisual:changeAni('roulette_disappear', false)
             g_eventRouletteData:MakeRewardPopup()
             self.m_blockUI.root:setVisible(false)
+            UIManager:blockBackKey(false)
 
             if self.m_currStep == 2 then
                 SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
@@ -541,6 +555,8 @@ function UI_EventRoulette:click_packageBtn()
         UIManager:toastNotificationRed(Str('판매가 종료되었습니다.'))
         return
     end
+    
+    self:reset_start()
 
     local target_ui = PackageManager:getTargetUI(self.m_packageName, true)
     
