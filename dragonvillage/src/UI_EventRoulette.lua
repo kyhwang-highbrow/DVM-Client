@@ -103,7 +103,7 @@ function UI_EventRoulette:init(is_popup)
     self.root:registerScriptHandler(onNodeEvent)
 end
 
-function UI_EventRoulette:createBlockPopup()
+function UI_EventRoulette:createBlockPopup(is_popup)
     if not self.m_blockUI then
         local masking_ui = UI_BlockPopup()
         local function touch_func(touch, event)
@@ -148,7 +148,7 @@ function UI_EventRoulette:initMember(is_popup)
     --self.m_blockUI.m_uiName = 'UI_EventRoulette'
 
     --self.m_blockUI = UI_BlockPopup()
-    self:createBlockPopup()
+    self:createBlockPopup(is_popup)
 
 
     -- TOP
