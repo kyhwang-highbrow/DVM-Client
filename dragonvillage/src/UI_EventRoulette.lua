@@ -70,7 +70,7 @@ function UI_EventRoulette:init(is_popup)
         self:doAction(nil, false)
     end
 
-    self:initMember()
+    self:initMember(is_popup)
     self:initUI()
     self:initButton()
     self:refresh()
@@ -99,7 +99,7 @@ end
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
-function UI_EventRoulette:initMember()
+function UI_EventRoulette:initMember(is_popup)
     local vars = self.vars
     
     self.m_packageName = 'package_roulette'
@@ -112,6 +112,11 @@ function UI_EventRoulette:initMember()
     --self.m_blockUI.m_uiName = 'UI_EventRoulette'
 
     self.m_blockUI = UI_BlockPopup()
+
+    if (is_popup) then
+        g_currScene:pushBackKeyListener(self, function() self:click_close() end, 'UI_BlockPopup')
+    end
+
     -- do -- 
     --     local masking_ui = UI_BlockPopup()
     --     local function touch_func(touch, event)
