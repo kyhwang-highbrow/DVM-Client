@@ -1319,7 +1319,8 @@ function UIC_TableView:delItem(unique_id)
     if t_item then
         local ui = t_item['ui']
         if ui then
-            ui.root:removeFromParent()
+            if (ui.root) then ui.root:removeFromParent() end
+
             t_item['ui'] = nil
 
             for i, v in ipairs(self._cellsUsed) do
