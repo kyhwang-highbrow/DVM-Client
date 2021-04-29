@@ -73,7 +73,7 @@ function UI_EventRoulette:init(is_popup)
         self:doAction(nil, false)
     end
 
-    self:initMember()
+    self:initMember(is_popup)
     self:initUI()
     self:initButton()
     self:refresh()
@@ -731,4 +731,154 @@ function UI_EventRoulette.UI_RewardPopup:init(reward_table)
         g_highlightData:setHighlightMail()
 
     end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+-- function click_startBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:test_startBtn()    
+    self.m_startBtns[self.m_currStep]:setVisible(false)
+    self.m_stopBtn:setVisible(true)
+    local angle = self.m_wheel:getRotation() % 360
+    self.m_wheel:setRotation(angle)
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:Test1(dt) end, 0)
+    
+
+    --g_eventRouletteData:request_rouletteStart()
+
+
+
+    -- self.m_rouletteSprites:stopAllActions()
+    -- self.m_rouletteSprites:setRotation(self.m_rouletteSprites:getRotation() % 360)
+    -- ccdump(self.m_rouletteSprites:getRotation())
+    -- local rand_angle = math.random(0, 360)
+    -- local rot1 = cc.RotateBy:create(2, 2880 + rand_angle)
+    -- self.m_rouletteSprites:runAction(rot1)
+    --ccdump(self.m_rouletteSprites:getRotation())
+end
+
+
+----------------------------------------------------------------------
+-- function click_stopBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:test_stopBtn()
+    self.m_startBtns[self.m_currStep]:setVisible(true)
+    self.m_stopBtn:setVisible(false)
+
+    self.root:unscheduleUpdate()
+
+
+
+    -- --self.m_rouletteSprites:setRotation(0)
+    -- self.m_time = 0
+    -- --self.m_wheel:setRotationself.m_wheel:getRotation() % 360)
+    
+    -- cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    -- cclog(self.m_wheel:getRotation() % 360)
+
+    -- self.root:scheduleUpdateWithPriorityLua(function(dt) self:Test2(dt) end, 0)
+    -- --self:stopSpinningRoulette()
+    self.m_time = 0
+    self.m_wheel:setRotation(self.m_wheel:getRotation() % 360)
+    self.m_angular_vel = ((90) - self.m_wheel:getRotation()) / 2
+    self.m_angular_accel = -self.m_angular_vel / 2
+
+    cclog('===================================================')
+    cclog('curr angle : ' .. tostring(self.m_wheel:getRotation()))
+    cclog('target angle : ' .. tostring(90))
+    cclog('delta angle : ' .. tostring((360*10 + 90) - self.m_wheel:getRotation()))
+    cclog('vel : ' .. tostring(self.m_angular_vel))
+    cclog('accel : ' .. tostring(self.m_angular_accel))
+    cclog('===================================================')
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:Test2(dt) end, 0)
+end
+
+
+
+-- self.m_origin_angular_vel = 1000
+-- self.m_angular_accel = -500
+
+----------------------------------------------------------------------
+-- function click_stopBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:Test1(dt)
+    self.m_angular_vel = self.m_origin_angular_vel
+    local rot = self.m_wheel:getRotation()
+    self.m_wheel:setRotation(rot + self.m_angular_vel * dt)
+end
+
+----------------------------------------------------------------------
+-- function click_stopBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:Test2(dt) 
+    self.m_time = self.m_time + dt
+    self.m_angular_vel = self.m_angular_vel + self.m_angular_accel * dt
+
+    local rot = self.m_wheel:getRotation()
+    self.m_wheel:setRotation(rot + self.m_angular_vel * dt)
+
+    if (self.m_angular_vel <= 0) then
+        ccdump('total : ' .. self.m_wheel:getRotation())
+        ccdump('actual : ' .. self.m_wheel:getRotation() % 360)
+        
+        ccdump('time : ' .. self.m_time)
+        self.root:unscheduleUpdate()
+    end
+end
+
+
+
+----------------------------------------------------------------------
+-- function click_stopBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:Test3(dt) 
+
 end
