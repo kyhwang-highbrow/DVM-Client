@@ -193,7 +193,6 @@ UI_EventRouletteRankTab = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventRouletteRankTab:init(owner_ui, parent_vars, tab_type)
-    cclog(self.root)
     self.m_rankOffset = 1
     self.m_parentVars = parent_vars
     self.m_tabType = tab_type
