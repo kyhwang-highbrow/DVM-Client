@@ -1592,6 +1592,7 @@ function UINavigatorDefinition:goTo_package_shop(...)
     local args = {...}
     local initial_tab = args[1]
 
+
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_PackagePopup')
     if (is_opend == true) then
@@ -1600,6 +1601,15 @@ function UINavigatorDefinition:goTo_package_shop(...)
     end
 
     local function finish_cb()
+
+        -- 블락 팝업이 열려있을 경우 (스킵 기능 )
+        local is_opend, idx, ui = self:findOpendUI('UI_BlockPopup')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local ui = UI_PackagePopup(initial_tab)
+            ui:setCloseCB(refresh_cb)
+            return
+        end
 
         -- 이벤트 팝업이 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_EventPopup')

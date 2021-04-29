@@ -103,23 +103,8 @@ function UI_EventRoulette:init(is_popup)
     self.root:registerScriptHandler(onNodeEvent)
 end
 
-----------------------------------------------------------------------
--- function initUI
-----------------------------------------------------------------------
-function UI_EventRoulette:initMember(is_popup)
-    local vars = self.vars
-    
-    self.m_packageName = 'package_roulette'
-    self.m_origin_angular_vel = 1000
-    self.m_angular_accel = -500
-    self.m_time = 0
-
-    --self.m_blockUI = UI_BlockPopup()
-    -- 팝업 이름이 덮어씌워지는 현상 수정
-    --self.m_blockUI.m_uiName = 'UI_EventRoulette'
-
-    --self.m_blockUI = UI_BlockPopup()
-    do -- 
+function UI_EventRoulette:createBlockPopup()
+    if not self.m_blockUI then
         local masking_ui = UI_BlockPopup()
         local function touch_func(touch, event)
             self:SkipRoulette()
@@ -141,10 +126,29 @@ function UI_EventRoulette:initMember(is_popup)
         eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
         self.m_eventDispatcher = eventDispatcher
         self.m_eventListener = listener
-        masking_ui.root:setVisible(false)
+        masking_ui:setVisible(false)
         self.m_blockUI = masking_ui
         self.m_bIsSkipped = false
     end
+end
+
+----------------------------------------------------------------------
+-- function initUI
+----------------------------------------------------------------------
+function UI_EventRoulette:initMember(is_popup)
+    local vars = self.vars
+    
+    self.m_packageName = 'package_roulette'
+    self.m_origin_angular_vel = 1000
+    self.m_angular_accel = -500
+    self.m_time = 0
+
+    --self.m_blockUI = UI_BlockPopup()
+    -- 팝업 이름이 덮어씌워지는 현상 수정
+    --self.m_blockUI.m_uiName = 'UI_EventRoulette'
+
+    --self.m_blockUI = UI_BlockPopup()
+    self:createBlockPopup()
 
 
     -- TOP
@@ -212,8 +216,6 @@ end
 -- function initUI
 ----------------------------------------------------------------------
 function UI_EventRoulette:initUI()
-    -- event_roulette_item.ui
-    -- self.m_blockUI.root:setVisible(false)
     
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)    
 end
@@ -348,9 +350,7 @@ end
 function UI_EventRoulette:onDestroy()
     SoundMgr:playBGM('bgm_lobby')
     SoundMgr:stopAllEffects()
-    --self.m_blockUI:setVisible(false)
-    --self.m_eventDispatcher:unregisterScriptLoopHandler()
-    --self.m_eventDispatcher:release_EventList
+    
     self.m_eventDispatcher:removeEventListener(self.m_eventListener)
     
 end
@@ -432,7 +432,8 @@ function UI_EventRoulette:click_stopBtn()
     local function finish_callback()
         self.root:unscheduleUpdate()
 
-        self.m_blockUI.root:setVisible(true)
+        self.m_blockUI:setVisible(true)
+
         UIManager:blockBackKey(true)
         self.m_stopBtn:setEnabled(false)
 
@@ -519,7 +520,9 @@ function UI_EventRoulette:StopRoulette(dt)
             self:refresh()
             self.m_appearVisual:changeAni('roulette_disappear', false)
             g_eventRouletteData:MakeRewardPopup()
-            self.m_blockUI.root:setVisible(false)
+            
+            self.m_blockUI:setVisible(false)
+
             UIManager:blockBackKey(false)
 
             if self.m_currStep == 2 then
