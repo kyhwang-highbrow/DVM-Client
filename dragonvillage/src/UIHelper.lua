@@ -521,7 +521,11 @@ end
 function UIHelper:CreateParticle(node, file_name)
     local file_name = file_name and file_name or 'particle_star_crash'
     local particle_res = string.format('res/ui/particle/%s.plist', file_name)
-    local particle = cc.ParticleSystemQuad:create(particle_res)
+    local particle
+
+    if (isNullOrEmpty(particle_res) == false) then
+        particle = cc.ParticleSystemQuad:create(particle_res)
+    end
 
     if (particle) then
         particle:setAnchorPoint(CENTER_POINT)
