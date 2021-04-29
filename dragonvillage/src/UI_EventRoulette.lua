@@ -112,8 +112,6 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:createBlockPopup()
 
-    self.m_blockUI = nil
-
     local masking_ui = UI_BlockPopup()
     local function touch_func(touch, event)
         self:SkipRoulette()
@@ -131,7 +129,6 @@ function UI_EventRoulette:createBlockPopup()
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
     self.m_eventDispatcher = eventDispatcher
     self.m_eventListener = listener
-    masking_ui:setVisible(true)
     self.m_blockUI = masking_ui
     self.m_bIsSkipped = false
 
@@ -142,8 +139,10 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:destroyBlockPopup()
     self.m_eventDispatcher:removeEventListener(self.m_eventListener)
-    
-    if (self.m_blockUI) then self.m_blockUI:close() end
+
+    if (self.m_blockUI) then 
+        self.m_blockUI:close()
+    end
      
     -- if self.m_bIsPopup then
     --     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
@@ -154,8 +153,6 @@ function UI_EventRoulette:destroyBlockPopup()
     --         g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_EventPopup')
     --     end
     -- end
-
-    self.m_bIsSkipped = false
 end
 
 ----------------------------------------------------------------------
@@ -168,13 +165,6 @@ function UI_EventRoulette:initMember()
     self.m_origin_angular_vel = 1000
     self.m_angular_accel = -500
     self.m_time = 0
-
-    --self.m_blockUI = UI_BlockPopup()
-    -- 팝업 이름이 덮어씌워지는 현상 수정
-    --self.m_blockUI.m_uiName = 'UI_EventRoulette'
-
-    --self.m_blockUI = UI_BlockPopup()
-
 
     -- TOP
     self.m_timeLabel = vars['timeLabel']   -- 남은 시간 텍스트
