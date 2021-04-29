@@ -246,7 +246,9 @@ function ServerData_EventRoulette:response_rouletteStart(ret)
 
     -- 연출 이후 보상 결과 팝업을 위해 저장
     --if 
-    if (self.m_resultTable == nil) then self.m_resultTable = {} end
+    self.m_resultTable = {}
+    --if (self.m_resultTable == nil) then self.m_resultTable = {} end
+    
     self.m_resultTable['item_info'] = ret['item_info'] -- '779154;1'
     local item_info = ret['mail_item_info']
 
@@ -599,7 +601,6 @@ end
 function ServerData_EventRoulette:MakeRewardPopup()
     if self.m_resultTable and self.m_resultTable['mail_item_info'] then
         UI_EventRoulette.UI_RewardPopup(self.m_resultTable)
-        self.m_resultTable = {}
     end
 end
 
