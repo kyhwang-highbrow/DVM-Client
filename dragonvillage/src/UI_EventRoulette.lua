@@ -303,6 +303,8 @@ function UI_EventRoulette:refresh()
     self.m_bIsSkipped = false
     self.m_stopBtn:setVisible(false)
     self.m_startBtns[self.m_currStep]:setEnabled(true)
+
+    self.m_wheel:setRotation(0)
 end
 
 function UI_EventRoulette:refresh_TextLabels()
