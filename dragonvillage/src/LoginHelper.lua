@@ -343,7 +343,10 @@ function LoginHelper:linkWithGoogle()
                 self.m_loadingUI:showLoading(Str('계정 전환 중...'))
 				PerpleSDK:logout()
                 PerpleSDK:loginWithGoogle(function(ret, info)
-                    self.m_loadingUI:hideLoading()
+                    if (self.m_loadingUI) then
+                        self.m_loadingUI:hideLoading()
+                    end
+
                     if ret == 'success' then
                         cclog('Firebase Google link was successful.(already_in_use)')
 
