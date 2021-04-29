@@ -141,9 +141,17 @@ end
 -- function destroyBlockPopup
 ----------------------------------------------------------------------
 function UI_EventRoulette:destroyBlockPopup()
-    self.m_eventDispatcher:removeEventListener(self.m_eventListener)    
+    self.m_eventDispatcher:removeEventListener(self.m_eventListener)
+    if (self.m_blockUI) then self.m_blockUI:close() end
+     
     if self.m_bIsPopup then
         g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
+    else
+        local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_EventPopup')
+
+        if (is_opend == true) then
+            g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_EventPopup')
+        end
     end
 
     self.m_bIsSkipped = false
@@ -535,12 +543,12 @@ function UI_EventRoulette:StopRoulette(dt)
         local function disappear_cb()
             self:refresh()
             self.m_appearVisual:changeAni('roulette_disappear', false)
-            g_eventRouletteData:MakeRewardPopup()
-            
             self.m_blockUI:setVisible(false)
             
             UIManager:blockBackKey(false)
             self:destroyBlockPopup()
+
+            local reward_popup = g_eventRouletteData:MakeRewardPopup()
 
             if self.m_currStep == 2 then
                 SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
