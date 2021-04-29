@@ -9,6 +9,8 @@ UI_EventRoulette = class(PARENT, {
     m_targetAngle = 'number',
     m_bIsSkipped = 'boolean',
 
+    m_bIsPopup = 'boolean', 
+
     -- TOP
     m_timeLabel = 'UIC_LabelTTF',   -- 남은 시간 텍스트
     m_rankBtn = 'UIC_Button',       -- 랭킹 버튼
@@ -61,6 +63,8 @@ UI_EventRoulette = class(PARENT, {
 function UI_EventRoulette:init(is_popup)
     local vars = self:load('event_roulette.ui')
 
+    self.m_bIsPopup = is_popup
+
     if (not is_popup) then
         vars['closeBtn']:setVisible(false)
     else
@@ -73,7 +77,7 @@ function UI_EventRoulette:init(is_popup)
         self:doAction(nil, false)
     end
 
-    self:initMember(is_popup)
+    self:initMember()
     self:initUI()
     self:initButton()
     self:refresh()
@@ -103,7 +107,10 @@ function UI_EventRoulette:init(is_popup)
     self.root:registerScriptHandler(onNodeEvent)
 end
 
-function UI_EventRoulette:createBlockPopup(is_popup)
+----------------------------------------------------------------------
+-- function createBlockPopup
+----------------------------------------------------------------------
+function UI_EventRoulette:createBlockPopup()
 
     self.m_blockUI = nil
 
@@ -112,10 +119,6 @@ function UI_EventRoulette:createBlockPopup(is_popup)
         self:SkipRoulette()
     end
     
-    -- if (is_popup) then
-    --     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BlockPopup')
-    -- end
-
     local layer = cc.Layer:create()
     masking_ui.root:addChild(layer, -100)
 
@@ -134,9 +137,14 @@ function UI_EventRoulette:createBlockPopup(is_popup)
 
 end
 
+----------------------------------------------------------------------
+-- function destroyBlockPopup
+----------------------------------------------------------------------
 function UI_EventRoulette:destroyBlockPopup()
     self.m_eventDispatcher:removeEventListener(self.m_eventListener)    
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
+    if self.m_bIsPopup then
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
+    end
 
     self.m_bIsSkipped = false
 end
@@ -144,7 +152,7 @@ end
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
-function UI_EventRoulette:initMember(is_popup)
+function UI_EventRoulette:initMember()
     local vars = self.vars
     
     self.m_packageName = 'package_roulette'
@@ -435,16 +443,14 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_stopBtn()
     
-    self:createBlockPopup(is_popup)
-
     SoundMgr:playEffect('UI', 'ui_in_item_get')
 
     local function finish_callback()
         self.root:unscheduleUpdate()
+        UIManager:blockBackKey(true)
+        self:createBlockPopup()
 
         self.m_blockUI:setVisible(true)
-
-        UIManager:blockBackKey(true)
         self.m_stopBtn:setEnabled(false)
 
         local current_angle = self.m_wheel:getRotation()
@@ -532,9 +538,9 @@ function UI_EventRoulette:StopRoulette(dt)
             g_eventRouletteData:MakeRewardPopup()
             
             self.m_blockUI:setVisible(false)
-            self:destroyBlockPopup()
-
+            
             UIManager:blockBackKey(false)
+            self:destroyBlockPopup()
 
             if self.m_currStep == 2 then
                 SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
