@@ -348,7 +348,7 @@ end
 function UI_EventRoulette:onDestroy()
     SoundMgr:playBGM('bgm_lobby')
     SoundMgr:stopAllEffects()
-    self.m_blockUI:setVisible(false)
+    --self.m_blockUI:setVisible(false)
     --self.m_eventDispatcher:unregisterScriptLoopHandler()
     --self.m_eventDispatcher:release_EventList
     self.m_eventDispatcher:removeEventListener(self.m_eventListener)

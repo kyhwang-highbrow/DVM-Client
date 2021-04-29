@@ -150,6 +150,15 @@ function ServerData_Event:getEventPopupTabList()
             if (PerpleSdkManager:onestoreIsAvailable() == false) then
                 visible = false
             end
+        
+        -- 어린이날 이벤트 룰렛
+        elseif (string.find(event_type, 'event_roulette')) then
+            cclog(event_type)
+            if g_hotTimeData:isActiveEvent('event_roulette') or g_hotTimeData:isActiveEvent('event_roulette_reward') then
+                visible = true
+            else
+                visible = false
+            end
         end
 
 
