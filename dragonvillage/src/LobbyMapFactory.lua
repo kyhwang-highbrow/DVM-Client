@@ -543,7 +543,7 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
                 return
             end
 
-            local max_loop_count = math.min(#t_dragon_object, 5)
+            local max_loop_count = math.min(#t_dragon_object, 3)
 
             for doid, struct_dragon_object in pairs(t_dragon_object) do
                 if (loop_count >= max_loop_count) then

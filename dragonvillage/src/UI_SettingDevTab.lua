@@ -798,6 +798,7 @@ end
 -- @brief 팝업 캐시 리셋
 -------------------------------------
 function UI_Setting:click_popupCacheResetBtn()
+    local str_uid = g_userData:get('uid') and tostring(g_userData:get('uid')) or ''
     local weidel_offer_save_key = 'lobby_weidel_package_notice_' .. str_uid
     g_settingData:clearDataList('event_full_popup')
     g_settingData:applySettingData(-1, 'lobby_ingame_notice')
