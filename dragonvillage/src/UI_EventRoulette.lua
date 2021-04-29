@@ -104,32 +104,40 @@ function UI_EventRoulette:init(is_popup)
 end
 
 function UI_EventRoulette:createBlockPopup(is_popup)
-    if not self.m_blockUI then
-        local masking_ui = UI_BlockPopup()
-        local function touch_func(touch, event)
-            self:SkipRoulette()
-        end
-        
-        if (is_popup) then
-            g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BlockPopup')
-        end
 
-        local layer = cc.Layer:create()
-        masking_ui.root:addChild(layer, -100)
+    self.m_blockUI = nil
 
-        local listener = cc.EventListenerTouchOneByOne:create()
-
-        listener:registerScriptHandler(function() return true end, cc.Handler.EVENT_TOUCH_BEGAN)
-        listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_ENDED)
-
-        local eventDispatcher = layer:getEventDispatcher()
-        eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
-        self.m_eventDispatcher = eventDispatcher
-        self.m_eventListener = listener
-        masking_ui:setVisible(false)
-        self.m_blockUI = masking_ui
-        self.m_bIsSkipped = false
+    local masking_ui = UI_BlockPopup()
+    local function touch_func(touch, event)
+        self:SkipRoulette()
     end
+    
+    -- if (is_popup) then
+    --     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BlockPopup')
+    -- end
+
+    local layer = cc.Layer:create()
+    masking_ui.root:addChild(layer, -100)
+
+    local listener = cc.EventListenerTouchOneByOne:create()
+
+    listener:registerScriptHandler(function() return true end, cc.Handler.EVENT_TOUCH_BEGAN)
+    listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_ENDED)
+
+    local eventDispatcher = layer:getEventDispatcher()
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
+    self.m_eventDispatcher = eventDispatcher
+    self.m_eventListener = listener
+    masking_ui:setVisible(false)
+    self.m_blockUI = masking_ui
+    self.m_bIsSkipped = false
+
+end
+
+function UI_EventRoulette:destroyBlockPopup()
+    self.m_eventDispatcher:removeEventListener(self.m_eventListener)    
+
+    self.m_bIsSkipped = false
 end
 
 ----------------------------------------------------------------------
@@ -148,7 +156,6 @@ function UI_EventRoulette:initMember(is_popup)
     --self.m_blockUI.m_uiName = 'UI_EventRoulette'
 
     --self.m_blockUI = UI_BlockPopup()
-    self:createBlockPopup(is_popup)
 
 
     -- TOP
@@ -307,6 +314,8 @@ function UI_EventRoulette:refresh()
     self.m_startBtns[self.m_currStep]:setEnabled(true)
 
     self.m_wheel:setRotation(0)
+    
+
 end
 
 function UI_EventRoulette:refresh_TextLabels()
@@ -349,10 +358,7 @@ end
 -------------------------------------
 function UI_EventRoulette:onDestroy()
     SoundMgr:playBGM('bgm_lobby')
-    SoundMgr:stopAllEffects()
-    
-    self.m_eventDispatcher:removeEventListener(self.m_eventListener)
-    
+    SoundMgr:stopAllEffects()    
 end
 
 -------------------------------------
@@ -360,6 +366,7 @@ end
 -- @brief
 -------------------------------------
 function UI_EventRoulette:onEnterTab()
+    self:reset_start()
     self:refresh()
 end
 
@@ -426,6 +433,8 @@ end
 -- function click_stopBtn
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_stopBtn()
+    
+    self:createBlockPopup(is_popup)
 
     SoundMgr:playEffect('UI', 'ui_in_item_get')
 
@@ -522,6 +531,7 @@ function UI_EventRoulette:StopRoulette(dt)
             g_eventRouletteData:MakeRewardPopup()
             
             self.m_blockUI:setVisible(false)
+            self:destroyBlockPopup()
 
             UIManager:blockBackKey(false)
 
