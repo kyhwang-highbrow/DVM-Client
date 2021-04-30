@@ -182,7 +182,7 @@ function LoginHelper:loginWithGoogle()
     self.m_loadingUI:showLoading(Str('로그인 중...'))
 
     PerpleSDK:loginWithGoogle(function(ret, info)
-        self.m_loadingUI:hideLoading()
+        if (self.m_loadingUI) then self.m_loadingUI:hideLoading() end
 
         if ret == 'success' then
             cclog('Firebase Google login was successful.')
