@@ -17,7 +17,7 @@ UI_ConfirmPopup = class(PARENT,{
 function UI_ConfirmPopup:init(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
     self.m_uiName = 'UI_ConfirmPopup'
 	self.m_itemKey = item_key
-	self.m_itemValue = item_value
+	self.m_itemValue = item_value and item_value or 0
     self.m_msg = msg
     self.m_cbOKBtn = ok_btn_cb
     self.m_cbCancelBtn = cancel_btn_cb
