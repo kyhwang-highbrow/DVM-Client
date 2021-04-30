@@ -265,6 +265,10 @@ end
 function UI_EventRoulette:createBlockPopup()
     local block_ui = UI_BlockPopup()
 
+    self.m_blockUI = nil
+    self.m_eventDispatcher = nil
+    self.m_eventListener = nil
+
     local function touch_func(touch, event)
         self:SkipRoulette()
     end
@@ -447,10 +451,10 @@ function UI_EventRoulette:StopRoulette(dt)
             self:refresh()
             self.m_appearVisual:changeAni('roulette_disappear', false)
             
+            g_eventRouletteData:MakeRewardPopup()
+
             UIManager:blockBackKey(false)
             self:destroyBlockPopup()
-
-            g_eventRouletteData:MakeRewardPopup()
 
             if self.m_currStep == 2 then
                 SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
