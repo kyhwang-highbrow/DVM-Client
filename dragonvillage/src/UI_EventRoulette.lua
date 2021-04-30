@@ -283,7 +283,7 @@ function UI_EventRoulette:createBlockPopup()
         eventDispatcher:addEventListenerWithSceneGraphPriority(listener, block_ui.root)
         self.m_eventDispatcher = eventDispatcher
         self.m_eventListener = listener
-        
+
         self.m_bIsSkipped = false
         self.m_blockUI = block_ui
     end
@@ -432,7 +432,8 @@ end
 -- function SkipRoulette
 ----------------------------------------------------------------------
 function UI_EventRoulette:SkipRoulette()
-    if (self.m_stopBtn:isEnabled() == false) and (self.m_bIsSkipped == false) then
+    if (self.m_stopBtn:isEnabled() == false) and (self.m_bIsSkipped == false) 
+        and (self.m_blockUI) and (self.m_eventListener) then
         self.m_bIsSkipped = true
         self.root:unscheduleUpdate()
         self.m_wheel:stopAllActions()
