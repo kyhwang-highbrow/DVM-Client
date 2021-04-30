@@ -526,7 +526,7 @@ function UIHelper:CreateParticle(node, file_name)
         if (version_sdk_int and (9 <= version_sdk_int)) then can_play_particle = false end
     end
 
-    if (is_low_mode and can_play_particle == false) then return end
+    if (is_low_mode or can_play_particle == false) then return end
 
     local file_name = file_name and file_name or 'particle_star_crash'
     local particle_res = string.format('res/ui/particle/%s.plist', file_name)
