@@ -5,11 +5,16 @@ local PARENT = UI
 -- @brief 
 ----------------------------------------------------------------------
 UI_EventRoulette = class(PARENT, {
-    m_blockUI = 'UI_BlockPopup', 
-    m_targetAngle = 'number',
+    m_currStep = 'number', -- 현재 step
+    m_packageName = 'string', -- 패키지 버튼에 연결될 패키지 이름
+
+    -- vars for skip
+    m_blockUI = 'UI_BlockPopup',    -- 스탑 버튼 이후 결과가 나오기 전까지 다른 액션을 막기 위한 ui
+    m_eventDispatcher = 'EventDispatcher', -- m_blockUI의 eventDispathcer
+    m_eventListener = 'EventListenerTouchOneByOne', -- m_blockUI의 
     m_bIsSkipped = 'boolean',
 
-    m_bIsPopup = 'boolean', 
+    m_targetAngle = 'number',
 
     -- TOP
     m_timeLabel = 'UIC_LabelTTF',   -- 남은 시간 텍스트
@@ -39,22 +44,8 @@ UI_EventRoulette = class(PARENT, {
     m_rewardListNode = 'cc.Node',   -- 등장 가능 보상 테이블뷰를 위한 노드
 
     -- Bottom
-
     m_packageBtn = 'UIC_Button',    -- 패키지 연결 버튼
     m_ticketNumLabel = 'UIC_LabelTTF', -- 티켓 수량
-
-
-    -- TEMP
-    m_currStep = 'number', -- 현재 step
-
-    m_angular_vel = 'number',
-    m_origin_angular_vel = 'number',
-    m_angular_accel = 'number',
-    m_time = 'number',
-    m_packageName = 'string',
-    m_eventDispatcher = '',
-    m_eventListener = '',
-
 })
 
 ----------------------------------------------------------------------
@@ -63,11 +54,8 @@ UI_EventRoulette = class(PARENT, {
 function UI_EventRoulette:init(is_popup)
     local vars = self:load('event_roulette.ui')
 
-    self.m_bIsPopup = is_popup
-
-    if (not is_popup) then
-        vars['closeBtn']:setVisible(false)
-    else
+    -- 이벤트 페이지를 통한 접근이 아닐 시 팝업
+    if is_popup then
         self.m_uiName = 'UI_EventRoulette'
         UIManager:open(self, UIManager.POPUP)
 
@@ -78,81 +66,23 @@ function UI_EventRoulette:init(is_popup)
     end
 
     self:initMember()
-    self:initUI()
+    self:initUI(is_popup)
     self:initButton()
     self:refresh()
 
-    --SoundMgr:playEffect('UI', 'ui_in_item_get') -- 버튼
-    --SoundMgr:playEffect('UI', 'ui_eat') -- 애매. 부글부글
-
-    --SoundMgr:playEffect('EFFECT', 'fever')
-    --SoundMgr:playEffect('UI', 'ui_dragon_level_up')
-
-
-    
-    --SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
-    
-    --SoundMgr:playEffect('UI', 'ui_grow_result') -- 보상 획득
+    -- UI 진입 시 랭킹 팝업 오픈
     g_eventRouletteData:MakeRankingRewardPopup()
-
+    -- 배경음악 변경
     SoundMgr:playBGM('bgm_event_roulette')
 
-    local function onNodeEvent(event)   
-        
-        if event == 'exit' then
-            self:onDestroy()
+    -- 해당 UI 노드의 event 상태가 exit일 경우 사운드 처리
+    local function event_update(event)   
+        if (event == 'exit') then
+            SoundMgr:stopAllEffects()    
+            SoundMgr:playBGM('bgm_lobby')
         end        
     end
-
-    self.root:registerScriptHandler(onNodeEvent)
-end
-
-----------------------------------------------------------------------
--- function createBlockPopup
-----------------------------------------------------------------------
-function UI_EventRoulette:createBlockPopup()
-
-    local masking_ui = UI_BlockPopup()
-    local function touch_func(touch, event)
-        self:SkipRoulette()
-    end
-    
-    local layer = cc.Layer:create()
-    masking_ui.root:addChild(layer, -100)
-
-    local listener = cc.EventListenerTouchOneByOne:create()
-
-    listener:registerScriptHandler(function() return true end, cc.Handler.EVENT_TOUCH_BEGAN)
-    listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_ENDED)
-
-    local eventDispatcher = layer:getEventDispatcher()
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
-    self.m_eventDispatcher = eventDispatcher
-    self.m_eventListener = listener
-    self.m_blockUI = masking_ui
-    self.m_bIsSkipped = false
-
-end
-
-----------------------------------------------------------------------
--- function destroyBlockPopup
-----------------------------------------------------------------------
-function UI_EventRoulette:destroyBlockPopup()
-    self.m_eventDispatcher:removeEventListener(self.m_eventListener)
-
-    if (self.m_blockUI) then 
-        self.m_blockUI:close()
-    end
-     
-    -- if self.m_bIsPopup then
-    --     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
-    -- else
-    --     local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_EventPopup')
-
-    --     if (is_opend == true) then
-    --         g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_EventPopup')
-    --     end
-    -- end
+    self.root:registerScriptHandler(event_update)
 end
 
 ----------------------------------------------------------------------
@@ -162,9 +92,6 @@ function UI_EventRoulette:initMember()
     local vars = self.vars
     
     self.m_packageName = 'package_roulette'
-    self.m_origin_angular_vel = 1000
-    self.m_angular_accel = -500
-    self.m_time = 0
 
     -- TOP
     self.m_timeLabel = vars['timeLabel']   -- 남은 시간 텍스트
@@ -177,13 +104,10 @@ function UI_EventRoulette:initMember()
     self.m_wheel = vars['wheelMenu'] -- 돌림판 Sprite
     self.m_rouletteVisual = vars['rouletteVisual'] -- 돌림판 Sprite
     self.m_appearVisual = vars['appearVisual'] -- 연출 Animation
-    self.m_appearVisual:setTimeScale(2)
+    self.m_appearVisual:setTimeScale(2) 
     
     self.m_rouletteMenues = {}
     self.m_startBtns = {}
-
-    -- self.m_itemNodes = {}
-    -- self.m_itemLabels = {}
     self.m_itemNodeList = {}
     self.m_itemUIList = {}
 
@@ -202,7 +126,7 @@ function UI_EventRoulette:initMember()
         -- 돌림판
         self.m_itemNodeList[node_index] = vars['itemNode' .. tostring(node_index)]
 
-        local ui = UI_EventRoulette.UI_Item(node_index)
+        local ui = UI_EventRouletteItem(node_index)
         self.m_itemUIList[node_index] = ui
 
         self.m_itemNodeList[node_index]:addChild(ui.root)
@@ -230,28 +154,15 @@ end
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
-function UI_EventRoulette:initUI()
+function UI_EventRoulette:initUI(is_popup)
+    -- 이벤트 페이지로 이동 시 닫기 버튼 비활성화
+    if (not is_popup) then
+        self.m_closeBtn:setVisible(false)
+    end
     
+    -- 남은 시간 타이머 등록
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)    
 end
-
-----------------------------------------------------------------------
--- function initRewardTableView
-----------------------------------------------------------------------
--- function UI_EventRoulette:initRewardTableView()
-
---     self.m_rewardListNode:removeAllChildren()
-
---     local function create_callback(ui, data)
-
---     end
-
---     local tableview = UIC_TableView(self.m_rewardListNode)
---     tableview:setCellUIClass(UI_EventRoulette.UI_RewardItem, create_callback)
---     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
---     --tableview:set
---     tableview:setItemList(, true)
--- end
 
 ----------------------------------------------------------------------
 -- function initButton
@@ -261,28 +172,16 @@ function UI_EventRoulette:initButton()
     local step = 1
     while(self.m_rouletteMenues[step]) do 
         self.m_startBtns[step]:registerScriptTapHandler(function()
-            self:click_startBtn()     
-            --self:test_stopBtn()
+            self:click_startBtn()
         end)
 
         step = step + 1
     end
 
-    self.m_stopBtn:registerScriptTapHandler(function()
-        self:click_stopBtn()     
-        --self:test_stopBtn()
-    end)
-    self.m_closeBtn:registerScriptTapHandler(function() 
-        self:close() 
-    end)
-    self.m_rankBtn:registerScriptTapHandler(function() 
-        self:reset_start()
-        UI_EventRouletteRankPopup() 
-    end)
-    self.m_infoBtn:registerScriptTapHandler(function() 
-        self:reset_start()
-        UI_EventRoulette.UI_InfoPopup() 
-    end)
+    self.m_stopBtn:registerScriptTapHandler(function() self:click_stopBtn() end)
+    self.m_closeBtn:registerScriptTapHandler(function() self:close() end)
+    self.m_rankBtn:registerScriptTapHandler(function() self:click_rankBtn() end)
+    self.m_infoBtn:registerScriptTapHandler(function() self:click_infoBtn() end)
 
     self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
 end
@@ -291,6 +190,7 @@ end
 -- function refresh
 ----------------------------------------------------------------------
 function UI_EventRoulette:refresh()
+    
     self.m_ticketNumLabel:setString(g_eventRouletteData:getTicketNum())
     self.m_totalScoreLabel:setString(Str('{1}점', g_eventRouletteData:getTotalScore()))
 
@@ -312,32 +212,10 @@ function UI_EventRoulette:refresh()
         index = index + 1
     end
 
+    -- 보상 리스트 
     self.m_rewardItemInfo:setVisible(false)
     self.m_rouletteVisual:changeAni('roulette_' .. tostring(self.m_currStep), true)
 
-    self:refresh_rewradList()
-    self.m_stopBtn:setEnabled(true)
-    self.m_bIsSkipped = false
-    self.m_stopBtn:setVisible(false)
-    self.m_startBtns[self.m_currStep]:setEnabled(true)
-
-    self.m_wheel:setRotation(0)
-    
-
-end
-
-function UI_EventRoulette:refresh_TextLabels()
-    
-end
-
-function UI_EventRoulette:refresh_roulette()
-
-end
-
-
-function UI_EventRoulette:refresh_rewradList()
-    
-    
     self.m_rewardListNode:removeAllChildren()
     local target_list = g_eventRouletteData:getItemList()
 
@@ -352,26 +230,21 @@ function UI_EventRoulette:refresh_rewradList()
     end
     
     local tableview = UIC_TableView(self.m_rewardListNode)
-    tableview:setCellUIClass(UI_EventRoulette.UI_RewardItem, create_callback)
+    tableview:setCellUIClass(UI_EventRouletteRewardItem, create_callback)
     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     tableview:setCellSizeToNodeSize(true)
-    --tableview:setAlignCenter(true)
     tableview:setItemList(target_list, true)
+
+    self.m_stopBtn:setEnabled(true)
+    self.m_bIsSkipped = false
+    self.m_stopBtn:setVisible(false)
+    self.m_startBtns[self.m_currStep]:setEnabled(true)
+
+    self.m_wheel:setRotation(0)
 end
-
-
--------------------------------------
--- function onDestroyUI
--- @brief
--------------------------------------
-function UI_EventRoulette:onDestroy()
-    SoundMgr:playBGM('bgm_lobby')
-    SoundMgr:stopAllEffects()    
-end
-
 -------------------------------------
 -- function onEnterTab
--- @brief
+-- @brief UI_EventPopup에서 onChangeTab마다 불리게 될 function
 -------------------------------------
 function UI_EventRoulette:onEnterTab()
     self:reset_start()
@@ -382,13 +255,53 @@ end
 -- function updateTimer
 ----------------------------------------------------------------------
 function UI_EventRoulette:updateTimer(dt)
-
     local str = g_eventRouletteData:getTimeText()
     self.m_timeLabel:setString(str)
 end
 
+----------------------------------------------------------------------
+-- function createBlockPopup
+----------------------------------------------------------------------
+function UI_EventRoulette:createBlockPopup()
+    local block_ui = UI_BlockPopup()
+
+    local function touch_func(touch, event)
+        self:SkipRoulette()
+    end
+
+    local listener = cc.EventListenerTouchOneByOne:create()
+
+    if listener then
+        listener:registerScriptHandler(function() return true end, cc.Handler.EVENT_TOUCH_BEGAN)
+        listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_ENDED)
+
+        local eventDispatcher = block_ui.root:getEventDispatcher()
+        eventDispatcher:addEventListenerWithSceneGraphPriority(listener, block_ui.root)
+        self.m_eventDispatcher = eventDispatcher
+        self.m_eventListener = listener
+    end
+
+    self.m_blockUI = block_ui
+    self.m_bIsSkipped = false
+end
+
+----------------------------------------------------------------------
+-- function destroyBlockPopup
+----------------------------------------------------------------------
+function UI_EventRoulette:destroyBlockPopup()
+    if self.m_eventDispatcher and self.m_eventListener then
+        self.m_eventDispatcher:removeEventListener(self.m_eventListener)
+    end
+
+    if self.m_blockUI then 
+        self.m_blockUI:close()
+    end
+end
+
+----------------------------------------------------------------------
+-- function reset_start
+----------------------------------------------------------------------
 function UI_EventRoulette:reset_start()
-    
     if (not self.m_startBtns[self.m_currStep]:isVisible())
             and self.m_stopBtn:isVisible() then
         SoundMgr:stopAllEffects()
@@ -470,16 +383,16 @@ function UI_EventRoulette:click_stopBtn()
     )
 end
 
+----------------------------------------------------------------------
+-- function SkipRoulette
+----------------------------------------------------------------------
 function UI_EventRoulette:SkipRoulette()
-    if self.m_stopBtn:isEnabled() == false and self.m_bIsSkipped == false then
+    if (self.m_stopBtn:isEnabled() == false) and (self.m_bIsSkipped == false) then
         self.m_bIsSkipped = true
         self.root:unscheduleUpdate()
         self.m_wheel:stopAllActions()
 
         local index = g_eventRouletteData:getPickedItemIndex()
-        -- local step = g_eventRouletteData:getCurrStep()
-        -- local key = g_eventRouletteData.m_rouletteInfo['picked_id']
-        -- local index = g_eventRouletteData.m_probIndexKeyList[key]
 
         local elementNum = 8
         local gap = 2
@@ -537,7 +450,7 @@ function UI_EventRoulette:StopRoulette(dt)
             UIManager:blockBackKey(false)
             self:destroyBlockPopup()
 
-            local reward_popup = g_eventRouletteData:MakeRewardPopup()
+            g_eventRouletteData:MakeRewardPopup()
 
             if self.m_currStep == 2 then
                 SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
@@ -564,12 +477,26 @@ function UI_EventRoulette:StopRoulette(dt)
     end
 end
 
+----------------------------------------------------------------------
+-- function click_rankBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:click_rankBtn()
+    self:reset_start()
+    UI_EventRouletteRankPopup() 
+end
+
+----------------------------------------------------------------------
+-- function click_infoBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:click_infoBtn()
+    self:reset_start()
+    UI_EventRouletteInfoPopup() 
+end
 
 ----------------------------------------------------------------------
 -- function click_packageBtn
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_packageBtn()
-    
     if (not PackageManager:isExist(self.m_packageName)) then
         UIManager:toastNotificationRed(Str('판매가 종료되었습니다.'))
         return
@@ -633,9 +560,9 @@ end
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
---//  class UI_EventRoulette.UI_Item
+--//  class UI_EventRouletteItem
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
-UI_EventRoulette.UI_Item = class(UI, {
+UI_EventRouletteItem = class(UI, {
     m_index = 'number',
     m_receiveSprite = 'Animator',
 })
@@ -643,7 +570,7 @@ UI_EventRoulette.UI_Item = class(UI, {
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_EventRoulette.UI_Item:init(index)
+function UI_EventRouletteItem:init(index)
     local vars = self:load('event_roulette_reward_item.ui')
     self.m_index = index
     self.m_receiveSprite = vars['receiveSprite']
@@ -654,7 +581,7 @@ end
 ----------------------------------------------------------------------
 -- function refresh
 ----------------------------------------------------------------------
-function UI_EventRoulette.UI_Item:refresh()
+function UI_EventRouletteItem:refresh()
     self.vars['itemNode']:removeAllChildren()
     self.m_receiveSprite:setVisible(false)
 
@@ -676,7 +603,7 @@ end
 ----------------------------------------------------------------------
 -- function setVisibleReceiveSprite
 ----------------------------------------------------------------------
-function UI_EventRoulette.UI_Item:setVisibleReceiveSprite(isVisible)
+function UI_EventRouletteItem:setVisibleReceiveSprite(isVisible)
     if (not isVisible) then isVisible = true end
     self.m_receiveSprite:setVisible(isVisible)
 end
@@ -685,16 +612,16 @@ end
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
---//  class UI_EventRoulette.UI_RewardItem
+--//  class UI_EventRouletteRewardItem
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
-UI_EventRoulette.UI_RewardItem = class(class(UI, ITableViewCell:getCloneTable()), {
+UI_EventRouletteRewardItem = class(class(UI, ITableViewCell:getCloneTable()), {
     m_key = 'number',
 })
 
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_EventRoulette.UI_RewardItem:init(data, key)
+function UI_EventRouletteRewardItem:init(data, key)
     self.m_key = key
     local vars = self:load('event_roulette_item.ui')
 
@@ -718,21 +645,21 @@ end
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
---//  UI_EventRoulette.UI_InfoPopup
+--//  UI_EventRouletteInfoPopup
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
-UI_EventRoulette.UI_InfoPopup = class(UI, {
+UI_EventRouletteInfoPopup = class(UI, {
 
 })
 
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_EventRoulette.UI_InfoPopup:init()
+function UI_EventRouletteInfoPopup:init()
     local vars = self:load('event_roulette_info_popup.ui')
     UIManager:open(self, UIManager.POPUP)
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette.UI_InfoPopup')    
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRouletteInfoPopup')    
 
-    self.m_uiName = 'UI_EventRoulette.UI_InfoPopup'  
+    self.m_uiName = 'UI_EventRouletteInfoPopup'  
 
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
@@ -741,22 +668,22 @@ end
 
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
---//  UI_EventRoulette.UI_RewardPopup
+--//  UI_EventRouletteRewardPopup
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
-UI_EventRoulette.UI_RewardPopup = class(UI, {
+UI_EventRouletteRewardPopup = class(UI, {
 
 })
 
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_EventRoulette.UI_RewardPopup:init(reward_table)
+function UI_EventRouletteRewardPopup:init(reward_table)
     local vars = self:load('event_roulette_popup_reward.ui')
     UIManager:open(self, UIManager.POPUP)
 
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette.UI_RewardPopup')    
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRouletteRewardPopup')    
 
-    self.m_uiName = 'UI_EventRoulette.UI_RewardPopup'  
+    self.m_uiName = 'UI_EventRouletteRewardPopup'  
 
     vars['okBtn']:registerScriptTapHandler(function() self:close() end)    
 

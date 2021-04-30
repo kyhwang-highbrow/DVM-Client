@@ -600,10 +600,8 @@ end
 ----------------------------------------------------------------------
 function ServerData_EventRoulette:MakeRewardPopup()
     if self.m_resultTable and self.m_resultTable['mail_item_info'] then
-        return UI_EventRoulette.UI_RewardPopup(self.m_resultTable)
+        UI_EventRouletteRewardPopup(self.m_resultTable)
     end
-
-    return nil
 end
 
 ----------------------------------------------------------------------
