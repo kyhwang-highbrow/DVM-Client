@@ -275,7 +275,7 @@ function UI_EventRoulette:createBlockPopup()
 
     local listener = cc.EventListenerTouchOneByOne:create()
 
-    if listener then
+    if listener and block_ui then
         listener:registerScriptHandler(function() return true end, cc.Handler.EVENT_TOUCH_BEGAN)
         listener:registerScriptHandler(touch_func, cc.Handler.EVENT_TOUCH_ENDED)
 
@@ -283,10 +283,10 @@ function UI_EventRoulette:createBlockPopup()
         eventDispatcher:addEventListenerWithSceneGraphPriority(listener, block_ui.root)
         self.m_eventDispatcher = eventDispatcher
         self.m_eventListener = listener
+        
+        self.m_bIsSkipped = false
+        self.m_blockUI = block_ui
     end
-
-    self.m_blockUI = block_ui
-    self.m_bIsSkipped = false
 end
 
 ----------------------------------------------------------------------
@@ -388,6 +388,47 @@ function UI_EventRoulette:click_stopBtn()
 end
 
 ----------------------------------------------------------------------
+-- function StopRoulette
+----------------------------------------------------------------------
+function UI_EventRoulette:StopRoulette(dt)
+    if (self.m_wheel:getNumberOfRunningActions() == 0) then
+
+        SoundMgr:stopAllEffects()
+        
+        local function disappear_cb()
+            self:refresh()
+            self.m_appearVisual:changeAni('roulette_disappear', false)
+            
+            g_eventRouletteData:MakeRewardPopup()
+
+            UIManager:blockBackKey(false)
+            self:destroyBlockPopup()
+
+            if self.m_currStep == 2 then
+                SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
+                UIHelper:CreateParticle(self.m_startBtns[self.m_currStep].m_node)
+            else
+                SoundMgr:playEffect('UI', 'ui_grow_result')
+            end
+        end
+
+        self.m_itemUIList[g_eventRouletteData:getPickedItemIndex()]:setVisibleReceiveSprite()
+        
+        local callback = cc.CallFunc:create(function()
+            self.m_appearVisual:setVisible(true)
+            self.m_appearVisual:changeAni('roulette_appear')
+            self.m_appearVisual:addAniHandler(function() disappear_cb() end)
+
+        end)
+
+        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(0.3), callback))
+
+    
+        self.root:unscheduleUpdate()
+    end
+end
+
+----------------------------------------------------------------------
 -- function SkipRoulette
 ----------------------------------------------------------------------
 function UI_EventRoulette:SkipRoulette()
@@ -436,48 +477,6 @@ function UI_EventRoulette:AdjustRoulette(dt)
         
         self.m_wheel:runAction(cc.RotateBy:create(time, target_angle))
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:StopRoulette(dt) end, 0)
-    end
-end
-
-----------------------------------------------------------------------
--- function StopRoulette
-----------------------------------------------------------------------
-function UI_EventRoulette:StopRoulette(dt)
-    if (self.m_wheel:getNumberOfRunningActions() == 0) then
-
-        SoundMgr:stopAllEffects()
-        
-        local function disappear_cb()
-            self:refresh()
-            self.m_appearVisual:changeAni('roulette_disappear', false)
-            
-            g_eventRouletteData:MakeRewardPopup()
-
-            UIManager:blockBackKey(false)
-            self:destroyBlockPopup()
-
-            if self.m_currStep == 2 then
-                SoundMgr:playEffect('UI', 'ui_game_start')  -- 바뀔 때
-                UIHelper:CreateParticle(self.m_startBtns[self.m_currStep].m_node)
-            else
-                SoundMgr:playEffect('UI', 'ui_grow_result')
-            end
-        end
-
-        self.m_itemUIList[g_eventRouletteData:getPickedItemIndex()]:setVisibleReceiveSprite()
-
-        
-        local callback = cc.CallFunc:create(function()
-            self.m_appearVisual:setVisible(true)
-            self.m_appearVisual:changeAni('roulette_appear')
-            self.m_appearVisual:addAniHandler(function() disappear_cb() end)
-
-        end)
-
-        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(0.3), callback))
-
-    
-        self.root:unscheduleUpdate()
     end
 end
 
