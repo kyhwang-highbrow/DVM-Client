@@ -519,6 +519,15 @@ end
 -- @brief 파티클을 지정된 노드에 생성
 -------------------------------------
 function UIHelper:CreateParticle(node, file_name)
+    local is_low_mode = isLowEndMode()
+    local can_play_particle = true
+    if (CppFunctionsClass:isAndroid() == true) then
+        local version_sdk_int = tonumber(g_userData:getDeviceInfoByKey('VERSION_SDK_INT'))
+        if (version_sdk_int and (9 <= version_sdk_int)) then can_play_particle = false end
+    end
+
+    if (is_low_mode and can_play_particle == false) then return end
+
     local file_name = file_name and file_name or 'particle_star_crash'
     local particle_res = string.format('res/ui/particle/%s.plist', file_name)
     local particle
