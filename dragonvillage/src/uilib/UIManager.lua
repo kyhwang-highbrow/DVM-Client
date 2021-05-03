@@ -157,7 +157,7 @@ end
 -------------------------------------
 -- function open
 -------------------------------------
-function UIManager:open(ui, mode, bNotBlendBGLayer)
+function UIManager:open(ui, mode, bNotBlendBGLayer, ignore_add)
     local bNotBlendBGLayer = bNotBlendBGLayer or false
 
 	-- UI 인지 검사
@@ -173,7 +173,9 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
     end
 
 	-- UI 등록
-    table.insert(list, ui)
+    if (not ignore_add) then
+        table.insert(list, ui)
+    end
 
 	-- mode 별 z_order
     local z_order
