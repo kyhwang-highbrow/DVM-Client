@@ -9,6 +9,8 @@ local PRE_POS_X = 800
 -------------------------------------
 UI_MasterRoadRewardPopup = class(PARENT, {
 		m_showCb = 'function',
+
+        m_masterRoadUI = 'UI',
     })
 
 -------------------------------------
@@ -67,6 +69,8 @@ function UI_MasterRoadRewardPopup:init(stage_id, show_cb)
             TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
         end
 
+        if (self.m_masterRoadUI) then self.m_masterRoadUI.m_bInit = true end
+
     end, false)
 end
 
@@ -120,6 +124,8 @@ function UI_MasterRoadRewardPopup:makeMasterRoadContent(is_start_with_move)
     -- 내용물 UI 생성
     local master_content_ui = UI_MasterRoadRewardPopupItem(close_cb, reward_cb)
     master_content_ui:setOpacityChildren(true) -- 보상 아이콘도 투명도가 적용되기 위한 코드
+    self.m_masterRoadUI = master_content_ui
+
 	-- 기존 UI에 튜토리얼에 필요한 요소 붙임
 	self.vars['rewardBtn'] = master_content_ui.vars['rewardBtn']
 	self.vars['rewardBtn']:setEnabled(false)
@@ -143,7 +149,7 @@ function UI_MasterRoadRewardPopup:makeMasterRoadContent(is_start_with_move)
 		if (self.m_showCb) then
 			self.m_showCb()
 		end
-	end
+    end
 
     -- 등장 시 액션
     if (is_start_with_move) then
@@ -154,8 +160,6 @@ function UI_MasterRoadRewardPopup:makeMasterRoadContent(is_start_with_move)
     else
 		finish_cb()
 	end
-     
-
 
     return master_content_ui
 end
@@ -184,6 +188,8 @@ local PARENT = UI
 UI_MasterRoadRewardPopupItem = class(PARENT, {
         m_ownerCloseCb  = 'function',
         m_ownerRewardCb = 'function',
+
+        m_bInit = 'boolean',
     })
 
 -------------------------------------
@@ -191,6 +197,7 @@ UI_MasterRoadRewardPopupItem = class(PARENT, {
 -------------------------------------
 function UI_MasterRoadRewardPopupItem:init(close_cb, reward_cb)
 	local vars = self:load('master_road_popup_simple_item.ui', nil, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
+    self.m_bInit = false
     self.m_ownerCloseCb = close_cb
     self.m_ownerRewardCb = reward_cb
 
@@ -253,6 +260,8 @@ end
 -- @brief 보상 받기
 -------------------------------------
 function UI_MasterRoadRewardPopupItem:click_rewardBtn()
+    if (self.m_bInit == false) then return end
+
     local vars = self.vars
     local focus_rid = g_masterRoadData.m_focusRoad
 
@@ -292,6 +301,8 @@ end
 -- function click_questLinkBtn
 -------------------------------------
 function UI_MasterRoadRewardPopupItem:click_questLinkBtn()
+    if (self.m_bInit == false) then return end
+
     local t_road = g_masterRoadData:getFocusMasterRoadInfo()
     
     local clear_type = t_road['clear_type']
