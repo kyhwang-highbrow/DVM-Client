@@ -88,6 +88,8 @@ StatusCalculator = class({
         m_evolutionTable = '',
         m_gradeTable = '',
 
+        m_masteryLv = '',
+
         m_tHiddenInfo = 'table',   -- 스테이터스 관련된 추가 정보를 저장하기 위한 테이블
     })
 
@@ -109,6 +111,8 @@ function StatusCalculator:init(char_type, cid, lv, grade, evolution, eclv)
     self.m_attackTick = self:getAttackTick()
     
     self.m_tHiddenInfo = {}
+
+    self.m_masteryLv = 0
 end
 
 -------------------------------------
@@ -231,13 +235,15 @@ end
 -------------------------------------
 -- function getFinalStat
 -------------------------------------
-function StatusCalculator:getFinalStat(stat_type)
+function StatusCalculator:getFinalStat(stat_type, exclude_mastery)
     local indivisual_status = self.m_lStatusList[stat_type]
     if (not indivisual_status) then
         error('stat_type : ' .. stat_type)
     end
 
-    local final_stat = indivisual_status:getFinalStat()
+    if (exclude_mastery == true) then indivisual_status:setDirtyFinalStat() end
+
+    local final_stat = indivisual_status:getFinalStat(exclude_mastery)
 
     -- 공속(aspd)값은 최소값을 50으로 고정
     if (stat_type == 'aspd') then
@@ -448,11 +454,12 @@ end
 function StatusCalculator:getCombatPower()
     local total_combat_power = 0
     local table_status = TableStatus()
+    local exclude_mastery = USE_NEW_COMBAT_POWER_CALC and USE_NEW_COMBAT_POWER_CALC or false
 
     -- 능력치별 전투력 계수를 곱해서 전투력 합산
     for _,stat_name in pairs(L_BASIC_STATUS_TYPE) do
         -- 모든 연산이 끝난 후의 능력치 얻어옴
-        local final_stat = self:getFinalStat(stat_name)
+        local final_stat = self:getFinalStat(stat_name, exclude_mastery)
 
         -- 능력치별 계수(coef)를 얻어옴
         local coef = table_status:getValue(stat_name, 'combat_power_coef') or 0
@@ -460,6 +467,17 @@ function StatusCalculator:getCombatPower()
         -- 능력치별 전투력 계산
         local combat_power = (final_stat * coef)
         total_combat_power = (total_combat_power + combat_power)
+    end
+
+    -- 특성 레벨 
+    if (exclude_mastery == true) then
+        local coef_gap = 0.02
+        
+        if (self.m_masteryLv == 10) then
+            total_combat_power = total_combat_power * 1.24
+        else
+            total_combat_power = total_combat_power * (1 + coef_gap * self.m_masteryLv)
+        end
     end
 
     return math_floor(total_combat_power)
@@ -818,6 +836,8 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
     do
         local l_add_status, l_multi_status = t_dragon_data:getMasterySkillStatus(game_mode)
         
+        status_calc.m_masteryLv = t_dragon_data:getMasteryLevel()
+
         for stat_type,value in pairs(l_add_status) do
             status_calc:addMasteryAdd(stat_type, value)
         end

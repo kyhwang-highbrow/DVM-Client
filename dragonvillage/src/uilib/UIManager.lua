@@ -613,6 +613,11 @@ function UIManager:onKeyReleased(keyCode, event)
 		USE_NIGHT = not USE_NIGHT
 		SceneLobby(true):runScene()
 
+    elseif (keyCode == KEY_P) then
+        USE_NEW_COMBAT_POWER_CALC = not USE_NEW_COMBAT_POWER_CALC
+        local message = USE_NEW_COMBAT_POWER_CALC == true and '새로운 전투력 on' or '새로운 전투력 off'
+        self:toastNotificationGreen(message)
+
 	-- 튜토리얼 강제 종료
     elseif (keyCode == KEY_X) then
 		TutorialManager.getInstance():forcedClose()
