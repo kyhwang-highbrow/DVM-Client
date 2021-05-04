@@ -241,8 +241,6 @@ function StatusCalculator:getFinalStat(stat_type, exclude_mastery)
         error('stat_type : ' .. stat_type)
     end
 
-    if (exclude_mastery == true) then indivisual_status:setDirtyFinalStat() end
-
     local final_stat = indivisual_status:getFinalStat(exclude_mastery)
 
     -- 공속(aspd)값은 최소값을 50으로 고정
@@ -456,10 +454,12 @@ function StatusCalculator:getCombatPower()
     local table_status = TableStatus()
     local exclude_mastery = USE_NEW_COMBAT_POWER_CALC and USE_NEW_COMBAT_POWER_CALC or false
 
+    if (exclude_mastery == true) then return self:getNewCombatPower() end
+
     -- 능력치별 전투력 계수를 곱해서 전투력 합산
     for _,stat_name in pairs(L_BASIC_STATUS_TYPE) do
         -- 모든 연산이 끝난 후의 능력치 얻어옴
-        local final_stat = self:getFinalStat(stat_name, exclude_mastery)
+        local final_stat = self:getFinalStat(stat_name)
 
         -- 능력치별 계수(coef)를 얻어옴
         local coef = table_status:getValue(stat_name, 'combat_power_coef') or 0
@@ -469,15 +469,48 @@ function StatusCalculator:getCombatPower()
         total_combat_power = (total_combat_power + combat_power)
     end
 
-    -- 특성 레벨 
-    if (exclude_mastery == true) then
-        local coef_gap = 0.02
+    return math_floor(total_combat_power)
+end
+
+
+-------------------------------------
+-- function getCombatPower
+-- @brief 드래곤의 최종 전투력을 얻어옴
+-- UI에서 사용되는 함수이므로 패시브 발동은 제외
+-------------------------------------
+function StatusCalculator:getNewCombatPower()
+    local total_combat_power = 0
+    local table_status = TableStatus()
+    local exclude_mastery = USE_NEW_COMBAT_POWER_CALC and USE_NEW_COMBAT_POWER_CALC or false
+
+    local table_stat = {}
+
+    -- 능력치별 전투력 계수를 곱해서 전투력 합산
+    for _,stat_name in pairs(L_BASIC_STATUS_TYPE) do
+        -- 모든 연산이 끝난 후의 능력치 얻어옴
+        local final_stat = self:getFinalStat(stat_name, exclude_mastery)
+        table_stat[stat_name] = final_stat
+    end
+
+    -- 공격점수 =  공격력*(1+치확*치피)*(2+공격속도)/3*(4+적중)/5
+    local attack_point = table_stat['atk'] * (1 + table_stat['cri_chance'] * 0.01 * table_stat['cri_dmg'] * 0.01) * (2 + table_stat['aspd'] * 0.01) / 3 * (4 + table_stat['hit_rate'] * 0.01) / 5
+
+    -- 피해 감소 비율 계수 계산식 = 1/(1-방어력/(1200+방어력))
+    local dmg_avoid_rate = 1 / (1 - table_stat['def'] / (1200 + table_stat['def']))
+
+    -- 방어 점수 = 생명력 * 피해감소비율계수 * (3+회피)/3 * (3+치명회피)/3  /200
+    local defence_point = table_stat['hp'] * dmg_avoid_rate * (3 + table_stat['avoid'] * 0.01) / 3 * (3 + table_stat['cri_avoid'] * 0.01) / 3 / 200
+
+    cclog('공격포인트 :: ' .. tostring(attack_point))
+    cclog('방어포인트 :: ' .. tostring(defence_point))
+    total_combat_power = attack_point + defence_point
+
+    local coef_gap = 0.02
         
-        if (self.m_masteryLv == 10) then
-            total_combat_power = total_combat_power * 1.24
-        else
-            total_combat_power = total_combat_power * (1 + coef_gap * self.m_masteryLv)
-        end
+    if (self.m_masteryLv == 10) then
+        total_combat_power = total_combat_power * 1.24
+    else
+        total_combat_power = total_combat_power * (1 + coef_gap * self.m_masteryLv)
     end
 
     return math_floor(total_combat_power)
