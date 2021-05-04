@@ -75,7 +75,8 @@ end
 -------------------------------------
 function IconHelper:getDragonIconFromTable(t_dragon_data, t_dragon, is_metamorphosis)
     local res = t_dragon['icon']
-    local evolution = t_dragon_data['evolution']
+    local evolution = t_dragon_data['transform'] and t_dragon_data['transform'] or t_dragon_data['evolution']
+    evolution = evolution or 3
     local attr = t_dragon['attr']
 	local sprite = IconHelper:getHeroIcon(res, evolution, attr, is_metamorphosis)
     return sprite
