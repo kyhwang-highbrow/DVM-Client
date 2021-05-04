@@ -63,6 +63,7 @@ StructIndividualStatus = class({
         m_bDirtyT1 = '',
 
         m_t2 = '',
+        m_t2ExcludeMastery = '',    -- 특성 능력치만 뺀테이블
         m_bDirtyT2 = '',
 
         m_finalStat = '',
@@ -159,12 +160,23 @@ end
 -------------------------------------
 -- function getT2
 -------------------------------------
-function StructIndividualStatus:getT2(exclude_mastery)
+function StructIndividualStatus:getT2()
    if self.m_bDirtyT2 then
-    self:calcT2(exclude_mastery)
+    self:calcT2()
    end
 
    return self.m_t2
+end
+
+-------------------------------------
+-- function getT2_ExcludeMastery
+-------------------------------------
+function StructIndividualStatus:getT2_ExcludeMastery()
+   if self.m_bDirtyT2 then
+    self:calcT2_ExcludeMastery()
+   end
+
+   return self.m_t2ExcludeMastery
 end
 
 -------------------------------------
@@ -190,7 +202,7 @@ end
 -------------------------------------
 -- function calcT2
 -------------------------------------
-function StructIndividualStatus:calcT2(exclude_mastery)
+function StructIndividualStatus:calcT2()
     local t1 = self:getT1()
 
     -- 룬 능력치
@@ -200,9 +212,9 @@ function StructIndividualStatus:calcT2(exclude_mastery)
     local passive_multi = (self.m_passiveMulti / 100)
 
     -- 특성 능력치
-    local mastery_multi = exclude_mastery == true and 0 or (self.m_masteryMulti / 100)
+    local mastery_multi = (self.m_masteryMulti / 100)
     
-    local masteryAdd = exclude_mastery == true and 0 or self.m_masteryAdd
+    local masteryAdd = self.m_masteryAdd
 
     -- 능력치 연산
     local t2 = t1 + (t1 * (rune_multi + passive_multi + mastery_multi)) + self.m_runeAdd + self.m_passiveAdd + masteryAdd
@@ -211,6 +223,29 @@ function StructIndividualStatus:calcT2(exclude_mastery)
 
     self.m_bDirtyT2 = false
 end
+
+
+
+-------------------------------------
+-- function calcT2_ExcludeMastery
+-------------------------------------
+function StructIndividualStatus:calcT2_ExcludeMastery()
+    local t1 = self:getT1()
+
+    -- 룬 능력치
+    local rune_multi = (self.m_runeMulti / 100)
+    
+    -- 패시브 능력치
+    local passive_multi = (self.m_passiveMulti / 100)
+
+    -- 능력치 연산
+    local t2 = t1 + (t1 * (rune_multi + passive_multi)) + self.m_runeAdd + self.m_passiveAdd
+
+    self.m_t2ExcludeMastery = t2
+
+    self.m_bDirtyT2 = false
+end
+
 
 -------------------------------------
 -- function getLevelStat
@@ -232,9 +267,9 @@ end
 -------------------------------------
 -- function getFinalStat
 -------------------------------------
-function StructIndividualStatus:getFinalStat(exclude_mastery)
+function StructIndividualStatus:getFinalStat()
     if self.m_bDirtyFinalStat then
-        self:calcFinalStat(exclude_mastery)
+        self:calcFinalStat()
     end
 
     return self.m_finalStat
@@ -243,8 +278,55 @@ end
 -------------------------------------
 -- function calcFinalStat
 -------------------------------------
-function StructIndividualStatus:calcFinalStat(exclude_mastery)
-    local t2 = self:getT2(exclude_mastery)
+function StructIndividualStatus:calcFinalStat()
+    local t2 = self:getT2()
+
+    -- 진형 버프
+    local formation_multi = self.m_formationMulti / 100
+
+    -- 스테이지 버프
+    local stage_multi = self.m_stageMulti / 100
+
+    -- 버프
+    local buff_multi = self.m_buffMulti
+
+    do -- 버프 최소 및 최대값 적용
+        if (self.m_minBuffMulti) then
+            buff_multi = math_max(buff_multi, self.m_minBuffMulti)
+        end
+        if (self.m_maxBuffMulti) then
+            buff_multi = math_min(buff_multi, self.m_maxBuffMulti)
+        end
+    end
+
+    buff_multi = (buff_multi / 100)
+
+    -- 능력치 연산
+    local t3 = t2 + (t2 * (formation_multi + stage_multi + buff_multi)) + self.m_formationAdd + self.m_stageAdd + self.m_buffAdd
+
+    self.m_finalStat = t3
+
+    self.m_bDirtyFinalStat = false
+end
+
+
+
+-------------------------------------
+-- function getFinalStat
+-------------------------------------
+function StructIndividualStatus:getFinalStat_ExcludeMastery()
+    if self.m_bDirtyFinalStat then
+        self:calcFinalStat_ExcludeMastery()
+    end
+
+    return self.m_finalStat
+end
+
+-------------------------------------
+-- function calcFinalStat
+-------------------------------------
+function StructIndividualStatus:calcFinalStat_ExcludeMastery()
+    local t2 = self:getT2_ExcludeMastery()
 
     -- 진형 버프
     local formation_multi = self.m_formationMulti / 100

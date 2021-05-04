@@ -235,13 +235,13 @@ end
 -------------------------------------
 -- function getFinalStat
 -------------------------------------
-function StatusCalculator:getFinalStat(stat_type, exclude_mastery)
+function StatusCalculator:getFinalStat(stat_type)
     local indivisual_status = self.m_lStatusList[stat_type]
     if (not indivisual_status) then
         error('stat_type : ' .. stat_type)
     end
 
-    local final_stat = indivisual_status:getFinalStat(exclude_mastery)
+    local final_stat = USE_NEW_COMBAT_POWER_CALC == true and indivisual_status:getFinalStat_ExcludeMastery() or indivisual_status:getFinalStat()
 
     -- 공속(aspd)값은 최소값을 50으로 고정
     if (stat_type == 'aspd') then
@@ -452,9 +452,12 @@ end
 function StatusCalculator:getCombatPower()
     local total_combat_power = 0
     local table_status = TableStatus()
-    local exclude_mastery = USE_NEW_COMBAT_POWER_CALC and USE_NEW_COMBAT_POWER_CALC or false
 
-    if (exclude_mastery == true) then return self:getNewCombatPower() end
+    -- 서버설정
+    local skip_new_power_calc = g_remoteConfig:getRemoteConfig('skip_new_power_calc')
+    if (skip_new_power_calc ~= nil) then USE_NEW_COMBAT_POWER_CALC = skip_new_power_calc end
+
+    if (USE_NEW_COMBAT_POWER_CALC == true) then return self:getNewCombatPower() end
 
     -- 능력치별 전투력 계수를 곱해서 전투력 합산
     for _,stat_name in pairs(L_BASIC_STATUS_TYPE) do
@@ -488,7 +491,7 @@ function StatusCalculator:getNewCombatPower()
     -- 능력치별 전투력 계수를 곱해서 전투력 합산
     for _,stat_name in pairs(L_BASIC_STATUS_TYPE) do
         -- 모든 연산이 끝난 후의 능력치 얻어옴
-        local final_stat = self:getFinalStat(stat_name, exclude_mastery)
+        local final_stat = self:getFinalStat(stat_name)
         table_stat[stat_name] = final_stat
     end
 
