@@ -463,7 +463,7 @@ function StatusCalculator:getCombatPower()
     -- 능력치별 전투력 계수를 곱해서 전투력 합산
     for _,stat_name in pairs(L_BASIC_STATUS_TYPE) do
         -- 모든 연산이 끝난 후의 능력치 얻어옴
-        local final_stat = self:getFinalStat(stat_name, true)
+        local final_stat = self:getFinalStat(stat_name)
 
         -- 능력치별 계수(coef)를 얻어옴
         local coef = table_status:getValue(stat_name, 'combat_power_coef') or 0
@@ -492,7 +492,7 @@ function StatusCalculator:getNewCombatPower()
     -- 능력치별 전투력 계수를 곱해서 전투력 합산
     for _,stat_name in pairs(L_BASIC_STATUS_TYPE) do
         -- 모든 연산이 끝난 후의 능력치 얻어옴
-        local final_stat = self:getFinalStat(stat_name)
+        local final_stat = self:getFinalStat(stat_name, true)
         table_stat[stat_name] = final_stat
     end
 
@@ -500,7 +500,7 @@ function StatusCalculator:getNewCombatPower()
     local attack_point = table_stat['atk'] * (1 + table_stat['cri_chance'] * 0.01 * table_stat['cri_dmg'] * 0.01) * (2 + table_stat['aspd'] * 0.01) / 3 * (4 + table_stat['hit_rate'] * 0.01) / 5
 
     -- 피해 감소 비율 계수 계산식 = 1/(1-방어력/(1200+방어력))
-    local dmg_avoid_rate = 1 / (1 - table_stat['def'] / (1200 + table_stat['def']))
+    local dmg_avoid_rate = 1 / (1 - table_stat['def'] * 1.25 / (1200 + table_stat['def'] * 1.25))
 
     -- 방어 점수 = 생명력 * 피해감소비율계수 * (3+회피)/3 * (3+치명회피)/3  /200
     local defence_point = table_stat['hp'] * dmg_avoid_rate * (3 + table_stat['avoid'] * 0.01) / 3 * (3 + table_stat['cri_avoid'] * 0.01) / 3 / 200
