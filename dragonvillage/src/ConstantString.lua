@@ -405,7 +405,7 @@ local T_TITLE = {
     play_cnt = Str('게임 플레이 횟수'),
     clogin_max = Str('최대 연속 접속일'),
     pvp_win = Str('콜로세움 누적 승률'),
-    tier = Str('현재 콜로세움 Tier'),
+    --tier = Str('현재 콜로세움 Tier'),
     pvp_cnt = Str('콜로세움 누적 플레이 횟수'),
     adv_time = Str('총 탐험 시간'),
     d_6g_cnt = Str('6등급 드래곤의 수'),
@@ -415,6 +415,7 @@ local T_TITLE = {
     created_at = Str('최초 접속일'),
     ancient_score = Str('고대의 탑 최대 점수 총 합'),
     login_days = Str('누적 접속일'),
+    arena_new_tier = Str('현재 콜로세움 Tier'),
 	enter = '',
 }
 function getUserInfoTitle(key)

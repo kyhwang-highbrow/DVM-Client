@@ -21,7 +21,6 @@ local L_KEY_INDEX = {
 	'enter',
 
 	'ancient_score',
-	'tier',
     'arena_new_tier',
 	'pvp_cnt',
 	'pvp_win',
@@ -40,7 +39,6 @@ local L_KEY_INDEX_VISIT = {
 	'enter',
 
 	'ancient_score',
-	'tier',
     'arena_new_tier',
 	'pvp_cnt',
 	'pvp_win',
