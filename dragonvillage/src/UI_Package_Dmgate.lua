@@ -4,7 +4,7 @@ local PARENT = UI_Package
 -- class UI_Package_Dmgate
 ----------------------------------------------------------------------
 UI_Package_Dmgate = class(PARENT, {
-
+    m_tableview = 'UIC_TableView',
 })
 
 -- ----------------------------------------------------------------------
@@ -40,6 +40,7 @@ end
 function UI_Package_Dmgate:initButton()
     PARENT.initButton(self)
 
+    self:setBuyCB(function() self:buyCallback() end)
 end
 
 ----------------------------------------------------------------------
@@ -67,6 +68,7 @@ function UI_Package_Dmgate:initTableView()
 
     vars['productNodeLong']:setVisible(isPackagePurchased)
     vars['productNode']:setVisible(not isPackagePurchased)
+    vars['buyBtn']:setVisible(not isPackagePurchased)
 
     if isPackagePurchased then
         node = vars['productNodeLong']
@@ -88,10 +90,21 @@ function UI_Package_Dmgate:initTableView()
     tableview:setCellUIClass(UI_Package_DmgateListItem, create_func)
     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     tableview:setItemList(item_list, true)
-
+    self.m_tableview = tableview
 end
 
+----------------------------------------------------------------------
+-- function buyCallback
+----------------------------------------------------------------------
+function UI_Package_Dmgate:buyCallback(ret)
+    local function callback()
+        self:initTableView()
+        self:refresh()
 
+        self.m_tableview:refreshAllItemUI()
+    end
+    g_dmgatePackageData:request_info(self.m_structProduct['product_id'], callback)
+end
 
 ----------------------------------------------------------------------
 -- class UI_Package_Dmgate
