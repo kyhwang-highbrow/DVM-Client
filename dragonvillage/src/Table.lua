@@ -219,7 +219,9 @@ local TableInfo_fromServer = {
 
         -- 시련 (차원문)
         ['table_dmgate_stage'] = {'table_dmgate_stage', 'stage_id'}, -- 스테이지 정보
-        ['table_dmgate_buff_schedule'] = {'table_dmgate_buff_schedule', 'week'}
+        ['table_dmgate_buff_schedule'] = {'table_dmgate_buff_schedule', 'week'},
+
+        ['table_package_achievement'] = {'table_package_achievement', 'package_id'},
     }
 
 -------------------------------------
@@ -475,6 +477,17 @@ function TABLE:setServerTable(table_name, table_data)
     end
 
     TABLE[tablename] = tables
+end
+
+-------------------------------------
+-- function setTable
+-------------------------------------
+function TABLE:replaceTable(table_name, table_data)
+    if (not table_name) or (not table_data) then return end
+
+    if self[table_name] then
+        self[table_name] = table_data
+    end
 end
 
 -------------------------------------

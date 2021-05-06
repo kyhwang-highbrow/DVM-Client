@@ -1,0 +1,221 @@
+
+
+-- MissionPackage
+-- Renewal / Non-Renewal(normal / limit - 신규, 복귀, 기타 등등)
+-- 
+
+--------------------------------------------------------------------------
+-- class ServerData_DmgatePackage
+--------------------------------------------------------------------------
+ServerData_DmgatePackage = class({
+    m_serverData = 'ServerData',
+
+    m_packageInfo = 'table',
+    m_tableName = 'string',
+})
+
+--------------------------------------------------------------------------
+-- function getInstance
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:getInstance()
+    if g_dmgatePackageData then
+        return g_dmgatePackageData
+    end
+
+    g_dmgatePackageData = ServerData_DmgatePackage()
+    g_dmgatePackageData:convertPackageTableKey()
+
+    return g_dmgatePackageData
+end
+
+--------------------------------------------------------------------------
+-- function init
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:init()
+    --self.m_serverData = server_data
+    self.m_tableName = 'table_package_achievement' 
+    self.m_packageInfo = {}
+end
+
+
+
+-- {
+--     "active": true,
+--     "dmgate_stage_pack_info": { # 보상을 수령한 스테이지
+--         "120141": [3011002, 3011001]
+--     },
+--     "message": "success",
+--     "status": 0
+-- }
+--------------------------------------------------------------------------
+-- function request_info
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:request_info(product_id, cb_func, fail_cb)
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self:response_info(ret, product_id)
+
+        if (cb_func) then
+            cb_func(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/dmgate_stage_pack/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('product_id', product_id) 
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+--------------------------------------------------------------------------
+-- function response_info
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:response_info(ret, product_id)
+    local _product_id = tostring(product_id)
+
+    if ret['active'] then
+        
+        self.m_packageInfo[_product_id] = ret['dmgate_stage_pack_info'][_product_id]
+    end
+end
+
+--------------------------------------------------------------------------
+-- function getProductState
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:getProductState(product_id)
+
+    return self.m_packageInfo[tostring(product_id)]
+end
+
+-- {
+--     "dmgate_stage_pack_info": { # 보상을 수령한 스테이지 정보
+--         "120141": [3011002, 3011001]
+--     },
+--     "mail_item_info": [{ # 현재 요청으로 메일로 발송된 아이템 리스트
+--             "count": 15000,
+--             "from": null,
+--             "item_id": 700001,
+--             "oids": []
+--         }
+--     ],
+--     "message": "success",
+--     "new_mail": true,
+--     "status": 0
+-- }
+
+--------------------------------------------------------------------------
+-- function request_reward
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:request_reward(product_id, stage, cb_func, fail_cb)
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self:response_reward(ret, product_id)
+
+        if (cb_func) then
+            cb_func(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/dmgate_stage_pack/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('product_id', product_id) 
+    ui_network:setParam('stage', stage) 
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+
+--------------------------------------------------------------------------
+-- function response_reward
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:response_reward(ret, product_id)
+    local _product_id = tostring(product_id)
+
+    self.m_packageInfo[_product_id] = ret['dmgate_stage_pack_info'][_product_id]
+end
+
+
+--------------------------------------------------------------------------
+-- function response_reward
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:getPackageTable(product_id)
+    local package_table = TABLE:get(self.m_tableName)
+
+    return package_table[tostring(product_id)]
+end
+
+--------------------------------------------------------------------------
+-- function convertPackageTableKey
+-- @brief convert key from 'package_id' to 'product_id'
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:convertPackageTableKey()
+    local package_table = TABLE:get(self.m_tableName)
+    local result = {}
+
+    local product_id
+    for key, data in pairs(package_table) do
+        --product_id = tostring(data['product_id'])
+        product_id = tostring(121703)
+        data['product_id'] = product_id
+
+        if (not result[product_id]) then result[product_id] = {} end
+
+        table.insert(result[product_id], data)
+    end
+
+    TABLE:replaceTable(self.m_tableName, result)
+end
+
+--------------------------------------------------------------------------
+-- function checkProductInTable
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:checkProductInTable(product_id)
+    if (not product_id) then return false end
+    
+    local package_table = self:getPackageTable(product_id)
+    if package_table then return true end
+
+    return false
+end
+
+
+--------------------------------------------------------------------------
+-- function isActive
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:isPackageActive(product_id)
+    return self.m_packageInfo[tostring(product_id)] ~= nil
+end
+
+
+--------------------------------------------------------------------------
+-- function isActive
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:isRewardReceived(product_id, stage_id)
+    local product_table = self.m_packageInfo[tostring(product_id)]    
+
+    for key, value in pairs(product_table) do
+        if value == stage_id then
+            return true
+        end
+    end
+
+    return false
+end

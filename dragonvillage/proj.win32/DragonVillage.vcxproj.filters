@@ -4944,6 +4944,8 @@
     <None Include="..\src\UI_EventRouletteRankingPopup.lua" />
     <None Include="..\src\UI_RankingRewardPopup.lua" />
     <None Include="..\src\UI_EventDailyQuest.lua" />
+    <None Include="..\src\UI_Package_Dmgate.lua" />
+    <None Include="..\src\ServerData_DmgatePackage.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

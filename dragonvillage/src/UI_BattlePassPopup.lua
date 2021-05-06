@@ -122,10 +122,8 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePassPopup:initTableView()
-
     local item_list = g_shopDataNew:getProductList('pass')
     
-    local tableView = UIC_TableView(self.m_listNode)
     local tabList = {}
     for k, v in pairs(item_list) do
         if(g_battlePassData.m_battlePassTable:IsBattlePassProduct(k)) then
@@ -140,11 +138,15 @@ function UI_BattlePassPopup:initTableView()
             if g_adventureClearPackageData03:isVisibleAtBattlePassShop() then
                 table.insert(tabList, v)
             end
+        elseif ServerData_DmgatePackage:getInstance():checkProductInTable(k) then
+            table.insert(tabList, v)
         else
+            
             table.insert(tabList, v)
         end
     end
 
+    local tableView = UIC_TableView(self.m_listNode)
     -- TODO (YOUNGJIN) : ui 파일에서 노드 생성후 사이즈 적용으로 바꾸기
     tableView.m_defaultCellSize = cc.size(264, 104 + 5)
     tableView:setCellUIClass(UI_BattlePassTabButton)
@@ -277,25 +279,10 @@ function UI_BattlePassPopup:makeEventPopupTab(tab_id)
     local package_res = item['data']['package_res']
     local product_id = item['data']['product_id']
     local package_name = TablePackageBundle:getPackageNameWithPid(product_id)
-   
+
     local ui = UI_EventPopupTab_Package(package_name)
-return ui
-    
-    --UI_EventPopupTab_Package()
-    -- if (not self.m_tabUIMap) then
-    --     self.m_tabUIMap = {}
-    -- end
-
-    -- local ui = nil
-    -- local item = self.m_tableView:getItem(tab)
-    -- ccdump(item)
-
-    -- -- TODO (YOUNGJIN) : Need to change
-    -- local package_res = item['package_res']
-    -- if(package_res) then
-    --     ui = UI_EventPopupTab_Package(package_res)
-    -- end
-
-    -- self.m_tabUIMap[tab] = ui
-    -- return ui
+    return ui
 end
+
+
+

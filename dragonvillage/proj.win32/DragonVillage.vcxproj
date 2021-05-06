@@ -541,6 +541,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_ContentLock.lua" />
     <None Include="..\src\ServerData_DailyMission.lua" />
     <None Include="..\src\ServerData_Dmgate.lua" />
+    <None Include="..\src\ServerData_DmgatePackage.lua" />
     <None Include="..\src\ServerData_DragonBoard.lua" />
     <None Include="..\src\ServerData_DragonDiary.lua" />
     <None Include="..\src\ServerData_Eggs.lua" />
@@ -1569,6 +1570,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Package_AttrTowerListItem.lua" />
     <None Include="..\src\UI_Package_AttrTowerPopup.lua" />
     <None Include="..\src\UI_Package_Bundle.lua" />
+    <None Include="..\src\UI_Package_Dmgate.lua" />
     <None Include="..\src\UI_Package_DragonChoiceHero.lua" />
     <None Include="..\src\UI_Package_LevelUp.lua" />
     <None Include="..\src\UI_Package_LevelUpListItem.lua" />

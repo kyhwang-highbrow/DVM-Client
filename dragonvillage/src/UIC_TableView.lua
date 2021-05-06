@@ -1674,6 +1674,8 @@ end
 
 
 function UIC_TableView:setCellSizeToNodeSize(isFixedSize)
+    if (isFixedSize == nil) then isFixedSize = true end
+    
     self.m_bFixedCellSize = isFixedSize
 end
 

@@ -66,7 +66,7 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:initUI()
-    self:initMember(self.m_structProduct)
+    self:initMember()
     self:initTableView()
 end
 
@@ -114,10 +114,10 @@ end
 -- @param 
 -- @brief
 --------------------------------------------------------------------------
-function UI_BattlePass_Nurture:initMember(struct_product)
+function UI_BattlePass_Nurture:initMember()
     local vars = self.vars
 
-    self.m_pass_id = struct_product['product_id']
+    self.m_pass_id = self.m_structProduct['product_id']
     self.m_normal_key = 'normal'
     self.m_premium_key = 'premium'
 
@@ -157,7 +157,6 @@ function UI_BattlePass_Nurture:initTableView()
 
     -- 생성 콜백
     local function create_cb_func(ui, data)
-        
     end
 
     local table_view = UIC_TableView(self.m_listNode)
