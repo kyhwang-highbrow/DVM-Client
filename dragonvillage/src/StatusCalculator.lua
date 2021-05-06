@@ -241,7 +241,7 @@ function StatusCalculator:getFinalStat(stat_type, is_power)
         error('stat_type : ' .. stat_type)
     end
 
-    local is_new_power = is_power == true and USE_NEW_COMBAT_POWER_CALC == true
+    local is_new_power = is_power == true and USE_NEW_COMBAT_POWER_CALC or false
     local final_stat = is_new_power == true and indivisual_status:getFinalStat_ExcludeMastery() or indivisual_status:getFinalStat()
 
     -- 공속(aspd)값은 최소값을 50으로 고정
@@ -454,10 +454,6 @@ function StatusCalculator:getCombatPower()
     local total_combat_power = 0
     local table_status = TableStatus()
 
-    -- 서버설정
-    local skip_new_power_calc = g_remoteConfig:getRemoteConfig('skip_new_power_calc')
-    if (skip_new_power_calc ~= nil) then USE_NEW_COMBAT_POWER_CALC = skip_new_power_calc end
-
     if (USE_NEW_COMBAT_POWER_CALC == true) then return self:getNewCombatPower() end
 
     -- 능력치별 전투력 계수를 곱해서 전투력 합산
@@ -502,11 +498,9 @@ function StatusCalculator:getNewCombatPower()
     -- 피해 감소 비율 계수 계산식 = 1/(1-방어력/(1200+방어력))
     local dmg_avoid_rate = 1 / (1 - table_stat['def'] * 1.25 / (1200 + table_stat['def'] * 1.25))
 
-    -- 방어 점수 = 생명력 * 피해감소비율계수 * (3+회피)/3 * (3+치명회피)/3  /200
-    local defence_point = table_stat['hp'] * dmg_avoid_rate * (3 + table_stat['avoid'] * 0.01) / 3 * (3 + table_stat['cri_avoid'] * 0.01) / 3 / 200
+    -- 방어 점수 = 생명력 * 피해감소비율계수 * (3+회피)/3 * (3+치명회피)/3  /150
+    local defence_point = table_stat['hp'] * dmg_avoid_rate * (3 + table_stat['avoid'] * 0.01) / 3 * (3 + table_stat['cri_avoid'] * 0.01) / 3 / 150
 
-    cclog('공격포인트 :: ' .. tostring(attack_point))
-    cclog('방어포인트 :: ' .. tostring(defence_point))
     total_combat_power = attack_point + defence_point
 
     local coef_gap = 0.02
@@ -516,6 +510,8 @@ function StatusCalculator:getNewCombatPower()
     else
         total_combat_power = total_combat_power * (1 + coef_gap * self.m_masteryLv)
     end
+
+    cclog(self.m_charTable[self.m_chapterID]['t_name'] .. '공/방 점수 :: ' .. tostring(attack_point) .. ' / ' .. tostring(defence_point) .. ' ... 총 전투력 :: ' .. tostring(total_combat_power) .. ' 특성레벨 :: ' .. tostring(self.m_masteryLv))
 
     return math_floor(total_combat_power)
 end

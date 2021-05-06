@@ -425,10 +425,13 @@ end
 -- function getCombatPower
 -- @breif
 -------------------------------------
-function StructDragonObject:getCombatPower(status_calc)
+function StructDragonObject:getCombatPower(status_calc, is_simple)
     local status_calc = (status_calc or MakeDragonStatusCalculator_fromDragonDataTable(self))
     local combat_power = status_calc:getCombatPower()
     
+    -- 단순 전투력 측정을 위한 플래그
+    if (is_simple == true) then return combat_power end
+
     -- 스킬 레벨에 따른 전투력 추가
     do
         local t_dragon = TableDragon():get(self['did'])

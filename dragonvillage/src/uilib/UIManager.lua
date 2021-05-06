@@ -616,6 +616,8 @@ function UIManager:onKeyReleased(keyCode, event)
     elseif (keyCode == KEY_P) then
         USE_NEW_COMBAT_POWER_CALC = not USE_NEW_COMBAT_POWER_CALC
         local message = USE_NEW_COMBAT_POWER_CALC == true and '새로운 전투력 on' or '새로운 전투력 off'
+
+        g_dragonsData:request_dragonsInfo(nil, nil)
         self:toastNotificationGreen(message)
 
 	-- 튜토리얼 강제 종료
