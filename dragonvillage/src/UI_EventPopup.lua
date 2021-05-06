@@ -376,6 +376,12 @@ function UI_EventPopup:makeEventPopupTab(tab)
         local event_type = struct_event_popup_tab.m_eventData['event_type']
         local event_id = struct_event_popup_tab.m_eventData['event_id']
         ui = UI_EventDragonLaunchLegend(event_type .. ';' .. event_id)
+
+    -- 다르누스 인포 이벤트
+    elseif string.find(tab, 'event_daily_quest') then
+        require('UI_EventDailyQuest')
+        ui = UI_EventDailyQuest()
+
     end
     self.m_mTabUI[tab] = ui
     return ui

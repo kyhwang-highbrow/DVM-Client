@@ -4943,6 +4943,7 @@
     <None Include="..\src\ServerData_EventRoulette.lua" />
     <None Include="..\src\UI_EventRouletteRankingPopup.lua" />
     <None Include="..\src\UI_RankingRewardPopup.lua" />
+    <None Include="..\src\UI_EventDailyQuest.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
