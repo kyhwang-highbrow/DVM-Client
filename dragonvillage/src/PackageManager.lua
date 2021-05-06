@@ -94,7 +94,8 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
         end
 
     -- 기간제 단계별 패키지 UI
-    elseif (_package_name ==  'package_step_period') then
+    --elseif (_package_name == 'package_step_period') then
+    elseif pl.stringx.startswith(_package_name, 'package_step_period') then
         target_ui = UI_Package_Step02(_package_name, is_popup)
 
     -- 특정 드래곤 판매 패키지 UI(ex : 뱃도치)
