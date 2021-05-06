@@ -177,7 +177,9 @@ function UI_QuestListItem:setRewardCard()
                     end
                 end
                 -- 아이템카드의 이벤트 스프라이트
-                reward_card.vars['eventSprite']:setVisible(true)
+                if (reward_card.vars['eventSprite']) then
+                    reward_card.vars['eventSprite']:setVisible(true)
+                end
             end
         end
     end
