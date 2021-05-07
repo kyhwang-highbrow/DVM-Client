@@ -417,52 +417,50 @@ function UIC_TableView:scrollViewDidScroll()
 	-- scroll end event
 	self:scrollEndEventHandler(offset, endIdx)
 
-    -- 현재 보이는 item의 앞쪽 정리
+    -- 현재 보이는 item 앞부분 정리
     if (0 < #self._cellsUsed) then
-        local cell = self._cellsUsed[1]
-        local idx = cell['idx']
-
-        -- @mskim tableview 에러를 잡기 위한 우회처리
-        if (idx) then
-            while (idx < startIdx) do
-                table.remove(self._cellsUsed, 1)
-
-                if cell['ui'] then
-                    cell['ui']:setCellVisible(false)
-                end
-
-                if (#self._cellsUsed <= 0) then
-                    break
-                end
-
-                cell = self._cellsUsed[1]
-                idx = cell['idx']
+        local first_used_cell = self._cellsUsed[1]
+        local first_used_idx = first_used_cell['idx']
+     
+		if (first_used_idx ~= nil) then
+            -- 앞부분 사용 안되는 셀 개수
+            local not_used_front_count = (startIdx - first_used_idx)
+            -- 개수 예외처리
+            if (not_used_front_count > #self._cellsUsed) then
+                not_used_front_count = #self._cellsUsed
             end
-        end
+            
+            for i = 1, not_used_front_count do
+                local cell = table.remove(self._cellsUsed, 1)
+
+                if (cell['ui'] ~= nil) then
+					cell['ui']:setCellVisible(false)
+				end
+            end
+		end
     end
 
-    -- 현재 보이는 item의 뒷쪽 정리
+    -- 현재 보이는 item 뒷부분 정리
     if (0 < #self._cellsUsed) then
-        local cell = self._cellsUsed[#self._cellsUsed]
-        local idx = cell['idx']
+        local last_used_cell = self._cellsUsed[#self._cellsUsed]
+        local last_used_idx = last_used_cell['idx']
 
-        -- @mskim tableview 에러를 잡기 위한 우회처리
-        if (idx) then
-            while (idx < maxIdx) and (idx > endIdx) do
-                table.remove(self._cellsUsed, #self._cellsUsed)
-
-                if cell['ui'] then
-                    cell['ui']:setCellVisible(false)
-                end
-
-                if (#self._cellsUsed <= 0) then
-                    break
-                end
-
-                cell = self._cellsUsed[#self._cellsUsed]
-                idx = cell['idx']
+        if (last_used_idx ~= nil) then
+            -- 뒷부분 사용 안되는 셀 개수
+            local not_used_back_count = (last_used_idx - endIdx)
+            -- 개수 예외처리
+            if (not_used_back_count > #self._cellsUsed) then
+                not_used_back_count = #self._cellsUsed
             end
-        end
+
+            for i = 1, not_used_back_count do
+                local cell = table.remove(self._cellsUsed, #self._cellsUsed)
+
+                if (cell['ui'] ~= nil) then
+					cell['ui']:setCellVisible(false)
+				end
+            end
+		end
     end
 
     -- 눈에 보이는 item들 설정

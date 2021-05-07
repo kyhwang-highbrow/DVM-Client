@@ -305,7 +305,6 @@ function UIC_TableViewTD:scrollViewDidScroll(scroll_view)
 
     local startLine = 1
     local endLine = 1
-    local maxIdx = math_max(lineCount, 1)
 
     -- 현재 컨테이너의 위치를 얻어옴
     local offset = self.m_scrollView:getContentOffset()
@@ -350,53 +349,52 @@ function UIC_TableViewTD:scrollViewDidScroll(scroll_view)
     local endIdx = endLine * self.m_nItemPerCell
     endIdx = math_clamp(endIdx, 1, itemCount)
 
-    -- 현재 보이는 item의 앞쪽 정리
+    -- 현재 보이는 item 앞부분 정리
     if (0 < #self._cellsUsed) then
-        local cell = self._cellsUsed[1]
-        local idx = cell['idx']
+        local first_used_cell = self._cellsUsed[1]
+        local first_used_idx = first_used_cell['idx']
+     
+		if (first_used_idx ~= nil) then
+            -- 앞부분 사용 안되는 셀 개수
+            local not_used_front_count = (startIdx - first_used_idx)
+            -- 개수 예외처리
+            if (not_used_front_count > #self._cellsUsed) then
+                not_used_front_count = #self._cellsUsed
+            end
 
-		-- @mskim tableview 에러를 잡기 위한 우회처리
-		if (idx) then
-			while (idx < startIdx) do
-				table.remove(self._cellsUsed, 1)
+            for i = 1, not_used_front_count do
+                local cell = table.remove(self._cellsUsed, 1)
 
-				if cell['ui'] then
+                if (cell['ui'] ~= nil) then
 					cell['ui']:setCellVisible(false)
 				end
-
-				if (#self._cellsUsed <= 0) then
-					break
-				end
-
-				cell = self._cellsUsed[1]
-				idx = cell['idx']
-			end
+            end
 		end
     end
 
-    -- 현재 보이는 item의 뒷쪽 정리
+    -- 현재 보이는 item 뒷부분 정리
     if (0 < #self._cellsUsed) then
-        local cell = self._cellsUsed[#self._cellsUsed]
-        local idx = cell['idx']
+        local last_used_cell = self._cellsUsed[#self._cellsUsed]
+        local last_used_idx = last_used_cell['idx']
 
-		-- @mskim tableview 에러를 잡기 위한 우회처리
-		if (idx) then
-			while (idx < maxIdx) and (idx > endIdx) do
-				table.remove(self._cellsUsed, #self._cellsUsed)
+        if (last_used_idx ~= nil) then
+            -- 뒷부분 사용 안되는 셀 개수
+            local not_used_back_count = (last_used_idx - endIdx)
+            -- 개수 예외처리
+            if (not_used_back_count > #self._cellsUsed) then
+                not_used_back_count = #self._cellsUsed
+            end
 
-				if cell['ui'] then
+            for i = 1, not_used_back_count do
+                local cell = table.remove(self._cellsUsed, #self._cellsUsed)
+
+                if (cell['ui'] ~= nil) then
 					cell['ui']:setCellVisible(false)
 				end
-
-				if (#self._cellsUsed <= 0) then
-					break
-				end
-
-				cell = self._cellsUsed[#self._cellsUsed]
-				idx = cell['idx']
-			end
+            end
 		end
     end
+
 
     -- 눈에 보이는 item들 설정
     self._cellsUsed = {}
@@ -777,35 +775,17 @@ function UIC_TableViewTD:expandTemp(duration, animated)
     local before_content_offset = self.m_scrollView:getContentOffset()
 
     -- 현재 보여지는 애들 리스트
-    local l_visible_cells = {}
     for i,v in ipairs(self._cellsUsed) do
-        local idx = v['idx']
-        if (idx) then
-            l_visible_cells[idx] = v
-        end
-    end
-
-    self:_updateLinePositions()
-    self:_updateContentSize(true)
-
-    -- Item UI를 즉시 생성하기 위해  m_bFirstLocation를 true로 설정
-    self.m_bFirstLocation = true
-    self:scrollViewDidScroll()
-    self.m_bFirstLocation = false
-
-    -- 변경 후 보여질 애들 리스트
-    for i,v in ipairs(self._cellsUsed) do
-        local idx = v['idx']
-        l_visible_cells[idx] = v
-    end
-
-    -- 눈에 보여지도록 추가
-    for i,v in pairs(l_visible_cells) do
+        -- scroll view offset 변화로 보이는 위치에서 벗어나더라도 액션 하는 동안 visible 유지
         if v['ui'] then
             v['ui']:cellVisibleRetain(duration)
         end
     end
 
+    self:_updateLinePositions()
+    self:_updateContentSize(true)
+    self:scrollViewDidScroll()
+    
     if (animated == nil) then
         animated = true
     else
@@ -814,29 +794,22 @@ function UIC_TableViewTD:expandTemp(duration, animated)
 
     self:relocateContainer(animated)
 
+    -- contentSize 변화에 따른 cell들의 위치 조정을 위한 값
     local after_content_offset = self.m_scrollView:getContentOffset()
-    
-    -- content, offset size 변화에 따른 셀들 위치 조정(자연스럽게 셀들이 이동 액션하도록)
-    -- 위의 값들이 변경되어도 UI 상으로 셀은 그대로 있게 만든다.
-    local m_dup_check = {}
-    for i, v in pairs(l_visible_cells) do
-        local idx = v['idx']
-        local ui = v['ui']
-
-        if ((ui ~= nil) and (m_dup_check[idx] == nil)) then
-            m_dup_check[idx] = true
-            local before_pos_x, before_pos_y = ui.root:getPosition()
-            local real_pos_x, real_pos_y = before_pos_x + before_content_offset['x'], before_pos_y + before_content_offset['y']
-            local after_pos_x, after_pos_y = real_pos_x - after_content_offset['x'] , real_pos_y - after_content_offset['y']
-            ui.root:setPosition(cc.p(after_pos_x, after_pos_y))
-        end
-    end 
 
      -- cell들 이동
      for i,v in ipairs(self.m_itemList) do
         local ui = self.m_itemList[i]['ui']
 
-        if ui then
+        if (ui ~= nil) then
+            -- content, offset size 변화에 따른 셀들 위치 조정(자연스럽게 셀들이 이동 액션하도록)
+            -- 위의 값들이 변경되어도 UI 상으로 셀은 그대로 있게 만든다.
+            local before_pos_x, before_pos_y = ui.root:getPosition()
+            local real_pos_x, real_pos_y = before_pos_x + before_content_offset['x'], before_pos_y + before_content_offset['y']
+            local after_pos_x, after_pos_y = real_pos_x - after_content_offset['x'] , real_pos_y - after_content_offset['y']
+            ui.root:setPosition(cc.p(after_pos_x, after_pos_y))
+
+            -- 올바른 위치로 이동
             local offset = self:_offsetFromIndex(i)
             ui:cellMoveTo(duration, offset)
         end
