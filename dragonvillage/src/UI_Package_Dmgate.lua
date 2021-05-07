@@ -18,9 +18,6 @@ end
 -- function initUI
 ----------------------------------------------------------------------
 function UI_Package_Dmgate:initMember()
-    ServerData_DmgatePackage:getInstance()
-
-    g_dmgatePackageData:request_info(self.m_structProduct['product_id'])
 end
 
 ----------------------------------------------------------------------
@@ -37,8 +34,8 @@ end
 ----------------------------------------------------------------------
 -- function initButton
 ----------------------------------------------------------------------
-function UI_Package_Dmgate:initButton()
-    PARENT.initButton(self)
+function UI_Package_Dmgate:initButton(is_popup)
+    PARENT.initButton(self, is_popup)
 
     self:setBuyCB(function() self:buyCallback() end)
 end
@@ -69,6 +66,8 @@ function UI_Package_Dmgate:initTableView()
     vars['productNodeLong']:setVisible(isPackagePurchased)
     vars['productNode']:setVisible(not isPackagePurchased)
     vars['buyBtn']:setVisible(not isPackagePurchased)
+    ccdump(isPackagePurchased)
+    vars['contractBtn']:setVisible(not isPackagePurchased)
 
     if isPackagePurchased then
         node = vars['productNodeLong']

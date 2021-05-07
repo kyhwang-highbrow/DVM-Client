@@ -138,7 +138,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
         target_ui = UI_Package_DragonChoiceHero(_package_name, is_popup)
 
     -- 육성패스 
-    elseif string.find(_package_name, 'battle_pass') then--(_package_name == 'battle_pass_nurture' or _package_name == 'battle_pass_nurture_premium') then
+    elseif string.find(_package_name, 'battle_pass') then
         local pid
         if product_id then
             pid = product_id

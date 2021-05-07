@@ -23,6 +23,7 @@ function ServerData_DmgatePackage:getInstance()
     end
 
     g_dmgatePackageData = ServerData_DmgatePackage()
+
     g_dmgatePackageData:convertPackageTableKey()
 
     return g_dmgatePackageData
@@ -83,7 +84,6 @@ function ServerData_DmgatePackage:response_info(ret, product_id)
     local _product_id = tostring(product_id)
 
     if ret['active'] then
-        
         self.m_packageInfo[_product_id] = ret['dmgate_stage_pack_info'][_product_id]
     end
 end
@@ -172,9 +172,7 @@ function ServerData_DmgatePackage:convertPackageTableKey()
 
     local product_id
     for key, data in pairs(package_table) do
-        --product_id = tostring(data['product_id'])
-        product_id = tostring(121703)
-        data['product_id'] = product_id
+        product_id = tostring(data['product_id'])
 
         if (not result[product_id]) then result[product_id] = {} end
 
