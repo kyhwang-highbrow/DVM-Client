@@ -494,10 +494,10 @@ function StatusCalculator:getNewCombatPower()
     local attack_point = table_stat['atk'] * (1 + table_stat['cri_chance'] * 0.01 * table_stat['cri_dmg'] * 0.01) * (2 + table_stat['aspd'] * 0.01) / 3 * (4 + table_stat['hit_rate'] * 0.01) / 5
 
     -- 피해 감소 비율 계수 계산식 = 1/(1-방어력/(1200+방어력))
-    local dmg_avoid_rate = 1 / (1 - table_stat['def'] * 1.25 / (1200 + table_stat['def'] * 1.25))
+    local dmg_avoid_rate = 1 / (1 - table_stat['def'] / (1200 + table_stat['def']))
 
-    -- 방어 점수 = (생명력 + 125000) * 피해감소비율계수 * (3+회피)/3 * (3+치명회피)/3  / 170
-    local defence_point = (table_stat['hp'] + 125000) * dmg_avoid_rate * (3 + table_stat['avoid'] * 0.01) / 3 * (3 + table_stat['cri_avoid'] * 0.01) / 3 / 170
+    -- 방어 점수 = (생명력 + 125000) * 피해감소비율계수 * (3 + 회피)/3 * (3 + 치명회피) / 3  / 180
+    local defence_point = (table_stat['hp'] + 125000) * dmg_avoid_rate * (3 + table_stat['avoid'] * 0.01) / 3 * (3 + table_stat['cri_avoid'] * 0.01) / 3 / 180
 
     total_combat_power = attack_point + defence_point
 
@@ -512,7 +512,12 @@ function StatusCalculator:getNewCombatPower()
     total_combat_power = total_combat_power * mastery_coef
 
     if IS_DEV_SERVER() then
-        cclog(self.m_charTable[self.m_chapterID]['t_name'] .. ' :: 공/방 점수 :: ' .. tostring(attack_point) .. ' / ' .. tostring(defence_point) .. ' ... 총 전투력 :: ' .. tostring(total_combat_power) .. ' 특성레벨 :: ' .. tostring(self.m_masteryLv) .. ' 배율 :: ( ' .. tostring(mastery_coef) .. ' )')
+        cclog(
+        self.m_charTable[self.m_chapterID]['t_name'] .. 
+        ' :: 공/방 점수 :: ' .. tostring(attack_point) .. ' / ' .. tostring(defence_point) .. 
+        ' ... 능력치 전투력 :: ' .. tostring(total_combat_power) .. 
+        ' 특성레벨 :: ' .. tostring(self.m_masteryLv) .. 
+        ' 특성배율 :: ( ' .. tostring(mastery_coef) .. ' )')
     end
 
     return math_floor(total_combat_power)

@@ -431,7 +431,28 @@ function StructDragonObject:getCombatPower(status_calc)
 
     local exclude_mastery = USE_NEW_COMBAT_POWER_CALC and USE_NEW_COMBAT_POWER_CALC or false
 
-    if (exclude_mastery == true) then return combat_power end
+    if (exclude_mastery == true) then
+        -- 스킬레벨 1당 전투력에 0.02의 배수를 적용한다.
+        -- 스킬레벨은 도합 12(몬스터 제외)  스킬 레벨을 전부 올릴 경우 최종 전투력에 1.24배를 곱하게 된다.
+        local coef_gap = 0.02
+        local skill_coef = 1
+        local total_skill_level = self['skill_0'] + self['skill_1'] + self['skill_2'] + self['skill_3']
+        
+        if (total_skill_level >= 14) then
+            skill_coef = 1.28
+        else
+            skill_coef = (1 + coef_gap * total_skill_level)
+        end
+
+        if IS_DEV_SERVER() then
+            cclog(
+            '도합스킬레벨 :: ' .. tostring(total_skill_level) .. 
+            ' 스킬배율 :: ( ' .. tostring(skill_coef) .. ' )' .. 
+            ' ... 총 전투력 :: ' .. tostring(combat_power * skill_coef))
+        end
+
+        return math_floor(combat_power * skill_coef)
+    end
 
     -- 스킬 레벨에 따른 전투력 추가
     do
