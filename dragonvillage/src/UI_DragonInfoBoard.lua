@@ -55,7 +55,6 @@ end
 -------------------------------------
 function UI_DragonInfoBoard:refresh(t_dragon_data)
     self.m_dragonObject = t_dragon_data
-    ccdump(self.m_dragonObject)
 
     if (g_dragonsData:getDragonDataFromUidRef(self.m_dragonObject['id'])) then
         self.m_bIsMyDragon = true
