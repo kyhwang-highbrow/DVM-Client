@@ -30,6 +30,17 @@ function UI_FriendListItem:initUI()
 
     vars['nameLabel']:setString(t_friend_info:getNickText())
     vars['levelLabel']:setString(t_friend_info:getLvText())
+
+    -- 티어 아이콘
+    local tier = t_friend_info:getArenaTier()
+
+    vars['tierNode']:removeAllChildren()
+    local icon = StructUserInfoArenaNew:makeTierIcon(tier, 'big')
+    vars['tierNode']:addChild(icon)
+
+    -- 티어 이름
+    local tier_name = StructUserInfoArenaNew:getTierName(tier)
+    vars['tierLabel']:setString(tier_name)
 end
 
 -------------------------------------

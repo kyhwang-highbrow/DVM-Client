@@ -324,15 +324,15 @@ function StructUserInfoClan:getDungeonPlayText()
 end
 
 -------------------------------------
--- function getArenaPlayText
+-- function getArenaTier
 -------------------------------------
 function StructUserInfoClan:getArenaTier()
     local t_dungeon = self.m_dungeonInfo
     if (not t_dungeon) then 
-        return 'begginer'
+        return 'beginner'
     end
 
     if (t_dungeon['arena_tier']) then return t_dungeon['arena_tier'] end
 
-    return 'begginer'
+    return 'beginner'
 end

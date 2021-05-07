@@ -23,6 +23,8 @@ StructUserInfoFriend = class(PARENT, {
 
         m_usedTime = 'number', -- 친구 드래곤 최종 사용 시간
         m_enableUse = 'boolean', -- 친구 드래곤 사용 가능 상태
+
+        m_arenaTier = 'string', -- 콜로세움 티어
     })
 
 -------------------------------------
@@ -37,6 +39,7 @@ function StructUserInfoFriend:create(t_data)
     user_info.m_lastActiveTime = t_data['last_active']
     user_info.m_usedTime = t_data['used_time']
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
+    user_info.m_arenaTier = t_data['debris']['tier'] and t_data['debris']['tier'] or 'beginner'
 
     -- 친구 드래곤 룬 세팅
     user_info.m_leaderDragonObject:setRuneObjects(t_data['runes'])
@@ -194,6 +197,14 @@ function StructUserInfoFriend:getDragonCard()
 end
 
 
+-------------------------------------
+-- function getArenaTier
+-------------------------------------
+function StructUserInfoFriend:getArenaTier()
+    if (not self.m_arenaTier) then return 'beginner' end
+
+    return self.m_arenaTier
+end
 
 
 
