@@ -452,7 +452,8 @@ function UI_DragonInfoBoard:click_runeBtn(slot_idx)
 
     -- UI가 간단모드로 설정되어 있을 경우
     if (self.m_bSimpleMode == true) then
-        return
+        -- 굳이 막을 필요가 없다
+        --return
     end
 
     -- 드래곤 정보가 없을 경우

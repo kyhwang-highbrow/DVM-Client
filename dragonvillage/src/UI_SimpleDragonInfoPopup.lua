@@ -24,6 +24,8 @@ function UI_SimpleDragonInfoPopup:init(t_dragon_data)
     self.m_tDragonData = t_dragon_data
     self.m_dragonObjectID = t_dragon_data['id']
 
+    self.m_uiName = 'UI_SimpleDragonInfoPopup'
+
     local vars = self:load('dragon_info_mini.ui')
     UIManager:open(self, UIManager.POPUP)
 
