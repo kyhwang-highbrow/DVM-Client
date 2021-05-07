@@ -425,12 +425,13 @@ end
 -- function getCombatPower
 -- @breif
 -------------------------------------
-function StructDragonObject:getCombatPower(status_calc, is_simple)
+function StructDragonObject:getCombatPower(status_calc)
     local status_calc = (status_calc or MakeDragonStatusCalculator_fromDragonDataTable(self))
     local combat_power = status_calc:getCombatPower()
-    
-    -- 단순 전투력 측정을 위한 플래그
-    if (is_simple == true) then return combat_power end
+
+    local exclude_mastery = USE_NEW_COMBAT_POWER_CALC and USE_NEW_COMBAT_POWER_CALC or false
+
+    if (exclude_mastery == true) then return combat_power end
 
     -- 스킬 레벨에 따른 전투력 추가
     do

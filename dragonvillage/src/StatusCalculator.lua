@@ -235,7 +235,7 @@ end
 -------------------------------------
 -- function getFinalStat
 -------------------------------------
-function StatusCalculator:getFinalStat(stat_type, is_power)
+function StatusCalculator:getFinalStat(stat_type, is_power) 
     local indivisual_status = self.m_lStatusList[stat_type]
     if (not indivisual_status) then
         error('stat_type : ' .. stat_type)
@@ -481,8 +481,6 @@ end
 function StatusCalculator:getNewCombatPower()
     local total_combat_power = 0
     local table_status = TableStatus()
-    local exclude_mastery = USE_NEW_COMBAT_POWER_CALC and USE_NEW_COMBAT_POWER_CALC or false
-
     local table_stat = {}
 
     -- 능력치별 전투력 계수를 곱해서 전투력 합산
@@ -511,7 +509,7 @@ function StatusCalculator:getNewCombatPower()
         total_combat_power = total_combat_power * (1 + coef_gap * self.m_masteryLv)
     end
 
-    cclog(self.m_charTable[self.m_chapterID]['t_name'] .. '공/방 점수 :: ' .. tostring(attack_point) .. ' / ' .. tostring(defence_point) .. ' ... 총 전투력 :: ' .. tostring(total_combat_power) .. ' 특성레벨 :: ' .. tostring(self.m_masteryLv))
+    cclog(self.m_charTable[self.m_chapterID]['t_name'] .. ' :: 공/방 점수 :: ' .. tostring(attack_point) .. ' / ' .. tostring(defence_point) .. ' ... 총 전투력 :: ' .. tostring(total_combat_power) .. ' 특성레벨 :: ' .. tostring(self.m_masteryLv))
 
     return math_floor(total_combat_power)
 end

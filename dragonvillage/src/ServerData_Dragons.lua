@@ -545,7 +545,7 @@ function ServerData_Dragons:makeDragonsSortData(struct_dragon_object)
     t_sort_data['evolution'] = struct_dragon_object['evolution']
     t_sort_data['rarity'] = dragonRarityStrToNum(t_dragon['rarity'])
     t_sort_data['friendship'] = struct_dragon_object:getFlv()
-    t_sort_data['combat_power'] = struct_dragon_object:getCombatPower(status_calc)
+    t_sort_data['combat_power'] = struct_dragon_object:getCombatPower()
     t_sort_data['updated_at'] = struct_dragon_object['updated_at']
 
     return t_sort_data
