@@ -437,7 +437,8 @@ function StructDragonObject:getCombatPower(status_calc)
         local coef_gap = 0.02
         local skill_coef = 1
         local total_skill_level = self['skill_0'] + self['skill_1'] + self['skill_2'] + self['skill_3']
-        
+        total_skill_level = math.max(total_skill_level - 4, 0)
+
         if (total_skill_level >= 14) then
             skill_coef = 1.28
         else
