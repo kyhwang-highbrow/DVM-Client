@@ -496,8 +496,8 @@ function StatusCalculator:getNewCombatPower()
     -- 피해 감소 비율 계수 계산식 = 1/(1-방어력/(1200+방어력))
     local dmg_avoid_rate = 1 / (1 - table_stat['def'] * 1.25 / (1200 + table_stat['def'] * 1.25))
 
-    -- 방어 점수 = 생명력 * 피해감소비율계수 * (3+회피)/3 * (3+치명회피)/3  /150
-    local defence_point = table_stat['hp'] * dmg_avoid_rate * (3 + table_stat['avoid'] * 0.01) / 3 * (3 + table_stat['cri_avoid'] * 0.01) / 3 / 150
+    -- 방어 점수 = (생명력 + 125000) * 피해감소비율계수 * (3+회피)/3 * (3+치명회피)/3  / 170
+    local defence_point = (table_stat['hp'] + 125000) * dmg_avoid_rate * (3 + table_stat['avoid'] * 0.01) / 3 * (3 + table_stat['cri_avoid'] * 0.01) / 3 / 170
 
     total_combat_power = attack_point + defence_point
 
