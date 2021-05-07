@@ -8,6 +8,7 @@ UI_DragonInfoBoard = class(PARENT,{
         m_bSimpleMode = 'boolean',
 
         m_bRuneInfoPopup = 'boolean',
+        m_bIsMyDragon = 'boolean',
     })
 
 -------------------------------------
@@ -15,6 +16,8 @@ UI_DragonInfoBoard = class(PARENT,{
 -------------------------------------
 function UI_DragonInfoBoard:init(is_simple_mode)
     self.m_bSimpleMode = is_simple_mode
+    self.m_bIsMyDragon = false
+
     local vars = self:load('dragon_info_board.ui')
     
     self:initUI()
@@ -52,6 +55,11 @@ end
 -------------------------------------
 function UI_DragonInfoBoard:refresh(t_dragon_data)
     self.m_dragonObject = t_dragon_data
+    ccdump(self.m_dragonObject)
+
+    if (g_dragonsData:getDragonDataFromUidRef(self.m_dragonObject['id'])) then
+        self.m_bIsMyDragon = true
+    end
 
     if (not t_dragon_data) then
         return
@@ -451,9 +459,9 @@ function UI_DragonInfoBoard:click_runeBtn(slot_idx)
     end
 
     -- UI가 간단모드로 설정되어 있을 경우
-    if (self.m_bSimpleMode == true) then
+    if (self.m_bSimpleMode == true and self.m_bIsMyDragon == false) then
         -- 굳이 막을 필요가 없다
-        --return
+        return
     end
 
     -- 드래곤 정보가 없을 경우
