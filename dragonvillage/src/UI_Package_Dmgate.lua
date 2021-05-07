@@ -66,7 +66,6 @@ function UI_Package_Dmgate:initTableView()
     vars['productNodeLong']:setVisible(isPackagePurchased)
     vars['productNode']:setVisible(not isPackagePurchased)
     vars['buyBtn']:setVisible(not isPackagePurchased)
-    ccdump(isPackagePurchased)
     vars['contractBtn']:setVisible(not isPackagePurchased)
 
     if isPackagePurchased then
@@ -192,11 +191,11 @@ function UI_Package_DmgateListItem:refresh()
     
     local stage_id = self.m_data['achive_2']
     local isRewardReceived = g_dmgatePackageData:isRewardReceived(product_id, stage_id)
-    local isStageCleared = g_dmgateData:isStageCleared(stage_id)
     
+    local isStageEverCleared = g_dmgateData:isStageEverCleared(stage_id)    
     
     vars['receiveSprite']:setVisible(isRewardReceived)
-    vars['rewardBtn']:setEnabled((not isRewardReceived) and isStageCleared)
+    vars['rewardBtn']:setEnabled((not isRewardReceived) and isStageEverCleared)
 end
 
 

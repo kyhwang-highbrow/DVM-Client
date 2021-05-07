@@ -153,17 +153,10 @@ function ServerData_Dmgate:response_dmgateInfo(ret)
 
 
     local local_data = self:getLocalData('season')
-    --ccdump(local_data)
-    --ccdump(type(local_data))
-    --ccdump(self.m_dmgateInfo[1]['season'])
-    --ccdump(type(self.m_dmgateInfo[1]['season']))
     
     if (local_data ~= self.m_dmgateInfo[1]['season']) then
         self:setLocalData(self.m_dmgateInfo[1]['season'], 'season')
         self.m_bIsNewSeason = true
-
-        --local_data = self:getLocalData('season')
-        --ccdump(local_data)
     end
 end
 
@@ -599,6 +592,18 @@ function ServerData_Dmgate:isStageCleared(stage_id)
     if not stage_id then error('Forgot to pass stage_id as param') end
 
     return self:getStageStatus(stage_id) > 0
+end
+
+----------------------------------------------------------------------------
+-- function isStageEverCleared
+-- 한번이라도 클리어 한 적이 있는지
+----------------------------------------------------------------------------
+function ServerData_Dmgate:isStageEverCleared(stage_id)
+    if not stage_id then error('Forgot to pass stage_id as param') end
+
+    local mode_id = self:getModeID(stage_id)
+
+     return self.m_dmgateInfo[mode_id]['clear'][tostring(stage_id)] ~= nil
 end
 
 ----------------------------------------------------------------------------
