@@ -322,3 +322,17 @@ function StructUserInfoClan:getDungeonPlayText()
 
     return string.format('%s\n%s\n%s\n%s', param_1, param_2, param_3, param_4)
 end
+
+-------------------------------------
+-- function getArenaPlayText
+-------------------------------------
+function StructUserInfoClan:getArenaTier()
+    local t_dungeon = self.m_dungeonInfo
+    if (not t_dungeon) then 
+        return 'begginer'
+    end
+
+    if (t_dungeon['arena_tier']) then return t_dungeon['arena_tier'] end
+
+    return 'begginer'
+end

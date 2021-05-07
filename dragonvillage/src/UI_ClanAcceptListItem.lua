@@ -27,6 +27,17 @@ function UI_ClanAcceptListItem:initUI()
 
     local user_info = self.m_structUserInfo
 
+    -- 티어 아이콘
+    local tier = user_info:getArenaTier()
+
+    vars['tierNode']:removeAllChildren()
+    local icon = StructUserInfoArenaNew:makeTierIcon(tier, 'big')
+    vars['tierNode']:addChild(icon)
+
+    -- 티어 이름
+    local tier_name = StructUserInfoArenaNew:getTierName(tier)
+    vars['tierLabel']:setString(tier_name)
+
     -- 대표 드래곤
     local card = user_info:getLeaderDragonCard()
     vars['userNode']:addChild(card.root)

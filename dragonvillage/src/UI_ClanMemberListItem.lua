@@ -52,6 +52,19 @@ function UI_ClanMemberListItem:initButton()
         vars['subMasterBtn']:registerScriptTapHandler(function() self:click_subMasterBtn() end)
         vars['memberBtn']:registerScriptTapHandler(function() self:click_memberBtn() end)
     end
+
+    do
+        local tier = self.m_structUserInfo:getArenaTier()
+
+        -- 티어 아이콘
+        vars['tierNode']:removeAllChildren()
+        local icon = StructUserInfoArenaNew:makeTierIcon(tier, 'big')
+        vars['tierNode']:addChild(icon)
+
+        -- 티어 이름
+        local tier_name = StructUserInfoArenaNew:getTierName(tier)
+        vars['tierLabel']:setString(tier_name)
+    end
 end
 
 -------------------------------------
