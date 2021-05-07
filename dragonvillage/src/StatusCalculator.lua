@@ -502,14 +502,18 @@ function StatusCalculator:getNewCombatPower()
     total_combat_power = attack_point + defence_point
 
     local coef_gap = 0.02
-        
+    local mastery_coef = 1
     if (self.m_masteryLv == 10) then
-        total_combat_power = total_combat_power * 1.24
+        mastery_coef = 1.24
     else
-        total_combat_power = total_combat_power * (1 + coef_gap * self.m_masteryLv)
+        mastery_coef = (1 + coef_gap * self.m_masteryLv)
     end
 
-    cclog(self.m_charTable[self.m_chapterID]['t_name'] .. ' :: 공/방 점수 :: ' .. tostring(attack_point) .. ' / ' .. tostring(defence_point) .. ' ... 총 전투력 :: ' .. tostring(total_combat_power) .. ' 특성레벨 :: ' .. tostring(self.m_masteryLv))
+    total_combat_power = total_combat_power * mastery_coef
+
+    if IS_DEV_SERVER() then
+        cclog(self.m_charTable[self.m_chapterID]['t_name'] .. ' :: 공/방 점수 :: ' .. tostring(attack_point) .. ' / ' .. tostring(defence_point) .. ' ... 총 전투력 :: ' .. tostring(total_combat_power) .. ' 특성레벨 :: ' .. tostring(self.m_masteryLv) .. ' 배율 :: ( ' .. tostring(mastery_coef) .. ' )')
+    end
 
     return math_floor(total_combat_power)
 end
