@@ -179,6 +179,22 @@ function ServerData_DmgatePackage:convertPackageTableKey()
         table.insert(result[product_id], data)
     end
 
+    local function coroutine_func()
+        local co = CoroutineHelper()
+
+        for key, data in pairs(result) do
+            co:work()
+
+            self:request_info(product_id, co.NEXT, co.ESCAPE)
+            
+            if co:waitWork() then return end
+        end
+
+        co:close()
+    end
+
+    Coroutine(coroutine_func, 'Dmgate Package 코루틴')
+
     TABLE:replaceTable(self.m_tableName, result)
 end
 
@@ -217,3 +233,21 @@ function ServerData_DmgatePackage:isRewardReceived(product_id, stage_id)
 
     return false
 end
+
+
+function ServerData_DmgatePackage:getProductIdWithDmgateID(dmgate_id)
+    local data = TABLE:get(self.m_tableName)
+
+    for key, value in pairs(data) do
+        for k, v in pairs(value) do
+            if tonumber(v['achive_1']) == tonumber(dmgate_id) then
+                return v['product_id']
+            end
+            break
+        end
+    end
+
+    return nil
+end
+
+--function ServerData_DmgatePackage:getProductIdWithMatched

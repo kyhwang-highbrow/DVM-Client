@@ -433,6 +433,15 @@ end
 ----------------------------------------------------------------------------
 -- function getStageInfoList
 ----------------------------------------------------------------------------
+function ServerData_Dmgate:getDmgateId(mode_id)
+    if not mode_id then error('Forgot to pass mode_id as param') end
+
+    return self.m_dmgateInfo[mode_id]['dm_id']
+end
+
+----------------------------------------------------------------------------
+-- function getStageInfoList
+----------------------------------------------------------------------------
 function ServerData_Dmgate:getStageInfoList(mode_id)
     if not mode_id then error('Forgot to pass mode_id as param') end
 

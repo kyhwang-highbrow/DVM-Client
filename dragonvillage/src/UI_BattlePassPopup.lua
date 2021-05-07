@@ -140,7 +140,7 @@ function UI_BattlePassPopup:initTableView()
                 table.insert(tabList, v)
             end
         elseif ServerData_DmgatePackage:getInstance():checkProductInTable(k) then
-            g_dmgatePackageData:request_info(v['product_id'])
+            --g_dmgatePackageData:request_info(v['product_id'])
             table.insert(tabList, v)
         else
             

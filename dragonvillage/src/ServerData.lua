@@ -125,9 +125,6 @@ function ServerData:getInstance()
     g_hotTimeData = ServerData_HotTime(g_serverData)
     g_fevertimeData = ServerData_Fevertime(g_serverData)
 
-    -- 배틀패스
-    g_battlePassData = ServerData_BattlePass(g_serverData)
-
     -- 도감
     g_bookData = ServerData_Book(g_serverData)
 
@@ -223,6 +220,9 @@ function ServerData:getInstance()
 
     -- 시험의 탑 정복 선물 패키지 (2020.11.25)
     g_attrTowerPackageData = ServerData_AttrTowerPackage(g_serverData)
+    
+    -- 배틀패스 패키지
+    g_battlePassData = ServerData_BattlePass(g_serverData)
 
     -- 클랜
     g_clanData = ServerData_Clan(g_serverData)

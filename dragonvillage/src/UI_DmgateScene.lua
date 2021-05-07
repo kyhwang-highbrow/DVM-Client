@@ -21,7 +21,7 @@ UI_DmgateScene = class(PARENT, {
     m_timeNode = 'cc.Node',         -- 시즌 시간 노드 for setVisible()
     m_timeLabel = 'UIC_LabelTTF',   -- 남은 시즌 시간 텍스트
 
-    
+    m_packageBtn = 'UIC_Button',    -- 돌파 패키지 버튼
     m_seasonBtn = 'UIC_Button',     -- 시즌 효과 버튼
     m_infoBtn = 'UIC_Button',       -- 도움말 버튼
     m_shopBtn = 'UIC_Button',       -- 상점 버튼    
@@ -105,6 +105,8 @@ function UI_DmgateScene:initMember(stage_id)
     self.m_timeNode = vars['timeNode']      -- 시간 메뉴 for visible(true or false)
     self.m_timeLabel = vars['timeLabel']    -- 시간 텍스트 노드
 
+
+    self.m_packageBtn = vars['dmgateBtn']   -- 돌파 패키지 버튼
     self.m_seasonBtn = vars['seasonBtn']    -- 시즌 효과 버튼
     self.m_infoBtn = vars['infoBtn']        -- 도움말 버튼
     self.m_shopBtn = vars['shopBtn']        -- 상점 버튼
@@ -151,6 +153,26 @@ end
 function UI_DmgateScene:initUI()
     -- UI_DmgateSceneItem의 TableView 
     self:initTableView()
+
+    local dmgate_id = g_dmgateData:getDmgateId(self.m_modeId)
+    local product_id = g_dmgatePackageData:getProductIdWithDmgateID(dmgate_id)
+
+    if product_id then
+        local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
+
+        if struct_product then
+            require('UI_Package_Dmgate')
+
+            self.m_packageBtn:setVisible(true)
+            self.m_packageBtn:registerScriptTapHandler(function() UI_Package_Dmgate(struct_product, true) end)
+            --UI_Package_Dmgate(struct_product, true)
+
+            --UI_Package_Dmgate()
+            -- if g_dmgatePackageData:isPackageActive(product_id) then
+
+            -- end
+        end
+    end
 end
 
 ----------------------------------------------------------------------

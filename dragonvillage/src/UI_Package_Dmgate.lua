@@ -12,6 +12,10 @@ UI_Package_Dmgate = class(PARENT, {
 -- ----------------------------------------------------------------------
 function UI_Package_Dmgate:init(struct_product, is_popup)
     self.m_uiName = 'UI_Package_Dmgate'
+    -- @UI_ACTION
+    --self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
+    self:doActionReset()
+    self:doAction(nil, false)
 end
 
 ----------------------------------------------------------------------

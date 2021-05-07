@@ -245,7 +245,16 @@ function UI_Lobby:entryCoroutine()
             co:work('# 배틀패스 정보 받는 중')
                 g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
-        end       
+        end
+       
+        
+        -- do 
+        ServerData_DmgatePackage:getInstance()
+        --     co:work('# 차원문 돌파 패키지 정보 받는 중')
+        --         --g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
+        --     if co:waitWork() then return end
+        -- end
+       
 
         -- hard refresh
         cclog('# UI 갱신')
