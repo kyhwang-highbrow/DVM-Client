@@ -56,12 +56,12 @@ end
 function UI_DragonInfoBoard:refresh(t_dragon_data)
     self.m_dragonObject = t_dragon_data
 
-    if (g_dragonsData:getDragonDataFromUidRef(self.m_dragonObject['id'])) then
-        self.m_bIsMyDragon = true
-    end
-
     if (not t_dragon_data) then
         return
+    end
+
+    if (g_dragonsData:getDragonDataFromUidRef(self.m_dragonObject['id'])) then
+        self.m_bIsMyDragon = true
     end
 
     -- 슬라임인지 드래곤인지 여부
