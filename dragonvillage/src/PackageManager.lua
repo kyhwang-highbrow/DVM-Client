@@ -255,9 +255,20 @@ function PackageManager:isExist(package_name)
 
 
     -- 차원의 문 돌파 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요)
-    -- if (package_name == 'package_dmgate') then
-    --     local is_active = 
-    -- end
+    if string.find(package_name, 'package_dmgate') then
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local is_visible = g_dmgatePackageData:isPackageVisible(pid)
+
+        return is_visible
+    end
 
     -- 패키지가 아니지만 풀팝업을 위해 패키지 번들에 추가한 케이스 (추후 리팩토링 필요) klee 2018-06-14
     if (package_name == 'event_dia_discount') or (package_name == 'event_gold_bonus') then

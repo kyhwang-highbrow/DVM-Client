@@ -160,11 +160,11 @@ function UI_DmgateScene:initUI()
     if product_id then
         local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
 
-        if struct_product then
+        if struct_product and g_dmgatePackageData:isPackageVisible(product_id) then
             require('UI_Package_Dmgate')
 
             self.m_packageBtn:setVisible(true)
-            self.m_packageBtn:registerScriptTapHandler(function() UI_Package_Dmgate(struct_product, true) end)
+            self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn(struct_product) end)
             --UI_Package_Dmgate(struct_product, true)
 
             --UI_Package_Dmgate()
@@ -346,6 +346,14 @@ function UI_DmgateScene:click_chapterBtn(chapter_id)
     self.m_chapterTableViews[chapter_id]:refreshAllItemUI()
 
     self:refresh()
+end
+
+----------------------------------------------------------------------------
+-- function click_packageBtn
+-- brief 시즌 효과 버튼 팝업
+----------------------------------------------------------------------------
+function UI_DmgateScene:click_packageBtn(struct_product)
+    UI_Package_Dmgate(struct_product, true) 
 end
 
 ----------------------------------------------------------------------------

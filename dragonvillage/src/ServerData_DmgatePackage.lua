@@ -209,7 +209,7 @@ end
 
 
 --------------------------------------------------------------------------
--- function isActive
+-- function isPackageActive
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:isPackageActive(product_id)
     return self.m_packageInfo[tostring(product_id)] ~= nil
@@ -217,7 +217,7 @@ end
 
 
 --------------------------------------------------------------------------
--- function isActive
+-- function isRewardReceived
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:isRewardReceived(product_id, stage_id)
     local product_table = self.m_packageInfo[tostring(product_id)]    
@@ -232,6 +232,9 @@ function ServerData_DmgatePackage:isRewardReceived(product_id, stage_id)
 end
 
 
+--------------------------------------------------------------------------
+-- function getProductIdWithDmgateID
+--------------------------------------------------------------------------
 function ServerData_DmgatePackage:getProductIdWithDmgateID(dmgate_id)
     local data = TABLE:get(self.m_tableName)
 
@@ -247,6 +250,9 @@ function ServerData_DmgatePackage:getProductIdWithDmgateID(dmgate_id)
     return nil
 end
 
+--------------------------------------------------------------------------
+-- function isNotiVisible
+--------------------------------------------------------------------------
 function ServerData_DmgatePackage:isNotiVisible()
     local package_table = self:getPackageTable()
     local product_id
@@ -255,18 +261,41 @@ function ServerData_DmgatePackage:isNotiVisible()
         for key, data in pairs(v) do 
             product_id = data['product_id']
 
-            cclog('111111111111111111')
             if self:isPackageActive(product_id) then
                 stage_id = data['achive_2']
-                cclog('22222222222222222')
     
                 if (not self:isRewardReceived(product_id, stage_id))
                 and g_dmgateData:isStageEverCleared(stage_id) then
-                    cclog('33333333333333333')
                     return true
                 end
+            end
+        end
+    end
 
-                cclog('4444444444444444444')
+    return false
+end
+
+--------------------------------------------------------------------------
+-- function isPackageVisible
+--------------------------------------------------------------------------
+function ServerData_DmgatePackage:isPackageVisible(product_id)
+    if (not self:isPackageActive(product_id)) then
+        return true
+    end
+
+    local package_table = self:getPackageTable()
+    local product_id
+    local stage_id
+    for i, v in pairs(package_table) do
+        for key, data in pairs(v) do 
+            product_id = data['product_id']
+
+            if self:isPackageActive(product_id) then
+                stage_id = data['achive_2']
+    
+                if (not self:isRewardReceived(product_id, stage_id)) then
+                    return true
+                end
             end
         end
     end
