@@ -312,7 +312,7 @@ end
 -- @brief 도감에 슬라임 등록
 -------------------------------------
 function ServerData_Book:setSlimeBook(slime_id)
-    if (not slime_id) then
+    if (not slime_id) or (slime_id == 129215) then
         return false
     end
 
@@ -614,6 +614,10 @@ function ServerData_Book:getBookNotiList()
 
             if (not t_dragon) then
                 t_dragon = table_slime:get(did_num)
+
+                if (t_dragon['slime'] == 129215) then
+                    t_dragon = nil
+                end
             end
 
 			if (t_dragon) then
