@@ -55,12 +55,15 @@ function LobbyUserStatusUI:init_statusUI()
 
     do -- 칭호, 닉네임
         local tamer_title_str = struct_user_info:getTamerTitleStr()
+        if (vars['titleLabel']) then vars['titleLabel']:setString(tamer_title_str) end
+
         local nickname = struct_user_info:getNickname()
 
         -- 칭호와 닉네임을 붙여서 처리
-        if tamer_title_str and (tamer_title_str ~= '') then
+        --[[if tamer_title_str and (tamer_title_str ~= '') then
             nickname = string.format('{@user_title}%s {@white}%s', tamer_title_str, nickname)
-        end
+        end]]
+
         vars['nameLabel']:setString(nickname)
 
         -- 여백을 위해 10픽셀을 더해줌
@@ -75,10 +78,12 @@ function LobbyUserStatusUI:init_statusUI()
     -- 클랜이 존재하지 않을 경우 정렬
     local struct_clan = struct_user_info:getStructClan()
     if (struct_clan) then
-        vars['nameLabel']:setPositionY(28)
+        --vars['nameLabel']:setPositionY(-28)
         vars['clanNode']:setVisible(true)
     else
-        vars['nameLabel']:setPositionY(11)
+        --vars['nameLabel']:setPositionY(11)
+        vars['nameLabel']:setPositionY(-28)
+        vars['titleLabel']:setPositionY(-11)
         vars['clanNode']:setVisible(false)
     end
 
