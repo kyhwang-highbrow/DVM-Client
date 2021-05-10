@@ -246,20 +246,11 @@ function UI_Lobby:entryCoroutine()
                 g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
-       
-        
-        -- do 
-        ServerData_DmgatePackage:getInstance()
-        --     co:work('# 차원문 돌파 패키지 정보 받는 중')
-        --         --g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
-        --     if co:waitWork() then return end
-        -- end
-       
 
         -- hard refresh
         cclog('# UI 갱신')
         self:refresh(true)
-
+        
 		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
         if (not TutorialManager.getInstance():checkFullPopupBlock()) then
                         
@@ -2363,7 +2354,7 @@ function UI_Lobby:update_rightButtons()
         local is_noti_visible = g_battlePassData:isVisible_battlePassNoti()
                                 or g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID)
                                 or g_adventureClearPackageData03:isVisibleNotiAtLobby()
-                                --or g_dmgatePackageData:isNotiVisible()
+                                or g_dmgatePackageData:isNotiVisible()
         vars['battlePassNotiSprite']:setVisible(is_noti_visible)
         --vars['battlePassNotiSprite']:setVisible(g_battlePassData:isVisible_battlePassNoti())
         --vars['battlePassNotiSprite']:setVisible(g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID))

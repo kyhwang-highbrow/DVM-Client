@@ -12,22 +12,9 @@ ServerData_DmgatePackage = class({
 
     m_packageInfo = 'table',
     m_tableName = 'string',
+
+    m_bDirtyTable = 'boolean',
 })
-
---------------------------------------------------------------------------
--- function getInstance
---------------------------------------------------------------------------
-function ServerData_DmgatePackage:getInstance()
-    if g_dmgatePackageData then
-        return g_dmgatePackageData
-    end
-
-    g_dmgatePackageData = ServerData_DmgatePackage()
-
-    g_dmgatePackageData:convertPackageTableKey()
-
-    return g_dmgatePackageData
-end
 
 --------------------------------------------------------------------------
 -- function init
@@ -36,6 +23,7 @@ function ServerData_DmgatePackage:init()
     --self.m_serverData = server_data
     self.m_tableName = 'table_package_achievement' 
     self.m_packageInfo = {}
+    self.m_bDirtyTable = true
 end
 
 
@@ -56,7 +44,10 @@ function ServerData_DmgatePackage:request_info(product_id, cb_func, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-        self:response_info(ret, product_id)
+        if ret['active'] then
+            local product_info = ret['dmgate_stage_pack_info'][tostring(product_id)]
+            self:response_info(product_info, product_id)
+        end
 
         if (cb_func) then
             cb_func(ret)
@@ -80,12 +71,15 @@ end
 --------------------------------------------------------------------------
 -- function response_info
 --------------------------------------------------------------------------
-function ServerData_DmgatePackage:response_info(ret, product_id)
+function ServerData_DmgatePackage:response_info(product_info, product_id)
     local _product_id = tostring(product_id)
 
-    if ret['active'] then
-        self.m_packageInfo[_product_id] = ret['dmgate_stage_pack_info'][_product_id]
+    if self.m_bDirtyTable then
+        self:convertPackageTableKey()
+        self.m_bDirtyTable = false
     end
+
+    self.m_packageInfo[_product_id] = product_info
 end
 
 --------------------------------------------------------------------------
@@ -254,20 +248,26 @@ function ServerData_DmgatePackage:getProductIdWithDmgateID(dmgate_id)
 end
 
 function ServerData_DmgatePackage:isNotiVisible()
-    if(not self:isPackageActive()) then
-        return false
-    end
-
     local package_table = self:getPackageTable()
-
     local product_id
     local stage_id
     for i, v in pairs(package_table) do
-        product_id = v['product_id']
-        stage_id = v['achive_2']
-        if (not self:isRewardReceived(product_id, stage_id))
-        and g_dmgateData:isStageEverCleared(stage_id) then
-            return true
+        for key, data in pairs(v) do 
+            product_id = data['product_id']
+
+            cclog('111111111111111111')
+            if self:isPackageActive(product_id) then
+                stage_id = data['achive_2']
+                cclog('22222222222222222')
+    
+                if (not self:isRewardReceived(product_id, stage_id))
+                and g_dmgateData:isStageEverCleared(stage_id) then
+                    cclog('33333333333333333')
+                    return true
+                end
+
+                cclog('4444444444444444444')
+            end
         end
     end
 

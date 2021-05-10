@@ -220,6 +220,9 @@ function ServerData:getInstance()
 
     -- 시험의 탑 정복 선물 패키지 (2020.11.25)
     g_attrTowerPackageData = ServerData_AttrTowerPackage(g_serverData)
+
+    -- 차원문 돌파 패키지 (21.05.18)
+    g_dmgatePackageData = ServerData_DmgatePackage(g_serverData)
     
     -- 배틀패스 패키지
     g_battlePassData = ServerData_BattlePass(g_serverData)

@@ -139,7 +139,7 @@ function UI_BattlePassPopup:initTableView()
             if g_adventureClearPackageData03:isVisibleAtBattlePassShop() then
                 table.insert(tabList, v)
             end
-        elseif ServerData_DmgatePackage:getInstance():checkProductInTable(k) then
+        elseif g_dmgatePackageData:checkProductInTable(k) then
             --g_dmgatePackageData:request_info(v['product_id'])
             table.insert(tabList, v)
         else

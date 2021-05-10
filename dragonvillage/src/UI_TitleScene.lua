@@ -1259,6 +1259,13 @@ function UI_TitleScene:workGetServerInfo()
                     g_adventureClearPackageData03:response_adventureClearInfo(ret['stagepack_info']['110282'])
                 end
 
+                if (ret['dmgate_stage_pack_info']) then
+                    cclog('# 차원문 패키지 정보')
+                    for k, v in pairs(ret['dmgate_stage_pack_info']) do
+                        g_dmgatePackageData:response_info(v, k)
+                    end
+                end
+
                 -- 시험의 탑 정복 선물 패키지 2020.11.25
                 if (ret['attr_tower_pack_info']) then
                     cclog('# 시험의 탑 정복 선물 패키지 정보')
@@ -1313,6 +1320,12 @@ function UI_TitleScene:workGetServerInfo()
 			ui_network:request()
         end
         if co:waitWork() then return end
+
+        do 
+            co:work('# 차원문 정보 받는 중')
+            g_dmgateData:request_dmgateInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
 	
         co:close()
 
