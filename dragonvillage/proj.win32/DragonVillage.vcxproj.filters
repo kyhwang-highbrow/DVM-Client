@@ -4946,6 +4946,7 @@
     <None Include="..\src\UI_EventDailyQuest.lua" />
     <None Include="..\src\UI_Package_Dmgate.lua" />
     <None Include="..\src\ServerData_DmgatePackage.lua" />
+    <None Include="..\src\UI_DragonPickRates.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
