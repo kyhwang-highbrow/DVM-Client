@@ -159,7 +159,7 @@ function UI_Package_DmgateListItem:initUI()
         diff_name = diff_name .. ' '
     end
 
-    vars['levelLabel']:setString('{@default}' .. chapter_name .. '\n' .. '{@' .. diff_color .. '}' .. diff_name .. '{@default}' .. stage_name)
+    vars['levelLabel']:setString(chapter_name .. ' {@' .. diff_color .. '}' .. diff_name .. '{@default}' .. ' \n' .. stage_name)
     --vars['levelLabel']:setTextColor(diff_color)
     
 
