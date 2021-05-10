@@ -151,10 +151,15 @@ function UI_Package_DmgateListItem:initUI()
     local stage_id = self.m_data['achive_2']
     local chapter_name = g_dmgateData:getStageChapterText(stage_id)
     local stage_name = g_dmgateData:getStageName(stage_id)
+
+    local diff_color = g_dmgateData:getStageDiffColorStr(stage_id)
     local diff_name = g_dmgateData:getStageDiffText(stage_id)
     --local diff_color = g_dmgateData:getStageDiffTextColor(stage_id)
+    if diff_name ~= '' then
+        diff_name = diff_name .. ' '
+    end
 
-    vars['levelLabel']:setString(chapter_name .. ' ' .. stage_name .. ' ' .. diff_name)
+    vars['levelLabel']:setString('{@default}' .. chapter_name .. '\n' .. '{@' .. diff_color .. '}' .. diff_name .. '{@default}' .. stage_name)
     --vars['levelLabel']:setTextColor(diff_color)
     
 

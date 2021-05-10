@@ -157,7 +157,10 @@ end
 -- function response_reward
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:getPackageTable(product_id)
+
     local package_table = TABLE:get(self.m_tableName)
+
+    if (not product_id) then return package_table end
 
     return package_table[tostring(product_id)]
 end
@@ -248,6 +251,27 @@ function ServerData_DmgatePackage:getProductIdWithDmgateID(dmgate_id)
     end
 
     return nil
+end
+
+function ServerData_DmgatePackage:isNotiVisible()
+    if(not self:isPackageActive()) then
+        return false
+    end
+
+    local package_table = self:getPackageTable()
+
+    local product_id
+    local stage_id
+    for i, v in pairs(package_table) do
+        product_id = v['product_id']
+        stage_id = v['achive_2']
+        if (not self:isRewardReceived(product_id, stage_id))
+        and g_dmgateData:isStageEverCleared(stage_id) then
+            return true
+        end
+    end
+
+    return false
 end
 
 --function ServerData_DmgatePackage:getProductIdWithMatched

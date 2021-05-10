@@ -977,6 +977,15 @@ function ServerData_Dmgate:getStageDiffTextColor(stage_id)
 end
 
 ----------------------------------------------------------------------------
+-- function getStageDiffColorStr
+----------------------------------------------------------------------------
+function ServerData_Dmgate:getStageDiffColorStr(stage_id)
+    local diff_level = self:getDifficultyID(stage_id)
+    
+    return DmgateStringTable['diff_color'][diff_level]
+end
+
+----------------------------------------------------------------------------
 -- function getTimeStatus
 ----------------------------------------------------------------------------
 function ServerData_Dmgate:getTimeStatus()
