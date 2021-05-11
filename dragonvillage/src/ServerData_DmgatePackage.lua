@@ -257,16 +257,19 @@ function ServerData_DmgatePackage:isNotiVisible()
     local package_table = self:getPackageTable()
     local product_id
     local stage_id
-    for i, v in pairs(package_table) do
-        for key, data in pairs(v) do 
-            product_id = data['product_id']
 
-            if self:isPackageActive(product_id) and g_dmgateData.m_dmgateInfo then
-                stage_id = data['achive_2']
-    
-                if (not self:isRewardReceived(product_id, stage_id))
-                and g_dmgateData:isStageEverCleared(stage_id) then
-                    return true
+    if (not g_contentLockData:isContentLock('dmgate')) then
+        for i, v in pairs(package_table) do
+            for key, data in pairs(v) do 
+                product_id = data['product_id']
+
+                if self:isPackageActive(product_id) then
+                    stage_id = data['achive_2']
+        
+                    if (not self:isRewardReceived(product_id, stage_id))
+                    and g_dmgateData:isStageEverCleared(stage_id) then
+                        return true
+                    end
                 end
             end
         end
@@ -279,10 +282,14 @@ end
 -- function isPackageVisible
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:isPackageVisible(product_id)
+    if (g_contentLockData:isContentLock('dmgate')) then 
+        return false
+    end
+
     if (not self:isPackageActive(product_id)) then
         return true
     end
-
+    
     local package_table = self:getPackageTable()
     local product_id
     local stage_id

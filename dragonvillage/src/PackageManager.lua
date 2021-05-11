@@ -151,7 +151,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
         target_ui = UI_BattlePass_Nurture(_struct_product, is_popup)
 
     -- 차원문 돌파 패키지
-    elseif string.find(_package_name, 'package_dmgate') then
+    elseif string.find(_package_name, 'package_dmgate') and (not g_contentLockData:isContentLock('dmgate')) then
         require('UI_Package_Dmgate')
         local pid
         if product_id then 

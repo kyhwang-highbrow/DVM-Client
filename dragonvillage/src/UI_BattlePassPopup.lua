@@ -141,9 +141,11 @@ function UI_BattlePassPopup:initTableView()
             end
         elseif g_dmgatePackageData:checkProductInTable(k) then
             --g_dmgatePackageData:request_info(v['product_id'])
-            table.insert(tabList, v)
+            if (not g_contentLockData:isContentLock('dmgate')) then
+                table.insert(tabList, v)
+            end
+
         else
-            
             table.insert(tabList, v)
         end
     end
