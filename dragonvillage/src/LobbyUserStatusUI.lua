@@ -81,6 +81,7 @@ function LobbyUserStatusUI:init_statusUI()
     -- 클랜이 존재하지 않을 경우 정렬
     local struct_clan = struct_user_info:getStructClan()
     if (struct_clan) then
+        vars['titleLabel']:setPositionY(40)
         vars['nameLabel']:setPositionY(3)
         vars['tierNode']:setPositionY(3)
         vars['clanNode']:setVisible(true)

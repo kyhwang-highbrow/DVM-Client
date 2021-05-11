@@ -346,7 +346,7 @@ function StructUserInfo:makeTierIcon(tier, type)
     
     if (not self.m_lastArenaTier) then return nil end
 
-    local tier_icon = StructUserInfoArenaNew:makeTierIcon(tier, type)
+    local tier_icon = StructUserInfoArenaNew:makeTierIcon(self.m_lastArenaTier, type)
 
     return tier_icon
 end
