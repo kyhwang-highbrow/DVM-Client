@@ -2,7 +2,7 @@
 -- T2 =  (T1 * 룬 multi) + 룬 add
 -- T3 = (T2 * 버프 multi ) + 버프 add
 
-USE_NEW_COMBAT_POWER_CALC = false
+USE_NEW_COMBAT_POWER_CALC = true
 
 -------------------------------------
 -- class StructIndividualStatus

@@ -161,7 +161,8 @@ function TableStageData:getRecommendedCombatPower(stage_id, game_mode)
         level = self:getValue(stage_id, 'level')
     end
 
-    local combat_power = 197 * level
+    -- 3000 + (레벨*(1+0.0005*레벨))*197
+    local combat_power = 3000 + (level * (1 + 0.0005 * level)) * 197
 
     return combat_power
 end
