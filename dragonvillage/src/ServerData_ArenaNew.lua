@@ -991,6 +991,6 @@ end
 function ServerData_ArenaNew:applyTierInfo_Title(last_arena_tier)    
     if (not self.m_playerUserInfo) then self.m_playerUserInfo = StructUserInfoArenaNew() end
 
-    self.m_playerUserInfo.m_tier = isNullOrEmpty(last_arena_tier) == true and 'begginer' or last_arena_tier
+    self.m_playerUserInfo.m_tier = isNullOrEmpty(last_arena_tier) == true and 'beginner' or last_arena_tier
 end
 

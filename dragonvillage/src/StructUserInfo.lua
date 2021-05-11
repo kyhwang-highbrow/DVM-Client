@@ -340,13 +340,17 @@ end
 -- @return ServerData_ArenaNew에서 받아온것을 전달
 -------------------------------------
 function StructUserInfo:makeTierIcon(tier, type)
+    local tier_icon
+
     if (g_userData:get('uid') == self.m_uid) then 
-        return g_arenaNewData.m_playerUserInfo:makeTierIcon()
+        local tier_icon g_arenaNewData.m_playerUserInfo:makeTierIcon(tier, type)
     end
     
-    if (not self.m_lastArenaTier) then return nil end
+    if (not self.m_lastArenaTier) then self.m_lastArenaTier = 'beginner' end
 
     local tier_icon = StructUserInfoArenaNew:makeTierIcon(self.m_lastArenaTier, type)
+
+    if (tier_icon) then tier_icon:setScale(1.4) end
 
     return tier_icon
 end
