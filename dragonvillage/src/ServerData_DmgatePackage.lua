@@ -79,7 +79,9 @@ function ServerData_DmgatePackage:response_info(product_info, product_id)
         self.m_bDirtyTable = false
     end
 
-    self.m_packageInfo[_product_id] = product_info
+    if next(product_info) ~= nil then
+        self.m_packageInfo[_product_id] = product_info
+    end
 end
 
 --------------------------------------------------------------------------

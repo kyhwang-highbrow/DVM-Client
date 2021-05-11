@@ -171,6 +171,8 @@ function UI_Package_DmgateListItem:initUI()
         card.root:setSwallowTouch(false)
         vars['itemNode' .. i]:addChild(card.root)
     end
+
+
 end
 
 ----------------------------------------------------------------------
@@ -205,6 +207,12 @@ function UI_Package_DmgateListItem:refresh()
     
     vars['receiveSprite']:setVisible(isRewardReceived)
     vars['rewardBtn']:setEnabled((not isRewardReceived) and isStageEverCleared)
+
+    if vars['rewardBtn']:isEnabled() then
+        vars['infoLabel']:setTextColor(cc.c4b(0, 0, 0, 255))
+    else
+        vars['infoLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
+    end
 end
 
 
