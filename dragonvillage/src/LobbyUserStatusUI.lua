@@ -53,6 +53,9 @@ function LobbyUserStatusUI:init_statusUI()
 
     local btn_width, btn_height = vars['infoBtn']:getNormalSize()
 
+    -- 티어...
+    local tier_icon = struct_user_info:makeTierIcon()
+
     do -- 칭호, 닉네임
         local tamer_title_str = struct_user_info:getTamerTitleStr()
         if (vars['titleLabel']) then vars['titleLabel']:setString(tamer_title_str) end
@@ -78,13 +81,14 @@ function LobbyUserStatusUI:init_statusUI()
     -- 클랜이 존재하지 않을 경우 정렬
     local struct_clan = struct_user_info:getStructClan()
     if (struct_clan) then
-        --vars['nameLabel']:setPositionY(-28)
+        vars['nameLabel']:setPositionY(4)
+        vars['tierNode']:setPositionY(4)
         vars['clanNode']:setVisible(true)
     else
         --vars['nameLabel']:setPositionY(11)
-        vars['nameLabel']:setPositionY(-28)
-        vars['tierNode']:setPositionY(-28)
-        vars['titleLabel']:setPositionY(-11)
+        vars['nameLabel']:setPositionY(0)
+        vars['tierNode']:setPositionY(0)
+        vars['titleLabel']:setPositionY(11)
         vars['clanNode']:setVisible(false)
     end
 
@@ -105,25 +109,30 @@ function LobbyUserStatusUI:init_statusUI()
 
     -- 티어
     if (vars['tierNode']) then
-        local tier_icon = g_arenaNewData.m_playerUserInfo:makeTierIcon()
         vars['tierNode']:removeAllChildren()
-        vars['tierNode']:addChild(tier_icon)
-        tier_icon:setPosition(ZERO_POINT)
 
-        -- 중앙정렬
-        local info_btn_width, info_btn_height = vars['infoBtn']:getNormalSize()                 -- 버튼 배경 이미지
+        local info_btn_width, info_btn_height = vars['infoBtn']:getNormalSize()                             -- 버튼 배경 이미지
         local name_width = math_floor(vars['nameLabel']:getStringWidth() * vars['nameLabel']:getScaleX())   -- 텍스트 너비
-        local icon_width, icon_height = tier_icon:getNormalSize()                               -- 아이콘 크기
+        local icon_width = 0
+        local icon_height = 0
+
+        if (tier_icon) then
+            vars['tierNode']:addChild(tier_icon)
+            icon_width, icon_height = tier_icon:getNormalSize() 
+            tier_icon:setPosition(ZERO_POINT)
+        else
+            vars['nameLabel']:setDockPoint(CENTER_POINT)
+            vars['nameLabel']:setAnchorPoint(CENTER_POINT)
+            vars['nameLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        end
+
         icon_width = math_floor(icon_width * vars['tierNode']:getScaleX())
 
-        local center_point = math_floor(info_btn_width / 2)
         local content_center = math_floor((icon_width + name_width) / 2 + icon_width / 2)
-        local move_gap = math_floor(0 - (content_center / 2))
+        local move_gap = tier_icon and math_floor(0 - content_center) or 0
 
         vars['tierNode']:setPosition(0, vars['tierNode']:getPositionY())
-
         vars['nameLabel']:setPosition(math_floor(icon_width / 2), vars['nameLabel']:getPositionY())
-
         vars['tamerNode']:setPosition(move_gap, vars['tamerNode']:getPositionY())
     end
 end

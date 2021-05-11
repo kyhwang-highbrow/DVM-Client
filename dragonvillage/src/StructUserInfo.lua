@@ -25,6 +25,9 @@ StructUserInfo = class({
 
         -- 클랜
         m_structClan = 'StructClan',
+
+        -- 최근 콜로세움 티어
+        m_lastArenaTier = 'string',
     })
 
 -------------------------------------
@@ -301,6 +304,10 @@ function StructUserInfo:syncSUser(server_user)
     else
         self:setStructClan(nil)
     end
+
+    if t_json['last_arena_tier'] then
+        self.m_lastArenaTier = t_json['last_arena_tier']
+    end
 end
 
 -------------------------------------
@@ -325,4 +332,21 @@ end
 -------------------------------------
 function StructUserInfo:getUserData()
     return self.m_userData
+end
+
+-------------------------------------
+-- function makeTierIcon
+-- @brief 티어 아이콘 생성
+-- @return ServerData_ArenaNew에서 받아온것을 전달
+-------------------------------------
+function StructUserInfo:makeTierIcon(tier, type)
+    if (not self.m_lastArenaTier) then return nil end
+
+    if (g_userData:get('uid') == self.m_uid) then 
+        return g_arenaNewData.m_playerUserInfo:makeTierIcon()
+    end
+
+    local tier_icon = StructUserInfoArenaNew:makeTierIcon(tier, type)
+
+    return tier_icon
 end
