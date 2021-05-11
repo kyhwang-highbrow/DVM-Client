@@ -973,7 +973,7 @@ function ServerData_ArenaNew:setMatchUser(match_user)
 end
 
 -------------------------------------
--- function setMatchUser
+-- function hasArchiveReward
 -------------------------------------
 function ServerData_ArenaNew:hasArchiveReward(tier_id)    
     if (not self.m_firstArchivedInfo or type(self.m_firstArchivedInfo) ~= 'table') then return false end
@@ -984,3 +984,13 @@ function ServerData_ArenaNew:hasArchiveReward(tier_id)
 
     return true
 end
+
+-------------------------------------
+-- function applyTierInfo_Title
+-------------------------------------
+function ServerData_ArenaNew:applyTierInfo_Title(last_arena_tier)    
+    if (not self.m_playerUserInfo) then self.m_playerUserInfo = StructUserInfoArenaNew() end
+
+    self.m_playerUserInfo.m_tier = isNullOrEmpty(last_arena_tier) == true and 'begginer' or last_arena_tier
+end
+

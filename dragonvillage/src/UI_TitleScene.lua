@@ -244,6 +244,10 @@ function UI_TitleScene:makeUserDataForChatSocket()
     t_data['tamerTitleID'] = tamer_title_id
     t_data['json'] = {}
 
+    do
+        t_data['json']['tier'] = g_arenaNewData.m_playerUserInfo.m_tier
+    end
+
     do -- 클랜 정보
         local clan_struct = g_clanData:getClanStruct()
         if clan_struct then
@@ -1142,6 +1146,11 @@ function UI_TitleScene:workGetServerInfo()
 				
                 -- server_info 정보를 갱신
                 g_serverData:networkCommonRespone(ret)
+
+                if (ret['last_arena_tier']) then
+                    cclog('# 현재 티어 정보')
+                    g_arenaNewData:applyTierInfo_Title(ret['last_arena_tier'])
+                end
 
 				 -- 클랜 정보 (클랜 로비가 들어가면서 추가)
                 if (ret['clan']) then
