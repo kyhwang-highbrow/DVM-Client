@@ -23,6 +23,7 @@ UI_DmgateScene = class(PARENT, {
 
     m_packageBtn = 'UIC_Button',    -- 돌파 패키지 버튼
     m_seasonBtn = 'UIC_Button',     -- 시즌 효과 버튼
+    m_rankBtn = 'UIC_Button',       -- 랭킹 버튼
     m_infoBtn = 'UIC_Button',       -- 도움말 버튼
     m_shopBtn = 'UIC_Button',       -- 상점 버튼    
 
@@ -107,6 +108,7 @@ function UI_DmgateScene:initMember(stage_id)
 
 
     self.m_packageBtn = vars['dmgateBtn']   -- 돌파 패키지 버튼
+    self.m_rankBtn = vars['rankBtn']        -- 랭킹 버튼
     self.m_seasonBtn = vars['seasonBtn']    -- 시즌 효과 버튼
     self.m_infoBtn = vars['infoBtn']        -- 도움말 버튼
     self.m_shopBtn = vars['shopBtn']        -- 상점 버튼
@@ -199,6 +201,8 @@ function UI_DmgateScene:initButton()
         self.m_manageDevBtn:setVisible(true)
     end
 
+    -- 랭킹 버튼
+    self.m_rankBtn:registerScriptTapHandler(function() self:clickRankBtn() end)
     -- 시즌 효과 버튼
     self.m_seasonBtn:registerScriptTapHandler(function() self:click_seasonBtn() end)
     -- 도움말 버튼
@@ -346,6 +350,14 @@ function UI_DmgateScene:click_chapterBtn(chapter_id)
     self.m_chapterTableViews[chapter_id]:refreshAllItemUI()
 
     self:refresh()
+end
+
+----------------------------------------------------------------------------
+-- function clickRankBtn
+-- brief 랭킹 팝업 버튼
+----------------------------------------------------------------------------
+function UI_DmgateScene:clickRankBtn()
+    UI_DmgateRankPopup('dmgate_rank_popup.ui')
 end
 
 ----------------------------------------------------------------------------
