@@ -261,7 +261,7 @@ function ServerData_DmgatePackage:isNotiVisible()
         for key, data in pairs(v) do 
             product_id = data['product_id']
 
-            if self:isPackageActive(product_id) then
+            if self:isPackageActive(product_id) and g_dmgateData.m_dmgateInfo then
                 stage_id = data['achive_2']
     
                 if (not self:isRewardReceived(product_id, stage_id))
