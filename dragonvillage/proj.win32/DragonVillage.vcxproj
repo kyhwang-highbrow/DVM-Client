@@ -1316,6 +1316,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DiceEvent.lua" />
     <None Include="..\src\UI_DmgateDifficultyItem.lua" />
     <None Include="..\src\UI_DmgatePopup.lua" />
+    <None Include="..\src\UI_DmgateRankPopup.lua" />
     <None Include="..\src\UI_DmgateScene.lua" />
     <None Include="..\src\UI_DmgateShop.lua" />
     <None Include="..\src\UI_DmgateStageItem.lua" />

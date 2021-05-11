@@ -4947,6 +4947,7 @@
     <None Include="..\src\UI_Package_Dmgate.lua" />
     <None Include="..\src\ServerData_DmgatePackage.lua" />
     <None Include="..\src\UI_DragonPickRates.lua" />
+    <None Include="..\src\UI_DmgateRankPopup.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

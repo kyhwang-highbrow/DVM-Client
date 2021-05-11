@@ -202,7 +202,7 @@ function UI_DmgateScene:initButton()
     end
 
     -- 랭킹 버튼
-    self.m_rankBtn:registerScriptTapHandler(function() self:clickRankBtn() end)
+    self.m_rankBtn:registerScriptTapHandler(function() self:click_rankBtn() end)
     -- 시즌 효과 버튼
     self.m_seasonBtn:registerScriptTapHandler(function() self:click_seasonBtn() end)
     -- 도움말 버튼
@@ -356,8 +356,10 @@ end
 -- function clickRankBtn
 -- brief 랭킹 팝업 버튼
 ----------------------------------------------------------------------------
-function UI_DmgateScene:clickRankBtn()
-    UI_DmgateRankPopup('dmgate_rank_popup.ui')
+function UI_DmgateScene:click_rankBtn()
+    require('UI_DmgateRankPopup')
+    UI_DmgateRankPopup()
+    --UI_DmgateRankPopup('dmgate_rank_popup.ui')
 end
 
 ----------------------------------------------------------------------------
