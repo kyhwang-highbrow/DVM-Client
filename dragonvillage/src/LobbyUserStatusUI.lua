@@ -83,6 +83,7 @@ function LobbyUserStatusUI:init_statusUI()
     else
         --vars['nameLabel']:setPositionY(11)
         vars['nameLabel']:setPositionY(-28)
+        vars['tierNode']:setPositionY(-28)
         vars['titleLabel']:setPositionY(-11)
         vars['clanNode']:setVisible(false)
     end
@@ -100,6 +101,30 @@ function LobbyUserStatusUI:init_statusUI()
 
         -- 중앙 정렬
 	    UIHelper:makePriceNodeVariable(nil,  vars['markNode'], vars['clanLabel'])
+    end
+
+    -- 티어
+    if (vars['tierNode']) then
+        local tier_icon = g_arenaNewData.m_playerUserInfo:makeTierIcon()
+        vars['tierNode']:removeAllChildren()
+        vars['tierNode']:addChild(tier_icon)
+        tier_icon:setPosition(ZERO_POINT)
+
+        -- 중앙정렬
+        local info_btn_width, info_btn_height = vars['infoBtn']:getNormalSize()                 -- 버튼 배경 이미지
+        local name_width = math_floor(vars['nameLabel']:getStringWidth() * vars['nameLabel']:getScaleX())   -- 텍스트 너비
+        local icon_width, icon_height = tier_icon:getNormalSize()                               -- 아이콘 크기
+        icon_width = math_floor(icon_width * vars['tierNode']:getScaleX())
+
+        local center_point = math_floor(info_btn_width / 2)
+        local content_center = math_floor((icon_width + name_width) / 2 + icon_width / 2)
+        local move_gap = math_floor(0 - (content_center / 2))
+
+        vars['tierNode']:setPosition(0, vars['tierNode']:getPositionY())
+
+        vars['nameLabel']:setPosition(math_floor(icon_width / 2), vars['nameLabel']:getPositionY())
+
+        vars['tamerNode']:setPosition(move_gap, vars['tamerNode']:getPositionY())
     end
 end
 
