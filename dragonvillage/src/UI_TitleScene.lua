@@ -245,7 +245,7 @@ function UI_TitleScene:makeUserDataForChatSocket()
     t_data['json'] = {}
 
     do
-        t_data['json']['tier'] = g_arenaNewData.m_playerUserInfo.m_tier
+        t_data['json']['last_arena_tier'] = g_arenaNewData.m_playerUserInfo.m_tier
     end
 
     do -- 클랜 정보

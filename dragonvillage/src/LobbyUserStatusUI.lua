@@ -81,8 +81,8 @@ function LobbyUserStatusUI:init_statusUI()
     -- 클랜이 존재하지 않을 경우 정렬
     local struct_clan = struct_user_info:getStructClan()
     if (struct_clan) then
-        vars['nameLabel']:setPositionY(4)
-        vars['tierNode']:setPositionY(4)
+        vars['nameLabel']:setPositionY(3)
+        vars['tierNode']:setPositionY(3)
         vars['clanNode']:setVisible(true)
     else
         --vars['nameLabel']:setPositionY(11)
@@ -129,7 +129,7 @@ function LobbyUserStatusUI:init_statusUI()
         icon_width = math_floor(icon_width * vars['tierNode']:getScaleX())
 
         local content_center = math_floor((icon_width + name_width) / 2 + icon_width / 2)
-        local move_gap = tier_icon and math_floor(0 - content_center) or 0
+        local move_gap = tier_icon and math_floor(0 - content_center / 2) or 0
 
         vars['tierNode']:setPosition(0, vars['tierNode']:getPositionY())
         vars['nameLabel']:setPosition(math_floor(icon_width / 2), vars['nameLabel']:getPositionY())

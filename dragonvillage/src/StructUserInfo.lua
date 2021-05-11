@@ -340,11 +340,11 @@ end
 -- @return ServerData_ArenaNew에서 받아온것을 전달
 -------------------------------------
 function StructUserInfo:makeTierIcon(tier, type)
-    if (not self.m_lastArenaTier) then return nil end
-
     if (g_userData:get('uid') == self.m_uid) then 
         return g_arenaNewData.m_playerUserInfo:makeTierIcon()
     end
+    
+    if (not self.m_lastArenaTier) then return nil end
 
     local tier_icon = StructUserInfoArenaNew:makeTierIcon(tier, type)
 
