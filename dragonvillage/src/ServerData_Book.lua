@@ -615,7 +615,9 @@ function ServerData_Book:getBookNotiList()
             if (not t_dragon) then
                 t_dragon = table_slime:get(did_num)
 
-                if (t_dragon['slime'] == 129215) then
+                if (not t_dragon) then
+                    cclog('정의되지 않은 슬라임 id :: ' .. tostring(did_num))
+                elseif (t_dragon['slime'] == 129215) then
                     t_dragon = nil
                 end
             end
