@@ -245,7 +245,7 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 
     -- 테이머 1등 이펙트
     local tier = self.m_tUserInfo['info']['arena_new_tier']
-    if (tier == 'legend') then
+    if (tier and tier == 'legend') then
         -- Ranker Animator 생성
         local bg_animator = MakeAnimator('res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp')
         if bg_animator.m_node then
