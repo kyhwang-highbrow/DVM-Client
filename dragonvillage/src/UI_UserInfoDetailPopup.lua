@@ -243,7 +243,7 @@ function UI_UserInfoDetailPopup:refresh_tamer()
         self.vars['changeBtn']:setPositionX(nick_str_width)
     end
 
-    local last_season_tier = self.m_tUserInfo['info']['last_arena_tier']
+    local last_season_tier = self.m_tUserInfo['info']['last_arena_tier'] or 'beginner'
     if (last_season_tier) then
         -- 테이머 1등 이펙트
         if (last_season_tier == 'legend') then
