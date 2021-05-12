@@ -243,21 +243,6 @@ function UI_UserInfoDetailPopup:refresh_tamer()
         self.vars['changeBtn']:setPositionX(nick_str_width)
     end
 
-    -- 티어 아이콘
-    local tier = self.m_tUserInfo['info']['arena_new_tier']
-    if (tier) then
-        local tier_icon = StructUserInfoArenaNew:makeTierIcon(tier, 'big')
-        if (vars['tierNode']) then
-            vars['tierNode']:removeAllChildren()
-
-            if (tier_icon) then
-                vars['tierNode']:addChild(tier_icon)
-                tier_icon:setScale(1.25)
-                tier_icon:setPosition(ZERO_POINT)
-            end
-        end
-    end
-
     -- 테이머 1등 이펙트
     local last_season_tier = g_arenaNewData:getMyLastTier()
     if (last_season_tier) then
@@ -271,7 +256,8 @@ function UI_UserInfoDetailPopup:refresh_tamer()
             end
         end
 
-        local tier_icon = StructUserInfoArenaNew:makeTierIcon(tier, 'big')
+        -- 티어 아이콘
+        local tier_icon = StructUserInfoArenaNew:makeTierIcon(last_season_tier, 'big')
         if (vars['tierNode']) then
             vars['tierNode']:removeAllChildren()
 
