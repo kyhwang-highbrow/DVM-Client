@@ -89,11 +89,11 @@ function LobbyUserStatusUI:init_statusUI()
         vars['clanNode']:setPositionY(0)
     elseif (has_title == true) then
         vars['clanNode']:setVisible(false)
-        vars['titleLabel']:setPositionY(24)
-        vars['nameLabel']:setPositionY(-9)
+        vars['titleLabel']:setPositionY(20)
+        vars['nameLabel']:setPositionY(-15)
     else
         vars['clanNode']:setVisible(false)
-        vars['nameLabel']:setPositionY(5)
+        vars['nameLabel']:setPositionY(0)
     end
 
 
