@@ -6,6 +6,7 @@ local PARENT = class(IStateHelper:getCloneClass(), IEventDispatcher:getCloneTabl
 LobbyCharacter = class(PARENT, {
         m_rootNode = 'cc.Node',
         m_animator = 'Animator',
+        m_backgroundAnimator = 'Animator',      -- 티어랭커 배경과 같은 이펙트용
 
         -- state 관련 변수
         m_tStateAni = 'table[string]',        -- state별 animation명

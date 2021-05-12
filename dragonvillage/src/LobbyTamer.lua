@@ -19,6 +19,16 @@ LobbyTamer.MOVE_ACTION = 100
 function LobbyTamer:init(user_data)
     self.m_userData = user_data
     self.m_idleTimer = 0
+
+    if (user_data.m_lastArenaTier == 'legend') then
+        -- Ranker Animator 생성
+        self.m_backgroundAnimator = MakeAnimator('res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp')--AnimatorHelper:makeTamerAnimator(file_name)
+        if self.m_backgroundAnimator.m_node then
+		    self.m_rootNode:addChild(self.m_backgroundAnimator.m_node, 1)
+            self.m_backgroundAnimator.m_node:setPositionY(105)
+            self.m_backgroundAnimator.m_node:setScale(1)
+        end
+    end
 end
 
 -------------------------------------
