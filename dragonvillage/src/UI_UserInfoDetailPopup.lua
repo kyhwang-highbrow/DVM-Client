@@ -245,13 +245,26 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 
     -- 테이머 1등 이펙트
     local tier = self.m_tUserInfo['info']['arena_new_tier']
-    if (tier and tier == 'legend') then
+    if (tier) then
         -- Ranker Animator 생성
-        local bg_animator = MakeAnimator('res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp')
-        if bg_animator.m_node then
-		    vars['tamerNode']:addChild(bg_animator.m_node, -1)
-            bg_animator.m_node:setPositionY(105)
-            bg_animator.m_node:setScale(1)
+        if (tier == 'legend') then
+            local bg_animator = MakeAnimator('res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp')
+            if bg_animator.m_node then
+		        vars['tamerNode']:addChild(bg_animator.m_node, -1)
+                bg_animator.m_node:setPositionY(105)
+                bg_animator.m_node:setScale(1)
+            end
+        end
+
+        local tier_icon = StructUserInfoArenaNew:makeTierIcon(tier, 'big')
+        if (vars['tierNode']) then
+            vars['tierNode']:removeAllChildren()
+
+            if (tier_icon) then
+                vars['tierNode']:addChild(tier_icon)
+                tier_icon:setScale(1.25)
+                tier_icon:setPosition(ZERO_POINT)
+            end
         end
     end
 end
