@@ -104,7 +104,7 @@ function UI_ClanMemberListItem:refresh()
     local color = user_info:getMemberTypeColor()
     vars['positionLabel']:setColor(color)
     if (member_type ~= 'member') then
-        vars['positionLabel']:setPositionX(144)
+        vars['positionLabel']:setPositionX(215)
     end
     vars['masterSprite']:setColor(color)
     vars['crownSprite']:setColor(color)
