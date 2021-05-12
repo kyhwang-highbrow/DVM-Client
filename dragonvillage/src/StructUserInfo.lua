@@ -345,6 +345,13 @@ function StructUserInfo:getUserData()
 end
 
 -------------------------------------
+-- function setLeaderDragonObject
+-------------------------------------
+function StructUserInfo:setLeaderDragonObject(data)
+    self.m_leaderDragonObject = StructDragonObject(data)
+end
+
+-------------------------------------
 -- function makeTierIcon
 -- @brief 티어 아이콘 생성
 -- @return ServerData_ArenaNew에서 받아온것을 전달
@@ -353,12 +360,12 @@ function StructUserInfo:makeTierIcon(tier, type)
     local tier_icon
 
     if (g_userData:get('uid') == self.m_uid) then 
-        local tier_icon g_arenaNewData.m_playerUserInfo:makeTierIcon(tier, type)
-    end
+        tier_icon = g_arenaNewData.m_playerUserInfo:makeTierIcon(tier, type)
+    else
+        if (not self.m_lastArenaTier) then self.m_lastArenaTier = 'beginner' end
     
-    if (not self.m_lastArenaTier) then self.m_lastArenaTier = 'beginner' end
-
-    local tier_icon = StructUserInfoArenaNew:makeTierIcon(self.m_lastArenaTier, type)
+        tier_icon = StructUserInfoArenaNew:makeTierIcon(self.m_lastArenaTier, type)   
+    end
 
     if (tier_icon) then tier_icon:setScale(1.4) end
 
@@ -367,7 +374,13 @@ end
 
 
 
+-------------------------------------
+-- function getTierName
+-- @brief
+-------------------------------------
+-- function StructUserInfo:getTierName(tier)
 
+-- end
 
 
 

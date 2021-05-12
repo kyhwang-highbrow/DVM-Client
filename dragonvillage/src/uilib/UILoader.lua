@@ -436,7 +436,6 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             )
         setPropsForLabel(node, data)
     elseif (type == 'LabelTTF') and ((ui_name == 'rich') or (ui_name == 'scroll')) then
-    --    ccdump(data)
         local rich_label = UIC_RichLabel()
         node = rich_label.m_node
         setPropsForNode(node, data)

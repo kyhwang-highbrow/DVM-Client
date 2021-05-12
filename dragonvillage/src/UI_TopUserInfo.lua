@@ -463,7 +463,6 @@ end
 -------------------------------------
 function UI_TopUserInfo:chatBroadcast(t_data)
     local vars = self.vars
-    --ccdump(t_data)
 
     local msg = t_data['message']
     local nickname = t_data['nickname']

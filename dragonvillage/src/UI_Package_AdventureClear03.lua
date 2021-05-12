@@ -87,7 +87,6 @@ function UI_Package_AdventureClear03:init_tableView()
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
         --ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data['did']) end)
-        --ccdump(data)
     end
 
     -- 테이블 뷰 인스턴스 생성

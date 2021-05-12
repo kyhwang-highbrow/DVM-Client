@@ -205,14 +205,14 @@ function UI_DmgateRankStage:initRankSortList()
         sort_list:addSortType('clan', Str('클랜원 랭킹'))
     end
 
-    sort_list:setSortChangeCB(function(sort_type) self:onChangeRankSort(sort_type) end)
+    sort_list:setSortChangeCB(function(type) self:onChangeRankSort(type) end)
     sort_list:setSelectSortType('my')
 end
 
 ----------------------------------------------------------------------
 -- function onChangeRankSort
 ----------------------------------------------------------------------
-function UI_DmgateRankStage:onChangeRankSort(sort_type)
+function UI_DmgateRankStage:onChangeRankSort(type)
     local sort_type
     local offset
     if (type == 'my') then
@@ -395,6 +395,7 @@ function UI_DmgateRankStageItem:initUI()
         self.vars['tierLabel']:setString(self.m_rankInfo:getTierName())
 
     -- 리더 드래곤
+    self.m_rankInfo:setLeaderDragonObject(self.m_rankInfo['m_leader'])
     local ui = self.m_rankInfo:getLeaderDragonCard()
     if ui then
         ui.root:setSwallowTouch(false)

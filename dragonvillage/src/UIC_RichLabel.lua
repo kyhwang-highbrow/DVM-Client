@@ -741,8 +741,6 @@ function UIC_RichLabel:click_word(t_content, label, underline, color)
         end
     end
 
-    --ccdump(t_content)
-
     self:makeClickReaction(label, color)
     self:makeClickReaction(underline, color)
 end
