@@ -48,6 +48,7 @@ StructUserInfoArenaNew = class(PARENT, {
         m_rank = 'number',       -- 월드 랭킹
         m_rankPercent = 'float',-- 월드 랭킹 퍼센트
         m_tier = 'string',       -- 티어
+        m_lastTier = 'string',       -- 티어
         m_straight = 'number',   -- 연승 정보
         m_power = 'number',
 

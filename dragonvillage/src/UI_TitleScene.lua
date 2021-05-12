@@ -245,7 +245,7 @@ function UI_TitleScene:makeUserDataForChatSocket()
     t_data['json'] = {}
 
     do
-        t_data['json']['last_arena_tier'] = g_arenaNewData.m_playerUserInfo.m_tier
+        t_data['json']['last_arena_tier'] = g_arenaNewData.m_playerUserInfo.m_lastTier
     end
 
     do -- 클랜 정보
@@ -1149,7 +1149,7 @@ function UI_TitleScene:workGetServerInfo()
 
                 if (ret['last_arena_tier']) then
                     cclog('# 현재 티어 정보')
-                    g_arenaNewData:applyTierInfo_Title(ret['last_arena_tier'])
+                    g_arenaNewData:applyLastTierInfo_Title(ret['last_arena_tier'])
                 end
 
 				 -- 클랜 정보 (클랜 로비가 들어가면서 추가)

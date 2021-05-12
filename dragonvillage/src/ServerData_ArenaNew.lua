@@ -986,11 +986,20 @@ function ServerData_ArenaNew:hasArchiveReward(tier_id)
 end
 
 -------------------------------------
--- function applyTierInfo_Title
+-- function applyLastTierInfo_Title
 -------------------------------------
-function ServerData_ArenaNew:applyTierInfo_Title(last_arena_tier)    
+function ServerData_ArenaNew:applyLastTierInfo_Title(last_arena_tier)    
     if (not self.m_playerUserInfo) then self.m_playerUserInfo = StructUserInfoArenaNew() end
 
-    self.m_playerUserInfo.m_tier = isNullOrEmpty(last_arena_tier) == true and 'beginner' or last_arena_tier
+    self.m_playerUserInfo.m_lastTier = isNullOrEmpty(last_arena_tier) == true and 'beginner' or last_arena_tier
+end
+
+-------------------------------------
+-- function getMyLastTier
+-------------------------------------
+function ServerData_ArenaNew:getMyLastTier()
+    local tier = self.m_playerUserInfo.m_lastTier and self.m_playerUserInfo.m_lastTier or 'beginner'
+
+    return tier
 end
 
