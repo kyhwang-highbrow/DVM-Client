@@ -243,10 +243,9 @@ function UI_UserInfoDetailPopup:refresh_tamer()
         self.vars['changeBtn']:setPositionX(nick_str_width)
     end
 
-    -- 테이머 1등 이펙트
-    local last_season_tier = g_arenaNewData:getMyLastTier()
+    local last_season_tier = self.m_tUserInfo['info']['last_arena_tier']
     if (last_season_tier) then
-        -- Ranker Animator 생성
+        -- 테이머 1등 이펙트
         if (last_season_tier == 'legend') then
             local bg_animator = MakeAnimator('res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp')
             if bg_animator.m_node then
@@ -263,7 +262,6 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 
             if (tier_icon) then
                 vars['tierNode']:addChild(tier_icon)
-                tier_icon:setScale(1.25)
                 tier_icon:setPosition(ZERO_POINT)
             end
         end
