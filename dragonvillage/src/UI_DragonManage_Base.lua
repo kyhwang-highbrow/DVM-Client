@@ -313,7 +313,8 @@ end
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -------------------------------------
 function UI_DragonManage_Base:getDragonList()
-    return g_dragonsData:getDragonListWithSlime()
+    --return g_dragonsData:getDragonListWithSlime()
+    return g_dragonsData:getDragonsListRef()
 end
 
 -------------------------------------

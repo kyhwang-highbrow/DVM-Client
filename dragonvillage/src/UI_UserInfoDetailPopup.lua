@@ -242,6 +242,18 @@ function UI_UserInfoDetailPopup:refresh_tamer()
         local nick_str_width = vars['nameLabel']:getStringWidth() - 130
         self.vars['changeBtn']:setPositionX(nick_str_width)
     end
+
+    -- 테이머 1등 이펙트
+    local tier = self.m_tUserInfo['info']['arena_new_tier']
+    if (tier == 'legend') then
+        -- Ranker Animator 생성
+        local bg_animator = MakeAnimator('res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp')
+        if bg_animator.m_node then
+		    vars['tamerNode']:addChild(bg_animator.m_node, -1)
+            bg_animator.m_node:setPositionY(105)
+            bg_animator.m_node:setScale(1)
+        end
+    end
 end
 
 -------------------------------------

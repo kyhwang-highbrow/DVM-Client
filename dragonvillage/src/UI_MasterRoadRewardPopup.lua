@@ -149,6 +149,8 @@ function UI_MasterRoadRewardPopup:makeMasterRoadContent(is_start_with_move)
 		if (self.m_showCb) then
 			self.m_showCb()
 		end
+
+        if (self.m_masterRoadUI) then self.m_masterRoadUI.m_bInit = true end
     end
 
     -- 등장 시 액션
