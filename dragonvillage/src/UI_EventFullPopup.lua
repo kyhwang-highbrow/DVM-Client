@@ -227,6 +227,14 @@ function UI_EventFullPopup:initUI()
         local event_version = l_str[2]
         ui = UI_EventPopupTab_PurchaseDaily(event_version, true) -- params : event_version, is_full_popup
 
+    -- 다르누스 인연 포인트 이벤트
+    elseif (string.find(popup_key, 'event_daily_quest')) then
+        local l_str = plSplit(popup_key, ';')
+        local event_data = { banner = l_str[2], url = l_str[3] or ''}
+        local struct_data = StructEventPopupTab(event_data)
+        ui = UI_EventPopupTab_Banner(self, struct_data)
+
+
     elseif (self.m_targetUI) then
         ui = self.m_targetUI
     end

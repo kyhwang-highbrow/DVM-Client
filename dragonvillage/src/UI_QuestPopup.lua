@@ -321,6 +321,14 @@ function UI_QuestPopup:refreshEventDailyQuest()
         local progress = t_event_info['progress']
         progress = math_min(progress, max)
         vars['evenDailyQuestCountLabel']:setString(string.format('%d / %d', progress, max))
+
+        if (vars['eventBtn']) then
+            vars['eventBtn']:registerScriptTapHandler(function()
+                -- 주의 :: 따라하지 마시오
+                local ui = UI_EventFullPopup('event_daily_quest;event_update.ui')
+                ui:openEventFullPopup()
+            end)
+        end
     else
         vars['eventDailyQuestMenu']:setVisible(false)
     end
