@@ -184,7 +184,7 @@ function LobbyDragon:moveToTamer()
     --local dragon_x, dragon_y = self.m_rootNode:getPosition()
 
     local x = self.m_targetX
-	local y = self.m_targetY
+	local y = self.m_targetY - 3
 
     local flip = self.m_targetTamer.m_animator.m_bFlip
 	local factor = (self.m_evolution == 3) and 150 or 100
