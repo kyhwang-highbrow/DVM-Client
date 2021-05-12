@@ -25,25 +25,11 @@ function LobbyTamer:init(user_data)
         self.m_backgroundAnimator = MakeAnimator('res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp')--AnimatorHelper:makeTamerAnimator(file_name)
         if self.m_backgroundAnimator.m_node then
 		    self.m_rootNode:addChild(self.m_backgroundAnimator.m_node, 1)
+            self.m_backgroundAnimator.m_node:setPositionX(25)
             self.m_backgroundAnimator.m_node:setPositionY(155)
-            self.m_backgroundAnimator.m_node:setScale(1)
+            self.m_backgroundAnimator.m_node:setScale(1.2)
         end
-
-        -- 이펙트 생성
-        --[[
-        local animation = MakeAnimator('res/ui/a2d/arena_new/arena_new.vrp')
-        if animation.m_node then
-            self.m_rootNode:addChild(animation.m_node, 0)
-            animation:changeAni('tier_08', true)
-            animation:setOpacity(200)
-            animation.m_node:setPositionY(155)
-            animation.m_node:setScale(1.5)
-
-        end
-    	]]
     end
-    
-    
 end
 
 -------------------------------------
