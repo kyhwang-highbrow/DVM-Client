@@ -358,7 +358,7 @@ end
 ----------------------------------------------------------------------------
 function UI_DmgateScene:click_rankBtn()
     require('UI_DmgateRankPopup')
-    UI_DmgateRankPopup()
+    UI_DmgateRankPopup(self.m_modeId)
     --UI_DmgateRankPopup('dmgate_rank_popup.ui')
 end
 

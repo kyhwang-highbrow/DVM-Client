@@ -315,6 +315,39 @@ function ServerData_Dmgate:request_buy(struct_product, count, cb_func, fail_cb)
     return ui_network
 end
 
+----------------------------------------------------------------------------
+-- function request_rank
+-- @brief 차원문 랭킹을 서버에 요청
+----------------------------------------------------------------------------
+function ServerData_Dmgate:request_rank(data, success_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    local sort_type = data['type']
+    local offset = data['offset']
+
+    local function callback_for_success(ret)
+
+        if success_cb then success_cb(ret, sort_type, offset) end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dmgate/ranking')
+    ui_network:setParam('uid', uid)
+    if data['offset'] then ui_network:setParam('offset', data['offset']) end
+    if data['limit'] then ui_network:setParam('limit', data['limit']) end
+    if data['type'] then ui_network:setParam('type', data['type']) end
+    if data['dm_id'] then ui_network:setParam('dm_id', data['dm_id']) end
+    if data['stage'] then ui_network:setParam('stage', data['stage']) end
+    ui_network:setSuccessCB(callback_for_success)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+
 -- ******************************************************************************************************
 -- ** Help functions related with 
 -- ******************************************************************************************************
@@ -738,7 +771,18 @@ end
 --      01 스테이지(stage)      : 스테이지 번호
 ----------------------------------------------------------------------------
 function ServerData_Dmgate:makeDimensionGateID(mode, chapter, difficulty, stage)
-    return (GAME_MODE_DIMENSION_GATE * 100000) + (mode * 10000) + (chapter * 1000) + (difficulty * 100) + stage
+    return (GAME_MODE_DIMENSION_GATE * 100000) 
+            + (tonumber(mode) * 10000) 
+            + (tonumber(chapter) * 1000) 
+            + (tonumber(difficulty) * 100) 
+            + tonumber(stage)
+end
+
+----------------------------------------------------------------------------
+-- function getDmgateID
+----------------------------------------------------------------------------
+function ServerData_Dmgate:getDmgateID(mode_id)
+    return self:makeDimensionGateID(mode_id, 0, 0, 0)
 end
 
 ----------------------------------------------------------------------------
@@ -1107,3 +1151,31 @@ function ServerData_Dmgate:MakeSeasonResetPopup(mode_id, is_season_reset)
     end
 end
 
+
+
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+StructDmgateRank = class(StructUserInfo, {
+
+})
+
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function StructDmgateRank:init(rank_info)
+    if rank_info then
+        self:apply(rank_info)
+    end
+end
+
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function StructDmgateRank:apply(rank_info)
+
+end

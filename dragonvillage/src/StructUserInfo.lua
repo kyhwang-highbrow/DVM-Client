@@ -56,12 +56,22 @@ function StructUserInfo:applyTableData(data)
     local replacement = {}
     replacement['uid'] = 'm_uid'
     replacement['nickname'] = 'm_nickname'
+    replacement['nick'] = 'm_nickname'
     replacement['lv'] = 'm_lv'
     replacement['leader_dragon_object'] = 'm_leaderDragonObject'
     
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
-        self[key] = v
+        if key then
+            if rawget(self, key) then
+                self[key] = v
+            else
+                if not string.find(key, 'm_') then
+                    key = 'm_' .. key
+                end
+                rawset(self, key, v)
+            end
+        end
     end
 end
 
@@ -353,4 +363,106 @@ function StructUserInfo:makeTierIcon(tier, type)
     if (tier_icon) then tier_icon:setScale(1.4) end
 
     return tier_icon
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local S_TIER_NAME_MAP = {}
+S_TIER_NAME_MAP['legend']   = Str('레전드')
+S_TIER_NAME_MAP['hero']     = Str('히어로')
+S_TIER_NAME_MAP['master']   = Str('마스터')
+S_TIER_NAME_MAP['diamond']  = Str('다이아')
+S_TIER_NAME_MAP['platinum'] = Str('플래티넘')
+S_TIER_NAME_MAP['gold']     = Str('골드')
+S_TIER_NAME_MAP['silver']   = Str('실버')
+S_TIER_NAME_MAP['bronze']   = Str('브론즈')
+S_TIER_NAME_MAP['beginner'] = Str('입문자')
+
+-------------------------------------
+-- function getTierName
+-- @brief
+-------------------------------------
+function StructUserInfo:getTierName(tier)
+    local tier = (tier or self.m_tier)
+
+    local pure_tier, tier_grade = self:perseTier(tier)
+
+
+    if (S_TIER_NAME_MAP[pure_tier]) then
+        if (pure_tier ~= 'master') and (0 < tier_grade) then
+            return Str(S_TIER_NAME_MAP[pure_tier]) .. ' ' .. tostring(tier_grade)
+        else
+            return Str(S_TIER_NAME_MAP[pure_tier])
+        end
+    else
+        return '지정되지 않은 티어 이름'
+    end
+end
+
+-------------------------------------
+-- function makeTierIcon
+-- @brief 티어 아이콘 생성
+-- @return icon cc.Sprite 경우에 따라 nil이 리턴될 수 있음
+-------------------------------------
+-- function StructUserInfo:makeTierIcon(tier, type)
+--     local tier = (tier or self.m_tier)
+    
+--     local pure_tier, tier_grade = self:perseTier(tier)
+--     if (not pure_tier) then
+--         return
+--     end
+
+--     if (type == 'big') then
+--         res = string.format('res/ui/icons/pvp_tier/pvp_tier_%s.png', pure_tier)
+--     else
+--         res = string.format('res/ui/icons/pvp_tier/pvp_tier_s_%s.png', pure_tier)
+--     end
+
+--     local icon = cc.Sprite:create(res)
+--     if (icon) then
+--         icon:setDockPoint(cc.p(0.5, 0.5))
+--         icon:setAnchorPoint(cc.p(0.5, 0.5))
+--     end
+--     return icon
+-- end
+
+-------------------------------------
+-- function perseTier
+-- @brief 티어 구분 (bronze_3 -> bronze, 3)
+-------------------------------------
+function StructUserInfo:perseTier(tier_str)
+    local tier_str = (tier_str or self.m_tier)
+    if (not tier_str) then
+        return
+    end
+
+    local str_list = pl.stringx.split(tier_str, '_')
+    local pure_tier = str_list[1]
+    local tier_grade = tonumber(str_list[2]) or 0
+    return pure_tier, tier_grade
+end
+
+-------------------------------------
+-- function getUserText
+-- @brief
+-------------------------------------
+function StructUserInfo:getUserText()
+    local str
+    if self.m_lv and (0 < tonumber(self.m_lv)) then
+        str = Str('Lv.{1} {2}', self.m_lv, self.m_nickname)
+    else
+        str = self.m_nickname
+    end
+    return str
 end
