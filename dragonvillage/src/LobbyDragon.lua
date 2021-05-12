@@ -182,7 +182,7 @@ end
 -------------------------------------
 function LobbyDragon:moveToTamer()
     --local dragon_x, dragon_y = self.m_rootNode:getPosition()
-
+    -- 테이머 후광에 가려질 수도 있기 떄문에 y값 낭낭하게 -3
     local x = self.m_targetX
 	local y = self.m_targetY - 3
 
