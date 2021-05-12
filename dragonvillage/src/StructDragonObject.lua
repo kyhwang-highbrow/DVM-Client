@@ -445,12 +445,13 @@ function StructDragonObject:getCombatPower(status_calc)
             skill_coef = (1 + coef_gap * total_skill_level)
         end
 
+        --[[
         if IS_DEV_SERVER() then
             cclog(
             '도합스킬레벨 :: ' .. tostring(total_skill_level) .. 
             ' 스킬배율 :: ( ' .. tostring(skill_coef) .. ' )' .. 
             ' ... 총 전투력 :: ' .. tostring(combat_power * skill_coef))
-        end
+        end]]
 
         return math_floor(combat_power * skill_coef)
     end

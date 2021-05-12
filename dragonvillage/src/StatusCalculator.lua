@@ -511,6 +511,7 @@ function StatusCalculator:getNewCombatPower()
 
     total_combat_power = total_combat_power * mastery_coef
 
+    --[[
     if IS_DEV_SERVER() then
         cclog(
         self.m_charTable[self.m_chapterID]['t_name'] .. 
@@ -518,7 +519,7 @@ function StatusCalculator:getNewCombatPower()
         ' ... 능력치 전투력 :: ' .. tostring(total_combat_power) .. 
         ' 특성레벨 :: ' .. tostring(self.m_masteryLv) .. 
         ' 특성배율 :: ( ' .. tostring(mastery_coef) .. ' )')
-    end
+    end]]
 
     return math_floor(total_combat_power)
 end
