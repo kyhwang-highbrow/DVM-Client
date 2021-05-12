@@ -53,11 +53,9 @@ function LobbyUserStatusUI:init_statusUI()
 
     local btn_width, btn_height = vars['infoBtn']:getNormalSize()
 
-    -- 티어...
-    local tier_icon = struct_user_info:makeTierIcon()
-
+    local tamer_title_str
     do -- 칭호, 닉네임
-        local tamer_title_str = struct_user_info:getTamerTitleStr()
+        tamer_title_str = struct_user_info:getTamerTitleStr()
         if (vars['titleLabel']) then vars['titleLabel']:setString(tamer_title_str) end
 
         local nickname = struct_user_info:getNickname()
@@ -80,17 +78,23 @@ function LobbyUserStatusUI:init_statusUI()
 
     -- 클랜이 존재하지 않을 경우 정렬
     local struct_clan = struct_user_info:getStructClan()
-    if (struct_clan) then
-        vars['titleLabel']:setPositionY(46)
-        vars['nameLabel']:setPositionY(4)
-        vars['tierNode']:setPositionY(4)
+    local has_title = isNullOrEmpty(tamer_title_str) == false
+    cclog(has_title)
+    if (struct_clan and has_title == true) then
         vars['clanNode']:setVisible(true)
-    else
-        --vars['nameLabel']:setPositionY(11)
-        vars['nameLabel']:setPositionY(4)
-        vars['tierNode']:setPositionY(4)
-        vars['titleLabel']:setPositionY(11)
+        vars['tamerNode']:setPositionY(9)
+    elseif (struct_clan) then
+        vars['clanNode']:setVisible(true)
+        vars['tamerNode']:setPositionY(24)
+        vars['clanNode']:setPositionY(0)
+    elseif (has_title == true) then
         vars['clanNode']:setVisible(false)
+        vars['titleLabel']:setPositionY(24)
+        vars['tamerNode']:setPositionY(0)
+    else
+        vars['clanNode']:setVisible(false)
+        vars['tamerNode']:setPositionY(9)
+        --vars['nameLabel']:setPositionY(11)
     end
 
 
@@ -105,36 +109,17 @@ function LobbyUserStatusUI:init_statusUI()
         vars['clanLabel']:setString(clan_name)
 
         -- 중앙 정렬
-	    UIHelper:makePriceNodeVariable(nil,  vars['markNode'], vars['clanLabel'])
+	    --UIHelper:makePriceNodeVariable(nil,  vars['markNode'], vars['clanLabel'])
     end
 
-    -- 티어
+    -- 티어...
+    local tier_icon = struct_user_info:makeTierIcon()
     if (vars['tierNode']) then
         vars['tierNode']:removeAllChildren()
 
-        local info_btn_width, info_btn_height = vars['infoBtn']:getNormalSize()                             -- 버튼 배경 이미지
-        local name_width = math_floor(vars['nameLabel']:getStringWidth() * vars['nameLabel']:getScaleX())   -- 텍스트 너비
-        local icon_width = 0
-        local icon_height = 0
-
         if (tier_icon) then
             vars['tierNode']:addChild(tier_icon)
-            icon_width, icon_height = tier_icon:getNormalSize() 
-            tier_icon:setPosition(ZERO_POINT)
-        else
-            vars['nameLabel']:setDockPoint(CENTER_POINT)
-            vars['nameLabel']:setAnchorPoint(CENTER_POINT)
-            vars['nameLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         end
-
-        icon_width = math_floor(icon_width * vars['tierNode']:getScaleX())
-
-        local content_center = math_floor((icon_width + name_width) / 2 + icon_width / 2)
-        local move_gap = tier_icon and math_floor(0 - content_center / 2) or 0
-
-        vars['tierNode']:setPosition(0, vars['tierNode']:getPositionY())
-        vars['nameLabel']:setPosition(math_floor(icon_width / 2), vars['nameLabel']:getPositionY())
-        vars['tamerNode']:setPosition(move_gap, vars['tamerNode']:getPositionY())
     end
 end
 
