@@ -504,16 +504,36 @@ end
 function UI_DmgateRankTotal:init_rankTableView(ret)
     local vars = self.vars
 
-    local function create_func(ui, data)
-        
+    local rank_top_list = {}
+    local rank_rest_list = {}
+    for key, data in pairs(ret['list']) do
+        if key <= 3 then
+            table.insert(rank_top_list, data)
+        else
+            table.insert(rank_rest_list, data)
+        end
     end
 
+    for key, data in pairs(rank_top_list) do
+        --vars['tamerNode' .. tostring(key)]:removeAllChildren()
+
+        local ui = UI_DmgateRankTotalTopItem(data)
+        vars['tamerNode' .. tostring(key)]:addChild(ui.root)
+    end
+
+    local function create_func(ui, data)
+        
+    end    
+
+    if #rank_rest_list > 0 then
     local tableview = UIC_TableView(vars['totalRankListNode'])
-    tableview:setCellSizeToNodeSize(true)
-    --tableview:setGapBtwCells(25)
-    tableview:setCellUIClass(UI_DmgateRankTotalItem, create_func)
-    tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    tableview:setItemList(ret['list'], true)
+        tableview:setCellSizeToNodeSize(true)
+        --tableview.m_defaultCellSize = cc.p()
+        tableview:setGapBtwCells(5)
+        tableview:setCellUIClass(UI_DmgateRankTotalItem, create_func)
+        tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        tableview:setItemList(rank_rest_list, true)
+    end
 
 end
 
@@ -579,8 +599,6 @@ function UI_DmgateRankTotalItem:initUI()
     else
         self.vars['timeLabel']:setString('-')
     end
-
-
 end
 
 ----------------------------------------------------------------------
@@ -597,6 +615,70 @@ function UI_DmgateRankTotalItem:refresh()
 end
 
 
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  class UI_DmgateRankTotalTopItem
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+UI_DmgateRankTotalTopItem = class(class(UI, ITableViewCell:getCloneTable()), {
+    m_rankInfo = '',
+})
+
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_DmgateRankTotalTopItem:init(rank_info)
+    self.m_rankInfo = StructUserInfo(rank_info)
+    local vars = self:load('dmgate_rank_popup_total_item_01.ui')
+
+    -- @UI_ACTION
+    --self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+    self:refresh()  
+end
+
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_DmgateRankTotalTopItem:initUI()
+    local vars = self.vars
+    
+    do -- 테이머 아이콘 갱신
+        local icon = IconHelper:getTamerProfileIconWithCostumeID(self.m_rankInfo['m_costume'])
+        vars['tamerNode']:removeAllChildren()
+        vars['tamerNode']:addChild(icon)
+    end
+
+    -- 레벨, 닉네임
+    self.vars['userLabel']:setString(Str('Lv.{1} ', self.m_rankInfo:getLv()) .. self.m_rankInfo:getNickname())
+
+    -- 클랜
+    local struct_clan = self.m_rankInfo:getStructClan()
+    if struct_clan then
+        self.vars['clanLabel']:setString(struct_clan:getClanName())
+
+        local icon = struct_clan:makeClanMarkIcon()
+        if icon then self.vars['markNode']:addChild(icon) end
+    else
+        self.vars['clanMenu']:setVisible(false)
+    end
+
+    -- 시간
+    local clear_time = self.m_rankInfo['m_clear_time']
+    if clear_time > 0.0 then 
+        self.vars['timeLabel']:setString(Str('{1}초', string.format('%.3f', clear_time)))
+    else
+        self.vars['timeLabel']:setString('-')
+    end
+
+
+    --vars['tamerNode']
+end
 
 
 

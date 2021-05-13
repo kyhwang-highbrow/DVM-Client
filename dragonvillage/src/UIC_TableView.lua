@@ -1200,7 +1200,7 @@ function UIC_TableView:makeItemUI(data, key)
     -- UI 에서 한국어아 아니면 ui의 루트에 새로운 노드를 생성하여
     -- 딜레이타임을 가지고 하위 라벨 체크를 하는 액션을 취한다.
     -- 그 말인 즉 ui.root:getChildrenCount() 이 1, 2 두개의 값을 가질 수 있다는것
-    if (self.m_bFixedCellSize) and (ui.root:getChildrenCount() <= 2) then
+    if (self.m_bFixedCellSize) then -- and (ui.root:getChildrenCount() <= 2) then
         local size = ui.root:getChildren()[1]:getContentSize()
         local width = size['width']
         local height = size['height']
