@@ -1,7 +1,7 @@
 -------------------------------------
 -- function makeTamerNew
 -------------------------------------
-function GameWorld:makeTamerNew(t_tamer_data, t_costume_data, bRightFormation)
+function GameWorld:makeTamerNew(t_tamer_data, t_costume_data, bRightFormation, bg_res_path)
     local t_tamer_data = t_tamer_data
     local bLeftFormation = not bRightFormation
 
@@ -28,6 +28,15 @@ function GameWorld:makeTamerNew(t_tamer_data, t_costume_data, bRightFormation)
     -- 피격 처리
     tamer:addDefCallback(function(attacker, defender, i_x, i_y)
     end)
+
+    -- 배경 이펙트 추가
+    if (isNullOrEmpty(bg_res_path) == false) then
+        local bg_animator = MakeAnimator(bg_res_path)
+        if bg_animator.m_node then
+            tamer.m_rootNode:addChild(bg_animator.m_node, -1)
+            bg_animator.m_node:setScale(0.5)
+        end
+    end
 
     self:addToUnitList(tamer)
     self.m_worldNode:addChild(tamer.m_rootNode, WORLD_Z_ORDER.TAMER)
