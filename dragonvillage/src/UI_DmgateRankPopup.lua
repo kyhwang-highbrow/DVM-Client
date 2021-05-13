@@ -388,11 +388,11 @@ function UI_DmgateRankStageItem:initUI()
     end
 
     -- 티어
-        local icon = self.m_rankInfo:makeTierIcon(nil, 'big')
-        if (icon) then
-            self.vars['tierNode']:addChild(icon)
-        end
-        self.vars['tierLabel']:setString(self.m_rankInfo:getTierName())
+        -- local icon = self.m_rankInfo:makeTierIcon(nil, 'big')
+        -- if (icon) then
+        --     self.vars['tierNode']:addChild(icon)
+        -- end
+        -- self.vars['tierLabel']:setString(self.m_rankInfo:getTierName())
 
     -- 리더 드래곤
     self.m_rankInfo:setLeaderDragonObject(self.m_rankInfo['m_leader'])
