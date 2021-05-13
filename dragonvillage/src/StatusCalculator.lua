@@ -490,10 +490,26 @@ function StatusCalculator:getNewCombatPower()
         table_stat[stat_name] = final_stat
     end
 
-    -- 공격점수 =  공격력*(1+치확*치피)*(2+공격속도)/3*(4+적중)/5
-    local attack_point = table_stat['atk'] * (1 + table_stat['cri_chance'] * 0.01 * table_stat['cri_dmg'] * 0.01) * (2 + table_stat['aspd'] * 0.01) / 3 * (4 + table_stat['hit_rate'] * 0.01) / 5
+    local rune_type
+    local t_char = self.m_charTable[self.m_chapterID]
+    if (t_char) then rune_type = t_char['rune'] end
 
-    -- 피해 감소 비율 계수 계산식 = 1/(1-방어력/(1200+방어력))
+    local attack_point
+
+    if (rune_type == 'pink') then
+        -- 치명 피해 드래곤 공격 점수 = 공격력*(1+(치확+40)*(치피-40))*(4+공격속도)/5*(4+적중)/5
+        attack_point = table_stat['atk'] * (1 + (table_stat['cri_chance'] + 40) * (table_stat['cri_dmg'] - 40)) * (4 + table_stat['aspd']) / 5 * (4 + table_stat['hit_rate']) / 5
+
+    elseif (rune_type == 'blue') then
+        -- 공속 드래곤 공격 점수 = 공격력*(1+치확*치피)*(0.5+공격속도)/1.5*(4+적중)/5
+        attack_point = table_stat['atk'] * (1 + table_stat['cri_chance'] * table_stat['cri_dmg']) * (0.5 + table_stat['aspd']) / 1.5 * (4 + table_stat['hit_rate']) / 5
+
+    else
+        -- 일반 공격 점수 = 공격력*(1+치확*치피)*(4+공격속도)/5*(4+적중)/5
+        attack_point = table_stat['atk'] * (1 + table_stat['cri_chance'] * table_stat['cri_dmg']) * (4 + table_stat['aspd']) / 5 * (4 + table_stat['hit_rate']) / 5
+    end
+
+    -- 피해 감소 비율 = 1/(1-방어력/(1200+방어력))
     local dmg_avoid_rate = 1 / (1 - table_stat['def'] / (1200 + table_stat['def']))
 
     -- 방어 점수 = (생명력 + 125000) * 피해감소비율계수 * (3 + 회피)/3 * (3 + 치명회피) / 3  / 180
