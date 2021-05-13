@@ -226,10 +226,6 @@ end
 function Tamer.st_dead(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:setDead()
-
-        if (owner.m_background) then
-            owner.m_background:setVisible(false)
-        end
     end
 
     return true
@@ -386,6 +382,10 @@ function Tamer.st_dying(owner, dt)
 
         if (owner.m_barrier) then
 		    owner.m_barrier:changeAni('disappear', false)
+        end
+        
+        if (owner.m_background) then
+            owner.m_background:setVisible(false)
         end
     end
 end
