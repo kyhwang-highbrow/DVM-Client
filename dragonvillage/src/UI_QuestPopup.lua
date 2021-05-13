@@ -325,8 +325,7 @@ function UI_QuestPopup:refreshEventDailyQuest()
         if (vars['eventBtn']) then
             vars['eventBtn']:registerScriptTapHandler(function()
                 -- 주의 :: 따라하지 마시오
-                local ui = UI_EventFullPopup('event_daily_quest;event_update.ui')
-                ui:openEventFullPopup()
+                g_fullPopupManager:showFullPopup('event_daily_quest;event_update.ui')
             end)
         end
     else
