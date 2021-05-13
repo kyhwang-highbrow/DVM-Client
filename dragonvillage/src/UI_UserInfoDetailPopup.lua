@@ -250,8 +250,9 @@ function UI_UserInfoDetailPopup:refresh_tamer()
             local bg_animator = MakeAnimator('res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp')
             if bg_animator.m_node then
 		        vars['tamerNode']:addChild(bg_animator.m_node, -1)
-                bg_animator.m_node:setPositionY(105)
-                bg_animator.m_node:setScale(1)
+                bg_animator.m_node:setPositionX(65)
+                bg_animator.m_node:setPositionY(65)
+                bg_animator.m_node:setScale(1.2)
             end
         end
 
