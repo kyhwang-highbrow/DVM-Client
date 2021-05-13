@@ -167,6 +167,8 @@ function GameWorldArenaNew:initTamer()
         self.m_tamer.m_animator.m_node:pause()
 
         self.m_tamer:addListener('hero_tamer_skill_gauge', self)
+
+        tier_res = nil
     end
     
     -- 적군 테이머 생성
@@ -188,8 +190,6 @@ function GameWorldArenaNew:initTamer()
         self.m_enemyTamer.m_animator.m_node:pause()
 
         self.m_enemyTamer:addListener('enemy_tamer_skill_gauge', self)
-
-        tier_res = nil
     end
 
     -- 테이머 UI 생성
