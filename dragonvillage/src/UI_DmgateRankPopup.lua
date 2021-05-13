@@ -272,7 +272,7 @@ function UI_DmgateRankStage:init_rankTableView(ret, sort_type, offset)
     local count = #rank_list
 
     for i=1, (20 - count) do
-        table.insert(rank_list, rank_list[1])
+        table.insert(rank_list, rank_list[2])
     end
 
     local uid = g_userData:get('uid')

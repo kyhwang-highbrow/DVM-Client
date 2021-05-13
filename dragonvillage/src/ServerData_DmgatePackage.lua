@@ -44,10 +44,10 @@ function ServerData_DmgatePackage:request_info(product_id, cb_func, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-        if ret['active'] then
+        --if ret['active'] then
             local product_info = ret['dmgate_stage_pack_info'][tostring(product_id)]
             self:response_info(product_info, product_id)
-        end
+        --end
 
         if (cb_func) then
             cb_func(ret)
@@ -80,7 +80,9 @@ function ServerData_DmgatePackage:response_info(product_info, product_id)
     end
 
     --if next(product_info) ~= nil then
-    self.m_packageInfo[_product_id] = product_info
+    if product_info['active'] == true then
+        self.m_packageInfo[_product_id] = product_info['received_list']
+    end
     --end
 end
 
