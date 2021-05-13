@@ -266,6 +266,10 @@ function UI_UserInfoDetailPopup:refresh_tamer()
                 tier_icon:setPosition(ZERO_POINT)
             end
         end
+
+        if (vars['tierLabel']) then
+            vars['tierLabel']:setString(StructUserInfoArenaNew:getTierName(last_season_tier))
+        end
     end
 end
 
