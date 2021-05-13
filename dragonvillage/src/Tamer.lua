@@ -25,6 +25,10 @@ Tamer = class(PARENT, {
 
         m_targetItem = 'DropItem',
         m_targetItemStack = '',
+
+        -- 배경에 넣을 오브젝트 
+        -- 애니메이션, png 원하는거 다 가능
+        m_background = '',
      })
 
 -------------------------------------
@@ -187,6 +191,10 @@ function Tamer.st_roam(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_roamTimer = 0
         owner:setAfterImage(false)
+
+        if (owner.m_background) then
+            owner.m_background:setScale(0.5)
+        end
     end
 
     local skill_id = owner:getInterceptableSkillID()
@@ -218,6 +226,10 @@ end
 function Tamer.st_dead(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:setDead()
+
+        if (owner.m_background) then
+            owner.m_background:setVisible(false)
+        end
     end
 
     return true
