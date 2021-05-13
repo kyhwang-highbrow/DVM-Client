@@ -79,7 +79,7 @@ function UI_DmgateRankPopup:click_tabBtn(index)
 
     local ui
     if (not index) or (index == 0) then
-        ui = UI_DmgateRankTotal()
+        ui = UI_DmgateRankTotal(self.m_modeId)
     else
         ui = UI_DmgateRankStage(self.m_modeId, index)
     end
@@ -269,6 +269,11 @@ function UI_DmgateRankStage:init_rankTableView(ret, sort_type, offset)
     self.m_userNode:removeAllChildren()
     
     local rank_list = ret['list'] or {}
+    local count = #rank_list
+
+    for i=1, (20 - count) do
+        table.insert(rank_list, rank_list[1])
+    end
 
     local uid = g_userData:get('uid')
 
@@ -435,18 +440,22 @@ end
 --//  
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 UI_DmgateRankTotal = class(PARENT, {
+    m_modeId = 'number',
 })
 
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_DmgateRankTotal:init()
+function UI_DmgateRankTotal:init(mode_id)
     local vars = self:load('dmgate_rank_popup_total.ui')
+    self.m_modeId = mode_id
 
     -- @UI_ACTION
     --self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
+
+    self:request_rank()
 
     self:initUI()
     self:initButton()
@@ -472,8 +481,88 @@ end
 function UI_DmgateRankTotal:refresh()
 end
 
+----------------------------------------------------------------------
+-- function request_rank
+----------------------------------------------------------------------
+function UI_DmgateRankTotal:request_rank() 
+    local data = {}
+    data['limit'] = 99
+    data['dm_id'] = g_dmgateData:getDmgateID(self.m_modeId)
+
+    
+    local function success_cb(ret)
+        self:init_rankTableView(ret)
+    end
 
 
+    g_dmgateData:request_rank(data, success_cb)
+end
+
+----------------------------------------------------------------------
+-- function init_rankTableView
+----------------------------------------------------------------------
+function UI_DmgateRankTotal:init_rankTableView(ret)
+    local vars = self.vars
+
+    local function create_func(ui, data)
+        
+    end
+
+    local tableview = UIC_TableView(vars['totalRankListNode'])
+    tableview:setCellSizeToNodeSize(true)
+    --tableview:setGapBtwCells(5)
+    tableview:setCellUIClass(UI_DmgateRankTotalItem, create_func)
+    tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    tableview:setItemList(ret['list'], true)
+
+end
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  class UI_DmgateRankTotalItem
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+UI_DmgateRankTotalItem = class(class(UI, ITableViewCell:getCloneTable()), {
+    m_rankInfo = '',
+})
+
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_DmgateRankTotalItem:init(rank_info)
+    self.m_rankInfo = StructUserInfo(rank_info)
+    local vars = self:load('dmgate_rank_popup_total_item_02.ui')
+
+    -- @UI_ACTION
+    --self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+    self:refresh()  
+end
+
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_DmgateRankTotalItem:initUI()
+
+end
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_DmgateRankTotalItem:initButton()
+    
+end
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_DmgateRankTotalItem:refresh()
+
+end
 
 
 

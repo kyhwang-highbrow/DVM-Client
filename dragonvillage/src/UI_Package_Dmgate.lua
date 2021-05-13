@@ -71,11 +71,14 @@ function UI_Package_Dmgate:initTableView()
     vars['productNode']:setVisible(not isPackagePurchased)
     vars['buyBtn']:setVisible(not isPackagePurchased)
     vars['contractBtn']:setVisible(not isPackagePurchased)
+    vars['rewardVisual']:setVisible(not isPackagePurchased)
 
     if isPackagePurchased then
         node = vars['productNodeLong']
+        vars['infoLabel']:setString(Str('수령 완료'))
     else
         node = vars['productNode']
+        vars['rewardVisual']:setTimeScale(2)
     end
 
     local item_list = g_dmgatePackageData:getPackageTable(product_id)

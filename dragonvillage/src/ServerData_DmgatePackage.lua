@@ -79,9 +79,9 @@ function ServerData_DmgatePackage:response_info(product_info, product_id)
         self.m_bDirtyTable = false
     end
 
-    if next(product_info) ~= nil then
-        self.m_packageInfo[_product_id] = product_info
-    end
+    --if next(product_info) ~= nil then
+    self.m_packageInfo[_product_id] = product_info
+    --end
 end
 
 --------------------------------------------------------------------------
@@ -144,6 +144,7 @@ end
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:response_reward(ret, product_id)
     local _product_id = tostring(product_id)
+
 
     self.m_packageInfo[_product_id] = ret['dmgate_stage_pack_info'][_product_id]
 end
