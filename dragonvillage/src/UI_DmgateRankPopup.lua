@@ -269,11 +269,6 @@ function UI_DmgateRankStage:init_rankTableView(ret, sort_type, offset)
     self.m_userNode:removeAllChildren()
     
     local rank_list = ret['list'] or {}
-    local count = #rank_list
-
-    for i=1, (20 - count) do
-        table.insert(rank_list, rank_list[2])
-    end
 
     local uid = g_userData:get('uid')
 
