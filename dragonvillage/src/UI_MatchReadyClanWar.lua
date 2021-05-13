@@ -176,6 +176,9 @@ function UI_MatchReadyClanWar:click_startBtn()
         local is_cash = false
         local function request()
             local function cb(ret)
+                g_clanWarData.m_playerUserInfo.m_lastTier = self.m_myStructMatchItem.user_info.m_lastTier
+                g_clanWarData.m_OpponentUserInfo.m_lastTier = self.m_curEnemyStructMatchItem.user_info.m_lastTier
+                
                 -- 시작이 두번 되지 않도록 하기 위함
                 UI_BlockPopup()
                 -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)

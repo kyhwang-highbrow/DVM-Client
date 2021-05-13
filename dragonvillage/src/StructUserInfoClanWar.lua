@@ -137,6 +137,11 @@ function StructUserInfoClanWar:createUserInfo(t_data)
     user_info.m_tier = t_data['tier']
     if (t_data['debris'] and t_data['debris']['tier']) then user_info.m_tier = t_data['debris']['tier'] end
 
+    local has_last_info = false
+
+    if (t_data['info'] and isNullOrEmpty(t_data['info']['last_tier']) == false) then has_last_info = true end
+    user_info.m_lastTier = has_last_info == true and t_data['info']['last_tier'] or 'beginner'
+
     user_info.m_rp = t_data['rp']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
