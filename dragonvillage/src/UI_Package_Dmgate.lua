@@ -96,6 +96,27 @@ function UI_Package_Dmgate:initTableView()
     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     tableview:setItemList(item_list, true)
     self.m_tableview = tableview
+
+    if g_dmgatePackageData:isPackageActive(product_id) then
+        local isReceivableReward = false
+        local target_index
+        for key, data in pairs(item_list) do
+            local stage_id = data['achive_2']
+            local isRewardReceived = g_dmgatePackageData:isRewardReceived(product_id, stage_id)
+            local isStageEverCleared = g_dmgateData:isStageEverCleared(stage_id)
+
+            isReceivableReward = (not isRewardReceived) and isStageEverCleared
+            if isReceivableReward then 
+                target_index = key
+                break 
+            end
+        end
+
+        if isReceivableReward then
+            self.m_tableview:update(0)
+            self.m_tableview:relocateContainerFromIndex(target_index)
+        end
+    end
 end
 
 ----------------------------------------------------------------------

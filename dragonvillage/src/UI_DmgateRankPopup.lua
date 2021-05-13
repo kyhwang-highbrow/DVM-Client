@@ -510,7 +510,7 @@ function UI_DmgateRankTotal:init_rankTableView(ret)
 
     local tableview = UIC_TableView(vars['totalRankListNode'])
     tableview:setCellSizeToNodeSize(true)
-    --tableview:setGapBtwCells(5)
+    --tableview:setGapBtwCells(25)
     tableview:setCellUIClass(UI_DmgateRankTotalItem, create_func)
     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     tableview:setItemList(ret['list'], true)
@@ -548,6 +548,38 @@ end
 -- function init
 ----------------------------------------------------------------------
 function UI_DmgateRankTotalItem:initUI()
+    
+    -- 순위
+    local rank = self.m_rankInfo['m_rank']
+
+    if rank and tonumber(rank) > 0 then 
+        self.vars['rankLabel']:setString(Str('{1}위', comma_value(rank)))
+    else
+        self.vars['rankLabel']:setString('-')
+    end
+
+    -- 레벨, 닉네임
+    self.vars['userLabel']:setString(Str('Lv.{1} ', self.m_rankInfo:getLv()) .. self.m_rankInfo:getNickname())
+
+    -- 클랜
+    local struct_clan = self.m_rankInfo:getStructClan()
+    if struct_clan then
+        self.vars['clanLabel']:setString(struct_clan:getClanName())
+
+        local icon = struct_clan:makeClanMarkIcon()
+        if icon then self.vars['markNode']:addChild(icon) end
+    else
+        self.vars['clanLabel']:setVisible(false)
+    end
+
+    -- 시간
+    local clear_time = self.m_rankInfo['m_clear_time']
+    if clear_time > 0.0 then 
+        self.vars['timeLabel']:setString(Str('{1}초', string.format('%.3f', clear_time)))
+    else
+        self.vars['timeLabel']:setString('-')
+    end
+
 
 end
 
