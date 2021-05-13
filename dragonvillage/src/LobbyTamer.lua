@@ -25,9 +25,9 @@ function LobbyTamer:init(user_data)
         self.m_backgroundAnimator = MakeAnimator('res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp')--AnimatorHelper:makeTamerAnimator(file_name)
         if self.m_backgroundAnimator.m_node then
 		    self.m_rootNode:addChild(self.m_backgroundAnimator.m_node, 1)
-            self.m_backgroundAnimator.m_node:setPositionX(25)
-            self.m_backgroundAnimator.m_node:setPositionY(155)
-            self.m_backgroundAnimator.m_node:setScale(1.2)
+            self.m_backgroundAnimator.m_node:setPositionX(55)
+            self.m_backgroundAnimator.m_node:setPositionY(125)
+            self.m_backgroundAnimator.m_node:setScale(1.3)
         end
     end
 end
