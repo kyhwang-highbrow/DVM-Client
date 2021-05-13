@@ -35,6 +35,8 @@ function GameWorld:makeTamerNew(t_tamer_data, t_costume_data, bRightFormation, b
         if bg_animator.m_node then
             tamer.m_rootNode:addChild(bg_animator.m_node, -1)
             bg_animator.m_node:setScale(1)
+            bg_animator.m_node:setPositionX(25)
+            bg_animator.m_node:setPositionY(0)
         end
 
         tamer.m_background = bg_animator

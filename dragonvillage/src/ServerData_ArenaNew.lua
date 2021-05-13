@@ -365,6 +365,7 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_tamerID = data['tamer']
     struct_user_info.m_leaderDragonObject = StructDragonObject(data['leader'])
     struct_user_info.m_tier = data['tier']
+    struct_user_info.m_lastTier = data['last_tier'] and data['last_tier'] or 'beginner'
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
     struct_user_info.m_state = data['state']
@@ -851,6 +852,8 @@ function ServerData_ArenaNew:setRewardInfo(ret)
         local struct_user_info = StructUserInfoArenaNew()
         struct_user_info.m_uid = g_userData:get('uid')
         self:_refresh_playerUserInfo(struct_user_info, ret['lastinfo'])
+
+        if (isNullOrEmpty(ret['lastinfo']['tier']) == false) then self.m_playerUserInfo.m_lastTier = ret['lastinfo']['tier'] end
 
         -- 클랜
         if (ret['my_info'] and ret['my_info']['clan_info']) then
