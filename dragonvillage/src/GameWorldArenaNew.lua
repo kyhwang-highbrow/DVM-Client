@@ -188,6 +188,8 @@ function GameWorldArenaNew:initTamer()
         self.m_enemyTamer.m_animator.m_node:pause()
 
         self.m_enemyTamer:addListener('enemy_tamer_skill_gauge', self)
+
+        tier_res = nil
     end
 
     -- 테이머 UI 생성
