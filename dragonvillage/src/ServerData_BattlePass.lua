@@ -451,7 +451,7 @@ end
 function ServerData_BattlePass:openBattlePassPopup(close_cb)
     local function coroutine_function(dt)
         local co = CoroutineHelper()
-        co:setBlockPopup()
+        --co:setBlockPopup()
 
         co:work('# 배틀패스 정보 받는중')
         self:request_battlePassInfo(co.NEXT, co.ESCAPE)
@@ -460,6 +460,8 @@ function ServerData_BattlePass:openBattlePassPopup(close_cb)
         co:close()
 
         local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_BattlePassPopup')
+        ccdump('goto_battlepass')
+        ccdump(is_opend)
         if (is_opend == true) then
             UINavigatorDefinition:closeUIList(idx)
             return

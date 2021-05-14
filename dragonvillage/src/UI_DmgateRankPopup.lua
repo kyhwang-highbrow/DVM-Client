@@ -1,4 +1,18 @@
 local PARENT = UI
+
+
+local function convertTimeToStringFormat(time)
+    time = string.format('%.2f', tostring(time))
+    local decimal = 0
+    local floating = 0
+    decimal, floating = string.match(tostring(time), "([^.]*)%.([^.]*)")
+
+    local minutes = tonumber(decimal) / 60
+    local sec = tonumber(decimal) % 60
+    local millisec = tonumber(floating)
+    return string.format('%02d:%02d:%02d', minutes, sec, millisec)
+end
+
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --//  
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -429,7 +443,8 @@ function UI_DmgateRankStageItem:initUI()
     -- 시간
     local clear_time = self.m_rankInfo['m_clear_time']
     if clear_time > 0.0 then 
-        self.vars['timeLabel']:setString(Str('{1}초', string.format('%.3f', clear_time)))
+        self.vars['timeLabel']:setString(convertTimeToStringFormat(clear_time))
+        --self.vars['timeLabel']:setString(Str('{1}초', string.format('%.3f', clear_time)))
     else
         self.vars['timeLabel']:setString('-')
     end
@@ -505,8 +520,14 @@ end
 function UI_DmgateRankTotal:init_rankTableView(ret)
     local vars = self.vars
 
+    if #ret['list'] == 0 then 
+        vars['rankMenu']:setVisible(false)
+        vars['infoMenu']:setVisible(true)
+    end
+
     local rank_top_list = {}
     local rank_rest_list = {}
+
     for key, data in pairs(ret['list']) do
         if key <= 3 then
             table.insert(rank_top_list, data)
@@ -515,12 +536,17 @@ function UI_DmgateRankTotal:init_rankTableView(ret)
         end
     end
 
-    for key, data in pairs(rank_top_list) do
-        --vars['tamerNode' .. tostring(key)]:removeAllChildren()
-
-        local ui = UI_DmgateRankTotalTopItem(data)
-        vars['tamerNode' .. tostring(key)]:addChild(ui.root)
+    for i = 1, 3 do
+        local ui = UI_DmgateRankTotalTopItem(rank_top_list[i])
+        vars['tamerNode' .. tostring(i)]:addChild(ui.root)
     end
+
+    -- for key, data in pairs(rank_top_list) do
+    --     --vars['tamerNode' .. tostring(key)]:removeAllChildren()
+
+    --     local ui = UI_DmgateRankTotalTopItem(data)
+    --     vars['tamerNode' .. tostring(key)]:addChild(ui.root)
+    -- end
 
     local function create_func(ui, data)
         
@@ -596,7 +622,8 @@ function UI_DmgateRankTotalItem:initUI()
     -- 시간
     local clear_time = self.m_rankInfo['m_clear_time']
     if clear_time > 0.0 then 
-        self.vars['timeLabel']:setString(Str('{1}초', string.format('%.3f', clear_time)))
+        self.vars['timeLabel']:setString(convertTimeToStringFormat(clear_time))
+        --self.vars['timeLabel']:setString(Str('{1}초', string.format('%.3f', clear_time)))
     else
         self.vars['timeLabel']:setString('-')
     end
@@ -637,17 +664,23 @@ function UI_DmgateRankTotalTopItem:init(rank_info)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI()
-    self:initButton()
-    self:refresh()  
+    self:initUI(rank_info)
+    --self:initButton()
+    --self:refresh()  
 end
 
 
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_DmgateRankTotalTopItem:initUI()
+function UI_DmgateRankTotalTopItem:initUI(rank_info)
     local vars = self.vars
+
+    if (rank_info == nil) then
+        vars['userLabel']:setVisible(false)
+        vars['clanMenu']:setVisible(false)
+        vars['timeLabel']:setVisible(false)
+    end
     
     do -- 테이머 아이콘 갱신
         local icon = IconHelper:getTamerProfileIconWithCostumeID(self.m_rankInfo['m_costume'])
@@ -680,6 +713,3 @@ function UI_DmgateRankTotalTopItem:initUI()
 
     --vars['tamerNode']
 end
-
-
-
