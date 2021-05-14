@@ -436,7 +436,12 @@ function StructDragonObject:getCombatPower(status_calc)
         -- 스킬레벨은 도합 12(몬스터 제외)  스킬 레벨을 전부 올릴 경우 최종 전투력에 1.24배를 곱하게 된다.
         local coef_gap = 0.02
         local skill_coef = 1
-        local total_skill_level = self['skill_0'] + self['skill_1'] + self['skill_2'] + self['skill_3']
+        local total_skill_level = 0 --self['skill_0'] + self['skill_1'] + self['skill_2'] + self['skill_3']
+        for i = 0, 3 do
+            if self['skill_' .. tostring(i)] then
+                total_skill_level = total_skill_level + self['skill_' .. tostring(i)]
+            end
+        end
         total_skill_level = math.max(total_skill_level - 4, 0)
 
         if (total_skill_level >= 14) then
