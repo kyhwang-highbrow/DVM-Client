@@ -586,6 +586,11 @@ function UI_DmgateRankTotal:init_rankTableView(ret)
         tableview:setItemList(rank_rest_list, true)
     end
 
+    local ui = UI_DmgateRankTotalItem(ret['my_info'] or {})
+    vars['userMeNode']:addChild(ui.root)
+    -- local ui = UI_DmgateRankStageItem(ret['my_info'] or {})
+    -- self.m_userNode:addChild(ui.root)
+    -- ui.vars['meSprite']:setVisible(true)
 end
 
 
@@ -726,7 +731,7 @@ function UI_DmgateRankTotalTopItem:initUI(rank_info)
     else
         self.vars['clanMenu']:setVisible(false)
     end
-    
+
     -- 시간
     local clear_time = self.m_rankInfo['m_clear_time']
     if clear_time > 0.0 then 
