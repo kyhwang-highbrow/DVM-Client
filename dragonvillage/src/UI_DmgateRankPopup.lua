@@ -109,6 +109,7 @@ UI_DmgateRankStage = class(PARENT, {
     m_rankNode = 'cc.Node',
     m_userNode = 'cc.Node',
 
+    m_dragonPickRatesUI = 'UI_DragonPickRates(node)',
 })
 
 ----------------------------------------------------------------------
@@ -147,6 +148,11 @@ end
 function UI_DmgateRankStage:initUI()
     local vars = self.vars
     self:initRankSortList()
+
+    -- 정말 임시...
+    self.m_dragonPickRatesUI = UI_DragonPickRates(vars['dragonUseListNode'])
+
+
     -----------------------------------------------------------
     -- local rank_list
 
