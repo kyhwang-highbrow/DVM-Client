@@ -47,10 +47,10 @@ function UI_DragonPickRates:initUI()
     local root_width, root_height = node:getNormalSize()
 
     table_view:setCellSizeToNodeSize(true)
-    table_view.m_defaultCellSize = cc.size(root_width, 70)
+    table_view:setGapBtwCells(5)
     table_view:setCellUIClass(UI_DragonPickRateItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(list)
+    table_view:setItemList(list, true)
 end
 
 -------------------------------------
