@@ -147,6 +147,9 @@ UI_DmgateRankStage = class(PARENT, {
     m_userNode = 'cc.Node',
 
     m_dragonPickRatesUI = 'UI_DragonPickRates(node)',
+
+    m_dragonSortBtn = 'UIC_Button',
+    m_dragonSortLabel = 'UIC_Label',
 })
 
 ----------------------------------------------------------------------
@@ -172,7 +175,9 @@ function UI_DmgateRankStage:init(mode_id, index)
     self.m_rankSortLabel = vars['userRankLabel']
     self.m_rankNode = vars['userListNode']
     self.m_userNode = vars['userMeNode']
-    
+
+    self.m_dragonSortBtn = vars['stageBtn']
+    self.m_dragonSortLabel = vars['stageLabel']
 
     self:initUI()
     self:initButton()
@@ -186,9 +191,7 @@ function UI_DmgateRankStage:initUI()
     local vars = self.vars
     self:initRankSortList()
 
-    -- 정말 임시...
-    self.m_dragonPickRatesUI = UI_DragonPickRates(vars['dragonUseListNode'])
-
+    self:initDragonRankSortList()
 
     -----------------------------------------------------------
     -- local rank_list
@@ -210,12 +213,90 @@ end
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
-function UI_DmgateRankStage:initPickRateSortList()
+function UI_DmgateRankStage:initDragonRankSortList()
+    local vars = self.vars
+    local button = self.m_dragonSortBtn
+    local label = self.m_dragonSortLabel
+    
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local sort_list = UIC_SortList()
+
+    sort_list.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    sort_list:setNormalSize(width, height)
+    sort_list:setPosition(x, y)
+    sort_list:setDockPoint(button:getDockPoint())
+    sort_list:setAnchorPoint(button:getAnchorPoint())
+    sort_list:init_container()
+
+    sort_list:setExtendButton(button)
+    sort_list:setSortTypeLabel(label)
+
+    parent:addChild(sort_list.m_node)
+
+    sort_list:addSortType('under', Str('하층'))
+    sort_list:addSortType('normal', Str('보통'))
+    sort_list:addSortType('hard', Str('어려움'))
+    sort_list:addSortType('hell', Str('지옥'))
+
+    sort_list:setSortChangeCB(function(type) self:onChangeDragonRankSort(type) end)
+    sort_list:setSelectSortType('under')
+end
+
+----------------------------------------------------------------------
+-- function initDragonPickRateList
+----------------------------------------------------------------------
+function UI_DmgateRankStage:init_dragonRankTableView(data)
+    if (not self.m_dragonPickRatesUI) then
+        -- 정말 임시...
+        self.m_dragonPickRatesUI = UI_DragonPickRates(self.vars['dragonUseListNode'])
+    end
+
+    self.m_dragonPickRatesUI:updateList(data)
 end
 
 
 ----------------------------------------------------------------------
--- function initUI
+-- function onChangeDragonRankSort
+----------------------------------------------------------------------
+function UI_DmgateRankStage:onChangeDragonRankSort(type)
+    local difficulty = 3
+    local chapter = 2
+
+    if (type == 'under') then
+        chapter = 1
+        difficulty = 0
+
+    elseif (type == 'normal') then
+        difficulty = 1
+
+    elseif (type == 'hard') then
+        difficulty = 2
+
+    elseif (type == 'hell') then
+        difficulty = 3
+
+    end
+
+    local data = {}
+    data['category'] = 'dmgate'
+    data['group'] = g_dmgateData:getDmgateID(self.m_modeId)
+    data['stage'] = g_dmgateData:makeDimensionGateID(self.m_modeId, chapter, difficulty, self.m_tabIndex)
+
+    local function success_cb(ret)
+        self:init_dragonRankTableView(ret)
+    end
+
+    g_dragonPickRateData:request_getPickRate(data, success_cb)
+end
+
+
+
+
+----------------------------------------------------------------------
+-- function initRankSortList
 ----------------------------------------------------------------------
 function UI_DmgateRankStage:initRankSortList()
     local vars = self.vars
@@ -586,11 +667,6 @@ function UI_DmgateRankTotal:init_rankTableView(ret)
         tableview:setItemList(rank_rest_list, true)
     end
 
-    local ui = UI_DmgateRankTotalItem(ret['my_info'] or {})
-    vars['userMeNode']:addChild(ui.root)
-    -- local ui = UI_DmgateRankStageItem(ret['my_info'] or {})
-    -- self.m_userNode:addChild(ui.root)
-    -- ui.vars['meSprite']:setVisible(true)
 end
 
 
@@ -731,7 +807,7 @@ function UI_DmgateRankTotalTopItem:initUI(rank_info)
     else
         self.vars['clanMenu']:setVisible(false)
     end
-
+    
     -- 시간
     local clear_time = self.m_rankInfo['m_clear_time']
     if clear_time > 0.0 then 

@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_DragonPickRates
 -------------------------------------
 UI_DragonPickRates = class(PARENT,{
+    m_tableView = 'UIC_TableView',
     })
 
 -------------------------------------
@@ -50,7 +51,8 @@ function UI_DragonPickRates:initUI()
     table_view:setGapBtwCells(5)
     table_view:setCellUIClass(UI_DragonPickRateItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(list, true)
+
+    self.m_tableView = table_view
 end
 
 -------------------------------------
@@ -66,7 +68,16 @@ function UI_DragonPickRates:refresh()
 end
 
 
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_DragonPickRates:updateList(data)
+    if (not data) or (not data['dragon_use_list']) then return end
 
+    local item_list = data['dragon_use_list']
+
+    self.m_tableView:setItemList(item_list, true)
+end
 
 -------------------------------------
 -- class UI_DragonPickRateItem
@@ -110,11 +121,11 @@ function UI_DragonPickRateItem:initUI()
     end
 
     if (vars['pickRateLabel']) then
-        vars['pickRateLabel']:setString(string.format('(%s%%)', tostring(self.m_dragonInfo['rate'])))
+        vars['pickRateLabel']:setString(string.format('%s%%', tostring(self.m_dragonInfo['per'])))
     end
 
     if (vars['pickRateGauge']) then
-        vars['pickRateGauge']:setPercentage(self.m_dragonInfo['rate'])
+        vars['pickRateGauge']:setPercentage(self.m_dragonInfo['per'])
     end
 end
 

@@ -152,6 +152,9 @@ function ServerData:getInstance()
 	-- 랭킹
     g_rankData = ServerData_Ranking(g_serverData)
 
+    -- 드래곤 픽율
+    g_dragonPickRateData = ServerData_DragonPickRate(g_serverData)
+
 	-- 진형
     g_formationData = ServerData_Formation(g_serverData)
 

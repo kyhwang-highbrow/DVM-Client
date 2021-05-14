@@ -195,6 +195,7 @@ local t_module = {
     'ServerData_ExchangeEvent',
     'ServerData_Highlight',
 	'ServerData_Ranking',
+	'ServerData_DragonPickRate',
 	'ServerData_Formation',
     'ServerData_FormationArena',
 	'ServerData_DragonBoard',
