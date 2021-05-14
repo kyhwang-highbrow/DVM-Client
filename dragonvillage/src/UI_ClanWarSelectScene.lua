@@ -531,7 +531,21 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
 
     -- 테이머
     local animator = struct_user_info:getDeckTamerSDAnimator()
+
     vars['tamerNode']:addChild(animator.m_node)
+
+    
+    if (struct_user_info.m_lastTier == 'legend') then
+        -- Ranker Animator 생성
+        local ranker_animator = MakeAnimator('res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp')--AnimatorHelper:makeTamerAnimator(file_name)
+        if ranker_animator.m_node then
+		    vars['tamerNode']:addChild(ranker_animator.m_node, -1)
+            ranker_animator.m_node:setPositionX(55)
+            ranker_animator.m_node:setPositionY(0)
+            ranker_animator.m_node:setScale(1)
+        end
+    end
+
 
     -- 전투력
     local comebat_power = struct_user_info:getDeckCombatPower()
