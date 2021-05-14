@@ -18,7 +18,7 @@ function UI_DmgateRankPopup:init(mode_id)
     self.m_modeId = mode_id
     self.m_uiName = 'UI_DmgateRankPopup'
     local vars = self:load('dmgate_rank_popup.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
     
     -- @UI_ACTION
     --self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
@@ -346,7 +346,7 @@ function UI_DmgateRankStageItem:init(rank_info)
     local vars = self:load('dmgate_rank_popup_stage_user_item.ui')
 
     -- @UI_ACTION
-    --self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
+    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
     self:doActionReset()
     self:doAction(nil, false)
 
@@ -627,7 +627,7 @@ function UI_DmgateRankTotalTopItem:init(rank_info)
     local vars = self:load('dmgate_rank_popup_total_item_01.ui')
 
     -- @UI_ACTION
-    --self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
+    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
     self:doActionReset()
     self:doAction(nil, false)
 
