@@ -173,6 +173,8 @@ function UI_DmgateScene:initUI()
             -- if g_dmgatePackageData:isPackageActive(product_id) then
 
             -- end
+        else
+            self.m_packageBtn:setVisible(false)
         end
     end
 end

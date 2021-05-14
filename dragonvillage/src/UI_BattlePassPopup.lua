@@ -62,6 +62,7 @@ end
 -------------------------------------
 function UI_BattlePassPopup:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_BattlePassPopup'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
 end
@@ -141,7 +142,7 @@ function UI_BattlePassPopup:initTableView()
             end
         elseif g_dmgatePackageData:checkProductInTable(k) then
             --g_dmgatePackageData:request_info(v['product_id'])
-            if (not g_contentLockData:isContentLock('dmgate')) then
+            if (not g_contentLockData:isContentLock('dmgate')) and g_dmgatePackageData:isPackageVisible(k) then
                 table.insert(tabList, v)
             end
 
