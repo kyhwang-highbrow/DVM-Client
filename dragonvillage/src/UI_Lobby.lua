@@ -1419,7 +1419,7 @@ end
 -- @brief 퀘스트 버튼
 -------------------------------------
 function UI_Lobby:click_questBtn()
-    UI_QuestPopup()
+    UINavigator:goTo('quest')
 end
 
 -------------------------------------
@@ -1708,6 +1708,10 @@ function UI_Lobby:click_packageShopBtn()
     UINavigator:goTo('package_shop')
 end
 
+-------------------------------------
+-- function click_battlePassBtn
+-- @brief 배틀패스 상점 버튼
+-------------------------------------
 function UI_Lobby:click_battlePassBtn()
     -- UINavigator:goTo('battle_pass_shop')
     g_battlePassData:openBattlePassPopup()

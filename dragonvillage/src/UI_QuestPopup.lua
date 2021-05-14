@@ -6,7 +6,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 UI_QuestPopup = class(PARENT, {
         m_tableView = 'UIC_TableView',
         m_allClearQuestCell = 'UI_QuestListItem',
-		m_blockUI = 'UI_BlockPopup',
+		--m_blockUI = 'UI_BlockPopup',
 
         m_battlePassBtn = 'Button',
 
@@ -67,11 +67,11 @@ function UI_QuestPopup:initUI()
 	-- block UI
     -- 팝업 이름 지정해 주지 않으면
     -- UI_BlockPopup 로 뜸
-	self.m_blockUI = UI_BlockPopup()
-	self.m_blockUI:setVisible(false)
-    self.m_blockUI.m_uiName = 'UI_QuestPopup'
+	-- self.m_blockUI = UI_BlockPopup()
+	-- self.m_blockUI:setVisible(false)
+    -- self.m_blockUI.m_uiName = 'UI_QuestPopup'
 
-	g_currScene:removeBackKeyListener(self.m_blockUI)
+	-- g_currScene:removeBackKeyListener(self.m_blockUI)
 
     -- 일일 퀘스트 이벤트 활성화 여부, nil, true, false 3가지 상태를 사용한다.
     -- nil : 정의되지 않음. 어떤 상태로든 변화 가능
@@ -421,9 +421,9 @@ end
 -------------------------------------
 -- function setBlock
 -------------------------------------
-function UI_QuestPopup:setBlock(b)
-    self.m_blockUI:setVisible(b)
-end
+-- function UI_QuestPopup:setBlock(b)
+--     self.m_blockUI:setVisible(b)
+-- end
 
 -------------------------------------
 -- function initSubscriptionUI
@@ -513,8 +513,6 @@ end
 -- @brief 배틀패스 진입
 -------------------------------------
 function UI_QuestPopup:click_battlePassBtn()
-    self:close()
-    --UINavigator:goTo('battle_pass_shop')
     g_battlePassData:openBattlePassPopup()
 end
 

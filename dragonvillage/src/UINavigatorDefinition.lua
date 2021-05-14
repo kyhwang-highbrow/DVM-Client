@@ -117,6 +117,7 @@ end
 function UINavigatorDefinition:goTo_quest(...)
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_QuestPopup')
+
     if (is_opend == true) then
         self:closeUIList(idx)
         return
@@ -1642,6 +1643,67 @@ function UINavigatorDefinition:goTo_package_shop(...)
     -- 정보 요청
     g_shopDataNew:request_shopInfo(finish_cb)
 end
+-- function goTo_battle_pass_shop
+-- @brief 배틀패스 상점으로 이동
+-- @usage UINavigatorDefinition:goTo('battle_pass_shop')
+-------------------------------------
+-- TODO (YOUNGJIN) : 임시 복붙 상태. 수정바람
+function UINavigatorDefinition:goTo_battle_pass_shop(...)
+    local is_opend, idx, ui = self:findOpendUI('UI_BattlePassPopup')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    UI_BattlePassPopup()
+    -- local args = {...}
+    -- local initial_tab = args[1]
+
+    -- -- 해당 UI가 열려있을 경우
+    -- local isOpened, idx, ui = self:findOpendUI('UI_BattlePassPopup')
+    -- if (is_opend == true) then
+    --     self:closeUIList(idx, false) -- param : idx, include_idx
+    --     return
+    -- end
+
+    -- local function finish_cb(ret)
+    --     UI_BattlePassPopup()
+    -- end
+
+    -- -- 정보 요청
+    -- g_battlePassData:request_battlePassInfo(finish_cb)
+
+
+    -- -- 해당 UI가 열려있을 경우
+    -- local is_opend, idx, ui = self:findOpendUI('UI_ReadySceneNew')
+    -- if (is_opend == true) then
+    --     self:closeUIList(idx, false) -- param : idx, include_idx
+    --     return
+    -- end
+
+    -- do-- Scene으로 동작
+    --     local function close_cb()
+    --         if (finish_cb) then
+    --             finish_cb()
+    --         else
+    --             UINavigatorDefinition:goTo('lobby')
+    --         end
+    --     end
+
+    --     local scene = SceneCommon(UI_ReadySceneNew, close_cb, stage_id)
+    --     scene:runScene()
+    -- end
+
+    -- local is_opened, index, ui = self:findOpendUI('UI_BattlePassPopup')
+    -- if (isOpened) then
+    --     self:closeUIList(index, false)
+    --     return
+    -- end
+
+    -- do
+    -- end
+end
+
 
 -------------------------------------
 -- function goTo_event_gold_dungeon

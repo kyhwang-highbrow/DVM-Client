@@ -17,8 +17,10 @@ function UI_EventThankAnniversary_showDetaillPopup:init(reward_num, reward_cb)
 	UIManager:open(self, UIManager.POPUP)	
 	self.m_rewardCb = reward_cb
 
+    self.m_uiName = 'UI_EventThankAnniversary_showDetaillPopup'
+
 	-- backkey 지정
-	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_QuestPopup')	
+	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventThankAnniversary_showDetaillPopup')	
 
 	self.m_reward_num = reward_num
 
