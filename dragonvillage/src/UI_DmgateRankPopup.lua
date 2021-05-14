@@ -726,15 +726,15 @@ function UI_DmgateRankTotalTopItem:initUI(rank_info)
     else
         self.vars['clanMenu']:setVisible(false)
     end
-
+    
     -- 시간
     local clear_time = self.m_rankInfo['m_clear_time']
     if clear_time > 0.0 then 
-        self.vars['timeLabel']:setString(Str('{1}초', string.format('%.3f', clear_time)))
+        self.vars['timeLabel']:setString(convertTimeToStringFormat(clear_time))
+        --self.vars['timeLabel']:setString(Str('{1}초', string.format('%.3f', clear_time)))
     else
         self.vars['timeLabel']:setString('-')
     end
-
 
     --vars['tamerNode']
 end
