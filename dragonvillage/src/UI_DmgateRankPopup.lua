@@ -32,6 +32,7 @@ function UI_DmgateRankPopup:init(mode_id)
     self.m_modeId = mode_id
     self.m_uiName = 'UI_DmgateRankPopup'
     local vars = self:load('dmgate_rank_popup.ui')
+
     UIManager:open(self, UIManager.SCENE)
     
     -- @UI_ACTION
@@ -439,6 +440,7 @@ function UI_DmgateRankStageItem:initUI()
     else
         self.vars['clanLabel']:setVisible(false)
     end
+    self.vars['clanBtn']:getParent():setSwallowTouch(false)
 
     -- 시간
     local clear_time = self.m_rankInfo['m_clear_time']
@@ -680,6 +682,7 @@ function UI_DmgateRankTotalTopItem:initUI(rank_info)
         vars['userLabel']:setVisible(false)
         vars['clanMenu']:setVisible(false)
         vars['timeLabel']:setVisible(false)
+        return
     end
     
     do -- 테이머 아이콘 갱신
