@@ -1492,13 +1492,17 @@ end
 -- @brief 우편함
 -------------------------------------
 function UI_Lobby:click_mailBtn()
-	local function cb_func(is_dirty)
-        if (is_dirty) then
-            -- 닉네임 변경으로 인한 처리...
-            self:refresh_userInfo()
-        end
-	end
-    UI_MailPopup():setCloseCB(cb_func)
+    g_mailData:request_mailList(function() 
+    
+        local function cb_func(is_dirty)
+            if (is_dirty) then
+                -- 닉네임 변경으로 인한 처리...
+                self:refresh_userInfo()
+            end
+	    end
+
+        UI_MailPopup():setCloseCB(cb_func) 
+    end)
 end
 
 -------------------------------------

@@ -32,13 +32,12 @@ function UI_MailPopup:init()
     self.m_tNotiSpriteTable = {}
 
 	-- 통신 후 UI 출력
-	local cb_func = function()
-		self:initUI()
-		self:initTab()
-		self:initButton()
-		--self:refresh()
-	end 
-	g_mailData:request_mailList(cb_func)
+	self:initUI()
+    self:initTab()
+    self:initButton()
+    --self:refresh()
+
+	--g_mailData:request_mailList(cb_func)
 end
 
 -------------------------------------
