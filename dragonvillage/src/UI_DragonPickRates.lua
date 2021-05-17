@@ -119,7 +119,7 @@ function UI_DragonPickRateItem:initUI()
     if (vars['dragonIconNode']) then
         --local icon = IconHelper:getDragonIconFromDid(self.m_dragonInfo['did'], 3, 1, 1)
         local card = UI_BookDragonCard(self.m_dragonStruct)
-        card.root:setSwallowTouch(true)
+        card.root:setSwallowTouch(false)
         --icon:setScale(0.8)
         vars['dragonIconNode']:addChild(card.root)
 
