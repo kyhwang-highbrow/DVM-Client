@@ -339,7 +339,7 @@ function UI_DmgateRankStage:initRankSortList()
     end
 
     sort_list:setSortChangeCB(function(type) self:onChangeRankSort(type) end)
-    sort_list:setSelectSortType('my')
+    sort_list:setSelectSortType('top')
 end
 
 ----------------------------------------------------------------------
