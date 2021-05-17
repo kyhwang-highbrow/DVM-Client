@@ -41,6 +41,7 @@ function UI_DragonPickRates:initUI()
     table_view:setGapBtwCells(5)
     table_view:setCellUIClass(UI_DragonPickRateItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setEmptyStr(Str('랭킹 정보가 없습니다.'))
 
     self.m_tableView = table_view
 end
