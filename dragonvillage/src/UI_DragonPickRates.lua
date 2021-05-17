@@ -5,8 +5,6 @@ local PARENT = UI
 -------------------------------------
 UI_DragonPickRates = class(PARENT,{
     m_tableView = 'UIC_TableView',
-
-    m_itemUIName = 'string',
     })
 
 -------------------------------------

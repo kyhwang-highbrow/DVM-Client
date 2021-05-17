@@ -256,7 +256,6 @@ end
 ----------------------------------------------------------------------
 function UI_DmgateRankStage:init_dragonRankTableView(data)
     if (not self.m_dragonPickRatesUI) then
-        -- 정말 임시...
         self.m_dragonPickRatesUI = UI_DragonPickRates(self.vars['dragonUseListNode'], 'dmgate_rank_popup_stage_dragon_item.ui')
     end
 
