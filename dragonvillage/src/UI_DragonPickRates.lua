@@ -132,7 +132,7 @@ function UI_DragonPickRateItem:initUI()
     end
 
     if (vars['dragonNameLabel']) then
-        local name = TableDragon():getDragonName(self.m_dragonInfo['did'])
+        local name = TableDragon():getDragonNameWithAttr(self.m_dragonInfo['did'])
 
         vars['dragonNameLabel']:setString(name)
     end
