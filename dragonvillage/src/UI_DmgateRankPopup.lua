@@ -7,8 +7,9 @@ local function convertTimeToStringFormat(time)
     local floating = 0
     decimal, floating = string.match(tostring(time), "([^.]*)%.([^.]*)")
 
-    local minutes = tonumber(decimal) / 60
+    local minutes = math.floor(tonumber(decimal) / 60)
     local sec = tonumber(decimal) % 60
+
     local millisec = tonumber(floating)
     return string.format('%02d:%02d:%02d', minutes, sec, millisec)
 end
