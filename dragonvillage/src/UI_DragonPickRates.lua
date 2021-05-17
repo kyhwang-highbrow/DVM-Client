@@ -37,7 +37,6 @@ function UI_DragonPickRates:initUI()
     
     -- 생성 시 함수
     local function create_func(ui, data)
-        ui:initMember(self.m_itemUIName)
     end
 
     table_view:setCellSizeToNodeSize(true)
@@ -72,6 +71,7 @@ function UI_DragonPickRates:updateList(data)
     table.sort(item_list, function(a, b) return a['rank'] < b['rank'] end)
 
     self.m_tableView:setItemList(item_list, true)
+    self.m_tableView:relocateContainerFirstFromIndex(1)
 end
 
 -------------------------------------
