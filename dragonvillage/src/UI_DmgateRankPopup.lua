@@ -260,63 +260,27 @@ function UI_DmgateRankStage:initDragonRankSortList()
     local sort_type = 'under'
     local cleared_max_stage = g_dmgateData:getClearedMaxStageInList(self.m_modeId)
 
-    -- local next_stage_id
-    -- if (cleared_max_stage == nil) then
-        
-    -- else
-
-    -- end
-
-    
-    -- local cleared_stage_id = g_dmgateData:getClearedMaxStageInList(mode_id)
-    -- local next_stage_id
-
-    -- -- 차원문 클리어한 스테이지가 없는 경우
-    -- if (cleared_stage_id == nil) then
-    --     next_stage_id = g_dmgateData:makeDimensionGateID(self.m_modeId, 1, 0, 1)
-    -- else -- 있는 경우 다음 스테이지
-    --     next_stage_id = g_dmgateData:getNextStageID(cleared_stage_id)
-    -- end
-
-    -- -- 차원문 스테이지를 모두 클리어 한 경우
-    -- if next_stage_id == nil then
-    --     tab_id = 0
-    -- else
-    --     tab_id = g_dmgateData:getStageID(next_stage_id)
-    -- end
-
-
-    if (cleared_max_stage) then
-        -- 1 하층, 2 상층
-        local last_chapter = g_dmgateData:getChapterID(cleared_max_stage)
-
-        -- 상층이면?
-        if (last_chapter and last_chapter > 1) then
-            -- 난이도와 최종 스테이지 일단 알아내고
-            local last_stage = g_dmgateData:getStageID(cleared_max_stage)
-            local last_difficulty = g_dmgateData:getDifficultyID(cleared_max_stage)
-            
-            -- 클리어한 난이도
-            local clear_difficulty = 0
-
-            -- 현재 탭 인덱스 = stage
-            if (self.m_tabIndex < last_stage) then
-                -- 스테이지가 일단은 포함이 됨
-                -- 그 다음에 깨야할 난이도를 보여줌
-                clear_difficulty = math.min(last_difficulty + 1, 3)
-
-            else
-                -- 최종 클리어 스테이지보다 높은 스테이지
-                -- 꺠야할 스테이지기 때문에 그대로 보여줌
-                clear_difficulty = math.max(last_difficulty, 0)
-
-            end
-
-            if (clear_difficulty == 1) then sort_type = 'normal' end
-            if (clear_difficulty == 2) then sort_type = 'hard' end
-            if (clear_difficulty == 3) then sort_type = 'hell' end
-        end
+    local next_stage_id
+    -- 클리어한 스테이지가 없는 경우
+    if (cleared_max_stage == nil) then
+        next_stage_id = g_dmgateData:makeDimensionGateID(self.m_modeId, 1, 0, 1)
+    else -- 있는 경우 다음 스테이지
+        next_stage_id = g_dmgateData:getNextStageID(cleared_max_stage)
     end
+
+
+    local stage_difficulty
+    -- 차원문 스테이지를 모두 클리어한 경우
+    if next_stage_id == nil then
+        stage_difficulty = g_dmgateData:getDifficultyID(cleared_max_stage)
+    else
+        stage_difficulty = g_dmgateData:getDifficultyID(next_stage_id)
+    end
+
+    if (stage_difficulty == 1) then sort_type = 'normal' end
+    if (stage_difficulty == 2) then sort_type = 'hard' end
+    if (stage_difficulty == 3) then sort_type = 'hell' end
+
 
     sort_list:setSelectSortType(sort_type)
 end
@@ -472,16 +436,6 @@ function UI_DmgateRankStage:init_rankTableView(ret, sort_type, offset)
     self.m_userNode:removeAllChildren()
     
     local rank_list = ret['list'] or {}
-
-    -- if #rank_list == 0 then
-    --     vars['leftMenu']:setVisible(false)
-    --     vars['rightMenu']:setVisible(false)
-    --     vars['infoMenu']:setVisible(true)
-    -- else
-    --     vars['leftMenu']:setVisible(true)
-    --     vars['rightMenu']:setVisible(true)
-    --     vars['infoMenu']:setVisible(false)
-    -- end
 
     local uid = g_userData:get('uid')
 
@@ -716,7 +670,11 @@ function UI_DmgateRankTotal:init_rankTableView(ret)
 
     if #ret['list'] == 0 then 
         vars['rankMenu']:setVisible(false)
+        vars['userMeNode']:setVisible(false)
+        vars['totalRankListNode']:setVisible(false)
+
         vars['infoMenu']:setVisible(true)
+        return
     end
 
     local rank_top_list = {}
@@ -759,7 +717,7 @@ function UI_DmgateRankTotal:init_rankTableView(ret)
     local rank_tableview = UIC_RankingList()
     rank_tableview:setRankUIClass(UI_DmgateRankTotalItem, create_func)
     rank_tableview:setRankList(rank_rest_list)
-    rank_tableview:setEmptyStr(Str('랭킹 정보가 없습니다'))
+    --rank_tableview:setEmptyStr(Str('랭킹 정보가 없습니다'))
     rank_tableview:setMyRank(my_rank_cb)
     --rank_tableview:setOffset(offset)
     --rank_tableview:makeRankMoveBtn(prev_btn_cb, next_btn_cb, self.m_rankItemGap)
