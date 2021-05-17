@@ -483,6 +483,24 @@ function ServerData_Dmgate:getStageInfoList(mode_id)
     return self.m_dmgateInfo[mode_id]['stage']
 end
 
+-- function ServerData_Dmgate:getCurrUnclearedStage(mode_id)
+--     if not mode_id then error('Forgot to pass mode_id as param') end
+
+--     local stage_id
+--     local list = self:getStageInfoList(mode_id)
+
+--     for key, stage_status in pairs(list) do
+--         stage_id = tonumber(key)
+--         if (stage_status == 0) then
+--             --if self:checkStageTime(stage_id) then
+--                 max_stage_id = stage_id
+--             --end
+--         end
+--     end
+
+
+-- end
+
 ----------------------------------------------------------------------------
 -- function getClearedMaxStageInList
 ----------------------------------------------------------------------------
@@ -510,7 +528,6 @@ function ServerData_Dmgate:getClearedMaxStageInList(mode_id)
         if IS_DEV_SERVER() then
             error('There isn\'t any opened stage with this mode_id : ' .. tostring(mode_id))
         end
-        return nil
     end
 
     return max_stage_id
@@ -856,25 +873,6 @@ end
 function ServerData_Dmgate:getStageID(stage_id)
     stage_id = tonumber(stage_id)
     return getDigit(stage_id, 1, 2)
-end
-
-
-
-
-----------------------------------------------------------------------------
--- function MakeDimensionGateID
--- 30xxxxx 던전(dungeon)        : 차원문, ...
---   1xxxx 모드(mode)           : 마누스의 차원문, ...
---    1xxx 챕터(chapter)        : 상위층, 하위층, ...
---     1xx 난이도(difficulty)   : 쉬움, 보통, 어려움, ...
---      01 스테이지(stage)      : 스테이지 번호
-----------------------------------------------------------------------------
-function ServerData_Dmgate:MakeDimensionGateID(mode_id, chapter_id, difficulty_id, stage_id)
-    return GAME_MODE_DIMENSION_GATE * 100000
-                + mode_id * 10000
-                + chapter_id * 1000
-                + difficulty_id * 100
-                + stage_id
 end
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////

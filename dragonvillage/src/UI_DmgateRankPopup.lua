@@ -63,16 +63,20 @@ function UI_DmgateRankPopup:init(mode_id)
     self:refresh()
 
     local cleared_stage_id = g_dmgateData:getClearedMaxStageInList(mode_id)
-    local next_stage_id = g_dmgateData:getNextStageID(cleared_stage_id)
+    local next_stage_id
 
+    -- 차원문 클리어한 스테이지가 없는 경우
+    if (cleared_stage_id == 0) then
+        next_stage_id = g_dmgateData:makeDimensionGateID(self.m_modeId, 1, 0, 1)
+    else -- 있는 경우 다음 스테이지
+        next_stage_id = g_dmgateData:getNextStageID(cleared_stage_id)
+    end
+
+    -- 차원문 스테이지를 모두 클리어 한 경우
     if next_stage_id == nil then
         tab_id = 0
     else
-        if g_dmgateData:getDifficultyID(next_stage_id) < 3 then
-            tab_id = 1
-        else
-            tab_id = g_dmgateData:getStageID(next_stage_id)
-        end
+        tab_id = g_dmgateData:getStageID(next_stage_id)
     end
 
     self:click_tabBtn(tab_id)  
@@ -699,8 +703,12 @@ function UI_DmgateRankTotal:init_rankTableView(ret)
     end
 
     for i = 1, 3 do
-        local ui = UI_DmgateRankTotalTopItem(rank_top_list[i])
-        vars['tamerNode' .. tostring(i)]:addChild(ui.root)
+        if rank_top_list[i] then
+            local ui = UI_DmgateRankTotalTopItem(rank_top_list[i])
+            vars['tamerNode' .. tostring(i)]:addChild(ui.root)
+        else
+            vars['rankMenu' .. tostring(i)]:setVisible(false)
+        end
     end
 
     -- for key, data in pairs(rank_top_list) do
@@ -862,6 +870,13 @@ function UI_DmgateRankTotalTopItem:initUI(rank_info)
         local icon = struct_clan:makeClanMarkIcon()
         if icon then self.vars['markNode']:addChild(icon) end
     else
+        -- local user_label_pos_y = vars['userLabel']:getPositionY()
+        -- local clan_label_pos_y = vars['clanLabel']:getPositionY()
+        -- local time_label_pos_y = vars['timeLabel']:getPositionY()
+
+        -- vars['userLabel']:setPositionY(user_label_pos_y - (user_label_pos_y - clan_label_pos_y) * 0.5)
+        -- vars['timeLabel']:setPositionY(time_label_pos_y + (clan_label_pos_y - time_label_pos_y) * 0.5)
+
         self.vars['clanMenu']:setVisible(false)
     end
     
