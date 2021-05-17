@@ -91,6 +91,9 @@ function UI_DragonPickRateItem:init(t_dragon_info)
     self.m_dragonInfo = t_dragon_info
     local t_data = {}
     t_data['did'] = t_dragon_info['did']
+    if (not isJako(t_dragon_info['did'])) then
+        t_data['evolution'] = 3
+    end
 
     self.m_dragonStruct = StructDragonObject(t_data)
 
@@ -105,7 +108,12 @@ function UI_DragonPickRateItem:initUI()
     local vars = self.vars
 
     if (vars['rankLabel']) then
-        vars['rankLabel']:setString(self.m_dragonInfo['rank'])
+        local rank = self.m_dragonInfo['rank']
+        if rank and tonumber(rank) > 0 then
+            vars['rankLabel']:setString(Str('{1}위', comma_value(rank)))
+        else
+            vars['rankLabel']:setString('-')
+        end
     end
 
     if (vars['dragonIconNode']) then

@@ -299,7 +299,17 @@ end
 -------------------------------------
 function isMonster(id)
     local id  = math_floor(id / 10000)
-    return (id == 13 or id == 14 or id == 15 or id == 20 or id == 30)
+    return (id == 13 or id == 14 or id == 15 or id == 20 or id == 21 or id == 30)
+end
+
+
+-------------------------------------
+-- function isJako
+-- @brief table_dragon, table_dragon_evolution에서 진화형이 없고 드래곤이 아닌 종류를 통칭
+-------------------------------------
+function isJako(id)
+    local id  = math_floor(id / 10000)
+    return (id == 18)
 end
 
 -------------------------------------
