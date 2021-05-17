@@ -703,34 +703,40 @@ function UI_DmgateRankTotal:init_rankTableView(ret)
     end
 
     for i = 1, 3 do
-        if rank_top_list[i] then
+        
             local ui = UI_DmgateRankTotalTopItem(rank_top_list[i])
             vars['tamerNode' .. tostring(i)]:addChild(ui.root)
-        else
-            vars['rankMenu' .. tostring(i)]:setVisible(false)
-        end
     end
 
-    -- for key, data in pairs(rank_top_list) do
-    --     --vars['tamerNode' .. tostring(key)]:removeAllChildren()
-
-    --     local ui = UI_DmgateRankTotalTopItem(data)
-    --     vars['tamerNode' .. tostring(key)]:addChild(ui.root)
-    -- end
+    local my_rank_cb = function()
+        local ui = UI_DmgateRankTotalItem(ret['my_info'] or {})
+        self.vars['userMeNode']:addChild(ui.root)
+        ui.vars['meSprite']:setVisible(true)
+    end
 
     local function create_func(ui, data)
         
     end    
 
-    if #rank_rest_list > 0 then
-    local tableview = UIC_TableView(vars['totalRankListNode'])
-        tableview:setCellSizeToNodeSize(true)
-        --tableview.m_defaultCellSize = cc.p()
-        tableview:setGapBtwCells(5)
-        tableview:setCellUIClass(UI_DmgateRankTotalItem, create_func)
-        tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        tableview:setItemList(rank_rest_list, true)
-    end
+    -- if #rank_rest_list > 0 then
+    -- local tableview = UIC_TableView(vars['totalRankListNode'])
+    --     tableview:setCellSizeToNodeSize(true)
+    --     --tableview.m_defaultCellSize = cc.p()
+    --     tableview:setGapBtwCells(5)
+    --     tableview:setCellUIClass(UI_DmgateRankTotalItem, create_func)
+    --     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    --     tableview:setItemList(rank_rest_list, true)
+    -- end
+
+    
+    local rank_tableview = UIC_RankingList()
+    rank_tableview:setRankUIClass(UI_DmgateRankTotalItem, create_func)
+    rank_tableview:setRankList(rank_rest_list)
+    rank_tableview:setEmptyStr(Str('랭킹 정보가 없습니다'))
+    rank_tableview:setMyRank(my_rank_cb)
+    --rank_tableview:setOffset(offset)
+    --rank_tableview:makeRankMoveBtn(prev_btn_cb, next_btn_cb, self.m_rankItemGap)
+    rank_tableview:makeRankList(vars['totalRankListNode'])
 
 end
 
@@ -765,6 +771,11 @@ end
 -- function init
 ----------------------------------------------------------------------
 function UI_DmgateRankTotalItem:initUI()
+    local uid = g_userData:get('uid')
+
+    if (self.m_rankInfo:getUid() == uid) then
+        self.vars['meSprite']:setVisible(true)
+    end
     
     -- 순위
     local rank = self.m_rankInfo['m_rank']
@@ -877,6 +888,7 @@ function UI_DmgateRankTotalTopItem:initUI(rank_info)
         -- vars['userLabel']:setPositionY(user_label_pos_y - (user_label_pos_y - clan_label_pos_y) * 0.5)
         -- vars['timeLabel']:setPositionY(time_label_pos_y + (clan_label_pos_y - time_label_pos_y) * 0.5)
 
+        self.vars['timeLabel']:setPositionY(self.vars['clanMenu']:getPositionY())
         self.vars['clanMenu']:setVisible(false)
     end
     
