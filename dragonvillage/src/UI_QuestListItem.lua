@@ -362,7 +362,7 @@ function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
 
 		-- 갱신
 		self:refresh(t_quest_data)
-		--ui_quest_popup:refresh(t_quest_data)
+		ui_quest_popup:refresh(t_quest_data)
 		--ui_quest_popup:setBlock(false)
 
         -- 일일퀘스트 보상 2배 상품 판매촉진하는 팝업 조건 체크 후 팝업 출력
