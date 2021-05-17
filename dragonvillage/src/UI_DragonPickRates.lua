@@ -78,6 +78,7 @@ end
 -------------------------------------
 UI_DragonPickRateItem = class(PARENT, IRankListItem:getCloneTable(), {
         m_dragonInfo = 'table',
+        m_dragonStruct = 'StructDragonObject',
     })
 
 -- 리스트 아이템 이름
@@ -88,6 +89,10 @@ UI_DragonPickRateItem.itemUIName = 'dmgate_rank_popup_stage_dragon_item.ui'
 -------------------------------------
 function UI_DragonPickRateItem:init(t_dragon_info)
     self.m_dragonInfo = t_dragon_info
+    local t_data = {}
+    t_data['did'] = t_dragon_info['did']
+
+    self.m_dragonStruct = StructDragonObject(t_data)
 
     self:load(UI_DragonPickRateItem.itemUIName)
     self:initUI()
@@ -104,9 +109,15 @@ function UI_DragonPickRateItem:initUI()
     end
 
     if (vars['dragonIconNode']) then
-        local icon = IconHelper:getDragonIconFromDid(self.m_dragonInfo['did'], 3, 1, 1)
-        icon:setScale(0.8)
-        vars['dragonIconNode']:addChild(icon)
+        --local icon = IconHelper:getDragonIconFromDid(self.m_dragonInfo['did'], 3, 1, 1)
+        local card = UI_BookDragonCard(self.m_dragonStruct)
+        card.root:setSwallowTouch(true)
+        --icon:setScale(0.8)
+        vars['dragonIconNode']:addChild(card.root)
+
+        card.vars['clickBtn']:registerScriptPressHandler(function()
+            UI_BookDetailPopup.openWithFrame(self.m_dragonInfo['did'], nil, 3, 0.8, true)
+        end)
     end
 
     if (vars['dragonNameLabel']) then

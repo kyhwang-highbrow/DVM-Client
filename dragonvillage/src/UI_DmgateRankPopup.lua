@@ -138,6 +138,8 @@ UI_DmgateRankStage = class(PARENT, {
     m_modeId = 'number',
     m_tabIndex = 'number',
 
+    m_bRankEmpty = 'boolean',
+
     m_rankNum = 'number',
     m_rankItemGap = 'number',
 
@@ -165,6 +167,8 @@ function UI_DmgateRankStage:init(mode_id, index)
     local vars = self:load('dmgate_rank_popup_stage.ui')
     self.m_modeId = mode_id
     self.m_tabIndex = index
+
+    self.m_bRankEmpty = false
 
     -- @UI_ACTION
     --self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
@@ -198,7 +202,6 @@ function UI_DmgateRankStage:initUI()
     self:initRankSortList()
 
     self:initDragonRankSortList()
-
     -----------------------------------------------------------
     -- local rank_list
 
@@ -403,6 +406,16 @@ function UI_DmgateRankStage:init_rankTableView(ret, sort_type, offset)
     
     local rank_list = ret['list'] or {}
 
+    -- if #rank_list == 0 then
+    --     vars['leftMenu']:setVisible(false)
+    --     vars['rightMenu']:setVisible(false)
+    --     vars['infoMenu']:setVisible(true)
+    -- else
+    --     vars['leftMenu']:setVisible(true)
+    --     vars['rightMenu']:setVisible(true)
+    --     vars['infoMenu']:setVisible(false)
+    -- end
+
     local uid = g_userData:get('uid')
 
     local create_cb = function(ui, data)
@@ -428,7 +441,7 @@ function UI_DmgateRankStage:init_rankTableView(ret, sort_type, offset)
     local rank_tableview = UIC_RankingList()
     rank_tableview:setRankUIClass(UI_DmgateRankStageItem, create_cb)
     rank_tableview:setRankList(rank_list)
-    rank_tableview:setEmptyStr('랭킹 정보가 없습니다')
+    rank_tableview:setEmptyStr(Str('랭킹 정보가 없습니다'))
     rank_tableview:setMyRank(my_rank_cb)
     rank_tableview:setOffset(offset)
     rank_tableview:makeRankMoveBtn(prev_btn_cb, next_btn_cb, self.m_rankItemGap)
@@ -459,7 +472,6 @@ end
 -- function refresh
 ----------------------------------------------------------------------
 function UI_DmgateRankStage:refresh()
-
 end
 
 
