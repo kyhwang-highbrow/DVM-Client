@@ -66,7 +66,7 @@ function UI_DmgateRankPopup:init(mode_id)
     local next_stage_id
 
     -- 차원문 클리어한 스테이지가 없는 경우
-    if (cleared_stage_id == 0) then
+    if (cleared_stage_id == nil) then
         next_stage_id = g_dmgateData:makeDimensionGateID(self.m_modeId, 1, 0, 1)
     else -- 있는 경우 다음 스테이지
         next_stage_id = g_dmgateData:getNextStageID(cleared_stage_id)
@@ -668,7 +668,7 @@ end
 ----------------------------------------------------------------------
 function UI_DmgateRankTotal:request_rank() 
     local data = {}
-    data['limit'] = 99
+    data['limit'] = 50
     data['dm_id'] = g_dmgateData:getDmgateID(self.m_modeId)
 
     
@@ -870,9 +870,9 @@ function UI_DmgateRankTotalTopItem:initUI(rank_info)
         local icon = struct_clan:makeClanMarkIcon()
         if icon then self.vars['markNode']:addChild(icon) end
     else
-        -- local user_label_pos_y = vars['userLabel']:getPositionY()
-        -- local clan_label_pos_y = vars['clanLabel']:getPositionY()
-        -- local time_label_pos_y = vars['timeLabel']:getPositionY()
+        --  local user_label_pos_y = vars['userLabel']:getPositionY()
+        --  local clan_label_pos_y = vars['clanMenu']:getPositionY()
+        --  local time_label_pos_y = vars['timeLabel']:getPositionY()
 
         -- vars['userLabel']:setPositionY(user_label_pos_y - (user_label_pos_y - clan_label_pos_y) * 0.5)
         -- vars['timeLabel']:setPositionY(time_label_pos_y + (clan_label_pos_y - time_label_pos_y) * 0.5)

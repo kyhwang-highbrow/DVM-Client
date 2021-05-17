@@ -146,7 +146,7 @@ function ServerData_Dmgate:response_dmgateInfo(ret)
     end
 
     self.m_dmgateInfo = dmgate_info
-
+    
     if ret['end_time'] then self.m_seasonEndTime = ret['end_time'] end
 
     self.m_bDirtyDimensionGateInfo = false
@@ -464,7 +464,7 @@ function ServerData_Dmgate:getStageListByChapterId(mode_id, chapter_id)
 end
 
 ----------------------------------------------------------------------------
--- function getStageInfoList
+-- function getDmgateId
 ----------------------------------------------------------------------------
 function ServerData_Dmgate:getDmgateId(mode_id)
     if not mode_id then error('Forgot to pass mode_id as param') end
@@ -512,7 +512,10 @@ function ServerData_Dmgate:getClearedMaxStageInList(mode_id)
     local list = self:getStageInfoList(mode_id)
 
     if (not #list) then 
-        error('There isn\'t stageInfo with this mode_id : ' .. tostring(mode_id))
+        -- 클리어한 스테이지가 없는 경우
+        if IS_DEV_SERVER() then
+            error('There isn\'t stageInfo with this mode_id : ' .. tostring(mode_id))
+        end
     end
 
     for key, stage_status in pairs(list) do
@@ -524,10 +527,12 @@ function ServerData_Dmgate:getClearedMaxStageInList(mode_id)
         end
     end
 
+    -- 클리어한 스테이지가 없는 경우
     if (max_stage_id == 0) then 
-        if IS_DEV_SERVER() then
-            error('There isn\'t any opened stage with this mode_id : ' .. tostring(mode_id))
-        end
+        -- if IS_DEV_SERVER() then
+        --     error('There isn\'t any opened stage with this mode_id : ' .. tostring(mode_id))
+        -- end
+        return nil
     end
 
     return max_stage_id
@@ -548,7 +553,7 @@ function ServerData_Dmgate:checkStageTime(stage_id)
     end
 
     local stage_table = self.m_stageTable[mode_id][chapter_id][stage_key]
-    ccdump(stage_table)
+
     local start_date = tostring(stage_table['start_date'])
     local end_date = tostring(stage_table['end_date'])
 

@@ -96,8 +96,21 @@ function UI_DmgateScene:initMember(stage_id)
     if stage_id then
         self.m_chapterId = g_dmgateData:getChapterID(stage_id)
     else
-        local clearedMaxStage_id = g_dmgateData:getClearedMaxStageInList(self.m_modeId)
-        self.m_chapterId = g_dmgateData:getChapterID(clearedMaxStage_id)
+        local cleared_stage_id = g_dmgateData:getClearedMaxStageInList(self.m_modeId)
+
+        local next_stage_id
+         -- 차원문 클리어한 스테이지가 없는 경우
+        if (cleared_stage_id == nil) then
+            next_stage_id = g_dmgateData:makeDimensionGateID(self.m_modeId, 1, 0, 1)
+        else -- 있는 경우 다음 스테이지
+            next_stage_id = g_dmgateData:getNextStageID(cleared_stage_id)
+        end
+
+        if next_stage_id == nil then
+            self.m_chapterId = g_dmgateData:getChapterID(cleared_stage_id)
+        else
+            self.m_chapterId = g_dmgateData:getChapterID(next_stage_id)
+        end
     end
 
     -- init ui nodes
