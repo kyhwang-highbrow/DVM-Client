@@ -134,12 +134,16 @@ function UI_DragonPickRateItem:initUI()
         vars['dragonNameLabel']:setString(name)
     end
 
+    local percent = tonumber(self.m_dragonInfo['per'])
+
     if (vars['pickRateLabel']) then
-        vars['pickRateLabel']:setString(string.format('%s%%', tostring(self.m_dragonInfo['per'])))
+        local pos_x = vars['pickRateLabel']:getPositionX()
+        vars['pickRateLabel']:setPositionX(pos_x * percent * 0.01)
+        vars['pickRateLabel']:setString(string.format('%.02f%%', percent))
     end
 
     if (vars['pickRateGauge']) then
-        vars['pickRateGauge']:setPercentage(self.m_dragonInfo['per'])
+        vars['pickRateGauge']:setPercentage(percent)
     end
 end
 
