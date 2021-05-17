@@ -360,7 +360,7 @@ function StructUserInfo:makeTierIcon(tier, type)
     local tier_icon
 
     if (g_userData:get('uid') == self.m_uid) then 
-        tier_icon = g_arenaNewData.m_playerUserInfo:makeTierIcon(tier, type)
+        tier_icon = g_arenaNewData.m_playerUserInfo:makeTierIcon(g_arenaNewData:getMyLastTier(), type)
     else
         if (not self.m_lastArenaTier) then self.m_lastArenaTier = 'beginner' end
     

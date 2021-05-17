@@ -241,6 +241,11 @@ function ServerData_ArenaNew:_refresh_playerUserInfo(struct_user_info, t_data, m
         struct_user_info.m_tier = my_info['tier']
         struct_user_info.m_rp = my_info['rp']
         struct_user_info.m_rank = my_info['rank']
+            
+        -- 전 시즌 티어
+        if (my_info['last_tier']) then
+            struct_user_info.m_lastTier = my_info['last_tier']
+        end
     end
 
     do -- 콜로세움 정보 갱신
