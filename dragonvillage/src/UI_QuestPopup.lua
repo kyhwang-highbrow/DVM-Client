@@ -37,14 +37,21 @@ function UI_QuestPopup:init()
     self.m_battlePassBtn = vars['battlePassBtn']
 
 	-- 통신 후 UI 출력
+    --[[
 	local cb_func = function()
 		self:initUI()
         self:initSubscriptionUI()
 		self:initTab()
 		self:initButton()
 		self:refresh()
-	end 
-	g_questData:requestQuestInfo(cb_func)
+	end ]]
+	--g_questData:requestQuestInfo(cb_func)
+
+    self:initUI()
+    self:initSubscriptionUI()
+    self:initTab()
+    self:initButton()
+    self:refresh()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end

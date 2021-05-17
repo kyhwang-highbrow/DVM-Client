@@ -1419,7 +1419,7 @@ end
 -- @brief 퀘스트 버튼
 -------------------------------------
 function UI_Lobby:click_questBtn()
-    UINavigator:goTo('quest')
+    g_questData:requestQuestInfo(function() UINavigator:goTo('quest') end)
 end
 
 -------------------------------------
