@@ -259,6 +259,32 @@ function UI_DmgateRankStage:initDragonRankSortList()
     local sort_type = 'under'
     local cleared_max_stage = g_dmgateData:getClearedMaxStageInList(self.m_modeId)
 
+    -- local next_stage_id
+    -- if (cleared_max_stage == nil) then
+        
+    -- else
+
+    -- end
+
+    
+    -- local cleared_stage_id = g_dmgateData:getClearedMaxStageInList(mode_id)
+    -- local next_stage_id
+
+    -- -- 차원문 클리어한 스테이지가 없는 경우
+    -- if (cleared_stage_id == nil) then
+    --     next_stage_id = g_dmgateData:makeDimensionGateID(self.m_modeId, 1, 0, 1)
+    -- else -- 있는 경우 다음 스테이지
+    --     next_stage_id = g_dmgateData:getNextStageID(cleared_stage_id)
+    -- end
+
+    -- -- 차원문 스테이지를 모두 클리어 한 경우
+    -- if next_stage_id == nil then
+    --     tab_id = 0
+    -- else
+    --     tab_id = g_dmgateData:getStageID(next_stage_id)
+    -- end
+
+
     if (cleared_max_stage) then
         -- 1 하층, 2 상층
         local last_chapter = g_dmgateData:getChapterID(cleared_max_stage)
@@ -552,6 +578,7 @@ end
 -- function initUI
 ----------------------------------------------------------------------
 function UI_DmgateRankStageItem:initUI()
+
     local uid = g_userData:get('uid')
 
     if (self.m_rankInfo['m_rank'] == 'next') or (self.m_rankInfo['m_rank'] == 'prev') then
@@ -703,9 +730,8 @@ function UI_DmgateRankTotal:init_rankTableView(ret)
     end
 
     for i = 1, 3 do
-        
-            local ui = UI_DmgateRankTotalTopItem(rank_top_list[i])
-            vars['tamerNode' .. tostring(i)]:addChild(ui.root)
+        local ui = UI_DmgateRankTotalTopItem(rank_top_list[i])
+        vars['tamerNode' .. tostring(i)]:addChild(ui.root)
     end
 
     local my_rank_cb = function()
@@ -760,6 +786,12 @@ function UI_DmgateRankTotalItem:init(rank_info)
     --self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
+    
+    if rawget(self.m_rankInfo, 'm_clan_info') then
+        local struct_clan = StructClan({})
+        struct_clan:applySimple(self.m_rankInfo['m_clan_info'])
+        self.m_rankInfo:setStructClan(struct_clan)
+    end
 
     self:initUI()
     self:initButton()
@@ -844,6 +876,12 @@ function UI_DmgateRankTotalTopItem:init(rank_info)
     self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
     self:doActionReset()
     self:doAction(nil, false)
+    
+    if rawget(self.m_rankInfo, 'm_clan_info') then
+        local struct_clan = StructClan({})
+        struct_clan:applySimple(self.m_rankInfo['m_clan_info'])
+        self.m_rankInfo:setStructClan(struct_clan)
+    end
 
     self:initUI(rank_info)
     --self:initButton()
