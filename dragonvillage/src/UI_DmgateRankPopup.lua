@@ -270,7 +270,7 @@ function UI_DmgateRankStage:initDragonRankSortList()
             local clear_difficulty = 0
 
             -- 현재 탭 인덱스 = stage
-            if (self.m_tabIndex <= last_stage) then
+            if (self.m_tabIndex < last_stage) then
                 -- 스테이지가 일단은 포함이 됨
                 -- 그 다음에 깨야할 난이도를 보여줌
                 clear_difficulty = math.min(last_difficulty + 1, 3)
