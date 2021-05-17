@@ -251,7 +251,44 @@ function UI_DmgateRankStage:initDragonRankSortList()
     sort_list:addSortType('hell', Str('지옥'))
 
     sort_list:setSortChangeCB(function(type) self:onChangeDragonRankSort(type) end)
-    sort_list:setSelectSortType('under')
+
+    -- 클리어한 최종 스테이지
+    local sort_type = 'under'
+    local cleared_max_stage = g_dmgateData:getClearedMaxStageInList(self.m_modeId)
+
+    if (cleared_max_stage) then
+        -- 1 하층, 2 상층
+        local last_chapter = g_dmgateData:getChapterID(cleared_max_stage)
+
+        -- 상층이면?
+        if (last_chapter and last_chapter > 1) then
+            -- 난이도와 최종 스테이지 일단 알아내고
+            local last_stage = g_dmgateData:getStageID(cleared_max_stage)
+            local last_difficulty = g_dmgateData:getDifficultyID(cleared_max_stage)
+            
+            -- 클리어한 난이도
+            local clear_difficulty = 0
+
+            -- 현재 탭 인덱스 = stage
+            if (self.m_tabIndex <= last_stage) then
+                -- 스테이지가 일단은 포함이 됨
+                -- 최종 난이도가 그 탭의 난이도
+                clear_difficulty = last_difficulty
+
+            else
+                -- 최종 클리어 스테이지보다 높은 스테이지
+                -- 최종 클리어 난이도보다 한단계 낮은 난이도
+                clear_difficulty = math.max(last_difficulty - 1, 0)
+
+            end
+
+            if (clear_difficulty == 1) then sort_type = 'normal' end
+            if (clear_difficulty == 2) then sort_type = 'hard' end
+            if (clear_difficulty == 3) then sort_type = 'hell' end
+        end
+    end
+
+    sort_list:setSelectSortType(sort_type)
 end
 
 ----------------------------------------------------------------------
