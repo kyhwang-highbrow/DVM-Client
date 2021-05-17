@@ -5,18 +5,21 @@ local PARENT = UI
 -------------------------------------
 UI_DragonPickRates = class(PARENT,{
     m_tableView = 'UIC_TableView',
+
+    m_itemUIName = 'string',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonPickRates:init(parent)
+function UI_DragonPickRates:init(parent, item_ui_name)
     if (not parent) then
         error('UI_DragonPickRates need a parent!!!')
         return 
     end
 
     self.root = parent
+    UI_DragonPickRateItem.itemUIName = item_ui_name and item_ui_name or 'dmgate_rank_popup_stage_dragon_item.ui'
 
     self:initUI()
     self:initButton()
@@ -28,24 +31,14 @@ end
 function UI_DragonPickRates:initUI()
     local node = self.root
 
-    local list = {
-        {rank = 1, did = 120454, rate = 72},
-        {rank = 2, did = 120221, rate = 65},
-        {rank = 3, did = 120402, rate = 63},
-        {rank = 4, did = 120505, rate = 61},
-        {rank = 5, did = 120101, rate = 60},
-        {rank = 6, did = 120564, rate = 47},
-        {rank = 7, did = 120011, rate = 47},
-        {rank = 8, did = 120732, rate = 43},
-        {rank = 9, did = 120702, rate = 41},
-        {rank = 10, did = 120625, rate = 36}
-    }
-
-    table.sort(list, function(a, b) return a['rank'] < b['rank'] end)
-
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     local root_width, root_height = node:getNormalSize()
+    
+    -- 생성 시 함수
+    local function create_func(ui, data)
+        ui:initMember(self.m_itemUIName)
+    end
 
     table_view:setCellSizeToNodeSize(true)
     table_view:setGapBtwCells(5)
@@ -76,6 +69,8 @@ function UI_DragonPickRates:updateList(data)
 
     local item_list = data['dragon_use_list']
 
+    table.sort(item_list, function(a, b) return a['rank'] < b['rank'] end)
+
     self.m_tableView:setItemList(item_list, true)
 end
 
@@ -86,6 +81,8 @@ UI_DragonPickRateItem = class(PARENT, IRankListItem:getCloneTable(), {
         m_dragonInfo = 'table',
     })
 
+-- 리스트 아이템 이름
+UI_DragonPickRateItem.itemUIName = 'dmgate_rank_popup_stage_dragon_item.ui'
 
 -------------------------------------
 -- function init
@@ -93,8 +90,7 @@ UI_DragonPickRateItem = class(PARENT, IRankListItem:getCloneTable(), {
 function UI_DragonPickRateItem:init(t_dragon_info)
     self.m_dragonInfo = t_dragon_info
 
-    local vars = self:load('dmgate_rank_popup_stage_dragon_item.ui')
-
+    self:load(UI_DragonPickRateItem.itemUIName)
     self:initUI()
 end
 
