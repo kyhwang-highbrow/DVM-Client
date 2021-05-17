@@ -269,7 +269,8 @@ end
 function UI_DmgateRankStage:onChangeDragonRankSort(type)
     local difficulty = 3
     local chapter = 2
-
+    --self.m_dragonSortLabel
+    
     if (type == 'under') then
         chapter = 1
         difficulty = 0
@@ -284,6 +285,9 @@ function UI_DmgateRankStage:onChangeDragonRankSort(type)
         difficulty = 3
 
     end
+
+    local diff_color = g_dmgateData:getStageDiffTextColorByIndex(difficulty)
+    self.m_dragonSortLabel:setTextColor(diff_color)
 
     local data = {}
     data['category'] = 'dmgate'

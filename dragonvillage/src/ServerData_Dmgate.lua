@@ -2,7 +2,7 @@
 local DmgateStringTable = {
         ['chapter'] = {'하층', '상층'},
         ['difficulty'] = {[0] = '', '보통', '어려움', '지옥'},
-        ['diff_color'] = {[0] = 'white', 'diff_normal', 'diff_hard', 'diff_hell'},
+        ['diff_color'] = {[0] = 'diff_easy', 'diff_normal', 'diff_hard', 'diff_hell'},
 }
 
 ----------------------------------------------------------------------------
@@ -1021,12 +1021,27 @@ function ServerData_Dmgate:getStageDiffTextColor(stage_id)
 end
 
 ----------------------------------------------------------------------------
+-- function getStageDiffTextColor
+----------------------------------------------------------------------------
+function ServerData_Dmgate:getStageDiffTextColorByIndex(index)
+    
+    return COLOR[DmgateStringTable['diff_color'][tonumber(index)]]
+end
+
+----------------------------------------------------------------------------
 -- function getStageDiffColorStr
 ----------------------------------------------------------------------------
 function ServerData_Dmgate:getStageDiffColorStr(stage_id)
     local diff_level = self:getDifficultyID(stage_id)
     
     return DmgateStringTable['diff_color'][diff_level]
+end
+
+----------------------------------------------------------------------------
+-- function getStageDiffColorStrByIndex
+----------------------------------------------------------------------------
+function ServerData_Dmgate:getStageDiffColorStrByIndex(index)
+    return DmgateStringTable['diff_color'][tonumber(index)]
 end
 
 ----------------------------------------------------------------------------
