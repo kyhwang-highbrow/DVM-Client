@@ -62,20 +62,19 @@ function UI_DmgateRankPopup:init(mode_id)
     self:initButton()
     self:refresh()
 
-    local recent_stage_id = g_dmgateData:getClearedMaxStageInList(mode_id)
+    local cleared_stage_id = g_dmgateData:getClearedMaxStageInList(mode_id)
+    local next_stage_id = g_dmgateData:getNextStageID(cleared_stage_id)
 
-    local tab_id
-    if g_dmgateData:getDifficultyID(recent_stage_id) < 3 then
-        tab_id = 1
+    if next_stage_id == nil then
+        tab_id = 0
     else
-        tab_id = g_dmgateData:getStageID(recent_stage_id)
-
-        if tab_id == 5 then tab_id = 0 end
+        if g_dmgateData:getDifficultyID(next_stage_id) < 3 then
+            tab_id = 1
+        else
+            tab_id = g_dmgateData:getStageID(next_stage_id)
+        end
     end
-    
 
-
-    
     self:click_tabBtn(tab_id)  
 end
 

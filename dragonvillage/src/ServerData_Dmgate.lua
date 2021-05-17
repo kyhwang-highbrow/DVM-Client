@@ -499,10 +499,10 @@ function ServerData_Dmgate:getClearedMaxStageInList(mode_id)
 
     for key, stage_status in pairs(list) do
         stage_id = tonumber(key)
-        if (stage_id > max_stage_id) then
-            if self:checkStageTime(stage_id) then
+        if (stage_status ~= 0) and (stage_id > max_stage_id) then
+            --if self:checkStageTime(stage_id) then
                 max_stage_id = stage_id
-            end
+            --end
         end
     end
 
@@ -531,6 +531,7 @@ function ServerData_Dmgate:checkStageTime(stage_id)
     end
 
     local stage_table = self.m_stageTable[mode_id][chapter_id][stage_key]
+    ccdump(stage_table)
     local start_date = tostring(stage_table['start_date'])
     local end_date = tostring(stage_table['end_date'])
 
