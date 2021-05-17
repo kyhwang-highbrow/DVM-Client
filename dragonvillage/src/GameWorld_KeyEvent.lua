@@ -114,6 +114,8 @@ end
 -- @brief 미션 성공
 -------------------------------------
 function GameWorld:mission_success()
+    local timer = self.m_gameState.m_fightTimer > 0 and self.m_gameState.m_fightTimer or 1
+    self.m_logRecorder:recordLog('lap_time', timer)
 	self.m_gameState:changeState(GAME_STATE_SUCCESS)
 end
 
