@@ -43,7 +43,7 @@ ServerData_Dmgate = class({
 -- function init
 ----------------------------------------------------------------------------
 function ServerData_Dmgate:init(server_data)
-    self.m_bRevealBanner = true
+    self.m_bRevealBanner = false
     self.m_bNewChapterPopup = false
     self.m_bIsNewSeason = false
     self.m_stageTableName = 'table_dmgate_stage' -- csv from server
