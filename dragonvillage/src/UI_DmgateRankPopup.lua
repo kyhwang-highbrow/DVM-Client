@@ -21,6 +21,7 @@ UI_DmgateRankPopup = class(PARENT, {
 
     m_totalBtn = 'UIC_Button',
     m_tabBtns = 'List[UIC_Button]',
+    m_tabLabels = 'List[LabelTTF]',
     m_tabMenu = 'cc.Menu',
     m_stageRankMenu = 'cc.Menu',
 })
@@ -48,10 +49,12 @@ function UI_DmgateRankPopup:init(mode_id)
     --self.m_totalBtn = vars['totalRankBtn']
     --self.m_totalBtn:registerScriptTapHandler(function() self:click_tabBtn() end)
     self.m_tabBtns = {}
+    self.m_tabLabels = {}
 
     local index = 0
     while(vars['tabBtn' .. tostring(index)]) do
         self.m_tabBtns[index] = vars['tabBtn' .. tostring(index)]
+        self.m_tabLabels[index] = vars['tabLabel' .. tostring(index)]
         index = index + 1
     end
 
@@ -109,8 +112,11 @@ function UI_DmgateRankPopup:click_tabBtn(index)
     for i, button in pairs(self.m_tabBtns) do 
         if i == index then
             button:setEnabled(false)
+            self.m_tabLabels[i]:setTextColor(cc.c4b(0, 0, 0, 255))
         else
             button:setEnabled(true)
+            
+            self.m_tabLabels[i]:setTextColor(cc.c4b(240, 215, 159, 255))
         end
     end
 
