@@ -77,6 +77,7 @@ end
 -- class UI_DragonPickRateItem
 -------------------------------------
 UI_DragonPickRateItem = class(PARENT, IRankListItem:getCloneTable(), {
+        m_marginBtwLabelAndBar = 'number',
         m_dragonInfo = 'table',
         m_dragonStruct = 'StructDragonObject',
     })
@@ -89,6 +90,8 @@ UI_DragonPickRateItem.itemUIName = 'dmgate_rank_popup_stage_dragon_item.ui'
 -------------------------------------
 function UI_DragonPickRateItem:init(t_dragon_info)
     self.m_dragonInfo = t_dragon_info
+    self.m_marginBtwLabelAndBar = 10
+
     local t_data = {}
     t_data['did'] = t_dragon_info['did']
     if (not isJako(t_dragon_info['did'])) then
@@ -138,7 +141,7 @@ function UI_DragonPickRateItem:initUI()
 
     if (vars['pickRateLabel']) then
         local pos_x = vars['pickRateLabel']:getPositionX()
-        vars['pickRateLabel']:setPositionX(pos_x * percent * 0.01)
+        vars['pickRateLabel']:setPositionX(pos_x * percent * 0.01 + self.m_marginBtwLabelAndBar)
         vars['pickRateLabel']:setString(string.format('%.02f%%', percent))
     end
 
