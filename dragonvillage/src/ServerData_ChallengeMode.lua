@@ -216,6 +216,7 @@ function ServerData_ChallengeMode:refresh_playerUserInfo(t_data, l_deck)
 		struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info.m_lv = g_userData:get('lv')
 		struct_user_info.m_nickname = g_userData:get('nick')
+        struct_user_info.m_lastArenaTier = t_data['arena_last_season_tier']
 		
 		-- 클랜
 		local struct_clan = g_clanData:getClanStruct()

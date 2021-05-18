@@ -154,8 +154,8 @@ function GameWorldArena:initTamer()
         local tamer_id = user_info:getDeckTamerID()
         local t_tamer_data = clone(g_tamerData:getTamerServerInfo(tamer_id))
         local t_costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
-        
-        if (user_info.m_lastTier == 'legend') then 
+
+        if (user_info.m_lastArenaTier == 'legend') then 
             tier_res = 'res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp'
         end
 
@@ -180,7 +180,7 @@ function GameWorldArena:initTamer()
         local t_costume = TableTamerCostume():get(costume_id)
         local t_costume_data = StructTamerCostume(t_costume)
         
-        if (user_info.m_lastTier == 'legend') then 
+        if (user_info.m_lastArenaTier == 'legend') then 
             tier_res = 'res/effect/effect_tamer_ranker_01/effect_tamer_ranker_01.vrp'
         end
                 
