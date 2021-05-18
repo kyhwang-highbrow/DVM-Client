@@ -123,7 +123,7 @@ function UINavigatorDefinition:goTo_quest(...)
         return
     end
 
-    UI_QuestPopup()
+    g_questData:requestQuestInfo(function() UI_QuestPopup() end)
 end
 
 -------------------------------------
