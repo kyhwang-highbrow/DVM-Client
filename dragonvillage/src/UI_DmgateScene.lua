@@ -214,6 +214,8 @@ function UI_DmgateScene:initButton()
         
     if IS_TEST_MODE() then
         self.m_manageDevBtn:setVisible(true)
+    else
+        self.m_manageDevBtn:setVisible(false)
     end
 
     -- 랭킹 버튼
