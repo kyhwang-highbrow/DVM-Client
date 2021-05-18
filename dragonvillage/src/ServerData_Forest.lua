@@ -48,6 +48,7 @@ function ServerData_Forest:getMyUserInfo()
         ['nick'] = g_userData:get('nick'),
         ['leader'] = g_dragonsData:getLeaderDragon(),
         ['costume_id'] = g_tamerCostumeData:getCostumeID(),
+        ['arena_new_last_tier'] = g_arenaNewData.m_playerUserInfo.m_lastTier,
     }
 
     return StructUserInfoForest:create(t_user_info)

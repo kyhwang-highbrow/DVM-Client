@@ -112,7 +112,16 @@ function LobbyUserStatusUI:init_statusUI()
     end
 
     -- 티어...
+    self:addTierIcon(struct_user_info)
+end
+
+-------------------------------------
+-- function addTierIcon
+-------------------------------------
+function LobbyUserStatusUI:addTierIcon(struct_user_info)
+    local vars = self.vars
     local tier_icon = struct_user_info:makeTierIcon()
+
     if (vars['tierNode']) then
         vars['tierNode']:removeAllChildren()
 
