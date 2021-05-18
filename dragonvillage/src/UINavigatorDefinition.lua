@@ -516,6 +516,11 @@ function UINavigatorDefinition:goTo_arena_new(...)
     end
 
     local function finish_cb()
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_ClanWarSelectScene')
+        if (is_opend == true) then
+            ui:close()
+        end
 
         -- 오픈 상태 여부 체크
         if (not g_arenaNewData:isOpenArena()) then
