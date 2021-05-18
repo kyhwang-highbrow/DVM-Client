@@ -37,6 +37,12 @@ function StructUserInfoClan:create(t_data)
     user_info.m_lastActiveTime = t_data['last_active']
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
 
+    if (t_data['info'] and t_data['info']['last_arena_tier']) then
+        user_info.m_lastArenaTier = t_data['info']['last_arena_tier']
+    else
+        user_info.m_lastArenaTier = 'beginner'
+    end
+
     -- 친구 드래곤 룬 세팅
     user_info.m_leaderDragonObject:setRuneObjects(t_data['runes'])
 
