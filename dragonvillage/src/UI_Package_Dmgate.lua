@@ -83,6 +83,10 @@ function UI_Package_Dmgate:initTableView()
 
     local item_list = g_dmgatePackageData:getPackageTable(product_id)
 
+    table.sort(item_list, function(a, b)
+        return a['package_id'] < b['package_id']
+    end)
+
 
     local function create_func(ui, data)
         
