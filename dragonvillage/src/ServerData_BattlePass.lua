@@ -460,8 +460,7 @@ function ServerData_BattlePass:openBattlePassPopup(close_cb)
         co:close()
 
         local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_BattlePassPopup')
-        ccdump('goto_battlepass')
-        ccdump(is_opend)
+
         if (is_opend == true) then
             UINavigatorDefinition:closeUIList(idx)
             return
