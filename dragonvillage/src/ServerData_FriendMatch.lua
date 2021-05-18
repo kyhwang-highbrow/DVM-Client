@@ -306,7 +306,7 @@ end
 function ServerData_FriendMatch:refresh_playerUserInfo_Arena(l_deck, my_info)
     self.m_playerUserInfo = {}
 
-    local struct_user_info = StructUserInfoArena()
+    local struct_user_info = StructUserInfoArenaNew()
     struct_user_info.m_uid = g_userData:get('uid')
     struct_user_info.m_nickname = g_userData:get('nick')
     struct_user_info.m_lv = g_userData:get('lv')
@@ -360,7 +360,7 @@ end
 -------------------------------------
 function ServerData_FriendMatch:refresh_matchList_Arena(match_info)
     self.m_matchInfo = {}
-    local struct_user_info = StructUserInfoArena()
+    local struct_user_info = StructUserInfoArenaNew()
 
     -- 기본 유저 정보
     struct_user_info.m_uid = match_info['uid']
