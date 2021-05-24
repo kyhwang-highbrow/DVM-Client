@@ -487,6 +487,11 @@ function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, 
         if finish_cb then
             finish_cb(ret)
         end
+
+        -- 채팅 서버에 변경사항 적용
+        if g_chatClientSocket then
+            g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
+        end
     end
 
     -- 응답 상태 처리 함수
