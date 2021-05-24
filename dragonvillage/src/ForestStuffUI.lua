@@ -100,7 +100,10 @@ function ForestStuffUI:readyForReward()
     local stuff_type = self.m_tSuffInfo['stuff_type']
     local reward_icon = cc.Sprite:createWithSpriteFrameName(T_SOCKET_RES[stuff_type]) -- plist 등록은 UI_Forest에서 한다
     local socket_node = reward_visual.m_node:getSocketNode('dragon_forest_reward')
-    socket_node:addChild(reward_icon)
+
+    if reward_icon and socket_node then
+        socket_node:addChild(reward_icon)
+    end
 end
 
 -------------------------------------
