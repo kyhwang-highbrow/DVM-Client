@@ -697,6 +697,19 @@ function StructUserInfoArenaNew:getDeck(type)
 
         return l_doid, formation, type, leader, tamer_id, formation_lv
 
+    elseif (type == 'fpvp_atk' or type == 'clanwar') then
+        local l_doid = self:getDeck_dragonList(true)
+        local formation = 'attack'
+        local leader = 0
+        local formation_lv = 1
+        if self.m_pvpDeck then
+            formation = self.m_pvpDeck['formation']
+            leader = self.m_pvpDeck['leader']
+            tamer_id = self.m_pvpDeck['tamer'] or tamer_id
+            formation_lv = self.m_pvpDeck['formationlv'] 
+        end
+        return l_doid, formation, type, leader, tamer_id, formation_lv
+
     else
         return {}, 'attack', type, 1, tamer_id
     end
