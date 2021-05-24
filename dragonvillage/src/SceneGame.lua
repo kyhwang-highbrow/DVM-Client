@@ -1281,9 +1281,11 @@ end
 -- function applicationWillEnterForeground
 -------------------------------------
 function SceneGame:applicationWillEnterForeground()
-    if (self.m_inGameUI) then
-        self.m_inGameUI:closePauseUI()
-    end
+    -- 앱이 백그라운드로 왔다리 갔다리 할 때 pause가 풀릴 때도 있어서
+    -- 예상못한 시간의 흐름을 방지하기 위해 아무것도 하지 않는게 좋다
+    --if (self.m_inGameUI) then
+    --    self.m_inGameUI:closePauseUI()
+    --end
 end
 
 -------------------------------------
