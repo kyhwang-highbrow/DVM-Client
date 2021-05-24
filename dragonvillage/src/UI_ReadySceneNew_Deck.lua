@@ -423,6 +423,16 @@ function UI_ReadySceneNew_Deck:init_deck()
     self.m_lDeckList = {}
     self.m_tDeckMap = {}
 
+    
+    local friendDragonIndex = g_friendData:getFriendDragonSlotIdx()
+    local friendDragonId = g_friendData:getSettedFriendDragonID()
+    
+    if friendDragonIndex and friendDragonId then
+        self:setSlot(friendDragonIndex, friendDragonId, true)
+    else
+        g_friendData:delSettedFriendDragon()
+    end
+
     for idx,doid in pairs(l_deck) do
         local skip_sort = true
 
