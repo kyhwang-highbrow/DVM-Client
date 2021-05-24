@@ -854,6 +854,17 @@ function ServerData_Friend:getFriendDragonSlotIdx()
 end
 
 -------------------------------------
+-- function getSettedFriendDragonID
+-- @brief 친구 드래곤 id
+-------------------------------------
+function ServerData_Friend:getSettedFriendDragonID()
+    if (self.m_selectedSharedFriendDragon) then
+        return self.m_selectedSharedFriendDragon
+    end
+    return nil
+end
+
+-------------------------------------
 -- function checkSetSlotCondition
 -- @brief 친구 드래곤 슬롯 세팅 조건 검사
 -------------------------------------
