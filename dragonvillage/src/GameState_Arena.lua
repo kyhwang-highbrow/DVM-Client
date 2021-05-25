@@ -369,11 +369,20 @@ end
 -------------------------------------
 function GameState_Arena:processTimeOut()
     self.m_bTimeOut = true
-
+    
+    -- 최종 결과 계산과 싱크가 안맞을 때가 있음
     local inGameUi = self.m_world.m_inGameUI
+    local hero_hp, enemy_hp = self.m_world:getRealtimeHpPercentage()
 
+    inGameUi:setHeroHpGauge(hero_hp)
+    inGameUi:setEnemyHpGauge(enemy_hp)
+    if (IS_TEST_MODE()) then
+        local win_text = hero_hp <= enemy_hp and '패배' or '승리'
+        cclog('왼쪽 :: ' .. tostring(hero_hp) .. ' 오른쪽 :: ' .. tostring(enemy_hp) .. ' ... 결과 :: ' .. win_text)
+    end
+    --[[
     local hero_hp = inGameUi:getHeroHpGaugePercentage()
-    local enemy_hp = inGameUi:getEnemyHpGaugePercentage()
+    local enemy_hp = inGameUi:getEnemyHpGaugePercentage()]]
 
     -- @sgkim 20190802 기존에는 체력이 같을 경우 아군이 승리
     --                 스피드핵을 통해 1초만에 게임을 종료시키고 체력으로 이기는 어뷰징 발생

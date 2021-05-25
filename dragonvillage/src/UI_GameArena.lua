@@ -132,6 +132,7 @@ end
 -- function setHeroHpGauge
 -------------------------------------
 function UI_GameArena:setHeroHpGauge(percentage)
+    self.vars['hpGauge1']:stopAllActions()
     self.vars['hpGauge1']:runAction(cc.ProgressTo:create(0.2, percentage))
 end
 
@@ -146,6 +147,7 @@ end
 -- function setEnemyHpGauge
 -------------------------------------
 function UI_GameArena:setEnemyHpGauge(percentage)
+    self.vars['hpGauge2']:stopAllActions()
     self.vars['hpGauge2']:runAction(cc.ProgressTo:create(0.2, percentage)) 
 end
 

@@ -80,6 +80,42 @@ function UI_MatchReadyClanWar:initResult()
 	local no_time = (#l_result == 0) -- 매치화면에 들어왔다는 것은 이미 시간 어택 시작했다는 의미
 	vars['lastTimeLabel']:setVisible(not no_time)
 	vars['noTimeSprite']:setVisible(no_time)
+
+    if (IS_TEST_MODE()) then self:createDevBtn() end
+end
+
+-------------------------------------
+-- function createDevBtn
+-- @brief 테스트가 너무 번거로워서 만듬
+-------------------------------------
+function UI_MatchReadyClanWar:createDevBtn()
+    local vars = self.vars
+
+    local start_game = function()
+        -- 콜로세움 시작 요청
+        -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
+        self.root:unscheduleUpdate()
+        local scene = SceneGameClanWar(65535, nil, nil, true)
+        scene:runScene()
+    end
+
+    local function touchEvent(sender,eventType)
+        if eventType == ccui.TouchEventType.ended then
+            start_game()
+        end
+    end
+
+    local button = ccui.Button:create()
+    button:setTitleFontName(FONT_PATH)
+    button:setTitleFontSize(30)
+    button:setTitleText('테스트 공격')
+
+    button:setTouchEnabled(true)
+    button:loadTextures("res/common/tool/a_button_0801.png", "res/common/tool/a_button_0802.png", "")
+    button:setPosition(0, 120)
+    button:setDockPoint(cc.p(0.5, 0))
+    button:addTouchEventListener(touchEvent)
+    vars['startBtn']:getParent():addChild(button, 50)
 end
 
 -------------------------------------

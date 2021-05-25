@@ -16,6 +16,12 @@ end
 -- function makeResultUI
 -------------------------------------
 function GameState_ClanWar:makeResultUI(is_win)
+    if (self.m_world.m_bDevelopMode) then
+        UI_GameResult_ClanWar(is_win)
+        return
+    end
+
+
     local finish_cb = function(ret)
 		UI_GameResult_ClanWar(is_win)
 	end

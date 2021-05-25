@@ -355,6 +355,38 @@ function UI_ClanWarMatchingScene:initButton()
 	else
 		vars['matchTypeBtn']:setVisible(false)
 	end
+
+    if (IS_TEST_MODE()) then self:createDevBtn() end
+end
+
+-------------------------------------
+-- function createDevBtn
+-- @brief 테스트가 너무 번거로워서 만듬
+-------------------------------------
+function UI_ClanWarMatchingScene:createDevBtn()
+    local vars = self.vars
+
+    local function touchEvent(sender,eventType)
+        if eventType == ccui.TouchEventType.ended then
+            local goto_select_scene_cb = function()
+                UI_ClanWarSelectScene(self.m_structMatch)
+            end
+
+            g_clanWarData:click_gotoBattle(my_struct_match_item, opponent_struct_match_item, goto_select_scene_cb)
+        end
+    end
+
+    local button = ccui.Button:create()
+    button:setTitleFontName(FONT_PATH)
+    button:setTitleFontSize(30)
+    button:setTitleText('테스트 공격')
+
+    button:setTouchEnabled(true)
+    button:loadTextures("res/common/tool/a_button_0801.png", "res/common/tool/a_button_0802.png", "")
+    button:setPosition(0, 120)
+    button:setDockPoint(cc.p(0.5, 0))
+    button:addTouchEventListener(touchEvent)
+    vars['battleBtn']:getParent():addChild(button, 50)
 end
 
 -------------------------------------
