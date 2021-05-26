@@ -1510,6 +1510,9 @@ function GameWorld:onEvent(event_name, t_event, ...)
     elseif (event_name == 'character_set_hp') then
         local arg = {...}
         local unit = arg[1]
+        
+        -- 무적 스킬류는 여기서 발동 시킴
+        unit:doPerfectBarrierSkill(t_event)
 
         unit:dispatch('under_self_hp', t_event, unit)
 

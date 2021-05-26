@@ -145,13 +145,11 @@ function Character:onEvent_underSelfHp(hp, max_hp)
 
         for i, v in ipairs(list) do
             if (v:isEndCoolTime()) then
-                if (percentage <= v:getChanceValue()) then
-                    -- chance_value값(ex)무적 50%, 생존 30%)이 다른 스킬은 동시에 발동 안됨 skill_1 skill_2 chance value 같으면 둘다 발동함
-                    local is_diff_chance_value = self:isDiffChanceValue(v.m_skillID)
-                    if (is_diff_chance_value) then            
-                        break
+                if (percentage <= v:getChanceValue()) then       
+                    -- 무적 스킬의 경우 바로 발동하지 않고 발동될 스킬 정보를 return
+                    if (not v:hasPerfectBarrier()) then
+                        self:doSkill(v.m_skillID, 0, 0)
                     end
-                    self:doSkill(v.m_skillID, 0, 0)
                 end
             end
         end
@@ -163,56 +161,13 @@ function Character:onEvent_underSelfHp(hp, max_hp)
         for i, v in pairs(list) do
             if (v:isEndCoolTime()) then
                 if (percentage <= v:getChanceValue()) then
-                    self:doSkill(v.m_skillID, 0, 0)
+                    if (not v:hasPerfectBarrier()) then
+                        self:doSkill(v.m_skillID, 0, 0)
+                    end
                 end
             end
         end
     end
-end
-
--------------------------------------
--- function isDiffChanceValue
--------------------------------------
-function Character:isDiffChanceValue(target_skill_id)
-    local target_chance_value = self:getChanceValue(target_skill_id)
-
-    for skill_type, status_effect_class in pairs(self.m_mStatusEffect) do
-        if (status_effect_class) then
-            if (status_effect_class.m_keep_value) then
-                if (target_chance_value ~= status_effect_class.m_keep_value) then
-                    return true
-                end
-            end
-        end
-    end
-
-    return false
-end
-
--------------------------------------
--- function getChanceValue
--------------------------------------
-function Character:getChanceValue(skill_id)
-    local table_skill = GetSkillTable(self.m_charType)
-    if (not table_skill) then
-        return nil
-    end
-    
-    local t_skill = table_skill:get(skill_id)
-    if (not t_skill)then
-        return nil
-    end
-
-    local chance_value = t_skill['chance_value']
-
-    -- 발동 조건값(chance_value)이 수식인 경우 수식을 계산
-    if (type(chance_value) == 'function') then
-        chance_value = chance_value(self, nil, nil, skill_id)
-    else
-        chance_value = chance_value
-    end
-
-    return chance_value
 end
 
 -------------------------------------
@@ -229,10 +184,91 @@ function Character:onEvent_underAllyHp(hp, max_hp)
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             if (percentage <= v:getChanceValue()) then
-                self:doSkill(v.m_skillID, 0, 0)
+                if (not v:hasPerfectBarrier()) then                  
+                    self:doSkill(v.m_skillID, 0, 0)
+                end
             end
         end
     end
+end
+
+function Character:doPerfectBarrierSkill(t_event)
+    local hp = t_event['hp']
+    local max_hp = t_event['max_hp']
+    local l_possible_perfect_barrier_skill = {}
+
+    local func_insert = function(l_list)
+        l_possible_perfect_barrier_skill = table.merge(l_possible_perfect_barrier_skill, l_list)
+    end
+
+    -- 현재 hp로 발동되는 나의 무적 스킬을 리스트에 추가
+    func_insert(self:checkPerfectBarrierSkill(self, hp, max_hp, 'under_self_hp'))
+    if (not self:isZeroHp()) then
+        func_insert(self:checkPerfectBarrierSkill(self, hp, max_hp, 'under_self_hp_alive'))
+    end
+    
+    -- 현재 hp로 발동되는 동료의 무적 스킬 리스트에 추가
+    for _, fellow in pairs(self:getFellowList()) do
+        func_insert(fellow:checkPerfectBarrierSkill(self, hp, max_hp, 'under_ally_hp'))
+        if (unit ~= fellow) then
+            func_insert(fellow:checkPerfectBarrierSkill(self, hp, max_hp, 'under_teammate_hp'))
+        end
+    end
+
+    local l_list = l_possible_perfect_barrier_skill
+    -- 발동할 스킬이 없다면 탈출
+    if (#l_list == 0) then
+        return
+    end
+    
+    -- chance_value 순서로 정렬
+    local func_sort = function(a, b)
+        return a['chance_value'] > b['chance_value']
+    end
+    table.sort(l_list, func_sort)
+
+    if (IS_TEST_MODE()) then
+        cclog('==============')
+        cclog(string.format('%s(%s) 의 체력이 %d 퍼센트인 상태', self:getName(), dragonAttributeName(self:getAttribute()), (hp/max_hp)*100))
+
+        for i, v in ipairs(l_list) do
+            cclog(string.format('%d. %s 의 스킬 : %s chance_value : %d', i, v['skill_owner']:getName(), TableDragonSkill():getSkillName(v['skill_id']), v['chance_value']))
+        end
+        cclog('==============')
+    end
+
+    -- 첫번째 무적 스킬만 발동
+    local possible_perfect_barrier_skill = l_list[1]
+    if (possible_perfect_barrier_skill) then
+        local skill_owner = possible_perfect_barrier_skill['skill_owner']
+        local skill_id = possible_perfect_barrier_skill['skill_id']
+        local is_do_skill = skill_owner:doSkill(skill_id, 0, 0)
+    end
+end
+
+-------------------------------------
+-- function checkPerfectBarrierSkill
+-------------------------------------
+function Character:checkPerfectBarrierSkill(owner, hp, max_hp, type)
+    local list = self:getSkillIndivisualInfo(type)
+
+    if (not list) then return end
+    if (not self.m_statusCalc) then return end
+
+    local percentage = (hp / max_hp) * 100
+    local l_list = {}
+
+    for i, v in pairs(list) do
+        if (v:isEndCoolTime()) then
+            if (percentage <= v:getChanceValue()) then
+                if (v:hasPerfectBarrier()) then                  
+                    l_list[v.m_skillID] = {['skill_owner'] = self, ['chance_value'] = v:getChanceValue(), ['skill_id'] = v.m_skillID}
+                end
+            end
+        end
+    end
+
+    return l_list
 end
 
 -------------------------------------
@@ -248,12 +284,10 @@ function Character:onEvent_underTeammateHp(hp, max_hp, unit)
 
     for i, v in ipairs(list) do
         if (v:isEndCoolTime()) then        
-            if (percentage <= v:getChanceValue()) then            
-                local is_diff_chance_value = unit:isDiffChanceValue(v.m_skillID)
-                if (is_diff_chance_value) then            
-                    break
-                end
-                self:doSkill(v.m_skillID, 0, 0)                         
+            if (percentage <= v:getChanceValue()) then
+                if (not v:hasPerfectBarrier()) then                 
+                    self:doSkill(v.m_skillID, 0, 0)
+                end                    
             end          
         end
     end

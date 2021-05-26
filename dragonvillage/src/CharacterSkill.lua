@@ -52,6 +52,10 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
         t_data['ignore'] = skill_indivisual_info:getMapToIgnore()
     end
 
+    if (skill_indivisual_info:hasPerfectBarrier() and IS_TEST_MODE()) then
+        cclog(TableDragonSkill():getSkillName(skill_id) .. ' 스킬 발동 =====!!!')
+    end
+
     if (self:doSkillBySkillTable(t_skill, t_data)) then
         if (skill_indivisual_info) then
             skill_indivisual_info:startCoolTime(true)

@@ -336,3 +336,24 @@ function DragonSkillIndivisualInfo:getMetamorphosisSkillId()
 
     return skill_id
 end
+
+-------------------------------------
+-- function hasPerfectBarrier
+-- @brief 스킬 상태효과중에 무적 관련 상태효과가 있다면 true 반환
+-------------------------------------
+function DragonSkillIndivisualInfo:hasPerfectBarrier()
+    if (not self.m_tSkill) then
+        return false
+    end
+    
+    for i = 1, 4 do
+        local add_option_type = self.m_tSkill['add_option_type_' .. i]
+        if (add_option_type) then
+            if (string.find(add_option_type, 'barrier_protection_time')) then
+                return true
+            end
+        end
+    end
+
+    return false
+end
