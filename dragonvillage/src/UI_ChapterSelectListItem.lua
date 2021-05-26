@@ -40,6 +40,20 @@ function UI_ChapterSelectListItem:initUI()
     -- 지옥 모드 강제로 막음 (어려움 마지막 스테이지 클리어한 상태면 지옥 모드 1 스테이지가 열린 상태임)
     if (g_adventureData:isOpenStage(stage_id) and difficulty <= MAX_ADVENTURE_DIFFICULTY) then
         target_btn:registerScriptTapHandler(function() self:click_selectBtn() end)
+
+        
+        local total_star_num = 0
+        
+        for i = 1, MAX_ADVENTURE_STAGE do
+            local adventure_id = makeAdventureID(difficulty, chapter, i)
+            local stage_info = g_adventureData:getStageInfo(adventure_id)
+            
+            total_star_num = total_star_num + stage_info:getNumberOfStars()
+        end
+
+        vars['starMenu']:setVisible(true)
+        vars['starLabel']:setString(string.format('%d', total_star_num))
+
     else
         vars['lockSprite']:setVisible(true)
         target_btn:setEnabled(false)
