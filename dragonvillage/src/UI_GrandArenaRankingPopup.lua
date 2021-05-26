@@ -311,7 +311,7 @@ function UI_GrandArenaRankingPopup:make_UIC_SortList()
     uic:addSortType('clan', Str('클랜원 랭킹'))
 
     uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
-    uic:setSelectSortType('my')
+    uic:setSelectSortType('top')
 end
 
 -------------------------------------
