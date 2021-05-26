@@ -63,6 +63,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, 
     self.m_bPossibleRevive = bPossibleRevive or false
     self.m_evolutionLv = evolution
     self.m_originScale = scale
+    self.m_bPossibleRevive = true
 
 	-- 각종 init 함수 실행
 	do

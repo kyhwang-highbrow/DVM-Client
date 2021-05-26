@@ -229,7 +229,7 @@ function TargetRule_getTargetList_dead(org_list)
     for i, char in pairs(t_char) do
         -- 죽는 도중이 아닌 확실히 죽은 대상만 선별
         if (char:isDead(true) and char.m_bPossibleRevive) then
-            table.insert(t_ret, v)
+            table.insert(t_ret, char)
         end
 
         t_ret = randomShuffle(t_ret)
