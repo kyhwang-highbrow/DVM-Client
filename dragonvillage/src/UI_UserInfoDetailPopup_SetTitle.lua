@@ -185,6 +185,19 @@ function UI_UserInfoDetailPopup_SetTitle:makeCellUI(t_data)
     local is_use = (title_id == self.m_currTitle)
     vars['selectSprite']:setVisible(is_use)
     vars['selectBtn']:setVisible(not is_use)
+    vars['removeBtn']:setVisible(is_use)
+
+    if (is_use) then
+        vars['removeBtn']:registerScriptTapHandler(function()
+            local function cb_func()
+                UI_ToastPopup(Str('칭호가 해체되었습니다.'))
+                self.m_closeCB(0)
+                self.m_closeCB = nil
+                self:close()
+            end
+            g_userData:request_setTitle(0, cb_func)
+        end)
+    end
 
 	return ui
 end
