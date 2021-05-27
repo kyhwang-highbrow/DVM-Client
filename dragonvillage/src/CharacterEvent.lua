@@ -149,7 +149,12 @@ function Character:onEvent_underSelfHp(hp, max_hp)
                     -- 롤백이 필요할 수도 있음
                     if (SEQUENTIAL_PERFECT_BARRIER == true) then 
                         -- 무적 스킬의 경우 바로 발동하지 않고 발동될 스킬 정보를 return
-                        if (not v:hasPerfectBarrier()) then self:doSkill(v.m_skillID, 0, 0) end
+                        --if (not v:hasPerfectBarrier()) then self:doSkill(v.m_skillID, 0, 0) end
+                        -- 허용할 경우 일부 드래곤이 지나치게 성능이 좋아짐
+                        -- chance_value값(ex)무적 50%, 생존 30%)이 다른 스킬은 동시에 발동 안됨 skill_1 skill_2 chance value 같으면 둘다 발동함
+                        local is_diff_chance_value = self:isDiffChanceValue(v.m_skillID)
+                        if (is_diff_chance_value) then break end
+                        self:doSkill(v.m_skillID, 0, 0)
                     else
                         -- chance_value값(ex)무적 50%, 생존 30%)이 다른 스킬은 동시에 발동 안됨 skill_1 skill_2 chance value 같으면 둘다 발동함
                         local is_diff_chance_value = self:isDiffChanceValue(v.m_skillID)
@@ -302,7 +307,11 @@ function Character:onEvent_underTeammateHp(hp, max_hp, unit)
             if (percentage <= v:getChanceValue()) then
                 -- 롤백이 필요할 수도 있음
                 if (SEQUENTIAL_PERFECT_BARRIER == true) then
-                    if (not v:hasPerfectBarrier()) then self:doSkill(v.m_skillID, 0, 0) end
+                    --if (not v:hasPerfectBarrier()) then self:doSkill(v.m_skillID, 0, 0) end
+                    -- 허용할 경우 일부 드래곤이(트로페우스) 지나치게 성능이 좋아짐
+                    local is_diff_chance_value = unit:isDiffChanceValue(v.m_skillID)
+                    if (is_diff_chance_value) then break end
+                    self:doSkill(v.m_skillID, 0, 0)
                 else
                     local is_diff_chance_value = unit:isDiffChanceValue(v.m_skillID)
                     if (is_diff_chance_value) then break end
