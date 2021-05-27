@@ -218,11 +218,11 @@ function UI_Lobby:entryCoroutine()
         if co:waitWork() then return end
 
         -- 차원문 
-        do 
-            co:work('# 차원문 정보 받는 중')
-            g_dmgateData:request_dmgateInfo(co.NEXT, co.ESCAPE)
-            if co:waitWork() then return end
-        end
+        -- do 
+        --     co:work('# 차원문 정보 받는 중')
+        --     g_dmgateData:request_dmgateInfo(co.NEXT, co.ESCAPE)
+        --     if co:waitWork() then return end
+        -- end
 
         -- 구독 상품 정보 받는 중
         co:work('# 구독 상품 정보 받는 중')
@@ -1574,7 +1574,12 @@ end
 -- @brief 선물상자 버튼 (광고 보기)
 -------------------------------------
 function UI_Lobby:click_giftBoxBtn()
-    g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
+    
+    if IS_TEST_MODE() then
+        UI_DmgateScene(DIMENSION_GATE_MANUS)
+    else
+        g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
+    end
 end
 
 -------------------------------------
