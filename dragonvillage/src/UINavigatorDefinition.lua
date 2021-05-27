@@ -2251,7 +2251,7 @@ function UINavigatorDefinition:goTo_dmgate(...)
             self:closeUIList(index) 
             ui:setTab('dungeon')
             ui:resetButtonsPosition()
-            UI_DmgateScene()
+            UI_DmgateScene(DIMENSION_GATE_ANGRA)
             return
         end
 
@@ -2259,7 +2259,7 @@ function UINavigatorDefinition:goTo_dmgate(...)
         local is_opened, index, ui = self:findOpendUI('UI_Lobby')
         if is_opened then
             self:closeUIList(index) 
-            UI_DmgateScene()
+            UI_DmgateScene(DIMENSION_GATE_ANGRA)
             return
         end
    
@@ -2268,7 +2268,7 @@ function UINavigatorDefinition:goTo_dmgate(...)
                 UINavigatorDefinition:goTo('lobby')
             end
 
-            local scene = SceneCommon(UI_DmgateScene, close_cb)
+            local scene = SceneCommon(UI_DmgateScene, close_cb, DIMENSION_GATE_ANGRA)
             scene:runScene()
         end
     end

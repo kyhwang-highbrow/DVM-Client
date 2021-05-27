@@ -28,13 +28,13 @@ function SceneDmgate:onEnter()
 
         -- 빠른 시작 반복 시 backkey 를 위한 UI 지정
         -- TODO : Check whether UI_DmgateScene is repeatedly overlapped every time user play by using quick start.
-        UI_DmgateScene(stage_id)
+        UI_DmgateScene(DIMENSION_GATE_ANGRA, stage_id)
 
         if (self.m_bReady) then
             UI_ReadySceneNew(stage_id)
         end
 
     else
-        UI_DmgateScene(nil)
+        UI_DmgateScene(DIMENSION_GATE_ANGRA)
     end
 end

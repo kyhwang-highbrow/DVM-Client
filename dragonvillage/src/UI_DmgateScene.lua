@@ -21,6 +21,7 @@ UI_DmgateScene = class(PARENT, {
     m_timeNode = 'cc.Node',         -- 시즌 시간 노드 for setVisible()
     m_timeLabel = 'UIC_LabelTTF',   -- 남은 시즌 시간 텍스트
 
+    m_packageNoti = 'Sprite',       -- 돌파 패키지 노티
     m_packageBtn = 'UIC_Button',    -- 돌파 패키지 버튼
     m_seasonBtn = 'UIC_Button',     -- 시즌 효과 버튼
     m_rankBtn = 'UIC_Button',       -- 랭킹 버튼
@@ -87,11 +88,11 @@ end
 ----------------------------------------------------------------------
 -- function initMember
 ----------------------------------------------------------------------
-function UI_DmgateScene:initMember(stage_id)
+function UI_DmgateScene:initMember(mode_id, stage_id)
     local vars = self.vars
 
     self.m_stageItemGap = 15 -- 스테이지 버튼 사이 거리
-    self.m_modeId = DIMENSION_GATE_ANGRA
+    self.m_modeId = mode_id
     
     if stage_id then
         self.m_chapterId = g_dmgateData:getChapterID(stage_id)
@@ -120,6 +121,7 @@ function UI_DmgateScene:initMember(stage_id)
     self.m_timeLabel = vars['timeLabel']    -- 시간 텍스트 노드
 
 
+    self.m_packageNoti = vars['dmgateNotiSprite'] -- 돌파 패키지 노티
     self.m_packageBtn = vars['dmgateBtn']   -- 돌파 패키지 버튼
     self.m_rankBtn = vars['rankBtn']        -- 랭킹 버튼
     self.m_seasonBtn = vars['seasonBtn']    -- 시즌 효과 버튼
@@ -179,6 +181,7 @@ function UI_DmgateScene:initUI()
             require('UI_Package_Dmgate')
 
             self.m_packageBtn:setVisible(true)
+            self.m_packageNoti:setVisible(g_dmgatePackageData:isNotiVisible())
             self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn(struct_product) end)
             --UI_Package_Dmgate(struct_product, true)
 
@@ -384,7 +387,32 @@ end
 -- brief 시즌 효과 버튼 팝업
 ----------------------------------------------------------------------------
 function UI_DmgateScene:click_packageBtn(struct_product)
-    UI_Package_Dmgate(struct_product, true) 
+    local ui = UI_Package_Dmgate(struct_product, true) 
+
+
+    ui:setCloseCB(function() 
+        local dmgate_id = g_dmgateData:getDmgateId(self.m_modeId)
+        local product_id = g_dmgatePackageData:getProductIdWithDmgateID(dmgate_id)
+
+        if product_id then
+            local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
+
+            if struct_product and g_dmgatePackageData:isPackageVisible(product_id) then
+                self.m_packageBtn:setVisible(true)
+                self.m_packageNoti:setVisible(g_dmgatePackageData:isNotiVisible())
+                self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn(struct_product) end)
+                --UI_Package_Dmgate(struct_product, true)
+
+                --UI_Package_Dmgate()
+                -- if g_dmgatePackageData:isPackageActive(product_id) then
+
+                -- end
+            else
+                self.m_packageBtn:setVisible(false)
+            end
+        end
+    end)
+    
 end
 
 ----------------------------------------------------------------------------
