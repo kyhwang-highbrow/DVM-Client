@@ -145,9 +145,15 @@ function Character:onEvent_underSelfHp(hp, max_hp)
 
         for i, v in ipairs(list) do
             if (v:isEndCoolTime()) then
-                if (percentage <= v:getChanceValue()) then       
-                    -- 무적 스킬의 경우 바로 발동하지 않고 발동될 스킬 정보를 return
-                    if (not v:hasPerfectBarrier()) then
+                if (percentage <= v:getChanceValue()) then
+                    -- 롤백이 필요할 수도 있음
+                    if (SEQUENTIAL_PERFECT_BARRIER == true) then 
+                        -- 무적 스킬의 경우 바로 발동하지 않고 발동될 스킬 정보를 return
+                        if (not v:hasPerfectBarrier()) then self:doSkill(v.m_skillID, 0, 0) end
+                    else
+                        -- chance_value값(ex)무적 50%, 생존 30%)이 다른 스킬은 동시에 발동 안됨 skill_1 skill_2 chance value 같으면 둘다 발동함
+                        local is_diff_chance_value = self:isDiffChanceValue(v.m_skillID)
+                        if (is_diff_chance_value) then break end
                         self:doSkill(v.m_skillID, 0, 0)
                     end
                 end
@@ -161,7 +167,11 @@ function Character:onEvent_underSelfHp(hp, max_hp)
         for i, v in pairs(list) do
             if (v:isEndCoolTime()) then
                 if (percentage <= v:getChanceValue()) then
-                    if (not v:hasPerfectBarrier()) then
+                    -- 롤백이 필요할 수도 있음
+                    if (SEQUENTIAL_PERFECT_BARRIER == true) then 
+                        -- 무적 스킬의 경우 바로 발동하지 않고 발동될 스킬 정보를 return
+                        if (not v:hasPerfectBarrier()) then self:doSkill(v.m_skillID, 0, 0) end
+                    else
                         self:doSkill(v.m_skillID, 0, 0)
                     end
                 end
@@ -184,7 +194,10 @@ function Character:onEvent_underAllyHp(hp, max_hp)
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             if (percentage <= v:getChanceValue()) then
-                if (not v:hasPerfectBarrier()) then                  
+                -- 롤백이 필요할 수도 있음
+                if (SEQUENTIAL_PERFECT_BARRIER == true) then
+                    if (not v:hasPerfectBarrier()) then self:doSkill(v.m_skillID, 0, 0) end
+                else
                     self:doSkill(v.m_skillID, 0, 0)
                 end
             end
@@ -287,9 +300,14 @@ function Character:onEvent_underTeammateHp(hp, max_hp, unit)
     for i, v in ipairs(list) do
         if (v:isEndCoolTime()) then        
             if (percentage <= v:getChanceValue()) then
-                if (not v:hasPerfectBarrier()) then                 
+                -- 롤백이 필요할 수도 있음
+                if (SEQUENTIAL_PERFECT_BARRIER == true) then
+                    if (not v:hasPerfectBarrier()) then self:doSkill(v.m_skillID, 0, 0) end
+                else
+                    local is_diff_chance_value = unit:isDiffChanceValue(v.m_skillID)
+                    if (is_diff_chance_value) then break end
                     self:doSkill(v.m_skillID, 0, 0)
-                end                    
+                end
             end          
         end
     end
@@ -548,4 +566,49 @@ function Character:onEvent_common(event_name)
 
         end
     end
+end
+
+-------------------------------------
+-- function getChanceValue
+-------------------------------------
+function Character:getChanceValue(skill_id)
+    local table_skill = GetSkillTable(self.m_charType)
+    if (not table_skill) then
+        return nil
+    end
+    
+    local t_skill = table_skill:get(skill_id)
+    if (not t_skill)then
+        return nil
+    end
+
+    local chance_value = t_skill['chance_value']
+
+    -- 발동 조건값(chance_value)이 수식인 경우 수식을 계산
+    if (type(chance_value) == 'function') then
+        chance_value = chance_value(self, nil, nil, skill_id)
+    else
+        chance_value = chance_value
+    end
+
+    return chance_value
+end
+
+-------------------------------------
+-- function isDiffChanceValue
+-------------------------------------
+function Character:isDiffChanceValue(target_skill_id)
+    local target_chance_value = self:getChanceValue(target_skill_id)
+
+    for skill_type, status_effect_class in pairs(self.m_mStatusEffect) do
+        if (status_effect_class) then
+            if (status_effect_class.m_keep_value) then
+                if (target_chance_value ~= status_effect_class.m_keep_value) then
+                    return true
+                end
+            end
+        end
+    end
+
+    return false
 end

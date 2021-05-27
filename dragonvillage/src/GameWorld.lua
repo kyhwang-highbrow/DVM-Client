@@ -1511,8 +1511,11 @@ function GameWorld:onEvent(event_name, t_event, ...)
         local arg = {...}
         local unit = arg[1]
         
-        -- 무적 스킬류는 여기서 발동 시킴
-        unit:doPerfectBarrierSkill(t_event)
+        -- 롤백이 필요할 수도 있음
+        if (SEQUENTIAL_PERFECT_BARRIER == true) then
+            -- 무적 스킬류는 여기서 발동 시킴
+            unit:doPerfectBarrierSkill(t_event)
+        end
 
         unit:dispatch('under_self_hp', t_event, unit)
 

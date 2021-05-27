@@ -1,3 +1,5 @@
+SEQUENTIAL_PERFECT_BARRIER = true
+
 -------------------------------------
 -- function doSkill
 -- @brief 스킬 실행
