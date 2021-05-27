@@ -83,6 +83,15 @@ function TableDragonSkill:getSkillIcon(key)
 end
 
 -------------------------------------
+-- function getSkillOwnerName
+-------------------------------------
+function TableDragonSkill:getSkillOwnerName(key)
+	if (not key) or (key == '') then return end
+    local t_skill = self:get(key)
+    return t_skill['r_d_name']
+end
+
+-------------------------------------
 -- function getSkillName
 -------------------------------------
 function TableDragonSkill:getSkillName(key)

@@ -53,7 +53,10 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
     end
 
     if (skill_indivisual_info:hasPerfectBarrier() and IS_TEST_MODE()) then
-        cclog(TableDragonSkill():getSkillName(skill_id) .. ' 스킬 발동 =====!!!')
+        cclog('')
+        local log = string.format('%s의 %s 스킬 발동!!!',TableDragonSkill():getSkillOwnerName(skill_id) , TableDragonSkill():getSkillName(skill_id))
+        cclog(log)
+        cclog('')
     end
 
     if (self:doSkillBySkillTable(t_skill, t_data)) then

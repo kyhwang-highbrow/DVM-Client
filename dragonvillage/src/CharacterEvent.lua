@@ -210,7 +210,7 @@ function Character:doPerfectBarrierSkill(t_event)
     -- 현재 hp로 발동되는 동료의 무적 스킬 리스트에 추가
     for _, fellow in pairs(self:getFellowList()) do
         func_insert(fellow:checkPerfectBarrierSkill(self, hp, max_hp, 'under_ally_hp'))
-        if (unit ~= fellow) then
+        if (self ~= fellow) then
             func_insert(fellow:checkPerfectBarrierSkill(self, hp, max_hp, 'under_teammate_hp'))
         end
     end
@@ -228,13 +228,15 @@ function Character:doPerfectBarrierSkill(t_event)
     table.sort(l_list, func_sort)
 
     if (IS_TEST_MODE()) then
-        cclog('==============')
-        cclog(string.format('%s(%s) 의 체력이 %d 퍼센트인 상태', self:getName(), dragonAttributeName(self:getAttribute()), (hp/max_hp)*100))
+        cclog('********************************************************')
+        cclog(string.format('%s(%s) 의 체력이 %d %%', self:getName(), dragonAttributeName(self:getAttribute()), (hp/max_hp)*100))
+
+        if (l_list and #l_list > 0) then cclog('↓↓↓ 적용 및 대기중인 무적스킬 리스트 ↓↓↓') end
 
         for i, v in ipairs(l_list) do
-            cclog(string.format('%d. %s 의 스킬 : %s chance_value : %d', i, v['skill_owner']:getName(), TableDragonSkill():getSkillName(v['skill_id']), v['chance_value']))
+            cclog(string.format('%d. %s(%s) 의 스킬 : %s chance_value : %d', i, v['skill_owner']:getName(), dragonAttributeName(v['skill_owner']:getAttribute()), TableDragonSkill():getSkillName(v['skill_id']), v['chance_value']))
         end
-        cclog('==============')
+        cclog('********************************************************')
     end
 
     -- 첫번째 무적 스킬만 발동
@@ -261,7 +263,7 @@ function Character:checkPerfectBarrierSkill(owner, hp, max_hp, type)
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             if (percentage <= v:getChanceValue()) then
-                if (v:hasPerfectBarrier()) then                  
+                if (v:hasPerfectBarrier()) then       
                     l_list[v.m_skillID] = {['skill_owner'] = self, ['chance_value'] = v:getChanceValue(), ['skill_id'] = v.m_skillID}
                 end
             end
