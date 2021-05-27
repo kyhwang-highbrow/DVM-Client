@@ -481,6 +481,7 @@ function UI_Clan:refresh()
     -- 맴버 수
     local member_str = struct_clan:getMemberCntText()
     vars['clanMemberLabel']:setString(member_str)
+
     
     -- 클랜 공지
     local clan_notice = struct_clan:getClanNoticeText()
@@ -494,7 +495,10 @@ function UI_Clan:refresh()
     end
 
     -- 출석
-    local str = Str('{1}', struct_clan:getCurrAttd())
+    -- local str = Str('{1}', struct_clan:getCurrAttd())
+    -- vars['attendanceLabel']:setString(str)
+    
+    local str = Str('{1}/{2}', struct_clan:getCurrAttd(), struct_clan:getMemberCnt())
     vars['attendanceLabel']:setString(str)
 
     -- 가입 승인 대기 수
@@ -546,7 +550,7 @@ function UI_Clan:refresh_memberCnt()
     vars['clanMemberLabel']:setString(member_str)
 
     -- 출석
-    local str = Str('{1}/{2}', struct_clan:getCurrAttd(), 20)
+    local str = Str('{1}/{2}', struct_clan:getCurrAttd(), struct_clan:getMemberCnt())
     vars['attendanceLabel']:setString(str)
 end
 

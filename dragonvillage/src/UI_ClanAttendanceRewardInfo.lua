@@ -38,6 +38,18 @@ end
 -------------------------------------
 function UI_ClanAttendanceRewardInfo:initUI()
     local vars = self.vars
+
+    local struct_clan = g_clanData:getClanStruct()
+    local curr_attd_num = struct_clan:getCurrAttd()
+    vars['attendanceLabel']:setString(Str('{1}명', curr_attd_num))
+
+    local index = math.floor(curr_attd_num / 5) + 1
+
+    local rewardSprite = vars['rewardSprite' .. tostring(index)]
+
+    if rewardSprite then
+        rewardSprite:setVisible(true)
+    end
 end
 
 -------------------------------------
