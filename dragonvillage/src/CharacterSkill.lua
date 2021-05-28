@@ -77,7 +77,7 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
 end
 
 -------------------------------------
--- function doSkillBySkillTable
+-- function doSpeechBySkillTable
 -- @brief 스킬의 시발점
 -------------------------------------
 function Character:doSpeechBySkillTable(t_skill)
