@@ -708,6 +708,16 @@ public class AppActivity extends Cocos2dxActivity{
         });
     }
 
+    private static int isInstalled(String packageName) {
+        try {
+            PackageManager pm = PerpleSDK.getInstance().getMainActivity().getPackageManager();
+            pm.getPackageInfo(packageName, 0);
+            return 1;
+        } catch (PackageManager.NameNotFoundException e) {
+            return 0;
+        }
+    }
+
     // Java -> Cpp(Native) (in GLThread)
     private static void sdkEventResult(final String id, final String ret, final String info) {
         sActivity.runOnGLThread(new Runnable() {
