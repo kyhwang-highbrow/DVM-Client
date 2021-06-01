@@ -56,12 +56,12 @@ function TablePickDragon:getDragonList(item_id, map_released)
 	end
 
 	-- 필터
-	local birth_grade = t_condition['birthgrade']
+	local birth_grade = isNullOrEmpty(t_condition['birthgrade']) and 5 or t_condition['birthgrade']
 	local attr = t_condition['attr']
 	local weight_key = t_condition['weight_key']
 
     -- 제외할 드래곤 리스트
-    local not_include_dids = t_condition['not_include_dids']
+    local not_include_dids = tostring(t_condition['not_include_dids'])
     local l_exclude_dids = isNullOrEmpty(not_include_dids) == true and {} or plSplit(not_include_dids, ',')
 
 	-- 태생 조건은 웬만하면 있을테니... 아닌 경우가 있다면 수정해주자
@@ -78,18 +78,22 @@ function TablePickDragon:getDragonList(item_id, map_released)
 
 		-- 한정/카드 체크
 		local weight = t_dragon[weight_key .. '_weight']
-		if (not weight) or (weight == 0) then
+        if (weight == 'lm_cardpack') then
+            local is_card_pack = t_dragon['category'] == 'cardpack'
+
+            if (not is_card_pack) then b = false end
+		elseif (not weight) or (weight == 0) then
 			b = false
 		end
 
 		-- 속성 체크
-		if (attr) and (attr ~= '') and (t_dragon['attr'] ~= attr) then
+		if (isNullOrEmpty(attr) == false) and (t_dragon['attr'] ~= attr) then
 			b = false
 		end
 
         -- 특별히 제외시키는 드래곤
 	    for _, did in ipairs(l_exclude_dids) do
-            if (did == tostring(t_dragon['did'])) then 
+            if (tostring(did) == tostring(t_dragon['did'])) then 
                 b = false 
             end
         end
