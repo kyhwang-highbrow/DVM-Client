@@ -119,7 +119,7 @@ function TablePickDragon:isCustomPick(item_id)
 
 	local t_pick = self:get(item_id)
 
-    if (t_pick['weight_key'] == 'lm_cardpack') then return true end
+    --if (t_pick['weight_key'] == 'lm_cardpack') then return true end
 
 	return t_pick['custom_dids'] and (t_pick['custom_dids'] ~= '')
 end
