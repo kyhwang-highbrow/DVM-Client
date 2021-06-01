@@ -81,7 +81,8 @@ function TablePickDragon:getDragonList(item_id, map_released)
         if (weight_key == 'lm_cardpack') then
             local is_card_pack = t_dragon['category'] == 'cardpack'
             weight = t_dragon['lm_weight']
-            if (not is_card_pack) or (not weight) or (weight <= 0) then b = false end
+
+            if (not is_card_pack) and (not weight) and (weight <= 0) then b = false end
 		elseif (not weight) or (weight == 0) then
 			b = false
 		end
