@@ -78,7 +78,7 @@ function TablePickDragon:getDragonList(item_id, map_released)
 
 		-- 한정/카드 체크
 		local weight = t_dragon[weight_key .. '_weight']
-        if (weight == 'lm_cardpack') then
+        if (weight_key == 'lm_cardpack') then
             local is_card_pack = t_dragon['category'] == 'cardpack'
 
             if (not is_card_pack) then b = false end
