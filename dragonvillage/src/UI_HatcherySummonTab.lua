@@ -9,6 +9,10 @@ UI_HatcherySummonTab = class(PARENT,{
         m_orgDragonList = '',
 
         m_tableViewTD = '',
+		m_roleRadioButton = 'UIC_RadioButton',
+        m_attrRadioButton = 'UIC_RadioButton',
+
+        m_sortManager = 'SortManager',
     })
 
 -------------------------------------
@@ -23,6 +27,19 @@ function UI_HatcherySummonTab:init(owner_ui)
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
 
     self.m_orgDragonList = TablePickDragon:getDragonList(700304, g_dragonsData.m_mReleasedDragonsByDid)
+
+    self:initSortManager()
+end
+
+-------------------------------------
+-- function initSortManager
+-- @brief
+-------------------------------------
+function UI_HatcherySummonTab:initSortManager()
+    local sort_manager = SortManager_Dragon()
+    sort_manager:pushSortOrder('did')
+	sort_manager:pushSortOrder('attr')
+    self.m_sortManager = sort_manager
 end
 
 -------------------------------------
@@ -132,6 +149,8 @@ function UI_HatcherySummonTab:initUI()
     self:setChanceUpDragons()
 
     self:initTableView()
+
+    self:initRadioButton()
 end
 
 -------------------------------------
@@ -183,6 +202,77 @@ function UI_HatcherySummonTab:initTableView()
     --self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
 	--self:refresh(table.getRandom(self.m_orgDragonList))
 
+end
+
+-------------------------------------
+-- function initRadioButton
+-------------------------------------
+function UI_HatcherySummonTab:initRadioButton()
+    local vars = self.vars
+
+    do -- 역할(role)
+        local radio_button = UIC_RadioButton()
+        radio_button:addButtonWithLabel('all', vars['roleAllRadioBtn'], vars['roleAllRadioLabel'])
+        radio_button:addButtonAuto('tanker', vars)
+        radio_button:addButtonAuto('dealer', vars)
+        radio_button:addButtonAuto('supporter', vars)
+        radio_button:addButtonAuto('healer', vars)
+        radio_button:setSelectedButton('all')
+        radio_button:setChangeCB(function() self:onChangeOption() end)
+        self.m_roleRadioButton = radio_button
+    end
+
+    do -- 속성(attribute)
+        local radio_button = UIC_RadioButton()
+        radio_button:addButtonAuto('earth', vars)
+        radio_button:addButtonAuto('water', vars)
+        radio_button:addButtonAuto('fire', vars)
+        radio_button:addButtonAuto('light', vars)
+        radio_button:addButtonAuto('dark', vars)
+        radio_button:setSelectedButton('earth')
+        radio_button:setChangeCB(function() self:onChangeOption() end)
+        self.m_attrRadioButton = radio_button
+    end
+
+    -- 최초에 한번 실행
+    self:onChangeOption()
+end
+
+-------------------------------------
+-- function onChangeOption
+-- @brief
+-------------------------------------
+function UI_HatcherySummonTab:onChangeOption()
+    local role_option = self.m_roleRadioButton.m_selectedButton
+    local attr_option = self.m_attrRadioButton.m_selectedButton
+
+    local l_item_list = {}
+	for _, t_dragon in ipairs(self.m_orgDragonList) do
+		local b = true
+
+		-- 직군
+		if (role_option ~= 'all') and (role_option ~= t_dragon['role']) then 
+			b = false
+		end
+
+		-- 속성
+		if (attr_option ~= t_dragon['attr']) then
+			b = false
+		end
+
+		if (b) then
+			table.insert(l_item_list, t_dragon)
+		end
+	end
+	
+    -- 리스트 갱신
+    self.m_tableViewTD:setItemList(l_item_list)
+
+    -- 정렬
+    self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
+
+	-- ui편의를 위해 조건 변경 시 첫번째 드래곤을 화면에 띄운다
+	self:refresh(table.getRandom(l_item_list))
 end
 
 -------------------------------------
