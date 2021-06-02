@@ -25,7 +25,7 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_HatcheryIncubateTab:onEnterTab(first)
-    self.m_ownerUI:showNpc() -- NPC 등장
+    self.m_ownerUI:hideNpc() -- NPC 등장
 
     if first then
 		self:initUI()

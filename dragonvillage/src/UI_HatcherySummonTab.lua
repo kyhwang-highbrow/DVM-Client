@@ -23,7 +23,7 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_HatcherySummonTab:onEnterTab(first)
-    self.m_ownerUI:showNpc() -- NPC 등장
+    self.m_ownerUI:hideNpc() -- NPC 등장
     self.m_ownerUI:showMileage() -- 마일리지 메뉴
 
     if (first == true) then
