@@ -4,7 +4,11 @@ local PARENT = UI_IndivisualTab
 -- class UI_HatcherySummonTab
 -------------------------------------
 UI_HatcherySummonTab = class(PARENT,{
-        m_eggPicker = '',
+        m_isCustomPick = '',
+
+        m_orgDragonList = '',
+
+        m_tableViewTD = '',
     })
 
 -------------------------------------
@@ -17,6 +21,8 @@ function UI_HatcherySummonTab:init(owner_ui)
 	local tutorial_key = TUTORIAL.ADV_01_07_END
 	local check_step = 101
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
+
+    self.m_orgDragonList = TablePickDragon:getDragonList(700304, g_dragonsData.m_mReleasedDragonsByDid)
 end
 
 -------------------------------------
@@ -24,7 +30,7 @@ end
 -------------------------------------
 function UI_HatcherySummonTab:onEnterTab(first)
     self.m_ownerUI:hideNpc() -- NPC 등장
-    self.m_ownerUI:showMileage() -- 마일리지 메뉴
+    self.m_ownerUI:hideMileage() -- 마일리지 메뉴
 
     if (first == true) then
         self:initUI()
@@ -33,10 +39,10 @@ function UI_HatcherySummonTab:onEnterTab(first)
     -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
     if (g_hotTimeData:isActiveEvent('event_legend_chance_up') or g_fevertimeData:isActiveFevertime_summonLegendUp()) then
         self.vars['eventNoti1']:setVisible(true)
-        self.vars['eventNoti2']:setVisible(true)
+        --self.vars['eventNoti2']:setVisible(true)
     else
         self.vars['eventNoti1']:setVisible(false)
-        self.vars['eventNoti2']:setVisible(false)
+        --self.vars['eventNoti2']:setVisible(false)
     end
 end
 
@@ -124,8 +130,60 @@ function UI_HatcherySummonTab:initUI()
     vars['summonNode_fp_ad']:runAction(cca.buttonShakeAction(2, 2))
 
     self:setChanceUpDragons()
+
+    self:initTableView()
 end
 
+-------------------------------------
+-- function initTableView
+-------------------------------------
+function UI_HatcherySummonTab:initTableView()
+    local node = self.vars['listNode']
+
+	-- did 지정 타입 선택권인 경우 길이 늘림 (다른 버튼을 숨기므로 허전)
+	if (self.m_isCustomPick) then
+		node:setContentSize(700, 550)	
+	end
+
+    local l_item_list = {}
+
+	-- cell_size 지정
+    local item_size = 151
+    local item_scale = 0.66
+    local cell_size = cc.size(item_size*item_scale + 0, item_size*item_scale + 0)
+
+    -- 리스트 아이템 생성 콜백
+    local function create_func(data)
+        local did = data['did']
+		local t_data = {['evolution'] = 1, ['grade'] = data['birthgrade']}
+		
+        local ui = MakeSimpleDragonCard(did, t_data)
+		ui.root:setScale(item_scale)
+
+		-- 클릭
+		ui.vars['clickBtn']:registerScriptTapHandler(function()
+			self:refresh(data)
+		end)
+        return ui
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view_td = UIC_TableViewTD(node)
+    table_view_td.m_cellSize = cell_size
+    table_view_td.m_nItemPerCell = 6
+	table_view_td:setCellUIClass(create_func)
+	table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view_td:setItemList(l_item_list)
+
+    -- 정렬
+    self.m_tableViewTD = table_view_td
+
+	-- 전체 드래곤 리스트 출력
+    self.m_tableViewTD:setItemList(self.m_orgDragonList)
+    --self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
+	--self:refresh(table.getRandom(self.m_orgDragonList))
+
+end
 
 -------------------------------------
 -- function setChanceUpDragons
