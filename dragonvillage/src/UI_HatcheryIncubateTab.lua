@@ -49,7 +49,7 @@ function UI_HatcheryIncubateTab:initUI()
 	-- UIC_EggPicker 생성
 	local egg_picker = UIC_EggPicker:create(parent_node)
 
-	egg_picker.m_itemWidth = 250 -- 알의 가로 크기
+	egg_picker.m_itemWidth = 350 -- 알의 가로 크기
 	egg_picker.m_nearItemScale = 0.66
 	self.m_eggPicker = egg_picker
 
