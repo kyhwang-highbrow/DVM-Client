@@ -103,10 +103,10 @@ function SkillChainLightning:runAttack()
                 period = math.max(tonumber(period), 1)
                 local add_scale = math.max(skill_scale_status_effect.m_overlabCnt / period, 0) * tonumber(rate)
                 local final_scale = self.m_resScale + add_scale
-                local scaleY = effect.m_node:getScaleY()
 
-                effect.m_node:setScaleX(final_scale)
-                effect.m_node:setScaleY(scaleY + add_scale * 0.2)
+                effect.m_effectNode:setScale(final_scale)
+                effect.m_startPointNode:setScale(final_scale)
+                effect.m_endPointNode:setScale(final_scale)
             end
         end
 
