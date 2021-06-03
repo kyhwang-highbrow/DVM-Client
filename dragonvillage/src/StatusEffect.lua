@@ -1042,31 +1042,19 @@ function StatusEffect:setOverlabScaleByVariables(unit)
 
     -- 셋중에 하나도 비어있으면 암것도 안함
     if (self.m_overlabCnt <= 0 or isNullOrEmpty(act_type) or isNullOrEmpty(period) or isNullOrEmpty(rate)) then return end
-    if (not string.find(act_type, 'scale')) then return end
+    if (act_type ~= 'scale') then return end
 
-    if (string.find(act_type, 'skill')) then
-        -- 0이 되었을 때를 대비 
-        period = math.max(tonumber(period), 1)
+    -- 0이 되었을 때를 대비 
+    period = math.max(tonumber(period), 1)
 
-        if (not self.m_owner.m_reactingInfo['skill_scale']) then self.m_owner.m_reactingInfo["skill_scale"] = 1 end
+    local original_scale = self.m_owner.m_originScale
+    local add_scale = math.max(self.m_overlabCnt / period, 0) * tonumber(rate)
+    local final_scale = original_scale + add_scale
 
-        local original_scale = self.m_owner.m_reactingInfo['skill_scale']
-        local add_scale = math.max(self.m_overlabCnt / period, 0) * tonumber(rate)
-        self.m_owner.m_reactingInfo["skill_scale"] = original_scale + add_scale
-
-    else
-        -- 0이 되었을 때를 대비 
-        period = math.max(tonumber(period), 1)
-
-        local original_scale = self.m_owner.m_originScale
-        local add_scale = math.max(self.m_overlabCnt / period, 0) * tonumber(rate)
-        local final_scale = original_scale + add_scale
-
-        if (final_scale > 1.5) then
-            cca.stopAction(self.m_owner.m_animator.m_node, CHARACTER_ACTION_TAG__FLOATING)
-        end
-
-        self.m_owner.m_animator:setScale(final_scale)
+    if (final_scale > 1.5) then
+        cca.stopAction(self.m_owner.m_animator.m_node, CHARACTER_ACTION_TAG__FLOATING)
     end
+
+    self.m_owner.m_animator:setScale(final_scale)
 end
 

@@ -1012,3 +1012,18 @@ end
 function Skill:setTargetPos(_x, _y)
     self.m_targetPos = {x = _x, y = _y}
 end
+
+-------------------------------------
+-- function hasSkillScaleEffect
+-------------------------------------
+function Skill:hasSkillScaleEffect(l_StatusEffect)
+    if (not l_StatusEffect) then return false end
+
+    for i, v in pairs(l_StatusEffect) do
+        if (v.m_type == 'res_scale_up') then
+            return true
+        end
+    end
+
+    return false
+end
