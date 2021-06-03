@@ -151,6 +151,7 @@ function UI_HatcherySummonTab:initUI()
     self:initTableView()
 
     self:initRadioButton()
+
 end
 
 -------------------------------------
@@ -181,7 +182,7 @@ function UI_HatcherySummonTab:initTableView()
 
 		-- 클릭
 		ui.vars['clickBtn']:registerScriptTapHandler(function()
-			self:refresh(data)
+            self:requestSelectPickup(data)
 		end)
         return ui
     end
@@ -192,17 +193,32 @@ function UI_HatcherySummonTab:initTableView()
     table_view_td.m_nItemPerCell = 6
 	table_view_td:setCellUIClass(create_func)
 	table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view_td:setItemList(l_item_list)
 
     -- 정렬
     self.m_tableViewTD = table_view_td
 
-	-- 전체 드래곤 리스트 출력
-    self.m_tableViewTD:setItemList(self.m_orgDragonList)
     --self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
 	--self:refresh(table.getRandom(self.m_orgDragonList))
 
 end
+
+-------------------------------------
+-- function makeDragonInfoMap
+-- @brief 
+-------------------------------------
+function UI_HatcherySummonTab:makeDragonInfoMap(list)
+    local l_dragon = list or self.m_orgDragonList
+    local dragon_map = {}
+
+    for k, v in pairs(l_dragon) do
+        if (v) and (not isNullOrEmpty(v['did'])) then
+            dragon_map[v['did']] = v
+        end
+    end
+
+    return dragon_map
+end
+
 
 -------------------------------------
 -- function initRadioButton
@@ -266,13 +282,16 @@ function UI_HatcherySummonTab:onChangeOption()
 	end
 	
     -- 리스트 갱신
-    self.m_tableViewTD:setItemList(l_item_list)
+    self.m_tableViewTD:setItemList(self:makeDragonInfoMap(l_item_list))
 
     -- 정렬
     self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
 
+    self.m_tableViewTD:update(0)
+    self.m_tableViewTD:relocateContainerFromIndex(1)
+    
 	-- ui편의를 위해 조건 변경 시 첫번째 드래곤을 화면에 띄운다
-	self:refresh(table.getRandom(l_item_list))
+	self:refresh()
 end
 
 -------------------------------------
@@ -608,4 +627,37 @@ function UI_HatcherySummonTab:summonApiFinished()
 
     local fail_cb = nil
     g_hatcheryData:update_hatcheryInfo(finish_cb, fail_cb)
+end
+
+-------------------------------------
+-- function requestSelectPickup
+-------------------------------------
+function UI_HatcherySummonTab:requestSelectPickup(t_dragon_data)
+    local did = t_dragon_data['did']
+
+    if (isNullOrEmpty(did)) then return end
+
+    g_hatcheryData:request_selectPickup(did, function() self:refresh() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_HatcherySummonTab:refresh()
+    -- normal_did 물불땅 / unique_did 빛어둠
+    -- 바로 알아볼 수 있게 같은 로직 두번 돌림
+    local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
+
+    local dragon_card
+
+    if (normal_did) then 
+        dragon_card = self.m_tableViewTD:getCellUI(normal_did)
+        if (dragon_card) then dragon_card:setCheckSpriteVisible(true) end
+    end
+
+    if (normal_did) then 
+        dragon_card = self.m_tableViewTD:getCellUI(unique_did)
+        if (dragon_card) then dragon_card:setCheckSpriteVisible(true) end
+    end
+
 end

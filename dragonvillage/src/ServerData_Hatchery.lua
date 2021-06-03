@@ -7,6 +7,8 @@ ServerData_Hatchery = class({
         m_dirtyHacheryInfo = 'boolean', -- 해처리 정보를 갱신할 필요가 있는지 여부
         m_updatedAt = 'timestamp', -- 해처리 정보를 갱신한 시점의 시간
 
+        m_selectedPickup = 'table', -- 픽업드래곤 선택 정보 ex.{"normal":"120221","unique":"120455"}
+
         -- 확률업 소환
         CASH__EVENT_SUMMON_PRICE = 300,
         CASH__EVENT_BUNDLE_SUMMON_PRICE = 3000,
@@ -823,4 +825,54 @@ function ServerData_Hatchery:getChanceUpEndDate()
         local time_text = datetime.makeTimeDesc(remain_time, true)
         return Str('{1} 남음', time_text)
     end
+end
+
+
+
+-------------------------------------
+-- function request_selectPickup
+-- @breif
+-------------------------------------
+function ServerData_Hatchery:request_selectPickup(did, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        if (ret['summon_pickup_info']) then self.m_selectedPickup = ret['summon_pickup_info'] end
+
+        if finish_cb then
+            finish_cb()
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/select_pickup')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('did', did)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function getSelectedPickup
+-- @breif
+-------------------------------------
+function ServerData_Hatchery:getSelectedPickup()
+    local normal 
+    local unique
+
+    if (self.m_selectedPickup) then 
+        normal = self.m_selectedPickup['normal'] 
+        unique = self.m_selectedPickup['unique'] 
+    end
+
+    return tonumber(normal), tonumber(unique)
 end
