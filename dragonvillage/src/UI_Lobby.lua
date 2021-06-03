@@ -1576,7 +1576,9 @@ end
 function UI_Lobby:click_giftBoxBtn()
     
     if IS_TEST_MODE() then
-        UI_DmgateScene(DIMENSION_GATE_MANUS)
+        --UI_DmgateScene(DIMENSION_GATE_MANUS)
+        require('UI_ShopPackageScene')
+        UI_ShopPackageScene()
     else
         g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
     end

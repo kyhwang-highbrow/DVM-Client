@@ -4949,6 +4949,7 @@
     <None Include="..\src\UI_DragonPickRates.lua" />
     <None Include="..\src\UI_DmgateRankPopup.lua" />
     <None Include="..\src\ServerData_DragonPickRate.lua" />
+    <None Include="..\src\UI_ShopPackageScene.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

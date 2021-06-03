@@ -30,6 +30,8 @@ StructProduct = class(PARENT, {
 		package_res = 'string',
 		package_frame_type = 'number',
 
+        package_class = 'string',
+
         -- shop ui pos, scale
         ui_pos = 'number',
         ui_scale = 'number',
