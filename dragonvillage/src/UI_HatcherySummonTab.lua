@@ -146,12 +146,9 @@ function UI_HatcherySummonTab:initUI()
     vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['FSUMMON']))
     vars['summonNode_fp_ad']:runAction(cca.buttonShakeAction(2, 2))
 
-    self:setChanceUpDragons()
-
     self:initTableView()
 
     self:initRadioButton()
-
 end
 
 -------------------------------------
@@ -201,6 +198,46 @@ function UI_HatcherySummonTab:initTableView()
 	--self:refresh(table.getRandom(self.m_orgDragonList))
 
 end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_HatcherySummonTab:refresh()
+    -- normal_did 물불땅 / unique_did 빛어둠
+    -- 바로 알아볼 수 있게 같은 로직 두번 돌림
+    local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
+    local dragon_card
+
+    for i, did in ipairs(self.m_selectedDragonList) do
+        dragon_card = self.m_tableViewTD:getCellUI(did)
+
+        if (dragon_card) then dragon_card:setCheckSpriteVisible(false) end
+    end
+
+    self.m_selectedDragonList = {}
+
+    if (normal_did) then 
+        dragon_card = self.m_tableViewTD:getCellUI(normal_did)
+        if (dragon_card) then 
+            dragon_card:setCheckSpriteVisible(true)
+            table.insert(self.m_selectedDragonList, normal_did)
+        end
+    end
+
+    if (unique_did) then 
+        dragon_card = self.m_tableViewTD:getCellUI(unique_did)
+        if (dragon_card) then 
+            dragon_card:setCheckSpriteVisible(true)
+            table.insert(self.m_selectedDragonList, unique_did)
+        end
+    end
+
+    self:setChanceUpDragons()
+end
+
+
+
+
 
 -------------------------------------
 -- function makeDragonInfoMap
@@ -294,18 +331,14 @@ function UI_HatcherySummonTab:onChangeOption()
 	self:refresh()
 end
 
+
 -------------------------------------
 -- function setChanceUpDragons
 -- @brief 확률업 드래곤 
 -------------------------------------
 function UI_HatcherySummonTab:setChanceUpDragons()
     local vars = self.vars
-    local map_target_dragons = g_eventData:getChanceUpDragons()
-    if (not map_target_dragons) then
-        return
-    end
 
-    local total_cnt = #table.MapToList(map_target_dragons)
     local idx = 0
     local desc_idx = 0 -- dragonName1 :드래곤 1마리 일 때, dragonName2, dragonName3 : 드래곤 2마리 일 때
 
@@ -318,24 +351,23 @@ function UI_HatcherySummonTab:setChanceUpDragons()
     local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
     local l_dragon = {}
 
-    if (normal_did) then
-        table.insert(l_dragon, {did = normal_did})
-    end
+    if (normal_did) then table.insert(l_dragon, {did = normal_did}) end
+    if (unique_did) then table.insert(l_dragon, {did = unique_did}) end
 
-    if (unique_did) then
-        table.insert(l_dragon, {did = unique_did})
-    end
+    local pickup_dragon_map = self:makeDragonInfoMap(l_dragon)
 
-    for k, t_data in pairs(self:makeDragonInfoMap(l_dragon)) do
+    for _, t_data in pairs(pickup_dragon_map) do
         local did = t_data['did']
-        idx = idx + 1
+        local attr = TableDragon:getDragonAttr(did)
+        cclog(attr)
+
+        -- 빛어둠 3 / 땅물불 2
+        idx = isExistValue(attr, 'light', 'dark') and 3 or 2
         desc_idx = idx
-        if (total_cnt == 2) then
-            desc_idx = desc_idx + 1
-        end
 
         -- 드래곤 이름
         local name = TableDragon:getChanceUpDragonName2(did)
+
         vars['dragonNameLabel'..desc_idx]:setString(name)
 
         -- 드래곤 카드
@@ -359,32 +391,11 @@ function UI_HatcherySummonTab:setChanceUpDragons()
             dragon_card.vars['clickBtn']:registerScriptTapHandler(function() func_tap() end)
             vars['dragonCard'..desc_idx]:addChild(dragon_card.root)
         end
-
-
-        -- 드래곤 애니메이션
-        local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, 3)
-        -- 한 마리일 때 1 사용
-        local dragon_node = nil
-        if (total_cnt == 1) then
-            dragon_node = vars['dragonNode1']
-        else
-            -- 두 마리 일 때 2,3 사용
-            if (vars['dragonNode' .. idx + 1]) then
-                dragon_node = vars['dragonNode' .. idx + 1]
-            end
-        end
-
-        if dragon_node then
-            dragon_node:addChild(animator.m_node)
-            animator.m_node:setPosition(t_data['x'], t_data['y'])
-            animator.m_node:setScale(t_data['scale'])
-        end
     end
-
-    -- 확률업 남은 시간 표기
-    local remain_time = g_hatcheryData:getChanceUpEndDate() or ''
-    vars['timeLabel']:setString(Str(remain_time))
 end
+
+
+
 
 -------------------------------------
 -- function click_eventSummonBtn
@@ -575,6 +586,10 @@ function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_da
 
     g_hatcheryData:request_summonPickup(is_bundle, is_sale, finish_cb, fail_cb)
 end
+
+
+
+
 -------------------------------------
 -- function requestSummon
 -------------------------------------
@@ -692,39 +707,4 @@ function UI_HatcherySummonTab:requestSelectPickup(t_dragon_data)
     if (isNullOrEmpty(did)) then return end
 
     g_hatcheryData:request_selectPickup(did, function() self:refresh() end)
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_HatcherySummonTab:refresh()
-    -- normal_did 물불땅 / unique_did 빛어둠
-    -- 바로 알아볼 수 있게 같은 로직 두번 돌림
-    local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
-    local dragon_card
-
-    for i, did in ipairs(self.m_selectedDragonList) do
-        dragon_card = self.m_tableViewTD:getCellUI(did)
-
-        if (dragon_card) then dragon_card:setCheckSpriteVisible(false) end
-    end
-
-    self.m_selectedDragonList = {}
-
-    if (normal_did) then 
-        dragon_card = self.m_tableViewTD:getCellUI(normal_did)
-        if (dragon_card) then 
-            dragon_card:setCheckSpriteVisible(true)
-            table.insert(self.m_selectedDragonList, normal_did)
-        end
-    end
-
-    if (unique_did) then 
-        dragon_card = self.m_tableViewTD:getCellUI(unique_did)
-        if (dragon_card) then 
-            dragon_card:setCheckSpriteVisible(true)
-            table.insert(self.m_selectedDragonList, unique_did)
-        end
-    end
-
 end
