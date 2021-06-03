@@ -137,12 +137,14 @@ end
 function UI_PackageCategoryButton:click_btn()
     local vars = self.vars
 
-    if (self.m_data['type'] ~= old) and (#self.m_data['struct_product'] > 1) then
+    self:createTableView()
+
+    
+    if self.m_scrollView:getContainer():getChildrenCount() > 1 then
         self.m_contractBtn:setVisible(true)
     else
         self.m_contractBtn:setVisible(false)
     end
-    self:createTableView()
 end
 
 -- ----------------------------------------------------------------------
