@@ -14,6 +14,8 @@ UI_HatcherySummonTab = class(PARENT,{
 
         m_sortManager = 'SortManager',
 
+        m_summonCategoryTab = '{pickup, cash, friend}',
+
         m_selectedDragonList = 'table',  -- 한 속성에서 왔다갔다 선택 했을 때의 체크표시 처리 용
     })
 
@@ -28,8 +30,12 @@ function UI_HatcherySummonTab:init(owner_ui)
 	local check_step = 101
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
 
+    -- 고급 소환은 5성 전설(일반)만 선택 가능하기 때문에
+    -- 전설드래곤 선택권(일반) 과 같은 리스트를 써도 됨
     self.m_orgDragonList = TablePickDragon:getDragonList(700304, g_dragonsData.m_mReleasedDragonsByDid)
     self.m_selectedDragonList = {}
+    self.m_summonCategoryTab = {pickup = vars['chanceUpTabMenu'], cash = vars['premiumMenu'], friend = vars['friendshipTabMenu']}
+
     self:initSortManager()
 end
 
@@ -142,6 +148,10 @@ function UI_HatcherySummonTab:initUI()
     -- 소환 확률 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'summon_info')
 
+    vars['chanceUpTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('pickup') end)
+    vars['premiumTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('cash') end)
+    vars['friendshipTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('friend') end)
+
     -- 광고 보기 버튼 체크
     vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['FSUMMON']))
     vars['summonNode_fp_ad']:runAction(cca.buttonShakeAction(2, 2))
@@ -231,7 +241,47 @@ function UI_HatcherySummonTab:refresh()
     self:setChanceUpDragons()
 end
 
+-------------------------------------
+-- function onChangeOption
+-- @brief
+-------------------------------------
+function UI_HatcherySummonTab:onChangeCategory(category)
+    for name, tab_object in pairs(self.m_summonCategoryTab) do
+        local is_same_category = name == category
+        tab_object:setVisible(is_same_category) 
+    end
 
+    local l_item_list = {}
+	for _, t_dragon in ipairs(self.m_orgDragonList) do
+		local b = true
+
+		-- 직군
+		if (role_option ~= 'all') and (role_option ~= t_dragon['role']) then 
+			b = false
+		end
+
+		-- 속성
+		if (attr_option ~= t_dragon['attr']) then
+			b = false
+		end
+
+		if (b) then
+			table.insert(l_item_list, t_dragon)
+		end
+	end
+	
+    -- 리스트 갱신
+    self.m_tableViewTD:setItemList(self:makeDragonInfoMap(l_item_list))
+
+    -- 정렬
+    self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
+
+    self.m_tableViewTD:update(0)
+    self.m_tableViewTD:relocateContainerFromIndex(1)
+    
+	-- ui편의를 위해 조건 변경 시 첫번째 드래곤을 화면에 띄운다
+	self:refresh()
+end
 
 
 
