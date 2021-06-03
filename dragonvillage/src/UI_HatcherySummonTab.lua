@@ -193,10 +193,6 @@ function UI_HatcherySummonTab:initTableView()
 
     -- 정렬
     self.m_tableViewTD = table_view_td
-
-    --self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
-	--self:refresh(table.getRandom(self.m_orgDragonList))
-
 end
 
 -------------------------------------
