@@ -89,8 +89,8 @@ function UI_ShopPackageScene:createPackageScrollView()
     local content_size = self.vars['contentsNode']:getContentSize()
 
     local scroll_view = cc.ScrollView:create()
-    scroll_view:setDockPoint(CENTER_POINT)
-    scroll_view:setAnchorPoint(CENTER_POINT)
+    scroll_view:setDockPoint(TOP_CENTER)
+    scroll_view:setAnchorPoint(TOP_CENTER)
 
     scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     scroll_view:setNormalSize(content_size)
@@ -216,11 +216,11 @@ function UI_PackageCategoryButton:createTableView()
          
             
                     if (self.m_scrollView:getDirection() == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
-                        self.m_scrollView:setContentSize(product_num * product_size + (product_num - 1) * gap, ui_size.height)
+                        self.m_scrollView:setContentSize(product_num * product_size + (product_num - 1) * gap, self.m_scrollView:getContentSize().height)
                         content_size = self.m_scrollView:getContentSize().width
                         container:setPositionX(0)
                     else -- cc.SCROLLVIEW_DIRECTION_VERTICAL
-                        self.m_scrollView:setContentSize(ui_size.width, product_num * product_size + (product_num - 1) * gap)
+                        self.m_scrollView:setContentSize(self.m_scrollView:getContentSize().width, product_num * product_size + (product_num - 1) * gap)
                         content_size = self.m_scrollView:getContentSize().height
                         container:setPositionY(0)
                     end
