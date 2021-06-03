@@ -86,7 +86,8 @@ end
 -- brief : 
 ----------------------------------------------------------------------
 function UI_ShopPackageScene:createPackageScrollView()
-    local content_size = self.vars['contentsNode']:getContentSize()
+
+    local content_size = self.vars['contentsListNode']:getContentSize()
 
     local scroll_view = cc.ScrollView:create()
     scroll_view:setDockPoint(TOP_CENTER)
@@ -95,7 +96,7 @@ function UI_ShopPackageScene:createPackageScrollView()
     scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     scroll_view:setNormalSize(content_size)
     scroll_view:setContentSize(content_size)
-    self.vars['contentsNode']:addChild(scroll_view)
+    self.vars['contentsListNode']:addChild(scroll_view)
 
     self.m_scrollView = scroll_view
 end
