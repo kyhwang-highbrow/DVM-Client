@@ -152,6 +152,9 @@ function UI_HatcherySummonTab:initUI()
     vars['premiumTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('cash') end)
     vars['friendshipTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('friend') end)
 
+    vars['infoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup() end)
+
+
     -- 광고 보기 버튼 체크
     vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['FSUMMON']))
     vars['summonNode_fp_ad']:runAction(cca.buttonShakeAction(2, 2))
@@ -722,4 +725,34 @@ function UI_HatcherySummonTab:requestSelectPickup(t_dragon_data)
     if (isNullOrEmpty(did)) then return end
 
     g_hatcheryData:request_selectPickup(did, function() self:refresh() end)
+end
+
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+----------------------------------------------------------------------
+-- class UI_HacheryInfoBtnPopup
+-- @brief 
+----------------------------------------------------------------------
+UI_HacheryInfoBtnPopup = class(UI, {})
+ 
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_HacheryInfoBtnPopup:init()
+	self.m_uiName = 'UI_HacheryInfoBtnPopup'
+
+    local vars = self:load('hatchery_summon_info_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HacheryInfoBtnPopup')
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
