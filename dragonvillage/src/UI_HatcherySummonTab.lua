@@ -696,10 +696,11 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 
     elseif (egg_id == 700001) then
         local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
-        local has_empty_slot = not normal_did or not unique_did
+        local is_allowed = (normal_did and unique_did) or (not normal_did and not unique_did)
         local msg
 
-        if (has_empty_slot) then
+        -- 둘다 설정되던지 아님 둘다 안설정 되던지
+        if (is_allowed) then
             msg = Str('\'땅/물/불\' 속성과 \'빛/어둠\' 속성의 드래곤을 모두 선택해야 확률 UP 고급소환을 진행할 수 있습니다.')
             MakeSimplePopup(POPUP_TYPE.OK, msg)
 
