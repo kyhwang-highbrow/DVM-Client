@@ -631,6 +631,7 @@ function UIC_TableViewTD:setItemList(list, make_item)
     self:clearItemList()
 
     for key,data in pairs(list) do
+        cclog(key)
         local t_item = {}
         t_item['unique_id'] = key
         t_item['data'] = data
@@ -663,6 +664,8 @@ end
 -------------------------------------
 function UIC_TableViewTD:getCellUI(unique_id)
     local t_item = self:getItem(unique_id)
+
+    if (not t_item) then return nil end
 
     if (not t_item['ui']) then
         t_item['ui'] = self:makeItemUI(t_item['data'])
