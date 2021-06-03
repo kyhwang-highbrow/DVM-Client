@@ -94,6 +94,7 @@ function UI_ShopPackageScene:createPackageScrollView()
 
     scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     scroll_view:setNormalSize(content_size)
+    scroll_view:setContentSize(content_size)
     self.vars['contentsNode']:addChild(scroll_view)
 
     self.m_scrollView = scroll_view
