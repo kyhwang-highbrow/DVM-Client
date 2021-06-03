@@ -608,14 +608,10 @@ end
 -------------------------------------
 -- function findSkillInfoByID
 -------------------------------------
-function ActivityCarrier:findSkillInfoByID()
+function ActivityCarrier:findSkillInfoByID(skill_id)
 	if (not self.m_activityCarrierOwner) then return nil end
 
-    local target = self.m_activityCarrierOwner:getTargetChar()
-
-    if (target) then return target:findSkillInfoByID() end
-
-    return nil
+    return self.m_activityCarrierOwner:findSkillInfoByID(skill_id)
 end
 
 
