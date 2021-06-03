@@ -11,17 +11,19 @@ UI_SupplyDepot = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SupplyDepot:init()
+function UI_SupplyDepot:init(package_name, is_popup)
     self.m_eventId = event_id
-
     self.m_uiName = 'UI_SupplyDepot'
-    
-    local ui_res = 'supply_depot.ui'
-    local vars = self:load(ui_res)
-    UIManager:open(self, UIManager.POPUP)
+    local vars = self:load('supply_depot.ui')
+    ccdump('1111111111111111111111')
+    ccdump(is_popup)
+    if (is_popup) then
+        ccdump('22222222222222222222222')
+        UIManager:open(self, UIManager.POPUP)
 
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_SupplyDepot')
+        -- backkey 지정
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_SupplyDepot')
+    end
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)

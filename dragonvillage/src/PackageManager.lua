@@ -137,6 +137,11 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
         require('UI_Package_DragonChoiceHero')
         target_ui = UI_Package_DragonChoiceHero(_package_name, is_popup)
 
+    -- 보급소
+    elseif (_package_name == 'package_supply') then
+        require('UI_SupplyDepot')
+        target_ui = UI_SupplyDepot(_package_name, is_popup)
+
     -- 육성패스 
     elseif string.find(_package_name, 'battle_pass') then
         local pid

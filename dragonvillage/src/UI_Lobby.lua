@@ -2354,13 +2354,13 @@ function UI_Lobby:update_rightButtons()
     vars['dailyShopBtn']:setVisible(is_daily_shop_open)
 
     do -- 핫타임
-        if (g_fevertimeData:isHighlightFevertime() == true) then
-            vars['fevertimeBtn']:setVisible(true)
-            vars['fevertimeNotiSprite']:setVisible(g_fevertimeData:isNotUsedFevertimeExist())
-        else
+        -- if (g_fevertimeData:isHighlightFevertime() == true) then
+        --     vars['fevertimeBtn']:setVisible(true)
+        --     vars['fevertimeNotiSprite']:setVisible(g_fevertimeData:isNotUsedFevertimeExist())
+        -- else
             vars['fevertimeBtn']:setVisible(false)
             vars['fevertimeNotiSprite']:setVisible(false)
-        end
+        --end
     end
 
     do -- 배틀 패스
@@ -2411,7 +2411,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'goldDungeonBtn')
     table.insert(t_btn_name, 'dailyShopBtn')
     table.insert(t_btn_name, 'randomShopBtn')
-    table.insert(t_btn_name, 'fevertimeBtn')
+    --table.insert(t_btn_name, 'fevertimeBtn')
     table.insert(t_btn_name, 'eventBtn')
     table.insert(t_btn_name, 'battlePassBtn')
     table.insert(t_btn_name, 'cashShopBtn')
