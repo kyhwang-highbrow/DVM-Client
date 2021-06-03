@@ -108,7 +108,7 @@ function UI_HatcherySummonTab:initUI()
             -- 뽑기 횟수 안내
             local count_str
             if (t_data['bundle']) then
-                count_str = Str('10 + 1회')
+                count_str = t_data['egg_id'] == 700004 and Str('10회') or Str('10 + 1회')
                 btn.vars['countLabel']:setTextColor(cc.c4b(255, 215, 0, 255))
             else
                 count_str = Str('1회')
@@ -540,6 +540,9 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 
         elseif (egg_id == 700003) then
             self:click_friendSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
+
+        elseif (egg_id == 700004) then
+            self:click_pickupSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
 
         else
             error('egg_id ' .. egg_id)

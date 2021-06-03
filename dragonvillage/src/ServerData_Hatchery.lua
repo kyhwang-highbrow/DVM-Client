@@ -254,6 +254,66 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
 end
 
 -------------------------------------
+-- function request_summonCashEvent
+-- @breif
+-------------------------------------
+function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, finish_cb, fail_cb)
+    -- parameters
+    local uid = g_userData:get('uid')
+    local is_bundle = is_bundle or false
+    local is_sale = is_sale or false
+    local prev_mileage = g_userData:get('mileage')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        
+        if (is_bundle) then
+            -- @analytics
+            Analytics:trackUseGoodsWithRet(ret, '11회 소환')
+            Analytics:firstTimeExperience('DragonSummonEvent_11')
+        else
+            Analytics:trackUseGoodsWithRet(ret, '1회 소환')
+        end
+            
+        -- cash(캐시) 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        -- 추가된 마일리지
+        local after_mileage = g_userData:get('mileage')
+        local added_mileage = (after_mileage - prev_mileage)
+        ret['added_mileage'] = added_mileage
+
+        -- 드래곤들 추가
+        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+
+        -- 슬라임들 추가
+        g_slimesData:applySlimeData_list(ret['added_slimes'])
+
+        -- 신규 드래곤 new 뱃지 정보 저장
+        g_highlightData:saveNewDoidMap()
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/summon/pickup')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('bundle', is_bundle)
+    ui_network:setParam('sale', is_sale)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
 -- function getSummonEggList
 -- @breif
 -------------------------------------
@@ -314,8 +374,10 @@ end
 -------------------------------------
 function ServerData_Hatchery:getGachaList()
     local l_item_list = {}
+    -- 이벤트 데이터
 
-    do -- 이벤트 데이터
+    --[[
+    do -- 확률업
         local t_data = {
             ['name'] = Str('확률업 10+1회 소환'),
             ['egg_id'] = 700001, 
@@ -338,7 +400,7 @@ function ServerData_Hatchery:getGachaList()
             ['price'] = ServerData_Hatchery.CASH__EVENT_SUMMON_PRICE,
         }
         table.insert(l_item_list, t_data)
-    end
+    end]]
 
     do -- 고급 부화
         local t_data = {
@@ -384,6 +446,31 @@ function ServerData_Hatchery:getGachaList()
             ['ui_type'] = 'fp_ad',
             ['bundle'] = false,
             ['is_ad'] = true,
+        }
+        table.insert(l_item_list, t_data)
+    end
+
+    do -- 커스텀 픽업 소환
+        local t_data = {
+            ['name'] = Str('확률업 10회 소환'),
+            ['egg_id'] = 700004, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['ui_type'] = 'event11',
+            ['bundle'] = true,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE,
+        }
+
+        table.insert(l_item_list, t_data)
+
+        local t_data = {
+            ['name'] = Str('확률업 소환'),
+            ['egg_id'] = 700004, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['ui_type'] = 'event',
+            ['bundle'] = false,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__EVENT_SUMMON_PRICE,
         }
         table.insert(l_item_list, t_data)
     end
