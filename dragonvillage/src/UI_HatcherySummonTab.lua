@@ -250,37 +250,6 @@ function UI_HatcherySummonTab:onChangeCategory(category)
         local is_same_category = name == category
         tab_object:setVisible(is_same_category) 
     end
-
-    local l_item_list = {}
-	for _, t_dragon in ipairs(self.m_orgDragonList) do
-		local b = true
-
-		-- 직군
-		if (role_option ~= 'all') and (role_option ~= t_dragon['role']) then 
-			b = false
-		end
-
-		-- 속성
-		if (attr_option ~= t_dragon['attr']) then
-			b = false
-		end
-
-		if (b) then
-			table.insert(l_item_list, t_dragon)
-		end
-	end
-	
-    -- 리스트 갱신
-    self.m_tableViewTD:setItemList(self:makeDragonInfoMap(l_item_list))
-
-    -- 정렬
-    self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
-
-    self.m_tableViewTD:update(0)
-    self.m_tableViewTD:relocateContainerFromIndex(1)
-    
-	-- ui편의를 위해 조건 변경 시 첫번째 드래곤을 화면에 띄운다
-	self:refresh()
 end
 
 
