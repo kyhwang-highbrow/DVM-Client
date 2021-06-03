@@ -9,6 +9,8 @@ ServerData_Hatchery = class({
 
         m_selectedPickup = 'table', -- 픽업드래곤 선택 정보 ex.{"normal":"120221","unique":"120455"}
 
+        m_isDefinitePickup = 'boolean', -- 다음 픽업 100%
+
         -- 확률업 소환
         CASH__EVENT_SUMMON_PRICE = 300,
         CASH__EVENT_BUNDLE_SUMMON_PRICE = 3000,
@@ -292,6 +294,10 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, finish_cb,
         -- 신규 드래곤 new 뱃지 정보 저장
         g_highlightData:saveNewDoidMap()
 
+        -- 다음 픽업상태 갱신
+        if (ret['pickup_next_100'] and tonumber(ret['pickup_next_100'])) then self.m_isDefinitePickup = ret['pickup_next_100'] > 0 end
+
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -506,8 +512,11 @@ function ServerData_Hatchery:setHacheryInfoTable(t_data)
     --}
 
     if (t_data['summon_pickup_info']) then self.m_selectedPickup = t_data['summon_pickup_info'] end
+    if (t_data['pickup_next_100'] and tonumber(ret['pickup_next_100'])) then self.m_isDefinitePickup = t_data['pickup_next_100'] > 0 end
+
     self.m_updatedAt = Timer:getServerTime()
     self.m_dirtyHacheryInfo = false
+    
 end
 
 -------------------------------------

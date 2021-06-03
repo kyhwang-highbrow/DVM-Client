@@ -244,6 +244,10 @@ function UI_HatcherySummonTab:refresh()
     end
 
     self:setChanceUpDragons()
+
+    local is_definite_pickup = g_hatcheryData.m_isDefinitePickup == true
+    if (self.vars['rateNoti']) then self.vars['rateNoti']:setVisible(is_definite_pickup) end
+    
 end
 
 -------------------------------------
@@ -593,6 +597,8 @@ function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_da
 
         local function close_cb()
             self:summonApiFinished()
+
+            self:refresh()
         end
         ui:setCloseCB(close_cb)
 
@@ -778,7 +784,7 @@ UI_HacheryPickupBtnPopup = class(UI, {
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_HacheryPickupBtnPopup:init(parent, item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+function UI_HacheryPickupBtnPopup:init(parent, title, item_value, msg, ok_btn_cb, cancel_btn_cb)
 	self.m_uiName = 'UI_HacheryPickupBtnPopup'
 
     local vars = self:load('hatchery_summon_confirm_popup.ui')
@@ -792,13 +798,17 @@ function UI_HacheryPickupBtnPopup:init(parent, item_key, item_value, msg, ok_btn
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HacheryPickupBtnPopup')
 
     
-    vars['okBtn']:registerScriptTapHandler(function() ok_btn_cb() end)
+    vars['okBtn']:registerScriptTapHandler(function() 
+        ok_btn_cb()
+        self:close()
+    end)
 
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
 
     self.m_parent = parent
 
+    vars['titleLabel']:setString(title)
     vars['selectLabel']:setString(msg)
     vars['priceLabel']:setString(comma_value(item_value))
 
