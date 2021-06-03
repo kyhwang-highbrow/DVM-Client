@@ -505,7 +505,7 @@ function ServerData_Hatchery:setHacheryInfoTable(t_data)
     --  },
     --}
 
-    if (ret['summon_pickup_info']) then self.m_selectedPickup = ret['summon_pickup_info'] end
+    if (t_data['summon_pickup_info']) then self.m_selectedPickup = t_data['summon_pickup_info'] end
     self.m_updatedAt = Timer:getServerTime()
     self.m_dirtyHacheryInfo = false
 end
