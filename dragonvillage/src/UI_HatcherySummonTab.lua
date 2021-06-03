@@ -67,6 +67,8 @@ function UI_HatcherySummonTab:onEnterTab(first)
     else
         self.vars['eventNoti1']:setVisible(false)
     end
+
+    self:onChangeCategory('pickup')
 end
 
 -------------------------------------
@@ -681,6 +683,10 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
         local submsg = Str("무료 우정 소환은 1일 1회 가능합니다.")
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 
+    elseif (egg_id == 700001) then
+        local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
+        UI_HacheryPickupBtnPopup(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+
     else
         local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
         MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
@@ -754,5 +760,34 @@ function UI_HacheryInfoBtnPopup:init()
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HacheryInfoBtnPopup')
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+end
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+----------------------------------------------------------------------
+-- class UI_HacheryPickupBtnPopup
+-- @brief 
+----------------------------------------------------------------------
+UI_HacheryPickupBtnPopup = class(UI, {})
+ 
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_HacheryPickupBtnPopup:init(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+	self.m_uiName = 'UI_HacheryPickupBtnPopup'
+
+    local vars = self:load('hatchery_summon_confirm_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HacheryPickupBtnPopup')
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
