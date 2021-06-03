@@ -309,15 +309,24 @@ function UI_HatcherySummonTab:setChanceUpDragons()
     local idx = 0
     local desc_idx = 0 -- dragonName1 :드래곤 1마리 일 때, dragonName2, dragonName3 : 드래곤 2마리 일 때
 
-    if (total_cnt == 2) then
-        vars['summonAttrMenu1']:setVisible(false)
-        vars['summonAttrMenu2']:setVisible(true)
-    else
-        vars['summonAttrMenu1']:setVisible(true)
-        vars['summonAttrMenu2']:setVisible(false)        
+    -- 이제 픽업은 직접 선택한다.
+    vars['summonAttrMenu1']:setVisible(false)
+    vars['summonAttrMenu2']:setVisible(true)
+
+    -- normal_did 물불땅 / unique_did 빛어둠
+    -- 바로 알아볼 수 있게 같은 로직 두번 돌림
+    local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
+    local l_dragon = {}
+
+    if (normal_did) then
+        table.insert(l_dragon, {did = normal_did})
     end
 
-    for k, t_data in pairs(map_target_dragons) do
+    if (unique_did) then
+        table.insert(l_dragon, {did = unique_did})
+    end
+
+    for k, t_data in pairs(self:makeDragonInfoMap(l_dragon)) do
         local did = t_data['did']
         idx = idx + 1
         desc_idx = idx
