@@ -1,8 +1,8 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 UI_ShopPackageScene = class(PARENT, {
-    m_tableView = '',
-    m_scrollView = '',
+    m_tableView = 'UIC_TableView',
+    m_scrollView = 'cc.ScrollView',
 })
 
 function UI_ShopPackageScene:initParentVariable()
@@ -56,7 +56,9 @@ function UI_ShopPackageScene:createButtonTableView()
             struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
 
             if struct_product then
-                table.insert(struct_list, struct_product)
+                if (struct_product['m_tabCategory'] == 'package') then
+                    table.insert(struct_list, struct_product)
+                end
             end
         end
 
@@ -69,6 +71,7 @@ function UI_ShopPackageScene:createButtonTableView()
     local create_func = function(ui, data)
         ui.vars['listLabel']:setString(Str(data['t_desc']))
         ui.m_scrollView = self.m_scrollView
+        ui.m_contractBtn = self.vars['contractBtn']
     end
 
     local table_view = UIC_TableView(self.vars['listNode'])
@@ -115,6 +118,7 @@ end
 UI_PackageCategoryButton = class(class(UI, ITableViewCell:getCloneTable()), {
     m_data = 'table',
     m_scrollView = '',
+    m_contractBtn = '',
 })
 
 function UI_PackageCategoryButton:init(data)
@@ -131,6 +135,12 @@ end
 -- ----------------------------------------------------------------------
 function UI_PackageCategoryButton:click_btn()
     local vars = self.vars
+
+    if (self.m_data['type'] ~= old) and (#self.m_data['struct_product'] > 1) then
+        self.m_contractBtn:setVisible(true)
+    else
+        self.m_contractBtn:setVisible(false)
+    end
     self:createTableView()
 end
 
