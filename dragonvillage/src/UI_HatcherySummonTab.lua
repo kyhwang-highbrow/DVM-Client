@@ -108,7 +108,7 @@ function UI_HatcherySummonTab:initUI()
             -- 뽑기 횟수 안내
             local count_str
             if (t_data['bundle']) then
-                count_str = t_data['egg_id'] == 700004 and Str('10회') or Str('10 + 1회')
+                count_str = t_data['egg_id'] == 700001 and Str('10회') or Str('10 + 1회')
                 btn.vars['countLabel']:setTextColor(cc.c4b(255, 215, 0, 255))
             else
                 count_str = Str('1회')
@@ -523,6 +523,50 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, is_ad, t_egg_data
 end
 
 -------------------------------------
+-- function click_pickupSummonBtn
+-- @brief 확률업
+-------------------------------------
+function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
+    -- 드래곤 최대치 보유가 넘었는지 체크
+    local summon_cnt = 1
+    if (is_bundle == true) then
+        summon_cnt = 10
+    end
+    if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
+        return
+    end
+
+    local function finish_cb(ret)
+        -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
+        if (old_ui) then
+            old_ui:setCloseCB(nil)
+            old_ui:close()
+        end
+
+		local gacha_type = 'cash'
+        local l_dragon_list = ret['added_dragons']
+        local l_slime_list = ret['added_slimes']
+        local egg_id = t_egg_data['egg_id']
+        local egg_res = t_egg_data['egg_res']
+        local added_mileage = ret['added_mileage'] or 0
+
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage)
+
+        local function close_cb()
+            self:summonApiFinished()
+        end
+        ui:setCloseCB(close_cb)
+
+        -- 이어서 뽑기 설정
+        self:subsequentSummons(ui, t_egg_data)
+    end
+
+    local function fail_cb()
+    end
+
+    g_hatcheryData:request_summonPickup(is_bundle, is_sale, finish_cb, fail_cb)
+end
+-------------------------------------
 -- function requestSummon
 -------------------------------------
 function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
@@ -533,16 +577,14 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 
     local function ok_btn_cb()
         if (egg_id == 700001) then
-            self:click_eventSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
+            --self:click_eventSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
+            self:click_pickupSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
 
         elseif (egg_id == 700002) then
             self:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
 
         elseif (egg_id == 700003) then
             self:click_friendSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
-
-        elseif (egg_id == 700004) then
-            self:click_pickupSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
 
         else
             error('egg_id ' .. egg_id)

@@ -269,8 +269,8 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, finish_cb,
         
         if (is_bundle) then
             -- @analytics
-            Analytics:trackUseGoodsWithRet(ret, '11회 소환')
-            Analytics:firstTimeExperience('DragonSummonEvent_11')
+            Analytics:trackUseGoodsWithRet(ret, '10회 소환')
+            Analytics:firstTimeExperience('DragonSummonEvent_10')
         else
             Analytics:trackUseGoodsWithRet(ret, '1회 소환')
         end
@@ -453,7 +453,7 @@ function ServerData_Hatchery:getGachaList()
     do -- 커스텀 픽업 소환
         local t_data = {
             ['name'] = Str('확률업 10회 소환'),
-            ['egg_id'] = 700004, 
+            ['egg_id'] = 700001, 
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'event11',
             ['bundle'] = true,
@@ -465,7 +465,7 @@ function ServerData_Hatchery:getGachaList()
 
         local t_data = {
             ['name'] = Str('확률업 소환'),
-            ['egg_id'] = 700004, 
+            ['egg_id'] = 700001, 
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'event',
             ['bundle'] = false,
