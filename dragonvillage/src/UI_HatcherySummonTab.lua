@@ -380,6 +380,11 @@ function UI_HatcherySummonTab:setChanceUpDragons()
 
     local pickup_dragon_map = self:makeDragonInfoMap(l_dragon)
 
+    if (table.count(pickup_dragon_map) <= 0) then
+        vars['dragonNameLabel2']:setString('')
+        vars['dragonNameLabel3']:setString('')
+    end
+
     for _, t_data in pairs(pickup_dragon_map) do
         local did = t_data['did']
         local attr = TableDragon:getDragonAttr(did)
@@ -575,6 +580,7 @@ function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_da
     if (is_bundle == true) then
         summon_cnt = 10
     end
+
     if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
         return
     end
@@ -689,9 +695,19 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 
     elseif (egg_id == 700001) then
-        local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
-        UI_HacheryPickupBtnPopup(self, t_egg_data['name'], item_value, msg, ok_btn_cb, cancel_btn_cb)
+        local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
+        local has_empty_slot = not normal_did or not unique_did
+        local msg
 
+        if (has_empty_slot) then
+            msg = Str('\'땅/물/불\' 속성과 \'빛/어둠\' 속성의 드래곤을 모두 선택해야 확률 UP 고급소환을 진행할 수 있습니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+
+        else
+            msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
+            UI_HacheryPickupBtnPopup(self, t_egg_data['name'], item_value, msg, ok_btn_cb, cancel_btn_cb)
+
+        end
     else
         local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
         MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
@@ -811,8 +827,15 @@ function UI_HacheryPickupBtnPopup:init(parent, title, item_value, msg, ok_btn_cb
     vars['titleLabel']:setString(title)
     vars['selectLabel']:setString(msg)
     vars['priceLabel']:setString(comma_value(item_value))
+    vars['unselectLabel']:setString(msg)
 
-    self:setChanceUpDragons()
+    local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
+    local has_empty_slot = not normal_did or not unique_did
+    vars['unselectMenu']:setVisible(has_empty_slot)
+    vars['selectMenu']:setVisible(not has_empty_slot)
+
+    if (not has_empty_slot) then self:setChanceUpDragons() end
+    
 end
 
 
@@ -848,7 +871,8 @@ function UI_HacheryPickupBtnPopup:setChanceUpDragons()
         local name = TableDragon:getChanceUpDragonName2(did)
 
         vars['dragonNameLabel'..desc_idx]:setString(name)
-
+        vars['selectVisual'..desc_idx]:setVisible(true)
+        
         -- 드래곤 카드
         do
             local t_dragon_data = {}
