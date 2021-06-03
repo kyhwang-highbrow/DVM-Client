@@ -13,6 +13,8 @@ UI_HatcherySummonTab = class(PARENT,{
         m_attrRadioButton = 'UIC_RadioButton',
 
         m_sortManager = 'SortManager',
+
+        m_selectedDragonList = 'table',  -- 한 속성에서 왔다갔다 선택 했을 때의 체크표시 처리 용
     })
 
 -------------------------------------
@@ -27,7 +29,7 @@ function UI_HatcherySummonTab:init(owner_ui)
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
 
     self.m_orgDragonList = TablePickDragon:getDragonList(700304, g_dragonsData.m_mReleasedDragonsByDid)
-
+    self.m_selectedDragonList = {}
     self:initSortManager()
 end
 
@@ -56,10 +58,8 @@ function UI_HatcherySummonTab:onEnterTab(first)
     -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
     if (g_hotTimeData:isActiveEvent('event_legend_chance_up') or g_fevertimeData:isActiveFevertime_summonLegendUp()) then
         self.vars['eventNoti1']:setVisible(true)
-        --self.vars['eventNoti2']:setVisible(true)
     else
         self.vars['eventNoti1']:setVisible(false)
-        --self.vars['eventNoti2']:setVisible(false)
     end
 end
 
@@ -647,17 +647,30 @@ function UI_HatcherySummonTab:refresh()
     -- normal_did 물불땅 / unique_did 빛어둠
     -- 바로 알아볼 수 있게 같은 로직 두번 돌림
     local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
-
     local dragon_card
+
+    for i, did in ipairs(self.m_selectedDragonList) do
+        dragon_card = self.m_tableViewTD:getCellUI(did)
+
+        if (dragon_card) then dragon_card:setCheckSpriteVisible(false) end
+    end
+
+    self.m_selectedDragonList = {}
 
     if (normal_did) then 
         dragon_card = self.m_tableViewTD:getCellUI(normal_did)
-        if (dragon_card) then dragon_card:setCheckSpriteVisible(true) end
+        if (dragon_card) then 
+            dragon_card:setCheckSpriteVisible(true)
+            table.insert(self.m_selectedDragonList, normal_did)
+        end
     end
 
-    if (normal_did) then 
+    if (unique_did) then 
         dragon_card = self.m_tableViewTD:getCellUI(unique_did)
-        if (dragon_card) then dragon_card:setCheckSpriteVisible(true) end
+        if (dragon_card) then 
+            dragon_card:setCheckSpriteVisible(true)
+            table.insert(self.m_selectedDragonList, unique_did)
+        end
     end
 
 end
