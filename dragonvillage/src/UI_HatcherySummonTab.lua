@@ -701,12 +701,12 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 
         -- 둘다 설정되던지 아님 둘다 안설정 되던지
         if (is_allowed) then
-            msg = Str('\'땅/물/불\' 속성과 \'빛/어둠\' 속성의 드래곤을 모두 선택해야 확률 UP 고급소환을 진행할 수 있습니다.')
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
-
-        else
             msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
             UI_HacheryPickupBtnPopup(self, t_egg_data['name'], item_value, msg, ok_btn_cb, cancel_btn_cb)
+
+        else
+            msg = Str('\'땅/물/불\' 속성과 \'빛/어둠\' 속성의 드래곤을 모두 선택해야 확률 UP 고급소환을 진행할 수 있습니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
 
         end
     else
