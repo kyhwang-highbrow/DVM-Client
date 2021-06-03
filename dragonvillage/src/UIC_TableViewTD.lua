@@ -631,7 +631,6 @@ function UIC_TableViewTD:setItemList(list, make_item)
     self:clearItemList()
 
     for key,data in pairs(list) do
-        cclog(key)
         local t_item = {}
         t_item['unique_id'] = key
         t_item['data'] = data
