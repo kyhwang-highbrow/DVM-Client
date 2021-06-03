@@ -684,7 +684,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 
     elseif (egg_id == 700001) then
         local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
-        UI_HacheryPickupBtnPopup(self, item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+        UI_HacheryPickupBtnPopup(self, t_egg_data['name'], item_value, msg, ok_btn_cb, cancel_btn_cb)
 
     else
         local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
@@ -792,6 +792,8 @@ function UI_HacheryPickupBtnPopup:init(parent, item_key, item_value, msg, ok_btn
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HacheryPickupBtnPopup')
 
     
+    vars['okBtn']:registerScriptTapHandler(function() ok_btn_cb() end)
+
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
 
