@@ -106,7 +106,7 @@ function SkillChainLightning:runAttack()
                 local scaleY = effect.m_node:getScaleY()
 
                 effect.m_node:setScaleX(final_scale)
-                effect.m_node:setScaleY(scaleY + add_scale * 0.1)
+                effect.m_node:setScaleY(scaleY + add_scale * 0.2)
             end
         end
 
