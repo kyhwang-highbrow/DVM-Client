@@ -245,7 +245,8 @@ function UI_HatcherySummonTab:refresh()
 
     self:setChanceUpDragons()
 
-    local is_definite_pickup = g_hatcheryData.m_isDefinitePickup == true
+    local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
+    local is_definite_pickup = (g_hatcheryData.m_isDefinitePickup == true) and (normal_did and unique_did)
     if (self.vars['rateNoti']) then self.vars['rateNoti']:setVisible(is_definite_pickup) end
     
 end
