@@ -12,6 +12,8 @@ ForestUserStatusUI = class(PARENT, {
 function ForestUserStatusUI:init(t_user_info)
     local vars = self.vars
     self.m_rootNode:setLocalZOrder(FOREST_ZORDER['STAT_UI'])
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -26,18 +28,14 @@ function ForestUserStatusUI:onEvent(event_name, struct_event)
 end
 
 -------------------------------------
--- function addTierIcon
+-- function update
 -------------------------------------
-function ForestUserStatusUI:addTierIcon(struct_user_info)
-    local vars = self.vars
-    local tier_icon = g_arenaNewData.m_playerUserInfo:makeTierIcon(g_arenaNewData:getMyLastTier())
-    tier_icon:setScale(1.4)
+function ForestUserStatusUI:update(dt)
+    local uid = g_userData:get('uid')
+    if (not uid) then return end
 
-    if (vars['tierNode']) then
-        vars['tierNode']:removeAllChildren()
+    local tier = g_arenaNewData:getUserLastTier(uid)
+    if (not tier) then return end
 
-        if (tier_icon) then
-            vars['tierNode']:addChild(tier_icon)
-        end
-    end
+    self:addTierIcon(tier)
 end

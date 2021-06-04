@@ -25,6 +25,8 @@ function LobbyUserStatusUI:init(struct_user_info)
     self.vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     self:init_statusUI()
     self:setActive(false)
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -113,15 +115,29 @@ function LobbyUserStatusUI:init_statusUI()
     end
 
     -- 티어...
-    self:addTierIcon(struct_user_info)
+    vars['tierNode']:removeAllChildren()
+    --self:addTierIcon(struct_user_info)
 end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function LobbyUserStatusUI:update(dt)
+    if (not self.m_structUserInfo) then return end
+
+    local tier = g_arenaNewData:getUserLastTier(self.m_structUserInfo.m_uid)
+    if (not tier) then return end
+
+    self:addTierIcon(tier)
+end
+
 
 -------------------------------------
 -- function addTierIcon
 -------------------------------------
-function LobbyUserStatusUI:addTierIcon(struct_user_info)
+function LobbyUserStatusUI:addTierIcon(tier)
     local vars = self.vars
-    local tier_icon = struct_user_info:makeTierIcon()
+    local tier_icon = StructUserInfoArenaNew:makeTierIcon(tier, 'big')  
 
     if (vars['tierNode']) then
         vars['tierNode']:removeAllChildren()
@@ -130,6 +146,8 @@ function LobbyUserStatusUI:addTierIcon(struct_user_info)
             vars['tierNode']:addChild(tier_icon)
         end
     end
+
+    self.root:unscheduleUpdate()
 end
 
 -------------------------------------

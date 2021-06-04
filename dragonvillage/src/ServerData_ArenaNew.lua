@@ -2,6 +2,15 @@
 -- class ServerData_ArenaNew
 -------------------------------------
 ServerData_ArenaNew = class({
+        m_schedulerID = 'number',
+
+        m_reservationTierUIDList = 'table',
+        m_requestingTierUIDs = 'string',
+
+        m_firstTimeSearchingTier = 'boolean',
+
+        m_recentRequestTime = 'timestamp',
+
         m_serverData = 'ServerData',
 
         m_playerUserInfo = 'StructUserInfoArenaNew',
@@ -36,6 +45,8 @@ ServerData_ArenaNew = class({
 
         m_nextScore = 'number',
         m_tierRewardInfo = 'table',
+
+        m_userTierMap = 'table',    -- 런타임에 만난 유저들의 지난 티어정보를 저장
     })
 
 -------------------------------------
@@ -49,9 +60,31 @@ function ServerData_ArenaNew:init(server_data)
     self.m_matchAtkHistory = {}
     self.m_matchDefHistory = {}
     self.m_tempLogData = {}
+    self.m_userTierMap = {}
+
+    self.m_reservationTierUIDList = {}
+    self.m_requestingTierUIDs = ''
+
+    self.m_recentRequestTime = -5
 
     -- 기존 콜로세움 보상 정보 FLAG (후에 삭제)
     self.m_bLastPvpReward = false
+    self.m_firstTimeSearchingTier = true
+
+    self.m_schedulerID = scheduler.scheduleGlobal(function(dt)
+        local function func()
+		    self:update(dt)
+        end
+        
+        if (isWin32()) then
+            local status, msg = xpcall(func, __G__TRACKBACK__)
+            if (not status) then
+                error(msg)
+            end
+        else
+            func()
+        end
+    end, 0)
 end
 
 -------------------------------------
@@ -117,6 +150,77 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
 
     -- 주간 보상
     self:setRewardInfo(ret)
+end
+
+-------------------------------------
+-- function request_arenaUserTierInfo
+-------------------------------------
+function ServerData_ArenaNew:request_userLastTierInfo(uids, finish_cb, fail_cb, response_status_cb)
+    if (isNullOrEmpty(uids) == true) then return end
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    local src_uids = uids
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        self:updateLastTierTable(ret['last_tier_info'])
+
+        if finish_cb then finish_cb(ret) end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/get/user_last_tier')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('src_uids', src_uids)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    if (response_status_cb) then ui_network:setResponseStatusCB(response_status_cb) end
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+
+-------------------------------------
+-- function updateLastTierTable
+-- @breif 
+-------------------------------------
+function ServerData_ArenaNew:updateLastTierTable(data)
+    if (isNullOrEmpty(data) == true) or (table.count(data) <= 0) then return end
+
+    for uid, tier in pairs(data) do
+        self.m_userTierMap[tostring(uid)] = tier
+    end
+
+    -- 세팅 완료 후 리스트 리셋
+    self.m_requestingTierUIDs = ''
+end
+
+-------------------------------------
+-- function getLastTier
+-- @breif 
+-------------------------------------
+function ServerData_ArenaNew:getUserLastTier(uid)
+    if (isNullOrEmpty(uid) == true) then return nil end
+
+    local tier = self.m_userTierMap[tostring(uid)]
+    local has_reservation = false
+    local is_requesting = string.find(self.m_requestingTierUIDs, tostring(uid))
+    for i, uid_member in ipairs(self.m_reservationTierUIDList) do
+        if (uid_member == uid) then
+            has_reservation = true
+            break
+        end
+    end
+
+    if (not tier and not has_reservation and not is_requesting) then table.insert(self.m_reservationTierUIDList, uid) end
+
+    return tier
 end
 
 -------------------------------------
@@ -1011,3 +1115,41 @@ function ServerData_ArenaNew:getMyLastTier()
     return tier
 end
 
+-------------------------------------
+-- function update
+-------------------------------------
+function ServerData_ArenaNew:update(dt)
+    -- 체크 시간 왔음?
+    --
+    local cur_time = os.time()
+	if (cur_time >= (self.m_recentRequestTime + 5) or self.m_firstTimeSearchingTier) then
+        self.m_recentRequestTime = cur_time
+    else
+        return
+    end
+
+    -- 예약리스트 취합
+    -- 이미 저장되어 있거나 예약 중이면 스킵
+    -- 
+    local uids = ''
+    for i, uid in ipairs(self.m_reservationTierUIDList) do
+        if (uids ~= '') then uids = uids .. ',' end
+        uids = uids .. tostring(uid)
+    end
+
+    if (isNullOrEmpty(uids) == true) then 
+        self.m_reservationTierUIDList = {}
+        return 
+    end
+
+    -- 예약 리스트 비우고 예약 중 리스트로 저장
+    -- 
+    self.m_requestingTierUIDs = uids
+    self.m_reservationTierUIDList = {}
+
+    -- req 보냄
+    self:request_userLastTierInfo(uids)
+    self.m_firstTimeSearchingTier = false
+    -- res 받아서 저장 후
+    -- 외부에서는 값이 들어와서 getUserLastTier 값이 있을 때까지 조회
+end

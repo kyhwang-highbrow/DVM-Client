@@ -273,6 +273,9 @@ function StructUserInfoArenaNew:makeTierIcon(tier, type)
         icon:setDockPoint(cc.p(0.5, 0.5))
         icon:setAnchorPoint(cc.p(0.5, 0.5))
     end
+
+    icon:setScale(0.77)
+
     return icon
 end
 
