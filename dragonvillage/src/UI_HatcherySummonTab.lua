@@ -699,10 +699,11 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
         local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
         local is_allowed = (normal_did and unique_did) or (not normal_did and not unique_did)
         local msg
+        local pick_rate = g_hatcheryData.m_isDefinitePickup == true and '100' or '50'
 
         -- 둘다 설정되던지 아님 둘다 안설정 되던지
         if (is_allowed) then
-            msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
+            msg = Str('전설 드래곤 등장 시 선택한 드래곤의 {@YELLOW}소환 확률 {1}%{@DEFAULT}', pick_rate)
             UI_HacheryPickupBtnPopup(self, t_egg_data['name'], item_value, msg, ok_btn_cb, cancel_btn_cb)
 
         else

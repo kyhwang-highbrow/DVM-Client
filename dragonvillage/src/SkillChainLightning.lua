@@ -77,39 +77,6 @@ function SkillChainLightning:runAttack()
         -- 이펙트 생성
         local effect = self:makeEffect(self.m_lightningRes, i)
 
-    
-        local skill_scale_status_effect
-
-        if (self.m_owner and self:hasSkillScaleEffect(self.m_lStatusEffect) == true) then
-            local list_status_effect = self.m_owner:getStatusEffectList()
-
-            if (list_status_effect) then
-                for type, v in pairs(list_status_effect) do
-                    if (v.m_statusEffectTable and type == 'res_scale_up') then
-                        skill_scale_status_effect = v
-                    end
-                end
-            end
-        end
-
-        if (skill_scale_status_effect) then
-            local act_type = skill_scale_status_effect.m_statusEffectTable['val_1']
-            local period = skill_scale_status_effect.m_statusEffectTable['val_2']
-            local rate = skill_scale_status_effect.m_statusEffectTable['val_3']
-
-            -- 셋중에 다 있어야 됨
-            if (skill_scale_status_effect.m_overlabCnt > 0 and isNullOrEmpty(act_type) == false and isNullOrEmpty(period) == false and isNullOrEmpty(rate) == false and string.find(act_type, 'scale')) then 
-                -- 0이 되었을 때를 대비 
-                period = math.max(tonumber(period), 1)
-                local add_scale = math.max(skill_scale_status_effect.m_overlabCnt / period, 0) * tonumber(rate)
-                local final_scale = self.m_resScale + add_scale
-
-                effect.m_effectNode:setScale(final_scale)
-                effect.m_startPointNode:setScale(final_scale)
-                effect.m_endPointNode:setScale(final_scale)
-            end
-        end
-
         table.insert(self.m_tEffectList, effect)
     end
 
@@ -126,7 +93,9 @@ function SkillChainLightning:makeEffect(res, idx)
     local link_ani = nil --'bar_idle'
     local end_ani = nil --'end_idle'
 
-    local link_effect = EffectLink(file_name, link_ani, start_ani, end_ani, 200, 200)
+    local scale = self:getSkillScaleByStatusEffect()
+
+    local link_effect = EffectLink(file_name, link_ani, start_ani, end_ani, 200 * scale, 200 * scale)
     link_effect.m_bRotateEndEffect = false
 
     if (idx == 1) then
@@ -138,6 +107,10 @@ function SkillChainLightning:makeEffect(res, idx)
     end
 
     self.m_rootNode:addChild(link_effect.m_node)
+
+    link_effect.m_effectNode:setScaleX(scale)
+    link_effect.m_startPointNode:setScale(scale)
+    link_effect.m_endPointNode:setScale(scale)
 
     return link_effect
 end
