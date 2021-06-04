@@ -77,6 +77,10 @@ function UI_Package:refresh()
         end
     end
 
+    if vars['itemLabel'] then
+        vars['itemLabel']:setString(struct_product:getItemNameWithCount())
+    end
+
     -- 구매 제한
     if vars['buyLabel'] then
         local str = struct_product:getMaxBuyTermStr()

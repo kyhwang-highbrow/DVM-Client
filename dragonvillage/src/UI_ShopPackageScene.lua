@@ -77,6 +77,7 @@ function UI_ShopPackageScene:createButtonTableView()
 
     local table_view = UIC_TableView(self.vars['listNode'])
     table_view:setCellSizeToNodeSize()
+    table_view:setGapBtwCells(3)
     table_view:setCellUIClass(UI_PackageCategoryButton, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(item_list, true)
@@ -186,7 +187,7 @@ function UI_PackageCategoryButton:createTableView()
         return 
     end
 
-    local gap = 20
+    local gap = 10
     local product_size
     local content_size
     local init_pos
@@ -201,6 +202,8 @@ function UI_PackageCategoryButton:createTableView()
     -- else
         for index, struct_product in pairs(product_list) do
             local ui
+
+            ccdump(struct_product)
 
             if (self.m_data['type'] == 'old') then
                 if index > 1 then break end

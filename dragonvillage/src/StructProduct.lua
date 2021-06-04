@@ -374,6 +374,28 @@ function StructProduct:getFirstItemNameWithCount()
 end
 
 -------------------------------------
+-- function getItemNameWithCount
+-------------------------------------
+function StructProduct:getItemNameWithCount()
+    local item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
+	if (not item_list) or (not item_list[1]) then
+		item_list = ServerData_Item:parsePackageItemStr(self['mail_content'])
+	end
+
+    if (not item_list) then
+        return ''
+    end
+
+    local item_table = TableItem()
+    local result = ''
+    for _, item in pairs(item_list) do
+        result = result .. '\n' .. Str('{1} {2}개', item_table:getItemName(item['item_id']), comma_value(item['count']))
+    end
+
+    return result
+end
+
+-------------------------------------
 -- function getDesc
 -------------------------------------
 function StructProduct:getDesc()
