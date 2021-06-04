@@ -116,10 +116,10 @@ function UI_HatcherySummonTab:initUI()
             -- 뽑기 횟수 안내
             local count_str
             if (t_data['bundle']) then
-                count_str = t_data['egg_id'] == 700001 and Str('10회') or Str('10 + 1회')
+                count_str = Str('{1}회', 10)
                 btn.vars['countLabel']:setTextColor(cc.c4b(255, 215, 0, 255))
             else
-                count_str = Str('1회')
+                count_str = Str('{1}회', 1)
             end
             btn.vars['countLabel']:setString(count_str)
         end
