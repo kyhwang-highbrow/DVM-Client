@@ -972,3 +972,35 @@ function ServerData_Hatchery:getSelectedPickup()
 
     return tonumber(normal), tonumber(unique)
 end
+
+-------------------------------------
+-- function isPickupReady
+-- @breif 픽업 드래곤들 선택이 완료 되었는가?
+-------------------------------------
+function ServerData_Hatchery:isPickupReady()
+    local normal 
+    local unique
+
+    if (self.m_selectedPickup) then 
+        normal = self.m_selectedPickup['normal'] 
+        unique = self.m_selectedPickup['unique'] 
+    end
+
+    return (normal ~= nil) and (unique ~= nil)
+end
+
+-------------------------------------
+-- function isPickupEmpty
+-- @breif 픽업 드래곤 선택 하나도 안되어 있는가?
+-------------------------------------
+function ServerData_Hatchery:isPickupEmpty()
+    local normal 
+    local unique
+
+    if (self.m_selectedPickup) then 
+        normal = self.m_selectedPickup['normal'] 
+        unique = self.m_selectedPickup['unique'] 
+    end
+
+    return (normal == nil) and (unique == nil)
+end

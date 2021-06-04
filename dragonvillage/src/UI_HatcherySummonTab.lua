@@ -245,8 +245,8 @@ function UI_HatcherySummonTab:refresh()
 
     self:setChanceUpDragons()
 
-    local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
-    local is_definite_pickup = (g_hatcheryData.m_isDefinitePickup == true) and (normal_did and unique_did)
+    local is_definite_pickup = (g_hatcheryData.m_isDefinitePickup == true) and (g_hatcheryData:isPickupReady() == true)
+    cclog(is_definite_pickup)
     if (self.vars['rateNoti']) then self.vars['rateNoti']:setVisible(is_definite_pickup) end
     
 end
@@ -696,8 +696,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 
     elseif (egg_id == 700001) then
-        local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
-        local is_allowed = (normal_did and unique_did) or (not normal_did and not unique_did)
+        local is_allowed = (g_hatcheryData:isPickupReady() == true) or (g_hatcheryData:isPickupEmpty() == true)
         local msg
         local pick_rate = g_hatcheryData.m_isDefinitePickup == true and '100' or '50'
 
@@ -832,8 +831,7 @@ function UI_HacheryPickupBtnPopup:init(parent, title, item_value, msg, ok_btn_cb
     vars['priceLabel']:setString(comma_value(item_value))
     vars['unselectLabel']:setString(msg)
 
-    local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
-    local has_empty_slot = not normal_did or not unique_did
+    local has_empty_slot = g_hatcheryData:isPickupEmpty() == true
     vars['unselectMenu']:setVisible(has_empty_slot)
     vars['selectMenu']:setVisible(not has_empty_slot)
 
