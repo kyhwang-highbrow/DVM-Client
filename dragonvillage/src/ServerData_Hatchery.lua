@@ -327,7 +327,7 @@ function ServerData_Hatchery:getSummonEggList()
     local l_item_list = {}
 
     do -- 이벤트 데이터
-        local t_data = {['egg_id']=700001, ['bundle']=true, ['full_type'] = 'egg_cash_mysteryup_11', ['name']=Str('확률업 10+1회 소환'), ['desc']=Str('3~5★ 드래곤 부화')}
+        local t_data = {['egg_id']=700001, ['bundle']=true, ['full_type'] = 'egg_cash_mysteryup_11', ['name']=Str('확률업 10회 소환'), ['desc']=Str('3~5★ 드래곤 부화')}
         t_data['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp'
         t_data['price_type'] = 'cash'
         t_data['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE
@@ -341,7 +341,7 @@ function ServerData_Hatchery:getSummonEggList()
     end
 
     do -- 고급 부화
-        local t_data = {['egg_id']=700002, ['bundle']=true, ['full_type'] = 'egg_cash_mystery_11', ['name']=Str('고급 부화 10+1회'), ['desc']=Str('3~5★ 드래곤 부화')}
+        local t_data = {['egg_id']=700002, ['bundle']=true, ['full_type'] = 'egg_cash_mystery_11', ['name']=Str('고급 부화 10회'), ['desc']=Str('3~5★ 드래곤 부화')}
         t_data['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp'
         t_data['price_type'] = 'cash'
         t_data['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE

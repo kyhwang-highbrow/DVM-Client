@@ -434,7 +434,7 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_dat
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
     if (is_bundle == true) then
-        summon_cnt = 11
+        summon_cnt = 10
     end
     if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
         return
@@ -480,7 +480,7 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
     if (is_bundle == true) then
-        summon_cnt = 11
+        summon_cnt = 10
     end
     if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
         return

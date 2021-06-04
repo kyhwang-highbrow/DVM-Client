@@ -193,11 +193,13 @@ function UI_GachaResult_Dragon:initEverything()
 
 			else 
 				-- 10% 할인
+                --[[
 				if (is_cash) then
 					price = price - (price * 0.1)
 				else
 					vars['saleSprite']:setVisible(false)
-				end
+				end]]
+                vars['saleSprite']:setVisible(false)
 				vars['priceLabel']:setString(comma_value(price))
 			end
 		end
@@ -213,9 +215,10 @@ function UI_GachaResult_Dragon:initEverything()
 			end
 
 			-- 마일리지
+            --[[
 			if (self.m_added_mileage > 0) then
 				self:registerOpenNode('mileageNode')
-			end
+			end]]
 
 			-- 캐시 혹은 우정포인트
 			if (is_cash) then
