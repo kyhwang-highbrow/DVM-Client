@@ -53,7 +53,7 @@ function UI_ShopPackageScene:createButtonTableView()
         local pid_list = pl.stringx.split(data['t_pids'], ',')
         local struct_list = {}
         for _, product_id in pairs(pid_list) do
-            struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id)
+            struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
 
             if struct_product then
                 if (struct_product['m_tabCategory'] == 'package') then
