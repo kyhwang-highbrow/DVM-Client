@@ -15,10 +15,8 @@ function UI_SupplyDepot:init(package_name, is_popup)
     self.m_eventId = event_id
     self.m_uiName = 'UI_SupplyDepot'
     local vars = self:load('supply_depot.ui')
-    ccdump('1111111111111111111111')
-    ccdump(is_popup)
+
     if (is_popup) then
-        ccdump('22222222222222222222222')
         UIManager:open(self, UIManager.POPUP)
 
         -- backkey 지정

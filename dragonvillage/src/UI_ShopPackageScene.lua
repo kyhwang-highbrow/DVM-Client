@@ -53,7 +53,7 @@ function UI_ShopPackageScene:createButtonTableView()
         local pid_list = pl.stringx.split(data['t_pids'], ',')
         local struct_list = {}
         for _, product_id in pairs(pid_list) do
-            struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
+            struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id)
 
             if struct_product then
                 if (struct_product['m_tabCategory'] == 'package') then
@@ -72,6 +72,7 @@ function UI_ShopPackageScene:createButtonTableView()
         ui.vars['listLabel']:setString(Str(data['t_desc']))
         ui.m_scrollView = self.m_scrollView
         ui.m_contractBtn = self.vars['contractBtn']
+        ui.m_parent = self
     end
 
     local table_view = UIC_TableView(self.vars['listNode'])
@@ -121,6 +122,7 @@ UI_PackageCategoryButton = class(class(UI, ITableViewCell:getCloneTable()), {
     m_data = 'table',
     m_scrollView = '',
     m_contractBtn = '',
+    m_parent = '',
 })
 
 function UI_PackageCategoryButton:init(data)
@@ -137,6 +139,27 @@ end
 -- ----------------------------------------------------------------------
 function UI_PackageCategoryButton:click_btn()
     local vars = self.vars
+
+    local scroll_node
+
+    if (self.m_data['type'] == 'normal') then
+        scroll_node = self.m_parent.vars['contentsListNode']
+        
+    else
+        scroll_node = self.m_parent.vars['contentsNode']
+    end
+    
+    local content_size = scroll_node:getContentSize()
+
+    self.m_scrollView:setDockPoint(TOP_CENTER)
+    self.m_scrollView:setAnchorPoint(TOP_CENTER)
+
+    self.m_scrollView:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    self.m_scrollView:setNormalSize(content_size)
+    self.m_scrollView:setContentSize(content_size)
+    self.m_scrollView:retain()
+    self.m_scrollView:removeFromParent()
+    scroll_node:addChild(self.m_scrollView)
 
     self:createTableView()
 
