@@ -837,7 +837,7 @@ function UI_Lobby:initButton()
     
     vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
     vars['ddayBtn']:registerScriptTapHandler(function() self:click_ddayBtn() end) -- 출석 이벤트탭 이동
-    vars['dailyShopBtn']:registerScriptTapHandler(function() self:click_dailyShopBtn() end) -- 일일 상점
+    --vars['dailyShopBtn']:registerScriptTapHandler(function() self:click_dailyShopBtn() end) -- 일일 상점
     vars['randomShopBtn']:registerScriptTapHandler(function() self:click_randomShopBtn() end) -- 랜덤 상점
     vars['randomShopBtn']:setVisible(true) 
 
@@ -1877,10 +1877,10 @@ end
 -------------------------------------
 -- function click_dailyShopBtn
 -------------------------------------
-function UI_Lobby:click_dailyShopBtn()
-    local is_popup = true
-    UINavigator:goTo('shop_daily', is_popup)
-end
+-- function UI_Lobby:click_dailyShopBtn()
+--     local is_popup = true
+--     UINavigator:goTo('shop_daily', is_popup)
+-- end
 
 -------------------------------------
 -- function click_randomShopBtn
@@ -2303,7 +2303,7 @@ function UI_Lobby:update_rightButtons()
     end
 
     -- 일일상점 버튼
-    vars['dailyShopBtn']:setVisible(true)
+    --vars['dailyShopBtn']:setVisible(true)
 
     -- 모험돌파 버튼
     do
@@ -2350,8 +2350,8 @@ function UI_Lobby:update_rightButtons()
     vars['randomShopBtn']:setVisible(is_random_shop_open)
 
     -- 일일 상점
-    local is_daily_shop_open = not g_contentLockData:isContentLock('daily_shop')
-    vars['dailyShopBtn']:setVisible(is_daily_shop_open)
+    --local is_daily_shop_open = not g_contentLockData:isContentLock('daily_shop')
+    --vars['dailyShopBtn']:setVisible(is_daily_shop_open)
 
     do -- 핫타임
         -- if (g_fevertimeData:isHighlightFevertime() == true) then
@@ -2409,7 +2409,7 @@ function UI_Lobby:update_rightButtons()
 
     table.insert(t_btn_name, 'capsuleBoxBtn')
     table.insert(t_btn_name, 'goldDungeonBtn')
-    table.insert(t_btn_name, 'dailyShopBtn')
+    --table.insert(t_btn_name, 'dailyShopBtn')
     table.insert(t_btn_name, 'randomShopBtn')
     --table.insert(t_btn_name, 'fevertimeBtn')
     table.insert(t_btn_name, 'eventBtn')

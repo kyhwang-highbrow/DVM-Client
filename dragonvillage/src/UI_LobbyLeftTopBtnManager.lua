@@ -44,7 +44,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PRODUCT, UI_ButtonSpecialOfferProductGold}) -- 특별 할인 골드 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PRODUCT, UI_ButtonSpecialOfferProductNurture}) -- 특별 할인 패키지 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPOT_SALE_PRODUCT, UI_ButtonSpotSale}) -- 깜짝 할인 상품
-    table.insert(l_managed_button_info, {self.PRIORITY.SUPPLY_DEPOT, UI_ButtonSupplyDepot}) -- 보급소(정액제)
+    --table.insert(l_managed_button_info, {self.PRIORITY.SUPPLY_DEPOT, UI_ButtonSupplyDepot}) -- 보급소(정액제)
 
     table.insert(l_managed_button_info, {self.PRIORITY.WEIDEL_PACK, UI_ButtonSpecialOfferWeidel}) -- 바이델 축제 패키지
     
