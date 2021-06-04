@@ -7,7 +7,21 @@ UI_ShopPackageScene = class(PARENT, {
 
 function UI_ShopPackageScene:initParentVariable()
     self.m_uiName = 'UI_ShopPackageScene'
-    
+    self.m_titleStr = Str('패키지')
+    self.m_bVisible = true
+    self.m_bUseExitBtn = true
+
+    self.m_subCurrency = nil
+    g_topUserInfo:deleteGoodsUI('amethyst')
+end
+
+-------------------------------------
+-- function onClose
+-- @brief ITopUserInfo_EventListener
+-------------------------------------
+function UI_ShopPackageScene:onClose()
+    self:releaseI_TopUserInfo_EventListener()
+    g_currScene:removeBackKeyListener(self)
 end
 
 function UI_ShopPackageScene:init()
@@ -56,7 +70,8 @@ function UI_ShopPackageScene:createButtonTableView()
             struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
 
             if struct_product then
-                if (struct_product['m_tabCategory'] == 'package') then
+                if (struct_product['m_tabCategory'] == 'package') and struct_product:isItBuyable() then
+                    --if (struct_product['t_name'] == 'package_daily') and (not g_contentLockData:isContentLock('daily_shop'))then
                     table.insert(struct_list, struct_product)
                 end
             end
