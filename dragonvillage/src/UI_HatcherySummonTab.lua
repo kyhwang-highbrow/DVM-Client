@@ -368,8 +368,7 @@ function UI_HatcherySummonTab:setChanceUpDragons()
     local desc_idx = 0 -- dragonName1 :드래곤 1마리 일 때, dragonName2, dragonName3 : 드래곤 2마리 일 때
 
     -- 이제 픽업은 직접 선택한다.
-    vars['summonAttrMenu1']:setVisible(false)
-    vars['summonAttrMenu2']:setVisible(true)
+    vars['summonAttrMenu']:setVisible(true)
 
     -- normal_did 물불땅 / unique_did 빛어둠
     -- 바로 알아볼 수 있게 같은 로직 두번 돌림
@@ -391,14 +390,15 @@ function UI_HatcherySummonTab:setChanceUpDragons()
         local attr = TableDragon:getDragonAttr(did)
 
         -- 빛어둠 3 / 땅물불 2
-        idx = isExistValue(attr, 'light', 'dark') and 3 or 2
+        idx = isExistValue(attr, 'light', 'dark') and 2 or 1
         desc_idx = idx
 
         -- 드래곤 이름
         local name = TableDragon:getChanceUpDragonName2(did)
 
         vars['dragonNameLabel'..desc_idx]:setString(name)
-
+        vars['selectVisual'.. desc_idx]:setVisible(true)
+        
         -- 드래곤 카드
         do
             local t_dragon_data = {}
