@@ -246,8 +246,15 @@ function UI_HatcherySummonTab:refresh()
     self:setChanceUpDragons()
 
     local is_definite_pickup = (g_hatcheryData.m_isDefinitePickup == true) and (g_hatcheryData:isPickupReady() == true)
-    cclog(is_definite_pickup)
-    if (self.vars['rateNoti']) then self.vars['rateNoti']:setVisible(is_definite_pickup) end
+    
+    if (self.vars['rateNoti']) then
+        self.vars['rateNoti']:stopAllActions()
+        self.vars['rateNoti']:setVisible(is_definite_pickup)
+
+        if (is_definite_pickup) then
+            cca.fadeInDelayOut(self.vars['rateNoti'], 0.7, 1.2, 0.8, true)
+        end
+    end
     
 end
 

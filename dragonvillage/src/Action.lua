@@ -415,7 +415,7 @@ end
 -- function fadeInDelayOut
 -- @brief 
 -------------------------------------
-function cca.fadeInDelayOut(node, in_time, delay_time, out_time)
+function cca.fadeInDelayOut(node, in_time, delay_time, out_time, forever)
 	doAllChildren(node, function(child) child:setCascadeOpacityEnabled(true) end)
 
     node:setOpacity(0)
@@ -423,7 +423,11 @@ function cca.fadeInDelayOut(node, in_time, delay_time, out_time)
     local delay = cc.DelayTime:create(delay_time)
 	local fadeout = cc.FadeOut:create(out_time)
 
-	cca.runAction(node, cc.Sequence:create(fadein, delay, fadeout))
+    if (forever) then
+        cca.runAction(node, cc.RepeatForever:create(cc.Sequence:create(fadein, delay, fadeout)))
+    else
+	    cca.runAction(node, cc.Sequence:create(fadein, delay, fadeout))
+    end
 end
 
 -------------------------------------
