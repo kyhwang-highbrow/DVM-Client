@@ -56,8 +56,6 @@ function SkillChainLightning.st_idle(owner, dt)
     local y = owner.m_owner.pos.y + owner.m_attackPosOffsetY
     owner:setPosition(x, y)
 
-    owner:updatePos()
-
 	if (owner.m_stateTimer == 0) then
         owner:runAttack()
     end
@@ -78,6 +76,8 @@ function SkillChainLightning:runAttack()
         local effect = self:makeEffect(self.m_lightningRes, i)
 
         table.insert(self.m_tEffectList, effect)
+
+        self:updatePos()
     end
 
 	self:doCommonAttackEffect()
@@ -111,6 +111,8 @@ function SkillChainLightning:makeEffect(res, idx)
     link_effect.m_effectNode:setScaleX(scale)
     link_effect.m_startPointNode:setScale(scale)
     link_effect.m_endPointNode:setScale(scale)
+
+    self:updatePos()
 
     return link_effect
 end
