@@ -94,6 +94,7 @@ function SkillChainLightning:makeEffect(res, idx)
     local end_ani = nil --'end_idle'
 
     local scale = self:getSkillScaleByStatusEffect()
+    scale = scale or 1
 
     local link_effect = EffectLink(file_name, link_ani, start_ani, end_ani, 200 * scale, 200 * scale)
     link_effect.m_bRotateEndEffect = false
