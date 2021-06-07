@@ -399,8 +399,8 @@ function UI_HatcherySummonTab:setChanceUpDragons()
     local pickup_dragon_map = self:makeDragonInfoMap(l_dragon)
 
     if (table.count(pickup_dragon_map) <= 0) then
-        vars['dragonNameLabel1']:setString('')
-        vars['dragonNameLabel2']:setString('')
+        vars['dragonNameLabel1']:setString('땅/물/불\n선택')
+        vars['dragonNameLabel2']:setString('빛/어둠\n선택')
     end
 
     for _, t_data in pairs(pickup_dragon_map) do
