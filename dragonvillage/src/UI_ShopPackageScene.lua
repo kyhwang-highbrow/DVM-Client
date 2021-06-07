@@ -65,7 +65,9 @@ function UI_ShopPackageScene:createButtonTableView()
 
     local item_list = {}
 
-    for index, data in pairs(packBundleTable) do
+    for index = #packBundleTable, 1, -1 do
+    --for index, data in pairs(packBundleTable) do
+        local data = packBundleTable[index]
         local pid_list = pl.stringx.split(data['t_pids'], ',')
         local struct_list = {}
         for _, product_id in pairs(pid_list) do
