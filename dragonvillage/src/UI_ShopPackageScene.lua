@@ -3,6 +3,9 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_ShopPackageScene = class(PARENT, {
     m_tableView = 'UIC_TableView',
     m_scrollView = 'cc.ScrollView',
+
+
+    m_targetButton = 'UIC_Button',
 })
 
 function UI_ShopPackageScene:initParentVariable()
@@ -24,7 +27,7 @@ function UI_ShopPackageScene:onClose()
     g_currScene:removeBackKeyListener(self)
 end
 
-function UI_ShopPackageScene:init()
+function UI_ShopPackageScene:init(package_name)
     local vars = self:load('shop_package.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -33,17 +36,17 @@ function UI_ShopPackageScene:init()
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI()
+    self:initUI(package_name)
     self:initButton()
     self:refresh()
 end
 
-function UI_ShopPackageScene:initUI()
+function UI_ShopPackageScene:initUI(package_name)
     local vars = self.vars
 
     self:createPackageScrollView()
 
-    self:createButtonTableView()
+    self:createButtonTableView(package_name)
 end
 
 function UI_ShopPackageScene:initButton()
@@ -51,16 +54,19 @@ function UI_ShopPackageScene:initButton()
 end
 
 function UI_ShopPackageScene:refresh()
-    local item = self.m_tableView:getItemFromIndex(1)
-    local ui = item['ui'] or item['generated_ui']
-    ui:click_btn()
+
+    if (not self.m_targetButton) then
+        local item = self.m_tableView:getItemFromIndex(1)
+        self.m_targetButton = item['ui'] or item['generated_ui']
+    end
+    self.m_targetButton:click_btn()
 end
 
 
 ----------------------------------------------------------------------
 -- function createButtonTableView
 ----------------------------------------------------------------------
-function UI_ShopPackageScene:createButtonTableView()
+function UI_ShopPackageScene:createButtonTableView(package_name)
     local packBundleTable = TABLE:get('table_package_bundle')
 
     local item_list = {}
@@ -92,6 +98,10 @@ function UI_ShopPackageScene:createButtonTableView()
         ui.m_scrollView = self.m_scrollView
         ui.m_contractBtn = self.vars['contractBtn']
         ui.m_parent = self
+
+        if (data['t_name'] == package_name) then
+            self.m_targetButton = ui
+        end
     end
 
     local table_view = UIC_TableView(self.vars['listNode'])
@@ -161,6 +171,7 @@ end
 -- ----------------------------------------------------------------------
 function UI_PackageCategoryButton:click_btn()
     local vars = self.vars
+    self.m_parent.m_targetButton = self
 
     local scroll_node
 
@@ -224,8 +235,6 @@ function UI_PackageCategoryButton:createTableView()
         for index, struct_product in pairs(product_list) do
             local ui
 
-            ccdump(struct_product)
-
             if (self.m_data['type'] == 'old') then
                 if index > 1 then break end
                 
@@ -234,8 +243,8 @@ function UI_PackageCategoryButton:createTableView()
                 ui = PackageManager:getTargetUI(package_name, false)
             else
                 local package_class = _G[struct_product['package_class']]
-                
-                if (not package_class) and (not struct_product['package_class']) then
+            
+                if (not package_class) and (struct_product['package_class']) then
                     require(struct_product['package_class'])
                     package_class = _G[struct_product['package_class']]
                 else
