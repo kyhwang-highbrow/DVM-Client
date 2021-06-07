@@ -183,7 +183,11 @@ end
 -- ----------------------------------------------------------------------
 function UI_PackageCategoryButton:click_btn()
     local vars = self.vars
+
+    self.m_parent.m_targetButton.vars['listBtn']:setEnabled(true)
+
     self.m_parent.m_targetButton = self
+    vars['listBtn']:setEnabled(false)
 
     local scroll_node
 
