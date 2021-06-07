@@ -260,6 +260,14 @@ function UI_HatcherySummonTab:onChangeCategory(category)
         local is_same_category = name == category
         tab_object:setVisible(is_same_category) 
     end
+
+    local is_pickup = category == 'pickup'
+    local is_premium = category == 'cash'
+    local is_friendPoint = category == 'friend'
+
+    self.vars['chanceUpTabBtn']:setEnabled(not is_pickup)
+    self.vars['premiumTabBtn']:setEnabled(not is_premium)
+    self.vars['friendshipTabBtn']:setEnabled(not is_friendPoint)
 end
 
 
