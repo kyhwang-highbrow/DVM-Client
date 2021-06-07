@@ -105,8 +105,14 @@ end
 -- function initButton
 -------------------------------------
 function UI_QuestPopup:initButton()
+
     if (self.m_battlePassBtn) then
-       self.m_battlePassBtn:registerScriptTapHandler(function() self:click_battlePassBtn() end)
+        if g_battlePassData:isPurchasedAnyProduct() then
+            self.m_battlePassBtn:setVisible(true)
+            self.m_battlePassBtn:registerScriptTapHandler(function() self:click_battlePassBtn() end)
+        else
+            self.m_battlePassBtn:setVisible(false)
+        end
     end
 end
 
@@ -168,7 +174,7 @@ function UI_QuestPopup:onChangeTab(tab, first)
     local isDailyTab = self.m_currTab == TableQuest.DAILY
 
     --배틀패스 버튼 show hide
-    if (self.m_battlePassBtn) then
+    if (self.m_battlePassBtn and g_battlePassData:isPurchasedAnyProduct()) then
         self.m_battlePassBtn:setVisible(isDailyTab)
     end
 end

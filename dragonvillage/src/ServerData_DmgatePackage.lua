@@ -80,18 +80,14 @@ function ServerData_DmgatePackage:response_info(product_info, product_id)
     end
 
     --if next(product_info) ~= nil then
-    if product_info['active'] == true then
-        self.m_packageInfo[_product_id] = product_info['received_list']
-    end
+    self.m_packageInfo[_product_id] = product_info
+    -- if product_info['active'] == true then
+    --     self.m_packageInfo[_product_id] = product_info
+    --     self.m_packageInfo[_product_id]['received_list'] = product_info['received_list']
+
+        
+    -- end
     --end
-end
-
---------------------------------------------------------------------------
--- function getProductState
---------------------------------------------------------------------------
-function ServerData_DmgatePackage:getProductState(product_id)
-
-    return self.m_packageInfo[tostring(product_id)]
 end
 
 -- {
@@ -217,7 +213,9 @@ end
 -- function isPackageActive
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:isPackageActive(product_id)
-    return self.m_packageInfo[tostring(product_id)] ~= nil
+    --if (not self.m_packageInfo[tostring(product_id)]) then return false end
+
+    return self.m_packageInfo[tostring(product_id)]['active']
 end
 
 
@@ -225,7 +223,9 @@ end
 -- function isRewardReceived
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:isRewardReceived(product_id, stage_id)
-    local product_table = self.m_packageInfo[tostring(product_id)]    
+    --if (not self.m_packageInfo[tostring(product_id)]) then return false end
+
+    local product_table = self.m_packageInfo[tostring(product_id)]['received_list']
 
     for key, value in pairs(product_table) do
         if value == stage_id then
@@ -281,6 +281,10 @@ function ServerData_DmgatePackage:isNotiVisible()
     end
 
     return false
+end
+
+function ServerData_DmgatePackage:isUnclearedAnyPackage()
+
 end
 
 --------------------------------------------------------------------------

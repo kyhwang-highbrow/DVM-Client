@@ -2364,7 +2364,7 @@ function UI_Lobby:update_rightButtons()
     end
 
     do -- 배틀 패스
-        -- g_battlePassData:isPurchasedAnyProduct()
+        --g_battlePassData:isPurchasedAnyProduct()
         -- g_LevelUpPackageData:isUnclearedAnyPackage()
         --
         local is_visible = true

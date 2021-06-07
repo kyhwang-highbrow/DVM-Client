@@ -155,6 +155,18 @@ function ServerData_LevelUpPackage:response_lvuppackInfoByTitle(ret)
     end
 end
 
+-- function ServerData_LevelUpPackage:isPurchasedAnyProduct()
+--     local isPurchased = false
+--     for _, struct_product in pairs(self.m_tPackage) do
+--         if (struct_product:isActive()) then
+--             isPurchased = true
+--             break
+--         end
+--     end
+
+--     return isPurchased
+-- end
+
 -------------------------------------
 -- function isActive
 -------------------------------------
@@ -165,6 +177,25 @@ function ServerData_LevelUpPackage:isActive(product_id)
     end
     return struct_product_state:isActive()
 end
+
+-------------------------------------
+-- function 
+-------------------------------------
+function ServerData_LevelUpPackage:isUnclearedAnyPackage()
+    local package_list = {LEVELUP_PACKAGE_PRODUCT_ID, LEVELUP_PACKAGE_2_PRODUCT_ID, LEVELUP_PACKAGE_3_PRODUCT_ID}
+
+    local result = false
+
+    for _, pid in pairs(package_list) do
+        if isVisibleAtBattlePassShop(pid) then
+            result = true
+            break
+        end
+    end
+
+    return result
+end
+
 -------------------------------------
 -- function isVisibleAtBattlePassShop
 -- @breif 구매 전에는 출력하고 구매 후에는 보상이 남은 경우 출력

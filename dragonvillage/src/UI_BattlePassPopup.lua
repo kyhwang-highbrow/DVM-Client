@@ -128,7 +128,8 @@ function UI_BattlePassPopup:initTableView()
     local tabList = {}
     for k, v in pairs(item_list) do
         if(g_battlePassData.m_battlePassTable:IsBattlePassProduct(k)) then
-            if(g_battlePassData.m_battlePassTable:IsActiveLevel(k)) then
+            if(g_battlePassData.m_battlePassTable:IsActiveLevel(k) 
+                and g_battlePassData:isPurchased(k)) then
                 --self:request_battlePassInfo()
                 table.insert(tabList, v)
             end

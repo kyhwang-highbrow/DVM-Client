@@ -238,7 +238,8 @@ function UI_QuestListItem:setRewardCard()
 	end
 
 	-- 배틀패스 포인트
-	if (self.m_questData:isDailyType() and g_questData:isBattlePassActive()) then
+	if (self.m_questData:isDailyType() and g_questData:isBattlePassActive()
+        and g_battlePassData:isPurchasedAnyProduct()) then
         -- 당분간 고정으로 10만 지급함
 		local battlePassExp = 10
         local battle_pass_exp_card = UI_BattlePassCard(battlePassExp)

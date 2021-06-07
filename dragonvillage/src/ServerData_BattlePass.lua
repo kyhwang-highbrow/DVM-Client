@@ -61,6 +61,17 @@ end
 --// Server
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
+function ServerData_BattlePass:isPurchasedAnyProduct()
+    local isPurchased = false
+    for _, data in pairs(self.m_passInfoData) do
+        if (data['is_premium'] == 1) then
+            isPurchased = true
+            break
+        end
+    end
+
+    return isPurchased
+end
 
 -------------------------------------
 -- function isPurchased
@@ -137,7 +148,6 @@ end
 
 --functino ServerData_BattlePass:isExistAvailableReward
 function ServerData_BattlePass:isVisible_battlePassNoti()
-
     for key, table in pairs(self.m_passInfoData) do
         if self:isExistAvailableReward(key, self.m_normalKey) or self:isExistAvailableReward(key, self.m_premiumKey) then
             return true
