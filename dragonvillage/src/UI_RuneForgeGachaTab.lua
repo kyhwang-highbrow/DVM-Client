@@ -61,7 +61,7 @@ function UI_RuneForgeGachaTab:initUI()
     -- 설정된 프로덕트 아이디도 포함시켜야 함
     start_product_id = start_product_id - 1
 
-    for i = 1, 1 do
+    for i = 1, 4 do
         local product_id = start_product_id + i
         vars['buyBtn' .. i]:registerScriptTapHandler(function() self:click_buyBtn(product_id) end)
         
