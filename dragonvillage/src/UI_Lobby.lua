@@ -1575,11 +1575,11 @@ end
 -------------------------------------
 function UI_Lobby:click_giftBoxBtn()
     
-    if IS_TEST_MODE() then
-        --UI_DmgateScene(DIMENSION_GATE_MANUS)
-        require('UI_ShopPackageScene')
-        UI_ShopPackageScene()
-    else
+    -- if IS_TEST_MODE() then
+    --     --UI_DmgateScene(DIMENSION_GATE_MANUS)
+    --     require('UI_ShopPackageScene')
+    --     UI_ShopPackageScene()
+    -- else
         g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
     end
 end
@@ -1716,7 +1716,9 @@ end
 -- @brief temp package shop button for season pass
 -------------------------------------
 function UI_Lobby:click_packageShopBtn()
-    UINavigator:goTo('package_shop')
+    --UINavigator:goTo('package_shop')
+    require('UI_ShopPackageScene')
+    UI_ShopPackageScene()
 end
 
 -------------------------------------
@@ -2364,6 +2366,9 @@ function UI_Lobby:update_rightButtons()
     end
 
     do -- 배틀 패스
+        -- g_battlePassData:isPurchasedAnyProduct()
+        -- g_LevelUpPackageData:isUnclearedAnyPackage()
+        --
         local is_visible = true
         vars['battlePassBtn']:setVisible(is_visible)
         local is_noti_visible = g_battlePassData:isVisible_battlePassNoti()
