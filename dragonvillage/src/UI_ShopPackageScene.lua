@@ -78,13 +78,13 @@ function UI_ShopPackageScene:createButtonTableView(package_name)
         local struct_list = {}
         for _, product_id in pairs(pid_list) do
             struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
-
+            ccdump(struct_product)
             if struct_product then
                 if (struct_product['m_tabCategory'] == 'package') and struct_product:isItBuyable() then
                     --if (struct_product['t_name'] == 'package_daily') and (not g_contentLockData:isContentLock('daily_shop'))then
                     table.insert(struct_list, struct_product)
-                --elseif(struct_product['t_name'] == 'package_daily') and (not g_contentLockData:isContentLock('daily_shop')) then
-                --    table.insert(struct_list, struct_product)
+                -- elseif(data['t_name'] == 'package_daily') and (not g_contentLockData:isContentLock('daily_shop')) then
+                --     table.insert(struct_list, struct_product)
                 end
             end
         end
@@ -164,6 +164,16 @@ function UI_PackageCategoryButton:init(data)
     local vars = self:load('shop_package_list.ui')
 
     vars['listBtn']:registerScriptTapHandler(function() self:click_btn() end)
+
+    
+    local product_list = self.m_data['struct_product']
+
+    if #product_list > 1 then
+        local badge = product_list[1]:makeBadgeIcon()
+        if badge then
+            vars['badgeNode']:addChild(badge)
+        end
+    end
 end
 
 
