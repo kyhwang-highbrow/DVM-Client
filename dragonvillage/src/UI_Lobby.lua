@@ -1718,7 +1718,15 @@ end
 function UI_Lobby:click_packageShopBtn()
     --UINavigator:goTo('package_shop')
     require('UI_ShopPackageScene')
-    UI_ShopPackageScene()
+
+    local function finish_cb()
+        UI_ShopPackageScene()
+    end
+
+    -- local scene = SceneCommon(UI_ShopPackageScene, close_cb, initial_tab)
+    -- scene:runScene()
+
+    g_shopDataNew:request_shopInfo(finish_cb)
 end
 
 -------------------------------------
@@ -1726,8 +1734,8 @@ end
 -- @brief 배틀패스 상점 버튼
 -------------------------------------
 function UI_Lobby:click_battlePassBtn()
-    -- UINavigator:goTo('battle_pass_shop')
     g_battlePassData:openBattlePassPopup()
+    
 end
 -------------------------------------
 -- function click_lvUpPackBtn
