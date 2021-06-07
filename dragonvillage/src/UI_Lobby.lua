@@ -1581,7 +1581,7 @@ function UI_Lobby:click_giftBoxBtn()
     --     UI_ShopPackageScene()
     -- else
         g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
-    end
+    --end
 end
 
 -------------------------------------
