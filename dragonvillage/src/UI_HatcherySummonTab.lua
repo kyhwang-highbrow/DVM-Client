@@ -67,8 +67,6 @@ function UI_HatcherySummonTab:onEnterTab(first)
     else
         self.vars['eventNoti1']:setVisible(false)
     end
-
-    self:onChangeCategory('pickup')
 end
 
 -------------------------------------
@@ -83,6 +81,8 @@ end
 -------------------------------------
 function UI_HatcherySummonTab:initUI()
     local vars = self.vars
+
+    local default_category = 'pickup'
 
     for i, t_data in pairs(g_hatcheryData:getGachaList()) do
         local btn = UI()
@@ -143,6 +143,8 @@ function UI_HatcherySummonTab:initUI()
 			if (TutorialManager.getInstance():isDoing()) then
 				self.m_ownerUI.vars['tutorialSummon11Btn'] = btn.vars['summonBtn']
 				btn.vars['priceLabel']:setString(Str('무료'))
+
+                default_category = 'cash'
 			end
 		end
     end
@@ -156,6 +158,7 @@ function UI_HatcherySummonTab:initUI()
 
     vars['infoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup() end)
 
+    self:onChangeCategory(default_category)
 
     -- 광고 보기 버튼 체크
     vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['FSUMMON']))

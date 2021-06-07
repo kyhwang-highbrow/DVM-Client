@@ -410,7 +410,7 @@ function ServerData_Hatchery:getGachaList()
 
     do -- 고급 부화
         local t_data = {
-            ['name'] = Str('고급 부화 10+1회'),
+            ['name'] = Str('고급 부화 10회'),
             ['egg_id'] = 700002, 
             ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
             ['ui_type'] = 'cash11',
