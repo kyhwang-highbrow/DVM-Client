@@ -51,7 +51,9 @@ function UI_ShopPackageScene:initButton()
 end
 
 function UI_ShopPackageScene:refresh()
-
+    local item = self.m_tableView:getItemFromIndex(1)
+    local ui = item['ui'] or item['generated_ui']
+    ui:click_btn()
 end
 
 
@@ -96,6 +98,8 @@ function UI_ShopPackageScene:createButtonTableView()
     table_view:setCellUIClass(UI_PackageCategoryButton, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(item_list, true)
+
+    self.m_tableView = table_view
 end
 
 ----------------------------------------------------------------------
