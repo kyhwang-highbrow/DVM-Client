@@ -265,7 +265,7 @@ function PackageManager:isExist(package_name)
         if product_id then 
             pid = product_id
         else
-            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
+            local pid_strs = TablePackageBundle:getPidsWithName(package_name)
 
             pid = pid_strs[1]
         end

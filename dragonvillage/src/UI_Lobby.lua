@@ -1716,17 +1716,7 @@ end
 -- @brief temp package shop button for season pass
 -------------------------------------
 function UI_Lobby:click_packageShopBtn()
-    --UINavigator:goTo('package_shop')
-    require('UI_ShopPackageScene')
-
-    local function finish_cb()
-        UI_ShopPackageScene()
-    end
-
-    -- local scene = SceneCommon(UI_ShopPackageScene, close_cb, initial_tab)
-    -- scene:runScene()
-
-    g_shopDataNew:request_shopInfo(finish_cb)
+    UINavigator:goTo('package_shop_test')
 end
 
 -------------------------------------

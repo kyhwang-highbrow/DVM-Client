@@ -130,7 +130,8 @@ function UI_QuestListItem_Contents:click_questLinkBtn(ui_quest_popup)
     local content_name = data['content_name']
 	
 	if (content_name == 'daily_shop') then
-		UINavigator:goTo('shop_daily', true) -- content_name, is_popup
+		--UINavigator:goTo('shop_daily', true) -- content_name, is_popup
+        UINavigator:goTo('package_shop_test', 'package_daily')
 	else
 		-- 바로가기
 		UINavigator:goTo(content_name)

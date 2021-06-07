@@ -1,5 +1,6 @@
 UINavigatorDefinition = {}
 
+
 -------------------------------------
 -- function goTo
 -- @brief UI 이동
@@ -40,10 +41,6 @@ function UINavigatorDefinition:checkContentLock(location_name)
 
     return true
 end
-
-
-
-
 
 
 
@@ -1588,6 +1585,21 @@ function UINavigatorDefinition:goTo_rune_guardian(...)
         scene:runScene()
     end
 end
+
+function UINavigatorDefinition:goTo_package_shop_test(...)
+    local args = {...}
+    local initial_tab = args[1]
+
+    require('UI_ShopPackageScene')
+
+    local function finish_cb()
+        UI_ShopPackageScene(initial_tab)
+    end
+
+    g_shopDataNew:request_shopInfo(finish_cb)
+end
+
+
 
 -------------------------------------
 -- function goTo_package_shop
