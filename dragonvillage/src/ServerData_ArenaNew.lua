@@ -1122,7 +1122,7 @@ function ServerData_ArenaNew:update(dt)
     -- 체크 시간 왔음?
     --
     local cur_time = os.time()
-	if (cur_time >= (self.m_recentRequestTime + 5) or self.m_firstTimeSearchingTier) then
+	if (cur_time >= (self.m_recentRequestTime + 3) or self.m_firstTimeSearchingTier) then
         self.m_recentRequestTime = cur_time
     else
         return
