@@ -180,6 +180,7 @@ function ServerData_ArenaNew:request_userLastTierInfo(uids, finish_cb, fail_cb, 
     if (response_status_cb) then ui_network:setResponseStatusCB(response_status_cb) end
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
+    ui_network:hideLoading()
     ui_network:request()
 
     return ui_network
