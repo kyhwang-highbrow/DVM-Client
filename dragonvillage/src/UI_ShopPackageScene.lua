@@ -83,6 +83,8 @@ function UI_ShopPackageScene:createButtonTableView(package_name)
                 if (struct_product['m_tabCategory'] == 'package') and struct_product:isItBuyable() then
                     --if (struct_product['t_name'] == 'package_daily') and (not g_contentLockData:isContentLock('daily_shop'))then
                     table.insert(struct_list, struct_product)
+                --elseif(struct_product['t_name'] == 'package_daily') and (not g_contentLockData:isContentLock('daily_shop')) then
+                --    table.insert(struct_list, struct_product)
                 end
             end
         end
@@ -244,7 +246,7 @@ function UI_PackageCategoryButton:createTableView()
             else
                 local package_class = _G[struct_product['package_class']]
             
-                if (not package_class) and (struct_product['package_class']) then
+                if (not package_class) and (struct_product['package_class'] ~= '') and (not struct_product['package_class']) then
                     require(struct_product['package_class'])
                     package_class = _G[struct_product['package_class']]
                 else
