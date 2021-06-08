@@ -77,7 +77,7 @@ end
 -------------------------------------
 function UI_Hatchery:refresh()
     self:refresh_highlight()
-    --self:refresh_mileage()
+    self:refresh_mileage()
 end
 
 -------------------------------------
@@ -133,7 +133,7 @@ function UI_Hatchery:refresh_mileage()
     -- 마일리지 상태에 따른 애니메이션 
     local ani_key_1, ani_key_2 = g_hatcheryData:getMileageAnimationKey()
     vars['mileageVisual1']:changeAni(ani_key_1, true)
-    vars['mileageVisual2']:changeAni(ani_key_2, true)
+    --vars['mileageVisual2']:changeAni(ani_key_2, true)
 
     -- 획득 가능 라벨
     vars['availableLabel']:setVisible(ani_key_1 ~= nil)
@@ -157,7 +157,7 @@ end
 -------------------------------------
 function UI_Hatchery:click_mileageBtn()
     local function finish_cb()
-        --self:refresh_mileage()
+        self:refresh_mileage()
     end
     g_shopDataNew:openShopPopup('mileage', finish_cb)
 end
