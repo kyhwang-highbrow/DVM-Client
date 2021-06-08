@@ -110,6 +110,7 @@ function SkillBeam:makeEffect(res, idx)
     self.m_rootNode:addChild(link_effect.m_node)
 
     link_effect.m_effectNode:setScaleX(scale)
+    link_effect.m_effectNode:setScaleY(1 + scale)
     link_effect.m_startPointNode:setScale(scale)
     link_effect.m_endPointNode:setScale(scale)
 
