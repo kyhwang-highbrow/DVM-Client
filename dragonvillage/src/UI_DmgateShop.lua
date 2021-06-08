@@ -7,6 +7,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 
 UI_DmgateShop = class(PARENT, {
+    m_modeId = 'number',
     m_dragonNode = '',
     m_relationNode = '',
     m_listNode = '',
@@ -21,7 +22,8 @@ UI_DmgateShop = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DmgateShop:init() 
+function UI_DmgateShop:init(mode_id) 
+    self.m_modeId = mode_id
     local vars = self:load('dmgate_shop.ui')
     UIManager:open(self, UIManager.SCENE)
 

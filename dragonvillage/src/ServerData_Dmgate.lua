@@ -233,7 +233,7 @@ end
 ----------------------------------------------------------------------------
 -- function request_shopInfo
 ----------------------------------------------------------------------------
-function ServerData_Dmgate:request_shopInfo(success_cb, fail_cb)
+function ServerData_Dmgate:request_shopInfo(dm_id, success_cb, fail_cb)
     local uid = g_userData:get('uid')
 
      -- 처음 불린 이후에 false
@@ -255,6 +255,7 @@ function ServerData_Dmgate:request_shopInfo(success_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/dmgate/shop_info')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('dm_id', dm_id)
     ui_network:setRevocable(true)  -- 게임 종료 통신이 아니면 취소
     ui_network:setSuccessCB(callback_for_success)
     ui_network:setFailCB(fail_cb)

@@ -437,9 +437,9 @@ end
 ----------------------------------------------------------------------------
 function UI_DmgateScene:click_shopBtn()
     local function finish_cb()
-        local ui = UI_DmgateShop()
+        local ui = UI_DmgateShop(self.m_modeId)
     end
-    g_dmgateData:request_shopInfo(finish_cb)
+    g_dmgateData:request_shopInfo(g_dmgateData:getDmgateID(self.m_modeId), finish_cb)
 end
 
 ----------------------------------------------------------------------------
