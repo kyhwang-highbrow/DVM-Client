@@ -717,7 +717,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 
     elseif (egg_id == 700001) then
-        local is_allowed = (g_hatcheryData:isPickupReady() == true) or (g_hatcheryData:isPickupEmpty() == true)
+        local is_allowed = (g_hatcheryData:isPickupReady() == true)
         local msg
         local pick_rate = g_hatcheryData.m_isDefinitePickup == true and '100' or '50'
 
@@ -850,9 +850,6 @@ function UI_HacheryPickupBtnPopup:init(parent, title, item_value, msg, ok_btn_cb
     vars['titleLabel']:setString(title)
     vars['selectLabel']:setString(msg)
     vars['priceLabel']:setString(comma_value(item_value))
-
-    
-    vars['unselectLabel']:setString(Str('"{1}" 진행하시겠습니까?', title))
 
     local has_empty_slot = g_hatcheryData:isPickupEmpty() == true
     vars['unselectMenu']:setVisible(has_empty_slot)
