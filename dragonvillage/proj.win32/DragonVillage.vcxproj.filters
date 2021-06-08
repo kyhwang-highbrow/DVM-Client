@@ -4950,6 +4950,7 @@
     <None Include="..\src\UI_DmgateRankPopup.lua" />
     <None Include="..\src\ServerData_DragonPickRate.lua" />
     <None Include="..\src\UI_ShopPackageScene.lua" />
+    <None Include="..\src\SkillBeam.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

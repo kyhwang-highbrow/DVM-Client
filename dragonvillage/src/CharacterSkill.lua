@@ -383,6 +383,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillChainLightning:makeSkillInstance(self, t_skill, t_data) 
 				return true
 
+            elseif (skill_type == 'skill_beam') then
+				SkillBeam:makeSkillInstance(self, t_skill, t_data) 
+				return true
+
 			elseif (skill_type == 'skill_heal_single') then
 				SkillHealSingle:makeSkillInstance(self, t_skill, t_data)
 				return true

@@ -633,6 +633,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SkillAoESquare_Width_Right.lua" />
     <None Include="..\src\SkillAoESquare_Wonder.lua" />
     <None Include="..\src\SkillAoEWedge.lua" />
+    <None Include="..\src\SkillBeam.lua" />
     <None Include="..\src\SkillBind.lua" />
     <None Include="..\src\SkillEnumrate.lua" />
     <None Include="..\src\SkillBurst.lua" />
