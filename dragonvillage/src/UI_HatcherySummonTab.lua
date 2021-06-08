@@ -55,7 +55,7 @@ end
 -------------------------------------
 function UI_HatcherySummonTab:onEnterTab(first)
     self.m_ownerUI:hideNpc() -- NPC 등장
-    self.m_ownerUI:hideMileage() -- 마일리지 메뉴
+    self.m_ownerUI:showMileage() -- 마일리지 메뉴
 
     if (first == true) then
         self:initUI()
@@ -398,11 +398,6 @@ function UI_HatcherySummonTab:setChanceUpDragons()
 
     local pickup_dragon_map = self:makeDragonInfoMap(l_dragon)
 
-    if (table.count(pickup_dragon_map) <= 0) then
-        vars['dragonNameLabel1']:setString('땅/물/불\n선택')
-        vars['dragonNameLabel2']:setString('빛/어둠\n선택')
-    end
-
     for _, t_data in pairs(pickup_dragon_map) do
         local did = t_data['did']
         local attr = TableDragon:getDragonAttr(did)
@@ -438,6 +433,14 @@ function UI_HatcherySummonTab:setChanceUpDragons()
             dragon_card.vars['clickBtn']:registerScriptTapHandler(function() func_tap() end)
             vars['dragonCard'..desc_idx]:addChild(dragon_card.root)
         end
+    end
+
+    if (vars['dragonNameLabel1']:getString() == 'nameLabel') then
+        vars['dragonNameLabel1']:setString('땅/물/불\n선택')
+    end
+
+    if (vars['dragonNameLabel2']:getString() == 'nameLabel') then
+        vars['dragonNameLabel2']:setString('빛/어둠\n선택')
     end
 end
 
