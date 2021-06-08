@@ -676,6 +676,7 @@ local t_module = {
     'SkillLaser_Zet',
     'SkillLaser_Simple',
 	'SkillChainLightning',
+	'SkillBeam',
 	'SkillThrowBuff',
     'SkillGuardian',
     'SkillMeleeHack',
