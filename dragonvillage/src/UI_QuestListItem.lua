@@ -237,9 +237,9 @@ function UI_QuestListItem:setRewardCard()
 		end
 	end
 
+    local isVisible = g_battlePassData:isAnyValidProduct() and g_battlePassData:isThereAnyUnreceivedReward()
 	-- 배틀패스 포인트
-	if (self.m_questData:isDailyType() and g_questData:isBattlePassActive()
-        and g_battlePassData:isPurchasedAnyProduct()) then
+	if (self.m_questData:isDailyType() and g_questData:isBattlePassActive() and isVisible) then
         -- 당분간 고정으로 10만 지급함
 		local battlePassExp = 10
         local battle_pass_exp_card = UI_BattlePassCard(battlePassExp)
@@ -408,7 +408,8 @@ function UI_QuestListItem:makeRewardList()
     end
 
 	-- 배틀패스 포인트
-	if (self.m_questData:isDailyType() and g_questData:isBattlePassActive()) then
+    local isVisible = g_battlePassData:isAnyValidProduct() and g_battlePassData:isThereAnyUnreceivedReward()
+	if (self.m_questData:isDailyType() and g_questData:isBattlePassActive() and isVisible) then
         -- 당분간 고정으로 10만 지급함
 		local battlePassExp = 10
         local t_data = {}

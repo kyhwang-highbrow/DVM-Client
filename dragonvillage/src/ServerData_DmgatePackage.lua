@@ -265,7 +265,7 @@ function ServerData_DmgatePackage:isNotiVisible()
 
     if (not g_contentLockData:isContentLock('dmgate')) then
         for i, v in pairs(package_table) do
-            for key, data in pairs(v) do 
+            for key, data in pairs(v) do
                 product_id = data['product_id']
 
                 if self:isPackageActive(product_id) then
@@ -275,6 +275,8 @@ function ServerData_DmgatePackage:isNotiVisible()
                     and g_dmgateData:isStageEverCleared(stage_id) then
                         return true
                     end
+                else
+                    break
                 end
             end
         end
@@ -283,8 +285,32 @@ function ServerData_DmgatePackage:isNotiVisible()
     return false
 end
 
+--------------------------------------------------------------------------
+-- function isUnclearedAnyPackage
+--------------------------------------------------------------------------
 function ServerData_DmgatePackage:isUnclearedAnyPackage()
+    if g_contentLockData:isContentLock('dmgate') then
+        return true
+    end
 
+    if (not g_contentLockData:isContentLock('dmgate')) then
+        for i, v in pairs(package_table) do
+            for key, data in pairs(v) do 
+                product_id = data['product_id']
+
+                if self:isPackageActive(product_id) then
+                    stage_id = data['achive_2']
+        
+                    if self:isRewardReceived(product_id, stage_id)
+                    and g_dmgateData:isStageEverCleared(stage_id) then
+                        return true
+                    end
+                else
+                   return true 
+                end
+            end
+        end
+    end
 end
 
 --------------------------------------------------------------------------

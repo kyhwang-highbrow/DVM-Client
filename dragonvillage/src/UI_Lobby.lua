@@ -2364,17 +2364,22 @@ function UI_Lobby:update_rightButtons()
     end
 
     do -- 배틀 패스
-        --g_battlePassData:isPurchasedAnyProduct()
+        --g_battlePassData:isValidTime() or 
         -- g_LevelUpPackageData:isUnclearedAnyPackage()
-        --
-        local is_visible = true
+        -- 
+        local is_visible = (g_battlePassData:isAnyValidProduct() and g_battlePassData:isThereAnyUnreceivedReward())
+                            or g_adventureClearPackageData:isVisible_adventureClearPack()
+                            or g_adventureClearPackageData02:isVisible_adventureClearPack()
+                            or g_adventureClearPackageData03:isVisibleAtBattlePassShop()
         vars['battlePassBtn']:setVisible(is_visible)
-        local is_noti_visible = g_battlePassData:isVisible_battlePassNoti()
+        local is_noti_visible = g_battlePassData:isThereAnyAvailableReward()
                                 or g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID)
                                 or g_adventureClearPackageData03:isVisibleNotiAtLobby()
                                 or g_dmgatePackageData:isNotiVisible()
         vars['battlePassNotiSprite']:setVisible(is_noti_visible)
-        --vars['battlePassNotiSprite']:setVisible(g_battlePassData:isVisible_battlePassNoti())
+
+
+        --vars['battlePassNotiSprite']:setVisible(g_battlePassData:isThereAnyAvailableReward())
         --vars['battlePassNotiSprite']:setVisible(g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID))
         --vars['battlePassNotiSprite']:setVisible(g_adventureClearPackageData03:isVisibleNotiAtLobby())
     end

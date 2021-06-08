@@ -1,7 +1,4 @@
--------------------------------------
--- class ServerData_BattlePass
--- @brief 
--------------------------------------
+
 --[[
     --Server 
     {
@@ -27,6 +24,9 @@
     };
 ]]
 
+----------------------------------------------------------------------
+-- class ServerData_BattlePass
+----------------------------------------------------------------------
 ServerData_BattlePass = class({
         m_serverData = 'ServerData',
 
@@ -61,6 +61,11 @@ end
 --// Server
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+----------------------------------------------------------------------
+-- function isPurchasedAnyProduct
+-- 결제한 상품이 한가지라도 있는지
+----------------------------------------------------------------------
 function ServerData_BattlePass:isPurchasedAnyProduct()
     local isPurchased = false
     for _, data in pairs(self.m_passInfoData) do
@@ -73,10 +78,10 @@ function ServerData_BattlePass:isPurchasedAnyProduct()
     return isPurchased
 end
 
--------------------------------------
+----------------------------------------------------------------------
 -- function isPurchased
 -- 결제 여부
--------------------------------------
+----------------------------------------------------------------------
 function ServerData_BattlePass:isPurchased(pass_id)
     local t_data = self.m_passInfoData[tostring(pass_id)]
     if(not t_data) then return false end
@@ -87,31 +92,36 @@ function ServerData_BattlePass:isPurchased(pass_id)
     return true
 end
 
--------------------------------------
--- function isPurchased
+----------------------------------------------------------------------
+-- function isProduct
 -- 결제 여부
--------------------------------------
+----------------------------------------------------------------------
 function ServerData_BattlePass:isProduct(product_id)
     local t_data = self.m_passInfoData[tostring(product_id)]
-    
-    if(not t_data) then return false end
 
-    return true
+    return (t_data ~= nil)
 end
 
--------------------------------------
+----------------------------------------------------------------------
+-- function isMaxLevel
+----------------------------------------------------------------------
+function ServerData_BattlePass:isMaxLevel(product_id)
+    return (self:getUserLevel(product_id) == self:getMaxLevel(product_id))
+end
+
+----------------------------------------------------------------------
 -- function getUserExp
 -- 현재 유저 경험치
--------------------------------------
+----------------------------------------------------------------------
 function ServerData_BattlePass:getUserExp(pass_id)
     local key = tostring(pass_id)
     return self.m_passInfoData[key]['cur_exp']
 end
 
--------------------------------------
+----------------------------------------------------------------------
 -- function getUserLevel
 -- 현재 유저 레벨
--------------------------------------
+----------------------------------------------------------------------
 function ServerData_BattlePass:getUserLevel(pass_id)
     local key = tostring(pass_id)
 
@@ -127,10 +137,12 @@ function ServerData_BattlePass:GetRewardStatus(pass_id, type_key, index)
     return rewardsStatus[level]
 end
 
--------------------------------------
+----------------------------------------------------------------------
 -- function isExistAvailableReward
--- 
--------------------------------------
+-- breif 보상을 받을 수 있는 상태인데 받지 않은 상품이 있는지
+-- param pass_id 상품 id
+-- param type_key 일반 보상인지 패스 보상인지 
+----------------------------------------------------------------------
 function ServerData_BattlePass:isExistAvailableReward(pass_id, type_key)
 
     if(type_key == self.m_premiumKey) and (not self:isPurchased(pass_id)) then
@@ -146,10 +158,57 @@ function ServerData_BattlePass:isExistAvailableReward(pass_id, type_key)
     return false
 end
 
---functino ServerData_BattlePass:isExistAvailableReward
-function ServerData_BattlePass:isVisible_battlePassNoti()
+----------------------------------------------------------------------
+-- function isThereAnyAvailableReward
+-- 보상을 받을 수 있는 상태인데 받지 않은 상품이 하나라도 있는지
+----------------------------------------------------------------------
+function ServerData_BattlePass:isThereAnyAvailableReward()
     for key, table in pairs(self.m_passInfoData) do
         if self:isExistAvailableReward(key, self.m_normalKey) or self:isExistAvailableReward(key, self.m_premiumKey) then
+            return true
+        end
+    end
+
+    return false
+end
+----------------------------------------------------------------------
+-- function isExistUnreceivedReward
+-- brief 받을수 있든 없든간에 받지 않은 보상이 있는지
+-- param pass_id 상품 id
+-- param type_key 일반 보상인지 패스 보상인지 
+----------------------------------------------------------------------
+function ServerData_BattlePass:isExistUnreceivedReward(pass_id, type_key)
+    local key = tostring(pass_id)
+
+    for k, v in pairs(self.m_passInfoData[key][type_key]) do
+        if(v == 1) or (v == 0) then return true end
+    end
+
+    return false
+end
+
+----------------------------------------------------------------------
+-- function isThereAnyUnreceivedReward
+-- brief 받을수 있든 없든간에 받지 않은 보상이 있는 상품이 하나라도 있는지
+----------------------------------------------------------------------
+function ServerData_BattlePass:isThereAnyUnreceivedReward(pass_id)
+    if pass_id == nil then
+        for key, table in pairs(self.m_passInfoData) do
+
+            if self:isMaxLevel(key) then    
+                if self:isExistUnreceivedReward(key, self.m_normalKey) or self:isExistUnreceivedReward(key, self.m_premiumKey) then
+                    return true
+                end
+            else
+                return true
+            end
+        end
+    else
+        if self:isMaxLevel(pass_id) then    
+            if self:isExistUnreceivedReward(pass_id, self.m_normalKey) or self:isExistUnreceivedReward(pass_id, self.m_premiumKey) then
+                return true
+            end
+        else
             return true
         end
     end
@@ -164,49 +223,46 @@ end
 --// Table
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
-function ServerData_BattlePass:getItemInfo(pass_id, index)
 
-end
-
--------------------------------------
+----------------------------------------------------------------------
 -- function getNormalList
 -- 일반보상 리스트
--------------------------------------
+----------------------------------------------------------------------
 function ServerData_BattlePass:getNormalList(pass_id)
     return self.m_battlePassTable:getNormalRewardList(pass_id)
 end
 
--------------------------------------
+----------------------------------------------------------------------
 -- function getPremiumList
 -- 패스보상 리스트
--------------------------------------
+----------------------------------------------------------------------
 function ServerData_BattlePass:getPremiumList(pass_id)
     return self.m_battlePassTable:getPremiumRewardList(pass_id)
 end
 
 
 
--------------------------------------
+----------------------------------------------------------------------
 -- function getMaxExp
 -- 패스 맥스 경험치
--------------------------------------
+----------------------------------------------------------------------
 function ServerData_BattlePass:getMaxExp(pass_id)
     return self.m_battlePassTable:getMaxExp(pass_id)
 end
 
--------------------------------------
+----------------------------------------------------------------------
 -- function getMaxLevel
 -- 달성할 수 있는 맥스 레벨
--------------------------------------
+----------------------------------------------------------------------
 function ServerData_BattlePass:getMaxLevel(pass_id)
     return self.m_battlePassTable:getMaxLevel(pass_id)
 end
 
--------------------------------------
+----------------------------------------------------------------------
 -- function getLevelNum
 -- CellUI 생성을 위한 레벨 갯수
 -- 레벨이 0부터 시작시 + 1 을 리턴
--------------------------------------
+----------------------------------------------------------------------
 function ServerData_BattlePass:getLevelNum(pass_id)
     if(self.m_battlePassTable:getMinLevel(pass_id) == 0) then
         return self.m_battlePassTable:getMaxLevel(pass_id) + 1
@@ -288,7 +344,36 @@ function ServerData_BattlePass:getRewardedPremiumList(pass_id)
     return self.m_passInfoData[key]['premium']
 end
 
+-------------------------------------
+-- function isValidTime
+-- 
+-------------------------------------
+function ServerData_BattlePass:isValidTime(pass_id)
+    local key = tostring(pass_id)
+    local curr_time = Timer:getServerTime()
+    local start_time = self.m_passInfoData[key]['start_date']
+    start_time = start_time and (tonumber(start_time) / 1000) or 0
 
+    local end_time = self.m_passInfoData[key]['end_date']
+    end_time = end_time and (tonumber(end_time) / 1000) or 0
+
+
+    return (start_time <= curr_time) and (curr_time <= end_time)
+end
+
+-------------------------------------
+-- function isAnyValidProduct
+-- 
+-------------------------------------
+function ServerData_BattlePass:isAnyValidProduct()
+    for key, data in pairs(self.m_passInfoData) do
+        if self:isValidTime(key) then
+            return true
+        end
+    end
+
+    return false
+end
 
 -------------------------------------
 -- function getRemainTimeStr
@@ -304,10 +389,10 @@ function ServerData_BattlePass:getRemainTimeStr(pass_id)
     end_time = end_time and (tonumber(end_time) / 1000) or 0
 
     local str = ''
+
     if (start_time <= curr_time) and (curr_time <= end_time) then
         local time = (end_time - curr_time)
         str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
-
     else
         str = ''
     end
