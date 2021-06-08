@@ -25,8 +25,6 @@ function LobbyUserStatusUI:init(struct_user_info)
     self.vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     self:init_statusUI()
     self:setActive(false)
-
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -116,6 +114,7 @@ function LobbyUserStatusUI:init_statusUI()
 
     -- 티어...
     vars['tierNode']:removeAllChildren()
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     --self:addTierIcon(struct_user_info)
 end
 
