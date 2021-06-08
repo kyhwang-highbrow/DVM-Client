@@ -410,7 +410,7 @@ function ServerData_Hatchery:getGachaList()
 
     do -- 고급 부화
         local t_data = {
-            ['name'] = Str('고급 부화 10회'),
+            ['name'] = Str('고급 소환 10회'),
             ['egg_id'] = 700002, 
             ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
             ['ui_type'] = 'cash11',
@@ -421,7 +421,7 @@ function ServerData_Hatchery:getGachaList()
         table.insert(l_item_list, t_data)
 
         local t_data = {
-            ['name'] = Str('고급 부화'),
+            ['name'] = Str('고급 소환'),
             ['egg_id'] = 700002, 
             ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
             ['ui_type'] = 'cash',
@@ -435,7 +435,7 @@ function ServerData_Hatchery:getGachaList()
 
     do -- 우정포인트 부화
         local t_data = {
-            ['name'] = Str('우정 부화'),
+            ['name'] = Str('우정 소환'),
             ['egg_id'] = 700003, 
             ['egg_res'] = 'res/item/egg/egg_friendship/egg_friendship.vrp',
             ['ui_type'] = 'fp',
@@ -446,7 +446,7 @@ function ServerData_Hatchery:getGachaList()
         table.insert(l_item_list, t_data)
 
         local t_data = {
-            ['name'] = Str('우정 부화'),
+            ['name'] = Str('우정 소환'),
             ['egg_id'] = 700003, 
             ['egg_res'] = 'res/item/egg/egg_friendship/egg_friendship.vrp',
             ['ui_type'] = 'fp_ad',

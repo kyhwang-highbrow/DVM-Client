@@ -850,7 +850,9 @@ function UI_HacheryPickupBtnPopup:init(parent, title, item_value, msg, ok_btn_cb
     vars['titleLabel']:setString(title)
     vars['selectLabel']:setString(msg)
     vars['priceLabel']:setString(comma_value(item_value))
-    vars['unselectLabel']:setString(msg)
+
+    
+    vars['unselectLabel']:setString(Str('"{1}" 진행하시겠습니까?', title))
 
     local has_empty_slot = g_hatcheryData:isPickupEmpty() == true
     vars['unselectMenu']:setVisible(has_empty_slot)
