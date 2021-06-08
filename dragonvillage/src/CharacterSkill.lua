@@ -217,7 +217,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
             -- 텍스트
             if ( self.m_charType == 'dragon') then
-                if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader') and string.find(skill_type, 'skill_beam')) then
+                if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader') and t_skill['skill_type'] ~= 'skill_beam') then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end
