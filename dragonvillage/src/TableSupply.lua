@@ -50,7 +50,7 @@ function TableSupply:getSupplyProductList()
                         reward_status = -1
                     elseif (t_supply_info['reward'] == 0) then
                         -- 일일 지급품이 있는지 확인
-                        local package_item_str = t_data['daily_content']
+                        local package_item_str = value['daily_content']
                         local l_item_list = ServerData_Item:parsePackageItemStr(package_item_str)
                         if (0 < #l_item_list) then
                             reward_status = 0

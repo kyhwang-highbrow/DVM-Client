@@ -126,10 +126,15 @@ function UI_SupplyProductListItem:refresh()
         end
     end
 
+    local struct_product = g_shopDataNew:getTargetProduct(t_data['product_id'])
 
     -- 비활성 상태
     if (reward_status == -1) then
-        vars['buyBtn']:setVisible(true)
+        if (struct_product == nil) or (not struct_product:isItOnTime()) then
+            vars['buyBtn']:setVisible(false)
+        else
+            vars['buyBtn']:setVisible(true)
+        end
         vars['receiveBtn']:setVisible(false)
         vars['renewalBtn']:setVisible(false)
         self.m_bActive = false
@@ -143,9 +148,19 @@ function UI_SupplyProductListItem:refresh()
 
     -- 활성 상태에서 일일 보상을 받은 후
     elseif (reward_status == 1) or (reward_status == 9) then
+        
         vars['buyBtn']:setVisible(false)
         vars['receiveBtn']:setVisible(false)
-        vars['renewalBtn']:setVisible(true)
+        if (struct_product == nil) or (not struct_product:isItOnTime()) then
+            vars['renewalLabel']:setString(Str('오늘 수령 완료'))
+            vars['renewalBtn']:setVisible(true)
+            vars['renewalBtn']:setEnabled(false)
+        else
+            vars['renewalLabel']:setString(Str('갱신'))
+            vars['renewalBtn']:setVisible(true)
+            vars['renewalBtn']:setEnabled(true)
+        end
+
         self.m_bActive = true
     end
 
