@@ -309,6 +309,11 @@ end
 function UI_HatcherySummonTab:initRadioButton()
     local vars = self.vars
 
+    vars['tankerRadioLabel']:setLineBreakWithoutSpace(true)
+    vars['dealerRadioLabel']:setLineBreakWithoutSpace(true)
+    vars['supporterRadioLabel']:setLineBreakWithoutSpace(true)
+    vars['healerRadioLabel']:setLineBreakWithoutSpace(true)
+
     do -- 역할(role)
         local radio_button = UIC_RadioButton()
         radio_button:addButtonWithLabel('all', vars['roleAllRadioBtn'], vars['roleAllRadioLabel'])
