@@ -120,6 +120,7 @@ end
 function UI_Package:initButton(is_popup)
 	local vars = self.vars
     if (vars['buyBtn']) then
+        vars['buyBtn']:getParent():setSwallowTouch(false)
         vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     end
 

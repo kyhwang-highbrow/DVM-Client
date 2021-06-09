@@ -214,7 +214,7 @@ function UI_PackageCategoryButton:click_btn()
     self:createTableView()
 
     
-    if self.m_scrollView:getContainer():getChildrenCount() > 1 then
+    if self.m_scrollView:getContainer():getChildrenCount() > 1 and g_localData:isKoreaServer() then
         self.m_contractBtn:setVisible(true)
     else
         self.m_contractBtn:setVisible(false)
