@@ -241,6 +241,7 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 	    -- 닉네임 길이에 따라 버튼 위치 조정 
         local nick_str_width = vars['nameLabel']:getStringWidth()
         self.vars['changeBtn']:setPositionX(nick_str_width)
+        self.vars['changeBtn'].m_actionType = UIC_Button.ACTION_TYPE_WITHOUT_SCAILING
     end
 
     local last_season_tier = self.m_tUserInfo['info']['arena_new_last_tier'] or 'beginner'
