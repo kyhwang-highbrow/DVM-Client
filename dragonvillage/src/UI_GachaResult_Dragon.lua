@@ -363,7 +363,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 
 			-- ui 연출
 			local function directing_done()
-				self.m_isDirecting = falselocal 
+				self.m_isDirecting = false
 			
                 -- 중복 클릭을 방지하기 위해 막았던 버튼을 풀어줌
                 vars['okBtn']:setEnabled(true)
@@ -490,7 +490,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
 
 		-- 카드 클릭시 드래곤을 보여준다.
 		card.vars['clickBtn']:registerScriptTapHandler(function()
-			if (self.m_isDirecting == false) then
+			if (not self.m_isDirecting) then
 				self:refresh_dragon(t_data)
 				self.m_currDragonAnimator:forceSkipDirecting()
 			end
