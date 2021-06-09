@@ -1556,7 +1556,7 @@ end
 -- function click_fevertimeBtn
 -------------------------------------
 function UI_Lobby:click_fevertimeBtn()
-    g_eventData:openEventPopup('fevertime')
+    g_eventData:openEventPopup('event_dvnew_collaboration')
 end
 
 -------------------------------------
@@ -2750,6 +2750,12 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
+    local collabo_banner = UI_BannerAppCollaboration()
+    vars['bannerMenu']:addChild(collabo_banner.root)
+    collabo_banner.root:setDockPoint(TOP_RIGHT)
+    collabo_banner.root:setAnchorPoint(TOP_RIGHT)
+    vars['banner_appcollaboration'] = collabo_banner
+
     self:onRefresh_banner()
 end
 
@@ -2809,6 +2815,11 @@ function UI_Lobby:onRefresh_banner()
     -- 차원문 오픈 배너
     if vars['banner_dmgate'] then
         table.insert(l_node, vars['banner_dmgate'].root)
+    end
+    
+    -- 타게임 콜라보 배너
+    if vars['banner_appcollaboration'] then
+        table.insert(l_node, vars['banner_appcollaboration'].root)
     end
 
     local pos_y = 0

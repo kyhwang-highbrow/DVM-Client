@@ -52,15 +52,17 @@ function UI_EventPopupTab_Banner:init_customUI()
     local banner = struct_banner_data['banner']
 
     -- 드래곤 히어로즈 택틱스 크로스 프로모션
-    if (banner == 'event_dht_promotion.ui') then
+    -- 드빌 뉴 크로스 프로모션
+    if (banner == 'event_dht_promotion.ui' or banner == 'event_cross_promotion.ui') then
 
         -- 공지로 이동
+        --[[
         if vars['noticeLinkBtn'] then
             vars['noticeLinkBtn']:registerScriptTapHandler(function()
                     local article_key = 'event_dht_promotion'
                     NaverCafeManager:naverCafeStartWithArticleByKey(article_key)
                 end)
-        end
+        end]]
         
         -- 게임으로 이동 (구글 플레이 or 앱스토어)
         if vars['gameLinkBtn'] then
