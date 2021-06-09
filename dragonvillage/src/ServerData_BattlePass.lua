@@ -354,9 +354,9 @@ function ServerData_BattlePass:isValidTime(pass_id)
     local start_time = self.m_passInfoData[key]['start_date']
     start_time = start_time and (tonumber(start_time) / 1000) or 0
 
+
     local end_time = self.m_passInfoData[key]['end_date']
     end_time = end_time and (tonumber(end_time) / 1000) or 0
-
 
     return (start_time <= curr_time) and (curr_time <= end_time)
 end
@@ -370,10 +370,31 @@ function ServerData_BattlePass:isAnyValidProduct()
         if self:isValidTime(key) then
             return true
         end
+
+        
     end
 
     return false
 end
+
+function ServerData_BattlePass:isBattlePassShopVisible()
+    for key, data in pairs(self.m_passInfoData) do
+        if self:isValidTime(key) then
+            if self:isMaxLevel(key) then    
+                if self:isExistUnreceivedReward(key, self.m_normalKey) or self:isExistUnreceivedReward(key, self.m_premiumKey) then
+                    return true
+                end
+            else
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+
+
 
 -------------------------------------
 -- function getRemainTimeStr
@@ -569,4 +590,6 @@ function ServerData_BattlePass:openBattlePassPopup(close_cb)
     end
 
     Coroutine(coroutine_function, "BattlePass Popup Coroutine")
+
+    
 end

@@ -80,13 +80,19 @@ function UI_BattlePass_Nurture:initButton()
     -- 
     self.m_questBtn:registerScriptTapHandler(function() self:click_questBtn() end)
     self.m_infoBtn:registerScriptTapHandler(function() self:click_infoBtn() end)
-    self.m_buyBtn:registerScriptTapHandler(function() self:click_buyBtn() end)
+    --self.m_buyBtn:registerScriptTapHandler(function() self:click_buyBtn() end)
+    do -- TODO : 210609 : 배틀패스 상품 구매 종료로 인해 구매를 막기 위해 추가한 코드로 재판매시 삭제 필요.
+        self.m_buyBtn:registerScriptTapHandler(function() self:click_blockBuyBtn() end)
+    end
     self.m_normalRewardBtn:registerScriptTapHandler(function() self:click_normalRewardBtn() end)
     self.m_passRewardBtn:registerScriptTapHandler(function() self:click_passRewardBtn() end)
 
 
     local isPurchased = g_battlePassData:isPurchased(self.m_pass_id)
     self.m_buyBtn:setVisible(not isPurchased)
+    do -- TODO : 210609 : 배틀패스 상품 구매 종료로 인해 구매를 막기 위해 추가한 코드로 재판매시 삭제 필요.
+        vars['lockSprite']:setVisible(not isPurchased)
+    end
     self.m_buyBtn:setEnabled(not isPurchased)
 end
 
@@ -308,6 +314,10 @@ function UI_BattlePass_Nurture:onReceiveBattlePassInfo()
     -- ui 업뎃하는 로직을 집어넣는다.
     g_battlePassData:request_battlePassInfo(finish_cb)
 
+end
+
+function UI_BattlePass_Nurture:click_blockBuyBtn()
+    UIManager:toastNotificationRed(Str('판매가 종료된 상품입니다.'))
 end
 
 --------------------------------------------------------------------------

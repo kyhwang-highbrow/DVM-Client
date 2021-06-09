@@ -2367,7 +2367,8 @@ function UI_Lobby:update_rightButtons()
         --g_battlePassData:isValidTime() or 
         -- g_LevelUpPackageData:isUnclearedAnyPackage()
         -- 
-        local is_visible = (g_battlePassData:isAnyValidProduct() and g_battlePassData:isThereAnyUnreceivedReward())
+        local is_visible = g_battlePassData:isBattlePassShopVisible()
+                            or g_levelUpPackageData:isUnclearedAnyPackage()
                             or g_adventureClearPackageData:isVisible_adventureClearPack()
                             or g_adventureClearPackageData02:isVisible_adventureClearPack()
                             or g_adventureClearPackageData03:isVisibleAtBattlePassShop()

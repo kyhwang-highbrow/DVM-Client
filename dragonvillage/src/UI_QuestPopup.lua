@@ -106,7 +106,7 @@ end
 -------------------------------------
 function UI_QuestPopup:initButton()
     if (self.m_battlePassBtn) then
-        local isVisible = g_battlePassData:isAnyValidProduct() and g_battlePassData:isThereAnyUnreceivedReward()
+        local isVisible = g_battlePassData:isBattlePassShopVisible()
         self.m_battlePassBtn:setVisible(isVisible)
         self.m_battlePassBtn:registerScriptTapHandler(function() self:click_battlePassBtn() end)
     end
@@ -171,7 +171,7 @@ function UI_QuestPopup:onChangeTab(tab, first)
 
     --배틀패스 버튼 show hide
     if (self.m_battlePassBtn) then
-        local isVisible = g_battlePassData:isAnyValidProduct() and g_battlePassData:isThereAnyUnreceivedReward()
+        local isVisible = g_battlePassData:isBattlePassShopVisible()
         self.m_battlePassBtn:setVisible(isVisible and isDailyTab)
     end
 end

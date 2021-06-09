@@ -179,7 +179,7 @@ function ServerData_LevelUpPackage:isActive(product_id)
 end
 
 -------------------------------------
--- function 
+-- function isUnclearedAnyPackage
 -------------------------------------
 function ServerData_LevelUpPackage:isUnclearedAnyPackage()
     local package_list = {LEVELUP_PACKAGE_PRODUCT_ID, LEVELUP_PACKAGE_2_PRODUCT_ID, LEVELUP_PACKAGE_3_PRODUCT_ID}
@@ -187,7 +187,7 @@ function ServerData_LevelUpPackage:isUnclearedAnyPackage()
     local result = false
 
     for _, pid in pairs(package_list) do
-        if isVisibleAtBattlePassShop(pid) then
+        if self:isVisibleAtBattlePassShop(pid) then
             result = true
             break
         end
@@ -201,9 +201,15 @@ end
 -- @breif 구매 전에는 출력하고 구매 후에는 보상이 남은 경우 출력
 -------------------------------------
 function ServerData_LevelUpPackage:isVisibleAtBattlePassShop(product_id)
+
     if (not self:isActive(product_id)) then 
-        return true 
+        if (product_id == LEVELUP_PACKAGE_PRODUCT_ID) or (product_id == LEVELUP_PACKAGE_2_PRODUCT_ID) then
+            return false
+        else
+            return true 
+        end
     end
+
 
     local table_package = self:getLevelUpPackageTable(product_id)
     for i, v in pairs(table_package) do
