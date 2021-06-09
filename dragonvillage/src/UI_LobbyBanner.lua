@@ -119,7 +119,7 @@ end
 function UI_BannerAppCollaboration:click_bannerBtn()
     -- 주의 :: 따라하지 마시오
     --g_fullPopupManager:showFullPopup('event_dvnew_collaboration;event_cross_promotion.ui')
-    SDKManager:goToWeb('https://01highbrow-inc.wixsite.com/website')
+    SDKManager:goToWeb('https://www.highbrow-inc.com/register-dvn')
 end
 
 

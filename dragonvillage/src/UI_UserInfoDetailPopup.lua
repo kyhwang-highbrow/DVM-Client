@@ -239,7 +239,7 @@ function UI_UserInfoDetailPopup:refresh_tamer()
         self.vars['changeBtn']:setVisible(first_nick_change)
 	    
 	    -- 닉네임 길이에 따라 버튼 위치 조정 
-        local nick_str_width = vars['nameLabel']:getStringWidth() + 130
+        local nick_str_width = vars['nameLabel']:getStringWidth()
         self.vars['changeBtn']:setPositionX(nick_str_width)
     end
 
