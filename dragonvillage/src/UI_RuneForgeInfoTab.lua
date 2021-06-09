@@ -166,12 +166,22 @@ end
 -- @brief 룬 연마석 패키지
 -------------------------------------
 function UI_RuneForgeInfoTab:click_grindstonePackageBtn()
-    local ui = UI_Package_Bundle('package_rune_grind_pack', true)
+    --[[
+    local ui = UI_Package_Bundle('package_rune_grind_pack_02', true)
 
     local function buy_cb()
         UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM, function() self:refresh() end)
     end
-    ui:setBuyCB(buy_cb)
+    ui:setBuyCB(buy_cb)]]
+
+    local vars = self.vars
+    
+    -- 룬 축복서 product ID : 220017
+    local product_struct = g_shopDataNew:getProduct('st', 210022)
+    product_struct:buy(function(ret)
+        ItemObtainResult_Shop(ret) 
+        self:refresh()
+    end)
 end
 
 -------------------------------------

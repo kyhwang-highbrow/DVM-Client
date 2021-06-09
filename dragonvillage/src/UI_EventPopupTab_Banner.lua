@@ -65,7 +65,7 @@ function UI_EventPopupTab_Banner:init_customUI()
         -- 게임으로 이동 (구글 플레이 or 앱스토어)
         if vars['gameLinkBtn'] then
             vars['gameLinkBtn']:registerScriptTapHandler(function()
-                    SDKManager:goToWeb('https://perplelab.sng.link/Don2b/v08o')
+                    SDKManager:goToWeb('https://01highbrow-inc.wixsite.com/website')
                 end)
         end
 

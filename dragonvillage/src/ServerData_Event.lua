@@ -192,7 +192,7 @@ end
 function ServerData_Event:getEventFullPopupList()
     local l_list = {}
     local l_priority = {}
-    local event_list = self.m_eventList
+    local event_list = self.m_eventList or {}
 
     for i, v in ipairs(event_list) do
         local priority = v['full_popup']
