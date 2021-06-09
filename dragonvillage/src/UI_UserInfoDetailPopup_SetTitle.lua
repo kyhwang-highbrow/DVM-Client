@@ -190,7 +190,7 @@ function UI_UserInfoDetailPopup_SetTitle:makeCellUI(t_data)
     if (is_use) then
         vars['removeBtn']:registerScriptTapHandler(function()
             local function cb_func()
-                UI_ToastPopup(Str('칭호가 해체되었습니다.'))
+                UI_ToastPopup(Str('칭호가 해제되었습니다.'))
                 self.m_closeCB(0)
                 self.m_closeCB = nil
                 self:close()
