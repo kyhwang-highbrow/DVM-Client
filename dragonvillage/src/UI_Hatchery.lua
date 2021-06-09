@@ -136,7 +136,7 @@ function UI_Hatchery:refresh_mileage()
     --vars['mileageVisual2']:changeAni(ani_key_2, true)
 
     -- 획득 가능 라벨
-    vars['availableLabel']:setVisible(ani_key_1 ~= nil)
+    --vars['availableLabel']:setVisible(ani_key_1 ~= nil)
 end
 
 -------------------------------------
