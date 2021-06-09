@@ -118,8 +118,11 @@ function UI_DragonEvolution:initButton()
     vars['moveBtn2']:registerScriptTapHandler(function() self:click_evolutionStone(2) end)
     vars['moveBtn3']:registerScriptTapHandler(function() self:click_evolutionStone(3) end)
 
+
 	vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 	cca.pickMePickMe(vars['buyBtn'], 10)
+
+
 end
 
 -------------------------------------
@@ -173,7 +176,9 @@ function UI_DragonEvolution:refresh()
     self:refresh_stats(t_dragon_data, t_dragon, is_max_evolution)
 
 	-- 패키지 구매 유도
-	vars['buyBtn']:setVisible(self:isPackageBuyable())
+    -- 210609 : 해당 상품 삭제로 인해 안보이도록 임시 처리
+    vars['buyBtn']:setVisible(false)
+	--vars['buyBtn']:setVisible(self:isPackageBuyable())
 end
 
 -------------------------------------

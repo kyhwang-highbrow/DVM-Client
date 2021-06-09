@@ -128,7 +128,9 @@ function UI_DragonUpgrade:setBuyBtn()
     local vars = self.vars
 
     local buy_btn_visible = self:isBuyBtnVisible()
-    vars['buyBtn']:setVisible(buy_btn_visible)
+    --vars['buyBtn']:setVisible(buy_btn_visible)
+    -- 210609 : 해당 상품 ui 변경으로 인해 임시로 해당 버튼 숨김 처리
+    vars['buyBtn']:setVisible(false)
 end
 
 -------------------------------------
