@@ -257,6 +257,9 @@ function UI_HatcherySummonTab:refresh()
         if (is_definite_pickup) then
             cca.fadeInDelayOut(self.vars['rateNoti'], 0.7, 1.2, 0.8, true)
         end
+
+        self.vars['selectVisual1']:setVisible(is_definite_pickup)
+        self.vars['selectVisual2']:setVisible(is_definite_pickup)
     end
     
 end
@@ -410,8 +413,7 @@ function UI_HatcherySummonTab:setChanceUpDragons()
         local name = TableDragon:getChanceUpDragonName2(did)
 
         vars['dragonNameLabel'..desc_idx]:setString(name)
-        vars['selectVisual'.. desc_idx]:setVisible(true)
-        
+
         -- 드래곤 카드
         do
             local t_dragon_data = {}
@@ -890,9 +892,10 @@ function UI_HacheryPickupBtnPopup:setChanceUpDragons()
 
         -- 드래곤 이름
         local name = TableDragon:getChanceUpDragonName2(did)
+        local is_definite_pickup = g_hatcheryData.m_isDefinitePickup == true
 
         vars['dragonNameLabel'..desc_idx]:setString(name)
-        vars['selectVisual'..desc_idx]:setVisible(true)
+        vars['selectVisual'..desc_idx]:setVisible(is_definite_pickup)
         
         -- 드래곤 카드
         do
