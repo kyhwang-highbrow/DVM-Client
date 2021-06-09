@@ -26,6 +26,14 @@ function ServerData_AdventureClearPackage:init(server_data)
 end
 
 -------------------------------------
+-- function isBattlePassProduct
+-------------------------------------
+function ServerData_AdventureClearPackage:isBattlePassProduct(product_id)
+    return self.m_productID == tonumber(product_id)
+end
+
+
+-------------------------------------
 -- function ckechDirty
 -------------------------------------
 function ServerData_AdventureClearPackage:ckechDirty()

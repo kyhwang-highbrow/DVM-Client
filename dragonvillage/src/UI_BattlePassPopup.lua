@@ -138,6 +138,14 @@ function UI_BattlePassPopup:initTableView()
             if g_levelUpPackageData:isVisibleAtBattlePassShop(k) then
                 table.insert(tabList, v)
             end
+        elseif g_adventureClearPackageData:isBattlePassProduct(k) then
+            if g_adventureClearPackageData:isVisibleAtBattlePassShop() then
+                table.insert(tabList, v)
+            end
+        elseif g_adventureClearPackageData02:isBattlePassProduct(k) then
+            if g_adventureClearPackageData02:isVisibleAtBattlePassShop() then
+                table.insert(tabList, v)
+            end
         elseif g_adventureClearPackageData03:isBattlePassProduct(k) then
             if g_adventureClearPackageData03:isVisibleAtBattlePassShop() then
                 table.insert(tabList, v)

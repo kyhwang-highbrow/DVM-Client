@@ -2268,18 +2268,18 @@ function UI_Lobby:update_rightButtons()
     
     do
         -- 레벨업 패키지 버튼
-        if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_PRODUCT_ID) then
-            vars['levelupBtn']:setVisible(true)
-        else
+        -- if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_PRODUCT_ID) then
+        --     vars['levelupBtn']:setVisible(true)
+        -- else
             vars['levelupBtn']:setVisible(false)
-        end
+        --end
 
         -- 레벨업 패키지2 버튼
-        if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_2_PRODUCT_ID) then
-            vars['levelupBtn2']:setVisible(true)
-        else
+        -- if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_2_PRODUCT_ID) then
+        --     vars['levelupBtn2']:setVisible(true)
+        -- else
             vars['levelupBtn2']:setVisible(false)
-        end
+        --end
 
         -- -- 레벨업 패키지3 버튼
         -- if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_3_PRODUCT_ID) then
@@ -2289,17 +2289,17 @@ function UI_Lobby:update_rightButtons()
         -- end
 
         -- 레벨업 패키지 노티
-        local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_PRODUCT_ID)
+        local is_noti = false--g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_PRODUCT_ID)
         vars['levelupNotiSprite']:setVisible(is_noti)
         
         -- 레벨업 패키지2 노티
-        local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_2_PRODUCT_ID)
+        --local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_2_PRODUCT_ID)
         vars['levelupNotiSprite2']:setVisible(is_noti)
 
         -- 레벨업 패키지3 노티
         -- local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(
         --                     LEVELUP_PACKAGE_3_PRODUCT_ID)
-        vars['levelupNotiSprite3']:setVisible(false)
+        vars['levelupNotiSprite3']:setVisible(is_noti)
     end
 
     -- 일일상점 버튼
@@ -2308,29 +2308,29 @@ function UI_Lobby:update_rightButtons()
     -- 모험돌파 버튼
     do
         -- 모험돌파 버튼
-        if g_adventureClearPackageData:isVisible_adventureClearPack() then
-            vars['adventureClearBtn']:setVisible(true)
-        else
+        -- if g_adventureClearPackageData:isVisible_adventureClearPack() then
+        --     vars['adventureClearBtn']:setVisible(true)
+        -- else
             vars['adventureClearBtn']:setVisible(false)
-        end
+        --end
            
         -- 모험돌파 패키지 노티
-        local is_noti = g_adventureClearPackageData:isVisible_adventureClearPackNoti()
-        vars['adventureClearNotiSprite']:setVisible(is_noti)
+        -- local is_noti = g_adventureClearPackageData:isVisible_adventureClearPackNoti()
+        -- vars['adventureClearNotiSprite']:setVisible(is_noti)
     end
 
     -- 모험돌파 버튼 2
     do
         -- 모험돌파 버튼
-        if g_adventureClearPackageData02:isVisible_adventureClearPack() then
-            vars['adventureClearBtn02']:setVisible(true)
-        else
+        -- if g_adventureClearPackageData02:isVisible_adventureClearPack() then
+        --     vars['adventureClearBtn02']:setVisible(true)
+        -- else
             vars['adventureClearBtn02']:setVisible(false)
-        end
+        --end
            
         -- 모험돌파 패키지 노티
-        local is_noti = g_adventureClearPackageData02:isVisible_adventureClearPackNoti()
-        vars['adventureClearNotiSprite02']:setVisible(is_noti)
+        -- local is_noti = g_adventureClearPackageData02:isVisible_adventureClearPackNoti()
+        -- vars['adventureClearNotiSprite02']:setVisible(is_noti)
     end
 
     -- 모험돌파 버튼 3 2020.08.24
