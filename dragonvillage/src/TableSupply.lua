@@ -31,8 +31,43 @@ function TableSupply:getSupplyProductList()
 
     -- ui_priority가 -1인 항목은 보급소 UI에서 노출하지 않음
     for key,value in pairs(self.m_orgTable) do
+
         if (value['ui_priority'] ~= -1) then
-            l_ret[key] = clone(value)
+            local struct_product = g_shopDataNew:getTargetProduct(value['product_id'])
+
+            if (struct_product == nil) or (not struct_product:isItOnTime()) then
+                local supply_type = value['type']
+                local t_supply_info = g_supply:getSupplyInfoByType(supply_type)
+    
+                -- 상태 체크 -1:비활성, 0:일일 보상 수령 가능, 1:일일 보상 수령 완료
+                local reward_status = -1
+
+                if t_supply_info then
+                    local curr_time = Timer:getServerTime()
+                    local end_time = (t_supply_info['end'] / 1000)
+                    
+                    if (end_time < curr_time) then
+                        reward_status = -1
+                    elseif (t_supply_info['reward'] == 0) then
+                        -- 일일 지급품이 있는지 확인
+                        local package_item_str = t_data['daily_content']
+                        local l_item_list = ServerData_Item:parsePackageItemStr(package_item_str)
+                        if (0 < #l_item_list) then
+                            reward_status = 0
+                        else
+                            reward_status = 1
+                        end
+                    else
+                        reward_status = t_supply_info['reward'] -- 1이어야 한다.
+                    end
+                end
+
+                if reward_status ~= -1 then
+                    l_ret[key] = clone(value)
+                end
+            else
+                l_ret[key] = clone(value)
+            end
         end
     end
     return l_ret

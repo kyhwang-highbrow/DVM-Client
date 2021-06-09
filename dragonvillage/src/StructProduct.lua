@@ -223,16 +223,34 @@ end
 function StructProduct:isItOnTime()
     --m_startDate = 'pl.Date' = '2021-03-24 00:00:00'
     --m_endDate = 'pl.Date'  = '2021-03-24 00:00:00'
-    
-    local start_time = tonumber(TimeLib:strToTimeStamp(self.m_startDate))
-    local end_time = tonumber(TimeLib:strToTimeStamp(self.m_endDate))
+    local start_time = nil
+    local end_time = nil
+    if self.m_startDate ~= nil and self.m_startDate ~= '' then
+        start_time = tonumber(TimeLib:strToTimeStamp(self.m_startDate))
+    end
+
+    if self.m_endDate ~= nil and self.m_endDate ~= '' then
+        end_time = tonumber(TimeLib:strToTimeStamp(self.m_endDate))
+    end
 
     
     local server_timestamp = Timer:getServerTime()
     local time_table = TimeLib:convertToServerDate(server_timestamp)
     local curr_time = time_table['time']
-    
-    if start_time <= curr_time and curr_time <= end_time then
+
+    if start_time and end_time then   
+        if (start_time <= curr_time) and (curr_time <= end_time) then
+            return true
+        end
+    elseif start_time and (not end_time) then
+        if (start_time <= curr_time) then
+            return true
+        end
+    elseif (not start_time) and end_time then
+        if (curr_time <= end_time) then
+            return true
+        end
+    elseif (not start_time) and (not end_time) then
         return true
     end
 
