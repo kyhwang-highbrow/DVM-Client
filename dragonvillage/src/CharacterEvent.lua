@@ -266,8 +266,7 @@ function Character:doPerfectBarrierSkill(t_event)
                 local is_skill_used = skill_owner:doSkill(skill_id, 0, 0)
 
                 if (not is_skill_used) then 
-                    self:doRuneBarrierSkill(l_list) 
-                    break
+                    if (self:doRuneBarrierSkill(l_list)) then break end
                 end
             end
         end
@@ -283,9 +282,11 @@ function Character:doRuneBarrierSkill(l_barrier_skill)
         local skill_id = skill['skill_id']
 
         if (skill_id == 500300) then
-            skill_owner:doSkill(skill_id, 0, 0)
+            return skill_owner:doSkill(skill_id, 0, 0)
         end
     end
+
+    return false
 end
 
 -------------------------------------

@@ -6,8 +6,6 @@ local PARENT = StatusEffect
 -------------------------------------
 StatusEffect_ProtectionByTime = class(PARENT, {
             m_bIsKeeppedHp = 'boolean',   -- 체력 유지 여부
-
-            m_lastKeepHp = 'number',      -- 보존될 체력의 값 (다른 값들이 연속으로 들어올 때가 있음)
         })
 
 
@@ -45,27 +43,33 @@ function StatusEffect_ProtectionByTime:onApplyOverlab(unit)
         -- value로 설정된 값을 피격시 유지시킬 체력 비율값으로 사용
         local keep_hp_rate = unit:getValue() / 100
         local keep_hp = keep_hp_rate * self.m_owner:getMaxHp()
+        local current_hp = self.m_owner:getHp()
+        local prev_hp = self.m_owner.m_prevHp
 
-        if (self.m_lastKeepHp) then
-            keep_hp = math.max(keep_hp, self.m_lastKeepHp)
-        end
+        -- 공격 받기 이전 hp가 보존체력보다 높고
+        -- 지금 hp가 보존체력보단 작을 때 true
+        local is_keep_hp = keep_hp > current_hp and keep_hp <= prev_hp
 
-        if (keep_hp > self.m_owner:getHp() and keep_hp <= self.m_owner.m_prevHp) then
+        --cclog(self.m_owner:getName())
+        --cclog(current_hp)
+
+        -- 치명상
+        if (current_hp <= 0) then
+            -- 무조건 보존체력으로 회복
             -- 설정된 비율로 체력을 유지시킴
             self.m_owner:setHp(keep_hp, true)
 
-            self.m_lastKeepHp = keep_hp
+            -- 여러번 오버랩하는걸 방지하기 위해서 prev_hp 동일값으로 설정
+            self.m_owner.m_prevHp = keep_hp
 
         else
-            -- 같은 타입의 스킬이 동시에 들어오면
-            -- 다시 0으로 원복될 수가 있음
-            if (keep_hp > self.m_owner:getHp() and self.m_owner.m_prevHp <= keep_hp) then
+            -- hp는 남아있음
+            -- 같은 타입의 스킬이 동시에 들어올 수도 있다
+            if (is_keep_hp) then 
+                self.m_owner:setHp(keep_hp, true)
+                -- 여러번 오버랩하는걸 방지하기 위해서 prev_hp 동일값으로 설정
                 self.m_owner.m_prevHp = keep_hp
             end
-
-            -- 피격 이전 체력으로 유지시킴(한방에 죽는 경우를 방지하기 위함)
-            self.m_owner:setHp(self.m_owner.m_prevHp, true)
-            self.m_lastKeepHp = self.m_owner.m_prevHp
         end
     end
 end
