@@ -196,6 +196,7 @@ end
 function UI_Hatchery:onChangeTab(tab, first)
     PARENT.onChangeTab(self, tab, first)
 
+    --[[
     self.vars['eventInfoMenu']:setVisible(false)
 
     local is_summon_tab = (tab == 'summon')
@@ -216,5 +217,7 @@ function UI_Hatchery:onChangeTab(tab, first)
             self.vars['timeLabel']:setString(g_fevertimeData:getRemainTimeTextDetail_summonLegendUp())
             return
         end
-    end
+    end]]
 end
+
+

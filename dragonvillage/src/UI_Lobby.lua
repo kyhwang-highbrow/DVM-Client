@@ -1556,7 +1556,7 @@ end
 -- function click_fevertimeBtn
 -------------------------------------
 function UI_Lobby:click_fevertimeBtn()
-    g_eventData:openEventPopup('event_dvnew_collaboration')
+    g_eventData:openEventPopup('fevertime')
 end
 
 -------------------------------------

@@ -6,6 +6,8 @@ local PARENT = UI_IndivisualTab
 UI_HatcherySummonTab = class(PARENT,{
         m_isCustomPick = '',
 
+        m_curCategory = 'string',
+
         m_orgDragonList = '',
 
         m_tableViewTD = '',
@@ -36,6 +38,8 @@ function UI_HatcherySummonTab:init(owner_ui)
     self.m_selectedDragonList = {}
     self.m_summonCategoryTab = {pickup = vars['chanceUpTabMenu'], cash = vars['premiumMenu'], friend = vars['friendshipTabMenu']}
 
+    self.m_curCategory = 'pickup'
+
     self:initSortManager()
 end
 
@@ -62,11 +66,12 @@ function UI_HatcherySummonTab:onEnterTab(first)
     end
 
     -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
+    --[[
     if (g_hotTimeData:isActiveEvent('event_legend_chance_up') or g_fevertimeData:isActiveFevertime_summonLegendUp()) then
         self.vars['eventNoti1']:setVisible(true)
     else
         self.vars['eventNoti1']:setVisible(false)
-    end
+    end]]
 end
 
 -------------------------------------
@@ -261,7 +266,8 @@ function UI_HatcherySummonTab:refresh()
         self.vars['selectVisual1']:setVisible(is_definite_pickup)
         self.vars['selectVisual2']:setVisible(is_definite_pickup)
     end
-    
+
+    self:setEventMenu()
 end
 
 -------------------------------------
@@ -269,6 +275,7 @@ end
 -- @brief
 -------------------------------------
 function UI_HatcherySummonTab:onChangeCategory(category)
+    self.m_curCategory = category
     for name, tab_object in pairs(self.m_summonCategoryTab) do
         local is_same_category = name == category
         tab_object:setVisible(is_same_category) 
@@ -281,6 +288,8 @@ function UI_HatcherySummonTab:onChangeCategory(category)
     self.vars['chanceUpTabBtn']:setEnabled(not is_pickup)
     self.vars['premiumTabBtn']:setEnabled(not is_premium)
     self.vars['friendshipTabBtn']:setEnabled(not is_friendPoint)
+
+    self:setEventMenu()
 end
 
 
@@ -450,6 +459,42 @@ function UI_HatcherySummonTab:setChanceUpDragons()
         vars['dragonNameLabel2']:setString('{@DESC}' .. Str('빛/어둠\n선택'))
     end
 end
+
+-------------------------------------
+-- function setEventMenu
+-- @brief 확률업 드래곤 
+-------------------------------------
+function UI_HatcherySummonTab:setEventMenu()
+    local owner_vars = self.m_ownerUI.vars
+
+    if (not owner_vars) then return end
+
+    owner_vars['eventInfoMenu']:setVisible(false)
+    
+    if (self.m_curCategory == 'friend') then
+        return
+    end
+
+    -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
+    -- 기존 핫타임
+    local is_event_active = g_hotTimeData:isActiveEvent('event_legend_chance_up')
+    if (is_event_active == true) then
+        owner_vars['eventInfoMenu']:setVisible(true)
+        owner_vars['timeLabel']:setString(g_hotTimeData:getEventRemainTimeTextDetail('event_legend_chance_up'))
+        return
+    end
+
+        -- 핫타임(fevertime)
+    local is_active = g_fevertimeData:isActiveFevertime_summonLegendUp()
+    if (is_active == true) then
+        owner_vars['eventInfoMenu']:setVisible(true)
+        owner_vars['timeLabel']:setString(g_fevertimeData:getRemainTimeTextDetail_summonLegendUp())
+        return
+    end
+end
+
+
+
 
 
 
