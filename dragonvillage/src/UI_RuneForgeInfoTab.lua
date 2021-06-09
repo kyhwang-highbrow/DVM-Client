@@ -158,6 +158,13 @@ function UI_RuneForgeInfoTab:refresh()
         local item_cnt = g_userData:get('grindstone')
         local card = UI_ItemCard(item_id, item_cnt)
         vars['grindstoneNode']:addChild(card.root)
+
+        -- 룬 연마석 product ID : 210022
+        local product_struct = g_shopDataNew:getProduct('st', 210022)
+        
+        -- 구매제한 설명 문구 
+        local buy_count_desc = product_struct:getMaxBuyTermStr()
+        vars['grindstoneBuyLabel']:setString(buy_count_desc)
     end
 end
 
@@ -176,7 +183,7 @@ function UI_RuneForgeInfoTab:click_grindstonePackageBtn()
 
     local vars = self.vars
     
-    -- 룬 축복서 product ID : 220017
+    -- 룬 연마석 product ID : 210022
     local product_struct = g_shopDataNew:getProduct('st', 210022)
     product_struct:buy(function(ret)
         ItemObtainResult_Shop(ret) 
