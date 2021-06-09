@@ -2750,11 +2750,13 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
-    local collabo_banner = UI_BannerAppCollaboration()
-    vars['bannerMenu']:addChild(collabo_banner.root)
-    collabo_banner.root:setDockPoint(TOP_RIGHT)
-    collabo_banner.root:setAnchorPoint(TOP_RIGHT)
-    vars['banner_appcollaboration'] = collabo_banner
+    if (not vars['banner_appcollaboration']) then
+        local collabo_banner = UI_BannerAppCollaboration()
+        vars['bannerMenu']:addChild(collabo_banner.root)
+        collabo_banner.root:setDockPoint(TOP_RIGHT)
+        collabo_banner.root:setAnchorPoint(TOP_RIGHT)
+        vars['banner_appcollaboration'] = collabo_banner
+    end
 
     self:onRefresh_banner()
 end

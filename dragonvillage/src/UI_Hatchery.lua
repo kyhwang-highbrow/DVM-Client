@@ -196,6 +196,12 @@ end
 function UI_Hatchery:onChangeTab(tab, first)
     PARENT.onChangeTab(self, tab, first)
 
+    local is_summon_tab = (tab == 'summon')
+    if (not is_summon_tab) then
+        self.vars['eventInfoMenu']:setVisible(false)
+        return 
+    end
+
     --[[
     self.vars['eventInfoMenu']:setVisible(false)
 
