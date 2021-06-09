@@ -442,7 +442,7 @@ function UI_HatcherySummonTab:setChanceUpDragons()
     end
 
     if (vars['dragonNameLabel2']:getString() == 'NameLabel') then
-        vars['dragonNameLabel2']:setString(Str('{@DESC}' .. '빛/어둠\n선택'))
+        vars['dragonNameLabel2']:setString('{@DESC}' .. Str('빛/어둠\n선택'))
     end
 end
 
