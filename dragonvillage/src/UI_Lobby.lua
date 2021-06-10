@@ -2751,7 +2751,7 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
-    if (not vars['banner_appcollaboration']) then
+    if (not vars['banner_appcollaboration'] and g_localData:isKoreaServer()) then
         local collabo_banner = UI_BannerAppCollaboration()
         vars['bannerMenu']:addChild(collabo_banner.root)
         collabo_banner.root:setDockPoint(TOP_RIGHT)

@@ -82,8 +82,9 @@ function LobbyUserStatusUI:init_statusUI()
 
     if (struct_clan and has_title == true) then
         vars['clanNode']:setVisible(true)
-        vars['nameLabel']:setPositionY(2)
         vars['titleLabel']:setPositionY(35)
+        vars['nameLabel']:setPositionY(2)
+        vars['clanNode']:setPositionY(-11)
     elseif (struct_clan) then
         vars['clanNode']:setVisible(true)
         vars['nameLabel']:setPositionY(15)
