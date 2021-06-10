@@ -54,7 +54,7 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
         t_data['ignore'] = skill_indivisual_info:getMapToIgnore()
     end
 
-    if (skill_indivisual_info:hasPerfectBarrier() and IS_TEST_MODE()) then
+    if (skill_indivisual_info and skill_indivisual_info:hasPerfectBarrier() and IS_TEST_MODE()) then
         cclog('')
         local log = string.format('%s의 %s 스킬 발동!!!',TableDragonSkill():getSkillOwnerName(skill_id) , TableDragonSkill():getSkillName(skill_id))
         cclog(log)
