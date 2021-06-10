@@ -13,19 +13,8 @@ function UI_ShopPackageScene:initParentVariable()
     self.m_titleStr = Str('패키지')
     self.m_bVisible = true
     self.m_bUseExitBtn = true
-
-    self.m_subCurrency = nil
-    g_topUserInfo:deleteGoodsUI('amethyst')
 end
 
--------------------------------------
--- function onClose
--- @brief ITopUserInfo_EventListener
--------------------------------------
-function UI_ShopPackageScene:onClose()
-    self:releaseI_TopUserInfo_EventListener()
-    g_currScene:removeBackKeyListener(self)
-end
 
 function UI_ShopPackageScene:init(package_name)
     local vars = self:load('shop_package.ui')
