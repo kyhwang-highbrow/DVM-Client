@@ -1586,11 +1586,24 @@ function UINavigatorDefinition:goTo_rune_guardian(...)
     end
 end
 
+-------------------------------------
+-- function goTo_package_shop_test
+-- @brief 패키지 상점으로 이동
+-- @usage UINavigatorDefinition:goTo('package_shop_test')
+-------------------------------------
 function UINavigatorDefinition:goTo_package_shop_test(...)
     local args = {...}
     local initial_tab = args[1]
 
     require('UI_ShopPackageScene')
+
+    
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_ShopPackageScene')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
 
     local function finish_cb()
         UI_ShopPackageScene(initial_tab)
