@@ -946,7 +946,7 @@ function UI_Lobby:refreshSpecialOffer()
     end
 
     -- 특별 할인 상품 유무에 따라서 초기화
-    if struct_product then
+    if struct_product and struct_product:isItOnTime() then
         button:setVisible(true)
 
         -- 상품 클릭 시 패키지 팝업
