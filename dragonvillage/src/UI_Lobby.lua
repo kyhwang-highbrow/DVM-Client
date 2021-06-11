@@ -826,18 +826,8 @@ function UI_Lobby:initButton()
     vars['battlePassBtn']:registerScriptTapHandler(function() self:click_battlePassBtn() end) -- 배틀패스 버튼
     vars['cashShopBtn']:registerScriptTapHandler(function() self:click_packageShopBtn() end) -- 패키지(상점) 버튼
 
-
-
-    vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
-    vars['levelupBtn2']:registerScriptTapHandler(function() self:click_lvUpPackBtn2() end) -- 레벨업 패키지 2
-    --vars['levelupBtn3']:registerScriptTapHandler(function() self:click_lvUpPackBtn3() end) -- 레벨업 패키지 3
-    vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
-    vars['adventureClearBtn02']:registerScriptTapHandler(function() self:click_adventureClearBtn02() end) -- 모험돌파 패키지 2
-    --vars['adventureClearBtn03']:registerScriptTapHandler(function() self:click_adventureClearBtn03() end) -- 모험돌파 패키지 3 -- 2020.08.24
-    
     vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
     vars['ddayBtn']:registerScriptTapHandler(function() self:click_ddayBtn() end) -- 출석 이벤트탭 이동
-    --vars['dailyShopBtn']:registerScriptTapHandler(function() self:click_dailyShopBtn() end) -- 일일 상점
     vars['randomShopBtn']:registerScriptTapHandler(function() self:click_randomShopBtn() end) -- 랜덤 상점
     vars['randomShopBtn']:setVisible(true) 
 
@@ -1875,14 +1865,6 @@ function UI_Lobby:click_ddayBtn()
 end
 
 -------------------------------------
--- function click_dailyShopBtn
--------------------------------------
--- function UI_Lobby:click_dailyShopBtn()
---     local is_popup = true
---     UINavigator:goTo('shop_daily', is_popup)
--- end
-
--------------------------------------
 -- function click_randomShopBtn
 -------------------------------------
 function UI_Lobby:click_randomShopBtn()
@@ -1938,12 +1920,6 @@ function UI_Lobby:update(dt)
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
         self:update_rightButtons()
-    end
-
-    -- 레벨업 패키지, 모험돌파 패키지 등 상품 구매했을 경우, 오른쪽 버튼들 갱신
-    if (g_levelUpPackageData:getBuyLevelUpPackageDirty()) then
-        self:update_rightButtons()
-        g_levelUpPackageData:resetBuyLevelUpPackageDirty()
     end
 
     -- 로비 출석 D-day 표시
@@ -2265,93 +2241,10 @@ function UI_Lobby:update_rightButtons()
 	else
 		vars['capsuleBoxBtn']:setVisible(false)
 	end
-    
-    do
-        -- 레벨업 패키지 버튼
-        -- if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_PRODUCT_ID) then
-        --     vars['levelupBtn']:setVisible(true)
-        -- else
-            vars['levelupBtn']:setVisible(false)
-        --end
-
-        -- 레벨업 패키지2 버튼
-        -- if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_2_PRODUCT_ID) then
-        --     vars['levelupBtn2']:setVisible(true)
-        -- else
-            vars['levelupBtn2']:setVisible(false)
-        --end
-
-        -- -- 레벨업 패키지3 버튼
-        -- if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_3_PRODUCT_ID) then
-        --     vars['levelupBtn3']:setVisible(true)
-        -- else
-        vars['levelupBtn3']:setVisible(false)
-        -- end
-
-        -- 레벨업 패키지 노티
-        local is_noti = false--g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_PRODUCT_ID)
-        vars['levelupNotiSprite']:setVisible(is_noti)
-        
-        -- 레벨업 패키지2 노티
-        --local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_2_PRODUCT_ID)
-        vars['levelupNotiSprite2']:setVisible(is_noti)
-
-        -- 레벨업 패키지3 노티
-        -- local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(
-        --                     LEVELUP_PACKAGE_3_PRODUCT_ID)
-        vars['levelupNotiSprite3']:setVisible(is_noti)
-    end
-
-    -- 일일상점 버튼
-    --vars['dailyShopBtn']:setVisible(true)
-
-    -- 모험돌파 버튼
-    do
-        -- 모험돌파 버튼
-        -- if g_adventureClearPackageData:isVisible_adventureClearPack() then
-        --     vars['adventureClearBtn']:setVisible(true)
-        -- else
-            vars['adventureClearBtn']:setVisible(false)
-        --end
-           
-        -- 모험돌파 패키지 노티
-        -- local is_noti = g_adventureClearPackageData:isVisible_adventureClearPackNoti()
-        -- vars['adventureClearNotiSprite']:setVisible(is_noti)
-    end
-
-    -- 모험돌파 버튼 2
-    do
-        -- 모험돌파 버튼
-        -- if g_adventureClearPackageData02:isVisible_adventureClearPack() then
-        --     vars['adventureClearBtn02']:setVisible(true)
-        -- else
-            vars['adventureClearBtn02']:setVisible(false)
-        --end
-           
-        -- 모험돌파 패키지 노티
-        -- local is_noti = g_adventureClearPackageData02:isVisible_adventureClearPackNoti()
-        -- vars['adventureClearNotiSprite02']:setVisible(is_noti)
-    end
-
-    -- 모험돌파 버튼 3 2020.08.24
-    do
-        -- 모험돌파 버튼
-        --local is_visible = g_adventureClearPackageData03:isVisible_adventureClearPack()
-        --vars['adventureClearBtn03']:setVisible(is_visible)
-        vars['adventureClearBtn03']:setVisible(false)
-
-        -- 모험돌파 패키지 노티
-        local is_noti = g_adventureClearPackageData03:isVisible_adventureClearPackNoti()
-        vars['adventureClearNotiSprite03']:setVisible(is_noti)
-    end
 
     -- 마녀의 상점
     local is_random_shop_open = not g_contentLockData:isContentLock('shop_random')
     vars['randomShopBtn']:setVisible(is_random_shop_open)
-
-    -- 일일 상점
-    --local is_daily_shop_open = not g_contentLockData:isContentLock('daily_shop')
-    --vars['dailyShopBtn']:setVisible(is_daily_shop_open)
 
     do -- 핫타임
         -- if (g_fevertimeData:isHighlightFevertime() == true) then
@@ -2364,9 +2257,6 @@ function UI_Lobby:update_rightButtons()
     end
 
     do -- 배틀 패스
-        --g_battlePassData:isValidTime() or 
-        -- g_LevelUpPackageData:isUnclearedAnyPackage()
-        -- 
         local is_visible = g_battlePassData:isBattlePassShopVisible()
                             or g_levelUpPackageData:isUnclearedAnyPackage()
                             or g_adventureClearPackageData:isVisible_adventureClearPack()
@@ -2379,15 +2269,9 @@ function UI_Lobby:update_rightButtons()
                                 or g_adventureClearPackageData03:isVisibleNotiAtLobby()
                                 or g_dmgatePackageData:isNotiVisible()
         vars['battlePassNotiSprite']:setVisible(is_noti_visible)
-
-
-        --vars['battlePassNotiSprite']:setVisible(g_battlePassData:isThereAnyAvailableReward())
-        --vars['battlePassNotiSprite']:setVisible(g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID))
-        --vars['battlePassNotiSprite']:setVisible(g_adventureClearPackageData03:isVisibleNotiAtLobby())
     end
 
-    do -- 패키지
-        -- TODO (YOUNGJIN) : TEMP         
+    do -- 패키지 상점  
         vars['cashShopBtn']:setVisible(true)
         vars['cashShopNotiSprite']:setVisible(false)
     end
@@ -2410,16 +2294,9 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'luckyfortunebagEventBtn')
     
     -- 패키지
-    table.insert(t_btn_name, 'levelupBtn')
-    table.insert(t_btn_name, 'levelupBtn2')
-    --table.insert(t_btn_name, 'levelupBtn3')
-    table.insert(t_btn_name, 'adventureClearBtn')
-    table.insert(t_btn_name, 'adventureClearBtn02')
-    --table.insert(t_btn_name, 'adventureClearBtn03')
 
     table.insert(t_btn_name, 'capsuleBoxBtn')
     table.insert(t_btn_name, 'goldDungeonBtn')
-    --table.insert(t_btn_name, 'dailyShopBtn')
     table.insert(t_btn_name, 'randomShopBtn')
     --table.insert(t_btn_name, 'fevertimeBtn')
     table.insert(t_btn_name, 'eventBtn')
