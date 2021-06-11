@@ -161,7 +161,7 @@ end
 -------------------------------------
 function ServerData_ArenaNew:request_userLastTierInfo(uids, finish_cb, fail_cb, response_status_cb)
     if (isNullOrEmpty(uids) == true) then return end
-    if (self.m_bIsRequestingLastTierinfo) then return end
+    if (self.m_bIsRequestingLastTierinfo == true) then return end
 
     -- 유저 ID
     local uid = g_userData:get('uid')
