@@ -47,6 +47,8 @@ ServerData_ArenaNew = class({
         m_tierRewardInfo = 'table',
 
         m_userTierMap = 'table',    -- 런타임에 만난 유저들의 지난 티어정보를 저장
+
+        m_bIsRequestingLastTierinfo = 'boolean',
     })
 
 -------------------------------------
@@ -61,6 +63,8 @@ function ServerData_ArenaNew:init(server_data)
     self.m_matchDefHistory = {}
     self.m_tempLogData = {}
     self.m_userTierMap = {}
+
+    self.m_bIsRequestingLastTierinfo = false
 
     self.m_reservationTierUIDList = {}
     self.m_requestingTierUIDs = ''
@@ -157,6 +161,7 @@ end
 -------------------------------------
 function ServerData_ArenaNew:request_userLastTierInfo(uids, finish_cb, fail_cb, response_status_cb)
     if (isNullOrEmpty(uids) == true) then return end
+    if (self.m_bIsRequestingLastTierinfo) then return end
 
     -- 유저 ID
     local uid = g_userData:get('uid')
@@ -167,8 +172,12 @@ function ServerData_ArenaNew:request_userLastTierInfo(uids, finish_cb, fail_cb, 
         self:updateLastTierTable(ret['last_tier_info'])
 
         if finish_cb then finish_cb(ret) end
+
+        self.m_bIsRequestingLastTierinfo = false
     end
 
+
+    self.m_bIsRequestingLastTierinfo = true
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/users/get/user_last_tier')
