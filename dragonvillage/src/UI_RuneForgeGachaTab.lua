@@ -96,6 +96,8 @@ function UI_RuneForgeGachaTab:initUI()
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
     end
 
+            
+    vars['buyBtn']:registerScriptTapHandler(function() UINavigator:goTo('package_shop_test', 'package_rune_box') end)
     vars['diaBtn']:registerScriptTapHandler(function() self:click_diamondGachaBtn() end)
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
