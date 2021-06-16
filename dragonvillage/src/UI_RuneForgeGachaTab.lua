@@ -128,6 +128,7 @@ function UI_RuneForgeGachaTab:updateTimer(dt)
     end
 end
 
+
 -------------------------------------
 -- function click_buyBtn
 -------------------------------------
@@ -156,15 +157,26 @@ end
 -- function click_gachaBtn
 -------------------------------------
 function UI_RuneForgeGachaTab:click_gachaBtn()
-    self:request_runeGacha()
+    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
+    local item_key = 700651 -- 룬 10개 뽑기 상자
+    local item_value = 1
+    local msg = Str('{@item_name}"{1} x{2}"\n{@default}사용하시겠습니까?', Str('룬 10개 뽑기 상자'), comma_value(item_value))
+
+    MakeSimplePopup_Confirm('rune_box', item_value, msg, function() self:request_runeGacha() end)
 end
 
 -------------------------------------
 -- function click_diamondGachaBtn
 -------------------------------------
 function UI_RuneForgeGachaTab:click_diamondGachaBtn()
-    self:request_runeGacha(true)
+    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
+    local msg = Str('"{1}" 진행하시겠습니까?', Str('10회 뽑기'))
+    local item_value = g_userData:get('rune_gacha_cash') or 0
+
+    MakeSimplePopup_Confirm('cash', item_value, msg, function() self:request_runeGacha(true) end)
 end
+
+
 
 -------------------------------------
 -- function click_infoBtn
