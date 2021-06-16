@@ -47,6 +47,11 @@ function UI_RuneForgeGachaTab:initUI()
 
     local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
     vars['diaCostLabel']:setString(comma_value(rune_gacha_cash))
+    
+    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
+    if (struct_product) then vars['priceLabel']:setString(struct_product:getPriceStr()) end
+
+    cca.pickMePickMe(vars['buyBtn'], 10)
 
     -- 상품에서 특별할인상품이 판매기간인지 체크
     --[[
