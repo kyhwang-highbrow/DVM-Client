@@ -45,6 +45,9 @@ function UI_RuneForgeGachaTab:initUI()
     local vars = self.vars
     local start_product_id = STANDARD_RUNE_PACKAGE_ID
 
+    local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
+    vars['diaCostLabel']:setNumber(comma_value(rune_gacha_cash))
+
     -- 상품에서 특별할인상품이 판매기간인지 체크
     --[[
     local special_product = g_shopDataNew:getTargetProduct(SPECIAL_RUNE_PACKAGE_ID)
