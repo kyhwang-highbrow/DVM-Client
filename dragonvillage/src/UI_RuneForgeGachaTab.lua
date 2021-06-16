@@ -53,6 +53,28 @@ function UI_RuneForgeGachaTab:initUI()
 
     cca.pickMePickMe(vars['buyBtn'], 10)
 
+    -- 이벤트!!!
+    vars['eventNode']:setVisible(true)
+
+    is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
+    if is_active then
+        if #l_ret then l_ret = l_ret[1] end
+        
+        local start_time = l_ret['start_date']/1000
+        local end_time = l_ret['end_date']/1000
+        local curr_time = Timer:getServerTime()
+  
+        if (start_time <= curr_time) and (curr_time <= end_time) then
+            local time = (end_time - curr_time)
+            str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
+            vars['timeLabel']:setString(str)
+        end
+    else
+        vars['runeFeverMenu']:setVisible(false)
+        --UINavigator:goto('lobby')
+    end
+
+
     -- 상품에서 특별할인상품이 판매기간인지 체크
     --[[
     local special_product = g_shopDataNew:getTargetProduct(SPECIAL_RUNE_PACKAGE_ID)
@@ -97,7 +119,7 @@ function UI_RuneForgeGachaTab:initUI()
     end
 
             
-    vars['buyBtn']:registerScriptTapHandler(function() UINavigator:goTo('package_shop_test', 'package_rune_box') end)
+    vars['buyBtn']:registerScriptTapHandler(function() UI_Package_Bundle('package_rune_box', true) end)
     vars['diaBtn']:registerScriptTapHandler(function() self:click_diamondGachaBtn() end)
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
