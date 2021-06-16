@@ -88,6 +88,10 @@ function UI_GoodsInfo:makeGoodsIcon(goods_name)
         goods_name = 'staminas_event_illusion_01'
     end
 
+    if (goods_name == 'rune_box') then
+        goods_name = 'rune_box'
+    end
+
     local res_icon = string.format('res/ui/icons/inbox/inbox_%s.png', goods_name)
     local icon = cc.Sprite:create(res_icon)
     

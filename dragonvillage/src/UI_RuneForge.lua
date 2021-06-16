@@ -43,6 +43,7 @@ function UI_RuneForge:initParentVariable()
     self.m_bUseExitBtn = true
     self.m_titleStr = nil
     self.m_invenType = 'rune'
+    self.m_subCurrency = 'rune_box'
     self.m_bShowInvenBtn = true 
 end
 
