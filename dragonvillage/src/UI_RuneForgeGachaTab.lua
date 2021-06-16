@@ -46,6 +46,7 @@ function UI_RuneForgeGachaTab:initUI()
     local start_product_id = STANDARD_RUNE_PACKAGE_ID
 
     -- 상품에서 특별할인상품이 판매기간인지 체크
+    --[[
     local special_product = g_shopDataNew:getTargetProduct(SPECIAL_RUNE_PACKAGE_ID)
 
     if (special_product) then
@@ -77,7 +78,7 @@ function UI_RuneForgeGachaTab:initUI()
 
         --local package_desc = struct_product:getProductDesc()
         --vars['dscLabel' .. i]:setString(package_desc)
-    end
+    end]]
     local is_active 
     local value
     local l_ret 
@@ -87,6 +88,7 @@ function UI_RuneForgeGachaTab:initUI()
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
     end
 
+    vars['diaBtn']:registerScriptTapHandler(function() self:click_diamondGachaBtn() end)
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
@@ -148,6 +150,13 @@ function UI_RuneForgeGachaTab:click_gachaBtn()
 end
 
 -------------------------------------
+-- function click_diamondGachaBtn
+-------------------------------------
+function UI_RuneForgeGachaTab:click_diamondGachaBtn()
+    self:request_runeGacha(true)
+end
+
+-------------------------------------
 -- function click_infoBtn
 -------------------------------------
 function UI_RuneForgeGachaTab:click_infoBtn()
@@ -157,7 +166,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_RuneForgeGachaTab:request_runeGacha()
+function UI_RuneForgeGachaTab:request_runeGacha(is_cash)
     -- 조건 체크
     local rune_box_count = g_userData:get('rune_box') or 0
     if (rune_box_count <= 0) then
@@ -185,7 +194,7 @@ function UI_RuneForgeGachaTab:request_runeGacha()
     end
     
     local is_bundle = true
-    g_runesData:request_runeGacha(is_bundle, finish_cb, nil) -- param: is_bundle, finish_cb, fail_cb
+    g_runesData:request_runeGacha(is_bundle, is_cash, finish_cb, nil) -- param: is_bundle, finish_cb, fail_cb
 end
 
 -------------------------------------
@@ -193,8 +202,8 @@ end
 -------------------------------------
 function UI_RuneForgeGachaTab:refresh()
     local vars = self.vars
-
+    --[[
     local rune_box_count = g_userData:get('rune_box') or 0
-    vars['itemLabel']:setString(rune_box_count)
+    vars['itemLabel']:setString(rune_box_count)]]
 end
 

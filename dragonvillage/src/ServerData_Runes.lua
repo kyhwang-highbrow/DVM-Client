@@ -304,11 +304,12 @@ end
 -- function request_runeGacha
 -- @brief
 -------------------------------------
-function ServerData_Runes:request_runeGacha(is_bundle, finish_cb, fail_cb)
+function ServerData_Runes:request_runeGacha(is_bundle, is_cash, finish_cb, fail_cb)
     -- parameters
     local uid = g_userData:get('uid')
     local item_id = 700651
     local is_bundle = is_bundle or false
+    local is_cash = is_cash or false
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -340,6 +341,7 @@ function ServerData_Runes:request_runeGacha(is_bundle, finish_cb, fail_cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('item_id', item_id)
     ui_network:setParam('bundle', is_bundle)
+    ui_network:setParam('is_cash', is_cash)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
