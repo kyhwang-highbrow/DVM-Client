@@ -263,6 +263,8 @@ function UI_PackageCategoryButton:createTableView()
             
             local package_name = TablePackageBundle:getPackageNameWithPid(struct_product['product_id'])
             product_num = 1
+            row_num = 1
+            col_num = 1
             ui = PackageManager:getTargetUI(package_name, false)
 
         elseif (self.m_data['type'] == 'single') then            
@@ -302,22 +304,32 @@ function UI_PackageCategoryButton:createTableView()
                 end
         
                 init_pos_x = -(gap + ui_size.width) * temp_x
-                init_pos_y = (gap + ui_size.height) * temp_y
+                init_pos_y = (gap + ui_size.height) * temp_y       
                 
-                if (not is_dock_center) or (self.m_data['type'] == '')then
-                    self.m_scrollView:setContentSize(row_num * ui_size.width + (row_num - 1) * gap, 
-                                                col_num * ui_size.height + (col_num - 1) * gap)
-                elseif is_dock_center then
-                    self.m_scrollView:setContentSize(self.m_scrollView:getContentSize().width, 
-                                                col_num * ui_size.height + (col_num - 1) * gap)
-                end
-                content_size = self.m_scrollView:getContentSize().width
-                container:setPosition(0, 0)
-
+                ----------------------------------------------------------
                 local normal_width, normal_height =  self.m_scrollView:getNormalSize()
+                local content_size = self.m_scrollView:getContentSize()
+                local scrollview_width = row_num * ui_size.width + (row_num - 1) * gap
+                local scrollview_height = col_num * ui_size.height + (col_num - 1) * gap
 
-                -- self.m_scrollView:setTouchEnabled(self.m_scrollView:getContentSize().width > normal_width
-                --                                     or self.m_scrollView:getContentSize().height > normal_height)
+                local is_larger
+                if (self.m_scrollView:getDirection() == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
+                    is_larger = (scrollview_height > normal_height)
+                    if is_larger or (not is_dock_center) then
+                        self.m_scrollView:setContentSize(scrollview_width, scrollview_height)
+                    else
+                        self.m_scrollView:setContentSize(scrollview_width, content_size.height)
+                    end
+                else -- cc.SCROLLVIEW_DIRECTION_HORIZONTAL
+                    is_larger = (scrollview_width > normal_width)
+                    if is_larger or (not is_dock_center) then
+                        self.m_scrollView:setContentSize(scrollview_width, scrollview_height)
+                    else
+                        self.m_scrollView:setContentSize(content_size.width, scrollview_height)
+                    end    
+                end
+                self.m_scrollView:setTouchEnabled(is_larger)
+                container:setPosition(0, 0)
             end
             
             container:addChild(ui.root)
