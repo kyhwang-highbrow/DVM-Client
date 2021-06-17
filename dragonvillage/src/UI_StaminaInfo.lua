@@ -117,7 +117,7 @@ function UI_StaminaInfo:click_chargeBtn()
     elseif (stamina_type == 'gold') then
         UINavigatorDefinition:goTo('shop', 'gold')
     elseif (stamina_type == 'cash') then
-        UINavigatorDefinition:goTo('shop', 'cash')
+        UINavigatorDefinition:goTo('package_shop_test', 'diamond_shop')
     elseif (goods_type == 'capsule_coin') then
         local capsule_coin_package_popup = PackageManager:getTargetUI('package_capsule_coin', true)
     elseif (stamina_type == 'st') then
