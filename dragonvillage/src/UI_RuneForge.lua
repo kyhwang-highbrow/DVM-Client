@@ -43,7 +43,6 @@ function UI_RuneForge:initParentVariable()
     self.m_bUseExitBtn = true
     self.m_titleStr = nil
     self.m_invenType = 'rune'
-    self.m_subCurrency = 'rune_box'
     self.m_bShowInvenBtn = true 
 end
 
@@ -173,4 +172,12 @@ end
 -------------------------------------
 function UI_RuneForge:onChangeTab(tab, first)
     PARENT.onChangeTab(self, tab, first)
+
+    if (tab == 'gacha') then
+        self.m_subCurrency = 'rune_box'
+    else
+        self.m_subCurrency = 'amethyst'
+    end
+
+    self:init_after()
 end
