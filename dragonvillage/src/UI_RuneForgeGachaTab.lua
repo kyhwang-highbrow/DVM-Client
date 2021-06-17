@@ -245,7 +245,8 @@ function UI_RuneForgeGachaTab:subsequentSummons(gacha_result_ui, is_cash)
 
 	-- 다시하기 버튼 등록
     vars['againBtn']:registerScriptTapHandler(function()
-        self:requestSummon(t_egg_data, gacha_result_ui, true) -- is_again
+        gacha_result_ui:close()
+        self:request_runeGacha(is_cash)
     end)
 end
 
