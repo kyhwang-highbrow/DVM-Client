@@ -78,6 +78,8 @@ end
 function UI_GachaResult_Rune:initUI()
 	local vars = self.vars
     
+    -- 연출 조정
+    self:registerOpenNode('inventoryBtn')
     self:registerOpenNode('okBtn')
     
     vars['nameSprite']:setVisible(false)
@@ -102,25 +104,37 @@ function UI_GachaResult_Rune:initUI()
 
         if (is_combine) then
             vars['againBtn']:setVisible(false)
+            vars['diaNode']:setVisible(false)
 
         else
             local is_cash = self.m_type == 'cash'
             local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
             local cur_cash = g_userData:get('cash') or 0
             local rune_box_count = g_userData:get('rune_box') or 0
+            local icon_name = is_cash and 'cash' or 'rune_box'
             local can_loot_again
+
+            local remain_cash_icon = IconHelper:getIcon(string.format('res/ui/icons/item/%s.png', icon_name))
+            vars['iconNode']:removeAllChildren()
+            vars['iconNode']:addChild(remain_cash_icon)
+
+            self:registerOpenNode('itemNode')
 
             if (is_cash) then
                 can_loot_again = (cur_cash > 0 and cur_cash >= rune_gacha_cash)
+
+                vars['iconLabel']:setString(comma_value(cur_cash))
+
             else
                 can_loot_again = rune_box_count > 0
-            end
 
+                vars['iconLabel']:setString(comma_value(rune_box_count))
+
+            end
 
             if (can_loot_again) then
                 self:registerOpenNode('againBtn')
-                local icon_path = is_cash and 'cash' or 'rune_box'
-                local price_icon = IconHelper:getIcon(string.format('res/ui/icons/item/%s.png', icon_path))
+                local price_icon = IconHelper:getIcon(string.format('res/ui/icons/item/%s.png', icon_name))
                 local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
                 local price_count = is_cash and rune_gacha_cash or 1  
 
@@ -136,6 +150,7 @@ function UI_GachaResult_Rune:initUI()
         end
     end
 
+    self:refresh_inventoryLabel()
 
     if (vars['saleSprite']) then vars['saleSprite']:setVisible(false) end
     
@@ -189,6 +204,8 @@ function UI_GachaResult_Rune:initButton()
 	vars['okBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
     vars['againBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
+    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
+    
 end
 
 -------------------------------------
@@ -401,6 +418,21 @@ function UI_GachaResult_Rune:click_lockBtn(struct_rune_object)
 end
 
 -------------------------------------
+-- function click_inventoryBtn
+-- @brief 인벤 확장
+-------------------------------------
+function UI_GachaResult_Rune:click_inventoryBtn()
+    local item_type = 'rune'
+
+    local function finish_cb()
+        self:refresh_inventoryLabel()
+    end
+
+    g_inventoryData:extendInventory(item_type, finish_cb)
+end
+
+
+-------------------------------------
 -- function click_skipBtn
 -------------------------------------
 function UI_GachaResult_Rune:click_skipBtn()
@@ -510,4 +542,15 @@ function UI_GachaResult_Rune:registerOpenNode(lua_name)
 	if (node) then 
 		table.insert(self.m_hideUIList, node)
 	end
+end
+
+-------------------------------------
+-- function refresh_inventoryLabel
+-- @brief
+-------------------------------------
+function UI_GachaResult_Rune:refresh_inventoryLabel()
+    local vars = self.vars
+    local inven_count = g_inventoryData:getCount('rune')
+    local max_count = g_inventoryData:getMaxCount('rune')
+    vars['inventoryLabel']:setString(Str('{1}/{2}', inven_count, max_count))
 end

@@ -75,7 +75,7 @@ function ConfirmPrice_original(price_type, price_value)
 
         -- 캐시가 충분히 있는지 체크
         if (cash < price_value) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('cash') end)
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() UINavigatorDefinition:goTo('package_shop', 'diamond_shop') end)
             return false
         end
     elseif (price_type == 'gold') then
