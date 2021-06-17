@@ -220,7 +220,20 @@ function UI_RuneForgeGachaTab:click_infoBtn()
 end
 
 -------------------------------------
--- function refresh
+-- function subsequentSummons
+-- @brief 이어서 뽑기 설정
+-------------------------------------
+function UI_RuneForgeGachaTab:subsequentSummons(gacha_result_ui, is_cash)
+    local vars = gacha_result_ui.vars
+
+	-- 다시하기 버튼 등록
+    vars['againBtn']:registerScriptTapHandler(function()
+        self:requestSummon(t_egg_data, gacha_result_ui, true) -- is_again
+    end)
+end
+
+-------------------------------------
+-- function request_runeGacha
 -------------------------------------
 function UI_RuneForgeGachaTab:request_runeGacha(is_cash)
     -- 조건 체크
@@ -241,12 +254,15 @@ function UI_RuneForgeGachaTab:request_runeGacha(is_cash)
     end
 
     local function finish_cb(ret)
-		local gacha_type = 'rune_box'
+		local gacha_type = is_cash and 'cash' or 'rune_box'
         local l_rune_list = ret['runes']
 
         local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
         
         ui:setCloseCB(close_cb)
+
+        -- 이어서 뽑기 설정
+        self:subsequentSummons(ui, is_cash)
     end
     
     local is_bundle = true

@@ -79,7 +79,7 @@ function UI_GachaResult_Rune:initUI()
 	local vars = self.vars
     
     self:registerOpenNode('okBtn')
-
+    
     vars['nameSprite']:setVisible(false)
 
     -- 처음 진입 이펙트
@@ -96,6 +96,42 @@ function UI_GachaResult_Rune:initUI()
     -- 액션으로 움직일 UI 노드들 위치 저장
     self.m_tUIOriginPos['runeInfo'] = vars['runeInfo']:getPosition()
     self.m_tUIIsMoved['runeInfo'] = false
+
+    do -- 아이콘
+        local is_combine = self.m_type == 'combine'
+
+        if (is_combine) then
+            vars['againBtn']:setVisible(false)
+
+        else
+            local is_cash = self.m_type == 'cash'
+            local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
+            local cur_cash = g_userData:get('cash') or 0
+            local rune_box_count = g_userData:get('rune_box') or 0
+
+            local can_loot_again = is_cash and cur_cash > rune_gacha_cash or rune_box_count > 0
+
+            if (can_loot_again) then
+                self:registerOpenNode('againBtn')
+                local icon_path = is_cash and 'cash' or 'rune_box'
+                local price_icon = IconHelper:getIcon(string.format('res/ui/icons/item/%s.png', icon_path))
+                local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
+                local price_count = is_cash and rune_gacha_cash or 1  
+
+                price_icon:setScale(0.5)
+                vars['priceIconNode']:removeAllChildren()
+                vars['priceIconNode']:addChild(price_icon)
+
+                vars['priceLabel']:setString(comma_value(price_count))
+            else
+                vars['againBtn']:setVisible(false)
+
+            end
+        end
+    end
+
+
+    if (vars['saleSprite']) then vars['saleSprite']:setVisible(false) end
     
     local visibleSize = cc.Director:getInstance():getVisibleSize()
     
@@ -146,6 +182,7 @@ function UI_GachaResult_Rune:initButton()
 
 	vars['okBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
+    vars['againBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
 end
 
 -------------------------------------
@@ -428,6 +465,28 @@ function UI_GachaResult_Rune:click_closeBtn()
     else
         self:click_skipBtn()
     end
+end
+
+-------------------------------------
+-- function request_runeGacha
+-------------------------------------
+function UI_GachaResult_Rune:request_runeGacha(is_cash)
+    -- 조건 체크
+    local rune_box_count = g_userData:get('rune_box') or 0
+    if (rune_box_count <= 0) then
+        UIManager:toastNotificationRed(Str('룬 상자가 부족합니다.'))
+        return
+    end
+
+    local function finish_cb(ret)
+		local gacha_type = is_cash and 'cash' or 'rune_box'
+        local l_rune_list = ret['runes']
+
+        local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
+    end
+    
+    local is_bundle = true
+    g_runesData:request_runeGacha(is_bundle, is_cash, finish_cb, nil) -- param: is_bundle, finish_cb, fail_cb
 end
 
 -------------------------------------
