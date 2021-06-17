@@ -67,10 +67,12 @@ function UI_GoodsInfo:refresh()
         end 
     end
 
+
     -- 캐시 중인 숫자가 다를 경우만 호출 (임의로 탑바의 숫자를 변경하는 경우에 동작하는 것을 방지하기 위함)
     if (self.m_realNumber ~= value) then
+        local is_rune_box = goods_type == 'rune_box'
         self.m_realNumber = value
-        self.m_numberLabel:setNumber(value)
+        self.m_numberLabel:setNumber(value, is_rune_box)
     end
 end
 
