@@ -54,8 +54,20 @@ function UI_RuneForgeGachaTab:initUI()
     cca.pickMePickMe(vars['buyBtn'], 10)
 
     -- 이벤트!!!
-    vars['eventNode']:setVisible(true)
+    local is_diamond_event_active = g_hotTimeData:isActiveEvent('event_rune_gacha')
+    vars['eventNode']:setVisible(is_diamond_event_active)
+    vars['diaBtn']:setVisible(is_diamond_event_active)
 
+    if (is_diamond_event_active) then
+        vars['diaBtn']:registerScriptTapHandler(function() self:click_diamondGachaBtn() end)
+        vars['eventTimeLabel']:setString(g_hotTimeData:getEventRemainTimeTextDetail('event_rune_gacha'))
+
+    else
+        vars['gachaMenu']:setPositionX(0)
+        
+    end
+
+    -- 확률 2배 이벤트
     is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
     if is_active then
         if #l_ret then l_ret = l_ret[1] end
@@ -109,6 +121,7 @@ function UI_RuneForgeGachaTab:initUI()
         --local package_desc = struct_product:getProductDesc()
         --vars['dscLabel' .. i]:setString(package_desc)
     end]]
+
     local is_active 
     local value
     local l_ret 
@@ -120,7 +133,6 @@ function UI_RuneForgeGachaTab:initUI()
 
             
     vars['buyBtn']:registerScriptTapHandler(function() UI_Package_Bundle('package_rune_box', true) end)
-    vars['diaBtn']:registerScriptTapHandler(function() self:click_diamondGachaBtn() end)
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
