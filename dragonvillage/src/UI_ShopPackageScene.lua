@@ -103,6 +103,8 @@ function UI_ShopPackageScene:createButtonTableView(package_name)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(item_list, true)
 
+    table_view.m_scrollView:setTouchEnabled(false)
+
     self.m_tableView = table_view
 end
 
@@ -115,8 +117,8 @@ function UI_ShopPackageScene:createPackageScrollView()
     local content_size = self.vars['contentsListNode']:getContentSize()
 
     local scroll_view = cc.ScrollView:create()
-    scroll_view:setDockPoint(TOP_CENTER)
-    scroll_view:setAnchorPoint(TOP_CENTER)
+    scroll_view:setDockPoint(CENTER_POINT)
+    scroll_view:setAnchorPoint(CENTER_POINT)
     scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     scroll_view:setNormalSize(content_size)
     scroll_view:setContentSize(content_size)
@@ -228,8 +230,7 @@ function UI_PackageCategoryButton:createTableView()
         return 
     end
 
-    local gap = 10
-    local content_size
+    local margin = 10
     local init_pos_x
     local init_pos_y
     local product_num = #product_list
@@ -241,9 +242,11 @@ function UI_PackageCategoryButton:createTableView()
     else
         is_dock_center = false
     end
+    is_dock_center = false
 
     if (self.m_data['row_num'] ~= '') then
         row_num = tonumber(self.m_data['row_num'])
+        margin = 5
 
         if product_num < row_num then 
             row_num = product_num 
@@ -303,14 +306,14 @@ function UI_PackageCategoryButton:createTableView()
                     temp_y = (col_num) / 2 - 0.5
                 end
         
-                init_pos_x = -(gap + ui_size.width) * temp_x
-                init_pos_y = (gap + ui_size.height) * temp_y       
+                init_pos_x = -(margin + ui_size.width) * temp_x
+                init_pos_y = (margin + ui_size.height) * temp_y       
                 
                 ----------------------------------------------------------
                 local normal_width, normal_height =  self.m_scrollView:getNormalSize()
                 local content_size = self.m_scrollView:getContentSize()
-                local scrollview_width = row_num * ui_size.width + (row_num - 1) * gap
-                local scrollview_height = col_num * ui_size.height + (col_num - 1) * gap
+                local scrollview_width = row_num * ui_size.width + (row_num - 1) * margin
+                local scrollview_height = col_num * ui_size.height + (col_num - 1) * margin
 
                 local is_larger
                 if (self.m_scrollView:getDirection() == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
@@ -337,21 +340,10 @@ function UI_PackageCategoryButton:createTableView()
             local row = (index - 1) % row_num
             local col = math.floor((index - 1) / row_num)
             
-            local result_x = init_pos_x + row * (gap + ui_size.width)
-            local result_y = init_pos_y - col * (gap + ui_size.height)
+            local result_x = init_pos_x + row * (margin + ui_size.width)
+            local result_y = init_pos_y - col * (margin + ui_size.height)
 
             ui.root:setPosition(result_x, result_y)
-
         end
     end
 end
-
-
--- ----------------------------------------------------------------------
--- -- function createTableView
--- ----------------------------------------------------------------------
-
-
-
-
---UIC_ScrollView = class()
