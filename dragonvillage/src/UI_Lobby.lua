@@ -1713,7 +1713,7 @@ end
 -- @brief temp package shop button for season pass
 -------------------------------------
 function UI_Lobby:click_packageShopBtn()
-    UINavigator:goTo('package_shop_test')
+    UINavigator:goTo('package_shop')
 end
 
 -------------------------------------

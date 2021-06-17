@@ -79,7 +79,7 @@ end
 -- function click_packageTabBtn
 -------------------------------------
 function UI_Shop:click_packageTabBtn()
-    UINavigator:goTo('package_shop_test')
+    UINavigator:goTo('package_shop')
 end
 
 -------------------------------------

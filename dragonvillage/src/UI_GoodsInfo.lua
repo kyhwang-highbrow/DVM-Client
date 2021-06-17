@@ -155,7 +155,7 @@ function UI_GoodsInfo:click_chargeBtn()
     elseif (goods_type == 'gold') then
         UINavigatorDefinition:goTo('shop', 'gold')
     elseif (goods_type == 'cash') then
-        UINavigatorDefinition:goTo('package_shop_test', 'diamond_shop')
+        UINavigatorDefinition:goTo('package_shop', 'diamond_shop')
     elseif (goods_type == 'honor') then
         UINavigatorDefinition:goTo('shop', 'honor')
     elseif (goods_type == 'valor') then

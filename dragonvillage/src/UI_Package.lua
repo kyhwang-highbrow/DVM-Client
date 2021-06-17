@@ -61,6 +61,24 @@ function UI_Package:refresh()
     -- 성장 패키지는 개수만 표시
     local is_only_cnt = string.find(struct_product['sku'], 'growthpack')
 
+    -- 상품 이름
+    if vars['titleLabel'] and struct_product['t_name'] then
+        vars['titleLabel']:setString(struct_product['t_name'])
+    end
+
+    -- 보너스 상품 (mail_content의 마지막 아이템)
+    if vars['bonusNode'] and vars['itemNode'] then
+        local item = l_item_list[#l_item_list]
+        if item then
+            local icon = IconHelper:getItemIcon(item['item_id'], item['count'])
+
+            icon:setContentSize(vars['itemNode']:getContentSize())
+            vars['itemNode']:addChild(icon)
+        else
+            vars['bonusNode']:setVisible(false)
+        end
+    end
+
     -- 구성품
     if (l_item_list) then
         for idx, data in ipairs(l_item_list) do
@@ -76,6 +94,8 @@ function UI_Package:refresh()
             end
         end
     end
+
+    
 
     if vars['iconNode'] and (struct_product['icon'] ~= '') then
         local icon = struct_product:makeProductIcon()

@@ -435,7 +435,7 @@ function UI_EventPopup:click_packageTabBtn()
 			webview:setVisible(false)
 		end
 	end
-    UINavigator:goTo('package_shop_test')
+    UINavigator:goTo('package_shop')
 end
 
 -------------------------------------
