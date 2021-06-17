@@ -108,9 +108,9 @@ function UI_RuneForge:initTab(type, focus_id)
     self:addTabWithTabUIAndLabel('combine', vars['combineTabBtn'], vars['combineTabLabel'], combine_tab)    -- 조합
     self:addTabWithTabUIAndLabel('gacha', vars['gachaTabBtn'], vars['gachaTabLabel'], gacha_tab) -- 가챠
     
-    if g_fevertimeData:isActiveFevertime_runeGachaUp() then
-        vars['gachaEventSprite']:setVisible(true)
-    end
+    local has_gacha_event = g_fevertimeData:isActiveFevertime_runeGachaUp() or g_hotTimeData:isActiveEvent('event_rune_gacha')
+     
+    vars['gachaEventSprite']:setVisible(has_gacha_event)
 
     self:setTab(type)
 
