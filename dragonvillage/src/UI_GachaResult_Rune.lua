@@ -104,7 +104,7 @@ function UI_GachaResult_Rune:initUI()
 
         if (is_combine) then
             vars['againBtn']:setVisible(false)
-            vars['diaNode']:setVisible(false)
+            vars['iconNode']:setVisible(false)
 
         else
             local is_cash = self.m_type == 'cash'
