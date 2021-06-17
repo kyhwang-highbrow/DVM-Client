@@ -179,5 +179,5 @@ function UI_RuneForge:onChangeTab(tab, first)
         self.m_subCurrency = 'amethyst'
     end
 
-    self:init_after()
+    g_topUserInfo:setSubCurrency(self.m_subCurrency)
 end
