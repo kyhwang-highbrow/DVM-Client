@@ -53,12 +53,12 @@ end
 -------------------------------------
 function UI_Shop:initTab()
     local vars = self.vars
-    local l_shop = {'st', 'gold', 'cash', 'amethyst', 'topaz', 'mileage', 'honor', 'valor', 'clancoin'}
+    local l_shop = {'st', 'gold',  'amethyst', 'topaz', 'mileage', 'honor', 'valor', 'clancoin'}
     for _, tab in pairs(l_shop) do
         self:addTabWithTabUIAuto(tab, vars, UI_ShopTab(self, tab))
     end
  
-    self:setTab('cash')
+    self:setTab('st')
 end
 
 -------------------------------------
