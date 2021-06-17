@@ -109,7 +109,7 @@ function UI_GachaResult_Rune:initUI()
             local cur_cash = g_userData:get('cash') or 0
             local rune_box_count = g_userData:get('rune_box') or 0
 
-            local can_loot_again = is_cash and cur_cash > rune_gacha_cash or rune_box_count > 0
+            local can_loot_again = is_cash and (cur_cash > 0 and cur_cash >= rune_gacha_cash) or rune_box_count > 0
 
             if (can_loot_again) then
                 self:registerOpenNode('againBtn')
