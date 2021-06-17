@@ -374,7 +374,7 @@ end
 --        3. 지정된 상점 tab이 있을 경우 경우 tab 설정
 -------------------------------------
 function ServerData_Shop:openShopPopup(tab_type, close_cb)
-    self:ckechDirty()
+    self:checkDirty()
 
     local function cb_func()
         local ui_shop_popup = UI_Shop()
@@ -412,10 +412,10 @@ function ServerData_Shop:getBuyCount(product_id)
 end
 
 -------------------------------------
--- function ckechDirty
+-- function checkDirty
 -- @brief
 -------------------------------------
-function ServerData_Shop:ckechDirty()
+function ServerData_Shop:checkDirty()
     if self.m_bDirty then
         return
     end

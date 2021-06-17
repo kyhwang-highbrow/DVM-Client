@@ -25,9 +25,9 @@ function ServerData_AdventureClearPackage03:init(server_data)
 end
 
 -------------------------------------
--- function ckechDirty
+-- function checkDirty
 -------------------------------------
-function ServerData_AdventureClearPackage03:ckechDirty()
+function ServerData_AdventureClearPackage03:checkDirty()
     if self.m_bDirty then return end
 
     -- 만료 시간 체크 할 것!

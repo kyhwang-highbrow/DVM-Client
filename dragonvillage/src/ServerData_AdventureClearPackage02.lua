@@ -33,9 +33,9 @@ function ServerData_AdventureClearPackage02:isBattlePassProduct(product_id)
 end
 
 -------------------------------------
--- function ckechDirty
+-- function checkDirty
 -------------------------------------
-function ServerData_AdventureClearPackage02:ckechDirty()
+function ServerData_AdventureClearPackage02:checkDirty()
     if self.m_bDirty then
         return
     end

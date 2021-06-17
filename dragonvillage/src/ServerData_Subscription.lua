@@ -36,7 +36,7 @@ end
 --        2. 
 -------------------------------------
 function ServerData_Subscription:openSubscriptionPopup()
-    self:ckechDirty()
+    self:checkDirty()
 
     local function cb_func()
 
@@ -202,9 +202,9 @@ function ServerData_Subscription:response_dailyIngameDropInfo(ret)
     end
 end
 -------------------------------------
--- function ckechDirty
+-- function checkDirty
 -------------------------------------
-function ServerData_Subscription:ckechDirty()
+function ServerData_Subscription:checkDirty()
     if self.m_bDirty then
         return
     end

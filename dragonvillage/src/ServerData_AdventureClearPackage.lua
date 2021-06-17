@@ -34,9 +34,9 @@ end
 
 
 -------------------------------------
--- function ckechDirty
+-- function checkDirty
 -------------------------------------
-function ServerData_AdventureClearPackage:ckechDirty()
+function ServerData_AdventureClearPackage:checkDirty()
     if self.m_bDirty then
         return
     end
