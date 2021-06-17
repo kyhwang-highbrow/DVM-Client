@@ -306,10 +306,10 @@ end
 -------------------------------------
 function ServerData_Runes:request_runeGacha(is_bundle, is_cash, finish_cb, fail_cb)
     -- parameters
+    local is_cash = is_cash or false
     local uid = g_userData:get('uid')
     local item_id = 700651
-    local is_bundle = is_bundle or false
-    local is_cash = is_cash or false
+    local is_bundle = is_bundle and is_bundle or false
 
     -- 성공 콜백
     local function success_cb(ret)

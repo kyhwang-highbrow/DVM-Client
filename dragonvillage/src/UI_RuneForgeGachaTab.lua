@@ -191,6 +191,14 @@ end
 -- function click_gachaBtn
 -------------------------------------
 function UI_RuneForgeGachaTab:click_gachaBtn()
+    -- 조건 체크
+    local rune_box_count = g_userData:get('rune_box') or 0
+
+    if (rune_box_count <= 0) then
+        UIManager:toastNotificationRed(Str('룬 상자가 부족합니다.'))
+        return
+    end
+
     local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
     local item_key = 700651 -- 룬 10개 뽑기 상자
     local item_value = 1
@@ -203,6 +211,15 @@ end
 -- function click_diamondGachaBtn
 -------------------------------------
 function UI_RuneForgeGachaTab:click_diamondGachaBtn()
+    -- 조건 체크
+    local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
+    local cur_cash = g_userData:get('cash') or 0
+
+    if (cur_cash < rune_gacha_cash) then
+        UIManager:toastNotificationRed(Str('테이머님! 다이아가 부족합니다.'))
+        return
+    end
+
     local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
     local msg = Str('"{1}" 진행하시겠습니까?', Str('10회 뽑기'))
     local item_value = g_userData:get('rune_gacha_cash') or 0
@@ -236,13 +253,6 @@ end
 -- function request_runeGacha
 -------------------------------------
 function UI_RuneForgeGachaTab:request_runeGacha(is_cash)
-    -- 조건 체크
-    local rune_box_count = g_userData:get('rune_box') or 0
-    if (rune_box_count <= 0) then
-        UIManager:toastNotificationRed(Str('룬 상자가 부족합니다.'))
-        return
-    end
-    
     -- 룬 최대 보유 수량 체크
     if (not g_runesData:checkRuneGachaMaximum(10)) then
         return
