@@ -77,6 +77,13 @@ function UI_Package:refresh()
         end
     end
 
+    if vars['iconNode'] and (struct_product['icon'] ~= '') then
+        local icon = struct_product:makeProductIcon()
+        if icon then
+            vars['iconNode']:addChild(icon)
+        end
+    end
+
     if vars['itemLabel'] then
         vars['itemLabel']:setString(struct_product:getItemNameWithCount())
     end
