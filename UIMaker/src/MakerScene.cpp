@@ -2730,7 +2730,22 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Label* label, const ::google::
 				}
 			}
 		}
-
+		else if (field_name == "has_bold")
+		{
+			// @jslors 2021.06.17
+			// bold 처리는 cocos2d-x 3.172에 있는 Label의 enableBold와 동일하게 처리
+			entity_helper->enableBold(reflect->GetBool(msg, field));
+			if (entity_helper->isBold())
+			{
+				label->enableShadow(Color4B::WHITE, Size(0.9, 0), 0);
+				label->setAdditionalKerning(label->getAdditionalKerning() + 1);
+			}
+			else
+			{
+				label->disableEffect();
+				label->setAdditionalKerning(label->getAdditionalKerning() - 1);
+			}
+		}
 		else
 		{
 			CCLOG("%s - unknown field [%s]", __FUNCTION__, field_name.c_str());

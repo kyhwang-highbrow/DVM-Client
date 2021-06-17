@@ -321,6 +321,7 @@ message LabelTTF {
 	//optional float shadow_blur = 36 [default = 0];
 	
 	optional bool use_auto_fontsize = 41 [default = false];
+	optional bool has_bold = 42 [default = false];
 }
 
 message LabelBMFont {

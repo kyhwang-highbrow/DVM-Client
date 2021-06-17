@@ -98,6 +98,10 @@ public:
 	inline void setShadowOpacity(int v) { m_shadow_opacity = v; }
 	inline int getShadowOpacity() const { return m_shadow_opacity; }
 
+	//bold
+	inline bool isBold() const { return m_bold; }
+	inline void enableBold(bool v) { m_bold = v; }
+
 	inline void setProgressTimerType(int progress_timer_type) { m_progress_timer_type = progress_timer_type; }
 	inline int getProgressTimerType() const { return m_progress_timer_type; }
 	inline void setMidPoint(const cocos2d::Point& mid_point) { m_mid_point = mid_point; }
@@ -140,6 +144,7 @@ private:
 	int m_shadow_blur;
 	int m_shadow_direction;
 	int m_shadow_opacity;
+	bool m_bold;
 
 	// for ProgressTimer
 	int m_progress_timer_type;

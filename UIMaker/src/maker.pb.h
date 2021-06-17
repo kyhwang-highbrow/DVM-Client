@@ -2698,6 +2698,13 @@ class LabelTTF : public ::google::protobuf::Message {
   inline bool use_auto_fontsize() const;
   inline void set_use_auto_fontsize(bool value);
 
+  // optional bool has_bold = 42 [default = false];
+  inline bool has_has_bold() const;
+  inline void clear_has_bold();
+  static const int kHasBoldFieldNumber = 42;
+  inline bool has_bold() const;
+  inline void set_has_bold(bool value);
+
   // @@protoc_insertion_point(class_scope:maker.LabelTTF)
  private:
   inline void set_has_font_name();
@@ -2744,6 +2751,8 @@ class LabelTTF : public ::google::protobuf::Message {
   inline void clear_has_shadow_distance();
   inline void set_has_use_auto_fontsize();
   inline void clear_has_use_auto_fontsize();
+  inline void set_has_has_bold();
+  inline void clear_has_has_bold();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -2770,9 +2779,10 @@ class LabelTTF : public ::google::protobuf::Message {
   ::maker::COLOR* shadow_color_;
   int shadow_direction_;
   float shadow_distance_;
+  bool has_bold_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(22 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(23 + 31) / 32];
 
   friend void  protobuf_AddDesc_maker_2eproto();
   friend void protobuf_AssignDesc_maker_2eproto();
@@ -8215,6 +8225,28 @@ inline bool LabelTTF::use_auto_fontsize() const {
 inline void LabelTTF::set_use_auto_fontsize(bool value) {
   set_has_use_auto_fontsize();
   use_auto_fontsize_ = value;
+}
+
+// optional bool has_bold = 42 [default = false];
+inline bool LabelTTF::has_has_bold() const {
+  return (_has_bits_[0] & 0x00400000u) != 0;
+}
+inline void LabelTTF::set_has_has_bold() {
+  _has_bits_[0] |= 0x00400000u;
+}
+inline void LabelTTF::clear_has_has_bold() {
+  _has_bits_[0] &= ~0x00400000u;
+}
+inline void LabelTTF::clear_has_bold() {
+  has_bold_ = false;
+  clear_has_has_bold();
+}
+inline bool LabelTTF::has_bold() const {
+  return has_bold_;
+}
+inline void LabelTTF::set_has_bold(bool value) {
+  set_has_has_bold();
+  has_bold_ = value;
 }
 
 // -------------------------------------------------------------------
