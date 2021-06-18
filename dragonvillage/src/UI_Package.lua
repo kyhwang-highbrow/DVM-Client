@@ -166,6 +166,17 @@ function UI_Package:initButton(is_popup)
             vars['closeBtn']:setVisible(false)
         end
     end
+
+    if vars['quickBtn'] then
+        if (not is_popup) then
+            vars['quickBtn']:setVisible(true)
+            vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
+
+            cca.pickMePickMe(vars['quickBtn'], 10)
+        else
+            vars['quickBtn']:setVisible(false)
+        end
+    end
 end
 
 -------------------------------------
@@ -235,9 +246,20 @@ function UI_Package:click_closeBtn()
     self:close()
 end
 
+function UI_Package:click_quickBtn()
+    if (string.find(self.m_package_name, 'rune')) then
+        UINavigator:goTo('rune_forge', 'gacha')
+    elseif (self.m_package_name == 'package_super_slime_swarm') then
+        UINavigator:goTo('slime_combine')
+    end
+end
+
 -------------------------------------
 -- function setBuyCB
 -------------------------------------
 function UI_Package:setBuyCB(func)
     self.m_cbBuy = func
 end
+
+
+

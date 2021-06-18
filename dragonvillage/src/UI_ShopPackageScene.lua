@@ -103,8 +103,6 @@ function UI_ShopPackageScene:createButtonTableView(package_name)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(item_list, true)
 
-    table_view.m_scrollView:setTouchEnabled(false)
-
     self.m_tableView = table_view
 end
 
@@ -182,7 +180,7 @@ function UI_PackageCategoryButton:click_btn()
 
     local scroll_node
 
-    if (self.m_data['type'] == 'bundle') then
+    if (self.m_data['type'] == 'group') then
         scroll_node = self.m_parent.vars['contentsListNode']
         
     else
@@ -347,3 +345,4 @@ function UI_PackageCategoryButton:createTableView()
         end
     end
 end
+

@@ -599,6 +599,10 @@ function StructProduct:getPriceStr()
     if (price_type == 'advertising') then
         return Str('광고 보기')
     else
+        if (self:getPrice() == 0) then 
+            return Str('무료')
+        end
+
         if (price_type == 'money') then
 			local sku = self['sku']
 			local dicMarketPrice = g_shopDataNew.m_dicMarketPrice
