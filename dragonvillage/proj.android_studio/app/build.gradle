@@ -1,5 +1,7 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
+// In the asset pack’s build.gradle file:
+//apply plugin: 'com.android.asset-pack'
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 
@@ -23,6 +25,8 @@ task makeAsset(type: Exec) {
 // task android build
 android {
     println '[task android]'
+
+    ndkVersion "14.1.3816874" // e.g.,  ndkVersion "21.3.6528147"
 
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
     buildToolsVersion PROP_BUILD_TOOLS_VERSION
@@ -204,8 +208,8 @@ android {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
                     cppFlags.add("-DMAJOR_VER=NUM_0")
-                    cppFlags.add("-DMINOR_VER=NUM_7")
-                    cppFlags.add("-DBUILD_VER=NUM_7")
+                    cppFlags.add("-DMINOR_VER=NUM_8")
+                    cppFlags.add("-DBUILD_VER=NUM_0")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
