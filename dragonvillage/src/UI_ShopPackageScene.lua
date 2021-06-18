@@ -268,13 +268,17 @@ function UI_PackageCategoryButton:createTableView()
             col_num = 1
             ui = PackageManager:getTargetUI(package_name, false)
 
-        elseif (self.m_data['type'] == 'single') then            
-            ui = UI_Package(struct_product, false)
+        -- elseif (self.m_data['type'] == 'single') then
+        --     local product_list = {}
+        --     table.insert(product_list, struct_product)
+        --     ui = UI_Package(struct_product, false)
         else
-            local package_class = _G[struct_product['package_class']]
-        
-            if (not package_class) and (struct_product['package_class'] ~= '') and (not struct_product['package_class']) then
-                require(struct_product['package_class'])
+            local package_class
+
+            if struct_product['package_class'] and (struct_product['package_class'] ~= '')then
+                if (not _G[struct_product['package_class']]) then
+                    require(struct_product['package_class'])
+                end
                 package_class = _G[struct_product['package_class']]
             end
             
@@ -282,7 +286,17 @@ function UI_PackageCategoryButton:createTableView()
                 package_class = UI_Package
             end
 
-            ui = package_class(struct_product, false)
+            if (self.m_data['type'] == 'bundle') then
+                product_num = 1
+                row_num = 1
+                col_num = 1
+                if index > 1 then break end
+                ui = package_class(product_list, false)
+            else
+                local list = {}
+                table.insert(list, struct_product)
+                ui = package_class(list, false)
+            end
         end
 
         if ui then
@@ -345,4 +359,8 @@ function UI_PackageCategoryButton:createTableView()
         end
     end
 end
+
+
+
+
 

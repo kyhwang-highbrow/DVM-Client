@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_Package = class(PARENT, {
         m_structProduct = 'StructProduct',
+        m_productList = 'List[StructProduct]',
         m_isPopup = 'boolean',
         m_cbBuy = 'function',
      })
@@ -12,7 +13,17 @@ UI_Package = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package:init(struct_product, is_popup)
+function UI_Package:init(struct_product_list, is_popup)
+
+    if (not struct_product_list) 
+        or (type(struct_product_list) ~= 'table') 
+        or (#struct_product_list == 0) then
+
+            return
+    end
+
+    local struct_product = struct_product_list[1]
+
     local ui_name = struct_product and struct_product['package_res']
     if (not ui_name) then 
         return 
@@ -32,7 +43,7 @@ function UI_Package:init(struct_product, is_popup)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self.m_structProduct = struct_product
+    self.m_productList = struct_product_list
 
     self:initUI()
 	self:initButton(is_popup)
@@ -43,100 +54,125 @@ end
 -- function initUI
 -------------------------------------
 function UI_Package:initUI()
+    local vars = self.vars
+
+    -- 상품 이름
+    if vars['titleLabel'] then
+        local product_name = struct_product:getProductName()
+
+        if product_name then
+            vars['titleLabel']:setString(product_name)
+        end
+    end
+
+
 end
+
+-------------------------------------
+-- function initEachProduct
+-------------------------------------
+function UI_Package:initEachProduct(index, struct_product)
+    local vars = self.vars
+    local node
+
+    index = tostring(index)
+
+
+    local item_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
+
+    -- 상품 설명
+    node = vars['itemLabel' .. index] or vars['itemLabel']
+    if node then
+        node:setString(struct_product:getItemNameWithCount())
+    end
+
+    -- 구매 제한
+    node = vars['buyLabel' .. index] or vars['buyLabel']
+    if node then
+        local str = struct_product:getMaxBuyTermStr()
+        -- 구매 가능/불가능 텍스트 컬러 변경
+        local is_buy_all = struct_product:isBuyAll()
+        local color_key = is_buy_all and '{@impossible}' or '{@available}'
+        local rich_str = color_key .. str
+        node:setString(rich_str)
+        
+        -- 구매 불가능할 경우 '구매완료' 출력
+        node = vars['completeNode' .. index] or vars['completeNode']
+        if node then
+            node:setVisible(is_buy_all)
+        end
+    end
+
+    -- 가격
+    node = vars['priceLabel' .. index] or vars['priceLabel']
+    if node then
+        node:setString(struct_product:getPriceStr())
+    end
+
+    -- 구매 버튼
+    node = vars['buyBtn' .. index] or vars['buyBtn']
+    if node then
+        node:registerScriptTapHandler(function() self:click_buyBtn(tonumber(index)) end)
+    end
+
+    -- 재화 아이콘 버튼
+    node = vars['priceNode' .. index] or vars['priceNode']
+    if node then
+
+    end
+
+    -- 보너스 상품 (mail_content의 마지막 아이템)
+    node = vars['itemNode' .. index] or vars['itemNode']
+    if node and (vars['bonusNode' .. index] or vars['bonusNode']) then
+        local item = item_list[#item_list]
+        if item then
+            local icon = IconHelper:getItemIcon(item['item_id'], item['count'])
+
+            icon:setContentSize(node:getContentSize())
+            node:addChild(icon)
+        else
+            node = vars['bonusNode' .. index] or vars['bonusNode']
+            if node then
+                node:setVisible(false)
+            end
+        end
+    end
+
+    -- 아이콘 노드
+    node = vars['iconNode' .. index] or vars['iconNode']
+    if node and (struct_product['icon'] ~= '') then
+        local icon = struct_product:makeProductIcon()
+        if icon then
+            node:addChild(icon)
+        end
+    end
+end
+
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Package:refresh()
     local vars = self.vars
-	local struct_product = self.m_structProduct
+	local struct_product = self.m_productList[1]
 
     if (not struct_product) then
         return
     end
 
-    local l_item_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
-
-    -- 성장 패키지는 개수만 표시
-    local is_only_cnt = string.find(struct_product['sku'], 'growthpack')
-
-    -- 상품 이름
-    if vars['titleLabel'] and struct_product['t_name'] then
-        vars['titleLabel']:setString(struct_product['t_name'])
+    for index, struct_product in ipairs(self.m_productList) do 
+        self:initEachProduct(index, struct_product)
     end
 
-    -- 보너스 상품 (mail_content의 마지막 아이템)
-    if vars['bonusNode'] and vars['itemNode'] then
-        local item = l_item_list[#l_item_list]
-        if item then
-            local icon = IconHelper:getItemIcon(item['item_id'], item['count'])
 
-            icon:setContentSize(vars['itemNode']:getContentSize())
-            vars['itemNode']:addChild(icon)
+    -- 판매 종료까지 남은 시간
+    if vars['timeLabel'] then 
+        local end_date = struct_product:getEndDateStr()
+
+        if end_date then
+            vars['timeLabel']:setString(end_date)
         else
-            vars['bonusNode']:setVisible(false)
-        end
-    end
-
-    -- 구성품
-    if (l_item_list) then
-        for idx, data in ipairs(l_item_list) do
-            
-            local name = TableItem:getItemName(data['item_id'])
-            local cnt = data['count']
-
-            local str = (is_only_cnt) and Str('{1}개', comma_value(cnt)) or Str('{1}\n{2}개', name, comma_value(cnt))
-
-            local label = vars['itemLabel'..idx]
-            if (label) then
-                label:setString(str)
-            end
-        end
-    end
-
-    
-
-    if vars['iconNode'] and (struct_product['icon'] ~= '') then
-        local icon = struct_product:makeProductIcon()
-        if icon then
-            vars['iconNode']:addChild(icon)
-        end
-    end
-
-    if vars['itemLabel'] then
-        vars['itemLabel']:setString(struct_product:getItemNameWithCount())
-    end
-
-    -- 구매 제한
-    if vars['buyLabel'] then
-        local str = struct_product:getMaxBuyTermStr()
-        -- 구매 가능/불가능 텍스트 컬러 변경
-        local is_buy_all = struct_product:isBuyAll()
-        local color_key = is_buy_all and '{@impossible}' or '{@available}'
-        local rich_str = color_key .. str
-        vars['buyLabel']:setString(rich_str)
-        
-        -- 구매 불가능할 경우 '구매완료' 출력
-        if (vars['completeNode']) then
-            vars['completeNode']:setVisible(is_buy_all)
-        end
-    end
-	
-    -- 가격
-    if vars['priceLabel'] then
-	    local price = struct_product:getPriceStr()
-        vars['priceLabel']:setString(price)
-    end
-
-    -- 판매종료시간 있는 경우 표시
-    local time_label = vars['timeLabel']
-    local end_date = struct_product:getEndDateStr()
-    if (time_label) then
-        if (end_date) then
-            time_label:setString(end_date)
-        else    
-            time_label:setString('')
+            vars['timeLabel']:setString('')
         end
     end
 end
@@ -146,27 +182,23 @@ end
 -------------------------------------
 function UI_Package:initButton(is_popup)
 	local vars = self.vars
-    if (vars['buyBtn']) then
-        vars['buyBtn']:getParent():setSwallowTouch(false)
-        vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
-    end
-
+    
+    -- 닫기 버튼
     if (vars['closeBtn']) then
-	    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    end
-
-    if vars['contractBtn'] then
-        vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
-    end
-	if (vars['rewardBtn']) then
-		vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
-	end
-    if (not is_popup) then
-        if (vars['closeBtn']) then
+        if (not is_popup) then
             vars['closeBtn']:setVisible(false)
+        else
+            vars['closeBtn']:setVisible(true)
+	        vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
         end
     end
 
+    -- 청약철회 버튼
+    if vars['contractBtn'] then
+        vars['contractBtn']:registerScriptTapHandler(function() self:click_contractBtn() end)
+    end
+
+    -- 바로가기 버튼
     if vars['quickBtn'] then
         if (not is_popup) then
             vars['quickBtn']:setVisible(true)
@@ -177,13 +209,23 @@ function UI_Package:initButton(is_popup)
             vars['quickBtn']:setVisible(false)
         end
     end
+
+
+    
+    if (vars['buyBtn']) then
+        vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    end
+
+	if (vars['rewardBtn']) then
+		vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+	end
 end
 
 -------------------------------------
 -- function click_buyBtn
 -------------------------------------
-function UI_Package:click_buyBtn()
-	local struct_product = self.m_structProduct
+function UI_Package:click_buyBtn(index)
+	local struct_product = self.m_productList[index or 1]
 
 	local function cb_func(ret)
         if (self.m_cbBuy) then
@@ -207,9 +249,9 @@ function UI_Package:click_buyBtn()
 end
 
 -------------------------------------
--- function click_infoBtn
+-- function click_contractBtn
 -------------------------------------
-function UI_Package:click_infoBtn()
+function UI_Package:click_contractBtn()
     GoToAgreeMentUrl()
 end
 
@@ -219,7 +261,7 @@ end
 -- @comment 만원의 행복 용으로 추가됨. package_lucky_box.ui
 -------------------------------------
 function UI_Package:click_rewardBtn()
-	local struct_product = self.m_structProduct
+	local struct_product = self.m_productList[1]
 
     if (not struct_product) then
         return
