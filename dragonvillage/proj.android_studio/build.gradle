@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // @mskim 현재 3.4.x 만 사용 가능함
-        classpath "com.android.tools.build:gradle:3.4.3"
+        classpath 'com.android.tools.build:gradle:4.1.1'
         // @firebase
         classpath "com.google.gms:google-services:4.3.4"
         // @crashlytics

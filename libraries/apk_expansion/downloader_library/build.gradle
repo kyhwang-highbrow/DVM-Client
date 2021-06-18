@@ -4,6 +4,9 @@ android {
     compileSdkVersion 19
     buildToolsVersion PROP_BUILD_TOOLS_VERSION
 
+    // gradle version 바뀌면서 apache 없어짐
+    useLibrary 'org.apache.http.legacy'
+
     defaultConfig {
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION

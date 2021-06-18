@@ -3,7 +3,9 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 # DragonVillageM
-LOCAL_MODULE := cocos2dlua_shared
+# @sgkim 2021.03.16 cocos2dlua_shared -> cocos2dlua로 변경함
+# Android Gradle Plugin Version 3.4.3 -> 4.1.1 업그레이드의 사이드 이펙트
+LOCAL_MODULE := cocos2dlua
 
 LOCAL_MODULE_FILENAME := libcocos2dlua
 
