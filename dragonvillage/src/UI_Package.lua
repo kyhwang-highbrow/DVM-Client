@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_Package
 -------------------------------------
 UI_Package = class(PARENT, {
+
         m_structProduct = 'StructProduct',
         m_productList = 'List[StructProduct]',
         m_isPopup = 'boolean',
@@ -14,7 +15,6 @@ UI_Package = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_Package:init(struct_product_list, is_popup)
-
     if (not struct_product_list) 
         or (type(struct_product_list) ~= 'table') 
         or (#struct_product_list == 0) then
@@ -23,6 +23,7 @@ function UI_Package:init(struct_product_list, is_popup)
     end
 
     local struct_product = struct_product_list[1]
+    self.m_structProduct = struct_product
 
     local ui_name = struct_product and struct_product['package_res']
     if (not ui_name) then 

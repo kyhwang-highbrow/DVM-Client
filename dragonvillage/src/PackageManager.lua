@@ -31,38 +31,84 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
         return nil
     end
 
+    
+
+
     -- 레벨업 패키지 UI
     if (_package_name == 'package_levelup') then
         local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_PRODUCT_ID)
-        target_ui = UI_Package_LevelUp(_struct_product, is_popup)
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_LevelUp(list, is_popup)
     
     -- 레벨업 패키지2 UI
     elseif (_package_name == 'package_levelup_02') then
         local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_2_PRODUCT_ID)
-        target_ui = UI_Package_LevelUp_02(_struct_product, is_popup)
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_LevelUp_02(list, is_popup)
 
     -- 레벨업 패키지3 UI
     elseif (_package_name == 'package_levelup_03') then
         local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_3_PRODUCT_ID)
-        target_ui = UI_Package_LevelUp_03(_struct_product, is_popup)
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_LevelUp_03(list, is_popup)
 
     -- 모험돌파 패키지 UI
     elseif (_package_name == 'package_adventure_clear') then
         local _struct_product = g_shopDataNew:getAdventureClearProduct()
-        target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_AdventureClear(list, is_popup)
     
     -- 모험돌파 패키지2 UI
     elseif (_package_name == 'package_adventure_clear_02') then
         local _struct_product = g_shopDataNew:getAdventureClearProduct02()
         require('UI_Package_AdventureClear02')
-        target_ui = UI_Package_AdventureClear02(_struct_product, is_popup)
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_AdventureClear02(list, is_popup)
 
     -- 모험돌파 패키지3 UI
     elseif (_package_name == 'package_adventure_clear_03') then
         local _struct_product = g_shopDataNew:getAdventureClearProduct03()
         require('UI_Package_AdventureClear03')
-        target_ui = UI_Package_AdventureClear03(_struct_product, is_popup)
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_AdventureClear03(list, is_popup)
 
+    -- 육성패스 
+    elseif string.find(_package_name, 'battle_pass') then
+        local pid
+        if product_id then
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
+            pid = tonumber(pid_strs[1])
+        end
+        local _struct_product = g_shopDataNew:getTargetProduct(pid)
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_BattlePass_Nurture(list, is_popup)
+
+    -- 차원문 돌파 패키지
+    elseif string.find(_package_name, 'package_dmgate') and (not g_contentLockData:isContentLock('dmgate')) then
+        require('UI_Package_Dmgate')
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local _struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_Dmgate(list, is_popup)
+        
     -- 시험의 탑 정복선물 패키지
     elseif (_package_name == 'package_attr_tower') then
         require('UI_Package_AttrTowerPopup')
@@ -141,34 +187,6 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
     elseif (_package_name == 'package_supply') then
         require('UI_SupplyDepot')
         target_ui = UI_SupplyDepot(_package_name, is_popup)
-
-    -- 육성패스 
-    elseif string.find(_package_name, 'battle_pass') then
-        local pid
-        if product_id then
-            pid = product_id
-        else
-            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
-            pid = tonumber(pid_strs[1])
-        end
-        local _struct_product = g_shopDataNew:getTargetProduct(pid)
-        
-        target_ui = UI_BattlePass_Nurture(_struct_product, is_popup)
-
-    -- 차원문 돌파 패키지
-    elseif string.find(_package_name, 'package_dmgate') and (not g_contentLockData:isContentLock('dmgate')) then
-        require('UI_Package_Dmgate')
-        local pid
-        if product_id then 
-            pid = product_id
-        else
-            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
-
-            pid = pid_strs[1]
-        end
-
-        local _struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
-        target_ui = UI_Package_Dmgate(_struct_product, is_popup)
 
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
