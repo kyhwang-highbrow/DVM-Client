@@ -1,7 +1,5 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
-// In the asset pack’s build.gradle file:
-//apply plugin: 'com.android.asset-pack'
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 
@@ -26,7 +24,9 @@ task makeAsset(type: Exec) {
 android {
     println '[task android]'
 
-    ndkVersion "14.1.3816874" // e.g.,  ndkVersion "21.3.6528147"
+    ndkVersion '16.1.4479499' // e.g.,  ndkVersion "21.3.6528147"
+
+    //assetPacks = [":dragonvillagem_asset"]
 
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
     buildToolsVersion PROP_BUILD_TOOLS_VERSION
@@ -44,7 +44,7 @@ android {
                 if (!project.hasProperty("PROP_NDK_MODE") || PROP_NDK_MODE.compareTo('none') != 0) {
                     targets 'cocos2dlua'
 
-                    // NDK r14b 사용
+                    // NDK r16b 사용
                     arguments 'NDK_TOOLCHAIN_VERSION=4.9'
 
                     // Android-21 미만 기기에서 실행하기 위함

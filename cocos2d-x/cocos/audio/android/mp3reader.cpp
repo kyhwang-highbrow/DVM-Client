@@ -28,10 +28,10 @@
 
 #define LOG_TAG "mp3reader"
 
-#include <stdlib.h>
-#include <assert.h>
-#include <stdint.h>
-#include <string>
+#include <cstdlib>
+#include <cassert>
+#include <cstdint>
+#include <cstring>
 #include <vector>
 #include "audio/android/cutils/log.h"
 
