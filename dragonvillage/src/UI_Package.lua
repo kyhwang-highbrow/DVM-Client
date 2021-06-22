@@ -56,6 +56,7 @@ end
 -------------------------------------
 function UI_Package:initUI()
     local vars = self.vars
+    local struct_product = self.m_productList[1]
 
     -- 상품 이름
     if vars['titleLabel'] then
