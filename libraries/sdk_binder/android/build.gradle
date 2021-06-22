@@ -34,10 +34,10 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // @google
-    implementation 'com.google.android.gms:play-services-auth:18.1.0'
-    implementation 'com.google.android.gms:play-services-games:20.0.1'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-games:21.0.0'
     implementation 'com.google.android.gms:play-services-analytics:17.0.0'
-    implementation 'com.android.installreferrer:installreferrer:2.1'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
 
     // Import the Firebase BoM
     // BoM에서 알아서 호환되는 각각의 버전을 import 해준다.

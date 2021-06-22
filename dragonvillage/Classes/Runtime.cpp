@@ -812,7 +812,7 @@ public:
                 dReplyParse.Accept(writer);
                 const char *str = buffer.GetString();
                 char msgSize[64] = { 0x1, 0 };
-                sprintf(msgSize + 1, "%d:", strlen(str));
+                sprintf(msgSize + 1, "%zu:", strlen(str));
                 string replymsg(msgSize);
                 replymsg.append(str);
                 send(fd, replymsg.c_str(), replymsg.size(), 0);
