@@ -40,6 +40,7 @@ class PerpleCrashlytics() {
                         FirebaseCrashlytics.getInstance().sendUnsentReports()
                     }
 
+                    PerpleLog.d(LOG_TAG, "Activity :: ${activity.packageName}")
                     PerpleLog.d(LOG_TAG, "Has unsent reports :: $hasUnsentReports")
                 }
             }

@@ -131,7 +131,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
 
         // payload 예시 : {"validation_key":"2f6c1cee-e342-4111-922e-cba414b61ac9","price":3300,"uid":"vYajsn96lsMa8PxvFP4VQBlexWi2","product_id":82001,"sku":"dvm_cash2_3k"}
         val payLoad = JSONObject(payload)
-        mUid = payLoad.get("uid")?.toString() ?: ""
+        mUid = payLoad.get("uid").toString() ?: ""
 
         // 100byte의 제한때문에 필수로 필요한 validation_key, product_id만 사용한다.
         val payloadDev = JSONObject()
@@ -139,6 +139,11 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
         val product_id = payLoad.get("product_id")
         payloadDev.put("validation_key", validation_key)
         payloadDev.put("product_id", product_id)
+
+        if (isSubscription) {
+            payloadDev.put("is_subscription", isSubscription)
+        }
+
         mDeveloperPayload = payloadDev
     }
 
