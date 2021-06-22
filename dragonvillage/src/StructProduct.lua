@@ -775,7 +775,7 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
     end
     -- 2018-11-23 구매 팝업 안뜨는 옵션 추가
     -- 여러개 고르는 기능을 제공하는 팝업이 없으니 해당 옵션은 묶음 구매 아닌 상품만 이용
-    if (no_popup) then
+    if no_popup or (self:getPrice() == 0) then
         ok_cb()
         return
     end

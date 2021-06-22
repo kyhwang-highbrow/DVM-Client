@@ -162,8 +162,16 @@ function UI_Package:refresh()
         return
     end
 
+    local is_noti_visible = false
+
     for index, struct_product in ipairs(self.m_productList) do 
         self:initEachProduct(index, struct_product)
+
+        is_noti_visible = (struct_product:getPrice() == 0) and (struct_product:isBuyable())
+    end
+
+    if self.vars['notiSprite'] then 
+        self.vars['notiSprite']:setVisible(is_noti_visible)
     end
 
 
@@ -177,6 +185,8 @@ function UI_Package:refresh()
             vars['timeLabel']:setString('')
         end
     end
+
+    
 end
 
 -------------------------------------

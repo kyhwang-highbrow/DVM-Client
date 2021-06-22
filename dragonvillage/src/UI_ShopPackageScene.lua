@@ -8,6 +8,9 @@ UI_ShopPackageScene = class(PARENT, {
     m_targetButton = 'UIC_Button',
 })
 
+----------------------------------------------------------------------
+-- function initParentVariable
+----------------------------------------------------------------------
 function UI_ShopPackageScene:initParentVariable()
     self.m_uiName = 'UI_ShopPackageScene'
     self.m_titleStr = Str('패키지')
@@ -16,6 +19,9 @@ function UI_ShopPackageScene:initParentVariable()
 end
 
 
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
 function UI_ShopPackageScene:init(package_name)
     local vars = self:load('shop_package.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -30,6 +36,9 @@ function UI_ShopPackageScene:init(package_name)
     self:refresh()
 end
 
+----------------------------------------------------------------------
+-- function initUI
+----------------------------------------------------------------------
 function UI_ShopPackageScene:initUI(package_name)
     local vars = self.vars
 
@@ -38,10 +47,16 @@ function UI_ShopPackageScene:initUI(package_name)
     self:createButtonTableView(package_name)
 end
 
+----------------------------------------------------------------------
+-- function initButton
+----------------------------------------------------------------------
 function UI_ShopPackageScene:initButton()
 
 end
 
+----------------------------------------------------------------------
+-- function refresh
+----------------------------------------------------------------------
 function UI_ShopPackageScene:refresh()
 
     if (not self.m_targetButton) then
@@ -94,6 +109,8 @@ function UI_ShopPackageScene:createButtonTableView(package_name)
         if (data['t_name'] == package_name) then
             self.m_targetButton = ui
         end
+
+        ui:refresh()
     end
 
     local table_view = UIC_TableView(self.vars['listNode'])
@@ -125,15 +142,12 @@ function UI_ShopPackageScene:createPackageScrollView()
     self.m_scrollView = scroll_view
 end
 
+----------------------------------------------------------------------
+-- function click_exitBtn
+----------------------------------------------------------------------
 function UI_ShopPackageScene:click_exitBtn()
     self:close()
 end
-
-
-
-
-
-
 
 
 
@@ -148,6 +162,9 @@ UI_PackageCategoryButton = class(class(UI, ITableViewCell:getCloneTable()), {
     m_parent = '',
 })
 
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
 function UI_PackageCategoryButton:init(data)
     self.m_data = data
     local vars = self:load('shop_package_list.ui')
@@ -166,10 +183,27 @@ function UI_PackageCategoryButton:init(data)
 end
 
 
+----------------------------------------------------------------------
+-- function refresh
+----------------------------------------------------------------------
+function UI_PackageCategoryButton:refresh()
+    local is_noti_visible = false
+    for index, struct_product in pairs(self.m_data['struct_product']) do
+        if (struct_product:getPrice() == 0) and (struct_product:isBuyable()) then
+            is_noti_visible = true
+        end
+    end
 
--- ----------------------------------------------------------------------
--- -- function click_btn
--- ----------------------------------------------------------------------
+    if self.vars['notiSprite'] then
+        self.vars['notiSprite']:setVisible(is_noti_visible)
+    end
+end
+
+
+
+----------------------------------------------------------------------
+-- function click_btn
+----------------------------------------------------------------------
 function UI_PackageCategoryButton:click_btn()
     local vars = self.vars
 
@@ -300,6 +334,8 @@ function UI_PackageCategoryButton:createTableView()
         end
 
         if ui then
+            ui:setBuyCB(function() self:refresh() end)
+
             local ui_size = ui.root:getChildren()[1]:getContentSize()
 
             if (index == 1) then
