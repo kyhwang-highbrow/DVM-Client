@@ -689,7 +689,7 @@ end
 -- function isPaymentProduct
 -------------------------------------
 function StructProduct:isPaymentProduct()
-    if self['sku'] and (self['sku'] ~= '') then
+    if self['sku'] and (self['sku'] ~= '') and self:getPrice() > 0 then
         return true
     end
 
