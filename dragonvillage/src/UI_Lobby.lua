@@ -2289,7 +2289,19 @@ function UI_Lobby:update_rightButtons()
 
     do -- 패키지 상점  
         vars['cashShopBtn']:setVisible(true)
-        vars['cashShopNotiSprite']:setVisible(false)
+
+        local package_list = g_shopDataNew:getActivatedPackageList()
+
+        local is_noti_visible = false
+        for _, data in ipairs(package_list) do
+            for _, struct_product in ipairs(data['product_list']) do
+                if (struct_product:getPrice() == 0) and (struct_product:isItBuyable()) then
+                    is_noti_visible = true
+                end
+            end
+        end
+        
+        vars['cashShopNotiSprite']:setVisible(is_noti_visible)
     end
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {}

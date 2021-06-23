@@ -28,6 +28,7 @@ StructProduct = class(PARENT, {
 		-- package 용
 		banner_res = 'string',
 		package_res = 'string',
+        package_res_2 = 'string',
 		package_frame_type = 'number',
 
         package_class = 'string',

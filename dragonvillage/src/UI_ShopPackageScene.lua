@@ -73,32 +73,7 @@ end
 function UI_ShopPackageScene:createButtonTableView(package_name)
     local packBundleTable = TABLE:get('table_package_bundle')
 
-    local item_list = {}
-
-    for index = #packBundleTable, 1, -1 do
-    --for index, data in pairs(packBundleTable) do
-        local data = packBundleTable[index]
-        local pid_list = pl.stringx.split(data['t_pids'], ',')
-        local struct_list = {}
-        for _, product_id in pairs(pid_list) do
-            struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
-
-            if struct_product and (struct_product['m_tabCategory'] == 'package') then
-                if (data['t_name'] == 'package_daily') then
-                    if (not g_contentLockData:isContentLock('daily_shop')) then
-                        table.insert(struct_list, struct_product)
-                    end
-                elseif struct_product:isItBuyable() then
-                    table.insert(struct_list, struct_product)
-                end
-            end
-        end
-
-        if #struct_list > 0 then
-            data['struct_product'] = struct_list
-            table.insert(item_list, data)
-        end
-    end
+    local item_list = g_shopDataNew:getActivatedPackageList()
  
     local create_func = function(ui, data)
         ui.vars['listLabel']:setString(Str(data['t_desc']))
@@ -172,7 +147,7 @@ function UI_PackageCategoryButton:init(data)
     vars['listBtn']:registerScriptTapHandler(function() self:click_btn() end)
 
     
-    local product_list = self.m_data['struct_product']
+    local product_list = self.m_data['product_list']
 
     if #product_list > 1 then
         local badge = product_list[1]:makeBadgeIcon()
@@ -188,8 +163,8 @@ end
 ----------------------------------------------------------------------
 function UI_PackageCategoryButton:refresh()
     local is_noti_visible = false
-    for index, struct_product in pairs(self.m_data['struct_product']) do
-        if (struct_product:getPrice() == 0) and (struct_product:isBuyable()) then
+    for index, struct_product in pairs(self.m_data['product_list']) do
+        if (struct_product:getPrice() == 0) and (struct_product:isItBuyable()) then
             is_noti_visible = true
         end
     end
@@ -253,7 +228,7 @@ end
 function UI_PackageCategoryButton:createTableView()
     local vars = self.vars
 
-    local product_list = self.m_data['struct_product']
+    local product_list = self.m_data['product_list']
     local container = self.m_scrollView:getContainer()
 
     if container then 
@@ -325,16 +300,40 @@ function UI_PackageCategoryButton:createTableView()
                 row_num = 1
                 col_num = 1
                 if index > 1 then break end
-                ui = package_class(product_list, false)
+                ui = package_class(product_list, false, self.m_data['t_name'])
             else
                 local list = {}
                 table.insert(list, struct_product)
-                ui = package_class(list, false)
+                ui = package_class(list, false, self.m_data['t_name'])
             end
         end
 
+        local function test(obj, name)
+            local pObj = getmetatable(obj)
+
+            while(pObj ~= nil) do
+                if rawget(pObj, name) ~= nil then
+                    return true
+                end
+                pObj = rawget(pObj, 'def') and rawget(pObj, 'def') or rawget(pObj, 'super')
+            end
+
+            return false
+        end
+
         if ui then
-            ui:setBuyCB(function() self:refresh() end)
+            if test(ui, 'setBuyCB') then
+                ui:setBuyCB(function() self:refresh() end)
+            end
+            -- ccdump(ui.setBuyCB)
+            -- ccdump(ui['setBuyCB'])
+            -- ccdump(getmetatable(ui))
+            -- ccdump(rawget(ui, 'setBuyCB'))
+            -- ccdump(rawget(ui, '__index'))
+            
+            -- if ui.setBuyCB then
+            --    ui:setBuyCB(function() self:refresh() end)
+            -- end
 
             local ui_size = ui.root:getChildren()[1]:getContentSize()
 
@@ -395,8 +394,4 @@ function UI_PackageCategoryButton:createTableView()
         end
     end
 end
-
-
-
-
 

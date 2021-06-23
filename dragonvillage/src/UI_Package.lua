@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_Package
 -------------------------------------
 UI_Package = class(PARENT, {
-
+        m_package_name = 'string',
         m_structProduct = 'StructProduct',
         m_productList = 'List[StructProduct]',
         m_isPopup = 'boolean',
@@ -14,18 +14,28 @@ UI_Package = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package:init(struct_product_list, is_popup)
+function UI_Package:init(struct_product_list, is_popup, package_name)
     if (not struct_product_list) 
         or (type(struct_product_list) ~= 'table') 
         or (#struct_product_list == 0) then
 
             return
     end
+    self.m_package_name = package_name
 
     local struct_product = struct_product_list[1]
+
+    if (not struct_product) then return end
+
     self.m_structProduct = struct_product
 
-    local ui_name = struct_product and struct_product['package_res']
+    local ui_name
+    if is_popup and (not struct_product['package_res_2']) and (struct_product['package_res_2'] ~= '') then
+        ui_name = struct_product['package_res_2']
+    else
+        ui_name = struct_product['package_res']
+    end
+
     if (not ui_name) then 
         return 
     end
@@ -108,8 +118,20 @@ function UI_Package:initEachProduct(index, struct_product)
     -- 가격
     node = vars['priceLabel' .. index] or vars['priceLabel']
     if node then
-        node:setString(struct_product:getPriceStr())
+
+        if (struct_product:getPrice() ~= 0) then
+            node:setString(struct_product:getPriceStr())
+        else -- 상품이 무료인 경우 system font가 아닌 ttf font 적용
+            node:setString('')
+
+            node = vars['freeLabel' .. index] or vars['freeLabel']
+            if node then
+                node:setVisible(true)
+            end
+        end
     end
+
+
 
     -- 구매 버튼
     node = vars['buyBtn' .. index] or vars['buyBtn']
@@ -167,7 +189,7 @@ function UI_Package:refresh()
     for index, struct_product in ipairs(self.m_productList) do 
         self:initEachProduct(index, struct_product)
 
-        is_noti_visible = (struct_product:getPrice() == 0) and (struct_product:isBuyable())
+        is_noti_visible = (struct_product:getPrice() == 0) and (struct_product:isItBuyable())
     end
 
     if self.vars['notiSprite'] then 

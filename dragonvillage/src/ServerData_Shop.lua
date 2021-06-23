@@ -1311,3 +1311,46 @@ function ServerData_Shop:isOnTimePackage(pid_list)
     end
     return is_on_time   
 end
+
+
+-------------------------------------
+-- function getActivatedPackageList
+-- @brief 구매 가능한 상품 리스트
+-------------------------------------
+function ServerData_Shop:getActivatedPackageList()
+    local packages = TABLE:get('table_package_bundle')
+    local package_list = {}
+
+    -- csv 파일의 하단에 오는 상품이 제일 위에 노출되도록 reverse order
+    for index = #packages, 1, -1 do
+        local data = packages[index]
+        local pid_list = pl.stringx.split(data['t_pids'], ',')
+        local product_list = {}
+
+        -- 카테고리 별로 등록된 pid 리스트
+        for _, product_id in pairs(pid_list) do
+            local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
+
+            -- pid에 해당하는 상품이 있고, 그것이 패키지 상품인 경우
+            if struct_product and (struct_product:getTabCategory() == 'package') then
+                -- TODO (YJK_210622) : isItBuyable으로 체크할지 말지 table_shop_list에서 상품별로 체크하도록
+                -- 상품 구매 횟수 체크
+                if (struct_product:isItBuyable()) or (data['t_name'] == 'package_daily') then
+                    table.insert(product_list, struct_product)
+                end
+            end
+        end
+
+        -- 카테고리에 포함된 상품이 하나라도 있으면
+        if (#product_list > 0) then
+            data['product_list'] = product_list
+            table.insert(package_list, data)
+        end
+    end
+
+    return package_list
+end
+
+
+
+
