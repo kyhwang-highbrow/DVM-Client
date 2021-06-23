@@ -780,7 +780,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
             UI_HacheryPickupBtnPopup(self, t_egg_data['name'], item_value, msg, ok_btn_cb, cancel_btn_cb)
 
         else
-            msg = Str('{@YELLOW}땅/물/불{@DEFAULT} 속성과 {@YELLOW}빛/어둠{@DEFAULT} 속성의 드래곤을 모두 선택해야 확률 UP 고급소환을 진행할 수 있습니다.')
+            msg = Str('{@YELLOW}땅/물/불{@DEFAULT} 속성과 {@YELLOW}빛/어둠{@DEFAULT} 속성의 드래곤을 모두 선택해야 확률 UP 고급 소환을 진행할 수 있습니다.')
             MakeSimplePopup(POPUP_TYPE.OK, msg)
 
         end
