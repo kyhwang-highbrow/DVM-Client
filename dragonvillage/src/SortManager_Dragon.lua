@@ -28,8 +28,8 @@ function SortManager_Dragon:init()
 
     -- 드래곤 타입별 레벨 (한정, 카드팩, 이벤트)
     self.m_mTypeSortLevel = {}
-    self.m_mTypeSortLevel['limited'] = 1
-    self.m_mTypeSortLevel['cardpack'] = 2
+    self.m_mTypeSortLevel['cardpack'] = 1
+    self.m_mTypeSortLevel['limited'] = 2
     self.m_mTypeSortLevel['event'] = 3
     self.m_mTypeSortLevel['none'] = 4
 
@@ -547,11 +547,11 @@ function SortManager_Dragon:sort_dragon_type(a, b, ascending)
     local b_order = self.m_mTypeSortLevel[b_value] or 99
 
     -- 같을 경우 리턴
-    if (a_value == b_value) then return nil end
+    if (a_order == b_order) then return nil end
 
     -- 오름차순 or 내림차순
-    if ascending then return a_value > b_value
-    else              return a_value < b_value
+    if ascending then return a_order > b_order
+    else              return a_order < b_order
     end
 end
 
