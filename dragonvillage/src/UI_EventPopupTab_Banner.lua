@@ -53,7 +53,7 @@ function UI_EventPopupTab_Banner:init_customUI()
 
     -- 드래곤 히어로즈 택틱스 크로스 프로모션
     -- 드빌 뉴 크로스 프로모션
-    if (banner == 'event_dht_promotion.ui' or banner == 'event_cross_promotion.ui') then
+    if (banner == 'event_dht_promotion.ui') or (string.find(banner, 'event_cross_promotion')) then
 
         -- 공지로 이동
         --[[
@@ -63,11 +63,12 @@ function UI_EventPopupTab_Banner:init_customUI()
                     NaverCafeManager:naverCafeStartWithArticleByKey(article_key)
                 end)
         end]]
-        
+        local url = struct_banner_data['url']
+
         -- 게임으로 이동 (구글 플레이 or 앱스토어)
         if vars['gameLinkBtn'] then
             vars['gameLinkBtn']:registerScriptTapHandler(function()
-                    SDKManager:goToWeb('https://www.highbrow-inc.com/register-dvn')
+                    SDKManager:goToWeb(url)
                 end)
         end
 
