@@ -857,6 +857,8 @@ function ServerData_Shop:getTargetProduct(product_id)
     return nil
 end
 
+
+
 -------------------------------------
 -- function getLevelUpPackageProduct
 -- @brief 레벨업 패키지 상품 정보
@@ -1349,6 +1351,24 @@ function ServerData_Shop:getActivatedPackageList()
     end
 
     return package_list
+end
+
+-------------------------------------
+-- function getTargetPackage
+-- @brief table_package_bundle의 t_name과 같은 패키지 정보를 찾아 리턴
+-------------------------------------
+function ServerData_Shop:getTargetPackage(package_name)
+    if (not package_name) then return nil end
+
+    local packages = self:getActivatedPackageList()
+
+    for _, data in pairs(packages) do
+        if (data['t_name'] == package_name) then
+            return data
+        end
+    end
+
+    return nil
 end
 
 

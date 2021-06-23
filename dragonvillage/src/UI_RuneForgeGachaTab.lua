@@ -131,8 +131,14 @@ function UI_RuneForgeGachaTab:initUI()
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
     end
 
-            
-    vars['buyBtn']:registerScriptTapHandler(function() UI_Package_Bundle('package_rune_box', true) end)
+    --package_rune_box
+    local package_rune = g_shopDataNew:getTargetPackage('package_rune_box')
+
+    if package_rune then
+        vars['buyBtn']:registerScriptTapHandler(function() UI_Package(package_rune['product_list'], true) end)
+    else
+        vars['buyBtn']:setVisible(false)
+    end
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
