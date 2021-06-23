@@ -95,7 +95,11 @@ function UI_Package:initEachProduct(index, struct_product)
     -- 상품 설명
     node = vars['itemLabel' .. index] or vars['itemLabel']
     if node then
-        node:setString(struct_product:getItemNameWithCount())
+        if (not struct_product['use_desc']) or (struct_product['use_desc'] == '') then
+            node:setString(struct_product:getItemNameWithCount())
+        else
+            node:setString(struct_product:getDesc())
+        end
     end
 
     -- 구매 제한
