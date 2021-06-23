@@ -113,8 +113,7 @@ function UI_DragonUpgrade:initButton()
     local vars = self.vars
 
     vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
-    
-    vars['buyBtn']:setVisible(false)
+
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     cca.pickMePickMe(vars['buyBtn'], 10)
 
@@ -128,9 +127,7 @@ function UI_DragonUpgrade:setBuyBtn()
     local vars = self.vars
 
     local buy_btn_visible = self:isBuyBtnVisible()
-    --vars['buyBtn']:setVisible(buy_btn_visible)
-    -- 210609 : 해당 상품 ui 변경으로 인해 임시로 해당 버튼 숨김 처리
-    vars['buyBtn']:setVisible(false)
+    vars['buyBtn']:setVisible(buy_btn_visible)
 end
 
 -------------------------------------
@@ -535,7 +532,8 @@ end
 -------------------------------------
 function UI_DragonUpgrade:click_buyBtn()
     local struct_product = self.m_updatePackageStruct
-	local ui = UI_Package(struct_product, true) -- is_popup
+    
+	local ui = UI_Package({struct_product}, true) -- is_popup
 
 	-- @mskim 익명 함수를 사용하여 가독성을 높이는 경우라고 생각..!
 	-- 구매 후 간이 우편함 출력

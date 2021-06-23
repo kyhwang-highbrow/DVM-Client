@@ -177,8 +177,8 @@ function UI_DragonEvolution:refresh()
 
 	-- 패키지 구매 유도
     -- 210609 : 해당 상품 삭제로 인해 안보이도록 임시 처리
-    vars['buyBtn']:setVisible(false)
-	--vars['buyBtn']:setVisible(self:isPackageBuyable())
+
+	vars['buyBtn']:setVisible(self:isPackageBuyable())
 end
 
 -------------------------------------
@@ -588,7 +588,7 @@ end
 -------------------------------------
 function UI_DragonEvolution:click_buyBtn()
 	local struct_product = self.m_evolutionPackageStruct
-	local ui = UI_Package(struct_product, true) -- is_popup
+	local ui = UI_Package({struct_product}, true) -- is_popup
 
 	-- @mskim 익명 함수를 사용하여 가독성을 높이는 경우라고 생각..!
 	-- 구매 후 간이 우편함 출력

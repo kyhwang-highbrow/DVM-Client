@@ -30,7 +30,7 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     self.m_structProduct = struct_product
 
     local ui_name
-    if is_popup and (not struct_product['package_res_2']) and (struct_product['package_res_2'] ~= '') then
+    if is_popup and (struct_product['package_res_2']) and (struct_product['package_res_2'] ~= '') then
         ui_name = struct_product['package_res_2']
     else
         ui_name = struct_product['package_res']
