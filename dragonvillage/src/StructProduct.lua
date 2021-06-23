@@ -409,7 +409,10 @@ function StructProduct:getItemNameWithCount()
     local item_table = TableItem()
     local result = ''
     for _, item in pairs(item_list) do
-        result = result .. '\n' .. Str('{1} {2}개', item_table:getItemName(item['item_id']), comma_value(item['count']))
+        if (result ~= '') then
+            result = result .. '\n'
+        end
+        result = result .. Str('{1} {2}개', item_table:getItemName(item['item_id']), comma_value(item['count']))
     end
 
     return result
