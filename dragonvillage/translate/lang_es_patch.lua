@@ -46,7 +46,7 @@ return {['강력한 물의 기운을 뿜어내어 적에게 피해를 줍니다.
 ['익사해라!']='¡Ahogar!',
 ['일일 무료']='Diariamente Gratis',
 ['일일 선물']='Regalo diario',
-['일정 시간마다 생명력이 가장 낮은 적을 공격합니다.\n이 공격은 자신의 공격력에 {1}% 보너스를 받습니다.']='Ataca periódicamente al enemigo con el menor HP.\nEste ataque se realiza con un ATQ {1}% más alto.',
+['일정 시간마다 생명력이 가장 낮은 적을 공격합니다.\n이 공격은 자신의 공격력에 {1}% 보너스를 받습니다.\n이 스킬은 전투 시작 시 부터 발동됩니다.']='Ataca periódicamente al enemigo con el menor HP.\nEste ataque se realiza con un ATQ {1}% más alto.\nEste ataque se activa al comenzar la batalla.',
 ['적이 사망할 때 [심해의 응징] 스킬이 즉시 발동되며,\n{1}% 확률로 {2}초간 자신의 공격력을 증가시킵니다.']='Activa instantáneamente la habilidad [Castigo en aguas profundas] cuando un enemigo muere,\ncon un {1}% de probabilidad de aumentar su ATQ durante {2} s.',
 ['전설 강화 패키지']='Paquete de mejora legendario',
 ['전설 스킬 패키지']='Paquete de habilidades legendarias',
