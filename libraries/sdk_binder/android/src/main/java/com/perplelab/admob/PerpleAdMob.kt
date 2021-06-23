@@ -1,6 +1,7 @@
 package com.perplelab.admob
 
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener
 import com.perplelab.PerpleLog
 import com.perplelab.PerpleSDK
 
@@ -19,7 +20,8 @@ class PerpleAdMob(appId: String) {
 
     init {
         PerpleLog.d(LOG_TAG, "Initializing AdMob")
-        MobileAds.initialize(PerpleSDK.getInstance().mainActivity, appId)
+
+        MobileAds.initialize(PerpleSDK.getInstance().mainActivity)
     }
 
     fun initRewardedVideoAd() {
