@@ -7,6 +7,7 @@ StructProduct = class(PARENT, {
         product_id = 'number',
         t_name = 'string',
         t_desc = 'string',
+        use_desc = 'number', -- '' or 1
 
         price_type = 'string',
         price = 'number',
