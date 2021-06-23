@@ -1594,6 +1594,8 @@ end
 function UINavigatorDefinition:goTo_package_shop(...)
     local args = {...}
     local initial_tab = args[1]
+    
+    local close_cb = (type(args[2]) == 'function') and args[2]
 
     require('UI_ShopPackageScene')
 
@@ -1606,7 +1608,11 @@ function UINavigatorDefinition:goTo_package_shop(...)
     end
 
     local function finish_cb()
-        UI_ShopPackageScene(initial_tab)
+        local ui = UI_ShopPackageScene(initial_tab)
+
+        if close_cb then
+            ui:setCloseCB(close_cb)
+        end
     end
 
     g_shopDataNew:request_shopInfo(finish_cb)

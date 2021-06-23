@@ -65,7 +65,8 @@ function UI_EventPopupTab_PurchaseDaily:initUI(is_full_popup)
         local ui_today_reward = UI()
         ui_today_reward:load('event_purchase_daily_item_02.ui')
         ui_today_reward.vars['shopBtn']:registerScriptTapHandler(function()
-            g_shopDataNew:openShopPopup(nil, function() self:refresh() end)
+            UINavigatorDefinition:goTo('package_shop', nil, function() self:refresh() end)
+            --g_shopDataNew:openShopPopup(nil, function() self:refresh() end)
         end)
 
         if (is_full_popup == true) then

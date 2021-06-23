@@ -104,7 +104,7 @@ function UI_ContentOpenPopup:click_lickBtn()
     local content_name = self.m_content_type
 	if (content_name == 'daily_shop') then
 		--UINavigator:goTo('shop_daily', true) -- content_name, is_popup
-        UINavigator:goTo('package_shop_test', 'package_daily')
+        UINavigator:goTo('package_shop', 'package_daily')
 	else
 		-- 바로가기
 		UINavigator:goTo(content_name)
