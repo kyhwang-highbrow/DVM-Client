@@ -64,6 +64,10 @@ function UI_ShopPackageScene:refresh()
         self.m_targetButton = item['ui'] or item['generated_ui']
     end
     self.m_targetButton:click_btn()
+
+    local index = self.m_targetButton:getCellIndex()
+    
+    self.m_tableView:relocateContainerFromIndex(index)
 end
 
 
@@ -308,7 +312,7 @@ function UI_PackageCategoryButton:createTableView()
             end
         end
 
-        local function test(obj, name)
+        local function checkMemberInMetatable(obj, name)
             local pObj = getmetatable(obj)
 
             while(pObj ~= nil) do
@@ -322,18 +326,9 @@ function UI_PackageCategoryButton:createTableView()
         end
 
         if ui then
-            if test(ui, 'setBuyCB') then
+            if checkMemberInMetatable(ui, 'setBuyCB') then
                 ui:setBuyCB(function() self:refresh() end)
             end
-            -- ccdump(ui.setBuyCB)
-            -- ccdump(ui['setBuyCB'])
-            -- ccdump(getmetatable(ui))
-            -- ccdump(rawget(ui, 'setBuyCB'))
-            -- ccdump(rawget(ui, '__index'))
-            
-            -- if ui.setBuyCB then
-            --    ui:setBuyCB(function() self:refresh() end)
-            -- end
 
             local ui_size = ui.root:getChildren()[1]:getContentSize()
 
@@ -394,4 +389,5 @@ function UI_PackageCategoryButton:createTableView()
         end
     end
 end
+
 

@@ -289,6 +289,12 @@ function UIC_TableView:_updateCellPositions()
             end
 
             self.m_itemList[i]['idx'] = i
+            local ui = self.m_itemList[i]['ui'] or self.m_itemList[i]['generated_ui']
+            
+            if ui then
+                ui:setCellIndex(i)
+            end
+ 
         end
         self._vCellsPositions[cellsCount + 1] = currentPos;--1 extra value allows us to get right/bottom of the last cell
     end
@@ -802,7 +808,7 @@ function UIC_TableView:setItemList(list, make_item)
 
         -- UI를 미리 생성
         if make_item then
-            t_item['generated_ui'] = self:makeItemUI(data, key)
+            t_item['generated_ui'] = self:makeItemUI(data)
             t_item['generated_ui'].root:setVisible(false)
         end
 
@@ -836,7 +842,7 @@ function UIC_TableView:setItemList3(list, sort_func)
         local idx = #self.m_itemList + 1
 
         -- UI를 미리 생성
-        t_item['ui'] = self:makeItemUI(data, key)
+        t_item['ui'] = self:makeItemUI(data)
 
         -- 리스트에 추가
         table.insert(self.m_itemList, t_item)
@@ -881,7 +887,7 @@ function UIC_TableView:CreateCellUIClass(id, num, isPreload)
         t_item['data'] = data
 
         if (isPreload) then
-            t_item['ui'] = self:makeItemUI(data, i)
+            t_item['ui'] = self:makeItemUI(data)
         end
         
         table.insert(self.m_itemList, t_item)
@@ -940,7 +946,7 @@ end
 function UIC_TableView:makeAllItemUINoAction()
     for i,item in ipairs(self.m_itemList) do
         if (not item['ui']) then
-            item['ui'] = self:makeItemUI(item['data'], i)
+            item['ui'] = self:makeItemUI(item['data'])
             
             -- 생성 예약 리스트에서 삭제
             for i, v in ipairs(self.m_makeReserveQueue) do
@@ -1188,8 +1194,8 @@ end
 -------------------------------------
 -- function makeItemUI
 -------------------------------------
-function UIC_TableView:makeItemUI(data, key)
-    local ui = self.m_cellUIClass(data, key)
+function UIC_TableView:makeItemUI(data)
+    local ui = self.m_cellUIClass(data)
     ui:setTableView(self)
     ui.root:setSwallowTouch(false)
     if ui.vars['swallowTouchMenu'] then

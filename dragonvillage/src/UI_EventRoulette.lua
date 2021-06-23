@@ -625,11 +625,10 @@ UI_EventRouletteRewardItem = class(class(UI, ITableViewCell:getCloneTable()), {
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_EventRouletteRewardItem:init(data, key)
-    self.m_key = key
+function UI_EventRouletteRewardItem:init(data)
     local vars = self:load('event_roulette_item.ui')
 
-    local icon = g_eventRouletteData:getIcon(key, true)
+    local icon = g_eventRouletteData:getIcon(self:getCellIndex(), true)
 
     vars['itemNode']:addChild(icon)
 

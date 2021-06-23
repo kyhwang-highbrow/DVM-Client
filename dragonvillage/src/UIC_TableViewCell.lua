@@ -13,6 +13,7 @@ TAG_CELL_MOVE_TO_FORCE = 10004
 ITableViewCell = {
         root = 'cc.Node',
         vars = 'table',
+        m_cellIndex = 'number',
         m_cellSize = 'cc.size',
         m_bOrgCellVisible = 'boolean',
         m_cellVisibleRefCnt = 'number',
@@ -30,6 +31,20 @@ function ITableViewCell:init()
     -- TableView에서 cell의 visible상태를 관리하기 위한 변수들
     self.m_bOrgCellVisible = true
     self.m_cellVisibleRefCnt = 0
+end
+
+-------------------------------------
+-- function setCellIndex
+-------------------------------------
+function ITableViewCell:setCellIndex(index)
+    self.m_cellIndex = index
+end
+
+-------------------------------------
+-- function getCellIndex
+-------------------------------------
+function ITableViewCell:getCellIndex()
+    return self.m_cellIndex
 end
 
 -------------------------------------
