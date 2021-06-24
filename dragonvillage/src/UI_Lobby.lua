@@ -2656,7 +2656,8 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
-    if (not vars['banner_appcollaboration'] and g_localData:isKoreaServer()) then
+    -- 한쿡 혹은 아메리카 서버이면 보여주는걸로 함
+    if (not vars['banner_appcollaboration']) and (g_localData:isKoreaServer() or g_localData:isAmericaServer()) then
         local collabo_banner = UI_BannerAppCollaboration()
         vars['bannerMenu']:addChild(collabo_banner.root)
         collabo_banner.root:setDockPoint(TOP_RIGHT)
