@@ -222,7 +222,7 @@ function UI_RuneForgeGachaTab:click_diamondGachaBtn()
     local cur_cash = g_userData:get('cash') or 0
 
     if (cur_cash < rune_gacha_cash) then
-        UIManager:toastNotificationRed(Str('테이머님! 다이아가 부족합니다.'))
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() UINavigatorDefinition:goTo('package_shop', 'diamond_shop') end)
         return
     end
 
