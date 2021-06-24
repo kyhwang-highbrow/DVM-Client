@@ -432,7 +432,7 @@ function UI_Network:statusHandler(ret)
     local shop_tab = S_ERROR_STATUS_SHOP[status]
     if (error_str) then
         if (shop_tab) then
-            self:makeShopPopup(Str(error_str).. Str('\n\n상점으로 이동하시겠습니까??'), ret, shop_tab)
+            self:makeShopPopup(Str(error_str).. Str('\n\n상점으로 이동하시겠습니까?'), ret, shop_tab)
         else
             self:makeCommonPopup(Str(error_str))
         end
@@ -535,8 +535,16 @@ end
 -------------------------------------
 function UI_Network:makeShopPopup(msg, ret, type)
     self:close()
+
     local function cb()
-        g_shopDataNew:openShopPopup(type)
+        if (type == 'cash') then
+            UINavigatorDefinition:goTo('package_shop', 'diamond_shop')
+
+        else
+            g_shopDataNew:openShopPopup(type)
+
+        end
+
     end
     
     MakeNetworkPopup(POPUP_TYPE.YES_NO, msg, cb)
