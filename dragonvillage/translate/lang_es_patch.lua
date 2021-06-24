@@ -62,7 +62,7 @@ return {['강력한 물의 기운을 뿜어내어 적에게 피해를 줍니다.
 ['사전예약 신청']='Pre Register NOW!',
 ['-드래그 스킬 안내-\n\n잘하는데?! 다크닉스에게 지속피해가 걸렸어. 최대 생명력에 비례해서 주는 피해이기 때문에 보스전에 아주 유용해.']='-Guía de uso de la Habilidad de Arrastre-\n\n¡Qué bien lo haces! Has infringido daño continuo a Darknix. Usarlo contra jefes es útil ya que infringe daño de acuerdo al máximo de la Vida de dicho enemigo.',
 ['마지막으로 중요한 사실을 알려드릴께요!\n1챕터의 7스테이지를 완료하면 고급 소환 10회를 무료로 제공한다고 합니다!']='Por último, déjame decirte algo importante. \n¡Completa la etapa 7 del capítulo 1 y podrás usar la invocación avanzada 10 veces gratis!',
-['이제 멋진 드래곤들과 함께 드래곤빌리지의 세계로 자유롭게 여행을 떠날 시간입니다! \n테이머님의 행운을 빕니다. ']='¡Es hora de viajar por el increíble mundo de Dragon Village junto a fantásticos dragones! \n¡Domador, buena suerte en las batallas!',
+['이제 멋진 드래곤들과 함께 드래곤빌리지의 세계로 자유롭게 여행을 떠날 시간입니다! \n테이머님의 행운을 빕니다.']='¡Es hora de viajar por el increíble mundo de Dragon Village junto a fantásticos dragones! \n¡Domador, buena suerte en las batallas!',
 ['축하 드립니다. 10회 무료 고급 소환권을 획득하였습니다. 지금 바로 소환을 진행해볼까요?']='Enhorabuena, ha obtenido un ticket de invocación avanzada gratuito (x10). ¿Cómo te gustaría usarlo ahora?',
 ['10회 고급소환을 진행합니다. 고급 소환 버튼을 클릭해주세요.']='Juega Invocación avanzada 10 veces. Toca Invocación avanzada.',
 ['4등급 자룡, 4등급 시타엘, 4등급 수라드래곤 필요']='Requiere Jaryong de rango 4, Citael de rango 4, y Dragón Sura de rango 4',
