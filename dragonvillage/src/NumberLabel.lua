@@ -47,6 +47,7 @@ end
 -------------------------------------
 function NumberLabel:setNumber(number, immediately)
     if (self.m_number == number) then
+        self.m_label:setString(self.getNumberStr(self.m_number))
         return
     end
 	-- setNumber 예외처리
@@ -57,8 +58,8 @@ function NumberLabel:setNumber(number, immediately)
 
     local prev_number = self.m_number
     local curr_number = number
-    self.m_number = number
 
+    self.m_number = number
     self.m_label:stopAllActions()
 
     -- 숫자 변화
