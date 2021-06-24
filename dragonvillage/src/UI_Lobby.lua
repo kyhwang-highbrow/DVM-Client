@@ -2657,12 +2657,29 @@ function UI_Lobby:refresh_rightBanner()
     end
 
     -- 한쿡 혹은 아메리카 서버이면 보여주는걸로 함
-    if (not vars['banner_appcollaboration']) and (g_localData:isKoreaServer() or g_localData:isAmericaServer()) then
-        local collabo_banner = UI_BannerAppCollaboration()
-        vars['bannerMenu']:addChild(collabo_banner.root)
-        collabo_banner.root:setDockPoint(TOP_RIGHT)
-        collabo_banner.root:setAnchorPoint(TOP_RIGHT)
-        vars['banner_appcollaboration'] = collabo_banner
+    if (not vars['banner_appcollaboration']) and (g_eventData.m_eventList) then
+        local event_list = g_eventData:getEventPopupTabList()
+        local event_data
+
+        for i, v in pairs(event_list) do
+            if (v.m_eventData['banner'] == 'event_cross_promotion.ui') then
+                if (g_localData:isKoreaServer() and v.m_eventData['target_server'] == 'Korea') then
+                    event_data = v
+                    break
+                elseif (g_localData:isAmericaServer() and v.m_eventData['target_server'] == 'America') then
+                    event_data = v
+                    break
+                end
+            end
+        end
+
+        if (event_data) then
+            local collabo_banner = UI_BannerAppCollaboration(event_data)
+            vars['bannerMenu']:addChild(collabo_banner.root)
+            collabo_banner.root:setDockPoint(TOP_RIGHT)
+            collabo_banner.root:setAnchorPoint(TOP_RIGHT)
+            vars['banner_appcollaboration'] = collabo_banner
+        end
     end
 
     self:onRefresh_banner()
