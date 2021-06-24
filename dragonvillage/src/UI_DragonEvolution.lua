@@ -627,6 +627,10 @@ function UI_DragonEvolution:isPackageBuyable()
 	local pid = T_EVOLUTION_PACKAGE_ID_TABLE[rarity][attr]
 	local struct_product = g_shopDataNew:getProduct('package', pid)
 
+    if (not struct_product) then
+        return false
+    end
+
 	-- 구매할때 쓰기 위해서 따로 저장
 	self.m_evolutionPackageStruct = struct_product
 
