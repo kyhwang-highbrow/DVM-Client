@@ -564,10 +564,11 @@ end
 function ServerData_Event:isHighlightEvent()
     local b_highlight = false
 
-    if (g_accessTimeData:hasReward()) then
-        b_highlight = true
+    -- 2021-06-24 접속 시간 보상은 더이상 필요가 없음
+    --if (g_accessTimeData:hasReward()) then
+    --    b_highlight = true
 
-	elseif (g_highlightData:isHighlighDailyMissionClan()) then
+	if (g_highlightData:isHighlighDailyMissionClan()) then
 		b_highlight = true
 
     -- 누적 결제 보상 이벤트의 보상이 있을 경우
