@@ -119,7 +119,14 @@ end
 function UI_BannerAppCollaboration:click_bannerBtn()
     -- 주의 :: 따라하지 마시오
     --g_fullPopupManager:showFullPopup('event_dvnew_collaboration;event_cross_promotion.ui')
-    SDKManager:goToWeb('https://www.highbrow-inc.com/register-dvn')
+    local event_name = 'event_cross_promotion'
+    local url = 'https://bit.ly/3gCjRm8'
+
+    if (g_localData:isAmericaServer()) then
+        url = 'https://bit.ly/3zr71zI'
+    end
+
+    SDKManager:goToWeb(url)
 end
 
 
