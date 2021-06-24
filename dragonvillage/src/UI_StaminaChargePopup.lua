@@ -228,7 +228,7 @@ function UI_StaminaChargePopup:click_purchaseBtn()
     
     -- 구매 가능한지 검사    
     if (total_price > user_cash) then
-        UIManager:toastNotificationRed(Str('다이아몬드가 부족합니다.'))
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() UINavigatorDefinition:goTo('package_shop', 'diamond_shop') end)
         return
     end
 

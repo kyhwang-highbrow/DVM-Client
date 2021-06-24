@@ -226,9 +226,9 @@ function UI_PackageCategoryButton:click_btn()
     end
 end
 
--- ----------------------------------------------------------------------
--- -- function createTableView
--- ----------------------------------------------------------------------
+----------------------------------------------------------------------
+-- function createTableView
+----------------------------------------------------------------------
 function UI_PackageCategoryButton:createTableView()
     local vars = self.vars
 
@@ -281,10 +281,6 @@ function UI_PackageCategoryButton:createTableView()
             col_num = 1
             ui = PackageManager:getTargetUI(package_name, false)
 
-        -- elseif (self.m_data['type'] == 'single') then
-        --     local product_list = {}
-        --     table.insert(product_list, struct_product)
-        --     ui = UI_Package(struct_product, false)
         else
             local package_class
 
@@ -312,21 +308,8 @@ function UI_PackageCategoryButton:createTableView()
             end
         end
 
-        local function checkMemberInMetatable(obj, name)
-            local pObj = getmetatable(obj)
-
-            while(pObj ~= nil) do
-                if rawget(pObj, name) ~= nil then
-                    return true
-                end
-                pObj = rawget(pObj, 'def') and rawget(pObj, 'def') or rawget(pObj, 'super')
-            end
-
-            return false
-        end
-
         if ui then
-            if checkMemberInMetatable(ui, 'setBuyCB') then
+            if isInstanceOf(ui, 'setBuyCB') then
                 ui:setBuyCB(function() self:refresh() end)
             end
 
