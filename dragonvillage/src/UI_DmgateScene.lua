@@ -387,7 +387,7 @@ end
 -- brief 시즌 효과 버튼 팝업
 ----------------------------------------------------------------------------
 function UI_DmgateScene:click_packageBtn(struct_product)
-    local ui = UI_Package_Dmgate(struct_product, true) 
+    local ui = UI_Package_Dmgate({struct_product}, true) 
 
 
     ui:setCloseCB(function() 
