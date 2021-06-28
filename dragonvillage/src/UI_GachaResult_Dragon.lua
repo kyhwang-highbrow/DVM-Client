@@ -359,7 +359,8 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             end
 
             -- 연출 이후 드래곤 카드 visible, button on
-            local card = self.m_lDragonCardList[t_dragon_data]
+            local doid = t_dragon_data:getObjectId()
+            local card = self.m_lDragonCardList[doid]
             
             if (card) then
                 card.root:setVisible(true)
@@ -373,8 +374,8 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
                 
                 -- 잠금
                 self.vars['lockMenu']:setVisible(true)
-                self.m_selectedDragonData = t_dragon_data
-                self:setLockSprite(t_dragon_data:getLock())
+                self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(t_dragon_data:getObjectId())
+                self:setLockSprite(self.m_selectedDragonData:getLock())
                     
                 -- 중복 클릭을 방지하기 위해 막았던 버튼을 풀어줌
                 vars['okBtn']:setEnabled(true)
@@ -503,16 +504,26 @@ function UI_GachaResult_Dragon:setDragonCardList()
         -- 카드 클릭시 드래곤을 보여준다.
         card.vars['clickBtn']:registerScriptTapHandler(function()
             if (not self.m_isDirecting) then
-                self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(t_data:getObjectId())
-                self:refresh_dragon(self.m_selectedDragonData)
-                self:setLockSprite(self.m_selectedDragonData:getLock())
+                local refreshed_data = g_dragonsData:getDragonDataFromUid(t_data:getObjectId())
+
+                card.m_dragonData = refreshed_data
+                card:refresh_Lock()
+
+                self:refresh_dragon(refreshed_data)
+                
+                self:setLockSprite(refreshed_data:getLock())
+
+    
                 self.m_currDragonAnimator:forceSkipDirecting()
+                
+                self.m_selectedDragonData = refreshed_data
             end
         end)
         card.vars['clickBtn']:setEnabled(false)
 
         -- 리스트에 저장 (연출을 위해)
-        self.m_lDragonCardList[t_data] = card
+        local doid = t_data:getObjectId()
+        self.m_lDragonCardList[doid] = card
 
         -- 다음 좌표 계산
         pos_x = pos_x + (card_width + gap)
@@ -643,13 +654,23 @@ function UI_GachaResult_Dragon:click_lockBtn()
 
     local function callback_function(ret)
         self.vars['lockSprite']:setVisible(is_locked)
-        self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(doid)
+
+        local refreshed_data = g_dragonsData:getDragonDataFromUid(doid)
+
+        
+        local card = self.m_lDragonCardList[doid]
+        
+        card.m_dragonData = refreshed_data
+        card:refresh_Lock()
 
 		-- 잠금 안내 팝업
 		local msg = is_locked and Str('잠금되었습니다.') or Str('잠금이 해제되었습니다.')
 		UIManager:toastNotificationGreen(msg)
 
-        self:setLockSprite(self.m_selectedDragonData:getLock())
+        self:setLockSprite(refreshed_data:getLock())
+
+
+        self.m_selectedDragonData = refreshed_data
     end
 
     
