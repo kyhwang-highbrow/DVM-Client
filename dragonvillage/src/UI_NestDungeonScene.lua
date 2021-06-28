@@ -150,7 +150,6 @@ function UI_NestDungeonScene:initUI()
 		self:click_dungeonBtn(self.m_tempUI, self.m_tempData)
 		self.m_tempUI.root:setScale(1)
     end
-    self:setInfoMenuVisible(false)
 
     -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
     local scr_size = cc.Director:getInstance():getWinSize()
@@ -245,7 +244,6 @@ function UI_NestDungeonScene:initSelectingUI()
 		self:click_dungeonBtn(self.m_tempUI, self.m_tempData)
 		self.m_tempUI.root:setScale(1)
     end
-    self:setInfoMenuVisible(true)
 	
     -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
     local scr_size = cc.Director:getInstance():getWinSize()
@@ -510,7 +508,6 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data)
     ui:cellMoveTo(0.5, target_pos)
 
     vars['tableViewNode']:setVisible(false)
-    self:setInfoMenuVisible(false)
 
     self.m_selectNestDungeonInfo = {ui=ui, key=key, data=data}
 
@@ -573,7 +570,6 @@ function UI_NestDungeonScene:closeSubMenu()
 
     self.m_tableView:setDirtyItemList()
     
-    self:setInfoMenuVisible(true)
     vars['tableViewNode']:setVisible(true)
 
 	vars['dragonInfoBtn']:stopAllActions()
@@ -641,19 +637,6 @@ function UI_NestDungeonScene:refreshDungeonList()
     g_nestDungeonData:requestNestDungeonInfo(cb_func)
 end
 
--------------------------------------
--- function setInfoMenuVisible
--- @brief 거대용 던전, 거목 던전의 요일별 입장 제한을 푼 것에 대한 설명 UI on/off
--------------------------------------
-function UI_NestDungeonScene:setInfoMenuVisible(visible)
-    local vars = self.vars
-
-    if (self.m_dungeonType == NEST_DUNGEON_EVO_STONE or self.m_dungeonType == NEST_DUNGEON_TREE) then
-        vars['infoMenu']:setVisible(visible)
-    else
-        vars['infoMenu']:setVisible(false)
-    end
-end
 
 --@CHECK
 UI:checkCompileError(UI_NestDungeonScene)
