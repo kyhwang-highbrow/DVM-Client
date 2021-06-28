@@ -8,6 +8,8 @@ UI_ItemInfoPopup = class(PARENT,{
         m_itemCount = 'number',
         m_tSubData = 'table',
 
+        m_itemType = 'string',
+
         m_tItemCard = 'UI_Card', -- 룬 카드 메모 갱신을 위해 추가
     })
 
@@ -42,25 +44,32 @@ end
 function UI_ItemInfoPopup:initUI()
     local vars = self.vars
 
-    local type = TableItem:getItemType(self.m_itemID)
+    self.m_itemType = TableItem:getItemType(self.m_itemID)
 
     
     -- 아이템명 출력
-    if (type == 'rune') and self.m_tSubData then
+    if (self.m_itemType == 'rune') and self.m_tSubData then
         vars['titleLabel']:setString(self.m_tSubData['name'])
     else
-        
         local item_name = TableItem:getItemName(self.m_itemID)
         vars['titleLabel']:setString(item_name)
+    end
+
+    local is_lockBtn_visible = (self.m_itemType == 'dragon') or (self.m_itemType == 'rune')
+
+    if is_lockBtn_visible then
+        vars['lockBtn']:setVisible(is_lockBtn_visible)
+
+        self:setLockSprite(self.m_tSubData:getLock())
     end
     
 
     do -- 아이템 아이콘    
-        if (type == 'dragon') and self.m_tSubData then
+        if (self.m_itemType == 'dragon') and self.m_tSubData then
             local item_card = UI_DragonCard(self.m_tSubData)
             vars['itemNode']:addChild(item_card.root)
 
-		elseif (type == 'rune') and self.m_tSubData then
+		elseif (self.m_itemType == 'rune') and self.m_tSubData then
             local item_card = UI_RuneCard(self.m_tSubData)
             self.m_tItemCard = item_card
             vars['itemNode']:addChild(item_card.root)
@@ -83,7 +92,7 @@ function UI_ItemInfoPopup:initUI()
 
     -- 아이템 설명
     local desc = ''
-    if (type == 'rune') and self.m_tSubData then
+    if (self.m_itemType == 'rune') and self.m_tSubData then
         -- 룬일 경우
         local t_rune_data = self.m_tSubData
         
@@ -100,7 +109,7 @@ function UI_ItemInfoPopup:initUI()
     vars['itemDscLabel']:setString(Str(desc))
 
     -- 룬 세트 옵션 설명
-    if (type == 'rune') then
+    if (self.m_itemType == 'rune') then
         -- 임시 룬 오브젝트를 생성 (룬 세트 설명 함수를 사용하기 위해)
         local _data = {}
         _data['rid'] = self.m_itemID
@@ -156,8 +165,9 @@ function UI_ItemInfoPopup:initButton()
     vars['locationBtn']:registerScriptTapHandler(function() self:click_locationBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 
-    local type = TableItem:getItemType(self.m_itemID)
-    if (type == 'rune') then
+    vars['lockBtn']:registerScriptTapHandler(function() self:click_lockBtn() end)
+
+    if (self.m_itemType == 'rune') then
         -- 룬 메모
         if (self.m_tSubData) then
             local t_rune_data = self.m_tSubData
@@ -284,6 +294,43 @@ function UI_ItemInfoPopup:click_memoEditBtn()
 end
 
 -------------------------------------
+-- function click_lockBtn
+-------------------------------------
+function UI_ItemInfoPopup:click_lockBtn()
+    local vars = self.vars
+
+    if (self.m_itemType ~= 'rune') and (self.m_itemType ~= 'dragon') then 
+        return 
+    end
+
+    local objectId = self.m_tSubData:getObjectId()
+    local is_locked = (not self.m_tSubData:getLock())
+
+    local function callback_function(ret)
+        vars['lockSprite']:setVisible(is_locked)
+    
+        if (self.m_itemType == 'rune') then
+            self.m_tSubData = g_runesData:getRuneObject(objectId)
+        else --if (self.m_itemType == 'dragon') then
+            self.m_tSubData = g_dragonsData:getDragonDataFromDoid(objectId)
+        end
+        
+		-- 잠금 안내 팝업
+		local msg = is_locked and Str('잠금되었습니다.') or Str('잠금이 해제되었습니다.')
+		UIManager:toastNotificationGreen(msg)
+
+        self:setLockSprite(self.m_tSubData:getLock())
+    end
+
+    if (self.m_itemType == 'rune') then
+        local owner_oid = self.m_tSubData:getOwnerObjId()
+        g_runesData:request_runesLock(objectId, owner_oid, is_locked, callback_function)
+    else --if (self.m_itemType == 'dragon') then
+        g_dragonsData:request_dragonLock(objectId, '', is_locked, callback_function)
+    end
+end
+
+-------------------------------------
 -- function refresh_memoLabel
 -- @brief 메모 라벨 텍스트 refresh
 -------------------------------------
@@ -306,6 +353,14 @@ function UI_ItemInfoPopup:refresh_memoLabel(roid)
     end
 end
 
+-------------------------------------
+-- function setLockSprite
+-------------------------------------
+function UI_ItemInfoPopup:setLockSprite(is_locked)
+    self.vars['lockSprite']:setVisible(is_locked)
+end
+
+
 function MakeSimpleRewarPopup(title_str, item_id, count, t_sub_data)
     local ui = UI_ItemInfoPopup(item_id, count, t_sub_data)
     ui.vars['titleLabel']:setString(title_str)
@@ -313,6 +368,10 @@ function MakeSimpleRewarPopup(title_str, item_id, count, t_sub_data)
     ui.vars['closeBtn']:setPositionX(0)
     return ui
 end
+
+
+
+
 
 --@CHECK
 UI:checkCompileError(UI_ItemInfoPopup)

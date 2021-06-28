@@ -584,6 +584,14 @@ function StructDragonObject:getBirthGrade()
 end
 
 -------------------------------------
+-- function getDoid
+-- @breif
+-------------------------------------
+function StructDragonObject:getObjectId()
+    return self['id']
+end
+
+-------------------------------------
 -- function getDid
 -- @breif
 -------------------------------------

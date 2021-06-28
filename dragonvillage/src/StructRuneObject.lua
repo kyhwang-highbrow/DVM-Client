@@ -105,6 +105,15 @@ function StructRuneObject:applyTableData(data)
     end
 end
 
+
+-------------------------------------
+-- function getObjectId
+-------------------------------------
+function StructRuneObject:getObjectId()
+    return self['roid']
+end
+
+
 -------------------------------------
 -- function makeRunePrefix
 -------------------------------------
@@ -464,6 +473,12 @@ end
 function StructRuneObject:isAncientRune()
     return self['is_ancient']
 
+end
+-------------------------------------
+-- function getOwnerObjId
+-------------------------------------
+function StructRuneObject:getOwnerObjId()
+    return self['owner_doid']
 end
 
 -------------------------------------
