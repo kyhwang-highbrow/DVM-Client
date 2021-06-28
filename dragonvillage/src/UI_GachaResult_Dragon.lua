@@ -257,7 +257,6 @@ function UI_GachaResult_Dragon:refresh()
 
     local vars = self.vars
 
-    vars['lockMenu']:setVisible(false)
     self.m_selectedDragonData = nil
 
     -- 연출을 위한 준비
@@ -307,7 +306,10 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 
     local did = t_dragon_data['did']
     local grade = t_dragon_data['grade']
+    
     local evolution = t_dragon_data['evolution']
+
+    vars['lockMenu']:setVisible(tonumber(grade) > 2)
 
     -- 이름
     local name = t_dragon_data:getDragonNameWithEclv()
@@ -373,7 +375,6 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
                 self.m_isDirecting = false
                 
                 -- 잠금
-                self.vars['lockMenu']:setVisible(true)
                 self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(t_dragon_data:getObjectId())
                 self:setLockSprite(self.m_selectedDragonData:getLock())
                     
@@ -515,7 +516,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
 
     
                 self.m_currDragonAnimator:forceSkipDirecting()
-                
+
                 self.m_selectedDragonData = refreshed_data
             end
         end)
