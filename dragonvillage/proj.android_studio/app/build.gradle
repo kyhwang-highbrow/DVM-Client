@@ -26,7 +26,7 @@ android {
 
     ndkVersion '17.2.4988734' // e.g.,  ndkVersion "21.3.6528147"
 
-    //assetPacks = [":dragonvillagem_asset"]
+    assetPacks = [":asset_pack_01"]
 
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
     buildToolsVersion PROP_BUILD_TOOLS_VERSION
@@ -112,7 +112,7 @@ android {
 
         // demension asset
         market {
-            assets.srcDir "../../../assets/100mb"
+            //assets.srcDir "../../../assets/100mb"
         }
         full {
             assets.srcDir "../../../assets/full"

@@ -8,3 +8,4 @@ project(':downloader_library').projectDir = new File(settingsDir, '../../librari
 include ':libcocos2dx'
 project(':libcocos2dx').projectDir = new File(settingsDir, '../../cocos2d-x/cocos/platform/android/libcocos2dx')
 include ':app'
+include ':asset_pack_01'

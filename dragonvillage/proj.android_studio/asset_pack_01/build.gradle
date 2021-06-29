@@ -1,0 +1,43 @@
+// In the asset pack’s build.gradle file:
+apply plugin: 'com.android.asset-pack'
+
+assetPack {
+    packName = "asset_pack_01" // Directory name for the asset pack
+    dynamicDelivery {
+        deliveryType = "install-time"
+    }
+}
+
+project.afterEvaluate
+{
+    generateAssetPackManifest.dependsOn copyFiles
+}
+
+task clearAsset(type: Delete) {
+    println 'clear :: src/main/assets'
+    delete project.file("src/main/assets")
+}
+
+task copyFiles(type: Sync) {
+    dependsOn clearAsset
+
+    println 'making directory :: src/main/assets'
+    project.mkdir "src/main/assets"
+
+    description = 'sync assets'
+    println description
+
+    from '../../../assets/full'
+    into './src/main/assets'
+    include('**/*')
+
+    println 'sync ended'
+}
+
+task makeAssetFull(type: Exec){
+    println "Starting making full assets..."
+    workingDir = file('../../bat/')
+    println workingDir
+    commandLine = ['cmd', '/C', 'start', 'MakeAssetFull.bat']
+    // cmd /C start D:/Projects/WorkSpaces/WorldCleaner/devserver/start.bat
+}
