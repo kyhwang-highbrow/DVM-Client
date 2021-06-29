@@ -658,11 +658,13 @@ function UI_GachaResult_Dragon:click_lockBtn()
 
         local refreshed_data = g_dragonsData:getDragonDataFromUid(doid)
 
+        -- 연차 뽑기 인 경우
+        if (#self.m_lDragonCardList > 0) then
+            local card = self.m_lDragonCardList[doid]
         
-        local card = self.m_lDragonCardList[doid]
-        
-        card.m_dragonData = refreshed_data
-        card:refresh_Lock()
+            card.m_dragonData = refreshed_data
+            card:refresh_Lock()
+        end
 
 		-- 잠금 안내 팝업
 		local msg = is_locked and Str('잠금되었습니다.') or Str('잠금이 해제되었습니다.')
