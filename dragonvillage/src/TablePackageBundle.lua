@@ -25,8 +25,6 @@ end
 --     end
 -- end
 
-
-
 -------------------------------------
 -- function getTableViewMap
 -- @brief 패키지 번들 테이블에 등록되있고 서버에서 상품 정보를 주는 것들만 테이블뷰 맵형태로 반환
@@ -250,24 +248,3 @@ function TablePackageBundle:isBuyableLv(package_name, user_lv)
 
     return false
 end
-
-
---
-
-----------------------------------------------------------------------
--- class TablePackageShop
-----------------------------------------------------------------------
-TablePackageShop = class(PARENT, {
-
-})
-
-
-----------------------------------------------------------------------
--- function init
-----------------------------------------------------------------------
-function TablePackageShop:init()
-    
-end
-
-
-
