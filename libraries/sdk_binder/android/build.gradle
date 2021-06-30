@@ -79,6 +79,10 @@ dependencies {
     implementation 'com.facebook.android:audience-network-sdk:6.2.1'
     //implementation files('libs/AudienceNetwork-6.2.1.aar')
 
+    // Play Asset Delivery
+    implementation("com.google.android.play:core:1.10.0")
+    implementation("com.google.android.play:core-ktx:1.8.1")
+
     // @onestore IAP
     implementation files('libs/iap_plugin_v17.02.00_20181012.jar')
 }
