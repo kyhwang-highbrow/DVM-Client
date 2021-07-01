@@ -73,11 +73,13 @@ function UI_ArenaNewDailyReward:initUI()
 
 
     -- 획득 가능 보상 계산
-    local total_gold
+    local total_gold = 0
     local custom_item_id
     local custom_item_count
 
-    total_gold = tonumber(rewardable_tier_item['daily_gold_rate']) * struct_user_info:getRP()
+    if not isNullOrEmpty(rewardable_tier_item['daily_gold_rate']) then
+        total_gold = tonumber(rewardable_tier_item['daily_gold_rate']) * struct_user_info:getRP()
+    end
 
     local l_reward = g_itemData:parsePackageItemStr(rewardable_tier_item['achieve_reward'])
 
