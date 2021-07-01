@@ -73,14 +73,14 @@ function UI_HallOfFameRankListItem:initUI()
     
 	-- 스코어
     local ancient_score = self:setScoreDesc(self.m_tRankInfo['ancient_score'])
-    local challenge_score = self:setScoreDesc(self.m_tRankInfo['challenge_score'])
+    --local challenge_score = self:setScoreDesc(self.m_tRankInfo['challenge_score'])
     local arena_score = self:setScoreDesc(self.m_tRankInfo['arena_score'])
     local score = self:setScoreDesc(self.m_tRankInfo['score'])
 
     -- 그림자, 콜로, 탑 점수 출력하는 것이 기본
     vars['hall_of_fameScoreMenu']:setVisible(true)
 
-    vars['challengeModeScoreLabel']:setString(Str('{1}점', challenge_score))
+    --vars['challengeModeScoreLabel']:setString(Str('{1}점', challenge_score))
     vars['towerScoreLabel']:setString(Str('{1}점', ancient_score))
     vars['arenaScoreLabel']:setString(Str('{1}점', arena_score))
     
