@@ -49,6 +49,8 @@ ServerData_ArenaNew = class({
         m_userTierMap = 'table',    -- 런타임에 만난 유저들의 지난 티어정보를 저장
 
         m_bIsRequestingLastTierinfo = 'boolean',
+
+        m_dailyRewardReceived = 'number',   -- 일일 보상 보상수령 ? 1 : 0
     })
 
 -------------------------------------
@@ -137,6 +139,7 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
     self.m_tierRewardInfo = ret['tier_reward_info']
     self.m_firstArchivedInfo = ret['first_archived_info']
     self.m_costInfo = ret['refresh_cost_info']
+    self.m_dailyRewardReceived = ret['daily_reward_receive']
 
     self:refresh_playerUserInfo(ret['season'], ret['deck'], nil, ret['my_info'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])

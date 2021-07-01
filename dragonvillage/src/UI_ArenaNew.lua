@@ -15,6 +15,8 @@ UI_ArenaNew = class(PARENT, {
         m_winCnt =  'number',
 
         m_isRefreshOnCooltime = 'boolean', -- 무료갱신 쿨타임중 ...
+
+        m_remainNextScore = 'number',
      })
 
 
@@ -392,6 +394,8 @@ function UI_ArenaNew:refreshTierGauge()
 
     self.vars['scoreGgLabel']:setString(finalString)
 
+    self.m_remainNextScore = nextMinRp - curRp
+
     -- 다음 티어 아이콘
     self:setNextTierIcon()
 end
@@ -711,7 +715,7 @@ end
 
 
 function UI_ArenaNew:click_dailyReward()
-    UI_ArenaNewDailyReward()
+    UI_ArenaNewDailyReward(self.m_remainNextScore)
 end
 
 

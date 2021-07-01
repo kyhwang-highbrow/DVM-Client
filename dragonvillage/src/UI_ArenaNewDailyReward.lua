@@ -5,13 +5,15 @@ local PARENT = UI
 -- @brief 
 -------------------------------------
 UI_ArenaNewDailyReward = class(PARENT,{
+    m_remainNextScore = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaNewDailyReward:init()
+function UI_ArenaNewDailyReward:init(remain_score)
 	self.m_uiName = 'UI_ArenaNewDailyReward'
+    self.m_remainNextScore = remain_score
     
     local vars = self:load('arena_new_scene_popup_reward.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -29,14 +31,19 @@ end
 function UI_ArenaNewDailyReward:initUI()
     local vars = self.vars
     local struct_rankReward = StructArenaNewRankReward()
-
+    local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
     local l_rank_reward = struct_rankReward:getRankRewardList()
+    local rewardable_tier_item
     local finalList = {}
 
     for i, v in ipairs(l_rank_reward) do
         -- 입문자는 버리기
         if (v['tier_id'] ~= 99) then
             table.insert(finalList, v)
+        end
+
+        if (struct_user_info.m_tier == v['tier']) then
+            rewardable_tier_item = v
         end
     end
 
@@ -51,6 +58,49 @@ function UI_ArenaNewDailyReward:initUI()
     table_view:setCellUIClass(UI_ArenaNewDailyRewardListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(finalList, true)
+
+    
+    -- 현재 티어아이콘
+    vars['tierIconNode']:removeAllChildren()
+    local icon = struct_user_info:makeTierIcon(nil, 'big')
+    vars['tierIconNode']:addChild(icon)
+
+    -- 티어 이름
+    local tier_name = struct_user_info:getTierName()
+    vars['tierLabel']:setString(tier_name)
+
+    vars['infoLabel']:setString(Str('{1}점을 더 획득하면 다음 티어 보상을 획득 할 수 있어요!', self.m_remainNextScore))
+
+
+    -- 획득 가능 보상 계산
+    local total_gold
+    local custom_item_id
+    local custom_item_count
+
+    total_gold = tonumber(rewardable_tier_item['daily_gold_rate']) * struct_user_info:getRP()
+
+    local l_reward = g_itemData:parsePackageItemStr(rewardable_tier_item['achieve_reward'])
+
+    if (l_reward and #l_reward > 0) then
+        custom_item_id = l_reward[1]['item_id']
+        custom_item_count = comma_value(l_reward[1]['count'])
+    end
+
+    -- 획득 가능 보상
+    -- 골드 비율 x 승점
+    local icon = UI_ItemCard(700002, total_gold)
+    vars['itemNode1']:addChild(icon.root)
+
+    -- 연마석
+    icon = UI_ItemCard(custom_item_id, custom_item_count)
+    vars['itemNode2']:addChild(icon.root)
+
+
+    if (g_arenaNewData.m_dailyRewardReceived) then
+        vars['rewardBtn']:setEnabled(false)
+    else
+        vars['rewardBtn']:setEnabled(true)
+    end
 end
 
 
@@ -147,19 +197,6 @@ function UI_ArenaNewDailyRewardListItem:initUI()
     local icon = IconHelper:getItemIcon('gold')
     icon:setScale(0.4)
     vars['rewardNode1']:addChild(icon)
-
-    --[[
-    
-    -- 달성 조건
-    local scoreMin = comma_value(tierInfo['score_min'])
-    vars['scoreLabel']:setString(scoreMin)
-
-    if (g_arenaNewData:isAchieveRewarded(tierInfo['tier_id'])) then
-        vars['clearNode']:setVisible(true)
-    else
-        vars['clearNode']:setVisible(false)
-    end
-    ]]
 end
 
 -------------------------------------
