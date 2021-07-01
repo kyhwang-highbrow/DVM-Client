@@ -73,14 +73,14 @@ function UI_ArenaNewDailyReward:initUI()
     
     if (rewardable_tier_item) then
         if (rewardable_tier_item['tier'] == 'legend') then
-            self:setRewardItem()
+            self:setRewardItem(rewardable_tier_item)
 
         elseif (rewardable_tier_item['tier'] == 'beginner') then
             vars['infoMenu']:setVisible(true)
             vars['rewardMenu']:setVisible(false)
             
         else
-            self:setRewardItem()
+            self:setRewardItem(rewardable_tier_item, struct_user_info)
 
         end
     end
@@ -89,11 +89,12 @@ end
 -------------------------------------
 -- function setRewardItem
 -------------------------------------
-function UI_ArenaNewDailyReward:setRewardItem()
+function UI_ArenaNewDailyReward:setRewardItem(rewardable_tier_item, struct_user_info)
     -- 획득 가능 보상 계산
     local total_gold = 0
     local custom_item_id
     local custom_item_count
+    local vars = self.vars
 
     if not isNullOrEmpty(rewardable_tier_item['daily_gold_rate']) then
         total_gold = tonumber(rewardable_tier_item['daily_gold_rate']) * struct_user_info:getRP()
