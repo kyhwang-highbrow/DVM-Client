@@ -593,6 +593,8 @@ function UI_ReadySceneNew:initButton()
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
 
+    vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
+
 	-- 전투 시작
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 	vars['startBtn']:setClickSoundName('ui_game_start')
@@ -2091,6 +2093,18 @@ end
 -------------------------------------
 function UI_ReadySceneNew:click_attrInfoBtn()
     UI_HelpDragonGuidePopup('attr')
+end
+
+-------------------------------------
+-- function click_runeBtn
+-------------------------------------
+function UI_ReadySceneNew:click_runeBtn()
+    local vars = self.vars
+
+    local is_visible = (not vars['runeSprite']:isVisible())
+
+    vars['runeSprite']:setVisible(is_visible)
+    self.m_readySceneDeck:setVisibleEquippedRunes(is_visible)
 end
 
 --@CHECK

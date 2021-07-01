@@ -1367,3 +1367,18 @@ end
 function UI_ReadySceneNew_Deck:getCurDeckInfo()
     return self.m_lDeckList, self.m_currFormation, 'ancient', self.m_currLeader, self.m_uiReadyScene:getCurrTamerID()
 end
+
+
+
+-------------------------------------
+-- function setVisibleEquippedRunes
+-------------------------------------
+function UI_ReadySceneNew_Deck:setVisibleEquippedRunes(is_visible)
+    for _, dragon_card in pairs(self.m_lSettedDragonCard) do
+        dragon_card:setRunesVisible(is_visible)
+    end
+end
+
+
+
+

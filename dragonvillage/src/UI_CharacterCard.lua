@@ -245,6 +245,34 @@ function UI_CharacterCard:refresh_masteryIcon()
     self:makeSprite('masteryNode', res)
 end
 
+
+-------------------------------------
+-- function setRunesVisible
+-- @brief 장착한 룬
+-------------------------------------
+function UI_CharacterCard:setRunesVisible(is_visible)
+    local vars = self.vars
+    local rune_list = self.m_dragonData:getRuneObjectList()
+
+    for i = 1, 6 do
+        local rune = rune_list[i]
+        local res
+        if rune then
+            res = rune:getRuneRes()
+        else
+            res = 'res/ui/icons/rune/rune_slot_010' .. i .. '.png'
+        end        
+
+        self:setSpriteVisible('runeNode' .. i, res, is_visible, true)
+
+        if rune then
+            self.vars['runeNode' .. i]:setScale(0.4)
+        end
+    end
+end
+
+
+
 -------------------------------------
 -- function setLevelText
 -- @brief 레벨 텍스트 지정

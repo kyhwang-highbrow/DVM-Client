@@ -107,11 +107,11 @@ end
 -- function setSpriteVisible
 -- @brief visible 관리하고 없다면 만든다.
 -------------------------------------
-function UI_Card:setSpriteVisible(lua_name, res, visible)
+function UI_Card:setSpriteVisible(lua_name, res, visible, no_use_frames)
     if self.vars[lua_name] then
         self.vars[lua_name]:setVisible(visible)
     elseif (visible) then
-        self:makeSprite(lua_name, res)
+        self:makeSprite(lua_name, res, no_use_frames)
     end
 end
 
