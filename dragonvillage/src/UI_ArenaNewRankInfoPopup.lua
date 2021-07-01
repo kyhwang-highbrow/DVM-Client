@@ -51,7 +51,7 @@ function UI_ArenaNewRankInfoPopup:refresh()
     local node = vars['listNode']
 
     local table_arena_rank = TABLE:get('table_arena_new_rank')
-    local struct_rank_reward = StructArenaNewRankReward(table_arena_rank, true)
+    local struct_rank_reward = StructArenaNewRankReward()
     local l_rank_reward = struct_rank_reward:getRankRewardList()
     local finalList = {}
 

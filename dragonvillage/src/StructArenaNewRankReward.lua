@@ -24,19 +24,18 @@ StructArenaNewRankReward = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function StructArenaNewRankReward:init(table_reward, is_skip_filter_week)
+function StructArenaNewRankReward:init()
+    self:makeRankRewardList()    
+end
+
+-------------------------------------
+-- function makeRankRewardList
+-------------------------------------
+function StructArenaNewRankReward:makeRankRewardList()
+    local table_arena_rank = TABLE:get('table_arena_new_rank')
     local l_rank_reward = {}
 
-    -- week값이 1인 정보만 저장
-    if (not is_skip_filter_week) then
-        for _, _data in pairs(table_reward) do
-            if (_data['week'] == 1) then
-                table.insert(l_rank_reward, _data)
-            end
-        end
-    else
-        l_rank_reward = table.MapToList(table_reward)
-    end
+    l_rank_reward = table.MapToList(table_arena_rank)
 
     local sort_func = function(a, b)
         return a['tier_id'] > b['tier_id']

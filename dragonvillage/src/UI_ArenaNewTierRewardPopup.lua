@@ -28,7 +28,7 @@ end
 function UI_ArenaNewTierRewardPopup:initUI()
     local vars = self.vars
     local table_arena_rank = TABLE:get('table_arena_new_rank')
-    local struct_rank = StructArenaNewRankReward(table_arena_rank, true)
+    local struct_rank = StructArenaNewRankReward()
     local l_rank = struct_rank:getRankRewardList()
     local titleStr = Str('입문자')
     local highestTierRewardId = 99

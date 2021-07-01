@@ -239,10 +239,11 @@ function UI_ArenaNew:initButton()
     vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
     vars['InfoBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
 
-    vars['rewardBtn1']:registerScriptTapHandler(function() self:click_rewardInfoBtn3() end)
-    vars['rewardBtn2']:registerScriptTapHandler(function() self:click_rewardInfoBtn5() end)
-    
-    
+    vars['rewardBtn1']:registerScriptTapHandler(function() self:click_rewardInfoBtn(3) end)
+    vars['rewardBtn2']:registerScriptTapHandler(function() self:click_rewardInfoBtn(5) end)
+     
+    vars['dailyRewardBtn']:registerScriptTapHandler(function() self:click_dailyReward() end)
+    vars['dailyRewardSprite']:setVisible(true)
 
     -- 명예의 전당으로 이동
     --vars['fameBtn']:registerScriptTapHandler(function() self:click_fameBtn() end)
@@ -330,8 +331,7 @@ end
 -- @breif 핫타임 정보 갱신
 -------------------------------------
 function UI_ArenaNew:refreshTierGauge()
-    local table_arena_rank = TABLE:get('table_arena_new_rank')
-    local struct_rank = StructArenaNewRankReward(table_arena_rank, true)
+    local struct_rank = StructArenaNewRankReward()
     local l_rank = struct_rank:getRankRewardList()
 
     -- 티어 게이지
@@ -407,7 +407,7 @@ function UI_ArenaNew:setNextTierIcon()
     if (not vars['nextTierNode']) then return end
 
     local table_arena_rank = TABLE:get('table_arena_new_rank')
-    local struct_rank = StructArenaNewRankReward(table_arena_rank, true)
+    local struct_rank = StructArenaNewRankReward()
     local l_rank = struct_rank:getRankRewardList()
     local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
     local nextTier = struct_user_info.m_tier
@@ -701,22 +701,17 @@ end
 
 -------------------------------------
 -- function click_rewardInfoBtn3
--- 눈갱 미리 사과드림. 급해서 그랬음...
+-- step 3/5 승
 -- 3단계 보상 미리보기
 -------------------------------------
-function UI_ArenaNew:click_rewardInfoBtn3()
-    UI_ArenaNewStepRewardPopup(3, self.m_winCnt)
+function UI_ArenaNew:click_rewardInfoBtn(step)
+    UI_ArenaNewStepRewardPopup(step, self.m_winCnt)
 
 end
 
--------------------------------------
--- function click_rewardInfoBtn5
--- 눈갱 미리 사과드림. 급해서 그랬음...
--- 5단계 보상 미리보기
--------------------------------------
-function UI_ArenaNew:click_rewardInfoBtn5()
-    UI_ArenaNewStepRewardPopup(5, self.m_winCnt)
 
+function UI_ArenaNew:click_dailyReward()
+    UI_ArenaNewDailyReward()
 end
 
 

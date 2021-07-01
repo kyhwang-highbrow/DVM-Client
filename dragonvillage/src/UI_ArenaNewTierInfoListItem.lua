@@ -42,7 +42,7 @@ function UI_ArenaNewTierInfoListItem:initUI()
     vars['scoreLabel']:setString(scoreMin)
     
     -- 티어이름
-    vars['tierLabel']:setString(Str(tierInfo['t_name']))
+    vars['tierLabel']:setString(StructUserInfoArenaNew:getTierName(tierInfo['tier']))
 
     -- 순위나 백분위 제한 있을 때 출력
     local strRankRange = ''

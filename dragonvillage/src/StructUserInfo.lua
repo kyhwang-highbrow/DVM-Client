@@ -413,7 +413,7 @@ function StructUserInfo:getTierName(tier)
 
 
     if (S_TIER_NAME_MAP[pure_tier]) then
-        if (pure_tier ~= 'master') and (0 < tier_grade) then
+        if (tier_grade > 0) then
             return Str(S_TIER_NAME_MAP[pure_tier]) .. ' ' .. tostring(tier_grade)
         else
             return Str(S_TIER_NAME_MAP[pure_tier])

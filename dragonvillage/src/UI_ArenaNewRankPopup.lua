@@ -164,7 +164,7 @@ function UI_ArenaNewRankPopup:makeRewardTableView(my_info)
 
     -- 콜로세움 랭킹 보상 테이블
     local table_arena_rank = TABLE:get('table_arena_new_rank')
-    local struct_rank_reward = StructArenaNewRankReward(table_arena_rank, true)
+    local struct_rank_reward = StructArenaNewRankReward()
     local l_arena_rank = struct_rank_reward:getRankRewardList()
     table.sort(l_arena_rank, function(a,b) return a['tier_id'] < b['tier_id'] end)
 
