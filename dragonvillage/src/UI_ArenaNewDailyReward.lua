@@ -70,8 +70,26 @@ function UI_ArenaNewDailyReward:initUI()
     vars['tierLabel']:setString(tier_name)
 
     vars['infoLabel']:setString(Str('{1}점을 더 획득하면 다음 티어 보상을 획득 할 수 있어요!', self.m_remainNextScore))
+    
+    if (rewardable_tier_item) then
+        if (rewardable_tier_item['tier'] == 'legend') then
+            self:setRewardItem()
 
+        elseif (rewardable_tier_item['tier'] == 'beginner') then
+            vars['infoMenu']:setVisible(true)
+            vars['rewardMenu']:setVisible(false)
+            
+        else
+            self:setRewardItem()
 
+        end
+    end
+end
+
+-------------------------------------
+-- function setRewardItem
+-------------------------------------
+function UI_ArenaNewDailyReward:setRewardItem()
     -- 획득 가능 보상 계산
     local total_gold = 0
     local custom_item_id
@@ -104,9 +122,6 @@ function UI_ArenaNewDailyReward:initUI()
         vars['rewardBtn']:setEnabled(true)
     end
 end
-
-
-
 
 
 
