@@ -73,6 +73,8 @@ function ServerData_ArenaNew:init(server_data)
 
     self.m_recentRequestTime = -5
 
+    self.m_dailyRewardReceived = true
+
     -- 기존 콜로세움 보상 정보 FLAG (후에 삭제)
     self.m_bLastPvpReward = false
     self.m_firstTimeSearchingTier = true

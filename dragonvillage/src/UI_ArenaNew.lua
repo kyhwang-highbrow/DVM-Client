@@ -245,7 +245,7 @@ function UI_ArenaNew:initButton()
     vars['rewardBtn2']:registerScriptTapHandler(function() self:click_rewardInfoBtn(5) end)
      
     vars['dailyRewardBtn']:registerScriptTapHandler(function() self:click_dailyReward() end)
-    vars['dailyRewardSprite']:setVisible(true)
+    vars['dailyRewardSprite']:setVisible(g_arenaNewData.m_dailyRewardReceived)
 
     -- 명예의 전당으로 이동
     --vars['fameBtn']:registerScriptTapHandler(function() self:click_fameBtn() end)
