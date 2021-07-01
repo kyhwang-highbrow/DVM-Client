@@ -141,7 +141,7 @@ function ServerData_ArenaNew:response_arenaInfo(ret)
     self.m_tierRewardInfo = ret['tier_reward_info']
     self.m_firstArchivedInfo = ret['first_archived_info']
     self.m_costInfo = ret['refresh_cost_info']
-    self.m_dailyRewardReceived = ret['daily_reward_receive']
+    self.m_dailyRewardReceived = ret['daily_reward_receive'] == 1
 
     self:refresh_playerUserInfo(ret['season'], ret['deck'], nil, ret['my_info'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
