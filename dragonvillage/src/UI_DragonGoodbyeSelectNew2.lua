@@ -259,16 +259,52 @@ function UI_DragonGoodbyeSelectNew2:click_dragonMaterial(t_dragon_data)
 	
 
     local doid = t_dragon_data['id']
-    if self.m_tSellTable[doid] then
-        -- 해제할 경우
-        next_func()
-    else
+    
+    if (not self.m_tSellTable[doid]) then
         -- 재료 경고
         local oid = t_dragon_data['id']
         local t_warning = {}
         t_warning['pass_comb'] = true -- 조합 재료는 skip
-        g_dragonsData:dragonMaterialWarning(oid, next_func, t_warning, '작별하시겠습니까?') -- param : oid, next_func, t_warning, warning_msg
+
+        -- 오늘 하루 보지 않기 기능이 활성화 되어있는지
+        local is_skipped_warning_popup, curr_date = self:checkSkipWarningPopup()
+        -- 5성 드래곤보다 등급이 낮은지
+        local is_grade_under_five = (t_dragon_data:getGrade() < 5)
+        -- 장착하고 있는 룬이 있는지
+        local is_rune_empty = (#t_dragon_data:getRuneObjectList() < 1)
+
+        -- 위에 boolean 세가지 중 하나라도 해당 되지 않는 것이 있으면 경고 팝업을 띄운다.
+        if (not (is_skipped_warning_popup and is_grade_under_five and is_rune_empty)) then
+            local ui_popup = g_dragonsData:dragonMaterialWarning(oid, next_func, t_warning, '작별하시겠습니까?') -- param : oid, next_func, t_warning, warning_msg
+
+            -- dragonMaterialWarning에서 UI_SimplePopup2 팝업을 띄우지 않거나, 
+            -- 5성 드래곤이상의 드래곤 혹은 장착하고 있는 룬이 있는 경우에 스킵 체크박스를 보여주지 않는다.
+            if ui_popup and is_grade_under_five and is_rune_empty then
+                ui_popup:setCheckBoxCallback(function() g_settingData:setSkipInfoForFarewellWarningPopup(curr_date) end)
+            end
+
+            -- 팝업을 띄우는 경우에는 리턴, 띄우는 않는 경우에는 다음 스텝을 진행한다.
+            return    
+        end
     end
+    
+    -- 해제할 경우
+    next_func()
+end
+
+-------------------------------------
+-- function checkSkipWarningPopup
+-- brief 선택 작별 팝업에서 오늘 하루 보지 않기 기능이 활성화 되어 있는지 확인 (00시 기준)
+-- return boolean 오늘 하루 보지 않기 기능이 활성화 되어있으면 true 아니면 false
+-------------------------------------
+function UI_DragonGoodbyeSelectNew2:checkSkipWarningPopup()
+    local skip_date = g_settingData:getSkipInfoForFarewellWarningPopup()
+
+    local curr_time_info = os.date('*t', Timer:getServerTime())
+    local curr_date = string.format('%d%02d%02d', curr_time_info['year'], curr_time_info['month'], curr_time_info['day'])
+
+    -- 팝업 띄움
+    return (skip_date == curr_date), curr_date
 end
 
 -------------------------------------

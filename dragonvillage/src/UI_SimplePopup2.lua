@@ -9,6 +9,9 @@ UI_SimplePopup2 = class(PARENT,{
         m_submsg = 'string',
         m_cbOKBtn = 'function',
         m_cbCancelBtn = 'function',
+
+        m_bIsCheckboxActivated = 'boolean',
+        m_checkboxCallback = 'function',
     })
 
 -------------------------------------
@@ -34,6 +37,16 @@ function UI_SimplePopup2:init(popup_type, msg, submsg, ok_btn_cb, cancel_btn_cb,
 end
 
 -------------------------------------
+-- function setCheckBoxCallback
+-------------------------------------
+function UI_SimplePopup2:setCheckBoxCallback(callback_function)
+    self.m_checkboxCallback = callback_function
+    self.vars['checkBtn']:setVisible(callback_function ~= nil)
+end
+
+
+
+-------------------------------------
 -- function initUI
 -------------------------------------
 function UI_SimplePopup2:initUI()
@@ -47,6 +60,7 @@ function UI_SimplePopup2:initButton()
 
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
+    vars['checkBtn']:registerScriptTapHandler(function() self:click_checkBoxBtn() end)
 end
 
 -------------------------------------
@@ -73,6 +87,16 @@ function UI_SimplePopup2:refresh()
 end
 
 -------------------------------------
+-- function click_checkBoxBtn
+-------------------------------------
+function UI_SimplePopup2:click_checkBoxBtn()
+    local vars = self.vars
+    self.m_bIsCheckboxActivated = (not vars['checkSprite']:isVisible())
+
+    vars['checkSprite']:setVisible(self.m_bIsCheckboxActivated)
+end
+
+-------------------------------------
 -- function click_backKey
 -------------------------------------
 function UI_SimplePopup2:click_backKey()
@@ -87,6 +111,7 @@ function UI_SimplePopup2:click_backKey()
     end
 end
 
+
 -------------------------------------
 -- function click_okBtn
 -------------------------------------
@@ -95,6 +120,10 @@ function UI_SimplePopup2:click_okBtn()
         if self.m_cbOKBtn() then
             return
         end
+    end
+
+    if self.m_bIsCheckboxActivated and self.m_checkboxCallback then
+        self.m_checkboxCallback()
     end
 
     if (not self.closed) then
@@ -114,6 +143,9 @@ function UI_SimplePopup2:click_cancelBtn()
         self:close()
     end
 end
+
+
+
 
 --@CHECK
 UI:checkCompileError(UI_SimplePopup2)

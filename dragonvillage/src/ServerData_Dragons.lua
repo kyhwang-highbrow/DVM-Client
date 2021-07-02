@@ -1624,8 +1624,8 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning, war
 			local combine_name = TableDragon:getDragonNameWithAttr(comb_did)
 			local msg = Str('{@DEEPSKYBLUE}{1}{@DESC}의 조합 재료인 드래곤입니다.', combine_name)
             local submsg = Str(warning_message)
-			MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, next_func)
-			return
+
+			return MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, next_func)
 		end
 	end
 
@@ -1679,7 +1679,7 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning, war
         
         local msg_ = default_msg .. '\n' .. name .. ' : ' .. msg
         local submsg = Str(warning_message)
-        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg_, submsg, next_func)
+        return MakeSimplePopup2(POPUP_TYPE.YES_NO, msg_, submsg, next_func)
     else
         if next_func then
             next_func()

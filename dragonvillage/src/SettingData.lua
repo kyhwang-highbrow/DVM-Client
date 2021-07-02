@@ -692,6 +692,22 @@ function SettingData:getClanWarSeason()
 end
 
 -------------------------------------
+-- function setSkipInfoForFarewellWarningPopup
+-------------------------------------
+function SettingData:setSkipInfoForFarewellWarningPopup(date)
+     self:applySettingData(date, 'farewell', 'skip_warning_popup')
+end
+
+-------------------------------------
+-- function getSkipInfoForFarewellWarningPopup
+-------------------------------------
+function SettingData:getSkipInfoForFarewellWarningPopup()    
+    return self:get('farewell', 'skip_warning_popup')
+end
+
+
+
+-------------------------------------
 -- function getCloudSetting
 -- @brief
 -- @param key string
