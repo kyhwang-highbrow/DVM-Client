@@ -31,6 +31,9 @@ UI_ReadySceneNew_Deck = class({
         m_gameMode = 'number',
 
         m_bSelectedTouch = 'boolean',
+
+        -- 착용 룬 보기
+        m_bRuneInfo = 'boolean',
     })
 
 local TOTAL_POS_CNT = 5
@@ -59,6 +62,8 @@ function UI_ReadySceneNew_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
     self.m_bDirtyDeck = true
     self.m_gameMode = self.m_uiReadyScene.m_gameMode
+
+    self.m_bRuneInfo = false
 
 	self:initUI()
     self:initButton()
@@ -569,6 +574,9 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
     -- 설정된 드래곤 표시 없애기
     ui:setReadySpriteVisible(false)
 
+    -- 착용 룬 보기
+    ui:setRunesVisible(self.m_bRuneInfo)
+
     vars['positionNode' .. idx]:addChild(ui.root, ZORDER.DRAGON_CARD)
 
     -- 선택된 드래곤 포지션 노드 zorder 높게 변경 (2D 덱으로 바뀌면서 드래곤 대사가 겹침)
@@ -725,6 +733,8 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
     if (not skip_sort) then
         self.m_uiReadyScene:apply_dragonSort()
     end
+
+
 
     self:setDirtyDeck()
     return true
@@ -1374,6 +1384,9 @@ end
 -- function setVisibleEquippedRunes
 -------------------------------------
 function UI_ReadySceneNew_Deck:setVisibleEquippedRunes(is_visible)
+
+    self.m_bRuneInfo = is_visible
+
     for _, dragon_card in pairs(self.m_lSettedDragonCard) do
         dragon_card:setRunesVisible(is_visible)
     end

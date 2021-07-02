@@ -265,7 +265,9 @@ function UI_CharacterCard:setRunesVisible(is_visible)
 
         self:setSpriteVisible('runeNode' .. i, res, is_visible, true)
 
-        if rune then
+        if (is_visible 
+                and rune 
+                and self.vars['runeNode' .. i])then
             self.vars['runeNode' .. i]:setScale(0.4)
         end
     end
