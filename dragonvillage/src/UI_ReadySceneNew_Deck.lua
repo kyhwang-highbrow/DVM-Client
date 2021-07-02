@@ -576,6 +576,7 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
 
     -- 착용 룬 보기
     ui:setRunesVisible(self.m_bRuneInfo)
+    ui:setShadowSpriteVisible(self.m_bRuneInfo)
 
     vars['positionNode' .. idx]:addChild(ui.root, ZORDER.DRAGON_CARD)
 
@@ -1388,6 +1389,7 @@ function UI_ReadySceneNew_Deck:setVisibleEquippedRunes(is_visible)
     self.m_bRuneInfo = is_visible
 
     for _, dragon_card in pairs(self.m_lSettedDragonCard) do
+        dragon_card:setShadowSpriteVisible(is_visible)
         dragon_card:setRunesVisible(is_visible)
     end
 end
