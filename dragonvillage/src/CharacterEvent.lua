@@ -42,7 +42,15 @@ function Character:onEvent(event_name, t_event, ...)
         local hp = t_event['hp']
         local max_hp = t_event['max_hp']
 
+        self:onEvent_underEnemyHp(hp, max_hp)
+
+
+    elseif (event_name == 'under_enemy_hp') then
+        local hp = t_event['hp']
+        local max_hp = t_event['max_hp']
+
         self:onEvent_underAllyHp(hp, max_hp)
+
 
     elseif (event_name == 'under_teammate_hp') then
         local hp = t_event['hp']
@@ -175,6 +183,26 @@ function Character:onEvent_underSelfHp(hp, max_hp)
                         self:doSkill(v.m_skillID, 0, 0)
                     end
                 end
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function onEvent_underEnemyHp
+-------------------------------------
+function Character:onEvent_underEnemyHp(hp, max_hp)
+    local list = self:getSkillIndivisualInfo('under_enemy_hp')
+
+    if (not list) then return end
+    if (not self.m_statusCalc) then return end
+
+    local percentage = (hp / max_hp) * 100
+
+    for i, v in pairs(list) do
+        if (v:isEndCoolTime()) then
+            if (percentage <= v:getChanceValue()) then
+                self:doSkill(v.m_skillID, 0, 0)
             end
         end
     end

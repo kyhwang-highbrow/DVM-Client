@@ -1528,6 +1528,10 @@ function GameWorld:onEvent(event_name, t_event, ...)
             end
         end
 
+        -- 자기 자신도 포함
+        for _, fellow in pairs(unit:getOpponentList()) do
+            fellow:dispatch('under_enemy_hp', t_event, unit)
+        end
 
     
     elseif (event_name == 'character_dead') then
