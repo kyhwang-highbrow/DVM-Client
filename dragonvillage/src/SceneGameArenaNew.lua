@@ -10,11 +10,11 @@ SceneGameArenaNew = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SceneGameArenaNew:init(game_key, stage_id, stage_name, develop_mode, friend_match)
-    self.m_stageName = 'stage_colosseum'
+function SceneGameArenaNew:init(game_key, stage_id, stage_name, develop_mode, friend_match, match_rule)
     self.m_bDevelopMode = develop_mode
     self.m_bFriendMatch = friend_match or false
-
+    self.m_matchRule = match_rule or 'colosseum'
+    self.m_stageName = 'stage_' .. self.m_matchRule -- stage_colosseum / stage_clanwar
     self.m_sceneName = 'SceneGameArenaNew'
 
     -- 친구대전 
@@ -60,8 +60,13 @@ function SceneGameArenaNew:onEnter()
         g_autoPlaySetting:setAutoPlay(false)
     end
     
-    --self.m_inGameUI = UI_GameArena(self)
-    self.m_inGameUI = UI_GameArenaNew(self)
+    -- 콜로세움이냐 클랜전이냐
+    if (self.m_matchRule == 'colosseum') then
+        self.m_inGameUI = UI_GameArenaNew(self)
+    else
+        self.m_inGameUI = UI_GameArena(self)
+    end
+   
     self.m_resPreloadMgr = ResPreloadMgr()
 
     -- 절전모드 설정
@@ -99,7 +104,13 @@ function SceneGameArenaNew:prepare()
 
         -- 레이어 생성
         self:init_layer()
-        self.m_gameWorld = GameWorldArenaNew(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode, self.m_bFriendMatch)
+
+        if (self.m_matchRule == 'colosseum') then
+            self.m_gameWorld = GameWorldArenaNew(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode, self.m_bFriendMatch)
+        else
+            self.m_gameWorld = GameWorldArena(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode, self.m_bFriendMatch)
+        end
+
         self.m_gameWorld:initGame(self.m_stageName)
         
         -- 스크린 사이즈 초기화

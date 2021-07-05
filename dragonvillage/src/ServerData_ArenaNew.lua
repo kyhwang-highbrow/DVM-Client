@@ -856,6 +856,37 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
     ui_network:request()
 end
 
+
+-------------------------------------
+-- function request_dailyReward
+-- 일일 티어 보상
+-------------------------------------
+function ServerData_ArenaNew:request_dailyReward()
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        if finish_cb then
+            return finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/arena_new/daily_rank_reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
+end
+
+
 -------------------------------------
 -- function request_arenaRank
 -------------------------------------

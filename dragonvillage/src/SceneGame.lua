@@ -51,6 +51,7 @@ SceneGame = class(PerpleScene, {
         -- 서버 통신 관련
         m_bSuccessNetForPlayStart = 'boolean', -- 게임 시작 직전 서버와 통신 성공 여부(활동력 차감을 위함)
 
+        m_matchRule = 'string', -- 대전 룰  콜로세움과 친선전에서 사용
     })
 
 -------------------------------------

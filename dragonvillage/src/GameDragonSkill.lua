@@ -140,7 +140,17 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
     -- @sgkim 2018.12.05 액티브 스킬 시전 직후 즉시 전투 재개 (10대10 PvP에 첫 사용)
     --local skip_skill_after = (world.m_gameMode == GAME_MODE_EVENT_ARENA)
-    local skip_skill_after = isExistValue(world.m_gameMode, GAME_MODE_EVENT_ARENA, GAME_MODE_ARENA_NEW)
+    local skip_skill_after = false
+    local is_arena = isExistValue(world.m_gameMode, GAME_MODE_ARENA_NEW, GAME_MODE_EVENT_ARENA)
+
+    if (is_arena) then
+        if (g_gameScene.m_matchRule == 'clanwar') then
+            skip_skill_after = false
+        else
+            skip_skill_after = true
+        end
+    end
+
 
 	if (dragon:isDead()) then
         world.m_gameTimeScale:reset()
