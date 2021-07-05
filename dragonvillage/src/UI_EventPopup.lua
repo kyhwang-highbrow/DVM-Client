@@ -382,7 +382,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
         require('UI_EventDailyQuest')
         ui = UI_EventDailyQuest()
 
+    elseif string.find(tab, 'event_arena_play') then
+        require('UI_EventArenaPlay')
+        ui = UI_EventArenaPlay()
     end
+
     self.m_mTabUI[tab] = ui
     return ui
 end
