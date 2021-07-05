@@ -112,7 +112,7 @@ android {
 
         // demension asset
         market {
-            //assets.srcDir "../../../assets/100mb"
+            assets.srcDir "../../../assets/100mb"
         }
         full {
             assets.srcDir "../../../assets/full"

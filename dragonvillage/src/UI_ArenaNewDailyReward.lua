@@ -6,8 +6,6 @@ local PARENT = UI
 -------------------------------------
 UI_ArenaNewDailyReward = class(PARENT,{
     m_remainNextScore = 'number',
-
-    m_toastUI = 'UI',
     })
 
 -------------------------------------
@@ -19,9 +17,6 @@ function UI_ArenaNewDailyReward:init(remain_score)
 
     local vars = self:load('arena_new_scene_popup_reward.ui')
     UIManager:open(self, UIManager.POPUP)
-
-    self.m_toastUI = self:makeToast()
-    self.m_toastUI.root:setPosition(0, -30)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ArenaNewDailyReward')
@@ -137,7 +132,7 @@ function UI_ArenaNewDailyReward:setRewardItem(rewardable_tier_item, struct_user_
 
 
     if (g_arenaNewData.m_dailyRewardReceived) then
-        --vars['rewardBtn']:setEnabled(false)
+        vars['rewardBtn']:setEnabled(false)
     else
         vars['rewardBtn']:setEnabled(true)
     end
@@ -148,68 +143,11 @@ end
 -------------------------------------
 function UI_ArenaNewDailyReward:click_dailyRewardBtn()
     function finish_cb(ret)
-        self:showCurrntReward(ret['item_info'])
-
         self:close()
+        UI_ArenaNewDailyRewardToast(ret['reward_info'])
     end
 
     g_arenaNewData:request_dailyReward(finish_cb)
-end
-
--------------------------------------
--- function makeToast
--------------------------------------
-function UI_ArenaNewDailyReward:makeToast()
-    local ui = UI()   
-    ui:load('popup_toast_reward.ui')
-    self.root:addChild(ui.root)
-
-    ui.root:setOpacity(0)
-    ui.root:setPositionY(100)
-
-    return ui
-end
-
--------------------------------------
--- function showCurrntReward
--------------------------------------
-function UI_ArenaNewDailyReward:showCurrntReward(item_list)
-    --if (not item_list) then return end
-
-    local vars = self.m_toastUI.vars
-    self.m_toastUI.root:stopAllActions()
-
-    -- 현재 보상 정보 파싱
-    local item_count = #item_list
-    local start_posX
-    local place_distance
-
-    vars['rewardNode']:removeAllChildren(true)
-
-    for _, t_item in ipairs(item_list) do
-        -- 정보 입력
-        local item_id = t_item['item_id']
-        local itemIcon = UI_ItemCard(item_id, t_item['count'])
-        vars['rewardNode']:addChild(itemIcon.root)
-
-        if (not start_posX) then
-            local width = itemIcon.root:getContentSize()['width']
-            place_distance = width / 2 + 5
-            
-            start_posX = - place_distance
-
-        else
-            start_posX = place_distance  
-
-        end
-
-        itemIcon.root:setPositionX(start_posX)
-    end
-
-    self.m_toastUI:setOpacityChildren(true)
-
-    -- 등장 연출
-	cca.fadeInDelayOut(self.m_toastUI.root, 0.1, 0.5, 0.3)
 end
 
 
@@ -335,4 +273,79 @@ end
 -- function refresh
 -------------------------------------
 function UI_ArenaNewDailyRewardListItem:refresh()
+end
+
+
+-------------------------------------
+-- class UI_ArenaNewDailyRewardListItem
+-------------------------------------
+UI_ArenaNewDailyRewardToast = class(UI, {
+    m_rewardData = 'table',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ArenaNewDailyRewardToast:init(data)
+    local vars = self:load('popup_toast_reward.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    self.m_rewardData = data
+
+    self.root:setPositionY(100)
+
+    self:initUI()
+end
+
+
+function UI_ArenaNewDailyRewardToast:initUI()
+	-- body    
+    local vars = self.vars
+    self.root:stopAllActions()
+    self:setOpacityChildren(true)
+    self:setCurrntReward()
+
+    -- 등장 연출
+	doAllChildren(self.root, function(child) child:setCascadeOpacityEnabled(true) end)
+
+    self.root:setOpacity(0)
+    local fadein = cc.FadeIn:create(0.1) 
+    local delay = cc.DelayTime:create(0.5)
+	local fadeout = cc.FadeOut:create(0.3)
+    cca.runAction(self.root, cc.Sequence:create(fadein, delay, fadeout, cc.CallFunc:create(function() self:close() end)))
+end
+
+-------------------------------------
+-- function showCurrntReward
+-------------------------------------
+function UI_ArenaNewDailyRewardToast:setCurrntReward()
+    --if (not item_list) then return end
+    -- 현재 보상 정보 파싱
+    local vars = self.vars
+    local start_posX
+    local place_distance
+    local item_list = self.m_rewardData
+    local item_count = #item_list
+
+    vars['rewardNode']:removeAllChildren(true)
+
+    for _, t_item in ipairs(item_list) do
+        -- 정보 입력
+        local item_id = t_item['item_id']
+        local itemIcon = UI_ItemCard(item_id, t_item['count'])
+        vars['rewardNode']:addChild(itemIcon.root)
+
+        if (not start_posX) then
+            local width = itemIcon.root:getContentSize()['width']
+            place_distance = width / 2 + 5
+            
+            start_posX = - place_distance
+
+        else
+            start_posX = place_distance  
+
+        end
+
+        itemIcon.root:setPositionX(start_posX)
+    end
 end
