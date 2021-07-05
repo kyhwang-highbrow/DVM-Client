@@ -6,6 +6,8 @@ local PARENT = UI
 -------------------------------------
 UI_ArenaNewDailyReward = class(PARENT,{
     m_remainNextScore = 'number',
+
+    m_toastUI = 'UI',
     })
 
 -------------------------------------
@@ -14,12 +16,17 @@ UI_ArenaNewDailyReward = class(PARENT,{
 function UI_ArenaNewDailyReward:init(remain_score)
 	self.m_uiName = 'UI_ArenaNewDailyReward'
     self.m_remainNextScore = remain_score
-    
+
     local vars = self:load('arena_new_scene_popup_reward.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    self.m_toastUI = self:makeToast()
+    self.m_toastUI.root:setPosition(0, -30)
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ArenaNewDailyReward')
+
+    vars['rewardBtn']:registerScriptTapHandler(function() self:click_dailyRewardBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 
     self:initUI()
@@ -44,6 +51,7 @@ function UI_ArenaNewDailyReward:initUI()
 
         if (struct_user_info.m_tier == v['tier']) then
             rewardable_tier_item = v
+            index = i
         end
     end
 
@@ -59,6 +67,17 @@ function UI_ArenaNewDailyReward:initUI()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(finalList, true)
 
+    local idx
+    for i, data in ipairs(table_view.m_itemList) do
+        if (data['data']) then
+            if (data['data']['tier'] == struct_user_info.m_tier) then
+                idx = i
+                break
+            end
+        end
+    end
+
+    table_view:relocateContainerFromIndex(idx)
     
     -- 현재 티어아이콘
     vars['tierIconNode']:removeAllChildren()
@@ -100,7 +119,7 @@ function UI_ArenaNewDailyReward:setRewardItem(rewardable_tier_item, struct_user_
         total_gold = tonumber(rewardable_tier_item['daily_gold_rate']) * struct_user_info:getRP()
     end
 
-    local l_reward = g_itemData:parsePackageItemStr(rewardable_tier_item['achieve_reward'])
+    local l_reward = g_itemData:parsePackageItemStr(rewardable_tier_item['daily_reward'])
 
     if (l_reward and #l_reward > 0) then
         custom_item_id = l_reward[1]['item_id']
@@ -118,12 +137,80 @@ function UI_ArenaNewDailyReward:setRewardItem(rewardable_tier_item, struct_user_
 
 
     if (g_arenaNewData.m_dailyRewardReceived) then
-        vars['rewardBtn']:setEnabled(false)
+        --vars['rewardBtn']:setEnabled(false)
     else
         vars['rewardBtn']:setEnabled(true)
     end
 end
 
+-------------------------------------
+-- function setRewardItem
+-------------------------------------
+function UI_ArenaNewDailyReward:click_dailyRewardBtn()
+    function finish_cb(ret)
+        self:showCurrntReward(ret['item_info'])
+
+        self:close()
+    end
+
+    g_arenaNewData:request_dailyReward(finish_cb)
+end
+
+-------------------------------------
+-- function makeToast
+-------------------------------------
+function UI_ArenaNewDailyReward:makeToast()
+    local ui = UI()   
+    ui:load('popup_toast_reward.ui')
+    self.root:addChild(ui.root)
+
+    ui.root:setOpacity(0)
+    ui.root:setPositionY(100)
+
+    return ui
+end
+
+-------------------------------------
+-- function showCurrntReward
+-------------------------------------
+function UI_ArenaNewDailyReward:showCurrntReward(item_list)
+    --if (not item_list) then return end
+
+    local vars = self.m_toastUI.vars
+    self.m_toastUI.root:stopAllActions()
+
+    -- 현재 보상 정보 파싱
+    local item_count = #item_list
+    local start_posX
+    local place_distance
+
+    vars['rewardNode']:removeAllChildren(true)
+
+    for _, t_item in ipairs(item_list) do
+        -- 정보 입력
+        local item_id = t_item['item_id']
+        local itemIcon = UI_ItemCard(item_id, t_item['count'])
+        vars['rewardNode']:addChild(itemIcon.root)
+
+        if (not start_posX) then
+            local width = itemIcon.root:getContentSize()['width']
+            place_distance = width / 2 + 5
+            
+            start_posX = - place_distance
+
+        else
+            start_posX = place_distance  
+
+        end
+
+        itemIcon.root:setPositionX(start_posX)
+    end
+
+    self.m_toastUI:setOpacityChildren(true)
+
+    -- 등장 연출
+	cca.fadeInDelayOut(self.m_toastUI.root, 0.1, 0.5, 0.3)
+end
 
 
 
@@ -152,7 +239,7 @@ function UI_ArenaNewDailyRewardListItem:initUI()
     
     local tierInfo = self.m_tierInfo
     local activeRewardInfo = tierInfo['daily_reward']
-    ccdump(tierInfo)
+
     -- 티어이름
     vars['tierLabel']:setString(StructUserInfoArenaNew:getTierName(tierInfo['tier']))
 
@@ -215,6 +302,11 @@ function UI_ArenaNewDailyRewardListItem:initUI()
     local icon = IconHelper:getItemIcon('gold')
     icon:setScale(0.4)
     vars['rewardNode1']:addChild(icon)
+
+    local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
+    local is_on_range = struct_user_info.m_tier == tierInfo['tier']
+
+    vars['meSprite']:setVisible(is_on_range)
 end
 
 -------------------------------------
