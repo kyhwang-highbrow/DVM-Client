@@ -111,6 +111,13 @@ function UI_AcquisitionRegionListItem:initUI()
             if (icon) then
 			    vars['iconNode']:addChild(icon)
             end
+		elseif (get_type == 'arena_new') then
+			title_str = Str('콜로세움')
+            content_str = ''
+            local icon = IconHelper:getIcon('res/ui/icons/content/arena.png')
+            if (icon) then
+			    vars['iconNode']:addChild(icon)
+            end
         elseif string.find(get_type, 'coupon') then
             local n_time = string.gsub(get_type, 'coupon', '')
             title_str = Str('[오프라인 카드]')
@@ -179,6 +186,12 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
                 return
             end
 			UINavigator:goTo('challenge_mode')
+		elseif (get_type == 'arena_new') then
+			if IS_ARENA_NEW_OPEN() and HAS_ARENA_NEW_SEASON() then
+				UINavigator:goTo('colosseum')
+			else -- 콜로세움이 열려있지 않으면
+				UIManager:toastNotificationRed(Str('오픈시간이 아닙니다.'))
+			end
 
         elseif (get_type == 'slime_combine') then
             -- 슈퍼 슬라임 합성으로 보내기
@@ -194,8 +207,6 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 
         elseif string.find(get_type, 'coupon') then
             ccdisplay('쿠폰 등록 팝업으로 이동!')
-
-        
 
 		end
 	end

@@ -224,7 +224,7 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 
     -- 룬 연마석
 	elseif (item_type == 'grindstone') then
-        table.insert(l_region, 'challenge_mode')
+        table.insert(l_region, 'arena_new')
 
 	-- 룬, 과일, 진화재료 및 기타 다른것들
 	else
