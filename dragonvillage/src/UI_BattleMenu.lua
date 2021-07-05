@@ -4,7 +4,7 @@ local L_TAB = {'adventure', 'dungeon', 'competition', 'clan'}
 local L_TAB_CONTENTS = {}
 L_TAB_CONTENTS['adventure'] = {'adventure', 'exploration'}
 L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'dmgate', 'secret_relation'}
-L_TAB_CONTENTS['competition'] = {'ancient', 'attr_tower', 'colosseum', 'challenge_mode', 'grand_arena', 'arena_new'}
+L_TAB_CONTENTS['competition'] = {'ancient', 'attr_tower', 'colosseum', 'grand_arena', 'arena_new'} -- 그림자의 신전('challenge_mode')
 L_TAB_CONTENTS['clan'] = {'clan_raid', 'rune_guardian', 'clan_war'}
 
 
