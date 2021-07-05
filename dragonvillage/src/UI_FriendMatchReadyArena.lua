@@ -8,6 +8,8 @@ UI_FriendMatchReadyArena = class(PARENT,{
         m_vsuid = '',
         m_player2DDeck = 'UI_2DDeck',
         m_bClosedTag = 'boolean', -- 시즌이 종료되어 처리를 했는지 여부
+
+        m_radioButton = 'UIC_RadioBtn',
     })
 
 -- 친구 대전 제외한 친선전은 우정포인트 10 소모
@@ -185,6 +187,20 @@ function UI_FriendMatchReadyArena:initUI_userInfo()
         vars['tamerNode2']:removeAllChildren()
         vars['tamerNode2']:addChild(icon)
     end
+
+    -- radio btn
+	do
+        vars['radioMenu']:setVisible(true)
+
+		local radio_button = UIC_RadioButton()        
+		
+        radio_button:addButton('colosseum', vars['arenaRadioBtn'], vars['arenaRadioSprite'])
+        radio_button:addButton('clanwar', vars['clanRadioBtn'], vars['clanRadioSprite'])
+
+        radio_button:setSelectedButton('colosseum')
+        		
+		self.m_radioButton = radio_button
+	end
 end
 
 -------------------------------------
@@ -275,7 +291,7 @@ function UI_FriendMatchReadyArena:click_startBtn()
             UI_BlockPopup()
 
             local friend_match = true
-            local scene = SceneGameArenaNew(nil, nil, nil, nil, friend_match)
+            local scene = SceneGameArenaNew(nil, nil, nil, nil, friend_match, self.m_radioButton.m_selectedButton)
             scene:runScene()
         end
 
