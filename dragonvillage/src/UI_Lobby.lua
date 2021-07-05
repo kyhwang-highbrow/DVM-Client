@@ -17,7 +17,6 @@ UI_Lobby = class(PARENT,{
         m_bGiftBoxEnabled = 'bool',
 
         m_bDirtyLeftButtonMenu = 'bool',
-        m_bUpdatingHighlights = 'bool',
 
         -- 로비 진입 시 시작 코루틴에서 의미있는 동작이 모두 완료되었는지 구분
         m_bDoneEntryCoroutine = 'bool',
@@ -36,7 +35,6 @@ function UI_Lobby:initParentVariable()
     self.m_bShowChatBtn = true
     self.m_uiBgm = 'bgm_lobby'
     self.m_bDirtyLeftButtonMenu = true
-    self.m_bUpdatingHighlights = false
     self.m_bDoneEntryCoroutine = false
 end
 
@@ -244,6 +242,12 @@ function UI_Lobby:entryCoroutine()
         do 
             co:work('# 배틀패스 정보 받는 중')
                 g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
+        do
+            co:work('')
+                g_highlightData:request_highlightInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
@@ -1002,219 +1006,212 @@ function UI_Lobby:update_highlight()
     local vars = self.vars
     local etc_vars = self.m_etcExpendedUI.vars
 
-    local function highlight_func()
-
-        -- 네트워크 통신이 비동기로 실행되기 때문에 UI가 close된 상태에서 콜백이 올 수 있음을 예방함 sgkim
-        if self.closed then
-            return
-        end
-
-        -- 전투 메뉴
-        vars['battleNotiSprite']:setVisible(g_highlightData:isHighlightExploration() or g_secretDungeonData:isSecretDungeonExist())
-
-        do -- 핫타임
-            if (
-                g_hotTimeData:isHighlightHotTime()
-                or g_fevertimeData:isActiveFevertime_adventure()
-                or g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
-                or g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
-                or g_fevertimeData:isActiveFevertime_pvpHonorUp()
-                or g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
-                or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
-                or g_fevertimeData:isActiveFevertime_dungeonArStDc()
-                or g_fevertimeData:isActiveFevertime_dungeonNmStDc()
-                or g_fevertimeData:isActiveFevertime_dungeonGtStDc()
-                or g_fevertimeData:isActiveFevertime_dungeonGdStDc()
-                or g_fevertimeData:isActiveFevertime_dungeonRgStDc()
-            ) then
-                vars['battleHotSprite']:setVisible(true)
-            end
-            
-            local is_gacha_active local gacha_value local gacha_ret
-            local is_comebine_active local combine_value local combine_ret
-            local is_diamond_rune_gacha_event_active = g_hotTimeData:isActiveEvent('event_rune_gacha')
-
-            is_gacha_active, gacha_value, gacha_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
-            is_comebine_active, combine_value, combine_ret = g_fevertimeData:isActiveFevertime_runeCombineUp()
-
-            if is_gacha_active then
-                vars['runeEventSprite1']:setVisible(true)
-                if #gacha_ret then gacha_ret = gacha_ret[1] end
-                vars['runeEventLabel1']:setString(Str(gacha_ret['title']))
-
-            elseif is_comebine_active then
-                vars['runeEventSprite1']:setVisible(true)
-                if #combine_ret then combine_ret = combine_ret[1] end
-                vars['runeEventLabel1']:setString(Str(combine_ret['title']))
-
-            elseif is_diamond_rune_gacha_event_active then
-                vars['runeEventSprite1']:setVisible(true)
-                vars['runeEventLabel1']:setString(Str('룬 뽑기 EVENT'))
-
-            else
-                vars['runeEventSprite1']:setVisible(false)
-
-            end
-            
-        end
-
-        -- 퀘스트
-        vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
-
-        -- 우편함
-        vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
-
-        -- 드래곤
-        vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
-
-        -- 친구 
-        etc_vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
-
-		-- 이벤트
-		vars['eventManageNotiSprite']:setVisible(g_eventData:isHighlightEvent())
-
-		-- 드래곤 소환
-		local highlight, t_highlight = g_hatcheryData:checkHighlight()
-		vars['drawNotiSprite']:setVisible(highlight)
-    
-		-- 드래곤의 숲
-		vars['forestNotiSprite']:setVisible(ServerData_Forest:getInstance():isHighlightForest())
-
-		-- 테이머
-		vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
-
-        -- 드래곤 성장일지
-        local has_reward, _ = g_dragonDiaryData:hasRewardRoad()
-		vars['dragonDiaryNotiSprite']:setVisible(has_reward)
-
-		-- 도감
-		etc_vars['bookNotiSprite']:setVisible(g_bookData:isHighlightBook())
-
-		-- 룬
-		local rune_box_count = g_userData:get('rune_box') or 0
-        local b_rune_gacha_highlight = (rune_box_count > 0)
-        vars['runeForgeNotiSprite']:setVisible(g_highlightData:isHighlightRune() or b_rune_gacha_highlight)
-
-		-- 기타 (친구 or 도감 or 가방)
-		local is_etc_noti = (etc_vars['friendNotiSprite']:isVisible() or etc_vars['bookNotiSprite']:isVisible() or etc_vars['inventoryNotiSprite']:isVisible())
-		vars['etcNotiSprite']:setVisible(is_etc_noti)
-
-		-- 클랜
-		vars['clanNotiSprite']:setVisible(
-            g_clanData:isHighlightClan()
-            or g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
-            or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
-            or g_fevertimeData:isActiveFevertime_dungeonRgStDc()
-        )
-
-        do -- 황금 던전
-            vars['goldDungeonNotiRed']:setVisible(false)
-            vars['goldDungeonNotiYellow']:setVisible(false)
-
-            if ServerData_EventGoldDungeon:getInstance():isHighlightRed_gd() then
-                vars['goldDungeonNotiRed']:setVisible(true)
-            elseif ServerData_EventGoldDungeon:getInstance():isHighlightYellow_gd() then
-                vars['goldDungeonNotiYellow']:setVisible(true)
-            end
-        end
-
-        do -- 수집 이벤트
-            vars['exchangeNotiRed']:setVisible(false)
-            vars['exchangeNotiYellow']:setVisible(false)
-
-            if g_hotTimeData:isActiveEvent('event_exchange') then
-                if g_exchangeEventData:isHighlightRed_ex() then
-                    vars['exchangeNotiRed']:setVisible(true)
-                elseif g_exchangeEventData:isHighlightYellow_ex() then
-                    vars['exchangeNotiYellow']:setVisible(true)
-                end
-            end
-        end
-
-        do -- 빙고 이벤트
-            vars['bingoNotiRed']:setVisible(false)
-            vars['bingoNotiYellow']:setVisible(false)
-
-            if g_hotTimeData:isActiveEvent('event_bingo') then
-                local struct_bingo = g_eventBingoData:getStructEventBingo()
-                if (struct_bingo) then
-                    if struct_bingo:isHighlightRed_ex() then
-                        vars['bingoNotiRed']:setVisible(true)
-                    elseif struct_bingo:isHighlightYellow_ex() then
-                        vars['bingoNotiYellow']:setVisible(true)
-                    end
-                end
-            end
-        end
-
-        do
-            vars['mandragoraNotiSprite']:setVisible(false)
-            vars['mandragoraNotiYellow']:setVisible(false)
-    
-            if (g_hotTimeData:isActiveEvent('event_mandraquest')) then
-                -- 만드라고라의 모험 노티
-                local function setNoti(ret)
-                    local b_show_red_noti = g_mandragoraQuest:isVisible_RedNoti()
-                    vars['mandragoraNotiSprite']:setVisible(b_show_red_noti)
-                    local b_show_yellow_noti = g_mandragoraQuest:isVisible_YellowNoti()
-                    vars['mandragoraNotiYellow']:setVisible(b_show_yellow_noti)
-                end
-				-- 정확한 퀘스트 상태 확인을 위해 다시 요청(드래곤 소환 등의 퀘스트)
-                g_mandragoraQuest:request_questInfo(setNoti)
-            end
-        end
-
-        
-
-        do -- 할로윈 이벤트
-            vars['halloweenNotiSprite']:setVisible(false)
-            vars['halloweenNotiYellow']:setVisible(false)
-
-            if g_hotTimeData:isActiveEvent('event_rune_festival') then
-                if (g_eventRuneFestival:isDailyStLimit() == false) then
-                    vars['halloweenNotiYellow']:setVisible(true)
-                end
-            end
-        end
-
-        do -- 알파벳 이벤트
-            vars['alphabetNotiRed']:setVisible(false)
-            vars['alphabetNotiYellow']:setVisible(false)
-
-            if g_eventAlphabetData:isHighlightRed_alphabet() then
-                vars['alphabetNotiRed']:setVisible(true)
-            elseif g_eventAlphabetData:isHighlightYellow_alphabet() then
-                vars['alphabetNotiYellow']:setVisible(true)
-            end
-        end
-
-        do -- 핫타임
-            vars['fevertimeNotiSprite']:setVisible(g_fevertimeData:isNotUsedFevertimeExist())
-        end
-
-        do -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트)
-            vars['questEventSprite']:setVisible(g_hotTimeData:isActiveEvent('event_daily_quest'))
-        end
-
-        do -- 드래곤 이미지 퀴즈 이벤트
-            if (g_eventImageQuizData) then
-                vars['quizEventNotiSprite']:setVisible(g_eventImageQuizData:isHighlightRed_imageQuiz())
-                vars['quizEventNotiYellow']:setVisible(g_eventImageQuizData:isHighlightYellow_imageQuiz())
-            end
-        end
-
-        do -- 소원 구슬 이벤트
-            if (g_eventLFBagData) then
-                vars['luckyfortunebagNotiSprite']:setVisible(g_eventLFBagData:isHighlightRed())
-                --vars['quizEventNotiYellow']:setVisible(g_eventLFBagData:isHighlightYellow())
-            end
-        end
-
-        self.m_bUpdatingHighlights = false
+    -- 네트워크 통신이 비동기로 실행되기 때문에 UI가 close된 상태에서 콜백이 올 수 있음을 예방함 sgkim
+    if self.closed then
+        return
     end
 
-    self.m_bUpdatingHighlights = true
-    g_highlightData:request_highlightInfo(highlight_func)
+    -- 전투 메뉴
+    vars['battleNotiSprite']:setVisible(g_highlightData:isHighlightExploration() or g_secretDungeonData:isSecretDungeonExist())
+
+    do -- 핫타임
+        if (
+            g_hotTimeData:isHighlightHotTime()
+            or g_fevertimeData:isActiveFevertime_adventure()
+            or g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
+            or g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
+            or g_fevertimeData:isActiveFevertime_pvpHonorUp()
+            or g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
+            or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
+            or g_fevertimeData:isActiveFevertime_dungeonArStDc()
+            or g_fevertimeData:isActiveFevertime_dungeonNmStDc()
+            or g_fevertimeData:isActiveFevertime_dungeonGtStDc()
+            or g_fevertimeData:isActiveFevertime_dungeonGdStDc()
+            or g_fevertimeData:isActiveFevertime_dungeonRgStDc()
+        ) then
+            vars['battleHotSprite']:setVisible(true)
+        end
+        
+        local is_gacha_active local gacha_value local gacha_ret
+        local is_comebine_active local combine_value local combine_ret
+        local is_diamond_rune_gacha_event_active = g_hotTimeData:isActiveEvent('event_rune_gacha')
+
+        is_gacha_active, gacha_value, gacha_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
+        is_comebine_active, combine_value, combine_ret = g_fevertimeData:isActiveFevertime_runeCombineUp()
+
+        if is_gacha_active then
+            vars['runeEventSprite1']:setVisible(true)
+            if #gacha_ret then gacha_ret = gacha_ret[1] end
+            vars['runeEventLabel1']:setString(Str(gacha_ret['title']))
+
+        elseif is_comebine_active then
+            vars['runeEventSprite1']:setVisible(true)
+            if #combine_ret then combine_ret = combine_ret[1] end
+            vars['runeEventLabel1']:setString(Str(combine_ret['title']))
+
+        elseif is_diamond_rune_gacha_event_active then
+            vars['runeEventSprite1']:setVisible(true)
+            vars['runeEventLabel1']:setString(Str('룬 뽑기 EVENT'))
+
+        else
+            vars['runeEventSprite1']:setVisible(false)
+
+        end
+        
+    end
+
+    -- 퀘스트
+    vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
+
+    -- 우편함
+    vars['mailNotiSprite']:setVisible(g_highlightData:isHighlightMail())
+
+    -- 드래곤
+    vars['dragonManageNotiSprite']:setVisible(g_highlightData:isHighlightDragon())
+
+    -- 친구 
+    etc_vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
+
+    -- 이벤트
+    local is_event_noti_visible = g_eventData:isHighlightEvent() or g_fevertimeData:isNotUsedFevertimeExist()
+    vars['eventManageNotiSprite']:setVisible(is_event_noti_visible)
+
+    -- 드래곤 소환
+    local highlight, t_highlight = g_hatcheryData:checkHighlight()
+    vars['drawNotiSprite']:setVisible(highlight)
+
+    -- 드래곤의 숲
+    vars['forestNotiSprite']:setVisible(ServerData_Forest:getInstance():isHighlightForest())
+
+    -- 테이머
+    vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
+
+    -- 드래곤 성장일지
+    local has_reward, _ = g_dragonDiaryData:hasRewardRoad()
+    vars['dragonDiaryNotiSprite']:setVisible(has_reward)
+
+    -- 도감
+    etc_vars['bookNotiSprite']:setVisible(g_bookData:isHighlightBook())
+
+    -- 룬
+    local rune_box_count = g_userData:get('rune_box') or 0
+    local b_rune_gacha_highlight = (rune_box_count > 0)
+    vars['runeForgeNotiSprite']:setVisible(g_highlightData:isHighlightRune() or b_rune_gacha_highlight)
+
+    -- 기타 (친구 or 도감 or 가방)
+    local is_etc_noti = (etc_vars['friendNotiSprite']:isVisible() or etc_vars['bookNotiSprite']:isVisible() or etc_vars['inventoryNotiSprite']:isVisible())
+    vars['etcNotiSprite']:setVisible(is_etc_noti)
+
+    -- 클랜
+    vars['clanNotiSprite']:setVisible(
+        g_clanData:isHighlightClan()
+        or g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
+        or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
+        or g_fevertimeData:isActiveFevertime_dungeonRgStDc()
+    )
+
+    do -- 황금 던전
+        vars['goldDungeonNotiRed']:setVisible(false)
+        vars['goldDungeonNotiYellow']:setVisible(false)
+
+        if ServerData_EventGoldDungeon:getInstance():isHighlightRed_gd() then
+            vars['goldDungeonNotiRed']:setVisible(true)
+        elseif ServerData_EventGoldDungeon:getInstance():isHighlightYellow_gd() then
+            vars['goldDungeonNotiYellow']:setVisible(true)
+        end
+    end
+
+    do -- 수집 이벤트
+        vars['exchangeNotiRed']:setVisible(false)
+        vars['exchangeNotiYellow']:setVisible(false)
+
+        if g_hotTimeData:isActiveEvent('event_exchange') then
+            if g_exchangeEventData:isHighlightRed_ex() then
+                vars['exchangeNotiRed']:setVisible(true)
+            elseif g_exchangeEventData:isHighlightYellow_ex() then
+                vars['exchangeNotiYellow']:setVisible(true)
+            end
+        end
+    end
+
+    do -- 빙고 이벤트
+        vars['bingoNotiRed']:setVisible(false)
+        vars['bingoNotiYellow']:setVisible(false)
+
+        if g_hotTimeData:isActiveEvent('event_bingo') then
+            local struct_bingo = g_eventBingoData:getStructEventBingo()
+            if (struct_bingo) then
+                if struct_bingo:isHighlightRed_ex() then
+                    vars['bingoNotiRed']:setVisible(true)
+                elseif struct_bingo:isHighlightYellow_ex() then
+                    vars['bingoNotiYellow']:setVisible(true)
+                end
+            end
+        end
+    end
+
+    do
+        vars['mandragoraNotiSprite']:setVisible(false)
+        vars['mandragoraNotiYellow']:setVisible(false)
+
+        if (g_hotTimeData:isActiveEvent('event_mandraquest')) then
+            -- 만드라고라의 모험 노티
+            local function setNoti(ret)
+                local b_show_red_noti = g_mandragoraQuest:isVisible_RedNoti()
+                vars['mandragoraNotiSprite']:setVisible(b_show_red_noti)
+                local b_show_yellow_noti = g_mandragoraQuest:isVisible_YellowNoti()
+                vars['mandragoraNotiYellow']:setVisible(b_show_yellow_noti)
+            end
+            -- 정확한 퀘스트 상태 확인을 위해 다시 요청(드래곤 소환 등의 퀘스트)
+            g_mandragoraQuest:request_questInfo(setNoti)
+        end
+    end
+
+    
+
+    do -- 할로윈 이벤트
+        vars['halloweenNotiSprite']:setVisible(false)
+        vars['halloweenNotiYellow']:setVisible(false)
+
+        if g_hotTimeData:isActiveEvent('event_rune_festival') then
+            if (g_eventRuneFestival:isDailyStLimit() == false) then
+                vars['halloweenNotiYellow']:setVisible(true)
+            end
+        end
+    end
+
+    do -- 알파벳 이벤트
+        vars['alphabetNotiRed']:setVisible(false)
+        vars['alphabetNotiYellow']:setVisible(false)
+
+        if g_eventAlphabetData:isHighlightRed_alphabet() then
+            vars['alphabetNotiRed']:setVisible(true)
+        elseif g_eventAlphabetData:isHighlightYellow_alphabet() then
+            vars['alphabetNotiYellow']:setVisible(true)
+        end
+    end
+
+    do -- 핫타임
+        vars['fevertimeNotiSprite']:setVisible(g_fevertimeData:isNotUsedFevertimeExist())
+    end
+
+    do -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트)
+        vars['questEventSprite']:setVisible(g_hotTimeData:isActiveEvent('event_daily_quest'))
+    end
+
+    do -- 드래곤 이미지 퀴즈 이벤트
+        if (g_eventImageQuizData) then
+            vars['quizEventNotiSprite']:setVisible(g_eventImageQuizData:isHighlightRed_imageQuiz())
+            vars['quizEventNotiYellow']:setVisible(g_eventImageQuizData:isHighlightYellow_imageQuiz())
+        end
+    end
+
+    do -- 소원 구슬 이벤트
+        if (g_eventLFBagData) then
+            vars['luckyfortunebagNotiSprite']:setVisible(g_eventLFBagData:isHighlightRed())
+            --vars['quizEventNotiYellow']:setVisible(g_eventLFBagData:isHighlightYellow())
+        end
+    end
 end
 
 -------------------------------------
@@ -1900,10 +1897,8 @@ function UI_Lobby:update(dt)
 
     -- noti 갱신
 	if (g_highlightData:isDirty()) then
-        if (not self.m_bUpdatingHighlights) then
-		    g_highlightData:setDirty(false)
-		    self:update_highlight()
-        end
+        g_highlightData:setDirty(false)
+        self:update_highlight()
 	end
 
     -- 마스터의 길 정보 갱신
@@ -1937,6 +1932,7 @@ function UI_Lobby:update(dt)
     end
 
     local vars = self.vars
+
 
     -- 캡슐뽑기 노티 (1개 이상 보유시)
     do
@@ -1981,7 +1977,7 @@ function UI_Lobby:update(dt)
         g_hotTimeData.m_boosterInfoDirty = false
         self:update_boosterButtons() 
     end
-
+    
     -- 경험치 부스터
     do
         local str, state = g_hotTimeData:getHotTimeBuffText('buff_exp2x')
@@ -2264,7 +2260,7 @@ function UI_Lobby:update_rightButtons()
     vars['randomShopBtn']:setVisible(is_random_shop_open)
 
     do -- 핫타임
-        -- if (g_fevertimeData:isHighlightFevertime() == true) then
+        -- if (g_fevertimeData:isNotUsedFevertimeExist() == true) then
         --     vars['fevertimeBtn']:setVisible(true)
         --     vars['fevertimeNotiSprite']:setVisible(g_fevertimeData:isNotUsedFevertimeExist())
         -- else

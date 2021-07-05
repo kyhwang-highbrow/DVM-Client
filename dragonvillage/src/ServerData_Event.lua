@@ -552,6 +552,12 @@ function ServerData_Event:setEventTabNoti(event_tab)
     elseif (event_type == 'event_exchange') then
         event_tab.m_hasNoti = g_exchangeEventData:hasReward()
 
+    -- 클랜 출석 이벤트
+    elseif (event_type == 'daily_mission') then
+        event_tab.m_hasNoti = g_highlightData:isHighlighDailyMissionClan()
+    -- 핫타임
+    elseif (event_type == 'fevertime') then
+        event_tab.m_hasNoti = g_fevertimeData:isNotUsedFevertimeExist()
     else
         event_tab.m_hasNoti = false
     end

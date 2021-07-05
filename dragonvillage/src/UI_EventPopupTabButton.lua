@@ -42,8 +42,17 @@ end
 function UI_EventPopupTabButton:refresh()
     local vars = self.vars
 
+    
+
     local struct_event_popup_tab = self.m_structEventPopupTab
     local type = struct_event_popup_tab.m_type
     local tab_btn_name = struct_event_popup_tab:getTabButtonName()
     vars['eventLabel']:setString(tab_btn_name)
+
+    
+    -- 이벤트 탭 노티피케이션 (ServerData_Event:setEventTabNoti 참고)
+    vars['notiSprite']:setVisible(struct_event_popup_tab.m_hasNoti)
+    
+
+    --vars['notiSprite']
 end
