@@ -124,7 +124,7 @@ function UI_CharacterCard:refreshDragonInfo()
     end
 
     -- 잠금 표시
-    self:refresh_Lock()
+    self:refresh_lock()
 end
 
 -------------------------------------
@@ -324,10 +324,10 @@ function UI_CharacterCard:setCountText(cnt)
 end
 
 -------------------------------------
--- function refresh_Lock
+-- function refresh_lock
 -- @brief 잠금 갱신
 -------------------------------------
-function UI_CharacterCard:refresh_Lock()
+function UI_CharacterCard:refresh_lock()
 	local t_dragon_data = self.m_dragonData
 	local is_lock = t_dragon_data:getLock()
 	self:setLockSpriteVisible(is_lock)

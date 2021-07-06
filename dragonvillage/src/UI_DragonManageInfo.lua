@@ -755,7 +755,7 @@ function UI_DragonManageInfo:refreshDragonCard(modified_dragons, modified_slimes
 					item['ui']:refresh_LeaderIcon()
 
 				elseif (ref_type == 'lock') then
-					item['ui']:refresh_Lock()
+					item['ui']:refresh_lock()
 
 				end
             end
@@ -773,7 +773,7 @@ function UI_DragonManageInfo:refreshDragonCard(modified_dragons, modified_slimes
 				item['ui'].m_dragonData = item['data']
 				
 				if (ref_type == 'lock') then
-					item['ui']:refresh_Lock()
+					item['ui']:refresh_lock()
 
 				end
             end

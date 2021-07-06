@@ -306,6 +306,18 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
         end
 
         ui.vars['clickBtn']:registerScriptTapHandler(click_func)
+
+        -- UI_RuneCard의 press_clickBtn으로 열린 UI_ItemInfoPopup이 닫힐 때 불리는 callback function
+        local function close_info_callback()
+            -- 룬이 잠금처리 되어 있을 경우
+            if ui.m_runeData:getObjectId() == self.m_selectedRuneObject:getObjectId() then
+                self.m_selectedRuneObject:setLock(ui:isRuneLock())
+                self.m_focusRuneUI:refresh_lock()
+                self.vars['lockSprite']:setVisible(self.m_selectedRuneObject:getLock())
+            end
+        end
+        
+        ui:setCloseInfoCallback(close_info_callback)
     end
 
     -- 테이블 뷰 인스턴스 생성

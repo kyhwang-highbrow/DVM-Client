@@ -354,6 +354,12 @@ function UI_ItemInfoPopup:refresh_memoLabel(roid)
 end
 
 -------------------------------------
+-- function isRuneLock
+-------------------------------------
+function UI_ItemInfoPopup:isRuneLock()
+    return self.m_tSubData:getLock()
+end
+-------------------------------------
 -- function setLockSprite
 -------------------------------------
 function UI_ItemInfoPopup:setLockSprite(is_locked)

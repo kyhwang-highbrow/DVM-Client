@@ -508,7 +508,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
                 local refreshed_data = g_dragonsData:getDragonDataFromUid(t_data:getObjectId())
 
                 card.m_dragonData = refreshed_data
-                card:refresh_Lock()
+                card:refresh_lock()
 
                 self:refresh_dragon(refreshed_data)
                 
@@ -663,7 +663,7 @@ function UI_GachaResult_Dragon:click_lockBtn()
             local card = self.m_lDragonCardList[doid]
         
             card.m_dragonData = refreshed_data
-            card:refresh_Lock()
+            card:refresh_lock()
         end
 
 		-- 잠금 안내 팝업

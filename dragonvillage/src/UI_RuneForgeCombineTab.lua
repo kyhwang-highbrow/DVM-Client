@@ -94,6 +94,7 @@ function UI_RuneForgeCombineTab:initTableView()
     local function make_func(object)
         return UI_RuneCard(object)
     end
+    
 
     local function create_func(ui, data)
         -- 새로 획득한 룬 뱃지
@@ -104,6 +105,19 @@ function UI_RuneForgeCombineTab:initTableView()
 
         -- 클릭 버튼 설정
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_rune(data) end)
+
+        
+        -- UI_RuneCard의 press_clickBtn으로 열린 UI_ItemInfoPopup이 닫힐 때 불리는 callback function
+        local function close_info_callback()
+            -- 룬이 잠금처리 되어 있을 경우 tableview에서 삭제
+            if ui:isRuneLock() then
+                self:initTableView()
+                self:initCombineTableView()    
+                self:refresh()
+            end
+        end
+
+        ui:setCloseInfoCallback(close_info_callback)
     end
 
     -- 테이블뷰 생성

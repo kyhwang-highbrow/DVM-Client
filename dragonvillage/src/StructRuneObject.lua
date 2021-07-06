@@ -668,6 +668,13 @@ end
 -------------------------------------
 -- function getLock
 -------------------------------------
+function StructRuneObject:setLock(is_lock)
+	self['lock'] = is_lock
+end
+
+-------------------------------------
+-- function getLock
+-------------------------------------
 function StructRuneObject:getLock()
 	return self['lock']
 end

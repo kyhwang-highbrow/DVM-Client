@@ -26,6 +26,9 @@ UI_RuneCard = class(PARENT, {
         m_runeIconRes = 'string',
         m_frameRes = 'string',
         m_levelNumber = 'number',
+
+        m_infoUI = 'UI_ItemInfoPopup',
+        m_closeInfoCallback = 'function', -- UI_ItemInfoPopup 닫을 때 callback function
     })
 
 -------------------------------------
@@ -86,7 +89,7 @@ function UI_RuneCard:refreshInfo()
     self:setLevelText()
 
     -- 잠금 표시
-    self:refresh_Lock()
+    self:refresh_lock()
 
     -- 연마 표시
     self:refresh_grind()
@@ -175,10 +178,18 @@ function UI_RuneCard:setLevelText(level)
 end
 
 -------------------------------------
--- function refresh_Lock
+-- function isRuneLock
 -- @brief 잠금 갱신
 -------------------------------------
-function UI_RuneCard:refresh_Lock()
+function UI_RuneCard:isRuneLock()
+	return self.m_runeData:getLock()
+end
+
+-------------------------------------
+-- function refresh_lock
+-- @brief 잠금 갱신
+-------------------------------------
+function UI_RuneCard:refresh_lock()
 	local is_lock = self.m_runeData:getLock()
 	self:setLockSpriteVisible(is_lock)
 end
@@ -310,6 +321,14 @@ function UI_RuneCard:setBtnEnabled(able)
 end
 
 -------------------------------------
+-- function setCloseInfoCallback
+-- @brief UI_ItemInfoPopup 닫을 때 불리는 callback function
+-------------------------------------
+function UI_RuneCard:setCloseInfoCallback(callback)
+    self.m_closeInfoCallback = callback
+end
+
+-------------------------------------
 -- function press_clickBtn
 -------------------------------------
 function UI_RuneCard:press_clickBtn()
@@ -317,6 +336,21 @@ function UI_RuneCard:press_clickBtn()
     local count = 1
 	local t_rune_data = self.m_runeData
 
+    local param = {self.m_runeData:getObjectId()}
+
     local ui = UI_ItemInfoPopup(item_id, count, t_rune_data)
-    ui:setCloseCB(function() self:refresh_memo() end)
+
+    -- UI_ItemInfoPopup이 닫힐 때 불리는 callback function
+    ui:setCloseCB(function() 
+        -- UI_ItemInfoPopup에서 잠금처리 될 경우 UI_RuneCard에도 반영
+        self.m_runeData:setLock(ui:isRuneLock())
+        self:refresh_lock()
+        self:refresh_memo()
+
+        if self.m_closeInfoCallback then
+            self.m_closeInfoCallback()
+        end
+    end)
+
+    self.m_infoUI = ui
 end
