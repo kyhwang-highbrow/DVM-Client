@@ -180,7 +180,7 @@ function ServerData_EventArenaPlay:hasReward(reward_type)
     end
 
     for idx = 1, reward_step do
-        local is_received = reward_info['reward'][idx] == 1
+        local is_received = reward_info['reward'][tostring(idx)] == 1
         local is_larger_number = self:getWinCount() >= reward_info['product']['price_' .. idx]
 
         if (is_larger_number) and (not is_received) then

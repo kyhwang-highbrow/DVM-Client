@@ -62,7 +62,7 @@ function UI_EventArenaPlay:refresh()
     local win_reward_step = play_reward_info['product']['step']
 
     for idx = 1, play_reward_step do
-        local is_received = play_reward_info['reward'][idx] == 1
+        local is_received = play_reward_info['reward'][tostring(idx)] == 1
         local can_receive = g_eventArenaPlayData:getPlayCount() >= play_reward_info['product']['price_' .. idx] and (not is_received)
 
         vars['playCheckSprite' .. idx]:setVisible(is_received)
@@ -70,8 +70,8 @@ function UI_EventArenaPlay:refresh()
     end
 
     for idx = 1, win_reward_step do
-        local is_received = win_reward_info['reward'][idx] == 1
-        local can_receive = g_eventArenaPlayData:getWinCount() >= play_reward_info['product']['price_' .. idx] and (not is_received)
+        local is_received = win_reward_info['reward'][tostring(idx)] == 1
+        local can_receive = g_eventArenaPlayData:getWinCount() >= win_reward_info['product']['price_' .. idx] and (not is_received)
 
         vars['winCheckSprite' .. idx]:setVisible(is_received)
         vars['winRewardSprite' .. idx]:setVisible(can_receive)
