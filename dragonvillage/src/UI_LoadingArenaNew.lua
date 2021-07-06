@@ -41,6 +41,7 @@ function UI_LoadingArenaNew:init(cur_scene, isReChallenge)
         self.vars['setDeckBtn']:setVisible(false)
         self.vars['startBtn']:setVisible(false)
         self.vars['closeBtn']:setVisible(false)
+        self.vars['autoStartOnBtn']:setVisible(false)
     else
         -- backkey 지정
         g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoadingArenaNew')
@@ -51,13 +52,12 @@ function UI_LoadingArenaNew:init(cur_scene, isReChallenge)
         self:doActionReset()
         self:doAction(nil, false)
 
+        -- 연속 모드 해제
+        g_autoPlaySetting:setAutoPlay(false)
     end
     
 	self:initUI()
     self:initButton()
-
-    -- 연속 모드 해제
-    g_autoPlaySetting:setAutoPlay(false)
 
     if (self.m_curScene) then
         self:selectAuto(true)

@@ -455,8 +455,7 @@ function UI_ArenaNewResult:direction_masterRoad()
 
     self.vars['normalBtnMenu']:setVisible(true)
 
-
-    --UI_GameResultNew.checkAutoPlay(self)
+    UI_GameResultNew.checkAutoPlay(self)
 end
 
 -------------------------------------
@@ -569,27 +568,44 @@ end
 -- @brief 연속 전투일 경우 재시작 하기전 카운트 해줌
 -------------------------------------
 function UI_ArenaNewResult:countAutoPlay()
-    UI_GameResultNew.countAutoPlay(self)
-end
+    if (not g_autoPlaySetting:isAutoPlay()) then return false end
 
--------------------------------------
--- function checkAutoPlayCondition
--- @brief 콜로세움 연속 전투 멈추는 조건
--------------------------------------
-function UI_ArenaNewResult:checkAutoPlayCondition()
-    local auto_play_stop = false
-    local msg = nil
-    
-    -- 패배 시 연속 전투 종료
-    if g_autoPlaySetting:get('stop_condition_lose') then
-        if (self.m_isWin == false) then
-            auto_play_stop = true
-            msg = Str('패배로 인해 연속 전투가 종료되었습니다.')
-        end
+    self.m_autoCount = true
+    local vars = self.vars
+    local node = vars['autoBattleNode']
+
+    if (node) then node:setVisible(true) end
+
+    local count_label = vars['countLabel']
+    count_label:setString('')
+
+    local count_num = 3
+    local count_time = 1
+
+    -- count ani
+    for i = count_num, 1, -1 do
+        local act1 = cc.DelayTime:create((count_num - i) * count_time)
+        local act2 = cc.CallFunc:create(function() 
+            count_label:setString(tostring(i)) 
+            count_label:setOpacity(255)
+            count_label:setScale(1)
+        end)
+        local act3 = cc.Spawn:create(cc.FadeOut:create(count_time), cc.ScaleTo:create(count_time, 0.8))
+
+        count_label:runAction(cc.Sequence:create(act1, act2, act3))        
     end
 
-	return auto_play_stop, msg
+    -- close
+    do
+        local act1 = cc.DelayTime:create(count_num * count_time)
+        local act2 = cc.CallFunc:create(function()
+            node:setVisible(false) 
+            self:click_quickBtn(true) -- params : skip_check_auto_play_release
+        end)
+        self.root:runAction(cc.Sequence:create(act1, act2))
+    end
 end
+
 
 -------------------------------------
 -- function startGame
@@ -602,13 +618,17 @@ function UI_ArenaNewResult:startGame()
         -- 연속 전투일 경우 횟수 증가
 		if (g_autoPlaySetting:isAutoPlay()) then
 			g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
+
+            local next_rival_data = g_arenaNewData:getValidRivalItem()
+            
+            if (next_rival_data) then g_arenaNewData:setMatchUser(next_rival_data) end
 		end
 
         local scene = SceneGameArena()
         scene:runScene()
     end
 
-    g_arenaNewData:request_arenaStart(is_cash, nil, cb)
+    g_arenaNewData:request_arenaStart(false, nil, cb)
 end
 
 -------------------------------------
@@ -654,4 +674,46 @@ function UI_ArenaNewResult:checkAutoPlayRelease()
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb, cancel_cb)
     
     return true
+end
+
+-------------------------------------
+-- function checkAutoPlay
+-- @brief
+-------------------------------------
+function UI_ArenaNewResult:checkAutoPlay()
+    if (not g_autoPlaySetting:isAutoPlay()) then
+        return
+    end
+        
+	local auto_play_stop, msg = self:checkAutoPlayCondition()
+    
+    if (auto_play_stop == true) then
+        -- 자동 전투 off
+        g_autoPlaySetting:setAutoPlay(false)
+
+        -- 메세지 있는 경우에만 팝업 출력
+        if (msg) then MakeSimplePopup(POPUP_TYPE.OK, msg) end
+        return
+    end
+
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1), cc.CallFunc:create(function() self:countAutoPlay()  end)))
+end
+
+-------------------------------------
+-- function checkAutoPlayCondition
+-- @brief 콜로세움 연속 전투 멈추는 조건
+-------------------------------------
+function UI_ArenaNewResult:checkAutoPlayCondition()
+    local auto_play_stop = false
+    local msg = nil
+    
+    -- 패배 시 연속 전투 종료
+    if g_autoPlaySetting:get('stop_condition_lose') then
+        if (self.m_isWin == false) then
+            auto_play_stop = true
+            msg = Str('패배로 인해 연속 전투가 종료되었습니다.')
+        end
+    end
+
+	return auto_play_stop, msg
 end

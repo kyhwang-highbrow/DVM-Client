@@ -1202,3 +1202,21 @@ function ServerData_ArenaNew:update(dt)
     -- res 받아서 저장 후
     -- 외부에서는 값이 들어와서 getUserLastTier 값이 있을 때까지 조회
 end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function ServerData_ArenaNew:getValidRivalItem()
+    local result
+
+    if (self.m_matchUserList and #self.m_matchUserList > 0) then
+        for _, item in ipairs(self.m_matchUserList) do
+            if (item and item.m_state == 0) then
+                result = item
+                break
+            end
+        end
+    end
+
+    return result
+end
