@@ -6,6 +6,8 @@ local PARENT = UI
 -------------------------------------
 UI_ArenaNewDailyReward = class(PARENT,{
     m_remainNextScore = 'number',
+
+    m_myTierRewardItem = 'table',
     })
 
 -------------------------------------
@@ -46,6 +48,7 @@ function UI_ArenaNewDailyReward:initUI()
 
         if (struct_user_info.m_tier == v['tier']) then
             rewardable_tier_item = v
+            self.m_myTierRewardItem = rewardable_tier_item
             index = i
         end
     end
@@ -132,7 +135,7 @@ function UI_ArenaNewDailyReward:setRewardItem(rewardable_tier_item, struct_user_
 
 
     if (g_arenaNewData.m_dailyRewardReceived) then
-        vars['rewardBtn']:setEnabled(false)
+        --vars['rewardBtn']:setEnabled(false)
     else
         vars['rewardBtn']:setEnabled(true)
     end
@@ -144,7 +147,9 @@ end
 function UI_ArenaNewDailyReward:click_dailyRewardBtn()
     function finish_cb(ret)
         self:close()
-        UI_ArenaNewDailyRewardToast(ret['reward_info'])
+        ret["reward_info"] = {{count=1, item_id=704900}, {count=1200, item_id=700002}}
+        UI_ArenaNewDailyRewardConfirm(ret['reward_info'], self.m_myTierRewardItem)
+        --UI_ArenaNewDailyRewardToast(ret['reward_info'])
     end
 
     g_arenaNewData:request_dailyReward(finish_cb)
@@ -276,6 +281,80 @@ function UI_ArenaNewDailyRewardListItem:refresh()
 end
 
 
+
+
+-------------------------------------
+-- class UI_ArenaNewDailyRewardListItem
+-------------------------------------
+UI_ArenaNewDailyRewardConfirm = class(UI, {
+    m_rewardData = 'table',
+
+    m_rankInfo = 'table',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ArenaNewDailyRewardConfirm:init(data, rank_info)
+    local vars = self:load('arena_new_scene_popup_reward_confirm.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    self.m_rewardData = data
+    self.m_rankInfo = rank_info
+
+    self:initUI()
+
+    self:setCurrntReward()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ArenaNewDailyRewardConfirm:initUI()
+    local vars = self.vars
+
+	vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+
+
+    local my_rank_item = UI_ArenaNewDailyRewardListItem(self.m_rankInfo)
+    vars['meNode']:addChild(my_rank_item.root)
+end
+
+
+-------------------------------------
+-- function click_okBtn
+-------------------------------------
+function UI_ArenaNewDailyRewardConfirm:click_okBtn()
+    UI_ArenaNewDailyRewardToast(self.m_rewardData)
+    self:close()
+end
+
+-------------------------------------
+-- function showCurrntReward
+-------------------------------------
+function UI_ArenaNewDailyRewardConfirm:setCurrntReward()
+    --if (not item_list) then return end
+    -- 현재 보상 정보 파싱
+    local vars = self.vars
+    local start_posX
+    local place_distance
+    local item_list = self.m_rewardData
+    local item_count = #item_list
+
+    
+    for idx, t_item in ipairs(item_list) do
+        -- 정보 입력
+        local item_id = t_item['item_id']
+        local itemIcon = UI_ItemCard(item_id, t_item['count'])
+        vars['itemNode' .. idx]:removeAllChildren(true)
+        vars['itemNode' .. idx]:addChild(itemIcon.root)
+    end
+end
+
+
+
+
+
 -------------------------------------
 -- class UI_ArenaNewDailyRewardListItem
 -------------------------------------
@@ -297,7 +376,9 @@ function UI_ArenaNewDailyRewardToast:init(data)
     self:initUI()
 end
 
-
+-------------------------------------
+-- function initUI
+-------------------------------------
 function UI_ArenaNewDailyRewardToast:initUI()
 	-- body    
     local vars = self.vars
