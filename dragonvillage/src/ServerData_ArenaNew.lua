@@ -51,6 +51,9 @@ ServerData_ArenaNew = class({
         m_bIsRequestingLastTierinfo = 'boolean',
 
         m_dailyRewardReceived = 'number',   -- 일일 보상 보상수령 ? 1 : 0
+
+        m_isAutoPlay = 'boolean',
+        m_isFailBreak = 'boolean',
     })
 
 -------------------------------------
@@ -74,6 +77,9 @@ function ServerData_ArenaNew:init(server_data)
     self.m_recentRequestTime = -5
 
     self.m_dailyRewardReceived = true
+
+    self.m_isAutoPlay = false
+    self.m_isFailBreak = false
 
     -- 기존 콜로세움 보상 정보 FLAG (후에 삭제)
     self.m_bLastPvpReward = false

@@ -1188,6 +1188,7 @@ local t_module = {
     'UI_ArenaNewHelp',
     'UI_ArenaNewDailyReward',
     'UI_ArenaNewTierRewardPopup',
+    'UI_ArenaNewAutoPlayPopup',
     'UI_ArenaNewRivalListItem',
     'UI_ArenaNewStepRewardPopup',
     'UI_ArenaNewRivalListResetPopup',

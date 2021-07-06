@@ -29,6 +29,8 @@ function UI_LoadingArenaNew:init(cur_scene, isReChallenge)
     self.m_myDeckList = {}
     self.m_isReChallenge = isReChallenge
     self.m_curScene = cur_scene
+    g_arenaNewData.m_isAutoPlay = false
+    g_arenaNewData.m_isFailBreak = false
 
     if (self.m_curScene) then
         self.m_bFriendMatch = self.m_curScene.m_bFriendMatch
@@ -187,6 +189,10 @@ end
 function UI_LoadingArenaNew:initButton()
     local vars = self.vars
     
+    vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
+    vars['autoStartOnBtn']:setManualMode(true)
+    vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)
+
     vars['setDeckBtn']:registerScriptTapHandler( function() self:click_setAttackDeck() end)
     vars['startBtn']:registerScriptTapHandler( function() self:click_startButton() end)
     vars['closeBtn']:registerScriptTapHandler( function() self:close() end)
@@ -444,6 +450,27 @@ function UI_LoadingArenaNew:click_manageBtn()
         self:sceneFadeInAction(func)
     end
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_autoStartOnBtn
+-- @brief 자동전투
+-------------------------------------
+function UI_LoadingArenaNew:click_autoStartOnBtn()
+    local function refresh_btn()
+        self.vars['autoStartOnBtn']:setChecked(g_arenaNewData.m_isAutoPlay)
+    end
+
+    if (self.vars['autoStartOnBtn']:isChecked()) then
+        g_arenaNewData.m_isAutoPlay = false
+        g_arenaNewData.m_isFailBreak = false
+        refresh_btn()
+
+    else
+        local ui = UI_ArenaNewAutoPlayPopup(self)
+        ui:setCloseCB(refresh_btn)
+
+    end
 end
 
 -------------------------------------

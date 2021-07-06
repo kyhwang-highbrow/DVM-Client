@@ -18,6 +18,7 @@ UI_AutoPlaySettingPopup.TAB_CONTINUOUS_BATTLE = 2
 -- function init
 -------------------------------------
 function UI_AutoPlaySettingPopup:init(game_mode, is_ingame)
+    self.m_uiName = 'UI_AutoPlaySettingPopup'
     local vars = self:load('battle_ready_auto_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
