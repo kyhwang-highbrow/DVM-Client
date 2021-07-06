@@ -179,6 +179,8 @@ end
 function UI_ArenaNew:initUI()
     local vars = self.vars
 
+    if (vars['refreshLabel']) then vars['refreshLabel']:setString(Str('갱신')) end
+
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
 
@@ -187,6 +189,7 @@ end
 -------------------------------------
 function UI_ArenaNew:updateTimer(dt)
     local vars = self.vars
+    --[[
     local time_label = vars['refreshLabel']
     if time_label then
         local curr_time = Timer:getServerTime()
@@ -207,7 +210,7 @@ function UI_ArenaNew:updateTimer(dt)
             time_label:setString(Str('갱신'))
             self.m_isRefreshOnCooltime = false
         end
-    end
+    end]]
     
     -- UI내에서 시즌이 종료되는 경우 예외처리
     if self.m_bClosedTag then
@@ -688,7 +691,7 @@ function UI_ArenaNew:click_refreshBtn()
 
     -- 무료가능?
     if (not self.m_isRefreshOnCooltime) then
-        UI_ArenaNewRivalListResetPopup(ok_cb, self.m_isRefreshOnCooltime)
+        UI_ArenaNewRivalListResetPopup(ok_cb)
         return
     end
 
@@ -699,7 +702,7 @@ function UI_ArenaNew:click_refreshBtn()
     end
 
     -- 그것도 아님 ㅇㅋ
-    UI_ArenaNewRivalListResetPopup(ok_cb, self.m_isRefreshOnCooltime)
+    UI_ArenaNewRivalListResetPopup(ok_cb)
 
 end
 

@@ -244,13 +244,9 @@ end
 -- 서버데이터의 키워드를 참조하여 가져올것
 -------------------------------------
 function ServerData_ArenaNew:getCostInfo(key)
-    cclog('머임?')
     if (not self.m_costInfo or not self.m_costInfo[tostring(key)]) then return 0 end
-    cclog('머임?1')
     local cost = 0
-    cclog('머임?2')
     cost = self.m_costInfo[tostring(key)]
-    cclog('머임?3')
     return cost
 end
 
