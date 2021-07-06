@@ -16,7 +16,7 @@ function UI_EventArenaPlay:init(popup_key)
 
     --self:initButton()
     --self:refresh()
-    --self:initUI()
+    self:initUI()
 end
 
 -------------------------------------
@@ -25,6 +25,10 @@ end
 -------------------------------------
 function UI_EventArenaPlay:initUI()
     local vars = self.vars
+
+    if (vars['timeLabel']) then
+        vars['timeLabel']:setString(g_eventArenaPlayData:getRemainEventTimeStr())
+    end
 end
 
 -------------------------------------

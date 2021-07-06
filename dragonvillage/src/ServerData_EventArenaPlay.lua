@@ -3,6 +3,10 @@
 -------------------------------------
 ServerData_EventArenaPlay = class({
         m_serverData = 'ServerData',
+
+        m_eventData = 'Table',
+
+
     })
 
 -------------------------------------
@@ -21,7 +25,7 @@ function ServerData_EventArenaPlay:request_eventData(finish_cb, fail_cb)
 
     -- 콜백
     local function success_cb(ret)
-        -- server_info 정보를 갱신
+        self.m_eventData = ret['event_arena_play_info']
 
         if finish_cb then
             finish_cb(ret)
@@ -42,4 +46,26 @@ function ServerData_EventArenaPlay:request_eventData(finish_cb, fail_cb)
     return ui_network
 end
 
+
+-------------------------------------
+-- function initUI
+-- @breif 초기화
+-------------------------------------
+function ServerData_EventArenaPlay:getRemainEventTimeStr()
+    if not self.m_eventData then return '' end
+
+    local expire_time = self.m_eventData['end']
+    local server_time = Timer:getServerTime()
+    local msg = ''
+    time = (expire_time/1000 - server_time)
+
+    if (time > 0) then
+        enable = false
+        local show_second = true
+        local first_only = true
+        msg = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
+    end
+
+    return msg
+end
 
