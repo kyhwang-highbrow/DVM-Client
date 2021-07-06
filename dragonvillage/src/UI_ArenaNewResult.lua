@@ -455,7 +455,7 @@ function UI_ArenaNewResult:direction_masterRoad()
 
     self.vars['normalBtnMenu']:setVisible(true)
 
-    UI_GameResultNew.checkAutoPlay(self)
+    self:checkAutoPlay()
 end
 
 -------------------------------------
@@ -551,7 +551,7 @@ function UI_ArenaNewResult:click_screenBtn()
 
     local func_name = self.m_lWorkList[self.m_workIdx] .. '_click'
     if func_name and (self[func_name]) then
-        --if (UI_GameResultNew.checkAutoPlayRelease(self)) then return end
+        if (self:checkAutoPlayRelease()) then return end
         self[func_name](self)
     end
 end
@@ -624,7 +624,7 @@ function UI_ArenaNewResult:startGame()
             if (next_rival_data) then g_arenaNewData:setMatchUser(next_rival_data) end
 		end
 
-        local scene = SceneGameArena()
+        local scene = SceneGameArenaNew()
         scene:runScene()
     end
 
