@@ -490,6 +490,8 @@ end
 -- function click_statsBtn
 -------------------------------------
 function UI_ArenaNewResult:click_statsBtn()
+    if (self:checkAutoPlayRelease()) then return end
+
 	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
 	UI_StatisticsPopup(g_gameScene.m_gameWorld)
 end
@@ -499,7 +501,7 @@ end
 -- @brief "확인" 버튼
 -------------------------------------
 function UI_ArenaNewResult:click_okBtn()
-    
+    if (self:checkAutoPlayRelease()) then return end
 
 	UINavigator:goTo('arena_new')
 end
@@ -509,6 +511,8 @@ end
 -- @brief 바로재시작 버튼
 -------------------------------------
 function UI_ArenaNewResult:click_quickBtn()
+    if (self:checkAutoPlayRelease()) then return end
+
     local start_func = function()
         self:startGame()
     end
@@ -560,6 +564,8 @@ end
 -- function click_statusInfo
 -------------------------------------
 function UI_ArenaNewResult:click_statusInfo()
+    if (self:checkAutoPlayRelease()) then return end
+
     UI_HelpStatus()
 end
 
@@ -635,6 +641,8 @@ end
 -- function click_homeBtn
 -------------------------------------
 function UI_ArenaNewResult:click_homeBtn()
+    if (self:checkAutoPlayRelease()) then return end
+
 	-- 씬 전환을 두번 호출 하지 않도록 하기 위함
 	local block_ui = UI_BlockPopup()
 
