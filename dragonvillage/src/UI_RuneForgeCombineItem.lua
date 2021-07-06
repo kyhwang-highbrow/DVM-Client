@@ -87,6 +87,21 @@ function UI_RuneForgeCombineItem:refresh()
                 
                 cca.uiReactionSlow(rune_card_ui.root, 1, 1, 1.3)
                 self.m_mRuneCardUI[idx] = rune_card_ui
+
+                -- UI_RuneCard의 press_clickBtn으로 열린 UI_ItemInfoPopup이 닫힐 때 불리는 callback function
+                local function close_info_callback()
+                    -- 룬이 잠금처리 되어 있을 경우 tableview에서 삭제
+                    if rune_card_ui:isRuneLock() then
+                        -- UI_RuneForgeCombineItem에서 제거
+                        self:click_rune(rune_card_ui.m_runeData)
+
+                        -- 좌측 UI_RuneForgeCombineTab의 m_tableView에서 제거
+                        self.m_ownerUI.m_tableView:delItem(t_rune_data:getObjectId())
+                        self.m_ownerUI:refresh()
+                    end
+                end
+
+                rune_card_ui:setCloseInfoCallback(close_info_callback)
             end
         end
     end

@@ -177,6 +177,17 @@ function UI_RuneCard:setLevelText(level)
     self:setNumberText(level, true) -- (use_plus)
 end
 
+
+-------------------------------------
+-- function setRuneLock
+-- @brief 잠금
+-------------------------------------
+function UI_RuneCard:setRuneLock(is_locked)
+    self.m_runeData:setLock(is_locked)
+
+    self:refresh_lock()
+end
+
 -------------------------------------
 -- function isRuneLock
 -- @brief 잠금 갱신
@@ -353,4 +364,12 @@ function UI_RuneCard:press_clickBtn()
     end)
 
     self.m_infoUI = ui
+end
+
+
+-------------------------------------
+-- function unregisterScriptPressHandler
+-------------------------------------
+function UI_RuneCard:unregisterScriptPressHandler()
+    self.vars['clickBtn']:unregisterScriptPressHandler()
 end

@@ -310,7 +310,7 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
         -- UI_RuneCard의 press_clickBtn으로 열린 UI_ItemInfoPopup이 닫힐 때 불리는 callback function
         local function close_info_callback()
             -- 룬이 잠금처리 되어 있을 경우
-            if ui.m_runeData:getObjectId() == self.m_selectedRuneObject:getObjectId() then
+            if self.m_selectedRuneObject and (ui.m_runeData:getObjectId() == self.m_selectedRuneObject:getObjectId()) then
                 self.m_selectedRuneObject:setLock(ui:isRuneLock())
                 self.m_focusRuneUI:refresh_lock()
                 self.vars['lockSprite']:setVisible(self.m_selectedRuneObject:getLock())
@@ -398,6 +398,15 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
         vars['itemNode']:setVisible(true)
         local item = UI_RuneCard(t_rune_data)
         vars['itemNode']:addChild(item.root)
+
+        -- UI_RuneCard의 press_clickBtn으로 열린 UI_ItemInfoPopup이 닫힐 때 불리는 callback function
+        local function close_info_callback()
+            -- 룬이 잠금처리 되어 있을 경우
+            vars['lockSprite']:setVisible(item:isRuneLock())
+            self:refresh_selectedRune(item.m_runeData)
+        end
+        
+        item:setCloseInfoCallback(close_info_callback)
 
         self.m_focusRuneUI = item
 

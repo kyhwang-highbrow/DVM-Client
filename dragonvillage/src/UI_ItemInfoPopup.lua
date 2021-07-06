@@ -73,6 +73,7 @@ function UI_ItemInfoPopup:initUI()
             local item_card = UI_RuneCard(self.m_tSubData)
             self.m_tItemCard = item_card
             vars['itemNode']:addChild(item_card.root)
+            item_card:unregisterScriptPressHandler()
 
             -- 만약 장착 중인 룬인 경우 장착한 드래곤 카드 추가
             if (self.m_tSubData['owner_doid'] ~= nil) then
@@ -319,6 +320,7 @@ function UI_ItemInfoPopup:click_lockBtn()
 		local msg = is_locked and Str('잠금되었습니다.') or Str('잠금이 해제되었습니다.')
 		UIManager:toastNotificationGreen(msg)
 
+        self.m_tItemCard:setRuneLock(self.m_tSubData:getLock())
         self:setLockSprite(self.m_tSubData:getLock())
     end
 

@@ -111,8 +111,16 @@ function UI_RuneForgeCombineTab:initTableView()
         local function close_info_callback()
             -- 룬이 잠금처리 되어 있을 경우 tableview에서 삭제
             if ui:isRuneLock() then
-                self:initTableView()
-                self:initCombineTableView()    
+                local roid = ui.m_runeData:getObjectId()
+                -- 우측 m_combineTableView의 UI_RuneForgeCombineItem 에서 해체
+                local combine_item_ui = self:FindCombineItem(roid)
+
+                if combine_item_ui then
+                    combine_item_ui:click_rune(ui.m_runeData)
+                end
+
+                -- 좌측 m_tableView에서 제거
+                self.m_tableView:delItem(roid)
                 self:refresh()
             end
         end
@@ -222,6 +230,9 @@ function UI_RuneForgeCombineTab:initCombineTableView()
     self.m_bDoingAutoBtn = false
     self.m_mCombineDataMap = {}
     local l_item_list = self.m_mCombineDataMap
+
+    
+    
    
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(530, 105)
@@ -274,6 +285,25 @@ function UI_RuneForgeCombineTab:refreshCombineItems()
     self.m_combineTableView:refreshAllItemUI()
 end
 
+
+-------------------------------------
+-- function FindCombineItem
+-- @brief 주어진 id를 가진 UI_RuneForgeCombineItem을 찾음
+-- @param roid : rune object id
+-- @return 조건에 맞는 ui가 있으면 리턴, 아니면 nil을 리턴
+-------------------------------------
+function UI_RuneForgeCombineTab:FindCombineItem(roid)
+    for i = 1, self.m_currUniqueKey do
+        local item_ui = self.m_combineTableView:getCellUI(i)
+
+        if item_ui and item_ui.m_runeCombineData:hasRuneObject(roid) then
+            return item_ui
+        end
+    end
+
+    return nil
+end
+
 -------------------------------------
 -- function addCombineItem
 -- @brief 합성 UI 추가
@@ -321,6 +351,11 @@ function UI_RuneForgeCombineTab:click_rune(data)
 
     else 
         self:deselectRune(t_rune_data)
+    end
+
+    if t_rune_data:getLock() then
+        --self:initTableView()
+        --self:initCombineTableView()
     end
 
     self:refresh()
@@ -377,6 +412,10 @@ function UI_RuneForgeCombineTab:deselectRune(t_rune_data)
     local roid = t_rune_data['roid']
     local grade = t_rune_data['grade']
     local select_roid_map = self.m_mSelectRuneMap[grade]
+
+    if (not select_roid_map) or (not select_roid_map[roid]) then
+        return
+    end
     
     local combine_data_id = select_roid_map[roid]['combine_id']
     local combine_data = self.m_mCombineDataMap[combine_data_id]

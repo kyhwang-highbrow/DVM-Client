@@ -25,6 +25,21 @@ function StructRuneCombine:init(grade)
 end
 
 -------------------------------------
+-- function hasRuneObject
+-- @brief 등록된 재료 룬이 있는지 찾음
+-- @param roid : rune object id
+-- @return boolean
+-------------------------------------
+function StructRuneCombine:hasRuneObject(roid)
+    if self.m_mRuneIndexMap[roid] then
+        return true
+    end
+
+    return false
+end
+
+
+-------------------------------------
 -- function addRuneObject
 -- @brief 새로운 재료 룬을 등록함 
 -------------------------------------
