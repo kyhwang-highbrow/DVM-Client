@@ -26,6 +26,12 @@ end
 function UI_EventArenaPlay:initUI()
 end
 
+-------------------------------------
+-- function onEnterTab
+-- @breif 탭 진입
+-------------------------------------
+function UI_EventArenaPlay:onEnterTab()
+end
 
 -------------------------------------
 -- function initButton
