@@ -325,8 +325,9 @@ end
 -- function click_okBtn
 -------------------------------------
 function UI_ArenaNewDailyRewardConfirm:click_okBtn()
-    UI_ArenaNewDailyRewardToast(self.m_rewardData)
+    --UI_ArenaNewDailyRewardToast(self.m_rewardData)
     self:close()
+    UI_ToastPopup(Str('보상이 우편함으로 전송되었습니다.'))
 end
 
 -------------------------------------
