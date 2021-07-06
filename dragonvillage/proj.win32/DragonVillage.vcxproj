@@ -549,6 +549,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Event.lua" />
     <None Include="..\src\ServerData_EventAdvent.lua" />
     <None Include="..\src\ServerData_EventAlphabet.lua" />
+    <None Include="..\src\ServerData_EventArenaPlay.lua" />
     <None Include="..\src\ServerData_EventBingo.lua" />
     <None Include="..\src\ServerData_EventDice.lua" />
     <None Include="..\src\ServerData_EventGoldDungeon.lua" />
@@ -1374,6 +1375,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventAlphabetConfirmPopup.lua" />
     <None Include="..\src\UI_EventAlphabetInfoPopup.lua" />
     <None Include="..\src\UI_EventAlphabetListItem.lua" />
+    <None Include="..\src\UI_EventArenaPlay.lua" />
     <None Include="..\src\UI_EventArenaResult.lua" />
     <None Include="..\src\UI_EventBingo.lua" />
     <None Include="..\src\UI_EventBingoListItem.lua" />

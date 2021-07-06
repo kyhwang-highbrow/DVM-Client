@@ -17,7 +17,7 @@ function ServerData_EventArenaPlay:init(server_data)
 end
 
 -------------------------------------
--- function init
+-- function request_eventData
 -------------------------------------
 function ServerData_EventArenaPlay:request_eventData(finish_cb, fail_cb)
     -- 유저 ID
@@ -48,7 +48,40 @@ end
 
 
 -------------------------------------
--- function initUI
+-- function init
+-------------------------------------
+function ServerData_EventArenaPlay:request_eventReward(reward_type, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        -- 보상수령은 우편함으로...
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/arena_new/daily_rank_reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', reward_type)
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+	ui_network:hideBGLayerColor()
+    ui_network:request()
+
+    return ui_network
+end
+
+
+
+-------------------------------------
+-- function getRemainEventTimeStr
 -- @breif 초기화
 -------------------------------------
 function ServerData_EventArenaPlay:getRemainEventTimeStr()
@@ -69,3 +102,91 @@ function ServerData_EventArenaPlay:getRemainEventTimeStr()
     return msg
 end
 
+-------------------------------------
+-- function getWinRewardInfo
+-- @breif 승리 횟수 보상
+-------------------------------------
+function ServerData_EventArenaPlay:getWinRewardInfo()
+    local list = {}
+
+    if (self.m_eventData) then
+        list = self.m_eventData['win_info']
+    end
+
+    return list
+end
+
+-------------------------------------
+-- function getPlayRewardInfo
+-- @breif 참여 횟수 보상
+-------------------------------------
+function ServerData_EventArenaPlay:getPlayRewardInfo()
+    local list = {}
+
+    if (self.m_eventData) then
+        list = self.m_eventData['play_info']
+    end
+
+    return list
+end
+
+
+-------------------------------------
+-- function getPlayCount
+-- @breif 참여 횟수 보상
+-------------------------------------
+function ServerData_EventArenaPlay:getPlayCount()
+    local count = 0
+
+    if (self.m_eventData) then
+        count = self.m_eventData['play_cnt']
+    end
+
+    return count
+end
+
+-------------------------------------
+-- function getWinCount
+-- @breif 승리 횟수 보상
+-------------------------------------
+function ServerData_EventArenaPlay:getWinCount()
+    local count = 0
+
+    if (self.m_eventData) then
+        count = self.m_eventData['win_cnt']
+    end
+
+    return count
+end
+
+-------------------------------------
+-- function hasReward
+-- @breif 받을 보상이 있는지?
+-------------------------------------
+function ServerData_EventArenaPlay:hasReward(reward_type)
+    local has_reward = false
+    local reward_info
+    local reward_step
+
+    if (reward_type == 'play') then
+        reward_info = self:getPlayRewardInfo()
+        reward_step = reward_info['product']['step']
+
+    else
+        reward_info = self:getWinRewardInfo()
+        reward_step = reward_info['product']['step']
+
+    end
+
+    for idx = 1, reward_step do
+        local is_received = reward_info['reward'][idx] == 1
+        local is_larger_number = self:getWinCount() >= reward_info['product']['price_' .. idx]
+
+        if (is_larger_number) and (not is_received) then
+            has_reward = true
+            break
+        end
+    end
+
+    return has_reward
+end

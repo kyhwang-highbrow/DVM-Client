@@ -4952,6 +4952,8 @@
     <None Include="..\src\UI_ShopPackageScene.lua" />
     <None Include="..\src\SkillBeam.lua" />
     <None Include="..\src\UI_ArenaNewDailyReward.lua" />
+    <None Include="..\src\UI_EventArenaPlay.lua" />
+    <None Include="..\src\ServerData_EventArenaPlay.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
