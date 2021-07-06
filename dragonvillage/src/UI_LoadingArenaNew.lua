@@ -29,8 +29,6 @@ function UI_LoadingArenaNew:init(cur_scene, isReChallenge)
     self.m_myDeckList = {}
     self.m_isReChallenge = isReChallenge
     self.m_curScene = cur_scene
-    g_arenaNewData.m_isAutoPlay = false
-    g_arenaNewData.m_isFailBreak = false
 
     if (self.m_curScene) then
         self.m_bFriendMatch = self.m_curScene.m_bFriendMatch
@@ -57,6 +55,9 @@ function UI_LoadingArenaNew:init(cur_scene, isReChallenge)
     
 	self:initUI()
     self:initButton()
+
+    -- 연속 모드 해제
+    g_autoPlaySetting:setAutoPlay(false)
 
     if (self.m_curScene) then
         self:selectAuto(true)
@@ -458,12 +459,13 @@ end
 -------------------------------------
 function UI_LoadingArenaNew:click_autoStartOnBtn()
     local function refresh_btn()
-        self.vars['autoStartOnBtn']:setChecked(g_arenaNewData.m_isAutoPlay)
+        self.vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay())
     end
 
-    if (self.vars['autoStartOnBtn']:isChecked()) then
-        g_arenaNewData.m_isAutoPlay = false
-        g_arenaNewData.m_isFailBreak = false
+    local is_auto = g_autoPlaySetting:isAutoPlay()
+
+    if (is_auto) then
+        g_autoPlaySetting:setAutoPlay(false)
         refresh_btn()
 
     else

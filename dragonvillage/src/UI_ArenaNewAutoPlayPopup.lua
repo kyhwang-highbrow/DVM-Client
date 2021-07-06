@@ -65,7 +65,8 @@ end
 function UI_ArenaNewAutoPlayPopup:click_autoStartOnBtn()
     local vars = self.vars
 
-    g_arenaNewData.m_isAutoPlay = true
+    g_autoPlaySetting:setAutoPlay(true)
+    g_autoPlaySetting:set('stop_condition_lose', vars['autoStartBtn1']:isChecked())
 
     -- 활성 상태일 경우 창을 닫음
     self:close()
