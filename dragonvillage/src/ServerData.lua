@@ -308,6 +308,9 @@ function ServerData:getInstance()
     -- 시련 (차원문)
     g_dmgateData = ServerData_Dmgate(g_serverData)
 
+    --- 콜로세움 참여 이벤트
+    g_eventArenaPlayData = ServerData_EventArenaPlay(g_serverData)
+
     return g_serverData
 end
 
