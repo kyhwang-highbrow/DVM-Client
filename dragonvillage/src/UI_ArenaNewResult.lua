@@ -511,8 +511,6 @@ end
 -- @brief 바로재시작 버튼
 -------------------------------------
 function UI_ArenaNewResult:click_quickBtn()
-    if (self:checkAutoPlayRelease()) then return end
-
     local start_func = function()
         self:startGame()
     end
