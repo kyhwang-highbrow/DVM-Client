@@ -53,6 +53,7 @@ end
 function ServerData_EventArenaPlay:request_eventReward(reward_type, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
+    local type = reward_type
 
     -- 콜백
     local function success_cb(ret)
@@ -65,9 +66,9 @@ function ServerData_EventArenaPlay:request_eventReward(reward_type, finish_cb, f
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/arena_new/daily_rank_reward')
+    ui_network:setUrl('/game/event_arena_play/reward')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('type', reward_type)
+    ui_network:setParam('type', type)
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
