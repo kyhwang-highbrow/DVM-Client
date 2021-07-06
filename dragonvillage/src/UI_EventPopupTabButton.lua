@@ -41,8 +41,8 @@ end
 -------------------------------------
 function UI_EventPopupTabButton:refresh()
     local vars = self.vars
-
     
+    g_eventData:setEventTabNoti(self.m_structEventPopupTab)
 
     local struct_event_popup_tab = self.m_structEventPopupTab
     local type = struct_event_popup_tab.m_type

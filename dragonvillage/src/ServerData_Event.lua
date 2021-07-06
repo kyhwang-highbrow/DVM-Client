@@ -561,6 +561,11 @@ function ServerData_Event:setEventTabNoti(event_tab)
     -- 핫타임
     elseif (event_type == 'fevertime') then
         event_tab.m_hasNoti = g_fevertimeData:isNotUsedFevertimeExist()
+
+    -- 누적 결제 이벤트
+    elseif (string.find(event_type, 'purchase_point_')) then
+        event_tab.m_hasNoti = g_purchasePointData:hasPurchasePointReward()
+
     else
         event_tab.m_hasNoti = false
     end
