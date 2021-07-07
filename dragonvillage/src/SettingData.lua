@@ -439,6 +439,7 @@ function SettingData:clearDataListDaily()
     self:clearDataList('event_full_popup')
 	self:clearDataList('lobby_guide_seen')
     self:clearDataList('arena_guide')
+    self:clearDataList('farewell')
 	self:unlockSaveData()
 end
 
