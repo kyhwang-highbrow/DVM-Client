@@ -568,6 +568,13 @@ function UI_ArenaNewResult:click_statusInfo()
 end
 
 -------------------------------------
+-- function direction_openBox_click
+-- @brief
+-------------------------------------
+function UI_ArenaNewResult:direction_openBox_click()
+end
+
+-------------------------------------
 -- function countAutoPlay
 -- @brief 연속 전투일 경우 재시작 하기전 카운트 해줌
 -------------------------------------
