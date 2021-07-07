@@ -135,7 +135,7 @@ function UI_ArenaNewDailyReward:setRewardItem(rewardable_tier_item, struct_user_
 
     local color = g_arenaNewData.m_dailyRewardReceived and COLOR['DESC'] or COLOR['black']
     local receive_str = g_arenaNewData.m_dailyRewardReceived and '수령 완료!' or '수령'
-    vars['rewardBtn']:setEnabled(true)--not g_arenaNewData.m_dailyRewardReceived)
+    vars['rewardBtn']:setEnabled(not g_arenaNewData.m_dailyRewardReceived)
     vars['rewardLabel']:setString(Str(receive_str))
     vars['rewardLabel']:setColor(color)
 end
