@@ -691,6 +691,10 @@ function UI_ArenaNewResult:checkAutoPlay()
     if (not g_autoPlaySetting:isAutoPlay()) then
         return
     end
+
+    local next_rival_data = g_arenaNewData:getValidRivalItem()
+            
+    if (not next_rival_data) then return end
         
 	local auto_play_stop, msg = self:checkAutoPlayCondition()
     
