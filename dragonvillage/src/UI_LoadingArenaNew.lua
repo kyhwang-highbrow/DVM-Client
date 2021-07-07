@@ -135,6 +135,7 @@ function UI_LoadingArenaNew:initUI()
         vars['loadingNode']:setVisible(is_autoplay)
     end
 
+    g_arenaNewData:refeshNextWinCount()
     local nextScore = g_arenaNewData.m_nextScore and tonumber(g_arenaNewData.m_nextScore) or 0
 
     if (vars['scoreLabel']) then vars['scoreLabel']:setString(comma_value(nextScore)) end

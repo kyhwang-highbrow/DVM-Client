@@ -1241,3 +1241,39 @@ function ServerData_ArenaNew:updateResult(is_win)
         end
     end
 end
+
+
+-------------------------------------
+-- function getNextWinCount
+-------------------------------------
+function ServerData_ArenaNew:refeshNextWinCount()
+    local item_list = self.m_matchUserList
+
+    if (not item_list and #item_list <= 0) then return end
+
+    local winCnt = 0
+    for _, item in ipairs(item_list) do
+        if (item.m_state == 1) then winCnt = winCnt + 1 end
+    end
+
+    -- 보상테이블 받기
+    local table_arena_new = TABLE:get('table_arena_new')
+
+    -- 다음 승리시 점수 조회용
+    -- 승리 수가 5일 때 다시 1로 바꾼다.
+    local nextWinCnt = winCnt >= 5 and 1 or winCnt + 1
+
+    for i = 1, #table_arena_new do
+        if (table_arena_new[i]) then
+            local score = 0
+            score = table_arena_new[i]['win_score']
+
+            -- 마지막 인덱스 조회면 처음으로
+            if (nextWinCnt >= #table_arena_new) then
+                self.m_nextScore = table_arena_new[#table_arena_new]['win_score']
+            elseif (i == nextWinCnt) then
+                self.m_nextScore = table_arena_new[i]['win_score']
+            end
+        end
+    end
+end
