@@ -292,6 +292,10 @@ end
 -------------------------------------
 function GameState_ArenaNew.update_result(self, dt)
     if (self.m_stateTimer == 0) then
+        -- 기본 배속으로 변경
+        local world = self.m_world
+        world.m_gameTimeScale:setBase(1)
+
         self:makeResultUI(self.m_bWin)
     end
 end
