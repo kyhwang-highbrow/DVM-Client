@@ -873,6 +873,8 @@ function ServerData_ArenaNew:request_dailyReward()
 
     -- 콜백 함수
     local function success_cb(ret)
+        self.m_dailyRewardReceived = ret['reward'] == true
+
         if finish_cb then
             return finish_cb(ret)
         end
