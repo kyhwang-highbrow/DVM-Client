@@ -169,7 +169,7 @@ function UI_EventPopup:onChangeTab(tab, first)
 
             if checkMemberInMetatable(ui, 'm_tabButtonCallback') then
                 local function callback()
-                        item['ui']:refreshNotification()
+                    item['ui']:refresh()
                 end
                 ui.m_tabButtonCallback = callback
             end
