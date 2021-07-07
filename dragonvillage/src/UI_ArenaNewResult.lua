@@ -654,8 +654,10 @@ end
 -- @brief 연속 전투일 경우 스크린 터치시 연속 전투 해제 팝업 출력
 -------------------------------------
 function UI_ArenaNewResult:checkAutoPlayRelease()
-    cclog('1')
     if (not g_autoPlaySetting:isAutoPlay()) then return false end
+    local next_rival_data = g_arenaNewData:getValidRivalItem()
+    if (not next_rival_data) then return false end
+
 
     local function f_pause(node) node:pause() end
     local function f_resume(node) node:resume() end
@@ -676,7 +678,7 @@ function UI_ArenaNewResult:checkAutoPlayRelease()
     local function cancel_cb()
         doAllChildren(self.root, f_resume)
     end
-    cclog('2')
+
     local msg = Str('연속 전투 진행 중입니다. \n연속 전투를 종료하시겠습니까?')
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb, cancel_cb)
     
