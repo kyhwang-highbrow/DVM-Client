@@ -650,7 +650,6 @@ function UI_GachaResult_Dragon:click_lockBtn()
     end
 
     local doid = self.m_selectedDragonData:getObjectId()
-
     local is_locked = (not self.m_selectedDragonData:getLock())
 
     local function callback_function(ret)
@@ -659,8 +658,9 @@ function UI_GachaResult_Dragon:click_lockBtn()
         local refreshed_data = g_dragonsData:getDragonDataFromUid(doid)
 
         -- 연차 뽑기 인 경우
-        if (#self.m_lDragonCardList > 0) then
+        if (table.count(self.m_lDragonCardList) > 0) then
             local card = self.m_lDragonCardList[doid]
+            cclog('refreshed')
         
             card.m_dragonData = refreshed_data
             card:refresh_lock()
