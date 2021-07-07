@@ -277,6 +277,7 @@ function UI_DragonManage_Base:init_dragonTableView()
             self:createDragonCardCB(ui, data)
             ui.root:setScale(0.66)
             ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectDragonData(data['id']) end)
+            ui.vars['clickBtn']:unregisterScriptPressHandler()
 
             -- 선택한 드래곤
             if (data['id'] == self.m_selectDragonOID) then
