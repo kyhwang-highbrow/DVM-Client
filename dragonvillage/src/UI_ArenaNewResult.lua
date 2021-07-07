@@ -622,10 +622,6 @@ function UI_ArenaNewResult:startGame()
         -- 연속 전투일 경우 횟수 증가
 		if (g_autoPlaySetting:isAutoPlay()) then
 			g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
-
-            local next_rival_data = g_arenaNewData:getValidRivalItem()
-            
-            if (next_rival_data) then g_arenaNewData:setMatchUser(next_rival_data) end
 		end
 
         local scene = SceneGameArenaNew()
@@ -695,7 +691,6 @@ function UI_ArenaNewResult:checkAutoPlay()
     end
 
     local next_rival_data = g_arenaNewData:getValidRivalItem()
-            
     if (not next_rival_data) then return end
         
 	local auto_play_stop, msg = self:checkAutoPlayCondition()

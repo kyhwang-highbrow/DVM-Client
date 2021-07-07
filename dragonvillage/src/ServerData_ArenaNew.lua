@@ -708,7 +708,7 @@ function ServerData_ArenaNew:request_arenaStart(is_cash, history_id, finish_cb, 
     ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setParam('team_bonus', self:getTeamBonusIds())
-    ui_network:setParam('target_no', g_arenaNewData.m_matchUserInfo.m_no)
+    ui_network:setParam('target_no', self.m_matchUserInfo.m_no)
 
     if (history_id) then -- 복수전, 재도전
         ui_network:setParam('history_id', history_id)
