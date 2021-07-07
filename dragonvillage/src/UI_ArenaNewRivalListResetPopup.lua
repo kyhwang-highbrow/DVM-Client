@@ -44,7 +44,10 @@ function UI_ArenaNewRivalListResetPopup:initUI(ok_cb)
         local refresh_free_count = g_arenaNewData:getCostInfo('refresh_free_count')
         local refillGuideText
 
-        if (cost == 0 or is_free_refresh) then
+        if (is_free_refresh) then
+            refillGuideText = Str('무료 갱신 가능')
+            vars['priceLabel']:setString(Str('무료'))
+        elseif (cost == 0) then
             local remain_count = 5 - tonumber(refresh_free_count)
             refillGuideText = Str('남은 무료 횟수') .. string.format(' %s/5', tostring(remain_count))--Str('무료 갱신은 일일 갱신 횟수가 감소하지 않습니다.')
             vars['priceLabel']:setString(Str('무료'))

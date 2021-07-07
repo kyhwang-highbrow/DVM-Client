@@ -330,7 +330,10 @@ end
 -------------------------------------
 function UI_ArenaNewResult:direction_winReward()
     -- 연속 전투 진행중이라면 그냥 바로 넘기자
-    if (g_autoPlaySetting:isAutoPlay()) then self:doNextWork() end
+    if (g_autoPlaySetting:isAutoPlay()) then 
+        self:doNextWork()
+        return
+    end
 
 	local t_data = self.m_resultData
     if (not t_data['bonus_item_list'] or #t_data['bonus_item_list'] <= 0) then
