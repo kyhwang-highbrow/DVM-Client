@@ -87,8 +87,12 @@ end
 -- function refresh
 -------------------------------------
 function UI_EventArenaPlay:click_rewardBtn(reward_type)
+    function finish_cb(ret)
+        self:refresh()
+    end
+
     -- play or win
-    g_eventArenaPlayData:request_eventReward(reward_type, function() self:refresh() end)
+    g_eventArenaPlayData:request_eventReward(reward_type, finish_cb)
 end
 
 --@CHECK
