@@ -40,3 +40,7 @@ function StructEventPopupTab:getVersion()
     return self.m_eventData['version']
 end
 
+
+function StructEventPopupTab:getEventID()
+    return self.m_eventData['event_id']
+end

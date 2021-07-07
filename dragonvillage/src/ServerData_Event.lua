@@ -557,7 +557,8 @@ function ServerData_Event:setEventTabNoti(event_tab)
 
     -- 클랜 출석 이벤트
     elseif (event_type == 'daily_mission') then
-        event_tab.m_hasNoti = g_highlightData:isHighlighDailyMissionClan()
+        event_tab.m_hasNoti = g_dailyMissionData:hasAvailableReward(event_tab:getEventID())
+
     -- 핫타임
     elseif (event_type == 'fevertime') then
         event_tab.m_hasNoti = g_fevertimeData:isNotUsedFevertimeExist()
@@ -577,6 +578,49 @@ function ServerData_Event:setEventTabNoti(event_tab)
     else
         event_tab.m_hasNoti = false
     end
+end
+
+-------------------------------------
+-- function hasAvailableReward
+-- @brief 받을 수 있는 보상이 있는지
+-------------------------------------
+function ServerData_Event:hasAvailableReward(event_tab)
+    local event_type = event_tab.m_type
+    local has_available_reward
+
+    -- 접속 시간 받을 보상 있음
+    if (event_type == 'access_time') then
+        has_available_reward = g_accessTimeData:hasReward()
+
+    -- 교환 이벤트 받을 누적 보상 있음
+    elseif (event_type == 'event_exchange') then
+        has_available_reward = g_exchangeEventData:hasReward()
+
+    -- 클랜 출석 이벤트
+    elseif (event_type == 'daily_mission') then
+        has_available_reward = g_dailyMissionData:hasAvailableReward(event_tab:getEventID())
+
+    -- 핫타임
+    elseif (event_type == 'fevertime') then
+        has_available_reward = g_fevertimeData:isNotUsedFevertimeExist()
+
+    -- 누적 결제 이벤트
+    elseif (string.find(event_type, 'purchase_point_')) then
+        has_available_reward = g_purchasePointData:hasAvailableReward(event_tab:getVersion())
+
+    -- 일일 충전 선물
+    elseif (string.find(event_type, 'purchase_daily_')) then
+        has_available_reward = g_purchaseDailyData:hasAvailableReward(event_tab:getVersion())
+
+    -- 콜로세움 참여 이벤트
+    elseif (string.find(event_type, 'event_arena_play')) then
+        has_available_reward = g_eventArenaPlayData:hasReward('play') or g_eventArenaPlayData:hasReward('win')
+
+    else
+        has_available_reward = false
+    end
+
+    return has_available_reward
 end
 
 -------------------------------------

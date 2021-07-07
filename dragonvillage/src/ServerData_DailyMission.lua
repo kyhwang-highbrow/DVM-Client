@@ -25,6 +25,19 @@ function ServerData_DailyMission:applyMissionMap(l_mission_list)
 end
 
 -------------------------------------
+-- function hasAvailableReward
+-------------------------------------
+function ServerData_DailyMission:hasAvailableReward(mission_key)
+    local struct = self:getMissionStruct(mission_key)
+
+    if (not struct) then
+        return false
+    end
+
+    return struct:hasAvailableReward()
+end
+
+-------------------------------------
 -- function getMissionStruct
 -------------------------------------
 function ServerData_DailyMission:getMissionStruct(mission_key)
@@ -49,6 +62,8 @@ function ServerData_DailyMission:getMissionDone(mission_key)
 
 	return (struct['status'] == 'done')
 end
+
+
 
 -------------------------------------
 -- function request_dailyMissionInfo
@@ -117,4 +132,6 @@ function ServerData_DailyMission:request_dailyMissionReward(mission_key, day, fi
 
 	return ui_network
 end
+
+
 

@@ -36,3 +36,39 @@ end
 function StructDailyMission:getThis()
     return THIS
 end
+
+-------------------------------------
+-- function getMissionKey
+-------------------------------------
+function StructDailyMission:getMissionKey()
+    return self['mission_key']
+end
+
+-------------------------------------
+-- function getCurrDay
+-------------------------------------
+function StructDailyMission:getCurrDay()
+    return self['curr_day']
+end
+
+-------------------------------------
+-- function isCleared
+-------------------------------------
+function StructDailyMission:isCleared()
+    return self['is_clear']
+end
+
+
+-------------------------------------
+-- function getStatus
+-------------------------------------
+function StructDailyMission:getStatus()
+    return self['status']
+end
+
+-------------------------------------
+-- function getStatus
+-------------------------------------
+function StructDailyMission:hasAvailableReward()
+    return (self['reward'] == false)
+end

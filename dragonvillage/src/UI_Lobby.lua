@@ -1091,8 +1091,39 @@ function UI_Lobby:update_highlight()
     etc_vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
 
     -- 이벤트
-    local is_event_noti_visible = g_eventData:isHighlightEvent() or g_fevertimeData:isNotUsedFevertimeExist()
-    vars['eventManageNotiSprite']:setVisible(is_event_noti_visible)
+    local function get_activated_event_list()
+        local l_item_list = g_eventData:getEventPopupTabList()
+
+        -- purchase
+        local l_item_list_purchase_point = g_purchasePointData:getEventPopupTabList()
+
+        -- map형태의 탭 리스트를 merge
+        for key,value in pairs(l_item_list_purchase_point) do
+            l_item_list[key] = value
+        end
+
+        do-- purchase_daily
+            local l_item_list_purchase_daily = g_purchaseDailyData:getEventPopupTabList()
+
+                -- map형태의 탭 리스트를 merge
+            for key,value in pairs(l_item_list_purchase_daily) do
+                l_item_list[key] = value
+            end
+        end
+
+        return l_item_list
+    end
+
+    local event_list = get_activated_event_list()
+    local is_event_noti_visible
+    for _, event in pairs(event_list) do
+        if g_eventData:hasAvailableReward(event) then
+            is_event_noti_visible = true
+        end
+    end    
+    -- local is_event_noti_visible = g_eventData:isHighlightEvent() or g_fevertimeData:isNotUsedFevertimeExist()
+    
+    vars['eventBtnNotiSprite']:setVisible(is_event_noti_visible)
 
     -- 드래곤 소환
     local highlight, t_highlight = g_hatcheryData:checkHighlight()

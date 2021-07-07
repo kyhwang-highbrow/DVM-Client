@@ -5,6 +5,9 @@ local PARENT = UI
 -------------------------------------
 UI_DailyMisson_Clan = class(PARENT,{
 		m_lDailyMissionItem = 'list', -- idx가 숫자라 list로..
+
+		
+        m_tabButtonCallback = 'function',
     })
 
 local MISSION_KEY = 'clan'
@@ -31,6 +34,10 @@ function UI_DailyMisson_Clan:initUI()
 	local mission_list = TableDailyMission:getMissionList(key)
 	local function click_func()
 		self:refresh()
+		
+		if self.m_tabButtonCallback then
+			self.m_tabButtonCallback()
+		end
 	end
 
 	for i, t_mission in ipairs(mission_list) do
@@ -56,6 +63,7 @@ function UI_DailyMisson_Clan:refresh()
     local vars = self.vars
 
 	local struct_mission = g_dailyMissionData:getMissionStruct(MISSION_KEY)
+	
 	if (not struct_mission) then
 		return 
 	end
