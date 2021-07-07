@@ -169,14 +169,17 @@ function ServerData_EventArenaPlay:hasReward(reward_type)
     local has_reward = false
     local reward_info
     local reward_step
+    local play_count
 
     if (reward_type == 'play') then
         reward_info = self:getPlayRewardInfo()
         reward_step = reward_info['product']['step']
+        play_count  = self:getPlayCount()
 
     else
         reward_info = self:getWinRewardInfo()
         reward_step = reward_info['product']['step']
+        play_count  = self:getWinCount()
 
     end
 
