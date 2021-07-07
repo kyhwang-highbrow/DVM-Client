@@ -146,7 +146,6 @@ end
 function UI_ArenaNewDailyReward:click_dailyRewardBtn()
     function finish_cb(ret)
         self:close()
-        ret["reward_info"] = {{count=1, item_id=704900}, {count=1200, item_id=700002}}
         UI_ArenaNewDailyRewardConfirm(ret['reward_info'], self.m_myTierRewardItem)
         --UI_ArenaNewDailyRewardToast(ret['reward_info'])
     end
