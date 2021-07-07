@@ -196,3 +196,37 @@ function ServerData_EventArenaPlay:hasReward(reward_type)
 
     return has_reward
 end
+
+-------------------------------------
+-- function isAllReceived
+-- @breif 보상 다받았는지?
+-------------------------------------
+function ServerData_EventArenaPlay:isAllReceived(reward_type)
+    local is_all_received = true
+    local reward_info
+    local reward_step
+    local play_count
+
+    if (reward_type == 'play') then
+        reward_info = self:getPlayRewardInfo()
+        reward_step = reward_info['product']['step']
+        play_count  = self:getPlayCount()
+
+    else
+        reward_info = self:getWinRewardInfo()
+        reward_step = reward_info['product']['step']
+        play_count  = self:getWinCount()
+
+    end
+
+    for idx = 1, reward_step do
+        local is_received = reward_info['reward'][tostring(idx)] == 1
+
+        if (not is_received) then
+            is_all_received = false
+            break
+        end
+    end
+
+    return is_all_received
+end

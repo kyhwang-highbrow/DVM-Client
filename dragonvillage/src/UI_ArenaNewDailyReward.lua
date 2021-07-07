@@ -133,12 +133,11 @@ function UI_ArenaNewDailyReward:setRewardItem(rewardable_tier_item, struct_user_
     icon = UI_ItemCard(custom_item_id, custom_item_count)
     vars['itemNode2']:addChild(icon.root)
 
-
-    if (g_arenaNewData.m_dailyRewardReceived) then
-        vars['rewardBtn']:setEnabled(false)
-    else
-        vars['rewardBtn']:setEnabled(true)
-    end
+    local color = g_arenaNewData.m_dailyRewardReceived and COLOR['DESC'] or COLOR['black']
+    local receive_str = g_arenaNewData.m_dailyRewardReceived and '수령 완료!' or '수령'
+    vars['rewardBtn']:setEnabled(true)--not g_arenaNewData.m_dailyRewardReceived)
+    vars['rewardLabel']:setString(Str(receive_str))
+    vars['rewardLabel']:setColor(color)
 end
 
 -------------------------------------
