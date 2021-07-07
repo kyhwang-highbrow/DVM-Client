@@ -135,7 +135,7 @@ function UI_ArenaNewDailyReward:setRewardItem(rewardable_tier_item, struct_user_
 
 
     if (g_arenaNewData.m_dailyRewardReceived) then
-        --vars['rewardBtn']:setEnabled(false)
+        vars['rewardBtn']:setEnabled(false)
     else
         vars['rewardBtn']:setEnabled(true)
     end
@@ -296,6 +296,7 @@ UI_ArenaNewDailyRewardConfirm = class(UI, {
 -- function init
 -------------------------------------
 function UI_ArenaNewDailyRewardConfirm:init(data, rank_info)
+	self.m_uiName = 'UI_ArenaNewDailyRewardConfirm'
     local vars = self:load('arena_new_scene_popup_reward_confirm.ui')
     UIManager:open(self, UIManager.POPUP)
 

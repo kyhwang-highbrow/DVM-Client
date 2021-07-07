@@ -88,6 +88,7 @@ end
 -------------------------------------
 function UI_EventArenaPlay:click_rewardBtn(reward_type)
     function finish_cb(ret)
+        UI_ToastPopup(Str('보상이 우편함으로 전송되었습니다.'))
         self:refresh()
     end
 
