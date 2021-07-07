@@ -9,6 +9,8 @@ UI_EventPopupTab_PurchasePointNew = class(PARENT,{
         m_rewardBoxUIList = '',
 
         m_selectedLastRewardIdx = 'number', -- 선택된 마지막 보상 idx
+
+        m_tabButtonCallback = 'function',
     })
 
 -------------------------------------
@@ -293,6 +295,10 @@ function UI_EventPopupTab_PurchasePointNew:click_receiveBtn(reward_step)
         ItemObtainResult(ret)
 
         self:refresh()
+
+        if self.m_tabButtonCallback then
+            self.m_tabButtonCallback()
+        end
     end
 
     g_purchasePointData:request_purchasePointReward(version, reward_step, 1, cb_func)

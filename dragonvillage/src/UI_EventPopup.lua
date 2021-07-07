@@ -159,11 +159,20 @@ function UI_EventPopup:onChangeTab(tab, first)
         g_topUserInfo:setEnabledBraodCast(enable)
     end
 
+    local item = self.m_tableView:getItem(tab)
+
     if first then
         local container = self.m_lContainerForEachType[tab]
         local ui = self:makeEventPopupTab(tab)
         if ui then
             container:addChild(ui.root)
+
+            if checkMemberInMetatable(ui, 'm_tabButtonCallback') then
+                local function callback()
+                        item['ui']:refreshNotification()
+                end
+                ui.m_tabButtonCallback = callback
+            end
         end
     else
         if (self.m_mTabUI[tab]) then
@@ -171,9 +180,9 @@ function UI_EventPopup:onChangeTab(tab, first)
         end
     end
     
-    local item = self.m_tableView:getItem(tab)
     if item and item['data'] then
         item['data'].m_hasNoti = false
+        --item['ui']:refreshNotification()
     end
 end
 
@@ -382,6 +391,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
         require('UI_EventDailyQuest')
         ui = UI_EventDailyQuest()
 
+    -- 콜로세움 참여 이벤트
     elseif string.find(tab, 'event_arena_play') then
         require('UI_EventArenaPlay')
         ui = UI_EventArenaPlay()

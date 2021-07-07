@@ -5,7 +5,10 @@ local PARENT = UI
 -- @brief 
 -------------------------------------
 UI_EventArenaPlay = class(PARENT,{
-    })
+
+    
+    m_tabButtonCallback = 'function',
+ })
 
 -------------------------------------
 -- function init
@@ -123,6 +126,10 @@ function UI_EventArenaPlay:click_rewardBtn(reward_type)
     function finish_cb(ret)
         UI_ToastPopup(Str('보상이 우편함으로 전송되었습니다.'))
         self:refresh()
+
+        if self.m_tabButtonCallback then
+            self.m_tabButtonCallback()
+        end
     end
 
     -- play or win

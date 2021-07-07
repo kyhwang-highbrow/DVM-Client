@@ -50,9 +50,13 @@ function UI_EventPopupTabButton:refresh()
     vars['eventLabel']:setString(tab_btn_name)
 
     
-    -- 이벤트 탭 노티피케이션 (ServerData_Event:setEventTabNoti 참고)
-    vars['notiSprite']:setVisible(struct_event_popup_tab.m_hasNoti)
-    
+    self:refreshNotification()
+end
 
-    --vars['notiSprite']
+-------------------------------------
+-- function refreshNotification
+-------------------------------------
+function UI_EventPopupTabButton:refreshNotification()
+    -- 이벤트 탭 노티피케이션 (ServerData_Event:setEventTabNoti 참고)
+    self.vars['notiSprite']:setVisible(self.m_structEventPopupTab.m_hasNoti)
 end

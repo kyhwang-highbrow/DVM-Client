@@ -8,6 +8,9 @@ UI_Fevertime = class(PARENT,{
         m_bDirty = 'boolean',
         m_bRequested = 'boolean',
         m_bEnabledLinkBtn = 'boolean', -- 바로가기 버튼 사용 가능 여부
+
+
+        m_tabButtonCallback = 'function',
     })
 
 -------------------------------------
@@ -110,7 +113,13 @@ function UI_Fevertime:refresh()
         end
 
         local function create_func(ui, data)
-            ui:setChangeDataCB(function() self.m_bDirty = true end)
+            ui:setChangeDataCB(function() 
+                self.m_bDirty = true 
+
+                if self.m_tabButtonCallback then
+                    self.m_tabButtonCallback()
+                end
+            end)
 
             -- 바로가기 버튼 사용 가능 여부
             ui:setEnabled_linkBtn(self.m_bEnabledLinkBtn)
@@ -205,6 +214,15 @@ end
 function UI_Fevertime:click_infoBtn()
     require('UI_FevertimeInfoPopup')
     UI_FevertimeInfoPopup()
+end
+
+
+-------------------------------------
+-- function setTabButtonCallback
+-- @brief
+-------------------------------------
+function UI_Fevertime:setTabButtonCallback(callback)
+    self.m_tabButtonCallback = callback
 end
 
 
