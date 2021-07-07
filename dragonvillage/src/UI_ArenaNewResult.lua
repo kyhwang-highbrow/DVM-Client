@@ -603,7 +603,10 @@ function UI_ArenaNewResult:countAutoPlay()
     do
         local act1 = cc.DelayTime:create(count_num * count_time)
         local act2 = cc.CallFunc:create(function()
-            node:setVisible(false) 
+            local next_rival_data = g_arenaNewData:getValidRivalItem()
+            if (next_rival_data) then g_arenaNewData:setMatchUser(next_rival_data) end
+
+            node:setVisible(false)
             self:click_quickBtn(true) -- params : skip_check_auto_play_release
         end)
         self.root:runAction(cc.Sequence:create(act1, act2))

@@ -686,14 +686,8 @@ function UI_ArenaNew:click_refreshBtn()
         self:refreshRewardInfo()
     end
     -- cost_info 조회
-    local maxRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_max_count')
-    local curRefreshCount = g_arenaNewData:getCostInfo('refresh_cash_cur_count')
-
-    -- 무료가능?
-    if (not self.m_isRefreshOnCooltime) then
-        UI_ArenaNewRivalListResetPopup(ok_cb)
-        return
-    end
+    local maxRefreshCount = g_arenaNewData:getCostInfo('refresh_gold_max_count')
+    local curRefreshCount = g_arenaNewData:getCostInfo('refresh_gold_cur_count')
 
     -- 유료 다썼음?
     if (curRefreshCount >= maxRefreshCount) then

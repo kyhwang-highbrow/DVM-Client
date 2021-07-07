@@ -769,6 +769,9 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
         local season_data = ret['season']
         self:refresh_playerUserInfo(season_data)
 
+        -- 결과에 따른 적 정보 갱신
+        self:updateResult(is_win)
+
         if (season_data['win'] == 1) then
             -- @analytics
             Analytics:firstTimeExperience('Arena_Win')
@@ -778,8 +781,6 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
         ret['added_rp'] = (self.m_playerUserInfo.m_seasonRp - prev_rp)
         --ret['added_rp'] = ret['point'] -- 실시간으로 변경된 값이 있을 수 있으므로 서버에서 넘어오는 값을 표기
         ret['added_honor'] = (g_userData:get('honor') - prev_honor)
-
-        self:updateResult(is_win)
 
         if finish_cb then
             finish_cb(ret)
@@ -1231,10 +1232,10 @@ end
 function ServerData_ArenaNew:updateResult(is_win)
     if (self.m_matchUserList and #self.m_matchUserList > 0) then
         local match_no = self.m_matchUserInfo.m_no
-
-        for _, item in ipairs(self.m_matchUserList) do
+        cclog(match_no)
+        for idx, item in ipairs(self.m_matchUserList) do
             if (item and item.m_no == match_no) then
-                item.m_state = is_win and 1 or 2
+                self.m_matchUserList[idx].m_state = is_win and 1 or 2
                 break
             end
         end
