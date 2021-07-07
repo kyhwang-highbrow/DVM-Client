@@ -495,6 +495,10 @@ function StructRuneObject:getLevel()
 	return self['lv']
 end
 
+function StructRuneObject:getSlot()
+    return self['slot']
+end
+
 -------------------------------------
 -- function makeSampleData
 -------------------------------------

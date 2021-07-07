@@ -254,9 +254,20 @@ function UI_CharacterCard:setRunesVisible(is_visible)
     local vars = self.vars
     local rune_list = self.m_dragonData:getRuneObjectList()
 
+    local function findRuneByIndex(list, index)
+        for _, data in pairs(list) do
+            if data:getSlot() == index then
+                return data
+            end
+        end
+
+        return nil
+    end
+
     for i = 1, 6 do
-        local rune = rune_list[i]
+        local rune = findRuneByIndex(rune_list, i)
         local res
+
         if rune then
             res = rune:getRuneRes()
         else
