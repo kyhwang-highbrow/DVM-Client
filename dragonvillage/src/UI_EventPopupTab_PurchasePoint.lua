@@ -7,6 +7,9 @@ UI_EventPopupTab_PurchasePoint = class(PARENT,{
         m_eventVersion = '',
         m_rewardUIList = '',
         m_rewardBoxUIList = '',
+
+        
+        m_tabButtonCallback = 'function',
     })
 
 -------------------------------------
@@ -242,6 +245,10 @@ function UI_EventPopupTab_PurchasePoint:click_receiveBtn(reward_step)
         ItemObtainResult(ret)
 
         self:refresh()
+
+        if self.m_tabButtonCallback then
+            self.m_tabButtonCallback()
+        end
     end
 
     g_purchasePointData:request_purchasePointReward(version, reward_step, 1, cb_func)

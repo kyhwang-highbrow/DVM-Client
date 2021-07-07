@@ -124,6 +124,42 @@ function ServerData_PurchasePoint:request_purchasePointReward(version, reward_st
     return ui_network
 end
 
+
+-------------------------------------
+-- function hasAvailableReward
+-- @brief
+-------------------------------------
+function ServerData_PurchasePoint:hasAvailableReward(version)
+    if (not version) then 
+        return self:hasPurchasePointReward() 
+    end
+
+    local point_list =  self:getPurchasePointInfo(version)
+    if (not point_list) then 
+        return false 
+    end
+
+    local step_list = point_list['step_list']
+    if (not step_list) then 
+        return false 
+    end
+
+    -- 현재 누적 결제 점수
+    local curr_point = self:getPurchasePoint(version)
+    -- 
+    local curr_step = self:getPurchaseRewardStep(version) + 1
+
+    for step = 1, curr_step do
+        local _, reward_state = self:getPurchasePoint_rewardStepInfo(version, step)
+
+        if (reward_state == 0) then 
+            return true
+        end
+    end
+
+    return false
+end
+
 -------------------------------------
 -- function hasPurchasePointReward
 -- @brief

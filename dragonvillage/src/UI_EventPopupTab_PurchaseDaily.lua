@@ -9,6 +9,8 @@ UI_EventPopupTab_PurchaseDaily = class(PARENT,{
         m_rewardBoxUIList = '',
 
         m_todayRewardUI = 'UI',
+        
+        m_tabButtonCallback = 'function',
     })
 
 -------------------------------------
@@ -253,6 +255,10 @@ function UI_EventPopupTab_PurchaseDaily:click_receiveBtn(reward_step)
             mRewardDirecting = false
             self:refresh()
         end)
+
+        if self.m_tabButtonCallback then
+            self.m_tabButtonCallback()
+        end
     end
     g_purchaseDailyData:request_purchasePointReward(version, reward_step, cb_func)
 end

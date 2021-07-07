@@ -564,7 +564,11 @@ function ServerData_Event:setEventTabNoti(event_tab)
 
     -- 누적 결제 이벤트
     elseif (string.find(event_type, 'purchase_point_')) then
-        event_tab.m_hasNoti = g_purchasePointData:hasPurchasePointReward()
+        event_tab.m_hasNoti = g_purchasePointData:hasAvailableReward(event_tab:getVersion())
+
+    -- 일일 충전 선물
+    elseif (string.find(event_type, 'purchase_daily_')) then
+        event_tab.m_hasNoti = g_purchaseDailyData:hasAvailableReward(event_tab:getVersion())
 
     -- 콜로세움 참여 이벤트
     elseif (string.find(event_type, 'event_arena_play')) then

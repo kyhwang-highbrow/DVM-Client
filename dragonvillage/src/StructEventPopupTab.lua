@@ -32,3 +32,11 @@ function StructEventPopupTab:getTabIcon()
     local res = self.m_eventData['icon']
     return res
 end
+
+-------------------------------------
+-- function getVersion
+-------------------------------------
+function StructEventPopupTab:getVersion()
+    return self.m_eventData['version']
+end
+

@@ -312,3 +312,27 @@ function ServerData_PurchaseDaily:isGetLastReward(version)
 
     return true
 end
+
+
+-------------------------------------
+-- function hasAvailableReward
+-- @brief
+-------------------------------------
+function ServerData_PurchaseDaily:hasAvailableReward(version)
+    local curr_step = self:getCurrentStep(version)
+
+    local curr_point = self:getPurchasePoint()
+
+    for step = 1, curr_step do
+        local target_point = self:getTargetPoint(version, step)
+
+        if (not self:isRewardReceived(version, step))
+                and (curr_point >= target_point) then
+            return true
+        end
+    end
+
+    return false
+end
+
+
