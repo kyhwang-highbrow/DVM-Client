@@ -649,6 +649,24 @@ function clone(object)
     return _copy(object)
 end
 
+
+-------------------------------------
+-- function checkMemberInMetatable
+-- param name string
+-------------------------------------
+function checkMemberInMetatable(obj, name)
+    local pObj = getmetatable(obj)
+
+    while(pObj ~= nil) do
+        if rawget(pObj, name) ~= nil then
+            return true
+        end
+        pObj = rawget(pObj, 'def') and rawget(pObj, 'def') or rawget(pObj, 'super')
+    end
+
+    return false
+end
+
 function randomShuffle(array)
     local arrayCount = #array
     for i = arrayCount, 2, -1 do

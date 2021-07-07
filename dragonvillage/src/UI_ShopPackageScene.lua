@@ -308,19 +308,6 @@ function UI_PackageCategoryButton:createTableView()
             end
         end
 
-        local function checkMemberInMetatable(obj, name)
-            local pObj = getmetatable(obj)
-
-            while(pObj ~= nil) do
-                if rawget(pObj, name) ~= nil then
-                    return true
-                end
-                pObj = rawget(pObj, 'def') and rawget(pObj, 'def') or rawget(pObj, 'super')
-            end
-
-            return false
-        end
-
         if ui then
             if checkMemberInMetatable(ui, 'setBuyCB') then
                 ui:setBuyCB(function() self:refresh() end)
