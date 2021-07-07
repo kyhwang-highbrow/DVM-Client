@@ -969,6 +969,8 @@ end
 function UIC_TableView:getCellUI(unique_id)
     local t_item = self:getItem(unique_id)
 
+    if (not t_item) then return end
+
     if (not t_item['ui']) then
         t_item['ui'] = self:makeItemUI(t_item['data'])
         local idx = t_item['idx']
