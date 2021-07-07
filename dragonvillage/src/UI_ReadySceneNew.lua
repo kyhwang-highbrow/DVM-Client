@@ -1098,7 +1098,7 @@ function UI_ReadySceneNew:click_manageBtn()
                 self:refresh()
                 self.m_readySceneSelect:init_dragonTableView()
                 self.m_readySceneDeck:init_deck()
-
+                
                 do -- 정렬 도우미
 					self:apply_dragonSort()
                 end
@@ -1111,6 +1111,8 @@ function UI_ReadySceneNew:click_manageBtn()
     -- 덱 저장 후 이동
     self:checkChangeDeck(next_func)
 end
+
+
 
 -------------------------------------
 -- function click_teamBonusBtn

@@ -101,6 +101,11 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_SimpleDragonInfoPopup:click_closeBtn()
+
+    if self.m_refreshCb then
+        self.m_refreshCb()
+    end
+
     self:close()
 end
 
