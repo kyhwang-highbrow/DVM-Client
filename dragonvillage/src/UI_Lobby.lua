@@ -408,6 +408,18 @@ function UI_Lobby:entryCoroutine()
             UI_ContentOpenPopup('dmgate')
         end]]
 
+        
+        -- 시즌 보상이 있을 경우 팝업
+        if g_challengeMode.m_tSeasonRewardInfo then
+            local t_data = g_challengeMode.m_tSeasonRewardInfo
+            g_challengeMode.m_tSeasonRewardInfo = nil
+            local t_last_data = g_challengeMode.m_tableLastInfo
+            g_challengeMode.m_tableLastInfo = nil
+            UI_ChallengeModeRankingRewardPopup(t_data, t_last_data)
+        end
+
+
+
         -- @ UI_ACTION
         co:work()
 	    self:doAction(function() 

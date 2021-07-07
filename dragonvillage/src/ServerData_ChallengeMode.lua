@@ -216,7 +216,7 @@ function ServerData_ChallengeMode:refresh_playerUserInfo(t_data, l_deck)
 		struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info.m_lv = g_userData:get('lv')
 		struct_user_info.m_nickname = g_userData:get('nick')
-        struct_user_info.m_lastArenaTier = t_data['arena_last_season_tier']
+        struct_user_info.m_lastArenaTier = t_data and t_data['arena_last_season_tier'] or 'beginner'
 		
 		-- 클랜
 		local struct_clan = g_clanData:getClanStruct()
@@ -1546,5 +1546,16 @@ function ServerData_ChallengeMode:setInfoForLobby(ret)
 
     if (ret['open']) then
         self.m_isChallengeModeOpen = ret['open']
+    end
+
+    if (ret['lastinfo']) then
+        self.m_tableLastInfo = ret['lastinfo']
+    else
+        self.m_tableLastInfo = nil
+    end
+
+    -- 시즌 보상 정보 저장
+    if ret['reward_info'] and (0 < table.count(ret['reward_info'])) then
+        self.m_tSeasonRewardInfo = ret['reward_info']
     end
 end
