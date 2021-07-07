@@ -96,7 +96,7 @@ function ServerData_EventArenaPlay:getRemainEventTimeStr()
     if (time > 0) then
         enable = false
         local show_second = true
-        local first_only = true
+        local first_only = false
         msg = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
     end
 
