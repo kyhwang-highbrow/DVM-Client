@@ -568,7 +568,7 @@ function ServerData_Event:setEventTabNoti(event_tab)
 
     -- 콜로세움 참여 이벤트
     elseif (string.find(event_type, 'event_arena_play')) then
-        event_tab.m_hasNoti = g_arenaNewPlayData:hasReward('play') or g_arenaNewPlayData:hasReward('win')
+        event_tab.m_hasNoti = g_eventArenaPlayData:hasReward('play') or g_eventArenaPlayData:hasReward('win')
 
     else
         event_tab.m_hasNoti = false

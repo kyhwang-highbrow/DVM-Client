@@ -241,7 +241,13 @@ function UI_Lobby:entryCoroutine()
 
         do 
             co:work('# 배틀패스 정보 받는 중')
-                g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
+            g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
+        do 
+            co:work('# 콜로세움 참여 보 정보 받는 중')
+            g_eventArenaPlayData:request_eventData(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
