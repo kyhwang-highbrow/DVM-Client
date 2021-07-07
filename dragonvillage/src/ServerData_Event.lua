@@ -566,6 +566,10 @@ function ServerData_Event:setEventTabNoti(event_tab)
     elseif (string.find(event_type, 'purchase_point_')) then
         event_tab.m_hasNoti = g_purchasePointData:hasPurchasePointReward()
 
+    -- 콜로세움 참여 이벤트
+    elseif (string.find(event_type, 'event_arena_play')) then
+        event_tab.m_hasNoti = g_arenaNewPlayData:hasReward('play') or g_arenaNewPlayData:hasReward('win')
+
     else
         event_tab.m_hasNoti = false
     end
