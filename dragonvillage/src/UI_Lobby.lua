@@ -251,12 +251,6 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        do
-            co:work('')
-                g_highlightData:request_highlightInfo(co.NEXT, co.ESCAPE)
-            if co:waitWork() then return end
-        end
-
         -- hard refresh
         cclog('# UI 갱신')
         self:refresh(true)
@@ -1947,7 +1941,12 @@ function UI_Lobby:update(dt)
     -- noti 갱신
 	if (g_highlightData:isDirty()) then
         g_highlightData:setDirty(false)
-        self:update_highlight()
+
+        local function highlight_callback()
+            self:update_highlight()
+        end
+
+        g_highlightData:request_highlightInfo(highlight_callback)
 	end
 
     -- 마스터의 길 정보 갱신
