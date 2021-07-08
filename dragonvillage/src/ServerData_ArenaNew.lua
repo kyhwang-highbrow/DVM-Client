@@ -1249,7 +1249,7 @@ end
 function ServerData_ArenaNew:refeshNextWinCount()
     local item_list = self.m_matchUserList
 
-    if (not item_list and #item_list <= 0) then return end
+    if (not item_list or #item_list <= 0) then return end
 
     local winCnt = 0
     for _, item in ipairs(item_list) do
