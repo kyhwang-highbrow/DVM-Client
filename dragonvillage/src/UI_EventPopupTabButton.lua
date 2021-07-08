@@ -47,8 +47,12 @@ function UI_EventPopupTabButton:refresh()
     local struct_event_popup_tab = self.m_structEventPopupTab
     local type = struct_event_popup_tab.m_type
     local tab_btn_name = struct_event_popup_tab:getTabButtonName()
-    vars['eventLabel']:setString(tab_btn_name)
 
-    
-    self.vars['notiSprite']:setVisible(self.m_structEventPopupTab.m_hasNoti)
+    if vars['eventLabel'] then
+        vars['eventLabel']:setString(tab_btn_name)
+    end
+
+    if vars['notiSprite'] then
+        vars['notiSprite']:setVisible(self.m_structEventPopupTab.m_hasNoti)
+    end
 end
