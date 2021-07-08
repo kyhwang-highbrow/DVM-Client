@@ -117,6 +117,7 @@ function UI_ClanListItem:click_requestBtn()
         if g_clanData:isNeedClanInfoRefresh() then
 
             local function ok_cb()
+                g_highlightData:setDirty(true)
                 UINavigator:closeClanUI()
                 UINavigator:goTo('clan')
             end

@@ -122,8 +122,11 @@ function UI_ClanGuestTabFound:click_foundBtn()
     -- 통신 응답
     work_response = function(ret)
         if (ret['status'] == 0) then
+            g_highlightData:setDirty(true)
+
             local msg = Str('축하합니다. 클랜이 창설되었습니다.')
             local sub_msg = Str('(클랜 설정 화면으로 이동합니다. 클랜의 상세 정보를 설정해주세요)')
+
             MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, work_refresh)
         end
     end

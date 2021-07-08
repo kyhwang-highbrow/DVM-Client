@@ -70,5 +70,5 @@ end
 -- function getStatus
 -------------------------------------
 function StructDailyMission:hasAvailableReward()
-    return (self['reward'] == false)
+    return (self['reward'] == false) and (self['is_clear'] == true)
 end
