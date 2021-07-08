@@ -93,6 +93,7 @@ function UI_Clan:openAttendanceRewardPopup(t_reward_info, attd_cnt)
 
     local function close_cb()
         self:checkEnterEvent()
+        g_highlightData:setDirty(true)
     end
 
     ui:setCloseCB(close_cb)

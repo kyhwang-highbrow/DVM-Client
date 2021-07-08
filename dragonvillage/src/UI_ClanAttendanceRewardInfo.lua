@@ -40,6 +40,11 @@ function UI_ClanAttendanceRewardInfo:initUI()
     local vars = self.vars
 
     local struct_clan = g_clanData:getClanStruct()
+
+    if (not struct_clan) then
+        return
+    end
+
     local curr_attd_num = struct_clan:getCurrAttd()
     vars['attendanceLabel']:setString(Str('{1}명', curr_attd_num))
 
