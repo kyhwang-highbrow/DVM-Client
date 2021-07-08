@@ -1298,7 +1298,7 @@ function UI_ReadySceneNew_Deck:moveSelectDragonCard(touch, event)
 
     -- 카드를 터치 홀딩 중에 덱 해체를 하거나 할 경우를 대비해 체크
     if (not node) then
-        return end
+        return
     end
 
     node:setPosition(local_location['x'], local_location['y'])
