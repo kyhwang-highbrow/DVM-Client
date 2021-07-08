@@ -1173,6 +1173,12 @@ function UI_ReadySceneNew_Deck:onTouchBegan(touch, event)
         self.m_selectedDragonCard = self.m_lSettedDragonCard[select_idx]
 
         local node = self.m_selectedDragonCard.root
+
+        -- 카드를 터치 홀딩 중에 덱 해체를 하거나 할 경우를 대비해 체크
+        if (not node) then
+            return
+        end
+
         node:setScale(DC_SCALE)
 
         local local_pos = convertToAnoterParentSpace(node, vars['formationNode'])
@@ -1244,6 +1250,12 @@ function UI_ReadySceneNew_Deck:onTouchEnded(touch, event)
     -- 같은 자리일 경우
     if (near_idx == self.m_selectedDragonSlotIdx) then
         local node = self.m_selectedDragonCard.root
+
+        -- 카드를 터치 홀딩 중에 덱 해체를 하거나 할 경우를 대비해 체크
+        if (not node) then
+            return
+        end
+
         node:setScale(DC_SCALE_ON_PLATE)
         node:setPosition(0, DC_POS_Y)
 
@@ -1283,6 +1295,12 @@ function UI_ReadySceneNew_Deck:moveSelectDragonCard(touch, event)
     local local_location = convertToNodeSpace(vars['formationNode'], location)
 
     local node = self.m_selectedDragonCard.root
+
+    -- 카드를 터치 홀딩 중에 덱 해체를 하거나 할 경우를 대비해 체크
+    if (not node) then
+        return end
+    end
+
     node:setPosition(local_location['x'], local_location['y'])
 		
 	-- 진형을 벗어나는지 체크하여 벗어났다면 감성 말풍선 띄운다.
