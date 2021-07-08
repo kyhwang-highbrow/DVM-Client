@@ -234,13 +234,17 @@ function UI_EventFullPopup:initUI()
         local struct_data = StructEventPopupTab(event_data)
         ui = UI_EventPopupTab_Banner(self, struct_data)
 
-        -- 다르누스 인연 포인트 이벤트
+    -- 다르누스 인연 포인트 이벤트
     elseif (string.find(popup_key, 'collaboration')) then
         local l_str = plSplit(popup_key, ';')
         local event_data = { banner = l_str[2], url = l_str[3] or ''}
         local struct_data = StructEventPopupTab(event_data)
         ui = UI_EventPopupTab_Banner(self, struct_data)
 
+    -- 아레나 참여 이벤트
+    elseif (string.find(popup_key, 'event_arena_play')) then
+        require('UI_EventArenaPlay')
+        ui = UI_EventArenaPlay()
 
     elseif (self.m_targetUI) then
         ui = self.m_targetUI
