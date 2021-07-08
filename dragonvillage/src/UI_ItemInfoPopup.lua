@@ -57,12 +57,11 @@ function UI_ItemInfoPopup:initUI()
 
     local is_lockBtn_visible = (self.m_itemType == 'dragon') or (self.m_itemType == 'rune')
 
-    if is_lockBtn_visible then
+    if is_lockBtn_visible and self.m_tSubData then
         vars['lockBtn']:setVisible(is_lockBtn_visible)
 
         self:setLockSprite(self.m_tSubData:getLock())
     end
-    
 
     do -- 아이템 아이콘    
         if (self.m_itemType == 'dragon') and self.m_tSubData then
