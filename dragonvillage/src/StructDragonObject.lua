@@ -726,6 +726,8 @@ function StructDragonObject:getGradeRes()
 		color = 'red'
 	end
 
+    grade = math.min(grade, 6)
+
     return string.format('card_star_%s_01%02d.png', color, grade)
 end
 
