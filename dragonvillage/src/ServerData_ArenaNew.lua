@@ -1232,7 +1232,7 @@ end
 function ServerData_ArenaNew:updateResult(is_win)
     if (self.m_matchUserList and #self.m_matchUserList > 0) then
         local match_no = self.m_matchUserInfo.m_no
-        cclog(match_no)
+
         for idx, item in ipairs(self.m_matchUserList) do
             if (item and item.m_no == match_no) then
                 self.m_matchUserList[idx].m_state = is_win and 1 or 2

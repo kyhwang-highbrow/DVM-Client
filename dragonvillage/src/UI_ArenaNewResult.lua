@@ -705,9 +705,6 @@ function UI_ArenaNewResult:checkAutoPlay()
     if (not g_autoPlaySetting:isAutoPlay()) then
         return
     end
-
-    local next_rival_data = g_arenaNewData:getValidRivalItem()
-    if (not next_rival_data) then return end
         
 	local auto_play_stop, msg = self:checkAutoPlayCondition()
     
@@ -737,6 +734,12 @@ function UI_ArenaNewResult:checkAutoPlayCondition()
             auto_play_stop = true
             msg = Str('패배로 인해 연속 전투가 종료되었습니다.')
         end
+    end
+
+    local next_rival_data = g_arenaNewData:getValidRivalItem()
+    if (not next_rival_data) then
+        auto_play_stop = true
+        msg = Str('연속 전투가 종료되었습니다.')
     end
 
 	return auto_play_stop, msg
