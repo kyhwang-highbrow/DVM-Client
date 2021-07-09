@@ -106,9 +106,9 @@ function SceneGameArenaNew:prepare()
         self:init_layer()
 
         if (self.m_matchRule == 'colosseum') then
-            self.m_gameWorld = GameWorldArenaNew(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode, self.m_bFriendMatch)
+            self.m_gameWorld = GameWorldArenaNew(GAME_MODE_ARENA_NEW, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode, self.m_bFriendMatch)
         else
-            self.m_gameWorld = GameWorldArena(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode, self.m_bFriendMatch)
+            self.m_gameWorld = GameWorldArena(GAME_MODE_ARENA, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode, self.m_bFriendMatch)
         end
 
         self.m_gameWorld:initGame(self.m_stageName)
