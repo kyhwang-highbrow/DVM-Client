@@ -161,6 +161,8 @@ function dragonRarityName(rarity)
         return Str('영웅')
     elseif (rarity == 'legend') then
         return Str('전설')
+    elseif (rarity == 'myth') then
+        return Str('신화')
     else
         error('rarity: ' .. rarity)
     end
