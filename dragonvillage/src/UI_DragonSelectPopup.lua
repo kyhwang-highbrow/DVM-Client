@@ -64,6 +64,7 @@ function UI_DragonSelectPopup:initButton()
         vars['starBtn'..idx] = UIC_CheckBox(vars['starBtn'..idx].m_node, vars['starSprite'..idx], active)
         vars['starBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
+
     -- 속성
     for idx = 1, 5 do
         local active = g_settingData:get('option_dragon_select', 'attr_'..idx)
@@ -76,6 +77,13 @@ function UI_DragonSelectPopup:initButton()
         vars['rarityBtn'..idx] = UIC_CheckBox(vars['rarityBtn'..idx].m_node, vars['raritySprite'..idx], active)
         vars['rarityBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
+
+    -- 신화는 별도로
+    local mythBtnName = 'myth'
+    local active = g_settingData:get('option_dragon_select', 'rarity_myth') or true
+    vars['rarityMythBtn'] = UIC_CheckBox(vars['rarityMythBtn'].m_node, vars['rarityMythSprite'], active)
+    vars['rarityMythBtn']:registerScriptTapHandler(function() self:click_checkBox() end)
+
     -- 역할
     for idx = 1, 4 do
         local active = g_settingData:get('option_dragon_select', 'type_'..idx)
@@ -264,6 +272,7 @@ function UI_DragonSelectPopup:getDragonList()
     l_attr['dark'] = vars['attrBtn5']:isChecked()
     -- 희귀도
     local l_rarity = {}
+    l_rarity['myth'] = vars['rarityMythBtn']:isChecked()
     l_rarity['legend'] = vars['rarityBtn1']:isChecked()
     l_rarity['hero'] = vars['rarityBtn2']:isChecked()
     l_rarity['rare'] = vars['rarityBtn3']:isChecked()
@@ -279,7 +288,7 @@ function UI_DragonSelectPopup:getDragonList()
     local table_slime = TableSlime()
     for i,v in pairs(l_dragon) do
         local did = v['did']
-        local grade = v['grade']
+        local grade = math.min(v['grade'], 6)
         local attr
         local rarity 
         local role 
@@ -351,6 +360,10 @@ function UI_DragonSelectPopup:onClose()
         for idx = 1, 4 do
             g_settingData:applySettingData(vars['rarityBtn'..idx]:isChecked(), 'option_dragon_select', 'rarity_'..idx)
         end
+
+        -- 신화등급
+        g_settingData:applySettingData(vars['rarityMythBtn']:isChecked(), 'option_dragon_select', 'rarity_myth')
+
         -- 역할
         for idx = 1, 4 do
             g_settingData:applySettingData(vars['typeBtn'..idx]:isChecked(), 'option_dragon_select', 'type_'..idx)

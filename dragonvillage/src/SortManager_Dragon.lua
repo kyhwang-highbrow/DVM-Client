@@ -52,6 +52,7 @@ function SortManager_Dragon:init()
     self.m_mRaritySortLevel['rare'] = 2
     self.m_mRaritySortLevel['hero'] = 3
     self.m_mRaritySortLevel['legend'] = 4
+    self.m_mRaritySortLevel['myth'] = 5
 
     -- 역할 정렬 레벨
     self.m_mRoleSortLevel = {}
