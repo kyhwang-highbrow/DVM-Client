@@ -73,6 +73,8 @@ function UI_DragonSkillEnhance:initTab()
     self:setTab(UI_DragonSkillEnhance.TAB_ENHANCE)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+
+    vars['moveTabBtn']:setVisible(not self.m_isMythDragon)
 end
 
 -------------------------------------
