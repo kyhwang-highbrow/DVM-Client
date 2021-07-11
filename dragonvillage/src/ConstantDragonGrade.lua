@@ -33,6 +33,8 @@ function getDragonRarityName(rarity)
         return Str('영웅')
     elseif (rarity == 4) then
         return Str('전설')
+    elseif (rarity == 5) then
+        return Str('신화')
     else
         error()
     end
@@ -58,6 +60,9 @@ function dragonRarityNumToStr(rarity_num)
 
     elseif (rarity_num == 4) then
         return 'legend'
+
+    elseif (rarity_num == 5) then
+        return 'myth'
 
     else
         error('rarity_num : ' .. rarity_num)
@@ -85,6 +90,9 @@ function dragonRarityStrToNum(rarity_str)
     elseif (rarity_str == 'legend') then
         return 4
 
+    elseif (rarity_str == 'myth') then
+        return 5
+
     else
         error('rarity_str : ' .. rarity_str)
     end
@@ -111,6 +119,9 @@ function evolutionStoneRarityStrToNum(rarity_str)
     elseif (rarity_str == 'legend') then
         return 4
 
+    elseif (rarity_str == 'myth') then
+        return 5
+
     else
         error('rarity_str : ' .. rarity_str)
     end
@@ -136,6 +147,9 @@ function evolutionStoneRarityNumToStr(rarity_num)
 
     elseif (rarity_num == 4) then
         return 'legend'
+
+    elseif (rarity_num == 5) then
+        return 'myth'
 
     else
         error('rarity_num : ' .. rarity_num)
