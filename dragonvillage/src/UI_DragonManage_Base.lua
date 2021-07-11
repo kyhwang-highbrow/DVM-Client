@@ -24,6 +24,8 @@ UI_DragonManage_Base = class(PARENT,{
 		-- 정렬 도우미
 		m_sortManagerDragon = 'SortManager_Dragon',
         m_mtrlDragonSortManager = 'SortManager_Dragon',
+
+        m_isMythDragon = '',
     })
 
 -------------------------------------
@@ -550,7 +552,7 @@ end
 -- @brief 재료 리스트를 반환
 -------------------------------------
 function UI_DragonManage_Base:getDragonMaterialList(doid)
-    local dragon_dic = g_dragonsData:getDragonListWithSlime()
+    local dragon_dic = self.m_isMythDragon and g_dragonsData:getDragonsList() or g_dragonsData:getDragonListWithSlime()
 
     -- 자기 자신 드래곤 제외
     if doid then

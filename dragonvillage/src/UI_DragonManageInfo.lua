@@ -225,6 +225,13 @@ function UI_DragonManageInfo:refresh()
     vars['transformBtn']:setVisible(b_transform_change)
     vars['evolutionBtn']:setVisible(not b_transform_change)
 
+    local is_myth_dragon = t_dragon_data:getRarity() == 'myth'
+    vars['upgradeBtn']:setEnabled(not is_myth_dragon)
+    vars['reinforceBtn']:setEnabled(not is_myth_dragon)
+    vars['goodbyeBtn']:setVisible(not is_myth_dragon)
+    vars['goodbyeSelectBtn']:setVisible(not is_myth_dragon)
+    --vars['lockBtn']:setVisible(not is_myth_dragon)
+    
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
 end
@@ -337,10 +344,12 @@ function UI_DragonManageInfo:refresh_buttonState_masteryBtn()
     else
         -- StructDragonObject or StructSlimeObject
         local dragon_obj = self:getSelectDragonObj()
+        local is_myth_dragon = self.m_selectDragonData and self.m_selectDragonData:getRarity() == 'myth'
+
         if (not dragon_obj) then
             levelupBtn_visible = true
         elseif dragon_obj:isMaxGradeAndLv() then
-            masteryBtn_visible = true
+            masteryBtn_visible = not is_myth_dragon
         else
             levelupBtn_visible = true
         end
@@ -619,8 +628,10 @@ function UI_DragonManageInfo:click_skillEnhanceBtn()
 		UIManager:toastNotificationRed(msg)
         return
 	end
+    
+    local is_myth_dragon = self.m_selectDragonData and self.m_selectDragonData:getRarity() == 'myth'
 
-    self:openSubManageUI(UI_DragonSkillEnhance)
+    self:openSubManageUI(UI_DragonSkillEnhance, is_myth_dragon)
 end
 
 -------------------------------------

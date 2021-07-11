@@ -78,7 +78,7 @@ function TableGradeInfo:initGlobal()
             if (not MAX_DRAGON_GRADE) then
                 MAX_DRAGON_GRADE = grade
             elseif (MAX_DRAGON_GRADE < grade) then
-                MAX_DRAGON_GRADE = grade
+                MAX_DRAGON_GRADE = math.min(grade, 5)
             end
         -- 초월 (테이블 구조때문에 남겨둠)
         else
@@ -111,7 +111,8 @@ local T_ORIGIN_GRADE = {
 	common = 1,
 	rare = 3,
 	hero = 4,
-	legend = 5
+	legend = 5,
+    myth = 6,
 }
 -------------------------------------
 -- function getOriginGrade
