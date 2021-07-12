@@ -19,19 +19,21 @@ end
 -------------------------------------
 -- function isMaxFriendshipLevel
 -------------------------------------
-function TableFriendship:isMaxFriendshipLevel(flv)
+function TableFriendship:isMaxFriendshipLevel(flv, is_myth_dragon)
     if (self == THIS) then
         self = THIS()
     end
 
-    local req_exp = self:getValue(flv, 'cumulative_req_exp')
+    local column_name = is_myth_dragon and 'cumulative_req_exp_myth' or 'cumulative_req_exp'
+
+    local req_exp = self:getValue(flv, column_name)
     return (req_exp == 0) or (req_exp == '')
 end
 
 -------------------------------------
 -- function getFriendshipReqExp
 -------------------------------------
-function TableFriendship:getFriendshipReqExp(flv)
+function TableFriendship:getFriendshipReqExp(flv, is_myth_dragon)
     if (self == THIS) then
         self = THIS()
     end
@@ -41,7 +43,8 @@ function TableFriendship:getFriendshipReqExp(flv)
         error('flv : ' .. flv)
     end
 
-    local req_exp = t_table['cumulative_req_exp']
+    local column_name = is_myth_dragon and 'cumulative_req_exp_myth' or 'cumulative_req_exp'
+    local req_exp = t_table[column_name]
 
     if (not req_exp) or (req_exp == 0) or (req_exp == '') then
         return 0

@@ -238,7 +238,7 @@ function UI_DragonFriendship:setHeartGauge(percentage, b_init)
     local heart_gauge = vars['heartGauge']
     local heart_label = vars['heartNumberLabel']
     local function init_func()
-        heart_label:setNumber(0, true)
+        heart_label:setNumber(0, true, '%')
         heart_gauge:setPercentage(0)
     end
 
@@ -273,7 +273,7 @@ function UI_DragonFriendship:setHeartGauge(percentage, b_init)
         )
         heart_gauge:runAction(action)
     else
-        heart_label:setNumber(percentage)
+        heart_label:setNumber(percentage, false, '%')
         heart_gauge:runAction(cc.EaseElasticOut:create(cc.ProgressTo:create(1, percentage), 1.5))
     end    
 end

@@ -331,6 +331,10 @@ end
 -- @breif
 -------------------------------------
 function StructDragonObject:getFriendshipObject()
+    if (isNullOrEmpty(self['friendship']['frarity'])) then
+        self['friendship']['frarity'] = self:getRarity()
+    end
+
     return self['friendship']
 end
 

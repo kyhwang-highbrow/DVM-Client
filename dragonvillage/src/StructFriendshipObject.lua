@@ -13,6 +13,7 @@ StructFriendshipObject = class({
         fatk = 'number',
         fdef = 'number',
         fhp = 'number',
+        frarity = 'string',
     })
 
 -------------------------------------
@@ -25,6 +26,7 @@ function StructFriendshipObject:init(data)
     self['fatk'] = 0
     self['fdef'] = 0
     self['fhp'] = 0
+    self['frarity'] = ''
 
     if data then
         self:applyTableData(data)
@@ -64,6 +66,7 @@ function StructFriendshipObject:getFriendshipInfo(flv)
     -- 기분 게이지
     local table_friendship_variables = TableFriendshipVariables()
     local nickname = g_userData:get('nick')
+    local is_myth_dragon = self['frarity'] == 'myth'
 
     local t_friendship_info = {}
     t_friendship_info['name'] = Str(t_table['t_name'])
@@ -71,7 +74,7 @@ function StructFriendshipObject:getFriendshipInfo(flv)
     t_friendship_info['atk_max'] = table_friendship_variables:getAtkMax()
     t_friendship_info['def_max'] = table_friendship_variables:getDefMax()
     t_friendship_info['hp_max'] = table_friendship_variables:getHpMax()
-    t_friendship_info['max_exp'] = table_friendship:getFriendshipReqExp(self['flv'])
+    t_friendship_info['max_exp'] = table_friendship:getFriendshipReqExp(self['flv'], is_myth_dragon)
     t_friendship_info['exp_percent'] = (self['fexp'] / t_friendship_info['max_exp']) * 100
 
     return t_friendship_info
@@ -83,7 +86,8 @@ end
 -------------------------------------
 function StructFriendshipObject:isMaxFriendshipLevel()
     local flv = self['flv']
-    local is_max_friendship_lv = TableFriendship:isMaxFriendshipLevel(flv)
+    local is_myth_dragon = self['frarity'] == 'myth'
+    local is_max_friendship_lv = TableFriendship:isMaxFriendshipLevel(flv, is_myth_dragon)
     return is_max_friendship_lv
 end
 

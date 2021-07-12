@@ -45,9 +45,11 @@ end
 -------------------------------------
 -- function setNumber
 -------------------------------------
-function NumberLabel:setNumber(number, immediately)
+function NumberLabel:setNumber(number, immediately, suffix_str)
     if (self.m_number == number) then
-        self.m_label:setString(self.getNumberStr(self.m_number))
+        local number_str = self.getNumberStr(self.m_number)
+        local result_str = suffix_str and (number_str .. suffix_str) or number_str
+        self.m_label:setString(result_str)
         return
     end
 	-- setNumber 예외처리
