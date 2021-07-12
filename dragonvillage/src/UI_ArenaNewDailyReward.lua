@@ -88,7 +88,7 @@ function UI_ArenaNewDailyReward:initUI()
 
     local msg = ''
 
-    if (struct_user_info.m_tier ~= 'legend') then
+    if (struct_user_info.m_tier ~= 'legend' and self.m_remainNextScore > 0) then
          msg = Str('{1}점을 더 획득하면 다음 티어 보상을 획득 할 수 있어요!', self.m_remainNextScore)
     end
 
