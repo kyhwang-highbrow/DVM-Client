@@ -42,14 +42,14 @@ function Character:onEvent(event_name, t_event, ...)
         local hp = t_event['hp']
         local max_hp = t_event['max_hp']
 
-        self:onEvent_underEnemyHp(hp, max_hp)
+        self:onEvent_underAllyHp(hp, max_hp)
 
 
     elseif (event_name == 'under_enemy_hp') then
         local hp = t_event['hp']
         local max_hp = t_event['max_hp']
 
-        self:onEvent_underAllyHp(hp, max_hp)
+        self:onEvent_underEnemyHp(hp, max_hp)
 
 
     elseif (event_name == 'under_teammate_hp') then
