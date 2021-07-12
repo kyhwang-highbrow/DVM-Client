@@ -131,7 +131,8 @@ function UI_DragonLevelUpBtnPress:update(dt)
         -- 필요 골드, 드래곤 경험치 계산
         local table_dragon_exp = TableDragonExp()
         local target_lv = lv + 1
-        local total_gold, total_dragon_exp = table_dragon_exp:getGoldAndDragonEXPForDragonLevelUp(grade, lv, target_lv)
+        local is_myth_dragon = t_dragon_data:getRarity() == 'myth'
+        local total_gold, total_dragon_exp = table_dragon_exp:getGoldAndDragonEXPForDragonLevelUp(grade, lv, target_lv, is_myth_dragon)
 
         -- 골드가 충분히 있는지 확인
         local need_gold = total_gold

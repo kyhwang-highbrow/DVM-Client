@@ -204,7 +204,8 @@ function UI_DragonLevelUpNew:refresh_levelUpBtnState(curr_lv, curr_exp, dragon_e
 
         -- 필요 골드, 경험치 계산
         local table_dragon_exp = TableDragonExp()
-        local total_gold, total_dragon_exp = table_dragon_exp:getGoldAndDragonEXPForDragonLevelUp(grade, curr_lv, curr_lv + 1)
+        local is_myth_dragon = t_dragon_data:getRarity() == 'myth'
+        local total_gold, total_dragon_exp = table_dragon_exp:getGoldAndDragonEXPForDragonLevelUp(grade, curr_lv, curr_lv + 1, is_myth_dragon)
 
         -- 필요 골드
         local need_gold = total_gold
@@ -425,7 +426,8 @@ function UI_DragonLevelUpNew:click_levelupBtn()
     local grade = t_dragon_data['grade']
     local lv = t_dragon_data['lv']
     local target_lv = lv + 1
-    local total_gold, total_dragon_exp = table_dragon_exp:getGoldAndDragonEXPForDragonLevelUp(grade, lv, target_lv)
+    local is_myth_dragon = t_dragon_data:getRarity() == 'myth'
+    local total_gold, total_dragon_exp = table_dragon_exp:getGoldAndDragonEXPForDragonLevelUp(grade, lv, target_lv, is_myth_dragon)
 
     -- 골드가 충분히 있는지 확인
     local need_gold = total_gold

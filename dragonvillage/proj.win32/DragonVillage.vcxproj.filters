@@ -4955,6 +4955,7 @@
     <None Include="..\src\UI_EventArenaPlay.lua" />
     <None Include="..\src\ServerData_EventArenaPlay.lua" />
     <None Include="..\src\UI_ArenaNewAutoPlayPopup.lua" />
+    <None Include="..\src\UI_ArenaNewStaminaChargePopup.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
