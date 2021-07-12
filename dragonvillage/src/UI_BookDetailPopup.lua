@@ -511,8 +511,9 @@ function UI_BookDetailPopup:onChangeGrade()
 
 	-- 진화도에 따른 등급 보정
 	if (self.m_evolution == 3) then
-		if (self.m_grade < t_dragon['birthgrade'] + 1) then
-			self.m_grade = t_dragon['birthgrade'] + 1
+        local max_birth_grade = math.min(t_dragon['birthgrade'] + 1, 6)
+		if (self.m_grade < max_birth_grade) then
+			self.m_grade = max_birth_grade
 		end
 	end
 
