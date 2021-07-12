@@ -536,7 +536,6 @@ end
 -------------------------------------
 function UI_BookDetailPopup:onChangeLV()
 	local vars = self.vars
-
 	local max_lv = TableGradeInfo:getMaxLv(self.m_grade)
 	if (self.m_lv > max_lv) then
 		self.m_lv = max_lv
@@ -855,7 +854,8 @@ end
 function UI_BookDetailPopup:setDragon(t_dragon, is_origin)
 	self.m_tDragon = t_dragon
 	self.m_evolution = t_dragon['evolution']
-	self.m_grade = t_dragon['grade']
+	self.m_grade = math.min(t_dragon['grade'], 6)
+
 	self.m_lv = t_dragon['lv'] or 1
     if (is_origin) then
         self.m_originDid = t_dragon['did']

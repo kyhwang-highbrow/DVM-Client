@@ -105,7 +105,7 @@ function UI_BookDragonCard_Bundle:refresh()
         table.insert(l_dragon, data_hatchling)
 
         local data_adult = clone(data)
-        data_adult['grade'] = data['grade'] + 1
+        data_adult['grade'] = math.min(data['grade'] + 1, 6)
         data_adult['evolution'] = 3
         table.insert(l_dragon, data_adult)
     end
