@@ -78,7 +78,7 @@ function TableGradeInfo:initGlobal()
             if (not MAX_DRAGON_GRADE) then
                 MAX_DRAGON_GRADE = grade
             elseif (MAX_DRAGON_GRADE < grade) then
-                MAX_DRAGON_GRADE = math.min(grade, 5)
+                MAX_DRAGON_GRADE = grade
             end
         -- 초월 (테이블 구조때문에 남겨둠)
         else
