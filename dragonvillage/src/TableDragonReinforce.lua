@@ -21,7 +21,7 @@ function TableDragonReinforce:init()
 
 	if (not S_GRADE_REINFORCE) then
 		S_GRADE_REINFORCE = {}
-		for i = 1, 5 do
+		for i = 1, 6 do
 			local list = self:filterList('birth_grade', i)
 			table.sort(list, function(a, b)
 				return a['id'] < b['id']
