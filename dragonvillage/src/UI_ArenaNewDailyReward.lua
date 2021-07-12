@@ -86,11 +86,17 @@ function UI_ArenaNewDailyReward:initUI()
     local tier_name = struct_user_info:getTierName()
     vars['tierLabel']:setString(tier_name)
 
-    vars['infoLabel']:setString(Str('{1}점을 더 획득하면 다음 티어 보상을 획득 할 수 있어요!', self.m_remainNextScore))
+    local msg = ''
+
+    if (struct_user_info.m_tier ~= 'legend') then
+         msg = Str('{1}점을 더 획득하면 다음 티어 보상을 획득 할 수 있어요!', self.m_remainNextScore)
+    end
+
+    vars['infoLabel']:setString(msg)
     
     if (rewardable_tier_item) then
         if (rewardable_tier_item['tier'] == 'legend') then
-            self:setRewardItem(rewardable_tier_item)
+            self:setRewardItem(rewardable_tier_item, struct_user_info)
 
         elseif (rewardable_tier_item['tier'] == 'beginner') then
             vars['infoMenu']:setVisible(true)
@@ -112,6 +118,8 @@ function UI_ArenaNewDailyReward:setRewardItem(rewardable_tier_item, struct_user_
     local custom_item_id
     local custom_item_count
     local vars = self.vars
+
+    if (not struct_user_info) then return end
 
     if not isNullOrEmpty(rewardable_tier_item['daily_gold_rate']) then
         total_gold = tonumber(rewardable_tier_item['daily_gold_rate']) * struct_user_info:getRP()
