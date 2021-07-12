@@ -196,7 +196,8 @@ function UI_DragonGoodbyeSelectNew2:click_dragonMaterial(t_dragon_data)
         local dragon_exp_table = TableDragonExp()
 		local grade = t_dragon_data['grade']
 		local lv = t_dragon_data['lv']
-        local dragon_exp = dragon_exp_table:getDragonGivingExp(grade, lv)	
+        local is_myth_dragon = t_dragon_data:getRarity() == 'myth'
+        local dragon_exp = dragon_exp_table:getDragonGivingExp(grade, lv, is_myth_dragon)	
 
 		--local price = TableDragonExp():getDragonSellGold(t_dragon_data['grade'], t_dragon_data['lv'])
         local price = dragon_exp

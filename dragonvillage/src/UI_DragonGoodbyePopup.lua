@@ -55,6 +55,7 @@ function UI_DragonGoodbyePopup:initUI()
 	local lv = dragon_data['lv']
 	local attr = dragon_table:getValue(did, 'attr')
 	local rarity = dragon_table:getValue(did, 'rarity')
+    local is_myth_dragon = rarity == 'myth'
 
 	-- 인연 포인트
 	do
@@ -95,7 +96,7 @@ function UI_DragonGoodbyePopup:initUI()
     end
 	-- 경험치 아이템
 	do
-		local exp = dragon_exp_table:getDragonGivingExp(grade, lv)	
+		local exp = dragon_exp_table:getDragonGivingExp(grade, lv, is_myth_dragon)	
 
 		local dragon_exp_item = {}
 		dragon_exp_item['item_id'] = 700017 -- 드래곤 경험치 아이템 코드
