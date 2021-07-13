@@ -14,7 +14,8 @@ function DragonGuideNavigator:analysis(dragon_data)
     end
 
     local link_list = {}
-    local check_list = THIS:getCheckList()
+    local is_myth_dragon = dragon_data:getRarity() == 'myth'
+    local check_list = THIS:getCheckList(is_myth_dragon)
 
     local cnt = 0
     for _, name in ipairs(check_list) do
@@ -51,7 +52,7 @@ end
 -- @brief ## 순서대로 조건 체크, 함수 이름과 동일해야함 ex) analysis_level_up -> level_up
 -- @brief ## UI_DragonManageInfo의 서브메뉴 이름과 동일해야함 
 -------------------------------------
-function DragonGuideNavigator:getCheckList()
+function DragonGuideNavigator:getCheckList(is_myth_dragon)
     local check_list = {}
 
     table.insert(check_list, 'level_up')
@@ -60,7 +61,7 @@ function DragonGuideNavigator:getCheckList()
     table.insert(check_list, 'evolution')
     table.insert(check_list, 'grade')
     table.insert(check_list, 'skill_enc')
-    table.insert(check_list, 'reinforce')
+    if (not is_myth_dragon) then table.insert(check_list, 'reinforce') end
 
     return check_list
 end
