@@ -816,6 +816,10 @@ function ServerData_Dragons:possibleGoodbye(doid)
 		return false, Str('{1}은 {2}성 이상이어야 작별할 수 있습니다.', dragon_name, birth) 
 	end
 
+    if (t_dragon_data:getRarity() == 'myth') then
+        return false, Str('작별할 수 없는 드래곤입니다.') 
+    end
+
 	-- 인연포인트 최대 갯수 체크
     -- @kwkang 20-11-17 기존 로직은 현재 가지고 있는 인연포인트만 검사
     -- (현재 가지고 있는 인연포인트 + 얻을 인연포인트) 로 검사하도록 변경
@@ -868,6 +872,10 @@ function ServerData_Dragons:possibleConversion(doid)
 		return false, Str('변환할 수 없습니다.') 
 	end
 
+    if (t_dragon_data:getRarity() == 'myth') then
+        return false, Str('작별할 수 없는 드래곤입니다.') 
+    end
+
     return true
 end
 
@@ -881,6 +889,12 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
     if (not t_dragon_data) then
         return false, ''
     end
+
+    -- 신화 드래곤 체크
+    if (t_dragon_data:getRarity() == 'myth') then
+        return false, Str('작별할 수 없는 드래곤입니다.') 
+    end
+
 
 	-- 잠금 체크
 	if (self:isLockDragon(doid)) then
