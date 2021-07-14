@@ -12,7 +12,9 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
         m_eggID = 'num',
         m_bAnimate = 'boolean',
         m_bRareSummon = 'boolean', -- 고등급용 소환
-        m_bLegend= 'boolean', 
+        m_bLegend = 'boolean',
+        m_bMyth = 'boolean',
+        m_dragonName = 'string',
 
         m_rarityEffect = 'Animator', -- 소환시에 텍스트 애니메이터 추가
     })
@@ -47,6 +49,9 @@ end
 -- @ brief 연출 종료후 나타날 드래곤 리소스 생성
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:setDragonAnimator(did, evolution, flv)
+    --did = 120221 --번고
+    --did = 121752 --데스락
+
     PARENT.setDragonAnimator(self, did, evolution, flv)
 
 	-- did를 받아 
@@ -76,6 +81,8 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:directingIdle()
 	self.vars['touchNode']:setVisible(true)
+
+    local cur_step = math.max(self.m_currStep, 3)
 
 	local appear_ani = string.format('appear_%02d', self.m_currStep)
 	self.m_topEffect:changeAni(appear_ani)
@@ -142,7 +149,13 @@ end
 -- @brief 5성인 경우 애니메이션 추가
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:checkMaxGradeEffect()
-    if (self.m_bLegend) then
+    if (self.m_bMyth) then
+        SoundMgr:playEffect('UI', 'ui_egg_legend')
+        self.m_topEffect:changeAni('crack_high_04', false)
+        self.m_topEffect:addAniHandler(function()
+            self:appearDragonAnimator()
+        end)
+    elseif (self.m_bLegend) then
         SoundMgr:playEffect('UI', 'ui_egg_legend')
         self.m_topEffect:changeAni('crack_high_04', false)
         self.m_topEffect:addAniHandler(function()
@@ -179,9 +192,11 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
     if TableSlime:isSlimeID(did) then
         rarity = TableSlime:getValue(did, 'rarity')
         cur_grade = TableSlime:getValue(did, 'birthgrade')
+        self.m_dragonName = TableSlime:getValue(did, 'type')
     else
         rarity = TableDragon:getValue(did, 'rarity')
         cur_grade = TableDragon:getValue(did, 'birthgrade')
+        self.m_dragonName = TableDragon:getValue(did, 'type')
     end
 
     -- 뽑기 연출에만 eggID set
@@ -193,11 +208,15 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
     else
         self.m_maxStep = 3
     end
-    self.m_bLegend = false
+
+    self.m_bLegend = rarity == 'legend'
+    self.m_bMyth = rarity == 'myth'
 
 	-- 전설등급의 경우 추가 연출을 붙여준다
-	if (rarity == 'legend') then
-        self.m_bLegend = true
+	if (self.m_bLegend) then
+		self:setCutSceneImg()
+    elseif(self.m_bMyth and self.m_maxStep > 3) then
+        self.m_maxStep = 3
 		self:setCutSceneImg()
 	end
 end
@@ -207,11 +226,55 @@ end
 -- @brief top_appear연출 호출하고 드래곤 등장시킴
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator()
-	self.m_topEffect:changeAni('top_appear', false)
-	self.m_topEffect:addAniHandler(function()
-		PARENT.appearDragonAnimator(self)
-        self:show_textAnimation()
-	end)
+    local animator
+
+    function after_appear_cut_cb()
+        if (animator) then
+            animator:setVisible(false)
+        end
+
+	    self.m_topEffect:changeAni('top_appear', false)
+        self.m_topEffect:addAniHandler(function()
+            PARENT.appearDragonAnimator(self)
+            self:show_textAnimation()
+        end)
+    end
+
+    self.vars['skipBtn']:setVisible(false)
+
+    local dragon_appear_cut_res
+
+    if (not isNullOrEmpty(self.m_dragonName) and self.m_bMyth) then
+        local file_name = string.format('appear_%s', self.m_dragonName)
+        dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.vrp', file_name, file_name)
+        animator = MakeAnimator(dragon_appear_cut_res)
+
+        --번역
+        Translate:a2dTranslate(dragon_appear_cut_res)
+    end
+
+    if (animator) then
+        animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+
+	    local cut_node = self.vars['topEffectNode']
+
+	    if (cut_node) then cut_node:addChild(animator.m_node) end
+
+        animator:changeAni('appear', false)
+
+        animator:addAniHandler(function()
+            animator:changeAni('idle', false)
+            animator:addAniHandler(function()
+                animator:changeAni('end', false)
+                animator:addAniHandler(function()
+                    after_appear_cut_cb()
+ 	            end)
+	        end)
+	    end)
+    else
+        after_appear_cut_cb()
+    end
+
 end
 
 -------------------------------------
