@@ -183,7 +183,7 @@
 								lua_name = 'rankLabel1';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 16;
-								text = '{n}위';
+								text = '{1}위';
 								h_alignment = 2;
 								v_alignment = 1;
 								color = { 255; 255; 255; };
@@ -223,7 +223,7 @@
 								lua_name = 'scoreLabel1';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 16;
-								text = '{n}점';
+								text = '{1}점';
 								h_alignment = 2;
 								v_alignment = 1;
 								color = { 255; 104; 32; };
@@ -503,7 +503,7 @@
 								lua_name = 'rankLabel2';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 16;
-								text = '{n}위';
+								text = '{1}위';
 								h_alignment = 2;
 								v_alignment = 1;
 								color = { 255; 255; 255; };
@@ -543,7 +543,7 @@
 								lua_name = 'scoreLabel2';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 16;
-								text = '{n}점';
+								text = '{1}점';
 								h_alignment = 2;
 								v_alignment = 1;
 								color = { 255; 104; 32; };
@@ -823,7 +823,7 @@
 								lua_name = 'rankLabel3';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 16;
-								text = '{n}위';
+								text = '{1}위';
 								h_alignment = 2;
 								v_alignment = 1;
 								color = { 255; 255; 255; };
@@ -863,7 +863,7 @@
 								lua_name = 'scoreLabel3';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 16;
-								text = '{n}점';
+								text = '{1}점';
 								h_alignment = 2;
 								v_alignment = 1;
 								color = { 255; 104; 32; };
@@ -1143,7 +1143,7 @@
 								lua_name = 'rankLabel4';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 16;
-								text = '{n}위';
+								text = '{1}위';
 								h_alignment = 2;
 								v_alignment = 1;
 								color = { 255; 255; 255; };
@@ -1183,7 +1183,7 @@
 								lua_name = 'scoreLabel4';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 16;
-								text = '{n}점';
+								text = '{1}점';
 								h_alignment = 2;
 								v_alignment = 1;
 								color = { 255; 104; 32; };
@@ -1463,7 +1463,7 @@
 								lua_name = 'rankLabel5';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 16;
-								text = '{n}위';
+								text = '{1}위';
 								h_alignment = 2;
 								v_alignment = 1;
 								color = { 255; 255; 255; };
@@ -1503,7 +1503,7 @@
 								lua_name = 'scoreLabel5';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 16;
-								text = '{n}점';
+								text = '{1}점';
 								h_alignment = 2;
 								v_alignment = 1;
 								color = { 255; 104; 32; };

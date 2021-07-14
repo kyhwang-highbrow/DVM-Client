@@ -274,9 +274,32 @@
 			{
 				[1] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = -120.000000;
+					x = -220.000000;
 					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -293,9 +316,32 @@
 				};
 				[2] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = -60.000000;
+					x = -160.000000;
 					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -312,9 +358,32 @@
 				};
 				[3] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = 0.000000;
+					x = -100.000000;
 					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -331,9 +400,32 @@
 				};
 				[4] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = 60.000000;
+					x = -40.000000;
 					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -350,9 +442,32 @@
 				};
 				[5] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = 120.000000;
+					x = 20.000000;
 					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -369,10 +484,33 @@
 				};
 				[6] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = -255.000000;
-					y = -35.000000;
+					x = 80.000000;
+					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -388,10 +526,33 @@
 				};
 				[7] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = -195.000000;
-					y = -35.000000;
+					x = 140.000000;
+					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -407,10 +568,33 @@
 				};
 				[8] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = -100.000000;
-					y = -35.000000;
+					x = 200.000000;
+					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -426,9 +610,32 @@
 				};
 				[9] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = -145.000000;
+					x = -181.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -445,9 +652,32 @@
 				};
 				[10] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = -45.000000;
+					x = -121.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -464,9 +694,32 @@
 				};
 				[11] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = 15.000000;
+					x = -61.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -483,9 +736,32 @@
 				};
 				[12] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = 75.000000;
+					x = -1.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -502,9 +778,32 @@
 				};
 				[13] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = 135.000000;
+					x = 59.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -521,9 +820,32 @@
 				};
 				[14] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = 191.000000;
+					x = 115.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -540,9 +862,32 @@
 				};
 				[15] =
 				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 50;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Node';
 					ui_name = '';
-					x = 241.000000;
+					x = 165.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };

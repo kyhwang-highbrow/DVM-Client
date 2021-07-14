@@ -104,7 +104,7 @@
 					text = '청약 철회는 구매일로부터 7일 이내에 가능합니다. (단 사용했을 경우 청약철회 불가)\n법정 대리인의 동의를 받지않은 미성년자의 거래는 취소할 수 있습니다. 자세히보기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 145; 80; 9; };
 					opacity = 255;
 					dimension_width = 700;
 					dimension_height = 50;
@@ -287,42 +287,17 @@
 			};
 			[8] =
 			{
-				type = 'Visual';
-				ui_name = '';
-				x = 0.000000;
-				y = 215.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 0;
-				height = 0;
-				scale_x = 0.650000;
-				scale_y = 0.650000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/a2d/star/star.vrp';
-				auto_play = true;
-				is_repeat = false;
-				visual_id = 'group;yellow_5';
-				color = { 255; 255; 255; };
-				opacity = 255;
-			};
-			[9] =
-			{
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -24.000000;
+				y = -19.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 785;
 				height = 811;
-				scale_x = 0.300000;
-				scale_y = 0.300000;
+				scale_x = 0.320000;
+				scale_y = 0.320000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -336,7 +311,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[10] =
+			[9] =
 			{
 				type = 'Sprite';
 				ui_name = '5성';
@@ -362,12 +337,12 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[11] =
+			[10] =
 			{
 				type = 'Sprite';
 				ui_name = '4성';
-				x = -229.000000;
-				y = -111.000000;
+				x = -235.000000;
+				y = -110.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -388,12 +363,12 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[12] =
+			[11] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -229.000000;
-				y = -171.000000;
+				x = -235.000000;
+				y = -170.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -428,7 +403,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[13] =
+			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -468,12 +443,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[14] =
+			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 230.000000;
-				y = -171.000000;
+				x = 235.000000;
+				y = -170.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -508,12 +483,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[15] =
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -229.000000;
-				y = -143.000000;
+				x = -235.000000;
+				y = -142.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -548,7 +523,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[16] =
+			[15] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -588,12 +563,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[17] =
+			[16] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 230.000000;
-				y = -143.000000;
+				x = 235.000000;
+				y = -142.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -628,12 +603,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[18] =
+			[17] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -165.000000;
+				y = -170.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -651,7 +626,7 @@
 				text = '6★ 드래곤까지 승급 가능!!';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 215; 0; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 800;
 				dimension_height = 60;
@@ -661,19 +636,19 @@
 				stroke_detail_level = 0;
 				is_sharp_text = false;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
+				stroke_color = { 180; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
+				shadow_color = { 180; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[19] =
+			[18] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -240.000000;
+				y = -238.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -687,7 +662,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
+				font_size = 20;
 				text = '레벨업을 위한 드래곤 경험치 추가 제공!!';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -708,12 +683,12 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[20] =
+			[19] =
 			{
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = 0.000000;
-				y = -210.000000;
+				y = -208.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -727,7 +702,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 23;
+				font_size = 20;
 				text = '전설 드래곤 6성까지 {@yellow}즉시{@default} 승급이 가능한 모든 슬라임 제공!!';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -748,7 +723,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[21] =
+			[20] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -764,14 +739,14 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 42;
 				text = '승급 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 0; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 850;
 				dimension_height = 105;
@@ -781,12 +756,63 @@
 				stroke_detail_level = 0;
 				is_sharp_text = false;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
+				stroke_color = { 180; 0; 0; };
+				has_shadow = true;
+				shadow_color = { 180; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 4.000000;
+			};
+			[21] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = 0.000000;
+				y = 202.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 0.550000;
+				scale_y = 0.550000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/a2d/star/star.vrp';
+				auto_play = true;
+				is_repeat = false;
+				visual_id = 'group;yellow_5';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[22] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -63.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 930;
+				height = 120;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/typo/ko/package_upgrade_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';

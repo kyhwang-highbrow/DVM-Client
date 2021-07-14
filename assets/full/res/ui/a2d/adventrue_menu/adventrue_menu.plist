@@ -139,7 +139,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_dragon.png</key>
+            <key>adventrue_menu_dmgate.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -154,7 +154,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_dragon_forest.png</key>
+            <key>adventrue_menu_dragon.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -169,7 +169,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_exploration.png</key>
+            <key>adventrue_menu_dragon_forest.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -184,22 +184,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_frame_deco.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{294,366}</string>
-                <key>spriteSourceSize</key>
-                <string>{294,366}</string>
-                <key>textureRect</key>
-                <string>{{1,1693},{294,366}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>adventrue_menu_nightmare.png</key>
+            <key>adventrue_menu_exploration.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -214,7 +199,22 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_relation.png</key>
+            <key>adventrue_menu_frame_deco.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{294,366}</string>
+                <key>spriteSourceSize</key>
+                <string>{294,366}</string>
+                <key>textureRect</key>
+                <string>{{283,1693},{294,366}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>adventrue_menu_nightmare.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -229,7 +229,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_scenario.png</key>
+            <key>adventrue_menu_relation.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -244,7 +244,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_shop_random.png</key>
+            <key>adventrue_menu_scenario.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -259,7 +259,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_tree.png</key>
+            <key>adventrue_menu_shop_random.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -274,7 +274,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventure_rune_guadian.png</key>
+            <key>adventrue_menu_tree.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -286,6 +286,21 @@
                 <string>{280,280}</string>
                 <key>textureRect</key>
                 <string>{{565,1411},{280,280}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>adventure_rune_guadian.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{280,280}</string>
+                <key>spriteSourceSize</key>
+                <string>{280,280}</string>
+                <key>textureRect</key>
+                <string>{{1,1693},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -303,7 +318,7 @@
             <key>size</key>
             <string>{846,1988}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9d1bf1b9892b9717f8d3a0c4eeac61d0:eb2077486d4845bc7b4b22d7440291a9:e23c63f4aa7f2934575771a40e784a5e$</string>
+            <string>$TexturePacker:SmartUpdate:3bcdd687e9ce36f0fe14ac394e9cc175:25bf1c9d8001ecab012e57add9b28452:e23c63f4aa7f2934575771a40e784a5e$</string>
             <key>textureFileName</key>
             <string>adventrue_menu.png</string>
         </dict>

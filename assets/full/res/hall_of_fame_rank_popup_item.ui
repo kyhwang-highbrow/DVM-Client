@@ -350,7 +350,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 215.000000;
+						x = 295.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -402,7 +402,7 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = 'challengeModeScoreLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 20;

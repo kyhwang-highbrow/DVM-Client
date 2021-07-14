@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{410,522}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{410,522}}</string>
+                <string>{{1,991},{410,522}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_ancient_ruins_02.png</key>
             <dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{281,508}</string>
                 <key>textureRect</key>
-                <string>{{1,1049},{281,508}}</string>
+                <string>{{1,425},{281,508}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -45,9 +45,54 @@
                 <key>spriteSourceSize</key>
                 <string>{210,522}</string>
                 <key>textureRect</key>
-                <string>{{825,525},{210,522}}</string>
+                <string>{{1,1},{210,522}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
+            </dict>
+            <key>dungeon_dmgate_01.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{410,522}</string>
+                <key>spriteSourceSize</key>
+                <string>{410,522}</string>
+                <key>textureRect</key>
+                <string>{{525,991},{410,522}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>dungeon_dmgate_02.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{281,508}</string>
+                <key>spriteSourceSize</key>
+                <string>{281,508}</string>
+                <key>textureRect</key>
+                <string>{{511,425},{281,508}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>dungeon_dmgate_03.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{210,522}</string>
+                <key>spriteSourceSize</key>
+                <string>{210,522}</string>
+                <key>textureRect</key>
+                <string>{{525,1},{210,522}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>dungeon_dragon_01.png</key>
             <dict>
@@ -60,9 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{410,522}</string>
                 <key>textureRect</key>
-                <string>{{1,525},{410,522}}</string>
+                <string>{{1049,991},{410,522}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_dragon_02.png</key>
             <dict>
@@ -75,7 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{281,508}</string>
                 <key>textureRect</key>
-                <string>{{511,1049},{281,508}}</string>
+                <string>{{1021,425},{281,508}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -90,9 +135,9 @@
                 <key>spriteSourceSize</key>
                 <string>{210,522}</string>
                 <key>textureRect</key>
-                <string>{{1037,525},{210,522}}</string>
+                <string>{{1049,1},{210,522}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_nightmare_01.png</key>
             <dict>
@@ -105,9 +150,9 @@
                 <key>spriteSourceSize</key>
                 <string>{410,522}</string>
                 <key>textureRect</key>
-                <string>{{413,1},{410,522}}</string>
+                <string>{{1,1403},{410,522}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_nightmare_02.png</key>
             <dict>
@@ -120,7 +165,7 @@
                 <key>spriteSourceSize</key>
                 <string>{281,508}</string>
                 <key>textureRect</key>
-                <string>{{1021,1049},{281,508}}</string>
+                <string>{{1,708},{281,508}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -135,9 +180,9 @@
                 <key>spriteSourceSize</key>
                 <string>{210,522}</string>
                 <key>textureRect</key>
-                <string>{{1249,511},{210,522}}</string>
+                <string>{{1,213},{210,522}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_relation_01.png</key>
             <dict>
@@ -150,9 +195,9 @@
                 <key>spriteSourceSize</key>
                 <string>{410,522}</string>
                 <key>textureRect</key>
-                <string>{{413,525},{410,522}}</string>
+                <string>{{525,1403},{410,522}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_relation_02.png</key>
             <dict>
@@ -165,9 +210,9 @@
                 <key>spriteSourceSize</key>
                 <string>{281,508}</string>
                 <key>textureRect</key>
-                <string>{{1237,1},{281,508}}</string>
+                <string>{{511,708},{281,508}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_relation_03.png</key>
             <dict>
@@ -180,9 +225,9 @@
                 <key>spriteSourceSize</key>
                 <string>{210,522}</string>
                 <key>textureRect</key>
-                <string>{{1461,511},{210,522}}</string>
+                <string>{{525,213},{210,522}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_tree_01.png</key>
             <dict>
@@ -195,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{410,522}</string>
                 <key>textureRect</key>
-                <string>{{825,1},{410,522}}</string>
+                <string>{{1049,1403},{410,522}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_tree_02.png</key>
             <dict>
@@ -210,9 +255,9 @@
                 <key>spriteSourceSize</key>
                 <string>{281,508}</string>
                 <key>textureRect</key>
-                <string>{{1520,1},{281,508}}</string>
+                <string>{{1021,708},{281,508}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_tree_03.png</key>
             <dict>
@@ -225,9 +270,9 @@
                 <key>spriteSourceSize</key>
                 <string>{210,522}</string>
                 <key>textureRect</key>
-                <string>{{1673,511},{210,522}}</string>
+                <string>{{1049,213},{210,522}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -241,9 +286,9 @@
             <key>realTextureFileName</key>
             <string>battle_menu_dungeon.png</string>
             <key>size</key>
-            <string>{1884,1331}</string>
+            <string>{1572,1814}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:223cec36a4196750d0a385dab9702ce2:0ad66d3b24165be84f0d1358958d2c44:a9331f529ea7630fa23a5f0808cbe562$</string>
+            <string>$TexturePacker:SmartUpdate:594501eb0ad9c037113338367b138197:066fa72bcc76b939e9ab3a0b519506d3:a9331f529ea7630fa23a5f0808cbe562$</string>
             <key>textureFileName</key>
             <string>battle_menu_dungeon.png</string>
         </dict>

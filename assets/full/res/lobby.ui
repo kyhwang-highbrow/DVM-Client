@@ -738,546 +738,6 @@
 			{
 				[1] =
 				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -2.000000;
-					dock_point = { 1.000000; 1.000000; };
-					anchor_point = { 1.000000; 1.000000; };
-					relative_size_type = 0;
-					width = 28;
-					height = 28;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = 'adventureClearNotiSprite';
-					file_name = 'ui/icons/noti_icon_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[2] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 33.000000;
-					dock_point = { 0.500000; 0.000000; };
-					anchor_point = { 0.500000; 1.000000; };
-					relative_size_type = 0;
-					width = 90;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
-					text = '모험돌파\n패키지';
-					h_alignment = 1;
-					v_alignment = 0;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 90;
-					dimension_height = 100;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -330.000000;
-				y = -180.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'adventureClearBtn';
-				enable = true;
-				normal = 'ui/buttons/lobby_event_btn_adventure_clear_0101.png';
-				selected = 'ui/buttons/lobby_event_btn_adventure_clear_0102.png';
-				disable = '';
-				image_type = 0;
-			};
-			[5] =
-			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -2.000000;
-					dock_point = { 1.000000; 1.000000; };
-					anchor_point = { 1.000000; 1.000000; };
-					relative_size_type = 0;
-					width = 28;
-					height = 28;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = 'adventureClearNotiSprite02';
-					file_name = 'ui/icons/noti_icon_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[2] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 33.000000;
-					dock_point = { 0.500000; 0.000000; };
-					anchor_point = { 0.500000; 1.000000; };
-					relative_size_type = 0;
-					width = 90;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
-					text = '모험돌파\n패키지';
-					h_alignment = 1;
-					v_alignment = 0;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 90;
-					dimension_height = 100;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -330.000000;
-				y = -180.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'adventureClearBtn02';
-				enable = true;
-				normal = 'ui/buttons/lobby_event_btn_adventure_clear_0201.png';
-				selected = 'ui/buttons/lobby_event_btn_adventure_clear_0202.png';
-				disable = '';
-				image_type = 0;
-			};
-			[6] =
-			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -2.000000;
-					dock_point = { 1.000000; 1.000000; };
-					anchor_point = { 1.000000; 1.000000; };
-					relative_size_type = 0;
-					width = 28;
-					height = 28;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = 'adventureClearNotiSprite03';
-					file_name = 'ui/icons/noti_icon_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[2] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 33.000000;
-					dock_point = { 0.500000; 0.000000; };
-					anchor_point = { 0.500000; 1.000000; };
-					relative_size_type = 0;
-					width = 90;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
-					text = '모험돌파\n패키지';
-					h_alignment = 1;
-					v_alignment = 0;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 90;
-					dimension_height = 100;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -330.000000;
-				y = -180.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'adventureClearBtn03';
-				enable = true;
-				normal = 'ui/buttons/lobby_event_btn_adventure_clear_0301.png';
-				selected = 'ui/buttons/lobby_event_btn_adventure_clear_0302.png';
-				disable = '';
-				image_type = 0;
-			};
-			[7] =
-			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -2.000000;
-					dock_point = { 1.000000; 1.000000; };
-					anchor_point = { 1.000000; 1.000000; };
-					relative_size_type = 0;
-					width = 28;
-					height = 28;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = 'levelupNotiSprite';
-					file_name = 'ui/icons/noti_icon_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[2] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 35.000000;
-					dock_point = { 0.500000; 0.000000; };
-					anchor_point = { 0.500000; 1.000000; };
-					relative_size_type = 0;
-					width = 90;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
-					text = '레벨업\n패키지';
-					h_alignment = 1;
-					v_alignment = 0;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 90;
-					dimension_height = 100;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -330.000000;
-				y = -180.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'levelupBtn';
-				enable = true;
-				normal = 'ui/buttons/lobby_event_btn_lvup_0101.png';
-				selected = 'ui/buttons/lobby_event_btn_lvup_0102.png';
-				disable = '';
-				image_type = 0;
-			};
-			[8] =
-			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -2.000000;
-					dock_point = { 1.000000; 1.000000; };
-					anchor_point = { 1.000000; 1.000000; };
-					relative_size_type = 0;
-					width = 28;
-					height = 28;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = 'levelupNotiSprite2';
-					file_name = 'ui/icons/noti_icon_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[2] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 35.000000;
-					dock_point = { 0.500000; 0.000000; };
-					anchor_point = { 0.500000; 1.000000; };
-					relative_size_type = 0;
-					width = 90;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
-					text = '레벨업\n패키지';
-					h_alignment = 1;
-					v_alignment = 0;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 90;
-					dimension_height = 100;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -330.000000;
-				y = -180.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'levelupBtn2';
-				enable = true;
-				normal = 'ui/buttons/lobby_event_btn_lvup_0201.png';
-				selected = 'ui/buttons/lobby_event_btn_lvup_0202.png';
-				disable = '';
-				image_type = 0;
-			};
-			[9] =
-			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -2.000000;
-					dock_point = { 1.000000; 1.000000; };
-					anchor_point = { 1.000000; 1.000000; };
-					relative_size_type = 0;
-					width = 28;
-					height = 28;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = 'levelupNotiSprite3';
-					file_name = 'ui/icons/noti_icon_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[2] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 35.000000;
-					dock_point = { 0.500000; 0.000000; };
-					anchor_point = { 0.500000; 1.000000; };
-					relative_size_type = 0;
-					width = 90;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
-					text = '레벨업\n패키지';
-					h_alignment = 1;
-					v_alignment = 0;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 90;
-					dimension_height = 100;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -330.000000;
-				y = -180.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'levelupBtn3';
-				enable = true;
-				normal = 'ui/buttons/lobby_event_btn_lvup_0301.png';
-				selected = 'ui/buttons/lobby_event_btn_lvup_0302.png';
-				disable = '';
-				image_type = 0;
-			};
-			[10] =
-			{
-				[1] =
-				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
@@ -1404,7 +864,7 @@
 				disable = 'ui/buttons/lobby_event_btn_gift_box_0102.png';
 				image_type = 0;
 			};
-			[11] =
+			[5] =
 			{
 				[1] =
 				{
@@ -1423,7 +883,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'eventManageNotiSprite';
+					lua_name = 'eventBtnNotiSprite';
 					file_name = 'ui/icons/noti_icon_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -1494,7 +954,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[12] =
+			[6] =
 			{
 				[1] =
 				{
@@ -1657,7 +1117,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[13] =
+			[7] =
 			{
 				[1] =
 				{
@@ -1773,7 +1233,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[14] =
+			[8] =
 			{
 				[1] =
 				{
@@ -1981,97 +1441,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[15] =
-			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -2.000000;
-					dock_point = { 1.000000; 1.000000; };
-					anchor_point = { 1.000000; 1.000000; };
-					relative_size_type = 0;
-					width = 28;
-					height = 28;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = 'dailyShopNotiSprite';
-					file_name = 'ui/icons/noti_icon_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[2] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 20.000000;
-					dock_point = { 0.500000; 0.000000; };
-					anchor_point = { 0.500000; 1.000000; };
-					relative_size_type = 0;
-					width = 90;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
-					text = '일일 상점';
-					h_alignment = 1;
-					v_alignment = 0;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 90;
-					dimension_height = 100;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = -330.000000;
-				y = -180.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 84;
-				height = 84;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'dailyShopBtn';
-				enable = true;
-				normal = 'ui/buttons/lobby_event_btn_shop_daily_0101.png';
-				selected = 'ui/buttons/lobby_event_btn_shop_daily_0102.png';
-				disable = '';
-				image_type = 0;
-			};
-			[16] =
+			[9] =
 			{
 				[1] =
 				{
@@ -2201,7 +1571,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[17] =
+			[10] =
 			{
 				[1] =
 				{
@@ -2357,7 +1727,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[18] =
+			[11] =
 			{
 				[1] =
 				{
@@ -2499,7 +1869,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[19] =
+			[12] =
 			{
 				[1] =
 				{
@@ -2681,7 +2051,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[20] =
+			[13] =
 			{
 				[1] =
 				{
@@ -2863,7 +2233,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[21] =
+			[14] =
 			{
 				[1] =
 				{
@@ -2895,15 +2265,15 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -5.000000;
-					y = 14.000000;
+					x = -4.000000;
+					y = 15.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.450000;
-					scale_y = 0.450000;
+					scale_x = 0.500000;
+					scale_y = 0.500000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -3063,7 +2433,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'exchangeBtn';
 				enable = true;
 				normal = 'ui/buttons/lobby_event_btn_empty_0101.png';
@@ -3071,7 +2441,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[22] =
+			[15] =
 			{
 				[1] =
 				{
@@ -3187,7 +2557,7 @@
 				disable = 'ui/buttons/lobby_event_btn_empty_0102.png';
 				image_type = 0;
 			};
-			[23] =
+			[16] =
 			{
 				[1] =
 				{
@@ -3369,7 +2739,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[24] =
+			[17] =
 			{
 				[1] =
 				{
@@ -3511,7 +2881,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[25] =
+			[18] =
 			{
 				[1] =
 				{
@@ -3585,7 +2955,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
-					text = '복주머니\n이벤트';
+					text = '소원 구슬\n이벤트';
 					h_alignment = 1;
 					v_alignment = 0;
 					color = { 255; 255; 255; };
@@ -3645,6 +3015,31 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
+				[5] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = -1.000000;
+					y = 11.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 0.200000;
+					scale_y = 0.200000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/lobby_btn/lobby_btn.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;lobby_btn_effect';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = -330.000000;
@@ -3667,7 +3062,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[26] =
+			[19] =
 			{
 				[1] =
 				{
@@ -3820,6 +3215,332 @@
 				enable = true;
 				normal = 'ui/buttons/lobby_halloween_rune_btn_0101.png';
 				selected = 'ui/buttons/lobby_halloween_rune_btn_0102.png';
+				disable = '';
+				image_type = 0;
+			};
+			[20] =
+			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = -2.000000;
+					dock_point = { 1.000000; 1.000000; };
+					anchor_point = { 1.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 28;
+					height = 28;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'battlePassNotiSprite';
+					file_name = 'ui/icons/noti_icon_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
+				{
+					[1] =
+					{
+						type = 'Visual';
+						ui_name = '';
+						x = -2.000000;
+						y = 3.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 0;
+						height = 0;
+						scale_x = -0.150000;
+						scale_y = 0.150000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/a2d/lobby_btn/lobby_btn.vrp';
+						auto_play = true;
+						is_repeat = true;
+						visual_id = 'group;lobby_btn_effect';
+						color = { 255; 255; 255; };
+						opacity = 255;
+					};
+					[2] =
+					{
+						type = 'Visual';
+						ui_name = '';
+						x = -2.000000;
+						y = 16.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 0;
+						height = 0;
+						scale_x = -0.150000;
+						scale_y = 0.150000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/a2d/lobby_btn/lobby_btn.vrp';
+						auto_play = true;
+						is_repeat = true;
+						visual_id = 'group;lobby_btn_effect';
+						color = { 255; 255; 255; };
+						opacity = 255;
+					};
+					type = 'ClippingNode';
+					ui_name = '';
+					x = 0.000000;
+					y = 9.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 54;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					stencil_type = 0;
+					stencil_img = '';
+					alpha_threshold = 1.000000;
+					is_invert = false;
+				};
+				[3] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 20.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 1.000000; };
+					relative_size_type = 0;
+					width = 90;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 18;
+					text = '배틀패스';
+					h_alignment = 1;
+					v_alignment = 0;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 90;
+					dimension_height = 100;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = -420.000000;
+				y = -180.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 84;
+				height = 84;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'battlePassBtn';
+				enable = true;
+				normal = 'ui/buttons/lobby_battle_pass_btn_0101.png';
+				selected = 'ui/buttons/lobby_battle_pass_btn_0102.png';
+				disable = '';
+				image_type = 0;
+			};
+			[21] =
+			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = -2.000000;
+					dock_point = { 1.000000; 1.000000; };
+					anchor_point = { 1.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 28;
+					height = 28;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'cashShopNotiSprite';
+					file_name = 'ui/icons/noti_icon_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
+				{
+					[1] =
+					{
+						type = 'Visual';
+						ui_name = '';
+						x = -2.000000;
+						y = 3.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 0;
+						height = 0;
+						scale_x = -0.150000;
+						scale_y = 0.150000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/a2d/lobby_btn/lobby_btn.vrp';
+						auto_play = true;
+						is_repeat = true;
+						visual_id = 'group;lobby_btn_effect';
+						color = { 255; 255; 255; };
+						opacity = 255;
+					};
+					[2] =
+					{
+						type = 'Visual';
+						ui_name = '';
+						x = -2.000000;
+						y = 16.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 0;
+						height = 0;
+						scale_x = -0.150000;
+						scale_y = 0.150000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/a2d/lobby_btn/lobby_btn.vrp';
+						auto_play = true;
+						is_repeat = true;
+						visual_id = 'group;lobby_btn_effect';
+						color = { 255; 255; 255; };
+						opacity = 255;
+					};
+					type = 'ClippingNode';
+					ui_name = '';
+					x = 0.000000;
+					y = 9.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 54;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					stencil_type = 0;
+					stencil_img = '';
+					alpha_threshold = 1.000000;
+					is_invert = false;
+				};
+				[3] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 20.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 1.000000; };
+					relative_size_type = 0;
+					width = 90;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 18;
+					text = '패키지';
+					h_alignment = 1;
+					v_alignment = 0;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 90;
+					dimension_height = 100;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = -420.000000;
+				y = -180.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 84;
+				height = 84;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'cashShopBtn';
+				enable = true;
+				normal = 'ui/buttons/lobby_shop_package_0101.png';
+				selected = 'ui/buttons/lobby_shop_package_0102.png';
 				disable = '';
 				image_type = 0;
 			};
@@ -4840,6 +4561,72 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+					};
+					[3] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 0.000000;
+							y = 6.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 260;
+							height = 40;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'runeEventLabel1';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 19;
+							text = 'dragonEventLabel1';
+							h_alignment = 1;
+							v_alignment = 1;
+							color = { 255; 255; 0; };
+							opacity = 255;
+							dimension_width = 260;
+							dimension_height = 40;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 2.000000;
+							stroke_color = { 0; 0; 0; };
+							has_shadow = false;
+							shadow_color = { 0; 0; 0; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 2.000000;
+						y = 64.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 260;
+						height = 54;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = 'runeEventSprite1';
+						file_name = 'ui/frames/event_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					type = 'Button';
 					ui_name = '';

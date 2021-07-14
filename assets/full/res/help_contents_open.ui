@@ -84,6 +84,70 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						lua_name = 'dmgateTabLabel';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 22;
+						text = '차원문';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 175;
+						dimension_height = 60;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 1.000000;
+						stroke_color = { 255; 255; 255; };
+						has_shadow = false;
+						shadow_color = { 255; 255; 255; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
+					};
+					type = 'Button';
+					ui_name = 'swallowTouchBtn';
+					x = 100.000000;
+					y = -475.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 195;
+					height = 65;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'dmgateTabBtn';
+					enable = true;
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = 'ui/buttons/base_btn_0103.png';
+					image_type = 1;
+				};
+				[2] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 175;
+						height = 60;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
 						lua_name = 'clan_raidTabLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
@@ -110,7 +174,7 @@
 					type = 'Button';
 					ui_name = 'swallowTouchBtn';
 					x = 100.000000;
-					y = -552.000000;
+					y = -410.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -129,7 +193,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[2] =
+				[3] =
 				{
 					[1] =
 					{
@@ -174,7 +238,7 @@
 					type = 'Button';
 					ui_name = 'swallowTouchBtn';
 					x = 100.000000;
-					y = -490.000000;
+					y = -345.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -193,7 +257,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[3] =
+				[4] =
 				{
 					[1] =
 					{
@@ -238,7 +302,7 @@
 					type = 'Button';
 					ui_name = 'swallowTouchBtn';
 					x = 100.000000;
-					y = -424.000000;
+					y = -280.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -257,7 +321,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[4] =
+				[5] =
 				{
 					[1] =
 					{
@@ -302,7 +366,7 @@
 					type = 'Button';
 					ui_name = 'swallowTouchBtn';
 					x = 100.000000;
-					y = -359.000000;
+					y = -215.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -321,7 +385,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[5] =
+				[6] =
 				{
 					[1] =
 					{
@@ -366,7 +430,7 @@
 					type = 'Button';
 					ui_name = 'swallowTouchBtn';
 					x = 100.000000;
-					y = -294.000000;
+					y = -217.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -377,7 +441,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'challenge_modeTabBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -385,7 +449,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[6] =
+				[7] =
 				{
 					[1] =
 					{
@@ -430,7 +494,7 @@
 					type = 'Button';
 					ui_name = 'swallowTouchBtn';
 					x = 100.000000;
-					y = -229.000000;
+					y = -150.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -449,7 +513,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[7] =
+				[8] =
 				{
 					[1] =
 					{
@@ -494,7 +558,7 @@
 					type = 'Button';
 					ui_name = 'swallowTouchBtn';
 					x = 100.000000;
-					y = -164.000000;
+					y = -85.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -513,7 +577,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[8] =
+				[9] =
 				{
 					[1] =
 					{
@@ -557,8 +621,8 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 99.000000;
-					y = -98.000000;
+					x = 100.000000;
+					y = -20.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -577,7 +641,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[9] =
+				[10] =
 				{
 					[1] =
 					{
@@ -621,8 +685,8 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 99.000000;
-					y = -33.000000;
+					x = 100.000000;
+					y = 45.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -641,7 +705,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[10] =
+				[11] =
 				{
 					[1] =
 					{
@@ -686,7 +750,7 @@
 					type = 'Button';
 					ui_name = 'swallowTouchBtn';
 					x = 100.000000;
-					y = 32.000000;
+					y = 110.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -705,7 +769,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[11] =
+				[12] =
 				{
 					[1] =
 					{
@@ -750,7 +814,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 100.000000;
-					y = 97.000000;
+					y = 175.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -769,7 +833,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[12] =
+				[13] =
 				{
 					[1] =
 					{
@@ -814,7 +878,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 100.000000;
-					y = 162.000000;
+					y = 240.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -833,7 +897,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[13] =
+				[14] =
 				{
 					[1] =
 					{
@@ -878,7 +942,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 100.000000;
-					y = 228.000000;
+					y = 306.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -889,7 +953,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'daily_shopTabBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -897,7 +961,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[14] =
+				[15] =
 				{
 					[1] =
 					{
@@ -942,7 +1006,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 100.000000;
-					y = 293.000000;
+					y = 305.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -961,7 +1025,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[15] =
+				[16] =
 				{
 					[1] =
 					{
@@ -1006,7 +1070,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 100.000000;
-					y = 358.000000;
+					y = 370.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1025,7 +1089,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[16] =
+				[17] =
 				{
 					[1] =
 					{
@@ -1070,7 +1134,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 100.000000;
-					y = 423.000000;
+					y = 435.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1089,7 +1153,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[17] =
+				[18] =
 				{
 					[1] =
 					{
@@ -1134,7 +1198,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 100.000000;
-					y = 488.000000;
+					y = 500.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1153,7 +1217,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[18] =
+				[19] =
 				{
 					[1] =
 					{
@@ -1198,7 +1262,7 @@
 					type = 'Button';
 					ui_name = 'swallowTouchBtn';
 					x = 100.000000;
-					y = 553.000000;
+					y = 565.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1220,12 +1284,12 @@
 				type = 'Menu';
 				ui_name = '';
 				x = 10.000000;
-				y = 0.000000;
+				y = -40.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 200;
-				height = 1200;
+				height = 1187;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1276,7 +1340,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'clan_raidTabMenu';
+					lua_name = 'dmgateTabMenu';
 				};
 				[2] =
 				{
@@ -1295,7 +1359,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'rune_guardianTabMenu';
+					lua_name = 'clan_raidTabMenu';
 				};
 				[3] =
 				{
@@ -1314,7 +1378,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'ancient_ruinTabMenu';
+					lua_name = 'rune_guardianTabMenu';
 				};
 				[4] =
 				{
@@ -1333,7 +1397,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'attr_towerTabMenu';
+					lua_name = 'ancient_ruinTabMenu';
 				};
 				[5] =
 				{
@@ -1352,7 +1416,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'challenge_modeTabMenu';
+					lua_name = 'attr_towerTabMenu';
 				};
 				[6] =
 				{
@@ -1370,8 +1434,8 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
-					lua_name = 'clanTabMenu';
+					visible = false;
+					lua_name = 'challenge_modeTabMenu';
 				};
 				[7] =
 				{
@@ -1390,7 +1454,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'forestTabMenu';
+					lua_name = 'clanTabMenu';
 				};
 				[8] =
 				{
@@ -1409,7 +1473,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'nest_nightmareTabMenu';
+					lua_name = 'forestTabMenu';
 				};
 				[9] =
 				{
@@ -1428,7 +1492,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'capsuleTabMenu';
+					lua_name = 'nest_nightmareTabMenu';
 				};
 				[10] =
 				{
@@ -1447,7 +1511,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'colosseumTabMenu';
+					lua_name = 'capsuleTabMenu';
 				};
 				[11] =
 				{
@@ -1466,7 +1530,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'shop_randomTabMenu';
+					lua_name = 'colosseumTabMenu';
 				};
 				[12] =
 				{
@@ -1485,7 +1549,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'ancientTabMenu';
+					lua_name = 'shop_randomTabMenu';
 				};
 				[13] =
 				{
@@ -1504,7 +1568,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'daily_shopTabMenu';
+					lua_name = 'ancientTabMenu';
 				};
 				[14] =
 				{
@@ -1522,8 +1586,8 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
-					lua_name = 'nest_evo_stoneTabMenu';
+					visible = false;
+					lua_name = 'daily_shopTabMenu';
 				};
 				[15] =
 				{
@@ -1542,7 +1606,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'nest_treeTabMenu';
+					lua_name = 'nest_evo_stoneTabMenu';
 				};
 				[16] =
 				{
@@ -1561,7 +1625,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'explorationTabMenu';
+					lua_name = 'nest_treeTabMenu';
 				};
 				[17] =
 				{
@@ -1580,9 +1644,28 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'secret_relationTabMenu';
+					lua_name = 'explorationTabMenu';
 				};
 				[18] =
+				{
+					type = 'Menu';
+					ui_name = '';
+					x = 89.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 1000;
+					height = 580;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'secret_relationTabMenu';
+				};
+				[19] =
 				{
 					type = 'Menu';
 					ui_name = '';

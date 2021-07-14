@@ -1,96 +1,152 @@
 
 elite_ifrit2_fire.png
-size: 1024,256
+size: 570,269
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+effect_stun_01
+  rotate: false
+  xy: 115, 51
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_02
+  rotate: false
+  xy: 115, 15
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_03
+  rotate: false
+  xy: 239, 25
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_04
+  rotate: false
+  xy: 444, 86
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_05
+  rotate: false
+  xy: 444, 50
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: true
+  xy: 530, 85
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
 elite_ifrit2_fire_arm_01
   rotate: false
-  xy: 124, 23
+  xy: 498, 3
   size: 40, 45
   orig: 40, 45
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_arm_02
-  rotate: false
-  xy: 71, 8
+  rotate: true
+  xy: 325, 8
   size: 51, 60
   orig: 51, 60
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_arm_03
-  rotate: false
-  xy: 315, 107
+  rotate: true
+  xy: 544, 235
   size: 32, 24
   orig: 32, 24
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_arm_04
-  rotate: false
-  xy: 237, 95
+  rotate: true
+  xy: 201, 9
   size: 76, 36
   orig: 76, 36
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_body_01
   rotate: true
-  xy: 729, 178
+  xy: 2, 13
   size: 72, 111
   orig: 72, 111
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_body_02
   rotate: false
-  xy: 237, 133
+  xy: 239, 150
   size: 209, 117
   orig: 209, 117
   offset: 0, 0
   index: -1
+elite_ifrit2_fire_c_eye
+  rotate: false
+  xy: 239, 2
+  size: 45, 21
+  orig: 45, 21
+  offset: 0, 0
+  index: -1
 elite_ifrit2_fire_effect_01
   rotate: false
-  xy: 842, 187
+  xy: 387, 15
   size: 49, 63
   orig: 49, 63
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_hair_01
   rotate: false
-  xy: 0, 70
+  xy: 2, 87
   size: 235, 180
   orig: 235, 180
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_hair_02
-  rotate: false
-  xy: 893, 192
+  rotate: true
+  xy: 438, 8
   size: 40, 58
   orig: 40, 58
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_head_01
   rotate: false
-  xy: 0, 0
+  xy: 373, 80
   size: 69, 68
   orig: 69, 68
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_head_leg_01
   rotate: true
-  xy: 595, 163
+  xy: 239, 61
   size: 87, 132
   orig: 87, 132
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_head_leg_02
-  rotate: true
-  xy: 448, 158
+  rotate: false
+  xy: 450, 122
   size: 92, 145
   orig: 92, 145
   offset: 0, 0
   index: -1
 elite_ifrit2_fire_head_mouth_01
+  rotate: true
+  xy: 286, 2
+  size: 21, 14
+  orig: 21, 14
+  offset: 0, 0
+  index: -1
+elite_ifrit2_fire_head_mouth_02
   rotate: false
-  xy: 448, 142
+  xy: 302, 9
   size: 21, 14
   orig: 21, 14
   offset: 0, 0

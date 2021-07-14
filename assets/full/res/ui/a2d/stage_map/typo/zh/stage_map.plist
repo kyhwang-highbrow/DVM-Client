@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{105,38}</string>
                 <key>textureRect</key>
-                <string>{{465,1},{105,38}}</string>
+                <string>{{447,1},{105,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -24,13 +24,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{8,0}</string>
                 <key>spriteSize</key>
-                <string>{462,46}</string>
+                <string>{444,46}</string>
                 <key>spriteSourceSize</key>
                 <string>{462,46}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{462,46}}</string>
+                <string>{{1,1},{444,46}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -46,9 +46,9 @@
             <key>realTextureFileName</key>
             <string>stage_map.png</string>
             <key>size</key>
-            <string>{571,48}</string>
+            <string>{553,48}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5a550afdf90fa46802923796b5a0c94a:06b072fb55e0d5c2d3cf2874eff58503:08ee36fc2461b0f8f973c7a273b13dee$</string>
+            <string>$TexturePacker:SmartUpdate:3d6d5a366c8e7549f2e98e423291002e:cee6cabb034059cc90234b1c06f33f7e:08ee36fc2461b0f8f973c7a273b13dee$</string>
             <key>textureFileName</key>
             <string>stage_map.png</string>
         </dict>

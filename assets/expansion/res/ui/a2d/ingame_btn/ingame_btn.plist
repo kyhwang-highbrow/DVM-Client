@@ -514,6 +514,21 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
+            <key>ingame_btn_speed_0403.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{27,19}</string>
+                <key>spriteSourceSize</key>
+                <string>{27,19}</string>
+                <key>textureRect</key>
+                <string>{{1588,228},{27,19}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>ingame_clan_raid.png</key>
             <dict>
                 <key>aliases</key>
@@ -918,7 +933,7 @@
             <key>size</key>
             <string>{1627,461}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d125c0451f6df600c48c05f793873853:ff5d726fc3cc27eeb9b3158b602bbec1:ce14db38d7e3885d010e29391a279102$</string>
+            <string>$TexturePacker:SmartUpdate:71ce449f9db6d0a2eab34a267470f7ed:fba0379453712b73f4c4b84a8d891bde:ce14db38d7e3885d010e29391a279102$</string>
             <key>textureFileName</key>
             <string>ingame_btn.png</string>
         </dict>

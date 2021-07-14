@@ -173,32 +173,6 @@
 			};
 			[5] =
 			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = -12.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
-				relative_size_type = 0;
-				width = 553;
-				height = 83;
-				scale_x = 0.900000;
-				scale_y = 0.900000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'titleSprite';
-				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[6] =
-			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
@@ -237,7 +211,7 @@
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
 			};
-			[7] =
+			[6] =
 			{
 				type = 'ClippingNode';
 				ui_name = 'label들어가는 클리핑';
@@ -260,7 +234,7 @@
 				alpha_threshold = 1.000000;
 				is_invert = false;
 			};
-			[8] =
+			[7] =
 			{
 				[1] =
 				{
@@ -469,7 +443,7 @@
 				visible = true;
 				lua_name = 'neonMenu';
 			};
-			[9] =
+			[8] =
 			{
 				[1] =
 				{
@@ -621,6 +595,32 @@
 				visible = true;
 				lua_name = '';
 			};
+			[9] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -45.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 430;
+				height = 74;
+				scale_x = 0.900000;
+				scale_y = 0.900000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'titleSprite';
+				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
@@ -645,8 +645,8 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
-		width = -350;
-		height = -80;
+		width = 0;
+		height = 0;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
 		skew_x = 0.000000;

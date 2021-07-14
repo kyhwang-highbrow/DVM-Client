@@ -56,7 +56,7 @@
 					text = '청약 철회는 구매일로부터 7일 이내에 가능합니다. (단 사용했을 경우 청약철회 불가)\n법정 대리인의 동의를 받지않은 미성년자의 거래는 취소할 수 있습니다. 자세히보기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 146; 152; 158; };
+					color = { 91; 147; 145; };
 					opacity = 255;
 					dimension_width = 700;
 					dimension_height = 50;
@@ -100,7 +100,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 166.000000;
+				y = 170.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -114,16 +114,16 @@
 				visible = true;
 				lua_name = 'timeLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 18;
+				font_size = 22;
 				text = 'timeLabel';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 0; 255; 0; };
 				opacity = 255;
 				dimension_width = 680;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -140,7 +140,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 213.000000;
+				y = 215.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -155,7 +155,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 40;
-				text = '복주머니 패키지';
+				text = '소원 구슬 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 234; 0; };
@@ -176,32 +176,6 @@
 				shadow_distance = 2.000000;
 			};
 			[5] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 280.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 430;
-				height = 74;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'titleSprite';
-				file_name = 'ui/typo/ko/ribbon_chuseok_title_0101.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[6] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -225,7 +199,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[7] =
+			[6] =
 			{
 				[1] =
 				{
@@ -296,7 +270,7 @@
 				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
-			[8] =
+			[7] =
 			{
 				[1] =
 				{
@@ -367,7 +341,7 @@
 				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
-			[9] =
+			[8] =
 			{
 				[1] =
 				{
@@ -438,7 +412,7 @@
 				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
-			[10] =
+			[9] =
 			{
 				[1] =
 				{
@@ -509,7 +483,7 @@
 				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
-			[11] =
+			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -529,7 +503,47 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '복주머니 160개';
+				text = '소원 구슬 160개';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 203;
+				dimension_height = 112;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[11] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = -121.000000;
+				y = -135.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 203;
+				height = 112;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 22;
+				text = '소원 구슬 78개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -553,8 +567,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -121.000000;
-				y = -135.000000;
+				x = 300.000000;
+				y = 70.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -569,7 +583,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '복주머니 78개';
+				text = '소원 구슬 15개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -593,7 +607,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 300.000000;
+				x = -121.000000;
 				y = 70.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -609,7 +623,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '복주머니 15개';
+				text = '소원 구슬 7개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -631,43 +645,55 @@
 			};
 			[14] =
 			{
-				type = 'LabelTTF';
+				type = 'Sprite';
 				ui_name = '';
-				x = -121.000000;
-				y = 70.000000;
+				x = 37.000000;
+				y = -108.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 203;
-				height = 112;
+				width = 132;
+				height = 132;
+				scale_x = 0.900000;
+				scale_y = 0.900000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'percentSprite';
+				file_name = 'ui/typo/ko/package_best_efficiency.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[15] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -40.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 600;
+				height = 74;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
-				text = '복주머니 7개';
-				h_alignment = 1;
-				v_alignment = 1;
+				lua_name = 'titleSprite';
+				file_name = 'ui/typo/ko/ribbon_chuseok_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 203;
-				dimension_height = 112;
-				letter_spacing = 0.000000;
-				has_stroke = true;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';

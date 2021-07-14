@@ -96,7 +96,7 @@
 				visible = true;
 				lua_name = '';
 				file_name = 'ui/frames/base_frame_0102.png';
-				color = { 139; 0; 0; };
+				color = { 74; 0; 0; };
 				opacity = 255;
 				center_rect_x = 0;
 				center_rect_y = 0;
@@ -128,7 +128,7 @@
 					text = '청약 철회는 구매일로부터 7일 이내에 가능합니다. (단 사용했을 경우 청약철회 불가)\n법정 대리인의 동의를 받지않은 미성년자의 거래는 취소할 수 있습니다. 자세히보기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 181; 9; };
+					color = { 182; 49; 46; };
 					opacity = 255;
 					dimension_width = 700;
 					dimension_height = 50;
@@ -204,7 +204,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'buyLabel1';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 19;
@@ -307,7 +307,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -106.000000;
+				y = -123.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -319,10 +319,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'itemLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 23;
-				text = '아모르의 서 500개\n토파즈 6개';
+				text = 'itemLabel';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -467,11 +467,11 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 65;
+				font_size = 55;
 				text = '아모르의 서 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 215; 0; };
+				color = { 255; 255; 0; };
 				opacity = 255;
 				dimension_width = 850;
 				dimension_height = 105;

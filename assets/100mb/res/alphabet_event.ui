@@ -140,9 +140,9 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 75; 0; 130; };
+					stroke_color = { 7; 105; 200; };
 					has_shadow = true;
-					shadow_color = { 75; 0; 130; };
+					shadow_color = { 7; 105; 200; };
 					shadow_opacity = 200;
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
@@ -152,7 +152,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -110.000000;
+					y = -105.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -170,7 +170,7 @@
 					text = '이벤트 종료까지 남은 시간';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 0; 255; 0; };
+					color = { 255; 255; 170; };
 					opacity = 255;
 					dimension_width = 850;
 					dimension_height = 55;
@@ -192,7 +192,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 44.000000;
+					y = 49.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -210,7 +210,7 @@
 					text = '게임을 하고 얻은 알파벳을 모아 단어를 완성시키고 아이템으로 교환할 수 있어요.';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 102; 102; 102; };
 					opacity = 255;
 					dimension_width = 900;
 					dimension_height = 59;
@@ -335,7 +335,7 @@
 					type = 'Node';
 					ui_name = 'wildAlphabetNode';
 					x = 0.000000;
-					y = -35.000000;
+					y = -31.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -356,7 +356,7 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = -2.000000;
-						y = -3.000000;
+						y = -9.000000;
 						dock_point = { 0.500000; 0.000000; };
 						anchor_point = { 0.500000; 1.000000; };
 						relative_size_type = 0;
@@ -374,7 +374,7 @@
 						text = '획득 방법';
 						h_alignment = 1;
 						v_alignment = 0;
-						color = { 240; 215; 159; };
+						color = { 255; 255; 255; };
 						opacity = 255;
 						dimension_width = 130;
 						dimension_height = 50;
@@ -394,7 +394,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = 111.000000;
-					y = -24.000000;
+					y = -20.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;

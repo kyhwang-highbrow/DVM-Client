@@ -4714,8 +4714,8 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
+				visible = false;
+				lua_name = 'energyBgSprite';
 				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 180;
@@ -4740,7 +4740,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'energyLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
@@ -4780,7 +4780,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'energyIconNode';
 			};
 			type = 'Node';
@@ -4797,7 +4797,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = false;
+			visible = true;
 			lua_name = 'energyNode';
 		};
 		[11] =

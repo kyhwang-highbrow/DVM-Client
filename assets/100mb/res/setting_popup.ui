@@ -466,6 +466,70 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
+						text = '낮/밤 교체';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 299;
+						dimension_height = 42;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 85; 67; 51; };
+						has_shadow = true;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 100;
+						shadow_direction = 0;
+						shadow_distance = 3.000000;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = -405.000000;
+					y = -175.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 262;
+					height = 64;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'dayNightChangeBtn';
+					enable = true;
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = '';
+					image_type = 1;
+				};
+				[6] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 3;
+						width = 0;
+						height = 0;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 24;
 						text = 'UID 복사';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -508,7 +572,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[6] =
+				[7] =
 				{
 					[1] =
 					{
@@ -572,7 +636,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[7] =
+				[8] =
 				{
 					[1] =
 					{
@@ -636,7 +700,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[8] =
+				[9] =
 				{
 					[1] =
 					{
@@ -726,7 +790,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[9] =
+				[10] =
 				{
 					[1] =
 					{
@@ -816,7 +880,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[10] =
+				[11] =
 				{
 					[1] =
 					{
@@ -906,7 +970,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[11] =
+				[12] =
 				{
 					[1] =
 					{
@@ -996,7 +1060,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[12] =
+				[13] =
 				{
 					[1] =
 					{
@@ -1086,7 +1150,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[13] =
+				[14] =
 				{
 					[1] =
 					{
@@ -1176,7 +1240,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[14] =
+				[15] =
 				{
 					[1] =
 					{
@@ -1266,7 +1330,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[15] =
+				[16] =
 				{
 					[1] =
 					{
@@ -1356,7 +1420,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[16] =
+				[17] =
 				{
 					[1] =
 					{
@@ -1446,7 +1510,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[17] =
+				[18] =
 				{
 					[1] =
 					{
@@ -1536,7 +1600,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[18] =
+				[19] =
 				{
 					[1] =
 					{
@@ -1626,7 +1690,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[19] =
+				[20] =
 				{
 					[1] =
 					{
@@ -1716,7 +1780,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[20] =
+				[21] =
 				{
 					[1] =
 					{
@@ -1780,7 +1844,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[21] =
+				[22] =
 				{
 					[1] =
 					{
@@ -1844,7 +1908,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[22] =
+				[23] =
 				{
 					[1] =
 					{
@@ -1908,7 +1972,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[23] =
+				[24] =
 				{
 					[1] =
 					{
@@ -1972,7 +2036,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[24] =
+				[25] =
 				{
 					[1] =
 					{
@@ -2036,7 +2100,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[25] =
+				[26] =
 				{
 					[1] =
 					{
@@ -2126,7 +2190,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[26] =
+				[27] =
 				{
 					[1] =
 					{
@@ -2190,7 +2254,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[27] =
+				[28] =
 				{
 					[1] =
 					{
@@ -2294,7 +2358,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[28] =
+				[29] =
 				{
 					[1] =
 					{
@@ -2358,7 +2422,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[29] =
+				[30] =
 				{
 					[1] =
 					{
@@ -2436,7 +2500,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'devMenu';
 			};
 			[4] =

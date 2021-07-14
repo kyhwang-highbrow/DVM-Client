@@ -235,6 +235,108 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							lua_name = 'rarityMythSprite';
+							file_name = 'ui/icons/check_icon_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 10.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 30;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/frames/base_frame_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
+					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 14.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 50;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/rarity/gem_myth.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = -325.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 120;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'rarityMythBtn';
+					enable = true;
+					normal = '';
+					selected = '';
+					disable = '';
+					image_type = 0;
+				};
+				[2] =
+				{
+					[1] =
+					{
+						[1] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 2.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 48;
+							height = 48;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
 							lua_name = 'raritySprite1';
 							file_name = 'ui/icons/check_icon_0102.png';
 							color = { 255; 255; 255; };
@@ -296,7 +398,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = -325.000000;
+					x = -195.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -316,7 +418,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[2] =
+				[3] =
 				{
 					[1] =
 					{
@@ -398,7 +500,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = -195.000000;
+					x = -65.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -418,7 +520,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[3] =
+				[4] =
 				{
 					[1] =
 					{
@@ -500,7 +602,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = -65.000000;
+					x = 65.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -520,7 +622,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[4] =
+				[5] =
 				{
 					[1] =
 					{
@@ -602,7 +704,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 65.000000;
+					x = 195.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };

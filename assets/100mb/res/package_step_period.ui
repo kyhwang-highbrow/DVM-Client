@@ -247,7 +247,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -89.000000;
+					y = -50.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -261,7 +261,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 35;
+					font_size = 42;
 					text = '단계별 패키지 1단계';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -327,7 +327,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -123.000000;
+					y = -100.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -341,7 +341,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 19;
+					font_size = 22;
 					text = '1단계 상품 구매 시 2단계 상품 구매가 가능합니다.';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -735,7 +735,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -89.000000;
+					y = -50.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -749,7 +749,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 35;
+					font_size = 42;
 					text = '단계별 패키지 2단계';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -775,7 +775,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -123.000000;
+					y = -100.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -789,7 +789,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 19;
+					font_size = 22;
 					text = '2단계 상품 구매 시 3단계 상품 구매가 가능합니다.';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -1013,7 +1013,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'stepNode2';
 				file_name = 'ui/package/bg_step_period_02.png';
 				color = { 255; 255; 255; };
@@ -1307,7 +1307,7 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -89.000000;
+						y = -50.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1321,7 +1321,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 35;
+						font_size = 42;
 						text = '단계별 패키지 3단계';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -1347,7 +1347,7 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -123.000000;
+						y = -100.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1361,7 +1361,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 19;
+						font_size = 22;
 						text = '3단계 상품 구매 시 4단계 상품 구매가 가능합니다.';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -1522,7 +1522,7 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -104.000000;
+						y = -70.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1536,7 +1536,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 40;
+						font_size = 42;
 						text = '단계별 패키지 4단계';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -2658,7 +2658,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 171.000000;
+				y = 185.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -2672,7 +2672,7 @@
 				visible = true;
 				lua_name = 'timeLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 18;
+				font_size = 20;
 				text = 'timeLabel';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -2725,8 +2725,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 553;
-				height = 83;
+				width = 430;
+				height = 74;
 				scale_x = 0.800000;
 				scale_y = 0.800000;
 				skew_x = 0.000000;
@@ -2758,7 +2758,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				file_name = 'ui/frames/package_step_frame.png';
 				color = { 255; 255; 255; };

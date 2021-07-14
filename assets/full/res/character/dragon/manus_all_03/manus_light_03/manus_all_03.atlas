@@ -144,6 +144,13 @@ manus_all_03_eye_01
   orig: 47, 59
   offset: 0, 0
   index: -1
+manus_all_03_eye_02
+  rotate: false
+  xy: 1921, 77
+  size: 47, 59
+  orig: 47, 59
+  offset: 0, 0
+  index: -1
 manus_all_03_finger_01
   rotate: true
   xy: 1431, 4

@@ -803,7 +803,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 280;
+						width = 290;
 						height = 130;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -818,12 +818,12 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
-						text = '공격형 드래곤입니다. 강력한 피해량으로 적들을 제합할 수 있습니다.';
+						text = '공격형 드래곤입니다.\n강력한 피해량으로 적들을 제합할 수 있습니다.';
 						h_alignment = 1;
 						v_alignment = 0;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 280;
+						dimension_width = 290;
 						dimension_height = 130;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -1737,7 +1737,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 280;
+						width = 268;
 						height = 178;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1752,12 +1752,12 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
-						text = '회복형 드래곤입니다. 방어력 증가 리더스킬과 자신의 생명력에 비례하는 회복 기술로 아군의 생존을 도울 수 있습니다.';
+						text = '회복형 드래곤입니다.\n방어력 증가 리더스킬과 자신의 생명력에 비례하는 회복 기술로 아군의 생존을 도울 수 있습니다.';
 						h_alignment = 1;
 						v_alignment = 0;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 280;
+						dimension_width = 268;
 						dimension_height = 178;
 						letter_spacing = 0.000000;
 						has_stroke = false;

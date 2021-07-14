@@ -97,7 +97,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -96.000000;
+					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -137,7 +137,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 95.000000;
+					x = 230.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -182,14 +182,14 @@
 					dock_point = { 1.000000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 200;
-					height = 40;
+					width = 32;
+					height = 25;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'challengeScoreLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
@@ -198,8 +198,8 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 200;
-					dimension_height = 40;
+					dimension_width = 32;
+					dimension_height = 25;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;

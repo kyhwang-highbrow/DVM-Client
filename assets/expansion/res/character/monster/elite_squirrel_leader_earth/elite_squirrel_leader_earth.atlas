@@ -1,159 +1,229 @@
 
 elite_squirrel_leader_earth.png
-size: 1024,256
+size: 832,285
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+effect_elite_squirrel_leader_earth_100
+  rotate: false
+  xy: 449, 71
+  size: 89, 86
+  orig: 89, 86
+  offset: 0, 0
+  index: -1
+effect_elite_squirrel_leader_earth_200
+  rotate: false
+  xy: 540, 85
+  size: 67, 72
+  orig: 67, 72
+  offset: 0, 0
+  index: -1
+effect_stun_01
+  rotate: true
+  xy: 795, 199
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_02
+  rotate: true
+  xy: 656, 73
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_03
+  rotate: false
+  xy: 692, 130
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_04
+  rotate: false
+  xy: 692, 94
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_05
+  rotate: false
+  xy: 692, 58
+  size: 84, 34
+  orig: 84, 34
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 760, 19
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+effect_sweat
+  rotate: false
+  xy: 165, 12
+  size: 111, 55
+  orig: 111, 55
+  offset: 0, 0
+  index: -1
+elite_squirrel_leader_earth_21
+  rotate: true
+  xy: 108, 2
+  size: 65, 55
+  orig: 65, 55
+  offset: 0, 0
+  index: -1
 elite_squirrel_leader_earth_acc_01
   rotate: false
-  xy: 2, 78
+  xy: 2, 110
   size: 125, 173
   orig: 125, 173
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_acc_02
-  rotate: false
-  xy: 351, 56
+  rotate: true
+  xy: 541, 35
   size: 48, 66
   orig: 48, 66
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_arm_01
-  rotate: false
-  xy: 277, 55
+  rotate: true
+  xy: 377, 12
   size: 72, 67
   orig: 72, 67
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_arm_02
-  rotate: true
-  xy: 973, 158
+  rotate: false
+  xy: 446, 24
   size: 93, 45
   orig: 93, 45
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_arm_03
-  rotate: false
-  xy: 795, 100
+  rotate: true
+  xy: 609, 64
   size: 93, 45
   orig: 93, 45
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_body_01
   rotate: false
-  xy: 129, 113
+  xy: 129, 145
   size: 142, 138
   orig: 142, 138
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_effect_01
   rotate: false
-  xy: 544, 127
+  xy: 544, 159
   size: 128, 124
   orig: 128, 124
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_effect_02
-  rotate: false
-  xy: 795, 147
+  rotate: true
+  xy: 2, 2
   size: 106, 104
   orig: 106, 104
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_effect_04
   rotate: false
-  xy: 273, 124
+  xy: 273, 156
   size: 136, 127
   orig: 136, 127
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_effect_05
   rotate: false
-  xy: 455, 75
+  xy: 778, 54
   size: 52, 50
   orig: 52, 50
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_effect_06
-  rotate: false
-  xy: 903, 154
+  rotate: true
+  xy: 273, 86
   size: 68, 97
   orig: 68, 97
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_effect_07
-  rotate: false
-  xy: 137, 14
+  rotate: true
+  xy: 278, 16
   size: 68, 97
   orig: 68, 97
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_foot_01
   rotate: false
-  xy: 601, 85
+  xy: 797, 12
   size: 28, 40
   orig: 28, 40
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_foot_02
-  rotate: false
-  xy: 631, 85
+  rotate: true
+  xy: 541, 5
   size: 28, 40
   orig: 28, 40
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_hand_01
   rotate: false
-  xy: 509, 84
+  xy: 668, 15
   size: 44, 41
   orig: 44, 41
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_hand_02
   rotate: false
-  xy: 555, 84
+  xy: 714, 15
   size: 44, 41
   orig: 44, 41
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_head_01
   rotate: false
-  xy: 411, 127
+  xy: 411, 159
   size: 131, 124
   orig: 131, 124
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_leg_01
-  rotate: true
-  xy: 207, 36
+  rotate: false
+  xy: 372, 86
   size: 75, 68
   orig: 75, 68
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_leg_02
-  rotate: true
-  xy: 401, 65
+  rotate: false
+  xy: 609, 10
   size: 57, 52
   orig: 57, 52
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_weapon_01
-  rotate: false
-  xy: 277, 16
+  rotate: true
+  xy: 778, 106
   size: 58, 37
   orig: 58, 37
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_weapon_02
   rotate: false
-  xy: 674, 134
+  xy: 674, 166
   size: 119, 117
   orig: 119, 117
   offset: 0, 0
   index: -1
 elite_squirrel_leader_earth_weapon_03
   rotate: false
-  xy: 2, 2
+  xy: 129, 69
   size: 133, 74
   orig: 133, 74
   offset: 0, 0

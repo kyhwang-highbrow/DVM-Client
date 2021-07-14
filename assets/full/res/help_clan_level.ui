@@ -2073,7 +2073,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '클랜 레벨은 최대 {@yellow}50{@default}까지 올릴 수 있습니다.';
+					text = '클랜 레벨은 최대 {@yellow}100{@default}까지 올릴 수 있습니다.';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 255; 255; 255; };

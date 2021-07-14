@@ -4,21 +4,6 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>stage_map.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{572,44}</string>
-                <key>spriteSourceSize</key>
-                <string>{572,44}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{572,44}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
             <key>stage_map_event_02.png</key>
             <dict>
                 <key>aliases</key>
@@ -30,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{146,39}</string>
                 <key>textureRect</key>
-                <string>{{1002,1},{146,39}}</string>
+                <string>{{408,1},{146,39}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -39,13 +24,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{10,0}</string>
                 <key>spriteSize</key>
-                <string>{425,44}</string>
+                <string>{405,44}</string>
                 <key>spriteSourceSize</key>
                 <string>{425,44}</string>
                 <key>textureRect</key>
-                <string>{{575,1},{425,44}}</string>
+                <string>{{1,1},{405,44}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -61,9 +46,9 @@
             <key>realTextureFileName</key>
             <string>stage_map.png</string>
             <key>size</key>
-            <string>{1149,46}</string>
+            <string>{555,46}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7d98c88a340331f2a4b467ece1d66d8a:adaa9f45ef4b66f7bc26cf410f998bc1:08ee36fc2461b0f8f973c7a273b13dee$</string>
+            <string>$TexturePacker:SmartUpdate:e841bad0cad41bcfb2d3bb3801673895:62f2e2c8c6e1d745bcc9bde39a9a9e56:08ee36fc2461b0f8f973c7a273b13dee$</string>
             <key>textureFileName</key>
             <string>stage_map.png</string>
         </dict>
