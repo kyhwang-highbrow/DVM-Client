@@ -24,6 +24,7 @@
 		37AC8D7A2096289400258021 /* PerpleAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC8D792096289400258021 /* PerpleAdMob.m */; };
 		37B4B815201B2A8C008B58E6 /* PerpleAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B4B814201B2A8C008B58E6 /* PerpleAdjust.m */; };
 		37BA05AC1F73B3900048FF81 /* PerpleAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BA05AB1F73B3900048FF81 /* PerpleAdColony.m */; };
+		3C67A60C269DF6AC00C9558C /* TapjoyAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C67A60B269DF6AC00C9558C /* TapjoyAdapter.framework */; };
 		3E8FC35C250733E000785D38 /* HbApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FC35B250733E000785D38 /* HbApple.swift */; };
 		9C38D33D2533F95B004C2A62 /* lua_perplesdk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C38D2F4252F0B8D004C2A62 /* lua_perplesdk.cpp */; };
 /* End PBXBuildFile section */
@@ -75,14 +76,14 @@
 		37B4B814201B2A8C008B58E6 /* PerpleAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleAdjust.m; sourceTree = "<group>"; };
 		37BA05AA1F73B3900048FF81 /* PerpleAdColony.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleAdColony.h; sourceTree = "<group>"; };
 		37BA05AB1F73B3900048FF81 /* PerpleAdColony.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerpleAdColony.m; sourceTree = "<group>"; };
+		3C67A60B269DF6AC00C9558C /* TapjoyAdapter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TapjoyAdapter.framework; sourceTree = "<group>"; };
+		3C67A621269E033500C9558C /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsdk_binder.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8FC35A250733DF00785D38 /* sdk_binder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sdk_binder-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E8FC35B250733E000785D38 /* HbApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HbApple.swift; sourceTree = "<group>"; };
 		6755498CE97091FE539A6E2F /* Pods-sdk_binder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.debug.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.debug.xcconfig"; sourceTree = "<group>"; };
-		9C38D19A252EEA0E004C2A62 /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsdk_binder.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C38D2F1252F0B80004C2A62 /* lua_perplesdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk.h; sourceTree = "<group>"; };
 		9C38D2F2252F0B80004C2A62 /* lua_perplesdk_macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk_macro.h; sourceTree = "<group>"; };
 		9C38D2F4252F0B8D004C2A62 /* lua_perplesdk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_perplesdk.cpp; sourceTree = "<group>"; };
-		B330A35C9FD40C0E108B0075 /* libPods-sdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sdk_binder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C67A60C269DF6AC00C9558C /* TapjoyAdapter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,11 +148,11 @@
 		1CCD9ED11D35C5F0004AAF73 = {
 			isa = PBXGroup;
 			children = (
-				9C38D19A252EEA0E004C2A62 /* libsdk_binder.a */,
 				1CB727551D45435500994916 /* src */,
 				1CB7275D1D45449000994916 /* ios */,
 				975FD22E784D4AB5336D943D /* Pods */,
 				B46B37E319A24343E1E59F3F /* Frameworks */,
+				3C67A621269E033500C9558C /* libsdk_binder.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -188,7 +190,7 @@
 		B46B37E319A24343E1E59F3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B330A35C9FD40C0E108B0075 /* libPods-sdk_binder.a */,
+				3C67A60B269DF6AC00C9558C /* TapjoyAdapter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -211,7 +213,7 @@
 			);
 			name = sdk_binder;
 			productName = PerpleSDK;
-			productReference = 9C38D19A252EEA0E004C2A62 /* libsdk_binder.a */;
+			productReference = 3C67A621269E033500C9558C /* libsdk_binder.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -336,6 +338,7 @@
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "x86_64 i386";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -355,7 +358,6 @@
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../cocos2d-x/cocos/scripting/lua-bindings/manual $(SRCROOT)/../../../cocos2d-x/external/lua/tolua $(SRCROOT)/../../../cocos2d-x/external/lua/luajit/include";
-				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Debug;
 		};
@@ -393,6 +395,7 @@
 				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "x86_64 i386";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -407,7 +410,6 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../cocos2d-x/cocos/scripting/lua-bindings/manual $(SRCROOT)/../../../cocos2d-x/external/lua/tolua $(SRCROOT)/../../../cocos2d-x/external/lua/luajit/include";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Release;
 		};
@@ -416,6 +418,11 @@
 			baseConfigurationReference = 6755498CE97091FE539A6E2F /* Pods-sdk_binder.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				EXCLUDED_ARCHS = "x86_64 i386";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -454,7 +461,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ios/sdk_binder-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Debug;
 		};
@@ -463,6 +469,11 @@
 			baseConfigurationReference = 17AFB2C78AE88A5133D306DB /* Pods-sdk_binder.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				EXCLUDED_ARCHS = "x86_64 i386";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -500,7 +511,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ios/sdk_binder-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Release;
 		};

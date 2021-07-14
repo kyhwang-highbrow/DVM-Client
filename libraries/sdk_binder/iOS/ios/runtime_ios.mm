@@ -800,11 +800,11 @@ void rvFacebookAudienceNetworkSetResultCallback(int funcID) {
 	
 }
 
-void rvFacebookAudienceNetworkLoadWithId(int funcID) {
+void rvFacebookAudienceNetworkLoadWithId(int funcID, char const*) {
 	
 }
 
-void rvFacebookAudienceNetworkAdShow(int funcID) {
+void rvFacebookAudienceNetworkAdShow(int funcID, char const*) {
 	
 }
 

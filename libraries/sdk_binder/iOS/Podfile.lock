@@ -96,9 +96,6 @@ PODS:
     - nanopb (~> 1.30906.0)
   - GoogleDataTransport (7.5.1):
     - nanopb (~> 1.30906.0)
-  - GoogleMobileAdsMediationTapjoy (12.7.1.0):
-    - Google-Mobile-Ads-SDK (>= 7.67.0)
-    - TapjoySDK (= 12.7.1)
   - GoogleMobileAdsMediationUnity (3.4.8.0):
     - Google-Mobile-Ads-SDK (>= 7.63.0)
     - UnityAds (= 3.4.8)
@@ -159,7 +156,6 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Messaging
   - Google-Mobile-Ads-SDK
-  - GoogleMobileAdsMediationTapjoy
   - GoogleMobileAdsMediationUnity
   - GoogleSignIn
   - TapjoySDK
@@ -186,7 +182,6 @@ SPEC REPOS:
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
-    - GoogleMobileAdsMediationTapjoy
     - GoogleMobileAdsMediationUnity
     - GoogleSignIn
     - GoogleUserMessagingPlatform
@@ -220,8 +215,7 @@ SPEC CHECKSUMS:
   Google-Mobile-Ads-SDK: 8b58584890539de4527c47ef01e4da941a10bc8a
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
-  GoogleMobileAdsMediationTapjoy: 0baadafe9157d05b6b2ed7fec6c4bfc2c2ba8f17
-  GoogleMobileAdsMediationUnity: 40810655697068e8417ad29e1a21a46d5b410443
+  GoogleMobileAdsMediationUnity: 46ed569ee1ad508f815a50db046fd720d9ec0f08
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUserMessagingPlatform: 1d4b6946710d18cec34742054092e2c2bddae61f
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
@@ -235,6 +229,6 @@ SPEC CHECKSUMS:
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
 
-PODFILE CHECKSUM: 7e02a53e9f1f1da360c21252bad440c3a0f3db97
+PODFILE CHECKSUM: 19ad23e057f37bfbafdb65d1c412f5fa343914d4
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

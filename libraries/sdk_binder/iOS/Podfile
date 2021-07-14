@@ -33,7 +33,7 @@ target 'sdk_binder' do
     #AdColony 4.1.1에 해당하는 AdMob SDK 버전이 없어서 미디에이션에서 제외
     # https://cocoapods.org/pods/GoogleMobileAdsMediationAdColony
     #pod 'GoogleMobileAdsMediationAdColony'#, '= 3.3.6.0'
-    pod 'GoogleMobileAdsMediationTapjoy'#, '=12.3.3.0'
+    #pod 'GoogleMobileAdsMediationTapjoy'#, '=12.3.3.0'
     # Pods for UnityAds
     pod 'UnityAds'#, '= 3.0.0'
     
