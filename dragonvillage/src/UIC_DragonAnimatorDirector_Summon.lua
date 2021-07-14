@@ -123,13 +123,13 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
         end
     end
 
-    self.m_aniNum = self.m_currStep
+    self.m_aniNum = math.min(self.m_currStep, 4)
 
     local crack_ani
     if (self.m_bRareSummon) then
-        crack_ani = string.format('crack_high_%02d', self.m_currStep)
+        crack_ani = string.format('crack_high_%02d', self.m_aniNum)
     else
-        crack_ani = string.format('crack_%02d', self.m_currStep)
+        crack_ani = string.format('crack_%02d', self.m_aniNum)
     end
 
 	self.m_topEffect:changeAni(crack_ani, false)
@@ -151,7 +151,7 @@ end
 function UIC_DragonAnimatorDirector_Summon:checkMaxGradeEffect()
     if (self.m_bMyth) then
         SoundMgr:playEffect('UI', 'ui_egg_legend')
-        self.m_topEffect:changeAni('crack_high_04', false)
+        --self.m_topEffect:changeAni('crack_high_04', false)
         self.m_topEffect:addAniHandler(function()
             self:appearDragonAnimator()
         end)
@@ -192,12 +192,14 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
     if TableSlime:isSlimeID(did) then
         rarity = TableSlime:getValue(did, 'rarity')
         cur_grade = TableSlime:getValue(did, 'birthgrade')
-        self.m_dragonName = TableSlime:getValue(did, 'type')
     else
         rarity = TableDragon:getValue(did, 'rarity')
         cur_grade = TableDragon:getValue(did, 'birthgrade')
         self.m_dragonName = TableDragon:getValue(did, 'type')
     end
+
+    self.m_bLegend = rarity == 'legend'
+    self.m_bMyth = rarity == 'myth'
 
     -- 뽑기 연출에만 eggID set
     if (self.m_eggID) then
@@ -209,14 +211,8 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
         self.m_maxStep = 3
     end
 
-    self.m_bLegend = rarity == 'legend'
-    self.m_bMyth = rarity == 'myth'
-
 	-- 전설등급의 경우 추가 연출을 붙여준다
-	if (self.m_bLegend) then
-		self:setCutSceneImg()
-    elseif(self.m_bMyth and self.m_maxStep > 3) then
-        self.m_maxStep = 3
+	if (self.m_bLegend or self.m_bMyth) then
 		self:setCutSceneImg()
 	end
 end
