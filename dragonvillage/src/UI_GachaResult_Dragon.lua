@@ -492,7 +492,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
         if (t_data['grade'] > 3) then
             local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
             if (t_data['grade'] > 5) then
-                rarity_effect:changeAni('summon_myth', true)
+                rarity_effect:changeAni('summon_mythical', true)
             elseif (t_data['grade'] == 5) then
                 rarity_effect:changeAni('summon_regend', true)
             else
