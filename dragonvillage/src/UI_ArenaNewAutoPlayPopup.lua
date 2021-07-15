@@ -45,8 +45,12 @@ function UI_ArenaNewAutoPlayPopup:initButton()
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
     vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)
 
+    -- 음 g_autoPlaySetting:get('stop_condition_lose') 가 nil일 때도 있음?
+    -- 몯믿겠어서 사망연산자 사용
+    local is_lose_stop = g_autoPlaySetting:get('stop_condition_lose') and true or false
+
     vars['autoStartBtn1']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-    vars['autoStartBtn1'] = UIC_CheckBox(vars['autoStartBtn1'].m_node, vars['autoStartSprite1'], true)
+    vars['autoStartBtn1'] = UIC_CheckBox(vars['autoStartBtn1'].m_node, vars['autoStartSprite1'], is_lose_stop)
 end
 
 -------------------------------------
@@ -71,6 +75,7 @@ function UI_ArenaNewAutoPlayPopup:click_autoStartOnBtn()
     -- 활성 상태일 경우 창을 닫음
     self:close()
 end
+
 
 -------------------------------------
 -- function click_exitBtn
