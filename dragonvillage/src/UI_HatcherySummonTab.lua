@@ -88,7 +88,17 @@ end
 function UI_HatcherySummonTab:initUI()
     local vars = self.vars
 
-    local default_category = 'pickup'
+    -- 자동작별 on
+    vars['premiumGoodbyeBtn'] = UIC_CheckBox(vars['premiumGoodbyeBtn'].m_node, vars['premiumGoodbyeSprite'], false)
+    vars['premiumGoodbyeBtn']:setManualMode(true)
+    vars['premiumGoodbyeBtn']:registerScriptTapHandler(function() self:click_premiumGoodbyeeBtn() end)
+
+    -- 자동작별 on
+    vars['chanceUpGoodbyeBtn'] = UIC_CheckBox(vars['chanceUpGoodbyeBtn'].m_node, vars['chanceUpGoodbyeSprite'], false)
+    vars['chanceUpGoodbyeBtn']:setManualMode(true)
+    vars['chanceUpGoodbyeBtn']:registerScriptTapHandler(function() self:click_chanceUpGoodbyeBtn() end)
+
+    local default_category = 'cash'
 
     for i, t_data in pairs(g_hatcheryData:getGachaList()) do
         local btn = UI()
@@ -289,6 +299,9 @@ function UI_HatcherySummonTab:onChangeCategory(category)
     self.vars['chanceUpTabBtn']:setEnabled(not is_pickup)
     self.vars['premiumTabBtn']:setEnabled(not is_premium)
     self.vars['friendshipTabBtn']:setEnabled(not is_friendPoint)
+
+    g_hatcheryData:switchHatcheryAutoFarewell(true)
+    self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
 
     self:setEventMenu()
 end
@@ -496,7 +509,23 @@ end
 
 
 
+-------------------------------------
+-- function click_autoGoodbyeBtn
+-------------------------------------
+function UI_HatcherySummonTab:click_premiumGoodbyeeBtn()
+    g_hatcheryData:switchHatcheryAutoFarewell()
 
+    self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+end
+
+-------------------------------------
+-- function click_chanceUpGoodbyeBtn
+-------------------------------------
+function UI_HatcherySummonTab:click_chanceUpGoodbyeBtn()
+    g_hatcheryData:switchHatcheryAutoFarewell()
+
+    self.vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+end
 
 
 

@@ -11,6 +11,8 @@ ServerData_Hatchery = class({
 
         m_isDefinitePickup = 'boolean', -- 다음 픽업 100%
 
+        m_isAutomaticFarewell = 'boolean',
+
         -- 확률업 소환
         CASH__EVENT_SUMMON_PRICE = 300,
         CASH__EVENT_BUNDLE_SUMMON_PRICE = 3000,
@@ -33,6 +35,7 @@ function ServerData_Hatchery:init(server_data)
     self.m_serverData = server_data
     self.m_dirtyHacheryInfo = true
     self.m_updatedAt = nil
+    self.m_isAutomaticFarewell = false
 end
 
 -------------------------------------
@@ -142,6 +145,7 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
 	local tutorial = TutorialManager.getInstance():isDoing()
+    local auto_farewell_lv = 3
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -165,7 +169,8 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
         ret['added_mileage'] = added_mileage
 
         -- 드래곤들 추가
-        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+        local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'])
+        g_dragonsData:applyDragonData_list(add_dragon_list)
 
         -- 슬라임들 추가
         g_slimesData:applySlimeData_list(ret['added_slimes'])
@@ -185,6 +190,9 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('sale', is_sale)
 	ui_network:setParam('tutorial', tutorial)
+    if (self.m_isAutomaticFarewell and is_bundle) then
+        ui_network:setParam('auto_goodbye', auto_farewell_lv)
+    end
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -193,6 +201,24 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function makeAddedDragonTable
+-- @breif
+-------------------------------------
+function ServerData_Hatchery:makeAddedDragonTable(org_list)
+    local result = {}
+    
+    if (not self.m_isAutomaticFarewell) then return org_list end
+
+    for key, value in pairs(org_list) do
+        if (value['grade'] > 3) then
+            result['key'] = value
+        end
+    end
+
+    return result
 end
 
 -------------------------------------
@@ -205,6 +231,7 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
+    local auto_farewell_lv = 3
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -226,7 +253,8 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
         ret['added_mileage'] = added_mileage
 
         -- 드래곤들 추가
-        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+        local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'])
+        g_dragonsData:applyDragonData_list(add_dragon_list)
 
         -- 슬라임들 추가
         g_slimesData:applySlimeData_list(ret['added_slimes'])
@@ -245,6 +273,9 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
     ui_network:setParam('uid', uid)
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('sale', is_sale)
+    if (self.m_isAutomaticFarewell and is_bundle) then
+        ui_network:setParam('auto_goodbye', auto_farewell_lv)
+    end
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -1003,4 +1034,16 @@ function ServerData_Hatchery:isPickupEmpty()
     end
 
     return (normal == nil) and (unique == nil)
+end
+
+-------------------------------------
+-- function switchHatcheryAutoFarewell
+-- @breif 픽업 드래곤 선택 하나도 안되어 있는가?
+-------------------------------------
+function ServerData_Hatchery:switchHatcheryAutoFarewell(bReset)
+    if (bReset) then
+        self.m_isAutomaticFarewell = false
+    else
+        self.m_isAutomaticFarewell = not self.m_isAutomaticFarewell
+    end
 end
