@@ -14,6 +14,7 @@ L_ROLE['supporter'] = 3
 L_ROLE['healer'] = 4
 
 local L_RARE = {}
+L_RARE['myth'] = 5
 L_RARE['legend'] = 4
 L_RARE['hero'] = 3
 L_RARE['rare'] = 2
@@ -35,6 +36,7 @@ UI_HelpDragonGuidePopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_HelpDragonGuidePopup:init(focus_type, focus_value, t_info)
+	self.m_uiName = 'UI_HelpDragonGuidePopup'
     local vars = self:load('help_dragon_guide_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
