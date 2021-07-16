@@ -513,18 +513,32 @@ end
 -- function click_autoGoodbyeBtn
 -------------------------------------
 function UI_HatcherySummonTab:click_premiumGoodbyeeBtn()
-    g_hatcheryData:switchHatcheryAutoFarewell()
+    if (g_hatcheryData.m_isAutomaticFarewell) then
+        g_hatcheryData:switchHatcheryAutoFarewell()
+        self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+        return
+    end
 
-    self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+    local ui = UI_HatcherySummonAutoFarewellPopup()
+    ui:setCloseCB(function()
+        self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+    end)
 end
 
 -------------------------------------
 -- function click_chanceUpGoodbyeBtn
 -------------------------------------
 function UI_HatcherySummonTab:click_chanceUpGoodbyeBtn()
-    g_hatcheryData:switchHatcheryAutoFarewell()
+    if (g_hatcheryData.m_isAutomaticFarewell) then
+        g_hatcheryData:switchHatcheryAutoFarewell()
+        self.vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+        return
+    end
 
-    self.vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+    local ui = UI_HatcherySummonAutoFarewellPopup()
+    ui:setCloseCB(function()
+        self.vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+    end)
 end
 
 
@@ -999,4 +1013,67 @@ function UI_HacheryPickupBtnPopup:setChanceUpDragons()
             vars['dragonCard'..desc_idx]:addChild(dragon_card.root)
         end
     end
+end
+
+
+
+
+
+-------------------------------------
+-- class UI_HatcherySummonAutoFarewellPopup
+-------------------------------------
+UI_HatcherySummonAutoFarewellPopup = class(UI, {})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_HatcherySummonAutoFarewellPopup:init()
+	self.m_uiName = 'UI_HatcherySummonAutoFarewellPopup'
+
+    self:load('hatchery_summon_goodbye_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_SCALE, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HatcherySummonAutoFarewellPopup')
+
+    self:initButton()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_HatcherySummonAutoFarewellPopup:initButton()
+    local vars = self.vars
+
+    self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+
+    ccdump(self.vars)
+
+    -- 자동작별 on
+    vars['goodbyeOnBtn'] = UIC_CheckBox(vars['goodbyeOnBtn'].m_node, vars['goodbyeOnSprite'], true)
+    vars['goodbyeOnBtn']:setManualMode(true)
+    vars['goodbyeOnBtn']:registerScriptTapHandler(function() self:click_rareSelect() end)
+
+    vars['goodbyeOnOkBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+end
+
+-------------------------------------
+-- function click_okBtn
+-------------------------------------
+function UI_HatcherySummonAutoFarewellPopup:click_okBtn()
+    g_hatcheryData.m_isAutomaticFarewell = self.vars['goodbyeOnBtn']:isChecked()
+
+    self:close()
+end
+
+-------------------------------------
+-- function click_rareSelect
+-------------------------------------
+function UI_HatcherySummonAutoFarewellPopup:click_rareSelect()
+    self.vars['goodbyeOnBtn']:setChecked(not self.vars['goodbyeOnBtn']:isChecked())
 end
