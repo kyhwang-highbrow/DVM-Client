@@ -214,7 +214,7 @@ function ServerData_Hatchery:makeAddedDragonTable(org_list)
 
     for key, value in pairs(org_list) do
         if (value['grade'] > 3) then
-            result['key'] = value
+            result[key] = value
         end
     end
 

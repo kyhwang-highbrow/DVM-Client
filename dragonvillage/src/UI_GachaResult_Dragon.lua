@@ -375,13 +375,8 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
                 self.m_isDirecting = false
                 
                 -- 잠금
-                local doid = t_dragon_data:getObjectId()
-                if (doid) then
-                    self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(doid)
-                    self:setLockSprite(self.m_selectedDragonData:getLock())
-                else
-                    self.m_selectedDragonData = t_dragon_data
-                end
+                self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(t_dragon_data:getObjectId())
+                self:setLockSprite(self.m_selectedDragonData:getLock())
                     
                 -- 중복 클릭을 방지하기 위해 막았던 버튼을 풀어줌
                 vars['okBtn']:setEnabled(true)
@@ -520,24 +515,13 @@ function UI_GachaResult_Dragon:setDragonCardList()
             self.m_tDragonCardEffectTable[card] = rarity_effect
         end
 
-        -- 리스트에 저장 (연출을 위해)
-        local doid = t_data:getObjectId()
-
         -- 카드 클릭시 드래곤을 보여준다.
         card.vars['clickBtn']:registerScriptTapHandler(function()
             if (not self.m_isDirecting) then
-                local refreshed_data = g_dragonsData:getDragonDataFromUid(doid)
+                local refreshed_data = g_dragonsData:getDragonDataFromUid(t_data:getObjectId())
 
-                if (doid) then
-                    self.vars['lockBtn']:setVisible(true)
-                    card.m_dragonData = refreshed_data
-                    card:refresh_lock()
-                    
-                else
-                    self.vars['lockBtn']:setVisible(false)
-
-                    refreshed_data = t_data
-                end
+                card.m_dragonData = refreshed_data
+                card:refresh_lock()
 
                 self:refresh_dragon(refreshed_data)
                 
@@ -549,14 +533,11 @@ function UI_GachaResult_Dragon:setDragonCardList()
                 self.m_selectedDragonData = refreshed_data
             end
         end)
-
         card.vars['clickBtn']:setEnabled(false)
 
-        if (doid) then
-            self.m_lDragonCardList[doid] = card
-        else
-            self.m_lDragonCardList[tostring(t_data['did'])] = card
-        end
+        -- 리스트에 저장 (연출을 위해)
+        local doid = t_data:getObjectId()
+        self.m_lDragonCardList[doid] = card
 
         -- 다음 좌표 계산
         pos_x = pos_x + (card_width + gap)
