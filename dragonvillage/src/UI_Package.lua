@@ -174,6 +174,16 @@ function UI_Package:initEachProduct(index, struct_product)
             node:addChild(icon)
         end
     end
+
+    
+    -- 뱃지 아이콘 추가
+    node = vars['badgeNode' .. index] or vars['badgeNode']
+    if node then
+        local badge_icon = struct_product:makeBadgeIcon()
+        if badge_icon then
+            node:addChild(badge_icon)
+        end
+    end
 end
 
 

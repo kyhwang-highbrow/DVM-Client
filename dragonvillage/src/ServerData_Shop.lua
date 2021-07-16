@@ -46,75 +46,6 @@ function ServerData_Shop:init(server_data)
 end
 
 -------------------------------------
--- function localTableTest
--------------------------------------
-function ServerData_Shop:localTableTest()
-    
-    local table_shop_cash = TABLE:loadCSVTable('table_shop_cash', nil, 'product_id')
-    local table_shop_basic = TABLE:loadCSVTable('table_shop_basic', nil, 'product_id')
-    local table_shop_list = TABLE:loadCSVTable('table_shop_list', nil, 'list_id')
-    
-    local date_format = 'yyyy-mm-dd HH:MM:SS'
-    local parser = pl.Date.Format(date_format)
-    
-    local date_str = '2017-06-23 00:00:00'
-
-
-    local date = parser:parse(date_str)
-
-    --local 
-    for i,v in pairs(table_shop_list) do
-        --v['start_date'] = '2017-06-01 00:00:00'
-        --v['end_date'] = '2017-06-27 00:00:00'
-
-        local start_date = parser:parse(v['start_date'])
-        local end_date = parser:parse(v['end_date'])
-
-        local active = false
-
-        -- 시작 시간이 없거나 시작 시간 이후이면 true
-        if (not start_date) or (start_date < date) then
-            active = true
-        end
-
-        -- 시작 조건을 충족한 상태
-        if active then
-            -- 종료 시간이 명시되어있고 현재 시간이 종료시간보다 이전일 경우
-            if end_date and (end_date < date) then
-                active = false
-            end
-        end
-
-        if active then
-            --cclog(v['list_id'])
-
-            local tab_category = v['tab_category']
-            local product_id = v['product_id']
-            local dependency = v['dependency']
-            local ui_priority = v['ui_priority'] and tonumber(v['ui_priority'])
-            if (not ui_priority) then
-                ui_priority = 0
-            end
-            local t_product = nil
-
-            if (tab_category == 'money') then
-                t_product = table_shop_cash[product_id]
-            else
-                t_product = table_shop_basic[product_id]
-            end
-
-            local struct_product = StructProduct(t_product)
-            struct_product:setTabCategory(tab_category)
-            struct_product:setStartDate(start_date)
-            struct_product:setEndDate(end_date)
-            struct_product:setDependency(dependency)
-            struct_product:setUIPriority(ui_priority)
-            self:insertProduct(struct_product)
-        end
-    end
-end
-
--------------------------------------
 -- function clearProduct
 -------------------------------------
 function ServerData_Shop:clearProduct()
@@ -1328,6 +1259,10 @@ function ServerData_Shop:getActivatedPackageList()
         local data = packages[index]
         local pid_list = pl.stringx.split(data['t_pids'], ',')
         local product_list = {}
+        local pid_index_list = {}
+        local removal_list = {}
+
+        local i = 1
 
         -- 카테고리 별로 등록된 pid 리스트
         for _, product_id in pairs(pid_list) do
@@ -1335,17 +1270,36 @@ function ServerData_Shop:getActivatedPackageList()
 
             -- pid에 해당하는 상품이 있고, 그것이 패키지 상품인 경우
             if struct_product and (struct_product:getTabCategory() == 'package') then
+
                 -- TODO (YJK_210622) : isItBuyable으로 체크할지 말지 table_shop_list에서 상품별로 체크하도록
                 -- 상품 구매 횟수 체크
                 if (struct_product:isItBuyable()) or (data['t_name'] == 'package_daily') then
+                    --product_list[tonumber(product_id)] = struct_product
+                    
                     table.insert(product_list, struct_product)
+                    pid_index_list[tonumber(product_id)] = #product_list
+
+                    -- 의존성 검사
+                    local dependency = struct_product:getDependency()
+                    if dependency then
+                        removal_list[tonumber(product_id)] = tonumber(dependency)
+                    end
                 end
             end
         end
 
         -- 카테고리에 포함된 상품이 하나라도 있으면
-        if (#product_list > 0) then
-            data['product_list'] = product_list
+        if (not table.isEmpty(product_list)) then
+
+            for target_id, dependent_id in pairs(removal_list) do
+                local dependent_index = pid_index_list[dependent_id]
+                local target_index = pid_index_list[target_id]
+
+                product_list[dependent_index] = product_list[target_index]
+                product_list[target_index] = nil
+            end
+
+            data['product_list'] = table.MapToList(product_list)
             table.insert(package_list, data)
         end
     end
