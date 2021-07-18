@@ -345,11 +345,17 @@ function UI_DragonManageInfo:refresh_buttonState_masteryBtn()
         -- StructDragonObject or StructSlimeObject
         local dragon_obj = self:getSelectDragonObj()
         local is_myth_dragon = self.m_selectDragonData and self.m_selectDragonData:getRarity() == 'myth'
+        local is_levelup_enabled = true
 
         if (not dragon_obj) then
             levelupBtn_visible = true
         elseif dragon_obj:isMaxGradeAndLv() then
-            masteryBtn_visible = not is_myth_dragon
+            if (is_myth_dragon) then
+                levelupBtn_visible = true
+                is_levelup_enabled = false
+            else
+                masteryBtn_visible = true
+            end
         else
             levelupBtn_visible = true
         end
@@ -357,6 +363,7 @@ function UI_DragonManageInfo:refresh_buttonState_masteryBtn()
 
     vars['masteryBtn']:setVisible(masteryBtn_visible)
     vars['levelupBtn']:setVisible(levelupBtn_visible)
+    vars['levelupBtn']:setEnabled(is_levelup_enabled)
 
     -- 마스터리 할인 피버타임 적용
     if (g_fevertimeData:isActiveFevertime_masteryDc()) then

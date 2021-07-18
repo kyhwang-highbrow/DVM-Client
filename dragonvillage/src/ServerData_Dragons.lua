@@ -891,9 +891,9 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
     end
 
     -- 신화 드래곤 체크
-    if (t_dragon_data:getRarity() == 'myth') then
-        return false, Str('작별할 수 없는 드래곤입니다.') 
-    end
+    --if (t_dragon_data:getRarity() == 'myth') then
+    --    return false, Str('작별할 수 없는 드래곤입니다.') 
+    --end
 
 
 	-- 잠금 체크
