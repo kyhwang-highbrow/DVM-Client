@@ -226,8 +226,8 @@ function UI_DragonManageInfo:refresh()
     vars['evolutionBtn']:setVisible(not b_transform_change)
 
     local is_myth_dragon = t_dragon_data:getRarity() == 'myth'
-    vars['upgradeBtn']:setEnabled(not is_myth_dragon)
-    vars['reinforceBtn']:setEnabled(not is_myth_dragon)
+    --vars['upgradeBtn']:setEnabled(not is_myth_dragon)
+    --vars['reinforceBtn']:setEnabled(not is_myth_dragon)
     vars['goodbyeBtn']:setVisible(not is_myth_dragon)
     vars['goodbyeSelectBtn']:setVisible(not is_myth_dragon)
     --vars['lockBtn']:setVisible(not is_myth_dragon)
@@ -337,6 +337,7 @@ function UI_DragonManageInfo:refresh_buttonState_masteryBtn()
     -- 6성 60레벨 드래곤은 레벨업 버튼 대신 특성 버튼이 활성
     local levelupBtn_visible = false
     local masteryBtn_visible = false
+    local is_levelup_enabled = true
 
     -- 슬라임일 경우 레벨업 버튼 노출
     if is_slime_object then
@@ -345,7 +346,6 @@ function UI_DragonManageInfo:refresh_buttonState_masteryBtn()
         -- StructDragonObject or StructSlimeObject
         local dragon_obj = self:getSelectDragonObj()
         local is_myth_dragon = self.m_selectDragonData and self.m_selectDragonData:getRarity() == 'myth'
-        local is_levelup_enabled = true
 
         if (not dragon_obj) then
             levelupBtn_visible = true
@@ -648,6 +648,7 @@ end
 function UI_DragonManageInfo:click_reinforceBtn()
 	-- 스킬 강화 가능 여부
 	local possible, msg = g_dragonsData:impossibleReinforcementForever(self.m_selectDragonOID)
+
 	if (possible) then
 		UIManager:toastNotificationRed(msg)
         return

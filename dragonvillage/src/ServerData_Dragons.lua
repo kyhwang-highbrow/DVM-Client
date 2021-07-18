@@ -1349,6 +1349,10 @@ function ServerData_Dragons:impossibleReinforcementForever(doid)
 		return true, Str('최대 강화 레벨의 드래곤입니다.')
 	end
 
+    if (t_dragon_data:getRarity() == 'myth') then
+        return true, Str('신화 등급 드래곤은 강화할 수 없습니다.') 
+    end
+
     return false
 end
 
