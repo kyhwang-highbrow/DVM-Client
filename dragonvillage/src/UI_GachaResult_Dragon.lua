@@ -341,7 +341,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 
     do -- 드래곤 실리소스
         vars['dragonNode']:removeAllChildren()
-        local dragon_animator = UIC_DragonAnimatorDirector_Summon()
+        local dragon_animator = UIC_DragonAnimatorDirector_Summon(self)
         vars['dragonNode']:addChild(dragon_animator.m_node)
         
         -- 드래곤 등장 후의 연출

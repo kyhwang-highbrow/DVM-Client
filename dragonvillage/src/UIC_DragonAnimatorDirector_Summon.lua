@@ -17,12 +17,15 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
         m_dragonName = 'string',
 
         m_rarityEffect = 'Animator', -- 소환시에 텍스트 애니메이터 추가
+
+        m_ownerUI = 'UI_GachaResult_Dragon'
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UIC_DragonAnimatorDirector_Summon:init()
+function UIC_DragonAnimatorDirector_Summon:init(owner_ui)
+    self.m_ownerUI = owner_ui
 end
 
 -------------------------------------
@@ -50,7 +53,7 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:setDragonAnimator(did, evolution, flv)
     --did = 120221 --번고
-    --did = 121752 --데스락
+    did = 121752 --데스락
 
     PARENT.setDragonAnimator(self, did, evolution, flv)
 
@@ -63,7 +66,7 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:startDirecting()
     local vars = self.vars
-
+    cclog('스킵 온')
 	-- 연출 세팅
     self.m_bottomEffect:setVisible(false)
     self.m_rarityEffect:setVisible(false)
@@ -221,14 +224,10 @@ end
 -- function appearDragonAnimator
 -- @brief top_appear연출 호출하고 드래곤 등장시킴
 -------------------------------------
-function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator()
+function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
     local animator
 
     function after_appear_cut_cb()
-        if (animator) then
-            animator:setVisible(false)
-        end
-
 	    self.m_topEffect:changeAni('top_appear', false)
         self.m_topEffect:addAniHandler(function()
             PARENT.appearDragonAnimator(self)
@@ -236,17 +235,20 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator()
         end)
     end
 
-    self.vars['skipBtn']:setVisible(false)
-
     local dragon_appear_cut_res
 
     if (not isNullOrEmpty(self.m_dragonName) and self.m_bMyth) then
+        self.vars['skipBtn']:setVisible(false)
+        if (self.m_ownerUI) then self.m_ownerUI.vars['skipBtn']:setVisible(false) end
         local file_name = string.format('appear_%s', self.m_dragonName)
         dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.vrp', file_name, file_name)
         animator = MakeAnimator(dragon_appear_cut_res)
 
         --번역
         Translate:a2dTranslate(dragon_appear_cut_res)
+    else
+        self.vars['skipBtn']:setVisible(true)
+        if (self.m_ownerUI) then self.m_ownerUI.vars['skipBtn']:setVisible(true) end
     end
 
     if (animator) then
@@ -263,12 +265,13 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator()
             animator:addAniHandler(function()
                 animator:changeAni('end', false)
                 animator:addAniHandler(function()
-                    after_appear_cut_cb()
+                    animator:setVisible(false)
+                    if finish_cb then finish_cb() else after_appear_cut_cb() end
  	            end)
 	        end)
 	    end)
     else
-        after_appear_cut_cb()
+        if finish_cb then finish_cb() else after_appear_cut_cb() end
     end
 
 end
@@ -323,6 +326,7 @@ end
 -- @brief skip을 강제할때 필요한 세팅을 하고 드래곤을 등장 시킨다.
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:forceSkipDirecting()
+    function finish_cb()
 	self.vars['touchNode']:setVisible(false)
 
 	self.m_currStep = self.m_maxStep + 1
@@ -330,6 +334,9 @@ function UIC_DragonAnimatorDirector_Summon:forceSkipDirecting()
 	-- top_appear연출 생략을 위해 부모함수 호출
 	PARENT.appearDragonAnimator(self)
     self:show_textAnimation()
+    end
+
+    self:appearDragonAnimator(finish_cb)
 end
 
 -------------------------------------
