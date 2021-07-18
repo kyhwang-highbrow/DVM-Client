@@ -47,7 +47,7 @@ end
 -- function init
 -------------------------------------
 function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data, added_mileage)
-    --
+    --[[
     local list = {}
     for i, v in ipairs(l_gacha_dragon_list) do
         if i == 5 then v['did'] = 121752 v['grade'] = 6 end
@@ -56,7 +56,7 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
 
         table.insert(list, v)
     end
-    l_gacha_dragon_list = list
+    l_gacha_dragon_list = list]]
     
 
     -- spine 캐시 정리 확인
