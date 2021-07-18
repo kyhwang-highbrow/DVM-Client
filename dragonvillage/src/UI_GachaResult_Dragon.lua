@@ -376,9 +376,9 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
                 
                 -- 잠금
                 local doid = t_dragon_data:getObjectId()
+                self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(doid)
 
-                if (doid) then
-                    self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(t_dragon_data:getObjectId())
+                if (self.m_selectedDragonData) then
                     self:setLockSprite(self.m_selectedDragonData:getLock())
                 else
                     self.m_selectedDragonData = t_dragon_data
