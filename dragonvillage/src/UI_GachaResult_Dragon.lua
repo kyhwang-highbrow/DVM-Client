@@ -375,8 +375,14 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
                 self.m_isDirecting = false
                 
                 -- 잠금
-                self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(t_dragon_data:getObjectId())
-                self:setLockSprite(self.m_selectedDragonData:getLock())
+                local doid = t_dragon_data:getObjectId()
+
+                if (doid) then
+                    self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(t_dragon_data:getObjectId())
+                    self:setLockSprite(self.m_selectedDragonData:getLock())
+                else
+                    self.m_selectedDragonData = t_dragon_data
+                end
                     
                 -- 중복 클릭을 방지하기 위해 막았던 버튼을 풀어줌
                 vars['okBtn']:setEnabled(true)
@@ -488,17 +494,6 @@ function UI_GachaResult_Dragon:setDragonCardList()
         card.root:setEnabled(false)
         card_node:addChild(card.root, 2)
         
-        -- 자동작별 시 노출할 경험치 UI 추가
-        if (g_hatcheryData.m_isAutomaticFarewell and t_data['grade'] <= 3) then
-	        local dragon_exp_table = TableDragonExp()
-		    local exp = dragon_exp_table:getDragonGivingExp(3, 1)	
-            local exp_card = UI_ItemCard(700017, exp)
-            local tint_action = cca.repeatFadeInOutRuneOpt(3.2)
-            card.root:addChild(exp_card.root)
-            exp_card:setEnabledClickBtn(false)
-            exp_card.root:runAction(tint_action)
-        end
-
         -- 등급에 따른 연출
         if (t_data['grade'] > 3) then
             local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
@@ -518,14 +513,18 @@ function UI_GachaResult_Dragon:setDragonCardList()
         -- 카드 클릭시 드래곤을 보여준다.
         card.vars['clickBtn']:registerScriptTapHandler(function()
             if (not self.m_isDirecting) then
-                local refreshed_data = g_dragonsData:getDragonDataFromUid(t_data:getObjectId())
+                local doid = t_data:getObjectId()
+                local refreshed_data = g_dragonsData:getDragonDataFromUid(doid)
 
-                card.m_dragonData = refreshed_data
-                card:refresh_lock()
+                if (doid) then
+                    card.m_dragonData = refreshed_data
+                    card:refresh_lock()
+                    self:setLockSprite(refreshed_data:getLock())
+                else
+                    refreshed_data = t_data
+                end
 
                 self:refresh_dragon(refreshed_data)
-                
-                self:setLockSprite(refreshed_data:getLock())
 
     
                 self.m_currDragonAnimator:forceSkipDirecting()
@@ -536,8 +535,11 @@ function UI_GachaResult_Dragon:setDragonCardList()
         card.vars['clickBtn']:setEnabled(false)
 
         -- 리스트에 저장 (연출을 위해)
-        local doid = t_data:getObjectId()
-        self.m_lDragonCardList[doid] = card
+        local itemKey = t_data:getObjectId()
+
+        if (not itemKey) then itemKey = tostring(t_data:getDid()) .. tostring(i) end
+
+        self.m_lDragonCardList[itemKey] = card
 
         -- 다음 좌표 계산
         pos_x = pos_x + (card_width + gap)
@@ -673,7 +675,6 @@ function UI_GachaResult_Dragon:click_lockBtn()
         -- 연차 뽑기 인 경우
         if (table.count(self.m_lDragonCardList) > 0) then
             local card = self.m_lDragonCardList[doid]
-            cclog('refreshed')
         
             card.m_dragonData = refreshed_data
             card:refresh_lock()
