@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{236,168}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{236,168}}</string>
+                <string>{{339,1},{236,168}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>summon_eff_00_t_04.png</key>
             <dict>
@@ -30,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{336,213}</string>
                 <key>textureRect</key>
-                <string>{{1,171},{336,213}}</string>
+                <string>{{1,1},{336,213}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>summon_eff_00_t_heroic_c.png</key>
             <dict>
@@ -45,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{67,66}</string>
                 <key>textureRect</key>
-                <string>{{1,861},{67,66}}</string>
+                <string>{{1081,129},{67,66}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>summon_eff_00_t_heroic_c_s.png</key>
             <dict>
@@ -60,9 +60,9 @@
                 <key>spriteSourceSize</key>
                 <string>{51,50}</string>
                 <key>textureRect</key>
-                <string>{{210,596},{45,44}}</string>
+                <string>{{779,210},{45,44}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>summon_eff_00_t_heroic_e.png</key>
             <dict>
@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{58,58}</string>
                 <key>textureRect</key>
-                <string>{{68,942},{58,58}}</string>
+                <string>{{1213,190},{58,58}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{44,44}</string>
                 <key>textureRect</key>
-                <string>{{215,554},{40,40}}</string>
+                <string>{{1220,141},{40,40}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -105,9 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{115,90}</string>
                 <key>textureRect</key>
-                <string>{{1,509},{115,90}}</string>
+                <string>{{509,1},{115,90}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>summon_eff_00_t_heroic_h_s.png</key>
             <dict>
@@ -120,9 +120,9 @@
                 <key>spriteSourceSize</key>
                 <string>{87,68}</string>
                 <key>textureRect</key>
-                <string>{{150,775},{67,56}}</string>
+                <string>{{790,151},{67,56}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>summon_eff_00_t_heroic_i.png</key>
             <dict>
@@ -135,9 +135,9 @@
                 <key>spriteSourceSize</key>
                 <string>{29,58}</string>
                 <key>textureRect</key>
-                <string>{{216,219},{29,58}}</string>
+                <string>{{103,216},{29,58}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>summon_eff_00_t_heroic_i_s.png</key>
             <dict>
@@ -150,9 +150,9 @@
                 <key>spriteSourceSize</key>
                 <string>{22,44}</string>
                 <key>textureRect</key>
-                <string>{{216,279},{22,40}}</string>
+                <string>{{163,216},{22,40}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>summon_eff_00_t_heroic_o.png</key>
             <dict>
@@ -165,7 +165,7 @@
                 <key>spriteSourceSize</key>
                 <string>{69,60}</string>
                 <key>textureRect</key>
-                <string>{{74,820},{69,60}}</string>
+                <string>{{1149,128},{69,60}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -180,9 +180,9 @@
                 <key>spriteSourceSize</key>
                 <string>{52,45}</string>
                 <key>textureRect</key>
-                <string>{{216,171},{46,39}}</string>
+                <string>{{55,216},{46,39}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>summon_eff_00_t_heroic_r.png</key>
             <dict>
@@ -195,7 +195,7 @@
                 <key>spriteSourceSize</key>
                 <string>{71,64}</string>
                 <key>textureRect</key>
-                <string>{{1,795},{71,64}}</string>
+                <string>{{1008,136},{71,64}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -210,9 +210,9 @@
                 <key>spriteSourceSize</key>
                 <string>{54,48}</string>
                 <key>textureRect</key>
-                <string>{{160,731},{46,42}}</string>
+                <string>{{825,209},{46,42}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>summon_eff_00_t_legendary_a.png</key>
             <dict>
@@ -225,7 +225,7 @@
                 <key>spriteSourceSize</key>
                 <string>{83,65}</string>
                 <key>textureRect</key>
-                <string>{{1,601},{83,65}}</string>
+                <string>{{765,84},{83,65}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -240,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{63,49}</string>
                 <key>textureRect</key>
-                <string>{{210,642},{51,43}}</string>
+                <string>{{677,210},{51,43}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>summon_eff_00_t_legendary_d.png</key>
             <dict>
@@ -255,7 +255,7 @@
                 <key>spriteSourceSize</key>
                 <string>{67,58}</string>
                 <key>textureRect</key>
-                <string>{{70,882},{67,58}}</string>
+                <string>{{1084,68},{67,58}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -270,7 +270,7 @@
                 <key>spriteSourceSize</key>
                 <string>{51,44}</string>
                 <key>textureRect</key>
-                <string>{{215,509},{43,40}}</string>
+                <string>{{1235,1},{43,40}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -285,9 +285,9 @@
                 <key>spriteSourceSize</key>
                 <string>{64,65}</string>
                 <key>textureRect</key>
-                <string>{{1,929},{64,65}}</string>
+                <string>{{1060,1},{64,65}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>summon_eff_00_t_legendary_e_s.png</key>
             <dict>
@@ -300,9 +300,9 @@
                 <key>spriteSourceSize</key>
                 <string>{48,49}</string>
                 <key>textureRect</key>
-                <string>{{208,792},{42,43}}</string>
+                <string>{{1202,53},{42,43}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>summon_eff_00_t_legendary_g.png</key>
             <dict>
@@ -315,7 +315,7 @@
                 <key>spriteSourceSize</key>
                 <string>{63,60}</string>
                 <key>textureRect</key>
-                <string>{{145,844},{63,60}}</string>
+                <string>{{1151,190},{63,60}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -330,7 +330,7 @@
                 <key>spriteSourceSize</key>
                 <string>{48,45}</string>
                 <key>textureRect</key>
-                <string>{{208,836},{42,41}}</string>
+                <string>{{1220,98},{42,41}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -345,9 +345,9 @@
                 <key>spriteSourceSize</key>
                 <string>{89,90}</string>
                 <key>textureRect</key>
-                <string>{{118,595},{89,90}}</string>
+                <string>{{599,118},{89,90}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>summon_eff_00_t_legendary_l_s.png</key>
             <dict>
@@ -360,9 +360,9 @@
                 <key>spriteSourceSize</key>
                 <string>{67,68}</string>
                 <key>textureRect</key>
-                <string>{{188,909},{55,56}}</string>
+                <string>{{1094,198},{55,56}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>summon_eff_00_t_legendary_n.png</key>
             <dict>
@@ -375,7 +375,7 @@
                 <key>spriteSourceSize</key>
                 <string>{76,65}</string>
                 <key>textureRect</key>
-                <string>{{82,686},{76,65}}</string>
+                <string>{{931,69},{76,65}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -390,7 +390,7 @@
                 <key>spriteSourceSize</key>
                 <string>{57,49}</string>
                 <key>textureRect</key>
-                <string>{{160,686},{47,43}}</string>
+                <string>{{730,210},{47,43}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -405,7 +405,7 @@
                 <key>spriteSourceSize</key>
                 <string>{71,65}</string>
                 <key>textureRect</key>
-                <string>{{77,753},{71,65}}</string>
+                <string>{{935,136},{71,65}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -420,7 +420,7 @@
                 <key>spriteSourceSize</key>
                 <string>{54,49}</string>
                 <key>textureRect</key>
-                <string>{{209,695},{46,43}}</string>
+                <string>{{742,165},{46,43}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -435,7 +435,7 @@
                 <key>spriteSourceSize</key>
                 <string>{79,65}</string>
                 <key>textureRect</key>
-                <string>{{1,668},{79,65}}</string>
+                <string>{{850,77},{79,65}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -450,9 +450,249 @@
                 <key>spriteSourceSize</key>
                 <string>{60,49}</string>
                 <key>textureRect</key>
-                <string>{{208,740},{50,43}}</string>
+                <string>{{690,165},{50,43}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>summon_eff_00_t_mythical_a.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{81,71}</string>
+                <key>spriteSourceSize</key>
+                <string>{85,71}</string>
+                <key>textureRect</key>
+                <string>{{763,1},{81,71}}</string>
                 <key>textureRotated</key>
                 <true/>
+            </dict>
+            <key>summon_eff_00_t_mythical_a_s.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{55,49}</string>
+                <key>spriteSourceSize</key>
+                <string>{57,49}</string>
+                <key>textureRect</key>
+                <string>{{984,203},{55,49}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>summon_eff_00_t_mythical_c.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{66,76}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,78}</string>
+                <key>textureRect</key>
+                <string>{{908,1},{66,76}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>summon_eff_00_t_mythical_c_s.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{47,53}</string>
+                <key>spriteSourceSize</key>
+                <string>{49,53}</string>
+                <key>textureRect</key>
+                <string>{{1153,61},{47,53}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>summon_eff_00_t_mythical_h.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{81,74}</string>
+                <key>spriteSourceSize</key>
+                <string>{85,74}</string>
+                <key>textureRect</key>
+                <string>{{687,1},{81,74}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>summon_eff_00_t_mythical_h_s.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{56,51}</string>
+                <key>spriteSourceSize</key>
+                <string>{56,51}</string>
+                <key>textureRect</key>
+                <string>{{869,204},{56,51}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>summon_eff_00_t_mythical_i.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{42,76}</string>
+                <key>spriteSourceSize</key>
+                <string>{46,76}</string>
+                <key>textureRect</key>
+                <string>{{599,210},{42,76}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>summon_eff_00_t_mythical_i_s.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{37,52}</string>
+                <key>spriteSourceSize</key>
+                <string>{37,52}</string>
+                <key>textureRect</key>
+                <string>{{1,216},{37,52}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>summon_eff_00_t_mythical_l.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{66,72}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,72}</string>
+                <key>textureRect</key>
+                <string>{{986,1},{66,72}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>summon_eff_00_t_mythical_l_s.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{47,50}</string>
+                <key>spriteSourceSize</key>
+                <string>{49,50}</string>
+                <key>textureRect</key>
+                <string>{{1186,1},{47,50}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>summon_eff_00_t_mythical_m.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{117,88}</string>
+                <key>spriteSourceSize</key>
+                <string>{121,88}</string>
+                <key>textureRect</key>
+                <string>{{509,118},{117,88}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>summon_eff_00_t_mythical_m_s.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{73,58}</string>
+                <key>spriteSourceSize</key>
+                <string>{75,58}</string>
+                <key>textureRect</key>
+                <string>{{1009,69},{73,58}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>summon_eff_00_t_mythical_t.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{70,74}</string>
+                <key>spriteSourceSize</key>
+                <string>{74,74}</string>
+                <key>textureRect</key>
+                <string>{{836,1},{70,74}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>summon_eff_00_t_mythical_t_s.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{51,51}</string>
+                <key>spriteSourceSize</key>
+                <string>{51,51}</string>
+                <key>textureRect</key>
+                <string>{{1041,202},{51,51}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>summon_eff_00_t_mythical_y.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{79,73}</string>
+                <key>spriteSourceSize</key>
+                <string>{83,73}</string>
+                <key>textureRect</key>
+                <string>{{690,84},{79,73}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>summon_eff_00_t_mythical_y_s.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{55,50}</string>
+                <key>spriteSourceSize</key>
+                <string>{55,50}</string>
+                <key>textureRect</key>
+                <string>{{927,204},{55,50}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>summon_eff_00_t_rare_a.png</key>
             <dict>
@@ -465,7 +705,7 @@
                 <key>spriteSourceSize</key>
                 <string>{74,58}</string>
                 <key>textureRect</key>
-                <string>{{1,735},{74,58}}</string>
+                <string>{{859,144},{74,58}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -480,7 +720,7 @@
                 <key>spriteSourceSize</key>
                 <string>{58,58}</string>
                 <key>textureRect</key>
-                <string>{{128,942},{58,58}}</string>
+                <string>{{1126,1},{58,58}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -495,9 +735,9 @@
                 <key>spriteSourceSize</key>
                 <string>{95,84}</string>
                 <key>textureRect</key>
-                <string>{{118,509},{95,84}}</string>
+                <string>{{601,1},{95,84}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -511,9 +751,9 @@
             <key>realTextureFileName</key>
             <string>summon.png</string>
             <key>size</key>
-            <string>{256,1001}</string>
+            <string>{1276,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:82fcf9f36e7429a862ce84c7901a4874:a8f6bed9ecc0fa2c2b1cdd4ab97433ad:7c0fb82bdb5b0cfdeda2d376a9fd2b71$</string>
+            <string>$TexturePacker:SmartUpdate:058388ef3c3962fe6e16dfef4da1680d:9975e2610773a51c5fd5ccefb8056b5e:7c0fb82bdb5b0cfdeda2d376a9fd2b71$</string>
             <key>textureFileName</key>
             <string>summon.png</string>
         </dict>

@@ -1008,7 +1008,7 @@
 									rotation = 0.000000;
 									visible = true;
 									lua_name = '';
-									file_name = 'ui/icons/rarity/dragon_legendary.png';
+									file_name = 'ui/icons/rarity/dragon_myth.png';
 									color = { 255; 255; 255; };
 									opacity = 255;
 									flip_x = false;
@@ -1062,7 +1062,7 @@
 										rotation = 0.000000;
 										visible = true;
 										lua_name = '';
-										file_name = 'ui/icons/star/star_yellow_0105.png';
+										file_name = 'ui/icons/star/star_yellow_0106.png';
 										color = { 255; 255; 255; };
 										opacity = 255;
 										flip_x = false;
