@@ -30,6 +30,8 @@ UI_GachaResult_Dragon = class(PARENT, {
 
         -- 마일리지
     m_added_mileage = 'number',
+
+    m_shownMythDid = 'table',
 })
 
 -------------------------------------
@@ -45,6 +47,17 @@ end
 -- function init
 -------------------------------------
 function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data, added_mileage)
+    --
+    local list = {}
+    for i, v in ipairs(l_gacha_dragon_list) do
+        if i == 5 then v['did'] = 121752 v['grade'] = 6 end
+        if i == 6 then v['did'] = 121754 v['grade'] = 6 end
+        if i == 7 then v['did'] = 121752 v['grade'] = 6 end
+
+        table.insert(list, v)
+    end
+    l_gacha_dragon_list = list
+    
 
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -54,7 +67,8 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self.m_eggRes = egg_res
     self.m_bSkip = false
     self.m_tSummonData = t_summon_data
-        self.m_added_mileage = added_mileage or 0
+    self.m_added_mileage = added_mileage or 0
+    self.m_shownMythDid = {}
 
     -- 연출없이 즉시 단일 결과 보여주는 타입..
     if (self.m_type == 'immediately') then
@@ -76,7 +90,10 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
         table.insert(self.m_lGachaDragonList, struct)
     end
 
-        -- 연출 제어용으로 원본 따로 저장
+    cclog(#self.m_lGachaDragonList)
+    cclog(table.count(self.m_lGachaDragonList))
+
+    -- 연출 제어용으로 원본 따로 저장
     self.m_lGachaDragonListOrg = clone(self.m_lGachaDragonList)
 
     self.m_uiName = 'UI_GachaResult_Dragon'
@@ -549,7 +566,10 @@ function UI_GachaResult_Dragon:setDragonCardList()
         -- 리스트에 저장 (연출을 위해)
         local itemKey = t_data:getObjectId()
 
-        if (not itemKey) then itemKey = tostring(t_data:getDid()) .. tostring(i) end
+        if (not itemKey) then 
+            itemKey = tostring(t_data:getDid()) .. tostring(i) 
+            t_data['id'] = itemKey
+        end
 
         self.m_lDragonCardList[itemKey] = card
 
@@ -622,51 +642,167 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon:click_skipBtn()
     self.m_bSkip = true
+    cclog(table.count(self.m_lGachaDragonList))
+    if (#self.m_lGachaDragonList > 1) then
+        local has_myth = false
 
-    if (table.count(self.m_lGachaDragonList) > 1) then
-        local grade = 0
-        local idx
-        for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do 
-            if (grade < t_dragon_data['grade']) then  
-                grade = t_dragon_data['grade']
-                idx = i
+        for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do
+            if (t_dragon_data:getRarity() == 'myth') then
+                has_myth = true
+                break
             end
         end
 
+        --cclog('test myth is on')
+        --has_myth = true
+
+        if (has_myth) then
+            self:onSkip_special()
+
+        else
+            self:onSkip_standard()
+
+        end
+    else
+        -- 마지막 드래곤 animator를 띄우고 마지막 연출을 실행한다.
+        if self.m_currDragonAnimator then
+            self.m_currDragonAnimator:forceSkipDirecting()
+        end
+
+        -- 스킵을 했다면 스킵 버튼을 가린다.
+        self.vars['skipBtn']:setVisible(false)
+    end
+end
+
+
+-------------------------------------
+-- function onSkip_special
+-------------------------------------
+function UI_GachaResult_Dragon:onSkip_special()
+    local l_myth_dragon = {}
+    local top_idx
+    local top_grade = 0
+    local is_final_index = true
+    local showing_idx = 1
+
+    for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do
+        local rarity = t_dragon_data:getRarity()
+        local doid = t_dragon_data:getObjectId()
+        local did = tostring(t_dragon_data:getDid())
+        local card = self.m_lDragonCardList[doid]
+
+        if (top_grade < t_dragon_data['grade']) then  
+            top_grade = t_dragon_data['grade']
+            top_idx = i
+        end
+
+        if (rarity == 'myth') and (not card.root:isVisible()) and (not self.m_shownMythDid[did]) then
+            card.root:setVisible(true)
+            card.root:setEnabled(true)
+            is_final_index = false
+            self:refresh_dragon(t_dragon_data)
+            showing_idx = i
+            
+            self.m_shownMythDid[did] = true
+
+            break
+        elseif (not card.root:isVisible()) then
+            card.root:setVisible(true)
+            card.root:setEnabled(true)
+        end
+            
+        card.vars['clickBtn']:setEnabled(true)
+        if (self.m_tDragonCardEffectTable[card]) then
+            self.m_tDragonCardEffectTable[card]:runAction(cc.FadeIn:create(2))
+        end
+
+        if (i >= #self.m_lGachaDragonListOrg) then is_final_index = true end
+        showing_idx = i
+    end
+
+    if (is_final_index) then
+        local t_dragon_data
+
         -- 가장 높은 등급의 드래곤
-        if (idx) then
-            local t_dragon_data = self.m_lGachaDragonListOrg[idx]
+        if (top_idx) then
+            t_dragon_data = self.m_lGachaDragonListOrg[top_idx]
             self.m_lGachaDragonList = {t_dragon_data}
         
         -- 마지막 데이터만 남긴다.
         else
-            local t_last_data = self.m_lGachaDragonList[#self.m_lGachaDragonList]
+            t_last_data = self.m_lGachaDragonList[#self.m_lGachaDragonList]
             self.m_lGachaDragonList = {t_last_data}
 
         end
+    elseif (showing_idx) then
+        self.m_lGachaDragonList = {}
 
-        -- 남은 드래곤 카드들도 오픈한다.
-        for _, card in pairs(self.m_lDragonCardList) do
-            card.root:setVisible(true)
-            card.root:setEnabled(true)
-            
-            card.vars['clickBtn']:setEnabled(true)
-            if (self.m_tDragonCardEffectTable[card]) then
-                self.m_tDragonCardEffectTable[card]:runAction(cc.FadeIn:create(2))
+        for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do
+            if (i >= showing_idx) then
+                table.insert(self.m_lGachaDragonList, t_dragon_data)
             end
         end
-
-        self:refresh()
     end
 
+    self:refresh()
+    
     -- 마지막 드래곤 animator를 띄우고 마지막 연출을 실행한다.
     if self.m_currDragonAnimator then
-        self.m_currDragonAnimator:forceSkipDirecting()
+        if (is_final_index) then
+            self.m_currDragonAnimator:forceSkipDirecting()
+
+            -- 스킵을 했다면 스킵 버튼을 가린다.
+            self.vars['skipBtn']:setVisible(false)
+
+        else
+            self.m_currDragonAnimator:appearDragonAnimator()
+
+        end
+    end
+end
+
+
+-------------------------------------
+-- function onSkip_standard
+-------------------------------------
+function UI_GachaResult_Dragon:onSkip_standard()
+    self.m_bSkip = true
+
+    local grade = 0
+    local idx
+    for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do 
+        if (grade < t_dragon_data['grade']) then  
+            grade = t_dragon_data['grade']
+            idx = i
+        end
     end
 
-    -- 스킵을 했다면 스킵 버튼을 가린다.
-    self.vars['skipBtn']:setVisible(false)
+    -- 가장 높은 등급의 드래곤
+    if (idx) then
+        local t_dragon_data = self.m_lGachaDragonListOrg[idx]
+        self.m_lGachaDragonList = {t_dragon_data}
+        
+    -- 마지막 데이터만 남긴다.
+    else
+        local t_last_data = self.m_lGachaDragonList[#self.m_lGachaDragonList]
+        self.m_lGachaDragonList = {t_last_data}
+
+    end
+
+    -- 남은 드래곤 카드들도 오픈한다.
+    for _, card in pairs(self.m_lDragonCardList) do
+        card.root:setVisible(true)
+        card.root:setEnabled(true)
+            
+        card.vars['clickBtn']:setEnabled(true)
+        if (self.m_tDragonCardEffectTable[card]) then
+            self.m_tDragonCardEffectTable[card]:runAction(cc.FadeIn:create(2))
+        end
+    end
+
+    self:refresh()
 end
+
 
 -------------------------------------
 -- function click_lockBtn

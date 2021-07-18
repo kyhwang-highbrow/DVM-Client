@@ -53,7 +53,7 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:setDragonAnimator(did, evolution, flv)
     --did = 120221 --번고
-    did = 121752 --데스락
+    --did = 121752 --데스락
 
     PARENT.setDragonAnimator(self, did, evolution, flv)
 
@@ -66,7 +66,7 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:startDirecting()
     local vars = self.vars
-    cclog('스킵 온')
+
 	-- 연출 세팅
     self.m_bottomEffect:setVisible(false)
     self.m_rarityEffect:setVisible(false)
@@ -236,10 +236,16 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
     end
 
     local dragon_appear_cut_res
+    local is_skip_activated = self.m_ownerUI and self.m_ownerUI.vars['skipBtn']:isVisible() or true
 
     if (not isNullOrEmpty(self.m_dragonName) and self.m_bMyth) then
         self.vars['skipBtn']:setVisible(false)
-        if (self.m_ownerUI) then self.m_ownerUI.vars['skipBtn']:setVisible(false) end
+        if (self.m_ownerUI) then 
+            self.m_ownerUI.vars['skipBtn']:setVisible(false) 
+            self.m_ownerUI.vars['okBtn']:setVisible(false) 
+        
+        end
+
         local file_name = string.format('appear_%s', self.m_dragonName)
         dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.vrp', file_name, file_name)
         animator = MakeAnimator(dragon_appear_cut_res)
@@ -248,10 +254,15 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
         Translate:a2dTranslate(dragon_appear_cut_res)
     else
         self.vars['skipBtn']:setVisible(true)
-        if (self.m_ownerUI) then self.m_ownerUI.vars['skipBtn']:setVisible(true) end
+        if (self.m_ownerUI) then 
+            self.m_ownerUI.vars['skipBtn']:setVisible(true) 
+            self.m_ownerUI.vars['okBtn']:setVisible(true)
+        end
     end
 
     if (animator) then
+        animator.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 1)
+
         animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
 
 	    local cut_node = self.vars['topEffectNode']
@@ -260,12 +271,36 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
 
         animator:changeAni('appear', false)
 
+        -- 라벨만들기
+	    local label = cc.Label:createWithTTF(0, 
+            'res/font/common_font_01.ttf', 
+            30, 
+            1, 
+            cc.size(100, 100), 
+            1, 1)
+
+        local uic_label = UIC_LabelTTF(label)
+        uic_label:setPosition(0, -200)
+
+        uic_label:setDockPoint(CENTER_POINT)
+        uic_label:setAnchorPoint(CENTER_POINT)
+        uic_label:setColor(cc.c3b(0, 255, 255))
+        animator.m_node:addChild(uic_label.m_node)
+        -- TODO
+        uic_label:setString(tostring(self.m_did))
+        uic_label.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 2)
+
         animator:addAniHandler(function()
+            uic_label:setString('')
             animator:changeAni('idle', false)
             animator:addAniHandler(function()
                 animator:changeAni('end', false)
                 animator:addAniHandler(function()
                     animator:setVisible(false)
+                    if (self.m_ownerUI) then 
+                        self.m_ownerUI.vars['skipBtn']:setVisible(is_skip_activated) 
+                        self.m_ownerUI.vars['okBtn']:setVisible(true)
+                    end
                     if finish_cb then finish_cb() else after_appear_cut_cb() end
  	            end)
 	        end)
@@ -326,17 +361,13 @@ end
 -- @brief skip을 강제할때 필요한 세팅을 하고 드래곤을 등장 시킨다.
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:forceSkipDirecting()
-    function finish_cb()
-	self.vars['touchNode']:setVisible(false)
+    self.vars['touchNode']:setVisible(false)
 
-	self.m_currStep = self.m_maxStep + 1
+    self.m_currStep = self.m_maxStep + 1
 
-	-- top_appear연출 생략을 위해 부모함수 호출
-	PARENT.appearDragonAnimator(self)
+    -- top_appear연출 생략을 위해 부모함수 호출
+    PARENT.appearDragonAnimator(self)
     self:show_textAnimation()
-    end
-
-    self:appearDragonAnimator(finish_cb)
 end
 
 -------------------------------------
