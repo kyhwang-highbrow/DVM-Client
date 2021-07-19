@@ -369,6 +369,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             
             -- 배경
             local attr = TableDragon:getDragonAttr(did)
+            cclog(attr)
             if self:checkVarsKey('bgNode', attr) then
                 local animator = ResHelper:getUIDragonBG(attr, 'idle')
                 vars['bgNode']:addChild(animator.m_node)
@@ -681,6 +682,7 @@ function UI_GachaResult_Dragon:onSkip_special()
     local top_grade = 0
     local is_final_index = true
     local showing_idx = 1
+    local showing_dragon_data
 
     for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do
         local rarity = t_dragon_data:getRarity()
@@ -735,13 +737,21 @@ function UI_GachaResult_Dragon:onSkip_special()
         self.m_lGachaDragonList = {}
 
         for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do
+            if (i == showing_idx) then
+                showing_dragon_data = t_dragon_data
+            end
+
             if (i >= showing_idx) then
                 table.insert(self.m_lGachaDragonList, t_dragon_data)
             end
         end
     end
 
+    
+
     self:refresh()
+    if (showing_dragon_data) then self:refresh_dragon(showing_dragon_data) end
+    
     
     -- 마지막 드래곤 animator를 띄우고 마지막 연출을 실행한다.
     if self.m_currDragonAnimator then
