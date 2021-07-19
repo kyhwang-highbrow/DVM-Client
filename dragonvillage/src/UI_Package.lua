@@ -152,6 +152,8 @@ function UI_Package:initEachProduct(index, struct_product)
     -- 보너스 상품 (mail_content의 마지막 아이템)
     node = vars['itemNode' .. index] or vars['itemNode']
     if node and (vars['bonusNode' .. index] or vars['bonusNode']) then
+        node:removeAllChildren()
+        
         local item = item_list[#item_list]
         if item then
             local icon = IconHelper:getItemIcon(item['item_id'], item['count'])
@@ -169,6 +171,8 @@ function UI_Package:initEachProduct(index, struct_product)
     -- 아이콘 노드
     node = vars['iconNode' .. index] or vars['iconNode']
     if node and (struct_product['icon'] ~= '') then
+        node:removeAllChildren()
+
         local icon = struct_product:makeProductIcon()
         if icon then
             node:addChild(icon)
@@ -179,6 +183,7 @@ function UI_Package:initEachProduct(index, struct_product)
     -- 뱃지 아이콘 추가
     node = vars['badgeNode' .. index] or vars['badgeNode']
     if node then
+        node:removeAllChildren()
         local badge_icon = struct_product:makeBadgeIcon()
         if badge_icon then
             node:addChild(badge_icon)
@@ -201,6 +206,18 @@ function UI_Package:refresh()
     local is_noti_visible = false
 
     for index, struct_product in ipairs(self.m_productList) do 
+        local purchased_num = g_shopDataNew:getBuyCount(struct_product:getProductID())
+        local limit = struct_product:getMaxBuyCount()
+
+        if purchased_num and limit and (purchased_num >= limit) then
+            local dependent_product_id = struct_product:getDependency()
+
+            if dependent_product_id then
+                struct_product = g_shopDataNew:getTargetProduct(dependent_product_id)
+                self.m_productList[index] = struct_product
+            end
+        end
+
         self:initEachProduct(index, struct_product)
 
         is_noti_visible = (struct_product:getPrice() == 0) and (struct_product:isItBuyable())
@@ -276,10 +293,6 @@ function UI_Package:click_buyBtn(index)
 	local struct_product = self.m_productList[index or 1]
 
 	local function cb_func(ret)
-        if (self.m_cbBuy) then
-            self.m_cbBuy(ret)
-        end
-
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
 
@@ -291,6 +304,11 @@ function UI_Package:click_buyBtn(index)
         elseif (self.m_isPopup == true) then
             self:close()
 		end
+
+        
+        if (self.m_cbBuy) then
+            self.m_cbBuy(ret)
+        end
 	end
 
 	struct_product:buy(cb_func)

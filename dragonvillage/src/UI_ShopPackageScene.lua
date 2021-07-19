@@ -75,8 +75,11 @@ end
 -- function createButtonTableView
 ----------------------------------------------------------------------
 function UI_ShopPackageScene:createButtonTableView(package_name)
-    local packBundleTable = TABLE:get('table_package_bundle')
 
+    if self.m_tableView then
+        self.m_tableView:removeAllChildren()
+        self.m_tableView = nil
+    end
     local item_list = g_shopDataNew:getActivatedPackageList()
  
     local create_func = function(ui, data)
@@ -149,32 +152,49 @@ function UI_PackageCategoryButton:init(data)
     local vars = self:load('shop_package_list.ui')
 
     vars['listBtn']:registerScriptTapHandler(function() self:click_btn() end)
-
-    
-    local product_list = self.m_data['product_list']
-
-    if #product_list > 1 then
-        local badge = product_list[1]:makeBadgeIcon()
-        if badge then
-            vars['badgeNode']:addChild(badge)
-        end
-    end
 end
-
 
 ----------------------------------------------------------------------
 -- function refresh
 ----------------------------------------------------------------------
 function UI_PackageCategoryButton:refresh()
+    local vars = self.vars
+    local product_list = self.m_data['product_list']
+
     local is_noti_visible = false
-    for index, struct_product in pairs(self.m_data['product_list']) do
+    for index, struct_product in pairs(product_list) do
+        -----------------------
+        local purchased_num = g_shopDataNew:getBuyCount(struct_product:getProductID())
+        local limit = struct_product:getMaxBuyCount()
+
+        if purchased_num and limit and (purchased_num >= limit) then
+            local dependent_product_id = struct_product:getDependency()
+
+            if dependent_product_id then
+                struct_product = g_shopDataNew:getTargetProduct(dependent_product_id)
+                self.m_data['product_list'][index] = struct_product
+            end
+        end        
+        -----------------------
         if (struct_product:getPrice() == 0) and (struct_product:isItBuyable()) then
             is_noti_visible = true
         end
     end
 
-    if self.vars['notiSprite'] then
-        self.vars['notiSprite']:setVisible(is_noti_visible)
+    if vars['notiSprite'] then
+        vars['notiSprite']:setVisible(is_noti_visible)
+    end
+
+    if vars['badgeNode'] then
+        vars['badgeNode']:removeAllChildren()
+        
+        for _, struct_product in pairs(product_list) do
+            local badge = struct_product:makeBadgeIcon()
+            if badge then
+                vars['badgeNode']:addChild(badge)
+                break
+            end
+        end
     end
 end
 
@@ -310,7 +330,9 @@ function UI_PackageCategoryButton:createTableView()
 
         if ui then
             if checkMemberInMetatable(ui, 'setBuyCB') then
-                ui:setBuyCB(function() self:refresh() end)
+                ui:setBuyCB(function()
+                    self:refresh() 
+                end)
             end
 
             local ui_size = ui.root:getChildren()[1]:getContentSize()
