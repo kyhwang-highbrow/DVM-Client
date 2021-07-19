@@ -191,10 +191,11 @@ function ScenePatch:runApkExpansion()
     local app_ver = getAppVer()
 
     -- APK 확장 파일 다운로드 스킵 체크
-    if (not CppFunctions:useObb() == true) then
-        self:finishPatch()
-        return
-    end
+    -- 더 이상 obb가 필요 없음
+    --if (not CppFunctions:useObb() == true) then
+    --    self:finishPatch()
+    --    return
+    --end
 
     -- 윈도우 에뮬레이터에서는 동작하지 않음
     if (isWin32() == true) then

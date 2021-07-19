@@ -123,8 +123,8 @@ function UI_StaminaInfo:click_chargeBtn()
     elseif (stamina_type == 'st') then
         local b_use_cash_label = false
         local ui_charge_popup = UI_StaminaChargePopup(b_use_cash_label)
-    --elseif (stamina_type == 'arena_new') then
-    --    local ui_charge_popup = UI_ArenaNewStaminaChargePopup()
+    elseif (stamina_type == 'arena_new') then
+        local ui_charge_popup = UI_ArenaNewStaminaChargePopup()
     else
         self:showToolTip()
     end
