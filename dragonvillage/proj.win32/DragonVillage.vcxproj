@@ -1081,6 +1081,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UIC_IconAndName.lua" />
     <None Include="..\src\UIC_IndivisualStats.lua" />
     <None Include="..\src\UIC_LabelTTF.lua" />
+    <None Include="..\src\UIC_Label_TypingEffect.lua" />
     <None Include="..\src\UIC_ListExpansion.lua" />
     <None Include="..\src\UIC_ListExpansionItem.lua" />
     <None Include="..\src\UIC_Node.lua" />
