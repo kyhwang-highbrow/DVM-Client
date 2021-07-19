@@ -639,7 +639,7 @@ end
 -- function click_skipBtn
 -------------------------------------
 function UI_GachaResult_Dragon:click_skipBtn()
-    self.m_bSkip = true
+    --self.m_bSkip = true
 
     if (#self.m_lGachaDragonList > 1) then
         local has_myth = false
@@ -734,6 +734,9 @@ function UI_GachaResult_Dragon:onSkip_special()
             self.m_lGachaDragonList = {t_last_data}
 
         end
+
+        self.m_bSkip = true
+
     elseif (showing_idx) then
         self.m_lGachaDragonList = {}
 

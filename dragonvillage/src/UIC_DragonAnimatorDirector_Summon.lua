@@ -293,9 +293,7 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
 
         local typing_label = MakeTypingEffectLabel(uic_label)
         typing_label.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 5)
-        typing_label:setDueTime(1.2)
-        typing_label:setString(Str(str))	
-
+        typing_label:setDueTime(1.5)
         typing_label:setString(Str(str))
         typing_label.m_node:runAction( cc.Sequence:create(cc.DelayTime:create(6.0), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
 
