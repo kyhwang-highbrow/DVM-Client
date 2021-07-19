@@ -187,15 +187,21 @@ end
 -------------------------------------
 function ScenePatch:runApkExpansion()
     self.m_vars['messageLabel']:setString(Str('추가 리소스 확인 중...'))
+    
+    -- obb 더이상 사용 안함
+    if (true) then 
+        self:finishPatch()
+        return 
+    end
 
     local app_ver = getAppVer()
 
     -- APK 확장 파일 다운로드 스킵 체크
     -- 더 이상 obb가 필요 없음
-    --if (not CppFunctions:useObb() == true) then
-    --    self:finishPatch()
-    --    return
-    --end
+    if (not CppFunctions:useObb() == true) then
+        self:finishPatch()
+        return
+    end
 
     -- 윈도우 에뮬레이터에서는 동작하지 않음
     if (isWin32() == true) then

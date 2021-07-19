@@ -90,9 +90,6 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
         table.insert(self.m_lGachaDragonList, struct)
     end
 
-    cclog(#self.m_lGachaDragonList)
-    cclog(table.count(self.m_lGachaDragonList))
-
     -- 연출 제어용으로 원본 따로 저장
     self.m_lGachaDragonListOrg = clone(self.m_lGachaDragonList)
 
@@ -642,7 +639,7 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon:click_skipBtn()
     self.m_bSkip = true
-    cclog(table.count(self.m_lGachaDragonList))
+
     if (#self.m_lGachaDragonList > 1) then
         local has_myth = false
 

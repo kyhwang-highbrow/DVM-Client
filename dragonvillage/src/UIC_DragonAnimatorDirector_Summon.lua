@@ -247,7 +247,7 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
         end
 
         local file_name = string.format('appear_%s', self.m_dragonName)
-        dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.vrp', file_name, file_name)
+        dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
         animator = MakeAnimator(dragon_appear_cut_res)
 
         --번역
@@ -276,34 +276,42 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
             'res/font/common_font_01.ttf', 
             30, 
             1, 
-            cc.size(100, 100), 
+            cc.size(600, 100), 
             1, 1)
 
         local uic_label = UIC_LabelTTF(label)
-        uic_label:setPosition(0, -200)
+        uic_label:setPosition(0, -150)
 
         uic_label:setDockPoint(CENTER_POINT)
         uic_label:setAnchorPoint(CENTER_POINT)
-        uic_label:setColor(cc.c3b(0, 255, 255))
+        uic_label:setColor(COLOR['white'])
         animator.m_node:addChild(uic_label.m_node)
         -- TODO
-        uic_label:setString(tostring(self.m_did))
-        uic_label.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 2)
+        local str = TableDragonPhrase():getValue(self.m_did, 't_dragon_appear')
+        if (not str) then str = '' end
+        uic_label:setString(Str(str))
+        uic_label.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 5)
+
+        function end_animation()
+            animator:setVisible(false)
+            if (self.m_ownerUI) then 
+                self.m_ownerUI.vars['skipBtn']:setVisible(is_skip_activated) 
+                self.m_ownerUI.vars['okBtn']:setVisible(true)
+            end
+
+            if finish_cb then finish_cb() else after_appear_cut_cb() end
+        end
 
         animator:addAniHandler(function()
-            uic_label:setString('')
             animator:changeAni('idle', false)
             animator:addAniHandler(function()
-                animator:changeAni('end', false)
-                animator:addAniHandler(function()
-                    animator:setVisible(false)
-                    if (self.m_ownerUI) then 
-                        self.m_ownerUI.vars['skipBtn']:setVisible(is_skip_activated) 
-                        self.m_ownerUI.vars['okBtn']:setVisible(true)
-                    end
-                    if finish_cb then finish_cb() else after_appear_cut_cb() end
- 	            end)
+                if (animator:hasAni('end')) then
+                    animator:changeAni('end', false)
+                end
 	        end)
+            animator:addAniHandler(function()
+                end_animation()
+            end)
 	    end)
     else
         if finish_cb then finish_cb() else after_appear_cut_cb() end
