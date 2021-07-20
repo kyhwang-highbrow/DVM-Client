@@ -89,7 +89,7 @@ function UI_LobbyGuideAdventure:refresh()
 
     -- 지옥 12-7
     if (not g_adventureData:isClearStage(1131207)) then
-        vars['npcSpeechLabel']:setString(Str('{@diff_hell}지옥 12-7{@default}을 정복하면 {@item_name}신화의 알{@default}을 획득할 수 있어요!\n저와 함께 모험을 떠나볼까요?'))
+        vars['npcSpeechLabel']:setString(Str('{@diff_hell}지옥 12-7{@default}을 정복하면 {@item_name}빛나는 전설의 알{@default}을 획득할 수 있어요!\n저와 함께 모험을 떠나볼까요?'))
 
         vars['rewardNode']:removeAllChildren(true)
         local item = UI_ItemCard(703001, 1)
