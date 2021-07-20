@@ -1,0 +1,384 @@
+
+animala_all_03.png
+size: 962,1043
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+animala_all_03_arm_1
+  rotate: false
+  xy: 859, 451
+  size: 75, 77
+  orig: 75, 77
+  offset: 0, 0
+  index: -1
+animala_all_03_arm_2
+  rotate: false
+  xy: 468, 2
+  size: 52, 61
+  orig: 52, 61
+  offset: 0, 0
+  index: -1
+animala_all_03_arm_3
+  rotate: true
+  xy: 300, 2
+  size: 62, 59
+  orig: 62, 59
+  offset: 0, 0
+  index: -1
+animala_all_03_arm_4
+  rotate: false
+  xy: 613, 55
+  size: 86, 87
+  orig: 86, 87
+  offset: 0, 0
+  index: -1
+animala_all_03_arm_5
+  rotate: true
+  xy: 483, 162
+  size: 66, 56
+  orig: 66, 56
+  offset: 0, 0
+  index: -1
+animala_all_03_arm_6
+  rotate: false
+  xy: 701, 39
+  size: 125, 114
+  orig: 125, 114
+  offset: 0, 0
+  index: -1
+animala_all_03_body_2
+  rotate: false
+  xy: 610, 477
+  size: 151, 164
+  orig: 151, 164
+  offset: 0, 0
+  index: -1
+animala_all_03_body_3
+  rotate: false
+  xy: 893, 735
+  size: 67, 77
+  orig: 67, 77
+  offset: 0, 0
+  index: -1
+animala_all_03_body_4
+  rotate: true
+  xy: 696, 4
+  size: 33, 46
+  orig: 33, 46
+  offset: 0, 0
+  index: -1
+animala_all_03_body_5
+  rotate: false
+  xy: 541, 307
+  size: 151, 164
+  orig: 151, 164
+  offset: 0, 0
+  index: -1
+animala_all_03_fur_1
+  rotate: true
+  xy: 894, 620
+  size: 75, 66
+  orig: 75, 66
+  offset: 0, 0
+  index: -1
+animala_all_03_fur_2
+  rotate: false
+  xy: 763, 530
+  size: 79, 114
+  orig: 79, 114
+  offset: 0, 0
+  index: -1
+animala_all_03_fur_3
+  rotate: false
+  xy: 541, 144
+  size: 154, 161
+  orig: 154, 161
+  offset: 0, 0
+  index: -1
+animala_all_03_hand_1
+  rotate: false
+  xy: 699, 646
+  size: 71, 58
+  orig: 71, 58
+  offset: 0, 0
+  index: -1
+animala_all_03_hand_2
+  rotate: true
+  xy: 828, 2
+  size: 48, 39
+  orig: 48, 39
+  offset: 0, 0
+  index: -1
+animala_all_03_hand_3
+  rotate: false
+  xy: 854, 228
+  size: 34, 50
+  orig: 34, 50
+  offset: 0, 0
+  index: -1
+animala_all_03_hand_4
+  rotate: false
+  xy: 894, 174
+  size: 33, 52
+  orig: 33, 52
+  offset: 0, 0
+  index: -1
+animala_all_03_hand_5
+  rotate: false
+  xy: 890, 228
+  size: 33, 50
+  orig: 33, 50
+  offset: 0, 0
+  index: -1
+animala_all_03_hand_6
+  rotate: true
+  xy: 844, 620
+  size: 32, 47
+  orig: 32, 47
+  offset: 0, 0
+  index: -1
+animala_all_03_hand_7
+  rotate: true
+  xy: 522, 13
+  size: 50, 81
+  orig: 50, 81
+  offset: 0, 0
+  index: -1
+animala_all_03_hand_8
+  rotate: true
+  xy: 869, 5
+  size: 45, 51
+  orig: 45, 51
+  offset: 0, 0
+  index: -1
+animala_all_03_hand_9
+  rotate: false
+  xy: 920, 554
+  size: 36, 64
+  orig: 36, 64
+  offset: 0, 0
+  index: -1
+animala_all_03_head_1
+  rotate: true
+  xy: 763, 458
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+animala_all_03_head_2
+  rotate: false
+  xy: 844, 530
+  size: 74, 88
+  orig: 74, 88
+  offset: 0, 0
+  index: -1
+animala_all_03_head_3
+  rotate: false
+  xy: 188, 17
+  size: 110, 101
+  orig: 110, 101
+  offset: 0, 0
+  index: -1
+animala_all_03_hood_1
+  rotate: false
+  xy: 483, 65
+  size: 128, 77
+  orig: 128, 77
+  offset: 0, 0
+  index: -1
+animala_all_03_hood_2
+  rotate: true
+  xy: 709, 831
+  size: 87, 184
+  orig: 87, 184
+  offset: 0, 0
+  index: -1
+animala_all_03_hood_3
+  rotate: false
+  xy: 709, 920
+  size: 236, 121
+  orig: 236, 121
+  offset: 0, 0
+  index: -1
+animala_all_03_hood_4
+  rotate: true
+  xy: 699, 706
+  size: 121, 111
+  orig: 121, 111
+  offset: 0, 0
+  index: -1
+animala_all_03_hood_5
+  rotate: true
+  xy: 2, 31
+  size: 87, 184
+  orig: 87, 184
+  offset: 0, 0
+  index: -1
+animala_all_03_hood_6
+  rotate: false
+  xy: 610, 643
+  size: 87, 184
+  orig: 87, 184
+  offset: 0, 0
+  index: -1
+animala_all_03_reg_1
+  rotate: true
+  xy: 361, 5
+  size: 59, 105
+  orig: 59, 105
+  offset: 0, 0
+  index: -1
+animala_all_03_reg_2
+  rotate: false
+  xy: 817, 654
+  size: 68, 52
+  orig: 68, 52
+  offset: 0, 0
+  index: -1
+animala_all_03_reg_3
+  rotate: false
+  xy: 762, 342
+  size: 82, 114
+  orig: 82, 114
+  offset: 0, 0
+  index: -1
+animala_all_03_reg_4
+  rotate: false
+  xy: 895, 814
+  size: 64, 104
+  orig: 64, 104
+  offset: 0, 0
+  index: -1
+animala_all_03_reg_5
+  rotate: false
+  xy: 812, 708
+  size: 79, 121
+  orig: 79, 121
+  offset: 0, 0
+  index: -1
+animala_all_03_tail_1
+  rotate: false
+  xy: 545, 829
+  size: 162, 212
+  orig: 162, 212
+  offset: 0, 0
+  index: -1
+animala_all_03_weapon_1
+  rotate: false
+  xy: 2, 473
+  size: 302, 351
+  orig: 302, 351
+  offset: 0, 0
+  index: -1
+animala_all_03_weapon_2
+  rotate: false
+  xy: 2, 120
+  size: 302, 351
+  orig: 302, 351
+  offset: 0, 0
+  index: -1
+animala_all_03_weapon_3
+  rotate: false
+  xy: 306, 473
+  size: 302, 351
+  orig: 302, 351
+  offset: 0, 0
+  index: -1
+animala_all_03_wing_1
+  rotate: true
+  xy: 306, 66
+  size: 162, 175
+  orig: 162, 175
+  offset: 0, 0
+  index: -1
+animala_all_03_wing_2
+  rotate: false
+  xy: 782, 228
+  size: 70, 112
+  orig: 70, 112
+  offset: 0, 0
+  index: -1
+animala_all_03_wing_3
+  rotate: false
+  xy: 893, 697
+  size: 67, 36
+  orig: 67, 36
+  offset: 0, 0
+  index: -1
+effect_fire_1
+  rotate: false
+  xy: 694, 313
+  size: 66, 162
+  orig: 66, 162
+  offset: 0, 0
+  index: -1
+effect_fire_2
+  rotate: true
+  xy: 772, 650
+  size: 54, 43
+  orig: 54, 43
+  offset: 0, 0
+  index: -1
+effect_fire_3
+  rotate: true
+  xy: 655, 7
+  size: 46, 39
+  orig: 46, 39
+  offset: 0, 0
+  index: -1
+effect_fire_33
+  rotate: false
+  xy: 846, 358
+  size: 86, 91
+  orig: 86, 91
+  offset: 0, 0
+  index: -1
+effect_fire_4
+  rotate: false
+  xy: 306, 230
+  size: 233, 241
+  orig: 233, 241
+  offset: 0, 0
+  index: -1
+effect_fire_5
+  rotate: false
+  xy: 854, 280
+  size: 76, 76
+  orig: 76, 76
+  offset: 0, 0
+  index: -1
+effect_fire_6
+  rotate: true
+  xy: 605, 2
+  size: 51, 48
+  orig: 51, 48
+  offset: 0, 0
+  index: -1
+effect_fire_7
+  rotate: false
+  xy: 697, 155
+  size: 83, 156
+  orig: 83, 156
+  offset: 0, 0
+  index: -1
+effect_fire_8
+  rotate: true
+  xy: 782, 156
+  size: 70, 110
+  orig: 70, 110
+  offset: 0, 0
+  index: -1
+effect_fire_9
+  rotate: false
+  xy: 828, 52
+  size: 85, 102
+  orig: 85, 102
+  offset: 0, 0
+  index: -1
+effect_weapon_1
+  rotate: false
+  xy: 2, 826
+  size: 541, 215
+  orig: 541, 215
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>green_circle.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{605,605}</string>
+                <key>spriteSourceSize</key>
+                <string>{623,623}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{605,605}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>sobj_green_circle.png</string>
+            <key>size</key>
+            <string>{607,607}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:91a4f167ae018fbfd3735ec835afaab3:d3370e12e82d6d78ec1db68af391b4d9:5f1a18d1181629964643c111c36dd5d3$</string>
+            <key>textureFileName</key>
+            <string>sobj_green_circle.png</string>
+        </dict>
+    </dict>
+</plist>

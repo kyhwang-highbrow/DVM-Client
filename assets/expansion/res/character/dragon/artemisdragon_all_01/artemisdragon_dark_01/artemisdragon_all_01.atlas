@@ -1,0 +1,188 @@
+
+artemisdragon_all_01.png
+size: 1392,199
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+artemisdragon_all_01_body_01
+  rotate: false
+  xy: 832, 50
+  size: 168, 147
+  orig: 168, 147
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_eye_01
+  rotate: false
+  xy: 921, 12
+  size: 50, 36
+  orig: 50, 36
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_eye_01_2
+  rotate: false
+  xy: 678, 3
+  size: 53, 33
+  orig: 53, 33
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_eye_02
+  rotate: false
+  xy: 973, 6
+  size: 44, 42
+  orig: 44, 42
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_eye_02_2
+  rotate: false
+  xy: 1019, 9
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_eye_03
+  rotate: false
+  xy: 733, 11
+  size: 28, 25
+  orig: 28, 25
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_frill_01
+  rotate: false
+  xy: 1237, 107
+  size: 88, 90
+  orig: 88, 90
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_head_01
+  rotate: true
+  xy: 1237, 21
+  size: 84, 88
+  orig: 84, 88
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_head_02
+  rotate: true
+  xy: 201, 4
+  size: 70, 101
+  orig: 70, 101
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_head_03
+  rotate: false
+  xy: 405, 2
+  size: 111, 108
+  orig: 111, 108
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_head_04
+  rotate: false
+  xy: 622, 16
+  size: 54, 94
+  orig: 54, 94
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_head_05
+  rotate: true
+  xy: 829, 4
+  size: 44, 90
+  orig: 44, 90
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_leg_01
+  rotate: true
+  xy: 304, 3
+  size: 71, 95
+  orig: 71, 95
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_leg_02
+  rotate: false
+  xy: 518, 17
+  size: 102, 93
+  orig: 102, 93
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_leg_03
+  rotate: false
+  xy: 1327, 93
+  size: 63, 104
+  orig: 63, 104
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_leg_04
+  rotate: false
+  xy: 678, 38
+  size: 94, 84
+  orig: 94, 84
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_wing_01
+  rotate: false
+  xy: 1145, 2
+  size: 73, 98
+  orig: 73, 98
+  offset: 0, 0
+  index: -1
+artemisdragon_all_01_wing_02
+  rotate: false
+  xy: 774, 30
+  size: 53, 92
+  orig: 53, 92
+  offset: 0, 0
+  index: -1
+effect_artemisdragon_all_01_effect_01
+  rotate: false
+  xy: 405, 112
+  size: 237, 85
+  orig: 237, 85
+  offset: 0, 0
+  index: -1
+effect_artemisdragon_all_01_effect_02
+  rotate: false
+  xy: 1327, 36
+  size: 54, 55
+  orig: 54, 55
+  offset: 0, 0
+  index: -1
+effect_artemisdragon_all_01_effect_03
+  rotate: false
+  xy: 1063, 9
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1
+effect_artemisdragon_all_01_effect_05
+  rotate: true
+  xy: 644, 124
+  size: 73, 186
+  orig: 73, 186
+  offset: 0, 0
+  index: -1
+effect_artemisdragon_all_01_effect_06
+  rotate: false
+  xy: 2, 8
+  size: 197, 189
+  orig: 197, 189
+  offset: 0, 0
+  index: -1
+effect_artemisdragon_all_01_effect_07
+  rotate: false
+  xy: 1002, 53
+  size: 141, 144
+  orig: 141, 144
+  offset: 0, 0
+  index: -1
+effect_artemisdragon_all_01_effect_08
+  rotate: true
+  xy: 201, 76
+  size: 121, 202
+  orig: 121, 202
+  offset: 0, 0
+  index: -1
+effect_artemisdragon_all_01_effect_09
+  rotate: false
+  xy: 1145, 102
+  size: 90, 95
+  orig: 90, 95
+  offset: 0, 0
+  index: -1

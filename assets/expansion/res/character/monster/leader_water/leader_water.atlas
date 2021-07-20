@@ -1,0 +1,139 @@
+
+leader_water.png
+size: 432,282
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+leader_water_acc_01
+  rotate: false
+  xy: 108, 145
+  size: 203, 135
+  orig: 203, 135
+  offset: 0, 0
+  index: -1
+leader_water_acc_02
+  rotate: false
+  xy: 2, 8
+  size: 104, 272
+  orig: 104, 272
+  offset: 0, 0
+  index: -1
+leader_water_acc_03
+  rotate: false
+  xy: 193, 12
+  size: 85, 66
+  orig: 85, 66
+  offset: 0, 0
+  index: -1
+leader_water_arm_01
+  rotate: false
+  xy: 381, 214
+  size: 49, 66
+  orig: 49, 66
+  offset: 0, 0
+  index: -1
+leader_water_arm_02
+  rotate: false
+  xy: 280, 24
+  size: 51, 54
+  orig: 51, 54
+  offset: 0, 0
+  index: -1
+leader_water_body_01
+  rotate: false
+  xy: 108, 31
+  size: 83, 112
+  orig: 83, 112
+  offset: 0, 0
+  index: -1
+leader_water_body_02
+  rotate: false
+  xy: 313, 177
+  size: 66, 103
+  orig: 66, 103
+  offset: 0, 0
+  index: -1
+leader_water_eye_02
+  rotate: false
+  xy: 290, 81
+  size: 24, 30
+  orig: 24, 30
+  offset: 0, 0
+  index: -1
+leader_water_hand_01
+  rotate: true
+  xy: 385, 128
+  size: 47, 45
+  orig: 47, 45
+  offset: 0, 0
+  index: -1
+leader_water_hand_02
+  rotate: false
+  xy: 333, 23
+  size: 38, 36
+  orig: 38, 36
+  offset: 0, 0
+  index: -1
+leader_water_hand_02_1
+  rotate: true
+  xy: 149, 3
+  size: 26, 30
+  orig: 26, 30
+  offset: 0, 0
+  index: -1
+leader_water_hand_02_2
+  rotate: true
+  xy: 385, 49
+  size: 33, 40
+  orig: 33, 40
+  offset: 0, 0
+  index: -1
+leader_water_hand_03
+  rotate: true
+  xy: 381, 177
+  size: 35, 38
+  orig: 35, 38
+  offset: 0, 0
+  index: -1
+leader_water_head_01
+  rotate: false
+  xy: 193, 80
+  size: 95, 63
+  orig: 95, 63
+  offset: 0, 0
+  index: -1
+leader_water_head_02
+  rotate: false
+  xy: 373, 12
+  size: 38, 35
+  orig: 38, 35
+  offset: 0, 0
+  index: -1
+leader_water_head_03
+  rotate: false
+  xy: 385, 84
+  size: 43, 42
+  orig: 43, 42
+  offset: 0, 0
+  index: -1
+leader_water_head_04
+  rotate: true
+  xy: 108, 2
+  size: 27, 39
+  orig: 27, 39
+  offset: 0, 0
+  index: -1
+leader_water_head_05
+  rotate: true
+  xy: 313, 113
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+leader_water_shoulder_01
+  rotate: false
+  xy: 333, 61
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,335 @@
+
+mokoji_pontifex.png
+size: 1428,269
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mokoji_pontifex_acce_02
+  rotate: true
+  xy: 105, 2
+  size: 15, 31
+  orig: 15, 31
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_arm_01
+  rotate: true
+  xy: 2, 4
+  size: 36, 64
+  orig: 36, 64
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_arm_02
+  rotate: true
+  xy: 1391, 188
+  size: 27, 34
+  orig: 27, 34
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_arm_03
+  rotate: false
+  xy: 1391, 110
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_arm_04
+  rotate: false
+  xy: 1391, 217
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_arm_05
+  rotate: true
+  xy: 1123, 157
+  size: 22, 26
+  orig: 22, 26
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_backbody_01
+  rotate: true
+  xy: 1094, 3
+  size: 63, 62
+  orig: 63, 62
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_backbody_02
+  rotate: false
+  xy: 68, 4
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_belt_01
+  rotate: false
+  xy: 974, 159
+  size: 72, 108
+  orig: 72, 108
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_body_01
+  rotate: true
+  xy: 1158, 3
+  size: 63, 62
+  orig: 63, 62
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_body_02
+  rotate: false
+  xy: 1285, 9
+  size: 55, 61
+  orig: 55, 61
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_cape_01
+  rotate: true
+  xy: 298, 2
+  size: 96, 147
+  orig: 96, 147
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_cape_03
+  rotate: false
+  xy: 699, 5
+  size: 113, 114
+  orig: 113, 114
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_effect_01
+  rotate: true
+  xy: 281, 100
+  size: 167, 115
+  orig: 167, 115
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_effect_02
+  rotate: false
+  xy: 1094, 68
+  size: 80, 87
+  orig: 80, 87
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_effect_03
+  rotate: true
+  xy: 398, 106
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_effect_04
+  rotate: true
+  xy: 90, 73
+  size: 194, 189
+  orig: 194, 189
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_effect_05
+  rotate: true
+  xy: 1002, 63
+  size: 94, 90
+  orig: 94, 90
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_effect_09
+  rotate: true
+  xy: 814, 5
+  size: 114, 107
+  orig: 114, 107
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_effect_10
+  rotate: false
+  xy: 1314, 106
+  size: 75, 73
+  orig: 75, 73
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_effect_11
+  rotate: true
+  xy: 675, 121
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_effect_12
+  rotate: true
+  xy: 2, 42
+  size: 225, 86
+  orig: 225, 86
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_effect_13
+  rotate: false
+  xy: 560, 107
+  size: 113, 160
+  orig: 113, 160
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_eye_01
+  rotate: false
+  xy: 90, 42
+  size: 58, 29
+  orig: 58, 29
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_eye_02
+  rotate: false
+  xy: 1151, 158
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_eye_03
+  rotate: false
+  xy: 105, 19
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_eye_04
+  rotate: false
+  xy: 1201, 158
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_face_01
+  rotate: true
+  xy: 281, 81
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_hair_01
+  rotate: false
+  xy: 447, 7
+  size: 122, 97
+  orig: 122, 97
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_hair_02
+  rotate: false
+  xy: 1002, 5
+  size: 90, 56
+  orig: 90, 56
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_hair_03
+  rotate: true
+  xy: 1234, 72
+  size: 83, 78
+  orig: 83, 78
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_hair_04
+  rotate: true
+  xy: 1222, 4
+  size: 62, 61
+  orig: 62, 61
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_hand_01
+  rotate: false
+  xy: 1246, 158
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_hand_02
+  rotate: false
+  xy: 1272, 158
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_hd_01
+  rotate: false
+  xy: 1048, 176
+  size: 73, 91
+  orig: 73, 91
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_hd_02
+  rotate: false
+  xy: 651, 8
+  size: 46, 97
+  orig: 46, 97
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_head_01
+  rotate: false
+  xy: 571, 8
+  size: 78, 97
+  orig: 78, 97
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_reg_01
+  rotate: false
+  xy: 877, 142
+  size: 95, 125
+  orig: 95, 125
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_reg_02
+  rotate: false
+  xy: 923, 18
+  size: 77, 122
+  orig: 77, 122
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_reg_03
+  rotate: true
+  xy: 150, 4
+  size: 67, 146
+  orig: 67, 146
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_reg_04
+  rotate: false
+  xy: 815, 133
+  size: 60, 134
+  orig: 60, 134
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_skirt_01
+  rotate: false
+  xy: 1176, 68
+  size: 56, 87
+  orig: 56, 87
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_skirt_03
+  rotate: true
+  xy: 1342, 62
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_wepon_01
+  rotate: true
+  xy: 1123, 181
+  size: 86, 266
+  orig: 86, 266
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_wepon_03
+  rotate: true
+  xy: 1342, 19
+  size: 41, 39
+  orig: 41, 39
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_wepon_05
+  rotate: false
+  xy: 1383, 20
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+mokoji_pontifex_wepon_06
+  rotate: false
+  xy: 1391, 157
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1

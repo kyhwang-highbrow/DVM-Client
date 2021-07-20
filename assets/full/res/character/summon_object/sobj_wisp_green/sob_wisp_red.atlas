@@ -1,0 +1,20 @@
+
+sob_wisp_red.png
+size: 406,204
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sobJ_wisp_r_ball
+  rotate: false
+  xy: 2, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+sobj_wisp_g_ball
+  rotate: false
+  xy: 204, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1

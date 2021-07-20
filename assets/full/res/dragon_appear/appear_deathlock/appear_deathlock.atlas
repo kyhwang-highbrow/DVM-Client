@@ -1,0 +1,55 @@
+
+appear_deathlock.png
+size: 1782,1545
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+black
+  rotate: false
+  xy: 1102, 644
+  size: 640, 480
+  orig: 640, 480
+  offset: 0, 0
+  index: -1
+eff_white
+  rotate: true
+  xy: 1178, 10
+  size: 632, 602
+  orig: 632, 602
+  offset: 0, 0
+  index: -1
+effect_myth_deathlock_eye_light
+  rotate: true
+  xy: 214, 2
+  size: 640, 480
+  orig: 640, 480
+  offset: 0, 0
+  index: -1
+myth_deathlock_chain
+  rotate: false
+  xy: 214, 731
+  size: 886, 812
+  orig: 886, 812
+  offset: 0, 0
+  index: -1
+myth_deathlock_head
+  rotate: true
+  xy: 696, 2
+  size: 640, 480
+  orig: 640, 480
+  offset: 0, 0
+  index: -1
+myth_deathlock_long
+  rotate: true
+  xy: 2, 79
+  size: 1464, 210
+  orig: 1464, 210
+  offset: 0, 0
+  index: -1
+myth_deathlock_short
+  rotate: true
+  xy: 1102, 1126
+  size: 417, 644
+  orig: 417, 644
+  offset: 0, 0
+  index: -1

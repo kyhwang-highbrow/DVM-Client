@@ -1,0 +1,195 @@
+
+hapla_all_01.png
+size: 580,289
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_hapla_all_01_atk_light
+  rotate: true
+  xy: 241, 4
+  size: 62, 69
+  orig: 62, 69
+  offset: 0, 0
+  index: -1
+effect_hapla_all_01_light_01
+  rotate: false
+  xy: 439, 111
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+effect_hapla_all_01_light_02
+  rotate: true
+  xy: 346, 112
+  size: 90, 91
+  orig: 90, 91
+  offset: 0, 0
+  index: -1
+effect_hapla_all_01_light_03
+  rotate: false
+  xy: 129, 178
+  size: 109, 109
+  orig: 109, 109
+  offset: 0, 0
+  index: -1
+effect_hapla_all_01_twinkle
+  rotate: false
+  xy: 540, 78
+  size: 36, 44
+  orig: 36, 44
+  offset: 0, 0
+  index: -1
+hapla_all_01_arm
+  rotate: false
+  xy: 112, 46
+  size: 60, 78
+  orig: 60, 78
+  offset: 0, 0
+  index: -1
+hapla_all_01_arm_02
+  rotate: false
+  xy: 174, 49
+  size: 54, 75
+  orig: 54, 75
+  offset: 0, 0
+  index: -1
+hapla_all_01_b_eye
+  rotate: true
+  xy: 366, 9
+  size: 39, 51
+  orig: 39, 51
+  offset: 0, 0
+  index: -1
+hapla_all_01_b_leg
+  rotate: true
+  xy: 346, 50
+  size: 60, 72
+  orig: 60, 72
+  offset: 0, 0
+  index: -1
+hapla_all_01_b_wing
+  rotate: false
+  xy: 368, 204
+  size: 101, 83
+  orig: 101, 83
+  offset: 0, 0
+  index: -1
+hapla_all_01_ball_01
+  rotate: false
+  xy: 230, 68
+  size: 68, 69
+  orig: 68, 69
+  offset: 0, 0
+  index: -1
+hapla_all_01_ball_02
+  rotate: true
+  xy: 420, 42
+  size: 67, 69
+  orig: 67, 69
+  offset: 0, 0
+  index: -1
+hapla_all_01_body
+  rotate: false
+  xy: 471, 189
+  size: 99, 98
+  orig: 99, 98
+  offset: 0, 0
+  index: -1
+hapla_all_01_c_eye_01
+  rotate: true
+  xy: 300, 85
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+hapla_all_01_c_eye_01_white
+  rotate: true
+  xy: 300, 85
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+hapla_all_01_c_eye_02
+  rotate: true
+  xy: 2, 9
+  size: 27, 37
+  orig: 27, 37
+  offset: 0, 0
+  index: -1
+hapla_all_01_c_eye_02_white
+  rotate: true
+  xy: 2, 9
+  size: 27, 37
+  orig: 27, 37
+  offset: 0, 0
+  index: -1
+hapla_all_01_eye_pose
+  rotate: false
+  xy: 312, 5
+  size: 52, 43
+  orig: 52, 43
+  offset: 0, 0
+  index: -1
+hapla_all_01_eye_swing
+  rotate: true
+  xy: 112, 5
+  size: 39, 41
+  orig: 39, 41
+  offset: 0, 0
+  index: -1
+hapla_all_01_eyebrow_01
+  rotate: false
+  xy: 240, 139
+  size: 104, 65
+  orig: 104, 65
+  offset: 0, 0
+  index: -1
+hapla_all_01_eyebrow_02
+  rotate: true
+  xy: 129, 126
+  size: 50, 86
+  orig: 50, 86
+  offset: 0, 0
+  index: -1
+hapla_all_01_head_01
+  rotate: false
+  xy: 2, 159
+  size: 125, 128
+  orig: 125, 128
+  offset: 0, 0
+  index: -1
+hapla_all_01_head_02
+  rotate: false
+  xy: 174, 2
+  size: 65, 45
+  orig: 65, 45
+  offset: 0, 0
+  index: -1
+hapla_all_01_leg_01
+  rotate: false
+  xy: 521, 124
+  size: 57, 63
+  orig: 57, 63
+  offset: 0, 0
+  index: -1
+hapla_all_01_leg_02
+  rotate: false
+  xy: 491, 44
+  size: 47, 65
+  orig: 47, 65
+  offset: 0, 0
+  index: -1
+hapla_all_01_tail
+  rotate: false
+  xy: 2, 38
+  size: 108, 119
+  orig: 108, 119
+  offset: 0, 0
+  index: -1
+hapla_all_01_wing
+  rotate: false
+  xy: 240, 206
+  size: 126, 81
+  orig: 126, 81
+  offset: 0, 0
+  index: -1

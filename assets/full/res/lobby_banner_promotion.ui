@@ -1,0 +1,106 @@
+{
+	type = 'Header';
+	version = '1.1.2';
+	[1] =
+	{
+		[1] =
+		{
+			[1] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = 50.000000;
+					y = -1.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 174;
+					height = 64;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 19;
+					text = '드래곤빌리지{@yellow}NEW{@default} \n사전예약 바로가기';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 174;
+					dimension_height = 64;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				type = 'Menu';
+				ui_name = '세트진행중';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 272;
+				height = 72;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stateMenu';
+			};
+			type = 'Button';
+			ui_name = '';
+			x = 0.000000;
+			y = 8.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 272;
+			height = 72;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'bannerBtn';
+			enable = true;
+			normal = 'ui/event/banner_promotion.png';
+			selected = 'ui/event/banner_promotion.png';
+			disable = 'ui/event/banner_promotion.png';
+			image_type = 0;
+		};
+		type = 'Menu';
+		ui_name = '';
+		x = 0.000000;
+		y = 0.000000;
+		dock_point = { 0.500000; 0.500000; };
+		anchor_point = { 0.500000; 0.500000; };
+		relative_size_type = 0;
+		width = 270;
+		height = 90;
+		scale_x = 1.000000;
+		scale_y = 1.000000;
+		skew_x = 0.000000;
+		skew_y = 0.000000;
+		rotation = 0.000000;
+		visible = true;
+		lua_name = '';
+	};
+};

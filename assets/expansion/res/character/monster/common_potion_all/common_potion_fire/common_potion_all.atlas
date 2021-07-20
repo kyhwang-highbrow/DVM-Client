@@ -1,0 +1,76 @@
+
+common_potion_all.png
+size: 774,294
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_potion_01
+  rotate: true
+  xy: 652, 143
+  size: 149, 115
+  orig: 149, 115
+  offset: 0, 0
+  index: -1
+common_potion_02
+  rotate: false
+  xy: 600, 8
+  size: 84, 86
+  orig: 84, 86
+  offset: 0, 0
+  index: -1
+common_potion_03
+  rotate: true
+  xy: 495, 9
+  size: 85, 103
+  orig: 85, 103
+  offset: 0, 0
+  index: -1
+common_potion_04
+  rotate: true
+  xy: 258, 2
+  size: 92, 115
+  orig: 92, 115
+  offset: 0, 0
+  index: -1
+common_potion_05
+  rotate: false
+  xy: 686, 61
+  size: 86, 80
+  orig: 86, 80
+  offset: 0, 0
+  index: -1
+common_potion_06
+  rotate: false
+  xy: 375, 17
+  size: 118, 77
+  orig: 118, 77
+  offset: 0, 0
+  index: -1
+common_potion_07
+  rotate: true
+  xy: 686, 8
+  size: 51, 47
+  orig: 51, 47
+  offset: 0, 0
+  index: -1
+common_potion_break
+  rotate: true
+  xy: 258, 96
+  size: 196, 195
+  orig: 196, 195
+  offset: 0, 0
+  index: -1
+common_potion_normal
+  rotate: true
+  xy: 455, 96
+  size: 196, 195
+  orig: 196, 195
+  offset: 0, 0
+  index: -1
+effect_common_potion
+  rotate: true
+  xy: 2, 22
+  size: 270, 254
+  orig: 270, 254
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,265 @@
+
+portunus_all_03.png
+size: 2006,284
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_portunus_all_03_attack_01
+  rotate: true
+  xy: 1772, 178
+  size: 104, 91
+  orig: 104, 91
+  offset: 0, 0
+  index: -1
+effect_portunus_all_03_attack_02
+  rotate: true
+  xy: 1484, 148
+  size: 134, 89
+  orig: 134, 89
+  offset: 0, 0
+  index: -1
+effect_portunus_all_03_attack_03
+  rotate: false
+  xy: 270, 8
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+effect_portunus_all_03_attack_04
+  rotate: false
+  xy: 1596, 40
+  size: 110, 111
+  orig: 110, 111
+  offset: 0, 0
+  index: -1
+effect_portunus_all_03_effect_01
+  rotate: true
+  xy: 191, 2
+  size: 86, 77
+  orig: 86, 77
+  offset: 0, 0
+  index: -1
+effect_portunus_all_03_effect_07
+  rotate: false
+  xy: 603, 2
+  size: 93, 95
+  orig: 93, 95
+  offset: 0, 0
+  index: -1
+effect_portunus_all_03_effect_08
+  rotate: false
+  xy: 1049, 115
+  size: 166, 167
+  orig: 166, 167
+  offset: 0, 0
+  index: -1
+portunus_water_03_arm_01
+  rotate: true
+  xy: 1666, 176
+  size: 106, 104
+  orig: 106, 104
+  offset: 0, 0
+  index: -1
+portunus_water_03_arm_03
+  rotate: false
+  xy: 1575, 153
+  size: 89, 129
+  orig: 89, 129
+  offset: 0, 0
+  index: -1
+portunus_water_03_arm_04
+  rotate: false
+  xy: 352, 2
+  size: 99, 87
+  orig: 99, 87
+  offset: 0, 0
+  index: -1
+portunus_water_03_body_01
+  rotate: false
+  xy: 1217, 117
+  size: 136, 165
+  orig: 136, 165
+  offset: 0, 0
+  index: -1
+portunus_water_03_body_02
+  rotate: true
+  xy: 767, 104
+  size: 178, 118
+  orig: 178, 118
+  offset: 0, 0
+  index: -1
+portunus_water_03_eye_01
+  rotate: false
+  xy: 1484, 117
+  size: 35, 29
+  orig: 35, 29
+  offset: 0, 0
+  index: -1
+portunus_water_03_eye_02
+  rotate: false
+  xy: 1521, 117
+  size: 29, 29
+  orig: 29, 29
+  offset: 0, 0
+  index: -1
+portunus_water_03_eyeclose_01
+  rotate: false
+  xy: 2, 3
+  size: 15, 11
+  orig: 15, 11
+  offset: 0, 0
+  index: -1
+portunus_water_03_foot_01
+  rotate: false
+  xy: 1856, 78
+  size: 70, 98
+  orig: 70, 98
+  offset: 0, 0
+  index: -1
+portunus_water_03_hand_01
+  rotate: true
+  xy: 643, 100
+  size: 182, 122
+  orig: 182, 122
+  offset: 0, 0
+  index: -1
+portunus_water_03_hand_02
+  rotate: false
+  xy: 1928, 207
+  size: 76, 75
+  orig: 76, 75
+  offset: 0, 0
+  index: -1
+portunus_water_03_hand_03
+  rotate: true
+  xy: 1873, 2
+  size: 74, 75
+  orig: 74, 75
+  offset: 0, 0
+  index: -1
+portunus_water_03_hand_04
+  rotate: false
+  xy: 1865, 198
+  size: 47, 43
+  orig: 47, 43
+  offset: 0, 0
+  index: -1
+portunus_water_03_head_01
+  rotate: false
+  xy: 459, 99
+  size: 182, 183
+  orig: 182, 183
+  offset: 0, 0
+  index: -1
+portunus_water_03_horn_01
+  rotate: false
+  xy: 799, 2
+  size: 89, 100
+  orig: 89, 100
+  offset: 0, 0
+  index: -1
+portunus_water_03_horn_04
+  rotate: false
+  xy: 1355, 119
+  size: 127, 163
+  orig: 127, 163
+  offset: 0, 0
+  index: -1
+portunus_water_03_jaw_01
+  rotate: false
+  xy: 1769, 4
+  size: 102, 63
+  orig: 102, 63
+  offset: 0, 0
+  index: -1
+portunus_water_03_jaw_02
+  rotate: false
+  xy: 1865, 243
+  size: 48, 39
+  orig: 48, 39
+  offset: 0, 0
+  index: -1
+portunus_water_03_leg_01
+  rotate: true
+  xy: 1708, 69
+  size: 105, 88
+  orig: 105, 88
+  offset: 0, 0
+  index: -1
+portunus_water_03_leg_02
+  rotate: false
+  xy: 1928, 138
+  size: 70, 67
+  orig: 70, 67
+  offset: 0, 0
+  index: -1
+portunus_water_03_leg_04
+  rotate: true
+  xy: 453, 11
+  size: 78, 148
+  orig: 78, 148
+  offset: 0, 0
+  index: -1
+portunus_water_03_legcover_01
+  rotate: false
+  xy: 1708, 2
+  size: 59, 65
+  orig: 59, 65
+  offset: 0, 0
+  index: -1
+portunus_water_03_tail_01
+  rotate: false
+  xy: 2, 16
+  size: 187, 266
+  orig: 187, 266
+  offset: 0, 0
+  index: -1
+portunus_water_03_wing_01
+  rotate: false
+  xy: 890, 2
+  size: 354, 107
+  orig: 354, 107
+  offset: 0, 0
+  index: -1
+portunus_water_03_wing_02
+  rotate: true
+  xy: 191, 90
+  size: 192, 132
+  orig: 192, 132
+  offset: 0, 0
+  index: -1
+portunus_water_03_wing_03
+  rotate: false
+  xy: 1246, 3
+  size: 348, 112
+  orig: 348, 112
+  offset: 0, 0
+  index: -1
+portunus_water_03_wing_04
+  rotate: true
+  xy: 887, 111
+  size: 171, 160
+  orig: 171, 160
+  offset: 0, 0
+  index: -1
+portunus_water_03_winghorn_01
+  rotate: false
+  xy: 698, 2
+  size: 99, 96
+  orig: 99, 96
+  offset: 0, 0
+  index: -1
+portunus_water_03_winghorn_02
+  rotate: false
+  xy: 1798, 74
+  size: 56, 102
+  orig: 56, 102
+  offset: 0, 0
+  index: -1
+portunus_water_03_wingin_02
+  rotate: true
+  xy: 325, 91
+  size: 191, 132
+  orig: 191, 132
+  offset: 0, 0
+  index: -1

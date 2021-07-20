@@ -1,0 +1,356 @@
+
+hypnos_all_01.png
+size: 1592,600
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_hypnos_all_01_attack_1
+  rotate: true
+  xy: 1489, 211
+  size: 61, 56
+  orig: 61, 56
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_attack_2
+  rotate: false
+  xy: 862, 140
+  size: 227, 227
+  orig: 227, 227
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_attack_3
+  rotate: false
+  xy: 1294, 2
+  size: 36, 41
+  orig: 36, 41
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_dust_01
+  rotate: true
+  xy: 1066, 371
+  size: 227, 211
+  orig: 227, 211
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_dust_02
+  rotate: false
+  xy: 862, 369
+  size: 202, 229
+  orig: 202, 229
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_dust_03
+  rotate: false
+  xy: 1332, 2
+  size: 61, 61
+  orig: 61, 61
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_dust_04
+  rotate: false
+  xy: 1483, 508
+  size: 107, 90
+  orig: 107, 90
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_feather_01
+  rotate: true
+  xy: 1545, 155
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_feather_02
+  rotate: true
+  xy: 1550, 285
+  size: 42, 39
+  orig: 42, 39
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_feather_03
+  rotate: true
+  xy: 1522, 68
+  size: 35, 52
+  orig: 35, 52
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_feather_04
+  rotate: false
+  xy: 1427, 163
+  size: 46, 58
+  orig: 46, 58
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_halo_01
+  rotate: false
+  xy: 1301, 223
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_halo_02
+  rotate: false
+  xy: 1279, 396
+  size: 202, 202
+  orig: 202, 202
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_halo_03
+  rotate: false
+  xy: 1091, 161
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_halo_03-1
+  rotate: true
+  xy: 604, 341
+  size: 257, 256
+  orig: 257, 256
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_halo_light
+  rotate: false
+  xy: 2, 8
+  size: 600, 590
+  orig: 600, 590
+  offset: 0, 0
+  index: -1
+effect_hypnos_all_01_it_4
+  rotate: false
+  xy: 604, 83
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+hypnos_all_01_arm_01
+  rotate: false
+  xy: 862, 89
+  size: 72, 49
+  orig: 72, 49
+  offset: 0, 0
+  index: -1
+hypnos_all_01_arm_02
+  rotate: true
+  xy: 604, 2
+  size: 79, 73
+  orig: 79, 73
+  offset: 0, 0
+  index: -1
+hypnos_all_01_body_01
+  rotate: true
+  xy: 937, 2
+  size: 136, 172
+  orig: 136, 172
+  offset: 0, 0
+  index: -1
+hypnos_all_01_ear_01
+  rotate: false
+  xy: 1301, 161
+  size: 65, 60
+  orig: 65, 60
+  offset: 0, 0
+  index: -1
+hypnos_all_01_fur_01
+  rotate: true
+  xy: 1236, 2
+  size: 41, 56
+  orig: 41, 56
+  offset: 0, 0
+  index: -1
+hypnos_all_01_fur_02
+  rotate: true
+  xy: 1547, 190
+  size: 49, 43
+  orig: 49, 43
+  offset: 0, 0
+  index: -1
+hypnos_all_01_fur_03
+  rotate: true
+  xy: 1467, 97
+  size: 36, 53
+  orig: 36, 53
+  offset: 0, 0
+  index: -1
+hypnos_all_01_hair_01
+  rotate: false
+  xy: 1301, 313
+  size: 91, 81
+  orig: 91, 81
+  offset: 0, 0
+  index: -1
+hypnos_all_01_hair_02
+  rotate: false
+  xy: 1483, 385
+  size: 96, 63
+  orig: 96, 63
+  offset: 0, 0
+  index: -1
+hypnos_all_01_hair_03
+  rotate: true
+  xy: 679, 2
+  size: 79, 57
+  orig: 79, 57
+  offset: 0, 0
+  index: -1
+hypnos_all_01_hand_01
+  rotate: false
+  xy: 1395, 22
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: -1
+hypnos_all_01_hand_02
+  rotate: true
+  xy: 1429, 10
+  size: 38, 32
+  orig: 38, 32
+  offset: 0, 0
+  index: -1
+hypnos_all_01_hand_03
+  rotate: false
+  xy: 1429, 50
+  size: 36, 33
+  orig: 36, 33
+  offset: 0, 0
+  index: -1
+hypnos_all_01_hand_04
+  rotate: true
+  xy: 1391, 223
+  size: 47, 46
+  orig: 47, 46
+  offset: 0, 0
+  index: -1
+hypnos_all_01_hand_05
+  rotate: false
+  xy: 1463, 14
+  size: 33, 34
+  orig: 33, 34
+  offset: 0, 0
+  index: -1
+hypnos_all_01_hand_06
+  rotate: false
+  xy: 1467, 62
+  size: 41, 33
+  orig: 41, 33
+  offset: 0, 0
+  index: -1
+hypnos_all_01_head_01
+  rotate: false
+  xy: 1298, 65
+  size: 94, 94
+  orig: 94, 94
+  offset: 0, 0
+  index: -1
+hypnos_all_01_head_01-1
+  rotate: false
+  xy: 1478, 274
+  size: 70, 53
+  orig: 70, 53
+  offset: 0, 0
+  index: -1
+hypnos_all_01_horn_01
+  rotate: true
+  xy: 1550, 241
+  size: 42, 39
+  orig: 42, 39
+  offset: 0, 0
+  index: -1
+hypnos_all_01_horn_02
+  rotate: false
+  xy: 1475, 135
+  size: 68, 74
+  orig: 68, 74
+  offset: 0, 0
+  index: -1
+hypnos_all_01_horn_03
+  rotate: true
+  xy: 1395, 272
+  size: 60, 81
+  orig: 60, 81
+  offset: 0, 0
+  index: -1
+hypnos_all_01_leg_01
+  rotate: true
+  xy: 1483, 329
+  size: 54, 90
+  orig: 54, 90
+  offset: 0, 0
+  index: -1
+hypnos_all_01_leg_02
+  rotate: true
+  xy: 846, 6
+  size: 75, 89
+  orig: 75, 89
+  offset: 0, 0
+  index: -1
+hypnos_all_01_muffler_01
+  rotate: false
+  xy: 1483, 450
+  size: 101, 56
+  orig: 101, 56
+  offset: 0, 0
+  index: -1
+hypnos_all_01_muffler_02
+  rotate: false
+  xy: 1368, 161
+  size: 57, 60
+  orig: 57, 60
+  offset: 0, 0
+  index: -1
+hypnos_all_01_muffler_03
+  rotate: true
+  xy: 1439, 224
+  size: 46, 48
+  orig: 46, 48
+  offset: 0, 0
+  index: -1
+hypnos_all_01_muffler_04
+  rotate: true
+  xy: 1236, 45
+  size: 114, 60
+  orig: 114, 60
+  offset: 0, 0
+  index: -1
+hypnos_all_01_muffler_05
+  rotate: true
+  xy: 797, 3
+  size: 78, 47
+  orig: 78, 47
+  offset: 0, 0
+  index: -1
+hypnos_all_01_pillow_01
+  rotate: false
+  xy: 1111, 16
+  size: 123, 143
+  orig: 123, 143
+  offset: 0, 0
+  index: -1
+hypnos_all_01_sleep01
+  rotate: true
+  xy: 1394, 334
+  size: 60, 87
+  orig: 60, 87
+  offset: 0, 0
+  index: -1
+hypnos_all_01_sleep02
+  rotate: false
+  xy: 1394, 85
+  size: 71, 74
+  orig: 71, 74
+  offset: 0, 0
+  index: -1
+hypnos_all_01_wing_01
+  rotate: true
+  xy: 738, 3
+  size: 78, 57
+  orig: 78, 57
+  offset: 0, 0
+  index: -1
+hypnos_all_01_wing_02
+  rotate: true
+  xy: 1545, 105
+  size: 48, 42
+  orig: 48, 42
+  offset: 0, 0
+  index: -1

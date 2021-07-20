@@ -1,0 +1,230 @@
+
+hapla_all_03.png
+size: 1495,430
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_hapla_all_03_atk_light
+  rotate: false
+  xy: 1283, 73
+  size: 78, 89
+  orig: 78, 89
+  offset: 0, 0
+  index: -1
+effect_hapla_all_03_circle
+  rotate: false
+  xy: 264, 172
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect_hapla_all_03_light_01
+  rotate: true
+  xy: 1194, 62
+  size: 90, 87
+  orig: 90, 87
+  offset: 0, 0
+  index: -1
+effect_hapla_all_03_light_02
+  rotate: false
+  xy: 842, 2
+  size: 104, 104
+  orig: 104, 104
+  offset: 0, 0
+  index: -1
+effect_hapla_all_03_light_03
+  rotate: false
+  xy: 211, 2
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect_hapla_all_03_light_04
+  rotate: false
+  xy: 736, 116
+  size: 126, 123
+  orig: 126, 123
+  offset: 0, 0
+  index: -1
+hapla_all_03_arm_01
+  rotate: false
+  xy: 1076, 154
+  size: 117, 121
+  orig: 117, 121
+  offset: 0, 0
+  index: -1
+hapla_all_03_arm_02
+  rotate: true
+  xy: 522, 15
+  size: 112, 180
+  orig: 112, 180
+  offset: 0, 0
+  index: -1
+hapla_all_03_b_arm_01
+  rotate: false
+  xy: 1195, 154
+  size: 83, 121
+  orig: 83, 121
+  offset: 0, 0
+  index: -1
+hapla_all_03_b_arm_02
+  rotate: false
+  xy: 864, 118
+  size: 136, 153
+  orig: 136, 153
+  offset: 0, 0
+  index: -1
+hapla_all_03_b_finger_01
+  rotate: true
+  xy: 264, 129
+  size: 41, 57
+  orig: 41, 57
+  offset: 0, 0
+  index: -1
+hapla_all_03_b_finger_02
+  rotate: false
+  xy: 1194, 2
+  size: 60, 58
+  orig: 60, 58
+  offset: 0, 0
+  index: -1
+hapla_all_03_b_leg
+  rotate: false
+  xy: 948, 27
+  size: 50, 89
+  orig: 50, 89
+  offset: 0, 0
+  index: -1
+hapla_all_03_b_wing_01
+  rotate: true
+  xy: 2, 2
+  size: 164, 207
+  orig: 164, 207
+  offset: 0, 0
+  index: -1
+hapla_all_03_b_wing_02
+  rotate: true
+  xy: 837, 273
+  size: 155, 213
+  orig: 155, 213
+  offset: 0, 0
+  index: -1
+hapla_all_03_ball
+  rotate: false
+  xy: 1280, 164
+  size: 113, 116
+  orig: 113, 116
+  offset: 0, 0
+  index: -1
+hapla_all_03_body_01
+  rotate: true
+  xy: 1270, 282
+  size: 146, 214
+  orig: 146, 214
+  offset: 0, 0
+  index: -1
+hapla_all_03_body_02
+  rotate: true
+  xy: 522, 241
+  size: 187, 313
+  orig: 187, 313
+  offset: 0, 0
+  index: -1
+hapla_all_03_finger_01
+  rotate: false
+  xy: 1445, 26
+  size: 48, 62
+  orig: 48, 62
+  offset: 0, 0
+  index: -1
+hapla_all_03_finger_02
+  rotate: false
+  xy: 1283, 2
+  size: 55, 69
+  orig: 55, 69
+  offset: 0, 0
+  index: -1
+hapla_all_03_finger_03
+  rotate: false
+  xy: 1340, 7
+  size: 53, 64
+  orig: 53, 64
+  offset: 0, 0
+  index: -1
+hapla_all_03_head_01
+  rotate: true
+  xy: 338, 7
+  size: 163, 182
+  orig: 163, 182
+  offset: 0, 0
+  index: -1
+hapla_all_03_head_02
+  rotate: true
+  xy: 704, 5
+  size: 109, 136
+  orig: 109, 136
+  offset: 0, 0
+  index: -1
+hapla_all_03_head_03
+  rotate: true
+  xy: 1000, 30
+  size: 76, 71
+  orig: 76, 71
+  offset: 0, 0
+  index: -1
+hapla_all_03_leg_01
+  rotate: false
+  xy: 1395, 156
+  size: 96, 124
+  orig: 96, 124
+  offset: 0, 0
+  index: -1
+hapla_all_03_leg_02
+  rotate: true
+  xy: 1363, 90
+  size: 64, 112
+  orig: 64, 112
+  offset: 0, 0
+  index: -1
+hapla_all_03_tail
+  rotate: true
+  xy: 1052, 277
+  size: 151, 216
+  orig: 151, 216
+  offset: 0, 0
+  index: -1
+hapla_all_03_wing_01
+  rotate: false
+  xy: 1395, 18
+  size: 48, 70
+  orig: 48, 70
+  offset: 0, 0
+  index: -1
+hapla_all_03_wing_02
+  rotate: false
+  xy: 2, 168
+  size: 260, 260
+  orig: 260, 260
+  offset: 0, 0
+  index: -1
+hapla_all_03_wing_03
+  rotate: false
+  xy: 522, 129
+  size: 212, 110
+  orig: 212, 110
+  offset: 0, 0
+  index: -1
+hapla_all_03_wing_04
+  rotate: true
+  xy: 1002, 108
+  size: 163, 72
+  orig: 163, 72
+  offset: 0, 0
+  index: -1
+hapla_all_03_wing_05
+  rotate: false
+  xy: 1076, 43
+  size: 116, 109
+  orig: 116, 109
+  offset: 0, 0
+  index: -1

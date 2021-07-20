@@ -1,0 +1,230 @@
+
+maloden_all_01.png
+size: 1938,421
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_maloden_all_01_attack_01
+  rotate: false
+  xy: 733, 192
+  size: 227, 227
+  orig: 227, 227
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_circle_01
+  rotate: false
+  xy: 1188, 6
+  size: 196, 196
+  orig: 196, 196
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_circle_02
+  rotate: false
+  xy: 628, 2
+  size: 158, 159
+  orig: 158, 159
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_effect_01
+  rotate: false
+  xy: 962, 199
+  size: 214, 220
+  orig: 214, 220
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_effect_02
+  rotate: false
+  xy: 1317, 210
+  size: 123, 209
+  orig: 123, 209
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_effect_03
+  rotate: false
+  xy: 1386, 4
+  size: 175, 204
+  orig: 175, 204
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_effect_04
+  rotate: false
+  xy: 215, 7
+  size: 150, 141
+  orig: 150, 141
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_effect_05
+  rotate: false
+  xy: 1875, 363
+  size: 61, 56
+  orig: 61, 56
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_feather_01
+  rotate: true
+  xy: 367, 3
+  size: 150, 259
+  orig: 150, 259
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_feather_01-1
+  rotate: false
+  xy: 1178, 204
+  size: 137, 215
+  orig: 137, 215
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_feather_01-2
+  rotate: false
+  xy: 2, 130
+  size: 206, 289
+  orig: 206, 289
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_feather_01-3
+  rotate: false
+  xy: 210, 150
+  size: 121, 269
+  orig: 121, 269
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_feather_02
+  rotate: true
+  xy: 1442, 225
+  size: 194, 175
+  orig: 194, 175
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_feather_03
+  rotate: true
+  xy: 566, 163
+  size: 256, 165
+  orig: 256, 165
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_feather_04
+  rotate: false
+  xy: 333, 155
+  size: 231, 264
+  orig: 231, 264
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_sprite_01
+  rotate: true
+  xy: 1563, 44
+  size: 179, 154
+  orig: 179, 154
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_sprite_02
+  rotate: true
+  xy: 788, 4
+  size: 186, 170
+  orig: 186, 170
+  offset: 0, 0
+  index: -1
+effect_maloden_all_01_sprite_03
+  rotate: false
+  xy: 960, 9
+  size: 226, 181
+  orig: 226, 181
+  offset: 0, 0
+  index: -1
+maloden_all_01_arm_01
+  rotate: true
+  xy: 1870, 190
+  size: 93, 65
+  orig: 93, 65
+  offset: 0, 0
+  index: -1
+maloden_all_01_arm_02
+  rotate: true
+  xy: 1856, 126
+  size: 62, 78
+  orig: 62, 78
+  offset: 0, 0
+  index: -1
+maloden_all_01_arm_03
+  rotate: true
+  xy: 1758, 190
+  size: 86, 100
+  orig: 86, 100
+  offset: 0, 0
+  index: -1
+maloden_all_01_body_01
+  rotate: true
+  xy: 1809, 53
+  size: 55, 45
+  orig: 55, 45
+  offset: 0, 0
+  index: -1
+maloden_all_01_body_02
+  rotate: false
+  xy: 2, 4
+  size: 211, 124
+  orig: 211, 124
+  offset: 0, 0
+  index: -1
+maloden_all_01_eye_01
+  rotate: true
+  xy: 1809, 4
+  size: 47, 46
+  orig: 47, 46
+  offset: 0, 0
+  index: -1
+maloden_all_01_head_01
+  rotate: false
+  xy: 1619, 248
+  size: 137, 171
+  orig: 137, 171
+  offset: 0, 0
+  index: -1
+maloden_all_01_head_01-1
+  rotate: true
+  xy: 1856, 56
+  size: 68, 69
+  orig: 68, 69
+  offset: 0, 0
+  index: -1
+maloden_all_01_head_02
+  rotate: true
+  xy: 1875, 285
+  size: 76, 57
+  orig: 76, 57
+  offset: 0, 0
+  index: -1
+maloden_all_01_leg_01
+  rotate: false
+  xy: 1789, 110
+  size: 65, 78
+  orig: 65, 78
+  offset: 0, 0
+  index: -1
+maloden_all_01_leg_02
+  rotate: false
+  xy: 1719, 91
+  size: 68, 97
+  orig: 68, 97
+  offset: 0, 0
+  index: -1
+maloden_all_01_leg_03
+  rotate: true
+  xy: 1758, 351
+  size: 68, 115
+  orig: 68, 115
+  offset: 0, 0
+  index: -1
+maloden_all_01_wing_01
+  rotate: false
+  xy: 1758, 278
+  size: 110, 71
+  orig: 110, 71
+  offset: 0, 0
+  index: -1
+maloden_all_01_wing_02
+  rotate: true
+  xy: 1719, 7
+  size: 82, 88
+  orig: 82, 88
+  offset: 0, 0
+  index: -1

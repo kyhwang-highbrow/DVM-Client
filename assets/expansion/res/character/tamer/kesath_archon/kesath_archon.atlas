@@ -1,0 +1,405 @@
+
+kesath_archon.png
+size: 623,1033
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kesath_archon_acc_01
+  rotate: false
+  xy: 177, 335
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+kesath_archon_acc_02
+  rotate: true
+  xy: 320, 335
+  size: 55, 88
+  orig: 55, 88
+  offset: 0, 0
+  index: -1
+kesath_archon_acc_03
+  rotate: false
+  xy: 293, 418
+  size: 25, 29
+  orig: 25, 29
+  offset: 0, 0
+  index: -1
+kesath_archon_acc_04
+  rotate: false
+  xy: 464, 435
+  size: 73, 46
+  orig: 73, 46
+  offset: 0, 0
+  index: -1
+kesath_archon_acc_05
+  rotate: true
+  xy: 453, 2
+  size: 55, 44
+  orig: 55, 44
+  offset: 0, 0
+  index: -1
+kesath_archon_acc_06
+  rotate: false
+  xy: 492, 155
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+kesath_archon_arm_01
+  rotate: true
+  xy: 539, 378
+  size: 51, 82
+  orig: 51, 82
+  offset: 0, 0
+  index: -1
+kesath_archon_arm_02
+  rotate: false
+  xy: 552, 22
+  size: 65, 63
+  orig: 65, 63
+  offset: 0, 0
+  index: -1
+kesath_archon_arm_03
+  rotate: true
+  xy: 387, 270
+  size: 63, 68
+  orig: 63, 68
+  offset: 0, 0
+  index: -1
+kesath_archon_arm_05
+  rotate: false
+  xy: 244, 4
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+kesath_archon_body_01
+  rotate: true
+  xy: 294, 46
+  size: 65, 94
+  orig: 65, 94
+  offset: 0, 0
+  index: -1
+kesath_archon_body_02
+  rotate: true
+  xy: 320, 392
+  size: 89, 142
+  orig: 89, 142
+  offset: 0, 0
+  index: -1
+kesath_archon_body_04
+  rotate: true
+  xy: 464, 390
+  size: 43, 73
+  orig: 43, 73
+  offset: 0, 0
+  index: -1
+kesath_archon_body_05
+  rotate: true
+  xy: 390, 145
+  size: 64, 65
+  orig: 64, 65
+  offset: 0, 0
+  index: -1
+kesath_archon_body_06
+  rotate: true
+  xy: 538, 305
+  size: 71, 83
+  orig: 71, 83
+  offset: 0, 0
+  index: -1
+kesath_archon_brow_01
+  rotate: true
+  xy: 142, 432
+  size: 49, 21
+  orig: 49, 21
+  offset: 0, 0
+  index: -1
+kesath_archon_cape_01
+  rotate: false
+  xy: 540, 431
+  size: 79, 124
+  orig: 79, 124
+  offset: 0, 0
+  index: -1
+kesath_archon_cape_02
+  rotate: false
+  xy: 561, 191
+  size: 57, 55
+  orig: 57, 55
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_01
+  rotate: true
+  xy: 2, 735
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_02
+  rotate: true
+  xy: 311, 735
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_03
+  rotate: false
+  xy: 2, 27
+  size: 159, 170
+  orig: 159, 170
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_04
+  rotate: false
+  xy: 2, 199
+  size: 173, 230
+  orig: 173, 230
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_05
+  rotate: false
+  xy: 2, 483
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_06
+  rotate: false
+  xy: 271, 483
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_07
+  rotate: false
+  xy: 540, 646
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_08
+  rotate: false
+  xy: 540, 557
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_i_01
+  rotate: false
+  xy: 457, 247
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_i_02
+  rotate: false
+  xy: 457, 189
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_i_03
+  rotate: false
+  xy: 424, 87
+  size: 79, 56
+  orig: 79, 56
+  offset: 0, 0
+  index: -1
+kesath_archon_effect_i_04
+  rotate: false
+  xy: 163, 4
+  size: 79, 40
+  orig: 79, 40
+  offset: 0, 0
+  index: -1
+kesath_archon_eye_01
+  rotate: true
+  xy: 499, 2
+  size: 55, 31
+  orig: 55, 31
+  offset: 0, 0
+  index: -1
+kesath_archon_eye_02
+  rotate: false
+  xy: 505, 59
+  size: 45, 31
+  orig: 45, 31
+  offset: 0, 0
+  index: -1
+kesath_archon_eye_03
+  rotate: false
+  xy: 44, 8
+  size: 45, 17
+  orig: 45, 17
+  offset: 0, 0
+  index: -1
+kesath_archon_face_01
+  rotate: false
+  xy: 294, 113
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+kesath_archon_finger_01
+  rotate: true
+  xy: 288, 343
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+kesath_archon_finger_02
+  rotate: false
+  xy: 387, 113
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+kesath_archon_foot_01
+  rotate: false
+  xy: 457, 149
+  size: 33, 38
+  orig: 33, 38
+  offset: 0, 0
+  index: -1
+kesath_archon_foot_01-1
+  rotate: true
+  xy: 265, 448
+  size: 33, 26
+  orig: 33, 26
+  offset: 0, 0
+  index: -1
+kesath_archon_foot_02
+  rotate: true
+  xy: 282, 5
+  size: 39, 36
+  orig: 39, 36
+  offset: 0, 0
+  index: -1
+kesath_archon_foot_02-1
+  rotate: true
+  xy: 294, 449
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: -1
+kesath_archon_foot_03
+  rotate: true
+  xy: 320, 5
+  size: 39, 34
+  orig: 39, 34
+  offset: 0, 0
+  index: -1
+kesath_archon_hair_01
+  rotate: false
+  xy: 390, 2
+  size: 61, 83
+  orig: 61, 83
+  offset: 0, 0
+  index: -1
+kesath_archon_hair_02
+  rotate: false
+  xy: 410, 336
+  size: 47, 54
+  orig: 47, 54
+  offset: 0, 0
+  index: -1
+kesath_archon_hair_03
+  rotate: false
+  xy: 459, 305
+  size: 77, 83
+  orig: 77, 83
+  offset: 0, 0
+  index: -1
+kesath_archon_hair_04
+  rotate: false
+  xy: 561, 248
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+kesath_archon_hand_01
+  rotate: false
+  xy: 505, 92
+  size: 45, 61
+  orig: 45, 61
+  offset: 0, 0
+  index: -1
+kesath_archon_hand_03
+  rotate: true
+  xy: 96, 432
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+kesath_archon_leg_01
+  rotate: true
+  xy: 269, 214
+  size: 119, 116
+  orig: 119, 116
+  offset: 0, 0
+  index: -1
+kesath_archon_leg_02
+  rotate: false
+  xy: 177, 212
+  size: 90, 121
+  orig: 90, 121
+  offset: 0, 0
+  index: -1
+kesath_archon_lowbody_01
+  rotate: false
+  xy: 163, 46
+  size: 129, 151
+  orig: 129, 151
+  offset: 0, 0
+  index: -1
+kesath_archon_lowbody_03
+  rotate: false
+  xy: 165, 434
+  size: 98, 47
+  orig: 98, 47
+  offset: 0, 0
+  index: -1
+kesath_archon_wepon_01
+  rotate: false
+  xy: 387, 211
+  size: 68, 57
+  orig: 68, 57
+  offset: 0, 0
+  index: -1
+kesath_archon_wepon_02
+  rotate: true
+  xy: 2, 3
+  size: 22, 40
+  orig: 22, 40
+  offset: 0, 0
+  index: -1
+kesath_archon_wepon_03
+  rotate: true
+  xy: 561, 87
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_archon_wepon_04
+  rotate: false
+  xy: 288, 380
+  size: 30, 36
+  orig: 30, 36
+  offset: 0, 0
+  index: -1
+kesath_archon_wepon_05
+  rotate: false
+  xy: 356, 16
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+kesath_archon_wepon_06
+  rotate: false
+  xy: 2, 431
+  size: 92, 50
+  orig: 92, 50
+  offset: 0, 0
+  index: -1

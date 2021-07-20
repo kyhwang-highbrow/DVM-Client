@@ -1,0 +1,89 @@
+
+dragon_gacha.png
+size: 1927,2030
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dragoncard_00
+  rotate: false
+  xy: 2, 2
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+dragoncard_01
+  rotate: false
+  xy: 947, 594
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+dragoncard_02
+  rotate: false
+  xy: 1284, 1221
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+dragoncard_11
+  rotate: false
+  xy: 1284, 1375
+  size: 251, 251
+  orig: 251, 251
+  offset: 0, 0
+  index: -1
+effect_bomb_1
+  rotate: false
+  xy: 1678, 1785
+  size: 247, 243
+  orig: 247, 243
+  offset: 0, 0
+  index: -1
+effect_bomb_3
+  rotate: false
+  xy: 2, 748
+  size: 1280, 1280
+  orig: 1280, 1280
+  offset: 0, 0
+  index: -1
+effect_bomb_4
+  rotate: false
+  xy: 1284, 1628
+  size: 392, 400
+  orig: 392, 400
+  offset: 0, 0
+  index: -1
+effect_light
+  rotate: false
+  xy: 2, 156
+  size: 600, 590
+  orig: 600, 590
+  offset: 0, 0
+  index: -1
+effect_pak
+  rotate: false
+  xy: 604, 425
+  size: 341, 321
+  orig: 341, 321
+  offset: 0, 0
+  index: -1
+effect_ring
+  rotate: false
+  xy: 604, 177
+  size: 243, 246
+  orig: 243, 246
+  offset: 0, 0
+  index: -1
+
+dragon_gacha2.png
+size: 904,904
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_spirit
+  rotate: false
+  xy: 2, 2
+  size: 900, 900
+  orig: 900, 900
+  offset: 0, 0
+  index: -1
