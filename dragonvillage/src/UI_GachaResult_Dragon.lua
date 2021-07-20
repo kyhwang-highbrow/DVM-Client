@@ -16,7 +16,8 @@ UI_GachaResult_Dragon = class(PARENT, {
     -- 연출 관련
     m_isDirecting = 'bool',
     m_hideUIList = '',
-    m_bSkip = 'bool',
+    m_bSkip = 'bool',           -- 완전히 끝까지 연출 스킵
+    m_bSkipClicked = 'bool',    -- 스킵을 클릭했을 때의 액션을 취해주기 위함
     m_selectedDragonData = 'StructDragonObject',
 
     -- 알 소환 연출
@@ -41,6 +42,7 @@ UI_GachaResult_Dragon = class(PARENT, {
 function UI_GachaResult_Dragon:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_bVisible = false -- onFocus 용도로만 쓰임
+    self.m_bSkipClicked = false
 end
 
 -------------------------------------
@@ -640,6 +642,7 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon:click_skipBtn()
     --self.m_bSkip = true
+    self.m_bSkipClicked = true
 
     if (#self.m_lGachaDragonList > 1) then
         local has_myth = false

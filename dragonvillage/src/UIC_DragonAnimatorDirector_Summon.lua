@@ -225,16 +225,29 @@ end
 -- @brief top_appear연출 호출하고 드래곤 등장시킴
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
-    local animator
+    local scene_callback = finish_cb
 
     function after_appear_cut_cb()
-	    self.m_topEffect:changeAni('top_appear', false)
-        self.m_topEffect:addAniHandler(function()
-            PARENT.appearDragonAnimator(self)
-            self:show_textAnimation()
-        end)
+        PARENT.appearDragonAnimator(self)
+        self:show_textAnimation(scene_callback)
     end
 
+    if (self.m_ownerUI and self.m_ownerUI.m_bSkipClicked) then
+        self:showMythAnimation(after_appear_cut_cb)
+    else
+        self.m_topEffect:changeAni('top_appear', false)
+        self.m_topEffect:addAniHandler(function()
+            self:showMythAnimation(after_appear_cut_cb)
+        end)
+    end
+end
+
+-------------------------------------
+-- function appearDragonAnimator
+-- @brief top_appear연출 호출하고 드래곤 등장시킴
+-------------------------------------
+function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
+    local animator
     local dragon_appear_cut_res
     local is_skip_activated = self.m_ownerUI and self.m_ownerUI.vars['skipBtn']:isVisible() or true
 
