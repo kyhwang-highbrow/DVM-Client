@@ -34,6 +34,7 @@ function UI_BookDragonCard_Bundle:initUI()
     local is_cardpack = (data['category'] and data['category'] == 'cardpack') or false -- 토파즈 드래곤인지
     local is_limit = (data['category'] and data['category'] == 'limited') or false -- 한정 드래곤인지
     local is_event = (data['category'] and data['category'] == 'event') or false -- 이벤트 드래곤인지
+    local is_myth = (data['rarity'] and data['rarity'] == 'myth') or false -- 신화 드래곤인지
 
     local is_undering = is_slime and false or (data['underling'] == 1) -- 자코인지
     local table_char = getCharTable(did)
@@ -66,11 +67,17 @@ function UI_BookDragonCard_Bundle:initUI()
     elseif (is_event) then
         desc = '{@purple}'.. Str('이벤트 드래곤')
 
+    elseif (is_myth) then
+        desc = '{@ROSE}'.. Str('신화 드래곤')
+
     else
         name_label:setPositionY(46)
     end
 
+    local text_color = is_myth and COLOR['ROSE'] or COLOR['DESC']
+
     vars['dscLabel']:setString(desc)
+    vars['mythSprite']:setVisible(is_myth)
 
     self:refresh()
 end
