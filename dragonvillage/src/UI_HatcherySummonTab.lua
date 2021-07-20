@@ -172,7 +172,8 @@ function UI_HatcherySummonTab:initUI()
     vars['premiumTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('cash') end)
     vars['friendshipTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('friend') end)
 
-    vars['infoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup() end)
+    vars['infoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_popup.ui') end)
+    vars['premiumInfoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_premium_popup.ui') end)
 
     self:onChangeCategory(default_category)
 
@@ -888,10 +889,15 @@ UI_HacheryInfoBtnPopup = class(UI, {})
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_HacheryInfoBtnPopup:init()
+function UI_HacheryInfoBtnPopup:init(ui_name)
+    -- 픽업
+    -- 'hatchery_summon_info_popup.ui'
+    -- 고오급
+    -- 'hatchery_summon_info_premium_popup.ui'
+
 	self.m_uiName = 'UI_HacheryInfoBtnPopup'
 
-    local vars = self:load('hatchery_summon_info_popup.ui')
+    local vars = self:load(ui_name)
     UIManager:open(self, UIManager.POPUP)
 
     -- @UI_ACTION
