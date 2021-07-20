@@ -147,6 +147,8 @@ function UI_StaminaInfo:showToolTip()
     else
         local stamina_id = TableItem():getItemIDFromItemType(stamina_type)
         local t_item = TABLE:get('item')[stamina_id]
+        cclog(stamina_type)
+
         name = Str(t_item['t_name'])
         desc = Str(t_item['t_desc'])
     end
