@@ -7,3 +7,4 @@
 */
 
 CFBundleDisplayName = "Dragon Village M";
+NSUserTrackingUsageDescription = "Used to interpose personalized advertisements.";

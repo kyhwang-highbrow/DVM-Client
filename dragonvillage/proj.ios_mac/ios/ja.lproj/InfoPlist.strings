@@ -7,3 +7,4 @@
 */
 
 CFBundleDisplayName = "ドラゴンビレッジM";
+NSUserTrackingUsageDescription = "カスタマイズ広告を介在するのに使用します。";

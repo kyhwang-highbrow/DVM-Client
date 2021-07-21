@@ -7,3 +7,4 @@
 */
 
 CFBundleDisplayName = "Villa Dragón M";
+NSUserTrackingUsageDescription = "用於開載個人定製廣告。";

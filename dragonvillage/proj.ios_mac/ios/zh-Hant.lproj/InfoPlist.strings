@@ -7,3 +7,4 @@
 */
 
 CFBundleDisplayName = "龍村M";
+NSUserTrackingUsageDescription = "用於開載個人定製廣告。";

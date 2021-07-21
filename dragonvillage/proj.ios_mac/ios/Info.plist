@@ -112,7 +112,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Your photo library will be used to deliver more personalized advertising experiences for you.</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string> </string>
+	<string>개인 맺춤 광고를 개재하는 데 사용됩니다.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>

@@ -7,3 +7,4 @@
 */
 
 CFBundleDisplayName = "ดราก้อนวิลเลจM";
+NSUserTrackingUsageDescription = "ใช้เพื่อเปิดโฆษณาเฉพาะรายบุคคล";

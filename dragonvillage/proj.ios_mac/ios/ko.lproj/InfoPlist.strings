@@ -7,3 +7,4 @@
 */
 
 CFBundleDisplayName = "드래곤빌리지M";
+NSUserTrackingUsageDescription = "개인 맞춤 광고를 개재하는 데 사용됩니다.";
