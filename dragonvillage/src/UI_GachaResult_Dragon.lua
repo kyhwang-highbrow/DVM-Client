@@ -545,7 +545,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
                 local doid = t_data:getObjectId()
                 local refreshed_data = g_dragonsData:getDragonDataFromUid(doid)
 
-                if (doid) then
+                if (refreshed_data) then
                     card.m_dragonData = refreshed_data
                     card:refresh_lock()
                     self:setLockSprite(refreshed_data:getLock())
