@@ -527,6 +527,14 @@ function StatusCalculator:getNewCombatPower()
 
     total_combat_power = total_combat_power * mastery_coef
 
+    -- 신화드래곤은 최종 전투력 * 0.9
+    if (self.m_charType == 'dragon') then
+        local t_dragon_data = TableDragon():get(self.m_chapterID)
+        if (t_dragon_data and t_dragon_data['rarity'] == 'myth') then
+            total_combat_power = total_combat_power * 0.9
+        end
+    end
+    
     --[[
     if IS_DEV_SERVER() then
         cclog(
