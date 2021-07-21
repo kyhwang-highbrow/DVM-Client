@@ -691,6 +691,7 @@ function UI_GachaResult_Dragon:onSkip_special()
     for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do
         local rarity = t_dragon_data:getRarity()
         local doid = t_dragon_data:getObjectId()
+        local did = t_dragon_data:getDid()
         local card = self.m_lDragonCardList[doid]
 
         if (top_grade < t_dragon_data['grade']) then  
