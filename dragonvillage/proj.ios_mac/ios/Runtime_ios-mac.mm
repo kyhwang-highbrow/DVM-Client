@@ -214,31 +214,33 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
     // iOS 14 개인 정보 보호
     } else if (strcmp(id, "request_tracking_authorization") == 0) {
         if (@available(iOS 14, *)) {
-            [HBAppTrackingTransparency requestTrackingAuthorizationWithHandler:^(NSUInteger status) {
-                NSLog(@"[HB] Tracking Authorization Status : %lu", (unsigned long)status);
-                switch(status)
-                {
-                    // notDetermined
-                    case 0:
-                        sdkEventResult(id, "fail", "notDetermined");
-                        break;
-                        
-                    // restricted
-                    case 1:
-                        sdkEventResult(id, "fail", "restricted");
-                        break;
-                        
-                    // denied
-                    case 2:
-                        sdkEventResult(id, "fail", "denied");
-                        break;
-                        
-                    // authorized
-                    case 3:
-                        sdkEventResult(id, "success", "authorized");
-                        break;
-                }
-            }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [HBAppTrackingTransparency requestTrackingAuthorizationWithHandler:^(NSUInteger status) {
+                    NSLog(@"[HB] Tracking Authorization Status : %lu", (unsigned long)status);
+                    switch(status)
+                    {
+                        // notDetermined
+                        case 0:
+                            sdkEventResult(id, "fail", "notDetermined");
+                            break;
+                            
+                        // restricted
+                        case 1:
+                            sdkEventResult(id, "fail", "restricted");
+                            break;
+                            
+                        // denied
+                        case 2:
+                            sdkEventResult(id, "fail", "denied");
+                            break;
+                            
+                        // authorized
+                        case 3:
+                            sdkEventResult(id, "success", "authorized");
+                            break;
+                    }
+                }];
+            });     
         } else {
             sdkEventResult(id, "success", "under iOS 14");
         }
