@@ -83,8 +83,17 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
 
     -- 연출에 사용될 리스트 merge
     self.m_lGachaDragonList = {}
-    for i,v in ipairs(copy_dragon_list) do
-        local struct = StructDragonObject(v)
+    for idx,v in ipairs(copy_dragon_list) do
+        local dragon_data
+
+        if (v['id']) then
+            dragon_data = v
+        else
+            dragon_data = v
+            dragon_data['id'] = dragon_data['did'] .. '_' .. tostring(idx)
+        end
+
+        local struct = StructDragonObject(dragon_data)
         table.insert(self.m_lGachaDragonList, struct)
     end
     for i,v in ipairs(copy_slime_list) do
@@ -567,7 +576,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
         local itemKey = t_data:getObjectId()
 
         if (not itemKey) then 
-            itemKey = tostring(t_data:getDid()) .. tostring(i) 
+            itemKey = tostring(t_data:getDid()) .. '_' .. tostring(i) 
             t_data['id'] = itemKey
         end
 

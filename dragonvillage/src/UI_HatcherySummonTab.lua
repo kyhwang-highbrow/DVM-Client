@@ -1058,8 +1058,6 @@ function UI_HatcherySummonAutoFarewellPopup:initButton()
 
     self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 
-    ccdump(self.vars)
-
     -- 자동작별 on
     vars['goodbyeOnBtn'] = UIC_CheckBox(vars['goodbyeOnBtn'].m_node, vars['goodbyeOnSprite'], true)
     vars['goodbyeOnBtn']:setManualMode(true)
