@@ -68,6 +68,10 @@ function UI_AcquisitionRegionListItem:initUI()
 			title_str = Str('[고급 알 부화]')
 			content_str = Str('3~5★ 드래곤 알에서 획득')
 
+		elseif string.find(get_type, 'pick_gacha') then
+			title_str = '[' .. Str('고급 소환') .. ']'
+			content_str = Str('고급소환에서 획득')
+
 		elseif (get_type == 'mileage') then
 			title_str = Str('[특수 알 부화]')
 			content_str = Str('한정 드래곤 포함 알에서 획득')
@@ -166,7 +170,10 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 		elseif (get_type == 'pick_high') then
 			UINavigator:goTo('hatchery')
 
-		elseif (get_type == 'mileage') then
+		elseif (get_type == 'pick_gacha') then
+			UINavigator:goTo('hatchery')
+
+        elseif (get_type == 'mileage') then
 			UINavigator:goTo('hatchery')
 
 		elseif (get_type == 'friend') then
