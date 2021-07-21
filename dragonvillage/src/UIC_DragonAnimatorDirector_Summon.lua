@@ -316,7 +316,7 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
 
         local function act_text()
             typing_label:setString(Str(str))
-            typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(6.0), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
+            typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(5.1), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
         end
 
         typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(0.9), cc.CallFunc:create(function() act_text() end)))
