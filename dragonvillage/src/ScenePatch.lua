@@ -106,10 +106,12 @@ end
 -------------------------------------
 function ScenePatch:checkPermission_iOS()
     local function cb_func(result)
-         if (result == 'success') then
+        if (result == 'success') then
             -- not determined true
             SDKManager:requestTrackingAuthorization(function() self:runApkExpansion() end)
-         end
+        else
+            self:runApkExpansion()
+        end
     end
 
     SDKManager:isTrackingNotDetermined(cb_func)
