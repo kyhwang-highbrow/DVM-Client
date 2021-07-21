@@ -209,6 +209,7 @@ function UI_Package:refresh()
         local purchased_num = g_shopDataNew:getBuyCount(struct_product:getProductID())
         local limit = struct_product:getMaxBuyCount()
 
+        -- 특가 상품이 구매제한 초과 시 기존상품(dependency)으로 교체
         if purchased_num and limit and (purchased_num >= limit) then
             local dependent_product_id = struct_product:getDependency()
 

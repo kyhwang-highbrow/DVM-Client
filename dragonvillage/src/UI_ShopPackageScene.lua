@@ -163,10 +163,11 @@ function UI_PackageCategoryButton:refresh()
 
     local is_noti_visible = false
     for index, struct_product in pairs(product_list) do
-        -----------------------
+        
         local purchased_num = g_shopDataNew:getBuyCount(struct_product:getProductID())
         local limit = struct_product:getMaxBuyCount()
 
+        -- 특가 상품이 구매제한 초과 시 기존상품(dependency)으로 교체
         if purchased_num and limit and (purchased_num >= limit) then
             local dependent_product_id = struct_product:getDependency()
 
@@ -175,7 +176,8 @@ function UI_PackageCategoryButton:refresh()
                 self.m_data['product_list'][index] = struct_product
             end
         end        
-        -----------------------
+        
+        -- 구매 가능한지 노티 체크
         if (struct_product:getPrice() == 0) and (struct_product:isItBuyable()) then
             is_noti_visible = true
         end
@@ -187,7 +189,7 @@ function UI_PackageCategoryButton:refresh()
 
     if vars['badgeNode'] then
         vars['badgeNode']:removeAllChildren()
-        
+
         for _, struct_product in pairs(product_list) do
             local badge = struct_product:makeBadgeIcon()
             if badge then

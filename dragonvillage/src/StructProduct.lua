@@ -1206,14 +1206,14 @@ end
 -- function getProductName
 -------------------------------------
 function StructProduct:getProductName()
-    return self['t_name']
+    return Str(self['t_name'])
 end
 
 -------------------------------------
 -- function getProductDesc
 -------------------------------------
 function StructProduct:getProductDesc()
-    return self['t_desc']
+    return Str(self['t_desc'])
 end
 
 
