@@ -64,8 +64,14 @@ function UI_ArenaNewStaminaChargePopup:initButton()
     vars['quantityPlusBtn']:registerScriptPressHandler(function() self:click_quantityBtn(1) end)
     vars['quantityMinusBtn']:registerScriptPressHandler(function() self:click_quantityBtn(-1) end)
 
+    local is_over_charge_limit = self.m_curChargeCnt >= self.m_chargeLimit
 
-    vars['purchaseBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    if (not is_over_charge_limit) then
+        vars['purchaseBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    else
+        self.m_chargeCnt = 0
+        vars['purchaseBtn']:setEnabled(false)
+    end
 
     if (self.m_chargeCnt + 1 > self.m_availableCnt) then
         vars['quantityPlusBtn']:setEnabled(false)
