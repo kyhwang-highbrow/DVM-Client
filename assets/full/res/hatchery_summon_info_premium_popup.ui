@@ -115,7 +115,7 @@
 				lua_name = 'titleLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
-				text = '소환 확률 도움말';
+				text = '도움말';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 209; 180; 142; };
@@ -182,7 +182,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 22;
 					text = '<소환 확률>';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -527,13 +527,13 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -10.000000;
-					y = -146.000000;
+					x = -3.000000;
+					y = -115.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 624;
-					height = 91;
+					width = 563;
+					height = 64;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -543,13 +543,13 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 17;
-					text = '고급소환 10회, 확률UP 고급소환 10회 진행 시 ★4 (영웅) 이상의 드래곤 1마리가 확정 지급됩니다.\n토파즈, 한정, 이벤트 드래곤은 포함되지 않습니다.';
+					text = '※ 고급소환 10회, 확률UP 고급소환 10회 진행 시 ★4 (영웅) 이상의 드래곤 1마리가 확정 지급됩니다.';
 					h_alignment = 1;
-					v_alignment = 1;
+					v_alignment = 2;
 					color = { 255; 104; 32; };
 					opacity = 255;
-					dimension_width = 624;
-					dimension_height = 91;
+					dimension_width = 563;
+					dimension_height = 64;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -564,6 +564,46 @@
 					shadow_distance = 5.000000;
 				};
 				[11] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -20.000000;
+					y = -185.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 529;
+					height = 64;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 17;
+					text = '※ 토파즈, 한정, 이벤트 드래곤은 포함되지 않습니다.';
+					h_alignment = 0;
+					v_alignment = 0;
+					color = { 255; 104; 32; };
+					opacity = 255;
+					dimension_width = 529;
+					dimension_height = 64;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[12] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -603,7 +643,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[12] =
+				[13] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -643,7 +683,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[13] =
+				[14] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -683,7 +723,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[14] =
+				[15] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -761,7 +801,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 22;
 					text = '<확률UP 고급소환>';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -786,12 +826,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -10.000000;
-					y = -146.000000;
+					x = -24.000000;
+					y = -120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 624;
+					width = 480;
 					height = 91;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -807,7 +847,7 @@
 					v_alignment = 1;
 					color = { 255; 104; 32; };
 					opacity = 255;
-					dimension_width = 624;
+					dimension_width = 480;
 					dimension_height = 91;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -1064,7 +1104,7 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = 299.000000;
+				x = 301.000000;
 				y = 23.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
