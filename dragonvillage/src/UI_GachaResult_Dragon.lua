@@ -692,9 +692,6 @@ function UI_GachaResult_Dragon:onSkip_special()
         local rarity = t_dragon_data:getRarity()
         local doid = t_dragon_data:getObjectId()
         local card = self.m_lDragonCardList[doid]
-        ccdump(self.m_lDragonCardList)
-        cclog(doid)
-        cclog(did)
 
         if (top_grade < t_dragon_data['grade']) then  
             top_grade = t_dragon_data['grade']
