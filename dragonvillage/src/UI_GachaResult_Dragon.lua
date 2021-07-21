@@ -371,7 +371,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             
             -- 배경
             local attr = TableDragon:getDragonAttr(did)
-            cclog(attr)
+
             if self:checkVarsKey('bgNode', attr) then
                 local animator = ResHelper:getUIDragonBG(attr, 'idle')
                 vars['bgNode']:addChild(animator.m_node)
@@ -395,7 +395,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
                 local doid = t_dragon_data:getObjectId()
                 self.m_selectedDragonData = g_dragonsData:getDragonDataFromUid(doid)
 
-                if (self.m_selectedDragonData) then
+                if (self.m_selectedDragonData and doid) then
                     self:setLockSprite(self.m_selectedDragonData:getLock())
                 else
                     self.m_selectedDragonData = t_dragon_data
