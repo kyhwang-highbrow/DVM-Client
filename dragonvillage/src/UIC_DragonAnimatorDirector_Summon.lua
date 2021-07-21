@@ -119,7 +119,7 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
         local grade = TableSummonGacha:getMinGrade(self.m_eggID)
         
         -- 5등급 전설 알은 누리 연출 보여줌 
-        if (grade == 5) then
+        if (grade >= 5) then
             self.m_currStep = 1
         else 
             return
@@ -154,7 +154,7 @@ end
 function UIC_DragonAnimatorDirector_Summon:checkMaxGradeEffect()
     if (self.m_bMyth) then
         SoundMgr:playEffect('UI', 'ui_egg_legend')
-        --self.m_topEffect:changeAni('crack_high_04', false)
+        self.m_topEffect:changeAni('crack_high_04', false)
         self.m_topEffect:addAniHandler(function()
             self:appearDragonAnimator()
         end)
@@ -197,7 +197,7 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
         cur_grade = TableSlime:getValue(did, 'birthgrade')
     else
         rarity = TableDragon:getValue(did, 'rarity')
-        cur_grade = TableDragon:getValue(did, 'birthgrade')
+        cur_grade = math.min(TableDragon:getValue(did, 'birthgrade'), 5)
         self.m_dragonName = TableDragon:getValue(did, 'type')
     end
 
@@ -285,6 +285,9 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
 	    if (cut_node) then cut_node:addChild(animator.m_node) end
 
         animator:changeAni('appear', false)
+	    -- 사운드 재생 
+        local file_name = string.format('appear_%s', self.m_dragonName)
+	    SoundMgr:playEffect('VOICE', file_name)
 
         -- 라벨만들기
 	    local label = cc.Label:createWithTTF(0, 
