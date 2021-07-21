@@ -691,15 +691,19 @@ function UI_GachaResult_Dragon:onSkip_special()
     for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do
         local rarity = t_dragon_data:getRarity()
         local doid = t_dragon_data:getObjectId()
-        local did = tostring(t_dragon_data:getDid())
         local card = self.m_lDragonCardList[doid]
+        ccdump(self.m_lDragonCardList)
+        cclog(doid)
+        cclog(did)
 
         if (top_grade < t_dragon_data['grade']) then  
             top_grade = t_dragon_data['grade']
             top_idx = i
         end
 
-        if (rarity == 'myth') and (not card.root:isVisible()) and (not self.m_shownMythDid[did]) then
+        if (not card) then
+            -- Do nothing
+        elseif (rarity == 'myth') and (not card.root:isVisible()) and (not self.m_shownMythDid[did]) then
             card.root:setVisible(true)
             card.root:setEnabled(true)
             is_final_index = false
@@ -714,9 +718,11 @@ function UI_GachaResult_Dragon:onSkip_special()
             card.root:setEnabled(true)
         end
             
-        card.vars['clickBtn']:setEnabled(true)
-        if (self.m_tDragonCardEffectTable[card]) then
-            self.m_tDragonCardEffectTable[card]:runAction(cc.FadeIn:create(2))
+        if (card) then
+            card.vars['clickBtn']:setEnabled(true)
+            if (self.m_tDragonCardEffectTable[card]) then
+                self.m_tDragonCardEffectTable[card]:runAction(cc.FadeIn:create(2))
+            end
         end
 
         if (i >= #self.m_lGachaDragonListOrg) then is_final_index = true end

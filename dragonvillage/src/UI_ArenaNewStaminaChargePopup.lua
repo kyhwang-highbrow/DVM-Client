@@ -61,6 +61,10 @@ function UI_ArenaNewStaminaChargePopup:initButton()
     vars['quantityPlusBtn']:registerScriptTapHandler(function() self:click_quantityBtn(1) end)
     vars['quantityMinusBtn']:registerScriptTapHandler(function() self:click_quantityBtn(-1) end)
 
+    vars['quantityPlusBtn']:registerScriptPressHandler(function() self:click_quantityBtn(1) end)
+    vars['quantityMinusBtn']:registerScriptPressHandler(function() self:click_quantityBtn(-1) end)
+
+
     vars['purchaseBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 
     if (self.m_chargeCnt + 1 > self.m_availableCnt) then

@@ -297,23 +297,28 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
             cc.size(600, 100), 
             1, 1)
 
+        local str
         local uic_label = UIC_LabelTTF(label)
         uic_label:setPosition(0, -230)
 
         uic_label:setDockPoint(CENTER_POINT)
         uic_label:setAnchorPoint(CENTER_POINT)
         uic_label:setColor(COLOR['white'])
+        uic_label:setString('')
         animator.m_node:addChild(uic_label.m_node)
-
-        local str = TableDragonPhrase():getValue(self.m_did, 't_dragon_appear')
+        str = TableDragonPhrase():getValue(self.m_did, 't_dragon_appear')
         if (not str) then str = '' end
         --uic_label:setString(Str(str))
 
         local typing_label = MakeTypingEffectLabel(uic_label)
         typing_label.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 5)
         typing_label:setDueTime(2.5)
-        typing_label:setString(Str(str))
-        typing_label.m_node:runAction( cc.Sequence:create(cc.DelayTime:create(6.0), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
+        typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(0.9), act_text()))
+
+        function act_text()
+            typing_label:setString(Str(str))
+            typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(6.0), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
+        end
 
         function end_animation()
             animator:setVisible(false)
@@ -336,9 +341,8 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
             animator:addAniHandler(function()
                 end_animation()
             end)
-
-
 	    end)
+
     else
         if finish_cb then finish_cb() else after_appear_cut_cb() end
     end
