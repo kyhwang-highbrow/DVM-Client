@@ -105,6 +105,12 @@ end
 -- @brief iOS 퍼미션 체크
 -------------------------------------
 function ScenePatch:checkPermission_iOS()
+    -- 1.2.9 부터 ATT 대응이 되어있다.
+    if (getAppVerNum() < 1002009) then
+        self:runApkExpansion()
+        return
+    end
+
     local function cb_func(result)
         if (result == 'success') then
             -- not determined true
