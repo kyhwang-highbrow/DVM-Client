@@ -344,6 +344,10 @@ function UI_DragonMasteryNew:isMasteryDragon(dragon_object)
         return false
     end
 
+    if (dragon_object:getRarity() == 'myth') then
+        return false
+    end
+
     return true
 end
 
