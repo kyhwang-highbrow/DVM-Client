@@ -334,7 +334,13 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
     
     local evolution = t_dragon_data['evolution']
 
-    vars['lockMenu']:setVisible(tonumber(grade) > 2)
+    local is_lock_visible
+    if g_hatcheryData.m_isAutomaticFarewell then
+        is_lock_visible = (t_dragon_data['grade'] > 3)
+    else
+        is_lock_visible = (t_dragon_data['grade'] > 2)
+    end
+    vars['lockMenu']:setVisible(is_lock_visible)
 
     -- 이름
     local name = t_dragon_data:getDragonNameWithEclv()
@@ -553,6 +559,15 @@ function UI_GachaResult_Dragon:setDragonCardList()
             if (not self.m_isDirecting) then
                 local doid = t_data:getObjectId()
                 local refreshed_data = g_dragonsData:getDragonDataFromUid(doid)
+
+                local is_lock_visible
+                if g_hatcheryData.m_isAutomaticFarewell then
+                    is_lock_visible = (t_data['grade'] > 3)
+                else
+                    is_lock_visible = (t_data['grade'] > 2)
+                end
+
+                self.vars['lockMenu']:setVisible(is_lock_visible)
 
                 if (refreshed_data) then
                     card.m_dragonData = refreshed_data
