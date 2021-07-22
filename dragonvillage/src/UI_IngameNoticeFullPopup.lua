@@ -21,6 +21,8 @@ UI_IngameNoticeFullPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_IngameNoticeFullPopup:init(t_notice, finish_cb)
+    self.m_uiName = 'UI_IngameNoticeFullPopup'
+
     local vars = self:load('ingame_notice_popup.ui')
     self.m_data = t_notice
     self.m_finishCallback = finish_cb

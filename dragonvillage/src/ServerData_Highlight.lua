@@ -24,6 +24,8 @@ ServerData_Highlight = class({
         m_newOidMap = 'map',
         m_bDirtyNewOidMapDragon = 'boolean',
 		m_bDirtyNewOidMapRune = 'boolean',
+
+        m_bRequestingHighlight = 'boolean',
         ----------------------------------------------
     })
 
@@ -65,11 +67,15 @@ end
 -- function request_highlightInfo
 -------------------------------------
 function ServerData_Highlight:request_highlightInfo(finish_cb, fail_cb)
+    if (self.m_bRequestingHighlight) then return end
+
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)
+        self.m_bRequestingHighlight = false
+
         g_serverData:networkCommonRespone(ret)
         self:applyHighlightInfo(ret)
 
@@ -88,6 +94,8 @@ function ServerData_Highlight:request_highlightInfo(finish_cb, fail_cb)
     if (save_time) then
         ui_network:setParam('access_time', save_time)
     end
+
+    self.m_bRequestingHighlight = true
 
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
