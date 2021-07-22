@@ -18,7 +18,7 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
 
         m_rarityEffect = 'Animator', -- 소환시에 텍스트 애니메이터 추가
 
-        m_ownerUI = 'UI_GachaResult_Dragon'
+        m_ownerUI = 'UI_GachaResult_Dragon',
 
         m_bActingAnimation = 'boolean',
     })
