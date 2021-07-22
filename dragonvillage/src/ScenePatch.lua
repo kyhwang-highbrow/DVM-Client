@@ -215,8 +215,8 @@ end
 function ScenePatch:runApkExpansion()
     self.m_vars['messageLabel']:setString(Str('추가 리소스 확인 중...'))
     
-    -- obb 더이상 사용 안함
-    if (true) then 
+    -- 1.2.9 이상에서는 obb 더이상 사용 안함
+    if (getAppVerNum() >= 1002009) then
         self:finishPatch()
         return 
     end
