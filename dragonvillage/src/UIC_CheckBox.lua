@@ -14,11 +14,12 @@ UIC_CheckBox = class(PARENT, {
 -- function init
 -------------------------------------
 function UIC_CheckBox:init(node, sprite_node, checked)
-    self.m_manualMode = false
-    self.m_bChecked = false
+  
+    --self.m_bChecked = false
     self.m_spriteNode = sprite_node
     self.m_node:registerScriptTapHandler(function() UIC_CheckBox.tapHandler(self) end)
     self:setChecked(checked)
+    self.m_manualMode = false
 end
 
 -------------------------------------
