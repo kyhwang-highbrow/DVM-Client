@@ -388,6 +388,33 @@ function UI_DragonLevelUpNew:setDefaultSelectDragon(doid)
 end
 
 -------------------------------------
+-- function checkSelectedDragonCondition
+-- @brief 선택된 드래곤이 조건이 가능한지 체크
+-- @return boolean true면 선택이 가능
+-------------------------------------
+function UI_DragonManage_Base:checkSelectedDragonCondition(dragon_object)
+    if (not dragon_object) then
+        return false
+    end
+
+    if (dragon_object:getObjectType() ~= 'dragon') then
+        local msg = Str('슬라임은 선택할 수 없습니다.')
+        UIManager:toastNotificationRed(msg)
+        return false
+    end
+
+     -- 최대 등급, 최대 레벨이 아닌 경우
+     if (dragon_object:isMaxGradeAndLv()) then
+        local msg = Str('최대 레벨에 도달한 드래곤입니다.')
+        UIManager:toastNotificationRed(msg)
+        return false
+    end
+
+
+    return true
+end
+
+-------------------------------------
 -- function getDragonList
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -- @override
