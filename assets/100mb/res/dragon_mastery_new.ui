@@ -245,205 +245,6 @@
 		{
 			[1] =
 			{
-				type = 'LayerColor';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
-				width = 0;
-				height = 0;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				color = { 0; 0; 0; };
-				opacity = 125;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[2] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = -4.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 0.500000; };
-				anchor_point = { 1.000000; 0.500000; };
-				relative_size_type = 2;
-				width = -166;
-				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'listTableNode';
-			};
-			[3] =
-			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 16;
-					height = 13;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'sortOrderSprite';
-					file_name = 'ui/temp/a_dialogue_0102_2.png';
-					color = { 240; 215; 159; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 69.000000;
-				y = -83.000000;
-				dock_point = { 0.000000; 1.000000; };
-				anchor_point = { 0.000000; 0.500000; };
-				relative_size_type = 0;
-				width = 90;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'sortOrderBtn';
-				enable = true;
-				normal = 'ui/buttons/base_btn_0101.png';
-				selected = 'ui/buttons/base_btn_0102.png';
-				disable = '';
-				image_type = 1;
-			};
-			[4] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 90;
-					height = 50;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'sortLabel';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '공격력';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 240; 215; 159; };
-					opacity = 255;
-					dimension_width = 90;
-					dimension_height = 50;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 150;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 114.000000;
-				y = 26.000000;
-				dock_point = { 0.000000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 90;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'sortBtn';
-				enable = true;
-				normal = 'ui/buttons/base_btn_0101.png';
-				selected = 'ui/buttons/base_btn_0102.png';
-				disable = '';
-				image_type = 1;
-			};
-			[5] =
-			{
-				type = 'Button';
-				ui_name = '';
-				x = 36.000000;
-				y = 0.000000;
-				dock_point = { 0.000000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 62;
-				height = 102;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'listBtn';
-				enable = true;
-				normal = 'ui/buttons/dragon_manage_list_0101.png';
-				selected = 'ui/buttons/dragon_manage_list_0102.png';
-				disable = '';
-				image_type = 0;
-			};
-			type = 'Menu';
-			ui_name = 'bottom ';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.000000; };
-			anchor_point = { 0.500000; 0.000000; };
-			relative_size_type = 2;
-			width = 0;
-			height = 114;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-		};
-		[5] =
-		{
-			[1] =
-			{
 				[1] =
 				{
 					type = 'Scale9Sprite';
@@ -1877,7 +1678,7 @@
 			visible = true;
 			lua_name = 'masteryLvUpMenu';
 		};
-		[6] =
+		[5] =
 		{
 			[1] =
 			{
@@ -2943,7 +2744,7 @@
 			visible = false;
 			lua_name = 'masterySkillMenu';
 		};
-		[7] =
+		[6] =
 		{
 			[1] =
 			{
@@ -3073,7 +2874,7 @@
 			disable = 'ui/buttons/base_btn_0103.png';
 			image_type = 1;
 		};
-		[8] =
+		[7] =
 		{
 			[1] =
 			{
@@ -3137,7 +2938,7 @@
 			disable = 'ui/buttons/base_btn_0103.png';
 			image_type = 1;
 		};
-		[9] =
+		[8] =
 		{
 			[1] =
 			{
@@ -3186,6 +2987,205 @@
 			selected = '';
 			disable = '';
 			image_type = 0;
+		};
+		[9] =
+		{
+			[1] =
+			{
+				type = 'LayerColor';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				color = { 0; 0; 0; };
+				opacity = 125;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -4.000000;
+				y = 0.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
+				relative_size_type = 2;
+				width = -166;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'listTableNode';
+			};
+			[3] =
+			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 16;
+					height = 13;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'sortOrderSprite';
+					file_name = 'ui/temp/a_dialogue_0102_2.png';
+					color = { 240; 215; 159; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 69.000000;
+				y = -83.000000;
+				dock_point = { 0.000000; 1.000000; };
+				anchor_point = { 0.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 90;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'sortOrderBtn';
+				enable = true;
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = '';
+				image_type = 1;
+			};
+			[4] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 90;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'sortLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 22;
+					text = '공격력';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 90;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 150;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 114.000000;
+				y = 26.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 90;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'sortBtn';
+				enable = true;
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = '';
+				image_type = 1;
+			};
+			[5] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 36.000000;
+				y = 0.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 62;
+				height = 102;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'listBtn';
+				enable = true;
+				normal = 'ui/buttons/dragon_manage_list_0101.png';
+				selected = 'ui/buttons/dragon_manage_list_0102.png';
+				disable = '';
+				image_type = 0;
+			};
+			type = 'Menu';
+			ui_name = 'bottom ';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.000000; };
+			anchor_point = { 0.500000; 0.000000; };
+			relative_size_type = 2;
+			width = 0;
+			height = 114;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
 		};
 		[10] =
 		{

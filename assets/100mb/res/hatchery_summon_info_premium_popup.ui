@@ -623,7 +623,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '★6 (희귀)';
+					text = '★3 (희귀)';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
@@ -802,7 +802,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '<확률UP 고급소환>';
+					text = '<속성 확률>';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 209; 180; 142; };
@@ -842,7 +842,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 17;
-					text = '신화 등급 드래곤은 모든 속성의 확률이 동일합니다.';
+					text = '※ 신화 등급 드래곤은 모든 속성의 확률이 동일합니다.';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 104; 32; };

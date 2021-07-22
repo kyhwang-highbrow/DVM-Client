@@ -317,7 +317,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '신화의 알\n1개';
+					text = '빛나는 전설의 알\n1개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
