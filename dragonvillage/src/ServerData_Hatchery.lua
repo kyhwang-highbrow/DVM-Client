@@ -296,6 +296,7 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, finish_cb,
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
+    local auto_farewell_lv = 3
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -316,8 +317,10 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, finish_cb,
         local added_mileage = (after_mileage - prev_mileage)
         ret['added_mileage'] = added_mileage
 
+
         -- 드래곤들 추가
-        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+        local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'])
+        g_dragonsData:applyDragonData_list(add_dragon_list)
 
         -- 슬라임들 추가
         g_slimesData:applySlimeData_list(ret['added_slimes'])
@@ -340,6 +343,9 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, finish_cb,
     ui_network:setParam('uid', uid)
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('sale', is_sale)
+    if (self.m_isAutomaticFarewell and is_bundle) then
+        ui_network:setParam('auto_goodbye', auto_farewell_lv)
+    end
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
