@@ -421,6 +421,7 @@ end
 function UI_DragonEvolution:refresh_evolutionButton(t_dragon_data, t_dragon, is_max_evolution)
     local vars = self.vars
     local did = t_dragon['did']
+    local rarity = t_dragon['rarity']
     local doid = self.m_selectDragonOID
     local evolution = t_dragon_data:getEvolution()
 
@@ -429,7 +430,10 @@ function UI_DragonEvolution:refresh_evolutionButton(t_dragon_data, t_dragon, is_
     if (not possible) then
         local birth_grade = TableDragon:getValue(did, 'birthgrade')
         local need_grade = (evolution == 1) and birth_grade or birth_grade + 1
-         
+
+        -- 신화드래곤은 태생6성 평생 6성
+        if (rarity == 'myth') then need_grade = 6 end
+
         vars['dragonLockSprite']:setVisible(true)
         vars['conditionLabel']:setString(Str('진화 조건 - {1}성 승급', need_grade))
         return

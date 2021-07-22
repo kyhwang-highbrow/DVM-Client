@@ -1115,9 +1115,18 @@ function ServerData_Dragons:possibleDragonEvolution(doid)
 	local grade = t_dragon_data:getGrade()
 	local evolution = t_dragon_data:getEvolution()
 	local birth_grade = TableDragon:getValue(did, 'birthgrade')
+	local rarity = t_dragon_data:getRarity()
+
+    if (rarity == 'myth') then
+        -- 성룡 체크
+	    if (evolution >= MAX_DRAGON_EVOLUTION) then
+		    return false, Str('더이상 진화 할 수 없습니다.')
+        else
+            return true
+	    end
 
 	-- 해치는 태생등급 이상인 경우 진화 가능
-	if (evolution == 1) and (grade < birth_grade) then
+	elseif (evolution == 1) and (grade < birth_grade) then
 		return false, Str('{1}성으로 승급해야 진화가 가능합니다.', birth_grade)
 
 	-- 해츨링은 태생등급 + 1 이상인 경우 진화 가능
