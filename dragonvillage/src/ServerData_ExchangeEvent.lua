@@ -61,6 +61,10 @@ function ServerData_ExchangeEvent:hasReward()
     local event_info = self.m_productInfo
     local reward_info = self.m_rewardInfo
 
+    if tolua.isnull(event_info) or tolua.isnull(reward_info) then
+        return false
+    end
+
     local curr_cnt = self.m_nMaterialUse
     for i, v in ipairs(event_info) do
         local step = tostring(v['step'])
