@@ -517,6 +517,7 @@ function UI_HatcherySummonTab:click_premiumGoodbyeeBtn()
     if (g_hatcheryData.m_isAutomaticFarewell) then
         g_hatcheryData:switchHatcheryAutoFarewell()
         self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+        g_settingData:setAutoFarewell(g_hatcheryData.m_isAutomaticFarewell, 'rare')
         return
     end
 
@@ -533,6 +534,7 @@ function UI_HatcherySummonTab:click_chanceUpGoodbyeBtn()
     if (g_hatcheryData.m_isAutomaticFarewell) then
         g_hatcheryData:switchHatcheryAutoFarewell()
         self.vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+        g_settingData:setAutoFarewell(g_hatcheryData.m_isAutomaticFarewell, 'rare')
         return
     end
 
@@ -1071,7 +1073,6 @@ end
 -------------------------------------
 function UI_HatcherySummonAutoFarewellPopup:click_okBtn()
     local is_auto_active = self.vars['goodbyeOnBtn']:isChecked()
-
     g_hatcheryData.m_isAutomaticFarewell = is_auto_active
     g_settingData:setAutoFarewell(is_auto_active, 'rare')
 
