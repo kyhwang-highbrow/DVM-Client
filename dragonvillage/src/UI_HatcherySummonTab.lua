@@ -303,7 +303,8 @@ function UI_HatcherySummonTab:onChangeCategory(category)
 
     g_hatcheryData:switchHatcheryAutoFarewell(true)
     self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
-
+    self.vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+    cclog(g_hatcheryData.m_isAutomaticFarewell)
     self:setEventMenu()
 end
 
