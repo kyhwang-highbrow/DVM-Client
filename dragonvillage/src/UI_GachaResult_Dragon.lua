@@ -872,6 +872,10 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_GachaResult_Dragon:click_closeBtn()
+    if (self.m_currDragonAnimator and self.m_currDragonAnimator.m_bActingAnimation) then
+        return
+    end
+
     local skip_btn = self.vars['skipBtn']
     if (skip_btn:isEnabled() and skip_btn:isVisible()) then
         self:click_skipBtn()

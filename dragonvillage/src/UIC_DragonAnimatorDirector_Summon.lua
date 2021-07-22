@@ -19,6 +19,8 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
         m_rarityEffect = 'Animator', -- 소환시에 텍스트 애니메이터 추가
 
         m_ownerUI = 'UI_GachaResult_Dragon'
+
+        m_bActingAnimation = 'boolean',
     })
 
 -------------------------------------
@@ -261,6 +263,8 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
         
         end
 
+        self.m_bActingAnimation = true
+
         local file_name = string.format('appear_%s', self.m_dragonName)
         dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
         animator = MakeAnimator(dragon_appear_cut_res)
@@ -341,6 +345,7 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
 
             animator:addAniHandler(function()
                 end_animation()
+                self.m_bActingAnimation = false
             end)
 	    end)
 
