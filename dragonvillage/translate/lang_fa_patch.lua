@@ -100,6 +100,7 @@ return {['10회 소환 시 자동으로 드래곤 경험치로 변경됩니다.'
 ['<속성 확률>']='<Attribute Rate>',
 ['고급소환\n확률UP 고급소환']='Advanced Summon\nRate-up Advanced Summon',
 ['드래곤의 희귀도는 일반, 희귀, 영웅, 전설, 신화로 나뉩니다.\n희귀도가 높을 수록 좋은 능력과 스킬을 가집니다.']='Dragon Rarity is divided into four types: Normal, Rare, Heroic, Legendary, and Mythic.\nDragons with a higher Rarity level have better stats and skills.',
+['빛나는 전설의 알\n1개']='Shiny Legendary Egg\nx1',
 ['-드래그 스킬 안내-\n\n잘하는데?! 다크닉스에게 지속피해가 걸렸어. 최대 생명력에 비례해서 주는 피해이기 때문에 보스전에 아주 유용해.']='راهنمای مهارت را بکشید-//n//n دارکنیکس از اسیب DOT رنج می برد. اسیب مهارت حداکثر HP رقیب را درجه بندی می کند پس ان بر علیه باس بسیار مفید است',
 ['마지막으로 중요한 사실을 알려드릴께요!\n1챕터의 7스테이지를 완료하면 고급 소환 10회를 무료로 제공한다고 합니다!']='Lastly, let me tell you something important.\nComplete Stage 7 in Chapter 1, and you can use Advanced Summon 10 times for free!',
 ['이제 멋진 드래곤들과 함께 드래곤빌리지의 세계로 자유롭게 여행을 떠날 시간입니다! \n테이머님의 행운을 빕니다.']='الان وقت ان رسیده که شما به مسافرت خود به دهکده اژدها همراه با اژدهای خود ادامه دهید //n تربیت کننده موفق باشید',
