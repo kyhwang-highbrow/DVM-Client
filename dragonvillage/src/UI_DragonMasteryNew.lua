@@ -379,6 +379,8 @@ function UI_DragonMasteryNew:checkSelectedDragonCondition(dragon_object)
     
     -- 신화 드래곤인 경우
     if (dragon_object:getRarity() == 'myth') then
+        local msg = Str('선택 할 수 없습니다.')
+        UIManager:toastNotificationRed(msg)
         return false
     end
 
