@@ -89,12 +89,12 @@ function UI_HatcherySummonTab:initUI()
     local vars = self.vars
 
     -- 자동작별 on
-    vars['premiumGoodbyeBtn'] = UIC_CheckBox(vars['premiumGoodbyeBtn'].m_node, vars['premiumGoodbyeSprite'], false)
+    vars['premiumGoodbyeBtn'] = UIC_CheckBox(vars['premiumGoodbyeBtn'].m_node, vars['premiumGoodbyeSprite'], g_hatcheryData.m_isAutomaticFarewell)
     vars['premiumGoodbyeBtn']:setManualMode(true)
     vars['premiumGoodbyeBtn']:registerScriptTapHandler(function() self:click_premiumGoodbyeeBtn() end)
 
     -- 자동작별 on
-    vars['chanceUpGoodbyeBtn'] = UIC_CheckBox(vars['chanceUpGoodbyeBtn'].m_node, vars['chanceUpGoodbyeSprite'], false)
+    vars['chanceUpGoodbyeBtn'] = UIC_CheckBox(vars['chanceUpGoodbyeBtn'].m_node, vars['chanceUpGoodbyeSprite'], g_hatcheryData.m_isAutomaticFarewell)
     vars['chanceUpGoodbyeBtn']:setManualMode(true)
     vars['chanceUpGoodbyeBtn']:registerScriptTapHandler(function() self:click_chanceUpGoodbyeBtn() end)
 
@@ -301,7 +301,6 @@ function UI_HatcherySummonTab:onChangeCategory(category)
     self.vars['premiumTabBtn']:setEnabled(not is_premium)
     self.vars['friendshipTabBtn']:setEnabled(not is_friendPoint)
 
-    g_hatcheryData:switchHatcheryAutoFarewell(true)
     self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
     self.vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
     cclog(g_hatcheryData.m_isAutomaticFarewell)
@@ -1060,7 +1059,7 @@ function UI_HatcherySummonAutoFarewellPopup:initButton()
     self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 
     -- 자동작별 on
-    vars['goodbyeOnBtn'] = UIC_CheckBox(vars['goodbyeOnBtn'].m_node, vars['goodbyeOnSprite'], true)
+    vars['goodbyeOnBtn'] = UIC_CheckBox(vars['goodbyeOnBtn'].m_node, vars['goodbyeOnSprite'], (not g_hatcheryData.m_isAutomaticFarewell))
     vars['goodbyeOnBtn']:setManualMode(true)
     vars['goodbyeOnBtn']:registerScriptTapHandler(function() self:click_rareSelect() end)
 
@@ -1071,7 +1070,10 @@ end
 -- function click_okBtn
 -------------------------------------
 function UI_HatcherySummonAutoFarewellPopup:click_okBtn()
-    g_hatcheryData.m_isAutomaticFarewell = self.vars['goodbyeOnBtn']:isChecked()
+    local is_auto_active = self.vars['goodbyeOnBtn']:isChecked()
+
+    g_hatcheryData.m_isAutomaticFarewell = is_auto_active
+    g_settingData:setAutoFarewell(is_auto_active, 'rare')
 
     self:close()
 end

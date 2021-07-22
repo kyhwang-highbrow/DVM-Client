@@ -706,7 +706,19 @@ function SettingData:getSkipInfoForFarewellWarningPopup()
     return self:get('farewell', 'skip_warning_popup')
 end
 
+-------------------------------------
+-- function setAutoFarewell
+-------------------------------------
+function SettingData:setAutoFarewell(is_active, dragon_rarity)
+    self:applySettingData(is_active, 'farewell', 'auto_farewell', dragon_rarity)
+end
 
+-------------------------------------
+-- function getAutoFarewell
+-------------------------------------
+function SettingData:getAutoFarewell(dragon_rarity)
+    return self:get('farewell', 'auto_farewell', dragon_rarity)
+end
 
 -------------------------------------
 -- function getCloudSetting

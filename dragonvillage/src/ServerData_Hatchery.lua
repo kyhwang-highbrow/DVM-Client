@@ -35,7 +35,8 @@ function ServerData_Hatchery:init(server_data)
     self.m_serverData = server_data
     self.m_dirtyHacheryInfo = true
     self.m_updatedAt = nil
-    self.m_isAutomaticFarewell = false
+
+    self.m_isAutomaticFarewell = g_settingData:getAutoFarewell('rare') or false
 end
 
 -------------------------------------
