@@ -344,6 +344,7 @@ function UI_DragonMasteryNew:isMasteryDragon(dragon_object)
         return false
     end
 
+    -- 신화 드래곤인 경우
     if (dragon_object:getRarity() == 'myth') then
         return false
     end
@@ -372,6 +373,12 @@ function UI_DragonMasteryNew:checkSelectedDragonCondition(dragon_object)
     if (dragon_object:isMaxGradeAndLv() == false) then
         local msg = Str('최대 등급, 최대 레벨이 아닙니다.')
         UIManager:toastNotificationRed(msg)
+        return false
+    end
+
+    
+    -- 신화 드래곤인 경우
+    if (dragon_object:getRarity() == 'myth') then
         return false
     end
 
