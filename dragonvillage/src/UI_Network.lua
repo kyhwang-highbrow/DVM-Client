@@ -304,6 +304,7 @@ local S_ERROR_STATUS = {
     [-1216] = Str('날개가 부족합니다.'), -- not enough stamina
     [-1222] = Str('열매가 부족합니다.'), -- not enough fruit
     [-1223] = Str('진화재료가 부족합니다.'), -- not enough evolution stone
+    [-1263] = Str('가방이 가득 찼습니다.\n가방 공간을 확보 후 전투를 시작할 수 있습니다.') -- not enough inventory
     [-1265] = Str('고대의탑 입장권이 부족합니다.'), -- not enough st_tower
     [-1266] = Str('콜로세움 입장권이 부족합니다.'), -- not enough st_pvp
 
