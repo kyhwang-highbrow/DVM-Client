@@ -691,6 +691,7 @@ function UI_GachaResult_Dragon:click_skipBtn()
 
         end
     else
+        self.m_bSkip = true
         -- 마지막 드래곤 animator를 띄우고 마지막 연출을 실행한다.
         if self.m_currDragonAnimator then
             self.m_currDragonAnimator:appearDragonAnimator(function() self.m_currDragonAnimator:forceSkipDirecting() end)
