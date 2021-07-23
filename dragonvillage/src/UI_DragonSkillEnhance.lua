@@ -73,8 +73,6 @@ function UI_DragonSkillEnhance:initTab()
     self:setTab(UI_DragonSkillEnhance.TAB_ENHANCE)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
-
-    vars['moveTabBtn']:setVisible(not self.m_isMythDragon)
 end
 
 -------------------------------------
@@ -96,13 +94,22 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonSkillEnhance:refresh()
+    local vars = self.vars
     local t_dragon_data = self.m_selectDragonData
 
     if (not t_dragon_data) then
         return
     end
 
-    local vars = self.vars
+    
+    -- 신화 드래곤인지 체크
+    self.m_isMythDragon = (t_dragon_data:getRarity() == 'myth')
+
+    if vars['moveTabBtn'] then
+        vars['moveTabBtn']:setVisible(not self.m_isMythDragon)
+    end
+
+
     local did = t_dragon_data['did']
     local attr = t_dragon_data:getAttr()
     local role_type = t_dragon_data:getRole()
@@ -669,11 +676,13 @@ function UI_DragonSkillEnhance:checkSelectedDragonCondition(dragon_object)
     -- 두 클래스 모두 id에 값을 저장하고 있다
     local doid = dragon_object['id']
     local object_type = dragon_object:getObjectType()
+
     local upgradeable, msg = g_dragonsData:impossibleSkillEnhanceForever(doid)
     if (upgradeable) then
         UIManager:toastNotificationRed(msg)
         return false
     end
+
     return true
 end
 
