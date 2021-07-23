@@ -559,3 +559,36 @@ function GameWorldArenaNew:print_tamer_skill()
         self.m_enemyTamer:printSkillManager()
     end
 end
+
+-------------------------------------
+-- function getRealtimeHpPercentage
+-- @brief 현재 각자의 정확한 체력 퍼센트 받악오기
+-- return left, right
+-------------------------------------
+function GameWorldArenaNew:getRealtimeHpPercentage()
+    local left_totalHp = 0
+    local left_totalMaxHp = 0
+    local right_totalHp = 0
+    local right_totalMaxHp = 0
+
+    -- left
+    for _, v in pairs(self.m_myDragons) do
+        left_totalHp = left_totalHp + v.m_hp
+        left_totalMaxHp = left_totalMaxHp + v.m_maxHp
+    end
+
+    -- right
+    for _, v in pairs(self.m_lEnemyDragons) do
+        right_totalHp = right_totalHp + v.m_hp
+        right_totalMaxHp = right_totalMaxHp + v.m_maxHp
+    end
+
+    -- devide by zero 방지
+    if (left_totalMaxHp == 0) then left_totalMaxHp = 0 end
+    if (right_totalMaxHp == 0) then right_totalMaxHp = 0 end
+
+    local left_percentage = (left_totalHp / left_totalMaxHp) * 100
+    local right_percentage = (right_totalHp / right_totalMaxHp) * 100
+
+    return left_percentage, right_percentage
+end
