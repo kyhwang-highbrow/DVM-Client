@@ -198,8 +198,6 @@ function UI_GachaResult_Dragon:initEverything()
         local is_cash = (self.m_type == 'cash' or self.m_type == 'pickup')
         local is_ad = t_egg_data['is_ad']
 
-        cclog(self.m_type)
-
         do -- 아이콘
             local price_icon
             if (is_cash) then
