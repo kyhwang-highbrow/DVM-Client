@@ -392,7 +392,7 @@ end
 -- @brief 선택된 드래곤이 조건이 가능한지 체크
 -- @return boolean true면 선택이 가능
 -------------------------------------
-function UI_DragonManage_Base:checkSelectedDragonCondition(dragon_object)
+function UI_DragonLevelUpNew:checkSelectedDragonCondition(dragon_object)
     if (not dragon_object) then
         return false
     end
