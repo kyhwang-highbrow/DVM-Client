@@ -172,14 +172,26 @@ function UI_Setting:click_removeDragonBtn()
 		return true
 	end
 
-	local l_remove_doid = {}
+	--local l_remove_doid = {}
+    local str_dragons = ''
 	local dragon_dic = g_dragonsData:getDragonsList()
+    local total_count = table.count(dragon_dic)
+    local cur_count = 0
+
+
     for oid,v in pairs(dragon_dic) do
-		
 		if (check_func(oid)) then
-			table.insert(l_remove_doid, oid)
+			--table.insert(l_remove_doid, oid)
+            str_dragons = str_dragons .. oid
+
+            if (cur_count < total_count) then
+                str_dragons = str_dragons .. ','
+            end
 		end
     end
+
+    str_dragons = str_dragons:sub(1, -2)
+
 
     local ui_network = UI_Network()
     ui_network:setReuse(true)
@@ -190,6 +202,10 @@ function UI_Setting:click_removeDragonBtn()
     ui_network:setLoadingMsg(msg)
 
     do_work = function(ret)
+        ui_network:setParam('doid', str_dragons)
+        ui_network:request()
+
+        --[[
         local doid = l_remove_doid[1]
     
         if doid then
@@ -207,9 +223,13 @@ function UI_Setting:click_removeDragonBtn()
             for _, doid in pairs(ret['deleted_dragon_ids']) do
                 g_dragonsData:delDragonData(doid)
             end
-        end
+        end]]
     end
-    ui_network:setSuccessCB(do_work)
+    ui_network:setSuccessCB(function()
+        ui_network:close()
+        UIManager:toastNotificationGreen('1레벨 드래곤 삭제!')
+        UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+    end)
     do_work()
 end
 
