@@ -105,6 +105,10 @@ function UI_DragonSkillEnhance:refresh()
     -- 신화 드래곤인지 체크
     self.m_isMythDragon = (t_dragon_data:getRarity() == 'myth')
 
+    if self.m_isMythDragon then
+        self:setTab(UI_DragonSkillEnhance.TAB_ENHANCE)
+    end
+    
     if vars['moveTabBtn'] then
         vars['moveTabBtn']:setVisible(not self.m_isMythDragon)
     end
