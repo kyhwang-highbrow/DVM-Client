@@ -195,8 +195,10 @@ function UI_GachaResult_Dragon:initEverything()
 
     -- 고급 소환 / 우정 소환
     else
-        local is_cash = (self.m_type == 'cash')
+        local is_cash = (self.m_type == 'cash' or self.m_type == 'pickup')
         local is_ad = t_egg_data['is_ad']
+
+        cclog(self.m_type)
 
         do -- 아이콘
             local price_icon
@@ -612,7 +614,7 @@ end
 function UI_GachaResult_Dragon:refresh_wealth()
     local vars = self.vars
 
-    if (self.m_type == 'cash') then
+    if (self.m_type == 'cash' or self.m_type == 'pickup') then
         -- 캐시
         local cash = g_userData:get('cash')
         vars['diaLabel']:setString(comma_value(cash))
