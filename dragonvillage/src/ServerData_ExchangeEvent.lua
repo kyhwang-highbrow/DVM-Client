@@ -61,8 +61,14 @@ function ServerData_ExchangeEvent:hasReward()
     local event_info = self.m_productInfo
     local reward_info = self.m_rewardInfo
 
-    if tolua.isnull(event_info) or tolua.isnull(reward_info) then
+    -- metadata 있음?
+    if (not event_info) or (not reward_info) then
         return false
+
+    -- cobj 없음?
+    elseif tolua.isnull(event_info) or tolua.isnull(reward_info) then
+        return false
+
     end
 
     local curr_cnt = self.m_nMaterialUse

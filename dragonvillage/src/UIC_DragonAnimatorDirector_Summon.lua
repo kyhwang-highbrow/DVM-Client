@@ -295,7 +295,7 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
 
         -- 라벨만들기
 	    local label = cc.Label:createWithTTF(0, 
-            'res/font/common_font_01.ttf', 
+            Translate:getFontPath(), 
             30, 
             1, 
             cc.size(600, 100), 
@@ -304,7 +304,6 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
         local str
         local uic_label = UIC_LabelTTF(label)
         uic_label:setPosition(0, -230)
-
         uic_label:setDockPoint(CENTER_POINT)
         uic_label:setAnchorPoint(CENTER_POINT)
         uic_label:setColor(COLOR['white'])
