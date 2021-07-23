@@ -174,15 +174,17 @@ function ServerData_EventArenaPlay:hasReward(reward_type)
 
     if (reward_type == 'play') then
         reward_info = self:getPlayRewardInfo()
-        reward_step = reward_info['product']['step']
         play_count  = self:getPlayCount()
 
     else
         reward_info = self:getWinRewardInfo()
-        reward_step = reward_info['product']['step']
         play_count  = self:getWinCount()
 
     end
+
+    if (not reward_info) or (not reward_info['product']) or (not reward_info['product']['step']) then return false end
+
+    reward_step = reward_info['product']['step']
 
     for idx = 1, reward_step do
         local is_received = reward_info['reward'][tostring(idx)] == 1
@@ -209,15 +211,17 @@ function ServerData_EventArenaPlay:isAllReceived(reward_type)
 
     if (reward_type == 'play') then
         reward_info = self:getPlayRewardInfo()
-        reward_step = reward_info['product']['step']
         play_count  = self:getPlayCount()
 
     else
         reward_info = self:getWinRewardInfo()
-        reward_step = reward_info['product']['step']
         play_count  = self:getWinCount()
 
     end
+
+    if (not reward_info) or (not reward_info['product']) or (not reward_info['product']['step']) then return false end
+
+    reward_step = reward_info['product']['step']
 
     for idx = 1, reward_step do
         local is_received = reward_info['reward'][tostring(idx)] == 1
