@@ -525,16 +525,18 @@ function UI_GachaResult_Dragon:setDragonCardList()
         card.root:setVisible(false)
         card.root:setEnabled(false)
         card_node:addChild(card.root, 2)
-        
+
         -- 자동작별 시 노출할 경험치 UI 추가
-        if (g_hatcheryData.m_isAutomaticFarewell and t_data['grade'] <= 3) then
-	        local dragon_exp_table = TableDragonExp()
-		    local exp = dragon_exp_table:getDragonGivingExp(3, 1)	
-            local exp_card = UI_ItemCard(700017, exp)
-            local tint_action = cca.repeatFadeInOutRuneOpt(3.2)
-            card.root:addChild(exp_card.root)
-            exp_card:setEnabledClickBtn(false)
-            exp_card.root:runAction(tint_action)
+        if (self.m_type == 'cash') or (self.m_type == 'pickup') then
+            if g_hatcheryData.m_isAutomaticFarewell and (t_data['grade'] <= 3) then
+                local dragon_exp_table = TableDragonExp()
+                local exp = dragon_exp_table:getDragonGivingExp(3, 1)	
+                local exp_card = UI_ItemCard(700017, exp)
+                local tint_action = cca.repeatFadeInOutRuneOpt(3.2)
+                card.root:addChild(exp_card.root)
+                exp_card:setEnabledClickBtn(false)
+                exp_card.root:runAction(tint_action)
+            end
         end
 
 

@@ -713,7 +713,7 @@ function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_da
             old_ui:close()
         end
 
-		local gacha_type = 'cash'
+		local gacha_type = 'pickup'
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local egg_id = t_egg_data['egg_id']
