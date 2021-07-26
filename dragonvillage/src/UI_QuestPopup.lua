@@ -105,11 +105,6 @@ end
 -- function initButton
 -------------------------------------
 function UI_QuestPopup:initButton()
-    if (self.m_battlePassBtn) then
-        local isVisible = g_battlePassData:isBattlePassShopVisible()
-        self.m_battlePassBtn:setVisible(isVisible)
-        self.m_battlePassBtn:registerScriptTapHandler(function() self:click_battlePassBtn() end)
-    end
 end
 
 -------------------------------------
@@ -168,12 +163,6 @@ function UI_QuestPopup:onChangeTab(tab, first)
 
     -- 일일 보상 올클 갱신
     local isDailyTab = self.m_currTab == TableQuest.DAILY
-
-    --배틀패스 버튼 show hide
-    if (self.m_battlePassBtn) then
-        local isVisible = g_battlePassData:isBattlePassShopVisible()
-        self.m_battlePassBtn:setVisible(isVisible and isDailyTab)
-    end
 end
 
 -------------------------------------
@@ -516,14 +505,6 @@ function UI_QuestPopup:click_subscriptionBuyBtn()
 
 	    struct_product:buy(cb_func)
     end
-end
-
--------------------------------------
--- function click_battlePassBtn
--- @brief 배틀패스 진입
--------------------------------------
-function UI_QuestPopup:click_battlePassBtn()
-    g_battlePassData:openBattlePassPopup()
 end
 
 -------------------------------------

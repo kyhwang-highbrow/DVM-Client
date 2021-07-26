@@ -240,12 +240,6 @@ function UI_Lobby:entryCoroutine()
         end
 
         do 
-            co:work('# 배틀패스 정보 받는 중')
-            g_battlePassData:request_battlePassInfo(co.NEXT, co.ESCAPE)
-            if co:waitWork() then return end
-        end
-
-        do 
             co:work('# 콜로세움 참여 보 정보 받는 중')
             g_eventArenaPlayData:request_eventData(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
@@ -2318,15 +2312,13 @@ function UI_Lobby:update_rightButtons()
     end
 
     do -- 배틀 패스
-        local is_visible = g_battlePassData:isBattlePassShopVisible()
-                            or g_levelUpPackageData:isUnclearedAnyPackage()
+        local is_visible = g_levelUpPackageData:isUnclearedAnyPackage()
                             or g_adventureClearPackageData:isVisible_adventureClearPack()
                             or g_adventureClearPackageData02:isVisible_adventureClearPack()
                             or g_adventureClearPackageData03:isVisibleAtBattlePassShop()
                             or g_dmgatePackageData:isVisibleAtBattlePassShop()
         vars['battlePassBtn']:setVisible(is_visible)
-        local is_noti_visible = g_battlePassData:isThereAnyAvailableReward()
-                                or g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID)
+        local is_noti_visible = g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID)
                                 or g_adventureClearPackageData03:isVisibleNotiAtLobby()
                                 or g_dmgatePackageData:isNotiVisible()
         vars['battlePassNotiSprite']:setVisible(is_noti_visible)

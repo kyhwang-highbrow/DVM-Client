@@ -237,24 +237,6 @@ function UI_QuestListItem:setRewardCard()
 		end
 	end
 
-    local isVisible = g_battlePassData:isBattlePassShopVisible()
-	-- 배틀패스 포인트
-	if (self.m_questData:isDailyType() and g_questData:isBattlePassActive() and isVisible) then
-        -- 당분간 고정으로 10만 지급함
-		local battlePassExp = 10
-        local battle_pass_exp_card = UI_BattlePassCard(battlePassExp)
-        battle_pass_exp_card.root:setSwallowTouch(false)
-        local reward_node = vars['rewardNode' .. reward_idx]
-        if (reward_node) then
-            if (battle_pass_exp_card) then
-                reward_node:removeAllChildren()
-                reward_node:addChild(battle_pass_exp_card.root)
-                reward_idx = reward_idx + 1
-                table.insert(l_rewardCardUI, battle_pass_exp_card)
-            end
-        end
-	end
-
     local max_reward = reward_idx - 1
     -- 아이템 카드에 보상 받음 여부 표시(체크 표시)
     for i = 1, max_reward do
@@ -406,17 +388,6 @@ function UI_QuestListItem:makeRewardList()
             table.insert(l_total_reward, t_data)
 		end
     end
-
-	-- 배틀패스 포인트
-    local isVisible = g_battlePassData:isBattlePassShopVisible()
-	if (self.m_questData:isDailyType() and g_questData:isBattlePassActive() and isVisible) then
-        -- 당분간 고정으로 10만 지급함
-		local battlePassExp = 10
-        local t_data = {}
-        t_data['item_id'] = 'pass_point'
-        t_data['count'] = battlePassExp
-        table.insert(l_total_reward, t_data)
-	end
 
     -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트, event_daily_quest)
     local l_event_reward_list = self.m_questData:getEventRewardInfoList()
