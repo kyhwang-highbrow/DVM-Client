@@ -79,7 +79,7 @@ function LobbyMapFactory:makeClanLobbyLayer(idx)
     node:setDockPoint(CENTER_POINT)
     node:setAnchorPoint(CENTER_POINT)
 
-    local skip_error_msg = false
+    local skip_error_msg = true
 	local animator = nil
 	
 	-- 1. vrp를 먼저 찾고
