@@ -212,26 +212,48 @@ function UI_Forest:click_adBtn()
         UIManager:toastNotificationRed(msg)
         return
     end
+
+    -- -- 광고 프리로드 요청
+    -- AdSDKSelector:adPreload(AD_TYPE['FOREST'])
+
+    -- -- 탐험 광고 안내 팝업
+    -- local function ok_cb()
+    --     AdSDKSelector:showDailyAd(AD_TYPE['FOREST'], function()
+    --         ServerData_Forest:getInstance():request_myForestInfo(function()
+	-- 			-- ui 닫은 후 콜백 동작하는 경우 예외처리
+	-- 			if (self:isClosed()) then
+	-- 				return
+	-- 			end
+
+    --             UIManager:toastNotificationGreen(Str('광고 보상을 받았습니다.'))
+    --             self:refresh()
+    --             self.m_territory:refreshStuffs() 
+    --         end)
+    --     end)
+    -- end
+    -- local msg = Str("동영상 광고를 보시면 보상 획득 시간이 단축됩니다.") .. '\n' .. Str("광고를 보시겠습니까?")
+    -- local submsg = Str("모든 진행중인 보상 획득 시간을 50% 단축합니다.") .. '\n' .. Str("보상 획득 시간 단축은 1일 1회 가능합니다.")
+    -- MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_cb)
+
     
-    -- 광고 프리로드 요청
-    AdSDKSelector:adPreload(AD_TYPE['FOREST'])
-
-    -- 탐험 광고 안내 팝업
-    local function ok_cb()
-        AdSDKSelector:showDailyAd(AD_TYPE['FOREST'], function()
-            ServerData_Forest:getInstance():request_myForestInfo(function()
-				-- ui 닫은 후 콜백 동작하는 경우 예외처리
-				if (self:isClosed()) then
-					return
-				end
-
-                UIManager:toastNotificationGreen(Str('광고 보상을 받았습니다.'))
-                self:refresh()
-                self.m_territory:refreshStuffs() 
-            end)
+    local function finish_callback()
+        ServerData_Forest:getInstance():request_myForestInfo(function()
+            -- ui 닫은 후 콜백 동작하는 경우 예외처리
+            if (self:isClosed()) then
+                return
+            end
+    
+            UIManager:toastNotificationGreen(Str('광고 보상을 받았습니다.'))
+            self:refresh()
+            self.m_territory:refreshStuffs() 
         end)
     end
-    local msg = Str("동영상 광고를 보시면 보상 획득 시간이 단축됩니다.") .. '\n' .. Str("광고를 보시겠습니까?")
-    local submsg = Str("모든 진행중인 보상 획득 시간을 50% 단축합니다.") .. '\n' .. Str("보상 획득 시간 단축은 1일 1회 가능합니다.")
-    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_cb)
+
+    local function ok_btn_callback()
+        g_advertisingData:request_dailyAdShow(AD_TYPE.FOREST, finish_callback)
+    end
+    
+    local msg = Str("모든 진행중인 보상 획득 시간을 50% 단축합니다.")
+    local submsg = Str("보상 획득 시간 단축은 1일 1회 가능합니다.")
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_callback)
 end

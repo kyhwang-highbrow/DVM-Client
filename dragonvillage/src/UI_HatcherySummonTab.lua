@@ -683,9 +683,13 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, is_ad, t_egg_data
 
     -- 무료 뽑기는 광고 시청
     if (is_ad) then
-        AdSDKSelector:showDailyAd(AD_TYPE['FSUMMON'], function()
+        --AdSDKSelector:showDailyAd(AD_TYPE['FSUMMON'], function()
+        local function finish_callback()
             g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
-        end)
+        end
+        --end)
+
+        g_advertisingData:request_dailyAdShow(AD_TYPE.FSUMMON, finish_callback)
     else
         g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
     end
@@ -801,17 +805,21 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 		ok_btn_cb()
 
     elseif (is_ad) then
-		-- 광고 비활성화 시
-		if (AdSDKSelector:isAdInactive()) then
-			AdSDKSelector:makePopupAdInactive()
-			return
-		end
+		-- -- 광고 비활성화 시
+		-- if (AdSDKSelector:isAdInactive()) then
+		-- 	AdSDKSelector:makePopupAdInactive()
+		-- 	return
+		-- end
 
-        -- 광고 프리로드 요청
-        AdSDKSelector:adPreload(AD_TYPE['FSUMMON'])
+        -- -- 광고 프리로드 요청
+        -- AdSDKSelector:adPreload(AD_TYPE['FSUMMON'])
 
-        -- 탐험 광고 안내 팝업
-        local msg = Str("동영상 광고를 보시면 무료 우정 소환이 가능합니다.") .. '\n' .. Str("광고를 보시겠습니까?")
+        -- -- 탐험 광고 안내 팝업
+        -- local msg = Str("동영상 광고를 보시면 무료 우정 소환이 가능합니다.") .. '\n' .. Str("광고를 보시겠습니까?")
+        -- local submsg = Str("무료 우정 소환은 1일 1회 가능합니다.")
+        -- MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+
+        local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
         local submsg = Str("무료 우정 소환은 1일 1회 가능합니다.")
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 

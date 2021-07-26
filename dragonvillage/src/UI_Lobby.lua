@@ -1612,8 +1612,10 @@ function UI_Lobby:click_giftBoxBtn()
     --     require('UI_ShopPackageScene')
     --     UI_ShopPackageScene()
     -- else
-        g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
+    --g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
     --end
+
+    g_advertisingData:request_adv_reward(AD_TYPE.RANDOM_BOX_LOBBY)
 end
 
 -------------------------------------
