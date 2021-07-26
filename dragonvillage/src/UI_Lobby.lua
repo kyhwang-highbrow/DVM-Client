@@ -1756,8 +1756,18 @@ end
 -- @brief 배틀패스 상점 버튼
 -------------------------------------
 function UI_Lobby:click_battlePassBtn()
-    g_battlePassData:openBattlePassPopup()
-    
+    local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_BattlePassPopup')
+
+    if (is_opend == true) then
+        UINavigatorDefinition:closeUIList(idx)
+        return
+    end
+
+    local ui = UI_BattlePassPopup()
+
+    if(close_cb) then
+        ui:setCloseCB(close_cb)
+    end
 end
 -------------------------------------
 -- function click_lvUpPackBtn

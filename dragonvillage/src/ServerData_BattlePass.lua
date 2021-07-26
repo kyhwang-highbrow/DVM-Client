@@ -567,33 +567,3 @@ function ServerData_BattlePass:request_allRewards(pid, type, finish_cb, fail_cb)
 
     return ui_network
 end
-
-function ServerData_BattlePass:openBattlePassPopup(close_cb)
-    local function coroutine_function(dt)
-        local co = CoroutineHelper()
-        --co:setBlockPopup()
-
-        co:work('# 배틀패스 정보 받는중')
-        self:request_battlePassInfo(co.NEXT, co.ESCAPE)
-        if co:waitWork() then return end
-
-        co:close()
-
-        local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_BattlePassPopup')
-
-        if (is_opend == true) then
-            UINavigatorDefinition:closeUIList(idx)
-            return
-        end
-
-        local ui = UI_BattlePassPopup()
-
-        if(close_cb) then
-            ui:setCloseCB(close_cb)
-        end
-    end
-
-    Coroutine(coroutine_function, "BattlePass Popup Coroutine")
-
-    
-end
