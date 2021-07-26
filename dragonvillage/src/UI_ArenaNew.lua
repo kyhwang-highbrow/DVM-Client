@@ -248,7 +248,6 @@ function UI_ArenaNew:initButton()
     vars['rewardBtn2']:registerScriptTapHandler(function() self:click_rewardInfoBtn(5) end)
      
     vars['dailyRewardBtn']:registerScriptTapHandler(function() self:click_dailyReward() end)
-    vars['dailyRewardSprite']:setVisible(not g_arenaNewData.m_dailyRewardReceived)
 
     -- 명예의 전당으로 이동
     --vars['fameBtn']:registerScriptTapHandler(function() self:click_fameBtn() end)
@@ -267,6 +266,9 @@ end
 -------------------------------------
 function UI_ArenaNew:refresh()
     local vars = self.vars
+
+    -- 일일 보상 노티
+    vars['dailyRewardSprite']:setVisible(not g_arenaNewData.m_dailyRewardReceived)
 
     local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
     do
@@ -712,7 +714,8 @@ end
 
 
 function UI_ArenaNew:click_dailyReward()
-    UI_ArenaNewDailyReward(self.m_remainNextScore)
+    local ui = UI_ArenaNewDailyReward(self.m_remainNextScore)
+    ui:setCloseCB(function() self:refresh() end)
 end
 
 
