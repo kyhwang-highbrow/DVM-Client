@@ -90,6 +90,8 @@ function UI_Game:initUI()
         self:setAutoPlayUI()
     end
 
+    self:showAutoItemPickUI()
+
     -- 2배속
     do
         local b = g_autoPlaySetting:get('quick_mode')

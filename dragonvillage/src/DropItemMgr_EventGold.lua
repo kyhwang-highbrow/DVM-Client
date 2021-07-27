@@ -57,11 +57,8 @@ function DropItemMgr_EventGold:dropItem(x, y)
 
     self.m_world.m_logRecorder:recordLog('drop_item_cnt', 1)
 
-    -- 자동 획득 활성화일 경우 즉시 획득
-    if (self.m_bActiveAutoItemPick == true) then
-        self:obtainItem(item)
-        item:changeState('appear_auto_obtain')
-    end
+    self:obtainItem(item)
+    item:changeState('appear_auto_obtain')
 
     return item
 end

@@ -13,7 +13,6 @@ DropItemMgr = class(PARENT, {
     m_dropCount = 'number',
     m_obtainedItemList = 'list',
     m_bImmediatelyObtain = 'boolean',
-    m_bActiveAutoItemPick = 'boolean',
 
     m_lDropItemStack = '',
 })
@@ -23,9 +22,6 @@ DropItemMgr = class(PARENT, {
 -------------------------------------
 function DropItemMgr:init(world)
 	self.m_world = world
-
-    -- 자동 줍기
-    self.m_bActiveAutoItemPick = g_supply:isActiveSupply_autoPickup()
 
     self.m_touchNode = self:makeTouchNode()
     self:makeTouchLayer(self.m_touchNode)
@@ -185,11 +181,8 @@ function DropItemMgr:dropItem(x, y)
 
     self.m_world.m_logRecorder:recordLog('drop_item_cnt', 1)
 
-    -- 자동 획득 활성화일 경우 즉시 획득
-    if (self.m_bActiveAutoItemPick == true) then
-        self:obtainItem(item)
-        item:changeState('appear_auto_obtain')
-    end
+    self:obtainItem(item)
+    item:changeState('appear_auto_obtain')
 
     return item
 end
