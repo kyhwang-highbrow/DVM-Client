@@ -65,8 +65,10 @@ function Tamer:init_tamer(t_tamer_data, bLeftFormationend)
     self.m_attribute = t_tamer['attr']
     self.m_bLeftFormation = bLeftFormationend
 
+    local is_pvp = PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp'
+    
 	-- 아군 테이머의 4번째 스킬은 자동모드시에만 적용
-    if (self.m_bLeftFormation and not g_autoPlaySetting:get('auto_mode')) then
+    if (self.m_bLeftFormation) and (not is_pvp) then -- and not g_autoPlaySetting:get('auto_mode')) then
         self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'])
     else
         self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'], t_tamer_data['skill_lv4'])
@@ -437,6 +439,9 @@ function Tamer:updateBasicSkillTimer(dt)
     PARENT.updateBasicSkillTimer(self, dt)
 
     local list = self:getSkillIndivisualInfo('indie_time')
+    --cclog('위치만 찾음')
+    --cclog(list)
+
     if (list) then
         -- 기획적으로 indie_time스킬은 1개만을 사용하도록 한다.
         local skill_info = table.getFirst(list)
