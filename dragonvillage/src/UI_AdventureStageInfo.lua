@@ -100,9 +100,6 @@ function UI_AdventureStageInfo:refresh()
     local stage_id = self.m_stageID
     local game_mode = g_stageData:getGameMode(stage_id)
 
-	-- 초기화
-	vars['speechSprite']:setVisible(false)
-
     do -- 스테이지 이름
         local stage_name = g_stageData:getStageName(stage_id)
         vars['titleLabel']:setString(stage_name)
@@ -231,7 +228,6 @@ function UI_AdventureStageInfo:refresh()
         -- 깜짝 출현 챕터
         if (chapter == SPECIAL_CHAPTER.ADVENT) then
             vars['starButton']:setVisible(false)
-			vars['speechSprite']:setVisible(true)
         -- 룬 축제 이벤트
         elseif (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then
             vars['starButton']:setVisible(false)
