@@ -684,10 +684,12 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, is_ad, t_egg_data
     -- 무료 뽑기는 광고 시청
     if (is_ad) then
         --AdSDKSelector:showDailyAd(AD_TYPE['FSUMMON'], function()
+        --    g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
+        --end)
+        
         local function finish_callback()
             g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
         end
-        --end)
 
         g_advertisingData:request_dailyAdShow(AD_TYPE.FSUMMON, finish_callback)
     else
