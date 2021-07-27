@@ -819,8 +819,6 @@ function UI_Lobby:initButton()
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
     vars['fevertimeBtn']:registerScriptTapHandler(function() self:click_fevertimeBtn() end) -- 핫타임 버튼 
     vars['capsuleBtn']:registerScriptTapHandler(function() self:click_capsuleBtn() end)
-    vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
-    vars['itemAutoBtn']:setVisible(false)
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
     vars['bingoBtn']:registerScriptTapHandler(function() self:click_bingoBtn() end) -- 빙고 이벤트
@@ -1592,16 +1590,6 @@ function UI_Lobby:click_fevertimeBtn()
 end
 
 -------------------------------------
--- function click_itemAutoBtn
--- @brief 자동재화 버튼 (광고 보기)
--------------------------------------
-function UI_Lobby:click_itemAutoBtn()
-    -- 2017-09-21 sgkim 매일매일 다이아를 자동 줍기에 더 비중을 두어 변경
-    --g_advertisingData:showAdvPopup(AD_TYPE.AUTO_ITEM_PICK)
-    g_subscriptionData:openSubscriptionPopup()
-end
-
--------------------------------------
 -- function click_giftBoxBtn
 -- @brief 선물상자 버튼 (광고 보기)
 -------------------------------------
@@ -2004,19 +1992,6 @@ function UI_Lobby:update(dt)
 
     -- 광고 (자동재화, 선물상자 정보)
     do
-        -- 자동줍기
-        local msg1, enable1 = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
-        vars['itemAutoLabel']:setString(msg1)
-        --vars['itemAutoBtn']:setEnabled(enable1) -- 매일매일 다이아 ui를 띄우는 것으로 변경함 (항상 enabled로!) 2017-09-21 sgkim
-        if (self.m_bItemAutoEnabled == nil) or (self.m_bItemAutoEnabled ~= enable1) then
-            self.m_bItemAutoEnabled = enable1
-            vars['itemAutoBtn']:setAutoShake(self.m_bItemAutoEnabled)
-        end
-        
-        -- 2018-11-28 상품 끝나기 3일 전에 구독상품 연장구매 가능하다고 알림
-        local is_auto_3day = g_autoItemPickData:checkSubsAlarm('subscription', 3) -- param : auto_type, day
-        vars['itemAutoNotiSprite']:setVisible(is_auto_3day)
-
         -- 선물상자
         local msg2, enable2 = g_advertisingData:getCoolTimeStatus(AD_TYPE.RANDOM_BOX_LOBBY)
         vars['giftBoxLabel']:setString(msg2)
@@ -2355,7 +2330,6 @@ function UI_Lobby:update_rightButtons()
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {}
     table.insert(t_btn_name, 'capsuleBtn')
-    table.insert(t_btn_name, 'itemAutoBtn')
     table.insert(t_btn_name, 'giftBoxBtn')
 
     -- 이벤트

@@ -893,26 +893,11 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
 
     local l_active_hot = {}
 
-    -- 클릭 시 툴팁 처리
-    local function click_btn()
-        local str = '{@SKILL_NAME} ' .. Str('보너스 기능') .. '\n {@SKILL_DESC}' .. Str('아이템을 자동으로 획득')
-        local tooltip = UI_Tooltip_Skill(0, 0, str)
-
-        if (tooltip) then
-            tooltip:autoPositioning(vars['hotTimeMarbleBtn'])
-        end
-    end
-    vars['hotTimeMarbleBtn']:registerScriptTapHandler(click_btn)
-
     vars['hotTimeMarbleBtn']:setVisible(false)
     vars['hotTimeExpBtn']:setVisible(false)
     vars['hotTimeGoldBtn']:setVisible(false)
     vars['hotTimeStBtn']:setVisible(false)    
 
-    -- 아이템 자동 줍기
-    if g_supply:isActiveSupply_autoPickup() then
-        table.insert(l_active_hot, 'hotTimeMarbleBtn')
-    end
 
     -- 경험치 핫타임
     local active, value = g_hotTimeData:getActiveHotTimeInfo_exp()

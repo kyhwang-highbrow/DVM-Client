@@ -112,13 +112,6 @@ function UI_GameResultNew:initUI()
 
     self:doActionReset()
     self:doAction()
-
-    -- 자동 재화 줍기 
-    local game_mode = g_stageData:getGameMode(stage_id)
-    if (game_mode ~= GAME_MODE_ADVENTURE) then
-        vars['itemAutoBtn']:setVisible(false)
-        vars['itemAutoLabel']:setVisible(false)
-    end
 end
 
 -------------------------------------
@@ -148,9 +141,6 @@ function UI_GameResultNew:initButton()
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfoBtn() end)
     vars['infoBtn']:setVisible(true)
-
-    -- 자동재화 버튼
-    vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end)
 end
 
 -------------------------------------
@@ -426,30 +416,14 @@ function UI_GameResultNew:direction_start()
     -- 자동 재화 회득 
     local stage_id = self.m_stageID
     local game_mode = g_stageData:getGameMode(stage_id)
-    local btn = vars['itemAutoBtn']
-    local label = vars['itemAutoLabel']
 
     if (game_mode == GAME_MODE_ADVENTURE) then
-        btn:setVisible(true)
-        label:setVisible(true)
-
         local function update(dt)
-            local msg = g_supply:getSupplyTimeRemainingSimpleStringAutoPickup()
-            label:setString(msg)
-
-            if (g_supply:isActiveSupply_autoPickup()) then
-                btn:stopAllActions()
-            end
-
             if (self.m_staminaInfo) then
                 self.m_staminaInfo:refresh()
             end
         end
-        self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
-        
-        if (not g_supply:isActiveSupply_autoPickup()) then
-            btn:setAutoShake(true)
-        end        
+        self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)   
     end
 
     -- 레벨업 연출 시작
@@ -1402,18 +1376,6 @@ function UI_GameResultNew:click_nextBtn()
     else
         UINavigator:goTo('adventure', stage_id)
     end
-end
-
--------------------------------------
--- function click_itemAutoBtn
--- @brief 자동재화 버튼 (광고 보기)
--------------------------------------
-function UI_GameResultNew:click_itemAutoBtn()
-    if (self:checkAutoPlayRelease()) then return end
-    -- 2017-09-21 sgkim 매일매일 다이아를 자동 줍기에 더 비중을 두어 변경
-    --g_advertisingData:showAdvPopup(AD_TYPE.AUTO_ITEM_PICK)
-    local buy_cb_func = nil
-    g_supply:openAutoPickupPopup(buy_cb_func)
 end
 
 -------------------------------------

@@ -614,9 +614,6 @@ function UI_ReadySceneNew:initButton()
 	-- 진형 관리
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
 
-    -- 광고 보기
-    vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end)
-
     -- 골드 부스터
     vars['goldBoosterBtn']:registerScriptTapHandler(function() self:click_goldBoosterBtn() end)
 
@@ -1016,13 +1013,6 @@ end
 function UI_ReadySceneNew:update_item(dt)    
     local vars = self.vars
 
-    -- 광고보기 (추가)
-    do
-        local str = g_supply:getSupplyTimeRemainingSimpleStringAutoPickup()
-        vars['itemAutoLabel']:setString(str)
-        vars['notiSprite']:setVisible(false)
-    end
-
     -- 경험치 부스터
     do
         local str, state = g_hotTimeData:getHotTimeBuffText('buff_exp2x')
@@ -1378,12 +1368,6 @@ function UI_ReadySceneNew:click_startBtn()
     if (not self:check_startCondition(stage_id)) then    
 		return
     end
-
-	-- 던전 진입 전에 광고할 것이 있는지 확인
-	local is_promote = self:checkPromoteAutoPick(stage_id)
-	if (is_promote) then
-		return
-	end
 	
     -- 클랜던전 연습모드의 경우
     if (self:isClanRaidTrainingMode(self.m_stageID)) then           
@@ -1398,52 +1382,6 @@ function UI_ReadySceneNew:click_startBtn()
     end
 	
     self:startGame(stage_id)
-end
-
--------------------------------------
--- function checkPromoteAutoPick
--- @breif 
--- @return 판매 촉진하는 팝업 조건 만족할 경우 true, 불만족할 경우 false
--------------------------------------
-function UI_ReadySceneNew:checkPromoteAutoPick(stage_id)
-    -- 황금던전에서만 동작함 2018-11-20
-    if (stage_id ~= EVENT_GOLD_STAGE_ID) then
-        return false
-    end
-
-    -- 현재 자동줍기 활성화 상태인지 확인
-    local is_used = g_supply:isActiveSupply_autoPickup()
-    if (is_used) then
-        return false 
-    end
-
-    -- 쿨타임 만료시간 확인 (한번 노출 시 24시간 동안 노출하지 않음)
-    local cool_time = g_settingData:getPromoteExpired('auto_pick')
-    local cur_time = Timer:getServerTime()
-    if (cur_time < cool_time) then
-        return false
-    end
-
-    local func_show_popup -- 1
-    local func_show_autopick_popup -- 2
-
-    -- 1. 자동 줍기 비활성화 알림&구매유도 팝업
-    func_show_popup = function()
-        UI_PromoteAutoPick(func_show_autopick_popup)
-    end
-
-    -- 2. 자동 줍기 구매 팝업
-    func_show_autopick_popup = function()
-        g_supply:openAutoPickupPopup()
-    end
-    func_show_popup()
-
-    -- 2018-11-19 황금던전 자동줍기 상품 판매촉진 쿨타임 1일
-    local next_cool_time = cur_time + datetime.dayToSecond(1)
-    -- 쿨 타임 만료시간 갱신
-    g_settingData:setPromoteCoolTime('auto_pick', next_cool_time)
-
-    return true
 end
 
 -------------------------------------
@@ -1689,15 +1627,6 @@ function UI_ReadySceneNew:click_incarnationOfSinsSetBtn()
     local attr = struct_raid.attr
     local stage_lv = struct_raid:getLv()
     UI_EventIncarnationOfSinsEntryPopup(attr, stage_lv)
-end
-
--------------------------------------
--- function click_itemAutoBtn
--- @breif 광고 보기
--------------------------------------
-function UI_ReadySceneNew:click_itemAutoBtn()
-    local buy_cb_func = nil
-    g_supply:openAutoPickupPopup(buy_cb_func)
 end
 
 -------------------------------------

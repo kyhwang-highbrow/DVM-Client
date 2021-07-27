@@ -43,21 +43,9 @@ function ServerData_Subscription:openSubscriptionPopup()
         -- 구독 정보
         local subscribed_info = self:getSubscribedInfo()
 
-        -- 자동줍기 이용권
-        local auto_pick_item = g_userData:get('auto_root')
-        local is_used_item = g_autoItemPickData:isActiveAutoItemPickWithType('auto_root')
-
         -- 구독중 (새로운 UI)
         if (subscribed_info) then
             UI_SubscriptionPopupNew_Ing()
-        
-        -- 자동줍기 이용권 사용중
-        elseif (is_used_item) then
-            UI_AutoItemPickPopup_Ing()
-
-        -- 쓸 수 있는 자동줍기 이용권이 있음
-        elseif (auto_pick_item) and (auto_pick_item > 0) then
-            UI_AutoItemPickPopup()
 
         -- 아무것도 사용안하고 있음 
         else

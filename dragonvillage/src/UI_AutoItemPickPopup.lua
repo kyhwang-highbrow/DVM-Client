@@ -64,10 +64,6 @@ function UI_AutoItemPickPopup:click_okBtn()
         UIManager:toastNotificationGreen(toast_msg)
 
         local function func()
-            -- 현재 창을 닫고 자동 줍기 오픈
-            -- @sgkim 2020.05.15 아이템 사용 후 자동 줍기 UI를 띄우지 않아도 됨
-            --local buy_cb_func = nil
-            --g_supply:openAutoPickupPopup(buy_cb_func)
             self:close()
         end
         self:doActionReverse(func, 0.5, false)

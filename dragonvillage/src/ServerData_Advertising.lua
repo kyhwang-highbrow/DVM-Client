@@ -55,16 +55,7 @@ function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
         end
     end
     
-    if (ad_type == AD_TYPE.AUTO_ITEM_PICK) then
-        -- 자동획득 적용되있다면 로비에서는 광고 못봄
-        if (g_autoItemPickData:isActiveAutoItemPick()) then
-            local msg = Str('이미 자동 획득이 적용되어 광고를 볼 수 없습니다.')
-            UIManager:toastNotificationRed(msg)
-        else
-            show_popup()
-        end
-    
-    elseif (ad_type == AD_TYPE.RANDOM_BOX_LOBBY) then
+    if (ad_type == AD_TYPE.RANDOM_BOX_LOBBY) then
         -- 보상 정보 있다면 호출 x
         if (self.m_rewardList) then
             show_popup()

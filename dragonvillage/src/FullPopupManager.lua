@@ -72,23 +72,6 @@ function FullPopupManager:show(type, show_func)
 			end
 		end
 
-    -- 매일 매일 다이아 풀팝업 (전투화면 진입시)
-    -- 조건 : 구매하지 않은 유저 LV 10 이상
-    elseif (type == FULL_POPUP_TYPE.AUTO_PICK) then
-        local lv = g_userData:get('lv')
-        local need_lv = 10
-        local save_key = 'auto_pick'
-
-        local is_view = g_settingData:get('event_full_popup', save_key) or false
-        if (lv >= need_lv) and (not is_view) then 
-            -- 자동 줍기 비활성화 상태일 경우
-            if (g_supply:isActiveSupply_autoPickup() == false) then
-                local buy_cb_func = nil
-                g_supply:openAutoPickupPopup(buy_cb_func)
-                g_settingData:applySettingData(true, 'event_full_popup', save_key)
-            end
-        end
-
     -- 일일상점 (상점 진입시)
     -- 조건 : 유저 LV 10 이상
     elseif (type == FULL_POPUP_TYPE.SHOP_DAILY) then

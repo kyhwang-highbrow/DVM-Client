@@ -99,8 +99,6 @@ function UI_GameResult_AncientRuin:direction_start()
     -- 자동 재화 회득 
     local stage_id = self.m_stageID
     local game_mode = g_stageData:getGameMode(stage_id)
-    local btn = vars['itemAutoBtn']
-    local label = vars['itemAutoLabel']
 
     -- 레벨업 연출 스킵
     self:doNextWork()
