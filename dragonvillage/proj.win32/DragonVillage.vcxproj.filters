@@ -4957,6 +4957,7 @@
     <None Include="..\src\UI_ArenaNewAutoPlayPopup.lua" />
     <None Include="..\src\UI_ArenaNewStaminaChargePopup.lua" />
     <None Include="..\src\UIC_Label_TypingEffect.lua" />
+    <None Include="..\src\UI_ClearTicket.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

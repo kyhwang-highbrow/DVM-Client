@@ -177,7 +177,8 @@ function SceneGameIntro:update(dt)
     if (idx == 2) and (recorder:getLog('drop_item_cnt') > 0) then
         -- @analytics
         self:firstTimeExperience('Tutorial_Intro_AutoPick')
-        
+
+        -- 210728 : 자동줍기 상시화로 scenario_intro_fight에서 관련 문구 제거
         self.m_nIdx = self.m_nIdx + 1
     end
 

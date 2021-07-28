@@ -84,6 +84,16 @@ function UI_AdventureStageInfo:initButton()
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 
+    if vars['clearTicketBtn'] then
+        if (game_mode == GAME_MODE_ADVENTURE) then
+            vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearTicketBtn() end)
+            vars['clearTicketBtn']:setVisible(true)
+        else
+            vars['clearTicketBtn']:setVisible(false)
+            vars['enterBtn']:setPositionX(0)
+        end
+    end
+
     if (game_mode == GAME_MODE_ADVENTURE) then
         vars['starButton']:registerScriptTapHandler(function() self:click_starButton() end)
     else
@@ -526,6 +536,22 @@ function UI_AdventureStageInfo:click_starButton()
         end
     end
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_clearTicketBtn
+-- @brief 소탕
+-------------------------------------
+function UI_AdventureStageInfo:click_clearTicketBtn()
+    local stage_info = g_adventureData:getStageInfo(self.m_stageID)
+    local num_of_stars = stage_info:getNumberOfStars()
+
+    if (num_of_stars < 3) then
+        UIManager:toastNotificationRed(Str('해당 스테이지의 별을 3개 달성 시 소탕하실 수 있습니다.'))
+        return
+    end
+
+    local ui = UI_ClearTicket(self.m_stageID)
 end
 
 -------------------------------------

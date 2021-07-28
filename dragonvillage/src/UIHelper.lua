@@ -544,3 +544,35 @@ function UIHelper:CreateParticle(node, file_name)
         --particle:setAutoRemoveOnFinish(true)
     end
 end
+
+
+-------------------------------------
+-- function setDifficultyLabelWithColor
+-- @brief 
+-------------------------------------
+function UIHelper:setDifficultyLabelWithColor(label_node, stage_id)
+    if (not label_node) or (not stage_id) then return end
+
+    local game_mode = g_stageData:getGameMode(stage_id)
+
+     -- 모험 모드
+     if (game_mode == GAME_MODE_ADVENTURE) then
+        local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+        if (difficulty == 1) then
+            label_node:setColor(COLOR['diff_normal'])
+            label_node:setString(Str('보통'))
+
+        elseif (difficulty == 2) then
+            label_node:setColor(COLOR['diff_hard'])
+            label_node:setString(Str('어려움'))
+
+        elseif (difficulty == 3) then
+            label_node:setColor(COLOR['diff_hell'])
+            label_node:setString(Str('지옥'))
+        elseif (difficulty == 4) then
+            label_node:setColor(COLOR['diff_hellfire'])
+            label_node:setString(Str('불지옥'))
+        end
+     end
+end
