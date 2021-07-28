@@ -100,12 +100,11 @@ function UI_GachaResult_Rune:initUI()
     self.m_tUIIsMoved['runeInfo'] = false
 
     do -- 아이콘
-        local is_combine = self.m_type == 'combine'
+        local is_cash = (self.m_type == 'cash') or (self.m_type == 'rune_box')
 
-        if (is_combine) then
+        if (not is_cash) then
             vars['againBtn']:setVisible(false)
             vars['iconNode']:setVisible(false)
-
         else
             local is_cash = self.m_type == 'cash'
             local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
