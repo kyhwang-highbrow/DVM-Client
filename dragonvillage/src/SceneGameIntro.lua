@@ -166,14 +166,20 @@ function SceneGameIntro:update(dt)
     end 
     
     -- 두번째 웨이브 - 아이템 드랍시
-    if (idx == 2) and (recorder:getLog('drop_item_cnt') > 0) then
-        self:play_tutorialTalk(true)
+    -- if (idx == 2) and (recorder:getLog('drop_item_cnt') > 0) then
+    --     self:play_tutorialTalk(true)
 
+    --     -- @analytics
+    --     self:firstTimeExperience('Tutorial_Intro_AutoPick')
+
+    --     world.m_dropItemMgr:startIntro()
+    -- end
+    if (idx == 2) and (recorder:getLog('drop_item_cnt') > 0) then
         -- @analytics
         self:firstTimeExperience('Tutorial_Intro_AutoPick')
-
-        world.m_dropItemMgr:startIntro()
-    end 
+        
+        self.m_nIdx = self.m_nIdx + 1
+    end
 
     -- 세번째 웨이브 - 보스 대사
 	if (idx == 3) and (world.m_waveMgr:isFinalWave() and world:isPossibleControl()) then
