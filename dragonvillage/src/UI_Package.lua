@@ -294,8 +294,13 @@ function UI_Package:click_buyBtn(index)
 	local struct_product = self.m_productList[index or 1]
 
 	local function cb_func(ret)
-        -- 아이템 획득 결과창
-        ItemObtainResult_Shop(ret)
+        
+        if struct_product:isContain('rune_box') then
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX)
+        else    
+            -- 아이템 획득 결과창
+            ItemObtainResult_Shop(ret)
+        end
 
         -- 갱신이 필요한 상태일 경우
         if ret['need_refresh'] then
