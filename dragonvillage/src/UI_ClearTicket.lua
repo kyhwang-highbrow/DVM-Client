@@ -100,6 +100,8 @@ function UI_ClearTicket:initButton()
     
     vars['maxBtn']:registerScriptTapHandler(function() self:click_adjustBtn(100) end)
 
+    vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+
     self:initSlideBar()
 end
 
@@ -194,10 +196,10 @@ function UI_ClearTicket:refresh_label(is_refreshed_by_button)
         local slider_bar_content_size = vars['sliderBarNode']:getContentSize()
 
         vars['sliderBarBtn']:stopAllActions()
-        vars['sliderBarBtn']:setPositionX(ratio * slider_bar_content_size.width)
+        vars['sliderBarBtn']:runAction(cc.MoveTo:create(0.2, cc.p(ratio * slider_bar_content_size.width, 0)))
 
         vars['sliderBarSprite']:stopAllActions()
-        vars['sliderBarSprite']:runAction(cc.ProgressTo:create(ratio * 100))
+        vars['sliderBarSprite']:runAction(cc.ProgressTo:create(0.2, ratio * 100))
     end
 end
 
@@ -214,5 +216,181 @@ function UI_ClearTicket:click_adjustBtn(value)
     end
 end
 
+----------------------------------------------------------------------
+-- function click_startBtn
+----------------------------------------------------------------------
+function UI_ClearTicket:click_startBtn()
+    local function finish_cb(ret)
+        self:close()
+        local ui = UI_ClearTicketConfirm(self.m_clearNum, ret)
+    end
+
+    g_stageData:request_clearTicket(self.m_stageID, self.m_clearNum, finish_cb)
+end
 
 
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+-- class UI_ClearTicketConfirm
+----------------------------------------------------------------------
+UI_ClearTicketConfirm = class(PARENT, {
+    m_changedUserInfo = 'table',
+    m_dropItems = 'table',
+
+    m_clearNum = 'number',
+
+    m_originalTitleLabel = 'string',
+
+    m_levelUpDirector = 'LevelupDirector_GameResult',
+
+    --m_directingList = 'List[function]',
+
+})
+
+
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_ClearTicketConfirm:init(clear_num, result_table)
+    local vars = self:load('clear_ticket_popup_confirm.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- UI 클래스명 지정
+    self.m_uiName = 'UI_ClearTicketConfirm'
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClearTiUI_ClearTicketConfirmcket')
+
+
+    self:initMember(clear_num, result_table)
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+----------------------------------------------------------------------
+-- function initUI
+----------------------------------------------------------------------
+function UI_ClearTicketConfirm:initMember(clear_num, result_table)
+    local vars = self.vars
+
+    self.m_clearNum = clear_num
+    self.m_changedUserInfo = result_table['user_levelup_data']
+    self.m_dropItems = result_table['drop_reward_list']
+
+    ccdump(result_table['drop_reward_list'])
+
+
+    -- table.insert(self.m_directingList, '')
+    -- table.insert(self.m_directingList, '')
+end
+
+----------------------------------------------------------------------
+-- function initUI
+----------------------------------------------------------------------
+function UI_ClearTicketConfirm:initUI()
+    local vars = self.vars 
+
+    vars['resultLabel']:setString(Str(vars['resultLabel']:getString(), self.m_clearNum))
+
+
+end
+
+
+----------------------------------------------------------------------
+-- function initButton
+----------------------------------------------------------------------
+function UI_ClearTicketConfirm:initButton()
+    local vars = self.vars
+
+    vars['okBtn']:registerScriptTapHandler(function() self:close() end)
+end
+
+
+
+----------------------------------------------------------------------
+-- function refresh
+----------------------------------------------------------------------
+function UI_ClearTicketConfirm:refresh()
+    self:initDropItems()
+    self:initUserInfo()    
+end
+
+
+----------------------------------------------------------------------
+-- function initUserInfo
+----------------------------------------------------------------------
+function UI_ClearTicketConfirm:initUserInfo()
+    local vars = self.vars
+
+    local prev_lv = self.m_changedUserInfo['prev_lv']
+    local prev_exp = self.m_changedUserInfo['prev_exp']
+    local curr_lv = self.m_changedUserInfo['curr_lv']
+    local curr_exp = self.m_changedUserInfo['curr_exp']
+
+    local level_up_director = LevelupDirector_GameResult(
+        vars['userLvLabel'],
+        vars['userExpLabel'],
+        vars['userMaxSprite'],
+        vars['userExpGg'],
+        vars['userLvUpVisual']
+    )
+
+    if (prev_lv ~= curr) then
+
+    end
+
+    level_up_director:initLevelupDirector(prev_lv, prev_exp, curr_lv, curr_exp, 'tamer')
+
+    self.m_levelUpDirector = level_up_director
+
+    local function finish_cb()
+        self.m_levelUpDirector:stop()  
+    end
+    self.m_levelUpDirector.m_cbAniFinish = finish_cb
+    self.m_levelUpDirector:start()
+end
+
+
+
+----------------------------------------------------------------------
+-- function initDropItems
+----------------------------------------------------------------------
+function UI_ClearTicketConfirm:initDropItems()
+    local vars = self.vars
+
+
+    local count = #self.m_dropItems
+
+    if (count <= 0) then
+        return
+    end
+
+    
+    for index, value in ipairs(self.m_dropItems) do
+        -- value = {item_id, count, from, data}
+        local item_id = value[1]
+        local item_num = value[2]
+        local from = value[3]
+        local data = value[4]
+
+        interval = 95
+        local pos_list = getSortPosList(interval, item_num)
+
+        local item_card = UI_ItemCard(item_id, item_num, data)
+
+        if item_card then
+            item_card.root:setScale(0.6)
+
+            vars['dropRewardMenu']:addChild(item_card.root)
+
+            item_card.root:setPositionX(pos_list[index])
+        end
+    end
+end

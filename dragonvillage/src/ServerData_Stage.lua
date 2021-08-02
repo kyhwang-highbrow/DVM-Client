@@ -877,3 +877,130 @@ function ServerData_Stage:requestGameStart_training(stage_id, attr, finish_cb, f
 	ui_network:setFailCB(fail_cb)
     ui_network:request()
 end
+
+
+
+-------------------------------------
+-- function request_clearTicket
+-------------------------------------
+function ServerData_Stage:request_clearTicket(stage_id, clear_count, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    
+    local function success_cb(ret)
+        local ref_table = {}
+        ref_table['user_levelup_data'] = {}
+        ref_table['drop_reward_list'] = {}
+
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        g_userData:response_userInfo(ret, ref_table)
+        self:response_dropItems(ret, ref_table)
+        
+        finish_cb(ref_table)
+    end
+
+    local network = UI_Network()
+    network:setUrl('/game/stage/use_clear_ticket')
+
+    network:setParam('uid', uid)
+    network:setParam('stage', stage_id)
+    network:setParam('clear_cnt', clear_count)
+
+    network:setSuccessCB(success_cb)
+    network:setFailCB(fail_cb)
+    network:request()
+end
+
+
+
+-------------------------------------
+-- function response_userInfo
+-------------------------------------
+function ServerData_Stage:response_dropItems(ret, t_result_ref)
+    if (not ret['added_items']) then
+        return
+    end
+
+    local items_list = ret['added_items']['items_list']
+    if (not items_list) then
+        return
+    end
+
+    local drop_reward_list = t_result_ref['drop_reward_list']
+
+    -- 드랍 아이템에 의한 보너스
+    local l_bonus_item = {}
+
+    for i,v in ipairs(items_list) do
+        local item_id = v['item_id']
+        local count = v['count']
+        local from = v['from']
+        local data = nil
+
+        
+        if v['oids'] then
+            -- Object는 하나만 리턴한다고 가정 (dragon or rune)
+            local oid = v['oids'][1]
+            if oid then
+                -- 드래곤에서 정보 검색
+                for _,obj_data in ipairs(ret['added_items']['dragons']) do
+                    if (obj_data['id'] == oid) then
+                        data = StructDragonObject(obj_data)
+                        break
+                    end
+                end
+
+                -- 룬에서 정보 검색
+                if (not data) then
+                    for _,obj_data in ipairs(ret['added_items']['runes']) do
+                        if (obj_data['id'] == oid) then
+                            data = StructRuneObject(obj_data)
+                            break
+                        end
+                    end
+                end
+            end
+        end
+
+        -- 기본으로 주는 골드도 표기하기로 결정함
+        if (from == 'drop') then
+            -- 하이브로 캡슐은 한국서버에서만 드랍 처리
+            if (item_id == TableItem:getItemIDFromItemType('capsule')) then
+                if g_localData:isShowHighbrowShop() then
+                    local t_data = {item_id, count, from, data}
+                    table.insert(drop_reward_list, t_data)
+                end            
+            else
+                local t_data = {item_id, count, from, data}
+                table.insert(drop_reward_list, t_data)
+            end
+
+        -- 스테이지에서 기본으로 주는 골드 량
+        elseif (from == 'default') then
+            local t_data = {item_id, count, from, data}
+            table.insert(drop_reward_list, t_data)
+
+        -- 드랍 아이템에 의한 보너스
+        elseif (from == 'bonus') then
+            if (not l_bonus_item[item_id]) then
+                l_bonus_item[item_id] = 0
+            end
+            l_bonus_item[item_id] = l_bonus_item[item_id] + count
+
+        -- 이벤트 아이템 (ex:송편)
+        elseif (from == 'event') or (from == 'event_bingo') then
+            local t_data = {item_id, count, from, data}
+            table.insert(drop_reward_list, t_data)
+        end
+    end
+
+    -- 보너스 아이템 추가
+    for i,v in pairs(l_bonus_item) do
+        local t_data = {i, v, 'bonus'}
+        table.insert(drop_reward_list, t_data)
+    end
+
+end

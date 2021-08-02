@@ -1011,14 +1011,14 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
 		local scale = table_data['scale_'.. evolution]
 
         -- 외형 변환 적용 Animator
-        local animaotr = AnimatorHelper:makeDragonAnimatorByTransform(user_data)
-        animaotr.m_node:setDockPoint(cc.p(0.5, 0.5))
-        animaotr.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+        local animator = AnimatorHelper:makeDragonAnimatorByTransform(user_data)
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
 		
 		-- 자코 추가로 스케일 개별 적용
-        animaotr.m_node:setScale(math_clamp(scale, 1, 2))
+        animator.m_node:setScale(math_clamp(scale, 1, 2))
 
-        vars['dragonNode' .. i]:addChild(animaotr.m_node)
+        vars['dragonNode' .. i]:addChild(animator.m_node)
 
         do -- 드래곤 레벨, 경험치
             local lv_label      = vars['lvLabel' .. i]
@@ -1030,8 +1030,8 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
 
             -- 최초 레벨업 시 포즈
             levelup_director.m_cbFirstLevelup = function()
-                animaotr:changeAni('pose_1', false)
-                animaotr:addAniHandler(function() animaotr:changeAni('idle', true) end)
+                animator:changeAni('pose_1', false)
+                animator:addAniHandler(function() animator:changeAni('idle', true) end)
             end
 
             -- @kwkang 2020-11-12부로 경험치를 아이템으로 획득하게 변경되어 레벨업 연출 필요 없음

@@ -590,4 +590,81 @@ function ServerData_User:getOSVersion()
     return 0    
 end
 
+-------------------------------------
+-- function response_userInfo
+-------------------------------------
+function ServerData_User:response_userInfo(ret, t_result_ref)
+    local user_levelup_data = t_result_ref['user_levelup_data']
+
+    -- 이전 레벨과 경험치
+    user_levelup_data['prev_lv'] = self:get('lv')
+    user_levelup_data['prev_exp'] = self:get('exp')
+
+    do -- 서버에서 넘어온 레벨과 경험치 적용
+        if ret['lv'] then
+            self:applyServerData(ret['lv'], 'lv')
+
+            -- 채팅 서버에 변경사항 적용
+            g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
+        end
+
+        if ret['exp'] then
+            self:applyServerData(ret['exp'], 'exp')
+        end
+    end
+
+    -- 현재 레벨과 경험치
+    user_levelup_data['curr_lv'] = self:get('lv')
+    user_levelup_data['curr_exp'] = self:get('exp')
+
+    -- 현재 레벨의 최대 경험치
+    local table_user_level = TableUserLevel()
+    local lv = self:get('lv')
+    local curr_max_exp = table_user_level:getReqExp(lv)
+    user_levelup_data['curr_max_exp'] = curr_max_exp
+
+    -- 최대 레벨 여부
+    user_levelup_data['is_max_level'] = (curr_max_exp == 0)
+
+    do -- 추가 경험치 총량
+        local low_lv = user_levelup_data['prev_lv']
+        local low_lv_exp = user_levelup_data['prev_exp']
+        local high_lv = user_levelup_data['curr_lv']
+        local high_lv_exp = user_levelup_data['curr_exp']
+        user_levelup_data['add_exp'] = table_user_level:getBetweenExp(low_lv, low_lv_exp, high_lv, high_lv_exp)
+    end    
+
+    -- 레벨이 아닌 다른 컨텐츠 오픈 조건
+    local t_content_open = t_result_ref['content_open']
+    if (t_content_open) then
+        do -- 시험의 탑 오픈 정보
+            local open = ret['attr_tower_open']
+            if (open and open == true) then
+                t_content_open['open'] = open
+                self:applyServerData(open, 'attr_tower_open')
+            end
+        end
+
+        do -- 고대 유적 던전 오픈 정보
+            local open = ret['ruin_open']
+            if (open and open == true) then
+                t_content_open['open'] = open
+            end
+        end
+    end
+
+    -- 레벨이 변경되었을 경우 Tapjoy유저 레벨 정보를 갱신하기 위해 호출
+    if (user_levelup_data['prev_lv'] ~= user_levelup_data['curr_lv']) then
+        -- @analytics (Tapjoy)
+        Analytics:userInfo()
+
+        -- @mskim 20.09.14 레벨업 패키지 출력에도 사용함
+        g_personalpackData:push(PACK_LV_UP, user_levelup_data['curr_lv'])
+    end
+end
+
+
+
+
+
     
