@@ -552,11 +552,15 @@ function UI_AdventureStageInfo:click_clearTicketBtn()
     end
 
     if (not g_supply:isActiveSupply('clear_ticket')) then
-        struct_product = g_shopDataNew:getProduct('package', 120161)
+        local pid = g_supply:getSupplyProductIdByType('clear_ticket')
 
-        local sub_msg = Str('소탕이 비활성화 상태입니다.')
+        struct_product = g_shopDataNew:getProduct('package', pid)
 
-        struct_product:buy(nil, sub_msg)
+        if struct_product then
+            local sub_msg = Str('소탕이 비활성화 상태입니다.')
+            struct_product:buy(nil, sub_msg)
+        end
+
         return
     end
 
