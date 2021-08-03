@@ -102,6 +102,23 @@ function UI_ClearTicket:initButton()
 
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 
+    
+    if g_supply:isActiveSupply('clear_ticket') then
+        local pid = g_supply:getSupplyProductIdByType('clear_ticket')
+
+        struct_product = g_shopDataNew:getProduct('package', pid)
+
+        if struct_product then
+            vars['priceLabel']:setString(struct_product:getPriceStr())
+            vars['buyBtn']:registerScriptTapHandler(function() struct_product:buy() end)
+        else
+            vars['buyBtn']:setVisible(false)
+        end
+    else
+        vars['buyBtn']:setVisible(false)
+    end
+
+
     self:initSlideBar()
 end
 
