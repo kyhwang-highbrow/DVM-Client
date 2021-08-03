@@ -6,6 +6,7 @@ local PARENT = UI
 UI_ClearTicket = class(PARENT, {
     m_stageID = 'number',
     m_clearNum = 'number', 
+    m_supplyType = 'string',
 
 
     m_staminaType = 'string',
@@ -31,6 +32,11 @@ function UI_ClearTicket:init(stage_id)
     self:initUI()
     self:initButton()
     self:refresh()
+
+
+    if vars['periodLabel'] then
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    end
 end
 
 ----------------------------------------------------------------------
@@ -39,6 +45,7 @@ end
 function UI_ClearTicket:initMember(stage_id)
     self.m_stageID = stage_id
     self.m_clearNum = 0
+    self.m_supplyType = 'clear_ticket'
 
     
     self.m_staminaType, self.m_requiredStaminaNum = TableDrop:getStageStaminaType(self.m_stageID)
@@ -103,8 +110,8 @@ function UI_ClearTicket:initButton()
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 
     
-    if g_supply:isActiveSupply('clear_ticket') then
-        local pid = g_supply:getSupplyProductIdByType('clear_ticket')
+    if g_supply:isActiveSupply(self.m_supplyType) then
+        local pid = g_supply:getSupplyProductIdByType(self.m_supplyType)
 
         struct_product = g_shopDataNew:getProduct('package', pid)
 
@@ -195,6 +202,15 @@ end
 ----------------------------------------------------------------------
 function UI_ClearTicket:refresh()
 
+end
+
+----------------------------------------------------------------------
+-- function update
+----------------------------------------------------------------------
+function UI_ClearTicket:update(dt)
+    local time_str = g_supply:getSupplyTimeRemainingString(self.m_supplyType)
+
+    self.vars['periodLabel']:setString(time_str)
 end
 
 ----------------------------------------------------------------------
