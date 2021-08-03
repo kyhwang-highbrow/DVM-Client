@@ -5,6 +5,10 @@ local uiRoot = 'res/'
 
 local UILoaderFileCache = {}
 
+function checkUIFileExist(url)
+    return cc.FileUtils:getInstance():isFileExist(uiRoot .. url)
+end
+
 function getUIFile(url, check_exist)
 	if UILoaderFileCache[url] then
 		return UILoaderFileCache[url]
