@@ -295,6 +295,24 @@ function ServerData_Supply:getSupplyTimeRemainingSimpleStringAutoPickup()
 end
 
 -------------------------------------
+-- function getTargetSupplyData
+-------------------------------------
+function ServerData_Supply:getTargetSupplyData(supply_type)
+
+    if (not supply_type) then return end
+
+    local l_supply_product = TableSupply:getSupplyProductList()
+    local target_data
+
+    for _, t_data in pairs(l_supply_product) do
+        if (t_data['type'] == supply_type) then
+            return t_data
+        end
+    end
+end
+
+
+-------------------------------------
 -- function getSupplyProductIdByType
 -------------------------------------
 function ServerData_Supply:getSupplyProductIdByType(supply_type)
