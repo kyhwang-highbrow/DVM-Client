@@ -92,11 +92,11 @@ function UI_ClearTicket:initButton()
 
     vars['plusBtn']:registerScriptTapHandler(function() self:click_adjustBtn(1) end)
     
-    vars['plusBtn']:registerScriptPressHandler(function() self:click_adjustBtn(1) end)
+    vars['plusBtn']:registerScriptPressHandler(function() self:click_adjustBtn(1, true) end)
 
     vars['minusBtn']:registerScriptTapHandler(function() self:click_adjustBtn(-1) end)
     
-    vars['minusBtn']:registerScriptPressHandler(function() self:click_adjustBtn(-1) end)
+    vars['minusBtn']:registerScriptPressHandler(function() self:click_adjustBtn(-1, true) end)
     
     vars['maxBtn']:registerScriptTapHandler(function() self:click_adjustBtn(100) end)
 
@@ -207,12 +207,36 @@ end
 ----------------------------------------------------------------------
 -- function refresh_string
 ----------------------------------------------------------------------
-function UI_ClearTicket:click_adjustBtn(value)
-    local result = self.m_clearNum + value
+function UI_ClearTicket:click_adjustBtn(value, is_pressed)
 
-    if (result >= 0) and (result <= self.m_availableStageNum) then
-        self.m_clearNum = result
-        self:refresh_label(true)
+    local function adjust_func()
+        local result = self.m_clearNum + value
+
+        if (result >= 0) and (result <= self.m_availableStageNum) then
+            self.m_clearNum = result
+            self:refresh_label(true)
+        end
+    end
+
+    if (not is_pressed) then
+        adjust_func()
+    else
+        local button    
+        if (value >= 0) then
+            button = self.vars['plusBtn']
+        else
+            button = self.vars['minusBtn']
+        end
+
+        local function update_level(dt)
+            if (not button:isSelected()) or (not button:isEnabled()) then
+                self.root:unscheduleUpdate()
+            end
+
+            adjust_func()
+        end
+
+        self.root:scheduleUpdateWithPriorityLua(function(dt) return update_level(dt) end, 1)
     end
 end
 
@@ -248,9 +272,6 @@ UI_ClearTicketConfirm = class(PARENT, {
     m_originalTitleLabel = 'string',
 
     m_levelUpDirector = 'LevelupDirector_GameResult',
-
-    --m_directingList = 'List[function]',
-
 })
 
 
@@ -283,12 +304,6 @@ function UI_ClearTicketConfirm:initMember(clear_num, result_table)
     self.m_clearNum = clear_num
     self.m_changedUserInfo = result_table['user_levelup_data']
     self.m_dropItems = result_table['drop_reward_list']
-
-    ccdump(result_table['drop_reward_list'])
-
-
-    -- table.insert(self.m_directingList, '')
-    -- table.insert(self.m_directingList, '')
 end
 
 ----------------------------------------------------------------------
@@ -364,24 +379,21 @@ end
 ----------------------------------------------------------------------
 function UI_ClearTicketConfirm:initDropItems()
     local vars = self.vars
-
-
     local count = #self.m_dropItems
 
     if (count <= 0) then
         return
     end
 
-    
+    local interval = 95
+    local pos_list = getSortPosList(interval, count)
+
     for index, value in ipairs(self.m_dropItems) do
         -- value = {item_id, count, from, data}
         local item_id = value[1]
         local item_num = value[2]
         local from = value[3]
         local data = value[4]
-
-        interval = 95
-        local pos_list = getSortPosList(interval, item_num)
 
         local item_card = UI_ItemCard(item_id, item_num, data)
 
