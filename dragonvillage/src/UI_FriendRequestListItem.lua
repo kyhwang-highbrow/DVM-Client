@@ -30,14 +30,14 @@ function UI_FriendRequestListItem:initUI()
     vars['nameLabel']:setString(t_friend_info:getNickText())
     vars['levelLabel']:setString(t_friend_info:getLvText())
 
-    -- Æ¼¾î ¾ÆÀÌÄÜ
+    -- í‹°ì–´ ì•„ì´ì½˜
     local tier = t_friend_info:getArenaTier()
 
     vars['tierNode']:removeAllChildren()
     local icon = StructUserInfoArenaNew:makeTierIcon(tier, 'big')
     vars['tierNode']:addChild(icon)
 
-    -- Æ¼¾î ÀÌ¸§
+    -- í‹°ì–´ ì´ë¦„
     local tier_name = StructUserInfoArenaNew:getTierName(tier)
     vars['tierLabel']:setString(tier_name)
 end
