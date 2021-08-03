@@ -178,8 +178,6 @@ function UI_ClearTicket:onSliderbarTouchMoved(touch, event)
     vars['sliderBarSprite']:stopAllActions()
     vars['sliderBarSprite']:setPercentage(percentage * 100)
 
-
-    
     self.m_clearNum =  math_floor(percentage * self.m_availableStageNum)
 
     self:refresh_label()

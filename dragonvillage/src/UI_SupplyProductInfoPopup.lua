@@ -4,73 +4,88 @@ local PARENT = UI
 -- class UI_SupplyProductInfoPopup
 -------------------------------------
 UI_SupplyProductInfoPopup = class(PARENT,{
-        m_tSupplyData = 'number',
-        --{
-        --    ['supply_id']=1004;
-        --    ['period']=14;
-        --    ['daily_content']='gold;1000000';
-        --    ['t_name']='14일 골드 보급';
-        --    ['product_content']='cash;1590';
-        --    ['t_desc']='';
-        --    ['type']='daily_gold';
-        --    ['product_id']=120104;
-        --    ['ui_priority']=40;
-        --    ['period_option']=1;
-        --}
-    })
+    m_supplyData = 'table',
+    --{
+    --    ['supply_id']=1004;
+    --    ['period']=14;
+    --    ['daily_content']='gold;1000000';
+    --    ['t_name']='14일 골드 보급';
+    --    ['product_content']='cash;1590';
+    --    ['t_desc']='';
+    --    ['type']='daily_gold';
+    --    ['product_id']=120104;
+    --    ['ui_priority']=40;
+    --    ['period_option']=1;
+    --}
+
+    m_structProduct = 'StructProduct',
+    m_buyCb = 'function',
+})
 
 -------------------------------------
--- function init
+-- class init
 -------------------------------------
-function UI_SupplyProductInfoPopup:init(t_data)
-    self.m_tSupplyData = t_data
+function UI_SupplyProductInfoPopup:init(data)
+    local ui_name = 'supply_product_info_popup_' .. data['type'] .. '.ui'
 
-    local vars = self:load('supply_product_info_popup.ui')
+    if (not checkUIFileExist(ui_name)) then
+        ui_name = 'supply_product_info_popup.ui'
+    end
+
+    self:load(ui_name)
     UIManager:open(self, UIManager.POPUP)
 
-
+    -- UI 클래스명 지정
+    self.m_uiName = 'UI_SupplyProductInfoPopup'
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_SupplyProductInfoPopup')
 
-    -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
-    self:doActionReset()
-    self:doAction(nil, false)
+    self.m_supplyData = data
+
+    local pid = data['product_id']
+
+    self.m_structProduct = g_shopDataNew:getProduct('package', pid)
 
     self:initUI()
     self:initButton()
     self:refresh()
 end
 
+
 -------------------------------------
--- function initUI
+-- class initUI
 -------------------------------------
 function UI_SupplyProductInfoPopup:initUI()
     local vars = self.vars
-    
-    local t_data = self.m_tSupplyData
 
-    do -- 이름
+    local t_data = self.m_supplyData
+
+    -- 패키지 이름
+    if vars['titleLabel'] and t_data['t_name'] and (t_data['t_name'] ~= '') then
         vars['titleLabel']:setString(Str(t_data['t_name']))
     end
-
-    do -- 설명
-        vars['descLabel']:setString(Str('지금 바로 구매하고 획득'))
-    end
-
-    do -- 다이아 즉시 획득량
+    
+    -- 다이아 즉시 획득량
+    if vars['obtainLabel'] and t_data['product_content'] and (t_data['product_content'] ~= '') then
         local package_item_str = t_data['product_content']
         local count = ServerData_Item:getItemCountFromPackageItemString(package_item_str, ITEM_ID_CASH)
         vars['obtainLabel']:setString(comma_value(count))
     end
 
-    do -- n일간 매일 수령
+    -- n일간 매일 수령
+    if vars['periodLabel'] and t_data['period'] and (t_data['period'] ~= '') then
         local period = t_data['period']
-        local str = Str('{1}일간 매일 수령', period)
-        vars['periodLabel']:setString(str)
+
+        local original_string = vars['periodLabel']:getString()
+
+        if (original_string ~= '') then
+            vars['periodLabel']:setString(Str(original_string, period))
+        end
     end
 
-    do -- 일간 보상 아이콘
+
+    -- 일간 보상 아이콘
+    if vars['itemNode'] and t_data['daily_content'] and (t_data['daily_content'] ~= '') then
         local package_item_str = t_data['daily_content']
         local l_item_list_mail = ServerData_Item:parsePackageItemStr(package_item_str)
         if l_item_list_mail[1] then
@@ -82,28 +97,48 @@ function UI_SupplyProductInfoPopup:initUI()
             vars['itemNode']:addChild(card.root)
         end
     end
+
+    if vars['priceLabel'] then
+        vars['priceLabel']:setString(self.m_structProduct:getPriceStr())
+    end
 end
 
 -------------------------------------
--- function initButton
+-- class initButton
 -------------------------------------
 function UI_SupplyProductInfoPopup:initButton()
     local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+
+    if vars['closeBtn'] then
+        vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    end
+
+    if vars['buyBtn'] then
+        vars['buyBtn']:registerScriptTapHandler(function() 
+            self.m_structProduct:buy(self.m_buyCb)
+            self:close()
+        end)
+    end
+
+
 end
 
 -------------------------------------
--- function refresh
+-- class refresh
 -------------------------------------
 function UI_SupplyProductInfoPopup:refresh()
+    
 end
 
 -------------------------------------
--- function click_closeBtn
+-- class refresh
 -------------------------------------
-function UI_SupplyProductInfoPopup:click_closeBtn()
-    self:close()
+function UI_SupplyProductInfoPopup:setBuyCallback(callback_func)
+    self.m_buyCb = callback_func
 end
+
+
 
 --@CHECK
 UI:checkCompileError(UI_SupplyProductInfoPopup)
+
