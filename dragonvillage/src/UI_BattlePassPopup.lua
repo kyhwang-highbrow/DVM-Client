@@ -103,8 +103,6 @@ function UI_BattlePassPopup:initMember()
     self.m_uiName = 'UI_BattlePassPopup'
     self.m_titleStr = Str('배틀패스')
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'amethyst'
-    self.m_addSubCurrency = 'fp'
 
     self.m_containerList = {}
 
