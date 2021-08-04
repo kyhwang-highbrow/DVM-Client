@@ -230,9 +230,15 @@ function UI_ClearTicket:refresh(is_refreshed_by_button)
 
         vars['sliderBarSprite']:stopAllActions()
         vars['sliderBarSprite']:runAction(cc.ProgressTo:create(0.2, ratio * 100))
+    end    
+
+    if (self.m_clearNum > 0) then
+        vars['startLabel']:setColor(COLOR['BLACK'])
+    else
+        vars['startLabel']:setColor(COLOR['DESC'])
     end
 
-    vars['startBtn']:setEnabled(self.m_clearNum > 0)      
+    vars['startBtn']:setEnabled(self.m_clearNum > 0)     
 end
 
 ----------------------------------------------------------------------
@@ -306,7 +312,7 @@ function UI_ClearTicket:click_buyBtn(struct_product)
     local function callback(ret)
         ItemObtainResult_Shop(ret, true)
     end
-    
+
     struct_product:buy(callback)
 end
 
