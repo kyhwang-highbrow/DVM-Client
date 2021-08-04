@@ -35,8 +35,8 @@ function UI_ClearTicket:init(stage_id)
     self:refresh()
 
     
-    if vars['periodLabel'] then
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    if vars['periodLabel'] and vars['buyMenu'] then
+        vars['buyMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end
 end
 
@@ -45,15 +45,10 @@ end
 ----------------------------------------------------------------------
 function UI_ClearTicket:initMember(stage_id)
     self.m_stageID = stage_id
-    self.m_clearNum = 0
+    self.m_clearNum = 1
     self.m_supplyType = 'clear_ticket'
 
-    
     self.m_staminaType, self.m_requiredStaminaNum = TableDrop:getStageStaminaType(self.m_stageID)
-    self.m_currStaminaNum = g_staminasData:getStaminaCount(self.m_staminaType)
-
-
-    self.m_availableStageNum = math_floor(self.m_currStaminaNum /  self.m_requiredStaminaNum)
 end
 
 ----------------------------------------------------------------------
@@ -76,19 +71,9 @@ function UI_ClearTicket:initUI()
     end
 
     do
-        vars['countLabel']:setString(Str('{1}회', comma_value(0)))
         vars['sliderBarSprite']:setPercentage(0)
         vars['sliderBarBtn']:setPositionX(0)
     end
-
-
-    local stamina_type, required_stamina_num = TableDrop:getStageStaminaType(stage_id)
-    local curr_stamina_num = g_staminasData:getStaminaCount(stamina_type)
-
-    vars['staminaLabel']:setString(Str('{1}/{2}', comma_value(0), comma_value(curr_stamina_num)))
-
-
-    self:initDropInfo()
 end
 
 
@@ -152,7 +137,7 @@ end
 ----------------------------------------------------------------------
 -- function initSlideBar
 ----------------------------------------------------------------------
-function UI_ClearTicket:initDropInfo()
+function UI_ClearTicket:refreshDropInfo()
     local vars = self.vars
 
     local str = '{1}/{2}'
@@ -185,23 +170,13 @@ function UI_ClearTicket:onSliderbarTouchMoved(touch, event)
     local vars = self.vars
     local touched_point = touch:getLocation()
 
-    -- 노드 영역을 벗어났는지 체크
-    local bounding_box = vars['sliderBarBtn']:getBoundingBox()
-    
+    -- 노드 영역을 벗어났는지 체크    
     local converted_point = vars['sliderBarNode']:convertToNodeSpace(touched_point)
-
     local slider_bar_content_size = vars['sliderBarNode']:getContentSize()
-
     local x = math_clamp(converted_point.x, 0, slider_bar_content_size.width)
     local percentage = x / slider_bar_content_size.width
 
-    vars['sliderBarBtn']:stopAllActions()
-    vars['sliderBarBtn']:setPositionX(x)
-
-    vars['sliderBarSprite']:stopAllActions()
-    vars['sliderBarSprite']:setPercentage(percentage * 100)
-
-    self.m_clearNum =  math_floor(percentage * self.m_availableStageNum)
+    self.m_clearNum =  math_max(1, math_floor(percentage * self.m_availableStageNum))
 
     self:refresh()
 end
@@ -216,30 +191,57 @@ end
 ----------------------------------------------------------------------
 -- function refresh
 ----------------------------------------------------------------------
-function UI_ClearTicket:refresh(is_refreshed_by_button)
+function UI_ClearTicket:refresh(is_refreshed_by_button, is_button_pressed)
     local vars = self.vars
 
-    vars['staminaLabel']:setString(Str('{1}/{2}', comma_value(self.m_requiredStaminaNum * self.m_clearNum), comma_value(self.m_currStaminaNum)))
+    -- 상단 일일 획득 드랍 아이템
+    self:refreshDropInfo()
+
+    -- 소탕 횟수
     vars['countLabel']:setString(Str('{1}회', comma_value(self.m_clearNum)))
 
+    -- 현재 유저가 보유하고 있는 입장권(날개) 갯수
+    self.m_currStaminaNum = g_staminasData:getStaminaCount(self.m_staminaType)
+    -- 입장권(날개)에 따른 최대 입장 가능 횟수
+    self.m_availableStageNum = math_floor(self.m_currStaminaNum /  self.m_requiredStaminaNum)
+
+    -- 입장권 갯수 
+    vars['staminaLabel']:setString(Str('{1}/{2}', comma_value(self.m_requiredStaminaNum * self.m_clearNum), comma_value(self.m_currStaminaNum)))
+    
+    local ratio = self.m_clearNum / self.m_availableStageNum
+    local slider_bar_content_size = vars['sliderBarNode']:getContentSize()
+
+    -- 드래그가 아닌 버튼 터치 시 
     if is_refreshed_by_button then
-        local ratio = self.m_clearNum / self.m_availableStageNum
-        local slider_bar_content_size = vars['sliderBarNode']:getContentSize()
 
         vars['sliderBarBtn']:stopAllActions()
         vars['sliderBarBtn']:runAction(cc.MoveTo:create(0.2, cc.p(ratio * slider_bar_content_size.width, 0)))
 
         vars['sliderBarSprite']:stopAllActions()
         vars['sliderBarSprite']:runAction(cc.ProgressTo:create(0.2, ratio * 100))
+    else
+        vars['sliderBarBtn']:stopAllActions()
+        vars['sliderBarBtn']:setPositionX(ratio * slider_bar_content_size.width)
+
+        vars['sliderBarSprite']:stopAllActions()
+        vars['sliderBarSprite']:setPercentage(ratio * 100)
     end    
 
-    vars['startBtn']:setEnabled(self.m_clearNum > 0)     
+    -- 
+    local is_startBtn_enabled = ((self.m_requiredStaminaNum * self.m_clearNum) <= self.m_currStaminaNum) 
+    vars['startBtn']:setEnabled(is_startBtn_enabled)     
     
-    if (self.m_clearNum > 0) then
+    if is_startBtn_enabled then
         vars['startLabel']:setColor(COLOR['BLACK'])
     else
         vars['startLabel']:setColor(COLOR['DESC'])
+        vars['staminaLabel']:setColor(COLOR['RED'])
+
+        if (not is_button_pressed) then
+            UIManager:toastNotificationRed(Str('날개가 부족합니다.'))
+        end
     end
+
 end
 
 ----------------------------------------------------------------------
@@ -263,10 +265,11 @@ function UI_ClearTicket:click_adjustBtn(value, is_pressed)
             result = self.m_availableStageNum
         end
 
-        if (result >= 0) and (result <= self.m_availableStageNum) then
+        if (result >= 1) and (result <= self.m_availableStageNum) then
             self.m_clearNum = result
-            self:refresh(true)
         end
+
+        self:refresh(not is_pressed, is_pressed)
     end
 
     if (not is_pressed) then
@@ -299,8 +302,7 @@ function UI_ClearTicket:click_startBtn()
         local ui = UI_ClearTicketConfirm(self.m_clearNum, ret)
         
         ui:setCloseCB(function() 
-            self.m_clearNum = 0
-            self:initDropInfo() 
+            self.m_clearNum = 1
             self:refresh()
         end)
     end
@@ -424,9 +426,18 @@ function UI_ClearTicketConfirm:initUserInfo()
         vars['userLvUpVisual']
     )
 
-    if (prev_lv ~= curr) then
+    -- if (prev_lv ~= curr) then
+    --     level_up_director.m_cbAniFinish = function()
+    --         --self.root:stopAllActions()
+            
+    --         -- @ GOOGLE ACHIEVEMENT
+    --         local t_data = {clear_key = 'u_lv'}
+    --         GoogleHelper.updateAchievement(t_data)
 
-    end
+    --         local ui = UI_UserLevelUp(self.m_changedUserInfo)
+    --         --ui:setCloseCB(function() self:doNextWork() end)
+    --     end
+    -- end
 
     level_up_director:initLevelupDirector(prev_lv, prev_exp, curr_lv, curr_exp, 'tamer')
 
@@ -434,6 +445,13 @@ function UI_ClearTicketConfirm:initUserInfo()
 
     local function finish_cb()
         self.m_levelUpDirector:stop()  
+
+        if (prev_lv ~= curr) then
+            local t_data = {clear_key = 'u_lv'}
+            GoogleHelper.updateAchievement(t_data)
+
+            local ui = UI_UserLevelUp(self.m_changedUserInfo)
+        end
     end
     self.m_levelUpDirector.m_cbAniFinish = finish_cb
     self.m_levelUpDirector:start()
