@@ -814,6 +814,9 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref, is_success)
 
     -- 자동 줍기으로 획득한 누적 아이템 수량 갱신
     g_subscriptionData:response_ingameDropInfo(ret)
+
+    -- 일일 드랍 아이템 획득량 갱신
+    g_userData:response_ingameDropInfo(ret)
 end
 
 -------------------------------------

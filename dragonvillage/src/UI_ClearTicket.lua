@@ -74,7 +74,6 @@ function UI_ClearTicket:initUI()
         UIHelper:setDifficultyLabelWithColor(vars['difficultyLabel'], stage_id)
     end
 
-
     do
         vars['countLabel']:setString(Str('{1}회', comma_value(0)))
         vars['sliderBarSprite']:setPercentage(0)
@@ -86,6 +85,9 @@ function UI_ClearTicket:initUI()
     local curr_stamina_num = g_staminasData:getStaminaCount(stamina_type)
 
     vars['staminaLabel']:setString(Str('{1}/{2}', comma_value(0), comma_value(curr_stamina_num)))
+
+
+    self:initDropInfo()
 end
 
 
@@ -147,6 +149,19 @@ end
 
 
 ----------------------------------------------------------------------
+-- function initSlideBar
+----------------------------------------------------------------------
+function UI_ClearTicket:initDropInfo()
+    local vars = self.vars
+
+    local str = '{1}/{2}'
+    vars['diaLabel']:setString(Str(str, g_userData:getDropInfoDia(), g_userData:getDropInfoMaxDia()))
+    vars['goldLabel']:setString(Str(str, g_userData:getDropInfoGold(), g_userData:getDropInfoMaxGold()))
+    vars['amethystLabel']:setString(Str(str, g_userData:getDropInfoAmethyst(), g_userData:getDropInfoMaxAmethyst()))
+end
+
+
+----------------------------------------------------------------------
 -- function onSliderbarTouchBegan
 ----------------------------------------------------------------------
 function UI_ClearTicket:onSliderbarTouchBegan(touch, event)
@@ -187,7 +202,7 @@ function UI_ClearTicket:onSliderbarTouchMoved(touch, event)
 
     self.m_clearNum =  math_floor(percentage * self.m_availableStageNum)
 
-    self:refresh_label()
+    self:refresh()
 end
 
 ----------------------------------------------------------------------
@@ -200,23 +215,7 @@ end
 ----------------------------------------------------------------------
 -- function refresh
 ----------------------------------------------------------------------
-function UI_ClearTicket:refresh()
-
-end
-
-----------------------------------------------------------------------
--- function update
-----------------------------------------------------------------------
-function UI_ClearTicket:update(dt)
-    local time_str = g_supply:getSupplyTimeRemainingString(self.m_supplyType)
-
-    self.vars['periodLabel']:setString(time_str)
-end
-
-----------------------------------------------------------------------
--- function refresh
-----------------------------------------------------------------------
-function UI_ClearTicket:refresh_label(is_refreshed_by_button)
+function UI_ClearTicket:refresh(is_refreshed_by_button)
     local vars = self.vars
 
     vars['staminaLabel']:setString(Str('{1}/{2}', comma_value(self.m_requiredStaminaNum * self.m_clearNum), comma_value(self.m_currStaminaNum)))
@@ -232,8 +231,18 @@ function UI_ClearTicket:refresh_label(is_refreshed_by_button)
         vars['sliderBarSprite']:stopAllActions()
         vars['sliderBarSprite']:runAction(cc.ProgressTo:create(0.2, ratio * 100))
     end
+
+    vars['startBtn']:setEnabled(self.m_clearNum > 0)      
 end
 
+----------------------------------------------------------------------
+-- function update
+----------------------------------------------------------------------
+function UI_ClearTicket:update(dt)
+    local time_str = g_supply:getSupplyTimeRemainingString(self.m_supplyType)
+
+    self.vars['periodLabel']:setString(time_str)
+end
 
 ----------------------------------------------------------------------
 -- function refresh_string
@@ -245,7 +254,7 @@ function UI_ClearTicket:click_adjustBtn(value, is_pressed)
 
         if (result >= 0) and (result <= self.m_availableStageNum) then
             self.m_clearNum = result
-            self:refresh_label(true)
+            self:refresh(true)
         end
     end
 
@@ -276,8 +285,13 @@ end
 ----------------------------------------------------------------------
 function UI_ClearTicket:click_startBtn()
     local function finish_cb(ret)
-        self:close()
         local ui = UI_ClearTicketConfirm(self.m_clearNum, ret)
+        
+        ui:setCloseCB(function() 
+            self.m_clearNum = 0
+            self:initDropInfo() 
+            self:refresh()
+        end)
     end
 
     g_stageData:request_clearTicket(self.m_stageID, self.m_clearNum, finish_cb)

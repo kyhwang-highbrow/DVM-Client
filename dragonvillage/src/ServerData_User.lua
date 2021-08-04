@@ -4,6 +4,7 @@
 ServerData_User = class({
         m_serverData = 'ServerData',
         m_tDeviceInfo = 'table',
+        m_dropInfo = 'table',
         -- device_info_json은 android에서 아래와 같은 형태로 넘어옴
         -- 2017-17-08-24 sgkim
         --{
@@ -25,6 +26,8 @@ ServerData_User = class({
 -------------------------------------
 function ServerData_User:init(server_data)
     self.m_serverData = server_data
+
+    self.m_dropInfo = {}
 end
 
 -------------------------------------
@@ -664,7 +667,76 @@ function ServerData_User:response_userInfo(ret, t_result_ref)
 end
 
 
+-------------------------------------
+-- function response_ingameDropInfo
+--   "ingame_drop_stats_daily":{
+--     "max_amethyst":10000,
+--     "hours":0,
+--     "play_cnt":1,
+--     "gold":1211,
+--     "cash":14,
+--     "max_gold":1000000,
+--     "amethyst":14,
+--     "max_cash":10000
+-------------------------------------
+function ServerData_User:response_ingameDropInfo(ret)
+    local drop_info = ret['ingame_drop_stats_daily']
 
+    if (drop_info) then
+        self.m_dropInfo = drop_info
+    end
+end
 
+-------------------------------------
+-- function getDropInfoGold
+-------------------------------------
+function ServerData_User:getDropInfoGold()
+    if self.m_dropInfo then
+        return self.m_dropInfo['gold']
+    end
+end
 
-    
+-------------------------------------
+-- function getDropInfoGold
+-------------------------------------
+function ServerData_User:getDropInfoMaxGold()
+    if self.m_dropInfo then
+        return self.m_dropInfo['max_gold']
+    end
+end
+
+-------------------------------------
+-- function getDropInfoGold
+-------------------------------------
+function ServerData_User:getDropInfoDia()
+    if self.m_dropInfo then
+        return self.m_dropInfo['cash']
+    end
+end
+
+-------------------------------------
+-- function getDropInfoGold
+-------------------------------------
+function ServerData_User:getDropInfoMaxDia()
+    if self.m_dropInfo then
+        return self.m_dropInfo['max_cash']
+    end
+end
+
+-------------------------------------
+-- function getDropInfoGold
+-------------------------------------
+function ServerData_User:getDropInfoAmethyst()
+    if self.m_dropInfo then
+        return self.m_dropInfo['amethyst']
+    end
+end
+-------------------------------------
+-- function getDropInfoGold
+-------------------------------------
+function ServerData_User:getDropInfoMaxAmethyst()
+    if self.m_dropInfo then
+        return self.m_dropInfo['max_amethyst']
+    end
+end
+

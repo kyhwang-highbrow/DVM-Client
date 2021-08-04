@@ -1319,6 +1319,10 @@ function UI_TitleScene:workGetServerInfo()
                 cclog('# 자동 줍기으로 획득한 누적 아이템 수량 갱신')
                 g_subscriptionData:response_ingameDropInfo(ret)
 
+
+                cclog('# 드랍 아이템 일일획득량 정보 갱신')
+                g_userData:response_ingameDropInfo(ret)
+
                 cclog('# 초보자 선물(신규 유저 전용 상점)')
                 g_newcomerShop:applyNewcomderShopEndInfo_fromRet(ret)
 

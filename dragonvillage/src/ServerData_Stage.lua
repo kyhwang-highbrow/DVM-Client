@@ -898,6 +898,9 @@ function ServerData_Stage:request_clearTicket(stage_id, clear_count, finish_cb, 
 
         g_userData:response_userInfo(ret, ref_table)
         self:response_dropItems(ret, ref_table)
+
+        -- 일일 드랍 아이템 획득량 갱신
+        g_userData:response_ingameDropInfo(ret)
         
         finish_cb(ref_table)
     end
