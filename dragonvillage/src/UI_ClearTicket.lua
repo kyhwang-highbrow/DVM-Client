@@ -119,7 +119,7 @@ function UI_ClearTicket:initButton()
 
         if struct_product then
             vars['priceLabel']:setString(struct_product:getPriceStr())
-            vars['buyBtn']:registerScriptTapHandler(function() struct_product:buy() end)
+            vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)
         else
             vars['buyBtn']:setVisible(false)
         end
@@ -298,6 +298,17 @@ function UI_ClearTicket:click_startBtn()
 end
 
 
+----------------------------------------------------------------------
+-- function click_buyBtn
+----------------------------------------------------------------------
+function UI_ClearTicket:click_buyBtn(struct_product)
+
+    local function callback(ret)
+        ItemObtainResult_Shop(ret, true)
+    end
+    
+    struct_product:buy(callback)
+end
 
 
 
