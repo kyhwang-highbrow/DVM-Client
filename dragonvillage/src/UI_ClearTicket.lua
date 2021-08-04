@@ -4,15 +4,14 @@ local PARENT = UI
 -- class UI_ClearTicket
 ----------------------------------------------------------------------
 UI_ClearTicket = class(PARENT, {
-    m_stageID = 'number',
-    m_clearNum = 'number', 
-    m_supplyType = 'string',
+    m_stageID = 'number',       
+    m_clearNum = 'number',              -- 원하는 소탕 횟수
+    m_supplyType = 'string',            -- 보급소에서 소탕 정보를 얻기 위한 키값 : 'clear_type'
 
-
-    m_staminaType = 'string',
-    m_requiredStaminaNum = 'number',
-    m_currStaminaNum = 'number',
-    m_availableStageNum = 'number',
+    m_staminaType = 'string',           -- m_stageID에 대응하는 스테이지에 필요한 입장권 종류 (ex: st 날개)
+    m_requiredStaminaNum = 'number',    -- m_stageID에 대응하는 스테이지가 요구하는 입장권 갯수
+    m_currStaminaNum = 'number',        -- 현재 유저가 보유하고 있는 입장권 갯수
+    m_availableStageNum = 'number',     -- 입장권에 따른 최대 입장 가능 횟수
     
 })
 
@@ -20,11 +19,13 @@ UI_ClearTicket = class(PARENT, {
 -- function init
 ----------------------------------------------------------------------
 function UI_ClearTicket:init(stage_id)
+
     local vars = self:load('clear_ticket_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     
     -- UI 클래스명 지정
     self.m_uiName = 'UI_ClearTicket'
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClearTicket')
 
@@ -33,7 +34,7 @@ function UI_ClearTicket:init(stage_id)
     self:initButton()
     self:refresh()
 
-
+    
     if vars['periodLabel'] then
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end
@@ -232,13 +233,13 @@ function UI_ClearTicket:refresh(is_refreshed_by_button)
         vars['sliderBarSprite']:runAction(cc.ProgressTo:create(0.2, ratio * 100))
     end    
 
+    vars['startBtn']:setEnabled(self.m_clearNum > 0)     
+    
     if (self.m_clearNum > 0) then
         vars['startLabel']:setColor(COLOR['BLACK'])
     else
         vars['startLabel']:setColor(COLOR['DESC'])
     end
-
-    vars['startBtn']:setEnabled(self.m_clearNum > 0)     
 end
 
 ----------------------------------------------------------------------
@@ -257,6 +258,10 @@ function UI_ClearTicket:click_adjustBtn(value, is_pressed)
 
     local function adjust_func()
         local result = self.m_clearNum + value
+
+        if (result > self.m_availableStageNum) then
+            result = self.m_availableStageNum
+        end
 
         if (result >= 0) and (result <= self.m_availableStageNum) then
             self.m_clearNum = result
