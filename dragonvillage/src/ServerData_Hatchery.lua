@@ -176,7 +176,7 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
         ret['added_mileage'] = added_mileage
 
         -- 드래곤들 추가
-        local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'])
+        local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'], is_bundle)
         g_dragonsData:applyDragonData_list(add_dragon_list)
 
         -- 슬라임들 추가
@@ -214,10 +214,10 @@ end
 -- function makeAddedDragonTable
 -- @breif
 -------------------------------------
-function ServerData_Hatchery:makeAddedDragonTable(org_list)
+function ServerData_Hatchery:makeAddedDragonTable(org_list, is_bundle)
     local result = {}
     
-    if (not self.m_isAutomaticFarewell) then return org_list end
+    if (not self.m_isAutomaticFarewell) or (not is_bundle) then return org_list end
 
     for key, value in pairs(org_list) do
         if (value['grade'] > 3) then
@@ -260,7 +260,7 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
         ret['added_mileage'] = added_mileage
 
         -- 드래곤들 추가
-        local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'])
+        local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'], is_bundle)
         g_dragonsData:applyDragonData_list(add_dragon_list)
 
         -- 슬라임들 추가
@@ -326,7 +326,7 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, finish_cb,
 
 
         -- 드래곤들 추가
-        local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'])
+        local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'], is_bundle)
         g_dragonsData:applyDragonData_list(add_dragon_list)
 
         -- 슬라임들 추가
