@@ -263,8 +263,6 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
         
         end
 
-        self.m_bActingAnimation = true
-
         local file_name = string.format('appear_%s', self.m_dragonName)
         dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
         animator = MakeAnimator(dragon_appear_cut_res)
@@ -280,6 +278,8 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
     end
 
     if (animator and animator.m_node) then
+        self.m_bActingAnimation = true
+
         animator.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 1)
 
         animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
@@ -349,6 +349,12 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
 	    end)
 
     else
+        self.vars['skipBtn']:setVisible(true)
+        if (self.m_ownerUI) then 
+            self.m_ownerUI.vars['skipBtn']:setVisible(true) 
+            self.m_ownerUI.vars['okBtn']:setVisible(true)
+        end
+
         if finish_cb then finish_cb() else after_appear_cut_cb() end
     end
 
