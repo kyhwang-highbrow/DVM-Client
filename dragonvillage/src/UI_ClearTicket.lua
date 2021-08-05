@@ -446,7 +446,7 @@ function UI_ClearTicketConfirm:initUserInfo()
     local function finish_cb()
         self.m_levelUpDirector:stop()  
 
-        if (prev_lv ~= curr) then
+        if (prev_lv ~= curr_lv) then
             local t_data = {clear_key = 'u_lv'}
             GoogleHelper.updateAchievement(t_data)
 
