@@ -1569,6 +1569,53 @@ function descTimeByTimeStemp(timestemp)
     return text_time
 end
 
+
+-------------------------------------
+-- function checkTimeValid
+-- param string date_format 'yyyy-mm-dd HH:MM:SS'
+-------------------------------------
+function checkTimeValid(start_date, end_date, date_format)
+    local start_time
+    local end_time
+    local curr_time = Timer:getServerTime()
+
+    local parser = pl.Date.Format(date_format)
+
+    local local_timezone = datetime.getTimeZoneOffset() -- 단말기(local) 타임존 (unit : sec)
+    local server_timezone = Timer:getServerTimeZoneOffset() -- 서버(server) 타임존 (unit : sec)
+
+    local timezone_offset = (local_timezone - server_timezone)
+
+    if start_date and (start_date ~= '' ) then
+        local temp = parser:parse(start_date)
+
+        if temp and temp['time'] then
+            start_time = temp['time'] + timezone_offset
+        end
+    end
+
+    if end_date and (end_date ~= '') then
+        local temp = parser:parse(end_date)
+
+        if temp and temp['time'] then
+            end_time = temp['time'] + timezone_offset
+        end
+    end
+
+    local is_start_time_valid = true
+    local is_end_time_valid = true
+
+    if start_time then
+        is_start_time_valid = (start_time < curr_time) 
+    end
+
+    if end_time then
+        is_end_time_valid = (curr_time < end_time)
+    end
+
+    return is_start_time_valid and is_end_time_valid
+end
+
 -------------------------------------
 -- function AlignUIPos
 -- @brief 같은 계층의 자식들을 정렬시킴

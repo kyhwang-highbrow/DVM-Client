@@ -26,6 +26,9 @@ ServerData_Hatchery = class({
         -- 우정포인트 소환
         FP__SUMMON_PRICE = 200,
         FP__BUNDLE_SUMMON_PRICE = 100,
+
+
+        m_pickupStructList = 'list[StructPickup]',
     })
 
 -------------------------------------
@@ -35,6 +38,8 @@ function ServerData_Hatchery:init(server_data)
     self.m_serverData = server_data
     self.m_dirtyHacheryInfo = true
     self.m_updatedAt = nil
+
+    self.m_pickupStructList = {}
 
     self.m_isAutomaticFarewell = g_settingData:getAutoFarewell('rare') or false
 end
@@ -51,6 +56,7 @@ function ServerData_Hatchery:update_hatcheryInfo(finish_cb, fail_cb)
         return
     end
 
+    self:response_pickupScheduleTable()
     self:request_hatcheryInfo(finish_cb, fail_cb)
 end
 
@@ -1054,3 +1060,33 @@ function ServerData_Hatchery:switchHatcheryAutoFarewell(bReset)
         self.m_isAutomaticFarewell = not self.m_isAutomaticFarewell
     end
 end
+
+
+-------------------------------------
+-- function response_pickupScheduleTable
+-------------------------------------
+function ServerData_Hatchery:response_pickupScheduleTable()
+    local pickup_schedule_table = TABLE:get('table_pickup_schedule')
+
+    for key, data in pairs(pickup_schedule_table) do
+        if checkTimeValid(data['start_date'], data['end_date'], 'yyyy-mm-dd HH:MM:SS') then
+            table.insert(self.m_pickupStructList, StructPickup(data))
+        end
+    end
+end
+
+
+-------------------------------------
+-- function getSelectedPickupList
+-------------------------------------
+function ServerData_Hatchery:getSelectedPickupList()
+    return self.m_pickupStructList 
+end
+
+-------------------------------------
+-- function getPickupStructNumber
+-------------------------------------
+function ServerData_Hatchery:getPickupStructNumber()
+    return #self.m_pickupStructList
+end
+

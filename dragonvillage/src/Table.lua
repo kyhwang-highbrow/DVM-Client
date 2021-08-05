@@ -123,6 +123,9 @@ local TableInfo = {
 
         table_talk_deet = {'table_talk_deet', 'text_id', false},
 
+        -- TEMP
+        table_pickup_schedule = {'table_pickup_schedule', 'list_id', false},
+
 
         -- 차원의 문
         --dmgate_bless = {'table_dmgate_bless', 'type_id', false}, -- 차원의 문 축복
@@ -162,6 +165,9 @@ local TableInfo_fromServer = {
 
         -- 드래곤 가차
         ['table_gacha_probability'] = {'table_gacha_probability', 'item_id'},
+
+        -- 드래곤 픽업 스케줄
+        --['table_pickup_schedule'] = {'table_pickup_schedule', 'list_id'},
 
         -- 진화재료 조합
         ['table_item_evolution_combine'] = {'table_item_evolution_combine', 'id'},

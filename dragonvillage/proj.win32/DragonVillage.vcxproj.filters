@@ -4958,6 +4958,7 @@
     <None Include="..\src\UI_ArenaNewStaminaChargePopup.lua" />
     <None Include="..\src\UIC_Label_TypingEffect.lua" />
     <None Include="..\src\UI_ClearTicket.lua" />
+    <None Include="..\src\StructPickup.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

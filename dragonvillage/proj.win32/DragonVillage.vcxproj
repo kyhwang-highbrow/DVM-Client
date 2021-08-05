@@ -934,6 +934,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructMarketProduct.lua" />
     <None Include="..\src\StructPackageState.lua" />
     <None Include="..\src\StructPaymentShopTab.lua" />
+    <None Include="..\src\StructPickup.lua" />
     <None Include="..\src\StructProduct.lua" />
     <None Include="..\src\StructProductSubscription.lua" />
     <None Include="..\src\StructQuestData.lua" />

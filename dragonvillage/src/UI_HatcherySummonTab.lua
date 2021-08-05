@@ -36,9 +36,24 @@ function UI_HatcherySummonTab:init(owner_ui)
     -- 전설드래곤 선택권(일반) 과 같은 리스트를 써도 됨
     self.m_orgDragonList = TablePickDragon:getDragonList(700304, g_dragonsData.m_mReleasedDragonsByDid)
     self.m_selectedDragonList = {}
-    self.m_summonCategoryTab = {pickup = vars['chanceUpTabMenu'], cash = vars['premiumMenu'], friend = vars['friendshipTabMenu']}
+    self.m_summonCategoryTab = {
+        pickup = vars['chanceUpTabMenu'], 
+        cash = vars['premiumMenu'], 
+        friend = vars['friendshipTabMenu']
+    }
 
-    self.m_curCategory = 'pickup'
+    local pickup_list = g_hatcheryData:getSelectedPickupList()
+
+    for index, pickup_struct in ipairs(pickup_list) do
+        local category_key = 'pickup_' .. index
+        self.m_summonCategoryTab[category_key] = vars['pickupTabMenu']
+
+        self.m_curCategory = category_key
+    end
+
+    if (not self.m_curCategory) then 
+        self.m_curCategory = 'pickup'
+    end
 
     self:initSortManager()
 end
@@ -98,7 +113,7 @@ function UI_HatcherySummonTab:initUI()
     vars['chanceUpGoodbyeBtn']:setManualMode(true)
     vars['chanceUpGoodbyeBtn']:registerScriptTapHandler(function() self:click_chanceUpGoodbyeBtn() end)
 
-    local default_category = 'cash'
+    local default_category = self.m_curCategory
 
     for i, t_data in pairs(g_hatcheryData:getGachaList()) do
         local btn = UI()
@@ -171,6 +186,13 @@ function UI_HatcherySummonTab:initUI()
     vars['chanceUpTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('pickup') end)
     vars['premiumTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('cash') end)
     vars['friendshipTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('friend') end)
+
+    for i = 1, g_hatcheryData:getPickupStructNumber() do
+        if vars['pickupTabBtn' .. i] then
+            vars['pickupTabBtn' .. i]:registerScriptTapHandler(function() self:onChangeCategory('pickup_' .. i) end)
+            vars['pickupTabBtn' .. i]:setVisible(true)
+        end
+    end
 
     vars['infoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_popup.ui') end)
     vars['premiumInfoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_premium_popup.ui') end)
@@ -287,11 +309,12 @@ end
 -- @brief
 -------------------------------------
 function UI_HatcherySummonTab:onChangeCategory(category)
+    cclog(category)
     self.m_curCategory = category
     for name, tab_object in pairs(self.m_summonCategoryTab) do
-        local is_same_category = name == category
-        tab_object:setVisible(is_same_category) 
+        tab_object:setVisible(false) 
     end
+    self.m_summonCategoryTab[category]:setVisible(true)
 
     local is_pickup = category == 'pickup'
     local is_premium = category == 'cash'
@@ -303,7 +326,7 @@ function UI_HatcherySummonTab:onChangeCategory(category)
 
     self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
     self.vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
-    cclog(g_hatcheryData.m_isAutomaticFarewell)
+
     self:setEventMenu()
 end
 
