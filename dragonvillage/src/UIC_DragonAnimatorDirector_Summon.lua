@@ -279,7 +279,7 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
         end
     end
 
-    if (animator) then
+    if (animator and animator.m_node) then
         animator.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 1)
 
         animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
