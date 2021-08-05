@@ -129,6 +129,13 @@ function ServerData_Event:getEventPopupTabList()
         -- 한정 이벤트 체크
         elseif (event_id == 'limited') then
 			visible = g_hotTimeData:isActiveEvent(event_type)
+
+        elseif (event_type == 'fevertime') then
+            local item_list = g_fevertimeData:getAllStructFevertimeList()
+
+            if (# item_list <= 0) then 
+                visible = false 
+            end
             
         elseif (event_type == 'event_1st_comeback') then
 		    visible = self:isComebackUser_1st()
