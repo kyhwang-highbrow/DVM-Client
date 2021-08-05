@@ -71,6 +71,8 @@ end
 -------------------------------------
 function UI_Lobby:initUI()
 	local vars = self.vars
+    
+    
 
 	-- 로비 가이드
     local function refresh()
@@ -1968,10 +1970,10 @@ function UI_Lobby:update(dt)
     end
 
     -- 로비 출석 D-day 표시
-    if (g_attendanceData.m_bDirtyAttendanceInfo) then
-        g_attendanceData.m_bDirtyAttendanceInfo = false
-        self:update_attendanceDday()
-    end
+    -- if (g_attendanceData.m_bDirtyAttendanceInfo) then
+    --     g_attendanceData.m_bDirtyAttendanceInfo = false
+    --     self:update_attendanceDday()
+    -- end
 
     local vars = self.vars
 
@@ -2717,9 +2719,9 @@ function UI_Lobby:onRefresh_banner()
     local l_node = {}
 
     -- 출석 보상 d-day
-    if (vars['ddayBtn'] and vars['ddayBtn']:isVisible()) then
-        table.insert(l_node, vars['ddayBtn'])
-    end
+    -- if (vars['ddayBtn'] and vars['ddayBtn']:isVisible()) then
+    --     table.insert(l_node, vars['ddayBtn'])
+    -- end
 
     -- 그림자의 신전
     if vars['banner_challenge_mode'] then
