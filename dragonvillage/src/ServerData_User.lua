@@ -689,6 +689,7 @@ end
 
 -------------------------------------
 -- function getDropInfoGold
+-- return number
 -------------------------------------
 function ServerData_User:getDropInfoGold()
     if self.m_dropInfo then
@@ -698,6 +699,7 @@ end
 
 -------------------------------------
 -- function getDropInfoGold
+-- return number
 -------------------------------------
 function ServerData_User:getDropInfoMaxGold()
     if self.m_dropInfo then
@@ -707,6 +709,7 @@ end
 
 -------------------------------------
 -- function getDropInfoGold
+-- return number
 -------------------------------------
 function ServerData_User:getDropInfoDia()
     if self.m_dropInfo then
@@ -716,6 +719,7 @@ end
 
 -------------------------------------
 -- function getDropInfoGold
+-- return number
 -------------------------------------
 function ServerData_User:getDropInfoMaxDia()
     if self.m_dropInfo then
@@ -725,6 +729,7 @@ end
 
 -------------------------------------
 -- function getDropInfoGold
+-- return number
 -------------------------------------
 function ServerData_User:getDropInfoAmethyst()
     if self.m_dropInfo then
@@ -733,6 +738,7 @@ function ServerData_User:getDropInfoAmethyst()
 end
 -------------------------------------
 -- function getDropInfoGold
+-- return number
 -------------------------------------
 function ServerData_User:getDropInfoMaxAmethyst()
     if self.m_dropInfo then
@@ -740,3 +746,22 @@ function ServerData_User:getDropInfoMaxAmethyst()
     end
 end
 
+-------------------------------------
+-- function getDropInfoItemByType
+-- return number
+-------------------------------------
+function ServerData_User:getDropInfoItemByType(item_type)
+    if self.m_dropInfo then
+        return self.m_dropInfo[item_type]
+    end
+end
+
+-------------------------------------
+-- function getDropInfoMaxItemByType
+-- return number
+-------------------------------------
+function ServerData_User:getDropInfoMaxItemByType(item_type)
+    if self.m_dropInfo then
+        return self.m_dropInfo['max_' .. item_type]
+    end
+end

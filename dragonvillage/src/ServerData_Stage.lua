@@ -565,7 +565,7 @@ end
 -- @brief 인게임 아이템 드랍 정보 설정
 -- 2017-08-22 sgkim
 -------------------------------------
-function ServerData_Stage:response_ingameDropInfo(ret)
+function ServerData_Stage:old_response_ingameDropInfo(ret)
     -- 서버에서 관리하는 일일 획득 최대치
     local t_max_info = ret['ingame_drop'] or {}
     --"ingame_drop":{
@@ -619,13 +619,71 @@ function ServerData_Stage:response_ingameDropInfo(ret)
         end
     end
 
+    ccdump(l_remove_idx)
+
     -- 최대 갯수가 넘어서 드랍하지 않는 리스트 제거
     for _,remove_idx in ipairs(l_remove_idx) do
         table.remove(l_drop_list, remove_idx)
     end
 
+    ccdump(l_drop_list)
+
     self.m_ingameDropItemGameKey = ret['gamekey']
     self.m_ingameDropItemList = l_drop_list
+end
+
+-------------------------------------
+-- function response_ingameDropInfo
+-------------------------------------
+function ServerData_Stage:response_ingameDropInfo(ret)
+    local drop_reward = {}
+    local drop_result = {}
+    local daily_drop_info = {}
+
+    for _, data in pairs(ret['ingame_reward']) do
+        for key, num in pairs(data) do
+            table.insert(drop_reward, {['type'] = key, ['value'] = num})
+
+            if tolua.isnull(daily_drop_info[key]) then
+                local daily_item_num = g_userData:getDropInfoItemByType(key)
+                local max_daily_item_num = g_userData:getDropInfoMaxItemByType(key)
+                if daily_item_num and max_daily_item_num then
+                    daily_drop_info[key] = {}
+                    daily_drop_info[key]['daily'] = daily_item_num
+                    daily_drop_info[key]['max_daily'] = max_daily_item_num
+                end
+            end
+        end
+    end
+
+    for _, data in pairs(drop_reward) do
+        local item_type = data['type']
+        local item_num = data['value']
+
+        local daily_drop = daily_drop_info[item_type]
+
+        if tolua.isnull(daily_drop) then
+            local interval = daily_drop['max_daily'] - daily_drop['daily']
+            
+            -- 일일획득량이 남아있고 해당 아이템 수량이 그것보다 적은 경우
+            if (interval > 0) and (item_num <= interval) then
+
+            -- 일일획득량이 남아있지만 해당 아이템 수량이 그것보다 많은 경우
+            elseif (interval > 0) and (item_num > interval) then
+                item_num = interval
+            else -- 일일획득량이 남아 있지 않은 경우
+                item_num = 0
+            end
+            
+            if (item_num and (item_num > 0)) then
+                table.insert(drop_result, {['type'] = item_type, ['value'] = item_num })
+                daily_drop['daily'] = daily_drop['daily'] - item_num
+            end
+        end
+    end
+
+    self.m_ingameDropItemGameKey = ret['gamekey']
+    self.m_ingameDropItemList = drop_result
 end
 
 -------------------------------------
