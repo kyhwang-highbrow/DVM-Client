@@ -205,7 +205,7 @@ function UI_HatcherySummonTab:initUI()
             local icon = IconHelper:getDragonIconFromDid(did, 3)
             icon:setFlippedX(true)
 
-            vars['testNode' .. i]:addChild(icon)
+            vars['pickupDragonNode' .. i]:addChild(icon)
 
             -- 버튼 sprite 교체
             --vars['pickupTabBtn' .. i]:setNormalImage(pickup_struct:getButtonNormalSprite())
