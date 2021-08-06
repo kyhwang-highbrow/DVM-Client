@@ -1,5 +1,5 @@
 local PARENT = UI_IndivisualTab
-
+    
 -------------------------------------
 -- class UI_HatcherySummonTab
 -------------------------------------
@@ -187,10 +187,33 @@ function UI_HatcherySummonTab:initUI()
     vars['premiumTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('cash') end)
     vars['friendshipTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('friend') end)
 
-    for i = 1, g_hatcheryData:getPickupStructNumber() do
+    -- 픽업 탭 버튼 
+    local pickup_list = g_hatcheryData:getSelectedPickupList()
+    for i = 1, #pickup_list do
         if vars['pickupTabBtn' .. i] then
-            vars['pickupTabBtn' .. i]:registerScriptTapHandler(function() self:onChangeCategory('pickup_' .. i) end)
+            vars['pickupTabBtn' .. i]:registerScriptTapHandler(function() 
+                self:onChangeCategory('pickup_' .. i) 
+                vars['pickupTabBtn' .. i]:setEnabled(false)
+            end)
             vars['pickupTabBtn' .. i]:setVisible(true)
+
+
+            local pickup_struct = pickup_list[i]
+
+            local did = pickup_struct:getTargetDragonID()
+
+            local icon = IconHelper:getDragonIconFromDid(did, 3)
+            icon:setFlippedX(true)
+
+            vars['testNode' .. i]:addChild(icon)
+
+            -- 버튼 sprite 교체
+            --vars['pickupTabBtn' .. i]:setNormalImage(pickup_struct:getButtonNormalSprite())
+            --vars['pickupTabBtn' .. i]:setSelectedImage(pickup_struct:getButtonDisabledSprite())
+            --vars['pickupTabBtn' .. i]:setDisabledImage(pickup_struct:getButtonDisabledSprite())
+
+            vars['pickupTabTextSprite' .. i] = cc.Sprite:create(pickup_struct:getTextResourceStr())
+            --120011
         end
     end
 
@@ -198,6 +221,11 @@ function UI_HatcherySummonTab:initUI()
     vars['premiumInfoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_premium_popup.ui') end)
 
     self:onChangeCategory(default_category)
+    
+    if string.find(default_category, 'pickup_') then
+        local splitted_list =  pl.stringx.split(default_category, 'pickup_')
+        vars['pickupTabBtn' .. splitted_list[#splitted_list]]:setEnabled(false)
+    end
 
     -- 광고 보기 버튼 체크
     vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['FSUMMON']))
@@ -309,20 +337,25 @@ end
 -- @brief
 -------------------------------------
 function UI_HatcherySummonTab:onChangeCategory(category)
-    cclog(category)
     self.m_curCategory = category
     for name, tab_object in pairs(self.m_summonCategoryTab) do
         tab_object:setVisible(false) 
     end
     self.m_summonCategoryTab[category]:setVisible(true)
 
-    local is_pickup = category == 'pickup'
-    local is_premium = category == 'cash'
-    local is_friendPoint = category == 'friend'
+    local is_pickup = (category == 'pickup')
+    local is_premium = (category == 'cash')
+    local is_friendPoint = (category == 'friend')
 
     self.vars['chanceUpTabBtn']:setEnabled(not is_pickup)
     self.vars['premiumTabBtn']:setEnabled(not is_premium)
     self.vars['friendshipTabBtn']:setEnabled(not is_friendPoint)
+
+    for i = 1, g_hatcheryData:getPickupStructNumber() do
+        if self.vars['pickupTabBtn' .. i] then
+            self.vars['pickupTabBtn' .. i]:setEnabled(true)
+        end
+    end
 
     self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
     self.vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)

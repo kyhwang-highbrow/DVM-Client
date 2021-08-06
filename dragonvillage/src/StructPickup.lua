@@ -67,7 +67,7 @@ end
 -- function getTextResourceStr
 -------------------------------------
 function StructPickup:getTextResourceStr()
-    return self.res_text
+    return pl.stringx.replace(self.res_text, '#', g_localData:getLang(), 1) 
 end
 
 
@@ -86,4 +86,21 @@ function StructPickup:getBackgroundResourceStr()
     return self.res_bg
 end
 
+-------------------------------------
+-- function getButtonNormalSprite
+-------------------------------------
+function StructPickup:getButtonNormalSprite()
+    local res = self:getButtonResourceStr()
 
+    return cc.Sprite:create(res)
+end
+
+-------------------------------------
+-- function getButtonDisableSprite
+-------------------------------------
+function StructPickup:getButtonDisabledSprite()
+    local res = self:getButtonResourceStr()
+    local disabled_res = pl.stringx.replace(res, '1.png', '2.png', 1)
+
+    return cc.Sprite:create(disabled_res)
+end
