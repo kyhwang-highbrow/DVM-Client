@@ -210,7 +210,7 @@ function UI_HatcherySummonTab:initUI()
             vars['pickupTabBtn' .. i]:registerScriptTapHandler(function() 
                 self:onChangeCategory('pickup_' .. i) 
                 vars['pickupTabBtn' .. i]:setEnabled(false)
-                vars['pickupBgSprite']:setTexture('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
+                vars['pickupBgSprite']:setTexture(pickup_struct:getBackgroundResourceStr())
 
                 self.root:unscheduleUpdate()
                 self.root:scheduleUpdateWithPriorityLua(function(dt) 
@@ -236,7 +236,7 @@ function UI_HatcherySummonTab:initUI()
             vars['pickupTabTextSprite' .. i] = cc.Sprite:create(pickup_struct:getTextResourceStr())
 
             if (i == #pickup_list) then
-                vars['pickupBgSprite']:setTexture('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
+                vars['pickupBgSprite']:setTexture(pickup_struct:getBackgroundResourceStr())
                 
                 self.root:scheduleUpdateWithPriorityLua(function(dt) 
                     --local pickup_struct = g_hatcheryData:getPickupStructByIndex(i)
