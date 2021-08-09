@@ -297,7 +297,24 @@ end
 ----------------------------------------------------------------------
 -- function click_startBtn
 ----------------------------------------------------------------------
-function UI_ClearTicket:click_startBtn()
+function UI_ClearTicket:click_startBtn()  
+
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    local function manage_func()
+        UINavigatorDefinition:goTo('dragon')
+    end
+    g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
+
+
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            -- UI_Inventory() @kwkang 룬 업데이트로 룬 관리쪽으로 이동하게 변경 
+            UINavigatorDefinition:goTo('rune_forge', 'manage')
+        end
+        g_inventoryData:checkMaximumItems(clear_ticket, manage_func)
+    end
+
     local function finish_cb(ret)
         function proceeding_end_cb()
             local ui = UI_ClearTicketConfirm(self.m_clearNum, ret)
@@ -316,7 +333,9 @@ function UI_ClearTicket:click_startBtn()
             end)))
     end
 
-    g_stageData:request_clearTicket(self.m_stageID, self.m_clearNum, finish_cb)
+    clear_ticket = function()
+        g_stageData:request_clearTicket(self.m_stageID, self.m_clearNum, finish_cb)
+    end
 end
 
 
