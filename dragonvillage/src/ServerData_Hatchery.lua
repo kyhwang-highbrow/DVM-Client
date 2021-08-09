@@ -1112,6 +1112,13 @@ function ServerData_Hatchery:response_pickupScheduleTable()
             table.insert(self.m_pickupStructList, StructPickup(data))
         end
     end
+
+    table.sort(self.m_pickupStructList, function(a, b) 
+        local priority_a = a:getUIPriority()
+        local priority_b = b:getUIPriority()
+
+        return priority_a < priority_b
+    end)
 end
 
 
