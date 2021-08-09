@@ -299,12 +299,21 @@ end
 ----------------------------------------------------------------------
 function UI_ClearTicket:click_startBtn()
     local function finish_cb(ret)
-        local ui = UI_ClearTicketConfirm(self.m_clearNum, ret)
+        function proceeding_end_cb()
+            local ui = UI_ClearTicketConfirm(self.m_clearNum, ret)
         
-        ui:setCloseCB(function() 
-            self.m_clearNum = 1
-            self:refresh()
-        end)
+            ui:setCloseCB(function() 
+                self.m_clearNum = 1
+                self:refresh()
+            end)
+        end
+
+        local proceeding_ui = UI_Proceeding()
+        proceeding_ui.root:runAction(cc.Sequence:create(cc.DelayTime:create(2.1), 
+            cc.CallFunc:create(function() 
+                proceeding_ui:close() 
+                proceeding_end_cb()
+            end)))
     end
 
     g_stageData:request_clearTicket(self.m_stageID, self.m_clearNum, finish_cb)

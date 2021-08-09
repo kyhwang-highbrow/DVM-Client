@@ -18,7 +18,7 @@ function UI_Proceeding:init()
     self.m_uiName = 'UI_Proceeding'
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_Proceeding')
+    --g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_Proceeding')
 
     self:initUI()
     --self:initButton()

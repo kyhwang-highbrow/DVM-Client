@@ -838,6 +838,7 @@ local t_module = {
     'UI_TamerSkillCard',
 
 	-- UI : 분류 없음
+    'UI_Proceeding',
     'UI_BlockPopup',
     'UI_BlockSplashPopup',
     'UI_Network',
