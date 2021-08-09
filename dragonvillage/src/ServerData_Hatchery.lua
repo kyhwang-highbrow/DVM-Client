@@ -73,6 +73,11 @@ function ServerData_Hatchery:request_hatcheryInfo(finish_cb, fail_cb)
 
         self:setHacheryInfoTable(ret)
 
+        local pickup_schedule = ret['table_pickup_schedule']
+        if pickup_schedule then
+            TABLE:setServerTable('table_pickup_schedule', pickup_schedule)
+        end
+
         -- 확률업 드래곤 정보 갱신
         g_eventData:applyChanceUpDragons(ret)
 

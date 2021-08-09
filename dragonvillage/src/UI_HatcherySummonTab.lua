@@ -200,19 +200,16 @@ function UI_HatcherySummonTab:initUI()
 
     -- 픽업 탭 버튼 
     local pickup_list = g_hatcheryData:getSelectedPickupList()
-    for i = 1, #pickup_list do
-        if vars['pickupTabBtn' .. i] then
+    local index = 1
+    while(vars['pickupTabBtn' .. index]) do
+        if (index <= #pickup_list) then
+            local i = index
             local pickup_struct = g_hatcheryData:getPickupStructByIndex(i)
             local did = pickup_struct:getTargetDragonID()
 
             vars['pickupTabBtn' .. i]:registerScriptTapHandler(function() 
                 self:onChangeCategory('pickup_' .. i) 
                 vars['pickupTabBtn' .. i]:setEnabled(false)
-
-                -- vars['bgNode']:removeAllChildren()
-                -- local sprite = cc.Sprite:create('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
-                -- vars['bgNode']:addChild(sprite)
-
                 vars['pickupBgSprite']:setTexture('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
 
                 self.root:unscheduleUpdate()
@@ -236,18 +233,13 @@ function UI_HatcherySummonTab:initUI()
             vars['pickupDragonNode' .. i]:addChild(icon)
 
             -- 버튼 sprite 교체
-            --vars['pickupTabBtn' .. i]:setNormalImage(pickup_struct:getButtonNormalSprite())
-            --vars['pickupTabBtn' .. i]:setSelectedImage(pickup_struct:getButtonDisabledSprite())
-            --vars['pickupTabBtn' .. i]:setDisabledImage(pickup_struct:getButtonDisabledSprite())
-
             vars['pickupTabTextSprite' .. i] = cc.Sprite:create(pickup_struct:getTextResourceStr())
-            --120011
 
             if (i == #pickup_list) then
                 vars['pickupBgSprite']:setTexture('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
                 
                 self.root:scheduleUpdateWithPriorityLua(function(dt) 
-                    local pickup_struct = g_hatcheryData:getPickupStructByIndex(i)
+                    --local pickup_struct = g_hatcheryData:getPickupStructByIndex(i)
                     vars['timeLabel']:setString(pickup_struct:getRemainingTimeStr())
                 end, 1)
 
@@ -259,7 +251,11 @@ function UI_HatcherySummonTab:initUI()
                 vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))
                 vars['pickupRateNoti']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did)))
             end
+        else
+            vars['pickupTabBtn' .. index]:setVisible(false)
         end
+
+        index = index + 1
     end
 
     vars['infoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_popup.ui') end)
