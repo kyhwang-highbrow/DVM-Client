@@ -246,6 +246,9 @@ function UI_HatcherySummonTab:initUI()
                 
                 vars['pickupDragonNode']:removeAllChildren()
                 local icon = MakeSimpleDragonCard(pickup_struct:getTargetDragonID())
+                icon.vars['clickBtn']:registerScriptTapHandler(function()
+                    UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true)
+                end)
                 vars['pickupDragonNode']:addChild(icon.root)
                 
                 vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))

@@ -69,7 +69,7 @@ function UI_SupplyProductInfoPopup:initUI()
     if vars['obtainLabel'] and t_data['product_content'] and (t_data['product_content'] ~= '') then
         local package_item_str = t_data['product_content']
         local count = ServerData_Item:getItemCountFromPackageItemString(package_item_str, ITEM_ID_CASH)
-        vars['obtainLabel']:setString(comma_value(count))
+        vars['obtainLabel']:setString(Str('즉시 획득 {1}', comma_value(count)))
     end
 
     -- n일간 매일 수령
