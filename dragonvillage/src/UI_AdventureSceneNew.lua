@@ -37,9 +37,6 @@ UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
 
         -- @mskim 20.09.14 UI 정리하면서 추가함, 전역적으로 쓰는 것은 아님
         m_stageId = 'number',
-
-
-        m_tooltipUI = '',
      })
 
 -------------------------------------
@@ -301,10 +298,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_AdventureSceneNew:click_exitBtn()
-    if self.m_tooltipUI then
-        self.m_tooltipUI:close()
-        self.m_tooltipUI = nil
-    end
     self:close()
 end
 
@@ -936,17 +929,10 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
     -- 
     table.insert(l_active_hot, 'hotTimeMarbleBtn')
     vars['hotTimeMarbleBtn']:registerScriptTapHandler(function() 
-        if (not self.m_tooltipUI) then
-            self.m_tooltipUI = UI_TooltipTest()
-            
-            self.m_tooltipUI.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
-            self.m_tooltipUI.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
-            self.m_tooltipUI.vars['tooltipMenu']:setPosition(0, -170)
-    
-        else
-            self.m_tooltipUI:close()
-            self.m_tooltipUI = nil
-        end
+            local ui = UI_TooltipTest()
+            ui.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
+            ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
+            ui.vars['tooltipMenu']:setPosition(0, -170)
      end)
 
 

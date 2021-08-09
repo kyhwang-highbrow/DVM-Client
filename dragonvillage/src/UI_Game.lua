@@ -998,18 +998,13 @@ function UI_Game:showAutoItemPickUI()
 
     -- 클릭 시 툴팁 처리
     local function click_btn()
-        if (not self.m_tooltipUI) then
-            self.m_tooltipUI = UI_TooltipTest()
+            local ui = UI_TooltipTest()
 
-            self.m_tooltipUI.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
-            self.m_tooltipUI.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
-            self.m_tooltipUI.vars['tooltipMenu']:setPosition(0, -170)
-
-        else
-            self.m_tooltipUI:close()
-            self.m_tooltipUI = nil
-        end
+            ui.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
+            ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
+            ui.vars['tooltipMenu']:setPosition(0, -170)
     end
+    
     vars['hotTimeMarbleBtn']:registerScriptTapHandler(click_btn)
     vars['hotTimeMarbleBtn']:setVisible(true)
 end

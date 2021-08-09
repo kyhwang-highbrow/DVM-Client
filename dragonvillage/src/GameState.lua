@@ -958,9 +958,6 @@ function GameState:makeResultUI(is_success)
     func_ui_result = function()
         local world = self.m_world
         local stage_id = world.m_stageID
-
-        world.m_inGameUI.m_tooltipUI:close()
-        world.m_inGameUI.m_tooltipUI = nil
         
 		-- GameState는 Adventure모드를 기본으로 한다. 다른 모드는 상속을 받아서 처리한다.
         local ui = UI_GameResult_Adventure(stage_id,

@@ -113,7 +113,7 @@ function UI_TooltipTest:init()
 
     self:initUI()
 
-    --self:makeTouchLayer(self.root)
+    self:makeTouchLayer(self.root)
 end
 
 -------------------------------------
@@ -147,56 +147,4 @@ end
 function UI_TooltipTest.onTouch(self, touch, event)
     self:close()
     return true
-end
-
-
--------------------------------------
--- function autoPositioning
--------------------------------------
-function UI_TooltipTest:autoPositioning(node)
-    -- UI클래스의 root상 위치를 얻어옴
-    local local_pos = convertToAnoterParentSpace(node, self.root)
-    local pos_x = local_pos['x']
-    local pos_y = local_pos['y']
-
-    do -- X축 위치 지정
-        local width =  100
-        local scr_size = cc.Director:getInstance():getWinSize()
-        if (pos_x < 0) then
-            local min_x = -(scr_size['width'] / 2)
-            local left_pos = pos_x - (width/2)
-            if (left_pos < min_x) then
-                pos_x = min_x + (width/2)
-            end
-        else
-            local max_x = (scr_size['width'] / 2)
-            local right_pos = pos_x + (width/2)
-            if (max_x < right_pos) then
-                pos_x = max_x - (width/2)
-            end
-        end
-    end
-
-    do -- Y축 위치 지정
-        -- 화면상에 보이는 Y스케일을 얻어옴
-        local transform = node.m_node:getNodeToWorldTransform()
-        local scale_y = transform[5 + 1]
-
-        -- tooltip의 위치를 위쪽으로 표시할지 아래쪽으로 표시할지 결정
-        local bounding_box = node:getBoundingBox()
-        local anchor_y = 0.5
-        if (pos_y < 0) then
-            pos_y = pos_y + (bounding_box['height'] * scale_y / 2) + 10
-            anchor_y = 0
-        else
-            pos_y = pos_y - (bounding_box['height'] * scale_y / 2) - 10
-            anchor_y = 1
-        end
-
-        -- 위, 아래의 위치에 따라 anchorPoint 설정
-        self.root:setAnchorPoint(cc.p(0.5, anchor_y))
-    end
-
-    -- 위치 설정
-    self.root:setPosition(pos_x, pos_y)
 end
