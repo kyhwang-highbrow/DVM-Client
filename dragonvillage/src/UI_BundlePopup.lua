@@ -136,6 +136,11 @@ function UI_BundlePopup:click_quantityBtn(is_add)
 		return
 	end
 
+	if (count > 1000) then
+		count = 1000
+		return
+	end
+
     local struct_product = self.m_structProduct
 	local price_type = struct_product:getPriceType()
     

@@ -309,7 +309,7 @@ end
 -------------------------------------
 function UI_StaminaChargePopup:conditionFunc(type, cnt)
     -- 조건 검사
-    if (cnt <= 0) then
+    if (cnt <= 0) or (cnt > 1000) then
         return false
     end
 

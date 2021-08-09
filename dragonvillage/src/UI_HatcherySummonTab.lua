@@ -126,6 +126,7 @@ function UI_HatcherySummonTab:initUI()
 
     local default_category = self.m_curCategory
 
+    
     for i, t_data in pairs(g_hatcheryData:getGachaList()) do
         local btn = UI()
         btn:load('hatchery_summon_item.ui')

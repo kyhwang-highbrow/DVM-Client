@@ -104,6 +104,12 @@ function UI_BundlePopupBtnPress:update(dt)
 		    return
 	    end
 
+        if (count > 1000) then
+            count = 1000
+            self:resetQuantityBtnPress()
+            return
+        end
+
         local price_type = struct_product:getPriceType()
 
         -- 구매 한도 예외처리
