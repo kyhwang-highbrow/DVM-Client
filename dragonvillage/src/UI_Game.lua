@@ -1000,11 +1000,11 @@ function UI_Game:showAutoItemPickUI()
     local function click_btn()
         if (not self.m_tooltipUI) then
             self.m_tooltipUI = UI_TooltipTest()
-            
-            local local_pos = convertToAnoterParentSpace(vars['hotTimeMarbleBtn'], self.m_tooltipUI.root)
-            local pos_x = local_pos['x']
-            local pos_y = local_pos['y']
-            self.m_tooltipUI.root:setPosition(pos_x, pos_y - 120)
+
+            self.m_tooltipUI.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
+            self.m_tooltipUI.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
+            self.m_tooltipUI.vars['tooltipMenu']:setPosition(0, -170)
+
         else
             self.m_tooltipUI:close()
             self.m_tooltipUI = nil
