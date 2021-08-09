@@ -65,8 +65,8 @@ function UI_Lobby:init()
 
 	ENTRY_LOBBY_CNT = (ENTRY_LOBBY_CNT + 1)
 
-    require('UI_Proceeding')
-    UI_Proceeding()
+    -- require('UI_Proceeding')
+    -- UI_Proceeding()
 end
 
 -------------------------------------
