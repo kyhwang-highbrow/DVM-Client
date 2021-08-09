@@ -145,7 +145,7 @@ end
 -- function request_summonCash
 -- @breif
 -------------------------------------
-function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, fail_cb)
+function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, list_id, finish_cb, fail_cb)
     -- parameters
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
@@ -197,6 +197,11 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('sale', is_sale)
 	ui_network:setParam('tutorial', tutorial)
+
+    if list_id then
+        ui_network:setParam('pickup_list_id', list_id)
+    end
+    
     if (self.m_isAutomaticFarewell and is_bundle) then
         ui_network:setParam('auto_goodbye', auto_farewell_lv)
     end
@@ -524,6 +529,35 @@ function ServerData_Hatchery:getGachaList()
         }
         table.insert(l_item_list, t_data)
     end
+
+    do -- 픽업 소환
+        local t_data = {
+            ['name'] = Str('픽업 10회 소환'),
+            ['egg_id'] = 700004, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['ui_type'] = 'pickup10',
+            ['bundle'] = true,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE,
+        }
+
+        table.insert(l_item_list, t_data)
+
+        local t_data = {
+            ['name'] = Str('픽업 1회 소환'),
+            ['egg_id'] = 700004, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['ui_type'] = 'pickup',
+            ['bundle'] = false,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__EVENT_SUMMON_PRICE,
+        }
+        table.insert(l_item_list, t_data)
+    end
+
+
+
+
 
     return l_item_list
 end
@@ -1081,6 +1115,16 @@ end
 -------------------------------------
 function ServerData_Hatchery:getSelectedPickupList()
     return self.m_pickupStructList 
+end
+
+
+-------------------------------------
+-- function getSelectedPickupList
+-------------------------------------
+function ServerData_Hatchery:getPickupStructByIndex(index)
+    if self.m_pickupStructList then
+        return self.m_pickupStructList[index]
+    end
 end
 
 -------------------------------------

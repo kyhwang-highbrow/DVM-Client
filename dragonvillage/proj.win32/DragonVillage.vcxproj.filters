@@ -4959,6 +4959,7 @@
     <None Include="..\src\UIC_Label_TypingEffect.lua" />
     <None Include="..\src\UI_ClearTicket.lua" />
     <None Include="..\src\StructPickup.lua" />
+    <None Include="..\src\UI_Proceeding.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

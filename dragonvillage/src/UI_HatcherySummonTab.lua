@@ -113,6 +113,11 @@ function UI_HatcherySummonTab:initUI()
     vars['chanceUpGoodbyeBtn']:setManualMode(true)
     vars['chanceUpGoodbyeBtn']:registerScriptTapHandler(function() self:click_chanceUpGoodbyeBtn() end)
 
+    -- 자동작별 on
+    vars['pickupGoodbyeBtn'] = UIC_CheckBox(vars['pickupGoodbyeBtn'].m_node, vars['pickupGoodbyeSprite'], g_hatcheryData.m_isAutomaticFarewell)
+    vars['pickupGoodbyeBtn']:setManualMode(true)
+    vars['pickupGoodbyeBtn']:registerScriptTapHandler(function() self:click_pickuppGoodbyeBtn() end)
+
     local default_category = self.m_curCategory
 
     for i, t_data in pairs(g_hatcheryData:getGachaList()) do
@@ -194,6 +199,12 @@ function UI_HatcherySummonTab:initUI()
             vars['pickupTabBtn' .. i]:registerScriptTapHandler(function() 
                 self:onChangeCategory('pickup_' .. i) 
                 vars['pickupTabBtn' .. i]:setEnabled(false)
+
+                -- vars['bgNode']:removeAllChildren()
+                -- local sprite = cc.Sprite:create('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
+                -- vars['bgNode']:addChild(sprite)
+
+                vars['pickupBgSprite']:setTexture('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
             end)
             vars['pickupTabBtn' .. i]:setVisible(true)
 
@@ -214,6 +225,10 @@ function UI_HatcherySummonTab:initUI()
 
             vars['pickupTabTextSprite' .. i] = cc.Sprite:create(pickup_struct:getTextResourceStr())
             --120011
+
+            if (i == #pickup_list) then
+                vars['pickupBgSprite']:setTexture('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
+            end
         end
     end
 
@@ -600,7 +615,22 @@ function UI_HatcherySummonTab:click_chanceUpGoodbyeBtn()
     end)
 end
 
+-------------------------------------
+-- function click_pickuppGoodbyeBtn
+-------------------------------------
+function UI_HatcherySummonTab:click_pickuppGoodbyeBtn()
+    if (g_hatcheryData.m_isAutomaticFarewell) then
+        g_hatcheryData:switchHatcheryAutoFarewell()
+        self.vars['pickupGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+        g_settingData:setAutoFarewell(g_hatcheryData.m_isAutomaticFarewell, 'rare')
+        return
+    end
 
+    local ui = UI_HatcherySummonAutoFarewellPopup()
+    ui:setCloseCB(function()
+        self.vars['pickupGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+    end)
+end
 
 -------------------------------------
 -- function click_eventSummonBtn
@@ -689,9 +719,58 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
     local function fail_cb()
     end
 
-    g_hatcheryData:request_summonCash(is_bundle, is_sale, finish_cb, fail_cb)
+    g_hatcheryData:request_summonCash(is_bundle, is_sale, nil, finish_cb, fail_cb)
 end
+-------------------------------------
+-- function click_fixedPickupSummonBtn
+-- @brief 캐시 뽑기
+-------------------------------------
+function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
 
+    -- 드래곤 최대치 보유가 넘었는지 체크
+    local summon_cnt = 1
+    if (is_bundle == true) then
+        summon_cnt = 10
+    end
+    if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
+        return
+    end
+
+    local splitted_list =  pl.stringx.split(self.m_curCategory, 'pickup_')
+    local index = tonumber(splitted_list[#splitted_list])
+    local pickup_struct = g_hatcheryData:getPickupStructByIndex(index)
+
+    local list_id = pickup_struct:getListID()
+
+    local function finish_cb(ret)
+        -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
+        if (old_ui) then
+            old_ui:setCloseCB(nil)
+            old_ui:close()
+        end
+
+		local gacha_type = 'cash'
+        local l_dragon_list = ret['added_dragons']
+        local l_slime_list = ret['added_slimes']
+        local egg_res = t_egg_data['egg_res']
+        local egg_id = t_egg_data['egg_id']
+        local added_mileage = ret['added_mileage'] or 0
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage)
+
+        local function close_cb()
+            self:summonApiFinished()
+        end
+        ui:setCloseCB(close_cb)
+
+        -- 이어서 뽑기 설정
+        self:subsequentSummons(ui, t_egg_data)
+    end
+
+    local function fail_cb()
+    end
+
+    g_hatcheryData:request_summonCash(is_bundle, is_sale, list_id, finish_cb, fail_cb)
+end
 -------------------------------------
 -- function click_friendSummonBtn
 -- @brief 우정포인트 뽑기
@@ -823,6 +902,9 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 
         elseif (egg_id == 700003) then
             self:click_friendSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
+
+        elseif (egg_id == 700004) then
+            self:click_fixedPickupSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
 
         else
             error('egg_id ' .. egg_id)

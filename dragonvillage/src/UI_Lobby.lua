@@ -64,6 +64,9 @@ function UI_Lobby:init()
     g_errorTracker:cleanupIngameLog()
 
 	ENTRY_LOBBY_CNT = (ENTRY_LOBBY_CNT + 1)
+
+    require('UI_Proceeding')
+    UI_Proceeding()
 end
 
 -------------------------------------
@@ -72,8 +75,6 @@ end
 function UI_Lobby:initUI()
 	local vars = self.vars
     
-    
-
 	-- 로비 가이드
     local function refresh()
         self:update_masterRoad()
