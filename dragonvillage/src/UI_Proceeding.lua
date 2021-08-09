@@ -38,7 +38,7 @@ function UI_Proceeding:initUI()
     -- vars['descLabel']
 
     self:initTamer()
-    self:initDragon()
+    --self:initDragon()
     
     do -- 배경 이미지 생성
         local stage_id = 1110403
