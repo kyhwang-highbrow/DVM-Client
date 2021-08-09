@@ -58,7 +58,7 @@ function UI_SupplyProductInfoPopup_QuestDouble:initUI()
         local t_supply = TableSupply:getSupplyData_dailyQuest()
         local package_item_str = t_supply['product_content']
         local count = ServerData_Item:getItemCountFromPackageItemString(package_item_str, ITEM_ID_CASH)
-        local str = Str('즉시 획득') .. ' ' .. comma_value(count)
+        local str = Str('즉시 획득 {1}', comma_value(count))
         vars['obtainLabel']:setString(str)
     end
 
