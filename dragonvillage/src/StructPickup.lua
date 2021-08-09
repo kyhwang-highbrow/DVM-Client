@@ -104,3 +104,42 @@ function StructPickup:getButtonDisabledSprite()
 
     return cc.Sprite:create(disabled_res)
 end
+
+-------------------------------------
+-- function getRemainingTimeStr
+-------------------------------------
+function StructPickup:getRemainingTimeStr()
+    local parser = pl.Date.Format(self.date_format)
+
+
+    if self.end_date and (self.end_date ~= '') then
+        local temp = parser:parse(self.end_date)
+        local curr_time = Timer:getServerTime()
+        local end_time = temp['time']
+
+        if (not end_time) then
+            return ''
+        end
+
+        local time = (end_time - curr_time)
+
+        return Str('남은 시간 : {1}', datetime.makeTimeDesc(time, true))
+    end
+
+    return ''
+
+    -- local curr_time = Timer:getServerTime()
+    -- local end_time = (self.end_date / 1000)
+
+    -- if (curr_time < end_time) then
+    --     local _curr_time = Timer:getServerTime_Milliseconds()
+    --     local _end_time = self.end_date
+    --     local time_millisec = math_max(_end_time - _curr_time, 0)
+    --     local time_str = datetime.makeTimeDesc_timer(time_millisec, true) -- param : milliseconds, day_special
+    --     local str = Str('남은 시간 : {1}', '{@green}' .. time_str)
+    --     return str
+    -- else
+    --     return ''
+    -- end
+end
+

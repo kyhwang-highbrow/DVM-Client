@@ -19,6 +19,8 @@ UI_HatcherySummonTab = class(PARENT,{
         m_summonCategoryTab = '{pickup, cash, friend}',
 
         m_selectedDragonList = 'table',  -- 한 속성에서 왔다갔다 선택 했을 때의 체크표시 처리 용
+
+        m_originPickupRateLabel = 'string',
     })
 
 -------------------------------------
@@ -53,6 +55,10 @@ function UI_HatcherySummonTab:init(owner_ui)
 
     if (not self.m_curCategory) then 
         self.m_curCategory = 'pickup'
+    end
+
+    if (self.vars['pickupRateNoti']) then
+        self.m_originPickupRateLabel = self.vars['pickupRateNoti']:getString()
     end
 
     self:initSortManager()
@@ -116,7 +122,7 @@ function UI_HatcherySummonTab:initUI()
     -- 자동작별 on
     vars['pickupGoodbyeBtn'] = UIC_CheckBox(vars['pickupGoodbyeBtn'].m_node, vars['pickupGoodbyeSprite'], g_hatcheryData.m_isAutomaticFarewell)
     vars['pickupGoodbyeBtn']:setManualMode(true)
-    vars['pickupGoodbyeBtn']:registerScriptTapHandler(function() self:click_pickuppGoodbyeBtn() end)
+    vars['pickupGoodbyeBtn']:registerScriptTapHandler(function() self:click_pickupGoodbyeBtn() end)
 
     local default_category = self.m_curCategory
 
@@ -196,6 +202,9 @@ function UI_HatcherySummonTab:initUI()
     local pickup_list = g_hatcheryData:getSelectedPickupList()
     for i = 1, #pickup_list do
         if vars['pickupTabBtn' .. i] then
+            local pickup_struct = g_hatcheryData:getPickupStructByIndex(i)
+            local did = pickup_struct:getTargetDragonID()
+
             vars['pickupTabBtn' .. i]:registerScriptTapHandler(function() 
                 self:onChangeCategory('pickup_' .. i) 
                 vars['pickupTabBtn' .. i]:setEnabled(false)
@@ -205,13 +214,21 @@ function UI_HatcherySummonTab:initUI()
                 -- vars['bgNode']:addChild(sprite)
 
                 vars['pickupBgSprite']:setTexture('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
+
+                self.root:unscheduleUpdate()
+                self.root:scheduleUpdateWithPriorityLua(function(dt) 
+                    vars['timeLabel']:setString(pickup_struct:getRemainingTimeStr())
+                end, 1)
+
+                 vars['pickupDragonNode']:removeAllChildren()
+                local icon = MakeSimpleDragonCard(did)
+                vars['pickupDragonNode']:addChild(icon.root)
+                
+                vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))
+
+                vars['pickupRateNoti']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did)))
             end)
-            vars['pickupTabBtn' .. i]:setVisible(true)
-
-
-            local pickup_struct = pickup_list[i]
-
-            local did = pickup_struct:getTargetDragonID()
+            vars['pickupTabBtn' .. i]:setVisible(true) 
 
             local icon = IconHelper:getDragonIconFromDid(did, 3)
             icon:setFlippedX(true)
@@ -228,11 +245,25 @@ function UI_HatcherySummonTab:initUI()
 
             if (i == #pickup_list) then
                 vars['pickupBgSprite']:setTexture('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
+                
+                self.root:scheduleUpdateWithPriorityLua(function(dt) 
+                    local pickup_struct = g_hatcheryData:getPickupStructByIndex(i)
+                    vars['timeLabel']:setString(pickup_struct:getRemainingTimeStr())
+                end, 1)
+
+                
+                vars['pickupDragonNode']:removeAllChildren()
+                local icon = MakeSimpleDragonCard(pickup_struct:getTargetDragonID())
+                vars['pickupDragonNode']:addChild(icon.root)
+                
+                vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))
+                vars['pickupRateNoti']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did)))
             end
         end
     end
 
     vars['infoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_popup.ui') end)
+    vars['pickupInfoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_premium_popup.ui') end)
     vars['premiumInfoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_premium_popup.ui') end)
 
     self:onChangeCategory(default_category)
@@ -345,6 +376,15 @@ function UI_HatcherySummonTab:refresh()
     end
 
     self:setEventMenu()
+end
+
+
+-------------------------------------
+-- function update
+-- @brief
+-------------------------------------
+function UI_HatcherySummonTab:update(dt)
+
 end
 
 -------------------------------------
@@ -616,9 +656,9 @@ function UI_HatcherySummonTab:click_chanceUpGoodbyeBtn()
 end
 
 -------------------------------------
--- function click_pickuppGoodbyeBtn
+-- function click_pickupGoodbyeBtn
 -------------------------------------
-function UI_HatcherySummonTab:click_pickuppGoodbyeBtn()
+function UI_HatcherySummonTab:click_pickupGoodbyeBtn()
     if (g_hatcheryData.m_isAutomaticFarewell) then
         g_hatcheryData:switchHatcheryAutoFarewell()
         self.vars['pickupGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
