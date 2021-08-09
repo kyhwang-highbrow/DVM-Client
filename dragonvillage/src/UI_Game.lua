@@ -39,9 +39,6 @@ UI_Game = class(PARENT, {
 
         -- 일시 정지
         m_pauseUI = '',
-
-        -- 일일 자동줍기 아이템 획득량
-        m_tooltipUI = '',
      })
 
 -------------------------------------
@@ -1004,7 +1001,7 @@ function UI_Game:showAutoItemPickUI()
             ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
             ui.vars['tooltipMenu']:setPosition(0, -170)
     end
-    
+
     vars['hotTimeMarbleBtn']:registerScriptTapHandler(click_btn)
     vars['hotTimeMarbleBtn']:setVisible(true)
 end
