@@ -142,8 +142,11 @@ function UI_ClearTicket:refreshDropInfo()
 
     local str = '{1}/{2}'
     vars['diaLabel']:setString(Str(str, g_userData:getDropInfoDia(), g_userData:getDropInfoMaxDia()))
+
     vars['goldLabel']:setString(Str(str, g_userData:getDropInfoGold(), g_userData:getDropInfoMaxGold()))
+
     vars['amethystLabel']:setString(Str(str, g_userData:getDropInfoAmethyst(), g_userData:getDropInfoMaxAmethyst()))
+
 end
 
 
@@ -328,8 +331,10 @@ function UI_ClearTicket:click_startBtn()
         local proceeding_ui = UI_Proceeding()
         proceeding_ui.root:runAction(cc.Sequence:create(cc.DelayTime:create(2.1), 
             cc.CallFunc:create(function() 
-                proceeding_ui:close() 
-                proceeding_end_cb()
+                proceeding_ui:setCloseCB(function() 
+                    proceeding_end_cb()
+                end)
+                proceeding_ui:close()
             end)))
     end
 
