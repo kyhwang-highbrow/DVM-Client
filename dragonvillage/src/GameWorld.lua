@@ -415,6 +415,8 @@ function GameWorld:initGame(stage_name)
         self.m_dropItemMgr = DropItemMgr_EventGold(self)
     end
 
+    self.m_inGameUI:showAutoItemPickUI()
+
     
     do -- 카메라 초기 위치 설정이 있다면 적용
         local t_camera = self.m_waveMgr:getBaseCameraScriptData()

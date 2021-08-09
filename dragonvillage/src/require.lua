@@ -914,6 +914,7 @@ local t_module = {
     'UI_RuneForgeGachaTab',
 	'UI_ToastPopup',
     'UI_SecretFindPopup',
+    'UI_Tooltip',
 	'UI_Tooltip_Indicator',
     'UI_Tooltip_Skill',
     'UI_TopUserInfo',

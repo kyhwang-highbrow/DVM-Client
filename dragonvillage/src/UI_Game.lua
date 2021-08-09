@@ -39,6 +39,9 @@ UI_Game = class(PARENT, {
 
         -- 일시 정지
         m_pauseUI = '',
+
+        -- 일일 자동줍기 아이템 획득량
+        m_tooltipUI = '',
      })
 
 -------------------------------------
@@ -89,8 +92,6 @@ function UI_Game:initUI()
     do
         self:setAutoPlayUI()
     end
-
-    self:showAutoItemPickUI()
 
     -- 2배속
     do
@@ -997,11 +998,16 @@ function UI_Game:showAutoItemPickUI()
 
     -- 클릭 시 툴팁 처리
     local function click_btn()
-        local str = '{@SKILL_NAME} ' .. Str('보너스 기능') .. '\n {@SKILL_DESC}' .. Str('아이템을 자동으로 획득')
-        local tooltip = UI_Tooltip_Skill(0, 0, str)
-
-        if (tooltip) then
-            tooltip:autoPositioning(vars['hotTimeMarbleBtn'])
+        if (not self.m_tooltipUI) then
+            self.m_tooltipUI = UI_TooltipTest()
+            
+            local local_pos = convertToAnoterParentSpace(vars['hotTimeMarbleBtn'], self.m_tooltipUI.root)
+            local pos_x = local_pos['x']
+            local pos_y = local_pos['y']
+            self.m_tooltipUI.root:setPosition(pos_x, pos_y - 120)
+        else
+            self.m_tooltipUI:close()
+            self.m_tooltipUI = nil
         end
     end
     vars['hotTimeMarbleBtn']:registerScriptTapHandler(click_btn)

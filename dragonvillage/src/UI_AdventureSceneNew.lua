@@ -37,6 +37,9 @@ UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
 
         -- @mskim 20.09.14 UI 정리하면서 추가함, 전역적으로 쓰는 것은 아님
         m_stageId = 'number',
+
+
+        m_tooltipUI = '',
      })
 
 -------------------------------------
@@ -48,6 +51,7 @@ function UI_AdventureSceneNew:initParentVariable()
     self.m_uiName = 'UI_AdventureSceneNew'
     self.m_bUseExitBtn = true
     self.m_uiBgm = 'bgm_dungeon_ready'
+    
 end
 
 -------------------------------------
@@ -925,6 +929,23 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
         vars['hotTimeStLabel']:setString(str)
         vars['hotTimeStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('stamina', vars['hotTimeStBtn']) end)
     end
+
+    -- 
+    table.insert(l_active_hot, 'hotTimeMarbleBtn')
+    vars['hotTimeMarbleBtn']:registerScriptTapHandler(function() 
+        if (not self.m_tooltipUI) then
+            self.m_tooltipUI = UI_TooltipTest()
+            
+            local local_pos = convertToAnoterParentSpace(vars['hotTimeMarbleBtn'], self.m_tooltipUI.root)
+            local pos_x = local_pos['x']
+            local pos_y = local_pos['y']
+            self.m_tooltipUI.root:setPosition(pos_x, pos_y - 120)
+        else
+            self.m_tooltipUI:close()
+            self.m_tooltipUI = nil
+        end
+     end)
+
 
     for i,v in ipairs(l_active_hot) do
         vars[v]:setVisible(true)
