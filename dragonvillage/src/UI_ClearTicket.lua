@@ -301,9 +301,6 @@ end
 -- function click_startBtn
 ----------------------------------------------------------------------
 function UI_ClearTicket:click_startBtn()  
-
-    cclog('started')
-
     -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
     local function manage_func()
         UINavigatorDefinition:goTo('dragon')
