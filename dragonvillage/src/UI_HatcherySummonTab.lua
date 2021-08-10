@@ -273,7 +273,10 @@ function UI_HatcherySummonTab:initUI()
     
     if string.find(default_category, 'pickup_') then
         local splitted_list =  pl.stringx.split(default_category, 'pickup_')
-        vars['pickupTabBtn' .. splitted_list[#splitted_list]]:setEnabled(false)
+        index = splitted_list[#splitted_list]]
+        if vars['pickupTabBtn' .. index] then
+            vars['pickupTabBtn' .. index]:setEnabled(false)
+        end
     end
 
     -- 광고 보기 버튼 체크
