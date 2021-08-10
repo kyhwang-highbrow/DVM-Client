@@ -526,6 +526,15 @@ function UI_ClearTicketConfirm:initDropItems()
             vars['dropRewardMenu']:addChild(item_card.root)
 
             item_card.root:setPositionX(pos_list[index])
+
+            if (from =='bonus') then
+                local animator = MakeAnimator('res/item/item_marble/item_marble.vrp')
+                animator:setAnchorPoint(cc.p(0.5, 0.5))
+                animator:setDockPoint(cc.p(1, 1))
+                animator:setScale(0.85)
+                animator:setPosition(-20, -20)
+                item_card.vars['clickBtn']:addChild(animator.m_node)
+            end
         end
     end
 end
