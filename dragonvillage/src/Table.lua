@@ -122,11 +122,7 @@ local TableInfo = {
         table_lucky_fortune_bag_rank = {'table_lucky_fortune_bag_rank', 'rank_id', false},
 
         table_talk_deet = {'table_talk_deet', 'text_id', false},
-
-        -- TEMP
-        --table_pickup_schedule = {'table_pickup_schedule', 'list_id', false},
-
-
+        
         -- 차원의 문
         --dmgate_bless = {'table_dmgate_bless', 'type_id', false}, -- 차원의 문 축복
         --dmgate_stage = {'table_dmgate_stage', 'stage_id', false}, -- 차원의 문 스테이지 (테스트용)

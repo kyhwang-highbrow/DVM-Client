@@ -56,7 +56,6 @@ function ServerData_Hatchery:update_hatcheryInfo(finish_cb, fail_cb)
         return
     end
 
-    self:response_pickupScheduleTable()
     self:request_hatcheryInfo(finish_cb, fail_cb)
 end
 
@@ -75,7 +74,8 @@ function ServerData_Hatchery:request_hatcheryInfo(finish_cb, fail_cb)
 
         local pickup_schedule = ret['table_pickup_schedule']
         if pickup_schedule then
-            TABLE:setServerTable('table_pickup_schedule', pickup_schedule)
+            TABLE:setServerTable('table_pickup_schedule', pickup_schedule)  
+            self:response_pickupScheduleTable()
         end
 
         -- 확률업 드래곤 정보 갱신
@@ -1107,9 +1107,18 @@ end
 function ServerData_Hatchery:response_pickupScheduleTable()
     local pickup_schedule_table = TABLE:get('table_pickup_schedule')
 
+    self.m_pickupStructList = {}
+
+    local check_list = {}
+
     for key, data in pairs(pickup_schedule_table) do
         if checkTimeValid(data['start_date'], data['end_date'], 'yyyy-mm-dd HH:MM:SS') then
-            table.insert(self.m_pickupStructList, StructPickup(data))
+            if (check_list[data['list_id']] == nil) then
+
+                table.insert(self.m_pickupStructList, StructPickup(data))
+
+                check_list[data['list_id']] = true
+            end
         end
     end
 
@@ -1119,6 +1128,8 @@ function ServerData_Hatchery:response_pickupScheduleTable()
 
         return priority_a < priority_b
     end)
+
+    
 end
 
 
