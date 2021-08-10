@@ -999,7 +999,7 @@ function UI_Game:showAutoItemPickUI()
 
             ui.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
             ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
-            ui.vars['tooltipMenu']:setPosition(0, -170)
+            ui.vars['tooltipMenu']:setPosition(10, -170)
     end
 
     vars['hotTimeMarbleBtn']:registerScriptTapHandler(click_btn)

@@ -932,7 +932,7 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
             local ui = UI_TooltipTest()
             ui.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
             ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
-            ui.vars['tooltipMenu']:setPosition(0, -170)
+            ui.vars['tooltipMenu']:setPosition(10, -170)
      end)
 
 
