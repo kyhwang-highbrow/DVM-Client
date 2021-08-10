@@ -411,11 +411,12 @@ function GameWorld:initGame(stage_name)
         -- 환상던전의 경우 드롭 매니저 생성하지 않고 지나감
     elseif (self.m_gameMode == GAME_MODE_ADVENTURE) then
         self.m_dropItemMgr = DropItemMgr(self)
+
+        -- 일일 드랍 획득량 버튼 생성
+        self.m_inGameUI:showAutoItemPickUI()
     elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
         self.m_dropItemMgr = DropItemMgr_EventGold(self)
     end
-
-    self.m_inGameUI:showAutoItemPickUI()
 
     
     do -- 카메라 초기 위치 설정이 있다면 적용
