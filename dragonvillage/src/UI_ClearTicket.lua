@@ -347,13 +347,17 @@ end
 ----------------------------------------------------------------------
 -- function click_buyBtn
 ----------------------------------------------------------------------
-function UI_ClearTicket:click_buyBtn(struct_product)
+function UI_ClearTicket:click_buyBtn(struct_product)    
+    local supply_product = g_supply:getSupplyProductByType(self.m_supplyType)
 
     local function callback(ret)
         ItemObtainResult_Shop(ret, true)
     end
 
-    struct_product:buy(callback)
+    require('UI_SupplyProductInfoPopup')
+    local ui = UI_SupplyProductInfoPopup(supply_product)
+
+    ui:setBuyCallback(callback)
 end
 
 

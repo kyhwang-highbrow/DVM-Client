@@ -333,3 +333,26 @@ function ServerData_Supply:getSupplyProductIdByType(supply_type)
 
     return target_data['product_id']
 end
+
+
+-------------------------------------
+-- function getSupplyProductIdByType
+-------------------------------------
+function ServerData_Supply:getSupplyProductByType(supply_type)
+
+    if (not supply_type) then return end
+
+    local l_supply_product = TableSupply:getSupplyProductList()
+    local target_data
+
+    for _, t_data in pairs(l_supply_product) do
+        if (t_data['type'] == supply_type) then
+            target_data = t_data
+            break
+        end
+    end
+
+    if (not target_data) then return end
+
+    return target_data
+end
