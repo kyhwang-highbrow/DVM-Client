@@ -636,6 +636,7 @@ end
 -- function response_ingameDropInfo
 -------------------------------------
 function ServerData_Stage:response_ingameDropInfo(ret)
+    if (ret['ingame_reward'] == nil) then return end
     local drop_reward = {}
     local drop_result = {}
     local daily_drop_info = {}
