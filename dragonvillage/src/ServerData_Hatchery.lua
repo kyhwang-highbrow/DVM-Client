@@ -464,6 +464,17 @@ function ServerData_Hatchery:getGachaList()
 
     do -- 고급 부화
         local t_data = {
+            ['name'] = Str('고급 소환 100회'),
+            ['egg_id'] = 700002, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
+            ['ui_type'] = 'cash100',
+            ['bundle'] = true,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE * 10,
+        }
+        table.insert(l_item_list, t_data)
+
+        local t_data = {
             ['name'] = Str('고급 소환 10회'),
             ['egg_id'] = 700002, 
             ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
@@ -512,6 +523,18 @@ function ServerData_Hatchery:getGachaList()
 
     do -- 커스텀 픽업 소환
         local t_data = {
+            ['name'] = Str('확률업 100회 소환'),
+            ['egg_id'] = 700001, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['ui_type'] = 'event100',
+            ['bundle'] = true,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE * 10,
+        }
+
+        table.insert(l_item_list, t_data)
+        
+        local t_data = {
             ['name'] = Str('확률업 10회 소환'),
             ['egg_id'] = 700001, 
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
@@ -536,6 +559,18 @@ function ServerData_Hatchery:getGachaList()
     end
 
     do -- 픽업 소환
+        local t_data = {
+            ['name'] = Str('픽업 100회 소환'),
+            ['egg_id'] = 700004, 
+            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['ui_type'] = 'pickup100',
+            ['bundle'] = true,
+            ['price_type'] = 'cash',
+            ['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE * 10,
+        }
+
+        table.insert(l_item_list, t_data)
+
         local t_data = {
             ['name'] = Str('픽업 10회 소환'),
             ['egg_id'] = 700004, 
