@@ -255,7 +255,7 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
     local dragon_appear_cut_res
     local is_skip_activated = self.m_ownerUI and self.m_ownerUI.vars['skipBtn']:isVisible() or true
 
-    if (not isNullOrEmpty(self.m_dragonName) and self.m_bMyth) then
+    if (not isNullOrEmpty(self.m_dragonName) and self.m_bMyth) and (self.m_ownerUI and not self.m_ownerUI:isShownAppearAnimation(self.m_did)) then
         self.vars['skipBtn']:setVisible(false)
         if (self.m_ownerUI) then 
             self.m_ownerUI.vars['skipBtn']:setVisible(false) 
@@ -278,9 +278,13 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
     end
 
     if (animator and animator.m_node) then
+        if (self.m_ownerUI and self.m_ownerUI.m_animatedDragonIdTable) then
+            self.m_ownerUI.m_animatedDragonIdTable[self.m_did] = true
+        end
+
         self.m_bActingAnimation = true
 
-        animator.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 1)
+        animator.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 2)
 
         animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
 

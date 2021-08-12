@@ -35,6 +35,8 @@ UI_GachaResult_Dragon = class(PARENT, {
     m_shownMythDid = 'table',
 
     m_canRetry = 'boolean', -- 다시 뽑기 가능?
+
+    m_animatedDragonIdTable = 'table',  -- 애니메이션 연출이 있었던 신화드래곤 테이블
 })
 
 -------------------------------------
@@ -46,6 +48,7 @@ function UI_GachaResult_Dragon:initParentVariable()
     self.m_bVisible = false -- onFocus 용도로만 쓰임
     self.m_bSkipClicked = false
     self.m_canRetry = true
+    self.m_animatedDragonIdTable = {}
 end
 
 -------------------------------------
@@ -939,6 +942,17 @@ function UI_GachaResult_Dragon:setLockSprite(is_locked)
 end
 
 
+function UI_GachaResult_Dragon:isShownAppearAnimation(did)
+    local is_shown = false
+
+    if (not did) then return false end
+
+    if (self.m_animatedDragonIdTable and self.m_animatedDragonIdTable[did]) then
+        is_shown = true
+    end
+
+    return is_shown
+end
 
 
 
