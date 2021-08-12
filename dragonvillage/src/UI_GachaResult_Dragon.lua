@@ -686,7 +686,6 @@ function UI_GachaResult_Dragon:click_skipBtn()
 
         for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do
             if (t_dragon_data:getRarity() == 'myth') and (not self.m_animatedDragonIdTable[t_dragon_data['did']]) then
-                cclog(t_dragon_data['id'])
                 has_myth = true
                 break
             end
