@@ -34,8 +34,6 @@ function UI_DragonSkillEnhance:init(doid, is_myth)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonSkillEnhance')
 
-    self.m_isMythDragon = is_myth or false
-
     self:sceneFadeInAction()
 
     self:initUI()
@@ -103,14 +101,14 @@ function UI_DragonSkillEnhance:refresh()
 
     
     -- 신화 드래곤인지 체크
-    self.m_isMythDragon = (t_dragon_data:getRarity() == 'myth')
+    local is_myth = (t_dragon_data:getRarity() == 'myth')
 
-    if self.m_isMythDragon then
+    if is_myth then
         self:setTab(UI_DragonSkillEnhance.TAB_ENHANCE)
     end
     
     if vars['moveTabBtn'] then
-        vars['moveTabBtn']:setVisible(not self.m_isMythDragon)
+        vars['moveTabBtn']:setVisible(not is_myth)
     end
 
 

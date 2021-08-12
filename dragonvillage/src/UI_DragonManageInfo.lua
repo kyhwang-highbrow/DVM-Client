@@ -636,9 +636,7 @@ function UI_DragonManageInfo:click_skillEnhanceBtn()
         return
 	end
     
-    local is_myth_dragon = self.m_selectDragonData and self.m_selectDragonData:getRarity() == 'myth'
-
-    self:openSubManageUI(UI_DragonSkillEnhance, is_myth_dragon)
+    self:openSubManageUI(UI_DragonSkillEnhance)
 end
 
 -------------------------------------
