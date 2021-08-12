@@ -33,6 +33,8 @@ UI_GachaResult_Dragon = class(PARENT, {
     m_added_mileage = 'number',
 
     m_shownMythDid = 'table',
+
+    m_canRetry = 'boolean', -- 다시 뽑기 가능?
 })
 
 -------------------------------------
@@ -43,6 +45,7 @@ function UI_GachaResult_Dragon:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_bVisible = false -- onFocus 용도로만 쓰임
     self.m_bSkipClicked = false
+    self.m_canRetry = true
 end
 
 -------------------------------------
@@ -215,6 +218,7 @@ function UI_GachaResult_Dragon:initEverything()
 
             -- 광고 무료 소환
             if (is_ad) then
+                self.m_canRetry = false
                 vars['againBtn']:setVisible(false)
 
             else 
@@ -237,6 +241,7 @@ function UI_GachaResult_Dragon:initEverything()
 
             -- 광고인 경우 다시 소환 숨김
             if (not is_ad) then
+                self.m_canRetry = false
                 self:registerOpenNode('againBtn')
             end
 
@@ -444,6 +449,9 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             -- 마지막 드래곤이었을 경우 스킵 버튼 숨김
             if (table.count(self.m_lGachaDragonList) <= 0) then
                 vars['skipBtn']:setVisible(false)
+                vars['againBtn']:setVisible(self.m_canRetry)
+            else
+                vars['againBtn']:setVisible(false)
             end
         end
 
