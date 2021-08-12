@@ -57,8 +57,8 @@ function UI_HatcherySummonTab:init(owner_ui)
         self.m_curCategory = 'pickup'
     end
 
-    if (self.vars['pickupRateNoti']) then
-        self.m_originPickupRateLabel = self.vars['pickupRateNoti']:getString()
+    if (self.vars['pickupRateLabel']) then
+        self.m_originPickupRateLabel = self.vars['pickupRateLabel']:getString()
     end
 
     self:initSortManager()
@@ -227,7 +227,7 @@ function UI_HatcherySummonTab:initUI()
                 
                 vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))
 
-                vars['pickupRateNoti']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did)))
+                vars['pickupRateLabel']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did)))
             end)
             vars['pickupTabBtn' .. i]:setVisible(true) 
 
@@ -256,7 +256,7 @@ function UI_HatcherySummonTab:initUI()
                 vars['pickupDragonNode']:addChild(icon.root)
                 
                 vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))
-                vars['pickupRateNoti']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did)))
+                vars['pickupRateLabel']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did)))
             end
         else
             vars['pickupTabBtn' .. index]:setVisible(false)
