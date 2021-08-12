@@ -306,9 +306,9 @@ end
 -------------------------------------
 function UI_DragonSkillEnhance:getDragonMaterialList(doid)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid) -- StructDragonObject
-    
-    local dragon_dic = self.m_isMythDragon and g_dragonsData:getDragonsList() or g_dragonsData:getDragonListWithSlime()
 
+    local dragon_dic = g_dragonsData:getDragonListWithSlime()
+    
     -- 자기 자신 드래곤 제외
     dragon_dic[doid] = nil
 
