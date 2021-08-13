@@ -201,33 +201,16 @@ function UI_HatcherySummonTab:initUI()
 
     -- 픽업 탭 버튼 
     local pickup_list = g_hatcheryData:getSelectedPickupList()
-    local index = 1
-    while(vars['pickupTabBtn' .. index]) do
-        if (index <= #pickup_list) then
-            local i = index
+    local i = 1
+    while(vars['pickupTabBtn' .. i]) do
+        if (i <= #pickup_list) then
             local pickup_struct = g_hatcheryData:getPickupStructByIndex(i)
             local did = pickup_struct:getTargetDragonID()
-
+            local list_id = pickup_struct:getListID()
+            
+            local tab_index = i
             vars['pickupTabBtn' .. i]:registerScriptTapHandler(function() 
-                self:onChangeCategory('pickup_' .. i) 
-                vars['pickupTabBtn' .. i]:setEnabled(false)
-                vars['pickupBgSprite']:setTexture(pickup_struct:getBackgroundResourceStr())
-
-                self.root:unscheduleUpdate()
-                self.root:scheduleUpdateWithPriorityLua(function(dt) 
-                    vars['timeLabel']:setString(pickup_struct:getRemainingTimeStr())
-                end, 1)
-
-                 vars['pickupDragonNode']:removeAllChildren()
-                local icon = MakeSimpleDragonCard(did)
-                icon.vars['clickBtn']:registerScriptTapHandler(function()
-                    UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true)
-                end)
-                vars['pickupDragonNode']:addChild(icon.root)
-                
-                vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))
-
-                vars['pickupRateLabel']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did)))
+                self:onChangeCategory('pickup_' .. tostring(tab_index)) 
             end)
             vars['pickupTabBtn' .. i]:setVisible(true) 
 
@@ -235,34 +218,14 @@ function UI_HatcherySummonTab:initUI()
             icon:setFlippedX(true)
 
             vars['pickupDragonNode' .. i]:addChild(icon)
-
+            
             -- 버튼 sprite 교체
             vars['pickupTabTextSprite' .. i] = cc.Sprite:create(pickup_struct:getTextResourceStr())
-
-            if (i == #pickup_list) then
-                vars['pickupBgSprite']:setTexture(pickup_struct:getBackgroundResourceStr())
-                
-                self.root:scheduleUpdateWithPriorityLua(function(dt) 
-                    --local pickup_struct = g_hatcheryData:getPickupStructByIndex(i)
-                    vars['timeLabel']:setString(pickup_struct:getRemainingTimeStr())
-                end, 1)
-
-                
-                vars['pickupDragonNode']:removeAllChildren()
-                local icon = MakeSimpleDragonCard(pickup_struct:getTargetDragonID())
-                icon.vars['clickBtn']:registerScriptTapHandler(function()
-                    UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true)
-                end)
-                vars['pickupDragonNode']:addChild(icon.root)
-                
-                vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))
-                vars['pickupRateLabel']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did)))
-            end
         else
-            vars['pickupTabBtn' .. index]:setVisible(false)
+            vars['pickupTabBtn' .. i]:setVisible(false)
         end
 
-        index = index + 1
+        i = i + 1
     end
 
     vars['infoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_popup.ui') end)
@@ -270,14 +233,6 @@ function UI_HatcherySummonTab:initUI()
     vars['premiumInfoBtn']:registerScriptTapHandler(function() UI_HacheryInfoBtnPopup('hatchery_summon_info_premium_popup.ui') end)
 
     self:onChangeCategory(default_category)
-    
-    if string.find(default_category, 'pickup_') then
-        local splitted_list =  pl.stringx.split(default_category, 'pickup_')
-        index = splitted_list[#splitted_list]
-        if vars['pickupTabBtn' .. index] then
-            vars['pickupTabBtn' .. index]:setEnabled(false)
-        end
-    end
 
     -- 광고 보기 버튼 체크
     vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['FSUMMON']))
@@ -398,28 +353,63 @@ end
 -- @brief
 -------------------------------------
 function UI_HatcherySummonTab:onChangeCategory(category)
+    local vars = self.vars
     self.m_curCategory = category
     for name, tab_object in pairs(self.m_summonCategoryTab) do
         tab_object:setVisible(false) 
     end
+    ccdump(self.m_summonCategoryTab)
+    ccdump(category)
     self.m_summonCategoryTab[category]:setVisible(true)
 
     local is_pickup = (category == 'pickup')
     local is_premium = (category == 'cash')
     local is_friendPoint = (category == 'friend')
 
-    self.vars['chanceUpTabBtn']:setEnabled(not is_pickup)
-    self.vars['premiumTabBtn']:setEnabled(not is_premium)
-    self.vars['friendshipTabBtn']:setEnabled(not is_friendPoint)
+    vars['chanceUpTabBtn']:setEnabled(not is_pickup)
+    vars['premiumTabBtn']:setEnabled(not is_premium)
+    vars['friendshipTabBtn']:setEnabled(not is_friendPoint)
 
     for i = 1, g_hatcheryData:getPickupStructNumber() do
-        if self.vars['pickupTabBtn' .. i] then
-            self.vars['pickupTabBtn' .. i]:setEnabled(true)
+        if vars['pickupTabBtn' .. i] then
+            vars['pickupTabBtn' .. i]:setEnabled(true)
         end
     end
 
-    self.vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
-    self.vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+    vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+    vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
+
+    if string.find(category, 'pickup_') then
+
+        local splitted_list =  pl.stringx.split(category, 'pickup_')
+        local index = splitted_list[#splitted_list]
+
+        local pickup_struct = g_hatcheryData:getPickupStructByIndex(index)
+        local did = pickup_struct:getTargetDragonID()
+        local list_id = pickup_struct:getListID()
+
+        if vars['pickupTabBtn' .. index] then
+            vars['pickupTabBtn' .. index]:setEnabled(false)
+            vars['pickupBgSprite']:setTexture(pickup_struct:getBackgroundResourceStr())
+
+            self.root:unscheduleUpdate()
+            self.root:scheduleUpdateWithPriorityLua(function(dt) 
+                vars['timeLabel']:setString(pickup_struct:getRemainingTimeStr())
+            end, 1)
+
+                vars['pickupDragonNode']:removeAllChildren()
+            local icon = MakeSimpleDragonCard(did)
+            icon.vars['clickBtn']:registerScriptTapHandler(function()
+                UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true)
+            end)
+            vars['pickupDragonNode']:addChild(icon.root)
+            
+            vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))
+
+
+            vars['pickupRateLabel']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did), g_hatcheryData:getLeftCeilingNum(list_id)))
+        end
+    end
 
     self:setEventMenu()
 end

@@ -1326,6 +1326,9 @@ function UI_TitleScene:workGetServerInfo()
                 cclog('# 초보자 선물(신규 유저 전용 상점)')
                 g_newcomerShop:applyNewcomderShopEndInfo_fromRet(ret)
 
+                cclog('# 소환 천장 남은 횟수 정보 갱신')
+                g_hatcheryData:applyPickupCeilingInfo(ret)
+
                 co.NEXT()
 			end)
 			ui_network:setFailCB(fail_cb)

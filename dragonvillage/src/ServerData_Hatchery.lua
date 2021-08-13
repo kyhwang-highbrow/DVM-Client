@@ -28,7 +28,12 @@ ServerData_Hatchery = class({
         FP__BUNDLE_SUMMON_PRICE = 100,
 
 
+        -- table_pickup_schedule 에서 얻은 정보
         m_pickupStructList = 'list[StructPickup]',
+
+        -- list_id 별 천장
+        m_ceilingInfo = 'table',
+        m_ceilingMax = 'number',
     })
 
 -------------------------------------
@@ -43,6 +48,35 @@ function ServerData_Hatchery:init(server_data)
 
     self.m_isAutomaticFarewell = g_settingData:getAutoFarewell('rare') or false
 end
+
+-------------------------------------
+-- function update_hatcheryInfo
+-- @breif
+-------------------------------------
+function ServerData_Hatchery:applyPickupCeilingInfo(ret)
+    local summon_ceiling_info = ret['summon_ceiling_info']
+
+    if summon_ceiling_info then
+        self.m_ceilingInfo = summon_ceiling_info['ceiling_info']
+        self.m_ceilingMax = summon_ceiling_info['ceiling_max']
+    end
+end
+
+-------------------------------------
+-- function getLeftCeilingNum
+-------------------------------------
+function ServerData_Hatchery:getLeftCeilingNum(list_id)
+    if self.m_ceilingInfo then
+        local ceiling_num = self.m_ceilingInfo[tostring(list_id)]
+
+        if ceiling_num then 
+            return ceiling_num 
+        end
+    end
+
+    return self.m_ceilingMax
+end
+
 
 -------------------------------------
 -- function update_hatcheryInfo
@@ -189,6 +223,9 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, list_id, fin
 
         -- 신규 드래곤 new 뱃지 정보 저장
         g_highlightData:saveNewDoidMap()
+
+        -- 천장 남은 횟수 정보 갱신
+        self:applyPickupCeilingInfo(ret)
 
         if finish_cb then
             finish_cb(ret)
@@ -371,61 +408,6 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, finish_cb,
     ui_network:request()
 
     return ui_network
-end
-
--------------------------------------
--- function getSummonEggList
--- @breif
--------------------------------------
-function ServerData_Hatchery:getSummonEggList()
-    local l_item_list = {}
-
-    do -- 이벤트 데이터
-        local t_data = {['egg_id']=700001, ['bundle']=true, ['full_type'] = 'egg_cash_mysteryup_11', ['name']=Str('확률업 10회 소환'), ['desc']=Str('3~5★ 드래곤 부화')}
-        t_data['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp'
-        t_data['price_type'] = 'cash'
-        t_data['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE
-        table.insert(l_item_list, t_data)
-
-        local t_data = {['egg_id']=700001, ['bundle']=false,  ['full_type'] = 'egg_cash_mysteryup', ['name']=Str('확률업 소환'), ['desc']=Str('3~5★ 드래곤 부화')}
-        t_data['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp'
-        t_data['price_type'] = 'cash'
-        t_data['price'] = ServerData_Hatchery.CASH__EVENT_SUMMON_PRICE
-        table.insert(l_item_list, t_data)
-    end
-
-    do -- 고급 부화
-        local t_data = {['egg_id']=700002, ['bundle']=true, ['full_type'] = 'egg_cash_mystery_11', ['name']=Str('고급 부화 10회'), ['desc']=Str('3~5★ 드래곤 부화')}
-        t_data['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp'
-        t_data['price_type'] = 'cash'
-        t_data['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE
-        table.insert(l_item_list, t_data)
-
-        local t_data = {['egg_id']=700002, ['bundle']=false,  ['full_type'] = 'egg_cash_mystery', ['name']=Str('고급 부화'), ['desc']=Str('3~5★ 드래곤 부화')}
-        t_data['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp'
-        t_data['price_type'] = 'cash'
-        t_data['price'] = ServerData_Hatchery.CASH__SUMMON_PRICE
-        t_data['free_target'] = true --무료 뽑기 대상 알
-        table.insert(l_item_list, t_data)
-    end
-
-    do -- 우정포인트 부화
-
-        -- 우정포인트 1회 부화는 대표님과 상의해서 제거하기로함 sgkim 2017.06.16
-        --local t_data = {['egg_id']=700003, ['bundle']=true, ['full_type'] = 'egg_friendship_10', ['name']=Str('우정 부화 10회'), ['desc']=Str('1~3★ 드래곤 부화')}
-        --t_data['egg_res'] = 'res/item/egg/egg_friendship/egg_friendship.vrp'
-        --t_data['price_type'] = 'fp'
-        --t_data['price'] = ServerData_Hatchery.FP__BUNDLE_SUMMON_PRICE
-        --table.insert(l_item_list, t_data)
-
-        local t_data = {['egg_id']=700003, ['bundle']=false,  ['full_type'] = 'egg_friendship', ['name']=Str('우정 부화'), ['desc']=Str('★1~3 드래곤 부화')}
-        t_data['egg_res'] = 'res/item/egg/egg_friendship/egg_friendship.vrp'
-        t_data['price_type'] = 'fp'
-        t_data['price'] = ServerData_Hatchery.FP__SUMMON_PRICE
-        table.insert(l_item_list, t_data)
-    end
-
-    return l_item_list
 end
 
 -------------------------------------
@@ -1181,7 +1163,7 @@ end
 -------------------------------------
 function ServerData_Hatchery:getPickupStructByIndex(index)
     if self.m_pickupStructList then
-        return self.m_pickupStructList[index]
+        return self.m_pickupStructList[tonumber(index)]
     end
 end
 
@@ -1192,3 +1174,14 @@ function ServerData_Hatchery:getPickupStructNumber()
     return #self.m_pickupStructList
 end
 
+
+
+--[[
+tab button
+{
+    frame
+    text
+    dragon
+}
+
+]]--
