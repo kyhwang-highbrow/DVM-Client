@@ -37,6 +37,10 @@ UI_GachaResult_Dragon = class(PARENT, {
     m_canRetry = 'boolean', -- 다시 뽑기 가능?
 
     m_animatedDragonIdTable = 'table',  -- 애니메이션 연출이 있었던 신화드래곤 테이블
+
+
+    -- {1} 확정 소환까지 {@yellow}{2}{@default}회 남음
+    m_originCeilingNotiLabel = 'string',
 })
 
 -------------------------------------
@@ -203,7 +207,7 @@ function UI_GachaResult_Dragon:initEverything()
     else
         local is_cash = (self.m_type == 'cash' or self.m_type == 'pickup')
         local is_ad = t_egg_data['is_ad']
-
+        
         do -- 아이콘
             local price_icon
             if (is_cash) then
@@ -452,7 +456,8 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             -- 마지막 드래곤이었을 경우 스킵 버튼 숨김
             if (table.count(self.m_lGachaDragonList) <= 0) then
                 vars['skipBtn']:setVisible(false)
-                vars['againBtn']:setVisible(self.m_canRetry)
+                local is_ad = self.m_tSummonData['is_ad'] or false
+                vars['againBtn']:setVisible(self.m_canRetry and (not is_ad))
             else
                 vars['againBtn']:setVisible(false)
             end
