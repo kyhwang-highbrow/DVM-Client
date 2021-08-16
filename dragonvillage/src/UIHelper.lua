@@ -73,7 +73,7 @@ function UIHelper:makeItemName(t_item)
 	local item_cnt = tonumber(t_item['count'])
 	if (item_cnt) and (item_cnt > 0) then
         -- 자동 줍기 아이템 예외 처리
-        if (item_id == ITEM_ID_AUTO_PICK) then
+        if (item_id == ITEM_ID_AUTO_PICK or item_id == ITEM_ID_CLEAR_TICKET) then
             return Str('{@item_name}{1} {@count}{2}시간', item_name, comma_value(item_cnt))
         -- 부스터 아이템 예외 처리
         elseif (item_id == ITEM_ID_EXP_BOOSTER or item_id == ITEM_ID_GOLD_BOOSTER) then

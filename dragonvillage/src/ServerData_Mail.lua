@@ -362,6 +362,7 @@ function ServerData_Mail:request_mailRead(mail_id_list, t_mail_type_reward, fini
         end
 
         g_serverData:networkCommonRespone_addedItems(ret)
+        g_supply:applySupplyList_fromRet(ret)
 
         for i,v in ipairs(mail_id_list) do
             self:deleteMailData(v)
