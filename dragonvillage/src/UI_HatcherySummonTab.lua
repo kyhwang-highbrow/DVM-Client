@@ -717,7 +717,7 @@ end
 -- function click_cashSummonBtn
 -- @brief 캐시 뽑기
 -------------------------------------
-function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
+function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt)
 
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
@@ -741,7 +741,17 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
         local egg_res = t_egg_data['egg_res']
         local egg_id = t_egg_data['egg_id']
         local added_mileage = ret['added_mileage'] or 0
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage)
+
+
+        local ui
+        
+        if (draw_cnt == 100) then
+            local l_dragon_list = ret['added_dragons']
+            ui = UI_GachaResult_Dragon100('hatchery', l_dragon_list)
+        else
+            ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage)
+        end
+        
 
         local function close_cb()
             self:summonApiFinished()
@@ -755,13 +765,13 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
     local function fail_cb()
     end
 
-    g_hatcheryData:request_summonCash(is_bundle, is_sale, nil, finish_cb, fail_cb)
+    g_hatcheryData:request_summonCash(is_bundle, is_sale, nil, draw_cnt, finish_cb, fail_cb)
 end
 -------------------------------------
 -- function click_fixedPickupSummonBtn
 -- @brief 캐시 뽑기
 -------------------------------------
-function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
+function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt)
 
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
@@ -791,7 +801,14 @@ function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_e
         local egg_res = t_egg_data['egg_res']
         local egg_id = t_egg_data['egg_id']
         local added_mileage = ret['added_mileage'] or 0
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage)
+        local ui
+
+        if (draw_cnt == 100) then
+            local l_dragon_list = ret['added_dragons']
+            ui = UI_GachaResult_Dragon100('hatchery', l_dragon_list)
+        else
+            ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage)
+        end
 
         local function close_cb()
             self:summonApiFinished()
@@ -805,7 +822,7 @@ function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_e
     local function fail_cb()
     end
 
-    g_hatcheryData:request_summonCash(is_bundle, is_sale, list_id, finish_cb, fail_cb)
+    g_hatcheryData:request_summonCash(is_bundle, is_sale, list_id, draw_cnt, finish_cb, fail_cb)
 end
 -------------------------------------
 -- function click_friendSummonBtn
@@ -927,20 +944,21 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
     local is_bundle = t_egg_data['bundle']
 	local is_sale = (t_egg_data['price_type'] == 'cash') and is_again
     local is_ad = t_egg_data['is_ad']
+    local draw_cnt = t_egg_data['draw_cnt']
 
     local function ok_btn_cb()
         if (egg_id == 700001) then
             --self:click_eventSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
-            self:click_pickupSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
+            self:click_pickupSummonBtn(is_bundle, is_ad, t_egg_data, old_ui, draw_cnt)
 
         elseif (egg_id == 700002) then
-            self:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
+            self:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt)
 
         elseif (egg_id == 700003) then
-            self:click_friendSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
+            self:click_friendSummonBtn(is_bundle, is_ad, t_egg_data, old_ui, draw_cnt)
 
         elseif (egg_id == 700004) then
-            self:click_fixedPickupSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
+            self:click_fixedPickupSummonBtn(is_bundle, is_ad, t_egg_data, old_ui, draw_cnt)
 
         else
             error('egg_id ' .. egg_id)
@@ -1026,6 +1044,8 @@ end
 -------------------------------------
 function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
     local vars = gacha_result_ui.vars
+
+    if (not vars['againBtn']) then return end
 
 	-- 다시하기 버튼 등록
     vars['againBtn']:registerScriptTapHandler(function()

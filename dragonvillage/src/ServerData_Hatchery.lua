@@ -184,7 +184,7 @@ end
 -- function request_summonCash
 -- @breif
 -------------------------------------
-function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, list_id, finish_cb, fail_cb)
+function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, list_id, draw_cnt, finish_cb, fail_cb)
     -- parameters
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
@@ -239,6 +239,7 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, list_id, fin
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('sale', is_sale)
 	ui_network:setParam('tutorial', tutorial)
+    ui_network:setParam('draw_cnt', draw_cnt)
 
     if list_id then
         ui_network:setParam('pickup_list_id', list_id)
@@ -451,6 +452,7 @@ function ServerData_Hatchery:getGachaList()
             ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
             ['ui_type'] = 'cash100',
             ['bundle'] = true,
+            ['draw_cnt'] = 100,
             ['price_type'] = 'cash',
             ['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE * 10,
         }
@@ -510,6 +512,7 @@ function ServerData_Hatchery:getGachaList()
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'event100',
             ['bundle'] = true,
+            ['draw_cnt'] = 100,
             ['price_type'] = 'cash',
             ['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE * 10,
         }
@@ -547,6 +550,7 @@ function ServerData_Hatchery:getGachaList()
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'pickup100',
             ['bundle'] = true,
+            ['draw_cnt'] = 100,
             ['price_type'] = 'cash',
             ['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE * 10,
         }
