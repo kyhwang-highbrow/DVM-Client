@@ -118,13 +118,15 @@ function UI_DragonCard_Gacha:makeDragonOpenAnimator()
 
     local struct_dragon = self.m_tDragonData
     local rarity = struct_dragon:getRarity()
-    if (isExistValue(rarity, 'hero', 'legend')) then
+    if (isExistValue(rarity, 'hero', 'legend', 'myth')) then
         local effect_res_name = 'res/ui/a2d/card_summon/card_summon.vrp'
         local effect_animator = MakeAnimator(effect_res_name)
 
         effect_animator:setIgnoreLowEndMode(true)
         if (rarity == 'legend') then
 			effect_animator:changeAni('summon_regend', true)
+        elseif (rarity == 'myth') then
+            effect_animator:changeAni('summon_regend', true)
 		else
 			effect_animator:changeAni('summon_hero', true)
 		end
@@ -205,7 +207,7 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
         self.m_openStartCB() 
     end
 
-    if (rarity == 'legend') then
+    if (rarity == 'legend') or (rarity == 'myth') then
         -- 1초동안 떨리다가 열리기
         animator:changeAni('hold', true)
 

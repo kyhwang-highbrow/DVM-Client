@@ -358,8 +358,7 @@ function UI_HatcherySummonTab:onChangeCategory(category)
     for name, tab_object in pairs(self.m_summonCategoryTab) do
         tab_object:setVisible(false) 
     end
-    ccdump(self.m_summonCategoryTab)
-    ccdump(category)
+
     self.m_summonCategoryTab[category]:setVisible(true)
 
     local is_pickup = (category == 'pickup')
@@ -747,7 +746,7 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
         
         if (draw_cnt == 100) then
             local l_dragon_list = ret['added_dragons']
-            ui = UI_GachaResult_Dragon100('hatchery', l_dragon_list)
+            ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list)
         else
             ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage)
         end

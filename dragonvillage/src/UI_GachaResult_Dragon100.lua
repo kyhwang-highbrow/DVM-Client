@@ -65,6 +65,10 @@ function UI_GachaResult_Dragon100:init(type, l_gacha_dragon_list)
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_GachaResult_Dragon100')
 
+    for index, data in pairs(l_gacha_dragon_list) do
+        data['id'] = index
+    end
+
 	-- 멤버 변수
     self.m_lGachaDragonList = l_gacha_dragon_list
     self.m_tDragonCardTable = {}
@@ -182,6 +186,7 @@ function UI_GachaResult_Dragon100:initDragonCardList()
 	for idx, t_dragon_data in ipairs(self.m_lGachaDragonList) do
 		-- 드래곤 카드 생성
         local struct_dragon_object = StructDragonObject(t_dragon_data) -- raw data를 StructDragonObject 형태로 변경
+        --struct_dragon_object['id'] = idx
         local doid = struct_dragon_object['id']
 		
         local card = UI_DragonCard_Gacha(struct_dragon_object)
@@ -255,8 +260,7 @@ function UI_GachaResult_Dragon100:initDragonCardList()
                 local evolution = 3
                 local attr = t_dragon['attr']
                 local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
-                animator:release()
-            
+                animator:release()            
             else
                 SoundMgr:playEffect('UI', 'ui_card_flip')
             end
@@ -266,12 +270,25 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         local function open_finish_cb()
             local str_rarity = struct_dragon_object:getRarity()
             -- 3성은 어둡게
-            if (str_rarity == 'rare') then
-                card.m_dragonCard:setShadowSpriteVisible(true)
+            -- if (str_rarity == 'rare') then
+            --     card.m_dragonCard:setShadowSpriteVisible(true)
             
             -- 5성 추가 연출
-            elseif (str_rarity == 'legend') then
+            if (str_rarity == 'legend')  or (str_rarity == 'myth') then
                 self:directingLegend(struct_dragon_object, pos_x, -pos_y)
+            end
+
+                -- 자동작별 시 노출할 경험치 UI 추가
+            if (self.m_type == 'cash') or (self.m_type == 'pickup') then
+                if g_hatcheryData.m_isAutomaticFarewell and (struct_dragon_object['grade'] <= 3) then
+                    local dragon_exp_table = TableDragonExp()
+                    local exp = dragon_exp_table:getDragonGivingExp(3, 1)	
+                    local exp_card = UI_ItemCard(700017, exp)
+                    local tint_action = cca.repeatFadeInOutRuneOpt(3.2)
+                    card.root:addChild(exp_card.root)
+                    exp_card:setEnabledClickBtn(false)
+                    exp_card.root:runAction(tint_action)
+                end
             end
 
             self:refresh()
@@ -395,8 +412,50 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
         animator.m_node:removeFromParent()
     end
 
-    local ani_sequence = cc.Sequence:create(start_action, cc.DelayTime:create(1), cc.DelayTime:create(4), finish_action, cc.CallFunc:create(dragon_animation_finish_cb))
-    animator.m_node:runAction(ani_sequence)
+    local ani_sequence = cc.Sequence:create(start_action, cc.DelayTime:create(1), finish_action, cc.CallFunc:create(dragon_animation_finish_cb))
+
+    local function myth_cutscene()
+        local rarity = TableDragon:getValue(did, 'rarity')
+        if (rarity == 'myth') then
+            local dragon_name = TableDragon:getValue(did, 'type')
+            local file_name = string.format('appear_%s', dragon_name)
+            local myth_cutscene_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
+            local myth_cutscene_animator = MakeAnimator(myth_cutscene_res)
+
+            if self.vars['effectNode'] and myth_cutscene_animator then
+                self.vars['effectNode']:addChild(myth_cutscene_animator.m_node)
+                
+                -- 번역
+                --Translate:a2dTranslate(myth_cutscene_animator)
+
+                -- 저사양 모드 무시
+                myth_cutscene_animator:setIgnoreLowEndMode(true)
+
+                myth_cutscene_animator.m_node:setGlobalZOrder(myth_cutscene_animator.m_node:getGlobalZOrder() + 2)
+
+                
+                myth_cutscene_animator:changeAni('appear', false)
+                myth_cutscene_animator:addAniHandler(function()
+                    myth_cutscene_animator:changeAni('idle', false)
+
+                    myth_cutscene_animator:addAniHandler(function()
+                        if myth_cutscene_animator:hasAni('end') then
+                            myth_cutscene_animator:changeAni('end', false)
+
+                            myth_cutscene_animator:addAniHandler(function()
+                                animator.m_node:runAction(ani_sequence)
+                            end)
+                        end
+                    end)
+                end)
+            end
+        else
+            animator.m_node:runAction(ani_sequence)
+        end
+    end
+
+    myth_cutscene()
+
 
     -- 이름
     local name = struct_dragon_object:getDragonNameWithEclv()
@@ -594,7 +653,9 @@ function UI_GachaResult_Dragon100:update_skip(dt)
             if (dragon_card:isClose()) then
                 dragon_card:openCard(true)
 
-                if (dragon_card.m_tDragonData:getRarity() == 'legend') then
+                local rarity = dragon_card.m_tDragonData:getRarity()
+
+                if (rarity == 'legend') or (rarity == 'myth')  then
                     self.m_bCanOpenCard = false
                     
                     -- 연출 전 미리 애니메이터 스파인 캐시에 저장 (렉 제거)
@@ -605,6 +666,7 @@ function UI_GachaResult_Dragon100:update_skip(dt)
                     local attr = t_dragon['attr']
                     local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
                     animator:release()
+
                 else
                     SoundMgr:playEffect('UI', 'ui_card_flip')
                 end

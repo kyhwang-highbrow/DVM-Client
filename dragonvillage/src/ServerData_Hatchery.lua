@@ -464,6 +464,7 @@ function ServerData_Hatchery:getGachaList()
             ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
             ['ui_type'] = 'cash11',
             ['bundle'] = true,
+            ['draw_cnt'] = 10,
             ['price_type'] = 'cash',
             ['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE,
         }
@@ -474,6 +475,7 @@ function ServerData_Hatchery:getGachaList()
             ['egg_id'] = 700002, 
             ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
             ['ui_type'] = 'cash',
+            ['draw_cnt'] = 1,
             ['bundle'] = false,
             ['price_type'] = 'cash',
             ['price'] = ServerData_Hatchery.CASH__SUMMON_PRICE,
@@ -563,6 +565,7 @@ function ServerData_Hatchery:getGachaList()
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'pickup10',
             ['bundle'] = true,
+            ['draw_cnt'] = 10,
             ['price_type'] = 'cash',
             ['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE,
         }
@@ -575,6 +578,7 @@ function ServerData_Hatchery:getGachaList()
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'pickup',
             ['bundle'] = false,
+            ['draw_cnt'] = 1,
             ['price_type'] = 'cash',
             ['price'] = ServerData_Hatchery.CASH__EVENT_SUMMON_PRICE,
         }

@@ -327,7 +327,7 @@ function UI_DragonSkillEnhance:getDragonMaterialList(doid)
 			end
 
 		-- 스킬 강화 슬라임 추가
-		else
+		else -- if (v:getObjectType() == 'slime') then
             if (v:getSlimeType() == 'skill') then
 
                 -- 스킬 슬라임은 태생이 같아야 사용 가능
