@@ -218,6 +218,21 @@ function ICharacterStatusEffect:getStatusEffectList()
 end
 
 -------------------------------------
+-- function getStatusEffectList
+-------------------------------------
+function ICharacterStatusEffect:getStatusEffectList_Positive()
+    local result = {}
+
+    for type, status_effect in pairs(self.m_mStatusEffect) do
+         if (status_effect:isErasable()) and (not status_effect:isHarmful()) then
+            result[type] = status_effect
+         end
+    end
+
+	return result
+end
+
+-------------------------------------
 -- function getHiddenStatusEffectList
 -------------------------------------
 function ICharacterStatusEffect:getHiddenStatusEffectList()

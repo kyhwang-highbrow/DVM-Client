@@ -584,13 +584,25 @@ end
 function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, status_effect_name)
 	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
+    local status_effect_list = char:getStatusEffectList_Positive()
+    local status_cnt = table.count(status_effect_list)
+    local rand_idx = status_cnt > 0 and math_random(1, status_cnt) or 0
+    local temp_cnt = 1
 
-    for type, status_effect in pairs(char:getStatusEffectList()) do
+    for type, status_effect in pairs(status_effect_list) do
         -- 이로운 효과 해제 
-	    if (status_effect:isErasable() and not status_effect:isHarmful()) then
+	    --if (status_effect:isErasable() and not status_effect:isHarmful() and temp_cnt == rand_idx) then
+        if (temp_cnt == rand_idx) then
             if ((not status_effect_name) or (status_effect_name == status_effect.m_statusEffectName)) then
                 -- 중첩 수만큼 순회하면서 하나씩 삭제
                 local overlap_cnt = status_effect:getOverlabCount()
+
+                if (IS_TEST_MODE()) then
+                    local effect_name = status_effect_name and status_effect_name or status_effect.m_statusEffectName
+                    cclog("===================================") 
+                    cclog(string.format('이효랜덤제 인덱스 :: %d || 제거될 버프 :: %s ', rand_idx, effect_name))
+                end
+
                 for i = 1, overlap_cnt do
                     if (status_effect:removeOverlabUnit()) then
                         release_cnt = release_cnt + 1
@@ -608,6 +620,8 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
 			    break
 		    end
         end
+
+        temp_cnt = temp_cnt + 1
     end
 
 	return (release_cnt > 0), release_cnt
