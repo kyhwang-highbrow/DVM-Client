@@ -88,7 +88,8 @@
                     ,"func" : "extract_DVM_csv"
                     ,"ignore_files" : 
                     [
-                        "table_ban_word_chat.csv"
+                        "table_ban_word_chat.csv",
+                        "table_status_effect.csv"
                     ]
                     ,"ignore_folders" :
                     [
