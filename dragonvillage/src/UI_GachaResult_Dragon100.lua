@@ -335,9 +335,13 @@ end
 -------------------------------------
 -- function test
 -------------------------------------
-function UI_GachaResult_Dragon100:test(doid, pos_x, pos_y)
+function UI_GachaResult_Dragon100:test(struct_dragon_object, pos_x, pos_y)
     local animator = self.m_animatorTest
     local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0), 1.7)
+    local doid = struct_dragon_object.id
+    local did = struct_dragon_object.did
+    local rarity = TableDragon:getValue(did, 'rarity')
+
 
     
     local function card_relocate_finish_cb()
@@ -363,8 +367,17 @@ function UI_GachaResult_Dragon100:test(doid, pos_x, pos_y)
         card_relocate_func()
         animator.m_node:removeFromParent()
     end
+
+    local function sound_cb()
+        -- 오픈 될 때 사운드 재생
+        if (struct_dragon_object:isLimited()) or (rarity == 'myth') then
+            SoundMgr:playEffect('BG', 'bgm_dungeon_victory')
+        else
+            SoundMgr:playEffect('UI', 'ui_star_up')
+        end
+    end
     
-    local finish_action = cc.Spawn:create(scale_finish_action, 
+    local finish_action = cc.Sequence:create(cc.CallFunc:create(sound_cb), cc.DelayTime:create(1.7), scale_finish_action, 
     cc.CallFunc:create(function() self:closeDragonInfo() end),
     cc.CallFunc:create(dragon_animation_finish_cb))
 
@@ -386,6 +399,8 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
     local attr = t_dragon['attr']
     local grade = struct_dragon_object['grade']
 
+    local rarity = TableDragon:getValue(did, 'rarity')
+
     local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
     vars['dragonMenu']:addChild(animator.m_node)
 
@@ -397,7 +412,6 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
     self.m_animatorTest = animator
     
     local function myth_cutscene()
-        local rarity = TableDragon:getValue(did, 'rarity')
         if (rarity == 'myth') then
             local dragon_name = TableDragon:getValue(did, 'type')
             local file_name = string.format('appear_%s', dragon_name)
@@ -415,17 +429,21 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
 
                 myth_cutscene_animator.m_node:setGlobalZOrder(myth_cutscene_animator.m_node:getGlobalZOrder() + 2)
 
+                -- 사운드 재생 
+                local sound_file_name = string.format('appear_%s', dragon_name)
+	             SoundMgr:playEffect('VOICE', sound_file_name)
+
                 myth_cutscene_animator:changeAni('appear', false)
                 myth_cutscene_animator:addAniHandler(function()
                     myth_cutscene_animator:changeAni('idle', false)
                 end)
                 myth_cutscene_animator:addAniHandler(function()
-                    self:test(struct_dragon_object.id, pos_x, pos_y)
+                    self:test(struct_dragon_object, pos_x, pos_y)
                 end)
                 
             end
         else
-            self:test(struct_dragon_object.id, pos_x, pos_y)
+            self:test(struct_dragon_object, pos_x, pos_y)
         end
     end
 
@@ -451,18 +469,11 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
 	        end)
         end
 
-        -- 오픈 될 때 사운드 재생
-        if (struct_dragon_object:isLimited()) then
-            SoundMgr:playEffect('BG', 'bgm_dungeon_victory')
-        else
-            SoundMgr:playEffect('UI', 'ui_star_up')
-        end
-
         myth_cutscene()
         self:openDragonInfo()
     end
 
-    local start_action = cc.Spawn:create(scale_start_action, cc.Sequence:create(cc.DelayTime:create(0.2), cc.CallFunc:create(open_info_func)))
+    local start_action = cc.Spawn:create(scale_start_action, cc.CallFunc:create(open_info_func))
 
 
     --local ani_sequence = cc.Sequence:create(start_action, cc.DelayTime:create(1), finish_action, cc.CallFunc:create(dragon_animation_finish_cb))
