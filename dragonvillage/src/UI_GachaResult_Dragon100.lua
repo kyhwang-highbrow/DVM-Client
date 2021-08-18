@@ -26,6 +26,8 @@ UI_GachaResult_Dragon100 = class(PARENT, {
         m_cleanFunc = 'function', -- 드래곤 정보 창 끄기 위한 함수
         m_timer = 'number', -- 스킵 관련 타이머
         m_currDoid = 'string', -- 현재 드래곤 정보 창으로 보고 있는 드래곤 doid
+
+        m_animatorTest = '',
      })
 
 UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET = 0.2 -- 카드 줄마다 처음에 소환되는 간격
@@ -242,7 +244,7 @@ function UI_GachaResult_Dragon100:initDragonCardList()
             local str_rarity = struct_dragon_object:getRarity()
             
             -- 5성은 카드가 1초간 가운데로 확대대며 이동
-            if (str_rarity == 'legend') then
+            if (str_rarity == 'legend') or (str_rarity == 'myth') then
                  self.m_bCanOpenCard = false
 
                 -- 움직이는게 잘 보이도록 해당 카드의 z order 맨 위로
@@ -331,6 +333,46 @@ function UI_GachaResult_Dragon100:initDragonCardList()
 end
 
 -------------------------------------
+-- function test
+-------------------------------------
+function UI_GachaResult_Dragon100:test(doid, pos_x, pos_y)
+    local animator = self.m_animatorTest
+    local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0), 1.7)
+
+    
+    local function card_relocate_finish_cb()
+        self.m_bCanOpenCard = true
+
+        -- 연출동안 오래 기다렸으니 바로 다음 카드 뒤집을 수 있도록 하자
+        self.m_timer = 0
+        self.m_animatorTest = nil
+    end
+
+    local function card_relocate_func()
+        -- 0.7초간 원래 자리로 돌아가기
+        local relocate_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.7, cc.p(pos_x, pos_y)), 1.7)
+        local rescale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.7, UI_GachaResult_Dragon100.DRAGON_CARD_SCALE), 1.7)
+        local spawn_action = cc.Spawn:create(relocate_action, rescale_action)
+        local card_sequence = cc.Sequence:create(spawn_action, cc.CallFunc:create(card_relocate_finish_cb))
+        
+        local card = self.m_tDragonCardTable[doid]
+        card.root:runAction(card_sequence)
+    end
+
+    local function dragon_animation_finish_cb()
+        card_relocate_func()
+        animator.m_node:removeFromParent()
+    end
+    
+    local finish_action = cc.Spawn:create(scale_finish_action, 
+    cc.CallFunc:create(function() self:closeDragonInfo() end),
+    cc.CallFunc:create(dragon_animation_finish_cb))
+
+--    cc.Sequence:create(cc.DelayTime:create(1), cc.CallFunc:create(finish_action))
+    animator.m_node:runAction(finish_action)
+end
+
+-------------------------------------
 -- function directingLegend
 -- @brief 5성 드래곤에 대한 연출, 드래곤 애니메이터 크게 화면에 띄우기
 -------------------------------------
@@ -351,7 +393,41 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
     animator.m_node:setScale(0.2)
     animator.m_node:setPositionY(-40)
     local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 1), 1.7)
-    local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0), 1.7)
+
+    self.m_animatorTest = animator
+    
+    local function myth_cutscene()
+        local rarity = TableDragon:getValue(did, 'rarity')
+        if (rarity == 'myth') then
+            local dragon_name = TableDragon:getValue(did, 'type')
+            local file_name = string.format('appear_%s', dragon_name)
+            local myth_cutscene_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
+            local myth_cutscene_animator = MakeAnimator(myth_cutscene_res)
+
+            if self.vars['effectNode'] and myth_cutscene_animator then
+                self.vars['effectNode']:addChild(myth_cutscene_animator.m_node)
+                
+                -- 번역
+                --Translate:a2dTranslate(myth_cutscene_animator)
+
+                -- 저사양 모드 무시
+                myth_cutscene_animator:setIgnoreLowEndMode(true)
+
+                myth_cutscene_animator.m_node:setGlobalZOrder(myth_cutscene_animator.m_node:getGlobalZOrder() + 2)
+
+                myth_cutscene_animator:changeAni('appear', false)
+                myth_cutscene_animator:addAniHandler(function()
+                    myth_cutscene_animator:changeAni('idle', false)
+                end)
+                myth_cutscene_animator:addAniHandler(function()
+                    self:test(struct_dragon_object.id, pos_x, pos_y)
+                end)
+                
+            end
+        else
+            self:test(struct_dragon_object.id, pos_x, pos_y)
+        end
+    end
 
     local function open_info_func()
         do -- 드래곤 별
@@ -382,79 +458,17 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
             SoundMgr:playEffect('UI', 'ui_star_up')
         end
 
+        myth_cutscene()
         self:openDragonInfo()
     end
 
-    local start_action = cc.Spawn:create(scale_start_action, cc.CallFunc:create(open_info_func))
-    local finish_action = cc.Spawn:create(scale_finish_action, cc.CallFunc:create(function() self:closeDragonInfo() end))
+    local start_action = cc.Spawn:create(scale_start_action, cc.Sequence:create(cc.DelayTime:create(0.2), cc.CallFunc:create(open_info_func)))
 
-    local function card_relocate_finish_cb()
-        self.m_bCanOpenCard = true
 
-        -- 연출동안 오래 기다렸으니 바로 다음 카드 뒤집을 수 있도록 하자
-        self.m_timer = 0
-    end
+    --local ani_sequence = cc.Sequence:create(start_action, cc.DelayTime:create(1), finish_action, cc.CallFunc:create(dragon_animation_finish_cb))
 
-    local function card_relocate_func()
-        -- 0.7초간 원래 자리로 돌아가기
-        local relocate_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.7, cc.p(pos_x, pos_y)), 1.7)
-        local rescale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.7, UI_GachaResult_Dragon100.DRAGON_CARD_SCALE), 1.7)
-        local spawn_action = cc.Spawn:create(relocate_action, rescale_action)
-        local card_sequence = cc.Sequence:create(spawn_action, cc.CallFunc:create(card_relocate_finish_cb))
-        
-        local doid = struct_dragon_object.id
-        local card = self.m_tDragonCardTable[doid]
-        card.root:runAction(card_sequence)
-    end
 
-    local function dragon_animation_finish_cb()
-        card_relocate_func()
-        animator.m_node:removeFromParent()
-    end
-
-    local ani_sequence = cc.Sequence:create(start_action, cc.DelayTime:create(1), finish_action, cc.CallFunc:create(dragon_animation_finish_cb))
-
-    local function myth_cutscene()
-        local rarity = TableDragon:getValue(did, 'rarity')
-        if (rarity == 'myth') then
-            local dragon_name = TableDragon:getValue(did, 'type')
-            local file_name = string.format('appear_%s', dragon_name)
-            local myth_cutscene_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
-            local myth_cutscene_animator = MakeAnimator(myth_cutscene_res)
-
-            if self.vars['effectNode'] and myth_cutscene_animator then
-                self.vars['effectNode']:addChild(myth_cutscene_animator.m_node)
-                
-                -- 번역
-                --Translate:a2dTranslate(myth_cutscene_animator)
-
-                -- 저사양 모드 무시
-                myth_cutscene_animator:setIgnoreLowEndMode(true)
-
-                myth_cutscene_animator.m_node:setGlobalZOrder(myth_cutscene_animator.m_node:getGlobalZOrder() + 2)
-
-                
-                myth_cutscene_animator:changeAni('appear', false)
-                myth_cutscene_animator:addAniHandler(function()
-                    myth_cutscene_animator:changeAni('idle', false)
-
-                    myth_cutscene_animator:addAniHandler(function()
-                        if myth_cutscene_animator:hasAni('end') then
-                            myth_cutscene_animator:changeAni('end', false)
-
-                            myth_cutscene_animator:addAniHandler(function()
-                                animator.m_node:runAction(ani_sequence)
-                            end)
-                        end
-                    end)
-                end)
-            end
-        else
-            animator.m_node:runAction(ani_sequence)
-        end
-    end
-
-    myth_cutscene()
+    animator.m_node:runAction(start_action)
 
 
     -- 이름
