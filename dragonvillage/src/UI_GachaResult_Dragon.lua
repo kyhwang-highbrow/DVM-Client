@@ -58,7 +58,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data, added_mileage)
+function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data, added_mileage, list_id)
     --[[
     local list = {}
     for i, v in ipairs(l_gacha_dragon_list) do

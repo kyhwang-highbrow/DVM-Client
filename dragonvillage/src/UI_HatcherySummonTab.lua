@@ -21,6 +21,7 @@ UI_HatcherySummonTab = class(PARENT,{
         m_selectedDragonList = 'table',  -- 한 속성에서 왔다갔다 선택 했을 때의 체크표시 처리 용
 
         m_originRateLabel = 'string',
+        m_pickupID = 'string', 
     })
 
 -------------------------------------
@@ -205,7 +206,7 @@ function UI_HatcherySummonTab:initUI()
         if (i <= #pickup_list) then
             local pickup_struct = g_hatcheryData:getPickupStructByIndex(i)
             local did = pickup_struct:getTargetDragonID()
-            local list_id = pickup_struct:getListID()
+            local pickup_id = pickup_struct:getPickupID()
             
             local tab_index = i
             vars['pickupTabBtn' .. i]:registerScriptTapHandler(function() 
@@ -377,7 +378,7 @@ function UI_HatcherySummonTab:onChangeCategory(category)
     vars['premiumGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
     vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
 
-    local list_id
+    local pickup_id
     local ceiling_label
     local did
 
@@ -387,7 +388,7 @@ function UI_HatcherySummonTab:onChangeCategory(category)
 
         local pickup_struct = g_hatcheryData:getPickupStructByIndex(index)
         did = pickup_struct:getTargetDragonID()
-        list_id = pickup_struct:getListID()
+        pickup_id = pickup_struct:getPickupID()
 
         if vars['pickupTabBtn' .. index] then
             vars['pickupTabBtn' .. index]:setEnabled(false)
@@ -414,8 +415,10 @@ function UI_HatcherySummonTab:onChangeCategory(category)
         ceiling_label = vars['premiumRateLabel']
     end
 
+    self.m_pickupID = pickup_id or 'default'
+
     if ceiling_label then
-        local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(list_id)
+        local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
         local target_dragon_name = did and TableDragon:getChanceUpDragonName(did) or ('{@yellow}' .. Str('신화 드래곤') .. '{@default}')
 
         if (left_ceiling_num == 0) then
@@ -800,7 +803,7 @@ function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_e
     local index = tonumber(splitted_list[#splitted_list])
     local pickup_struct = g_hatcheryData:getPickupStructByIndex(index)
 
-    local list_id = pickup_struct:getListID()
+    local pickup_id = pickup_struct:getPickupID()
 
     local function finish_cb(ret)
         -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
@@ -836,7 +839,7 @@ function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_e
     local function fail_cb()
     end
 
-    g_hatcheryData:request_summonCash(is_bundle, is_sale, list_id, draw_cnt, finish_cb, fail_cb)
+    g_hatcheryData:request_summonCash(is_bundle, is_sale, pickup_id, draw_cnt, finish_cb, fail_cb)
 end
 -------------------------------------
 -- function click_friendSummonBtn

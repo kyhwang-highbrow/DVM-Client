@@ -1140,11 +1140,11 @@ function ServerData_Hatchery:response_pickupScheduleTable()
 
     for key, data in pairs(pickup_schedule_table) do
         if checkTimeValid(data['start_date'], data['end_date'], 'yyyy-mm-dd HH:MM:SS') then
-            if (check_list[data['list_id']] == nil) then
+            if (check_list[data['pickup_id']] == nil) then
 
                 table.insert(self.m_pickupStructList, StructPickup(data))
 
-                check_list[data['list_id']] = true
+                check_list[data['pickup_id']] = true
             end
         end
     end
@@ -1174,6 +1174,21 @@ end
 function ServerData_Hatchery:getPickupStructByIndex(index)
     if self.m_pickupStructList then
         return self.m_pickupStructList[tonumber(index)]
+    end
+end
+
+
+-------------------------------------
+-- function getPickupStructByListID
+-------------------------------------
+function ServerData_Hatchery:getPickupStructByListID(list_id)
+    if self.m_pickupStructList then
+        list_id = tostring(list_id)
+        for key, struct_pickup in pairs(self.m_pickupStructList) do
+            if (struct_pickup:getPickupID() == list_id) then
+                return struct_pickup
+            end
+        end
     end
 end
 
