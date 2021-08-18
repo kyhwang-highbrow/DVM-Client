@@ -67,6 +67,7 @@ end
 -------------------------------------
 function ServerData_Hatchery:getLeftCeilingNum(list_id)
     if self.m_ceilingInfo then
+        list_id = list_id or 'default'
         local ceiling_num = self.m_ceilingInfo[tostring(list_id)]
 
         if ceiling_num then 
@@ -527,6 +528,7 @@ function ServerData_Hatchery:getGachaList()
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'event11',
             ['bundle'] = true,
+            ['draw_cnt'] = 10,
             ['price_type'] = 'cash',
             ['price'] = ServerData_Hatchery.CASH__EVENT_BUNDLE_SUMMON_PRICE,
         }
@@ -547,7 +549,7 @@ function ServerData_Hatchery:getGachaList()
 
     do -- 픽업 소환
         local t_data = {
-            ['name'] = Str('픽업 100회 소환'),
+            ['name'] = Str('100회 소환'),
             ['egg_id'] = 700004, 
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'pickup100',
@@ -560,7 +562,7 @@ function ServerData_Hatchery:getGachaList()
         table.insert(l_item_list, t_data)
 
         local t_data = {
-            ['name'] = Str('픽업 10회 소환'),
+            ['name'] = Str('10회 소환'),
             ['egg_id'] = 700004, 
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'pickup10',
@@ -573,7 +575,7 @@ function ServerData_Hatchery:getGachaList()
         table.insert(l_item_list, t_data)
 
         local t_data = {
-            ['name'] = Str('픽업 1회 소환'),
+            ['name'] = Str('1회 소환'),
             ['egg_id'] = 700004, 
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'pickup',

@@ -124,9 +124,9 @@ function UI_DragonCard_Gacha:makeDragonOpenAnimator()
 
         effect_animator:setIgnoreLowEndMode(true)
         if (rarity == 'legend') then
-			effect_animator:changeAni('summon_regend', true)
+			effect_animator:changeAni('summon_regend_2', true)
         elseif (rarity == 'myth') then
-            effect_animator:changeAni('summon_regend', true)
+            effect_animator:changeAni('summon_mythical', true)
 		else
 			effect_animator:changeAni('summon_hero', true)
 		end
@@ -228,7 +228,7 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
 
             -- 한정 여부에 따른 애니메이션 및 사운드 분기 처리
             local summon_sequence
-            if (self.m_tDragonData:isLimited()) then
+            if (self.m_tDragonData:isLimited() or (rarity == 'myth')) then
                 animator:changeAni('flip_4', false)
                 summon_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound),
                  cc.DelayTime:create(2.5), cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound), 
