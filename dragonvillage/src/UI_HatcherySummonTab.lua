@@ -157,14 +157,13 @@ function UI_HatcherySummonTab:initUI()
             btn.vars['priceNode']:addChild(price_icon)
             
             -- 뽑기 횟수 안내
-            local count_str
-            if (t_data['bundle']) then
-                count_str = Str('{1}회', 10)
+            local count = t_data['draw_cnt'] or 1
+
+            if (count > 1) then
                 btn.vars['countLabel']:setTextColor(cc.c4b(255, 215, 0, 255))
-            else
-                count_str = Str('{1}회', 1)
             end
-            btn.vars['countLabel']:setString(count_str)
+
+            btn.vars['countLabel']:setString( Str('{1}회', count))
         end
 
         -- 버튼 콜백
@@ -405,8 +404,13 @@ function UI_HatcherySummonTab:onChangeCategory(category)
             
             vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))
 
-
-            vars['pickupRateLabel']:setString(Str(self.m_originPickupRateLabel, TableDragon:getChanceUpDragonName(did), g_hatcheryData:getLeftCeilingNum(list_id)))
+            local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(list_id)
+            local target_dragon_name = TableDragon:getChanceUpDragonName(did)
+            if (left_ceiling_num == 0) then
+                vars['pickupRateLabel']:setString(Str('{1} {@default}확정 소환', target_dragon_name))
+            else
+                vars['pickupRateLabel']:setString(Str(self.m_originPickupRateLabel, target_dragon_name, left_ceiling_num))
+            end
         end
     end
 

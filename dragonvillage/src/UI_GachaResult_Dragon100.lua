@@ -377,7 +377,7 @@ function UI_GachaResult_Dragon100:test(struct_dragon_object, pos_x, pos_y)
         end
     end
     
-    local finish_action = cc.Sequence:create(cc.CallFunc:create(sound_cb), cc.DelayTime:create(1.7), scale_finish_action, 
+    local finish_action = cc.Sequence:create(cc.CallFunc:create(sound_cb), cc.DelayTime:create(2), scale_finish_action, 
     cc.CallFunc:create(function() self:closeDragonInfo() end),
     cc.CallFunc:create(dragon_animation_finish_cb))
 
