@@ -252,6 +252,12 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 		return nil
 	end
 
+    -- 강화 불가 효과가 있는지
+    if (target_char:isExistStatusEffectName('unenforceable') and self:isHelpful(status_effect_category)) then
+        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1)
+        return nil
+    end
+
     -- 효과 적중 및 효과 저항 검사
     if (world.m_gameMode == GAME_MODE_INTRO) then
         -- 튜토리얼 전투에서는 저항 할 수 없도록 처리
