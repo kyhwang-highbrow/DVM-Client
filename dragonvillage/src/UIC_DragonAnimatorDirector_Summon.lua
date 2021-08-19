@@ -234,9 +234,10 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
         self:show_textAnimation(scene_callback)
     end
 
+    self.vars['touchNode']:setVisible(false)
+
     if (self.m_ownerUI and self.m_ownerUI.m_bSkipClicked) then
         self.m_topEffect:setVisible(false)
-	    self.vars['touchNode']:setVisible(false)
         self:showMythAnimation(after_appear_cut_cb)
     else
         self.m_topEffect:changeAni('top_appear', false)
