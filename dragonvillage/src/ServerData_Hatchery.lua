@@ -66,9 +66,9 @@ end
 -- function getLeftCeilingNum
 -------------------------------------
 function ServerData_Hatchery:getLeftCeilingNum(list_id)
-    ccdump(self.m_ceilingInfo)
+
     if self.m_ceilingInfo then
-        list_id = list_id or 'default'
+        list_id = list_id and 'pickup' or 'default'
         local ceiling_num = self.m_ceilingInfo[tostring(list_id)]
 
         if ceiling_num then 

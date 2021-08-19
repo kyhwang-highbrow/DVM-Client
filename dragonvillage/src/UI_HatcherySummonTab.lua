@@ -415,7 +415,7 @@ function UI_HatcherySummonTab:onChangeCategory(category)
         ceiling_label = vars['premiumRateLabel']
     end
 
-    self.m_pickupID = pickup_id or 'default'
+    self.m_pickupID = pickup_id
 
     if ceiling_label then
         local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
@@ -963,8 +963,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 	local is_sale = (t_egg_data['price_type'] == 'cash') and is_again
     local is_ad = t_egg_data['is_ad']
     local draw_cnt = t_egg_data['draw_cnt']
-    local pickup_id = self.m_pickupID
-    ccdump(pickup_id)
+    local pickup_id = self.m_pickupID or 'default'
 
     local function ok_btn_cb()
         if (egg_id == 700001) then
