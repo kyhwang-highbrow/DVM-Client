@@ -41,6 +41,8 @@ UI_GachaResult_Dragon = class(PARENT, {
 
     -- {1} 확정 소환까지 {@yellow}{2}{@default}회 남음
     m_originCeilingNotiLabel = 'string',
+
+    m_pickupID = 'string',
 })
 
 -------------------------------------
@@ -58,7 +60,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data, added_mileage, list_id)
+function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data, added_mileage, pickup_id)
     --[[
     local list = {}
     for i, v in ipairs(l_gacha_dragon_list) do
@@ -80,6 +82,7 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self.m_bSkip = false
     self.m_tSummonData = t_summon_data
     self.m_added_mileage = added_mileage or 0
+    self.m_pickupID = pickup_id
     self.m_shownMythDid = {}
 
     -- 연출없이 즉시 단일 결과 보여주는 타입..
@@ -129,6 +132,10 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self.m_tDragonCardEffectTable = {}
     self.m_isDirecting = false
     self.m_hideUIList = {}
+
+    if vars['ceilingNotiLabel'] then
+        self.m_originCeilingNotiLabel = vars['ceilingNotiLabel']:getString()
+    end
 
     self:initUI()  
     self:initButton()
@@ -238,6 +245,23 @@ function UI_GachaResult_Dragon:initEverything()
                 end]]
                 vars['saleSprite']:setVisible(false)
                 vars['priceLabel']:setString(comma_value(price))
+            end
+        end
+
+        do
+            if (not self.m_pickupID) then
+                vars['ceilingNotiMenu']:setVisible(false)
+            else
+                local struct_pickup = g_hatcheryData:getPickupStructByPickupID(self.m_pickupID)
+                local did = struct_pickup and struct_pickup:getTargetDragonID() or nil
+                local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
+                local target_dragon_name = did and TableDragon:getChanceUpDragonName(did) or ('{@yellow}' .. Str('신화 드래곤') .. '{@default}')
+
+                if (left_ceiling_num == 0) then
+                    vars['ceilingNotiLabel']:setString(Str('{1} {@default}확정 소환', target_dragon_name))
+                else
+                    vars['ceilingNotiLabel']:setString(Str(self.m_originCeilingNotiLabel, target_dragon_name, left_ceiling_num))
+                end
             end
         end
 

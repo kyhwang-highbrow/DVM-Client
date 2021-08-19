@@ -4,7 +4,7 @@ local PARENT = Structure
 -- class StructPickup
 -------------------------------------
 StructPickup = class(PARENT, {
-    pickup_id = 'number',
+    pickup_id = 'string',
     
     ui_priority = 'number',
     did = 'number',
@@ -44,7 +44,7 @@ end
 -- function getPickupID
 -------------------------------------
 function StructPickup:getPickupID()
-    return self.pickup_id
+    return tostring(self.pickup_id)
 end
 
 

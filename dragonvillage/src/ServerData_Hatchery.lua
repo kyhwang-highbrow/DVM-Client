@@ -66,6 +66,7 @@ end
 -- function getLeftCeilingNum
 -------------------------------------
 function ServerData_Hatchery:getLeftCeilingNum(list_id)
+    ccdump(self.m_ceilingInfo)
     if self.m_ceilingInfo then
         list_id = list_id or 'default'
         local ceiling_num = self.m_ceilingInfo[tostring(list_id)]
@@ -185,7 +186,7 @@ end
 -- function request_summonCash
 -- @breif
 -------------------------------------
-function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, list_id, draw_cnt, finish_cb, fail_cb)
+function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, pickup_id, draw_cnt, finish_cb, fail_cb)
     -- parameters
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
@@ -242,8 +243,8 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, list_id, dra
 	ui_network:setParam('tutorial', tutorial)
     ui_network:setParam('draw_cnt', draw_cnt)
 
-    if list_id then
-        ui_network:setParam('pickup_list_id', list_id)
+    if pickup_id then
+        ui_network:setParam('pickup_id', pickup_id)
     end
     
     if (self.m_isAutomaticFarewell and is_bundle) then
@@ -547,11 +548,11 @@ function ServerData_Hatchery:getGachaList()
         table.insert(l_item_list, t_data)
     end
 
-    do -- 픽업 소환
+    do -- 신화 픽업 소환
         local t_data = {
             ['name'] = Str('100회 소환'),
             ['egg_id'] = 700004, 
-            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['egg_res'] = 'res/item/egg/egg_cash_mythup/egg_cash_mythup.vrp',
             ['ui_type'] = 'pickup100',
             ['bundle'] = true,
             ['draw_cnt'] = 100,
@@ -564,7 +565,7 @@ function ServerData_Hatchery:getGachaList()
         local t_data = {
             ['name'] = Str('10회 소환'),
             ['egg_id'] = 700004, 
-            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['egg_res'] = 'res/item/egg/egg_cash_mythup/egg_cash_mythup.vrp',
             ['ui_type'] = 'pickup10',
             ['bundle'] = true,
             ['draw_cnt'] = 10,
@@ -577,7 +578,7 @@ function ServerData_Hatchery:getGachaList()
         local t_data = {
             ['name'] = Str('1회 소환'),
             ['egg_id'] = 700004, 
-            ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
+            ['egg_res'] = 'res/item/egg/egg_cash_mythup/egg_cash_mythup.vrp',
             ['ui_type'] = 'pickup',
             ['bundle'] = false,
             ['draw_cnt'] = 1,
@@ -1179,13 +1180,18 @@ end
 
 
 -------------------------------------
--- function getPickupStructByListID
+-- function getPickupStructByPickupID
 -------------------------------------
-function ServerData_Hatchery:getPickupStructByListID(list_id)
+function ServerData_Hatchery:getPickupStructByPickupID(pickup_id)
+
+    if (not pickup_id) or (pickup_id == 'default') then 
+        return nil 
+    end
+
     if self.m_pickupStructList then
-        list_id = tostring(list_id)
+        pickup_id = tostring(pickup_id)
         for key, struct_pickup in pairs(self.m_pickupStructList) do
-            if (struct_pickup:getPickupID() == list_id) then
+            if (struct_pickup:getPickupID() == pickup_id) then
                 return struct_pickup
             end
         end
