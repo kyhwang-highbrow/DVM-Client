@@ -1137,6 +1137,11 @@ function UI_HacheryInfoBtnPopup:init(ui_name)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HacheryInfoBtnPopup')
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+
+
+    if vars['specificationMenu'] then
+        vars['specificationMenu']:setVisible(g_hatcheryData:checkCeilingInfoExist())
+    end
 end
 
 
