@@ -326,6 +326,13 @@ function UI_GachaResult_Dragon100:initDragonCardList()
                     local exp = dragon_exp_table:getDragonGivingExp(3, 1)	
                     local exp_card = UI_ItemCard(700017, exp)
                     local tint_action = cca.repeatFadeInOutRuneOpt(3.2)
+                    -- 덤프를 찍어보니 exp_card 에 icon metadata가 
+                    -- object로 저장된것이 아닌 주소로 저장되어 있어서
+                    -- label은 fade가 먹는 대신 아이콘은 안되는것으로 추정됨
+                    -- 더이상 시간 뺏기지 말고 일단은 되게끔 만듦
+                    exp_card.vars['icon']:removeFromParent()
+                    exp_card.vars['clickBtn'].m_node:addChild(exp_card.vars['icon'], 0)
+                    exp_card.vars['numberLabel']:setLocalZOrder(1)
                     card.root:addChild(exp_card.root)
                     exp_card:setEnabledClickBtn(false)
                     exp_card.root:runAction(tint_action)
