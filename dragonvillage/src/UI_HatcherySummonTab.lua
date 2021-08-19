@@ -717,7 +717,7 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_dat
         
         if (draw_cnt == 100) then
             local l_dragon_list = ret['added_dragons']
-            ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list, pickup_id)
+            ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list, t_egg_data, pickup_id)
         else
             ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage, pickup_id)
         end
@@ -771,7 +771,7 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
         
         if (draw_cnt == 100) then
             local l_dragon_list = ret['added_dragons']
-            ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list, pickup_id)
+            ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list, t_egg_data, pickup_id)
         else
             ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage, pickup_id)
         end
@@ -823,7 +823,7 @@ function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_e
 
         if (draw_cnt == 100) then
             local l_dragon_list = ret['added_dragons']
-            ui = UI_GachaResult_Dragon100('hatchery', l_dragon_list, pickup_id)
+            ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list, t_egg_data, pickup_id)
         else
             ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage, pickup_id)
         end

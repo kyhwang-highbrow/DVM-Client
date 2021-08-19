@@ -28,6 +28,12 @@ UI_GachaResult_Dragon100 = class(PARENT, {
         m_currDoid = 'string', -- 현재 드래곤 정보 창으로 보고 있는 드래곤 doid
 
         m_animatorTest = '',
+
+        -- 소환정보
+        m_tSummonData = 'table',
+        m_pickupID = 'string',
+        
+        m_originCeilingNotiLabel = 'string',
      })
 
 UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET = 0.2 -- 카드 줄마다 처음에 소환되는 간격
@@ -51,8 +57,11 @@ end
 -- function init
 -- @param type : 드래곤을 얻게된 방법
 -------------------------------------
-function UI_GachaResult_Dragon100:init(type, l_gacha_dragon_list)
+function UI_GachaResult_Dragon100:init(type, l_dragon_list, t_egg_data, pickup_id)
 	self.m_type = type
+    self.m_tSummonData = t_egg_data
+    self.m_pickupID = pickup_id
+    self.m_lGachaDragonList = l_dragon_list
 
     require('UI_DragonCard_Gacha')
 
@@ -67,12 +76,11 @@ function UI_GachaResult_Dragon100:init(type, l_gacha_dragon_list)
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_GachaResult_Dragon100')
 
-    for index, data in pairs(l_gacha_dragon_list) do
+    for index, data in pairs(self.m_lGachaDragonList) do
         data['id'] = index
     end
 
 	-- 멤버 변수
-    self.m_lGachaDragonList = l_gacha_dragon_list
     self.m_tDragonCardTable = {}
 
     self.m_hideUIList = {}
@@ -82,6 +90,10 @@ function UI_GachaResult_Dragon100:init(type, l_gacha_dragon_list)
     self.m_bIsSkipping = false
     self.m_bCanOpenCard = false
     self.m_currDoid = nil
+
+    if vars['ceilingNotiLabel'] then
+        self.m_originCeilingNotiLabel = vars['ceilingNotiLabel']:getString()
+    end
 
 	self:initUI()  
 	self:initButton()
@@ -111,6 +123,30 @@ function UI_GachaResult_Dragon100:initUI()
     vars['nameSprite']:setPositionY(self.m_tUIOriginPos['nameSprite']['x'] - visibleSize['height'])
     
     vars['skipBtn']:setVisible(false)
+
+    if vars['priceLabel'] and self.m_tSummonData['price'] then
+        local price = self.m_tSummonData['price']
+        vars['priceLabel']:setString(comma_value(price))
+    else
+        vars['againBtn']:setVisible(false)
+    end
+
+    if vars['ceilingNotiMenu'] and vars['ceilingNotiLabel'] and self.m_originCeilingNotiLabel then
+        if (not self.m_pickupID) then
+            vars['ceilingNotiMenu']:setVisible(false)
+        else
+            local struct_pickup = g_hatcheryData:getPickupStructByPickupID(self.m_pickupID)
+            local did = struct_pickup and struct_pickup:getTargetDragonID() or nil
+            local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
+            local target_dragon_name = did and TableDragon:getChanceUpDragonName(did) or ('{@yellow}' .. Str('신화 드래곤') .. '{@default}')
+
+            if (left_ceiling_num == 0) then
+                vars['ceilingNotiLabel']:setString(Str('{1} {@default}확정 소환', target_dragon_name))
+            else
+                vars['ceilingNotiLabel']:setString(Str(self.m_originCeilingNotiLabel, target_dragon_name, left_ceiling_num))
+            end
+        end
+    end
 
     self:refresh_inventoryLabel()
 end
@@ -280,8 +316,11 @@ function UI_GachaResult_Dragon100:initDragonCardList()
                 self:directingLegend(struct_dragon_object, pos_x, -pos_y)
             end
 
-                -- 자동작별 시 노출할 경험치 UI 추가
+            self:refresh()
+
+            -- 자동작별 시 노출할 경험치 UI 추가
             if (self.m_type == 'cash') or (self.m_type == 'pickup') then
+            
                 if g_hatcheryData.m_isAutomaticFarewell and (struct_dragon_object['grade'] <= 3) then
                     local dragon_exp_table = TableDragonExp()
                     local exp = dragon_exp_table:getDragonGivingExp(3, 1)	
@@ -292,8 +331,6 @@ function UI_GachaResult_Dragon100:initDragonCardList()
                     exp_card.root:runAction(tint_action)
                 end
             end
-
-            self:refresh()
         end
         
         local function click_cb()
