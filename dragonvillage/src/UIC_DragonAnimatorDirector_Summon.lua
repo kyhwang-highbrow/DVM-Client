@@ -232,9 +232,9 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
     function after_appear_cut_cb()
         PARENT.appearDragonAnimator(self)
         self:show_textAnimation(scene_callback)
-    end
 
-    self.vars['touchNode']:setVisible(false)
+        self.vars['touchNode']:setVisible(false)
+    end
 
     if (self.m_ownerUI and self.m_ownerUI.m_bSkipClicked) then
         self.m_topEffect:setVisible(false)
