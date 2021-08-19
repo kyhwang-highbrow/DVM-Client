@@ -140,7 +140,9 @@ function UI_GachaResult_Dragon100:initUI()
             local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
             local target_dragon_name = did and TableDragon:getChanceUpDragonName(did) or ('{@yellow}' .. Str('신화 드래곤') .. '{@default}')
 
-            if (left_ceiling_num == 0) then
+            if (not left_ceiling_num) then
+                vars['ceilingNotiMenu']:setVisible(false)
+            elseif(left_ceiling_num == 0) then
                 vars['ceilingNotiLabel']:setString(Str('{1} {@default}확정 소환', target_dragon_name))
             else
                 vars['ceilingNotiLabel']:setString(Str(self.m_originCeilingNotiLabel, target_dragon_name, left_ceiling_num))

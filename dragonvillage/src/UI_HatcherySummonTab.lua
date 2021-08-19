@@ -58,8 +58,8 @@ function UI_HatcherySummonTab:init(owner_ui)
         self.m_curCategory = 'pickup'
     end
 
-    if (self.vars['pickupRateLabel']) then
-        self.m_originRateLabel = self.vars['pickupRateLabel']:getString()
+    if (self.vars['pickupCeilingLabel']) then
+        self.m_originRateLabel = self.vars['pickupCeilingLabel']:getString()
     end
 
     self:initSortManager()
@@ -379,6 +379,7 @@ function UI_HatcherySummonTab:onChangeCategory(category)
     vars['chanceUpGoodbyeBtn']:setChecked(g_hatcheryData.m_isAutomaticFarewell)
 
     local pickup_id
+    local ceiling_menu
     local ceiling_label
     local did
 
@@ -408,20 +409,24 @@ function UI_HatcherySummonTab:onChangeCategory(category)
             
             vars['dragonLabel']:setString(TableDragon:getChanceUpDragonName2(did))
 
-            ceiling_label = vars['pickupRateLabel']
+            ceiling_label = vars['pickupCeilingLabel']
+            ceiling_menu = vars['pickupCeilingSprite']
         end
 
     elseif is_premium then
-        ceiling_label = vars['premiumRateLabel']
+        ceiling_label = vars['premiumCeilingLabel']
+        ceiling_menu = vars['premiumCeilingSprite']
     end
 
     self.m_pickupID = pickup_id
 
-    if ceiling_label then
+    if ceiling_label and ceiling_menu then
         local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
         local target_dragon_name = did and TableDragon:getChanceUpDragonName(did) or ('{@yellow}' .. Str('신화 드래곤') .. '{@default}')
 
-        if (left_ceiling_num == 0) then
+        if (not left_ceiling_num) then
+            ceiling_menu:setVisible(false)
+        elseif (left_ceiling_num == 0) then
             ceiling_label:setString(Str('{1} {@default}확정 소환', target_dragon_name))
         else
             ceiling_label:setString(Str(self.m_originRateLabel, target_dragon_name, left_ceiling_num))
