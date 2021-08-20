@@ -480,6 +480,7 @@ function ServerData_Mail:request_summonTicket(mail_id_list, finish_cb)
 
         -- 슬라임들 추가
         g_slimesData:applySlimeData_list(ret['added_slimes'])
+        g_hatcheryData:applyPickupCeilingInfo(ret)
 
         if finish_cb then
             finish_cb(ret, mail_id_list)
