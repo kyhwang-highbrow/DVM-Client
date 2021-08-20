@@ -997,16 +997,17 @@ end
 function UI_Game:showAutoItemPickUI()
     local vars = self.vars
 
+    local ui = UI_TooltipTest()
+
+    ui.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
+    ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
+    ui.vars['tooltipMenu']:setPosition(10, -170)
+    self.m_tooltip = ui
+    self.m_tooltip:setVisible(false)
+
     -- 클릭 시 툴팁 처리
     local function click_btn()
-        if (not self.m_tooltip) then
-            local ui = UI_TooltipTest()
-
-            ui.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
-            ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
-            ui.vars['tooltipMenu']:setPosition(10, -170)
-            self.m_tooltip = ui
-        else
+        if self.m_tooltip then
             if (not self.m_tooltip.m_isTouchLayerActivated) then
                 local is_visible = self.m_tooltip:isVisible()
                 self.m_tooltip:setVisible(not is_visible)
