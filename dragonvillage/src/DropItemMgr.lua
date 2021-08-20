@@ -339,6 +339,12 @@ function DropItemMgr:obtainItem(item)
 
     local type = t_data['type']
     local value = t_data['value']
+
+    local pTooltipUI = self.m_world.m_inGameUI.m_tooltip
+    if pTooltipUI then
+        pTooltipUI:refreshDropItems(type, value)
+    end
+
     item:setObtained(type, value)
     table.insert(self.m_obtainedItemList, {type, value})
 end

@@ -512,6 +512,13 @@ function UI:setVisible(b)
 end
 
 -------------------------------------
+-- function isVisible
+-------------------------------------
+function UI:isVisible()
+    return self.root:isVisible()
+end
+
+-------------------------------------
 -- function initUI
 -- @brief 순수가상함수
 -------------------------------------

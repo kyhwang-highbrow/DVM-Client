@@ -98,6 +98,10 @@ end
 UI_TooltipTest = class(PARENT,{
     m_bubbleImage = 'cc.Scale9Sprite',
 
+    m_currGoodsCounts = 'table',
+    m_maxGoods = 'table',
+
+    m_isTouchLayerActivated = 'bool',
 })
 
 
@@ -110,21 +114,52 @@ function UI_TooltipTest:init()
 
     -- UI 클래스명 지정
     self.m_uiName = 'UI_TooltipTest'
+    local goods_list = {'cash', 'gold', 'amethyst'}
+    self.m_currGoodsCounts = {}
+    self.m_maxGoods = {}
+    self.m_isTouchLayerActivated = false
 
-    self:initUI()
+    for _, type in pairs(goods_list) do
+        self.m_currGoodsCounts[type] = g_userData:getDropInfoItemByType(type)
+        self.m_maxGoods[type] =  g_userData:getDropInfoMaxItemByType(type)
+    end
+
+    self:initUI(goods_list)
 
     self:makeTouchLayer(self.root)
+
+    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_TooltipTest:initUI()
+function UI_TooltipTest:initUI(goods_list)
     local vars = self.vars 
     local str = '{1}/{2}'
-    vars['diaLabel']:setString(Str(str, g_userData:getDropInfoDia(), g_userData:getDropInfoMaxDia()))
+
+    for _, type in pairs(goods_list) do
+        if vars[type .. 'Label'] then
+            vars[type .. 'Label']:setString(str, self.m_currGoodsCounts[type], self.m_maxGoods[type])
+        end
+    end
+    vars['cashLabel']:setString(Str(str, g_userData:getDropInfoDia(), g_userData:getDropInfoMaxDia()))
     vars['goldLabel']:setString(Str(str, g_userData:getDropInfoGold(), g_userData:getDropInfoMaxGold()))
     vars['amethystLabel']:setString(Str(str, g_userData:getDropInfoAmethyst(), g_userData:getDropInfoMaxAmethyst()))
+end
+
+function UI_TooltipTest:refreshDropItems(type, count)
+    if (not self.m_currGoodsCounts) or (not self.m_maxGoods) then
+        return 
+    end
+
+    local vars = self.vars
+    self.m_currGoodsCounts[type] = self.m_currGoodsCounts[type] + count
+
+    if vars[type .. 'Label'] then
+        local str = '{1}/{2}'
+        vars[type .. 'Label']:setString(Str(str, self.m_currGoodsCounts[type], self.m_maxGoods[type]))
+    end
 end
 
 -------------------------------------
@@ -132,10 +167,23 @@ end
 -------------------------------------
 function UI_TooltipTest:makeTouchLayer(target_node)
     local listener = cc.EventListenerTouchOneByOne:create()
-    listener:registerScriptHandler(function(touch, event) return self.onTouch(self, touch, event) end, cc.Handler.EVENT_TOUCH_BEGAN)
+
+    listener:registerScriptHandler(function(touch, event)
+        self.m_isTouchLayerActivated = true
+        return self.onTouch(self, touch, event) 
+    end, cc.Handler.EVENT_TOUCH_BEGAN)
+
     listener:registerScriptHandler(function(touch, event) return self.onTouch(self, touch, event) end, cc.Handler.EVENT_TOUCH_MOVED)
-    listener:registerScriptHandler(function(touch, event) return self.onTouch(self, touch, event) end, cc.Handler.EVENT_TOUCH_ENDED)
-    listener:registerScriptHandler(function(touch, event) return self.onTouch(self, touch, event) end, cc.Handler.EVENT_TOUCH_CANCELLED)
+
+    listener:registerScriptHandler(function(touch, event)
+        self.m_isTouchLayerActivated = false
+        return self.onTouch(self, touch, event) 
+    end, cc.Handler.EVENT_TOUCH_ENDED)
+
+    listener:registerScriptHandler(function(touch, event) 
+        self.m_isTouchLayerActivated = false
+        return self.onTouch(self, touch, event) 
+    end, cc.Handler.EVENT_TOUCH_CANCELLED)
                 
     local eventDispatcher = target_node:getEventDispatcher()
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, target_node)
@@ -145,6 +193,6 @@ end
 -- function onTouch
 -------------------------------------
 function UI_TooltipTest.onTouch(self, touch, event)
-    self:close()
+    self:setVisible(false)
     return true
 end

@@ -39,6 +39,10 @@ UI_Game = class(PARENT, {
 
         -- 일시 정지
         m_pauseUI = '',
+
+
+        -- 
+        m_tooltip = '',
      })
 
 -------------------------------------
@@ -995,11 +999,19 @@ function UI_Game:showAutoItemPickUI()
 
     -- 클릭 시 툴팁 처리
     local function click_btn()
+        if (not self.m_tooltip) then
             local ui = UI_TooltipTest()
 
             ui.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
             ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
             ui.vars['tooltipMenu']:setPosition(10, -170)
+            self.m_tooltip = ui
+        else
+            if (not self.m_tooltip.m_isTouchLayerActivated) then
+                local is_visible = self.m_tooltip:isVisible()
+                self.m_tooltip:setVisible(not is_visible)
+            end
+        end
     end
 
     vars['hotTimeMarbleBtn']:registerScriptTapHandler(click_btn)

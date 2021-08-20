@@ -63,6 +63,14 @@ function ServerData_Hatchery:applyPickupCeilingInfo(ret)
 end
 
 -------------------------------------
+-- function checkCeilingInfoExist
+-- @breif
+-------------------------------------
+function ServerData_Hatchery:checkCeilingInfoExist()
+    return self.m_ceilingInfo and self.m_ceilingMax and true or false
+end
+
+-------------------------------------
 -- function getLeftCeilingNum
 -------------------------------------
 function ServerData_Hatchery:getLeftCeilingNum(list_id)
