@@ -298,8 +298,13 @@ function UI_Package:click_buyBtn(index)
         if struct_product:isContain('rune_box') then
             ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX)
         else    
+            
+            local is_basic_goods_shown = false
+            if (string.find(self.m_package_name, 'package_lucky_box')) then
+                is_basic_goods_shown = true
+            end
             -- 아이템 획득 결과창
-            ItemObtainResult_Shop(ret)
+            ItemObtainResult_Shop(ret, is_basic_goods_shown)
         end
 
         -- 갱신이 필요한 상태일 경우
