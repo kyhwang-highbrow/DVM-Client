@@ -355,7 +355,7 @@ end
 -- function request_summonCashEvent
 -- @breif
 -------------------------------------
-function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, finish_cb, fail_cb)
+function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, pickup_id, draw_cnt, finish_cb, fail_cb)
     -- parameters
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
@@ -408,6 +408,10 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, finish_cb,
     ui_network:setParam('uid', uid)
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('sale', is_sale)
+    ui_network:setParam('draw_cnt', draw_cnt)
+    -- if pickup_id then
+    --     ui_network:setParam('pickup_id', pickup_id)
+    -- end
     if (self.m_isAutomaticFarewell and is_bundle) then
         ui_network:setParam('auto_goodbye', auto_farewell_lv)
     end
@@ -550,6 +554,7 @@ function ServerData_Hatchery:getGachaList()
             ['egg_res'] = 'res/item/egg/egg_cash_mysteryup/egg_cash_mysteryup.vrp',
             ['ui_type'] = 'event',
             ['bundle'] = false,
+            ['draw_cnt'] = 1,
             ['price_type'] = 'cash',
             ['price'] = ServerData_Hatchery.CASH__EVENT_SUMMON_PRICE,
         }

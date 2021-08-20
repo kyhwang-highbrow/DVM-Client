@@ -912,7 +912,7 @@ end
 -- function click_pickupSummonBtn
 -- @brief 확률업
 -------------------------------------
-function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, pickup_id)
+function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
     if (is_bundle == true) then
@@ -953,7 +953,7 @@ function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_da
     local function fail_cb()
     end
 
-    g_hatcheryData:request_summonPickup(is_bundle, is_sale, finish_cb, fail_cb)
+    g_hatcheryData:request_summonPickup(is_bundle, is_sale, pickup_id, draw_cnt, finish_cb, fail_cb)
 end
 
 
