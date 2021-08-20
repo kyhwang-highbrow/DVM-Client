@@ -24,6 +24,7 @@ local DECO_TYPE = {
     ['ANNIVERSARY_2ST'] = '2st_anniversary',
     ['ANNIVERSARY_2ST_GLOBAL'] = '2st_anniversary_global',
     ['ANNIVERSARY_3RD'] = '3rd_anniversary',
+    ['ANNIVERSARY_4TH'] = '4th_anniversary',
     ['WEIDEL_FESTIVAL'] = 'event_weidel_festival'
 }
 
@@ -262,6 +263,13 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
         end
     elseif (deco_type == DECO_TYPE.ANNIVERSARY_3RD) then
         animator = MakeAnimator('res/lobby/lobby_layer_03_center_cake/lobby_layer_03_center_cake.vrp')
+        if (animator.m_node) then
+            animator:setPosition(0, 0)
+            animator:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
+            node:addChild(animator.m_node, 1)
+        end
+    elseif (deco_type == DECO_TYPE.ANNIVERSARY_4TH) then
+        animator = MakeAnimator('res/lobby/lobby_layer_04_center_cake/lobby_layer_04_center_cake.vrp')
         if (animator.m_node) then
             animator:setPosition(0, 0)
             animator:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
