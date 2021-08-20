@@ -220,16 +220,17 @@ function StructMail:readMe(cb_func)
 	end
 
     -- 소환권 종류는 메일을 받으면 통신 후 결과물 출력
-    if self:isSummonType() then     
+    if self:isSummonType() then
+        local item_full_type = self:getItemFullType()
         -- 11연뽑 고급소환권
-        if (self:getItemFullType() == 'summon_dragon') then
+        if (string.find(item_full_type, 'summon_dragon')) then
             g_mailData:request_summonTicket(mail_id_list, finish_cb)
         
-        elseif (self:getItemFullType() == 'summon_100') then
+        elseif (string.find(item_full_type, 'summon_100')) then
             g_mailData:request_summon100Ticket(mail_id_list, finish_cb)
 
         -- 토파즈 드래곤 뽑기
-        elseif (self:getItemFullType() == 'summon_draw') then
+        elseif (string.find(item_full_type, 'summon_draw')) then
             local draw_cb = function()
                 g_mailData:request_summonDrawTicket(mail_id_list, finish_cb)
             end
