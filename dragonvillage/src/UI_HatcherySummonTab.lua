@@ -1087,6 +1087,8 @@ function UI_HatcherySummonTab:summonApiFinished()
 
         -- 갱신
         self.m_ownerUI:refresh()
+
+        self:onChangeCategory(self.m_curCategory)
     end
 
     local fail_cb = nil
