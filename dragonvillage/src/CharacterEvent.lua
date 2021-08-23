@@ -532,7 +532,7 @@ function Character:onEvent_useActiveSkill(event_name, t_event, owner)
                     chance_value = 1
                 end
                 local cost = owner:getSkillManaCost()
-                if (cost == chance_value) then
+                if (cost == chance_value) or (chance_value <= 0) then
                     self:doSkill(v.m_skillID, 0, 0)
                 end
             end
