@@ -57,7 +57,7 @@ function UI_EventPopupTab_Banner:update_timer(dt)
         local time = (end_time - curr_time)
 
         if time then
-            time_label:setString(Str('남은 시간 : {1}', datetime.makeTimeDesc(time, true)))
+            time_label:setString(Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true)))
         else
             self.root:unscheduleUpdate()
         end
