@@ -41,6 +41,16 @@ function StructEventPopupTab:getVersion()
 end
 
 
+-------------------------------------
+-- function getEventID
+-------------------------------------
 function StructEventPopupTab:getEventID()
     return self.m_eventData['event_id']
+end
+
+-------------------------------------
+-- function getEndDate
+-------------------------------------
+function StructEventPopupTab:getEndDate()
+    return self.m_eventData['end_date']
 end

@@ -55,8 +55,9 @@ function UI_EventFullPopup:initUI()
 
     -- 이벤트 배너
     if (string.find(popup_key, 'banner')) then
+
         local l_str = plSplit(popup_key, ';')
-        local event_data = { banner = l_str[2], url = l_str[3] or ''}
+        local event_data = { banner = l_str[2], url = l_str[3] or '', end_date = l_str[4] or ''}
         local struct_data = StructEventPopupTab(event_data)
         ui = UI_EventPopupTab_Banner(self, struct_data)
 

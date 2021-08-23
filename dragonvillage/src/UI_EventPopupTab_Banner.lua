@@ -42,14 +42,44 @@ function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
 end
 
 -------------------------------------
+-- function update_timer
+-------------------------------------
+function UI_EventPopupTab_Banner:update_timer(dt)
+    local parser = pl.Date.Format('yyyy-mm-dd HH:MM:SS')
+    local end_date = self.m_structBannerData['end_date']
+    local time_label = self.vars['timeLabel']
+
+    if end_date and time_label then
+        local temp =  parser:parse(end_date)
+        local curr_time = Timer:getServerTime()
+        local end_time = temp['time']
+    
+        local time = (end_time - curr_time)
+
+        if time then
+            time_label:setString(Str('남은 시간 : {1}', datetime.makeTimeDesc(time, true)))
+        else
+            self.root:unscheduleUpdate()
+        end
+    else
+        self.root:unscheduleUpdate()
+    end
+end
+
+-------------------------------------
 -- function init_customUI
 -------------------------------------
 function UI_EventPopupTab_Banner:init_customUI()
     local vars = self.vars
     local struct_banner_data = self.m_structBannerData
 
-
     local banner = struct_banner_data['banner']
+
+
+    -- 남은 시간 등록
+    if struct_banner_data['end_date'] and vars['timeLabel'] then
+        self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update_timer(dt) end, 0)
+    end
 
     -- 드래곤 히어로즈 택틱스 크로스 프로모션
     -- 드빌 뉴 크로스 프로모션
