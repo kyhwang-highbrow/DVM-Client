@@ -81,8 +81,9 @@ end
 -- @brief 전면 광고 초기화
 -------------------------------------
 function AdMobManager:initInterstitialAd()
-    local interstitial_ad = self:getInterstitialAd()
-    interstitial_ad:initInterstitialAd()
+    
+    --local interstitial_ad = self:getInterstitialAd()
+    --interstitial_ad:initInterstitialAd()
 end
 
 -------------------------------------
@@ -96,7 +97,11 @@ end
 -- function getInterstitialAd
 -------------------------------------
 function AdMobManager:getInterstitialAd()
-    return AdMobInterstitialAd
+    -- 전면광고를 보낼 때가 있다?
+    local msg = 'AdMobManager:getInterstitialAd :: Trying to load InterstitialAd'
+    g_errorTracker:sendErrorLog(msg, nil) -- param : msg, success_cb
+
+    --return AdMobInterstitialAd
 end
 
 -------------------------------------

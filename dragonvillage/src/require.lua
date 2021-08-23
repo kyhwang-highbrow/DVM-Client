@@ -59,7 +59,7 @@ local t_module = {
     'ScriptCache',
     'CppFunctions',
     'AdSDKSelector',
-    'AdMobInterstitialAd',
+    --'AdMobInterstitialAd',
     'AdMobManager',
     'UnityAdsManager',
     'FacebookAudienceNetworkManager',
