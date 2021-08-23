@@ -546,7 +546,9 @@ function ServerData_Mail:request_summon100Ticket(mail_id_list, finish_cb)
 
 		local gacha_type = 'tickect'
         local l_dragon_list = ret['added_dragons']
-        local ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list)
+        local pickup_id = ret['pickup_id']
+        
+        local ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list, pickup_id)
     end
 
     -- 네트워크 통신 UI 생성
