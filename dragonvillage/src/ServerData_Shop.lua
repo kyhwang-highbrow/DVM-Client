@@ -1257,7 +1257,7 @@ function ServerData_Shop:getActivatedPackageList()
     -- csv 파일의 하단에 오는 상품이 제일 위에 노출되도록 reverse order
     for index = #packages, 1, -1 do
         local data = packages[index]
-        local pid_list = pl.stringx.split(data['t_pids'], ',')
+        local pid_list = pl.stringx.split(tostring(data['t_pids']), ',')
         local product_list = {}
         local pid_index_list = {}
         local removal_list = {}
@@ -1287,6 +1287,7 @@ function ServerData_Shop:getActivatedPackageList()
                 end
             end
         end
+
 
         -- 카테고리에 포함된 상품이 하나라도 있으면
         if (not table.isEmpty(product_list)) then

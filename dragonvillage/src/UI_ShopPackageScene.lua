@@ -161,6 +161,8 @@ function UI_PackageCategoryButton:refresh()
     local vars = self.vars
     local product_list = self.m_data['product_list']
 
+    local is_changed = false
+
     local is_noti_visible = false
     for index, struct_product in pairs(product_list) do
         
@@ -172,6 +174,8 @@ function UI_PackageCategoryButton:refresh()
             local dependent_product_id = struct_product:getDependency()
 
             if dependent_product_id then
+
+                is_changed = true
                 struct_product = g_shopDataNew:getTargetProduct(dependent_product_id)
                 self.m_data['product_list'][index] = struct_product
             end
@@ -197,6 +201,11 @@ function UI_PackageCategoryButton:refresh()
                 break
             end
         end
+    end
+
+
+    if is_changed then
+        self:click_btn()
     end
 end
 

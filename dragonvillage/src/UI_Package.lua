@@ -18,7 +18,6 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     if (not struct_product_list) 
         or (type(struct_product_list) ~= 'table') 
         or (#struct_product_list == 0) then
-
             return
     end
     self.m_package_name = package_name
@@ -44,10 +43,24 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
 	self.m_uiName = 'UI_Package'
 
     local vars = self:load(ui_name)
+
     if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
         -- 백키 지정
         g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package')
+    end
+    
+    local struct_product = struct_product_list[2]
+
+    if struct_product then
+        local ui_name
+        if is_popup and (struct_product['package_res_2']) and (struct_product['package_res_2'] ~= '') then
+            ui_name = struct_product['package_res_2']
+        else
+            ui_name = struct_product['package_res']
+        end
+        
+        self:load(ui_name)
     end
 	
 	-- @UI_ACTION
@@ -55,6 +68,7 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     self:doAction(nil, false)
 
     self.m_productList = struct_product_list
+    
 
     self:initUI()
 	self:initButton(is_popup)
@@ -89,16 +103,36 @@ function UI_Package:initEachProduct(index, struct_product)
 
     index = tostring(index)
 
-
     local item_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
 
-    -- 상품 설명
-    node = vars['itemLabel' .. index] or vars['itemLabel']
-    if node then
-        if (not struct_product['use_desc']) or (struct_product['use_desc'] == '') then
-            node:setString(struct_product:getItemNameWithCount())
+    local is_multiple_item_labels = false
+    for i = 1, #item_list do 
+        local label = vars['itemLabel' .. i]
+            
+        if label and label:isVisible() then
+            is_multiple_item_labels = true
         else
-            node:setString(struct_product:getDesc())
+            is_multiple_item_labels = false
+            break
+        end
+    end
+
+    -- 번들인 경우
+    if (#self.m_productList > 1) or (not is_multiple_item_labels) then
+        -- 상품 설명
+        node = vars['itemLabel' .. index] or vars['itemLabel']
+        if node then
+            if (not struct_product['use_desc']) or (struct_product['use_desc'] == '') then
+                node:setString(struct_product:getItemNameWithCount())
+            else
+                node:setString(struct_product:getDesc())
+            end
+        end
+    else
+        for index, item in pairs(item_list) do
+            if vars['itemLabel' .. index] then
+                vars['itemLabel' .. index]:setString(Str('{1} {2}개', TableItem():getItemName(item['item_id']), comma_value(item['count'])))
+            end
         end
     end
 
@@ -134,8 +168,6 @@ function UI_Package:initEachProduct(index, struct_product)
             end
         end
     end
-
-
 
     -- 구매 버튼
     node = vars['buyBtn' .. index] or vars['buyBtn']
@@ -215,6 +247,7 @@ function UI_Package:refresh()
 
             if dependent_product_id then
                 struct_product = g_shopDataNew:getTargetProduct(dependent_product_id)
+                
                 self.m_productList[index] = struct_product
             end
         end
@@ -291,6 +324,8 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Package:click_buyBtn(index)
+    
+
 	local struct_product = self.m_productList[index or 1]
 
 	local function cb_func(ret)
