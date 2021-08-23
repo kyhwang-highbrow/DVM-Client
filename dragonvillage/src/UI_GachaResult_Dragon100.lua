@@ -124,7 +124,8 @@ function UI_GachaResult_Dragon100:initUI()
     
     vars['skipBtn']:setVisible(false)
 
-    if vars['priceLabel'] and self.m_tSummonData['price'] then
+    -- 메일로 지급한 뽑기권은 self.m_tSummonData 가 없을 수 있다.
+    if vars['priceLabel'] and self.m_tSummonData and self.m_tSummonData['price'] then
         local price = self.m_tSummonData['price']
         vars['priceLabel']:setString(comma_value(price))
     else
