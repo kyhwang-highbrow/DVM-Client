@@ -480,6 +480,8 @@ function ServerData_Mail:request_summonTicket(mail_id_list, finish_cb)
 
         -- 슬라임들 추가
         g_slimesData:applySlimeData_list(ret['added_slimes'])
+
+        -- 픽업 천장 정보 갱신
         g_hatcheryData:applyPickupCeilingInfo(ret)
 
         if finish_cb then
@@ -500,7 +502,8 @@ function ServerData_Mail:request_summonTicket(mail_id_list, finish_cb)
         local l_slime_list = ret['added_slimes']
         local egg_id = t_egg_data['egg_id']
         local egg_res = t_egg_data['egg_res']
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, 0)
+        local pickup_id = ret['pickup_id']
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, 0, pickup_id)
     end
 
     -- 네트워크 통신 UI 생성

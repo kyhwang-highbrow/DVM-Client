@@ -44,8 +44,6 @@ function ServerData_Hatchery:init(server_data)
     self.m_dirtyHacheryInfo = true
     self.m_updatedAt = nil
 
-    self.m_pickupStructList = {}
-
     self.m_isAutomaticFarewell = g_settingData:getAutoFarewell('rare') or false
 end
 
@@ -1169,25 +1167,30 @@ function ServerData_Hatchery:response_pickupScheduleTable()
 
         return priority_a < priority_b
     end)
-
-    
 end
 
 
 -------------------------------------
--- function getSelectedPickupList
+-- function getPickupStructList
 -------------------------------------
-function ServerData_Hatchery:getSelectedPickupList()
+function ServerData_Hatchery:getPickupStructList()
+    
+    if (not self.m_pickupStructList) then
+        self:response_pickupScheduleTable()
+    end
+
     return self.m_pickupStructList 
 end
 
 
 -------------------------------------
--- function getSelectedPickupList
+-- function getPickupStructByIndex
 -------------------------------------
 function ServerData_Hatchery:getPickupStructByIndex(index)
-    if self.m_pickupStructList then
-        return self.m_pickupStructList[tonumber(index)]
+    local pickup_struct_list = self:getPickupStructList()
+
+    if pickup_struct_list then
+        return pickup_struct_list[tonumber(index)]
     end
 end
 
@@ -1201,9 +1204,11 @@ function ServerData_Hatchery:getPickupStructByPickupID(pickup_id)
         return nil 
     end
 
-    if self.m_pickupStructList then
+    local pickup_struct_list = self:getPickupStructList()
+    
+    if pickup_struct_list then
         pickup_id = tostring(pickup_id)
-        for key, struct_pickup in pairs(self.m_pickupStructList) do
+        for key, struct_pickup in pairs(pickup_struct_list) do
             if (struct_pickup:getPickupID() == pickup_id) then
                 return struct_pickup
             end
@@ -1215,7 +1220,9 @@ end
 -- function getPickupStructNumber
 -------------------------------------
 function ServerData_Hatchery:getPickupStructNumber()
-    return #self.m_pickupStructList
+    local pickup_struct_list = self:getPickupStructList()
+
+    return #pickup_struct_list
 end
 
 

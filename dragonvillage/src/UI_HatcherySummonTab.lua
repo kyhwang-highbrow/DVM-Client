@@ -45,7 +45,7 @@ function UI_HatcherySummonTab:init(owner_ui)
         friend = vars['friendshipTabMenu']
     }
 
-    local pickup_list = g_hatcheryData:getSelectedPickupList()
+    local pickup_list = g_hatcheryData:getPickupStructList()
 
     for index, pickup_struct in ipairs(pickup_list) do
         local category_key = 'pickup_' .. index
@@ -200,7 +200,7 @@ function UI_HatcherySummonTab:initUI()
     vars['friendshipTabBtn']:registerScriptTapHandler(function() self:onChangeCategory('friend') end)
 
     -- 픽업 탭 버튼 
-    local pickup_list = g_hatcheryData:getSelectedPickupList()
+    local pickup_list = g_hatcheryData:getPickupStructList()
     local i = 1
     while(vars['pickupTabBtn' .. i]) do
         if (i <= #pickup_list) then
