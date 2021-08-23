@@ -71,11 +71,10 @@ end
 -------------------------------------
 -- function getLeftCeilingNum
 -------------------------------------
-function ServerData_Hatchery:getLeftCeilingNum(list_id)
-
+function ServerData_Hatchery:getLeftCeilingNum(pickup_id)
     if self.m_ceilingInfo then
-        list_id = list_id and 'pickup' or 'default'
-        local ceiling_num = self.m_ceilingInfo[tostring(list_id)]
+        pickup_id = pickup_id and 'pickup' or 'default'
+        local ceiling_num = self.m_ceilingInfo[tostring(pickup_id)]
 
         if ceiling_num then 
             return ceiling_num 

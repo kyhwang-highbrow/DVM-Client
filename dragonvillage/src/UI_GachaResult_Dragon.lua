@@ -273,23 +273,19 @@ function UI_GachaResult_Dragon:initEverything()
     end
 
     if vars['ceilingNotiMenu'] and vars['ceilingNotiLabel'] and self.m_originCeilingNotiLabel then
-        if (not self.m_pickupID) then
+        local struct_pickup = g_hatcheryData:getPickupStructByPickupID(self.m_pickupID)
+
+        local did = struct_pickup and struct_pickup:getTargetDragonID() or nil
+
+        local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
+        local target_dragon_name = did and TableDragon:getChanceUpDragonName(did) or ('{@yellow}' .. Str('신화 드래곤') .. '{@default}')
+
+        if (not left_ceiling_num) then
             vars['ceilingNotiMenu']:setVisible(false)
+        elseif (left_ceiling_num == 0) then
+            vars['ceilingNotiLabel']:setString(Str('{1} {@default}확정 소환', target_dragon_name))
         else
-            local struct_pickup = g_hatcheryData:getPickupStructByPickupID(self.m_pickupID)
-
-            local did = struct_pickup and struct_pickup:getTargetDragonID() or nil
-
-            local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
-            local target_dragon_name = did and TableDragon:getChanceUpDragonName(did) or ('{@yellow}' .. Str('신화 드래곤') .. '{@default}')
-
-            if (not left_ceiling_num) then
-                vars['ceilingNotiMenu']:setVisible(false)
-            elseif (left_ceiling_num == 0) then
-                vars['ceilingNotiLabel']:setString(Str('{1} {@default}확정 소환', target_dragon_name))
-            else
-                vars['ceilingNotiLabel']:setString(Str(self.m_originCeilingNotiLabel, target_dragon_name, left_ceiling_num))
-            end
+            vars['ceilingNotiLabel']:setString(Str(self.m_originCeilingNotiLabel, target_dragon_name, left_ceiling_num))
         end
     end
 end

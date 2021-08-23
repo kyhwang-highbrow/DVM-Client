@@ -968,7 +968,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 	local is_sale = (t_egg_data['price_type'] == 'cash') and is_again
     local is_ad = t_egg_data['is_ad']
     local draw_cnt = t_egg_data['draw_cnt']
-    local pickup_id = self.m_pickupID or 'default'
+    local pickup_id = self.m_pickupID
 
     local function ok_btn_cb()
         if (egg_id == 700001) then
