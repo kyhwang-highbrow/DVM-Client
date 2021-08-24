@@ -2700,7 +2700,7 @@ function UI_Lobby:refresh_rightBanner()
         local event_data
 
         for i, v in pairs(event_list) do
-            if (v.m_eventData['banner'] == 'event_cross_promotion.ui') then
+            if (string.find(v.m_eventData['banner'], 'event_cross_promotion')) then
                 if (g_localData:isKoreaServer() and v.m_eventData['target_server'] == 'Korea') then
                     event_data = v
                     break
