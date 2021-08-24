@@ -937,8 +937,13 @@ function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_da
         local egg_res = t_egg_data['egg_res']
         local added_mileage = ret['added_mileage'] or 0
 
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage, pickup_id)
-
+        local ui
+        if (draw_cnt == 100) then
+            local l_dragon_list = ret['added_dragons']
+            ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list, t_egg_data, pickup_id)
+        else
+            ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage, pickup_id)
+        end
         local function close_cb()
             self:summonApiFinished()
 

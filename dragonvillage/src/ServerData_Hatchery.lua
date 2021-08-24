@@ -49,7 +49,7 @@ end
 
 -------------------------------------
 -- function update_hatcheryInfo
--- @breif
+-- @breif 천장 정보 갱신
 -------------------------------------
 function ServerData_Hatchery:applyPickupCeilingInfo(ret)
     local summon_ceiling_info = ret['summon_ceiling_info']
@@ -62,7 +62,7 @@ end
 
 -------------------------------------
 -- function checkCeilingInfoExist
--- @breif
+-- @breif 천장 정보가 서버에서 오는지 체크 (안올 시 관련 ui 가리기 위함)
 -------------------------------------
 function ServerData_Hatchery:checkCeilingInfoExist()
     return self.m_ceilingInfo and self.m_ceilingMax and true or false
