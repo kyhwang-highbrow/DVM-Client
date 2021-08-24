@@ -94,9 +94,6 @@ end
 -------------------------------------
 function UI_DragonCard_Gacha:initButton()
     local vars = self.vars
-    
-	vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
-	vars['skipBtn']:registerScriptPressHandler(function() self:click_skipBtn() end)
 end
 
 -------------------------------------

@@ -236,9 +236,22 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         local card = UI_DragonCard_Gacha(struct_dragon_object)
         
         card.root:setScale(UI_GachaResult_Dragon100.DRAGON_CARD_SCALE)
-        
+
+        card.vars['skipBtn']:registerScriptTapHandler(function() 
+            if (not self.m_bIsSkipping) then
+                card:click_skipBtn()
+            end
+        end)
+ 
+        card.vars['skipBtn']:registerScriptPressHandler(function() 
+            if (not self.m_bIsSkipping) then
+                card:click_skipBtn()
+            end
+        end)
+
         -- 프레스 함수 세팅
         local press_card_cb = function()
+            if self.m_bIsSkipping then return end
             local ui = UI_SimpleDragonInfoPopup(struct_dragon_object)
 
             local is_lock_visible
