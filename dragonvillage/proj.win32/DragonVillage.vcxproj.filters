@@ -4960,6 +4960,9 @@
     <None Include="..\src\UI_ClearTicket.lua" />
     <None Include="..\src\StructPickup.lua" />
     <None Include="..\src\UI_Proceeding.lua" />
+    <None Include="..\src\UI_Tooltip.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

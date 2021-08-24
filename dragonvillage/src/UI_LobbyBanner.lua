@@ -84,6 +84,11 @@ UI_BannerAppCollaboration = class(PARENT,{
 ----------------------------------------------------------------------
 function UI_BannerAppCollaboration:init(event_data)
     self.m_uiName = 'UI_BannerAppCollaboration'
+    -- 설치 페이지
+    -- https://app.adjust.com/1ctll5t
+    local link_url = event_data['url']
+    local ui_name = string.find(link_url, '1ctll5t') and 'lobby_banner_promotion_04.ui' or 'lobby_banner_promotion.ui'
+
     local vars = self:load('lobby_banner_promotion.ui')
 
     self.m_eventData = event_data

@@ -1869,6 +1869,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_TamerManagePopup.lua" />
     <None Include="..\src\UI_TitleScene.lua" />
     <None Include="..\src\UI_TitleSceneLoading.lua" />
+    <None Include="..\src\UI_Tooltip.lua" />
     <None Include="..\src\UI_Tooltip_Indicator.lua" />
     <None Include="..\src\UI_Tooltip_Skill.lua" />
     <None Include="..\src\UI_TopUserInfo.lua" />
