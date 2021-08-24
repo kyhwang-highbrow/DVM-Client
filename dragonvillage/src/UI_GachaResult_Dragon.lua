@@ -479,9 +479,10 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             if (table.count(self.m_lGachaDragonList) <= 0) then
                 vars['skipBtn']:setVisible(false)
                 local is_ad = self.m_tSummonData and self.m_tSummonData['is_ad'] or false
+                local is_fp_type = (self.m_type == 'fp')
 
                 vars['againBtn']:setVisible(self.m_canRetry and (not is_ad))
-                vars['ceilingNotiMenu']:setVisible((not is_ad))
+                vars['ceilingNotiMenu']:setVisible((not is_ad) and (not is_fp_type))
             else
                 vars['againBtn']:setVisible(false)
                 vars['ceilingNotiMenu']:setVisible(false)
