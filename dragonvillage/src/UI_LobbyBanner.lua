@@ -89,7 +89,7 @@ function UI_BannerAppCollaboration:init(event_data)
     local link_url = event_data.m_eventData['url']
     local ui_name = string.find(link_url, '1ctll5t') and 'lobby_banner_promotion_04.ui' or 'lobby_banner_promotion.ui'
 
-    local vars = self:load('lobby_banner_promotion.ui')
+    local vars = self:load(ui_name)
 
     self.m_eventData = event_data
 
