@@ -242,7 +242,8 @@ function UI_Package:refresh()
         local limit = struct_product:getMaxBuyCount()
 
         -- 특가 상품이 구매제한 초과 시 기존상품(dependency)으로 교체
-        if purchased_num and limit and (purchased_num >= limit) then
+        if purchased_num and limit and (purchased_num >= limit) 
+            and (not self.m_isPopup) then
             local dependent_product_id = struct_product:getDependency()
 
             if dependent_product_id then
