@@ -77,7 +77,9 @@ function UI_GachaResult_Dragon100:init(type, l_dragon_list, t_egg_data, pickup_i
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_GachaResult_Dragon100')
 
     for index, data in pairs(self.m_lGachaDragonList) do
-        data['id'] = index
+        if (not data['id']) then
+            data['id'] = index
+        end
     end
 
 	-- 멤버 변수
@@ -227,7 +229,7 @@ function UI_GachaResult_Dragon100:initDragonCardList()
 	for idx, t_dragon_data in ipairs(self.m_lGachaDragonList) do
 		-- 드래곤 카드 생성
         local struct_dragon_object = StructDragonObject(t_dragon_data) -- raw data를 StructDragonObject 형태로 변경
-        --struct_dragon_object['id'] = idx
+        local doid = t_dragon_data['id']
 		
         local card = UI_DragonCard_Gacha(struct_dragon_object)
         
@@ -236,17 +238,31 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         -- 프레스 함수 세팅
         local press_card_cb = function()
             local ui = UI_SimpleDragonInfoPopup(struct_dragon_object)
-            ui:setLockPossible(true, false)
+
+            local is_lock_visible
+            if g_hatcheryData.m_isAutomaticFarewell then
+                is_lock_visible = (struct_dragon_object['grade'] > 3)
+            else
+                is_lock_visible = (struct_dragon_object['grade'] > 2)
+            end
+
+            if is_lock_visible then
+                card.m_dragonCard:setLockSpriteVisible(struct_dragon_object:getLock())
+            end
+
+            ui:setLockPossible(is_lock_visible, false)
             ui:setCloseCB(function()
-                local is_lock = struct_dragon_object:getLock()
-	            card.m_dragonCard:setLockSpriteVisible(is_lock)
+                if is_lock_visible then
+                    local refreshed_data = g_dragonsData:getDragonDataFromUid(doid)
+                    local is_lock = refreshed_data:getLock()
+                    card.m_dragonCard:setLockSpriteVisible(is_lock)
+                end
             end)
         end
         card.m_dragonCard.vars['clickBtn']:registerScriptPressHandler(press_card_cb)
         
         vars['dragonMenu']:addChild(card.root)
 
-        local doid = t_dragon_data['id']
 		self.m_tDragonCardTable[doid] = card
 
         -- 카드 위치 정렬
