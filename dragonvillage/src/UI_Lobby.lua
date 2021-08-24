@@ -2703,7 +2703,6 @@ function UI_Lobby:refresh_rightBanner()
         local nvnew_after = 'event_cross_promotion_04.ui'
 
         for i, v in pairs(event_list) do
-            ccdump(v.m_eventData['banner'])
             if (string.find(v.m_eventData['banner'], nvnew_before) or string.find(v.m_eventData['banner'], nvnew_after)) then
                 if (g_localData:isKoreaServer() and v.m_eventData['target_server'] == 'Korea') then
                     event_data = v
@@ -2717,8 +2716,6 @@ function UI_Lobby:refresh_rightBanner()
                 end
             end
         end
-
-        ccdump(event_data)
 
         if (event_data) then
             local collabo_banner = UI_BannerAppCollaboration(event_data)
