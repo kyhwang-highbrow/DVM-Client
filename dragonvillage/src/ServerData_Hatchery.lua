@@ -324,6 +324,9 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
         -- 신규 드래곤 new 뱃지 정보 저장
         g_highlightData:saveNewDoidMap()
 
+        -- 천장 남은 횟수 정보 갱신
+        self:applyPickupCeilingInfo(ret)
+        
         if finish_cb then
             finish_cb(ret)
         end
@@ -393,6 +396,9 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, pickup_id,
         -- 다음 픽업상태 갱신
         if (ret['pickup_next_100'] and tonumber(ret['pickup_next_100'])) then self.m_isDefinitePickup = ret['pickup_next_100'] > 0 end
 
+        -- 천장 남은 횟수 정보 갱신
+        self:applyPickupCeilingInfo(ret)
+        
 
         if finish_cb then
             finish_cb(ret)
