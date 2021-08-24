@@ -135,9 +135,9 @@ function UI_GachaResult_Dragon100:initUI()
     end
 
     if vars['ceilingNotiMenu'] and vars['ceilingNotiLabel'] and self.m_originCeilingNotiLabel then
-        if (not self.m_pickupID) then
-            vars['ceilingNotiMenu']:setVisible(false)
-        else
+        -- if (not self.m_pickupID) then
+        --     vars['ceilingNotiMenu']:setVisible(false)
+        -- else
             local struct_pickup = g_hatcheryData:getPickupStructByPickupID(self.m_pickupID)
             local did = struct_pickup and struct_pickup:getTargetDragonID() or nil
             local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
@@ -150,7 +150,7 @@ function UI_GachaResult_Dragon100:initUI()
             else
                 vars['ceilingNotiLabel']:setString(Str(self.m_originCeilingNotiLabel, target_dragon_name, left_ceiling_num))
             end
-        end
+        --end
     end
 
     self:refresh_inventoryLabel()
