@@ -478,7 +478,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             -- 마지막 드래곤이었을 경우 스킵 버튼 숨김
             if (table.count(self.m_lGachaDragonList) <= 0) then
                 vars['skipBtn']:setVisible(false)
-                local is_ad = self.m_tSummonData['is_ad'] or false
+                local is_ad = self.m_tSummonData and self.m_tSummonData['is_ad'] or false
 
                 vars['againBtn']:setVisible(self.m_canRetry and (not is_ad))
                 vars['ceilingNotiMenu']:setVisible((not is_ad))
