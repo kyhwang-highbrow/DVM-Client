@@ -1046,6 +1046,10 @@ function UI_Lobby:update_highlight()
         is_gacha_active, gacha_value, gacha_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
         is_comebine_active, combine_value, combine_ret = g_fevertimeData:isActiveFevertime_runeCombineUp()
 
+        local has_rune_event = is_gacha_active or is_comebine_active or is_diamond_rune_gacha_event_active
+        if (vars['runeEventSprite']) then vars['runeEventSprite']:setVisible(has_rune_event) end
+
+        --[[
         if is_gacha_active then
             vars['runeEventSprite1']:setVisible(true)
             if #gacha_ret then gacha_ret = gacha_ret[1] end
@@ -1063,7 +1067,7 @@ function UI_Lobby:update_highlight()
         else
             vars['runeEventSprite1']:setVisible(false)
 
-        end
+        end]]
         
     end
 
@@ -2139,6 +2143,10 @@ function UI_Lobby:refresh_hottime()
     is_gacha_active, gacha_value, gacha_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
     is_comebine_active, combine_value, combine_ret = g_fevertimeData:isActiveFevertime_runeCombineUp()
 
+    local has_rune_event = is_gacha_active or is_comebine_active or is_diamond_rune_gacha_event_active
+    if (vars['runeEventSprite']) then vars['runeEventSprite']:setVisible(has_rune_event) end
+
+    --[[
     if is_gacha_active then
         vars['runeEventSprite1']:setVisible(true)
         if #gacha_ret then gacha_ret = gacha_ret[1] end
@@ -2157,16 +2165,20 @@ function UI_Lobby:refresh_hottime()
     else
         vars['runeEventSprite1']:setVisible(false)
 
-    end
+    end]]
 	
 	-- 할인 이벤트
 	local l_dc_event = g_fevertimeData:getDiscountEventList()
+    local has_event = false
     for i, dc_target in ipairs(l_dc_event) do
         -- @sgkim 2020.10.19 핫타임(구버전)과 피버타임(신버전)의 꼬임 문제로 추가
         if (dc_target == 'rune' or dc_target == 'runelvup' or dc_target == 'skillmove' or dc_target == 'reinforce') then
-            g_fevertimeData:setDiscountEventNode(dc_target, vars, 'dragonEventSprite'..i)
+            --g_fevertimeData:setDiscountEventNode(dc_target, vars, 'dragonEventSprite'..i)
+            has_event = true
         end
     end
+
+    if vars['dragonEventSprite'] then vars['dragonEventSprite']:setVisible(has_event) end
 	
     -- 할인 이벤트에 따라 마스터로드, 성장일지 올려줌
     if (#l_dc_event > 0) then
