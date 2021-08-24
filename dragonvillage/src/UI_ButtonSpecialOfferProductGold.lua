@@ -66,9 +66,11 @@ function UI_ButtonSpecialOfferProductGold:updateButtonStatus()
 
         -- 상품 클릭 시 패키지 팝업
         button:registerScriptTapHandler(function()
-            local pid = struct_product['product_id']
-            local package_name = TablePackageBundle:getPackageNameWithPid(pid)   
-            local ui = UI_Package_Bundle(package_name, true)
+            -- local pid = struct_product['product_id']
+            -- local package_name = TablePackageBundle:getPackageNameWithPid(pid)   
+            -- local ui = UI_Package_Bundle(package_name, true)
+            
+            local ui = UI_Package({struct_product}, true, 'specialOffer')
 
             -- 혜택률 표시
             if ui.vars['bonusLabel'] then
