@@ -2692,7 +2692,7 @@ function UI_Lobby:refresh_rightBanner()
                 if (g_localData:isKoreaServer() and v.m_eventData['target_server'] == 'Korea') then
                     event_data = v
                     break
-                elseif (g_localData:isAmericaServer() and v.m_eventData['target_server'] == 'America') then
+                elseif (g_localData:isAmericaServer() and string.find(v.m_eventData['target_server'], 'America')) then
                     event_data = v
                     break
                 end
