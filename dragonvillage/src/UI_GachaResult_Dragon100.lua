@@ -228,7 +228,6 @@ function UI_GachaResult_Dragon100:initDragonCardList()
 		-- 드래곤 카드 생성
         local struct_dragon_object = StructDragonObject(t_dragon_data) -- raw data를 StructDragonObject 형태로 변경
         --struct_dragon_object['id'] = idx
-        local doid = struct_dragon_object['id']
 		
         local card = UI_DragonCard_Gacha(struct_dragon_object)
         
@@ -236,12 +235,10 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         
         -- 프레스 함수 세팅
         local press_card_cb = function()
-            local t_dragon_data_refresh = g_dragonsData:getDragonDataFromUid(doid)
-            local ui = UI_SimpleDragonInfoPopup(t_dragon_data_refresh)
+            local ui = UI_SimpleDragonInfoPopup(struct_dragon_object)
             ui:setLockPossible(true, false)
             ui:setCloseCB(function()
-                local t_dragon_data_refresh = g_dragonsData:getDragonDataFromUid(doid)
-                local is_lock = t_dragon_data_refresh:getLock()
+                local is_lock = struct_dragon_object:getLock()
 	            card.m_dragonCard:setLockSpriteVisible(is_lock)
             end)
         end
@@ -249,6 +246,7 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         
         vars['dragonMenu']:addChild(card.root)
 
+        local doid = t_dragon_data['id']
 		self.m_tDragonCardTable[doid] = card
 
         -- 카드 위치 정렬
