@@ -110,7 +110,7 @@ UI_TooltipAutoItem = class(PARENT,{
 -------------------------------------
 function UI_TooltipAutoItem:init()
     local vars = self:load('marble_bonus_popup.ui')
-    UIManager:open(self, UIManager.TOOLTIP)
+    UIManager:open(self, UIManager.TOOLTIP, nil, true)
 
     -- UI 클래스명 지정
     self.m_uiName = 'UI_TooltipAutoItem'
