@@ -105,6 +105,10 @@ function UI_Game:initUI()
         vars['speedVisual']:setVisible(b)
     end
 
+    do -- 일일 드랍아이템 획득량 툴팁 ui 생성
+        self:createAutoItemPickUI()
+    end
+
     -- 버프 정보
     do
         --self:initInfoBoard()
@@ -990,6 +994,21 @@ function UI_Game:initIntroFight()
     vars['skipBtn']:registerScriptTapHandler(function() self:click_skip() end)
 end
 
+
+-------------------------------------
+-- function createAutoItemPickUI
+-- @brief
+-------------------------------------
+function UI_Game:createAutoItemPickUI()
+    local ui = UI_TooltipAutoItem()
+
+    ui.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
+    ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
+    ui.vars['tooltipMenu']:setPosition(10, -170)
+    self.m_tooltip = ui
+    self.m_tooltip:setVisible(false)
+end
+
 -------------------------------------
 -- function showAutoItemPickUI
 -- @brief
@@ -997,13 +1016,7 @@ end
 function UI_Game:showAutoItemPickUI()
     local vars = self.vars
 
-    local ui = UI_TooltipTest()
-
-    ui.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
-    ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
-    ui.vars['tooltipMenu']:setPosition(10, -170)
-    self.m_tooltip = ui
-    self.m_tooltip:setVisible(false)
+    if (not self.m_tooltip) then return end
 
     -- 클릭 시 툴팁 처리
     local function click_btn()

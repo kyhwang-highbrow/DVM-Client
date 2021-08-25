@@ -93,9 +93,9 @@ end
 
 
 -------------------------------------
--- class UI_TooltipTest
+-- class UI_TooltipAutoItem
 -------------------------------------
-UI_TooltipTest = class(PARENT,{
+UI_TooltipAutoItem = class(PARENT,{
     m_bubbleImage = 'cc.Scale9Sprite',
 
     m_currGoodsCounts = 'table',
@@ -108,12 +108,12 @@ UI_TooltipTest = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_TooltipTest:init()
+function UI_TooltipAutoItem:init()
     local vars = self:load('marble_bonus_popup.ui')
     UIManager:open(self, UIManager.TOOLTIP)
 
     -- UI 클래스명 지정
-    self.m_uiName = 'UI_TooltipTest'
+    self.m_uiName = 'UI_TooltipAutoItem'
     local goods_list = {'cash', 'gold', 'amethyst'}
     self.m_currGoodsCounts = {}
     self.m_maxGoods = {}
@@ -134,7 +134,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_TooltipTest:initUI(goods_list)
+function UI_TooltipAutoItem:initUI(goods_list)
     local vars = self.vars 
     local str = '{1}/{2}'
 
@@ -148,7 +148,7 @@ function UI_TooltipTest:initUI(goods_list)
     vars['amethystLabel']:setString(Str(str, g_userData:getDropInfoAmethyst(), g_userData:getDropInfoMaxAmethyst()))
 end
 
-function UI_TooltipTest:refreshDropItems(type, count)
+function UI_TooltipAutoItem:refreshDropItems(type, count)
     if (not self.m_currGoodsCounts) or (not self.m_maxGoods) then
         return 
     end
@@ -165,7 +165,7 @@ end
 -------------------------------------
 -- function makeTouchLayer
 -------------------------------------
-function UI_TooltipTest:makeTouchLayer(target_node)
+function UI_TooltipAutoItem:makeTouchLayer(target_node)
     local listener = cc.EventListenerTouchOneByOne:create()
 
     listener:registerScriptHandler(function(touch, event)
@@ -192,7 +192,7 @@ end
 -------------------------------------
 -- function onTouch
 -------------------------------------
-function UI_TooltipTest.onTouch(self, touch, event)
+function UI_TooltipAutoItem.onTouch(self, touch, event)
     self:setVisible(false)
     return true
 end

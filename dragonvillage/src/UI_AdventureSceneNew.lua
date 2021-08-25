@@ -929,7 +929,7 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
     -- 
     table.insert(l_active_hot, 'hotTimeMarbleBtn')
     vars['hotTimeMarbleBtn']:registerScriptTapHandler(function() 
-            local ui = UI_TooltipTest()
+            local ui = UI_TooltipAutoItem()
             ui.vars['tooltipMenu']:setAnchorPoint(TOP_LEFT)
             ui.vars['tooltipMenu']:setDockPoint(TOP_LEFT)
             ui.vars['tooltipMenu']:setPosition(10, -170)
