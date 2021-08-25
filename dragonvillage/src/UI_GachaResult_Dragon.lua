@@ -43,6 +43,8 @@ UI_GachaResult_Dragon = class(PARENT, {
     m_originCeilingNotiLabel = 'string',
 
     m_pickupID = 'string',
+
+    m_bIsVisibleCeilingInfo = 'boolean',
 })
 
 -------------------------------------
@@ -85,6 +87,7 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     
     self.m_bSkipClicked = false
     self.m_canRetry = true
+    self.m_bIsVisibleCeilingInfo = false
     self.m_animatedDragonIdTable = {}
 
     -- 연출없이 즉시 단일 결과 보여주는 타입..
@@ -193,14 +196,21 @@ function UI_GachaResult_Dragon:initEverything()
     if (self.m_type == 'mail') or (self.m_type == 'immediately') or (self.m_type == 'summon_ticket') then
 
         self.m_canRetry = false
-        if vars['ceilingNotiMenu'] then
-            vars['ceilingNotiMenu']:setPositionY(vars['againBtn']:getPositionY())
+
+        if (self.m_type == 'summon_ticket') then
+            self.m_bIsVisibleCeilingInfo = true
+            
+            if vars['ceilingNotiMenu'] then
+                vars['ceilingNotiMenu']:setPositionY(vars['againBtn']:getPositionY())
+            end
         end
 
     -- 부화
     elseif (self.m_type == 'incubate') then
         local cnt = t_egg_data['count']
         local remain_cnt = t_egg_data['remain_cnt']
+        
+        self.m_canRetry = false
         
         -- 이어서 뽑기 (단차 뽑기만 지원함)
         if (cnt == 1) and (1 <= remain_cnt) then
@@ -220,6 +230,10 @@ function UI_GachaResult_Dragon:initEverything()
     else
         local is_cash = (self.m_type == 'cash' or self.m_type == 'pickup')
         local is_ad = t_egg_data['is_ad']
+
+        if is_cash and (not is_ad) then
+            self.m_bIsVisibleCeilingInfo = true
+        end
         
         do -- 아이콘
             local price_icon
@@ -281,6 +295,10 @@ function UI_GachaResult_Dragon:initEverything()
         local target_dragon_name = did and TableDragon:getChanceUpDragonName(did) or ('{@yellow}' .. Str('신화 드래곤') .. '{@default}')
 
         if (not left_ceiling_num) then
+            self.m_bIsVisibleCeilingInfo = false
+        end
+
+        if (not self.m_bIsVisibleCeilingInfo) then
             vars['ceilingNotiMenu']:setVisible(false)
         elseif (left_ceiling_num == 0) then
             vars['ceilingNotiLabel']:setString(Str('{1} {@default}확정 소환', target_dragon_name))
@@ -483,7 +501,8 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
                 local is_ceiling_info_exist = g_hatcheryData:checkCeilingInfoExist()
 
                 vars['againBtn']:setVisible(self.m_canRetry and (not is_ad))
-                vars['ceilingNotiMenu']:setVisible((not is_ad) and (not is_fp_type) and is_ceiling_info_exist)
+                --vars['ceilingNotiMenu']:setVisible((not is_ad) and (not is_fp_type) and is_ceiling_info_exist)
+                vars['ceilingNotiMenu']:setVisible(self.m_bIsVisibleCeilingInfo)
             else
                 vars['againBtn']:setVisible(false)
                 vars['ceilingNotiMenu']:setVisible(false)
