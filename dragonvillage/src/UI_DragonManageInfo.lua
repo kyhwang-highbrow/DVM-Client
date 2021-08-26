@@ -150,8 +150,7 @@ function UI_DragonManageInfo:initButton()
         vars['lockBtn']:registerScriptTapHandler(function() self:click_lockBtn() end)
 
         -- 작별
-        --vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_goodbyeBtn() end)
-        vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_goodbyeBtnNew() end) -- 2020-11-10 드래곤 레벨업 개편으로 변경
+        vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_goodbyeBtn() end) -- 2020-11-10 드래곤 레벨업 개편으로 변경
 		
 		-- 일괄 작별
 		vars['goodbyeSelectBtn']:registerScriptTapHandler(function() self:click_goodbyeSelectBtn() end)
@@ -868,81 +867,10 @@ end
 
 -------------------------------------
 -- function click_goodbyeBtn
--- @brief 작별
--- @comment 나중에 외부로 뺄 예정
--------------------------------------
-function UI_DragonManageInfo:click_goodbyeBtn()
-    if (not self.m_selectDragonOID) then
-        return
-    end
-
-    -- 작별 가능한지 체크
-	local possible, msg = g_dragonsData:possibleGoodbye(self.m_selectDragonOID)
-	if (not possible) then
-		UIManager:toastNotificationRed(msg)
-        return false
-	end
-
-	local table_dragon = TableDragon()
-	local did = self.m_selectDragonData['did']
-	local name = table_dragon:getDragonNameWithAttr(did)
-	local relation = table_dragon:getRelationPoint(did)
-
-	local material_warning_popup
-	local really_warning_popup
-    local network_func
-    local show_effect5
-	local finish_cb
-
-    -- 재료 경고
-    material_warning_popup = function()
-        local oid = self.m_selectDragonOID
-        g_dragonsData:dragonMaterialWarning(oid, really_warning_popup, nil, '작별하시겠습니까?') -- param : oid, next_func, t_warning, warning_msg
-    end
-
-	-- 정말 작별 하는지 되물음
-	really_warning_popup = function()
-		local goodbye_str = Str('{@violet}{1}{@DESC}의 인연포인트를\n{@MUSTARD}{2}개 {@DESC}획득할 수 있습니다.\n작별하시겠습니까?', name, relation)
-		MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, network_func)
-	end
-
-	-- 작별 통신
-	network_func = function()
-		-- 복수를 고려함
-		local src_doids = self.m_selectDragonOID
-		g_dragonsData:request_dragonGoodbye(src_doids, show_effect)
-	end
-
-    -- 작별 연출
-    show_effect = function(ret)
-        
-        local finish_cb = function()
-		    -- 테이블 아이템갱신
-		    self:init_dragonTableView()
-
-		    -- 기존에 선택되어 있던 드래곤 교체
-		    self:setDefaultSelectDragon()
-
-		    -- 정렬
-		    self:apply_dragonSort_saveData()
-	    end
-
-        local dragon_data = self.m_selectDragonData
-        local info_data = ret
-        local ui = UI_DragonGoodbyeResult(dragon_data, info_data)
-        ui:setCloseCB(finish_cb)
-    end
-
-	-- start
-	material_warning_popup()
-end
-
--------------------------------------
--- function click_goodbyeBtnNew
 -- @brief 드래곤 레벨업 시스템 개편으로 
 -- 새로 만든 개별 작별
 -------------------------------------
-function UI_DragonManageInfo:click_goodbyeBtnNew()
+function UI_DragonManageInfo:click_goodbyeBtn()
 	require('UI_DragonGoodbyePopup')
 
     if (not self.m_selectDragonOID) then

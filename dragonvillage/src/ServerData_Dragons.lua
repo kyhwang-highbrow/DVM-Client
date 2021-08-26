@@ -1525,41 +1525,6 @@ function ServerData_Dragons:request_dragonLock(doids, soids, lock, cb_func)
 end
 
 -------------------------------------
--- function request_dragonGoodbye
--------------------------------------
-function ServerData_Dragons:request_dragonGoodbye(src_doids, cb_func)
-	-- 유저 ID
-    local uid = g_userData:get('uid')
-
-    local function success_cb(ret)
-		-- 재료로 사용된 드래곤 삭제
-		if ret['deleted_dragons_oid'] then
-			for _, doid in pairs(ret['deleted_dragons_oid']) do
-				g_dragonsData:delDragonData(doid)
-			end
-		end
-
-		-- 인연포인트 (전체 갱신)
-		if (ret['relation']) then
-			g_bookData:applyRelationPoints(ret['relation'])
-		end
-
-		-- 콜백
-		if (cb_func) then
-			cb_func(ret)
-		end
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/goodbye')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('src_doids', src_doids)
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    ui_network:request()
-end
-
--------------------------------------
 -- function getBestCombatPower
 -------------------------------------
 function ServerData_Dragons:getBestCombatPower()
@@ -1839,7 +1804,7 @@ function ServerData_Dragons:request_goodbye(target, doids, cb_func)
     end
 
     local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/goodbye_new')
+    ui_network:setUrl('/dragons/goodbye')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doids', doids)
 	ui_network:setParam('target', target)
