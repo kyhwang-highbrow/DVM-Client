@@ -32,6 +32,7 @@ UI_GachaResult_Dragon100 = class(PARENT, {
         -- 소환정보
         m_tSummonData = 'table',
         m_pickupID = 'string',
+        m_bIsVisibleCeilingInfo = 'boolean',
         
         m_originCeilingNotiLabel = 'string',
      })
@@ -148,8 +149,10 @@ function UI_GachaResult_Dragon100:initUI()
             if (not left_ceiling_num) or (not is_ceiling_info_exist) then
                 vars['ceilingNotiMenu']:setVisible(false)
             elseif(left_ceiling_num == 0) then
+                vars['ceilingNotiMenu']:setVisible(true)
                 vars['ceilingNotiLabel']:setString(Str('{1} {@default}확정 소환', target_dragon_name))
             else
+                vars['ceilingNotiMenu']:setVisible(true)
                 vars['ceilingNotiLabel']:setString(Str(self.m_originCeilingNotiLabel, target_dragon_name, left_ceiling_num))
             end
         --end
