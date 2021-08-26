@@ -427,8 +427,10 @@ function UI_HatcherySummonTab:onChangeCategory(category)
         if (not left_ceiling_num) then
             ceiling_menu:setVisible(false)
         elseif (left_ceiling_num == 0) then
+            ceiling_menu:setVisible(true)
             ceiling_label:setString(Str('{1} {@default}확정 소환', target_dragon_name))
         else
+            ceiling_menu:setVisible(true)
             ceiling_label:setString(Str(self.m_originRateLabel, target_dragon_name, left_ceiling_num))
         end
     end
