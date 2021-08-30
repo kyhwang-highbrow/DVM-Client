@@ -72,6 +72,25 @@ end
 
 
 ----------------------------------------------------------------------
+-- function createPackageScrollView
+-- brief : 
+----------------------------------------------------------------------
+function UI_ShopPackageScene:createPackageScrollView()
+
+    local content_size = self.vars['contentsListNode']:getContentSize()
+
+    local scroll_view = cc.ScrollView:create()
+    scroll_view:setDockPoint(CENTER_POINT)
+    scroll_view:setAnchorPoint(CENTER_POINT)
+    scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    scroll_view:setNormalSize(content_size)
+    scroll_view:setContentSize(content_size)
+    self.vars['contentsListNode']:addChild(scroll_view)
+
+    self.m_scrollView = scroll_view
+end
+
+----------------------------------------------------------------------
 -- function createButtonTableView
 ----------------------------------------------------------------------
 function UI_ShopPackageScene:createButtonTableView(package_name)
@@ -103,25 +122,6 @@ function UI_ShopPackageScene:createButtonTableView(package_name)
     table_view:setItemList(item_list, true)
 
     self.m_tableView = table_view
-end
-
-----------------------------------------------------------------------
--- function createPackageScrollView
--- brief : 
-----------------------------------------------------------------------
-function UI_ShopPackageScene:createPackageScrollView()
-
-    local content_size = self.vars['contentsListNode']:getContentSize()
-
-    local scroll_view = cc.ScrollView:create()
-    scroll_view:setDockPoint(CENTER_POINT)
-    scroll_view:setAnchorPoint(CENTER_POINT)
-    scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    scroll_view:setNormalSize(content_size)
-    scroll_view:setContentSize(content_size)
-    self.vars['contentsListNode']:addChild(scroll_view)
-
-    self.m_scrollView = scroll_view
 end
 
 ----------------------------------------------------------------------
@@ -159,7 +159,7 @@ end
 ----------------------------------------------------------------------
 function UI_PackageCategoryButton:refresh()
     local vars = self.vars
-    local product_list = self.m_data['product_list']
+    local product_list = self.m_data:getProductList()
 
     local is_changed = false
 
@@ -177,7 +177,7 @@ function UI_PackageCategoryButton:refresh()
 
                 is_changed = true
                 struct_product = g_shopDataNew:getTargetProduct(dependent_product_id)
-                self.m_data['product_list'][index] = struct_product
+                product_list[index] = struct_product
             end
         end        
         
@@ -263,7 +263,7 @@ end
 function UI_PackageCategoryButton:createTableView()
     local vars = self.vars
 
-    local product_list = self.m_data['product_list']
+    local product_list = self.m_data:getProductList()
     local container = self.m_scrollView:getContainer()
 
     if container then 
@@ -272,138 +272,96 @@ function UI_PackageCategoryButton:createTableView()
         return 
     end
 
-    local margin = 10
-    local init_pos_x
-    local init_pos_y
-    local product_num = #product_list
-    local row_num
+    g_shopDataNew:setPackageUI(self.m_data, container, function() self:refresh() end)
 
-    local is_dock_center
-    if (self.m_data['dock_point'] == 1) then
-        is_dock_center = true
-    else
+    ------------------------------------------------------------------------
+    if (self.m_data['type'] == 'group') then
+
+        ui_list = container:getChildren()
+
+        local product_num = #product_list
+        local row_num
+
+        local margin = 10
+
+        local is_dock_center = (self.m_data['dock_point'] == 1)
+        -- For now, we don't use dock_point, so just set to false
         is_dock_center = false
-    end
-    is_dock_center = false
 
-    if (self.m_data['row_num'] ~= '') then
-        row_num = tonumber(self.m_data['row_num'])
-        margin = 5
+        if (self.m_data['row_num'] ~= '') then
+            row_num = tonumber(self.m_data['row_num'])
+            -- WHY?
+            margin = 5
 
-        if product_num < row_num then 
-            row_num = product_num 
-        end
-    else
-        row_num = product_num
-    end
-
-    local col_num = math.floor(product_num / row_num)
-
-
-    for index, struct_product in pairs(product_list) do
-        local ui
-
-        if (self.m_data['type'] == '') then
-            if index > 1 then break end
-            
-            local package_name = TablePackageBundle:getPackageNameWithPid(struct_product['product_id'])
-            product_num = 1
-            row_num = 1
-            col_num = 1
-            ui = PackageManager:getTargetUI(package_name, false)
-
+            if (product_num < row_num) then
+                row_num = product_num
+            end
         else
-            local package_class
-
-            if struct_product['package_class'] and (struct_product['package_class'] ~= '')then
-                if (not _G[struct_product['package_class']]) then
-                    require(struct_product['package_class'])
-                end
-                package_class = _G[struct_product['package_class']]
-            end
-            
-            if (not package_class) then
-                package_class = UI_Package
-            end
-
-            if (self.m_data['type'] == 'bundle') then
-                product_num = 1
-                row_num = 1
-                col_num = 1
-                if index > 1 then break end
-                ui = package_class(product_list, false, self.m_data['t_name'])
-            else
-                local list = {}
-                table.insert(list, struct_product)
-                ui = package_class(list, false, self.m_data['t_name'])
-            end
+            row_num = product_num
         end
 
-        if ui then
-            if checkMemberInMetatable(ui, 'setBuyCB') then
-                ui:setBuyCB(function()
-                    self:refresh() 
-                end)
-            end
+        local col_num = math.floor(product_num / row_num)
 
-            local ui_size = ui.root:getChildren()[1]:getContentSize()
+        ------------------------------------------------------------------------
+        local temp_x
+        local temp_y
 
-            if (index == 1) then
-                local temp_x
-                local temp_y
+        if ((row_num % 2) == 1) then -- odd
+            temp_x = math.floor(row_num / 2)
+        else -- even
+            temp_x = (row_num) / 2 - 0.5
+        end
+
+        if ((col_num % 2) == 1) then -- odd
+            temp_y = math.floor(col_num / 2)
+        else -- even
+            temp_y = (col_num) / 2 - 0.5
+        end
+
+        -- assume that size of all child UI is same
+        local ui_size = ui_list[1]:getChildren()[1]:getContentSize()
+
+        local init_pos_x = -(margin + ui_size.width) * temp_x
+        local init_pos_y = (margin + ui_size.height) * temp_y
+
+        ------------------------------------------------------------------------
+        local normal_width, normal_height =  self.m_scrollView:getNormalSize()
+        local content_size = self.m_scrollView:getContentSize()
+        local scrollview_width = row_num * ui_size.width + (row_num - 1) * margin
+        local scrollview_height = col_num * ui_size.height + (col_num - 1) * margin
+
         
-                if (row_num % 2 == 1) then -- odd
-                    temp_x = math.floor(row_num / 2)
-                else -- even
-                    temp_x = (row_num) / 2 - 0.5
-                end
-
-                if (col_num % 2 == 1) then -- odd
-                    temp_y = math.floor(col_num / 2)
-                else -- even
-                    temp_y = (col_num) / 2 - 0.5
-                end
-        
-                init_pos_x = -(margin + ui_size.width) * temp_x
-                init_pos_y = (margin + ui_size.height) * temp_y       
-                
-                ----------------------------------------------------------
-                local normal_width, normal_height =  self.m_scrollView:getNormalSize()
-                local content_size = self.m_scrollView:getContentSize()
-                local scrollview_width = row_num * ui_size.width + (row_num - 1) * margin
-                local scrollview_height = col_num * ui_size.height + (col_num - 1) * margin
-
-                local is_larger
-                if (self.m_scrollView:getDirection() == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
-                    is_larger = (scrollview_height > normal_height)
-                    if is_larger or (not is_dock_center) then
-                        self.m_scrollView:setContentSize(scrollview_width, scrollview_height)
-                    else
-                        self.m_scrollView:setContentSize(scrollview_width, content_size.height)
-                    end
-                else -- cc.SCROLLVIEW_DIRECTION_HORIZONTAL
-                    is_larger = (scrollview_width > normal_width)
-                    if is_larger or (not is_dock_center) then
-                        self.m_scrollView:setContentSize(scrollview_width, scrollview_height)
-                    else
-                        self.m_scrollView:setContentSize(content_size.width, scrollview_height)
-                    end    
-                end
-                self.m_scrollView:setTouchEnabled(is_larger)
-                container:setPosition(0, 0)
+        local is_larger
+        if (self.m_scrollView:getDirection() == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
+            is_larger = (scrollview_height > normal_height)
+            if is_larger or (not is_dock_center) then
+                self.m_scrollView:setContentSize(scrollview_width, scrollview_height)
+            else
+                self.m_scrollView:setContentSize(scrollview_width, content_size.height)
             end
-            
-            container:addChild(ui.root)
+        else -- cc.SCROLLVIEW_DIRECTION_HORIZONTAL
+            is_larger = (scrollview_width > normal_width)
+            if is_larger or (not is_dock_center) then
+                self.m_scrollView:setContentSize(scrollview_width, scrollview_height)
+            else
+                self.m_scrollView:setContentSize(content_size.width, scrollview_height)
+            end    
+        end
+        self.m_scrollView:setTouchEnabled(is_larger)
+        container:setPosition(0, 0)
+        ------------------------------------------------------------------------
 
+        for index, ui_root in pairs(ui_list) do
             local row = (index - 1) % row_num
             local col = math.floor((index - 1) / row_num)
-            
+
             local result_x = init_pos_x + row * (margin + ui_size.width)
             local result_y = init_pos_y - col * (margin + ui_size.height)
 
-            ui.root:setPosition(result_x, result_y)
+            ui_root:setPosition(result_x, result_y)
         end
     end
+
 end
 
 

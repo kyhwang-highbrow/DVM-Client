@@ -166,7 +166,10 @@ function ServerData_Subscription:response_subscriptionInfo(ret)
         table.insert(self.m_subscribedInfoList, struct_subsc_info)
     end
 
+    g_userData:response_ingameDropInfo(ret)
+    
     self:response_ingameDropInfo(ret)
+    
     self:response_dailyIngameDropInfo(ret)
 end
 

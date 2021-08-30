@@ -2333,7 +2333,7 @@ function UI_Lobby:update_rightButtons()
 
         local is_noti_visible = false
         for _, data in ipairs(package_list) do
-            for _, struct_product in ipairs(data['product_list']) do
+            for _, struct_product in ipairs(data:getProductList()) do
                 if (struct_product:getPrice() == 0) and (struct_product:isItBuyable()) then
                     is_noti_visible = true
                 end

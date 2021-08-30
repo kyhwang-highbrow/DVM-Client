@@ -4966,6 +4966,7 @@
     <None Include="..\src\UI_LobbyBanner.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructPackage.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

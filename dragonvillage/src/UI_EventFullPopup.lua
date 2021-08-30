@@ -129,7 +129,16 @@ function UI_EventFullPopup:initUI()
     elseif string.find(popup_key, 'package') then     
         local package_name = popup_key
         local is_popup = false
-        ui = PackageManager:getTargetUI(package_name, is_popup)
+
+        local package_list = g_shopDataNew:getActivatedPackageList()
+
+        for index, struct_package_group in pairs(package_list) do
+            if (struct_package_group:getProductName() == package_name) and struct_package_group:isBuyable() then
+                ui = struct_package_group:getTargetUITest()
+            end
+        end
+
+        --ui = PackageManager:getTargetUI(package_name, is_popup)
 
         if (not ui) then
             -- 이벤트 프로덕트 정보 없을 경우 비활성화라고 생각하고 닫아줌 (주말 패키지)

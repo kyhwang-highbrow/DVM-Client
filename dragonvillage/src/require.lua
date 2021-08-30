@@ -118,6 +118,7 @@ local t_module = {
     'StructAncientTowerFloorData',
     'StructAttrTowerFloorData',
     'StructPickup',
+    'StructPackage',
     'StructProduct',
     'StructProductSubscription',
     'StructMarketProduct',

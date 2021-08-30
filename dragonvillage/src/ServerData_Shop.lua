@@ -1256,56 +1256,74 @@ function ServerData_Shop:getActivatedPackageList()
 
     -- csv 파일의 하단에 오는 상품이 제일 위에 노출되도록 reverse order
     for index = #packages, 1, -1 do
-        local data = packages[index]
-        local pid_list = pl.stringx.split(tostring(data['t_pids']), ',')
-        local product_list = {}
-        local pid_index_list = {}
-        local removal_list = {}
-
-        local i = 1
-
-        -- 카테고리 별로 등록된 pid 리스트
-        for _, product_id in pairs(pid_list) do
-            local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
-
-            -- pid에 해당하는 상품이 있고, 그것이 패키지 상품인 경우
-            if struct_product and (struct_product:getTabCategory() == 'package') then
-
-                -- TODO (YJK_210622) : isItBuyable으로 체크할지 말지 table_shop_list에서 상품별로 체크하도록
-                -- 상품 구매 횟수 체크
-                if (struct_product:isItBuyable()) or (data['t_name'] == 'package_daily') then
-                    --product_list[tonumber(product_id)] = struct_product
-                    
-                    table.insert(product_list, struct_product)
-                    pid_index_list[tonumber(product_id)] = #product_list
-
-                    -- 의존성 검사
-                    local dependency = struct_product:getDependency()
-                    if dependency then
-                        removal_list[tonumber(product_id)] = tonumber(dependency)
-                    end
-                end
-            end
-        end
-
-
-        -- 카테고리에 포함된 상품이 하나라도 있으면
-        if (not table.isEmpty(product_list)) then
-
-            for target_id, dependent_id in pairs(removal_list) do
-                local dependent_index = pid_index_list[dependent_id]
-                local target_index = pid_index_list[target_id]
-
-                product_list[dependent_index] = product_list[target_index]
-                product_list[target_index] = nil
-            end
-
-            data['product_list'] = table.MapToList(product_list)
-            table.insert(package_list, data)
+        local struct_product_group = StructProductGroup(packages[index])
+        
+        local is_buyable = struct_product_group:isBuyable()
+ 
+        if is_buyable then
+            table.insert(package_list, struct_product_group)
         end
     end
 
     return package_list
+end
+
+
+-------------------------------------
+-- function setPackageUI
+-------------------------------------
+function ServerData_Shop:setPackageUI(package_bundle_data, parent_node, buy_callback)
+    if (not parent_node) or (not package_bundle_data) then
+        return 
+    end
+    
+    local product_list = package_bundle_data:getProductList()
+    local package_type = package_bundle_data['type']
+
+    for index, struct_product in pairs(product_list) do
+        local ui
+
+        if (package_type == '') then            
+            local package_name = TablePackageBundle:getPackageNameWithPid(struct_product['product_id'])
+ 
+            ui = PackageManager:getTargetUI(package_name, false)
+        else
+            local package_class
+
+            if struct_product['package_class'] and (struct_product['package_class'] ~= '')then
+                if (not _G[struct_product['package_class']]) then
+                    require(struct_product['package_class'])
+                end
+                package_class = _G[struct_product['package_class']]
+            end
+            
+            if (not package_class) then
+                package_class = UI_Package
+            end
+
+            if (package_type == 'bundle') then
+                ui = package_class(product_list, false, package_bundle_data['t_name'])
+            else
+                local list = {}
+                table.insert(list, struct_product)
+                ui = package_class(list, false, package_bundle_data['t_name'])
+            end
+        end
+
+        if ui then
+            if checkMemberInMetatable(ui, 'setBuyCB') then
+                ui:setBuyCB(function()
+                    buy_callback()
+                end)
+            end
+
+            parent_node:addChild(ui.root)
+        end
+
+        if (package_type == '') or (package_type == 'bundle') then
+            break
+        end
+    end
 end
 
 -------------------------------------
