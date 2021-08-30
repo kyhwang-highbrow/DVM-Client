@@ -1272,7 +1272,7 @@ end
 -------------------------------------
 -- function setPackageUI
 -------------------------------------
-function ServerData_Shop:setPackageUI(package_bundle_data, parent_node, buy_callback)
+function ServerData_Shop:setPackageUI(package_bundle_data, parent_node, buy_callback, is_refresh_dependency)
     if (not parent_node) or (not package_bundle_data) then
         return 
     end
@@ -1315,6 +1315,10 @@ function ServerData_Shop:setPackageUI(package_bundle_data, parent_node, buy_call
                 ui:setBuyCB(function()
                     buy_callback()
                 end)
+            end
+
+            if is_refresh_dependency and checkMemberInMetatable(ui, 'setRefreshDependency') then
+                ui:setRefreshDependency()
             end
 
             parent_node:addChild(ui.root)

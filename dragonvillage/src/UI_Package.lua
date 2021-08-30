@@ -7,7 +7,10 @@ UI_Package = class(PARENT, {
         m_package_name = 'string',
         m_structProduct = 'StructProduct',
         m_productList = 'List[StructProduct]',
+
         m_isPopup = 'boolean',
+        m_isRefreshedDependency = 'boolean',
+
         m_cbBuy = 'function',
      })
 
@@ -40,6 +43,7 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     end
 
     self.m_isPopup = is_popup or false
+    self.m_isRefreshedDependency = false
 	self.m_uiName = 'UI_Package'
 
     local vars = self:load(ui_name)
@@ -243,7 +247,7 @@ function UI_Package:refresh()
 
         -- 특가 상품이 구매제한 초과 시 기존상품(dependency)으로 교체
         if purchased_num and limit and (purchased_num >= limit) 
-            and (not self.m_isPopup) then
+            and (self.m_isRefreshedDependency) then
             local dependent_product_id = struct_product:getDependency()
 
             if dependent_product_id then
@@ -414,6 +418,13 @@ end
 -------------------------------------
 function UI_Package:setBuyCB(func)
     self.m_cbBuy = func
+end
+
+-------------------------------------
+-- function setRefreshDependency
+-------------------------------------
+function UI_Package:setRefreshDependency(is_refresh_dependency)
+    self.m_isRefreshedDependency = is_refresh_dependency or true
 end
 
 

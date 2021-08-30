@@ -207,6 +207,9 @@ function StructProductGroup:setTargetUI(parent_node, buy_callback)
 	end
 end
 
+----------------------------------------------------------------------
+-- function getTargetUITest
+----------------------------------------------------------------------
 function StructProductGroup:getTargetUITest(parent_node, buy_callback)
 	if (not self.m_structProductList) or table.isEmpty(self.m_structProductList) then
 		return nil
