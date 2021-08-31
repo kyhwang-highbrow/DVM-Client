@@ -827,7 +827,7 @@ function UI_Lobby:initButton()
     vars['bingoBtn']:registerScriptTapHandler(function() self:click_bingoBtn() end) -- 빙고 이벤트
     vars['halloweenEventBtn']:registerScriptTapHandler(function() self:click_halloweenEventBtn() end) -- 빙고 이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
-    vars['luckyfortunebagEventBtn']:registerScriptTapHandler(function() self:click_lfbagBtn() end) -- 소원 구슬 이벤트
+    vars['luckyBagEventBtn']:registerScriptTapHandler(function() self:click_lfbagBtn() end) -- 소원 구슬 이벤트
     vars['alphabetBtn']:registerScriptTapHandler(function() self:click_alphabetBtn() end) -- 알파벳 이벤트
     vars['quizEventBtn']:registerScriptTapHandler(function() self:click_quizEventBtn() end) -- 드래곤 이미지 퀴즈 이벤트
     vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
@@ -1250,7 +1250,7 @@ function UI_Lobby:update_highlight()
 
     do -- 소원 구슬 이벤트
         if (g_eventLFBagData) then
-            vars['luckyfortunebagNotiSprite']:setVisible(g_eventLFBagData:isHighlightRed())
+            vars['luckyBagNotiSprite']:setVisible(g_eventLFBagData:isHighlightRed())
             --vars['quizEventNotiYellow']:setVisible(g_eventLFBagData:isHighlightYellow())
         end
     end
@@ -2046,7 +2046,7 @@ function UI_Lobby:update(dt)
         map_check_event['event_alphabet'] = 'alphabetLabel' -- 알파벳 이벤트
         map_check_event['event_exchange'] = 'exchangeLabel' -- 수집 이벤트
         map_check_event['event_bingo'] = 'bingoLabel' -- 빙고 이벤트
-        map_check_event['event_lucky_fortune_bag'] = 'luckyfortunebagLabel' -- 소원 구슬 이벤트
+        map_check_event['event_lucky_bag'] = 'luckyBagLabel' -- 소원 구슬 이벤트
         
         for event_name, label_name in pairs(map_check_event) do
             local remain_text = g_hotTimeData:getEventRemainTimeText(event_name)
@@ -2237,7 +2237,7 @@ function UI_Lobby:update_rightButtons()
     vars['quizEventBtn']:setVisible(g_hotTimeData:isActiveEvent('event_image_quiz'))
     
     -- 소원 구슬 이벤트
-    vars['luckyfortunebagEventBtn']:setVisible(g_eventLFBagData:isActive())
+    vars['luckyBagEventBtn']:setVisible(g_eventLFBagData:isActive())
     
     -- 황금던전 버튼
     if g_hotTimeData:isActiveEvent('event_gold_dungeon') then
@@ -2357,7 +2357,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'exchangeBtn')
     table.insert(t_btn_name, 'adventBtn')
     table.insert(t_btn_name, 'quizEventBtn')
-    table.insert(t_btn_name, 'luckyfortunebagEventBtn')
+    table.insert(t_btn_name, 'luckyBagEventBtn')
     
     -- 패키지
 
