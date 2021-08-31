@@ -41,7 +41,7 @@ function UI_CommunityPopup:init(t_notice)
     }
     
     if (Translate:getGameLang() ~= 'ko') then
-        self.m_link['naver'] = ''
+        --self.m_link['naver'] = ''
     end
 
     self.m_communityBtns = {}
