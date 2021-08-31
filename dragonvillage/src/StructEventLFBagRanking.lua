@@ -1,5 +1,42 @@
 local PARENT = StructUserInfo
-
+-- {
+--     "lv":10,
+--     "tier":"bronze_3",
+--     "clan_info":{
+--       "mark":"4;4;1;25",
+--       "name":"하이브로",
+--       "id":"5a0b918ee891934ac6127cc2"
+--     },
+--     "tamer":110002,
+--     "costume":730205,
+--     "rp":3599620,
+--     "challenge_score":0,
+--     "clear_time":0,
+--     "rate":0.00098135427106172,
+--     "last_tier":"beginner",
+--     "arena_score":0,
+--     "ancient_score":0,
+--     "beginner":false,
+--     "un":6284,
+--     "score":0,
+--     "total":1019,
+--     "nick":"dvm100979",
+--     "leader":{
+--       "lv":60,
+--       "mastery_lv":0,
+--       "grade":6,
+--       "rlv":6,
+--       "eclv":0,
+--       "did":120102,
+--       "transform":3,
+--       "mastery_skills":{
+--       },
+--       "evolution":3,
+--       "mastery_point":0
+--     },
+--     "uid":"ochoi1",
+--     "rank":1
+--   }
 -------------------------------------
 -- class StructEventLFBagRanking
 -- @brief 소원 구슬

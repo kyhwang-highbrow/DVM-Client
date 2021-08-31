@@ -10,7 +10,7 @@ UI_EventLFBagRankingRewardPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventLFBagRankingRewardPopup:init(user_info, reward_info, isDaily)
-    local vars = self:load('event_lucky_fortune_bag_ranking_reward_popup.ui')
+    local vars = self:load('event_lucky_bag_ranking_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정

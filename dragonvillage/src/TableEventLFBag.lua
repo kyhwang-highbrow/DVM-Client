@@ -27,7 +27,11 @@ function TableEventLFBag:getRewardList(lv)
         self = THIS()
     end
 
-    return self.m_rewardList[lv]
+    if lv then
+        return self.m_rewardList[lv]
+    else
+        return self.m_rewardList
+    end
 end
 
 -------------------------------------

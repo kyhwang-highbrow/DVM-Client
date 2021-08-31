@@ -23,14 +23,19 @@ UI_EventLFBag = class(PARENT,{
         m_isNeedPickMePickMe = 'bool',
 
         m_noticeBlankLabel = 'cc.LabelTTF',
+
+
+        m_luckyVisual = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_EventLFBag:init()
-    local vars = self:load('event_lucky_fortune_bag.ui')
+    --local vars = self:load('event_lucky_fortune_bag.ui')
+    local vars = self:load('event_lucky_bag.ui')
 
+    self.m_luckyVisual = vars['luckyFortuneBagVisual']
     self.m_isNeedPickMePickMe = true
     self.m_structLFBag = g_eventLFBagData:getLFBag()
 
@@ -68,6 +73,8 @@ function UI_EventLFBag:initUI()
     self.m_rewardHistoryView = vars['textNode']
 
     self.m_noticeBlankLabel = vars['blanckLabel']
+    --self.m_luckyVisual = vars['luckyBagVisual']
+
     self:makeScrollView()
 end
 
@@ -221,7 +228,7 @@ end
 -- function getAniScale
 -------------------------------------
 function UI_EventLFBag:playOpenAnimation(aniType, level, loop)
-    local aniObj = self.vars['luckyFortuneBagVisual']
+    local aniObj = self.m_luckyVisual
 
     aniObj:changeAni(string.format('bag_%.2d' .. '_' .. aniType, tostring(level)), loop)
 end
@@ -577,7 +584,7 @@ end
 -- function click_infoBtn
 -------------------------------------
 function UI_EventLFBag:click_infoBtn()
-    local ui = MakePopup('event_lucky_fortune_bag_info_popup.ui')
+    local ui = MakePopup('event_lucky_bag_info_popup.ui')
     local vars = ui.vars
     vars['descLabel01']:setString(Str('소원 구슬을 열 때, 성공하거나 실패할 수 있습니다.'))
     vars['descLabel02']:setString(Str('성공하면 보상이 누적되며 다음 단계의 소원 구슬이 나옵니다.'))
@@ -616,7 +623,7 @@ end
 -------------------------------------
 function UI_EventLFBag.makeCellUI()
     local cell_ui = class(UI, ITableViewCell:getCloneTable())()
-    cell_ui:load('event_lucky_fortune_bag_item.ui')
+    cell_ui:load('event_lucky_bag_item.ui')
     cell_ui.vars['countLabel']:setString(math_random(1, 100))
 
     cell_ui.root:setDockPoint(TOP_CENTER)
@@ -849,9 +856,9 @@ function UI_EventLFBag:playNormalAni()
     local vars = self.vars
 
     if (vars['completeNode']) then vars['completeNode']:setVisible(false) end
-    if (vars['luckyFortuneBagVisual']) then vars['luckyFortuneBagVisual']:setVisible(true) end
+    if (self.m_luckyVisual) then self.m_luckyVisual:setVisible(true) end
     
-    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
+    self.m_luckyVisual:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
 end
 
 -------------------------------------
@@ -860,7 +867,7 @@ end
 function UI_EventLFBag:setSelebrateAni()
     local vars = self.vars
 
-    if (vars['luckyFortuneBagVisual']) then vars['luckyFortuneBagVisual']:setVisible(false) end
+    if (self.m_luckyVisual) then self.m_luckyVisual:setVisible(false) end
 
     if (vars['completeNode']) then 
         vars['completeNode']:setVisible(true) 
@@ -879,19 +886,19 @@ function UI_EventLFBag:onActOpen()
     local vars = self.vars
 
     if (vars['completeNode']) then vars['completeNode']:setVisible(false) end
-    if (vars['luckyFortuneBagVisual']) then vars['luckyFortuneBagVisual']:setVisible(true) end
+    if (self.m_luckyVisual) then self.m_luckyVisual:setVisible(true) end
 
     -- 레벨
     local currentLevel = self.m_structLFBag:getLv()
 
     -- 소원 구슬 애니메이션 1, 2, 3, 4, 5
-    vars['luckyFortuneBagVisual']:addAniHandler(function()
+    self.m_luckyVisual:addAniHandler(function()
             self:playOpenAnimation('normal', currentLevel, true)
             self.m_lastAniLevel = currentLevel
         end)
 
     if (self.m_structLFBag:isMax()) then
-        vars['luckyFortuneBagVisual']:addAniHandler(function()
+        self.m_luckyVisual:addAniHandler(function()
             self:setSelebrateAni()
         end)
     end

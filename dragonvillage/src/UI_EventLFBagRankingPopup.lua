@@ -20,7 +20,7 @@ UI_EventLFBagRankingPopup = class(PARENT,{
 -------------------------------------
 function UI_EventLFBagRankingPopup:init(use_for_inner_ui)
     self.m_rankOffset = 1
-    local vars = self:load('event_lucky_fortune_bag_ranking_popup.ui')
+    local vars = self:load('event_lucky_bag_ranking_popup.ui')
 
     if (use_for_inner_ui) then
         -- nothing to do

@@ -22,7 +22,7 @@ UI_EventLFBagRankingTotalTab = class(PARENT,{
 -------------------------------------
 function UI_EventLFBagRankingTotalTab:init(owner_ui)
     self.m_rankOffset = 1
-    local vars = self:load('event_lucky_fortune_bag_ranking_popup_total.ui')
+    local vars = self:load('event_lucky_bag_ranking_popup_total.ui')
 
     self.m_ownerUI = owner_ui
     self.m_rankType = owner_ui.m_rankType
@@ -406,7 +406,7 @@ UI_EventLFBagRankingListItem = class(PARENT, {
 -------------------------------------
 function UI_EventLFBagRankingListItem:init(t_rank_info)
     self.m_rankInfo = t_rank_info
-    local vars = self:load('event_lucky_fortune_bag_ranking_popup_item_02.ui')
+    local vars = self:load('event_lucky_bag_ranking_popup_item_02.ui')
 
     self:initUI()
     self:initButton()
@@ -496,7 +496,7 @@ end
 -------------------------------------
 function UI_EventLFBagRankingTotalTab.makeCellUIRankReward(t_reward_info)
     local ui = class(UI, ITableViewCell:getCloneTable())()
-    local vars = ui:load('event_lucky_fortune_bag_ranking_popup_item_01.ui')
+    local vars = ui:load('event_lucky_bag_ranking_popup_item_01.ui')
     
     -- 순위
     local rank_str

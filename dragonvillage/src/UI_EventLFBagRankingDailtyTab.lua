@@ -22,7 +22,7 @@ UI_EventLFBagRankingDailtyTab = class(PARENT,{
 -------------------------------------
 function UI_EventLFBagRankingDailtyTab:init(owner_ui)
     self.m_rankOffset = 1
-    local vars = self:load('event_lucky_fortune_bag_ranking_popup_daily.ui')
+    local vars = self:load('event_lucky_bag_ranking_popup_daily.ui')
 
     self.m_ownerUI = owner_ui
     self.m_rankType = owner_ui.m_rankType

@@ -24,7 +24,7 @@ function UI_EventLFBagNoticePopup:init(popup_type, msg, scoreString, submsg, ok_
     self.m_cbCancelBtn = cancel_btn_cb
     self.m_uiName = 'UI_EventLFBagNoticePopup'
     
-    local vars = self:load('event_lucky_fortune_bag_popup.ui')
+    local vars = self:load('event_lucky_bag_popup.ui')
     UIManager:open(self, ui_z_order or UIManager.POPUP)
 
     -- backkey 지정
