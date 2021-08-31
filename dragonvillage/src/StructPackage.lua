@@ -153,14 +153,15 @@ end
 -- TODO : Need to check every structProduct is able to purchase.
 -- 	  If there is any product which is not available, then remove it from the list.
 ----------------------------------------------------------------------
-function StructProductGroup:setTargetUI(parent_node, buy_callback)
+function StructProductGroup:setTargetUI(parent_node, buy_callback, is_refresh_dependency)
 	if (not self.m_structProductList) or table.isEmpty(self.m_structProductList) then
 		return nil
 	end
+	
+	local ui_type = self:getType()
 
 	for index, struct_product in pairs(self.m_structProductList) do
 		local ui
-		local ui_type = self:getType()
 
 		-- 구형 방식 : PackageManager에서 패키지마다 해당하는 UI class를 if문으로 찾아 리턴하는 방식
 		if (ui_type == '') then
@@ -177,6 +178,8 @@ function StructProductGroup:setTargetUI(parent_node, buy_callback)
 				end
 
 				package_class = _G[package_class]
+			else
+				package_class = nil
 			end
 
 			-- 그 외엔 전부 UI_Package
@@ -202,8 +205,16 @@ function StructProductGroup:setTargetUI(parent_node, buy_callback)
 				end)
 			end
 			
+            if is_refresh_dependency and checkMemberInMetatable(ui, 'setRefreshDependency') then
+                ui:setRefreshDependency()
+            end
+			
 			parent_node:addChild(ui.root)
 		end
+
+		if (ui_type == '') or (ui_type == 'bundle') then
+            break
+        end
 	end
 end
 

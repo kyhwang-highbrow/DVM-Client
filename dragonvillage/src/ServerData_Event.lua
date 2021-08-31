@@ -292,7 +292,7 @@ function ServerData_Event:getEventFullPopupList()
                 end
                 
             -- 패키지인 경우 구매 불가한 경우 노출시키지 않음.
-            elseif (string.find(event_type, 'package')) then
+            elseif visible and (string.find(event_type, 'package')) then
                 local package_name = event_type
 
                 -- _popup 붙어있는 경우 원래 패키지명을 구함

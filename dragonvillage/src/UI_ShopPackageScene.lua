@@ -272,7 +272,7 @@ function UI_PackageCategoryButton:createTableView()
         return 
     end
 
-    g_shopDataNew:setPackageUI(self.m_data, container, function() self:refresh() end, true)
+    self.m_data:setTargetUI(container, function() self:refresh() end, true)
 
     ------------------------------------------------------------------------
     if (self.m_data['type'] == 'group') then

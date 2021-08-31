@@ -11,20 +11,19 @@ UI_Package_AdventureClear03 = class(PARENT,{
 -------------------------------------
 function UI_Package_AdventureClear03:init(struct_product, is_popup)
     -- 모험돌파 패키지 구매 전, 기능 설정하지않고 return UI만 출력
-    if (struct_product) then
-        self.vars['closeBtn']:setVisible(false)
-        self.vars['closeBtn']:setEnabled(false)
+    if (not struct_product) then
+
         return
     end
 
-    local vars = self:load('package_adventure_clear_03.ui')
+    -- local vars = self:load('package_adventure_clear_03.ui')
     
-    self.m_isPopup = is_popup or false
-    if (is_popup) then
-        UIManager:open(self, UIManager.POPUP)
-        -- 백키 지정
-        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_AdventureClear03')
-    end
+    -- self.m_isPopup = is_popup or false
+    -- if (is_popup) then
+    --     UIManager:open(self, UIManager.POPUP)
+    --     -- 백키 지정
+    --     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_AdventureClear03')
+    -- end
 
 	-- @UI_ACTION
     self:doActionReset()
