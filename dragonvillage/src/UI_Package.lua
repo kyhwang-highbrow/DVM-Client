@@ -340,7 +340,7 @@ function UI_Package:click_buyBtn(index)
         else    
             
             local is_basic_goods_shown = false
-            if (string.find(self.m_package_name, 'package_lucky_box')) then
+            if self.m_package_name and (string.find(self.m_package_name, 'package_lucky_box')) then
                 is_basic_goods_shown = true
             end
             -- 아이템 획득 결과창
@@ -406,7 +406,7 @@ function UI_Package:click_closeBtn()
 end
 
 function UI_Package:click_quickBtn()
-    if (string.find(self.m_package_name, 'rune')) then
+    if (self.m_package_name and string.find(self.m_package_name, 'rune')) then
         UINavigator:goTo('rune_forge', 'gacha')
     elseif (self.m_package_name == 'package_super_slime_swarm') then
         UINavigator:goTo('slime_combine')

@@ -18,7 +18,7 @@ function UI_Package_AdventureClear03:init(struct_product, is_popup)
 
     -- local vars = self:load('package_adventure_clear_03.ui')
     
-    -- self.m_isPopup = is_popup or false
+    --self.m_isPopup = is_popup or false
     -- if (is_popup) then
     --     UIManager:open(self, UIManager.POPUP)
     --     -- 백키 지정
@@ -60,7 +60,7 @@ end
 function UI_Package_AdventureClear03:initButton()
     local vars = self.vars
 
-    vars['closeBtn']:setVisible(true)
+    vars['closeBtn']:setVisible(self.m_isPopup)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 end

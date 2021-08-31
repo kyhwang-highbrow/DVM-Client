@@ -135,7 +135,7 @@ function UI_RuneForgeGachaTab:initUI()
     local package_rune = g_shopDataNew:getTargetPackage('package_rune_box')
 
     if package_rune then
-        vars['buyBtn']:registerScriptTapHandler(function() UI_Package(package_rune['product_list'], true) end)
+        vars['buyBtn']:registerScriptTapHandler(function() UI_Package(package_rune:getProductList(), true) end)
     else
         vars['buyBtn']:setVisible(false)
     end
