@@ -35,7 +35,7 @@ function UI_EventLFBag:init()
     --local vars = self:load('event_lucky_fortune_bag.ui')
     local vars = self:load('event_lucky_bag.ui')
 
-    self.m_luckyVisual = vars['luckyFortuneBagVisual']
+    self.m_luckyVisual = vars['luckyBagVisual']
     self.m_isNeedPickMePickMe = true
     self.m_structLFBag = g_eventLFBagData:getLFBag()
 
