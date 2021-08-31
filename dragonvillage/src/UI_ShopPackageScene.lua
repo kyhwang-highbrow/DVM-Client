@@ -275,92 +275,100 @@ function UI_PackageCategoryButton:createTableView()
     self.m_data:setTargetUI(container, function() self:refresh() end, true)
 
     ------------------------------------------------------------------------
-    if (self.m_data['type'] == 'group') then
 
-        ui_list = container:getChildren()
+    ui_list = container:getChildren()
 
-        local product_num = #product_list
-        local row_num
+    local product_num = #product_list
+    local row_num
 
-        local margin = 10
+    local margin = 10
 
-        local is_dock_center = (self.m_data['dock_point'] == 1)
-        -- For now, we don't use dock_point, so just set to false
-        is_dock_center = false
+    local is_dock_center = (self.m_data['dock_point'] == 1)
+    -- For now, we don't use dock_point, so just set to false
+    is_dock_center = false
 
-        if (self.m_data['row_num'] ~= '') then
-            row_num = tonumber(self.m_data['row_num'])
-            -- WHY?
-            margin = 5
+    if (self.m_data['row_num'] ~= '') then
+        row_num = tonumber(self.m_data['row_num'])
+        -- WHY?
+        margin = 5
 
-            if (product_num < row_num) then
-                row_num = product_num
-            end
-        else
+        if (product_num < row_num) then
             row_num = product_num
         end
-
-        local col_num = math.floor(product_num / row_num)
-
-        ------------------------------------------------------------------------
-        local temp_x
-        local temp_y
-
-        if ((row_num % 2) == 1) then -- odd
-            temp_x = math.floor(row_num / 2)
-        else -- even
-            temp_x = (row_num) / 2 - 0.5
-        end
-
-        if ((col_num % 2) == 1) then -- odd
-            temp_y = math.floor(col_num / 2)
-        else -- even
-            temp_y = (col_num) / 2 - 0.5
-        end
-
-        -- assume that size of all child UI is same
-        local ui_size = ui_list[1]:getChildren()[1]:getContentSize()
-
-        local init_pos_x = -(margin + ui_size.width) * temp_x
-        local init_pos_y = (margin + ui_size.height) * temp_y
-
-        ------------------------------------------------------------------------
-        local normal_width, normal_height =  self.m_scrollView:getNormalSize()
-        local content_size = self.m_scrollView:getContentSize()
-        local scrollview_width = row_num * ui_size.width + (row_num - 1) * margin
-        local scrollview_height = col_num * ui_size.height + (col_num - 1) * margin
-
-        
-        local is_larger
-        if (self.m_scrollView:getDirection() == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
-            is_larger = (scrollview_height > normal_height)
-            if is_larger or (not is_dock_center) then
-                self.m_scrollView:setContentSize(scrollview_width, scrollview_height)
-            else
-                self.m_scrollView:setContentSize(scrollview_width, content_size.height)
-            end
-        else -- cc.SCROLLVIEW_DIRECTION_HORIZONTAL
-            is_larger = (scrollview_width > normal_width)
-            if is_larger or (not is_dock_center) then
-                self.m_scrollView:setContentSize(scrollview_width, scrollview_height)
-            else
-                self.m_scrollView:setContentSize(content_size.width, scrollview_height)
-            end    
-        end
-        self.m_scrollView:setTouchEnabled(is_larger)
-        container:setPosition(0, 0)
-        ------------------------------------------------------------------------
-
-        for index, ui_root in pairs(ui_list) do
-            local row = (index - 1) % row_num
-            local col = math.floor((index - 1) / row_num)
-
-            local result_x = init_pos_x + row * (margin + ui_size.width)
-            local result_y = init_pos_y - col * (margin + ui_size.height)
-
-            ui_root:setPosition(result_x, result_y)
-        end
+    else
+        row_num = product_num
     end
+
+    local col_num = math.floor(product_num / row_num)
+
+    if (self.m_data['type'] == '') or (self.m_data['type'] == 'bundle') then
+        row_num = 1
+        col_num = 1
+    end
+
+    ------------------------------------------------------------------------
+    local temp_x
+    local temp_y
+
+    if ((row_num % 2) == 1) then -- odd
+        temp_x = math.floor(row_num / 2)
+    else -- even
+        temp_x = (row_num) / 2 - 0.5
+    end
+
+    if ((col_num % 2) == 1) then -- odd
+        temp_y = math.floor(col_num / 2)
+    else -- even
+        temp_y = (col_num) / 2 - 0.5
+    end
+
+    -- assume that size of all child UI is same
+    local ui_size = ui_list[1]:getChildren()[1]:getContentSize()
+
+    local init_pos_x = -(margin + ui_size.width) * temp_x
+    local init_pos_y = (margin + ui_size.height) * temp_y
+
+    ------------------------------------------------------------------------
+    local normal_width, normal_height =  self.m_scrollView:getNormalSize()
+    local content_size = self.m_scrollView:getContentSize()
+    local scrollview_width = row_num * ui_size.width + (row_num - 1) * margin
+    local scrollview_height = col_num * ui_size.height + (col_num - 1) * margin
+
+    
+    local is_larger
+    if (self.m_scrollView:getDirection() == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
+        is_larger = (scrollview_height > normal_height)
+        if is_larger or (not is_dock_center) then
+            self.m_scrollView:setContentSize(scrollview_width, scrollview_height)
+        else
+            self.m_scrollView:setContentSize(scrollview_width, content_size.height)
+        end
+    else -- cc.SCROLLVIEW_DIRECTION_HORIZONTAL
+        is_larger = (scrollview_width > normal_width)
+        if is_larger or (not is_dock_center) then
+            self.m_scrollView:setContentSize(scrollview_width, scrollview_height)
+        else
+            self.m_scrollView:setContentSize(content_size.width, scrollview_height)
+        end    
+    end
+    self.m_scrollView:setTouchEnabled(is_larger)
+    container:setPosition(0, 0)
+    ------------------------------------------------------------------------
+
+    for index, ui_root in pairs(ui_list) do
+        if (index > 1) and (self.m_data['type'] ~= 'group') then
+            break
+        end
+        local row = (index - 1) % row_num
+        local col = math.floor((index - 1) / row_num)
+
+        local result_x = init_pos_x + row * (margin + ui_size.width)
+        local result_y = init_pos_y - col * (margin + ui_size.height)
+
+        ui_root:setPosition(result_x, result_y)
+    end
+
+    
 
 end
 

@@ -221,7 +221,7 @@ end
 ----------------------------------------------------------------------
 -- function getTargetUITest
 ----------------------------------------------------------------------
-function StructProductGroup:getTargetUITest(parent_node, buy_callback)
+function StructProductGroup:getTargetUITest(parent_node, buy_callback, is_popup)
 	if (not self.m_structProductList) or table.isEmpty(self.m_structProductList) then
 		return nil
 	end
@@ -233,7 +233,7 @@ function StructProductGroup:getTargetUITest(parent_node, buy_callback)
 		-- 구형 방식 : PackageManager에서 패키지마다 해당하는 UI class를 if문으로 찾아 리턴하는 방식
 		if (ui_type == '') then
 			local package_name = TablePackageBundle:getPackageNameWithPid(struct_product['product_id'])
-			ui = PackageManager:getTargetUI(package_name, false)
+			ui = PackageManager:getTargetUI(package_name, is_popup or false)
 		else
 			-- UI_Package 가 아닌 별도의 파일을 쓰는지 체크
 			local package_class = struct_product['package_class']
@@ -262,7 +262,7 @@ function StructProductGroup:getTargetUITest(parent_node, buy_callback)
 				product_list = {struct_product}
 			end
 
-			ui = package_class(product_list,  false, self:getProductName())
+			ui = package_class(product_list,  is_popup or false, self:getProductName())
 		end
 
 		if ui then
