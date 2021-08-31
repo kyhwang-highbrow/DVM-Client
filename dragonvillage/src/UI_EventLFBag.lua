@@ -230,7 +230,7 @@ end
 function UI_EventLFBag:playOpenAnimation(aniType, level, loop)
     local aniObj = self.m_luckyVisual
 
-    aniObj:changeAni(string.format('bag_%.2d' .. '_' .. aniType, tostring(level)), loop)
+    aniObj:changeAni(string.format('lucky_bag_%.2d' .. '_' .. aniType, tostring(level)), loop)
 end
 
 -------------------------------------
@@ -858,7 +858,7 @@ function UI_EventLFBag:playNormalAni()
     if (vars['completeNode']) then vars['completeNode']:setVisible(false) end
     if (self.m_luckyVisual) then self.m_luckyVisual:setVisible(true) end
     
-    self.m_luckyVisual:changeAni(string.format('bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
+    self.m_luckyVisual:changeAni(string.format('lucky_bag_%.2d' .. '_normal', self.m_lastAniLevel), true)
 end
 
 -------------------------------------
