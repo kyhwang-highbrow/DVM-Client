@@ -403,8 +403,7 @@ end
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
 function UI_AdventureSceneNew:click_adventureClearBtn03()
-    local ui = UI_EventFullPopup(PACK_ADVENTURE)
-    ui:openEventFullPopup()
+    local ui = PackageManager:getTargetUI(PACK_ADVENTURE, true)
 end
 
 
