@@ -251,6 +251,39 @@ function UIC_TableViewTD:_updateLinePositions()
         self._vLinePositions[lineCount + 1] = currentPos;--1 extra value allows us to get right/bottom of the last cell
     end
 end
+-------------------------------------
+-- function _updateCellPositions
+-------------------------------------
+-- function UIC_TableViewTD:_updateCellPositions()
+--     local cellsCount = #self.m_itemList
+
+--     self._vCellsPositions = {}
+
+--     if (cellsCount > 0) then
+--         local currentPos = 0
+--         for i=1, cellsCount do
+--             self._vCellsPositions[i] = currentPos;
+--             local cellSize = self:tableCellSizeForIndex(i)
+
+--             -- 가로
+--             if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+--                 currentPos = currentPos + cellSize['width']
+--             -- 세로
+--             else
+--                 currentPos = currentPos + cellSize['height']
+--             end
+
+--             self.m_itemList[i]['idx'] = i
+--             local ui = self.m_itemList[i]['ui'] or self.m_itemList[i]['generated_ui']
+            
+--             if ui then
+--                 ui:setCellIndex(i)
+--             end
+ 
+--         end
+--         self._vCellsPositions[cellsCount + 1] = currentPos;--1 extra value allows us to get right/bottom of the last cell
+--     end
+-- end
 
 -------------------------------------
 -- function _updateContentSize
@@ -627,12 +660,12 @@ end
 -- function setItemList
 -- @brief list는 key값이 고유해야 하며, value로는 UI생성에 필요한 데이터가 있어야 한다
 -------------------------------------
-function UIC_TableViewTD:setItemList(list, make_item)
+function UIC_TableViewTD:setItemList(list, make_item, key_str)
     self:clearItemList()
 
     for key,data in pairs(list) do
         local t_item = {}
-        t_item['unique_id'] = key
+        t_item['unique_id'] = key_str and data[key_str] or key
         t_item['data'] = data
 
         local idx = #self.m_itemList + 1
@@ -646,11 +679,11 @@ function UIC_TableViewTD:setItemList(list, make_item)
         table.insert(self.m_itemList, t_item)
 
         -- 맵에 등록
-        self.m_itemMap[key] = t_item
+        self.m_itemMap[t_item['unique_id']] = t_item
     end
 
     if (make_item) then
-        self:_updateCellPositions()
+        self:_updateLinePositions()
         self:_updateContentSize()
     end
 

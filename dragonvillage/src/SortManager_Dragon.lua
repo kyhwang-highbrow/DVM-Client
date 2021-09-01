@@ -110,8 +110,8 @@ end
 -- @brief 오브젝트 타입 (슬라임이 껴있을 수 있음)
 -------------------------------------
 function SortManager_Dragon:sort_object_type(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_value = self.m_mObjectTypeSortLevel[a_data.m_objectType]
     local b_value = self.m_mObjectTypeSortLevel[b_data.m_objectType]
@@ -132,8 +132,8 @@ end
 -- @brief 도감 정렬 조건 추가 - 오브젝트 타입 (슬라임 뒤로)
 -------------------------------------
 function SortManager_Dragon:sort_object_type_book(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local table_dragon = TableDragon()
     local get_book_type = function(data)
@@ -165,8 +165,8 @@ end
 -- @brief 드래곤 ID
 -------------------------------------
 function SortManager_Dragon:sort_did(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_value = a_data['did']
     local b_value = b_data['did']
@@ -187,8 +187,8 @@ end
 -- @brief 전투력
 -------------------------------------
 function SortManager_Dragon:sort_combat_power(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
 	-- sturct 타입의 데이터 아닌 경우에 통과
     if (not a_data.m_objectType) or (not b_data.m_objectType) then
@@ -217,8 +217,8 @@ end
 -- @brief 드래곤 역할
 -------------------------------------
 function SortManager_Dragon:sort_role(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_role = a_data.getRole and a_data:getRole() or a_data['role']
     local b_role = b_data.getRole and b_data:getRole() or b_data['role']
@@ -240,8 +240,8 @@ end
 -- @brief 공격력
 -------------------------------------
 function SortManager_Dragon:sort_atk(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     -- sturct 타입의 데이터 아닌 경우에 통과
     if (not a_data.m_objectType) or (not b_data.m_objectType) then
@@ -268,8 +268,8 @@ end
 -- @brief 방어력
 -------------------------------------
 function SortManager_Dragon:sort_def(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
 	-- sturct 타입의 데이터 아닌 경우에 통과
     if (not a_data.m_objectType) or (not b_data.m_objectType) then
@@ -296,8 +296,8 @@ end
 -- @brief 체력
 -------------------------------------
 function SortManager_Dragon:sort_hp(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
 	-- sturct 타입의 데이터 아닌 경우에 통과
     if (not a_data.m_objectType) or (not b_data.m_objectType) then
@@ -324,8 +324,8 @@ end
 -- @brief 속성
 -------------------------------------
 function SortManager_Dragon:sort_attr(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_attr = a_data.getAttr and a_data:getAttr() or a_data['attr']
     local b_attr = b_data.getAttr and b_data:getAttr() or b_data['attr']
@@ -347,8 +347,8 @@ end
 -- @brief 친밀도
 -------------------------------------
 function SortManager_Dragon:sort_friendship(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_value = a_data.getFlv and a_data:getFlv() or a_data['flv']
     local b_value = b_data.getFlv and b_data:getFlv() or b_data['flv']
@@ -367,8 +367,8 @@ end
 -- @brief 희귀도
 -------------------------------------
 function SortManager_Dragon:sort_rarity(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_rarity = a_data.getRarity and a_data:getRarity() or a_data['rarity']
     local b_rarity = a_data.getRarity and b_data:getRarity() or b_data['rarity']
@@ -390,8 +390,8 @@ end
 -- @brief 등급
 -------------------------------------
 function SortManager_Dragon:sort_grade(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_value = a_data['grade']
     local b_value = b_data['grade']
@@ -411,8 +411,8 @@ end
 -- @comment 디폴트로 push 하지는 않음 .. 
 -------------------------------------
 function SortManager_Dragon:sort_evolution(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
 	local a_value = a_data['evolution']
 	local b_value = b_data['evolution']
@@ -431,8 +431,8 @@ end
 -- @brief 레벨
 -------------------------------------
 function SortManager_Dragon:sort_lv(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_value = a_data['lv']
     local b_value = b_data['lv']
@@ -451,8 +451,8 @@ end
 -- @brief 자코 여부.. 는 did를 역으로 활용
 -------------------------------------
 function SortManager_Dragon:sort_underling(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_value = a_data['did']
     local b_value = b_data['did']
@@ -471,8 +471,8 @@ end
 -- @brief 획득순
 -------------------------------------
 function SortManager_Dragon:sort_created_at(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_value = a_data['created_at']
     local b_value = b_data['created_at']
@@ -491,8 +491,8 @@ end
 -- @brief 특성 재료를 맨 앞으로 정렬
 -------------------------------------
 function SortManager_Dragon:sort_with_material(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_value = a_data['did']
     local b_value = b_data['did']
@@ -519,8 +519,8 @@ end
 -- @brief 오브젝트 ID
 -------------------------------------
 function SortManager_Dragon:sort_doid(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_value = a_data['id'] or 0
     local b_value = b_data['id'] or 0
@@ -538,8 +538,8 @@ end
 -- @brief 한정, 카드팩, 이벤트 드래곤 순으로 정렬
 -------------------------------------
 function SortManager_Dragon:sort_dragon_type(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
+    local a_data = a['data'] and a['data'] or a
+    local b_data = b['data'] and b['data'] or b
 
     local a_value = a['data']['category']
     local b_value = b['data']['category']

@@ -9,6 +9,8 @@ StructDragonObject = class({
         id = 'dragon_object_id',
         doid = 'dragon_object_id',
 
+        data = '',
+
         did = 'number', -- 드래곤 ID
         lv = 'number',
         exp = 'number',

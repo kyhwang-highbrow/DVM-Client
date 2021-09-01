@@ -12,6 +12,8 @@ UI_DragonGoodbyeSelectNew2 = class(PARENT,{
 
 		m_expSum = 'number', 
         m_tRelationSum = 'table', -- 현재까지 선택된 인연포인트 합 저장(드래곤 선택 가능한지 판단할 때 사용)
+
+        m_bselectAllBtn = 'boolean',
     })
 
 -------------------------------------
@@ -42,6 +44,9 @@ function UI_DragonGoodbyeSelectNew2:init()
 	self.m_tSellTable = {}
 	self.m_expSum = 0
     self.m_tRelationSum = {}
+    
+    -- 정렬 도우미
+	self:init_mtrDragonSortMgr(false) -- slime_first
 
     self:initUI()
     self:initButton()
@@ -49,8 +54,6 @@ function UI_DragonGoodbyeSelectNew2:init()
 
     self:click_typeBtn('relation')
 
-    -- 정렬 도우미
-	self:init_mtrDragonSortMgr(false) -- slime_first
 end
 
 -------------------------------------
@@ -75,7 +78,11 @@ function UI_DragonGoodbyeSelectNew2:initButton()
 
     vars['goodbyeSellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
     vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
+
+    vars['selectAllBtn']:registerScriptTapHandler(function() self:click_selectAllBtn() end)
+
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+
 end
 
 -------------------------------------
@@ -131,9 +138,15 @@ function UI_DragonGoodbyeSelectNew2:refresh_dragonMaterialTableView()
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonMaterialList()
-    self.m_mtrlTableViewTD:setItemList(l_dragon_list)
-	
-	self:apply_mtrlDragonSort()
+
+    
+    l_dragon_list = table.MapToList(l_dragon_list)
+    
+    
+    self.m_mtrlDragonSortManager:sortExecution(l_dragon_list)
+    self.m_mtrlTableViewTD:setItemList(l_dragon_list, true, 'id')
+
+    --self:apply_mtrlDragonSort()
 end
 
 -------------------------------------
@@ -182,6 +195,112 @@ end
 -------------------------------------
 function UI_DragonGoodbyeSelectNew2:createMtrlDragonCardCB(ui, data)
     -- nothing to do
+end
+
+
+-------------------------------------
+-- function click_selectAllBtn
+-- @brief 
+-------------------------------------
+function UI_DragonGoodbyeSelectNew2:click_selectAllBtn()
+    local is_skipped_warning_popup = self:checkSkipWarningPopup()
+
+    if (not is_skipped_warning_popup) and (not self.m_bselectAllBtn) then 
+        local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, '4성 이하 모든 드래곤', '작별하시겠습니까?', function() self:test_func() end)
+
+        if ui then
+            ui:setCheckBoxCallback(function() g_settingData:setSkipInfoForFarewellWarningPopup(curr_date) end)
+        end
+
+        return
+    end
+
+
+    self:test_func()
+end
+
+-------------------------------------
+-- function click_selectAllBtn
+-- @brief 
+-------------------------------------
+function UI_DragonGoodbyeSelectNew2:test_func()
+    local vars = self.vars
+
+    self.m_bselectAllBtn = (not self.m_bselectAllBtn)
+    -- 다시 초기화
+	self.m_expSum = 0
+    self.m_tRelationSum = {}
+	self.m_tSellTable = {}
+	self:refresh_dragonMaterialTableView()
+    self:refresh_selectedMaterial()
+
+    if self.m_bselectAllBtn then
+        vars['selectAllLabel']:setString(Str('모두 해제'))
+    else
+        vars['selectAllLabel']:setString(Str('모두 선택'))
+        return
+    end
+
+    local dragon_exp_table = TableDragonExp()
+
+     -- 재료로 사용 가능한 리스트를 얻어옴
+     local item_list = self.m_mtrlTableViewTD.m_itemList
+     local dragon_list = self:getDragonMaterialList()
+
+     for oid, item in pairs(item_list) do
+        local data = item['data']
+        local sell_count = table.count(self.m_tSellTable)
+        
+        -- 최대 100마리
+        if (sell_count >= MAX_SELL_CNT) then 
+            break
+        end
+
+        local doid = data['id']
+        local grade = data['grade']
+        local is_rune_empty = (#data:getRuneObjectList() < 1)
+
+        if (grade < 5) and is_rune_empty then
+            local level = data['lv']
+            local is_myth_dragon = (data:getRarity() == 'myth')
+            local exp = dragon_exp_table:getDragonGivingExp(grade, level, is_myth_dragon)
+            
+            local is_possible = false
+
+            if (self.m_selectType == 'exp') then -- 경험치
+                self.m_expSum = self.m_expSum + exp
+                is_possible = true
+
+            elseif (self.m_selectType == 'relation') then -- 인연포인트
+                local relation_table = self.m_tRelationSum
+                local did = data['did']
+
+                if (relation_table[did] == nil) then
+                    relation_table[did] = 0
+                end
+
+                local curr_relation = g_bookData:getBookData(did):getRelation()
+                local add_relation_count = TableDragon:getRelationPoint(did)
+                local sum = curr_relation + relation_table[did] + add_relation_count -- 기존 인연포인트 + 현재 선택되있던 인연포인트 + 새로 선택하는 인연포인트
+                local max_relation = TableDragonReinforce:getTotalExp()
+
+                if (sum <= max_relation) then -- 인연포인트 한도 체크
+                    relation_table[did] = relation_table[did] + add_relation_count
+                    is_possible = true
+                end
+            else -- 특성 재료
+                is_possible = true
+            end
+
+            if is_possible then
+                self.m_tSellTable[doid] = data
+
+                -- 갱신
+                self:refresh_materialDragonIndivisual(doid)
+                self:refresh_selectedMaterial()
+            end
+        end
+     end
 end
 
 -------------------------------------
@@ -376,6 +495,8 @@ function UI_DragonGoodbyeSelectNew2:click_typeBtn(type)
     
 
     -- 다시 초기화
+    self.m_bselectAllBtn = false
+
 	self.m_expSum = 0
     self.m_tRelationSum = {}
 	self.m_tSellTable = {}

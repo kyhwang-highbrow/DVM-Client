@@ -227,8 +227,8 @@ function UI_DragonManageInfo:refresh()
     local is_myth_dragon = t_dragon_data:getRarity() == 'myth'
     --vars['upgradeBtn']:setEnabled(not is_myth_dragon)
     --vars['reinforceBtn']:setEnabled(not is_myth_dragon)
-    vars['goodbyeBtn']:setVisible(not is_myth_dragon)
-    vars['goodbyeSelectBtn']:setVisible(not is_myth_dragon)
+    --vars['goodbyeBtn']:setVisible(not is_myth_dragon)
+    --vars['goodbyeSelectBtn']:setVisible(not is_myth_dragon)
     --vars['lockBtn']:setVisible(not is_myth_dragon)
     
     -- spine 캐시 정리 확인

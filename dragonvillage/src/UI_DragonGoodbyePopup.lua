@@ -7,7 +7,9 @@ UI_DragonGoodbyePopup = class(PARENT,{
 		m_dragonOid = 'string',
 		m_tDragonData = 'table',
         m_msg = 'string',
-		m_okBtn_cb = 'function'
+		m_okBtn_cb = 'function',
+
+		m_bIsMythDragon = 'boolean',
     })
 
 -------------------------------------
@@ -16,6 +18,7 @@ UI_DragonGoodbyePopup = class(PARENT,{
 function UI_DragonGoodbyePopup:init(dragon_oid, dragon_data, msg, okBtn_cb)
     self.m_dragonOid = dragon_oid
 	self.m_tDragonData = dragon_data
+	self.m_bIsMythDragon = (dragon_data:getRarity() == 'myth')
 	self.m_msg = msg
 	self.m_okBtn_cb = okBtn_cb
 
@@ -55,11 +58,10 @@ function UI_DragonGoodbyePopup:initUI()
 	local lv = dragon_data['lv']
 	local attr = dragon_table:getValue(did, 'attr')
 	local rarity = dragon_table:getValue(did, 'rarity')
-    local is_myth_dragon = rarity == 'myth'
 
 	-- 인연 포인트
 	do
-        if (g_dragonsData:possibleGoodbye(oid)) then -- 인연포인트로 변경 가능할 때
+        if (g_dragonsData:possibleGoodbye(oid)) and (not self.m_bIsMythDragon) then -- 인연포인트로 변경 가능할 때
 		    local item_id = 760000 + (did % 10000) -- 인연포인트 코드
 		    local count = dragon_table:getRelationPoint(did)
 	
@@ -89,6 +91,8 @@ function UI_DragonGoodbyePopup:initUI()
 		    local ui = UI_ItemCard(material_item['item_id'], material_item['count'])
             ui:setEnabledClickBtn(false)
 		    vars['itemNode2']:addChild(ui.root)
+		elseif (self.m_bIsMythDragon) then
+
 	    else
 		    vars['checkBtn2']:setVisible(false)
 		    vars['checkBtn2']:setEnabled(false)
@@ -96,15 +100,20 @@ function UI_DragonGoodbyePopup:initUI()
     end
 	-- 경험치 아이템
 	do
-		local exp = dragon_exp_table:getDragonGivingExp(grade, lv, is_myth_dragon)	
+		if (not self.m_bIsMythDragon) then
+			local exp = dragon_exp_table:getDragonGivingExp(grade, lv, self.m_bIsMythDragon)	
 
-		local dragon_exp_item = {}
-		dragon_exp_item['item_id'] = 700017 -- 드래곤 경험치 아이템 코드
-		dragon_exp_item['count'] = exp 	
-		
-		local ui = UI_ItemCard(dragon_exp_item['item_id'], dragon_exp_item['count'])
-        ui:setEnabledClickBtn(false)
-        vars['itemNode3']:addChild(ui.root)
+			local dragon_exp_item = {}
+			dragon_exp_item['item_id'] = 700017 -- 드래곤 경험치 아이템 코드
+			dragon_exp_item['count'] = exp 	
+			
+			local ui = UI_ItemCard(dragon_exp_item['item_id'], dragon_exp_item['count'])
+			ui:setEnabledClickBtn(false)
+			vars['itemNode3']:addChild(ui.root)
+		else
+		    vars['checkBtn3']:setVisible(false)
+		    vars['checkBtn3']:setEnabled(false)
+		end
 	end		
 end
 
@@ -264,7 +273,11 @@ function UI_DragonGoodbyePopup:click_goodbyeBtn()
 	if (vars['checkBtn1']:isChecked()) then
 		target = 'relation'		
 	elseif (vars['checkBtn2']:isChecked()) then
-		target = 'mastery'
+		if (not self.m_bIsMythDragon) then
+			target = 'mastery'
+		else
+			target = 'test'
+		end
 	elseif (vars['checkBtn3']:isChecked()) then
 		target = 'exp'  
 	end
