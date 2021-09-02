@@ -150,7 +150,7 @@ function UI_DragonManageInfo:initButton()
         vars['lockBtn']:registerScriptTapHandler(function() self:click_lockBtn() end)
 
         -- 작별
-        vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_goodbyeBtn() end) -- 2020-11-10 드래곤 레벨업 개편으로 변경
+        vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_testBtn() end) -- 2020-11-10 드래곤 레벨업 개편으로 변경
 		
 		-- 일괄 작별
 		vars['goodbyeSelectBtn']:registerScriptTapHandler(function() self:click_goodbyeSelectBtn() end)
@@ -923,6 +923,36 @@ end
 -- @brief 일괄 작별
 -------------------------------------
 function UI_DragonManageInfo:click_goodbyeSelectBtn()
+    --require('UI_DragonGoodbyeSelect')
+	--local ui = UI_DragonGoodbyeSelect()
+    --require('UI_DragonGoodbyeSelectNew')
+    --local ui = UI_DragonGoodbyeSelectNew()
+    require('UI_DragonGoodbyeSelect')
+    local ui = UI_DragonGoodbyeSelect()
+	
+    local oid = self.m_selectDragonOID
+    local idx = self.m_tableViewExt:getIndexFromId(oid) or 1
+
+    local function close_cb()
+	    if ui.m_bChangeDragonList then
+			-- 테이블 아이템갱신
+			self:init_dragonTableView()
+
+			-- 정렬
+			self:apply_dragonSort_saveData()
+
+            local next_idx = math_min(idx, self.m_tableViewExt:getItemCount())
+            local next_doid = self.m_tableViewExt:getIdFromIndex(next_idx)
+
+			-- 기존에 선택되어 있던 드래곤 교체
+			self:setDefaultSelectDragon(next_doid)
+
+            self:sceneFadeInAction()
+		end
+	end
+	ui:setCloseCB(close_cb)
+end
+function UI_DragonManageInfo:click_testBtn()
     --require('UI_DragonGoodbyeSelect')
 	--local ui = UI_DragonGoodbyeSelect()
     --require('UI_DragonGoodbyeSelectNew')
