@@ -34,6 +34,7 @@ function UI_Setting:init_devTab()
     vars['dailyInitBtn']:registerScriptTapHandler(function() self:click_dailyInitBtn() end)
     vars['eggSimulBtn']:registerScriptTapHandler(function() self:click_eggSimulBtn() end)
     vars['translationViewerBtn']:registerScriptTapHandler(function() self:click_translationViewerBtn() end)
+    vars['presetDeckBtn']:registerScriptTapHandler(function() self:click_presetDeckBtn() end)
     
     vars['testCodeBtn']:registerScriptTapHandler(function() UI_SettingTestCode() end)
     
@@ -881,6 +882,60 @@ function UI_Setting:click_dailyInitBtn()
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function click_presetDeckBtn
+-- 사전 설정된 덱
+-------------------------------------
+function UI_Setting:click_presetDeckBtn()
+    local edit_box = UI_SimpleEditBoxPopup()
+    edit_box:setPopupTitle(Str(''))
+    edit_box:setPopupDsc(Str('고정 덱 설정'))
+    edit_box:setPlaceHolder(Str('설정할 덱 이름을 입력하시오'))
+    edit_box:setMaxLength(100)
+
+    local function confirm_cb(str)
+        if (isNullOrEmpty(str) == false) then
+            UIManager:toastNotificationRed('잘못된 덱 이름 입력 :: ' .. tostring(str))
+            return false
+        end
+
+        return true
+    end
+
+    edit_box:setConfirmCB(confirm_cb)
+
+    local function close_cb()
+        if (edit_box.m_retType == 'ok') then
+            local deck_str = edit_box.m_str
+
+            if (isNullOrEmpty(deck_str) == true) then
+                UIManager:toastNotificationRed('입력한 덱 이름이 없어서 default로 저장합니다.')
+            end
+
+            if (confirm_cb(deck_str) == false) then return end
+
+            -- 유저 ID
+            local uid = g_userData:get('uid')
+
+            -- 네트워크 통신
+            local ui_network = UI_Network()
+            ui_network:setUrl('/manage/set_preset_deck')
+            ui_network:setParam('uid', uid)
+            ui_network:setParam('deckname', deck_str)
+
+            ui_network:setMethod('POST')
+            ui_network:setSuccessCB(success_cb)
+            ui_network:setFailCB(fail_cb)
+            ui_network:setRevocable(true)
+            ui_network:setReuse(false)
+            ui_network:request()
+
+        end
+    end
+
+    edit_box:setCloseCB(close_cb)
 end
 
 -------------------------------------
