@@ -51,6 +51,7 @@ ITEM_ID_MAP['event'] = 700202
 ITEM_ID_MAP['ancient'] = 700010
 ITEM_ID_MAP['clancoin'] = 700011
 ITEM_ID_MAP['capsule_coin'] = 700012
+ITEM_ID_MAP['memory_myth'] = 700019
 ITEM_ID_MAP['rune_box'] = 700651
 ITEM_ID_MAP['amor'] = 700014
 --ITEM_ID_MAP['oblivion'] = 700015 -- @brief 망각의 서는 아이템으로 취급하기로 했

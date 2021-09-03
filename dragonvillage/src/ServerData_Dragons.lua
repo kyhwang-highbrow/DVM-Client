@@ -784,6 +784,7 @@ function ServerData_Dragons:checkDragonSummonMaximum(summon_cnt)
     return true
 end
 
+
 -------------------------------------
 -- function possibleGoodbye
 -- @brief 작별 가능한지 체크
@@ -872,10 +873,6 @@ function ServerData_Dragons:possibleConversion(doid)
 		return false, Str('변환할 수 없습니다.') 
 	end
 
-    if (t_dragon_data:getRarity() == 'myth') then
-        return false, Str('작별할 수 없는 드래곤입니다.') 
-    end
-
     return true
 end
 
@@ -890,10 +887,10 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
         return false, ''
     end
 
-    -- 신화 드래곤 체크
-    --if (t_dragon_data:getRarity() == 'myth') then
+    -- -- 신화 드래곤 체크
+    -- if (t_dragon_data:getRarity() == 'myth') then
     --    return false, Str('작별할 수 없는 드래곤입니다.') 
-    --end
+    -- end
 
 
 	-- 잠금 체크
@@ -1774,7 +1771,7 @@ end
 -------------------------------------
 -- function request_goodbye
 -- @brief 드래곤 작별
--- @param target string 'exp', 'relation', 'mastery'
+-- @param target string 'exp', 'relation', 'mastery', 'memory_myth'
 -- @param doids string 드래곤 오브젝트 ID를 ','로 연결한 문자열
 -- @param cb_func function(ret)
 -------------------------------------

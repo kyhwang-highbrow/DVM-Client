@@ -23,6 +23,8 @@ UI_DragonManageInfo = class(PARENT,{
 function UI_DragonManageInfo:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_DragonManageInfo'
+    
+    self.m_subCurrency = 'memory_myth'  -- 상단 유저 재화 정보 중 서브 재화
     self.m_bVisible = true or false
     self.m_titleStr = nil
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함

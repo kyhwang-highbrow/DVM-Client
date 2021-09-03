@@ -80,19 +80,28 @@ function UI_DragonGoodbyePopup:initUI()
 	-- 특성 재료
     do
 	    if (g_dragonsData:possibleConversion(oid)) then -- 특성 재료로 변경 가능할 때
-		    local material_name = 'mastery_material_' .. rarity  .. '_' .. attr
-		    local item_id = item_table:getItemIDFromItemType(material_name) -- 특성 재료 아이디
-		    local count = 1
+			
+			local material_item = {}
 
-		    local material_item = {}
-		    material_item['item_id'] = item_id
-		    material_item['count'] = count 		
-	
-		    local ui = UI_ItemCard(material_item['item_id'], material_item['count'])
-            ui:setEnabledClickBtn(false)
-		    vars['itemNode2']:addChild(ui.root)
-		elseif (self.m_bIsMythDragon) then
+			if (not self.m_bIsMythDragon) then
+				local material_name = 'mastery_material_' .. rarity  .. '_' .. attr
+				local item_id = item_table:getItemIDFromItemType(material_name) -- 특성 재료 아이디
+				local count = 1
+				
+				material_item['item_id'] = item_id
+				material_item['count'] = count 		
+			else
+				local item_id = item_table:getItemIDFromItemType('memory_myth') -- 특성 재료 아이디
+				cclog(item_id)
+				local count = 1
+				
+				material_item['item_id'] = item_id
+				material_item['count'] = count 	
+			end
 
+			local ui = UI_ItemCard(material_item['item_id'], material_item['count'])
+			ui:setEnabledClickBtn(false)
+			vars['itemNode2']:addChild(ui.root)
 	    else
 		    vars['checkBtn2']:setVisible(false)
 		    vars['checkBtn2']:setEnabled(false)
@@ -276,7 +285,7 @@ function UI_DragonGoodbyePopup:click_goodbyeBtn()
 		if (not self.m_bIsMythDragon) then
 			target = 'mastery'
 		else
-			target = 'test'
+			target = 'memory_myth'
 		end
 	elseif (vars['checkBtn3']:isChecked()) then
 		target = 'exp'  
