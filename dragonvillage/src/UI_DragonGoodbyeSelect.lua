@@ -1,30 +1,34 @@
 local PARENT = UI_DragonManage_Base
 
+
 -------------------------------------
 -- class UI_DragonGoodbyeSelect
 -------------------------------------
+UI_DragonGoodbyeSelect = class(PARENT, {
+	m_isAutoSelected = 'boolean',
+	m_bOptionChanged = 'boolean',
 
-UI_DragonGoodbyeSelect = class(PARENT,{
-		m_tableView = 'UIC_TableViewTD', -- 드래곤 정렬 리스트뷰
-		m_sortManagerDragon = "SortManager_Dragon", -- 드래곤 정렬 매니저
-		m_tFilterDragonList = 'table',
-		m_selectPresentType = 'PRESENT_TYPE', -- 작별로 받을 아이템 종류
-		m_bOptionChanged = 'boolean', -- 옵션이 바뀌었는지
+	m_tabList = 'List[string]',
+	m_currTabType = 'string',
 
-		m_bChangeDragonList = 'boolean' -- 드래곤 변동사항이 있는지
-	})
 
-PRESENT_TYPE = {}
-PRESENT_TYPE.EXP = 1
-PRESENT_TYPE.RELATION = 2
-PRESENT_TYPE.MASTERY = 3
+	m_attributeList = 'List[string]',
+	m_rarityList = 'List[string]',
+
+	m_currFilteredList = 'List[]',
+
+	m_sellList = 'List[number]', -- doid
+
+	m_selectedNum = 'number',
+	m_totalNum = 'number',
+})
+
 
 -------------------------------------
 -- function initParentVariable
--- @brief 자식 클래스에서 반드시 구현할 것
+-- @brief ITopUserInfo_EventListener의 맴버 변수들 설정
 -------------------------------------
 function UI_DragonGoodbyeSelect:initParentVariable()
-    -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_DragonGoodbyeSelect'
     self.m_bVisible = true
     self.m_titleStr = Str('일괄 작별')
@@ -35,552 +39,512 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonGoodbyeSelect:init(doid)
-    local vars = self:load('goodbye_select_popup_01.ui')
-    UIManager:open(self, UIManager.SCENE)
+function UI_DragonGoodbyeSelect:init(selectedDragonData)
+	local vars = self:load('dragon_goodbye_select_popup_new.ui')
 
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonGoodbyeSelect')
+	UIManager:open(self, UIManager.SCENE)
 
-    self:sceneFadeInAction()
-		
+	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonGoodbyeSelect')
+
+	self:sceneFadeInAction()
+
 	self.m_bOptionChanged = false
-	self.m_bChangeDragonList = false
-
-    self:initUI()
-    self:initButton()
-	self:initTableView()
-
-	self:changePresentType(PRESENT_TYPE.EXP)
+	self.m_isAutoSelected = false
+	self.m_tabList = {'relation', 'mastery', 'exp'}
+	self.m_attributeList = {'fire', 'water', 'earth', 'light', 'dark'}
+	self.m_rarityList = {'legend', 'hero', 'rare', 'common'}
+	self.m_sellList = {}
+	self.m_currFilteredList = {}
 
     -- 정렬 도우미
-	--self:init_mtrDragonSortMgr(false)
+	self:init_mtrDragonSortMgr(false) -- slime_first
+
+	self:initUI()
+	self:initButton()
+
+	self:click_tabBtn(self.m_tabList[1])
+
+	self:refresh()
 end
+
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_DragonGoodbyeSelect:initUI()
 	local vars = self.vars
+
+    do -- 배경
+        local animator = ResHelper:getUIDragonBG('earth', 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end
+
+	self:init_dragonMaterialTableView()
 end
 
 -------------------------------------
--- function initTableView
+-- function getDragonMaterialList
+-- brief UI_DragonManage_Base:getDragonMaterialList()
 -------------------------------------
-function UI_DragonGoodbyeSelect:initTableView()
-	local vars = self.vars
+function UI_DragonGoodbyeSelect:getDragonMaterialList()
+	local dragon_list = g_dragonsData:getDragonsList()
 
-	local node = self.vars['listViewNode']
+	for doid, struct_dragon in pairs(dragon_list) do
+		if (not self:isFarewellPossible(struct_dragon)) then
+			dragon_list[doid] = nil
+		end
+	end
 
-    -- 리스트 아이템 생성 콜백
-    local function make_func(object)
-        return UI_DragonCard(object)
-    end
-
-    local function create_func(ui, data)
-        -- 새로 획득한 드래곤 뱃지
-        local is_new_dragon = data:isNewDragon()
-        ui:setNewSpriteVisible(is_new_dragon)
-
-        ui.root:setScale(0.74)
-    end
-
-    -- 테이블뷰 생성
-    local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(116, 116)
-    table_view_td.m_nItemPerCell = 5
-    table_view_td:setCellUIClass(make_func, create_func)
-    table_view_td:setCellCreateInterval(0)
-	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
-    table_view_td:setCellCreatePerTick(3)
-    self.m_tableView = table_view_td
-
-    -- 리스트를 얻어옴
-    local l_dragon_list = self:getFilterDragonList()
-    self.m_tableView:setItemList(l_dragon_list)
-
-	local sort_manager = SortManager_Dragon()
-    sort_manager:pushSortOrder('grade')
-    sort_manager:pushSortOrder('lv')
-    sort_manager:pushSortOrder('rarity')
-   
-    self.m_sortManagerDragon = sort_manager
+	return self:filterDragonList(dragon_list)
 end
+
+-------------------------------------
+-- function isFarewellPossible
+-------------------------------------
+function UI_DragonGoodbyeSelect:isFarewellPossible(struct_dragon)
+	if struct_dragon:getLock() then
+		return false
+	elseif struct_dragon:isLeader() then
+		return false
+		
+	-- 3성 번고/땅스마트 작별 못하게 막음
+	elseif (struct_dragon:getBirthGrade() > struct_dragon:getGrade()) then
+		return false
+	elseif (struct_dragon:getRarity() == 'myth') then
+		return false
+
+	else
+		if (self.m_currTabType == 'exp') then
+
+		--elseif (self.m_currTabType == 'relation') then
+			
+		else--if (self.m_currTabType == 'mastery') then
+			if (struct_dragon:getBirthGrade() < 3) then
+				return false
+			end
+	
+		end
+	end
+
+	return true
+end
+
 
 -------------------------------------
 -- function initButton
--- @brief 버튼 UI 초기화
 -------------------------------------
 function UI_DragonGoodbyeSelect:initButton()
+	local vars = self.vars
+
+	for index, key in pairs(self.m_tabList) do
+		vars[key .. 'Btn']:registerScriptTapHandler(function() self:click_tabBtn(key) end)
+	end
+
+	vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_farewellBtn() end)
+	vars['autoSelectBtn']:registerScriptTapHandler(function() self:click_autoSelectBtn() end)
+	vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+end
+
+-------------------------------------
+-- function initFilterButton
+-- brief called in UI_DragonGoodbyeSelect:initButton()
+-------------------------------------
+function UI_DragonGoodbyeSelect:initFilterButton()
     local vars = self.vars
 
-	vars['expBtn']:registerScriptTapHandler(function() self:changePresentType(PRESENT_TYPE.EXP) end)
-	vars['relationshipBtn']:registerScriptTapHandler(function() self:changePresentType(PRESENT_TYPE.RELATION) end)
-	vars['masteryBtn']:registerScriptTapHandler(function() self:changePresentType(PRESENT_TYPE.MASTERY) end)
+	-- 'farewell', 'selective', 'grade_option'
+	-- 'farewell', 'selective', 'attribute_option'
+	-- 'farewell', 'selective', 'rarity_option'
 
-    vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_goodbyeBtn() end)
-	vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
+	-- local filter_key_list = {'grade', 'attribute', 'rarity'}
+	-- local index = 1
 
-	-- 전체 선택
+	-- local setting_data = g_settingData:get('farewell', 'selective')
+
+	-- while(vars['starBtn' .. index] or vars['attrBtn' .. index] or vars['rarityBtn' .. index]) do
+
+	-- 	for _, key in pairs(filter_key_list) do
+	-- 		local button = vars[key .. 'Btn' .. index]
+	-- 		if button then
+	-- 			local setting_data[key .. '_option']
+	-- 		end
+	-- 	end
+
+	-- 	index = index + 1
+	-- end
+	local grade_option_list = g_settingData:get('farewell', 'selective', self.m_currTabType, 'grade_option')
+
+    -- 등급 
+    for idx = 1, 5 do
+		local is_checked = grade_option_list and grade_option_list[idx]
+		
+		if (is_checked == nil) then
+			is_checked = true 
+			self.m_bOptionChanged = true
+		end
+
+        --local active = g_settingData:get('option_dragon_select', 'grade_'..idx)
+        vars['starBtn'..idx] = UIC_CheckBox(vars['starBtn'..idx].m_node, vars['starSprite'..idx], is_checked)
+        vars['starBtn'..idx]:registerScriptTapHandler(function() self:click_filterCheckbox() end)
+    end
+
+	local attribute_option_list = g_settingData:get('farewell', 'selective', self.m_currTabType, 'attribute_option')
+
+    -- 속성
+    for idx = 1, #self.m_attributeList do
+		local is_checked = attribute_option_list and attribute_option_list[idx]
+		
+		if (is_checked == nil) then 
+			is_checked = true 
+			self.m_bOptionChanged = true
+		end
+
+        --local active = g_settingData:get('option_dragon_select', 'attr_'..idx)
+        vars['attrBtn'..idx] = UIC_CheckBox(vars['attrBtn'..idx].m_node, vars['attrSprite'..idx], is_checked)
+        vars['attrBtn'..idx]:registerScriptTapHandler(function() self:click_filterCheckbox() end)
+    end
+
+	local rarity_option_list = g_settingData:get('farewell', 'selective', self.m_currTabType, 'rarity_option')
+
+    -- 희귀도
+    for idx = 1, #self.m_rarityList do
+        local is_checked = rarity_option_list and rarity_option_list[idx]
+
+		if (is_checked == nil) then 
+			is_checked = true 
+			self.m_bOptionChanged = true
+		end
+
+        vars['rarityBtn'..idx] = UIC_CheckBox(vars['rarityBtn'..idx].m_node, vars['raritySprite'..idx], is_checked)
+        vars['rarityBtn'..idx]:registerScriptTapHandler(function() self:click_filterCheckbox() end)
+    end
+
+
 	vars['allCheckBtn'] = UIC_CheckBox(vars['allCheckBtn'].m_node, vars['allCheckSprite'], false)
-	vars['allCheckBtn']:registerScriptTapHandler(function() self:click_allCheckBtn() end)
-
-	-- 등급 
-    for idx = 1, 6 do
-        local active = g_settingData:get('option_dragon_select', 'grade_'..idx)
-        vars['starBtn'..idx] = UIC_CheckBox(vars['starBtn'..idx].m_node, vars['starSprite'..idx], active)
-        vars['starBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
-    end
-    -- 속성
-    for idx = 1, 5 do
-        local active = g_settingData:get('option_dragon_select', 'attr_'..idx)
-        vars['attrBtn'..idx] = UIC_CheckBox(vars['attrBtn'..idx].m_node, vars['attrSprite'..idx], active)
-        vars['attrBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
-    end
-    -- 희귀도
-    for idx = 1, 4 do
-        local active = g_settingData:get('option_dragon_select', 'rarity_'..idx)
-        vars['rarityBtn'..idx] = UIC_CheckBox(vars['rarityBtn'..idx].m_node, vars['raritySprite'..idx], active)
-        vars['rarityBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
-    end
-    -- 역할
-    for idx = 1, 4 do
-        local active = g_settingData:get('option_dragon_select', 'type_'..idx)
-        vars['typeBtn'..idx] = UIC_CheckBox(vars['typeBtn'..idx].m_node, vars['typeSprite'..idx], active)
-        vars['typeBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
-    end
+	vars['allCheckBtn']:registerScriptTapHandler(function() self:click_allFilterCheckbox() end)
 end
 
 -------------------------------------
--- function click_allCheckBtn
--- @brief 전체 선택, 전체 해제 토글
+-- function filterDragonList
 -------------------------------------
-function UI_DragonGoodbyeSelect:click_allCheckBtn()
-	local vars = self.vars
-	local is_active = vars['allCheckBtn']:isChecked()
-
-	-- 등급 
-    for idx = 1, 6 do
-        vars['starBtn'..idx]:setChecked(is_active)
-    end
-    -- 속성
-    for idx = 1, 5 do
-        vars['attrBtn'..idx]:setChecked(is_active)
-    end
-    -- 희귀도
-    for idx = 1, 4 do
-        vars['rarityBtn'..idx]:setChecked(is_active)
-    end
-    -- 역할
-    for idx = 1, 4 do
-        vars['typeBtn'..idx]:setChecked(is_active)
-    end
-
-	self:refresh()
-end
-
--------------------------------------
--- function changePresentType
--- @brief 작별 선물 타입 변경
--- @param type = {exp, relation, mastery} 중 1개
--------------------------------------
-function UI_DragonGoodbyeSelect:changePresentType(type)
+function UI_DragonGoodbyeSelect:filterDragonList(dragon_list)
 	local vars = self.vars
 
-	if type == nil then -- 방어적 프로그래밍
-		return
+	-- 등급
+	local grade_result = {}
+
+	local index = 1
+	local is_grade_all_checked = true
+	while(vars['starBtn' .. index]) do
+		grade_result[index] = vars['starBtn' .. index]:isChecked()
+		is_grade_all = is_grade_all and grade_result[index]
+
+		index = index + 1
 	end
+
+	-- 속성
+	local attribute_result = {}
+
+	local is_attribute_all_checked = true
+	for index, attribute in pairs(self.m_attributeList) do
+		attribute_result[attribute] = vars['attrBtn' .. index]:isChecked()
+		is_attribute_all_checked = is_attribute_all_checked and attribute_result[attribute]
+	end
+
+	-- 희귀도
+	local rarity_result = {}
 	
-	-- 변경할 필요 없는 경우
-	if self.m_selectPresentType == type then
-		return
+	local is_rarity_all_checked = true
+	for index, rarity in pairs(self.m_rarityList) do
+		rarity_result[rarity] = vars['rarityBtn' .. index]:isChecked()
+		is_rarity_all_checked = is_rarity_all_checked and rarity_result[rarity]
 	end
-	
-	-- 변경하는 경우
-	if self.m_selectPresentType ~= nil then
-		self:getTypeBtn(self.m_selectPresentType):setEnabled(true) -- 이전에 눌려있던 버튼 끄기
-		self:getTypeLabel(self.m_selectPresentType):setColor(COLOR['white'])
-	end
-	self:getTypeBtn(type):setEnabled(false) -- 버튼 누르기
-	self:getTypeLabel(type):setColor(COLOR['black'])
-	
-	self.m_selectPresentType = type
 
-	-- 드래곤 리스트 가져와서 정렬하기
-	self:refresh()
-end
+	-- 필터 적용
+	local table_dragon = TableDragon()
+	local result_list = {}
 
--------------------------------------
--- function getTypeBtn
--------------------------------------
-function UI_DragonGoodbyeSelect:getTypeBtn(type)
-	local vars = self.vars
-	if type == PRESENT_TYPE.EXP then
-		return vars['expBtn']
-	elseif type == PRESENT_TYPE.RELATION then
-		return vars['relationshipBtn']
-	elseif type == PRESENT_TYPE.MASTERY then
-		return vars['masteryBtn']
-	end
-end
+	for doid, struct_dragon in pairs(dragon_list) do
+		local did = struct_dragon:getDid()
+		local grade = struct_dragon:getGrade()
 
--------------------------------------
--- function getTypeLabel
--------------------------------------
-function UI_DragonGoodbyeSelect:getTypeLabel(type)
-	local vars = self.vars
-	if type == PRESENT_TYPE.EXP then
-		return vars['expLabel']
-	elseif type == PRESENT_TYPE.RELATION then
-		return vars['relationshipLabel']
-	elseif type == PRESENT_TYPE.MASTERY then
-		return vars['masteryLabel']
+		local dragon_data = table_dragon:get(did)
+
+		local attribute = dragon_data['attr']
+		local rarity = dragon_data['rarity']
+
+		if grade_result[grade] and attribute_result[attribute] and rarity_result[rarity] then
+			result_list[doid] = struct_dragon
+		end
 	end
+
+	return result_list
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_DragonGoodbyeSelect:refresh()
+	local vars = self.vars 
+
+	self.m_sellList = {}
+	self.m_isAutoSelected = false
+
+	self.m_currFilteredList = table.MapToList(self:getDragonMaterialList())
+
+	self.m_mtrlDragonSortManager:sortExecution(self.m_currFilteredList)
+	self.m_mtrlTableViewTD:setItemList(self.m_currFilteredList, false, 'id')
+
+	self.m_mtrlTableViewTD:relocateContainerDefault(false)
+	-- for index, item in pairs(self.m_mtrlTableViewTD.m_itemList) do
+	-- 	if item['ui'] then
+	-- 		item['ui']:setCheckSpriteVisible(false)
+	-- 	end
+	-- end
+
+	-- 
+	self.m_totalNum = table.count(self.m_currFilteredList)
+	self.m_selectedNum = table.count(self.m_sellList)
+	vars['selectLabel']:setString(Str('{1}/{2}', self.m_selectedNum, self.m_totalNum))
+end
+
+-------------------------------------
+-- function refresh_dragonMaterialTableView
+-- brief UI_DragonManage_Base:refresh_dragonMaterialTableView()
+-------------------------------------
+function UI_DragonManage_Base:init_dragonMaterialTableView()
 	local vars = self.vars
+	local tableview_node = vars['materialTableViewNode']
+	tableview_node:removeAllChildren()
+
+	local function create_func(ui, data)
+		ui.root:setScale(0.66)
+
+		ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(ui, data) end)
+
+		ui:setCheckSpriteVisible(self.m_isAutoSelected)
+		
+		
+		-- local function press_callback(data)
+		-- 	local doid = t_dragon_data['id']
+		-- 	if doid and (doid ~= '') then
+		-- 		local ui_popup = UI_SimpleDragonInfoPopup(t_dragon_data)
+		-- 		ui_popup:setLockPossible(true)
+		-- 	end
+		-- end
 	
-	-- 리스트를 얻어옴
-	local l_all_dragon_list = g_dragonsData:getDragonsList() 
-    local l_filter_dragon_list = self:getFilterDragonList()
-    self.m_tableView:setItemList(l_filter_dragon_list)
-	self.m_sortManagerDragon:sortExecution(self.m_tableView.m_itemList)
+		--ui.vars['clickBtn']:registerScriptPressHandler(press_callback)
 
-	-- 필터링된 드래곤 숫자 표시
-	local len_all = table.count(l_all_dragon_list)
-	local len_filter = table.count(l_filter_dragon_list)
-	vars['countLabel']:setString(Str('{1}/{2}', len_filter, len_all))
-
-	-- 드래곤이 없을 시 라벨 표시
-	if len_filter == 0 then
-		vars['listViewLabel']:setVisible(true)
-	else
-		vars['listViewLabel']:setVisible(false)
+		-- self:createMtrlDragonCardCB(ui, data)
 	end
 
-	self.m_tFilterDragonList = l_filter_dragon_list
+	-- 
+	local tableview = UIC_TableViewTD(tableview_node)
+    tableview.m_cellSize = cc.size(102, 102)
+    tableview.m_nItemPerCell = 10
+    tableview:setCellCreateInterval(0)
+	tableview:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
+    tableview:setCellCreatePerTick(3)
+    tableview:setCellUIClass(UI_DragonCard, create_func)
+    self.m_mtrlTableViewTD = tableview
 end
 
 -------------------------------------
--- function getFilterDragonList
--- @ breif 필터, 선물 타입에 추가로
--- 대표 드래곤, 잠금 드래곤 제외 
+-- function click_tabBtn
 -------------------------------------
-function UI_DragonGoodbyeSelect:getFilterDragonList()
-    local vars = self.vars
+function UI_DragonGoodbyeSelect:click_tabBtn(tab_type)
+	local vars = self.vars
 
-    local l_dragon = g_dragonsData:getDragonsList()
-    local l_ret_list = {}
-    -- 등급
-    local l_stars = {}
-	local b_all_stars = true
-    for index = 1, 6 do
-		l_stars[index] = vars['starBtn' .. index]:isChecked()
-		if (l_stars[index]) then
-			b_all_stars = false
-		end
-	end
-	
-    -- 속성
-    local l_attr = {}
-	local b_all_attr = false
-    l_attr['fire'] = vars['attrBtn1']:isChecked()
-    l_attr['water'] = vars['attrBtn2']:isChecked()
-    l_attr['earth'] = vars['attrBtn3']:isChecked()
-    l_attr['light'] = vars['attrBtn4']:isChecked()
-    l_attr['dark'] = vars['attrBtn5']:isChecked()
-	if ((not l_attr['fire']) and (not l_attr['water']) and (not l_attr['earth']) and (not l_attr['light']) and (not l_attr['dark'])) then
-		b_all_attr = true
-	end
-    -- 희귀도
-    local l_rarity = {}
-	local b_all_rarity = false
-    l_rarity['legend'] = vars['rarityBtn1']:isChecked()
-    l_rarity['hero'] = vars['rarityBtn2']:isChecked()
-    l_rarity['rare'] = vars['rarityBtn3']:isChecked()
-    l_rarity['common'] = vars['rarityBtn4']:isChecked()
-	if ((not  l_rarity['legend']) and (not l_rarity['hero']) and (not l_rarity['rare']) and (not l_rarity['common'])) then
-		b_all_rarity = true
-	end
-    -- 역할
-    local l_role = {}
-	local b_all_role = false
-    l_role['tanker'] = vars['typeBtn1']:isChecked()
-    l_role['dealer'] = vars['typeBtn2']:isChecked()
-    l_role['supporter'] = vars['typeBtn3']:isChecked()
-    l_role['healer'] = vars['typeBtn4']:isChecked()
-	if ((not l_role['tanker']) and (not l_role['dealer']) and (not l_role['supporter']) and (not l_role['healer'])) then
-		b_all_role = true
-	end
-
-    local table_dragon = TableDragon()
-    for oid,v in pairs(l_dragon) do
-        local did = v['did']
-        local grade = v['grade']
-        local attr = table_dragon:getValue(did, 'attr')
-        local rarity = table_dragon:getValue(did, 'rarity')
-        local role = table_dragon:getValue(did, 'role')
-
-        if ((l_stars[grade] or b_all_stars) and (l_attr[attr] or b_all_attr) and 
-		(l_role[role] or b_all_role) and (l_rarity[rarity] or b_all_rarity)) then
-			if self:checkGoodbyeAvailable(oid) then
-				l_ret_list[oid] = v
-			end
-        end
-    end
-
-    return l_ret_list
-end
-
--------------------------------------
--- function checkGoodbyeAvailable
--- @brief 현재 선택한 선물 타입으로
--- 바꿀 수 있는 드래곤인지 검사
--- @return 바꿀 수 있을 때 true 반환
--------------------------------------
-function UI_DragonGoodbyeSelect:checkGoodbyeAvailable(oid)
-	-- exp 일 땐 잠금이나 리더만 확인
-	if (self.m_selectPresentType == PRESENT_TYPE.EXP) and (g_dragonsData:possibleMaterialDragon(oid)) then 
-		return true
-	elseif (self.m_selectPresentType == PRESENT_TYPE.RELATION) and (g_dragonsData:possibleGoodbye(oid)) then
-		return true
-	elseif (self.m_selectPresentType == PRESENT_TYPE.MASTERY) and (g_dragonsData:possibleConversion(oid)) then
-		return true
-	else
-		return false
-	end
-end
-
--------------------------------------
--- function click_goodbyeBtn
--- @brief 드래곤 작별시키기
--------------------------------------
-function UI_DragonGoodbyeSelect:click_goodbyeBtn()
-	local len_dragon_list = table.count(self.m_tFilterDragonList)
-	
-	if (len_dragon_list == 0) then -- 0마리인 경우 무시
-		UIManager:toastNotificationRed('조건에 해당하는 드래곤이 없습니다.')
+	if (self.m_currTabType == tab_type) then
 		return
 	end
-		
-	require('UI_DragonGoodbyeSelectPopup')
-	local item_list = self:makeItemList()
-	local msg = Str(self:getGoodbyeMsg(), len_dragon_list)
-	local function ok_btn_cb()
-		self:request_goodbye()
-	end
-	local ui = UI_DragonGoodbyeSelectPopup(item_list, msg, ok_btn_cb)
-end
+	
 
--------------------------------------
--- function getGoodbyeMsg
--- @brief 드래곤 작별시키기
--------------------------------------
-function UI_DragonGoodbyeSelect:getGoodbyeMsg()
-	if (self.m_selectPresentType == PRESENT_TYPE.EXP) then
-		return '{1} 마리의 드래곤이 드래곤 경험치로 변경됩니다.'
-	elseif (self.m_selectPresentType == PRESENT_TYPE.RELATION) then
-		return '{1} 마리의 드래곤이 인연포인트로 변경됩니다.'
-	elseif (self.m_selectPresentType == PRESENT_TYPE.MASTERY) then
-		return '{1} 마리의 드래곤이 특성 재료로 변경됩니다.'
-	else 
-		return '{1}' -- error
-	end
-end
-
--------------------------------------
--- function makeItemList
--- @brief 현재 선택된 드래곤들을 변환한 아이템 리스트
--------------------------------------
-function UI_DragonGoodbyeSelect:makeItemList()
-	local item_list = {}
-	if (self.m_selectPresentType == PRESENT_TYPE.EXP) then
-		local sum = 0
-		local dragon_exp_table = TableDragonExp()
-		for oid, v in pairs(self.m_tFilterDragonList) do -- 드래곤 경험치 합 구하기
-			local grade = v['grade']
-			local lv = v['lv']
-			sum = sum + dragon_exp_table:getDragonGivingExp(grade, lv)	
-		end
-		
-		local dragon_exp_item = {}
-		dragon_exp_item['item_id'] = 700017 -- 경험치 아이템 코드
-		dragon_exp_item['count'] = sum 		
-				
-		table.insert(item_list, dragon_exp_item)
-
-	elseif (self.m_selectPresentType == PRESENT_TYPE.RELATION) then
-		local temp_table = {}
-		local dragon_table = TableDragon()
-		for oid, v in pairs(self.m_tFilterDragonList) do
-			local did = v['did']
-			local item_id = 760000 + (did % 10000) -- 인연포인트 코드
-			local count = dragon_table:getRelationPoint(did)
-			if (not temp_table[item_id]) then
-				temp_table[item_id] = 0
-			end
-			temp_table[item_id] = temp_table[item_id] + count
-		end
-
-		for k, v in pairs(temp_table) do
-			local item = {}
-			item['item_id'] = k
-			item['count'] = v
-			table.insert(item_list, item)
-		end
-
-	elseif (self.m_selectPresentType == PRESENT_TYPE.MASTERY) then
-		local temp_table = {}
-		local dragon_table = TableDragon()
-		local item_table = TableItem()
-		for oid, v in pairs(self.m_tFilterDragonList) do
-			local did = v['did']
-			local attr = dragon_table:getValue(did, 'attr')
-			local rarity = dragon_table:getValue(did, 'rarity')
-			
-			local material_name = 'mastery_material_' .. rarity  .. '_' .. attr
-			local item_id = item_table:getItemIDFromItemType(material_name) -- 특성 재료 아이디
-			
-			if (not temp_table[item_id]) then
-				temp_table[item_id] = 0
-			end
-			temp_table[item_id] = temp_table[item_id] + 1
-		end
-
-		for k, v in pairs(temp_table) do
-			local item = {}
-			item['item_id'] = k
-			item['count'] = v
-			table.insert(item_list, item)
-		end
-
+	if (self.m_currTabType) then
+	-- 이전 탭 버튼 활성화
+		vars[self.m_currTabType .. 'Btn']:setEnabled(true)
+		vars[self.m_currTabType .. 'Label']:setColor(COLOR['white'])
 	end
 	
-	return item_list
-end
+	self:saveOptions()
 
--------------------------------------
--- function request_goodbye
--------------------------------------
-function UI_DragonGoodbyeSelect:request_goodbye()
-	local uid = g_userData:get('uid')
-	local target = self:getTypeStr()
+	self.m_currTabType = tab_type
 
-	local doids = ''
+	-- 현재 탭 버튼 비활성화
+	vars[self.m_currTabType .. 'Btn']:setEnabled(false)
+	vars[self.m_currTabType .. 'Label']:setColor(COLOR['black'])
 
-	for oid, _ in pairs(self.m_tFilterDragonList) do
-		if (doids == '') then
-            doids = tostring(oid)
-        else
-            doids = doids .. ',' .. tostring(oid)
-        end
-	end
+	self.m_isAutoSelected = false
 
-	local function success_cb(ret)
-        local dragon_data = self.m_tFilterDragonList
-        local info_data = ret
-        local ui = UI_DragonGoodbyeResult(dragon_data, info_data)
+	self:initFilterButton()
 
-		self:response_goodbye(ret, finish_cb)
-    end
-	
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/goodbye_new')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('doids', doids)
-	ui_network:setParam('target', target)
-	ui_network:hideLoading()
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-	ui_network:request()
-end
-
--------------------------------------
--- function response_goodbye
--------------------------------------
-function UI_DragonGoodbyeSelect:response_goodbye(ret, finish_cb)
-	-- 인연포인트 (전체 갱신)
-	if (ret['relation']) then
-		g_bookData:applyRelationPoints(ret['relation'])
-	end
-
-	-- 작별한 드래곤 삭제
-	if ret['deleted_dragons_oid'] then
-		for _, doid in pairs(ret['deleted_dragons_oid']) do
-			g_dragonsData:delDragonData(doid)
-		end
-	end
-
-    g_serverData:networkCommonRespone(ret)
-
-	self.m_bChangeDragonList = true
-	
 	self:refresh()
-
-	if (finish_cb) then
-		finish_cb(ret)
-	end
 end
 
 -------------------------------------
--- function getTypeStr
--- @brief 현재 선택된 타입을 문자열로 바꿈
+-- function click_filterCheckbox
 -------------------------------------
-function UI_DragonGoodbyeSelect:getTypeStr()
-	if self.m_selectPresentType == PRESENT_TYPE.EXP then
-		return 'exp'
-	elseif self.m_selectPresentType == PRESENT_TYPE.RELATION then
-		return 'relation'
-	elseif self.m_selectPresentType == PRESENT_TYPE.MASTERY then
-		return 'mastery'
+function UI_DragonGoodbyeSelect:click_filterCheckbox()
+	self.m_bOptionChanged = true
+
+	self:refresh()
+end
+
+-------------------------------------
+-- function click_allFilterCheckbox
+-------------------------------------
+function UI_DragonGoodbyeSelect:click_allFilterCheckbox()
+	local vars = self.vars 
+
+	local is_checked = vars['allCheckBtn']:isChecked()
+
+    -- 등급 
+    for idx = 1, 5 do
+        vars['starBtn'..idx]:setChecked(is_checked)
+    end
+
+    -- 속성
+    for idx = 1, #self.m_attributeList do
+        vars['attrBtn'..idx]:setChecked(is_checked)
+    end
+
+    -- 희귀도
+    for idx = 1, #self.m_rarityList do
+        vars['rarityBtn'..idx]:setChecked(is_checked)
+    end
+
+	self.m_bOptionChanged = true
+
+	self:refresh()
+end
+
+-------------------------------------
+-- function click_dragonCard
+-------------------------------------
+function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
+	local doid = data['id']
+	
+	
+	local is_checked = (not self.m_sellList[doid])
+	self.m_sellList[doid] = is_checked
+	
+	if is_checked then
+		self.m_selectedNum = self.m_selectedNum + 1
 	else
-		return nil
+		self.m_selectedNum = self.m_selectedNum - 1
 	end
+	
+	self.vars['selectLabel']:setString(Str('{1}/{2}', self.m_selectedNum, self.m_totalNum))
+
+	ui:setCheckSpriteVisible(is_checked and true or false)
 end
 
 -------------------------------------
--- function click_checkBox
+-- function click_infoBtn
 -------------------------------------
-function UI_DragonGoodbyeSelect:click_checkBox()
-    self.m_bOptionChanged = true
-    self:refresh()
+function UI_DragonGoodbyeSelect:click_infoBtn()
+	require('UI_DragonGoodbyeSelectInfoPopup')
+	local type = self.m_currTabType
+	UI_DragonGoodbyeSelectInfoPopup(type)
+end
+
+
+-------------------------------------
+-- function click_farewellBtn
+-------------------------------------
+function UI_DragonGoodbyeSelect:click_autoSelectBtn()
+	if self.m_isAutoSelected then
+		return
+	end
+
+	self.m_sellList = {}
+	self.m_isAutoSelected = true
+
+	for index, item in pairs(self.m_mtrlTableViewTD.m_itemList) do
+		if item['ui'] then
+			item['ui']:setCheckSpriteVisible(true)
+		end
+		self.m_sellList[item['unique_id']] = item['data']
+	end
+
+	self.m_totalNum = table.count(self.m_currFilteredList)
+	self.m_selectedNum = table.count(self.m_sellList)
+	self.vars['selectLabel']:setString(Str('{1}/{2}', self.m_selectedNum, self.m_totalNum))
+end
+
+-------------------------------------
+-- function click_farewellBtn
+-------------------------------------
+function UI_DragonGoodbyeSelect:click_farewellBtn()
+	local uid = g_userData:get('uid')
+	local target = self.m_currTabType
+	local doid_list = ''
+
+	for doid, dragon_data in pairs(self.m_sellList) do
+		if (doid_list == '') then
+			doid_list = tostring(doid)
+		else
+			doid_list = doid_list .. ',' .. tostring(doid)
+		end
+	end
+
+	local function success_callback(ret)
+		self:refresh()
+
+		if ret['items_list'] then
+			-- params : l_item, msg, ok_btn_cb, is_merge_all_item)
+			UI_ObtainPopup(ret['items_list'], nil, nil, true)
+		end
+	end
+
+	g_dragonsData:request_goodbye(target, doid_list, success_callback)
 end
 
 -------------------------------------
 -- function onClose
--- @brief 닫을 떄 만약 필터 옵션 변경했다면 저장
+-- @brief ITopUserInfo_EventListener:onClose()
 -------------------------------------
 function UI_DragonGoodbyeSelect:onClose()
-	if (self.m_bOptionChanged == true) then
-		local vars = self.vars
-
-		g_settingData:lockSaveData()
-		-- 등급 
-		for idx = 1, 6 do
-			g_settingData:applySettingData(vars['starBtn'..idx]:isChecked(), 'option_dragon_select', 'grade_'..idx)
-		end
-		-- 속성
-		for idx = 1, 5 do
-			g_settingData:applySettingData(vars['attrBtn'..idx]:isChecked(), 'option_dragon_select', 'attr_'..idx)
-		end
-		-- 희귀도
-		for idx = 1, 4 do
-			g_settingData:applySettingData(vars['rarityBtn'..idx]:isChecked(), 'option_dragon_select', 'rarity_'..idx)
-		end
-		-- 역할
-		for idx = 1, 4 do
-			g_settingData:applySettingData(vars['typeBtn'..idx]:isChecked(), 'option_dragon_select', 'type_'..idx)
-		end
-		g_settingData:unlockSaveData()
-		self.m_bOptionChanged = false
-	end
+	self:saveOptions()
 
 	PARENT.onClose(self)
 end
 
---@CHECK
-UI:checkCompileError(UI_DragonGoodbyeSelect)
+-------------------------------------
+-- function saveOptions
+-------------------------------------
+function UI_DragonGoodbyeSelect:saveOptions()
+	if self.m_bOptionChanged then
+		local vars = self.vars
+		
+		-- 등급
+		local option_list = {}
+		local index = 1
+		while(vars['starBtn' .. index]) do
+			option_list[index] = vars['starBtn' .. index]:isChecked()
+
+			index = index + 1
+		end
+
+		g_settingData:applySettingData(option_list, 'farewell', 'selective', self.m_currTabType, 'grade_option')
+
+		-- 속성
+		option_list = {}
+
+		for index, _ in pairs(self.m_attributeList) do
+			option_list[index] = vars['attrBtn' .. index]:isChecked()
+		end
+
+		g_settingData:applySettingData(option_list, 'farewell', 'selective', self.m_currTabType, 'attribute_option')
+
+		-- 희귀도
+		option_list = {}
+		
+		for index, rarity in pairs(self.m_rarityList) do
+			option_list[index] = vars['rarityBtn' .. index]:isChecked()
+		end
+
+		g_settingData:applySettingData(option_list, 'farewell', 'selective', self.m_currTabType, 'rarity_option')
+	end
+end
+

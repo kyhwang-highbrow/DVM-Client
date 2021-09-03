@@ -79,7 +79,7 @@ function UI_DragonGoodbyeSelectNew2:initButton()
     vars['goodbyeSellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
     vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
 
-    vars['selectAllBtn']:registerScriptTapHandler(function() self:click_selectAllBtn() end)
+    vars['autoSelectBtn']:registerScriptTapHandler(function() self:click_selectAllBtn() end)
 
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 
@@ -235,9 +235,9 @@ function UI_DragonGoodbyeSelectNew2:test_func()
     self:refresh_selectedMaterial()
 
     if self.m_bselectAllBtn then
-        vars['selectAllLabel']:setString(Str('모두 해제'))
+        vars['selectAllLabel']:setString(Str('선택 해제'))
     else
-        vars['selectAllLabel']:setString(Str('모두 선택'))
+        vars['selectAllLabel']:setString(Str('자동 선택'))
         return
     end
 
