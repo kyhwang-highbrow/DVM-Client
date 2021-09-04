@@ -1432,6 +1432,7 @@ end
 -------------------------------------
 function UI_Lobby:click_dragonManageBtn()
     local func = function()
+        g_deckData:setSelectedDeck('arena_new_d')
         local ui = UI_DragonManageInfo()
         local function close_cb()
             self:sceneFadeInAction()
