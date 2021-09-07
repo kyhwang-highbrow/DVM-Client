@@ -54,7 +54,8 @@ function UI_PickDragon:init(mid, item_id, cb_func, only_info)
 	self.m_finishCB= cb_func
 	
 	self.m_orgDragonList = TablePickDragon:getDragonList(item_id, g_dragonsData.m_mReleasedDragonsByDid)
-	self.m_isCustomPick = TablePickDragon:isCustomPick(item_id)
+    -- 드래곤이 너무 적으면 굳이 속성 하나하나 필터링 해서 보여줄 필요가 없다
+	self.m_isCustomPick = TablePickDragon:isCustomPick(item_id) or #self.m_orgDragonList < 20
 
     self:initUI()
     self:initButton()
@@ -256,11 +257,22 @@ end
 function UI_PickDragon:refresh(t_dragon)
     local vars = self.vars
 	if (not t_dragon) then
+        if (not self.m_currDragonData) then
+            vars['starNode']:removeAllChildren()
+            vars['infoLabel']:setVisible(false)
+            vars['dragonNameLabel']:setString('')
+            vars['attrLabel']:setString('')
+            vars['typeLabel']:setString('')
+            vars['rarityLabel']:setString('')
+            vars['bookBtn']:setVisible(false)
+        end
+
 		return
 	end
 
 	-- 데이터 저장
 	self.m_currDragonData = t_dragon
+    vars['bookBtn']:setVisible(true)
 
 	-- 드래곤
 	local evolution = 1
