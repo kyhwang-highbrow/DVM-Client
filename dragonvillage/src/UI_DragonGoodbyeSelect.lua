@@ -102,14 +102,20 @@ end
 -- function isFarewellPossible
 -------------------------------------
 function UI_DragonGoodbyeSelect:isFarewellPossible(struct_dragon)
+
+	-- 잠금 상태인 드래곤 제외
 	if struct_dragon:getLock() then
 		return false
+
+	-- 리더 드래곤 제외
 	elseif struct_dragon:isLeader() then
 		return false
 		
-	-- 3성 번고/땅스마트 작별 못하게 막음
+	-- 스타팅 드래곤인 번고/땅스마트가 5성 이하인 경우 제외 (3성 스타트)
 	elseif (struct_dragon:getBirthGrade() > struct_dragon:getGrade()) then
 		return false
+
+	-- 신화 드래곤 제외
 	elseif (struct_dragon:getRarity() == 'myth') then
 		return false
 
@@ -183,7 +189,6 @@ function UI_DragonGoodbyeSelect:initFilterButton()
 			self.m_bOptionChanged = true
 		end
 
-        --local active = g_settingData:get('option_dragon_select', 'grade_'..idx)
         vars['starBtn'..idx] = UIC_CheckBox(vars['starBtn'..idx].m_node, vars['starSprite'..idx], is_checked)
         vars['starBtn'..idx]:registerScriptTapHandler(function() self:click_filterCheckbox() end)
     end
@@ -199,7 +204,6 @@ function UI_DragonGoodbyeSelect:initFilterButton()
 			self.m_bOptionChanged = true
 		end
 
-        --local active = g_settingData:get('option_dragon_select', 'attr_'..idx)
         vars['attrBtn'..idx] = UIC_CheckBox(vars['attrBtn'..idx].m_node, vars['attrSprite'..idx], is_checked)
         vars['attrBtn'..idx]:registerScriptTapHandler(function() self:click_filterCheckbox() end)
     end
@@ -318,29 +322,37 @@ function UI_DragonManage_Base:init_dragonMaterialTableView()
 	tableview_node:removeAllChildren()
 
 	local function create_func(ui, data)
-		ui.root:setScale(0.66)
+		ui.root:setScale(0.58)
 
 		ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(ui, data) end)
 
 		ui:setCheckSpriteVisible(self.m_isAutoSelected)
 		
 		
-		-- local function press_callback(data)
-		-- 	local doid = t_dragon_data['id']
-		-- 	if doid and (doid ~= '') then
-		-- 		local ui_popup = UI_SimpleDragonInfoPopup(t_dragon_data)
-		-- 		ui_popup:setLockPossible(true)
-		-- 	end
-		-- end
+		local function press_callback()
+			local doid = data['id']
+			if doid and (doid ~= '') then
+				local ui_popup = UI_SimpleDragonInfoPopup(data)
+				ui_popup:setLockPossible(true)
+				ui_popup:setBlockRunePopup()
+
+				ui_popup:setCloseCB(function() 
+					if ui_popup:isAnyChanges() then
+						self:refresh()
+					end
+				end)
+			end
+		end
 	
-		--ui.vars['clickBtn']:registerScriptPressHandler(press_callback)
+		ui.vars['clickBtn']:unregisterScriptPressHandler()
+		ui.vars['clickBtn']:registerScriptPressHandler(press_callback)
 
 		-- self:createMtrlDragonCardCB(ui, data)
 	end
 
 	-- 
 	local tableview = UIC_TableViewTD(tableview_node)
-    tableview.m_cellSize = cc.size(102, 102)
+    tableview.m_cellSize = cc.size(86, 86)
     tableview.m_nItemPerCell = 10
     tableview:setCellCreateInterval(0)
 	tableview:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
@@ -476,6 +488,9 @@ end
 -- function click_farewellBtn
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_farewellBtn()
+	g_settingData:get('farewell', 'selective', )
+
+
 	local uid = g_userData:get('uid')
 	local target = self.m_currTabType
 	local doid_list = ''

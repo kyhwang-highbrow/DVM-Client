@@ -13,6 +13,8 @@ UI_SimpleDragonInfoPopup = class(PARENT, {
 
         m_refreshCb = 'function',
 		m_isSelected = 'boolean',
+
+        m_isChanged = 'boolean',
      })
 
 -------------------------------------
@@ -25,6 +27,7 @@ function UI_SimpleDragonInfoPopup:init(t_dragon_data)
     self.m_dragonObjectID = t_dragon_data['id']
 
     self.m_uiName = 'UI_SimpleDragonInfoPopup'
+    self.m_isChanged = false
 
     local vars = self:load('dragon_info_mini.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -52,8 +55,9 @@ function UI_SimpleDragonInfoPopup:initUI()
     local vars = self.vars
 
     -- 드래곤 정보 보드 생성
-    local is_simple_mode = true
-    self.m_dragonInfoBoardUI = UI_DragonInfoBoard(is_simple_mode)
+    --local is_simple_mode = true
+    --self.m_dragonInfoBoardUI = UI_DragonInfoBoard(is_simple_mode)
+    self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
     self.vars['rightNode']:addChild(self.m_dragonInfoBoardUI.root)
 
     -- 드래곤 실리소스
@@ -202,7 +206,9 @@ end
 -- function setLockPossible
 -------------------------------------
 function UI_SimpleDragonInfoPopup:setLockPossible(is_possible, is_selected)
-    self.m_isSelected = is_selected
+    if (is_possible == nil) then is_possible = true end
+    self.m_isSelected = is_selected or false
+    
 	
 	-- 락 기능 제공하지 않는다면 버튼은 아예 보이지 않음
     if (not is_possible) then
@@ -252,7 +258,6 @@ function UI_SimpleDragonInfoPopup:click_lock()
     local struct_dragon_data
 	local doids = ''
 	local soids = ''
-	
 		
 	-- 재료로 사용중이라면 눌리지 않음
 	if (self.m_isSelected) then
@@ -322,6 +327,8 @@ function UI_SimpleDragonInfoPopup:click_lock()
 			end
 		end
 
+        self.m_isChanged = (not self.m_isChanged)
+
 		-- 개별 드래곤 갱신
         if (self.m_refreshCb) then
 		    self:m_refreshCb()
@@ -358,4 +365,21 @@ function UI_SimpleDragonInfoPopup:click_manage()
     ui:setCloseCB(function() close_cb() end)
 
     self:close()
+end
+
+-------------------------------------
+-- function isAnyChanges
+-------------------------------------
+function UI_SimpleDragonInfoPopup:isAnyChanges()
+    return self.m_isChanged
+end
+
+
+-------------------------------------
+-- function isAnyChanges
+-------------------------------------
+function UI_SimpleDragonInfoPopup:setBlockRunePopup(is_blocked)
+    if (is_blocked == nil) then is_blocked = true end
+
+    self.m_dragonInfoBoardUI:setBlockPopup(is_blocked)
 end

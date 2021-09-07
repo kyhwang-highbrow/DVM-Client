@@ -5,6 +5,9 @@ local PARENT = UI
 -------------------------------------
 UI_DragonInfoBoard = class(PARENT,{
         m_dragonObject = '',
+
+        m_bIsBlockedPopup = 'boolean', -- UI_DragonInfoBoard를 통해 추가적인 팝업이 뜨지 않도록
+
         m_bSimpleMode = 'boolean',
 
         m_bRuneInfoPopup = 'boolean',
@@ -15,7 +18,7 @@ UI_DragonInfoBoard = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_DragonInfoBoard:init(is_simple_mode)
-    self.m_bSimpleMode = is_simple_mode
+    self.m_bIsBlockedPopup = is_simple_mode or false
     self.m_bIsMyDragon = false
 
     local vars = self:load('dragon_info_board.ui')
@@ -28,7 +31,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DragonInfoBoard:initUI(is_simple_mode)
+function UI_DragonInfoBoard:initUI()
     local vars = self.vars
 
     vars['friendshipGauge']:setPercentage(0)
@@ -448,23 +451,24 @@ end
 -- @brief 룬 버튼
 -------------------------------------
 function UI_DragonInfoBoard:click_runeBtn(slot_idx)
+    -- 드래곤 정보가 없을 경우
+    if (not self.m_dragonObject) then
+        return
+    end
+    
+    -- 내 드래곤이 아니거나, 혹은 해당 팝업의 depth가 깊거나 의도치 않은 접근인 경우
+    if self.m_bIsBlockedPopup or (self.m_bIsMyDragon == false) then
+        return
+    end
+
+
     if (self.m_bRuneInfoPopup) then
         local t_dragon_data = self.m_dragonObject
 		if (t_dragon_data) then
         	local rune_obj = t_dragon_data:getRuneObjectBySlot(slot_idx)
         	UI_ItemInfoPopup(rune_obj['item_id'], 1, rune_obj)
 		end
-        return
-    end
 
-    -- UI가 간단모드로 설정되어 있을 경우
-    if (self.m_bSimpleMode == true and self.m_bIsMyDragon == false) then
-        -- 굳이 막을 필요가 없다
-        return
-    end
-
-    -- 드래곤 정보가 없을 경우
-    if (not self.m_dragonObject) then
         return
     end
 
@@ -490,6 +494,16 @@ end
 -------------------------------------
 function UI_DragonInfoBoard:showClickRuneInfoPopup(show_popup)
     self.m_bRuneInfoPopup = show_popup
+end
+
+-------------------------------------
+-- function setBlockPopup
+-- breif 해당 팝업의 depth가 깊거나 의도치 않은 접근을 막기위함
+-------------------------------------
+function UI_DragonInfoBoard:setBlockPopup(is_blocked)
+    if (is_blocked == nil) then is_blocked = true end
+    
+    self.m_bIsBlockedPopup = is_blocked
 end
 
 -------------------------------------
