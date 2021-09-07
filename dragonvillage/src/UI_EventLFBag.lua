@@ -24,6 +24,8 @@ UI_EventLFBag = class(PARENT,{
 
         m_noticeBlankLabel = 'cc.LabelTTF',
 
+        m_eventItemName = 'string',
+
 
         m_luckyVisual = '',
     })
@@ -34,6 +36,14 @@ UI_EventLFBag = class(PARENT,{
 function UI_EventLFBag:init()
     --local vars = self:load('event_lucky_fortune_bag.ui')
     local vars = self:load('event_lucky_bag.ui')
+
+    if string.find(self.m_resName, 'lucky_bag') then
+        self.m_eventItemName = '복주머니'
+    elseif string.find(self.m_resName, 'lucky_marble') then
+        self.m_eventItemName = '소원구슬'
+    else
+        self.m_eventItemName = 'UI_EventLFBag.m_eventItemName'
+    end
 
     self.m_luckyVisual = vars['luckyBagVisual']
     self.m_isNeedPickMePickMe = true
@@ -156,7 +166,7 @@ function UI_EventLFBag:refresh()
     
     -- 레벨
     local lv = self.m_structLFBag:getLv()
-    vars['levelLabel']:setString(Str('소원 구슬 {1}단계', lv))
+    vars['levelLabel']:setString(Str('{1} {2}단계',self.m_eventItemName, lv))
     vars['levelLabel']:stopAllActions()
 
     vars['scoreLabel']:setString(tostring(comma_value(self.m_structLFBag:getScore())))
@@ -403,7 +413,8 @@ function UI_EventLFBag:click_openBtn()
 
     elseif (not self.m_structLFBag:canStart()) then
         self:click_packageBtn()
-        UIManager:toastNotificationRed(Str('소원 구슬이 부족합니다.'))
+        
+        UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.'), self.m_eventItemName)
         return
     end
 
@@ -441,7 +452,7 @@ function UI_EventLFBag:click_openBtn()
                         if (self.m_structLFBag:isMax()) then 
                             local msg = Str('{1}단계', 5) .. ' ' .. Str('성공')
                             local submsg = ''
-                            submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
+                            submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n{1}의 단계가 초기화됩니다.', self.m_eventItemName)
 
                             local score = ret['score'] ~= nil and ret['score'] or self:getCurrentEndScore()
                             local scoreMsg = ''
@@ -482,9 +493,9 @@ function UI_EventLFBag:click_openBtn()
                 local msg = Str('열기 실패')
                 local submsg = ''
                 if (lv < 3) then
-                    submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
+                    submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n{1}의 단계가 초기화됩니다.', self.m_eventItemName)
                 else
-                    submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n소원 구슬의 단계가 초기화됩니다.')
+                    submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n{1}의 단계가 초기화됩니다.', self.m_eventItemName)
                 end
 
                 local scoreMsg = Str('점수: {1}점', comma_value(ret['score']))
@@ -511,7 +522,7 @@ function UI_EventLFBag:click_openBtn()
     -- 누적보상 받지 못할 리스크가 있는 경우
     -- 3단계 한번만 안내한다
     if (self.m_structLFBag:getLv() == 3) then
-        local msg = Str('소원 구슬을 여시겠습니까?')
+        local msg = Str('{1}을(를) 여시겠습니까?', self.m_eventItemName)
         local submsg = Str('{1} 단계 이상에서 열기에 실패하면,\n이전 단계까지 누적된 보상을 받을 수 없으니 신중하세요!', 3)
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, do_open)
     else
@@ -559,7 +570,7 @@ function UI_EventLFBag:click_stopBtn()
     end
 
     local msg = Str('열기를 중단하시겠습니까?')
-    local submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n소원 구슬의 단계가 초기화됩니다.')
+    local submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n{1}의 단계가 초기화됩니다.', self.m_eventItemName)
     local function ok_btn_cb()
         self:playOpenAnimation('effect', self.m_lastAniLevel, false)
 
@@ -586,13 +597,13 @@ end
 function UI_EventLFBag:click_infoBtn()
     local ui = MakePopup('event_lucky_bag_info_popup.ui')
     local vars = ui.vars
-    vars['descLabel01']:setString(Str('소원 구슬을 열 때, 성공하거나 실패할 수 있습니다.'))
-    vars['descLabel02']:setString(Str('성공하면 보상이 누적되며 다음 단계의 소원 구슬이 나옵니다.'))
-    vars['descLabel03']:setString(Str('{@yellow}{1}단계 이상의 소원 구슬의 경우, 실패 시 누적 보상을 받을 수 없습니다.', 3))
+    vars['descLabel01']:setString(Str('{1}을(를) 열 때, 성공하거나 실패할 수 있습니다.', self.m_eventItemName))
+    vars['descLabel02']:setString(Str('성공하면 보상이 누적되며 다음 단계의 {1}이(가) 나옵니다.', self.m_eventItemName))
+    vars['descLabel03']:setString(Str('{@yellow}{1}단계 이상의 {2}의 경우, 실패 시 누적 보상을 받을 수 없습니다.', 3, self.m_eventItemName))
     vars['descLabel04']:setString(Str('대박 점수는 5단계 이상에서 획득 가능합니다.'))
     vars['descLabel05']:setString(Str('중단을 선택하면 확보한 누적 보상을 우편으로 받을 수 있으며, 구슬의  단계가 초기화됩니다.'))
-    vars['descLabel06']:setString(Str('소원 구슬은 주사위 이벤트와 소원 구슬 패키지를 통해 획득할 수 있습니다.'))
-    vars['descLabel07']:setString(Str('소원 구슬을 통해 획득한 점수에 따라 일일 랭킹, 종합 랭킹 보상을 지급합니다.'))
+    vars['descLabel06']:setString(Str('{1}은(는) 주사위 이벤트와 {1} 패키지를 통해 획득할 수 있습니다.', self.m_eventItemName))
+    vars['descLabel07']:setString(Str('{1}을 통해 획득한 점수에 따라 일일 랭킹, 종합 랭킹 보상을 지급합니다.', self.m_eventItemName))
 
 end
 
