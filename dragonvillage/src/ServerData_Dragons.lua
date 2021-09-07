@@ -1784,6 +1784,11 @@ function ServerData_Dragons:request_goodbye(target, doids, cb_func)
 		    g_bookData:applyRelationPoints(ret['relation'])
 	    end
 
+        -- 룬을 장착한 드래곤이 있을 시 룬 반환
+        if (ret['returned_runes']) then
+            g_runesData:applyRuneData_list(ret['returned_runes'])
+        end
+
 	    -- 작별한 드래곤 삭제
 	    if ret['deleted_dragons_oid'] then
 		    for _, doid in pairs(ret['deleted_dragons_oid']) do

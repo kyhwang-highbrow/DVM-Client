@@ -1128,7 +1128,16 @@ function StructDragonObject:isRaisedByUser()
         end
     end
 
-    -- 룬 장착 여부
+    return false
+end
+
+-------------------------------------
+-- function isRuneEquipped
+-- @brief 룬 장착 여부
+-------------------------------------
+function StructDragonObject:isRuneEquipped()
+    if (self['runes'] == nil) then return false end
+
     for slot_idx = 1, 6 do
         local roid = self['runes'][tostring(slot_idx)] or ''
         if (roid ~= '') then

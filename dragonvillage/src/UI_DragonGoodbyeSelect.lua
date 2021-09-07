@@ -434,21 +434,29 @@ end
 -- function click_dragonCard
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
-	local doid = data['id']
-	
-	
-	local is_checked = (not self.m_sellList[doid])
-	self.m_sellList[doid] = is_checked
-	
-	if is_checked then
-		self.m_selectedNum = self.m_selectedNum + 1
-	else
-		self.m_selectedNum = self.m_selectedNum - 1
-	end
-	
-	self.vars['selectLabel']:setString(Str('{1}/{2}', self.m_selectedNum, self.m_totalNum))
+	local function click_callback()	
+		local doid = data:getObjectId()
+		
+		local is_checked = (not self.m_sellList[doid])
+		self.m_sellList[doid] = is_checked
+		
+		if is_checked then
+			self.m_selectedNum = self.m_selectedNum + 1
+		else
+			self.m_selectedNum = self.m_selectedNum - 1
+		end
+		
+		self.vars['selectLabel']:setString(Str('{1}/{2}', self.m_selectedNum, self.m_totalNum))
 
-	ui:setCheckSpriteVisible(is_checked and true or false)
+		ui:setCheckSpriteVisible(is_checked and true or false)
+	end
+
+	if data:isRaisedByUser() then
+		MakeSimplePopup2(POPUP_TYPE.YES_NO, '육성 중인 드래곤입니다.', '작별 하시겠습니까?', function() click_callback() end)
+		return
+	end
+
+	click_callback()
 end
 
 -------------------------------------
@@ -488,7 +496,7 @@ end
 -- function click_farewellBtn
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_farewellBtn()
-	g_settingData:get('farewell', 'selective', )
+	--g_settingData:get('farewell', 'selective', )
 
 
 	local uid = g_userData:get('uid')

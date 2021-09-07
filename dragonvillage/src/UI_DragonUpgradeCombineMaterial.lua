@@ -179,7 +179,7 @@ function UI_DragonUpgradeCombineMaterial:getMaterialMap(grade)
             
             else
 	            local possible, msg = g_dragonsData:possibleMaterialDragon(k)
-                local b_is_raised = v:isRaisedByUser()
+                local b_is_raised = v:isRaisedByUser() or v:isRuneEquipped()
 
                 if (possible == true) and (b_is_raised == false) then
                     l_material_map[k] = v
