@@ -326,7 +326,9 @@ function UI_DragonManage_Base:init_dragonMaterialTableView()
 
 		ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(ui, data) end)
 
-		ui:setCheckSpriteVisible(self.m_isAutoSelected)
+		if (not data:isRaisedByUser()) then
+			ui:setCheckSpriteVisible(self.m_isAutoSelected)
+		end
 		
 		
 		local function press_callback()
@@ -434,11 +436,16 @@ end
 -- function click_dragonCard
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
+
+	local doid = data:getObjectId()
+	local is_checked = (self.m_sellList[doid] == nil)
+
 	local function click_callback()	
-		local doid = data:getObjectId()
-		
-		local is_checked = (not self.m_sellList[doid])
-		self.m_sellList[doid] = is_checked
+		if is_checked then
+			self.m_sellList[doid] = data
+		else
+			self.m_sellList[doid] = nil
+		end
 		
 		if is_checked then
 			self.m_selectedNum = self.m_selectedNum + 1
@@ -451,7 +458,7 @@ function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
 		ui:setCheckSpriteVisible(is_checked and true or false)
 	end
 
-	if data:isRaisedByUser() then
+	if data:isRaisedByUser() and is_checked then
 		MakeSimplePopup2(POPUP_TYPE.YES_NO, '육성 중인 드래곤입니다.', '작별 하시겠습니까?', function() click_callback() end)
 		return
 	end
@@ -473,18 +480,23 @@ end
 -- function click_farewellBtn
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_autoSelectBtn()
-	if self.m_isAutoSelected then
-		return
-	end
-
 	self.m_sellList = {}
-	self.m_isAutoSelected = true
+	self.m_isAutoSelected = (not self.m_isAutoSelected)
 
 	for index, item in pairs(self.m_mtrlTableViewTD.m_itemList) do
-		if item['ui'] then
-			item['ui']:setCheckSpriteVisible(true)
+		if (not item['data']:isRaisedByUser()) then
+			if item['ui'] then
+				item['ui']:setCheckSpriteVisible(self.m_isAutoSelected)
+			end
+
+			if self.m_isAutoSelected then
+				self.m_sellList[item['unique_id']] = item['data']
+			end
+		else
+			if item['ui'] then
+				item['ui']:setCheckSpriteVisible(false)
+			end
 		end
-		self.m_sellList[item['unique_id']] = item['data']
 	end
 
 	self.m_totalNum = table.count(self.m_currFilteredList)
@@ -498,29 +510,58 @@ end
 function UI_DragonGoodbyeSelect:click_farewellBtn()
 	--g_settingData:get('farewell', 'selective', )
 
-
-	local uid = g_userData:get('uid')
-	local target = self.m_currTabType
+	local is_four_grade_included = false
+	local is_five_grade_included = false
 	local doid_list = ''
 
 	for doid, dragon_data in pairs(self.m_sellList) do
+		local grade = dragon_data['grade']
+
+		if (grade == 4) then 
+			is_four_grade_included = true
+		elseif (grade == 5) then
+			is_five_grade_included = true
+		end
+
 		if (doid_list == '') then
 			doid_list = tostring(doid)
 		else
 			doid_list = doid_list .. ',' .. tostring(doid)
 		end
 	end
+	
+	local function farewell_callback()
+		local uid = g_userData:get('uid')
+		local target = self.m_currTabType
 
-	local function success_callback(ret)
-		self:refresh()
+		local function success_callback(ret)
+			self:refresh()
 
-		if ret['items_list'] then
-			-- params : l_item, msg, ok_btn_cb, is_merge_all_item)
-			UI_ObtainPopup(ret['items_list'], nil, nil, true)
+			if ret['items_list'] then
+				-- params : l_item, msg, ok_btn_cb, is_merge_all_item)
+				UI_ObtainPopup(ret['items_list'], nil, nil, true)
+			end
 		end
+
+		g_dragonsData:request_goodbye(target, doid_list, success_callback)
 	end
 
-	g_dragonsData:request_goodbye(target, doid_list, success_callback)
+	local str 
+	if is_four_grade_included and (not is_five_grade_included) then
+		str = Str('4성')
+	elseif (not is_four_grade_included) and is_five_grade_included then
+		str = Str('5성')
+	elseif is_four_grade_included and is_five_grade_included then
+		str = Str('4, 5성')
+	end
+
+	if is_four_grade_included or is_five_grade_included then
+		MakeSimplePopup2(POPUP_TYPE.YES_NO, str .. Str('드래곤이 포함되어 있습니다.'),
+		 '작별하시겠습니까?', function() farewell_callback() end)
+		return
+	end
+
+	farewell_callback()
 end
 
 -------------------------------------

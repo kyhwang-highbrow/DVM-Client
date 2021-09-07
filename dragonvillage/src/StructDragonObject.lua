@@ -680,6 +680,14 @@ function StructDragonObject:isPossibleTransformChange()
 end
 
 -------------------------------------
+-- function isMonster
+-- @breif 
+-------------------------------------
+function StructDragonObject:isMonster()
+    return TableDragon():isUnderling(self['did'])
+end
+
+-------------------------------------
 -- function getIconRes
 -- @breif
 -------------------------------------
@@ -1108,6 +1116,11 @@ function StructDragonObject:isRaisedByUser()
 
     -- 진화
     if (self['evolution'] > 1) then
+        return true
+    end
+
+    -- 등급
+    if (self['grade'] ~= self:getBirthGrade()) then
         return true
     end
 
