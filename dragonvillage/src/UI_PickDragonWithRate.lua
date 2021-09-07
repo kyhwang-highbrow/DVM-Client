@@ -27,7 +27,7 @@ UI_PickDragonWithRate = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_PickDragonWithRate:init(mid, item_id, cb_func, is_info, t_statics)
-    local vars = self:load('popup_select_regend.ui')
+    local vars = self:load('popup_select_legend.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_PickDragonWithRate'
 	self.m_isInfo = is_info

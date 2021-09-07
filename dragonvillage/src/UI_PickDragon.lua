@@ -28,7 +28,7 @@ UI_PickDragon = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_PickDragon:init(mid, item_id, cb_func, only_info)
-    local vars = self:load('popup_select_regend.ui')
+    local vars = self:load('popup_select_legend.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_PickDragon'
     self.m_onlyInfo = only_info
