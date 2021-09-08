@@ -6,6 +6,7 @@ local PARENT = UIC_Node
 UIC_RichLabel = class(UIC_Node, {
         m_root = 'cc.Node',
         m_defaultColor = 'cc.c3b',
+        m_originString = 'string',
         m_orgRichText = 'string',
         m_lContentList = 'list',
 
@@ -112,6 +113,10 @@ function UIC_RichLabel:setRichText(text)
 
     self.m_orgRichText = text
     self.m_lContentList = self:makeContentListByRichText(text)
+
+    if (self.m_originString == nil) then
+        self.m_originString = text
+    end
 
     self:setDirty()
 end
@@ -655,6 +660,13 @@ function UIC_RichLabel:enableShadow(color, shadow_offset, blurRadius)
     self.m_shadowOffset = shadow_offset
     self.m_shadowBlurRadius = (blurRadius or 0)
     self:setDirty()
+end
+
+-------------------------------------
+-- function getOriginString
+-------------------------------------
+function UIC_RichLabel:getOriginString()
+    return self.m_originString
 end
 
 -------------------------------------

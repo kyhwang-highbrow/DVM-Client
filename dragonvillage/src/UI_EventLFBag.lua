@@ -86,6 +86,10 @@ function UI_EventLFBag:initUI()
     --self.m_luckyVisual = vars['luckyBagVisual']
 
     self:makeScrollView()
+
+    if (not g_eventLFBagData:isCeilingExist()) then
+        vars['ceilingBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -203,6 +207,21 @@ function UI_EventLFBag:refresh()
     
     -- 현재 레벨의 보상 목록
     self:updateScrollView()
+
+    if g_eventLFBagData:isCeilingExist() then
+        local label = vars['ceilingLabel']
+        if label then
+            local max_step = self.m_structLFBag:getMaxStep()
+            local max_reward_list = self.m_structLFBag:getRewardList(max_step)
+            local item_id = max_reward_list and max_reward_list[1] and max_reward_list[1]['item_id'] or nil
+            
+            if item_id then
+                local target_name = TableItem():getItemName(item_id)
+                label:setString(Str(label:getOriginString(), target_name, self.m_structLFBag:getCeilingCount()))
+            end
+        end
+    end
+    --self.m_structLFBag:getCeilingCount()
 
     self:updateCumulativeRewardList()
 end
@@ -414,7 +433,7 @@ function UI_EventLFBag:click_openBtn()
     elseif (not self.m_structLFBag:canStart()) then
         self:click_packageBtn()
         
-        UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.'), self.m_eventItemName)
+        UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.', self.m_eventItemName))
         return
     end
 

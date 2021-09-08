@@ -15,6 +15,11 @@ StructEventLFBag = class(PARENT, {
         
         -- proc data
         l_cum_item_list = 'table',
+
+
+        ceiling_count = 'number',
+        ceiling_max = 'number',
+        is_ceiling_exist = 'boolean',
     })
 
 local THIS = StructEventLFBag
@@ -31,6 +36,10 @@ function StructEventLFBag:init()
     self['level'] = 0
     self['end_time'] = 0
     self['success_prob'] = 0
+
+    self['ceiling_count'] = 0
+    self['ceiling_max'] = 0
+    self['is_ceiling_exist'] = false
 end
 
 -------------------------------------
@@ -151,6 +160,27 @@ function StructEventLFBag:getEndTime()
 end
 
 -------------------------------------
+-- function getCeilingCount
+-------------------------------------
+function StructEventLFBag:getCeilingCount()
+    return self['ceiling_count']
+end
+
+-------------------------------------
+-- function getCeilingMax
+-------------------------------------
+function StructEventLFBag:getCeilingMax()
+    return self['ceiling_max']
+end
+
+-------------------------------------
+-- function isCeilingExist
+-------------------------------------
+function StructEventLFBag:isCeilingExist()
+    return self['is_ceiling_exist']
+end
+
+-------------------------------------
 -- function getSuccessProb
 -------------------------------------
 function StructEventLFBag:getSuccessProb()
@@ -161,12 +191,14 @@ local mCachedTable
 -------------------------------------
 -- function getRewardList
 -------------------------------------
-function StructEventLFBag:getRewardList()
+function StructEventLFBag:getRewardList(step)
     if (mCachedTable == nil) then
         require('TableEventLFBag')
         mCachedTable = TableEventLFBag()
     end
-    return mCachedTable:getRewardList(self:getLv())
+
+    if (step == nil) then step = self:getLv() end
+    return mCachedTable:getRewardList(step)
 end
 
 -------------------------------------
@@ -180,6 +212,19 @@ function StructEventLFBag:getFullRewardList()
     return mCachedTable:getFullRewardList()
 end
 
+
+-------------------------------------
+-- function getMaxStep
+-------------------------------------
+function StructEventLFBag:getMaxStep()
+    if (mCachedTable == nil) then
+        require('TableEventLFBag')
+        mCachedTable = TableEventLFBag()
+    end
+
+    return mCachedTable:getMaxStep()
+end
+
 -------------------------------------
 -- function getCumulativeRewardList
 -------------------------------------
@@ -187,3 +232,5 @@ function StructEventLFBag:getCumulativeRewardList()
     local l_item = g_itemData:parsePackageItemStr(self['cum_reward_list'])
     return l_item
 end
+
+

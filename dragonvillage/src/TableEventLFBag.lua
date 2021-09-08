@@ -4,7 +4,10 @@ local PARENT = TableClass
 -- class TableEventLFBag 
 -------------------------------------
 TableEventLFBag = class(PARENT, {
-        m_rewardList = 'table'
+        m_rewardList = 'table',
+
+
+        m_maxStep = 'number',
     })
 
 local THIS = TableEventLFBag
@@ -76,6 +79,18 @@ function TableEventLFBag:makeRewardList()
         table.insert(self.m_rewardList, l_ret)
     end
 end
+
+-------------------------------------
+-- class getMaxStep 
+-------------------------------------
+function TableEventLFBag:getMaxStep()
+    if (not self.m_rewardList) then return 0 end
+
+    local max_step = #self.m_rewardList
+
+    return max_step
+end
+
 
 
 

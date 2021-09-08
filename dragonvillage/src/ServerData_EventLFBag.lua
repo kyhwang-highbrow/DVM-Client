@@ -17,7 +17,7 @@ ServerData_EventLFBag = class({
         m_myRanking = 'StructEventLFBagRanking',
         m_rankingRewardList = '',
         m_rankingRewardDailyList = '',
-    })
+})
 
 -------------------------------------
 -- function init
@@ -139,7 +139,7 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, include_ta
         else
             self.m_rewardInfoDaily = nil
         end
-
+        
         -- 보상정보 분류
         if (ret['table_lucky_fortune_bag_rank']) then
             local rewardData = ret['table_lucky_fortune_bag_rank']
@@ -190,6 +190,8 @@ function ServerData_EventLFBag:response_eventLFBagInfo(event_lfbag_info)
     end
 
     self.m_structLFBag:apply(event_lfbag_info)
+
+    self.m_structLFBag.is_ceiling_exist = (event_lfbag_info['ceiling_count'] and event_lfbag_info['ceiling_max'])
 end
 
 -------------------------------------
@@ -364,6 +366,14 @@ function ServerData_EventLFBag:isHighlightRed()
     end
 
     return true
+end
+
+-------------------------------------
+-- function isCeilingExist
+-- @brief 천장이 존재하는지
+-------------------------------------
+function ServerData_EventLFBag:isCeilingExist()
+    return self.m_structLFBag:isCeilingExist()
 end
 
 

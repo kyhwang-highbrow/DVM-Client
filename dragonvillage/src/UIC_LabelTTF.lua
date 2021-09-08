@@ -11,6 +11,8 @@ UIC_LabelTTF = class(PARENT, {
         m_orgFontScaleY = 'number',
          
         m_isVerified = 'bool',
+
+        m_originString = 'string',
     })
 
 -------------------------------------
@@ -33,6 +35,8 @@ function UIC_LabelTTF:init(node)
     -- local org = node:getString()
     -- self:setString( "" )
     -- self:setString( org )
+
+    self.m_originString = self:getString()
 end
 
 -------------------------------------
@@ -242,6 +246,13 @@ function UIC_LabelTTF:applyBoxWithFontSize(str)
     --stopwatch:stop()
     --stopwatch:print()
     --]]
+end
+
+-------------------------------------
+-- function getOriginString
+-------------------------------------
+function UIC_LabelTTF:getOriginString()
+    return self.m_originString()
 end
 
 -------------------------------------
