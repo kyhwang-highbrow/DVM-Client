@@ -623,10 +623,9 @@ function UI_EventLFBag:click_infoBtn()
     vars['descLabel02']:setString(Str('성공하면 보상이 누적되며 다음 단계의 {1}이(가) 나옵니다.', self.m_eventItemName))
     vars['descLabel03']:setString(Str('{@yellow}{1}단계 이상의 {2}의 경우, 실패 시 누적 보상을 받을 수 없습니다.', 3, self.m_eventItemName))
     vars['descLabel04']:setString(Str('대박 점수는 5단계 이상에서 획득 가능합니다.'))
-    vars['descLabel05']:setString(Str('중단을 선택하면 확보한 누적 보상을 우편으로 받을 수 있으며, 구슬의  단계가 초기화됩니다.'))
+    vars['descLabel05']:setString(Str('중단을 선택하면 확보한 누적 보상을 우편으로 받을 수 있으며, {1}의 단계가 초기화됩니다.', self.m_eventItemName))
     vars['descLabel06']:setString(Str('{1}은(는) 주사위 이벤트와 {1} 패키지를 통해 획득할 수 있습니다.', self.m_eventItemName))
     vars['descLabel07']:setString(Str('{1}을(를) 통해 획득한 점수에 따라 일일 랭킹, 종합 랭킹 보상을 지급합니다.', self.m_eventItemName))
-
 end
 
 -------------------------------------
