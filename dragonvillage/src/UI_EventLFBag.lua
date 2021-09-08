@@ -25,6 +25,7 @@ UI_EventLFBag = class(PARENT,{
         m_noticeBlankLabel = 'cc.LabelTTF',
 
         m_eventItemName = 'string',
+        m_eventCodeName = 'string',
 
 
         m_luckyVisual = '',
@@ -39,8 +40,10 @@ function UI_EventLFBag:init()
 
     if string.find(self.m_resName, 'lucky_bag') then
         self.m_eventItemName = '복주머니'
+        self.m_eventCodeName = 'lucky_bag'
     elseif string.find(self.m_resName, 'lucky_marble') then
         self.m_eventItemName = '소원구슬'
+        self.m_eventCodeName = 'lucky_marble'
     else
         self.m_eventItemName = 'UI_EventLFBag.m_eventItemName'
     end
@@ -630,6 +633,14 @@ end
 -- function click_packageBtn
 -------------------------------------
 function UI_EventLFBag:click_packageBtn()
+
+    local package_name = 'package_' .. self.m_eventCodeName
+    local struct_product_group = g_shopDataNew:getTargetPackage(package_name)
+    
+    if struct_product_group then
+        
+        local ui = struct_product_group:getTargetUITest(nil, nil, true)
+    end
     -- local ui = UI_Package_Bundle('package_lucky_fortune_bag', true)
 
     -- local function buy_cb()

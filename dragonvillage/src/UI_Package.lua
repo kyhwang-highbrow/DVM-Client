@@ -54,18 +54,18 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
         g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package')
     end
     
-    local struct_product = struct_product_list[2]
+    -- local struct_product = struct_product_list[2]
 
-    if struct_product then
-        local ui_name
-        if is_popup and (struct_product['package_res_2']) and (struct_product['package_res_2'] ~= '') then
-            ui_name = struct_product['package_res_2']
-        else
-            ui_name = struct_product['package_res']
-        end
+    -- if struct_product then
+    --     local ui_name
+    --     if is_popup and (struct_product['package_res_2']) and (struct_product['package_res_2'] ~= '') then
+    --         ui_name = struct_product['package_res_2']
+    --     else
+    --         ui_name = struct_product['package_res']
+    --     end
         
-        self:load(ui_name)
-    end
+    --     self:load(ui_name)
+    -- end
 	
 	-- @UI_ACTION
     self:doActionReset()
@@ -405,6 +405,10 @@ function UI_Package:click_closeBtn()
     self:close()
 end
 
+
+-------------------------------------
+-- function click_quickBtn
+-------------------------------------
 function UI_Package:click_quickBtn()
     if (self.m_package_name and string.find(self.m_package_name, 'rune')) then
         UINavigator:goTo('rune_forge', 'gacha')
