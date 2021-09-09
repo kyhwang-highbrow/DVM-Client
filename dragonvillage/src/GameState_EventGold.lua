@@ -164,6 +164,12 @@ function GameState_EventGold:makeResultUI(is_success)
 
     -- 1. 네트워크 통신
     func_network_game_finish = function()
+        local world = self.m_world
+        if (world.m_bDevelopMode) then
+            UINavigator:goTo('lobby')
+            return
+        end
+
         local t_param = self:makeGameFinishParam(is_success)
         g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
     end

@@ -159,6 +159,8 @@ function UI_EventLFBag:initButton()
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
 
     vars['packageBtn']:registerScriptTapHandler(function() self:click_packageBtn() end)
+
+    vars['experienceBtn']:registerScriptTapHandler(function() self:click_experienceBtn() end)
 end
 
 -------------------------------------
@@ -619,6 +621,7 @@ end
 function UI_EventLFBag:click_infoBtn()
     local ui = MakePopup('event_lucky_bag_info_popup.ui')
     local vars = ui.vars
+
     vars['descLabel01']:setString(Str('{1}을(를) 열 때, 성공하거나 실패할 수 있습니다.', self.m_eventItemName))
     vars['descLabel02']:setString(Str('성공하면 보상이 누적되며 다음 단계의 {1}이(가) 나옵니다.', self.m_eventItemName))
     vars['descLabel03']:setString(Str('{@yellow}{1}단계 이상의 {2}의 경우, 실패 시 누적 보상을 받을 수 없습니다.', 3, self.m_eventItemName))
@@ -626,6 +629,18 @@ function UI_EventLFBag:click_infoBtn()
     vars['descLabel05']:setString(Str('중단을 선택하면 확보한 누적 보상을 우편으로 받을 수 있으며, {1}의 단계가 초기화됩니다.', self.m_eventItemName))
     vars['descLabel06']:setString(Str('{1}은(는) 주사위 이벤트와 {1} 패키지를 통해 획득할 수 있습니다.', self.m_eventItemName))
     vars['descLabel07']:setString(Str('{1}을(를) 통해 획득한 점수에 따라 일일 랭킹, 종합 랭킹 보상을 지급합니다.', self.m_eventItemName))
+
+    
+    local max_step = self.m_structLFBag:getMaxStep()
+    local max_reward_list = self.m_structLFBag:getRewardList(max_step)
+    local item_id = max_reward_list and max_reward_list[1] and max_reward_list[1]['item_id'] or nil
+
+    if item_id then
+        local target_name = TableItem():getItemName(item_id) 
+
+        vars['descLabel08']:setString(Str('{1} 사용 횟수가 {2}회가 되면 다음 {1}은(는) 5단계까지 100% 확률로 성공하며, {3}을(를) 확정 획득합니다.', 
+        self.m_eventItemName, self.m_structLFBag:getCeilingMax(), target_name))
+    end
 end
 
 -------------------------------------
@@ -665,6 +680,28 @@ function UI_EventLFBag:click_rankBtn()
     --UI_EventLFBagRankingPopup()
     -- 일일랭킹 때문에 여기서도 매번 보상을 요청한다.
     g_eventLFBagData:openRankingPopupForLobby()
+end
+
+-------------------------------------
+-- function click_experienceBtn
+-------------------------------------
+function UI_EventLFBag:click_experienceBtn()
+    --local scene = SceneGame(nil, 1901001, 'stage_1901001', true)
+    --local scene = SceneGame(nil, EVENT_GOLD_STAGE_ID, 'stage_' .. EVENT_GOLD_STAGE_ID, true)
+    --local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
+    --local scene = SceneGameIntro()
+    
+    --scene:runScene()
+
+    
+    g_deckData:request_getPresetDeck('dev_test', function() 
+        g_deckData:setSelectedDeck('dev_test')
+        --cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        local scene = SceneGame(nil, 1901001, 'stage_1901001', true)
+        
+
+        scene:runScene()
+    end)
 end
 
 

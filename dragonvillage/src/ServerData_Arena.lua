@@ -346,7 +346,7 @@ function ServerData_Arena:request_setDeck(deckname, formation, leader, l_edoid, 
     ui_network:setUrl('/game/pvp/set_deck')
     ui_network:setParam('uid', uid)
 
-    ui_network:setParam('deckname', _deckname)
+    ui_network:setParam('deck_name', _deckname)
     ui_network:setParam('formation', formation)
     ui_network:setParam('leader', leader)
     ui_network:setParam('tamer', tamer)

@@ -49,7 +49,7 @@ function ServerData_Deck:setDeck(deck_name, t_deck)
 
     local idx = nil
     for i,value in pairs(l_deck) do
-        if (value['deckname'] == deck_name) then
+        if (value['deckName'] == deck_name) then
             idx = i
             break
         end
@@ -73,7 +73,7 @@ function ServerData_Deck:setDeck_usedDeckPvp(deck_name, t_deck)
 
     local idx = nil
     for i,value in pairs(l_deck) do
-        if (value['deckname'] == deck_name) or (value['deckName'] == deck_name) then
+        if (value['deckName'] == deck_name) then
             idx = i
             break
         end
@@ -87,6 +87,7 @@ function ServerData_Deck:setDeck_usedDeckPvp(deck_name, t_deck)
     self:resetDragonDeckInfo()
     ResetMultiDeckCached()
 end
+
 
 -------------------------------------
 -- function getDeck
@@ -208,7 +209,7 @@ function ServerData_Deck:getDeck_core(deck_name)
 	local leader
     local tamer_id
     for i, value in ipairs(l_deck) do
-        if (value['deckname'] == deck_name) then
+        if (value['deckName'] == deck_name) then
             t_deck = value['deck']
             formation = value['formation']
 			leader = value['leader']
@@ -271,7 +272,7 @@ function ServerData_Deck:getDeck_core_usedDeckPvpDB(deck_name)
 	local leader
     local tamer_id
     for i, value in ipairs(l_deck) do
-        if (value['deckname'] == deck_name) or (value['deckName'] == deck_name) then
+        if (value['deckName'] == deck_name) then
             t_deck = value['deck']
             formation = value['formation']
 			leader = value['leader']
@@ -303,7 +304,7 @@ function ServerData_Deck:getDeck_lowData(deck_name)
     if self:isUsedDeckPvpDB(deck_name) then
         local l_deck = self.m_serverData:get('deckpvp')
         for i, value in ipairs(l_deck) do
-            if (value['deckname'] == deck_name) or (value['deckName'] == deck_name) then
+            if (value['deckName'] == deck_name) then
                 return value
             end
         end
@@ -311,7 +312,7 @@ function ServerData_Deck:getDeck_lowData(deck_name)
 
     local l_deck = self.m_serverData:get('deck')
     for i, value in ipairs(l_deck) do
-        if (value['deckname'] == deck_name) then
+        if (value['deckName'] == deck_name) then
             return value
         end
     end
@@ -412,7 +413,7 @@ function ServerData_Deck:request_setDeckPvpCollection(deckname, formation, leade
         if ret['deck'] then
             local ret_deck = ret['deck']
             local t_deck = ret_deck['deck']
-            local deckname = ret_deck['deckname'] or ret_deck['deckName']
+            local deckname = ret_deck['deckName']
 
             g_deckData:setDeck_usedDeckPvp(deckname, ret_deck)
         end
@@ -427,7 +428,7 @@ function ServerData_Deck:request_setDeckPvpCollection(deckname, formation, leade
     ui_network:setUrl('/game/pvp/set_deck')
     ui_network:setParam('uid', uid)
 
-    ui_network:setParam('deckname', _deckname)
+    ui_network:setParam('deck_name', _deckname)
     ui_network:setParam('formation', formation)
     ui_network:setParam('leader', leader)
     ui_network:setParam('tamer', tamer)
@@ -448,17 +449,22 @@ function ServerData_Deck:request_setDeckPvpCollection(deckname, formation, leade
 end
 
 -------------------------------------
--- function request_getDeck
+-- function request_getPresetDeck
 -------------------------------------
-function ServerData_Deck:request_getDeck(uid, deckname, finish_cb)
-    local _deckname = deckname
+function ServerData_Deck:request_getPresetDeck(deck_name, finish_cb)
 
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 성공 콜백
     local function success_cb(ret)
-        g_deckData:setDeck(_deckname, ret)
+        if ret['deck'] then
+            local deck = ret['deck']
+            local deck_name = deck['deckName']
+
+            g_deckData:setDeck(deck_name, deck)
+        end
+    
         if finish_cb then
             finish_cb(ret)
         end
@@ -466,10 +472,9 @@ function ServerData_Deck:request_getDeck(uid, deckname, finish_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/users/get_deck')
+    ui_network:setUrl('/users/get_preset_deck')
     ui_network:setParam('uid', uid)
-
-    ui_network:setParam('deckname', _deckname)
+    ui_network:setParam('deck_name', deck_name)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

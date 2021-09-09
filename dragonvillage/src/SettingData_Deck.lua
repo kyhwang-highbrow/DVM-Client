@@ -102,7 +102,7 @@ function SettingData_Deck:saveLocalDeck(deck_name, l_deck, formation, leader, ta
     local t_new_deck_data = {}
     t_new_deck_data['deck'] = l_deck_order
     t_new_deck_data['formation'] = formation
-    t_new_deck_data['deckname'] = deck_name
+    t_new_deck_data['deckName'] = deck_name
     t_new_deck_data['leader'] = leader
     t_new_deck_data['tamer'] = tamer_id
     t_new_deck_data['best_score'] = score
@@ -303,7 +303,7 @@ function SettingData_Deck:saveAncientTowerDeck(l_deck, formation, leader, tamer_
     local t_new_deck_data = {}
     t_new_deck_data['deck'] = l_deck_order
     t_new_deck_data['formation'] = formation
-    t_new_deck_data['deckname'] = 'ancient'
+    t_new_deck_data['deckName'] = 'ancient'
     t_new_deck_data['leader'] = leader
     t_new_deck_data['tamer'] = tamer_id
     t_new_deck_data['best_score'] = score

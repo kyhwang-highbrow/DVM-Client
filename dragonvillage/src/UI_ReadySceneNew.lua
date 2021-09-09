@@ -1737,7 +1737,7 @@ function UI_ReadySceneNew:click_loadBestTeam()
     self:click_removeBtn()
 
     local formation = t_data['formation']
-    local deckname = t_data['deckname']
+    local deckname = t_data['deckName']
     local leader = t_data['leader']
     local tamer_id = t_data['tamer']
 

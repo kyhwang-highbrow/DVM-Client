@@ -421,7 +421,7 @@ function UI_ReadySceneNew_Deck:init_deck()
         self.m_lSettedDragonCard = {}
     end
 
-    local l_deck, formation, deckname, leader, tamer_id, formation_lv = g_deckData:getDeck()
+    local l_deck, formation, deck_name, leader, tamer_id, formation_lv = g_deckData:getDeck()
 	l_deck = self:convertSimpleDeck(l_deck)
 
 	self.m_currLeader = leader
@@ -465,7 +465,7 @@ end
 -------------------------------------
 -- function setDeck
 -------------------------------------
-function UI_ReadySceneNew_Deck:setDeck(l_deck, formation, deckname, leader, tamer_id, formation_lv)
+function UI_ReadySceneNew_Deck:setDeck(l_deck, formation, deck_name, leader, tamer_id, formation_lv)
     do -- UI 정리
         if self.m_lSettedDragonCard then
             for _,ui in pairs(self.m_lSettedDragonCard) do
@@ -774,12 +774,12 @@ end
 -- function checkChangeDeck
 -------------------------------------
 function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
-    local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
+    local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck()
     local b_arena = self.m_uiReadyScene.m_bArena
 
     local formation_lv = b_arena and 1 or g_formationData:getFormationInfo(formation)['formation_lv']
     -- 최소 1명 출전 확인 (일단 콜로세움만)
-    if (deckname == 'arena_new') or (deckname == 'arena_new_a') or (deckname == 'arena_new_d') or (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) or (deckname == 'clanwar') then
+    if (deck_name == 'arena_new') or (deck_name == 'arena_new_a') or (deck_name == 'arena_new_d') or (deck_name == 'arena') or (deck_name == 'pvp_atk') or (deck_name == 'pvp_def') or (deck_name == 'fpvp_atk') or (deck_name == DECK_CHALLENGE_MODE) or (deck_name == 'clanwar') then
         local setted_number = table.count(self.m_lDeckList)
         if (setted_number <= 0) then
             local msg = Str('최소 1명 이상은 출전시켜야 합니다.')
@@ -824,12 +824,12 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
 		b_change = true
 	end
 
-    if (deckname == 'arena_new') then
+    if (deck_name == 'arena_new') then
 		b_change = true
     end
 
     -- pvp는 테이머까지 처리
-    if (deckname == 'arena_new') or (deckname == 'arena_new_d') or (deckname == 'arena_new_a') or (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) or g_deckData:isUsedDeckPvpDB(deckname) then
+    if (deck_name == 'arena_new') or (deck_name == 'arena_new_d') or (deck_name == 'arena_new_a') or (deck_name == 'arena') or (deck_name == 'pvp_atk') or (deck_name == 'pvp_def') or (deck_name == 'fpvp_atk') or (deck_name == DECK_CHALLENGE_MODE) or g_deckData:isUsedDeckPvpDB(deck_name) then
         if (self.m_uiReadyScene:getCurrTamerID() ~= tamer_id) then
             b_change = true
         end
@@ -837,7 +837,7 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
 
     if (b_change) then
         -- deckpvp collection을 사용하는 덱일 경우
-        if (g_deckData:isUsedDeckPvpDB(deckname)) then
+        if (g_deckData:isUsedDeckPvpDB(deck_name)) then
             local l_edoid = {}
             l_edoid[1] = self.m_lDeckList[1]
             l_edoid[2] = self.m_lDeckList[2]
@@ -846,11 +846,11 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             l_edoid[5] = self.m_lDeckList[5]
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
             local fail_cb = nil
-            g_deckData:request_setDeckPvpCollection(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
+            g_deckData:request_setDeckPvpCollection(deck_name, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
 
 
         -- 콜로세움 (신규) 전용 덱 처리
-        elseif (deckname == 'arena') then
+        elseif (deck_name == 'arena') then
             local l_edoid = {}
             l_edoid[1] = self.m_lDeckList[1]
             l_edoid[2] = self.m_lDeckList[2]
@@ -859,10 +859,10 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             l_edoid[5] = self.m_lDeckList[5]
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
             local fail_cb = nil
-            g_arenaData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
+            g_arenaData:request_setDeck(deck_name, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
 
         -- 콜로세움 (신규) 전용 덱 처리
-        elseif (deckname == 'arena_new_a' or deckname == 'arena_new_d' or  deckname == 'arena_new') then
+        elseif (deck_name == 'arena_new_a' or deck_name == 'arena_new_d' or  deck_name == 'arena_new') then
             local l_edoid = {}
             l_edoid[1] = self.m_lDeckList[1]
             l_edoid[2] = self.m_lDeckList[2]
@@ -871,10 +871,10 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             l_edoid[5] = self.m_lDeckList[5]
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
             local fail_cb = nil
-            g_arenaNewData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb, self:getDeckCombatPower())
+            g_arenaNewData:request_setDeck(deck_name, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb, self:getDeckCombatPower())
 
         -- 콜로세움 전용 덱 처리
-        elseif (deckname == 'pvp_atk') or (deckname == 'pvp_def') then
+        elseif (deck_name == 'pvp_atk') or (deck_name == 'pvp_def') then
             local l_edoid = {}
             l_edoid[1] = self.m_lDeckList[1]
             l_edoid[2] = self.m_lDeckList[2]
@@ -883,10 +883,10 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             l_edoid[5] = self.m_lDeckList[5]
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
             local fail_cb = nil
-            g_colosseumData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
+            g_colosseumData:request_setDeck(deck_name, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
         
         -- 친선전 전용 덱 처리
-        elseif (deckname == 'fpvp_atk') then
+        elseif (deck_name == 'fpvp_atk') then
             local l_edoid = {}
             l_edoid[1] = self.m_lDeckList[1]
             l_edoid[2] = self.m_lDeckList[2]
@@ -895,10 +895,10 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             l_edoid[5] = self.m_lDeckList[5]
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
             local fail_cb = nil
-            g_friendMatchData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
+            g_friendMatchData:request_setDeck(deck_name, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
         
         -- 클랜전 전용 덱 처리
-        elseif (deckname == 'clanwar') then
+        elseif (deck_name == 'clanwar') then
              local l_edoid = {}
             l_edoid[1] = self.m_lDeckList[1]
             l_edoid[2] = self.m_lDeckList[2]
@@ -907,7 +907,7 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             l_edoid[5] = self.m_lDeckList[5]
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
             local fail_cb = nil
-            g_clanWarData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)           
+            g_clanWarData:request_setDeck(deck_name, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)           
         else
             local uid = g_userData:get('uid')
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
@@ -916,9 +916,9 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
                 if ret['deck'] then
                     local ret_deck = ret['deck']
                     local t_deck = ret_deck['deck']
-                    local deckname = ret_deck['deckname']
+                    local deck_name = ret_deck['deckName']
 
-                    g_deckData:setDeck(deckname, ret_deck)
+                    g_deckData:setDeck(deck_name, ret_deck)
                 end
                 next_func()
             end
@@ -927,7 +927,7 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             ui_network:setUrl('/users/set_deck')
             ui_network:setRevocable(true)
             ui_network:setParam('uid', uid)
-            ui_network:setParam('deckname', deckname)
+            ui_network:setParam('deck_name', deck_name)
             ui_network:setParam('formation', self.m_currFormation)
 		    ui_network:setParam('leader', self.m_currLeader)
             ui_network:setParam('tamer', tamer_id)
