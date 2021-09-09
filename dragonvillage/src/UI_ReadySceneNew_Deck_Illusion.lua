@@ -24,7 +24,7 @@ end
 -- function checkChangeDeck
 -------------------------------------
 function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
-    local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
+    local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck()
     local b_arena = self.m_uiReadyScene.m_bArena
 
     local formation_lv = b_arena and 1 or g_formationData:getFormationInfo(formation)['formation_lv']
@@ -74,7 +74,7 @@ function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
 	end
 
     -- pvp는 테이머까지 처리
-    if (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) or g_deckData:isUsedDeckPvpDB(deckname) then
+    if (deck_name == 'arena') or (deck_name == 'pvp_atk') or (deck_name == 'pvp_def') or (deck_name == 'fpvp_atk') or (deck_name == DECK_CHALLENGE_MODE) or g_deckData:isUsedDeckPvpDB(deck_name) then
         if (self.m_uiReadyScene:getCurrTamerID() ~= tamer_id) then
             b_change = true
         end
@@ -89,9 +89,9 @@ function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
             if ret['deck'] then
                 local ret_deck = ret['deck']
                 local t_deck = ret_deck['deck']
-                local deckname = ret_deck['deckname']
+                local deck_name = ret_deck['deckName']
 
-                g_deckData:setDeck(deckname, ret_deck)
+                g_deckData:setDeck(deck_name, ret_deck)
             end
             next_func()
         end
@@ -100,7 +100,7 @@ function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
         ui_network:setUrl('/users/set_deck')
         ui_network:setRevocable(true)
         ui_network:setParam('uid', uid)
-        ui_network:setParam('deckname', deckname)
+        ui_network:setParam('deck_name', deck_name)
         ui_network:setParam('formation', self.m_currFormation)
 	    ui_network:setParam('leader', self.m_currLeader)
         ui_network:setParam('tamer', tamer_id)

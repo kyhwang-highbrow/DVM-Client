@@ -39,10 +39,10 @@ function UI_EventLFBag:init()
     local vars = self:load('event_lucky_bag.ui')
 
     if string.find(self.m_resName, 'lucky_bag') then
-        self.m_eventItemName = '복주머니'
+        self.m_eventItemName = Str('복주머니')
         self.m_eventCodeName = 'lucky_bag'
     elseif string.find(self.m_resName, 'lucky_marble') then
-        self.m_eventItemName = '소원구슬'
+        self.m_eventItemName = Str('소원 구슬')
         self.m_eventCodeName = 'lucky_marble'
     else
         self.m_eventItemName = 'UI_EventLFBag.m_eventItemName'
@@ -221,8 +221,18 @@ function UI_EventLFBag:refresh()
             local item_id = max_reward_list and max_reward_list[1] and max_reward_list[1]['item_id'] or nil
             
             if item_id then
-                local target_name = TableItem():getItemName(item_id)
-                label:setString(Str(label:getOriginString(), target_name, self.m_structLFBag:getCeilingCount()))
+                local item_data = TABLE:get('item')[item_id]
+                local did = item_data['did']
+                local target_name = did and TableDragon:getChanceUpDragonName(did)
+                
+                
+                --local target_name = TableItem():getItemName(item_id)
+                local ceiling_count = self.m_structLFBag:getCeilingCount()
+                if (ceiling_count == 0) then
+                    label:setString(Str('{1} {@default}확정 소환', target_name .. '\n'))
+                else
+                    label:setString(Str(label:getOriginString(), target_name .. '{@default} ', ceiling_count))
+                end                
             end
         end
     end
