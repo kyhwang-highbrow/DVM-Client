@@ -658,6 +658,8 @@ end
 -------------------------------------
 function UI_ArenaNew:click_testModeBtn()
     local userinfo_cpy = g_arenaNewData.m_playerUserInfo:copy()
+    userinfo_cpy:applyPvpDeckData(userinfo_cpy.m_pvpDefenseDeck)
+    
     g_arenaNewData:setMatchUser(userinfo_cpy)
     UI_LoadingArenaNew(nil, false, true)
 end

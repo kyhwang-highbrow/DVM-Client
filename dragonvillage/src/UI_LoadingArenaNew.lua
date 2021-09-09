@@ -366,7 +366,6 @@ function UI_LoadingArenaNew:click_startButtonDev()
     UI_BlockPopup()
     -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
     self.root:unscheduleUpdate()
-
     local scene = SceneGameArenaNew(nil, nil, nil, true) -- PVP 개편 테스트용 임시 커밋
     scene:runScene()
 end
