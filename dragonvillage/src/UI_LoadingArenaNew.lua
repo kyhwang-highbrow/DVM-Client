@@ -17,18 +17,21 @@ UI_LoadingArenaNew = class(PARENT,{
         m_isReChallenge = 'boolean', --재도전 통해서 들어왔나?
 
         m_curScene = 'SceneGameArenaNew',
+
+        m_devMode = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_LoadingArenaNew:init(cur_scene, isReChallenge)
+function UI_LoadingArenaNew:init(cur_scene, isReChallenge, isDevMode)
 	self.m_uiName = 'UI_LoadingArenaNew'
     local vars = self:load('arena_new_loading.ui')
     self.m_remainTimer = WAITING_TIME
     self.m_myDeckList = {}
     self.m_isReChallenge = isReChallenge
     self.m_curScene = cur_scene
+    self.m_devMode = isDevMode
 
     if (self.m_curScene) then
         self.m_bFriendMatch = self.m_curScene.m_bFriendMatch
@@ -353,10 +356,30 @@ function UI_LoadingArenaNew:click_setAttackDeck()
     ui:setCloseCB(function() self:initMyDeckUI() end)
 end
 
+
+
+-------------------------------------
+-- function click_startButtonDev
+-------------------------------------
+function UI_LoadingArenaNew:click_startButtonDev()
+    -- 시작이 두번 되지 않도록 하기 위함
+    UI_BlockPopup()
+    -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
+    self.root:unscheduleUpdate()
+
+    local scene = SceneGameArenaNew(nil, nil, nil, true) -- PVP 개편 테스트용 임시 커밋
+    scene:runScene()
+end
+
+
 -------------------------------------
 -- function click_startButton
 -------------------------------------
 function UI_LoadingArenaNew:click_startButton()
+    if (self.m_devMode) then
+        self:click_startButtonDev()
+        return
+    end
 
     -- 콜로세움 공격 덱이 설정되었는지 여부 체크
     local l_dragon_list = self.m_myDeckList

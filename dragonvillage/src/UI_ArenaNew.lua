@@ -235,7 +235,8 @@ end
 -------------------------------------
 function UI_ArenaNew:initButton()
     local vars = self.vars
-    vars['testModeBtn']:setVisible(false)
+
+    vars['testModeBtn']:setVisible(IS_DEV_SERVER())
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
     vars['tierRewardBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
 	vars['defenseBtn']:registerScriptTapHandler(function() self:click_defendDeckBtn() end)
@@ -256,6 +257,8 @@ function UI_ArenaNew:initButton()
     -- 랭킹 팝업으로 이동
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['rankBtn']:setVisible(true)
+
+    vars['testModeBtn']:registerScriptTapHandler(function() self:click_testModeBtn() end)
 
     -- 콜로세움 안내 (네이버 sdk 링크)
     --NaverCafeManager:setPluginInfoBtn(vars['InfoBtn'], 'arena_help')
@@ -654,13 +657,9 @@ end
 -- @brief 테스트 모드로 진입
 -------------------------------------
 function UI_ArenaNew:click_testModeBtn()
-    local combat_power = g_arenaNewData.m_playerUserInfo:getDefDeckCombatPower(true)
-    if (combat_power == 0) then
-        MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
-        return
-    end
-
-    UI_ColosseumReadyForDev()
+    local userinfo_cpy = g_arenaNewData.m_playerUserInfo:copy()
+    g_arenaNewData:setMatchUser(userinfo_cpy)
+    UI_LoadingArenaNew(nil, false, true)
 end
 
 -------------------------------------

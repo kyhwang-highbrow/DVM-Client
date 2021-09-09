@@ -993,3 +993,16 @@ function StructUserInfoArenaNew:getGrandArena_RankText(detail, carriage_return)
 
     return self:getChallengeMode_RankText(detail, carriage_return)
 end
+
+-------------------------------------
+-- function copy
+-------------------------------------
+function StructUserInfoArenaNew:copy()
+    local struct_user_info = StructUserInfoArenaNew()
+
+    for i, v in pairs(self) do
+		struct_user_info[i] = v
+    end
+
+    return struct_user_info
+end

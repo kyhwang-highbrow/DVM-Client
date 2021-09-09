@@ -127,7 +127,7 @@ function UI_ArenaNewRivalListItem:click_restartBtn()
 
     if (t_rival_info.m_no) then
         g_arenaNewData:setMatchUser(self.m_rivalInfo)
-        UI_LoadingArenaNew(nil, self.m_isReChallenge)
+        UI_LoadingArenaNew(nil, self.m_isReChallenge, true)
     end
 end
 
