@@ -896,7 +896,7 @@ function UI_Setting:click_presetDeckBtn()
     edit_box:setMaxLength(100)
 
     local function confirm_cb(str)
-        if (isNullOrEmpty(str) == false) then
+        if (isNullOrEmpty(str)) then
             UIManager:toastNotificationRed('잘못된 덱 이름 입력 :: ' .. tostring(str))
             return false
         end
