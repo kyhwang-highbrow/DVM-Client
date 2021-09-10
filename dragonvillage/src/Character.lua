@@ -2231,7 +2231,8 @@ function Character:updateBasicSkillTimer(dt)
 
     -- 이미 스킬을 사용하기 위한 상태나 사용 중인 경우
     if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle', 'delegate')) then
-        return
+        -- 게임이 멈춰있는지도 체크해야 한다
+        if (self.m_world:isPause()) then return end
     end
 
     -- 쿨타임 감소를 적용하여 스킬별 쿨타임 갱신
