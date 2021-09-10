@@ -138,6 +138,11 @@ end
 -- function isHighlightExploration
 -------------------------------------
 function ServerData_Highlight:isHighlightExploration()
+    -- 탐험이 언락되지 않았으면 false
+    if g_contentLockData:isContentLock('exploration') then 
+        return false 
+    end
+    
     return (0 < self['explore_reward'])
 end
 
