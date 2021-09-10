@@ -377,6 +377,11 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonGdItemUp()
+    -- 거대용 던전이 언락되지 않았으면 false
+    if g_contentLockData:isContentLock('nest_evo_stone') then 
+        return false 
+    end
+
     local is_active_dg_gd_item_up = self:isActiveFevertimeByType('dg_gd_item_up')
 
     return is_active_dg_gd_item_up
@@ -388,6 +393,11 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonGtItemUp()
+    -- 거목 던전이 언락되지 않았으면 false
+    if g_contentLockData:isContentLock('nest_tree') then 
+        return false 
+    end
+
     local is_active_dg_gt_item_up = self:isActiveFevertimeByType('dg_gt_item_up')
 
     return is_active_dg_gt_item_up
@@ -420,6 +430,11 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonRuneLegendUp()
+    -- 룬 파밍 던전인 악몽 던전과 고대 유적 던전이 둘 다 언락 되지 않았으면 false
+    if g_contentLockData:isContentLock('nest_nightmare') and g_contentLockData:isContentLock('ancient_ruin') then 
+        return false 
+    end
+
     local is_active_dg_rune_legend_up = self:isActiveFevertimeByType('dg_rune_legend_up')
 
     return is_active_dg_rune_legend_up
@@ -431,6 +446,11 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonRuneUp()
+    -- 룬 파밍 던전인 악몽 던전과 고대 유적 던전이 둘 다 언락 되지 않았으면 false
+    if g_contentLockData:isContentLock('nest_nightmare') and g_contentLockData:isContentLock('ancient_ruin') then 
+        return false 
+    end
+
     local is_active_dg_rune_up = self:isActiveFevertimeByType('dg_rune_up')
 
     return is_active_dg_rune_up
@@ -453,6 +473,10 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonGtStDc()
+    -- 거목 던전이 언락 되지 않았으면 false
+    if g_contentLockData:isContentLock('nest_tree') then 
+        return false 
+    end
     local is_active_dg_gt_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.TREE_ST_DC)
 
     return is_active_dg_gt_st_dc
@@ -464,6 +488,10 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonGdStDc()
+    -- 거대용 던전이 언락 되지 않았으면 false
+    if g_contentLockData:isContentLock('nest_evo_stone') then 
+        return false 
+    end
     local is_active_dg_gd_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.GDRAGON_ST_DC)
 
     return is_active_dg_gd_st_dc
@@ -475,6 +503,10 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonNmStDc()
+    -- 악몽 던전이 언락 되지 않았으면 false
+    if g_contentLockData:isContentLock('nest_nightmare') then 
+        return false 
+    end
     local is_active_dg_nm_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.NIGHTMARE_ST_DC)
 
     return is_active_dg_nm_st_dc
@@ -486,6 +518,10 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonArStDc()
+    -- 고대 유적 던전이 언락 되지 않았으면 false
+    if g_contentLockData:isContentLock('ancient_ruin') then 
+        return false 
+    end
     local is_active_dg_ar_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.ANCIENT_RUIN_ST_DC)
 
     return is_active_dg_ar_st_dc
@@ -497,6 +533,10 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonRgStDc()
+    -- 룬 수호자 던전이 언락 되지 않았으면 false
+    if g_contentLockData:isContentLock('rune_guardian') then 
+        return false 
+    end
     local is_active_dg_rg_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.RUNE_GUARDIAN_ST_DC)
 
     return is_active_dg_rg_st_dc
