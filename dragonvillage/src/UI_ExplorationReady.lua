@@ -119,11 +119,15 @@ function UI_ExplorationReady:init_tableView()
         ui.root:setScale(item_scale)
 
         ui:setCheckSpriteVisible(false)
+        ui:setReadySpriteVisible(false)
+        ui:setTeamReadySpriteVisible(false)
         
         -- 다른 지역을 탐험 중인 드래곤인지 여부 체크
         local doid = data['id']
         if g_explorationData:isExplorationUsedDragon(doid) then
             ui:setShadowSpriteVisible(true)
+            ui:setReadySpriteVisible(true)
+            
         end
 
         if self.m_selectedDragonMap[doid] then
