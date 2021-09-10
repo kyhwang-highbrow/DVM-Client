@@ -188,6 +188,8 @@ function UI_RuneBulkSalePopup:init_tableView()
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
         ui.root:setScale(0.55)
+
+        ui:setCloseInfoCallback(function() self:refresh() end)
     end
 
     local l_item_list = {}
