@@ -38,7 +38,7 @@ function UI_Shop:initParentVariable()
     self.m_uiName = 'UI_Shop'
     self.m_titleStr = Str('상점')
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'amethyst'
+    self.m_subCurrency = 'st'
     self.m_addSubCurrency = 'fp'
 end
 

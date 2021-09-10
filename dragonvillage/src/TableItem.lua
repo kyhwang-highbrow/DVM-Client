@@ -79,6 +79,9 @@ ITEM_ID_MAP['staminas_grand_arena'] = 700107
 ITEM_ID_MAP['exp_booster'] = 700402
 ITEM_ID_MAP['gold_booster'] = 700403
 
+-- 기억
+ITEM_ID_MAP['memory_myth'] = 700019
+
 -- 차원문
 ITEM_ID_MAP['medal_angra'] = 700901
 ITEM_ID_MAP['medal_manus'] = 700902
@@ -148,6 +151,7 @@ function TableItem:getItemTypeFromItemID(item_id)
     local item_type = ITEM_TYPE_MAP[item_id]
     return item_type
 end
+
 
 -------------------------------------
 -- function getRewardItem

@@ -511,9 +511,14 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['clancoin'], 'user', 'clancoin')
         end
 		     
-        -- 클랜 코인
+        -- 캡슐 코인
         if ret['capsule_coin'] then
             self:applyServerData(ret['capsule_coin'], 'user', 'capsule_coin')
+        end
+
+        -- 기억 (별의 기억)
+        if ret['memory'] then
+            self:applyServerData(ret['memory'], 'user', 'memory')
         end
 
         -- 룬 연마석
@@ -694,6 +699,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 캡슐 (갱신)
     RefreshGoods(t_added_items, 'capsule')
+    
+    -- 기억 (갱신)
+    RefreshGoods(t_added_items, 'memory')
 
     -- 열매 갯수 (전체 갱신)
     RefreshGoods(t_added_items, 'fruits')
@@ -758,7 +766,7 @@ function ServerData:networkCommonRespone_addedItems(ret)
    -- 특성 재료
     RefreshGoods(t_added_items, 'mastery_materials')
 
-    -- 메달 (210330 기준 차원의 문 보상)
+    -- 메달 (차원의 문 보상)
     RefreshGoods(t_added_items, 'medal')
 
     -- 드래곤 (추가)

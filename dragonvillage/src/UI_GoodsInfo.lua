@@ -62,8 +62,13 @@ function UI_GoodsInfo:refresh()
         local type_in_table_item = TABLE:get('item')[goods_id]['type'] -- type column in table_item.csv
         local data = g_userData:get(type_in_table_item) -- 
 
-        if type_in_table_item == 'medal' then --
-            value = data[tostring(goods_id)]            
+        -- 
+        if isExistValue(type_in_table_item, 'medal', 'memory') then 
+            if type(data) == 'table' then
+                value = data[tostring(goods_id)]
+            else
+                value = data
+            end         
         end 
     end
 

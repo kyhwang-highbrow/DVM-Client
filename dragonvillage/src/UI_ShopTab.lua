@@ -27,7 +27,7 @@ function UI_ShopTab:onEnterTab(first)
   
     local sub_currency = self.m_tabName
     if (self.m_tabName == 'st') then
-        sub_currency = 'amethyst'
+        sub_currency = 'memory_myth'
     end
 
     if (self.m_owner_ui) then

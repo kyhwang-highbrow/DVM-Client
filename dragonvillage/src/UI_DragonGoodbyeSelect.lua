@@ -547,12 +547,12 @@ function UI_DragonGoodbyeSelect:click_farewellBtn()
 	end
 
 	local str 
-	if is_four_grade_included and (not is_five_grade_included) then
-		str = Str('4성')
-	elseif (not is_four_grade_included) and is_five_grade_included then
-		str = Str('5성')
-	elseif is_four_grade_included and is_five_grade_included then
+	if is_four_grade_included and is_five_grade_included then
 		str = Str('4, 5성')
+	elseif is_four_grade_included then
+		str = Str('4성')
+	elseif is_five_grade_included then
+		str = Str('5성')
 	end
 
 	if is_four_grade_included or is_five_grade_included then

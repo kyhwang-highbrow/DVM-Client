@@ -299,13 +299,20 @@ function UIHelper:checkPrice(price_type, price, price_type_id)
             return false
         end
 
-    elseif (price_type == 'medal') then
+    elseif isExistValue(price_type, 'medal', 'memory') then
         local item_data = TABLE:get('item')[price_type_id]
         local own_medal = g_userData:get(price_type, tostring(price_type_id))
 
         if(own_medal < price) then
-            -- TODO : 이/가 조사 처리 필요
-            MakeSimplePopup(POPUP_TYPE.OK, Str(item_data['t_name'] .. '이 부족합니다.'))
+            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', item_data['t_name']))
+            return false
+        end
+    elseif isExistValue(price_type, 'memory_myth') then
+        local item = TABLE:get('item')[price_type_id]
+        local own_item_number = g_userData:get('memory', tostring(price_type_id))
+
+        if(own_item_number < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', item['t_name']))
             return false
         end
     else
@@ -419,13 +426,21 @@ function UIHelper:checkPrice_toastMessage(price_type, price, price_type_id)
         end
 
     -- 차원문 상점 메달
-    elseif (price_type == 'medal') then
+    elseif isExistValue(price_type, 'medal', 'memory') then
         local item_data = TABLE:get('item')[price_type_id]
         local own_medal = g_userData:get(price_type, tostring(price_type_id))
 
         -- type : medal // full_type : medal_angra
         if(own_medal < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str(item_data['t_name'] .. '이 부족합니다.'))
+            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', item_data['t_name']))
+            return false
+        end
+    elseif isExistValue(price_type, 'memory_myth') then
+        local item = TABLE:get('item')[price_type_id]
+        local own_item_number = g_userData:get('memory', tostring(price_type_id))
+
+        if(own_item_number < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', item['t_name']))
             return false
         end
     else

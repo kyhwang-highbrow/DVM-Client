@@ -1771,7 +1771,7 @@ end
 -------------------------------------
 -- function request_goodbye
 -- @brief 드래곤 작별
--- @param target string 'exp', 'relation', 'mastery', 'memory_myth'
+-- @param target string 'exp', 'relation', 'mastery', 'memory'
 -- @param doids string 드래곤 오브젝트 ID를 ','로 연결한 문자열
 -- @param cb_func function(ret)
 -------------------------------------
@@ -1796,7 +1796,7 @@ function ServerData_Dragons:request_goodbye(target, doids, cb_func)
 		    end
 	    end
 
-        -- 재화 갱신 (dragon_exp, mastery)
+        -- 재화 갱신 (dragon_exp, mastery, memory)
         g_serverData:networkCommonRespone(ret)
 
 		-- 콜백

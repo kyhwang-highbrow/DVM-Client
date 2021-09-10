@@ -169,7 +169,7 @@ function ConfirmPriceByItemID(item_id, item_price)
     if(type(user_data) ~= 'table') then
         own_value = user_data
     else
-        if item_type == 'medal' then
+        if isExistValue(item_type, 'medal', 'memory') then
             own_value = user_data[tostring(item_id)]
         else
             if (IS_DEV_SERVER()) then

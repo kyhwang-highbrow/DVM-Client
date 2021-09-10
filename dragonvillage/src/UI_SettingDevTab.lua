@@ -923,7 +923,7 @@ function UI_Setting:click_presetDeckBtn()
             local ui_network = UI_Network()
             ui_network:setUrl('/manage/set_preset_deck')
             ui_network:setParam('uid', uid)
-            ui_network:setParam('deckname', deck_str)
+            ui_network:setParam('deck_name', deck_str)
 
             ui_network:setMethod('POST')
             ui_network:setSuccessCB(success_cb)

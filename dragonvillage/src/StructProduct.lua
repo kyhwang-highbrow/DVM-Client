@@ -53,6 +53,8 @@ StructProduct = class(PARENT, {
 
         -- 차원문 상점
         medal = 'number', -- item id in table_item
+
+        m_priceItemID = 'number',
     })
 
 local THIS = StructProduct
@@ -71,6 +73,18 @@ function StructProduct:init(data)
 
     if (self.mail_content == nil) then
         self.mail_content = ''
+    end
+end
+
+-------------------------------------
+-- function applyTableData
+-------------------------------------
+function StructProduct:applyTableData(data)
+    PARENT.applyTableData(self, data)
+
+    if (self.price_type ~= 'money') then
+        local item_id = TableItem:getItemIDFromItemType(self.price_type)
+        self.m_priceItemID = item_id
     end
 end
 
@@ -929,6 +943,8 @@ function StructProduct:checkPrice()
     local price_type_id
     if (rawget( self, price_type)) then
         price_type_id = self[price_type]
+    else
+        price_type_id = self.m_priceItemID
     end
 
     return UIHelper:checkPrice(price_type, price, price_type_id)
