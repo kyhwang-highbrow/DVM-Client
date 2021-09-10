@@ -553,6 +553,15 @@ end
 function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, status_effect_name)
 	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
+    local status_effect_list = char:getStatusEffectList_Negative()
+    local status_cnt = table.count(status_effect_list)
+    
+    -- 해제
+    if (max_release_cnt >= status_cnt) then  
+        self:releaseStatusEffectAll(char, 'bad')
+        return (max_release_cnt > 0), max_release_cnt
+    end
+
 
     for type, status_effect in pairs(char:getStatusEffectList()) do
         -- 해로운 효과 해제
@@ -592,28 +601,64 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
 	local release_cnt = 0
     local status_effect_list = char:getStatusEffectList_Positive()
     local status_cnt = table.count(status_effect_list)
+
+    -- 해제
+    if (max_release_cnt >= status_cnt) then  
+        if (IS_TEST_MODE()) then
+            cclog("===================================") 
+            cclog(string.format('이효모두제 총 상태효과 수 :: %d',status_cnt))
+        end
+
+        self:releaseStatusEffectAll(char, 'good')
+        return (max_release_cnt > 0), max_release_cnt
+    end
+
+    -- 이효제 루프 돌고 맥스치 도달하거나 더이상 제거할 효과가 없으면 브레이크
+    for i = 1, max_release_cnt do
+        local result_count = self:releaseStatusEffectBuff_Random(status_effect_list, status_effect_name, release_cnt, max_release_cnt)
+
+        if (result_count == release_cnt) or (result_count >= max_release_cnt) then
+            release_cnt = result_count
+            break
+        end
+        
+        release_cnt = result_count
+    end
+    
+
+	return (release_cnt > 0), release_cnt
+end
+
+-------------------------------------
+-- function releaseStatusEffectBuff_Random
+-- @brief n개의 buff 상태효과 해제
+-- @return 해제 여부(boolean), 해제된 수(number)
+-------------------------------------
+function StatusEffectHelper:releaseStatusEffectBuff_Random(status_effect_list, status_effect_name, release_cnt, max_release_cnt)
+    local status_cnt = table.count(status_effect_list)
     local rand_idx = status_cnt > 0 and math_random(1, status_cnt) or 0
     local temp_cnt = 1
+    local total_release_cnt = release_cnt
 
     for type, status_effect in pairs(status_effect_list) do
         -- 이로운 효과 해제 
 	    --if (status_effect:isErasable() and not status_effect:isHarmful() and temp_cnt == rand_idx) then
         if (temp_cnt == rand_idx) then
-            if ((not status_effect_name) or (status_effect_name == status_effect.m_statusEffectName)) then
+            if (not status_effect_name) or (status_effect_name == status_effect.m_statusEffectName) then
                 -- 중첩 수만큼 순회하면서 하나씩 삭제
                 local overlap_cnt = status_effect:getOverlabCount()
 
                 if (IS_TEST_MODE()) then
                     local effect_name = status_effect_name and status_effect_name or status_effect.m_statusEffectName
                     cclog("===================================") 
-                    cclog(string.format('이효랜덤제 인덱스 :: %d || 제거될 버프 :: %s ', rand_idx, effect_name))
+                    cclog(string.format('이효랜덤제 총 상태효과 수 :: %d || 인덱스 :: %d || 제거될 버프 :: %s ',status_cnt , rand_idx, effect_name))
                 end
 
                 for i = 1, overlap_cnt do
                     if (status_effect:removeOverlabUnit()) then
-                        release_cnt = release_cnt + 1
+                        total_release_cnt = total_release_cnt + 1
 
-                        if (release_cnt >= max_release_cnt) then
+                        if (total_release_cnt >= max_release_cnt) then
 			                break
 		                end
                     else
@@ -622,7 +667,7 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
                 end
             end
 
-            if (release_cnt >= max_release_cnt) then
+            if (total_release_cnt >= max_release_cnt) then
 			    break
 		    end
         end
@@ -630,21 +675,32 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
         temp_cnt = temp_cnt + 1
     end
 
-	return (release_cnt > 0), release_cnt
+    return total_release_cnt
 end
+
 
 -------------------------------------
 -- function releaseStatusEffectAll
 -- @brief 모든 상태효과 해제
 -------------------------------------
-function StatusEffectHelper:releaseStatusEffectAll(char)
+function StatusEffectHelper:releaseStatusEffectAll(char, release_type)
     local release_cnt = 0
 
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
         if (status_effect:isErasable()) then
-            status_effect:changeState('end')
-
+            -- release_type : good or bad or nil
+            -- good - 이로운 효과 모두 제거
+            -- bad  - 해로운 효과 모두 제거
+            -- nil  - 모든 효과 제거 
+            if (not release_type) then
+                status_effect:changeState('end')
+            elseif (release_type == 'good' and self:isHelpful(status_effect)) then
+                status_effect:changeState('end')
+            elseif (release_type == 'bad' and self:isHarmful(status_effect)) then
+                status_effect:changeState('end')
+            end
+            
             release_cnt = release_cnt + 1
         end
 	end

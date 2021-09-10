@@ -455,7 +455,7 @@ end
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:onBeStoppedInCC()
     self.m_triedCount = self.m_triedCount + 1
-    cclog('onBeStoppedInCC : ' .. self.m_triedCount)
+    --cclog('onBeStoppedInCC : ' .. self.m_triedCount)
 end
 
 -------------------------------------
