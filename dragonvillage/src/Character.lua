@@ -993,7 +993,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 if (v.m_statusEffectTable and v.m_statusEffectTable['dmg_adj_rate']) then
                     local table_value = tonumber(v.m_statusEffectTable['dmg_adj_rate'])
                     if (table_value and table_value ~= 0) then
-                        se_dmg_adj_rate = se_dmg_adj_rate + (table_value / 100)
+                        local attached_dmg = damage_multifly * (table_value / 100)
+                        damage_multifly = attached_dmg
                     end
                 end
             end
