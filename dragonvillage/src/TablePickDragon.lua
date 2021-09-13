@@ -83,6 +83,8 @@ function TablePickDragon:getDragonList(item_id, map_released)
             weight = t_dragon['lm_weight']
 
             if (not is_card_pack) and (not weight or weight <= 0) then b = false end
+        elseif (weight_key == 'myth') then
+            b = true
 		elseif (not weight) or (weight == 0) then
 			b = false
 		end
