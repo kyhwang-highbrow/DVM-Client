@@ -988,15 +988,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                         se_dmg_adj_rate = se_dmg_adj_rate - v.m_totalValue
                     end
                 end
-
-                -- 피해증가 데미지 dmg_adj_rate 확인 후 추가 적용
-                if (v.m_statusEffectTable and v.m_statusEffectTable['dmg_adj_rate']) then
-                    local table_value = tonumber(v.m_statusEffectTable['dmg_adj_rate'])
-                    if (table_value and table_value ~= 0) then
-                        local attached_dmg = damage * (table_value / 100)
-                        damage = damage + attached_dmg
-                    end
-                end
             end
 
             local rate = math_max(se_dmg_adj_rate, -1)
