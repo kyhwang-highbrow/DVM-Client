@@ -117,6 +117,16 @@ function UI_DragonGoodbyeSelect:isContainsInTableview(struct_dragon)
 		end
 	end
 
+	local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
+	-- 콜로세움 방어덱 확인
+	if struct_user_info then
+		local defense_deck = struct_user_info:getDefenseDeck_dragonList(true) -- param : use_doid
+		local doid = struct_dragon:getObjectId()
+		if table.find(defense_deck, doid) then
+			return false
+		end
+	end
+
 	return true
 end
 
@@ -435,7 +445,7 @@ end
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_filterCheckbox()
 	local vars = self.vars 
-	
+
 	self.m_bOptionChanged = true
 
 	local is_all_checked = true
