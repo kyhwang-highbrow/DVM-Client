@@ -89,10 +89,6 @@ function UI_EventLFBag:initUI()
     --self.m_luckyVisual = vars['luckyBagVisual']
 
     self:makeScrollView()
-
-    if (not g_eventLFBagData:isCeilingExist()) then
-        vars['ceilingBtn']:setVisible(false)
-    end
 end
 
 -------------------------------------
@@ -161,6 +157,11 @@ function UI_EventLFBag:initButton()
     vars['packageBtn']:registerScriptTapHandler(function() self:click_packageBtn() end)
 
     vars['experienceBtn']:registerScriptTapHandler(function() self:click_experienceBtn() end)
+
+    
+    local is_ceiling_exist = g_eventLFBagData:isCeilingExist()
+    vars['ceilingBtn']:setVisible(is_ceiling_exist)
+    vars['ceilingBtn']:registerScriptTapHandler(function() self:click_ceilingBtn() end)
 end
 
 -------------------------------------
@@ -213,30 +214,19 @@ function UI_EventLFBag:refresh()
     -- 현재 레벨의 보상 목록
     self:updateScrollView()
 
-    if g_eventLFBagData:isCeilingExist() then
-        local label = vars['ceilingLabel']
-        if label then
-            local max_step = self.m_structLFBag:getMaxStep()
-            local max_reward_list = self.m_structLFBag:getRewardList(max_step)
-            local item_id = max_reward_list and max_reward_list[1] and max_reward_list[1]['item_id'] or nil
-            
-            if item_id then
-                local item_data = TABLE:get('item')[item_id]
-                local did = item_data['did']
-                local target_name = did and TableDragon:getChanceUpDragonName(did)
-                
-                
-                --local target_name = TableItem():getItemName(item_id)
-                local ceiling_count = self.m_structLFBag:getCeilingCount()
-                if (ceiling_count == 0) then
-                    label:setString(Str('{1} {@default}확정 소환', target_name .. '\n'))
-                else
-                    label:setString(Str(label:getOriginString(), target_name .. '{@default} ', ceiling_count))
-                end                
-            end
-        end
+    local label = vars['ceilingLabel']
+    local item_data = g_eventLFBagData:getCeilingRewardData()
+    if label and item_data then
+        local did = item_data['did']
+        local target_name = did and TableDragon:getChanceUpDragonName(did)
+
+        local ceiling_count = self.m_structLFBag:getCeilingCount()
+        if (ceiling_count == 0) then
+            label:setString(Str('{1} {@default}확정 소환', target_name .. '\n'))
+        else
+            label:setString(Str(label:getOriginString(), target_name .. '{@default} ', ceiling_count))
+        end                
     end
-    --self.m_structLFBag:getCeilingCount()
 
     self:updateCumulativeRewardList()
 end
@@ -664,6 +654,7 @@ function UI_EventLFBag:click_packageBtn()
     if struct_product_group then
         
         local ui = struct_product_group:getTargetUITest(nil, nil, true)
+        ui:setMailSelectType(MAIL_SELECT_TYPE.ITEM)
     end
     -- local ui = UI_Package_Bundle('package_lucky_fortune_bag', true)
 
@@ -690,6 +681,31 @@ function UI_EventLFBag:click_rankBtn()
     --UI_EventLFBagRankingPopup()
     -- 일일랭킹 때문에 여기서도 매번 보상을 요청한다.
     g_eventLFBagData:openRankingPopupForLobby()
+end
+
+-------------------------------------
+-- function click_ceilingBtn
+-------------------------------------
+function UI_EventLFBag:click_ceilingBtn()
+    local item_data = g_eventLFBagData:getCeilingRewardData()
+
+    if item_data then
+        local did = item_data['did']
+        local dragon_data = {
+            ['did'] = did,
+            ['lv'] = 1,
+            ['evolution'] = 3,
+            ['grade'] = 5,
+            ['exp'] = 0,
+            ['skill_0'] = 1,
+            ['skill_1'] = 1,
+            ['skill_2'] = 1,
+            ['skill_3'] = 1,
+        }
+
+       local ui =  UI_SimpleDragonInfoPopup(StructDragonObject(dragon_data))
+       ui:setBlockRunePopup()
+    end
 end
 
 -------------------------------------

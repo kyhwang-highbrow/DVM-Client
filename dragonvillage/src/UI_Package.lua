@@ -12,6 +12,8 @@ UI_Package = class(PARENT, {
         m_isRefreshedDependency = 'boolean',
 
         m_cbBuy = 'function',
+
+        m_mailSelectType = 'MAIL_SELECT_TYPE',
      })
 
 -------------------------------------
@@ -45,6 +47,7 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     self.m_isPopup = is_popup or false
     self.m_isRefreshedDependency = false
 	self.m_uiName = 'UI_Package'
+    self.m_mailSelectType = MAIL_SELECT_TYPE.NONE
 
     local vars = self:load(ui_name)
 
@@ -329,8 +332,6 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Package:click_buyBtn(index)
-    
-
 	local struct_product = self.m_productList[index or 1]
 
 	local function cb_func(ret)
@@ -343,8 +344,13 @@ function UI_Package:click_buyBtn(index)
             if self.m_package_name and (string.find(self.m_package_name, 'package_lucky_box')) then
                 is_basic_goods_shown = true
             end
-            -- 아이템 획득 결과창
-            ItemObtainResult_Shop(ret, is_basic_goods_shown)
+
+            if (self.m_mailSelectType ~= MAIL_SELECT_TYPE.NONE) then
+                ItemObtainResult_ShowMailBox(ret, self.m_mailSelectType)
+            else
+                -- 아이템 획득 결과창
+                ItemObtainResult_Shop(ret, is_basic_goods_shown)
+            end
         end
 
         -- 갱신이 필요한 상태일 경우
@@ -431,5 +437,14 @@ function UI_Package:setRefreshDependency(is_refresh_dependency)
     self.m_isRefreshedDependency = is_refresh_dependency or true
 end
 
+
+-------------------------------------
+-- function setMailSelectType
+-------------------------------------
+function UI_Package:setMailSelectType(type)
+    if (type > MAIL_SELECT_TYPE.NONE) and (type <= MAIL_SELECT_TYPE.SUPER_SLIME) then
+        self.m_mailSelectType = type
+    end
+end
 
 

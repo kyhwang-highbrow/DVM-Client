@@ -11,6 +11,8 @@ ServerData_EventLFBag = class({
         m_rewardInfo = '',
         m_rewardInfoDaily = '',
 
+        m_ceilingRewardData = '',
+
         -- 랭킹 정보에 사용
         m_nGlobalOffset = 'number', -- 랭킹
         m_lGlobalRank = 'list',
@@ -191,7 +193,7 @@ function ServerData_EventLFBag:response_eventLFBagInfo(event_lfbag_info)
 
     self.m_structLFBag:apply(event_lfbag_info)
 
-    self.m_structLFBag.is_ceiling_exist = (event_lfbag_info['ceiling_count'] and event_lfbag_info['ceiling_max'])
+    self.m_structLFBag.is_ceiling_exist = (event_lfbag_info['ceiling_count'] ~= nil) and (event_lfbag_info['ceiling_max'] ~= nil)
 end
 
 -------------------------------------
@@ -374,6 +376,23 @@ end
 -------------------------------------
 function ServerData_EventLFBag:isCeilingExist()
     return self.m_structLFBag:isCeilingExist()
+end
+
+-------------------------------------
+-- function getCeilingRewardData
+-- @brief 천장 보상 정보
+-------------------------------------
+function ServerData_EventLFBag:getCeilingRewardData()
+    if (not self:isCeilingExist()) then return nil end
+
+    if (not self.m_ceilingRewardData) then
+        local max_step = self.m_structLFBag:getMaxStep()
+        local max_reward_list = self.m_structLFBag:getRewardList(max_step)
+        local item_id = max_reward_list and max_reward_list[1] and max_reward_list[1]['item_id'] or nil
+        self.m_ceilingRewardData =  item_id and TABLE:get('item')[item_id]
+    end
+
+    return self.m_ceilingRewardData
 end
 
 
