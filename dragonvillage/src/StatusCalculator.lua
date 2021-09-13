@@ -257,6 +257,8 @@ function StatusCalculator:getFinalStat(stat_type, is_power)
         final_stat = math_max(final_stat, 0)
     end
 
+    if (is_new_power) then final_stat = math.max(final_stat, 0) end
+
     return final_stat
 end
 
