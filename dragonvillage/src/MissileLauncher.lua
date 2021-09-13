@@ -347,7 +347,22 @@ function MissileLauncher:init_missilePattern(pattern_idx)
     owner.m_missileDepth = #owner.m_tAttackIdxCache
 end
 
+-------------------------------------
+-- function getAnotherLiveTarget
+-------------------------------------
+function MissileLauncher:getAnotherLiveTarget(org_list)
+    local target = nil
 
+    if (org_list and #org_list > 0) then
+        for _, org_target in ipairs(org_list) do
+            if (org_target) and (not org_target:isDead()) then
+                target = org_target
+            end
+        end
+    end
+
+    return target
+end
 
 -------------------------------------
 -- function fireMissile
@@ -417,6 +432,12 @@ function MissileLauncher:fireMissile(attack_idx, depth, dir_add, offset_add, tim
             if (target_idx ~= 1 or idx > 1) then break end
 
             target = self.m_launcherOption['target']
+
+            -- 지정된 타겟마저도 죽었으면?
+            -- 공격대상 리스트에서 살아있는 놈 아무나 가지고 온다
+            if (not target or target:isDead()) then
+                target = self:getAnotherLiveTarget(l_target)
+            end
 
             if (not target or target:isDead()) then break end
         end
