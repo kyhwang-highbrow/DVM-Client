@@ -148,9 +148,9 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		local attr = self:getAttribute()
 		local phys_group = self:getMissilePhysGroup()
 
-        local b = self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
+        local is_skill_fired = self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
 
-        if (b) then
+        if (is_skill_fired) then
             -- 텍스트
             if (self.m_charType == 'dragon') then
                 if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader')) then
@@ -159,7 +159,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             end
         end
 
-        return b
+        return is_skill_fired
         
     -- 코드형 스킬
     elseif (skill_form == 'code') then
