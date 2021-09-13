@@ -304,7 +304,7 @@ function StructIndividualStatus:calcFinalStat()
     -- 능력치 연산
     local t3 = t2 + (t2 * (formation_multi + stage_multi + buff_multi)) + self.m_formationAdd + self.m_stageAdd + self.m_buffAdd
 
-    self.m_finalStat = t3
+    self.m_finalStat = math.max(t3, 0)
 
     self.m_bDirtyFinalStat = false
 end
@@ -318,6 +318,8 @@ function StructIndividualStatus:getFinalStat_ExcludeMastery()
     if self.m_bDirtyFinalStat then
         self:calcFinalStat_ExcludeMastery()
     end
+
+    self.m_finalStat = math.max(self.m_finalStat, 0)
 
     return self.m_finalStat
 end
