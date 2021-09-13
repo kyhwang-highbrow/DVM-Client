@@ -8,12 +8,13 @@ UI_DragonGoodbyeSelect = class(PARENT, {
 	m_isAutoSelected = 'boolean',
 	m_bOptionChanged = 'boolean',
 
-	m_tabList = 'List[string]',
+	m_tabList = 'List[string]', -- {'relation', 'mastery', 'exp'}
 	m_currTabType = 'string',
+	
+	m_attributeList = 'List[string]', -- {'fire', 'water', 'earth', 'light', 'dark'}
+	m_rarityList = 'List[string]', -- {'legend', 'hero', 'rare', 'common'}
 
-
-	m_attributeList = 'List[string]',
-	m_rarityList = 'List[string]',
+	m_relationList = 'List[did] = sum_of_relation_points',
 
 	m_currFilteredList = 'List[]',
 
@@ -55,6 +56,7 @@ function UI_DragonGoodbyeSelect:init(selectedDragonData)
 	self.m_rarityList = {'legend', 'hero', 'rare', 'common'}
 	self.m_sellList = {}
 	self.m_currFilteredList = {}
+	self.m_relationList = {}
 
     -- 정렬 도우미
 	self:init_mtrDragonSortMgr(false) -- slime_first
@@ -83,26 +85,9 @@ function UI_DragonGoodbyeSelect:initUI()
 end
 
 -------------------------------------
--- function getDragonMaterialList
--- brief UI_DragonManage_Base:getDragonMaterialList()
+-- function isContainsInTableview
 -------------------------------------
-function UI_DragonGoodbyeSelect:getDragonMaterialList()
-	local dragon_list = g_dragonsData:getDragonsList()
-
-	for doid, struct_dragon in pairs(dragon_list) do
-		if (not self:isFarewellPossible(struct_dragon)) then
-			dragon_list[doid] = nil
-		end
-	end
-
-	return self:filterDragonList(dragon_list)
-end
-
--------------------------------------
--- function isFarewellPossible
--------------------------------------
-function UI_DragonGoodbyeSelect:isFarewellPossible(struct_dragon)
-
+function UI_DragonGoodbyeSelect:isContainsInTableview(struct_dragon)
 	-- 잠금 상태인 드래곤 제외
 	if struct_dragon:getLock() then
 		return false
@@ -131,6 +116,37 @@ function UI_DragonGoodbyeSelect:isFarewellPossible(struct_dragon)
 	
 		end
 	end
+
+	return true
+end
+
+-------------------------------------
+-- function getDragonMaterialList
+-- brief UI_DragonManage_Base:getDragonMaterialList()
+-------------------------------------
+function UI_DragonGoodbyeSelect:getDragonMaterialList()
+	local dragon_list = g_dragonsData:getDragonsList()
+
+	for doid, struct_dragon in pairs(dragon_list) do
+		if (not self:isContainsInTableview(struct_dragon)) then
+			dragon_list[doid] = nil
+		end
+
+		if (self.m_currTabType == 'relation') then
+			local did = struct_dragon:getDid()
+			self.m_relationList[did] = 0
+		end
+	end
+
+	return self:filterDragonList(dragon_list)
+end
+
+-------------------------------------
+-- function isFarewellPossible
+-------------------------------------
+function UI_DragonGoodbyeSelect:isFarewellPossible(struct_dragon)
+	local did = struct_dragon:getDid()
+
 
 	return true
 end
@@ -178,6 +194,8 @@ function UI_DragonGoodbyeSelect:initFilterButton()
 
 	-- 	index = index + 1
 	-- end
+	local is_all_checked = true
+
 	local grade_option_list = g_settingData:get('farewell', 'selective', self.m_currTabType, 'grade_option')
 
     -- 등급 
@@ -191,6 +209,8 @@ function UI_DragonGoodbyeSelect:initFilterButton()
 
         vars['starBtn'..idx] = UIC_CheckBox(vars['starBtn'..idx].m_node, vars['starSprite'..idx], is_checked)
         vars['starBtn'..idx]:registerScriptTapHandler(function() self:click_filterCheckbox() end)
+
+		if (not is_checked) then is_all_checked = false end
     end
 
 	local attribute_option_list = g_settingData:get('farewell', 'selective', self.m_currTabType, 'attribute_option')
@@ -206,6 +226,8 @@ function UI_DragonGoodbyeSelect:initFilterButton()
 
         vars['attrBtn'..idx] = UIC_CheckBox(vars['attrBtn'..idx].m_node, vars['attrSprite'..idx], is_checked)
         vars['attrBtn'..idx]:registerScriptTapHandler(function() self:click_filterCheckbox() end)
+		
+		if (not is_checked) then is_all_checked = false end
     end
 
 	local rarity_option_list = g_settingData:get('farewell', 'selective', self.m_currTabType, 'rarity_option')
@@ -221,10 +243,12 @@ function UI_DragonGoodbyeSelect:initFilterButton()
 
         vars['rarityBtn'..idx] = UIC_CheckBox(vars['rarityBtn'..idx].m_node, vars['raritySprite'..idx], is_checked)
         vars['rarityBtn'..idx]:registerScriptTapHandler(function() self:click_filterCheckbox() end)
+		
+		if (not is_checked) then is_all_checked = false end
     end
 
 
-	vars['allCheckBtn'] = UIC_CheckBox(vars['allCheckBtn'].m_node, vars['allCheckSprite'], false)
+	vars['allCheckBtn'] = UIC_CheckBox(vars['allCheckBtn'].m_node, vars['allCheckSprite'], is_all_checked)
 	vars['allCheckBtn']:registerScriptTapHandler(function() self:click_allFilterCheckbox() end)
 end
 
@@ -395,11 +419,49 @@ function UI_DragonGoodbyeSelect:click_tabBtn(tab_type)
 	self:refresh()
 end
 
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_DragonGoodbyeSelect:click_infoBtn()
+	require('UI_DragonGoodbyeSelectInfoPopup')
+	local type = self.m_currTabType
+	UI_DragonGoodbyeSelectInfoPopup(type)
+end
+
+
 -------------------------------------
 -- function click_filterCheckbox
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_filterCheckbox()
+	local vars = self.vars 
+	
 	self.m_bOptionChanged = true
+
+	local is_all_checked = true
+
+    -- 등급 
+    for idx = 1, 5 do
+        if (not vars['starBtn'..idx]:isChecked()) then
+			is_all_checked = false
+		end
+    end
+
+    -- 속성
+    for idx = 1, #self.m_attributeList do
+        if (not vars['attrBtn'..idx]:isChecked()) then
+			is_all_checked = false
+		end
+    end
+
+    -- 희귀도
+    for idx = 1, #self.m_rarityList do
+        if (not vars['rarityBtn'..idx]:isChecked()) then
+			is_all_checked = false
+		end
+    end
+
+	vars['allCheckBtn']:setChecked(is_all_checked)
 
 	self:refresh()
 end
@@ -432,34 +494,79 @@ function UI_DragonGoodbyeSelect:click_allFilterCheckbox()
 	self:refresh()
 end
 
+function UI_DragonGoodbyeSelect:checkRelationPoint(did)
+	if (self.m_currTabType == 'relation') then
+		local curr_relation = g_bookData:getBookData(did):getRelation()
+		local target_relation_point = TableDragon:getRelationPoint(did)
+		local max_relation_point = TableDragonReinforce:getTotalExp()
+
+		if (self.m_relationList[did] == nil) then
+			self.m_relationList[did] = 0
+		end
+
+		local sum = curr_relation + self.m_relationList[did] + target_relation_point
+
+		if (max_relation_point < sum) then
+			return false
+		end
+	end
+
+	return true	
+end
+
 -------------------------------------
 -- function click_dragonCard
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
-
 	local doid = data:getObjectId()
-	local is_checked = (self.m_sellList[doid] == nil)
+	local did = data:getDid()
+	-- 해당 드래곤이 이미 선택된 경우 true
+	local is_checked = (self.m_sellList[doid] ~= nil)
 
-	local function click_callback()	
-		if is_checked then
-			self.m_sellList[doid] = data
-		else
-			self.m_sellList[doid] = nil
+	local function click_callback()
+		-- 드래곤이 선택되지 않은 상태이고 인연포인트가 초과하는 경우, 경고 출력
+		if (not is_checked) and (not self:checkRelationPoint(did)) then
+			UIManager:toastNotificationRed(Str('인연포인트 보유 한도를 초과해 선택할 수 없습니다.'))
+			return
 		end
-		
+
+		-- 선택되어 있는 경우
 		if is_checked then
-			self.m_selectedNum = self.m_selectedNum + 1
-		else
+			-- 판매 목록에서 제거 및 선택된 드래곤 숫자 갱신
+			self.m_sellList[doid] = nil
 			self.m_selectedNum = self.m_selectedNum - 1
+
+		-- 선택 되어 있지 않은 경우
+		else
+			-- 판매 목록에 추가 및 선택된 드래곤 숫자 갱신
+			self.m_sellList[doid] = data
+			self.m_selectedNum = self.m_selectedNum + 1
+		end
+
+		if (self.m_currTabType == 'relation') then
+			local target_relation_point = TableDragon:getRelationPoint(did)
+			if is_checked then	
+				local relation_point = self.m_relationList[did] - target_relation_point
+				if (relation_point >= 0) then
+					self.m_relationList[did] = relation_point
+				end
+			else
+				self.m_relationList[did] = self.m_relationList[did] + target_relation_point
+			end
 		end
 		
 		self.vars['selectLabel']:setString(Str('{1}/{2}', self.m_selectedNum, self.m_totalNum))
 
-		ui:setCheckSpriteVisible(is_checked and true or false)
+		if (self.m_selectedNum == 0) then
+			self.m_isAutoSelected = false
+		end
+
+		ui:setCheckSpriteVisible(not is_checked)
 	end
 
-	if data:isRaisedByUser() and is_checked then
-		MakeSimplePopup2(POPUP_TYPE.YES_NO, '육성 중인 드래곤입니다.', '작별 하시겠습니까?', function() click_callback() end)
+	-- 드래곤이 선택되지 않은 상태이고 육성중인 드래곤인 경우, 경고 출력
+	if (not is_checked) and data:isRaisedByUser() then
+		MakeSimplePopup2(POPUP_TYPE.YES_NO, Str('육성 중인 드래곤입니다.'), Str('작별 하시겠습니까?'), function() click_callback() end)
 		return
 	end
 
@@ -467,30 +574,36 @@ function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
 end
 
 -------------------------------------
--- function click_infoBtn
--------------------------------------
-function UI_DragonGoodbyeSelect:click_infoBtn()
-	require('UI_DragonGoodbyeSelectInfoPopup')
-	local type = self.m_currTabType
-	UI_DragonGoodbyeSelectInfoPopup(type)
-end
-
-
--------------------------------------
 -- function click_farewellBtn
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_autoSelectBtn()
 	self.m_sellList = {}
+	self.m_relationList = {}
 	self.m_isAutoSelected = (not self.m_isAutoSelected)
 
 	for index, item in pairs(self.m_mtrlTableViewTD.m_itemList) do
-		if (not item['data']:isRaisedByUser()) then
+		local did = item['data']:getDid()
+
+		if (not item['data']:isRaisedByUser()) and self:checkRelationPoint(did) then
 			if item['ui'] then
 				item['ui']:setCheckSpriteVisible(self.m_isAutoSelected)
 			end
+			
+			local target_relation_point = TableDragon:getRelationPoint(did)
 
 			if self.m_isAutoSelected then
 				self.m_sellList[item['unique_id']] = item['data']
+			end
+
+			if (self.m_currTabType == 'relation') then
+				if self.m_isAutoSelected then
+					self.m_relationList[did] = self.m_relationList[did] + target_relation_point
+				else
+					local relation_point = self.m_relationList[did] - target_relation_point
+					if (relation_point >= 0) then
+						self.m_relationList[did] = relation_point
+					end
+				end
 			end
 		else
 			if item['ui'] then
