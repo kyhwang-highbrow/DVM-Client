@@ -75,7 +75,7 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
     local t_dragon = table_dragon[t_dragon_data['did']]
 
     -- 드래곤 이름
-    if vars['nameLabel'] and t_dragon_data['eclv'] then
+    if vars['nameLabel'] then
         vars['nameLabel']:setString(t_dragon_data:getDragonNameWithEclv())
     end
 
