@@ -353,7 +353,7 @@ end
 -- function refresh_dragonMaterialTableView
 -- brief UI_DragonManage_Base:refresh_dragonMaterialTableView()
 -------------------------------------
-function UI_DragonManage_Base:init_dragonMaterialTableView()
+function UI_DragonGoodbyeSelect:init_dragonMaterialTableView()
 	local vars = self.vars
 	local tableview_node = vars['materialTableViewNode']
 	tableview_node:removeAllChildren()
@@ -669,6 +669,7 @@ function UI_DragonGoodbyeSelect:click_farewellBtn()
 
 		local function success_callback(ret)
 			self:refresh()
+			self.m_bChangeDragonList = true
 
 			if ret['items_list'] then
 				-- params : l_item, msg, ok_btn_cb, is_merge_all_item)
@@ -753,7 +754,7 @@ function UI_DragonGoodbyeSelect:saveOptions()
 end
 
 -------------------------------------
--- function makeItemList
+-- function getExpectItemsAndMsg
 -- @brief 현재 선택된 드래곤들을 변환한 아이템 리스트
 -------------------------------------
 function UI_DragonGoodbyeSelect:getExpectItemsAndMsg()
