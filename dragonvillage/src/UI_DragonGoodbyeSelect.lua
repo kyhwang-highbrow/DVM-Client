@@ -14,9 +14,9 @@ UI_DragonGoodbyeSelect = class(PARENT, {
 	m_attributeList = 'List[string]', -- {'fire', 'water', 'earth', 'light', 'dark'}
 	m_rarityList = 'List[string]', -- {'legend', 'hero', 'rare', 'common'}
 
-	m_relationList = 'List[did] = sum_of_relation_points',
+	m_relationList = 'List[did] = sum_of_relation_points', -- 드래곤 최대 인연포인트 계산을 위한 리스트
 
-	m_currFilteredList = 'List[]',
+	m_currFilteredList = 'List[doid] = StructDragonObject', -- 
 
 	m_sellList = 'List[number]', -- doid
 
@@ -171,7 +171,7 @@ function UI_DragonGoodbyeSelect:initButton()
 	for index, key in pairs(self.m_tabList) do
 		vars[key .. 'Btn']:registerScriptTapHandler(function() self:click_tabBtn(key) end)
 	end
-
+	vars['goodbyeBtn']:setEnabled(false)
 	vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_farewellBtn() end)
 	vars['autoSelectBtn']:registerScriptTapHandler(function() self:click_autoSelectBtn() end)
 	vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
@@ -422,8 +422,6 @@ function UI_DragonGoodbyeSelect:click_tabBtn(tab_type)
 	vars[self.m_currTabType .. 'Btn']:setEnabled(false)
 	vars[self.m_currTabType .. 'Label']:setColor(COLOR['black'])
 
-	self.m_isAutoSelected = false
-
 	self:initFilterButton()
 
 	self:refresh()
@@ -569,6 +567,9 @@ function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
 
 		if (self.m_selectedNum == 0) then
 			self.m_isAutoSelected = false
+			self.vars['goodbyeBtn']:setEnabled(false)
+		else
+			self.vars['goodbyeBtn']:setEnabled(true)
 		end
 
 		ui:setCheckSpriteVisible(not is_checked)
@@ -584,7 +585,7 @@ function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
 end
 
 -------------------------------------
--- function click_farewellBtn
+-- function click_autoSelectBtn
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_autoSelectBtn()
 	self.m_sellList = {}
@@ -625,6 +626,12 @@ function UI_DragonGoodbyeSelect:click_autoSelectBtn()
 	self.m_totalNum = table.count(self.m_currFilteredList)
 	self.m_selectedNum = table.count(self.m_sellList)
 	self.vars['selectLabel']:setString(Str('{1}/{2}', self.m_selectedNum, self.m_totalNum))
+
+	if (self.m_selectedNum == 0) then
+		self.vars['goodbyeBtn']:setEnabled(false)
+	else
+		self.vars['goodbyeBtn']:setEnabled(true)
+	end
 end
 
 -------------------------------------
@@ -669,6 +676,13 @@ function UI_DragonGoodbyeSelect:click_farewellBtn()
 		g_dragonsData:request_goodbye(target, doid_list, success_callback)
 	end
 
+	local function confirm_callback()
+		require('UI_DragonGoodbyeSelectConfirmPopup')
+		local item_list = self:makeItemList()
+
+		UI_DragonGoodbyeSelectConfirmPopup(item_list, '', function() farewell_callback() end)
+	end
+
 	local str 
 	if is_four_grade_included and is_five_grade_included then
 		str = Str('4, 5성')
@@ -680,11 +694,11 @@ function UI_DragonGoodbyeSelect:click_farewellBtn()
 
 	if is_four_grade_included or is_five_grade_included then
 		MakeSimplePopup2(POPUP_TYPE.YES_NO, str .. Str('드래곤이 포함되어 있습니다.'),
-		 '작별하시겠습니까?', function() farewell_callback() end)
+		 '작별하시겠습니까?', function() confirm_callback() end)
 		return
 	end
 
-	farewell_callback()
+	confirm_callback()
 end
 
 -------------------------------------
@@ -735,3 +749,69 @@ function UI_DragonGoodbyeSelect:saveOptions()
 	end
 end
 
+-------------------------------------
+-- function makeItemList
+-- @brief 현재 선택된 드래곤들을 변환한 아이템 리스트
+-------------------------------------
+function UI_DragonGoodbyeSelect:makeItemList()
+	local item_list = {}
+
+	if (self.m_currTabType == 'exp') then
+		local exp_table = TableDragonExp()
+		local total_exp = 0
+
+		for doid, struct_dragon in pairs(self.m_sellList) do
+			local exp = exp_table:getDragonGivingExp(struct_dragon:getGrade(), struct_dragon:getLv(), false)
+			total_exp = total_exp + exp
+		end
+		
+		table.insert(item_list, {
+			['item_id'] = 700017,
+			['count'] = total_exp
+		})
+	elseif (self.m_currTabType == 'relation') then
+		local temp = {}
+		local dragon_table = TableDragon()
+		for doid, dragon_struct in pairs(self.m_sellList) do
+			local did = dragon_struct:getDid()
+			local item_id = 760000 + (did % 10000) -- 인연포인트
+			
+			if (not temp[item_id]) then temp[item_id] = 0 end
+
+			temp[item_id] = temp[item_id] + dragon_table:getRelationPoint(did)
+		end
+
+		for item_id, relation_points in pairs(temp) do
+			table.insert(item_list, {
+				['item_id'] = item_id,
+				['count'] = relation_points
+			})
+		end
+	else--if (self.m_currTabType == 'mastery') then
+		local temp = {}
+		local item_table = TableItem()
+		local dragon_table = TableDragon()
+
+		for doid, dragon_struct in pairs(self.m_sellList) do
+			local did = dragon_struct:getDid()
+			local attr = dragon_table:getValue(did, 'attr')
+			local rarity = dragon_table:getValue(did, 'rarity')
+
+			local mastery_name = 'mastery_material_' .. rarity .. '_' .. attr
+			local item_id = item_table:getItemIDFromItemType(mastery_name)
+
+			if (not temp[item_id]) then temp[item_id] = 0 end
+
+			temp[item_id] = temp[item_id] + 1
+		end
+
+		for item_id, mastery_num in pairs(temp) do
+			table.insert(item_list, {
+				['item_id'] = item_id,
+				['count'] = mastery_num
+			})
+		end
+	end
+	
+	return item_list
+end
