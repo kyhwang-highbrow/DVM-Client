@@ -334,22 +334,8 @@ function UI_EventLFBag:showCurrntReward(item_str)
     vars['itemLabel']:setString(item_count_str)
 
     self.m_toastUI:setOpacityChildren(true)
-    
-    --item_id = 771752
 
-    local did = TableItem:getDidByItemId(item_id)
-    local birthgrade = did and TableDragon:getBirthGrade(did) or nil
-
-    local function item_appear()
-        cca.fadeInDelayOut(self.m_toastUI.root, 0.1, 0.5, 0.3)
-    end
-
-    if (birthgrade and birthgrade >= 6) then
-        self:showMythAnimation(did, item_appear)
-    else
-        -- 등장 연출
-	    item_appear()
-    end
+    cca.fadeInDelayOut(self.m_toastUI.root, 0.1, 0.5, 0.3)
 end
 
 -------------------------------------
@@ -481,6 +467,8 @@ function UI_EventLFBag:click_openBtn()
                     SoundMgr:playEffect('UI', 'ui_game_start')
                 end
                 
+                self:showMythAnimation(ret['item_info'])
+
                 -- 이번 성공으로 획득한 보상
                 local function toast_cb()
                     if (ret['item_info']) then
@@ -1032,11 +1020,22 @@ end
 -- function showMythAnimation
 -- @brief top_appear연출 호출하고 드래곤 등장시킴
 -------------------------------------
-function UI_EventLFBag:showMythAnimation(did, finish_cb)
+function UI_EventLFBag:showMythAnimation(data)
+    -- 현재 보상 정보 파싱
+    local l_item_list = g_itemData:parsePackageItemStr(data)
+    local t_item = l_item_list[1]
+    local item_id = t_item['item_id']
+    
+    local did = TableItem:getDidByItemId(item_id)
+    local birthgrade = did and TableDragon:getBirthGrade(did) or nil
+
+    if (not birthgrade) or (birthgrade < 6) then return end
+
     local animator
     local dragon_appear_cut_res
     local dragon_name = TableDragon:getValue(did, 'type')
     local file_name = string.format('appear_%s', dragon_name)
+
     
     dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
     animator = MakeAnimator(dragon_appear_cut_res)
