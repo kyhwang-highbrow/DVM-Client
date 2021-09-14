@@ -130,8 +130,11 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 		if (t_dragon) then
 			-- 일반 소환 or 고급소환
             if (t_dragon['rarity'] == 'myth') then
-                table.insert(l_region, 'pick_gacha')
-            
+                if (t_dragon['pick_weight'] > 0) then
+                    table.insert(l_region, 'pick_gacha')
+                else
+                    table.insert(l_region, 'empty')
+                end
 			elseif (t_dragon['pick_weight'] > 0) then
 				local birth_grade = t_dragon['birthgrade']
 				if (birth_grade >= 3) then
