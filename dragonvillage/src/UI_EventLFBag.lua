@@ -344,7 +344,7 @@ function UI_EventLFBag:showCurrntReward(item_str)
         cca.fadeInDelayOut(self.m_toastUI.root, 0.1, 0.5, 0.3)
     end
 
-    if (birthgrade >= 6) then
+    if (birthgrade and birthgrade >= 6) then
         self:showMythAnimation(did, item_appear)
     else
         -- 등장 연출
