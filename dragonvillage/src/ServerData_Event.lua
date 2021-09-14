@@ -331,6 +331,9 @@ function ServerData_Event:getEventFullPopupList()
 
 			elseif (event_type == 'event_1st_comeback') then
 				visible = self:isComebackUser_1st()
+
+            elseif (event_type == 'event_arena_play') then
+                visible = not (g_eventArenaPlayData:isAllReceived('play') and g_eventArenaPlayData:isAllReceived('win'))
 			
 			elseif (string.find(event_type, 'event_thanks_anniversary')) then
                 if (visible) then
