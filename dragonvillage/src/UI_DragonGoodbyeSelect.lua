@@ -344,6 +344,9 @@ function UI_DragonGoodbyeSelect:refresh()
 	self.m_totalNum = table.count(self.m_currFilteredList)
 	self.m_selectedNum = table.count(self.m_sellList)
 	vars['selectLabel']:setString(Str('{1}/{2}', self.m_selectedNum, self.m_totalNum))
+
+	vars['infoLabel']:setVisible(self.m_totalNum == 0)
+	
 end
 
 -------------------------------------
