@@ -1021,11 +1021,12 @@ end
 -- @brief top_appear연출 호출하고 드래곤 등장시킴
 -------------------------------------
 function UI_EventLFBag:showMythAnimation(data)
+    data = "771765;1"
     -- 현재 보상 정보 파싱
-    local l_item_list = g_itemData:parsePackageItemStr(data)
-    local t_item = l_item_list[1]
+    local item_list = g_itemData:parsePackageItemStr(data)
+    local t_item = item_list[1]
     local item_id = t_item['item_id']
-    
+
     local did = TableItem:getDidByItemId(item_id)
     local birthgrade = did and TableDragon:getBirthGrade(did) or nil
 
@@ -1036,7 +1037,6 @@ function UI_EventLFBag:showMythAnimation(data)
     local dragon_name = TableDragon:getValue(did, 'type')
     local file_name = string.format('appear_%s', dragon_name)
 
-    
     dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
     animator = MakeAnimator(dragon_appear_cut_res)
 
@@ -1046,13 +1046,15 @@ function UI_EventLFBag:showMythAnimation(data)
 
     if (animator and animator.m_node) then
 
-        animator.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 2)
-
         animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
 
 	    local cut_node = UIManager:getLastUI().root --self.root:getParent()
 
+        cclog(UIManager:getLastUI().m_uiName)
+
 	    if (cut_node) then cut_node:addChild(animator.m_node) end
+
+        animator.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 2)
 
         local cur_x, cur_y = cut_node:getPosition()
         animator:setPosition(0 - cur_x, 0 - cur_y)
@@ -1096,8 +1098,6 @@ function UI_EventLFBag:showMythAnimation(data)
 
         local function end_animation()
             animator:setVisible(false)
-
-            if finish_cb then finish_cb() else after_appear_cut_cb() end
         end
 
         animator:addAniHandler(function()
@@ -1112,9 +1112,6 @@ function UI_EventLFBag:showMythAnimation(data)
                 end_animation()
             end)
 	    end)
-
-    else
-        if finish_cb then finish_cb() else after_appear_cut_cb() end
 
     end
 

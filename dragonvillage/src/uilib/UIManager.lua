@@ -653,8 +653,12 @@ end
 -- function getLastUI
 -------------------------------------
 function UIManager:getLastUI()
-    local reversed_list = table.reverse(self.m_uiList)
-    local ui = reversed_list and reversed_list[1] or nil
+    -- UI_Network 는 휘발성 UI이기 때문에 스킵
+    for i, ui_obj in ipairs(self.m_uiList) do
+        if (ui_obj and ui_obj.m_uiName ~= 'UI_Network') then
+            ui = ui_obj
+        end
+    end
 
     return ui
 end
