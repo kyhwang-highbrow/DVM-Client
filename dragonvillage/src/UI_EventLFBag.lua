@@ -1021,7 +1021,6 @@ end
 -- @brief top_appear연출 호출하고 드래곤 등장시킴
 -------------------------------------
 function UI_EventLFBag:showMythAnimation(data)
-    data = "771765;1"
     -- 현재 보상 정보 파싱
     local item_list = g_itemData:parsePackageItemStr(data)
     local t_item = item_list[1]
