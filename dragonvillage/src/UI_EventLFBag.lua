@@ -334,9 +334,22 @@ function UI_EventLFBag:showCurrntReward(item_str)
     vars['itemLabel']:setString(item_count_str)
 
     self.m_toastUI:setOpacityChildren(true)
+    
+    --item_id = 771752
 
-    -- 등장 연출
-	cca.fadeInDelayOut(self.m_toastUI.root, 0.1, 0.5, 0.3)
+    local did = TableItem:getDidByItemId(item_id)
+    local birthgrade = did and TableDragon:getBirthGrade(did) or nil
+
+    local function item_appear()
+        cca.fadeInDelayOut(self.m_toastUI.root, 0.1, 0.5, 0.3)
+    end
+
+    if (birthgrade >= 6) then
+        self:showMythAnimation(did, item_appear)
+    else
+        -- 등장 연출
+	    item_appear()
+    end
 end
 
 -------------------------------------
@@ -1012,4 +1025,98 @@ function UI_EventLFBag:deepcopy(original)
 		copy[k] = v
 	end
 	return copy
+end
+
+
+-------------------------------------
+-- function showMythAnimation
+-- @brief top_appear연출 호출하고 드래곤 등장시킴
+-------------------------------------
+function UI_EventLFBag:showMythAnimation(did, finish_cb)
+    local animator
+    local dragon_appear_cut_res
+    local dragon_name = TableDragon:getValue(did, 'type')
+    local file_name = string.format('appear_%s', dragon_name)
+    
+    dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
+    animator = MakeAnimator(dragon_appear_cut_res)
+
+    --번역
+    Translate:a2dTranslate(dragon_appear_cut_res)
+
+
+    if (animator and animator.m_node) then
+
+        animator.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 2)
+
+        animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+
+	    local cut_node = UIManager:getLastUI().root --self.root:getParent()
+
+	    if (cut_node) then cut_node:addChild(animator.m_node) end
+
+        local cur_x, cur_y = cut_node:getPosition()
+        animator:setPosition(0 - cur_x, 0 - cur_y)
+
+
+        animator:changeAni('appear', false)
+
+	    -- 사운드 재생 
+        local file_name = string.format('appear_%s', dragon_name)
+	    SoundMgr:playEffect('VOICE', file_name)
+
+        -- 라벨만들기
+	    local label = cc.Label:createWithTTF(0, 
+            Translate:getFontPath(), 
+            30, 
+            1, 
+            cc.size(600, 100), 
+            1, 1)
+
+        local str
+        local uic_label = UIC_LabelTTF(label)
+        uic_label:setPosition(0, -230)
+        uic_label:setDockPoint(CENTER_POINT)
+        uic_label:setAnchorPoint(CENTER_POINT)
+        uic_label:setColor(COLOR['white'])
+        uic_label:setString('')
+        animator.m_node:addChild(uic_label.m_node)
+        str = TableDragonPhrase():getValue(did, 't_dragon_appear')
+        if (not str) then str = '' end
+
+        local typing_label = MakeTypingEffectLabel(uic_label)
+        typing_label.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 5)
+        typing_label:setDueTime(2.5)
+
+        local function act_text()
+            typing_label:setString(Str(str))
+            typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(5.1), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
+        end
+
+        typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(0.9), cc.CallFunc:create(function() act_text() end)))
+
+        local function end_animation()
+            animator:setVisible(false)
+
+            if finish_cb then finish_cb() else after_appear_cut_cb() end
+        end
+
+        animator:addAniHandler(function()
+            animator:changeAni('idle', false)
+            animator:addAniHandler(function()
+                if (animator:hasAni('end')) then
+                    animator:changeAni('end', false)
+                end
+	        end)
+
+            animator:addAniHandler(function()
+                end_animation()
+            end)
+	    end)
+
+    else
+        if finish_cb then finish_cb() else after_appear_cut_cb() end
+
+    end
+
 end

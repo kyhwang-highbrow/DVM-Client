@@ -648,3 +648,13 @@ end
 function UIManager:removeKeyListener(listener)
     table.remove(self.m_keyListenerList, listener)
 end
+
+-------------------------------------
+-- function getLastUI
+-------------------------------------
+function UIManager:getLastUI()
+    local reversed_list = table.reverse(self.m_uiList)
+    local ui = reversed_list and reversed_list[1] or nil
+
+    return ui
+end
