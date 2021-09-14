@@ -690,21 +690,7 @@ function UI_EventLFBag:click_ceilingBtn()
     local item_data = g_eventLFBagData:getCeilingRewardData()
 
     if item_data then
-        local did = item_data['did']
-        local dragon_data = {
-            ['did'] = did,
-            ['lv'] = 1,
-            ['evolution'] = 3,
-            ['grade'] = 5,
-            ['exp'] = 0,
-            ['skill_0'] = 1,
-            ['skill_1'] = 1,
-            ['skill_2'] = 1,
-            ['skill_3'] = 1,
-        }
-
-       local ui =  UI_SimpleDragonInfoPopup(StructDragonObject(dragon_data))
-       ui:setBlockRunePopup()
+       local ui = UI_BookDetailPopup.openWithFrame(item_data['did'], item_data['birthgrade'], 1, 0.8, true)
     end
 end
 
