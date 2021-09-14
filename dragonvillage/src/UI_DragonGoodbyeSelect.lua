@@ -678,9 +678,9 @@ function UI_DragonGoodbyeSelect:click_farewellBtn()
 
 	local function confirm_callback()
 		require('UI_DragonGoodbyeSelectConfirmPopup')
-		local item_list = self:makeItemList()
+		local item_list, msg = self:getExpectItemsAndMsg()
 
-		UI_DragonGoodbyeSelectConfirmPopup(item_list, '', function() farewell_callback() end)
+		UI_DragonGoodbyeSelectConfirmPopup(item_list, msg, function() farewell_callback() end)
 	end
 
 	local str 
@@ -753,8 +753,11 @@ end
 -- function makeItemList
 -- @brief 현재 선택된 드래곤들을 변환한 아이템 리스트
 -------------------------------------
-function UI_DragonGoodbyeSelect:makeItemList()
+function UI_DragonGoodbyeSelect:getExpectItemsAndMsg()
 	local item_list = {}
+	local msg
+
+	local selected_dragon_num = table.count(self.m_sellList)
 
 	if (self.m_currTabType == 'exp') then
 		local exp_table = TableDragonExp()
@@ -769,6 +772,7 @@ function UI_DragonGoodbyeSelect:makeItemList()
 			['item_id'] = 700017,
 			['count'] = total_exp
 		})
+		msg = Str('{1} 마리의 드래곤이 드래곤 경험치로 변경됩니다.', selected_dragon_num)
 	elseif (self.m_currTabType == 'relation') then
 		local temp = {}
 		local dragon_table = TableDragon()
@@ -787,6 +791,7 @@ function UI_DragonGoodbyeSelect:makeItemList()
 				['count'] = relation_points
 			})
 		end
+		msg = Str('{1} 마리의 드래곤이 인연포인트로 변경됩니다.', selected_dragon_num)
 	else--if (self.m_currTabType == 'mastery') then
 		local temp = {}
 		local item_table = TableItem()
@@ -811,7 +816,8 @@ function UI_DragonGoodbyeSelect:makeItemList()
 				['count'] = mastery_num
 			})
 		end
+		msg = Str('{1} 마리의 드래곤이 특성 재료로 변경됩니다.', selected_dragon_num)
 	end
 	
-	return item_list
+	return item_list, msg
 end
