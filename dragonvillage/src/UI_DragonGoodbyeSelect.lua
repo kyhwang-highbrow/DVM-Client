@@ -171,7 +171,6 @@ function UI_DragonGoodbyeSelect:initButton()
 	for index, key in pairs(self.m_tabList) do
 		vars[key .. 'Btn']:registerScriptTapHandler(function() self:click_tabBtn(key) end)
 	end
-	vars['goodbyeBtn']:setEnabled(false)
 	vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_farewellBtn() end)
 	vars['autoSelectBtn']:registerScriptTapHandler(function() self:click_autoSelectBtn() end)
 	vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
@@ -359,7 +358,7 @@ function UI_DragonGoodbyeSelect:init_dragonMaterialTableView()
 	tableview_node:removeAllChildren()
 
 	local function create_func(ui, data)
-		ui.root:setScale(0.58)
+		ui.root:setScale(0.54)
 
 		ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(ui, data) end)
 
@@ -570,9 +569,6 @@ function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
 
 		if (self.m_selectedNum == 0) then
 			self.m_isAutoSelected = false
-			self.vars['goodbyeBtn']:setEnabled(false)
-		else
-			self.vars['goodbyeBtn']:setEnabled(true)
 		end
 
 		ui:setCheckSpriteVisible(not is_checked)
@@ -629,19 +625,18 @@ function UI_DragonGoodbyeSelect:click_autoSelectBtn()
 	self.m_totalNum = table.count(self.m_currFilteredList)
 	self.m_selectedNum = table.count(self.m_sellList)
 	self.vars['selectLabel']:setString(Str('{1}/{2}', self.m_selectedNum, self.m_totalNum))
-
-	if (self.m_selectedNum == 0) then
-		self.vars['goodbyeBtn']:setEnabled(false)
-	else
-		self.vars['goodbyeBtn']:setEnabled(true)
-	end
 end
 
 -------------------------------------
 -- function click_farewellBtn
 -------------------------------------
 function UI_DragonGoodbyeSelect:click_farewellBtn()
-	--g_settingData:get('farewell', 'selective', )
+	-- 갯수 체크
+	local sell_cnt = table.count(self.m_sellList)
+	if (sell_cnt <= 0) then
+		UIManager:toastNotificationGreen(Str('재료 드래곤을 선택해주세요!'))
+		return
+	end
 
 	local is_four_grade_included = false
 	local is_five_grade_included = false
