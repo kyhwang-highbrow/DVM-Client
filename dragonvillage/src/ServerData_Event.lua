@@ -332,9 +332,6 @@ function ServerData_Event:getEventFullPopupList()
 			elseif (event_type == 'event_1st_comeback') then
 				visible = self:isComebackUser_1st()
 
-            elseif (event_type == 'event_arena_play') then
-                visible = not (g_eventArenaPlayData:isAllReceived('play') and g_eventArenaPlayData:isAllReceived('win'))
-			
 			elseif (string.find(event_type, 'event_thanks_anniversary')) then
                 if (visible) then
 				    visible = (not self:isEventUserRewardDone())
@@ -343,6 +340,11 @@ function ServerData_Event:getEventFullPopupList()
 			-- 한정 이벤트 리스트
 			elseif (event_id == 'limited') then
 				visible = g_hotTimeData:isActiveEvent(event_type)
+
+                -- 콜로세움 참여 이벤트 보상을 전부 받은 경우 풀팝업 X
+                if visible and (event_type == 'event_arena_play') then
+                    visible = not (g_eventArenaPlayData:isAllReceived('play') and g_eventArenaPlayData:isAllReceived('win'))
+                end
 
             -- 누적 결제 보상 이벤트
             elseif (event_type == 'purchase_point') then
