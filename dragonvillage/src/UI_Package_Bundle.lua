@@ -10,6 +10,8 @@ UI_Package_Bundle = class(PARENT,{
         m_pids = 'table',
 
         m_package_name = 'string',
+
+        m_mailSelectType = "MAIL_SELECT_TYPE"
     })
 
 
@@ -25,6 +27,7 @@ function UI_Package_Bundle:init(package_name, is_popup)
     self.m_isPopup = is_popup or false
 	
 	self.m_uiName = 'UI_Package_Bundle'
+    self.m_mailSelectType = MAIL_SELECT_TYPE.NONE
 
     if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
@@ -328,7 +331,11 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
 
         else
             -- 아이템 획득 결과창
-            ItemObtainResult_Shop(ret, show_all)
+            if (self.m_mailSelectType == MAIL_SELECT_TYPE.NONE) then
+                ItemObtainResult_Shop(ret, show_all)
+            else
+                ItemObtainResult_ShowMailBox(ret, self.m_mailSelectType)
+            end
         end
 
         -- 갱신이 필요한 상태일 경우
@@ -428,5 +435,14 @@ function UI_Package_Bundle:customInit(package_name, is_popup)
         --local res = TableTamerCostume:getTamerResSD(cid)
         --local ani_tamer = AnimatorHelper:makeTamerAnimator(res)
         --vars['tamerNode']:addChild(ani_tamer.m_node)
+    end
+end
+
+-------------------------------------
+-- function setMailSelectType
+-------------------------------------
+function UI_Package_Bundle:setMailSelectType(type)
+    if (type > MAIL_SELECT_TYPE.NONE) and (type <= MAIL_SELECT_TYPE.SUPER_SLIME) then
+        self.m_mailSelectType = type
     end
 end

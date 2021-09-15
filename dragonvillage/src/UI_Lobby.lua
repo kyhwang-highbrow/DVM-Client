@@ -204,6 +204,11 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if g_hotTimeData:isActiveEvent('event_arena_play') then
+            co:work('# 콜로세움 참여 이벤트 정보 받는 중')
+            g_eventArenaPlayData:request_eventData(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
 
         -- 그랜드 콜로세움 (이벤트 PvP 10대10)
         if (g_hotTimeData:isActiveEvent('event_grand_arena') or g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
@@ -239,12 +244,6 @@ function UI_Lobby:entryCoroutine()
         if (g_capsuleBoxData.m_refillState == 2) then
             co:work('# 캡슐 코인 상세 정보 받는 중')
             g_capsuleBoxData:request_capsuleBoxStatus(co.NEXT, co.ESCAPE)
-            if co:waitWork() then return end
-        end
-
-        do 
-            co:work('# 콜로세움 참여 보 정보 받는 중')
-            g_eventArenaPlayData:request_eventData(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
