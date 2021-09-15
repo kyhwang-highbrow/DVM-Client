@@ -164,7 +164,7 @@ function StructProductGroup:setTargetUI(parent_node, buy_callback, is_refresh_de
 		local ui
 
 		-- 구형 방식 : PackageManager에서 패키지마다 해당하는 UI class를 if문으로 찾아 리턴하는 방식
-		if (ui_type == '') then
+		if (ui_type == '') or (ui_type == 'bundle')  then
 			local package_name = TablePackageBundle:getPackageNameWithPid(struct_product['product_id'])
 			ui = PackageManager:getTargetUI(package_name, false)
 		else
@@ -184,7 +184,11 @@ function StructProductGroup:setTargetUI(parent_node, buy_callback, is_refresh_de
 
 			-- 그 외엔 전부 UI_Package
 			if (not package_class) then
-				package_class = UI_Package
+				if (ui_type == 'bundle') then
+					package_class = UI_Package
+				else
+					package_class = UI_Package
+				end
 			end
 
 			local product_list
@@ -231,7 +235,7 @@ function StructProductGroup:getTargetUITest(parent_node, buy_callback, is_popup)
 		local ui_type = self:getType()
 
 		-- 구형 방식 : PackageManager에서 패키지마다 해당하는 UI class를 if문으로 찾아 리턴하는 방식
-		if (ui_type == '') then
+		if (ui_type == '') or (ui_type == 'bundle') then
 			local package_name = TablePackageBundle:getPackageNameWithPid(struct_product['product_id'])
 			ui = PackageManager:getTargetUI(package_name, is_popup or false)
 		else
@@ -251,7 +255,11 @@ function StructProductGroup:getTargetUITest(parent_node, buy_callback, is_popup)
 
 			-- 그 외엔 전부 UI_Package
 			if (not package_class)  then
-				package_class = UI_Package
+				if (ui_type == 'bundle') then
+					package_class = UI_Package
+				else
+					package_class = UI_Package
+				end
 			end
 
 			local product_list
