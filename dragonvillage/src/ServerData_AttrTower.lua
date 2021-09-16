@@ -3,6 +3,7 @@ ATTR_TOWER_EXTEND_OPEN_FLOOR = 200
 ATTR_TOWER_EXTEND_OPEN_FLOOR_150 = 400
 ATTR_TOWER_EXTEND_OPEN_FLOOR_200 = 600
 ATTR_TOWER_EXTEND_OPEN_FLOOR_250 = 800
+ATTR_TOWER_EXTEND_OPEN_FLOOR_300 = 1000
 
 -------------------------------------
 -- class ServerData_AttrTower
@@ -33,6 +34,7 @@ ServerData_AttrTower = class({
         m_bExtendFloor_150 = 'boolean', -- 150층까지 확장되었는지
         m_bExtendFloor_200 = 'boolean', -- 200층까지 확장되었는지
         m_bExtendFloor_250 = 'boolean', -- 250층까지 확장되었는지
+        m_bExtendFloor_300 = 'boolean', -- 300층까지 확장되었는지
 
         m_exFloorCnt = 'number', -- 전체 층수 모자른 상태에서(바로 전층이) + 서버에서 expend값을 true로 받았을 때, 처음 개방된 걸로 간주하고 팝업 출력할 용도
     })
@@ -44,6 +46,7 @@ ServerData_AttrTower.MAXSTAGEID = {
 	['EXTEND_150'] = 1401150,		-- 시험의 탑 스테이지 400개 클리어 후 : 속성별 Max 스테이지 150
     ['EXTEND_200'] = 1401200,		-- 시험의 탑 스테이지 600개 클리어 후 : 속성별 Max 스테이지 200
     ['EXTEND_250'] = 1401250,		-- 시험의 탑 스테이지 800개 클리어 후 : 속성별 Max 스테이지 250
+    ['EXTEND_300'] = 1401300,		-- 시험의 탑 스테이지 800개 클리어 후 : 속성별 Max 스테이지 250
 }
 
 -------------------------------------
@@ -208,6 +211,13 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage_id, finish_cb, f
             -- 250층 확장 여부
             if (menu_info['extended_250']) then
                 self.m_bExtendFloor_250 = (menu_info['extended_250'] == 1) and true or false
+            end
+
+            -- 300층 확장 여부
+            if (menu_info['extended_300']) then
+                self.m_bExtendFloor_300 = (menu_info['extended_300'] == 1) and true or false
+            else
+                self.m_bExtendFloor_300 = true
             end
 
             self.m_exFloorCnt = self.m_clearFloorTotalCnt
@@ -535,8 +545,12 @@ end
 -- function getAttrMaxStageId
 -------------------------------------
 function ServerData_AttrTower:getAttrMaxStageId()
+    -- 300층까지 확장
+    if (self.m_bExtendFloor_300 == true) then
+        return ServerData_AttrTower.MAXSTAGEID['EXTEND_300']
+
     -- 250층까지 확장
-    if (self.m_bExtendFloor_250 == true) then
+    elseif (self.m_bExtendFloor_250 == true) then
         return ServerData_AttrTower.MAXSTAGEID['EXTEND_250']
 
     -- 200층까지 확장
@@ -570,6 +584,8 @@ function ServerData_AttrTower:isAttrExpendedFirst()
     elseif (ex_total_floor < ATTR_TOWER_EXTEND_OPEN_FLOOR_200) and (self.m_bExtendFloor_200) then
         return true
     elseif (ex_total_floor < ATTR_TOWER_EXTEND_OPEN_FLOOR_250) and (self.m_bExtendFloor_250) then
+        return true
+    elseif (ex_total_floor < ATTR_TOWER_EXTEND_OPEN_FLOOR_300) and (self.m_bExtendFloor_300) then
         return true
     end
 
