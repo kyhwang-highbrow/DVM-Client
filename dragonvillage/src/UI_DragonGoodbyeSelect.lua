@@ -107,8 +107,11 @@ function UI_DragonGoodbyeSelect:isContainsInTableview(struct_dragon)
 	else
 		if (self.m_currTabType == 'exp') then
 
-		--elseif (self.m_currTabType == 'relation') then
-			
+		elseif (self.m_currTabType == 'relation') then
+			local did = struct_dragon:getDid()
+			if (not self:checkRelationPoint(did)) then
+				return false
+			end			
 		else--if (self.m_currTabType == 'mastery') then
 			if (struct_dragon:getBirthGrade() < 3) then
 				return false
@@ -140,11 +143,6 @@ function UI_DragonGoodbyeSelect:getDragonMaterialList()
 	for doid, struct_dragon in pairs(dragon_list) do
 		if (not self:isContainsInTableview(struct_dragon)) then
 			dragon_list[doid] = nil
-		end
-
-		if (self.m_currTabType == 'relation') then
-			local did = struct_dragon:getDid()
-			self.m_relationList[did] = 0
 		end
 	end
 
@@ -208,7 +206,7 @@ function UI_DragonGoodbyeSelect:initFilterButton()
 	local grade_option_list = g_settingData:get('farewell', 'selective', self.m_currTabType, 'grade_option')
 
     -- 등급 
-    for idx = 1, 5 do
+    for idx = 1, 6 do
 		local is_checked = grade_option_list and grade_option_list[idx]
 		
 		if (is_checked == nil) then
@@ -451,7 +449,7 @@ function UI_DragonGoodbyeSelect:click_filterCheckbox()
 	local is_all_checked = true
 
     -- 등급 
-    for idx = 1, 5 do
+    for idx = 1, 6 do
         if (not vars['starBtn'..idx]:isChecked()) then
 			is_all_checked = false
 		end
