@@ -56,8 +56,6 @@ UIManager = {
     m_cbUIOpen = nil,
 
     m_keyListenerList = 'list',
-
-    m_test = '',
 }
 
 -------------------------------------
@@ -108,15 +106,6 @@ function UIManager:init(perple_scene)
     --self.m_toastPopup = nil
 
 	g_currScene:addKeyKeyListener(self)
-
-
-
-    local test = UI()
-    test:load('block.ui')
-
-    self:open(test, UIManager.LOADING)
-    self.m_test = test
-    self.m_test:setVisible(false)
 end
 
 -------------------------------------
@@ -223,7 +212,6 @@ function UIManager:open(ui, mode, bNotBlendBGLayer, ignore_add)
         for _,child in ipairs(childs) do
             if child:isVisible() then
                 child:setVisible(false)
-                child:pause()
                 doAllChildren(child, f_pause)
                 table.insert(ui.m_lHideUIList, child)
             end
@@ -636,11 +624,6 @@ function UIManager:onKeyReleased(keyCode, event)
     elseif (keyCode == KEY_X) then
 		TutorialManager.getInstance():forcedClose()
 
-    elseif (keyCode == KEY_J) then
-        ccdump('pressed KEY_J')
-        local isVisible = self.m_test.root:isVisible()
-        ccdump(isVisible)
-        self.m_test:setVisible(not isVisible)
 	end
 
     -- 개발용 키 리스너 유연성 제고
