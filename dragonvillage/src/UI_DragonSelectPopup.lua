@@ -58,38 +58,42 @@ end
 -------------------------------------
 function UI_DragonSelectPopup:initButton()
     local vars = self.vars
+    local active
+    -- 종류
+    local object_type_list = {'slime'}
+    for _, object_type in pairs(object_type_list) do
+        active = (not g_settingData:get('open_dragon_select', 'object_type_' .. object_type))
+        vars[object_type .. 'Btn'] = UIC_CheckBox(vars[object_type .. 'Btn'].m_node, vars[object_type .. 'Sprite'], active)
+        vars[object_type .. 'Btn']:registerScriptTapHandler(function() self:click_checkBox() end)
+    end
+
     -- 등급 
     for idx = 1, 6 do
-        local active = g_settingData:get('option_dragon_select', 'grade_'..idx)
+        active = g_settingData:get('option_dragon_select', 'grade_'..idx)
         vars['starBtn'..idx] = UIC_CheckBox(vars['starBtn'..idx].m_node, vars['starSprite'..idx], active)
         vars['starBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
 
     -- 속성
     for idx = 1, 5 do
-        local active = g_settingData:get('option_dragon_select', 'attr_'..idx)
+        active = g_settingData:get('option_dragon_select', 'attr_'..idx)
         vars['attrBtn'..idx] = UIC_CheckBox(vars['attrBtn'..idx].m_node, vars['attrSprite'..idx], active)
         vars['attrBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
     -- 희귀도
-    for idx = 1, 4 do
-        local active = g_settingData:get('option_dragon_select', 'rarity_'..idx)
+    for idx = 1, 5 do
+        active = g_settingData:get('option_dragon_select', 'rarity_'..idx)
         vars['rarityBtn'..idx] = UIC_CheckBox(vars['rarityBtn'..idx].m_node, vars['raritySprite'..idx], active)
         vars['rarityBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
 
-    -- 신화는 별도로
-    local mythBtnName = 'myth'
-    local active = g_settingData:get('option_dragon_select', 'rarity_myth') or true
-    vars['rarityMythBtn'] = UIC_CheckBox(vars['rarityMythBtn'].m_node, vars['rarityMythSprite'], active)
-    vars['rarityMythBtn']:registerScriptTapHandler(function() self:click_checkBox() end)
-
     -- 역할
     for idx = 1, 4 do
-        local active = g_settingData:get('option_dragon_select', 'type_'..idx)
+        active = g_settingData:get('option_dragon_select', 'type_'..idx)
         vars['typeBtn'..idx] = UIC_CheckBox(vars['typeBtn'..idx].m_node, vars['typeSprite'..idx], active)
         vars['typeBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
+
 end
 
 -------------------------------------
@@ -255,6 +259,12 @@ function UI_DragonSelectPopup:getDragonList()
 
     local l_dragon = g_dragonsData:getDragonListWithSlime() 
     local l_ret_list = {}
+    -- 종류
+    local l_object_type = {}
+    --l_object_type['dragon'] = (not vars['dragonBtn']:isChecked())
+    l_object_type['dragon'] = true
+    l_object_type['slime'] = (not vars['slimeBtn']:isChecked())
+
     -- 등급
     local l_stars = {}
     l_stars[1] = vars['starBtn1']:isChecked()
@@ -272,11 +282,11 @@ function UI_DragonSelectPopup:getDragonList()
     l_attr['dark'] = vars['attrBtn5']:isChecked()
     -- 희귀도
     local l_rarity = {}
-    l_rarity['myth'] = vars['rarityMythBtn']:isChecked()
-    l_rarity['legend'] = vars['rarityBtn1']:isChecked()
-    l_rarity['hero'] = vars['rarityBtn2']:isChecked()
-    l_rarity['rare'] = vars['rarityBtn3']:isChecked()
-    l_rarity['common'] = vars['rarityBtn4']:isChecked()
+    l_rarity['myth'] = vars['rarityBtn5']:isChecked()
+    l_rarity['legend'] = vars['rarityBtn4']:isChecked()
+    l_rarity['hero'] = vars['rarityBtn3']:isChecked()
+    l_rarity['rare'] = vars['rarityBtn2']:isChecked()
+    l_rarity['common'] = vars['rarityBtn1']:isChecked()
     -- 역할
     local l_role = {}
     l_role['tanker'] = vars['typeBtn1']:isChecked()
@@ -292,19 +302,22 @@ function UI_DragonSelectPopup:getDragonList()
         local attr
         local rarity 
         local role 
+        local type
 
         -- 슬라임 추가
         if table_slime:isSlimeID(did) then
             attr = table_slime:getValue(did, 'attr')
             role = table_slime:getValue(did, 'role')
             rarity = table_slime:getValue(did, 'rarity')
+            type = table_slime:getValue(did, 'type')
         else
             attr = table_dragon:getValue(did, 'attr')
             role = table_dragon:getValue(did, 'role')
             rarity = table_dragon:getValue(did, 'rarity')
+            type = 'dragon'
         end
 
-        if (l_stars[grade] and l_attr[attr] and l_role[role] and l_rarity[rarity]) then
+        if (l_object_type[type] and l_stars[grade] and l_attr[attr] and l_role[role] and l_rarity[rarity]) then
             l_ret_list[i] = v
         end
     end
@@ -348,6 +361,12 @@ function UI_DragonSelectPopup:onClose()
         local vars = self.vars
 
         g_settingData:lockSaveData()
+        -- 종류
+        local object_type_list = {'slime'}
+        for _, object_type in pairs(object_type_list) do
+            g_settingData:applySettingData(vars[object_type .. 'Btn']:isChecked(), 'option_dragon_select', 'object_type_'.. object_type)
+        end
+
         -- 등급 
         for idx = 1, 6 do
             g_settingData:applySettingData(vars['starBtn'..idx]:isChecked(), 'option_dragon_select', 'grade_'..idx)
@@ -357,17 +376,16 @@ function UI_DragonSelectPopup:onClose()
             g_settingData:applySettingData(vars['attrBtn'..idx]:isChecked(), 'option_dragon_select', 'attr_'..idx)
         end
         -- 희귀도
-        for idx = 1, 4 do
+        for idx = 1, 5 do
             g_settingData:applySettingData(vars['rarityBtn'..idx]:isChecked(), 'option_dragon_select', 'rarity_'..idx)
         end
-
-        -- 신화등급
-        g_settingData:applySettingData(vars['rarityMythBtn']:isChecked(), 'option_dragon_select', 'rarity_myth')
 
         -- 역할
         for idx = 1, 4 do
             g_settingData:applySettingData(vars['typeBtn'..idx]:isChecked(), 'option_dragon_select', 'type_'..idx)
         end
+
+
         g_settingData:unlockSaveData()
         self.m_bOptionChanged = false
     end
