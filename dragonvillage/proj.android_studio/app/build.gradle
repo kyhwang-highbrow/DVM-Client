@@ -31,6 +31,9 @@ android {
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
     buildToolsVersion PROP_BUILD_TOOLS_VERSION
 
+    // SYMBOL_TABLE | FULL
+    // android.buildTypes.release.ndk.debugSymbolLevel = "FULL"
+
     defaultConfig {
         applicationId PROP_PACKAGE_NAME
 		versionCode PROP_VERSION_CODE.toInteger()
@@ -236,8 +239,8 @@ android {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
                     cppFlags.add("-DMAJOR_VER=NUM_1")
-                    cppFlags.add("-DMINOR_VER=NUM_2")
-                    cppFlags.add("-DBUILD_VER=NUM_9")
+                    cppFlags.add("-DMINOR_VER=NUM_3")
+                    cppFlags.add("-DBUILD_VER=NUM_0")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -251,8 +254,8 @@ android {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
                     cppFlags.add("-DMAJOR_VER=NUM_1")
-                    cppFlags.add("-DMINOR_VER=NUM_2")
-                    cppFlags.add("-DBUILD_VER=NUM_9")
+                    cppFlags.add("-DMINOR_VER=NUM_3")
+                    cppFlags.add("-DBUILD_VER=NUM_0")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=false")
                     cppFlags.add("-DLUA_DEBUG=1")
