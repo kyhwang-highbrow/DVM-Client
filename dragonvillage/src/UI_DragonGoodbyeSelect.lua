@@ -22,6 +22,8 @@ UI_DragonGoodbyeSelect = class(PARENT, {
 
 	m_selectedNum = 'number',
 	m_totalNum = 'number',
+
+	
 })
 
 
@@ -574,7 +576,7 @@ function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
 
 	-- 드래곤이 선택되지 않은 상태이고 육성중인 드래곤인 경우, 경고 출력
 	if (not is_checked) and data:isRaisedByUser() then
-		MakeSimplePopup2(POPUP_TYPE.YES_NO, Str('육성 중인 드래곤입니다.'), Str('작별 하시겠습니까?'), function() click_callback() end)
+		MakeSimplePopup2(POPUP_TYPE.YES_NO, Str('육성 중인 드래곤입니다.'), Str('작별하시겠습니까?'), function() click_callback() end)
 		return
 	end
 
@@ -638,6 +640,7 @@ function UI_DragonGoodbyeSelect:click_farewellBtn()
 
 	local is_four_grade_included = false
 	local is_five_grade_included = false
+	local is_six_grade_included = false
 	local doid_list = ''
 
 	for doid, dragon_data in pairs(self.m_sellList) do
@@ -647,6 +650,8 @@ function UI_DragonGoodbyeSelect:click_farewellBtn()
 			is_four_grade_included = true
 		elseif (grade == 5) then
 			is_five_grade_included = true
+		elseif (grade == 6) then
+			is_six_grade_included = true
 		end
 
 		if (doid_list == '') then
