@@ -73,9 +73,9 @@ function UI_NewcomerShop:initUI()
             local b_is_buy_all = b_struct_product:isBuyAll()
 
             if (a_is_buy_all == b_is_buy_all) then
-                local a_product_id = a_struct_product['product_id']
-                local b_product_id = b_struct_product['product_id']
-                return a_product_id < b_product_id
+                local a_ui_priority = a_struct_product:getUIPriority()
+                local b_ui_priority = b_struct_product:getUIPriority()
+                return a_ui_priority < b_ui_priority
             elseif (a_is_buy_all == false) then
                 return true
             else--if (b_is_buy_all == false) then
