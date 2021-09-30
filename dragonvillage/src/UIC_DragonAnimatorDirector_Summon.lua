@@ -55,7 +55,7 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:setDragonAnimator(did, evolution, flv)
     --did = 120221 --번고
-    --did = 121752 --데스락
+    did = 121752 --데스락
 
     PARENT.setDragonAnimator(self, did, evolution, flv)
 
@@ -87,13 +87,14 @@ end
 function UIC_DragonAnimatorDirector_Summon:directingIdle()
 	self.vars['touchNode']:setVisible(true)
 
-    local cur_step = math.max(self.m_currStep, 3)
+    local appear_idx = math.min(self.m_currStep, 4)
+    local idle_idx = math.min(self.m_currStep, 5)
 
-	local appear_ani = string.format('appear_%02d', self.m_currStep)
+	local appear_ani = string.format('appear_%02d', appear_idx)
 	self.m_topEffect:changeAni(appear_ani)
 
 	self.m_topEffect:addAniHandler(function() 
-		local idle_ani = string.format ('idle_%02d', self.m_currStep)
+		local idle_ani = string.format ('idle_%02d', idle_idx)
 		self.m_topEffect:changeAni(idle_ani, true)
 	end)
 end
@@ -128,7 +129,8 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
         end
     end
 
-    self.m_aniNum = math.min(self.m_currStep, 4)
+    local ani_limit = self.m_bRareSummon and 6 or 3
+    self.m_aniNum = math.min(self.m_currStep, ani_limit)
 
     local crack_ani
     if (self.m_bRareSummon) then
@@ -136,17 +138,37 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
     else
         crack_ani = string.format('crack_%02d', self.m_aniNum)
     end
+	
+    if (self.m_aniNum == 3 and self.m_bMyth) then
+        self.m_topEffect:changeAni('crack_high_03', false)
+	    self.m_topEffect:addAniHandler(function()
+            self.m_topEffect:changeAni('crack_high_04', false)
+            self.m_bAnimate = true
+	        self.m_topEffect:addAniHandler(function()
+		        if (self.m_currStep > self.m_maxStep) then
+                    self:checkMaxGradeEffect()
+		        else
+			        self:directingIdle()
+		        end
+                self.m_bAnimate = false
+	        end)
+            self.m_currStep = self.m_currStep + 1
+        end)
+    else
+        if (self.m_currStep ~= 4 and self.m_currStep ~= 6) then
+            self.m_topEffect:changeAni(crack_ani, false)
+        end
 
-	self.m_topEffect:changeAni(crack_ani, false)
-    self.m_bAnimate = true
-	self.m_topEffect:addAniHandler(function()
-		if (self.m_currStep > self.m_maxStep) then
-            self:checkMaxGradeEffect()
-		else
-			self:directingIdle()
-		end
-        self.m_bAnimate = false
-	end)
+        self.m_bAnimate = true
+	    self.m_topEffect:addAniHandler(function()
+		    if (self.m_currStep > self.m_maxStep) then
+                self:checkMaxGradeEffect()
+		    else
+			    self:directingIdle()
+		    end
+            self.m_bAnimate = false
+	    end)
+    end
 end
 
 -------------------------------------
@@ -156,7 +178,7 @@ end
 function UIC_DragonAnimatorDirector_Summon:checkMaxGradeEffect()
     if (self.m_bMyth) then
         SoundMgr:playEffect('UI', 'ui_egg_legend')
-        self.m_topEffect:changeAni('crack_high_04', false)
+        self.m_topEffect:changeAni('crack_high_06', false)
         self.m_topEffect:addAniHandler(function()
             self:appearDragonAnimator()
         end)
@@ -214,6 +236,10 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
         self.m_maxStep = math_max(self.m_maxStep, 1)
     else
         self.m_maxStep = 3
+    end
+
+    if (self.m_bMyth) then
+        self.m_maxStep = 5
     end
 
 	-- 전설등급의 경우 추가 연출을 붙여준다
