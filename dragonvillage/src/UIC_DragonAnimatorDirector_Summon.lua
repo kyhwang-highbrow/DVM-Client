@@ -55,7 +55,7 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:setDragonAnimator(did, evolution, flv)
     --did = 120221 --번고
-    did = 121752 --데스락
+    --did = 121752 --데스락
 
     PARENT.setDragonAnimator(self, did, evolution, flv)
 
