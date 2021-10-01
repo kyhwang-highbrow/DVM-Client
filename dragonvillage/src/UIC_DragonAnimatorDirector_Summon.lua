@@ -292,6 +292,7 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
         local file_name = string.format('appear_%s', self.m_dragonName)
         dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
         animator = MakeAnimator(dragon_appear_cut_res)
+        animator:setColor(COLOR['black'])
 
         --번역
         Translate:a2dTranslate(dragon_appear_cut_res)
