@@ -21,11 +21,6 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
         m_ownerUI = 'UI_GachaResult_Dragon',
 
         m_bActingAnimation = 'boolean',
-
-        m_bFinalTamerAct = 'boolean',
-
-        m_legendAnimator = 'Animator',
-        m_mythAnimator = 'Animator',
     })
 
 -------------------------------------
@@ -33,7 +28,6 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:init(owner_ui)
     self.m_ownerUI = owner_ui
-    self.m_bFinalTamerAct = false
 end
 
 -------------------------------------
@@ -93,14 +87,18 @@ end
 function UIC_DragonAnimatorDirector_Summon:directingIdle()
 	self.vars['touchNode']:setVisible(true)
 
-    local appear_idx = math.min(self.m_currStep, 4)
-    local idle_idx = math.min(self.m_currStep, 5)
+    local cur_step = math.max(self.m_currStep, 3)
 
-	local appear_ani = string.format('appear_%02d', appear_idx)
+	local appear_ani = string.format('appear_%02d', self.m_currStep)
 	self.m_topEffect:changeAni(appear_ani)
 
+    local idle_step = self.m_currStep
+    if self.m_bMyth and (idle_step == 4) then
+        idle_step = 5
+    end
+
 	self.m_topEffect:addAniHandler(function() 
-		local idle_ani = string.format ('idle_%02d', idle_idx)
+		local idle_ani = string.format ('idle_%02d', idle_step)
 		self.m_topEffect:changeAni(idle_ani, true)
 	end)
 end
@@ -111,6 +109,8 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:directingContinue()
 	self.vars['touchNode']:setVisible(false)
+
+    ccdump(self.m_currStep)
 
     -- 소환 연출 재생 안함
     if (not self.m_eggID) then 
@@ -126,7 +126,7 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
     if (is_fix) then
         self:appearDragonAnimator()
         local grade = TableSummonGacha:getMinGrade(self.m_eggID)
-        
+    
         -- 5등급 전설 알은 누리 연출 보여줌 
         if (grade >= 5) then
             self.m_currStep = 1
@@ -135,46 +135,31 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
         end
     end
 
-    local ani_limit = self.m_bRareSummon and 6 or 3
-    self.m_aniNum = math.min(self.m_currStep, ani_limit)
+    self.m_aniNum = math.min(self.m_currStep, 4)
 
     local crack_ani
     if (self.m_bRareSummon) then
+        if (self.m_aniNum == 4) and (self.m_bMyth) then
+            self.m_aniNum = 5
+        end
+
         crack_ani = string.format('crack_high_%02d', self.m_aniNum)
     else
         crack_ani = string.format('crack_%02d', self.m_aniNum)
     end
-	
-    if (self.m_aniNum == 3 and self.m_bMyth) then
-        self.m_topEffect:changeAni('crack_high_03', false)
-	    self.m_topEffect:addAniHandler(function()
-            self.m_topEffect:changeAni('crack_high_04', false)
-            self.m_bAnimate = true
-	        self.m_topEffect:addAniHandler(function()
-		        if (self.m_currStep > self.m_maxStep) then
-                    self:checkMaxGradeEffect()
-		        else
-			        self:directingIdle()
-		        end
-                self.m_bAnimate = false
-	        end)
-            self.m_currStep = self.m_currStep + 1
-        end)
-    else
-        if (self.m_currStep ~= 4 and self.m_currStep ~= 6) then
-            self.m_topEffect:changeAni(crack_ani, false)
-        end
 
-        self.m_bAnimate = true
-	    self.m_topEffect:addAniHandler(function()
-		    if (self.m_currStep > self.m_maxStep) then
-                self:checkMaxGradeEffect()
-		    else
-			    self:directingIdle()
-		    end
-            self.m_bAnimate = false
-	    end)
-    end
+    ccdump(crack_ani)
+
+	self.m_topEffect:changeAni(crack_ani, false)
+    self.m_bAnimate = true
+	self.m_topEffect:addAniHandler(function()
+		if (self.m_currStep > self.m_maxStep) then
+            self:checkMaxGradeEffect()
+		else
+			self:directingIdle()
+		end
+        self.m_bAnimate = false
+	end)
 end
 
 -------------------------------------
@@ -184,9 +169,6 @@ end
 function UIC_DragonAnimatorDirector_Summon:checkMaxGradeEffect()
     if (self.m_bMyth) then
         SoundMgr:playEffect('UI', 'ui_egg_legend')
-        self.m_legendAnimator:setVisible(false)
-        if (self.m_legendAnimator) then self.m_mythAnimator:setVisible(true) end
-        
         self.m_topEffect:changeAni('crack_high_06', false)
         self.m_topEffect:addAniHandler(function()
             self:appearDragonAnimator()
@@ -210,21 +192,18 @@ function UIC_DragonAnimatorDirector_Summon:setCutSceneImg()
 	local cut_node = self.m_topEffect.m_node:getSocketNode('cut')
 
 	if (cut_node) then
-		local t_tamer = TableTamer():get(110002)
-		local illustration_res = t_tamer['res']
-		local illustration_animator = MakeAnimator(illustration_res)
-        self.m_legendAnimator = illustration_animator
-		illustration_animator:changeAni('idle', true)
-		cut_node:addChild(illustration_animator.m_node)
-
-        if (self.m_bMyth) then
-            t_tamer = TableTamer():get(110001)
-		    illustration_res = t_tamer['res']
-		    illustration_animator = MakeAnimator(illustration_res)
-            self.m_mythAnimator = illustration_animator
-		    illustration_animator:changeAni('idle', true)
-		    cut_node:addChild(illustration_animator.m_node)
-            self.m_mythAnimator:setVisible(false)
+        if self.m_bLegend then
+            local t_tamer = TableTamer():get(110002)
+            local illustration_res = t_tamer['res']
+            local illustration_animator = MakeAnimator(illustration_res)
+            illustration_animator:changeAni('idle', true)
+            cut_node:addChild(illustration_animator.m_node)
+        elseif self.m_bMyth then
+            local t_tamer = TableTamer():get(110001)
+            local illustration_res = t_tamer['res']
+            local illustration_animator = MakeAnimator(illustration_res)
+            illustration_animator:changeAni('idle', true)
+            cut_node:addChild(illustration_animator.m_node)
         end
 	end
 end
@@ -259,7 +238,7 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
     end
 
     if (self.m_bMyth) then
-        self.m_maxStep = 5
+        self.m_maxStep = self.m_maxStep + 1
     end
 
 	-- 전설등급의 경우 추가 연출을 붙여준다
