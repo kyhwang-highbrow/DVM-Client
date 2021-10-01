@@ -23,7 +23,7 @@ UI_DragonGoodbyeSelect = class(PARENT, {
 	m_selectedNum = 'number',
 	m_totalNum = 'number',
 
-	
+	m_bIgnoreCombMaterial = 'boolean',
 })
 
 
@@ -37,6 +37,7 @@ function UI_DragonGoodbyeSelect:initParentVariable()
     self.m_titleStr = Str('일괄 작별')
     self.m_bUseExitBtn = true
     self.m_bShowInvenBtn = true 
+	self.m_bIgnoreCombMaterial = false
 end
 
 -------------------------------------
@@ -574,9 +575,20 @@ function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
 		ui:setCheckSpriteVisible(not is_checked)
 	end
 
-	-- 드래곤이 선택되지 않은 상태이고 육성중인 드래곤인 경우, 경고 출력
-	if (not is_checked) and data:isRaisedByUser() then
-		MakeSimplePopup2(POPUP_TYPE.YES_NO, Str('육성 중인 드래곤입니다.'), Str('작별하시겠습니까?'), function() click_callback() end)
+	local comb_did = TableDragonCombine:getCombinationDid(did)
+	if (not self.m_bIgnoreCombMaterial) and comb_did then
+		local combine_name = TableDragon:getDragonNameWithAttr(comb_did)
+		local msg = Str('{@DEEPSKYBLUE}{1}{@DESC}의 조합 재료인 드래곤입니다.', combine_name)
+		local submsg = Str('재료로 선택하시겠습니까?')
+
+		local ui_popup =  MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, click_callback)
+		ui_popup.vars['checkLabel']:setString(Str('다시 보지 않기'))
+		if ui_popup then
+			ui_popup:setCheckBoxCallback(function() 
+				self.m_bIgnoreCombMaterial = (not self.m_bIgnoreCombMaterial)
+			end)
+		end
+
 		return
 	end
 
@@ -590,11 +602,13 @@ function UI_DragonGoodbyeSelect:click_autoSelectBtn()
 	self.m_sellList = {}
 	self.m_relationList = {}
 	self.m_isAutoSelected = (not self.m_isAutoSelected)
-
+	
 	for index, item in pairs(self.m_mtrlTableViewTD.m_itemList) do
 		local did = item['data']:getDid()
+		local comb_did = TableDragonCombine:getCombinationDid(did)
 
-		if (not item['data']:isRaisedByUser()) and self:checkRelationPoint(did) then
+		if (not item['data']:isRaisedByUser()) and self:checkRelationPoint(did) 
+		and ((not comb_did) or (comb_did and self.m_bIgnoreCombMaterial))  then
 			if item['ui'] then
 				item['ui']:setCheckSpriteVisible(self.m_isAutoSelected)
 			end
@@ -638,21 +652,15 @@ function UI_DragonGoodbyeSelect:click_farewellBtn()
 		return
 	end
 
-	local is_four_grade_included = false
-	local is_five_grade_included = false
-	local is_six_grade_included = false
 	local doid_list = ''
+	local is_any_raised_dragon = false
 
 	for doid, dragon_data in pairs(self.m_sellList) do
-		local grade = dragon_data['grade']
 
-		if (grade == 4) then 
-			is_four_grade_included = true
-		elseif (grade == 5) then
-			is_five_grade_included = true
-		elseif (grade == 6) then
-			is_six_grade_included = true
+		if dragon_data:isRaisedByUser() then
+			is_any_raised_dragon = true
 		end
+
 
 		if (doid_list == '') then
 			doid_list = tostring(doid)
@@ -685,17 +693,8 @@ function UI_DragonGoodbyeSelect:click_farewellBtn()
 		UI_DragonGoodbyeSelectConfirmPopup(item_list, msg, function() farewell_callback() end)
 	end
 
-	local str 
-	if is_four_grade_included and is_five_grade_included then
-		str = Str('4, 5성')
-	elseif is_four_grade_included then
-		str = Str('4성')
-	elseif is_five_grade_included then
-		str = Str('5성')
-	end
-
-	if is_four_grade_included or is_five_grade_included then
-		MakeSimplePopup2(POPUP_TYPE.YES_NO, str .. Str('드래곤이 포함되어 있습니다.'),
+	if is_any_raised_dragon then
+		MakeSimplePopup2(POPUP_TYPE.YES_NO, Str('육성 중인 드래곤이 포함되어 있습니다.'),
 		 '작별하시겠습니까?', function() confirm_callback() end)
 		return
 	end
