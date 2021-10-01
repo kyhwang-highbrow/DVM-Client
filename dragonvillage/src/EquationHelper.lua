@@ -177,7 +177,7 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local buff_avoid = owner:getBuffStat(\'avoid\')' ..
         ' buff_avoid = math_max(buff_avoid, 0)' ..
 		' local buff_accuracy = owner:getBuffStat(\'accuracy\')' ..
-        ' buff_resistance = math_max(buff_resistance, 0)' ..
+        ' buff_accuracy = math_max(buff_accuracy, 0)' ..
 		' local buff_resistance = owner:getBuffStat(\'resistance\')' ..
         ' buff_resistance = math_max(buff_resistance, 0)'
     end
