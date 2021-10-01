@@ -21,6 +21,11 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
         m_ownerUI = 'UI_GachaResult_Dragon',
 
         m_bActingAnimation = 'boolean',
+
+        m_bFinalTamerAct = 'boolean',
+
+        m_legendAnimator = 'Animator',
+        m_mythAnimator = 'Animator',
     })
 
 -------------------------------------
@@ -28,6 +33,7 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:init(owner_ui)
     self.m_ownerUI = owner_ui
+    self.m_bFinalTamerAct = false
 end
 
 -------------------------------------
@@ -178,6 +184,9 @@ end
 function UIC_DragonAnimatorDirector_Summon:checkMaxGradeEffect()
     if (self.m_bMyth) then
         SoundMgr:playEffect('UI', 'ui_egg_legend')
+        self.m_legendAnimator:setVisible(false)
+        if (self.m_legendAnimator) then self.m_mythAnimator:setVisible(true) end
+        
         self.m_topEffect:changeAni('crack_high_06', false)
         self.m_topEffect:addAniHandler(function()
             self:appearDragonAnimator()
@@ -204,8 +213,19 @@ function UIC_DragonAnimatorDirector_Summon:setCutSceneImg()
 		local t_tamer = TableTamer():get(110002)
 		local illustration_res = t_tamer['res']
 		local illustration_animator = MakeAnimator(illustration_res)
+        self.m_legendAnimator = illustration_animator
 		illustration_animator:changeAni('idle', true)
 		cut_node:addChild(illustration_animator.m_node)
+
+        if (self.m_bMyth) then
+            t_tamer = TableTamer():get(110001)
+		    illustration_res = t_tamer['res']
+		    illustration_animator = MakeAnimator(illustration_res)
+            self.m_mythAnimator = illustration_animator
+		    illustration_animator:changeAni('idle', true)
+		    cut_node:addChild(illustration_animator.m_node)
+            self.m_mythAnimator:setVisible(false)
+        end
 	end
 end
 
