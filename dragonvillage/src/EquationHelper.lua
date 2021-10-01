@@ -39,6 +39,8 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local cri_avoid = owner:getStat(\'cri_avoid\')' ..
         ' local hit_rate = owner:getStat(\'hit_rate\')' ..
         ' local avoid = owner:getStat(\'avoid\')' ..
+        ' local accuracy = owner:getStat(\'accuracy\')' ..
+        ' local resistance = owner:getStat(\'resistance\')' ..
         ' local attr = owner:getAttribute()' ..
         ' local role = owner:getRole()' ..
         ' local rarity = owner:getRarity()' ..
@@ -56,6 +58,8 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local target_cri_avoid = target and target:getStat(\'cri_avoid\') or 0' ..
         ' local target_hit_rate = target and target:getStat(\'hit_rate\') or 0' ..
         ' local target_avoid = target and target:getStat(\'avoid\') or 0' ..
+        ' local target_accuracy = target and target:getStat(\'accuracy\') or 0' ..
+        ' local target_resistance = target and target:getStat(\'resistance\') or 0' ..
         ' local target_attr = target and target:getAttribute()' ..
         ' local target_role = target and target:getRole()' ..
         ' local target_rarity = target and target:getRarity() or 0' ..
@@ -131,6 +135,8 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local skill_target_cri_avoid = skill_target and skill_target:getStat(\'cri_avoid\') or 0' ..
         ' local skill_target_hit_rate = skill_target and skill_target:getStat(\'hit_rate\') or 0' ..
         ' local skill_target_avoid = skill_target and skill_target:getStat(\'avoid\') or 0' ..
+        ' local skill_target_accuracy = skill_target and skill_target:getStat(\'accuracy\') or 0' ..
+        ' local skill_target_resistance = skill_target and skill_target:getStat(\'resistance\') or 0' ..
         ' local skill_target_attr = skill_target and skill_target:getAttribute()' ..
         ' local skill_target_role = skill_target and skill_target:getRole()' ..
         ' local skill_target_rarity = skill_target and skill_target:getRarity() or 0' ..
@@ -169,7 +175,11 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local buff_hit_rate = owner:getBuffStat(\'hit_rate\')' ..
         ' buff_hit_rate = math_max(buff_hit_rate, 0)' ..
         ' local buff_avoid = owner:getBuffStat(\'avoid\')' ..
-        ' buff_avoid = math_max(buff_avoid, 0)'
+        ' buff_avoid = math_max(buff_avoid, 0)' ..
+		' local buff_accuracy = owner:getBuffStat(\'accuracy\')' ..
+        ' buff_resistance = math_max(buff_resistance, 0)' ..
+		' local buff_resistance = owner:getBuffStat(\'resistance\')' ..
+        ' buff_resistance = math_max(buff_resistance, 0)'
     end
 
     -- 해당 스킬 사용 횟수 정보
