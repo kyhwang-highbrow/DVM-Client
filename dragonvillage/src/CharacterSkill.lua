@@ -148,7 +148,28 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		local attr = self:getAttribute()
 		local phys_group = self:getMissilePhysGroup()
 
-        local is_skill_fired = self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
+        local is_skill_fired = false --self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
+
+        -- 기존 스킬들에 영향이 가지 않게 분기 처리
+        if (t_skill['dir'] and t_skill['dir'] == -3) then
+            local target_list = self:getTargetListByTable(t_skill)
+            local target_cnt = t_skill['target_count'] or 1
+
+            for i = 1, target_cnt do
+                if (not target_list) or (#target_list <= 0) or (i > #target_list) then return false end
+
+                local target_list = { target_list[i] }
+
+                -- 실패했을 때만 is_skill_fired 셋팅
+                if (not is_skill_fired) then
+                    is_skill_fired = self:do_script_shot(t_skill, attr, phys_group, x, y, t_data, target_list)
+                else
+                    self:do_script_shot(t_skill, attr, phys_group, x, y, t_data, target_list)
+                end
+            end
+        else
+            is_skill_fired = self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
+        end
 
         if (is_skill_fired) then
             -- 텍스트
@@ -534,7 +555,7 @@ end
 -- function do_script_shot
 -- @brief 스크립트 탄막 실행 
 -------------------------------------
-function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
+function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data, target_list)
     local x = x or self.m_attackOffsetX
     local y = y or self.m_attackOffsetX
     local t_data = t_data or {}
@@ -550,7 +571,7 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
     t_launcher_option['attr_name'] = attr
 
     -- 타겟을 얻는다
-    local l_target = self:getTargetListByTable(t_skill)
+    local l_target = target_list and target_list or self:getTargetListByTable(t_skill)
     if (#l_target == 0) then return false end
     
     self.m_targetChar = l_target[1]
