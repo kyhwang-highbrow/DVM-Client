@@ -551,9 +551,10 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
                 myth_cutscene_animator:changeAni('appear', false)
                 myth_cutscene_animator:addAniHandler(function()
                     myth_cutscene_animator:changeAni('idle', false)
-                end)
-                myth_cutscene_animator:addAniHandler(function()
-                    self:test(struct_dragon_object, pos_x, pos_y)
+                    myth_cutscene_animator:addAniHandler(function()
+                        myth_cutscene_animator:setVisible(false)
+                        self:test(struct_dragon_object, pos_x, pos_y)
+                    end)
                 end)
                 
             end
