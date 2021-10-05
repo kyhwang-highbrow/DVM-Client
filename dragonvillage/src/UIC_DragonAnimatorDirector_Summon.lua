@@ -110,8 +110,6 @@ end
 function UIC_DragonAnimatorDirector_Summon:directingContinue()
 	self.vars['touchNode']:setVisible(false)
 
-    ccdump(self.m_currStep)
-
     -- 소환 연출 재생 안함
     if (not self.m_eggID) then 
         self:appearDragonAnimator()
@@ -147,8 +145,6 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
     else
         crack_ani = string.format('crack_%02d', self.m_aniNum)
     end
-
-    ccdump(crack_ani)
 
 	self.m_topEffect:changeAni(crack_ani, false)
     self.m_bAnimate = true
