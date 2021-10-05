@@ -1209,6 +1209,11 @@ function StructProduct:getToolTipStr()
             end
         end
     end
+    
+    if (product_id == 120207) then
+        ret_str = ret_str .. '\n\n' .. Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', Str('7일 소탕'), Str('모험에서 전투 과정을 생략하고 전투 결과를 바로 확인할 수 있습니다.'))
+    end
+
 
     return ret_str
 end
