@@ -27,6 +27,7 @@ MissileLauncher = class(PARENT, {
         
         m_bUseOwnerPos = 'boolean',
         m_bUseTargetDir = '',
+        m_bUseTargetCenter = '',
 
         -- 탄막 발사 종료 시간
         m_endTime = '',
@@ -50,6 +51,7 @@ function MissileLauncher:init(file_name, body)
 
     self.m_bUseOwnerPos = false
     self.m_bUseTargetDir = false
+    self.m_bUseTargetCenter = false
 end
 
 -------------------------------------
@@ -581,6 +583,23 @@ function MissileLauncher:applyLauncherOption(t_option, target_idx, target)
         local target = target or self.m_launcherOption['target_list'][target_idx]
         if (target) then
             local degree = getDegree(self.pos.x, self.pos.y, target.pos.x, target.pos.y)
+            t_option['dir'] = t_option['dir'] + degree
+            t_option['rotation'] = t_option['dir']
+        end
+
+    elseif (self.m_bUseTargetCenter) then
+        local target = target or self.m_launcherOption['target_list'][target_idx]
+        if (target) then
+            local is_double_team = isInstanceOf(g_gameScene.m_gameWorld, GameWorldForDoubleTeam)
+            local degree
+
+            if (is_double_team) then
+                local x, y = target:getCenterPos()
+                degree = getDegree(self.pos.x, self.pos.y, x, y)
+            else
+                degree = getDegree(self.pos.x, self.pos.y, target.pos.x, target.pos.y)
+            end
+            
             t_option['dir'] = t_option['dir'] + degree
             t_option['rotation'] = t_option['dir']
         end

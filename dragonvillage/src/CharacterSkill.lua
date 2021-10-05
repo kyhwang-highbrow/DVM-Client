@@ -148,30 +148,9 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		local attr = self:getAttribute()
 		local phys_group = self:getMissilePhysGroup()
 
-        local is_skill_fired = false --self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
+        local b = self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
 
-        -- 기존 스킬들에 영향이 가지 않게 분기 처리
-        if (t_skill['dir'] and t_skill['dir'] == -3) then
-            local target_list = self:getTargetListByTable(t_skill)
-            local target_cnt = t_skill['target_count'] or 1
-
-            for i = 1, target_cnt do
-                if (not target_list) or (#target_list <= 0) or (i > #target_list) then return false end
-
-                local target_list = { target_list[i] }
-
-                -- 실패했을 때만 is_skill_fired 셋팅
-                if (not is_skill_fired) then
-                    is_skill_fired = self:do_script_shot(t_skill, attr, phys_group, x, y, t_data, target_list)
-                else
-                    self:do_script_shot(t_skill, attr, phys_group, x, y, t_data, target_list)
-                end
-            end
-        else
-            is_skill_fired = self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
-        end
-
-        if (is_skill_fired) then
+        if (b) then
             -- 텍스트
             if (self.m_charType == 'dragon') then
                 if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader')) then
@@ -180,7 +159,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             end
         end
 
-        return is_skill_fired
+        return b
         
     -- 코드형 스킬
     elseif (skill_form == 'code') then
@@ -555,7 +534,7 @@ end
 -- function do_script_shot
 -- @brief 스크립트 탄막 실행 
 -------------------------------------
-function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data, target_list)
+function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
     local x = x or self.m_attackOffsetX
     local y = y or self.m_attackOffsetX
     local t_data = t_data or {}
@@ -571,7 +550,7 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data, targe
     t_launcher_option['attr_name'] = attr
 
     -- 타겟을 얻는다
-    local l_target = target_list and target_list or self:getTargetListByTable(t_skill)
+    local l_target = self:getTargetListByTable(t_skill)
     if (#l_target == 0) then return false end
     
     self.m_targetChar = l_target[1]
@@ -591,15 +570,7 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data, targe
     	
 	-- 각도 지정
 	if (not t_launcher_option['dir']) then
-        local degree
-
-        if (t_skill['dir'] and t_skill['dir'] == -3 and isInstanceOf(g_gameScene.m_gameWorld, GameWorldForDoubleTeam)) then
-            local x, y = self.m_targetChar:getCenterPos()
-            degree = getDegree(start_x, start_y, x, y)
-        else
-            degree = getDegree(start_x, start_y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
-        end
-
+        local degree = getDegree(start_x, start_y, self.m_targetChar.pos.x, self.m_targetChar.pos.y)
         t_launcher_option['dir'] = degree
 	end
 
@@ -642,6 +613,10 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data, targe
             else
                 t_launcher_option['dir'] = 180
             end
+
+        -- -3 : 2공대까지 있는 월드면 getCenterPos 방향으로 조준
+        elseif (skill_dir == -3) then
+            missile_launcher.m_bUseTargetCenter = true
 
         -- 0~360 : 해당 각도로 발사
         elseif (0 <= skill_dir and skill_dir <= 360) then
