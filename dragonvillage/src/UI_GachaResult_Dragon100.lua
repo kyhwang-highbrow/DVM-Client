@@ -27,7 +27,7 @@ UI_GachaResult_Dragon100 = class(PARENT, {
         m_timer = 'number', -- 스킵 관련 타이머
         m_currDoid = 'string', -- 현재 드래곤 정보 창으로 보고 있는 드래곤 doid
 
-        m_animatorTest = '',
+        m_dragonAnimator = '',
 
         -- 소환정보
         m_tSummonData = 'table',
@@ -412,10 +412,10 @@ function UI_GachaResult_Dragon100:initDragonCardList()
 end
 
 -------------------------------------
--- function test
+-- function relocate_callback
 -------------------------------------
-function UI_GachaResult_Dragon100:test(struct_dragon_object, pos_x, pos_y)
-    local animator = self.m_animatorTest
+function UI_GachaResult_Dragon100:relocate_callback(struct_dragon_object, pos_x, pos_y)
+    local animator = self.m_dragonAnimator
     local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0), 1.7)
     local doid = struct_dragon_object.id
     local did = struct_dragon_object.did
@@ -428,7 +428,7 @@ function UI_GachaResult_Dragon100:test(struct_dragon_object, pos_x, pos_y)
 
         -- 연출동안 오래 기다렸으니 바로 다음 카드 뒤집을 수 있도록 하자
         self.m_timer = 0
-        self.m_animatorTest = nil
+        self.m_dragonAnimator = nil
     end
 
     local function card_relocate_func()
@@ -488,7 +488,7 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
     animator.m_node:setPositionY(-40)
     local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 1), 1.7)
 
-    self.m_animatorTest = animator
+    self.m_dragonAnimator = animator
     
     local function myth_cutscene()
         if (rarity == 'myth') then
@@ -553,13 +553,13 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
                     myth_cutscene_animator:changeAni('idle', false)
                     myth_cutscene_animator:addAniHandler(function()
                         myth_cutscene_animator:setVisible(false)
-                        self:test(struct_dragon_object, pos_x, pos_y)
+                        self:relocate_callback(struct_dragon_object, pos_x, pos_y)
                     end)
                 end)
                 
             end
         else
-            self:test(struct_dragon_object, pos_x, pos_y)
+            self:relocate_callback(struct_dragon_object, pos_x, pos_y)
         end
     end
 
