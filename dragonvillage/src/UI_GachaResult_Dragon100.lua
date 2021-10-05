@@ -493,9 +493,11 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
     local function myth_cutscene()
         if (rarity == 'myth') then
             local dragon_name = TableDragon:getValue(did, 'type')
-            local file_name = string.format('appear_%s', dragon_name)
+            --local file_name = string.format('appear_%s', dragon_name)
+            local file_name = 'appear'
             local myth_cutscene_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
             local myth_cutscene_animator = MakeAnimator(myth_cutscene_res)
+            myth_cutscene_animator:setColor(COLOR['black'])
 
             if self.vars['effectNode'] and myth_cutscene_animator then
                 self.vars['effectNode']:addChild(myth_cutscene_animator.m_node)
@@ -512,6 +514,40 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
                 local sound_file_name = string.format('appear_%s', dragon_name)
 	             SoundMgr:playEffect('VOICE', sound_file_name)
 
+
+                -- 
+                local label = cc.Label:createWithTTF(0, 
+                Translate:getFontPath(), 
+                30, 
+                1, 
+                cc.size(600, 100), 
+                1, 1)
+
+                local str
+                local uic_label = UIC_LabelTTF(label)
+                uic_label:setPosition(0, -230)
+                uic_label:setDockPoint(CENTER_POINT)
+                uic_label:setAnchorPoint(CENTER_POINT)
+                uic_label:setColor(COLOR['white'])
+                uic_label:setString('')
+                myth_cutscene_animator.m_node:addChild(uic_label.m_node)
+                str = TableDragonPhrase():getValue(did, 't_dragon_appear')
+                if (not str) then str = '' end
+
+                local typing_label = MakeTypingEffectLabel(uic_label)
+                typing_label.m_node:setGlobalZOrder(myth_cutscene_animator.m_node:getGlobalZOrder() + 5)
+                typing_label:setDueTime(2.5)
+        
+                local function act_text()
+                    typing_label:setString(Str(str))
+                    typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(5.1), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
+                end
+        
+                typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(0.9), cc.CallFunc:create(function() act_text() end)))
+        
+
+
+                -- 
                 myth_cutscene_animator:changeAni('appear', false)
                 myth_cutscene_animator:addAniHandler(function()
                     myth_cutscene_animator:changeAni('idle', false)
