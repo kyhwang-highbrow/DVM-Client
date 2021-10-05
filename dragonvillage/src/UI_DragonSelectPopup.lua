@@ -62,34 +62,37 @@ function UI_DragonSelectPopup:initButton()
     -- 종류
     local object_type_list = {'slime'}
     for _, object_type in pairs(object_type_list) do
-        active = (not g_settingData:get('open_dragon_select', 'object_type_' .. object_type))
+        active = (not g_settingData:get('open_dragon_select', 'object_type_' .. object_type)) or true
         vars[object_type .. 'Btn'] = UIC_CheckBox(vars[object_type .. 'Btn'].m_node, vars[object_type .. 'Sprite'], active)
         vars[object_type .. 'Btn']:registerScriptTapHandler(function() self:click_checkBox() end)
     end
 
     -- 등급 
     for idx = 1, 6 do
-        active = g_settingData:get('option_dragon_select', 'grade_'..idx)
+        active = g_settingData:get('option_dragon_select', 'grade_'..idx) or true
         vars['starBtn'..idx] = UIC_CheckBox(vars['starBtn'..idx].m_node, vars['starSprite'..idx], active)
         vars['starBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
 
     -- 속성
     for idx = 1, 5 do
-        active = g_settingData:get('option_dragon_select', 'attr_'..idx)
+        active = g_settingData:get('option_dragon_select', 'attr_'..idx) or true
         vars['attrBtn'..idx] = UIC_CheckBox(vars['attrBtn'..idx].m_node, vars['attrSprite'..idx], active)
         vars['attrBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
     -- 희귀도
     for idx = 1, 5 do
-        active = g_settingData:get('option_dragon_select', 'rarity_'..idx)
+        active = g_settingData:get('option_dragon_select', 'rarity_'..idx) or true
+        cclog('rarity_'..idx)
+        cclog(active)
+
         vars['rarityBtn'..idx] = UIC_CheckBox(vars['rarityBtn'..idx].m_node, vars['raritySprite'..idx], active)
         vars['rarityBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
 
     -- 역할
     for idx = 1, 4 do
-        active = g_settingData:get('option_dragon_select', 'type_'..idx)
+        active = g_settingData:get('option_dragon_select', 'type_'..idx) or true
         vars['typeBtn'..idx] = UIC_CheckBox(vars['typeBtn'..idx].m_node, vars['typeSprite'..idx], active)
         vars['typeBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
