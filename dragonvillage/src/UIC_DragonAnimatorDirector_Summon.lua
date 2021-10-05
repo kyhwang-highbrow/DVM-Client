@@ -282,11 +282,10 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
         if (self.m_ownerUI) then 
             self.m_ownerUI.vars['skipBtn']:setVisible(false) 
             self.m_ownerUI.vars['okBtn']:setVisible(false) 
-        
         end
 
-        local file_name = string.format('appear_%s', self.m_dragonName)
-        dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
+        --local file_name = string.format('appear_%s', self.m_dragonName)
+        dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.json', 'appear', 'appear')
         animator = MakeAnimator(dragon_appear_cut_res)
         animator:setColor(COLOR['black'])
 
