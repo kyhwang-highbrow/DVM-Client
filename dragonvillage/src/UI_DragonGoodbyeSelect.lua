@@ -114,6 +114,8 @@ function UI_DragonGoodbyeSelect:isContainsInTableview(struct_dragon)
 			local did = struct_dragon:getDid()
 			if (not self:checkRelationPoint(did)) then
 				return false
+			elseif (struct_dragon:getBirthGrade() < 3) then
+				return false
 			end			
 		else--if (self.m_currTabType == 'mastery') then
 			if (struct_dragon:getBirthGrade() < 3) then
@@ -576,7 +578,7 @@ function UI_DragonGoodbyeSelect:click_dragonCard(ui, data)
 	end
 
 	local comb_did = TableDragonCombine:getCombinationDid(did)
-	if (not self.m_bIgnoreCombMaterial) and comb_did then
+	if (not self.m_bIgnoreCombMaterial) and comb_did and (not is_checked) then
 		local combine_name = TableDragon:getDragonNameWithAttr(comb_did)
 		local msg = Str('{@DEEPSKYBLUE}{1}{@DESC}의 조합 재료인 드래곤입니다.', combine_name)
 		local submsg = Str('재료로 선택하시겠습니까?')
