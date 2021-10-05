@@ -571,8 +571,8 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
 	-- 각도 지정
 	if (not t_launcher_option['dir']) then
         local degree
-        
-        if (t_skill['dir'] and t_skill['dir'] == -3) then
+
+        if (t_skill['dir'] and t_skill['dir'] == -3 and isInstanceOf(g_gameScene.m_gameWorld, GameWorldForDoubleTeam)) then
             local x, y = self.m_targetChar:getCenterPos()
             degree = getDegree(start_x, start_y, x, y)
         else
