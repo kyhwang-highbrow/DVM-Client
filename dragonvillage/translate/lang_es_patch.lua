@@ -1,5 +1,5 @@
 return {['다이아 900개\n7일 소탕']='Diamante x900\n Barrido de 7 días',
-['모든 속성 클리어 시 {@yellow}다이아 150,000개{@default} 지급']='Elimina todos los elementos para obtener {@yellow} 150.000 diamantes {@default}',
+['모든 속성 클리어 시 {@yellow}다이아 1,000,000개{@default} 지급']='Elimina todos los elementos para obtener {@yellow}1.000.000 diamantes{@default}',
 ['슬라임 보지 않기']='No muestres limos',
 ['슬라임 숨기기']='Ocultar limos',
 ['육성 중인 드래곤입니다.']='Has estado cultivando este dragón.',

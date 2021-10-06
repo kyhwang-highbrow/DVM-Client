@@ -1,5 +1,5 @@
 return {['다이아 900개\n7일 소탕']='Diamond x900\n7-day Sweep',
-['모든 속성 클리어 시 {@yellow}다이아 150,000개{@default} 지급']='Clear all the elements to get {@yellow}150,000 Diamonds{@default}',
+['모든 속성 클리어 시 {@yellow}다이아 1,000,000개{@default} 지급']='Clear all the elements to get {@yellow}1,000,000 Diamonds{@default}',
 ['슬라임 보지 않기']='Don\'t show Slimes',
 ['슬라임 숨기기']='Hide Slimes',
 ['육성 중인 드래곤입니다.']='You\'ve been growing this dragon.',
