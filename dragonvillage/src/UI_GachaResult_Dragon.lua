@@ -341,6 +341,11 @@ function UI_GachaResult_Dragon:refresh()
     vars['starVisual']:setVisible(false)
         vars['okBtn']:setEnabled(false)
     vars['bgNode']:removeAllChildren()
+
+    for _, card in pairs(self.m_lDragonCardList) do
+        card.vars['clickBtn']:setEnabled(false)
+    end
+
     local function start_directing_cb()
         -- 플래시 연출
         do
@@ -451,12 +456,15 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             if (card) then
                 card.root:setVisible(true)
                 card.root:setEnabled(true)
-                card.vars['clickBtn']:setEnabled(true)
             end
 
             -- ui 연출
             local function directing_done()
                 self.m_isDirecting = false
+
+                for _, card in pairs(self.m_lDragonCardList) do
+                    card.vars['clickBtn']:setEnabled(true)
+                end
                 
                 -- 잠금
                 local doid = t_dragon_data:getObjectId()
@@ -489,7 +497,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             self:doAction(directing_done, false)
 
             -- 사운드
-            if (vars['skipBtn']:isVisible()) then
+            if (vars['skipBtn']:isVisible()) and self.m_isDirecting then
                 SoundMgr:playEffect('UI', 'ui_grow_result')
             end
 

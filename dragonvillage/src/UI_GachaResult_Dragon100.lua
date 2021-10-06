@@ -525,7 +525,7 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
 
                 local str
                 local uic_label = UIC_LabelTTF(label)
-                uic_label:setPosition(0, -230)
+                uic_label:setPosition(0, -30)
                 uic_label:setDockPoint(CENTER_POINT)
                 uic_label:setAnchorPoint(CENTER_POINT)
                 uic_label:setColor(COLOR['white'])
