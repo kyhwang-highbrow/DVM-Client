@@ -7,65 +7,6 @@
 		{
 			[1] =
 			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = -214.000000;
-				y = 62.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 278;
-				height = 35;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'timeLabel';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 19;
-				text = 'timeLabel';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 0; 255; 0; };
-				opacity = 255;
-				dimension_width = 278;
-				dimension_height = 35;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			type = 'Menu';
-			ui_name = '';
-			x = 270.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 740;
-			height = 720;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			lua_name = '';
-		};
-		[2] =
-		{
-			[1] =
-			{
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
@@ -92,8 +33,8 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = -60.000000;
-			y = -119.000000;
+			x = -491.000000;
+			y = -104.000000;
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -112,7 +53,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[3] =
+		[2] =
 		{
 			[1] =
 			{
@@ -168,9 +109,32 @@
 			};
 			[3] =
 			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Node';
 				ui_name = '';
-				x = 440.000000;
+				x = 445.000000;
 				y = -215.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -187,9 +151,32 @@
 			};
 			[4] =
 			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Node';
 				ui_name = '';
-				x = 260.000000;
+				x = 270.000000;
 				y = -215.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -291,7 +278,7 @@
 			action_duration = 0.500000;
 			lua_name = 'friendshipTabMenu';
 		};
-		[4] =
+		[3] =
 		{
 			[1] =
 			{
@@ -411,7 +398,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				stencil_type = 0;
 				stencil_img = '';
@@ -420,9 +407,74 @@
 			};
 			[4] =
 			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Node';
 				ui_name = '';
-				x = 440.000000;
+				x = 445.000000;
+				y = -215.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 170;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'summonNode_cash100';
+			};
+			[5] =
+			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 270.000000;
 				y = -215.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -437,11 +489,34 @@
 				visible = true;
 				lua_name = 'summonNode_cash11';
 			};
-			[5] =
+			[6] =
 			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Node';
 				ui_name = '';
-				x = 260.000000;
+				x = 95.000000;
 				y = -215.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -456,7 +531,7 @@
 				visible = true;
 				lua_name = 'summonNode_cash';
 			};
-			[6] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -496,7 +571,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[7] =
+			[8] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -522,7 +597,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[8] =
+			[9] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -548,7 +623,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[9] =
+			[10] =
 			{
 				[1] =
 				{
@@ -644,12 +719,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 87.000000;
-				y = 39.000000;
+				x = -70.000000;
+				y = 38.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 154;
+				width = 150;
 				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -663,32 +738,6 @@
 				selected = 'ui/buttons/base_btn_0102.png';
 				disable = 'ui/buttons/base_btn_0102.png';
 				image_type = 1;
-			};
-			[10] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = -319.000000;
-				y = -79.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 484;
-				height = 626;
-				scale_x = 0.900000;
-				scale_y = 0.900000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/typo/ko/myth_0101.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
 			};
 			[11] =
 			{
@@ -714,6 +763,72 @@
 				disable = 'ui/buttons/help_btn_0102.png';
 				image_type = 0;
 			};
+			[12] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = 4.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 562;
+					height = 70;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'premiumCeilingLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 21;
+					text = '{1} 확정 소환까지 {@yellow}{2}{@default}회 남음';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 562;
+					dimension_height = 70;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 251.000000;
+				y = -140.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 600;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'premiumCeilingSprite';
+				file_name = 'ui/frames/attr_tower_title.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 85.000000;
@@ -728,14 +843,14 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			action_type = 2;
 			action_delay_1 = 0.200000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'premiumMenu';
 		};
-		[5] =
+		[4] =
 		{
 			[1] =
 			{
@@ -1668,7 +1783,7 @@
 					};
 					type = 'Node';
 					ui_name = '';
-					x = 225.000000;
+					x = 230.000000;
 					y = -215.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1681,7 +1796,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'summonNode_event11';
+					lua_name = 'summonNode_event100';
 				};
 				[3] =
 				{
@@ -1710,7 +1825,49 @@
 					};
 					type = 'Node';
 					ui_name = '';
-					x = 45.000000;
+					x = 55.000000;
+					y = -215.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'summonNode_event11';
+				};
+				[4] =
+				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 170;
+						height = 100;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 30;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Node';
+					ui_name = '';
+					x = -120.000000;
 					y = -215.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1725,7 +1882,7 @@
 					visible = true;
 					lua_name = 'summonNode_event';
 				};
-				[4] =
+				[5] =
 				{
 					[1] =
 					{
@@ -1862,7 +2019,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
+					visible = true;
 					lua_name = 'rateNoti';
 				};
 				type = 'Menu';
@@ -2327,7 +2484,7 @@
 				};
 				type = 'Menu';
 				ui_name = 'left';
-				x = -313.000000;
+				x = -316.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -2438,12 +2595,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 87.000000;
-				y = 39.000000;
+				x = -70.000000;
+				y = 38.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 154;
+				width = 150;
 				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -2478,6 +2635,880 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'chanceUpTabMenu';
+		};
+		[5] =
+		{
+			[1] =
+			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '미리보기';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 1080;
+					height = 555;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'pickupBgSprite';
+					file_name = 'ui/event/myth/bg_hatchery_myth_01.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 1080;
+				height = 555;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'bgNode';
+			};
+			[2] =
+			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 564.000000;
+					y = -445.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/clan_war/clan_war.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;light_01';
+					color = { 255; 215; 0; };
+					opacity = 255;
+				};
+				[2] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = -148.000000;
+					y = -446.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/clan_war/clan_war.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;light_01';
+					color = { 255; 215; 0; };
+					opacity = 255;
+				};
+				type = 'ClippingNode';
+				ui_name = '불';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 1080;
+				height = 555;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
+			};
+			[3] =
+			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 445.000000;
+				y = -215.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 170;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'summonNode_pickup100';
+			};
+			[4] =
+			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 270.000000;
+				y = -215.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 170;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'summonNode_pickup10';
+			};
+			[5] =
+			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 95.000000;
+				y = -215.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 170;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'summonNode_pickup';
+			};
+			[6] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -8.000000;
+				y = 9.000000;
+				dock_point = { 0.000000; 1.000000; };
+				anchor_point = { 0.000000; 1.000000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'pickupEventNoti';
+				file_name = 'ui/icons/event_chance_up_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[7] =
+			{
+				[1] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 24.000000;
+					y = 0.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 30;
+					height = 30;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frames/base_frame_0201.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 28.000000;
+					y = 4.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 36;
+					height = 27;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'pickupGoodbyeSprite';
+					file_name = 'ui/buttons/check_btn_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[3] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 17.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 109;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 18;
+					text = '자동 작별';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 109;
+					dimension_height = 60;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 85; 44; 25; };
+					has_shadow = false;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				[4] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -274.000000;
+					y = 387.500000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 184;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frames/attr_tower_title.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = -70.000000;
+				y = 38.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 150;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'pickupGoodbyeBtn';
+				enable = true;
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0102.png';
+				image_type = 1;
+			};
+			[8] =
+			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 1.000000;
+					y = 148.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 400;
+					height = 245;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frames/caln_raid_detail.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = 0.000000;
+					y = -235.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 268;
+					height = 85;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'dragonLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = 'dragonLabel';
+					h_alignment = 1;
+					v_alignment = 0;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 268;
+					dimension_height = 85;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[3] =
+				{
+					[1] =
+					{
+						type = 'LayerColor';
+						ui_name = 'hide';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 255; 255; 255; };
+						opacity = 100;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = -120.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.800000;
+					scale_y = 0.800000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'pickupDragonNode';
+				};
+				[4] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = -30.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 278;
+					height = 36;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frames/attr_tower_title.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[5] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -31.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 419;
+					height = 46;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'timeLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = 'timeLabel';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 0; 255; 0; };
+					opacity = 255;
+					dimension_width = 419;
+					dimension_height = 46;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[6] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 11.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 330;
+					height = 40;
+					scale_x = 0.950000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '희귀~신화 드래곤을 소환합니다.';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 330;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[7] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 125.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 337;
+					height = 189;
+					scale_x = 0.950000;
+					scale_y = 0.950000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/typo/ko/summon_chance_up_myth_btn_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Menu';
+				ui_name = '';
+				x = -345.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 390;
+				height = 555;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+			};
+			[9] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = -165.000000;
+				y = -39.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 40;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'pickupInfoBtn';
+				enable = true;
+				normal = 'ui/buttons/help_btn_0101.png';
+				selected = 'ui/buttons/help_btn_0102.png';
+				disable = 'ui/buttons/help_btn_0102.png';
+				image_type = 0;
+			};
+			[10] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = 4.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 562;
+					height = 70;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'pickupCeilingLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 21;
+					text = '{1} 확정 소환까지 {@yellow}{2}{@default}회 남음';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 562;
+					dimension_height = 70;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 251.000000;
+				y = -140.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 600;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'pickupCeilingSprite';
+				file_name = 'ui/frames/attr_tower_title.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[11] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -62.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 95;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 18;
+					text = '드래곤\n체험하기';
+					h_alignment = 1;
+					v_alignment = 0;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 100;
+					dimension_height = 95;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 8.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 54;
+					height = 36;
+					scale_x = 1.200000;
+					scale_y = 1.200000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/buttons/ico_dragon_manage_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 1016.000000;
+				y = -60.000000;
+				dock_point = { 0.000000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 84;
+				height = 84;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'playBtn';
+				enable = true;
+				normal = 'ui/buttons/lobby_event_btn_empty_0101.png';
+				selected = 'ui/buttons/lobby_event_btn_empty_0102.png';
+				disable = '';
+				image_type = 0;
+			};
+			type = 'Menu';
+			ui_name = '';
+			x = 85.000000;
+			y = 15.000000;
+			dock_point = { 0.500000; 0.000000; };
+			anchor_point = { 0.500000; 0.000000; };
+			relative_size_type = 0;
+			width = 1080;
+			height = 555;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			action_type = 2;
+			action_delay_1 = 0.200000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.500000;
+			lua_name = 'pickupTabMenu';
 		};
 		[6] =
 		{
@@ -2599,6 +3630,82 @@
 		{
 			[1] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 5.000000;
+				y = 10.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 1.000000; 1.000000; };
+				relative_size_type = 0;
+				width = 28;
+				height = 28;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'chanceUpNoti';
+				file_name = 'ui/icons/noti_icon_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 200;
+				height = 77;
+				scale_x = 0.850000;
+				scale_y = 0.850000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/typo/ko/summon_chance_up_btn_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = 963.000000;
+			y = 253.000000;
+			dock_point = { 0.000000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 200;
+			height = 80;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'chanceUpTabBtn';
+			enable = true;
+			normal = 'ui/frames/base_frame_0101.png';
+			selected = 'ui/frames/base_frame_0103.png';
+			disable = 'ui/frames/base_frame_0103.png';
+			image_type = 1;
+		};
+		[8] =
+		{
+			[1] =
+			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
@@ -2691,7 +3798,7 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = 711.000000;
+			x = 761.000000;
 			y = 253.000000;
 			dock_point = { 0.000000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
@@ -2711,7 +3818,7 @@
 			disable = 'ui/frames/base_frame_0103.png';
 			image_type = 1;
 		};
-		[8] =
+		[9] =
 		{
 			[1] =
 			{
@@ -2730,7 +3837,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
-				lua_name = 'chanceUpNoti';
+				lua_name = 'pickupTabNoti1';
 				file_name = 'ui/icons/noti_icon_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -2742,22 +3849,22 @@
 			[2] =
 			{
 				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				ui_name = '이미지텍스트';
+				x = -102.000000;
+				y = -4.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 1.000000; 1.000000; };
 				relative_size_type = 0;
-				width = 200;
-				height = 77;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				width = 337;
+				height = 189;
+				scale_x = 0.380000;
+				scale_y = 0.380000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
-				file_name = 'ui/typo/ko/summon_chance_up_btn_0101.png';
+				lua_name = 'pickupTabTextSprite1';
+				file_name = 'ui/typo/ko/summon_chance_up_myth_btn_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -2765,14 +3872,56 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
+			[3] =
+			{
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.770000;
+					scale_y = 0.770000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'pickupDragonNode1';
+				};
+				type = 'ClippingNode';
+				ui_name = '';
+				x = 65.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 95;
+				height = 72;
+				scale_x = 0.980000;
+				scale_y = 0.980000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
+			};
 			type = 'Button';
 			ui_name = '';
-			x = 938.000000;
+			x = 541.000000;
 			y = 253.000000;
 			dock_point = { 0.000000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 250;
+			width = 235;
 			height = 80;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -2780,12 +3929,153 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'chanceUpTabBtn';
+			lua_name = 'pickupTabBtn1';
 			enable = true;
-			normal = 'ui/frames/base_frame_0101.png';
-			selected = 'ui/frames/base_frame_0103.png';
-			disable = 'ui/frames/base_frame_0103.png';
+			normal = 'ui/frames/base_frame_0302.png';
+			selected = 'ui/frames/base_frame_0304.png';
+			disable = 'ui/frames/base_frame_0304.png';
 			image_type = 1;
+		};
+		[10] =
+		{
+			[1] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 5.000000;
+				y = 10.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 1.000000; 1.000000; };
+				relative_size_type = 0;
+				width = 28;
+				height = 28;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'pickupTabNoti2';
+				file_name = 'ui/icons/noti_icon_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				type = 'Sprite';
+				ui_name = '이미지텍스트';
+				x = -101.000000;
+				y = -4.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 1.000000; 1.000000; };
+				relative_size_type = 0;
+				width = 337;
+				height = 189;
+				scale_x = 0.380000;
+				scale_y = 0.380000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'pickupTabTextSprite2';
+				file_name = 'ui/typo/ko/summon_chance_up_myth_btn_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[3] =
+			{
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.770000;
+					scale_y = 0.770000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'pickupDragonNode2';
+				};
+				type = 'ClippingNode';
+				ui_name = '';
+				x = 65.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 95;
+				height = 72;
+				scale_x = 0.980000;
+				scale_y = 0.980000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = 303.000000;
+			y = 253.000000;
+			dock_point = { 0.000000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 235;
+			height = 80;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'pickupTabBtn2';
+			enable = true;
+			normal = 'ui/frames/base_frame_0302.png';
+			selected = 'ui/frames/base_frame_0304.png';
+			disable = 'ui/frames/base_frame_0304.png';
+			image_type = 1;
+		};
+		[11] =
+		{
+			type = 'ClippingNode';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			stencil_type = 0;
+			stencil_img = '';
+			alpha_threshold = 1.000000;
+			is_invert = false;
 		};
 		type = 'Menu';
 		ui_name = '';

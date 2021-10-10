@@ -904,7 +904,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icons/event_chance_up_0102.png';
+						file_name = 'ui/icons/event_chance_up_0202.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -958,7 +958,7 @@
 						lua_name = 'runeFeverLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
-						text = '7등급 룬 획득 확률 2배';
+						text = '7등급 룬 획득 확률 5배';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 255; 215; 0; };
@@ -1036,7 +1036,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icons/event_chance_up_0101.png';
+						file_name = 'ui/icons/event_chance_up_0201.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -1058,7 +1058,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
+					visible = true;
 					lua_name = 'runeFeverMenu';
 				};
 				type = 'Menu';

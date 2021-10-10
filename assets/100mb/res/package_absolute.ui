@@ -265,7 +265,7 @@
 					text = '청약 철회는 구매일로부터 7일 이내에 가능합니다. (단 사용했을 경우 청약철회 불가)\n법정 대리인의 동의를 받지않은 미성년자의 거래는 취소할 수 있습니다. 자세히보기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 202; 40; 85; };
+					color = { 220; 50; 90; };
 					opacity = 255;
 					dimension_width = 700;
 					dimension_height = 50;
@@ -309,7 +309,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -116.000000;
+				y = -131.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -441,7 +441,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 250;
-				height = 60;
+				height = 65;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -505,7 +505,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 250;
-				height = 60;
+				height = 65;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -550,7 +550,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -129.000000;
+				y = -184.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -590,7 +590,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -93.000000;
+				y = -148.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -608,7 +608,7 @@
 				text = '한정 드래곤 획득 기회!!';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 155; 0; };
+				color = { 255; 215; 0; };
 				opacity = 255;
 				dimension_width = 750;
 				dimension_height = 50;
@@ -630,7 +630,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -44.000000;
+				y = -105.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -644,7 +644,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 40;
+				font_size = 36;
 				text = '절대적인 전설의 알 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -728,14 +728,14 @@
 				relative_size_type = 0;
 				width = 430;
 				height = 74;
-				scale_x = 0.900000;
-				scale_y = 0.900000;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = '';
-				file_name = 'ui/typo/ko/ribbon_package_title_0101.png';
+				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

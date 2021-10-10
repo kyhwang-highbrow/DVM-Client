@@ -16,8 +16,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 174;
-					height = 64;
+					width = 194;
+					height = 77;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -27,13 +27,13 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 19;
-					text = '드래곤빌리지{@yellow}NEW{@default} \n사전예약 바로가기';
+					text = '드래곤빌리지NEW\n2021.09.01 OPEN';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 174;
-					dimension_height = 64;
+					dimension_width = 194;
+					dimension_height = 77;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;

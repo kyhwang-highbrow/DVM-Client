@@ -1,0 +1,398 @@
+
+seere_all_02.png
+size: 1811,391
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_seere_all_02_light_acc
+  rotate: false
+  xy: 1646, 263
+  size: 126, 126
+  orig: 126, 126
+  offset: 0, 0
+  index: -1
+effect_seere_all_02_pose_02
+  rotate: false
+  xy: 665, 112
+  size: 277, 277
+  orig: 277, 277
+  offset: 0, 0
+  index: -1
+effect_seere_all_02_pose_03
+  rotate: false
+  xy: 2, 8
+  size: 375, 381
+  orig: 375, 381
+  offset: 0, 0
+  index: -1
+effect_seere_back
+  rotate: false
+  xy: 379, 96
+  size: 284, 293
+  orig: 284, 293
+  offset: 0, 0
+  index: -1
+effect_seere_dark_03_light
+  rotate: false
+  xy: 379, 17
+  size: 160, 77
+  orig: 160, 77
+  offset: 0, 0
+  index: -1
+effect_seere_dark_03_particle
+  rotate: true
+  xy: 1306, 147
+  size: 89, 102
+  orig: 89, 102
+  offset: 0, 0
+  index: -1
+effect_seere_dark_03_rainbow
+  rotate: false
+  xy: 942, 7
+  size: 101, 99
+  orig: 101, 99
+  offset: 0, 0
+  index: -1
+effect_seere_dark_03_ring
+  rotate: true
+  xy: 944, 108
+  size: 47, 134
+  orig: 47, 134
+  offset: 0, 0
+  index: -1
+seere_all_02_artifact_all_02
+  rotate: false
+  xy: 1247, 150
+  size: 57, 92
+  orig: 57, 92
+  offset: 0, 0
+  index: -1
+seere_all_02_artifact_fire_01
+  rotate: true
+  xy: 1108, 154
+  size: 88, 137
+  orig: 88, 137
+  offset: 0, 0
+  index: -1
+seere_all_02_artifact_fire_02
+  rotate: true
+  xy: 665, 2
+  size: 108, 178
+  orig: 108, 178
+  offset: 0, 0
+  index: -1
+seere_all_02_body_01
+  rotate: false
+  xy: 1470, 162
+  size: 125, 116
+  orig: 125, 116
+  offset: 0, 0
+  index: -1
+seere_all_02_body_02
+  rotate: false
+  xy: 1104, 72
+  size: 97, 80
+  orig: 97, 80
+  offset: 0, 0
+  index: -1
+seere_all_02_close_eyeblow
+  rotate: false
+  xy: 1560, 19
+  size: 36, 31
+  orig: 36, 31
+  offset: 0, 0
+  index: -1
+seere_all_02_closeeye
+  rotate: false
+  xy: 1598, 42
+  size: 37, 35
+  orig: 37, 35
+  offset: 0, 0
+  index: -1
+seere_all_02_eye
+  rotate: true
+  xy: 1637, 33
+  size: 30, 33
+  orig: 30, 33
+  offset: 0, 0
+  index: -1
+seere_all_02_eyeblow
+  rotate: false
+  xy: 611, 3
+  size: 39, 33
+  orig: 39, 33
+  offset: 0, 0
+  index: -1
+seere_all_02_hair_01
+  rotate: true
+  xy: 1597, 79
+  size: 37, 47
+  orig: 37, 47
+  offset: 0, 0
+  index: -1
+seere_all_02_hair_02
+  rotate: false
+  xy: 1237, 7
+  size: 55, 70
+  orig: 55, 70
+  offset: 0, 0
+  index: -1
+seere_all_02_hair_03
+  rotate: true
+  xy: 1410, 185
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: -1
+seere_all_02_hair_04
+  rotate: true
+  xy: 1410, 138
+  size: 45, 57
+  orig: 45, 57
+  offset: 0, 0
+  index: -1
+seere_all_02_head_01
+  rotate: false
+  xy: 1171, 2
+  size: 64, 68
+  orig: 64, 68
+  offset: 0, 0
+  index: -1
+seere_all_02_head_02
+  rotate: true
+  xy: 1774, 295
+  size: 45, 35
+  orig: 45, 35
+  offset: 0, 0
+  index: -1
+seere_all_02_hood
+  rotate: false
+  xy: 845, 6
+  size: 95, 104
+  orig: 95, 104
+  offset: 0, 0
+  index: -1
+seere_all_02_hood-back
+  rotate: true
+  xy: 1203, 79
+  size: 69, 91
+  orig: 69, 91
+  offset: 0, 0
+  index: -1
+seere_all_02_hood_02
+  rotate: false
+  xy: 1597, 191
+  size: 47, 87
+  orig: 47, 87
+  offset: 0, 0
+  index: -1
+seere_all_02_hood_acce
+  rotate: false
+  xy: 1547, 93
+  size: 48, 67
+  orig: 48, 67
+  offset: 0, 0
+  index: -1
+seere_all_02_hood_acceback
+  rotate: false
+  xy: 1774, 342
+  size: 35, 47
+  orig: 35, 47
+  offset: 0, 0
+  index: -1
+seere_all_02_l_arm01
+  rotate: false
+  xy: 1480, 95
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+seere_all_02_l_arm02
+  rotate: false
+  xy: 1751, 167
+  size: 57, 84
+  orig: 57, 84
+  offset: 0, 0
+  index: -1
+seere_all_02_l_arm03
+  rotate: false
+  xy: 1748, 13
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+seere_all_02_l_foot
+  rotate: true
+  xy: 1380, 3
+  size: 62, 69
+  orig: 62, 69
+  offset: 0, 0
+  index: -1
+seere_all_02_l_hand
+  rotate: false
+  xy: 1646, 113
+  size: 67, 60
+  orig: 67, 60
+  offset: 0, 0
+  index: -1
+seere_all_02_l_leg_01
+  rotate: true
+  xy: 1294, 4
+  size: 62, 84
+  orig: 62, 84
+  offset: 0, 0
+  index: -1
+seere_all_02_l_leg_02
+  rotate: true
+  xy: 611, 38
+  size: 56, 52
+  orig: 56, 52
+  offset: 0, 0
+  index: -1
+seere_all_02_l_leg_03
+  rotate: false
+  xy: 541, 2
+  size: 68, 92
+  orig: 68, 92
+  offset: 0, 0
+  index: -1
+seere_all_02_l_sidehair_01
+  rotate: true
+  xy: 1646, 175
+  size: 86, 103
+  orig: 86, 103
+  offset: 0, 0
+  index: -1
+seere_all_02_l_sidehair_02
+  rotate: false
+  xy: 1774, 253
+  size: 35, 40
+  orig: 35, 40
+  offset: 0, 0
+  index: -1
+seere_all_02_l_sidehair_03
+  rotate: true
+  xy: 1296, 68
+  size: 77, 94
+  orig: 77, 94
+  offset: 0, 0
+  index: -1
+seere_all_02_l_wing
+  rotate: false
+  xy: 1310, 238
+  size: 158, 151
+  orig: 158, 151
+  offset: 0, 0
+  index: -1
+seere_all_02_mouth_back
+  rotate: true
+  xy: 1560, 52
+  size: 39, 35
+  orig: 39, 35
+  offset: 0, 0
+  index: -1
+seere_all_02_muffler_01
+  rotate: true
+  xy: 1392, 67
+  size: 69, 86
+  orig: 69, 86
+  offset: 0, 0
+  index: -1
+seere_all_02_muffler_01_back
+  rotate: true
+  xy: 1672, 33
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+seere_all_02_muffler_03
+  rotate: true
+  xy: 1045, 8
+  size: 98, 57
+  orig: 98, 57
+  offset: 0, 0
+  index: -1
+seere_all_02_muffler_cross
+  rotate: true
+  xy: 1646, 65
+  size: 46, 55
+  orig: 46, 55
+  offset: 0, 0
+  index: -1
+seere_all_02_r_arm_01
+  rotate: false
+  xy: 1451, 5
+  size: 66, 60
+  orig: 66, 60
+  offset: 0, 0
+  index: -1
+seere_all_02_r_arm_02
+  rotate: true
+  xy: 1715, 116
+  size: 49, 68
+  orig: 49, 68
+  offset: 0, 0
+  index: -1
+seere_all_02_r_arm_03
+  rotate: true
+  xy: 1519, 23
+  size: 40, 39
+  orig: 40, 39
+  offset: 0, 0
+  index: -1
+seere_all_02_r_foot
+  rotate: false
+  xy: 1703, 57
+  size: 43, 54
+  orig: 43, 54
+  offset: 0, 0
+  index: -1
+seere_all_02_r_hand
+  rotate: false
+  xy: 1597, 118
+  size: 47, 71
+  orig: 47, 71
+  offset: 0, 0
+  index: -1
+seere_all_02_r_leg_01
+  rotate: false
+  xy: 1104, 2
+  size: 65, 68
+  orig: 65, 68
+  offset: 0, 0
+  index: -1
+seere_all_02_r_leg_02
+  rotate: true
+  xy: 1748, 60
+  size: 54, 45
+  orig: 54, 45
+  offset: 0, 0
+  index: -1
+seere_all_02_r_wing
+  rotate: true
+  xy: 1470, 280
+  size: 109, 174
+  orig: 109, 174
+  offset: 0, 0
+  index: -1
+seere_all_02_tail_01
+  rotate: false
+  xy: 944, 157
+  size: 162, 232
+  orig: 162, 232
+  offset: 0, 0
+  index: -1
+seere_all_02_tail_02
+  rotate: false
+  xy: 1108, 244
+  size: 200, 145
+  orig: 200, 145
+  offset: 0, 0
+  index: -1
+seere_all_02_white
+  rotate: true
+  xy: 1598, 5
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1

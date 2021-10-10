@@ -247,10 +247,6 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				action_type = 1;
-				action_delay_1 = 1.200000;
-				action_delay_2 = 0.000000;
-				action_duration = 0.300000;
 				lua_name = 'buyBtn1';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0103.png';
@@ -405,10 +401,6 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				action_type = 1;
-				action_delay_1 = 0.300000;
-				action_delay_2 = 0.000000;
-				action_duration = 0.300000;
 				lua_name = 'stateLabel1';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 35;
@@ -608,8 +600,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 553;
-					height = 83;
+					width = 430;
+					height = 74;
 					scale_x = 0.800000;
 					scale_y = 0.800000;
 					skew_x = 0.000000;

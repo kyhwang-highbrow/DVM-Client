@@ -2982,7 +2982,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 19;
-					text = '전설 뽑기에 절대적인 전설의 알 출현!';
+					text = '전설 뽑기에 애니마라(어둠) 출현!';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -3022,7 +3022,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
-					text = '7/10 00:00 ~ 7/11 23:59';
+					text = ' 8/28 00:00 ~ 8/29 23:59';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
@@ -3060,7 +3060,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/typo/ko/new_dragon_title.png';
+					file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;

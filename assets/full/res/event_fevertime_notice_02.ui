@@ -147,7 +147,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 210.000000;
+				y = 265.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -161,7 +161,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 35;
+				font_size = 42;
 				text = '명예 획득 2배 이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -187,12 +187,12 @@
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = 67.000000;
-				y = -243.000000;
+				y = -254.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 493;
-				height = 58;
+				height = 75;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -208,7 +208,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 493;
-				dimension_height = 58;
+				dimension_height = 75;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -226,12 +226,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = 'rich';
-				x = 20.000000;
-				y = -274.000000;
+				x = 0.000000;
+				y = 215.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 400;
+				width = 621;
 				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -241,13 +241,13 @@
 				visible = true;
 				lua_name = 'timeLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 18;
-				text = '2/1 00:00 ~ 2/7 23:59';
-				h_alignment = 0;
+				font_size = 22;
+				text = '8/17 ~ 8/23 23:59';
+				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 255; 0; };
 				opacity = 255;
-				dimension_width = 400;
+				dimension_width = 621;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -396,7 +396,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
 				color = { 255; 255; 255; };

@@ -15,7 +15,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
 				width = 0;
-				height = 20;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -76,7 +76,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = 40.000000;
+				y = 45.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -140,14 +140,14 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = -31.000000;
-				y = 0.000000;
+				y = 75.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 1280;
 				height = 334;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.950000;
+				scale_y = 0.950000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -162,6 +162,371 @@
 				dest_blend = 771;
 			};
 			[5] =
+			{
+				[1] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 1000;
+					height = 140;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frames/base_frame_0401.png';
+					color = { 255; 255; 255; };
+					opacity = 80;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = 12.000000;
+					y = -45.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 934;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 17;
+					text = '고급소환, 확률업 고급소환은 소환 횟수를 공유합니다.';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 255; 243; 217; };
+					opacity = 255;
+					dimension_width = 934;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 102; 88; 71; };
+					has_shadow = false;
+					shadow_color = { 102; 88; 71; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[3] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = 12.000000;
+					y = -15.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 934;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 17;
+					text = '확률업 기간이 종료 되면, 잔여 소환 횟수는 다음 신화 드래곤 확률업으로 이월됩니다.';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 255; 243; 217; };
+					opacity = 255;
+					dimension_width = 934;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 102; 88; 71; };
+					has_shadow = false;
+					shadow_color = { 102; 88; 71; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[4] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = 12.000000;
+					y = 15.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 934;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 17;
+					text = '신화 드래곤을 소환하면 소환 횟수가 초기화됩니다.';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 255; 243; 217; };
+					opacity = 255;
+					dimension_width = 934;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 102; 88; 71; };
+					has_shadow = false;
+					shadow_color = { 102; 88; 71; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[5] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = 12.000000;
+					y = 45.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 934;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 17;
+					text = '소환 횟수가 1,000가 되면 다음 소환 시 확률업 신화 드래곤을 확정 소환 할 수 있습니다.';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 255; 243; 217; };
+					opacity = 255;
+					dimension_width = 934;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 102; 88; 71; };
+					has_shadow = false;
+					shadow_color = { 102; 88; 71; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[6] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -474.000000;
+					y = -45.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 45;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 18;
+					text = '◆ ';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 243; 217; };
+					opacity = 255;
+					dimension_width = 45;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[7] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -474.000000;
+					y = -15.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 45;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 18;
+					text = '◆ ';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 243; 217; };
+					opacity = 255;
+					dimension_width = 45;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[8] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -474.000000;
+					y = 15.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 45;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 18;
+					text = '◆ ';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 243; 217; };
+					opacity = 255;
+					dimension_width = 45;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[9] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -474.000000;
+					y = 45.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 45;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 18;
+					text = '◆ ';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 243; 217; };
+					opacity = 255;
+					dimension_width = 45;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'Menu';
+				ui_name = '';
+				x = -20.000000;
+				y = -145.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 1000;
+				height = 135;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'specificationMenu';
+			};
+			[6] =
 			{
 				[1] =
 				{
@@ -207,7 +572,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -187.000000;
+					x = -175.000000;
 					y = -15.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -247,8 +612,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -187.000015;
-					y = 90.000015;
+					x = -175.000000;
+					y = 90.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -287,8 +652,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = 90.000015;
+					x = 12.000000;
+					y = 90.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -327,8 +692,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 187.000000;
-					y = 90.000015;
+					x = 195.000000;
+					y = 90.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -367,7 +732,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 187.000000;
+					x = 195.000000;
 					y = 50.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -407,7 +772,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 187.000000;
+					x = 195.000000;
 					y = 8.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -447,7 +812,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 187.000000;
+					x = 195.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -487,7 +852,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 187.000000;
+					x = 195.000000;
 					y = -75.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -527,8 +892,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -3.000000;
-					y = -115.000000;
+					x = 16.000000;
+					y = -110.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -567,13 +932,13 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -20.000000;
-					y = -185.000000;
+					x = 15.000000;
+					y = -170.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 529;
-					height = 64;
+					width = 560;
+					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -588,8 +953,8 @@
 					v_alignment = 0;
 					color = { 255; 104; 32; };
 					opacity = 255;
-					dimension_width = 529;
-					dimension_height = 64;
+					dimension_width = 560;
+					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -607,7 +972,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
+					x = 12.000000;
 					y = -75.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -647,7 +1012,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
+					x = 12.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -687,7 +1052,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
+					x = 12.000000;
 					y = 8.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -727,7 +1092,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
+					x = 12.000000;
 					y = 50.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -765,33 +1130,33 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = -299.000000;
-				y = 23.000000;
+				x = -300.000000;
+				y = 98.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 598;
 				height = 354;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.950000;
+				scale_y = 0.950000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
 			};
-			[6] =
+			[7] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -20.000000;
+					x = -40.000000;
 					y = 138.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 521;
+					width = 473;
 					height = 66;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -807,7 +1172,7 @@
 					v_alignment = 1;
 					color = { 209; 180; 142; };
 					opacity = 255;
-					dimension_width = 521;
+					dimension_width = 473;
 					dimension_height = 66;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -826,13 +1191,13 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -24.000000;
-					y = -120.000000;
+					x = -40.000000;
+					y = -55.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 480;
-					height = 91;
+					height = 63;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -843,12 +1208,12 @@
 					font_name = 'font/common_font_01.ttf';
 					font_size = 17;
 					text = '※ 신화 등급 드래곤은 모든 속성의 확률이 동일합니다.';
-					h_alignment = 1;
-					v_alignment = 1;
+					h_alignment = 0;
+					v_alignment = 0;
 					color = { 255; 104; 32; };
 					opacity = 255;
 					dimension_width = 480;
-					dimension_height = 91;
+					dimension_height = 63;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -866,7 +1231,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -141.000000;
+					x = -160.000000;
 					y = 50.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -906,7 +1271,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -141.000000;
+					x = -160.000000;
 					y = 8.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -946,7 +1311,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -141.000000;
+					x = -160.000000;
 					y = 90.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -986,7 +1351,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 99.000000;
+					x = 80.000000;
 					y = 50.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1026,7 +1391,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 99.000000;
+					x = 80.000000;
 					y = 8.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1066,7 +1431,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 99.000000;
+					x = 80.000000;
 					y = 90.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1104,15 +1469,15 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = 301.000000;
-				y = 23.000000;
+				x = 300.000000;
+				y = 98.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 598;
 				height = 354;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.950000;
+				scale_y = 0.950000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -1127,7 +1492,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 2;
 			width = 0;
-			height = 460;
+			height = 600;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

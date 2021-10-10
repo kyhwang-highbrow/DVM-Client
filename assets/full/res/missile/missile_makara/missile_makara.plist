@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>missile_makara.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,100}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,100}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{100,100}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>missile_makara.png</string>
+            <key>size</key>
+            <string>{102,102}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:ba66afa09e2ea3bd7b9dc854bdd99799:0dbc91e3b5bcb9e31c88689f5906edb8:31ea36300f9ff0d14ffb45cebd17851b$</string>
+            <key>textureFileName</key>
+            <string>missile_makara.png</string>
+        </dict>
+    </dict>
+</plist>

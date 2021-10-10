@@ -1,0 +1,188 @@
+
+talissah_all_01.png
+size: 1483,318
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_talissah_all_01_effect_03
+  rotate: true
+  xy: 2, 16
+  size: 300, 347
+  orig: 300, 347
+  offset: 0, 0
+  index: -1
+effect_talissah_all_01_effect_04
+  rotate: true
+  xy: 351, 16
+  size: 300, 280
+  orig: 300, 280
+  offset: 0, 0
+  index: -1
+effect_talissah_all_01_effect_06
+  rotate: true
+  xy: 790, 174
+  size: 142, 140
+  orig: 142, 140
+  offset: 0, 0
+  index: -1
+effect_talissah_all_01_effect_12
+  rotate: true
+  xy: 1091, 213
+  size: 103, 112
+  orig: 103, 112
+  offset: 0, 0
+  index: -1
+effect_talissah_all_01_effect_13
+  rotate: false
+  xy: 1353, 106
+  size: 61, 62
+  orig: 61, 62
+  offset: 0, 0
+  index: -1
+effect_talissah_all_01_effect_14
+  rotate: false
+  xy: 633, 2
+  size: 155, 153
+  orig: 155, 153
+  offset: 0, 0
+  index: -1
+effect_talissah_all_01_effect_15
+  rotate: false
+  xy: 1235, 16
+  size: 80, 84
+  orig: 80, 84
+  offset: 0, 0
+  index: -1
+effect_talissah_all_01_effect_16
+  rotate: false
+  xy: 633, 157
+  size: 155, 159
+  orig: 155, 159
+  offset: 0, 0
+  index: -1
+effect_talissah_all_01_effect_7
+  rotate: false
+  xy: 932, 211
+  size: 157, 105
+  orig: 157, 105
+  offset: 0, 0
+  index: -1
+talissah_all_01_acc_01
+  rotate: false
+  xy: 1416, 115
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+talissah_all_01_acc_02
+  rotate: true
+  xy: 1421, 249
+  size: 67, 59
+  orig: 67, 59
+  offset: 0, 0
+  index: -1
+talissah_all_01_arm_01
+  rotate: true
+  xy: 1022, 10
+  size: 70, 107
+  orig: 70, 107
+  offset: 0, 0
+  index: -1
+talissah_all_01_arm_02
+  rotate: false
+  xy: 1317, 20
+  size: 77, 82
+  orig: 77, 82
+  offset: 0, 0
+  index: -1
+talissah_all_01_body_01
+  rotate: false
+  xy: 1092, 102
+  size: 146, 109
+  orig: 146, 109
+  offset: 0, 0
+  index: -1
+talissah_all_01_body_02
+  rotate: true
+  xy: 790, 72
+  size: 100, 172
+  orig: 100, 172
+  offset: 0, 0
+  index: -1
+talissah_all_01_head_01
+  rotate: false
+  xy: 1240, 104
+  size: 111, 129
+  orig: 111, 129
+  offset: 0, 0
+  index: -1
+talissah_all_01_head_02
+  rotate: true
+  xy: 1353, 170
+  size: 74, 80
+  orig: 74, 80
+  offset: 0, 0
+  index: -1
+talissah_all_01_head_03
+  rotate: false
+  xy: 964, 82
+  size: 126, 127
+  orig: 126, 127
+  offset: 0, 0
+  index: -1
+talissah_all_01_head_04
+  rotate: false
+  xy: 1435, 186
+  size: 46, 61
+  orig: 46, 61
+  offset: 0, 0
+  index: -1
+talissah_all_01_leg_01
+  rotate: true
+  xy: 790, 2
+  size: 68, 91
+  orig: 68, 91
+  offset: 0, 0
+  index: -1
+talissah_all_01_leg_02
+  rotate: true
+  xy: 957, 2
+  size: 68, 63
+  orig: 68, 63
+  offset: 0, 0
+  index: -1
+talissah_all_01_leg_03
+  rotate: true
+  xy: 1328, 246
+  size: 70, 91
+  orig: 70, 91
+  offset: 0, 0
+  index: -1
+talissah_all_01_wing_01
+  rotate: false
+  xy: 883, 2
+  size: 72, 68
+  orig: 72, 68
+  offset: 0, 0
+  index: -1
+talissah_all_01_wing_02
+  rotate: true
+  xy: 1396, 60
+  size: 44, 64
+  orig: 44, 64
+  offset: 0, 0
+  index: -1
+talissah_all_01_wing_03
+  rotate: true
+  xy: 1131, 5
+  size: 95, 102
+  orig: 95, 102
+  offset: 0, 0
+  index: -1
+talissah_all_01_wing_04
+  rotate: true
+  xy: 1205, 235
+  size: 81, 121
+  orig: 81, 121
+  offset: 0, 0
+  index: -1

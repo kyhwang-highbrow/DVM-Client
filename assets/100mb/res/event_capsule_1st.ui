@@ -37,15 +37,15 @@
 				{
 					type = 'Visual';
 					ui_name = '';
-					x = 0.000000;
-					y = 188.000000;
+					x = -77.000000;
+					y = 146.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 0;
 					height = 0;
-					scale_x = 1.200000;
-					scale_y = 1.200000;
+					scale_x = 1.300000;
+					scale_y = 1.300000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -212,7 +212,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				file_name = 'ui/a2d/package_effect/package_effect.vrp';
 				auto_play = true;
@@ -237,7 +237,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				file_name = 'item/egg/egg_super_absolute/egg_super_absolute.vrp';
 				auto_play = true;
@@ -288,7 +288,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				file_name = 'ui/frames/master_road_title.png';
 				color = { 255; 255; 255; };
@@ -354,7 +354,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 25;
@@ -394,7 +394,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
@@ -434,7 +434,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
@@ -462,13 +462,13 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 0.000000;
-				y = 146.000000;
+				x = -241.000000;
+				y = -224.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 844;
-				height = 45;
+				width = 428;
+				height = 58;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -477,14 +477,14 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '7/10 00:00 ~ 7/11 23:59';
+				font_size = 22;
+				text = '8/28 00:00 ~ 8/29 23:59';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 255; 0; };
 				opacity = 255;
-				dimension_width = 844;
-				dimension_height = 45;
+				dimension_width = 428;
+				dimension_height = 58;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -514,7 +514,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 39;
@@ -543,12 +543,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -40.000000;
-				dock_point = { 0.500000; 1.000000; };
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 430;
-				height = 74;
+				width = 930;
+				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -556,7 +556,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/typo/ko/new_dragon_title.png';
+				file_name = 'ui/typo/ko/bg_capsule_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

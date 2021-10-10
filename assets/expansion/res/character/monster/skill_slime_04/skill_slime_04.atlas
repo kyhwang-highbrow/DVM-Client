@@ -1,0 +1,160 @@
+
+skill_slime_04.png
+size: 1967,432
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_slime_04_body_01
+  rotate: true
+  xy: 1149, 105
+  size: 325, 280
+  orig: 325, 280
+  offset: 0, 0
+  index: -1
+skill_slime_04_effect_01
+  rotate: true
+  xy: 801, 17
+  size: 66, 85
+  orig: 66, 85
+  offset: 0, 0
+  index: -1
+skill_slime_04_effect_010
+  rotate: true
+  xy: 913, 87
+  size: 343, 234
+  orig: 343, 234
+  offset: 0, 0
+  index: -1
+skill_slime_04_effect_02
+  rotate: true
+  xy: 888, 17
+  size: 66, 85
+  orig: 66, 85
+  offset: 0, 0
+  index: -1
+skill_slime_04_effect_03
+  rotate: true
+  xy: 975, 19
+  size: 66, 85
+  orig: 66, 85
+  offset: 0, 0
+  index: -1
+skill_slime_04_effect_04
+  rotate: true
+  xy: 1062, 19
+  size: 66, 85
+  orig: 66, 85
+  offset: 0, 0
+  index: -1
+skill_slime_04_effect_05
+  rotate: false
+  xy: 600, 6
+  size: 29, 22
+  orig: 29, 22
+  offset: 0, 0
+  index: -1
+skill_slime_04_effect_06
+  rotate: true
+  xy: 1149, 6
+  size: 97, 105
+  orig: 97, 105
+  offset: 0, 0
+  index: -1
+skill_slime_04_effect_07
+  rotate: true
+  xy: 600, 30
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+skill_slime_04_effect_08
+  rotate: false
+  xy: 538, 3
+  size: 60, 57
+  orig: 60, 57
+  offset: 0, 0
+  index: -1
+skill_slime_04_effect_09
+  rotate: false
+  xy: 2, 21
+  size: 448, 409
+  orig: 448, 409
+  offset: 0, 0
+  index: -1
+skill_slime_04_eye_01
+  rotate: true
+  xy: 1256, 10
+  size: 93, 92
+  orig: 93, 92
+  offset: 0, 0
+  index: -1
+skill_slime_04_eye_02
+  rotate: true
+  xy: 452, 2
+  size: 58, 84
+  orig: 58, 84
+  offset: 0, 0
+  index: -1
+skill_slime_04_eye_03
+  rotate: false
+  xy: 1350, 15
+  size: 113, 88
+  orig: 113, 88
+  offset: 0, 0
+  index: -1
+skill_slime_04_eye_04
+  rotate: false
+  xy: 1846, 63
+  size: 113, 88
+  orig: 113, 88
+  offset: 0, 0
+  index: -1
+skill_slime_04_horn_01
+  rotate: true
+  xy: 710, 85
+  size: 345, 201
+  orig: 345, 201
+  offset: 0, 0
+  index: -1
+skill_slime_04_horn_02
+  rotate: false
+  xy: 1431, 153
+  size: 266, 277
+  orig: 266, 277
+  offset: 0, 0
+  index: -1
+skill_slime_04_horn_03
+  rotate: true
+  xy: 452, 62
+  size: 368, 256
+  orig: 368, 256
+  offset: 0, 0
+  index: -1
+skill_slime_04_horn_04
+  rotate: false
+  xy: 1699, 153
+  size: 266, 277
+  orig: 266, 277
+  offset: 0, 0
+  index: -1
+skill_slime_04_mouth_01
+  rotate: false
+  xy: 710, 15
+  size: 89, 68
+  orig: 89, 68
+  offset: 0, 0
+  index: -1
+skill_slime_04_wing_01
+  rotate: false
+  xy: 1622, 26
+  size: 222, 125
+  orig: 222, 125
+  offset: 0, 0
+  index: -1
+skill_slime_04_wing_02
+  rotate: false
+  xy: 1465, 18
+  size: 155, 133
+  orig: 155, 133
+  offset: 0, 0
+  index: -1

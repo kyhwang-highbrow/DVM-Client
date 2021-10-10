@@ -3707,7 +3707,7 @@
 								lua_name = '';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 19;
-								text = '공격력 +35%';
+								text = '공격력 +40%';
 								h_alignment = 0;
 								v_alignment = 1;
 								color = { 209; 180; 142; };
@@ -3770,7 +3770,7 @@
 								lua_name = '';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 19;
-								text = '방어력 +15%';
+								text = '방어력 +20%';
 								h_alignment = 0;
 								v_alignment = 1;
 								color = { 209; 180; 142; };
@@ -3833,7 +3833,7 @@
 								lua_name = '';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 19;
-								text = '생명력 +15%';
+								text = '생명력 +20%';
 								h_alignment = 0;
 								v_alignment = 1;
 								color = { 209; 180; 142; };
@@ -3896,7 +3896,7 @@
 								lua_name = '';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 19;
-								text = '공격속도 +35%';
+								text = '공격속도 +40%';
 								h_alignment = 0;
 								v_alignment = 1;
 								color = { 209; 180; 142; };
@@ -3959,7 +3959,7 @@
 								lua_name = '';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 19;
-								text = '치명확률 +12%';
+								text = '치명확률 +20%';
 								h_alignment = 0;
 								v_alignment = 1;
 								color = { 209; 180; 142; };

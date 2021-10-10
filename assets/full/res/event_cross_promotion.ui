@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/typo/ko/bg_cross_promotion_01.png';
+				file_name = 'ui/event/bg_cross_promotion.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -60,7 +60,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -10.000000;
+					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -75,11 +75,11 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '사전예약 신청';
+					font_size = 26;
+					text = '바로가기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 67; 60; 8; };
 					opacity = 255;
 					dimension_width = 248;
 					dimension_height = 61;
@@ -98,13 +98,13 @@
 				};
 				type = 'Button';
 				ui_name = '게임으로 이동';
-				x = 290.000000;
-				y = 50.000000;
+				x = -297.000000;
+				y = 29.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 248;
-				height = 64;
+				width = 268;
+				height = 84;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -226,7 +226,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/a2d/package_montly_02/bg_montly_03.vrp';
 					auto_play = true;

@@ -834,7 +834,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '(클랜 경험치, 패스 포인트 제외)';
+					text = '(클랜 경험치 제외)';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 0; };

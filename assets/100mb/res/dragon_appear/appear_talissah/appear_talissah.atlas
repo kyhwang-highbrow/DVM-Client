@@ -1,0 +1,439 @@
+
+appear_talissah.png
+size: 2046,2026
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+background
+  rotate: false
+  xy: 2, 1689
+  size: 610, 335
+  orig: 610, 335
+  offset: 0, 0
+  index: -1
+chest
+  rotate: false
+  xy: 1606, 1574
+  size: 389, 450
+  orig: 389, 450
+  offset: 0, 0
+  index: -1
+circle
+  rotate: false
+  xy: 1843, 35
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect_line
+  rotate: false
+  xy: 1997, 2008
+  size: 47, 16
+  orig: 47, 16
+  offset: 0, 0
+  index: -1
+effect_planet_circle_pak
+  rotate: true
+  xy: 1477, 2
+  size: 158, 181
+  orig: 158, 181
+  offset: 0, 0
+  index: -1
+effect_planet_circle_pak_pak
+  rotate: true
+  xy: 1660, 2
+  size: 158, 181
+  orig: 158, 181
+  offset: 0, 0
+  index: -1
+gee_0000_Layer-22
+  rotate: false
+  xy: 467, 59
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0001_Layer-21
+  rotate: false
+  xy: 669, 59
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0002_Layer-19
+  rotate: false
+  xy: 871, 59
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0003_Layer-18
+  rotate: false
+  xy: 1073, 59
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0004_Layer-17
+  rotate: false
+  xy: 1275, 59
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+planet
+  rotate: false
+  xy: 240, 50
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: -1
+planet_1
+  rotate: false
+  xy: 2, 39
+  size: 236, 236
+  orig: 236, 236
+  offset: 0, 0
+  index: -1
+thunder_0000_23
+  rotate: false
+  xy: 2, 1336
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0001_22
+  rotate: false
+  xy: 2, 983
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0002_21
+  rotate: false
+  xy: 2, 630
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0003_20
+  rotate: false
+  xy: 2, 277
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0004_19
+  rotate: false
+  xy: 614, 1673
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0005_18
+  rotate: false
+  xy: 1110, 1673
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0006_17
+  rotate: false
+  xy: 498, 1320
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0007_16
+  rotate: false
+  xy: 498, 967
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0008_15
+  rotate: false
+  xy: 994, 1320
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0009_14
+  rotate: false
+  xy: 498, 614
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0010_13
+  rotate: false
+  xy: 994, 967
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0011_12
+  rotate: false
+  xy: 994, 614
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0012_11
+  rotate: false
+  xy: 498, 261
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0013_10
+  rotate: false
+  xy: 994, 261
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0014_09
+  rotate: false
+  xy: 1490, 1221
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0015_07
+  rotate: false
+  xy: 1490, 868
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0016_06
+  rotate: false
+  xy: 1490, 515
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0017_05
+  rotate: false
+  xy: 1490, 162
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+
+appear_talissah2.png
+size: 2010,1263
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_planet_overgrow
+  rotate: false
+  xy: 1606, 26
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+firezoom_0000_08
+  rotate: false
+  xy: 498, 608
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+firezoom_0001_07
+  rotate: false
+  xy: 994, 961
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+firezoom_0002_06
+  rotate: false
+  xy: 498, 306
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+firezoom_0003_05
+  rotate: false
+  xy: 1396, 961
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+firezoom_0004_04
+  rotate: false
+  xy: 498, 4
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+firezoom_0005_03
+  rotate: true
+  xy: 900, 508
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+firezoom_0006_02
+  rotate: true
+  xy: 900, 106
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+firezoom_0007_01
+  rotate: false
+  xy: 1202, 659
+  size: 400, 300
+  orig: 400, 300
+  offset: 0, 0
+  index: -1
+gee_0005_Layer-16
+  rotate: false
+  xy: 1798, 1061
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0006_Layer-15
+  rotate: false
+  xy: 2, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0007_Layer-14
+  rotate: false
+  xy: 1202, 457
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0008_Layer-13
+  rotate: false
+  xy: 204, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0009_Layer-12
+  rotate: false
+  xy: 1202, 255
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0010_Layer-11
+  rotate: false
+  xy: 1404, 457
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0011_Layer-10
+  rotate: false
+  xy: 1404, 255
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0012_Layer-9
+  rotate: false
+  xy: 1604, 759
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0013_Layer-8
+  rotate: false
+  xy: 1202, 53
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0014_Layer-7
+  rotate: false
+  xy: 1404, 53
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0015_Layer-6
+  rotate: false
+  xy: 1606, 557
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0016_Layer-5
+  rotate: false
+  xy: 1606, 355
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0017_Layer-4
+  rotate: false
+  xy: 1606, 153
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0018_Layer-3
+  rotate: false
+  xy: 1806, 859
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0019_Layer-2
+  rotate: false
+  xy: 1808, 657
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0020_Layer-1
+  rotate: false
+  xy: 1808, 455
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+gee_0021_Layer-23
+  rotate: false
+  xy: 1808, 253
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+thunder_0018_04
+  rotate: false
+  xy: 2, 910
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0019_03
+  rotate: false
+  xy: 2, 557
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0020_02
+  rotate: false
+  xy: 498, 910
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1
+thunder_0021_01
+  rotate: false
+  xy: 2, 204
+  size: 494, 351
+  orig: 494, 351
+  offset: 0, 0
+  index: -1

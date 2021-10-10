@@ -53,6 +53,70 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
+					text = '디스코드';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 299;
+					dimension_height = 42;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = false;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 100;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 270.000000;
+				y = -25.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 130;
+				height = 130;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'discordBtn';
+				enable = true;
+				normal = 'ui/buttons/community_discord_0101.png';
+				selected = 'ui/buttons/community_discord_0102.png';
+				disable = '';
+				image_type = 1;
+			};
+			[3] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -62.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 3;
+					width = 47;
+					height = -60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 22;
 					text = '네이버 카페';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -75,7 +139,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 180.000000;
+				x = 90.000000;
 				y = -25.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -95,7 +159,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
@@ -139,7 +203,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 0.000000;
+				x = -90.000000;
 				y = -25.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -159,7 +223,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[4] =
+			[5] =
 			{
 				[1] =
 				{
@@ -203,7 +267,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -180.000000;
+				x = -270.000000;
 				y = -25.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -216,14 +280,14 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'instaBtn';
+				lua_name = 'instagramBtn';
 				enable = true;
 				normal = 'ui/buttons/community_instagram_0101.png';
 				selected = 'ui/buttons/community_instagram_0102.png';
 				disable = '';
 				image_type = 1;
 			};
-			[5] =
+			[6] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -247,7 +311,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[6] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';

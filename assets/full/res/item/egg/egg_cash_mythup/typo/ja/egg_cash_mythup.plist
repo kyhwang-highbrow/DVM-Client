@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>egg_cash_mythup_text.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{1,3}</string>
+                <key>spriteSize</key>
+                <string>{286,170}</string>
+                <key>spriteSourceSize</key>
+                <string>{300,180}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{286,170}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>egg_cash_mythup.png</string>
+            <key>size</key>
+            <string>{288,172}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:629d5bf9601eab714cf2015e0791e846:10dbe83aca127b1d3cfb66c191eb4d68:2ed1e260e5edd57be79e197347bdbd5f$</string>
+            <key>textureFileName</key>
+            <string>egg_cash_mythup.png</string>
+        </dict>
+    </dict>
+</plist>
