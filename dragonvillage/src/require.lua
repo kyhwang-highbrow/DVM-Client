@@ -69,6 +69,7 @@ local t_module = {
     'UserStatusAnalyser',
     'FullPopupManager',
     'ServerListData',
+    'ExperationTime',
 
 	-- CONSTANT 
     'Constant',
@@ -120,6 +121,8 @@ local t_module = {
     'StructPickup',
     'StructPackage',
     'StructProduct',
+    'StructIAPProduct',
+    'StructIAPPurchase',
     'StructProductSubscription',
     'StructMarketProduct',
     'StructLobbyNotice',
@@ -178,6 +181,7 @@ local t_module = {
     'ServerData_Inventory',
     'ServerData_Friend',
 	'ServerData_Shop',
+    'ServerData_IAP',
     'ServerData_Subscription',
     'ServerData_LobbyNotice',
     'ServerData_Mail',
