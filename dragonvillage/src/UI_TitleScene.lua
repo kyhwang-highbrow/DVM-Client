@@ -376,6 +376,17 @@ function UI_TitleScene:setWorkList()
             is_new_billing_setup_process = true
         end
 
+        local is_billing_3 = false
+        -- @ochoi 2021.09.23, 1.3.0 앱 업데이트 분기 처리
+        -- LIVE 1.3.0, QA 0.7.8, DEV 0.7.9 이상은 새로운 결제 처리 로직을 사용하도록 한다.
+        if (IS_LIVE_SERVER() and getAppVerNum() >= 1003000)
+            or (IS_QA_SERVER() and getAppVerNum() >= 7009)
+            or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() >= 7009) then
+
+            is_billing_3 = true
+        end
+
+
         -- market : Onestore or Google
         if (PerpleSdkManager:onestoreIsAvailable()) then
             if (is_new_billing_setup_process == true) then
@@ -386,7 +397,12 @@ function UI_TitleScene:setWorkList()
             table.insert(self.m_lWorkList, 'workBillingSetupForOnestore') -- perple sdk
             table.insert(self.m_lWorkList, 'workGetMarketInfoForOnestore') -- perple sdk
         else
-            if (is_new_billing_setup_process == true) then
+            if (is_billing_3 == true) then
+                table.insert(self.m_lWorkList, 'workNewBillingSetup') -- 인앱결제 초기화
+                table.insert(self.m_lWorkList, 'workNewBillingGetItemList') -- 인앱결제 상품 정보 획득 (sku를 통해 현지화된 가격 등을 획득)
+                table.insert(self.m_lWorkList, 'workNewBillingGetIncompletePurchaseList') -- 완료되지 않은 결제건 조회
+                table.insert(self.m_lWorkList, 'workNewBillingHandleIncompletePurchaseList') -- 완료되지 않은 결제건 처리
+            elseif (is_new_billing_setup_process == true) then
                 table.insert(self.m_lWorkList, 'workBillingSetupWithoutRestore') -- perple sdk                    
                 table.insert(self.m_lWorkList, 'workBillingRestorePurchase') -- perple sdk
             else
@@ -1442,13 +1458,14 @@ function UI_TitleScene:workBillingSetup()
 
     -- 영수증 검증 API 주소
     local url = GetPlatformApiUrl() .. '/payment/receiptValidation/'
+    local saveTransactionIdUrl = GetPlatformApiUrl() .. '/payment/saveTransaction'
 
     -- 카페 바자르 빌드에서만 동작
     if (CppFunctions:isCafeBazaarBuild() == true) then
         url = GetPlatformApiUrl() .. '/payment/receiptValidationForCafeBazaar/'
     end
 
-    PerpleSDK:billingSetup(url, call_back)
+    PerpleSDK:billingSetup(url, saveTransactionIdUrl, call_back)
 
     -- Xsolla 데이터 검증용 API 주소
     if (PerpleSdkManager:xsollaIsAvailable()) then
@@ -1928,6 +1945,265 @@ function UI_TitleScene.createAccount()
 	
     prologue_func()
 end
+
+
+
+
+
+
+
+
+
+------------------------ Google 결제 3.0 ---------------------------
+
+
+-------------------------------------
+-- function workNewBillingSetup
+-- @brief API(결제) 초기화
+-------------------------------------
+function UI_TitleScene:workNewBillingSetup()
+    -- 로딩 UI On
+    self.m_loadingUI:showLoading()
+
+    local is_done = false -- 함수가 두번 호출되지 않도록 처리
+    local function success_cb(info)
+
+        -- 함수가 두번 호출되지 않도록 처리
+        if (is_done == true) then
+            return
+        end
+        is_done = true
+
+        -- 로딩 UI Off
+        self.m_loadingUI:hideLoading()
+
+        -- 다음 work로 이동
+        self:doNextWork()
+    end
+
+    local function fail_cb(info)
+
+        -- 함수가 두번 호출되지 않도록 처리
+        if (is_done == true) then
+            return
+        end
+        is_done = true
+
+        -- 로딩 UI Off
+        self.m_loadingUI:hideLoading()
+
+        -- 결제 시스템 초기화에 실패하더라도 게임 진입을 허용
+        local function ok_cb()
+            -- 다음 work로 이동
+            self:doNextWork()
+        end
+
+        -- 인포에서 넘어온 msg는 무시
+        -- local desc = Str(info_json.msg)
+        local msg = Str('결제 시스템 초기화에 실패하였습니다.')
+        local submsg = Str('결제 시도 시 결제에 실패할 경우 재접속 후 다시 시도해주세요.' .. '\n(' .. tostring(info) .. ')')
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
+    end
+
+    ServerData_IAP:getInstance():sdkBinder_BillingSetup(success_cb, fail_cb)
+end
+
+-------------------------------------
+-- function workBillingGetItemList
+-- @brief 인앱결제 상품 정보 획득 (sku를 통해 현지화된 가격 등을 획득)
+-------------------------------------
+function UI_TitleScene:workNewBillingGetItemList()
+    -- 로딩 UI On
+    self.m_loadingUI:showLoading()
+    
+    local function success_cb()
+        -- 로딩 UI Off
+        self.m_loadingUI:hideLoading()
+        
+        -- 다음 work로 이동
+        self:doNextWork()
+    end
+
+    local function fail_cb(info)
+        -- 로딩 UI Off
+        self.m_loadingUI:hideLoading()
+
+        -- 결제 시스템 초기화에 실패하더라도 게임 진입을 허용
+        local function ok_cb()
+            -- 다음 work로 이동
+            self:doNextWork()
+        end
+
+        -- 인포에서 넘어온 msg는 무시
+        -- local desc = Str(info_json.msg)
+        local msg = Str('결제 시스템 초기화에 실패하였습니다.')
+        local submsg = Str('결제 시도 시 결제에 실패할 경우 재접속 후 다시 시도해주세요.' .. '\n(' .. tostring(info) .. ')')
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
+    end
+
+    ServerData_IAP:getInstance():sdkBinder_BillingGetItemList(success_cb, fail_cb)
+end
+
+-------------------------------------
+-- function workBillingGetIncompletePurchaseList
+-- @brief 완료되지 않은 결제건 조회
+-------------------------------------
+function UI_TitleScene:workNewBillingGetIncompletePurchaseList()
+    -- 로딩 UI On
+    self.m_loadingUI:showLoading()
+
+    local function success_cb()
+        -- 로딩 UI Off
+        self.m_loadingUI:hideLoading()
+
+        -- 다음 work로 이동
+        self:doNextWork()
+    end
+
+    local function fail_cb()
+        -- 로딩 UI Off
+        self.m_loadingUI:hideLoading()
+
+        -- 다음 work로 이동
+        self:doNextWork()
+    end
+
+    ServerData_IAP:getInstance():sdkBinder_BillingGetIncompletePurchaseList(success_cb, fail_cb)
+end
+
+-------------------------------------
+-- function workBillingHandleIncompletePurchaseList
+-- @brief 완료되지 않은 결제건 처리
+-------------------------------------
+function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+
+        local l_struct_iap_purchase = clone(ServerData_IAP:getInstance().m_structIAPPurchaseList)
+
+        -- StructIAPPurchase
+        for i,struct_iap_purchase in ipairs(l_struct_iap_purchase) do
+            co:work()
+
+            -- 로딩 UI On
+            self.m_loadingUI:showLoading()
+
+            local validation_key = nil
+            local product_id = nil
+            local sale_id = nil
+
+            local sku = struct_iap_purchase:getSku()
+            local purchase_time = struct_iap_purchase:getPurchaseTime()
+            local order_id = struct_iap_purchase:getOrderId()
+            local purchase_token = struct_iap_purchase:getPurchaseToken()
+            local test_purchase = false
+
+            -- 성공 시에는 billingConfirm으로 결제건 종료
+            local success_cb = function()
+                -- 로딩 UI Off
+                self.m_loadingUI:hideLoading()
+
+                PerpleSDK:billingConfirm(order_id)
+
+                -- 지표
+                if (test_purchase == false) then
+                    local currency_code = nil
+                    local currency_price = nil
+        
+                    -- StructIAPProduct
+                    local struct_iap_product = ServerData_IAP:getInstance():getStructIAPProduct(sku)
+                    if struct_iap_product then
+                        currency_code = struct_iap_product:getCurrencyCode()
+                        currency_price = struct_iap_product:getCurrencyPrice()
+                    end
+        
+                    -- @analytics
+                    Analytics:purchase(product_id, sku, currency_code, currency_price) -- params: product_id, sku, currency_code, currency_price
+                end
+
+                co.NEXT()
+            end
+
+            -- 실패
+            local fail_cb = function(ret)
+                -- 로딩 UI Off
+                self.m_loadingUI:hideLoading()
+                co.NEXT()
+            end
+
+            -- 성공 이외의 값
+            local status_cb = function(ret)
+                -- 로딩 UI Off
+                self.m_loadingUI:hideLoading()
+
+                if (IS_TEST_MODE() == true) then
+                    if (ret['status'] ~= 0) then
+                        local msg = '아이템 미지급 결제건 처리 도중 오류가 발생하였습니다. 결제건을 컨슘하시겠습니까?'
+                        local sub_msg = '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'
+
+                        local function ok_btn_cb()
+                            -- PerpleSDK:billingConfirm(order_id(string))를 호출한 것과 같음
+                            PerpleSDK:billingConfirm(order_id)
+                            co.NEXT()
+                        end
+
+                        local function cancel_btn_cb()
+                            co.NEXT()
+                        end
+
+                        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, ok_btn_cb, cancel_btn_cb)
+                        return true
+                    end
+                elseif (ret['status'] == 107) then
+                    -- 이미 해당 order_id로 상품이 지급된 경우
+                    -- ALREADY_EXIST(107 , "already exist"),
+                    PerpleSDK:billingConfirm(order_id)
+                    
+                    co.NEXT()
+                    return true
+
+                else
+                    -- 라이브 환경에서는 알 수 없는 오류에서 billingConfirm처리를 하고 cs로 해결하도록 한다.
+                    -- PerpleSDK:billingConfirm(order_id(string))를 호출한 것과 같음
+                    --SdkBinder.callPerpleSDKFunc('billingConfirm', order_id)
+
+                    co.NEXT()
+                    return true
+                end
+                return false
+            end
+    
+            -- 실패시에도 게임 진행을 위해 다음으로 넘어감
+            g_shopDataNew:request_checkReceiptValidation_v3(validation_key, product_id, sale_id,
+                sku, purchase_time, order_id, purchase_token,
+                success_cb, co.NEXT, status_cb, -- params: success_cb, fail_cb, status_cb
+                test_purchase)
+            if co:waitWork() then return end
+        end
+	
+        co:close()
+
+        -- 로딩 UI Off
+        self.m_loadingUI:hideLoading()
+
+        -- 다음 work로 이동
+        self:doNextWork()
+    end
+
+    Coroutine(coroutine_function)
+end
+
+
+
+
+--------------------------------------------------------------------
+
+
+
+
+
+
+
 
 --@CHECK
 UI:checkCompileError(UI_TitleScene)

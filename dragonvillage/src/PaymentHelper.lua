@@ -1,10 +1,261 @@
 PaymentHelper = {}
 
+
+-------------------------------------
+-- function buy_iap
+-- @brief 인앱 결제 3.0
+-- @param cb_func(ret)
+-------------------------------------
+function PaymentHelper.buy_iap(struct_product, cb_func)
+    local skip_default_after = (skip_default_after or false)
+    
+    local validation_key = nil
+    local test_purchase = false
+    local product_id = struct_product:getProductID()
+    local sale_id = struct_product:getProductSaleID()
+    local sku = struct_product:getProductSku() -- e.g. 'dvnew_default_2.2k'
+    local order_id = nil
+    local purchase_time = nil
+    local purchase_token = nil
+
+    --MakeSimplePopup(POPUP_TYPE.OK, '인앱 결제 구현 예정')
+    local func_request_get_validation_key
+    local func_response_get_validation_key
+    local func_checkTestPurchase
+    local func_billingPurchase
+    local func_check_incomplete_purchase_test
+    local func_request_buy
+    local func_response_buy
+
+    -- validation key 발급 요청
+    func_request_get_validation_key = function()
+
+        local success_cb = func_response_get_validation_key -- @nextfunc
+        local fail_cb = nil
+        local status_cb = nil
+        ServerData_IAP:getInstance():request_getValidationKey(product_id, sale_id, sku, success_cb, fail_cb, status_cb)
+    end
+
+    -- validation key 발급
+    func_response_get_validation_key = function(ret)
+        validation_key = ret['validation_key']
+
+        -- @nextfunc
+        func_checkTestPurchase()
+        
+    end
+
+    -- 테스트 결제 프로세스 확인
+    func_checkTestPurchase = function()
+        if (isWin32() or isMac()) then
+            test_purchase = true
+            -- @nextfunc
+            local msg = '스토어 결제 진행 시점입니다.'
+            local sub_msg = '에뮬레이터에서 노출되는 팝업입니다.\n스토어 결제가 이루어졌다고 간주합니다.'
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, func_check_incomplete_purchase_test)
+            return
+        end
+        
+        -- 테스트 모드에서는 테스트 결제를 확인
+        if (IS_TEST_MODE() == true) then
+            local msg = '테스트 결제, 스토어 결제를 선택하세요.'
+            local sub_msg = '테스트 모드가 설정된 빌드에서만 노출되는 팝업입니다.'
+
+            -- 스토어 결제 버튼 터치
+            local function ok_btn_cb()
+                test_purchase = false
+                -- @nextfunc
+                func_billingPurchase()
+            end
+
+            -- 테스트 결제 버튼 터치
+            local function cancel_btn_cb()
+                test_purchase = true
+                -- @nextfunc
+                func_billingPurchase()
+            end
+            local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, ok_btn_cb, cancel_btn_cb)
+
+            if (ui.vars['okLabel']) then ui.vars['okLabel']:setString('스토어 결제') end
+            if (ui.vars['cancelLabel']) then ui.vars['cancelLabel']:setString('테스트 결제') end
+            
+            
+        else
+            -- @nextfunc 
+            func_billingPurchase()
+        end
+    end
+
+    -- 스토어 결제
+    func_billingPurchase = function()
+        if (test_purchase == true) then
+            -- @nextfunc
+            func_check_incomplete_purchase_test()
+            return
+        end
+
+        -- 로딩 UI로 사용
+        local ui = UI_Network()
+        ui:hideBGLayerColor() -- 배경에 어두은 음영 숨김
+        ui:setLoadingMsg(Str('통신 중 ...')) -- 메세지
+
+        -- PerpleSDK:billingPurchase(sku(string), function(ret, info) end)를 호출한 것과 같음
+        local payload = '' -- 드빌M에서 사용하던 구조를 그대로 사용하기 위해 파라미터는 남아있지만 사용하지 않음
+        PerpleSDK:billingPurchase(sku, payload, function(ret, info)
+
+            -- @sgkim 2021.03.17 billingPurchase ret은 'success'와 'fail' 두가지 경우만 리턴된다.
+            if (ret == 'success') then
+                local info_json = json_decode(info) -- 문자열에서 json형태로 변환하는 코드
+                -- {"orderId":"GPA.3383-2200-7533-03221","packageName":"com.highbrow.games.dvnew","productId":"dvnew_default_1.1k","purchaseTime":1616051904887,"purchaseState":0,"purchaseToken":"gnomdhcppdbcoehbojajlpld.AO-J1OzveHOrTr3GicfLMpl8ErpZVRm65aDa5itzkSNrz5ezjYaoOfVwi03pd7OXMOKje8EJqgmy-ry6tvn1Ba9yHXtSL5Z6I7VSxWvj79h2EiWtGIBmqWY","acknowledged":false}
+
+                order_id = info_json['orderId']
+                purchase_time = info_json['purchaseTime']
+                purchase_token = info_json['purchaseToken']
+
+                ui:close()
+
+                -- @nextfunc
+                func_check_incomplete_purchase_test()
+            else--if (ret == 'fail') then
+                ui:close()
+                if (info == 'cancel') then
+                    --MakeSimplePopup(POPUP_TYPE.OK, '취소하셨습니다.')
+                elseif (info == 'item_already_owned') then
+                    MakeSimplePopup(POPUP_TYPE.OK, Str('이미 보유하고 있는 아이템입니다.'))
+                else
+                    local msg = Str('알 수 없는 문제가 발생했습니다.')
+                    local sub_msg = nil
+                    if (type(info) == 'string') and (info ~= '') then
+                        sub_msg = info
+                    end
+                    if (sub_msg == nil) then
+                        MakeSimplePopup(POPUP_TYPE.OK, msg)
+                    else
+                        MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+                    end
+                end
+                -- fail일 경우 info의 케이스
+                -- 1. '{"code":"-1501","subcode":"0","msg":""}' 형태의 json 문자열
+                --local info_json = json_decode(info) -- 문자열에서 json형태로 변환하는 코드 
+            end
+        end)
+    end
+
+    -- 아이템 미지급 테스트 확인
+    func_check_incomplete_purchase_test = function()
+        -- 테스트 모드이고 실결제인 경우에만 노출
+        if (IS_TEST_MODE() == true) and (test_purchase == false) then
+            local msg = '아이템 미지급 테스트 여부를 결정해주세요.'
+            local sub_msg = '테스트 모드가 설정된 빌드에서만 노출되는 팝업입니다.'
+
+            local function ok_btn_cb()
+                -- 정상 지급
+                -- @nextfunc
+                func_request_buy()
+            end
+
+            local function cancel_btn_cb()
+                -- 미지급 테스트
+                -- 아무것도 하지 않음
+            end
+            local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, ok_btn_cb, cancel_btn_cb)
+
+            if (ui.vars['okLabel']) then ui.vars['okLabel']:setString('정상 지급') end
+            if (ui.vars['cancelLabel']) then ui.vars['cancelLabel']:setString('미지급 테스트') end
+        else
+            -- @nextfunc
+            func_request_buy()
+        end
+    end
+
+    -- 영수증 검사 + 상품 지급 요청 통신
+    func_request_buy = function()
+        local success_cb = func_response_buy -- @nextfunc
+        local function fail_cb(ret)
+            ccdump(ret)
+            error_msg = Str('영수증 확인에 실패하였습니다.')
+        end
+            
+        -- 특정 리턴값 처리
+        local function response_status_cb(ret)
+            -- -3161 : already use receipt, -1161 : not exist receipt
+            if (ret['status'] == -3161) or (ret['status'] == -1161) then
+                cclog('#### ret : ')
+                ccdump(ret)
+                if (cb_func) then cb_func(ret) end
+                return true
+            end
+        end
+
+        g_shopDataNew:request_checkReceiptValidation_v3(validation_key, product_id, sale_id,
+            sku, purchase_time, order_id, purchase_token,
+            success_cb, fail_cb, response_status_cb,
+            test_purchase)
+    end
+
+    -- 구매 통신 결과
+    func_response_buy = function(ret)
+        cclog('#### ret : ')
+        ccdump(ret)
+
+        -- 지표
+        if (test_purchase == false) then
+            local currency_code = nil
+            local currency_price = nil
+
+            -- StructIAPProduct
+            local struct_iap_product = struct_product:getStructIAPProduct()
+            if struct_iap_product then
+                currency_code = struct_iap_product:getCurrencyCode()
+                currency_price = struct_iap_product:getCurrencyPrice()
+            else
+                -- StructIAPProduct가 없을 경우에 기본값 설정
+                currency_code = 'KRW'
+                currency_price = struct_product:getPrice()
+            end
+
+            -- @analytics
+            Analytics:purchase(product_id, sku, currency_code, currency_price) -- params: product_id, sku, currency_code, currency_price
+        end
+        
+        -- 컨슘 (스토어 구매 과정 종료)
+        if (test_purchase == false) then
+            PerpleSDK:billingConfirm(order_id)
+        end
+
+        if cb_func then
+            cb_func(ret)
+        end
+
+        local msg = Str('결제에 성공하였습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+    end
+
+    func_request_get_validation_key()
+end
+
+
 -------------------------------------
 -- function payment
+-- legacy
 -- @brief 결제 상품 처리
 -------------------------------------
 function PaymentHelper.payment(struct_product, cb_func)
+    local is_billing_3 = false
+    -- @ochoi 2021.09.23, 1.3.0 앱 업데이트 분기 처리
+    -- LIVE 1.3.0, QA 0.7.9, DEV 0.7.9 이상은 새로운 결제 처리 로직을 사용하도록 한다.
+    if (IS_LIVE_SERVER() and getAppVerNum() >= 1003000) 
+        or (IS_QA_SERVER() and getAppVerNum() >= 7009)
+        or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() >= 7009) then
+
+        is_billing_3 = true
+    end
+
+    if (is_billing_3 == true) then
+        PaymentHelper.buy_iap(struct_product, cb_func)
+        return
+    end
+
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()

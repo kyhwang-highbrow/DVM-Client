@@ -640,6 +640,144 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     ui_network:request()
 end
 
+-------------------------------------
+-- function request_checkReceiptValidation
+-- @breif 구글빌링 v3 대응
+-- 기존 로직을 살려야 할 수도 있기 때문에 새로운 함수로 작업함
+-------------------------------------
+function ServerData_Shop:request_checkReceiptValidation_v3(validation_key, product_id, sale_id,
+    sku, purchase_time, order_id, purchase_token,
+    success_cb, fail_cb, status_cb,
+    test_purchase)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function finish_cb(ret)
+        
+        -- 누락된 지급건을 처리하는 경우 struct_product가 nil일 수 있다. 이 경우 product_id로 조회한다.
+        if (struct_product == nil) then
+            struct_product = self:getTargetProduct(tonumber(product_id))
+        end
+
+        -- @analytics
+        if (struct_product) then
+            local krw_price = struct_product['price'] -- getPrice() 함수 나중에 수정하기
+            local usd_price = struct_product['price_dollar']
+            local first_buy = ret['first_buy']  --첫번째 결제인지
+
+            Analytics:purchase(product_id, sku, krw_price, usd_price, first_buy)
+            Analytics:trackGetGoodsWithRet(ret, string.format('상품 구매 : %d', product_id))
+
+            if (ret['ustats']) then
+                -- 누적 결제 금액 증가로 갱신
+                UserStatusAnalyser:analyzeUserStat(ret['ustats'])
+
+                local sum_money = ret['ustats']['sum_money']
+                --adjust 누적 금액
+                Adjust:trackEventSumPrice(sum_money)
+            end
+        end
+        
+        g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 누적 결제 보상 이벤트 관련 데이터 갱신
+        g_purchasePointData:response_purchasePointInfo(ret, nil) -- param : ret, finish_cb
+        -- 일일 결제 보상 에빈트 관련 데이터 갱신
+        g_purchaseDailyData:applyPurchaseDailyInfo(ret['purchase_daily_info'])
+
+        -- 상품 구매 후 갱신이 필요한지 여부 체크
+        if struct_product and struct_product:needRenewAfterBuy() then
+            self:setDirty()
+        end
+
+        -- 깜짝 세일 상품 정보 받는 중
+		if (ret['spot_sale']) then
+			g_spotSaleData:applySpotSaleInfo(ret['spot_sale'])
+		end
+
+        -- 구매한 아이템 중 코스튬이 있다면 dirty 갱신
+        if (ret['added_items']) then
+            if (self:isContainCostume(ret['added_items'])) then
+                g_tamerCostumeData.m_bDirtyCostumeInfo = true
+            end
+        end
+
+        -- 상품별 구매 횟수 정보 갱신
+        if (ret['buycnt']) then
+            self.m_dicBuyCnt = ret['buycnt']
+        end
+
+        -- 첫 충전 선물(첫 결제 보상)
+        if ret['first_purchase_event_info'] then
+            g_firstPurchaseEventData:applyFirstPurchaseEvent(ret['first_purchase_event_info'])
+        end
+
+        -- 보급소(정액제)
+        g_supply:applySupplyList_fromRet(ret)
+        
+        -- 자동 줍기으로 획득한 누적 아이템 수량 갱신
+        g_subscriptionData:response_ingameDropInfo(ret)
+
+		if (success_cb) then
+			success_cb(ret)
+		end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/check_receipt_validation')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('validation_key', validation_key) -- 누락된 결제건 처리일 경우 nil일 수 있다.
+    ui_network:setParam('sku', sku)
+    ui_network:setParam('product_id', product_id) -- 누락된 결제건 처리일 경우 nil일 수 있다.
+    ui_network:setParam('iswin', iswin)
+	ui_network:setParam('route', g_errorTracker:getUIStackForPayRoute())
+	ui_network:setParam('billing_ver', '4')
+
+    local market, os_ = GetMarketAndOS()
+
+	if (IS_LIVE_SERVER()) then
+		local os = getTargetOSName()
+		local game_lang = Translate:getGameLang()
+		local device_lang = Translate:getDeviceLang()
+		local auth = g_localData:getAuth()
+
+		ui_network:setParam('os', os)
+		ui_network:setParam('glang', game_lang)
+		ui_network:setParam('dlang', device_lang)
+		ui_network:setParam('auth', auth)
+        ui_network:setParam('market', market)
+	else
+		ui_network:setParam('os', 'test')
+		ui_network:setParam('glang', 'test')
+		ui_network:setParam('dlang', 'test')
+		ui_network:setParam('auth', 'test')
+        ui_network:setParam('market', market)
+	end
+
+    ui_network:hideBGLayerColor() -- 배경에 어두은 음영 숨김
+    ui_network:setLoadingMsg(Str('통신 중 ...')) -- 메세지
+    ui_network:setParam('store', store)
+    ui_network:setParam('advertising_id', advertising_id)
+    ui_network:setParam('sale_id', sale_id) -- 누락된 결제건 처리일 경우 nil일 수 있다.
+    ui_network:setParam('purchase_time', purchase_time) -- 결제 타임스탬프 (밀리세컨드)
+    ui_network:setParam('order_id', order_id) -- 주문 번호
+    ui_network:setParam('purchase_token', purchase_token) -- 영수증 검사용
+    ui_network:setParam('test_purchase', test_purchase_) -- 테스트 결제
+    
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(finish_cb)
+    ui_network:setResponseStatusCB(status_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
 
 -------------------------------------
 -- function isContainCostume
@@ -1052,6 +1190,10 @@ end
 -------------------------------------
 function ServerData_Shop:getStructMarketProduct(sku)
     return self.m_dicStructMarketProduct[sku]
+end
+
+function ServerData_Shop:getAllProductMap()
+    return self.m_dicStructMarketProduct
 end
 
 -------------------------------------

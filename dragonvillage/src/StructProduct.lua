@@ -5,6 +5,8 @@ local PARENT = Structure
 -------------------------------------
 StructProduct = class(PARENT, {
         product_id = 'number',
+        sku = 'string',
+        sale_id = 'number',
         t_name = 'string',
         t_desc = 'string',
         use_desc = 'number', -- '' or 1
@@ -800,6 +802,7 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
             if self:isPaymentProduct() then
                 if isWin32() then
                     self:payment_win(finish_cb)
+                    --self:payment(finish_cb)
                 else
                     -- 엑솔라 or 원스토어 or 구글
                     if (PerpleSdkManager:xsollaIsAvailable()) then
@@ -1219,6 +1222,20 @@ function StructProduct:getToolTipStr()
 end
 
 
+-------------------------------------
+-- function getStructIAPProduct
+-- @brief sku에 해당하는 StructIAPProduct 리턴
+-- @return struct_iap_product(StructIAPProduct) nil이 리턴될 수 있음
+-------------------------------------
+function StructProduct:getStructIAPProduct()
+    local sku = self:getProductSku()
+    if (sku == nil) or (sku == '') then
+        return nil
+    end
+
+    local struct_iap_product = ServerData_IAP:getInstance():getStructIAPProduct(sku)
+    return struct_iap_product
+end
 
 
 
@@ -1244,6 +1261,22 @@ end
 -------------------------------------
 function StructProduct:getProductID()
     return self['product_id']
+end
+
+-------------------------------------
+-- function getProductSaleId
+-- @return id(number) nil 리턴 가능
+-------------------------------------
+function StructProduct:getProductSaleID()
+    return tonumber(self.sale_id)
+end
+
+-------------------------------------
+-- function getProductSku
+-- @return sku(string)
+-------------------------------------
+function StructProduct:getProductSku()
+    return self['sku']
 end
 
 -------------------------------------
