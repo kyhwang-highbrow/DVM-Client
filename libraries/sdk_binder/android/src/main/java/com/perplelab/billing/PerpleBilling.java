@@ -1,119 +1,129 @@
 package com.perplelab.billing;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.android.vending.billing.IInAppBillingService;
+import com.android.billingclient.api.AcknowledgePurchaseParams;
+import com.android.billingclient.api.AcknowledgePurchaseResponseListener;
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ConsumeParams;
+import com.android.billingclient.api.ConsumeResponseListener;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesResponseListener;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
+
 import com.perplelab.PerpleSDK;
 import com.perplelab.PerpleSDKCallback;
 import com.perplelab.PerpleLog;
-import com.perplelab.billing.util.IabHelper;
-import com.perplelab.billing.util.IabHelper.OnConsumeFinishedListener;
-import com.perplelab.billing.util.IabHelper.OnConsumeMultiFinishedListener;
-import com.perplelab.billing.util.IabResult;
-import com.perplelab.billing.util.Inventory;
-import com.perplelab.billing.util.Purchase;
-import com.perplelab.billing.util.SkuDetails;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 
-import static com.perplelab.billing.util.IabHelper.IABHELPER_USER_CANCELLED;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
 
-public class PerpleBilling {
-    private static final String LOG_TAG = "PerpleSDK Billing";
+
+public class PerpleBilling implements PurchasesUpdatedListener {
+    private static final String LOG_TAG = "PerpleSDK_Billing";
 
     private Handler mAppHandler;
-    private IabHelper mHelper;
-    private String mUri;
-    private PerpleSDKCallback mSetupCallback;
-    private PerpleSDKCallback mIncompletePurchaseCallback;
+
+    // 결제 시도 시 사용되는 변수
+    private String mPurchaseSku; // 결제를 시도 중인 상품의  sku
     private PerpleSDKCallback mPurchaseCallback;
-    private PerpleSDKCallback mItemListCallback;
-    private IabHelper.QueryInventoryFinishedListener mGotInventoryListener;
-    private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener;
-    private IabHelper.QueryInventoryFinishedListener mGetItemListInventoryListener;
 
-    private boolean mIsSetupCompleted;
+    private BillingClient billingClient;
 
-    private int mIncompletePurchasesCount;
-    private Map<Purchase, Boolean> mIncompletePurchases;
+    /**
+     * SkuDetails for all known SKUs.
+     */
+    public MutableLiveData<Map<String, SkuDetails>> skusWithSkuDetails = new MutableLiveData<>();
 
-    private Map<String, Purchase> mPurchases;
-
-    private List<String> mRequestItemAllList;
-    private JSONArray mJArrayItemDetail;
+    /**
+     * Purchases are observable. This list will be updated when the Billing Library
+     * detects new or existing purchases. All observers will be notified.
+     */
+    public MutableLiveData<List<Purchase>> mPurchases = new MutableLiveData<>();
 
     public PerpleBilling() {}
 
-    /* base64EncodedPublicKey should be YOUR APPLICATION'S PUBLIC KEY
-     * (that you got from the Google Play developer console). This is not your
-     * developer public key, it's the *app-specific* public key.
-     *
-     * Instead of just storing the entire literal string here embedded in the
-     * program,  construct the key at runtime from pieces or
-     * use bit manipulation (for example, XOR with some other string) to hide
-     * the actual key.  The key itself is not secret information, but we don't
-     * want to make it easy for an attacker to replace the public key with one
-     * of their own and then fake messages from the server.
-     */
-    public void init(String base64EncodedPublicKey, boolean isDebug) {
+    public void init() {
+        PerpleLog.d(LOG_TAG, "PerpleBilling init!");
 
+        // mAppHandler를 통해 메인 쓰레드에서 함수를 호출하기 위해 사용
         mAppHandler = new Handler(Looper.getMainLooper());
 
-        mIncompletePurchases = new HashMap<Purchase, Boolean>();
-        mPurchases = new HashMap<String, Purchase>();
-
-        // Create the helper, passing it our context and the public key to verify signatures with
-        PerpleLog.d(LOG_TAG, "Creating IAB helper.");
-        mHelper = new IabHelper(PerpleSDK.getInstance().getMainActivity(), base64EncodedPublicKey);
-
-        // enable debug logging (for a production application, you should set this to false).
-        mHelper.enableDebugLogging(isDebug);
+        // BillingClient 초기화
+        Activity activity = PerpleSDK.getInstance().getMainActivity();
+        PurchasesUpdatedListener purchasesUpdatedListener = this; // PurchasesUpdatedListener 상속
+        billingClient = BillingClient.newBuilder(activity)
+                .setListener(purchasesUpdatedListener)
+                .enablePendingPurchases()
+                .build();
     }
 
-    public void startSetup(String url, String unusedUrl, PerpleSDKCallback callback) {
-        // 영수증 검증 플랫폼 서버 API 주소
-        // ex) http://platform.perplelab.com/@gameId/payment/receiptValidation
-        mUri = url;
+    /**
+     *
+     * @param url 드빌M의 함수 구조를 유지하기 위해 남겨짐 (영수증 검증을 위한 플랫폼 서버 url)
+     * @param unusedUrl 드빌M의 함수 구조를 유지하기 위해 남겨짐 (payload 정보를 저장할 때 사용했던 플랫폼 서버 url)
+     * @param callback lua 콜백
+     */
+    public void startSetup(String url, String unusedUrl, final PerpleSDKCallback callback) {
+        PerpleLog.d(LOG_TAG, "Starting in-app billing setup.");
 
-        mSetupCallback = callback;
-
-        if (mIsSetupCompleted) {
+        // 이미 초기화가 된 경우 success로 리턴
+        if (isReady()) {
             PerpleLog.d(LOG_TAG, "In-app billing setup is already completed.");
-            mSetupCallback.onSuccess("");
+            callback.onSuccess("In-app billing setup is already completed.");
             return;
         }
 
+        // Main Thread(UI Thread)에서 동작
         mAppHandler.post(new Runnable() {
             @Override
             public void run() {
-                // Start setup. This is asynchronous and the specified listener
-                // will be called once setup completes.
-                PerpleLog.d(LOG_TAG, "Starting in-app billing setup.");
-                mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-                    public void onIabSetupFinished(IabResult result) {
-                        PerpleLog.d(LOG_TAG, "In-app billing setup finished - result:" + result);
+                PerpleLog.d(LOG_TAG, "BillingClient: Start connection...");
+                billingClient.startConnection(new BillingClientStateListener() {
+                    @Override
+                    public void onBillingSetupFinished(BillingResult billingResult) {
+                        PerpleLog.d(LOG_TAG, "In-app billing setup finished - result:" + billingResult);
 
-                        if (result.isSuccess()) {
-                            setPurchaseFinishedListener();
-                            setQueryInventoryFinishedListener();
-                            mIsSetupCompleted = true;
-                            mSetupCallback.onSuccess("");
-                        } else {
-                            // Oh no, there was a problem.
-                            mSetupCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_SETUP, String.valueOf(result.getResponse()), result.getMessage()));
+                        // success
+                        if (billingResult.getResponseCode() ==  BillingClient.BillingResponseCode.OK) {
+                            // The BillingClient is ready. You can query purchases here.
+                            queryPurchases(BillingClient.SkuType.INAPP);
+                            callback.onSuccess("In-app billing setup finished.");
                         }
+                        // fail
+                        else {
+                            String code = PerpleSDK.ERROR_BILLING_SETUP;
+                            String subcode =  String.valueOf(billingResult.getResponseCode());
+                            String msg = billingResult.getDebugMessage();
+                            String info = PerpleSDK.getErrorInfo(code, subcode, msg);
+                            callback.onFail(info);
+                        }
+                    }
+                    @Override
+                    public void onBillingServiceDisconnected() {
+                        // Try to restart the connection on the next request to
+                        // Google Play by calling the startConnection() method.
                     }
                 });
             }
@@ -121,110 +131,138 @@ public class PerpleBilling {
     }
 
     public void onDestroy() {
-        mIsSetupCompleted = false;
-
-        // very important:
         PerpleLog.d(LOG_TAG, "Destroying helper.");
-        if (mHelper != null) {
-            try {
-                mHelper.dispose();
-            } catch (Exception e) {
-                // IllegalArgumentException
-                e.printStackTrace();
-            }
-            mHelper = null;
-        }
+        billingClient.endConnection();
     }
 
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
         PerpleLog.d(LOG_TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data + ")");
-
-        if (mHelper == null) return false;
-
-        // Pass on the activity result to the helper for handling
-        if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
-            // not handled, so handle it ourselves (here's where you'd
-            // perform any handling of activity results not related to in-app
-            // billing...
-            return false;
-        }
-        else {
-            PerpleLog.d(LOG_TAG, "onActivityResult handled by IABUtil.");
-            return true;
-        }
+        return false;
     }
-
+    
+    /*
     public IInAppBillingService getBillingService() {
         return mHelper.getService();
     }
+    */
 
+    /**
+     * @param sku
+     * @param payload
+     * @param callback
+     */
     public void purchase(final String sku, final String payload, final PerpleSDKCallback callback) {
         PerpleLog.d(LOG_TAG, "Purchasing requested - sku: " + sku + ", payload:" + payload);
-        if (mHelper == null || !mIsSetupCompleted) {
-            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_NOTINITIALIZED, "In-app billing module is not initialized."));
+
+        // 초기화가 되지 않은 경우
+        if (!isReady()) {
+            PerpleLog.d(LOG_TAG, "In-app billing setup is not completed.");
+            String code = PerpleSDK.ERROR_BILLING_PURCHASE;
+            String msg = "In-app billing setup is not completed.";
+            String info = PerpleSDK.getErrorInfo(code, msg);
+            callback.onFail(info); // fail 콜백
             return;
         }
 
+        mPurchaseSku = sku;
         mPurchaseCallback = callback;
 
         mAppHandler.post(new Runnable() {
             @Override
             public void run() {
-                try {
-                    mHelper.launchPurchaseFlow(PerpleSDK.getInstance().getMainActivity(), sku, PerpleSDK.RC_GOOGLE_PURCHASE_REQUEST,
-                            mPurchaseFinishedListener, payload);
-                } catch (Exception e) {
-                    mPurchaseCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_PURCHASE, ""));
+                SkuDetails skuDetails = getSkuDetails(sku);
+                if (skuDetails == null) {
+                    String code = PerpleSDK.ERROR_BILLING_INVALIDPRODUCT; // -1507
+                    String msg = "Purchasing requested fail. skuDetails is null. sku: " + sku;
+                    String info = PerpleSDK.getErrorInfo(code, msg);
+                    PerpleLog.d(LOG_TAG, msg);
+                    mPurchaseCallback.onFail(info); // fail 콜백
+                    return;
+                }
+
+                // An activity reference from which the billing flow will be launched.
+                Activity activity = PerpleSDK.getInstance().getMainActivity();
+
+                // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
+                BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+                        .setSkuDetails(skuDetails)
+                        .build();
+                BillingResult billingResult = billingClient.launchBillingFlow(activity, billingFlowParams);
+                int responseCode = billingResult.getResponseCode();
+                String debugMessage = billingResult.getDebugMessage();
+
+                // launchBillingFlow 실패
+                if (responseCode != BillingClient.BillingResponseCode.OK) {
+                    String code = PerpleSDK.ERROR_BILLING_PURCHASE;
+                    String subcode = String.valueOf(responseCode);
+                    String msg = debugMessage;
+                    String info = PerpleSDK.getErrorInfo(code, subcode, msg);
+                    PerpleLog.d(LOG_TAG, msg);
+                    mPurchaseCallback.onFail(info); // fail 콜백
                 }
             }
         });
     }
 
-    public void subscription(final String sku, final String payload, final PerpleSDKCallback callback) {
-        PerpleLog.d(LOG_TAG, "Subscription requested - sku: " + sku + ", payload:" + payload);
-        if (mHelper == null || !mIsSetupCompleted) {
-            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_NOTINITIALIZED, "In-app billing module is not initialized."));
-            return;
+    /**
+     * @param sku
+     * @return SkuDetails
+     */
+    public SkuDetails getSkuDetails(final String sku) {
+        if (skusWithSkuDetails.getValue() == null) {
+            return null;
         }
 
-        mPurchaseCallback = callback;
-
-        mAppHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    mHelper.launchSubscriptionPurchaseFlow(PerpleSDK.getInstance().getMainActivity(), sku, PerpleSDK.RC_GOOGLE_SUBSCRIPTION_REQUEST,
-                            mPurchaseFinishedListener, payload);
-                } catch (Exception e) {
-                    mPurchaseCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_PURCHASE, ""));
-                }
-            }
-        });
+        SkuDetails skuDetails = skusWithSkuDetails.getValue().get(sku);
+        return skuDetails;
     }
 
     public void consume(final String orderId) {
+
+        if (!isReady()) {
+            return;
+        }
+
         mAppHandler.post(new Runnable() {
             @Override
             public void run() {
-                Purchase p = mPurchases.get(orderId);
-                if (p != null) {
-                    mHelper.consumeAsync(p, new OnConsumeFinishedListener() {
-                        @Override
-                        public void onConsumeFinished(Purchase purchase, IabResult result) {
-                            mPurchases.remove(purchase.getOrderId());
-                        }
-                    });
+                Purchase purchase = getPurchasesByOrderId(orderId);
+
+                if (purchase == null) {
+                    return;
                 }
+
+                ConsumeParams consumeParams =
+                        ConsumeParams.newBuilder()
+                                .setPurchaseToken(purchase.getPurchaseToken())
+                                .build();
+
+                ConsumeResponseListener listener = new ConsumeResponseListener() {
+                    @Override
+                    public void onConsumeResponse(BillingResult billingResult, String purchaseToken) {
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                            // Handle the success of the consume operation.
+                        }
+                    }
+                };
+
+                billingClient.consumeAsync(consumeParams, listener);
             }
         });
     }
 
-    public void getItemList(final String skuList, PerpleSDKCallback callback ) {
-        mItemListCallback = callback;
-
-        if (!mIsSetupCompleted) {
+    /**
+     * @param skuListStr "dvnew_default_1.1k;dvnew_default_3.3k;dvnew_default_5.5k"형태로 sku가 ;로 구분되어있는 문자열
+     * @param callback
+     */
+    public void getItemList(final String skuListStr, final PerpleSDKCallback callback ) {
+        // 빌링 초기화가 되지 않아 fail
+        if (!isReady()) {
             PerpleLog.d(LOG_TAG, "In-app billing setup is not completed.");
-            mItemListCallback.onFail("");
+            String code = PerpleSDK.ERROR_BILLING_NOTINITIALIZED;
+            String msg = "In-app billing setup is not completed.";
+            String info = PerpleSDK.getErrorInfo(code, msg);
+            callback.onFail(info); // fail 콜백
             return;
         }
 
@@ -233,401 +271,382 @@ public class PerpleBilling {
             public void run() {
                 PerpleLog.d(LOG_TAG, "Starting in-app getItemList.");
 
-                setQueryGetItemListInventoryFinishedListener();
-
-                // Have we been disposed of in the meantime? If so, quit.
-                if (mHelper == null) return;
-
-                // IAB is fully set up. Now, let's get an inventory of stuff we own.
-                PerpleLog.d(LOG_TAG, "Querying inventory.");
-
-                StringTokenizer tempList = new StringTokenizer(skuList, ";");
-                mRequestItemAllList = new ArrayList<String>();
-                mJArrayItemDetail = new JSONArray();
+                // sku가 ;로 연결되어있는 문자열을 분리
+                // e.g. "dvnew_default_1.1k;dvnew_default_3.3k;dvnew_default_5.5k"
+                List<String> skuList = new ArrayList<> ();
+                StringTokenizer tempList = new StringTokenizer(skuListStr, ";");
                 while( tempList.hasMoreTokens())
                 {
-                    mRequestItemAllList.add( tempList.nextToken() );
+                    skuList.add( tempList.nextToken() );
                 }
 
-                PerpleLog.d(LOG_TAG, "skuList : " + skuList);
-                PerpleLog.d(LOG_TAG, "retSkuList : " + mRequestItemAllList.toString());
+                // query
+                SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+                params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
 
-                //20개 이상 보내면 에러가 나서 순차적으로 보내야한다.
-                List<String> retSkuList = new ArrayList<String>();
-                if( mRequestItemAllList.size() > 10 )
-                {
-                    int i;
-                    for( i = 0; i < 10; ++i )
-                    {
-                        retSkuList.add( mRequestItemAllList.remove(0) );
-                    }
-                }
-                else
-                {
-                    retSkuList.addAll(mRequestItemAllList);
-                    mRequestItemAllList.clear();
-                }
+                // Important : Async를 사용했을 때 콜백이 런타임에 여러번 호출이 될 수 있다.
+                billingClient.querySkuDetailsAsync(params.build(),
+                        new SkuDetailsResponseListener() {
+                            @Override
+                            public void onSkuDetailsResponse(@NonNull BillingResult billingResult, @Nullable List<SkuDetails> skuDetailsList) {
 
-                mHelper.queryInventoryAsync(true, retSkuList,  mGetItemListInventoryListener);
+                                // billingResult이 null일 경우 fail
+                                if (billingResult == null) {
+                                    PerpleLog.d(LOG_TAG, "onSkuDetailsResponse: null BillingResult");
+                                    String code = PerpleSDK.ERROR_BILLING_QUARY_SKU_DETAIL;
+                                    String msg = "onSkuDetailsResponse: null BillingResult";
+                                    String info = PerpleSDK.getErrorInfo(code, msg);
+                                    callback.onFail(info); // fail 콜백
+                                    return;
+                                }
+
+                                int responseCode = billingResult.getResponseCode();
+                                String debugMessage = billingResult.getDebugMessage();
+                                String info = "";
+                                PerpleLog.d(LOG_TAG, "onSkuDetailsResponse: " + responseCode + " " + debugMessage);
+
+                                switch (responseCode) {
+                                    // 성공의 경우
+                                    case BillingClient.BillingResponseCode.OK:
+                                        PerpleLog.d(LOG_TAG,
+                                                "onSkuDetailsResponse - received list size : "
+                                                        + skuDetailsList.size());
+
+                                        // skuDetail을 저장
+                                        Map<String, SkuDetails> newSkusDetailList = new HashMap<>();
+
+                                        for (SkuDetails skuDetails : skuDetailsList) {
+                                            PerpleLog.d(LOG_TAG,
+                                                    "onSkuDetailsResponse - adding sku : "
+                                                            + skuDetails.getSku());
+                                            newSkusDetailList.put(skuDetails.getSku(), skuDetails);
+                                        }
+
+                                        // 기존에 추가된 sku들도 함께 추가
+                                        if (skusWithSkuDetails.getValue() != null) {
+                                            for (SkuDetails curDetails : skusWithSkuDetails.getValue().values()) {
+                                                if (!newSkusDetailList.containsKey(curDetails.getSku())) {
+                                                    PerpleLog.d(LOG_TAG,
+                                                            "onSkuDetailsResponse - adding exsist sku : "
+                                                                    + curDetails.getSku());
+                                                    newSkusDetailList.put(curDetails.getSku(), curDetails);
+                                                }
+                                            }
+                                        }
+
+                                        skusWithSkuDetails.postValue(newSkusDetailList);
+
+                                        PerpleLog.d(LOG_TAG,
+                                                "onSkuDetailsResponse - current skuDetailsList size : "
+                                                        + newSkusDetailList.size());
+
+                                        // skuDetails를 json리스트로 변환
+                                        JSONArray skuDetailsJsonArray = new JSONArray();
+                                        for (SkuDetails skuDetails : skuDetailsList) {
+                                            String itemInfo = skuDetails.getOriginalJson();
+                                            try {
+                                                JSONObject jitem = new JSONObject(itemInfo);
+                                                skuDetailsJsonArray.put(jitem);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        // json 문자열로 info를 전달
+                                        // 100개에 해당하는 정보까지 정상동작함을 테스트함 @sgkim 2021.03.17
+                                        info = skuDetailsJsonArray.toString();
+                                        // e.g. [{"productId":"dvnew_default_1.1k","type":"inapp","price":"₩1,100","price_amount_micros":1100000000,"price_currency_code":"KRW","title":"1100원 상품 (Bubbly Operator)","description":"1100원 상품","skuDetailsToken":"AEuhp4IPSGPiSWeSqp5ik7wMKL5jDf-Dz6G9r8J8r9DrmfF5dOyqfR0QjKfORd5n2QY="},
+                                        // {"productId":"dvnew_default_3.3k","type":"inapp","price":"₩3,300","price_amount_micros":3300000000,"price_currency_code":"KRW","title":"3300원 상품 (Bubbly Operator)","description":"3300원 상품","skuDetailsToken":"AEuhp4JTWyaUFQKsx-DLo25w6nrywVBYepk7gaG9p5NDCbWk721CUajyfu-p4hX7PgY="}]
+                                        callback.onSuccess(info); // success 콜백
+
+                                        break;
+                                    // 실패의 경우
+                                    default:
+                                        String code = PerpleSDK.ERROR_BILLING_QUARY_SKU_DETAIL;
+                                        String subcode = String.valueOf(responseCode);
+                                        String msg = debugMessage;
+                                        info = PerpleSDK.getErrorInfo(code, subcode, msg);
+                                        callback.onFail(info); // fail 콜백
+                                        break;
+                                }
+                            }
+                        });
             }
-        });
+         });
+
     }
 
     public void getIncompletePurchaseList(final PerpleSDKCallback callback) {
-        if (mHelper == null || !mIsSetupCompleted) {
-            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_NOTINITIALIZED, "In-app billing module is not initialized."));
+        PerpleLog.d(LOG_TAG, "getIncompletePurchaseList: start");
+
+        if (!isReady()) {
+            String code = PerpleSDK.ERROR_BILLING_NOTINITIALIZED;
+            String msg = "getIncompletePurchaseList: In-app billing module is not initialized.";
+            String info = PerpleSDK.getErrorInfo(code, msg);
+            PerpleLog.d(LOG_TAG, msg);
+            callback.onFail(info);
             return;
         }
-
-        mIncompletePurchaseCallback = callback;
 
         mAppHandler.post(new Runnable() {
             @Override
             public void run() {
-                // IAB is fully set up. Now, let's get an inventory of stuff we own.
-                PerpleLog.d(LOG_TAG, "Querying inventory.");
-                mHelper.queryInventoryAsync(mGotInventoryListener);
+                queryPurchases(BillingClient.SkuType.INAPP);
+                List<Purchase> purchaseList = mPurchases.getValue();
+
+                // skuDetails를 json리스트로 변환
+                JSONArray purchaseJsonArray = new JSONArray();
+                if (purchaseList != null) {
+                    for (Purchase purchase : purchaseList) {
+                        String purchaseOritinJson = purchase.getOriginalJson();
+                        try {
+                            JSONObject jsonObject = new JSONObject(purchaseOritinJson);
+                            purchaseJsonArray.put(jsonObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                // json 문자열로 info를 전달
+                String info = purchaseJsonArray.toString();
+                String msg = "getIncompletePurchaseList: info - " + info;
+                callback.onSuccess(info);
             }
         });
     }
 
-    /** Verifies the developer payload of a purchase.
-     * @throws IOException, JSONException */
-    private JSONObject verifyDeveloperPayload(Purchase p) throws IOException, JSONException {
-        /*
-         * TODO: verify that the developer payload of the purchase is correct. It will be
-         * the same one that you sent when initiating the purchase.
-         *
-         * WARNING: Locally generating a random string when starting a purchase and
-         * verifying it here might seem like a good approach, but this will fail in the
-         * case where the user purchases an item on one device and then uses your app on
-         * a different device, because on the other device you will not have access to the
-         * random string you originally generated.
-         *
-         * So a good developer payload has these characteristics:
-         *
-         * 1. If two different users purchase an item, the payload is different between them,
-         *    so that one user's purchase can't be replayed to another user.
-         *
-         * 2. The payload must be such that you can verify it even when the app wasn't the
-         *    one who initiated the purchase flow (so that items purchased by the user on
-         *    one device work on other devices owned by the user).
-         *
-         * Using your own server to store and verify developer payloads across app
-         * installations is recommended.
-         */
-
-        JSONObject data = new JSONObject();
-        data.put("platform", "google");
-        data.put("receipt", p.getOriginalJson());
-        data.put("signature", p.getSignature());
-
-        String responseString = PerpleSDK.httpRequest(mUri, data.toString());
-
-        if (PerpleSDK.IsDebug)
-        {
-            PerpleLog.d(LOG_TAG, "request : " + data.toString());
-            PerpleLog.d(LOG_TAG, "response : " + responseString);
+    /**
+     * PurchasesUpdatedListener
+     * Called by the Billing Library when new purchases are detected.
+     */
+    @Override
+    public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {
+        if (billingResult == null) {
+            PerpleLog.d(LOG_TAG, "onPurchasesUpdated: null BillingResult");
+            return;
         }
+        int responseCode = billingResult.getResponseCode();
+        String debugMessage = billingResult.getDebugMessage();
+        PerpleLog.d(LOG_TAG, "onPurchasesUpdated: $responseCode $debugMessage");
+        switch (responseCode) {
+            case BillingClient.BillingResponseCode.OK:
+                if (purchases == null) {
+                    PerpleLog.d(LOG_TAG, "onPurchasesUpdated: null purchase list");
+                    processPurchases(null);
+                    mPurchaseCallback.onFail("null purchase list"); // fail 콜백
 
-        // Parse the JSON string and return it.
-        return new JSONObject(responseString);
-    }
-
-    private class CheckReceiptTask extends AsyncTask<Purchase, Void, Integer> {
-        private Purchase mPurchase;
-        private String mMsg;
-        private final PerpleSDKCallback mCallback;
-
-        public CheckReceiptTask(PerpleSDKCallback callback) {
-            mCallback = callback;
-        }
-
-        @Override
-        protected Integer doInBackground(Purchase... params) {
-            int ret;
-            try {
-                mPurchase = params[0];
-                JSONObject response = verifyDeveloperPayload(mPurchase);
-                // ret
-                // 0 : success
-                // -100 : invalid receipt
-                ret = new JSONObject(response.getString("status")).getInt("retcode");
-                mMsg = response.getString("status");
-            } catch (IOException e) {
-                e.printStackTrace();
-                ret = Integer.parseInt(PerpleSDK.ERROR_IOEXCEPTION);
-                mMsg = e.toString();
-            } catch (JSONException e) {
-                ret = Integer.parseInt(PerpleSDK.ERROR_JSONEXCEPTION);
-                e.printStackTrace();
-                mMsg = e.toString();
-            }
-            return ret;
-        }
-
-        @Override
-        protected void onPostExecute(Integer ret) {
-            PerpleLog.d(LOG_TAG, "Check receipt finished - code:" + String.valueOf(ret) +
-                    ", message:" + mMsg +
-                    ", purchase:" + mPurchase);
-
-            if (mCallback != null) {
-                if (ret == 0) {
-                    mCallback.onSuccess(mMsg);
                 } else {
-                    mCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_CHECKRECEIPT, String.valueOf(ret), mMsg));
-                }
-            } else {
-                PerpleLog.e(LOG_TAG, "CheckReceiptTask error, callback isn't set.");
-            }
-        }
-    }
+                    processPurchases(purchases);
 
-    private void checkReceipt(Purchase p, PerpleSDKCallback callback) {
-        new CheckReceiptTask(callback).execute(p);
-    }
-
-    private void setQueryInventoryFinishedListener() {
-        // Listener that's called when we finish querying the items and subscriptions we own
-        mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-            public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-                PerpleLog.d(LOG_TAG, "Query inventory finished - result:" + result);
-
-                // Have we been disposed of in the meantime? If so, quit.
-                if (mHelper == null) return;
-
-                // Is it a failure?
-                if (result.isFailure()) {
-                    mIncompletePurchaseCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_QUARYINVECTORY, String.valueOf(result.getResponse()), result.getMessage()));
-                    return;
-                }
-
-                List<Purchase> purchases = inventory.getAllPurchases();
-
-                mIncompletePurchases.clear();
-                mIncompletePurchasesCount = purchases.size();
-
-                PerpleLog.d(LOG_TAG, "inventory item count : " + mIncompletePurchasesCount);
-
-                if (mIncompletePurchasesCount > 0) {
+                    Purchase purchase = null;
                     for (final Purchase p : purchases) {
-                        PerpleLog.d(LOG_TAG, "inventory item  : " + p.toString());
+                        ArrayList<String> sku_list = p.getSkus();
 
-                        checkReceipt(p, new PerpleSDKCallback() {
-                            @Override
-                            public void onSuccess(String info) {
-                                processCheckReceiptResultIncompletePurchases(p, info, true);
+                        for (final String sku : sku_list)
+                        {
+                            if (mPurchaseSku.equals(sku)) {
+                                purchase = p;
+                                break;
                             }
-                            @Override
-                            public void onFail(String info) {
-                                processCheckReceiptResultIncompletePurchases(p, info, false);
-                            }
-                        });
-                    }
-                } else {
-                    mIncompletePurchaseCallback.onSuccess("");
-                }
-            }
-        };
-    }
-
-    private void setPurchaseFinishedListener() {
-        mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
-            public void onIabPurchaseFinished(IabResult result, final Purchase purchase) {
-                PerpleLog.d(LOG_TAG, "Purchasing finished - result:" + result + ", purchase: " + purchase);
-
-                // if we were disposed of in the meantime, quit.
-                if (mHelper == null) return;
-
-                if (result.isFailure()) {
-                    if (result.getResponse() == IABHELPER_USER_CANCELLED) {
-                        mPurchaseCallback.onFail("cancel");
-                    } else {
-                        mPurchaseCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_PURCHASEFINISH, String.valueOf(result.getResponse()), result.getMessage()));
-                    }
-                    return;
-                }
-
-                checkReceipt(purchase, new PerpleSDKCallback() {
-                    @Override
-                    public void onSuccess(String info) {
-                        processCheckReceiptResult(purchase, info, true);
-                    }
-                    @Override
-                    public void onFail(String info) {
-                        processCheckReceiptResult(purchase, info, false);
-                    }
-                });
-            }
-        };
-    }
-
-    private void setQueryGetItemListInventoryFinishedListener() {
-        // Listener that's called when we finish querying the items and subscriptions we own
-        mGetItemListInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-            public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-                PerpleLog.d(LOG_TAG, "Query inventory finished - result:" + result);
-
-                // Have we been disposed of in the meantime? If so, quit.
-                if (mHelper == null) return;
-
-                // Is it a failure?
-                if (result.isFailure()) {
-                    mItemListCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_QUARYINVECTORY, String.valueOf(result.getResponse()), result.getMessage()));
-                    return;
-                }
-
-                List<SkuDetails> sku = inventory.getAllSkuDetails();
-
-                PerpleLog.d(LOG_TAG, "inventory SkuDetails count : " + sku.size());
-
-                for (final SkuDetails item : sku) {
-                    PerpleLog.d(LOG_TAG, "SkuDetails item  : " + item.getJson());
-
-                    String itemInfo = item.getJson();
-                    try {
-                        JSONObject jitem = new JSONObject(itemInfo);
-                        mJArrayItemDetail.put(jitem);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                //다 비운건지 체크
-                if (mRequestItemAllList.size() <= 0) {
-                    mItemListCallback.onSuccess(mJArrayItemDetail.toString());
-                } else {
-                    //20개 이상 보내면 에러가 나서 순차적으로 보내야한다.
-                    List<String> retSkuList = new ArrayList<String>();
-                    if (mRequestItemAllList.size() > 10) {
-                        int i;
-                        for (i = 0; i < 10; ++i) {
-                            retSkuList.add(mRequestItemAllList.remove(0));
                         }
-                    } else {
-                        retSkuList.addAll(mRequestItemAllList);
-                        mRequestItemAllList.clear();
                     }
 
-                    mHelper.queryInventoryAsync(true, retSkuList, mGetItemListInventoryListener);
+                    if (purchase == null) {
+                        PerpleLog.d(LOG_TAG, "onPurchasesUpdated: null purchase");
+                        mPurchaseCallback.onFail("null purchase"); // fail 콜백
+                    } else {
+                        String info = purchase.getOriginalJson();
+                        mPurchaseCallback.onSuccess(info);
+
+                        // 구매 확인 acknowledge
+                        acknowledgePurchase(purchase.getPurchaseToken());
+                    }
+                }
+                break;
+            case BillingClient.BillingResponseCode.USER_CANCELED:
+                PerpleLog.d(LOG_TAG, "onPurchasesUpdated: User canceled the purchase");
+                mPurchaseCallback.onFail("cancel"); // fail 콜백
+                break;
+            case BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED:
+                PerpleLog.d(LOG_TAG, "onPurchasesUpdated: The user already owns this item");
+                mPurchaseCallback.onFail("item_already_owned"); // fail 콜백
+                break;
+            case BillingClient.BillingResponseCode.DEVELOPER_ERROR:
+                PerpleLog.d(LOG_TAG, "onPurchasesUpdated: Developer error means that Google Play " +
+                        "does not recognize the configuration. If you are just getting started, " +
+                        "make sure you have configured the application correctly in the " +
+                        "Google Play Console. The SKU product ID must match and the APK you " +
+                        "are using must be signed with release keys."
+                );
+            default:
+                String code = PerpleSDK.ERROR_BILLING_PURCHASE;
+                String subcode = String.valueOf(responseCode);
+                String msg = debugMessage;
+                String info = PerpleSDK.getErrorInfo(code, subcode, msg);
+                PerpleLog.d(LOG_TAG, "onPurchasesUpdated: " + msg);
+                mPurchaseCallback.onFail(info); // fail 콜백
+                break;
+        }
+    }
+
+    /**
+     * Query Google Play Billing for existing purchases.
+     * <p>
+     * New purchases will be provided to the PurchasesUpdatedListener.
+     * You still need to check the Google Play Billing API to know when purchase tokens are removed.
+     */
+    public void queryPurchases(@NonNull String skuType) {
+        if (!billingClient.isReady()) {
+            PerpleLog.d(LOG_TAG, "queryPurchases: BillingClient is not ready");
+        }
+
+        PerpleLog.d(LOG_TAG, "queryPurchases: INAPP");
+        // BillingClient.SkuType  SUBS INAPP
+        String finalSkuType = skuType;
+
+        billingClient.queryPurchasesAsync(finalSkuType, new PurchasesResponseListener() {
+            @Override
+            public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    if (list.isEmpty()) {
+                        PerpleLog.d(LOG_TAG, "queryPurchases: null purchase list");
+                        processPurchases(null);
+                    } else {
+                        processPurchases(list);
+                    }
+                }
+                else {
+                    PerpleLog.d(LOG_TAG, "onQueryPurchasesResponse - : empty purchase list");
+                    processPurchases(null);
                 }
             }
-        };
+        });
     }
 
-    private void processCheckReceiptResult(Purchase p, String info, boolean isCheckReceiptSuccess) {
-        if (isCheckReceiptSuccess) {
-            if (getRetcode(info) == 0) {
-                mPurchases.put(p.getOrderId(), p);
-                mPurchaseCallback.onSuccess(getPurchaseResult(p).toString());
-            } else {
-                mPurchaseCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_CHECKRECEIPT, String.valueOf(getRetcode(info)), getRetMsg(info)));
-                mHelper.consumeAsync(p, new OnConsumeFinishedListener() {
-                    @Override
-                    public void onConsumeFinished(Purchase purchase, IabResult result) {
-                        // Do noting
-                    }
-                });
+    /**
+     * Send purchase SingleLiveEvent and update purchases LiveData.
+     * <p>
+     * The SingleLiveEvent will trigger network call to verify the subscriptions on the sever.
+     * The LiveData will allow Google Play settings UI to update based on the latest purchase data.
+     */
+    private void processPurchases(List<Purchase> purchasesList) {
+        if (purchasesList != null) {
+            PerpleLog.d(LOG_TAG, "processPurchases: " + purchasesList.size() + " purchase(s)");
+        } else {
+            PerpleLog.d(LOG_TAG, "processPurchases: with no purchases");
+        }
+        mPurchases.postValue(purchasesList);
+    }
+
+    public Purchase getPurchasesByOrderId(String orderId) {
+        if (mPurchases.getValue() == null) {
+            return null;
+        }
+        for (Purchase p : mPurchases.getValue()) {
+            if (orderId.equals(p.getOrderId())) {
+                return p;
             }
-        } else {
-            mPurchaseCallback.onFail(info);
         }
+        return null;
     }
 
-    private void processCheckReceiptResultIncompletePurchases(Purchase p, String info, boolean isCheckReceiptSuccess) {
-        // 영수증 검증된 미지급 결제 상품 처리
-        if (isCheckReceiptSuccess) {
-            // getRetcode(info) == 0
-            mPurchases.put(p.getOrderId(), p);
-            mIncompletePurchases.put(p, true);
-        } else {
-            mIncompletePurchases.put(p, false);
+    /**
+     *
+     * @return 결제 준비가 되었는지 여부
+     */
+    public boolean isReady() {
+        if (billingClient == null) {
+            PerpleLog.d(LOG_TAG, "isReady: billingClient is null. returns false.");
+            return false;
         }
 
-        // 미완료 purchase가 전부 검증되었는지 체크
-        mIncompletePurchasesCount--;
-        if (mIncompletePurchasesCount > 0) {
+        if (!billingClient.isReady()) {
+            PerpleLog.d(LOG_TAG, "isReady: billingClient is not ready. returns false.");
+            return false;
+        }
+
+        PerpleLog.d(LOG_TAG, "isReady: returns true.");
+        return true;
+    }
+
+    public void acknowledgePurchase(String purchaseToken) {
+        PerpleLog.d(LOG_TAG, "acknowledgePurchase: start. purchaseToken: " + purchaseToken);
+        AcknowledgePurchaseParams acknowledgePurchaseParams =
+                AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(purchaseToken)
+                        .build();
+
+        billingClient.acknowledgePurchase(acknowledgePurchaseParams, new AcknowledgePurchaseResponseListener() {
+                    @Override
+                    public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) {
+                        int responseCode = billingResult.getResponseCode();
+                        String debugMessage = billingResult.getDebugMessage();
+                        PerpleLog.d(LOG_TAG, "acknowledgePurchase: responseCode: " + responseCode);
+                        PerpleLog.d(LOG_TAG, "acknowledgePurchase: debugMessage: " + debugMessage);
+                        PerpleLog.d(LOG_TAG, "acknowledgePurchase: finished.");
+                    }
+                }
+        );
+    }
+
+    public void subscription(final String sku, final String payload, final PerpleSDKCallback callback) {
+        PerpleLog.d(LOG_TAG, "Subscription requested - sku: " + sku + ", payload:" + payload);
+
+        // 초기화가 되지 않은 경우
+        if (!isReady()) {
+            PerpleLog.d(LOG_TAG, "In-app billing setup is not completed.");
+            String code = PerpleSDK.ERROR_BILLING_PURCHASE;
+            String msg = "In-app billing setup is not completed.";
+            String info = PerpleSDK.getErrorInfo(code, msg);
+            callback.onFail(info); // fail 콜백
             return;
         }
 
-        // 상품 리스트 json 전달
-        List<Purchase> validList = getPurchasesList(mIncompletePurchases, true);
-        JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < validList.size(); i++) {
-            jsonArray.put(getPurchaseResult(validList.get(i)));
-        }
-        mIncompletePurchaseCallback.onSuccess(jsonArray.toString());
+        mPurchaseSku = sku;
+        mPurchaseCallback = callback;
 
-        // 검증 실패한 purchase consume
-        List<Purchase> invalidList = getPurchasesList(mIncompletePurchases, false);
-        if (invalidList.size() > 0) {
-            mHelper.consumeAsync(invalidList, new OnConsumeMultiFinishedListener() {
-                @Override
-                public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results) {
-                    // Do nothing
+        mAppHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    SkuDetails skuDetails = getSkuDetails(sku);
+                    if (skuDetails == null) {
+                        String code = PerpleSDK.ERROR_BILLING_INVALIDPRODUCT; // -1507
+                        String msg = "Purchasing requested fail. skuDetails is null. sku: " + sku;
+                        String info = PerpleSDK.getErrorInfo(code, msg);
+                        PerpleLog.d(LOG_TAG, msg);
+                        mPurchaseCallback.onFail(info); // fail 콜백
+                        return;
+                    }
+
+                    // An activity reference from which the billing flow will be launched.
+                    Activity activity = PerpleSDK.getInstance().getMainActivity();
+
+                    // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
+                    BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+                            .setSkuDetails(skuDetails)
+                            .build();
+                    BillingResult billingResult = billingClient.launchBillingFlow(activity, billingFlowParams);
+                    int responseCode = billingResult.getResponseCode();
+                    String debugMessage = billingResult.getDebugMessage();
+
+                    // launchBillingFlow 실패
+                    if (responseCode != BillingClient.BillingResponseCode.OK) {
+                        String code = PerpleSDK.ERROR_BILLING_PURCHASE;
+                        String subcode = String.valueOf(responseCode);
+                        String msg = debugMessage;
+                        String info = PerpleSDK.getErrorInfo(code, subcode, msg);
+                        PerpleLog.d(LOG_TAG, msg);
+                        mPurchaseCallback.onFail(info); // fail 콜백
+                    }
+
+                } catch (Exception e) {
+                    mPurchaseCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_PURCHASE, ""));
                 }
-            });
-        }
-    }
-
-    private int getRetcode(String info) {
-        try {
-            JSONObject obj = new JSONObject(info);
-            int retcode = Integer.parseInt(obj.getString("retcode"));
-            return retcode;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
-    private String getRetMsg(String info) {
-        try {
-            JSONObject obj = new JSONObject(info);
-            String retMsg = obj.getString("message");
-            return retMsg;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    private List<Purchase> getPurchasesList(Map<Purchase, Boolean> purchasesMap, boolean valid) {
-        List<Purchase> list = new ArrayList<Purchase>();
-        for (Map.Entry<Purchase, Boolean> entry : purchasesMap.entrySet()) {
-            if (entry.getValue() == valid) {
-                list.add(entry.getKey());
             }
-        }
-        return list;
-    }
-
-    /*
-    private String getPurchaseResultArray(List<Purchase> purchases) {
-        JSONArray array = new JSONArray();
-        for (int i = 0; i < purchases.size(); i++) {
-            array.put(getPurchaseResult(purchases.get(i)));
-        }
-
-        if (array.length() > 0) {
-            return array.toString();
-        }
-        return "";
-    }
-    */
-
-    private JSONObject getPurchaseResult(Purchase p) {
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put("orderId", p.getOrderId());
-            obj.put("payload", p.getDeveloperPayload());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return obj;
+        });
     }
 
 
-    public String getPurchaseCheckReceiptUri() { return mUri; }
 }

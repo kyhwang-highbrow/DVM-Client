@@ -11,7 +11,6 @@ import androidx.core.app.ActivityCompat;
 import android.widget.Toast;
 import android.os.AsyncTask;
 
-import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -89,6 +88,8 @@ public class PerpleSDK {
     public static final String ERROR_BILLING_CHECKRECEIPT               = "-1503";
     public static final String ERROR_BILLING_PURCHASEFINISH             = "-1504";
     public static final String ERROR_BILLING_PURCHASE                   = "-1505";
+    public static final String ERROR_BILLING_QUARY_SKU_DETAIL           = "-1506";
+    public static final String ERROR_BILLING_INVALIDPRODUCT             = "-1507";
 
     public static final String ERROR_TAPJOY_NOTINITIALIZED              = "-1600";
     public static final String ERROR_TAPJOY_NOTSETPLACEMENT             = "-1601";
@@ -254,7 +255,7 @@ public class PerpleSDK {
     public void initBilling(String base64EncodedPublicKey, boolean isDebug) {
         if (mBilling == null) {
             mBilling = new PerpleBilling();
-            mBilling.init(base64EncodedPublicKey, isDebug);
+            mBilling.init();
         }
     }
 
@@ -484,6 +485,7 @@ public class PerpleSDK {
         return getInstance().mBilling;
     }
 
+    /*
     // @billing
     public static IInAppBillingService getBillingService() {
         PerpleBilling billing = getInstance().mBilling;
@@ -492,7 +494,7 @@ public class PerpleSDK {
         } else {
             return null;
         }
-    }
+    }*/
 
     // @google
     public static PerpleGoogle getGoogle() {

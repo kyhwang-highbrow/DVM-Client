@@ -6,8 +6,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <!-- @billing -->
-    <uses-permission
-        android:name="com.android.vending.BILLING" />
+    <!-- 3.0 대응으로 권한 삭제 -->
+    <!-- uses-permission
+        android:name="com.android.vending.BILLING" /-->
 
     <application>
         <!-- @facebook -->

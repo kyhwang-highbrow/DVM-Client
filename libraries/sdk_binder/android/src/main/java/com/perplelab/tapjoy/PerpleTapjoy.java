@@ -85,6 +85,7 @@ public class PerpleTapjoy implements TJPlacementListener {
             return;
         }
 
+        /*
         if (mIsTrackPurchase && PerpleSDK.getBillingService() != null) {
             if (requestCode == PerpleSDK.RC_GOOGLE_PURCHASE_REQUEST ||
                 requestCode == PerpleSDK.RC_GOOGLE_SUBSCRIPTION_REQUEST) {
@@ -92,7 +93,7 @@ public class PerpleTapjoy implements TJPlacementListener {
                     trackPurchase(data);
                 }
             }
-        }
+        }*/
     }
 
     public void setTrackPurchase(boolean isTrackPurchase) {
@@ -118,17 +119,17 @@ public class PerpleTapjoy implements TJPlacementListener {
             skuList.add(productId);
             Bundle querySkus = new Bundle();
             querySkus.putStringArrayList("ITEM_ID_LIST", skuList);
-            Bundle skuDetails = PerpleSDK.getBillingService().getSkuDetails(3, PerpleSDK.getInstance().getMainActivity().getPackageName(), "inapp", querySkus);
-            ArrayList<String> responseList = skuDetails.getStringArrayList("DETAILS_LIST");
+            //Bundle skuDetails = PerpleSDK.getBillingService().getSkuDetails(3, PerpleSDK.getInstance().getMainActivity().getPackageName(), "inapp", querySkus);
+            //ArrayList<String> responseList = skuDetails.getStringArrayList("DETAILS_LIST");
 
             // track purchase
-            Tapjoy.trackPurchase(responseList.get(0), purchaseData, dataSignature, null);
+            //Tapjoy.trackPurchase(responseList.get(0), purchaseData, dataSignature, null);
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (NullPointerException e){
             e.printStackTrace();
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        //} catch (RemoteException e) {
+        //    e.printStackTrace();
         }
     }
 

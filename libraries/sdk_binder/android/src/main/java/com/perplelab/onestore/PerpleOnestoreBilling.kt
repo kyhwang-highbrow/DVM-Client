@@ -272,7 +272,8 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
         data.put("receipt", purchaseData.getPurchaseData())
         PerpleLog.d(LOG_TAG, "check receipt validation param" + data.toString())
 
-        val responseString = PerpleSDK.httpRequest(PerpleSDK.getBilling().getPurchaseCheckReceiptUri() , data.toString())
+        //val responseString = PerpleSDK.httpRequest(PerpleSDK.getBilling().getPurchaseCheckReceiptUri() , data.toString())
+        val responseString = PerpleSDK.httpRequest("" , data.toString())
         PerpleLog.d(LOG_TAG, "check receipt validation return" + responseString)
         return JSONObject(responseString).get("status").toString()
     }

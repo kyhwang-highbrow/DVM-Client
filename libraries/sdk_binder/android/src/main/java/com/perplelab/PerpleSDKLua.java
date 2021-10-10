@@ -1,5 +1,7 @@
 package com.perplelab;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -1384,11 +1386,14 @@ public class PerpleSDKLua {
         PerpleSDK.getBilling().startSetup(checkReceiptServerUrl, saveTransactionIdUrl, new PerpleSDKCallback() {
             @Override
             public void onSuccess(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "purchase", info);
+                PerpleSDK.callSDKResult(pID, funcID, "success", info);
+                Log.d("In-App Billing", info);
             }
+
             @Override
             public void onFail(String info) {
                 PerpleSDK.callSDKResult(pID, funcID, "error", info);
+                Log.d("In-App Billing", info);
             }
         });
     }
@@ -1472,6 +1477,9 @@ public class PerpleSDKLua {
             return;
         }
 
+
+
+        /* @ochoi 2021.03.19 구글 결제 라이브러리 4로 업그레이드 하면서 일단 제거
         PerpleSDK.getBilling().subscription(sku, payload, new PerpleSDKCallback() {
             @Override
             public void onSuccess(String info) {
@@ -1485,7 +1493,7 @@ public class PerpleSDKLua {
                     PerpleSDK.callSDKResult(pID, funcID, "fail", info);
                 }
             }
-        });
+        });*/
     }
 
     //@Adjust
