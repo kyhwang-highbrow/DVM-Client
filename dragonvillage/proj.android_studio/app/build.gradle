@@ -208,8 +208,8 @@ android {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
                     cppFlags.add("-DMAJOR_VER=NUM_0")
-                    cppFlags.add("-DMINOR_VER=NUM_8")
-                    cppFlags.add("-DBUILD_VER=NUM_0")
+                    cppFlags.add("-DMINOR_VER=NUM_7")
+                    cppFlags.add("-DBUILD_VER=NUM_9")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -225,7 +225,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
                     cppFlags.add("-DMAJOR_VER=NUM_0")
                     cppFlags.add("-DMINOR_VER=NUM_7")
-                    cppFlags.add("-DBUILD_VER=NUM_8")
+                    cppFlags.add("-DBUILD_VER=NUM_9")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
