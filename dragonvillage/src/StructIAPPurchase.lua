@@ -19,6 +19,8 @@ StructIAPPurchase = class(PARENT, {
     packageName = 'string', -- e.g. 'com.highbrow.games.dvnew'
     purchaseState = 'number', -- e.g. 0
     acknowledged = 'boolean', -- e.g. false
+
+    quantity = 'number',
 })
 
 local THIS = StructIAPPurchase
