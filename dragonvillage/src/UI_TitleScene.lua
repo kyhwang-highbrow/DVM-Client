@@ -379,7 +379,7 @@ function UI_TitleScene:setWorkList()
         local is_billing_3 = false
         -- @ochoi 2021.09.23, 1.3.0 앱 업데이트 분기 처리
         -- LIVE 1.3.0, QA 0.7.8, DEV 0.7.9 이상은 새로운 결제 처리 로직을 사용하도록 한다.
-        if (IS_LIVE_SERVER() and getAppVerNum() >= 1003000)
+        if (CppFunctionsClass:isAndroid() == true and getAppVerNum() >= 1003000)
             or (IS_QA_SERVER() and getAppVerNum() >= 7009)
             or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() >= 7009) then
 

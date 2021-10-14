@@ -56,7 +56,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
 
     // @facebook
-    implementation 'com.facebook.android:facebook-android-sdk:6.1.0'
+    implementation 'com.facebook.android:facebook-android-sdk:8.2.0'
 
     // @twitter
     implementation 'com.twitter.sdk.android:twitter:3.3.0'

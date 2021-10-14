@@ -24,6 +24,7 @@ import com.facebook.FacebookServiceException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
+import com.facebook.LoggingBehavior;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
@@ -66,6 +67,14 @@ public class PerpleFacebook {
         mAccessToken = "";
 
         mIsInit = true;
+
+        // 광고 식별자, 자동 앱 이벤트 활성화
+        FacebookSdk.setAutoLogAppEventsEnabled(true);
+        FacebookSdk.setAdvertiserIDCollectionEnabled(true);
+
+        // 디버그 로그 사용 설정
+        //FacebookSdk.setIsDebugEnabled(true);
+        //FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
     }
 
     public void onResume() {
