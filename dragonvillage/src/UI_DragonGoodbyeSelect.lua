@@ -114,7 +114,7 @@ function UI_DragonGoodbyeSelect:isContainsInTableview(struct_dragon)
 			local did = struct_dragon:getDid()
 			if (not self:checkRelationPoint(did)) then
 				return false
-			elseif (struct_dragon:getBirthGrade() < 3) then
+			elseif (struct_dragon:getObjectType() ~= 'dragon') or struct_dragon:isMonster() then
 				return false
 			end			
 		else--if (self.m_currTabType == 'mastery') then
