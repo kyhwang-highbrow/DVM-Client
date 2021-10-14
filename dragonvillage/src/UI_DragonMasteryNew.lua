@@ -146,6 +146,7 @@ function UI_DragonMasteryNew:initButton()
 
 end
 
+
 -------------------------------------
 -- function refresh
 -------------------------------------
@@ -317,6 +318,8 @@ function UI_DragonMasteryNew:getDragonList()
     -- 특성 조건이 되지 않는 드래곤 제거 (6성 60레벨)
     for oid, v in pairs(dragon_dic) do
         if (self:isMasteryDragon(v) == false) then
+            dragon_dic[oid] = nil
+        elseif (TableDragon():isUnderling(v['did'])) then
             dragon_dic[oid] = nil
         end
     end

@@ -351,7 +351,7 @@ function UI_DragonManageInfo:refresh_buttonState_masteryBtn()
         if (not dragon_obj) then
             levelupBtn_visible = true
         elseif dragon_obj:isMaxGradeAndLv() then
-            if (is_myth_dragon) then
+            if (is_myth_dragon) or (dragon_obj:isMonster()) then
                 levelupBtn_visible = true
                 is_levelup_enabled = false
             else

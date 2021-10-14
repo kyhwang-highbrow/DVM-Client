@@ -107,17 +107,23 @@ function UI_DragonGoodbyeSelect:isContainsInTableview(struct_dragon)
 	elseif (struct_dragon:getRarity() == 'myth') then
 		return false
 
+	-- 드래곤이 아니면 (table_dragon.csv에 없으면)
+	elseif (struct_dragon:getObjectType() ~= 'dragon') then
+		return false
 	else
 		if (self.m_currTabType == 'exp') then
 
 		elseif (self.m_currTabType == 'relation') then
 			local did = struct_dragon:getDid()
+			-- 인연포인트가 최대치인 경우
 			if (not self:checkRelationPoint(did)) then
 				return false
-			elseif (struct_dragon:getObjectType() ~= 'dragon') or struct_dragon:isMonster() then
+			-- 드래곤이 아니라 몬스터인 경우
+			elseif struct_dragon:isMonster() then
 				return false
 			end			
 		else--if (self.m_currTabType == 'mastery') then
+			-- 
 			if (struct_dragon:getBirthGrade() < 3) then
 				return false
 			end
