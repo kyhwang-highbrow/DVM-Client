@@ -341,6 +341,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameHighlightMgr.lua" />
     <None Include="..\src\GameMana.lua" />
     <None Include="..\src\GameState_Dmgate.lua" />
+    <None Include="..\src\GameState_LegueRaid.lua" />
     <None Include="..\src\GameState_Trial.lua" />
     <None Include="..\src\GameState_AncientRuin.lua" />
     <None Include="..\src\GameState_AncientTower.lua" />
@@ -576,6 +577,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Highbrow.lua" />
     <None Include="..\src\ServerData_Highlight.lua" />
     <None Include="..\src\ServerData_HotTime.lua" />
+    <None Include="..\src\ServerData_IAP.lua" />
     <None Include="..\src\Serverdata_IllusionDungeon.lua" />
     <None Include="..\src\ServerData_Inventory.lua" />
     <None Include="..\src\ServerData_Item.lua" />
@@ -1614,6 +1616,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_PurchasePointRewardSelectPopup.lua" />
     <None Include="..\src\UI_QuestListItem_Contents.lua" />
     <None Include="..\src\UI_QuickPopupNew.lua" />
+    <None Include="..\src\UI_RaidDamageInfo.lua" />
     <None Include="..\src\UI_RandomShop.lua" />
     <None Include="..\src\UI_RandomShopListItem.lua" />
     <None Include="..\src\UI_RankingRewardPopup.lua" />
