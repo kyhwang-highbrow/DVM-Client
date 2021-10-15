@@ -56,6 +56,12 @@ function UI_DragonUpgradeCombineMaterial:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_cancelBtn() end, 'UI_DragonUpgradeCombineMaterial')
 
+    vars['slimeBtn'] = UIC_CheckBox(vars['slimeBtn'].m_node, vars['slimeSprite'], false)
+
+    if IS_TEST_MODE() then
+        vars['slimeBtn']:setVisible(true)   
+    end
+
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
@@ -165,7 +171,14 @@ end
 -------------------------------------
 function UI_DragonUpgradeCombineMaterial:getMaterialMap(grade)
     local grade = grade or self.m_sortGrade
-    local l_dragon_list = g_dragonsData:getDragonListWithSlime()
+
+    local l_dragon_list 
+    if self.vars['slimeBtn']:isVisible() and self.vars['slimeBtn']:isChecked() then
+        l_dragon_list = g_dragonsData:getDragonsList()
+    else
+        l_dragon_list = g_dragonsData:getDragonListWithSlime()
+    end
+    
     local l_material_map = {}
 
     for k, v in pairs(l_dragon_list) do
@@ -259,7 +272,10 @@ function UI_DragonUpgradeCombineMaterial:initButton()
     vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    
     cca.pickMePickMe(vars['buyBtn'], 10)
+
+    vars['slimeBtn']:registerScriptTapHandler(function() self:click_slimeBtn() end)
 end
 
 -------------------------------------
@@ -707,4 +723,16 @@ function UI_DragonUpgradeCombineMaterial:click_buyBtn()
     end
 
     package_ui:setCloseCB(close_cb)
+end
+
+
+-------------------------------------
+-- function click_slimeBtn
+-------------------------------------
+function UI_DragonUpgradeCombineMaterial:click_slimeBtn()
+    self.m_mSelectDragonMap = {}
+    self:initCombineTableView()
+    self:initTableView()
+
+    self:refresh()
 end
