@@ -1385,7 +1385,15 @@ public class PerpleSDKLua {
             return;
         }
 
-        PerpleSDK.getBilling().startSetup(checkReceiptServerUrl, saveTransactionIdUrl, new PerpleSDKCallback() {
+        String receipt_url = "";
+        if (checkReceiptServerUrl != null)
+            receipt_url = checkReceiptServerUrl;
+
+        String save_transaction_url = "";
+        if (saveTransactionIdUrl != null)
+            save_transaction_url = saveTransactionIdUrl;
+
+        PerpleSDK.getBilling().startSetup(receipt_url, save_transaction_url, new PerpleSDKCallback() {
             @Override
             public void onSuccess(String info) {
                 PerpleSDK.callSDKResult(pID, funcID, "success", info);
