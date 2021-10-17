@@ -34,7 +34,8 @@ function AssetMaker_ApkExpansion:run()
     self:moveToExpansion()
 
     -- 압축
-    self:compress()
+	-- android app bundle & play asset delivery 를 사용하기 때문에 obb 압축 안함
+    -- self:compress()
 
     stopwatch:stop()
     stopwatch:print()
