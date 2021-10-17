@@ -340,6 +340,11 @@ function GameWorld:createComponents()
         -- 7. 차원문 던전
         elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
             self.m_gameState = GameState_Dmgate(self)
+
+        -- 7. 레이드 던전
+        elseif (self.m_gameMode == GAME_MODE_LEGUE_RAID) then
+            self.m_gameState = GameState_LegueRaid(self)
+        
         end
         
         -- 7. 깜짝 출현 던전

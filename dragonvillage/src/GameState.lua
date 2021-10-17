@@ -19,6 +19,9 @@ GAME_STATE_FINAL_WAVE = 201
 -- 보스 웨이브 연출
 GAME_STATE_BOSS_WAVE = 211
 
+-- 레이드 웨이브 연출
+GAME_STATE_RAID_WAVE = 221
+
 GAME_STATE_SUCCESS_WAIT = 300
 GAME_STATE_SUCCESS = 301
 GAME_STATE_FAILURE = 302
@@ -202,6 +205,7 @@ function GameState:initState()
     self:addState(GAME_STATE_FIGHT_WAIT,             GameState.update_fight_wait)
     self:addState(GAME_STATE_FINAL_WAVE,             GameState.update_final_wave) -- 마지막 웨이브 연출
     self:addState(GAME_STATE_BOSS_WAVE,              GameState.update_boss_wave)  -- 보스 웨이브 연출
+    self:addState(GAME_STATE_RAID_WAVE,              GameState.update_raid_wave)  -- 레이드 웨이브 연출
     self:addState(GAME_STATE_SUCCESS_WAIT,           GameState.update_success_wait)
     self:addState(GAME_STATE_SUCCESS,                GameState.update_success)
     self:addState(GAME_STATE_FAILURE,                GameState.update_failure)
@@ -665,6 +669,64 @@ function GameState.update_boss_wave(self, dt)
         self.m_world.m_inGameUI.vars['waveVisual']:setVisible(false)
     end
 end
+
+
+-------------------------------------
+-- function update_boss_wave
+-- @brief 보스 웨이브 연출
+-------------------------------------
+function GameState.update_raid_wave(self, dt)
+    if (self:isBeginningStep(0)) then
+        self.m_waveEffect:setVisible(true)
+        self.m_waveEffect:setFrame(0)
+        self.m_waveEffect:addAniHandler(function()
+            self.m_waveEffect:setVisible(false)
+        end)
+
+        self.m_bossTextVisual:setVisible(true)
+        self.m_bossTextVisual:changeAni('boss_text', false)
+        self.m_bossTextVisual:addAniHandler(function()
+            self.m_bossTextVisual:setVisible(false)
+            self.m_bossNode:removeAllChildren(true)
+
+            self:changeState(GAME_STATE_ENEMY_APPEAR)
+        end)
+
+        local duration = self.m_waveEffect:getDuration()
+        local getFadeAction = function()
+            local fade_in = cc.FadeIn:create(duration / 4)
+            local delay = cc.DelayTime:create(duration / 2)
+            local fade_out = cc.FadeOut:create(duration / 4)
+            return cc.Sequence:create(fade_in, delay, fade_out)
+        end
+
+        -- 보스 이미지
+        local boss_animator = self:getBossAnimator()
+        if (boss_animator) then
+            self.m_bossNode:removeAllChildren(true)
+            self.m_bossNode:addChild(boss_animator.m_node)
+
+            boss_animator:runAction(getFadeAction())
+        end
+
+        -- 보스 이름
+        local l_boss_name = self:getBossNameList()
+        for i, boss_name in ipairs(l_boss_name) do
+            if (self.m_lBossLabel[i]) then
+                self.m_lBossLabel[i]:setString(boss_name)
+            end
+        end
+
+        -- 보스 배경음
+        SoundMgr:playBGM(self.m_bgmBoss)
+
+        self.m_world:dispatch('boss_wave')
+
+        -- 웨이브 표시 숨김
+        self.m_world.m_inGameUI.vars['waveVisual']:setVisible(false)
+    end
+end
+
 
 -------------------------------------
 -- function update_success_wait
@@ -1239,6 +1301,10 @@ function GameState:applyWaveDirection()
     elseif (self.m_nextWaveDirectionType == 'boss_wave') then
         SoundMgr:playEffect('UI', 'ui_boss_warning')
         self:changeState(GAME_STATE_BOSS_WAVE)
+
+    elseif (self.m_nextWaveDirectionType == 'raid_wave') then
+        SoundMgr:playEffect('UI', 'ui_boss_warning')
+        self:changeState(GAME_STATE_RAID_WAVE)
 
     end
 

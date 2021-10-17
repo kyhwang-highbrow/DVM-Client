@@ -93,7 +93,7 @@ function SceneGame:init_gameMode(stage_id)
 
     -- game mode
     if (self.m_stageID == DEV_STAGE_ID) then
-        self.m_gameMode = GAME_MODE_ADVENTURE
+        self.m_gameMode = GAME_MODE_LEGUE_RAID--GAME_MODE_ADVENTURE
         self.m_bDevelopStage = self.m_bDevelopMode
     else
         self.m_gameMode = g_stageData:getGameMode(self.m_stageID)
@@ -633,6 +633,8 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         local is_success = (t_param['clear_type'] == 1) and true or false
         self:networkGameFinish_response(ret, t_result_ref, is_success)
 
+
+
         if next_func then
             if ret['stage'] == nil then
                 ret['stage'] = self.m_stageID
@@ -952,6 +954,7 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
     end
 
     local items_list = ret['added_items']['items_list']
+
     if (not items_list) then
         return
     end
@@ -960,6 +963,17 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
 
     -- 드랍 아이템에 의한 보너스
     local l_bonus_item = {}
+
+    local gara
+    for i,v in ipairs(items_list) do
+        if v['count'] == 1 then
+            gara = v
+        end
+    end
+
+    for i = 1, 50 do
+        table.insert(items_list, gara)
+    end
 
     for i,v in ipairs(items_list) do
         local item_id = v['item_id']

@@ -230,6 +230,13 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        -- 레이드 
+        do 
+            co:work('# 레이드 정보 받는 중')
+            g_legueRaidData:request_RaidInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
         -- 구독 상품 정보 받는 중
         co:work('# 구독 상품 정보 받는 중')
         local ui_network = g_subscriptionData:request_subscriptionInfo(co.NEXT, co.ESCAPE)
@@ -2679,7 +2686,7 @@ function UI_Lobby:refresh_rightBanner()
     -- 차원문 오픈 배너
     if g_dmgateData:isShowLobbyBanner() then
         if (not vars['banner_dmgate']) then
-            local banner = UI_BannerDmgate()
+            local banner = UI_BannerLegueRaid()
             vars['bannerMenu']:addChild(banner.root)
             banner.root:setDockPoint(TOP_RIGHT)
             banner.root:setAnchorPoint(TOP_RIGHT)
@@ -2694,6 +2701,7 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
+    
     -- 한쿡 혹은 아메리카 서버이면 보여주는걸로 함
     if (not vars['banner_appcollaboration']) and (g_eventData.m_eventList) then
         local event_list = g_eventData:getEventPopupTabList()

@@ -2189,6 +2189,58 @@ function UINavigatorDefinition:goTo_dmgate(...)
 end
 
 -------------------------------------
+-- function goTo_dimension_gate
+-- @brief 차원문으로 이동
+-- @usage UINavigatorDefinition:goTo('dmgate')
+-------------------------------------
+function UINavigatorDefinition:goTo_legue_raid(...)
+    local args = {...}
+    local stage = args[1]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opened, index, ui = self:findOpendUI('UI_LegueRaidScene')
+    if is_opened then 
+        self:closeUIList(index)
+        return
+    end
+
+    local function finish_cb()
+
+        -- 전투 메뉴가 열려 있을 경우
+        local is_opened, index, ui = self:findOpendUI('UI_BattleMenu')
+        if is_opened then
+            self:closeUIList(index) 
+            ui:setTab('competition')
+            ui:resetButtonsPosition()
+            UI_LegueRaidScene()
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opened, index, ui = self:findOpendUI('UI_Lobby')
+        if is_opened then
+            self:closeUIList(index) 
+            UI_LegueRaidScene()
+            return
+        end
+   
+        do -- Scene으로 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_LegueRaidScene, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb() end
+
+    -- TODO : 업데이트하는 조건 추가 필요.
+    g_legueRaidData:request_RaidInfo(finish_cb, fail_cb)
+end
+
+-------------------------------------
 -- function goTo_slime_combine
 -- @brief 슈퍼 슬라임 합성으로 이동
 -- @usage UINavigatorDefinition:goTo('slime_combine')

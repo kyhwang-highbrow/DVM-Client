@@ -655,6 +655,17 @@ function SceneGameClanRaid:networkGameFinish_response_drop_reward(ret, t_result_
         return
     end
 
+    local gara
+    for i,v in ipairs(items_list) do
+        if v['count'] == 1 then
+            gara = v
+        end
+    end
+
+    for i = 1, 50 do
+        table.insert(items_list, gara)
+    end
+
     -- 드랍 아이템
     for i,v in ipairs(items_list) do
         local item_id = v['item_id']

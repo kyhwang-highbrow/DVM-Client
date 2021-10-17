@@ -564,6 +564,10 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         end
     end
     
+    if (g_gameScene.m_gameMode == GAME_MODE_LEGUE_RAID) then
+        enemy.m_isRaidMonster = true
+    end
+
 	return enemy
 end
 

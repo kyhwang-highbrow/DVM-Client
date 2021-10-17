@@ -40,6 +40,9 @@ UI_Game = class(PARENT, {
         -- 일시 정지
         m_pauseUI = '',
 
+        -- 누적 데미지 연출
+        m_stackableDamageUI = '',
+
 
         -- 
         m_tooltip = '',
@@ -119,6 +122,14 @@ function UI_Game:initUI()
 
     self:initManaUI()
     self:initHotTimeUI()
+
+    -- ochoi TODO
+    -- initRaidUI
+    if (g_gameScene.m_gameMode == GAME_MODE_LEGUE_RAID) then
+        self.m_stackableDamageUI = UI_RaidDamageInfo()
+        self.root:addChild(self.m_stackableDamageUI.root)
+        self.m_stackableDamageUI.vars['bossHpLabel']:setVisible(true)
+    end
 end
 
 -- @jsbae 2020.06.26부터 HOTTIME_UI_INFO의 키는 Fevertime의 핫타임 타입으로 설정한다.

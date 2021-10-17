@@ -251,6 +251,10 @@ function UI_BattleMenuItem:click_enterBtn()
     -- 시련 (차원문)
     elseif (content_type == 'dmgate') then
         UINavigator:goTo('dmgate')
+
+    elseif (content_type == 'legue_raid') then
+        UINavigator:goTo('legue_raid')
+
     else
         error('content_type : ' .. content_type)
     end

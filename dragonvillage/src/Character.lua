@@ -165,6 +165,8 @@ Character = class(PARENT, {
         m_characterSpeechNode = '',
         m_characterSpeech = '',
         m_characterSpeechLabel = '',
+
+        m_isRaidMonster = 'boolean',
      })
 
 local SpasticityTime = 0.2
@@ -230,6 +232,8 @@ function Character:init(file_name, body, ...)
     self.m_originScale = 0.8
 
     self.m_reactingInfo = {}
+
+    self.m_isRaidMonster = false
 end
 
 -------------------------------------
@@ -1289,8 +1293,11 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     -- 무적 체크 후 데미지 적용
     local bApplyDamage = false
+    local bAccumulate = false
 
-    if (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
+    if (g_gameScene.m_gameMode == GAME_MODE_LEGUE_RAID and self.m_isRaidMonster) then
+        bAccumulate = true
+    elseif (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
         -- NOTHING TO DO
 
     elseif (t_info['is_definite_death']) then
@@ -1306,7 +1313,10 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
         bApplyDamage = true
     end
 
-    if (bApplyDamage) then
+    if (bAccumulate) then
+        cclog('데미지를 받지만 데미지를 안받음')
+
+    elseif (bApplyDamage) then
         local prev_hp = self.m_hp
 		        
 		self:setHp(self.m_hp - damage, t_info['is_definite_death'])
@@ -1359,8 +1369,14 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     -- @LOG : 적군이 총 받은 피해
     else
-        --self.m_world.m_logRecorder:recordLog('total_damage_to_enemy', damage)
+        self.m_world.m_logRecorder:recordLog('total_damage_to_enemy', damage)
 
+    end
+
+    if (self.m_world.m_inGameUI.m_stackableDamageUI) then
+        local total_damage = self.m_world.m_logRecorder:getLog('total_damage_to_enemy')
+        cclog(total_damage)
+        --self.m_world.m_inGameUI.m_stackableDamageUI.vars['bossHpLabel']:setString(total_damage)
     end
 
     -----------------------------------------------------------------

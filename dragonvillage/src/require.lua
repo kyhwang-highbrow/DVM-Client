@@ -260,6 +260,7 @@ local t_module = {
 	'ServerData_EventRoulette', -- 어린이날 룰렛 이벤트
     'ServerData_DmgatePackage',
     'ServerData_EventArenaPlay',    -- 콜로세움 참여 이벤트
+    'ServerData_LegueRaid',
 
 
     -- Interface
@@ -538,6 +539,7 @@ local t_module = {
     'GameState_Illusion',
     'GameState_ClanWar',
     'GameState_Dmgate',
+    'GameState_LegueRaid',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
@@ -1138,6 +1140,9 @@ local t_module = {
     'UI_DmgateShop',
     'UI_DmgatePopup',
 
+    -- UI : 레이드
+    'UI_LegueRaidScene',
+
 
 	-- UI : 모험
     'UI_AdventureSceneNew',
@@ -1302,6 +1307,7 @@ local t_module = {
     'UI_IngameUnitInfo',
     'UI_IngameDragonInfo',
     'UI_IngameBossInfo',
+    'UI_RaidDamageInfo',
     'UI_IngameBossHp',
     'UI_AutoPlaySettingPopup',
     'UI_EventGoldDungeonResult',
