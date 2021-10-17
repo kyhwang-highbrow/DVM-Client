@@ -765,7 +765,7 @@ function ServerData_Shop:request_checkReceiptValidation_v3(validation_key, produ
     ui_network:setParam('purchase_time', purchase_time) -- 결제 타임스탬프 (밀리세컨드)
     ui_network:setParam('order_id', order_id) -- 주문 번호
     ui_network:setParam('purchase_token', purchase_token) -- 영수증 검사용
-    ui_network:setParam('test_purchase', test_purchase_) -- 테스트 결제
+    ui_network:setParam('test_purchase', test_purchase) -- 테스트 결제
     
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(finish_cb)
