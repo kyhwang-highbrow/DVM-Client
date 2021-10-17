@@ -1419,10 +1419,12 @@ public class PerpleSDKLua {
         PerpleSDK.getBilling().purchase(sku, payload, new PerpleSDKCallback() {
             @Override
             public void onSuccess(String info) {
+                Log.d(LOG_TAG, "billingPurchase success : " + info);
                 PerpleSDK.callSDKResult(pID, funcID, "success", info);
             }
             @Override
             public void onFail(String info) {
+                Log.d(LOG_TAG, "billingPurchase fail : " + info);
                 PerpleSDK.callSDKResult(pID, funcID, "cancel", info);
             }
         });
