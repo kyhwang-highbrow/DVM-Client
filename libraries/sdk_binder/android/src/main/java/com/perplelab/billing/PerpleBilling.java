@@ -44,7 +44,7 @@ public class PerpleBilling implements PurchasesUpdatedListener {
     private static final String LOG_TAG = "PerpleSDK_Billing";
 
     private Handler mAppHandler;
-
+    private String mUri;    // 영수증 검사용 uri
     // 결제 시도 시 사용되는 변수
     private String mPurchaseSku; // 결제를 시도 중인 상품의  sku
     private PerpleSDKCallback mPurchaseCallback;
@@ -87,6 +87,8 @@ public class PerpleBilling implements PurchasesUpdatedListener {
      */
     public void startSetup(String url, String unusedUrl, final PerpleSDKCallback callback) {
         PerpleLog.d(LOG_TAG, "Starting in-app billing setup.");
+
+        this.mUri = url;
 
         // 이미 초기화가 된 경우 success로 리턴
         if (isReady()) {
@@ -648,5 +650,5 @@ public class PerpleBilling implements PurchasesUpdatedListener {
         });
     }
 
-
+    public String getPurchaseCheckReceiptUri() { return mUri; }
 }
