@@ -19,6 +19,8 @@ import kotlin.jvm.functions.Function2;
 import kotlin.reflect.KCallable;
 
 public class PerpleSDKLua {
+    private static final String LOG_TAG = "PerpleSDKLua";
+
 
     // 루아 스크립트 엔진 재시작시 프로세스 아이디를 변경시켜,
     // 이전 프로세스에서 넘어오는 콜백함수가 루아로 전달되지 않도록 한다.
@@ -1823,16 +1825,20 @@ public class PerpleSDKLua {
             // 구매 가능한 상태 여부
             @Override
             public void onSuccess(String info) {
-                PerpleSDK.getOnestore().getMPerpleOnestoreBilling().buyProduct(sku, payload, new PerpleSDKCallback() {
+                PerpleLog.d(LOG_TAG, String.format("isOnestorePurchaseAvailable : %s",info));
 
+
+                PerpleSDK.getOnestore().getMPerpleOnestoreBilling().buyProduct(sku, payload, new PerpleSDKCallback() {
                     // 구매 성공 여부
                     @Override
                     public void onSuccess(String info) {
                         PerpleSDK.callSDKResult(pID, funcID, "success", info);
+                        PerpleLog.d(LOG_TAG, String.format("buyProduct  sku : %s | payload : %s | info : %s",sku , payload, info));
                     }
                     @Override
                     public void onFail(String info) {
                         PerpleSDK.callSDKResult(pID, funcID, "cancel", info);
+                        PerpleLog.d(LOG_TAG, String.format("buyProduct  sku : %s | payload : %s | info : %s",sku , payload, info));
                     }
                 });
             }
