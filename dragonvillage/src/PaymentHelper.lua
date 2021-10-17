@@ -119,7 +119,7 @@ function PaymentHelper.buy_iap(struct_product, cb_func)
             else--if (ret == 'fail') then
                 ui:close()
                 if (info == 'cancel') then
-                    --MakeSimplePopup(POPUP_TYPE.OK, '취소하셨습니다.')
+                    MakeSimplePopup(POPUP_TYPE.OK, STr('결제를 취소하였습니다.'))
                 elseif (info == 'item_already_owned') then
                     MakeSimplePopup(POPUP_TYPE.OK, Str('이미 보유하고 있는 아이템입니다.'))
                 else
