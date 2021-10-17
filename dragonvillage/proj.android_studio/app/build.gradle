@@ -235,6 +235,7 @@ android {
             dimension "server"
             versionName PROP_APPVER_LIVE
             signingConfig signingConfigs.keystore
+            //signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
