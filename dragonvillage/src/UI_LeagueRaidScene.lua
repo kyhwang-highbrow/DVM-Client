@@ -52,6 +52,33 @@ function UI_LeagueRaidScene:initMember()
     
 end
 
+
+--[[
+ ['my_info']={
+                ['todayscore']=0;
+                ['stage']=1801001;
+                ['league']='C';
+                ['day']=0;
+                ['team']=1;
+                ['score']=0;
+                ['userinfo']={
+                        ['lv']=99;
+                        ['uid']='ochoi';
+                        ['nick']='애니바니티티';
+                        ['status']=0;
+                        ['leader']={
+                                ['transform']=3;
+                                ['did']=180061;
+                                ['evolution']=3;
+                        };
+                        ['score']=0;
+                };
+                ['season']=1;
+                ['nextleague']='C';
+        }
+]]--
+
+
 ----------------------------------------------------------------------
 -- function initUI
 -- @brief virtual function of UI
@@ -61,10 +88,32 @@ function UI_LeagueRaidScene:initUI()
 
     local member_count = g_leagueRaidData:getMemberCount()
     local my_info = g_leagueRaidData:getMyInfo()
-    local member_list = g_leagueRaidData:Members()
+    local member_list = g_leagueRaidData:getMemberList()
 
+    if (vars['today_score_label']) then vars['today_score_label']:setString(Str('{1}점', my_info['todayscore'])) end
+    if (vars['season_score_label']) then vars['season_score_label']:setString(Str('{1}점', my_info['score'])) end
+    
+    local stage_id = my_info['stage']
+    local is_boss_stage, monster_id = g_stageData:isBossStage(stage_id)
 
+    if (monster_id) then
+        local icon = UI_MonsterCard(monster_id)
+        vars['bossNode']:addChild(icon.root)
+        --[[
+        local res, attr, evolution = TableMonster:getMonsterRes(monster_id)
+        local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+        animator:changeAni('idle', true)
+        animator:setScale(0.8)
+        vars['bossNode']:addChild(animator.m_node)]]
 
+        -- 보스 이름, 속성 아이콘
+        -- 이름
+        local name = TableMonster:getMonsterName(monster_id)
+        vars['bossLabel']:setString(name)
+
+        local desc = g_stageData:getStageDesc(stage_id)
+        cclog(desc)
+    end
 
 end
 
