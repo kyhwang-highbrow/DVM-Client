@@ -4696,7 +4696,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\StructPackage.lua" />
-    <None Include="..\src\GameState_LegueRaid.lua" />
     <None Include="..\src\UI_RaidDamageInfo.lua" />
     <None Include="..\src\StructIAPPurchase.lua">
       <Filter>lua\src</Filter>
@@ -4992,12 +4991,13 @@
     <None Include="..\src\ServerData_Forest.lua">
       <Filter>lua\server_data</Filter>
     </None>
-    <None Include="..\src\ServerData_LegueRaid.lua">
+    <None Include="..\src\ServerData_LeagueRaid.lua">
       <Filter>lua\server_data</Filter>
     </None>
-    <None Include="..\src\UI_LegueRaidScene.lua">
+    <None Include="..\src\UI_LeagueRaidScene.lua">
       <Filter>lua</Filter>
     </None>
+    <None Include="..\src\GameState_LeagueRaid.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
