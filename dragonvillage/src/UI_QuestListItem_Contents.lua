@@ -161,7 +161,7 @@ function UI_QuestListItem_Contents:refresh()
     vars['lockBtn']:setVisible(false)
 
     -- 아이템 카드 체크 표시 안 한 상태로 초기화
-    --self.m_rewardUI:setCheckSpriteVisible(false)
+    self.m_rewardUI:setCheckSpriteVisible(false)
 
 
     -- return 0 : 잠금
