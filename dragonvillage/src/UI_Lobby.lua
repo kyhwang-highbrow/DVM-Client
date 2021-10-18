@@ -233,7 +233,7 @@ function UI_Lobby:entryCoroutine()
         -- 레이드 
         do 
             co:work('# 레이드 정보 받는 중')
-            g_legueRaidData:request_RaidInfo(co.NEXT, co.ESCAPE)
+            g_leagueRaidData:request_RaidInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
@@ -2686,7 +2686,7 @@ function UI_Lobby:refresh_rightBanner()
     -- 차원문 오픈 배너
     if g_dmgateData:isShowLobbyBanner() then
         if (not vars['banner_dmgate']) then
-            local banner = UI_BannerLegueRaid()
+            local banner = UI_BannerLeagueRaid()
             vars['bannerMenu']:addChild(banner.root)
             banner.root:setDockPoint(TOP_RIGHT)
             banner.root:setAnchorPoint(TOP_RIGHT)

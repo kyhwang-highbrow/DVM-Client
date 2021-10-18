@@ -78,7 +78,7 @@ function UI_BattleMenuItem:initUI()
     elseif (self.m_listCnt >= 5) then
         ani_num = '_03'
     end
-    
+    cclog(content_type..ani_num)
     vars['itemVisual']:changeAni(content_type .. ani_num, true)
     vars['titleLabel']:setString(getContentName(content_type))
 end
@@ -252,8 +252,8 @@ function UI_BattleMenuItem:click_enterBtn()
     elseif (content_type == 'dmgate') then
         UINavigator:goTo('dmgate')
 
-    elseif (content_type == 'legue_raid') then
-        UINavigator:goTo('legue_raid')
+    elseif (content_type == 'league_raid') then
+        UINavigator:goTo('league_raid')
 
     else
         error('content_type : ' .. content_type)

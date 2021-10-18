@@ -1296,93 +1296,6 @@
     <None Include="..\src\SensitivityHelper.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Adventure.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_AdventureFirstReward.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_AncientTower.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Attendance.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_AutoPlaySetting.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Deck.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Dragons.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Event.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Exchange.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Exploration.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Formation.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Friend.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Highlight.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_HotTime.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Inventory.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Item.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Mail.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_NestDungeon.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Quest.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Ranking.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Runes.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_SecretDungeon.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Shop.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Slimes.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Stage.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Staminas.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Tamer.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_User.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ShaderCache.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -1944,9 +1857,6 @@
     <None Include="..\src\UI_DragonBoardPopup_Evaluate.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_DragonBoard.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\plSample_test.lua">
       <Filter>lua\sample</Filter>
     </None>
@@ -1989,17 +1899,11 @@
     <None Include="..\src\UI_DragonSkillEnhance.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_Eggs.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StatusEffectUnit_AddDmg.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_DragonSkillEnhance_Result.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_Hatchery.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\TableDragonSkillModify.lua">
       <Filter>lua\src</Filter>
@@ -2031,9 +1935,6 @@
     <None Include="..\src\UI_SecretDungeonListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_StartTamer.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\SkillAoERound_Throw.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2051,9 +1952,6 @@
     </None>
     <None Include="..\src\UI_Colosseum.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_Book.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StructBookData.lua">
       <Filter>lua\src</Filter>
@@ -2111,9 +2009,6 @@
     </None>
     <None Include="..\src\UI_DragonAppear.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_Colosseum.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_ColosseumRankInfoPopup.lua">
       <Filter>lua\UI</Filter>
@@ -2190,12 +2085,6 @@
     <None Include="..\src\UI_ColosseumDeckSettings.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_AccessTime.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_MasterRoad.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_AccessTimeDataListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2209,9 +2098,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StatusEffect_Modify.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_ContentLock.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_ContentLock.lua">
@@ -2364,9 +2250,6 @@
     <None Include="..\src\Structure.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_Subscription.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ApkExpansion.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2382,13 +2265,7 @@
     <None Include="..\src\UI_SubscriptionDayListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_AutoItemPick.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableSummonGacha.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_Tutorial.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\DragonSkillCore.lua">
@@ -2490,9 +2367,6 @@
     <None Include="..\src\StructHighbrowProduct.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_Highbrow.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_CouponPopup_Confirm.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2504,9 +2378,6 @@
     </None>
     <None Include="..\src_tool\CsvToLuaTableStr.lua">
       <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src\ServerData_Advertising.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_AdvertisingPopup.lua">
       <Filter>lua\UI</Filter>
@@ -2555,9 +2426,6 @@
     </None>
     <None Include="..\src\UI_EvolutionStoneCombineListItem.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_EvolutionStone.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\TableEvolutionItemCombine.lua">
       <Filter>lua\src</Filter>
@@ -2613,9 +2481,6 @@
     <None Include="..\src\UI_FriendMatchDeckSettings.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_FriendMatch.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\NaverCafeManager.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2649,9 +2514,6 @@
     <None Include="..\src\SceneForest.lua">
       <Filter>lua\forest</Filter>
     </None>
-    <None Include="..\src\ServerData_Forest.lua">
-      <Filter>lua\forest</Filter>
-    </None>
     <None Include="..\src\StructForestEvent.lua">
       <Filter>lua\forest</Filter>
     </None>
@@ -2665,9 +2527,6 @@
       <Filter>lua\forest</Filter>
     </None>
     <None Include="..\src\TableTamerCostume.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_TamerCostume.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StructTamerCostume.lua">
@@ -2706,9 +2565,6 @@
     <None Include="..\src\UI_ExchangeEvent.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_ExchangeEvent.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_Forest_ExtensionBoard.lua">
       <Filter>lua\forest</Filter>
     </None>
@@ -2742,13 +2598,7 @@
     <None Include="..\src_tool\TranslationCrawler.lua">
       <Filter>lua_tool</Filter>
     </None>
-    <None Include="..\src\ServerData_Clan.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StructClan.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_LevelUpPackage.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_Package_LevelUp.lua">
@@ -2829,9 +2679,6 @@
     <None Include="..\src\SortManager_ClanMember.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_ClanRank.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_AncientTowerRankingRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2864,9 +2711,6 @@
     </None>
     <None Include="..\src\UI_DiceEvent.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_EventDice.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StructEventDiceInfo.lua">
       <Filter>lua\src</Filter>
@@ -2919,9 +2763,6 @@
     <None Include="..\src\UI_BundlePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_DailyMission.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableDailyMission.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2938,9 +2779,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\Monster_ClanRaidBoss.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_CapsuleBox.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_CapsuleBox.lua">
@@ -2970,14 +2808,8 @@
     <None Include="..\src\StructAttrTowerFloorData.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_AttrTower.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_ContentOpenPopup.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_AdventureClearPackage.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_Package_AdventureClear.lua">
       <Filter>lua\UI</Filter>
@@ -3031,9 +2863,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\StructUserInfoClanRaid.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_ClanRaid.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StructClanRaid.lua">
@@ -3112,9 +2941,6 @@
     <None Include="..\src\SkillAoERound_Hide.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_DragonDiary.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableDragonDiary.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3189,9 +3015,6 @@
     </None>
     <None Include="..\src\UI_EventGoldDungeonListItem.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_EventGoldDungeon.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_EventGoldDungeonResult.lua">
       <Filter>lua\UI</Filter>
@@ -3325,9 +3148,6 @@
     <None Include="..\src\UI_MailSelectPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_Season.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\Monster_AncientRuinDragonBodyPart.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3363,9 +3183,6 @@
     </None>
     <None Include="..\src\UI_BattleMenuItem_Adventure.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_AncientRuin.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\EffectGuard.lua">
       <Filter>lua\src</Filter>
@@ -3415,9 +3232,6 @@
     <None Include="..\src\UI_RandomShopListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_RandomShop.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StructRandomShopItem.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3460,9 +3274,6 @@
     <None Include="..\src\UI_ArenaDeckSettings.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_Arena.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ChatMacroData.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3473,9 +3284,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\TableFormationArena.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_FormationArena.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_LoadingArena.lua">
@@ -3524,9 +3332,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StructEventMatchCard.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_EventMatchCard.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_EventMatchCardTimeListItem.lua">
@@ -3606,9 +3411,6 @@
     </None>
     <None Include="..\src\UI_EventMandragoraQuestListItem.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_EventMandragoraQuest.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StructEventMandragoraQuest.lua">
       <Filter>lua\src</Filter>
@@ -3703,9 +3505,6 @@
     <None Include="..\src\UI_EventAlphabet.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_EventAlphabet.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableAlphabetEvent.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3717,9 +3516,6 @@
     </None>
     <None Include="..\src\UI_EventAlphabetConfirmPopup.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_ChallengeMode.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_ChallengeMode.lua">
       <Filter>lua\UI</Filter>
@@ -3760,9 +3556,6 @@
     <None Include="..\src\UI_ChallengeModeRankingRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_PurchasePoint.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_EventPopupTab_PurchasePoint.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -3789,9 +3582,6 @@
     </None>
     <None Include="..\src\UI_MatchReadyChallengeMode.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_SpotSale.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_EventArenaResult.lua">
       <Filter>lua\UI</Filter>
@@ -3850,9 +3640,6 @@
     <None Include="..\src\UI_HelpRune.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_GrandArena.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_GrandArena.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -3870,9 +3657,6 @@
     </None>
     <None Include="..\src\UI_EventAdvent.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_EventAdvent.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_GrandArenaMatchListItem.lua">
       <Filter>lua\UI</Filter>
@@ -3936,9 +3720,6 @@
     </None>
     <None Include="..\src\UI_PurchasePointBg.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_EventBingo.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_EventBingo.lua">
       <Filter>lua\UI</Filter>
@@ -4016,9 +3797,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\StructLanguage.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\Serverdata_IllusionDungeon.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\GameWorld_Illusion.lua">
@@ -4106,9 +3884,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\AdWithoutPlayManager.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_RemoteConfig.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UIC_ListExpansion.lua">
@@ -4228,9 +4003,6 @@
     <None Include="..\src\StructClanWarTournament.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_ClanWar.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UIC_ExtendList.lua">
       <Filter>lua\UIC</Filter>
     </None>
@@ -4275,9 +4047,6 @@
     </None>
     <None Include="..\src\UI_ClanwarRewardInfoPopup.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_ClanWar_Date.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_ClanWarMatchInfoDetailPopup.lua">
       <Filter>lua\UI</Filter>
@@ -4354,17 +4123,11 @@
     <None Include="..\src\UI_EventThankAnniversaryNoChoice.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_PurchaseDaily.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_EventPopupTab_PurchaseDaily.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_Package_AdventureClear02.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_AdventureClearPackage02.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_Package_AdventureClearListItem02.lua">
       <Filter>lua\UI</Filter>
@@ -4382,9 +4145,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\TableDragonRecommend.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\ServerData_FirstPurchaseEvent.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_LobbyLeftTopBtnManager.lua">
@@ -4405,9 +4165,6 @@
     <None Include="..\src\UI_FirstPurchaseRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_LobbyNotice.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StructLobbyNotice.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -4425,9 +4182,6 @@
     </None>
     <None Include="..\src\UI_SupplyDepot.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_Supply.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_SupplyProductListItem.lua">
       <Filter>lua\UI</Filter>
@@ -4452,9 +4206,6 @@
     </None>
     <None Include="..\src\UI_ProductNewcomerShop.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_NewcomerShop.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_ButtonPaymentShop.lua">
       <Filter>lua\UI</Filter>
@@ -4482,9 +4233,6 @@
     </None>
     <None Include="..\src\UI_Fevertime.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_Fevertime.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_FevertimeListItem.lua">
       <Filter>lua\UI</Filter>
@@ -4618,9 +4366,6 @@
     <None Include="..\src\UI_EventRuneFestival.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_EventRuneFestival.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_BannerRuneFestival.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4662,9 +4407,6 @@
     </None>
     <None Include="..\src\UI_Package_AttrTowerListItem.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_AttrTowerPackage.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_Package_AttrTowerBundleListItem.lua">
       <Filter>lua\UI</Filter>
@@ -4749,9 +4491,6 @@
     </None>
     <None Include="..\src\UI_CommunityPopup.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\ServerData_RuneMemo.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UIC_RuneOptionFilter.lua">
       <Filter>lua\UI</Filter>
@@ -4843,9 +4582,6 @@
     <None Include="..\src\UI_ArenaNew.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_ArenaNew.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_LoadingArenaNew.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4912,7 +4648,6 @@
     <None Include="..\src\UI_ButtonSpecialOfferProductNurture.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\ServerData_BattlePass.lua" />
     <None Include="..\src\StructBattlePassInfo.lua" />
     <None Include="..\src\UI_BattlePassTabButton.lua" />
     <None Include="..\src\UI_BattlePassPopup.lua" />
@@ -4925,7 +4660,6 @@
     <None Include="..\src\GameState_Trial.lua" />
     <None Include="..\src\SummonedCreature.lua" />
     <None Include="..\src\TableSummonObject.lua" />
-    <None Include="..\src\ServerData_Trial.lua" />
     <None Include="..\src\CommonSummonedCreature.lua" />
     <None Include="..\src\UI_EventBingoPackagePopup.lua" />
     <None Include="..\src\SkillScript_Charging.lua" />
@@ -4937,23 +4671,18 @@
     <None Include="..\src\UI_DmgateScene.lua" />
     <None Include="..\src\UI_DmgateShop.lua" />
     <None Include="..\src\UI_DmgateStageItem.lua" />
-    <None Include="..\src\ServerData_Dmgate.lua" />
     <None Include="..\src\SceneDmgate.lua" />
     <None Include="..\src\UI_EventRoulette.lua" />
-    <None Include="..\src\ServerData_EventRoulette.lua" />
     <None Include="..\src\UI_EventRouletteRankingPopup.lua" />
     <None Include="..\src\UI_RankingRewardPopup.lua" />
     <None Include="..\src\UI_EventDailyQuest.lua" />
     <None Include="..\src\UI_Package_Dmgate.lua" />
-    <None Include="..\src\ServerData_DmgatePackage.lua" />
     <None Include="..\src\UI_DragonPickRates.lua" />
     <None Include="..\src\UI_DmgateRankPopup.lua" />
-    <None Include="..\src\ServerData_DragonPickRate.lua" />
     <None Include="..\src\UI_ShopPackageScene.lua" />
     <None Include="..\src\SkillBeam.lua" />
     <None Include="..\src\UI_ArenaNewDailyReward.lua" />
     <None Include="..\src\UI_EventArenaPlay.lua" />
-    <None Include="..\src\ServerData_EventArenaPlay.lua" />
     <None Include="..\src\UI_ArenaNewAutoPlayPopup.lua" />
     <None Include="..\src\UI_ArenaNewStaminaChargePopup.lua" />
     <None Include="..\src\UIC_Label_TypingEffect.lua" />
@@ -4967,6 +4696,308 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\StructPackage.lua" />
+    <None Include="..\src\GameState_LegueRaid.lua" />
+    <None Include="..\src\UI_RaidDamageInfo.lua" />
+    <None Include="..\src\StructIAPPurchase.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructIAPProduct.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ServerData.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_AccessTime.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Adventure.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_AdventureClearPackage.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_AdventureClearPackage02.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_AdventureFirstReward.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Advertising.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_AncientRuin.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_AncientTower.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Arena.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_ArenaNew.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Attendance.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_AttrTower.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_AttrTowerPackage.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_AutoItemPick.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_AutoPlaySetting.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Book.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_CapsuleBox.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_ChallengeMode.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Clan.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_ClanRaid.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_ClanRank.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_ClanWar.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_ClanWar_Date.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Colosseum.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_ContentLock.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_DailyMission.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Deck.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_DragonBoard.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_DragonDiary.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Dragons.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Eggs.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Event.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventAdvent.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventAlphabet.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventBingo.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventDice.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventGoldDungeon.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventMandragoraQuest.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventMatchCard.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventRuneFestival.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EvolutionStone.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Exchange.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_ExchangeEvent.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Exploration.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Fevertime.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_FirstPurchaseEvent.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Formation.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_FormationArena.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Friend.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_FriendMatch.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_GrandArena.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Hatchery.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Highbrow.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Highlight.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_HotTime.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\Serverdata_IllusionDungeon.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Inventory.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Item.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_LevelUpPackage.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_LobbyNotice.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Mail.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_MasterRoad.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_NestDungeon.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_NewcomerShop.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_PurchaseDaily.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_PurchasePoint.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Quest.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_RandomShop.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Ranking.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_RemoteConfig.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_RuneMemo.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Runes.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Season.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_SecretDungeon.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Shop.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Slimes.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_SpotSale.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Stage.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Staminas.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_StartTamer.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Subscription.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Supply.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Tamer.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_TamerCostume.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Tutorial.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_User.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_BattlePass.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Dmgate.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_DmgatePackage.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_DragonPickRate.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventArenaPlay.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventRoulette.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_IAP.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Trial.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_Forest.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_LegueRaid.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\UI_LegueRaidScene.lua">
+      <Filter>lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

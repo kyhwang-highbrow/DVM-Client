@@ -260,7 +260,7 @@ local t_module = {
 	'ServerData_EventRoulette', -- 어린이날 룰렛 이벤트
     'ServerData_DmgatePackage',
     'ServerData_EventArenaPlay',    -- 콜로세움 참여 이벤트
-    'ServerData_LegueRaid',
+    'ServerData_LeagueRaid',
 
 
     -- Interface
@@ -539,7 +539,7 @@ local t_module = {
     'GameState_Illusion',
     'GameState_ClanWar',
     'GameState_Dmgate',
-    'GameState_LegueRaid',
+    'GameState_LeagueRaid',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
@@ -1141,7 +1141,7 @@ local t_module = {
     'UI_DmgatePopup',
 
     -- UI : 레이드
-    'UI_LegueRaidScene',
+    'UI_LeagueRaidScene',
 
 
 	-- UI : 모험

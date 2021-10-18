@@ -93,7 +93,7 @@ function SceneGame:init_gameMode(stage_id)
 
     -- game mode
     if (self.m_stageID == DEV_STAGE_ID) then
-        self.m_gameMode = GAME_MODE_LEGUE_RAID--GAME_MODE_ADVENTURE
+        self.m_gameMode = GAME_MODE_LEAGUE_RAID--GAME_MODE_ADVENTURE
         self.m_bDevelopStage = self.m_bDevelopMode
     else
         self.m_gameMode = g_stageData:getGameMode(self.m_stageID)

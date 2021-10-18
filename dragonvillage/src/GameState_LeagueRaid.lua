@@ -1,9 +1,9 @@
 local PARENT = GameState
 
 -------------------------------------
--- class GameState_LegueRaid
+-- class GameState_LeagueRaid
 -------------------------------------
-GameState_LegueRaid = class(PARENT, {
+GameState_LeagueRaid = class(PARENT, {
 
 })
 
@@ -12,14 +12,14 @@ GameState_LegueRaid = class(PARENT, {
 -- function init
 -- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
-function GameState_LegueRaid:init()
+function GameState_LeagueRaid:init()
     self.m_bgmBoss = 'bgm_dungeon_boss'
 end
 
 -------------------------------------
 -- function makeResultUI
 -------------------------------------
-function GameState_LegueRaid:makeResultUI(isSuccess)
+function GameState_LeagueRaid:makeResultUI(isSuccess)
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
@@ -41,9 +41,6 @@ function GameState_LegueRaid:makeResultUI(isSuccess)
 
     -- 2. UI 생성
     func_ui_result = function(ret)
-
-        g_dmgateData:response_dmgateInfo(ret)
-        
         local world = self.m_world
         local stage_id = world.m_stageID
 
@@ -57,7 +54,7 @@ function GameState_LegueRaid:makeResultUI(isSuccess)
         -- result_table['drop_reward_list'],
         -- result_table['secret_dungeon'],
         -- result_table['content_open'])
-        UI_GameResult_Dmgate(stage_id, isSuccess, self.m_fightTimer)
+        UI_GameResult(stage_id, isSuccess, 0)
 
         -- 나중에 팝업띄우고 싶으면 수석풀고 기능 완성시킴
         --if (isSuccess) then self:showChapterOpenPopup() end
@@ -70,7 +67,7 @@ end
 -------------------------------------
 -- function makeResultUI
 -------------------------------------
-function GameState_LegueRaid:showChapterOpenPopup()
+function GameState_LeagueRaid:showChapterOpenPopup()
     -- 새로운 시즌 팝업은 별도 위에서 체크하고 리턴
 
     -- 다음 스테이지 id 받아오고

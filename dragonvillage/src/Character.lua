@@ -1295,7 +1295,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     local bApplyDamage = false
     local bAccumulate = false
 
-    if (g_gameScene.m_gameMode == GAME_MODE_LEGUE_RAID and self.m_isRaidMonster) then
+    if (g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID and self.m_isRaidMonster) then
         bAccumulate = true
     elseif (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
         -- NOTHING TO DO

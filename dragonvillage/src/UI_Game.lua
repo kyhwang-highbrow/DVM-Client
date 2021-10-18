@@ -125,7 +125,7 @@ function UI_Game:initUI()
 
     -- ochoi TODO
     -- initRaidUI
-    if (g_gameScene.m_gameMode == GAME_MODE_LEGUE_RAID) then
+    if (g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID) then
         self.m_stackableDamageUI = UI_RaidDamageInfo()
         self.root:addChild(self.m_stackableDamageUI.root)
         self.m_stackableDamageUI.vars['bossHpLabel']:setVisible(true)

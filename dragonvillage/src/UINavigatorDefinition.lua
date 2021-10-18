@@ -2193,12 +2193,12 @@ end
 -- @brief 차원문으로 이동
 -- @usage UINavigatorDefinition:goTo('dmgate')
 -------------------------------------
-function UINavigatorDefinition:goTo_legue_raid(...)
+function UINavigatorDefinition:goTo_league_raid(...)
     local args = {...}
     local stage = args[1]
 
     -- 해당 UI가 열려있을 경우
-    local is_opened, index, ui = self:findOpendUI('UI_LegueRaidScene')
+    local is_opened, index, ui = self:findOpendUI('UI_LeagueRaidScene')
     if is_opened then 
         self:closeUIList(index)
         return
@@ -2212,7 +2212,7 @@ function UINavigatorDefinition:goTo_legue_raid(...)
             self:closeUIList(index) 
             ui:setTab('competition')
             ui:resetButtonsPosition()
-            UI_LegueRaidScene()
+            UI_LeagueRaidScene()
             return
         end
 
@@ -2220,7 +2220,7 @@ function UINavigatorDefinition:goTo_legue_raid(...)
         local is_opened, index, ui = self:findOpendUI('UI_Lobby')
         if is_opened then
             self:closeUIList(index) 
-            UI_LegueRaidScene()
+            UI_LeagueRaidScene()
             return
         end
    
@@ -2229,7 +2229,7 @@ function UINavigatorDefinition:goTo_legue_raid(...)
                 UINavigatorDefinition:goTo('lobby')
             end
 
-            local scene = SceneCommon(UI_LegueRaidScene, close_cb)
+            local scene = SceneCommon(UI_LeagueRaidScene, close_cb)
             scene:runScene()
         end
     end
@@ -2237,7 +2237,7 @@ function UINavigatorDefinition:goTo_legue_raid(...)
     local function fail_cb() end
 
     -- TODO : 업데이트하는 조건 추가 필요.
-    g_legueRaidData:request_RaidInfo(finish_cb, fail_cb)
+    g_leagueRaidData:request_RaidInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------

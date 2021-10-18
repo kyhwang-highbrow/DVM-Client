@@ -581,6 +581,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\Serverdata_IllusionDungeon.lua" />
     <None Include="..\src\ServerData_Inventory.lua" />
     <None Include="..\src\ServerData_Item.lua" />
+    <None Include="..\src\ServerData_LegueRaid.lua" />
     <None Include="..\src\ServerData_LevelUpPackage.lua" />
     <None Include="..\src\ServerData_LobbyNotice.lua" />
     <None Include="..\src\ServerData_Mail.lua" />
@@ -928,6 +929,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructFreeDragonSummonInfo.lua" />
     <None Include="..\src\StructFriendshipObject.lua" />
     <None Include="..\src\StructHighbrowProduct.lua" />
+    <None Include="..\src\StructIAPProduct.lua" />
+    <None Include="..\src\StructIAPPurchase.lua" />
     <None Include="..\src\StructIndividualStatus.lua" />
     <None Include="..\src\StructLanguage.lua" />
     <None Include="..\src\StructLobbyNotice.lua" />
@@ -1536,6 +1539,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_IranEmailRegistrationPopup.lua" />
     <None Include="..\src\UI_IranLoginPopup.lua" />
     <None Include="..\src\UI_ItemPickPopup.lua" />
+    <None Include="..\src\UI_LegueRaidScene.lua" />
     <None Include="..\src\UI_LinkAccountPopup.lua" />
     <None Include="..\src\UI_ListItem_ClanWarGroupStage.lua" />
     <None Include="..\src\UI_Loading.lua" />

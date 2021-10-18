@@ -1,8 +1,8 @@
 -------------------------------------
--- class ServerData_LegueRaid
--- g_legueRaidData
+-- class ServerData_LeagueRaid
+-- g_leagueRaidData
 -------------------------------------
-ServerData_LegueRaid = class({
+ServerData_LeagueRaid = class({
     m_memberCount = 'number',
     m_myInfo = 'table',
     m_members = 'table',
@@ -13,7 +13,7 @@ ServerData_LegueRaid = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function ServerData_LegueRaid:init()
+function ServerData_LeagueRaid:init()
 
 end
 
@@ -22,9 +22,9 @@ end
 
 
 -------------------------------------
--- function request_LegueRaidInfo
+-- function ServerData_LeagueRaid
 -------------------------------------
-function ServerData_LegueRaid:request_RaidInfo(finish_cb, fail_cb)
+function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
@@ -63,6 +63,6 @@ end
 -------------------------------------
 -- function isShowLobbyBanner
 -------------------------------------
-function ServerData_LegueRaid:isShowLobbyBanner()
+function ServerData_LeagueRaid:isShowLobbyBanner()
     return true
 end

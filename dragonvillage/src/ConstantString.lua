@@ -392,7 +392,7 @@ function getContentName(content_type)
     elseif (content_type == 'dmgate') then
         content_name = Str('차원문')
 
-    elseif (content_type == 'legue_raid') then
+    elseif (content_type == 'league_raid') then
         content_name = Str('레이드')
 
     else
