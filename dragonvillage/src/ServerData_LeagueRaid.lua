@@ -19,6 +19,28 @@ end
 
 
 
+-------------------------------------
+-- function getMemberCount
+-------------------------------------
+function ServerData_LeagueRaid:getMemberCount()
+    return self.m_memberCount
+end
+
+-------------------------------------
+-- function getMyInfo
+-------------------------------------
+function ServerData_LeagueRaid:getMyInfo()
+    return self.m_myInfo
+end
+
+-------------------------------------
+-- function getMemberList
+-------------------------------------
+function ServerData_LeagueRaid:getMemberList()
+    return self.m_members
+end
+
+
 
 
 -------------------------------------

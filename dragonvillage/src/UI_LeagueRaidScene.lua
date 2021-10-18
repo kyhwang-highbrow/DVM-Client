@@ -59,6 +59,12 @@ end
 function UI_LeagueRaidScene:initUI()
     local vars = self.vars
 
+    local member_count = g_leagueRaidData:getMemberCount()
+    local my_info = g_leagueRaidData:getMyInfo()
+    local member_list = g_leagueRaidData:Members()
+
+
+
 
 end
 
