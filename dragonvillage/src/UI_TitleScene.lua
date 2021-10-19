@@ -400,16 +400,19 @@ function UI_TitleScene:setWorkList()
             if (is_billing_3 == true) then
                 table.insert(self.m_lWorkList, 'workNewBillingSetup') -- 인앱결제 초기화
                 table.insert(self.m_lWorkList, 'workNewBillingGetItemList') -- 인앱결제 상품 정보 획득 (sku를 통해 현지화된 가격 등을 획득)
+                table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
                 table.insert(self.m_lWorkList, 'workNewBillingGetIncompletePurchaseList') -- 완료되지 않은 결제건 조회
                 table.insert(self.m_lWorkList, 'workNewBillingHandleIncompletePurchaseList') -- 완료되지 않은 결제건 처리
             elseif (is_new_billing_setup_process == true) then
                 table.insert(self.m_lWorkList, 'workBillingSetupWithoutRestore') -- perple sdk                    
                 table.insert(self.m_lWorkList, 'workBillingRestorePurchase') -- perple sdk
+                table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
+                table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
             else
                 table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
+                table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
+                table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
             end
-            table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
-            table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
         end
 
         table.insert(self.m_lWorkList, 'workNetworkUserInfo') -- crash log에 정보 저장
@@ -2099,7 +2102,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
             local test_purchase = false
 
             -- 성공 시에는 billingConfirm으로 결제건 종료
-            local success_cb = function()
+            local success_cb = function(ret)
                 -- 로딩 UI Off
                 self.m_loadingUI:hideLoading()
 
@@ -2166,6 +2169,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
                     -- 라이브 환경에서는 알 수 없는 오류에서 billingConfirm처리를 하고 cs로 해결하도록 한다.
                     -- PerpleSDK:billingConfirm(order_id(string))를 호출한 것과 같음
                     --SdkBinder.callPerpleSDKFunc('billingConfirm', order_id)
+                    PerpleSDK:billingConfirm(order_id)
 
                     co.NEXT()
                     return true

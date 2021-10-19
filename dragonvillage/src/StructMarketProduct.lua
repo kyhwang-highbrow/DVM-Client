@@ -6,6 +6,18 @@ local PARENT = Structure
 StructMarketProduct = class(PARENT, {
         m_rowData = 'table',
         m_market = 'string', -- 'google', 'apple', 'onestore'...
+
+        -- rawdata
+        name = 'string', -- e.g. '₩1,100'
+        skuDetailsToken = 'string', -- e.g. 'AEuhp4KgGu-Ibs03LV6HOsl-jf8B9pEHlmG6ly1AEG_GPr3CV0wMekvW53Rf9g6hweZx'
+        price = 'string', -- e.g. '₩1,100'
+        title = 'string', -- e.g. '1100원 상품 (Bubbly Operator)'
+        description = 'string', -- e.g. '1100원 상품'
+        productId = 'string', -- e.g. 'dvnew_default_1.1k' -- key값을 sku로 변경해서 사용
+        sku = 'string',
+        type = 'string', -- e.g. 'inapp'
+        price_amount_micros = 'number', -- e.g. 1100000000
+        price_currency_code = 'string', -- e.g. 'KRW'
     })
 
 local THIS = StructMarketProduct
