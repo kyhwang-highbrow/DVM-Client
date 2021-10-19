@@ -38,6 +38,7 @@ function UI_CommunityPopup:init(t_notice)
         ['facebook'] = '2XYU1js',
         ['naver'] = '3cdMWCm',
         ['discord'] = '3kueg3m',
+        ['kakao'] = '2WOyddk'
     }
     
     if (Translate:getGameLang() ~= 'ko') then
@@ -62,6 +63,7 @@ end
 -------------------------------------
 function UI_CommunityPopup:initButton()
     local vars = self.vars
+    local local_btn = {'kakao', 'naver'}
 
     -- x버튼
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
@@ -78,6 +80,18 @@ function UI_CommunityPopup:initButton()
             end
         end
     end
+
+
+    if (not g_localData:isKoreaServer()) then
+        for _, key in pairs(local_btn) do
+            local button = vars[key .. 'Btn']
+
+            if button then
+                button:setVisible(false)
+            end
+        end
+    end
+
 end
 
 -------------------------------------
@@ -94,6 +108,8 @@ end
 -- function refresh
 -------------------------------------
 function UI_CommunityPopup:refresh()
+
+
 
     -- local button_number = #self.m_communityBtns
     -- local start_index
