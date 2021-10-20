@@ -316,7 +316,7 @@ function UIHelper:checkPrice(price_type, price, price_type_id)
             return false
         end
     elseif isExistValue(price_type, 'event_token') then
-        local event_token = g_userData:get(price_type)
+        local event_token = g_userData:get(price_type) or 0
 
         if (event_token < price) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', '이벤트 재화'))
@@ -451,7 +451,7 @@ function UIHelper:checkPrice_toastMessage(price_type, price, price_type_id)
             return false
         end
     elseif isExistValue(price_type, 'event_token') then
-        local event_token = g_userData:get(price_type)
+        local event_token = g_userData:get(price_type) or 0
         if (event_token < price) then
             UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.', '이벤트 재화'))
             return false         
