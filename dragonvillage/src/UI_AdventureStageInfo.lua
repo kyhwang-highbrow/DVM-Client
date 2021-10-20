@@ -20,7 +20,6 @@ UI_AdventureStageInfo.ENEMY = 'enemyInfo'
 -- function init
 -------------------------------------
 function UI_AdventureStageInfo:init(stage_id)
-    ccdump(stage_id)
     self:init_MemberVariable(stage_id)
 
     local vars = self:load('adventure_stage_info.ui')
