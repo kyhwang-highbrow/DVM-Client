@@ -7,12 +7,16 @@ ServerData_EventRuneFestival = class({
         m_eventVersion = 'string', -- 이벤트 버전 ex) 2020helloween
         m_dailyMaxSt = 'number', -- 일일 최대 입장권(날개)
         m_dailyUsedSt = 'number', -- 일일 사용 입장권(날개)
+
+
+        m_eventTokenId = 'number', -- 이벤트 토큰 
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_EventRuneFestival:init()
+
 end
 
 -------------------------------------

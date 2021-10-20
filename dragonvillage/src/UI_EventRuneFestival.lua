@@ -60,6 +60,8 @@ function UI_EventRuneFestival:initUI()
             item_index = item_index + 1
         end
     end
+
+    vars['numberLabel']:setString(Str('{1}개', g_userData:get('event_token') or 0))
 end
 
 -------------------------------------

@@ -756,6 +756,7 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
 	-- 묶음 구매의 경우 count에 구매 수량을 넣어주고
 	-- 단일 구매의 경우 nil로 처리하여 request_buy 내부에서 1로 치환
     local ok_cb
+    -- 차원문 상품인 경우
     if (rawget(self, price_type)) then
         if self[price_type] ~= nil then
             ok_cb = function(count)
@@ -771,6 +772,7 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
         else
             return
         end
+    -- 차원문 상품이 아닌 경우
     else
         ok_cb =  function(count)
             local function finish_cb(ret)

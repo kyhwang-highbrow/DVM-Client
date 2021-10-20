@@ -599,6 +599,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['st_100'], 'user', 'st_100')
         end
 
+        -- 이벤트 토큰
+        if ret['event_token'] then
+            self:applyServerData(ret['event_token'], 'user', 'event_token')
+        end
+
 
 		-- 모든 특성 재료 (구 공통 특성 재료 포함)
         -- @mskim 기존 mastery_materials_02~04를 mastery_materials 컨테이너로 통합하여 수령함
@@ -771,6 +776,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 메달 (차원의 문 보상)
     RefreshGoods(t_added_items, 'medal')
+
+    -- 이벤트 토큰
+    RefreshGoods(t_added_items, 'event_token')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then
