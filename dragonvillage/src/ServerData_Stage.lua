@@ -42,6 +42,16 @@ function ServerData_Stage:getGameMode(stage_id)
 end
 
 -------------------------------------
+-- function checkEventStage
+-------------------------------------
+function ServerData_Stage:checkEventStage(stage_id)
+    local drop_table = TABLE:get('drop')
+    local stage_data = drop_table[stage_id]
+    
+    return (stage_data['mode'] == 'event')
+end
+
+-------------------------------------
 -- function isRuneFestivalStage
 -------------------------------------
 function ServerData_Stage:isRuneFestivalStage(stage_id)

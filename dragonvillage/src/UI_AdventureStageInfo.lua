@@ -20,6 +20,7 @@ UI_AdventureStageInfo.ENEMY = 'enemyInfo'
 -- function init
 -------------------------------------
 function UI_AdventureStageInfo:init(stage_id)
+    ccdump(stage_id)
     self:init_MemberVariable(stage_id)
 
     local vars = self:load('adventure_stage_info.ui')
@@ -77,6 +78,7 @@ function UI_AdventureStageInfo:initButton()
     local vars = self.vars
     local stage_id = self.m_stageID
     local game_mode = g_stageData:getGameMode(stage_id)
+    local is_event_stage = g_stageData:checkEventStage(stage_id)
 
     vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
@@ -85,7 +87,7 @@ function UI_AdventureStageInfo:initButton()
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 
     if vars['clearTicketBtn'] then
-        if (game_mode == GAME_MODE_ADVENTURE) then
+        if (game_mode == GAME_MODE_ADVENTURE) and (not is_event_stage) then
             vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearTicketBtn() end)
             vars['clearTicketBtn']:setVisible(true)
         else
@@ -94,7 +96,7 @@ function UI_AdventureStageInfo:initButton()
         end
     end
 
-    if (game_mode == GAME_MODE_ADVENTURE) then
+    if (game_mode == GAME_MODE_ADVENTURE) and (not is_event_stage) then
         vars['starButton']:registerScriptTapHandler(function() self:click_starButton() end)
     else
         vars['starButton']:setVisible(false)
