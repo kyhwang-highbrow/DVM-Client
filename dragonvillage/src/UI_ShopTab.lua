@@ -27,7 +27,11 @@ function UI_ShopTab:onEnterTab(first)
   
     local sub_currency = self.m_tabName
     if (self.m_tabName == 'st') then
-        sub_currency = 'memory_myth'
+        if g_hotTimeData:isActiveEvent('event_token') then
+            sub_currency = 'event_token'
+        else
+            sub_currency = 'memory_myth'
+        end
     end
 
     if (self.m_owner_ui) then

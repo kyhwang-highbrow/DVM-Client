@@ -75,6 +75,9 @@ function UI_EventRuneFestival:initButton()
     vars['hardlStartBtn']:registerScriptTapHandler(function() self:click_stageStartBtn(1129801) end)
     vars['helllStartBtn']:registerScriptTapHandler(function() self:click_stageStartBtn(1139801) end)
     vars['hellfireStartBtn']:registerScriptTapHandler(function() self:click_stageStartBtn(1149801) end)
+
+
+    vars['shopBtn']:registerScriptTapHandler(function() UINavigator:goTo('shop') end)
 end
 
 -------------------------------------

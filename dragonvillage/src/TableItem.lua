@@ -79,6 +79,9 @@ ITEM_ID_MAP['staminas_grand_arena'] = 700107
 ITEM_ID_MAP['exp_booster'] = 700402
 ITEM_ID_MAP['gold_booster'] = 700403
 
+-- 이벤트 토큰
+ITEM_ID_MAP['event_token'] = 700020
+
 -- 기억
 ITEM_ID_MAP['memory_myth'] = 700019
 
