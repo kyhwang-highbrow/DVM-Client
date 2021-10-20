@@ -1225,6 +1225,8 @@ function UI_Lobby:update_highlight()
             if (g_eventRuneFestival:isDailyStLimit() == false) then
                 vars['halloweenNotiYellow']:setVisible(true)
             end
+
+            vars['shopSpecialNoti']:setVisible(true)
         end
     end
 
