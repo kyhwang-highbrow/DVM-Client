@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_EventRuneFestival
 -------------------------------------
 UI_EventRuneFestival = class(PARENT,{
-        
+        m_stageIdList = '',
     })
 
 
@@ -13,6 +13,8 @@ UI_EventRuneFestival = class(PARENT,{
 -------------------------------------
 function UI_EventRuneFestival:init()
     local vars = self:load('event_rune_festival.ui')
+
+    self.m_stageIdList = {1119801, 1129801, 1139801, 1149801}
 
     self:initUI()
     self:initButton()
@@ -24,6 +26,40 @@ end
 -------------------------------------
 function UI_EventRuneFestival:initUI()
     local vars = self.vars
+    
+    local drop_table = TableDrop()
+    local item_table = TableItem()
+
+    for index, stage_id in ipairs(self.m_stageIdList) do
+        local stage_data = drop_table:get(stage_id)
+        local item_index = 1
+
+        while(stage_data['item_' .. item_index .. '_id']) do
+            local item_id = stage_data['item_' .. item_index .. '_id']
+
+            if (item_id == nil) or (item_id == '') then
+                break 
+            end
+
+            local item_data = item_table:get(item_id)
+            local item_type = item_data['type']
+     
+            if item_type and (item_type == 'event_token') then
+                local item_min = stage_data['item_' .. item_index .. '_min']
+                local item_max = stage_data['item_' .. item_index .. '_max']
+
+                if (item_min == item_max) then
+                    vars['rewardLabel' .. index]:setString(Str('{1}개', item_min))
+                else
+                    vars['rewardLabel' .. index]:setString(Str('{1}~{2}개', item_min, item_max))
+                end
+
+                break;
+            end
+
+            item_index = item_index + 1
+        end
+    end
 end
 
 -------------------------------------
