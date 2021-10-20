@@ -10,6 +10,9 @@ L_BASIC_STATUS_TYPE = {
         'cri_avoid',    -- 치명방어
         'hit_rate',     -- 적중률
         'avoid',        -- 회피
+
+        'accuracy',     -- 효과 적중 +{1}%
+        'resistance',   -- 효과 저항 +{1}%
     }
 
 L_SPECIAL_STATUS_TYPE_ONLY_ADD = {
