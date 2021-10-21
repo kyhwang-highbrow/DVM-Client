@@ -520,7 +520,7 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
                 Translate:getFontPath(), 
                 30, 
                 1, 
-                cc.size(600, 100), 
+                cc.size(700, 100), 
                 1, 1)
 
                 local str

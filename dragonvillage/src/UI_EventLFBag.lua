@@ -1070,7 +1070,7 @@ function UI_EventLFBag:showMythAnimation(data)
             Translate:getFontPath(), 
             30, 
             1, 
-            cc.size(600, 100), 
+            cc.size(700, 100), 
             1, 1)
 
         local str

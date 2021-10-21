@@ -324,7 +324,7 @@ function UIC_DragonAnimatorDirector_Summon:showMythAnimation(finish_cb)
             Translate:getFontPath(), 
             30, 
             1, 
-            cc.size(600, 100), 
+            cc.size(700, 100), 
             1, 1)
 
         local str
