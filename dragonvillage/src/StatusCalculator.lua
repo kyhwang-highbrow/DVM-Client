@@ -126,20 +126,25 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
 
     -- 기본 능력치들 계산
     for _, status_name in pairs(L_BASIC_STATUS_TYPE) do
-        local basic_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat = self:calcStat(char_type, cid, status_name, lv, grade, evolution, eclv)
+        -- accuracy / resistance 드래곤일 때만 추가
+        if (char_type ~= 'dragon' and isExistValue(status_name, 'accuracy', 'resistance')) then
+            -- do nothing
+        else
+            local basic_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat = self:calcStat(char_type, cid, status_name, lv, grade, evolution, eclv)
 
-        local indivisual_status = StructIndividualStatus(status_name)
-        indivisual_status:setBasicStat(base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat)
+            local indivisual_status = StructIndividualStatus(status_name)
+            indivisual_status:setBasicStat(base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat)
 
-        -- 능력치별 최대 버프 수치값 설정
-        local t_info = g_constant:get('INGAME', 'BUFF_MULTI_MIN_MAX')[status_name]
-        if (t_info) then
-            indivisual_status:setMinMaxForBuffMulti(t_info[1], t_info[2])
+            -- 능력치별 최대 버프 수치값 설정
+            local t_info = g_constant:get('INGAME', 'BUFF_MULTI_MIN_MAX')[status_name]
+            if (t_info) then
+                indivisual_status:setMinMaxForBuffMulti(t_info[1], t_info[2])
+            end
+
+            l_status[status_name] = indivisual_status--t_status
         end
-
-        l_status[status_name] = indivisual_status--t_status
     end
-
+    
     -- 확장 능력치들 구조 생성
     for _,status_name in pairs(L_STATUS_TYPE) do
         if (not l_status[status_name]) then

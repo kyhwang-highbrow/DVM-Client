@@ -46,7 +46,7 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
             evolution_stat = value_per_level * self.m_evolutionTable:getBonusStatusLv(evolution)
         end
 	else
-		lv_stat = t_char[status_name]
+        lv_stat = t_char[status_name]
 	end
 
     local basic_stat = base_stat + lv_stat + grade_stat + evolution_stat + eclv_stat
