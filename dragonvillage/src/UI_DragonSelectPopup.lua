@@ -59,6 +59,11 @@ end
 function UI_DragonSelectPopup:initButton()
     local vars = self.vars
     local active
+
+    -- 전체 선택/해제 버튼
+    vars['selectBtn'] = UIC_CheckBox(vars['selectBtn'].m_node, vars['selectSprite'], false)
+    vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
+
     -- 종류
     local object_type_list = {'slime'}
     for _, object_type in pairs(object_type_list) do
@@ -259,6 +264,9 @@ function UI_DragonSelectPopup:getDragonList()
 
     local l_dragon = g_dragonsData:getDragonListWithSlime() 
     local l_ret_list = {}
+
+
+    local is_all_checked = true
     -- 종류
     local l_object_type = {}
     --l_object_type['dragon'] = (not vars['dragonBtn']:isChecked())
@@ -273,6 +281,11 @@ function UI_DragonSelectPopup:getDragonList()
     l_stars[4] = vars['starBtn4']:isChecked()
     l_stars[5] = vars['starBtn5']:isChecked()
     l_stars[6] = vars['starBtn6']:isChecked()
+
+    for _, is_checked in pairs(l_stars) do
+        is_all_checked = is_all_checked and is_checked
+    end
+
     -- 속성
     local l_attr = {}
     l_attr['fire'] = vars['attrBtn1']:isChecked()
@@ -280,6 +293,12 @@ function UI_DragonSelectPopup:getDragonList()
     l_attr['earth'] = vars['attrBtn3']:isChecked()
     l_attr['light'] = vars['attrBtn4']:isChecked()
     l_attr['dark'] = vars['attrBtn5']:isChecked()
+
+    
+    for _, is_checked in pairs(l_attr) do
+        is_all_checked = is_all_checked and is_checked
+    end
+
     -- 희귀도
     local l_rarity = {}
     l_rarity['myth'] = vars['rarityBtn5']:isChecked()
@@ -287,12 +306,22 @@ function UI_DragonSelectPopup:getDragonList()
     l_rarity['hero'] = vars['rarityBtn3']:isChecked()
     l_rarity['rare'] = vars['rarityBtn2']:isChecked()
     l_rarity['common'] = vars['rarityBtn1']:isChecked()
+
+    for _, is_checked in pairs(l_rarity) do
+        is_all_checked = is_all_checked and is_checked
+    end
+
     -- 역할
     local l_role = {}
     l_role['tanker'] = vars['typeBtn1']:isChecked()
     l_role['dealer'] = vars['typeBtn2']:isChecked()
     l_role['supporter'] = vars['typeBtn3']:isChecked()
     l_role['healer'] = vars['typeBtn4']:isChecked()
+
+    
+    for _, is_checked in pairs(l_role) do
+        is_all_checked = is_all_checked and is_checked
+    end
 
     local table_dragon = TableDragon()
     local table_slime = TableSlime()
@@ -322,6 +351,13 @@ function UI_DragonSelectPopup:getDragonList()
         end
     end
 
+
+    self.vars['selectBtn']:setChecked(is_all_checked)
+
+    
+
+
+
     return l_ret_list
 end
 
@@ -329,6 +365,36 @@ end
 -- function click_checkBox
 -------------------------------------
 function UI_DragonSelectPopup:click_checkBox()
+    self.m_bOptionChanged = true
+    self:refresh()
+end
+
+-------------------------------------
+-- function click_selectBtn
+-------------------------------------
+function UI_DragonSelectPopup:click_selectBtn()
+    local vars = self.vars
+    local is_check = vars['selectBtn']:isChecked()
+    
+    -- 등급 
+    for idx = 1, 6 do
+        vars['starBtn'..idx]:setChecked(is_check)
+    end
+
+    -- 속성
+    for idx = 1, 5 do
+        vars['attrBtn'..idx]:setChecked(is_check)
+    end
+    -- 희귀도
+    for idx = 1, 5 do
+        vars['rarityBtn'..idx]:setChecked(is_check)
+    end
+
+    -- 역할
+    for idx = 1, 4 do
+        vars['typeBtn'..idx]:setChecked(is_check)
+    end
+    
     self.m_bOptionChanged = true
     self:refresh()
 end
