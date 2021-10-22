@@ -451,7 +451,7 @@ function LoginHelper:linkWithFacebook()
             local error_info = dkjson.decode(info)
             if error_info then
                 -- 2개 이상의 페이스북 계정 사용으로 인해 현재 로그인하려는 계정과 기존 엑세스 토큰이 다른 경우
-                if (error_info['code'] == -1302) then 
+                if (error_info['code'] == '-1302') then 
                     PerpleSDK:facebookLogout()
                     PerpleSDK:loginWithFacebook(function(ret, info) 
                         self.m_loadingUI:hideLoading()
