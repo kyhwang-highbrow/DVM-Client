@@ -447,6 +447,30 @@ function LoginHelper:linkWithFacebook()
 
         elseif ret == 'fail' then
             cclog('Firebase Facebook link failed')
+            
+            local error_info = dkjson.decode(info)
+            if error_info then
+                if (error_info['code'] == -1302) then 
+                    PerpleSDK:facebookLogout()
+                    PerpleSDK:loginWithFacebook(function(ret, info) 
+                        self.m_loadingUI:hideLoading()
+
+                        if (ret == 'success') then
+                            self:loginSuccess(info)
+
+                            -- 앱 재시작
+                            CppFunctions:restart()
+                        elseif ret == 'fail' then
+                            self:loginFail()
+                        elseif ret == 'cancel' then
+                            self:loginCancel()
+                        end
+
+                        return
+                    end)    
+                end
+            end
+
 			self:loginFail(info)
             self.m_loadingUI:hideLoading()
             
