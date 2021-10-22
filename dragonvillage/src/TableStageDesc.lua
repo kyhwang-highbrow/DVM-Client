@@ -85,6 +85,9 @@ function TableStageDesc:getMonsterIDList(stage_id)
     end
     
     local t_table = self:get(stage_id)
+
+    if (not t_table) then return {} end
+
     local str = tostring(t_table['monster_id']) or ''
     local l_moster_id = plSplit(str, ';')
 
