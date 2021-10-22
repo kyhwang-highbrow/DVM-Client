@@ -431,6 +431,35 @@ function LoginHelper:linkWithFacebook()
                         CppFunctions:restart()
 
                     elseif ret == 'fail' then
+
+                        local error_info = dkjson.decode(info)
+
+                        if error_info then
+                            if (error_info['code'] == -1302) then 
+                                cclog('로그인 하려는 페이스북 계정과 엑세스토큰이 다른 경우')
+                                PerpleSDK:facebookLogout()
+                                PerpleSDK:loginWithFacebook(function(ret, info) 
+                                    self.m_loadingUI:hideLoading()
+
+                                    if (ret == 'success') then
+                                        cclog('페이스북 엑세스 토큰 제거 후 로그인 성공 상태')
+                                        self:loginSuccess(info)
+
+                                        -- 앱 재시작
+                                        CppFunctions:restart()
+                                    elseif ret == 'fail' then
+                                        cclog('페이스북 엑세스 토큰 제거 후 로그인 실패 상태')
+                                        self:loginFail()
+                                    elseif ret == 'cancel' then
+                                        cclog('페이스북 엑세스 토큰 제거 후 로그인 취소 상태')
+                                        self:loginCancel()
+                                    end
+
+                                    return
+                                end)    
+                            end
+                        end
+
 						self:loginFail(info)
                     elseif ret == 'cancel' then
 						self:loginCancel()
@@ -447,33 +476,6 @@ function LoginHelper:linkWithFacebook()
 
         elseif ret == 'fail' then
             cclog('Firebase Facebook link failed')
-            
-            local error_info = dkjson.decode(info)
-            if error_info then
-                if (error_info['code'] == -1302) then 
-                    cclog('로그인 하려는 페이스북 계정과 엑세스토큰이 다른 경우')
-                    PerpleSDK:facebookLogout()
-                    PerpleSDK:loginWithFacebook(function(ret, info) 
-                        self.m_loadingUI:hideLoading()
-
-                        if (ret == 'success') then
-                            cclog('페이스북 엑세스 토큰 제거 후 로그인 성공 상태')
-                            self:loginSuccess(info)
-
-                            -- 앱 재시작
-                            CppFunctions:restart()
-                        elseif ret == 'fail' then
-                            cclog('페이스북 엑세스 토큰 제거 후 로그인 실패 상태')
-                            self:loginFail()
-                        elseif ret == 'cancel' then
-                            cclog('페이스북 엑세스 토큰 제거 후 로그인 취소 상태')
-                            self:loginCancel()
-                        end
-
-                        return
-                    end)    
-                end
-            end
 
 			self:loginFail(info)
             self.m_loadingUI:hideLoading()
