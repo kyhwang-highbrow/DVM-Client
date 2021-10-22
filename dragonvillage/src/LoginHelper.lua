@@ -415,7 +415,7 @@ function LoginHelper:linkWithFacebook()
 
             local ok_btn_cb = function()
                 self.m_loadingUI:showLoading(Str('계정 전환 중...'))
-                PerpleSDK:logout()
+                PerpleSDK:facebookLogout()
                 PerpleSDK:loginWithFacebook(function(ret, info)
                     self.m_loadingUI:hideLoading()
                     if ret == 'success' then
