@@ -4,7 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_LeagueRaidScene
 ----------------------------------------------------------------------
 UI_LeagueRaidScene = class(PARENT, {
-
+    
 })
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ end
 -- function initMember
 ----------------------------------------------------------------------
 function UI_LeagueRaidScene:initMember()
-    
+
 end
 
 
@@ -96,9 +96,10 @@ function UI_LeagueRaidScene:initUI()
         local msg = Str('{1} 남음', datetime.makeTimeDesc(time, false, false))
         vars['timeLabel']:setString(msg)
     end
+
     if (vars['today_score_label']) then vars['today_score_label']:setString(Str('{1}점', my_info['todayscore'])) end
     if (vars['season_score_label']) then vars['season_score_label']:setString(Str('{1}점', my_info['score'])) end
-    
+
     local stage_id = my_info['stage']
     local is_boss_stage, monster_id = g_stageData:isBossStage(stage_id)
 
@@ -119,6 +120,33 @@ function UI_LeagueRaidScene:initUI()
 
         local desc = g_stageData:getStageDesc(stage_id)
         cclog(desc)
+    end
+
+    self:updateDeckDotImage()
+
+    -- 날개
+    local wing_cost = 500
+
+    local table_drop = TableDrop()
+    local t_drop = table_drop:get(stage_id)
+
+    if t_drop then
+        wing_cost = t_drop['cost_value']
+    end
+
+    if (vars['actingPowerLabel']) then vars['actingPowerLabel']:setString(comma_value(wing_cost)) end
+
+    local l_reward = my_info['reward']
+    local index = 1
+
+    for item_id, count in pairs(l_reward) do
+        local node_name = 'itemNode' .. index
+        if (vars[node_name]) then
+            local icon = UI_ItemCard(tonumber(item_id), count)
+            vars[node_name]:addChild(icon.root)
+        end
+
+        index = index + 1
     end
 
 end
@@ -158,6 +186,29 @@ function UI_LeagueRaidScene:initTableView()
 end
 
 
+
+function UI_LeagueRaidScene:updateDeckDotImage()
+    local vars = self.vars
+
+    local deck_1_cnt = table.count(g_leagueRaidData.m_deck_1)
+    local deck_2_cnt = table.count(g_leagueRaidData.m_deck_2)
+    local deck_3_cnt = table.count(g_leagueRaidData.m_deck_3)
+    local l_deck_cnt = {}
+    table.insert(l_deck_cnt, deck_1_cnt)
+    table.insert(l_deck_cnt, deck_2_cnt)
+    table.insert(l_deck_cnt, deck_3_cnt)
+
+    for i = 1, #l_deck_cnt do
+        for j = 1, 5 do
+            local node_name = 'slotSprite' .. tostring(i) .. '_' .. tostring(j)
+            local is_active = l_deck_cnt[i] >= j
+        
+            vars[node_name]:setVisible(is_active)
+        end
+    end
+end
+
+
 ----------------------------------------------------------------------
 -- function onClose
 -- @brief pure virtual function of ITopUserInfo_EventListener 
@@ -189,7 +240,13 @@ function UI_LeagueRaidScene:click_deckBtn(deck_number)
     local deck_name = 'league_raid_' .. tostring(deck_number)
 
     g_deckData:setSelectedDeck(deck_name)
-    UI_LeagueRaidDeckSettings(stage_id, deck_name, true)
+    local ui = UI_LeagueRaidDeckSettings(stage_id, deck_name, true)
+
+    -- 닫을때 항상 체크
+    ui:setCloseCB(function()
+        g_leagueRaidData:updateDeckInfo()
+        self:updateDeckDotImage()
+    end)
 end
 
 

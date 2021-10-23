@@ -7,6 +7,9 @@ ServerData_LeagueRaid = class({
     m_myInfo = 'table',
     m_members = 'table',
 
+    m_deck_1 = 'table',
+    m_deck_2 = 'table',
+    m_deck_3 = 'table',
     })
 
 
@@ -14,7 +17,9 @@ ServerData_LeagueRaid = class({
 -- function init
 -------------------------------------
 function ServerData_LeagueRaid:init()
-
+    self.m_deck_1 = {}
+    self.m_deck_2 = {}
+    self.m_deck_3 = {}
 end
 
 
@@ -41,6 +46,15 @@ function ServerData_LeagueRaid:getMemberList()
 end
 
 
+-------------------------------------
+-- function ServerData_LeagueRaid
+-------------------------------------
+function ServerData_LeagueRaid:updateDeckInfo()
+    self.m_deck_1 = g_deckData:getDeck('league_raid_1')
+    self.m_deck_2 = g_deckData:getDeck('league_raid_2')
+    self.m_deck_3 = g_deckData:getDeck('league_raid_3')
+end
+
 
 
 -------------------------------------
@@ -58,6 +72,8 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
         self.m_myInfo = ret['my_info']
         self.m_members = ret['members']
 
+        self:updateDeckInfo()
+        
         if (finish_cb) then
             finish_cb(ret)
         end
