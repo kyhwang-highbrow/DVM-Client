@@ -256,6 +256,10 @@ function ServerData_Deck:isUsedDeckPvpDB(deck_name)
         return true
     end
 
+    if (string.find(deck_name, 'league_raid')) then
+        return true
+    end
+
     return false
 end
 

@@ -1164,7 +1164,7 @@ local t_module = {
     'UI_ReadySceneNew_Select',
     'UI_ReadyScene_LeaderPopup',
 	'UI_ReadySceneNew_IllusionDungeon',
-
+    'UI_LeagueRaidDeckSettings',
 	
 	-- UI : 전투 통계
 	'UI_StatisticsPopup',

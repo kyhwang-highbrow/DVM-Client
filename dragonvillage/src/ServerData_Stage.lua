@@ -35,6 +35,9 @@ function ServerData_Stage:getGameMode(stage_id)
 	-- 환상 던전 이벤트
 	elseif (math.floor(stage_id/10000) == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 		return GAME_MODE_EVENT_ILLUSION_DUNSEON
+    --  레이드 스테이지
+	elseif (math.floor(stage_id/10000) == GAME_MODE_LEAGUE_RAID) then
+		return GAME_MODE_LEAGUE_RAID
     end
 
     local game_mode = getDigit(stage_id, 100000, 2)

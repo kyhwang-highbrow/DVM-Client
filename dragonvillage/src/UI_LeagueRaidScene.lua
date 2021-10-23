@@ -90,6 +90,12 @@ function UI_LeagueRaidScene:initUI()
     local my_info = g_leagueRaidData:getMyInfo()
     local member_list = g_leagueRaidData:getMemberList()
 
+    if (vars['timeLabel']) then 
+        local server_time = Timer:getServerTime()
+        time = (tonumber(my_info['finishtimestamp'])/1000 - server_time)
+        local msg = Str('{1} 남음', datetime.makeTimeDesc(time, false, false))
+        vars['timeLabel']:setString(msg)
+    end
     if (vars['today_score_label']) then vars['today_score_label']:setString(Str('{1}점', my_info['todayscore'])) end
     if (vars['season_score_label']) then vars['season_score_label']:setString(Str('{1}점', my_info['score'])) end
     
@@ -128,6 +134,9 @@ function UI_LeagueRaidScene:initButton()
 
     if (vars['enterBtn']) then vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end) end
 
+    if (vars['teamTabBtn1']) then vars['teamTabBtn1']:registerScriptTapHandler(function() self:click_deckBtn(1) end) end
+    if (vars['teamTabBtn2']) then vars['teamTabBtn2']:registerScriptTapHandler(function() self:click_deckBtn(2) end) end
+    if (vars['teamTabBtn3']) then vars['teamTabBtn3']:registerScriptTapHandler(function() self:click_deckBtn(3) end) end
 end
 
 ----------------------------------------------------------------------
@@ -169,6 +178,20 @@ end
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
 --//  click functions
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+----------------------------------------------------------------------
+-- function click_deckBtn
+----------------------------------------------------------------------
+function UI_LeagueRaidScene:click_deckBtn(deck_number)
+    local my_info = g_leagueRaidData:getMyInfo()
+    local stage_id = my_info['stage']
+    local deck_name = 'league_raid_' .. tostring(deck_number)
+
+    g_deckData:setSelectedDeck(deck_name)
+    UI_LeagueRaidDeckSettings(stage_id, deck_name, true)
+end
+
 
 ----------------------------------------------------------------------
 -- function click_exitBtn

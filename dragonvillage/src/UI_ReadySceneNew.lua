@@ -211,9 +211,15 @@ function UI_ReadySceneNew:checkDeckProper()
         return
     end
 
-	    -- 클랜전
+    -- 클랜전
     if (self.m_stageID == CLAN_WAR_STAGE_ID) then
         g_deckData:setSelectedDeck('clanwar')
+        return
+    end
+
+    -- 레이드
+    if (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+        g_deckData:setSelectedDeck(self.m_subInfo)
         return
     end
 
