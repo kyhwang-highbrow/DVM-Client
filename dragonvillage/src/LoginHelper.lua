@@ -453,6 +453,9 @@ function LoginHelper:linkWithFacebook()
                 -- 2개 이상의 페이스북 계정 사용으로 인해 현재 로그인하려는 계정과 기존 엑세스 토큰이 다른 경우
                 if (error_info['code'] == '-1302') then 
                     PerpleSDK:facebookLogout()
+                    -- 처음부터 연동하는 프로세스를 다시 타야 하기 때문에 재귀로 돌림
+                    self:linkWithFacebook()
+                    --[[
                     PerpleSDK:loginWithFacebook(function(ret, info) 
                         self.m_loadingUI:hideLoading()
 
@@ -466,7 +469,7 @@ function LoginHelper:linkWithFacebook()
                         elseif ret == 'cancel' then
                             self:loginCancel()
                         end
-                    end)   
+                    end)   ]]
                     
                     return
                 end
