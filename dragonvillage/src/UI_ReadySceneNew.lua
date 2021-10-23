@@ -1384,7 +1384,7 @@ function UI_ReadySceneNew:click_startBtn()
     -- 거대용던전 11층일 때 앱 설치 후 최초 한번만 경고팝업 노출
     if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         local stage_level = TableStageData():getValue(self.m_stageID, 'r_stage_info')
-        local shown_alert = g_settingData:get('nest_eleven_alert')
+        local shown_alert = g_settingData:get('nest_eleven_alert') ~= nil and g_settingData:get('nest_eleven_alert') == true
 
         if (stage_level and stage_level >= 11 and not shown_alert) then
             MakeSimplePopup(POPUP_TYPE.YES_NO, Str('난이도가 매우 높은 던전입니다. 도전하시겠습니까?'), 

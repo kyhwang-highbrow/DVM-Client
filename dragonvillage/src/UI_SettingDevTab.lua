@@ -824,6 +824,7 @@ function UI_Setting:click_popupCacheResetBtn()
     g_settingData:clearDataList('event_full_popup')
     g_settingData:applySettingData(-1, 'lobby_ingame_notice')
     g_settingData:applySettingData(-1, weidel_offer_save_key)
+    g_settingData:applySettingData(nil, 'nest_eleven_alert')
     UIManager:toastNotificationGreen('팝업 캐시가 초기화되었습니다!')
 end
 
