@@ -199,7 +199,7 @@ end
 
 function UI_LeagueRaidScene:setRankView()
     local vars = self.vars
-    local ui = UI_LeagueRaidRankItem()
+    local ui = UI_LeagueRaidRankMenu()
 
     if (vars['league_raidTabMenu']) then 
         vars['league_raidTabMenu']:addChild(ui.root)
