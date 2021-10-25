@@ -153,6 +153,26 @@ function ServerData_Dragons:getDragonsListExceptTarget(map_except)
 end
 
 -------------------------------------
+-- function getDragonsListExceptTargetDids
+-- @brief 해당 드래곤 did만 제외하고 반환
+-- 레이드 덱에 포함되어 있는 드래곤 제외용
+-------------------------------------
+function ServerData_Dragons:getDragonsListExceptTargetDoids(map_doid)
+    local dragon_dictionary = self:getDragonsListRef()
+
+    local ret_dictionary = {}
+    for key,value in pairs(dragon_dictionary) do
+        local doid_key = tostring(value['doid'])
+        if (not map_doid[doid_key] and not map_doid[key]) then
+            ret_dictionary[key] = value
+        end
+    end
+
+    return ret_dictionary
+end
+
+
+-------------------------------------
 -- function getDragonSkillMoveList
 -------------------------------------
 function ServerData_Dragons:getDragonSkillMoveList(tar_doid)

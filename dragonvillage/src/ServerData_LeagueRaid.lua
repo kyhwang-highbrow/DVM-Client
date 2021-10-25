@@ -56,6 +56,26 @@ function ServerData_LeagueRaid:updateDeckInfo()
 end
 
 
+-------------------------------------
+-- function ServerData_LeagueRaid
+-------------------------------------
+function ServerData_LeagueRaid:getUsingDidTable()
+    local table_dragon = {}
+    for i, v in ipairs(self.m_deck_1) do
+        table_dragon[v] = true
+    end
+
+    for i, v in ipairs(self.m_deck_2) do
+        table_dragon[v] = true
+    end
+
+    for i, v in ipairs(self.m_deck_3) do
+        table_dragon[v] = true
+    end
+
+    return table_dragon
+end
+
 
 -------------------------------------
 -- function ServerData_LeagueRaid
