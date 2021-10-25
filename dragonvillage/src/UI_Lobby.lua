@@ -232,9 +232,11 @@ function UI_Lobby:entryCoroutine()
 
         -- 레이드 
         do 
-            co:work('# 레이드 정보 받는 중')
-            g_leagueRaidData:request_RaidInfo(co.NEXT, co.ESCAPE)
-            if co:waitWork() then return end
+            if (IS_DEV_SERVER()) then
+                co:work('# 레이드 정보 받는 중')
+                g_leagueRaidData:request_RaidInfo(co.NEXT, co.ESCAPE)
+                if co:waitWork() then return end
+            end
         end
 
         -- 구독 상품 정보 받는 중
