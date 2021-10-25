@@ -130,7 +130,7 @@ function StructUserInfoFriend:getPastActiveTimeText()
     if (last_active_time == -1) then
         return Str('접속정보 없음')
     else
-        local showSeconds = true
+        local showSeconds = false
         local firstOnly = true
         return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_time, showSeconds, firstOnly))
     end
