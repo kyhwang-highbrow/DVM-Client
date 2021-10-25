@@ -73,6 +73,9 @@ function UI_CommunityPopup:initButton()
 
         if vars[button_name] then
             if (url ~= '') then
+                if g_localData:isKoreaServer() and table.find(local_btn, key) then
+                    vars[button_name]:setVisible(true)
+                end
                 vars[button_name]:registerScriptTapHandler(function() self:click_communityBtn(key) end)
                 table.insert(self.m_communityBtns, vars[button_name])
             else
@@ -81,17 +84,41 @@ function UI_CommunityPopup:initButton()
         end
     end
 
-
-    if (not g_localData:isKoreaServer()) then
-        for _, key in pairs(local_btn) do
-            local button = vars[key .. 'Btn']
-
-            if button then
+    -- TODO : 카카오 채널 버튼 추가 시 11월 1일부터 보이게 하기 위해 추가한 코드로 업데이트 이 후 제거해야함.
+    if g_localData:isKoreaServer() and (not self:checkOpeningDateKakaoChannel()) then
+        for _, button in ipairs(self.m_communityBtns) do
+            if (button == vars['kakaoBtn']) then
                 button:setVisible(false)
+            else
+                local pos_x = button:getPositionX()
+                button:setPositionX(pos_x + 90)
             end
         end
     end
+end
 
+-------------------------------------
+-- function checkOpeningDateKakaoChannel
+-- brief: 카카오 채널 버튼 추가 시 11월 1일부터 보이게 하기 위해 추가한 코드로 업데이트 이 후 제거해야함.
+-------------------------------------
+function UI_CommunityPopup:checkOpeningDateKakaoChannel()
+    local date_format = 'yyyy-mm-dd HH:MM:SS'
+    local parser = pl.Date.Format(date_format)
+
+    if (not parser) then return false end
+
+    local start_date = parser:parse('2021-11-01 00:00:00')
+
+    if (not start_date) then return false end
+
+    local curr_time = Timer:getServerTime()
+    local start_time = start_date['time']
+
+    if (start_time > curr_time) then
+        return false
+    end
+
+    return true
 end
 
 -------------------------------------
