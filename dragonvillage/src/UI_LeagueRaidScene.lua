@@ -99,9 +99,16 @@ function UI_LeagueRaidScene:initUI()
 
     if (vars['today_score_label']) then vars['today_score_label']:setString(Str('{1}점', my_info['todayscore'])) end
     if (vars['season_score_label']) then vars['season_score_label']:setString(Str('{1}점', my_info['score'])) end
+    if (vars['runeRateLabel']) then vars['runeRateLabel']:setString(Str('{1}%', my_info['rune_g7_percent'])) end
 
     local stage_id = my_info['stage']
+    if (IS_DEV_SERVER) then
+        stage_id = 3011005
+    end
+
     local is_boss_stage, monster_id = g_stageData:isBossStage(stage_id)
+
+    
 
     if (monster_id) then
         local icon = UI_MonsterCard(monster_id)
@@ -131,7 +138,7 @@ function UI_LeagueRaidScene:initUI()
     local t_drop = table_drop:get(stage_id)
 
     if t_drop then
-        wing_cost = t_drop['cost_value']
+        wing_cost = t_drop['cost_value'] == 0 and 500 or t_drop['cost_value']
     end
 
     if (vars['actingPowerLabel']) then vars['actingPowerLabel']:setString(comma_value(wing_cost)) end
@@ -148,6 +155,8 @@ function UI_LeagueRaidScene:initUI()
 
         index = index + 1
     end
+
+    self:setRankImage()
 
 end
 
@@ -183,6 +192,25 @@ end
 function UI_LeagueRaidScene:initTableView()
 
 
+end
+
+
+
+function UI_LeagueRaidScene:setRankImage()
+    local vars = self.vars
+    local my_info = g_leagueRaidData:getMyInfo()
+    if (not vars['rankNode']) then return end
+
+    -- 로고 sprite를 만들고 scene에 add한다
+    local leagueImgName = 'res/ui/icons/rank/league_raid_rank_' .. string.lower(my_info['league'] .. '.png')
+    local sprite = cc.Sprite:create(leagueImgName)
+
+    if (sprite) then 
+        sprite:setPosition(ZERO_POINT)
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        vars['rankNode']:addChild(sprite)
+    end
 end
 
 
@@ -264,6 +292,17 @@ end
 -- function click_enterBtn
 ----------------------------------------------------------------------------
 function UI_LeagueRaidScene:click_enterBtn()
+    local deck_1_cnt = table.count(g_leagueRaidData.m_deck_1)
+    local deck_2_cnt = table.count(g_leagueRaidData.m_deck_2)
+    local deck_3_cnt = table.count(g_leagueRaidData.m_deck_3)
+
+    if (deck_1_cnt <= 0) or (deck_2_cnt <= 0) or (deck_3_cnt <= 0) then
+        local msg = Str('세개의 출전덱 모두 설정 되어야 게임 진행이 가능합니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+    
+        return
+    end
+
     local scene = SceneGame(nil, DEV_STAGE_ID, 'stage_dev', true)
     scene:runScene()
 end
