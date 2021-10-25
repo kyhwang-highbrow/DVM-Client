@@ -157,6 +157,8 @@ function UI_LeagueRaidScene:initUI()
     end
 
     self:setRankImage()
+    self:setRankView()
+    
 
 end
 
@@ -194,6 +196,17 @@ function UI_LeagueRaidScene:initTableView()
 
 end
 
+
+function UI_LeagueRaidScene:setRankView()
+    local vars = self.vars
+    local ui = UI_LeagueRaidRankItem()
+
+    if (vars['league_raidTabMenu']) then 
+        vars['league_raidTabMenu']:addChild(ui.root)
+        ui.root:setPosition(ZERO_POINT)
+    end
+
+end
 
 
 function UI_LeagueRaidScene:setRankImage()
