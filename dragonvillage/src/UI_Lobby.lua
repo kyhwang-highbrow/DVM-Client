@@ -833,7 +833,7 @@ function UI_Lobby:initButton()
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
     vars['bingoBtn']:registerScriptTapHandler(function() self:click_bingoBtn() end) -- 빙고 이벤트
-    vars['halloweenEventBtn']:registerScriptTapHandler(function() self:click_halloweenEventBtn() end) -- 빙고 이벤트
+    --vars['halloweenEventBtn']:registerScriptTapHandler(function() self:click_halloweenEventBtn() end) -- 할로윈 이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
     vars['luckyBagEventBtn']:registerScriptTapHandler(function() self:click_lfbagBtn() end) -- 소원 구슬 이벤트
     vars['alphabetBtn']:registerScriptTapHandler(function() self:click_alphabetBtn() end) -- 알파벳 이벤트
@@ -2239,7 +2239,7 @@ function UI_Lobby:update_rightButtons()
     vars['bingoBtn']:setVisible(g_hotTimeData:isActiveEvent('event_bingo'))
 
     -- 할로윈 룬 축제(할로윈 이벤트)
-    vars['halloweenEventBtn']:setVisible(g_hotTimeData:isActiveEvent('event_rune_festival'))
+    --vars['halloweenEventBtn']:setVisible(g_hotTimeData:isActiveEvent('event_rune_festival'))
 
     -- 알파벳 이벤트
     vars['alphabetBtn']:setVisible(g_hotTimeData:isActiveEvent('event_alphabet'))
@@ -2362,7 +2362,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'matchCardBtn')
     table.insert(t_btn_name, 'mandragoraBtn')
     table.insert(t_btn_name, 'bingoBtn')
-    table.insert(t_btn_name, 'halloweenEventBtn')
+    --table.insert(t_btn_name, 'halloweenEventBtn')
     table.insert(t_btn_name, 'diceBtn')
     table.insert(t_btn_name, 'alphabetBtn')
     table.insert(t_btn_name, 'exchangeBtn')
