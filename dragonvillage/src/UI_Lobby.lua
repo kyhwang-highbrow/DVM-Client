@@ -234,7 +234,7 @@ function UI_Lobby:entryCoroutine()
         do 
             if (IS_DEV_SERVER()) then
                 co:work('# 레이드 정보 받는 중')
-                g_leagueRaidData:request_RaidInfo(co.NEXT, co.ESCAPE)
+                g_leagueRaidData:request_RaidInfo(co.NEXT, co.NEXT)
                 if co:waitWork() then return end
             end
         end
