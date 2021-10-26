@@ -2121,7 +2121,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
                     end
         
                     -- @analytics
-                    Analytics:purchase(product_id, sku, currency_code, currency_price) -- params: product_id, sku, currency_code, currency_price
+                    --Analytics:purchase(product_id, sku, currency_code, currency_price) -- params: product_id, sku, currency_code, currency_price
                 end
 
                 co.NEXT()

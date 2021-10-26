@@ -215,7 +215,7 @@ function PaymentHelper.buy_iap(struct_product, cb_func)
             end
 
             -- @analytics
-            Analytics:purchase(product_id, sku, currency_code, currency_price) -- params: product_id, sku, currency_code, currency_price
+            --Analytics:purchase(product_id, sku, currency_code, currency_price) -- params: product_id, sku, currency_code, currency_price
         end
         
         -- 컨슘 (스토어 구매 과정 종료)
