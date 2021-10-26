@@ -38,7 +38,7 @@ function UI_CommunityPopup:init(t_notice)
         ['facebook'] = '2XYU1js',
         ['naver'] = '3cdMWCm',
         ['discord'] = '3kueg3m',
-        ['kakao'] = '2WOyddk'
+        ['kakao'] = '3EdgOuV'
     }
     
     if (Translate:getGameLang() ~= 'ko') then
