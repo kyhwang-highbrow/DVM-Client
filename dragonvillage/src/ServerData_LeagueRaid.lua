@@ -100,9 +100,9 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
     end
 
     local function response_status_cb(ret)
-        
+        if (finish_cb) then finish_cb() end
 
-        return false
+        return true
     end
 
     local ui_network = UI_Network()
