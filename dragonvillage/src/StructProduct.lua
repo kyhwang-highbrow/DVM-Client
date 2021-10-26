@@ -135,7 +135,7 @@ end
 -------------------------------------
 -- function getEndDateStr
 -------------------------------------
-function StructProduct:getEndDateStr(new_line)
+function StructProduct:getEndDateStr(new_line, simple)
     if (not self.m_endDate) then
         return ''
     end
@@ -166,6 +166,8 @@ function StructProduct:getEndDateStr(new_line)
     local msg
     if (new_line) then
         msg = Str('판매 종료까지\n{1} 남음', datetime.makeTimeDesc(time, false))
+    elseif (simple) then
+        msg = Str('{1} 남음', datetime.makeTimeDesc(time, false))
     else
         msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, false))
     end

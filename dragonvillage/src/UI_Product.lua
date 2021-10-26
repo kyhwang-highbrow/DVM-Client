@@ -197,8 +197,9 @@ function UI_Product:refresh()
 	    local product_desc = struct_product:getDesc()
 
         -- 기간 한정 텍스트
-        local new_line = true
-        local period_str = struct_product:getEndDateStr(new_line)
+        local new_line = false
+        local simple = true
+        local period_str = struct_product:getEndDateStr(new_line, simple)
         if period_str and (period_str ~= '') then
             if full_str == '' then
                 full_str = product_desc

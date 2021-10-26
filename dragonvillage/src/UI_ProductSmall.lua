@@ -35,6 +35,12 @@ function UI_ProductSmall:adjustLayout()
         local str_width = vars['itemLabel']:getStringWidth()
         if (width < str_width) then
             local scale = (width / str_width)
+
+            -- 상점에서 번역텍스트가 매우 길 때 두줄로 나올 때가 있는데
+            -- 비율로 맞추기만 하면 기한 텏스트랑 겹쳐서
+            -- 0.6 싸이즈로 했더니 딱 맞아서 일단 급해서 이렇게 함...
+            scale = 0.6
+
             vars['itemLabel']:setScale(scale)
         end
     end
