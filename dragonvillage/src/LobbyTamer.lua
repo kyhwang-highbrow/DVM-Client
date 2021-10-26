@@ -55,7 +55,7 @@ function LobbyTamer:initAnimator(file_name)
         self.m_animator.m_node:setMix('idle', 'move', 0.1)
         self.m_animator.m_node:setMix('move', 'idle', 0.1)
 
-        if curr_animation and curr_flip then
+        if (curr_animation ~= nil) and (curr_flip ~= nil) then
             self.m_animator:changeAni(curr_animation, true)
             self.m_animator:setFlip(curr_flip)
         end
