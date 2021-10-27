@@ -1395,6 +1395,9 @@ function UI_ReadySceneNew:click_startBtn()
 
         stage_level = stage_level and stage_level or ''
 
+        cclog(stage_level)
+        cclog(shown_alert)
+
         if (tostring(stage_level) == '11' and shown_alert ~= true) then
             MakeSimplePopup(POPUP_TYPE.YES_NO, Str('난이도가 매우 높은 던전입니다. 도전하시겠습니까?'), 
                 function() 
