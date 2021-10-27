@@ -1391,9 +1391,9 @@ function UI_ReadySceneNew:click_startBtn()
     if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
         local uid = g_userData:get('uid') and g_userData:get('uid') or 'default'
         local stage_level = TableStageData():getValue(self.m_stageID, 'r_stage_info')
-        local shown_alert = g_settingData:get('nest_eleven_alert', uid) ~= nil and g_settingData:get('nest_eleven_alert', uid) == true
+        local shown_alert = g_settingData:get('nest_eleven_alert', uid) == nil and false or g_settingData:get('nest_eleven_alert', uid)
 
-        if (stage_level and stage_level >= 11 and not shown_alert) then
+        if (stage_level and stage_level >= 11 and shown_alert ~= true) then
             MakeSimplePopup(POPUP_TYPE.YES_NO, Str('난이도가 매우 높은 던전입니다. 도전하시겠습니까?'), 
                 function() 
                     g_settingData:applySettingData(true, 'nest_eleven_alert', uid) 
