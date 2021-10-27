@@ -101,7 +101,7 @@ function ServerData_ExchangeEvent:networkCommonRespone(ret)
     self.m_nMaterialCnt = ret['event'] or 0 -- 재화 보유량
     self.m_nMaterialGet = ret['event_get'] or 0 -- 재화 획득량 (일일)
     self.m_nMaterialUse = ret['event_use'] or 0 -- 재화 획득량 (누적)
-    self.m_nMaterialMax = ret['event_max'] or 1000 -- 재화 획득 최대치 분모가 0이면 어색해서 1000으로 설정
+    self.m_nMaterialMax = ret['event_max'] or 2000 -- 재화 획득 최대치 분모가 0이면 어색해서 1000으로 설정
 
     if (ret['event_reward']) then
         self.m_rewardInfo = ret['event_reward']
