@@ -654,11 +654,9 @@ function ServerData_Shop:request_checkReceiptValidation_v3(validation_key, produ
 
     -- 콜백 함수
     local function finish_cb(ret)
-        
+
         -- 누락된 지급건을 처리하는 경우 struct_product가 nil일 수 있다. 이 경우 product_id로 조회한다.
-        if (struct_product == nil) then
-            struct_product = self:getTargetProduct(tonumber(product_id))
-        end
+        local struct_product = self:getTargetProduct(tonumber(product_id))
 
         -- @analytics
         if (struct_product) then
