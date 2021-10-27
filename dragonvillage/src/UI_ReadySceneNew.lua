@@ -1393,12 +1393,15 @@ function UI_ReadySceneNew:click_startBtn()
         local stage_level = TableStageData():getValue(self.m_stageID, 'r_stage_info')
         local shown_alert = g_settingData:get('nest_eleven_alert', uid)
 
-        stage_level = stage_level and stage_level or ''
+        local stage_ids = {1210011, 1210111, 1210211, 1210311, 1210411, 1210511}
+        local is_eleventh_stage = false
+        for i,v in ipairs(stage_ids) do
+            if (self.m_stageID == v) then
+                is_eleventh_stage = true
+            end
+        end
 
-        cclog(stage_level)
-        cclog(shown_alert)
-
-        if (tostring(stage_level) == '11' and shown_alert ~= true) then
+        if (is_eleventh_stage and shown_alert ~= true) then
             MakeSimplePopup(POPUP_TYPE.YES_NO, Str('난이도가 매우 높은 던전입니다. 도전하시겠습니까?'), 
                 function() 
                     g_settingData:applySettingData(true, 'nest_eleven_alert', uid) 
