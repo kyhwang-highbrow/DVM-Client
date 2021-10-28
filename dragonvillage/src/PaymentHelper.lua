@@ -187,7 +187,7 @@ function PaymentHelper.buy_iap(struct_product, cb_func)
             end
         end
 
-        g_shopDataNew:request_checkReceiptValidation_v3(validation_key, product_id, sale_id,
+        g_shopDataNew:request_checkReceiptValidation_v3(struct_product, validation_key, product_id, sale_id,
             sku, purchase_time, order_id, purchase_token,
             success_cb, fail_cb, response_status_cb,
             test_purchase)

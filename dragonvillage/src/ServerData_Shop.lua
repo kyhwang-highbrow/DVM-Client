@@ -645,18 +645,21 @@ end
 -- @breif 구글빌링 v3 대응
 -- 기존 로직을 살려야 할 수도 있기 때문에 새로운 함수로 작업함
 -------------------------------------
-function ServerData_Shop:request_checkReceiptValidation_v3(validation_key, product_id, sale_id,
+function ServerData_Shop:request_checkReceiptValidation_v3(product, validation_key, product_id, sale_id,
     sku, purchase_time, order_id, purchase_token,
     success_cb, fail_cb, status_cb,
     test_purchase)
     -- 파라미터
     local uid = g_userData:get('uid')
+    local struct_product = product
 
     -- 콜백 함수
     local function finish_cb(ret)
 
         -- 누락된 지급건을 처리하는 경우 struct_product가 nil일 수 있다. 이 경우 product_id로 조회한다.
-        local struct_product = self:getTargetProduct(tonumber(product_id))
+        if (struct_product == nil) then
+            struct_product = self:getTargetProduct(tonumber(product_id))
+        end
 
         -- @analytics
         if (struct_product) then

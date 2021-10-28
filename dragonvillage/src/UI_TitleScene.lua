@@ -2178,7 +2178,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
             end
     
             -- 실패시에도 게임 진행을 위해 다음으로 넘어감
-            g_shopDataNew:request_checkReceiptValidation_v3(validation_key, product_id, sale_id,
+            g_shopDataNew:request_checkReceiptValidation_v3(nil, validation_key, product_id, sale_id,
                 sku, purchase_time, order_id, purchase_token,
                 success_cb, co.NEXT, status_cb, -- params: success_cb, fail_cb, status_cb
                 test_purchase)
