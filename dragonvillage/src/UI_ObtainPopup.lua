@@ -265,7 +265,7 @@ function ItemObtainResult_Shop(t_ret, show_all)
     local item_type = TableItem:getItemType(item_id)
 
     -- 상품이 하나인 경우
-    if (#items_list == 1) then
+    if (#items_list == 1) and (item_type ~= 'grindstone') then
         -- 기본 재화 구매는 결과를 보여주지 않음
         if (TableItem:getItemIDFromItemType(item_type) and not show_all) then
             return
