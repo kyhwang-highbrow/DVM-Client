@@ -78,7 +78,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
     line_promotion = line_promotion == 0 and 1 or line_promotion
 
-    local pos_remaining_view_y = - 40 - list_offset_y - (90 + margin) * line_promotion
+    local pos_remaining_view_y = 0 - list_offset_y - (90) * line_promotion - margin
 
 
     -- 잔류
@@ -90,19 +90,19 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     table_view_remaining:setCellUIClass(UI_LeagueRaidRankItem)
     table_view_remaining:setItemList(remaining_list)
     table_view_remaining.m_scrollView:setTouchEnabled(false)
-    table_view_remaining.m_node:setPositionY(-40)
+    table_view_remaining.m_node:setPositionY(0 - list_offset_y - margin)
 
     vars['remainingPannelNode']:setPositionY(pos_remaining_view_y)
 
     -- 승격 아이템 수량에 따라 잔류 위치 조정
-    local line_demoted = 0
-    for i, v in ipairs(demoted_list) do
-        if (i % 3 == 1) then line_demoted = line_demoted + 1 end
+    local line_remaining = 0
+    for i, v in ipairs(remaining_list) do
+        if (i % 3 == 1) then line_remaining = line_remaining + 1 end
     end
 
-    line_demoted = line_demoted == 0 and 1 or line_demoted
+    line_remaining = line_remaining == 0 and 1 or line_remaining
 
-    local pos_demoted_view_y = pos_remaining_view_y - list_offset_y - (90 + margin) * line_demoted
+    local pos_demoted_view_y = pos_remaining_view_y - list_offset_y - 90 * line_remaining - margin
 
 
     -- 강등
@@ -114,7 +114,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     table_view_demoted:setCellUIClass(UI_LeagueRaidRankItem)
     table_view_demoted:setItemList(demoted_list)
     table_view_demoted.m_scrollView:setTouchEnabled(false)
-    table_view_demoted.m_node:setPositionY(-40)
+    table_view_demoted.m_node:setPositionY(0 - list_offset_y - margin)
 
     vars['demotedPannelNode']:setPositionY(pos_demoted_view_y)
 end
@@ -178,7 +178,7 @@ function UI_LeagueRaidRankItem:refresh()
 
     if (not self.m_userInfo) then return end
 
-    local number = self.m_userInfo['number'] == nil and '-' or orself.m_userInfo['number']
+    local number = self.m_userInfo['rank'] == nil and '-' or self.m_userInfo['rank']
     local nick_name = self.m_userInfo['nick']
     local score = self.m_userInfo['score']
     local leader_info = self.m_userInfo['leader'] == nil and {} or self.m_userInfo['leader']
