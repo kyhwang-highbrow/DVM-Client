@@ -224,7 +224,10 @@ function ServerData_Event:getEventFullPopupList()
 			do
 				-- aos에서만 노출
 				if (feature == 'only_aos') then
-					visible = not CppFunctions:isIos()
+					visible = CppFunctions:isAndroid()
+
+                elseif (feature == 'only_ios') then
+                    visible = CppFunctions:isIos()
 
 				-- 토파즈가 있는 유저에게만 보이는 이벤트
 				elseif (feature == 'topaz') then
