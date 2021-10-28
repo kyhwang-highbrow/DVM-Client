@@ -85,12 +85,18 @@ function ServerData_Event:getEventPopupTabList()
                 visible = false
             end
 
-        elseif (string.find(feature, 'only_aos')) then
+        elseif visible and (string.find(feature, 'only_aos')) then
             visible = CppFunctions:isAndroid()
 
-        elseif (string.find(feature, 'only_ios')) then
+            if IS_TEST_MODE() then
+                visible =  visible or CppFunctions:isMac() or CppFunctions:isWin32()
+            end
+        elseif visible and (string.find(feature, 'only_ios')) then
             visible = CppFunctions:isIos()
 
+            if IS_TEST_MODE() then
+                visible = visible or CppFunctions:isMac() or CppFunctions:isWin32()
+            end
         -- 드빌 전용관은 한국서버에서만 노출
         elseif (event_type == 'highbrow_shop') then
             if (not g_localData:isShowHighbrowShop()) then
@@ -227,11 +233,17 @@ function ServerData_Event:getEventFullPopupList()
 			do
 				-- aos에서만 노출
 				if (feature == 'only_aos') then
-					visible = CppFunctions:isAndroid()
-
+                    visible = CppFunctions:isAndroid()
+                    
+                    if IS_TEST_MODE() then
+					    visible = visible or CppFunctions:isMac() or CppFunctions:isWin32()
+                    end
                 elseif (feature == 'only_ios') then
                     visible = CppFunctions:isIos()
 
+                    if IS_TEST_MODE() then
+					    visible = visible or CppFunctions:isMac() or CppFunctions:isWin32()
+                    end
 				-- 토파즈가 있는 유저에게만 보이는 이벤트
 				elseif (feature == 'topaz') then
 					local topaz = g_userData:get('topaz')
