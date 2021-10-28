@@ -666,6 +666,15 @@ function ServerData_Shop:request_checkReceiptValidation_v3(product, validation_k
             local krw_price = struct_product['price'] -- getPrice() 함수 나중에 수정하기
             local usd_price = struct_product['price_dollar']
             local first_buy = ret['first_buy']  --첫번째 결제인지
+            
+            if (product_id == nil or sku == nil) then
+                local log_product_id = product_id == nil and 'nil' or product_id
+                local log_sku = sku == nil and 'nil' or sku
+                local log_krw_price = krw_price == nil and 'nil' or krw_price
+                local log_usd_price = usd_price == nil and 'nil' or usd_price
+                local err_msg = 'product_id :: ' .. tostring(log_product_id) .. ' sku :: ' .. log_sku .. ' krw_price :: ' .. tostring(log_krw_price) .. ' usd_price :: ' .. tostring(log_usd_price)
+                g_errorTracker:sendErrorLog(err_msg, nil) -- param : msg, success_cb
+            end
 
             Analytics:purchase(product_id, sku, krw_price, usd_price, first_buy)
             Analytics:trackGetGoodsWithRet(ret, string.format('상품 구매 : %d', product_id))
