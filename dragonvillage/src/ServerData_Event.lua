@@ -85,8 +85,11 @@ function ServerData_Event:getEventPopupTabList()
                 visible = false
             end
 
-        elseif (string.find(event_type, 'only_aos')) then
+        elseif (string.find(feature, 'only_aos')) then
             visible = CppFunctions:isAndroid()
+
+        elseif (string.find(feature, 'only_ios')) then
+            visible = CppFunctions:isIos()
 
         -- 드빌 전용관은 한국서버에서만 노출
         elseif (event_type == 'highbrow_shop') then
