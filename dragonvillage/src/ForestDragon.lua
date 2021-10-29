@@ -387,6 +387,10 @@ function ForestDragon:getHappy()
     local doid = self.m_structDragon['id']
     local curr_happy = ServerData_Forest:getInstance():getHappy()
     local function finish_cb(ret)
+        local last_ui = UIManager:getLastUI()
+        -- 현재 UI가 UI_Forest가 아니면 리턴
+        if (last_ui.m_uiName ~= 'UI_Forest') then return end
+
         -- 만족도 하트 흡수 연출
         self.m_happyAnimator:changeAni('heart_tap', false)
         self.m_happyAnimator:addAniHandler(function()
