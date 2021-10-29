@@ -1332,19 +1332,22 @@ function UI_GameResultNew:click_againBtn()
         return
     end
 
-    if (g_eventRuneFestival:isDailyStLimit(req_count) == true) then
-        local function ok_cb()
-            
-        end
-        local msg = Str('하루 날개 사용 제한을 초과했습니다.')
-        local submsg = g_eventRuneFestival:getRuneFestivalStaminaText() -- '일일 최대 {1}/{2}개 사용 가능'
-        MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
+    local stage_id = self.m_stageID
 
-        return
+    if g_stageData:isRuneFestivalStage(stage_id) then
+        local stamina_type, req_count = g_staminasData:getStageStaminaCost(stage_id)
+        if (g_eventRuneFestival:isDailyStLimit(req_count) == true) then
+            local function ok_cb()
+                
+            end
+            local msg = Str('하루 날개 사용 제한을 초과했습니다.')
+            local submsg = g_eventRuneFestival:getRuneFestivalStaminaText() -- '일일 최대 {1}/{2}개 사용 가능'
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
+
+            return
+        end
     end
     
-
-    local stage_id = self.m_stageID
     local function close_cb()
         -- 룬 축제 이벤트
         if (g_stageData:isRuneFestivalStage(stage_id) == true) then
