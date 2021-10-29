@@ -150,7 +150,8 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
         local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data)
 
         local function close_cb()
-            self:sceneFadeInAction()
+            local last_ui = UIManager:getLastUI()
+            last_ui:sceneFadeInAction()
         end
         ui:setCloseCB(close_cb)
 

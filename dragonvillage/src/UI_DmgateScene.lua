@@ -539,13 +539,17 @@ end
 ----------------------------------------------------------------------------
 function UI_DmgateScene:click_startBtn()
     local callback_func = function ()
+        local function close_cb() 
+            local ui = UIManager:getLastUI()
+            ui:sceneFadeInAction()
+        end
+
         if self.m_stageBtnUI == nil then
-            error('m_stageBtnUI is not initialized.')
+            close_cb()
+            return
         end
 
         local stage_id = self.m_stageBtnUI:getStageID()
-
-        local function close_cb() self:sceneFadeInAction() end
 
         local ui = UI_ReadySceneNew(stage_id)
         ui:setCloseCB(close_cb)

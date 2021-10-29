@@ -295,7 +295,8 @@ function UI_AncientTower:click_readyBtn()
         local stage_id = self.m_selectedStageID
 
         local function close_cb()
-            self:sceneFadeInAction()
+            local ui = UIManager:getLastUI()
+            ui:sceneFadeInAction()
         end
 
         local ui = UI_ReadySceneNew(stage_id)

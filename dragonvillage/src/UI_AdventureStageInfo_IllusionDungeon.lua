@@ -15,7 +15,8 @@ function UI_AdventureStageInfo_IllusionDungeon:click_enterBtn()
         local stage_id = self.m_stageID
 
         local function close_cb()
-            self:sceneFadeInAction()
+            local ui = UIManager:getLastUI()
+            ui:sceneFadeInAction()
         end
 
         local ui = UI_ReadySceneNew_IllusionDungeon(stage_id)

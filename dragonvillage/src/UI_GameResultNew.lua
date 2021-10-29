@@ -1646,7 +1646,8 @@ end
 function UI_GameResultNew:click_manageBtn()
     local ui = UI_DragonManageInfo()
     local function close_cb()
-        self:sceneFadeInAction(func)
+        local last_ui = UIManager:getLastUI()
+        last_ui:sceneFadeInAction()
     end
     ui:setCloseCB(close_cb)
 end

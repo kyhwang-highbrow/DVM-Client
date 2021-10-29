@@ -276,7 +276,8 @@ function UI_ColosseumReady:click_manageBtn()
             -- 삭제(작별or판매)가 불가하기 때문에 덱 정보가 변경되지 않는다는 가정 하에
             -- refresh 작업을 별도로 하지 않음
         end
-        self:sceneFadeInAction(func)
+        local ui = UIManager:getLastUI()
+        ui:sceneFadeInAction(func)
     end
     ui:setCloseCB(close_cb)
 end
