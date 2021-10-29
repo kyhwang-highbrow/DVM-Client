@@ -453,7 +453,8 @@ function UI_AdventureStageInfo:click_enterBtn()
         local stage_id = self.m_stageID
 
         local function close_cb()
-            self:sceneFadeInAction()
+            local ui = UIManager:getLastUI()
+            ui:sceneFadeInAction()
         end
 
         if (game_mode == GAME_MODE_CLAN_RAID) then
