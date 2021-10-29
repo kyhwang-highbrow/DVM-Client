@@ -114,5 +114,16 @@ end
 -- function click_stageStartBtn
 -------------------------------------
 function UI_EventRuneFestival:click_stageStartBtn(stage_id)
+    if (g_eventRuneFestival:isDailyStLimit(req_count) == true) then
+        local function ok_cb()
+            
+        end
+        local msg = Str('하루 날개 사용 제한을 초과했습니다.')
+        local submsg = g_eventRuneFestival:getRuneFestivalStaminaText() -- '일일 최대 {1}/{2}개 사용 가능'
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
+
+        return
+    end
+
     UI_AdventureStageInfo(stage_id)
 end

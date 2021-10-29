@@ -1327,10 +1327,22 @@ function UI_GameResultNew:click_againBtn()
     if (self:checkIsTutorial()) then
         return
     end
-
+    
     if (self:checkAutoPlayRelease()) then
         return
     end
+
+    if (g_eventRuneFestival:isDailyStLimit(req_count) == true) then
+        local function ok_cb()
+            
+        end
+        local msg = Str('하루 날개 사용 제한을 초과했습니다.')
+        local submsg = g_eventRuneFestival:getRuneFestivalStaminaText() -- '일일 최대 {1}/{2}개 사용 가능'
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
+
+        return
+    end
+    
 
     local stage_id = self.m_stageID
     local function close_cb()
