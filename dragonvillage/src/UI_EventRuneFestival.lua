@@ -4,7 +4,6 @@ local PARENT = UI
 -- class UI_EventRuneFestival
 -------------------------------------
 UI_EventRuneFestival = class(PARENT,{
-        m_stageIdList = '',
     })
 
 
@@ -13,8 +12,6 @@ UI_EventRuneFestival = class(PARENT,{
 -------------------------------------
 function UI_EventRuneFestival:init()
     local vars = self:load('event_rune_festival.ui')
-
-    self.m_stageIdList = {1119801, 1129801, 1139801, 1149801}
 
     self:initUI()
     self:initButton()
@@ -30,7 +27,9 @@ function UI_EventRuneFestival:initUI()
     local drop_table = TableDrop()
     local item_table = TableItem()
 
-    for index, stage_id in ipairs(self.m_stageIdList) do
+    local stage_id_list = g_eventRuneFestival:getEventStageIdList()
+
+    for index, stage_id in ipairs(stage_id_list) do
         local stage_data = drop_table:get(stage_id)
         local item_index = 1
 
@@ -58,6 +57,10 @@ function UI_EventRuneFestival:initUI()
             end
 
             item_index = item_index + 1
+        end
+
+        if (stage_data['cost_type'] == 'st') and vars['stageCostLabel' .. index] then
+            vars['stageCostLabel' .. index]:setString(stage_data['cost_value'])
         end
     end
 

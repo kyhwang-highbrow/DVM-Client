@@ -1219,18 +1219,18 @@ function UI_Lobby:update_highlight()
 
     
 
-    do -- 할로윈 이벤트
-        vars['halloweenNotiSprite']:setVisible(false)
-        vars['halloweenNotiYellow']:setVisible(false)
+    -- do -- 할로윈 이벤트
+    --     vars['halloweenNotiSprite']:setVisible(false)
+    --     vars['halloweenNotiYellow']:setVisible(false)
 
-        if g_hotTimeData:isActiveEvent('event_rune_festival') then
-            if (g_eventRuneFestival:isDailyStLimit() == false) then
-                vars['halloweenNotiYellow']:setVisible(true)
-            end
+    --     if g_hotTimeData:isActiveEvent('event_rune_festival') then
+    --         if (g_eventRuneFestival:isDailyStLimit() == false) then
+    --             vars['halloweenNotiYellow']:setVisible(true)
+    --         end
 
-            vars['shopSpecialNoti']:setVisible(true)
-        end
-    end
+    --         vars['shopSpecialNoti']:setVisible(true)
+    --     end
+    -- end
 
     do -- 알파벳 이벤트
         vars['alphabetNotiRed']:setVisible(false)

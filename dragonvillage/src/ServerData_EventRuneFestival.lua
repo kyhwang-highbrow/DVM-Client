@@ -10,13 +10,43 @@ ServerData_EventRuneFestival = class({
 
 
         m_eventTokenId = 'number', -- 이벤트 토큰 
+
+
+        m_stageIdList = 'List[stage_id]', -- 이벤트 스테이지 ID 리스트
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_EventRuneFestival:init()
+    self.m_stageIdList = {1119801, 1129801, 1139801, 1149801}
+end
 
+-------------------------------------
+-- function getMinStageCost
+-------------------------------------
+function ServerData_EventRuneFestival:getMinStageCost()
+    local drop_table = TableDrop()
+
+    local min_cost = 999999
+
+    for index, stage_id in ipairs(self.m_stageIdList) do
+        local stage_data = drop_table:get(stage_id)
+
+        local cost = stage_data['cost_value']
+        if cost and (cost < min_cost) then
+            min_cost = cost
+        end
+    end
+
+    return min_cost
+end
+
+-------------------------------------
+-- function getEventStageIdList
+-------------------------------------
+function ServerData_EventRuneFestival:getEventStageIdList()
+    return self.m_stageIdList
 end
 
 -------------------------------------
@@ -36,6 +66,11 @@ function ServerData_EventRuneFestival:getRuneFestivalStaminaText()
     local daily_max_st = self.m_dailyMaxSt  or 0
 
     local str = Str('일일 최대 {1}/{2}개 사용 가능', comma_value(daily_user_st), comma_value(daily_max_st))
+
+    if self:isDailyStLimit() then
+        str = '{@red}' .. str
+    end
+
     return str
 end
 
@@ -49,12 +84,38 @@ function ServerData_EventRuneFestival:isDailyStLimit(add_st)
     local daily_user_st = (self.m_dailyUsedSt or 0)
     local daily_max_st = (self.m_dailyMaxSt  or 0)
 
-    -- 초과될 경우 제한 
-    if (daily_max_st < (daily_user_st + add_st)) then
+
+    if ((daily_user_st - daily_max_st) > 0) then
         return true
     else
         return false
     end
+
+    -- if (daily_max_st > (daily_user_st + add_st)) then
+    --     return false
+    -- else
+    --     if (((daily_user_st + add_st) - daily_max_st) < min_stage_st) then
+    --         return false
+    --     end
+
+    --     return true
+    -- end
+
+
+
+    -- -- 초과될 경우 제한 
+    -- if (daily_max_st <= daily_user_st) then
+    --     daily_user_st = daily_user_st + add_st
+    --     (daily_max_st < (daily_user_st + add_st)
+    --     -- 일일 날개 최대 제한에 도달하지 않은 상태이나, 날개가 가장 적게 드는 스테이지를 돌 때 그 수치를 넘을 경우 입장 가능하도록
+    --     if ((daily_max_st - daily_user_st) < min_stage_st) then
+    --         return false
+    --     end
+
+    --     return true
+    -- else
+    --     return false
+    -- end
 end
 
 -------------------------------------
