@@ -22,6 +22,27 @@ function ServerData_LeagueRaid:init()
     self.m_deck_3 = {}
 end
 
+-------------------------------------
+-- function getMemberCount
+-------------------------------------
+function ServerData_LeagueRaid:getOneDoidByIndex(index)
+    local result = ''
+    local target_list = {}
+
+    if (index == 1) then
+        target_list = self.m_deck_1
+    elseif (index == 2) then
+        target_list = self.m_deck_2
+    elseif (index == 3) then
+        target_list = self.m_deck_3
+    end
+
+    for i, v in ipairs(target_list) do
+        if (v) then result = v break end
+    end
+
+    return result
+end
 
 
 -------------------------------------
@@ -84,10 +105,6 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
-        if (IS_DEV_SERVER()) then
-            ccdump(ret)
-        end
-
         self.m_memberCount = ret['member_count']
         self.m_myInfo = ret['my_info']
         self.m_members = ret['members']

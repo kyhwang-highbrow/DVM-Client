@@ -660,6 +660,8 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     -- 모드별 API 주소 분기처리
     local api_url = ''
     local game_mode = self.m_gameMode
+    local ui_network = UI_Network()
+
     if (game_mode == GAME_MODE_ADVENTURE) then
         api_url = '/game/stage/finish'
 
@@ -704,9 +706,16 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
 
     elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
         api_url = '/dmgate/finish'
+
+    elseif (game_mode == GAME_MODE_LEAGUE_RAID) then
+        api_url = '/raid/finish'
+
+        local total_damage = self.m_gameWorld.m_logRecorder:getLog('total_damage_to_enemy')
+        total_damage = total_damage - total_damage % 1
+        ui_network:setParam('score', total_damage)
     end
 
-    local ui_network = UI_Network()
+    
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', self.m_stageID)

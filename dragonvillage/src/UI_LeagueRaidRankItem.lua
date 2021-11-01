@@ -98,7 +98,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         table_view_remaining:setCellUIClass(UI_LeagueRaidRankItem)
         table_view_remaining:setItemList(remaining_list)
         table_view_remaining.m_scrollView:setTouchEnabled(false)
-        table_view_remaining.m_node:setPositionY(0 - list_offset_y - margin)
+        table_view_remaining.m_node:setPositionY(0)
 
         if (vars['remainingLabel']) then  
             local remaining_reward = 0
@@ -130,7 +130,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         table_view_demoted:setCellUIClass(UI_LeagueRaidRankItem)
         table_view_demoted:setItemList(demoted_list)
         table_view_demoted.m_scrollView:setTouchEnabled(false)
-        table_view_demoted.m_node:setPositionY(0 - list_offset_y - margin)
+        table_view_demoted.m_node:setPositionY(0)
 
         if (vars['demotedLabel']) then  
             local demoted_reward = 0

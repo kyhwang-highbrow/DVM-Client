@@ -315,8 +315,12 @@ function UI_LeagueRaidScene:click_enterBtn()
     local stage_id = my_info['stage']
     local stage_name = 'stage_' .. stage_id
 
-    local scene = SceneGame(nil, stage_id, stage_name, true)
-    scene:runScene()
+    local finish_cb = function(ret)
+        local scene = SceneGame(ret, stage_id, stage_name, true)
+        scene:runScene()
+    end
+
+    g_stageData:requestGameStart(stage_id, nil, nil, finish_cb)
 end
 
 ----------------------------------------------------------------------------

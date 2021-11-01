@@ -27,9 +27,9 @@ UI_GameResult_LeagueRaid = class(UI, {
 
     -- buttons
     m_btnMenu = '',             -- 버튼 전체 관리를 위한 메뉴
-    m_dmgateBtn = '',           -- 차원문 메인으로
     m_statsBtn = '',            -- 전투 통계
-    m_homeBtn = '',             -- 마을
+
+    m_okBtn = 'Button'
 })
 
 
@@ -57,9 +57,9 @@ function UI_GameResult_LeagueRaid:init(stage_id, is_success, time)
     self.m_timeLabel = vars['timeLabel']
     -- buttons
     self.m_btnMenu = vars['btnMenu']                -- 버튼 전체 관리를 위한 메뉴
-    self.m_dmgateBtn = vars['dmgateBtn']            -- 차원문 메인으로
     self.m_statsBtn = vars['statsBtn']              -- 전투 통계
-    self.m_homeBtn = vars['homeBtn']                -- 마을
+
+    self.m_okBtn = vars['okBtn']
        
     -- dragon nodes
     self.m_dragonResultNode = vars['dragonResultNode']      -- 드래곤 전체 노드
@@ -96,9 +96,8 @@ end
 -- function initButton
 ----------------------------------------------------------------------------
 function UI_GameResult_LeagueRaid:initButton()
-    self.m_dmgateBtn:registerScriptTapHandler(function() self:click_dmgateBtn() end)
-    
-    self.m_homeBtn:registerScriptTapHandler(function() self:click_homeBtn() end)
+    self.m_okBtn:registerScriptTapHandler(function() self:click_homeBtn() end)
+
     self.m_statsBtn:registerScriptTapHandler(function() self:click_statsBtn() end)
 end
 
@@ -191,7 +190,6 @@ function UI_GameResult_LeagueRaid:startGame()
         scene:runScene()
     end
     
-    -- url : dmgate/start
     -- required params : user_id, stage_id, deck_name, token
     g_stageData:requestGameStart(self.m_stage_id, deck_name, nil, finish_cb)
 end

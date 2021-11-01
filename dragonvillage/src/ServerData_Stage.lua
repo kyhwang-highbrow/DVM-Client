@@ -380,6 +380,8 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     local game_mode = g_stageData:getGameMode(stage_id)
     local attr
     local teambonus_ids
+    local ui_network = UI_Network()
+
     if (game_mode == GAME_MODE_ADVENTURE) then
         api_url = '/game/stage/start'
 
@@ -484,6 +486,26 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
             return false
         end
 
+    -- 레이드
+    elseif (game_mode == GAME_MODE_LEAGUE_RAID) then 
+        api_url = '/raid/start'
+        ui_network:setParam('deck_name1', 'league_raid_1')
+        ui_network:setParam('deck_name2', 'league_raid_2')
+        ui_network:setParam('deck_name3', 'league_raid_3')
+        -- 덱 검증을 위해 doid 하나씩 넣어줌
+        --ui_network:setParam('token1', g_leagueRaidData:getOneDoidByIndex(1))
+        --ui_network:setParam('token2', g_leagueRaidData:getOneDoidByIndex(2))
+        --ui_network:setParam('token3', g_leagueRaidData:getOneDoidByIndex(3))
+
+        response_status_cb = function(ret)
+            if(ret['status'] == -1364) then
+                g_dmgateData:MakeSeasonEndedPopup()
+                return true
+            end
+
+            return false
+        end
+
     end
 
     local function success_cb(ret)
@@ -511,7 +533,7 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         friend_uid = g_friendData.m_selectedShareFriendData.m_uid
     end
 
-    local ui_network = UI_Network()
+    
     ui_network:setUrl(api_url)
     ui_network:setRevocable(true)
     ui_network:setParam('uid', uid)
