@@ -102,13 +102,8 @@ function UI_LeagueRaidScene:initUI()
     if (vars['runeRateLabel']) then vars['runeRateLabel']:setString(Str('{1}%', my_info['rune_g7_percent'])) end
 
     local stage_id = my_info['stage']
-    if (IS_DEV_SERVER) then
-        stage_id = 3011005
-    end
 
     local is_boss_stage, monster_id = g_stageData:isBossStage(stage_id)
-
-    
 
     if (monster_id) then
         local icon = UI_MonsterCard(monster_id)
@@ -316,7 +311,11 @@ function UI_LeagueRaidScene:click_enterBtn()
         return
     end
 
-    local scene = SceneGame(nil, DEV_STAGE_ID, 'stage_dev', true)
+    local my_info = g_leagueRaidData:getMyInfo()
+    local stage_id = my_info['stage']
+    local stage_name = 'stage_' .. stage_id
+
+    local scene = SceneGame(nil, stage_id, stage_name, true)
     scene:runScene()
 end
 
