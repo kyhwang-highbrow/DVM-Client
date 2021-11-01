@@ -1,0 +1,197 @@
+local PARENT = UI_GameResultNew
+
+
+
+----------------------------------------------------------------------------
+-- class UI_GameResult_LeagueRaid
+----------------------------------------------------------------------------
+UI_GameResult_LeagueRaid = class(UI, {
+    m_stage_id = 'number',
+    m_bSuccess = 'boolean',
+    m_time = 'number',
+    
+    -- title Nodes
+    m_titleMenu = '',   -- 
+    m_titleLabel = '',  -- 스테이지 이름 텍스트
+    m_gradeLabel = '',  -- 난이도 텍스트
+
+    m_timeMenu = '',    -- 시간 메뉴
+    m_timeLabel = '',   -- 시간 텍스트
+
+    -- dragon nodes
+    m_dragonResultNode = '',    -- 드래곤 전체 노드
+    m_dragonBoards = '',        -- 드래곤 각자의 노드
+    m_dragonNodes = '',         -- 드래곤 애니메이션을 위한 노드
+    m_dragonStarNodes = '',     -- 드래곤 등급을 위한 노드
+    m_dragonLvLabels = '',      -- 드래곤 레벨 텍스트를 위한 노드
+
+    -- buttons
+    m_btnMenu = '',             -- 버튼 전체 관리를 위한 메뉴
+    m_dmgateBtn = '',           -- 차원문 메인으로
+    m_statsBtn = '',            -- 전투 통계
+    m_homeBtn = '',             -- 마을
+})
+
+
+----------------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:init(stage_id, is_success, time)
+    local vars = self:load('league_raid_result.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() end, 'UI_GameResult_LeagueRaid')
+
+    self.m_stage_id = stage_id
+    self.m_bSuccess = is_success
+    self.m_time = time
+    
+    -- title Nodes
+    self.m_titleMenu = vars['titleMenu']            -- 
+    self.m_titleLabel = vars['titleLabel']          -- 스테이지 이름 텍스트
+    self.m_gradeLabel = vars['gradeLabel']          -- 난이도 텍스트
+
+    self.m_timeMenu = vars['timeMenu']              -- 시간 메뉴
+    --self.m_timeLabel = NumberLabel(vars['timeLabel'], 0, 1)            -- 시간 텍스트
+    self.m_timeLabel = vars['timeLabel']
+    -- buttons
+    self.m_btnMenu = vars['btnMenu']                -- 버튼 전체 관리를 위한 메뉴
+    self.m_dmgateBtn = vars['dmgateBtn']            -- 차원문 메인으로
+    self.m_statsBtn = vars['statsBtn']              -- 전투 통계
+    self.m_homeBtn = vars['homeBtn']                -- 마을
+       
+    -- dragon nodes
+    self.m_dragonResultNode = vars['dragonResultNode']      -- 드래곤 전체 노드
+    self.m_dragonBoards = {}          -- 드래곤 각자의 노드
+    self.m_dragonNodes = {}           -- 드래곤 애니메이션을 위한 노드
+    self.m_dragonStarNodes = {}      -- 드래곤 등급을 위한 노드
+    self.m_dragonLvLabels = {}        -- 드래곤 레벨 텍스트를 위한 노드
+
+    local dragonNum = 1
+    while(vars['dragonBoard' .. tostring(dragonNum)] ~= nil) do
+        self.m_dragonBoards[dragonNum] = vars['dragonBoard' .. tostring(dragonNum)]
+        self.m_dragonNodes[dragonNum] = vars['dragonNode' .. tostring(dragonNum)]
+        self.m_dragonStarNodes[dragonNum] = vars['dragonStarNode' .. tostring(dragonNum)]
+        self.m_dragonLvLabels[dragonNum] = vars['dragonLvLabel' .. tostring(dragonNum)]
+        dragonNum = dragonNum + 1
+    end
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+----------------------------------------------------------------------------
+-- function initUI
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:initUI()
+    local vars = self.vars
+    
+    self:initDragonList()
+end
+
+
+----------------------------------------------------------------------------
+-- function initButton
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:initButton()
+    self.m_dmgateBtn:registerScriptTapHandler(function() self:click_dmgateBtn() end)
+    
+    self.m_homeBtn:registerScriptTapHandler(function() self:click_homeBtn() end)
+    self.m_statsBtn:registerScriptTapHandler(function() self:click_statsBtn() end)
+end
+
+
+----------------------------------------------------------------------------
+-- function refresh
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:refresh()
+
+end
+
+
+----------------------------------------------------------------------------
+-- function initDragonList
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:initDragonList()
+    local deck_list = g_deckData:getDeck()
+
+    local dragon_list = {}
+
+    for _, doid in pairs(deck_list) do
+        local user_data = g_dragonsData:getDragonDataFromUid(doid)
+        local did = user_data['did']
+        local dragon_data = TableDragon():get(did)
+        local result = {['user_data'] = user_data, ['dragon_data'] = dragon_data}
+        table.insert(dragon_list, result)
+    end
+
+end
+
+----------------------------------------------------------------------------
+-- function click_statusInfoBtn
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:click_statusInfoBtn()
+    UI_HelpStatus()
+end
+
+
+----------------------------------------------------------------------------
+-- function click_readyBtn
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:click_readyBtn()
+
+end
+
+----------------------------------------------------------------------------
+-- function click_quickStartBtn
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:click_quickStartBtn()
+    -- 씬 전환을 두번 호출 하지 않도록 하기 위함
+    local block_ui = UI_BlockPopup()
+
+    self:startGame()
+end
+
+----------------------------------------------------------------------------
+-- function click_homeBtn
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:click_homeBtn()
+    -- 씬 전환을 두번 호출 하지 않도록 하기 위함
+    local block_ui = UI_BlockPopup()
+
+    local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
+    scene:runScene()
+end
+
+
+----------------------------------------------------------------------------
+-- function click_statsBtn
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:click_statsBtn()
+	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
+	UI_StatisticsPopup(g_gameScene.m_gameWorld)
+end
+
+----------------------------------------------------------------------------
+-- function startGame
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:startGame()
+    -- 씬 전환을 두번 호출 하지 않도록 하기 위함
+    local block_ui = UI_BlockPopup()
+    local deck_name = g_deckData:getSelectedDeckName()
+
+    local function finish_cb(game_key)
+        local stage_name = 'stage_' .. self.m_stage_id
+
+        scene = SceneGame(game_key, self.m_stage_id, stage_name, false)
+
+        scene:runScene()
+    end
+    
+    -- url : dmgate/start
+    -- required params : user_id, stage_id, deck_name, token
+    g_stageData:requestGameStart(self.m_stage_id, deck_name, nil, finish_cb)
+end

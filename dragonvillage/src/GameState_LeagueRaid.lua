@@ -54,7 +54,7 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
         -- result_table['drop_reward_list'],
         -- result_table['secret_dungeon'],
         -- result_table['content_open'])
-        UI_GameResult(stage_id, isSuccess, 0)
+        UI_GameResult_LeagueRaid(stage_id, isSuccess, 0)
 
         -- 나중에 팝업띄우고 싶으면 수석풀고 기능 완성시킴
         --if (isSuccess) then self:showChapterOpenPopup() end

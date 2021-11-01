@@ -1143,6 +1143,7 @@ local t_module = {
     -- UI : 레이드
     'UI_LeagueRaidScene',
     'UI_LeagueRaidRankItem',
+    'UI_GameResult_LeagueRaid',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

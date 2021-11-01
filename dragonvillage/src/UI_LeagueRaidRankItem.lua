@@ -60,15 +60,23 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     local margin = 20
 
     -- 승격
-    if (not vars['promotionNode']) then return end
+    if (not vars['remainingPannelNode']) then return end
+    if (#promotion_list > 0) then
+        local table_view_promotion = UIC_TableViewTD(vars['promotionNode'])
+        table_view_promotion.m_cellSize = cc.size(245, 95)
+        table_view_promotion.m_nItemPerCell = 3
+        table_view_promotion:setCellUIClass(UI_LeagueRaidRankItem)
+        table_view_promotion:setItemList(promotion_list)
+        table_view_promotion.m_scrollView:setTouchEnabled(false)
+        table_view_promotion.m_node:setPositionY(0)
 
-    local table_view_promotion = UIC_TableViewTD(vars['promotionNode'])
-    table_view_promotion.m_cellSize = cc.size(245, 95)
-    table_view_promotion.m_nItemPerCell = 3
-    table_view_promotion:setCellUIClass(UI_LeagueRaidRankItem)
-    table_view_promotion:setItemList(promotion_list)
-    table_view_promotion.m_scrollView:setTouchEnabled(false)
-    table_view_promotion.m_node:setPositionY(0 - list_offset_y - margin)
+        if (vars['promotionLabel']) then  
+            local promotion_reward = 0
+            vars['promotionLabel']:setString(comma_value(promotion_reward))
+        end
+    else
+        vars['remainingPannelNode']:setVisible(false)
+    end
 
     -- 승격 아이템 수량에 따라 잔류 위치 조정
     local line_promotion = 0
@@ -83,14 +91,22 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
     -- 잔류
     if (not vars['remainingPannelNode'] or not vars['remainingNode']) then return end
+    if (#remaining_list > 0) then
+        local table_view_remaining = UIC_TableViewTD(vars['remainingNode'])
+        table_view_remaining.m_cellSize = cc.size(245, 95)
+        table_view_remaining.m_nItemPerCell = 3
+        table_view_remaining:setCellUIClass(UI_LeagueRaidRankItem)
+        table_view_remaining:setItemList(remaining_list)
+        table_view_remaining.m_scrollView:setTouchEnabled(false)
+        table_view_remaining.m_node:setPositionY(0 - list_offset_y - margin)
 
-    local table_view_remaining = UIC_TableViewTD(vars['remainingNode'])
-    table_view_remaining.m_cellSize = cc.size(245, 95)
-    table_view_remaining.m_nItemPerCell = 3
-    table_view_remaining:setCellUIClass(UI_LeagueRaidRankItem)
-    table_view_remaining:setItemList(remaining_list)
-    table_view_remaining.m_scrollView:setTouchEnabled(false)
-    table_view_remaining.m_node:setPositionY(0 - list_offset_y - margin)
+        if (vars['remainingLabel']) then  
+            local remaining_reward = 0
+            vars['remainingLabel']:setString(comma_value(remaining_reward))
+        end
+    else
+        vars['remainingPannelNode']:setVisible(false)
+    end
 
     vars['remainingPannelNode']:setPositionY(pos_remaining_view_y)
 
@@ -104,17 +120,25 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
     local pos_demoted_view_y = pos_remaining_view_y - list_offset_y - 90 * line_remaining - margin
 
-
     -- 강등
     if (not vars['demotedPannelNode'] or not vars['demotedNode']) then return end
 
-    local table_view_demoted = UIC_TableViewTD(vars['demotedNode'])
-    table_view_demoted.m_cellSize = cc.size(245, 95)
-    table_view_demoted.m_nItemPerCell = 3
-    table_view_demoted:setCellUIClass(UI_LeagueRaidRankItem)
-    table_view_demoted:setItemList(demoted_list)
-    table_view_demoted.m_scrollView:setTouchEnabled(false)
-    table_view_demoted.m_node:setPositionY(0 - list_offset_y - margin)
+    if (#remaining_list > 0) then
+        local table_view_demoted = UIC_TableViewTD(vars['demotedNode'])
+        table_view_demoted.m_cellSize = cc.size(245, 95)
+        table_view_demoted.m_nItemPerCell = 3
+        table_view_demoted:setCellUIClass(UI_LeagueRaidRankItem)
+        table_view_demoted:setItemList(demoted_list)
+        table_view_demoted.m_scrollView:setTouchEnabled(false)
+        table_view_demoted.m_node:setPositionY(0 - list_offset_y - margin)
+
+        if (vars['demotedLabel']) then  
+            local demoted_reward = 0
+            vars['demotedLabel']:setString(comma_value(demoted_reward))
+        end
+    else
+        vars['demotedPannelNode']:setVisible(false)
+    end
 
     vars['demotedPannelNode']:setPositionY(pos_demoted_view_y)
 end
