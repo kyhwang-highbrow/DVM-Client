@@ -18,6 +18,8 @@ MAP_KEY_FUNC[KEY_X] = 'print_enemy_info'
 MAP_KEY_FUNC[KEY_E] = 'print_boss_pattern'
 MAP_KEY_FUNC[KEY_W] = 'print_missile_range'
 
+MAP_KEY_FUNC[KEY_SEMICOLON] = 'print_ingame_ui_message'
+
 MAP_KEY_FUNC[KEY_K] = 'kill_skill'
 MAP_KEY_FUNC[KEY_L] = 'kill_missile'
 MAP_KEY_FUNC[KEY_J] = 'kill_dragon'
@@ -66,7 +68,7 @@ MAP_KEY_FUNC[KEY_0] = 'test_6'
 -- function onKeyReleased
 -------------------------------------
 function GameWorld:onKeyReleased(keyCode, event)
-    
+    cclog(keyCode)
     -- 테스트 모드에서만 동작하도록 설정
     if (not IS_TEST_MODE()) then
         return
@@ -413,6 +415,20 @@ end
 -------------------------------------
 function GameWorld:print_missile_range()
 	ccdump(self.m_missileRange)
+end
+
+function GameWorld:print_ingame_ui_message()
+    if (g_gameScene.m_uiDebug == nil) then
+        g_gameScene.m_uiDebug = true
+    else
+        g_gameScene.m_uiDebug = not g_gameScene.m_uiDebug
+    end
+
+    if (g_gameScene.m_uiDebug) then 
+		ccdisplay('인게임 ui 디버깅 on')
+	else
+		ccdisplay('인게임 ui 디버깅 off')
+	end
 end
 
 -------------------------------------

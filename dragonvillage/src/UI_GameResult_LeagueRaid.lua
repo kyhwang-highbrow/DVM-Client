@@ -8,7 +8,8 @@ local PARENT = UI_GameResultNew
 UI_GameResult_LeagueRaid = class(UI, {
     m_stage_id = 'number',
     m_bSuccess = 'boolean',
-    m_time = 'number',
+
+    m_resultData = 'table',
     
     -- title Nodes
     m_titleMenu = '',   -- 
@@ -36,7 +37,7 @@ UI_GameResult_LeagueRaid = class(UI, {
 ----------------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------------
-function UI_GameResult_LeagueRaid:init(stage_id, is_success, time)
+function UI_GameResult_LeagueRaid:init(stage_id, is_success, result_data)
     local vars = self:load('league_raid_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -45,7 +46,8 @@ function UI_GameResult_LeagueRaid:init(stage_id, is_success, time)
 
     self.m_stage_id = stage_id
     self.m_bSuccess = is_success
-    self.m_time = time
+
+    self.m_resultData = result_data
     
     -- title Nodes
     self.m_titleMenu = vars['titleMenu']            -- 
@@ -89,6 +91,7 @@ function UI_GameResult_LeagueRaid:initUI()
     local vars = self.vars
     
     self:initDragonList()
+    self:initRewardTable()
 end
 
 
@@ -127,6 +130,21 @@ function UI_GameResult_LeagueRaid:initDragonList()
     end
 
 end
+
+----------------------------------------------------------------------------
+-- function initDragonList
+----------------------------------------------------------------------------
+function UI_GameResult_LeagueRaid:initRewardTable()
+    if (not self.m_resultData or self.m_resultData['drop_reward_list']) then return end
+
+    local table_view_promotion = UIC_TableViewTD(vars['tableViewNode'])
+    table_view_promotion.m_cellSize = cc.size(245, 95)
+    table_view_promotion.m_nItemPerCell = 10
+    table_view_promotion:setCellUIClass(UI_ItemCard)
+    table_view_promotion:setItemList(self.m_resultData['drop_reward_list'])
+
+end
+
 
 ----------------------------------------------------------------------------
 -- function click_statusInfoBtn
