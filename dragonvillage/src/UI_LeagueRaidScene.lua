@@ -219,6 +219,22 @@ function UI_LeagueRaidScene:setRankImage()
         sprite:setDockPoint(cc.p(0.5, 0.5))
         vars['rankNode']:addChild(sprite)
     end
+
+    if (vars['rankVisual']) then
+        if (my_info['league'] == 'S') then
+            local purple = 'tier_06'
+            vars['rankVisual']:setVisible(true)
+            vars['rankVisual']:changeAni(purple, true)
+        
+        elseif (my_info['league'] == 'U') then
+            local gold = 'tier_07'
+            vars['rankVisual']:setVisible(true)
+            vars['rankVisual']:changeAni(gold, true)
+
+        else
+            vars['rankVisual']:setVisible(false)
+        end
+    end
 end
 
 

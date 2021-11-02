@@ -4664,7 +4664,6 @@
     <None Include="..\src\UI_EventBingoPackagePopup.lua" />
     <None Include="..\src\SkillScript_Charging.lua" />
     <None Include="..\src\SkillScript_Groggy.lua" />
-    <None Include="..\src\UI_GameResult_Dmgate.lua" />
     <None Include="..\src\GameState_Dmgate.lua" />
     <None Include="..\src\UI_DmgateDifficultyItem.lua" />
     <None Include="..\src\UI_DmgatePopup.lua" />
@@ -5002,6 +5001,12 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_LeagueRaidRankItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameResult_Dmgate.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameResult_LeagueRaid.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

@@ -72,6 +72,10 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
         if (vars['promotionLabel']) then  
             local promotion_reward = 0
+            if (my_info and my_info['up_season_reward']) then
+                promotion_reward = my_info['up_season_reward']['700001']
+            end
+
             vars['promotionLabel']:setString(comma_value(promotion_reward))
         end
     else
@@ -102,6 +106,9 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
         if (vars['remainingLabel']) then  
             local remaining_reward = 0
+            if (my_info and my_info['stay_season_reward']) then
+                remaining_reward = my_info['stay_season_reward']['700001']
+            end
             vars['remainingLabel']:setString(comma_value(remaining_reward))
         end
     else
@@ -123,7 +130,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     -- 강등
     if (not vars['demotedPannelNode'] or not vars['demotedNode']) then return end
 
-    if (#remaining_list > 0) then
+    if (#demoted_list > 0) then
         local table_view_demoted = UIC_TableViewTD(vars['demotedNode'])
         table_view_demoted.m_cellSize = cc.size(245, 95)
         table_view_demoted.m_nItemPerCell = 3
@@ -134,6 +141,9 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
         if (vars['demotedLabel']) then  
             local demoted_reward = 0
+            if (my_info and my_info['down_season_reward']) then
+                remaining_reward = my_info['down_season_reward']['700001']
+            end
             vars['demotedLabel']:setString(comma_value(demoted_reward))
         end
     else
