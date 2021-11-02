@@ -160,9 +160,7 @@ function UI_GameResult_LeagueRaid:click_homeBtn()
     -- 씬 전환을 두번 호출 하지 않도록 하기 위함
     local block_ui = UI_BlockPopup()
 
-    local is_use_loading = true
-    local scene = SceneLobby(is_use_loading)
-    scene:runScene()
+    UINavigator:goTo('league_raid')
 end
 
 
