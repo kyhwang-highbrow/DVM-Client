@@ -103,9 +103,14 @@ function UI_LeagueRaidScene:initUI()
         vars['timeLabel']:setString(msg)
     end
 
+    local today_play_count = my_info['today_play_count']
+    local max_play_count = my_info['max_play_count']
+    local count_str = Str('({1}/{2})', max_play_count - today_play_count, max_play_count)
+
     if (vars['today_score_label']) then vars['today_score_label']:setString(Str('{1}점', my_info['todayscore'])) end
     if (vars['season_score_label']) then vars['season_score_label']:setString(Str('{1}점', my_info['score'])) end
     if (vars['runeRateLabel']) then vars['runeRateLabel']:setString(Str('{1}%', my_info['rune_g7_percent'])) end
+    if (vars['countLabel']) then vars['countLabel']:setString(count_str) end
 
     local stage_id = my_info['stage']
 
@@ -133,14 +138,7 @@ function UI_LeagueRaidScene:initUI()
     self:updateDeckDotImage()
 
     -- 날개
-    local wing_cost = 500
-
-    local table_drop = TableDrop()
-    local t_drop = table_drop:get(stage_id)
-
-    if t_drop then
-        wing_cost = t_drop['cost_value'] == 0 and 500 or t_drop['cost_value']
-    end
+    local wing_cost = my_info['cost_value']
 
     if (vars['actingPowerLabel']) then vars['actingPowerLabel']:setString(comma_value(wing_cost)) end
 
@@ -159,8 +157,6 @@ function UI_LeagueRaidScene:initUI()
 
     self:setRankImage()
     self:setRankView()
-    
-
 end
 
 ----------------------------------------------------------------------
@@ -195,6 +191,13 @@ end
 function UI_LeagueRaidScene:initTableView()
 
 
+end
+
+
+function UI_LeagueRaidScene:canQuickClear()
+    local my_info = g_leagueRaidData:getMyInfo()
+
+    return my_info and my_info['todayscore'] > 0
 end
 
 
@@ -305,6 +308,18 @@ function UI_LeagueRaidScene:click_deckBtn(deck_number)
         g_leagueRaidData:updateDeckInfo()
         self:updateDeckDotImage()
     end)
+end
+
+----------------------------------------------------------------------------
+-- function click_quickClearBtn
+----------------------------------------------------------------------------
+function UI_LeagueRaidScene:click_quickClearBtn()
+    if (not self:canQuickClear()) then
+        local msg = Str('한판이라도 플레이 하라는 번역 텍스트 넣어야 합니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+
+        return
+    end
 end
 
 
