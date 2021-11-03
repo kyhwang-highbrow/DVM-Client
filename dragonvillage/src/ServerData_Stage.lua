@@ -508,6 +508,17 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
 
     end
 
+    if (not response_status_cb) then
+        response_status_cb = function(ret)
+        if(ret['status'] == -2150) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('하루 날개 사용 제한을 초과했습니다.'), ok_cb)
+            return true
+        end
+
+        return false
+        end
+    end
+
     local function success_cb(ret)
         -- server_info, staminas 정보를 갱신
         g_serverData:networkCommonRespone(ret)
