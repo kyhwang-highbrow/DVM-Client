@@ -2,7 +2,7 @@
 -- class UI_LeagueRaidRankItem
 -------------------------------------
 UI_LeagueRaidRankMenu = class(UI,{
-
+    m_totalScrollView = 'cc.scrollView',
     })
 
 -------------------------------------
@@ -60,13 +60,44 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         end
     end
 
+    --[[
+    for i = 1, 3 do
+        table.insert(promotion_list, members_list[1])
+    end]]
+
+    --[[
+    for i = 1, 3 do
+        table.insert(remaining_list, members_list[1])
+    end]]
+
+    --[[
+    for i = 1, 3 do
+        table.insert(demoted_list, members_list[1])
+    end]]
+
+    --[[
+    for i = 1, 3 do
+        table.insert(waiting_list, members_list[1])
+    end]]
+
     local list_offset_y = 35
     local margin = 20
     local last_adjusted_Y = 0
 
     -- 승격
-    if (not vars['remainingPannelNode']) then return end
+    if (not vars['promotionNode']) then return end
+
+    -- 승격 아이템 수량에 따라 잔류 위치 조정
+    local line_promotion = 0
+    for i, v in ipairs(promotion_list) do
+        if (i % 3 == 1) then line_promotion = line_promotion + 1 end
+    end
+    line_promotion = line_promotion == 0 and 1 or line_promotion
+
     if (#promotion_list > 0) then
+        vars['promotionNode']:setContentSize(740, 95 * line_promotion)
+        vars['promotionPannelNode']:setContentSize(740, 95 * line_promotion)
+
         local table_view_promotion = UIC_TableViewTD(vars['promotionNode'])
         table_view_promotion.m_cellSize = cc.size(245, 95)
         table_view_promotion.m_nItemPerCell = 3
@@ -87,19 +118,23 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         vars['remainingPannelNode']:setVisible(false)
     end
 
-    -- 승격 아이템 수량에 따라 잔류 위치 조정
-    local line_promotion = 0
-    for i, v in ipairs(promotion_list) do
-        if (i % 3 == 1) then line_promotion = line_promotion + 1 end
-    end
-
-    line_promotion = line_promotion == 0 and 1 or line_promotion
-
     last_adjusted_Y = 0 - list_offset_y - (90) * line_promotion - margin
 
     -- 잔류
     if (not vars['remainingPannelNode'] or not vars['remainingNode']) then return end
+
+    -- 승격 아이템 수량에 따라 잔류 위치 조정
+    local line_remaining = 0
+    for i, v in ipairs(remaining_list) do
+        if (i % 3 == 1) then line_remaining = line_remaining + 1 end
+    end
+
+    line_remaining = line_remaining == 0 and 1 or line_remaining
+
     if (#remaining_list > 0) then
+        vars['remainingNode']:setContentSize(740, 95 * line_remaining)
+        vars['remainingPannelNode']:setContentSize(740, 95 * line_remaining)
+
         local table_view_remaining = UIC_TableViewTD(vars['remainingNode'])
         table_view_remaining.m_cellSize = cc.size(245, 95)
         table_view_remaining.m_nItemPerCell = 3
@@ -116,23 +151,27 @@ function UI_LeagueRaidRankMenu:updateRankItems()
             vars['remainingLabel']:setString(comma_value(remaining_reward))
         end
 
-        vars['remainingPannelNode']:setPositionY(pos_remaining_view_y)
+        vars['remainingPannelNode']:setPositionY(last_adjusted_Y)
+        last_adjusted_Y = last_adjusted_Y - list_offset_y - 90 * line_remaining - margin
     else
         vars['remainingPannelNode']:setVisible(false)
     end
 
-    -- 승격 아이템 수량에 따라 잔류 위치 조정
-    local line_remaining = 0
-    for i, v in ipairs(remaining_list) do
-        if (i % 3 == 1) then line_remaining = line_remaining + 1 end
-    end
-
-    line_remaining = line_remaining == 0 and 1 or line_remaining
-
     -- 강등
     if (not vars['demotedPannelNode'] or not vars['demotedNode']) then return end
 
+    -- 승격 아이템 수량에 따라 잔류 위치 조정
+    local line_demoted = 0
+    for i, v in ipairs(demoted_list) do
+        if (i % 3 == 1) then line_demoted = line_demoted + 1 end
+    end
+
+    line_demoted = line_demoted == 0 and 1 or line_demoted
+
     if (#demoted_list > 0) then
+        vars['demotedNode']:setContentSize(740, 95 * line_demoted)
+        vars['demotedPannelNode']:setContentSize(740, 95 * line_demoted)
+
         local table_view_demoted = UIC_TableViewTD(vars['demotedNode'])
         table_view_demoted.m_cellSize = cc.size(245, 95)
         table_view_demoted.m_nItemPerCell = 3
@@ -149,17 +188,25 @@ function UI_LeagueRaidRankMenu:updateRankItems()
             vars['demotedLabel']:setString(comma_value(demoted_reward))
         end
 
-        last_adjusted_Y = last_adjusted_Y - list_offset_y - 90 * line_remaining - margin
-        vars['demotedPannelNode']:setPositionY(pos_demoted_view_y)
+        vars['demotedPannelNode']:setPositionY(last_adjusted_Y)
+        last_adjusted_Y = last_adjusted_Y - list_offset_y - 90 * line_demoted - margin
     else
         vars['demotedPannelNode']:setVisible(false)
     end
 
-    
     -- 대기
     if (not vars['waitingPannelNode'] or not vars['waitingNode']) then return end
 
+    -- 승격 아이템 수량에 따라 잔류 위치 조정
+    local line_waiting = 0
+    for i, v in ipairs(waiting_list) do
+        if (i % 3 == 1) then line_waiting = line_waiting + 1 end
+    end
+
     if (#waiting_list > 0) then
+        vars['waitingNode']:setContentSize(740, 95 * line_waiting)
+        vars['waitingPannelNode']:setContentSize(740, 95 * line_waiting)
+
         vars['waitingPannelNode']:setVisible(true)
         local table_view_waiting = UIC_TableViewTD(vars['waitingNode'])
         table_view_waiting.m_cellSize = cc.size(245, 95)
@@ -169,12 +216,26 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         table_view_waiting.m_scrollView:setTouchEnabled(false)
         table_view_waiting.m_node:setPositionY(0 - list_offset_y - 10)
 
+        local line_count = table_view_waiting:getLineCount()
+
         vars['waitingPannelNode']:setPositionY(last_adjusted_Y)
     else
         vars['waitingPannelNode']:setVisible(false)
     end
 
-    
+    local content_size = (95 + margin) * (line_promotion + line_remaining + line_demoted + line_waiting)
+    if (line_promotion > 0) then content_size = content_size + list_offset_y end
+    if (line_remaining > 0) then content_size = content_size + list_offset_y end
+    if (line_demoted > 0) then content_size = content_size + list_offset_y end
+    if (line_waiting > 0) then content_size = content_size + list_offset_y end
+
+    self.m_totalScrollView:setContentSize(740, content_size)
+    self.m_totalScrollView:setContentOffset(self.m_totalScrollView:minContainerOffset(), false)
+
+    --local min_container_offset = self.m_totalScrollView:minContainerOffset()
+    --local max_container_offset = self.m_totalScrollView:maxContainerOffset()-
+
+    --self.m_totalScrollView:scheduleUpdateWithPriorityLua(function(dt) ccdump(self.m_totalScrollView:minContainerOffset()) end, 0)
 end
 
 
@@ -216,8 +277,8 @@ function UI_LeagueRaidRankMenu:makeScroll(scroll_menu, scroll_node, scroll_name)
     -- ScrollView 에 달아놓을 컨텐츠 사이즈(ScrollMenu)
     local target_size = scroll_menu:getContentSize()
     scroll_view:setContentSize(target_size)
-    scroll_view:setDockPoint(CENTER_POINT)
-    scroll_view:setAnchorPoint(CENTER_POINT)
+    scroll_view:setDockPoint(TOP_CENTER)
+    scroll_view:setAnchorPoint(TOP_CENTER)
     scroll_view:setPosition(ZERO_POINT)
     scroll_view:setTouchEnabled(true)
 
@@ -236,6 +297,8 @@ function UI_LeagueRaidRankMenu:makeScroll(scroll_menu, scroll_node, scroll_name)
 
     -- 외부에서 스크롤뷰 제어할 수 있도록 vars에 담아둠
     vars[scroll_name .. 'ScrollView'] = scroll_view
+
+    self.m_totalScrollView = scroll_view
 end
 
 
