@@ -110,7 +110,10 @@ function UI_LeagueRaidScene:initUI()
     if (vars['today_score_label']) then vars['today_score_label']:setString(Str('{1}점', my_info['todayscore'])) end
     if (vars['season_score_label']) then vars['season_score_label']:setString(Str('{1}점', my_info['score'])) end
     if (vars['runeRateLabel']) then vars['runeRateLabel']:setString(Str('{1}%', my_info['rune_g7_percent'])) end
-    if (vars['countLabel']) then vars['countLabel']:setString(count_str) end
+    if (vars['countLabel']) then 
+        vars['countLabel']:setString(count_str)
+        if (today_play_count >= max_play_count) then vars['countLabel']:setColor(COLOR['RED'])  end
+    end
 
     local stage_id = my_info['stage']
 
@@ -173,6 +176,8 @@ function UI_LeagueRaidScene:initButton()
     if (vars['teamTabBtn1']) then vars['teamTabBtn1']:registerScriptTapHandler(function() self:click_deckBtn(1) end) end
     if (vars['teamTabBtn2']) then vars['teamTabBtn2']:registerScriptTapHandler(function() self:click_deckBtn(2) end) end
     if (vars['teamTabBtn3']) then vars['teamTabBtn3']:registerScriptTapHandler(function() self:click_deckBtn(3) end) end
+
+    if (vars['clearTicketBtn']) then vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_quickClearBtn() end) end
 end
 
 ----------------------------------------------------------------------
