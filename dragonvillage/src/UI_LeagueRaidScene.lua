@@ -55,26 +55,32 @@ end
 
 --[[
  ['my_info']={
-                ['todayscore']=0;
-                ['stage']=1801001;
-                ['league']='C';
-                ['day']=0;
-                ['team']=1;
-                ['score']=0;
-                ['userinfo']={
-                        ['lv']=99;
-                        ['uid']='ochoi';
-                        ['nick']='애니바니티티';
-                        ['status']=0;
-                        ['leader']={
-                                ['transform']=3;
-                                ['did']=180061;
-                                ['evolution']=3;
-                        };
-                        ['score']=0;
-                };
-                ['season']=1;
-                ['nextleague']='C';
+                "team": 1,
+                "season": 4,
+                "today_play_count": 0,
+                "max_play_count": 10,
+                "cost_type": "st",
+                "cost_value": 500,
+                "score": 10282759,
+                "todayscore": 10282759,
+                "last_league": "C",
+                "day": 4,
+                "stage": 1801001,
+                "reward": {
+                  "704321": 1
+                },
+                "rune_g7_percent": 2,
+                "finishtimestamp": 1636297199059,
+                "up_season_reward": {
+                  "700001": 3500
+                },
+                "stay_season_reward": {
+                  "700001": 2500
+                },
+                "down_season_reward": {
+                  "700001": 1500
+                },
+                "league": "B"
         }
 ]]--
 
@@ -332,7 +338,6 @@ function UI_LeagueRaidScene:click_enterBtn()
     local stage_name = 'stage_' .. stage_id
 
     local finish_cb = function(ret)
-        g_deckData:setSelectedDeck('league_raid_1')
         local scene = SceneGame(ret, stage_id, stage_name, true)
         scene:runScene()
     end

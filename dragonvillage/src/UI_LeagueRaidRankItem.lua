@@ -11,7 +11,7 @@ UI_LeagueRaidRankMenu = class(UI,{
 function UI_LeagueRaidRankMenu:init(owner_ui)
     local vars = self:load('league_raid_rank.ui')
 
-
+    self:initScroll()
     self:initUI()
 end
 
@@ -42,15 +42,19 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     local promotion_list = {}
     local remaining_list = {}
     local demoted_list = {}
+    local waiting_list = {}
     local my_info = g_leagueRaidData:getMyInfo()
     local members_list = g_leagueRaidData:getMemberList()
 
     -- 0 승급, 1 잔류, 3 강등
     for i, v in ipairs(members_list) do
-        if (v and v['status'] and v['status'] == 0) then
+        if (v and v['status'] and v['status'] == 3) or (v and v['score'] and v['score'] <= 0 ) then
+            table.insert(waiting_list, v)
+        elseif (v and v['status'] and v['status'] == 0) then
             table.insert(promotion_list, v)
         elseif (v and v['status'] and v['status'] == 1) then
             table.insert(remaining_list, v)
+
         else
             table.insert(demoted_list, v)
         end
@@ -58,6 +62,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
     local list_offset_y = 35
     local margin = 20
+    local last_adjusted_Y = 0
 
     -- 승격
     if (not vars['remainingPannelNode']) then return end
@@ -69,7 +74,6 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         table_view_promotion:setItemList(promotion_list)
         table_view_promotion.m_scrollView:setTouchEnabled(false)
         table_view_promotion.m_node:setPositionY(0 - list_offset_y - 10)
-        
 
         if (vars['promotionLabel']) then  
             local promotion_reward = 0
@@ -91,8 +95,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
     line_promotion = line_promotion == 0 and 1 or line_promotion
 
-    local pos_remaining_view_y = 0 - list_offset_y - (90) * line_promotion - margin
-
+    last_adjusted_Y = 0 - list_offset_y - (90) * line_promotion - margin
 
     -- 잔류
     if (not vars['remainingPannelNode'] or not vars['remainingNode']) then return end
@@ -112,11 +115,11 @@ function UI_LeagueRaidRankMenu:updateRankItems()
             end
             vars['remainingLabel']:setString(comma_value(remaining_reward))
         end
+
+        vars['remainingPannelNode']:setPositionY(pos_remaining_view_y)
     else
         vars['remainingPannelNode']:setVisible(false)
     end
-
-    vars['remainingPannelNode']:setPositionY(pos_remaining_view_y)
 
     -- 승격 아이템 수량에 따라 잔류 위치 조정
     local line_remaining = 0
@@ -125,8 +128,6 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     end
 
     line_remaining = line_remaining == 0 and 1 or line_remaining
-
-    local pos_demoted_view_y = pos_remaining_view_y - list_offset_y - 90 * line_remaining - margin
 
     -- 강등
     if (not vars['demotedPannelNode'] or not vars['demotedNode']) then return end
@@ -147,12 +148,98 @@ function UI_LeagueRaidRankMenu:updateRankItems()
             end
             vars['demotedLabel']:setString(comma_value(demoted_reward))
         end
+
+        last_adjusted_Y = last_adjusted_Y - list_offset_y - 90 * line_remaining - margin
+        vars['demotedPannelNode']:setPositionY(pos_demoted_view_y)
     else
         vars['demotedPannelNode']:setVisible(false)
     end
 
-    vars['demotedPannelNode']:setPositionY(pos_demoted_view_y)
+    
+    -- 대기
+    if (not vars['waitingPannelNode'] or not vars['waitingNode']) then return end
+
+    if (#waiting_list > 0) then
+        vars['waitingPannelNode']:setVisible(true)
+        local table_view_waiting = UIC_TableViewTD(vars['waitingNode'])
+        table_view_waiting.m_cellSize = cc.size(245, 95)
+        table_view_waiting.m_nItemPerCell = 3
+        table_view_waiting:setCellUIClass(UI_LeagueRaidRankItem)
+        table_view_waiting:setItemList(waiting_list)
+        table_view_waiting.m_scrollView:setTouchEnabled(false)
+        table_view_waiting.m_node:setPositionY(0 - list_offset_y - 10)
+
+        vars['waitingPannelNode']:setPositionY(last_adjusted_Y)
+    else
+        vars['waitingPannelNode']:setVisible(false)
+    end
+
+    
 end
+
+
+
+-------------------------------------
+-- function initScroll
+-------------------------------------
+function UI_LeagueRaidRankMenu:initScroll()
+    local vars = self.vars
+    for lua_name,v in pairs(vars) do
+        
+        -- [UI규정] Scroll 루아 변수명 ex) clanScrollNode, clanSrollMenu (접두어 동일)
+        if (pl.stringx.endswith(lua_name, 'ScrollNode')) then        
+            local scroll_name = pl.stringx.rpartition(lua_name,'ScrollNode')                        -- ex) clan + ScrollNode 로 접두어 분리
+
+            self:makeScroll(vars[scroll_name .. 'ScrollMenu'], vars[scroll_name .. 'ScrollNode'], scroll_name)   -- ex) clan + SrollMenu 가 있을 거라고 판단(규정상)
+        end
+    end
+end
+
+-------------------------------------
+-- function makeScroll
+-------------------------------------
+function UI_LeagueRaidRankMenu:makeScroll(scroll_menu, scroll_node, scroll_name)
+    local vars = self.vars
+   
+    -- ScrollNode, ScrollMenu 둘 다 있어야 동작 가능
+    if (not scroll_node or not scroll_menu) then
+        return
+    end
+
+    -- ScrollView 사이즈 설정 (ScrollNode 사이즈)
+    local size = scroll_node:getContentSize()
+    local scroll_view = cc.ScrollView:create()
+    scroll_view:setNormalSize(size)
+    scroll_node:setSwallowTouch(false)
+    scroll_node:addChild(scroll_view)
+
+    -- ScrollView 에 달아놓을 컨텐츠 사이즈(ScrollMenu)
+    local target_size = scroll_menu:getContentSize()
+    scroll_view:setContentSize(target_size)
+    scroll_view:setDockPoint(CENTER_POINT)
+    scroll_view:setAnchorPoint(CENTER_POINT)
+    scroll_view:setPosition(ZERO_POINT)
+    scroll_view:setTouchEnabled(true)
+
+    -- ScrollMenu를 부모에서 분리하여 ScrollView에 연결
+    -- 분리할 부모가 없을 때 에러 없음
+    scroll_menu:removeFromParent()
+    scroll_view:addChild(scroll_menu)
+
+    -- ScrollMenu와 화면 길이 비교(가로/세로)
+    local container_node = scroll_view:getContainer()
+    local size_x = size.width - target_size.width
+    local size_y = size.height - target_size.height
+
+    container_node:setPositionY(size_y)
+    scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+
+    -- 외부에서 스크롤뷰 제어할 수 있도록 vars에 담아둠
+    vars[scroll_name .. 'ScrollView'] = scroll_view
+end
+
+
+
 
 
 

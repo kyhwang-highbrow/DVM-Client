@@ -974,7 +974,6 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
 
     -- 드랍 아이템에 의한 보너스
     local l_bonus_item = {}
-
     for i,v in ipairs(items_list) do
         local item_id = v['item_id']
         local count = v['count']
