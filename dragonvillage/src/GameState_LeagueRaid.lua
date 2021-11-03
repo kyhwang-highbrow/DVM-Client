@@ -4,7 +4,9 @@ local PARENT = GameState
 -- class GameState_LeagueRaid
 -------------------------------------
 GameState_LeagueRaid = class(PARENT, {
+    m_deckTable = 'table',
 
+    m_currentDeckIndex = 'number',
 })
 
 
@@ -14,7 +16,84 @@ GameState_LeagueRaid = class(PARENT, {
 -------------------------------------
 function GameState_LeagueRaid:init()
     self.m_bgmBoss = 'bgm_dungeon_boss'
+    self.m_currentDeckIndex = 1
+    g_deckData:setSelectedDeck(self:getDeckName())
+
 end
+
+-------------------------------------
+-- function getDeckName
+-------------------------------------
+function GameState_LeagueRaid:getDeckName()
+    g_deckData:setSelectedDeck('league_raid_' .. tostring(self.m_currentDeckIndex))
+
+end
+
+
+-------------------------------------
+-- function checkWaveClear
+-------------------------------------
+function GameState_LeagueRaid:checkWaveClear(dt)
+    local world = self.m_world
+    local hero_count = #world:getDragonList()
+    local enemy_count = world:getEnemyCount()
+
+    -- 벤치마크 중 60초를 넘어가면 웨이브 종료
+    if (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
+        local time = g_benchmarkMgr.m_waveTime
+
+        if (self.m_world.m_waveMgr:isFinalWave()) then
+            time = g_benchmarkMgr.m_lastWaveTime
+        end
+        
+        if (self.m_stateTimer >= time) then
+            self.m_world:removeAllEnemy()
+
+            if (not self.m_world.m_waveMgr:isFinalWave()) then
+		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
+		    else
+                cclog('GAME_STATE_SUCCESS_WAIT')
+			    self:changeState(GAME_STATE_SUCCESS_WAIT)
+		    end
+            return
+        end
+    end
+
+    -- 패배 여부 체크
+    if (self.m_currentDeckIndex < 3 and hero_count <= 0) then
+        self.m_currentDeckIndex = self.m_currentDeckIndex + 1
+        g_deckData:setSelectedDeck(self:getDeckName())
+
+        self.m_world:makeHeroDeck()
+        self:changeState(GAME_STATE_START)
+        return false
+
+    elseif(hero_count <= 0) then
+        self:changeState(GAME_STATE_FAILURE)
+        return true
+
+    -- 클리어 여부 체크
+    elseif (enemy_count <= 0 or self:checkToDieHighestRariry()) then
+        self.m_waveClearTimer = self.m_waveClearTimer + dt
+
+        if (self.m_waveClearTimer > 0.5) then
+            self.m_waveClearTimer = 0
+
+            if (world.m_waveMgr:isFinalWave()) then
+                self:changeState(GAME_STATE_SUCCESS_WAIT)
+            else
+		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)			    
+		    end
+            return true
+        end
+
+    else
+        self.m_waveClearTimer = 0
+    end
+
+    return false
+end
+
 
 -------------------------------------
 -- function makeResultUI

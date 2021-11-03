@@ -36,6 +36,9 @@ UIC_TableViewTD = class(PARENT, {
 		-- 리스트 내 개수 부족 시 가운데 정렬
         m_bAlignCenterInInsufficient = 'boolean',
 
+        -- 셀 아이템만큼 안채워졌을 때 가운데 정렬
+        m_bHoriziontalCenterInInsufficient = 'boolean',
+
         -- 리스트가 비어있을 때 표시할 노드
         m_emptyDescNode = 'cc.Node',
         m_emptyDescLabel = 'cc.LabelTTF',
@@ -68,6 +71,7 @@ function UIC_TableViewTD:init(node)
     self.m_bFirstLocation = true
     self.m_bDirtyItemList = false
 	self.m_bAlignCenterInInsufficient = false
+    self.m_bHoriziontalCenterInInsufficient = false
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
@@ -590,6 +594,16 @@ function UIC_TableViewTD:_offsetFromIndex(index)
                 offset['y'] = offset['y'] - (viewSize['height'] - container_size['height']) / 2
             end
         end
+
+        -- setHorizotalCenter
+        -- 한줄 슬롯 다 못채운 라인의 가운데 정렬
+        if (self.m_bHoriziontalCenterInInsufficient) then
+            local line_count = self:getLineCount()
+            local line = self:calcLineIdx(index)
+            local line_item_cnt = self:getLineItemCount(index)
+            local width = cellSize['width'] * line_item_cnt
+            offset['x'] = offset['x'] - (width - container_size['width']) / 2
+        end
     end
 
     return offset
@@ -1023,6 +1037,37 @@ function UIC_TableViewTD:calcLineIdx(idx)
 end
 
 -------------------------------------
+-- function getLineItemCount
+-- idx에 해당되는 아이템이 줄에 있는 아이템 갯수
+-- 중앙정렬을 위한 기능
+-------------------------------------
+function UIC_TableViewTD:getLineItemCount(idx)
+    local item_count = self:getItemCount()
+
+    local line_item_count = 0
+    local line = 1
+    local is_exsist_line = false
+
+    for i = 1, item_count do
+        -- 라인에 포함되어 있는지
+        if (i == idx) then is_exsist_line = true end
+        line_item_count = line_item_count + 1
+
+        -- 포함 여부에 상관없이 라인 카운팅
+        if (line_item_count >= self.m_nItemPerCell) then
+            if (is_exsist_line) then
+                break
+            else
+                line_item_count = 0
+                line = line + 1
+            end
+        end
+    end
+
+    return line_item_count
+end
+
+-------------------------------------
 -- function calcXIdx
 -------------------------------------
 function UIC_TableViewTD:calcXIdx(idx)
@@ -1204,6 +1249,14 @@ end
 -------------------------------------
 function UIC_TableViewTD:setAlignCenter(b)
     self.m_bAlignCenterInInsufficient = b
+end
+
+-------------------------------------
+-- function setHorizotalCenter
+-- @brief 갯수 부족시 가운데 정렬
+-------------------------------------
+function UIC_TableViewTD:setHorizotalCenter(b)
+    self.m_bHoriziontalCenterInInsufficient = b
 end
 
 -- _swallowTouch가 false일 경우 CCMenu 클래스의 onTouchBegan함수에서
