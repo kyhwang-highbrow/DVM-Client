@@ -17,8 +17,6 @@ GameState_LeagueRaid = class(PARENT, {
 function GameState_LeagueRaid:init()
     self.m_bgmBoss = 'bgm_dungeon_boss'
     self.m_currentDeckIndex = 1
-    g_deckData:setSelectedDeck(self:getDeckName())
-
 end
 
 -------------------------------------
