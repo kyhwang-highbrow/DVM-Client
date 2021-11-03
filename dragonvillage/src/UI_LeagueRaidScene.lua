@@ -342,6 +342,7 @@ end
 -- function click_enterBtn
 ----------------------------------------------------------------------------
 function UI_LeagueRaidScene:click_enterBtn()
+    local my_info = g_leagueRaidData:getMyInfo()
     local today_play_count = my_info['today_play_count']
     local max_play_count = my_info['max_play_count']  
 
