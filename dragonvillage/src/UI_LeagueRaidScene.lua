@@ -112,7 +112,7 @@ function UI_LeagueRaidScene:initUI()
     if (vars['runeRateLabel']) then vars['runeRateLabel']:setString(Str('{1}%', my_info['rune_g7_percent'])) end
     if (vars['countLabel']) then 
         vars['countLabel']:setString(count_str)
-        if (today_play_count >= max_play_count) then vars['countLabel']:setColor(COLOR['RED'])  end
+        if (today_play_count >= max_play_count) then vars['countLabel']:setColor(COLOR['RED']) else vars['countLabel']:setColor(COLOR['green']) end
     end
 
     local stage_id = my_info['stage']
@@ -342,6 +342,16 @@ end
 -- function click_enterBtn
 ----------------------------------------------------------------------------
 function UI_LeagueRaidScene:click_enterBtn()
+    local today_play_count = my_info['today_play_count']
+    local max_play_count = my_info['max_play_count']  
+
+    if (today_play_count >= max_play_count) then
+        local msg = Str('더 이상 참여할 수 없다는 번역 텍스트 넣어야 합니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+
+
     local deck_1_cnt = table.count(g_leagueRaidData.m_deck_1)
     local deck_2_cnt = table.count(g_leagueRaidData.m_deck_2)
     local deck_3_cnt = table.count(g_leagueRaidData.m_deck_3)
