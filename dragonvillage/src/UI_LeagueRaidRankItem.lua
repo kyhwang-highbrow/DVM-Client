@@ -63,19 +63,19 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     --[[
     for i = 1, 3 do
         table.insert(promotion_list, members_list[1])
-    end]]
+    end
 
-    --[[
+    
     for i = 1, 3 do
         table.insert(remaining_list, members_list[1])
-    end]]
+    end
 
-    --[[
+    
     for i = 1, 3 do
         table.insert(demoted_list, members_list[1])
-    end]]
+    end
 
-    --[[
+    
     for i = 1, 3 do
         table.insert(waiting_list, members_list[1])
     end]]
@@ -115,7 +115,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
             vars['promotionLabel']:setString(comma_value(promotion_reward))
         end
     else
-        vars['remainingPannelNode']:setVisible(false)
+        vars['promotionPannelNode']:setVisible(false)
     end
 
     last_adjusted_Y = 0 - list_offset_y - (90) * line_promotion - margin
@@ -183,7 +183,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         if (vars['demotedLabel']) then  
             local demoted_reward = 0
             if (my_info and my_info['down_season_reward']) then
-                remaining_reward = my_info['down_season_reward']['700001']
+                demoted_reward = my_info['down_season_reward']['700001']
             end
             vars['demotedLabel']:setString(comma_value(demoted_reward))
         end

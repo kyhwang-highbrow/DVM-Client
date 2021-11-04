@@ -598,8 +598,6 @@ function UIC_TableViewTD:_offsetFromIndex(index)
         -- setHorizotalCenter
         -- 한줄 슬롯 다 못채운 라인의 가운데 정렬
         if (self.m_bHoriziontalCenterInInsufficient) then
-            local line_count = self:getLineCount()
-            local line = self:calcLineIdx(index)
             local line_item_cnt = self:getLineItemCount(index)
             local width = cellSize['width'] * line_item_cnt
             offset['x'] = offset['x'] - (width - container_size['width']) / 2

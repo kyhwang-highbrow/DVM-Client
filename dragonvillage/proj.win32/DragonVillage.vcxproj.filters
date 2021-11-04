@@ -5009,6 +5009,9 @@
     <None Include="..\src\UI_GameResult_LeagueRaid.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_LeagueRaidSeasonRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

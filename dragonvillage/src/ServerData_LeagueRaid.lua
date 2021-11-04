@@ -6,6 +6,7 @@ ServerData_LeagueRaid = class({
     m_memberCount = 'number',
     m_myInfo = 'table',
     m_members = 'table',
+    m_seasonReward = 'table',
 
     m_deck_1 = 'table',
     m_deck_2 = 'table',
@@ -97,6 +98,24 @@ function ServerData_LeagueRaid:getUsingDidTable()
     return table_dragon
 end
 
+-------------------------------------
+-- function getMyInfo
+-------------------------------------
+function ServerData_LeagueRaid:getMyData()
+    local uid = g_userData:get('uid')
+    for i, v in ipairs(self.m_members) do
+        if (v and v['uid'] == uid) then return v end
+    end
+end
+
+
+-------------------------------------
+-- function getRewardInfo
+-------------------------------------
+function ServerData_LeagueRaid:getRewardInfo()
+    return self.m_seasonReward
+end
+
 
 -------------------------------------
 -- function ServerData_LeagueRaid
@@ -110,6 +129,13 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
         self.m_members = ret['members']
 
         self:updateDeckInfo()
+
+        if (ret['added_items']) then
+            g_serverData:networkCommonRespone_addedItems(ret)
+            self.m_seasonReward = ret['added_items']
+        else
+            self.m_seasonReward = nil
+        end
         
         if (finish_cb) then
             finish_cb(ret)
