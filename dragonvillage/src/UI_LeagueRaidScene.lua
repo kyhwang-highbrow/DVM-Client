@@ -41,8 +41,6 @@ function UI_LeagueRaidScene:init()
     self:refresh()
 
     self:sceneFadeInAction()
-
-    g_dmgateData:MakeSeasonResetPopup(nil, true)
 end
 
 ----------------------------------------------------------------------
@@ -160,6 +158,10 @@ function UI_LeagueRaidScene:initUI()
 
     self:setRankImage()
     self:setRankView()
+    
+    if (g_leagueRaidData:getRewardInfo()) then
+        UI_LeagueRaidSeasonRewardPopup()
+    end
 end
 
 ----------------------------------------------------------------------

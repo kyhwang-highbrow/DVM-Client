@@ -231,13 +231,14 @@ function UI_Lobby:entryCoroutine()
         end
 
         -- 레이드 
+        --[[
         do 
             if (IS_DEV_SERVER()) then
                 co:work('# 레이드 정보 받는 중')
                 g_leagueRaidData:request_RaidInfo(co.NEXT, co.NEXT)
                 if co:waitWork() then return end
             end
-        end
+        end]]
 
         -- 구독 상품 정보 받는 중
         co:work('# 구독 상품 정보 받는 중')
