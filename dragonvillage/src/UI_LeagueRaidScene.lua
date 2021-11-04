@@ -105,7 +105,7 @@ function UI_LeagueRaidScene:initUI()
 
     local today_play_count = my_info['today_play_count']
     local max_play_count = my_info['max_play_count']
-    local count_str = Str('({1}/{2})', max_play_count - today_play_count, max_play_count)
+    local count_str = Str('({1}/{2})', today_play_count, max_play_count)
 
     if (vars['today_score_label']) then vars['today_score_label']:setString(Str('{1}점', comma_value(my_info['todayscore']))) end
     if (vars['season_score_label']) then vars['season_score_label']:setString(Str('{1}점', comma_value(my_info['score']))) end
