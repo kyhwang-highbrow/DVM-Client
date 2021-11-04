@@ -221,7 +221,8 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         vars['waitingPannelNode']:setVisible(false)
     end
 
-    local content_size = (95 + margin) * (line_promotion + line_remaining + line_demoted + line_waiting)
+    local total_lines = line_promotion + line_remaining + line_demoted + line_waiting
+    local content_size = (95 + margin) * total_lines
     if (line_promotion > 0) then content_size = content_size + list_offset_y end
     if (line_remaining > 0) then content_size = content_size + list_offset_y end
     if (line_demoted > 0) then content_size = content_size + list_offset_y end
@@ -229,6 +230,10 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
     self.m_totalScrollView:setContentSize(740, content_size)
     self.m_totalScrollView:setContentOffset(self.m_totalScrollView:minContainerOffset(), false)
+
+    if (total_lines <= 6) then 
+        self.m_totalScrollView:setTouchEnabled(false)
+    end
 
     --local min_container_offset = self.m_totalScrollView:minContainerOffset()
     --local max_container_offset = self.m_totalScrollView:maxContainerOffset()-
