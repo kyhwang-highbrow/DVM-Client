@@ -70,8 +70,8 @@ function UI_ResultLeagueRaidScore:setCurrentInfo()
     if (my_info and my_info['stay_season_reward']) then remaining_reward = my_info['stay_season_reward']['700001'] end
     if (my_info and my_info['down_season_reward']) then demoted_reward = my_info['down_season_reward']['700001'] end
 
-    if (vars['promotionRewardLabel']) then vars['promotionRewardLabel']:setString(comma_value(remaining_reward)) end
-    if (vars['remainingRewardLabel']) then vars['remainingRewardLabel']:setString(comma_value(promotion_reward)) end
+    if (vars['promotionRewardLabel']) then vars['promotionRewardLabel']:setString(comma_value(rpromotion_reward)) end
+    if (vars['remainingRewardLabel']) then vars['remainingRewardLabel']:setString(comma_value(emaining_reward)) end
     if (vars['demotedRewardLabel']) then vars['demotedRewardLabel']:setString(comma_value(demoted_reward)) end
 
 
