@@ -6,6 +6,10 @@ local PARENT = UI_GameResultNew
 -- class UI_GameResult_LeagueRaid
 ----------------------------------------------------------------------------
 UI_GameResult_LeagueRaid = class(UI, {
+
+    m_workIdx = 'number',
+    m_lWorkList = 'list',
+
     m_stage_id = 'number',
     m_bSuccess = 'boolean',
 
@@ -84,7 +88,9 @@ function UI_GameResult_LeagueRaid:init(stage_id, is_success, result_data)
     self:initUI()
     self:initButton()
     self:refresh()
-end
+
+    self:setWorkList()
+    self:doNextWork()end
 
 ----------------------------------------------------------------------------
 -- function initUI
@@ -94,6 +100,10 @@ function UI_GameResult_LeagueRaid:initUI()
     
     self:initDragonList()
     self:initRewardTable()
+
+    vars['tableViewNode']:setVisible(false)
+    vars['okBtn']:setVisible(false)
+    vars['statsBtn']:setVisible(false)
 end
 
 
@@ -113,6 +123,104 @@ end
 function UI_GameResult_LeagueRaid:refresh()
 
 end
+
+-------------------------------------
+-- function setWorkList
+-------------------------------------
+function UI_GameResult_LeagueRaid:setWorkList()
+    self.m_workIdx = 0
+    self.m_lWorkList = {}
+
+    table.insert(self.m_lWorkList, 'direction_start')
+
+	table.insert(self.m_lWorkList, 'direction_showBox')
+    table.insert(self.m_lWorkList, 'direction_openBox')
+
+    table.insert(self.m_lWorkList, 'direction_end')
+end
+
+
+-------------------------------------
+-- function direction_start
+-- @brief 시작 연출
+-------------------------------------
+function UI_GameResult_LeagueRaid:direction_start()
+    local is_win = self.m_bSuccess
+    local vars = self.vars
+    local visual_node = vars['resultVisual']
+    visual_node:setVisible(true)
+
+    -- 성공 or 실패가 없음 그냥 결과임
+    SoundMgr:playBGM('bgm_dungeon_victory', false)    
+    visual_node:changeAni('result_appear', false)
+    visual_node:addAniHandler(function()
+        visual_node:changeAni('result_idle', true)
+    end)
+
+    self:doNextWorkWithDelayTime(0.5)
+end
+
+
+
+
+
+-------------------------------------
+-- function direction_showBox
+-- @brief 상자 연출 시작
+-------------------------------------
+function UI_GameResult_LeagueRaid:direction_showBox()
+    local vars = self.vars
+
+
+    vars['boxVisual']:setVisible(true)
+    vars['boxVisual']:changeAni('box_01', false)
+    vars['boxVisual']:addAniHandler(function()
+        --vars['boxVisual']:changeAni('box_02', true)
+        self:doNextWork()
+    end)
+end
+
+
+-------------------------------------
+-- function direction_openBox
+-- @brief 상자 연출 시작
+-------------------------------------
+function UI_GameResult_LeagueRaid:direction_openBox()
+    local vars = self.vars
+
+    vars['boxVisual']:setVisible(true)
+    vars['boxVisual']:changeAni('box_03', false)
+    vars['boxVisual']:addAniHandler(function()
+        vars['boxVisual']:setVisible(false) 
+        vars['tableViewNode']:setVisible(true)
+        self:doNextWork()
+    end)
+end
+
+
+-------------------------------------
+-- function direction_end
+-- @brief 종료 연출
+-------------------------------------
+function UI_GameResult_LeagueRaid:direction_end()
+    local vars = self.vars
+    vars['okBtn']:setVisible(true)
+    vars['statsBtn']:setVisible(true)
+
+    self:showLeaderBoard()
+end
+
+
+-------------------------------------
+-- function showLeaderBoard
+-------------------------------------
+function UI_GameResult_LeagueRaid:showLeaderBoard()
+    local vars = self.vars
+    
+    -- todo
+    local ui_leader_board = UI_ResultLeagueRaidScore(self.m_resultData)
+end
+
 
 
 ----------------------------------------------------------------------------
@@ -171,6 +279,23 @@ function UI_GameResult_LeagueRaid:initRewardTable()
     table_view:setItemList(l_item)
     
     if (vars['runeRewardLabel']) then vars['runeRewardLabel']:setString(comma_value(rune_cnt)) end
+end
+
+
+
+-------------------------------------
+-- function direction_showBox
+-- @brief 상자 연출 시작
+-------------------------------------
+function UI_GameResult_LeagueRaid:direction_showBox()
+    local vars = self.vars
+
+    vars['boxVisual']:setVisible(true)
+    vars['boxVisual']:changeAni('box_01', false)
+    vars['boxVisual']:addAniHandler(function()
+        --vars['boxVisual']:changeAni('box_02', true)
+        self:doNextWork()
+    end)
 end
 
 
@@ -236,4 +361,31 @@ function UI_GameResult_LeagueRaid:startGame()
     
     -- required params : user_id, stage_id, deck_name, token
     g_stageData:requestGameStart(self.m_stage_id, deck_name, nil, finish_cb)
+end
+
+
+
+
+
+
+-------------------------------------
+-- function doNextWork
+-------------------------------------
+function UI_GameResult_LeagueRaid:doNextWork()
+    self.m_workIdx = (self.m_workIdx + 1)
+    local func_name = self.m_lWorkList[self.m_workIdx]
+
+    if func_name and (self[func_name]) then
+        self[func_name](self)
+        return
+    end
+end
+
+-------------------------------------
+-- function doNextWorkWithDelayTime
+-------------------------------------
+function UI_GameResult_LeagueRaid:doNextWorkWithDelayTime(second)
+    local second = second or 1
+    self.root:stopAllActions()
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(second), cc.CallFunc:create(function() self:doNextWork() end)))
 end
