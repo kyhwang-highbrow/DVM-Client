@@ -105,7 +105,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         table_view_promotion:setItemList(promotion_list)
         table_view_promotion.m_scrollView:setTouchEnabled(false)
         table_view_promotion.m_node:setPositionY(0 - list_offset_y - 10)
-
+        last_adjusted_Y = 0 - list_offset_y - (90) * line_promotion - margin
         if (vars['promotionLabel']) then  
             local promotion_reward = 0
             if (my_info and my_info['up_season_reward']) then
@@ -117,8 +117,6 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     else
         vars['promotionPannelNode']:setVisible(false)
     end
-
-    last_adjusted_Y = 0 - list_offset_y - (90) * line_promotion - margin
 
     -- 잔류
     if (not vars['remainingPannelNode'] or not vars['remainingNode']) then return end
