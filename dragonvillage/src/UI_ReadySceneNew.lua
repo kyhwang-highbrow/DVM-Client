@@ -735,6 +735,12 @@ function UI_ReadySceneNew:refresh()
 		-- 클랜전
         elseif (stage_id == CLAN_WAR_STAGE_ID) then         
             str = Str('클랜전')
+
+        -- 레이드
+        elseif (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+            local deck_name = g_deckData:getSelectedDeckName()
+            local deck_no = pl.stringx.replace(deck_name, 'league_raid_', '')
+            str = Str('레이드') .. deck_no
         end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)
