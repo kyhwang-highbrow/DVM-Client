@@ -1161,6 +1161,10 @@ function UI_ReadySceneNew:click_autoBtn()
         local map_except_deck = multi_deck_mgr:getAnotherDeckMap(mode)
         l_dragon_list = g_dragonsData:getDragonsListExceptTarget(map_except_deck)
 
+    elseif (game_mode == GAME_MODE_LEAGUE_RAID) then
+        local did_table = g_leagueRaidData:getUsingDidTable()
+        l_dragon_list = g_dragonsData:getDragonsListExceptTargetDoids(did_table)
+
     else
         l_dragon_list = g_dragonsData:getDragonsList()
     end
