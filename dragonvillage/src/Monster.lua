@@ -263,6 +263,8 @@ end
 -- function makeHPGauge
 -------------------------------------
 function Monster:makeHPGauge(hp_ui_offset, force)
+    if (g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID) then return end
+
     if (force or (force == nil and self.m_charTable['rarity'] == 'boss')) then
         self.m_unitInfoOffset = hp_ui_offset
 

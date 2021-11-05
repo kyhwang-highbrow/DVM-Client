@@ -148,10 +148,6 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
         else
             l_dragon_list = g_dragonsData:getDragonsList()
         end
-    elseif (game_mode == GAME_MODE_LEAGUE_RAID) then
-        local did_table = g_leagueRaidData:getUsingDidTable()
-
-        l_dragon_list = g_dragonsData:getDragonsListExceptTargetDoids(did_table)
     else
         l_dragon_list = is_mine and g_dragonsData:getDragonsList() or g_friendData:getDragonsList()
     end

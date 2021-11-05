@@ -84,15 +84,15 @@ end
 function ServerData_LeagueRaid:getUsingDidTable()
     local table_dragon = {}
     for i, v in ipairs(self.m_deck_1) do
-        table_dragon[v] = true
+        table_dragon[v] = 'league_raid_1'
     end
 
     for i, v in ipairs(self.m_deck_2) do
-        table_dragon[v] = true
+        table_dragon[v] = 'league_raid_2'
     end
 
     for i, v in ipairs(self.m_deck_3) do
-        table_dragon[v] = true
+        table_dragon[v] = 'league_raid_3'
     end
 
     return table_dragon
@@ -130,9 +130,9 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
 
         self:updateDeckInfo()
 
-        if (ret['added_items']) then
+        if (ret['added_items'] and ret['added_items']['items_list']) then
             g_serverData:networkCommonRespone_addedItems(ret)
-            self.m_seasonReward = ret['added_items']
+            self.m_seasonReward = ret['added_items']['items_list']
         else
             self.m_seasonReward = nil
         end

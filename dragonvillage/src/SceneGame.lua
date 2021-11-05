@@ -713,7 +713,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         api_url = '/raid/finish'
 
         local total_damage = self.m_gameWorld.m_logRecorder:getLog('total_damage_to_enemy')
-        total_damage = total_damage - total_damage % 1
+        total_damage = math_floor(total_damage)
         ui_network:setParam('score', total_damage)
     end
 

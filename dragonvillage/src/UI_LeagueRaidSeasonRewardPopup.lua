@@ -41,10 +41,12 @@ function UI_LeagueRaidSeasonRewardPopup:initUI()
     local nick_name = g_userData:get('nick')
     local my_data = g_leagueRaidData:getMyData()
     local reward = g_leagueRaidData:getRewardInfo()
+    local last_score = my_info['lastSeasonScore'] and my_info['lastSeasonScore'] or 0
+
     if (reward == nil) then reward = {} end
 
     if(vars['userLabel']) then vars['userLabel']:setString(nick_name) end
-    if(vars['scoreLabel']) then vars['scoreLabel']:setString(comma_value(my_info['lastSeasonScore'])) end
+    if(vars['scoreLabel']) then vars['scoreLabel']:setString(comma_value(last_score)) end
     if(vars['rankNode']) then 
         local leagueImgName = 'res/ui/icons/rank/league_raid_rank_' .. string.lower(my_info['last_league'] .. '.png')
         local sprite = cc.Sprite:create(leagueImgName)

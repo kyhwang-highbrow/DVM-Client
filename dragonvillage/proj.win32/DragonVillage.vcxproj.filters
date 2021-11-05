@@ -261,9 +261,6 @@
     <None Include="..\src\UI_Popup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ReadyScene_Deck.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ReadyScene_Select.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -5010,6 +5007,9 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_LeagueRaidSeasonRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ResultLeagueRaidScore.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

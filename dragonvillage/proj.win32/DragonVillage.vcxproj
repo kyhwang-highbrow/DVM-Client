@@ -1753,6 +1753,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ResultLeaderBoardListItem.lua" />
     <None Include="..\src\UI_ResultLeaderBoard_IncarnationOfSins.lua" />
     <None Include="..\src\UI_ResultLeaderBoard_IncarnationOfSinsListItem.lua" />
+    <None Include="..\src\UI_ResultLeagueRaidScore.lua" />
     <None Include="..\src\UI_RuneAutoSellAgreePopup.lua" />
     <None Include="..\src\UI_RuneCard_Gacha.lua" />
     <None Include="..\src\UI_RuneDevApiPopup.lua" />
@@ -1836,7 +1837,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Popup.lua" />
     <None Include="..\src\UI_QuestListItem.lua" />
     <None Include="..\src\UI_QuestPopup.lua" />
-    <None Include="..\src\UI_ReadyScene_Deck.lua" />
     <None Include="..\src\UI_RewardCard.lua" />
     <None Include="..\src\UI_RewardListPopup.lua" />
     <None Include="..\src\UI_SubscriptionDayListItem.lua" />
