@@ -57,11 +57,11 @@ function UI_RaidDamageInfo:refresh()
     vars['bossHpLabel']:setString(comma_value(total_damage))
 
 
-    local percentage = total_damage / 655355555555555
+    local percentage = total_damage / 655355555555
 
     -- 체력 수치 표시
     do
-        local str = string.format('%s / %s (%.2f%%)', comma_value(math_floor(total_damage)), comma_value(655355555555555), percentage * 100)
+        local str = string.format('%s / %s (%.2f%%)', comma_value(math_floor(total_damage)), comma_value(655355555555), percentage * 100)
         vars['bossHpLabel']:setString(str)
     end
 
