@@ -1374,8 +1374,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     end
 
     if (self.m_world.m_inGameUI.m_stackableDamageUI) then
-        local total_damage = self.m_world.m_logRecorder:getLog('total_damage_to_enemy')
-        self.m_world.m_inGameUI.m_stackableDamageUI.vars['bossHpLabel']:setString(math_floor(total_damage))
+        self.m_world.m_inGameUI.m_stackableDamageUI:refresh()
     end
 
     -----------------------------------------------------------------
