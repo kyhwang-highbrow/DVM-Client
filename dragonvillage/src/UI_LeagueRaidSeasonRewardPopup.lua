@@ -41,7 +41,7 @@ function UI_LeagueRaidSeasonRewardPopup:initUI()
     local nick_name = g_userData:get('nick')
     local my_data = g_leagueRaidData:getMyData()
     local reward = g_leagueRaidData:getRewardInfo()
-    local last_score = my_info['lastSeasonScore'] and my_info['lastSeasonScore'] or 0
+    local last_score = g_leagueRaidData.m_lastScore
 
     if (reward == nil) then reward = {} end
 

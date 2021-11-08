@@ -95,17 +95,17 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     line_promotion = line_promotion == 0 and 1 or line_promotion
 
     if (#promotion_list > 0) then
-        vars['promotionNode']:setContentSize(740, 95 * line_promotion)
-        vars['promotionPannelNode']:setContentSize(740, 95 * line_promotion)
+        vars['promotionNode']:setContentSize(740, 100 * line_promotion)
+        vars['promotionPannelNode']:setContentSize(740, 100 * line_promotion)
 
         local table_view_promotion = UIC_TableViewTD(vars['promotionNode'])
-        table_view_promotion.m_cellSize = cc.size(245, 95)
+        table_view_promotion.m_cellSize = cc.size(245, 100)
         table_view_promotion.m_nItemPerCell = 3
         table_view_promotion:setCellUIClass(UI_LeagueRaidRankItem)
         table_view_promotion:setItemList(promotion_list)
         table_view_promotion.m_scrollView:setTouchEnabled(false)
         table_view_promotion.m_node:setPositionY(0 - list_offset_y - 10)
-        last_adjusted_Y = 0 - list_offset_y - (90) * line_promotion - margin
+        last_adjusted_Y = 0 - list_offset_y - (100) * line_promotion - margin
         if (vars['promotionLabel']) then  
             local promotion_reward = 0
             if (my_info and my_info['up_season_reward']) then
@@ -130,11 +130,11 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     line_remaining = line_remaining == 0 and 1 or line_remaining
 
     if (#remaining_list > 0) then
-        vars['remainingNode']:setContentSize(740, 95 * line_remaining)
-        vars['remainingPannelNode']:setContentSize(740, 95 * line_remaining)
+        vars['remainingNode']:setContentSize(740, 100 * line_remaining)
+        vars['remainingPannelNode']:setContentSize(740, 100 * line_remaining)
 
         local table_view_remaining = UIC_TableViewTD(vars['remainingNode'])
-        table_view_remaining.m_cellSize = cc.size(245, 95)
+        table_view_remaining.m_cellSize = cc.size(245, 100)
         table_view_remaining.m_nItemPerCell = 3
         table_view_remaining:setCellUIClass(UI_LeagueRaidRankItem)
         table_view_remaining:setItemList(remaining_list)
@@ -167,11 +167,11 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     line_demoted = line_demoted == 0 and 1 or line_demoted
 
     if (#demoted_list > 0) then
-        vars['demotedNode']:setContentSize(740, 95 * line_demoted)
-        vars['demotedPannelNode']:setContentSize(740, 95 * line_demoted)
+        vars['demotedNode']:setContentSize(740, 100 * line_demoted)
+        vars['demotedPannelNode']:setContentSize(740, 100 * line_demoted)
 
         local table_view_demoted = UIC_TableViewTD(vars['demotedNode'])
-        table_view_demoted.m_cellSize = cc.size(245, 95)
+        table_view_demoted.m_cellSize = cc.size(245, 100)
         table_view_demoted.m_nItemPerCell = 3
         table_view_demoted:setCellUIClass(UI_LeagueRaidRankItem)
         table_view_demoted:setItemList(demoted_list)
@@ -187,7 +187,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         end
 
         vars['demotedPannelNode']:setPositionY(last_adjusted_Y)
-        last_adjusted_Y = last_adjusted_Y - list_offset_y - 90 * line_demoted - margin
+        last_adjusted_Y = last_adjusted_Y - list_offset_y - 100 * line_demoted - margin
     else
         vars['demotedPannelNode']:setVisible(false)
     end
@@ -202,12 +202,12 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     end
 
     if (#waiting_list > 0) then
-        vars['waitingNode']:setContentSize(740, 95 * line_waiting)
-        vars['waitingPannelNode']:setContentSize(740, 95 * line_waiting)
+        vars['waitingNode']:setContentSize(740, 100 * line_waiting)
+        vars['waitingPannelNode']:setContentSize(740, 100 * line_waiting)
 
         vars['waitingPannelNode']:setVisible(true)
         local table_view_waiting = UIC_TableViewTD(vars['waitingNode'])
-        table_view_waiting.m_cellSize = cc.size(245, 95)
+        table_view_waiting.m_cellSize = cc.size(245, 100)
         table_view_waiting.m_nItemPerCell = 3
         table_view_waiting:setCellUIClass(UI_LeagueRaidRankItem)
         table_view_waiting:setItemList(waiting_list)

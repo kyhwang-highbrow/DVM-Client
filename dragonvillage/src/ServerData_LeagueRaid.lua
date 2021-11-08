@@ -7,6 +7,7 @@ ServerData_LeagueRaid = class({
     m_myInfo = 'table',
     m_members = 'table',
     m_seasonReward = 'table',
+    m_lastScore = 'number',
 
     m_deck_1 = 'table',
     m_deck_2 = 'table',
@@ -25,6 +26,8 @@ function ServerData_LeagueRaid:init()
     self.m_deck_1 = {}
     self.m_deck_2 = {}
     self.m_deck_3 = {}
+
+    self.m_lastScore = 0
 end
 
 -------------------------------------
@@ -139,6 +142,10 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
             self.m_seasonReward = ret['added_items']['items_list']
         else
             self.m_seasonReward = nil
+        end
+
+        if (ret['last_score']) then
+            self.m_lastScore = ret['last_score']
         end
         
         if (finish_cb) then
