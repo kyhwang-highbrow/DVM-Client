@@ -124,7 +124,7 @@ function UI_LeagueRaidDamageInfo:refresh()
         local last_lv = tonumber(self.m_ingamedUI.vars['runeRewardLabel']:getString())
         local is_run_action = false
 
-        if (total_damage > 0) then
+        if (not self.m_ingamedUI.vars['league_raidMenu']:isVisible()) then
             self.m_ingamedUI.vars['league_raidMenu']:setVisible(true)
             self.m_ingamedUI.vars['boxVisual']:changeAni('box_league_raid_idle', true)
             self.m_ingamedUI.vars['boxVisual']:runAction(cca.buttonShakeAction(2, 2))
