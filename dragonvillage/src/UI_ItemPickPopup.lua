@@ -68,6 +68,9 @@ function UI_ItemPickPopup:initUI()
         vars['listNode']:addChild(list_item_ui.root) 
     end
 
+	local item_name = TableItem:getItemName(item_id)
+    vars['titleLabel']:setString(Str(item_name))
+
 	self:click_select(self.m_itemList[1]['item_id'])
 
 	vars['okBtn']:setVisible(not self.m_isDraw)
@@ -85,7 +88,6 @@ function UI_ItemPickPopup:click_select(item_id)
 	local item_desc = TableItem:getItemDesc(item_id)
     vars['itemLabel']:setString(Str(item_name))
     vars['dscLabel']:setString(Str(item_desc))
-    vars['titleLabel']:setString(Str(item_name))
 
 	vars['itemNode']:removeAllChildren()
 	local item_card = UI_ItemCard(item_id)
