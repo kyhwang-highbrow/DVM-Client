@@ -372,7 +372,7 @@ function UI_LeagueRaidScene:click_enterBtn()
 
     local finish_cb = function(ret)
         g_deckData:setSelectedDeck('league_raid_1')
-
+        g_leagueRaidData.m_curStageData = ret
         local scene = SceneGame(ret, stage_id, stage_name, true)
         scene:runScene()
     end

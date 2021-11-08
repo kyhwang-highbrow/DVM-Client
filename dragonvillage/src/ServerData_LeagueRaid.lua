@@ -11,6 +11,10 @@ ServerData_LeagueRaid = class({
     m_deck_1 = 'table',
     m_deck_2 = 'table',
     m_deck_3 = 'table',
+
+    m_currentDamage = 'number',
+    m_curDeckIndex = 'number',
+    m_curStageData = 'table',
     })
 
 
@@ -143,7 +147,20 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
     end
 
     local function response_status_cb(ret)
-        if (finish_cb) then finish_cb() end
+        -- 현재 시간에 잠겨 있는 속성
+        if (ret['status'] == -1351) then
+
+            -- 로비로 이동
+            local function ok_cb()
+                UINavigator:goTo('lobby')
+            end 
+
+            MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'), ok_cb)
+            return true
+        end
+
+        --"status":-1351,
+        --"message":"invalid time"
 
         return true
     end

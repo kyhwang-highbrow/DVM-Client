@@ -16,14 +16,21 @@ GameState_LeagueRaid = class(PARENT, {
 -------------------------------------
 function GameState_LeagueRaid:init()
     self.m_bgmBoss = 'bgm_dungeon_boss'
-    self.m_currentDeckIndex = 1
+
+    local cur_deck_name = g_deckData:getSelectedDeckName()
+    local deck_number = pl.stringx.replace(cur_deck_name, 'league_raid_', '')
+
+    cclog(deck_number)
+    self.m_currentDeckIndex = tonumber(deck_number)
 end
 
 -------------------------------------
 -- function getDeckName
 -------------------------------------
 function GameState_LeagueRaid:getDeckName()
-    g_deckData:setSelectedDeck('league_raid_' .. tostring(self.m_currentDeckIndex))
+    local cur_deck_name = g_deckData:getSelectedDeckName()
+
+    return cur_deck_name
 
 end
 
@@ -59,11 +66,54 @@ function GameState_LeagueRaid:checkWaveClear(dt)
 
     -- 패배 여부 체크
     if (self.m_currentDeckIndex < 3 and hero_count <= 0) then
-        self.m_currentDeckIndex = self.m_currentDeckIndex + 1
-        g_deckData:setSelectedDeck(self:getDeckName())
+        g_leagueRaidData.m_curDeckIndex = self.m_currentDeckIndex + 1
+        g_deckData:setSelectedDeck('league_raid_' .. tostring(g_leagueRaidData.m_curDeckIndex))
+        
+        local total_damage = math_floor(g_gameScene.m_gameWorld.m_logRecorder:getLog('total_damage_to_enemy'))
+        g_leagueRaidData.m_currentDamage = total_damage
+        
+        local my_info = g_leagueRaidData:getMyInfo()
+        local stage_id = my_info['stage']
+        local stage_name = 'stage_' .. stage_id
+        local world = self.m_world
 
-        self.m_world:makeHeroDeck()
-        self:changeState(GAME_STATE_START)
+        world:setGameFinish()
+        if (world.m_tamer) then
+            world.m_tamer:changeState('dying')
+        end
+        for i,dragon in ipairs(world:getDragonList()) do
+            if (not dragon:isDead()) then
+                dragon:changeState('idle')
+            end
+        end
+
+        for i,enemy in ipairs(world:getEnemyList()) do
+            if (not enemy:isDead()) then
+                enemy:changeState('idle', true)
+            end
+        end
+
+        -- 스킬과 미사일도 다 날려 버리자
+	    world:removeMissileAndSkill()
+        world:removeEnemyDebuffs()
+        world:cleanupItem()
+        
+        -- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
+
+        world.m_inGameUI:doActionReverse(function()
+            world.m_inGameUI.root:setVisible(false)
+        end)
+
+        g_gameScene.m_scheduleNode:unscheduleUpdate()
+        g_gameScene:onExit()
+
+        local scene = SceneGame(g_leagueRaidData.m_curStageData, stage_id, stage_name, true)
+        scene:runScene()
+
+
+        --self.m_world:makeHeroDeck()
+        --self:changeState(GAME_STATE_START)
         return false
 
     elseif(hero_count <= 0) then
@@ -140,6 +190,48 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
     -- 최초 실행
     func_network_game_finish()
 end
+
+
+-------------------------------------
+-- function update_failure
+-------------------------------------
+function GameState_LeagueRaid.update_failure(self, dt)
+    local world = self.m_world
+
+    if (self.m_stateTimer == 0) then
+        world:setGameFinish()
+        if (world.m_tamer) then
+            world.m_tamer:changeState('dying')
+        end
+
+    elseif (self:isPassedStepTime(1.5)) then
+        for i,dragon in ipairs(world:getDragonList()) do
+            if (not dragon:isDead()) then
+                dragon:changeState('idle')
+            end
+        end
+
+        for i,enemy in ipairs(world:getEnemyList()) do
+            if (not enemy:isDead()) then
+                enemy:changeState('idle', true)
+            end
+        end
+
+        -- 스킬과 미사일도 다 날려 버리자
+	    world:removeMissileAndSkill()
+        world:removeEnemyDebuffs()
+        world:cleanupItem()
+        
+        -- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
+
+        world.m_inGameUI:doActionReverse(function()
+            world.m_inGameUI.root:setVisible(false)
+        end)
+        self:makeResultUI(false)
+    end
+end
+
 
 -------------------------------------
 -- function makeResultUI

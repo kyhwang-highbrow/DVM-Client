@@ -496,10 +496,11 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         --ui_network:setParam('token1', g_leagueRaidData:getOneDoidByIndex(1))
         --ui_network:setParam('token2', g_leagueRaidData:getOneDoidByIndex(2))
         --ui_network:setParam('token3', g_leagueRaidData:getOneDoidByIndex(3))
-
+        g_leagueRaidData.m_currentDamage = 0
+        g_leagueRaidData.m_curDeckIndex = 1
         response_status_cb = function(ret)
             if(ret['status'] == -1364) then
-                g_dmgateData:MakeSeasonEndedPopup()
+                MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'), ok_cb)
                 return true
             end
 

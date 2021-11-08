@@ -55,9 +55,9 @@ function UI_RaidDamageInfo:refresh()
 
     local total_damage = math_floor(g_gameScene.m_gameWorld.m_logRecorder:getLog('total_damage_to_enemy'))
     vars['bossHpLabel']:setString(comma_value(total_damage))
-
-
-    local percentage = total_damage / 655355555555
+    local add_damage = g_leagueRaidData.m_currentDamage and g_leagueRaidData.m_currentDamage or 0
+    
+    local percentage = (total_damage + add_damage) / 655355555555
 
     -- 체력 수치 표시
     do
