@@ -126,7 +126,7 @@ function UI_Game:initUI()
     -- ochoi TODO
     -- initRaidUI
     if (g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID) then
-        self.m_stackableDamageUI = UI_LeagueRaidDamageInfo()
+        self.m_stackableDamageUI = UI_LeagueRaidDamageInfo(self)
         self.root:addChild(self.m_stackableDamageUI.root)
     end
 end
@@ -755,6 +755,20 @@ end
 -------------------------------------
 function UI_Game:init_timeUI(display_wave, time)
     local vars = self.vars
+
+    if (g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+        vars['timeNode']:setVisible(false)
+        vars['waveVisual']:setVisible(false)
+
+        self.m_timeLabel = vars['clanRaidtimeLabel']
+
+        if (time) then
+            self.m_timeLabel:setVisible(true)
+            self:setTime(time)
+        end
+
+        return
+    end
 
     vars['timeNode']:setVisible(true)
     vars['waveVisual']:setVisible(display_wave)
