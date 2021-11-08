@@ -20,12 +20,10 @@ function UI_LeagueRaidDeckSettings:initParentVariable()
     self.m_bVisible = true
     --self.m_titleStr = nil -- refresh에서 스테이지명 설정
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'honor'
-    self.m_addSubCurrency = 'valor'
-
+    self.m_subCurrency = ''
+    
     -- 입장권 타입 설정
     self.m_staminaType = TableDrop:getStageStaminaType(self.m_stageID)
-
     
 	-- 들어온 경로에 따라 sound가 다름
 	if (self.m_gameMode == GAME_MODE_ADVENTURE) then

@@ -740,7 +740,7 @@ function UI_ReadySceneNew:refresh()
         elseif (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
             local deck_name = g_deckData:getSelectedDeckName()
             local deck_no = pl.stringx.replace(deck_name, 'league_raid_', '')
-            str = Str('레이드') .. deck_no
+            str = Str('레이드').. ' ' .. Str(tostring(deck_no) .. ' 공격대')
         end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)
@@ -1154,6 +1154,10 @@ function UI_ReadySceneNew:click_autoBtn()
         else
             l_dragon_list = g_dragonsData:getDragonsList()
         end
+
+    elseif (game_mode == GAME_MODE_LEAGUE_RAID) then
+        local exist_dragons = g_leagueRaidData:getUsingDidTable()
+        l_dragon_list = g_dragonsData:getDragonsListExceptTargetDoids(exist_dragons)
 
     -- 멀티덱 사용시 다른 위치 덱은 제외하고 추천
     elseif (multi_deck_mgr) then

@@ -18,9 +18,9 @@ UI_LeagueRaidScene = class(PARENT, {
 function UI_LeagueRaidScene:initParentVariable()
     self.m_uiName = 'UI_LeagueRaidScene'
     self.m_titleStr = Str('레이드')
-    --self.m_subCurrency = 'raid_coin'
+    self.m_subCurrency = ''
     self.m_bVisible = true              
-    self.m_bUseExitBtn = true           
+    self.m_bUseExitBtn = true
 end
 
 ----------------------------------------------------------------------
@@ -97,17 +97,17 @@ function UI_LeagueRaidScene:initUI()
     if (vars['timeLabel']) then 
         local server_time = Timer:getServerTime()
         time = (tonumber(my_info['finishtimestamp'])/1000 - server_time)
-        local msg = Str('{1} 남음', datetime.makeTimeDesc(time, false, false))
+        local msg = Str('시즌 종료까지') .. ' ' .. Str('{1} 남음', datetime.makeTimeDesc(time, false, false))
         vars['timeLabel']:setString(msg)
     end
 
     local today_play_count = my_info['today_play_count']
     local max_play_count = my_info['max_play_count']
-    local count_str = Str('({1}/{2})', today_play_count, max_play_count)
+    local count_str = Str('{1}/{2}', today_play_count, max_play_count)
 
     if (vars['today_score_label']) then vars['today_score_label']:setString(Str('{1}점', comma_value(my_info['todayscore']))) end
     if (vars['season_score_label']) then vars['season_score_label']:setString(Str('{1}점', comma_value(my_info['score']))) end
-    if (vars['runeRateLabel']) then vars['runeRateLabel']:setString(Str('{1}%', my_info['rune_g7_percent'])) end
+    if (vars['runeRateLabel']) then vars['runeRateLabel']:setString('+' .. Str('{1}%', my_info['rune_g7_percent'])) end
     if (vars['countLabel']) then 
         vars['countLabel']:setString(count_str)
         if (today_play_count >= max_play_count) then vars['countLabel']:setColor(COLOR['RED']) else vars['countLabel']:setColor(COLOR['green']) end
@@ -149,7 +149,7 @@ function UI_LeagueRaidScene:initUI()
     for item_id, count in pairs(l_reward) do
         local node_name = 'itemNode' .. index
         if (vars[node_name]) then
-            local icon = UI_ItemCard(tonumber(item_id), count)
+            local icon = UI_ItemCard(tonumber(item_id))
             vars[node_name]:addChild(icon.root)
         end
 
