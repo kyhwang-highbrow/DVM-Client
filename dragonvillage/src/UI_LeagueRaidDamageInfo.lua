@@ -1,16 +1,16 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_RaidDamageInfo
+-- class UI_LeagueRaidDamageInfo
 -------------------------------------
-UI_RaidDamageInfo = class(PARENT, {
+UI_LeagueRaidDamageInfo = class(PARENT, {
     m_uiTooltip = ''
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_RaidDamageInfo:init()
+function UI_LeagueRaidDamageInfo:init()
     self.m_uiTooltip = nil
     self:load('ingame_boss_hp.ui')
 
@@ -20,7 +20,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_RaidDamageInfo:initUI()
+function UI_LeagueRaidDamageInfo:initUI()
     local vars = self.vars
 
     if (vars['bossSkillSprite']) then vars['bossSkillSprite']:setVisible(false) end
@@ -50,7 +50,7 @@ function UI_RaidDamageInfo:initUI()
 end
 
 
-function UI_RaidDamageInfo:refresh()
+function UI_LeagueRaidDamageInfo:refresh()
     local vars = self.vars
 
     local total_damage = math_floor(g_gameScene.m_gameWorld.m_logRecorder:getLog('total_damage_to_enemy'))
@@ -79,7 +79,7 @@ end
 -------------------------------------
 -- function getPositionForStatusIcon
 -------------------------------------
-function UI_RaidDamageInfo:getPositionForStatusIcon(bLeftFormation, idx)
+function UI_LeagueRaidDamageInfo:getPositionForStatusIcon(bLeftFormation, idx)
     local x = 50 * (idx - 1)
     local y = 0
     	
@@ -89,6 +89,6 @@ end
 -------------------------------------
 -- function getScaleForStatusIcon
 -------------------------------------
-function UI_RaidDamageInfo:getScaleForStatusIcon()
+function UI_LeagueRaidDamageInfo:getScaleForStatusIcon()
     return 1
 end

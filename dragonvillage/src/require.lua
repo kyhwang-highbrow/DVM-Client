@@ -1146,6 +1146,7 @@ local t_module = {
     'UI_GameResult_LeagueRaid',
     'UI_LeagueRaidSeasonRewardPopup',
     'UI_ResultLeagueRaidScore',
+    'UI_LeagueRaidDamageInfo',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',
@@ -1310,7 +1311,6 @@ local t_module = {
     'UI_IngameUnitInfo',
     'UI_IngameDragonInfo',
     'UI_IngameBossInfo',
-    'UI_RaidDamageInfo',
     'UI_IngameBossHp',
     'UI_AutoPlaySettingPopup',
     'UI_EventGoldDungeonResult',
