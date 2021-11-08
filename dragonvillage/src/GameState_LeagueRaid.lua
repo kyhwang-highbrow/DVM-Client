@@ -117,7 +117,10 @@ function GameState_LeagueRaid:checkWaveClear(dt)
         return false
 
     elseif(hero_count <= 0) then
-        self:changeState(GAME_STATE_FAILURE)
+        local total_damage = math_floor(g_gameScene.m_gameWorld.m_logRecorder:getLog('total_damage_to_enemy'))
+        g_leagueRaidData.m_currentDamage = g_leagueRaidData.m_currentDamage + total_damage
+
+        self:changeState(GAME_STATE_SUCCESS_WAIT)
         return true
 
     -- 클리어 여부 체크
