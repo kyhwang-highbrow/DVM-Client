@@ -9,6 +9,8 @@ ServerData_LeagueRaid = class({
     m_seasonReward = 'table',
     m_lastScore = 'number',
 
+    m_infoData = 'table',
+
     m_deck_1 = 'table',
     m_deck_2 = 'table',
     m_deck_3 = 'table',
@@ -131,6 +133,8 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
+        self.m_infoData = ret
+
         self.m_memberCount = ret['member_count']
         self.m_myInfo = ret['my_info']
         self.m_members = ret['members']
@@ -182,6 +186,14 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
     ui_network:request()
 end
 
+-------------------------------------
+-- function isNewSeason
+-------------------------------------
+function ServerData_LeagueRaid:isNewSeason()
+    if (self.m_infoData and self.m_infoData['last_score']) then return true end
+
+    return false
+end
 
 
 
@@ -191,3 +203,4 @@ end
 function ServerData_LeagueRaid:isShowLobbyBanner()
     return true
 end
+

@@ -159,6 +159,10 @@ function UI_LeagueRaidScene:initUI()
     self:setRankImage()
     self:setRankView()
     
+    if (g_leagueRaidData:isNewSeason()) then
+        UI_LeagueRaidCurSeasonPopup()
+    end
+
     if (g_leagueRaidData:getRewardInfo()) then
         UI_LeagueRaidSeasonRewardPopup()
     end
@@ -410,6 +414,62 @@ function UI_LeagueRaidInfoPopup:init()
     self.m_uiName = 'UI_EventRouletteInfoPopup' 
      
     vars['okBtn']:registerScriptTapHandler(function() self:close() end)
+end
+
+
+
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  UI_LeagueRaidCurSeasonPopup
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+UI_LeagueRaidCurSeasonPopup = class(UI, {
+
+})
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_LeagueRaidCurSeasonPopup:init()
+    local vars = self:load('league_raid_season_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRouletteInfoPopup')    
+
+    self.m_uiName = 'UI_EventRouletteInfoPopup' 
+     
+    vars['okBtn']:registerScriptTapHandler(function() self:close() end)
+
+    self:initUI()
+end
+
+
+
+
+----------------------------------------------------------------------
+-- function initUI
+----------------------------------------------------------------------
+function UI_LeagueRaidCurSeasonPopup:initUI()
+    local vars = self.vars
+
+    if (not vars['rankNode']) then return end
+
+    local my_info = g_leagueRaidData:getMyInfo()
+    local season = 'c'
+
+    if (my_info and my_info['last_league']) then
+        season = my_info['last_league']
+    end
+    
+    -- 로고 sprite를 만들고 scene에 add한다
+    local leagueImgName = 'res/ui/icons/rank/league_raid_rank_' .. string.lower(season .. '.png')
+    local sprite = cc.Sprite:create(leagueImgName)
+
+    if (sprite) then 
+        sprite:setPosition(ZERO_POINT)
+        sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        sprite:setDockPoint(cc.p(0.5, 0.5))
+        vars['rankNode']:addChild(sprite)
+    end
 end
 
 
