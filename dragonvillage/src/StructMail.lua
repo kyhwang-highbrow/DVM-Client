@@ -393,9 +393,14 @@ function StructMail:isPickItem()
         return false
     end
 
+	-- 2021.11.08 아이템 선택권을 쉽게 추가할 수 있도록 수정
+	-- table_item의 full_type이 pick_item일 경우 아이템 선택권 UI 사용
+	local item_id = self:getItemList()[1]['item_id']
+	local full_type = self:getItemFullType(item_id)
+	return (full_type == 'pick_item')
+
     -- 아이템 선택권 ID
-    local item_id = self:getItemList()[1]['item_id']
-    return (item_id == 700701 or item_id == 700702)
+    -- return (item_id == 700701 or item_id == 700702)
 end
 
 -------------------------------------
