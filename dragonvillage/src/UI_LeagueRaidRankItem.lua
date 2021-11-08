@@ -60,6 +60,51 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         end
     end
 
+    -- 리스트 확정 후 판단훌 수 있는것들
+    -- 승급 구간{@GOLD} ({1}위 - {1}위) {@default}
+    -- 잔류 구간{@sky_blue} ({1}위 - {1}위) {@default}
+    -- 강등 구간{@light_red} ({1}위 - {1}위) {@default}
+    -- {1}위~{2}위 or {1}위
+    if (#promotion_list > 0) then
+        local starting_index = 1
+        local format_string = Str('승급 구간') .. '{@GOLD} ('
+
+        if (#promotion_list <= 1) then
+            format_string = format_string .. Str('{1}위', starting_index) .. ') {@default}'
+        else
+            format_string = format_string .. Str('{1}위~{2}위', starting_index, #promotion_list) .. ') {@default}'
+        end
+
+        if (vars['promotionPannelLabel']) then vars['promotionPannelLabel']:setString(format_string) end
+    end
+
+    if (#remaining_list > 0) then
+        local starting_index = #promotion_list + 1
+        local format_string = Str('잔류 구간') .. '{@sky_blue} ('
+
+        if (#remaining_list <= 1) then
+            format_string = format_string .. Str('{1}위', starting_index) .. ') {@default}'
+        else
+            format_string = format_string .. Str('{1}위~{2}위', starting_index, starting_index + #remaining_list) .. ') {@default}'
+        end
+
+        if (vars['remainingPannelLabel']) then vars['remainingPannelLabel']:setString(format_string) end
+    end
+
+    if (#demoted_list > 0) then
+        local starting_index = #promotion_list + #remaining_list + 1
+        local format_string = Str('강등 구간') .. '{@light_red} ('
+
+        if (#remaining_list <= 1) then
+            format_string = format_string .. Str('{1}위', starting_index) .. ') {@default}'
+        else
+            format_string = format_string .. Str('{1}위~{2}위', starting_index, starting_index + #demoted_list) .. ') {@default}'
+        end
+
+        if (vars['demotedPannelLabel']) then vars['demotedPannelLabel']:setString(format_string) end
+    end
+
+
     --[[
     for i = 1, 3 do
         table.insert(promotion_list, members_list[1])
