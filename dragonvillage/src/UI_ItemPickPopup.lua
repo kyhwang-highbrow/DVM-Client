@@ -85,6 +85,7 @@ function UI_ItemPickPopup:click_select(item_id)
 	local item_desc = TableItem:getItemDesc(item_id)
     vars['itemLabel']:setString(Str(item_name))
     vars['dscLabel']:setString(Str(item_desc))
+    vars['titleLabel']:setString(Str(item_desc))
 
 	vars['itemNode']:removeAllChildren()
 	local item_card = UI_ItemCard(item_id)
