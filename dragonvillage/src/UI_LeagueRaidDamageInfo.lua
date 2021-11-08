@@ -102,7 +102,7 @@ function UI_LeagueRaidDamageInfo:refresh()
     local molecular = (total_damage - last_total_damage)
     local denominator = (next_total_damage - last_total_damage)
 
-    cclog(tostring(molecular) .. ' / ' .. tostring(denominator))
+    --cclog(tostring(molecular) .. ' / ' .. tostring(denominator))
 
     local percentage = math.min(math_abs(molecular / denominator), 1)
 
@@ -124,7 +124,7 @@ function UI_LeagueRaidDamageInfo:refresh()
         local last_lv = tonumber(self.m_ingamedUI.vars['runeRewardLabel']:getString())
         local is_run_action = false
 
-        if (not self.m_ingamedUI.vars['league_raidMenu']:isVisible()) then
+        if (not self.m_ingamedUI.vars['league_raidMenu']:isVisible() and total_damage > 0) then
             self.m_ingamedUI.vars['league_raidMenu']:setVisible(true)
             self.m_ingamedUI.vars['boxVisual']:changeAni('box_league_raid_idle', true)
             self.m_ingamedUI.vars['boxVisual']:runAction(cca.buttonShakeAction(2, 2))
