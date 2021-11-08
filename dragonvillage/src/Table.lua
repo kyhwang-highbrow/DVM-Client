@@ -126,6 +126,9 @@ local TableInfo = {
         -- 차원의 문
         --dmgate_bless = {'table_dmgate_bless', 'type_id', false}, -- 차원의 문 축복
         --dmgate_stage = {'table_dmgate_stage', 'stage_id', false}, -- 차원의 문 스테이지 (테스트용)
+
+        -- 레이드 
+        table_league_raid_data = {'table_league_raid_data', 'lv', false},
     }
 
 -------------------------------------

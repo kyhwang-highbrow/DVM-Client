@@ -126,7 +126,7 @@ function UI_Game:initUI()
     -- ochoi TODO
     -- initRaidUI
     if (g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID) then
-        self.m_stackableDamageUI = UI_RaidDamageInfo()
+        self.m_stackableDamageUI = UI_LeagueRaidDamageInfo()
         self.root:addChild(self.m_stackableDamageUI.root)
     end
 end
