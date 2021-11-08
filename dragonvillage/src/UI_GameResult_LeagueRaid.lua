@@ -133,6 +133,7 @@ function UI_GameResult_LeagueRaid:setWorkList()
 
     table.insert(self.m_lWorkList, 'direction_start')
 
+    table.insert(self.m_lWorkList, 'direction_showScore')
 	table.insert(self.m_lWorkList, 'direction_showBox')
     table.insert(self.m_lWorkList, 'direction_openBox')
 
@@ -196,6 +197,28 @@ function UI_GameResult_LeagueRaid:direction_openBox()
         self:doNextWork()
     end)
 end
+
+
+-------------------------------------
+-- function direction_showScore
+-- @brief 점수 연출
+-------------------------------------
+function UI_GameResult_LeagueRaid:direction_showScore()
+    local vars = self.vars
+
+    local total_score = cc.Label:createWithBMFont('res/font/tower_score.fnt', '')
+    total_score:setAnchorPoint(cc.p(0.5, 0.5))
+    total_score:setDockPoint(cc.p(0.5, 0.5))
+    total_score:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    total_score:setAdditionalKerning(0)
+    vars['scoreNode']:addChild(total_score)
+
+    local new_score = NumberLabel(total_score, 0, 0.3)
+    new_score:setNumber(g_leagueRaidData.m_currentDamage, false)
+
+    self:doNextWorkWithDelayTime(0.8)
+end
+
 
 
 -------------------------------------

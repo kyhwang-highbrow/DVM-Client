@@ -70,7 +70,7 @@ function GameState_LeagueRaid:checkWaveClear(dt)
         g_deckData:setSelectedDeck('league_raid_' .. tostring(g_leagueRaidData.m_curDeckIndex))
         
         local total_damage = math_floor(g_gameScene.m_gameWorld.m_logRecorder:getLog('total_damage_to_enemy'))
-        g_leagueRaidData.m_currentDamage = total_damage
+        g_leagueRaidData.m_currentDamage = g_leagueRaidData.m_currentDamage + total_damage
         
         local my_info = g_leagueRaidData:getMyInfo()
         local stage_id = my_info['stage']
@@ -182,9 +182,6 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
         -- result_table['secret_dungeon'],
         -- result_table['content_open'])
         UI_GameResult_LeagueRaid(stage_id, isSuccess, result_table)
-
-        -- 나중에 팝업띄우고 싶으면 수석풀고 기능 완성시킴
-        --if (isSuccess) then self:showChapterOpenPopup() end
     end
 
     -- 최초 실행
@@ -230,27 +227,4 @@ function GameState_LeagueRaid.update_failure(self, dt)
         end)
         self:makeResultUI(false)
     end
-end
-
-
--------------------------------------
--- function makeResultUI
--------------------------------------
-function GameState_LeagueRaid:showChapterOpenPopup()
-    -- 새로운 시즌 팝업은 별도 위에서 체크하고 리턴
-
-    -- 다음 스테이지 id 받아오고
-    local next_stage_id = g_dmgateData:getNextStageID(tonumber(g_gameScene.m_stageID))
-
-    if (not next_stage_id) then return end
-
-    -- 그 스테이지가 마침 상층 1스테이지며
-    local chapter_id = g_dmgateData:getChapterID(next_stage_id)
-    local stage_id = g_dmgateData:getStageID(next_stage_id)
-    if (not chapter_id or chapter_id < 2 or stage_id ~= 1) then return end
-
-    -- 언락 연출을 보여줘야 한다면
-    --local is_first_unlock = g_dmgateData:checkInUnlockList(next_stage_id)
-    
-    --if (is_first_unlock) then UI_DmgateChapterOpenPopup() end
 end
