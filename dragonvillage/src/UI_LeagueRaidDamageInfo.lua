@@ -91,13 +91,9 @@ end
 function UI_LeagueRaidDamageInfo:refresh()
     local vars = self.vars
 
-    local is_prepared = g_gameScene and g_gameScene.m_gameWorld and g_gameScene.m_gameWorld.m_logRecorder
-    local ingame_damage = is_prepared and math_floor(g_gameScene.m_gameWorld.m_logRecorder:getLog('total_damage_to_enemy')) or 0
-    local add_damage = g_leagueRaidData.m_currentDamage and g_leagueRaidData.m_currentDamage or 0
-    local total_damage = ingame_damage + add_damage
+    local is_prepared = g_gameScene and g_gameScene.m_gameWorld and g_gameScene.m_gameWorld.m_logRecorder and g_leagueRaidData.m_currentDamage
+    local total_damage = is_prepared and g_leagueRaidData.m_currentDamage or 0
     local last_item, next_item, last_total_damage, next_total_damage = self:findDamageItem(total_damage)
-
-
 
     local molecular = (total_damage - last_total_damage)
     local denominator = (next_total_damage - last_total_damage)

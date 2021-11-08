@@ -69,9 +69,6 @@ function GameState_LeagueRaid:checkWaveClear(dt)
         g_leagueRaidData.m_curDeckIndex = self.m_currentDeckIndex + 1
         g_deckData:setSelectedDeck('league_raid_' .. tostring(g_leagueRaidData.m_curDeckIndex))
         
-        local total_damage = math_floor(g_gameScene.m_gameWorld.m_logRecorder:getLog('total_damage_to_enemy'))
-        g_leagueRaidData.m_currentDamage = g_leagueRaidData.m_currentDamage + total_damage
-        
         local my_info = g_leagueRaidData:getMyInfo()
         local stage_id = my_info['stage']
         local stage_name = 'stage_' .. stage_id
@@ -117,9 +114,6 @@ function GameState_LeagueRaid:checkWaveClear(dt)
         return false
 
     elseif(hero_count <= 0) then
-        local total_damage = math_floor(g_gameScene.m_gameWorld.m_logRecorder:getLog('total_damage_to_enemy'))
-        g_leagueRaidData.m_currentDamage = g_leagueRaidData.m_currentDamage + total_damage
-
         self:changeState(GAME_STATE_SUCCESS_WAIT)
         return true
 

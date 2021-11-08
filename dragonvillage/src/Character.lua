@@ -1314,8 +1314,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     end
 
     if (bAccumulate) then
-        cclog('데미지를 받지만 데미지를 안받음')
-
+        -- do nothing
     elseif (bApplyDamage) then
         local prev_hp = self.m_hp
 		        
@@ -1371,11 +1370,10 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     else
         self.m_world.m_logRecorder:recordLog('total_damage_to_enemy', damage)
 
+        if (bAccumulate) then g_leagueRaidData.m_currentDamage = g_leagueRaidData.m_currentDamage + damage end
+        if (self.m_world.m_inGameUI.m_stackableDamageUI) then self.m_world.m_inGameUI.m_stackableDamageUI:refresh() end
     end
 
-    if (self.m_world.m_inGameUI.m_stackableDamageUI) then
-        self.m_world.m_inGameUI.m_stackableDamageUI:refresh()
-    end
 
     -----------------------------------------------------------------
     -- 죽음 체크
