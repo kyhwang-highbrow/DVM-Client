@@ -712,7 +712,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     elseif (game_mode == GAME_MODE_LEAGUE_RAID) then
         api_url = '/raid/finish'
 
-        total_damage = g_leagueRaidData.m_curStageData
+        total_damage = g_leagueRaidData.m_currentDamage
         ui_network:setParam('score', total_damage)
     end
 
