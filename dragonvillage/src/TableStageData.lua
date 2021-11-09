@@ -27,6 +27,48 @@ function TableStageData:get(key, skip_error_msg)
     return PARENT.get(self, key, skip_error_msg)
 end
 
+
+
+-------------------------------------
+-- function parseStageBuffStr
+-------------------------------------
+function TableStageData:parseStageBuffStr(buff_str)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local str = buff_str
+    if (str == nil or str == 'x' or str == '') then return end
+
+    local l_ret = {}
+    local make_data = function(str)
+        local ret = {}
+        local l_str = self:seperate(str, ';')
+
+        ret['condition_type'] = l_str[1]
+        ret['condition_value'] = l_str[2]
+        ret['buff_type'] = l_str[3]
+        ret['buff_value'] = tonumber(l_str[4])
+
+        return ret
+    end
+
+    if (string.find(str, ',')) then
+        local l_str = self:seperate(str, ',')
+
+        for i, str in ipairs(l_str) do
+            local data = make_data(str)
+            table.insert(l_ret, data)
+        end
+    else
+        local data = make_data(str)
+        table.insert(l_ret, data)
+    end
+
+    return l_ret
+end
+
+
 -------------------------------------
 -- function getStageBuff
 -------------------------------------

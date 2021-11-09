@@ -42,6 +42,9 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
     self.m_rewardUIList = {}
     self.m_rewardBoxUIList = {}
     
+    -- 0 은 0점
+    vars['scoreLabel0']:setString(Str('{1}점', 0))
+
     -- 보상 아이템 카드
     for step=1, step_count do
         local last_step_point = g_purchasePointData:getPurchasePoint_lastStepPoint(version)
@@ -70,9 +73,10 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
             ui_card.root:setScale(0.7)
 
             -- 보상 점수
-            local point = g_purchasePointData:getPurchasePoint_step(version, step-1)
-            vars['scoreLabel' .. step]:setString(comma_value(point))
-
+            local point = g_purchasePointData:getPurchasePoint_step(version, step)
+            vars['scoreLabel' .. step]:setString(Str('{1}점', comma_value(point)))
+            --vars['scoreLabel' .. step]:setString(comma_value(point))
+            cclog(point)
             table.insert(self.m_rewardBoxUIList, ui_frame)
         end
     end

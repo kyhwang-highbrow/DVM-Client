@@ -18,6 +18,8 @@ ServerData_LeagueRaid = class({
     m_currentDamage = 'number',
     m_curDeckIndex = 'number',
     m_curStageData = 'table',
+
+    m_leagueRaidData = 'table',
     })
 
 
@@ -30,6 +32,8 @@ function ServerData_LeagueRaid:init()
     self.m_deck_3 = {}
 
     self.m_lastScore = 0
+
+    self.m_leagueRaidData = TABLE:get('table_league_raid_data')
 end
 
 -------------------------------------
@@ -204,3 +208,30 @@ function ServerData_LeagueRaid:isShowLobbyBanner()
     return true
 end
 
+
+-------------------------------------
+-- function getCurrentDamageLevel
+-------------------------------------
+function ServerData_LeagueRaid:getCurrentDamageLevel()
+    local damage = self.m_currentDamage
+    local next_damage = 0
+    local table_item_count = table.count(self.m_leagueRaidData)
+    local cur_lv = 1
+    local not_found = true
+
+    for lv = 1, table_item_count do
+        local data = self.m_leagueRaidData[lv]
+
+        next_damage = next_damage + data['hp']
+
+        if (damage <= next_damage) then
+            cur_lv = lv
+            not_found = false
+            break
+        end
+    end
+
+    if (not_found) then cur_lv = table_item_count end
+
+    return cur_lv
+end

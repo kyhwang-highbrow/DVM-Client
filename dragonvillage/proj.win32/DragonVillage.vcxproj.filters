@@ -4692,7 +4692,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\StructPackage.lua" />
-    <None Include="..\src\UI_RaidDamageInfo.lua" />
     <None Include="..\src\StructIAPPurchase.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -5010,6 +5009,9 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_ResultLeagueRaidScore.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_LeagueRaidDamageInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

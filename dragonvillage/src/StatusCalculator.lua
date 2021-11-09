@@ -456,6 +456,46 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
 end
 
 -------------------------------------
+-- function applyAdditionalOptions
+-- @brief 스테이지 보너스 적용
+-------------------------------------
+function StatusCalculator:applyAdditionalOptions(buff_str)
+    local t_info
+    local buff_list = TableStageData:parseStageBuffStr(buff_str)
+    if (not buff_list) then return end
+    
+    local t_char = self.m_charTable[self.m_chapterID]
+
+    for i, v in ipairs(buff_list) do
+        local condition_type = v['condition_type']
+        local condition_value = v['condition_value']
+
+        if (condition_type == 'did' or condition_type == 'mid') then
+            condition_value = tonumber(condition_value)
+        end
+
+        if (v['condition_type'] == 'all' or condition_value == t_char[condition_type]) then
+            local buff_type = v['buff_type']
+            local buff_value = v['buff_value']
+
+            local t_option = TableOption():get(buff_type)
+            if (t_option) then
+                local status_type = t_option['status']
+                if (status_type) then
+                    if (t_option['action'] == 'multi') then
+                        self:addStageMulti(status_type, buff_value)
+                    elseif (t_option['action'] == 'add') then
+                        self:addStageAdd(status_type, buff_value)
+                    end
+
+                    if (IS_DEV_SERVER()) then cclog('applyAdditionalOptions ' .. Str(t_option['t_desc'], math_abs(buff_value))) end
+                end
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function getCombatPower
 -- @brief 드래곤의 최종 전투력을 얻어옴
 --        UI에서 사용되는 함수이므로 패시브 발동은 제외
