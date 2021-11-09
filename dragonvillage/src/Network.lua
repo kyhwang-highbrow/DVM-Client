@@ -447,6 +447,47 @@ function Network_platform_changeLang(success_cb, fail_cb)
     Network:SimpleRequest(t_request)
 end
 
+
+
+
+-------------------------------------
+-- function Network_platform_receiptValidation
+-- @breif   플랫폼 서버에 영수증 정보 보내기
+-------------------------------------
+function Network_platform_receiptValidation(platform, signature, receipt, success_cb, fail_cb)
+    -- 파라미터 셋팅
+    local ip = getIPAddress()
+        
+    local t_data = {}    
+    t_data['platform'] = platform and platform or 'google'
+    t_data['uid'] = g_localData:get('local', 'uid')
+    t_data['signature'] = signature and signature or ''
+    t_request['receipt'] = receipt and receipt or ''
+
+    
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['full_url'] = GetPlatformApiUrl() .. '/payment/receiptValidation/'
+    t_request['method'] = 'POST'
+    t_request['data'] = signature
+    
+
+    t_request['check_hmac_md5'] = false
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+
+
+
+
 -------------------------------------
 -- function Network_login
 -- @breif 로그인

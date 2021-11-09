@@ -652,6 +652,7 @@ function ServerData_Shop:request_checkReceiptValidation_v3(product, validation_k
     -- 파라미터
     local uid = g_userData:get('uid')
     local struct_product = product
+    local market, os_ = GetMarketAndOS()
 
     -- 콜백 함수
     local function finish_cb(ret)
@@ -730,6 +731,11 @@ function ServerData_Shop:request_checkReceiptValidation_v3(product, validation_k
         -- 자동 줍기으로 획득한 누적 아이템 수량 갱신
         g_subscriptionData:response_ingameDropInfo(ret)
 
+
+        -- 플랫폼서버에 결제완료 정보를 보냄 (운영툴 조회에 사용)
+        Network_platform_receiptValidation(market, order_id, purchase_token, function(ret)   end, function(ret)   end )
+
+
 		if (success_cb) then
 			success_cb(ret)
 		end
@@ -745,8 +751,6 @@ function ServerData_Shop:request_checkReceiptValidation_v3(product, validation_k
     ui_network:setParam('iswin', iswin)
 	ui_network:setParam('route', g_errorTracker:getUIStackForPayRoute())
 	ui_network:setParam('billing_ver', '4')
-
-    local market, os_ = GetMarketAndOS()
 
 	if (IS_LIVE_SERVER()) then
 		local os = getTargetOSName()
