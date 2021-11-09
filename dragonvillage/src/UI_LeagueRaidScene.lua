@@ -456,8 +456,8 @@ function UI_LeagueRaidCurSeasonPopup:initUI()
     local my_info = g_leagueRaidData:getMyInfo()
     local season = 'c'
 
-    if (my_info and my_info['last_league']) then
-        season = my_info['last_league']
+    if (my_info and my_info['league']) then
+        season = my_info['league']
     end
     
     -- 로고 sprite를 만들고 scene에 add한다
