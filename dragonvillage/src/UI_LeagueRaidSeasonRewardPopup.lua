@@ -46,7 +46,7 @@ function UI_LeagueRaidSeasonRewardPopup:initUI()
     if (reward == nil) then reward = {} end
 
     if(vars['userLabel']) then vars['userLabel']:setString(nick_name) end
-    if(vars['scoreLabel']) then vars['scoreLabel']:setString(comma_value(last_score)) end
+    if(vars['scoreLabel']) then vars['scoreLabel']:setString(Str('{1}점', comma_value(last_score))) end
     if(vars['rankNode']) then 
         local leagueImgName = 'res/ui/icons/rank/league_raid_rank_' .. string.lower(my_info['last_league'] .. '.png')
         local sprite = cc.Sprite:create(leagueImgName)
