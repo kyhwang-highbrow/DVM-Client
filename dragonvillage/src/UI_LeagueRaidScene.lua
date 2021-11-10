@@ -328,7 +328,7 @@ end
 ----------------------------------------------------------------------------
 function UI_LeagueRaidScene:click_quickClearBtn()
     if (not self:canQuickClear()) then
-        local msg = Str('한판이라도 플레이 하라는 번역 텍스트 넣어야 합니다.')
+        local msg = Str('소탕 기능을 이용하기 위해서는 하루 1회 이상 플레이 해야 합니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
 
         return
@@ -355,7 +355,7 @@ function UI_LeagueRaidScene:click_enterBtn()
     local max_play_count = my_info['max_play_count']  
 
     if (today_play_count >= max_play_count) then
-        local msg = Str('더 이상 참여할 수 없다는 번역 텍스트 넣어야 합니다.')
+        local msg = Str('하루 입장 제한을 초과했습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end
