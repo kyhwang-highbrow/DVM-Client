@@ -85,7 +85,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         if (#remaining_list <= 1) then
             format_string = format_string .. Str('{1}위', starting_index) .. ') {@default}'
         else
-            format_string = format_string .. Str('{1}위~{2}위', starting_index, starting_index + #remaining_list) .. ') {@default}'
+            format_string = format_string .. Str('{1}위~{2}위', starting_index, starting_index + #remaining_list - 1) .. ') {@default}'
         end
 
         if (vars['remainingPannelLabel']) then vars['remainingPannelLabel']:setString(format_string) end
@@ -98,7 +98,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         if (#remaining_list <= 1) then
             format_string = format_string .. Str('{1}위', starting_index) .. ') {@default}'
         else
-            format_string = format_string .. Str('{1}위~{2}위', starting_index, starting_index + #demoted_list) .. ') {@default}'
+            format_string = format_string .. Str('{1}위~{2}위', starting_index, starting_index + #demoted_list - 1) .. ') {@default}'
         end
 
         if (vars['demotedPannelLabel']) then vars['demotedPannelLabel']:setString(format_string) end
