@@ -415,11 +415,16 @@ function UI_LeagueRaidRankItem:refresh()
     local nick_name = self.m_userInfo['nick']
     local score = self.m_userInfo['score']
     local leader_info = self.m_userInfo['leader'] == nil and {} or self.m_userInfo['leader']
+    local my_uid = g_userData:get('uid')
 
     -- 기본정보
     if (vars['rankLabel']) then vars['rankLabel']:setString(Str('No. {1}', number)) end
     if (vars['userLabel']) then vars['userLabel']:setString(nick_name) end
     if (vars['scoreLabel']) then vars['scoreLabel']:setString(comma_value(score)) end
+    if (vars['meSprite']) then
+        local is_me = my_uid == self.m_userInfo['uid']
+        vars['meSprite']:setVisible(is_me) 
+    end
 
 
     do -- 리더 드래곤 아이콘
