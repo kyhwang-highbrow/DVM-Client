@@ -82,6 +82,11 @@ function UI_LeagueRaidDamageInfo:initUI()
         vars['bossHpLabel']:setString('')
     end
 
+    if (vars['bossStatusNode']) then 
+        vars['bossStatusNode']:setPosition(125, -25) 
+        vars['bossStatusNode']:setScale(0.5) 
+    end
+
     if (self.m_ingamedUI and self.m_ingamedUI.vars) then
         self.m_ingamedUI.vars['runeRewardLabel']:setString(1)
     end
@@ -95,7 +100,7 @@ function UI_LeagueRaidDamageInfo:refresh()
     local total_damage = is_prepared and g_leagueRaidData.m_currentDamage or 0
     local last_item, next_item, last_total_damage, next_total_damage = self:findDamageItem(total_damage)
 
-    local molecular = (total_damage - last_total_damage)
+    local molecular = next_total_damage - (next_total_damage - total_damage)
     local denominator = (next_total_damage - last_total_damage)
 
     --cclog(tostring(molecular) .. ' / ' .. tostring(denominator))
@@ -130,7 +135,7 @@ function UI_LeagueRaidDamageInfo:refresh()
         end    
 
         if (last_lv ~= next_item['lv']) then
-            self.m_ingamedUI.vars['runeRewardLabel']:setString(next_item['lv'])
+            self.m_ingamedUI.vars['runeRewardLabel']:setString('Lv. ' .. next_item['lv'])
             self.m_ingamedUI.vars['boxVisual']:changeAni('box_02', false)
             self.m_ingamedUI.vars['boxVisual']:addAniHandler(function()
                 self.m_ingamedUI.vars['boxVisual']:changeAni('box_league_raid_idle', true)
@@ -150,11 +155,15 @@ function UI_LeagueRaidDamageInfo:refresh()
 
     -- 체력바 가감 연출
     if (vars['bossHpGauge1']) then
-        vars['bossHpGauge1']:setScaleX(percentage)
+        local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, percentage, 1))
+        vars['bossHpGauge1']:stopAllActions()
+        vars['bossHpGauge1']:runAction(cc.EaseIn:create(action, 1))
+        --vars['bossHpGauge1']:setScaleX(percentage)
     end
 
 	if (vars['bossHpGauge2']) then
         local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, percentage, 1))
+        vars['bossHpGauge2']:stopAllActions()
         vars['bossHpGauge2']:runAction(cc.EaseIn:create(action, 2))
     end
 end
@@ -174,5 +183,5 @@ end
 -- function getScaleForStatusIcon
 -------------------------------------
 function UI_LeagueRaidDamageInfo:getScaleForStatusIcon()
-    return 1
+    return 0.9
 end

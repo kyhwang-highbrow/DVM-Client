@@ -63,32 +63,39 @@ end
 
 --[[
  ['my_info']={
-                "team": 1,
-                "season": 4,
-                "today_play_count": 0,
-                "max_play_count": 10,
-                "cost_type": "st",
-                "cost_value": 500,
-                "score": 10282759,
-                "todayscore": 10282759,
-                "last_league": "C",
-                "day": 4,
-                "stage": 1801001,
-                "reward": {
-                  "704321": 1
-                },
-                "rune_g7_percent": 2,
-                "finishtimestamp": 1636297199059,
-                "up_season_reward": {
-                  "700001": 3500
-                },
-                "stay_season_reward": {
-                  "700001": 2500
-                },
-                "down_season_reward": {
-                  "700001": 1500
-                },
-                "league": "B"
+    "cannotPlay":false,
+    "rune_g7_percent":20,
+    "cost_type":"st",
+    "team":1,
+    "rank_last_index":{
+      "up_last_rank":3,
+      "down_last_rank":10,
+      "stay_last_rank":6
+    },
+    "todayscore":2262,
+    "finishtimestamp":1636901999059,
+    "stage":1801001,
+    "max_play_count":10,
+    "today_play_count":3,
+    "last_league":"C",
+    "cost_value":2000,
+    "season":8,
+    "score":2262,
+    "reward":{
+      "704322":1
+    },
+    "season_reward":{
+      "stay_season_reward":{
+        "700001":2500
+      },
+      "up_season_reward":{
+        "700001":3500
+      },
+      "down_season_reward":{
+        "700001":1500
+      }
+    },
+    "league":"B"
         }
 ]]--
 
