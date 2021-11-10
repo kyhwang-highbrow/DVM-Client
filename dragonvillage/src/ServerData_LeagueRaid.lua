@@ -94,6 +94,28 @@ end
 -------------------------------------
 -- function ServerData_LeagueRaid
 -------------------------------------
+function ServerData_LeagueRaid:getDeckIndex(doid)
+    local index = -1
+
+    for i, v in ipairs(self.m_deck_1) do
+        if v == doid then return 1 end
+    end
+
+    for i, v in ipairs(self.m_deck_2) do
+        if v == doid then return 2 end
+    end
+
+    for i, v in ipairs(self.m_deck_3) do
+        if v == doid then return 3 end
+    end
+
+    return index
+end
+
+
+-------------------------------------
+-- function ServerData_LeagueRaid
+-------------------------------------
 function ServerData_LeagueRaid:getUsingDidTable()
     local table_dragon = {}
     for i, v in ipairs(self.m_deck_1) do
@@ -127,6 +149,58 @@ end
 -------------------------------------
 function ServerData_LeagueRaid:getRewardInfo()
     return self.m_seasonReward
+end
+
+
+
+-------------------------------------
+-- function request_raidClear
+-------------------------------------
+function ServerData_LeagueRaid:request_raidClear(finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        if (ret['added_items'] and ret['added_items']['items_list']) then
+            g_serverData:networkCommonRespone_addedItems(ret)
+        end
+        
+        if (self.m_myInfo) then
+            self.m_myInfo['today_play_count'] = math.min(self.m_myInfo['today_play_count'] + 1, self.m_myInfo['max_play_count'])
+        end
+
+        if (finish_cb) then
+            finish_cb(ret)
+        end
+    end
+
+    local function response_status_cb(ret)
+        -- 현재 시간에 잠겨 있는 속성
+        if (ret['status'] == -1351) then
+
+            -- 로비로 이동
+            local function ok_cb()
+                UINavigator:goTo('lobby')
+            end 
+
+            MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'), ok_cb)
+            return true
+        end
+
+        --"status":-1351,
+        --"message":"invalid time"
+
+        return true
+    end
+
+    local ui_network = UI_Network()
+    local api_url = '/raid/clear'
+    ui_network:setUrl(api_url)
+    ui_network:setParam('stage', self.m_myInfo['stage'])
+    ui_network:setParam('uid', uid)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
 end
 
 

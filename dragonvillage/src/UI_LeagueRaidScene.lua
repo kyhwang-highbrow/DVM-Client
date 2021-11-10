@@ -4,7 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_LeagueRaidScene
 ----------------------------------------------------------------------
 UI_LeagueRaidScene = class(PARENT, {
-    
+    m_allowBackKey = 'boolean',
 })
 
 --////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,8 +30,18 @@ end
 function UI_LeagueRaidScene:init()
     local vars = self:load('league_raid.ui')
     UIManager:open(self, UIManager.SCENE)
+    self.m_allowBackKey = true
 
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_LeagueRaidScene')    
+
+    g_currScene:pushBackKeyListener(
+        self, 
+        function() 
+            if (self.m_allowBackKey) then
+                self:click_exitBtn()
+            end
+        end, 
+        'UI_LeagueRaidScene')    
+
     self:doActionReset()
     self:doAction(nil, false)
 
@@ -101,17 +111,10 @@ function UI_LeagueRaidScene:initUI()
         vars['timeLabel']:setString(msg)
     end
 
-    local today_play_count = my_info['today_play_count']
-    local max_play_count = my_info['max_play_count']
-    local count_str = Str('{1}/{2}', today_play_count, max_play_count)
-
     if (vars['today_score_label']) then vars['today_score_label']:setString(Str('{1}점', comma_value(my_info['todayscore']))) end
     if (vars['season_score_label']) then vars['season_score_label']:setString(Str('{1}점', comma_value(my_info['score']))) end
     if (vars['runeRateLabel']) then vars['runeRateLabel']:setString('+' .. Str('{1}%', my_info['rune_g7_percent'])) end
-    if (vars['countLabel']) then 
-        vars['countLabel']:setString(count_str)
-        if (today_play_count >= max_play_count) then vars['countLabel']:setColor(COLOR['RED']) else vars['countLabel']:setColor(COLOR['green']) end
-    end
+
 
     local stage_id = my_info['stage']
 
@@ -137,11 +140,6 @@ function UI_LeagueRaidScene:initUI()
     end
 
     self:updateDeckDotImage()
-
-    -- 날개
-    local wing_cost = my_info['cost_value']
-
-    if (vars['actingPowerLabel']) then vars['actingPowerLabel']:setString(comma_value(wing_cost)) end
 
     local l_reward = my_info['reward']
     local index = 1
@@ -193,7 +191,21 @@ end
 -- @brief virtual function of UI
 ----------------------------------------------------------------------
 function UI_LeagueRaidScene:refresh()
+    local vars = self.vars
+    local my_info = g_leagueRaidData:getMyInfo()
 
+    local today_play_count = my_info['today_play_count']
+    local max_play_count = my_info['max_play_count']
+    local count_str = Str('{1}/{2}', today_play_count, max_play_count)
+        if (vars['countLabel']) then 
+        vars['countLabel']:setString(count_str)
+        if (today_play_count >= max_play_count) then vars['countLabel']:setColor(COLOR['RED']) else vars['countLabel']:setColor(COLOR['green']) end
+    end
+    
+    -- 날개
+    local wing_cost = my_info['cost_value']
+
+    if (vars['actingPowerLabel']) then vars['actingPowerLabel']:setString(comma_value(wing_cost)) end
 end
 
 
@@ -210,7 +222,7 @@ end
 function UI_LeagueRaidScene:canQuickClear()
     local my_info = g_leagueRaidData:getMyInfo()
 
-    return my_info and my_info['todayscore'] > 0
+    return my_info and my_info['today_play_count'] > 0
 end
 
 
@@ -327,12 +339,47 @@ end
 -- function click_quickClearBtn
 ----------------------------------------------------------------------------
 function UI_LeagueRaidScene:click_quickClearBtn()
-    if (not self:canQuickClear()) then
+    local my_info = g_leagueRaidData:getMyInfo()
+
+    if (not self:canQuickClear()) or (my_info['score'] <= 0) then
         local msg = Str('소탕 기능을 이용하기 위해서는 하루 1회 이상 플레이 해야 합니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
 
         return
     end
+    
+    local today_play_count = my_info['today_play_count']
+    local max_play_count = my_info['max_play_count']  
+
+    if (today_play_count >= max_play_count) then
+        local msg = Str('하루 입장 제한을 초과했습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+
+    local function success_cb(ret)
+        self.m_allowBackKey = false;
+
+        function proceeding_end_cb()
+            -- reward popup
+            local text = Str('보상을 획득 했습니다.')
+            UI_ObtainPopup(ret['added_items']['items_list'], text)
+            self:refresh()
+            self.m_allowBackKey = true
+        end
+
+        local proceeding_ui = UI_Proceeding()
+        proceeding_ui.root:runAction(cc.Sequence:create(cc.DelayTime:create(2.1), 
+            cc.CallFunc:create(function() 
+                proceeding_ui:setCloseCB(function() 
+                    proceeding_end_cb()
+                end)
+                proceeding_ui:close()
+            end)))
+    end
+
+    -- /raid/clear
+    g_leagueRaidData:request_raidClear(success_cb)
 end
 
 
