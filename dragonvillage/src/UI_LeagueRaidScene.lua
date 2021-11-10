@@ -358,8 +358,6 @@ function UI_LeagueRaidScene:click_quickClearBtn()
     end
 
     local function success_cb(ret)
-        self.m_allowBackKey = false;
-
         function proceeding_end_cb()
             -- reward popup
             local text = Str('보상을 획득 했습니다.')
@@ -378,8 +376,17 @@ function UI_LeagueRaidScene:click_quickClearBtn()
             end)))
     end
 
-    -- /raid/clear
-    g_leagueRaidData:request_raidClear(success_cb)
+    local function ok_btn_callback()
+        self.m_allowBackKey = false;
+
+        -- /raid/clear
+        g_leagueRaidData:request_raidClear(success_cb)
+    end
+
+
+    local msg = Str("소탕")
+    local submsg = Str("소탕은 오늘 획득한 최고 점수를 기준으로 보상을 획득합니다.\n소탕하시겠습니까?")
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_callback)
 end
 
 
@@ -430,7 +437,19 @@ function UI_LeagueRaidScene:click_enterBtn()
         scene:runScene()
     end
 
-    g_stageData:requestGameStart(stage_id, nil, nil, finish_cb)
+
+    local function ok_btn_callback()
+        self.m_allowBackKey = false;
+
+        -- /raid/clear
+        g_stageData:requestGameStart(stage_id, nil, nil, finish_cb)
+    end
+
+
+    -- 전투를 시작합니다.
+    local msg = Str("레이드")
+    local submsg = Str("전투를 시작합니다.")
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_callback)
 end
 
 ----------------------------------------------------------------------------
