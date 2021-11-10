@@ -420,7 +420,7 @@ function UI_LeagueRaidRankItem:refresh()
     -- 기본정보
     if (vars['rankLabel']) then vars['rankLabel']:setString(Str('No. {1}', number)) end
     if (vars['userLabel']) then vars['userLabel']:setString(nick_name) end
-    if (vars['scoreLabel']) then vars['scoreLabel']:setString(comma_value(score)) end
+    if (vars['scoreLabel']) then vars['scoreLabel']:setString(Str('{1}점', comma_value(score))) end
     if (vars['meVisual']) then
         local is_me = my_uid == self.m_userInfo['uid']
         vars['meVisual']:setVisible(is_me) 
