@@ -499,3 +499,31 @@ function UI_LeagueRaidRatePopup:init()
     self:initUI()
 end
 
+
+
+
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  UI_LeagueRaidSeasonOpenPopup
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+UI_LeagueRaidSeasonOpenPopup = class(UI, {
+
+})
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_LeagueRaidSeasonOpenPopup:init()
+    local vars = self:load('league_raid_season_open_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LeagueRaidSeasonOpenPopup')
+
+    self.m_uiName = 'UI_LeagueRaidSeasonOpenPopup' 
+
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['joinBtn']:registerScriptTapHandler(function() 
+        UINavigator:goTo('league_raid')
+        self:close()
+    end)
+end
