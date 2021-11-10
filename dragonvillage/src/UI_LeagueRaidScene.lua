@@ -176,6 +176,7 @@ function UI_LeagueRaidScene:initButton()
     local vars = self.vars
 
     if (vars['infoBtn']) then vars['infoBtn']:registerScriptTapHandler(function() UI_LeagueRaidInfoPopup() end) end
+    if (vars['rateBtn']) then vars['rateBtn']:registerScriptTapHandler(function() UI_LeagueRaidRatePopup() end) end
 
     if (vars['enterBtn']) then vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end) end
 
@@ -184,6 +185,7 @@ function UI_LeagueRaidScene:initButton()
     if (vars['teamTabBtn3']) then vars['teamTabBtn3']:registerScriptTapHandler(function() self:click_deckBtn(3) end) end
 
     if (vars['clearTicketBtn']) then vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_quickClearBtn() end) end
+    
 end
 
 ----------------------------------------------------------------------
@@ -435,7 +437,7 @@ function UI_LeagueRaidCurSeasonPopup:init()
     UIManager:open(self, UIManager.POPUP)
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRouletteInfoPopup')    
 
-    self.m_uiName = 'UI_EventRouletteInfoPopup' 
+    self.m_uiName = 'UI_LeagueRaidCurSeasonPopup' 
      
     vars['okBtn']:registerScriptTapHandler(function() self:close() end)
 
@@ -472,4 +474,28 @@ function UI_LeagueRaidCurSeasonPopup:initUI()
     end
 end
 
+
+
+
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+--//  UI_LeagueRaidRatePopup
+--////////////////////////////////////////////////////////////////////////////////////////////////////////
+UI_LeagueRaidRatePopup = class(UI, {
+
+})
+
+----------------------------------------------------------------------
+-- function init
+----------------------------------------------------------------------
+function UI_LeagueRaidRatePopup:init()
+    local vars = self:load('league_raid_rate_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LeagueRaidRatePopup')    
+
+    self.m_uiName = 'UI_LeagueRaidRatePopup' 
+     
+    vars['okBtn']:registerScriptTapHandler(function() self:close() end)
+
+    self:initUI()
+end
 
