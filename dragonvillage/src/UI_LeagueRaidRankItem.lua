@@ -164,8 +164,8 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         last_adjusted_Y = 0 - list_offset_y - (100) * line_promotion - margin
         if (vars['promotionLabel']) then  
             local promotion_reward = 0
-            if (my_info and my_info['up_season_reward']) then
-                promotion_reward = my_info['up_season_reward']['700001']
+            if (my_info and my_info['season_reward']['up_season_reward']) then
+                promotion_reward = my_info['season_reward']['up_season_reward']['700001']
             end
 
             vars['promotionLabel']:setString(comma_value(promotion_reward))
@@ -199,8 +199,8 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
         if (vars['remainingLabel']) then  
             local remaining_reward = 0
-            if (my_info and my_info['stay_season_reward']) then
-                remaining_reward = my_info['stay_season_reward']['700001']
+            if (my_info and my_info['season_reward']['stay_season_reward']) then
+                remaining_reward = my_info['season_reward']['stay_season_reward']['700001']
             end
             vars['remainingLabel']:setString(comma_value(remaining_reward))
         end
@@ -236,8 +236,8 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
         if (vars['demotedLabel']) then  
             local demoted_reward = 0
-            if (my_info and my_info['down_season_reward']) then
-                demoted_reward = my_info['down_season_reward']['700001']
+            if (my_info and my_info['season_reward']['down_season_reward']) then
+                demoted_reward = my_info['season_reward']['down_season_reward']['700001']
             end
             vars['demotedLabel']:setString(comma_value(demoted_reward))
         end
