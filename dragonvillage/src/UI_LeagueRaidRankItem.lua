@@ -136,7 +136,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         table.insert(waiting_list, members_list[1])
     end]]
 
-    local list_offset_y = 35
+    local list_offset_y = 45
     local margin = 20
     local last_adjusted_Y = 0
 
