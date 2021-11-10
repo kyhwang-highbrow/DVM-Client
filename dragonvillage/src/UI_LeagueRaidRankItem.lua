@@ -421,9 +421,9 @@ function UI_LeagueRaidRankItem:refresh()
     if (vars['rankLabel']) then vars['rankLabel']:setString(Str('No. {1}', number)) end
     if (vars['userLabel']) then vars['userLabel']:setString(nick_name) end
     if (vars['scoreLabel']) then vars['scoreLabel']:setString(comma_value(score)) end
-    if (vars['meSprite']) then
+    if (vars['meVisual']) then
         local is_me = my_uid == self.m_userInfo['uid']
-        vars['meSprite']:setVisible(is_me) 
+        vars['meVisual']:setVisible(is_me) 
     end
 
 
