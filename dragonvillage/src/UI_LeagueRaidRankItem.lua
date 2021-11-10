@@ -46,6 +46,17 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     local my_info = g_leagueRaidData:getMyInfo()
     local members_list = g_leagueRaidData:getMemberList()
 
+
+    local up_last_rank = 1
+    local stay_last_rank = 1
+    local down_last_rank = 1
+
+    if (my_info['rank_last_index']) then
+        if (my_info['rank_last_index']['up_last_rank']) then up_last_rank = my_info['rank_last_index']['up_last_rank'] end
+        if (my_info['rank_last_index']['stay_last_rank']) then stay_last_rank = my_info['rank_last_index']['stay_last_rank'] end
+        if (my_info['rank_last_index']['down_last_rank']) then down_last_rank = my_info['rank_last_index']['down_last_rank'] end
+    end
+
     -- 0 승급, 1 잔류, 3 강등
     for i, v in ipairs(members_list) do
         if (v and v['status'] and v['status'] == 3) or (v and v['score'] and v['score'] <= 0 ) then
@@ -69,10 +80,10 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         local starting_index = 1
         local format_string = Str('승급 구간') .. '{@GOLD} ('
 
-        if (#promotion_list <= 1) then
+        if (up_last_rank <= 1 and #promotion_list <= 1) then
             format_string = format_string .. Str('{1}위', starting_index) .. ') {@default}'
         else
-            format_string = format_string .. Str('{1}위~{2}위', starting_index, #promotion_list) .. ') {@default}'
+            format_string = format_string .. Str('{1}위~{2}위', starting_index, up_last_rank) .. ') {@default}'
         end
 
         if (vars['promotionPannelLabel']) then vars['promotionPannelLabel']:setString(format_string) end
@@ -82,10 +93,10 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         local starting_index = #promotion_list + 1
         local format_string = Str('잔류 구간') .. '{@sky_blue} ('
 
-        if (#remaining_list <= 1) then
+        if (stay_last_rank <= 1 and #remaining_list <= 1) then
             format_string = format_string .. Str('{1}위', starting_index) .. ') {@default}'
         else
-            format_string = format_string .. Str('{1}위~{2}위', starting_index, starting_index + #remaining_list - 1) .. ') {@default}'
+            format_string = format_string .. Str('{1}위~{2}위', starting_index, stay_last_rank) .. ') {@default}'
         end
 
         if (vars['remainingPannelLabel']) then vars['remainingPannelLabel']:setString(format_string) end
@@ -95,10 +106,10 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         local starting_index = #promotion_list + #remaining_list + 1
         local format_string = Str('강등 구간') .. '{@light_red} ('
 
-        if (#remaining_list <= 1) then
+        if (down_last_rank <= 1 and #remaining_list <= 1) then
             format_string = format_string .. Str('{1}위', starting_index) .. ') {@default}'
         else
-            format_string = format_string .. Str('{1}위~{2}위', starting_index, starting_index + #demoted_list - 1) .. ') {@default}'
+            format_string = format_string .. Str('{1}위~{2}위', starting_index, down_last_rank) .. ') {@default}'
         end
 
         if (vars['demotedPannelLabel']) then vars['demotedPannelLabel']:setString(format_string) end
