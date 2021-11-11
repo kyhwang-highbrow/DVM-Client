@@ -186,7 +186,7 @@ function UI_ResultLeagueRaidScore:createItemPositions()
     upper_item['rank'] = 0
     upper_item['score'] = 65]]
 
-    local is_defeated = g_leagueRaidData.m_currentDamage > upper_item['score']
+    local is_defeated = upper_item and g_leagueRaidData.m_currentDamage > upper_item['score']
 
     if (down_item) then
         down_item['pos_x'] =  0 - center_pos_x + math_random(40, 80)
