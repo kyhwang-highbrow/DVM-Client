@@ -243,7 +243,7 @@ function UI_GameResult_LeagueRaid:showLeaderBoard()
     local vars = self.vars
     local my_info = g_leagueRaidData:getMyInfo()
 
-    if (my_info and g_leagueRaidData.m_currentDamage <= my_info['score']) then return end
+    --if (my_info and g_leagueRaidData.m_currentDamage <= my_info['score']) then return end
 
     local ui_leader_board = UI_ResultLeagueRaidScore(self.m_resultData, self.m_newInfo)
 end

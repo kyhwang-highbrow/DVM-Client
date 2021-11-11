@@ -7,8 +7,6 @@ local structLeaderBoard
 -------------------------------------
 UI_ResultLeagueRaidScore = class(PARENT, {
         m_resultData = 'table',
-
-        m_newInfo = 'table',
     })
 
 -- 앞/뒤 순위 정보 없을 때 자신의 점수에서 해당 값을 뺀 값을 뒤 순위 점수, 더한 점수를 앞 순위 점수로 사용
@@ -23,8 +21,6 @@ function UI_ResultLeagueRaidScore:init(game_result_data, new_info)
     UIManager:open(self, UIManager.POPUP)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ResultLeagueRaidScore') 
-
-    self.m_newInfo = new_info
     self.m_resultData = game_result_data
 
     self:doActionReset()
@@ -91,15 +87,47 @@ function UI_ResultLeagueRaidScore:addGroupUserItems()
 
     local vars = self.vars
     local l_member = g_leagueRaidData:getMemberList()
-    local l_x_pos, member_list = self:createItemPositions()
+    local member_list = self:createItemPositions()
 
-    for i, member in ipairs(member_list) do
-        if (member) then
-            local user_item = UI_ResultLeagueRaidScoreItem(member)
-            vars['userNode']:addChild(user_item.root)
-            user_item.root:setPositionX(l_x_pos[i])
-        end
+    local is_defeated = false
+
+    local upper_item = member_list['upper_item']
+    local my_item = member_list['my_item']
+    local down_item = member_list['down_item']
+
+    local my_node = UI_ResultLeagueRaidScoreItem(my_item)
+    local upper_node
+
+    vars['userNode']:addChild(my_node.root)
+    my_node.root:setPositionX(my_item['pos_x'])
+
+    if (upper_item) then
+        upper_node = UI_ResultLeagueRaidScoreItem(upper_item)
+        vars['userNode']:addChild(upper_node.root)
+        upper_node.root:setPositionX(upper_item['pos_x'])
+
+        is_defeated = g_leagueRaidData.m_currentDamage > upper_item['score']
     end
+
+    if (down_item) then
+        local down_node = UI_ResultLeagueRaidScoreItem(down_item)
+        vars['userNode']:addChild(down_node.root)
+        down_node.root:setPositionX(down_item['pos_x'])
+    end
+
+    local move_direction = my_item['pos_x'] + math_random(20, 60)
+
+    -- 액션을 한다
+    -- 일단 내 점수는 증가했음
+    -- 앞에 있는 놈을 초과했는지에 따라서 마지막 위치 조정
+    if (is_defeated) then
+        move_direction = upper_item['pos_x'] + 180
+    end
+
+    local move_action = cc.Sequence:create(cc.DelayTime:create(0.5), cc.MoveTo:create(0.8, cc.p(move_direction, 0)))
+
+
+    my_node.root:runAction(move_action)
 end
 
 
@@ -117,13 +145,13 @@ end
 -------------------------------------
 function UI_ResultLeagueRaidScore:createItemPositions()
     local vars = self.vars
-    local l_member = self.m_newInfo['members']
-    local l_old_member = g_leagueRaidData:getMemberList()
+    local my_info = g_leagueRaidData:getMyInfo()
+    local l_member = g_leagueRaidData:getMemberList()
 
     local l_item_position = {}
     local compare_score = 0
     local feild_width = vars['userNode']:getContentSize()['width']
-    local last_pos_x = 0 - math_floor(feild_width / 2)
+    local center_pos_x = math_floor(feild_width / 2)
 
     --[[
     for i = 5, 10 do
@@ -133,68 +161,56 @@ function UI_ResultLeagueRaidScore:createItemPositions()
         table.insert(l_member, member)
     end]]
 
-    local member_count = #l_old_member
+    local member_count = #l_member
     local item_cell = math_floor(feild_width / member_count)
 
-    table.sort(l_old_member, function(a, b)
+    table.sort(l_member, function(a, b)
         return tonumber(a['rank']) > tonumber(b['rank'])
     end)
-
     
     local my_uid = g_userData:get('uid')
-    local my_score = self.m_newInfo['my_info']['score']
+    local my_score = my_info['score']
 
     local my_item = self:findElement(l_member, 'uid', my_uid)
-    local my_item_old = self:findElement(l_old_member, 'uid', my_uid)
 
     local upper_item = self:findElement(l_member, 'rank', my_item['rank'] - 1)
-    local upper_item_old = self:findElement(l_old_member, 'rank', my_item_old['rank'] - 1)
 
     local down_item = self:findElement(l_member, 'rank', my_item['rank'] + 1)
-    local down_item_old = self:findElement(l_old_member, 'rank', my_item_old['rank'] + 1)
     
     local acting_list = {}
 
-    if (down_item and table.count(down_item) > 0) then
-        table.insert(acting_list, down_item)
+    local my_pos_x = 0
+
+    --[[
+    upper_item = clone(my_item)
+    upper_item['rank'] = 0
+    upper_item['score'] = 65]]
+
+    local is_defeated = g_leagueRaidData.m_currentDamage > upper_item['score']
+
+    if (down_item) then
+        down_item['pos_x'] =  0 - center_pos_x + math_random(40, 80)
+        acting_list['down_item'] = down_item
     end
 
-    table.insert(acting_list, my_item)
-
-    if (upper_item and table.count(upper_item) > 0) then
-        table.insert(acting_list, upper_item)
+    if (my_item) then
+        my_item['pos_x'] = is_defeated and my_pos_x - 130 or my_pos_x - 100
+        acting_list['my_item'] = my_item
     end
     
-    -- me 1 other 2
-    -- me 2 other 1,3
-    -- me 10 other 9
-
-    for index, member in ipairs(acting_list) do
-        if (index == 1) then
-            last_pos_x = last_pos_x +  math_random(20, 40)
-        elseif (index == member_count) then
-            last_pos_x = math_floor(feild_width / 2) -  math_random(20, 40)
-        elseif (member['score'] - compare_score > 10000) then
-            last_pos_x = last_pos_x + item_cell + math_random(0, 30)
-            last_pos_x = math.min(math_floor(feild_width / 2) - 60, last_pos_x)
-        else
-            last_pos_x = last_pos_x + item_cell + math_random(-30, 0)
-            last_pos_x = math.min(math_floor(feild_width / 2) - 60, last_pos_x)
-        end
-
-        table.insert(l_item_position, last_pos_x)
-
-        compare_score = member['score']
+    if (upper_item) then
+        upper_item['pos_x'] = is_defeated and my_pos_x - 100 or my_pos_x + 150
+        acting_list['upper_item'] = upper_item
     end
 
-    return l_item_position, acting_list
+    return acting_list
 end
 
 -------------------------------------
 -- function generatePositions
 -------------------------------------
 function UI_ResultLeagueRaidScore:findElement(list, key, value)
-    local result = {}
+    local result = nil
 
     if (not list) then return result end
 
