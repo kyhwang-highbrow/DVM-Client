@@ -95,7 +95,7 @@ end
 -- function ServerData_LeagueRaid
 -------------------------------------
 function ServerData_LeagueRaid:getDeckIndex(doid)
-    local index = -1
+    local index = 99
 
     for i, v in ipairs(self.m_deck_1) do
         if v == doid then return 1 end

@@ -347,11 +347,15 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
 	-- 정렬 매니저 생성
     self.m_sortManagerDragon = SortManager_Dragon()
     self.m_sortManagerFriendDragon = SortManager_Dragon()
-
+    
     -- 멀티덱 사용시 우선순위 추가
     if (self.m_multiDeckMgr) then
         local function cond(a, b)
-			return self.m_multiDeckMgr:sort_multi_deck(a, b)
+            if (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+			    return self.m_multiDeckMgr:sort_multi_deck_raid(a, b)
+            else
+			    return self.m_multiDeckMgr:sort_multi_deck(a, b)
+            end
 		end
         self.m_sortManagerDragon:addPreSortType('multi_deck', false, cond)
     end
@@ -492,6 +496,11 @@ function UI_ReadySceneNew:initMultiDeckMode()
     -- @ 그랜드 콜로세움 (이벤트 PvP 10대10)
     elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
         self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.EVENT_ARENA, make_deck)
+
+    -- @ 레이드
+    elseif (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+        self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.LEAGUE_RAID, make_deck)
+
     end
 end
 
@@ -551,7 +560,8 @@ function UI_ReadySceneNew:initUI()
     
     -- 멀티덱 예외처리 (클랜 던전, 고대 유적 던전)
     local multi_deck_mgr = self.m_multiDeckMgr
-    if (multi_deck_mgr) then
+
+    if (multi_deck_mgr and self.m_gameMode ~= GAME_MODE_LEAGUE_RAID) then
         vars['clanRaidMenu']:setVisible(true)
         vars['cpNode2']:setVisible(false)
         vars['formationNode']:setPositionX(-230)

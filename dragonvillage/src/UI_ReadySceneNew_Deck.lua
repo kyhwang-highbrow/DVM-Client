@@ -82,7 +82,7 @@ function UI_ReadySceneNew_Deck:initUI()
     local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
 
     -- 멀티 덱 처리
-    if (multi_deck_mgr) then
+    if (multi_deck_mgr and self.m_gameMode ~= GAME_MODE_LEAGUE_RAID) then
         vars['formationNode']:setPositionX(-225)
         vars['clanRaidMenu']:setVisible(true)
 
@@ -195,16 +195,18 @@ function UI_ReadySceneNew_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
 
     -- 멀티 덱 처리 - 1, 2 공격대 드래곤 체크
     if (multi_deck_mgr) then
-        local mode = self.m_selTab
-        local map_deck = multi_deck_mgr:getAnotherDeckMap(mode)
+        if (self.m_gameMode ~= GAME_MODE_LEAGUE_RAID) then
+            local mode = self.m_selTab
+            local map_deck = multi_deck_mgr:getAnotherDeckMap(mode)
 
-        if (map_deck[doid]) then
-            local another_mode = multi_deck_mgr:getAnotherPos(mode)
-            local team_name = multi_deck_mgr:getTeamName(another_mode)
+            if (map_deck[doid]) then
+                local another_mode = multi_deck_mgr:getAnotherPos(mode)
+                local team_name = multi_deck_mgr:getTeamName(another_mode)
 
-            local msg = Str('{1}에 출전중인 드래곤입니다.', team_name)
-            UIManager:toastNotificationRed(msg)
-            return 
+                local msg = Str('{1}에 출전중인 드래곤입니다.', team_name)
+                UIManager:toastNotificationRed(msg)
+                return 
+            end
         end
     end
 
@@ -682,7 +684,7 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
     -- 멀티 덱 - 다른 위치 덱 동종 동속성의 드래곤 제외
     local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
     local deck_pos = self.m_selTab
-    if (multi_deck_mgr) and (multi_deck_mgr:checkSameDidAnoterDeck(deck_pos, doid)) then
+    if (multi_deck_mgr) and (self.m_gameMode ~= GAME_MODE_LEAGUE_RAID) and (multi_deck_mgr:checkSameDidAnoterDeck(deck_pos, doid)) then
         return false
     end
 
@@ -708,7 +710,11 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
 
         -- 멀티 덱 해제
         if (multi_deck_mgr) then
-            multi_deck_mgr:deleteDragon(self.m_selTab, prev_doid)
+            if (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+                multi_deck_mgr:deleteRaidDragon(prev_doid)
+            else
+                multi_deck_mgr:deleteDragon(self.m_selTab, prev_doid)
+            end
         end
     end
 
@@ -726,7 +732,11 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
 
         -- 멀티 덱 추가
         if (multi_deck_mgr) then
-            multi_deck_mgr:addDragon(self.m_selTab, doid)
+            if (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+                multi_deck_mgr:addRaidDragon(doid)
+            else
+                multi_deck_mgr:addDragon(self.m_selTab, doid)
+            end
         end
     end
 
@@ -1382,9 +1392,37 @@ end
 function UI_ReadySceneNew_Deck:setReadySpriteVisible(ui, visible)
     -- 멀티 덱 1, 2 공격대 표시
     local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+
     if (multi_deck_mgr) then
-        local num = self.m_selTab == TAB_ATTACK_1 and 1 or 2
+        local num
+
+        if (self.m_gameMode == GAME_MODE_LEAGUE_RAID)then
+            local deck_name = g_deckData:getSelectedDeckName()
+            local deck_no = pl.stringx.replace(deck_name, 'league_raid_', '')
+
+            if (visible) then
+                num = tonumber(deck_no)
+
+            else
+                local doid = ui.m_dragonData['id']
+                local deck_num = g_leagueRaidData:getDeckIndex(doid)
+
+                if (deck_num > 0 and deck_num <= 3) then 
+                    num = deck_num
+                    visible = true
+                else
+                    visible = false
+                    num = nil
+                end
+            end
+
+        else
+            num = self.m_selTab == TAB_ATTACK_1 and 1 or 2
+            
+        end
+
         ui:setTeamReadySpriteVisible(visible, num)
+        
     else
         ui:setReadySpriteVisible(visible)
     end

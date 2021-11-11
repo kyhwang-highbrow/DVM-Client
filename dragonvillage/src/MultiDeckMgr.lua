@@ -12,6 +12,7 @@ MultiDeckMgr = class({
         -- 덱 map (임시 저장)
 		m_tDeckMap_1 = 'map', -- 인게임 상단덱 (1공격대)
         m_tDeckMap_2 = 'map', -- 인게임 하단덱 (2공격대)
+        m_tDeckMap_3 = 'map', -- 레이드 (3공격대)
 
         m_bUseManualSelection = 'boolean', -- 수동, 자동 선택기능 사용 여부
      })
@@ -24,6 +25,7 @@ MULTI_DECK_MODE = {
     CLAN_RAID = 'clan_raid',        -- 클랜 던전
     ANCIENT_RUIN = 'ancient_ruin',  -- 고대 유적 던전
     EVENT_ARENA = 'grand_arena',    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+    LEAGUE_RAID = 'league_raid',    -- 레이드 3덱
 }
 
 -------------------------------------
@@ -38,7 +40,11 @@ function MultiDeckMgr:init(deck_mode, make_deck, sub_data)
 
     -- up, down 덱 map생성
     if (make_deck) then
-        self:makeDeckMap()
+        if (self.m_mode == MULTI_DECK_MODE.LEAGUE_RAID) then
+            self:makeDeckMap_raid()
+        else
+            self:makeDeckMap()
+        end
     end
 
     -- 그랜드 콜로세움은 수동, 자동 선택기능 없음
@@ -56,6 +62,7 @@ end
 function MultiDeckMgr:makeDeckMap()
     self.m_tDeckMap_1 = {}
     self.m_tDeckMap_2 = {}
+    self.m_tDeckMap_3 = {}
 
     -- 1 공격대
     do
@@ -83,6 +90,49 @@ function MultiDeckMgr:makeDeckMap()
 end
 
 -------------------------------------
+-- function makeDeckMap_raid
+-- @breif Multi 덱 map생성 (리스트일 경우 sort 시간 오래걸림)
+-------------------------------------
+function MultiDeckMgr:makeDeckMap_raid()
+    self.m_tDeckMap_1 = {}
+    self.m_tDeckMap_2 = {}
+    self.m_tDeckMap_3 = {}
+
+    -- 1 공격대
+    do
+        local l_deck = g_deckData:getDeck('league_raid_1')
+        for k, v in pairs(l_deck) do
+            local doid = v
+            if (doid) then
+                self.m_tDeckMap_1[doid] = k
+            end
+        end
+    end
+
+    -- 2 공격대
+    do
+        local l_deck = g_deckData:getDeck('league_raid_2')
+        for k, v in pairs(l_deck) do
+            local doid = v
+            if (doid) then
+                self.m_tDeckMap_2[doid] = k
+            end
+        end
+    end
+
+    -- 2 공격대
+    do
+        local l_deck = g_deckData:getDeck('league_raid_3')
+        for k, v in pairs(l_deck) do
+            local doid = v
+            if (doid) then
+                self.m_tDeckMap_3[doid] = k
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function getDeckMap
 -- @breif 선택한 위치 덱 Map
 -------------------------------------
@@ -98,6 +148,32 @@ function MultiDeckMgr:getAnotherDeckMap(pos)
     return (pos == 'up') and self.m_tDeckMap_2 or self.m_tDeckMap_1
 end
 
+
+
+-------------------------------------
+-- function addRaidDragon
+-- @breif Multi 덱 해당 드래곤 추가 
+-------------------------------------
+function MultiDeckMgr:addRaidDragon(doid)
+    local cur_deck_name = g_deckData:getSelectedDeckName()
+    local deck_index = pl.stringx.replace(cur_deck_name, 'league_raid_', '')
+    deck_index = tonumber(deck_index)
+
+    local target
+
+    if (deck_index == 1) then
+        target = self.m_tDeckMap_1
+    elseif (deck_index == 2) then
+        target = self.m_tDeckMap_2
+    else
+        target = self.m_tDeckMap_3
+    end
+
+    target[doid] = 1
+end
+
+
+
 -------------------------------------
 -- function addDragon
 -- @breif Multi 덱 해당 드래곤 추가 
@@ -106,6 +182,31 @@ function MultiDeckMgr:addDragon(pos, doid)
     local target = pos == 'up' and self.m_tDeckMap_1 or self.m_tDeckMap_2
     target[doid] = 1
 end
+
+
+-------------------------------------
+-- function deleteRaidDragon
+-- @breif Multi 덱 해당 드래곤 삭제 
+-------------------------------------
+function MultiDeckMgr:deleteRaidDragon(doid)
+    local cur_deck_name = g_deckData:getSelectedDeckName()
+    local deck_index = pl.stringx.replace(cur_deck_name, 'league_raid_', '')
+    deck_index = tonumber(deck_index)
+
+    local target
+
+    if (deck_index == 1) then
+        target = self.m_tDeckMap_1
+    elseif (deck_index == 2) then
+        target = self.m_tDeckMap_2
+    else
+        target = self.m_tDeckMap_3
+    end
+
+    target[doid] = nil
+end
+
+
 
 -------------------------------------
 -- function deleteDragon
@@ -206,6 +307,7 @@ end
 -------------------------------------
 function MultiDeckMgr:isSettedDragon(doid)
     local is_setted = self.m_tDeckMap_1[doid] or nil
+
     -- 1 공격대
     if (is_setted) then
         return is_setted, 1
@@ -215,6 +317,12 @@ function MultiDeckMgr:isSettedDragon(doid)
     local is_setted = self.m_tDeckMap_2[doid] or nil
     if (is_setted) then
         return is_setted, 2
+    end
+
+    -- 3 공격대
+    local is_setted = self.m_tDeckMap_3[doid] or nil
+    if (is_setted) then
+        return is_setted, 3
     end
 
     return false, 99
@@ -243,6 +351,19 @@ function MultiDeckMgr:sort_multi_deck(a, b)
     end
 end
 
+
+-------------------------------------
+-- function sort_multi_deck_raid
+-- @breif 1, 2공격대에 설정된 드래곤을 정렬시 우선
+-------------------------------------
+function MultiDeckMgr:sort_multi_deck_raid(a, b)
+    local num_1 = g_leagueRaidData:getDeckIndex(a['data']['id']) or 99
+    local num_2 = g_leagueRaidData:getDeckIndex(b['data']['id']) or 99
+
+    if (num_1) and (num_2) then
+        return num_1 < num_2
+    end
+end
 
 -------------------------------------
 -- function checkSameDidAnoterDeck
