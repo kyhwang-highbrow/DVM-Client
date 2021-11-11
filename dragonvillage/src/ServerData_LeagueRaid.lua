@@ -97,19 +97,19 @@ end
 function ServerData_LeagueRaid:getDeckIndex(doid)
     local index = 99
 
-    for i, v in ipairs(self.m_deck_1) do
-        if v == doid then return 1 end
+    for i = 1, #self.m_deck_1 do
+        if self.m_deck_1[i] == doid then index = 1 end
     end
 
-    for i, v in ipairs(self.m_deck_2) do
-        if v == doid then return 2 end
+    for i = 1, #self.m_deck_2 do
+        if self.m_deck_2[i] == doid then index = 2 end
     end
 
-    for i, v in ipairs(self.m_deck_3) do
-        if v == doid then return 3 end
+    for i = 1, #self.m_deck_3 do
+        if self.m_deck_3[i] == doid then index = 3 end
     end
 
-    return index
+    return tonumber(index)
 end
 
 

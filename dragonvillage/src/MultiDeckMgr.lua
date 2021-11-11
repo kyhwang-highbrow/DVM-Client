@@ -357,11 +357,24 @@ end
 -- @breif 1, 2공격대에 설정된 드래곤을 정렬시 우선
 -------------------------------------
 function MultiDeckMgr:sort_multi_deck_raid(a, b)
-    local num_1 = g_leagueRaidData:getDeckIndex(a['data']['id']) or 99
-    local num_2 = g_leagueRaidData:getDeckIndex(b['data']['id']) or 99
+    --local num_1 = g_leagueRaidData:getDeckIndex(a['data']['id']) or 99
+    --local num_2 = g_leagueRaidData:getDeckIndex(b['data']['id']) or 99
 
-    if (num_1) and (num_2) then
+    --return num_1 < num_2
+    local is_setted_1, num_1 = self:isSettedDragon(a['data']['id']) 
+    local is_setted_2, num_2 = self:isSettedDragon(b['data']['id']) 
+
+    if (is_setted_1) and (is_setted_2) then
         return num_1 < num_2
+
+    elseif (is_setted_1) then
+        return true
+
+    elseif (is_setted_2) then
+        return false
+
+    else
+        return nil
     end
 end
 

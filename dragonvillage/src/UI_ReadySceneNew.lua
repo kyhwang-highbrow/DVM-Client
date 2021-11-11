@@ -351,22 +351,21 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
     -- 멀티덱 사용시 우선순위 추가
     if (self.m_multiDeckMgr) then
         local function cond(a, b)
-            if (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
-			    return self.m_multiDeckMgr:sort_multi_deck_raid(a, b)
-            else
-			    return self.m_multiDeckMgr:sort_multi_deck(a, b)
-            end
+            return self.m_multiDeckMgr:sort_multi_deck(a, b)
 		end
-        self.m_sortManagerDragon:addPreSortType('multi_deck', false, cond)
+
+        local function cond_raid(a, b)
+            return self.m_multiDeckMgr:sort_multi_deck_raid(a, b)
+        end
+
+        if (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+            self.m_sortManagerDragon:addPreSortType('multi_deck', false, cond_raid)
+        else
+            self.m_sortManagerDragon:addPreSortType('multi_deck', false, cond)
+        end
     end
 
     do
-        --[[
-        if (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
-            local function cond(a, b) return self:condition_raid_deck(a, b) end
-            self.m_sortManagerDragon:addPreSortType('raid_deck', false, cond)
-        end]]
-
         local function cond(a, b) return self:condition_deck_idx(a, b) end
 		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
         self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)

@@ -1404,15 +1404,15 @@ function UI_ReadySceneNew_Deck:setReadySpriteVisible(ui, visible)
                 num = tonumber(deck_no)
 
             else
-                local doid = ui.m_dragonData['id']
+                local doid = tostring(ui.m_dragonData['id'])
                 local deck_num = g_leagueRaidData:getDeckIndex(doid)
 
-                if (deck_num > 0 and deck_num <= 3) then 
+                if (deck_num ~= tonumber(deck_no) and deck_num > 0 and deck_num <= 3) then
                     num = deck_num
                     visible = true
                 else
                     visible = false
-                    num = nil
+                    num = 99
                 end
             end
 
