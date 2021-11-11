@@ -7,6 +7,8 @@ GameState_LeagueRaid = class(PARENT, {
     m_deckTable = 'table',
 
     m_currentDeckIndex = 'number',
+
+    m_buffList = 'table',
 })
 
 
@@ -21,6 +23,7 @@ function GameState_LeagueRaid:init()
     local deck_number = pl.stringx.replace(cur_deck_name, 'league_raid_', '')
 
     self.m_currentDeckIndex = tonumber(deck_number)
+    self.m_buffList = clone(g_leagueRaidData.m_leagueRaidData)
 end
 
 -------------------------------------
@@ -250,7 +253,7 @@ end
 function GameState:applyEnemyBuff()
     local cur_lv = g_leagueRaidData:getCurrentDamageLevel()
     local lv_cnt = #g_leagueRaidData.m_leagueRaidData
-    local buff_data_list = g_leagueRaidData.m_leagueRaidData
+    local buff_data_list = self.m_buffList
     local world = self.m_world
 
     for lv = 1, lv_cnt do
