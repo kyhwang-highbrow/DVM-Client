@@ -357,10 +357,11 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
     end
 
     do
+        --[[
         if (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
             local function cond(a, b) return self:condition_raid_deck(a, b) end
             self.m_sortManagerDragon:addPreSortType('raid_deck', false, cond)
-        end
+        end]]
 
         local function cond(a, b) return self:condition_deck_idx(a, b) end
 		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
