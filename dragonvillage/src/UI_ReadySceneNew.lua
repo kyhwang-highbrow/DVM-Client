@@ -306,6 +306,40 @@ function UI_ReadySceneNew:condition_cool_time(a,b)
 end
 
 -------------------------------------
+-- function condition_cool_time
+-------------------------------------
+function UI_ReadySceneNew:condition_cool_time(a,b)
+    local a_enable = g_friendData:checkUseEnableDragon(a['data']['id'])
+    local b_enable = g_friendData:checkUseEnableDragon(b['data']['id'])
+
+    local a_value = g_friendData:getDragonCoolTimeFromDoid(a['data']['id']) or 0
+    local b_value = g_friendData:getDragonCoolTimeFromDoid(b['data']['id']) or 0
+
+    a_value = a_enable and 0 or a_value
+    b_value = b_enable and 0 or b_value
+
+    if (a_value == b_value) then
+        return nil
+    end
+    
+    return a_value < b_value
+end
+
+
+-------------------------------------
+-- function condition_raid_deck
+-------------------------------------
+function UI_ReadySceneNew:condition_raid_deck(a,b)
+    local using_dragons = g_leagueRaidData:getUsingDidTable()
+
+    local a_deck_index = g_leagueRaidData:getDeckIndex(a['data']['id'])
+    local b_deck_index = g_leagueRaidData:getDeckIndex(a['data']['id'])
+
+    return a_deck_index < b_deck_index
+end
+
+
+-------------------------------------
 -- function init_sortMgr
 -------------------------------------
 function UI_ReadySceneNew:init_sortMgr(stage_id)
@@ -313,7 +347,7 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
 	-- 정렬 매니저 생성
     self.m_sortManagerDragon = SortManager_Dragon()
     self.m_sortManagerFriendDragon = SortManager_Dragon()
-    
+
     -- 멀티덱 사용시 우선순위 추가
     if (self.m_multiDeckMgr) then
         local function cond(a, b)
@@ -323,9 +357,12 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
     end
 
     do
-        local function cond(a, b)
-			return self:condition_deck_idx(a, b)
-		end
+        if (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+            local function cond(a, b) return self:condition_raid_deck(a, b) end
+            self.m_sortManagerDragon:addPreSortType('raid_deck', false, cond)
+        end
+
+        local function cond(a, b) return self:condition_deck_idx(a, b) end
 		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
         self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)
     end
