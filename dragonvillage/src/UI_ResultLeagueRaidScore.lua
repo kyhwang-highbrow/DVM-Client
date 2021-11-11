@@ -7,6 +7,8 @@ local structLeaderBoard
 -------------------------------------
 UI_ResultLeagueRaidScore = class(PARENT, {
         m_resultData = 'table',
+
+        m_newInfo = 'table',
     })
 
 -- 앞/뒤 순위 정보 없을 때 자신의 점수에서 해당 값을 뺀 값을 뒤 순위 점수, 더한 점수를 앞 순위 점수로 사용
@@ -15,13 +17,14 @@ local DEFAULT_GAP = 1000000
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ResultLeagueRaidScore:init(game_result_data)
+function UI_ResultLeagueRaidScore:init(game_result_data, new_info)
     local vars = self:load('league_raid_result_popup.ui')
 
     UIManager:open(self, UIManager.POPUP)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ResultLeagueRaidScore') 
 
+    self.m_newInfo = new_info
     self.m_resultData = game_result_data
 
     self:doActionReset()
@@ -66,9 +69,9 @@ function UI_ResultLeagueRaidScore:setCurrentInfo()
     local promotion_reward = 0
     local demoted_reward = 0
 
-    if (my_info and my_info['up_season_reward']) then promotion_reward = my_info['up_season_reward']['700001'] end
-    if (my_info and my_info['stay_season_reward']) then remaining_reward = my_info['stay_season_reward']['700001'] end
-    if (my_info and my_info['down_season_reward']) then demoted_reward = my_info['down_season_reward']['700001'] end
+    if (my_info and my_info['up_season_reward']) then promotion_reward = my_info['season_reward']['up_season_reward']['700001'] end
+    if (my_info and my_info['stay_season_reward']) then remaining_reward = my_info['season_reward']['stay_season_reward']['700001'] end
+    if (my_info and my_info['down_season_reward']) then demoted_reward = my_info['season_reward']['down_season_reward']['700001'] end
 
     if (vars['promotionRewardLabel']) then vars['promotionRewardLabel']:setString(comma_value(promotion_reward)) end
     if (vars['remainingRewardLabel']) then vars['remainingRewardLabel']:setString(comma_value(remaining_reward)) end
@@ -88,9 +91,9 @@ function UI_ResultLeagueRaidScore:addGroupUserItems()
 
     local vars = self.vars
     local l_member = g_leagueRaidData:getMemberList()
-    local l_x_pos = self:createItemPositions()
+    local l_x_pos, member_list = self:createItemPositions()
 
-    for i, member in ipairs(l_member) do
+    for i, member in ipairs(member_list) do
         if (member) then
             local user_item = UI_ResultLeagueRaidScoreItem(member)
             vars['userNode']:addChild(user_item.root)
@@ -114,8 +117,9 @@ end
 -------------------------------------
 function UI_ResultLeagueRaidScore:createItemPositions()
     local vars = self.vars
-    local l_member = g_leagueRaidData:getMemberList()
-    
+    local l_member = self.m_newInfo['members']
+    local l_old_member = g_leagueRaidData:getMemberList()
+
     local l_item_position = {}
     local compare_score = 0
     local feild_width = vars['userNode']:getContentSize()['width']
@@ -129,14 +133,43 @@ function UI_ResultLeagueRaidScore:createItemPositions()
         table.insert(l_member, member)
     end]]
 
-    local member_count = #l_member
+    local member_count = #l_old_member
     local item_cell = math_floor(feild_width / member_count)
 
-    table.sort(l_member, function(a, b)
+    table.sort(l_old_member, function(a, b)
         return tonumber(a['rank']) > tonumber(b['rank'])
     end)
 
-    for index, member in ipairs(l_member) do
+    
+    local my_uid = g_userData:get('uid')
+    local my_score = self.m_newInfo['my_info']['score']
+
+    local my_item = self:findElement(l_member, 'uid', my_uid)
+    local my_item_old = self:findElement(l_old_member, 'uid', my_uid)
+
+    local upper_item = self:findElement(l_member, 'rank', my_item['rank'] - 1)
+    local upper_item_old = self:findElement(l_old_member, 'rank', my_item_old['rank'] - 1)
+
+    local down_item = self:findElement(l_member, 'rank', my_item['rank'] + 1)
+    local down_item_old = self:findElement(l_old_member, 'rank', my_item_old['rank'] + 1)
+    
+    local acting_list = {}
+
+    if (down_item and table.count(down_item) > 0) then
+        table.insert(acting_list, down_item)
+    end
+
+    table.insert(acting_list, my_item)
+
+    if (upper_item and table.count(upper_item) > 0) then
+        table.insert(acting_list, upper_item)
+    end
+    
+    -- me 1 other 2
+    -- me 2 other 1,3
+    -- me 10 other 9
+
+    for index, member in ipairs(acting_list) do
         if (index == 1) then
             last_pos_x = last_pos_x +  math_random(20, 40)
         elseif (index == member_count) then
@@ -154,7 +187,25 @@ function UI_ResultLeagueRaidScore:createItemPositions()
         compare_score = member['score']
     end
 
-    return l_item_position
+    return l_item_position, acting_list
+end
+
+-------------------------------------
+-- function generatePositions
+-------------------------------------
+function UI_ResultLeagueRaidScore:findElement(list, key, value)
+    local result = {}
+
+    if (not list) then return result end
+
+    for _, v in ipairs(list) do
+        if (v and v[key] and v[key] == value) then
+            result = v
+            break
+        end
+    end
+
+    return result
 end
 
 

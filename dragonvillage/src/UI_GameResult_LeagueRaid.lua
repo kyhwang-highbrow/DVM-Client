@@ -6,6 +6,7 @@ local PARENT = UI_GameResultNew
 -- class UI_GameResult_LeagueRaid
 ----------------------------------------------------------------------------
 UI_GameResult_LeagueRaid = class(UI, {
+    m_newInfo = 'table',
 
     m_workIdx = 'number',
     m_lWorkList = 'list',
@@ -41,7 +42,7 @@ UI_GameResult_LeagueRaid = class(UI, {
 ----------------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------------
-function UI_GameResult_LeagueRaid:init(stage_id, is_success, result_data)
+function UI_GameResult_LeagueRaid:init(stage_id, is_success, result_data, new_info)
     local vars = self:load('league_raid_result.ui')
     self.m_uiName = 'UI_GameResult_LeagueRaid'
 
@@ -49,6 +50,7 @@ function UI_GameResult_LeagueRaid:init(stage_id, is_success, result_data)
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() end, 'UI_GameResult_LeagueRaid')
+    self.m_newInfo = new_info
 
     self.m_stage_id = stage_id
     self.m_bSuccess = is_success
@@ -241,7 +243,7 @@ function UI_GameResult_LeagueRaid:showLeaderBoard()
     local vars = self.vars
     
     -- todo
-    local ui_leader_board = UI_ResultLeagueRaidScore(self.m_resultData)
+    local ui_leader_board = UI_ResultLeagueRaidScore(self.m_resultData, self.m_newInfo)
 end
 
 

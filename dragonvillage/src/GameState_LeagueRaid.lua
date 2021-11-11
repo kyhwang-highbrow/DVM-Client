@@ -174,6 +174,8 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
+    local func_get_new_info
+    local game_result
     
     -- UI연출에 필요한 테이블들
     local result_table = {}
@@ -187,15 +189,19 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
     -- 1. 네트워크 통신
     func_network_game_finish = function()
         local param_table = self:makeGameFinishParam(isSuccess)
-        g_gameScene:networkGameFinish(param_table, result_table, func_ui_result)
+        g_gameScene:networkGameFinish(param_table, result_table, func_get_new_info)
+    end
+
+    func_get_new_info = function(finish_ret)
+        game_result = finish_ret
+        g_leagueRaidData:request_RaidInfo(func_ui_result, function(info_ret) end, true)
     end
 
     -- 2. UI 생성
-    func_ui_result = function(ret)
+    func_ui_result = function(info_ret)
         local world = self.m_world
         local stage_id = world.m_stageID
 
-        -- UI_GameResult_Dmgate(stage_id,
         -- isSuccess,
         -- self.m_fightTimer,
         -- result_table['default_gold'],
@@ -205,7 +211,7 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
         -- result_table['drop_reward_list'],
         -- result_table['secret_dungeon'],
         -- result_table['content_open'])
-        UI_GameResult_LeagueRaid(stage_id, isSuccess, result_table)
+        UI_GameResult_LeagueRaid(stage_id, isSuccess, result_table, info_ret)
     end
 
     -- 최초 실행

@@ -207,10 +207,12 @@ end
 -------------------------------------
 -- function ServerData_LeagueRaid
 -------------------------------------
-function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
+function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb, dont_update)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
+        if (dont_update) then if (finish_cb) then finish_cb(ret) end end
+
         self.m_infoData = ret
 
         self.m_memberCount = ret['member_count']
@@ -230,9 +232,7 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb)
             self.m_lastScore = ret['last_score']
         end
         
-        if (finish_cb) then
-            finish_cb(ret)
-        end
+        if (finish_cb) then finish_cb(ret) end
     end
 
     local function response_status_cb(ret)
