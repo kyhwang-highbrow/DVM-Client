@@ -143,22 +143,19 @@ function UI_LeagueRaidScene:initUI()
         vars['bossLabel']:setString(name)
 
         local desc = g_stageData:getStageDesc(stage_id)
-        cclog(desc)
     end
 
     self:updateDeckDotImage()
+    
+    local display_reward = my_info['raid_reward_display']
+    local l_reward = pl.stringx.split(display_reward, ';')
 
-    local l_reward = my_info['reward']
-    local index = 1
-
-    for item_id, count in pairs(l_reward) do
+    for index, item_id in pairs(l_reward) do
         local node_name = 'itemNode' .. index
         if (vars[node_name]) then
             local icon = UI_ItemCard(tonumber(item_id))
             vars[node_name]:addChild(icon.root)
         end
-
-        index = index + 1
     end
 
     self:setRankImage()
