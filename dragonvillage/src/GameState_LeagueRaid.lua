@@ -26,6 +26,28 @@ function GameState_LeagueRaid:init()
     self.m_buffList = clone(g_leagueRaidData.m_leagueRaidData)
 end
 
+
+-------------------------------------
+-- function initState
+-- @brief 상태(state)별 동작 함수 추가
+-------------------------------------
+function GameState_LeagueRaid:initState()
+    self:addState(GAME_STATE_NONE,                   function(self, dt) end)
+    self:addState(GAME_STATE_START,                  GameState_LeagueRaid.update_start)
+    self:addState(GAME_STATE_WAVE_INTERMISSION,      GameState_LeagueRaid.update_wave_intermission)
+    self:addState(GAME_STATE_WAVE_INTERMISSION_WAIT, GameState_LeagueRaid.update_wave_intermission_wait)
+    self:addState(GAME_STATE_ENEMY_APPEAR,           GameState_LeagueRaid.update_enemy_appear)
+    self:addState(GAME_STATE_FIGHT,                  GameState_LeagueRaid.update_fight)
+    self:addState(GAME_STATE_FIGHT_WAIT,             GameState_LeagueRaid.update_fight_wait)
+    self:addState(GAME_STATE_FINAL_WAVE,             GameState_LeagueRaid.update_final_wave) -- 마지막 웨이브 연출
+    self:addState(GAME_STATE_BOSS_WAVE,              GameState_LeagueRaid.update_boss_wave)  -- 보스 웨이브 연출
+    self:addState(GAME_STATE_RAID_WAVE,              GameState_LeagueRaid.update_raid_wave)  -- 레이드 웨이브 연출
+    self:addState(GAME_STATE_SUCCESS_WAIT,           GameState_LeagueRaid.update_success_wait)
+    self:addState(GAME_STATE_SUCCESS,                GameState_LeagueRaid.update_success)
+    self:addState(GAME_STATE_FAILURE,                GameState_LeagueRaid.update_failure)
+end
+
+
 -------------------------------------
 -- function getDeckName
 -------------------------------------
@@ -189,6 +211,107 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
     -- 최초 실행
     func_network_game_finish()
 end
+
+
+-------------------------------------
+-- function update_boss_wave
+-- @brief 보스 웨이브 연출
+-------------------------------------
+function GameState_LeagueRaid.update_boss_wave(self, dt)
+    -- 패배 여부 체크
+    if (self.m_currentDeckIndex > 1) then
+        self:changeState(GAME_STATE_ENEMY_APPEAR)
+        return
+    end
+
+    PARENT.update_boss_wave(self, dt)
+end
+
+
+
+
+
+
+-------------------------------------
+-- function update_enemy_appear
+-------------------------------------
+function GameState_LeagueRaid.update_enemy_appear(self, dt)
+    local world = self.m_world
+    local enemy_count = #world:getEnemyList()
+
+    if (self.m_stateTimer == 0) then
+        local dynamic_wave = #world.m_waveMgr.m_lDynamicWave
+
+        if (enemy_count <= 0) and (dynamic_wave <= 0) then
+            self:waveChange()
+        end
+    
+    -- 모든 적들이 등장이 끝났는지 확인
+    elseif world.m_waveMgr:isEmptyDynamicWaveList() and self.m_nAppearedEnemys >= enemy_count then
+        
+        -- 전투 최초 시작시
+        if world.m_waveMgr:isFirstWave() then
+            world:dispatch('game_start')
+            world.m_inGameUI:doAction()
+			-- 아군 패시브 효과 적용
+			world:passiveActivate_Left()
+
+            -- 아군 AI 초기화
+            world:prepareAuto()
+        end
+        
+        -- 웨이브 알림
+        do
+            self.m_waveNoti:setVisible(true)
+            self.m_waveNoti:changeAni('wave', false)
+
+
+            self.m_waveNum:setVisual('tag', tostring(self.m_currentDeckIndex))
+            self.m_waveMaxNum:setVisual('tag', tostring(3))
+
+            local duration = self.m_waveNoti:getDuration()
+            self.m_waveNoti:runAction(cc.Sequence:create(
+                cc.DelayTime:create(duration),
+                cc.CallFunc:create(function(node)
+                    node:setVisible(false)
+                    self:fight()
+                    self:changeState(GAME_STATE_FIGHT)
+                end)
+            ))
+
+            self:setWave(world.m_waveMgr.m_currWave, world.m_waveMgr.m_maxWave)
+            
+			-- 웨이브 시작 이벤트 전달
+            world:dispatch('wave_start')
+
+			-- 적 패시브 발동
+			world:passiveActivate_Right()
+
+			SoundMgr:playEffect('UI', 'ui_wave_start')
+        end
+
+        -- 적 이동패턴 정보 초기화
+        if (world.m_enemyMovementMgr) then
+            world.m_enemyMovementMgr:reset()
+        end
+
+        -- 적 AI 초기화
+        world:prepareEnemyAuto()
+        
+        self:changeState(GAME_STATE_FIGHT_WAIT)
+    end
+    
+    -- 웨이브 매니져 업데이트
+    world.m_waveMgr:update(dt, true)
+end
+
+
+
+
+
+
+
+
 
 
 -------------------------------------

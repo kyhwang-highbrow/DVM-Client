@@ -174,10 +174,10 @@ function UI_LeagueRaidDamageInfo:refresh()
 
     -- 체력바 가감 연출
     if (vars['bossHpGauge1']) then
-        local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, percentage, 1))
-        vars['bossHpGauge1']:stopAllActions()
-        vars['bossHpGauge1']:runAction(cc.EaseIn:create(action, 1))
-        --vars['bossHpGauge1']:setScaleX(percentage)
+        --local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, percentage, 1))
+        --vars['bossHpGauge1']:stopAllActions()
+        --vars['bossHpGauge1']:runAction(cc.EaseIn:create(action, 1))
+        vars['bossHpGauge1']:setScaleX(percentage)
     end
 
 	if (vars['bossHpGauge2']) then
