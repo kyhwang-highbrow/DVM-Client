@@ -166,6 +166,8 @@ function ServerData_LeagueRaid:request_raidClear(finish_cb, fail_cb)
         
         if (self.m_myInfo) then
             self.m_myInfo['today_play_count'] = math.min(self.m_myInfo['today_play_count'] + 1, self.m_myInfo['max_play_count'])
+            self.m_myInfo['cost_value'] = ret['raid_use_staminas']
+            
         end
 
         if (finish_cb) then
