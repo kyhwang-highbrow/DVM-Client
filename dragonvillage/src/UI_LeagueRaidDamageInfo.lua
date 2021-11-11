@@ -42,11 +42,10 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
     for lv = 1, table_item_count do
         local data = self.m_damageTable[lv]
 
+        next_item = data
         next_total_damage = next_total_damage + data['hp']
 
         if (damage <= next_total_damage) then
-            next_item = data
-
             last_item = self.m_damageTable[lv - 1]
 
             if (not last_item) then
@@ -60,7 +59,25 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
         end
     end
 
+    -- 마지막 단계 도달했을 때
+    -- 마지막 레벨 기준으로 무한 + 해준다
+    if (not last_item) then
+        next_item = self.m_damageTable[table_item_count]
+
+        while (not last_item) do
+            next_total_damage = next_total_damage + next_item['hp']
+
+            if (damage <= next_total_damage) then
+                last_item = self.m_damageTable[table_item_count - 1]
+                last_total_damage = next_total_damage - next_item['hp']
+                break
+            end
+        end
+    end
+    
+
     if (not next_item) then
+        
         next_item = self.m_damageTable[table_item_count]
         last_item = self.m_damageTable[table_item_count - 1]
     end
@@ -96,11 +113,10 @@ end
 function UI_LeagueRaidDamageInfo:refresh()
     local vars = self.vars
 
-    local is_prepared = g_gameScene and g_gameScene.m_gameWorld and g_gameScene.m_gameWorld.m_logRecorder and g_leagueRaidData.m_currentDamage
-    local total_damage = is_prepared and g_leagueRaidData.m_currentDamage or 0
+    local total_damage = g_leagueRaidData.m_currentDamage
     local last_item, next_item, last_total_damage, next_total_damage = self:findDamageItem(total_damage)
 
-    local molecular = next_total_damage - (next_total_damage - total_damage)
+    local molecular = next_total_damage - total_damage
     local denominator = (next_total_damage - last_total_damage)
 
     --cclog(tostring(molecular) .. ' / ' .. tostring(denominator))
@@ -122,10 +138,13 @@ function UI_LeagueRaidDamageInfo:refresh()
     end
 
     if (self.m_ingamedUI and self.m_ingamedUI.vars) then
-        local last_lv = tonumber(self.m_ingamedUI.vars['runeRewardLabel']:getString())
+        local last_lv = self.m_ingamedUI.vars['runeRewardLabel']:getString()
         local is_run_action = false
 
+        last_lv = pl.stringx.replace(last_lv, 'Lv. ', '')
+
         if (not self.m_ingamedUI.vars['league_raidMenu']:isVisible() and total_damage > 0) then
+            self.m_ingamedUI.vars['runeRewardLabel']:setString('Lv. ' .. next_item['lv'])
             self.m_ingamedUI.vars['league_raidMenu']:setVisible(true)
             self.m_ingamedUI.vars['boxVisual']:changeAni('box_league_raid_idle', true)
             self.m_ingamedUI.vars['boxVisual']:runAction(cca.buttonShakeAction(2, 2))
@@ -134,7 +153,7 @@ function UI_LeagueRaidDamageInfo:refresh()
             is_run_action = true
         end    
 
-        if (last_lv ~= next_item['lv']) then
+        if (tonumber(last_lv) ~= next_item['lv']) then
             self.m_ingamedUI.vars['runeRewardLabel']:setString('Lv. ' .. next_item['lv'])
             self.m_ingamedUI.vars['boxVisual']:changeAni('box_02', false)
             self.m_ingamedUI.vars['boxVisual']:addAniHandler(function()
