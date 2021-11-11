@@ -174,8 +174,6 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
-    local func_get_new_info
-    local game_result
     
     -- UI연출에 필요한 테이블들
     local result_table = {}
@@ -189,16 +187,11 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
     -- 1. 네트워크 통신
     func_network_game_finish = function()
         local param_table = self:makeGameFinishParam(isSuccess)
-        g_gameScene:networkGameFinish(param_table, result_table, func_get_new_info)
-    end
-
-    func_get_new_info = function(finish_ret)
-        game_result = finish_ret
-        g_leagueRaidData:request_RaidInfo(func_ui_result, function(info_ret) end, true)
+        g_gameScene:networkGameFinish(param_table, result_table, func_ui_result)
     end
 
     -- 2. UI 생성
-    func_ui_result = function(info_ret)
+    func_ui_result = function(ret)
         local world = self.m_world
         local stage_id = world.m_stageID
 
@@ -211,7 +204,7 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
         -- result_table['drop_reward_list'],
         -- result_table['secret_dungeon'],
         -- result_table['content_open'])
-        UI_GameResult_LeagueRaid(stage_id, isSuccess, result_table, info_ret)
+        UI_GameResult_LeagueRaid(stage_id, isSuccess, result_table)
     end
 
     -- 최초 실행
@@ -386,30 +379,33 @@ function GameState:applyEnemyBuff()
     local world = self.m_world
 
     for lv = 1, lv_cnt do
+        if (lv > cur_lv) then break end
         local data = buff_data_list[lv]
-        if (not data or data['added'] or not data['buff']) then break end
 
-        if IS_DEV_SERVER() then
-            cclog(data['buff'])
+        if (data) and (not data['added']) and (data['buff']) then
+
+            if IS_DEV_SERVER() then
+                cclog(data['buff'])
+            end
+
+            -- 적군 버프 적용
+            do
+                for i, v in ipairs(world.m_rightParticipants) do
+                    if (v.m_statusCalc) then
+                        v.m_statusCalc:applyAdditionalOptions(data['buff'])
+                        --world:addPassiveStartEffect(v, str_buff_name)
+                    end
+                end
+
+                for i, v in ipairs(world.m_rightNonparticipants) do
+                    if (v.m_statusCalc) then
+                        v.m_statusCalc:applyAdditionalOptions(data['buff'])
+                    end
+                end
+            end       
+
+            data['added'] = true
         end
-        
-        -- 적군 버프 적용
-        do
-            for i, v in ipairs(world.m_rightParticipants) do
-                if (v.m_statusCalc) then
-                    v.m_statusCalc:applyAdditionalOptions(data['buff'])
-                    --world:addPassiveStartEffect(v, str_buff_name)
-                end
-            end
-
-            for i, v in ipairs(world.m_rightNonparticipants) do
-                if (v.m_statusCalc) then
-                    v.m_statusCalc:applyAdditionalOptions(data['buff'])
-                end
-            end
-        end       
-
-        data['added'] = true
     end
 end
 
