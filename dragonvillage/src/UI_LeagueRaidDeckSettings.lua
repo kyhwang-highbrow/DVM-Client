@@ -40,11 +40,15 @@ function UI_LeagueRaidDeckSettings:init(stage_id, sub_info, bChangeMode)
     local vars = self.vars
     self.m_changeMode = bChangeMode or false -- 바로 시작인지 덱만 바꾸는 건지
     self.m_subInfo = sub_info
+    self.m_dontSaveOnExit = true
     cclog('UI_LeagueRaidDeckSettings' .. self.m_subInfo)
     -- 덱 변경만 가능
     if (self.m_changeMode) then
         vars['actingPowerNode']:setVisible(false)
-        vars['startBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+        vars['startBtn']:registerScriptTapHandler(function() 
+            self.m_dontSaveOnExit = false
+            self:click_backBtn() 
+        end)
         vars['startBtnLabel']:setPositionX(0)
         vars['startBtnLabel']:setString(Str('변경 완료'))
 
