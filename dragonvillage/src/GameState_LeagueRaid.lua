@@ -92,14 +92,19 @@ function GameState_LeagueRaid:checkWaveClear(dt)
     end
 
     -- 패배 여부 체크
-    if (self.m_currentDeckIndex < 3 and hero_count <= 0) then
-        g_leagueRaidData.m_curDeckIndex = self.m_currentDeckIndex + 1
-        g_deckData:setSelectedDeck('league_raid_' .. tostring(g_leagueRaidData.m_curDeckIndex))
-        
+    if (self.m_currentDeckIndex < 3 and hero_count <= 0) then        
         local my_info = g_leagueRaidData:getMyInfo()
         local stage_id = my_info['stage']
         local stage_name = 'stage_' .. stage_id
-        local world = self.m_world
+
+        if (self.m_currentDeckIndex == 1) then
+            g_leagueRaidData.m_attackedChar_A = clone(world.m_myDragons)
+        else
+            g_leagueRaidData.m_attackedChar_B = clone(world.m_myDragons)
+        end
+
+        g_leagueRaidData.m_curDeckIndex = self.m_currentDeckIndex + 1
+        g_deckData:setSelectedDeck('league_raid_' .. tostring(g_leagueRaidData.m_curDeckIndex))
 
         world:setGameFinish()
         if (world.m_tamer) then
@@ -142,11 +147,21 @@ function GameState_LeagueRaid:checkWaveClear(dt)
 
     elseif(hero_count <= 0) then
         self:changeState(GAME_STATE_SUCCESS_WAIT)
+        g_leagueRaidData.m_attackedChar_C = clone(world.m_myDragons)
         return true
 
     -- 클리어 여부 체크
     elseif (enemy_count <= 0 or self:checkToDieHighestRariry()) then
         self.m_waveClearTimer = self.m_waveClearTimer + dt
+
+        if (self.m_currentDeckIndex == 1) then
+            g_leagueRaidData.m_attackedChar_A = clone(world.m_myDragons)
+        elseif (self.m_currentDeckIndex == 2) then
+            g_leagueRaidData.m_attackedChar_B = clone(world.m_myDragons)
+        else
+            g_leagueRaidData.m_attackedChar_C = clone(world.m_myDragons)
+        end
+
 
         if (self.m_waveClearTimer > 0.5) then
             self.m_waveClearTimer = 0
@@ -210,6 +225,37 @@ function GameState_LeagueRaid:makeResultUI(isSuccess)
     -- 최초 실행
     func_network_game_finish()
 end
+
+
+
+
+
+
+-------------------------------------
+-- function update_success
+-------------------------------------
+function GameState_LeagueRaid.update_success(self, dt)
+    
+    if (self.m_stateTimer == 0) then
+        if (self.m_currentDeckIndex == 1) then
+            g_leagueRaidData.m_attackedChar_A = clone(self.m_world.m_myDragons)
+        elseif (self.m_currentDeckIndex == 2) then
+            g_leagueRaidData.m_attackedChar_B = clone(self.m_world.m_myDragons)
+        else
+            g_leagueRaidData.m_attackedChar_C = clone(self.m_world.m_myDragons)
+        end
+    end
+
+    PARENT.update_success(self, dt)
+
+end
+
+
+
+
+
+
+
 
 
 -------------------------------------

@@ -19,6 +19,11 @@ ServerData_LeagueRaid = class({
     m_curDeckIndex = 'number',
     m_curStageData = 'table',
 
+
+    m_attackedChar_A = 'table',
+    m_attackedChar_B = 'table',
+    m_attackedChar_C = 'table',
+
     m_leagueRaidData = 'table',
     })
 
@@ -35,6 +40,20 @@ function ServerData_LeagueRaid:init()
 
     self.m_leagueRaidData = TABLE:get('table_league_raid_data')
 end
+
+
+-------------------------------------
+-- function getMemberCount
+-------------------------------------
+function ServerData_LeagueRaid:resetIngameData()
+    self.m_currentDamage = 0
+    self.m_curDeckIndex = 1
+
+    self.m_attackedChar_A = nil
+    self.m_attackedChar_B = nil
+    self.m_attackedChar_C = nil
+end
+
 
 -------------------------------------
 -- function getMemberCount

@@ -367,7 +367,7 @@ end
 ----------------------------------------------------------------------------
 function UI_GameResult_LeagueRaid:click_statsBtn()
 	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
-	UI_StatisticsPopup(g_gameScene.m_gameWorld)
+	UI_LeagueRaidStatisticsPopup(g_gameScene.m_gameWorld)
 end
 
 ----------------------------------------------------------------------------
