@@ -27,6 +27,8 @@ UI_ReadySceneNew = class(PARENT,{
         -- 멀티덱 사용하는 경우 (클랜 던전, 고대 유적 던전)
         m_multiDeckMgr = 'MultiDeckMgr',
         m_numOfFevertimePopupOpened = 'number', -- 핫타임 팝업이 열린 횟수
+
+        m_dontSaveOnExit = 'boolean',
     })
 
 -------------------------------------
@@ -1124,6 +1126,8 @@ function UI_ReadySceneNew:click_exitBtn()
     local function next_func()
         self:close()
     end
+
+    if (self.m_dontSaveOnExit) then next_func() return end
 
     self:checkChangeDeck(next_func)
 end

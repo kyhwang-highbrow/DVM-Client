@@ -151,11 +151,14 @@ function UI_ReadySceneNew_Deck:onChangeOption()
         local sprite = vars[mode .. 'RadioSprite']
         sprite:setVisible(true)
 
-        local team_name = multi_deck_mgr:getTeamName(mode)
-        local msg = Str('{1}가 수동전투 가능상태로 설정되었습니다.', team_name)
-        UIManager:toastNotificationGreen(msg)
+        if (self.m_gameMode ~= GAME_MODE_LEAGUE_RAID) then
 
-        multi_deck_mgr:setMainDeck(mode)
+            local team_name = multi_deck_mgr:getTeamName(mode)
+            local msg = Str('{1}가 수동전투 가능상태로 설정되었습니다.', team_name)
+            UIManager:toastNotificationGreen(msg)
+
+            multi_deck_mgr:setMainDeck(mode)
+        end
     end
 
     -- 다른 모드는 자동 전투
