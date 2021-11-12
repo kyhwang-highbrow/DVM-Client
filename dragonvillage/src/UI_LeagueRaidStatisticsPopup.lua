@@ -146,16 +146,19 @@ end
 -------------------------------------
 function UI_LeagueRaidStatisticsPopup:onChangeTab(tab, first)
     local table_view
-
+    --[[
     if (self.m_tableView_A:isVisible()) then
         table_view = self.m_tableView_A
     elseif (self.m_tableView_B:isVisible()) then
         table_view = self.m_tableView_B
     else
         table_view = self.m_tableView_C
-    end
+    end]]
 
-	self:refreshTableView(table_view, tab)
+	self:refreshTableView(self.m_tableView_A, tab)
+	self:refreshTableView(self.m_tableView_B, tab)
+	self:refreshTableView(self.m_tableView_C, tab)
+
 end
 
 -------------------------------------
