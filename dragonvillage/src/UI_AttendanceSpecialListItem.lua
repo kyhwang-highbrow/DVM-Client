@@ -71,7 +71,9 @@ function UI_AttendanceSpecialListItem:initCommonUI()
         
 		-- 아이콘
 		local item_icon = IconHelper:getItemIcon(item_id, nil)
-        vars['itemNode'..i]:addChild(item_icon)
+
+        if (vars['itemNode'..i]) then vars['itemNode'..i]:addChild(item_icon) end
+        if (vars['rewardNode'..i]) then vars['rewardNode'..i]:addChild(item_icon) end
 
 		-- 이름
         local item_name = TableItem():getValue(item_id, 't_name')
@@ -126,18 +128,22 @@ function UI_AttendanceSpecialListItem:initCustomUI()
         
 		-- 아이콘
 		local item_icon = IconHelper:getItemIcon(item_id, nil)
-        vars['itemNode'..i]:addChild(item_icon)
+
+        if (vars['itemNode'..i]) then vars['itemNode'..i]:addChild(item_icon) end
+        if (vars['rewardNode'..i]) then vars['rewardNode'..i]:addChild(item_icon) end
+
         item_icon:setScale(0.9)
 
 
 		-- 이름
         local item_name = TableItem():getValue(item_id, 't_name')
 		local name = UIHelper:makeItemNamePlainByParam(item_id, item_cnt)
-        vars['quantityLabel'..i]:setString(name)
+
+        if (vars['quantityLabel'..i]) then vars['quantityLabel'..i]:setString(name) end
 
 		-- 수령 표시
         if (i <= today_step) then
-            vars['checkSprite'..i]:setVisible(true)
+            if (vars['checkSprite'..i]) then vars['checkSprite'..i]:setVisible(true) end
         end
     end
 end
