@@ -102,18 +102,14 @@ function GameState_LeagueRaid:checkWaveClear(dt)
         else
             g_leagueRaidData.m_attackedChar_B = clone(world.m_myDragons)
         end
-
-        g_leagueRaidData.m_curDeckIndex = self.m_currentDeckIndex + 1
+        
+        self.m_currentDeckIndex = self.m_currentDeckIndex + 1
+        g_leagueRaidData.m_curDeckIndex = self.m_currentDeckIndex
         g_deckData:setSelectedDeck('league_raid_' .. tostring(g_leagueRaidData.m_curDeckIndex))
-
-        world:setGameFinish()
+       
+        
         if (world.m_tamer) then
             world.m_tamer:changeState('dying')
-        end
-        for i,dragon in ipairs(world:getDragonList()) do
-            if (not dragon:isDead()) then
-                dragon:changeState('idle')
-            end
         end
 
         for i,enemy in ipairs(world:getEnemyList()) do
@@ -126,7 +122,7 @@ function GameState_LeagueRaid:checkWaveClear(dt)
 	    world:removeMissileAndSkill()
         world:removeEnemyDebuffs()
         world:cleanupItem()
-        
+        --[[
         -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)
 
@@ -138,11 +134,34 @@ function GameState_LeagueRaid:checkWaveClear(dt)
         g_gameScene:onExit()
 
         local scene = SceneGame(g_leagueRaidData.m_curStageData, stage_id, stage_name, true)
-        scene:runScene()
+        scene:runScene()]]
+
+        -- 테이머 생성
+        self.m_world:initTamer()
+
+        self.m_world:makeHeroDeck()
+
+        -- 초기 쿨타임 설정
+        self.m_world:initActiveSkillCool(self.m_world:getDragonList())
+    
+        -- 초기 마나 설정
+        self.m_world.m_mUnitGroup[PHYS.HERO]:getMana():addMana(START_MANA)
+
+        do -- 진형 시스템 초기화
+            self.m_world:setBattleZone(self.m_world.m_deckFormation, true)
+        end
+
+        -- 스킬 조작계 초기화
+        do
+            self.m_world.m_skillIndicatorMgr = SkillIndicatorMgr(self.m_world)
+        end
 
 
-        --self.m_world:makeHeroDeck()
-        --self:changeState(GAME_STATE_START)
+        self.m_world.m_inGameUI:reinitialze()
+        self.m_world:resetMyMana()
+        --self.m_world.m_inGameUI:doActionReset()
+        --self.m_world:initGame(g_gameScene.m_stageName)
+        self:changeState(GAME_STATE_ENEMY_APPEAR)
         return false
 
     elseif(hero_count <= 0) then

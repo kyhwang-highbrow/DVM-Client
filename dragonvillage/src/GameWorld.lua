@@ -1765,6 +1765,16 @@ function GameWorld:getManaAccelValue(char)
 end
 
 -------------------------------------
+-- function resetMyMana
+-------------------------------------
+function GameWorld:resetMyMana()
+    local mana = self.m_mUnitGroup[PHYS.HERO]:getMana()
+    if (mana) then
+        mana:resetMana()
+    end
+end
+
+-------------------------------------
 -- function resetEnemyMana
 -------------------------------------
 function GameWorld:resetEnemyMana()

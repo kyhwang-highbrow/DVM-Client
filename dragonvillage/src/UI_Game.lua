@@ -56,6 +56,16 @@ function UI_Game:getUIFileName()
 end
 
 -------------------------------------
+-- function reinitialze
+-------------------------------------
+function UI_Game:reinitialze()
+    self.m_panelUI.root:setVisible(false)
+
+    self:initManaUI()
+    self:init_panelUI()
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function UI_Game:init(game_scene)
