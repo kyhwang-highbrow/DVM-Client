@@ -1148,6 +1148,7 @@ local t_module = {
     'UI_ResultLeagueRaidScore',
     'UI_LeagueRaidDamageInfo',
     'UI_LeagueRaidStatisticsPopup',
+    'UI_LeagueRaidOpenPopup',
     'GameWorldLeagueRaid',
 
 	-- UI : 모험

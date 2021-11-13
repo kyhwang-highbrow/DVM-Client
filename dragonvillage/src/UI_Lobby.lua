@@ -230,16 +230,6 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        -- 레이드 
-        --[[
-        do 
-            if (IS_DEV_SERVER()) then
-                co:work('# 레이드 정보 받는 중')
-                g_leagueRaidData:request_RaidInfo(co.NEXT, co.NEXT)
-                if co:waitWork() then return end
-            end
-        end]]
-
         -- 구독 상품 정보 받는 중
         co:work('# 구독 상품 정보 받는 중')
         local ui_network = g_subscriptionData:request_subscriptionInfo(co.NEXT, co.ESCAPE)
@@ -2736,6 +2726,13 @@ function UI_Lobby:refresh_rightBanner()
             collabo_banner.root:setDockPoint(TOP_RIGHT)
             collabo_banner.root:setAnchorPoint(TOP_RIGHT)
             vars['banner_appcollaboration'] = collabo_banner
+        end
+    end
+
+    if (g_leagueRaidData:isLobbyPopupRequired()) then
+        if (not g_leagueRaidData.m_raidLobbyData['shwon_popup']) then
+            g_leagueRaidData.m_raidLobbyData['shwon_popup'] = true
+            UI_LeagueRaidOpenPopup()
         end
     end
 

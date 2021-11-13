@@ -1331,6 +1331,8 @@ function UI_TitleScene:workGetServerInfo()
                     g_fevertimeData:applyFevertimeAtTitleAPI(ret)
                 end
 
+                cclog('# 레이드 정보')
+                g_leagueRaidData:applyServerData(ret)
 
                 cclog('# 보급소(정액제)(supply_list)')
                 g_supply:applySupplyList_fromRet(ret)

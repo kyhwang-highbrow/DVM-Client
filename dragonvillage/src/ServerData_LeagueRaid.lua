@@ -25,6 +25,8 @@ ServerData_LeagueRaid = class({
     m_attackedChar_C = 'table',
 
     m_leagueRaidData = 'table',
+
+    m_raidLobbyData = 'table', --  자세한건 applyServerData 에서 확인
     })
 
 
@@ -35,6 +37,8 @@ function ServerData_LeagueRaid:init()
     self.m_deck_1 = {}
     self.m_deck_2 = {}
     self.m_deck_3 = {}
+
+    self.m_raidLobbyData = {}
 
     self.m_lastScore = 0
 
@@ -329,4 +333,60 @@ function ServerData_LeagueRaid:getCurrentDamageLevel()
     if (not_found) then cur_lv = table_item_count end
 
     return cur_lv
+end
+
+
+
+-------------------------------------
+-- function applyServerData
+-------------------------------------
+function ServerData_LeagueRaid:applyServerData(ret)
+    if (not ret) then return end
+
+    -- 레이드 현재 시즌
+    if (ret['league_raid_season']) then self.m_raidLobbyData['league_raid_season'] = ret['league_raid_season'] end
+
+    -- 레이드 스테이지 정보
+    if (ret['league_raid_stage']) then self.m_raidLobbyData['league_raid_stage'] = ret['league_raid_stage'] end
+
+    -- 레이드 오픈 여부
+    if (ret['league_raid_is_open']) then self.m_raidLobbyData['league_raid_is_open'] = ret['league_raid_is_open'] end
+
+    -- 레이드 플레이 가능 여부 ( 고대유적 10층 클리어)
+    if (ret['league_raid_play_condition']) then self.m_raidLobbyData['league_raid_play_condition'] = ret['league_raid_play_condition'] end
+
+    -- 현재 시즌 레이드 참여 여부
+    if (ret['league_raid_is_play']) then self.m_raidLobbyData['league_raid_is_play'] = ret['league_raid_is_play'] end
+end
+
+
+-------------------------------------
+-- function isLobbyPopupRequired
+-------------------------------------
+function ServerData_LeagueRaid:isLobbyPopupRequired()
+    local result = false
+
+    -- 레이드 오픈
+    -- 고대유적 10층 클리어
+    -- 레이드 아직 참여 안함
+    if (self.m_raidLobbyData['league_raid_is_open'] == true) then
+        if (self.m_raidLobbyData['league_raid_play_condition'] == true) then
+            if (self.m_raidLobbyData['league_raid_is_play'] == false) then
+                self.m_raidLobbyData['league_raid_is_play'] = true
+                result = true
+            end
+        end
+    end
+
+    return result
+end
+
+-------------------------------------
+-- function getStageId
+-------------------------------------
+function ServerData_LeagueRaid:getStageIdAndSeason()
+    local stage_id = self.m_raidLobbyData['league_raid_stage'] or 0
+    local season = self.m_raidLobbyData['league_raid_season'] or 0
+
+    return stage_id, season
 end
