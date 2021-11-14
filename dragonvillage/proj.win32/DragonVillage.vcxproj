@@ -372,6 +372,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameWorldForDoubleTeam_Unit.lua" />
     <None Include="..\src\GameWorldIntro.lua" />
     <None Include="..\src\GameWorldClanRaid.lua" />
+    <None Include="..\src\GameWorldLeagueRaid.lua" />
     <None Include="..\src\GameWorldTrial.lua" />
     <None Include="..\src\GameWorld_Gold.lua" />
     <None Include="..\src\GameWorld_Illusion.lua" />
@@ -1541,9 +1542,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_IranLoginPopup.lua" />
     <None Include="..\src\UI_ItemPickPopup.lua" />
     <None Include="..\src\UI_LeagueRaidDeckSettings.lua" />
+    <None Include="..\src\UI_LeagueRaidOpenPopup.lua" />
     <None Include="..\src\UI_LeagueRaidRankItem.lua" />
     <None Include="..\src\UI_LeagueRaidScene.lua" />
     <None Include="..\src\UI_LeagueRaidSeasonRewardPopup.lua" />
+    <None Include="..\src\UI_LeagueRaidStatisticsPopup.lua" />
     <None Include="..\src\UI_LinkAccountPopup.lua" />
     <None Include="..\src\UI_ListItem_ClanWarGroupStage.lua" />
     <None Include="..\src\UI_Loading.lua" />

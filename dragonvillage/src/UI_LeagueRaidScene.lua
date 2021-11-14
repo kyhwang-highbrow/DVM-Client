@@ -360,6 +360,21 @@ function UI_LeagueRaidScene:click_quickClearBtn()
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end
+    
+    -- 날개
+    local wing_cost = my_info['cost_value']
+
+
+    if not g_staminasData:hasStaminaCount('st', wing_cost) then
+        local function finish_cb()
+        end
+        local b_use_cash_label = false
+        local b_open_spot_sale = true
+        local st_charge_popup = UI_StaminaChargePopup(b_use_cash_label, b_open_spot_sale, finish_cb)
+        UIManager:toastNotificationRed(Str('날개가 부족합니다.'))
+        return
+    end
+
 
     local function success_cb(ret)
         function proceeding_end_cb()
@@ -430,6 +445,17 @@ function UI_LeagueRaidScene:click_enterBtn()
         return
     end
 
+    local wing_cost = my_info['cost_value']
+    if not g_staminasData:hasStaminaCount('st', wing_cost) then
+        local function finish_cb()
+        end
+        local b_use_cash_label = false
+        local b_open_spot_sale = true
+        local st_charge_popup = UI_StaminaChargePopup(b_use_cash_label, b_open_spot_sale, finish_cb)
+        UIManager:toastNotificationRed(Str('날개가 부족합니다.'))
+        return
+    end
+
     local my_info = g_leagueRaidData:getMyInfo()
     local stage_id = my_info['stage']
     local stage_name = 'stage_' .. stage_id
@@ -451,9 +477,7 @@ function UI_LeagueRaidScene:click_enterBtn()
 
 
     -- 전투를 시작합니다.
-    local msg = Str("레이드")
-    local submsg = Str("전투를 시작합니다.")
-    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_callback)
+    UI_ConfirmPopup('staminas_st', wing_cost, Str('전투를 시작합니다.'), ok_btn_callback)
 end
 
 ----------------------------------------------------------------------------

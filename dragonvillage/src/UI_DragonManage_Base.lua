@@ -26,6 +26,8 @@ UI_DragonManage_Base = class(PARENT,{
         m_mtrlDragonSortManager = 'SortManager_Dragon',
 
         m_isMythDragon = '',
+
+        m_multiDeckMgr = '',
     })
 
 -------------------------------------
@@ -352,6 +354,22 @@ function UI_DragonManage_Base:init_dragonSortMgr()
     local uic_sort_list = MakeUICSortList_dragonManage(vars['sortBtn'], vars['sortLabel'])
     self.m_uicSortList = uic_sort_list
     
+
+    -- 멀티덱 사용시 우선순위 추가
+    local deck_name = g_deckData:getSelectedDeckName()
+
+    if (string.find(deck_name, 'league_raid')) then
+        self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.LEAGUE_RAID, true)
+
+        if (self.m_multiDeckMgr) then
+            local function cond_raid(a, b)
+                return self.m_multiDeckMgr:sort_multi_deck_raid(a, b)
+            end
+
+            self.m_sortManagerDragon:addPreSortType('multi_deck', false, cond_raid)
+        end
+    end
+
 
     -- 버튼을 통해 정렬이 변경되었을 경우
     local function sort_change_cb(sort_type)

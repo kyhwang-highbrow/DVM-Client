@@ -10,6 +10,8 @@ UI_DragonRunesBulkEquipDragonTab = class(PARENT,{
         m_sortManagerDragon = 'SortManager_Dragon',
 
         m_selectDoid = 'string',
+
+        m_multiDeckMgr = '',
     })
 
 
@@ -124,6 +126,21 @@ function UI_DragonRunesBulkEquipDragonTab:initTableView()
         end
 
         self.m_sortManagerDragon = sort_manager
+
+        -- 멀티덱 사용시 우선순위 추가
+        local deck_name = g_deckData:getSelectedDeckName()
+
+        if (string.find(deck_name, 'league_raid')) then
+            self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.LEAGUE_RAID, true)
+
+            if (self.m_multiDeckMgr) then
+                local function cond_raid(a, b)
+                    return self.m_multiDeckMgr:sort_multi_deck_raid(a, b)
+                end
+
+                self.m_sortManagerDragon:addPreSortType('multi_deck', false, cond_raid)
+            end
+        end
     end
 
     self:applyDragonSort()

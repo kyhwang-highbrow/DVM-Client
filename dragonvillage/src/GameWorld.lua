@@ -344,6 +344,7 @@ function GameWorld:createComponents()
         -- 7. 레이드 던전
         elseif (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
             self.m_gameState = GameState_LeagueRaid(self)
+            self.m_inGameUI:offAutoStart()
         
         end
         

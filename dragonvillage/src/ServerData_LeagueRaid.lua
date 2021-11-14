@@ -26,7 +26,7 @@ ServerData_LeagueRaid = class({
 
     m_leagueRaidData = 'table',
 
-    m_raidLobbyData = 'table', --  ÀÚ¼¼ÇÑ°Ç applyServerData ¿¡¼­ È®ÀÎ
+    m_raidLobbyData = 'table', --  ìì„¸í•œê±´ applyServerData ì—ì„œ í™•ì¸
     })
 
 
@@ -199,15 +199,15 @@ function ServerData_LeagueRaid:request_raidClear(finish_cb, fail_cb)
     end
 
     local function response_status_cb(ret)
-        -- ÇöÀç ½Ã°£¿¡ Àá°Ü ÀÖ´Â ¼Ó¼º
+        -- í˜„ì¬ ì‹œê°„ì— ì ê²¨ ìˆëŠ” ì†ì„±
         if (ret['status'] == -1351) then
 
-            -- ·Îºñ·Î ÀÌµ¿
+            -- ë¡œë¹„ë¡œ ì´ë™
             local function ok_cb()
                 UINavigator:goTo('lobby')
             end 
 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('ÀÔÀå °¡´ÉÇÑ ½Ã°£ÀÌ ¾Æ´Õ´Ï´Ù.'), ok_cb)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('ì…ì¥ ê°€ëŠ¥í•œ ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤.'), ok_cb)
             return true
         end
 
@@ -261,15 +261,15 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb, dont_update)
     end
 
     local function response_status_cb(ret)
-        -- ÇöÀç ½Ã°£¿¡ Àá°Ü ÀÖ´Â ¼Ó¼º
+        -- í˜„ì¬ ì‹œê°„ì— ì ê²¨ ìˆëŠ” ì†ì„±
         if (ret['status'] == -1351) then
 
-            -- ·Îºñ·Î ÀÌµ¿
-            local function ok_cb()
-                UINavigator:goTo('lobby')
-            end 
+            -- ë¡œë¹„ë¡œ ì´ë™
+            --local function ok_cb()
+            --    UINavigator:goTo('lobby')
+            --end 
 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('ÀÔÀå °¡´ÉÇÑ ½Ã°£ÀÌ ¾Æ´Õ´Ï´Ù.'), ok_cb)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('ì…ì¥ ê°€ëŠ¥í•œ ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤.'))
             return true
         end
 
@@ -343,19 +343,19 @@ end
 function ServerData_LeagueRaid:applyServerData(ret)
     if (not ret) then return end
 
-    -- ·¹ÀÌµå ÇöÀç ½ÃÁğ
+    -- ë ˆì´ë“œ í˜„ì¬ ì‹œì¦Œ
     if (ret['league_raid_season']) then self.m_raidLobbyData['league_raid_season'] = ret['league_raid_season'] end
 
-    -- ·¹ÀÌµå ½ºÅ×ÀÌÁö Á¤º¸
+    -- ë ˆì´ë“œ ìŠ¤í…Œì´ì§€ ì •ë³´
     if (ret['league_raid_stage']) then self.m_raidLobbyData['league_raid_stage'] = ret['league_raid_stage'] end
 
-    -- ·¹ÀÌµå ¿ÀÇÂ ¿©ºÎ
+    -- ë ˆì´ë“œ ì˜¤í”ˆ ì—¬ë¶€
     if (ret['league_raid_is_open']) then self.m_raidLobbyData['league_raid_is_open'] = ret['league_raid_is_open'] end
 
-    -- ·¹ÀÌµå ÇÃ·¹ÀÌ °¡´É ¿©ºÎ ( °í´ëÀ¯Àû 10Ãş Å¬¸®¾î)
+    -- ë ˆì´ë“œ í”Œë ˆì´ ê°€ëŠ¥ ì—¬ë¶€ ( ê³ ëŒ€ìœ ì  10ì¸µ í´ë¦¬ì–´)
     if (ret['league_raid_play_condition']) then self.m_raidLobbyData['league_raid_play_condition'] = ret['league_raid_play_condition'] end
 
-    -- ÇöÀç ½ÃÁğ ·¹ÀÌµå Âü¿© ¿©ºÎ
+    -- í˜„ì¬ ì‹œì¦Œ ë ˆì´ë“œ ì°¸ì—¬ ì—¬ë¶€
     if (ret['league_raid_is_play']) then self.m_raidLobbyData['league_raid_is_play'] = ret['league_raid_is_play'] end
 end
 
@@ -366,9 +366,9 @@ end
 function ServerData_LeagueRaid:isLobbyPopupRequired()
     local result = false
 
-    -- ·¹ÀÌµå ¿ÀÇÂ
-    -- °í´ëÀ¯Àû 10Ãş Å¬¸®¾î
-    -- ·¹ÀÌµå ¾ÆÁ÷ Âü¿© ¾ÈÇÔ
+    -- ë ˆì´ë“œ ì˜¤í”ˆ
+    -- ê³ ëŒ€ìœ ì  10ì¸µ í´ë¦¬ì–´
+    -- ë ˆì´ë“œ ì•„ì§ ì°¸ì—¬ ì•ˆí•¨
     if (self.m_raidLobbyData['league_raid_is_open'] == true) then
         if (self.m_raidLobbyData['league_raid_play_condition'] == true) then
             if (self.m_raidLobbyData['league_raid_is_play'] == false) then

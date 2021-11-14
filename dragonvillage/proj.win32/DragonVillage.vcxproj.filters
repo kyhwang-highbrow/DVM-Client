@@ -5014,6 +5014,15 @@
     <None Include="..\src\UI_LeagueRaidDamageInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_LeagueRaidStatisticsPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\GameWorldLeagueRaid.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_LeagueRaidOpenPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
