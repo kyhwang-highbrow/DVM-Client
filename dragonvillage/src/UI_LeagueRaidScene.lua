@@ -403,9 +403,12 @@ function UI_LeagueRaidScene:click_quickClearBtn()
     end
 
 
+    -- 전투를 시작합니다.
+    UI_ConfirmPopup('staminas_st', wing_cost, Str('소탕은 오늘 획득한 최고 점수를 기준으로 보상을 획득합니다.\n소탕하시겠습니까?'), ok_btn_callback)
+    --[[
     local msg = Str("소탕")
     local submsg = Str("소탕은 오늘 획득한 최고 점수를 기준으로 보상을 획득합니다.\n소탕하시겠습니까?")
-    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_callback)
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_callback)]]
 end
 
 
