@@ -45,7 +45,7 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
     local table_item_count = table.count(self.m_damageTable)
 
     final_lv = 0
-
+    --[[
     if (damage <= 100000) then
         last_item = nil
         next_item = self.m_damageTable[1]
@@ -54,7 +54,7 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
         final_lv = 1
 
         return last_item, next_item, last_total_damage, next_total_damage, final_lv
-    end
+    end]]
 
     for lv = 1, table_item_count do
         final_lv = lv
