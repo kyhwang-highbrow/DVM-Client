@@ -469,7 +469,7 @@ function Network_platform_receiptValidation(platform, signature, receipt, succes
     local t_request = {}
     t_request['full_url'] = GetPlatformApiUrl() .. '/payment/receiptValidation/'
     t_request['method'] = 'POST'
-    t_request['data'] = signature
+    t_request['data'] = t_data
     
 
     t_request['check_hmac_md5'] = false
