@@ -43,6 +43,7 @@ UI_Game = class(PARENT, {
         -- 누적 데미지 연출
         m_stackableDamageUI = '',
 
+        m_dpsUI = '',
 
         -- 
         m_tooltip = '',
@@ -60,9 +61,12 @@ end
 -------------------------------------
 function UI_Game:reinitialze()
     self.m_panelUI.root:setVisible(false)
+    self.m_dpsUI.root:setVisible(false)
+
 
     self:initManaUI()
     self:init_panelUI()
+    self:init_dpsUI()
 end
 
 -------------------------------------
@@ -678,6 +682,8 @@ function UI_Game:init_dpsUI()
     local world = self.m_gameScene.m_gameWorld
 
     local dps_ui = UI_GameDPSPopup(world)
+    self.m_dpsUI = dps_ui
+
     self.vars['dpsInfoNode']:addChild(dps_ui.root)
 end
 
