@@ -9,6 +9,8 @@ GameState_LeagueRaid = class(PARENT, {
     m_currentDeckIndex = 'number',
 
     m_buffList = 'table',
+
+    m_curLv = 'number',
 })
 
 
@@ -18,6 +20,7 @@ GameState_LeagueRaid = class(PARENT, {
 -------------------------------------
 function GameState_LeagueRaid:init()
     self.m_bgmBoss = 'bgm_dungeon_boss'
+    self.m_curLv = 0
 
     local cur_deck_name = g_deckData:getSelectedDeckName()
     local deck_number = pl.stringx.replace(cur_deck_name, 'league_raid_', '')
@@ -438,20 +441,17 @@ end
 -- @brief 광폭화 적용
 -------------------------------------
 function GameState:applyEnemyBuff()
-    local cur_lv = g_leagueRaidData:getCurrentDamageLevel()
+    local cur_lv, data = g_leagueRaidData:getCurrentDamageLevel()
     local lv_cnt = #g_leagueRaidData.m_leagueRaidData
     local buff_data_list = self.m_buffList
     local world = self.m_world
 
-    for lv = 1, lv_cnt do
-        if (lv > cur_lv) then break end
-        local data = buff_data_list[lv]
+    local buff_count = cur_lv - self.m_curLv
 
-        if (data) and (not data['added']) and (data['buff']) then
+    if (cur_lv <= self.m_curLv) then return end
 
-            if IS_DEV_SERVER() then
-                cclog(data['buff'])
-            end
+    for lv = 1, buff_count do
+        if (data) and (data['buff']) then
 
             -- 적군 버프 적용
             do
@@ -467,11 +467,29 @@ function GameState:applyEnemyBuff()
                         v.m_statusCalc:applyAdditionalOptions(data['buff'])
                     end
                 end
-            end       
+            end
+        end
 
-            data['added'] = true
+
+        if (data) and (data['debuff']) then
+            -- 아군 버프/디버프 적용
+            do
+                for i, v in ipairs(world.m_leftParticipants) do
+                    if (v.m_statusCalc) then
+                        v.m_statusCalc:applyAdditionalOptions(data['debuff'])
+                    end
+                end
+
+                for i, v in ipairs(world.m_leftNonparticipants) do
+                    if (v.m_statusCalc) then
+                        v.m_statusCalc:applyAdditionalOptions(data['debuff'])
+                    end
+                end
+            end
         end
     end
+
+    self.m_curLv = cur_lv
 end
 
 

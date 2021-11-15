@@ -268,6 +268,7 @@ function Monster:makeHPGauge(hp_ui_offset, force)
         self.m_infoUI = self.m_world.m_inGameUI.m_stackableDamageUI
         self.m_statusIconNode =   self.m_world.m_inGameUI.m_stackableDamageUI.vars['bossStatusNode']
         self.m_bFixedPosHpNode = true
+        self.m_infoUI.m_targetMonster = self
         return 
     end
 

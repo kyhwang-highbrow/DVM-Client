@@ -12,6 +12,10 @@ UI_LeagueRaidDamageInfo = class(PARENT, {
 
     m_ingamedUI = 'UI',
 
+    m_targetMonster = 'Monster',
+
+    m_curLv = 'number',
+
 })
 
 -------------------------------------
@@ -22,6 +26,7 @@ function UI_LeagueRaidDamageInfo:init(parent)
     self:load('ingame_boss_hp.ui')
 
     self.m_ingamedUI = parent
+    self.m_curLv = 0
 
     self.m_damageTable = TABLE:get('table_league_raid_data')
     self:initUI()
@@ -39,7 +44,10 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
     local next_total_damage = 0
     local table_item_count = table.count(self.m_damageTable)
 
+    final_lv = 0
+
     for lv = 1, table_item_count do
+        final_lv = lv
         local data = self.m_damageTable[lv]
 
         next_item = data
@@ -65,6 +73,8 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
         next_item = self.m_damageTable[table_item_count]
 
         while (not last_item) do
+            final_lv = final_lv + 1
+
             next_total_damage = next_total_damage + next_item['hp']
 
             if (damage <= next_total_damage) then
@@ -74,7 +84,6 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
             end
         end
     end
-    
 
     if (not next_item) then
         
@@ -82,7 +91,7 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
         last_item = self.m_damageTable[table_item_count - 1]
     end
 
-    return last_item, next_item, last_total_damage, next_total_damage
+    return last_item, next_item, last_total_damage, next_total_damage, final_lv
 end
 
 -------------------------------------
@@ -114,7 +123,7 @@ function UI_LeagueRaidDamageInfo:refresh()
     local vars = self.vars
 
     local total_damage = g_leagueRaidData.m_currentDamage
-    local last_item, next_item, last_total_damage, next_total_damage = self:findDamageItem(total_damage)
+    local last_item, next_item, last_total_damage, next_total_damage, final_lv = self:findDamageItem(total_damage)
 
     local molecular = next_total_damage - total_damage
     local denominator = (next_total_damage - last_total_damage)
@@ -142,6 +151,7 @@ function UI_LeagueRaidDamageInfo:refresh()
         local is_run_action = false
 
         last_lv = pl.stringx.replace(last_lv, 'Lv. ', '')
+        last_lv = tonumber(last_lv)
 
         if (not self.m_ingamedUI.vars['league_raidMenu']:isVisible() and total_damage > 0) then
             self.m_ingamedUI.vars['runeRewardLabel']:setString('Lv. ' .. next_item['lv'])
@@ -153,12 +163,23 @@ function UI_LeagueRaidDamageInfo:refresh()
             is_run_action = true
         end    
 
-        if (tonumber(last_lv) ~= next_item['lv']) then
+        local cur_hp_percentage = vars['bossHpGauge1']:getScaleX()
+
+        if (last_lv ~= next_item['lv'] or final_lv ~= self.m_curLv) then
             self.m_ingamedUI.vars['runeRewardLabel']:setString('Lv. ' .. next_item['lv'])
             self.m_ingamedUI.vars['boxVisual']:changeAni('box_02', false)
             self.m_ingamedUI.vars['boxVisual']:addAniHandler(function()
                 self.m_ingamedUI.vars['boxVisual']:changeAni('box_league_raid_idle', true)
             end)
+            --[[
+            local skill_overlap = final_lv - self.m_curLv
+
+            -- do boss skill
+            for i = 1, skill_overlap do
+                if (self.m_targetMonster) then
+                    self.m_targetMonster:doSkill(271009)
+                end
+            end]]
 
             is_run_action = true
         end
@@ -185,6 +206,8 @@ function UI_LeagueRaidDamageInfo:refresh()
         vars['bossHpGauge2']:stopAllActions()
         vars['bossHpGauge2']:runAction(cc.EaseIn:create(action, 2))
     end
+
+    self.m_curLv = final_lv
 end
 
 

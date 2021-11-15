@@ -318,21 +318,45 @@ function ServerData_LeagueRaid:getCurrentDamageLevel()
     local cur_lv = 1
     local not_found = true
 
-    for lv = 1, table_item_count do
-        local data = self.m_leagueRaidData[lv]
+    local minimum_damage = 100000
 
+    local data
+
+    if (damage < minimum_damage) then
+        cur_lv = 0
+        return cur_lv
+    end
+
+    for lv = 1, table_item_count do
+        data = self.m_leagueRaidData[lv]
         next_damage = next_damage + data['hp']
+        cur_lv = lv
 
         if (damage <= next_damage) then
-            cur_lv = lv
+            
             not_found = false
             break
         end
     end
 
-    if (not_found) then cur_lv = table_item_count end
+    if (not_found) then 
+        data = self.m_leagueRaidData[table_item_count]
 
-    return cur_lv
+        while (not_found) do
+            cur_lv = cur_lv + 1
+
+            next_damage = next_damage + data['hp']
+
+            if (damage <= next_damage) then
+                not_found = false
+                break
+            end
+        end
+    
+        --cur_lv = table_item_count
+    end
+
+    return cur_lv, data
 end
 
 
