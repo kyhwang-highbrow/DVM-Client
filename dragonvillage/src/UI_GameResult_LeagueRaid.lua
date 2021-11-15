@@ -35,7 +35,11 @@ UI_GameResult_LeagueRaid = class(UI, {
     m_btnMenu = '',             -- 버튼 전체 관리를 위한 메뉴
     m_statsBtn = '',            -- 전투 통계
 
-    m_okBtn = 'Button'
+    m_okBtn = 'Button',
+
+    m_rewardTableView = 'UIC_tableView',
+
+    m_tRuneCardTable = 'table',
 })
 
 
@@ -102,7 +106,7 @@ function UI_GameResult_LeagueRaid:initUI()
     
     self:initDragonList()
     self:initRewardTable()
-
+    --self:initRuneCardList()
     vars['tableViewNode']:setVisible(false)
     vars['okBtn']:setVisible(false)
     vars['statsBtn']:setVisible(false)
@@ -136,8 +140,14 @@ function UI_GameResult_LeagueRaid:setWorkList()
     table.insert(self.m_lWorkList, 'direction_start')
 
     table.insert(self.m_lWorkList, 'direction_showScore')
-	table.insert(self.m_lWorkList, 'direction_showBox')
-    table.insert(self.m_lWorkList, 'direction_openBox')
+
+    local rune_cnt = #self.m_resultData['drop_reward_list']
+    if (rune_cnt > 0) then
+	    table.insert(self.m_lWorkList, 'direction_showBox')
+        table.insert(self.m_lWorkList, 'direction_openBox')
+    end
+
+    table.insert(self.m_lWorkList, 'direction_showRunes')
 
     table.insert(self.m_lWorkList, 'direction_end')
 end
@@ -222,6 +232,126 @@ function UI_GameResult_LeagueRaid:direction_showScore()
 end
 
 
+-------------------------------------
+-- function direction_showRunes
+-- @brief 종료 연출
+-------------------------------------
+function UI_GameResult_LeagueRaid:direction_showRunes()
+    local vars = self.vars
+    --self:initRewardTable()
+    if (not self.m_resultData or not self.m_resultData['drop_reward_list']) then 
+        if (vars['runeRewardLabel']) then vars['runeRewardLabel']:setString(comma_value(rune_cnt)) end
+        return 
+    
+    end
+
+    local rune_cnt = #self.m_resultData['drop_reward_list']
+    local interval = 95
+    local max_cnt_per_line = 8
+
+    local l_item = {}
+    for i,v in ipairs(self.m_resultData['drop_reward_list']) do
+        -- struct rune obj
+        local t_rune_data = g_runesData:getRuneObject(v[4]['roid'])
+		if (t_rune_data ~= nil) then
+            table.insert(l_item, t_rune_data)
+        end
+
+        --table.insert(l_item, v[1])
+    end
+
+    -- 생성 시 함수
+    local function create_func(ui, data)
+        --[[
+        local item_id = tonumber(data)
+        local table_item = TableItem():get(item_id)]]
+        ui.root:setScale(0.6)
+
+        if (data and data['grade']) then 
+            local grade = tonumber(data['grade'])
+            self:setItemCardRarity(ui, grade)
+        end
+    end
+
+    -- 테이블뷰 생성 TD
+    local table_view = UIC_TableViewTD(vars['tableViewNode'])
+    table_view:setAlignCenter(true)
+    table_view:setHorizotalCenter(true)
+    table_view.m_cellSize = cc.size(interval, interval)
+    table_view.m_nItemPerCell = max_cnt_per_line
+    --table_view:setCellUIClass(UI_ItemCard, create_func)
+    table_view:setCellUIClass(UI_RuneCard, create_func)
+    table_view:setItemList(l_item)
+
+    self:doNextWorkWithDelayTime(0.8)
+end
+
+
+
+
+
+-------------------------------------
+-- function initRuneCardList
+-------------------------------------
+function UI_GameResult_LeagueRaid:initRuneCardList()
+	local vars = self.vars
+
+	local rune_cnt = #self.m_resultData['drop_reward_list']	-- 총 룬 카드 수
+	local card_interval = 110	-- 룬 카드 가로 오프셋
+
+    local l_pos_list = getSortPosList(card_interval, rune_cnt)
+    
+    local b_is_first_open = true
+
+	for idx, t_rune_data in ipairs(self.m_resultData['drop_reward_list']) do
+        ccdump(t_rune_data)
+
+		-- 룬 카드 생성
+		local struct_rune_object = g_runesData:getRuneObject(t_rune_data['drop']['roid'])-- raw data를 StructRuneObject 형태로 변경
+        local node = vars['runeNode' .. idx]
+        local roid = struct_rune_object['roid']
+		
+        local card = UI_RuneCard_Gacha(struct_rune_object)
+
+        local function open_start_cb()
+            SoundMgr:playEffect('UI', 'ui_card_flip')
+        end
+        
+        card:setOpenStartCB(open_start_cb)
+		node:addChild(card.root)
+		self.m_tRuneCardTable[roid] = card
+
+        -- 카드 위치 정렬
+        node:setPositionX(l_pos_list[idx])    
+        node:setPositionY(math_floor(idx / 8) * 95 * -1)   
+	end
+
+    for roid, rune_card in pairs(self.m_tRuneCardTable) do
+        rune_card.root:setOpacity(0)
+        local x, y = rune_card.root:getPosition()
+         -- 등장할 때 미끄러지면서 생성되기
+        local move_distance = 50
+        local duration = 0.2
+        local move = cc.MoveTo:create(duration, cc.p(x, y))
+        local fade_in = cc.FadeIn:create(duration)
+        local action = cc.EaseInOut:create(cc.Spawn:create(fade_in, move), 1.3)
+        
+        local function card_set_sound_play()
+            SoundMgr:playEffect('UI', 'ui_card_set')
+        end
+
+        local sequence = cc.Sequence:create( cc.CallFunc:create(card_set_sound_play), action)
+
+        rune_card.root:setPositionY(y + move_distance)
+        rune_card.root:runAction(sequence)
+    end
+end
+
+
+
+
+
+
 
 -------------------------------------
 -- function direction_end
@@ -229,6 +359,7 @@ end
 -------------------------------------
 function UI_GameResult_LeagueRaid:direction_end()
     local vars = self.vars
+
     vars['okBtn']:setVisible(true)
     vars['statsBtn']:setVisible(true)
 
@@ -279,10 +410,12 @@ function UI_GameResult_LeagueRaid:initRewardTable()
     if (not self.m_resultData or not self.m_resultData['drop_reward_list']) then 
         if (vars['runeRewardLabel']) then vars['runeRewardLabel']:setString(comma_value(rune_cnt)) end
         return 
-    
     end
 
     local rune_cnt = #self.m_resultData['drop_reward_list']
+    if (vars['runeRewardLabel']) then vars['runeRewardLabel']:setString(comma_value(rune_cnt)) end
+
+    --[[
     local interval = 95
     local max_cnt_per_line = 8
 
@@ -293,7 +426,15 @@ function UI_GameResult_LeagueRaid:initRewardTable()
     
     -- 생성 시 함수
     local function create_func(ui, data)
+        local item_id = tonumber(data)
+        local table_item = TableItem():get(item_id)
+
         ui.root:setScale(0.6)
+
+        if (table_item and table_item['grade']) then 
+            local grade = tonumber(table_item['grade'])
+            self:setItemCardRarity(ui, grade)
+        end
     end
 
     -- 테이블뷰 생성 TD
@@ -303,9 +444,25 @@ function UI_GameResult_LeagueRaid:initRewardTable()
     table_view.m_cellSize = cc.size(interval, interval)
     table_view.m_nItemPerCell = max_cnt_per_line
     table_view:setCellUIClass(UI_ItemCard, create_func)
-    table_view:setItemList(l_item)
+
+    self.m_rewardTableView = table_view
+    --table_view:setItemList(l_item)]]
     
-    if (vars['runeRewardLabel']) then vars['runeRewardLabel']:setString(comma_value(rune_cnt)) end
+end
+
+
+-------------------------------------
+-- function setItemCardRarity
+-------------------------------------
+function UI_GameResult_LeagueRaid:setItemCardRarity(item_card, grade)
+	if (grade > 6) then
+		local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
+		rarity_effect:changeAni('summon_hero', true)
+		rarity_effect:setScale(1.7)
+		rarity_effect:setAlpha(0)
+		item_card.root:addChild(rarity_effect.m_node)
+        rarity_effect.m_node:runAction(cc.FadeIn:create(0.5))
+	end
 end
 
 
