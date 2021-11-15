@@ -107,9 +107,9 @@ function UI_LeagueRaidStatisticsPopup:click_tab(index)
     local is_second = index == 2
     local is_third = index == 3
 
-    self.m_tableView_A:setVisible(is_first)
-    self.m_tableView_B:setVisible(is_second)
-    self.m_tableView_C:setVisible(is_third)
+    if (self.m_tableView_A) then self.m_tableView_A:setVisible(is_first) end
+    if (self.m_tableView_B) then self.m_tableView_B:setVisible(is_second) end
+    if (self.m_tableView_C) then self.m_tableView_C:setVisible(is_third) end
 
 end
 
