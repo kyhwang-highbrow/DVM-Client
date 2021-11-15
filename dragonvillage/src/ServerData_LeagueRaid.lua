@@ -402,7 +402,7 @@ function ServerData_LeagueRaid:isLobbyPopupRequired()
         end
     end
 
-    return true --result
+    return result
 end
 
 -------------------------------------
