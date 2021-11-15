@@ -464,10 +464,13 @@ function GameState:applyEnemyBuff()
     -- LEAGUE_RAID_BUFF = 'all;0;atk_multi;10,all;0;hit_rate_add;5,all;0;resistance_add;5,all;0;avoid_add;2,all;0;cri_chance_add;3'
     -- LEAGUE_RAID_DEBUFF = 'all;0;recovery_power_add;-10,all;0;dmg_adj_rate_multi;10'
     -- LEAGUE_RAID_TIMER_DEBUFF = 'all;0;recovery_power_add;-10,all;0;dmg_adj_rate_multi;10'
-    -- LEAGUE_RAID_TIMER_GAP = 10 
+    -- LEAGUE_RAID_TIMER_GAP = 10
 
     -- 시간 버프 적용
     do
+        -- 당장은 LEAGUE_RAID_DEBUFF와 같은 값을 써야 한다
+        LEAGUE_RAID_TIMER_DEBUFF = LEAGUE_RAID_DEBUFF
+
         local cur_time = os.time()
         -- self.m_stateTimer
         -- 현재시간 & 기록시간 gap 10초 확인
@@ -478,13 +481,13 @@ function GameState:applyEnemyBuff()
 	    if (cur_time >= self.m_debuffTimer) then
             for i, v in ipairs(world.m_leftParticipants) do
                 if (v.m_statusCalc) then
-                    v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_DEBUFF)
+                    v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_TIMER_DEBUFF)
                 end
             end
 
             for i, v in ipairs(world.m_leftNonparticipants) do
                 if (v.m_statusCalc) then
-                    v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_DEBUFF)
+                    v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_TIMER_DEBUFF)
                 end
             end
 
