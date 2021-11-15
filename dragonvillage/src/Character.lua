@@ -167,6 +167,8 @@ Character = class(PARENT, {
         m_characterSpeechLabel = '',
 
         m_isRaidMonster = 'boolean',
+
+        m_specialStatusIcon = 'StatusEffectIcon',
      })
 
 local SpasticityTime = 0.2

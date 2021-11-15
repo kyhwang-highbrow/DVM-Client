@@ -12,13 +12,16 @@ StatusEffectIcon = class({
         m_overlabCount = 'number',
 
 		m_bBlink = 'bool',
+
+        m_typeSTr = 'string',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function StatusEffectIcon:init(parent_node, status_effect)
-    local status_effect_type = status_effect:getTypeName()
+function StatusEffectIcon:init(parent_node, status_effect, type_str)
+    local status_effect_type = status_effect and status_effect:getTypeName() or type_str
+    self.m_typeSTr = type_str
 	
     self.m_statusEffectName = status_effect_type
     self.m_statusEffect = status_effect
@@ -27,6 +30,7 @@ function StatusEffectIcon:init(parent_node, status_effect)
 	self.m_bBlink = false
         
 	self.m_icon = IconHelper:getStatusEffectIcon(status_effect_type)
+
     if (not self.m_icon) then return nil end
 
 	self.m_icon:setScale(0.375)
@@ -40,6 +44,8 @@ end
 -- function update
 -------------------------------------
 function StatusEffectIcon:update(dt)
+    if (self.m_typeSTr) then return false end
+
     -- 해당 상태효과가 종료 상태라면 삭제
     if (isExistValue(self.m_statusEffect.m_state, 'end', 'dying')) then
         return true
@@ -47,6 +53,7 @@ function StatusEffectIcon:update(dt)
 
     -- 해당 상태효과가 활성화 중인지 체크
     local is_active = self.m_statusEffect:isActiveIcon()
+
     self:setVisible(is_active)
 
     if (not is_active) then

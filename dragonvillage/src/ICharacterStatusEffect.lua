@@ -75,7 +75,13 @@ function ICharacterStatusEffect:updateStatusEffect(dt)
 
             if (self.m_mStatusEffect[status_effect_type]) then
                 b_remove = v:update(dt)
-            end 
+            end
+
+            if (v.m_typeSTr ~= nil and not self:isDead()) then
+                b_remove = false
+            else
+                v:setOverlabLabel(0)
+            end
 
             if (b_remove) then
                 table.insert(t_remove, 1, i)
@@ -133,6 +139,19 @@ function ICharacterStatusEffect:addStatusIcon(status_effect)
 
     self.m_mStatusIcon[status_effect_type] = status_icon
 	
+    return status_icon
+end
+
+-------------------------------------
+-- function addStatusIcon
+-------------------------------------
+function ICharacterStatusEffect:addStatusIcon_direct(status_effect_type)
+	local status_icon = StatusEffectIcon(self.m_statusIconNode, nil, status_effect_type)
+
+    table.insert(self.m_lStatusIcon, status_icon)
+
+    self.m_mStatusIcon[status_effect_type] = status_icon
+
     return status_icon
 end
 
