@@ -315,7 +315,7 @@ function ServerData_LeagueRaid:getCurrentDamageLevel()
     local damage = self.m_currentDamage
     local next_damage = 0
     local table_item_count = table.count(self.m_leagueRaidData)
-    local cur_lv = 1
+    local cur_lv = 0
     local not_found = true
     local data
 
@@ -337,7 +337,7 @@ function ServerData_LeagueRaid:getCurrentDamageLevel()
         end
     end
 
-    if (not_found and ) then 
+    if (not_found) then 
         data = self.m_leagueRaidData[table_item_count]
 
         while (not_found) do
