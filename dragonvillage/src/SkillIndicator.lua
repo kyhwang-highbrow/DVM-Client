@@ -663,9 +663,14 @@ end
 function SkillIndicator:getTargetForHighlight()
     local x, y
     
-    if (self.m_indicatorTouchPosX and self.m_indicatorTouchPosY) then
+    -- 사이드 방지를 위해 레이드에서만
+    if (self.m_indicatorTouchPosX and self.m_indicatorTouchPosY and g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID) then
         x = self.m_indicatorTouchPosX
         y = self.m_indicatorTouchPosY
+
+    elseif (self.m_targetPosX and self.m_targetPosY) then
+        x = self.m_targetPosX
+        y = self.m_targetPosY
 
     else
         cclog('getTargetForHighlight no target')
@@ -799,6 +804,9 @@ function SkillIndicator:setIndicatorTouchPos(x, y)
     if (self.m_indicatorTouchPosX == x and self.m_indicatorTouchPosY == y) then
         return
     end
+    cclog('setIndicatorTouchPos-------------------')
+    cclog('x ' .. x .. ' y ' .. y)
+    cclog('setIndicatorTouchPos-------------------')
 
     self.m_indicatorTouchPosX = x
     self.m_indicatorTouchPosY = y
