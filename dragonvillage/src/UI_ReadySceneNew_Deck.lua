@@ -687,8 +687,15 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
     -- 멀티 덱 - 다른 위치 덱 동종 동속성의 드래곤 제외
     local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
     local deck_pos = self.m_selTab
-    if (multi_deck_mgr) and (self.m_gameMode ~= GAME_MODE_LEAGUE_RAID) and (multi_deck_mgr:checkSameDidAnoterDeck(deck_pos, doid)) then
-        return false
+    
+    if (multi_deck_mgr) then
+        if (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+            if ((multi_deck_mgr:checkSameDidAnoterDeck_Raid(doid))) then
+                return false
+            end
+        elseif (multi_deck_mgr:checkSameDidAnoterDeck(deck_pos, doid)) then
+            return false
+        end
     end
 
     -- 설정되어 있는 덱 해제

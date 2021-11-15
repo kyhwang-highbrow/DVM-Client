@@ -403,6 +403,60 @@ function MultiDeckMgr:checkSameDidAnoterDeck(sel_pos, doid)
 end
 
 -------------------------------------
+-- function checkSameDidAnoterDeck
+-- @brief 다른 위치 덱 - 동종 동속성 드래곤 검사 
+-------------------------------------
+function MultiDeckMgr:checkSameDidAnoterDeck_Raid(doid)
+    if (not doid) then
+        return false
+    end
+
+    local using_dids = g_leagueRaidData:getUsingDidTable()
+    local deck_name = g_deckData:getSelectedDeckName()
+    local deck_no = pl.stringx.replace(deck_name, 'league_raid_', '')
+    deck_no = tonumber(deck_no)
+
+    if (deck_no ~= 1) then
+        for e_doid, _ in pairs(self.m_tDeckMap_1) do
+            if (g_dragonsData:isSameDid(doid, e_doid) and not using_dids[doid]) then
+                local team_name = Str('1 공격대')
+                local msg = Str('{1} 출전중인 드래곤과 같은 드래곤은 동시에 출전할 수 없습니다.', team_name)
+                UIManager:toastNotificationRed(msg)
+
+                return true
+            end
+        end
+    end
+
+    if (deck_no ~= 2) then
+        for e_doid, _ in pairs(self.m_tDeckMap_2) do
+            if (g_dragonsData:isSameDid(doid, e_doid) and not using_dids[doid]) then
+                local team_name = Str('2 공격대')
+                local msg = Str('{1} 출전중인 드래곤과 같은 드래곤은 동시에 출전할 수 없습니다.', team_name)
+                UIManager:toastNotificationRed(msg)
+
+                return true
+            end
+        end
+    end
+
+    if (deck_no ~= 3) then
+        for e_doid, _ in pairs(self.m_tDeckMap_3) do
+            if (g_dragonsData:isSameDid(doid, e_doid) and not using_dids[doid]) then
+                local team_name = Str('3 공격대')
+                local msg = Str('{1} 출전중인 드래곤과 같은 드래곤은 동시에 출전할 수 없습니다.', team_name)
+                UIManager:toastNotificationRed(msg)
+
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+
+-------------------------------------
 -- function checkDeckCondition
 -- @brief 상단덱 하단덱 출전 조건 체크
 -------------------------------------
