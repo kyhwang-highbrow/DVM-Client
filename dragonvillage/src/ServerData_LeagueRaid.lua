@@ -378,7 +378,7 @@ function ServerData_LeagueRaid:isLobbyPopupRequired()
         end
     end
 
-    return result
+    return true --result
 end
 
 -------------------------------------
