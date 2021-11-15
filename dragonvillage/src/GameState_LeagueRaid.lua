@@ -164,6 +164,9 @@ function GameState_LeagueRaid:checkWaveClear(dt)
         self.m_world:resetMyMana()
         --self.m_world.m_inGameUI:doActionReset()
         --self.m_world:initGame(g_gameScene.m_stageName)
+        self.m_bAppearHero = false
+        self:appearHero()
+
         self:changeState(GAME_STATE_ENEMY_APPEAR)
         return false
 
