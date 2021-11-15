@@ -65,8 +65,8 @@ function UI_Game:reinitialze()
 
 
     self:initManaUI()
-    self:init_panelUI()
     self:init_dpsUI()
+    self:init_panelUI()
 end
 
 -------------------------------------

@@ -150,6 +150,15 @@ function GameState_LeagueRaid:checkWaveClear(dt)
         local scene = SceneGame(g_leagueRaidData.m_curStageData, stage_id, stage_name, true)
         scene:runScene()]]
 
+        -- 스킬 조작계 초기화
+        do
+            --world.m_skillIndicatorMgr = SkillIndicatorMgr(world)
+            --world.m_gameHighlight = GameHighlightMgr(world, world.m_darkLayer)
+            --world.m_gameActiveSkillMgr = GameActiveSkillMgr(world)
+        end
+
+
+
         -- 테이머 생성
         self.m_world:initTamer()
 
@@ -164,12 +173,6 @@ function GameState_LeagueRaid:checkWaveClear(dt)
         do -- 진형 시스템 초기화
             self.m_world:setBattleZone(self.m_world.m_deckFormation, true)
         end
-
-        -- 스킬 조작계 초기화
-        do
-            --self.m_world.m_skillIndicatorMgr = SkillIndicatorMgr(self.m_world)
-        end
-
 
         self.m_debuffTimer = -1
 

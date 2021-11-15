@@ -663,9 +663,9 @@ end
 function SkillIndicator:getTargetForHighlight()
     local x, y
     
-    if (self.m_targetPosX and self.m_targetPosY) then
-        x = self.m_targetPosX
-        y = self.m_targetPosY
+    if (self.m_indicatorTouchPosX and self.m_indicatorTouchPosY) then
+        x = self.m_indicatorTouchPosX
+        y = self.m_indicatorTouchPosY
 
     else
         cclog('getTargetForHighlight no target')
