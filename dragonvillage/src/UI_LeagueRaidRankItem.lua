@@ -106,6 +106,10 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         local starting_index = #promotion_list + #remaining_list + 1
         local format_string = Str('강등 구간') .. '{@light_red} ('
 
+        if (my_info['league'] and string.lower(my_info['league']) == 'u') then
+            down_last_rank = starting_index + #demoted_list - 1
+        end
+
         if (down_last_rank <= 1 and #remaining_list <= 1) then
             format_string = format_string .. Str('{1}위', starting_index) .. ') {@default}'
         else
