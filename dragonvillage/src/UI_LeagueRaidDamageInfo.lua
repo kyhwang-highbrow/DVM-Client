@@ -45,8 +45,8 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
     local table_item_count = table.count(self.m_damageTable)
 
     final_lv = 0
-    --[[
-    if (damage <= 100000) then
+    
+    if (damage <= self.m_damageTable[1]['hp']) then
         last_item = nil
         next_item = self.m_damageTable[1]
         last_total_damage = 0
@@ -54,7 +54,7 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
         final_lv = 1
 
         return last_item, next_item, last_total_damage, next_total_damage, final_lv
-    end]]
+    end
 
     for lv = 1, table_item_count do
         final_lv = lv
@@ -180,7 +180,7 @@ function UI_LeagueRaidDamageInfo:refresh()
         local cur_hp_percentage = vars['bossHpGauge1']:getScaleX()
 
         if (next_item['lv'] ~= self.m_curLv) then
-            self.m_ingamedUI.vars['runeRewardLabel']:setString(cur_lv_str)
+            self.m_ingamedUI.vars['runeRewardLabel']:setString(next_item['lv'])
             self.m_ingamedUI.vars['boxVisual']:changeAni('box_02', false)
             self.m_ingamedUI.vars['boxVisual']:addAniHandler(function()
                 self.m_ingamedUI.vars['boxVisual']:changeAni('box_league_raid_idle', true)

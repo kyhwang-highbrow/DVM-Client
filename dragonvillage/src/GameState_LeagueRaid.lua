@@ -135,6 +135,7 @@ function GameState_LeagueRaid:checkWaveClear(dt)
 	    world:removeMissileAndSkill()
         world:removeEnemyDebuffs()
         world:cleanupItem()
+
         --[[
         -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)
@@ -166,8 +167,9 @@ function GameState_LeagueRaid:checkWaveClear(dt)
 
         -- 스킬 조작계 초기화
         do
-            self.m_world.m_skillIndicatorMgr = SkillIndicatorMgr(self.m_world)
+            --self.m_world.m_skillIndicatorMgr = SkillIndicatorMgr(self.m_world)
         end
+
 
         self.m_debuffTimer = -1
 
@@ -460,6 +462,8 @@ function GameState:applyEnemyBuff()
     local lv_cnt = #g_leagueRaidData.m_leagueRaidData
     local buff_data_list = self.m_buffList
     local world = self.m_world
+
+    --cur_lv = math_max(cur_lv - 1, 0)
 
     -- 버프, 디버프, 시간별 디버프, 10초마다 발동
     -- LEAGUE_RAID_BUFF = 'all;0;atk_multi;10,all;0;hit_rate_add;5,all;0;resistance_add;5,all;0;avoid_add;2,all;0;cri_chance_add;3'

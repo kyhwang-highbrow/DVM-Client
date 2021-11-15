@@ -81,6 +81,8 @@ function GameWorldLeagueRaid:makeHeroDeck_internal(index)
 
     -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
     self.m_myDragons = {}
+    self.m_leftParticipants = {}
+    self.m_leftNonparticipants = {}
 
     for i, doid in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
