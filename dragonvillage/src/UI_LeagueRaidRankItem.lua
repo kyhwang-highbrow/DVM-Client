@@ -287,9 +287,10 @@ function UI_LeagueRaidRankMenu:updateRankItems()
     self.m_totalScrollView:setContentSize(740, content_size)
     self.m_totalScrollView:setContentOffset(self.m_totalScrollView:minContainerOffset(), false)
 
+    --[[
     if (total_lines <= 6) then 
         self.m_totalScrollView:setTouchEnabled(false)
-    end
+    end]]
 
     --local min_container_offset = self.m_totalScrollView:minContainerOffset()
     --local max_container_offset = self.m_totalScrollView:maxContainerOffset()-
