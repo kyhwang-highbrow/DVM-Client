@@ -162,12 +162,24 @@ function UI_ObtainPopup:createListUI(t_data)
 	local vars = ui:load('obtain_item.ui')
 	local item_id = t_data['item_id']
 	local item_cnt = t_data['count']
+    local item_type = TableItem:getItemType(item_id)
 		
-	-- item icon
-	local item_card = UI_ItemCard(item_id, item_cnt)
-	if (item_card) then
-		vars['itemNode']:addChild(item_card.root)
-	end
+	local item_card
+
+    -- 상품이 룬일 경우
+    if (item_type == 'rune') then
+        local t_rune_data = g_runesData:getRuneObject(t_data['oids'][1])
+        if (t_rune_data) then
+            item_card = UI_RuneCard(t_rune_data)
+            if (item_card) then vars['itemNode']:addChild(item_card.root) end
+        end
+    else
+        -- item icon
+	    item_card = UI_ItemCard(item_id, item_cnt)
+	    if (item_card) then
+		    vars['itemNode']:addChild(item_card.root)
+	    end
+    end
 
     local table_item = TableItem()
 

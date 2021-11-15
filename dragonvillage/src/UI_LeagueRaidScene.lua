@@ -377,10 +377,11 @@ function UI_LeagueRaidScene:click_quickClearBtn()
 
 
     local function success_cb(ret)
+        -- UI연출에 필요한 테이블들
         function proceeding_end_cb()
             -- reward popup
             local text = Str('보상을 획득 했습니다.')
-            UI_ObtainPopup(ret['added_items']['items_list'], text)
+            ItemObtainResult(ret, text)
             self:refresh()
             self.m_allowBackKey = true
         end
@@ -395,6 +396,8 @@ function UI_LeagueRaidScene:click_quickClearBtn()
             end)))
     end
 
+
+    
     local function ok_btn_callback()
         self.m_allowBackKey = false;
 
