@@ -156,8 +156,8 @@ function UI_LeagueRaidStatisticsPopup:onChangeTab(tab, first)
     end]]
 
     if (self.m_tableView_A) then self:refreshTableView(self.m_tableView_A, tab) end
-	if (self.m_tableView_A) then self:refreshTableView(self.m_tableView_B, tab) end
-	if (self.m_tableView_A) then self:refreshTableView(self.m_tableView_C, tab) end
+	if (self.m_tableView_B) then self:refreshTableView(self.m_tableView_B, tab) end
+	if (self.m_tableView_C) then self:refreshTableView(self.m_tableView_C, tab) end
 
 end
 
