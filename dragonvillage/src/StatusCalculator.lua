@@ -488,7 +488,7 @@ function StatusCalculator:applyAdditionalOptions(buff_str)
                         self:addStageAdd(status_type, buff_value)
                     end
 
-                    if (IS_DEV_SERVER()) then cclog('applyAdditionalOptions ' .. Str(t_option['t_desc'], math_abs(buff_value))) end
+                    --if (IS_DEV_SERVER()) then cclog('applyAdditionalOptions ' .. Str(t_option['t_desc'], math_abs(buff_value))) end
                 end
             end
         end

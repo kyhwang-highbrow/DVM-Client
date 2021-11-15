@@ -1,5 +1,13 @@
 local PARENT = GameState
 
+
+local LEAGUE_RAID_BUFF = 'all;0;atk_multi;10,all;0;hit_rate_add;5,all;0;resistance_add;5,all;0;avoid_add;2,all;0;cri_chance_add;3'
+local LEAGUE_RAID_DEBUFF = 'all;0;recovery_power_add;-10,all;0;dmg_adj_rate_multi;10'
+
+local LEAGUE_RAID_TIMER_GAP = 10
+local LEAGUE_RAID_TIMER_DEBUFF = 'all;0;recovery_power_add;-10,all;0;dmg_adj_rate_multi;10'
+
+
 -------------------------------------
 -- class GameState_LeagueRaid
 -------------------------------------
@@ -11,6 +19,8 @@ GameState_LeagueRaid = class(PARENT, {
     m_buffList = 'table',
 
     m_curLv = 'number',
+
+    m_debuffTimer = 'number',
 })
 
 
@@ -159,6 +169,7 @@ function GameState_LeagueRaid:checkWaveClear(dt)
             self.m_world.m_skillIndicatorMgr = SkillIndicatorMgr(self.m_world)
         end
 
+        self.m_debuffTimer = -1
 
         self.m_world.m_inGameUI:reinitialze()
         self.m_world:resetMyMana()
@@ -449,44 +460,74 @@ function GameState:applyEnemyBuff()
     local buff_data_list = self.m_buffList
     local world = self.m_world
 
+    -- 버프, 디버프, 시간별 디버프, 10초마다 발동
+    -- LEAGUE_RAID_BUFF = 'all;0;atk_multi;10,all;0;hit_rate_add;5,all;0;resistance_add;5,all;0;avoid_add;2,all;0;cri_chance_add;3'
+    -- LEAGUE_RAID_DEBUFF = 'all;0;recovery_power_add;-10,all;0;dmg_adj_rate_multi;10'
+    -- LEAGUE_RAID_TIMER_DEBUFF = 'all;0;recovery_power_add;-10,all;0;dmg_adj_rate_multi;10'
+    -- LEAGUE_RAID_TIMER_GAP = 10 
+
+    -- 시간 버프 적용
+    do
+        local cur_time = os.time()
+        -- self.m_stateTimer
+        -- 현재시간 & 기록시간 gap 10초 확인
+        if (not self.m_debuffTimer or self.m_debuffTimer <= 0) then
+            self.m_debuffTimer = cur_time + LEAGUE_RAID_TIMER_GAP
+        end
+
+	    if (cur_time >= self.m_debuffTimer) then
+            for i, v in ipairs(world.m_leftParticipants) do
+                if (v.m_statusCalc) then
+                    v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_DEBUFF)
+                end
+            end
+
+            for i, v in ipairs(world.m_leftNonparticipants) do
+                if (v.m_statusCalc) then
+                    v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_DEBUFF)
+                end
+            end
+
+            self.m_debuffTimer = cur_time + 10
+        end
+    end
+
+
+
+
+
     local buff_count = cur_lv - self.m_curLv
 
     if (cur_lv <= self.m_curLv) then return end
 
     for lv = 1, buff_count do
-        if (data) and (data['buff']) then
-
-            -- 적군 버프 적용
-            do
-                for i, v in ipairs(world.m_rightParticipants) do
-                    if (v.m_statusCalc) then
-                        v.m_statusCalc:applyAdditionalOptions(data['buff'])
-                        --world:addPassiveStartEffect(v, str_buff_name)
-                    end
+        -- 적군 버프 적용
+        do
+            for i, v in ipairs(world.m_rightParticipants) do
+                if (v.m_statusCalc) then
+                    v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_BUFF)
+                    --world:addPassiveStartEffect(v, str_buff_name)
                 end
+            end
 
-                for i, v in ipairs(world.m_rightNonparticipants) do
-                    if (v.m_statusCalc) then
-                        v.m_statusCalc:applyAdditionalOptions(data['buff'])
-                    end
+            for i, v in ipairs(world.m_rightNonparticipants) do
+                if (v.m_statusCalc) then
+                    v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_BUFF)
                 end
             end
         end
 
-
-        if (data) and (data['debuff']) then
-            -- 아군 버프/디버프 적용
-            do
-                for i, v in ipairs(world.m_leftParticipants) do
-                    if (v.m_statusCalc) then
-                        v.m_statusCalc:applyAdditionalOptions(data['debuff'])
-                    end
+        -- 아군 버프/디버프 적용
+        do
+            for i, v in ipairs(world.m_leftParticipants) do
+                if (v.m_statusCalc) then
+                    v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_DEBUFF)
                 end
+            end
 
-                for i, v in ipairs(world.m_leftNonparticipants) do
-                    if (v.m_statusCalc) then
-                        v.m_statusCalc:applyAdditionalOptions(data['debuff'])
-                    end
+            for i, v in ipairs(world.m_leftNonparticipants) do
+                if (v.m_statusCalc) then
+                    v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_DEBUFF)
                 end
             end
         end
