@@ -103,11 +103,11 @@ end
 function UI_QuickPopupNew:init_competitionBtn()
     local vars = self.vars
     local l_content = {}
-    if IS_DEV_SERVER() then
+    --if IS_DEV_SERVER() then
         l_competition = {'ancient', 'attr_tower', 'colosseum', 'clan_war', 'clan_raid', 'rune_guardian', 'league_raid'} -- 그림자의 신전('challenge_mode')
-    else
-        l_competition = {'ancient', 'attr_tower', 'colosseum', 'clan_war', 'clan_raid', 'rune_guardian'} -- 그림자의 신전('challenge_mode')
-    end
+    --else
+    --    l_competition = {'ancient', 'attr_tower', 'colosseum', 'clan_war', 'clan_raid', 'rune_guardian'} -- 그림자의 신전('challenge_mode')
+    --end
     for i, competition_name in ipairs(l_competition) do
         if (not g_contentLockData:isContentLock(competition_name)) then
             table.insert(l_content, competition_name) 
