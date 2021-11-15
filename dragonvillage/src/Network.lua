@@ -462,7 +462,7 @@ function Network_platform_receiptValidation(platform, signature, receipt, succes
     t_data['platform'] = platform and platform or 'google'
     t_data['uid'] = g_localData:get('local', 'uid')
     t_data['signature'] = signature and signature or ''
-    t_request['receipt'] = receipt and receipt or ''
+    t_data['receipt'] = receipt and receipt or ''
 
     
     -- 요청 정보 설정
