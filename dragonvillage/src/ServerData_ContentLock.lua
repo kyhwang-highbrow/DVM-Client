@@ -182,12 +182,7 @@ function ServerData_ContentLock:getContentsQuestList()
 
 	-- 리워드가 있는 것 == 컨텐츠 해금 퀘스트로 판단
     for content_name, data in pairs(t_content_lock) do
-        if (content_name == 'league_raid') then
-            if (IS_DEV_SERVER()) then
-                t_filter[content_name] = data
-            end
-
-        elseif (data['reward']) and (data['reward'] ~= '') then
+        if (data['reward']) and (data['reward'] ~= '') then
             t_filter[content_name] = data
         end
     end
