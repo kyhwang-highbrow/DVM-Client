@@ -220,6 +220,13 @@ function UI_EventPopup:makeEventPopupTab(tab)
         -- 기본 출석
 		if (event_id == 'normal') then
 			ui = UI_EventPopupTab_Attendance()
+
+        -- 2021-11-16 복귀유저 이벤트 특별 작업!
+        -- 1회용임으로 미관에 영향을 준다고 판단되면 삭제할것
+        elseif (atd_id == 50023 and event_id == 'comeback') then
+            require('UI_EventPopupTab_EventAttendanceSpecial')
+			ui = UI_EventPopupTab_EventAttendanceSpecial(atd_id)
+
         -- 이벤트 출석 (오픈, 신규, 복귀)
 		elseif (event_id == 'open_event' or event_id == 'newbie' or event_id == 'comeback') then
 			ui = UI_EventPopupTab_EventAttendance(event_id, atd_id)

@@ -94,7 +94,7 @@ function UI_AttendanceSpecialListItem:initCommonUI()
 
     -- 남은 시간
     if vars['timeLabel'] then
-        --vars['timeLabel']:setString(self:getRemainTimeStr())
+        vars['timeLabel']:setString(self:getRemainTimeStr())
     end
 end
 
@@ -119,6 +119,30 @@ function UI_AttendanceSpecialListItem:initCustomUI()
     if (vars['returnSprite']) then
         vars['returnSprite']:setVisible(isComebackUser)
     end
+
+
+
+    -- new new 신규 복귀 출석체크
+    if (self.m_tItemData and self.m_tItemData['atd_id']) then
+        local atd_id = self.m_tItemData['atd_id']
+        if (atd_id == 50023) then
+            -- 복귀
+            local msg = Str('복귀 유저 출석 이벤트')
+            vars['titleLabel']:setString(msg)
+
+        elseif (atd_id == 50024) then
+            -- 신규
+            local msg = Str('스페셜 출석체크 이벤트')
+            vars['titleLabel']:setString(msg)
+
+        else
+            vars['titleLabel']:setString('')
+
+        end
+
+    end
+
+
 
     for i, v in ipairs(t_step_list) do
         local t_item_data = v
