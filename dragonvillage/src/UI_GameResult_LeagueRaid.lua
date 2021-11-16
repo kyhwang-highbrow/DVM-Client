@@ -401,7 +401,7 @@ function UI_GameResult_LeagueRaid:direction_end()
     vars['okBtn']:setVisible(true)
     vars['statsBtn']:setVisible(true)
 
-    self:showLeaderBoard()
+    --self:showLeaderBoard()
 end
 
 
