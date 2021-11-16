@@ -552,6 +552,24 @@ end
 
 
 
+-------------------------------------
+-- function click_manageBtn
+-- @brief 시작 버튼
+-------------------------------------
+function UI_LeagueRaidScene:click_manageBtn()
+    local ui = UI_DragonManageInfo()
+    local function close_cb()
+        local function func()
+            -- 콜로세움 덱(atk, def)에 출전 중인 드래곤은
+            -- 삭제(작별or판매)가 불가하기 때문에 덱 정보가 변경되지 않는다는 가정 하에
+            -- refresh 작업을 별도로 하지 않음
+        end
+        self:sceneFadeInAction(func)
+    end
+    ui:setCloseCB(close_cb)
+end
+
+
 
 
 
