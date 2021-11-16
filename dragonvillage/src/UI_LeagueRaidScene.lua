@@ -375,6 +375,9 @@ function UI_LeagueRaidScene:click_quickClearBtn()
         return
     end
 
+    local check_dragon_inven
+    local check_item_inven
+
 
     local function success_cb(ret)
         -- UI연출에 필요한 테이블들
@@ -405,9 +408,34 @@ function UI_LeagueRaidScene:click_quickClearBtn()
         g_leagueRaidData:request_raidClear(success_cb)
     end
 
+    local function start()
+        -- 전투를 시작합니다.
+        UI_ConfirmPopup('staminas_st', wing_cost, Str('소탕은 오늘 획득한 최고 점수를 기준으로 보상을 획득합니다.\n소탕하시겠습니까?'), ok_btn_callback)
+    end
 
-    -- 전투를 시작합니다.
-    UI_ConfirmPopup('staminas_st', wing_cost, Str('소탕은 오늘 획득한 최고 점수를 기준으로 보상을 획득합니다.\n소탕하시겠습니까?'), ok_btn_callback)
+
+ 
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_dragon_inven = function()
+        local function manage_func()
+            self:click_manageBtn()
+        end
+
+        g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
+    end
+
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            -- UI_Inventory() @kwkang 룬 업데이트로 룬 관리쪽으로 이동하게 변경 
+            UI_RuneForge('manage')
+        end
+
+        g_inventoryData:checkMaximumItems(start, manage_func)
+    end
+
+
+    check_dragon_inven()
     --[[
     local msg = Str("소탕")
     local submsg = Str("소탕은 오늘 획득한 최고 점수를 기준으로 보상을 획득합니다.\n소탕하시겠습니까?")
@@ -482,8 +510,37 @@ function UI_LeagueRaidScene:click_enterBtn()
     end
 
 
-    -- 전투를 시작합니다.
-    UI_ConfirmPopup('staminas_st', wing_cost, Str('전투를 시작합니다.'), ok_btn_callback)
+    local check_dragon_inven
+    local check_item_inven
+
+
+    local function start()
+        -- 전투를 시작합니다.
+        UI_ConfirmPopup('staminas_st', wing_cost, Str('전투를 시작합니다.'), ok_btn_callback)
+    end
+    
+ 
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_dragon_inven = function()
+        local function manage_func()
+            self:click_manageBtn()
+        end
+
+        g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
+    end
+
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            -- UI_Inventory() @kwkang 룬 업데이트로 룬 관리쪽으로 이동하게 변경 
+            UI_RuneForge('manage')
+        end
+
+        g_inventoryData:checkMaximumItems(start, manage_func)
+    end
+
+    check_dragon_inven()
+
 end
 
 ----------------------------------------------------------------------------
