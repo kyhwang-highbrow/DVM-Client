@@ -91,6 +91,15 @@ function UI_Package_Bundle:initButton()
         end
     end
 
+
+    -- 레이드 패키지 자세히보기
+    if (string.find(self.m_package_name, 'league_raid')) then
+        -- 자세히 보기
+        if (vars['infoBtn']) then
+            vars['infoBtn']:registerScriptTapHandler(function() self:click_leagueRaidInfoBtn() end)
+        end
+    end
+
     -- 자세히 보기
     if (vars['contractBtn']) then
         vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
@@ -405,6 +414,17 @@ function UI_Package_Bundle:click_infoBtn()
     GoToAgreeMentUrl()
 end
 
+
+
+-------------------------------------
+-- function click_leagueRaidInfoBtn
+-------------------------------------
+function UI_Package_Bundle:click_leagueRaidInfoBtn()
+    UI_Package_LeagueRaidHelp()
+
+end
+
+
 -------------------------------------
 -- function click_closeBtn
 -------------------------------------
@@ -445,4 +465,34 @@ function UI_Package_Bundle:setMailSelectType(type)
     if (type > MAIL_SELECT_TYPE.NONE) and (type <= MAIL_SELECT_TYPE.SUPER_SLIME) then
         self.m_mailSelectType = type
     end
+end
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- class UI_Package_LeagueRaidHelp
+-------------------------------------
+UI_Package_LeagueRaidHelp = class(UI,{
+    })
+
+    
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_Package_LeagueRaidHelp:init()
+    local vars = self:load('package_league_raid_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_Package_LeagueRaidHelp')
+
+    self.m_uiName = 'UI_Package_LeagueRaidHelp' 
+
+    vars['okBtn']:registerScriptTapHandler(function() self:close() end)
 end
