@@ -224,6 +224,26 @@ end
 
 
 -------------------------------------
+-- function update_failure
+-------------------------------------
+function GameState_LeagueRaid.update_failure(self, dt)
+    local cur_deck_name = g_deckData:getSelectedDeckName()
+    local deck_number = pl.stringx.replace(cur_deck_name, 'league_raid_', '')
+    deck_number = tonumber(deck_number)
+    cclog(self.m_currentDeckIndex)
+    if (self.m_currentDeckIndex == 1) then
+        g_leagueRaidData.m_attackedChar_A = clone(world.m_myDragons)
+    elseif (self.m_currentDeckIndex == 2) then
+        g_leagueRaidData.m_attackedChar_B = clone(world.m_myDragons)
+    elseif (self.m_currentDeckIndex == 3) then
+        g_leagueRaidData.m_attackedChar_C = clone(world.m_myDragons)
+    end
+
+    PARENT.update_failure(self, dt)
+end
+
+
+-------------------------------------
 -- function makeResultUI
 -------------------------------------
 function GameState_LeagueRaid:makeResultUI(isSuccess)

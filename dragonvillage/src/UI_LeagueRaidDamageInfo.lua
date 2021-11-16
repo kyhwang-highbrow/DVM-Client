@@ -50,7 +50,7 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
         last_item = nil
         next_item = self.m_damageTable[1]
         last_total_damage = 0
-        next_total_damage = 100000
+        next_total_damage = self.m_damageTable[1]['hp']
         final_lv = 1
 
         return last_item, next_item, last_total_damage, next_total_damage, final_lv
@@ -88,7 +88,7 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
             next_total_damage = next_total_damage + next_item['hp']
 
             if (damage <= next_total_damage) then
-                last_item = self.m_damageTable[table_item_count - 1]
+                last_item = self.m_damageTable[table_item_count]
                 last_total_damage = next_total_damage - next_item['hp']
                 break
             end
@@ -96,9 +96,11 @@ function UI_LeagueRaidDamageInfo:findDamageItem(damage)
     end
 
     if (not next_item) then
-        
         next_item = self.m_damageTable[table_item_count]
-        last_item = self.m_damageTable[table_item_count - 1]
+    end
+
+    if (not last_item) then
+        last_item = self.m_damageTable[table_item_count]
     end
 
     return last_item, next_item, last_total_damage, next_total_damage, final_lv
@@ -167,7 +169,7 @@ function UI_LeagueRaidDamageInfo:refresh()
         local cur_lv = last_item == nil and 0 or last_item['lv']
         local cur_lv_str = cur_lv == 0 and '' or 'Lv. ' .. cur_lv
 
-        if (not self.m_ingamedUI.vars['league_raidMenu']:isVisible() and total_damage > 0) then
+        if (last_item and not self.m_ingamedUI.vars['league_raidMenu']:isVisible() and total_damage > 0) then
             self.m_ingamedUI.vars['runeRewardLabel']:setString(cur_lv_str)
             self.m_ingamedUI.vars['league_raidMenu']:setVisible(true)
             self.m_ingamedUI.vars['boxVisual']:changeAni('box_league_raid_idle', true)
@@ -179,8 +181,8 @@ function UI_LeagueRaidDamageInfo:refresh()
 
         local cur_hp_percentage = vars['bossHpGauge1']:getScaleX()
 
-        if (next_item['lv'] ~= self.m_curLv) then
-            self.m_ingamedUI.vars['runeRewardLabel']:setString(next_item['lv'])
+        if (last_item and last_item['lv'] ~= last_lv) then
+            self.m_ingamedUI.vars['runeRewardLabel']:setString(cur_lv_str)
             self.m_ingamedUI.vars['boxVisual']:changeAni('box_02', false)
             self.m_ingamedUI.vars['boxVisual']:addAniHandler(function()
                 self.m_ingamedUI.vars['boxVisual']:changeAni('box_league_raid_idle', true)

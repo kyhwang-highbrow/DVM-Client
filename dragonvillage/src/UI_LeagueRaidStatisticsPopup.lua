@@ -55,11 +55,14 @@ function UI_LeagueRaidStatisticsPopup:initUI()
 	local log_key = self:getLogKey(UI_LeagueRaidStatisticsPopup.TAB_DEALT)
 	
     vars['listNode1']:setPositionX(0)
-    if (vars['league_raidMenu']) then vars['league_raidMenu']:setVisible(true) end
 
     local has_record_data_1 = self.m_charList_A ~= nil
     local has_record_data_2 = self.m_charList_B ~= nil
     local has_record_data_3 = self.m_charList_C ~= nil
+
+    if (not has_record_data_1) then return end
+
+    if (vars['league_raidMenu']) then vars['league_raidMenu']:setVisible(true) end
 
 	-- 정렬 후 테이블 뷰 생성
 	BattleStatisticsHelper:sortByValue(self.m_charList_A, log_key)
@@ -79,9 +82,10 @@ function UI_LeagueRaidStatisticsPopup:initUI()
 
     end
 
-
     if (vars['teamTabBtn1']) then
         vars['teamTabBtn1']:setEnabled(false)
+        if (vars['teamTabLabel1']) then vars['teamTabLabel1']:setColor(COLOR['black']) end
+
         vars['teamTabBtn1']:setVisible(has_record_data_1) 
         vars['teamTabBtn1']:registerScriptTapHandler(function() self:click_tab(1) end)
     end
@@ -117,6 +121,26 @@ function UI_LeagueRaidStatisticsPopup:click_tab(index)
     if (vars['teamTabBtn1']) then vars['teamTabBtn1']:setEnabled(not is_first) end
     if (vars['teamTabBtn2']) then vars['teamTabBtn2']:setEnabled(not is_second) end
     if (vars['teamTabBtn3']) then vars['teamTabBtn3']:setEnabled(not is_third) end
+
+    
+
+    if (vars['teamTabLabel1']) then
+        local color = is_first and COLOR['black'] or COLOR['DESC']
+        vars['teamTabLabel1']:setColor(color) 
+    
+    end
+
+    if (vars['teamTabLabel2']) then 
+        local color = is_second and COLOR['black'] or COLOR['DESC']
+        vars['teamTabLabel2']:setColor(color) 
+    end
+
+    if (vars['teamTabLabel3']) then 
+        local color = is_third and COLOR['black'] or COLOR['DESC']
+        vars['teamTabLabel3']:setColor(color) 
+    
+    end
+
 end
 
 

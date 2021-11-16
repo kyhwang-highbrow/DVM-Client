@@ -241,11 +241,19 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
     --self:initRewardTable()
     if (not self.m_resultData or not self.m_resultData['drop_reward_list']) then 
         if (vars['runeRewardLabel']) then vars['runeRewardLabel']:setString(comma_value(rune_cnt)) end
+        self:doNextWorkWithDelayTime(0.5)
         return 
-    
     end
 
     local rune_cnt = #self.m_resultData['drop_reward_list']
+
+    if (rune_cnt <= 0) then 
+        self:doNextWorkWithDelayTime(0.5)
+        return
+    end
+
+
+
     local interval = 80
     local max_cnt_per_line = 11
 
