@@ -87,7 +87,8 @@ function UI_BannerAppCollaboration:init(event_data)
     -- 설치 페이지
     -- https://app.adjust.com/1ctll5t
     local link_url = event_data.m_eventData['url']
-    local ui_name = string.find(link_url, '1ctll5t') and 'lobby_banner_promotion_04.ui' or 'lobby_banner_promotion.ui'
+    --local ui_name = string.find(link_url, '1ctll5t') and 'lobby_banner_promotion_04.ui' or 'lobby_banner_promotion.ui'
+    local ui_name = 'lobby_banner_promotion_arena.ui'
 
     local vars = self:load(ui_name)
 

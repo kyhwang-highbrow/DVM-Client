@@ -2702,20 +2702,20 @@ function UI_Lobby:refresh_rightBanner()
         local event_list = g_eventData:getEventPopupTabList()
         local event_data
 
-        local nvnew_before = 'event_cross_promotion.ui'
-        local nvnew_after = 'event_cross_promotion_04.ui'
+        local nvnew_before = 'event_cross_promotion_arena.ui'
+        --local nvnew_after = 'event_cross_promotion_04.ui'
 
         for i, v in pairs(event_list) do
-            if (string.find(v.m_eventData['banner'], nvnew_before) or string.find(v.m_eventData['banner'], nvnew_after)) then
+            if (string.find(v.m_eventData['banner'], nvnew_before)) then -- or string.find(v.m_eventData['banner'], nvnew_after)) then
                 if (g_localData:isKoreaServer() and v.m_eventData['target_server'] == 'Korea') then
                     event_data = v
                     break
-                elseif (g_localData:isAmericaServer() and string.find(v.m_eventData['target_server'], 'America')) then
+                --[[elseif (g_localData:isAmericaServer() and string.find(v.m_eventData['target_server'], 'America')) then
                     event_data = v
                     break
                 else
                     event_data = v
-                    break
+                    break]]
                 end
             end
         end
