@@ -126,12 +126,15 @@ function StatusEffectIcon:setOverlabLabel(overlab_cnt)
     cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_status_effect/ingame_status_effect.plist')
     for i = 1, #str do
         local v = str:sub(i, i)
-        local sprite = self:createSpriteWithSpriteFrameName('ingame_status_effect_num_'.. v.. '.png')
-        
-        sprite:setPosition(x_offset, 0)
-        self.m_overlabNode:addChild(sprite)
 
-        x_offset = x_offset + (sprite:getContentSize()['width'] / 2)
+        if (tonumber(v)) then
+            local sprite = self:createSpriteWithSpriteFrameName('ingame_status_effect_num_'.. v.. '.png')
+        
+            sprite:setPosition(x_offset, 0)
+            self.m_overlabNode:addChild(sprite)
+
+            x_offset = x_offset + (sprite:getContentSize()['width'] / 2)
+        end
     end
     
     self.m_overlabNode:setPosition(-(x_offset/2), 0)
