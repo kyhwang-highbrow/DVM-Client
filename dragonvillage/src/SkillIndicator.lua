@@ -804,9 +804,6 @@ function SkillIndicator:setIndicatorTouchPos(x, y)
     if (self.m_indicatorTouchPosX == x and self.m_indicatorTouchPosY == y) then
         return
     end
-    cclog('setIndicatorTouchPos-------------------')
-    cclog('x ' .. x .. ' y ' .. y)
-    cclog('setIndicatorTouchPos-------------------')
 
     self.m_indicatorTouchPosX = x
     self.m_indicatorTouchPosY = y

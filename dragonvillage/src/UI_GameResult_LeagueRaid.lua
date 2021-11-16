@@ -246,8 +246,8 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
     end
 
     local rune_cnt = #self.m_resultData['drop_reward_list']
-    local interval = 95
-    local max_cnt_per_line = 8
+    local interval = 80
+    local max_cnt_per_line = 11
 
     local l_item = {}
     for i,v in ipairs(self.m_resultData['drop_reward_list']) do
@@ -262,28 +262,58 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
 
     -- 생성 시 함수
     local function create_func(ui, data)
-        --[[
-        local item_id = tonumber(data)
-        local table_item = TableItem():get(item_id)]]
-        ui.root:setScale(0.6)
-
-        if (data and data['grade']) then 
-            local grade = tonumber(data['grade'])
-            self:setItemCardRarity(ui, grade)
-        end
+        
     end
 
     -- 테이블뷰 생성 TD
     local table_view = UIC_TableViewTD(vars['tableViewNode'])
+    table_view:setCellCreateDirecting(-1)
     table_view:setAlignCenter(true)
     table_view:setHorizotalCenter(true)
     table_view.m_cellSize = cc.size(interval, interval)
     table_view.m_nItemPerCell = max_cnt_per_line
-    --table_view:setCellUIClass(UI_ItemCard, create_func)
     table_view:setCellUIClass(UI_RuneCard, create_func)
-    table_view:setItemList(l_item)
+    table_view:setItemList(l_item, true)
+    table_view.m_scrollView:setTouchEnabled(false)
 
-    self:doNextWorkWithDelayTime(0.8)
+    table_view:update(0)
+
+    local ui_list = table_view.m_itemList
+    local action_delay_time = 0.2
+    local ani_interval = 0.0
+
+    for index, item_card in ipairs(ui_list) do
+        if (item_card and item_card['ui']) then
+            item_card['ui'].root:setVisible(false)
+        end
+    end
+
+    -- 아이템 카드 보여주는 액션
+    local function show_reward(item_card, is_last)
+        local item_node = item_card.root
+        item_node:setVisible(true)
+        cca.stampShakeAction(item_node, 0.5 * 1.1, 0.1, 0, 0, 0.5)
+
+        if (is_last) then
+            self:doNextWorkWithDelayTime(0.5)
+        end
+    end
+
+
+    for index, item_card in ipairs(ui_list) do
+        if (item_card and item_card['ui']) then
+            local is_last = (index == #ui_list)
+            item_card['ui'].root:setScale(0.5)
+
+            cca.reserveFunc(self.root, 
+                            action_delay_time * ((index - 1) + ani_interval), 
+                            function() show_reward(item_card['ui'], is_last) end)
+
+        end
+    end
+
+
+    --self:doNextWorkWithDelayTime(0.8)
 end
 
 

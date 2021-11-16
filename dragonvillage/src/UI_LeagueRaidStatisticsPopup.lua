@@ -80,7 +80,8 @@ function UI_LeagueRaidStatisticsPopup:initUI()
     end
 
 
-    if (vars['teamTabBtn1']) then 
+    if (vars['teamTabBtn1']) then
+        vars['teamTabBtn1']:setEnabled(false)
         vars['teamTabBtn1']:setVisible(has_record_data_1) 
         vars['teamTabBtn1']:registerScriptTapHandler(function() self:click_tab(1) end)
     end
@@ -103,6 +104,8 @@ end
 -- function initTab
 -------------------------------------
 function UI_LeagueRaidStatisticsPopup:click_tab(index)
+    local vars = self.vars
+
     local is_first = index == 1
     local is_second = index == 2
     local is_third = index == 3
@@ -111,6 +114,9 @@ function UI_LeagueRaidStatisticsPopup:click_tab(index)
     if (self.m_tableView_B) then self.m_tableView_B:setVisible(is_second) end
     if (self.m_tableView_C) then self.m_tableView_C:setVisible(is_third) end
 
+    if (vars['teamTabBtn1']) then vars['teamTabBtn1']:setEnabled(not is_first) end
+    if (vars['teamTabBtn2']) then vars['teamTabBtn2']:setEnabled(not is_second) end
+    if (vars['teamTabBtn3']) then vars['teamTabBtn3']:setEnabled(not is_third) end
 end
 
 
@@ -156,7 +162,9 @@ function UI_LeagueRaidStatisticsPopup:onChangeTab(tab, first)
     end]]
 
     if (self.m_tableView_A) then self:refreshTableView(self.m_tableView_A, tab) end
+
 	if (self.m_tableView_B) then self:refreshTableView(self.m_tableView_B, tab) end
+
 	if (self.m_tableView_C) then self:refreshTableView(self.m_tableView_C, tab) end
 
 end
