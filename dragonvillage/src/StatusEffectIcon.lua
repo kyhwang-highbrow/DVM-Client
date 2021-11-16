@@ -109,6 +109,7 @@ function StatusEffectIcon:setOverlabLabel(overlab_cnt)
 
     -- 이미 중첩 표시를 위한 노드가 존재했다면 삭제
     if (self.m_overlabNode) then
+        self.m_overlabNode:setVisible(false)
         self.m_overlabNode:removeFromParent(true)
         self.m_overlabNode = nil
     end

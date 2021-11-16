@@ -79,6 +79,20 @@ function GameWorldLeagueRaid:makeHeroDeck_internal(index)
     -- 팀보너스를 가져옴
     local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
 
+    for i, v in ipairs(self.m_leftParticipants) do
+        if (v.m_specialStatusIcon) then
+            v.m_specialStatusIcon:setVisible(false)
+            v.m_specialStatusIcon:setOverlabLabel(0)
+        end
+    end
+
+    for i, v in ipairs(self.m_leftNonparticipants) do
+        if (v.m_specialStatusIcon) then
+            v.m_specialStatusIcon:setVisible(false)
+            v.m_specialStatusIcon:setOverlabLabel(0)
+        end
+    end
+
     -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
     self.m_myDragons = {}
     self.m_leftParticipants = {}

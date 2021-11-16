@@ -511,7 +511,11 @@ function GameState:applyEnemyBuff()
             for i, v in ipairs(world.m_leftParticipants) do
                 if (v.m_statusCalc) then
                     v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_TIMER_DEBUFF)
-                    if (v.m_specialStatusIcon and not v:isDead()) then
+
+                    if (v:isDead()) then
+                        v.m_specialStatusIcon:setVisible(false)
+                        v.m_specialStatusIcon:setOverlabLabel(0)
+                    elseif (v.m_specialStatusIcon) then
                         v.m_specialStatusIcon:setOverlabLabel(v.m_specialStatusIcon.m_overlabCount + 1)
                     else
                         v.m_specialStatusIcon = v:addStatusIcon_direct('curse')
@@ -523,8 +527,11 @@ function GameState:applyEnemyBuff()
             for i, v in ipairs(world.m_leftNonparticipants) do
                 if (v.m_statusCalc) then
                     v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_TIMER_DEBUFF)
-                    v:addStatusIcon_direct('curse')
-                    if (v.m_specialStatusIcon and not v:isDead()) then
+
+                    if (v:isDead()) then
+                        v.m_specialStatusIcon:setVisible(false)
+                        v.m_specialStatusIcon:setOverlabLabel(0)
+                    elseif (v.m_specialStatusIcon) then
                         v.m_specialStatusIcon:setOverlabLabel(v.m_specialStatusIcon.m_overlabCount + 1)
                     else
                         v.m_specialStatusIcon = v:addStatusIcon_direct('curse')
@@ -567,7 +574,11 @@ function GameState:applyEnemyBuff()
             for i, v in ipairs(world.m_leftParticipants) do
                 if (v.m_statusCalc) then
                     v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_DEBUFF)
-                    if (v.m_specialStatusIcon and not v:isDead()) then
+
+                    if (v:isDead()) then
+                        v.m_specialStatusIcon:setVisible(false)
+                        v.m_specialStatusIcon:setOverlabLabel(0)
+                    elseif (v.m_specialStatusIcon) then
                         v.m_specialStatusIcon:setOverlabLabel(v.m_specialStatusIcon.m_overlabCount + 1)
                     else
                         v.m_specialStatusIcon = v:addStatusIcon_direct('curse')
@@ -579,7 +590,11 @@ function GameState:applyEnemyBuff()
             for i, v in ipairs(world.m_leftNonparticipants) do
                 if (v.m_statusCalc) then
                     v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_DEBUFF)
-                    if (v.m_specialStatusIcon and not v:isDead()) then
+                    
+                    if (v:isDead()) then
+                        v.m_specialStatusIcon:setVisible(false)
+                        v.m_specialStatusIcon:setOverlabLabel(0)
+                    elseif (v.m_specialStatusIcon) then
                         v.m_specialStatusIcon:setOverlabLabel(v.m_specialStatusIcon.m_overlabCount + 1)
                     else
                         v.m_specialStatusIcon = v:addStatusIcon_direct('curse')
