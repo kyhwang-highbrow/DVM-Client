@@ -512,7 +512,7 @@ function GameState:applyEnemyBuff()
                 if (v.m_statusCalc) then
                     v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_TIMER_DEBUFF)
 
-                    if (v:isDead()) then
+                    if (v.m_specialStatusIcon and v:isDead()) then
                         v.m_specialStatusIcon:setVisible(false)
                         v.m_specialStatusIcon:setOverlabLabel(0)
                         v.m_specialStatusIcon = nil
@@ -529,7 +529,7 @@ function GameState:applyEnemyBuff()
                 if (v.m_statusCalc) then
                     v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_TIMER_DEBUFF)
 
-                    if (v:isDead()) then
+                    if (v.m_specialStatusIcon and v:isDead()) then
                         v.m_specialStatusIcon:setVisible(false)
                         v.m_specialStatusIcon:setOverlabLabel(0)
                         v.m_specialStatusIcon = nil
@@ -577,7 +577,7 @@ function GameState:applyEnemyBuff()
                 if (v.m_statusCalc) then
                     v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_DEBUFF)
 
-                    if (v:isDead()) then
+                    if (v.m_specialStatusIcon and v:isDead()) then
                         v.m_specialStatusIcon:setVisible(false)
                         v.m_specialStatusIcon:setOverlabLabel(0)
                         v.m_specialStatusIcon = nil
@@ -594,7 +594,7 @@ function GameState:applyEnemyBuff()
                 if (v.m_statusCalc) then
                     v.m_statusCalc:applyAdditionalOptions(LEAGUE_RAID_DEBUFF)
                     
-                    if (v:isDead()) then
+                    if (v.m_specialStatusIcon and v:isDead()) then
                         v.m_specialStatusIcon:setVisible(false)
                         v.m_specialStatusIcon:setOverlabLabel(0)
                         v.m_specialStatusIcon = nil
