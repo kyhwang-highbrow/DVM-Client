@@ -134,6 +134,8 @@ function UI_MailPopup:makeMailTableView(tab, node)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
+    table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein_fast'])
+
     table_view.m_defaultCellSize = cc.size(1160, 115)
     table_view:setCellUIClass(UI_MailListItem, create_cb_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
