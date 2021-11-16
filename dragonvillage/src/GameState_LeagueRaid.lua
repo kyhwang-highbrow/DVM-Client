@@ -494,6 +494,24 @@ function GameState:applyEnemyBuff()
     -- LEAGUE_RAID_TIMER_DEBUFF = 'all;0;recovery_power_add;-10,all;0;dmg_adj_rate_multi;10'
     -- LEAGUE_RAID_TIMER_GAP = 10
 
+    for i, v in ipairs(world.m_leftParticipants) do
+        if (v.m_specialStatusIcon and v:isDead()) then
+            v.m_specialStatusIcon:setVisible(false)
+            v.m_specialStatusIcon:setOverlabLabel(0)
+            v.m_specialStatusIcon = nil
+        end
+    end
+
+    for i, v in ipairs(world.m_leftNonparticipants) do
+        if (v.m_specialStatusIcon and v:isDead()) then
+            v.m_specialStatusIcon:setVisible(false)
+            v.m_specialStatusIcon:setOverlabLabel(0)
+            v.m_specialStatusIcon = nil
+        end
+    end
+
+
+
     -- 시간 버프 적용
     do
         -- 당장은 LEAGUE_RAID_DEBUFF와 같은 값을 써야 한다
