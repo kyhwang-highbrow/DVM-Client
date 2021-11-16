@@ -198,13 +198,23 @@ function UI_AttendanceSpecialListItem:getRemainTimeStr()
     end_time = end_time and (tonumber(end_time) / 1000) or 0
 
     local str = ''
+
+
+    local os_time = os.time()
+    local remain_second = end_time - os_time
+
+    str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(remain_second, false, true))
+
+
+
+    --[[
     if (start_time <= curr_time) and (curr_time <= end_time) then
         local time = (end_time - curr_time)
         str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
 
     else
         str = ''
-    end
+    end]]
 
     return str
 end

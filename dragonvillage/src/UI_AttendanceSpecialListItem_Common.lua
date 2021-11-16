@@ -83,15 +83,23 @@ function UI_AttendanceSpecialListItem_Common:setTimeLabel()
     end
 
     if (eventInfo) then
+        local os_time = os.time()
+        local end_time = eventInfo['end_date_timestamp'] / 1000
+        local remain_second = end_time - os_time
+
+        finalText = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(remain_second, false, true))
+
+        --[[
         local startDate = eventInfo['start_date']
         local endDate = eventInfo['end_date']
-
+        ccdump(eventInfo)
         if (startDate and startDate ~= '' and endDate and endDate ~= '') then
             local startDateSplit = pl.stringx.split(startDate, ' ')
             local endDateSplit = pl.stringx.split(endDate, ' ')
 
+
             finalText = Str('이벤트 기간') .. ' ' .. startDateSplit[1] .. ' ~ ' .. endDateSplit[1]
-        end
+        end]]
     end
     
     timeLabel:setString(finalText) 
