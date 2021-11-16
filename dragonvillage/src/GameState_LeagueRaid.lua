@@ -1,11 +1,11 @@
 local PARENT = GameState
 
 
-local LEAGUE_RAID_BUFF = 'all;0;atk_multi;10,all;0;hit_rate_add;5,all;0;resistance_add;5,all;0;avoid_add;2,all;0;cri_chance_add;3'
-local LEAGUE_RAID_DEBUFF = 'all;0;recovery_power_add;-10,all;0;dmg_adj_rate_multi;10'
+local LEAGUE_RAID_BUFF = 'all;0;atk_multi;10,all;0;hit_rate_add;5,all;0;resistance_add;5,all;0;cri_chance_add;3'
+local LEAGUE_RAID_DEBUFF = 'all;0;recovery_power_add;-5,all;0;dmg_adj_rate_multi;10'
 
 local LEAGUE_RAID_TIMER_GAP = 10
-local LEAGUE_RAID_TIMER_DEBUFF = 'all;0;recovery_power_add;-10,all;0;dmg_adj_rate_multi;10'
+local LEAGUE_RAID_TIMER_DEBUFF = 'all;0;recovery_power_add;-5,all;0;dmg_adj_rate_multi;10'
 
 
 -------------------------------------
