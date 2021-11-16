@@ -395,9 +395,11 @@ function ServerData_LeagueRaid:isLobbyPopupRequired()
     -- 레이드 오픈
     -- 고대유적 10층 클리어
     -- 레이드 아직 참여 안함
+    --ccdump(self.m_raidLobbyData)
+
     if (self.m_raidLobbyData['league_raid_is_open'] == true) then
         if (self.m_raidLobbyData['league_raid_play_condition'] == true) then
-            if (self.m_raidLobbyData['league_raid_is_play'] == false) then
+            if (not self.m_raidLobbyData['league_raid_is_play']) then
                 self.m_raidLobbyData['league_raid_is_play'] = true
                 result = true
             end
