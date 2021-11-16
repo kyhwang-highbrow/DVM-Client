@@ -224,26 +224,6 @@ end
 
 
 -------------------------------------
--- function update_failure
--------------------------------------
-function GameState_LeagueRaid.update_failure(self, dt)
-    local cur_deck_name = g_deckData:getSelectedDeckName()
-    local deck_number = pl.stringx.replace(cur_deck_name, 'league_raid_', '')
-    deck_number = tonumber(deck_number)
-    cclog(self.m_currentDeckIndex)
-    if (self.m_currentDeckIndex == 1) then
-        g_leagueRaidData.m_attackedChar_A = clone(world.m_myDragons)
-    elseif (self.m_currentDeckIndex == 2) then
-        g_leagueRaidData.m_attackedChar_B = clone(world.m_myDragons)
-    elseif (self.m_currentDeckIndex == 3) then
-        g_leagueRaidData.m_attackedChar_C = clone(world.m_myDragons)
-    end
-
-    PARENT.update_failure(self, dt)
-end
-
-
--------------------------------------
 -- function makeResultUI
 -------------------------------------
 function GameState_LeagueRaid:makeResultUI(isSuccess)
@@ -431,6 +411,15 @@ function GameState_LeagueRaid.update_failure(self, dt)
         if (world.m_tamer) then
             world.m_tamer:changeState('dying')
         end
+
+        if (self.m_currentDeckIndex == 1) then
+            g_leagueRaidData.m_attackedChar_A = clone(world.m_myDragons)
+        elseif (self.m_currentDeckIndex == 2) then
+            g_leagueRaidData.m_attackedChar_B = clone(world.m_myDragons)
+        elseif (self.m_currentDeckIndex == 3) then
+            g_leagueRaidData.m_attackedChar_C = clone(world.m_myDragons)
+        end
+
 
     elseif (self:isPassedStepTime(1.5)) then
         for i,dragon in ipairs(world:getDragonList()) do
