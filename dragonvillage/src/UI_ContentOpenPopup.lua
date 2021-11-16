@@ -14,7 +14,8 @@ UI_ContentOpenPopup = class(PARENT,{
 function UI_ContentOpenPopup:init(content_type)
     self.m_content_type = content_type
     self.m_bIsDoneUIAction = false
-
+    self.m_uiName = 'UI_ContentOpenPopup'
+    '
     local vars = self:load('popup_contents_open.ui')
     UIManager:open(self, UIManager.POPUP)
 
