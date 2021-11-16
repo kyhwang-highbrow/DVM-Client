@@ -2730,9 +2730,9 @@ function UI_Lobby:refresh_rightBanner()
     end
 
     if (g_leagueRaidData:isLobbyPopupRequired()) then
-        if (not g_leagueRaidData.m_raidLobbyData['shwon_popup']) then
-            g_leagueRaidData.m_raidLobbyData['shwon_popup'] = true
+        if (not g_leagueRaidData:isLocalSeasonSame()) then
             UI_LeagueRaidOpenPopup()
+            g_leagueRaidData:setLocalSeasonData()
         end
     end
 

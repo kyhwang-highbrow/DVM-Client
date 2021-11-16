@@ -416,3 +416,37 @@ function ServerData_LeagueRaid:getStageIdAndSeason()
 
     return stage_id, season
 end
+
+
+-------------------------------------
+-- function setLocalSeasonData
+-------------------------------------
+function ServerData_LeagueRaid:setLocalSeasonData()
+    if (self.m_raidLobbyData and self.m_raidLobbyData['league_raid_season']) then
+        -- raid { season { uid } }
+        local uid = g_userData:get('uid') and g_userData:get('uid') or 'default'
+        local season = self.m_raidLobbyData['league_raid_season'] or 0
+        local save_key = 'raid_season_' .. uid
+
+        g_settingData:applySettingData(season, save_key, 'season') 
+    end
+end
+
+
+-------------------------------------
+-- function setLocalSeasonData
+-------------------------------------
+function ServerData_LeagueRaid:isLocalSeasonSame()
+    if (self.m_raidLobbyData and self.m_raidLobbyData['league_raid_season']) then
+        -- raid { season { uid } }
+        local uid = g_userData:get('uid') and g_userData:get('uid') or 'default'
+        local season = self.m_raidLobbyData['league_raid_season'] or 0
+        local save_key = 'raid_season_' .. uid
+
+        local saved_season = g_settingData:get(save_key, 'season')
+
+        return saved_season == season
+    end
+
+    return false
+end

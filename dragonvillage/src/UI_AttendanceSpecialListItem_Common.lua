@@ -49,16 +49,16 @@ function UI_AttendanceSpecialListItem_Common:initUI()
 
         if (atd_id == 50023) then
             -- 복귀
-            local msg = Str('복귀 유저 출석 이벤트')
-            vars['titleLabel']:setString(msg) 
+            local msg = Str('복귀 유저 출석체크 이벤트')
+            if (vars['titleLabel']) then vars['titleLabel']:setString(msg) end
 
         elseif (atd_id == 50024) then
             -- 신규
             local msg = Str('스페셜 출석체크 이벤트')
-            vars['titleLabel']:setString(msg) 
+            if (vars['titleLabel']) then vars['titleLabel']:setString(msg) end
 
         else
-            vars['titleLabel']:setString('')
+            if (vars['titleLabel']) then vars['titleLabel']:setString('') end
 
         end
     end

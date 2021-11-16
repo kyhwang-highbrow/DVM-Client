@@ -127,7 +127,7 @@ function UI_AttendanceSpecialListItem:initCustomUI()
         local atd_id = self.m_tItemData['atd_id']
         if (atd_id == 50023) then
             -- 복귀
-            local msg = Str('복귀 유저 출석 이벤트')
+            local msg = Str('복귀 유저 출석체크 이벤트')
             vars['titleLabel']:setString(msg)
 
         elseif (atd_id == 50024) then
