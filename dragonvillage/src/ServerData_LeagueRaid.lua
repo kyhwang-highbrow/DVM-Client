@@ -260,6 +260,7 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb, dont_update)
         if (finish_cb) then finish_cb(ret) end
     end
 
+
     local function response_status_cb(ret)
         -- 현재 시간에 잠겨 있는 속성
         if (ret['status'] == -1351) then
@@ -270,9 +271,12 @@ function ServerData_LeagueRaid:request_RaidInfo(finish_cb, fail_cb, dont_update)
             --end 
 
             MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'))
-            return true
+        elseif (ret['status'] ~= 0) then
+            
+            MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'))
         end
 
+        -- Str('준비 중입니다.')
         --"status":-1351,
         --"message":"invalid time"
 
