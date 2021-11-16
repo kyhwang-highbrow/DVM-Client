@@ -83,6 +83,7 @@ function GameWorldLeagueRaid:makeHeroDeck_internal(index)
         if (v.m_specialStatusIcon) then
             v.m_specialStatusIcon:setVisible(false)
             v.m_specialStatusIcon:setOverlabLabel(0)
+            v.m_specialStatusIcon = nil
         end
     end
 
@@ -90,6 +91,7 @@ function GameWorldLeagueRaid:makeHeroDeck_internal(index)
         if (v.m_specialStatusIcon) then
             v.m_specialStatusIcon:setVisible(false)
             v.m_specialStatusIcon:setOverlabLabel(0)
+            v.m_specialStatusIcon = nil
         end
     end
 

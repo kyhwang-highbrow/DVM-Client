@@ -515,6 +515,7 @@ function GameState:applyEnemyBuff()
                     if (v:isDead()) then
                         v.m_specialStatusIcon:setVisible(false)
                         v.m_specialStatusIcon:setOverlabLabel(0)
+                        v.m_specialStatusIcon = nil
                     elseif (v.m_specialStatusIcon) then
                         v.m_specialStatusIcon:setOverlabLabel(v.m_specialStatusIcon.m_overlabCount + 1)
                     else
@@ -531,6 +532,7 @@ function GameState:applyEnemyBuff()
                     if (v:isDead()) then
                         v.m_specialStatusIcon:setVisible(false)
                         v.m_specialStatusIcon:setOverlabLabel(0)
+                        v.m_specialStatusIcon = nil
                     elseif (v.m_specialStatusIcon) then
                         v.m_specialStatusIcon:setOverlabLabel(v.m_specialStatusIcon.m_overlabCount + 1)
                     else
@@ -578,6 +580,7 @@ function GameState:applyEnemyBuff()
                     if (v:isDead()) then
                         v.m_specialStatusIcon:setVisible(false)
                         v.m_specialStatusIcon:setOverlabLabel(0)
+                        v.m_specialStatusIcon = nil
                     elseif (v.m_specialStatusIcon) then
                         v.m_specialStatusIcon:setOverlabLabel(v.m_specialStatusIcon.m_overlabCount + 1)
                     else
@@ -594,6 +597,7 @@ function GameState:applyEnemyBuff()
                     if (v:isDead()) then
                         v.m_specialStatusIcon:setVisible(false)
                         v.m_specialStatusIcon:setOverlabLabel(0)
+                        v.m_specialStatusIcon = nil
                     elseif (v.m_specialStatusIcon) then
                         v.m_specialStatusIcon:setOverlabLabel(v.m_specialStatusIcon.m_overlabCount + 1)
                     else
