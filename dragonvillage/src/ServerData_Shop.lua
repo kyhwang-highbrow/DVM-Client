@@ -733,7 +733,7 @@ function ServerData_Shop:request_checkReceiptValidation_v3(product, validation_k
 
 
         -- 플랫폼서버에 결제완료 정보를 보냄 (운영툴 조회에 사용)
-        Network_platform_receiptValidation(market, order_id, purchase_token, function(ret)   end, function(ret)   end )
+        --Network_platform_receiptValidation(market, order_id, purchase_token, function(ret)   end, function(ret)   end )
 
 
 		if (success_cb) then
