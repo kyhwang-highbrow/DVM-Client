@@ -345,7 +345,7 @@ end
 function UI_LeagueRaidScene:click_quickClearBtn()
     local my_info = g_leagueRaidData:getMyInfo()
 
-    if (not self:canQuickClear()) or (my_info['score'] <= 0) then
+    if (not self:canQuickClear()) or (my_info['todayscore'] <= 0) then
         local msg = Str('소탕 기능을 이용하기 위해서는 하루 1회 이상 플레이 해야 합니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
 
