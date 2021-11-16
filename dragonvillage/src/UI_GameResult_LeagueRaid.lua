@@ -516,6 +516,8 @@ function UI_GameResult_LeagueRaid:click_homeBtn()
     local block_ui = UI_BlockPopup()
 
     UINavigator:goTo('league_raid')
+
+    SoundMgr:playBGM('bgm_lobby')
 end
 
 
