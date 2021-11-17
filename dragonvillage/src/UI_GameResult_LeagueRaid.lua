@@ -301,6 +301,16 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
         local item_node = item_card.root
         item_node:setVisible(true)
         cca.stampShakeAction(item_node, 0.5 * 1.1, 0.1, 0, 0, 0.5)
+        local grade = 0
+        
+        if (item_card.m_runeData and item_card.m_runeData['grade']) then
+            local rune_grade = tonumber(item_card.m_runeData['grade'])
+            if (rune_grade) then
+                grade = rune_grade
+            end
+        end
+
+        self:setItemCardRarity(item_card, grade)
 
         if (is_last) then
             self:doNextWorkWithDelayTime(0.5)
@@ -312,7 +322,7 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
         if (item_card and item_card['ui']) then
             local is_last = (index == #ui_list)
             item_card['ui'].root:setScale(0.5)
-
+            
             cca.reserveFunc(self.root, 
                             action_delay_time * ((index - 1) + ani_interval), 
                             function() show_reward(item_card['ui'], is_last) end)
