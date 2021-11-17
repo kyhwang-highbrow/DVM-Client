@@ -533,7 +533,7 @@ function UI_ReadySceneNew:initUI()
         vars['teamBonusBtn']:setPositionX(-80)
     end
 
-    if isExistValue(self.m_gameMode, GAME_MODE_DIMENSION_GATE) then
+    if isExistValue(self.m_gameMode, GAME_MODE_DIMENSION_GATE, GAME_MODE_LEAGUE_RAID) then
         set_autobtn_off()
     end
 
