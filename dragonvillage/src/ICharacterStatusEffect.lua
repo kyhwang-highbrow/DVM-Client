@@ -77,10 +77,12 @@ function ICharacterStatusEffect:updateStatusEffect(dt)
                 b_remove = v:update(dt)
             end
 
-            if (v.m_typeSTr ~= nil and not self:isDead()) then
-                b_remove = false
-            else
-                v:setOverlabLabel(0)
+            if (v.m_typeSTr ~= nil) then
+                if (self:isDead()) then
+                    v:setOverlabLabel(0)
+                else
+                    b_remove = false
+                end
             end
 
             if (b_remove) then

@@ -276,7 +276,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
 
         local line_count = table_view_waiting:getLineCount()
 
-        vars['waitingPannelNode']:setPositionY(last_adjusted_Y)
+        vars['waitingPannelNode']:setPositionY(last_adjusted_Y - 10)
     else
         vars['waitingPannelNode']:setVisible(false)
     end
