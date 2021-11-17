@@ -51,6 +51,18 @@ function UI_BattleMenuItem_Competition:initUI()
 		self:initCompetitionRewardInfo(content_type)
 
 	end
+
+
+    -- 차원문 컨텐츠 오픈 띠지
+    if (self.m_contentType == 'league_raid') 
+        and (g_leagueRaidData:canPlay()) then
+            local node = self.vars['newSprite']
+            if node then
+                node:setVisible(true)
+                self.root:setLocalZOrder(self.root:getLocalZOrder() + 1)
+            end
+    end
+
 end
 
 -------------------------------------

@@ -389,6 +389,23 @@ end
 -------------------------------------
 -- function isLobbyPopupRequired
 -------------------------------------
+function ServerData_LeagueRaid:canPlay()
+    local result = false
+
+    -- 레이드 오픈
+    -- 고대유적 10층 클리어
+    if (self.m_raidLobbyData['league_raid_is_open'] == true) then
+        if (self.m_raidLobbyData['league_raid_play_condition'] == true) then
+            result = true
+        end
+    end
+
+    return result
+end
+
+-------------------------------------
+-- function isLobbyPopupRequired
+-------------------------------------
 function ServerData_LeagueRaid:isLobbyPopupRequired()
     local result = false
 
