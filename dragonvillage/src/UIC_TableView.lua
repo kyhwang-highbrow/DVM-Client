@@ -795,7 +795,7 @@ end
 -- function setItemList
 -- @brief list는 key값이 고유해야 하며, value로는 UI생성에 필요한 데이터가 있어야 한다
 -------------------------------------
-function UIC_TableView:setItemList(list, make_item)
+function UIC_TableView:setItemList(list, make_item, is_force_index)
     self:clearItemList()
 
     local make_item = make_item or self.m_bVariableCellSize
@@ -806,7 +806,7 @@ function UIC_TableView:setItemList(list, make_item)
 
         local idx = #self.m_itemList + 1
 
-        if (data and isTable(data)) then data['cell_idx'] = idx end
+        if (is_force_index == true) then data['cell_idx'] = idx end
 
         -- UI를 미리 생성
         if make_item then

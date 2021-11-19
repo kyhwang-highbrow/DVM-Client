@@ -243,7 +243,7 @@ function UI_EventRoulette:refresh()
     tableview:setCellUIClass(UI_EventRouletteRewardItem, create_callback)
     tableview:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     tableview:setCellSizeToNodeSize(true)
-    tableview:setItemList(target_list, true)
+    tableview:setItemList(target_list, true, true)
 
     self.m_stopBtn:setEnabled(true)
     self.m_bIsSkipped = false
