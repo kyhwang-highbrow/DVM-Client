@@ -520,10 +520,13 @@ function ServerData_EventRoulette:getIcon(index, is_item_card)
 
     if step == 1 then
         local data = self.m_probabilityTable[step][index]
-        local file_name = data['group_code']
-        icon =  IconHelper:getIcon('res/ui/icons/item_group/' .. file_name .. '.png')
+
+        if (data) then
+            local file_name = data['group_code']
+            icon =  IconHelper:getIcon('res/ui/icons/item_group/' .. file_name .. '.png')
         
-        count = data['val']
+            count = data['val']
+        end
     elseif step == 2 then
         local group_code = self:getPickedGroup()
         local data = self.m_probabilityTable[step][group_code][index]
