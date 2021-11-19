@@ -806,6 +806,8 @@ function UIC_TableView:setItemList(list, make_item)
 
         local idx = #self.m_itemList + 1
 
+        if (data and isTable(data)) then data['cell_idx'] = idx end
+
         -- UI를 미리 생성
         if make_item then
             t_item['generated_ui'] = self:makeItemUI(data)

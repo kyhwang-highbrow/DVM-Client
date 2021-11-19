@@ -227,6 +227,16 @@ function UI_EventRoulette:refresh()
 
             self:click_rewardItemBtn(ui.m_key) 
         end)
+
+        local cell_index = ui:getCellIndex()
+
+        if (not cell_index) then cell_index = data ~= nil and data['cell_idx'] or nil end
+        if (not cell_index) then return end
+
+        local icon = g_eventRouletteData:getIcon(cell_index, true)
+
+        ui.vars['itemNode']:addChild(icon)
+        ui.m_key = cell_index
     end
     
     local tableview = UIC_TableView(self.m_rewardListNode)
@@ -627,13 +637,6 @@ UI_EventRouletteRewardItem = class(class(UI, ITableViewCell:getCloneTable()), {
 ----------------------------------------------------------------------
 function UI_EventRouletteRewardItem:init(data)
     local vars = self:load('event_roulette_item.ui')
-    local cell_index = self:getCellIndex()
-
-    if (not cell_index) then return end
-
-    local icon = g_eventRouletteData:getIcon(cell_index, true)
-
-    vars['itemNode']:addChild(icon)
 
     if (data['val'] == nil) or (data['val'] == '') then
         vars['countLabel']:setString(Str(data['item_name']))
