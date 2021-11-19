@@ -156,7 +156,9 @@ function SDKManager:goToAppStore()
     -- google, apple
     else
         local appId = 'com.perplelab.dragonvillagem.kr'
-        if (not CppFunctions:isIos()) then
+        -- 왜 not으로 했을까?
+        --if (not CppFunctions:isIos()) then
+        if (CppFunctions:isIos()) then
             -- AppStore App ID
             appId = '1281873988'
         end
