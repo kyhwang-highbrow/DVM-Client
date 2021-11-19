@@ -382,11 +382,38 @@ function UI_LeagueRaidScene:click_quickClearBtn()
     local function success_cb(ret)
         -- UI연출에 필요한 테이블들
         function proceeding_end_cb()
+        
+
+
+
+
+            
+
+            self:networkGameFinish_response_drop_reward(ret)
+            self:refresh()
+            
+            --[[
             -- reward popup
             local text = Str('보상을 획득 했습니다.')
             ItemObtainResult(ret, text)
             self:refresh()
-            self.m_allowBackKey = true
+            self.m_allowBackKey = true]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         end
 
         local proceeding_ui = UI_Proceeding()
@@ -441,6 +468,119 @@ function UI_LeagueRaidScene:click_quickClearBtn()
     local submsg = Str("소탕은 오늘 획득한 최고 점수를 기준으로 보상을 획득합니다.\n소탕하시겠습니까?")
     MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_callback)]]
 end
+
+
+
+
+
+
+-------------------------------------
+-- function networkGameFinish_response_drop_reward
+-- @breif 드랍 보상 데이터 처리
+-------------------------------------
+function UI_LeagueRaidScene:networkGameFinish_response_drop_reward(ret)
+
+    -- UI연출에 필요한 테이블들
+    local result_table = {}
+    result_table['user_levelup_data'] = {}
+    result_table['dragon_levelu_data_list'] = {}
+    result_table['drop_reward_grade'] = 'c'
+    result_table['drop_reward_list'] = {}
+    result_table['secret_dungeon'] = nil
+    result_table['content_open'] = {}
+
+    if (not ret['added_items']) then
+        return
+    end
+
+    local items_list = ret['added_items']['items_list']
+
+    if (not items_list) then
+        return
+    end
+    
+    -- 드랍 아이템에 의한 보너스
+    local l_bonus_item = {}
+    for i,v in ipairs(items_list) do
+        local item_id = v['item_id']
+        local count = v['count']
+        local from = v['from']
+        local data = nil
+
+        
+        if v['oids'] then
+            -- Object는 하나만 리턴한다고 가정 (dragon or rune)
+            local oid = v['oids'][1]
+            if oid then
+                -- 드래곤에서 정보 검색
+                for _,obj_data in ipairs(ret['added_items']['dragons']) do
+                    if (obj_data['id'] == oid) then
+                        data = StructDragonObject(obj_data)
+                        break
+                    end
+                end
+
+                -- 룬에서 정보 검색
+                if (not data) then
+                    for _,obj_data in ipairs(ret['added_items']['runes']) do
+                        if (obj_data['id'] == oid) then
+                            data = StructRuneObject(obj_data)
+                            break
+                        end
+                    end
+                end
+            end
+        end
+
+        -- 기본으로 주는 골드도 표기하기로 결정함
+        if (from == 'drop' or from == '' or from == nil) then
+            
+            -- 하이브로 캡슐은 한국서버에서만 드랍 처리
+            if (item_id == TableItem:getItemIDFromItemType('capsule')) then
+                if g_localData:isShowHighbrowShop() then
+                    local t_data = {item_id, count, from, data}
+                    table.insert(result_table['drop_reward_list'], t_data)
+                end            
+            else
+                local t_data = {item_id, count, from, data}
+                table.insert(result_table['drop_reward_list'], t_data)
+            end
+
+        -- 스테이지에서 기본으로 주는 골드 량
+        elseif (from == 'default') then
+            local t_data = {item_id, count, from, data}
+            table.insert(result_table['drop_reward_list'], t_data)
+
+        -- 드랍 아이템에 의한 보너스
+        elseif (from == 'bonus') then
+            if (not l_bonus_item[item_id]) then
+                l_bonus_item[item_id] = 0
+            end
+            l_bonus_item[item_id] = l_bonus_item[item_id] + count
+
+        -- 이벤트 아이템 (ex:송편)
+        elseif (from == 'event') or (from == 'event_bingo') then
+            local t_data = {item_id, count, from, data}
+            table.insert(result_table['drop_reward_list'], t_data)
+        end
+    end
+
+    -- 보너스 아이템 추가
+    for i,v in pairs(l_bonus_item) do
+        local t_data = {i, v, 'bonus'}
+        table.insert(result_table['drop_reward_list'], t_data)
+    end
+
+    g_leagueRaidData.m_currentDamage = g_leagueRaidData:getMyInfo()['todayscore']
+    local stage_id = g_leagueRaidData:getMyInfo()['stage']
+    UI_GameResult_LeagueRaid(stage_id, true, result_table, nil, true)
+end
+
+
+
+
+
+
 
 
 ----------------------------------------------------------------------

@@ -40,13 +40,15 @@ UI_GameResult_LeagueRaid = class(UI, {
     m_rewardTableView = 'UIC_tableView',
 
     m_tRuneCardTable = 'table',
+
+    m_isQuickClear = 'boolean',
 })
 
 
 ----------------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------------
-function UI_GameResult_LeagueRaid:init(stage_id, is_success, result_data, new_info)
+function UI_GameResult_LeagueRaid:init(stage_id, is_success, result_data, new_info, is_quick_clear)
     local vars = self:load('league_raid_result.ui')
     self.m_uiName = 'UI_GameResult_LeagueRaid'
 
@@ -60,6 +62,7 @@ function UI_GameResult_LeagueRaid:init(stage_id, is_success, result_data, new_in
     self.m_bSuccess = is_success
 
     self.m_resultData = result_data
+    self.m_isQuickClear = is_quick_clear
     
     -- title Nodes
     self.m_titleMenu = vars['titleMenu']            -- 
@@ -256,6 +259,7 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
 
     local interval = 80
     local max_cnt_per_line = 11
+    local card_scale = 0.5
 
     local l_item = {}
     for i,v in ipairs(self.m_resultData['drop_reward_list']) do
@@ -271,6 +275,24 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
     -- 생성 시 함수
     local function create_func(ui, data)
         
+    end
+    
+    --[[
+    local count = 10
+    local test_table = {}
+    for i = 1, count do
+        table.insert(test_table, l_item[1])
+    end
+
+    l_item = test_table]]
+
+
+    if (#l_item < 11) then
+        local add_scale = 0.02 * (11 - #l_item)
+        card_scale = card_scale + add_scale
+
+        interval = interval * (1 + add_scale * 2)
+        interval = math_floor(interval)
     end
 
     -- 테이블뷰 생성 TD
@@ -289,6 +311,7 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
     local ui_list = table_view.m_itemList
     local action_delay_time = 0.2
     local ani_interval = 0.0
+    
 
     for index, item_card in ipairs(ui_list) do
         if (item_card and item_card['ui']) then
@@ -300,7 +323,7 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
     local function show_reward(item_card, is_last)
         local item_node = item_card.root
         item_node:setVisible(true)
-        cca.stampShakeAction(item_node, 0.5 * 1.1, 0.1, 0, 0, 0.5)
+        cca.stampShakeAction(item_node, card_scale * 1.1, 0.1, 0, 0, card_scale)
         local grade = 0
         
         if (item_card.m_runeData and item_card.m_runeData['grade']) then
@@ -352,8 +375,6 @@ function UI_GameResult_LeagueRaid:initRuneCardList()
     local b_is_first_open = true
 
 	for idx, t_rune_data in ipairs(self.m_resultData['drop_reward_list']) do
-        ccdump(t_rune_data)
-
 		-- 룬 카드 생성
 		local struct_rune_object = g_runesData:getRuneObject(t_rune_data['drop']['roid'])-- raw data를 StructRuneObject 형태로 변경
         local node = vars['runeNode' .. idx]
@@ -408,8 +429,15 @@ end
 function UI_GameResult_LeagueRaid:direction_end()
     local vars = self.vars
 
-    vars['okBtn']:setVisible(true)
-    vars['statsBtn']:setVisible(true)
+    
+    if (self.m_isQuickClear == true) then
+        vars['okBtn']:setVisible(true)
+        vars['okBtn']:setPositionX(0)
+        vars['statsBtn']:setVisible(false)
+    else
+        vars['okBtn']:setVisible(true)
+        vars['statsBtn']:setVisible(true)
+    end
 
     --self:showLeaderBoard()
 end
@@ -623,3 +651,4 @@ function UI_GameResult_LeagueRaid:doNextWorkWithDelayTime(second)
     self.root:stopAllActions()
     self.root:runAction(cc.Sequence:create(cc.DelayTime:create(second), cc.CallFunc:create(function() self:doNextWork() end)))
 end
+
