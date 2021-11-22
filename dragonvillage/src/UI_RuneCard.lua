@@ -29,6 +29,8 @@ UI_RuneCard = class(PARENT, {
 
         m_infoUI = 'UI_ItemInfoPopup',
         m_closeInfoCallback = 'function', -- UI_ItemInfoPopup 닫을 때 callback function
+
+        m_tRuneUI = 'table',        -- 자세히 보기때 여러개의 룬을 보여줘야 할 때가 있는데 전부 동기화할 때 사용
     })
 
 -------------------------------------
@@ -40,6 +42,7 @@ function UI_RuneCard:init(t_rune_data)
 
     self.m_runeData = t_rune_data
 	self.m_itemID = t_rune_data['rid']
+    self.m_tRuneUI = {}
 
     -- 버튼 생성
     self:makeClickBtn()
@@ -354,12 +357,28 @@ function UI_RuneCard:press_clickBtn()
     -- UI_ItemInfoPopup이 닫힐 때 불리는 callback function
     ui:setCloseCB(function() 
         -- UI_ItemInfoPopup에서 잠금처리 될 경우 UI_RuneCard에도 반영
-        self.m_runeData:setLock(ui:isRuneLock())
-        self:refresh_lock()
-        self:refresh_memo()
+        if (self.m_tRuneUI and #self.m_tRuneUI > 0) then 
+            for _, data in ipairs(self.m_tRuneUI) do
+                local rune_card = data['ui']
+                local objectId = rune_card.m_runeData['roid']
+                local rune_data = g_runesData:getRuneObject(objectId)
 
-        if self.m_closeInfoCallback then
-            self.m_closeInfoCallback()
+                rune_card.m_runeData:setLock(rune_data:getLock())
+                rune_card:refresh_lock()
+                rune_card:refresh_memo()
+
+                if rune_card.m_closeInfoCallback then
+                    rune_card.m_closeInfoCallback()
+                end
+            end
+        else
+            self.m_runeData:setLock(ui:isRuneLock())
+            self:refresh_lock()
+            self:refresh_memo()
+
+            if self.m_closeInfoCallback then
+                self.m_closeInfoCallback()
+            end
         end
     end)
 

@@ -11,12 +11,15 @@ UI_ItemInfoPopup = class(PARENT,{
         m_itemType = 'string',
 
         m_tItemCard = 'UI_Card', -- 룬 카드 메모 갱신을 위해 추가
+
+        m_lastItem = '',
+        m_nextItem = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ItemInfoPopup:init(item_id, count, t_sub_data)
+function UI_ItemInfoPopup:init(item_id, count, t_sub_data, t_rune_ui)
     self.m_itemID = item_id
     self.m_itemCount = count
     self.m_tSubData = t_sub_data
@@ -137,6 +140,8 @@ function UI_ItemInfoPopup:initUI()
         vars['locationBtn']:setVisible(false)
         vars['okBtn']:setVisible(true)
     end
+
+    self:setPrevNextForRaidReward()
 end
 
 -------------------------------------
@@ -166,6 +171,11 @@ function UI_ItemInfoPopup:initButton()
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 
     vars['lockBtn']:registerScriptTapHandler(function() self:click_lockBtn() end)
+
+
+    vars['backBtn']:registerScriptTapHandler(function() self:click_prev() end)
+    vars['frontBtn']:registerScriptTapHandler(function() self:click_next() end)
+    
 
     if (self.m_itemType == 'rune') then
         -- 룬 메모
@@ -360,12 +370,79 @@ end
 function UI_ItemInfoPopup:isRuneLock()
     return self.m_tSubData:getLock()
 end
+
 -------------------------------------
 -- function setLockSprite
 -------------------------------------
 function UI_ItemInfoPopup:setLockSprite(is_locked)
     self.vars['lockSprite']:setVisible(is_locked)
 end
+
+
+
+
+
+
+-------------------------------------
+-- function setPrevNextForRaidReward
+-------------------------------------
+function UI_ItemInfoPopup:setPrevNextForRaidReward()
+    if (#g_leagueRaidData.m_obtainRuneList <= 0) then return end
+
+    local cur_roid = self.m_tSubData and self.m_tSubData['roid'] or nil
+
+    if (not cur_roid) then return end
+
+    local last_item, next_item = g_leagueRaidData:getAdjacentItems(cur_roid)
+
+    local has_last = last_item ~= nil
+    local has_next = next_item ~= nil
+
+    self.vars['backBtn']:setVisible(has_last)
+    self.vars['frontBtn']:setVisible(has_next)
+
+    self.m_lastItem = last_item
+    self.m_nextItem = next_item
+end
+
+
+-------------------------------------
+-- function setPrevNextForRaidReward
+-------------------------------------
+function UI_ItemInfoPopup:click_prev()
+    local vars = self.vars
+
+    if (not self.m_lastItem) then return end
+
+    self.m_itemID = self.m_lastItem['item_id']
+    self.m_itemCount = 1
+    self.m_tSubData = self.m_lastItem
+
+    vars['itemNode']:removeAllChildren()
+    vars['runeDscNode']:removeAllChildren()
+
+    self:initUI()
+end
+
+
+-------------------------------------
+-- function setPrevNextForRaidReward
+-------------------------------------
+function UI_ItemInfoPopup:click_next()
+    local vars = self.vars
+
+    if (not self.m_nextItem) then return end
+
+    self.m_itemID = self.m_nextItem['item_id']
+    self.m_itemCount = 1
+    self.m_tSubData = self.m_nextItem
+
+    vars['itemNode']:removeAllChildren()
+    vars['runeDscNode']:removeAllChildren()
+
+    self:initUI()
+end
+
 
 
 function MakeSimpleRewarPopup(title_str, item_id, count, t_sub_data)
@@ -375,6 +452,7 @@ function MakeSimpleRewarPopup(title_str, item_id, count, t_sub_data)
     ui.vars['closeBtn']:setPositionX(0)
     return ui
 end
+
 
 
 

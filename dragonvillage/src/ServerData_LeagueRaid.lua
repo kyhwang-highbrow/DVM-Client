@@ -27,6 +27,8 @@ ServerData_LeagueRaid = class({
     m_leagueRaidData = 'table',
 
     m_raidLobbyData = 'table', --  자세한건 applyServerData 에서 확인
+
+    m_obtainRuneList = 'table',
     })
 
 
@@ -39,6 +41,7 @@ function ServerData_LeagueRaid:init()
     self.m_deck_3 = {}
 
     self.m_raidLobbyData = {}
+    self.m_obtainRuneList = {}
 
     self.m_lastScore = 0
 
@@ -467,4 +470,46 @@ function ServerData_LeagueRaid:isLocalSeasonSame()
     end
 
     return false
+end
+
+-------------------------------------
+-- function setObtainRuneList
+-------------------------------------
+function ServerData_LeagueRaid:setObtainRuneList(list)
+    if (list) then
+        self.m_obtainRuneList = list
+    else
+        self.m_obtainRuneList = {} 
+    end
+end
+
+-------------------------------------
+-- function setObtainRuneList
+-------------------------------------
+function ServerData_LeagueRaid:getAdjacentItems(roid)
+    local last_item
+    local next_item
+
+    if (#self.m_obtainRuneList <= 0) then return last_item, next_item end
+
+    if (roid and #self.m_obtainRuneList > 1) then
+        for i = 1, #self.m_obtainRuneList do
+            local current_item = self.m_obtainRuneList[i]
+
+            if (current_item and current_item['roid'] == roid) then
+                if (i >= #self.m_obtainRuneList) then
+                    next_item = self.m_obtainRuneList[i - 1]
+                    break
+                elseif (i <= 1) then
+                    last_item = self.m_obtainRuneList[i + 1]
+                    break
+                else
+                    next_item = self.m_obtainRuneList[i - 1]
+                    last_item = self.m_obtainRuneList[i + 1]
+                end
+            end
+        end
+    end
+
+    return last_item, next_item
 end

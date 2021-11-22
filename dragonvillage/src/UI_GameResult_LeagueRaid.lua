@@ -272,6 +272,8 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
         --table.insert(l_item, v[1])
     end
 
+    g_leagueRaidData:setObtainRuneList(l_item)
+
     -- 생성 시 함수
     local function create_func(ui, data)
         
@@ -316,6 +318,8 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
     for index, item_card in ipairs(ui_list) do
         if (item_card and item_card['ui']) then
             item_card['ui'].root:setVisible(false)
+
+            item_card['ui'].m_tRuneUI = ui_list
         end
     end
 
@@ -588,6 +592,8 @@ end
 -- function click_homeBtn
 ----------------------------------------------------------------------------
 function UI_GameResult_LeagueRaid:click_homeBtn()
+    g_leagueRaidData:setObtainRuneList(nil)
+
     -- 씬 전환을 두번 호출 하지 않도록 하기 위함
     local block_ui = UI_BlockPopup()
 
