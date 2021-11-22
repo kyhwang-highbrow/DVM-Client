@@ -450,7 +450,7 @@ function UI_EventRoulette:SkipRoulette()
 
         local index = g_eventRouletteData:getPickedItemIndex()
 
-        local elementNum = 8
+        local elementNum = 6
         local gap = 2
         local time = 2
 
@@ -472,7 +472,7 @@ function UI_EventRoulette:AdjustRoulette(dt)
         self.m_wheel:setRotation(0)
         self.root:unscheduleUpdate()
         local index = g_eventRouletteData:getPickedItemIndex()
-        local elementNum = 8
+        local elementNum = 6
         local gap = 2
         local time = 2
 
