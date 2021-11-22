@@ -602,16 +602,17 @@ function UI_EventRouletteItem:refresh()
     local count
     local icon 
     icon, count = g_eventRouletteData:getIcon(self.m_index)
-    if (g_eventRouletteData:getCurrStep() == 1) then
+    if (g_eventRouletteData:getCurrStep() == 1 and icon) then
         icon:setColor(cc.c3b(150, 150, 150))
     end
 
     --icon:setContentSize(self.vars['itemNode']:getContentSize())
     --icon:setContentSize(0.5)
     
-
-    self.vars['itemNode']:addChild(icon)
-    self.vars['itemLabel']:setString(tostring(count))
+    if (icon) then
+        self.vars['itemNode']:addChild(icon)
+        self.vars['itemLabel']:setString(tostring(count))
+    end
 end
 
 ----------------------------------------------------------------------
