@@ -122,7 +122,7 @@ function UI_EventRoulette:initMember()
     end
 
     local node_index = 1
-    while(vars['itemNode' .. tostring(node_index)]) do
+    while(vars['itemNode' .. tostring(node_index)] and node_index <= 6) do
         -- 돌림판
         self.m_itemNodeList[node_index] = vars['itemNode' .. tostring(node_index)]
 
