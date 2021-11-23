@@ -162,6 +162,19 @@ function UI_EventRoulette:initUI(is_popup)
     
     -- 남은 시간 타이머 등록
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)    
+
+    local vars = self.vars
+    local mileage = g_eventRouletteData:getMileage()
+
+    if (mileage > -1) then
+        vars['cellingMenu']:setVisible(true)
+        local icon, count, probability, item_id = g_eventRouletteData:getRewardIcon(2, 'group_1', 1, true)
+        local item_name = TableItem:getItemName(item_id)
+        vars['ceilingIconNode']:addChild(icon)
+        icon:setScale(0.5)
+    else
+        vars['cellingMenu']:setVisible(false)
+    end
 end
 
 ----------------------------------------------------------------------
@@ -251,6 +264,19 @@ function UI_EventRoulette:refresh()
     self.m_startBtns[self.m_currStep]:setEnabled(true)
 
     self.m_wheel:setRotation(0)
+
+    local vars = self.vars
+    local mileage = g_eventRouletteData:getMileage()
+
+    if (vars['cellingMenu']:isVisible()) then
+        local item_id = g_eventRouletteData:getItemId(2, 'group_1', 1)
+        local item_name = TableItem:getItemName(item_id)
+        local ceiling_str = Str('{1}\n확정 획득까지 {@yellow}{2}{@default}회', item_name,mileage)
+        local is_definite_reward = mileage == 0
+        vars['ceilingVisualMenu']:setVisible(is_definite_reward)
+
+        vars['ceilingLabel']:setString(ceiling_str)
+    end
 end
 -------------------------------------
 -- function onEnterTab

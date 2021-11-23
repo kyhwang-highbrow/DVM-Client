@@ -351,6 +351,14 @@ end
 
 ----------------------------------------------------------------------
 -- function getTicketNum
+-- return 남은 천장 횟수
+----------------------------------------------------------------------
+function ServerData_EventRoulette:getMileage()
+    return self.m_rouletteInfo['mileage'] or -1
+end
+
+----------------------------------------------------------------------
+-- function getTicketNum
 ----------------------------------------------------------------------
 function ServerData_EventRoulette:getTimeText()
     local start_time = self.m_rouletteInfo['start_date']
@@ -472,7 +480,7 @@ end
 ----------------------------------------------------------------------
 -- function getItemCard
 ----------------------------------------------------------------------
-function ServerData_EventRoulette:getItemCard(data, is_item_card)
+function ServerData_EventRoulette:getItemCard(data, is_item_card, hide_effect)
     local item_id = data['item_id']
     local count = data['val']
     local item_type = TableItem:getItemType(item_id)
@@ -497,7 +505,7 @@ function ServerData_EventRoulette:getItemCard(data, is_item_card)
         ani_name = 'summon_regend_2'
     end
 
-    if ani_name then
+    if ani_name and (not hide_effect) then
         local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
         rarity_effect:changeAni(ani_name, true)
 		rarity_effect:setScale(1.7)
@@ -544,7 +552,7 @@ end
 ----------------------------------------------------------------------
 -- function getIcon
 ----------------------------------------------------------------------
-function ServerData_EventRoulette:getRewardIcon(step, group_code, index)
+function ServerData_EventRoulette:getRewardIcon(step, group_code, index, hide_effect)
     local data
     local icon
     local probability
@@ -561,7 +569,7 @@ function ServerData_EventRoulette:getRewardIcon(step, group_code, index)
         data = self.m_probabilityTable[step][group_code][index]
         --icon =  IconHelper:getItemIcon(tonumber(data['item_id']))
 
-        icon = self:getItemCard(data, true)
+        icon = self:getItemCard(data, true, hide_effect)
     else
 
     end
@@ -569,7 +577,19 @@ function ServerData_EventRoulette:getRewardIcon(step, group_code, index)
     probability = data['real_weight']
     count = data['val']
 
-    return icon, count, probability
+    return icon, count, probability, data['item_id']
+end
+
+
+----------------------------------------------------------------------
+-- function getAngle
+----------------------------------------------------------------------
+function ServerData_EventRoulette:getItemId(step, group_code, index)
+    local data = self.m_probabilityTable[step][group_code][index]
+
+    if (not data) then return nil end
+
+    return data['item_id']
 end
 
 ----------------------------------------------------------------------
