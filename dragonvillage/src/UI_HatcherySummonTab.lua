@@ -21,7 +21,9 @@ UI_HatcherySummonTab = class(PARENT,{
         m_selectedDragonList = 'table',  -- 한 속성에서 왔다갔다 선택 했을 때의 체크표시 처리 용
 
         m_originRateLabel = 'string',
-        m_pickupID = 'string', 
+        m_pickupID = 'string',
+
+        m_dragonAnimator = 'table',
     })
 
 -------------------------------------
@@ -61,6 +63,8 @@ function UI_HatcherySummonTab:init(owner_ui)
     if (self.vars['pickupCeilingLabel']) then
         self.m_originRateLabel = self.vars['pickupCeilingLabel']:getString()
     end
+
+    self.m_dragonAnimator = {}
 
     self:initSortManager()
 end
@@ -397,7 +401,24 @@ function UI_HatcherySummonTab:onChangeCategory(category)
 
         if vars['pickupTabBtn' .. index] then
             vars['pickupTabBtn' .. index]:setEnabled(false)
-            vars['pickupBgSprite']:setTexture(pickup_struct:getBackgroundResourceStr())
+            local attr = TableDragon:getDragonAttr(did)
+
+            vars['pickupBgSprite']:setTexture('res/ui/event/myth/bg_dragon_launch_myth_' .. attr .. '.png')
+
+            if (not self.m_dragonAnimator[did]) then
+                local animator = UIC_DragonAnimator()
+                animator:setTalkEnable(false)
+                self.vars['dragonNode']:addChild(animator.m_node)
+	            local evolution = 3
+
+                do -- 드래곤 리소스
+                    animator:setDragonAnimator(did, evolution)
+
+                    self.m_dragonAnimator[did] = animator
+                end
+            end
+
+            --vars['pickupBgSprite']:setTexture(pickup_struct:getBackgroundResourceStr())
 
             self.root:unscheduleUpdate()
             self.root:scheduleUpdateWithPriorityLua(function(dt) 
