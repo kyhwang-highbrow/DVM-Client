@@ -168,14 +168,26 @@ function UI_EventRoulette:initUI(is_popup)
 
     if (mileage > -1) then
         vars['cellingMenu']:setVisible(true)
-        local icon, count, probability, item_id = g_eventRouletteData:getRewardIcon(2, 'group_1', 1, true)
-        local item_name = TableItem:getItemName(item_id)
-        vars['ceilingIconNode']:addChild(icon)
-        icon:setScale(0.5)
+        vars['ceilingBtn']:registerScriptTapHandler(function() self:click_ceilingBtn() end)
     else
         vars['cellingMenu']:setVisible(false)
     end
 end
+
+
+-------------------------------------
+-- function click_ceilingBtn
+-------------------------------------
+function UI_EventRoulette:click_ceilingBtn()
+    local item_id = g_eventRouletteData:getItemId(2, 'group_1', 1)
+    local did = TableItem:getDidByItemId(item_id)
+	local birth_grade = TableDragon():getBirthGrade(did)
+
+    if did and birth_grade then
+       local ui = UI_BookDetailPopup.openWithFrame(did, birth_grade, 1, 0.8, true)
+    end
+end
+
 
 ----------------------------------------------------------------------
 -- function initButton
