@@ -18,7 +18,7 @@ UI_TowerStaminaChargePopup = class(PARENT, {
 -------------------------------------
 function UI_TowerStaminaChargePopup:init()
     self.m_uiName = 'UI_TowerStaminaChargePopup'
-    local vars = self:load('arena_new_scene_popup_purchase.ui')
+    local vars = self:load('shop_purchase.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -46,12 +46,12 @@ function UI_TowerStaminaChargePopup:initButton()
     local vars = self.vars
 
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    -- 1번 마이너스 2번 플러스
+    vars['quantityBtn2']:registerScriptTapHandler(function() self:click_quantityBtn(1) end)
+    vars['quantityBtn1']:registerScriptTapHandler(function() self:click_quantityBtn(-1) end)
 
-    vars['quantityPlusBtn']:registerScriptTapHandler(function() self:click_quantityBtn(1) end)
-    vars['quantityMinusBtn']:registerScriptTapHandler(function() self:click_quantityBtn(-1) end)
-
-    vars['quantityPlusBtn']:registerScriptPressHandler(function() self:click_quantityBtn(1, true) end)
-    vars['quantityMinusBtn']:registerScriptPressHandler(function() self:click_quantityBtn(-1, true) end)
+    vars['quantityBtn2']:registerScriptPressHandler(function() self:click_quantityBtn(1, true) end)
+    vars['quantityBtn1']:registerScriptPressHandler(function() self:click_quantityBtn(-1, true) end)
 
     vars['purchaseBtn']:setEnabled(true)
     vars['purchaseBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
@@ -67,6 +67,28 @@ end
 -------------------------------------
 function UI_TowerStaminaChargePopup:initUI()
     local vars = self.vars
+
+    local stamina_id = TableItem():getItemIDFromItemType('tower')
+    local t_item = TABLE:get('item')[stamina_id]
+    local name = Str(t_item['t_name'])
+
+    -- 상품 이름
+    vars['itemLabel']:setString(name)
+
+	-- 상품 아이콘
+    local icon = IconHelper:getItemIcon(stamina_id)
+    if (icon) then
+        icon:setScale(2)
+        vars['itemNode']:addChild(icon)
+    end
+
+    -- 가격 아이콘
+    local diamond_icon = IconHelper:getItemIcon(700001)
+    local price_node = vars['priceNode']
+    if (diamond_icon) then
+        diamond_icon:setScale(0.5)
+        price_node:addChild(diamond_icon)
+    end
 
     self:refresh()
 end
@@ -107,10 +129,12 @@ function UI_TowerStaminaChargePopup:click_quantityBtn(number, is_pressed)
         adjust_func()
     else
         local button    
+
+        -- 버튼 2번이 플러스
         if (number >= 0) then
-            button = vars['quantityPlusBtn']
+            button = vars['quantityBtn2']
         else
-            button = vars['quantityMinusBtn']
+            button = vars['quantityBtn1']
         end
 
         local function update_level(dt)
