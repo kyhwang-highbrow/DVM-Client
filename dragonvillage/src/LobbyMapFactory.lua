@@ -216,7 +216,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
             node:addChild(animator.m_node, 1)
         end
         
-        self:makeEventRoulette(self.m_lobbyMap.m_groudNode, cc.p(-240, 80))
+        self:makeEventRoulette(self.m_lobbyMap.m_groudNode, cc.p(-300, 155))
 
     elseif (deco_type == DECO_TYPE.ANNIVERSARY_1ST) then
         -- 1주년 기념 케이크 (민트 초코)
