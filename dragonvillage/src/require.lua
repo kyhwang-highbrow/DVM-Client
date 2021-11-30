@@ -1266,6 +1266,7 @@ local t_module = {
     'UI_AncientTowerRankingRewardPopup',
     'UI_AncientTowerClanRankListItem',
     'UI_AncientTowerClanRewardListItem',
+    'UI_TowerStaminaChargePopup',
 
     -- UI : 시험의 탑
     'UI_AttrTower',

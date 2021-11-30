@@ -111,7 +111,7 @@ function UI_StaminaInfo:click_chargeBtn()
     local vars = self.vars
 
     local stamina_type = self.m_staminaType
-
+    cclog(stamina_type)
     if (stamina_type == nil) then
         
     elseif (stamina_type == 'gold') then
@@ -125,6 +125,9 @@ function UI_StaminaInfo:click_chargeBtn()
         local ui_charge_popup = UI_StaminaChargePopup(b_use_cash_label)
     elseif (stamina_type == 'arena_new') then
         local ui_charge_popup = UI_ArenaNewStaminaChargePopup()
+    elseif (stamina_type == 'tower') then
+        local ui_charge_popup = UI_TowerStaminaChargePopup()
+
     else
         self:showToolTip()
     end
