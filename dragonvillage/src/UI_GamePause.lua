@@ -372,5 +372,10 @@ local function ok_cb()
     self.root:setVisible(false)
 end
 
+local game_mode = g_stageData:getGameMode(self.m_stageID)
+if (game_mode == GAME_MODE_LEAGUE_RAID) then
+    msg = Str('현재 진행 상황을 포기하고 레이드 로비로 나가시겠습니까?\n(날개는 소비되지 않습니다.)')
+end
+
 MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
 end
