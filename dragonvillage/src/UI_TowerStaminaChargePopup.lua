@@ -53,12 +53,12 @@ function UI_TowerStaminaChargePopup:initButton()
     vars['quantityPlusBtn']:registerScriptPressHandler(function() self:click_quantityBtn(1, true) end)
     vars['quantityMinusBtn']:registerScriptPressHandler(function() self:click_quantityBtn(-1, true) end)
 
-    self.m_chargeCnt = 0
     vars['purchaseBtn']:setEnabled(true)
     vars['purchaseBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    --[[
     if (self.m_chargeCnt - 1 <= 0) then
         vars['quantityMinusBtn']:setEnabled(false)
-    end
+    end]]
 end
 
 -------------------------------------
@@ -80,6 +80,15 @@ function UI_TowerStaminaChargePopup:refresh()
 
     vars['quantityLabel']:setString(tostring(self.m_chargeCnt))
     vars['priceLabel']:setString(tostring(self.m_chargeCnt * self.m_chargePerCost))
+    --[[
+    if (self.m_chargeCnt <= 1) then
+        vars['quantityPlusBtn']:setEnabled(true)
+        vars['quantityMinusBtn']:setEnabled(false)
+    else
+        vars['quantityPlusBtn']:setEnabled(true)
+        vars['quantityMinusBtn']:setEnabled(true)
+
+    end]]
 end
 
 -------------------------------------
@@ -90,23 +99,11 @@ function UI_TowerStaminaChargePopup:click_quantityBtn(number, is_pressed)
     local vars = self.vars
 
     local function adjust_func()
-        local temp = self.m_chargeCnt + number
-
-        if (temp <= 1) then
-            vars['quantityPlusBtn']:setEnabled(true)
-            vars['quantityMinusBtn']:setEnabled(false)
-
-        else
-            vars['quantityPlusBtn']:setEnabled(true)
-            vars['quantityMinusBtn']:setEnabled(true)
-
-        end
-
-        self.m_chargeCnt = temp
         self:refresh()
     end
 
     if (not is_pressed) then
+        self.m_chargeCnt = math.max(self.m_chargeCnt + number, 1)
         adjust_func()
     else
         local button    
@@ -119,9 +116,10 @@ function UI_TowerStaminaChargePopup:click_quantityBtn(number, is_pressed)
         local function update_level(dt)
             if (not button:isSelected()) or (not button:isEnabled()) then
                 self.root:unscheduleUpdate()
+            else
+                self.m_chargeCnt = math.max(self.m_chargeCnt + number, 1)
+                adjust_func()
             end
-
-            adjust_func()
         end
 
         self.root:scheduleUpdateWithPriorityLua(function(dt) return update_level(dt) end, 1)
