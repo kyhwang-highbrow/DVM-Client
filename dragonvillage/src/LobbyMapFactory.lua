@@ -215,6 +215,9 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
             animator:setPosition(235, 145)
             node:addChild(animator.m_node, 1)
         end
+        
+        self:makeEventRoulette(self.m_lobbyMap.m_groudNode, cc.p(-240, 80))
+
     elseif (deco_type == DECO_TYPE.ANNIVERSARY_1ST) then
         -- 1주년 기념 케이크 (민트 초코)
         animator = MakeAnimator('res/lobby/lobby_layer_01_center_cake/lobby_layer_01_center_cake.vrp')
@@ -478,12 +481,6 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
         photo_board_name = photo_board_name .. '_night'
     end
 
-    local roulette = MakeAnimator(string.format('res/lobby/lobby_season_deco/weidel_festival/%s.vrp', roulette_name))
-    roulette:changeAni('idle', true)
-    roulette.m_node:setContentSize(0, 350)
-    roulette.m_node:setPosition(235, 180)
-    lobby_ground:addChild(roulette.m_node, 5)
-
     -- 민초 솜사탕 가게
     local candy_shop = MakeAnimator(string.format('res/lobby/lobby_season_deco/weidel_festival/%s.vrp', candy_shop_name))
     candy_shop:changeAni('idle_01', true)
@@ -499,6 +496,45 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
     photo_board.m_node:setPosition(-750, -42)
     local board_z_order = lobby_map:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_DRAGON, -180)
     lobby_ground:addChild(photo_board.m_node, board_z_order)
+    
+    self:makeEventRoulette(lobby_ground)
+
+    ServerData_Forest:getInstance():request_myForestInfo(
+        function()
+            local t_dragon_object = table.sortRandom(ServerData_Forest:getInstance():getMyDragons())
+            local loop_count = 0
+
+            if (not t_dragon_object) or (#t_dragon_object <= 0) then
+                return
+            end
+
+            local max_loop_count = math.min(#t_dragon_object, 3)
+
+            for doid, struct_dragon_object in pairs(t_dragon_object) do
+                if (loop_count >= max_loop_count) then
+                    break
+                end
+
+                lobby_map:makeDragon(struct_dragon_object)
+
+                loop_count = loop_count + 1
+            end
+        end
+    )
+end
+
+
+function LobbyMapFactory:makeEventRoulette(lobby_ground, pos)
+    if not g_hotTimeData:isActiveEvent('event_roulette') and not g_hotTimeData:isActiveEvent('event_roulette_reward') then return end
+
+    local roulette_name = 'weidel_roulette'
+    local roulette = MakeAnimator(string.format('res/lobby/lobby_season_deco/weidel_festival/%s.vrp', roulette_name))
+    local position = pos == nil and cc.p(235, 180) or pos
+
+    roulette:changeAni('idle', true)
+    roulette.m_node:setContentSize(0, 350)
+    roulette.m_node:setPosition(position)
+    lobby_ground:addChild(roulette.m_node, 5)
 
     local is_requested = false
     local function touch_event(touches, event)
@@ -542,26 +578,4 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
         self.m_lobbyMap:makeTouchLayer(roulette, touch_event)
     end
 
-    ServerData_Forest:getInstance():request_myForestInfo(
-        function()
-            local t_dragon_object = table.sortRandom(ServerData_Forest:getInstance():getMyDragons())
-            local loop_count = 0
-
-            if (not t_dragon_object) or (#t_dragon_object <= 0) then
-                return
-            end
-
-            local max_loop_count = math.min(#t_dragon_object, 3)
-
-            for doid, struct_dragon_object in pairs(t_dragon_object) do
-                if (loop_count >= max_loop_count) then
-                    break
-                end
-
-                lobby_map:makeDragon(struct_dragon_object)
-
-                loop_count = loop_count + 1
-            end
-        end
-    )
 end
