@@ -445,7 +445,9 @@ function GameState_LeagueRaid.update_failure(self, dt)
         world.m_inGameUI:doActionReverse(function()
             world.m_inGameUI.root:setVisible(false)
         end)
-        self:makeResultUI(false)
+
+        UINavigator:goTo('league_raid')
+        --self:makeResultUI(false)
     end
 end
 

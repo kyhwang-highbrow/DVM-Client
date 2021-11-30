@@ -195,6 +195,29 @@ function UI_CapsuleBox:setCapsuleBoxNoti()
 
     if (StructCapsuleBoxSchedule.isNoti_globalAnniversary()) then
         vars['1stEventMenu']:setVisible(true)
+
+        local struct_capsule_box = self.m_capsuleBoxData[BOX_KEY_1]
+        local best_reward_data = struct_capsule_box:getContents()[1]
+        local item_id = best_reward_data['item_id']
+
+        local is_dragon = TableItem():isDragonByItemId(item_id)
+        local item_name = TableItem:getItemName(item_id)
+
+        if (is_dragon) then
+            vars['dragonNode']:setVisible(true)
+            vars['eggVisual']:setVisible(false)
+
+            local item_icon = IconHelper:getItemIcon(item_id)
+            vars['dragonNode']:addChild(item_icon)
+
+        else
+            vars['dragonNode']:setVisible(false)
+            vars['eggVisual']:setVisible(true)
+
+        end
+
+        vars['itemLabel']:setString(Str('전설 뽑기에 {1} 출현!', item_name))
+
     else
         vars['1stEventMenu']:setVisible(false)
     end
