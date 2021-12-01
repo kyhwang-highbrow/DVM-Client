@@ -858,6 +858,16 @@ function Str(id, ...)
 end
 
 -------------------------------------
+-- function StrForDev
+-- @brief 개발시에만 사용되는 텍스트 (번역 추출대상 X)
+-- @example MakeSimplePopup(POPUP_TYPE.OK, StrForDev('프롤로그 영상은 android, iOS에서만 재생됩니다.'))
+-------------------------------------
+function StrForDev(str, ...)
+    local ret_str = formatMessage(Translate:get(str), ...)
+    return ret_str
+end
+
+-------------------------------------
 -- function formatMessage
 -------------------------------------
 function formatMessage(str, ...)
