@@ -1077,6 +1077,30 @@ function ServerData_Shop:getSpecialOfferProductNurture()
     return nil, 0, 0
 end
 
+function ServerData_Shop:getSpecialOfferProductCommonStep(package_name)
+    local product_group = g_shopDataNew:getTargetPackage(package_name)
+
+    local l_product = {}
+
+    if (product_group and product_group.m_structProductList and #product_group.m_structProductList > 0) then
+        l_product = product_group.m_structProductList
+    end
+
+    -- 상품의 순서대로 구매가능하면 리턴
+    for i,t_data in ipairs(l_product) do
+        local product_id = t_data['product_id']
+        local struct_product = t_data
+
+        if struct_product and
+            struct_product:checkIsSale() and -- 판매중인 상품인지 확인
+            struct_product:isItBuyable() then -- 구매 횟수 제한 확인
+            return struct_product, i
+        end
+    end
+
+    return nil, 0, 0
+end
+
 -------------------------------------
 -- function getSpecialOfferProductNurture
 -- @brief 특별 할인 골드

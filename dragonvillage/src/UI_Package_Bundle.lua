@@ -11,7 +11,9 @@ UI_Package_Bundle = class(PARENT,{
 
         m_package_name = 'string',
 
-        m_mailSelectType = "MAIL_SELECT_TYPE"
+        m_mailSelectType = "MAIL_SELECT_TYPE",
+
+        m_customStruct = 'StructProduct',
     })
 
 
@@ -19,11 +21,21 @@ UI_Package_Bundle = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_Bundle:init(package_name, is_popup)
+function UI_Package_Bundle:init(package_name, is_popup, custom_struct)
     self.m_package_name = package_name
-    local vars = self:load(string.format('%s.ui', package_name))
-    self.m_data = TablePackageBundle:getDataWithName(package_name) 
-    self.m_pids = TablePackageBundle:getPidsWithName(package_name) 
+    self.m_customStruct = custom_struct
+    local vars
+
+    if (custom_struct) then
+        vars = self:load(custom_struct['package_res'])
+        self.m_data = TablePackageBundle:getDataWithName(package_name)
+        self.m_pids = {custom_struct['product_id']}
+    else
+        vars = self:load(string.format('%s.ui', package_name))
+        self.m_data = TablePackageBundle:getDataWithName(package_name) 
+        self.m_pids = TablePackageBundle:getPidsWithName(package_name) 
+    end
+    
     self.m_isPopup = is_popup or false
 	
 	self.m_uiName = 'UI_Package_Bundle'
@@ -178,13 +190,12 @@ function UI_Package_Bundle:refresh()
             vars[target_key]:setVisible(visible)
         end
     end
-
+        
     for idx, pid in ipairs(target_product) do
         local pid = tonumber(pid)
         local struct_product = l_item_list[pid]
 
         setLabelString('itemLabel', idx, '')
-
         -- 다이아 할인 풀팝업 전용 패키지 번들 - 추후 리팩토링 필요함
         -- 패키지가 아니지만 묶음 처리로 체크를 위해 패키지 번들에 등록한 케이스 
         if (self.m_package_name == 'event_dia_discount') or (self.m_package_name == 'event_gold_bonus') then
@@ -253,7 +264,7 @@ function UI_Package_Bundle:refresh()
             setLabelString('priceLabel', idx, price)
             
             -- 구매 제한
-            if (TablePackageBundle:isSelectOnePackage(self.m_package_name)) then
+            if (TablePackageBundle:isSelectOnePackage(self.m_package_name) and not self.m_customStruct) then
                 local is_buy = PackageManager:isBuyAll(self.m_package_name)
 				if (is_buy) then
 					vars['buyLabel']:setString('')
@@ -280,8 +291,8 @@ function UI_Package_Bundle:refresh()
                     vars['completeNode']:setVisible(struct_product:isBuyAll())    
                 end
             end
-            
-
+            cclog(struct_product:getDependency())
+            cclog((struct_product:getDependency() and struct_product:getDependency() ~= ''))
             -- 즉시 구매라면
             if (self.m_data['is_detail'] == 0) then
                 if (vars['buyBtn' .. idx]) then
@@ -347,6 +358,8 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
             end
         end
 
+        if (not self.m_isPopup and struct_product:getDependency() and struct_product:getDependency() ~= '') then return end
+
         -- 갱신이 필요한 상태일 경우
         if ret['need_refresh'] then
             self:refresh()
@@ -356,11 +369,11 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
             self:close()
 		end
 	end
-
-	struct_product:buy(cb_func)
+    
+    struct_product:buy(cb_func)
 end
 
--------------------------------------
+------------------------------------- 
 -- function click_rewardBtn
 -- @brief 보상 안내 = 상품 안내 팝업을 출력한다 
 -------------------------------------
