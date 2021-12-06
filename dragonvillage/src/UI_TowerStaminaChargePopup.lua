@@ -124,9 +124,16 @@ function UI_TowerStaminaChargePopup:click_quantityBtn(number, is_pressed)
         self:refresh()
     end
 
+    local cost =  (self.m_chargeCnt + number) * self.m_chargePerCost
+    local cur_cash = g_userData:get('cash')
+
+    local is_over_diamond = math.floor(cur_cash) < math.floor(cost)
+
     if (not is_pressed) then
-        self.m_chargeCnt = math.max(self.m_chargeCnt + number, 1)
-        adjust_func()
+        if (is_over_diamond == false) then
+            self.m_chargeCnt = math.max(self.m_chargeCnt + number, 1)
+            adjust_func()
+        end
     else
         local button    
 
@@ -141,8 +148,15 @@ function UI_TowerStaminaChargePopup:click_quantityBtn(number, is_pressed)
             if (not button:isSelected()) or (not button:isEnabled()) then
                 self.root:unscheduleUpdate()
             else
-                self.m_chargeCnt = math.max(self.m_chargeCnt + number, 1)
-                adjust_func()
+                cost = (self.m_chargeCnt + number) * self.m_chargePerCost
+                cur_cash = g_userData:get('cash')
+
+                is_over_diamond = math.floor(cur_cash) < math.floor(cost)
+
+                if (is_over_diamond == false) then
+                    self.m_chargeCnt = math.max(self.m_chargeCnt + number, 1)
+                    adjust_func()
+                end
             end
         end
 
