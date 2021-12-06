@@ -111,7 +111,7 @@ local TableInfo = {
         table_arena = {'table_arena', 'tid', false}, -- 티어 정보 표기하는데 사용
 
         table_arena_new_rank = {'table_arena_new_rank', 'tier_id', false}, -- 콜로세움 개선 후 랭킹 보상
-        table_arena_new = {'table_arena_new', 'id', false}, -- 콜로세움 개선 후 돌파 보상
+        --table_arena_new = {'table_arena_new', 'id', false}, -- 콜로세움 개선 후 돌파 보상
 
         table_clanwar_group = {'table_clanwar_group', 'idx', true}, -- 클랜전 조별리그 매치 방식
         anc_floor_reward = {'table_ancient_reward', 'stage', false}, -- 고대의 탑(시험의 탑)
@@ -227,6 +227,7 @@ local TableInfo_fromServer = {
         ['table_dmgate_buff_schedule'] = {'table_dmgate_buff_schedule', 'week'},
 
         ['table_package_achievement'] = {'table_package_achievement', 'package_id'},
+        ['table_arena_new'] = {'table_arena_new', 'id'}, -- 콜로세움 개선 후 돌파 보상
     }
 
 -------------------------------------
