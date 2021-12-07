@@ -2007,4 +2007,5 @@ return {['크리스마스 장식']='Decoración navideña',
 ['레무레스 돌림판']='Ruleta Remures',
 ['말로단 돌림판']='Ruleta Malodan',
 ['미트라 돌림판']='Ruleta Mitra',
-['절전알 돌림판']='Ruleta Huevo'}
+['절전알 돌림판']='Ruleta Huevo',
+['다이아 {1}개를 사용하여 {2} 가방을 {3}칸\n확장하시겠습니까?']='¿Deseas expandir {3} espacio/s en inventario {2}\nusando {1} de Diamante?'}

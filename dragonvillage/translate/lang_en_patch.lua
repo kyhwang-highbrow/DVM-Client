@@ -2075,4 +2075,5 @@ return {['크리스마스 장식']='christmas decoration',
 ['레무레스 돌림판']='Lemures Roulette',
 ['말로단 돌림판']='Maloden Roulette',
 ['미트라 돌림판']='Mitra Roulette',
-['절전알 돌림판']='Egg Roulette'}
+['절전알 돌림판']='Egg Roulette',
+['다이아 {1}개를 사용하여 {2} 가방을 {3}칸\n확장하시겠습니까?']='Spend {1} Diamonds to expand {2} inventory\nby {3} spaces?'}
