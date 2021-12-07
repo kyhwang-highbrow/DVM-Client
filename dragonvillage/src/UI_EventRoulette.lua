@@ -282,10 +282,15 @@ function UI_EventRoulette:refresh()
 
     if (vars['cellingMenu']:isVisible()) then
         local item_id = g_eventRouletteData:getItemId(2, 'group_1', 1)
-        local item_name = TableItem:getItemName(item_id)
-        local ceiling_str = Str('{1}\n확정 획득까지 {@yellow}{2}{@default}회', item_name,mileage)
+        local did = TableItem():getDidByItemId(item_id)
+        local item_name = did and TableDragon:getChanceUpDragonName(did)
+        local ceiling_str = Str('{1}\n확정 획득까지 {@yellow}{2}{@default}회', item_name, mileage)
         local is_definite_reward = mileage == 0
         vars['ceilingVisualMenu']:setVisible(is_definite_reward)
+
+        if (is_definite_reward) then
+            ceiling_str = Str('{1}\n{@default}확정 소환', item_name)
+        end
 
         vars['ceilingLabel']:setString(ceiling_str)
     end

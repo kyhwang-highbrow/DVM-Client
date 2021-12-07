@@ -294,8 +294,7 @@ function UI_Package_Bundle:refresh()
                     vars['completeNode']:setVisible(struct_product:isBuyAll())    
                 end
             end
-            cclog(struct_product:getDependency())
-            cclog((struct_product:getDependency() and struct_product:getDependency() ~= ''))
+
             -- 즉시 구매라면
             if (self.m_data['is_detail'] == 0) then
                 if (vars['buyBtn' .. idx]) then
