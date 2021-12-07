@@ -1,0 +1,734 @@
+
+temperentina_all_03.png
+size: 2033,634
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_arm_11
+  rotate: true
+  xy: 1953, 50
+  size: 23, 38
+  orig: 23, 38
+  offset: 0, 0
+  index: -1
+effect_arm_18
+  rotate: false
+  xy: 1997, 118
+  size: 34, 41
+  orig: 34, 41
+  offset: 0, 0
+  index: -1
+effect_arm_22
+  rotate: true
+  xy: 1597, 152
+  size: 97, 65
+  orig: 97, 65
+  offset: 0, 0
+  index: -1
+effect_att_light
+  rotate: false
+  xy: 304, 112
+  size: 215, 218
+  orig: 215, 218
+  offset: 0, 0
+  index: -1
+effect_chain_13
+  rotate: false
+  xy: 861, 5
+  size: 57, 123
+  orig: 57, 123
+  offset: 0, 0
+  index: -1
+effect_chain_14
+  rotate: false
+  xy: 1897, 164
+  size: 58, 29
+  orig: 58, 29
+  offset: 0, 0
+  index: -1
+effect_chain_22
+  rotate: true
+  xy: 1814, 6
+  size: 46, 55
+  orig: 46, 55
+  offset: 0, 0
+  index: -1
+effect_circle_tem
+  rotate: false
+  xy: 521, 120
+  size: 210, 210
+  orig: 210, 210
+  offset: 0, 0
+  index: -1
+effect_head_05
+  rotate: false
+  xy: 304, 10
+  size: 152, 100
+  orig: 152, 100
+  offset: 0, 0
+  index: -1
+temperentina_all_03_head_05
+  rotate: false
+  xy: 304, 10
+  size: 152, 100
+  orig: 152, 100
+  offset: 0, 0
+  index: -1
+effect_head_099
+  rotate: false
+  xy: 1814, 316
+  size: 136, 170
+  orig: 136, 170
+  offset: 0, 0
+  index: -1
+effect_plus
+  rotate: false
+  xy: 733, 2
+  size: 126, 126
+  orig: 126, 126
+  offset: 0, 0
+  index: -1
+effect_star_back
+  rotate: false
+  xy: 2, 304
+  size: 286, 328
+  orig: 286, 328
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 1904, 10
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+effect_tem_key_01
+  rotate: false
+  xy: 2, 2
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_tem_key_02
+  rotate: false
+  xy: 290, 332
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_tem_key_022
+  rotate: false
+  xy: 894, 332
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_tem_key_03
+  rotate: false
+  xy: 592, 332
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_tem_key_033
+  rotate: false
+  xy: 1196, 332
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_vargr_light
+  rotate: false
+  xy: 733, 130
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_01
+  rotate: false
+  xy: 1252, 12
+  size: 93, 30
+  orig: 93, 30
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_02
+  rotate: true
+  xy: 1390, 73
+  size: 141, 85
+  orig: 141, 85
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_03
+  rotate: false
+  xy: 1952, 330
+  size: 77, 156
+  orig: 77, 156
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_04
+  rotate: true
+  xy: 931, 2
+  size: 150, 185
+  orig: 150, 185
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_05
+  rotate: false
+  xy: 2013, 260
+  size: 16, 68
+  orig: 16, 68
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_06
+  rotate: false
+  xy: 1941, 10
+  size: 11, 33
+  orig: 11, 33
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_07
+  rotate: false
+  xy: 1390, 5
+  size: 85, 66
+  orig: 85, 66
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_08
+  rotate: false
+  xy: 1671, 2
+  size: 51, 50
+  orig: 51, 50
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_09
+  rotate: false
+  xy: 1871, 6
+  size: 31, 46
+  orig: 31, 46
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_10
+  rotate: false
+  xy: 1766, 215
+  size: 64, 93
+  orig: 64, 93
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_11
+  rotate: true
+  xy: 1993, 50
+  size: 23, 38
+  orig: 23, 38
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_13
+  rotate: false
+  xy: 1251, 237
+  size: 10, 31
+  orig: 10, 31
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_14
+  rotate: false
+  xy: 588, 47
+  size: 115, 71
+  orig: 115, 71
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_15
+  rotate: true
+  xy: 1477, 128
+  size: 121, 118
+  orig: 121, 118
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_16
+  rotate: false
+  xy: 1759, 156
+  size: 73, 57
+  orig: 73, 57
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_17
+  rotate: false
+  xy: 1946, 111
+  size: 49, 48
+  orig: 49, 48
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_18
+  rotate: false
+  xy: 1997, 75
+  size: 34, 41
+  orig: 34, 41
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_19
+  rotate: false
+  xy: 1597, 109
+  size: 61, 41
+  orig: 61, 41
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_20
+  rotate: true
+  xy: 1953, 75
+  size: 34, 40
+  orig: 34, 40
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_21
+  rotate: false
+  xy: 1954, 23
+  size: 30, 25
+  orig: 30, 25
+  offset: 0, 0
+  index: -1
+temperentina_all_03_arm_22
+  rotate: false
+  xy: 1667, 243
+  size: 97, 65
+  orig: 97, 65
+  offset: 0, 0
+  index: -1
+temperentina_all_03_body_01
+  rotate: false
+  xy: 1263, 216
+  size: 195, 114
+  orig: 195, 114
+  offset: 0, 0
+  index: -1
+temperentina_all_03_body_02
+  rotate: true
+  xy: 675, 2
+  size: 37, 47
+  orig: 37, 47
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_01
+  rotate: false
+  xy: 920, 25
+  size: 9, 7
+  orig: 9, 7
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_02
+  rotate: false
+  xy: 304, 2
+  size: 11, 6
+  orig: 11, 6
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_03
+  rotate: true
+  xy: 1614, 2
+  size: 18, 16
+  orig: 18, 16
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_04
+  rotate: false
+  xy: 920, 46
+  size: 9, 10
+  orig: 9, 10
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_05
+  rotate: false
+  xy: 1759, 233
+  size: 5, 8
+  orig: 5, 8
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_06
+  rotate: true
+  xy: 290, 319
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_07
+  rotate: false
+  xy: 1978, 2
+  size: 19, 19
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_08
+  rotate: true
+  xy: 1586, 114
+  size: 12, 9
+  orig: 12, 9
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_09
+  rotate: false
+  xy: 931, 270
+  size: 330, 60
+  orig: 330, 60
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_10
+  rotate: false
+  xy: 1632, 3
+  size: 29, 17
+  orig: 29, 17
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_11
+  rotate: false
+  xy: 1752, 160
+  size: 5, 6
+  orig: 5, 6
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_12
+  rotate: true
+  xy: 1986, 26
+  size: 22, 29
+  orig: 22, 29
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_13
+  rotate: true
+  xy: 1460, 251
+  size: 57, 123
+  orig: 57, 123
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_14
+  rotate: false
+  xy: 1957, 161
+  size: 58, 29
+  orig: 58, 29
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_15
+  rotate: true
+  xy: 1251, 216
+  size: 19, 10
+  orig: 19, 10
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_16
+  rotate: false
+  xy: 1759, 225
+  size: 5, 6
+  orig: 5, 6
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_17
+  rotate: true
+  xy: 1954, 2
+  size: 19, 22
+  orig: 19, 22
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_18
+  rotate: false
+  xy: 931, 154
+  size: 261, 114
+  orig: 261, 114
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_19
+  rotate: true
+  xy: 920, 58
+  size: 15, 9
+  orig: 15, 9
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_20
+  rotate: false
+  xy: 1568, 4
+  size: 44, 16
+  orig: 44, 16
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_21
+  rotate: false
+  xy: 920, 34
+  size: 9, 10
+  orig: 9, 10
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_22
+  rotate: false
+  xy: 1898, 107
+  size: 46, 55
+  orig: 46, 55
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_23
+  rotate: false
+  xy: 2013, 201
+  size: 16, 21
+  orig: 16, 21
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_b_01
+  rotate: false
+  xy: 1832, 230
+  size: 64, 84
+  orig: 64, 84
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_b_02
+  rotate: true
+  xy: 1752, 99
+  size: 55, 78
+  orig: 55, 78
+  offset: 0, 0
+  index: -1
+temperentina_all_03_chain_b_03
+  rotate: false
+  xy: 1904, 45
+  size: 47, 23
+  orig: 47, 23
+  offset: 0, 0
+  index: -1
+temperentina_all_03_ear_01
+  rotate: false
+  xy: 1664, 168
+  size: 93, 73
+  orig: 93, 73
+  offset: 0, 0
+  index: -1
+temperentina_all_03_ear_02
+  rotate: false
+  xy: 1498, 310
+  size: 314, 186
+  orig: 314, 186
+  offset: 0, 0
+  index: -1
+temperentina_all_03_ear_03
+  rotate: false
+  xy: 1966, 229
+  size: 45, 99
+  orig: 45, 99
+  offset: 0, 0
+  index: -1
+temperentina_all_03_ear_04
+  rotate: false
+  xy: 1498, 498
+  size: 382, 134
+  orig: 382, 134
+  offset: 0, 0
+  index: -1
+temperentina_all_03_ear_05
+  rotate: false
+  xy: 1586, 66
+  size: 106, 41
+  orig: 106, 41
+  offset: 0, 0
+  index: -1
+temperentina_all_03_ear_06
+  rotate: true
+  xy: 1882, 488
+  size: 144, 147
+  orig: 144, 147
+  offset: 0, 0
+  index: -1
+temperentina_all_03_ear_07
+  rotate: true
+  xy: 1568, 22
+  size: 42, 101
+  orig: 42, 101
+  offset: 0, 0
+  index: -1
+temperentina_all_03_ear_08
+  rotate: false
+  xy: 705, 41
+  size: 20, 77
+  orig: 20, 77
+  offset: 0, 0
+  index: -1
+temperentina_all_03_head_01
+  rotate: false
+  xy: 2013, 224
+  size: 14, 34
+  orig: 14, 34
+  offset: 0, 0
+  index: -1
+temperentina_all_03_head_02
+  rotate: false
+  xy: 920, 75
+  size: 9, 53
+  orig: 9, 53
+  offset: 0, 0
+  index: -1
+temperentina_all_03_head_03
+  rotate: false
+  xy: 1898, 232
+  size: 66, 82
+  orig: 66, 82
+  offset: 0, 0
+  index: -1
+temperentina_all_03_head_04
+  rotate: false
+  xy: 1834, 148
+  size: 61, 80
+  orig: 61, 80
+  offset: 0, 0
+  index: -1
+temperentina_all_03_head_06
+  rotate: true
+  xy: 1460, 314
+  size: 16, 35
+  orig: 16, 35
+  offset: 0, 0
+  index: -1
+temperentina_all_03_head_07
+  rotate: true
+  xy: 1832, 88
+  size: 58, 64
+  orig: 58, 64
+  offset: 0, 0
+  index: -1
+temperentina_all_03_head_08
+  rotate: true
+  xy: 1671, 54
+  size: 10, 56
+  orig: 10, 56
+  offset: 0, 0
+  index: -1
+temperentina_all_03_head_09
+  rotate: false
+  xy: 1252, 44
+  size: 136, 170
+  orig: 136, 170
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_01
+  rotate: true
+  xy: 1477, 2
+  size: 62, 89
+  orig: 62, 89
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_02
+  rotate: true
+  xy: 1660, 109
+  size: 13, 30
+  orig: 13, 30
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_03
+  rotate: false
+  xy: 1694, 71
+  size: 52, 51
+  orig: 52, 51
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_04
+  rotate: true
+  xy: 1477, 66
+  size: 60, 107
+  orig: 60, 107
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_05
+  rotate: false
+  xy: 1777, 2
+  size: 35, 59
+  orig: 35, 59
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_055
+  rotate: true
+  xy: 1898, 195
+  size: 35, 59
+  orig: 35, 59
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_b_01
+  rotate: true
+  xy: 1748, 63
+  size: 34, 74
+  orig: 34, 74
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_b_02
+  rotate: false
+  xy: 1460, 216
+  size: 15, 33
+  orig: 15, 33
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_b_03
+  rotate: false
+  xy: 1724, 2
+  size: 51, 50
+  orig: 51, 50
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_b_04
+  rotate: true
+  xy: 1664, 124
+  size: 42, 86
+  orig: 42, 86
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_b_05
+  rotate: true
+  xy: 1959, 192
+  size: 35, 52
+  orig: 35, 52
+  offset: 0, 0
+  index: -1
+temperentina_all_03_leg_b_055
+  rotate: true
+  xy: 1899, 70
+  size: 35, 52
+  orig: 35, 52
+  offset: 0, 0
+  index: -1
+temperentina_all_03_neck_01
+  rotate: true
+  xy: 458, 8
+  size: 102, 128
+  orig: 102, 128
+  offset: 0, 0
+  index: -1
+temperentina_all_03_shoulder_01
+  rotate: true
+  xy: 588, 2
+  size: 43, 85
+  orig: 43, 85
+  offset: 0, 0
+  index: -1
+temperentina_all_03_shoulder_02
+  rotate: false
+  xy: 1194, 158
+  size: 55, 110
+  orig: 55, 110
+  offset: 0, 0
+  index: -1
+temperentina_all_03_shoulder_03
+  rotate: false
+  xy: 1347, 2
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+temperentina_all_03_tail_01
+  rotate: false
+  xy: 1118, 2
+  size: 132, 150
+  orig: 132, 150
+  offset: 0, 0
+  index: -1
+temperentina_all_03_tail_02
+  rotate: true
+  xy: 1585, 251
+  size: 57, 80
+  orig: 57, 80
+  offset: 0, 0
+  index: -1
+temperentina_all_03_tail_03
+  rotate: false
+  xy: 1824, 54
+  size: 73, 32
+  orig: 73, 32
+  offset: 0, 0
+  index: -1

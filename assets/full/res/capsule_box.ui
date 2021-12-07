@@ -2869,6 +2869,25 @@
 				};
 				[3] =
 				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 23.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.650000;
+					scale_y = 0.650000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'dragonNode';
+				};
+				[4] =
+				{
 					type = 'Visual';
 					ui_name = 'egg';
 					x = 0.000000;
@@ -2883,8 +2902,8 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
+					visible = false;
+					lua_name = 'eggVisual';
 					file_name = 'item/egg/egg_super_absolute/egg_super_absolute.vrp';
 					auto_play = true;
 					is_repeat = true;
@@ -2892,7 +2911,7 @@
 					color = { 255; 255; 255; };
 					opacity = 255;
 				};
-				[4] =
+				[5] =
 				{
 					[1] =
 					{
@@ -2962,7 +2981,7 @@
 					visible = true;
 					lua_name = '1stEventNode';
 				};
-				[5] =
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -2979,10 +2998,10 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'itemLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 19;
-					text = '전설 뽑기에 애니마라(어둠) 출현!';
+					text = '전설 뽑기에 {1} 출현!';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -3002,7 +3021,7 @@
 					shadow_direction = 0;
 					shadow_distance = 1.000000;
 				};
-				[6] =
+				[7] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -3022,7 +3041,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
-					text = ' 8/28 00:00 ~ 8/29 23:59';
+					text = '12/24 00:00 ~ 12/25 23:59';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
@@ -3042,7 +3061,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[7] =
+				[8] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -3060,7 +3079,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
+					file_name = 'ui/typo/ko/ribbon_winter_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;

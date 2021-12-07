@@ -1,0 +1,531 @@
+
+milatas_all_02.png
+size: 1890,403
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_punch_down
+  rotate: true
+  xy: 943, 284
+  size: 117, 209
+  orig: 117, 209
+  offset: 0, 0
+  index: -1
+effect_punch_ring
+  rotate: true
+  xy: 943, 209
+  size: 73, 186
+  orig: 73, 186
+  offset: 0, 0
+  index: -1
+effect_punch_star
+  rotate: false
+  xy: 1317, 154
+  size: 131, 133
+  orig: 131, 133
+  offset: 0, 0
+  index: -1
+effect_punch_up
+  rotate: false
+  xy: 2, 150
+  size: 420, 105
+  orig: 420, 105
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: true
+  xy: 1116, 57
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+effect_sword_light
+  rotate: true
+  xy: 2, 257
+  size: 144, 492
+  orig: 144, 492
+  offset: 0, 0
+  index: -1
+milatas_all_02_arm_01
+  rotate: false
+  xy: 1559, 194
+  size: 133, 93
+  orig: 133, 93
+  offset: 0, 0
+  index: -1
+milatas_all_02_arm_02
+  rotate: false
+  xy: 1260, 48
+  size: 91, 93
+  orig: 91, 93
+  offset: 0, 0
+  index: -1
+milatas_all_02_arm_03
+  rotate: true
+  xy: 496, 172
+  size: 72, 123
+  orig: 72, 123
+  offset: 0, 0
+  index: -1
+milatas_all_02_arm_04
+  rotate: true
+  xy: 807, 43
+  size: 88, 57
+  orig: 88, 57
+  offset: 0, 0
+  index: -1
+milatas_all_02_body_01
+  rotate: false
+  xy: 1739, 266
+  size: 145, 135
+  orig: 145, 135
+  offset: 0, 0
+  index: -1
+milatas_all_02_body_02
+  rotate: false
+  xy: 1450, 158
+  size: 107, 129
+  orig: 107, 129
+  offset: 0, 0
+  index: -1
+milatas_all_02_ear_01
+  rotate: false
+  xy: 1353, 2
+  size: 67, 51
+  orig: 67, 51
+  offset: 0, 0
+  index: -1
+milatas_all_02_eye_01
+  rotate: false
+  xy: 1211, 18
+  size: 34, 35
+  orig: 34, 35
+  offset: 0, 0
+  index: -1
+milatas_all_02_eye_02
+  rotate: false
+  xy: 687, 135
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+milatas_all_02_eye_03
+  rotate: true
+  xy: 804, 9
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1
+milatas_all_02_eye_04
+  rotate: true
+  xy: 1247, 16
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+milatas_all_02_eyebrow_01
+  rotate: false
+  xy: 737, 2
+  size: 37, 41
+  orig: 37, 41
+  offset: 0, 0
+  index: -1
+milatas_all_02_eyebrow_02
+  rotate: false
+  xy: 776, 12
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+milatas_all_02_fur_01
+  rotate: true
+  xy: 1353, 55
+  size: 97, 84
+  orig: 97, 84
+  offset: 0, 0
+  index: -1
+milatas_all_02_fur_02
+  rotate: false
+  xy: 424, 174
+  size: 70, 81
+  orig: 70, 81
+  offset: 0, 0
+  index: -1
+milatas_all_02_fur_04
+  rotate: false
+  xy: 1703, 63
+  size: 46, 56
+  orig: 46, 56
+  offset: 0, 0
+  index: -1
+milatas_all_02_fur_05
+  rotate: false
+  xy: 1739, 201
+  size: 97, 63
+  orig: 97, 63
+  offset: 0, 0
+  index: -1
+milatas_all_02_fur_13
+  rotate: false
+  xy: 1558, 81
+  size: 72, 38
+  orig: 72, 38
+  offset: 0, 0
+  index: -1
+milatas_all_02_fur_14
+  rotate: false
+  xy: 1665, 121
+  size: 84, 61
+  orig: 84, 61
+  offset: 0, 0
+  index: -1
+milatas_all_02_hair_01
+  rotate: false
+  xy: 1468, 2
+  size: 77, 66
+  orig: 77, 66
+  offset: 0, 0
+  index: -1
+milatas_all_02_hair_02
+  rotate: true
+  xy: 935, 105
+  size: 102, 113
+  orig: 102, 113
+  offset: 0, 0
+  index: -1
+milatas_all_02_hair_03
+  rotate: false
+  xy: 1439, 70
+  size: 61, 82
+  orig: 61, 82
+  offset: 0, 0
+  index: -1
+milatas_all_02_hair_04
+  rotate: true
+  xy: 843, 134
+  size: 105, 90
+  orig: 105, 90
+  offset: 0, 0
+  index: -1
+milatas_all_02_hair_06
+  rotate: true
+  xy: 1632, 73
+  size: 46, 69
+  orig: 46, 69
+  offset: 0, 0
+  index: -1
+milatas_all_02_hair_07
+  rotate: false
+  xy: 1751, 112
+  size: 80, 87
+  orig: 80, 87
+  offset: 0, 0
+  index: -1
+milatas_all_02_hair_08
+  rotate: true
+  xy: 1154, 143
+  size: 144, 161
+  orig: 144, 161
+  offset: 0, 0
+  index: -1
+milatas_all_02_hair_09
+  rotate: false
+  xy: 723, 133
+  size: 118, 106
+  orig: 118, 106
+  offset: 0, 0
+  index: -1
+milatas_all_02_hair_10
+  rotate: false
+  xy: 626, 48
+  size: 86, 55
+  orig: 86, 55
+  offset: 0, 0
+  index: -1
+milatas_all_02_hair_13
+  rotate: true
+  xy: 1050, 94
+  size: 113, 99
+  orig: 113, 99
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_01
+  rotate: true
+  xy: 1751, 10
+  size: 46, 56
+  orig: 46, 56
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_02
+  rotate: false
+  xy: 1598, 2
+  size: 48, 54
+  orig: 48, 54
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_03
+  rotate: false
+  xy: 866, 10
+  size: 66, 59
+  orig: 66, 59
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_04
+  rotate: true
+  xy: 1547, 2
+  size: 54, 49
+  orig: 54, 49
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_05
+  rotate: true
+  xy: 576, 94
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_06
+  rotate: false
+  xy: 1700, 9
+  size: 49, 52
+  orig: 49, 52
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_07
+  rotate: false
+  xy: 1833, 73
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_08
+  rotate: true
+  xy: 1694, 232
+  size: 55, 43
+  orig: 55, 43
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_09
+  rotate: false
+  xy: 714, 45
+  size: 91, 86
+  orig: 91, 86
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_10
+  rotate: false
+  xy: 1648, 8
+  size: 50, 63
+  orig: 50, 63
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_11
+  rotate: false
+  xy: 1167, 6
+  size: 42, 47
+  orig: 42, 47
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_12
+  rotate: true
+  xy: 1751, 58
+  size: 52, 66
+  orig: 52, 66
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_13
+  rotate: true
+  xy: 1422, 2
+  size: 51, 44
+  orig: 51, 44
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_14
+  rotate: false
+  xy: 1116, 2
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_15
+  rotate: true
+  xy: 1838, 199
+  size: 65, 50
+  orig: 65, 50
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_16
+  rotate: true
+  xy: 626, 2
+  size: 44, 69
+  orig: 44, 69
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_17
+  rotate: true
+  xy: 1694, 184
+  size: 46, 43
+  orig: 46, 43
+  offset: 0, 0
+  index: -1
+milatas_all_02_hand_18
+  rotate: true
+  xy: 1502, 90
+  size: 66, 54
+  orig: 66, 54
+  offset: 0, 0
+  index: -1
+milatas_all_02_head_01
+  rotate: false
+  xy: 496, 96
+  size: 78, 74
+  orig: 78, 74
+  offset: 0, 0
+  index: -1
+milatas_all_02_head_02
+  rotate: false
+  xy: 866, 71
+  size: 67, 61
+  orig: 67, 61
+  offset: 0, 0
+  index: -1
+milatas_all_02_head_03
+  rotate: false
+  xy: 626, 105
+  size: 59, 53
+  orig: 59, 53
+  offset: 0, 0
+  index: -1
+milatas_all_02_horn_01
+  rotate: true
+  xy: 446, 2
+  size: 90, 88
+  orig: 90, 88
+  offset: 0, 0
+  index: -1
+milatas_all_02_horn_02
+  rotate: true
+  xy: 536, 2
+  size: 90, 88
+  orig: 90, 88
+  offset: 0, 0
+  index: -1
+milatas_all_02_leg_01
+  rotate: false
+  xy: 1026, 6
+  size: 88, 86
+  orig: 88, 86
+  offset: 0, 0
+  index: -1
+milatas_all_02_leg_02
+  rotate: true
+  xy: 1833, 127
+  size: 70, 55
+  orig: 70, 55
+  offset: 0, 0
+  index: -1
+milatas_all_02_leg_03
+  rotate: true
+  xy: 935, 19
+  size: 84, 89
+  orig: 84, 89
+  offset: 0, 0
+  index: -1
+milatas_all_02_leg_05
+  rotate: true
+  xy: 1151, 55
+  size: 86, 107
+  orig: 86, 107
+  offset: 0, 0
+  index: -1
+milatas_all_02_leg_06
+  rotate: false
+  xy: 1819, 13
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+milatas_all_02_leg_07
+  rotate: false
+  xy: 446, 95
+  size: 48, 77
+  orig: 48, 77
+  offset: 0, 0
+  index: -1
+milatas_all_02_tail_01
+  rotate: true
+  xy: 724, 241
+  size: 160, 217
+  orig: 160, 217
+  offset: 0, 0
+  index: -1
+milatas_all_02_tail_02
+  rotate: false
+  xy: 1559, 121
+  size: 104, 71
+  orig: 104, 71
+  offset: 0, 0
+  index: -1
+milatas_all_02_tongue_01
+  rotate: false
+  xy: 697, 2
+  size: 38, 41
+  orig: 38, 41
+  offset: 0, 0
+  index: -1
+milatas_all_02_wing_01
+  rotate: true
+  xy: 621, 160
+  size: 84, 100
+  orig: 84, 100
+  offset: 0, 0
+  index: -1
+milatas_all_02_wing_02
+  rotate: false
+  xy: 496, 246
+  size: 226, 155
+  orig: 226, 155
+  offset: 0, 0
+  index: -1
+milatas_all_02_wing_05
+  rotate: true
+  xy: 1154, 289
+  size: 112, 193
+  orig: 112, 193
+  offset: 0, 0
+  index: -1
+milatas_all_02_wing_055
+  rotate: true
+  xy: 1349, 289
+  size: 112, 193
+  orig: 112, 193
+  offset: 0, 0
+  index: -1
+milatas_all_02_wing_05_s
+  rotate: true
+  xy: 1544, 289
+  size: 112, 193
+  orig: 112, 193
+  offset: 0, 0
+  index: -1
+milatas_all_02_wing_06
+  rotate: false
+  xy: 2, 2
+  size: 146, 146
+  orig: 146, 146
+  offset: 0, 0
+  index: -1
+milatas_all_02_wing_066
+  rotate: false
+  xy: 150, 2
+  size: 146, 146
+  orig: 146, 146
+  offset: 0, 0
+  index: -1
+milatas_all_02_wing_06_s
+  rotate: false
+  xy: 298, 2
+  size: 146, 146
+  orig: 146, 146
+  offset: 0, 0
+  index: -1

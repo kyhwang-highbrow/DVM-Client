@@ -246,46 +246,6 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = -50.000000;
-					dock_point = { 0.500000; 1.000000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 658;
-					height = 75;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 42;
-					text = '단계별 패키지 1단계';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 79; 79; };
-					opacity = 255;
-					dimension_width = 658;
-					dimension_height = 75;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 100;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				[9] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
 					x = -200.000000;
 					y = -478.000000;
 					dock_point = { 0.500000; 1.000000; };
@@ -322,12 +282,12 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[10] =
+				[9] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -100.000000;
+					y = -120.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -362,6 +322,46 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
+				[10] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -85.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 658;
+					height = 75;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 32;
+					text = '단계별 패키지 1단계';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 142; 30; };
+					opacity = 255;
+					dimension_width = 658;
+					dimension_height = 75;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 100;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
 				[11] =
 				{
 					type = 'Visual';
@@ -384,7 +384,7 @@
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'group;arrow_4';
-					color = { 255; 68; 68; };
+					color = { 255; 173; 91; };
 					opacity = 255;
 				};
 				[12] =
@@ -434,7 +434,7 @@
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'group;arrow_4';
-					color = { 223; 7; 248; };
+					color = { 255; 192; 203; };
 					opacity = 30;
 				};
 				[14] =
@@ -559,8 +559,8 @@
 					};
 					type = 'Menu';
 					ui_name = '아이템';
-					x = 4.000000;
-					y = -77.000000;
+					x = 0.000000;
+					y = -70.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -579,7 +579,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -473.000000;
+					y = -470.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -594,7 +594,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '10+1 고급소환권\n3개';
+					text = '10회 고급소환권\n3개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -721,7 +721,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'item/egg/egg_high_legend/egg_high_legend.vrp';
 					auto_play = true;
@@ -732,10 +732,36 @@
 				};
 				[3] =
 				{
+					type = 'Sprite';
+					ui_name = '전설강포';
+					x = -6.000000;
+					y = -69.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 300;
+					height = 220;
+					scale_x = 0.700000;
+					scale_y = 0.700000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icons/purchase_point/reinforce_point.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[4] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -50.000000;
+					y = -85.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -749,7 +775,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 42;
+					font_size = 32;
 					text = '단계별 패키지 2단계';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -770,12 +796,12 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -100.000000;
+					y = -120.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -810,7 +836,7 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[5] =
+				[6] =
 				{
 					[1] =
 					{
@@ -859,7 +885,7 @@
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;arrow_4';
-						color = { 223; 7; 248; };
+						color = { 255; 192; 203; };
 						opacity = 30;
 					};
 					type = 'Menu';
@@ -879,7 +905,7 @@
 					visible = true;
 					lua_name = '';
 				};
-				[6] =
+				[7] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -919,7 +945,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[7] =
+				[8] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -959,12 +985,12 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[8] =
+				[9] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -473.000000;
+					y = -470.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -979,7 +1005,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '전설의 알\n1개';
+					text = '전설 강화 포인트\n300개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -1068,7 +1094,7 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = '';
 						file_name = 'item/egg/egg_high_legend_ud/egg_high_legend_ud.vrp';
 						auto_play = true;
@@ -1078,6 +1104,32 @@
 						opacity = 255;
 					};
 					[3] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -1.000000;
+						y = -68.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 1.200000;
+						scale_y = 1.200000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/shop_cash_07.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[4] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
@@ -1117,7 +1169,7 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
-					[4] =
+					[5] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
@@ -1157,12 +1209,12 @@
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
 					};
-					[5] =
+					[6] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -473.000000;
+						y = -470.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1177,7 +1229,7 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
-						text = '미중복 전설의 알\n1개';
+						text = '다이아\n120,000개';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 255; 255; 255; };
@@ -1197,7 +1249,7 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
-					[6] =
+					[7] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
@@ -1237,7 +1289,7 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
-					[7] =
+					[8] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
@@ -1277,7 +1329,7 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
-					[8] =
+					[9] =
 					{
 						type = 'Visual';
 						ui_name = '';
@@ -1299,15 +1351,15 @@
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;arrow_4';
-						color = { 223; 7; 248; };
+						color = { 237; 18; 128; };
 						opacity = 150;
 					};
-					[9] =
+					[10] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -50.000000;
+						y = -85.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1321,11 +1373,11 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 42;
+						font_size = 32;
 						text = '단계별 패키지 3단계';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 198; 0; 198; };
+						color = { 255; 30; 165; };
 						opacity = 255;
 						dimension_width = 658;
 						dimension_height = 75;
@@ -1342,12 +1394,12 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
-					[10] =
+					[11] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -100.000000;
+						y = -120.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1522,7 +1574,7 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -70.000000;
+						y = -105.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1536,11 +1588,11 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 42;
+						font_size = 36;
 						text = '단계별 패키지 4단계';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 191; 163; 0; };
+						color = { 168; 0; 168; };
 						opacity = 255;
 						dimension_width = 658;
 						dimension_height = 75;
@@ -1602,7 +1654,7 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -473.000000;
+						y = -470.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -2283,8 +2335,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 254.000000;
-				y = -197.000000;
+				x = 256.000000;
+				y = -195.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -2658,7 +2710,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 185.000000;
+				y = 170.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -2758,9 +2810,9 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = '';
-				file_name = 'ui/frames/package_step_frame.png';
+				file_name = 'ui/frames/package_step_frame_hollween.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

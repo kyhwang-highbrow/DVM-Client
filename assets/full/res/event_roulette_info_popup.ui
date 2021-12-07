@@ -623,7 +623,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '1단계 돌림판 시작 시 8개의 항목 중 1개의 항목이 랜덤으로 선택되며, 다음 단계로 이동 됩니다.';
+					text = '1단계 돌림판 시작 시 6개의 항목 중 1개의 항목이 랜덤으로 선택되며, 다음 단계로 이동 됩니다.';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 255; 243; 217; };

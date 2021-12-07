@@ -79,8 +79,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 45.000000;
-				y = 12.000000;
+				x = 50.000000;
+				y = 10.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -95,7 +95,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 21;
-				text = '할로윈 룬 축제';
+				text = '할로윈 축제';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 0; };
@@ -119,8 +119,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 46.000000;
-				y = -17.000000;
+				x = 55.000000;
+				y = -18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -134,8 +134,8 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 18;
-				text = '★6 룬 획득 가능';
+				font_size = 16;
+				text = '잭-오-랜턴 획득 가능';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -162,7 +162,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 264;
+			width = 270;
 			height = 74;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

@@ -99,17 +99,47 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
+				[2] =
+				{
+					[1] =
+					{
+						type = 'SocketNode';
+						socket_name = 'lobby_item';
+					};
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = -1.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/lobby/lobby.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;light_02';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
 				type = 'Button';
 				ui_name = '';
-				x = 313.000000;
-				y = -170.000000;
+				x = 0.000000;
+				y = -260.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 342;
 				height = 226;
-				scale_x = 1.100000;
-				scale_y = 1.100000;
+				scale_x = 1.300000;
+				scale_y = 1.300000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;

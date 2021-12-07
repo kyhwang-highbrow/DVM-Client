@@ -1,0 +1,167 @@
+
+karna_light_01.png
+size: 721,406
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+karna_light_01_arm_l_01
+  rotate: true
+  xy: 409, 63
+  size: 52, 98
+  orig: 52, 98
+  offset: 0, 0
+  index: -1
+karna_light_01_arm_l_02
+  rotate: true
+  xy: 2, 13
+  size: 65, 122
+  orig: 65, 122
+  offset: 0, 0
+  index: -1
+karna_light_01_arm_l_deco
+  rotate: true
+  xy: 343, 24
+  size: 32, 60
+  orig: 32, 60
+  offset: 0, 0
+  index: -1
+karna_light_01_arm_r_01
+  rotate: true
+  xy: 145, 76
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+karna_light_01_arm_r_02
+  rotate: false
+  xy: 428, 117
+  size: 99, 138
+  orig: 99, 138
+  offset: 0, 0
+  index: -1
+karna_light_01_arm_r_deco
+  rotate: false
+  xy: 297, 6
+  size: 44, 75
+  orig: 44, 75
+  offset: 0, 0
+  index: -1
+karna_light_01_body_01
+  rotate: true
+  xy: 2, 188
+  size: 216, 220
+  orig: 216, 220
+  offset: 0, 0
+  index: -1
+karna_light_01_eye_01
+  rotate: false
+  xy: 607, 30
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+karna_light_01_eye_02
+  rotate: true
+  xy: 637, 15
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+karna_light_01_eye_03
+  rotate: true
+  xy: 673, 15
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+karna_light_01_hair_01
+  rotate: false
+  xy: 2, 80
+  size: 141, 106
+  orig: 141, 106
+  offset: 0, 0
+  index: -1
+karna_light_01_head_01
+  rotate: false
+  xy: 223, 17
+  size: 72, 64
+  orig: 72, 64
+  offset: 0, 0
+  index: -1
+karna_light_01_head_02
+  rotate: false
+  xy: 469, 12
+  size: 27, 49
+  orig: 27, 49
+  offset: 0, 0
+  index: -1
+karna_light_01_horn_l
+  rotate: true
+  xy: 509, 2
+  size: 62, 96
+  orig: 62, 96
+  offset: 0, 0
+  index: -1
+karna_light_01_horn_r
+  rotate: true
+  xy: 529, 66
+  size: 90, 106
+  orig: 90, 106
+  offset: 0, 0
+  index: -1
+karna_light_01_leg_l_01
+  rotate: false
+  xy: 343, 58
+  size: 64, 89
+  orig: 64, 89
+  offset: 0, 0
+  index: -1
+karna_light_01_leg_l_02
+  rotate: true
+  xy: 126, 21
+  size: 53, 83
+  orig: 53, 83
+  offset: 0, 0
+  index: -1
+karna_light_01_leg_r_01
+  rotate: true
+  xy: 223, 83
+  size: 64, 118
+  orig: 64, 118
+  offset: 0, 0
+  index: -1
+karna_light_01_leg_r_02
+  rotate: false
+  xy: 637, 45
+  size: 82, 111
+  orig: 82, 111
+  offset: 0, 0
+  index: -1
+karna_light_01_mouth_01
+  rotate: true
+  xy: 409, 10
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: -1
+karna_light_01_tail_01
+  rotate: false
+  xy: 532, 158
+  size: 185, 246
+  orig: 185, 246
+  offset: 0, 0
+  index: -1
+karna_light_01_wing_l_01
+  rotate: false
+  xy: 224, 149
+  size: 202, 106
+  orig: 202, 106
+  offset: 0, 0
+  index: -1
+karna_light_01_wing_r_01
+  rotate: false
+  xy: 224, 257
+  size: 306, 147
+  orig: 306, 147
+  offset: 0, 0
+  index: -1

@@ -185,7 +185,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'scoreLabel1';
+							lua_name = 'scoreLabel0';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 20;
 							text = '0';
@@ -225,7 +225,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'scoreLabel2';
+							lua_name = 'scoreLabel1';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 20;
 							text = '10,000';
@@ -265,7 +265,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'scoreLabel3';
+							lua_name = 'scoreLabel2';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 20;
 							text = '50,000';
@@ -305,7 +305,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'scoreLabel4';
+							lua_name = 'scoreLabel3';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 20;
 							text = '100,000';
@@ -345,7 +345,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'scoreLabel5';
+							lua_name = 'scoreLabel4';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 20;
 							text = '300,000';

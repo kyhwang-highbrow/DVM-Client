@@ -10,12 +10,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -10.000000;
+				y = -7.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 139;
-				height = 133;
+				width = 180;
+				height = 130;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -106,7 +106,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 118;
-				height = 21;
+				height = 35;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -122,7 +122,7 @@
 				color = { 127; 127; 127; };
 				opacity = 255;
 				dimension_width = 118;
-				dimension_height = 21;
+				dimension_height = 35;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;

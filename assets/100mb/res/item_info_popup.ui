@@ -1346,6 +1346,54 @@
 				visible = false;
 				lua_name = 'dragonNode';
 			};
+			[18] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 400.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 240;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'backBtn';
+				enable = true;
+				normal = 'ui/buttons/adventure_map_arrow_btn_0102.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[19] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = -400.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 240;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'frontBtn';
+				enable = true;
+				normal = 'ui/buttons/adventure_map_arrow_btn_0101.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;

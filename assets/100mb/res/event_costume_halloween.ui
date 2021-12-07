@@ -50,7 +50,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 45;
+				font_size = 40;
 				text = '할로윈 기념 코스튬 판매';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -75,8 +75,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 130.000000;
-				y = 11.000000;
+				x = 150.000000;
+				y = 15.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
