@@ -79,6 +79,8 @@ function UI_SettingTestCode:initButton()
 
     self:makeButtonAutomatic('Rune Gacha', self.runeGacha)
     self:makeButtonAutomatic('Rune Gacha-11', self.runeGacha11)
+
+    self:makeButtonAutomatic('앱설치확인', self.checkInstalled)
 end
 
 -------------------------------------
@@ -576,6 +578,48 @@ function UI_SettingTestCode:runeGacha11()
     UIManager:toastNotificationRed('룬 가챠 10 + 1회')
     UI_SettingTestCode.click_runeGacha(true)
 end
+
+-------------------------------------
+-- function checkInstalled
+-------------------------------------
+function UI_SettingTestCode:checkInstalled()
+    local edit_box = UI_SimpleEditBoxPopup()
+    edit_box:setPopupTitle(Str(''))
+    edit_box:setPopupDsc(Str('앱 깔려있는지 확인'))
+    edit_box:setPlaceHolder(Str('패키지 명을 입력하시오.'))
+    edit_box:setMaxLength(100)
+
+    local function confirm_cb(str)
+        function cb_func(result)
+            local package = isNullOrEmpty(str) and 'com.bigstack.rise' or str
+            local is_installed = 1 == tonumber(result)
+            local msg = is_installed and ' : 설치됐음' or ' : 설치안됨'
+            msg = package .. msg .. ' | 코드 : ' .. tostring(result)
+
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+        end
+
+        SDKManager:app_isInstalled(str, cb_func)
+
+        return true
+    end
+
+    edit_box:setConfirmCB(confirm_cb)
+
+    local function close_cb()
+        if (edit_box.m_retType == 'ok') then
+            local bundle_str = edit_box.m_str
+            --if (confirm_cb(buff_str) == false) then return end
+        end
+    end
+
+    edit_box:setCloseCB(close_cb)
+
+end
+
+
+
+
 
 -------------------------------------
 -- function click_eventSummonBtn
