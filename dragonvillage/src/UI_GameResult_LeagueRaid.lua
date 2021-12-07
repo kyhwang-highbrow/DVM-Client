@@ -546,7 +546,7 @@ function UI_GameResult_LeagueRaid:initRewardTable()
     end
 
     for i, item in ipairs(self.m_resultData['drop_reward_list']) do
-        if (item['drop'] and item[4]['roid']) then
+        if (item[4] and item[4]['roid']) then
 		    table.insert(rune_list, item)
         end
     end
