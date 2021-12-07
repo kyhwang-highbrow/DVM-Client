@@ -200,7 +200,7 @@ end
 -- @param cb_func function(ret, info) end
 -------------------------------------
 function SDKManager:app_isInstalled(package_name, cb_func)
-    self:sendEvent('isInstalled', permission_name, '', cb_func)
+    self:sendEvent('isInstalled', package_name, '', cb_func)
 end
 
 -------------------------------------
