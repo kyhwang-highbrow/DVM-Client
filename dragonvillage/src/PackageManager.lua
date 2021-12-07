@@ -6,7 +6,7 @@ PackageManager = {}
 -- @param package_name : table_bundle_package에 등록된 패키지 네임
 -- @param is_popup : true - 팝업, false - 이벤트 탭에 등록 (종료 버튼 없음)
 -------------------------------------
-function PackageManager:getTargetUI(package_name, is_popup, product_id)
+function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_popup)
     local target_ui = nil
     local _package_name = package_name
     
@@ -189,7 +189,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id)
         target_ui = UI_SupplyDepot(_package_name, is_popup)
 
     elseif (string.find(_package_name, 'winter_festival')) then
-        target_ui = self:makeOfferPopup(_package_name)
+        target_ui = self:makeOfferPopup(_package_name, is_popup, is_full_popup)
 
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
@@ -424,7 +424,7 @@ end
 -------------------------------------
 -- function showOfferPopup
 -------------------------------------
-function PackageManager:makeOfferPopup(package_name)
+function PackageManager:makeOfferPopup(package_name, is_popup, is_full_popup)
     -- 리스트에서 걸러서 보여줌
     local struct_product = g_shopDataNew:getSpecialOfferProductCommonStep(package_name)
     if (not struct_product) then return nil end
@@ -432,7 +432,7 @@ function PackageManager:makeOfferPopup(package_name)
     local pid = struct_product['product_id']
     local package_name = TablePackageBundle:getPackageNameWithPid(pid)   
     local package_data = TablePackageBundle:getDataWithName(package_name)
-    local ui = UI_Package_Bundle(package_name, false, struct_product)
+    local ui = UI_Package_Bundle(package_name, is_popup, struct_product, is_full_popup)
 
     -- mail_content 하나하나 순서대로 라벨에 뿌려주기
     local l_product = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])

@@ -14,6 +14,8 @@ UI_Package_Bundle = class(PARENT,{
         m_mailSelectType = "MAIL_SELECT_TYPE",
 
         m_customStruct = 'StructProduct',
+
+        m_isFullPopup = 'boolean',
     })
 
 
@@ -21,9 +23,11 @@ UI_Package_Bundle = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_Bundle:init(package_name, is_popup, custom_struct)
+function UI_Package_Bundle:init(package_name, is_popup, custom_struct, is_full_popup)
     self.m_package_name = package_name
     self.m_customStruct = custom_struct
+    self.m_isFullPopup = is_full_popup
+
     local vars
 
     if (custom_struct) then
@@ -328,6 +332,8 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Package_Bundle:click_buyBtn(struct_product)
+    local vars = self.vars
+
 	local function cb_func(ret)
         if (self.m_cbBuy) then
             self.m_cbBuy(ret)
@@ -360,7 +366,27 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
             end
         end
 
-        if (not self.m_isPopup and struct_product:getDependency() and struct_product:getDependency() ~= '') then return end
+        -- m_package_name
+        -- 일단은 버튼부터 막는다
+        --[[
+        if (ret['status'] == 0) then
+            if (vars['buyBtn']) then vars['buyBtn']:setEnabled(false) end
+            if (vars['buyBtn1']) then vars['buyBtn1']:setEnabled(false) end
+            if (vars['buyBtn2']) then vars['buyBtn2']:setEnabled(false) end
+            if (vars['buyBtn3']) then vars['buyBtn3']:setEnabled(false) end
+        end]]
+
+        if (self.m_isFullPopup) then
+            self:refresh()
+            g_eventData.m_bDirty = true
+            return
+        end
+
+        -- 뒷 패키지가 있으면?
+        -- 그런데 풀팝업에서는 리프레시 해줘야 한다
+        if (not self.m_isPopup and struct_product:getDependency() and struct_product:getDependency() ~= '') then
+            return
+        end
 
         -- 갱신이 필요한 상태일 경우
         if ret['need_refresh'] then

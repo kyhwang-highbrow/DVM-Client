@@ -134,7 +134,7 @@ function UI_EventFullPopup:initUI()
 
         for index, struct_package_group in pairs(package_list) do
             if (struct_package_group:getProductName() == package_name) and struct_package_group:isBuyable() then
-                ui = struct_package_group:getTargetUITest()
+                ui = struct_package_group:getTargetUITest(nil,nil,nil,true)
             end
         end
 
