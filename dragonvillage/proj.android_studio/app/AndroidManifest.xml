@@ -8,7 +8,18 @@
     <uses-feature android:glEsVersion="0x00020000" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
     
-    <!--queries>
+    <queries>
+        <!-- Android 11 (API level 30) 부터는 지정한 패키지만 확인할 수 있다 -->
+        <package android:name="com.perplelab.dragonvillagem.kr" /> <!-- 드빌M 구글 플레이 -->
+        <package android:name="com.perplelab.dragonvillagem.onestore" /> <!-- 드빌M 원스토어 -->
+        <package android:name="com.highbrow.games.dvarena" /> <!-- 드빌아레나 -->
+        <package android:name="com.highbrow.games.dvnew" /> <!-- 드빌뉴 -->
+        <package android:name="com.highbrow.game" /> <!-- 드빌1 -->
+        <package android:name="com.highbrow.games.dragonvillage" /> <!-- 드빌2 -->
+        <package android:name="com.highbrow.games.dvx" /> <!-- 드빌X -->
+        <package android:name="com.bigstack.rise" /> <!-- 라이즈 -->
+
+    <!-- 원스토어
 		<intent>
 			<action android:name="com.onestore.ipc.iap.IapService.ACTION" />
 		</intent>
@@ -16,7 +27,10 @@
 			<action android:name="android.intent.action.VIEW" />
 			<data android:scheme="onestore" />
 		</intent>
-	</queries-->
+    -->
+	</queries>
+
+
 	
     <supports-screens
         android:anyDensity="true"

@@ -703,6 +703,10 @@ public class AppActivity extends Cocos2dxActivity{
                     // @UnitAds
                     PerpleSDK perpleSdkInstance = PerpleSDK.getInstance();
                     perpleSdkInstance.initUnityAds(PerpleConfig.UNITYADS_GAME_ID, isDebug);
+                } else if (id.equals("isInstalled")) {
+                    String packageName = arg0;
+                    int installStatus = isInstalled(packageName);
+                    sdkEventResult(id, String.valueOf(installStatus), "");
                 }
             }
         });
@@ -729,5 +733,7 @@ public class AppActivity extends Cocos2dxActivity{
     }
 
     private static native void nativeSDKEventResult(String id, String result, String info);
+
+
 
 }
