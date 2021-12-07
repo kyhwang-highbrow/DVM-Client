@@ -1100,11 +1100,13 @@ function ServerData_Shop:getSpecialOfferProductCommonStep(package_name)
     product_group = g_shopDataNew:getTargetPackageAll(package_name)
 
     -- 상품정보가 그마저도 없으면 pid 마지막 상품을 리턴
-    local l_pid = pl.stringx.split(product_group['t_pids'], ',') 
-    if (l_pid and #l_pid > 0) then
-        local last_pid = l_pid[#l_pid]
-        local data = g_shopDataNew:getTargetProduct(tonumber(last_pid))
-        return data, #l_pid
+    if (product_group and product_group['t_pids'] and product_group['t_pids'] ~= '') then
+        local l_pid = pl.stringx.split(product_group['t_pids'], ',') 
+        if (l_pid and #l_pid > 0) then
+            local last_pid = l_pid[#l_pid]
+            local data = g_shopDataNew:getTargetProduct(tonumber(last_pid))
+            return data, #l_pid
+        end
     end
 
     -- 그마저도 없으면 오류가 나도 쌈
