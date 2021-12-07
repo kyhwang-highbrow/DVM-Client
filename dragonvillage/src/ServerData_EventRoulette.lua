@@ -770,7 +770,7 @@ function showMythAnimation(data)
     local animator
     local dragon_appear_cut_res
     local dragon_name = TableDragon:getValue(did, 'type')
-    local file_name = string.format('appear_%s', dragon_name)
+    local file_name = 'appear'
 
     dragon_appear_cut_res = string.format('res/dragon_appear/%s/%s.json', file_name, file_name)
     animator = MakeAnimator(dragon_appear_cut_res)
@@ -810,7 +810,7 @@ function showMythAnimation(data)
 
         local str
         local uic_label = UIC_LabelTTF(label)
-        uic_label:setPosition(0, -230)
+        uic_label:setPosition(0, 0)
         uic_label:setDockPoint(CENTER_POINT)
         uic_label:setAnchorPoint(CENTER_POINT)
         uic_label:setColor(COLOR['white'])
