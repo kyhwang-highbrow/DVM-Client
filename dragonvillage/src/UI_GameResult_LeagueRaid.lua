@@ -251,7 +251,7 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
     local rune_list = {}
 
     for i, item in ipairs(self.m_resultData['drop_reward_list']) do
-        if (item['drop'] and item['drop']['roid']) then
+        if (item[4] and item[4]['roid']) then
 		    table.insert(rune_list, item)
         end
     end
@@ -380,7 +380,7 @@ function UI_GameResult_LeagueRaid:initRuneCardList()
     local rune_list = {}
 
     for i, item in ipairs(self.m_resultData['drop_reward_list']) do
-        if (item['drop'] and item['drop']['roid']) then
+        if (item['drop'] and item[4]['roid']) then
 		    table.insert(rune_list, item)
         end
     end
@@ -394,7 +394,7 @@ function UI_GameResult_LeagueRaid:initRuneCardList()
 
 	for idx, t_rune_data in ipairs(rune_list) do
 		-- 룬 카드 생성
-		local struct_rune_object = g_runesData:getRuneObject(t_rune_data['drop']['roid'])-- raw data를 StructRuneObject 형태로 변경
+		local struct_rune_object = g_runesData:getRuneObject(t_rune_data[4]['roid'])-- raw data를 StructRuneObject 형태로 변경
         local node = vars['runeNode' .. idx]
         local roid = struct_rune_object['roid']
 		
@@ -464,7 +464,6 @@ function UI_GameResult_LeagueRaid:direction_end()
     local drop_list = t_data['drop_reward_list'] or {}
 	local idx = 1
 
-    ccdump(drop_list)
     for _, item in ipairs(drop_list) do
 		-- 보호 장치
 		if (idx > 2) then
@@ -547,7 +546,7 @@ function UI_GameResult_LeagueRaid:initRewardTable()
     end
 
     for i, item in ipairs(self.m_resultData['drop_reward_list']) do
-        if (item['drop'] and item['drop']['roid']) then
+        if (item['drop'] and item[4]['roid']) then
 		    table.insert(rune_list, item)
         end
     end
