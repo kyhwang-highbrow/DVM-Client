@@ -405,6 +405,12 @@ function UI_HatcherySummonTab:onChangeCategory(category)
 
             vars['pickupBgSprite']:setTexture('res/ui/event/myth/bg_dragon_launch_myth_' .. attr .. '.png')
 
+            for key, dAnimator in pairs(self.m_dragonAnimator) do
+                if (key ~= did and dAnimator) then
+                    dAnimator:setVisible(false)
+                end
+            end
+
             if (not self.m_dragonAnimator[did]) then
                 local animator = UIC_DragonAnimator()
                 animator:setTalkEnable(false)
@@ -416,6 +422,8 @@ function UI_HatcherySummonTab:onChangeCategory(category)
 
                     self.m_dragonAnimator[did] = animator
                 end
+            else
+                self.m_dragonAnimator[did]:setVisible(true)
             end
 
             --vars['pickupBgSprite']:setTexture(pickup_struct:getBackgroundResourceStr())
