@@ -194,6 +194,16 @@ function SDKManager:app_checkPermission(permission_name, cb_func)
 end
 
 -------------------------------------
+-- function app_isInstalled
+-- @brief 
+-- @param package_name ex) 'com.bigstack.rise'
+-- @param cb_func function(ret, info) end
+-------------------------------------
+function SDKManager:app_isInstalled(package_name, cb_func)
+    self:sendEvent('isInstalled', permission_name, '', cb_func)
+end
+
+-------------------------------------
 -- function app_requestPermission
 -- @brief 
 -- @param permission_name 'android.permission.READ_EXTERNAL_STORAGE'
