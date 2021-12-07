@@ -427,7 +427,8 @@ end
 function PackageManager:makeOfferPopup(package_name)
     -- 리스트에서 걸러서 보여줌
     local struct_product = g_shopDataNew:getSpecialOfferProductCommonStep(package_name)
-
+    if (not struct_product) then return nil end
+    
     local pid = struct_product['product_id']
     local package_name = TablePackageBundle:getPackageNameWithPid(pid)   
     local package_data = TablePackageBundle:getDataWithName(package_name)

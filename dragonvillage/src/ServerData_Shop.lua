@@ -1090,7 +1090,6 @@ function ServerData_Shop:getSpecialOfferProductCommonStep(package_name)
     for i,t_data in ipairs(l_product) do
         local product_id = t_data['product_id']
         local struct_product = t_data
-
         if struct_product and
             struct_product:checkIsSale() and -- 판매중인 상품인지 확인
             struct_product:isItBuyable() then -- 구매 횟수 제한 확인
@@ -1098,6 +1097,17 @@ function ServerData_Shop:getSpecialOfferProductCommonStep(package_name)
         end
     end
 
+    product_group = g_shopDataNew:getTargetPackageAll(package_name)
+
+    -- 상품정보가 그마저도 없으면 pid 마지막 상품을 리턴
+    local l_pid = pl.stringx.split(product_group['t_pids'], ',') 
+    if (l_pid and #l_pid > 0) then
+        local last_pid = l_pid[#l_pid]
+        local data = g_shopDataNew:getTargetProduct(tonumber(last_pid))
+        return data, #l_pid
+    end
+
+    -- 그마저도 없으면 오류가 나도 쌈
     return nil, 0, 0
 end
 
@@ -1449,6 +1459,23 @@ function ServerData_Shop:getActivatedPackageList()
 end
 
 -------------------------------------
+-- function getPackageList
+-- @brief 상품 리스트
+-------------------------------------
+function ServerData_Shop:getPackageList()
+    local packages = TABLE:get('table_package_bundle')
+    local package_list = {}
+
+    -- csv 파일의 하단에 오는 상품이 제일 위에 노출되도록 reverse order
+    for index = #packages, 1, -1 do
+        local struct_product_group = StructProductGroup(packages[index])
+        table.insert(package_list, struct_product_group)
+    end
+
+    return package_list
+end
+
+-------------------------------------
 -- function getTargetPackage
 -- @brief table_package_bundle의 t_name과 같은 패키지 정보를 찾아 리턴
 -------------------------------------
@@ -1466,6 +1493,20 @@ function ServerData_Shop:getTargetPackage(package_name)
     return nil
 end
 
+-------------------------------------
+-- function getTargetPackage
+-- @brief table_package_bundle의 t_name과 같은 패키지 정보를 찾아 리턴
+-------------------------------------
+function ServerData_Shop:getTargetPackageAll(package_name)
+    if (not package_name) then return nil end
 
+    local packages = self:getPackageList()
 
+    for _, data in pairs(packages) do
+        if (data['t_name'] == package_name) then
+            return data
+        end
+    end
 
+    return nil
+end

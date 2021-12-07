@@ -86,6 +86,9 @@ function UI_Package_Bundle:initUI()
         local action = cca.buttonShakeAction()
         vars['percentSprite']:runAction(action)
     end
+
+    if (vars['timeLabel']) then vars['timeLabel']:setString('') end
+    
 end
 
 -------------------------------------
