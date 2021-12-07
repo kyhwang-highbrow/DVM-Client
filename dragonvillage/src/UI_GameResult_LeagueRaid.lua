@@ -144,8 +144,8 @@ function UI_GameResult_LeagueRaid:setWorkList()
 
     table.insert(self.m_lWorkList, 'direction_showScore')
 
-    local rune_cnt = #self.m_resultData['drop_reward_list']
-    if (rune_cnt > 0) then
+    local item_cnt = #self.m_resultData['drop_reward_list']
+    if (item_cnt > 0) then
 	    table.insert(self.m_lWorkList, 'direction_showBox')
         table.insert(self.m_lWorkList, 'direction_openBox')
     end
@@ -241,28 +241,34 @@ end
 -------------------------------------
 function UI_GameResult_LeagueRaid:direction_showRunes()
     local vars = self.vars
-    --self:initRewardTable()
+
     if (not self.m_resultData or not self.m_resultData['drop_reward_list']) then 
         if (vars['runeRewardLabel']) then vars['runeRewardLabel']:setString(comma_value(rune_cnt)) end
         self:doNextWorkWithDelayTime(0.5)
         return 
     end
 
-    local rune_cnt = #self.m_resultData['drop_reward_list']
+    local rune_list = {}
+
+    for i, item in ipairs(self.m_resultData['drop_reward_list']) do
+        if (item['drop'] and item['drop']['roid']) then
+		    table.insert(rune_list, item)
+        end
+    end
+
+    local rune_cnt = #rune_list
 
     if (rune_cnt <= 0) then 
         self:doNextWorkWithDelayTime(0.5)
         return
     end
 
-
-
     local interval = 80
     local max_cnt_per_line = 11
     local card_scale = 0.5
 
     local l_item = {}
-    for i,v in ipairs(self.m_resultData['drop_reward_list']) do
+    for i,v in ipairs(rune_list) do
         -- struct rune obj
         local t_rune_data = g_runesData:getRuneObject(v[4]['roid'])
 		if (t_rune_data ~= nil) then
@@ -371,14 +377,22 @@ end
 function UI_GameResult_LeagueRaid:initRuneCardList()
 	local vars = self.vars
 
-	local rune_cnt = #self.m_resultData['drop_reward_list']	-- 총 룬 카드 수
+    local rune_list = {}
+
+    for i, item in ipairs(self.m_resultData['drop_reward_list']) do
+        if (item['drop'] and item['drop']['roid']) then
+		    table.insert(rune_list, item)
+        end
+    end
+
+	local rune_cnt = #rune_list	-- 총 룬 카드 수
 	local card_interval = 110	-- 룬 카드 가로 오프셋
 
     local l_pos_list = getSortPosList(card_interval, rune_cnt)
     
     local b_is_first_open = true
 
-	for idx, t_rune_data in ipairs(self.m_resultData['drop_reward_list']) do
+	for idx, t_rune_data in ipairs(rune_list) do
 		-- 룬 카드 생성
 		local struct_rune_object = g_runesData:getRuneObject(t_rune_data['drop']['roid'])-- raw data를 StructRuneObject 형태로 변경
         local node = vars['runeNode' .. idx]
@@ -442,7 +456,47 @@ function UI_GameResult_LeagueRaid:direction_end()
         vars['okBtn']:setVisible(true)
         vars['statsBtn']:setVisible(true)
     end
+    --ccdump(self.m_resultData)
+    local t_data = self.m_resultData
+    if (not t_data['drop_reward_list']) then 
+        return 
+    end
+    local drop_list = t_data['drop_reward_list'] or {}
+	local idx = 1
 
+    ccdump(drop_list)
+    for _, item in ipairs(drop_list) do
+		-- 보호 장치
+		if (idx > 2) then
+			break
+		end
+
+        -- item_id 로 직접 체크한다
+        if (item[3] == 'event' or item[3] == 'event_bingo') then
+			-- visible on
+            vars['eventNode' .. idx]:setVisible(true)
+
+			-- 재화 아이콘
+			local item_id = item[1]
+			local icon = IconHelper:getItemIcon(item_id)
+			vars['eventIconNode' .. idx]:addChild(icon)
+
+			-- 재화 이름
+			local item_name = TableItem:getItemName(item_id)
+            vars['eventNameLabel' .. idx]:setString(item_name)
+
+			-- 재화 수량
+            local cnt = item[2]
+            vars['eventLabel' .. idx]:setString(comma_value(cnt))
+
+			idx = idx + 1
+		end
+    end
+
+    -- 특정 상황에선 노드 이동
+    if (vars['eventNode1']:isVisible() == false) and (vars['eventNode2']:isVisible() == true) then
+        vars['eventNode2']:setPositionY(100)
+    end
     --self:showLeaderBoard()
 end
 
@@ -484,15 +538,21 @@ end
 ----------------------------------------------------------------------------
 function UI_GameResult_LeagueRaid:initRewardTable()
     local vars = self.vars
-
-    local rune_cnt = 0
+    local rune_list = {}
+    local rune_cnt = #rune_list
 
     if (not self.m_resultData or not self.m_resultData['drop_reward_list']) then 
         if (vars['runeRewardLabel']) then vars['runeRewardLabel']:setString(comma_value(rune_cnt)) end
         return 
     end
 
-    local rune_cnt = #self.m_resultData['drop_reward_list']
+    for i, item in ipairs(self.m_resultData['drop_reward_list']) do
+        if (item['drop'] and item['drop']['roid']) then
+		    table.insert(rune_list, item)
+        end
+    end
+
+    rune_cnt = #rune_list
     if (vars['runeRewardLabel']) then vars['runeRewardLabel']:setString(comma_value(rune_cnt)) end
 
     --[[
