@@ -105,7 +105,7 @@ function UI_Package_Bundle:initButton()
 
 
     -- 레이드 패키지 자세히보기
-    if (string.find(self.m_package_name, 'league_raid')) then
+    if (string.find(self.m_package_name, 'league_raid') or string.find(self.m_package_name, 'winter')) then
         -- 자세히 보기
         if (vars['infoBtn']) then
             vars['infoBtn']:registerScriptTapHandler(function() self:click_leagueRaidInfoBtn() end)
