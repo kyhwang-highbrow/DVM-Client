@@ -104,8 +104,8 @@ function ServerData_IAP:sdkBinder_BillingGetItemList(success_cb, fail_cb)
                 self.m_structIAPProductMap[sku] = struct_iap_product
                 
 
-                cclog('i: ' .. i)
-                ccdump(v)
+                --cclog('i: ' .. i)
+                --ccdump(v)
                 -- android e.g.
                 --{
                 --    ['skuDetailsToken']='AEuhp4KgGu-Ibs03LV6HOsl-jf8B9pEHlmG6ly1AEG_GPr3CV0wMekvW53Rf9g6hweZx';
