@@ -1,4 +1,5 @@
 return {['크리스마스 장식']='christmas decoration',
+['수집 아이템']='Collected items',
 ['{1}\n{@default}확정 소환']='{1}\n{@default}Guaranteed Summon',
 ['-드래그 스킬 안내-\n\n잘하는데?! 다크닉스에게 지속피해가 걸렸어. 최대 생명력에 비례해서 주는 피해이기 때문에 보스전에 아주 유용해.']='-Drag Skill Guide-\n\nYou\'re doing great! Darknix is suffering from DOT damage. The skill\'s damage scales to the opponent\'s Max HP, so it\'s quite useful against bosses.',
 ['마지막으로 중요한 사실을 알려드릴께요!\n1챕터의 7스테이지를 완료하면 고급 소환 10회를 무료로 제공한다고 합니다!']='Lastly, let me tell you something important.\nComplete Stage 7 in Chapter 1, and you can use Advanced Summon 10 times for free!',
