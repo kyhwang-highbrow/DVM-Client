@@ -124,7 +124,8 @@ function UI_ReadySceneNew:initParentVariable()
     self.m_staminaType = TableDrop:getStageStaminaType(self.m_stageID)
 
     if (self:isClanRaidTrainingMode(self.m_stageID)) then
-        self.m_staminaType = 'cldg_tr'
+        --self.m_staminaType = 'cldg_tr'
+        self.m_staminaType = 'st'
         
     -- 죄악의 화신 토벌작전 이벤트의 경우 소모 재화가 없으므로 기본 값인 날개를 표시
     elseif (self:isClanRaidEventIncarnationOfSinsMode(self.m_stageID)) then
