@@ -564,7 +564,7 @@ end
 -- @brief 레벨업 이펙트 및 사운드 재생
 -- @param dragon_level number nill일 경우 선택된 드래곤의 레벨을 사용
 -------------------------------------
-function UI_DragonLevelUpNew:playLevelUpEffect(dragon_level)
+function UI_DragonLevelUpNew:playLevelUpEffect(dragon_level, skip_ani)
 	local vars = self.vars
 
     local t_dragon_data = self.m_selectDragonData
@@ -599,14 +599,14 @@ function UI_DragonLevelUpNew:playLevelUpEffect(dragon_level)
 	local atk_changed = changed_atk - curr_atk
 
 	-- 실질적인 이펙트 호출
-	self:playLevelUpEffect_(hp_changed, def_changed, atk_changed)
+	self:playLevelUpEffect_(hp_changed, def_changed, atk_changed, skip_ani)
 end
 
 -------------------------------------
 -- function playLevelUpEffect_
 -- @brief 실질적으로 레벨업 이펙트 및 사운드 재생
 -------------------------------------
-function UI_DragonLevelUpNew:playLevelUpEffect_(hp_changed, def_changed, atk_changed)
+function UI_DragonLevelUpNew:playLevelUpEffect_(hp_changed, def_changed, atk_changed, skip_ani)
 	local vars = self.vars
 
 	do -- 1. 드래곤 모션 재생
@@ -618,7 +618,10 @@ function UI_DragonLevelUpNew:playLevelUpEffect_(hp_changed, def_changed, atk_cha
 		if (exist_pose_1 == false) then
 			ani = 'attack'
 		end
-		dragon_animator:changeAni(ani, false)
+
+        if (not skip_ani) then
+		    dragon_animator:changeAni(ani, false)
+        end
 
 		 -- 모션 변화 느낌을 좀 더 주기 위해 배속
 		local animation_time_scale = 1.6

@@ -33,6 +33,8 @@ UI_DragonLevelUpBtnPress = class({
 
 
         m_lInterval = 'list',
+
+        m_touchStarted = 'boolean',
     })
 
 -------------------------------------
@@ -40,6 +42,7 @@ UI_DragonLevelUpBtnPress = class({
 -------------------------------------
 function UI_DragonLevelUpBtnPress:init(dragon_levelup_ui)
     self.m_dragonLevelUpUI = dragon_levelup_ui
+    self.m_touchStarted = false
 
     -- update함수를 위한 노드 추가
     self.m_updateNode = cc.Node:create()
@@ -109,6 +112,7 @@ end
 function UI_DragonLevelUpBtnPress:update(dt)
     if (not self.m_levelUpBtn:isSelected()) then
         self:finishPressDragonLevelUpBtn('press_up')
+        self.m_touchStarted = false
         return
     end
 
@@ -160,7 +164,7 @@ function UI_DragonLevelUpBtnPress:update(dt)
             self.m_afterDragonExp = (self.m_afterDragonExp - need_dragon_exp)
 
             -- 이펙트 재생
-			dragon_levelup_ui:playLevelUpEffect(self.m_afterLv) -- params : dragon_level
+			dragon_levelup_ui:playLevelUpEffect(self.m_afterLv, self.m_touchStarted) -- params : dragon_level
 
             -- UI_DragonLevelUpNew 갱신
             dragon_levelup_ui:refresh_dragonStat(self.m_afterLv) -- params : dragon_level
@@ -170,7 +174,9 @@ function UI_DragonLevelUpBtnPress:update(dt)
         end
         self:log('lv:' .. self.m_afterLv .. ', gold:' .. self.m_afterGold .. ', dragon_exp: ' .. self.m_afterDragonExp)
         
-        self.m_timer = (self.m_timer + 0.15)
+        self.m_timer = (self.m_timer + 0.05)
+
+        self.m_touchStarted = true
     end
 end
 
