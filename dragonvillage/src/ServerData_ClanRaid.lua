@@ -613,7 +613,7 @@ function ServerData_ClanRaid:requestGameInfo_training(finish_cb, fail_cb)
     local function success_cb(ret)
         -- server_info, staminas 정보를 갱신
         g_serverData:networkCommonRespone(ret)
-        g_clanRaidData:applyTrainingInfo(ret['staminas']['cldg_tr'])
+        --g_clanRaidData:applyTrainingInfo(ret['staminas']['cldg_tr'])
         finish_cb()
     end
 

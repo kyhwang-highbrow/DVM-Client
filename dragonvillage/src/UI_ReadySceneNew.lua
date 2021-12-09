@@ -700,13 +700,16 @@ function UI_ReadySceneNew:initButton()
 
     -- 클랜던전 연습 모드
     if (self:isClanRaidTrainingMode(self.m_stageID)) then
+        vars['startBtnLabel']:setPositionX(0)
+        vars['actingPowerNode']:setVisible(false)
+        --[[
         vars['startBtn']:setVisible(false)
         vars['trainingBtn']:setVisible(true)
         vars['trainingBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
         vars['trainingBtn']:setClickSoundName('ui_game_start')
         vars['trainingLabel']:setString(Str('{1}/{2}', g_clanRaidData.m_triningTicketCnt, g_clanRaidData.m_triningTicketMaxCnt))
         vars['trainingSetBtn']:setVisible(true)
-        vars['trainingSetBtn']:registerScriptTapHandler(function() self:click_showTrainingBtn() end)
+        vars['trainingSetBtn']:registerScriptTapHandler(function() self:click_showTrainingBtn() end)]]
     end
 
     -- 클랜던전 죄악의 화신 토벌작전 이벤트 모드
@@ -2034,11 +2037,11 @@ end
 -- function startGame_clanRaidTraining
 -------------------------------------
 function UI_ReadySceneNew:startGame_clanRaidTraining()
-       
+    --[[
     if (g_clanRaidData.m_triningTicketCnt <= 0) then
         UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('연습 전투 입장권')))
         return 
-    end
+    end]]
     
     local function finish_cb()
         self:replaceGameScene()
