@@ -1522,6 +1522,7 @@ local t_module = {
     'UI_IllusionShop',-- 환상 던전 교환소
     'UI_IllusionRewardPopup', -- 환상 던전 보상 팝업
 	'UI_ItemPickPopup',
+    'UI_CrossPromotion',
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',

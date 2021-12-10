@@ -51,8 +51,8 @@ function UI_EventFullPopup:initUI()
     local popup_key = self.m_popupKey
 	local ui
     local is_btn_lock = true
-
-
+    cclog(debug.traceback())
+    cclog(popup_key)
     -- 이벤트 배너
     if (string.find(popup_key, 'banner')) then
 
@@ -254,7 +254,11 @@ function UI_EventFullPopup:initUI()
     -- 아레나 참여 이벤트
     elseif (string.find(popup_key, 'event_arena_play')) then
         require('UI_EventArenaPlay')
-        ui = UI_EventArenaPlay()
+        ui = UI_EventArenaPlay(popup_key)
+
+    -- 게임 설치 유도 이벤트
+    elseif (popup_key == 'event_crosspromotion') then
+        ui = UI_CrossPromotion(popup_key)
 
     elseif (self.m_targetUI) then
         ui = self.m_targetUI

@@ -402,6 +402,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif string.find(tab, 'event_arena_play') then
         require('UI_EventArenaPlay')
         ui = UI_EventArenaPlay()
+
+    -- 게임 설치 유도 이벤트
+    elseif (tab == 'event_crosspromotion') then
+        ui = UI_CrossPromotion(popup_key)
+
     end
 
     self.m_mTabUI[tab] = ui
