@@ -1028,6 +1028,9 @@ function StructProduct:getMaxBuyTermStr(use_rich)
     if (max_buy_term == 'permanent') then
         str = Str('구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
+    elseif (max_buy_term == 'yearly') then
+        str = Str('구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
+
     elseif (max_buy_term == 'monthly') then
         str = Str('월간 구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
