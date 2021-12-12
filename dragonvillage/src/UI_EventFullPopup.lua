@@ -51,8 +51,7 @@ function UI_EventFullPopup:initUI()
     local popup_key = self.m_popupKey
 	local ui
     local is_btn_lock = true
-    cclog(debug.traceback())
-    cclog(popup_key)
+
     -- 이벤트 배너
     if (string.find(popup_key, 'banner')) then
 

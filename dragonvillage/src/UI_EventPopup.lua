@@ -405,7 +405,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
     -- 게임 설치 유도 이벤트
     elseif (tab == 'event_crosspromotion') then
-        ui = UI_CrossPromotion(popup_key)
+        ui = UI_CrossPromotion(tab)
 
     end
 

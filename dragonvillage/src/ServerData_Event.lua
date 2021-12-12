@@ -179,6 +179,19 @@ function ServerData_Event:getEventPopupTabList()
             end
         end
 
+        if (string.find(event_type, 'event_crosspromotion')) then
+            local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
+            if (cross_event_data == nil) then cross_event_data = {} end
+
+            visible = true
+
+            for _, event_name in ipairs(cross_event_data) do
+                if (event_name == event_id) then
+                    visible = false
+                    break
+                end
+            end
+        end
 
         if (visible) then
             local event_popup_tab = StructEventPopupTab(v)
@@ -416,6 +429,21 @@ function ServerData_Event:getEventFullPopupList()
             elseif (event_type == 'event_welcome_newbie') then
 		        visible = false
             end
+
+            if (string.find(event_type, 'event_crosspromotion')) then
+                local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
+                if (cross_event_data == nil) then cross_event_data = {} end
+
+                visible = true
+
+                for _, event_name in ipairs(cross_event_data) do
+                    if (event_name == event_id) then
+                        visible = false
+                        break
+                    end
+                end
+            end
+
 
             if (visible) then
                 l_priority[event_type] = tonumber(priority)
