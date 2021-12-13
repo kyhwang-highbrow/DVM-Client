@@ -2702,7 +2702,7 @@ function UI_Lobby:refresh_rightBanner()
         local event_list = g_eventData:getEventPopupTabList()
         local event_data
 
-        local nvnew_before = 'event_cross_promotion_arena.ui'
+        local nvnew_before = 'event_cross_promotion_rise.ui'
         --local nvnew_after = 'event_cross_promotion_04.ui'
 
         for i, v in pairs(event_list) do

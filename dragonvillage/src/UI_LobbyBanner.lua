@@ -88,7 +88,7 @@ function UI_BannerAppCollaboration:init(event_data)
     -- https://app.adjust.com/1ctll5t
     local link_url = event_data.m_eventData['url']
     --local ui_name = string.find(link_url, '1ctll5t') and 'lobby_banner_promotion_04.ui' or 'lobby_banner_promotion.ui'
-    local ui_name = 'lobby_banner_promotion_arena.ui'
+    local ui_name = 'lobby_banner_promotion_rise.ui'
 
     local vars = self:load(ui_name)
 
@@ -128,9 +128,10 @@ end
 function UI_BannerAppCollaboration:click_bannerBtn()
     -- 주의 :: 따라하지 마시오
     --g_fullPopupManager:showFullPopup('event_dvnew_collaboration;event_cross_promotion.ui')
-    local url = self.m_eventData.m_eventData['url']
+    --local url = self.m_eventData.m_eventData['url']
 
-    SDKManager:goToWeb(url)
+    --SDKManager:goToWeb(url)
+	g_fullPopupManager:showFullPopup('event_crosspromotion')
 end
 
 

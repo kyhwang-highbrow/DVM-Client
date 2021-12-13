@@ -126,9 +126,10 @@ function UI_CrossPromotion:refresh()
         cross_event_data = {}
     end
 
+    local is_link_btn_active = true
+
     if (self.m_eventData and self.m_eventData['event_id']) then
         local event_id = self.m_eventData['event_id']
-        local is_link_btn_active = true
 
         for _, event_name in ipairs(cross_event_data) do
             if (event_name == event_id) then
@@ -137,15 +138,19 @@ function UI_CrossPromotion:refresh()
             end
         end
 
-        if (vars['linkBtn']) then 
-            vars['linkBtn']:setEnabled(is_link_btn_active)
-        end
+    else
+        is_link_btn_active = false
+        
+    end
 
-        local btnStr = is_link_btn_active and Str('바로가기') or Str('수령 완료')
+    if (vars['linkBtn']) then 
+        vars['linkBtn']:setEnabled(is_link_btn_active)
+    end
 
-        if (vars['stateLabel']) then
-            vars['stateLabel']:setString(btnStr)
-        end
+    local btnStr = is_link_btn_active and Str('바로가기') or Str('수령 완료')
+
+    if (vars['stateLabel']) then
+        vars['stateLabel']:setString(btnStr)
     end
 end
 
