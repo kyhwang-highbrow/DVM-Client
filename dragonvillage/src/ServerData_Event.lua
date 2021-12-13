@@ -436,6 +436,43 @@ function ServerData_Event:getEventFullPopupList()
 
                 visible = true
 
+                -- table_cross_promotion 조회해서 풀팝업 기간 체크
+                local cross_table = TABLE:get('table_cross_promotion')
+                if (is_full_popup and cross_table and cross_table ~= '') then
+                    local ev_item = cross_table[event_id]
+
+                    if (ev_item) then
+                        local start_time = TimeLib:strToTimeStamp(ev_item['start'])
+                        local end_time = TimeLib:strToTimeStamp(ev_item['end'])
+
+                        local server_timestamp = Timer:getServerTime()
+                        local time_table = TimeLib:convertToServerDate(server_timestamp)
+                        local curr_time = time_table['time']
+
+                        if (IS_DEV_SERVER()) then
+                            ccdump(start_time)
+                            ccdump(curr_time)
+                            ccdump(end_time)
+                        end
+
+                        if start_time and end_time then   
+                            if (start_time <= curr_time) and (curr_time <= end_time) then
+                                visible = true
+                            end
+                        elseif start_time and (not end_time) then
+                            if (start_time <= curr_time) then
+                                visible = true
+                            end
+                        elseif (not start_time) and end_time then
+                            if (curr_time <= end_time) then
+                                visible = true
+                            end
+                        elseif (not start_time) and (not end_time) then
+                            visible = true
+                        end
+                    end
+                end
+
                 for _, event_name in ipairs(cross_event_data) do
                     if (event_name == event_id) then
                         visible = false
@@ -443,7 +480,6 @@ function ServerData_Event:getEventFullPopupList()
                     end
                 end
             end
-
 
             if (visible) then
                 l_priority[event_type] = tonumber(priority)

@@ -69,7 +69,7 @@ function UI_CrossPromotion:click_linkBtn()
 
     -- 버전 체크 후 통과
     if (getAppVerNum() <= 1003000) then
-        msg = '새로운 버전의 게임이 업데이트 되었습니다.\n스토어를 통해 업데이트를 하기바랍니다.'
+        msg = '이벤트에 참여하기 위해 업데이트가 필요합니다.\n지금 업데이트 하시겠습니까?'
         MakeNetworkPopup(POPUP_TYPE.YES_NO, msg, function() SDKManager:goToAppStore() end, function() end)
         return
     end
@@ -163,19 +163,18 @@ function UI_CrossPromotion:request_InstallReward()
     -- 유저 ID
     local uid = g_userData:get('uid') 
     local event_id = self.m_eventData['event_id']
-    local event_type = self.m_eventData['event_type']
 
     -- 성공 콜백
     local function success_cb(ret)
         local valueTable = {}
-        if (ret['cross_promotion_type']) then
+        if (ret['cross_promotion_id']) then
             local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
             if (cross_event_data == nil) then cross_event_data = {} end
             
-            local refresh_table = {ret['cross_promotion_type']}
+            local refresh_table = {ret['cross_promotion_id']}
 
             for _, event_name in ipairs(cross_event_data) do
-                if (event_name ~= ret['cross_promotion_type']) then
+                if (event_name ~= ret['cross_promotion_id']) then
                     table.insert(refresh_table, event_name)
                 end
             end
