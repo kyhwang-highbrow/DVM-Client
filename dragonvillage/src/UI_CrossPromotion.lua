@@ -174,6 +174,7 @@ function UI_CrossPromotion:refresh()
     end
 
     if (not is_link_btn_active) then
+        vars['linkBtn']:setVisible(true)
         if (vars['stateLabel']) then vars['stateLabel']:setString(Str('수령 완료')) end
     elseif CppFunctions:isAndroid() or CppFunctions:isIos() then
         PerpSocial:SDKEvent('isInstalled', 'com.bigstack.rise', 'com.bigstack.rise', confirm_function)

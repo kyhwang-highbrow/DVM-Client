@@ -229,6 +229,11 @@ function ServerData_Event:getEventPopupTabList()
                     break
                 end
             end
+
+            -- 서버 조건
+            if (visible) and (target_server ~= '') then
+                visible = self:checkTargetServer(target_server)
+            end
         end
 
         if (visible) then
@@ -491,6 +496,11 @@ function ServerData_Event:getEventFullPopupList()
                 if (visible) and ((start_date ~= '') or (end_date ~= '')) then
                     visible = self:checkEventTime(start_date, end_date, v)
                 end
+
+                -- 서버 조건
+                if (visible) and (target_server ~= '') then
+                    visible = self:checkTargetServer(target_server)
+                end
             end
 
             if (visible) then
@@ -518,6 +528,7 @@ function ServerData_Event:checkTargetServer(target_server)
     table.insert(l_str, 'QA')
 
     local server = g_localData:getServerName()
+
     for _, v in ipairs(l_str) do
         if (string.match(v, server)) then
             return true
