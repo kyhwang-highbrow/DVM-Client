@@ -101,7 +101,7 @@ end
 function UI_CrossPromotion:refresh()
     local vars = self.vars
 
-    function cb_func(result)
+    local function cb_func(result)
         local is_installed = 1 == tonumber(result)
         local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
 
@@ -132,12 +132,7 @@ function UI_CrossPromotion:refresh()
     end
 
     local package = 'com.bigstack.rise'
-
-    if isAndroid() or isIos() then
-        SDKManager:app_isInstalled(package, cb_func)
-    else
-        cb_func()
-    end
+    SDKManager:app_isInstalled(package, cb_func)
 end
 
 
