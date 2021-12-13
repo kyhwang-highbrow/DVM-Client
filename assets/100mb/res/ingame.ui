@@ -2657,8 +2657,8 @@
 			type = 'Menu';
 			ui_name = '';
 			x = 280.000000;
-			y = 275.000000;
-			dock_point = { 0.500000; 0.500000; };
+			y = -85.000000;
+			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 100;

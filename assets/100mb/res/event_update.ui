@@ -249,7 +249,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '10/27 00:00 ~11/9 23:59';
+				text = '12/15 00:00 ~ 12/28 23:59';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 255; 0; };
@@ -394,12 +394,12 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -55.000000;
-				dock_point = { 0.500000; 1.000000; };
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 849;
-				height = 74;
+				width = 930;
+				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;

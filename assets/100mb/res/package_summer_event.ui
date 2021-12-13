@@ -79,7 +79,7 @@
 					text = '청약 철회는 구매일로부터 7일 이내에 가능합니다. (단 사용했을 경우 청약철회 불가)\n법정 대리인의 동의를 받지않은 미성년자의 거래는 취소할 수 있습니다. 자세히보기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 245; 255; };
+					color = { 192; 192; 192; };
 					opacity = 255;
 					dimension_width = 700;
 					dimension_height = 50;
@@ -137,8 +137,8 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 45;
-				text = '달맞이 패키지';
+				font_size = 42;
+				text = '겨울 맞이 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };

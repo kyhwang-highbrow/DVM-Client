@@ -782,7 +782,7 @@
 					visible = true;
 					lua_name = 'eventLabel1';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 24;
 					text = '5,000';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -848,7 +848,7 @@
 					visible = true;
 					lua_name = 'eventNameLabel1';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 20;
 					text = '크리스마스장식';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -952,7 +952,7 @@
 					visible = true;
 					lua_name = 'eventLabel2';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 24;
 					text = '5,000';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -1018,7 +1018,7 @@
 					visible = true;
 					lua_name = 'eventNameLabel2';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 20;
 					text = '주사위';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -1122,7 +1122,7 @@
 					visible = true;
 					lua_name = 'eventLabel3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 24;
 					text = '5,000';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -1188,7 +1188,7 @@
 					visible = true;
 					lua_name = 'eventNameLabel3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 20;
 					text = '황금 날개';
 					h_alignment = 0;
 					v_alignment = 1;
