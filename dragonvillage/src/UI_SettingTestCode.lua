@@ -590,7 +590,7 @@ function UI_SettingTestCode:checkInstalled()
     edit_box:setMaxLength(100)
 
     local function confirm_cb(str)
-        function cb_func(result)
+        local function confirm_function(result)
             local package = isNullOrEmpty(str) and 'com.bigstack.rise' or str
             local is_installed = 1 == tonumber(result)
             local msg = is_installed and ' : 설치됐음' or ' : 설치안됨'
@@ -599,7 +599,7 @@ function UI_SettingTestCode:checkInstalled()
             MakeSimplePopup(POPUP_TYPE.OK, msg)
         end
 
-        SDKManager:app_isInstalled(str, cb_func)
+        SDKManager:app_isInstalled(str, confirm_function)
 
         return true
     end

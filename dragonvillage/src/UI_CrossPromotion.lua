@@ -75,7 +75,7 @@ function UI_CrossPromotion:click_linkBtn()
     end
 
     -- 마지막으로 깔았는지 확인
-    local function cb_func(result)
+    local function confirm_function(result)
         local is_installed = 1 == tonumber(result)
         local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
 
@@ -105,10 +105,10 @@ function UI_CrossPromotion:click_linkBtn()
 
     local package = 'com.bigstack.rise'
 
-    if (IS_DEV_SERVER()) then
-        cb_func(1)
+    if CppFunctions:isAndroid() or CppFunctions:isIos() then
+        SDKManager:app_isInstalled(package, confirm_function)
     else
-        SDKManager:app_isInstalled(package, cb_func)
+        confirm_function(1)
     end
 end
 
