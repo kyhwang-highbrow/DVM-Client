@@ -69,13 +69,6 @@ function TablePickDragon:getDragonList(item_id, map_released)
 	for _, t_dragon in ipairs(l_dragon) do
 		local b = true
 
-		-- test 체크
-		if (t_dragon['test'] == 0) then
-			b = false
-        elseif (t_dragon['test'] == 1 and not map_released[tostring(t_dragon['did'])]) then
-            b = false
-		end
-
 		-- 한정/카드 체크
 		local weight = t_dragon[weight_key .. '_weight']
         if (weight_key == 'lm_cardpack') then
@@ -100,6 +93,14 @@ function TablePickDragon:getDragonList(item_id, map_released)
                 b = false 
             end
         end
+        
+		-- test 체크
+        -- 가장 우선순위가 높은 출시 예정 드래곤 필터링
+		if (t_dragon['test'] == 0) then
+			b = false
+        elseif (t_dragon['test'] == 1 and not map_released[tostring(t_dragon['did'])]) then
+            b = false
+		end
 
 		-- 조건 확인 후 추가
 		if (b) then
