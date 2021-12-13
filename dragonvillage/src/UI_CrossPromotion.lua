@@ -28,6 +28,7 @@ function UI_CrossPromotion:init(event_type)
 
     self:load(ui_name)
 
+    self:initUI()
     self:initButton()
     self:refresh()
 end
@@ -38,6 +39,8 @@ end
 -------------------------------------
 function UI_CrossPromotion:initUI()
     local vars = self.vars
+    local linkBtn = vars['linkBtn']
+    if (linkBtn) then linkBtn:setVisible(false) end
 end
 
 
@@ -103,10 +106,8 @@ function UI_CrossPromotion:click_linkBtn()
         end
     end
 
-    local package = 'com.bigstack.rise'
-
     if CppFunctions:isAndroid() or CppFunctions:isIos() then
-        SDKManager:app_isInstalled(package, confirm_function)
+        PerpSocial:SDKEvent('isInstalled', 'com.bigstack.rise', 'com.bigstack.rise', confirm_function)
     else
         confirm_function(1)
     end
@@ -152,10 +153,32 @@ function UI_CrossPromotion:refresh()
         vars['linkBtn']:setEnabled(is_link_btn_active)
     end
 
-    local btnStr = is_link_btn_active and Str('바로가기') or Str('수령 완료')
+    -- 마지막으로 깔았는지 확인
+    local function confirm_function(result)
+        local is_installed = 1 == tonumber(result)
+        local linkBtn = vars['linkBtn']
 
-    if (vars['stateLabel']) then
-        vars['stateLabel']:setString(btnStr)
+        if (linkBtn) then linkBtn:setVisible(true) end
+
+        -- 보상 받기
+        local btnStr = Str('바로가기')
+
+        if (not is_installed) then
+            btnStr = Str('바로가기')
+        elseif (is_installed) then
+            btnStr = Str('보상 받기')
+        end
+
+        if (vars['stateLabel']) then vars['stateLabel']:setString(btnStr) end
+
+    end
+
+    if (not is_link_btn_active) then
+        if (vars['stateLabel']) then vars['stateLabel']:setString(Str('수령 완료')) end
+    elseif CppFunctions:isAndroid() or CppFunctions:isIos() then
+        PerpSocial:SDKEvent('isInstalled', 'com.bigstack.rise', 'com.bigstack.rise', confirm_function)
+    else
+        confirm_function(1)
     end
 end
 

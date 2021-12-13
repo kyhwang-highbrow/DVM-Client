@@ -599,7 +599,7 @@ function UI_SettingTestCode:checkInstalled()
             MakeSimplePopup(POPUP_TYPE.OK, msg)
         end
 
-        SDKManager:app_isInstalled(str, confirm_function)
+        PerpSocial:SDKEvent('isInstalled', str, str, confirm_function)
 
         return true
     end
