@@ -122,6 +122,18 @@ function UI_CrossPromotion:refresh()
             vars['linkBtn']:setEnabled(is_link_btn_active)
         end
     end
+
+    function cb_func(result)
+        local is_installed = 1 == tonumber(result)
+
+        if (vars['linkBtn']) then 
+            local is_enabled = vars['linkBtn']:isEnabled() and is_installed
+            vars['linkBtn']:setEnabled(is_enabled)
+        end
+    end
+
+    local package = 'com.bigstack.rise'
+    SDKManager:app_isInstalled(package, cb_func)
 end
 
 
