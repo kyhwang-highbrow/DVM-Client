@@ -101,39 +101,43 @@ end
 function UI_CrossPromotion:refresh()
     local vars = self.vars
 
-    local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
+    function cb_func(result)
+        local is_installed = 1 == tonumber(result)
+        local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
 
-    if (cross_event_data == nil) then
-        cross_event_data = {}
-    end
+        if (cross_event_data == nil) then
+            cross_event_data = {}
+        end
 
-    if (self.m_eventData and self.m_eventData['event_id']) then
-        local event_id = self.m_eventData['event_id']
-        local is_link_btn_active = true
+        if (self.m_eventData and self.m_eventData['event_id']) then
+            local event_id = self.m_eventData['event_id']
+            local is_link_btn_active = true
 
-        for _, event_name in ipairs(cross_event_data) do
-            if (event_name == event_id) then
-                is_link_btn_active = false
-                break
+            for _, event_name in ipairs(cross_event_data) do
+                if (event_name == event_id) then
+                    is_link_btn_active = false
+                    break
+                end
+            end
+
+            if (vars['linkBtn']) then 
+                vars['linkBtn']:setEnabled(is_link_btn_active)
             end
         end
 
         if (vars['linkBtn']) then 
-            vars['linkBtn']:setEnabled(is_link_btn_active)
-        end
-    end
-
-    function cb_func(result)
-        local is_installed = 1 == tonumber(result)
-
-        if (vars['linkBtn']) then 
-            local is_enabled = vars['linkBtn']:isEnabled() and is_installed
+            local is_enabled = (is_link_btn_active and is_installed) or IS_DEV_SERVER()
             vars['linkBtn']:setEnabled(is_enabled)
         end
     end
 
     local package = 'com.bigstack.rise'
-    SDKManager:app_isInstalled(package, cb_func)
+
+    if isAndroid() or isIos() then
+        SDKManager:app_isInstalled(package, cb_func)
+    else
+        cb_func()
+    end
 end
 
 
