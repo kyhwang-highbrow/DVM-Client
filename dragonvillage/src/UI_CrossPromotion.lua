@@ -84,7 +84,6 @@ function UI_CrossPromotion:click_linkBtn()
         end
 
         if (not is_installed) then
-            local url = self.m_eventData.m_eventData['url']
             SDKManager:goToWeb('https://app.adjust.com/b7oo8a9?redirect=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.bigstack.rise%26hl%3Dko')
             return
         end
