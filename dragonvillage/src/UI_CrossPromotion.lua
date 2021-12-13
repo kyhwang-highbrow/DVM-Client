@@ -74,18 +74,37 @@ function UI_CrossPromotion:click_linkBtn()
         return
     end
 
-    local function success_cb(ret)
-        self:refresh()
+    -- 마지막으로 깔았는지 확인
+    local function cb_func(result)
+        local is_installed = 1 == tonumber(result)
+        local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
 
-        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-        UI_ToastPopup(toast_msg)
+        if (cross_event_data == nil) then
+            cross_event_data = {}
+        end
+
+        if (self.m_eventData and self.m_eventData['event_id']) then
+            local event_id = self.m_eventData['event_id']
+            local rewarded = false
+
+            for _, event_name in ipairs(cross_event_data) do
+                if (event_name == event_id) then
+                    rewarded = true
+                    break
+                end
+            end
+
+            if (not rewarded) then self:request_InstallReward() end
+        end
     end
 
-    local function fail_cb(ret)
+    local package = 'com.bigstack.rise'
 
+    if (IS_DEV_SERVER()) then
+        cb_func(1)
+    else
+        SDKManager:app_isInstalled(package, cb_func)
     end
-
-    self:request_InstallReward(success_cb, fail_cb)
 end
 
 -------------------------------------
@@ -101,38 +120,33 @@ end
 function UI_CrossPromotion:refresh()
     local vars = self.vars
 
-    local function cb_func(result)
-        local is_installed = 1 == tonumber(result)
-        local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
+    local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
 
-        if (cross_event_data == nil) then
-            cross_event_data = {}
-        end
+    if (cross_event_data == nil) then
+        cross_event_data = {}
+    end
 
-        if (self.m_eventData and self.m_eventData['event_id']) then
-            local event_id = self.m_eventData['event_id']
-            local is_link_btn_active = true
+    if (self.m_eventData and self.m_eventData['event_id']) then
+        local event_id = self.m_eventData['event_id']
+        local is_link_btn_active = true
 
-            for _, event_name in ipairs(cross_event_data) do
-                if (event_name == event_id) then
-                    is_link_btn_active = false
-                    break
-                end
-            end
-
-            if (vars['linkBtn']) then 
-                vars['linkBtn']:setEnabled(is_link_btn_active)
+        for _, event_name in ipairs(cross_event_data) do
+            if (event_name == event_id) then
+                is_link_btn_active = false
+                break
             end
         end
 
         if (vars['linkBtn']) then 
-            local is_enabled = (is_link_btn_active and is_installed) or IS_DEV_SERVER()
-            vars['linkBtn']:setEnabled(is_enabled)
+            vars['linkBtn']:setEnabled(is_link_btn_active)
+        end
+
+        local btnStr = is_link_btn_active and Str('바로가기') or Str('수령 완료')
+
+        if (vars['stateLabel']) then
+            vars['stateLabel']:setString(btnStr)
         end
     end
-
-    local package = 'com.bigstack.rise'
-    SDKManager:app_isInstalled(package, cb_func)
 end
 
 
@@ -140,7 +154,7 @@ end
 -- function request_InstallReward
 -- @brief
 -------------------------------------
-function UI_CrossPromotion:request_InstallReward(finish_cb, fail_cb)
+function UI_CrossPromotion:request_InstallReward()
     -- 유저 ID
     local uid = g_userData:get('uid') 
     local event_id = self.m_eventData['event_id']
@@ -167,7 +181,14 @@ function UI_CrossPromotion:request_InstallReward(finish_cb, fail_cb)
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
-        if finish_cb then finish_cb(ret) end
+        self:refresh()
+
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+    end
+
+    local function fail_cb(ret)
+
     end
 
     -- 네트워크 통신
