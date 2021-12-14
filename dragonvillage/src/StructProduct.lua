@@ -988,7 +988,7 @@ end
 -- function getMaxBuyTermStr
 -- @brief 구매 제한 설명 텍스트
 -------------------------------------
-function StructProduct:getMaxBuyTermStr(use_rich)
+function StructProduct: (use_rich)
     -- 구매 제한이 있지만 대체상품이 있는 경우 출력하지 않음
     -- 구매 제한이 있다면 대체상품이 있더라도 출력으로 변경
 --    if (self:getDependency()) then
@@ -1029,7 +1029,7 @@ function StructProduct:getMaxBuyTermStr(use_rich)
         str = Str('구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
     elseif (max_buy_term == 'yearly') then
-        str = Str('구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
+        str = Str('연간 구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
     elseif (max_buy_term == 'monthly') then
         str = Str('월간 구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
