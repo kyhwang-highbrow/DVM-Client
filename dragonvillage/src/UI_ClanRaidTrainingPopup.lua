@@ -16,7 +16,7 @@ UI_ClanRaidTrainingPopup = class(PARENT, {
      })
 
 -- 1903026 @jhakim 150층까지 있지만 너무 많은 스테이지를 보여주지 않음
-local STAGE_MAX = 100
+local STAGE_MAX = 120
 
 -------------------------------------
 -- function init
