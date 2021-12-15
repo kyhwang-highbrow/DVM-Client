@@ -323,11 +323,28 @@ function UI_QuestPopup:refreshEventDailyQuest()
 
         -- 일일퀘스트 이벤트 리스트에서 조회해서 노출
         local ui_name = 'event_relation.ui'
+        local icon_path = 'res/ui/icons/cha/developing.png'
         local daily_event_data = g_eventData:getEventInByEventType('event_daily_quest')
 
-        if (daily_event_data and daily_event_data['banner']) then
-            ui_name = daily_event_data['banner']
+        if (daily_event_data) then
+            if (daily_event_data['banner']) then
+                ui_name = daily_event_data['banner']
+            end
+
+            if (daily_event_data['icon']) then
+                icon_path = daily_event_data['icon']
+            end
         end
+
+        local icon = cc.Sprite:create(icon_path)
+        if (not icon) then
+            icon = cc.Sprite:create('res/ui/icons/cha/developing.png')
+        end
+
+        icon:setDockPoint(CENTER_POINT)
+        icon:setAnchorPoint(CENTER_POINT)
+        vars['dragonNode']:addChild(icon)
+        vars['dragonNode']:setScale(0.6)
 
         if (vars['eventBtn']) then
             vars['eventBtn']:registerScriptTapHandler(function()
