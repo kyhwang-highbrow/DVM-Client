@@ -321,10 +321,18 @@ function UI_QuestPopup:refreshEventDailyQuest()
         progress = math_min(progress, max)
         vars['evenDailyQuestCountLabel']:setString(string.format('%d / %d', progress, max))
 
+        -- 일일퀘스트 이벤트 리스트에서 조회해서 노출
+        local ui_name = 'event_relation.ui'
+        local daily_event_data = g_eventData:getEventInByEventType('event_daily_quest')
+
+        if (daily_event_data and daily_event_data['banner']) then
+            ui_name = daily_event_data['banner']
+        end
+
         if (vars['eventBtn']) then
             vars['eventBtn']:registerScriptTapHandler(function()
                 -- 주의 :: 따라하지 마시오
-                g_fullPopupManager:showFullPopup('event_daily_quest;event_relation.ui')
+                g_fullPopupManager:showFullPopup('event_daily_quest;' .. ui_name)
             end)
         end
     else

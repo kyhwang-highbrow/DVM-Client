@@ -1523,6 +1523,7 @@ local t_module = {
     'UI_IllusionRewardPopup', -- 환상 던전 보상 팝업
 	'UI_ItemPickPopup',
     'UI_CrossPromotion',
+    'UI_CustomEnhance',
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',

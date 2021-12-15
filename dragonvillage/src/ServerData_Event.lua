@@ -958,6 +958,9 @@ function ServerData_Event:response_eventList(ret, finish_cb)
             -- 로비 장식은 매개변수에 저장 (유효한 로비 장식이 여러개의 경우 마지막 장식 적용)
             elseif(v['event_type'] == 'lobby_deco') then
                 self:setLobbyDecoData(v)
+
+            elseif (v['event_type'] == 'event_daily_quest') then
+                table.insert(self.m_eventList, v)
 			end
 
         end
@@ -972,7 +975,7 @@ end
 
 -------------------------------------
 -- function getEventInByEventId
--- @brief (이벤트 기간이) 유효한 로비 데이터 저장
+-- @brief 이벤트 아이디가 일치한 이벤트 아이템 반환
 -------------------------------------
 function ServerData_Event:getEventInByEventId(event_id)
     if (not event_id or not self.m_eventList) then return nil end
@@ -982,6 +985,25 @@ function ServerData_Event:getEventInByEventId(event_id)
 
     for i, v in ipairs(self.m_eventList) do
         if (v and v['event_id'] and v['event_id'] == event_id) then
+            result = v
+        end
+    end
+
+    return result
+end
+
+-------------------------------------
+-- function getEventInByEventType
+-- @brief 이벤트 타입이 일치한 이벤트 아이템 반환
+-------------------------------------
+function ServerData_Event:getEventInByEventType(event_type)
+    if (not event_type or not self.m_eventList) then return nil end
+    if (#self.m_eventList <= 0) then return nil end
+
+    local result = nil
+
+    for i, v in ipairs(self.m_eventList) do
+        if (v and v['event_type'] and v['event_type'] == event_type) then
             result = v
         end
     end
