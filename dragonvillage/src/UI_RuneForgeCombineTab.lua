@@ -28,6 +28,8 @@ function UI_RuneForgeCombineTab:init(owner_ui)
     local vars = self:load('rune_forge_combine.ui')
     
     self.m_sortGrade = 0
+
+    self:initBtn()
 end
 
 -------------------------------------
@@ -44,6 +46,19 @@ function UI_RuneForgeCombineTab:onEnterTab(first)
         self.m_uicSortList:setSelectSortType(0) -- 필터 '전체' 선택
     end
 end
+
+
+
+-------------------------------------
+-- function initBtn
+-------------------------------------
+function UI_RuneForgeCombineTab:initBtn()
+    local vars = self.vars
+    -- infoBtn
+    if (vars['infoBtn']) then vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeCombineHelp() end) end
+end
+
+
 
 -------------------------------------
 -- function onExitTab
@@ -609,4 +624,34 @@ function UI_RuneForgeCombineTab:click_combineBtn()
     local combine_material_rune_count = combine_result_rune_count * RUNE_COMBINE_REQUIRE
     local combine_str = Str('{@MUSTARD}{1}개{@DESC} 룬을 재료로 사용하여 {@MUSTARD}{2}개{@DESC} 룬을 합성합니다.\n합성하시겠습니까?', combine_material_rune_count, combine_result_rune_count)
 	MakeSimplePopup(POPUP_TYPE.YES_NO, combine_str, ok_btn_cb)
+end
+
+
+
+
+
+
+
+-------------------------------------
+-- class UI_RuneForgeCombineHelp
+-------------------------------------
+UI_RuneForgeCombineHelp = class(UI, {
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_RuneForgeCombineHelp:init(owner_ui)
+    local vars = self:load('rune_forge_combine_info_popup.ui')
+    
+    UIManager:open(self, UIManager.POPUP)
+
+    self:initButton()
+end
+
+function UI_RuneForgeCombineHelp:initButton()
+    local vars = self.vars
+
+    -- infoBtn
+    if (vars['closeBtn']) then vars['closeBtn']:registerScriptTapHandler(function() self:close() end) end
 end

@@ -86,6 +86,9 @@ function UI_DragonSkillEnhance:initButton()
 
     -- 스킬 레벨업 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'd_skill_levelup_help')
+
+    -- infoBtn
+    if (vars['infoBtn']) then vars['infoBtn']:registerScriptTapHandler(function() UI_DragonSkillEnhanceHelp() end) end
 end
 
 -------------------------------------
@@ -245,6 +248,9 @@ function UI_DragonSkillEnhance:onChangeTab(tab, first)
                 Str('스킬 레벨을 이전하여\n스킬을 강화합니다.')
 
     vars['dscLabel']:setString(msg)
+
+    local is_move_tab = UI_DragonSkillEnhance.TAB_MOVE == tab
+    if (vars['infoBtn']) then vars['infoBtn']:setVisible(is_move_tab) end
 end
 
 -------------------------------------
@@ -690,3 +696,33 @@ end
 
 --@CHECK
 UI:checkCompileError(UI_DragonSkillEnhance)
+
+
+
+
+
+
+
+-------------------------------------
+-- class UI_RuneForgeCombineHelp
+-------------------------------------
+UI_DragonSkillEnhanceHelp = class(UI, {
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_DragonSkillEnhanceHelp:init(owner_ui)
+    local vars = self:load('dragon_skill_enhance_info_popup.ui')
+    
+    UIManager:open(self, UIManager.POPUP)
+
+    self:initButton()
+end
+
+function UI_DragonSkillEnhanceHelp:initButton()
+    local vars = self.vars
+
+    -- infoBtn
+    if (vars['closeBtn']) then vars['closeBtn']:registerScriptTapHandler(function() self:close() end) end
+end
