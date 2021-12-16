@@ -9,6 +9,8 @@ UI_DragonReinforcement = class(PARENT,{
         m_oriGold = 'number',
 
         m_selectedBtnId = 'number', -- item_id or rid
+
+        m_EnhanceUI = 'UI_CustomEnhance()',
     })
 
 -------------------------------------
@@ -55,6 +57,11 @@ end
 function UI_DragonReinforcement:initUI()
     local vars = self.vars
 	vars['expGauge']:setPercentage(0)
+
+    self.m_EnhanceUI = UI_CustomEnhance()
+    self.m_EnhanceUI:setVisible(false)
+    self.root:addChild(self.m_EnhanceUI.root, 5)
+
     self:init_dragonTableView()
     self:initStatusUI()
 	self:initReinforceEffect()
@@ -326,9 +333,10 @@ function UI_DragonReinforcement:refresh_relation()
 				end)
 
 				-- 버튼 프레스 등록
+                --[[
 				click_btn:registerScriptPressHandler(function()
 					self:press_reinforce(rid, ui, click_btn, true)
-				end)
+				end)]]
 			end
 
 			-- 연출
@@ -364,9 +372,10 @@ function UI_DragonReinforcement:refresh_relation()
 			end)
 
 			-- 버튼 프레스 등록
+            --[[
 			click_btn:registerScriptPressHandler(function()
 				self:press_reinforce(item_id, ui, click_btn, false)
-			end)
+			end)]]
 		end
 
 		-- 연출
@@ -477,7 +486,77 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
+    -- 통합 예외처리
+	if (self:exceptionReinforce(rid, is_dragon)) then
+		return
+	end    
+    
+    local vars = self.vars
+
+    -- UI클래스의 root상 위치를 얻어옴
+    
+    self.m_EnhanceUI.root:setPosition(ZERO_POINT)
+    local local_pos = convertToAnoterParentSpace(ui.root, self.m_EnhanceUI.root)
+    local pos_x = local_pos['x']
+    local pos_y = local_pos['y']
+
+    do -- X축 위치 지정
+        local width = 305 + 50
+        local scr_size = cc.Director:getInstance():getWinSize()
+        if (pos_x < 0) then
+            local min_x = -(scr_size['width'] / 2)
+            local left_pos = pos_x - (width/2)
+            if (left_pos < min_x) then
+                pos_x = min_x + (width/2)
+            end
+        else
+            local max_x = (scr_size['width'] / 2)
+            local right_pos = pos_x + (width/2)
+            if (max_x < right_pos) then
+                pos_x = max_x - (width/2)
+            end
+        end
+    end
+
+    pos_y = pos_y + 120
+
+    -- 위치 설정
+    self.m_EnhanceUI.root:setPosition(pos_x, pos_y)
+
+    local arrow_pos_x = local_pos['x'] - pos_x--arrow_pos['x']
+    self.m_EnhanceUI.vars['arrowSprite']:setPositionX(arrow_pos_x)
+    
+
+    -- 강화
+    self.m_isDragon = is_dragon
+    self.m_selectedBtnId = rid
+
+	local t_dragon_data = self.m_selectDragonData
+	local did = t_dragon_data:getDid()
+	local rlv = t_dragon_data:getRlv()
+    local relation = g_bookData:getRelationPoint(rid)
+    local data_table = {}
+
+    data_table['exp'] = t_dragon_data:getReinforceObject()['exp']
+    data_table['lv'] = t_dragon_data:getReinforceObject()['lv']
+
+    -- 구간별 경험치
+    data_table['exp_list'] = TableDragonReinforce:getAllMaxExp(did, rlv)
+
+    -- 강포 수량
+    data_table['relation'] = relation
+    
+    -- 강화
+    -- 숫자 + Str('강화')
+    
+    ccdump(data_table)
+
+    self.m_EnhanceUI:setActive(true, data_table)
+
+
+
     -- 이미 선택된 버튼이 있다면 return
+    --[[
     if (self.m_selectedBtnId) then
         return
     end
@@ -553,7 +632,7 @@ function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
         co:close()
     end
 
-    Coroutine(coroutine_function)
+    Coroutine(coroutine_function)]]
 end
 
 -------------------------------------

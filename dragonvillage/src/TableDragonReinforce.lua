@@ -78,6 +78,34 @@ function TableDragonReinforce:getCurrMaxExp(did, rlv)
 	return t_reinforce['exp']
 end
 
+
+-------------------------------------
+-- function getCurrMaxExp
+-------------------------------------
+function TableDragonReinforce:getAllMaxExp(did, rlv)
+	if (self == THIS) then
+        self = THIS()
+    end
+
+    local result = {}
+
+	-- 태생 등급으로 대상 리스트 구함
+    local index = 1
+	local birth_grade = TableDragon:getBirthGrade(did)
+	local t_reinforce = S_GRADE_REINFORCE[birth_grade][rlv + index]
+
+    while (t_reinforce and t_reinforce['exp']) do
+	    if (not t_reinforce) then break end
+
+        table.insert(result, t_reinforce['exp'])
+        index = index + 1
+        t_reinforce = S_GRADE_REINFORCE[birth_grade][rlv + index]
+    end
+	
+
+	return result
+end
+
 -------------------------------------
 -- function getCurrCost
 -------------------------------------

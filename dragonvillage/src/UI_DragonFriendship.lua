@@ -439,6 +439,44 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonFriendship:click_fruitBtn(fid, btn)
+    local vars = self.vars
+    local ui = UI_CustomEnhance()
+    self.root:addChild(ui.root, 2)
+
+    -- UI클래스의 root상 위치를 얻어옴
+    local local_pos = convertToAnoterParentSpace(btn, ui.root)
+    local pos_x = local_pos['x']
+    local pos_y = local_pos['y']
+
+    do -- X축 위치 지정
+        local width = 305 + 50
+        local scr_size = cc.Director:getInstance():getWinSize()
+        if (pos_x < 0) then
+            local min_x = -(scr_size['width'] / 2)
+            local left_pos = pos_x - (width/2)
+            if (left_pos < min_x) then
+                pos_x = min_x + (width/2)
+            end
+        else
+            local max_x = (scr_size['width'] / 2)
+            local right_pos = pos_x + (width/2)
+            if (max_x < right_pos) then
+                pos_x = max_x - (width/2)
+            end
+        end
+    end
+
+    pos_y = pos_y + 100
+
+    -- 위치 설정
+    ui.root:setPosition(pos_x, pos_y)
+
+    local arrow_pos = convertToAnoterParentSpace(btn, ui.vars['arrowSprite'])
+    local arrow_pos_x = local_pos['x'] - pos_x--arrow_pos['x']
+    ui.vars['arrowSprite']:setPositionX(arrow_pos_x)
+
+
+    --[[
     local t_dragon_data = self.m_selectDragonData
 
     if (not t_dragon_data) then
@@ -487,7 +525,7 @@ function UI_DragonFriendship:click_fruitBtn(fid, btn)
         co:close()
     end
 
-    Coroutine(coroutine_function)
+    Coroutine(coroutine_function)]]
 end
 
 -------------------------------------

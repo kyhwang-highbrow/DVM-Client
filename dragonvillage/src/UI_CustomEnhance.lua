@@ -4,11 +4,11 @@ local PARENT = UI
 -- class UI_CustomEnhance
 -------------------------------------
 UI_CustomEnhance = class(PARENT, {
-        m_curChargeCnt = 'number',
-        m_chargeLimit = 'number',
-        m_chargePerCost = 'number',
+        m_data = 'table',
 
         m_upCount = 'number',
+
+        m_usingCnt = 'number',
      })
 
 
@@ -20,8 +20,8 @@ function UI_CustomEnhance:init()
     self.m_uiName = 'UI_CustomEnhance'
     local vars = self:load('dragon_enhance_tooltip.ui')
 
-
-    self.m_upCount = 1
+    self.m_usingCnt = 0
+    self.m_upCount = 0
     self:initButton()
     self:initUI()
     self:refresh()
@@ -35,13 +35,15 @@ function UI_CustomEnhance:initButton()
     local vars = self.vars
 
     if (vars['applyBtn']) then vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn() end) end
-    vars['applyBtn']:setEnabled(true)
-    vars['applyLabel']:setColor(COLOR['black'])
-    vars['enhanceLabel']:setString('3 강화')
+    
+    vars['enhanceLabel']:setString('')
     
     if (vars['plusBtn']) then vars['plusBtn']:registerScriptTapHandler(function() self:click_quantityBtn(1) end) end
     if (vars['minusBtn']) then vars['minusBtn']:registerScriptTapHandler(function() self:click_quantityBtn(-1) end) end
+    if (vars['maxBtn']) then vars['maxBtn']:registerScriptTapHandler(function() self:click_max() end) end
 
+
+    
     -- 1번 마이너스 2번 플러스
     --[[
     vars['quantityBtn2']:registerScriptTapHandler(function() self:click_quantityBtn(1) end)
@@ -67,13 +69,38 @@ end
 function UI_CustomEnhance:refresh()
     local vars = self.vars
 
+    local text = tostring(self.m_upCount).. ' ' .. Str('강화')
 
-    vars['enhanceLabel']:setString(self.m_upCount)
+    vars['enhanceLabel']:setString(text)
+    self.m_usingCnt = self:getRequiredExpByLevel()
+
+    local can_use = self.m_usingCnt > 0
+    local color = can_use and COLOR['black'] or COLOR['DESC']
+
+    vars['applyBtn']:setEnabled(can_use)
+    vars['applyLabel']:setColor(color)
 end
+
 
 function UI_CustomEnhance:click_applyBtn()
-    self.root:removeFromParent()
+    self.root:setVisible(false)
 end
+
+
+
+function UI_CustomEnhance:setActive(is_visible, data)
+    self.m_data = data
+
+    if (is_visible) then
+        self.m_upCount = 0
+        self:refresh()
+    else
+        
+    end
+
+    self:setVisible(is_visible)
+end
+
 
 -------------------------------------
 -- function click_quantityBtn
@@ -86,13 +113,13 @@ function UI_CustomEnhance:click_quantityBtn(number, is_pressed)
         self:refresh()
     end
 
-    local cost =  self.m_upCount + number
+    local max_available_lv = self:getMaxAvailableLevel()
 
-
+    local adjust_cnt = number < 0 and math.max(self.m_upCount + number, 0) or math.min(self.m_upCount + number, max_available_lv)
 
     if (not is_pressed) then
-        self.m_upCount = math.max(self.m_upCount + number, 1)
-            adjust_func()
+        self.m_upCount = adjust_cnt
+        adjust_func()
     else
         local button    
 
@@ -104,23 +131,103 @@ function UI_CustomEnhance:click_quantityBtn(number, is_pressed)
         end
 
         local function update_level(dt)
+            adjust_cnt = number < 0 and math.max(self.m_upCount + number, 0) or math.min(self.m_upCount + number, max_available_lv)
+
             if (not button:isSelected()) or (not button:isEnabled()) then
                 self.root:unscheduleUpdate()
             else
-                self.m_upCount = math.max(self.m_upCount + number, 1)
+                self.m_upCount = adjust_cnt
                 adjust_func()
             end
         end
 
-        self.root:scheduleUpdateWithPriorityLua(function(dt) return update_level(dt) end, 1)
+        self.root:scheduleUpdateWithPriorityLua(function(dt) return update_level(dt) end, 0)
     end
 end
 
 -------------------------------------
--- function click_buyBtn
+-- function click_apply
 -- @brief 
 -------------------------------------
 function UI_CustomEnhance:click_apply()
 
-    self:close()
+    self:setVisible(false)
 end
+
+-------------------------------------
+-- function click_max
+-- @brief 
+-------------------------------------
+function UI_CustomEnhance:click_max()
+    self.m_upCount = self:getMaxAvailableLevel()
+
+    self:refresh()
+end
+
+
+
+
+-------------------------------------
+-- function getMaxAvailableLevel
+-- @brief 
+-------------------------------------
+function UI_CustomEnhance:getMaxAvailableLevel()
+    local index = 0
+    local exp = tonumber(self.m_data['exp'])
+    local relation = tonumber(self.m_data['relation']) + exp
+    local level_table = self.m_data['exp_list']
+
+    for idx, exp in ipairs(level_table) do
+        if (tonumber(exp) > relation) then break end
+        relation = relation - tonumber(exp)
+        index = idx
+    end
+
+    return index
+end
+
+
+-------------------------------------
+-- function getRequiredExpByLevel
+-- @brief 
+-------------------------------------
+function UI_CustomEnhance:getRequiredExpByLevel()
+    if (not self.m_data) then return 0 end
+
+    local cur_exp = tonumber(self.m_data['exp'])
+    local relation = tonumber(self.m_data['relation'])
+    local level_table = self.m_data['exp_list']
+    local point = 0
+
+    -- self.m_upCount
+    -- 다음경험치 - 현재경험치 = 바로 다음단계 경험치
+    for idx, exp in ipairs(level_table) do
+        -- 단계수 도달
+        if (self.m_upCount  + 1 <= idx) then 
+        
+            break
+        end
+
+        local combine_exp = exp
+
+        if (idx == 1) then 
+            combine_exp = combine_exp - cur_exp 
+        
+        end
+
+        if (tonumber(combine_exp) > relation) then
+            point = point + relation
+            break
+            
+        else
+            relation = relation - tonumber(combine_exp)
+            point = point + tonumber(combine_exp)
+
+        end
+    end
+
+    cclog(point)
+
+    return point
+end
+
