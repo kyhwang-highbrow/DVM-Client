@@ -399,6 +399,7 @@ function UI_DragonFriendship:request_friendshipUp(fid, fcnt, fcnt_120p, fcnt_150
         finish_cb(ret)
     end
 
+
     local ui_network = UI_Network()
     ui_network:setUrl('/dragons/friendshipUp')
     ui_network:setParam('uid', uid)
@@ -410,6 +411,8 @@ function UI_DragonFriendship:request_friendshipUp(fid, fcnt, fcnt_120p, fcnt_150
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ccdump(ui_network.m_tData)
+
     ui_network:request()
 end
 
@@ -531,7 +534,7 @@ function UI_DragonFriendship:click_fruitBtn(fid, btn, label)
         ccdump(data_table)
     end
 
-    self.m_EnhanceUI:setActive(true, data_table, label)
+    self.m_EnhanceUI:setActive(true, data_table, label, fid)
 
 
 
@@ -702,11 +705,6 @@ function UI_DragonFriendship:request_upgrade(count, fid)
             co.NEXT()
         end
         self:request_friendshipUp(fid, rCnt, 0, 0, request_finish, co.ESCAPE)
-        if co:waitWork() then return end
-
-        -- 열매 연출
-        co:work()
-        self:feedDirecting(fid, btn, co.NEXT)
         if co:waitWork() then return end
 
         self:response_friendshipUp(ret_cache)

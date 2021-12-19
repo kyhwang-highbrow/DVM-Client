@@ -95,7 +95,7 @@ end
 
 
 function UI_CustomEnhanceFruit:click_applyBtn()
-    self.m_parent:request_upgrade(self.m_usingCnt, self.m_itemLabel)
+    self.m_parent:request_upgrade(self.m_usingCnt, self.m_fid)
 
     self.root:setVisible(false)
 end
