@@ -30,6 +30,33 @@ function TableFriendship:isMaxFriendshipLevel(flv, is_myth_dragon)
     return (req_exp == 0) or (req_exp == '')
 end
 
+
+-------------------------------------
+-- function getAllMaxExp
+-------------------------------------
+function TableFriendship:getAllMaxExp(flv, is_myth_dragon)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local column_name = is_myth_dragon and 'cumulative_req_exp_myth' or 'cumulative_req_exp'
+
+    local result = {}
+    local index = 1
+	local t_fruit = self:getValue(flv + index, column_name)
+
+    while (flv + index <= 10) do
+	    if (not t_fruit or t_fruit <= 0) then break end
+
+        table.insert(result, t_fruit)
+        index = index + 1
+        t_fruit = self:getValue(flv + index, column_name)
+    end
+
+    return result
+end
+
+
 -------------------------------------
 -- function getFriendshipReqExp
 -------------------------------------

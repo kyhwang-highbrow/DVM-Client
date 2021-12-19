@@ -1524,6 +1524,7 @@ local t_module = {
 	'UI_ItemPickPopup',
     'UI_CrossPromotion',
     'UI_CustomEnhance',
+    'UI_CustomEnhanceFruit',
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',

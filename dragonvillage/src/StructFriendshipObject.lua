@@ -92,6 +92,17 @@ function StructFriendshipObject:isMaxFriendshipLevel()
 end
 
 -------------------------------------
+-- function isMaxFriendshipLevel
+-- @breif
+-------------------------------------
+function StructFriendshipObject:getAllMaxExp()
+    local flv = self['flv']
+    local is_myth_dragon = self['frarity'] == 'myth'
+    local table = TableFriendship:getAllMaxExp(flv, is_myth_dragon)
+    return table
+end
+
+-------------------------------------
 -- function makeFeelUpInfo
 -- @breif 열매를 줄 때 보너스 확률 계산, 증가 feel 계산
 -------------------------------------

@@ -133,6 +133,9 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonReinforcement:refresh()
+
+    self.m_EnhanceUI:setVisible(false)
+
     local vars = self.vars
 
     self:refresh_dragonInfo()
@@ -486,6 +489,8 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
+    self.m_EnhanceUI.root:setVisible(false)
+
     -- 통합 예외처리
 	if (self:exceptionReinforce(rid, is_dragon)) then
 		return
@@ -985,7 +990,7 @@ end
 
 
 -------------------------------------
--- function checkSelectedDragonCondition
+-- function request_upgrade
 -------------------------------------
 function UI_DragonReinforcement:request_upgrade(count, ui)
     local rid = self.m_selectedBtnId

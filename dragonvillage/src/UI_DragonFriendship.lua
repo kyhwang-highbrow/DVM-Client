@@ -8,6 +8,8 @@ UI_DragonFriendship = class(PARENT,{
 
         m_bLevelUp = 'boolean',
         m_preDragonData = '',
+
+        m_EnhanceUI = 'UI_CustomEnhance()',
     })
 
 
@@ -59,6 +61,10 @@ function UI_DragonFriendship:initUI()
     local vars = self.vars
     self:init_dragonTableView()
 
+    self.m_EnhanceUI = UI_CustomEnhanceFruit(self)
+    self.m_EnhanceUI:setVisible(false)
+    self.root:addChild(self.m_EnhanceUI.root, 5)
+
     vars['heartNumberLabel'] = NumberLabel_Percent(vars['heartLabel'])
 
     vars['fruitNumberLabel1'] = NumberLabel(vars['fruitLabel1'], 0, 0.3)
@@ -89,6 +95,8 @@ end
 -- @brief 선택된 드래곤이 변경되었을 때 호출
 -------------------------------------
 function UI_DragonFriendship:refresh()
+
+    self.m_EnhanceUI:setVisible(false)
 
     local t_dragon_data = self.m_selectDragonData
 
@@ -300,7 +308,7 @@ function UI_DragonFriendship:refreshFruits(attr)
         vars['fruitNumberLabel' .. i]:setNumber(count)
 
         local fruit_button = vars['fruitBtn' .. i]
-        fruit_button:registerScriptTapHandler(function() self:click_fruitBtn(fid, fruit_button) end)
+        fruit_button:registerScriptTapHandler(function() self:click_fruitBtn(fid, fruit_button, vars['fruitNumberLabel' .. i]) end)
         fruit_button:registerScriptPressHandler(function() self:press_fruitBtn(fid, fruit_button, vars['fruitNumberLabel' .. i]) end)
     end
 end
@@ -438,13 +446,39 @@ end
 -- function click_fruitBtn
 -- @brief
 -------------------------------------
-function UI_DragonFriendship:click_fruitBtn(fid, btn)
+function UI_DragonFriendship:click_fruitBtn(fid, btn, label)
     local vars = self.vars
-    local ui = UI_CustomEnhance()
-    self.root:addChild(ui.root, 2)
+
+
+
+    local t_dragon_data = self.m_selectDragonData
+
+    if (not t_dragon_data) then
+        return
+    end
+
+    local friendship_obj = t_dragon_data:getFriendshipObject()
+    if friendship_obj:isMaxFriendshipLevel() then
+        UIManager:toastNotificationRed(Str('최대 친밀도의 드래곤입니다.'))
+        return
+    end
+
+    local count = g_userData:getFruitCount(fid)
+    if (count <= 0) then
+        UIManager:toastNotificationRed(Str('열매가 부족하네요!!'))
+        UI_ItemInfoPopup(fid)
+        return
+    end
+
+
+
+
+
 
     -- UI클래스의 root상 위치를 얻어옴
-    local local_pos = convertToAnoterParentSpace(btn, ui.root)
+    
+    self.m_EnhanceUI.root:setPosition(ZERO_POINT)
+    local local_pos = convertToAnoterParentSpace(btn, self.m_EnhanceUI.root)
     local pos_x = local_pos['x']
     local pos_y = local_pos['y']
 
@@ -466,14 +500,40 @@ function UI_DragonFriendship:click_fruitBtn(fid, btn)
         end
     end
 
-    pos_y = pos_y + 100
+    pos_y = pos_y + 120
 
     -- 위치 설정
-    ui.root:setPosition(pos_x, pos_y)
-
-    local arrow_pos = convertToAnoterParentSpace(btn, ui.vars['arrowSprite'])
+    self.m_EnhanceUI.root:setPosition(pos_x, pos_y)
+    local data_table = {}
     local arrow_pos_x = local_pos['x'] - pos_x--arrow_pos['x']
-    ui.vars['arrowSprite']:setPositionX(arrow_pos_x)
+    self.m_EnhanceUI.vars['arrowSprite']:setPositionX(arrow_pos_x)
+
+
+
+
+    local friendship_obj = t_dragon_data:getFriendshipObject()
+    data_table['exp'] = friendship_obj['fexp']
+    data_table['lv'] = friendship_obj['flv']
+
+    -- 구간별 경험치
+    data_table['exp_list'] = friendship_obj:getAllMaxExp(did, rlv)
+
+    -- 강포 수량
+    data_table['relation'] = g_userData:getFruitCount(fid)
+
+    local table_fruit = TABLE:get('fruit')
+    data_table['one_exp'] = table_fruit[fid]['cumulative_exp']
+    
+    -- 강화
+    -- 숫자 + Str('강화')
+    
+    if (IS_DEV_SERVER()) then
+        ccdump(data_table)
+    end
+
+    self.m_EnhanceUI:setActive(true, data_table, label)
+
+
 
 
     --[[
@@ -616,6 +676,52 @@ function UI_DragonFriendship:checkSelectedDragonCondition(dragon_object)
     end
     return true
 end
+
+
+
+
+-------------------------------------
+-- function request_upgrade
+-------------------------------------
+function UI_DragonFriendship:request_upgrade(count, fid)
+    local rCnt = count
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        local fail_cb = function(ret)
+            self:refresh()
+        end
+
+        -- 서버와 통신
+        co:work()
+        local ret_cache
+        local function request_finish(ret)
+            ret_cache = ret
+            co.NEXT()
+        end
+        self:request_friendshipUp(fid, rCnt, 0, 0, request_finish, co.ESCAPE)
+        if co:waitWork() then return end
+
+        -- 열매 연출
+        co:work()
+        self:feedDirecting(fid, btn, co.NEXT)
+        if co:waitWork() then return end
+
+        self:response_friendshipUp(ret_cache)
+        self:refresh()
+
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
+
+end
+
+
+
+
 
 --@CHECK
 UI:checkCompileError(UI_DragonFriendship)

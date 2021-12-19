@@ -1,9 +1,9 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_CustomEnhance
+-- class UI_CustomEnhanceFruit
 -------------------------------------
-UI_CustomEnhance = class(PARENT, {
+UI_CustomEnhanceFruit = class(PARENT, {
         m_data = 'table',
 
         m_upCount = 'number',
@@ -12,9 +12,9 @@ UI_CustomEnhance = class(PARENT, {
 
         m_parent = 'UI_DragonReinforcement',
 
-        m_itemBtn = 'UI_DragonReinforceItem',
+        m_itemLabel = 'label',
 
-        m_itemBtnIsLabel = 'UI_Label',
+        m_fid = 'number',
      })
 
 
@@ -22,8 +22,8 @@ UI_CustomEnhance = class(PARENT, {
 -- function init
 -- @brief 
 -------------------------------------
-function UI_CustomEnhance:init(parent)
-    self.m_uiName = 'UI_CustomEnhance'
+function UI_CustomEnhanceFruit:init(parent)
+    self.m_uiName = 'UI_CustomEnhanceFruit'
     local vars = self:load('dragon_enhance_tooltip.ui')
 
     self.m_parent = parent
@@ -38,7 +38,7 @@ end
 -- function initButton
 -- @brief 
 -------------------------------------
-function UI_CustomEnhance:initButton()
+function UI_CustomEnhanceFruit:initButton()
     local vars = self.vars
 
     if (vars['applyBtn']) then vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn() end) end
@@ -64,7 +64,7 @@ end
 -- function initUI
 -- @brief 
 -------------------------------------
-function UI_CustomEnhance:initUI()
+function UI_CustomEnhanceFruit:initUI()
     local vars = self.vars
 
 end
@@ -73,7 +73,7 @@ end
 -- function refresh
 -- @brief 
 -------------------------------------
-function UI_CustomEnhance:refresh()
+function UI_CustomEnhanceFruit:refresh()
     local vars = self.vars
 
     local text = tostring(self.m_upCount).. ' ' .. Str('강화')
@@ -87,29 +87,30 @@ function UI_CustomEnhance:refresh()
     vars['applyBtn']:setEnabled(can_use)
     vars['applyLabel']:setColor(color)
 
-    if (self.m_itemBtn) then
-	    string_format = '{@w}%s / %s'
-	    self.m_itemBtn.vars['relationLabel']:setString(string.format(string_format, comma_value(self.m_usingCnt), comma_value(self.m_data['relation'])))
+    if (self.m_itemLabel) then
+	    string_format = '%s / %s'
+	    self.m_itemLabel:setString(string.format(string_format, comma_value(self.m_usingCnt), comma_value(self.m_data['relation'])))
     end
 end
 
 
-function UI_CustomEnhance:click_applyBtn()
-    self.m_parent:request_upgrade(self.m_usingCnt, self.m_itemBtn)
+function UI_CustomEnhanceFruit:click_applyBtn()
+    self.m_parent:request_upgrade(self.m_usingCnt, self.m_itemLabel)
 
     self.root:setVisible(false)
 end
 
 
 
-function UI_CustomEnhance:setActive(is_visible, data, button)
-    if (self.m_itemBtn) then
-	    string_format = '{@w}%s / %s'
-	    self.m_itemBtn.vars['relationLabel']:setString(comma_value(self.m_data['relation']))
+function UI_CustomEnhanceFruit:setActive(is_visible, data, label, fid)
+    if (self.m_itemLabel) then
+	    string_format = '%s / %s'
+	    self.m_itemLabel:setString(comma_value(self.m_data['relation']))
     end
 
     self.m_data = data
-    self.m_itemBtn = button
+    self.m_itemLabel = label.m_label
+    self.m_fid = fid
 
     if (is_visible) then
         self.m_upCount = 0
@@ -126,7 +127,7 @@ end
 -- function click_quantityBtn
 -- @brief 
 -------------------------------------
-function UI_CustomEnhance:click_quantityBtn(number, is_pressed)
+function UI_CustomEnhanceFruit:click_quantityBtn(number, is_pressed)
     local vars = self.vars
 
     local function adjust_func()
@@ -169,7 +170,7 @@ end
 -- function click_apply
 -- @brief 
 -------------------------------------
-function UI_CustomEnhance:click_apply()
+function UI_CustomEnhanceFruit:click_apply()
     -- self.m_usingCnt
 
     self:setVisible(false)
@@ -179,7 +180,7 @@ end
 -- function click_max
 -- @brief 
 -------------------------------------
-function UI_CustomEnhance:click_max()
+function UI_CustomEnhanceFruit:click_max()
     self.m_upCount = self:getMaxAvailableLevel()
 
     self:refresh()
@@ -192,10 +193,10 @@ end
 -- function getMaxAvailableLevel
 -- @brief 
 -------------------------------------
-function UI_CustomEnhance:getMaxAvailableLevel()
+function UI_CustomEnhanceFruit:getMaxAvailableLevel()
     local index = 0
     local exp = tonumber(self.m_data['exp'])
-    local relation = tonumber(self.m_data['relation']) + exp
+    local relation = tonumber(self.m_data['relation']) * tonumber(self.m_data['one_exp']) + exp
     local level_table = self.m_data['exp_list']
 
     for idx, exp in ipairs(level_table) do
@@ -212,11 +213,11 @@ end
 -- function getRequiredExpByLevel
 -- @brief 
 -------------------------------------
-function UI_CustomEnhance:getRequiredExpByLevel()
+function UI_CustomEnhanceFruit:getRequiredExpByLevel()
     if (not self.m_data) then return 0 end
 
     local cur_exp = tonumber(self.m_data['exp'])
-    local relation = tonumber(self.m_data['relation'])
+    local relation = tonumber(self.m_data['relation']) * tonumber(self.m_data['one_exp'])
     local level_table = self.m_data['exp_list']
     local point = 0
 
@@ -249,6 +250,6 @@ function UI_CustomEnhance:getRequiredExpByLevel()
 
     cclog(point)
 
-    return point
+    return math_floor(point / tonumber(self.m_data['one_exp']))
 end
 
