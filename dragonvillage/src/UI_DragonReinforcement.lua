@@ -58,7 +58,7 @@ function UI_DragonReinforcement:initUI()
     local vars = self.vars
 	vars['expGauge']:setPercentage(0)
 
-    self.m_EnhanceUI = UI_CustomEnhance()
+    self.m_EnhanceUI = UI_CustomEnhance(self)
     self.m_EnhanceUI:setVisible(false)
     self.root:addChild(self.m_EnhanceUI.root, 5)
 
@@ -549,9 +549,11 @@ function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
     -- 강화
     -- 숫자 + Str('강화')
     
-    ccdump(data_table)
+    if (IS_DEV_SERVER()) then
+        ccdump(data_table)
+    end
 
-    self.m_EnhanceUI:setActive(true, data_table)
+    self.m_EnhanceUI:setActive(true, data_table, ui)
 
 
 
@@ -978,6 +980,84 @@ function UI_DragonReinforcement:checkSelectedDragonCondition(dragon_object)
     end
     return true
 end
+
+
+
+
+-------------------------------------
+-- function checkSelectedDragonCondition
+-------------------------------------
+function UI_DragonReinforcement:request_upgrade(count, ui)
+    local rid = self.m_selectedBtnId
+    local rcnt = count
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        -- 코루틴이 종료되는 어떠한 상황에서도 호출될 함수
+        local function coroutine_finidh_cb()
+	        -- 선택된 버튼 초기화
+            self.m_selectedBtnId = nil
+        end
+        co:setCloseCB(coroutine_finidh_cb)
+
+		-- 연출 시작
+		self.m_reinforceEffect:setVisible(true)
+		self.m_reinforceEffect:changeAni('idle', false)
+		self.m_reinforceEffect:addAniHandler(function()
+			self.m_reinforceEffect:setVisible(false)
+		end)
+
+        -- 강화 연출
+        co:work()
+
+        -- 경험치, 인연포인트 깍음
+        do
+            local t_dragon_data = self.m_selectDragonData
+            --local rcnt = 1
+            local before_reinforce_exp = t_dragon_data:getReinforceObject()['exp']
+            local before_relation_point
+		    if (self.m_isDragon) then
+		    	before_relation_point = g_bookData:getBookData(rid):getRelation()
+		    else
+		    	before_relation_point = g_userData:getReinforcePoint(rid)
+		    end
+
+		    -- 강화 경험치 수정
+		    t_dragon_data:getReinforceObject()['exp'] = before_reinforce_exp + rcnt
+
+		    -- 인연 포인트 수정
+		    local relation = before_relation_point - rcnt
+		    if (self.m_isDragon) then
+		    	local struct_book = g_bookData:getBookData(rid)
+		    	struct_book:setRelation(relation)
+		    else
+		    	g_userData:applyServerData(relation, 'reinforce_point', tostring(rid))
+            end
+		end
+
+        -- 서버와 통신
+        co:work()
+        self:request_reinforce(rid, rcnt, co.NEXT, co.ESCAPE)
+        if co:waitWork() then return end
+
+        -- 필요한것들 갱신
+		self:response_reinforce()
+		ui:refresh()
+
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
+
+end
+
+
+
+
+
+
+
 
 --@CHECK
 UI:checkCompileError(UI_DragonReinforcement)

@@ -9,6 +9,10 @@ UI_CustomEnhance = class(PARENT, {
         m_upCount = 'number',
 
         m_usingCnt = 'number',
+
+        m_parent = 'UI_DragonReinforcement',
+
+        m_itemBtn = 'UI_DragonReinforceItem',
      })
 
 
@@ -16,10 +20,11 @@ UI_CustomEnhance = class(PARENT, {
 -- function init
 -- @brief 
 -------------------------------------
-function UI_CustomEnhance:init()
+function UI_CustomEnhance:init(parent)
     self.m_uiName = 'UI_CustomEnhance'
     local vars = self:load('dragon_enhance_tooltip.ui')
 
+    self.m_parent = parent
     self.m_usingCnt = 0
     self.m_upCount = 0
     self:initButton()
@@ -79,23 +84,36 @@ function UI_CustomEnhance:refresh()
 
     vars['applyBtn']:setEnabled(can_use)
     vars['applyLabel']:setColor(color)
+
+    if (self.m_itemBtn) then
+	    string_format = '{@w}%s / %s'
+	    self.m_itemBtn.vars['relationLabel']:setString(string.format(string_format, comma_value(self.m_usingCnt), comma_value(self.m_data['relation'])))
+    end
 end
 
 
 function UI_CustomEnhance:click_applyBtn()
+    self.m_parent:request_upgrade(self.m_usingCnt, self.m_itemBtn)
+
     self.root:setVisible(false)
 end
 
 
 
-function UI_CustomEnhance:setActive(is_visible, data)
+function UI_CustomEnhance:setActive(is_visible, data, button)
+    if (self.m_itemBtn) then
+	    string_format = '{@w}%s / %s'
+	    self.m_itemBtn.vars['relationLabel']:setString(comma_value(self.m_data['relation']))
+    end
+
     self.m_data = data
+    self.m_itemBtn = button
 
     if (is_visible) then
         self.m_upCount = 0
         self:refresh()
     else
-        
+
     end
 
     self:setVisible(is_visible)
@@ -150,6 +168,7 @@ end
 -- @brief 
 -------------------------------------
 function UI_CustomEnhance:click_apply()
+    -- self.m_usingCnt
 
     self:setVisible(false)
 end
