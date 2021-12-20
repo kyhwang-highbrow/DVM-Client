@@ -293,9 +293,8 @@ function StructUserInfoArena:getTierName(tier)
 
     local pure_tier, tier_grade = self:perseTier(tier)
 
-
     if (S_TIER_NAME_MAP[pure_tier]) then
-        if (pure_tier ~= 'master') and (0 < tier_grade) then
+        if (pure_tier ~= 'legend') and (0 < tier_grade) then
             return Str(S_TIER_NAME_MAP[pure_tier]) .. ' ' .. tostring(tier_grade)
         else
             return Str(S_TIER_NAME_MAP[pure_tier])

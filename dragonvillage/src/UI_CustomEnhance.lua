@@ -89,7 +89,7 @@ function UI_CustomEnhance:refresh()
 
     if (self.m_itemBtn) then
 	    string_format = '{@w}%s / %s'
-	    self.m_itemBtn.vars['relationLabel']:setString(string.format(string_format, comma_value(self.m_usingCnt), comma_value(self.m_data['relation'])))
+	    self.m_itemBtn.vars['relationLabel']:setString(string.format(string_format, comma_value(self.m_data['relation']), comma_value(self.m_usingCnt)))
     end
 end
 

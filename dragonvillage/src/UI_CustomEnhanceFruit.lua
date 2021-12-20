@@ -89,7 +89,7 @@ function UI_CustomEnhanceFruit:refresh()
 
     if (self.m_itemLabel) then
 	    string_format = '%s / %s'
-	    self.m_itemLabel:setString(string.format(string_format, comma_value(self.m_usingCnt), comma_value(self.m_data['relation'])))
+	    self.m_itemLabel:setString(string.format(string_format, comma_value(self.m_data['relation']), comma_value(self.m_usingCnt)))
     end
 end
 
