@@ -493,6 +493,7 @@ function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
 
     -- 통합 예외처리
 	if (self:exceptionReinforce(rid, is_dragon)) then
+        self.m_selectedBtnId = nil
 		return
 	end    
     
