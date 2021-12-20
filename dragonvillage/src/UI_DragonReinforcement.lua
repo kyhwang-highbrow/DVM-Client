@@ -849,6 +849,13 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func, fail_cb)
 
     -- 에러코드 처리
     local function response_status_cb(ret)
+        if (ret['status'] == -1211) then
+            local msg = Str('골드가 부족합니다.') -- not enough gold
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            if fail_cb then fail_cb() end
+            return true
+        end
+
         self:refresh_fail(rid, rcnt)
         if (fail_cb) then
             fail_cb()
