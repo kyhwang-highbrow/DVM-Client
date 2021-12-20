@@ -1089,8 +1089,16 @@ end
 
 
 
-
-
+-------------------------------------
+-- function onFocus
+-- @brief 자식 클래스에서 구현할 것
+-------------------------------------
+function UI_DragonReinforcement:onFocus()
+    if (self.m_EnhanceUI.m_isActive) then
+        self.m_EnhanceUI:setActive(false)
+        self.m_selectedBtnId = nil
+    end
+end
 
 
 
