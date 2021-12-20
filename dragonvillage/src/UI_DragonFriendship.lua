@@ -10,6 +10,8 @@ UI_DragonFriendship = class(PARENT,{
         m_preDragonData = '',
 
         m_EnhanceUI = 'UI_CustomEnhance()',
+
+        m_curFid = 'string',
     })
 
 
@@ -96,7 +98,7 @@ end
 -------------------------------------
 function UI_DragonFriendship:refresh()
 
-    self.m_EnhanceUI:setVisible(false)
+    self.m_EnhanceUI:setActive(false)
 
     local t_dragon_data = self.m_selectDragonData
 
@@ -309,7 +311,7 @@ function UI_DragonFriendship:refreshFruits(attr)
 
         local fruit_button = vars['fruitBtn' .. i]
         fruit_button:registerScriptTapHandler(function() self:click_fruitBtn(fid, fruit_button, vars['fruitNumberLabel' .. i]) end)
-        fruit_button:registerScriptPressHandler(function() self:press_fruitBtn(fid, fruit_button, vars['fruitNumberLabel' .. i]) end)
+        --fruit_button:registerScriptPressHandler(function() self:press_fruitBtn(fid, fruit_button, vars['fruitNumberLabel' .. i]) end)
     end
 end
 
@@ -451,12 +453,14 @@ end
 -------------------------------------
 function UI_DragonFriendship:click_fruitBtn(fid, btn, label)
     local vars = self.vars
+    self.m_EnhanceUI:setActive(false)
 
-
+    if (self.m_curFid == fid) then self.m_curFid = nil return end
 
     local t_dragon_data = self.m_selectDragonData
 
     if (not t_dragon_data) then
+        
         return
     end
 
@@ -477,7 +481,7 @@ function UI_DragonFriendship:click_fruitBtn(fid, btn, label)
 
 
 
-
+    self.m_curFid = fid
     -- UI클래스의 root상 위치를 얻어옴
     
     self.m_EnhanceUI.root:setPosition(ZERO_POINT)

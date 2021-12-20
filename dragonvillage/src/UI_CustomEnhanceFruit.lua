@@ -109,8 +109,13 @@ function UI_CustomEnhanceFruit:setActive(is_visible, data, label, fid)
     end
 
     self.m_data = data
-    self.m_itemLabel = label.m_label
     self.m_fid = fid
+
+    if (label) then
+        self.m_itemLabel = label.m_label
+    else
+        self.m_itemLabel = nil
+    end
 
     if (is_visible) then
         self.m_upCount = 0
@@ -139,7 +144,18 @@ function UI_CustomEnhanceFruit:click_quantityBtn(number, is_pressed)
     local adjust_cnt = number < 0 and math.max(self.m_upCount + number, 0) or math.min(self.m_upCount + number, max_available_lv)
 
     if (not is_pressed) then
+        if (number > 0) then
+            if (self.m_upCount + self.m_data['lv'] + number > 6) then
+                UIManager:toastNotificationRed(Str('더 이상 친밀도를 올릴 수 없습니다.'))
+
+            elseif (self.m_upCount == adjust_cnt) then
+                UIManager:toastNotificationRed(Str('인연 포인트가 부족합니다.'))
+
+            end
+        end
+
         self.m_upCount = adjust_cnt
+
         adjust_func()
     else
         local button    

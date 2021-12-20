@@ -134,7 +134,7 @@ end
 -------------------------------------
 function UI_DragonReinforcement:refresh()
 
-    self.m_EnhanceUI:setVisible(false)
+    self.m_EnhanceUI:setActive(false)
 
     local vars = self.vars
 
@@ -489,7 +489,9 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
-    self.m_EnhanceUI.root:setVisible(false)
+    self.m_EnhanceUI:setActive(false)
+
+    if (self.m_selectedBtnId == rid) then self.m_selectedBtnId = nil return end
 
     -- 통합 예외처리
 	if (self:exceptionReinforce(rid, is_dragon)) then

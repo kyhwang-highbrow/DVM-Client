@@ -42,7 +42,7 @@ function TableFriendship:getAllMaxExp(flv, is_myth_dragon)
     local column_name = is_myth_dragon and 'cumulative_req_exp_myth' or 'cumulative_req_exp'
 
     local result = {}
-    local index = 1
+    local index = 0
 	local t_fruit = self:getValue(flv + index, column_name)
 
     while (flv + index <= 10) do
