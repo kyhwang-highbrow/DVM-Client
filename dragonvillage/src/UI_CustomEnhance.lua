@@ -94,14 +94,14 @@ function UI_CustomEnhance:refresh()
     local can_use = self.m_usingCnt > 0
     local color = COLOR['DESC']
 
-    --[[
+    vars['reinforceBtn']:setEnabled(can_use)
+    vars['reinforceLabel']:setColor(color)
+
 	local gold = g_userData:get('gold')
 	if (self.m_cost and self.m_cost > gold) then
         color = COLOR['red']
-    end]]
+    end
 
-    vars['reinforceBtn']:setEnabled(can_use)
-    vars['reinforceLabel']:setColor(color)
     vars['priceLabel']:setColor(color)
 
     if (vars['priceLabel'] and self.m_cost) then vars['priceLabel']:setString(comma_value(self.m_cost)) end
