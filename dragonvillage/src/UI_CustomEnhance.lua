@@ -214,6 +214,9 @@ function UI_CustomEnhance:getMaxAvailableLevel()
         index = idx
     end
 
+    -- 드래곤의 별수도 영향을 준다
+    index = math.min(index, tonumber(self.m_data['grade']))
+
     return index
 end
 

@@ -336,10 +336,9 @@ function UI_DragonReinforcement:refresh_relation()
 				end)
 
 				-- 버튼 프레스 등록
-                --[[
 				click_btn:registerScriptPressHandler(function()
 					self:press_reinforce(rid, ui, click_btn, true)
-				end)]]
+				end)
 			end
 
 			-- 연출
@@ -375,10 +374,9 @@ function UI_DragonReinforcement:refresh_relation()
 			end)
 
 			-- 버튼 프레스 등록
-            --[[
 			click_btn:registerScriptPressHandler(function()
 				self:press_reinforce(item_id, ui, click_btn, false)
-			end)]]
+			end)
 		end
 
 		-- 연출
@@ -1002,6 +1000,16 @@ end
 -- function request_upgrade
 -------------------------------------
 function UI_DragonReinforcement:request_upgrade(count, ui)
+    local t_dragon_data = self.m_selectDragonData
+	-- 골드 비교
+	local curr_cost = t_dragon_data:getReinforceGoldCost() * count
+	local gold = g_userData:get('gold')
+	if (curr_cost > gold) then
+		MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('gold') end)
+		return true
+	end
+
+
     local rid = self.m_selectedBtnId
     local rcnt = count
     local function coroutine_function(dt)

@@ -311,7 +311,7 @@ function UI_DragonFriendship:refreshFruits(attr)
 
         local fruit_button = vars['fruitBtn' .. i]
         fruit_button:registerScriptTapHandler(function() self:click_fruitBtn(fid, fruit_button, vars['fruitNumberLabel' .. i]) end)
-        --fruit_button:registerScriptPressHandler(function() self:press_fruitBtn(fid, fruit_button, vars['fruitNumberLabel' .. i]) end)
+        fruit_button:registerScriptPressHandler(function() self:press_fruitBtn(fid, fruit_button, vars['fruitNumberLabel' .. i]) end)
     end
 end
 
