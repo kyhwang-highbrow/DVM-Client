@@ -265,7 +265,13 @@ function UI_CustomEnhanceFruit:getRequiredExpByLevel()
     end
 
     cclog(point)
+    local rest_value = point % tonumber(self.m_data['one_exp'])
+    local add_value = 0
 
-    return math_floor(point / tonumber(self.m_data['one_exp']))
+    if (rest_value > 0) then
+        add_value = 1
+    end
+
+    return math_floor(point / tonumber(self.m_data['one_exp'])) + add_value
 end
 
