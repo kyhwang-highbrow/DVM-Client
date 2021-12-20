@@ -1010,6 +1010,8 @@ function UI_DragonReinforcement:request_upgrade(count, ui)
 	local curr_cost = t_dragon_data:getReinforceGoldCost() * count
 	local gold = g_userData:get('gold')
 	if (curr_cost > gold) then
+        self.m_EnhanceUI:setActive(false)
+        self.m_selectedBtnId = nil
 		MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('gold') end)
 		return true
 	end
