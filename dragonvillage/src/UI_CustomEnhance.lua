@@ -274,14 +274,14 @@ function UI_CustomEnhance:getRequiredExpByLevel()
         end
 
         if (tonumber(combine_exp) > relation) then
-            point = point + relation
-            cost = cost + cost_table[idx] * point
+            point = combine_exp + relation
+            cost = cost + cost_table[idx] * combine_exp
             break
             
         else
             relation = relation - tonumber(combine_exp)
             point = point + tonumber(combine_exp)
-            cost = cost + cost_table[idx] * point
+            cost = cost + cost_table[idx] * combine_exp
 
         end
     end
