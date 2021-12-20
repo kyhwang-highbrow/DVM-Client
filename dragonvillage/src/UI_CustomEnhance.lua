@@ -15,6 +15,8 @@ UI_CustomEnhance = class(PARENT, {
         m_itemBtn = 'UI_DragonReinforceItem',
 
         m_itemBtnIsLabel = 'UI_Label',
+
+        m_isActive = 'boolean',
      })
 
 
@@ -117,6 +119,8 @@ function UI_CustomEnhance:setActive(is_visible, data, button)
     else
 
     end
+
+    self.m_isActive = is_visible
 
     self:setVisible(is_visible)
 end
