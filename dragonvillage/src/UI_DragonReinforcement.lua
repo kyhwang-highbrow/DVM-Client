@@ -542,6 +542,10 @@ function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
     local relation = g_bookData:getRelationPoint(rid)
     local data_table = {}
 
+    if (not is_dragon) then
+        relation = g_userData:getReinforcePoint(rid)
+    end
+
     data_table['exp'] = t_dragon_data:getReinforceObject()['exp']
     data_table['lv'] = t_dragon_data:getReinforceObject()['lv']
 
@@ -550,7 +554,7 @@ function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
 
     -- 강포 수량
     data_table['relation'] = relation
-    
+
     -- 강화
     -- 숫자 + Str('강화')
     
