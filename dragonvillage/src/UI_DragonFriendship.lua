@@ -634,6 +634,8 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonFriendship:press_fruitBtn(fid, btn, number_label)
+    self.m_EnhanceUI:setActive(false)
+
     self.m_fruitFeedPressHelper:fruitPressHandler(fid, btn, number_label)
 end
 

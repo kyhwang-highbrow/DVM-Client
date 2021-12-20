@@ -654,6 +654,8 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonReinforcement:press_reinforce(rid, ui, btn, is_dragon)
+    self.m_EnhanceUI:setActive(false)
+
     -- 이미 선택된 버튼이 있다면 return
     if (self.m_selectedBtnId) then
         return
