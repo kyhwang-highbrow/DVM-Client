@@ -5024,6 +5024,13 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_TowerStaminaChargePopup.lua" />
+    <None Include="..\src\UI_CrossPromotion.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CustomEnhance.lua" />
+    <None Include="..\src\UI_CustomEnhanceFruit.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

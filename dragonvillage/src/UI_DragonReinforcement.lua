@@ -506,7 +506,7 @@ function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
     local pos_y = local_pos['y']
 
     do -- X축 위치 지정
-        local width = 305 + 50
+        local width = 305 + 36
         local scr_size = cc.Director:getInstance():getWinSize()
         if (pos_x < 0) then
             local min_x = -(scr_size['width'] / 2)
@@ -523,7 +523,7 @@ function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
         end
     end
 
-    pos_y = pos_y + 120
+    pos_y = pos_y + 125
 
     -- 위치 설정
     self.m_EnhanceUI.root:setPosition(pos_x, pos_y)
@@ -552,11 +552,17 @@ function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
 
     -- 구간별 경험치
     data_table['exp_list'] = TableDragonReinforce:getAllMaxExp(did, rlv)
+    data_table['cost_list'] = TableDragonReinforce:getAllCostFromCurLv(did, rlv)
 
     -- 강포 수량
     data_table['relation'] = relation
 
     data_table['grade'] = grade
+
+    --  골드 코스트
+	--  local curr_cost = t_dragon_data:getReinforceGoldCost() * count
+	--  local gold = g_userData:get('gold')
+
 
     -- 강화
     -- 숫자 + Str('강화')
@@ -1004,10 +1010,10 @@ end
 -------------------------------------
 -- function request_upgrade
 -------------------------------------
-function UI_DragonReinforcement:request_upgrade(count, ui)
+function UI_DragonReinforcement:request_upgrade(count, cost, ui)
     local t_dragon_data = self.m_selectDragonData
 	-- 골드 비교
-	local curr_cost = t_dragon_data:getReinforceGoldCost() * count
+	local curr_cost = cost
 	local gold = g_userData:get('gold')
 	if (curr_cost > gold) then
         self.m_EnhanceUI:setActive(false)

@@ -9,6 +9,7 @@ UI_CustomEnhance = class(PARENT, {
         m_upCount = 'number',
 
         m_usingCnt = 'number',
+        m_cost = 'number',
 
         m_parent = 'UI_DragonReinforcement',
 
@@ -31,6 +32,7 @@ function UI_CustomEnhance:init(parent)
     self.m_parent = parent
     self.m_usingCnt = 0
     self.m_upCount = 0
+    self.m_cost = 0
     self:initButton()
     self:initUI()
     self:refresh()
@@ -43,7 +45,13 @@ end
 function UI_CustomEnhance:initButton()
     local vars = self.vars
 
-    if (vars['applyBtn']) then vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn() end) end
+
+    if (vars['reinforceBtn']) then 
+        vars['reinforceBtn']:setVisible(true)
+        vars['reinforceBtn']:registerScriptTapHandler(function() self:click_applyBtn() end) 
+    end
+
+    if (vars['applyBtn']) then vars['applyBtn']:setVisible(false) end
     
     vars['enhanceLabel']:setString('')
     
@@ -81,13 +89,22 @@ function UI_CustomEnhance:refresh()
     local text = tostring(self.m_upCount).. ' ' .. Str('강화')
 
     vars['enhanceLabel']:setString(text)
-    self.m_usingCnt = self:getRequiredExpByLevel()
+    self.m_usingCnt, self.m_cost = self:getRequiredExpByLevel()
 
     local can_use = self.m_usingCnt > 0
-    local color = can_use and COLOR['black'] or COLOR['DESC']
+    local color = COLOR['DESC']
 
-    vars['applyBtn']:setEnabled(can_use)
-    vars['applyLabel']:setColor(color)
+    --[[
+	local gold = g_userData:get('gold')
+	if (self.m_cost and self.m_cost > gold) then
+        color = COLOR['red']
+    end]]
+
+    vars['reinforceBtn']:setEnabled(can_use)
+    vars['reinforceLabel']:setColor(color)
+    vars['priceLabel']:setColor(color)
+
+    if (vars['priceLabel'] and self.m_cost) then vars['priceLabel']:setString(comma_value(self.m_cost)) end
 
     if (self.m_itemBtn) then
 	    string_format = '{@w}%s / %s'
@@ -97,7 +114,7 @@ end
 
 
 function UI_CustomEnhance:click_applyBtn()
-    self.m_parent:request_upgrade(self.m_usingCnt, self.m_itemBtn)
+    self.m_parent:request_upgrade(self.m_usingCnt, self.m_cost, self.m_itemBtn)
 
     self.root:setVisible(false)
 end
@@ -235,7 +252,10 @@ function UI_CustomEnhance:getRequiredExpByLevel()
     local cur_exp = tonumber(self.m_data['exp'])
     local relation = tonumber(self.m_data['relation'])
     local level_table = self.m_data['exp_list']
+    local cost_table = self.m_data['cost_list']
+
     local point = 0
+    local cost = 0
 
     -- self.m_upCount
     -- 다음경험치 - 현재경험치 = 바로 다음단계 경험치
@@ -255,17 +275,22 @@ function UI_CustomEnhance:getRequiredExpByLevel()
 
         if (tonumber(combine_exp) > relation) then
             point = point + relation
+            cost = cost + cost_table[idx] * point
             break
             
         else
             relation = relation - tonumber(combine_exp)
             point = point + tonumber(combine_exp)
+            cost = cost + cost_table[idx] * point
 
         end
     end
 
-    cclog(point)
+    if (IS_DEV_SERVER()) then
+        cclog(point)
+        cclog(cost)
+    end
 
-    return point
+    return point, cost
 end
 

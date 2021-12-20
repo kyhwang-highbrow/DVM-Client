@@ -107,6 +107,37 @@ function TableDragonReinforce:getAllMaxExp(did, rlv)
 end
 
 -------------------------------------
+-- function getAllCostFromCurLv
+-- 맥스치까지 필요한 가격정보
+-------------------------------------
+function TableDragonReinforce:getAllCostFromCurLv(did, rlv)
+    local result = {}
+
+	-- 태생 등급으로 대상 리스트 구함
+    local index = 1
+	local birth_grade = TableDragon:getBirthGrade(did)
+	local t_reinforce = S_GRADE_REINFORCE[birth_grade][rlv + index]
+
+    while (t_reinforce and t_reinforce['exp']) do
+	    if (not t_reinforce) then break end
+
+        local req_gold = t_reinforce['reinforce_cost_gold']
+        -- 할인 핫타임
+	    local active, dc_value, _ = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.REINFORCE_DC)
+        if (active) then
+		    req_gold = req_gold * (1 - dc_value)
+	    end
+
+        table.insert(result, req_gold)
+        index = index + 1
+        t_reinforce = S_GRADE_REINFORCE[birth_grade][rlv + index]
+    end
+	
+
+	return result
+end
+
+-------------------------------------
 -- function getCurrCost
 -------------------------------------
 function TableDragonReinforce:getCurrCost(did, rlv)

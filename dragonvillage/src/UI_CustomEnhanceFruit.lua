@@ -41,7 +41,6 @@ end
 function UI_CustomEnhanceFruit:initButton()
     local vars = self.vars
 
-    if (vars['applyBtn']) then vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn() end) end
     
     vars['enhanceLabel']:setString('')
     
@@ -50,6 +49,9 @@ function UI_CustomEnhanceFruit:initButton()
     if (vars['maxBtn']) then vars['maxBtn']:registerScriptTapHandler(function() self:click_max() end) end
 
 
+    if (vars['reinforceBtn']) then vars['reinforceBtn']:setVisible(false) end
+
+    if (vars['applyBtn']) then vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn() end) end
     
     -- 1번 마이너스 2번 플러스
     --[[
@@ -264,7 +266,10 @@ function UI_CustomEnhanceFruit:getRequiredExpByLevel()
         end
     end
 
-    cclog(point)
+    if (IS_DEV_SERVER()) then
+        cclog(point)
+    end
+
     local rest_value = point % tonumber(self.m_data['one_exp'])
     local add_value = 0
 
