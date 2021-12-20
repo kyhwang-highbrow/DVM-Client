@@ -139,7 +139,7 @@ function UI_CustomEnhance:click_quantityBtn(number, is_pressed)
 
     if (not is_pressed) then
         if (number > 0) then
-            if (self.m_upCount + self.m_data['lv'] + number > 6) then
+            if (self.m_upCount + self.m_data['lv'] + number > tonumber(self.m_data['grade'])) then
                 UIManager:toastNotificationRed(Str('현재의 등급 이상 강화할 수 없습니다.'))
 
             elseif (self.m_upCount == adjust_cnt) then

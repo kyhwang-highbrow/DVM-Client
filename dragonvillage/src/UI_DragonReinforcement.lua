@@ -541,6 +541,7 @@ function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
 	local t_dragon_data = self.m_selectDragonData
 	local did = t_dragon_data:getDid()
 	local rlv = t_dragon_data:getRlv()
+    local grade = t_dragon_data:getGrade()
     local relation = g_bookData:getRelationPoint(rid)
     local data_table = {}
 
@@ -556,6 +557,8 @@ function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
 
     -- 강포 수량
     data_table['relation'] = relation
+
+    data_table['grade'] = grade
 
     -- 강화
     -- 숫자 + Str('강화')
