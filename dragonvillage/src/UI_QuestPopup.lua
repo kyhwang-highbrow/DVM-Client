@@ -344,7 +344,7 @@ function UI_QuestPopup:refreshEventDailyQuest()
         icon:setDockPoint(CENTER_POINT)
         icon:setAnchorPoint(CENTER_POINT)
         vars['dragonNode']:addChild(icon)
-        vars['dragonNode']:setScale(0.6)
+        --vars['dragonNode']:setScale(0.6)
 
         if (vars['eventBtn']) then
             vars['eventBtn']:registerScriptTapHandler(function()
