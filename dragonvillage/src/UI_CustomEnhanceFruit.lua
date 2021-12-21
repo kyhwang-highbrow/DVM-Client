@@ -151,7 +151,7 @@ function UI_CustomEnhanceFruit:click_quantityBtn(number, is_pressed)
                 UIManager:toastNotificationRed(Str('더 이상 친밀도를 올릴 수 없습니다.'))
 
             elseif (self.m_upCount == adjust_cnt) then
-                UIManager:toastNotificationRed(Str('인연 포인트가 부족합니다.'))
+                UIManager:toastNotificationRed(Str('열매가 부족하네요!!'))
 
             end
         end
