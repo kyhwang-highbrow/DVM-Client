@@ -92,7 +92,7 @@ function UI_CustomEnhance:refresh()
     self.m_usingCnt, self.m_cost = self:getRequiredExpByLevel()
 
     local can_use = self.m_usingCnt > 0
-    local color = COLOR['DESC']
+    local color = can_use and COLOR['white'] or COLOR['DESC']
 
     vars['reinforceBtn']:setEnabled(can_use)
     vars['reinforceLabel']:setColor(color)
@@ -100,6 +100,7 @@ function UI_CustomEnhance:refresh()
 	local gold = g_userData:get('gold')
 	if (self.m_cost and self.m_cost > gold) then
         color = COLOR['red']
+        vars['reinforceLabel']:setColor(COLOR['DESC'])
     end
 
     vars['priceLabel']:setColor(color)

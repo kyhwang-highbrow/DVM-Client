@@ -84,7 +84,7 @@ function UI_CustomEnhanceFruit:refresh()
     self.m_usingCnt = self:getRequiredExpByLevel()
 
     local can_use = self.m_usingCnt > 0
-    local color = can_use and COLOR['black'] or COLOR['DESC']
+    local color = can_use and COLOR['white'] or COLOR['DESC']
 
     vars['applyBtn']:setEnabled(can_use)
     vars['applyLabel']:setColor(color)
