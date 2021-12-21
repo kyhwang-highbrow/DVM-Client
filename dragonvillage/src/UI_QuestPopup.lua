@@ -313,9 +313,15 @@ function UI_QuestPopup:refreshEventDailyQuest()
 
     -- 이벤트 활성화
     if (g_hotTimeData:isActiveEvent('event_daily_quest')) then
+        local t_event_info = g_questData:getEventDailyQuestInfo()
+
+        if (not t_event_info) then
+            vars['eventDailyQuestMenu']:setVisible(false)
+            return
+        end
+
         vars['eventDailyQuestMenu']:setVisible(true)
         
-        local t_event_info = g_questData:getEventDailyQuestInfo()
         local max = t_event_info['max']
         local progress = t_event_info['progress']
         progress = math_min(progress, max)
