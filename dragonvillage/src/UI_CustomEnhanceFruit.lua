@@ -78,7 +78,7 @@ end
 function UI_CustomEnhanceFruit:refresh()
     local vars = self.vars
 
-    local text = tostring(self.m_upCount).. ' ' .. Str('강화')
+    local text = tostring(self.m_upCount).. ' ' .. Str('등급')
 
     vars['enhanceLabel']:setString(text)
     self.m_usingCnt = self:getRequiredExpByLevel()
