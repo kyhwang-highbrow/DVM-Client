@@ -467,6 +467,7 @@ function UI_DragonFriendship:click_fruitBtn(fid, btn, label)
     local friendship_obj = t_dragon_data:getFriendshipObject()
     if friendship_obj:isMaxFriendshipLevel() then
         UIManager:toastNotificationRed(Str('최대 친밀도의 드래곤입니다.'))
+        self.m_curFid = nil
         return
     end
 
@@ -474,6 +475,7 @@ function UI_DragonFriendship:click_fruitBtn(fid, btn, label)
     if (count <= 0) then
         UIManager:toastNotificationRed(Str('열매가 부족하네요!!'))
         UI_ItemInfoPopup(fid)
+        self.m_curFid = nil
         return
     end
 
