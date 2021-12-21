@@ -210,7 +210,7 @@ function UI_LeagueRaidRankMenu:updateRankItems()
         end
 
         vars['remainingPannelNode']:setPositionY(last_adjusted_Y)
-        last_adjusted_Y = last_adjusted_Y - list_offset_y - 90 * line_remaining - margin
+        last_adjusted_Y = last_adjusted_Y - list_offset_y - 100 * line_remaining - margin
     else
         vars['remainingPannelNode']:setVisible(false)
     end
