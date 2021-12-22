@@ -5,6 +5,8 @@ target 'sdk_binder' do
     # Uncomment this line if you're using Swift or would like to use dynamic frameworks
     # use_frameworks!
 
+    project 'sdk_binder'
+
     # Pods for Firebase
     pod 'Firebase/Core'#, '= 6.10.0'
     pod 'Firebase/Auth'#, '= 6.10.0'
