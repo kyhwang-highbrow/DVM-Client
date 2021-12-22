@@ -77,10 +77,10 @@
 		37BA05AA1F73B3900048FF81 /* PerpleAdColony.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleAdColony.h; sourceTree = "<group>"; };
 		37BA05AB1F73B3900048FF81 /* PerpleAdColony.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerpleAdColony.m; sourceTree = "<group>"; };
 		3C67A60B269DF6AC00C9558C /* TapjoyAdapter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TapjoyAdapter.framework; sourceTree = "<group>"; };
-		3C67A621269E033500C9558C /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsdk_binder.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8FC35A250733DF00785D38 /* sdk_binder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sdk_binder-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E8FC35B250733E000785D38 /* HbApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HbApple.swift; sourceTree = "<group>"; };
 		6755498CE97091FE539A6E2F /* Pods-sdk_binder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.debug.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.debug.xcconfig"; sourceTree = "<group>"; };
+		7DC5F68E2772BD46000C7D2D /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libsdk_binder.a; path = "/Volumes/Samsung_T5/DVM-Client/src/frameworks/libraries/sdk_binder/iOS/build/Debug-iphoneos/libsdk_binder.a"; sourceTree = "<absolute>"; };
 		9C38D2F1252F0B80004C2A62 /* lua_perplesdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk.h; sourceTree = "<group>"; };
 		9C38D2F2252F0B80004C2A62 /* lua_perplesdk_macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk_macro.h; sourceTree = "<group>"; };
 		9C38D2F4252F0B8D004C2A62 /* lua_perplesdk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_perplesdk.cpp; sourceTree = "<group>"; };
@@ -152,7 +152,6 @@
 				1CB7275D1D45449000994916 /* ios */,
 				975FD22E784D4AB5336D943D /* Pods */,
 				B46B37E319A24343E1E59F3F /* Frameworks */,
-				3C67A621269E033500C9558C /* libsdk_binder.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -213,7 +212,7 @@
 			);
 			name = sdk_binder;
 			productName = PerpleSDK;
-			productReference = 3C67A621269E033500C9558C /* libsdk_binder.a */;
+			productReference = 7DC5F68E2772BD46000C7D2D /* libsdk_binder.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
