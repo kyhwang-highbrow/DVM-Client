@@ -1211,7 +1211,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = -344.000000;
-					y = -40.000000;
+					y = -50.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1232,10 +1232,60 @@
 				};
 				[5] =
 				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 42;
+						height = 42;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/buttons/42_help_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = -164.000000;
+					y = 265.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 60;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'plugInfoBtn';
+					enable = true;
+					normal = '';
+					selected = '';
+					disable = '';
+					image_type = 0;
+				};
+				[6] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -36.000000;
-					y = -40.000000;
+					x = -342.000000;
+					y = 10.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1251,8 +1301,8 @@
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
 					text = 'timeLabel';
-					h_alignment = 0;
-					v_alignment = 1;
+					h_alignment = 1;
+					v_alignment = 2;
 					color = { 255; 215; 0; };
 					opacity = 255;
 					dimension_width = 297;

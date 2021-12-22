@@ -773,7 +773,7 @@
 							skew_x = 0.000000;
 							skew_y = 0.000000;
 							rotation = 0.000000;
-							visible = true;
+							visible = false;
 							lua_name = '';
 							file_name = 'ui/icons/cha/darnus_earth_03.png';
 							color = { 255; 255; 255; };
@@ -784,6 +784,25 @@
 							dest_blend = 771;
 						};
 						[3] =
+						{
+							type = 'Node';
+							ui_name = '';
+							x = -3.000000;
+							y = -5.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 150;
+							height = 150;
+							scale_x = 0.540000;
+							scale_y = 0.540000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'dragonNode';
+						};
+						[4] =
 						{
 							type = 'Visual';
 							ui_name = '';
@@ -808,7 +827,7 @@
 							color = { 255; 255; 255; };
 							opacity = 255;
 						};
-						[4] =
+						[5] =
 						{
 							type = 'Sprite';
 							ui_name = '';
@@ -834,7 +853,7 @@
 							src_blend = 770;
 							dest_blend = 771;
 						};
-						[5] =
+						[6] =
 						{
 							type = 'LabelTTF';
 							ui_name = '';
@@ -910,7 +929,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'eventDailyQuestMenu';
 				};
 				type = 'Menu';

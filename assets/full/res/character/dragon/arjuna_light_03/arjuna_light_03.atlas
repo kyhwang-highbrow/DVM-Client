@@ -1,0 +1,251 @@
+
+arjuna_light_03.png
+size: 1837,245
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arjuna_light_03_arm_ef_010
+  rotate: true
+  xy: 1066, 5
+  size: 81, 102
+  orig: 81, 102
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_ef_011
+  rotate: true
+  xy: 1497, 106
+  size: 137, 123
+  orig: 137, 123
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_ef_012
+  rotate: true
+  xy: 1311, 6
+  size: 88, 118
+  orig: 88, 118
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_ef_03
+  rotate: true
+  xy: 1736, 67
+  size: 62, 79
+  orig: 62, 79
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_ef_04
+  rotate: true
+  xy: 1566, 10
+  size: 94, 87
+  orig: 94, 87
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_ef_05
+  rotate: true
+  xy: 958, 4
+  size: 82, 106
+  orig: 82, 106
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_l_01
+  rotate: false
+  xy: 1431, 4
+  size: 52, 98
+  orig: 52, 98
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_l_02
+  rotate: true
+  xy: 661, 2
+  size: 65, 122
+  orig: 65, 122
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_l_deco
+  rotate: true
+  xy: 349, 9
+  size: 29, 48
+  orig: 29, 48
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_r_01
+  rotate: false
+  xy: 845, 4
+  size: 111, 76
+  orig: 111, 76
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_r_02
+  rotate: false
+  xy: 1395, 104
+  size: 100, 139
+  orig: 100, 139
+  offset: 0, 0
+  index: -1
+arjuna_light_03_arm_r_deco
+  rotate: true
+  xy: 1687, 131
+  size: 64, 74
+  orig: 64, 74
+  offset: 0, 0
+  index: -1
+arjuna_light_03_body_01
+  rotate: false
+  xy: 2, 22
+  size: 243, 221
+  orig: 243, 221
+  offset: 0, 0
+  index: -1
+arjuna_light_03_body_ef_01
+  rotate: false
+  xy: 455, 58
+  size: 121, 185
+  orig: 121, 185
+  offset: 0, 0
+  index: -1
+arjuna_light_03_body_ef_02
+  rotate: false
+  xy: 355, 41
+  size: 98, 202
+  orig: 98, 202
+  offset: 0, 0
+  index: -1
+arjuna_light_03_body_ef_03
+  rotate: false
+  xy: 954, 88
+  size: 131, 155
+  orig: 131, 155
+  offset: 0, 0
+  index: -1
+arjuna_light_03_eye_01
+  rotate: false
+  xy: 247, 2
+  size: 32, 36
+  orig: 32, 36
+  offset: 0, 0
+  index: -1
+arjuna_light_03_eye_02
+  rotate: false
+  xy: 281, 2
+  size: 32, 36
+  orig: 32, 36
+  offset: 0, 0
+  index: -1
+arjuna_light_03_eye_03
+  rotate: false
+  xy: 315, 2
+  size: 32, 36
+  orig: 32, 36
+  offset: 0, 0
+  index: -1
+arjuna_light_03_hair_01
+  rotate: true
+  xy: 826, 82
+  size: 161, 126
+  orig: 161, 126
+  offset: 0, 0
+  index: -1
+arjuna_light_03_head_01
+  rotate: false
+  xy: 1763, 131
+  size: 72, 64
+  orig: 72, 64
+  offset: 0, 0
+  index: -1
+arjuna_light_03_head_02
+  rotate: true
+  xy: 399, 15
+  size: 24, 23
+  orig: 24, 23
+  offset: 0, 0
+  index: -1
+arjuna_light_03_horn_l
+  rotate: false
+  xy: 1736, 197
+  size: 93, 46
+  orig: 93, 46
+  offset: 0, 0
+  index: -1
+arjuna_light_03_horn_r
+  rotate: false
+  xy: 455, 3
+  size: 119, 53
+  orig: 119, 53
+  offset: 0, 0
+  index: -1
+arjuna_light_03_leg_l_01
+  rotate: false
+  xy: 1245, 5
+  size: 64, 89
+  orig: 64, 89
+  offset: 0, 0
+  index: -1
+arjuna_light_03_leg_l_02
+  rotate: true
+  xy: 576, 3
+  size: 53, 83
+  orig: 53, 83
+  offset: 0, 0
+  index: -1
+arjuna_light_03_leg_r_01
+  rotate: false
+  xy: 1622, 125
+  size: 63, 118
+  orig: 63, 118
+  offset: 0, 0
+  index: -1
+arjuna_light_03_leg_r_02
+  rotate: false
+  xy: 1655, 12
+  size: 79, 111
+  orig: 79, 111
+  offset: 0, 0
+  index: -1
+arjuna_light_03_mouth_01
+  rotate: true
+  xy: 785, 2
+  size: 65, 58
+  orig: 65, 58
+  offset: 0, 0
+  index: -1
+arjuna_light_03_neck_ef_01
+  rotate: false
+  xy: 1736, 12
+  size: 51, 53
+  orig: 51, 53
+  offset: 0, 0
+  index: -1
+arjuna_light_03_neck_ef_04
+  rotate: false
+  xy: 1485, 7
+  size: 79, 95
+  orig: 79, 95
+  offset: 0, 0
+  index: -1
+arjuna_light_03_neck_ef_05
+  rotate: false
+  xy: 1170, 4
+  size: 73, 90
+  orig: 73, 90
+  offset: 0, 0
+  index: -1
+arjuna_light_03_tail_01
+  rotate: true
+  xy: 578, 69
+  size: 174, 246
+  orig: 174, 246
+  offset: 0, 0
+  index: -1
+arjuna_light_03_wing_l_01
+  rotate: true
+  xy: 247, 40
+  size: 203, 106
+  orig: 203, 106
+  offset: 0, 0
+  index: -1
+arjuna_light_03_wing_r_01
+  rotate: false
+  xy: 1087, 96
+  size: 306, 147
+  orig: 306, 147
+  offset: 0, 0
+  index: -1
