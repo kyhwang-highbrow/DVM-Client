@@ -41,6 +41,10 @@ function UI_LeagueRaidOpenPopup:initUI()
         if (monster_id == 138001) then
             animator.m_node:setScale(0.5)
         end
+		
+		if (monster_id == 138002) then
+            animator.m_node:setScale(0.5)
+        end
     end
 
 end
