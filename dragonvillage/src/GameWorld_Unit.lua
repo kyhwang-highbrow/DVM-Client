@@ -740,7 +740,7 @@ function GameWorld:initActiveSkillCool(dragon_list)
     -- 고대의 탑 모드일 경우 (고대의 탑, 시험의 탑) 모든 드래곤의 시작 쿨타임을 동일하게 설정
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
         for i, dragon in ipairs(dragon_list) do
-            dragon:initActiveSkillCool(3)
+            dragon:initActiveSkillCool(5)
         end
         return
     end
