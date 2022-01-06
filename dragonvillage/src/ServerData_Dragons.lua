@@ -1890,3 +1890,52 @@ function ServerData_Dragons:request_dragonCombine(doids, cb_func)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
 end
+
+
+
+-------------------------------------
+-- function request_mastery_lvup
+-- @brief 특성 레벨업
+-------------------------------------
+function ServerData_Dragons:request_mastery_lvdown(doid, success_cb)
+    local uid = g_userData:get('uid')
+
+    --[[
+    -- 에러코드 처리
+    local function response_status_cb(ret)
+        return true
+    end
+
+    -- 통신실패 처리
+    local function response_fail_cb(ret)
+    end
+    --]]
+
+    local function success(ret)
+
+        -- 드래곤 정보 갱신
+        g_dragonsData:applyDragonData(ret['dragon_info'])
+
+        
+        local dragon_data = g_dragonsData:getDragonDataFromUid(ret['dragon_info']['id'])
+
+        -- 재화 갱신 - ret['mastery_material']
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+
+        if (success_cb ~= nil) then
+            success_cb(ret)
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/mastery_lvdown')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+	--ui_network:hideLoading()
+    ui_network:setRevocable(true)
+    --ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(function(ret) success(ret) end)
+    --ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end

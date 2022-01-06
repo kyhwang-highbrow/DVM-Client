@@ -567,7 +567,7 @@ end
 
 -------------------------------------
 -- function getAttr
--- @breif
+-- @breif 드래곤 속성
 -------------------------------------
 function StructDragonObject:getAttr()
     return TableDragon:getValue(self['did'], 'attr')

@@ -144,6 +144,8 @@ function UI_DragonMasteryNew:initButton()
     vars['buyBtn1']:setLocalZOrder(1)
     cca.pickMePickMe(vars['buyBtn1'], 10)
 
+    -- 특성 회수 버튼
+    vars['recoverBtn']:registerScriptTapHandler(function() self:click_recoverBtn() end)
 end
 
 
@@ -177,6 +179,13 @@ function UI_DragonMasteryNew:refresh()
     if self.m_masteryBoardUI then
         local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
         self.m_masteryBoardUI:refresh(dragon_obj)
+    end
+
+    -- 특성 회수 버튼 활성화 여부
+    if (dragon_obj:getMasteryLevel() < 2) or (dragon_obj:getRarity() ~= 'legend') then
+        vars['recoverBtn']:setVisible(false)
+    else
+        vars['recoverBtn']:setVisible(true)
     end
 
     -- 할인 이벤트
@@ -827,6 +836,35 @@ function UI_DragonMasteryNew:click_resetBtn()
     end
     
     ui:setCloseCB(close_cb)
+end
+
+
+-------------------------------------
+-- function click_recoverBtn
+-- @brief 특성 회수 버튼
+-------------------------------------
+function UI_DragonMasteryNew:click_recoverBtn()
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    
+    if (not dragon_obj) then
+        return
+    end
+
+    local mastery_level = dragon_obj:getMasteryLevel()
+
+    if (mastery_level < 2) then
+        -- 
+        return
+    end
+
+    local ui = UI_DragonMasteryRecoverPopup(dragon_obj)
+
+    ui:setCloseCB(function()
+        self.m_bChangeDragonList = true
+        self:setSelectDragonDataRefresh()
+        self:init_dragonTableView()
+        self:refresh()
+    end)
 end
 
 -------------------------------------

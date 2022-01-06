@@ -1409,6 +1409,7 @@ local t_module = {
     'UI_DragonMasterySkillLevelUpPopup',
     'UI_DragonMasteryResetPopup',
     'UI_DragonMasteryLevelUp_Result',
+    'UI_DragonMasteryRecoverPopup',
     'UI_DragonUpgrade',
     'UI_DragonUpgradeCombineMaterial',
     'UI_DragonUpgradeCombineMaterialItem',
