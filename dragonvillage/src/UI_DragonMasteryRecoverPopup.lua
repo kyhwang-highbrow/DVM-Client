@@ -47,6 +47,27 @@ function UI_DragonMasteryRecoverPopup:initUI()
     -- 소모되는 재화 수량
     vars['priceLabel']:setString(comma_value(self.m_cost))
 
+
+    local dragon_obj = self.m_targetDragonObject
+
+    -- 속성별 특성 재료
+    local material_type = 'mastery_material_' .. dragon_obj:getRarity() .. '_' .. dragon_obj:getAttr()
+    local material_id = TableItem:getItemIDFromItemType(material_type)
+    local material_name = TableItem:getItemName(material_id)
+    
+    -- 특성 레벨 2를 회수하여 {1} 1개를 획득합니다.
+    local info_origin_str = vars['infoLabel']:getString()
+    
+    -- 드래곤 속성
+    local dragon_attr = dragon_obj:getAttr()
+    -- 특성 재료 아이템을 속성별로 색을 표현
+    local item_name = string.format('{@%s}%s{@default}', dragon_attr, Str(material_name))
+
+    vars['infoLabel']:setString(Str(info_origin_str, item_name))
+
+    -- 획득 아이템 카드
+    local item_card = UI_ItemCard(material_id, 1)
+    vars['masteryNode']:addChild(item_card.root)    
 end
 
 -------------------------------------
