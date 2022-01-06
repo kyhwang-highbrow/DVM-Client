@@ -55,7 +55,7 @@ function UI_ArenaNewHistory:initUI()
     local totalLose = 0
     local totalScore = 0
 
-    if (historyList and #historyList > 1) then
+    if (historyList and (1 <= #historyList)) then
         --match 
         for i, v in ipairs(historyList) do
 
