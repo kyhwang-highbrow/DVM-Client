@@ -294,6 +294,7 @@ end
 local S_ERROR_STATUS = {
     -- not exist
     [-1101] = Str('존재하지 않는 사용자입니다.'), -- not exist user
+    [-1102] = Str('조건에 해당하는 드래곤이 없습니다.'), 
     [-1160] = Str('상대방의 콜로세움 덱이 없습니다.'), -- not exist deck
 	[-1152] = Str('상품이 모두 소진되었습니다.'), -- not exist reward (캡슐 뽑기)
 
@@ -304,6 +305,7 @@ local S_ERROR_STATUS = {
     [-1216] = Str('날개가 부족합니다.'), -- not enough stamina
     [-1222] = Str('열매가 부족합니다.'), -- not enough fruit
     [-1223] = Str('진화재료가 부족합니다.'), -- not enough evolution stone
+    [-1224] = Str('레벨이 부족합니다.'),
     [-1263] = Str('가방이 가득 찼습니다.\n가방 공간을 확보 후 전투를 시작할 수 있습니다.'), -- not enough inventory
     [-1265] = Str('고대의탑 입장권이 부족합니다.'), -- not enough st_tower
     [-1266] = Str('콜로세움 입장권이 부족합니다.'), -- not enough st_pvp
