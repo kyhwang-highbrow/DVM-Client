@@ -2,7 +2,7 @@
 -- class GameWorld
 -------------------------------------
 GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable(), {
-        m_gameMode = 'number',
+        m_gameMode = 'number', -- ConstantGameMode.lua에 정의되어 있는 GAME_MODE_로 시작하는 식별값. GAME_MODE_ADVENTURE, GAME_MODE_NEST_DUNGEON ...
         m_stageID = 'number',
         m_inGameUI = 'UI_Game',
         m_bDevelopMode = 'boolean',

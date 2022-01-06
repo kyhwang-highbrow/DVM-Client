@@ -8,7 +8,7 @@ SceneGame = class(PerpleScene, {
         m_stageID = '',
         m_stageParam = '',              -- 스테이지 정보 관련한 추가 파라미터(비밀던전에서 던전 고유 아이디)
 
-        m_gameMode = 'GAME_MODE',
+        m_gameMode = 'number', -- ConstantGameMode.lua에 정의되어 있는 GAME_MODE_로 시작하는 식별값. GAME_MODE_ADVENTURE, GAME_MODE_NEST_DUNGEON ...
         m_dungeonMode = 'NEST_DUNGEON_MODE',
         m_dungeonSubMode = 'NEST_DUNGEON_SUB_MODE',
 

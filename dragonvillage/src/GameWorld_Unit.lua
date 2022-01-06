@@ -732,13 +732,23 @@ end
 
 -------------------------------------
 -- function initActiveSkillCool
--- @brief 초기 쿨타임 설정
+-- @brief 전투 시작 시 드래곤별 액티스 스킬 쿨타임 설정
+-- @param dragon_list(list[Dragon]) Dragon클래스의 리스트
 -------------------------------------
-function GameWorld:initActiveSkillCool(list)
+function GameWorld:initActiveSkillCool(dragon_list)
+
+    -- 고대의 탑 모드일 경우 (고대의 탑, 시험의 탑) 모든 드래곤의 시작 쿨타임을 동일하게 설정
+    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        for i, dragon in ipairs(dragon_list) do
+            dragon:initActiveSkillCool(3)
+        end
+        return
+    end
+
     local temp = { 3, 3, 7, 7, 7 }
     temp = randomShuffle(temp)
 
-    for i, v in ipairs(list) do
+    for i, v in ipairs(dragon_list) do
         v:initActiveSkillCool(temp[i])
     end
 end

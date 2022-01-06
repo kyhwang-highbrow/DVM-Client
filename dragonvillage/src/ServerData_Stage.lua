@@ -40,6 +40,8 @@ function ServerData_Stage:getGameMode(stage_id)
 		return GAME_MODE_LEAGUE_RAID
     end
 
+    -- 10만 자리부터 2자리의 숫자를 가져옴
+    -- e.g. 1401001-고대의 탑 1층은 14가 리턴됨. 14는 GAME_MODE_ANCIENT_TOWER
     local game_mode = getDigit(stage_id, 100000, 2)
     return game_mode
 end
