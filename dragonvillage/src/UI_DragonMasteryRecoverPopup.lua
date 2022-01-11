@@ -16,6 +16,8 @@ function UI_DragonMasteryRecoverPopup:init(dragon_obj)
     local vars = self:load('dragon_mastery_recover_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    self.m_uiName = 'UI_DragonMasteryRecoverPopup'
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonMasteryRecoverPopup')
 
@@ -25,8 +27,15 @@ function UI_DragonMasteryRecoverPopup:init(dragon_obj)
     self:doAction(nil, false)
 
     self.m_targetDragonObject = dragon_obj
-    self.m_cost = 30000
     self.m_costType = 'cash'
+
+    local dragon_attr = dragon_obj:getAttr()
+
+    if (dragon_attr == 'dark') or (dragon_attr == 'light') then
+        self.m_cost = 30000
+    else
+        self.m_cost = 5000
+    end
 
     self:initUI()
     self:initButton()
