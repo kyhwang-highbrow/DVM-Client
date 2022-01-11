@@ -48,6 +48,7 @@ return {['강력한 불을 뿜어 적에게 치명적인 화상을 입힙니다.
 ['특성 회수 시 모든 특성 스킬이 초기화됩니다.']='Retrieving Mastery resets all Mastery skills.',
 ['특성 레벨 2를 회수하여 특성 재료 1개를 획득합니다.']='Retrieve 2 Mastery levels to get 1 Mastery material.',
 ['특성 레벨 2를 차감하여 {1} 1개를 획득합니다.']='deducted 2 Mastery levels to get 1 {1}',
+['획득 아이템']='Acquire items',
 ['-드래그 스킬 안내-\n\n잘하는데?! 다크닉스에게 지속피해가 걸렸어. 최대 생명력에 비례해서 주는 피해이기 때문에 보스전에 아주 유용해.']='راهنمای مهارت را بکشید-//n//n دارکنیکس از اسیب DOT رنج می برد. اسیب مهارت حداکثر HP رقیب را درجه بندی می کند پس ان بر علیه باس بسیار مفید است',
 ['마지막으로 중요한 사실을 알려드릴께요!\n1챕터의 7스테이지를 완료하면 고급 소환 10회를 무료로 제공한다고 합니다!']='Lastly, let me tell you something important.\nComplete Stage 7 in Chapter 1, and you can use Advanced Summon 10 times for free!',
 ['이제 멋진 드래곤들과 함께 드래곤빌리지의 세계로 자유롭게 여행을 떠날 시간입니다! \n테이머님의 행운을 빕니다.']='الان وقت ان رسیده که شما به مسافرت خود به دهکده اژدها همراه با اژدهای خود ادامه دهید //n تربیت کننده موفق باشید',
