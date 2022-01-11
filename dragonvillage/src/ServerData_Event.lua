@@ -112,9 +112,9 @@ function ServerData_Event:getEventPopupTabList()
 
 
         -- 유저 레벨 조건 (걸려있는 레벨 이상인 유저에게만 노출)
-        if (user_lv ~= '') then
+        if (visible) and (user_lv ~= '') then
             local curr_lv = g_userData:get('lv')
-            visible = curr_lv >= user_lv
+            visible = (curr_lv >= user_lv)
         end
 
         -- 서버 조건

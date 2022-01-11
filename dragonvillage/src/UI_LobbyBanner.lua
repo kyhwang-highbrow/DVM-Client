@@ -86,9 +86,8 @@ function UI_BannerAppCollaboration:init(event_data)
     self.m_uiName = 'UI_BannerAppCollaboration'
     -- 설치 페이지
     -- https://app.adjust.com/1ctll5t
-    local link_url = event_data.m_eventData['url']
-    --local ui_name = string.find(link_url, '1ctll5t') and 'lobby_banner_promotion_04.ui' or 'lobby_banner_promotion.ui'
-    local ui_name = 'lobby_banner_promotion_rise.ui'
+    local ui_name = event_data.m_eventData['lobby_banner']
+
 
     local vars = self:load(ui_name)
 
@@ -132,6 +131,74 @@ function UI_BannerAppCollaboration:click_bannerBtn()
 
     --SDKManager:goToWeb(url)
 	g_fullPopupManager:showFullPopup('event_crosspromotion')
+end
+
+
+
+
+
+----------------------------------------------------------------------
+-- class UI_LobbyBanner
+----------------------------------------------------------------------
+UI_LobbyBanner = class(PARENT,{
+    m_eventData = 'StructEvent',
+})
+
+----------------------------------------------------------------------
+-- class init
+----------------------------------------------------------------------
+function UI_LobbyBanner:init(event_data)
+    self.m_uiName = 'UI_LobbyBanner'
+
+    local ui_name = event_data.m_eventData['lobby_banner']
+    local vars = self:load(ui_name)
+
+    self.m_eventData = event_data
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+--local text_color = TableFriendship:getTextColorWithFlv(flv)
+
+----------------------------------------------------------------------
+-- class initUI
+----------------------------------------------------------------------
+function UI_LobbyBanner:initUI()
+end
+
+
+----------------------------------------------------------------------
+-- class initButton
+----------------------------------------------------------------------
+function UI_LobbyBanner:initButton()
+    self.vars['bannerBtn']:registerScriptTapHandler(function() self:click_bannerBtn() end)
+end
+
+
+----------------------------------------------------------------------
+-- class refresh
+----------------------------------------------------------------------
+function UI_LobbyBanner:refresh()
+end
+
+----------------------------------------------------------------------
+-- class click_bannerBtn
+----------------------------------------------------------------------
+function UI_LobbyBanner:click_bannerBtn()
+    -- 주의 :: 따라하지 마시오
+    --g_fullPopupManager:showFullPopup('event_dvnew_collaboration;event_cross_promotion.ui')
+    local url = self.m_eventData.m_eventData['url']
+    local event_type = self.m_eventData.m_eventData['event_type']
+
+    if (url ~= nil) and (url ~= '') then
+        SDKManager:goToWeb(url)
+    elseif (event_type == 'event_crosspromotion') then
+	    g_fullPopupManager:showFullPopup(event_type)
+    end
+
+
 end
 
 

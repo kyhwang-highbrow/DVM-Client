@@ -2696,37 +2696,40 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
+    local index = 1
+    
+    while(vars['banner_appcollaboration' .. index]) do
+        vars['banner_appcollaboration' .. index].root:removeFromParent()
+        vars['banner_appcollaboration' .. index] = nil
+        index = index + 1
+    end
+
     
     -- 한쿡 혹은 아메리카 서버이면 보여주는걸로 함
-    if (not vars['banner_appcollaboration']) and (g_eventData.m_eventList) then
+    if (g_eventData.m_eventList) then
         local event_list = g_eventData:getEventPopupTabList()
-        local event_data
-
-        local nvnew_before = 'event_cross_promotion_rise.ui'
-        --local nvnew_after = 'event_cross_promotion_04.ui'
-
+        index = 1
+        
         for i, v in pairs(event_list) do
-            if (string.find(v.m_eventData['banner'], nvnew_before)) then -- or string.find(v.m_eventData['banner'], nvnew_after)) then
-                if (g_localData:isKoreaServer() and v.m_eventData['target_server'] == 'Korea') then
-                    event_data = v
-                    break
-                --[[elseif (g_localData:isAmericaServer() and string.find(v.m_eventData['target_server'], 'America')) then
-                    event_data = v
-                    break
-                else
-                    event_data = v
-                    break]]
+            if v.m_eventData['lobby_banner'] and (v.m_eventData['lobby_banner'] ~= '')  then
+                if (vars['banner_appcollaboration' .. index] == nil) then
+                    local banner 
+                    if (v.m_eventData['event_type'] == 'event_crosspromotion') then
+                        banner = UI_BannerAppCollaboration(v)
+                    else
+                        banner = UI_LobbyBanner(v)
+                    end
+                    vars['bannerMenu']:addChild(banner.root)
+                    banner.root:setDockPoint(TOP_RIGHT)
+                    banner.root:setAnchorPoint(TOP_RIGHT)
+                
+                    vars['banner_appcollaboration' .. index] = banner
+                    index = index + 1
                 end
             end
         end
 
-        if (event_data) then
-            local collabo_banner = UI_BannerAppCollaboration(event_data)
-            vars['bannerMenu']:addChild(collabo_banner.root)
-            collabo_banner.root:setDockPoint(TOP_RIGHT)
-            collabo_banner.root:setAnchorPoint(TOP_RIGHT)
-            vars['banner_appcollaboration'] = collabo_banner
-        end
+    
     end
 
     if (g_leagueRaidData:isLobbyPopupRequired()) then
@@ -2798,8 +2801,12 @@ function UI_Lobby:onRefresh_banner()
     end
     
     -- 타게임 콜라보 배너
-    if vars['banner_appcollaboration'] then
-        table.insert(l_node, vars['banner_appcollaboration'].root)
+
+    local index = 1
+
+    while(vars['banner_appcollaboration' .. index]) do
+        table.insert(l_node, vars['banner_appcollaboration' .. index].root)
+        index = index + 1
     end
 
     local pos_y = 0
