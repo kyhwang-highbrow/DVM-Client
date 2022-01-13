@@ -68,6 +68,14 @@ function UI_EventVIP:refresh()
     
 end
 
+
+-------------------------------------
+-- function onEnterTab
+-------------------------------------
+function UI_EventVIP:onEnterTab()
+
+end
+
 -------------------------------------
 -- function click_surveyBtn
 -------------------------------------
