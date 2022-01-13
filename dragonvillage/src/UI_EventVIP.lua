@@ -39,7 +39,7 @@ function UI_EventVIP:initUI()
     elseif (vip_status == 2) then
         vip_str = 'VIP'
     elseif (vip_status == 3) then
-        vip_str = 'SVIP'
+        vip_str = 'VIP'
     end
 
     local origin_str = vars['titleLabel']:getString()
