@@ -38,7 +38,7 @@ function UI_EventVIP:initUI()
         vip_str = Str('골드')
     elseif (vip_status == 2) then
         vip_str = 'VIP'
-    elseif (vip_status == 2) then
+    elseif (vip_status == 3) then
         vip_str = 'SVIP'
     end
 
