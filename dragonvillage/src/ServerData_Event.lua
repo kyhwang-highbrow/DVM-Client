@@ -235,9 +235,8 @@ function ServerData_Event:getEventPopupTabList()
         -- VIP 설문조사
         elseif visible and (event_type == 'vip_survey') then
             local vip_status = g_userData:getVipInfo()
-            local is_participated = (start_date ~= g_settingData:get('vip', 'survey'))
 
-            visible = (vip_status ~= nil) and is_participated
+            visible = (vip_status ~= nil)
         end
 
         if (visible) then
