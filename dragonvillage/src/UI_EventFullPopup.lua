@@ -259,6 +259,10 @@ function UI_EventFullPopup:initUI()
     elseif (popup_key == 'event_crosspromotion') then
         ui = UI_CrossPromotion(popup_key)
 
+	-- VIP 설문조사 
+    elseif (popup_key == 'vip_survey') then
+        ui = UI_EventVIP(popup_key)
+
     elseif (self.m_targetUI) then
         ui = self.m_targetUI
     end

@@ -1344,6 +1344,9 @@ function UI_TitleScene:workGetServerInfo()
                 cclog('# 드랍 아이템 일일획득량 정보 갱신')
                 g_userData:response_ingameDropInfo(ret)
 
+                cclog('# VIP 정보 갱신')
+                g_userData:response_vipInfo(ret)
+
                 cclog('# 초보자 선물(신규 유저 전용 상점)')
                 g_newcomerShop:applyNewcomderShopEndInfo_fromRet(ret)
 

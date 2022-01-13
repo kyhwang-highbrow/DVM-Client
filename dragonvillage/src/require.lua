@@ -1526,6 +1526,7 @@ local t_module = {
     'UI_CrossPromotion',
     'UI_CustomEnhance',
     'UI_CustomEnhanceFruit',
+    'UI_EventVIP', -- @yjkil 2022.01.13 VIP 설문조사
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',

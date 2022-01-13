@@ -666,6 +666,25 @@ function ServerData_User:response_userInfo(ret, t_result_ref)
     end
 end
 
+-------------------------------------
+-- function response_vipInfo
+-------------------------------------
+function ServerData_User:response_vipInfo(ret)
+    -- vip index : 1-Gold, 2-VIP, 3-SVIP
+    local special_state = ret['special_state']
+
+    if (special_state and (special_state ~= '')) then
+        self:applyServerData(special_state, 'special_state')
+    end
+end
+
+-------------------------------------
+-- function getVipInfo
+-------------------------------------
+function ServerData_User:getVipInfo()
+    return self:get('special_state')
+end
+
 
 -------------------------------------
 -- function response_ingameDropInfo

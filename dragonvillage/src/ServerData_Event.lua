@@ -231,6 +231,13 @@ function ServerData_Event:getEventPopupTabList()
             else
                 visible = false
             end
+            
+        -- VIP 설문조사
+        elseif visible and (event_type == 'vip_survey') then
+            local vip_status = g_userData:getVipInfo()
+            local is_participated = (start_date ~= g_settingData:get('vip', 'survey'))
+
+            visible = (vip_status ~= nil) and is_participated
         end
 
         if (visible) then
@@ -296,11 +303,6 @@ function ServerData_Event:getEventFullPopupList()
                         visible = false
                         break
                     end
-                end
-
-                if (IS_DEV_SERVER()) then
-                    ccdump(start_date)
-                    ccdump(end_date)
                 end
             end
 
@@ -491,6 +493,14 @@ function ServerData_Event:getEventFullPopupList()
 			-- 다른 함수에서 풀팝업 띄워움 UI_Lobby - g_fullPopupManager:show(FULL_POPUP_TYPE.EVENT_WELCOME_NEWBIE, show_func) 
             elseif (event_type == 'event_welcome_newbie') then
 		        visible = false
+
+			-- VIP 설문조사
+            elseif visible and (event_type == 'vip_survey') then
+                local vip_status = g_userData:getVipInfo()
+
+                local is_participated = (start_date ~= g_settingData:get('vip', 'survey'))
+
+                visible = (vip_status ~= nil) and is_participated
             end
 
 

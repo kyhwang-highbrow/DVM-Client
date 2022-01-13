@@ -407,6 +407,9 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab == 'event_crosspromotion') then
         ui = UI_CrossPromotion(tab)
 
+	-- VIP 설문조사
+    elseif (tab == 'vip_survey') then
+        ui = UI_EventVIP(struct_event_popup_tab.m_eventData)
     end
 
     self.m_mTabUI[tab] = ui
