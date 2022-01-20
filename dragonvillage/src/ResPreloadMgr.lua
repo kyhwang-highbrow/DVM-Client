@@ -406,7 +406,7 @@ function ResPreloadMgr:getPreloadList_Dragon(t_dragon_data)
         end
             
         -- 스킬에서 사용되는 상태효과의 res를 가져온다.
-        for i = 1, 4 do
+        for i = 1, 5 do
             local type = t_skill['add_option_type_' .. i]
             if (type and type ~= '') then
                 local t_status_effect = TableStatusEffect():get(type)

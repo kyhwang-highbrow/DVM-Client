@@ -52,7 +52,7 @@ function StatusEffect_ConsumeToMissile:initMissile(t_status_effect)
     self.m_movementForMissile = t_status_effect['val_2']    -- 미사일 이동 패턴
     
     -- 상태효과 정보를 파싱하여 저장
-    for i = 1, 4 do
+    for i = 1, 5 do
         local name = t_status_effect['add_option_type_' .. i]
         if (name and name ~= '') then
             local value = t_status_effect['add_option_value_' .. i]

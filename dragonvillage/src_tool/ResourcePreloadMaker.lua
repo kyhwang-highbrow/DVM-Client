@@ -209,7 +209,7 @@ function ResourcePreloadMaker:getPreloadList_Stage(stage_id)
                                     end
 
                                     -- 상태효과
-                                    for i = 1, 4 do
+                                    for i = 1, 5 do
                                         local type = t_skill['add_option_type_' .. i]
                                         if (type and type ~= '') then
                                             local t_status_effect = table_status_effect:get(type)

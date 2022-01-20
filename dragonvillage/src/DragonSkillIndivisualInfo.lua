@@ -346,7 +346,7 @@ function DragonSkillIndivisualInfo:hasPerfectBarrier()
         return false
     end
     
-    for i = 1, 4 do
+    for i = 1, 5 do
         local add_option_type = self.m_tSkill['add_option_type_' .. i]
         if (add_option_type) then
             if (string.find(add_option_type, 'barrier_protection_time')) then

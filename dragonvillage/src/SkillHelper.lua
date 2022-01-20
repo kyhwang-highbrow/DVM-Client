@@ -50,7 +50,7 @@ end
 function SkillHelper:makeStructStatusEffectList(t_skill)
 	local l_ret = {}
 
-	for i = 1, 4 do
+	for i = 1, 5 do
         local type = t_skill['add_option_type_' .. i]
 		if (type and type ~= '') then
 			local struct_status_effect = StructStatusEffect({
@@ -237,21 +237,25 @@ function SkillHelper:makeAiAttrMap(t_skill)
 
     else
         -- 스킬 테이블의 add_option을 체크
+        -- @yjkil 22.01.20. add_option_type_5를 추가하는 과정에서 add_option_type_3 후로 AI 스킬 우선 순위에 고려되지 않는 것을 파악하였으나
+        -- 사이드 이펙트 확인에 시간이 필요하여 수정하지 않음
         for i = 1, 2 do
             local status_effect_type = t_skill['add_option_type_' .. i]
             if (status_effect_type and status_effect_type ~= '') then
                 local t_status_effect = TableStatusEffect():get(status_effect_type)
                 local category = t_status_effect['category']
 
-                if (t_status_effect['type'] == 'dot_heal') then
+                if (t_status_effect['type'] == 'dot_heal') then -- 회복
                     mAiAttr[SKILL_AI_ATTR__RECOVERY] = true
                 
-                elseif (string.find(t_status_effect['name'], 'cure')) then
+                elseif (string.find(t_status_effect['name'], 'cure')) then -- 해로운 효과 해제
                     mAiAttr[SKILL_AI_ATTR__DISPELL] = true
                 
-                elseif (StatusEffectHelper:isHelpful(category) and not string.find(t_status_effect['type'], 'add_dmg')) then
+                -- 이로운 효과
+                elseif (StatusEffectHelper:isHelpful(category) and not string.find(t_status_effect['type'], 'add_dmg')) then 
                     mAiAttr[SKILL_AI_ATTR__BUFF] = true
                 
+                -- 해로운 효과
                 elseif (StatusEffectHelper:isHarmful(category)) then
                     mAiAttr[SKILL_AI_ATTR__DEBUFF] = true
                 end

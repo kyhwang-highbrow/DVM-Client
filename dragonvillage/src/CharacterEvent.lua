@@ -568,7 +568,7 @@ function Character:onEvent_teammateDead(event_name, t_event, unit)
             else
                 local has_resurrect = false
 
-                for i = 1, 4 do
+                for i = 1, 5 do
                     if (v.m_tSkill['add_option_type_' .. i] == 'resurrect') then
                         has_resurrect = true
                         break
