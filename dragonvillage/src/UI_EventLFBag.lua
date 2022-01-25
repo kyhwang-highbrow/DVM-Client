@@ -645,14 +645,16 @@ function UI_EventLFBag:click_infoBtn()
         self.m_eventItemName, self.m_structLFBag:getCeilingMax(), target_name))
     end
 
-    vars['descLabel09']:setString(Str('{1} 소비 기간에는 마일리지가 누적 되지 않습니다.', self.m_eventItemName))
+    vars['descLabel09']:setString(Str('복주머니 소비 기간에는 마일리지가 누적 되지 않습니다.'))
+    --vars['descLabel09']:setString(Str('{1} 소비 기간에는 마일리지가 누적 되지 않습니다.', self.m_eventItemName))
     
     if (g_hotTimeData:isActiveEvent('event_token') == true) then
         local table_item = TableItem()
         local item_id = table_item:getItemIDFromItemType('event_token')
         local item_name = table_item:getItemName(item_id)
 
-        vars['descLabel10']:setString(Str('5단계 {1}에서 {2}이(가) 등장하며, 토큰 상점에서 아이템 교환이 가능합니다.', self.m_eventItemName, item_name))
+        vars['descLabel10']:setString(Str('5단계 복주머니에서 새해맞이 토큰이 등장하며, 토큰 상점에서 아이템 교환이 가능합니다.'))
+        --vars['descLabel10']:setString(Str('5단계 {1}에서 {2}이(가) 등장하며, 토큰 상점에서 아이템 교환이 가능합니다.', self.m_eventItemName, item_name))
     end
 end
 
