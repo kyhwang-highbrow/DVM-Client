@@ -1666,12 +1666,8 @@ end
 -- @brief 주사위 이벤트
 -------------------------------------
 function UI_Lobby:click_lfbagBtn()
-    if (g_eventLFBagData:canPlay()) then
+    if (g_eventLFBagData:isActive() == true) then
         g_eventData:openEventPopup('event_lucky_fortune_bag')
-    
-    elseif (g_eventLFBagData:canReward()) then
-        g_eventLFBagData:openRankingPopupForLobby()
-
     end
 end
 
