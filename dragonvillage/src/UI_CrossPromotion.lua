@@ -17,13 +17,9 @@ function UI_CrossPromotion:init(event_type)
     local event_data = event_list[event_type]
 
     -- 확률업에 지정된 드래곤 수에 따라 사용하는 ui와 초기화 함수가 다름
-    local ui_name = 'event_cross_promotion_rise.ui'
-
     if (event_data and event_data.m_eventData and event_data.m_eventData['banner']) then
         ui_name = event_data.m_eventData['banner']
         self.m_eventData = event_data.m_eventData
-    else
-        cclog('## UI_CrossPromotion :: ui데이터가 없으니 테이블깞을 확인하시오')
     end
 
     self:load(ui_name)
@@ -79,16 +75,21 @@ function UI_CrossPromotion:click_linkBtn()
 
     -- 마지막으로 깔았는지 확인
     local function confirm_function(result)
-        local is_installed = 1 == tonumber(result)
+        local is_installed = (result ~= nil) and (tonumber(result) == 1)
+    
+        if (not is_installed) then
+            local url = self.m_eventData['url']
+
+            if (url ~= nil) and (url ~= '') then
+                SDKManager:goToWeb(url)
+            end
+            return
+        end
+
         local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
 
         if (cross_event_data == nil) then
             cross_event_data = {}
-        end
-
-        if (not is_installed) then
-            SDKManager:goToWeb('https://app.adjust.com/b7oo8a9?redirect=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.bigstack.rise%26hl%3Dko')
-            return
         end
 
         if (self.m_eventData and self.m_eventData['event_id']) then
@@ -107,7 +108,10 @@ function UI_CrossPromotion:click_linkBtn()
     end
 
     if CppFunctions:isAndroid() or CppFunctions:isIos() then
-        PerpSocial:SDKEvent('isInstalled', 'com.bigstack.rise', 'com.bigstack.rise', confirm_function)
+        local package_name = self.m_eventData['package_name']
+        if (package_name ~= nil) and (package_name ~= '') then
+            PerpSocial:SDKEvent('isInstalled', package_name, package_name, confirm_function)
+        end
     else
         confirm_function(1)
     end
