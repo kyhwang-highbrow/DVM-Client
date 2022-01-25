@@ -2824,6 +2824,14 @@ end
 -------------------------------------
 function UI_Lobby:setShopNoti()
     local vars = self.vars
+
+    if (g_hotTimeData:isActiveEvent('event_token') == true) then
+        vars['shopSpecialNoti']:setVisible(true)
+        return
+    else
+        vars['shopSpecialNoti']:setVisible(false)
+    end
+
     if (not g_shopDataNew) then
         return
     end
