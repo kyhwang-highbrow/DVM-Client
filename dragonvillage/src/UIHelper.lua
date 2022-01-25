@@ -304,7 +304,7 @@ function UIHelper:checkPrice(price_type, price, price_type_id)
         local own_medal = g_userData:get(price_type, tostring(price_type_id))
 
         if(own_medal < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', item_data['t_name']))
+            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', Str(item_data['t_name'])))
             return false
         end
     elseif isExistValue(price_type, 'memory_myth') then
@@ -312,14 +312,14 @@ function UIHelper:checkPrice(price_type, price, price_type_id)
         local own_item_number = g_userData:get('memory', tostring(price_type_id))
 
         if(own_item_number < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', item['t_name']))
+            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', Str(item['t_name'])))
             return false
         end
     elseif isExistValue(price_type, 'event_token') then
         local event_token = g_userData:get(price_type) or 0
 
         if (event_token < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', '이벤트 재화'))
+            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', Str('이벤트 재화')))
             return false
         end    
     else
