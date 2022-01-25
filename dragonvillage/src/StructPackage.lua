@@ -225,7 +225,7 @@ end
 ----------------------------------------------------------------------
 -- function getTargetUITest
 ----------------------------------------------------------------------
-function StructProductGroup:getTargetUITest(parent_node, buy_callback, is_popup, is_full_popup)
+function StructProductGroup:getTargetUITest(parent_node, buy_callback, is_popup, is_full_popup, is_result_mail_box)
 	if (not self.m_structProductList) or table.isEmpty(self.m_structProductList) then
 		return nil
 	end
@@ -274,7 +274,9 @@ function StructProductGroup:getTargetUITest(parent_node, buy_callback, is_popup,
 		end
 
 		if ui then
-			if buy_callback and checkMemberInMetatable(ui, 'setBuyCB') then
+			if (is_result_mail_box == true) and buy_callback and checkMemberInMetatable(ui, 'setObtainResultCloseCb') then
+				ui:setObtainResultCloseCb(buy_callback)
+			elseif buy_callback and checkMemberInMetatable(ui, 'setBuyCB') then
 				ui:setBuyCB(function()
 					buy_callback()
 				end)

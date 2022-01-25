@@ -237,7 +237,7 @@ end
 -- @brief
 -- @param t_ret
 -------------------------------------
-function ItemObtainResult_Shop(t_ret, show_all)
+function ItemObtainResult_Shop(t_ret, show_all, close_cb)
     if (not t_ret) then
         return
     end
@@ -296,7 +296,11 @@ function ItemObtainResult_Shop(t_ret, show_all)
     local l_item = items_list
     local msg = Str('구매 완료')
     local ok_btn_cb = nil
-    UI_ObtainPopup(l_item, msg, ok_btn_cb)
+    local ui = UI_ObtainPopup(l_item, msg, ok_btn_cb)
+	
+	if close_cb then
+    	ui:setCloseCB(close_cb)
+    end
 end
 
 -------------------------------------

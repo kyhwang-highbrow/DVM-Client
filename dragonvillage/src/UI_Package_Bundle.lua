@@ -16,6 +16,8 @@ UI_Package_Bundle = class(PARENT,{
         m_customStruct = 'StructProduct',
 
         m_isFullPopup = 'boolean',
+
+        m_obtainResultCloseCb = 'function',
     })
 
 
@@ -347,22 +349,22 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
 
         -- 캡슐 코인 패키지 상품 구매시 우편함 팝업 출력
         if (self.m_package_name == 'package_capsule_coin') then
-            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.GOODS)
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.GOODS, self.m_obtainResultCloseCb)
         
         -- 룬 상자 패키지 상품 구매시 우편함 팝업 출력
         elseif (self.m_package_name == 'package_rune_box') then
-            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX)
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX, self.m_obtainResultCloseCb)
 
         -- 슬라임 군단 패키지 상품 구매시 우편함 팝업 출력        
         elseif (self.m_package_name == 'package_super_slime_swarm') then
-            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.SUPER_SLIME)
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.SUPER_SLIME, self.m_obtainResultCloseCb)
 
         else
             -- 아이템 획득 결과창
             if (self.m_mailSelectType == MAIL_SELECT_TYPE.NONE) then
-                ItemObtainResult_Shop(ret, show_all)
+                ItemObtainResult_Shop(ret, show_all, self.m_obtainResultCloseCb)
             else
-                ItemObtainResult_ShowMailBox(ret, self.m_mailSelectType)
+                ItemObtainResult_ShowMailBox(ret, self.m_mailSelectType, self.m_obtainResultCloseCb)
             end
         end
 
@@ -508,6 +510,13 @@ function UI_Package_Bundle:setMailSelectType(type)
     end
 end
 
+
+-------------------------------------
+-- function setObtainResultCloseCb
+-------------------------------------
+function UI_Package_Bundle:setObtainResultCloseCb(cb)
+    self.m_obtainResultCloseCb = cb
+end
 
 
 

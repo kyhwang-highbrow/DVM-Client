@@ -29,6 +29,8 @@ UI_EventLFBag = class(PARENT,{
 
 
         m_luckyVisual = '',
+
+        m_blockPopup = 'UI_BlockPopup',
     })
 
 -------------------------------------
@@ -51,6 +53,11 @@ function UI_EventLFBag:init()
     self.m_luckyVisual = vars['luckyBagVisual']
     self.m_isNeedPickMePickMe = true
     self.m_structLFBag = g_eventLFBagData:getLFBag()
+
+
+    self.m_blockPopup = UI_BlockPopup()
+
+    self.m_blockPopup:setVisible(false)
 
     if (self.m_structLFBag:isMax()) then
         self:setSelebrateAni()
@@ -169,6 +176,8 @@ end
 -------------------------------------
 function UI_EventLFBag:refresh()
     local vars = self.vars
+
+    self.m_structLFBag = g_eventLFBagData:getLFBag()
 
     -- 보유 수
     local count_str = self.m_structLFBag:getCount()
@@ -667,8 +676,17 @@ function UI_EventLFBag:click_packageBtn()
     local struct_product_group = g_shopDataNew:getTargetPackage(package_name)
     
     if struct_product_group then
+
+        local function buy_callback()
+            self.m_blockPopup:setVisible(true)
+            local function success_cb()
+                self:refresh()
+                self.m_blockPopup:setVisible(false)
+            end
+            g_eventLFBagData:request_eventLFBagInfo(true, false, success_cb)
+        end
         
-        local ui = struct_product_group:getTargetUITest(nil, nil, true)
+        local ui = struct_product_group:getTargetUITest(nil, buy_callback, true, nil, true)
         ui:setMailSelectType(MAIL_SELECT_TYPE.ITEM)
     end
     -- local ui = UI_Package_Bundle('package_lucky_fortune_bag', true)

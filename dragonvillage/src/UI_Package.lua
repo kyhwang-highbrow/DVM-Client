@@ -12,6 +12,7 @@ UI_Package = class(PARENT, {
         m_isRefreshedDependency = 'boolean',
 
         m_cbBuy = 'function',
+        m_obtainResultCloseCb = 'function',
 
         m_mailSelectType = 'MAIL_SELECT_TYPE',
      })
@@ -337,7 +338,7 @@ function UI_Package:click_buyBtn(index)
 	local function cb_func(ret)
         
         if struct_product:isContain('rune_box') then
-            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX)
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX, self.m_obtainResultCloseCb)
         else    
             
             local is_basic_goods_shown = false
@@ -346,10 +347,10 @@ function UI_Package:click_buyBtn(index)
             end
 
             if (self.m_mailSelectType ~= MAIL_SELECT_TYPE.NONE) then
-                ItemObtainResult_ShowMailBox(ret, self.m_mailSelectType)
+                ItemObtainResult_ShowMailBox(ret, self.m_mailSelectType, self.m_obtainResultCloseCb)
             else
                 -- 아이템 획득 결과창
-                ItemObtainResult_Shop(ret, is_basic_goods_shown)
+                ItemObtainResult_Shop(ret, is_basic_goods_shown, self.m_obtainResultCloseCb)
             end
         end
 
@@ -428,6 +429,14 @@ end
 -------------------------------------
 function UI_Package:setBuyCB(func)
     self.m_cbBuy = func
+end
+
+
+-------------------------------------
+-- function setObtainResultCloseCb
+-------------------------------------
+function UI_Package:setObtainResultCloseCb(cb)
+    self.m_obtainResultCloseCb = cb
 end
 
 -------------------------------------
