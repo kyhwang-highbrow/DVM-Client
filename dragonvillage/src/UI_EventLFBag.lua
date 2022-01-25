@@ -207,7 +207,10 @@ function UI_EventLFBag:refresh()
         cca.uiReactionSlow(vars['percentageLabel'], 1, 1, 1.2)
     end
 
-    local isStopBtnEnabled = (self.m_structLFBag:isMax() == false) and (lv ~= 1)
+    -- 남은 천장 횟수
+    local ceiling_count = self.m_structLFBag:getCeilingCount()
+
+    local isStopBtnEnabled = (self.m_structLFBag:isMax() == false) and (lv ~= 1) and (ceiling_count ~= 0)
     vars['stopBtn']:setEnabled(isStopBtnEnabled)
     vars['stopBtnLabel']:setColor(isStopBtnEnabled and COLOR['white'] or cc.c3b(200, 200, 200))
     
@@ -220,7 +223,6 @@ function UI_EventLFBag:refresh()
         local did = item_data['did']
         local target_name = did and TableDragon:getChanceUpDragonName(did)
 
-        local ceiling_count = self.m_structLFBag:getCeilingCount()
         if (ceiling_count == 0) then
             label:setString(Str('{1} {@default}확정 소환', target_name .. '\n'))
         else
