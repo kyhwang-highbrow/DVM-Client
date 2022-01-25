@@ -395,17 +395,45 @@ end
 -------------------------------------
 function UI_EventLFBag:updateScrollView()
     local l_reward_list = self.m_structLFBag:getRewardList()
-    local reverseList = {}
-    
     table.sort(l_reward_list, function(a, b) 
-            return (tonumber(a['id']) < tonumber(b['id']))
-        end)
+        return (tonumber(a['id']) < tonumber(b['id']))
+    end)
+   
+    
+    local origin_length = #self.m_cellUIList
+    local cell_count = #l_reward_list
 
-    --for i=#l_reward_list, 1, -1 do
-	--    reverseList[#reverseList+1] = l_reward_list[i]
-    --end
+    if (origin_length > cell_count) then
+        for i = cell_count, origin_length do
+            local cell_ui = self.m_cellUIList[i]
+            if cell_ui and (tolua.isnull(cell_ui.root) == false) then
+                cell_ui.root:removeFromParent()
+            end
+        end
 
-    for i, cell_ui in ipairs(self.m_cellUIList) do
+        for i = origin_length, cell_count, -1 do
+            table.remove(self.m_cellUIList, i)
+        end
+    end
+
+    local origin_length = #self.m_cellUIList
+    
+    local interval = 60
+    local content_size = cc.size(296, interval * cell_count)
+    self.m_scrollView:setContentSize(content_size)
+    self.m_scrollView:setUpdateChildrenTransform()
+
+    local height_half = content_size['height'] / 2
+
+    for i = 1, cell_count do
+        local cell_ui = self.m_cellUIList[i]
+        if (i > origin_length) and (cell_ui == nil) then
+            cell_ui = self.makeCellUI()
+            self.m_scrollView:getContainer():addChild(cell_ui.root)
+            table.insert(self.m_cellUIList, cell_ui)
+        end
+
+        cell_ui.root:setPositionY(height_half + interval/2 + -interval * i)
         self.updateCellUI(cell_ui, l_reward_list[i])
     end
 
