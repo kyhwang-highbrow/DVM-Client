@@ -290,13 +290,21 @@ function UI_EventLFBag:update(dt)
     local time_label = self.vars['timeLabel']
     if time_label then
         local curr_time = Timer:getServerTime()
-        local end_time = self.m_structLFBag:getEndTime()
+
+        local end_time = g_hotTimeData:getEventStartTime('event_lucky_fortune_bag_reward')
+
+        if (end_time == nil) then
+            end_time = self.m_structLFBag:getEndTime()
+        end
+
         if (0 < end_time) and (curr_time < end_time) then
             local remain_time = (end_time - curr_time)
             local str = Str('{1} 남음', datetime.makeTimeDesc(remain_time, true))
             time_label:setString(str)
+            time_label:setColor(COLOR['green'])
         else
-            time_label:setString('')
+            time_label:setString(Str('이벤트 종료'))
+            time_label:setColor(COLOR['red'])
         end
     end
 
@@ -497,6 +505,19 @@ function UI_EventLFBag:click_openBtn()
                 openAnimationType = 'special'
 	        end
 
+            local curr_time = Timer:getServerTime()
+            local end_time = g_hotTimeData:getEventStartTime('event_lucky_fortune_bag_reward')
+
+            if (end_time == nil) then
+                end_time = self.m_structLFBag:getEndTime()
+            end
+
+            local is_event_time_ended = false
+
+            if end_time and (0 < end_time) and (curr_time >= end_time) then
+                is_event_time_ended = true
+            end
+
             self:playOpenAnimation(openAnimationType, self.m_lastAniLevel, false)
             -- 성공
             if (ret['is_success']) then
@@ -525,6 +546,10 @@ function UI_EventLFBag:click_openBtn()
                                 scoreMsg = Str('대박 점수: {1}점', score)
                             else
                                 scoreMsg = Str('점수: {1}점', score)
+                            end
+
+                            if (is_event_time_ended == true) then
+                                scoreMsg = ''
                             end
 
                             UI_EventLFBagNoticePopup(POPUP_TYPE.OK, msg, scoreMsg, submsg, ok_cb)
@@ -563,6 +588,10 @@ function UI_EventLFBag:click_openBtn()
                 end
 
                 local scoreMsg = Str('점수: {1}점', comma_value(ret['score']))
+
+                if (is_event_time_ended == true) then
+                    scoreMsg = ''
+                end
 
                 UI_EventLFBagNoticePopup(POPUP_TYPE.OK, msg, scoreMsg, submsg, ok_cb)
 

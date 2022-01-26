@@ -304,6 +304,40 @@ function ServerData_HotTime:getEventRemainTime(event_name)
 end
 
 -------------------------------------
+-- function getEventStartTime
+-- @brief event 항목의 시작 시간
+-- @return sec
+-------------------------------------
+function ServerData_HotTime:getEventStartTime(event_name)
+    self:refreshActiveList()
+    
+    for _, t in pairs(self.m_hotTimeInfoList) do
+        if (t['event'] == event_name) then
+            return t['begindate']/1000
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
+-- function getEventEndTime
+-- @brief event 항목의 종료 시간
+-- @return sec
+-------------------------------------
+function ServerData_HotTime:getEventEndTime(event_name)
+    self:refreshActiveList()
+    
+    for _, t in pairs(self.m_hotTimeInfoList) do
+        if (t['event'] == event_name) then
+            return  t['enddate']/1000
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function getEventBeginTime
 -- @brief 이벤트 시작 날짜
 -------------------------------------
