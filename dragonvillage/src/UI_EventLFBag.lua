@@ -679,7 +679,24 @@ function UI_EventLFBag:click_stopBtn()
         g_eventLFBagData:request_eventLFBagReward(finish_cb)
     end
 
+    local curr_time = Timer:getServerTime()
+    local end_time = g_hotTimeData:getEventStartTime('event_lucky_fortune_bag_reward')
+
+    if (end_time == nil) then
+        end_time = self.m_structLFBag:getEndTime()
+    end
+
+    local is_event_time_ended = false
+
+    if end_time and (0 < end_time) and (curr_time >= end_time) then
+        is_event_time_ended = true
+    end
+    
     local scoreMsg = Str('점수: {1}점', self:getCurrentEndScore())
+
+    if (is_event_time_ended == true) then
+        scoreMsg = ''
+    end
 
     UI_EventLFBagNoticePopup(POPUP_TYPE.YES_NO, msg, scoreMsg, submsg, ok_btn_cb)
 end
