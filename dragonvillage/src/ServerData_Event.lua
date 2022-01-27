@@ -128,52 +128,52 @@ function ServerData_Event:getEventPopupTabList()
         end
         
         -- ui_priority가 없는 것은 등록하지 않는다.
-        if (priority == '') then
+        if (visible) and (priority == '') then
             visible = false
         end
 
         -- 토파즈가 있는 유저에게만 보이는 이벤트
-        if (feature == 'topaz') then
+        if (visible) and (feature == 'topaz') then
             local topaz = g_userData:get('topaz')
             if (topaz <= 0) then
                 visible = false
             end
 
-        elseif visible and (string.find(feature, 'only_aos')) then
+        elseif (visible) and (string.find(feature, 'only_aos')) then
             visible = CppFunctions:isAndroid()
 
             if IS_TEST_MODE() then
                 visible =  visible or CppFunctions:isMac() or CppFunctions:isWin32()
             end
-        elseif visible and (string.find(feature, 'only_ios')) then
+        elseif (visible) and (string.find(feature, 'only_ios')) then
             visible = CppFunctions:isIos()
 
             if IS_TEST_MODE() then
                 visible = visible or CppFunctions:isMac() or CppFunctions:isWin32()
             end
         -- 드빌 전용관은 한국서버에서만 노출
-        elseif (event_type == 'highbrow_shop') then
+        elseif (visible) and (event_type == 'highbrow_shop') then
             if (not g_localData:isShowHighbrowShop()) then
                 visible = false
             end
 
         -- 이벤트 탭에서는 패키지 제외
-        elseif (string.find(event_type, 'package_')) then
+        elseif (visible) and (string.find(event_type, 'package_')) then
             visible = false
 
         -- shop 관련 이벤트는 오픈되지 않능 상품이라면 탭 등록 pass 
-        elseif (event_type == 'shop') then
+        elseif (visible) and (event_type == 'shop') then
             visible = g_shopDataNew:isExist('package', event_id)
 
 		-- Daily Mission
-		elseif (event_type == 'daily_mission') then
+		elseif (visible) and (event_type == 'daily_mission') then
 			-- 전부 클리어 체크
 			if (g_dailyMissionData:getMissionDone(event_id)) then
 				visible = false
 			end
 
 		-- 출석
-		elseif (string.find(event_type, 'attendance')) then
+		elseif (visible) and (string.find(event_type, 'attendance')) then
             -- table_attendance_event_list에서 event_type, event_id
             local category = event_id
             local atd_id = tonumber(event_id)
@@ -190,42 +190,42 @@ function ServerData_Event:getEventPopupTabList()
             end
 
         -- 한정 이벤트 체크
-        elseif (event_id == 'limited') then
+        elseif (visible) and (event_id == 'limited') then
 			visible = g_hotTimeData:isActiveEvent(event_type)
 
-        elseif (event_type == 'fevertime') then
+        elseif (visible) and (event_type == 'fevertime') then
             local item_list = g_fevertimeData:getAllStructFevertimeList()
 
             if (# item_list <= 0) then 
                 visible = false 
             end
             
-        elseif (event_type == 'event_1st_comeback') then
+        elseif (visible) and (event_type == 'event_1st_comeback') then
 		    visible = self:isComebackUser_1st()
 
         -- 2주년 감사이벤트
-		elseif (string.find(event_type, 'event_thanks_anniversary')) then
+		elseif (visible) and (string.find(event_type, 'event_thanks_anniversary')) then
             -- 앞의 조건들을 만족하였을 경우에만, 보상 수령 여부를 추가로 판단
             if (visible) then
 		        visible = not (self:isEventUserRewardDone())
             end
        
        -- 신규 유저 환영 이벤트
-       elseif (event_type == 'event_welcome_newbie') then
+       elseif (visible) and (event_type == 'event_welcome_newbie') then
 		    visible = self:isPossibleToGetWelcomeNewbieReward()
 
         -- 코스튬
-        elseif (event_type == 'costume_event') then
+        elseif (visible) and (event_type == 'costume_event') then
             visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
 
         -- 원스토어 30% 캐시백 프로모션 (원스토어 빌드에만 노출)
-        elseif (banner == 'event_promotion_onestore_cashback.ui') then
+        elseif (visible) and (banner == 'event_promotion_onestore_cashback.ui') then
             if (PerpleSdkManager:onestoreIsAvailable() == false) then
                 visible = false
             end
         
         -- 어린이날 이벤트 룰렛
-        elseif (string.find(event_type, 'event_roulette')) then
+        elseif (visible) and (string.find(event_type, 'event_roulette')) then
             if g_hotTimeData:isActiveEvent('event_roulette') or g_hotTimeData:isActiveEvent('event_roulette_reward') then
                 visible = true
             else
@@ -233,7 +233,7 @@ function ServerData_Event:getEventPopupTabList()
             end
             
         -- VIP 설문조사
-        elseif visible and (event_type == 'vip_survey') then
+        elseif (visible) and (event_type == 'vip_survey') then
             local vip_status = g_userData:getVipInfo()
 
             visible = (vip_status ~= nil)
@@ -294,8 +294,6 @@ function ServerData_Event:getEventFullPopupList()
                 local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
                 if (cross_event_data == nil) then cross_event_data = {} end
 
-                visible = true
-
                 for _, event_name in ipairs(cross_event_data) do
                     if (event_name == event_id) then
                         -- 받은거 있다
@@ -309,20 +307,20 @@ function ServerData_Event:getEventFullPopupList()
 			-- feature 조건 체크
 			do
 				-- aos에서만 노출
-				if (feature == 'only_aos') then
+				if (visible) and (feature == 'only_aos') then
                     visible = CppFunctions:isAndroid()
                     
                     if IS_TEST_MODE() then
 					    visible = visible or CppFunctions:isMac() or CppFunctions:isWin32()
                     end
-                elseif (feature == 'only_ios') then
+                elseif (visible) and (feature == 'only_ios') then
                     visible = CppFunctions:isIos()
 
                     if IS_TEST_MODE() then
 					    visible = visible or CppFunctions:isMac() or CppFunctions:isWin32()
                     end
 				-- 토파즈가 있는 유저에게만 보이는 이벤트
-				elseif (feature == 'topaz') then
+				elseif (visible) and (feature == 'topaz') then
 					local topaz = g_userData:get('topaz')
 					if (topaz <= 0) then
 						visible = false
@@ -347,47 +345,47 @@ function ServerData_Event:getEventFullPopupList()
             end
 
             -- 단일 상품인 경우 (type:shop) event_id로 등록
-            if (event_type == 'shop') then
+            if (visible) and (event_type == 'shop') then
                 event_type = v['event_id']     
 
             -- 레벨업 패키지인 경우 구매했을 경우 노출시키지 않음.
-            elseif (event_type == 'package_levelup') then
+            elseif (visible) and (event_type == 'package_levelup') then
                 if (g_levelUpPackageData:isActive(LEVELUP_PACKAGE_PRODUCT_ID)) then
                     visible = false
                 end
             
             -- 레벨업 패키지2인 경우 구매했을 경우 노출시키지 않음.
-            elseif (event_type == 'package_levelup_02') then
+            elseif (visible) and (event_type == 'package_levelup_02') then
                 if (g_levelUpPackageData:isActive(LEVELUP_PACKAGE_2_PRODUCT_ID)) then
                     visible = false
                 end
 
             -- 레벨업 패키지3인 경우 구매했을 경우 노출시키지 않음.
-            elseif (event_type == 'package_levelup_03') then
+            elseif (visible) and (event_type == 'package_levelup_03') then
                 if (g_levelUpPackageData:isActive(LEVELUP_PACKAGE_3_PRODUCT_ID)) then
                     visible = false
                 end
 
             -- 모험돌파 패키지인 경우 구매했을 경우 노출시키지 않음.
-            elseif (event_type == 'package_adventure_clear') then
+            elseif (visible) and (event_type == 'package_adventure_clear') then
                 if (g_adventureClearPackageData:isActive()) then
                     visible = false
                 end
 
             -- 모험돌파 패키지인 경우 구매했을 경우 노출시키지 않음.
-            elseif (event_type == 'package_adventure_clear_02') then
+            elseif (visible) and (event_type == 'package_adventure_clear_02') then
                 if (g_adventureClearPackageData02:isActive()) then
                     visible = false
                 end
 
             -- 모험돌파 패키지인 경우 구매했을 경우 노출시키지 않음.
-            elseif (event_type == 'package_adventure_clear_03') then
+            elseif (visible) and (event_type == 'package_adventure_clear_03') then
                 if (g_adventureClearPackageData03:isActive()) then
                     visible = false
                 end
                 
             -- 패키지인 경우 구매 불가한 경우 노출시키지 않음.
-            elseif visible and (string.find(event_type, 'package')) then
+            elseif (visible) and (string.find(event_type, 'package')) then
                 local package_name = event_type
 
                 -- _popup 붙어있는 경우 원래 패키지명을 구함
@@ -405,7 +403,7 @@ function ServerData_Event:getEventFullPopupList()
                 end
 
             -- banner type인 경우 resource, url까지 등록
-            elseif (event_type == 'banner') then
+            elseif (visible) and (event_type == 'banner') then
                 event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url'] .. ';' .. v['end_date']
 
                 -- 원스토어 30% 캐시백 프로모션 (원스토어 빌드에만 노출)
@@ -416,7 +414,7 @@ function ServerData_Event:getEventFullPopupList()
                 end
 			
 			-- Daily Mission
-			elseif (event_type == 'daily_mission') then
+			elseif (visible) and (event_type == 'daily_mission') then
 				-- 전부 클리어 체크
 				if (g_dailyMissionData:getMissionDone(event_id)) then
 					visible = false
@@ -424,16 +422,16 @@ function ServerData_Event:getEventFullPopupList()
 					event_type = event_type .. ';' .. event_id
 				end
 
-			elseif (event_type == 'event_1st_comeback') then
+			elseif (visible) and (event_type == 'event_1st_comeback') then
 				visible = self:isComebackUser_1st()
 
-			elseif (string.find(event_type, 'event_thanks_anniversary')) then
+			elseif (visible) and (string.find(event_type, 'event_thanks_anniversary')) then
                 if (visible) then
 				    visible = (not self:isEventUserRewardDone())
                 end
 
 			-- 한정 이벤트 리스트
-			elseif (event_id == 'limited') then
+			elseif (visible) and (event_id == 'limited') then
 				visible = g_hotTimeData:isActiveEvent(event_type)
 
                 -- 콜로세움 참여 이벤트 보상을 전부 받은 경우 풀팝업 X
@@ -442,7 +440,7 @@ function ServerData_Event:getEventFullPopupList()
                 end
 
             -- 누적 결제 보상 이벤트
-            elseif (event_type == 'purchase_point') then
+            elseif (visible) and (event_type == 'purchase_point') then
                 -- 누적 결제 판매 중이 아닐 때에는 visible 끔, 판매 중일 때에는 위의 조건에 따름
                 local is_active = g_purchasePointData:isActivePurchasePointEvent(event_id) -- version
                 if (not is_active) then
@@ -460,7 +458,7 @@ function ServerData_Event:getEventFullPopupList()
                 end
 
             -- 일일 충전 선물 이벤트
-            elseif (event_type == 'purchase_daily') then
+            elseif (visible) and (event_type == 'purchase_daily') then
                 local version = event_id
 
                 -- 누적 결제 판매 중이 아닐 때에는 visible 끔, 판매 중일 때에는 위의 조건에 따름
@@ -480,21 +478,21 @@ function ServerData_Event:getEventFullPopupList()
                 end
 
             -- 코스튬
-            elseif (event_type == 'costume_event') then
+            elseif (visible) and (event_type == 'costume_event') then
                 visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
 
             -- 신규 드래곤 출시
-            elseif (event_type == 'event_dragon_launch_legend') then
+            elseif (visible) and (event_type == 'event_dragon_launch_legend') then
                 event_type = event_type .. ';' .. event_id
 
                    
             -- 신규 유저 환영 이벤트
 			-- 다른 함수에서 풀팝업 띄워움 UI_Lobby - g_fullPopupManager:show(FULL_POPUP_TYPE.EVENT_WELCOME_NEWBIE, show_func) 
-            elseif (event_type == 'event_welcome_newbie') then
+            elseif (visible) and (event_type == 'event_welcome_newbie') then
 		        visible = false
 
 			-- VIP 설문조사
-            elseif visible and (event_type == 'vip_survey') then
+            elseif (visible) and (event_type == 'vip_survey') then
                 local vip_status = g_userData:getVipInfo()
 
                 local is_participated = (start_date ~= g_settingData:get('vip', 'survey'))
