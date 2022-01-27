@@ -66,8 +66,10 @@ function UI_CrossPromotion:click_linkBtn()
 
     local msg = ''
 
+    local target_app_version = self.m_eventData['target_app_version']
+
     -- 버전 체크 후 통과
-    if (getAppVerNum() <= 1003001) then
+    if target_app_version and (getAppVerNum() < target_app_version) then
         msg = '이벤트에 참여하기 위해 업데이트가 필요합니다.\n지금 업데이트 하시겠습니까?'
         MakeNetworkPopup(POPUP_TYPE.YES_NO, msg, function() SDKManager:goToAppStore() end, function() end)
         return
