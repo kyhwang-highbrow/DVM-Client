@@ -456,7 +456,6 @@ function UI_GameResult_LeagueRaid:direction_end()
         vars['okBtn']:setVisible(true)
         vars['statsBtn']:setVisible(true)
     end
-    --ccdump(self.m_resultData)
     local t_data = self.m_resultData
     if (not t_data['drop_reward_list']) then 
         return 
