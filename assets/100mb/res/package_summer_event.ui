@@ -79,7 +79,7 @@
 					text = '청약 철회는 구매일로부터 7일 이내에 가능합니다. (단 사용했을 경우 청약철회 불가)\n법정 대리인의 동의를 받지않은 미성년자의 거래는 취소할 수 있습니다. 자세히보기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 127; 127; 127; };
+					color = { 192; 192; 192; };
 					opacity = 255;
 					dimension_width = 700;
 					dimension_height = 50;
@@ -227,7 +227,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 305.000000;
-				y = -80.000000;
+				y = -98.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -267,7 +267,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -80.000000;
+				y = -98.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -307,7 +307,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -305.000000;
-				y = -80.000000;
+				y = -98.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

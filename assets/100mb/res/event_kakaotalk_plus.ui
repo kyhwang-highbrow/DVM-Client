@@ -62,12 +62,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -215.000000;
+				y = -247.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 279;
-				height = 146;
+				width = 251;
+				height = 74;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -76,8 +76,8 @@
 				visible = true;
 				lua_name = 'linkBtn';
 				enable = true;
-				normal = 'ui/buttons/event_kakao_btn_odd_0101.png';
-				selected = 'ui/buttons/event_kakao_btn_odd_0102.png';
+				normal = 'ui/buttons/event_kakao_btn_0101.png';
+				selected = 'ui/buttons/event_kakao_btn_0102.png';
 				disable = '';
 				image_type = 0;
 			};

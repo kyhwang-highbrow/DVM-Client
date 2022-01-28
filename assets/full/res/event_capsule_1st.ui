@@ -438,7 +438,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '{@water}한정드래곤 애니마라(물){@default} 획득 기회!';
+				text = '{@dark}한정드래곤 마누스(암){@default} 획득 기회!';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -478,7 +478,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '2/5 00:00 ~ 2/6 23:59';
+				text = '12/24 00:00 ~ 12/25 23:59';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 255; 0; };
@@ -569,7 +569,7 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = -245.000000;
-				y = 150.000000;
+				y = 145.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -582,7 +582,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/typo/ko/ribbon_new_year_title_0101.png';
+				file_name = 'ui/typo/ko/ribbon_winter_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

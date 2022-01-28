@@ -4,25 +4,74 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+Drcrow_back_effect
+  rotate: false
+  xy: 1259, 84
+  size: 330, 371
+  orig: 330, 371
+  offset: 0, 0
+  index: -1
 Drcrow_chain_14
-  rotate: true
-  xy: 1173, 1382
+  rotate: false
+  xy: 1847, 2
   size: 104, 204
   orig: 104, 204
   offset: 0, 0
   index: -1
 Drcrow_chain_15
-  rotate: true
-  xy: 1173, 1325
+  rotate: false
+  xy: 1948, 821
   size: 55, 157
   orig: 55, 157
   offset: 0, 0
   index: -1
-Drcrow_feather_01
+Drcrow_effect_02
   rotate: false
-  xy: 1225, 2
-  size: 117, 137
-  orig: 117, 137
+  xy: 1948, 693
+  size: 57, 126
+  orig: 57, 126
+  offset: 0, 0
+  index: -1
+Drcrow_effect_04
+  rotate: true
+  xy: 1225, 5
+  size: 77, 82
+  orig: 77, 82
+  offset: 0, 0
+  index: -1
+Drcrow_effect_06
+  rotate: false
+  xy: 1727, 1488
+  size: 216, 315
+  orig: 216, 315
+  offset: 0, 0
+  index: -1
+Drcrow_effect_07
+  rotate: true
+  xy: 1945, 1627
+  size: 176, 85
+  orig: 176, 85
+  offset: 0, 0
+  index: -1
+Drcrow_effect_atk
+  rotate: false
+  xy: 2, 1214
+  size: 756, 832
+  orig: 756, 832
+  offset: 0, 0
+  index: -1
+Drcrow_effect_light
+  rotate: false
+  xy: 1591, 208
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+Drcrow_effect_shot
+  rotate: true
+  xy: 1082, 38
+  size: 109, 141
+  orig: 109, 141
   offset: 0, 0
   index: -1
 Drcrow_feather_02
@@ -41,14 +90,14 @@ Drcrow_feather_03
   index: -1
 Drcrow_feather_04
   rotate: false
-  xy: 1448, 7
+  xy: 1322, 1322
   size: 41, 48
   orig: 41, 48
   offset: 0, 0
   index: -1
 Drcrow_feather_05
   rotate: false
-  xy: 1403, 57
+  xy: 1948, 556
   size: 87, 82
   orig: 87, 82
   offset: 0, 0
@@ -69,9 +118,16 @@ Drcrow_skill_02
   index: -1
 Drcrow_skill_03
   rotate: false
-  xy: 1955, 103
+  xy: 1460, 22
   size: 65, 60
   orig: 65, 60
+  offset: 0, 0
+  index: -1
+Drcrow_wepon_01
+  rotate: false
+  xy: 1591, 26
+  size: 254, 180
+  orig: 254, 180
   offset: 0, 0
   index: -1
 Drcrow_wepon_03
@@ -89,29 +145,29 @@ Drcrow_wepon_04
   offset: 0, 0
   index: -1
 Drcrow_wepon_05
-  rotate: true
-  xy: 1403, 2
+  rotate: false
+  xy: 1948, 511
   size: 53, 43
   orig: 53, 43
   offset: 0, 0
   index: -1
 Drcrow_wepon_06
-  rotate: false
-  xy: 1881, 84
+  rotate: true
+  xy: 1309, 10
   size: 72, 79
   orig: 72, 79
   offset: 0, 0
   index: -1
 Drcrow_wepon_acc_01
   rotate: false
-  xy: 1948, 589
+  xy: 1953, 144
   size: 62, 96
   orig: 62, 96
   offset: 0, 0
   index: -1
 Drcrow_wepon_arm_02
-  rotate: false
-  xy: 1507, 70
+  rotate: true
+  xy: 1893, 242
   size: 266, 106
   orig: 266, 106
   offset: 0, 0
@@ -124,8 +180,8 @@ Drcrow_wepon_bag_01
   offset: 0, 0
   index: -1
 Drcrow_wepon_bag_02
-  rotate: false
-  xy: 1948, 831
+  rotate: true
+  xy: 1173, 1322
   size: 48, 147
   orig: 48, 147
   offset: 0, 0
@@ -180,22 +236,22 @@ Drcrow_wepon_coat_02
   offset: 0, 0
   index: -1
 Drcrow_wepon_effect_01
-  rotate: true
-  xy: 1332, 1335
+  rotate: false
+  xy: 2001, 1451
   size: 45, 53
   orig: 45, 53
   offset: 0, 0
   index: -1
 Drcrow_wepon_effect_02
   rotate: false
-  xy: 1775, 2
+  xy: 1390, 13
   size: 68, 69
   orig: 68, 69
   offset: 0, 0
   index: -1
 Drcrow_wepon_effect_03
   rotate: false
-  xy: 1948, 687
+  xy: 1953, 53
   size: 76, 89
   orig: 76, 89
   offset: 0, 0
@@ -215,15 +271,15 @@ Drcrow_wepon_hand_02
   offset: 0, 0
   index: -1
 Drcrow_wepon_hand_03
-  rotate: false
-  xy: 1908, 165
+  rotate: true
+  xy: 1173, 1372
   size: 114, 192
   orig: 114, 192
   offset: 0, 0
   index: -1
 Drcrow_wepon_hat_01
-  rotate: true
-  xy: 1908, 359
+  rotate: false
+  xy: 516, 6
   size: 149, 138
   orig: 149, 138
   offset: 0, 0
@@ -233,13 +289,6 @@ Drcrow_wepon_hat_02
   xy: 672, 11
   size: 230, 175
   orig: 230, 175
-  offset: 0, 0
-  index: -1
-Drcrow_wepon_head_01
-  rotate: false
-  xy: 1259, 141
-  size: 246, 314
-  orig: 246, 314
   offset: 0, 0
   index: -1
 Drcrow_wepon_leg_01
@@ -258,7 +307,7 @@ Drcrow_wepon_leg_02
   index: -1
 Drcrow_wepon_pinger_01
   rotate: true
-  xy: 1948, 778
+  xy: 1948, 640
   size: 51, 98
   orig: 51, 98
   offset: 0, 0
@@ -271,22 +320,22 @@ Drcrow_wepon_pinger_02
   offset: 0, 0
   index: -1
 Drcrow_wepon_pinger_03
-  rotate: true
-  xy: 1348, 499
+  rotate: false
+  xy: 1225, 110
   size: 32, 37
   orig: 32, 37
   offset: 0, 0
   index: -1
 Drcrow_wepon_pinger_04
-  rotate: true
-  xy: 849, 2
+  rotate: false
+  xy: 1348, 500
   size: 37, 31
   orig: 37, 31
   offset: 0, 0
   index: -1
 Drcrow_wepon_pinger_05
-  rotate: false
-  xy: 2012, 657
+  rotate: true
+  xy: 1348, 457
   size: 34, 28
   orig: 34, 28
   offset: 0, 0
@@ -298,121 +347,72 @@ Drcrow_wepon_pinger_06
   orig: 36, 65
   offset: 0, 0
   index: -1
-effect_Drcrow_back
+
+boss_doctorcrow2.png
+size: 734,590
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Drcrow_effect_01
+  rotate: false
+  xy: 496, 354
+  size: 236, 234
+  orig: 236, 234
+  offset: 0, 0
+  index: -1
+Drcrow_effect_03
   rotate: true
-  xy: 1535, 178
-  size: 330, 371
-  orig: 330, 371
-  offset: 0, 0
-  index: -1
-effect_drcrow_02
-  rotate: false
-  xy: 1344, 13
-  size: 57, 126
-  orig: 57, 126
-  offset: 0, 0
-  index: -1
-effect_drcrow_03
-  rotate: false
-  xy: 1775, 73
+  xy: 470, 2
   size: 104, 103
   orig: 104, 103
   offset: 0, 0
   index: -1
-effect_drcrow_04
-  rotate: true
-  xy: 1948, 510
-  size: 77, 82
-  orig: 77, 82
-  offset: 0, 0
-  index: -1
-effect_drcrow_05
-  rotate: true
-  xy: 516, 25
+Drcrow_effect_05
+  rotate: false
+  xy: 470, 108
   size: 119, 140
   orig: 119, 140
   offset: 0, 0
   index: -1
-effect_drcrow_06
-  rotate: false
-  xy: 1727, 1488
-  size: 216, 315
-  orig: 216, 315
-  offset: 0, 0
-  index: -1
-effect_drcrow_07
+Drcrow_feather_01
   rotate: true
-  xy: 1945, 1627
-  size: 176, 85
-  orig: 176, 85
-  offset: 0, 0
-  index: -1
-effect_drcrow_atk
-  rotate: false
-  xy: 2, 1214
-  size: 756, 832
-  orig: 756, 832
-  offset: 0, 0
-  index: -1
-effect_drcrow_shot
-  rotate: true
-  xy: 1082, 38
-  size: 109, 141
-  orig: 109, 141
-  offset: 0, 0
-  index: -1
-
-boss_doctorcrow2.png
-size: 1501,304
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-Drcrow_wepon_01
-  rotate: false
-  xy: 1245, 122
-  size: 254, 180
-  orig: 254, 180
+  xy: 591, 131
+  size: 117, 137
+  orig: 117, 137
   offset: 0, 0
   index: -1
 Drcrow_wepon_02
-  rotate: true
-  xy: 304, 25
+  rotate: false
+  xy: 2, 4
   size: 277, 268
   orig: 277, 268
   offset: 0, 0
   index: -1
 Drcrow_wepon_arm_01
   rotate: false
-  xy: 1056, 56
+  xy: 281, 2
   size: 187, 246
   orig: 187, 246
   offset: 0, 0
   index: -1
 Drcrow_wepon_cape_02
   rotate: true
-  xy: 574, 53
+  xy: 250, 339
   size: 249, 244
   orig: 249, 244
   offset: 0, 0
   index: -1
 Drcrow_wepon_hat_03
   rotate: true
-  xy: 1245, 18
+  xy: 496, 250
   size: 102, 232
   orig: 102, 232
   offset: 0, 0
   index: -1
-effect_drcrow_01
-  rotate: true
-  xy: 820, 66
-  size: 236, 234
-  orig: 236, 234
-  offset: 0, 0
-  index: -1
-effect_drcrow_light
+Drcrow_wepon_head_01
   rotate: false
-  xy: 2, 2
-  size: 300, 300
-  orig: 300, 300
+  xy: 2, 274
+  size: 246, 314
+  orig: 246, 314
   offset: 0, 0
   index: -1
