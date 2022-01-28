@@ -18,6 +18,8 @@
         <package android:name="com.highbrow.games.dragonvillage" /> <!-- 드빌2 -->
         <package android:name="com.highbrow.games.dvx" /> <!-- 드빌X -->
         <package android:name="com.bigstack.rise" /> <!-- 라이즈 -->
+        <package android:name="com.greenblatt.rune" /> <!-- 룬마스터 키우기 -->
+        <package android:name="com.highbrow.games.elfidle" /> <!-- 엘프키우기 -->
 
     <!-- 원스토어
 		<intent>
