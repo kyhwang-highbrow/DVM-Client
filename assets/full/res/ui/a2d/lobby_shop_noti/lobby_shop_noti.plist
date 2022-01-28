@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{85,25}</string>
                 <key>textureRect</key>
-                <string>{{45,38},{85,25}}</string>
+                <string>{{45,37},{85,25}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -26,13 +26,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{35,35}</string>
+                <string>{31,33}</string>
                 <key>spriteSourceSize</key>
                 <string>{35,35}</string>
                 <key>textureRect</key>
-                <string>{{45,1},{35,35}}</string>
+                <string>{{175,31},{31,33}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>res_noti_0101.png</key>
             <dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{128,34}</string>
                 <key>textureRect</key>
-                <string>{{82,1},{128,34}}</string>
+                <string>{{45,1},{128,34}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{100,34}</string>
                 <key>textureRect</key>
-                <string>{{132,37},{80,28}}</string>
+                <string>{{175,1},{80,28}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -91,9 +91,9 @@
             <key>realTextureFileName</key>
             <string>lobby_shop_noti.png</string>
             <key>size</key>
-            <string>{213,66}</string>
+            <string>{256,63}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5bea4662eb872a46c0e3d615383bf463:2359dbbdec7d361754d1d3bdf9fff875:d6b38f772483984b8a33ea5fa6ce77ba$</string>
+            <string>$TexturePacker:SmartUpdate:82a72ac9515b65b10e759d4b84404453:98791877fa12e72ee2127dc891d1c888:d6b38f772483984b8a33ea5fa6ce77ba$</string>
             <key>textureFileName</key>
             <string>lobby_shop_noti.png</string>
         </dict>

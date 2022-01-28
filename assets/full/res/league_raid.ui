@@ -1929,12 +1929,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = 'rich';
-						x = 120.000000;
+						x = 89.000000;
 						y = -165.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 134;
+						width = 196;
 						height = 46;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1950,7 +1950,7 @@
 						v_alignment = 1;
 						color = { 255; 104; 32; };
 						opacity = 255;
-						dimension_width = 134;
+						dimension_width = 196;
 						dimension_height = 46;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -1969,12 +1969,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = 'rich';
-						x = 120.000000;
+						x = 89.000000;
 						y = -190.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 134;
+						width = 196;
 						height = 46;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1990,7 +1990,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 134;
+						dimension_width = 196;
 						dimension_height = 46;
 						letter_spacing = 0.000000;
 						has_stroke = false;

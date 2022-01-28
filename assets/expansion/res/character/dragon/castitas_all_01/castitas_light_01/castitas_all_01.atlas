@@ -1,0 +1,335 @@
+
+castitas_all_01.png
+size: 1672,379
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+castitas_all_01_acc_1
+  rotate: false
+  xy: 1016, 92
+  size: 86, 58
+  orig: 86, 58
+  offset: 0, 0
+  index: -1
+castitas_all_01_arm_1
+  rotate: true
+  xy: 1283, 69
+  size: 77, 52
+  orig: 77, 52
+  offset: 0, 0
+  index: -1
+castitas_all_01_arm_2
+  rotate: true
+  xy: 1387, 4
+  size: 54, 43
+  orig: 54, 43
+  offset: 0, 0
+  index: -1
+castitas_all_01_arm_3
+  rotate: true
+  xy: 504, 2
+  size: 45, 55
+  orig: 45, 55
+  offset: 0, 0
+  index: -1
+castitas_all_01_arm_4
+  rotate: false
+  xy: 618, 2
+  size: 57, 55
+  orig: 57, 55
+  offset: 0, 0
+  index: -1
+castitas_all_01_body_1
+  rotate: false
+  xy: 1632, 95
+  size: 35, 40
+  orig: 35, 40
+  offset: 0, 0
+  index: -1
+castitas_all_01_body_2
+  rotate: true
+  xy: 1411, 72
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+castitas_all_01_body_3
+  rotate: true
+  xy: 1316, 4
+  size: 54, 69
+  orig: 54, 69
+  offset: 0, 0
+  index: -1
+castitas_all_01_body_4
+  rotate: false
+  xy: 1029, 10
+  size: 70, 80
+  orig: 70, 80
+  offset: 0, 0
+  index: -1
+castitas_all_01_eye_1
+  rotate: false
+  xy: 561, 2
+  size: 55, 45
+  orig: 55, 45
+  offset: 0, 0
+  index: -1
+castitas_all_01_eye_2
+  rotate: true
+  xy: 1572, 63
+  size: 35, 42
+  orig: 35, 42
+  offset: 0, 0
+  index: -1
+castitas_all_01_eye_3
+  rotate: false
+  xy: 1470, 85
+  size: 54, 51
+  orig: 54, 51
+  offset: 0, 0
+  index: -1
+castitas_all_01_hand_1
+  rotate: false
+  xy: 1578, 19
+  size: 35, 42
+  orig: 35, 42
+  offset: 0, 0
+  index: -1
+castitas_all_01_hand_2
+  rotate: true
+  xy: 1527, 21
+  size: 34, 49
+  orig: 34, 49
+  offset: 0, 0
+  index: -1
+castitas_all_01_hand_3
+  rotate: true
+  xy: 1584, 100
+  size: 35, 46
+  orig: 35, 46
+  offset: 0, 0
+  index: -1
+castitas_all_01_hand_4
+  rotate: false
+  xy: 1529, 102
+  size: 53, 41
+  orig: 53, 41
+  offset: 0, 0
+  index: -1
+castitas_all_01_hand_5
+  rotate: false
+  xy: 1616, 58
+  size: 37, 35
+  orig: 37, 35
+  offset: 0, 0
+  index: -1
+castitas_all_01_hand_6
+  rotate: false
+  xy: 1608, 137
+  size: 59, 48
+  orig: 59, 48
+  offset: 0, 0
+  index: -1
+castitas_all_01_hand_7
+  rotate: false
+  xy: 1527, 57
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+castitas_all_01_head_1
+  rotate: false
+  xy: 937, 5
+  size: 90, 82
+  orig: 90, 82
+  offset: 0, 0
+  index: -1
+castitas_all_01_head_2
+  rotate: true
+  xy: 1529, 145
+  size: 80, 77
+  orig: 80, 77
+  offset: 0, 0
+  index: -1
+castitas_all_01_head_3
+  rotate: true
+  xy: 1480, 32
+  size: 51, 45
+  orig: 51, 45
+  offset: 0, 0
+  index: -1
+castitas_all_01_head_4
+  rotate: true
+  xy: 1608, 187
+  size: 66, 62
+  orig: 66, 62
+  offset: 0, 0
+  index: -1
+castitas_all_01_head_5
+  rotate: true
+  xy: 1576, 255
+  size: 122, 91
+  orig: 122, 91
+  offset: 0, 0
+  index: -1
+castitas_all_01_head_6
+  rotate: true
+  xy: 1338, 132
+  size: 93, 100
+  orig: 93, 100
+  offset: 0, 0
+  index: -1
+castitas_all_01_head_7
+  rotate: true
+  xy: 1242, 2
+  size: 65, 72
+  orig: 65, 72
+  offset: 0, 0
+  index: -1
+castitas_all_01_head_8
+  rotate: false
+  xy: 1440, 138
+  size: 87, 87
+  orig: 87, 87
+  offset: 0, 0
+  index: -1
+castitas_all_01_head_9
+  rotate: true
+  xy: 1337, 60
+  size: 70, 72
+  orig: 70, 72
+  offset: 0, 0
+  index: -1
+castitas_all_01_leg_1
+  rotate: true
+  xy: 1199, 78
+  size: 68, 82
+  orig: 68, 82
+  offset: 0, 0
+  index: -1
+castitas_all_01_leg_2
+  rotate: true
+  xy: 1165, 2
+  size: 65, 75
+  orig: 65, 75
+  offset: 0, 0
+  index: -1
+castitas_all_01_leg_3
+  rotate: false
+  xy: 1101, 2
+  size: 62, 79
+  orig: 62, 79
+  offset: 0, 0
+  index: -1
+castitas_all_01_leg_4
+  rotate: true
+  xy: 1432, 16
+  size: 54, 46
+  orig: 54, 46
+  offset: 0, 0
+  index: -1
+castitas_all_01_leg_5
+  rotate: true
+  xy: 437, 2
+  size: 45, 65
+  orig: 45, 65
+  offset: 0, 0
+  index: -1
+castitas_all_01_tail_1
+  rotate: false
+  xy: 437, 49
+  size: 178, 96
+  orig: 178, 96
+  offset: 0, 0
+  index: -1
+castitas_all_01_tail_2
+  rotate: true
+  xy: 881, 2
+  size: 85, 54
+  orig: 85, 54
+  offset: 0, 0
+  index: -1
+castitas_all_01_tail_3
+  rotate: true
+  xy: 1104, 83
+  size: 67, 93
+  orig: 67, 93
+  offset: 0, 0
+  index: -1
+castitas_all_01_wing_1
+  rotate: false
+  xy: 881, 89
+  size: 133, 136
+  orig: 133, 136
+  offset: 0, 0
+  index: -1
+castitas_all_01_wing_2
+  rotate: true
+  xy: 1204, 148
+  size: 77, 132
+  orig: 77, 132
+  offset: 0, 0
+  index: -1
+effect_acc_1
+  rotate: true
+  xy: 617, 59
+  size: 86, 58
+  orig: 86, 58
+  offset: 0, 0
+  index: -1
+effect_cas1
+  rotate: true
+  xy: 2, 8
+  size: 369, 433
+  orig: 369, 433
+  offset: 0, 0
+  index: -1
+effect_cas2
+  rotate: false
+  xy: 437, 147
+  size: 240, 230
+  orig: 240, 230
+  offset: 0, 0
+  index: -1
+effect_cas3
+  rotate: true
+  xy: 679, 227
+  size: 150, 297
+  orig: 150, 297
+  offset: 0, 0
+  index: -1
+effect_cas_jewel
+  rotate: true
+  xy: 978, 227
+  size: 150, 297
+  orig: 150, 297
+  offset: 0, 0
+  index: -1
+effect_cas_jewel_fly
+  rotate: true
+  xy: 1277, 227
+  size: 150, 297
+  orig: 150, 297
+  offset: 0, 0
+  index: -1
+effect_cast_light
+  rotate: true
+  xy: 679, 29
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+effect_ring
+  rotate: true
+  xy: 1016, 152
+  size: 73, 186
+  orig: 73, 186
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 1615, 23
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1

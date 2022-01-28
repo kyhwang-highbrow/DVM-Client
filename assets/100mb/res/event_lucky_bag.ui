@@ -1525,7 +1525,7 @@
 				[6] =
 				{
 					type = 'LabelTTF';
-					ui_name = '';
+					ui_name = 'rich';
 					x = 0.000000;
 					y = 207.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1545,7 +1545,7 @@
 					text = 'timeLabel';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 0; 255; 0; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 521;
 					dimension_height = 40;
