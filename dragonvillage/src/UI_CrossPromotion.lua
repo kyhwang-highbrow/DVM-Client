@@ -16,11 +16,15 @@ function UI_CrossPromotion:init(event_type)
     local event_list = g_eventData:getEventPopupTabList()
     local event_data = event_list[event_type]
 
+    local ui_name
+
     -- 확률업에 지정된 드래곤 수에 따라 사용하는 ui와 초기화 함수가 다름
     if (event_data and event_data.m_eventData and event_data.m_eventData['banner']) then
         ui_name = event_data.m_eventData['banner']
         self.m_eventData = event_data.m_eventData
     end
+
+    if (ui_name == nil) then return end
 
     self:load(ui_name)
 
