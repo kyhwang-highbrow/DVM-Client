@@ -209,7 +209,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
                     cppFlags.add("-DMAJOR_VER=NUM_0")
                     cppFlags.add("-DMINOR_VER=NUM_8")
-                    cppFlags.add("-DBUILD_VER=NUM_3")
+                    cppFlags.add("-DBUILD_VER=NUM_4")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
