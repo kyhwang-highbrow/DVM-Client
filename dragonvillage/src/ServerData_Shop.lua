@@ -669,6 +669,9 @@ function ServerData_Shop:request_checkReceiptValidation_v3(product, validation_k
 
         -- @analytics
         if (struct_product) then
+            cclog('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+            cclog('struct_product is not empty')
+            cclog('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
             local krw_price = struct_product['price'] -- getPrice() 함수 나중에 수정하기
             local usd_price = struct_product['price_dollar']
             local first_buy = ret['first_buy']  --첫번째 결제인지
@@ -684,6 +687,10 @@ function ServerData_Shop:request_checkReceiptValidation_v3(product, validation_k
                 --adjust 누적 금액
                 Adjust:trackEventSumPrice(sum_money)
             end
+        else
+            cclog('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+            cclog('struct_product is empty')
+            cclog('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
         end
         
         g_serverData:networkCommonRespone(ret)
