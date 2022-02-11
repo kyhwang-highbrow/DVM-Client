@@ -18,7 +18,11 @@ function UI_EventVIP:init(event_data)
         self.m_eventData = event_data    
     end
 
-    self:load('event_vip_survey.ui')
+    local res = self.m_eventData['banner']
+
+    if (res == nil) then return end
+
+    self:load(res)
 
     self:initUI()
     self:initButton()
@@ -80,7 +84,7 @@ end
 -- function click_surveyBtn
 -------------------------------------
 function UI_EventVIP:click_surveyBtn()
-    local url = 'https://docs.google.com/forms/d/e/1FAIpQLSffM6ga8eLlNiG7XFa_MKxG8qt2MRIYYcHuo-Lqu_Nl_shSqg/viewform?usp=pp_url&entry.1127202750={1}'
+    local url = self.m_eventData['url']
     local uid = g_userData:get('uid')
 
     g_settingData:applySettingData(self.m_eventData['start_date'], 'vip', 'survey')
