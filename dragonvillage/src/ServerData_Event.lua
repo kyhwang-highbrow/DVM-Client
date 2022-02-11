@@ -233,10 +233,28 @@ function ServerData_Event:getEventPopupTabList()
             end
             
         -- VIP 설문조사
-        elseif (visible) and (event_type == 'vip_survey') then
-            local vip_status = g_userData:getVipInfo()
+        elseif (visible) and string.find(event_type, 'vip_survey') then
+            local is_participated                
+            if string.find(event_type, '2021') then
+                if g_settingData:get('vip', 'survey') then
+                    is_participated = (start_date ~= g_settingData:get('vip', 'survey'))
+                else
+                    is_participated = (start_date ~= g_settingData:get('vip', event_type))
+                end
+            else
+                is_participated = (start_date ~= g_settingData:get('vip', event_type))
+            end
+            -- year : 2021, 2022, etc
+            local splitted_str = pl.stringx.split(event_type, 'vip_survey_')
 
-            visible = (vip_status ~= nil)
+            if splitted_str then
+                local key = splitted_str[2]
+
+                local vip_status = g_userData:getVipInfo(key)
+                visible = is_participated and (key ~= nil) and (vip_status ~= nil)
+            else
+                visible = false
+            end
         end
 
         if (visible) then
@@ -329,7 +347,7 @@ function ServerData_Event:getEventFullPopupList()
 			end
 
             -- 유저 레벨 조건 (걸려있는 레벨 이상인 유저에게만 노출)
-            if (user_lv ~= '') then
+            if (visible) and (user_lv ~= '') then
                 local curr_lv = g_userData:get('lv')
                 visible = curr_lv >= user_lv
             end
@@ -492,12 +510,28 @@ function ServerData_Event:getEventFullPopupList()
 		        visible = false
 
 			-- VIP 설문조사
-            elseif (visible) and (event_type == 'vip_survey') then
-                local vip_status = g_userData:getVipInfo()
+            elseif (visible) and string.find(event_type, 'vip_survey') then
+                local is_participated                
+                if string.find(event_type, '2021') then
+                    if g_settingData:get('vip', 'survey') then
+                        is_participated = (start_date ~= g_settingData:get('vip', 'survey'))
+                    else
+                        is_participated = (start_date ~= g_settingData:get('vip', event_type))
+                    end
+                else
+                    is_participated = (start_date ~= g_settingData:get('vip', event_type))
+                end
+                -- year : 2021, 2022, etc
+                local splitted_str = pl.stringx.split(event_type, 'vip_survey_')
 
-                local is_participated = (start_date ~= g_settingData:get('vip', 'survey'))
+                if splitted_str then
+                    local key = splitted_str[2]
 
-                visible = (vip_status ~= nil) and is_participated
+                    local vip_status = g_userData:getVipInfo(key)
+                    visible = is_participated and (key ~= nil) and (vip_status ~= nil)
+                else
+                    visible = false
+                end
             end
 
 
