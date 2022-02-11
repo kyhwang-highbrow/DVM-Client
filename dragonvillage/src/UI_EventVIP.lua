@@ -103,6 +103,6 @@ function UI_EventVIP:click_surveyBtn()
     local year = self.m_vipKey
     local event_type = self.m_eventData['event_type']
 
-    g_settingData:applySettingData(self.m_eventData['start_date'], 'vip', year)
+    g_settingData:applySettingData(self.m_eventData['start_date'], 'vip', event_type)
     SDKManager:goToWeb(Str(url, uid))
 end
