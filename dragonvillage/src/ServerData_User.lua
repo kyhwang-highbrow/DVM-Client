@@ -674,15 +674,18 @@ function ServerData_User:response_vipInfo(ret)
     local special_state = ret['special_state']
 
     if (special_state and (special_state ~= '')) then
-        self:applyServerData(special_state, 'special_state')
+        for key, vip_index in pairs(special_state) do
+            self:applyServerData(vip_index, 'special_state', key)
+        end
     end
 end
 
 -------------------------------------
 -- function getVipInfo
+-- param key : 2021, 2022, ...
 -------------------------------------
-function ServerData_User:getVipInfo()
-    return self:get('special_state')
+function ServerData_User:getVipInfo(key)
+    return self:get('special_state', key)
 end
 
 
