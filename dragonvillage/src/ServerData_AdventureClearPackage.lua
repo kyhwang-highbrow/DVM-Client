@@ -4,10 +4,10 @@
 -- table_shop_cash
 
 -------------------------------------
--- class ServerData_AdventureClearPackage
+-- class ServerData_AdventureClearPackage01
 -- @breif 모험돌파 패키지 관리
 -------------------------------------
-ServerData_AdventureClearPackage = class({
+ServerData_AdventureClearPackage01 = class({
         m_serverData = 'ServerData',
         m_bActive = 'boolean',
         m_receivedList = 'list',
@@ -18,7 +18,7 @@ ServerData_AdventureClearPackage = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function ServerData_AdventureClearPackage:init(server_data)
+function ServerData_AdventureClearPackage01:init(server_data)
     self.m_serverData = server_data
     self.m_bActive = false
     self.m_receivedList = {}
@@ -28,7 +28,7 @@ end
 -------------------------------------
 -- function isBattlePassProduct
 -------------------------------------
-function ServerData_AdventureClearPackage:isBattlePassProduct(product_id)
+function ServerData_AdventureClearPackage01:isBattlePassProduct(product_id)
     return self.m_productID == tonumber(product_id)
 end
 
@@ -36,7 +36,7 @@ end
 -------------------------------------
 -- function checkDirty
 -------------------------------------
-function ServerData_AdventureClearPackage:checkDirty()
+function ServerData_AdventureClearPackage01:checkDirty()
     if self.m_bDirty then
         return
     end
@@ -49,21 +49,21 @@ end
 -------------------------------------
 -- function setDirty
 -------------------------------------
-function ServerData_AdventureClearPackage:setDirty()
+function ServerData_AdventureClearPackage01:setDirty()
     self.m_bDirty = true
 end
 
 -------------------------------------
 -- function isDirty
 -------------------------------------
-function ServerData_AdventureClearPackage:isDirty()
+function ServerData_AdventureClearPackage01:isDirty()
     return self.m_bDirty
 end
 
 -------------------------------------
 -- function request_adventureClearInfo
 -------------------------------------
-function ServerData_AdventureClearPackage:request_adventureClearInfo(cb_func, fail_cb)
+function ServerData_AdventureClearPackage01:request_adventureClearInfo(cb_func, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -93,7 +93,7 @@ end
 -------------------------------------
 -- function response_adventureClearInfo
 -------------------------------------
-function ServerData_AdventureClearPackage:response_adventureClearInfo(ret)
+function ServerData_AdventureClearPackage01:response_adventureClearInfo(ret)
     self.m_bActive = ret['active'] or false
     self.m_receivedList = ret['received_list'] or {}
 end
@@ -101,7 +101,7 @@ end
 -------------------------------------
 -- function isActive
 -------------------------------------
-function ServerData_AdventureClearPackage:isActive()
+function ServerData_AdventureClearPackage01:isActive()
     return self.m_bActive
 end
 
@@ -109,7 +109,7 @@ end
 -- function isVisibleAtBattlePassShop
 -- @breif 구매 전에는 출력하고 구매 후에는 보상이 남은 경우 출력
 -------------------------------------
-function ServerData_AdventureClearPackage:isVisibleAtBattlePassShop()
+function ServerData_AdventureClearPackage01:isVisibleAtBattlePassShop()
     if (not self:isActive()) then
         return true
     end
@@ -128,7 +128,7 @@ end
 -------------------------------------
 -- function isVisible_adventureClearPack
 -------------------------------------
-function ServerData_AdventureClearPackage:isVisible_adventureClearPack()
+function ServerData_AdventureClearPackage01:isVisible_adventureClearPack()
     if (not self:isActive()) then
         return false
     end
@@ -148,7 +148,7 @@ end
 -- function isVisible_adventureClearPackNoti
 -- @brief 보상받을 수 있는 항목 있을 때에만 노티
 -------------------------------------
-function ServerData_AdventureClearPackage:isVisible_adventureClearPackNoti()
+function ServerData_AdventureClearPackage01:isVisible_adventureClearPackNoti()
     if (not self:isActive()) then
         return false
     end
@@ -173,7 +173,7 @@ end
 -------------------------------------
 -- function request_adventureClearReward
 -------------------------------------
-function ServerData_AdventureClearPackage:request_adventureClearReward(stage, cb_func, fail_cb)
+function ServerData_AdventureClearPackage01:request_adventureClearReward(stage, cb_func, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -205,7 +205,7 @@ end
 -------------------------------------
 -- function isReceived
 -------------------------------------
-function ServerData_AdventureClearPackage:isReceived(stage_id)
+function ServerData_AdventureClearPackage01:isReceived(stage_id)
     for i,v in pairs(self.m_receivedList) do
         if (v == stage_id) then
             return true
@@ -220,7 +220,7 @@ end
 -- function getFocusRewardStage
 -- @brief 보상 받기 가능한 idx로 이동
 -------------------------------------
-function ServerData_AdventureClearPackage:getFocusRewardStage()
+function ServerData_AdventureClearPackage01:getFocusRewardStage()
     local map = TABLE:get('table_package_stage')
     local list = table.MapToList(map)
 
@@ -241,3 +241,4 @@ function ServerData_AdventureClearPackage:getFocusRewardStage()
 
     return nil
 end
+
