@@ -3,7 +3,7 @@ local PARENT = UI_ManagedButton
 -------------------------------------
 -- class UI_ButtonPaymentShop
 -- @brief 관리되는 버튼 (버튼이 노출되는 여부에 따라 상위 메뉴에서 위치 변경)
--- @used_at 
+-- @yjkil 2022.02.11 기준 사용 X
 -------------------------------------
 UI_ButtonPaymentShop = class(PARENT, {
     })

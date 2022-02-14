@@ -2,6 +2,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 
 -------------------------------------
 -- class UI_PaymentShop
+-- @yjkil 2022.02.11 기준 사용 X
 -------------------------------------
 UI_PaymentShop = class(PARENT,{
         m_tableView = 'UIC_TableView',

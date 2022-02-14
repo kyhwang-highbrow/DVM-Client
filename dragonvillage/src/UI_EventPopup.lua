@@ -2,6 +2,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 
 -------------------------------------
 -- class UI_EventPopup
+-- @yjkil 2022.02.11 기준 사용 X
 -------------------------------------
 UI_EventPopup = class(PARENT,{
         m_tableView = 'UIC_TableView',
