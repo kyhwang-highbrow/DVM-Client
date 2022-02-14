@@ -398,3 +398,339 @@ function ServerData_LevelUpPackageOld:getLevelUpPackageTable(product_id)
     end
     return table_package_levelup
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- class ServerData_LevelUpPackage
+-------------------------------------
+ServerData_LevelUpPackage = class({
+    m_serverData = 'ServerData',
+    m_productIdList = 'List[number]',
+    m_dataList = 'List[table]',
+    
+    m_tableKeyword = 'string',
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function ServerData_LevelUpPackage:init(server_data)
+    self.m_serverData = server_data
+    self.m_productIdList = {90037, 110271, 110272, 110273} -- 레벨업 패키지
+    self.m_tableKeyword = 'table_package_levelup_%02d'
+    self.m_dataList = {}
+end
+
+-------------------------------------
+-- function getIndexFromProductId
+-------------------------------------
+function ServerData_LevelUpPackage:getIndexFromProductId(product_id)
+    if (product_id ~= 'number') then
+        product_id = tonumber(product_id) 
+    end
+
+    local index = table.find(self.m_productIdList, product_id)
+
+    return index
+end
+
+-------------------------------------
+-- function checkPackage
+-------------------------------------
+function ServerData_LevelUpPackage:checkPackage(product_id)
+    if (product_id ~= 'number') then
+        product_id = tonumber(product_id) 
+    end
+
+    local index = table.find(self.m_productIdList, product_id)
+
+    return (index ~= nil)
+end
+
+-------------------------------------
+-- function checkPackage
+-------------------------------------
+function ServerData_LevelUpPackage:isRecentPackage(product_id)
+    if (product_id ~= 'number') then
+        product_id = tonumber(product_id) 
+    end
+
+    local index = self:getIndexFromProductId(product_id)
+
+    return (table.getn(self.m_productIdList) == index)
+end
+
+-------------------------------------
+-- function getRewardListFromProductId
+-------------------------------------
+function ServerData_LevelUpPackage:getRewardListFromProductId(product_id)
+    -- 레벨업 패키지 n번 상품 (01, 02, ...) - csv 파일
+    local index = table.find(self.m_productIdList, product_id)
+
+    local table_name
+    if (index == 1) then
+        table_name = pl.stringx.replace(self.m_tableKeyword, '_%02d', '')
+    else
+        table_name = string.format(self.m_tableKeyword, index)
+    end
+    
+    -- 레벨업 패키지 n번 상품의 보상 정보 - csv 파일
+    local reward_list = TABLE:get(table_name)
+
+    local result = {}
+
+    for key, reward in pairs(reward_list) do
+        table.insert(result, reward)
+    end
+
+    table.sort(result, function(a, b)
+        return a['level'] < b['level']
+    end)
+
+    return result
+end
+
+-------------------------------------
+-- function request_lvuppackInfo
+-------------------------------------
+function ServerData_LevelUpPackage:request_info(product_id, success_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function response_callback(ret)
+        self:response_info(product_id, ret)
+
+        if (success_cb) then 
+            success_cb(ret) 
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/lvuppack_info')
+    ui_network:setParam('product_id', product_id)
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(response_callback)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function response_lvuppackInfoByTitle
+-------------------------------------
+function ServerData_LevelUpPackage:response_info(product_id, ret)
+    --[[
+        "lvuppack_info" = 
+        {
+            [1011010] = 
+            {
+                ['active'] = true
+                ['received_list'] = {5,10,15,20,25}
+            },
+        }
+    --]]
+
+    if (product_id ~= 'number') then
+        product_id = tonumber(product_id) 
+    end
+    -- "110282":{
+    --     "active":false,
+    --     "received_list":[]
+    -- }
+
+    self.m_dataList[product_id] = ret or {}
+end
+
+-------------------------------------
+-- function request_lvuppackInfo
+-------------------------------------
+function ServerData_LevelUpPackage:request_reward(product_id, level, success_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function response_callback(ret)
+        self:response_info(product_id, ret)
+
+        if (success_cb) then 
+            success_cb(ret) 
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/lvuppack_reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('product_id', product_id)
+    ui_network:setParam('lv', level)
+    ui_network:setSuccessCB(response_callback)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function isActive
+-------------------------------------
+function ServerData_LevelUpPackage:isActive(product_id)
+    if (product_id ~= 'number') then
+        product_id = tonumber(product_id) 
+    end
+    
+    local data = self.m_dataList[product_id]
+
+    if (data == nil) then return false end
+
+    return data['active'] or false
+end
+
+-------------------------------------
+-- function isReceivedReward
+-- @breif 보상 수령 여부
+-------------------------------------
+function ServerData_LevelUpPackage:isReceivableReward(product_id, target_level) -- isReceived
+    if (product_id ~= 'number') then
+        product_id = tonumber(product_id)
+    end
+ 
+    -- 레벨업 패키지 n번 상품의 보상 정보 - csv 파일
+    local reward_list = self:getRewardListFromProductId(product_id)
+
+    for index, reward in pairs(reward_list) do
+        local level = reward['level']
+
+        if (level ~= 'number') then
+            level = tonumber(level)
+            target_level = tonumber(target_level)
+        end
+
+        if (level == target_level) and (self:isReceivedReward(product_id, target_level) == false) then
+            local user_level = g_userData:get('lv')
+
+            -- 레벨 달성 혹은 판매 종료된 패키지인 경우
+            if (user_level >= target_level) or (self:isRecentPackage(product_id) == false) then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+
+
+-------------------------------------
+-- function isReceivedReward
+-- @breif 보상 수령 여부
+-------------------------------------
+function ServerData_LevelUpPackage:isReceivedReward(product_id, target_level) -- isReceived
+    if (product_id ~= 'number') then
+        product_id = tonumber(product_id)
+    end
+
+    local data = self.m_dataList[product_id]
+    
+    if (data == nil) then return false end
+
+    local received_reward_list = data['received_list']
+
+    if (received_reward_list == nil) then return false end
+
+    for index, level in ipairs(received_reward_list) do
+        if (level == target_level) then
+            return true
+        end
+
+    end
+
+    return false
+
+    -- local index = table.find(received_reward_list, target_level)
+
+    -- return (index ~= nil)
+end
+
+
+-------------------------------------
+-- function isLeftRewardExist
+-- @breif 남은 보상이 있는지 여부
+-------------------------------------
+function ServerData_LevelUpPackage:isLeftRewardExist(product_id)
+    if (product_id ~= 'number') then
+        product_id = tonumber(product_id)
+    end
+    -- 모험돌파 n번 상품 (01, 02, ...) - csv 파일
+    local index = table.find(self.m_productIdList, product_id)
+    
+    -- 모험돌파 n번 상품의 보상 정보 - csv 파일
+    local reward_list = TABLE:get(string.format(self.m_tableKeyword, index))
+
+    -- 보상 개수
+    local reward_number = table.getn(reward_list)
+
+    -- 유저 정보
+    local data = self.m_dataList[product_id]
+    
+    if (data == nil) then return false end
+
+    -- 유저가 수령한 보상 리스트
+    local received_reward_list = data['received_list']
+
+    if (received_reward_list == nil) then return false end
+
+    -- 수령한 보상 개수
+    local received_number = table.getn(received_reward_list)
+
+
+    return (received_number ~= reward_number)
+end
+
+-------------------------------------
+-- function isReceivableRewardExist
+-- @breif 받을 수 있는 보상이 있는지 여부
+-------------------------------------
+function ServerData_LevelUpPackage:isReceivableRewardExist(product_id)
+    if (product_id ~= 'number') then
+        product_id = tonumber(product_id) 
+    end
+
+    local index = table.find(self.m_productIdList, product_id)
+    
+    local reward_list = TABLE:get(string.format(self.m_tableKeyword, index))
+
+    for index, reward in ipairs(reward_list) do
+        local stage_id = reward['stage']
+
+        -- 받지 않은 보상이 있으면
+        if (self:isReceivedReward(product_id, stage_id) == false) then
+            local user_level = g_userData:get('lv')
+            local level = reward['level']
+
+            -- 보상 레벨보다 테이머 레벨이 높은 경우 혹은 판매 종료된 패키지인 경우
+            if (user_level >= level)  or (self:isRecentPackage(product_id) == false) then
+                return true
+            end
+        end
+    end
+
+    return false
+end

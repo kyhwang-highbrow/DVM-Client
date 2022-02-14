@@ -178,10 +178,12 @@ local TableInfo_fromServer = {
         ['table_package_levelup'] = {'table_package_levelup', 'level'}, 
         ['table_package_levelup_02'] = {'table_package_levelup_02', 'level'}, 
         ['table_package_levelup_03'] = {'table_package_levelup_03', 'level'}, 
+        ['table_package_levelup_04'] = {'table_package_levelup_04', 'level'}, 
         -- 모험 돌파 패키지 보상 리스트
         ['table_package_stage'] = {'table_package_stage', 'stage'}, 
         ['table_package_stage_02'] = {'table_package_stage_02', 'stage'}, 
         ['table_package_stage_03'] = {'table_package_stage_03', 'stage'}, 
+        ['table_package_stage_04'] = {'table_package_stage_04', 'stage'}, 
         -- 시험의 탑 정복 선물 패키지
         ['table_package_attr_tower'] = {'table_package_attr_tower', 'product_id'},
         ['table_package_attr_tower_reward'] = {'table_package_attr_tower_reward', 'floor'},

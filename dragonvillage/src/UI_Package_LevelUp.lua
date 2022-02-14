@@ -159,5 +159,255 @@ function UI_Package_LevelUp_01:request_serverInfo(finish_func)
         end
     end
 
-    g_levelUpPackageData:request_lvuppackInfo(cb_func, nil, self.m_productId)
+    g_levelUpPackageDataOld:request_lvuppackInfo(cb_func, nil, self.m_productId)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- class UI_Package_LevelUp
+-------------------------------------
+UI_Package_LevelUp = class(PARENT,{
+
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_Package_LevelUp:init(struct_product_list, is_popup, package_name)
+    
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_Package_LevelUp:initUI()
+    PARENT.initUI(self)
+
+    self:init_tableView()
+end
+
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_Package_LevelUp:initButton()
+    PARENT.initButton(self)
+end
+
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Package_LevelUp:refresh()
+    PARENT.refresh(self)
+end
+
+-------------------------------------
+-- function init_tableView
+-------------------------------------
+function UI_Package_LevelUp:init_tableView()
+    local vars = self.vars
+    local node
+
+    if (g_levelUpPackageData:isActive() == true) then
+        node = vars['productNodeLong']
+    else
+        node = vars['productNode']
+    end
+
+    local product_id = self.m_structProduct:getProductID()
+    local reward_list = g_levelUpPackageData:getRewardListFromProductId(product_id)
+
+    local function ctor_func(data)
+        local index = g_levelUpPackageData:getIndexFromProductId(product_id)
+
+        if (index == 1) then
+            data['res_name'] = 'package_levelup_item.ui'
+        else
+            data['res_name'] = string.format('package_levelup_item_%02d.ui', index)
+        end
+        data['product_id'] = product_id
+
+        return UI_Package_LevelUpItem(data)
+    end
+
+    local function create_func(ui, data)
+        --ui.m_productId = product_id
+    end
+
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(440, 80+5)
+    --table_view:setCellSizeToNodeSize(true)
+    table_view:setCellUIClass(ctor_func, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    
+    table_view:setItemList(reward_list)
+
+    -- 리스트가 비었을 때
+    table_view:makeDefaultEmptyDescLabel('')
+
+    -- -- 보상 받기 가능한 idx로 이동
+    -- local stage_id, idx = g_adventureClearPackageData03:getFocusRewardStage()
+    -- if stage_id then
+    --     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    --     table_view:relocateContainerFromIndex(idx, false)
+    -- end
+    
+end
+
+
+
+
+
+
+
+-------------------------------------
+-- class UI_Package_LevelUpItem
+-------------------------------------
+UI_Package_LevelUpItem = class(class(UI, ITableViewCell:getCloneTable()), {
+    m_data = 'table',
+    m_productId = 'number',
+})
+
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_Package_LevelUpItem:init(data)
+    self.m_data = data
+    self.m_productId = data['product_id']
+
+    local res_name = data['res_name']
+    local vars = self:load(res_name)
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_Package_LevelUpItem:initUI()
+    local vars = self.vars
+    local t_data = self.m_data
+
+    -- 레벨 표시
+    vars['levelLabel']:setString('Lv.' .. t_data['level'])
+
+    local reward_list = {}
+
+    local product_content = g_itemData:parsePackageItemStr(t_data['product_content'])
+    for index, item in ipairs(product_content) do
+        table.insert(reward_list, item)
+    end
+
+    local mail_content = g_itemData:parsePackageItemStr(t_data['mail_content'])
+    for index, item in ipairs(mail_content) do
+        table.insert(reward_list, item)
+    end
+
+    for index, reward in ipairs(reward_list) do
+        local card = UI_ItemCard(reward['item_id'], reward['count'])
+        card.root:setSwallowTouch(false)
+        vars['itemNode' .. index]:addChild(card.root)
+    end
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_Package_LevelUpItem:initButton()
+    local vars = self.vars
+    vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+end
+
+
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Package_LevelUpItem:refresh()
+    local vars = self.vars
+
+    -- 구매 전
+    if (g_levelUpPackageData:isActive(self.m_productId) == false) then
+        -- 버튼 
+        vars['receiveSprite']:setVisible(false)
+        vars['rewardBtn']:setVisible(true)
+        vars['rewardBtn']:setEnabled(false)
+    -- 구매 후
+    else
+        local level = self.m_data['level']
+        -- 보상을 받았으면
+        if (g_levelUpPackageData:isReceivedReward(self.m_productId, level) == true) then
+            
+            vars['receiveSprite']:setVisible(true)
+            vars['rewardBtn']:setVisible(false)
+        -- 보상을 받지 않았으면
+        else
+            vars['receiveSprite']:setVisible(false)
+
+            -- 보상을 받을 수 있으면
+            if (g_levelUpPackageData:isReceivableReward(self.m_productId, level) == true) then
+                vars['rewardBtn']:setVisible(true)
+                vars['rewardBtn']:setEnabled(true)
+
+            -- 보상을 받을 수 없으면
+            else
+                vars['rewardBtn']:setVisible(true)
+                vars['rewardBtn']:setEnabled(false)
+            end
+        end
+
+    end
+
+    if vars['rewardBtn']:isEnabled() then
+        vars['infoLabel']:setTextColor(cc.c4b(0, 0, 0, 255))
+    else
+        vars['infoLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
+    end
+end
+
+
+
+-------------------------------------
+-- function click_rewardBtn
+-------------------------------------
+function UI_Package_LevelUpItem:click_rewardBtn()
+    local vars = self.vars
+
+    local data = self.m_data
+    local level = data['level']
+
+    local function cb_func(ret)
+        self:refresh()
+
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret)
+    end
+
+    g_levelUpPackageDataOld:request_reward(self.m_productId, level, cb_func, nil)
 end
