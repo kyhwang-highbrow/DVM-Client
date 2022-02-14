@@ -258,11 +258,12 @@ end
 function UI_BattlePassPopup:makeEventPopupTab(tab_id)
 
     local item = self.m_tableView:getItem(tab_id)
+    local struct_product = item['data']
     local package_res = item['data']['package_res']
     local product_id = item['data']['product_id']
     local package_name = TablePackageBundle:getPackageNameWithPid(product_id)
 
-    local ui = UI_EventPopupTab_Package(package_name)
+    local ui = UI_EventPopupTab_Package(struct_product)
     return ui
 end
 

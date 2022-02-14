@@ -1267,6 +1267,20 @@ function UI_TitleScene:workGetServerInfo()
                 if (ret['lvuppack_info']) then
                     cclog('# 레벨업 패키지 정보')
                     g_levelUpPackageDataOld:response_lvuppackInfoByTitle(ret['lvuppack_info'])
+
+                    
+                    for key, data in pairs(ret['lvuppack_info']) do
+                        g_levelUpPackageData:response_info(key, data)
+                    end
+                end
+
+                -- 모험 돌파 패키지
+                if (ret['stagepack_info']) then
+                    cclog('# 모험 패키지 정보')
+
+                    for key, data in pairs(ret['stagepack_info']) do
+                        g_adventureBreakthroughPackageData:response_info(key, data)
+                    end
                 end
 
                 -- 모험 돌파 패키지 1
