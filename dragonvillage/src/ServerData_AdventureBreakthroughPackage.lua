@@ -107,12 +107,7 @@ function ServerData_AdventureBreakthroughPackage:getRewardListFromProductId(prod
     -- 모험돌파 n번 상품 (01, 02, ...) - csv 파일
     local index = table.find(self.m_productIdList, product_id)
 
-    local table_name
-    if (index == 1) then
-        table_name = pl.stringx.replace(self.m_tableKeyword, '_%02d', '')
-    else
-        table_name = string.format(self.m_tableKeyword, index)
-    end
+    local table_name = string.format(self.m_tableKeyword, index)
     
     -- 모험돌파 n번 상품의 보상 정보 - csv 파일
     local reward_list = TABLE:get(table_name)
@@ -300,12 +295,12 @@ function ServerData_AdventureBreakthroughPackage:isLeftRewardExist(product_id)
     -- 유저 정보
     local data = self.m_dataList[product_id]
     
-    if (data == nil) then return false end
+    if (data == nil) then return true end
 
     -- 유저가 수령한 보상 리스트
     local received_reward_list = data['received_list']
 
-    if (received_reward_list == nil) then return false end
+    if (received_reward_list == nil) then return true end
 
     -- 수령한 보상 개수
     local received_number = table.getn(received_reward_list)

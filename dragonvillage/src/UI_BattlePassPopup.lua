@@ -124,26 +124,24 @@ function UI_BattlePassPopup:initTableView()
     local item_list = g_shopDataNew:getProductList('pass')
     
     local tabList = {}
-    for k, v in pairs(item_list) do
-        if(g_levelUpPackageDataOld:isBattlePassProduct(k)) then
-            if g_levelUpPackageDataOld:isVisibleAtBattlePassShop(k) then
+    for product_id, v in pairs(item_list) do
+        if (g_levelUpPackageData:checkPackage(product_id) == true) then
+            --if (g_levelUpPackageData:isActive(product_id) == false) and (g_levelUpPackageData:isRecentPackage(product_id) == false) then
+
+            --elseif (g_levelUpPackageData:isLeftRewardExist(product_id) == true) then
+            if (g_levelUpPackageData:isLeftRewardExist(product_id) == true) then
                 table.insert(tabList, v)
             end
-        elseif g_adventureClearPackageData01:isBattlePassProduct(k) then
-            if g_adventureClearPackageData01:isVisibleAtBattlePassShop() then
+        elseif (g_adventureBreakthroughPackageData:checkPackage(product_id) == true) then
+            --if (g_adventureBreakthroughPackageData:isActive(product_id) == false) and (g_adventureBreakthroughPackageData:isRecentPackage(product_id) == false) then
+
+            --elseif (g_adventureBreakthroughPackageData:isLeftRewardExist(product_id) == true) then
+            if (g_adventureBreakthroughPackageData:isLeftRewardExist(product_id) == true) then
                 table.insert(tabList, v)
             end
-        elseif g_adventureClearPackageData02:isBattlePassProduct(k) then
-            if g_adventureClearPackageData02:isVisibleAtBattlePassShop() then
-                table.insert(tabList, v)
-            end
-        elseif g_adventureClearPackageData03:isBattlePassProduct(k) then
-            if g_adventureClearPackageData03:isVisibleAtBattlePassShop() then
-                table.insert(tabList, v)
-            end
-        elseif g_dmgatePackageData:checkProductInTable(k) then
+        elseif g_dmgatePackageData:checkProductInTable(product_id) then
             --g_dmgatePackageData:request_info(v['product_id'])
-            if (not g_contentLockData:isContentLock('dmgate')) and g_dmgatePackageData:isPackageVisible(k) then
+            if (not g_contentLockData:isContentLock('dmgate')) and g_dmgatePackageData:isPackageVisible(product_id) then
                 table.insert(tabList, v)
             end
 
