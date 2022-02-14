@@ -153,7 +153,7 @@ function ServerData_AdventureClearPackage01:isVisible_adventureClearPackNoti()
         return false
     end
 
-    local l_item_list = TABLE:get('table_package_stage')
+    local l_item_list = TABLE:get('table_package_stage_01')
     for i,v in pairs(l_item_list) do
         local stage_id = v['stage']
         -- 보상 안 받은 항목들 중에서
@@ -221,7 +221,7 @@ end
 -- @brief 보상 받기 가능한 idx로 이동
 -------------------------------------
 function ServerData_AdventureClearPackage01:getFocusRewardStage()
-    local map = TABLE:get('table_package_stage')
+    local map = TABLE:get('table_package_stage_01')
     local list = table.MapToList(map)
 
     local function sort_func(a, b)

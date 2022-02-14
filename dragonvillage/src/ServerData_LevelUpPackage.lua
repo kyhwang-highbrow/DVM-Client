@@ -388,7 +388,7 @@ end
 function ServerData_LevelUpPackageOld:getLevelUpPackageTable(product_id)
     local table_package_levelup
     if (product_id == LEVELUP_PACKAGE_PRODUCT_ID) then
-        table_package_levelup = TABLE:get('table_package_levelup')
+        table_package_levelup = TABLE:get('table_package_levelup_01')
     elseif (product_id == LEVELUP_PACKAGE_2_PRODUCT_ID) then
         table_package_levelup = TABLE:get('table_package_levelup_02')
     elseif (product_id == LEVELUP_PACKAGE_3_PRODUCT_ID) then
