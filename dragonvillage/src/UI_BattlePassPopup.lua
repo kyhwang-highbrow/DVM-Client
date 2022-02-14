@@ -125,12 +125,12 @@ function UI_BattlePassPopup:initTableView()
     
     local tabList = {}
     for k, v in pairs(item_list) do
-        if(g_levelUpPackageData:isBattlePassProduct(k)) then
-            if g_levelUpPackageData:isVisibleAtBattlePassShop(k) then
+        if(g_levelUpPackageDataOld:isBattlePassProduct(k)) then
+            if g_levelUpPackageDataOld:isVisibleAtBattlePassShop(k) then
                 table.insert(tabList, v)
             end
-        elseif g_adventureClearPackageData:isBattlePassProduct(k) then
-            if g_adventureClearPackageData:isVisibleAtBattlePassShop() then
+        elseif g_adventureClearPackageData01:isBattlePassProduct(k) then
+            if g_adventureClearPackageData01:isVisibleAtBattlePassShop() then
                 table.insert(tabList, v)
             end
         elseif g_adventureClearPackageData02:isBattlePassProduct(k) then
@@ -198,30 +198,6 @@ function UI_BattlePassPopup:initTab()
     end
 
     self:setTab(init_tab)
-    --local initial_tab = self.m_initTab
-    
-    -- self.m_lContainerForEachType = {}
-
-    
-
-    -- for i,v in pairs(self.m_tableView.m_itemList) do
-    --     local pid = v['data']['product_id']
-    --     local ui = v['ui'] or v['generated_ui']
-
-    --     local container_node = cc.Node:create()
-    --     container_node:setDockPoint(cc.p(0.5, 0.5))
-    --     container_node:setAnchorPoint(cc.p(0.5, 0.5))
-    --     self.m_eventNode:addChild(container_node)
-    --     self.m_lContainerForEachType[pid] = container_node
-    --     self:addTab(pid, ui.m_listBtn, container_node, ui.m_selectSprite)
-
-    --     if (not initial_tab) then
-    --         initial_tab = pid
-    --     end
-    -- end
-
-    -- -- TODO (YOUNGJIN) : PARENT:setTab 으로 바꾸기
-    -- self:setTab(initial_tab)
 end
 
 

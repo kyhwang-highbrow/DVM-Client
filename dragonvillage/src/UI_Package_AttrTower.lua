@@ -234,7 +234,7 @@ function UI_Package_AttrTower:init_tableView()
     end
 
     ---- 보상 받기 가능한 idx로 이동
-    --local lv, idx = g_levelUpPackageData:getFocusRewardLevel(self.m_productId)
+    --local lv, idx = g_levelUpPackageDataOld:getFocusRewardLevel(self.m_productId)
     --if lv then
         --table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         --table_view:relocateContainerFromIndex(idx, false)

@@ -260,8 +260,8 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
             --     if g_adventureClearPackageData03:isProduct(product_id) 
             --         and  g_adventureClearPackageData03:isVisibleAtBattlePassShop() then
             --             self:insertProduct(struct_product)
-            --     elseif g_levelUpPackageData:isProduct(product_id) 
-            --         and g_levelUpPackageData:isVisibleAtBattlePassShop(product_id) then
+            --     elseif g_levelUpPackageDataOld:isProduct(product_id) 
+            --         and g_levelUpPackageDataOld:isVisibleAtBattlePassShop(product_id) then
             --             self:insertProduct(struct_product)
             --     elseif g_battlePassData:isProduct(product_id) then
             --         --self:insertProduct(struct_product)

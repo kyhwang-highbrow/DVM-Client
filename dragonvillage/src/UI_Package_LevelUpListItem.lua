@@ -65,9 +65,9 @@ function UI_Package_LevelUpListItem:refresh()
     local vars = self.vars
     local data = self.m_data
 
-    if g_levelUpPackageData:isActive(self.m_productId) then
+    if g_levelUpPackageDataOld:isActive(self.m_productId) then
         local level = data['level']
-        if g_levelUpPackageData:isReceived(self.m_productId, level) then
+        if g_levelUpPackageDataOld:isReceived(self.m_productId, level) then
             vars['receiveSprite']:setVisible(true)
             vars['rewardBtn']:setVisible(false)
         else
@@ -114,7 +114,7 @@ function UI_Package_LevelUpListItem:click_rewardBtn()
         ItemObtainResult_Shop(ret)
     end
 
-    g_levelUpPackageData:request_lvuppackReward(lv, cb_func, nil, self.m_productId)
+    g_levelUpPackageDataOld:request_lvuppackReward(lv, cb_func, nil, self.m_productId)
 end
 
 -------------------------------------

@@ -1,16 +1,16 @@
 local PARENT = UI_Package
 
 -------------------------------------
--- class UI_Package_LevelUp
+-- class UI_Package_LevelUp_01
 -------------------------------------
-UI_Package_LevelUp = class(PARENT,{
+UI_Package_LevelUp_01 = class(PARENT,{
         m_productId = 'number'
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_LevelUp:init(struct_product, is_popup)
+function UI_Package_LevelUp_01:init(struct_product, is_popup)
     -- 매개변수 초기화
     self.m_isPopup = is_popup or false
 
@@ -29,12 +29,12 @@ end
 -------------------------------------
 -- function initUISetting
 -------------------------------------
-function UI_Package_LevelUp:initUISetting()
+function UI_Package_LevelUp_01:initUISetting()
     local vars = self:load('package_levelup.ui')
     if (self.m_isPopup) then
         UIManager:open(self, UIManager.POPUP)
         -- 백키 지정
-        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_LevelUp')
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_LevelUp_01')
     end
 
     self.m_productId = LEVELUP_PACKAGE_PRODUCT_ID
@@ -43,7 +43,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_Package_LevelUp:refresh()
+function UI_Package_LevelUp_01:refresh()
     if (self.m_productId == nil) then
         return
     end
@@ -53,7 +53,7 @@ function UI_Package_LevelUp:refresh()
     self:init_tableView()
 
     local vars = self.vars
-    if g_levelUpPackageData:isActive(self.m_productId) then
+    if g_levelUpPackageDataOld:isActive(self.m_productId) then
         vars['completeNode']:setVisible(true)
         vars['contractBtn']:setVisible(false)
         vars['buyBtn']:setVisible(false)
@@ -66,13 +66,13 @@ end
 -------------------------------------
 -- function init_tableView
 -------------------------------------
-function UI_Package_LevelUp:init_tableView()
+function UI_Package_LevelUp_01:init_tableView()
     local vars = self.vars
     vars['productNode']:removeAllChildren()
     vars['productNodeLong']:removeAllChildren()
 
     local node = vars['productNode']
-    if g_levelUpPackageData:isActive(self.m_productId) then
+    if g_levelUpPackageDataOld:isActive(self.m_productId) then
         node = vars['productNodeLong']
         vars['productNode']:setVisible(false)
         vars['productNodeLong']:setVisible(true)
@@ -97,7 +97,7 @@ function UI_Package_LevelUp:init_tableView()
     table_view:makeDefaultEmptyDescLabel('')
 
     -- 재료로 사용 가능한 리스트를 얻어옴
-    local l_item_list = g_levelUpPackageData:getLevelUpPackageTable(self.m_productId)
+    local l_item_list = g_levelUpPackageDataOld:getLevelUpPackageTable(self.m_productId)
     table_view:setItemList(l_item_list)
 
     do -- 정렬
@@ -111,7 +111,7 @@ function UI_Package_LevelUp:init_tableView()
     end
 
     -- 보상 받기 가능한 idx로 이동
-    local lv, idx = g_levelUpPackageData:getFocusRewardLevel(self.m_productId)
+    local lv, idx = g_levelUpPackageDataOld:getFocusRewardLevel(self.m_productId)
     if lv then
         table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         table_view:relocateContainerFromIndex(idx, false)
@@ -121,7 +121,7 @@ end
 -------------------------------------
 -- function click_buyBtn
 -------------------------------------
-function UI_Package_LevelUp:click_buyBtn()
+function UI_Package_LevelUp_01:click_buyBtn()
 	local struct_product = self.m_structProduct
 
     if (not struct_product) then
@@ -139,7 +139,7 @@ function UI_Package_LevelUp:click_buyBtn()
 
         local finish_func = function()
             -- 구매하면 바로 로비에서 노출되도록 dirty 처리
-            g_levelUpPackageData:setDirty(self.m_productId, true)
+            g_levelUpPackageDataOld:setDirty(self.m_productId, true)
         end
         -- 갱신
         self:request_serverInfo(finish_func)
@@ -151,7 +151,7 @@ end
 -------------------------------------
 -- function request_serverInfo
 -------------------------------------
-function UI_Package_LevelUp:request_serverInfo(finish_func)
+function UI_Package_LevelUp_01:request_serverInfo(finish_func)
     local function cb_func()
         self:refresh()
         if (finish_func) then

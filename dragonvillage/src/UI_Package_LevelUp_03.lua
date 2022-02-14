@@ -1,4 +1,4 @@
-local PARENT = UI_Package_LevelUp
+local PARENT = UI_Package_LevelUp_01
 -------------------------------------
 -- class UI_Package_LevelUp_03
 -------------------------------------

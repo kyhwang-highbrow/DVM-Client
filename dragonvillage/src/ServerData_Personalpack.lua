@@ -169,7 +169,7 @@ end
 -------------------------------------
 function ServerData_Personalpack:checkPackage_lvup(lv)
     -- 이미 구매했다면 비활성화
-    if (g_levelUpPackageData:isActive(LEVELUP_PACKAGE_3_PRODUCT_ID)) then
+    if (g_levelUpPackageDataOld:isActive(LEVELUP_PACKAGE_3_PRODUCT_ID)) then
         return
     end
 

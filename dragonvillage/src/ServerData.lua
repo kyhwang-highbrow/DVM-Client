@@ -210,10 +210,10 @@ function ServerData:getInstance()
     g_eventRuneFestival = ServerData_EventRuneFestival()
 
     -- 레벨업 패키지
-    g_levelUpPackageData = ServerData_LevelUpPackage(g_serverData)
+    g_levelUpPackageDataOld = ServerData_LevelUpPackageOld(g_serverData)
 
     -- 모험돌파 패키지
-    g_adventureClearPackageData = ServerData_AdventureClearPackage(g_serverData)
+    g_adventureClearPackageData01 = ServerData_AdventureClearPackage01(g_serverData)
 
     -- 모험돌파 패키지 (신규)
     g_adventureClearPackageData02 = ServerData_AdventureClearPackage02(g_serverData)

@@ -1266,13 +1266,13 @@ function UI_TitleScene:workGetServerInfo()
 
                 if (ret['lvuppack_info']) then
                     cclog('# 레벨업 패키지 정보')
-                    g_levelUpPackageData:response_lvuppackInfoByTitle(ret['lvuppack_info'])
+                    g_levelUpPackageDataOld:response_lvuppackInfoByTitle(ret['lvuppack_info'])
                 end
 
                 -- 모험 돌파 패키지 1
                 if (ret['stagepack_info'] and ret['stagepack_info']['90057']) then
                     cclog('# 모험 패키지 정보')
-                    g_adventureClearPackageData:response_adventureClearInfo(ret['stagepack_info']['90057'])
+                    g_adventureClearPackageData01:response_adventureClearInfo(ret['stagepack_info']['90057'])
                 end
 
                 -- 모험 돌파 패키지 2

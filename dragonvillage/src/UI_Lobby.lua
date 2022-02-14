@@ -1769,7 +1769,7 @@ end
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
 function UI_Lobby:click_lvUpPackBtn()
-    UI_Package_LevelUp(nil, true) -- param : struct_product, is_popup
+    UI_Package_LevelUp_01(nil, true) -- param : struct_product, is_popup
 end
 
 -------------------------------------
@@ -1793,7 +1793,7 @@ end
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
 function UI_Lobby:click_adventureClearBtn()
-    UI_Package_AdventureClear(nil, true) -- param : struct_product, is_popup
+    UI_Package_AdventureClear01(nil, true) -- param : struct_product, is_popup
 end
 
 -------------------------------------
@@ -2312,13 +2312,13 @@ function UI_Lobby:update_rightButtons()
     end
 
     do -- 배틀 패스
-        local is_visible = g_levelUpPackageData:isUnclearedAnyPackage()
-                            or g_adventureClearPackageData:isVisible_adventureClearPack()
+        local is_visible = g_levelUpPackageDataOld:isUnclearedAnyPackage()
+                            or g_adventureClearPackageData01:isVisible_adventureClearPack()
                             or g_adventureClearPackageData02:isVisible_adventureClearPack()
                             or g_adventureClearPackageData03:isVisibleAtBattlePassShop()
                             or g_dmgatePackageData:isVisibleAtBattlePassShop()
         vars['battlePassBtn']:setVisible(is_visible)
-        local is_noti_visible = g_levelUpPackageData:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID)
+        local is_noti_visible = g_levelUpPackageDataOld:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID)
                                 or g_adventureClearPackageData03:isVisibleNotiAtLobby()
                                 or g_dmgatePackageData:isNotiVisible()
         vars['battlePassNotiSprite']:setVisible(is_noti_visible)

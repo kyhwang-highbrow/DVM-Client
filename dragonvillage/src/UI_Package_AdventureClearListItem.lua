@@ -1,16 +1,16 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
--- class UI_Package_AdventureClearListItem
+-- class UI_Package_AdventureClearListItem01
 -------------------------------------
-UI_Package_AdventureClearListItem = class(PARENT, {
+UI_Package_AdventureClearListItem01 = class(PARENT, {
         m_data = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_AdventureClearListItem:init(data)
+function UI_Package_AdventureClearListItem01:init(data)
     self.m_data = data
     local vars = self:load('package_adventure_clear_item.ui')
 
@@ -22,7 +22,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_Package_AdventureClearListItem:initUI()
+function UI_Package_AdventureClearListItem01:initUI()
     local vars = self.vars
     local t_data = self.m_data
 
@@ -54,7 +54,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_Package_AdventureClearListItem:initButton()
+function UI_Package_AdventureClearListItem01:initButton()
     local vars = self.vars
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['linkBtn']:registerScriptTapHandler(function() self:click_linkBtn() end)
@@ -63,13 +63,13 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_Package_AdventureClearListItem:refresh()
+function UI_Package_AdventureClearListItem01:refresh()
     local vars = self.vars
     local data = self.m_data
 
-    if g_adventureClearPackageData:isActive() then
+    if g_adventureClearPackageData01:isActive() then
         local stage_id = data['stage']
-        if g_adventureClearPackageData:isReceived(stage_id) then
+        if g_adventureClearPackageData01:isReceived(stage_id) then
             vars['receiveSprite']:setVisible(true)
             vars['rewardBtn']:setVisible(false)
             vars['linkBtn']:setVisible(false)
@@ -98,7 +98,7 @@ end
 -------------------------------------
 -- function click_rewardBtn
 -------------------------------------
-function UI_Package_AdventureClearListItem:click_rewardBtn()
+function UI_Package_AdventureClearListItem01:click_rewardBtn()
     local data = self.m_data
     local stage_id = data['stage']
 
@@ -109,14 +109,14 @@ function UI_Package_AdventureClearListItem:click_rewardBtn()
         ItemObtainResult_Shop(ret)
     end
 
-    g_adventureClearPackageData:request_adventureClearReward(stage_id, cb_func)
+    g_adventureClearPackageData01:request_adventureClearReward(stage_id, cb_func)
 end
 
 -------------------------------------
 -- function click_linkBtn
 -- @brief 스테이지 바로가기 버튼
 -------------------------------------
-function UI_Package_AdventureClearListItem:click_linkBtn()
+function UI_Package_AdventureClearListItem01:click_linkBtn()
     local data = self.m_data
     local stage_id = data['stage']
     UINavigator:goTo('adventure', stage_id)

@@ -1,15 +1,15 @@
 local PARENT = UI_Package
 
 -------------------------------------
--- class UI_Package_AdventureClear
+-- class UI_Package_AdventureClear01
 -------------------------------------
-UI_Package_AdventureClear = class(PARENT,{
+UI_Package_AdventureClear01 = class(PARENT,{
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_AdventureClear:init(struct_product, is_popup)
+function UI_Package_AdventureClear01:init(struct_product, is_popup)
     -- 모험돌파 패키지 구매 전, 기능 설정하지않고 return UI만 출력
     if (struct_product) then
         self.vars['closeBtn']:setVisible(false)
@@ -23,7 +23,7 @@ function UI_Package_AdventureClear:init(struct_product, is_popup)
     if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
         -- 백키 지정
-        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_AdventureClear')
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_AdventureClear01')
     end
 
 	-- @UI_ACTION
@@ -39,13 +39,13 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_Package_AdventureClear:refresh()
+function UI_Package_AdventureClear01:refresh()
     PARENT.refresh(self)
 
     self:init_tableView()
 
     local vars = self.vars
-    if g_adventureClearPackageData:isActive() then
+    if g_adventureClearPackageData01:isActive() then
         vars['completeNode']:setVisible(true)
         vars['contractBtn']:setVisible(false)
         vars['buyBtn']:setVisible(false)
@@ -58,7 +58,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_Package_AdventureClear:initButton()
+function UI_Package_AdventureClear01:initButton()
     local vars = self.vars
 
     vars['closeBtn']:setVisible(true)
@@ -71,7 +71,7 @@ end
 -------------------------------------
 -- function setInfoPopup
 -------------------------------------
-function UI_Package_AdventureClear:setInfoPopup(visible)
+function UI_Package_AdventureClear01:setInfoPopup(visible)
    local vars = self.vars
    vars['popupMenu']:setVisible(visible)
 end
@@ -79,13 +79,13 @@ end
 -------------------------------------
 -- function init_tableView
 -------------------------------------
-function UI_Package_AdventureClear:init_tableView()
+function UI_Package_AdventureClear01:init_tableView()
     local vars = self.vars
     vars['productNode']:removeAllChildren()
     vars['productNodeLong']:removeAllChildren()
 
     local node = vars['productNode']
-    if g_adventureClearPackageData:isActive() then
+    if g_adventureClearPackageData01:isActive() then
         node = vars['productNodeLong']
         vars['productNode']:setVisible(false)
         vars['productNodeLong']:setVisible(true)
@@ -102,7 +102,7 @@ function UI_Package_AdventureClear:init_tableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(440, 80+5)
-    table_view:setCellUIClass(UI_Package_AdventureClearListItem, create_func)
+    table_view:setCellUIClass(UI_Package_AdventureClearListItem01, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
 
@@ -124,7 +124,7 @@ function UI_Package_AdventureClear:init_tableView()
     end
 
     -- 보상 받기 가능한 idx로 이동
-    local stage_id, idx = g_adventureClearPackageData:getFocusRewardStage()
+    local stage_id, idx = g_adventureClearPackageData01:getFocusRewardStage()
     if stage_id then
         table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         table_view:relocateContainerFromIndex(idx, false)
@@ -134,7 +134,7 @@ end
 -------------------------------------
 -- function click_buyBtn
 -------------------------------------
-function UI_Package_AdventureClear:click_buyBtn()
+function UI_Package_AdventureClear01:click_buyBtn()
 	local struct_product = self.m_structProduct
 
     if (not struct_product) then
@@ -159,10 +159,10 @@ end
 -------------------------------------
 -- function request_serverInfo
 -------------------------------------
-function UI_Package_AdventureClear:request_serverInfo()
+function UI_Package_AdventureClear01:request_serverInfo()
     local function cb_func()
         self:refresh()
     end
 
-    g_adventureClearPackageData:request_adventureClearInfo(cb_func)
+    g_adventureClearPackageData01:request_adventureClearInfo(cb_func)
 end

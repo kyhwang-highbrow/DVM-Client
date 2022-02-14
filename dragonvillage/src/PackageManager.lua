@@ -39,7 +39,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_PRODUCT_ID)
         local list = {}
         table.insert(list, _struct_product)
-        target_ui = UI_Package_LevelUp(list, is_popup)
+        target_ui = UI_Package_LevelUp_01(list, is_popup)
     
     -- 레벨업 패키지2 UI
     elseif (_package_name == 'package_levelup_02') then
@@ -60,7 +60,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local _struct_product = g_shopDataNew:getAdventureClearProduct()
         local list = {}
         table.insert(list, _struct_product)
-        target_ui = UI_Package_AdventureClear(list, is_popup)
+        target_ui = UI_Package_AdventureClear01(list, is_popup)
     
     -- 모험돌파 패키지2 UI
     elseif (_package_name == 'package_adventure_clear_02') then
@@ -233,23 +233,23 @@ function PackageManager:isExist(package_name)
     
     -- 레벨업 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-10-25
     if (package_name == 'package_levelup') then
-        return g_levelUpPackageData:isVisibleAtPackageShop(LEVELUP_PACKAGE_PRODUCT_ID)
+        return g_levelUpPackageDataOld:isVisibleAtPackageShop(LEVELUP_PACKAGE_PRODUCT_ID)
     end
 
     -- 레벨업 패키지2는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-10-25
     if (package_name == 'package_levelup_02') then
-        return g_levelUpPackageData:isVisibleAtPackageShop(LEVELUP_PACKAGE_2_PRODUCT_ID)
+        return g_levelUpPackageDataOld:isVisibleAtPackageShop(LEVELUP_PACKAGE_2_PRODUCT_ID)
     end
 
     -- 레벨업 패키지3는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) mskim 2020.08.24
     if (package_name == 'package_levelup_03') then
-        return g_levelUpPackageData:isVisibleAtPackageShop(LEVELUP_PACKAGE_3_PRODUCT_ID)
+        return g_levelUpPackageDataOld:isVisibleAtPackageShop(LEVELUP_PACKAGE_3_PRODUCT_ID)
     end
 
     -- 모험돌파 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-12-18
     if (package_name == 'package_adventure_clear') then
-        local is_active = g_adventureClearPackageData:isActive()
-        local is_visible = g_adventureClearPackageData:isVisible_adventureClearPack()
+        local is_active = g_adventureClearPackageData01:isActive()
+        local is_visible = g_adventureClearPackageData01:isVisible_adventureClearPack()
         if (is_active and (is_visible == false)) then
             return false
         else
