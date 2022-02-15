@@ -138,7 +138,7 @@ end
 ------------------------------------------------------
 
 UI_PackageCategoryButton = class(class(UI, ITableViewCell:getCloneTable()), {
-    m_data = 'table',
+    m_data = 'StructPackage',
     m_scrollView = '',
     m_contractBtn = '',
     m_parent = '',
@@ -272,6 +272,8 @@ function UI_PackageCategoryButton:createTableView()
         return 
     end
 
+    
+    -- struct_package
     self.m_data:setTargetUI(container, function() self:refresh() end, true)
 
     ------------------------------------------------------------------------
