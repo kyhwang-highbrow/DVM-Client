@@ -160,8 +160,7 @@ function UI_HighbrowVipPopup:click_okBtn()
     end
 
     -- 개인정보 수집 및 이용 동의 여부
-    local is_checked = vars['checkBtn']:isChecked()
-    if (is_checked == false) then
+    if (self.m_isChecked == false) then
         UIManager:toastNotificationRed(Str('개인정보 수집 및 이용에 동의해 주세요.'))
         return
     end

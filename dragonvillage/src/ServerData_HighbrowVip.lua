@@ -18,7 +18,7 @@ TABLE_HIGHBROW_VIP = {
     {
         ['grade'] = 1,
         ['name'] = '골드',
-        ['item'] = '700001;378000',
+        ['item'] = '700001;51000',
         ['item_icon_res'] = 'ui/icons/item/shop_cash_05.png',
         
     },
