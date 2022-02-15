@@ -63,6 +63,41 @@ function table.addList(t1, t2)
     end
 end
 
+function table.removeItemFromList(list, remove_v)
+    for i, v in ipairs(list) do
+        if (v == remove_v) then
+            table.remove(list, i)
+            break
+        end
+    end
+end
+
+function table.removeAllItemFromList(list, remove_v)
+    for i = #list, 1, -1 do 
+        local v = list[i]
+        if (v == remove_v) then
+            table.remove(list, i)
+        end
+    end
+end
+
+-------------------------------------
+-- function removeIndexFromList
+-- @brief 리스트에서 s_idx부터 e_idx까지 제거한다.
+-- @param s_idx(number) 제거하려는 인덱스 리스트의 시작 인덱스, 없으면 1
+-- @param e_idx(number) 제거하려는 인덱스 리스트의 마지막 인덱스, 없으면 #list
+-------------------------------------
+function table.removeIndexFromList(list, s_idx, e_idx)
+    local s_idx = (s_idx or 1)
+    local e_idx = (e_idx or #list)
+    for idx = #list, 1, - 1 do
+        if ((s_idx <= idx) and (idx <= e_idx)) then
+            table.remove(list, idx)
+        end
+    end
+end
+
+
 function iterTwo(t, i)
     local v1, v2 = t[i], t[i + 1]
     i = i + 2

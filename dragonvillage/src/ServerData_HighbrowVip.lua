@@ -6,7 +6,7 @@ ServerData_HighbrowVip = class({
     m_serverData = 'ServerData',
 
     m_vipGrade = '',
-    m_vipReward = '',
+    m_vipSurveyStatus = '',
 
 })
 
@@ -99,8 +99,8 @@ function ServerData_HighbrowVip:response_info(ret)
     end
 
     -- 유저가 마지막으로 관련 정보를 등록했던 등급
-    if (ret['hvip_reward'] ~= nil) then
-        self.m_vipReward = ret['hvip_reward']
+    if (ret['hvip_survey_state'] ~= nil) then
+        self.m_vipSurveyStatus = ret['hvip_survey_state']
     end
 end
 
@@ -180,7 +180,7 @@ end
 -- function checkVipStatus
 -------------------------------------
 function ServerData_HighbrowVip:checkVipStatus()
-    return (self.m_vipGrade ~= nil) and (self.m_vipGrade ~= self.m_vipReward)
+    return (self.m_vipGrade ~= nil) and (self.m_vipGrade ~= self.m_vipSurveyStatus)
 end
 
 -------------------------------------
@@ -196,7 +196,7 @@ end
 -- function openPopup
 -------------------------------------
 function ServerData_HighbrowVip:openPopup(close_cb)
-    if (self.m_vipGrade == nil) or (self.m_vipGrade == self.m_vipReward) then
+    if (self.m_vipGrade == nil) or (self.m_vipGrade == self.m_vipSurveyStatus) then
         if close_cb then
             close_cb()
         end

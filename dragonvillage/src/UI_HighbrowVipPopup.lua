@@ -49,45 +49,29 @@ function UI_HighbrowVipPopup:initUI()
 
     -- 좌측 상단 아이콘
     local vip_icon_res = g_highbrowVipData:getVipIconRes()
-    self:replaceResource(vars['iconNode'], vip_icon_res)
+    UIManager:replaceResource(vars['iconNode'], vip_icon_res)
 
     -- 아래 프레임
     local bottom_frame_res = g_highbrowVipData:getBottomFrameRes()
-    self:replaceResource(vars['frameNode'], bottom_frame_res)
+    UIManager:replaceResource(vars['frameNode'], bottom_frame_res)
 
     -- 아이템 박스
     local item_box_res = g_highbrowVipData:getItemBoxRes()
-    self:replaceResource(vars['rewardFrameNode1'], item_box_res)
-    self:replaceResource(vars['rewardFrameNode2'], item_box_res)
+    UIManager:replaceResource(vars['rewardFrameNode1'], item_box_res)
+    UIManager:replaceResource(vars['rewardFrameNode2'], item_box_res)
 
     -- 아이템
     local item_icon_res = g_highbrowVipData:getItemIconRes()
-    self:replaceResource(vars['rewardNode'], item_icon_res)
+    UIManager:replaceResource(vars['rewardNode'], item_icon_res)
 
     
     local item_str = g_highbrowVipData:getItemStr()
     vars['rewardLabel']:setString(item_str)
+
+
+    self:initEditBox()
 end
 
--------------------------------------
--- function replaceResource
--------------------------------------
-function UI_HighbrowVipPopup:replaceResource(parent_node, res_name)
-    local child = parent_node:getChildren()[1]
-    local ui_size = child:getContentSize()
-    local scale_x = child:getScaleX()
-    local scale_y  = child:getScaleY()
-    local anchor_point = child:getAnchorPoint()
-    local dock_point = child:getDockPoint()
-
-    parent_node:removeAllChildren()
-    local sprite = cc.Sprite:create(res_name)
-    sprite:setContentSize(ui_size.width, ui_size.height)
-    sprite:setScale(scale_x, scale_y)
-    sprite:setDockPoint(dock_point)
-    sprite:setAnchorPoint(anchor_point)
-    parent_node:addChild(sprite)
-end
 
 
 -------------------------------------
@@ -102,6 +86,47 @@ function UI_HighbrowVipPopup:initButton()
     if vars['closeBtn'] then
         vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     end
+
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+end
+
+-------------------------------------
+-- function initEditBox
+-------------------------------------
+function UI_HighbrowVipPopup:initEditBox()
+    local vars = self.vars
+    -- 이름
+    vars['nameEditBox']:setMaxLength(10) -- 입력 제한
+    
+    -- 이메일
+    vars['emailEditBox']:setMaxLength(300) -- 입력 제한
+
+    -- 연락처
+    vars['phoneEditBox']:setMaxLength(13)  -- 입력 제한
+
+    -- 입력 콜백
+    local function editBoxTextEventHandle(event_name, editbox)
+        if (event_name == 'changed') then
+            local text = editbox:getText()
+            text = string.gsub(text, '[^%d]+', '')
+            
+            local phone_format_str_list = {}
+            table.insert(phone_format_str_list, string.sub(text, 1, 3))
+            local middle_idx = 7
+            -- 10자리일땐 000-000-0000 꼴
+            if (#text == 10) then
+                middle_idx = 6
+            end
+            table.insert(phone_format_str_list, string.sub(text, 4, middle_idx))
+            table.insert(phone_format_str_list, string.sub(text, (middle_idx + 1), -1))
+            table.removeAllItemFromList(phone_format_str_list, '')
+            local phone_format_str = table.concat(phone_format_str_list, '-')
+            
+            editbox:setText(phone_format_str)
+        end
+    end
+
+    vars['phoneEditBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
 end
 
 
@@ -167,13 +192,177 @@ function UI_HighbrowVipPopup:click_okBtn()
 
     local function success_cb()
         UIManager:toastNotificationGreen(Str('제출해주셔서 감사합니다.'))
+        self:click_closeBtn()
     end
 
     -- local function fail_cb()
     --     UIManager:toastNotificationRed(Str('일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'))
     -- end
 
-    g_highbrowVipData:request_reward(name, phone, email, success_cb)
+    UI_HighbrowVipConfirm(name, phone, email, success_cb)
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_HighbrowVipPopup:click_infoBtn()
+    UI_HighbrowVipInfo()
+end
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- Class UI_HighbrowVipInfo
+-------------------------------------
+UI_HighbrowVipInfo = class(UI, {
+
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_HighbrowVipInfo:init()
+    local vars = self:load('event_highbrow_vip_info_popup.ui')
+
+    UIManager:open(self, UIManager.POPUP)
+    
+    -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HighbrowVipInfo')
+    
+    self:doActionReset()
+    self:doAction()
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_HighbrowVipInfo:initUI()
+    local vars = self.vars
+
+    -- 좌측 상단 아이콘
+    local vip_icon_res = g_highbrowVipData:getVipIconRes()
+    UIManager:replaceResource(vars['iconNode'], vip_icon_res)
+
+    -- 아래 프레임
+    local bottom_frame_res = g_highbrowVipData:getBottomFrameRes()
+    UIManager:replaceResource(vars['frameNode'], bottom_frame_res)
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_HighbrowVipInfo:initButton()
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_HighbrowVipInfo:refresh()
+    
+end
+
+
+
+
+-------------------------------------
+-- Class UI_HighbrowVipConfirm
+-------------------------------------
+UI_HighbrowVipConfirm = class(UI, {
+    m_name = 'string',
+    m_number = '',
+    m_email = 'string',
+
+    m_okCallback = 'function',
+    m_failCallback = 'function'
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_HighbrowVipConfirm:init(name, number, email, ok_callback, fail_callback)
+    local vars = self:load('event_highbrow_vip_confirm_popup.ui')
+
+    UIManager:open(self, UIManager.POPUP)
+    
+    -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_HighbrowVipConfirm')
+    
+    self:doActionReset()
+    self:doAction()
+
+    self.m_okCallback = ok_callback
+    self.m_failCallback = fail_callback
+
+    self.m_name = name
+    self.m_number = number
+    self.m_email = email
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_HighbrowVipConfirm:initUI()
+    local vars = self.vars 
+
+    -- 좌측 상단 아이콘
+    local vip_icon_res = g_highbrowVipData:getVipIconRes()
+    UIManager:replaceResource(vars['iconNode'], vip_icon_res)
+
+    -- 아래 프레임
+    local bottom_frame_res = g_highbrowVipData:getBottomFrameRes()
+    UIManager:replaceResource(vars['frameNode'], bottom_frame_res)
+
+    -- 이름
+    vars['nameLabel']:setString(self.m_name)
+
+    -- 번호
+    vars['numberLabel']:setString(self.m_number)
+
+    -- 이메일
+    vars['mailLabel']:setString(self.m_email)
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_HighbrowVipConfirm:initButton()
+    local vars = self.vars 
+
+    vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_HighbrowVipConfirm:refresh()
+    
+end
+
+function UI_HighbrowVipConfirm:click_okBtn()
+    g_highbrowVipData:request_reward(self.m_name, self.m_number, self.m_email, self.m_okCallback, self.m_failCallback)
+end
+
+function UI_HighbrowVipConfirm:click_closeBtn()
+    self:close()
 end
 
 
@@ -187,10 +376,21 @@ end
 
 
 
+
+
+
+
+
+-------------------------------------
+-- Class UI_ButtonHighbrowVIP
+-------------------------------------
 UI_ButtonHighbrowVIP = class(UI_ManagedButton, {
 
 })
 
+-------------------------------------
+-- function init
+-------------------------------------
 function UI_ButtonHighbrowVIP:init()
     self:load('button_highbrow_vip.ui')
 
@@ -199,51 +399,36 @@ function UI_ButtonHighbrowVIP:init()
     self:refresh()
 end
 
+-------------------------------------
+-- function initUI
+-------------------------------------
 function UI_ButtonHighbrowVIP:initUI()
     local vars = self.vars
 
     local icon_res = g_highbrowVipData:getVipBtnRes()
-    self:replaceResource(vars['vipNode'], icon_res)
+    UIManager:replaceResource(vars['vipNode'], icon_res)
 
 
+    vars['vipLabel']:setString(Str('등급혜택'))
 end
 
+-------------------------------------
+-- function initButton
+-------------------------------------
 function UI_ButtonHighbrowVIP:initButton()    
     self.vars['vipBtn']:registerScriptTapHandler(function() self:click_btn() end)
 end
 
+-------------------------------------
+-- function refresh
+-------------------------------------
 function UI_ButtonHighbrowVIP:refresh()
 
 end
 
+-------------------------------------
+-- function click_btn
+-------------------------------------
 function UI_ButtonHighbrowVIP:click_btn()
     g_highbrowVipData:openPopup()
-end
-
--------------------------------------
--- function replaceResource
--------------------------------------
-function UI_ButtonHighbrowVIP:replaceResource(parent_node, res_name)
-    local child = parent_node:getChildren()[1]
-    local ui_size = child:getContentSize()
-    local scale_x = child:getScaleX()
-    local scale_y  = child:getScaleY()
-    local anchor_point = child:getAnchorPoint()
-    local dock_point = child:getDockPoint()
-
-    parent_node:removeAllChildren()
-    local sprite = cc.Sprite:create(res_name)
-    sprite:setContentSize(ui_size.width, ui_size.height)
-    sprite:setScale(scale_x, scale_y)
-
-    ccdump(ui_size)
-    ccdump(scale_x)
-    ccdump(scale_y)
-
-    ccdump(anchor_point)
-    ccdump(dock_point)
-
-    sprite:setDockPoint(dock_point)
-    sprite:setAnchorPoint(anchor_point)
-    parent_node:addChild(sprite)
 end

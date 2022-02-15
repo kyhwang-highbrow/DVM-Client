@@ -662,3 +662,28 @@ function UIManager:getLastUI()
 
     return ui
 end
+
+
+-------------------------------------
+-- function replaceResource
+-------------------------------------
+function UIManager:replaceResource(parent_node, res_name)
+    if (parent_node == nil) or (res_name == nil) or (res_name == '') then
+        return
+    end
+
+    local child = parent_node:getChildren()[1]
+    local ui_size = child:getContentSize()
+    local scale_x = child:getScaleX()
+    local scale_y  = child:getScaleY()
+    local anchor_point = child:getAnchorPoint()
+    local dock_point = child:getDockPoint()
+
+    parent_node:removeAllChildren()
+    local sprite = cc.Sprite:create(res_name)
+    sprite:setContentSize(ui_size.width, ui_size.height)
+    sprite:setScale(scale_x, scale_y)
+    sprite:setDockPoint(dock_point)
+    sprite:setAnchorPoint(anchor_point)
+    parent_node:addChild(sprite)
+end
