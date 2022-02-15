@@ -47,6 +47,7 @@ return {['5단계 {1}에서 {2}이(가) 등장하며, 토큰 상점에서 아이
 ['7등급 룬 세트 선택권에서 선택한 룬은 우편함을 통해 지급됩니다.']='Las runas seleccionadas de la opción Conjunto de runas de rango 7 se enviarán a través de su buzón.',
 ['7등급 룬 을 확정 획득 할 수 있는 ‘7등급 룬 세트 선택권’이 추가 됩니다.']='Se ha agregado una \'Opción de conjunto de runas de séptimo grado\', que le permite adquirir runas de séptimo grado.',
 ['7등급 룬 세트 선택권 추가']='Se agregó la opción de conjunto de runas de nivel 7',
+['레이드 패키지']='Paquete de incursión',
 ['-드래그 스킬 안내-\n\n잘하는데?! 다크닉스에게 지속피해가 걸렸어. 최대 생명력에 비례해서 주는 피해이기 때문에 보스전에 아주 유용해.']='-Guía de uso de la Habilidad de Arrastre-\n\n¡Qué bien lo haces! Has infringido daño continuo a Darknix. Usarlo contra jefes es útil ya que infringe daño de acuerdo al máximo de la Vida de dicho enemigo.',
 ['마지막으로 중요한 사실을 알려드릴께요!\n1챕터의 7스테이지를 완료하면 고급 소환 10회를 무료로 제공한다고 합니다!']='Por último, déjame decirte algo importante. \n¡Completa la etapa 7 del capítulo 1 y podrás usar la invocación avanzada 10 veces gratis!',
 ['이제 멋진 드래곤들과 함께 드래곤빌리지의 세계로 자유롭게 여행을 떠날 시간입니다! \n테이머님의 행운을 빕니다.']='¡Es hora de viajar por el increíble mundo de Dragon Village junto a fantásticos dragones! \n¡Domador, buena suerte en las batallas!',

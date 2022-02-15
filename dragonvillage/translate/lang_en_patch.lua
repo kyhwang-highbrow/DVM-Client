@@ -47,6 +47,7 @@ return {['5단계 {1}에서 {2}이(가) 등장하며, 토큰 상점에서 아이
 ['7등급 룬 세트 선택권에서 선택한 룬은 우편함을 통해 지급됩니다.']='Runes from Grade 7 Rune Set Tickets are sent to your Inbox.',
 ['7등급 룬 을 확정 획득 할 수 있는 ‘7등급 룬 세트 선택권’이 추가 됩니다.']='Grade 7 Rune Set Ticket, which generates Grade 7 Runes without fail, will be added.',
 ['7등급 룬 세트 선택권 추가']='Grade 7 Rune Set Ticket added',
+['레이드 패키지']='Raid Package',
 ['-드래그 스킬 안내-\n\n잘하는데?! 다크닉스에게 지속피해가 걸렸어. 최대 생명력에 비례해서 주는 피해이기 때문에 보스전에 아주 유용해.']='-Drag Skill Guide-\n\nYou\'re doing great! Darknix is suffering from DOT damage. The skill\'s damage scales to the opponent\'s Max HP, so it\'s quite useful against bosses.',
 ['마지막으로 중요한 사실을 알려드릴께요!\n1챕터의 7스테이지를 완료하면 고급 소환 10회를 무료로 제공한다고 합니다!']='Lastly, let me tell you something important.\nComplete Stage 7 in Chapter 1, and you can use Advanced Summon 10 times for free!',
 ['이제 멋진 드래곤들과 함께 드래곤빌리지의 세계로 자유롭게 여행을 떠날 시간입니다! \n테이머님의 행운을 빕니다.']='Now it\'s time for you to go on a journey to Dragon Village with your amazing dragons!\nGood luck, Tamer!',
