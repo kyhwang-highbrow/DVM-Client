@@ -746,7 +746,7 @@ function ServerData_LevelUpPackage:isReceivableRewardExist(product_id)
     local reward_list = TABLE:get(string.format(self.m_tableKeyword, index))
 
     for index, reward in ipairs(reward_list) do
-        local level = reward['lv']
+        local level = reward['level']
 
         -- 받지 않은 보상이 있으면
         if (self:isReceivedReward(product_id, level) == false) then
@@ -801,12 +801,12 @@ function ServerData_LevelUpPackage:isNotiVisible(product_id)
     local is_visible = false
 
     if (product_id ~= nil) then
-        if (self:checkPackage(product_id) == true) and (self:isLeftRewardExist(product_id) == true) then
+        if (self:checkPackage(product_id) == true) and (self:isActive(product_id) == true) and (self:isReceivableRewardExist(product_id) == true) then
             is_visible = true
         end
     else
         for index, product_id in ipairs(self.m_productIdList) do
-            if(self:isLeftRewardExist(product_id) == true) then
+            if (self:isActive(product_id) == true) and (self:isReceivableRewardExist(product_id) == true) then
                 is_visible = is_visible or true
                 break
             end

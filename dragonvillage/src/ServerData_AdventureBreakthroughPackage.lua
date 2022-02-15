@@ -409,7 +409,7 @@ function ServerData_AdventureBreakthroughPackage:isNotiVisible(product_id)
     local is_visible = false
 
     if (product_id ~= nil) then
-        if (self:checkPackage(product_id) == true) and (self:isActive(product_id) == true) and  (self:isReceivableRewardExist(product_id) == true) then
+        if (self:checkPackage(product_id) == true) and (self:isActive(product_id) == true) and (self:isActive(product_id) == true) and  (self:isReceivableRewardExist(product_id) == true) then
             is_visible = true
         end
     else
