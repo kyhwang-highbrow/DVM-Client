@@ -191,8 +191,7 @@ function UI_HighbrowVipPopup:click_okBtn()
     end
 
     local function success_cb()
-        UIManager:toastNotificationGreen(Str('멤버십 등록이 완료되었습니다.'))
-        self:click_closeBtn()
+        --self:click_closeBtn()
     end
 
     -- local function fail_cb()
@@ -369,12 +368,26 @@ function UI_HighbrowVipConfirm:refresh()
     
 end
 
+-------------------------------------
+-- function click_okBtn
+-------------------------------------
 function UI_HighbrowVipConfirm:click_okBtn()
-    g_highbrowVipData:request_reward(self.m_name, self.m_number, self.m_email, self.m_okCallback, self.m_failCallback)
+    local function success_callback()
+        UIManager:toastNotificationGreen(Str('멤버십 등록이 완료되었습니다.'))
+
+        self:click_closeBtn()
+    end
+
+    g_highbrowVipData:request_reward(self.m_name, self.m_number, self.m_email, success_callback, self.m_failCallback)
 end
 
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
 function UI_HighbrowVipConfirm:click_closeBtn()
     self:close()
+    
+    --self:setCloseCB(function() self.m_okCallback() end)
 end
 
 
@@ -409,6 +422,10 @@ function UI_ButtonHighbrowVIP:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    
+    -- 업데이트 스케줄러
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -443,4 +460,14 @@ end
 -------------------------------------
 function UI_ButtonHighbrowVIP:click_btn()
     g_highbrowVipData:openPopup()
+end
+
+-------------------------------------
+-- function click_btn
+-------------------------------------
+function UI_ButtonHighbrowVIP:update(dt)
+    if (g_highbrowVipData:checkVipStatus() == false) then
+        self.m_bMarkDelete = true
+        self:callDirtyStatusCB()
+    end
 end
