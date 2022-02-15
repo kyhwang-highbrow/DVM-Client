@@ -144,7 +144,19 @@ function ServerData_AdventureBreakthroughPackage:request_info(product_id, succes
 
     -- 콜백 함수
     local function response_callback(ret)
-        self:response_info(product_id, ret)
+
+        table.sort(ret['received_list'], function(a, b)
+            return a < b
+        end)
+        
+        local temp = {
+            ['active'] =ret['active'],
+            ['received_list'] = ret['received_list']
+        }
+
+        self:response_info(product_id, temp)
+
+
 
         if (success_cb) then 
             success_cb(ret) 
@@ -188,7 +200,17 @@ function ServerData_AdventureBreakthroughPackage:request_reward(product_id, stag
 
     -- 콜백 함수
     local function response_callback(ret)
-        self:response_info(product_id, ret)
+
+        table.sort(ret['received_list'], function(a, b)
+            return a < b
+        end)
+
+        local temp = {
+            ['active'] = self:isActive(product_id),
+            ['received_list'] = ret['received_list']
+        }
+
+        self:response_info(product_id, temp)
 
         if (success_cb) then 
             success_cb(ret) 

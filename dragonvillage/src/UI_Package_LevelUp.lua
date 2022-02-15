@@ -284,7 +284,9 @@ end
 -------------------------------------
 function UI_Package_LevelUp:click_buyBtn()
     self:setBuyCB(function() 
-        self:refresh()
+        
+        local product_id = self.m_structProduct:getProductID()
+        g_levelUpPackageData:request_info(product_id, function() self:refresh() end)
     end)
 
     PARENT.click_buyBtn(self)

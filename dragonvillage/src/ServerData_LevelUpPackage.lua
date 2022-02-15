@@ -516,7 +516,17 @@ function ServerData_LevelUpPackage:request_info(product_id, success_cb, fail_cb)
 
     -- 콜백 함수
     local function response_callback(ret)
-        self:response_info(product_id, ret)
+        
+        table.sort(ret['received_list'], function(a, b)
+            return a < b
+        end)
+        
+        local temp = {
+            ['active'] = ret['active'],
+            ['received_list'] = ret['received_list']
+        }
+
+        self:response_info(product_id, temp)
 
         if (success_cb) then 
             success_cb(ret) 
@@ -560,6 +570,10 @@ function ServerData_LevelUpPackage:response_info(product_id, ret)
     --     "received_list":[]
     -- }
 
+    table.sort(ret, function(a, b) 
+        return a < b
+    end)
+
     self.m_dataList[product_id] = ret or {}
 end
 
@@ -571,7 +585,18 @@ function ServerData_LevelUpPackage:request_reward(product_id, level, success_cb,
 
     -- 콜백 함수
     local function response_callback(ret)
-        self:response_info(product_id, ret)
+
+        table.sort(ret['received_list'], function(a, b)
+            return a < b
+        end)
+
+        local temp = {
+            ['active'] = self:isActive(product_id),
+            ['received_list'] = ret['received_list']
+        }
+
+
+        self:response_info(product_id, temp)
 
         if (success_cb) then 
             success_cb(ret) 
@@ -721,12 +746,11 @@ function ServerData_LevelUpPackage:isReceivableRewardExist(product_id)
     local reward_list = TABLE:get(string.format(self.m_tableKeyword, index))
 
     for index, reward in ipairs(reward_list) do
-        local stage_id = reward['stage']
+        local level = reward['lv']
 
         -- 받지 않은 보상이 있으면
-        if (self:isReceivedReward(product_id, stage_id) == false) then
+        if (self:isReceivedReward(product_id, level) == false) then
             local user_level = g_userData:get('lv')
-            local level = reward['level']
 
             -- 보상 레벨보다 테이머 레벨이 높은 경우 혹은 판매 종료된 패키지인 경우
             if (user_level >= level)  or (self:isRecentPackage(product_id) == false) then

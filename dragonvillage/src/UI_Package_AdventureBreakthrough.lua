@@ -100,7 +100,8 @@ end
 -------------------------------------
 function UI_Package_AdventureBreakthrough:click_buyBtn()
     self:setBuyCB(function() 
-        self:refresh()
+        local product_id = self.m_structProduct:getProductID()
+        g_adventureBreakthroughPackageData:request_info(product_id, function() self:refresh() end)
     end)
 
     PARENT.click_buyBtn(self)
