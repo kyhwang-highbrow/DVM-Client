@@ -191,7 +191,7 @@ function UI_HighbrowVipPopup:click_okBtn()
     end
 
     local function success_cb()
-        UIManager:toastNotificationGreen(Str('제출해주셔서 감사합니다.'))
+        UIManager:toastNotificationGreen(Str('멤버십 등록이 완료되었습니다.'))
         self:click_closeBtn()
     end
 
