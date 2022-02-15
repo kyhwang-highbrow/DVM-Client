@@ -409,5 +409,5 @@ function UI_Package_LevelUpItem:click_rewardBtn()
         ItemObtainResult_Shop(ret)
     end
 
-    g_levelUpPackageDataOld:request_reward(self.m_productId, level, cb_func, nil)
+    g_levelUpPackageData:request_reward(self.m_productId, level, cb_func, nil)
 end
