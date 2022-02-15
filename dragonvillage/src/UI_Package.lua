@@ -79,7 +79,7 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     
 
     self:initUI()
-	self:initButton(is_popup)
+	self:initButton()
     self:refresh()
 end
 
@@ -289,9 +289,10 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_Package:initButton(is_popup)
+function UI_Package:initButton()
 	local vars = self.vars
     
+    local is_popup = self.m_isPopup
     -- 닫기 버튼
     if (vars['closeBtn']) then
         if (not is_popup) then

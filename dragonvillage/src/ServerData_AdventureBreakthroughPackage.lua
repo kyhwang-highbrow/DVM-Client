@@ -57,7 +57,6 @@ function ServerData_AdventureBreakthroughPackage:init(server_data)
     self.m_productIdList = {90057, 110281, 110282, 110283} -- 모험 돌파 패키지 1, 2, 3, 4
     self.m_tableKeyword = 'table_package_stage_%02d'
     self.m_dataList = {}
-
 end
 
 -------------------------------------
@@ -85,6 +84,15 @@ function ServerData_AdventureBreakthroughPackage:checkPackage(product_id)
     local index = self:getIndexFromProductId(product_id)
 
     return (index ~= nil)
+end
+
+-------------------------------------
+-- function getRecentPid
+-------------------------------------
+function ServerData_AdventureBreakthroughPackage:getRecentPid()
+    local index = table.getn(self.m_productIdList)
+
+    return self.m_productIdList[index]
 end
 
 -------------------------------------

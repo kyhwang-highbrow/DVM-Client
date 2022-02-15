@@ -460,6 +460,16 @@ function ServerData_LevelUpPackage:checkPackage(product_id)
     return (index ~= nil)
 end
 
+
+-------------------------------------
+-- function getRecentPid
+-------------------------------------
+function ServerData_LevelUpPackage:getRecentPid()
+    local index = table.getn(self.m_productIdList)
+
+    return self.m_productIdList[index]
+end
+
 -------------------------------------
 -- function checkPackage
 -------------------------------------

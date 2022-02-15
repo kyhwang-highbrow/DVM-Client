@@ -136,7 +136,7 @@ function UI_AdventureSceneNew:initButton()
     vars['adventChapterBtn']:registerScriptTapHandler(function() self:click_adventChapterBtn(true) --[[isToAdvent]] end)
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventChapterBtn(false) --[[isToAdvent]] end)
 
-    vars['adventureClearBtn03']:registerScriptTapHandler(function() self:click_adventureClearBtn03() end) -- 모험돌파 패키지 3 -- 2020.09.14 -- 특정 조건에 노출
+    vars['adventureClearBtn03']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지 3 -- 2020.09.14 -- 특정 조건에 노출
 end
 
 -------------------------------------
@@ -149,8 +149,10 @@ function UI_AdventureSceneNew:refresh()
     -- 모험돌파 버튼 3 2020.08.24
     do
         -- 모험돌파 버튼 .. 지정 스테이지 클리어한 후에는 구매 후 보상 전부 수령할 때까지 노출
+        local product_id = g_adventureBreakthroughPackageData:getRecentPid()
+        
         local is_visible = (g_adventureData:getStageClearCnt(g_personalpackData:getStartSid()) > 0) 
-                            and g_adventureClearPackageData03:isVisible_adventureClearPackOnAdventureMap()
+                            and (g_adventureBreakthroughPackageData:isButtonVisible(product_id) == true)
         vars['adventureClearBtn03']:setVisible(is_visible)
 
         -- 모험돌파 버튼 연출 추가
@@ -398,12 +400,19 @@ function UI_AdventureSceneNew:click_starBoxBtn(star)
     ui:setCloseCB(close_cb)
 end
 
+
+
 -------------------------------------
--- function click_adventureClearBtn03
+-- function click_adventureClearBtn
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
-function UI_AdventureSceneNew:click_adventureClearBtn03()
-    local ui = PackageManager:getTargetUI(PACK_ADVENTURE, true)
+function UI_AdventureSceneNew:click_adventureClearBtn()
+    local product_id = g_adventureBreakthroughPackageData:getRecentPid()
+
+    local struct_product = g_shopDataNew:getProduct('pass', product_id)
+
+    local is_popup = true
+    local ui = struct_product:getPackageUI(is_popup)
 end
 
 

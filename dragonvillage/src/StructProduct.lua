@@ -1345,3 +1345,24 @@ function StructProduct:handlingMissingPayments(l_payload, cb_func, finish_cb)
     PaymentHelper.handlingMissingPayments(l_payload, cb_func, finish_cb)
 end
 
+
+
+-------------------------------------
+-- function getPackageUI
+-------------------------------------
+function StructProduct:getPackageUI(is_popup)
+    local package_class_name = self['package_class']
+    local package_class
+    
+    if package_class_name and (package_class_name ~= '') then
+        if (not _G[package_class_name]) then
+            require(package_class_name)
+        end
+
+        package_class = _G[package_class_name]
+    else
+        package_class = UI_Package
+    end
+
+    return package_class({self}, is_popup)
+end
