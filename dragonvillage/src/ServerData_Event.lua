@@ -280,7 +280,7 @@ function ServerData_Event:getEventFullPopupList()
     local l_priority = {}
     local event_list = self.m_eventList or {}
 
-    local package_list = g_shopDataNew:getActivatedPackageList()
+    local package_list = g_shopDataNew:getActivatedPackageList(true)
 
     for i, v in ipairs(event_list) do
         local priority = v['full_popup']

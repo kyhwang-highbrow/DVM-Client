@@ -28,13 +28,17 @@ StructProductGroup = class(PARENT, {
 	dock_point = 'number', -- 1 or 
 
 	m_structProductList = 'List[StructProduct]',
+
+	m_bIsPassIncluded = 'boolean'
 })
 
 
 ----------------------------------------------------------------------
 -- function createTableView
 ----------------------------------------------------------------------
-function StructProductGroup:init(data)
+function StructProductGroup:init(data, is_pass_included)
+
+	self.m_bIsPassIncluded = is_pass_included or false
 	self:convertPidsToStructProducts()
 end
 
@@ -116,6 +120,10 @@ function StructProductGroup:convertPidsToStructProducts()
 				if dependency then
 					removal_list[tonumber(product_id)] = tonumber(dependency)
 				end
+			end
+		elseif struct_product and self.m_bIsPassIncluded and (struct_product:getTabCategory() == 'pass') then
+			if (struct_product:isItBuyable()) then
+				table.insert(result, struct_product)
 			end
 		end
 	end	

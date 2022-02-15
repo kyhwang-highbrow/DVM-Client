@@ -1441,13 +1441,13 @@ end
 -- function getActivatedPackageList
 -- @brief 구매 가능한 상품 리스트
 -------------------------------------
-function ServerData_Shop:getActivatedPackageList()
+function ServerData_Shop:getActivatedPackageList(is_pass_included)
     local packages = TABLE:get('table_package_bundle')
     local package_list = {}
 
     -- csv 파일의 하단에 오는 상품이 제일 위에 노출되도록 reverse order
     for index = #packages, 1, -1 do
-        local struct_product_group = StructProductGroup(packages[index])
+        local struct_product_group = StructProductGroup(packages[index], is_pass_included)
         
         local is_buyable = struct_product_group:isBuyable()
  
@@ -1463,13 +1463,13 @@ end
 -- function getPackageList
 -- @brief 상품 리스트
 -------------------------------------
-function ServerData_Shop:getPackageList()
+function ServerData_Shop:getPackageList(is_pass_included)
     local packages = TABLE:get('table_package_bundle')
     local package_list = {}
 
     -- csv 파일의 하단에 오는 상품이 제일 위에 노출되도록 reverse order
     for index = #packages, 1, -1 do
-        local struct_product_group = StructProductGroup(packages[index])
+        local struct_product_group = StructProductGroup(packages[index], is_pass_included)
         table.insert(package_list, struct_product_group)
     end
 
