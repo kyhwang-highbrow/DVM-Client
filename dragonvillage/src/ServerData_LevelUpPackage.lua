@@ -438,7 +438,7 @@ end
 -- function getIndexFromProductId
 -------------------------------------
 function ServerData_LevelUpPackage:getIndexFromProductId(product_id)
-    if (product_id ~= 'number') then
+     if (type(product_id) ~= 'number') then
         product_id = tonumber(product_id) 
     end
 
@@ -451,7 +451,7 @@ end
 -- function checkPackage
 -------------------------------------
 function ServerData_LevelUpPackage:checkPackage(product_id)
-    if (product_id ~= 'number') then
+     if (type(product_id) ~= 'number') then
         product_id = tonumber(product_id) 
     end
 
@@ -464,7 +464,7 @@ end
 -- function checkPackage
 -------------------------------------
 function ServerData_LevelUpPackage:isRecentPackage(product_id)
-    if (product_id ~= 'number') then
+     if (type(product_id) ~= 'number') then
         product_id = tonumber(product_id) 
     end
 
@@ -542,7 +542,7 @@ function ServerData_LevelUpPackage:response_info(product_id, ret)
         }
     --]]
 
-    if (product_id ~= 'number') then
+     if (type(product_id) ~= 'number') then
         product_id = tonumber(product_id) 
     end
     -- "110282":{
@@ -587,7 +587,7 @@ end
 -- function isActive
 -------------------------------------
 function ServerData_LevelUpPackage:isActive(product_id)
-    if (product_id ~= 'number') then
+     if (type(product_id) ~= 'number') then
         product_id = tonumber(product_id) 
     end
     
@@ -603,7 +603,7 @@ end
 -- @breif 보상 수령 여부
 -------------------------------------
 function ServerData_LevelUpPackage:isReceivableReward(product_id, target_level) -- isReceived
-    if (product_id ~= 'number') then
+     if (type(product_id) ~= 'number') then
         product_id = tonumber(product_id)
     end
  
@@ -638,7 +638,7 @@ end
 -- @breif 보상 수령 여부
 -------------------------------------
 function ServerData_LevelUpPackage:isReceivedReward(product_id, target_level) -- isReceived
-    if (product_id ~= 'number') then
+     if (type(product_id) ~= 'number') then
         product_id = tonumber(product_id)
     end
 
@@ -670,7 +670,7 @@ end
 -- @breif 남은 보상이 있는지 여부
 -------------------------------------
 function ServerData_LevelUpPackage:isLeftRewardExist(product_id)
-    if (product_id ~= 'number') then
+     if (type(product_id) ~= 'number') then
         product_id = tonumber(product_id)
     end
 
@@ -702,7 +702,7 @@ end
 -- @breif 받을 수 있는 보상이 있는지 여부
 -------------------------------------
 function ServerData_LevelUpPackage:isReceivableRewardExist(product_id)
-    if (product_id ~= 'number') then
+     if (type(product_id) ~= 'number') then
         product_id = tonumber(product_id) 
     end
 
@@ -726,4 +726,58 @@ function ServerData_LevelUpPackage:isReceivableRewardExist(product_id)
     end
 
     return false
+end
+
+-------------------------------------
+-- function isButtonVisible
+-------------------------------------
+function ServerData_LevelUpPackage:isButtonVisible(product_id)
+    local is_visible = false
+
+    if (product_id ~= nil) then
+        if (self:checkPackage(product_id) == true) then
+            if (self:isActive(product_id) == false) and (self:isRecentPackage(product_id) == false) then
+
+            elseif(self:isLeftRewardExist(product_id) == false) then
+
+            else
+                is_visible = is_visible or true
+            end
+        end
+    else
+        for index, product_id in ipairs(self.m_productIdList) do
+            if (self:isActive(product_id) == false) and (self:isRecentPackage(product_id) == false) then
+
+            elseif(self:isLeftRewardExist(product_id) == false) then
+
+            else
+                is_visible = is_visible or true
+                break
+            end
+        end
+    end
+
+    return is_visible
+end
+
+-------------------------------------
+-- function isNotiVisible
+-------------------------------------
+function ServerData_LevelUpPackage:isNotiVisible(product_id)
+    local is_visible = false
+
+    if (product_id ~= nil) then
+        if (self:checkPackage(product_id) == true) and (self:isLeftRewardExist(product_id) == true) then
+            is_visible = true
+        end
+    else
+        for index, product_id in ipairs(self.m_productIdList) do
+            if(self:isLeftRewardExist(product_id) == true) then
+                is_visible = is_visible or true
+                break
+            end
+        end
+    end
+
+    return is_visible
 end

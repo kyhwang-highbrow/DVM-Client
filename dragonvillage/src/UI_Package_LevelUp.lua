@@ -204,8 +204,6 @@ end
 -------------------------------------
 function UI_Package_LevelUp:initUI()
     PARENT.initUI(self)
-
-    self:init_tableView()
 end
 
 
@@ -222,6 +220,8 @@ end
 -------------------------------------
 function UI_Package_LevelUp:refresh()
     PARENT.refresh(self)
+
+    self:init_tableView()
 end
 
 -------------------------------------
@@ -236,6 +236,8 @@ function UI_Package_LevelUp:init_tableView()
     else
         node = vars['productNode']
     end
+
+    node:removeAllChildren()
 
     local product_id = self.m_structProduct:getProductID()
     local reward_list = g_levelUpPackageData:getRewardListFromProductId(product_id)
@@ -275,6 +277,17 @@ function UI_Package_LevelUp:init_tableView()
     --     table_view:relocateContainerFromIndex(idx, false)
     -- end
     
+end
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_Package_LevelUp:click_buyBtn()
+    self:setBuyCB(function() 
+        self:refresh()
+    end)
+
+    PARENT.click_buyBtn(self)
 end
 
 
