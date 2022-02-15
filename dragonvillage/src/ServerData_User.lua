@@ -674,9 +674,7 @@ function ServerData_User:response_vipInfo(ret)
     local special_state = ret['special_state']
 
     if (special_state and (special_state ~= '')) then
-        for key, vip_index in pairs(special_state) do
-            self:applyServerData(vip_index, 'special_state', key)
-        end
+        self:applyServerData(special_state, 'special_state')
     end
 end
 
