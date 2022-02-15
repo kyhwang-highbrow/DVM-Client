@@ -318,6 +318,9 @@ function ServerData:getInstance()
     --- 콜로세움 참여 이벤트
     g_leagueRaidData = ServerData_LeagueRaid(g_serverData)
 
+    -- Highbrow VIP 
+    g_highbrowVipData = ServerData_HighbrowVip.getInstance(g_serverData)
+
     return g_serverData
 end
 

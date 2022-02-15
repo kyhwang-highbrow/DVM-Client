@@ -1264,6 +1264,7 @@ function UI_TitleScene:workGetServerInfo()
                     g_shopDataNew:response_shopInfo(ret['shop_list'])
                 end
 
+                -- 레벨업 패키지
                 if (ret['lvuppack_info']) then
                     cclog('# 레벨업 패키지 정보')
                     g_levelUpPackageDataOld:response_lvuppackInfoByTitle(ret['lvuppack_info'])
@@ -1358,8 +1359,9 @@ function UI_TitleScene:workGetServerInfo()
                 cclog('# 드랍 아이템 일일획득량 정보 갱신')
                 g_userData:response_ingameDropInfo(ret)
 
-                cclog('# VIP 정보 갱신')
+                cclog('# Highbrow VIP 정보 갱신')
                 g_userData:response_vipInfo(ret)
+                g_highbrowVipData:response_info(ret)
 
                 cclog('# 초보자 선물(신규 유저 전용 상점)')
                 g_newcomerShop:applyNewcomderShopEndInfo_fromRet(ret)

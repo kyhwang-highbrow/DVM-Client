@@ -1,0 +1,236 @@
+-------------------------------------
+-- Class ServerData_HighbrowVip
+-- @brief 하이브로 VIP
+-------------------------------------
+ServerData_HighbrowVip = class({
+    m_serverData = 'ServerData',
+
+    m_vipGrade = '',
+    m_vipReward = '',
+
+})
+
+local instance = nil
+
+
+TABLE_HIGHBROW_VIP = {
+    -- [1] : GOLD
+    {
+        ['grade'] = 1,
+        ['name'] = '골드',
+        ['item'] = '700001;378000',
+        ['item_icon_res'] = 'ui/icons/item/shop_cash_05.png',
+        
+    },
+    -- [2] : VIP
+    {
+        ['grade'] = 2,
+        ['name'] = 'VIP',
+        ['item'] = '700001;378000',
+        ['item_icon_res'] = 'ui/icons/item/shop_cash_07.png',
+    },
+    -- [3] : SVIP
+    {
+        ['grade'] = 3,
+        ['name'] = 'SVIP',
+        ['item'] = '700001;378000',
+        ['item_icon_res'] = 'ui/icons/item/shop_cash_07.png',
+    }
+}
+
+-------------------------------------
+-- function init
+-------------------------------------
+function ServerData_HighbrowVip:init(server_data)
+    assert(instance == nil, 'Can not initalize twice')
+
+    self.m_serverData = server_data
+end
+
+-------------------------------------
+-- function getInstance
+-------------------------------------
+function ServerData_HighbrowVip:getInstance(server_data)
+    if (instance == nil) then
+        instance = ServerData_HighbrowVip(server_data)
+    end
+
+    return instance
+end
+
+-------------------------------------
+-- function request_reward
+-------------------------------------
+function ServerData_HighbrowVip:request_reward(name, phone_number, email, success_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function response_callback(ret)
+        self:response_info(ret)
+
+        if (success_cb) then 
+            success_cb(ret) 
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/hvip_update')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('name', name)
+    ui_network:setParam('hp', phone_number)
+    ui_network:setParam('email', email)
+    ui_network:setSuccessCB(response_callback)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function response_info
+-------------------------------------
+function ServerData_HighbrowVip:response_info(ret)
+    -- 현재 등급
+    if (ret['hvip_grade'] ~= nil) then
+        self.m_vipGrade = ret['hvip_grade']
+    end
+
+    -- 유저가 마지막으로 관련 정보를 등록했던 등급
+    if (ret['hvip_reward'] ~= nil) then
+        self.m_vipReward = ret['hvip_reward']
+    end
+end
+
+-------------------------------------
+-- function getVipName
+-------------------------------------
+function ServerData_HighbrowVip:getVipName()
+    local vip_data = TABLE_HIGHBROW_VIP[self.m_vipGrade]
+    return vip_data['name']
+end
+
+-------------------------------------
+-- function getItemStr
+-------------------------------------
+function ServerData_HighbrowVip:getItemStr()
+    local vip_data = TABLE_HIGHBROW_VIP[self.m_vipGrade]
+    local item_list = g_itemData:parsePackageItemStr(vip_data['item'])
+
+    local str = ''
+    for index, item in ipairs(item_list) do
+        
+        str = Str('{1} {2}개', TableItem():getItemName(item['item_id']), comma_value(item['count']))
+    end
+
+    return str
+end
+
+
+-------------------------------------
+-- function getItemIconRes
+-------------------------------------
+function ServerData_HighbrowVip:getItemIconRes()
+    local vip_data = TABLE_HIGHBROW_VIP[self.m_vipGrade]
+    return vip_data['item_icon_res']
+end
+
+-------------------------------------
+-- function getVipBtnRes
+-------------------------------------
+function ServerData_HighbrowVip:getVipBtnRes()
+    local res = string.format('ui/icons/side_menu_vip_%02d.png', tonumber(self.m_vipGrade))
+    return res
+end
+
+-------------------------------------
+-- function getVipIconRes
+-------------------------------------
+function ServerData_HighbrowVip:getVipIconRes()
+    local res = string.format('ui/icons/vip_grade_%02d.png', tonumber(self.m_vipGrade))
+    return res
+end
+
+-------------------------------------
+-- function getBottomFrameRes
+-------------------------------------
+function ServerData_HighbrowVip:getBottomFrameRes()
+    local res = string.format('ui/frames/vip_letter_%02d.png', tonumber(self.m_vipGrade))
+    return res
+end
+
+-------------------------------------
+-- function getItemBoxRes
+-------------------------------------
+function ServerData_HighbrowVip:getItemBoxRes()
+    local res = string.format('ui/frames/vip_itembox_%02d.png', tonumber(self.m_vipGrade))
+    return res
+end
+
+-------------------------------------
+-- function getAvailableItemName
+-------------------------------------
+function ServerData_HighbrowVip:getAvailableItemName()
+    return ''
+end
+
+-------------------------------------
+-- function checkVipStatus
+-------------------------------------
+function ServerData_HighbrowVip:checkVipStatus()
+    return (self.m_vipGrade ~= nil) and (self.m_vipGrade ~= self.m_vipReward)
+end
+
+-------------------------------------
+-- function getVipButton
+-------------------------------------
+function ServerData_HighbrowVip:getVipButton()
+    
+    require('UI_HighbrowVipPopup')
+    return UI_ButtonHighbrowVIP
+end
+
+-------------------------------------
+-- function openPopup
+-------------------------------------
+function ServerData_HighbrowVip:openPopup(close_cb)
+    if (self.m_vipGrade == nil) or (self.m_vipGrade == self.m_vipReward) then
+        if close_cb then
+            close_cb()
+        end
+
+        return
+    end
+
+    require('UI_HighbrowVipPopup')
+    local is_popup = true
+    local ui = UI_HighbrowVipPopup(is_popup)
+    ui:setCloseCB(close_cb)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -263,6 +263,9 @@ function UI_EventFullPopup:initUI()
     elseif (string.find(popup_key, 'vip_survey')) then
         ui = UI_EventVIP(popup_key)
 
+    elseif (string.find(popup_key, 'highbrow_vip')) then
+        ui = UI_HighbrowVipPopup()
+
     elseif (self.m_targetUI) then
         ui = self.m_targetUI
     end

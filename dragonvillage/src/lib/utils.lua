@@ -867,6 +867,31 @@ function StrForDev(str, ...)
     return ret_str
 end
 
+
+-------------------------------------
+-- function isValidMail
+-- @brief 해당 이메일이 올바른 이메일인지 판단 (참고 https://ohdoylerules.com/snippets/validate-email-with-lua/)
+-------------------------------------
+function isValidMail(str)
+    local _,nAt = str:gsub('@','@') -- Counts the number of '@' symbol
+	if nAt > 1 or nAt == 0 or str:len() > 254 or str:find('%s') then return false end
+    
+    local delimeter_at = str:find('@')
+    local localPart = str:sub(1, math_max(0, (delimeter_at - 1))) -- Returns the substring before '@' symbol
+    local domainPart = str:sub(delimeter_at, #str) -- Returns the substring after '@' symbol
+	if not localPart or not domainPart then return false end
+
+	if not localPart:match("[%w!#%$%%&'%*%+%-/=%?^_`{|}~]+") or (localPart:len() > 64) then return false end
+	if localPart:match('^%.+') or localPart:match('%.+$') or localPart:find('%.%.+') then return false end
+
+	if not domainPart:match('[%w%-_]+%.%a%a+$') or domainPart:len() > 253 then return false end
+	local delimeter_at = domainPart:find('%.')
+    local fDomain = domainPart:sub(1, math_max(0, (delimeter_at - 1))) -- Returns the substring in the domain-part before the last (dot) character
+	if fDomain:match('^[_%-%.]+') or fDomain:match('[_%-%.]+$') or fDomain:find('%.%.+') then return false end
+
+	return true
+end
+
 -------------------------------------
 -- function formatMessage
 -------------------------------------

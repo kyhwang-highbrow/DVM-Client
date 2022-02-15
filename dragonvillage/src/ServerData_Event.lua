@@ -522,6 +522,13 @@ function ServerData_Event:getEventFullPopupList()
                 else
                     visible = false
                 end
+
+            elseif (visible) and string.find(event_type, 'highbrow_vip') then
+                if (g_highbrowVipData:checkVipStatus() == true) then
+                    visible = true 
+                else
+                    visible = false
+                end
             end
 
 

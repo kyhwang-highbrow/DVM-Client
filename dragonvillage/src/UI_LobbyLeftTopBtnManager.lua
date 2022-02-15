@@ -25,6 +25,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     self.m_lManagedButtonUI = {}
     self.m_interval = 10
     self.PRIORITY = {}
+    self.PRIORITY.VIP = 9999
     self.PRIORITY.WEIDEL_PACK = 1200
     self.PRIORITY.PERSONALPACK = 1100
     self.PRIORITY.PAYMENT_SHOP = 1000
@@ -37,6 +38,9 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     vars['productBtnMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
     local l_managed_button_info = {}
+    if (g_highbrowVipData:checkVipStatus() == true) then
+        table.insert(l_managed_button_info, {self.PRIORITY.VIP, g_highbrowVipData:getVipButton()}) -- Highbrow VIP 버튼   
+    end
     
     --table.insert(l_managed_button_info, {self.PRIORITY.PAYMENT_SHOP, UI_ButtonPaymentShop}) -- 현금 결제 상품 상점
     table.insert(l_managed_button_info, {self.PRIORITY.PERSONALPACK, UI_ButtonPersonalpack}) -- 특별제안 패키지

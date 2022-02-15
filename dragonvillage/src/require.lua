@@ -262,6 +262,7 @@ local t_module = {
     'ServerData_DmgatePackage',
     'ServerData_EventArenaPlay',    -- 콜로세움 참여 이벤트
     'ServerData_LeagueRaid',
+    'ServerData_HighbrowVip', -- 하이브로 VIP
 
 
     -- Interface
@@ -1529,6 +1530,7 @@ local t_module = {
     'UI_CustomEnhance',
     'UI_CustomEnhanceFruit',
     'UI_EventVIP', -- @yjkil 2022.01.13 VIP 설문조사
+    'UI_HighbrowVipPopup', -- @yjkil 2022.02.14 VIP 
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',
