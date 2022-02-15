@@ -126,11 +126,11 @@ function UI_Package:initEachProduct(index, struct_product)
     end
 
     -- 번들인 경우
-    if (#self.m_productList > 1) or (not is_multiple_item_labels) then
+    if (#self.m_productList > 1) or (is_multiple_item_labels == false) then
         -- 상품 설명
         node = vars['itemLabel' .. index] or vars['itemLabel']
         if node then
-            if (not struct_product['use_desc']) or (struct_product['use_desc'] == '') then
+            if (struct_product['use_desc'] == nil) or (struct_product['use_desc'] == '') then
                 node:setString(struct_product:getItemNameWithCount())
             else
                 node:setString(struct_product:getDesc())
@@ -138,8 +138,9 @@ function UI_Package:initEachProduct(index, struct_product)
         end
     else
         for index, item in pairs(item_list) do
+            local item_str = Str('{1} {2}개', TableItem():getItemName(item['item_id']), comma_value(item['count']))
             if vars['itemLabel' .. index] then
-                vars['itemLabel' .. index]:setString(Str('{1} {2}개', TableItem():getItemName(item['item_id']), comma_value(item['count'])))
+                vars['itemLabel' .. index]:setString(item_str)
             end
         end
     end
