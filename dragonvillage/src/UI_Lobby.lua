@@ -2312,15 +2312,16 @@ function UI_Lobby:update_rightButtons()
     end
 
     do -- 배틀 패스
-        local is_visible = g_levelUpPackageDataOld:isUnclearedAnyPackage()
-                            or g_adventureClearPackageData01:isVisible_adventureClearPack()
-                            or g_adventureClearPackageData02:isVisible_adventureClearPack()
-                            or g_adventureClearPackageData03:isVisibleAtBattlePassShop()
-                            or g_dmgatePackageData:isVisibleAtBattlePassShop()
-        vars['battlePassBtn']:setVisible(is_visible)
-        local is_noti_visible = g_levelUpPackageDataOld:isVisibleNotiAtLobby(LEVELUP_PACKAGE_3_PRODUCT_ID)
-                                or g_adventureClearPackageData03:isVisibleNotiAtLobby()
-                                or g_dmgatePackageData:isNotiVisible()
+        local is_button_visible = (g_adventureBreakthroughPackageData:isButtonVisible() == true)
+                            or (g_levelUpPackageData:isButtonVisible() == true)
+                            or (g_dmgatePackageData:isVisibleAtBattlePassShop() == true)
+                            
+        vars['battlePassBtn']:setVisible(is_button_visible)
+
+        local is_noti_visible = (g_adventureBreakthroughPackageData:isNotiVisible() == true)
+                            or (g_levelUpPackageData:isNotiVisible() == true)
+                            or (g_dmgatePackageData:isNotiVisible() == true)
+
         vars['battlePassNotiSprite']:setVisible(is_noti_visible)
     end
 
