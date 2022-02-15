@@ -152,7 +152,6 @@ function UI_HighbrowVipPopup:click_checkBtn()
     self.m_isChecked = (not self.m_isChecked)
 
     vars['checkSprite']:setVisible(self.m_isChecked)
-    vars['okBtn']:setEnabled(self.m_isChecked)
 end
 
 -------------------------------------
