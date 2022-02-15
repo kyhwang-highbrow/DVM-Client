@@ -258,6 +258,18 @@ function UI_HighbrowVipInfo:initUI()
     -- 아래 프레임
     local bottom_frame_res = g_highbrowVipData:getBottomFrameRes()
     UIManager:replaceResource(vars['frameNode'], bottom_frame_res)
+
+    do -- 설명
+        local desc = Str('(주)하이브로에서는 멤버십 등록에 동의하신 대상자에게 등급 별 혜택 및 게임 관련 소식 안내를 위해 아래와 같이 개인 정보를 수집 및 이용합니다.')
+        desc = desc .. '\n\n' .. Str('- 개인 정보 수집 및 이용목적 : 등급 별 혜택, 게임 관련 소식 안내')
+        desc = desc .. '\n' .. Str('- 수집하는 개인 정보 항목 : 이름, 연락처, 이메일주소')
+        desc = desc .. '\n' .. Str('- 개인 정보 보유 및 이용 기간 : 별도 해지 요청 시까지')
+        desc = desc .. '\n\n' .. Str('멤버십 관련 개인 정보 수집 및 이용에 동의하지 않으실 수 있으며, 동의 거부 시에는 등급 별 혜택 및 게임 관련 소식 안내를 받으실 수 없습니다.')
+        desc = desc .. '\n\n' .. Str('※ 기타 문의 사항은 언제든지 고객센터로 문의하시기 바라며, 동의 철회를 원하시는 경우 고객센터 또는, (무료수신거부) 0808571380을 통해 수신거부하실 수 있습니다.') 
+        desc = desc .. ' ' .. Str('수신 철회 또는 거부 시, 일부 이벤트 참여 및 경품(쿠폰 등) 발송이 제한될 수 있습니다.')
+        desc = desc .. '\n\n' .. Str('그 외의 개인정보 처리에 관한 자세한 사항은 {@orange;web_link;{1}}개인정보 처리방침{@default}을 참고하시기 바랍니다.', 'https://highbrow.oqupie.com/portals/1555/articles/30815')
+        vars['descLabel']:setString(desc)
+    end
 end
 
 -------------------------------------
