@@ -265,7 +265,7 @@ function UI_HighbrowVipInfo:initUI()
         desc = desc .. '\n\n' .. Str('멤버십 관련 개인 정보 수집 및 이용에 동의하지 않으실 수 있으며, 동의 거부 시에는 등급 별 혜택 및 게임 관련 소식 안내를 받으실 수 없습니다.')
         desc = desc .. '\n\n' .. Str('※ 기타 문의 사항은 언제든지 고객센터로 문의하시기 바라며, 동의 철회를 원하시는 경우 고객센터 또는, (무료수신거부) 0808571380을 통해 수신거부하실 수 있습니다.') 
         desc = desc .. ' ' .. Str('수신 철회 또는 거부 시, 일부 이벤트 참여 및 경품(쿠폰 등) 발송이 제한될 수 있습니다.')
-        desc = desc .. '\n\n' .. Str('그 외의 개인정보 처리에 관한 자세한 사항은 {@#orange;web_link;{1}}개인정보 처리방침{@default}을 참고하시기 바랍니다.', 'https://highbrow.oqupie.com/portals/1555/articles/30815')
+        desc = desc .. '\n\n' .. Str('그 외의 개인정보 처리에 관한 자세한 사항은 {@#orange;url;{1}}개인정보 처리방침{@default}을 참고하시기 바랍니다.', 'https://highbrow.oqupie.com/portals/1555/articles/30815')
         vars['descLabel']:setString(desc)
     end
 end
