@@ -685,14 +685,9 @@ function ServerData_LevelUpPackage:isReceivedReward(product_id, target_level) --
 
     if (received_reward_list == nil) then return false end
 
-    for index, level in ipairs(received_reward_list) do
-        if (level == target_level) then
-            return true
-        end
 
-    end
+    return (table.find(received_reward_list, target_level) ~= nil)
 
-    return false
 
     -- local index = table.find(received_reward_list, target_level)
 
@@ -742,20 +737,14 @@ function ServerData_LevelUpPackage:isReceivableRewardExist(product_id)
     end
 
     local index = table.find(self.m_productIdList, product_id)
-    
     local reward_list = TABLE:get(string.format(self.m_tableKeyword, index))
 
-    for index, reward in ipairs(reward_list) do
+    for key, reward in pairs(reward_list) do
         local level = reward['level']
 
         -- 받지 않은 보상이 있으면
-        if (self:isReceivedReward(product_id, level) == false) then
-            local user_level = g_userData:get('lv')
-
-            -- 보상 레벨보다 테이머 레벨이 높은 경우 혹은 판매 종료된 패키지인 경우
-            if (user_level >= level)  or (self:isRecentPackage(product_id) == false) then
-                return true
-            end
+        if (self:isReceivedReward(product_id, level) == false) and (self:isReceivableReward(product_id, level) == true) then
+            return true
         end
     end
 
@@ -802,16 +791,15 @@ function ServerData_LevelUpPackage:isNotiVisible(product_id)
 
     if (product_id ~= nil) then
         if (self:checkPackage(product_id) == true) and (self:isActive(product_id) == true) and (self:isReceivableRewardExist(product_id) == true) then
-            is_visible = true
+            return true
         end
     else
         for index, product_id in ipairs(self.m_productIdList) do
             if (self:isActive(product_id) == true) and (self:isReceivableRewardExist(product_id) == true) then
-                is_visible = is_visible or true
-                break
+                return true
             end
         end
     end
 
-    return is_visible
+    return false
 end

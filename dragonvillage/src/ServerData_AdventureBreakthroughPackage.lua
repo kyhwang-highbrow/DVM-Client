@@ -297,13 +297,7 @@ function ServerData_AdventureBreakthroughPackage:isReceivedReward(product_id, ta
 
     if (received_reward_list == nil) then return false end
 
-    for index, stage_id in ipairs(received_reward_list) do
-        if (stage_id == target_stage_id) then
-            return true
-        end
-    end
-
-    return false
+    return (table.find(received_reward_list, target_stage_id) ~= nil)
 end
 
 
@@ -351,18 +345,12 @@ function ServerData_AdventureBreakthroughPackage:isReceivableRewardExist(product
     
     local reward_list = TABLE:get(string.format(self.m_tableKeyword, index))
 
-    for index, reward in ipairs(reward_list) do
+    for index, reward in pairs(reward_list) do
         local stage_id = reward['stage']
 
         -- 받지 않은 보상이 있으면
-        if (self:isReceivedReward(product_id, stage_id) == false) then
-            local stage_info = g_adventureData:getStageInfo(stage_id)
-            local star = stage_info:getNumberOfStars()
-
-            -- 보상 조건인 별 3개인 경우 혹은 판매 종료 된 패키지인 경우
-            if (star >= 3) or (self:isRecentPackage(product_id) == false) then
-                return true
-            end
+        if (self:isReceivedReward(product_id, stage_id) == false) and (self:isReceivableReward(product_id, stage_id) == true) then
+            return true
         end
     end
 
