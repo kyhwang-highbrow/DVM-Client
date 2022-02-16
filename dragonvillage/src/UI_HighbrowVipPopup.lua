@@ -134,6 +134,15 @@ end
 -- function refresh
 -------------------------------------
 function UI_HighbrowVipPopup:refresh()
+    local vars = self.vars
+
+    if (g_highbrowVipData:checkVipStatus() == true) then
+        vars['okLabel']:setString(Str('하이브로 멤버쉽 등록'))
+        vars['okBtn']:setEnabled(true)
+    else
+        vars['okLabel']:setString(Str('등록 완료'))
+        vars['okBtn']:setEnabled(false)
+    end
 end
 
 -------------------------------------
@@ -190,6 +199,7 @@ function UI_HighbrowVipPopup:click_okBtn()
     end
 
     local function success_cb()
+        self:refresh()
         --self:click_closeBtn()
     end
 
@@ -384,9 +394,10 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_HighbrowVipConfirm:click_closeBtn()
-    self:close()
     
-    --self:setCloseCB(function() self.m_okCallback() end)
+    self:setCloseCB(function() self.m_okCallback() end)
+    
+    self:close()
 end
 
 
