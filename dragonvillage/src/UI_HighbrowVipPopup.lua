@@ -137,7 +137,7 @@ function UI_HighbrowVipPopup:refresh()
     local vars = self.vars
 
     if (g_highbrowVipData:checkVipStatus() == true) then
-        vars['okLabel']:setString(Str('하이브로 멤버쉽 등록'))
+        vars['okLabel']:setString(Str('하이브로 멤버십 등록'))
         vars['okBtn']:setEnabled(true)
     else
         vars['okLabel']:setString(Str('등록 완료'))
