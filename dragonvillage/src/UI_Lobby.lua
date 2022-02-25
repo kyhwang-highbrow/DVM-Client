@@ -1255,6 +1255,13 @@ function UI_Lobby:update_highlight()
             --vars['quizEventNotiYellow']:setVisible(g_eventLFBagData:isHighlightYellow())
         end
     end
+
+
+
+    do -- 구글 크로스 프로모션
+        local is_google_play_promotion_period = ServerData_IAP.getInstance():checkGooglePlayPromotionPeriod()
+        vars['promotionSprite']:setVisible(is_google_play_promotion_period)
+    end
 end
 
 -------------------------------------

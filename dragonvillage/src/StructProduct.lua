@@ -842,7 +842,13 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
         end
 
         local price_type = self:getPriceType()
-		local price = (price_type == 'money') and self:getPriceStr() or self:getPrice()
+
+        if (price_type == 'money') then
+            price = ServerData_IAP.getInstance():getGooglePlayPromotionPriceStr(self)
+            --price = self:getPriceStr()
+        else
+            price = self:getPrice()
+        end
         local ui
         if (rawget(self, price_type)) then
             if (self[price_type] ~= nil) then    

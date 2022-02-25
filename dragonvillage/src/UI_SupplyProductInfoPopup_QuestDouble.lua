@@ -41,10 +41,17 @@ end
 -------------------------------------
 function UI_SupplyProductInfoPopup_QuestDouble:initUI()
     local vars = self.vars
-
-    if vars['priceLabel'] then
-        vars['priceLabel']:setString(self.m_structProduct:getPriceStr())
+    local struct_product = self.m_structProduct
+    -- 상품 가격 표기
+    local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, nil)
+    local is_sale_price_written = false
+    if (is_tag_attached == true) then
+        is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)
     end
+
+    if (is_sale_price_written == false) then
+        vars['priceLabel']:setString(struct_product:getPriceStr())
+    end -- // 상품 가격 표기
 
     -- 단순 구매팝업의 경우 타이틀에 상품명만 출력
     -- 판매촉진의 경우 이 팝업이 왜 갑자기 나왔는지 설명 필요 : ex) 상품명+목적(소개)

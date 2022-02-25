@@ -462,17 +462,29 @@ end
 function UI_QuestPopup:initSubscriptionUI()
     local vars = self.vars
 
-    -- 상품 가격
+    -- 상품
     local struct_product = g_subscriptionData:getSubscriptionProductInfo('daily_quest')
-    vars['priceLabel']:setString(struct_product:getPriceStr())
 
-    -- 상품명
-    local product_name = Str(struct_product['t_name'])
-    vars['dailyQuestLabel']:setString(product_name)
+    if (struct_product) then
+        -- 상품 가격 표기
+        local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, nil)
+        local is_sale_price_written = false
+        if (is_tag_attached == true) then
+            is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)
+        end
 
-    -- 상품 설명
-    local product_desc = struct_product:getDesc()
-    vars['dailyQuestLabel2']:setString(product_desc)
+        if (is_sale_price_written == false) then
+            vars['priceLabel']:setString(struct_product:getPriceStr())
+        end -- // 상품 가격 표기
+       
+        -- 상품명
+        local product_name = Str(struct_product['t_name'])
+        vars['dailyQuestLabel']:setString(product_name)
+
+        -- 상품 설명
+        local product_desc = struct_product:getDesc()
+        vars['dailyQuestLabel2']:setString(product_desc)
+    end
 
     -- 상품 구매
     vars['buyBtn']:registerScriptTapHandler(function() self:click_subscriptionBuyBtn() end)

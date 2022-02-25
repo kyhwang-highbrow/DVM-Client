@@ -100,12 +100,20 @@ function UI_ClearTicket:initButton()
     
     if g_supply:isActiveSupply(self.m_supplyType) then
         local pid = g_supply:getSupplyProductIdByType(self.m_supplyType)
-
-        struct_product = g_shopDataNew:getProduct('package', pid)
+        local struct_product = g_shopDataNew:getProduct('package', pid)
 
         if struct_product then
-            vars['priceLabel']:setString(struct_product:getPriceStr())
             vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)
+
+            local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, nil)
+            local is_sale_price_written = false
+            if (is_tag_attached == true) then
+                is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)
+            end
+
+            if (is_sale_price_written == false) then
+                vars['priceLabel']:setString(struct_product:getPriceStr())
+            end
         else
             vars['buyBtn']:setVisible(false)
         end

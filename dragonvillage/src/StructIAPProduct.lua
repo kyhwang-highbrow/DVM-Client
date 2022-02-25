@@ -98,9 +98,11 @@ end
 function StructIAPProduct:getCurrencyPrice()
     local currency_price = self.price_amount_micros
 
-    if (type(currency_price) == 'number') then
-        currency_price = (currency_price / 1000000)
+    if (type(currency_price) ~= 'number') then
+        currency_price = tonumber(currency_price)
     end
+
+    currency_price = (currency_price / 1000000)
 
     return currency_price
 end

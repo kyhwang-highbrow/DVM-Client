@@ -98,9 +98,17 @@ function UI_SupplyProductInfoPopup:initUI()
         end
     end
 
-    if vars['priceLabel'] then
-        vars['priceLabel']:setString(self.m_structProduct:getPriceStr())
+    local struct_product = self.m_structProduct
+    -- 상품 가격 표기
+    local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, nil)
+    local is_sale_price_written = false
+    if (is_tag_attached == true) then
+        is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)
     end
+
+    if (is_sale_price_written == false) and vars['priceLabel'] then
+        vars['priceLabel']:setString(struct_product:getPriceStr())
+    end -- // 상품 가격 표기
 end
 
 -------------------------------------

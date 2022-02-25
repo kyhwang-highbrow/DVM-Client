@@ -367,16 +367,47 @@ end
 -------------------------------------
 -- function checkGooglePlayPromotionPriceChanged
 -------------------------------------
-function ServerData_IAP:checkGooglePlayPromotionPriceChanged(struct_product)
-    return true
+function ServerData_IAP:checkGooglePlayPromotionPriceChanged(original_price, sku)
+    if (ServerData_IAP.getInstance():checkGooglePlayPromotioPricePeriod() == true) then
+        local struct_iap_product = self:getStructIAPProduct(sku)
+
+        if struct_iap_product then
+            local currency_code = struct_iap_product:getCurrencyCode()
+            local market_price = struct_iap_product:getCurrencyPrice()
+
+            if (currency_code == 'KRW') and (market_price < original_price) then
+                return true
+            end
+        end
+    end
+
+    return false
 end
 
 -------------------------------------
 -- function getGooglePlayPromotionPrice
 -------------------------------------
-function ServerData_IAP:getGooglePlayPromotionPrice(struct_product)
+function ServerData_IAP:getGooglePlayPromotionPriceStr(struct_product)
+    
+    local result = struct_product:getPriceStr()
 
+    if (ServerData_IAP.getInstance():checkGooglePlayPromotioPricePeriod() == true) then
+        local price = struct_product:getPrice()
 
+        if (ServerData_IAP.getInstance():checkGooglePlayPromotionPriceChanged(price, sku) == true) then
+            local sku = struct_product:getProductSku()
+
+            local struct_iap_product = ServerData_IAP.getInstance():getStructIAPProduct(sku)
+
+            price = struct_iap_product:getCurrencyPrice()
+        else
+            price = price * 0.85
+        end
+
+        result = '￦' .. comma_value(price)
+    end
+
+	return result
 end
 
 -------------------------------------
@@ -419,11 +450,9 @@ function ServerData_IAP:setGooglePlayPromotionPrice(class_, struct_product, inde
             if origin_price_label and promotion_price_label then
                 origin_price_label:setString(struct_product:getPriceStr())
     
-                local price = struct_product:getPrice()
-    
-                price = price * 0.85
-    
-                promotion_price_label:setString('￦' .. comma_value(price))
+                local price_str = self:getGooglePlayPromotionPriceStr(struct_product)
+                
+                promotion_price_label:setString(price_str)
     
                 return true
             end
