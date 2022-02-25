@@ -268,8 +268,15 @@ function UI_CapsuleBox:refresh_dailyCapsulePackage()
         local str_term = struct_product:getMaxBuyTermStr()
         vars['buyLabel']:setString(str_term)
 
-        local str_price = struct_product:getPriceStr()
-        vars['priceLabel']:setString(str_price)
+        local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, nil)
+        local is_sale_price_written = false
+        if (is_tag_attached == true) then
+            is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)
+        end
+
+        if (is_sale_price_written == false) then
+            vars['priceLabel']:setString(struct_product:getPriceStr())
+        end
     else
         vars['buyBtn']:setVisible(false)
     end

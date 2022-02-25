@@ -47,10 +47,20 @@ function UI_RuneForgeGachaTab:initUI()
 
     local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
     vars['diaCostLabel']:setString(comma_value(rune_gacha_cash))
-    
-    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
-    if (struct_product) then vars['priceLabel']:setString(struct_product:getPriceStr()) end
 
+    -- 가격 표기
+    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
+    local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, nil)
+    local is_sale_price_written = false
+    if (is_tag_attached == true) then
+        is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)
+    end
+
+    if (is_sale_price_written == false) then
+        vars['priceLabel']:setString(struct_product:getPriceStr())
+    end
+    -- // 가격표기
+    
     cca.pickMePickMe(vars['buyBtn'], 10)
 
     -- 이벤트!!!
