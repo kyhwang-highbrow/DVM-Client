@@ -43,7 +43,7 @@ function UI_SupplyProductInfoPopup_QuestDouble:initUI()
     local vars = self.vars
     local struct_product = self.m_structProduct
     -- 상품 가격 표기
-    local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, nil)
+    local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, nil)
     local is_sale_price_written = false
     if (is_tag_attached == true) then
         is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)

@@ -82,7 +82,7 @@ function UI_Package_Step:refresh(step)
 
             if (struct_product) then
                 -- 가격
-                local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, idx)
+                local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, idx)
                 local is_sale_price_written = false
                 if (is_tag_attached == true) then
                     is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, idx)

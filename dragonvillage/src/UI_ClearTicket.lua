@@ -105,7 +105,7 @@ function UI_ClearTicket:initButton()
         if struct_product then
             vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)
 
-            local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, nil)
+            local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, nil)
             local is_sale_price_written = false
             if (is_tag_attached == true) then
                 is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)

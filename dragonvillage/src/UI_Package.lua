@@ -167,7 +167,7 @@ function UI_Package:initEachProduct(index, struct_product)
     if node then
 
         if (struct_product:getPrice() ~= 0) then
-            local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, index)
+            local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, index)
             local is_sale_price_written = false
             if (is_tag_attached == true) then
                 is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, index)

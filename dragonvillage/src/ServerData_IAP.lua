@@ -413,7 +413,7 @@ end
 -------------------------------------
 -- function setGooglePlayPromotionSaleTag
 -------------------------------------
-function ServerData_IAP:setGooglePlayPromotionSaleTag(class_, index)
+function ServerData_IAP:setGooglePlayPromotionSaleTag(class_, struct_product, index)
     if (self:checkGooglePlayPromotionPeriod() == true) then
         local vars = class_.vars
 
@@ -422,7 +422,8 @@ function ServerData_IAP:setGooglePlayPromotionSaleTag(class_, index)
         local sale_sprite = vars['saleSprite' .. index] or vars['saleSprite']
 
         if sale_sprite then
-            sale_sprite:setVisible(true)
+            local is_it_buyable = struct_product and struct_product:isItBuyable()
+            sale_sprite:setVisible(is_it_buyable)           
 
             return true
         end

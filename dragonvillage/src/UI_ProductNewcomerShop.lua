@@ -45,7 +45,7 @@ function UI_ProductNewcomerShop:initUI()
     vars['dscLabel']:setString(product_desc)
 
     -- 상품 가격
-    local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, idx)
+    local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, idx)
     local is_sale_price_written = false
     if (is_tag_attached == true) then
         is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, idx)
