@@ -17,6 +17,7 @@ StructIAPProduct = class(PARENT, {
     type = 'string', -- e.g. 'inapp'
     price_amount_micros = 'number', -- e.g. 1100000000
     price_currency_code = 'string', -- e.g. 'KRW'
+    name = 'string', -- e.g. "1,100원 캐시 상품"
 
     -- android e.g.
     --{
