@@ -1446,7 +1446,6 @@ function UI_Lobby:click_dragonManageBtn()
         local ui = UI_DragonManageInfo()
         local function close_cb()
             self:sceneFadeInAction()
-            self:refresh()
         end
         ui:setCloseCB(close_cb)
     end
@@ -1951,6 +1950,7 @@ function UI_Lobby:update(dt)
         g_highlightData:setDirty(false)
 
         local function highlight_callback()
+            self:refresh()
             self:update_highlight()
         end
 
