@@ -174,7 +174,7 @@ function UI_Package:initEachProduct(index, struct_product)
             end
 
             if (is_sale_price_written == false) then
-                vars['priceLabel']:setString(struct_product:getPriceStr())
+                node:setString(struct_product:getPriceStr())
             end
         else -- 상품이 무료인 경우 system font가 아닌 ttf font 적용
             node:setString('')
