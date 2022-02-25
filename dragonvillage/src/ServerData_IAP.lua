@@ -328,17 +328,19 @@ end
 -- function checkGooglePlayPromotioPricePeriod
 -- @breif 구글 플레이 프로모션으로 인해 상품 인앱 구매 할인하는 경우
 -------------------------------------
-function ServerData_IAP:checkGooglePlayPromotioPricePeriod()    
-    if ((CppFunctions:isAndroid() == true) and (g_hotTimeData:isActiveEvent('google_play_promotion_price') == true)) then
-        -- @yjkil : 22.02.24. 스토어 국가가 한국인지 확인 하는 함수를 찾지 못해 price_currency_code로 대체.
-        -- 원화를 사용하는 나라는 한국 밖에 없기에 가능하지만, 다른 통화의 경우 다른 조건을 찾아야함.
-        if (self.m_currencyCode == 'KRW') then
+function ServerData_IAP:checkGooglePlayPromotioPricePeriod()
+    if (self:checkGooglePlayPromotionPeriod() == true) then
+        if ((CppFunctions:isAndroid() == true) and (g_hotTimeData:isActiveEvent('google_play_promotion_price') == true)) then
+            -- @yjkil : 22.02.24. 스토어 국가가 한국인지 확인 하는 함수를 찾지 못해 price_currency_code로 대체.
+            -- 원화를 사용하는 나라는 한국 밖에 없기에 가능하지만, 다른 통화의 경우 다른 조건을 찾아야함.
+            if (self.m_currencyCode == 'KRW') then
+                return true
+            end
+        end
+
+        if ((isWin32() == true) and (IS_TEST_MODE() == true) and (g_hotTimeData:isActiveEvent('google_play_promotion_price') == true)) then
             return true
         end
-    end
-
-    if ((isWin32() == true) and (IS_TEST_MODE() == true) and (g_hotTimeData:isActiveEvent('google_play_promotion_price') == true)) then
-        return true
     end
 
     return false

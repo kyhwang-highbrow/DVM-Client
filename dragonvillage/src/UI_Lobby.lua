@@ -881,43 +881,48 @@ end
 --          soft refresh : onFocus, dragonManageInfo close callback
 -------------------------------------
 function UI_Lobby:refresh(is_hard_refresh)
-    self:refresh_userInfo()
-    self:refresh_hottime()
 
-    -- update()와 중복 : 강제 동작하되 또 실행되지 않도록 함
-    g_eventData.m_bDirty = false
-    self:update_rightButtons()
-    
-	-- 서버에서 받는 컨텐츠 오픈 정보 갱신될 때만 update
-    self:update_bottomLeftButtons()
-    self:update_bottomRightButtons()
-    
-    -- 오른쪽 배너 갱신
-    self:refresh_rightBanner()
+    local function refresh_callback ()
+        self:refresh_userInfo()
+        self:refresh_hottime()
 
-    -- 특별 할인 상품 설정
-    --self:refreshSpecialOffer()
+        -- update()와 중복 : 강제 동작하되 또 실행되지 않도록 함
+        g_eventData.m_bDirty = false
+        self:update_rightButtons()
+        
+        -- 서버에서 받는 컨텐츠 오픈 정보 갱신될 때만 update
+        self:update_bottomLeftButtons()
+        self:update_bottomRightButtons()
+        
+        -- 오른쪽 배너 갱신
+        self:refresh_rightBanner()
 
-    -- 좌상단 버튼들 상태 갱신
-    if self.m_lobbyLeftTopBtnManager then
-        self.m_lobbyLeftTopBtnManager:setDirtyButtonsStatus()
+        -- 특별 할인 상품 설정
+        --self:refreshSpecialOffer()
+
+        -- 좌상단 버튼들 상태 갱신
+        if self.m_lobbyLeftTopBtnManager then
+            self.m_lobbyLeftTopBtnManager:setDirtyButtonsStatus()
+        end
+
+        -- hard refresh
+        if (is_hard_refresh) then
+            -- update()와 중복
+            g_masterRoadData.m_bDirtyMasterRoad = false
+            self:update_masterRoad()
+
+            g_dragonDiaryData.m_bDirty = false
+            self:update_dragonDiary()
+
+            GoogleHelper.setDirty(false)
+            self:update_google()
+
+            -- 2주년 기념 전설 드래곤 확률 업 노티
+            self:setHatcheryChanceUpNoti()
+        end
     end
 
-    -- hard refresh
-    if (is_hard_refresh) then
-        -- update()와 중복
-        g_masterRoadData.m_bDirtyMasterRoad = false
-        self:update_masterRoad()
-
-        g_dragonDiaryData.m_bDirty = false
-        self:update_dragonDiary()
-
-        GoogleHelper.setDirty(false)
-        self:update_google()
-
-        -- 2주년 기념 전설 드래곤 확률 업 노티
-        self:setHatcheryChanceUpNoti()
-    end
+    g_hotTimeData:request_hottime(refresh_callback, refresh_callback)
 end
 
 -------------------------------------
@@ -1254,13 +1259,6 @@ function UI_Lobby:update_highlight()
             vars['luckyBagNotiSprite']:setVisible(g_eventLFBagData:isHighlightRed())
             --vars['quizEventNotiYellow']:setVisible(g_eventLFBagData:isHighlightYellow())
         end
-    end
-
-
-
-    do -- 구글 크로스 프로모션
-        local is_google_play_promotion_period = ServerData_IAP.getInstance():checkGooglePlayPromotionPeriod()
-        vars['promotionSprite']:setVisible(is_google_play_promotion_period)
     end
 end
 
@@ -2189,6 +2187,12 @@ function UI_Lobby:refresh_hottime()
     if (#l_dc_event > 0) then
         local interval = 28
         vars['masterMenu']:setPositionY(130 + (interval * #l_dc_event))
+    end
+
+    
+    do -- 구글 크로스 프로모션
+        local is_google_play_promotion_period = ServerData_IAP.getInstance():checkGooglePlayPromotionPeriod()
+        vars['promotionSprite']:setVisible(is_google_play_promotion_period)
     end
 end
 
