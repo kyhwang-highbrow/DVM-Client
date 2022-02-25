@@ -880,7 +880,7 @@ end
 -- @comment hard refresh : entryCoroutine, 
 --          soft refresh : onFocus, dragonManageInfo close callback
 -------------------------------------
-function UI_Lobby:refresh(is_hard_refresh)
+function UI_Lobby:refresh(is_hard_refresh, callback)
 
     local function refresh_callback ()
         self:refresh_userInfo()
@@ -919,6 +919,10 @@ function UI_Lobby:refresh(is_hard_refresh)
 
             -- 2주년 기념 전설 드래곤 확률 업 노티
             self:setHatcheryChanceUpNoti()
+        end
+
+        if callback then
+            callback()
         end
     end
 
@@ -2103,21 +2107,24 @@ function UI_Lobby:onFocus(is_push)
         g_clanChatManager:checkRetryClanChat()
     end
 
-    self:refresh()
+    local function refresh_callback()
+        -- is_push가 true이면 최초에 UI 생성시에 호출된 경우
+        -- 로비에서 onFocus 코루틴은 최초 생성 시에는 skip
+        if (not is_push) then
+            local function coroutine_function(dt)
+                local co = CoroutineHelper()
+                self:entryCoroutine_Escapable(co)
+            end
 
-    -- is_push가 true이면 최초에 UI 생성시에 호출된 경우
-    -- 로비에서 onFocus 코루틴은 최초 생성 시에는 skip
-    if (not is_push) then
-        local function coroutine_function(dt)
-            local co = CoroutineHelper()
-            self:entryCoroutine_Escapable(co)
+            Coroutine(coroutine_function, '로비 코루틴 onFocus')
         end
 
-        Coroutine(coroutine_function, '로비 코루틴 onFocus')
+        -- 상점에서 노티 상품 다 사고 돌아왔을 경우 정보 갱신을 위해
+        self:setShopNoti()
     end
 
-    -- 상점에서 노티 상품 다 사고 돌아왔을 경우 정보 갱신을 위해
-    self:setShopNoti()
+    
+    self:refresh(false, refresh_callback)
 end
 
 -------------------------------------
