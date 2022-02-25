@@ -270,8 +270,16 @@ function UI_Package_Bundle:refresh()
 
             -- 가격
             local price = struct_product:getPriceStr()
-            setLabelString('priceLabel', idx, price)
-            
+            local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, idx)
+            local is_sale_price_written = false
+            if (is_tag_attached == true) then
+                is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, idx)
+            end
+
+            if (is_sale_price_written == false) then
+                setLabelString('priceLabel', idx, price)
+            end
+    
             -- 구매 제한
             if (TablePackageBundle:isSelectOnePackage(self.m_package_name) and not self.m_customStruct) then
                 local is_buy = PackageManager:isBuyAll(self.m_package_name)

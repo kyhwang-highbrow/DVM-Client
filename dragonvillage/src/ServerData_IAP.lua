@@ -7,6 +7,8 @@ ServerData_IAP = class({
     m_bBillingSetup = 'boolean', -- 결제 초기화 성공 여부
     m_structIAPProductMap = 'table', -- key:sku, value:StructIAPProduct
     m_structIAPPurchaseList = 'table', -- key:idx, value:StructIAPPurchase -- 처리가 완료되지 않은 결제
+
+    m_currencyCode = 'string', -- KRW, USD, JPY, ...
 })
 
 -------------------------------------
@@ -102,7 +104,11 @@ function ServerData_IAP:sdkBinder_BillingGetItemList(success_cb, fail_cb)
                 local struct_iap_product = StructIAPProduct:create(v)
                 local sku = struct_iap_product:getSku()
                 self.m_structIAPProductMap[sku] = struct_iap_product
-                
+
+
+                if (self.m_currencyCode == nil) then
+                    self.m_currencyCode = struct_iap_product:getCurrencyCode()
+                end
 
                 --cclog('i: ' .. i)
                 --ccdump(v)
@@ -316,4 +322,113 @@ end
 function ServerData_IAP:getUpdateTimeForIAP()
     local timestamp = self.m_updatedAt:getUpdatedAt()
     return timestamp
+end
+
+-------------------------------------
+-- function checkGooglePlayPromotioPricePeriod
+-- @breif 구글 플레이 프로모션으로 인해 상품 인앱 구매 할인하는 경우
+-------------------------------------
+function ServerData_IAP:checkGooglePlayPromotioPricePeriod()    
+    if ((CppFunctions:isAndroid() == true) and (g_hotTimeData:isActiveEvent('google_play_promotion_price') == true)) then
+        -- @yjkil : 22.02.24. 스토어 국가가 한국인지 확인 하는 함수를 찾지 못해 price_currency_code로 대체.
+        -- 원화를 사용하는 나라는 한국 밖에 없기에 가능하지만, 다른 통화의 경우 다른 조건을 찾아야함.
+        if (self.m_currencyCode == 'KRW') then
+            return true
+        end
+    end
+
+    if ((isWin32() == true) and (IS_TEST_MODE() == true) and (g_hotTimeData:isActiveEvent('google_play_promotion_price') == true)) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function checkGooglePlayPromotionPeriod
+-- @breif 구글 플레이 프로모션으로 인해 상품 인앱 구매 할인하는 경우
+-------------------------------------
+function ServerData_IAP:checkGooglePlayPromotionPeriod()
+    if ((CppFunctions:isAndroid() == true) and (g_hotTimeData:isActiveEvent('google_play_promotion') == true)) then
+        -- @yjkil : 22.02.24. 스토어 국가가 한국인지 확인 하는 함수를 찾지 못해 price_currency_code로 대체.
+        -- 원화를 사용하는 나라는 한국 밖에 없기에 가능하지만, 다른 통화의 경우 다른 조건을 찾아야함.
+        if (self.m_currencyCode == 'KRW') then
+            return true
+        end
+    end
+
+    if ((isWin32() == true) and (IS_TEST_MODE() == true) and (g_hotTimeData:isActiveEvent('google_play_promotion') == true)) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function checkGooglePlayPromotionPriceChanged
+-------------------------------------
+function ServerData_IAP:checkGooglePlayPromotionPriceChanged(struct_product)
+    return true
+end
+
+-------------------------------------
+-- function getGooglePlayPromotionPrice
+-------------------------------------
+function ServerData_IAP:getGooglePlayPromotionPrice(struct_product)
+
+
+end
+
+-------------------------------------
+-- function setGooglePlayPromotionSaleTag
+-------------------------------------
+function ServerData_IAP:setGooglePlayPromotionSaleTag(class_, index)
+    if (self:checkGooglePlayPromotionPeriod() == true) then
+        local vars = class_.vars
+
+        if (index == nil) then index = 1 end
+
+        local sale_sprite = vars['saleSprite' .. index] or vars['saleSprite']
+
+        if sale_sprite then
+            sale_sprite:setVisible(true)
+
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function setGooglePlayPromotionPrice
+-------------------------------------
+function ServerData_IAP:setGooglePlayPromotionPrice(class_, struct_product, index)
+    if (self:checkGooglePlayPromotioPricePeriod() == true) then
+        local vars = class_.vars
+
+        if (index == nil) then index = 1 end
+    
+        local promotion_sprite = vars['promotionSprite' .. index] or vars['promotionSprite']
+    
+        if promotion_sprite then
+            promotion_sprite:setVisible(true)
+            local origin_price_label = vars['originalPriceLabel' .. index] or vars['originalPriceLabel']
+            local promotion_price_label = vars['promotionPriceLabel' .. index] or vars['promotionPriceLabel']
+            
+            if origin_price_label and promotion_price_label then
+                origin_price_label:setString(struct_product:getPriceStr())
+    
+                local price = struct_product:getPrice()
+    
+                price = price * 0.85
+    
+                promotion_price_label:setString('￦' .. comma_value(price))
+    
+                return true
+            end
+        end 
+    end
+
+    return false
 end

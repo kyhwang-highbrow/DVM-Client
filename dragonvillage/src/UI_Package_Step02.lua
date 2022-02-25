@@ -146,7 +146,16 @@ function UI_Package_Step02:refresh(step)
 
             if (struct_product) then
                 -- 가격
-                vars['priceLabel']:setString(struct_product:getPriceStr())
+                local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, idx)
+                local is_sale_price_written = false
+                if (is_tag_attached == true) then
+                    is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, idx)
+                end
+
+                if (is_sale_price_written == false) then
+                    local label = vars['priceLabel' .. idx] or vars['priceLabel']
+                    label:setString(struct_product:getPriceStr())
+                end
 
                 -- 구매 가능
                 local buy_str = struct_product:getMaxBuyTermStr()

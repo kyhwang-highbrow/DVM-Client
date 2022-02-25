@@ -72,7 +72,15 @@ function UI_SupplyProductListItem:initUI()
     local struct_product = self:getStructProduct()
     if struct_product then
         -- 가격
-        vars['priceLabel']:setString(struct_product:getPriceStr())
+        local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, index)
+        local is_sale_price_written = false
+        if (is_tag_attached == true) then
+            is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, index)
+        end
+
+        if (is_sale_price_written == false) then
+            vars['priceLabel']:setString(struct_product:getPriceStr())
+        end
 
         -- 상품 설명
         vars['totalRewardLabel']:setString(Str(struct_product:getDesc()))

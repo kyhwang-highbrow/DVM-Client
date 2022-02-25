@@ -167,7 +167,15 @@ function UI_Package:initEachProduct(index, struct_product)
     if node then
 
         if (struct_product:getPrice() ~= 0) then
-            node:setString(struct_product:getPriceStr())
+            local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, index)
+            local is_sale_price_written = false
+            if (is_tag_attached == true) then
+                is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, index)
+            end
+
+            if (is_sale_price_written == false) then
+                vars['priceLabel']:setString(struct_product:getPriceStr())
+            end
         else -- 상품이 무료인 경우 system font가 아닌 ttf font 적용
             node:setString('')
 
@@ -457,5 +465,4 @@ function UI_Package:setMailSelectType(type)
         self.m_mailSelectType = type
     end
 end
-
 
