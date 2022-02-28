@@ -63,7 +63,6 @@ function UI_GameResult_AncientTower:setAnimationData()
 
     --table.insert(score_list, score_calc:calcKillBossBonus())
     --table.insert(score_list, score_calc:calcAcitveSkillBonus())
-    table.insert(score_list, score_calc:getWeakGradeMinusScore())
     table.insert(score_list, score_calc:getFinalScore())
     
     -- 역대 내 최고 점수
@@ -106,25 +105,11 @@ function UI_GameResult_AncientTower:setAnimationData()
         vars['attrBonusLabel2']:setVisible(false)
     end
 
-
-    table.insert(var_list, 'weakLabel1')
-    table.insert(var_list, 'weakLabel2')
-
     table.insert(var_list, 'totalLabel1')
     table.insert(var_list, 'totalLabel2')
     table.insert(var_list, 'totalLabel3')
     table.insert(var_list, 'totalLabel4')
     table.insert(var_list, 'scoreChangeLabel')
-
-    -- 현재 약화 등급 
-    local weak_grade = g_ancientTowerData:getWeakGrade()
-    if (weak_grade > 0) then
-        vars['weakLabel1']:setString(Str('약화 등급 패널티', weak_grade))
-        vars['weakLabel2']:setColor(cc.c3b(255, 96, 0))
-    else
-        vars['weakLabel1']:setVisible(false)
-        vars['weakLabel2']:setVisible(false)
-    end
 
     local node_list = {}
     for _, v in ipairs(var_list) do
@@ -161,7 +146,6 @@ function UI_GameResult_AncientTower:setAnimationData_Attr()
 
     --table.insert(score_list, score_calc:calcKillBossBonus())
     --table.insert(score_list, score_calc:calcAcitveSkillBonus())
-    table.insert(score_list, score_calc:getWeakGradeMinusScore())
     table.insert(score_list, score_calc:getFinalScore())
 
     -- 애니메이션 적용되는 라벨 저장
@@ -178,22 +162,8 @@ function UI_GameResult_AncientTower:setAnimationData_Attr()
     vars['attrBonusLabel1']:setVisible(false)
     vars['attrBonusLabel2']:setVisible(false)
 
-
-    table.insert(var_list, 'weakLabel1')
-    table.insert(var_list, 'weakLabel2')
-
     table.insert(var_list, 'totalLabel1')
     table.insert(var_list, 'totalLabel2')
-
-    -- 현재 약화 등급 
-    local weak_grade = g_ancientTowerData:getWeakGrade()
-    if (weak_grade > 0) then
-        vars['weakLabel1']:setString(Str('약화 등급 패널티', weak_grade))
-        vars['weakLabel2']:setColor(cc.c3b(255, 96, 0))
-    else
-        vars['weakLabel1']:setVisible(false)
-        vars['weakLabel2']:setVisible(false)
-    end
 
     local node_list = {}
     for _, v in ipairs(var_list) do

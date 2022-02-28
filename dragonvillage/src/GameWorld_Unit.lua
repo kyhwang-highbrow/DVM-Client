@@ -152,19 +152,6 @@ function GameWorld:makeMonsterNew(monster_id, level)
 
     -- 광폭화 버프 적용
     self.m_gameState:applyAccumEnrage(monster)
-    
-    -- 고대의 탑일 경우 도전횟수에 따른 디버프 적용
-    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-        -- 시험의 탑 디버프 제외
-        if (not g_ancientTowerData:isAttrChallengeMode()) then
-            local value = g_ancientTowerData:getEnemyDeBuffValue()
-            if (value < 0) then
-                monster.m_statusCalc:addStageMulti('atk', value)
-                monster.m_statusCalc:addStageMulti('def', value)
-                monster.m_statusCalc:addStageMulti('hp', value)
-            end
-        end
-    end
 
     -- 스테이지별 hp_ratio 적용(클랜 던전의 경우는 서버로부터 실제 체력값을 받음)
     if (self.m_gameMode ~= GAME_MODE_CLAN_RAID) then
@@ -212,19 +199,6 @@ function GameWorld:createSummonObject(summonObj_id, level)
 
     -- 광폭화 버프 적용
     self.m_gameState:applyAccumEnrage(summonedCreature)
-    
-    -- 고대의 탑일 경우 도전횟수에 따른 디버프 적용
-    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-        -- 시험의 탑 디버프 제외
-        if (not g_ancientTowerData:isAttrChallengeMode()) then
-            local value = g_ancientTowerData:getEnemyDeBuffValue()
-            if (value < 0) then
-                summonedCreature.m_statusCalc:addStageMulti('atk', value)
-                summonedCreature.m_statusCalc:addStageMulti('def', value)
-                summonedCreature.m_statusCalc:addStageMulti('hp', value)
-            end
-        end
-    end
 
     -- 스테이지별 hp_ratio 적용(클랜 던전의 경우는 서버로부터 실제 체력값을 받음)
     if (self.m_gameMode ~= GAME_MODE_CLAN_RAID) then

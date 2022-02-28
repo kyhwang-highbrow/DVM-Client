@@ -4,10 +4,7 @@
 AncientTowerScoreCalc = class({
         m_lrecorder = 'list',
 
-        m_score = 'number',         -- 약화등급 계산전 스코어
-        m_final_score = 'number',   -- 약화등급 계산후 스코어
-
-        m_weak_grade = 'number',
+        m_score = 'number',         -- 스코어
         m_bonusAttr = 'string',
     })
 
@@ -24,22 +21,11 @@ local ATTR_BONUS        = 480   -- 속성덱보너스
 function AncientTowerScoreCalc:init(recorder, stage_id)
     self.m_lrecorder = recorder or nil
     self.m_score = 0
-    self.m_final_score = 0
 
     local t_info = TABLE:get('anc_floor_reward')[stage_id]
     self.m_bonusAttr = t_info['bonus_attr']
 
-    self:setChallengingWeakGrade()
     self:calcFinalScore()
-end
-
--------------------------------------
--- function setChallengingWeakGrade
--------------------------------------
-function AncientTowerScoreCalc:setChallengingWeakGrade()
-    local fail_cnt = g_ancientTowerData:getChallengingCount()
-    local weak_grade = g_ancientTowerData:getWeakGrade(fail_cnt)
-    self.m_weak_grade = weak_grade
 end
 
 -------------------------------------
@@ -56,11 +42,6 @@ function AncientTowerScoreCalc:calcFinalScore()
     local v6 = self:calcAttrBonus()
 
     self.m_score = (v1 + v2 + v3 + v4 + v5 + v6)
-
-    local weak_grade = self.m_weak_grade + 1
-
-    -- 최종 계산에서만 소수점 절삭
-    self.m_final_score = math_floor(self.m_score / (weak_grade))
 end
 
 -------------------------------------
@@ -117,16 +98,6 @@ function AncientTowerScoreCalc:calcAcitveSkillBonus()
 end
 
 -------------------------------------
--- function getWeakGradeMinusScore
--- @brief 약화효과로 인한 마이너스 점수 가져옴
--------------------------------------
-function AncientTowerScoreCalc:getWeakGradeMinusScore()
-    local score = self.m_score
-    local final_score = self.m_final_score
-    return -math_floor(score - final_score)
-end
-
--------------------------------------
 -- function calcAttrBonus
 -- @brief 드래곤 속성 보너스
 -- @brief 조건 : 스테이지에 지정된 속성의 드래곤
@@ -156,7 +127,7 @@ end
 -- function getFinalScore
 -------------------------------------
 function AncientTowerScoreCalc:getFinalScore()
-    return self.m_final_score
+    return self.m_score
 end
 
 

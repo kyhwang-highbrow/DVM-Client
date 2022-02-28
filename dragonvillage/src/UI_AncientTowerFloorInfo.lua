@@ -72,9 +72,6 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
         local fail_cnt = info.m_failCnt
         vars['challengeLabel']:setString(Str('도전 횟수 {1}회', fail_cnt))
 
-        local weak_grade = g_ancientTowerData:getWeakGrade(fail_cnt)
-        vars['weakenLabel']:setString(Str('약화 등급 {1}/{2}', weak_grade, ANCIENT_TOWER_MAX_DEBUFF_LEVEL))
-
         local stage_id = info.m_stage
         local str_help = TableStageData():getValue(tonumber(stage_id), 't_help')
         vars['towerDscLabel']:setString(str_help)
