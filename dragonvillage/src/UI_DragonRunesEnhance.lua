@@ -837,14 +837,28 @@ end
 -- function makeRuneEnhanceBlockPopup
 -- @breif 연속 강화가 진행되는 동안 클릭을 막음
 -------------------------------------
-function UI_DragonRunesEnhance:makeRuneEnhanceBlockPopup(cb_func)
+function UI_DragonRunesEnhance:makeRuneEnhanceBlockPopup(cb_func, is_grind)
     local block_ui = UI()
     block_ui:load('rune_enhance_block.ui')
+    block_ui.m_uiName = 'UI_RuneEnhanceBlock'
     UIManager:open(block_ui, UIManager.POPUP, true)
 
+    local function stop_callback()
+        block_ui:close() 
+
+        if cb_func then
+            cb_func()
+        end
+    end
+
     -- 기존 강화탭과 동일한 중지 버튼, 블록 팝업을 닫음
-    block_ui.vars['stopBtn']:registerScriptTapHandler(function() block_ui:close() cb_func() end)
-    g_currScene:pushBackKeyListener(block_ui, function() block_ui:close() cb_func() end, 'UI_RuneEnhanceBlock')
+    if is_grind then
+        block_ui.vars['grindAutoStopBtn']:registerScriptTapHandler(stop_callback)
+    else
+        block_ui.vars['stopBtn']:registerScriptTapHandler(stop_callback)
+    end
+
+    g_currScene:pushBackKeyListener(block_ui, stop_callback, 'UI_RuneEnhanceBlock')
 
     return block_ui
 end

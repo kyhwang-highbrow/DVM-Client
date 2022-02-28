@@ -339,6 +339,27 @@ function TableItem:getItemName(item_id)
     return Str(item_name)
 end
 
+
+-------------------------------------
+-- function getItemName
+-- @brief
+-------------------------------------
+function TableItem:getItemNameFromItemType(item_type)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    if (item_type == nil) then return nil end
+    
+
+    local item_id = ITEM_ID_MAP[item_type]
+
+    if (item_id == nil) then return nil end
+
+    local item_name = self:getValue(item_id, 't_name')
+    return Str(item_name)
+end
+
 -------------------------------------
 -- function getItemDesc
 -- @brief

@@ -15,7 +15,10 @@ UI_DragonRunesGrindFirstPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_DragonRunesGrindFirstPopup:init(selected_opt, rune_obj, ok_cb, is_info, item_type)
+
     local vars = self:load('rune_grind_popup.ui')
+    self.m_uiName = 'UI_DragonRunesGrindFirstPopup'
+
     UIManager:open(self, UIManager.POPUP)
 
     self.m_okCb = ok_cb

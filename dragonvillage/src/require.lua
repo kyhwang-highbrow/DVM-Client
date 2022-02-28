@@ -1423,6 +1423,7 @@ local t_module = {
     'UI_HelpStatus',
     'UI_DragonRunes',
     'UI_DragonRunesGrind',
+    'UI_DragonRunesGrindSetting',
     'UI_DragonRunesGrindFirstPopup',
     'UI_DragonRunesEnhance',
     'UI_DragonRunesBulkEquip',

@@ -12,6 +12,14 @@ UI_DragonRunesGrind = class({
         m_selectOptionItem = 'item_name_str',       -- 라디오 버튼으로 선택한 보조 아이템 이름
         
         m_runeEnhanceClass = 'UI_DragonRuneEnhance',
+
+        m_isAutoGrinding = 'boolean',
+
+        -- 룬 자동 연마
+        m_targetAutoGrindNum = 'number',
+        m_currAutoGrindNum = 'number',
+        m_autoTargetOptionList = 'List[string] = number',
+        -- // 룬 자동 연마
     })
 
 
@@ -24,6 +32,13 @@ local GRIND_ITEM_ID = 704900
 function UI_DragonRunesGrind:init(enhance_class)
     self.m_runeEnhanceClass = enhance_class
     self.m_optionLabel = nil
+
+    self.m_isAutoGrinding = false
+
+    if IS_TEST_MODE() and isWin32() then
+        local vars = self.m_runeEnhanceClass.vars
+        vars['grindAutoBtn']:setVisible(true)
+    end
 
     self:initUI()
     self:initButton()
@@ -211,8 +226,12 @@ function UI_DragonRunesGrind:initButton()
     local vars = self.m_runeEnhanceClass.vars
     -- 룬 연마
     vars['grindBtn']:registerScriptTapHandler(function() self:click_grind() end)
+    vars['grindStopBtn']:registerScriptTapHandler(function() self:click_stopBtn() end)
     vars['grindItemBtn']:registerScriptTapHandler(function() self:click_grindItemBtn() end)
     vars['runeGrindBtn']:registerScriptTapHandler(function() self:click_grindinfo() end)
+
+    vars['grindAutoBtn']:registerScriptTapHandler(function() self:click_grindAutoBtn() end)
+    vars['grindAutoStopBtn']:registerScriptTapHandler(function() self:click_stopBtn() end)
 
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 	cca.pickMePickMe(vars['buyBtn'], 10)
@@ -447,13 +466,12 @@ function UI_DragonRunesGrind:click_grind()
     end
     
     local start_grind_cb = function()
-
         -- 통신 전, 블럭 팝업 생성
         local block_ui = UI_BlockPopup()
 
         -- 통신 후, 결과 출력&블럭 팝업 닫기
 	    local function cb_func(is_success)
-            self:showUpgradeResult(is_success)
+            self:showUpgradeResult()
 	    	block_ui:close()
 
             local after_rune_grind_cnt = g_userData:get('grindstone')
@@ -472,7 +490,67 @@ function UI_DragonRunesGrind:click_grind()
     else
         start_grind_cb()
     end
+end
 
+-------------------------------------
+-- function startSeqGrind
+-------------------------------------
+function UI_DragonRunesGrind:startSeqGrind()
+    local enhance_class = self.m_runeEnhanceClass
+	local vars = enhance_class.vars
+    
+    local rune_obj = self.m_runeEnhanceClass:getRuneObject() 
+    local req_grind_stone_cnt = rune_obj:getRuneGrindReqGrindstone()
+    
+    -- 연속 강화할 동안 버튼 클릭을 막음
+    local is_grind = true
+    local block_ui = self.m_runeEnhanceClass:makeRuneEnhanceBlockPopup(function() self:click_stopBtn() end, is_grind)
+    
+
+    local function coroutine_function(dt)
+		local co = CoroutineHelper()
+		self.m_runeEnhanceClass.m_coroutineHelper = co
+
+        local function close_coroutine_cb()
+            self.m_runeEnhanceClass.m_coroutineHelper = nil
+            vars['grindAutoStopBtn']:setVisible(false)
+            vars['grindAutoBtn']:setVisible(true)
+            -- 터치 블럭 해제
+            UIManager:blockBackKey(false)
+            --block_ui:close()
+        end
+
+        co:setCloseCB(close_coroutine_cb)
+
+        -- 터치 블럭
+        UIManager:blockBackKey(true)
+
+        -- UI 처리
+        vars['grindAutoStopBtn']:setVisible(true)
+        vars['grindAutoBtn']:setVisible(false)
+
+        while(req_grind_stone_cnt < (g_userData:get('grindstone') or 0) and 
+        ((self.m_isAutoGrinding == true) and (self.m_targetAutoGrindNum and self.m_currAutoGrindNum) and (self.m_currAutoGrindNum < self.m_targetAutoGrindNum))) do
+            co:work()
+
+            local function cb_func(is_success)
+                self:showUpgradeResult()
+                
+                co.NEXT()
+            end
+
+            -- 연마 시도
+            self:request_grind(cb_func)
+
+
+            if co:waitWork() then return end
+        end
+
+        -- 코루틴 종료
+        co:close()
+    end
+
+    Coroutine(coroutine_function, 'Rune Grinding Continuously')
 end
 
 -------------------------------------
@@ -483,8 +561,57 @@ function UI_DragonRunesGrind:click_grindinfo()
     UI_DragonRunesGrindFirstPopup(self.m_seletedGrindOption, rune_obj, nil, true, self.m_selectOptionItem) -- selected_opt, rune_obj, ok_cb, is_info, item_type
 end
 
+-------------------------------------
+-- function click_grindAutoBtn
+-------------------------------------
+function UI_DragonRunesGrind:click_grindAutoBtn()
+    local enhance_class = self.m_runeEnhanceClass
+	local vars = enhance_class.vars
+    local rune_obj = enhance_class:getRuneObject()
+
+    local function ok_callback(grind_num, target_option_list)
+        self.m_targetAutoGrindNum = grind_num
+        self.m_currAutoGrindNum = 0
+        self.m_autoTargetOptionList = target_option_list
+        self.m_isAutoGrinding = true
+
+        vars['ingLabel']:setString(Str('{1}/{2}회 진행 중', self.m_currAutoGrindNum, self.m_targetAutoGrindNum))
+        vars['ingMenu']:setVisible(true)
+
+        self:startSeqGrind()
+    end
+
+    local ui = UI_DragonRunesGrindSetting(self.m_seletedGrindOption, rune_obj, self.m_selectOptionItem)
+    ui:setOkCallback(ok_callback)
+end
+
+-------------------------------------
+-- function click_grindItemBtn
+-------------------------------------
 function UI_DragonRunesGrind:click_grindItemBtn()
     UI_ItemInfoPopup(GRIND_ITEM_ID)
+end
+
+-------------------------------------
+-- function click_stopBtn
+-------------------------------------
+function UI_DragonRunesGrind:click_stopBtn()
+    local vars = self.m_runeEnhanceClass.vars
+    
+    if (self.m_runeEnhanceClass) and (self.m_runeEnhanceClass.m_coroutineHelper) then
+        self.m_runeEnhanceClass.m_coroutineHelper.ESCAPE()
+        self.m_runeEnhanceClass.m_coroutineHelper = nil
+    end
+
+    vars['grindAutoStopBtn']:setVisible(false)
+    vars['grindAutoBtn']:setVisible(true)
+    
+    self.m_isAutoGrinding = false
+    self.m_targetAutoGrindNum = nil
+    self.m_currAutoGrindNum = nil
+    self.m_autoTargetOptionList = nil
+
+    vars['ingMenu']:setVisible(false)
 end
 
 -------------------------------------
@@ -523,18 +650,71 @@ end
 -- function request_grind
 -------------------------------------
 function UI_DragonRunesGrind:request_grind(cb_func)
+    local vars = self.m_runeEnhanceClass.vars
     local rune_obj = self.m_runeEnhanceClass:getRuneObject() 
     local select_grind_opt = self.m_seletedGrindOption
     local owner_doid = rune_obj['owner_doid']
     local roid = rune_obj['roid']
 
-    local finish_func = function()
+    local finish_func = function(ret)
+        -- ret = {
+        --     "grindstone":10552,
+        --     "message":"success",
+        --     "gold":5278854367,
+        --     "max_fixed_ticket":0,
+        --     "status":0,
+        --     "modified_rune":{
+        --       "lock":false,
+        --       "id":"6138304be891931f1b128c0c",
+        --       "mopt":"atk_add;440",
+        --       "sopt_4":"",
+        --       "created_at":1631072331558,
+        --       "sopt_2":"avoid_add;1",
+        --       "rarity":3,
+        --       "rid":710415,
+        --       "sopt_1":"def_multi;1",
+        --       "updated_at":1645443728141,
+        --       "lv":15,
+        --       "sopt_3":"cri_dmg_add;2",
+        --       "uopt":"aspd_add;3",
+        --       "grind_opt":{
+        --         "sopt":1
+        --       }
+        --     },
+        --     "opt_keep_ticket":0
+        --   }
+
         -- 룬 연마석 갯수, 사용하자마자 갱신
         self:refresh_grindstoneCount()
 
         rune_obj = g_runesData:getRuneObject(roid)
         self.m_runeEnhanceClass:setRuneObject(rune_obj)
         self.m_runeEnhanceClass:show_upgradeEffect(true, cb_func, true)
+
+        if (self.m_isAutoGrinding == true) then
+            local modified_rune = ret['modified_rune']
+            local option_key
+            local option_index
+            for key, index in pairs(modified_rune['grind_opt']) do
+                option_key = key
+                option_index = index
+            end
+
+            local option_str = modified_rune[option_key .. '_' .. option_index]
+            local option_data = pl.stringx.split(option_str, ';')
+
+            local option_type = option_data[1]
+            local option_value = tonumber(option_data[2])
+
+            if (self.m_autoTargetOptionList[option_type] ~= nil) 
+            and (self.m_autoTargetOptionList[option_type] <= option_value) then
+                self:click_stopBtn()
+                return
+            end
+
+            self.m_currAutoGrindNum = self.m_currAutoGrindNum + 1
+            vars['ingLabel']:setString(Str('{1}/{2}회 진행 중', self.m_currAutoGrindNum, self.m_targetAutoGrindNum))
+        end
     end
 
     -- request_runeGrind param으로 보조 아이템 id 요구, 없다면 nil
