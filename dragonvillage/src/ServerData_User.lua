@@ -785,3 +785,61 @@ function ServerData_User:getDropInfoMaxItemByType(item_type)
         return self.m_dropInfo['max_' .. item_type]
     end
 end
+
+
+-------------------------------------
+-- function request_termsInfo
+-------------------------------------
+function ServerData_User:request_termsInfo(success_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_localData:get('local', 'uid')
+
+    local function success(ret)
+        -- ret['terms'] = 0 (동의 x) or 1 (동의 O)
+
+        local need_agree = (ret['terms'] == 0)
+
+        if success_cb then
+            success_cb(need_agree)
+        end
+    end
+
+    
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/terms_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_termsAgree
+-------------------------------------
+function ServerData_User:request_termsAgree(success_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_localData:get('local', 'uid')
+
+    local function success(ret)
+        -- ret['terms'] = 0 (동의 x) or 1 (동의 O)
+
+        local need_agree = (ret['terms'] == 0)
+
+        if success_cb then
+            success_cb(need_agree)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/terms_agree')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
