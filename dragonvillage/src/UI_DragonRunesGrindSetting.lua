@@ -153,66 +153,6 @@ function UI_DragonRunesGrindSetting:getExpectedOptionList()
 
     return result
 end
-
--------------------------------------
--- function getExpectedOptionStr_MaxOptItem
--- @brief max확정권 사용 했을 때 나올 수 있는 옵션
--------------------------------------
-function UI_DragonRunesGrindSetting:getExpectedOptionStr_MaxOptItem()
-    -- local rune_obj = self.m_structRune
-    -- local expected_option_str = ''
-    -- local selected_option = plSplit(rune_obj[self.m_selectedopt], ';')[1]
-    -- local table_opt = TableOption()
-    
-    -- -- 연마로 나올 수 있는 옵션
-    -- -- 1. 주옵션 or 부 옵션 or 선택하지 않은 추가 옵션과 중복되지 않는 옵션
-    -- -- 2. table_rune_opt_status의 none과 aspd_multi 제외
-    -- -- 3. 현재 선택한 옵션은 연마로 다시 나올 수 있음
-    -- -- 4. 치명회피와, 속도 %는 제외
-    -- local t_rune_opt = TABLE:get('table_rune_opt_status')
-
-    -- for id, v in pairs(t_rune_opt) do
-    --     if (pl.stringx.endswith(id, '_1')) then
-    --         local opt_type = v['key']
-    --         local is_expected = true
-    --         for _, opt_str in ipairs(StructRuneObject.OPTION_LIST) do
-    --             local l_str = plSplit(rune_obj[opt_str], ';')
-    --             -- 1, 3번 조건 처리
-    --             if (l_str[1] == opt_type) and (opt_type ~= selected_option) then
-    --                 is_expected = false
-    --             end
-    --         end
-
-    --         local max_value = rune_obj:getOptionMaxValue(opt_type)
-    --         -- 2, 4번 조건 처리
-    --         if (is_expected) and (opt_type ~= 'none') and (opt_type ~= 'aspd_multi') and (opt_type ~= 'cri_avoid_add') then
-    --             expected_option_str = expected_option_str ..Str(table_opt:getValue(opt_type, 't_desc'), max_value) .. '\n'
-    --         end
-    --     end
-    -- end
-
-    -- return expected_option_str
-end
-
--------------------------------------
--- function getExpectedOptionStr_KeepOptItem
--- @brief 옵션 유지권 사용 했을 때 나올 수 있는 옵션 
--------------------------------------
-function UI_DragonRunesGrindSetting:getExpectedOptionStr_KeepOptItem()
-    -- local rune_obj = self.m_structRune
-    -- local expected_option_str = ''
-    -- local selected_option = plSplit(rune_obj[self.m_selectedopt], ';')[1]
-    -- local table_opt = TableOption()
-
-    -- local min_value = rune_obj:getOptionMinValue(selected_option)
-    -- local max_value = rune_obj:getOptionMaxValue(selected_option)
-    -- local min_max_str = string.format('%d~%d', min_value, max_value)
-    
-    -- expected_option_str = Str(table_opt:getValue(selected_option, 't_desc'), min_max_str)        
-    
-    -- return expected_option_str
-end
-
 -------------------------------------
 -- function setOkCallback
 -------------------------------------
@@ -245,9 +185,15 @@ end
 -- function click_autoBtn
 -------------------------------------
 function UI_DragonRunesGrindSetting:click_autoBtn()
+    local target_option_list = self:getTargetOptionList()
+
+    if (table.count(target_option_list) == 0) then
+        UIManager:toastNotificationRed(Str('원하는 연마 옵션을 선택해 주세요'))
+        return
+    end
 
     local function ok_callback()
-        local target_option_list = self:getTargetOptionList()
+        
         local auto_grind_num = self.m_grindNum
 
         self:close()

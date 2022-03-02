@@ -161,6 +161,9 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
         -- grindNotiLabel2 = 'MAX 확정권과 옵션 유지권은 중복으로 사용할 수 없습니다.' 
         --vars['grindNotiLabel2']:setVisible((is_optKepp or is_maxFixed))
         --vars['grindNotiLabel']:setVisible(not (is_optKepp or is_maxFixed))
+    
+        local is_grind_stone = (option_item_type == 'none_select')
+        vars['grindAutoBtn']:setVisible(is_grind_stone)
         
         self:refresh_grindItemRadioBtn()
     end)
@@ -513,6 +516,13 @@ function UI_DragonRunesGrind:startSeqGrind()
             self.m_runeEnhanceClass.m_coroutineHelper = nil
             vars['grindAutoStopBtn']:setVisible(false)
             vars['grindAutoBtn']:setEnabled(true)
+    
+            self.m_isAutoGrinding = false
+            self.m_targetAutoGrindNum = nil
+            self.m_currAutoGrindNum = nil
+            self.m_autoTargetOptionList = nil
+            
+            vars['ingMenu']:setVisible(false)
             -- 터치 블럭 해제
             UIManager:blockBackKey(false)
 
@@ -566,6 +576,11 @@ end
 -- function click_grindAutoBtn
 -------------------------------------
 function UI_DragonRunesGrind:click_grindAutoBtn()
+    if (self.m_selectOptionItem ~= 'none_select') then
+
+        return
+    end
+
     local enhance_class = self.m_runeEnhanceClass
 	local vars = enhance_class.vars
     local rune_obj = enhance_class:getRuneObject()
@@ -603,16 +618,6 @@ function UI_DragonRunesGrind:click_stopBtn()
         self.m_runeEnhanceClass.m_coroutineHelper.ESCAPE()
         self.m_runeEnhanceClass.m_coroutineHelper = nil
     end
-
-    vars['grindAutoStopBtn']:setVisible(false)
-    vars['grindAutoBtn']:setEnabled(true)
-    
-    self.m_isAutoGrinding = false
-    self.m_targetAutoGrindNum = nil
-    self.m_currAutoGrindNum = nil
-    self.m_autoTargetOptionList = nil
-
-    vars['ingMenu']:setVisible(false)
 end
 
 -------------------------------------
