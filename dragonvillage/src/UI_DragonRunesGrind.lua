@@ -540,7 +540,7 @@ function UI_DragonRunesGrind:startSeqGrind()
         vars['grindAutoStopBtn']:setVisible(true)
         vars['grindAutoBtn']:setEnabled(false)
 
-        while(req_grind_stone_cnt < (g_userData:get('grindstone') or 0) and 
+        while(req_grind_stone_cnt <= (g_userData:get('grindstone') or 0) and 
         ((self.m_isAutoGrinding == true) and (self.m_targetAutoGrindNum and self.m_currAutoGrindNum) and (self.m_currAutoGrindNum < self.m_targetAutoGrindNum))) do
             co:work()
 
@@ -577,7 +577,10 @@ end
 -------------------------------------
 function UI_DragonRunesGrind:click_grindAutoBtn()
     if (self.m_selectOptionItem ~= 'none_select') then
+        return
+    end
 
+    if (not self:checkGrindCondition()) then
         return
     end
 

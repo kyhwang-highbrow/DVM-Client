@@ -41,13 +41,14 @@ function UI_DragonRunesGrindSetting:init(selected_option, rune_obj, item_type)
     self.m_grindNum = 1
 
     local item_num = g_userData:get(item_type)
-    self.m_maxItemNum = item_num
+    local gold_num = math.floor(g_userData:get('gold') / rune_obj:getRuneGrindReqGold())
+    
+    self.m_maxItemNum = math.min(item_num, gold_num)
 
     self:initUI()
     self:initButton()
     self:refresh()
 end
-
 
 -------------------------------------
 -- function initUI
@@ -112,6 +113,8 @@ end
 function UI_DragonRunesGrindSetting:refresh()
     local vars = self.vars
 end
+
+
 
 
 -------------------------------------
@@ -182,6 +185,17 @@ function UI_DragonRunesGrindSetting:getTargetOptionList()
 end
 
 -------------------------------------
+-- function setGrindAutoSetting
+-------------------------------------
+function UI_DragonRunesGrindSetting:setGrindAutoSetting(option_list)
+    if (option_list ~= nil) and (type(option_list) == 'table') then
+        for option_type, option_value in pairs(option_list) do
+            g_settingData:setGrindAutoSetting(option_type, option_value)
+        end
+    end
+end
+
+-------------------------------------
 -- function click_autoBtn
 -------------------------------------
 function UI_DragonRunesGrindSetting:click_autoBtn()
@@ -193,7 +207,8 @@ function UI_DragonRunesGrindSetting:click_autoBtn()
     end
 
     local function ok_callback()
-        
+        self:setGrindAutoSetting(target_option_list)
+
         local auto_grind_num = self.m_grindNum
 
         self:close()
@@ -214,6 +229,10 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_DragonRunesGrindSetting:click_closeBtn()
+    local target_option_list = self:getTargetOptionList()
+    
+    self:setGrindAutoSetting(target_option_list)
+
     self:close()
 end
 
@@ -229,6 +248,8 @@ function UI_DragonRunesGrindSetting:click_adjustBtn(value, is_pressed)
             self.m_grindNum = curr_num
 
             vars['quantityLabel']:setString(self.m_grindNum)
+        elseif (curr_num > self.m_maxItemNum) then
+            self:checkGrindCondition(curr_num)
         end
     end
 
@@ -254,6 +275,25 @@ function UI_DragonRunesGrindSetting:click_adjustBtn(value, is_pressed)
         end
 
         self.root:scheduleUpdateWithPriorityLua(function(dt) return update_callback(dt) end, 1)
+    end
+end
+
+function UI_DragonRunesGrindSetting:checkGrindCondition(target_num)
+    local rune_obj = self.m_targetRune
+
+    -- 재료 확인
+    local required_grind_stone = rune_obj:getRuneGrindReqGrindstone()
+    local owned_grind_stone = g_userData:get(self.m_itemType) -- grind_stone
+
+    local required_gold = rune_obj:getRuneGrindReqGold()
+    local owned_gold = g_userData:get('gold')
+
+    if ((required_gold * target_num) > owned_gold) then
+        local item_name = TableItem:getItemNameFromItemType('gold')
+        UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.', item_name))
+    elseif ((required_grind_stone * target_num) > owned_grind_stone) then
+        local item_name = TableItem:getItemNameFromItemType(self.m_itemType)
+        UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.', item_name))
     end
 end
 
@@ -327,9 +367,6 @@ function UI_DragonRunesGrindSettingItem:initUI()
     self.m_currValue = min_value
 
     vars['optionLabel']:setString(Str(option_str, min_max_str))
-
-    local percent_str = self.m_isPercent and '%' or ''
-    vars['quantityLabel']:setString(min_value .. percent_str)
 end
 
 -------------------------------------
@@ -361,7 +398,16 @@ function UI_DragonRunesGrindSettingItem:refresh()
     vars['skipLabel']:setVisible(self.m_isChecked == false)
 
     if (self.m_isChecked == true) then
-        --vars['quantityLabel']
+        local option_type = self.m_data['key']
+
+        local option_value = g_settingData:getGrindAutoSetting(option_type)
+
+        if (option_value ~= nil) and (option_value >= self.m_minValue) and (option_value <= self.m_maxValue) then
+            self.m_currValue = option_value
+        end
+
+        local percent_str = self.m_isPercent and '%' or ''
+        vars['quantityLabel']:setString(self.m_currValue .. percent_str)
     end
 end
 

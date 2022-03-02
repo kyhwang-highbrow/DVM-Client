@@ -722,6 +722,20 @@ function SettingData:getAutoFarewell(dragon_rarity)
 end
 
 -------------------------------------
+-- function setGrindAutoSetting
+-------------------------------------
+function SettingData:setGrindAutoSetting(option_type, option_value)
+    self:applySettingData(option_value, 'rune', 'auto_grind', option_type)
+end
+
+-------------------------------------
+-- function getGrindAutoSetting
+-------------------------------------
+function SettingData:getGrindAutoSetting(option_type)
+    return self:get('rune', 'auto_grind', option_type)
+end
+
+-------------------------------------
 -- function getCloudSetting
 -- @brief
 -- @param key string
