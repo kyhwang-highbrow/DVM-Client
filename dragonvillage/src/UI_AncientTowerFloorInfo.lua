@@ -69,9 +69,6 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
                         nick)
         vars['scoreLabel']:setString(str)
 
-        local fail_cnt = info.m_failCnt
-        vars['challengeLabel']:setString(Str('도전 횟수 {1}회', fail_cnt))
-
         local stage_id = info.m_stage
         local str_help = TableStageData():getValue(tonumber(stage_id), 't_help')
         vars['towerDscLabel']:setString(str_help)
