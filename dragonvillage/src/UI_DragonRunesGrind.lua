@@ -35,10 +35,8 @@ function UI_DragonRunesGrind:init(enhance_class)
 
     self.m_isAutoGrinding = false
 
-    if IS_TEST_MODE() and isWin32() then
-        local vars = self.m_runeEnhanceClass.vars
-        vars['grindAutoBtn']:setVisible(true)
-    end
+    local vars = self.m_runeEnhanceClass.vars
+    vars['grindAutoBtn']:setEnabled(true)
 
     self:initUI()
     self:initButton()
@@ -514,10 +512,13 @@ function UI_DragonRunesGrind:startSeqGrind()
         local function close_coroutine_cb()
             self.m_runeEnhanceClass.m_coroutineHelper = nil
             vars['grindAutoStopBtn']:setVisible(false)
-            vars['grindAutoBtn']:setVisible(true)
+            vars['grindAutoBtn']:setEnabled(true)
             -- 터치 블럭 해제
             UIManager:blockBackKey(false)
-            --block_ui:close()
+
+            if (block_ui:isClosed() == false) then
+                block_ui:close()
+            end
         end
 
         co:setCloseCB(close_coroutine_cb)
@@ -527,7 +528,7 @@ function UI_DragonRunesGrind:startSeqGrind()
 
         -- UI 처리
         vars['grindAutoStopBtn']:setVisible(true)
-        vars['grindAutoBtn']:setVisible(false)
+        vars['grindAutoBtn']:setEnabled(false)
 
         while(req_grind_stone_cnt < (g_userData:get('grindstone') or 0) and 
         ((self.m_isAutoGrinding == true) and (self.m_targetAutoGrindNum and self.m_currAutoGrindNum) and (self.m_currAutoGrindNum < self.m_targetAutoGrindNum))) do
@@ -575,8 +576,8 @@ function UI_DragonRunesGrind:click_grindAutoBtn()
         self.m_autoTargetOptionList = target_option_list
         self.m_isAutoGrinding = true
 
-        vars['ingLabel']:setString(Str('{1}/{2}회 진행 중', self.m_currAutoGrindNum, self.m_targetAutoGrindNum))
         vars['ingMenu']:setVisible(true)
+        vars['ingLabel']:setString(Str('{1}/{2}회 진행 중', self.m_currAutoGrindNum, self.m_targetAutoGrindNum))
 
         self:startSeqGrind()
     end
@@ -604,7 +605,7 @@ function UI_DragonRunesGrind:click_stopBtn()
     end
 
     vars['grindAutoStopBtn']:setVisible(false)
-    vars['grindAutoBtn']:setVisible(true)
+    vars['grindAutoBtn']:setEnabled(true)
     
     self.m_isAutoGrinding = false
     self.m_targetAutoGrindNum = nil
