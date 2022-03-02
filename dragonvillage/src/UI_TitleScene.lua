@@ -358,7 +358,7 @@ function UI_TitleScene:setWorkList()
     --table.insert(self.m_lWorkList, 'workCheckSelectedGameServer') -- 유저가 선택(or 추천)한 게임 서버 확인
     table.insert(self.m_lWorkList, 'workCheckUserID')    
     table.insert(self.m_lWorkList, 'workPlatformLogin')
-    table.insert(self.m_lWorkList, 'workAgreeTerms')
+    --table.insert(self.m_lWorkList, 'workAgreeTerms')
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workGetServerInfo')
 
