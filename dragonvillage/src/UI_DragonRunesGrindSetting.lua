@@ -76,6 +76,7 @@ function UI_DragonRunesGrindSetting:initTableView()
 
     local table_view = UIC_TableView(node)
     table_view:setCellUIClass(ctor_func, create_callback)
+    table_view.m_gapBtwCellsSize = 5
     table_view:setCellSizeToNodeSize()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(item_list, true)
@@ -168,11 +169,15 @@ end
 -------------------------------------
 function UI_DragonRunesGrindSetting:getTargetOptionList()
     local item_list = self.m_tableview.m_itemList
-
     local result = {}
 
-    for index, item in pairs(item_list) do
+    --체크된 리스트 항목 뽑기
+    for _, item in pairs(item_list) do
         local ui = item['ui']
+        if(ui == nil) then
+             break
+        end
+
         if (ui.m_isChecked == true) then
             local option_type = ui.m_data['key']
             local option_value = ui.m_currValue
@@ -243,14 +248,22 @@ function UI_DragonRunesGrindSetting:click_adjustBtn(value, is_pressed)
     local vars = self.vars
     local function adjust_function()
         local curr_num = self.m_grindNum + value
+        local before_Value = self.m_grindNum
 
         if (curr_num > 0) and (curr_num <= self.m_maxItemNum) then
             self.m_grindNum = curr_num
-
-            vars['quantityLabel']:setString(self.m_grindNum)
         elseif (curr_num > self.m_maxItemNum) then
-            self:checkGrindCondition(curr_num)
+            self.m_grindNum = self.m_maxItemNum
         end
+
+        --값이 변경되지 않았으면 팝업과 함께 리턴
+        if (before_Value == self.m_grindNum) then
+            self:checkGrindCondition(curr_num)
+            return false
+        end
+
+        vars['quantityLabel']:setString(self.m_grindNum)
+        return true
     end
 
     if (not is_pressed) then
@@ -266,12 +279,11 @@ function UI_DragonRunesGrindSetting:click_adjustBtn(value, is_pressed)
         end
 
         local function update_callback(dt)
-            if (button:isSelected() == false) or (button:isEnabled() == false) then
+            local result = adjust_function()
+            if (result == false) or (button:isSelected() == false) or (button:isEnabled() == false) then
                 self.root:unscheduleUpdate()
                 return
             end
-
-            adjust_function()
         end
 
         self.root:scheduleUpdateWithPriorityLua(function(dt) return update_callback(dt) end, 1)
@@ -423,6 +435,7 @@ function UI_DragonRunesGrindSettingItem:click_adjustBtn(value, is_pressed)
     local vars = self.vars
     local function adjust_function()
         local curr_value = self.m_currValue + value
+        local before_value = self.m_currValue;
 
         if (curr_value < self.m_minValue) then
             curr_value = self.m_minValue
@@ -432,8 +445,14 @@ function UI_DragonRunesGrindSettingItem:click_adjustBtn(value, is_pressed)
 
         self.m_currValue = curr_value
 
+        --값이 변경되지 않았다면
+        if (before_value == self.m_currValue) then
+            return false
+        end
+
         local percent_str = self.m_isPercent and '%' or ''
         vars['quantityLabel']:setString(curr_value .. percent_str)
+        return true
     end
 
     if (not is_pressed) then
@@ -442,12 +461,11 @@ function UI_DragonRunesGrindSettingItem:click_adjustBtn(value, is_pressed)
         local button = (value >= 0) and vars['plusBtn'] or vars['minusBtn']
 
         local function update_callback(dt)
-            if (button:isSelected() == false) or (button:isEnabled() == false) then
+            local result = adjust_function()
+            if (result == false) or (button:isSelected() == false) or (button:isEnabled() == false) then
                 self.root:unscheduleUpdate()
                 return
             end
-
-            adjust_function()
         end
 
         self.root:scheduleUpdateWithPriorityLua(function(dt) return update_callback(dt) end, 1)
