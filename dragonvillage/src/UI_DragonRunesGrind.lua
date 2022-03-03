@@ -163,7 +163,8 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
         --vars['grindNotiLabel']:setVisible(not (is_optKepp or is_maxFixed))
     
         local is_grind_stone = (option_item_type == 'none_select')
-        vars['grindAutoBtn']:setVisible(is_grind_stone)
+        local check_disable = g_hotTimeData:isActiveEvent('disable_rune_grind_auto') --@yjkil 22.03.03 핫타임 등록 시 버튼 노출 X (패치 후 문제 발생 시 비활성화를 위해)
+        vars['grindAutoBtn']:setVisible(is_grind_stone and (check_disable == false))
         
         self:refresh_grindItemRadioBtn()
     end)
