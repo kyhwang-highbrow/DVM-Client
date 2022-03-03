@@ -337,6 +337,11 @@ function UI_Package:initButton()
 	if (vars['rewardBtn']) then
 		vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 	end
+
+    
+	if (vars['infoBtn']) then
+		vars['infoBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+	end
 end
 
 -------------------------------------
