@@ -171,10 +171,10 @@ function UI_CrossPromotion:refresh()
         if (linkBtn) then linkBtn:setVisible(true) end
 
         -- 보상 받기
-        local btnStr = Str('바로가기')
+        local btnStr
 
         if (not is_installed) then
-            btnStr = Str('바로가기')
+            btnStr = Str('게임 다운로드')
         elseif (is_installed) then
             btnStr = Str('보상 받기')
         end
