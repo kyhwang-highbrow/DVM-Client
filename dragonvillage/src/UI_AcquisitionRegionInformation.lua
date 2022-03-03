@@ -127,10 +127,14 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 
 		-- 뽑기 체크
 		local t_dragon = TableDragon():get(did)
+
+        local summon_start_date = t_dragon['summon_add']
+        
 		if (t_dragon) then
 			-- 일반 소환 or 고급소환
             if (t_dragon['rarity'] == 'myth') then
-                if (t_dragon['pick_weight'] > 0) then
+                if (t_dragon['pick_weight'] > 0)
+                    and (checkTimeValid(summon_start_date, nil, 'yyyy-mm-dd')) then
                     table.insert(l_region, 'pick_gacha')
                 else
                     table.insert(l_region, 'empty')
@@ -148,8 +152,8 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 			if (t_dragon['fp_weight'] > 0) then
 				table.insert(l_region, 'friend')
 			end
-			-- 마일리지
-			if (t_dragon['mg_weight'] > 0) then
+			-- 마일리지 -- mg_weight in table_dragon - 한정알
+			if (t_dragon['rarity'] ~= 'myth') and (t_dragon['mg_weight'] > 0) then
 				table.insert(l_region, 'mileage')
 			end
 
