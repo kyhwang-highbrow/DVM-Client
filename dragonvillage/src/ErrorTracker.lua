@@ -492,6 +492,20 @@ function ErrorTracker:getDeviceStr()
 end
 
 -------------------------------------
+-- function getDevice
+------------------------------------- 
+function ErrorTracker:getDevice()
+    local model
+    if (CppFunctions:isIos()) then
+        model = self.m_tDeviceInfo['device']
+    else
+        model = self.m_tDeviceInfo['MODEL']
+    end
+
+    return model
+end
+
+-------------------------------------
 -- function sendUserInfoLog
 ------------------------------------- 
 function ErrorTracker:sendUserInfoLog(success_cb)

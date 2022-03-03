@@ -116,23 +116,98 @@ end
 -- @brief 고객 센터 (브라우저)
 -------------------------------------
 function UI_Setting:click_serviceBtn()
-    --한국서버와 나머지 서버
-	local _url = GetCSUrl(server)
-    local market = GetMarketAndOS()
-    local ver = getAppVer() or 'undefined'
-    local uid = g_userData:get('uid') or 'undefined'
-    local lang = Translate:getGameLang()
-    local server = g_localData:getServerName()
 
-    local url;
-    if server == SERVER_NAME.KOREA then
-        url = formatMessage('{1}?market={2}&ver={3}&uid={4}', _url, market, ver, uid)
-    else
-        url = formatMessage('{1}?market={2}&ver={3}&uid={4}&lang={5}&server={6}', _url, market, ver, uid, lang, server)
+    local is_not_global = (g_localData:getLang() == 'ko')
+    local access_key = (is_not_global and 'a93d04e5bb650d54') or '88aa568a2ff202f6'
+    local url_param = 'access_key=' .. access_key
+
+    local secret_key = (is_not_global and '61313ed352410a4586c3e9d956a6cf40') or '1426e06449ea8a3ae5f0370fb7e77825'
+    url_param = url_param .. '&secret_key=' .. secret_key
+
+    local brand_key = (is_not_global and 'dvm') or 'dvm_g'
+    url_param = url_param .. '&brand_key1=' .. brand_key
+
+    local user_name = g_userData:get('nick')
+    if user_name then
+        url_param = url_param .. '&userName=' .. user_name
     end
 
-    cclog('url : ' .. url )
-    SDKManager:goToWeb(url)
+    local market, os = GetMarketAndOS()
+    if os then
+        url_param = url_param .. '&operatingSystem=' .. os
+    end
+
+    local device = ErrorTracker:getDevice()
+    if device then
+        url_param = url_param .. '&deviceModel=' .. device
+    end
+
+    local uid = g_userData:get('uid')
+    local server = CppFunctions:getTargetServer()
+    if uid then
+        url_param = url_param .. '&extra_field1=' .. uid
+    end
+    if server then
+        url_param = url_param .. '&extra_field2=' .. server
+    end
+
+    if market then
+        url_param = url_param .. '&extra_field3=' .. market
+    end
+
+    SDKManager:goToWeb('https://highbrow.oqupie.com/portals/finder?' .. url_param)
+
+    -- local data = {
+    --     ['access_key'] = access_key,
+    --     ['brand_key1'] = brand_key,
+    --     ['userName'] = user_name,
+    --     ['operatingSystem'] = os,
+    --     ['deviceModel'] = device,
+    --     ['extra_field1'] = uid,
+    --     ['extra_field2'] = server
+    -- }
+
+    -- local zwt = self:getZWT(secret_key, data)
+
+
+    -- SDKManager:goToWeb('https://highbrow.oqupie.com/portals/finder?zwt=' .. zwt)
+    
+    --ccdump(base64Encode(dkjson.encode(header)))
+    --한국서버와 나머지 서버
+	-- local _url = GetCSUrl(server)
+    -- local market = GetMarketAndOS()
+    -- local ver = getAppVer() or 'undefined'
+    -- local uid = g_userData:get('uid') or 'undefined'
+    -- local lang = Translate:getGameLang()
+    -- local server = g_localData:getServerName()
+
+    -- local url;
+    -- if server == SERVER_NAME.KOREA then
+    --     url = formatMessage('{1}?market={2}&ver={3}&uid={4}', _url, market, ver, uid)
+    -- else
+    --     url = formatMessage('{1}?market={2}&ver={3}&uid={4}&lang={5}&server={6}', _url, market, ver, uid, lang, server)
+    -- end
+
+    -- cclog('url : ' .. url )
+    -- SDKManager:goToWeb(url)
+end
+
+function UI_Setting:getZWT(key, data)
+    local header = {
+        ['typ'] = 'JWT',
+        ['alg'] = 'HS256',
+    }
+
+    local segments = {
+        base64Encode(dkjson.encode(header)),
+        base64Encode(dkjson.encode(data)),
+    }
+    local signing_input = table.concat(segments, '.')
+    local signature = crypto['hmac']['digest']('sha256', signing_input, key, true) -- params :  digest_type, text, key, to_hex
+    table.insert(segments, base64Encode(signature))
+
+    local jwt_token = table.concat(segments, '.')
+    return jwt_token
 end
 
 -------------------------------------
