@@ -127,7 +127,7 @@ end
 -- function getFinalScore
 -------------------------------------
 function AncientTowerScoreCalc:getFinalScore()
-    return self.m_score
+    return math_floor(self.m_score)
 end
 
 
