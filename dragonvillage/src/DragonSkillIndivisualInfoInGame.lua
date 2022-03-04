@@ -33,7 +33,6 @@ DragonSkillIndivisualInfoInGame = class(PARENT, {
 
         m_usedCount = 'number',         -- 실제 스킬 발동 횟수
         m_triedCount = 'number',        -- cc기 등으로 발동 안된 경우도 포함한 발동 횟수
-        m_skill_id = 'string',
     })
 
 -------------------------------------
@@ -62,7 +61,6 @@ function DragonSkillIndivisualInfoInGame:init(char_type, skill_type, skill_id, s
 
     self.m_usedCount = 0
     self.m_triedCount = 0
-    self.m_skillID = skill_id
 
     self:initRuntimeInfo()
 end
@@ -203,9 +201,6 @@ end
 -- function startCoolTime
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:startCoolTime(is_used)
-    if(self.m_skillID == 218241) then  --여기가 초기화 시키는 부분
-        cclog('DragonSkillIndivisualInfoInGame:startCoolTime')
-    end
     if (not self.m_tSkill['cooldown'] or self.m_tSkill['cooldown'] == '') then
         self.m_cooldownTimer = 0
     else

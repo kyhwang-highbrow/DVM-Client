@@ -30,19 +30,12 @@ function Dragon.st_attack(owner, dt)
         do
             local skill_id = owner.m_reservedSkillId
             local t_skill = owner:getSkillTable(skill_id)
-            if (skill_id == 218241) then
-                cclog('st_attack')
-            end
 
             if (not owner:checkTarget(t_skill)) then
                 -- 타겟이 없다면 스킬을 취소시킴
                 owner:reserveSkill(nil)
                 owner:changeState('attackDelay')
 
-                local skill_indivisual_info = owner:findSkillInfoByID(skill_id)
-                if(skill_indivisual_info) then
-                    skill_indivisual_info:startCoolTime()
-                end
                 return
             end
         end
