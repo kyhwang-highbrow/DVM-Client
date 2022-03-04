@@ -664,6 +664,11 @@ end
 -- @usage UINavigatorDefinition:goTo('attr_tower', attr, stage_id)
 -------------------------------------
 function UINavigatorDefinition:goTo_attr_tower(...)
+    do
+        local msg = Str('오픈시간이 아닙니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
     local args = {...}
     local attr = args[1]
     local stage_id = args[2]
