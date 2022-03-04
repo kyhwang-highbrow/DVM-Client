@@ -896,6 +896,10 @@ function UI_TitleScene:workPlatformLogin()
     Network_platform_issueRcode(rcode, os, game_push, pushToken, success_cb, fail_cb)
 end
 
+function UI_TitleScene:workPlatformLogin_click()
+
+end
+
 -------------------------------------
 -- function workAgreeTerms
 -- @brief .
@@ -935,6 +939,10 @@ function UI_TitleScene:workAgreeTerms()
     end
 
     g_userData:request_termsInfo(success_cb, fail_cb)
+end
+
+function UI_TitleScene:workAgreeTerms_click()
+
 end
 
 -------------------------------------
