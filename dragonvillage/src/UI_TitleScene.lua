@@ -357,8 +357,9 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workGetServerList')
     --table.insert(self.m_lWorkList, 'workCheckSelectedGameServer') -- 유저가 선택(or 추천)한 게임 서버 확인
     table.insert(self.m_lWorkList, 'workCheckUserID')    
-    table.insert(self.m_lWorkList, 'workPlatformLogin')    
+    table.insert(self.m_lWorkList, 'workPlatformLogin')
     table.insert(self.m_lWorkList, 'workGameLogin')
+    table.insert(self.m_lWorkList, 'workAgreeTerms')
     table.insert(self.m_lWorkList, 'workGetServerInfo')
 
     -- @perpelsdk
@@ -864,34 +865,13 @@ function UI_TitleScene:workPlatformLogin()
         self.m_loadingUI:hideLoading()
         local t_status = ret['status']
         if (t_status['retcode'] == 0) then
-            ccdump(ret)
-
             -- uid 저장
             g_localData:applyLocalData(ret['uid'], 'local', 'uid')
 
             -- 복구코드 저장            
             g_localData:applyLocalData(ret['rcode'], 'local', 'recovery_code')
-
-            local terms = (ret['terms'] or 1)
-            if (terms == 0) then
-                -- 약관 동의 팝업
-                local ui = UI_TermsPopup()
-                local function close_cb()
-                    local agree_terms = g_localData:get('local', 'agree_terms')
-                    if (agree_terms == 0) then
-                        -- 약관 동의 창에서 백키를 누르면 로그인 팝업 단계로 돌아간다.
-                        -- 이때 바로 이전 단계로 돌아가면 autoLogin 이 성공하면서 로그인 팝업이 뜨지 않으므로
-                        -- 로그아웃을 먼저 하고 돌아가야 함.
-                        PerpleSDK:logout()
-                        self:doPreviousWork()
-                    else
-                        self:doNextWork()
-                    end
-                end
-                ui:setCloseCB(close_cb)
-            else
-                self:doNextWork()    
-            end
+            
+            self:doNextWork()    
         else
             --local msg = luadump(ret)
             self:retryCurrWork3Times(nil, ret)
@@ -915,7 +895,46 @@ function UI_TitleScene:workPlatformLogin()
 
     Network_platform_issueRcode(rcode, os, game_push, pushToken, success_cb, fail_cb)
 end
-function UI_TitleScene:workPlatformLogin_click()
+
+-------------------------------------
+-- function workAgreeTerms
+-- @brief .
+-------------------------------------
+function UI_TitleScene:workAgreeTerms()
+    self.m_loadingUI:showLoading(Str('약관 동의 확인 중...'))
+    
+    local function success_cb(is_needed_agree)
+        if (is_needed_agree == true) then
+            local function close_cb()
+                if (g_localData:get('local', 'agree_terms') == 0) then
+                    -- 약관 동의 창에서 백키를 누르면 로그인 팝업 단계로 돌아간다.
+                    -- 이때 바로 이전 단계로 돌아가면 autoLogin 이 성공하면서 로그인 팝업이 뜨지 않으므로
+                    -- 로그아웃을 먼저 하고 돌아가야 함.
+                    PerpleSDK:logout()
+                    self:doPreviousWork()
+                else
+                    local function agree_success_cb()
+                        self:doNextWork()
+                    end
+
+                    -- 실패하더라도 게임 진행되도록
+                    g_userData:request_termsAgree(agree_success_cb, agree_success_cb)
+                end
+            end
+
+            local ui = UI_TermsPopup()
+            ui:setCloseCB(close_cb)
+        else
+            self:doNextWork()  
+        end
+    end
+
+    local function fail_cb(ret)        
+        -- 실패하더라도 게임 진행되도록
+        self:doNextWork()  
+    end
+
+    g_userData:request_termsInfo(success_cb, fail_cb)
 end
 
 -------------------------------------
@@ -1608,6 +1627,10 @@ function UI_TitleScene:workGetMarketInfo()
     end
 
     local function call_back(ret, info)
+        -- KR
+        --{"productId":"dvm_cash_10k","type":"inapp","title":"11,000원 캐시 상품 (드래곤빌리지 M : 전투형 RPG)","name":"11,000원 캐시 상품","description":"11,000원 캐시 상품입니다.","price":"₩11,000","price_amount_micros":11000000000,"price_currency_code":"KRW","skuDetailsToken":"AEuhp4JvaIxqIyTUvGyXyjdJvwO-zqNtX-sbsChJSTKKVmV_F-k5wjqKuzKEwMDwxStV"}
+        -- US
+        --{"productId":"dvm_cash_10k","type":"inapp","title":"11,000원 캐시 상품 (드래곤빌리지 M : 전투형 RPG)","name":"11,000원 캐시 상품","description":"11,000원 캐시 상품입니다.","price":"US$9.49","price_amount_micros":9490000,"price_currency_code":"USD","skuDetailsToken":"AEuhp4LA1XLn-ExxfnaQKkI0ORWPAMIc-1bhr_oMV_jd4AFXzOMqXi-t_Vlu2n2UhT85"}
         if (ret == 'success') then
             local tRet = json_decode(info)
             g_shopDataNew:setMarketPrice(tRet)
