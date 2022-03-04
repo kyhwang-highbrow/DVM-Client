@@ -204,15 +204,20 @@ end
 -- function st_attackDelay
 -------------------------------------
 function Character.st_attackDelay(owner, dt)
+    local is_Skill_ID_Check = false
     if (owner.m_stateTimer == 0) then
         owner.m_bEnableSpasticity = true
 
         -- 어떤 스킬을 사용할 것인지 결정
         local skill_id, is_add_skill
-
         -- indie_time등의 우선순위가 높은 스킬로 인해 이전에 사용되지 못한 스킬이 있으면 사용하도록 함
         if (owner.m_prevReservedSkillId) then
             skill_id, is_add_skill = owner.m_prevReservedSkillId, owner.m_prevIsAddSkill
+            is_Skill_ID_Check = (skill_id == 218241)
+            if(is_Skill_ID_Check) then
+                cclog('st_attackDelay1', skill_id, is_add_skill)
+            end
+
             owner.m_stateTimer = owner.m_prevAttackDelayTimer
 
             owner.m_prevReservedSkillId = nil
@@ -220,6 +225,10 @@ function Character.st_attackDelay(owner, dt)
             owner.m_prevAttackDelayTimer = 0
         else
             skill_id, is_add_skill = owner:getBasicAttackSkillID()
+            is_Skill_ID_Check = (skill_id == 218241)
+            if(is_Skill_ID_Check) then
+                cclog('st_attackDelay 2')
+            end
         end
 
 		-- 스킬 캐스팅 불가 처리
@@ -228,9 +237,17 @@ function Character.st_attackDelay(owner, dt)
 			skill_id = owner:getSkillID('basic')
 		end
 
+        if(is_Skill_ID_Check) then
+            cclog('st_attackDelay 3')
+        end
         owner:reserveSkill(skill_id)
         owner:calcAttackPeriod()
 		owner.m_isAddSkill = is_add_skill
+
+        if(is_Skill_ID_Check) then
+            cclog('st_attackDelay is_add_skill', is_add_skill)
+            cclog('st_attackDelay m_castingNode', owner.m_castingNode)
+        end
 
         -- 캐스팅 게이지
         if (owner.m_castingNode) then
@@ -250,6 +267,10 @@ function Character.st_attackDelay(owner, dt)
         end
     end
 
+    local result = owner:hasStatusEffectToDisableSkill()
+    if(is_Skill_ID_Check) then
+        cclog('st_attackDelay hasStatusEffectToDisableSkill result', result)
+    end
     if (not owner:hasStatusEffectToDisableSkill()) then
         local tParam = {
             time_out = owner.m_world.m_gameState:isTimeOut(),

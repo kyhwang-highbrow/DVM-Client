@@ -7,6 +7,9 @@ SEQUENTIAL_PERFECT_BARRIER = true
 function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
     --local x = x or self.m_attackOffsetX
     --local y = y or self.m_attackOffsetY
+    if(skill_id == 218241) then
+        cclog('Character doSkill!', skill_id)
+    end
 	local t_data = t_data or {}
 
     local attr = self:getAttribute()

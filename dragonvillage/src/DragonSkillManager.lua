@@ -814,7 +814,9 @@ function IDragonSkillManager:checkSkillTurn(skill_type)
         for i,v in pairs(t_skill_info) do
             if (v:isEndCoolTime() and not self.m_mReserveTurnSkillID[v.m_skillID]) then
                 v.m_curChanceValue = v.m_curChanceValue + 1
-
+                if(v.m_skillID == 218241) then
+                    cclog('v:getChanceValue()', v:getChanceValue(), v.m_curChanceValue)
+                end
                 if (v:getChanceValue() <= v.m_curChanceValue) then
                     table.insert(self.m_lReserveTurnSkillID, v.m_skillID)
 
@@ -826,7 +828,9 @@ function IDragonSkillManager:checkSkillTurn(skill_type)
         if (self.m_lReserveTurnSkillID[1]) then
             local skill_id = table.remove(self.m_lReserveTurnSkillID, 1)
             self.m_mReserveTurnSkillID[skill_id] = nil
-
+            if(skill_id == 218241) then
+                cclog("check true 218241")
+            end
             return skill_id
         end
     end
@@ -895,6 +899,9 @@ function IDragonSkillManager:getBasicAttackSkillID()
 	do
 		skill_id = self:checkSkillTurn('basic_turn')
 		if (skill_id) then
+            if(skill_id == 218241) then
+                cclog('스킬 ID 출력 : ', skill_id)
+            end
 			return skill_id, true
 		end
 
@@ -1011,8 +1018,10 @@ function IDragonSkillManager:getCastTimeFromSkillID(skill_id)
     if not t_skill then
         error('스킬 테이블이 존재하지 않는다.' .. tostring(skill_id))
     end
-
     local cast_time = t_skill['casting_time']
+    if(skill_id == 218241) then
+        cclog('cast_time : ', cast_time)
+    end
 
     if (not cast_time or cast_time == '') then
         cast_time = 0

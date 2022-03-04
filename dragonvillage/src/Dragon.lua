@@ -324,6 +324,10 @@ end
 function Dragon:doAttack(skill_id, x, y)
     PARENT.doAttack(self, skill_id, x, y)
 
+    local is_Skill_ID_Check = (skill_id == 218241)
+    if (is_Skill_ID_Check) then
+        cclog('Dragon:doAttack', skill_id)
+    end
     -- 일반 스킬에만 이펙트를 추가
     if (self.m_charTable['skill_basic'] ~= skill_id) then
         local attr = self:getAttribute()
