@@ -23,6 +23,9 @@ UI_DragonRunesEnhance = class(PARENT,{
 
         -- 축복 강화 여부
         m_isBlessEnhance = 'boolean',
+
+        --강화 창 여부
+        m_isEnhance = 'boolean',
     })
 
 UI_DragonRunesEnhance.ENHANCE = 'enhance' -- 특성 레벨업
@@ -51,6 +54,7 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
     self.m_changeOptionList = {}
     self.m_optionLabel = nil
     self.m_enhanceBtnList = nil
+    self.m_isEnhance = true --기본 강화
     
     local vars = self:load('rune_upgrade_scene.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -113,12 +117,14 @@ function UI_DragonRunesEnhance:onChangeTab(tab, first)
     local vars = self.vars
 
     if (tab == 'enhance') then     
+        self.m_isEnhance = true
         self:setSeqEnhanceVisible(true)
         self:refresh_enhance()
     else
         -- 연마가 불가능한 룬이면 다시 강화탭으로 보냄
         local rune_obj = self.m_runeObject
-        
+        self.m_isEnhance = false
+
         local grade = rune_obj['grade']
         if (grade > UI_DragonRunesEnhance.GRIND_ABLE_GRADE) then
             self:setTab('enhance')
@@ -352,9 +358,13 @@ function UI_DragonRunesEnhance:refresh_enhance()
     local is_max_lv = rune_obj:isMaxRuneLv()
     vars['enhanceBtn']:setVisible(not is_max_lv)
 	vars['enhanceOptionNode']:setVisible(false)
-    vars['difficultyBtn']:setVisible(not is_max_lv)
     vars['enhanceOptionMenu']:setVisible(not is_max_lv)
     vars['enhanceBtnMenu']:setVisible(not is_max_lv)
+
+    --강화창이고 만렙이 아닌 경우 반복 버튼 출력
+    local isVisible_DifficultyBtn = (self.m_isEnhance and (not is_max_lv))
+    vars['difficultyBtn']:setVisible(isVisible_DifficultyBtn)
+
 
     -- 룬 축복서 아이템 카드
     vars['runeBlessIconNode']:removeAllChildren()
