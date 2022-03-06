@@ -222,8 +222,14 @@ function Character.st_attackDelay(owner, dt)
             skill_id, is_add_skill = owner:getBasicAttackSkillID()
         end
 
+        local t_skill = owner:getSkillTable(skill_id)
+
 		-- 스킬 캐스팅 불가 처리
 		if (owner.m_isSilence) then
+			is_add_skill = false
+			skill_id = owner:getSkillID('basic')
+        -- 스킬 대상이 없는 경우 처리 (특히 아군 대상인 경우)
+        elseif (not owner:checkTarget(t_skill)) then
 			is_add_skill = false
 			skill_id = owner:getSkillID('basic')
 		end
