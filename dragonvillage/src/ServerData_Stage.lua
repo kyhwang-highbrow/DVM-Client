@@ -494,10 +494,12 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         ui_network:setParam('deck_name1', 'league_raid_1')
         ui_network:setParam('deck_name2', 'league_raid_2')
         ui_network:setParam('deck_name3', 'league_raid_3')
-        -- 덱 검증을 위해 doid 하나씩 넣어줌
-        --ui_network:setParam('token1', g_leagueRaidData:getOneDoidByIndex(1))
-        --ui_network:setParam('token2', g_leagueRaidData:getOneDoidByIndex(2))
-        --ui_network:setParam('token3', g_leagueRaidData:getOneDoidByIndex(3))
+        
+        -- 덱 검증을 위한 토큰 생성
+        ui_network:setParam('token1', self:makeDragonToken('league_raid_1'))
+        ui_network:setParam('token2', self:makeDragonToken('league_raid_2'))
+        ui_network:setParam('token3', self:makeDragonToken('league_raid_3'))
+        
         g_leagueRaidData:resetIngameData()
 
         response_status_cb = function(ret)
@@ -562,7 +564,12 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     if (teambonus_ids) then
         ui_network:setParam('team_bonus', teambonus_ids) 
     end
-    ui_network:setParam('token', self:makeDragonToken())
+
+    -- 
+    if (game_mode ~= GAME_MODE_LEAGUE_RAID) then
+        ui_network:setParam('token', self:makeDragonToken())
+    end
+
 	if (game_mode == GAME_MODE_ANCIENT_TOWER) then
         local _attr = g_attrTowerData:getSelAttr()
         -- 고대의 탑
