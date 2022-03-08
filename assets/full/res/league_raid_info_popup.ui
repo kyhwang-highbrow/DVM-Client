@@ -277,7 +277,7 @@
 					lua_name = 'descLabel04';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '시즌이 시작되면 서버별로 5~10명의 그룹이 만들어지고 최고 피해량에 따라 순위를 경쟁하게 됩니다.';
+					text = '시즌이 시작되면 서버별로 5~10명(U랭크는 무제한)의 그룹이 만들어지고 최고 피해량에 따라 순위를 경쟁하게 됩니다.';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 255; 243; 217; };

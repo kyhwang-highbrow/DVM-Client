@@ -142,7 +142,7 @@
 			visible = true;
 			lua_name = 'bannerBtn';
 			enable = true;
-			normal = 'ui/event/grand_arena_banner.png';
+			normal = 'ui/event/banner_evnet_grand_arena.png';
 			selected = '';
 			disable = '';
 			image_type = 0;

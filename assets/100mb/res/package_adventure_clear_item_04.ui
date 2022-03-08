@@ -178,7 +178,7 @@
 						visible = true;
 						lua_name = 'infoLabel';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 18;
+						font_size = 22;
 						text = '수령';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -242,7 +242,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 18;
+						font_size = 20;
 						text = '바로가기';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -265,7 +265,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = -60.000000;
+					x = -75.000000;
 					y = 0.000000;
 					dock_point = { 1.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -306,7 +306,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 18;
+						font_size = 20;
 						text = '수령 완료!';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -329,7 +329,7 @@
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -60.000000;
+					x = -75.000000;
 					y = 0.000000;
 					dock_point = { 1.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };

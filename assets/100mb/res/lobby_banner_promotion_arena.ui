@@ -27,7 +27,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
-					text = '드래곤빌리지 Arena\n사전예약 바로가기';
+					text = '드래곤빌리지 Arena\n오픈 기념 특별 이벤트';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -81,9 +81,9 @@
 			visible = true;
 			lua_name = 'bannerBtn';
 			enable = true;
-			normal = 'ui/event/banner_promotion_arena.png';
-			selected = 'ui/event/banner_promotion_arena.png';
-			disable = 'ui/event/banner_promotion_arena.png';
+			normal = 'ui/event/banner_promotion_arena_event.png';
+			selected = 'ui/event/banner_promotion_arena_event.png';
+			disable = 'ui/event/banner_promotion_arena_event.png';
 			image_type = 0;
 		};
 		type = 'Menu';

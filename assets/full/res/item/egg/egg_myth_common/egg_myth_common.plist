@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>egg_myth_common_src.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-9,-33}</string>
+                <key>spriteSize</key>
+                <string>{706,550}</string>
+                <key>spriteSourceSize</key>
+                <string>{1000,1000}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{706,550}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>egg_myth_common.png</string>
+            <key>size</key>
+            <string>{708,552}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:b6bf6c6a2d5d33667f3433f4e6360748:a68b287f0f274c4331f77b5db7474738:337de1a27bf62dd688e553cc2d263b92$</string>
+            <key>textureFileName</key>
+            <string>egg_myth_common.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,678 @@
+
+gluttony_all_03.png
+size: 1780,661
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_att1
+  rotate: false
+  xy: 488, 3
+  size: 139, 142
+  orig: 139, 142
+  offset: 0, 0
+  index: -1
+effect_g_01
+  rotate: false
+  xy: 629, 3
+  size: 156, 148
+  orig: 156, 148
+  offset: 0, 0
+  index: -1
+effect_g_02
+  rotate: true
+  xy: 270, 433
+  size: 226, 213
+  orig: 226, 213
+  offset: 0, 0
+  index: -1
+effect_g_03
+  rotate: true
+  xy: 181, 144
+  size: 228, 215
+  orig: 228, 215
+  offset: 0, 0
+  index: -1
+effect_g_04
+  rotate: false
+  xy: 398, 147
+  size: 209, 225
+  orig: 209, 225
+  offset: 0, 0
+  index: -1
+effect_g_05
+  rotate: false
+  xy: 818, 451
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: -1
+effect_in1
+  rotate: false
+  xy: 1642, 238
+  size: 79, 78
+  orig: 79, 78
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: true
+  xy: 1283, 194
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+gluttony_all_03_acc_01
+  rotate: false
+  xy: 1565, 508
+  size: 95, 69
+  orig: 95, 69
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_L_01
+  rotate: true
+  xy: 1316, 253
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_L_02
+  rotate: false
+  xy: 857, 374
+  size: 102, 75
+  orig: 102, 75
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_R_01
+  rotate: true
+  xy: 1565, 579
+  size: 80, 104
+  orig: 80, 104
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_R_02
+  rotate: true
+  xy: 1657, 426
+  size: 74, 82
+  orig: 74, 82
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_eye_01
+  rotate: true
+  xy: 1741, 353
+  size: 30, 33
+  orig: 30, 33
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_eye_02
+  rotate: false
+  xy: 1227, 193
+  size: 54, 36
+  orig: 54, 36
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_eye_03
+  rotate: false
+  xy: 1741, 470
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_eye_04
+  rotate: false
+  xy: 1741, 425
+  size: 34, 43
+  orig: 34, 43
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_eye_05
+  rotate: true
+  xy: 1442, 264
+  size: 87, 74
+  orig: 87, 74
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_rock_01
+  rotate: true
+  xy: 1598, 292
+  size: 63, 42
+  orig: 63, 42
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_rock_02
+  rotate: false
+  xy: 1722, 151
+  size: 56, 38
+  orig: 56, 38
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_rock_03
+  rotate: false
+  xy: 1474, 3
+  size: 89, 67
+  orig: 89, 67
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_rock_04
+  rotate: false
+  xy: 1617, 9
+  size: 45, 48
+  orig: 45, 48
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_rock_05
+  rotate: true
+  xy: 1702, 95
+  size: 54, 59
+  orig: 54, 59
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_rock_06
+  rotate: true
+  xy: 1376, 493
+  size: 59, 71
+  orig: 59, 71
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_rock_07
+  rotate: true
+  xy: 356, 374
+  size: 57, 59
+  orig: 57, 59
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_rock_08
+  rotate: true
+  xy: 1671, 586
+  size: 73, 104
+  orig: 73, 104
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_rock_09
+  rotate: false
+  xy: 1517, 146
+  size: 46, 48
+  orig: 46, 48
+  offset: 0, 0
+  index: -1
+gluttony_all_03_arm_rock_10
+  rotate: true
+  xy: 775, 374
+  size: 68, 80
+  orig: 68, 80
+  offset: 0, 0
+  index: -1
+gluttony_all_03_body_01
+  rotate: true
+  xy: 485, 439
+  size: 220, 210
+  orig: 220, 210
+  offset: 0, 0
+  index: -1
+gluttony_all_03_body_02
+  rotate: false
+  xy: 2, 374
+  size: 266, 285
+  orig: 266, 285
+  offset: 0, 0
+  index: -1
+gluttony_all_03_chain_01
+  rotate: false
+  xy: 1288, 2
+  size: 61, 52
+  orig: 61, 52
+  offset: 0, 0
+  index: -1
+gluttony_all_03_chain_02
+  rotate: true
+  xy: 1470, 196
+  size: 66, 51
+  orig: 66, 51
+  offset: 0, 0
+  index: -1
+gluttony_all_03_chain_03
+  rotate: false
+  xy: 1470, 513
+  size: 93, 91
+  orig: 93, 91
+  offset: 0, 0
+  index: -1
+gluttony_all_03_chain_04
+  rotate: false
+  xy: 1428, 72
+  size: 87, 121
+  orig: 87, 121
+  offset: 0, 0
+  index: -1
+gluttony_all_03_chain_05
+  rotate: false
+  xy: 1374, 195
+  size: 51, 56
+  orig: 51, 56
+  offset: 0, 0
+  index: -1
+gluttony_all_03_chain_06
+  rotate: true
+  xy: 1059, 15
+  size: 151, 113
+  orig: 151, 113
+  offset: 0, 0
+  index: -1
+gluttony_all_03_chain_07
+  rotate: false
+  xy: 142, 3
+  size: 86, 126
+  orig: 86, 126
+  offset: 0, 0
+  index: -1
+gluttony_all_03_chain_08
+  rotate: false
+  xy: 2, 131
+  size: 177, 241
+  orig: 177, 241
+  offset: 0, 0
+  index: -1
+gluttony_all_03_effect_rock_01
+  rotate: false
+  xy: 1690, 61
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+gluttony_all_03_effect_rock_02
+  rotate: true
+  xy: 1741, 385
+  size: 38, 34
+  orig: 38, 34
+  offset: 0, 0
+  index: -1
+gluttony_all_03_eye_01
+  rotate: false
+  xy: 1427, 195
+  size: 41, 56
+  orig: 41, 56
+  offset: 0, 0
+  index: -1
+gluttony_all_03_eye_02
+  rotate: true
+  xy: 1278, 493
+  size: 48, 96
+  orig: 48, 96
+  offset: 0, 0
+  index: -1
+gluttony_all_03_eye_03
+  rotate: false
+  xy: 1028, 477
+  size: 165, 182
+  orig: 165, 182
+  offset: 0, 0
+  index: -1
+gluttony_all_03_eyelid_01
+  rotate: false
+  xy: 1578, 86
+  size: 49, 62
+  orig: 49, 62
+  offset: 0, 0
+  index: -1
+gluttony_all_03_eyelid_02
+  rotate: true
+  xy: 1417, 2
+  size: 66, 55
+  orig: 66, 55
+  offset: 0, 0
+  index: -1
+gluttony_all_03_eyelid_03
+  rotate: false
+  xy: 1174, 2
+  size: 50, 40
+  orig: 50, 40
+  offset: 0, 0
+  index: -1
+gluttony_all_03_foot_L_01
+  rotate: false
+  xy: 1227, 231
+  size: 87, 144
+  orig: 87, 144
+  offset: 0, 0
+  index: -1
+gluttony_all_03_foot_R_01
+  rotate: true
+  xy: 637, 374
+  size: 63, 136
+  orig: 63, 136
+  offset: 0, 0
+  index: -1
+gluttony_all_03_hand_01
+  rotate: false
+  xy: 1727, 272
+  size: 51, 79
+  orig: 51, 79
+  offset: 0, 0
+  index: -1
+gluttony_all_03_hand_02
+  rotate: false
+  xy: 1351, 2
+  size: 64, 66
+  orig: 64, 66
+  offset: 0, 0
+  index: -1
+gluttony_all_03_hand_03
+  rotate: true
+  xy: 270, 374
+  size: 57, 84
+  orig: 57, 84
+  offset: 0, 0
+  index: -1
+gluttony_all_03_hand_04
+  rotate: true
+  xy: 417, 375
+  size: 56, 71
+  orig: 56, 71
+  offset: 0, 0
+  index: -1
+gluttony_all_03_hand_05
+  rotate: false
+  xy: 1517, 356
+  size: 46, 69
+  orig: 46, 69
+  offset: 0, 0
+  index: -1
+gluttony_all_03_hand_06
+  rotate: true
+  xy: 1226, 3
+  size: 39, 60
+  orig: 39, 60
+  offset: 0, 0
+  index: -1
+gluttony_all_03_hand_R_01
+  rotate: true
+  xy: 1643, 318
+  size: 49, 82
+  orig: 49, 82
+  offset: 0, 0
+  index: -1
+gluttony_all_03_hand_R_02
+  rotate: true
+  xy: 1671, 502
+  size: 82, 103
+  orig: 82, 103
+  offset: 0, 0
+  index: -1
+gluttony_all_03_head_01
+  rotate: true
+  xy: 787, 5
+  size: 157, 152
+  orig: 157, 152
+  offset: 0, 0
+  index: -1
+gluttony_all_03_head_02
+  rotate: true
+  xy: 1278, 543
+  size: 116, 95
+  orig: 116, 95
+  offset: 0, 0
+  index: -1
+gluttony_all_03_head_03
+  rotate: true
+  xy: 609, 153
+  size: 219, 173
+  orig: 219, 173
+  offset: 0, 0
+  index: -1
+gluttony_all_03_head_rock_01
+  rotate: false
+  xy: 1442, 353
+  size: 73, 72
+  orig: 73, 72
+  offset: 0, 0
+  index: -1
+gluttony_all_03_head_rock_02
+  rotate: false
+  xy: 1723, 191
+  size: 54, 79
+  orig: 54, 79
+  offset: 0, 0
+  index: -1
+gluttony_all_03_horn_01
+  rotate: false
+  xy: 697, 444
+  size: 119, 215
+  orig: 119, 215
+  offset: 0, 0
+  index: -1
+gluttony_all_03_horn_02
+  rotate: false
+  xy: 784, 164
+  size: 105, 208
+  orig: 105, 208
+  offset: 0, 0
+  index: -1
+gluttony_all_03_horn_03
+  rotate: true
+  xy: 1466, 606
+  size: 53, 97
+  orig: 53, 97
+  offset: 0, 0
+  index: -1
+gluttony_all_03_horn_04
+  rotate: true
+  xy: 1258, 383
+  size: 108, 107
+  orig: 108, 107
+  offset: 0, 0
+  index: -1
+gluttony_all_03_horn_05
+  rotate: false
+  xy: 1629, 59
+  size: 59, 53
+  orig: 59, 53
+  offset: 0, 0
+  index: -1
+gluttony_all_03_leg_L_01
+  rotate: true
+  xy: 2, 3
+  size: 126, 138
+  orig: 126, 138
+  offset: 0, 0
+  index: -1
+gluttony_all_03_leg_L_02
+  rotate: false
+  xy: 1470, 427
+  size: 93, 84
+  orig: 93, 84
+  offset: 0, 0
+  index: -1
+gluttony_all_03_leg_R_01
+  rotate: true
+  xy: 1135, 377
+  size: 98, 121
+  orig: 98, 121
+  offset: 0, 0
+  index: -1
+gluttony_all_03_leg_R_02
+  rotate: false
+  xy: 961, 374
+  size: 87, 75
+  orig: 87, 75
+  offset: 0, 0
+  index: -1
+gluttony_all_03_mouth_01
+  rotate: false
+  xy: 1174, 44
+  size: 69, 147
+  orig: 69, 147
+  offset: 0, 0
+  index: -1
+gluttony_all_03_mouth_02
+  rotate: false
+  xy: 1078, 193
+  size: 147, 180
+  orig: 147, 180
+  offset: 0, 0
+  index: -1
+gluttony_all_03_mouth_03
+  rotate: false
+  xy: 490, 374
+  size: 145, 63
+  orig: 145, 63
+  offset: 0, 0
+  index: -1
+gluttony_all_03_mouth_04
+  rotate: false
+  xy: 1195, 493
+  size: 81, 166
+  orig: 81, 166
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_01
+  rotate: true
+  xy: 1565, 423
+  size: 83, 90
+  orig: 83, 90
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_02
+  rotate: true
+  xy: 1331, 70
+  size: 121, 95
+  orig: 121, 95
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_03
+  rotate: false
+  xy: 1517, 74
+  size: 59, 70
+  orig: 59, 70
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_04
+  rotate: true
+  xy: 1367, 383
+  size: 108, 73
+  orig: 108, 73
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_05
+  rotate: true
+  xy: 1245, 56
+  size: 135, 84
+  orig: 135, 84
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_06
+  rotate: true
+  xy: 891, 168
+  size: 204, 185
+  orig: 204, 185
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_01
+  rotate: true
+  xy: 1664, 15
+  size: 42, 59
+  orig: 42, 59
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_02
+  rotate: true
+  xy: 1642, 165
+  size: 71, 78
+  orig: 71, 78
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_03
+  rotate: true
+  xy: 1639, 114
+  size: 49, 61
+  orig: 49, 61
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_04
+  rotate: true
+  xy: 1565, 357
+  size: 64, 76
+  orig: 64, 76
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_05
+  rotate: true
+  xy: 1565, 10
+  size: 62, 50
+  orig: 62, 50
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_06
+  rotate: false
+  xy: 1318, 193
+  size: 54, 58
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_07
+  rotate: false
+  xy: 1565, 214
+  size: 75, 54
+  orig: 75, 54
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_08
+  rotate: true
+  xy: 1657, 369
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_b_01
+  rotate: true
+  xy: 1523, 227
+  size: 41, 39
+  orig: 41, 39
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_b_02
+  rotate: false
+  xy: 230, 2
+  size: 71, 140
+  orig: 71, 140
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_b_03
+  rotate: false
+  xy: 1050, 375
+  size: 83, 100
+  orig: 83, 100
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tail_rock_b_04
+  rotate: true
+  xy: 1565, 150
+  size: 62, 72
+  orig: 62, 72
+  offset: 0, 0
+  index: -1
+gluttony_all_03_tooth_01
+  rotate: false
+  xy: 1375, 554
+  size: 89, 105
+  orig: 89, 105
+  offset: 0, 0
+  index: -1
+gluttony_all_03_wing_L_01
+  rotate: true
+  xy: 303, 3
+  size: 139, 183
+  orig: 139, 183
+  offset: 0, 0
+  index: -1
+gluttony_all_03_wing_L_02
+  rotate: false
+  xy: 1518, 270
+  size: 78, 84
+  orig: 78, 84
+  offset: 0, 0
+  index: -1
+gluttony_all_03_wing_R_01
+  rotate: false
+  xy: 941, 4
+  size: 116, 162
+  orig: 116, 162
+  offset: 0, 0
+  index: -1

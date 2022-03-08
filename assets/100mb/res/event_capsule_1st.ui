@@ -33,6 +33,32 @@
 			};
 			[2] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 930;
+				height = 640;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/typo/ko/bg_capsule_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[3] =
+			{
 				[1] =
 				{
 					type = 'Visual';
@@ -79,7 +105,7 @@
 				alpha_threshold = 1.000000;
 				is_invert = false;
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
@@ -196,7 +222,7 @@
 				alpha_threshold = 1.000000;
 				is_invert = false;
 			};
-			[4] =
+			[5] =
 			{
 				type = 'Visual';
 				ui_name = '';
@@ -221,7 +247,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[5] =
+			[6] =
 			{
 				type = 'Visual';
 				ui_name = '';
@@ -246,7 +272,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[6] =
+			[7] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -272,7 +298,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[7] =
+			[8] =
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
@@ -298,7 +324,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[8] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -338,7 +364,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[9] =
+			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -378,7 +404,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[10] =
+			[11] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -418,17 +444,17 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[11] =
+			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = 'rich';
-				x = -240.000000;
-				y = 79.000000;
+				x = -245.000000;
+				y = 150.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 445;
-				height = 75;
+				width = 477;
+				height = 111;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -437,14 +463,14 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
-				text = '{@water}한정드래곤 애니마라(물){@default} 획득 기회!';
+				font_size = 26;
+				text = '{@light}한정드래곤 마누스(빛){@default} 획득 기회!';
 				h_alignment = 1;
-				v_alignment = 1;
+				v_alignment = 2;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 445;
-				dimension_height = 75;
+				dimension_width = 477;
+				dimension_height = 111;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -458,16 +484,16 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[12] =
+			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -250.000000;
-				y = -180.000000;
+				x = -247.000000;
+				y = -168.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 428;
+				width = 402;
 				height = 58;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -478,12 +504,12 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '2/5 00:00 ~ 2/6 23:59';
+				text = '3/19 00:00 ~ 3/20 23:59';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 255; 0; };
 				opacity = 255;
-				dimension_width = 428;
+				dimension_width = 402;
 				dimension_height = 58;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -498,7 +524,7 @@
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
 			};
-			[13] =
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -538,38 +564,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[14] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 930;
-				height = 640;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/typo/ko/bg_capsule_0101.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
 			[15] =
 			{
 				type = 'Sprite';
 				ui_name = '';
 				x = -245.000000;
-				y = 150.000000;
+				y = 174.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -582,7 +582,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/typo/ko/ribbon_new_year_title_0101.png';
+				file_name = 'ui/typo/ko/ribbon_spring_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

@@ -139,7 +139,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 21;
-				text = '5회';
+				text = '10회';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -179,7 +179,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 21;
-				text = '10회';
+				text = '20회';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -219,7 +219,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 21;
-				text = '20회';
+				text = '30회';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -259,7 +259,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 21;
-				text = '30회';
+				text = '50회';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -299,7 +299,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 21;
-				text = '50회';
+				text = '100회';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -339,7 +339,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 18;
-				text = '복주머니 5개';
+				text = '다이아\n20,000개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -379,7 +379,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 18;
-				text = '복주머니 5개';
+				text = '찬란한 날개\n350개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -419,7 +419,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 18;
-				text = '복주머니 5개';
+				text = '전설 스킬 슬라임\n6개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -459,7 +459,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 18;
-				text = '복주머니 5개';
+				text = '전설 강화 포인트\n160개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -499,7 +499,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 18;
-				text = '복주머니 10개';
+				text = '빛나는 전설의 알\n1개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1835,7 +1835,7 @@
 			lua_name = 'timeLabel';
 			font_name = 'font/common_font_01.ttf';
 			font_size = 20;
-			text = '9/15 00:00 ~ 9/28 23:59';
+			text = '3/14 00:00 ~ 3/27 23:59';
 			h_alignment = 1;
 			v_alignment = 1;
 			color = { 0; 255; 0; };
