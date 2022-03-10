@@ -229,7 +229,7 @@ function Character.st_attackDelay(owner, dt)
 			is_add_skill = false
 			skill_id = owner:getSkillID('basic')
         -- 스킬 대상이 없는 경우 처리 (특히 아군 대상인 경우)
-        elseif (not owner:checkTarget(t_skill)) then
+        elseif (t_skill['chance_type'] == 'basic_turn') and (not owner:checkTarget(t_skill)) then
 			is_add_skill = false
 			skill_id = owner:getSkillID('basic')
 		end
