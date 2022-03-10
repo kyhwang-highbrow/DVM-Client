@@ -222,6 +222,14 @@ function StructSlimeObject:getSlimeType()
 end
 
 -------------------------------------
+-- function getObjectId
+-- @breif
+-------------------------------------
+function StructSlimeObject:getObjectId()
+    return self['id']
+end
+
+-------------------------------------
 -- function getObjectType
 -- @breif
 -------------------------------------
