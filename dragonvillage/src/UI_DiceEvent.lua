@@ -466,16 +466,28 @@ function UI_DiceEvent.makeCell(t_data)
 
     -- 선택 표시
     vars['selectSprite']:setVisible(false)
-    
     -- 보상 아이콘
     local item_id = t_data['item_id']
     local res = TableItem:getItemIcon(item_id)
-    local icon = IconHelper:getIcon(res)
-    vars['iconNode']:addChild(icon)
-
     -- 보상 수량
-    local value = t_data['value']
-    vars['quantityLabel']:setString(value)
+    vars['quantityLabel']:setString(t_data['value'])
+    
+    --리소스가 비어있는 경우
+    if( res == '' ) then
+        --드래곤인지 확인
+        local did = tonumber(TableItem:getDidByItemId(item_id))
+        if (did and (did > 0)) then
+            --드래곤 카드 생성
+            local icon = UI_ItemCard(item_id)
+            icon.root:setPositionY(-20)
+            icon.root:setScale(0.8)
+            vars['iconNode']:addChild(icon.root)
+            vars['quantityLabel']:setVisible(false)
+        end
+    else
+        local icon = IconHelper:getIcon(res)
+        vars['iconNode']:addChild(icon)
+    end
 
     -- 터치시 툴팁
     vars['clickBtn']:registerScriptTapHandler(function()
