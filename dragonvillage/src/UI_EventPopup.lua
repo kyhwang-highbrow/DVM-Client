@@ -478,8 +478,7 @@ function UI_EventPopup:checkNotiList()
 
     for i,v in pairs(self.m_tableView.m_itemList) do
         local type = v['data'].m_type
-
-        if v['data'].m_hasNoti then
+        if v['data'].m_hasNoti and self.m_currTab ~= type then
             self:setTab(type)
             self.m_tableView:relocateContainerFromIndex(i, true)
             return true
