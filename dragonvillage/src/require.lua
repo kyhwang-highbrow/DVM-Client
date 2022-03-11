@@ -1497,6 +1497,7 @@ local t_module = {
     'UI_PurchasePointBgNew',
     'UI_PurchasePointRewardSelectPopup',
     'UI_EventPopupTab_PurchasePoint',
+    'UI_EventPopupTab_PurchasePointNew',
     'UI_EventPopupTab_PurchaseDaily',
     'UI_ExchangeProductListItem',
     'UI_AccessTimeDataListItem',

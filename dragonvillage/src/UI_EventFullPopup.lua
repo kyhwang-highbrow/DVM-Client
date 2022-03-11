@@ -224,12 +224,12 @@ function UI_EventFullPopup:initUI()
     elseif pl.stringx.startswith(popup_key, 'purchase_point') then
 		local l_str = plSplit(popup_key, ';')
         local event_version = l_str[2]
-        if (g_purchasePointData:isNewTypePurchasePointEvent(event_version) == true) then
-            require('UI_EventPopupTab_PurchasePointNew')
-            ui = UI_EventPopupTab_PurchasePointNew(event_version)
-        else
-            ui = UI_EventPopupTab_PurchasePoint(event_version)
-        end
+        ui = UI_EventPopupTab_PurchasePointNew(event_version)
+        --if (g_purchasePointData:isNewTypePurchasePointEvent(event_version) == true) then
+            --ui = UI_EventPopupTab_PurchasePointNew(event_version)
+        --else
+            --ui = UI_EventPopupTab_PurchasePoint(event_version)
+        --end
 
     -- 일일 충전 선물 이벤트
     elseif pl.stringx.startswith(popup_key, 'purchase_daily') then

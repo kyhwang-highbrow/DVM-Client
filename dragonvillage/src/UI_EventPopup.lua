@@ -371,12 +371,13 @@ function UI_EventPopup:makeEventPopupTab(tab)
     -- 누적 결제 보상 이벤트 
     elseif pl.stringx.startswith(tab, 'purchase_point') then
         local event_version = struct_event_popup_tab.m_eventData['version'] or struct_event_popup_tab.m_eventData['event_id']
-        if (g_purchasePointData:isNewTypePurchasePointEvent(event_version) == true) then
-            require('UI_EventPopupTab_PurchasePointNew')
-            ui = UI_EventPopupTab_PurchasePointNew(event_version)
-        else
-            ui = UI_EventPopupTab_PurchasePoint(event_version)
-        end
+        ui = UI_EventPopupTab_PurchasePointNew(event_version)
+        
+        --if (g_purchasePointData:isNewTypePurchasePointEvent(event_version) == true) then
+          --  ui = UI_EventPopupTab_PurchasePointNew(event_version)
+        --else
+          --  ui = UI_EventPopupTab_PurchasePoint(event_version)
+        --end
 
     -- 일일 결제 보상 이벤트 
     elseif pl.stringx.startswith(tab, 'purchase_daily') then
