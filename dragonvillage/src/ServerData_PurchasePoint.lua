@@ -324,6 +324,19 @@ function ServerData_PurchasePoint:getPurchasePointInfo(version)
 end
 
 -------------------------------------
+-- function getPurchasePoint_rewardList
+-- @brief 해당 버전의 보상 리스트 리턴
+-------------------------------------
+function ServerData_PurchasePoint:getPurchasePoint_rewardList(version)
+    local purchase_point_info = self:getPurchasePointInfo(version)
+    if (not purchase_point_info) then
+        return nil
+    end
+
+    return purchase_point_info['step_list'] or {}
+end
+
+-------------------------------------
 -- function getPurchasePoint_rewardStepInfo
 -- @brief 해당 버전, 해당 보상 스텝에 대한 정보 리턴
 -------------------------------------
