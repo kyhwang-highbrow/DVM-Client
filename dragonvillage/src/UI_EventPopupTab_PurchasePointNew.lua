@@ -8,6 +8,8 @@ UI_EventPopupTab_PurchasePointNew = class(PARENT,{
         m_rewardUIList = '',
         m_rewardBoxUIList = '',
 
+        m_rewardList = 'table', --이벤트 보상 리스트
+        m_rewardListCount = 'number',
         m_selectedLastRewardIdx = 'number', -- 선택된 마지막 보상 idx
 
         m_tabButtonCallback = 'function',
@@ -17,8 +19,7 @@ UI_EventPopupTab_PurchasePointNew = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventPopupTab_PurchasePointNew:init(event_version)
-    self.m_selectedLastRewardIdx = 1
-    self.m_eventVersion = event_version
+    self:initData(event_version)
     self:load('event_purchase_point_new.ui')
 
     self:doActionReset()
@@ -30,94 +31,76 @@ function UI_EventPopupTab_PurchasePointNew:init(event_version)
 end
 
 -------------------------------------
+-- function initData
+-- @breif UI Class Data 초기화
+-------------------------------------
+function UI_EventPopupTab_PurchasePointNew:initData(event_version)
+    self.m_selectedLastRewardIdx = 1
+    self.m_eventVersion = event_version
+    self.m_rewardUIList = {}
+    self.m_rewardBoxUIList = {}
+
+    local version = self.m_eventVersion
+    self.m_rewardList = g_purchasePointData:getPurchasePoint_rewardList(version)
+    self.m_rewardListCount = g_purchasePointData:getPurchasePoint_stepCount(version)
+end
+
+-------------------------------------
 -- function initUI
 -- @breif
 -------------------------------------
 function UI_EventPopupTab_PurchasePointNew:initUI()
     local vars = self.vars
-
     local version = self.m_eventVersion
-    local step_count = g_purchasePointData:getPurchasePoint_stepCount(version)
+    local step_count = self.m_rewardListCount
 
-    self.m_rewardUIList = {}
-    self.m_rewardBoxUIList = {}
-    
-    -- 0 은 0점
-    vars['scoreLabel0']:setString(Str('{1}점', 0))
-
-    -- 보상 아이템 카드
+    vars['selectLabel']:setString(Str('선택 가능한 {1}단계 보상', step_count))
     for step=1, step_count do
-        local last_step_point = g_purchasePointData:getPurchasePoint_lastStepPoint(version)
         local item_node = vars['itemNode'..step]
+        item_node:setVisible(true)
         if item_node then
-            item_node:setVisible(true)
-            -- 아이템 프레임
-            local ui_frame = UI()
-            ui_frame:load('event_purchase_point_item_new_01.ui')
-            ui_frame.vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn(step) end)
-            item_node:addChild(ui_frame.root)
-            
+            --add Item
             local item_id, count = self:getRewardInfoByStep(version, step)
-
-            -- 아이템 카드
-            local ui_card = UI_ItemCard(item_id, count)
-             
-            -- 만약 드래곤 카드라면 드래곤 정보 팝업
-            local did = tonumber(TableItem:getDidByItemId(item_id))
-            if did and (0 < did) then
-                ui_card.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true) end)
-            end
-
-            ui_frame.vars['iconNode']:addChild(ui_card.root)
-            ui_frame.root:setScale(1.2)
-            ui_card.root:setScale(0.7)
-
-            -- 보상 점수
-            local point = g_purchasePointData:getPurchasePoint_step(version, step)
-            vars['scoreLabel' .. step]:setString(Str('{1}점', comma_value(point)))
-            --vars['scoreLabel' .. step]:setString(comma_value(point))
-            cclog(point)
-            table.insert(self.m_rewardBoxUIList, ui_frame)
+            local UI_Item = self:getUI_NewItem1(step, item_id, count)
+            item_node:addChild(UI_Item.root)
+            table.insert(self.m_rewardBoxUIList, UI_Item)
         end
     end
 
     vars['purchaseGg']:setPercentage(0)
-
+    --프로그래스바 사이즈 수정
+    local Pg_ScaleX = vars['purchaseGg']:getScaleX()
+    vars['purchaseGg']:setScaleX(Pg_ScaleX*step_count)
     
     -- 타입에 따른 누적 결제 배경UI
     local last_reward_type = g_purchasePointData:getLastRewardType(version)
     local last_reward_item_id, count = self:getRewardInfoByStep(version, step_count)
-    require('UI_PurchasePointBgNew')
     local ui_bg = UI_PurchasePointBgNew(last_reward_type, last_reward_item_id, count, version)
     if (ui_bg) then
         vars['productNode']:addChild(ui_bg.root)
     end
 
-    do -- 4단계 보상 3개 버튼 생성
-        local step = step_count
-        for reward_idx=1, 3 do
-            local item_id, item_cnt = self:getRewardInfoByStep(version, step, reward_idx)
-            local ui = UI()
-            ui:load('event_purchase_point_item_new_03.ui')
-            do -- 아이템 카드
-                local ui_card = UI_ItemCard(item_id, item_cnt)
-                ui_card:setEnabledClickBtn(false) -- 아이콘 클릭 안되게
-                ui.vars['itemNode']:addChild(ui_card.root)
-            end
-            do -- 아이템 이름 (수량)
-                local item_name = TableItem:getItemName(item_id)
-                if (item_cnt <= 1) then
-                    ui.vars['itemLabel']:setString(item_name)
-                else
-                    local str =  Str('{1} {2}개', item_name, comma_value(item_cnt))
-                    ui.vars['itemLabel']:setString(str)
-                end
-            end
-            do -- 버튼
-                ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_lastRewardIdx(reward_idx) end)
-            end
-            vars['clickNode' .. reward_idx]:addChild(ui.root) -- clickNode1, clickNode2, clickNode3
+    -- 마지막 단계 보상 3개 버튼 생성
+    for reward_idx=1, 3 do
+        local item_id, item_cnt = self:getRewardInfoByStep(version, step_count, reward_idx)
+        local ui = UI()
+        ui:load('event_purchase_point_item_new_03.ui')
+        
+        -- 아이템 카드
+        local ui_card = UI_ItemCard(item_id, item_cnt)
+        ui_card:setEnabledClickBtn(false) -- 아이콘 클릭 안되게
+        ui.vars['itemNode']:addChild(ui_card.root)
+    
+        -- 아이템 이름 (수량)
+        local item_name = TableItem:getItemName(item_id)
+        if (item_cnt > 1) then
+            item_name =  Str('{1} {2}개', item_name, comma_value(item_cnt))
         end
+        ui.vars['itemLabel']:setString(item_name)
+    
+        -- 버튼
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_lastRewardIdx(reward_idx) end)
+        vars['clickNode' .. reward_idx]:addChild(ui.root) -- clickNode1, clickNode2, clickNode3
     end
 end
 
@@ -135,7 +118,7 @@ end
 function UI_EventPopupTab_PurchasePointNew:getRewardInfoByStep(version, step, reward_idx)
     local reward_idx = (reward_idx or 1)
 
-    local t_step, reward_state = g_purchasePointData:getPurchasePoint_rewardStepInfo(version, step)
+    local t_step = self.m_rewardList[tostring(step)]
     local package_item_str = t_step['item']
     if (reward_idx ~= 1) then
         package_item_str = t_step['item_' .. tostring(reward_idx)]
@@ -162,7 +145,6 @@ end
 -------------------------------------
 function UI_EventPopupTab_PurchasePointNew:refresh()
     local vars = self.vars
-    
     local version = self.m_eventVersion
 
     -- 이벤트 종료까지 남은 시간
@@ -175,15 +157,8 @@ function UI_EventPopupTab_PurchasePointNew:refresh()
     local str = Str('누적 결제 점수: {1}점', comma_value(purchase_point))
     vars['scoreLabel']:setString(str)
 
-	--[[
-    -- 누적 결제 시간 안내
-    local time_str = g_purchasePointData:getPurchasePointTime(version)
-    vars['timeLabel']:setString(time_str)
-	--]]
-
-
     -- 보상 수령 상태 안내 메세지
-    local last_step = g_purchasePointData:getPurchasePoint_stepCount(version)
+    local last_step = self.m_rewardListCount
     local curr_step = g_purchasePointData:getPurchaseRewardStep(version)
     local str = ''
     if (last_step <= curr_step) then
@@ -208,7 +183,6 @@ function UI_EventPopupTab_PurchasePointNew:refresh()
         local temp = prev_point
         prev_point = _point
         _point = (_point - temp)
-
         if (_point <= _purchase_point) then
             percentage = (percentage + (1/last_step))
         else
@@ -218,8 +192,10 @@ function UI_EventPopupTab_PurchasePointNew:refresh()
         _purchase_point = (_purchase_point - _point)
     end
     percentage = math_clamp((percentage * 100), 0, 100)
-    vars['purchaseGg']:runAction(cc.ProgressTo:create(0.2, percentage)) 
 
+    vars['purchaseGg']:runAction(cc.ProgressTo:create(0.1, percentage))
+
+    self:SetInfoLabel()
     self:refresh_rewardBoxUIList()
 end
 
@@ -285,14 +261,11 @@ end
 -------------------------------------
 function UI_EventPopupTab_PurchasePointNew:click_receiveBtn(reward_step)
 
-    if (reward_step == 4) then
-        require('UI_PurchasePointRewardSelectPopup')
+    if (reward_step == self.m_rewardListCount) then
         local ui = UI_PurchasePointRewardSelectPopup(self.m_eventVersion)
         ui:setCloseCB(function() self:refresh() end)
         return
     end
-
-    local version = self.m_eventVersion
 
     local function cb_func(ret)
         -- 보상 획득
@@ -305,6 +278,7 @@ function UI_EventPopupTab_PurchasePointNew:click_receiveBtn(reward_step)
         end
     end
 
+    local version = self.m_eventVersion
     g_purchasePointData:request_purchasePointReward(version, reward_step, 1, cb_func)
 end
 
@@ -318,57 +292,128 @@ function UI_EventPopupTab_PurchasePointNew:click_lastRewardIdx(reward_idx)
     end
     self.m_selectedLastRewardIdx = reward_idx
 
-    local vars = self.vars
-
-    do -- 배경 생성
-        vars['productNode']:removeAllChildren()
-
-        local version = self.m_eventVersion
-        local step_count = g_purchasePointData:getPurchasePoint_stepCount(version)
-
-        -- 타입에 따른 누적 결제 배경UI
-        local last_reward_type = g_purchasePointData:getLastRewardType(version, reward_idx)
-        if (last_reward_type == nil) then
-            last_reward_type = 'item'
-        end
-        local last_reward_item_id, count = self:getRewardInfoByStep(version, step_count, reward_idx)
-        require('UI_PurchasePointBgNew')
-        local ui_bg = UI_PurchasePointBgNew(last_reward_type, last_reward_item_id, count, version)
-        if (ui_bg) then
-            vars['productNode']:addChild(ui_bg.root)
-        end
-    end
-
-    do -- 아이템 프레임
-        local version = self.m_eventVersion
-
-        local step = 4
-        local item_node = vars['itemNode'..step]
-        item_node:removeAllChildren()
-        local ui_frame = UI()
-        ui_frame:load('event_purchase_point_item_new_01.ui')
-        ui_frame.vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn(step) end)
-        item_node:addChild(ui_frame.root)
-        self.m_rewardBoxUIList[step] = ui_frame
-            
-        local item_id, count = self:getRewardInfoByStep(version, step, reward_idx)
-
-        -- 아이템 카드
-        local ui_card = UI_ItemCard(item_id, count)
-         
-        -- 만약 드래곤 카드라면 드래곤 정보 팝업
-        local did = tonumber(TableItem:getDidByItemId(item_id))
-        if did and (0 < did) then
-            ui_card.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true) end)
-        end
-
-        ui_frame.vars['iconNode']:addChild(ui_card.root)
-        ui_frame.root:setScale(1.2)
-        ui_card.root:setScale(0.7)
-    end
-
+    self:SetInfoLabel()
+    self:refresh_lastReward(reward_idx)
     self:refresh_rewardBoxUIList()
 end
 
+-------------------------------------
+-- function refresh_lastReward
+-- @brief idx에 맞는 마지막 보상 UI 출력
+-------------------------------------
+function UI_EventPopupTab_PurchasePointNew:refresh_lastReward(idx)
+    local vars = self.vars    
+    local version = self.m_eventVersion
+    -- 배경 생성
+    vars['productNode']:removeAllChildren()
+    local step_count = self.m_rewardListCount
+
+    -- 타입에 따른 누적 결제 배경UI
+    local last_reward_type = g_purchasePointData:getLastRewardType(version, idx)
+    if (last_reward_type == nil) then
+        last_reward_type = 'item'
+    end
+    local last_reward_item_id, count = self:getRewardInfoByStep(version, step_count, idx)
+    local ui_bg = UI_PurchasePointBgNew(last_reward_type, last_reward_item_id, count, version)
+    if (ui_bg) then
+        vars['productNode']:addChild(ui_bg.root)
+    end
+
+    -- 아이템 프레임
+    local step = self.m_rewardListCount
+    local item_node = vars['itemNode'..step]
+
+    local item_id, count = self:getRewardInfoByStep(version, step, idx)
+    local UI_Item = self:getUI_NewItem1(step, item_id, count)
+
+    item_node:removeAllChildren()
+    item_node:addChild(UI_Item.root)
+    self.m_rewardBoxUIList[step] = UI_Item
+end
+
+-------------------------------------
+-- function SetInfoLabel
+-- @brief Step에 따른 InfoLabel 변경
+-------------------------------------
+function UI_EventPopupTab_PurchasePointNew:SetInfoLabel()
+    local version = self.m_eventVersion
+
+    local last_step = self.m_rewardListCount
+    local item_id, count = self:getRewardInfoByStep(version, last_step, self.m_selectedLastRewardIdx)
+    local did = tonumber(TableItem:getDidByItemId(item_id))
+
+    local str_Info = ''
+    local ItemName = TableItem:getItemName(item_id)
+    if did and (0 < did) then
+        str_Info =  Str('토파즈 드래곤 {1} 획득 기회!', string.format('{@%s}%s{@white}', TableDragon:getDragonAttr(did), ItemName))
+    else
+        str_Info = Str('{1} X {2} 획득 기회!', ItemName, count)
+    end
+    self.vars['infoLabel']:setString(str_Info)
+end
+
+-------------------------------------
+-- function getStepNodeNumberIcon
+-- @brief Step에 따른 Number Icon 획득
+-------------------------------------
+function UI_EventPopupTab_PurchasePointNew:getStepNodeNumberIcon(step)
+    local res_name = 'res/ui/event/purchase_point/event_purchase_number_0' .. tostring(step) .. '.png'
+    local res = IconHelper:getIcon(res_name)
+    return res
+end
+
+-------------------------------------
+-- function getStepNodeBgBarImg
+-- @brief 드래곤 속성에 따른 Bar Img 획득
+-------------------------------------
+function UI_EventPopupTab_PurchasePointNew:getStepNodeBgBarImg(attr)
+    local res_name = 'res/ui/event/purchase_point/event_purchase_frame_' .. attr .. '.png'
+    local res = IconHelper:getIcon(res_name)
+    return res
+end
+
+-------------------------------------
+-- function addUI_NewItem1
+-- @brief Step 따라 NewItem1를 세팅해서 리턴해준다.
+-------------------------------------
+function UI_EventPopupTab_PurchasePointNew:getUI_NewItem1(step, item_id, count)
+    local version = self.m_eventVersion
+    
+    local ui_frame = UI()
+    ui_frame:load('event_purchase_point_item_new_01.ui')
+
+    local vars = ui_frame.vars
+
+    --보상 받기 버튼
+    vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn(step) end)
+
+    -- 아이템 카드
+    local ui_card = UI_ItemCard(item_id, count)
+    -- 만약 드래곤 카드라면 드래곤 정보 팝업
+    local did = tonumber(TableItem:getDidByItemId(item_id))
+    if did and (0 < did) then
+        ui_card.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true) end)
+        local attr = TableDragon:getDragonAttr(did)
+        vars['bgNode']:removeAllChildren()
+        vars['bgNode']:addChild(self:getStepNodeBgBarImg(attr))
+    end
+
+    -- 보상 점수
+    local point = g_purchasePointData:getPurchasePoint_step(version, step)
+    vars['scoreLabel']:setString(Str('{1}점', comma_value(point)))
+
+    vars['stepNode']:removeAllChildren()
+    vars['stepNode']:addChild(self:getStepNodeNumberIcon(step))
+
+    ui_frame.root:setScale(1.2)
+    ui_card.root:setScale(0.7)
+
+    vars['iconNode']:addChild(ui_card.root)
+    -- 보상 점수
+    local point = g_purchasePointData:getPurchasePoint_step(version, step)
+    vars['scoreLabel']:setString(Str('{1}점', comma_value(point)))
+
+    return ui_frame
+end
 --@CHECK
 UI:checkCompileError(UI_EventPopupTab_PurchasePointNew)

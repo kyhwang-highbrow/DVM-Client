@@ -222,12 +222,14 @@ function UI_PurchasePointBg:initUI_dragon()
 
     
     -- 최종 상품이 드래곤일 경우 visual  세팅
-    local animator
-    local did = TableItem:getDidByItemId(item_id)
-    local dragon_attr = TableDragon:getDragonAttr(did)
-    animator = ResHelper:getUIDragonBG(dragon_attr, 'idle')
-    vars['bgNode']:addChild(animator.m_node)
-
+    local reinforce_sprite = cc.Sprite:create('ui/event/purchase_point/bg_purchase_point_'..attr..'.png')
+    if (not reinforce_sprite) then
+        return
+    end
+    reinforce_sprite:setAnchorPoint(CENTER_POINT)
+    reinforce_sprite:setDockPoint(CENTER_POINT)
+    reinforce_sprite:setScale(1.2)
+    vars['bgNode']:addChild(reinforce_sprite)
 
     local category_str = table_dragon:getDragonCartegory(did)
     if (category_str == 'cardpack') then
