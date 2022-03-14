@@ -7,6 +7,8 @@ SPECIAL_RUNE_PACKAGE_ID = 121405    -- 1+1 상품 id 121405 ~ 121408
 -- class UI_RuneForgeGachaTab
 -------------------------------------
 UI_RuneForgeGachaTab = class(PARENT,{
+    m_TabCount = 'number',  --탭 개수
+    m_myTab = 'number',     --바라보고있는 탭번호
     })
 
 -------------------------------------
@@ -14,7 +16,10 @@ UI_RuneForgeGachaTab = class(PARENT,{
 -------------------------------------
 function UI_RuneForgeGachaTab:init(owner_ui)
     local vars = self:load('rune_forge_gacha.ui')
-    
+    --[1]:일반 [2]:고대
+    self.m_TabCount= 2 
+    self.m_myTab = 1    --기본은 일반
+    self:refresh()
 end
 
 -------------------------------------
@@ -71,10 +76,6 @@ function UI_RuneForgeGachaTab:initUI()
     if (is_diamond_event_active) then
         vars['diaBtn']:registerScriptTapHandler(function() self:click_diamondGachaBtn() end)
         vars['eventTimeLabel']:setString(g_hotTimeData:getEventRemainTimeTextDetail('event_rune_gacha'))
-
-    else
-        vars['gachaMenu']:setPositionX(0)
-        
     end
 
     -- 확률 2배 이벤트
@@ -151,6 +152,11 @@ function UI_RuneForgeGachaTab:initUI()
     end
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+
+    --룬 뽑기 버튼 설정
+    for index = 1, self.m_TabCount do
+        vars['runeSelectBtn'..index]:registerScriptTapHandler(function() self:click_ChangeBtn(index) end)
+    end
 end
 
 -------------------------------------
@@ -301,8 +307,53 @@ end
 -------------------------------------
 function UI_RuneForgeGachaTab:refresh()
     local vars = self.vars
+
+    --룬 상자 이미지
+    vars['runeBoxNode']:removeAllChildren()
+    vars['runeBoxNode']:addChild(self:getRuneBoxIcon())
+
+    --룬 상자 텍스트
+    self:setRuneBoxString()
+
     --[[
     local rune_box_count = g_userData:get('rune_box') or 0
     vars['itemLabel']:setString(rune_box_count)]]
 end
 
+-------------------------------------
+-- function click_ChangeBtn
+-------------------------------------
+function UI_RuneForgeGachaTab:click_ChangeBtn(myTab)
+    local vars = self.vars
+    self.m_myTab = myTab
+
+    self:refresh()
+end
+
+-------------------------------------
+-- function getRuneBoxIcon
+-- @breif 탭에 맞는 룬상자 리소스 리턴
+-------------------------------------
+function UI_RuneForgeGachaTab:getRuneBoxIcon()
+    local myTab = self.m_myTab
+    res = 'res/ui/icons/rune_forge_gacha/rune_forge_020'..myTab..'.png'
+    local sprite = IconHelper:getIcon(res)
+    return sprite
+end
+
+-------------------------------------
+-- function setRuneBoxString
+-- @breif 탭에 맞는 룬상자 텍스트 설정
+-------------------------------------
+function UI_RuneForgeGachaTab:setRuneBoxString()
+    local vars = self.vars
+    local myTab = self.m_myTab
+
+    local text = '스트링 설정 에러'
+    if (myTab == 1) then
+        text = Str('룬 뽑기 상자')
+    else
+        text = Str('고대 룬 뽑기 상자')
+    end
+    vars['runeLabel']:setString(text)
+end
