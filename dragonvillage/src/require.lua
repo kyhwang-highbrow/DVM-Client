@@ -921,6 +921,7 @@ local t_module = {
     'UI_RuneForgeCombineTab',
     'UI_RuneForgeCombineItem',
     'UI_RuneForgeGachaTab',
+    'UI_RuneForgeGachaInfo',
 	'UI_ToastPopup',
     'UI_SecretFindPopup',
     'UI_Tooltip',

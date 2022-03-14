@@ -17,7 +17,7 @@ UI_RuneForgeGachaTab = class(PARENT,{
 function UI_RuneForgeGachaTab:init(owner_ui)
     local vars = self:load('rune_forge_gacha.ui')
     --[1]:일반 [2]:고대
-    self.m_TabCount= 2 
+    self.m_TabCount = 2 
     self.m_myTab = 1    --기본은 일반
     self:refresh()
 end
@@ -151,7 +151,7 @@ function UI_RuneForgeGachaTab:initUI()
         vars['buyBtn']:setVisible(false)
     end
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
-    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeGachaInfo(self.m_myTab) end)
 
     --룬 뽑기 버튼 설정
     for index = 1, self.m_TabCount do
@@ -249,15 +249,6 @@ function UI_RuneForgeGachaTab:click_diamondGachaBtn()
     MakeSimplePopup_Confirm('cash', item_value, msg, function() self:request_runeGacha(true) end)
 end
 
-
-
--------------------------------------
--- function click_infoBtn
--------------------------------------
-function UI_RuneForgeGachaTab:click_infoBtn()
-    MakePopup('rune_forge_gacha_info.ui', nil)
-end
-
 -------------------------------------
 -- function subsequentSummons
 -- @brief 이어서 뽑기 설정
@@ -349,10 +340,10 @@ function UI_RuneForgeGachaTab:setRuneBoxString()
     local vars = self.vars
     local myTab = self.m_myTab
 
-    local text = '스트링 설정 에러'
-    if (myTab == 1) then
+    local text = ''
+    if (myTab == 1) then        --일반
         text = Str('룬 뽑기 상자')
-    else
+    elseif (myTab == 2) then    --고대
         text = Str('고대 룬 뽑기 상자')
     end
     vars['runeLabel']:setString(text)
