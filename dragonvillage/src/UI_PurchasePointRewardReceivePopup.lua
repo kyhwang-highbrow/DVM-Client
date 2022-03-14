@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_PurchasePointRewardReceivePopup = class(PARENT,{
         m_eventVersion = '',
+        m_eventLast_Step = 'number',
         m_rewardIdx = 'number',
         m_bReceived = 'boolean',
     })
@@ -12,8 +13,9 @@ UI_PurchasePointRewardReceivePopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PurchasePointRewardReceivePopup:init(event_version, reward_idx)
+function UI_PurchasePointRewardReceivePopup:init(event_version, reward_idx, last_step)
     self.m_eventVersion = event_version
+    self.m_eventLast_Step = last_step
     self.m_rewardIdx = reward_idx
     self.m_bReceived = false
 
@@ -41,7 +43,7 @@ function UI_PurchasePointRewardReceivePopup:initUI(event_version, reward_idx)
     local vars = self.vars
 
     local version = event_version
-    local step = 4
+    local step = self.m_eventLast_Step
 
     local item_id, item_count = self:getRewardInfoByStep(version, step, reward_idx)
 
@@ -104,7 +106,7 @@ end
 -------------------------------------
 function UI_PurchasePointRewardReceivePopup:selectBtn()
     local version = self.m_eventVersion
-    local reward_step = 4
+    local reward_step = self.m_eventLast_Step
     local reward_idx = self.m_rewardIdx
 
     local function cb_func(ret)

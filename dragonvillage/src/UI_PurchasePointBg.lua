@@ -228,7 +228,7 @@ function UI_PurchasePointBg:initUI_dragon()
     end
     reinforce_sprite:setAnchorPoint(CENTER_POINT)
     reinforce_sprite:setDockPoint(CENTER_POINT)
-    reinforce_sprite:setScale(1.2)
+    reinforce_sprite:setScale(1.3)
     vars['bgNode']:addChild(reinforce_sprite)
 
     local category_str = table_dragon:getDragonCartegory(did)

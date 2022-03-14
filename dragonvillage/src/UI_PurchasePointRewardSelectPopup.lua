@@ -5,14 +5,15 @@ local PARENT = UI
 -------------------------------------
 UI_PurchasePointRewardSelectPopup = class(PARENT,{
         m_eventVersion = '',
+        m_eventLast_Step = 'number',    --이벤트 마지막 보상 번호
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PurchasePointRewardSelectPopup:init(event_version)
+function UI_PurchasePointRewardSelectPopup:init(event_version, last_Step)
     self.m_eventVersion = event_version
-
+    self.m_eventLast_Step = last_Step
     local vars = self:load('event_purchase_point_popup_receive_01.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -24,7 +25,7 @@ function UI_PurchasePointRewardSelectPopup:init(event_version)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI(event_version, reward_idx)
+    self:initUI(event_version)
     self:initButton()
     self:refresh()
 end
@@ -35,11 +36,9 @@ end
 -------------------------------------
 function UI_PurchasePointRewardSelectPopup:initUI(event_version)
     local vars = self.vars
-
     local version = event_version
-    local step = 4
     for reward_idx = 1, 3 do
-        local item_id, item_count = self:getRewardInfoByStep(version, step, reward_idx)
+        local item_id, item_count = self:getRewardInfoByStep(version, self.m_eventLast_Step, reward_idx)
 
         do -- 아이템 아이콘
             local ui_card = UI_ItemCard(item_id, item_count)
@@ -104,9 +103,9 @@ end
 -------------------------------------
 function UI_PurchasePointRewardSelectPopup:click_selectRewardIdx(reward_idx)
     local event_version = self.m_eventVersion
-
+    local event_lastStep = self.m_eventLast_Step
     require('UI_PurchasePointRewardReceivePopup')
-    local ui = UI_PurchasePointRewardReceivePopup(event_version, reward_idx)
+    local ui = UI_PurchasePointRewardReceivePopup(event_version, reward_idx, event_lastStep)
     ui:setCloseCB(function()
         if (ui.m_bReceived == true) then
             self:close()

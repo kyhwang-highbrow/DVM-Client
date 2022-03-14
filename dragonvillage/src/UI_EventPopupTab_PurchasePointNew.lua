@@ -69,8 +69,13 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
 
     vars['purchaseGg']:setPercentage(0)
     --프로그래스바 사이즈 수정
-    local Pg_ScaleX = vars['purchaseGg']:getScaleX()
-    vars['purchaseGg']:setScaleX(Pg_ScaleX*step_count)
+    local Pg_Scale = vars['purchaseGg']:getScaleX()
+    Pg_Scale = (Pg_Scale/2) + (Pg_Scale * (step_count-1))
+    vars['purchaseGg']:setScaleX(Pg_Scale)
+
+    local PgBar_Scale = vars['purchaseGgSprite']:getScaleY()
+    PgBar_Scale = (PgBar_Scale/2) + (PgBar_Scale * (step_count-1))
+    vars['purchaseGgSprite']:setScaleY(PgBar_Scale)
     
     -- 타입에 따른 누적 결제 배경UI
     local last_reward_type = g_purchasePointData:getLastRewardType(version)
@@ -174,6 +179,14 @@ function UI_EventPopupTab_PurchasePointNew:refresh()
     end
     vars['nextStepLabel']:setString(str)
 
+    --프로그래스바 각자 할당된 퍼센트 계산
+    local data = {}
+    local defValue = (1/last_step)
+    data[1] = defValue / 2  --0 -> 1로 가는 지점을 절반으로 할당
+    local shareValue = data[1]/(last_step-1) --남은 절반에 대한 영역을 서로 나눠 가짐
+    for i=2, last_step do
+        data[i] = defValue + shareValue
+    end
     -- 결제 포인트 게이지
     local _purchase_point = purchase_point
     local percentage = 0
@@ -183,10 +196,12 @@ function UI_EventPopupTab_PurchasePointNew:refresh()
         local temp = prev_point
         prev_point = _point
         _point = (_point - temp)
-        if (_point <= _purchase_point) then
-            percentage = (percentage + (1/last_step))
-        else
-            percentage = (percentage + (_purchase_point/_point/last_step))
+
+        --보상 포인트를 넘는 경우
+        if (_point <= _purchase_point) then 
+            percentage = (percentage + data[i])
+        else--보상 포인트까지 부족 경우.
+            percentage = (percentage + ((_purchase_point/_point)*data[i]))
             break
         end
         _purchase_point = (_purchase_point - _point)
@@ -262,7 +277,7 @@ end
 function UI_EventPopupTab_PurchasePointNew:click_receiveBtn(reward_step)
 
     if (reward_step == self.m_rewardListCount) then
-        local ui = UI_PurchasePointRewardSelectPopup(self.m_eventVersion)
+        local ui = UI_PurchasePointRewardSelectPopup(self.m_eventVersion, self.m_rewardListCount)
         ui:setCloseCB(function() self:refresh() end)
         return
     end
