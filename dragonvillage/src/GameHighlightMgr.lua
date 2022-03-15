@@ -54,7 +54,7 @@ function GameHighlightMgr:update(dt)
         end
 
         local dragon = world.m_skillIndicatorMgr.m_selectHero
-        local enemys = dragon:getSkillIndicator():getTargetForHighlight()
+        local enemys = dragon:getSkillIndicator():getIndicatorTargetForHighlight()
 
         Add({dragon})
         Add(enemys)

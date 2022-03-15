@@ -657,21 +657,36 @@ function SkillIndicator:checkIndicatorLimit(angle, distance)
 end
 
 -------------------------------------
--- function getTargetForHighlight
+-- function getIndicatorTargetForHighlight
 -- @brief 현재 인디케이터 정보로부터 피격(하이라이트) 대상을 얻어옴
 -------------------------------------
-function SkillIndicator:getTargetForHighlight()
+function SkillIndicator:getIndicatorTargetForHighlight()
     local x, y
-    
-    -- 사이드 방지를 위해 레이드에서만
-    if (self.m_indicatorTouchPosX and self.m_indicatorTouchPosY and g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+    if (self.m_indicatorTouchPosX and self.m_indicatorTouchPosY) then
         x = self.m_indicatorTouchPosX
         y = self.m_indicatorTouchPosY
-
     elseif (self.m_targetPosX and self.m_targetPosY) then
         x = self.m_targetPosX
         y = self.m_targetPosY
+    else
+        cclog('getTargetForHighlight no target')
+        return {}
+    end
 
+    self:onTouchMoved(x, y)
+    local l_ret = self.m_highlightList or {}
+    return l_ret
+end
+
+---------------------------------
+-- function getTargetForHighlight
+-- @brief 현재 타겟 정보로부터 피격(하이라이트) 대상을 얻어옴
+-------------------------------------
+function SkillIndicator:getTargetForHighlight()
+    local x, y
+    if (self.m_targetPosX and self.m_targetPosY) then
+        x = self.m_targetPosX
+        y = self.m_targetPosY
     else
         cclog('getTargetForHighlight no target')
         return {}
