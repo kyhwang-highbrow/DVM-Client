@@ -77,8 +77,8 @@ function UI_SettingTestCode:initButton()
     self:makeButtonAutomatic('Make Incomplete Purchase', self.makeIncompletePurchase)
     self:makeButtonAutomatic('Resotre Purchase', self.restorePurchase)
 
-    self:makeButtonAutomatic('Rune Gacha', self.runeGacha)
-    self:makeButtonAutomatic('Rune Gacha-11', self.runeGacha11)
+    self:makeButtonAutomatic('normal Rune Gacha', self.runeGacha)
+    self:makeButtonAutomatic('normal Rune Gacha-11', self.runeGacha11)
 
     self:makeButtonAutomatic('앱설치확인', self.checkInstalled)
 end
@@ -646,6 +646,6 @@ function UI_SettingTestCode.click_runeGacha(is_bundle)
 
     local function fail_cb()
     end
-
-    g_runesData:request_runeGacha(is_bundle, finish_cb, fail_cb)
+    --일반 룬 뽑기
+    g_runesData:request_runeGacha(is_bundle, false, '1', finish_cb, fail_cb)
 end

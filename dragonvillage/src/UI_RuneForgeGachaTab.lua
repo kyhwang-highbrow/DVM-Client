@@ -255,7 +255,6 @@ end
 -------------------------------------
 function UI_RuneForgeGachaTab:subsequentSummons(gacha_result_ui, is_cash)
     local vars = gacha_result_ui.vars
-
 	-- 다시하기 버튼 등록
     vars['againBtn']:registerScriptTapHandler(function()
         gacha_result_ui:close()
@@ -267,6 +266,7 @@ end
 -- function request_runeGacha
 -------------------------------------
 function UI_RuneForgeGachaTab:request_runeGacha(is_cash)
+    local myTab = tostring(self.m_myTab)
     -- 룬 최대 보유 수량 체크
     if (not g_runesData:checkRuneGachaMaximum(10)) then
         return
@@ -290,7 +290,7 @@ function UI_RuneForgeGachaTab:request_runeGacha(is_cash)
     end
     
     local is_bundle = true
-    g_runesData:request_runeGacha(is_bundle, is_cash, finish_cb, nil) -- param: is_bundle, finish_cb, fail_cb
+    g_runesData:request_runeGacha(is_bundle, is_cash, myTab, finish_cb, nil) -- param: is_bundle, finish_cb, fail_cb
 end
 
 -------------------------------------

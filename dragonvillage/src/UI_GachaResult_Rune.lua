@@ -505,28 +505,6 @@ function UI_GachaResult_Rune:click_closeBtn()
 end
 
 -------------------------------------
--- function request_runeGacha
--------------------------------------
-function UI_GachaResult_Rune:request_runeGacha(is_cash)
-    -- 조건 체크
-    local rune_box_count = g_userData:get('rune_box') or 0
-    if (rune_box_count <= 0) then
-        UIManager:toastNotificationRed(Str('룬 상자가 부족합니다.'))
-        return
-    end
-
-    local function finish_cb(ret)
-		local gacha_type = is_cash and 'cash' or 'rune_box'
-        local l_rune_list = ret['runes']
-
-        local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
-    end
-    
-    local is_bundle = true
-    g_runesData:request_runeGacha(is_bundle, is_cash, finish_cb, nil) -- param: is_bundle, finish_cb, fail_cb
-end
-
--------------------------------------
 -- function onFocus
 -- @brief 탑바가 Lobby UI에 포커싱 되었을 때
 -------------------------------------

@@ -304,7 +304,7 @@ end
 -- function request_runeGacha
 -- @brief
 -------------------------------------
-function ServerData_Runes:request_runeGacha(is_bundle, is_cash, finish_cb, fail_cb)
+function ServerData_Runes:request_runeGacha(is_bundle, is_cash, rune_Type, finish_cb, fail_cb)
     -- parameters
     local is_cash = is_cash or false
     local uid = g_userData:get('uid')
@@ -342,6 +342,7 @@ function ServerData_Runes:request_runeGacha(is_bundle, is_cash, finish_cb, fail_
     ui_network:setParam('item_id', item_id)
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('is_cash', is_cash)
+    ui_network:setParam('type', rune_Type)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
