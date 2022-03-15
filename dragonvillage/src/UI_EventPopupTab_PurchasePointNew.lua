@@ -357,12 +357,41 @@ function UI_EventPopupTab_PurchasePointNew:SetInfoLabel()
     local item_id, count = self:getRewardInfoByStep(version, last_step, self.m_selectedLastRewardIdx)
     local did = tonumber(TableItem:getDidByItemId(item_id))
 
-    local str_Info = ''
+    --문자열 합쳐주는 함수
+    local function addString(str, addStr)
+        --비어있는 경우
+        if(str == nil) or (str == '') then
+            str = addStr
+        else --문자열이 있는 경우 띄어쓰기 적용
+            str = (str .. ' ' .. addStr)
+        end
+        return str
+    end
+
     local ItemName = TableItem:getItemName(item_id)
+    local str_Info = Str('{1} X {2} 획득 기회!', ItemName, count)
     if did and (0 < did) then
-        str_Info =  Str('토파즈 드래곤 {1} 획득 기회!', string.format('{@%s}%s{@white}', TableDragon:getDragonAttr(did), ItemName))
-    else
-        str_Info = Str('{1} X {2} 획득 기회!', ItemName, count)
+        local type = TableDragon:getDragonType(did)
+        if type then
+            local prevStr = nil
+            local rarity = TableDragon:getValue(did,'rarity')
+            if (rarity == 'myth') then
+                prevStr = addString(prevStr, Str('신화'))
+            end
+
+            local category = TableDragon:getValue(did, 'category')
+            if (category == 'cardpack') then
+                prevStr = addString(prevStr, Str('토파즈'))
+            elseif (category == 'event') then
+                prevStr = addString(prevStr, Str('이벤트'))
+            elseif (category == 'limited') then
+                prevStr = addString(prevStr, Str('한정'))
+            end
+
+            prevStr = addString(prevStr, Str('드래곤'))
+            local dragonName = string.format('{@%s}%s{@white}', TableDragon:getDragonAttr(did), ItemName)
+            str_Info =  Str('{1} {2} 획득 기회!', prevStr, dragonName)
+        end
     end
     self.vars['infoLabel']:setString(str_Info)
 end
