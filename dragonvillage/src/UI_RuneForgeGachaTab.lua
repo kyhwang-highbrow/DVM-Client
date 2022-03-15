@@ -306,6 +306,11 @@ function UI_RuneForgeGachaTab:refresh()
     --룬 상자 텍스트
     self:setRuneBoxString()
 
+    --룬 버튼 상태
+    local myTab = self.m_myTab
+    for i = 1, self.m_TabCount do
+        vars['runeSelectBtn'..i]:setEnabled(not (myTab == i))
+    end
     --[[
     local rune_box_count = g_userData:get('rune_box') or 0
     vars['itemLabel']:setString(rune_box_count)]]
