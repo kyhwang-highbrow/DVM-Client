@@ -43,17 +43,6 @@ function UI_ProductNewcomerShop:initUI()
     -- 상품 설명
     local product_desc = struct_product:getDesc()
     vars['dscLabel']:setString(product_desc)
-
-    -- 상품 가격
-    local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, idx)
-    local is_sale_price_written = false
-    if (is_tag_attached == true) then
-        is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, idx)
-    end
-
-    if (is_sale_price_written == false) then
-        vars['moneyLabel']:setString(struct_product:getPriceStr())
-    end
 end
 
 -------------------------------------
@@ -74,6 +63,17 @@ function UI_ProductNewcomerShop:refresh()
     local vars = self.vars
     local struct_product = self.m_structProduct
     local is_buy_all = struct_product:isBuyAll()
+
+    -- 상품 가격
+    local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product)
+    local is_sale_price_written = false
+    if (is_tag_attached == true) then
+        is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product)
+    end
+
+    if (is_sale_price_written == false) then
+        vars['moneyLabel']:setString(struct_product:getPriceStr())
+    end
 
     do-- 구매 제한 텍스트
         local buy_term_str = struct_product:getMaxBuyTermStr()
