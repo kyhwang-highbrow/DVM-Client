@@ -67,8 +67,8 @@ function UI_TitleScene:initUI()
         local year = 2020
         if (date and date.year) then
             year = date.year
-        end        
-        local str = Str('ⓒhighbrow, Inc. 2017~{1} All Rights Reserved', year)
+        end
+        local str = Str('ⓒ {1}. highbrow Inc. all rights reserved.', year)
         vars['copylightImage']:setString(str)
     end
 
