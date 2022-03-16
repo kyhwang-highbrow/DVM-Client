@@ -436,7 +436,13 @@ function UI_EventPopupTab_PurchasePointNew:getUI_NewItem1(step, item_id, count)
     -- 만약 드래곤 카드라면 드래곤 정보 팝업
     local did = tonumber(TableItem:getDidByItemId(item_id))
     if did and (0 < did) then
-        ui_card.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true) end)
+        local function func_clickBtn()
+            --슬라임은 진화 1단계
+            local evolution = TableSlime:isSlimeID(did) and 1 or 3
+            UI_BookDetailPopup.openWithFrame(did, nil, evolution, 0.8, true)
+        end        
+        ui_card.vars['clickBtn']:registerScriptTapHandler(function() func_clickBtn() end)
+
         local attr = TableDragon:getDragonAttr(did)
         vars['bgNode']:removeAllChildren()
         vars['bgNode']:addChild(self:getStepNodeBgBarImg(attr))
