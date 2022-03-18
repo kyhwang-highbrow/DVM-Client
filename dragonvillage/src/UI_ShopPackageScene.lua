@@ -252,6 +252,7 @@ function UI_PackageCategoryButton:click_btn()
     
     if self.m_scrollView:getContainer():getChildrenCount() > 1 and g_localData:isKoreaServer() then
         self.m_contractBtn:setVisible(true)
+        self.m_contractBtn:registerScriptTapHandler(function() GoToAgreeMentUrl() end)
     else
         self.m_contractBtn:setVisible(false)
     end
