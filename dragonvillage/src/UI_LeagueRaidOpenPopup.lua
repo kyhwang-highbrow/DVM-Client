@@ -38,11 +38,7 @@ function UI_LeagueRaidOpenPopup:initUI()
         vars['bossNode']:addChild(animator.m_node)
 
         -- 도굴꾼 싸이즈 임시로 0.5 미래에는 몬스터 스케일 조정 가능하게 뭔가 조치를 취해야 한다
-        if (monster_id == 138001) then
-            animator.m_node:setScale(0.5)
-        end
-		
-		if (monster_id == 138002) then
+        if (138000 <= monster_id) and (monster_id < 139000) then
             animator.m_node:setScale(0.5)
         end
     end
