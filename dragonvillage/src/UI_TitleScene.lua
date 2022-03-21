@@ -64,7 +64,7 @@ function UI_TitleScene:initUI()
 
     do -- copyright
         local date = os.date('*t')
-        local year = 2020
+        local year = 2022
         if (date and date.year) then
             year = date.year
         end
