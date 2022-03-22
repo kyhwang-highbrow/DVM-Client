@@ -359,7 +359,8 @@ end
 -- function click_buyBtn
 ----------------------------------------------------------------------
 function UI_ClearTicket:click_buyBtn(struct_product)    
-    local supply_product = g_supply:getSupplyProductByType(self.m_supplyType)
+    local period = 7
+    local supply_product = g_supply:getSupplyProductByType(self.m_supplyType, period)
 
     local function callback(ret)
         ItemObtainResult_Shop(ret, true)

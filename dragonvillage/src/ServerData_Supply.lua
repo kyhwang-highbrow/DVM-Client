@@ -338,7 +338,7 @@ end
 -------------------------------------
 -- function getSupplyProductIdByType
 -------------------------------------
-function ServerData_Supply:getSupplyProductByType(supply_type)
+function ServerData_Supply:getSupplyProductByType(supply_type, period)
 
     if (not supply_type) then return end
 
@@ -347,8 +347,15 @@ function ServerData_Supply:getSupplyProductByType(supply_type)
 
     for _, t_data in pairs(l_supply_product) do
         if (t_data['type'] == supply_type) then
-            target_data = t_data
-            break
+            if (period ~= nil) then
+                if (period == t_data['period']) then
+                    target_data = t_data
+                    break
+                end
+            else
+                target_data = t_data
+                break
+            end
         end
     end
 
