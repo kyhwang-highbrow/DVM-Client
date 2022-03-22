@@ -554,7 +554,8 @@ function UI_AdventureStageInfo:click_clearTicketBtn()
     end
 
     if (not g_supply:isActiveSupply('clear_ticket')) then
-        local target_data = g_supply:getTargetSupplyData('clear_ticket')
+        local period = 7
+        local target_data = g_supply:getTargetSupplyData('clear_ticket', period)
 
         require('UI_SupplyProductInfoPopup')
         UI_SupplyProductInfoPopup(target_data)
