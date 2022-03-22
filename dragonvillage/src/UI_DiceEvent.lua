@@ -512,13 +512,15 @@ function UI_DiceEvent.makeLap(t_data)
     local ft = gap/2
     local l_reward = t_data['l_reward']
     local reward_cnt = #l_reward
-    local item_id, res, icon, pos_x, value
+    local item_id, res, icon, pos_x, value, item_type
     local l_item_id_list = {}
     for i, t_reward in ipairs(l_reward) do
         item_id = t_reward['item_id']
         value = t_reward['value']
         icon = IconHelper:getItemIcon(item_id)
-		if (TableItem:getItemType(item_id) == 'reinforce_point') then
+
+        item_type = TableItem:getItemType(item_id)
+		if (item_type == 'reinforce_point') or (item_type == 'dragon') then
 			icon:setScale(0.8)
 		end
         vars['rewardNode']:addChild(icon)
