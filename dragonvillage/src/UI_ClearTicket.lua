@@ -317,7 +317,8 @@ function UI_ClearTicket:click_startBtn()
     local function finish_cb(ret)
         function proceeding_end_cb()
             local ui = UI_ClearTicketConfirm(self.m_clearNum, ret)
-        
+            -- Back Key unlock
+            UIManager:blockBackKey(false)
             ui:setCloseCB(function() 
                 self.m_clearNum = 1
                 self:refresh()
@@ -348,7 +349,8 @@ function UI_ClearTicket:click_startBtn()
         g_inventoryData:checkMaximumItems(clear_ticket, manage_func)
     end
 
-    
+    -- Back Key lock
+    UIManager:blockBackKey(true)
     g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
 end
 
