@@ -81,7 +81,21 @@ function UI_Package_SpotSale:initUI()
     
 
     -- 가격
-    vars['priceLabel1']:setString(struct_product:getPriceStr())
+    local node = vars['priceLabel1'] or vars['priceLabel']
+    if node then
+
+        if (struct_product:getPrice() ~= 0) then
+            local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, index)
+            local is_sale_price_written = false
+            if (is_tag_attached == true) then
+                is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, index)
+            end
+
+            if (is_sale_price_written == false) then
+                node:setString(struct_product:getPriceStr())
+            end
+        end
+    end
 
     -- 남은 시간
     vars['timeLabel']:setString('')
@@ -102,6 +116,13 @@ function UI_Package_SpotSale:initButton()
 
     vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn1() end)
     vars['buyBtn1']:setAutoShake(true)
+
+    if g_localData:isKoreaServer() then
+        vars['contractBtn']:setVisible(true)
+        vars['contractBtn']:registerScriptTapHandler(function() GoToAgreeMentUrl() end)
+    else
+        vars['contractBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
