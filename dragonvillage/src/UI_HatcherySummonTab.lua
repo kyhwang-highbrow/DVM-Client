@@ -207,8 +207,7 @@ function UI_HatcherySummonTab:initUI()
     local pickup_list = g_hatcheryData:getPickupStructList()
 
     -- 픽업 리스트가 없는 경우 픽업 메뉴가 보이지 않도록 설정
-    vars['chanceUpTabMenu']:setVisible(#pickup_list ~= 0)
-
+    vars['pickupTabMenu']:setVisible(#pickup_list ~= 0)
     local i = 1
     while(vars['pickupTabBtn' .. i]) do
         if (i <= #pickup_list) then
