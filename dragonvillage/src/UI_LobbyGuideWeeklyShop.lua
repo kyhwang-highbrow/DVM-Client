@@ -38,8 +38,9 @@ function UI_LobbyGuideWeeklyShop:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_LobbyGuideWeeklyShop'
     self.m_bUseExitBtn = true
-    self.m_titleStr = Str('도움말')
+    self.m_titleStr = Str('주간 구매 가능')
     self.m_subCurrency = 'clancoin'
+    self.m_addSubCurrency = 'honor'
 end
 
 -------------------------------------
@@ -76,11 +77,6 @@ function UI_LobbyGuideWeeklyShop:initUI()
     vars['productNode2']:addChild(product_ui.root)
     product_ui:setBuyCB(function() product_ui:refresh() end)
     table.insert(self.m_lProductUI, product_ui)
-
-    -- 상점에서 명예 추가
-    if (g_topUserInfo) then
-        g_topUserInfo:makeGoodsUI('honor', 5) 
-    end
 end
 
 -------------------------------------
