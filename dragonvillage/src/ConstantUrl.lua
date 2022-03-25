@@ -116,8 +116,8 @@ URL['PERPLELAB_AGREEMENT'] = 'https://cafe.naver.com/dragonvillagemobile/105981'
 -- Changed at 2021-09-07 from url below
 -- https://cafe.naver.com/dragonvillagemobile/105979
 URL['PERPLELAB_PI'] = 'https://cafe.naver.com/dragonvillagemobile/126209' -- 개인 정보 취급 방침 (Privacy Policy)
-URL['PERPLELAB_AGREEMENT_EN'] = 'https://www.plug.game/DragonvillageMGlobal#/posts/1812' -- 이용 약관 (Terms of Service)
-URL['PERPLELAB_PI_EN'] = 'https://www.plug.game/DragonvillageMGlobal/1031345#/posts/1813' -- 개인 정보 취급 방침 (Privacy Policy)
+URL['PERPLELAB_AGREEMENT_EN'] = 'https://cafe.naver.com/dragonvillagemobile/149221' -- 이용 약관 (Terms of Service)
+URL['PERPLELAB_PI_EN'] = 'https://cafe.naver.com/dragonvillagemobile/149220' -- 개인 정보 취급 방침 (Privacy Policy)
 
 -- Highbrow
 URL['HIGHBROW'] = 'http://account.game.highbrow-inc.com:8080/'
