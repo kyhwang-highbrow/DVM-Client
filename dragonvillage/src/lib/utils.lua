@@ -301,9 +301,9 @@ end
 -- @brief stack의 pop
 -------------------------------------
 function table.pop(t)
-	local item = table.getFirst(t)
+	local item, key = table.getFirst(t)
 	if (#t > 0) then
-		table.remove(t, 1)
+		table.remove(t, key)
 	end
 	return item
 end
