@@ -231,6 +231,9 @@ local TableInfo_fromServer = {
         ['table_package_achievement'] = {'table_package_achievement', 'package_id'},
         ['table_arena_new'] = {'table_arena_new', 'id'}, -- 콜로세움 개선 후 돌파 보상
         ['table_cross_promotion'] = {'table_cross_promotion', 'event_id'}, -- 콜로세움 개선 후 돌파 보상
+
+        -- 드래곤 획득 패키지
+        ['table_get_dragon_package'] = {'table_get_dragon_package', 'did'},
     }
 
 -------------------------------------

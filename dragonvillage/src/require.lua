@@ -159,6 +159,7 @@ local t_module = {
     'StructClanWarMatch',
     'StructPackageState',
     'StructBattlePassInfo',
+    'StructDragonPkgeData',
 
 	-- ServerData
     'ServerData',
@@ -263,6 +264,7 @@ local t_module = {
     'ServerData_EventArenaPlay',    -- 콜로세움 참여 이벤트
     'ServerData_LeagueRaid',
     'ServerData_HighbrowVip', -- 하이브로 VIP
+    'ServerData_GetDragonPackage',
 
 
     -- Interface
@@ -1130,6 +1132,7 @@ local t_module = {
     'UI_PromoteAutoPick',
     'UI_PromoteQuestDouble',
     'UI_SummonDrawInfo',
+    'UI_GetDragonPackage',
 
     -- UI : 배틀패스 상점 관련
     'UI_BattlePass_Nurture',

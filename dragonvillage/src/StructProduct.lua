@@ -1164,7 +1164,7 @@ end
 -- @brief 
 -------------------------------------
 function StructProduct:getMaxBuyCount()
-	return tonumber(self['max_buy_count'])
+	return tonumber(self['max_buy_count']) or 0
 end
 
 

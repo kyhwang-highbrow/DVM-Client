@@ -573,6 +573,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_FormationArena.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
     <None Include="..\src\ServerData_FriendMatch.lua" />
+    <None Include="..\src\ServerData_GetDragonPackage.lua" />
     <None Include="..\src\ServerData_GrandArena.lua" />
     <None Include="..\src\ServerData_Hatchery.lua" />
     <None Include="..\src\ServerData_Highbrow.lua" />
@@ -916,6 +917,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructDailyMission.lua" />
     <None Include="..\src\StructDeck.lua" />
     <None Include="..\src\StructDragonObject.lua" />
+    <None Include="..\src\StructDragonPkgeData.lua" />
     <None Include="..\src\StructEventBingoInfo.lua" />
     <None Include="..\src\StructEventDiceInfo.lua" />
     <None Include="..\src\StructEventIllusion.lua" />
@@ -1496,6 +1498,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_GameResult_LeagueRaid.lua" />
     <None Include="..\src\UI_GameResult_RuneGuardianDungeon.lua" />
     <None Include="..\src\UI_Game_Mana.lua" />
+    <None Include="..\src\UI_GetDragonPackage.lua" />
     <None Include="..\src\UI_GoldDungeonScene.lua" />
     <None Include="..\src\UI_GoodsInfo.lua" />
     <None Include="..\src\UI_GrandArena.lua" />

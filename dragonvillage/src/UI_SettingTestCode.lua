@@ -81,6 +81,17 @@ function UI_SettingTestCode:initButton()
     self:makeButtonAutomatic('normal Rune Gacha-11', self.runeGacha11)
 
     self:makeButtonAutomatic('앱설치확인', self.checkInstalled)
+
+    self:makeButtonAutomatic('드래곤 획득 패키지 : 탈릿사', function() self:click_GetDragonPackage(121643) end)
+    self:makeButtonAutomatic('드래곤 획득 패키지 : 세에레', function() self:click_GetDragonPackage(121735) end)
+    self:makeButtonAutomatic('드래곤 획득 패키지 : 데스락', function() self:click_GetDragonPackage(121752) end)
+    self:makeButtonAutomatic('드래곤 획득 패키지 : 마카라', function() self:click_GetDragonPackage(121765) end)
+    self:makeButtonAutomatic('드래곤 획득 패키지 : 헤네스', function() self:click_GetDragonPackage(121771) end)
+    self:makeButtonAutomatic('드래곤 획득 패키지 : 템페렌티나', function() self:click_GetDragonPackage(121784) end)
+    self:makeButtonAutomatic('드래곤 획득 패키지 : 카스티타스', function() self:click_GetDragonPackage(121792) end)
+    self:makeButtonAutomatic('드래곤 획득 패키지 : 밀라타스', function() self:click_GetDragonPackage(121804) end)
+    self:makeButtonAutomatic('드래곤 획득 패키지 : 러스트', function() self:click_GetDragonPackage(121813) end)
+    self:makeButtonAutomatic('드래곤 획득 패키지 : 글루토니', function() self:click_GetDragonPackage(121821) end)
 end
 
 -------------------------------------
@@ -617,10 +628,6 @@ function UI_SettingTestCode:checkInstalled()
 
 end
 
-
-
-
-
 -------------------------------------
 -- function click_eventSummonBtn
 -- @brief 확률업
@@ -648,4 +655,15 @@ function UI_SettingTestCode.click_runeGacha(is_bundle)
     end
     --일반 룬 뽑기
     g_runesData:request_runeGacha(is_bundle, false, '1', finish_cb, fail_cb)
+end
+
+-------------------------------------
+-- function click_GetDragonPackage
+-- @brief 드래곤 획득 패키지 UI 출력
+-------------------------------------
+function UI_SettingTestCode:click_GetDragonPackage(did)
+    --g_GetDragonPackeage:TestFunction()
+
+    local package = StructDragonPkgeData(did, os.time())
+    UI_GetDragonPackage(package, nil)
 end

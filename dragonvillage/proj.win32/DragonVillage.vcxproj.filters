@@ -5031,6 +5031,9 @@
     <None Include="..\src\UI_CustomEnhanceFruit.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_GetDragonPackage.lua" />
+    <None Include="..\src\ServerData_GetDragonPackage.lua" />
+    <None Include="..\src\StructDragonPkgeData.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -1,0 +1,134 @@
+local PARENT = Structure
+
+StructDragonPkgeData = class({PARENT,
+    m_dragonID = 'Number',       --등록된 드래곤 ID
+    m_packageList = 'List',      --패키지 상품 ID List
+    m_productTable = 'Table',    --상품 데이터 StructProduct Table
+
+    m_startTime = 'Data',      --패키지 시작 시간
+    m_endTime = 'Date',        --패키지 종료 시간
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function StructDragonPkgeData:init(did, stTime)
+    self.m_dragonID = tonumber(did)
+    self.m_startTime = stTime
+    self.m_endTime = stTime + (60 * 60 * 24)   --계산하는거 수정예정
+
+    local packageTable = TABLE:get('table_get_dragon_package')
+    self.m_packageList = plSplit(packageTable[did]['product_id'], ';')
+
+    --상품 정보
+    self.m_productTable = {}
+    for _, pid in pairs(self.m_packageList) do
+        --Shop Data에서 pid를 통해서 상품 정보들 다 찾아놓는다.
+        self.m_productTable[pid] = g_shopDataNew:getTargetProduct(tonumber(pid))
+    end
+end
+
+-------------------------------------
+-- function getClassName
+-------------------------------------
+function StructDragonPkgeData:getClassName()
+    return 'StructDragonPkgeData'
+end
+
+-------------------------------------
+-- function getThis
+-------------------------------------
+function StructDragonPkgeData:getThis()
+    return StructDragonPkgeData
+end
+
+-------------------------------------
+-- function getProductList
+-------------------------------------
+function StructDragonPkgeData:getProductList()
+    return self.m_packageList
+end
+
+-------------------------------------
+-- function getDragonID
+-------------------------------------
+function StructDragonPkgeData:getDragonID()
+    return self.m_dragonID
+end
+
+-------------------------------------
+-- function getLastProductID
+-- @brief 패키지에서 마지막 상품 ID 전달
+-------------------------------------
+function StructDragonPkgeData:getLastProductID()
+    local productList = self:getProductList()
+    return productList[#productList]
+end
+
+-------------------------------------
+-- function getPossibleProduct
+-- @brief 패키지에서 구매 가능 상품을 구해준다
+-------------------------------------
+function StructDragonPkgeData:getPossibleProduct()
+    local product, isSale = nil, false
+    --상품 리스트 순회
+    local productList = self:getProductList()
+    for index, pid in pairs(productList) do
+        local data = self:getProduct(pid)   --상품 가져오기
+        --구매 가능한지 확인
+        local isPossible = (not data:isBuyAll())
+        if isPossible then
+            product = data
+            isSale = (index ==  1) -- 세일 상품인지(첫번째 상품이 세일 상품)
+            break
+        end
+    end
+
+    return product, isSale
+end
+
+-------------------------------------
+-- function getPossibleProduct
+-- @brief 패키지에서 구매 가능 상품이 있는지 확인해준다
+-------------------------------------
+function StructDragonPkgeData:isPossibleProduct()
+    local product = self:getPossibleProduct()
+    return (product ~= nil)
+end
+
+-------------------------------------
+-- function getTotalBuyCntndMaxCnt
+-- @brief 패키지에 대한 구매 개수, 최대 구매 가능 개수를 구해준다
+-------------------------------------
+function StructDragonPkgeData:getTotalBuyCntndMaxCnt()
+    local total_BuyCnt, total_MaxCnt = 0, 0
+
+    local productList = self:getProductList()
+    for _, pid in pairs(productList) do
+        local product = self:getProduct(pid)
+        total_BuyCnt = total_BuyCnt + g_shopDataNew:getBuyCount(pid)
+        total_MaxCnt = total_MaxCnt + product:getMaxBuyCount()
+    end
+
+    return total_BuyCnt, total_MaxCnt
+end
+
+-------------------------------------
+-- function getProduct
+-- @brief 상품 테이블에서 상품 정보 전달
+-------------------------------------
+function StructDragonPkgeData:getProduct(pid)
+    return self.m_productTable[pid]
+end
+
+-------------------------------------
+-- function getRemainTime
+-- @brief 남은 시간 계산해서 전달
+-------------------------------------
+function StructDragonPkgeData:getRemainTime()
+    local serverTime = Timer:getServerTime()
+
+    local remainTime = self.m_endTime - serverTime
+
+    return remainTime
+end

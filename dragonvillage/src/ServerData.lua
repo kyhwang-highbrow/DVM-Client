@@ -231,6 +231,9 @@ function ServerData:getInstance()
     -- 차원문 돌파 패키지 (21.05.18)
     g_dmgatePackageData = ServerData_DmgatePackage(g_serverData)
     
+    -- 드래곤 획득 패키지
+    g_GetDragonPackeage = ServerData_GetDragonPackage(g_serverData)
+
     -- 배틀패스 패키지
     g_battlePassData = ServerData_BattlePass(g_serverData)
 
