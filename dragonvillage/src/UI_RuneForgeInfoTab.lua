@@ -150,6 +150,12 @@ function UI_RuneForgeInfoTab:refresh()
         -- 구매제한 설명 문구 
         local buy_count_desc = product_struct:getMaxBuyTermStr()
         vars['runeBlessBuyLabel']:setString(buy_count_desc)
+
+        if (product_struct:isBuyable() == true) then
+            vars['runeBlessBuyLabel']:setColor(COLOR['green'])
+        else
+            vars['runeBlessBuyLabel']:setColor(COLOR['red'])
+        end
     end
     
     do -- 룬 연마석
@@ -165,6 +171,13 @@ function UI_RuneForgeInfoTab:refresh()
         -- 구매제한 설명 문구 
         local buy_count_desc = product_struct:getMaxBuyTermStr()
         vars['grindstoneBuyLabel']:setString(buy_count_desc)
+
+        
+        if (product_struct:isBuyable() == true) then
+            vars['grindstoneBuyLabel']:setColor(COLOR['green'])
+        else
+            vars['grindstoneBuyLabel']:setColor(COLOR['red'])
+        end
     end
 end
 
@@ -173,14 +186,6 @@ end
 -- @brief 룬 연마석 패키지
 -------------------------------------
 function UI_RuneForgeInfoTab:click_grindstonePackageBtn()
-    --[[
-    local ui = UI_Package_Bundle('package_rune_grind_pack_02', true)
-
-    local function buy_cb()
-        UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM, function() self:refresh() end)
-    end
-    ui:setBuyCB(buy_cb)]]
-
     local vars = self.vars
     
     -- 룬 연마석 product ID : 210022
