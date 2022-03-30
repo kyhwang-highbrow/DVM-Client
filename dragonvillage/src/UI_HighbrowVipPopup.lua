@@ -60,14 +60,31 @@ function UI_HighbrowVipPopup:initUI()
     UIManager:replaceResource(vars['rewardFrameNode1'], item_box_res)
     UIManager:replaceResource(vars['rewardFrameNode2'], item_box_res)
 
-    -- 아이템
-    local item_icon_res = g_highbrowVipData:getItemIconRes()
-    UIManager:replaceResource(vars['rewardNode'], item_icon_res)
-
     
-    local item_str = g_highbrowVipData:getItemStr()
-    vars['rewardLabel']:setString(item_str)
+    local is_reward_exist = g_highbrowVipData:checkItemExist()
+    if (is_reward_exist == true) then
+        vars['rewardMenu1']:setVisible(true)
+        -- 보상 이미지
+        local item_icon_res = g_highbrowVipData:getItemIconRes()
+        UIManager:replaceResource(vars['rewardNode'], item_icon_res)
 
+        -- 보상 String
+        local item_str = g_highbrowVipData:getItemStr()
+        vars['rewardLabel']:setString(item_str)
+
+        vars['silverMenu']:setVisible(not is_reward_exist)
+        vars['goldMenu']:setVisible(is_reward_exist)
+    else
+        -- 타이틀 변경
+        vars['titleLabel']:setString(Str('{1} 등급 테이머님 환영합니다!', Str(vip_name)))
+
+        vars['rewardMenu1']:setVisible(false)
+        vars['rewardMenu2']:setPositionX(0)
+        vars['benefitLabel']:setString(Str('혜택'))
+
+        vars['silverMenu']:setVisible(not is_reward_exist)
+        vars['goldMenu']:setVisible(is_reward_exist)
+    end    
 
     self:initEditBox()
 end

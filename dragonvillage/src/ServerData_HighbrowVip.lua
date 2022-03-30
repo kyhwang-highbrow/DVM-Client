@@ -14,24 +14,24 @@ local instance = nil
 
 
 TABLE_HIGHBROW_VIP = {
-    -- [1] : GOLD
-    {
-        ['grade'] = 1,
+    ['silver'] = {
+        ['res_num'] = 1,
+        ['name'] = '실버'
+    },
+    ['gold'] = {
+        ['res_num'] = 2,
         ['name'] = '골드',
         ['item'] = '700001;51000',
         ['item_icon_res'] = 'ui/icons/item/shop_cash_05.png',
-        
     },
-    -- [2] : VIP
-    {
-        ['grade'] = 2,
+    ['vip'] = {
+        ['res_num'] = 3,
         ['name'] = 'VIP',
         ['item'] = '700001;378000',
         ['item_icon_res'] = 'ui/icons/item/shop_cash_07.png',
     },
-    -- [3] : SVIP
-    {
-        ['grade'] = 3,
+    ['svip'] = {
+        ['res_num'] = 4,
         ['name'] = 'SVIP',
         ['item'] = '700001;378000',
         ['item_icon_res'] = 'ui/icons/item/shop_cash_07.png',
@@ -113,6 +113,15 @@ function ServerData_HighbrowVip:getVipName()
 end
 
 -------------------------------------
+-- function checkItemExist
+-------------------------------------
+function ServerData_HighbrowVip:checkItemExist()
+    local vip_data = TABLE_HIGHBROW_VIP[self.m_vipGrade]
+
+    return (vip_data['item'] ~= nil)
+end
+
+-------------------------------------
 -- function getItemStr
 -------------------------------------
 function ServerData_HighbrowVip:getItemStr()
@@ -128,6 +137,22 @@ function ServerData_HighbrowVip:getItemStr()
     return str
 end
 
+-------------------------------------
+-- function getItemNum
+-------------------------------------
+function ServerData_HighbrowVip:getItemNum()
+    local vip_data = TABLE_HIGHBROW_VIP[self.m_vipGrade]
+    local item_str = vip_data['item']
+
+    if (item_str == nil) then
+        return 0
+    end
+
+    local item_list = g_itemData:parsePackageItemStr(item_str)
+
+    return table.count(item_list)
+end
+
 
 -------------------------------------
 -- function getItemIconRes
@@ -141,7 +166,10 @@ end
 -- function getVipBtnRes
 -------------------------------------
 function ServerData_HighbrowVip:getVipBtnRes()
-    local res = string.format('ui/icons/side_menu_vip_%02d.png', tonumber(self.m_vipGrade))
+    
+    local vip_data = TABLE_HIGHBROW_VIP[self.m_vipGrade]
+    local res_num = vip_data['res_num']
+    local res = string.format('ui/icons/side_menu_vip_%02d.png', res_num)
     return res
 end
 
@@ -149,7 +177,9 @@ end
 -- function getVipIconRes
 -------------------------------------
 function ServerData_HighbrowVip:getVipIconRes()
-    local res = string.format('ui/icons/vip_grade_%02d.png', tonumber(self.m_vipGrade))
+    local vip_data = TABLE_HIGHBROW_VIP[self.m_vipGrade]
+    local res_num = vip_data['res_num']
+    local res = string.format('ui/icons/vip_grade_%02d.png', res_num)
     return res
 end
 
@@ -157,7 +187,9 @@ end
 -- function getBottomFrameRes
 -------------------------------------
 function ServerData_HighbrowVip:getBottomFrameRes()
-    local res = string.format('ui/frames/vip_letter_%02d.png', tonumber(self.m_vipGrade))
+    local vip_data = TABLE_HIGHBROW_VIP[self.m_vipGrade]
+    local res_num = vip_data['res_num']
+    local res = string.format('ui/frames/vip_letter_%02d.png', res_num)
     return res
 end
 
@@ -165,7 +197,9 @@ end
 -- function getItemBoxRes
 -------------------------------------
 function ServerData_HighbrowVip:getItemBoxRes()
-    local res = string.format('ui/frames/vip_itembox_%02d.png', tonumber(self.m_vipGrade))
+    local vip_data = TABLE_HIGHBROW_VIP[self.m_vipGrade]
+    local res_num = vip_data['res_num']
+    local res = string.format('ui/frames/vip_itembox_%02d.png', res_num)
     return res
 end
 
@@ -187,7 +221,6 @@ end
 -- function getVipButton
 -------------------------------------
 function ServerData_HighbrowVip:getVipButton()
-    
     require('UI_HighbrowVipPopup')
     return UI_ButtonHighbrowVIP
 end
