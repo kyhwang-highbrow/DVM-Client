@@ -4,8 +4,9 @@ local PARENT = UI
 -- class UI_GetDragonPackage
 -------------------------------------
 UI_GetDragonPackage = class(PARENT, {
-    m_packageData = 'StructDragonPkgeData',  --드래곤 패키지 데이터
-    m_closeCallBack = 'function'             --Close CallBack Function    
+    m_packageData = 'StructDragonPkgData',  --드래곤 패키지 데이터
+    m_closeCallBack = 'function',            --Close CallBack Function
+    m_mainProduct = 'StructProduct',         --UI에 노출되어있는 메인 상품
 })
 
 -------------------------------------
@@ -14,6 +15,7 @@ UI_GetDragonPackage = class(PARENT, {
 function UI_GetDragonPackage:init(packageData, close_cb)
     self.m_packageData = packageData
     self.m_closeCallBack = close_cb
+    self.m_mainProduct = packageData:getPossibleProduct()
 
     self:initUI()
     self:initButton()
@@ -24,18 +26,14 @@ end
 -- function initUI
 -------------------------------------
 function UI_GetDragonPackage:initUI()
-    self:load('package_first_myth.ui')
+    local vars = self:load('package_first_myth.ui')
     UIManager:open(self, UIManager.POPUP)
 
 	--backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_GetDragonPackage')
 
-    local vars = self.vars
-    local packageData = self.m_packageData
-
-    --남은 시간 (핸들러 등록해야한다)
-    local time_str = datetime.makeTimeDesc(packageData:getRemainTime())
-    vars['timeLabel']:setString(Str('판매 종료까지 {1} 남음', time_str))
+    --남은 시간
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:timeUpdate() end, 0)
 
     --드래곤에 따른 배경
     self:setDragonBg()
@@ -50,8 +48,11 @@ end
 function UI_GetDragonPackage:initButton()
     local vars = self.vars
 
-    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    vars['contractBtn']:registerScriptTapHandler(function() GoToAgreeMentUrl() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end) --Close
+    vars['contractBtn']:registerScriptTapHandler(function() GoToAgreeMentUrl() end) --청약철회
+
+    --구매 버튼 설정
+    self:setBuyButton()
 end
 
 -------------------------------------
@@ -68,22 +69,20 @@ function UI_GetDragonPackage:refresh()
     local congratulateText = Str('{1} {2} 획득을 축하합니다.', dragonRarity, dragonName)
     vars['congratulateLabel']:setString(congratulateText)
 
-    --구매 가능한 상품, 세일여부
-    local product, isSale = packageData:getPossibleProduct()
-
     -- 가격 Label
-    self:setPriceLabel(product, isSale)
+    self:setPriceLabel()
     -- 구매하기 Label
     self:setBuyLabel()
     -- 상품 리스트
-    self:initTableView(product)
+    self:initTableView()
 end
 
 -------------------------------------
 -- function initTableView
 -------------------------------------
-function UI_GetDragonPackage:initTableView(product)
+function UI_GetDragonPackage:initTableView()
     local node = self.vars['itemNode']
+    local product = self.m_mainProduct
     local itemList = ServerData_Item:parsePackageItemStr(product['mail_content'])
     node:removeAllChildren()
 
@@ -97,16 +96,27 @@ function UI_GetDragonPackage:initTableView(product)
     table_view:setItemList(itemList)
 end
 
+function UI_GetDragonPackage:timeUpdate()
+    local vars = self.vars
+    local packageData = self.m_packageData
+    local remainTime = packageData:getRemainTime()
+
+    local time_str = datetime.makeTimeDesc(remainTime)
+    vars['timeLabel']:setString(Str('판매 종료까지 {1} 남음', time_str))
+end
+
 -------------------------------------
 -- function setPriceLabel
 -- @brief 가격 Label 설정
 -------------------------------------
-function UI_GetDragonPackage:setPriceLabel(product, isSale)
+function UI_GetDragonPackage:setPriceLabel()
     local vars = self.vars
-    local packageData = self.m_packageData 
+    local product = self.m_mainProduct
+    local packageData = self.m_packageData
 
+    local isSale = packageData:isSaleProduct(product)
     --가격 설정
-    vars['saleSprite'] :setVisible(isSale)    --세일 아이콘
+    vars['saleSprite']:setVisible(isSale)    --세일 아이콘
     vars['priceLabel']:setVisible(not isSale) 
     vars['promotionSprite']:setVisible(isSale)
     vars['originalPriceLabel']:setVisible(isSale)
@@ -187,7 +197,6 @@ function UI_GetDragonPackage:setDragonBg()
     node:addChild(bgSprite)
 end
 
-
 -------------------------------------
 -- function getStepNodeBgBarImg
 -- @brief 드래곤 속성에 따른 Bar Img 획득
@@ -198,6 +207,40 @@ function UI_GetDragonPackage:getStepNodeBgBarImg(attr)
     return res
 end
 
+-------------------------------------
+-- function setBuyButton
+-- @brief 구매 버튼 설정
+-------------------------------------
+function UI_GetDragonPackage:setBuyButton()
+    local vars = self.vars
+    --구매 성공 Call Back
+    local function cb_func()
+        UI_ToastPopup(Str('보상이 우편함으로 전송되었습니다.'))
+        local packageData = self.m_packageData
+        --Main Product refresh
+        self.m_mainProduct = packageData:getPossibleProduct()
+        if (self.m_mainProduct == nil) then --더 이상 상품이 없으면 Close
+            self:click_closeBtn()
+            return
+        end
+
+        self:refresh()
+    end
+
+    vars['buyBtn']:registerScriptTapHandler(function() self.m_mainProduct:buy(cb_func) end)
+end
+
+-------------------------------------
+-- function click_closeBtn
+-- @brief 종료 버튼
+-------------------------------------
+function UI_GetDragonPackage:click_closeBtn()
+    if (self.m_closeCallBack) then
+        self.m_closeCallBack()
+    end
+
+    self:close()
+end
 
 -------------------------------------
 -- function getUI_ProductItemCard
@@ -218,18 +261,6 @@ function UI_GetDragonPackage.getUI_ProductItemCard(data)
         ui_card.vars['clickBtn']:registerScriptTapHandler(function() func_clickBtn() end)
     end
     return ui_card
-end
-
--------------------------------------
--- function click_closeBtn
--- @brief 종료 버튼
--------------------------------------
-function UI_GetDragonPackage:click_closeBtn()
-    if (self.m_closeCallBack) then
-        self.m_closeCallBack()
-    end
-
-    self:close()
 end
 
 --@CHECK

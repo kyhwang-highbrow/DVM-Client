@@ -662,8 +662,11 @@ end
 -- @brief 드래곤 획득 패키지 UI 출력
 -------------------------------------
 function UI_SettingTestCode:click_GetDragonPackage(did)
-    --g_GetDragonPackeage:TestFunction()
+    local package = StructDragonPkgData(did, os.time())
+    if( package:isPossibleProduct() == false) then
+        UI_SimplePopup(POPUP_TYPE.OK, '모든 패키지를 구매 했습니다.', nil, nil)
+        return
+    end
 
-    local package = StructDragonPkgeData(did, os.time())
     UI_GetDragonPackage(package, nil)
 end

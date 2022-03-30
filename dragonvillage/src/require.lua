@@ -159,7 +159,7 @@ local t_module = {
     'StructClanWarMatch',
     'StructPackageState',
     'StructBattlePassInfo',
-    'StructDragonPkgeData',
+    'StructDragonPkgData',
 
 	-- ServerData
     'ServerData',
