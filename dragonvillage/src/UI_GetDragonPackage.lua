@@ -5,19 +5,22 @@ local PARENT = UI
 -------------------------------------
 UI_GetDragonPackage = class(PARENT, {
     m_packageData = 'StructDragonPkgData',  --드래곤 패키지 데이터
-    m_closeCallBack = 'function',            --Close CallBack Function
-    m_mainProduct = 'StructProduct',         --UI에 노출되어있는 메인 상품
+    m_closeCallBack = 'function',           --Close CallBack Function
+    m_mainProduct = 'StructProduct',        --UI에 노출되어있는 메인 상품
+    m_Timer = 'number'                      --timeUpdate에서 dt를 누적시켜 지나간 시간을 확인 
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GetDragonPackage:init(packageData, close_cb)
+function UI_GetDragonPackage:init(packageData, close_cb, isPopUp)
+    self.m_Timer = 1    --첫 초기화를 위해
     self.m_packageData = packageData
     self.m_closeCallBack = close_cb
     self.m_mainProduct = packageData:getPossibleProduct()
-
-    self:initUI()
+    
+    
+    self:initUI(isPopUp)
     self:initButton()
     self:refresh()
 end
@@ -25,21 +28,44 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_GetDragonPackage:initUI()
+function UI_GetDragonPackage:initUI(isPopUp)
     local vars = self:load('package_first_myth.ui')
-    UIManager:open(self, UIManager.POPUP)
 
-	--backkey 지정
-	g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_GetDragonPackage')
+    if (isPopUp) then
+        UIManager:open(self, UIManager.POPUP)
+	    --backkey 지정
+	    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_GetDragonPackage')
+    end
+
+    --Close버튼
+    vars['closeBtn']:setVisible(isPopUp)
 
     --남은 시간
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:timeUpdate() end, 0)
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:timeUpdate(dt) end, 0)
 
     --드래곤에 따른 배경
     self:setDragonBg()
 
     --드래곤 애니매이션 추가
     self:setDragonAnimator()
+
+    --제한 시간 설정
+    self:setTimeLimit()
+end
+
+function UI_GetDragonPackage:setTimeLimit()
+    local vars = self.vars
+    local packageData = self.m_packageData
+
+    -- 남은 시간 이미지 텍스트로 보여줌
+    local remain_time_label = cc.Label:createWithBMFont('res/font/tower_score.fnt', 0)
+    remain_time_label:setAnchorPoint(cc.p(0.5, 0.5))
+    remain_time_label:setDockPoint(cc.p(0.5, 0.5))
+    remain_time_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    remain_time_label:setAdditionalKerning(0)
+
+    vars['remainLabel'] = remain_time_label
+    vars['timeNode']:addChild(remain_time_label)
 end
 
 -------------------------------------
@@ -90,19 +116,22 @@ function UI_GetDragonPackage:initTableView()
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(155, 10)
     table_view:setCellUIClass(self.getUI_ProductItemCard)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    table_view:setAlignCenter(true)
-    table_view:setScrollLock(true)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL) --가로
+    table_view:setAlignCenter(true) --중앙 정렬
+    table_view:setScrollLock(true)  --스크롤 Lock
     table_view:setItemList(itemList)
 end
 
-function UI_GetDragonPackage:timeUpdate()
-    local vars = self.vars
-    local packageData = self.m_packageData
-    local remainTime = packageData:getRemainTime()
+function UI_GetDragonPackage:timeUpdate(dt)
+    self.m_Timer = self.m_Timer + dt
+    if self.m_Timer < 1 then
+        return 
+    end
 
-    local time_str = datetime.makeTimeDesc(remainTime)
-    vars['timeLabel']:setString(Str('판매 종료까지 {1} 남음', time_str))
+    local remainTime = self.m_packageData:getRemainTime() * 1000
+    local desc_time = datetime.makeTimeDesc_timer_filledByZero(remainTime)
+    self.vars['remainLabel']:setString(desc_time)
+    self.m_Timer = 0
 end
 
 -------------------------------------
@@ -142,8 +171,7 @@ function UI_GetDragonPackage:setBuyLabel()
     local packageData = self.m_packageData 
 
     local BuyCnt, MaxCnt = packageData:getTotalBuyCntndMaxCnt()
-    local str = Str('구매 가능 {1}/{2}', (MaxCnt - BuyCnt), MaxCnt)
-    str = '{@possible}' .. str
+    local str = '{@possible}' .. Str('구매 가능 {1}/{2}', (MaxCnt - BuyCnt), MaxCnt)
     vars['buyLabel']:setVisible(true)
     vars['buyLabel']:setString(str)
 end

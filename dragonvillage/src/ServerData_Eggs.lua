@@ -47,6 +47,9 @@ function ServerData_Eggs:request_incubate(egg_id, cnt, finish_cb, fail_cb)
         -- 슬라임들 추가
         g_slimesData:applySlimeData_list(ret['added_slimes'])
 
+        --드래곤 획득 패키지 정보 갱신
+        g_getDragonPackage:applyPackageList(ret)
+
         if finish_cb then
             finish_cb(ret)
         end

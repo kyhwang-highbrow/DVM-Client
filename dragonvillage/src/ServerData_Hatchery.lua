@@ -234,6 +234,9 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, pickup_id, d
         -- 천장 남은 횟수 정보 갱신
         self:applyPickupCeilingInfo(ret)
 
+        --드래곤 획득 패키지 정보 갱신
+        g_getDragonPackage:applyPackageList(ret)
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -398,7 +401,9 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, pickup_id,
 
         -- 천장 남은 횟수 정보 갱신
         self:applyPickupCeilingInfo(ret)
-        
+
+        --드래곤 획득 패키지 정보 갱신
+        g_getDragonPackage:applyPackageList(ret)
 
         if finish_cb then
             finish_cb(ret)

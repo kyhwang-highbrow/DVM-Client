@@ -92,6 +92,8 @@ function UI_SettingTestCode:initButton()
     self:makeButtonAutomatic('드래곤 획득 패키지 : 밀라타스', function() self:click_GetDragonPackage(121804) end)
     self:makeButtonAutomatic('드래곤 획득 패키지 : 러스트', function() self:click_GetDragonPackage(121813) end)
     self:makeButtonAutomatic('드래곤 획득 패키지 : 글루토니', function() self:click_GetDragonPackage(121821) end)
+
+    self:makeButtonAutomatic('드래곤 획득 패키지 등록 드래곤', function() self:click_GetDragonPackageList() end)    
 end
 
 -------------------------------------
@@ -664,9 +666,34 @@ end
 function UI_SettingTestCode:click_GetDragonPackage(did)
     local package = StructDragonPkgData(did, os.time())
     if( package:isPossibleProduct() == false) then
-        UI_SimplePopup(POPUP_TYPE.OK, '모든 패키지를 구매 했습니다.', nil, nil)
+        UI_ToastPopup('패키지를 모두 구매하셨습니다. 패키지 구매내역을 초기화 해주세요.')
         return
     end
 
-    UI_GetDragonPackage(package, nil)
+    UI_GetDragonPackage(package, nil, true)
+end
+
+-------------------------------------
+-- function click_GetDragonPackage
+-- @brief 드래곤 획득 패키지 UI 출력
+-------------------------------------
+function UI_SettingTestCode:click_GetDragonPackageList()
+    if g_getDragonPackage:isPossibleBuyPackage() then
+        UI_ToastPopup('구매 가능한 리스트가 없습니다.')
+    end
+
+    local packageList = table.merge(g_getDragonPackage:getPackageList())
+    local function PopupPackage()
+        local package = table.pop(packageList)
+        if not package then
+            return
+        end
+
+        if (package:isPossibleProduct() == false) then
+            PopupPackage()
+            return
+        end
+        UI_GetDragonPackage(package, PopupPackage, true)
+    end
+    PopupPackage()
 end

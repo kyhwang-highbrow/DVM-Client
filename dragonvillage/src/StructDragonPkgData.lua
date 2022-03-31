@@ -15,8 +15,7 @@ StructDragonPkgData = class({PARENT,
 function StructDragonPkgData:init(did, stTime)
     self.m_dragonID = tonumber(did)
     self.m_startTime = stTime
-    self.m_endTime = stTime + (60 * 60 * 24)   --계산하는거 수정예정
-
+    self.m_endTime = stTime + 86400 --종료는 1일 뒤(60 * 60 * 24)
     local packageTable = TABLE:get('table_get_dragon_package')
     self.m_packageList = plSplit(packageTable[did]['product_id'], ';')
 

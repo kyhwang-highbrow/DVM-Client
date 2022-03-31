@@ -2,8 +2,9 @@
 -- class ServerData_GetDragonPackage
 -------------------------------------
 ServerData_GetDragonPackage = class({
-    m_serverData = 'ServerData',                      --서버 데이터
+    m_serverData = 'ServerData',                     --서버 데이터
     m_PackageList = 'list[StructDragonPkgeData]',     --패키지 정보가 들어있는 Table
+    m_PopUpList = 'list',                         --새로운 패키지가 생긴다면 팝업
 })
 
 -------------------------------------
@@ -12,22 +13,25 @@ ServerData_GetDragonPackage = class({
 function ServerData_GetDragonPackage:init(server_data)
     self.m_serverData = server_data
     self.m_PackageList = {}
+    self.m_PopUpList = {}
 end
 
 -------------------------------------
 -- function applyPackageList
 -- @brief 서버에서 내려준 데이터 받아서 분해 후 테이블에 저장
 -------------------------------------
-function ServerData_GetDragonPackage:applyPackageList(data)
+function ServerData_GetDragonPackage:applyPackageList(ret)
+    local pkgDragonList = ret['pkg_dragon_info']
+    if (pkgDragonList == nil) then
+        return
+    end
     local pkgList = self.m_PackageList
-
-    local pkgDragonList = data['pkg_dragon_info']
     for did, startTime in pairs(pkgDragonList) do
-        did = tonumber(did)
-        --생성된 패키지 없음
-        if(pkgList[did] == nil) then
-            --패키지 생성 후 insert
-            local package = StructDragonPkgeData(did, startTime)
+        did, startTime = tonumber(did)
+        --이미 패키지가 있는지 확인
+        if (pkgList[did] == nil) then
+            --없다면 패키지 생성 후 insert
+            local package = StructDragonPkgData(did, startTime)
             table.insert(pkgList, did, package)
         end
     end
@@ -52,4 +56,12 @@ function ServerData_GetDragonPackage:isPossibleBuyPackage()
     end
 
     return false
+end
+
+function ServerData_GetDragonPackage:getPackageList()
+    return self.m_PackageList
+end
+
+function ServerData_GetDragonPackage:getPackage(dragonID)
+    return self.m_PackageList[dragonID]
 end

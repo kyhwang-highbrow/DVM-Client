@@ -3,9 +3,9 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_ShopPackageScene = class(PARENT, {
     m_tableView = 'UIC_TableView',
     m_scrollView = 'cc.ScrollView',
-
-
     m_targetButton = 'UIC_Button',
+
+    m_dragonPkgUI = 'UI_GetDragonPackage',
 })
 
 ----------------------------------------------------------------------
@@ -58,7 +58,6 @@ end
 -- function refresh
 ----------------------------------------------------------------------
 function UI_ShopPackageScene:refresh()
-
     if (not self.m_targetButton) then
         local item = self.m_tableView:getItemFromIndex(1)
         self.m_targetButton = item['ui'] or item['generated_ui']
@@ -66,17 +65,14 @@ function UI_ShopPackageScene:refresh()
     self.m_targetButton:click_btn()
 
     local index = self.m_targetButton:getCellIndex()
-    
     self.m_tableView:relocateContainerFromIndex(index)
 end
-
 
 ----------------------------------------------------------------------
 -- function createPackageScrollView
 -- brief : 
 ----------------------------------------------------------------------
 function UI_ShopPackageScene:createPackageScrollView()
-
     local content_size = self.vars['contentsListNode']:getContentSize()
 
     local scroll_view = cc.ScrollView:create()
@@ -94,15 +90,17 @@ end
 -- function createButtonTableView
 ----------------------------------------------------------------------
 function UI_ShopPackageScene:createButtonTableView(package_name)
-
     if self.m_tableView then
         self.m_tableView:removeAllChildren()
         self.m_tableView = nil
     end
-    local item_list = g_shopDataNew:getActivatedPackageList()
- 
-    local create_func = function(ui, data)
-        ui.vars['listLabel']:setString(Str(data['t_desc']))
+
+    local table_view = UIC_TableView(self.vars['listNode'])
+    table_view:setCellSizeToNodeSize()
+    table_view:setGapBtwCells(3)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+
+    local createPkg_func = function(ui, data)
         ui.m_scrollView = self.m_scrollView
         ui.m_contractBtn = self.vars['contractBtn']
         ui.m_parent = self
@@ -114,28 +112,65 @@ function UI_ShopPackageScene:createButtonTableView(package_name)
         ui:refresh()
     end
 
-    local table_view = UIC_TableView(self.vars['listNode'])
-    table_view:setCellSizeToNodeSize()
-    table_view:setGapBtwCells(3)
-    table_view:setCellUIClass(UI_PackageCategoryButton, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(item_list, true)
+    local createDragonPkg_func = function(ui)
+        ui.m_parent = self
+        ui:refresh()
+    end
+
+    local item_list = g_shopDataNew:getActivatedPackageList()
+    if (g_getDragonPackage:isPossibleBuyPackage()) then
+        local dragonList = g_getDragonPackage:getPackageList()--드래곤 획득 패키지
+        table_view:setCellUIClass(UI_DragonPackageCategoryButton, createDragonPkg_func)
+        table_view:setItemList(dragonList, true)   --드래곤 획득 패키지
+        table_view:setCellUIClass(UI_PackageCategoryButton, createPkg_func)
+        table_view:addItemList(item_list)
+    else
+        table_view:setCellUIClass(UI_PackageCategoryButton, createPkg_func)
+        table_view:setItemList(item_list, true)
+    end
 
     self.m_tableView = table_view
 end
 
-----------------------------------------------------------------------
--- function click_exitBtn
-----------------------------------------------------------------------
+function UI_ShopPackageScene:changeTargetUI(newTarget)
+    local targetUI = self.m_targetButton
+    if (targetUI) then
+        targetUI.vars['listBtn']:setEnabled(true)
+    end
+
+    newTarget.vars['listBtn']:setEnabled(false)
+    self.m_targetButton = newTarget
+end
+
+function UI_ShopPackageScene:setOff_DragonPackageUI()
+    local oldUI = self.m_dragonPkgUI or nil
+
+    --기존 UI 끄고 새로운 UI 띄운다
+    if (oldUI) then
+        oldUI:setVisible(false)
+    end
+end
+
+function UI_ShopPackageScene:setDragonPackageUI(packageUI, isNew)
+    local vars = self.vars
+    local contentsNode = vars['contentsNode']
+
+    self:setOff_DragonPackageUI()
+    packageUI:setVisible(true)
+
+    --New Node 추가
+    if isNew then
+        contentsNode:addChild(packageUI.root)
+    end
+
+    self.m_dragonPkgUI = packageUI
+    self.m_scrollView:setVisible(false)
+    vars['contractBtn']:setVisible(false)
+end
+
 function UI_ShopPackageScene:click_exitBtn()
     self:close()
 end
-
-
-
-
-
-------------------------------------------------------
 
 UI_PackageCategoryButton = class(class(UI, ITableViewCell:getCloneTable()), {
     m_data = 'StructPackage',
@@ -159,7 +194,10 @@ end
 ----------------------------------------------------------------------
 function UI_PackageCategoryButton:refresh()
     local vars = self.vars
-    local product_list = self.m_data:getProductList()
+    local data = self.m_data
+    local product_list = data:getProductList()
+
+    vars['listLabel']:setString(Str(data['t_desc']))
 
     local is_changed = false
 
@@ -210,25 +248,22 @@ function UI_PackageCategoryButton:refresh()
 end
 
 
-
 ----------------------------------------------------------------------
 -- function click_btn
 ----------------------------------------------------------------------
 function UI_PackageCategoryButton:click_btn()
     local vars = self.vars
+    local parent = self.m_parent
 
-    self.m_parent.m_targetButton.vars['listBtn']:setEnabled(true)
-
-    self.m_parent.m_targetButton = self
-    vars['listBtn']:setEnabled(false)
+    self.m_scrollView:setVisible(true)
+    parent:changeTargetUI(self)
+    parent:setOff_DragonPackageUI()
 
     local scroll_node
-
     if (self.m_data['type'] == 'group') then
-        scroll_node = self.m_parent.vars['contentsListNode']
-        
+        scroll_node = parent.vars['contentsListNode']
     else
-        scroll_node = self.m_parent.vars['contentsNode']
+        scroll_node = parent.vars['contentsNode']
     end
     
     local content_size = scroll_node:getContentSize()
@@ -262,24 +297,19 @@ end
 -- function createTableView
 ----------------------------------------------------------------------
 function UI_PackageCategoryButton:createTableView()
-    local vars = self.vars
-
     local product_list = self.m_data:getProductList()
     local container = self.m_scrollView:getContainer()
 
-    if container then 
-        container:removeAllChildren()
-    else 
-        return 
+    if not container then 
+        return
     end
+    container:removeAllChildren()
 
-    
     -- struct_package
     self.m_data:setTargetUI(container, function() self:refresh() end, true)
 
-    ------------------------------------------------------------------------
 
-    ui_list = container:getChildren()
+    local ui_list = container:getChildren()
 
     local product_num = #product_list
     local row_num
@@ -370,9 +400,48 @@ function UI_PackageCategoryButton:createTableView()
 
         ui_root:setPosition(result_x, result_y)
     end
-
-    
-
 end
 
+UI_DragonPackageCategoryButton = class(UI, ITableViewCell:getCloneTable(), {
+    m_data   = 'StructDragonPkgDat',
+    m_parent = 'UI_ShopPackageScene',
+    m_DragonPkgUI = 'UI_GetDragonPackage'
+})
 
+function UI_DragonPackageCategoryButton:init(data)
+    self.m_data = data
+    self.m_DragonPkgUI = nil
+    self:load('shop_package_list.ui')
+
+    self.vars['listBtn']:registerScriptTapHandler(function() self:click_btn() end)
+end
+
+function UI_DragonPackageCategoryButton:refresh()
+    local vars = self.vars
+    local packageData = self.m_data
+
+    --제목
+    local did = packageData:getDragonID()
+    local dragonName = TableDragon:getDragonName(did)
+    local titleName = Str('{1} 획득 축하 패키지', dragonName)
+    vars['listLabel']:setString(titleName)
+end
+
+function UI_DragonPackageCategoryButton:click_btn()
+    local packageData = self.m_data
+    local parent = self.m_parent
+    local mainUI = self.m_DragonPkgUI
+    --UI 타겟 변경
+    parent:changeTargetUI(self)
+
+    --없다면 만든다.
+    local isNew = false
+    if (mainUI == nil) then
+        isNew = true
+        mainUI = UI_GetDragonPackage(packageData, nil, false)
+    end
+    parent:setDragonPackageUI(mainUI, isNew)
+
+    --UI저장
+    self.m_DragonPkgUI = mainUI
+end

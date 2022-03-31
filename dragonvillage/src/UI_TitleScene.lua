@@ -1396,6 +1396,9 @@ function UI_TitleScene:workGetServerInfo()
                 cclog('# 소환 천장 남은 횟수 정보 갱신')
                 g_hatcheryData:applyPickupCeilingInfo(ret)
 
+                cclog('# 드래곤 획득 패키지 정보 갱신')
+                g_getDragonPackage:applyPackageList(ret, true)
+
                 co.NEXT()
 			end)
 			ui_network:setFailCB(fail_cb)

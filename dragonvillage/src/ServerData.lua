@@ -232,7 +232,7 @@ function ServerData:getInstance()
     g_dmgatePackageData = ServerData_DmgatePackage(g_serverData)
     
     -- 드래곤 획득 패키지
-    g_GetDragonPackeage = ServerData_GetDragonPackage(g_serverData)
+    g_getDragonPackage = ServerData_GetDragonPackage(g_serverData)
 
     -- 배틀패스 패키지
     g_battlePassData = ServerData_BattlePass(g_serverData)
