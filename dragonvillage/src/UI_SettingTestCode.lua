@@ -664,25 +664,22 @@ end
 -- @brief 드래곤 획득 패키지 UI 출력
 -------------------------------------
 function UI_SettingTestCode:click_GetDragonPackage(did)
-    local package = StructDragonPkgData(did, os.time())
+    local serverTime = Timer:getServerTime()
+    local package = StructDragonPkgData(did, serverTime)
     if( package:isPossibleProduct() == false) then
         UI_ToastPopup('패키지를 모두 구매하셨습니다. 패키지 구매내역을 초기화 해주세요.')
         return
     end
 
-    UI_GetDragonPackage(package, nil, true)
+    UI_GetDragonPackage(package, nil)
 end
 
 -------------------------------------
--- function click_GetDragonPackage
+-- function click_GetDragonPackageList
 -- @brief 드래곤 획득 패키지 UI 출력
 -------------------------------------
 function UI_SettingTestCode:click_GetDragonPackageList()
-    if g_getDragonPackage:isPossibleBuyPackage() then
-        UI_ToastPopup('구매 가능한 리스트가 없습니다.')
-    end
-
-    local packageList = table.merge(g_getDragonPackage:getPackageList())
+    local packageList = table.merge(g_getDragonPackage:getPopUpList())
     local function PopupPackage()
         local package = table.pop(packageList)
         if not package then
@@ -693,7 +690,7 @@ function UI_SettingTestCode:click_GetDragonPackageList()
             PopupPackage()
             return
         end
-        UI_GetDragonPackage(package, PopupPackage, true)
+        UI_GetDragonPackage(package, PopupPackage)
     end
     PopupPackage()
 end

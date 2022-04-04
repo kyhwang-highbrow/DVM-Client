@@ -171,6 +171,12 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
 			end)
 		end
 
+        local function close_cb()
+            --신화 드래곤 팝업
+            g_getDragonPackage:PopUp_GetDragonPackage()
+        end
+        ui:setCloseCB(close_cb)
+
         -- 하일라이트 노티 갱신을 위해 호출
         self.m_ownerUI:refresh_highlight()
 

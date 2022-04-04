@@ -763,6 +763,8 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_dat
 
         local function close_cb()
             self:summonApiFinished()
+            --신화 드래곤 팝업
+            g_getDragonPackage:PopUp_GetDragonPackage()
         end
         ui:setCloseCB(close_cb)
 
@@ -818,6 +820,8 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
 
         local function close_cb()
             self:summonApiFinished()
+            --신화 드래곤 팝업
+            g_getDragonPackage:PopUp_GetDragonPackage()
         end
         ui:setCloseCB(close_cb)
 
@@ -869,6 +873,8 @@ function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_e
 
         local function close_cb()
             self:summonApiFinished()
+            --신화 드래곤 팝업
+            g_getDragonPackage:PopUp_GetDragonPackage()
         end
         ui:setCloseCB(close_cb)
 
@@ -982,6 +988,8 @@ function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_da
             self:summonApiFinished()
 
             self:refresh()
+            --신화 드래곤 팝업
+            g_getDragonPackage:PopUp_GetDragonPackage()
         end
         ui:setCloseCB(close_cb)
 

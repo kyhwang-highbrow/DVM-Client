@@ -507,6 +507,11 @@ function ServerData_Mail:request_summonTicket(mail_id_list, finish_cb)
         local egg_res = t_egg_data['egg_res']
         local pickup_id = ret['pickup_id']
         local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, 0, pickup_id)
+        local function close_cb()
+            --신화 드래곤 팝업
+            g_getDragonPackage:PopUp_GetDragonPackage()
+        end
+        ui:setCloseCB(close_cb)
     end
 
     -- 네트워크 통신 UI 생성
@@ -555,6 +560,11 @@ function ServerData_Mail:request_summon100Ticket(mail_id_list, finish_cb)
         local pickup_id = ret['pickup_id']
         
         local ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list, pickup_id)
+        local function close_cb()
+            --신화 드래곤 팝업
+            g_getDragonPackage:PopUp_GetDragonPackage()
+        end
+        ui:setCloseCB(close_cb)
     end
 
     -- 네트워크 통신 UI 생성
@@ -604,6 +614,11 @@ function ServerData_Mail:request_summonDrawTicket(mail_id_list, finish_cb)
         local egg_id = nil
         local egg_res = nil
         local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, 0)
+        local function close_cb()
+            --신화 드래곤 팝업
+            g_getDragonPackage:PopUp_GetDragonPackage()
+        end
+        ui:setCloseCB(close_cb)
     end
 
     -- 네트워크 통신 UI 생성

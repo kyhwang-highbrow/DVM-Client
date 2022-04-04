@@ -1133,6 +1133,7 @@ local t_module = {
     'UI_PromoteQuestDouble',
     'UI_SummonDrawInfo',
     'UI_GetDragonPackage',
+    'UI_GetDragonPackage_LobbyButton',
 
     -- UI : 배틀패스 상점 관련
     'UI_BattlePass_Nurture',

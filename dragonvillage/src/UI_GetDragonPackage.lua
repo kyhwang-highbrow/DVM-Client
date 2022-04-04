@@ -7,6 +7,7 @@ UI_GetDragonPackage = class(PARENT, {
     m_packageData = 'StructDragonPkgData',  --드래곤 패키지 데이터
     m_closeCallBack = 'function',           --Close CallBack Function
     m_mainProduct = 'StructProduct',        --UI에 노출되어있는 메인 상품
+    m_isPopUp     = 'bool',                 --팝업 UI인지(아닌경우 패키지 상점)
     m_Timer = 'number'                      --timeUpdate에서 dt를 누적시켜 지나간 시간을 확인 
 })
 
@@ -14,13 +15,14 @@ UI_GetDragonPackage = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_GetDragonPackage:init(packageData, close_cb, isPopUp)
-    self.m_Timer = 1    --첫 초기화를 위해
     self.m_packageData = packageData
     self.m_closeCallBack = close_cb
     self.m_mainProduct = packageData:getPossibleProduct()
-    
-    
-    self:initUI(isPopUp)
+    --false를 제외한 모든 값을 True처리
+    self.m_isPopUp = not (isPopUp == false)
+
+
+    self:initUI()
     self:initButton()
     self:refresh()
 end
@@ -28,8 +30,9 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_GetDragonPackage:initUI(isPopUp)
+function UI_GetDragonPackage:initUI()
     local vars = self:load('package_first_myth.ui')
+    local isPopUp = self.m_isPopUp
 
     if (isPopUp) then
         UIManager:open(self, UIManager.POPUP)
@@ -40,8 +43,8 @@ function UI_GetDragonPackage:initUI(isPopUp)
     --Close버튼
     vars['closeBtn']:setVisible(isPopUp)
 
-    --남은 시간
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:timeUpdate(dt) end, 0)
+    --남은시간 스케줄러
+    self:setTimerSchedule()
 
     --드래곤에 따른 배경
     self:setDragonBg()
@@ -53,9 +56,12 @@ function UI_GetDragonPackage:initUI(isPopUp)
     self:setTimeLimit()
 end
 
+
+-------------------------------------
+-- function setTimeLimit
+-------------------------------------
 function UI_GetDragonPackage:setTimeLimit()
     local vars = self.vars
-    local packageData = self.m_packageData
 
     -- 남은 시간 이미지 텍스트로 보여줌
     local remain_time_label = cc.Label:createWithBMFont('res/font/tower_score.fnt', 0)
@@ -122,16 +128,38 @@ function UI_GetDragonPackage:initTableView()
     table_view:setItemList(itemList)
 end
 
+-------------------------------------
+-- function timeUpdate
+-------------------------------------
 function UI_GetDragonPackage:timeUpdate(dt)
     self.m_Timer = self.m_Timer + dt
     if self.m_Timer < 1 then
         return 
     end
+    local remainTime = self.m_packageData:getRemainTime() * 1000 --단위 변환 s -> ms
+    if (remainTime < 0) then
+        remainTime = 0
+        self:unSetTimerSchedule()
+    end
 
-    local remainTime = self.m_packageData:getRemainTime() * 1000
     local desc_time = datetime.makeTimeDesc_timer_filledByZero(remainTime)
     self.vars['remainLabel']:setString(desc_time)
     self.m_Timer = 0
+end
+
+-------------------------------------
+-- function setTimerSchedule
+-------------------------------------
+function UI_GetDragonPackage:setTimerSchedule()
+    self.m_Timer = 1 
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:timeUpdate(dt) end, 0)
+end
+
+-------------------------------------
+-- function unSetTimerSchedule
+-------------------------------------
+function UI_GetDragonPackage:unSetTimerSchedule()
+    self.root:unscheduleUpdate()
 end
 
 -------------------------------------
@@ -170,9 +198,26 @@ function UI_GetDragonPackage:setBuyLabel()
     local vars = self.vars
     local packageData = self.m_packageData 
 
-    local BuyCnt, MaxCnt = packageData:getTotalBuyCntndMaxCnt()
-    local str = '{@possible}' .. Str('구매 가능 {1}/{2}', (MaxCnt - BuyCnt), MaxCnt)
+    local str = '{@possible}' .. self:getPossiobleCntString()
     vars['buyLabel']:setVisible(true)
+    vars['buyLabel']:setString(str)
+end
+
+-------------------------------------
+-- function setAllProductBuy
+-- @brief 모든 상품을 구매했을때
+-------------------------------------
+function UI_GetDragonPackage:setSoldOut()
+    local vars = self.vars
+    local packageData = self.m_packageData 
+    local BuyCnt, MaxCnt = packageData:getTotalBuyCntndMaxCnt()
+    self:unSetTimerSchedule()
+
+    vars['buyBtn']:setEnabled(false)
+    vars['limitMenu']:setVisible(false)
+    vars['completeNode']:setVisible(true)
+
+    local str = '{@impossible}' .. self:getPossiobleCntString()
     vars['buyLabel']:setString(str)
 end
 
@@ -198,6 +243,9 @@ function UI_GetDragonPackage:setDragonAnimator()
         node:removeAllChildren()
 
         local animator = AnimatorHelper:makeDragonAnimator(res, value['evolution'], attr)
+        if (animator == nil) then
+            break
+        end
         if (value['isFlip']) then
             animator:setFlip(90)
         end
@@ -235,20 +283,32 @@ function UI_GetDragonPackage:getStepNodeBgBarImg(attr)
     return res
 end
 
+function UI_GetDragonPackage:getPossiobleCntString()
+    local packageData = self.m_packageData
+    local BuyCnt, MaxCnt = packageData:getTotalBuyCntndMaxCnt()
+    return Str('구매 가능 {1}/{2}', (MaxCnt - BuyCnt), MaxCnt)
+end
+
 -------------------------------------
 -- function setBuyButton
 -- @brief 구매 버튼 설정
 -------------------------------------
 function UI_GetDragonPackage:setBuyButton()
     local vars = self.vars
+    local isPopUp = self.m_isPopUp
     --구매 성공 Call Back
     local function cb_func()
         UI_ToastPopup(Str('보상이 우편함으로 전송되었습니다.'))
         local packageData = self.m_packageData
         --Main Product refresh
         self.m_mainProduct = packageData:getPossibleProduct()
+
         if (self.m_mainProduct == nil) then --더 이상 상품이 없으면 Close
-            self:click_closeBtn()
+            if (isPopUp) then
+                self:click_closeBtn()
+            else
+                self:setSoldOut()
+            end
             return
         end
 

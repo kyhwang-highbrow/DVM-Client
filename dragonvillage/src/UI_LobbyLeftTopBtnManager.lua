@@ -26,6 +26,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     self.m_interval = 10
     self.PRIORITY = {}
     self.PRIORITY.VIP = 9999
+    self.PRIORITY.GETDRAGON_PACK = 1300
     self.PRIORITY.WEIDEL_PACK = 1200
     self.PRIORITY.PERSONALPACK = 1100
     self.PRIORITY.PAYMENT_SHOP = 1000
@@ -116,6 +117,12 @@ end
 -------------------------------------
 function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
 
+    local makeBtnFunction = function (class_, priority, unique_key, ...)
+        local managed_button = self:makeManagedButton(class_, ...)
+        managed_button:setPriority(priority)
+        managed_button.m_uniqueKey = unique_key
+    end
+
     do -- 추가될 버튼 확인
         -- 첫 충전 선물 버튼 생성
         for event_id,v in pairs(g_firstPurchaseEventData.m_tFirstPurchaseEventInfo) do
@@ -127,9 +134,7 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
                 if (v['status'] ~= 1) then
                     local class_ = UI_ButtonFirstPurchaseReward
                     local priority = self.PRIORITY.FIRST_PURCHASE_REWARD
-                    local managed_button = self:makeManagedButton(class_, event_id)
-                    managed_button:setPriority(priority)
-                    managed_button.m_uniqueKey = unique_key
+                    makeBtnFunction(class_, priority, unique_key, event_id)
                 end
             end
         end
@@ -146,11 +151,20 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
                     if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
                         local class_ = UI_ButtonNewcomerShop
                         local priority = self.PRIORITY.NEWCOMER_SHOP
-                        local managed_button = self:makeManagedButton(class_, ncm_id)
-                        managed_button:setPriority(priority)
-                        managed_button.m_uniqueKey = unique_key
+                        makeBtnFunction(class_, priority, unique_key, ncm_id)
                     end
                 end
+            end
+        end
+    end
+
+    do  --드래곤 획득 패키지
+        local unique_key = ('getDragonPackage')
+        if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
+            if (g_getDragonPackage:isPossibleBuyPackage()) then
+                local class_ = UI_GetDragonPackage_LobbyButton
+                local priority = self.PRIORITY.GETDRAGON_PACK
+                makeBtnFunction(class_, priority, unique_key)
             end
         end
     end

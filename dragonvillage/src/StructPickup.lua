@@ -5,14 +5,15 @@ local PARENT = Structure
 -------------------------------------
 StructPickup = class(PARENT, {
     pickup_id = 'string',
-    
+
     ui_priority = 'number',
     did = 'number',
-    
+
     start_date = 'pl.Date',
     end_date = 'pl.Date',
     date_format = 'string',
-    
+    end_date_timestamp = 'date',
+
     res_text = 'string',
     res_btn = 'string',
     res_bg = 'string', 
@@ -23,6 +24,7 @@ StructPickup = class(PARENT, {
 -------------------------------------
 function StructPickup:init(data)
     self.date_format = 'yyyy-mm-dd HH:MM:SS'
+    self.end_date_timestamp = self.end_date_timestamp / 1000
 end
 
 -------------------------------------
@@ -109,37 +111,12 @@ end
 -- function getRemainingTimeStr
 -------------------------------------
 function StructPickup:getRemainingTimeStr()
-    local parser = pl.Date.Format(self.date_format)
-
-
-    if self.end_date and (self.end_date ~= '') then
-        local temp = parser:parse(self.end_date)
-        local curr_time = Timer:getServerTime()
-        local end_time = temp['time']
-
-        if (not end_time) then
-            return ''
-        end
-
-        local time = (end_time - curr_time)
-
-        return Str('남은 시간 : {1}', datetime.makeTimeDesc(time, true))
+    local curr_time = Timer:getServerTime()
+    local end_time = self.end_date_timestamp
+    local time = (end_time - curr_time)
+    if (time < 0) then
+        time = 0
     end
-
-    return ''
-
-    -- local curr_time = Timer:getServerTime()
-    -- local end_time = (self.end_date / 1000)
-
-    -- if (curr_time < end_time) then
-    --     local _curr_time = Timer:getServerTime_Milliseconds()
-    --     local _end_time = self.end_date
-    --     local time_millisec = math_max(_end_time - _curr_time, 0)
-    --     local time_str = datetime.makeTimeDesc_timer(time_millisec, true) -- param : milliseconds, day_special
-    --     local str = Str('남은 시간 : {1}', '{@green}' .. time_str)
-    --     return str
-    -- else
-    --     return ''
-    -- end
+    return Str('남은 시간 : {1}', datetime.makeTimeDesc(time, true))
 end
 

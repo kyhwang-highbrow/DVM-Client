@@ -100,11 +100,25 @@ function UI_ShopPackageScene:createButtonTableView(package_name)
     table_view:setGapBtwCells(3)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-    local createPkg_func = function(ui, data)
+
+
+    self:setTableView(table_view, package_name)
+
+
+    self.m_tableView = table_view
+end
+
+function UI_ShopPackageScene:setTableView(table_view, package_name)
+    local item_list = g_shopDataNew:getActivatedPackageList()
+    local dragonList = table.MapToList(g_getDragonPackage:getPackageList())
+    local total_PackageList = table.merge(dragonList, item_list)
+
+    --일반 패키지 UI 생성 후 CallBack Function
+    local createPkg_func = function(ui, key)
+        ui.m_parent = self
         ui.m_scrollView = self.m_scrollView
         ui.m_contractBtn = self.vars['contractBtn']
-        ui.m_parent = self
-
+        local data = total_PackageList[key]
         if (data['t_name'] == package_name) then
             self.m_targetButton = ui
         end
@@ -112,42 +126,76 @@ function UI_ShopPackageScene:createButtonTableView(package_name)
         ui:refresh()
     end
 
-    local createDragonPkg_func = function(ui)
+    --드래곤 패키지 UI 생성 후 CallBack Function
+    local createDragonPkg_func = function(ui, key)
+        local data = total_PackageList[key]
         ui.m_parent = self
+        if (data:getDragonID() == package_name) then
+            self.m_targetButton = ui
+        end
         ui:refresh()
     end
 
-    local item_list = g_shopDataNew:getActivatedPackageList()
-    if (g_getDragonPackage:isPossibleBuyPackage()) then
-        local dragonList = g_getDragonPackage:getPackageList()--드래곤 획득 패키지
-        table_view:setCellUIClass(UI_DragonPackageCategoryButton, createDragonPkg_func)
-        table_view:setItemList(dragonList, true)   --드래곤 획득 패키지
-        table_view:setCellUIClass(UI_PackageCategoryButton, createPkg_func)
-        table_view:addItemList(item_list)
-    else
-        table_view:setCellUIClass(UI_PackageCategoryButton, createPkg_func)
-        table_view:setItemList(item_list, true)
+    --ItemList 추가는 여기서 작업[count, UI, createCB]
+    local keyPartition = {}
+    table.insert(keyPartition, {count = #dragonList, UI = UI_DragonPackageCategoryButton , createCB = createDragonPkg_func})
+    table.insert(keyPartition, {count = #item_list, UI = UI_PackageCategoryButton, createCB = createPkg_func})
+
+    --List에서 Key를 통해 UI 찾아서 return
+    local UI_CreateFunc= function(key)
+        local ui = nil
+        local keyCnt = 0
+        for _, value in ipairs(keyPartition) do
+            keyCnt = keyCnt + value['count']
+            if (key <= keyCnt) then
+                ui = value['UI']
+                break
+            end
+        end
+        return ui(total_PackageList[key])
+    end
+    --List에서 Key를 통해 CreateCB를 찾아서 호출
+    local Create_CBFunc= function(ui, key)
+        local func = nil
+        local keyCnt = 0
+        for _, value in ipairs(keyPartition) do
+            keyCnt = keyCnt + value['count']
+            if (key <= keyCnt) then
+                func = value['createCB']
+                break
+            end
+        end
+        func(ui, key)
     end
 
-    self.m_tableView = table_view
+
+    local tableItem = {}
+    for i = 1, #total_PackageList, 1 do
+        tableItem[i] = i
+    end
+
+    table_view:setCellUIClass(UI_CreateFunc, Create_CBFunc)
+    table_view:setItemList(tableItem, true)   --드래곤 획득 패키지
 end
+
 
 function UI_ShopPackageScene:changeTargetUI(newTarget)
     local targetUI = self.m_targetButton
     if (targetUI) then
-        targetUI.vars['listBtn']:setEnabled(true)
+        targetUI:SetTarget(false)
     end
 
-    newTarget.vars['listBtn']:setEnabled(false)
+    newTarget:SetTarget(true)
     self.m_targetButton = newTarget
 end
 
 function UI_ShopPackageScene:setOff_DragonPackageUI()
     local oldUI = self.m_dragonPkgUI or nil
 
-    --기존 UI 끄고 새로운 UI 띄운다
+    --기존 UI Visivle끄고 타이머 멈춤
     if (oldUI) then
         oldUI:setVisible(false)
+        oldUI:unSetTimerSchedule()
     end
 end
 
@@ -155,8 +203,11 @@ function UI_ShopPackageScene:setDragonPackageUI(packageUI, isNew)
     local vars = self.vars
     local contentsNode = vars['contentsNode']
 
+    --OldUI관련
     self:setOff_DragonPackageUI()
+
     packageUI:setVisible(true)
+    packageUI:setTimerSchedule()
 
     --New Node 추가
     if isNew then
@@ -189,6 +240,10 @@ function UI_PackageCategoryButton:init(data)
     vars['listBtn']:registerScriptTapHandler(function() self:click_btn() end)
 end
 
+
+function UI_PackageCategoryButton:SetTarget(isTarget)
+    self.vars['listBtn']:setEnabled(not isTarget)
+end
 ----------------------------------------------------------------------
 -- function refresh
 ----------------------------------------------------------------------
@@ -256,7 +311,7 @@ function UI_PackageCategoryButton:click_btn()
     local parent = self.m_parent
 
     self.m_scrollView:setVisible(true)
-    parent:changeTargetUI(self)
+    parent:changeTargetUI(self, vars['listBtn'])
     parent:setOff_DragonPackageUI()
 
     local scroll_node
@@ -413,21 +468,36 @@ function UI_DragonPackageCategoryButton:init(data)
     self.m_DragonPkgUI = nil
     self:load('shop_package_list.ui')
 
-    self.vars['listBtn']:registerScriptTapHandler(function() self:click_btn() end)
+    self:initButton()
+end
+
+function UI_DragonPackageCategoryButton:initButton()
+    local vars = self.vars
+    vars['listBtn']:setVisible(false)  --일반 버튼
+
+    local mythBtn = vars['mythListBtn']
+    mythBtn:setVisible(true)
+    mythBtn:registerScriptTapHandler(function() self:click_btn() end)
 end
 
 function UI_DragonPackageCategoryButton:refresh()
     local vars = self.vars
     local packageData = self.m_data
-
     --제목
     local did = packageData:getDragonID()
     local dragonName = TableDragon:getDragonName(did)
     local titleName = Str('{1} 획득 축하 패키지', dragonName)
-    vars['listLabel']:setString(titleName)
+    vars['mythListLabel']:setString(titleName)
+
+    local badeIcon = packageData:getBadgeIcon()
+    if (badeIcon) then
+        vars['mythBadgeNode']:removeAllChildren()
+        vars['mythBadgeNode']:addChild(badeIcon)
+    end
 end
 
 function UI_DragonPackageCategoryButton:click_btn()
+    local vars = self.vars
     local packageData = self.m_data
     local parent = self.m_parent
     local mainUI = self.m_DragonPkgUI
@@ -444,4 +514,10 @@ function UI_DragonPackageCategoryButton:click_btn()
 
     --UI저장
     self.m_DragonPkgUI = mainUI
+
+    self.vars['mythNotiSprite']:setVisible(false)
+end
+
+function UI_DragonPackageCategoryButton:SetTarget(isTarget)
+    self.vars['mythListBtn']:setEnabled(not isTarget)
 end

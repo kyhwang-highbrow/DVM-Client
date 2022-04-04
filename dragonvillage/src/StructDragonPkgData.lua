@@ -105,8 +105,19 @@ end
 -- @brief 패키지에서 구매 가능 상품이 있는지 확인해준다
 -------------------------------------
 function StructDragonPkgData:isPossibleProduct()
+    --상품 없음
     local product = self:getPossibleProduct()
-    return (product ~= nil)
+    if (product == nil) then
+        return false
+    end
+
+    --시간체크
+    local serverTime = Timer:getServerTime()
+    if(self.m_endTime <= serverTime) then
+        return false
+    end
+
+    return true
 end
 
 -------------------------------------
@@ -140,8 +151,15 @@ end
 -------------------------------------
 function StructDragonPkgData:getRemainTime()
     local serverTime = Timer:getServerTime()
-
     local remainTime = self.m_endTime - serverTime
-
     return remainTime
+end
+
+function StructDragonPkgData:getBadgeIcon()
+    local product = self:getPossibleProduct()
+    if (product == nil) then
+        return product
+    end
+
+    return product:makeBadgeIcon()
 end
