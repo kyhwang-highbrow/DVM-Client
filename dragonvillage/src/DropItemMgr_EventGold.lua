@@ -23,8 +23,8 @@ end
 function DropItemMgr_EventGold:designateDropMonster()
     self.m_lDropItemStack = {}
 
-    -- 전투 중 100개까지만 드랍
-    self.m_remainItemCnt = 100
+    -- 전투 중 500개까지 드랍
+    self.m_remainItemCnt = 500
 
     -- 전투 종료시 120개까지만 드랍
     self.m_remainFinalItemCnt = 120
