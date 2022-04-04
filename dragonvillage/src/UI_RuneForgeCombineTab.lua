@@ -9,6 +9,8 @@ UI_RuneForgeCombineTab = class(PARENT,{
         m_uicSortList = 'UIC_SortList', -- 룬 등급 정렬
         m_sortManager = 'SortManager',
         m_sortGrade = 'number',
+
+        m_runeType = 'string', -- normal, ancient
         ---------------------------------
         m_mSelectRuneMap = 'map', -- grade마다 현재 선택되어있는 룬 저장하는 map, map[grade][roid]
         m_mCombineDataMap = 'map', -- 합성 정보 저장, map[unique_key] = StructRuneCombine
@@ -28,6 +30,7 @@ function UI_RuneForgeCombineTab:init(owner_ui)
     local vars = self:load('rune_forge_combine.ui')
     
     self.m_sortGrade = 0
+    self.m_runeType = 'normal'
 
     self:initBtn()
 end
@@ -55,7 +58,23 @@ end
 function UI_RuneForgeCombineTab:initBtn()
     local vars = self.vars
     -- infoBtn
-    if (vars['infoBtn']) then vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeCombineHelp() end) end
+    if (vars['infoBtn']) then 
+        if IS_DEV_SERVER() and  IS_TEST_MODE() then
+            vars['infoBtn']:registerScriptTapHandler(function()
+                if (self.m_runeType == 'normal') then
+                    self.m_runeType = 'ancient'
+                else
+                    self.m_runeType = 'normal'
+                end
+                self:initTableView()
+                self:initCombineTableView()
+
+                self:refresh()
+            end)
+        else
+            vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeCombineHelp() end)
+        end
+    end
 end
 
 
@@ -157,13 +176,13 @@ function UI_RuneForgeCombineTab:initTableView()
     -- 재료로 사용 가능한 리스트를 얻어옴
     local grade = self.m_sortGrade
     local lock_include = false
-    local l_rune_list = g_runesData:getUnequippedRuneList(nil, grade, lock_include) -- param : set_id, grade, lock_include
+    local l_rune_list = g_runesData:getUnequippedRuneList(nil, grade, lock_include, self.m_runeType) -- param : set_id, grade, lock_include
     local l_rune_no_ancient_list = {}
 
     for roid, t_rune_data in pairs(l_rune_list) do
-        if (not t_rune_data:isAncientRune()) then
+        --if (not t_rune_data:isAncientRune()) then
             l_rune_no_ancient_list[roid] = t_rune_data
-        end
+        --end
     end
 
     self.m_tableView:setItemList(l_rune_no_ancient_list)
@@ -392,7 +411,7 @@ function UI_RuneForgeCombineTab:selectRune(t_rune_data)
     local b_add_rune = false
     for unique_key, combine_data in pairs(self.m_mCombineDataMap) do
         if (grade == combine_data.m_grade) or (combine_data.m_grade == nil) then
-            b_is_full = combine_data:isFull() -- 추가적인 룬 등록이 가능한 상태인가
+            local b_is_full = combine_data:isFull() -- 추가적인 룬 등록이 가능한 상태인가
             if not b_is_full then
                 b_add_rune = true
                 combine_data_id = unique_key
@@ -598,7 +617,7 @@ function UI_RuneForgeCombineTab:click_combineBtn()
 
     local ok_btn_cb
     local close_cb
-    local success_cb
+    local finish_cb
 
     ok_btn_cb = function()
         g_runesData:request_runeCombine(src_roids, finish_cb)
