@@ -5034,6 +5034,7 @@
     <None Include="..\src\UI_GetDragonPackage.lua" />
     <None Include="..\src\ServerData_GetDragonPackage.lua" />
     <None Include="..\src\StructDragonPkgData.lua" />
+    <None Include="..\src\UI_GetDragonPackage_LobbyButton.lua" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
