@@ -462,7 +462,7 @@ end
 -- function getUnequippedRuneList
 -- @brief 장착되지 않은 룬 리스트
 -------------------------------------
-function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include)
+function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include, set_id)
     if (slot_idx == nil) then
         -- 전체
         slot_idx = 0
@@ -477,11 +477,23 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include)
         lock_include = true
     end
 
+    if (set_id == 0) then
+        set_id = nil
+    elseif (set_id == 'normal') then
+        set_id = {1, 2, 3, 4, 5, 6, 7, 8}
+    elseif (set_id == 'ancient') then
+        set_id = {9, 10, 11, 12, 13, 14}
+    elseif (set_id ~= nil) then
+        set_id = {set_id}
+    end
+
     local l_ret = {}
 
     for i,v in pairs(self.m_mRuneObjects) do
         -- 슬롯 확인
         if (slot_idx ~= 0) and (v['slot'] ~= slot_idx) then
+            -- 세트 필터
+        elseif set_id and (table.find(set_id, v['set_id']) == nil) then
         -- 등급 확인
         elseif (grade ~= 0) and (v['grade'] ~= grade) then
         -- 잠금 여부 확인
