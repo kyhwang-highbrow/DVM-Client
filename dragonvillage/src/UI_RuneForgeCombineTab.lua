@@ -10,6 +10,7 @@ UI_RuneForgeCombineTab = class(PARENT,{
         m_sortManager = 'SortManager',
         m_sortGrade = 'number',
 
+        m_runeTypeTable = 'table',
         m_runeType = 'string', -- normal, ancient
         ---------------------------------
         m_mSelectRuneMap = 'map', -- grade마다 현재 선택되어있는 룬 저장하는 map, map[grade][roid]
@@ -30,6 +31,7 @@ function UI_RuneForgeCombineTab:init(owner_ui)
     local vars = self:load('rune_forge_combine.ui')
     
     self.m_sortGrade = 0
+    self.m_runeTypeTable = {[1]='normal', [2]= 'ancient'}
     self.m_runeType = 'normal'
 
     self:initBtn()
@@ -50,30 +52,28 @@ function UI_RuneForgeCombineTab:onEnterTab(first)
     end
 end
 
-
-
 -------------------------------------
 -- function initBtn
 -------------------------------------
 function UI_RuneForgeCombineTab:initBtn()
     local vars = self.vars
+    local runeTypeTable = self.m_runeTypeTable
     -- infoBtn
-    if (vars['infoBtn']) then 
-        if IS_DEV_SERVER() and  IS_TEST_MODE() then
-            vars['infoBtn']:registerScriptTapHandler(function()
-                if (self.m_runeType == 'normal') then
-                    self.m_runeType = 'ancient'
-                else
-                    self.m_runeType = 'normal'
-                end
-                self:initTableView()
-                self:initCombineTableView()
+    vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeCombineHelp() end)
 
-                self:refresh()
-            end)
-        else
-            vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeCombineHelp() end)
+    --runeSelectBtn
+    local function chagneRuneType(chagneType)
+        if (self.m_runeType == chagneType) then
+            return
         end
+
+        self.m_runeType = chagneType
+        self:initTableView()
+        self:initCombineTableView()
+        self:refresh()
+    end
+    for index, value in ipairs(runeTypeTable) do
+        vars['runeSelectBtn'..index]:registerScriptTapHandler(function() chagneRuneType(value) end)
     end
 end
 
@@ -175,14 +175,13 @@ function UI_RuneForgeCombineTab:initTableView()
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local grade = self.m_sortGrade
+    local runeType = self.m_runeType
     local lock_include = false
-    local l_rune_list = g_runesData:getUnequippedRuneList(nil, grade, lock_include, self.m_runeType) -- param : set_id, grade, lock_include
+    local l_rune_list = g_runesData:getUnequippedRuneList(nil, grade, lock_include, runeType) -- param : set_id, grade, lock_include
     local l_rune_no_ancient_list = {}
 
     for roid, t_rune_data in pairs(l_rune_list) do
-        --if (not t_rune_data:isAncientRune()) then
-            l_rune_no_ancient_list[roid] = t_rune_data
-        --end
+        l_rune_no_ancient_list[roid] = t_rune_data
     end
 
     self.m_tableView:setItemList(l_rune_no_ancient_list)
@@ -289,6 +288,8 @@ end
 -------------------------------------
 function UI_RuneForgeCombineTab:refresh()
     local vars = self.vars
+    local myType = self.m_runeType
+    local runeTypeTable = self.m_runeTypeTable
     
     -- 현재 선택된 룬 개수 표기
     local all_count = table.count(self.m_tableView.m_itemList)
@@ -308,6 +309,9 @@ function UI_RuneForgeCombineTab:refresh()
     end
     vars['selectLabel']:setString(Str('{1}/{2}', combine_count, combine_max_count))
 
+    for index, value in ipairs(runeTypeTable) do
+        vars['runeSelectBtn'..index]:setEnabled(myType ~= value)
+    end
     self:refreshCombineItems()
 end
 
@@ -664,6 +668,8 @@ function UI_RuneForgeCombineHelp:init(owner_ui)
     local vars = self:load('rune_forge_combine_info_popup.ui')
     
     UIManager:open(self, UIManager.POPUP)
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_RuneForgeCombineHelp')
 
     self:initButton()
 end
