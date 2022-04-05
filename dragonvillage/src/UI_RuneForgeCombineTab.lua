@@ -310,7 +310,11 @@ function UI_RuneForgeCombineTab:refresh()
     vars['selectLabel']:setString(Str('{1}/{2}', combine_count, combine_max_count))
 
     for index, value in ipairs(runeTypeTable) do
-        vars['runeSelectBtn'..index]:setEnabled(myType ~= value)
+        local isMyType = (myType ~= value)
+        vars['runeSelectBtn'..index]:setEnabled(isMyType)
+        --black
+        local color = isMyType and COLOR['DESC'] or COLOR['b']
+        vars['infoTabLabel'..index]:setColor(color)
     end
     self:refreshCombineItems()
 end
