@@ -251,22 +251,14 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
         -- 뽑기 획등 가능한 룬은 6성 이상
         local grade = getDigit(item_id, 1, 1)
 
-        -- 고대룬은 획득 불가
-        local is_ancient = (getDigit(item_id, 100, 2) > 8) and true or false
+        -- 뽑기에서는 6성 이상만 획득 가능하네.
+        if (grade >= 6) then
+            table.insert(l_region, 'rune_gacha')
+        end
 
-        -- 고대룬이 아니면
-        -- 이야기를 계속해보지.
-        if not is_ancient then
-
-            -- 뽑기에서는 6성 이상만 획득 가능하네.
-            if (grade >= 6) then
-                table.insert(l_region, 'rune_gacha')
-            end
-
-            -- 합성은 2성 이상 가능하네
-            if (grade >= 2) then
-                table.insert(l_region, 'rune_combine')
-            end
+        -- 합성은 2성 이상 가능하네
+        if (grade >= 2) then
+            table.insert(l_region, 'rune_combine')
         end
     end
 
