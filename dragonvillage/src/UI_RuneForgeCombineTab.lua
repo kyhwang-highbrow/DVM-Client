@@ -592,7 +592,6 @@ end
 -- @brief 합성 요청
 -------------------------------------
 function UI_RuneForgeCombineTab:click_combineBtn()
-    
     local uid = g_userData:get('uid')
     local src_roids = ''
     local full_combine_data_id_list = {}
@@ -619,8 +618,9 @@ function UI_RuneForgeCombineTab:click_combineBtn()
     local close_cb
     local finish_cb
 
+    local runeType = (self.m_runeType == 'normal') and 0 or 1
     ok_btn_cb = function()
-        g_runesData:request_runeCombine(src_roids, finish_cb)
+        g_runesData:request_runeCombine(src_roids, runeType, finish_cb)
     end
 
     close_cb = function()
