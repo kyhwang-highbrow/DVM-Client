@@ -10,6 +10,7 @@ ServerData_EventGoldDungeon = class({
         m_productInfo = 'list', -- 교환 상품 정보
         m_rewardInfo = 'map', -- 보상 정보
         m_staminaDropInfo = 'map', -- 각 모드별 입장권 획득 정보
+        m_totalGold = 'number', --이벤트 누적 획득 골드량
 
         m_endTime = 'time',
     })
@@ -64,6 +65,10 @@ end
 -------------------------------------
 function ServerData_EventGoldDungeon:getStaminaInfo()
     return self.m_staminaDropInfo or {}
+end
+
+function ServerData_EventGoldDungeon:getTotalGold()
+    return self.m_totalGold or 0
 end
 
 -------------------------------------
@@ -175,6 +180,10 @@ function ServerData_EventGoldDungeon:networkCommonRespone(ret)
     -- 입장권 획득 정보
     if (ret['stamina_info']) then
         self.m_staminaDropInfo = ret['stamina_info']
+    end
+
+    if(ret['event_dungeon_totalGold']) then
+        self.m_totalGold = ret['event_dungeon_totalGold']
     end
 end
 

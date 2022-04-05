@@ -137,6 +137,8 @@ function UI_EventGoldDungeon:refresh()
     for i, ui in ipairs(self.m_eventDataUI) do
         ui:refresh()
     end
+
+    vars['goldTotalLabel']:setString(event_data:getTotalGold())
 end
 
 -------------------------------------
