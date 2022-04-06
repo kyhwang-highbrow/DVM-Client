@@ -75,6 +75,10 @@ function UI_RuneForgeCombineTab:initBtn()
     for index, value in ipairs(runeTypeTable) do
         vars['runeSelectBtn'..index]:registerScriptTapHandler(function() chagneRuneType(value) end)
     end
+
+    --고대 룬 합성 버튼
+    local isVisible = (not g_contentLockData:isContentLock('ancient_ruin'))
+    vars['runeSelectBtn2']:setVisible(isVisible)
 end
 
 

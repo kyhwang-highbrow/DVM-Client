@@ -138,7 +138,7 @@ function UI_EventGoldDungeon:refresh()
         ui:refresh()
     end
 
-    vars['goldTotalLabel']:setString(event_data:getTotalGold())
+    vars['goldTotalLabel']:setString(comma_value(event_data:getTotalGold()))
 end
 
 -------------------------------------
