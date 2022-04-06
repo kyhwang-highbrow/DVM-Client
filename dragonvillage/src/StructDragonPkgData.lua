@@ -74,9 +74,8 @@ function StructDragonPkgData:getPossibleProduct()
     local productList = self:getProductList()
     for _, pid in pairs(productList) do
         local data = self:getProduct(pid)   --상품 가져오기
-        --구매 가능한지 확인
-        local isPossible = (not data:isBuyAll())
-        if isPossible then
+        if (data ~= nil) and (not data:isBuyAll()) then
+            --구매 가능한지 확인
             product = data
             break
         end
