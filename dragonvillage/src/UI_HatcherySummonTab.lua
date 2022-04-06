@@ -1147,8 +1147,12 @@ end
 -------------------------------------
 function UI_HatcherySummonTab:requestSelectPickup(t_dragon_data)
     local did = t_dragon_data['did']
-
     if (isNullOrEmpty(did)) then return end
+
+    local normal_did, unique_did = g_hatcheryData:getSelectedPickup()
+    if(normal_did == did or unique_did == did) then
+        return
+    end
 
     g_hatcheryData:request_selectPickup(did, function() self:refresh() end)
 end

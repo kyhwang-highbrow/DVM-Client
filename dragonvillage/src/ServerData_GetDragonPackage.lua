@@ -28,10 +28,12 @@ function ServerData_GetDragonPackage:applyPackageList(ret, isRefresh)
     local pkgList = self.m_PackageList
     for did, startTime in pairs(pkgDragonList) do
         did, startTime = tonumber(did), startTime / 1000 --단위 변환  ms -> m
-        --이미 패키지가 있는지 확인
-        if (pkgList[did] == nil) then
+
+        local package = pkgList[did]
+        --이미 패키지가 있거나, 뽑은 시간이 최신인지 확인.
+        if (package == nil) or package.m_startTime < startTime then
             --없다면 패키지 생성 후 insert
-            local package = StructDragonPkgData(did, startTime)
+            package = StructDragonPkgData(did, startTime)
             table.insert(self.m_PackageList, did, package)
 
             --팝업 리스트 insert
