@@ -252,6 +252,8 @@ end
 -------------------------------------
 function UI_ItemInfoPopup:click_locationBtn()
     local item_id = self.m_itemID
+
+    UINavigatorDefinition:CloseOpendUI('UI_AcquisitionRegionInformation')-- UI 무한 Open방지
     UI_AcquisitionRegionInformation:create(item_id)
 end
 

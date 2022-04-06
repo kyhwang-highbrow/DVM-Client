@@ -313,6 +313,7 @@ function UI_ItemCard:press_clickBtn()
     local count = self.m_itemCount
 	local t_sub_data = self.m_tSubData
 
+    UINavigatorDefinition:CloseOpendUI('UI_ItemInfoPopup')-- UI 무한 Open방지
     UI_ItemInfoPopup(item_id, count, t_sub_data)
 end
 

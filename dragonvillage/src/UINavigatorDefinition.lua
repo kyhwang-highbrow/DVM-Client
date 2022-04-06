@@ -2324,3 +2324,25 @@ function UINavigatorDefinition:closeUIList(idx, include_idx)
     end
 end
 
+-------------------------------------
+-- function CloseOpendUI
+-- @brief 오픈된 UI에서 특정 UI를 찾아서 열려있으면 닫는다
+-------------------------------------
+function UINavigatorDefinition:CloseOpendUI(ui_class_name)
+    local idx = nil
+    local opend_ui = nil
+
+    for i=#UIManager.m_uiList, 1, -1 do
+        local ui = UIManager.m_uiList[i]
+        if (ui.m_uiName == ui_class_name) then
+            idx = i
+            opend_ui = ui
+            break
+        end
+    end
+
+    if (idx) then
+        opend_ui:close()
+    end
+end
+
