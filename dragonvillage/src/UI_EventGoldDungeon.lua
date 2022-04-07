@@ -5,6 +5,8 @@ local PARENT = UI
 -------------------------------------
 UI_EventGoldDungeon = class(PARENT,{
         m_eventDataUI = 'list',
+        m_GoldAniNumber = 'Number', --골드 애니매이션을 위한 데이터
+        m_GoldAniAddNumber = 'Number', --골드 애니매이션을 위해 더하는 수
     })
 
 -------------------------------------
@@ -85,6 +87,8 @@ function UI_EventGoldDungeon:initUI()
 
     vars['upMenu']:setSwallowTouch(false)
     vars['downMenu']:setSwallowTouch(false)
+
+    self:initTotalGold()
 end
 
 -------------------------------------
@@ -137,8 +141,33 @@ function UI_EventGoldDungeon:refresh()
     for i, ui in ipairs(self.m_eventDataUI) do
         ui:refresh()
     end
+end
+-------------------------------------
+-- function initTotalGold
+-- @brief 총 합 골드 애니매이션관련 초기화
+-------------------------------------
+function UI_EventGoldDungeon:initTotalGold()
+    local vars = self.vars
+    self.m_GoldAniNumber = 0
+    local frameNum = 50
+    self.m_GoldAniAddNumber = math_floor(g_eventGoldDungeonData:getTotalGold() / frameNum)
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTotalGold(dt) end, 0)
+    vars['goldTotalLabel']:setString(0)
+end
 
-    vars['goldTotalLabel']:setString(comma_value(event_data:getTotalGold()))
+-------------------------------------
+-- function updateTotalGold
+-- @brief 총 합 골드 애니매이션 Update
+-------------------------------------
+function UI_EventGoldDungeon:updateTotalGold(dt)
+    self.m_GoldAniNumber = self.m_GoldAniNumber + self.m_GoldAniAddNumber
+    local goldNumber = self.m_GoldAniNumber
+    local totalGold = g_eventGoldDungeonData:getTotalGold()
+    if (goldNumber >= totalGold) then
+        goldNumber = totalGold
+        self.root:unscheduleUpdate()
+    end
+    self.vars['goldTotalLabel']:setString(comma_value(goldNumber))
 end
 
 -------------------------------------
