@@ -1152,13 +1152,8 @@ end
 -------------------------------------
 function isExistValue(value, ...)
     local args = {...}
-    for i,v in ipairs(args) do
-        if (value == v) then
-            return true
-        end
-    end
 
-    return false
+    return (table.find(args, value) ~= nil)
 end
 
 -------------------------------------
@@ -1166,13 +1161,8 @@ end
 -- @breif value를 포함하는 테이블인지 여부
 -------------------------------------
 function isContainValue(value, t)
-    for i,v in pairs(t) do
-        if (value == v) then
-            return true
-        end
-    end
 
-    return false
+    return (table.find(t, value) ~= nil)
 end
 
 -------------------------------------

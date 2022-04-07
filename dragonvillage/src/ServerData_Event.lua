@@ -76,12 +76,6 @@ function ServerData_Event:getEventPopupTabList()
                     local server_timestamp = Timer:getServerTime()
                     local time_table = TimeLib:convertToServerDate(server_timestamp)
                     local curr_time = time_table['time']
-                    --[[
-                    if (IS_DEV_SERVER()) then
-                        ccdump(start_time)
-                        ccdump(curr_time)
-                        ccdump(end_time)
-                    end]]
 
                     if start_time and end_time then   
                         if (start_time <= curr_time) and (curr_time <= end_time) then

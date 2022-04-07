@@ -203,125 +203,36 @@ function UIHelper:checkPrice(price_type, price, price_type_id)
     if (price_type == 'money') then
 		return true
 
-    -- 다이아몬드 확인
-    elseif (price_type == 'cash') then
-        local cash = g_userData:get('cash')
-        if (cash < price) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() UINavigatorDefinition:goTo('package_shop', 'diamond_shop') end)
-            return false
+    -- 다이아, 자수정, 토파즈, 마일리지, 명예, 캡슐, 골드, 우정포인트, 고대주화, 클랜코인, 캡슐코인, 용맹훈장, 이벤트 토큰
+    elseif isExistValue(price_type, 'cash', 'amethyst', 'topaz', 'milage', 'honor', 'capsule', 
+    'gold', 'fp', 'ancient', 'clancoin', 'capsule_coin', 'valor', 'event_token') then
+        local own_item_number = g_userData:get(price_type) or 0
+        local item_name = TableItem:getItemNameFromItemType(price_type)
+
+        if (own_item_number < price) then
+            local msg = '{1}이(가) 부족합니다.'
+            local popup_type = POPUP_TYPE.OK
+
+            if (price_type == 'cash') then
+                msg = msg .. '\n상점으로 이동하시겠습니까?'
+                popup_type = POPUP_TYPE.YES_NO
+            end
+
+            if(own_item_number < price) then
+                MakeSimplePopup(popup_type, Str(msg, item_name))
+                return false
+            end    
         end
 
-    -- 자수정 확인
-    elseif (price_type == 'amethyst') then
-        local amethyst = g_userData:get('amethyst')
-        if (amethyst < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('자수정이 부족합니다.'))
-            return false
-        end
-
-    -- 토파즈 확인
-    elseif (price_type == 'topaz') then
-        local topaz = g_userData:get('topaz')
-        if (topaz < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('토파즈가 부족합니다.'))
-            return false
-        end
-
-    -- 마일리지 확인
-    elseif (price_type == 'mileage') then
-        local mileage = g_userData:get('mileage')
-        if (mileage < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('마일리지가 부족합니다.'))
-            return false
-        end
-
-    -- 명예 확인
-    elseif (price_type == 'honor') then
-        local honor = g_userData:get('honor')
-        if (honor < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('명예가 부족합니다.'))
-            return false
-        end
-
-    -- 캡슐 확인
-    elseif (price_type == 'capsule') then
-        local capsule = g_userData:get('capsule')
-        if (capsule < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('캡슐이 부족합니다.'))
-            return false
-        end
-
-    -- 골드 확인
-    elseif (price_type == 'gold') then
-        local gold = g_userData:get('gold')
-        if (gold < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('골드가 부족합니다.'))
-            return false
-        end
-
-    -- 우정 포인트 확인
-    elseif (price_type == 'fp') then
-        local fp = g_userData:get('fp')
-        if (fp < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('우정포인트가 부족합니다.'))
-            return false
-        end
-
-    -- 고대주화 확인
-    elseif (price_type == 'ancient') then
-        local ancient = g_userData:get('ancient')
-        if (ancient < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('고대주화가 부족합니다.'))
-            return false
-        end
-
-    -- 클랜코인 확인
-    elseif (price_type == 'clancoin') then
-        local clancoin = g_userData:get('clancoin')
-        if (clancoin < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('클랜코인이 부족합니다.'))
-            return false
-        end
-
-	-- 캡슐코인 확인
-    elseif (price_type == 'capsule_coin') then
-        local capsule_coin = g_userData:get(price_type)
-        if (capsule_coin < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('캡슐코인이 부족합니다.'))
-            return false
-        end
-
-    -- 용맹훈장 확인
-    elseif (price_type == 'valor') then
-        local valor = g_userData:get(price_type)
-        if (valor < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('용맹훈장이 부족합니다.'))
-            return false
-        end
-
-    elseif isExistValue(price_type, 'medal', 'memory') then
-        local item_data = TABLE:get('item')[price_type_id]
-        local own_medal = g_userData:get(price_type, tostring(price_type_id))
-
-        if(own_medal < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', Str(item_data['t_name'])))
-            return false
-        end
-    elseif isExistValue(price_type, 'memory_myth') then
+    -- 차원문 메달, 별의 기억
+    elseif isExistValue(price_type, 'medal', 'memory', 'memory_myth') then
         local item = TABLE:get('item')[price_type_id]
-        local own_item_number = g_userData:get('memory', tostring(price_type_id))
+        local own_item_number = g_userData:get(price_type, tostring(price_type_id))
 
         if(own_item_number < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', Str(item['t_name'])))
+            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', item['t_name']))
             return false
         end
-    elseif isExistValue(price_type, 'event_token') then
-        local event_token = g_userData:get(price_type) or 0
-
-        if (event_token < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', Str('이벤트 재화')))
-            return false
-        end    
     else
         error('price_type : ' .. price_type)
     end
@@ -333,128 +244,27 @@ end
 -- function checkPrice_toastMessage
 -------------------------------------
 function UIHelper:checkPrice_toastMessage(price_type, price, price_type_id)
+    -- 결제상품
     if (price_type == 'money') then
 		return true
+    -- 다이아, 자수정, 토파즈, 마일리지, 명예, 캡슐, 골드, 우정포인트, 고대주화, 클랜코인, 캡슐코인, 용맹훈장, 이벤트 토큰
+    elseif isExistValue(price_type, 'cash', 'amethyst', 'topaz', 'milage', 'honor', 'capsule', 
+    'gold', 'fp', 'ancient', 'clancoin', 'capsule_coin', 'valor', 'event_token') then
+        local own_item_number = g_userData:get(price_type) or 0
+        local item_name = TableItem:getItemNameFromItemType(price_type)
 
-    -- 다이아몬드 확인
-    elseif (price_type == 'cash') then
-        local cash = g_userData:get('cash')
-        if (cash < price) then
-            UIManager:toastNotificationRed(Str('다이아몬드가 부족합니다.'))
-            return false
+        if (own_item_number < price) then
+            UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.', item_name))
+            return false         
         end
-
-    -- 자수정 확인
-    elseif (price_type == 'amethyst') then
-        local amethyst = g_userData:get('amethyst')
-        if (amethyst < price) then
-            UIManager:toastNotificationRed(Str('자수정이 부족합니다.'))
-            return false
-        end
-
-    -- 토파즈 확인
-    elseif (price_type == 'topaz') then
-        local topaz = g_userData:get('topaz')
-        if (topaz < price) then
-            UIManager:toastNotificationRed(Str('토파즈가 부족합니다.'))
-            return false
-        end
-
-    -- 마일리지 확인
-    elseif (price_type == 'mileage') then
-        local mileage = g_userData:get('mileage')
-        if (mileage < price) then
-            UIManager:toastNotificationRed(Str('마일리지가 부족합니다.'))
-            return false
-        end
-
-    -- 명예 확인
-    elseif (price_type == 'honor') then
-        local honor = g_userData:get('honor')
-        if (honor < price) then
-            UIManager:toastNotificationRed(Str('명예가 부족합니다.'))
-            return false
-        end
-
-    -- 캡슐 확인
-    elseif (price_type == 'capsule') then
-        local capsule = g_userData:get('capsule')
-        if (capsule < price) then
-            UIManager:toastNotificationRed(Str('캡슐이 부족합니다.'))
-            return false
-        end
-
-    -- 골드 확인
-    elseif (price_type == 'gold') then
-        local gold = g_userData:get('gold')
-        if (gold < price) then
-            UIManager:toastNotificationRed(Str('골드가 부족합니다.'))
-            return false
-        end
-
-    -- 우정 포인트 확인
-    elseif (price_type == 'fp') then
-        local fp = g_userData:get('fp')
-        if (fp < price) then
-            UIManager:toastNotificationRed(Str('우정포인트가 부족합니다.'))
-            return false
-        end
-
-    -- 고대주화 확인
-    elseif (price_type == 'ancient') then
-        local ancient = g_userData:get('ancient')
-        if (ancient < price) then
-            UIManager:toastNotificationRed(Str('고대주화가 부족합니다.'))
-            return false
-        end
-
-    -- 클랜코인 확인
-    elseif (price_type == 'clancoin') then
-        local clancoin = g_userData:get('clancoin')
-        if (clancoin < price) then
-            UIManager:toastNotificationRed(Str('클랜코인이 부족합니다.'))
-            return false
-        end
-
-	-- 캡슐코인 확인
-    elseif (price_type == 'capsule_coin') then
-        local capsule_coin = g_userData:get(price_type)
-        if (capsule_coin < price) then
-            UIManager:toastNotificationRed(Str('캡슐코인이 부족합니다.'))
-            return false
-        end
-
-    -- 용맹훈장 확인
-    elseif (price_type == 'valor') then
-        local valor = g_userData:get(price_type)
-        if (valor < price) then
-            UIManager:toastNotificationRed(Str('용맹훈장이 부족합니다.'))
-            return false
-        end
-
-    -- 차원문 상점 메달
-    elseif isExistValue(price_type, 'medal', 'memory') then
-        local item_data = TABLE:get('item')[price_type_id]
-        local own_medal = g_userData:get(price_type, tostring(price_type_id))
-
-        -- type : medal // full_type : medal_angra
-        if(own_medal < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', item_data['t_name']))
-            return false
-        end
-    elseif isExistValue(price_type, 'memory_myth') then
+    -- 차원문 메달, 별의 기억
+    elseif isExistValue(price_type, 'medal', 'memory', 'memory_myth') then
         local item = TABLE:get('item')[price_type_id]
-        local own_item_number = g_userData:get('memory', tostring(price_type_id))
+        local own_item_number = g_userData:get(price_type, tostring(price_type_id))
 
         if(own_item_number < price) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이(가) 부족합니다.', item['t_name']))
+            UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.', item['t_name']))
             return false
-        end
-    elseif isExistValue(price_type, 'event_token') then
-        local event_token = g_userData:get(price_type) or 0
-        if (event_token < price) then
-            UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.', '이벤트 재화'))
-            return false         
         end
     else
         error('price_type : ' .. price_type)
