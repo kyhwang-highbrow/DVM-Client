@@ -151,7 +151,7 @@ function UI_RuneForgeInfoTab:refresh()
         local buy_count_desc = product_struct:getMaxBuyTermStr()
         vars['runeBlessBuyLabel']:setString(buy_count_desc)
 
-        if (product_struct:isBuyable() == true) then
+        if (product_struct:checkMaxBuyCount() == true) then
             vars['runeBlessBuyLabel']:setColor(COLOR['green'])
         else
             vars['runeBlessBuyLabel']:setColor(COLOR['red'])
@@ -173,7 +173,7 @@ function UI_RuneForgeInfoTab:refresh()
         vars['grindstoneBuyLabel']:setString(buy_count_desc)
 
         
-        if (product_struct:isBuyable() == true) then
+        if (product_struct:checkMaxBuyCount() == true) then
             vars['grindstoneBuyLabel']:setColor(COLOR['green'])
         else
             vars['grindstoneBuyLabel']:setColor(COLOR['red'])
@@ -190,10 +190,12 @@ function UI_RuneForgeInfoTab:click_grindstonePackageBtn()
     
     -- 룬 연마석 product ID : 210022
     local product_struct = g_shopDataNew:getProduct('st', 210022)
-    product_struct:buy(function(ret)
-        ItemObtainResult_Shop(ret) 
-        self:refresh()
-    end)
+    if (product_struct:isBuyable() == true) then
+        product_struct:buy(function(ret)
+            ItemObtainResult_Shop(ret) 
+            self:refresh()
+        end)
+    end
 end
 
 -------------------------------------
@@ -205,8 +207,11 @@ function UI_RuneForgeInfoTab:click_runBlessBuyBtn()
     
     -- 룬 축복서 product ID : 220017
     local product_struct = g_shopDataNew:getProduct('amethyst', 220017)
-    product_struct:buy(function(ret)
-        ItemObtainResult_Shop(ret) 
-        self:refresh()
-    end)
+
+    if (product_struct:isBuyable() == true) then
+        product_struct:buy(function(ret)
+            ItemObtainResult_Shop(ret) 
+            self:refresh()
+        end)
+    end
 end
