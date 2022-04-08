@@ -24,7 +24,6 @@ StructPickup = class(PARENT, {
 -------------------------------------
 function StructPickup:init(data)
     self.date_format = 'yyyy-mm-dd HH:MM:SS'
-    self.end_date_timestamp = self.end_date_timestamp / 1000
 end
 
 -------------------------------------
@@ -112,7 +111,7 @@ end
 -------------------------------------
 function StructPickup:getRemainingTimeStr()
     local curr_time = Timer:getServerTime()
-    local end_time = self.end_date_timestamp
+    local end_time = self.end_date_timestamp / 1000
     local time = (end_time - curr_time)
     if (time < 0) then
         time = 0
