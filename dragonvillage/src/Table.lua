@@ -233,7 +233,7 @@ local TableInfo_fromServer = {
         ['table_cross_promotion'] = {'table_cross_promotion', 'event_id'}, -- 콜로세움 개선 후 돌파 보상
 
         -- 드래곤 획득 패키지
-        ['table_get_dragon_package'] = {'table_get_dragon_package', 'did'},
+        ['table_get_dragon_package'] = {'table_get_dragon_package', 'product_id'},
     }
 
 -------------------------------------

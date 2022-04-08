@@ -16,12 +16,12 @@ function StructDragonPkgData:init(did, stTime)
     self.m_dragonID = tonumber(did)
     self.m_startTime = stTime
     self.m_endTime = stTime + 86400 --종료는 1일 뒤(60 * 60 * 24)
-    local packageTable = TABLE:get('table_get_dragon_package')
-    self.m_packageList = plSplit(packageTable[did]['product_id'], ';')
+    local packageTable = g_getDragonPackage:GetList_DragonPackage()
+    self.m_packageList = packageTable[did]
 
     --상품 정보
     self.m_productTable = {}
-    for _, pid in pairs(self.m_packageList) do
+    for _, pid in ipairs(self.m_packageList) do
         --Shop Data에서 pid를 통해서 상품 정보들 다 찾아놓는다.
         self.m_productTable[pid] = g_shopDataNew:getTargetProduct(tonumber(pid))
     end
@@ -72,7 +72,7 @@ function StructDragonPkgData:getPossibleProduct()
     local product = nil
     --상품 리스트 순회
     local productList = self:getProductList()
-    for _, pid in pairs(productList) do
+    for _, pid in ipairs(productList) do
         local data = self:getProduct(pid)   --상품 가져오기
         if (data ~= nil) and (not data:isBuyAll()) then
             --구매 가능한지 확인
@@ -127,7 +127,7 @@ function StructDragonPkgData:getTotalBuyCntndMaxCnt()
     local total_BuyCnt, total_MaxCnt = 0, 0
 
     local productList = self:getProductList()
-    for _, pid in pairs(productList) do
+    for _, pid in ipairs(productList) do
         local product = self:getProduct(pid)
         total_BuyCnt = total_BuyCnt + g_shopDataNew:getBuyCount(pid)
         total_MaxCnt = total_MaxCnt + product:getMaxBuyCount()
