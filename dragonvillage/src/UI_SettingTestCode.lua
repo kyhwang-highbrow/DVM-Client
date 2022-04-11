@@ -679,7 +679,7 @@ end
 -- @brief 드래곤 획득 패키지 UI 출력
 -------------------------------------
 function UI_SettingTestCode:click_GetDragonPackageList()
-    local packageList = table.merge(g_getDragonPackage:getPopUpList())
+    local packageList = table.merge(g_getDragonPackage:getPackageList())
     local function PopupPackage()
         local package = table.pop(packageList)
         if not package then
