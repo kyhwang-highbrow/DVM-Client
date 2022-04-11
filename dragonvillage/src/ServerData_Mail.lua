@@ -551,6 +551,9 @@ function ServerData_Mail:request_summon100Ticket(mail_id_list, finish_cb)
         --드래곤 획득 패키지 정보 갱신
         g_getDragonPackage:applyPackageList(ret)
 
+        -- 픽업 천장 정보 갱신
+        g_hatcheryData:applyPickupCeilingInfo(ret)
+
         if finish_cb then
             finish_cb(ret, mail_id_list)
         end
