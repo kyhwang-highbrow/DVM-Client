@@ -760,25 +760,9 @@ function UI_EventLFBag:click_packageBtn()
             g_eventLFBagData:request_eventLFBagInfo(true, false, success_cb)
         end
         
-        local ui = struct_product_group:getTargetUITest(nil, buy_callback, true, nil, true)
+        local ui = struct_product_group:getTargetUI(nil, buy_callback, true, nil, true)
         ui:setMailSelectType(MAIL_SELECT_TYPE.ITEM)
     end
-    -- local ui = UI_Package_Bundle('package_lucky_fortune_bag', true)
-
-    -- local function buy_cb()
-    --     UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM, function() self:refresh() end)
-    -- end
-    -- ui:setBuyCB(buy_cb)
-
-    -- local package_name = 'package_lucky_bag'
-    
-    -- local struct_package_group = g_shopDataNew:getTargetPackage(package_name)
-
-    -- local function buy_cb()
-    --     UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM, function() self:refresh() end)
-    -- end
-
-    -- local ui = struct_package_group:getTargetUITest(nil, buy_cb, true)
 end
 
 -------------------------------------

@@ -780,7 +780,7 @@ end
 
 -------------------------------------
 -- function click_cashSummonBtn
--- @brief 캐시 뽑기
+-- @brief 고급 소환
 -------------------------------------
 function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
 
@@ -836,7 +836,7 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
 end
 -------------------------------------
 -- function click_fixedPickupSummonBtn
--- @brief 캐시 뽑기
+-- @brief 신화드래곤 확률 UP
 -------------------------------------
 function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
 
@@ -950,7 +950,7 @@ end
 
 -------------------------------------
 -- function click_pickupSummonBtn
--- @brief 확률업
+-- @brief 확률 UP 고급소환
 -------------------------------------
 function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
     -- 드래곤 최대치 보유가 넘었는지 체크
@@ -1019,7 +1019,6 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 
     local function ok_btn_cb()
         if (egg_id == 700001) then
-            --self:click_eventSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
             self:click_pickupSummonBtn(is_bundle, is_ad, t_egg_data, old_ui, draw_cnt, pickup_id)
 
         elseif (egg_id == 700002) then

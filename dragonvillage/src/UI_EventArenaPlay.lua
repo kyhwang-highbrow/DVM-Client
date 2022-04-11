@@ -14,7 +14,7 @@ UI_EventArenaPlay = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventArenaPlay:init(popup_key)
-    ui_name = 'event_update_reward.ui'    
+    local ui_name = 'event_update_reward.ui'
     self:load(ui_name)
 
     self:initButton()

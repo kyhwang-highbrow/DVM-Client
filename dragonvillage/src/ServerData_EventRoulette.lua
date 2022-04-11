@@ -375,7 +375,6 @@ function ServerData_EventRoulette:getTimeText()
         local time = (end_time - curr_time)
         str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
     else
-        is_season_ended = true
         str = Str('이벤트가 종료되었습니다.')
     end
 

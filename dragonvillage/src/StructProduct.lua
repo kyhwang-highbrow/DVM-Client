@@ -345,7 +345,7 @@ function StructProduct:isDisplayed()
     elseif (max_buy_term == 'monthly') then
         return true
 
-    elseif (buy_term == 'daily') then
+    elseif (max_buy_term == 'daily') then
 		return true
    
     elseif (max_buy_term == 'permanent') then

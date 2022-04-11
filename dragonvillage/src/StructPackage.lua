@@ -231,9 +231,9 @@ function StructProductGroup:setTargetUI(parent_node, buy_callback, is_refresh_de
 end
 
 ----------------------------------------------------------------------
--- function getTargetUITest
+-- function getTargetUI
 ----------------------------------------------------------------------
-function StructProductGroup:getTargetUITest(parent_node, buy_callback, is_popup, is_full_popup, is_result_mail_box)
+function StructProductGroup:getTargetUI(parent_node, buy_callback, is_popup, is_full_popup, is_result_mail_box)
 	if (not self.m_structProductList) or table.isEmpty(self.m_structProductList) then
 		return nil
 	end
