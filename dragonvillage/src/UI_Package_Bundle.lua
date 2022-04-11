@@ -432,6 +432,9 @@ function UI_Package_Bundle:click_rewardBtn()
     elseif (self.m_package_name == 'package_dragon_summon_100') then
         MakePopup('package_dragon_summon_100_info.ui', nil)
         return
+    elseif(self.m_package_name == 'package_rune_box_plus') then
+        MakePopup('package_rune_box_plus_popup.ui', nil)
+        return
     end
 
     -- 아이템 리스트 출력
