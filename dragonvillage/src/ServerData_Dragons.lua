@@ -935,40 +935,14 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
                 end
             end
         end
-    --[[
-    elseif IS_ARENA_OPEN() then
-        if g_arenaData then
-            local struct_user_info = g_arenaData:getPlayerArenaUserInfo() -- return : StructUserInfoArena
-            if struct_user_info then
-                -- 덱
-                local l_pvp_deck = struct_user_info:getDeck_dragonList(true) -- param : use_doid
-                if table.find(l_pvp_deck, doid) then
-                    return false, Str('콜로세움 덱에 설정된 드래곤입니다.')
-                end
-            end
-        end
-
-    else
-        if g_colosseumData then
-            local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo() -- return : StructUserInfoColosseum
-            if struct_user_info then
-                -- 공격 덱
-                local l_pvp_atk = struct_user_info:getAtkDeck_dragonList(true) -- param : use_doid
-                if table.find(l_pvp_atk, doid) then
-                    return false, Str('콜로세움 공격덱에 설정된 드래곤입니다.')
-                end
-
-                -- 방어 덱
-                local l_pvp_def =struct_user_info:getDefDeck_dragonList(true) -- param : use_doid
-                if table.find(l_pvp_def, doid) then
-                    return false, Str('콜로세움 덱에 설정된 드래곤입니다.')
-                end
-            end
-        end
-    ]]
-
     end
+    
+    local clan_war_deck = g_deckData:getDeck('clanwar')
 
+    if table.find(clan_war_deck, doid) then
+        return false, Str('작별할 수 없는 드래곤입니다.')
+    end
+    
     return true
 end
 
