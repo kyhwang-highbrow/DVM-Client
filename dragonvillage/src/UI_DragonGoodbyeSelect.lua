@@ -131,15 +131,20 @@ function UI_DragonGoodbyeSelect:isContainsInTableview(struct_dragon)
 		end
 	end
 
+	local doid = struct_dragon:getObjectId()
 	local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo()
 	-- 콜로세움 방어덱 확인
 	if struct_user_info then
 		local defense_deck = struct_user_info:getDefenseDeck_dragonList(true) -- param : use_doid
-		local doid = struct_dragon:getObjectId()
 		if table.find(defense_deck, doid) then
 			return false
 		end
 	end
+
+	local clan_war_deck = g_deckData:getDeck('clanwar')
+    if table.find(clan_war_deck, doid) then
+        return false
+    end
 
 	return true
 end
