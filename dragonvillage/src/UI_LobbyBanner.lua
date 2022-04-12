@@ -125,11 +125,6 @@ end
 -- class click_bannerBtn
 ----------------------------------------------------------------------
 function UI_BannerAppCollaboration:click_bannerBtn()
-    -- 주의 :: 따라하지 마시오
-    --g_fullPopupManager:showFullPopup('event_dvnew_collaboration;event_cross_promotion.ui')
-    --local url = self.m_eventData.m_eventData['url']
-
-    --SDKManager:goToWeb(url)
 	g_fullPopupManager:showFullPopup('event_crosspromotion')
 end
 
@@ -187,8 +182,6 @@ end
 -- class click_bannerBtn
 ----------------------------------------------------------------------
 function UI_LobbyBanner:click_bannerBtn()
-    -- 주의 :: 따라하지 마시오
-    --g_fullPopupManager:showFullPopup('event_dvnew_collaboration;event_cross_promotion.ui')
     local url = self.m_eventData.m_eventData['url']
     local event_type = self.m_eventData.m_eventData['event_type']
 
@@ -197,8 +190,6 @@ function UI_LobbyBanner:click_bannerBtn()
     elseif (event_type == 'event_crosspromotion') then
 	    g_fullPopupManager:showFullPopup(event_type)
     end
-
-
 end
 
 
