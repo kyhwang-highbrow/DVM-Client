@@ -26,15 +26,15 @@ end
 -------------------------------------
 function getDragonRarityName(rarity)
     if (rarity == 1) then
-        return Str('일반')
+        return '일반'
     elseif (rarity == 2) then
-        return Str('희귀')
+        return '희귀'
     elseif (rarity == 3) then
-        return Str('영웅')
+        return '영웅'
     elseif (rarity == 4) then
-        return Str('전설')
+        return '전설'
     elseif (rarity == 5) then
-        return Str('신화')
+        return '신화'
     else
         error()
     end

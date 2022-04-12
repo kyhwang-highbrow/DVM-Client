@@ -373,7 +373,7 @@ function UI_RuneSelectDevApiPopup.rarity_str(rarity)
         str = getDragonRarityName(rarity)
     end
 
-    return str
+    return Str(str)
 end
 
 -------------------------------------
