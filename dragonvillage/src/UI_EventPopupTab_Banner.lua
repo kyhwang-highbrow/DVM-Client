@@ -186,33 +186,58 @@ function UI_EventPopupTab_Banner:init_customUI()
         end
 
     elseif (banner == 'event_capsule_1st.ui') then
-        local dragon_grade = Str('한정 드래곤')
-        local dragon_name = Str('타나토스(불)')
-
-        dragon_name = '{@fire}' .. dragon_name .. '{@default}'
-        vars['infoLabel']:setString(Str('{1} {2} 획득 기회!', dragon_grade, dragon_name))
+        self:initEventCapsule()
     end
 end
 
--------------------------------------
--- function changeTitleSprite
--- @brief 구글 피쳐드 선정 기념. 구글 market -> '구글 피처드 선정 기념 ~', 아니면 '피처드 선정 기념 ~'
--- @brief UI_GoogleFeaturedContentChange를 상속받아 함수의 중복을 없앤다. (쓸모 없는 코드지만 이미 작업을 완료 하였으니 피처드 끝난 이후 커밋하여 코드를 깔끔하게 한다.)
--------------------------------------
---[[
-function UI_EventPopupTab_Banner:changeTitleSprite(ui)
-    if (ui['otherMarketSprite'] and ui['otherMarketSprite']) then
-        local market, os = GetMarketAndOS()
-        ui['googleSprite']:setVisible(false)
-        ui['otherMarketSprite']:setVisible(false)
-        if (market == 'google' or market == 'windows') then
-            ui['googleSprite']:setVisible(true)
-        else
-            ui['otherMarketSprite']:setVisible(true)
+function UI_EventPopupTab_Banner:initEventCapsule()
+    local vars = self.vars
+
+    local box_key = 'first'
+    local capsulebox_data = g_capsuleBoxData:getCapsuleBoxInfo()
+    if (not capsulebox_data) then
+        return
+    end
+
+    local struct_capsule_box = capsulebox_data[box_key]
+    local rank = 1
+    local l_reward = struct_capsule_box:getRankRewardList(rank) or {}
+
+    if l_reward and l_reward[1] then
+        local table_dragon = TableDragon()
+        local item_id = l_reward[1]['item_id']
+
+        local dragon_id = TableItem:getDidByItemId(item_id)
+        local dragon_data = table_dragon:get(tonumber(dragon_id))     
+
+        if item_id and dragon_id and dragon_data then
+            local dragon_rarity_str = dragon_data['rarity']
+            local dragon_rarity_num = dragonRarityStrToNum(dragon_rarity_str)
+            
+            local string_rarity = getDragonRarityName(dragon_rarity_num)
+            local dragon_category = dragon_data['category']
+
+            if (dragon_category == 'cardpack') then
+                string_rarity = '토파즈'
+            elseif (dragon_category == 'limited') then
+                string_rarity = '한정'
+            elseif (dragon_category == 'event') then
+                string_rarity = '이벤트'
+            end
+
+            string_rarity = string_rarity .. ' 드래곤'
+            string_rarity = Str(string_rarity)
+
+            local dragon_name = table_dragon:getDragonNameWithAttr(dragon_id)
+            dragon_name = pl.stringx.replace(dragon_name, ' ', '')
+
+            dragon_name = '{@default}{@fire}' .. Str(dragon_name) .. '{@default}'
+
+            vars['infoLabel']:setString(Str('{1} {2} 획득 기회!', string_rarity, dragon_name))
         end
     end
 end
-]]
+
 
 -------------------------------------
 -- function click_bannerBtn
