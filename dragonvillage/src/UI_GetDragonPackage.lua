@@ -315,7 +315,15 @@ function UI_GetDragonPackage:setBuyButton()
         self:refresh()
     end
 
-    vars['buyBtn']:registerScriptTapHandler(function() self.m_mainProduct:buy(cb_func) end)
+    vars['buyBtn']:registerScriptTapHandler(function() 
+        local did = self.m_packageData:getDragonID()
+        --도감에 있는 유저인지 확인한다
+        if g_bookData:isExist_byDidAndEvolution(did, 1) then
+            self.m_mainProduct:buy(cb_func)
+            return
+        end
+        MakeSimplePopup(POPUP_TYPE.OK, Str('잘못된 요청입니다.'), function() CppFunctions:restart() end)
+    end)
 end
 
 -------------------------------------
