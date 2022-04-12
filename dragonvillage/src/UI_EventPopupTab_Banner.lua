@@ -184,6 +184,13 @@ function UI_EventPopupTab_Banner:init_customUI()
                     SDKManager:goToWeb('https://bit.ly/3v9ZCCJ')
                 end)
         end
+
+    elseif (banner == 'event_capsule_1st.ui') then
+        local dragon_grade = Str('한정 드래곤')
+        local dragon_name = Str('타나토스(불)')
+
+        dragon_name = '{@fire}' .. dragon_name .. '{@default}'
+        vars['infoLabel']:setString(Str('{1} {2} 획득 기회!', dragon_grade, dragon_name))
     end
 end
 
