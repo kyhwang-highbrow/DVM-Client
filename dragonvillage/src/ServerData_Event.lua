@@ -406,7 +406,7 @@ function ServerData_Event:getEventFullPopupList()
 
             -- banner type인 경우 resource, url까지 등록
             elseif (visible) and (event_type == 'banner') then
-                event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url'] .. ';' .. v['end_date']
+                event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url'] .. ';' .. v['end_date'] .. ';' .. v['start_date']
 
                 -- 원스토어 30% 캐시백 프로모션 (원스토어 빌드에만 노출)
                 if (banner == 'event_promotion_onestore_cashback.ui') then

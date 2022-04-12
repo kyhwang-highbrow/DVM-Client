@@ -49,6 +49,13 @@ function StructEventPopupTab:getEventID()
 end
 
 -------------------------------------
+-- function getStartDate
+-------------------------------------
+function StructEventPopupTab:getStartDate()
+    return self.m_eventData['start_date']
+end
+
+-------------------------------------
 -- function getEndDate
 -------------------------------------
 function StructEventPopupTab:getEndDate()
