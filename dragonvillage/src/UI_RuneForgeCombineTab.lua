@@ -77,8 +77,7 @@ function UI_RuneForgeCombineTab:initBtn()
     end
 
     --고대 룬 합성 버튼
-    local isVisible = (not g_contentLockData:isContentLock('nest_nightmare'))
-    vars['runeSelectBtn2']:setVisible(isVisible)
+    vars['runeSelectBtn2']:setVisible(true)
 end
 
 
