@@ -2,7 +2,7 @@ local PARENT = UI
 
 -------------------------------------
 -- class UI_EventArenaPlay
--- @brief 
+-- @brief
 -------------------------------------
 UI_EventArenaPlay = class(PARENT,{
 
@@ -14,11 +14,13 @@ UI_EventArenaPlay = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventArenaPlay:init(popup_key)
+    require('UI_EventArenaPlayItem')
+
     local ui_name = 'event_update_reward.ui'
     self:load(ui_name)
 
     self:initButton()
-    --self:initUI()
+    self:initUI()
     self:refresh()
 end
 
@@ -56,28 +58,37 @@ function UI_EventArenaPlay:refresh()
     if (vars['timeLabel']) then vars['timeLabel']:setString(g_eventArenaPlayData:getRemainEventTimeStr()) end
     if (vars['playNumberLabel']) then  vars['playNumberLabel']:setString(Str('참여 횟수 보상: {1}회', g_eventArenaPlayData:getPlayCount())) end
     if (vars['winNumberLabel']) then  vars['winNumberLabel']:setString(Str('승리 횟수 보상: {1}회', g_eventArenaPlayData:getWinCount())) end
-
     
     local play_reward_info = g_eventArenaPlayData:getPlayRewardInfo()
     local win_reward_info = g_eventArenaPlayData:getWinRewardInfo()
 
     local play_reward_step = play_reward_info['product']['step']
-    local win_reward_step = play_reward_info['product']['step']
+    local win_reward_step = win_reward_info['product']['step']
 
+    -- 참여 보상 아이템
     for idx = 1, play_reward_step do
-        local is_received = play_reward_info['reward'][tostring(idx)] == 1
-        local can_receive = g_eventArenaPlayData:getPlayCount() >= play_reward_info['product']['price_' .. idx] and (not is_received)
+        
+        local itemNode = vars["itemNode" .. idx]
 
-        vars['playCheckSprite' .. idx]:setVisible(is_received)
-        vars['playRewardSprite' .. idx]:setVisible(can_receive)
+        if itemNode then
+            -- itemNode 하위 존재하면 지워주고 다시 생성 해야 한다
+            itemNode:removeAllChildren()
+            local play_reward_item = UI_EventArenaPlayItem('play', idx)
+            itemNode:addChild(play_reward_item.root)
+        end
     end
 
+    -- 승리 보상 아이템
     for idx = 1, win_reward_step do
-        local is_received = win_reward_info['reward'][tostring(idx)] == 1
-        local can_receive = g_eventArenaPlayData:getWinCount() >= win_reward_info['product']['price_' .. idx] and (not is_received)
 
-        vars['winCheckSprite' .. idx]:setVisible(is_received)
-        vars['winRewardSprite' .. idx]:setVisible(can_receive)
+        local itemNode = vars["itemNode" .. (idx + play_reward_step)]
+
+        if itemNode then
+            -- itemNode 하위 존재하면 지워주고 다시 생성 해야 한다
+            itemNode:removeAllChildren()
+            local win_reward_item = UI_EventArenaPlayItem('win', idx)
+            itemNode:addChild(win_reward_item.root)
+        end
     end
 
     -- 참여 횟수 버튼
