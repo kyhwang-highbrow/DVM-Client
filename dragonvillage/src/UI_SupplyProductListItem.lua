@@ -108,9 +108,7 @@ function UI_SupplyProductListItem:refresh()
     local vars = self.vars
     local t_data = self.m_tSupplyData
 
-
     local supply_type = t_data['type']
-    cclog(supply_type)
     local t_supply_info = g_supply:getSupplyInfoByType(supply_type)
     
     -- 상태 체크 -1:비활성, 0:일일 보상 수령 가능, 1:일일 보상 수령 완료
