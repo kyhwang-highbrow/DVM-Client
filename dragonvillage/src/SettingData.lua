@@ -736,6 +736,20 @@ function SettingData:getGrindAutoSetting(option_type)
 end
 
 -------------------------------------
+-- function setSelectPickUpSetting
+-------------------------------------
+function SettingData:setSelectPickUpSetting(selectpickUp)
+    self:applySettingData(selectpickUp, 'selectPickUp')
+end
+
+-------------------------------------
+-- function getSelectPickUpSetting
+-------------------------------------
+function SettingData:getSelectPickUpSetting()
+    return self:get('selectPickUp') or nil
+end
+
+-------------------------------------
 -- function getCloudSetting
 -- @brief
 -- @param key string

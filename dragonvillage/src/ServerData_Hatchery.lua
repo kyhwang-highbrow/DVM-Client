@@ -365,6 +365,7 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, pickup_id,
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
     local auto_farewell_lv = 3
+    local normal_did, unique_did = self:getSelectedPickup()
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -417,6 +418,8 @@ function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, pickup_id,
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('sale', is_sale)
     ui_network:setParam('draw_cnt', draw_cnt)
+    ui_network:setParam('normal_did', normal_did)
+    ui_network:setParam('unique_did', unique_did)
     -- if pickup_id then
     --     ui_network:setParam('pickup_id', pickup_id)
     -- end
@@ -643,7 +646,14 @@ function ServerData_Hatchery:setHacheryInfoTable(t_data)
     --  },
     --}
 
-    if (t_data['summon_pickup_info']) then self.m_selectedPickup = t_data['summon_pickup_info'] end
+    --로컬데이터를 가지고와본다.
+    self.m_selectedPickup = g_settingData:getSelectPickUpSetting()
+    if (self.m_selectedPickup == nil) then   --데이터가 없다면
+        if (t_data['summon_pickup_info']) then  --서버 데이터를 가져와본다
+            self.m_selectedPickup = t_data['summon_pickup_info']
+        end
+    end
+
     if (t_data['pickup_next_100'] and tonumber(t_data['pickup_next_100'])) then self.m_isDefinitePickup = t_data['pickup_next_100'] > 0 end
 
     self.m_updatedAt = Timer:getServerTime()
@@ -1056,37 +1066,15 @@ function ServerData_Hatchery:getChanceUpEndDate()
 end
 
 
-
--------------------------------------
--- function request_selectPickup
--- @breif
--------------------------------------
-function ServerData_Hatchery:request_selectPickup(did, finish_cb, fail_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-
-    -- 성공 콜백
-    local function success_cb(ret)
-        if (ret['summon_pickup_info']) then self.m_selectedPickup = ret['summon_pickup_info'] end
-
-        if finish_cb then
-            finish_cb()
-        end
+function ServerData_Hatchery:selectedPickup(did, attr)
+    did = tostring(did)
+    if (attr == 'light' or attr == 'dark') then
+        self.m_selectedPickup['unique'] = did
+    else
+        self.m_selectedPickup['normal'] = did
     end
 
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/shop/select_pickup')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('did', did)
-    ui_network:setMethod('POST')
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
-
-    return ui_network
+    g_settingData:setSelectPickUpSetting(self.m_selectedPickup)
 end
 
 -------------------------------------
