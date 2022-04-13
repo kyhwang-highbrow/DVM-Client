@@ -68,6 +68,7 @@ ITEM_ID_MAP['grindstone'] = 704900
 
 ITEM_ID_MAP['stamina'] = 700101
 ITEM_ID_MAP['st'] = 700101
+ITEM_ID_MAP['event_st'] = 700105
 ITEM_ID_MAP['staminas_st'] = 700101
 ITEM_ID_MAP['staminas_pvp'] = 700102
 ITEM_ID_MAP['staminas_tower'] = 700103
