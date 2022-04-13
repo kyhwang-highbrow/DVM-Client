@@ -227,6 +227,11 @@ function UIHelper:checkPrice(price_type, price, price_type_id)
     -- 차원문 메달, 별의 기억
     elseif isExistValue(price_type, 'medal', 'memory', 'memory_myth') then
         local item = TABLE:get('item')[price_type_id]
+
+        if (price_type == 'memory_myth') then
+            price_type = 'memory'
+        end
+
         local own_item_number = g_userData:get(price_type, tostring(price_type_id))
 
         if(own_item_number < price) then
@@ -260,6 +265,11 @@ function UIHelper:checkPrice_toastMessage(price_type, price, price_type_id)
     -- 차원문 메달, 별의 기억
     elseif isExistValue(price_type, 'medal', 'memory', 'memory_myth') then
         local item = TABLE:get('item')[price_type_id]
+
+        if (price_type == 'memory_myth') then
+            price_type = 'memory'
+        end
+
         local own_item_number = g_userData:get(price_type, tostring(price_type_id))
 
         if(own_item_number < price) then
