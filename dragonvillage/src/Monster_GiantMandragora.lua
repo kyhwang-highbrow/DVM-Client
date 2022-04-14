@@ -186,7 +186,6 @@ function Monster_GiantMandragora:dropItemByAccumDamage(accum_damage, prev_accum_
     local value1 = math_floor(accum_damage / (DAMAGE_UNIT * 2))
     local value2 = math_floor(prev_accum_damage / (DAMAGE_UNIT * 2))
     if (value1 <= value2) then return end
-
     -- 피격 애니메이션
     if (self.m_state == 'attackDelay') then
         self.m_animator:changeAni('damage', false)
@@ -197,7 +196,10 @@ function Monster_GiantMandragora:dropItemByAccumDamage(accum_damage, prev_accum_
     end
 
     -- 아이템 드랍
-    self:dispatch('drop_gold', {}, self)
+    local dropCnt = (value1 - value2)
+    for i = 1, dropCnt do
+        self:dispatch('drop_gold', {}, self)
+    end
 end
 -------------------------------------
 -- function runAction_Grow
