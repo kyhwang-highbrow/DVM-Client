@@ -72,8 +72,10 @@ end
 -- function click_okBtn
 ----------------------------------------------------------------------
 function UI_EventRouletteAutoSettingCheck:click_okBtn()
-    if(self.m_rouletteCB) then
-        self.m_rouletteCB()
+    local rouletteCB = self.m_rouletteCB
+    
+    if(rouletteCB) then
+        rouletteCB()
     end
 
     self:close()

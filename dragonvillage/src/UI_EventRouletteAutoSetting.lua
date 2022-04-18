@@ -56,7 +56,11 @@ function UI_EventRouletteAutoSetting:initButton()
 
     -- 차례대로 횟수 증가, 감소, 횟수 100 추가, 취소, 자동 돌림판 시작 버튼
     vars['minusBtn']:registerScriptTapHandler(function() self:click_minusBtn() end)
+    vars['minusBtn']:setPressedCB(function() self:click_minusBtn() end)
+
     vars['plusBtn']:registerScriptTapHandler(function() self:click_plusBtn() end)
+    vars['plusBtn']:setPressedCB(function() self:click_plusBtn() end)
+
     vars['100Btn']:registerScriptTapHandler(function() self:click_100Btn() end)
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
     vars['grindAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
@@ -75,7 +79,9 @@ end
 ----------------------------------------------------------------------
 function UI_EventRouletteAutoSetting:refreshLabel()
     local vars = self.vars
-    vars['quantityLabel']:setString(tostring(self.m_autoCount))
+    local autoCount = self.m_autoCount
+
+    vars['quantityLabel']:setString(tostring(autoCount))
 end
 
 ----------------------------------------------------------------------
@@ -84,8 +90,16 @@ end
 -- @param count 더할 횟수, 음수 가능
 ----------------------------------------------------------------------
 function UI_EventRouletteAutoSetting:addAutoCount(count)
-    self.m_autoCount = self.m_autoCount + count
-    self.m_autoCount = math_clamp(self.m_autoCount, AUTO_MIN_COUNT, self.m_maxCount)
+    local autoCount = self.m_autoCount
+    local maxCount = self.m_maxCount
+
+    autoCount = autoCount + count
+
+    if(autoCount > maxCount) then
+        UIManager:toastNotificationRed(Str('이벤트 아이템이 부족합니다.'))
+    end
+
+    self.m_autoCount = math_clamp(autoCount, AUTO_MIN_COUNT, maxCount)
 end
 
 ----------------------------------------------------------------------
@@ -128,19 +142,21 @@ end
 -- @brief 자동 돌림판 시작 버튼 클릭
 ----------------------------------------------------------------------
 function UI_EventRouletteAutoSetting:click_autoBtn()
-    if (self.m_autoCount > 0) then
-        local cb = function() 
-            if(self.m_rouletteCB) then
-                self.m_rouletteCB(self.m_autoCount)
+    local autoCount = self.m_autoCount
+    local rouletteCB = self.m_rouletteCB
+    
+    if (autoCount > 0) then
+        local start_cb = function() 
+            if(rouletteCB) then
+                rouletteCB(autoCount)
             end
 
             self:close()
         end
 
-        UI_EventRouletteAutoSettingCheck(self.m_autoCount, cb)
+        UI_EventRouletteAutoSettingCheck(autoCount, start_cb)
     else
-        -- 이미 토스트 팝업이 띄워져 있다면 추가 생성 안하는 쪽으로 수정 필요
-        UI_ToastPopup(Str('티켓이 부족합니다.'))
+        UIManager:toastNotificationRed(Str('이벤트 아이템이 부족합니다.'))
     end
 end
 

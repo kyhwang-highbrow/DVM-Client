@@ -5,16 +5,16 @@ local PARENT = UI
 -- @brief 
 ----------------------------------------------------------------------
 UI_EventRoulette = class(PARENT, {
-    m_currStep = 'number',                 -- 현재 step
-    m_packageName = 'string',              -- 패키지 버튼에 연결될 패키지 이름
+    m_currStep = 'number',                  -- 현재 step
+    m_packageName = 'string',               -- 패키지 버튼에 연결될 패키지 이름
 
     -- 2022.04.14 @ksjang
     m_coroutineHelper = 'CoroutineHelper',  -- 연속 회전을 위한 코루틴 헬퍼
     m_bIsAuto = 'boolean',                  -- 자동인지 체크
     m_bIsShowRewardPopup = 'boolean',       -- 우편 발송 확인 UI 띄울지 않띄울지
-    m_bIsTapBlockPopup = 'boolean',         -- 자동 멈추기 위해 화면을 탭 했는지
-    m_autoResultList = 'table',             -- 자동 돌림판 결과 아이템 저장 리스트
-    m_autoResultTable = 'table',
+    m_bIsTapBlockPopup = 'boolean',         -- 자동 돌림판 멈추기 위해 화면을 탭 했는지
+    m_lAutoResult = 'table',                -- 자동 돌림판 결과 아이템 저장 리스트
+    m_autoResultTableview = 'tableview',    -- 자동 돌림판 결과 아이템 TableView
     -----------------
 
     -- vars for skip
@@ -27,10 +27,11 @@ UI_EventRoulette = class(PARENT, {
 
     -- TOP
     m_timeLabel = 'UIC_LabelTTF',   -- 남은 시간 텍스트
+    m_rewardLabel = 'UIC_LabelTTF', -- 보상 테이블 제목 라벨
     m_rankBtn = 'UIC_Button',       -- 랭킹 버튼
     m_infoBtn = 'UIC_Button',       -- 도움말 버튼
     m_closeBtn = 'UIC_Button',      -- 닫기 버튼
-    m_autoBtn = 'UIC_Button',  -- 자동 뽑기 설정 버튼
+    m_autoBtn = 'UIC_Button',       -- 자동 뽑기 설정 버튼
 
     -- Middle Left
     m_rouletteMenues = 'List[cc.Menu]', -- 
@@ -66,9 +67,7 @@ function UI_EventRoulette:init(is_popup)
 
     -- 이벤트 페이지를 통한 접근이 아닐 시 팝업
     if is_popup then
-        self.m_uiName = 'UI_EventRoulette'
         UIManager:open(self, UIManager.POPUP)
-
         g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
 
         self:doActionReset()
@@ -82,10 +81,8 @@ function UI_EventRoulette:init(is_popup)
 
     -- UI 진입 시 랭킹 팝업 오픈
     g_eventRouletteData:MakeRankingRewardPopup()
-    -- 배경음악 변경
     SoundMgr:playBGM('bgm_event_roulette')
 
-    -- 해당 UI 노드의 event 상태가 exit일 경우 사운드 처리
     local function event_update(event)   
         if (event == 'exit') then
             SoundMgr:stopAllEffects()    
@@ -102,20 +99,22 @@ end
 function UI_EventRoulette:initMember()
     local vars = self.vars
     
+    self.m_uiName = 'UI_EventRoulette'
     self.m_packageName = 'package_roulette'
 
     -- auto Roulette
     self.m_bIsAuto = false
     self.m_bIsShowRewardPopup = true
     self.m_bIsTapBlockPopup = false
-    self.m_autoResultList = {}
+    self.m_lAutoResult = {}
 
     -- TOP
-    self.m_timeLabel = vars['timeLabel']   -- 남은 시간 텍스트
-    self.m_rankBtn = vars['rankBtn']       -- 랭킹 버튼
-    self.m_infoBtn = vars['infoBtn']       -- 도움말 버튼
-    self.m_closeBtn = vars['closeBtn']      -- 닫기 버튼
-    self.m_autoBtn = vars['grindAutoBtn'] -- 자동 돌림판 설정 버튼
+    self.m_rewardLabel = vars['rewardLabel'] -- 우측 '등장 가능 보상' 라벨
+    self.m_timeLabel = vars['timeLabel']     -- 남은 시간 텍스트
+    self.m_rankBtn = vars['rankBtn']         -- 랭킹 버튼
+    self.m_infoBtn = vars['infoBtn']         -- 도움말 버튼
+    self.m_closeBtn = vars['closeBtn']       -- 닫기 버튼
+    self.m_autoBtn = vars['grindAutoBtn']    -- 자동 돌림판 설정 버튼
 
     -- Middle Left
     self.m_stopBtn = vars['stopBtn']
@@ -175,9 +174,7 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:initUI(is_popup)
     -- 이벤트 페이지로 이동 시 닫기 버튼 비활성화
-    if (not is_popup) then
-        self.m_closeBtn:setVisible(false)
-    end
+    self.m_closeBtn:setVisible(is_popup)
     
     -- 남은 시간 타이머 등록
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)    
@@ -186,10 +183,10 @@ function UI_EventRoulette:initUI(is_popup)
     local mileage = g_eventRouletteData:getMileage()
 
     if (mileage > -1) then
-        vars['cellingMenu']:setVisible(true)
+        vars['ceilingMenu']:setVisible(true)
         vars['ceilingBtn']:registerScriptTapHandler(function() self:click_ceilingBtn() end)
     else
-        vars['cellingMenu']:setVisible(false)
+        vars['ceilingMenu']:setVisible(false)
     end
 end
 
@@ -217,70 +214,115 @@ function UI_EventRoulette:initButton()
         step = step + 1
     end
 
-    self.m_stopBtn:registerScriptTapHandler(function() self:click_stopBtn() end)
-    self.m_closeBtn:registerScriptTapHandler(function() self:close() end)
-    self.m_rankBtn:registerScriptTapHandler(function() self:click_rankBtn() end)
-    self.m_infoBtn:registerScriptTapHandler(function() self:click_infoBtn() end)
-    self.m_autoBtn:registerScriptTapHandler(function() self:click_autoBtn() end)
-    self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
+    self.m_stopBtn:registerScriptTapHandler    (function() self:click_stopBtn   () end)
+    self.m_closeBtn:registerScriptTapHandler   (function() self:close           () end)
+    self.m_rankBtn:registerScriptTapHandler    (function() self:click_rankBtn   () end)
+    self.m_infoBtn:registerScriptTapHandler    (function() self:click_infoBtn   () end)
+    self.m_autoBtn:registerScriptTapHandler    (function() self:click_autoBtn   () end)
+    self.m_packageBtn:registerScriptTapHandler (function() self:click_packageBtn() end)
 end
 
 ----------------------------------------------------------------------
 -- function refresh
 ----------------------------------------------------------------------
 function UI_EventRoulette:refresh()
-    -- 남은 티켓 개수
-    self.m_ticketNumLabel:setString(g_eventRouletteData:getTicketNum())
-    -- 누적 점수
-    self.m_totalScoreLabel:setString(Str('{1}점', g_eventRouletteData:getTotalScore()))
-    -- 현재 단계 (1단계, 2단계)
     self.m_currStep = g_eventRouletteData:getCurrStep()
+
+    self:refreshTicketNum()
+    self:refreshTotalScore()
+    self:refreshRoulette()
+
+    -- 좌측 누르면 나오는 보상 리스트 비활성화 
+    self.m_rewardItemInfo:setVisible(false)
+
+    -- 하나씩 뽑기 할 경우 우측 보상 테이블 생성
+    if(self.m_bIsAuto == false and self.m_bIsTapBlockPopup == false) then
+        self:refreshRewardTableview()
+    end
+
+    self.m_bIsTapBlockPopup = false
+    self.m_bIsSkipped = false
+
+    self.m_stopBtn:setEnabled(true)
+    self.m_stopBtn:setVisible(false)
+
+    self.m_wheel:setRotation(0)
+
+    self:refreshCeilingMenu()
+    self:refreshAutoButton()
+end
+
+----------------------------------------------------------------------
+-- function refreshRewardLabel
+-- @brief '등장 가능 보상' label refresh
+----------------------------------------------------------------------
+function UI_EventRoulette:refreshRewardLabel()
+    local rewardLabel = self.m_rewardLabel
+    local bIsAuto = self.m_bIsAuto
+
+    if (bIsAuto == true) then
+        rewardLabel:setString(Str('획득한 {1}', Str('보상')))
+    else
+        rewardLabel:setString(Str('등장 가능 보상'))
+    end
+end
+
+----------------------------------------------------------------------
+-- function refreshTicketNum
+-- @brief 티켓 수 refresh
+----------------------------------------------------------------------
+function UI_EventRoulette:refreshTicketNum()
+    local ticketNum = g_eventRouletteData:getTicketNum()
+    self.m_ticketNumLabel:setString(ticketNum)
+end
+
+----------------------------------------------------------------------
+-- function refreshTotalScore
+-- @brief 누적 점수 refresh
+----------------------------------------------------------------------
+function UI_EventRoulette:refreshTotalScore()
+    local totalScore = g_eventRouletteData:getTotalScore()
+    self.m_totalScoreLabel:setString(Str('{1}점', totalScore))
+end
+
+----------------------------------------------------------------------
+-- function refreshRoulette
+-- @brief 돌림판, 돌림판 아이템, 돌림판 애니메이션 refresh
+----------------------------------------------------------------------
+function UI_EventRoulette:refreshRoulette()
+    local rouletteMenues = self.m_rouletteMenues
+    local startBtns = self.m_startBtns
+    local itemUIList = self.m_itemUIList
+    local rouletteVisual = self.m_rouletteVisual
+    local currStep = self.m_currStep
 
     -- 각 스텝에 맞는 룰렛 메뉴와 버튼 활성화
     local step = 1
-
-    while(self.m_rouletteMenues[step]) do
-        self.m_rouletteMenues[step]:setVisible(self.m_currStep == step)
-        self.m_startBtns[step]:setVisible(self.m_currStep == step)
-
+    while(rouletteMenues[step]) do
+        rouletteMenues[step]:setVisible(currStep == step)
+        startBtns[step]:setVisible(currStep == step)
         step = step + 1
     end
 
     -- 룰렛 위 아이템 refresh
     local index = 1
-
-    while(self.m_itemUIList[index]) do
-        self.m_itemUIList[index]:refresh()
-        
+    while(itemUIList[index]) do
+        itemUIList[index]:refresh()
         index = index + 1
     end
 
-    -- 좌측 누르면 나오는 보상 리스트 비활성화 
-    self.m_rewardItemInfo:setVisible(false)
-    self.m_rouletteVisual:changeAni('roulette_' .. tostring(self.m_currStep), true)
+    rouletteVisual:changeAni('roulette_' .. tostring(currStep), true)
+end
 
-    if(self.m_bIsAuto == false and self.m_bIsTapBlockPopup == false) then
-        self:makeRewardTable()
-    end
-
-    self.m_bIsTapBlockPopup = false
-
-    -- 각종 버튼 활성화, 비활성화
-    self.m_stopBtn:setEnabled(true)
-    self.m_bIsSkipped = false
-    self.m_stopBtn:setVisible(false)
-    self.m_startBtns[self.m_currStep]:setEnabled(true)
-
-    -- 룰렛 회전 초기화
-    self.m_wheel:setRotation(0)
-
+----------------------------------------------------------------------
+-- function refreshCeilingMenu
+-- @brief 드래곤 마일리지(천장) 메뉴 refresh
+----------------------------------------------------------------------
+function UI_EventRoulette:refreshCeilingMenu()
     local vars = self.vars
-
-    -- 드래곤 마일리지(획득까지 100회...)
     local mileage = g_eventRouletteData:getMileage()
 
-    -- 드래곤 마일리지 버튼 최신화
-    if (vars['cellingMenu']:isVisible()) then
+    if (vars['ceilingMenu']:isVisible()) then
         local item_id = g_eventRouletteData:getItemId(2, 'group_1', 1)
         local did = TableItem():getDidByItemId(item_id)
         local item_name = did and TableDragon:getChanceUpDragonName(did)
@@ -294,23 +336,22 @@ function UI_EventRoulette:refresh()
 
         vars['ceilingLabel']:setString(ceiling_str)
     end
-
-    -- 1단계:버튼 보임, 2단계:버튼 안보임 
-    self:refreshButton()
 end
 
 ----------------------------------------------------------------------
--- function refreshButton
+-- function refreshAutoButton
+-- @brief 1단계 : 버튼 보임, 2단계 : 버튼 안보임 refresh
 ----------------------------------------------------------------------
-function UI_EventRoulette:refreshButton()
-    local vars = self.vars
-    vars['grindAutoBtn']:setVisible(g_eventRouletteData:getCurrStep() == 1)
+function UI_EventRoulette:refreshAutoButton()
+    local currStep =  g_eventRouletteData:getCurrStep()
+    self.m_autoBtn:setVisible(currStep == 1)
 end
 
 ----------------------------------------------------------------------
--- function makeRewardTable
+-- function refreshRewardTableview
+-- @breif 수동 일때 우측 보상 tableview refresh
 ----------------------------------------------------------------------
-function UI_EventRoulette:makeRewardTable()
+function UI_EventRoulette:refreshRewardTableview()
     self.m_rewardListNode:removeAllChildren()
     local target_list = g_eventRouletteData:getItemList()
 
@@ -343,13 +384,12 @@ end
 
 ----------------------------------------------------------------------
 -- function createCard
--- @breif 자동화 룰렛 결과 아이템 표시를 위한 UI_ItemCard입니다.
+-- @breif 자동화 룰렛 결과 아이템 표시를 위한 UI_ItemCard 생성 메서드
 ----------------------------------------------------------------------
 function UI_EventRoulette:createCard(t_data)
     local item_id = t_data.item_id
     local count = t_data.count
-    local ui = UI_ItemCard(item_id, count)
-    return ui
+    return UI_ItemCard(item_id, count)
 end
 
 ----------------------------------------------------------------------
@@ -358,7 +398,7 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:makeAutoResultTable()
     local rewardListNode = self.m_rewardListNode
-    local autoResultList = self.m_autoResultList
+    local autoResultList = self.m_lAutoResult
 
     rewardListNode:removeAllChildren()
 
@@ -371,7 +411,7 @@ function UI_EventRoulette:makeAutoResultTable()
     end
 
     local tableviewTD = UIC_TableViewTD(rewardListNode)
-    self.m_autoResultTable = tableviewTD
+    self.m_autoResultTableview = tableviewTD
 
     tableviewTD.m_cellSize = cc.size(63, 63)
     tableviewTD.m_nItemPerCell = 5
@@ -384,10 +424,10 @@ end
 
 ----------------------------------------------------------------------
 -- function mergeAutoResultTable
--- @brief
+-- @brief 테이블에 리스트를 합친다.
 ----------------------------------------------------------------------
 function UI_EventRoulette:mergeAutoResultTable()
-    self.m_autoResultTable:mergeItemList(self.m_autoResultList)
+    self.m_autoResultTableview:mergeItemList(self.m_lAutoResult)
 end
 
 ----------------------------------------------------------------------
@@ -395,7 +435,7 @@ end
 -- @brief 자동 돌림판 결과 아이템 정보를 리스트에 추가합니다.
 ----------------------------------------------------------------------
 function UI_EventRoulette:addItemToAutoResultList(item_id, count)
-    table.insert(self.m_autoResultList, {item_id = item_id, count = count})
+    table.insert(self.m_lAutoResult, {item_id = item_id, count = count})
 end
 
 ----------------------------------------------------------------------
@@ -403,7 +443,7 @@ end
 -- @brief 자동 돌림판 결과 아이템 리스트를 초기화 합니다.
 ----------------------------------------------------------------------
 function UI_EventRoulette:resetAutoResultList()
-    self.m_autoResultList = {}
+    self.m_lAutoResult = {}
 end
 
 ----------------------------------------------------------------------
@@ -438,7 +478,7 @@ function UI_EventRoulette:createBlockPopup()
             self.m_bIsAuto = false
             self.m_bIsTapBlockPopup = true
         else
-            self:SkipRoulette()
+            self:skipRoulette()
         end
     end
 
@@ -515,14 +555,13 @@ function UI_EventRoulette:autoRoulette(count)
             co:work()
 
             --co:waitTime(0.5)
-            self:SkipRoulette()
+            self:skipRoulette()
 
             if g_eventRouletteData:getCurrStep() == 1 then
                 loop_count = loop_count + 1
                 local item_id, count = g_eventRouletteData:getItemIdAndCount()
                 self:addItemToAutoResultList(item_id, count)
                 self:mergeAutoResultTable()
-                --self:makeAutoResultTable()
             end
 
             co:work()
@@ -535,6 +574,7 @@ function UI_EventRoulette:autoRoulette(count)
         self:resetAutoResultList()
 
         co:close()
+        self.m_coroutineHelper = nil
     end
 
     Coroutine(coroutine_function, 'Roulette start')
@@ -544,28 +584,24 @@ end
 -- function click_startBtn
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_startBtn()
-   
-    -- 첫번째 룰렛에서 재료가 모자른 경우 멈추기
     if (self:checkRemainTicket() == false) then
         local msg = Str('이벤트 아이템이 부족합니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
         return
     end
 
-    -- 사운드 재생
+    self:refreshRewardLabel()
+
     SoundMgr:playEffect('EFFECT', 'fever')
     SoundMgr:playEffect('UI', 'ui_target', true)
 
-    -- start 버튼 누르면 끄기
     self.m_startBtns[self.m_currStep]:setVisible(false)
-    -- stop 버튼 활성화
     self.m_stopBtn:setVisible(true)
-    -- 파티클 효과
     UIHelper:CreateParticle(self.m_stopBtn.m_node)
-    -- 각도 얻어오는 듯?
+
     local angle = self.m_wheel:getRotation() % 360
     self.m_wheel:setRotation(angle)
-    -- schedule 이라고 cocos2d-x 찾아봐야 할듯
+
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:keepRotateRoulette(dt) end, 0)
 end
 
@@ -576,20 +612,21 @@ function UI_EventRoulette:click_stopBtn()
     
     SoundMgr:playEffect('UI', 'ui_in_item_get')
 
+    -- 패킷 요청 완료 콜백
     local function finish_callback()
         self.root:unscheduleUpdate()
         UIManager:blockBackKey(true)
         self:createBlockPopup()
 
         self.m_stopBtn:setEnabled(false)
-        -- 획득 아이템 랜덤 획득인듯
+
         local current_angle = self.m_wheel:getRotation()
         local rand_cycle = math.random(1, 2)
 
         local rotate_action = cc.RotateBy:create(2, 3 * 360 + (360 - current_angle))
         self.m_wheel:runAction(rotate_action)
 
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:AdjustRoulette(dt) end, 0)
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:adjustRoulette(dt) end, 0)
 
         if self.m_coroutineHelper then
             local create_cb = function() self.m_coroutineHelper.NEXT() end
@@ -599,7 +636,7 @@ function UI_EventRoulette:click_stopBtn()
         end
     end
 
-    -- 로비로 돌아감 
+    -- 실패 시 팝업 띄우고 로비로 돌아감
     local function fail_cb(ret)
         MakeSimplePopup(POPUP_TYPE.OK, Str('일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'), function() UINavigator:goTo('lobby') end)
     end
@@ -622,11 +659,13 @@ end
 
 ----------------------------------------------------------------------
 -- function checkRemainTicket
--- 남은 티켓 확인
+-- 남은 티켓 확인, return true : 남은 티켓 있음, return false 남은 티켓 없음
 ----------------------------------------------------------------------
 function UI_EventRoulette:checkRemainTicket()
-    -- 첫번째 룰렛에서 재료가 모자른 경우 return false
-    return not((g_eventRouletteData:getCurrStep() == 1) and (g_eventRouletteData:getTicketNum() <= 0))
+    local currStep = g_eventRouletteData:getCurrStep()
+    local ticketNum = g_eventRouletteData:getTicketNum()
+
+    return not((currStep == 1) and (ticketNum <= 0))
 end
 
 ----------------------------------------------------------------------
@@ -642,9 +681,9 @@ function UI_EventRoulette:keepRotateRoulette(dt)
 end
 
 ----------------------------------------------------------------------
--- function StopRoulette
+-- function stopRoulette
 ----------------------------------------------------------------------
-function UI_EventRoulette:StopRoulette(dt)
+function UI_EventRoulette:stopRoulette(dt)
     if (self.m_wheel:getNumberOfRunningActions() == 0) then
 
         SoundMgr:stopAllEffects()
@@ -690,9 +729,9 @@ function UI_EventRoulette:StopRoulette(dt)
 end
 
 ----------------------------------------------------------------------
--- function SkipRoulette
+-- function skipRoulette
 ----------------------------------------------------------------------
-function UI_EventRoulette:SkipRoulette()
+function UI_EventRoulette:skipRoulette()
     if (self.m_stopBtn:isEnabled() == false) and (self.m_bIsSkipped == false) 
         and (self.m_blockUI) and (self.m_eventListener) then
         self.m_bIsSkipped = true
@@ -711,7 +750,7 @@ function UI_EventRoulette:SkipRoulette()
         local target_angle = angle * (index - 1) + rand_angle - angle / 2
 
         self.m_wheel:setRotation(target_angle)
-        self:StopRoulette()
+        self:stopRoulette()
 
         if (self.m_coroutineHelper) then
             self.m_coroutineHelper:NEXT()
@@ -720,9 +759,9 @@ function UI_EventRoulette:SkipRoulette()
 end
 
 ----------------------------------------------------------------------
--- function AdjustRoulette
+-- function adjustRoulette
 ----------------------------------------------------------------------
-function UI_EventRoulette:AdjustRoulette(dt)
+function UI_EventRoulette:adjustRoulette(dt)
     if (self.m_wheel:getNumberOfRunningActions() == 0) then
         self.m_wheel:setRotation(0)
         self.root:unscheduleUpdate()
@@ -742,7 +781,7 @@ function UI_EventRoulette:AdjustRoulette(dt)
         end
         
         self.m_wheel:runAction(cc.RotateBy:create(time, target_angle))
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:StopRoulette(dt) end, 0)
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:stopRoulette(dt) end, 0)
     end
 end
 
