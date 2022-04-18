@@ -266,6 +266,8 @@ end
 
 -------------------------------------
 -- function setNumberLabel
+-- @ksjang 밖에서 해당 메서드 호출해서 라벨 변경하지 말것
+-- type에 따라서 오류, 의도와 맞지 않는 동작 발생 가능
 -------------------------------------
 function UI_ItemCard:setNumberLabel(str)
     local vars = self.vars
