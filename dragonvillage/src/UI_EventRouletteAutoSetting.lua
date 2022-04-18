@@ -59,7 +59,7 @@ function UI_EventRouletteAutoSetting:initButton()
     vars['plusBtn']:registerScriptTapHandler(function() self:click_plusBtn() end)
     vars['100Btn']:registerScriptTapHandler(function() self:click_100Btn() end)
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
-    vars['grindAutoBtn']:registerScriptTapHandler(function() self:click_grindAutoBtn() end)
+    vars['grindAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
 end
 
 ----------------------------------------------------------------------
@@ -124,10 +124,10 @@ function UI_EventRouletteAutoSetting:click_cancelBtn()
 end
 
 ----------------------------------------------------------------------
--- function click_grindAutoBtn
+-- function click_autoBtn
 -- @brief 자동 돌림판 시작 버튼 클릭
 ----------------------------------------------------------------------
-function UI_EventRouletteAutoSetting:click_grindAutoBtn()
+function UI_EventRouletteAutoSetting:click_autoBtn()
     if (self.m_autoCount > 0) then
         local cb = function() 
             if(self.m_rouletteCB) then

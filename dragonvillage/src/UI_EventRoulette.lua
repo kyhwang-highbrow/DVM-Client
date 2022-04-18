@@ -30,7 +30,7 @@ UI_EventRoulette = class(PARENT, {
     m_rankBtn = 'UIC_Button',       -- 랭킹 버튼
     m_infoBtn = 'UIC_Button',       -- 도움말 버튼
     m_closeBtn = 'UIC_Button',      -- 닫기 버튼
-    m_grindAutoBtn = 'UIC_Button',  -- 자동 뽑기 설정 버튼
+    m_autoBtn = 'UIC_Button',  -- 자동 뽑기 설정 버튼
 
     -- Middle Left
     m_rouletteMenues = 'List[cc.Menu]', -- 
@@ -115,7 +115,7 @@ function UI_EventRoulette:initMember()
     self.m_rankBtn = vars['rankBtn']       -- 랭킹 버튼
     self.m_infoBtn = vars['infoBtn']       -- 도움말 버튼
     self.m_closeBtn = vars['closeBtn']      -- 닫기 버튼
-    self.m_grindAutoBtn = vars['grindAutoBtn'] -- 자동 돌림판 설정 버튼
+    self.m_autoBtn = vars['grindAutoBtn'] -- 자동 돌림판 설정 버튼
 
     -- Middle Left
     self.m_stopBtn = vars['stopBtn']
@@ -221,7 +221,7 @@ function UI_EventRoulette:initButton()
     self.m_closeBtn:registerScriptTapHandler(function() self:close() end)
     self.m_rankBtn:registerScriptTapHandler(function() self:click_rankBtn() end)
     self.m_infoBtn:registerScriptTapHandler(function() self:click_infoBtn() end)
-    self.m_grindAutoBtn:registerScriptTapHandler(function() self:click_grindAutoBtn() end)
+    self.m_autoBtn:registerScriptTapHandler(function() self:click_autoBtn() end)
     self.m_packageBtn:registerScriptTapHandler(function() self:click_packageBtn() end)
 end
 
@@ -507,13 +507,14 @@ function UI_EventRoulette:autoRoulette(count)
         repeat
             self.m_bIsShowRewardPopup = false
 
+            co:work()
             self:click_startBtn()
             self:click_stopBtn()
 
-            co:waitTime(0.5)
+            co:waitWork()
+            co:work()
 
-            -- 패킷 확인 필요
-
+            --co:waitTime(0.5)
             self:SkipRoulette()
 
             if g_eventRouletteData:getCurrStep() == 1 then
@@ -590,12 +591,17 @@ function UI_EventRoulette:click_stopBtn()
 
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:AdjustRoulette(dt) end, 0)
 
-        
+        if self.m_coroutineHelper then
+            local create_cb = function() self.m_coroutineHelper.NEXT() end
+            local action = cc.Sequence:create(cc.DelayTime:create(0.5), cc.CallFunc:create(create_cb))
+            
+            self.root:runAction(action)
+        end
     end
 
     -- 로비로 돌아감 
     local function fail_cb(ret)
-        UINavigator:goTo('lobby')
+        MakeSimplePopup(POPUP_TYPE.OK, Str('일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'), function() UINavigator:goTo('lobby') end)
     end
     
     g_eventRouletteData:request_rouletteStart(
@@ -605,10 +611,10 @@ function UI_EventRoulette:click_stopBtn()
 end
 
 ----------------------------------------------------------------------
--- function click_grindAutoBtn
+-- function click_autoBtn
 -- 룰렛 자동 뽑기 설정 화면 버튼
 ----------------------------------------------------------------------
-function UI_EventRoulette:click_grindAutoBtn()
+function UI_EventRoulette:click_autoBtn()
     -- 인자로 현재 가지고 있는 티켓수, 자동 돌림판 시작 콜백 넣어준다.
     local start_cb = function(count) self:autoRoulette(count) end
     UI_EventRouletteAutoSetting(g_eventRouletteData:getTicketNum(), start_cb)
