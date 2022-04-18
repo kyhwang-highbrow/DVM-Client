@@ -50,7 +50,7 @@ function UI_EventArenaPlayItem:initUI()
 
     -- 참여 횟수
     local count = rewardInfo['product']['price_' .. itemIndex]
-    vars['countLabel']:setString(Str('{1} 회', count))
+    vars['countLabel']:setString(Str('{1}회', count))
 
     -- 아이템 Icon
     local item_id, item_count = g_itemData:parsePackageItemStrIndivisual(rewardInfo['product']['mail_content_' .. itemIndex])
@@ -59,7 +59,7 @@ function UI_EventArenaPlayItem:initUI()
 
     -- 아이템 이름, 개수
     local item_name = TableItem:getItemName(item_id)
-    vars['itemLabel']:setString(Str('{1}\n{2}개', item_name, item_count))
+    vars['itemLabel']:setString(item_name .. '\n' .. Str('{1}개', item_count))
 end
 
 -------------------------------------
