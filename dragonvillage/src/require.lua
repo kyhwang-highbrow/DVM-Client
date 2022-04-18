@@ -1135,6 +1135,14 @@ local t_module = {
     'UI_GetDragonPackage',
     'UI_GetDragonPackage_LobbyButton',
 
+    -- @ksjang 돌림판
+    'UI_EventRouletteItem',
+    'UI_EventRouletteInfoPopup',
+    'UI_EventRouletteRewardPopup',
+    'UI_EventRouletteRewardItem',
+    'UI_EventRouletteAutoSetting',
+    'UI_EventRouletteAutoSettingCheck',
+
     -- UI : 배틀패스 상점 관련
     'UI_BattlePass_Nurture',
     'UI_BattlePass_NurtureCell',

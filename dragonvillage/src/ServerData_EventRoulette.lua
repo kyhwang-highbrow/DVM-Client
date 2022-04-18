@@ -654,10 +654,22 @@ function ServerData_EventRoulette:refreshMyRanking(t_my_info)
     self.m_myRanking:apply(t_my_info)
 end
 
+-------------------------------------
+-- function getItemIdAndCount
+-- @brief 뽑은 아이템 ID와 count를 가져옵니다.
+-------------------------------------
+function ServerData_EventRoulette:getItemIdAndCount()
+    local resultTable = self.m_resultTable['mail_item_info']
+    
+    local id, count
 
+    if resultTable then
+        id = resultTable['item_id']
+        count = resultTable['count']
+    end
 
-
-
+    return id, count
+end
 
 
 
