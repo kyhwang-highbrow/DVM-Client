@@ -17,6 +17,8 @@ UI_EventRouletteAutoSetting = class(PARENT, {
     m_autoCount = 'number',    -- 자동 돌림판 횟수
     m_maxCount = 'number',     -- 최대로 돌릴 수 있는 수
     m_rouletteCB = 'function', -- 자동 돌림판 시작 콜백
+    m_pressBtn = 'UCI_Button', -- 누르고 있는 버튼
+    m_pressTimer = 'number',   -- 누른 시간
 })
 
 ----------------------------------------------------------------------
@@ -30,6 +32,7 @@ function UI_EventRouletteAutoSetting:init(ticket_count, roulette_cb)
     self.m_autoCount = 0
     self.m_maxCount = ticket_count > AUTO_MAX_COUNT and AUTO_MAX_COUNT or ticket_count
     self.m_rouletteCB = roulette_cb
+    self.m_pressTimer = 0
 
     self:load('event_roulette_setting_popup.ui')
 
@@ -55,14 +58,15 @@ function UI_EventRouletteAutoSetting:initButton()
     local vars = self.vars
 
     -- 차례대로 횟수 증가, 감소, 횟수 100 추가, 취소, 자동 돌림판 시작 버튼
-    vars['minusBtn']:registerScriptTapHandler(function() self:click_minusBtn() end)
-    vars['minusBtn']:setPressedCB(function() self:click_minusBtn() end)
+    vars['minusBtn']:registerScriptTapHandler(function() self:click_countBtn(-1) end)
+    vars['minusBtn']:registerScriptPressHandler(function() self:press_countBtn(false) end)
 
-    vars['plusBtn']:registerScriptTapHandler(function() self:click_plusBtn() end)
-    vars['plusBtn']:setPressedCB(function() self:click_plusBtn() end)
+    vars['plusBtn']:registerScriptTapHandler(function() self:click_countBtn(1) end)
+    vars['plusBtn']:registerScriptPressHandler(function() self:press_countBtn(true) end)
 
-    vars['100Btn']:registerScriptTapHandler(function() self:click_100Btn() end)
-    vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
+    vars['100Btn']:registerScriptTapHandler(function() self:click_countBtn(100) end)
+    vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
+
     vars['grindAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
 end
 
@@ -103,38 +107,12 @@ function UI_EventRouletteAutoSetting:addAutoCount(count)
 end
 
 ----------------------------------------------------------------------
--- function click_minusBtn
--- @brief 자동 돌림판 횟수 1회 감소 버튼 클릭
+-- function click_countBtn
+-- @brief 자동 돌림판 횟수 증감 버튼 클릭
 ----------------------------------------------------------------------
-function UI_EventRouletteAutoSetting:click_minusBtn()
-    self:addAutoCount(-1)
+function UI_EventRouletteAutoSetting:click_countBtn(amount)
+    self:addAutoCount(amount)
     self:refresh()
-end
-
-----------------------------------------------------------------------
--- function click_plusBtn
--- @brief 자동 돌림판 횟수 1회 증가 버튼 클릭
-----------------------------------------------------------------------
-function UI_EventRouletteAutoSetting:click_plusBtn()
-    self:addAutoCount(1)
-    self:refresh()
-end
-
-----------------------------------------------------------------------
--- function click_100Btn
--- @brief 자동 돌림판 횟수 최대(100회) 설정 버튼 클릭
-----------------------------------------------------------------------
-function UI_EventRouletteAutoSetting:click_100Btn()
-    self:addAutoCount(100)
-    self:refresh()
-end
-
-----------------------------------------------------------------------
--- function click_cancelBtn
--- @brief 자동 돌림판 횟수 설정 UI 닫기 버튼 클릭
-----------------------------------------------------------------------
-function UI_EventRouletteAutoSetting:click_cancelBtn()
-    self:close()
 end
 
 ----------------------------------------------------------------------
@@ -158,6 +136,35 @@ function UI_EventRouletteAutoSetting:click_autoBtn()
     else
         UIManager:toastNotificationRed(Str('이벤트 아이템이 부족합니다.'))
     end
+end
+
+----------------------------------------------------------------------
+-- function press_countBtn
+-- @brief 꾹 누르면 티켓 개수 변화 빠르게 적용
+----------------------------------------------------------------------
+function UI_EventRouletteAutoSetting:press_countBtn(is_plus)
+	local vars = self.vars
+    local amount = is_plus and 1 or -1
+
+    self.m_pressBtn = is_plus and vars['plusBtn'] or vars['minusBtn']
+
+	local function update_count(dt)
+
+		if (not self.m_pressBtn:isSelected()) or (not self.m_pressBtn:isEnabled()) then
+			self.m_pressTimer = 0
+			self.m_pressBtn = nil
+			self.root:unscheduleUpdate()
+		end
+
+		self.m_pressTimer = self.m_pressTimer + dt
+
+		if (self.m_pressTimer > 0.03) then
+			self:click_countBtn(amount)
+			self.m_pressTimer = self.m_pressTimer - 0.03
+		end
+	end
+
+	self.root:scheduleUpdateWithPriorityLua(function(dt) return update_count(dt) end, 1)
 end
 
 --@CHECK
