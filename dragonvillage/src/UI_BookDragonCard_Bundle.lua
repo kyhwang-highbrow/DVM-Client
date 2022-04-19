@@ -97,8 +97,8 @@ function UI_BookDragonCard_Bundle:refresh()
     local data = self.m_data
 
 	local did = data['did']
-	local is_undering = is_slime and false or (data['underling'] == 1) -- 자코인지
 	local is_slime = TableSlime:isSlimeID(did)
+	local is_undering = is_slime and false or (data['underling'] == 1) -- 자코인지
 
     -- 해치 정보만 받아온 상태에서 진화도만 수정하여 해츨링, 성룡 데이터 생성해줌
     local l_dragon = {}

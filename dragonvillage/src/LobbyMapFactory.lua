@@ -195,6 +195,9 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
         night = '_night'
     end
 
+    local animator
+    local skip_error_msg = false
+
     -- 전단지
     if (deco_type == 'wanted') then
         -- 크리스마스 트리

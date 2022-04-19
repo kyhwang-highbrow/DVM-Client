@@ -354,7 +354,7 @@ function UI_Book:focusDragonCard()
 	-- 인연포인트가 모아진 곳에 포커싱
 	local l_item = self.m_tableViewTD.m_itemList
     for idx, data in ipairs(l_item) do
-        did = data['data']['did']
+        local did = data['data']['did']
         for evolution = 1, 3 do
             local has_reward = g_bookData:haveBookReward(tonumber(did), evolution)
             if (has_reward) then

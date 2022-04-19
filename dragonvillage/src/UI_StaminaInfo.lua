@@ -118,7 +118,7 @@ function UI_StaminaInfo:click_chargeBtn()
         UINavigatorDefinition:goTo('shop', 'gold')
     elseif (stamina_type == 'cash') then
         UINavigatorDefinition:goTo('package_shop', 'diamond_shop')
-    elseif (goods_type == 'capsule_coin') then
+    elseif (stamina_type == 'capsule_coin') then
         local capsule_coin_package_popup = PackageManager:getTargetUI('package_capsule_coin', true)
     elseif (stamina_type == 'st') then
         local b_use_cash_label = false
@@ -150,7 +150,6 @@ function UI_StaminaInfo:showToolTip()
     else
         local stamina_id = TableItem():getItemIDFromItemType(stamina_type)
         local t_item = TABLE:get('item')[stamina_id]
-        cclog(stamina_type)
 
         name = Str(t_item['t_name'])
         desc = Str(t_item['t_desc'])
