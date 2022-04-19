@@ -32,6 +32,8 @@ UI_EventRoulette = class(PARENT, {
     m_infoBtn = 'UIC_Button',       -- 도움말 버튼
     m_closeBtn = 'UIC_Button',      -- 닫기 버튼
     m_autoBtn = 'UIC_Button',       -- 자동 뽑기 설정 버튼
+    m_ingMenu = 'UIC_Node',         -- 진행도 Menu
+    m_ingLabel = 'UIC_LabelTTF',    -- 진행도 라벨
 
     -- Middle Left
     m_rouletteMenues = 'List[cc.Menu]', -- 
@@ -58,6 +60,14 @@ UI_EventRoulette = class(PARENT, {
     m_packageBtn = 'UIC_Button',        -- 패키지 연결 버튼
     m_ticketNumLabel = 'UIC_LabelTTF',  -- 티켓 수량
 })
+
+----------------------------------------------------------------------
+-- function getCurrStep
+-- @brief 현재 step 얻기, 코드 길어져서 별도 local 메서드 만듦
+----------------------------------------------------------------------
+local function getCurrStep()
+    return g_eventRouletteData:getCurrStep()
+end
 
 ----------------------------------------------------------------------
 -- function init
@@ -115,6 +125,9 @@ function UI_EventRoulette:initMember()
     self.m_infoBtn = vars['infoBtn']         -- 도움말 버튼
     self.m_closeBtn = vars['closeBtn']       -- 닫기 버튼
     self.m_autoBtn = vars['grindAutoBtn']    -- 자동 돌림판 설정 버튼
+    self.m_ingMenu = vars['ingMenu']    -- 진행도 Menu
+    self.m_ingLabel = vars['ingLabel']   -- 진행도 라벨
+
 
     -- Middle Left
     self.m_stopBtn = vars['stopBtn']
@@ -226,7 +239,7 @@ end
 -- function refresh
 ----------------------------------------------------------------------
 function UI_EventRoulette:refresh()
-    self.m_currStep = g_eventRouletteData:getCurrStep()
+    self.m_currStep = getCurrStep()
 
     self:refreshTicketNum()
     self:refreshTotalScore()
@@ -237,9 +250,11 @@ function UI_EventRoulette:refresh()
 
     -- 하나씩 뽑기 할 경우 우측 보상 테이블 생성
     if(self.m_bIsAuto == false and self.m_bIsTapBlockPopup == false) then
+        cclog("re!!!")
         self:refreshRewardTableview()
     end
 
+    cclog('set false')
     self.m_bIsTapBlockPopup = false
     self.m_bIsSkipped = false
 
@@ -253,6 +268,35 @@ function UI_EventRoulette:refresh()
 end
 
 ----------------------------------------------------------------------
+-- function setAutoButtonVisible
+-- @brief 자동 설정 버튼 활성화/비활성화 설정
+----------------------------------------------------------------------
+function UI_EventRoulette:setAutoButtonVisible(bVisible)
+    self.m_autoBtn:setVisible(bVisible)
+end
+
+----------------------------------------------------------------------
+-- function setIngMenuVisible
+-- @brief 자동 돌림판 진행도 표시 UI visible 설정
+-- @param bVisible visible 설정
+----------------------------------------------------------------------
+function UI_EventRoulette:setIngMenuVisible(bVisible)
+    local ingMenu = self.m_ingMenu
+    ingMenu:setVisible(bVisible)
+end
+
+----------------------------------------------------------------------
+-- function setIngLabel
+-- @brief 자동 돌림판 진행도 표시 UI Label 설정
+-- @param cur_num 현재 시행 차수
+-- @param total_num 전체 시행 횟수 
+----------------------------------------------------------------------
+function UI_EventRoulette:setIngLabel(cur_num, total_num)
+    local ingLabel = self.m_ingLabel
+    ingLabel:setString(Str('{1}/{2}회 진행 중', tostring(cur_num), tostring(total_num) ))
+end
+
+----------------------------------------------------------------------
 -- function refreshRewardLabel
 -- @brief '등장 가능 보상' label refresh
 ----------------------------------------------------------------------
@@ -260,10 +304,10 @@ function UI_EventRoulette:refreshRewardLabel()
     local rewardLabel = self.m_rewardLabel
     local bIsAuto = self.m_bIsAuto
 
-    if (bIsAuto == true) then
-        rewardLabel:setString(Str('획득한 {1}', Str('보상')))
+    if (bIsAuto == true or getCurrStep() == 2) then
+        self.m_rewardLabel:setString(Str('획득한 {1}', Str('보상')))
     else
-        rewardLabel:setString(Str('등장 가능 보상'))
+        self.m_rewardLabel:setString(Str('등장 가능 보상'))
     end
 end
 
@@ -343,8 +387,10 @@ end
 -- @brief 1단계 : 버튼 보임, 2단계 : 버튼 안보임 refresh
 ----------------------------------------------------------------------
 function UI_EventRoulette:refreshAutoButton()
-    local currStep =  g_eventRouletteData:getCurrStep()
-    self.m_autoBtn:setVisible(currStep == 1)
+    local currStep =  getCurrStep()
+    local bIsAuto = self.m_bIsAuto
+
+    self.m_autoBtn:setVisible(bIsAuto == false and currStep == 1)
 end
 
 ----------------------------------------------------------------------
@@ -353,6 +399,8 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:refreshRewardTableview()
     self.m_rewardListNode:removeAllChildren()
+    self.m_rewardLabel:setString(Str('등장 가능 보상'))
+
     local target_list = g_eventRouletteData:getItemList()
 
     local function create_callback(ui, data)
@@ -397,6 +445,8 @@ end
 -- @brief autoResultList를 기반으로 tableviewTD를 생성합니다.
 ----------------------------------------------------------------------
 function UI_EventRoulette:makeAutoResultTable()
+    self.m_rewardLabel:setString(Str('획득한 {1}', Str('보상')))
+
     local rewardListNode = self.m_rewardListNode
     local autoResultList = self.m_lAutoResult
 
@@ -476,6 +526,7 @@ function UI_EventRoulette:createBlockPopup()
     local function touch_func(touch, event)
         if self.m_bIsAuto then
             self.m_bIsAuto = false
+            cclog('set true')
             self.m_bIsTapBlockPopup = true
         else
             self:skipRoulette()
@@ -542,36 +593,45 @@ function UI_EventRoulette:autoRoulette(count)
         local co = self.m_coroutineHelper
         local loop_count = 0
 
+        self:setAutoButtonVisible(false)
         self:makeAutoResultTable()
+        self:setIngMenuVisible(true)
 
         repeat
             self.m_bIsShowRewardPopup = false
 
+            if(getCurrStep() == 1) then
+                self:setIngLabel(loop_count + 1, count)
+            end
+
             co:work()
+
             self:click_startBtn()
             self:click_stopBtn()
 
             co:waitWork()
             co:work()
 
-            --co:waitTime(0.5)
             self:skipRoulette()
 
-            if g_eventRouletteData:getCurrStep() == 1 then
+            if (getCurrStep() == 1) then
                 loop_count = loop_count + 1
-                local item_id, count = g_eventRouletteData:getItemIdAndCount()
-                self:addItemToAutoResultList(item_id, count)
+                local item_id, item_count = g_eventRouletteData:getItemIdAndCount()
+                self:addItemToAutoResultList(item_id, item_count)
                 self:mergeAutoResultTable()
             end
 
             co:work()
             co:waitWork()
-        until (loop_count == count or self.m_bIsAuto == false)
+        until (loop_count == count or (self.m_bIsAuto == false and getCurrStep() == 1))
 
         UI_ToastPopup(Str('연속 뽑기가 완료되었습니다.'))
 
         self.m_bIsAuto = false
+
+        self:setAutoButtonVisible(true)
         self:resetAutoResultList()
+        self:setIngMenuVisible(false)
 
         co:close()
         self.m_coroutineHelper = nil
@@ -590,7 +650,7 @@ function UI_EventRoulette:click_startBtn()
         return
     end
 
-    self:refreshRewardLabel()
+    self:setAutoButtonVisible(false)
 
     SoundMgr:playEffect('EFFECT', 'fever')
     SoundMgr:playEffect('UI', 'ui_target', true)
@@ -662,7 +722,7 @@ end
 -- 남은 티켓 확인, return true : 남은 티켓 있음, return false 남은 티켓 없음
 ----------------------------------------------------------------------
 function UI_EventRoulette:checkRemainTicket()
-    local currStep = g_eventRouletteData:getCurrStep()
+    local currStep = getCurrStep()
     local ticketNum = g_eventRouletteData:getTicketNum()
 
     return not((currStep == 1) and (ticketNum <= 0))
@@ -830,7 +890,7 @@ end
 -- function click_rewardItemBtn
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_rewardItemBtn(index)
-    if g_eventRouletteData:getCurrStep() == 2 then return end
+    if getCurrStep() == 2 then return end
     
     if self.m_targetGroupIndex then
         if (self.m_targetGroupIndex == index) and self.m_rewardItemInfo:isVisible() then
