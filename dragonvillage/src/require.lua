@@ -1102,6 +1102,10 @@ local t_module = {
     'UI_ProductSmall',
 	'UI_Package',
     'UI_Package_Bundle',
+    
+    'UI_ShopPackageScene',
+    'UI_PackageCategoryButton',
+    'UI_DragonPackageCategoryButton',
 
     'UI_Package_LevelUp',
     'UI_Package_LevelUp_02',

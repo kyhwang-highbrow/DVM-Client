@@ -1596,9 +1596,6 @@ function UINavigatorDefinition:goTo_package_shop(...)
     local initial_tab = args[1]
     
     local close_cb = (type(args[2]) == 'function') and args[2]
-
-    require('UI_ShopPackageScene')
-
     
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_ShopPackageScene')
