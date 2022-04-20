@@ -78,7 +78,7 @@ function UI_EventRoulette:init(is_popup)
     -- 이벤트 페이지를 통한 접근이 아닐 시 팝업
     if is_popup then
         UIManager:open(self, UIManager.POPUP)
-        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventRoulette')
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_EventRoulette')
 
         self:doActionReset()
         self:doAction(nil, false)
@@ -101,6 +101,13 @@ function UI_EventRoulette:init(is_popup)
     end
 
     self.root:registerScriptHandler(event_update)
+end
+
+----------------------------------------------------------------------
+-- function click_closeBtn
+----------------------------------------------------------------------
+function UI_EventRoulette:click_closeBtn()
+    self:close()
 end
 
 ----------------------------------------------------------------------
@@ -228,7 +235,7 @@ function UI_EventRoulette:initButton()
     end
 
     self.m_stopBtn:registerScriptTapHandler    (function() self:click_stopBtn   () end)
-    self.m_closeBtn:registerScriptTapHandler   (function() self:close           () end)
+    self.m_closeBtn:registerScriptTapHandler   (function() self:click_closeBtn  () end)
     self.m_rankBtn:registerScriptTapHandler    (function() self:click_rankBtn   () end)
     self.m_infoBtn:registerScriptTapHandler    (function() self:click_infoBtn   () end)
     self.m_autoBtn:registerScriptTapHandler    (function() self:click_autoBtn   () end)
@@ -250,12 +257,12 @@ function UI_EventRoulette:refresh()
 
     -- 하나씩 뽑기 할 경우 우측 보상 테이블 생성
     if(self.m_bIsAuto == false and self.m_bIsTapBlockPopup == false) then
-        cclog("re!!!")
         self:refreshRewardTableview()
     end
 
-    cclog('set false')
-    self.m_bIsTapBlockPopup = false
+    if ( getCurrStep() == 1) then
+        self.m_bIsTapBlockPopup = false
+    end
     self.m_bIsSkipped = false
 
     self.m_stopBtn:setEnabled(true)
@@ -265,6 +272,7 @@ function UI_EventRoulette:refresh()
 
     self:refreshCeilingMenu()
     self:refreshAutoButton()
+
 end
 
 ----------------------------------------------------------------------
@@ -398,7 +406,13 @@ end
 -- @breif 수동 일때 우측 보상 tableview refresh
 ----------------------------------------------------------------------
 function UI_EventRoulette:refreshRewardTableview()
+
+    if (self.m_autoResultTableview) then
+        self.m_autoResultTableview:clearItemList()
+    end
+
     self.m_rewardListNode:removeAllChildren()
+    
     self.m_rewardLabel:setString(Str('등장 가능 보상'))
 
     local target_list = g_eventRouletteData:getItemList()
@@ -524,9 +538,8 @@ function UI_EventRoulette:createBlockPopup()
     self.m_eventListener = nil
 
     local function touch_func(touch, event)
-        if self.m_bIsAuto then
+        if self.m_bIsAuto == true then
             self.m_bIsAuto = false
-            cclog('set true')
             self.m_bIsTapBlockPopup = true
         else
             self:skipRoulette()
@@ -613,6 +626,7 @@ function UI_EventRoulette:autoRoulette(count)
             co:work()
 
             self:skipRoulette()
+            co:waitWork()
 
             if (getCurrStep() == 1) then
                 loop_count = loop_count + 1
@@ -623,6 +637,7 @@ function UI_EventRoulette:autoRoulette(count)
 
             co:work()
             co:waitWork()
+
         until (loop_count == count or (self.m_bIsAuto == false and getCurrStep() == 1))
 
         UI_ToastPopup(Str('연속 뽑기가 완료되었습니다.'))
@@ -632,22 +647,27 @@ function UI_EventRoulette:autoRoulette(count)
         self:setAutoButtonVisible(true)
         self:resetAutoResultList()
         self:setIngMenuVisible(false)
-
+        
         co:close()
         self.m_coroutineHelper = nil
     end
 
-    Coroutine(coroutine_function, 'Roulette start')
+    Coroutine(coroutine_function, 'autoRoulette')
 end
 
 ----------------------------------------------------------------------
 -- function click_startBtn
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_startBtn()
+
     if (self:checkRemainTicket() == false) then
         local msg = Str('이벤트 아이템이 부족합니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg, ok_callback)
         return
+    end
+    
+    if ((not self.m_bIsAuto) and (getCurrStep() == 1)) then
+        self:refreshRewardTableview()
     end
 
     self:setAutoButtonVisible(false)
@@ -676,6 +696,7 @@ function UI_EventRoulette:click_stopBtn()
     local function finish_callback()
         self.root:unscheduleUpdate()
         UIManager:blockBackKey(true)
+
         self:createBlockPopup()
 
         self.m_stopBtn:setEnabled(false)
@@ -745,11 +766,11 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:stopRoulette(dt)
     if (self.m_wheel:getNumberOfRunningActions() == 0) then
-
         SoundMgr:stopAllEffects()
         
         local function disappear_cb()
             self:refresh()
+            
             self.m_appearVisual:changeAni('roulette_disappear', false)
             
             if(self.m_bIsShowRewardPopup == true) then
@@ -813,7 +834,7 @@ function UI_EventRoulette:skipRoulette()
         self:stopRoulette()
 
         if (self.m_coroutineHelper) then
-            self.m_coroutineHelper:NEXT()
+            self.m_coroutineHelper.NEXT()
         end
     end
 end
