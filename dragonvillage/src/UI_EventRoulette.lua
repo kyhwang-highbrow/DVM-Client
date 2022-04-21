@@ -204,7 +204,7 @@ function UI_EventRoulette:initUI(is_popup)
 
     if (mileage > -1) then
         vars['ceilingMenu']:setVisible(true)
-        vars['ceilingBtn']:registerScriptTapHandler(function() self:click_ceilingBtn() end)
+        --vars['ceilingBtn']:registerScriptTapHandler(function() self:click_ceilingBtn() end)
     else
         vars['ceilingMenu']:setVisible(false)
     end
@@ -378,13 +378,28 @@ function UI_EventRoulette:refreshCeilingMenu()
         local item_id = g_eventRouletteData:getItemId(2, 'group_1', 1)
         local did = TableItem():getDidByItemId(item_id)
         local item_name = did and TableDragon:getChanceUpDragonName(did)
+
         local ceiling_str = Str('{1}\n확정 획득까지 {@yellow}{2}{@default}회', item_name, mileage)
+        --local ceiling_str = Str('{1}\n{@default}확정 획득까지 {@yellow}{2}{@default}회', item_name, mileage)  -- 번역 수정 후 변경
         local is_definite_reward = mileage == 0
         vars['ceilingVisualMenu']:setVisible(is_definite_reward)
 
+        -- 수정중 -------------------------------------
+        local ui = UI()
+        ui:load('event_purchase_point_item_new_03.ui')
+
+        local item_card = UI_ItemCard(item_id)
+        item_card:setEnabledClickBtn(false)
+
+        ui.vars['itemNode']:addChild(item_card.root)
+
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_ceilingBtn() end)
+        vars['iconNode']:addChild(ui.root)
+        -- 수정중 -------------------------------------
+
         if (is_definite_reward) then
             ceiling_str = Str('{1}\n{@default}확정 소환', item_name)
-        end
+    end
 
         vars['ceilingLabel']:setString(ceiling_str)
     end

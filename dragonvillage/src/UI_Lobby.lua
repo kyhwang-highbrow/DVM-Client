@@ -92,6 +92,7 @@ function UI_Lobby:initUI()
 
     -- 좌상단 버튼 관리 매니저 생성
     self.m_lobbyLeftTopBtnManager = UI_LobbyLeftTopBtnManager(self)
+
 end
 
 -------------------------------------
@@ -925,8 +926,8 @@ function UI_Lobby:refresh(is_hard_refresh, callback)
             callback()
         end
     end
-
     g_hotTimeData:request_hottime(refresh_callback, refresh_callback)
+
 end
 
 -------------------------------------
@@ -2841,6 +2842,18 @@ function UI_Lobby:setShopNoti()
     local vars = self.vars
 
     if (g_hotTimeData:isActiveEvent('event_token') == true) then
+
+        -- 수정중 -------------------------------------
+        local visual_list = vars['shopSpecialNoti']:getVisualList()
+        
+        for _, visual_id in ipairs (visual_list) do
+            if (visual_id == 'noti_roulette_ticket') then
+                vars['shopSpecialNoti']:changeAni(visual_id, true)
+                break
+            end
+        end
+        -- 수정중 -------------------------------------
+
         vars['shopSpecialNoti']:setVisible(true)
         return
     else

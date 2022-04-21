@@ -381,6 +381,21 @@ function ServerData_EventRoulette:getTimeText()
     return str
 end
 
+----------------------------------------------------------------------
+-- function isActiveEvent
+----------------------------------------------------------------------
+function ServerData_EventRoulette:isActiveEvent()
+    local start_time = self.m_rouletteInfo['start_date']
+    local end_time = self.m_rouletteInfo['end_date']
+
+    local curr_time = Timer:getServerTime()
+
+    if ((curr_time > start_time) and (curr_time < end_time)) then
+        return true
+    end
+
+    return false
+end
 
 ----------------------------------------------------------------------
 -- function getCurrStep
