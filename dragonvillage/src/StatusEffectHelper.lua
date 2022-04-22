@@ -219,9 +219,10 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     local skip_resistance_font = false
 
     -- 전투 중 검사
-    if (self:isHarmful(status_effect_category) and not world.m_gameState:isFight()) then
-        return nil
-    end
+    -- if (self:isHarmful(status_effect_category) and not world.m_gameState:isFight()) then
+    --     return nil
+    -- end
+
 
     -- 시전자가 몬스터의 경우 같은 스킬 아이디의 상태효과는 일정시간 내에 다시 걸리지 않도록 처리
     if (caster:getCharType() == 'monster' and status_effect) then
