@@ -1601,6 +1601,20 @@ function UINavigatorDefinition:goTo_package_shop(...)
     local is_opend, idx, ui = self:findOpendUI('UI_ShopPackageScene')
     if (is_opend == true) then
         self:closeUIList(idx, false) -- param : idx, include_idx
+        
+        if initial_tab then
+            local uic_table = ui.m_tableView
+            for _,item in ipairs(uic_table.m_itemList) do
+
+                local item_ui = item['generated_ui'] or item['ui']
+
+                if item_ui.m_data['t_name'] == initial_tab then
+                    ui:changeTargetUI(item_ui)
+                end
+            end
+            ui.m_targetButton:click_btn()
+        end
+
         return
     end
 
@@ -2342,4 +2356,3 @@ function UINavigatorDefinition:CloseOpendUI(ui_class_name)
         opend_ui:close()
     end
 end
-
