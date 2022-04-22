@@ -308,7 +308,7 @@ function UI_DragonUpgradeCombineMaterial:refresh()
 
     do -- 슈퍼 슬라임 군단 패키지 버튼
         local product_id = 121411
-        local struct_product = g_shopDataNew:getTargetProduct(product_id)
+        local struct_product = g_shopData:getTargetProduct(product_id)
         local can_buy = false
 
         -- 현재 판매중인 경우에만 time limit 보여주기

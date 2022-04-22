@@ -1074,7 +1074,7 @@ function ServerData_Shop:getSpecialOfferProductNurture()
 end
 
 function ServerData_Shop:getSpecialOfferProductCommonStep(package_name)
-    local product_group = g_shopDataNew:getTargetPackage(package_name)
+    local product_group = g_shopData:getTargetPackage(package_name)
 
     local l_product = {}
 
@@ -1093,14 +1093,14 @@ function ServerData_Shop:getSpecialOfferProductCommonStep(package_name)
         end
     end
 
-    product_group = g_shopDataNew:getTargetPackageAll(package_name)
+    product_group = g_shopData:getTargetPackageAll(package_name)
 
     -- 상품정보가 그마저도 없으면 pid 마지막 상품을 리턴
     if (product_group and product_group['t_pids'] and product_group['t_pids'] ~= '') then
         local l_pid = pl.stringx.split(product_group['t_pids'], ',') 
         if (l_pid and #l_pid > 0) then
             local last_pid = l_pid[#l_pid]
-            local data = g_shopDataNew:getTargetProduct(tonumber(last_pid))
+            local data = g_shopData:getTargetProduct(tonumber(last_pid))
             return data, #l_pid
         end
     end
@@ -1298,8 +1298,8 @@ end
 -------------------------------------
 function ServerData_Shop:getValidStepPackage()
     -- 단계별 패키지 product id
-    local l_step_pids_new = g_shopDataNew:getPakcageStepPidList('package_step_02')
-    local l_step_pids_old = g_shopDataNew:getPakcageStepPidList('package_step')
+    local l_step_pids_new = g_shopData:getPakcageStepPidList('package_step_02')
+    local l_step_pids_old = g_shopData:getPakcageStepPidList('package_step')
 
     -- 신버젼 단계별 패키지 상품 판매 중인지 확인
     do
@@ -1402,7 +1402,7 @@ function ServerData_Shop:isBuyablePackage(l_pid)
 	end
 
     for i, pid in ipairs(l_pid) do
-	    local struct_product = g_shopDataNew:getProduct('package', pid)
+	    local struct_product = g_shopData:getProduct('package', pid)
         if (struct_product) then
             if (struct_product:checkMaxBuyCount()) then
                 is_package_buyable = true
@@ -1424,7 +1424,7 @@ function ServerData_Shop:isOnTimePackage(pid_list)
     local is_on_time = false
 
     for i, pid in ipairs(pid_list) do
-        local struct_product = g_shopDataNew:getProduct('package', tonumber(pid))
+        local struct_product = g_shopData:getProduct('package', tonumber(pid))
 
         if struct_product then
             if struct_product:isItOnTime() then

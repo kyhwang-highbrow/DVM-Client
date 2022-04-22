@@ -188,14 +188,18 @@ function UI_Lobby:entryCoroutine()
         end
 
         if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then
-            co:work('# 소원 구슬 이벤트 정보 받는 중')
+            co:work('# 복주머니 이벤트 정보 받는 중')
             g_eventLFBagData:request_eventLFBagInfo(false, true, co.NEXT, required_fail_cb)
             if co:waitWork() then return end
         end
 
         if g_hotTimeData:isActiveEvent('event_roulette') or g_hotTimeData:isActiveEvent('event_roulette_reward') then
             co:work('# 룰렛 이벤트 정보 받는 중')
-            ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, co.NEXT, required_fail_cb)
+            local function success_cb()
+                self:setShopSpecialNoti('noti_roulette_ticket')
+                co.NEXT()
+            end
+            ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, success_cb, required_fail_cb)
             if co:waitWork() then return end
         end
 
@@ -352,9 +356,9 @@ function UI_Lobby:entryCoroutine()
             
 
             -- 바이델 축제 패키지
-            local struct_product, idx, bonus_num = g_shopDataNew:getSpecialOfferProductWeidel()
+            local struct_product, idx, bonus_num = g_shopData:getSpecialOfferProductWeidel()
 
-            if (struct_product and g_shopDataNew:shouldShowWeidelOfferPopup() == true) then
+            if (struct_product and g_shopData:shouldShowWeidelOfferPopup() == true) then
                 cclog('# 바이델 축제 패키지')
                 co:work()
                 local str_uid = g_userData:get('uid') and tostring(g_userData:get('uid')) or ''
@@ -947,7 +951,7 @@ function UI_Lobby:refreshSpecialOffer()
     end
 
     -- 상점에서 특별 할인 상품을 받아온다.
-    local struct_product, idx, bonus_num = g_shopDataNew:getSpecialOfferProduct()
+    local struct_product, idx, bonus_num = g_shopData:getSpecialOfferProduct()
 
     -- UI가 없을 경우
     local button = vars['specialOfferBtn' .. idx]
@@ -1265,6 +1269,7 @@ function UI_Lobby:update_highlight()
             --vars['quizEventNotiYellow']:setVisible(g_eventLFBagData:isHighlightYellow())
         end
     end
+
 end
 
 -------------------------------------
@@ -1459,7 +1464,7 @@ end
 -- @brief 상점 버튼
 -------------------------------------
 function UI_Lobby:click_shopBtn()
-    g_shopDataNew:openShopPopup()
+    g_shopData:openShopPopup()
 end
 
 -------------------------------------
@@ -2347,7 +2352,7 @@ function UI_Lobby:update_rightButtons()
     do -- 패키지 상점  
         vars['cashShopBtn']:setVisible(true)
 
-        local package_list = g_shopDataNew:getActivatedPackageList()
+        local package_list = g_shopData:getActivatedPackageList()
 
         local is_noti_visible = false
         for _, data in ipairs(package_list) do
@@ -2841,34 +2846,35 @@ end
 function UI_Lobby:setShopNoti()
     local vars = self.vars
 
-    if (g_hotTimeData:isActiveEvent('event_token') == true) then
-
-        -- 수정중 -------------------------------------
-        local visual_list = vars['shopSpecialNoti']:getVisualList()
-        
-        for _, visual_id in ipairs (visual_list) do
-            if (visual_id == 'noti_roulette_ticket') then
-                vars['shopSpecialNoti']:changeAni(visual_id, true)
-                break
-            end
-        end
-        -- 수정중 -------------------------------------
-
-        vars['shopSpecialNoti']:setVisible(true)
-        return
-    else
-        vars['shopSpecialNoti']:setVisible(false)
-    end
-
-    if (not g_shopDataNew) then
+    if (not g_shopData) then
         return
     end
 
-    if (g_shopDataNew:checkDiaSale()) then
+    if (g_shopData:checkDiaSale()) then
         vars['shopBonusNoti']:setVisible(true)
     else
         vars['shopBonusNoti']:setVisible(false)
     end
+end
+
+-------------------------------------
+-- function setShopSpecialNoti
+-------------------------------------
+function UI_Lobby:setShopSpecialNoti(event_name)
+    local vars = self.vars
+
+    local visual_list = vars['shopSpecialNoti']:getVisualList()
+
+    for _, visual_id in ipairs (visual_list) do
+        if (visual_id == event_name) then
+            vars['shopSpecialNoti']:changeAni(visual_id, true)
+            vars['shopSpecialNoti']:setVisible(true)
+            break
+        end
+        vars['shopSpecialNoti']:setVisible(false)
+    end
+
+    
 end
 
 -------------------------------------

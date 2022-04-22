@@ -173,7 +173,7 @@ function UI_EventPopupTab_HBShop:click_couponBtn()
             end
         end)
     end
-    g_shopDataNew:request_couponList(cb_func)
+    g_shopData:request_couponList(cb_func)
 end
 
 -------------------------------------

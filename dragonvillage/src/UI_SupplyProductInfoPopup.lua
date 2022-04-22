@@ -44,7 +44,7 @@ function UI_SupplyProductInfoPopup:init(data)
 
     local pid = data['product_id']
 
-    self.m_structProduct = g_shopDataNew:getProduct('package', pid)
+    self.m_structProduct = g_shopData:getProduct('package', pid)
 
     self:initUI()
     self:initButton()

@@ -40,6 +40,9 @@ function ServerData_ExchangeEvent:parseProductInfo(product_info)
             table.insert(info, data)
         end
     end
+    ccdump(self.m_productInfo)
+    ccdump(self.m_rewardInfo)
+    
 end
 
 -------------------------------------
@@ -139,6 +142,10 @@ function ServerData_ExchangeEvent:request_eventInfo(finish_cb, fail_cb)
         self:networkCommonRespone(ret)
         self:parseProductInfo(ret['table_event_product'][1])
         
+        for key,_ in pairs(ret) do
+            cclog(key)
+        end
+
         self.m_endTime = ret['end']
 
         if finish_cb then

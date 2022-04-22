@@ -121,7 +121,7 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePassPopup:initTableView()
-    local item_list = g_shopDataNew:getProductList('pass')
+    local item_list = g_shopData:getProductList('pass')
     
     local tabList = {}
     for product_id, v in pairs(item_list) do

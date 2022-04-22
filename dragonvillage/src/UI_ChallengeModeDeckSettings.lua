@@ -148,7 +148,7 @@ function UI_ChallengeModeDeckSettings:click_startBtn()
             local b_open_spot_sale = true
             local st_charge_popup = UI_StaminaChargePopup(b_use_cash_label, b_open_spot_sale, finish_cb)
             UIManager:toastNotificationRed(Str('날개가 부족합니다.'))
-            --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st', finish_cb) end)
+            --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopData:openShopPopup('st', finish_cb) end)
         end
     end
 

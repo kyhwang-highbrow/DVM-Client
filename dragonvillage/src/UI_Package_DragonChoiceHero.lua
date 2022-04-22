@@ -46,7 +46,7 @@ function UI_Package_DragonChoiceHero:init(package_name, is_popup)
             local product_id = v[2]
             
             local node = vars[luaname]
-            local struct_product = g_shopDataNew:getTargetProduct(product_id)
+            local struct_product = g_shopData:getTargetProduct(product_id)
             local price_str = ''
 
             if struct_product then

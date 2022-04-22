@@ -151,7 +151,7 @@ UI_Package_DmgateListItem = class(class(UI, ITableViewCell:getCloneTable()), {
 ----------------------------------------------------------------------
 function UI_Package_DmgateListItem:init(data)
     self.m_data = data
-    local struct_product = g_shopDataNew:getTargetProduct(tonumber(self.m_data['product_id']))
+    local struct_product = g_shopData:getTargetProduct(tonumber(self.m_data['product_id']))
     local ui_str_list = plSplit(struct_product['package_res'], '.')
     local ui_file_name = ui_str_list[1] ..'_item.' .. ui_str_list[2]
     

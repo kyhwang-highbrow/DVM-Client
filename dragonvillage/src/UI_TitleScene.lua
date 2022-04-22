@@ -1288,7 +1288,7 @@ function UI_TitleScene:workGetServerInfo()
                 -- shop 관련
                 if (ret['shop_list']) then
                     cclog('# 상점 리스트')
-                    g_shopDataNew:response_shopInfo(ret['shop_list'])
+                    g_shopData:response_shopInfo(ret['shop_list'])
                 end
 
                 -- 레벨업 패키지
@@ -1644,7 +1644,7 @@ function UI_TitleScene:workGetMarketInfo()
         --{"productId":"dvm_cash_10k","type":"inapp","title":"11,000원 캐시 상품 (드래곤빌리지 M : 전투형 RPG)","name":"11,000원 캐시 상품","description":"11,000원 캐시 상품입니다.","price":"US$9.49","price_amount_micros":9490000,"price_currency_code":"USD","skuDetailsToken":"AEuhp4LA1XLn-ExxfnaQKkI0ORWPAMIc-1bhr_oMV_jd4AFXzOMqXi-t_Vlu2n2UhT85"}
         if (ret == 'success') then
             local tRet = json_decode(info)
-            g_shopDataNew:setMarketPrice(tRet)
+            g_shopData:setMarketPrice(tRet)
 
         elseif (ret == 'fail') then
             cclog('#### billingItemInfo failed - info : ')
@@ -1656,7 +1656,7 @@ function UI_TitleScene:workGetMarketInfo()
         self:doNextWork()
     end
 
-    local skuList = g_shopDataNew:getSkuList()
+    local skuList = g_shopData:getSkuList()
     if skuList == nil then
         self:doNextWork()
         return
@@ -1727,14 +1727,14 @@ function UI_TitleScene:workGetMarketInfoForOnestore()
     local function call_back(ret, info)
 		if (ret == 'success') then
          	local tRet = json_decode(info)
-		 	g_shopDataNew:setMarketPriceForOnestore(tRet)
+		 	g_shopData:setMarketPriceForOnestore(tRet)
 		else		
 			cclog('#### billingItemInfo failed - info : ')
     	end
 		self:doNextWork()
 	end
 
-    local skuList = g_shopDataNew:getSkuList()
+    local skuList = g_shopData:getSkuList()
     if skuList == nil then
         self:doNextWork()
         return
@@ -1761,7 +1761,7 @@ function UI_TitleScene:workGetMarketInfo_Monthly()
     local function call_back(ret, info)
         if (ret == 'success') then
             local tRet = json_decode(info)
-            g_shopDataNew:setMarketPrice(tRet)
+            g_shopData:setMarketPrice(tRet)
 
         elseif (ret == 'fail') then
             cclog('#### billingItemInfo failed - info : ')
@@ -1773,7 +1773,7 @@ function UI_TitleScene:workGetMarketInfo_Monthly()
         self:doNextWork()
     end
 
-    local skuList = g_shopDataNew:getSkuList_Monthly()
+    local skuList = g_shopData:getSkuList_Monthly()
     if skuList == nil then
         self:doNextWork()
         return
@@ -2233,7 +2233,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
             end
     
             -- 실패시에도 게임 진행을 위해 다음으로 넘어감
-            g_shopDataNew:request_checkReceiptValidation_v3(nil, validation_key, product_id, sale_id,
+            g_shopData:request_checkReceiptValidation_v3(nil, validation_key, product_id, sale_id,
                 sku, purchase_time, order_id, purchase_token,
                 success_cb, co.NEXT, status_cb, -- params: success_cb, fail_cb, status_cb
                 test_purchase)

@@ -135,7 +135,7 @@ function UI_FirstPurchaseRewardPopup:click_shopBtn()
         return
     end
 
-    g_shopDataNew:openShopPopup()
+    g_shopData:openShopPopup()
 end
 
 -------------------------------------

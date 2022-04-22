@@ -157,7 +157,7 @@ function ServerData_Event:getEventPopupTabList()
 
         -- shop 관련 이벤트는 오픈되지 않능 상품이라면 탭 등록 pass 
         elseif (visible) and (event_type == 'shop') then
-            visible = g_shopDataNew:isExist('package', event_id)
+            visible = g_shopData:isExist('package', event_id)
 
 		-- Daily Mission
 		elseif (visible) and (event_type == 'daily_mission') then
@@ -274,7 +274,7 @@ function ServerData_Event:getEventFullPopupList()
     local l_priority = {}
     local event_list = self.m_eventList or {}
 
-    local package_list = g_shopDataNew:getActivatedPackageList(true)
+    local package_list = g_shopData:getActivatedPackageList(true)
 
     for i, v in ipairs(event_list) do
         local priority = v['full_popup']
@@ -663,7 +663,7 @@ function ServerData_Event:goToEventUrl(url)
         UINavigator:goTo('tamer', tamer_id)
 
     elseif (url == 'shop_topaz') then
-        g_shopDataNew:openShopPopup('topaz')
+        g_shopData:openShopPopup('topaz')
 
 	elseif (url == 'dragon_manage') then
         UINavigator:goTo('dragon')

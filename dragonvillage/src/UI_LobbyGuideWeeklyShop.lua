@@ -65,14 +65,14 @@ function UI_LobbyGuideWeeklyShop:initUI()
     self.m_lProductUI = {}
 
     -- 명에 스킬 슬라임 아이템
-    local product_honor = g_shopDataNew:getProduct('honor', 50006)
+    local product_honor = g_shopData:getProduct('honor', 50006)
     local product_ui = UI_ProductSmall(product_honor)
     vars['productNode1']:addChild(product_ui.root)
     product_ui:setBuyCB(function() product_ui:refresh() end)
     table.insert(self.m_lProductUI, product_ui)
 
     -- 클랜코인 스킬 슬라임 아이템
-    local product_clancoin = g_shopDataNew:getProduct('clancoin', 60010)
+    local product_clancoin = g_shopData:getProduct('clancoin', 60010)
     local product_ui = UI_ProductSmall(product_clancoin)
     vars['productNode2']:addChild(product_ui.root)
     product_ui:setBuyCB(function() product_ui:refresh() end)

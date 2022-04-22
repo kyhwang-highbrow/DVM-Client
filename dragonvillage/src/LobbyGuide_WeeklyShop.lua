@@ -17,12 +17,12 @@ end
 -- @brief 조건 확인
 -------------------------------------
 function LobbyGuide_WeeklyShop:checkCustomCondition()
-    local product_honor = g_shopDataNew:getProduct('honor', 50006)
+    local product_honor = g_shopData:getProduct('honor', 50006)
     if (not product_honor) then
         return false
     end
 
-    local product_clancoin = g_shopDataNew:getProduct('clancoin', 60010)
+    local product_clancoin = g_shopData:getProduct('clancoin', 60010)
     if (not product_clancoin) then
         return false
     end

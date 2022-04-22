@@ -13,7 +13,7 @@ UI_Package_Step = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_Package_Step:init(package_name, is_popup)
-    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList('package_step')
+    self.m_lStepPids = g_shopData:getPakcageStepPidList('package_step')
     self:setCurrentStep()
     self:refresh(self.m_curr_step)
 
@@ -26,7 +26,7 @@ end
 -------------------------------------
 function UI_Package_Step:initButton()
     local vars = self.vars
-    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList('package_step')
+    self.m_lStepPids = g_shopData:getPakcageStepPidList('package_step')
     for idx = 1, #self.m_lStepPids do
         vars['stepBtn'..idx]:registerScriptTapHandler(function() self:click_stepBtn(idx) end)
         
@@ -42,7 +42,7 @@ end
 -------------------------------------
 function UI_Package_Step:setCurrentStep()
     for idx, pid in ipairs(self.m_lStepPids) do
-        local buy_cnt = g_shopDataNew:getBuyCount(pid)    
+        local buy_cnt = g_shopData:getBuyCount(pid)    
         if (buy_cnt == 0) then
             self.m_curr_step = idx
             break
@@ -65,7 +65,7 @@ function UI_Package_Step:refresh(step)
     self:setCurrentStep()
 
     local vars = self.vars
-    local l_item_list = g_shopDataNew:getProductList('package')
+    local l_item_list = g_shopData:getProductList('package')
 
     for idx = 1, #self.m_lStepPids do
         vars['stepNode'..idx]:setVisible(idx == step)
@@ -147,7 +147,7 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Package_Step:click_buyBtn()
-    local l_item_list = g_shopDataNew:getProductList('package')
+    local l_item_list = g_shopData:getProductList('package')
     local target_pid = self.m_lStepPids[self.m_curr_step]
     local struct_product = l_item_list[target_pid]
 

@@ -72,7 +72,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_Shop:refresh()
-	--self.vars['cashEventSprite']:setVisible(g_shopDataNew:isExistCashSale())
+	--self.vars['cashEventSprite']:setVisible(g_shopData:isExistCashSale())
 end
 
 -------------------------------------

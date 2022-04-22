@@ -87,7 +87,7 @@ function FullPopupManager:show(type, show_func)
 
         -- 모두 구매한 유저는 노출하지 않음
         local is_buy_all = true
-        local l_item_list = g_shopDataNew:getProductList('daily')
+        local l_item_list = g_shopData:getProductList('daily')
         for _, struct_product in pairs(l_item_list) do
             if (struct_product:isItBuyable()) then
                 is_buy_all = false

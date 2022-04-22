@@ -134,7 +134,7 @@ function UI_SupplyProductListItem:refresh()
         end
     end
 
-    local struct_product = g_shopDataNew:getTargetProduct(t_data['product_id'])
+    local struct_product = g_shopData:getTargetProduct(t_data['product_id'])
 
     -- 비활성 상태
     if (reward_status == -1) then
@@ -278,6 +278,6 @@ end
 -------------------------------------
 function UI_SupplyProductListItem:getStructProduct()
     local t_data = self.m_tSupplyData
-    local struct_product = g_shopDataNew:getTargetProduct(t_data['product_id'])
+    local struct_product = g_shopData:getTargetProduct(t_data['product_id'])
     return struct_product
 end

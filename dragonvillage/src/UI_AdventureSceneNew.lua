@@ -409,7 +409,7 @@ end
 function UI_AdventureSceneNew:click_adventureClearBtn()
     local product_id = g_adventureBreakthroughPackageData:getRecentPid()
 
-    local struct_product = g_shopDataNew:getProduct('pass', product_id)
+    local struct_product = g_shopData:getProduct('pass', product_id)
 
     local is_popup = true
     local ui = struct_product:getPackageUI(is_popup)

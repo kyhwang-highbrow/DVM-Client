@@ -255,7 +255,7 @@ function UI_Package:refresh()
     local is_noti_visible = false
 
     for index, struct_product in ipairs(self.m_productList) do 
-        local purchased_num = g_shopDataNew:getBuyCount(struct_product:getProductID())
+        local purchased_num = g_shopData:getBuyCount(struct_product:getProductID())
         local limit = struct_product:getMaxBuyCount()
 
         -- 특가 상품이 구매제한 초과 시 기존상품(dependency)으로 교체
@@ -264,7 +264,7 @@ function UI_Package:refresh()
             local dependent_product_id = struct_product:getDependency()
 
             if dependent_product_id then
-                struct_product = g_shopDataNew:getTargetProduct(dependent_product_id)
+                struct_product = g_shopData:getTargetProduct(dependent_product_id)
                 
                 self.m_productList[index] = struct_product
             end

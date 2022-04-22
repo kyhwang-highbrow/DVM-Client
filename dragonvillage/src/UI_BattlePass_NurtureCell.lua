@@ -47,7 +47,7 @@ function UI_BattlePass_NurtureCell:init(data)
     self.m_pass_id = data['parent_key']
     self.m_cell_id = data['id']
 
-    local pass_list = g_shopDataNew:getProductList('pass')
+    local pass_list = g_shopData:getProductList('pass')
     local ui_strs = plSplit(pass_list[self.m_pass_id]['package_res'], '.')
     local ui_file_name = Str(ui_strs[1] .. '_item.' .. ui_strs[2])
     

@@ -37,7 +37,7 @@ UI_EventLFBag = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventLFBag:init()
-    --local vars = self:load('event_lucky_fortune_bag.ui')
+    -- local vars = self:load('event_lucky_fortune_bag.ui')
     local vars = self:load('event_lucky_bag.ui')
 
     if string.find(self.m_resName, 'lucky_bag') then
@@ -747,7 +747,7 @@ end
 function UI_EventLFBag:click_packageBtn()
 
     local package_name = 'package_' .. self.m_eventCodeName
-    local struct_product_group = g_shopDataNew:getTargetPackage(package_name)
+    local struct_product_group = g_shopData:getTargetPackage(package_name)
     
     if struct_product_group then
 

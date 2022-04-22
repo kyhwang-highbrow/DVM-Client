@@ -247,7 +247,7 @@ function Analytics:purchase(product_id, sku, price_krw, price_usd, first_buy)
     local currency_price = price_krw
 
     -- StructMarketProduct
-    local struct_market_product = g_shopDataNew:getStructMarketProduct(sku)
+    local struct_market_product = g_shopData:getStructMarketProduct(sku)
     if struct_market_product then
         local _currency_code = struct_market_product:getCurrencyCode()
         local _currency_price = struct_market_product:getCurrencyPrice()

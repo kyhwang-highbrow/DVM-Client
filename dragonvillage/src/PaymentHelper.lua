@@ -187,7 +187,7 @@ function PaymentHelper.buy_iap(struct_product, cb_func)
             end
         end
 
-        g_shopDataNew:request_checkReceiptValidation_v3(struct_product, validation_key, product_id, sale_id,
+        g_shopData:request_checkReceiptValidation_v3(struct_product, validation_key, product_id, sale_id,
             sku, purchase_time, order_id, purchase_token,
             success_cb, fail_cb, response_status_cb,
             test_purchase)
@@ -293,7 +293,7 @@ function PaymentHelper.payment(struct_product, cb_func)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
                 co.ESCAPE()
             end
-            g_shopDataNew:request_purchaseToken(market, sku, product_id, price, cb_func, fail_cb)
+            g_shopData:request_purchaseToken(market, sku, product_id, price, cb_func, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -388,7 +388,7 @@ function PaymentHelper.payment(struct_product, cb_func)
             end
 
             local iswin = false
-            g_shopDataNew:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
+            g_shopData:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -452,7 +452,7 @@ function PaymentHelper.payment_onestore(struct_product, cb_func)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
                 co.ESCAPE()
             end
-            g_shopDataNew:request_purchaseToken(market, sku, product_id, price, cb_func, fail_cb)
+            g_shopData:request_purchaseToken(market, sku, product_id, price, cb_func, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -547,7 +547,7 @@ function PaymentHelper.payment_onestore(struct_product, cb_func)
             end
 
             local iswin = false
-            g_shopDataNew:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
+            g_shopData:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -617,7 +617,7 @@ local function coroutine_function(dt)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
                 co.ESCAPE()
             end
-            g_shopDataNew:request_purchaseToken(market, sku, product_id, price, cb_func, fail_cb)
+            g_shopData:request_purchaseToken(market, sku, product_id, price, cb_func, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -712,7 +712,7 @@ local function coroutine_function(dt)
             end
 
             local iswin = false
-            g_shopDataNew:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
+            g_shopData:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -762,7 +762,7 @@ function PaymentHelper.payment_win(struct_product, cb_func)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
                 co.ESCAPE()
             end
-            g_shopDataNew:request_purchaseToken(market, sku, product_id, price, cb_func, fail_cb)
+            g_shopData:request_purchaseToken(market, sku, product_id, price, cb_func, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -788,7 +788,7 @@ function PaymentHelper.payment_win(struct_product, cb_func)
                 co.ESCAPE()
             end
             local iswin = true
-            g_shopDataNew:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb)
+            g_shopData:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -888,7 +888,7 @@ function PaymentHelper.handlingMissingPayments(l_payload, result_cb, error_cb)
                     
 
                     local iswin = false
-                    g_shopDataNew:request_checkReceiptValidation(nil, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
+                    g_shopData:request_checkReceiptValidation(nil, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
                     if co:waitWork() then return end
                 end
                 --------------------------------------------------------
@@ -1000,7 +1000,7 @@ function PaymentHelper.handlingMissingPayments_onestore(l_payload, cb_func, fini
                     
 
                     local iswin = false
-                    g_shopDataNew:request_checkReceiptValidation(nil, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
+                    g_shopData:request_checkReceiptValidation(nil, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
                     if co:waitWork() then return end
                 end
                 --------------------------------------------------------

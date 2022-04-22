@@ -21,7 +21,7 @@ function UI_SupplyProductInfoPopup_QuestDouble:init(is_promote, cb_func)
 
     local t_supply = TableSupply:getSupplyData_dailyQuest()
     local product_id = t_supply['product_id']
-    self.m_structProduct = g_shopDataNew:getTargetProduct(product_id) -- StructProduct
+    self.m_structProduct = g_shopData:getTargetProduct(product_id) -- StructProduct
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_SupplyProductInfoPopup_QuestDouble')

@@ -153,7 +153,7 @@ function UI_ShopDaily:init(is_popup)
 	self.m_uiName = 'UI_ShopDaily'
     self:checkPopupUI()
 
-    local map_product = g_shopDataNew:getProductList('daily')
+    local map_product = g_shopData:getProductList('daily')
     local l_product = table.MapToList(map_product)
     table.sort(l_product, function(a, b) 
         return a['product_id'] < b['product_id']
@@ -189,8 +189,8 @@ function UI_ShopBooster:init(is_popup)
 	self.m_uiName = 'UI_ShopBooster'
     self:checkPopupUI()
     
-    local l_exp_booster = g_shopDataNew:getProductList_byItemType('exp_booster')
-    local l_gold_booster = g_shopDataNew:getProductList_byItemType('gold_booster')
+    local l_exp_booster = g_shopData:getProductList_byItemType('exp_booster')
+    local l_gold_booster = g_shopData:getProductList_byItemType('gold_booster')
     local l_ret = table.merge(l_exp_booster, l_gold_booster)
     table.sort(l_ret, function(a, b) 
         return a['product_id'] < b['product_id']

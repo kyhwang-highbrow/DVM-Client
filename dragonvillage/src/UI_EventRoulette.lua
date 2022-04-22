@@ -204,7 +204,6 @@ function UI_EventRoulette:initUI(is_popup)
 
     if (mileage > -1) then
         vars['ceilingMenu']:setVisible(true)
-        --vars['ceilingBtn']:registerScriptTapHandler(function() self:click_ceilingBtn() end)
     else
         vars['ceilingMenu']:setVisible(false)
     end
@@ -212,6 +211,7 @@ end
 
 ----------------------------------------------------------------------
 -- function click_ceilingBtn
+-- @brief iconNode에 들어간 
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_ceilingBtn()
     local item_id = g_eventRouletteData:getItemId(2, 'group_1', 1)

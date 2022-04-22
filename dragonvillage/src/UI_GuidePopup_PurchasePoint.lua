@@ -31,12 +31,12 @@ end
 function UI_GuidePopup_PurchasePoint:initUI()
     local vars = self.vars
 
-    local l_matrix = g_shopDataNew:getPricingMatrix()
+    local l_matrix = g_shopData:getPricingMatrix()
 
     for i,v in ipairs(l_matrix) do
         local price = v[1]
         local sku = v[2]
-        local price_str = g_shopDataNew:getPriceStrBySku(sku)
+        local price_str = g_shopData:getPriceStrBySku(sku)
         vars['purchaseLabel' .. i]:setString(price_str)
     end
 

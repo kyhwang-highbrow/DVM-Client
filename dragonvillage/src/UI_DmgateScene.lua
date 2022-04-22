@@ -175,7 +175,7 @@ function UI_DmgateScene:initUI()
     local product_id = g_dmgatePackageData:getProductIdWithDmgateID(dmgate_id)
 
     if product_id then
-        local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
+        local struct_product = g_shopData:getTargetProduct(tonumber(product_id))
 
         if struct_product and g_dmgatePackageData:isPackageVisible(product_id) then
             require('UI_Package_Dmgate')
@@ -395,7 +395,7 @@ function UI_DmgateScene:click_packageBtn(struct_product)
         local product_id = g_dmgatePackageData:getProductIdWithDmgateID(dmgate_id)
 
         if product_id then
-            local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
+            local struct_product = g_shopData:getTargetProduct(tonumber(product_id))
 
             if struct_product and g_dmgatePackageData:isPackageVisible(product_id) then
                 self.m_packageBtn:setVisible(true)

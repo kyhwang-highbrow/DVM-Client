@@ -97,7 +97,7 @@ function UI_EventPopupTab_HBShop_Coupon:init_tableView()
                 self.m_lCouponList[idx] = nil
                 self:refresh()
             end
-            g_shopDataNew:request_delCoupon(coupon_id, cb_func)
+            g_shopData:request_delCoupon(coupon_id, cb_func)
         end)
     end
 

@@ -260,7 +260,7 @@ end
 -------------------------------------
 function UI_CapsuleBox:refresh_dailyCapsulePackage()
     local vars = self.vars
-    local struct_product = g_shopDataNew:getDailyCapsulePackage()
+    local struct_product = g_shopData:getDailyCapsulePackage()
     if (struct_product and struct_product:isItBuyable()) then
         vars['buyBtn']:setVisible(true)
         vars['buyBtn']:setAutoShake(true)
@@ -494,7 +494,7 @@ end
 -- @brief 캡슐코인 5+1 구매
 -------------------------------------
 function UI_CapsuleBox:click_buyBtn()
-	local struct_product = g_shopDataNew:getDailyCapsulePackage()
+	local struct_product = g_shopData:getDailyCapsulePackage()
 	if (struct_product) then
         local refresh_cb
         local buy_cb

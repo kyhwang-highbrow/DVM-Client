@@ -737,7 +737,7 @@ function UI_DragonUpgrade:isPackageBuyable()
 	local attr = struct_dragon_object:getAttr()
     --local pid = T_UPGRADE_PACKAGE_ID_TABLE[attr]
     local pid = 110116 -- 20-11-10 드래곤 레벨업 개편에 따른 승급 패키지 통일화
-	local struct_product = g_shopDataNew:getProduct('package', pid)
+	local struct_product = g_shopData:getProduct('package', pid)
 
 	-- 구매할때 쓰기 위해서 따로 저장
 	self.m_updatePackageStruct = struct_product

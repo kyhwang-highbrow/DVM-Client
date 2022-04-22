@@ -856,7 +856,7 @@ end
 function UI_EventBingo:check_packagesOnTime()
     package_pids = TablePackageBundle:getPidsWithName(self.m_packageName)
     
-    return g_shopDataNew:isOnTimePackage(package_pids)
+    return g_shopData:isOnTimePackage(package_pids)
 end
 
 -------------------------------------

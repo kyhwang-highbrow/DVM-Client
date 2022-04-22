@@ -86,7 +86,7 @@ function ServerData:getInstance()
     g_friendData = ServerData_Friend(g_serverData)
 
 	-- 상점 및 가차
-    g_shopDataNew = ServerData_Shop(g_serverData)
+    g_shopData = ServerData_Shop(g_serverData)
 
     -- 구독형 상품
     g_subscriptionData = ServerData_Subscription(g_serverData)
@@ -303,7 +303,7 @@ function ServerData:getInstance()
     -- 드래곤 이미지 퀴즈 이벤트
     g_eventImageQuizData = ServerData_EventImageQuiz()
 
-    -- 소원 구슬 이벤트
+    -- 복주머니 이벤트
     g_eventLFBagData = ServerData_EventLFBag()
 
     -- 죄악의 화신 토벌작전 이벤트

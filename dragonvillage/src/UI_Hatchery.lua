@@ -159,7 +159,7 @@ function UI_Hatchery:click_mileageBtn()
     local function finish_cb()
         self:refresh_mileage()
     end
-    g_shopDataNew:openShopPopup('mileage', finish_cb)
+    g_shopData:openShopPopup('mileage', finish_cb)
 end
 
 -------------------------------------

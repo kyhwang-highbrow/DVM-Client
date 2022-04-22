@@ -194,7 +194,7 @@ function UI_SettingTestCode:click_testCodeBtn()
     if true then
         --MakeSimplePopup()
         local sample_sku = nil
-        for sku, struct_market_product in pairs(g_shopDataNew.m_dicStructMarketProduct) do
+        for sku, struct_market_product in pairs(g_shopData.m_dicStructMarketProduct) do
             cclog('### sku ' .. sku)
             local currency_code = struct_market_product:getCurrencyCode()
             cclog('@ currency code : ' .. tostring(currency_code), type(currency_code ))
@@ -209,7 +209,7 @@ function UI_SettingTestCode:click_testCodeBtn()
         local currency_price = 999999
 
         -- StructMarketProduct
-        local struct_market_product = g_shopDataNew:getStructMarketProduct(sample_sku)
+        local struct_market_product = g_shopData:getStructMarketProduct(sample_sku)
         if struct_market_product then
             local _currency_code = struct_market_product:getCurrencyCode()
             local _currency_price = struct_market_product:getCurrencyPrice()
@@ -439,7 +439,7 @@ end
 -- function makeIncompletePurchase
 -------------------------------------
 function UI_SettingTestCode:makeIncompletePurchase()
-    local struct_product = g_shopDataNew.m_dicProduct['cash'][1]
+    local struct_product = g_shopData.m_dicProduct['cash'][1]
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
@@ -476,7 +476,7 @@ function UI_SettingTestCode:makeIncompletePurchase()
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
                 co.ESCAPE()
             end
-            g_shopDataNew:request_purchaseToken(market, product_id, cb_func, fail_cb)
+            g_shopData:request_purchaseToken(market, product_id, cb_func, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------

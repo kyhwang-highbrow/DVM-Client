@@ -54,7 +54,7 @@ function UI_RuneForgeGachaTab:initUI()
     vars['diaCostLabel']:setString(comma_value(rune_gacha_cash))
 
     -- 가격 표기
-    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
+    local struct_product = g_shopData:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
     local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, nil)
     local is_sale_price_written = false
     if (is_tag_attached == true) then
@@ -100,7 +100,7 @@ function UI_RuneForgeGachaTab:initUI()
 
     -- 상품에서 특별할인상품이 판매기간인지 체크
     --[[
-    local special_product = g_shopDataNew:getTargetProduct(SPECIAL_RUNE_PACKAGE_ID)
+    local special_product = g_shopData:getTargetProduct(SPECIAL_RUNE_PACKAGE_ID)
 
     if (special_product) then
         remain_time = special_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변경
@@ -119,7 +119,7 @@ function UI_RuneForgeGachaTab:initUI()
         local product_id = start_product_id + i
         vars['buyBtn' .. i]:registerScriptTapHandler(function() self:click_buyBtn(product_id) end)
         
-        local struct_product = g_shopDataNew:getTargetProduct(product_id)
+        local struct_product = g_shopData:getTargetProduct(product_id)
         local price = struct_product:getPriceStr()
         vars['priceLabel' .. i]:setString(price)
 
@@ -143,7 +143,7 @@ function UI_RuneForgeGachaTab:initUI()
     end
 
     --package_rune_box
-    local package_rune = g_shopDataNew:getTargetPackage('package_rune_box')
+    local package_rune = g_shopData:getTargetPackage('package_rune_box')
 
     if package_rune then
         vars['buyBtn']:registerScriptTapHandler(function() UI_Package(package_rune:getProductList(), true) end)
@@ -190,7 +190,7 @@ end
 -------------------------------------
 function UI_RuneForgeGachaTab:click_buyBtn(product_id)
     local product_id = product_id 
-    local struct_product = g_shopDataNew:getTargetProduct(product_id)
+    local struct_product = g_shopData:getTargetProduct(product_id)
 
     if (not struct_product) then
         return
@@ -221,7 +221,7 @@ function UI_RuneForgeGachaTab:click_gachaBtn()
         return
     end
 
-    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
+    local struct_product = g_shopData:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
     local item_key = 700651 -- 룬 10개 뽑기 상자
     local item_value = 1
     local msg = Str('{@item_name}"{1} x{2}"\n{@default}사용하시겠습니까?', Str('룬 10개 뽑기 상자'), comma_value(item_value))
@@ -242,7 +242,7 @@ function UI_RuneForgeGachaTab:click_diamondGachaBtn()
         return
     end
 
-    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
+    local struct_product = g_shopData:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
     local msg = Str('"{1}" 진행하시겠습니까?', Str('10회 뽑기'))
     local item_value = g_userData:get('rune_gacha_cash') or 0
 

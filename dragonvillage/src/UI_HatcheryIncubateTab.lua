@@ -102,7 +102,7 @@ function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
 			-- 리스트 갱신
 			self:refreshEggList()
 		end
-		g_shopDataNew:openShopPopup('mileage', close_cb)
+		g_shopData:openShopPopup('mileage', close_cb)
 		return
 	end
 	

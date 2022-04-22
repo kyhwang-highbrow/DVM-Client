@@ -48,7 +48,7 @@ function UI_NewcomerShop:initUI()
     do -- 테이블 뷰 생성
         local l_struct_product = {}
         for _,product_id in pairs(l_product_id) do
-            local struct_product = g_shopDataNew:getTargetProduct(product_id)
+            local struct_product = g_shopData:getTargetProduct(product_id)
             if (struct_product) then
                 l_struct_product[product_id] = struct_product
             end

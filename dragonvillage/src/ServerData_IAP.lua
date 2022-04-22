@@ -88,7 +88,7 @@ function ServerData_IAP:sdkBinder_BillingGetItemList(success_cb, fail_cb)
     ui:setLoadingMsg(Str('통신 중 ...')) -- 메세지
 
     -- PerpleSDK:billingGetItemList(skuList(string), function(ret, info) end)를 호출한 것과 같음
-    local skuList = g_shopDataNew:getSkuList() -- e.g. 'dvnew_default_1.1k;dvnew_default_2.2k'
+    local skuList = g_shopData:getSkuList() -- e.g. 'dvnew_default_1.1k;dvnew_default_2.2k'
     PerpleSDK:billingGetItemList(skuList, function(ret, info)
 
         -- @sgkim 2021.03.17 billingGetItemList ret은 'success'와 'fail' 두가지 경우만 리턴된다.
@@ -97,7 +97,7 @@ function ServerData_IAP:sdkBinder_BillingGetItemList(success_cb, fail_cb)
             local info_json = json_decode(info) -- 문자열에서 json형태로 변환하는 코드
             self.m_structIAPProductMap = {}
 
-            g_shopDataNew:setMarketPrice(info_json)
+            g_shopData:setMarketPrice(info_json)
 
             for i,v in pairs(info_json) do
 
@@ -287,7 +287,7 @@ end
 -------------------------------------
 function ServerData_IAP:makeSkuListString()
     -- t_ret_map(table) key:product_id, value:StructProduct
-    local t_ret_map = g_shopDataNew:getAllProductMap()
+    local t_ret_map = g_shopData:getAllProductMap()
 
     local sku_list_str = ''
     for _,struct_product in pairs(t_ret_map) do

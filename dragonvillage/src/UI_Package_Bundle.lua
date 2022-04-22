@@ -77,7 +77,7 @@ function UI_Package_Bundle:initUI()
     if (self.m_package_name == 'package_lucky_box') then        
         -- 랜덤 박스에 지난 가격을 출력하는 부분이 있음(지난 가격과 비교하기 위해)
         if (self.vars['changeLabel']) then
-            local ori_struct_product = g_shopDataNew:getTargetProduct(119990)
+            local ori_struct_product = g_shopData:getTargetProduct(119990)
             if (ori_struct_product) then
                 local price = ori_struct_product:getPriceStr()
                 vars['changeLabel']:setString(price)
@@ -155,8 +155,8 @@ end
 -------------------------------------
 function UI_Package_Bundle:getProductList()    
     local l_item_list = {}
-    local l_item_list_package = g_shopDataNew:getProductList('package')
-    local l_item_list_etc = g_shopDataNew:getProductList('etc')
+    local l_item_list_package = g_shopData:getProductList('package')
+    local l_item_list_etc = g_shopData:getProductList('etc')
 
     for producdt_id, struct_product in pairs(l_item_list_package) do
         l_item_list[producdt_id] = struct_product
@@ -208,7 +208,7 @@ function UI_Package_Bundle:refresh()
         -- 다이아 할인 풀팝업 전용 패키지 번들 - 추후 리팩토링 필요함
         -- 패키지가 아니지만 묶음 처리로 체크를 위해 패키지 번들에 등록한 케이스 
         if (self.m_package_name == 'event_dia_discount') or (self.m_package_name == 'event_gold_bonus') then
-            local struct_product = g_shopDataNew:getTargetProduct(pid)
+            local struct_product = g_shopData:getTargetProduct(pid)
             if (struct_product) then
                 local time_label = vars['timeLabel']
                 local end_date = struct_product:getEndDateStr()
@@ -326,7 +326,7 @@ end
 -- function click_openShop
 -------------------------------------
 function UI_Package_Bundle:click_openShop(product_id)
-    local l_item_list = g_shopDataNew:getProductList('package')
+    local l_item_list = g_shopData:getProductList('package')
     local struct_product = l_item_list[product_id]
 
 	-- 슬라임 패키지, 속성 패키지 등지에서 콜백이 물리지 않아 ui 갱신이 되지 않는다.
@@ -445,7 +445,7 @@ function UI_Package_Bundle:click_rewardBtn()
                 UI_PackageRandomBoxInfo(l_item, self.m_package_name)
             end
         end
-        g_shopDataNew:request_randomBoxInfo(finish_cb)
+        g_shopData:request_randomBoxInfo(finish_cb)
     end
 end
 

@@ -33,7 +33,7 @@ function TableSupply:getSupplyProductList()
     for key,value in pairs(self.m_orgTable) do
 
         if (value['ui_priority'] ~= -1) then
-            local struct_product = g_shopDataNew:getTargetProduct(value['product_id'])
+            local struct_product = g_shopData:getTargetProduct(value['product_id'])
 
             if (struct_product == nil) or (not struct_product:isItOnTime()) then
                 local supply_type = value['type']
