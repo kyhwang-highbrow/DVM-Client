@@ -12,7 +12,7 @@ ServerData_ExchangeEvent = class({
 
         m_productInfo = 'map', -- 교환 상품 정보
         m_rewardInfo = 'map', -- 보상 정보
-        m_randomBoxInfo = 'map', -- 선물 상자 정보 
+        m_randomBoxInfo = 'map', -- 선물 상자 정보
 
         m_endTime = 'number', -- 종료 시간
     })
@@ -33,7 +33,7 @@ function ServerData_ExchangeEvent:parseProductInfo(product_info)
     if (product_info) then
         local info = self.m_productInfo
         local step = product_info['step']
-    
+        
         for i = 1, step do
             local data = { step = i,
                            price = product_info['price_'..i], 
@@ -41,7 +41,6 @@ function ServerData_ExchangeEvent:parseProductInfo(product_info)
             table.insert(info, data)
         end
     end
-    
 end
 
 -------------------------------------
@@ -134,12 +133,24 @@ function ServerData_ExchangeEvent:request_eventInfo(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
+    self.m_randomBoxInfo = {}
+
     -- 콜백
     local function success_cb(ret)
         self.m_ready = true
 
         self:networkCommonRespone(ret)
         self:parseProductInfo(ret['table_event_product'][1])
+
+        if(ret['table_random_box']) then
+            local info = self.m_randomBoxInfo
+            
+            for _, value in ipairs (ret['table_random_box']) do
+                local data = {  item_id = value['item_id'],
+                                val = value['val'] }
+                table.insert(info, data)
+            end
+        end
 
         self.m_endTime = ret['end']
 
@@ -220,54 +231,6 @@ function ServerData_ExchangeEvent:request_eventReward(step, finish_cb, fail_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
-    ui_network:request()
-
-    return ui_network
-end
-
--------------------------------------
--- function request_randomBoxInfo
--- @brief 선물 상자 정보
--------------------------------------
-function ServerData_ExchangeEvent:request_randomBoxInfo(finish_cb, fail_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-
-    -- 콜백
-    local function success_cb(ret)
- 
-        for idx, value in ipairs (ret['table_random_box']) do
-            
-        end
-
-        -- if (product_info) then
-        --     local info = self.m_productInfo
-        --     local step = product_info['step']
-        
-        --     for i = 1, step do
-        --         local data = { step = i,
-        --                        price = product_info['price_'..i], 
-        --                        reward = product_info['mail_content_'..i] }
-        --         table.insert(info, data)
-        --     end
-        -- end
-
-
-        if finish_cb then
-            finish_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/shop/event_randombox_reward_info')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('category', 'event')
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-	ui_network:hideBGLayerColor()
     ui_network:request()
 
     return ui_network

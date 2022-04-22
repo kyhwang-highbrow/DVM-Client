@@ -46,8 +46,11 @@ function UI_ExchangeEvent:initUI()
         end
     end
 
-    --
-    g_exchangeEventData:request_randomBoxInfo()
+    for i = 1, 3 do
+        local event_item_icon_res = TableItem:getItemIcon(ITEM_ID_EVENT)
+        local event_item_icon = IconHelper:getIcon(event_item_icon_res)
+        vars['exchangeItemNode' .. i]:addChild(event_item_icon)
+    end
 end
 
 -------------------------------------
@@ -116,6 +119,20 @@ function UI_ExchangeEvent:refresh()
     for i, ui in ipairs(self.m_eventDataUI) do
         ui:refresh()
     end
+
+    -- 선물 상자 갱신
+    local randombox_info = g_exchangeEventData.m_randomBoxInfo
+
+    for i, info in ipairs(randombox_info) do
+        local item_id = info['item_id']
+        local cnt = info['val']
+        local icon = IconHelper:getItemIcon(item_id)
+
+        vars['rewardNode' .. i]:addChild(icon)
+        vars['rewardLabel' .. i]:setString(comma_value(cnt))
+    end
+
+    
 end
 
 -------------------------------------
