@@ -20,10 +20,13 @@ function UI_PackageCategoryButton:init(data)
     vars['listBtn']:registerScriptTapHandler(function() self:click_btn() end)
 end
 
-
+----------------------------------------------------------------------
+-- function SetTarget
+----------------------------------------------------------------------
 function UI_PackageCategoryButton:SetTarget(isTarget)
     self.vars['listBtn']:setEnabled(not isTarget)
 end
+
 ----------------------------------------------------------------------
 -- function refresh
 ----------------------------------------------------------------------
