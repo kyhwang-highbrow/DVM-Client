@@ -49,7 +49,6 @@ end
 -- function init
 ----------------------------------------------------------------------
 function ServerData_EventRoulette:init()
-    cclog('ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ')
     --self.m_bDirtyTable = true
     self.m_myRanking = StructEventRouletteRanking()
 end

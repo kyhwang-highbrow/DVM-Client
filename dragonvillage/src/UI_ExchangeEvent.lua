@@ -45,6 +45,9 @@ function UI_ExchangeEvent:initUI()
             table.insert(self.m_eventDataUI, ui)
         end
     end
+
+    --
+    g_exchangeEventData:request_randomBoxInfo()
 end
 
 -------------------------------------
