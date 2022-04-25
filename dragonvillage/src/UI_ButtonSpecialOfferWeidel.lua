@@ -90,42 +90,15 @@ function UI_ButtonSpecialOfferWeidel:updateButtonStatus()
     end
 end
 
+-------------------------------------
+-- function showOfferPopup
+-------------------------------------
 function UI_ButtonSpecialOfferWeidel:showOfferPopup(struct_product)
     local pid = struct_product['product_id']
     local package_name = TablePackageBundle:getPackageNameWithPid(pid)   
-    local package_data = TablePackageBundle:getDataWithName(package_name)
-    local ui = UI_Package_Bundle(package_name, true)
 
-    -- mail_content 하나하나 순서대로 라벨에 뿌려주기
-    local l_product = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
-
-    for i, product in ipairs(l_product) do
-        local label = ui.vars['itemLabel' .. tostring(i)]
-        local string_result = ''
-
-        -- 구성품 t_desc 표시
-        if (package_data['use_desc'] == 1) then
-            string_result = Str(struct_product['t_desc'])
-        -- 구성품 mail_content 표시
-        else
-            local name = TableItem:getItemName(product['item_id'])
-            local cnt = product['count']
-            string_result = Str('{1} {2}개', name, comma_value(cnt))
-        end
-
-        if (label) then label:setString(string_result) end
-    end
-
-    -- 혜택률 표시
-    -- '800% 이상의 혜택!'
-    if ui.vars['bonusLabel'] then ui.vars['bonusLabel']:setString(Str('{1}%', bonus_num)) end
-
-    -- 서버에 따라 보여지는 UI 달리함 (한국은 설날, 글로벌은 2주년)
-    local is_korea_server = g_localData:isKoreaServer()
-    if ui.vars['koreaMenu'] then ui.vars['koreaMenu']:setVisible(is_korea_server) end
-    if ui.vars['globalMenu'] then ui.vars['globalMenu']:setVisible(not is_korea_server) end
-
-    ui:doAction()
+    local struct_product_group = g_shopData:getTargetPackage(package_name)
+    local ui = struct_product_group:getTargetUI(nil, nil, true)
 
     return ui
 end
