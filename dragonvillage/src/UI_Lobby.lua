@@ -355,22 +355,6 @@ function UI_Lobby:entryCoroutine()
             end
             
 
-            -- 바이델 축제 패키지
-            local struct_product, idx, bonus_num = g_shopData:getSpecialOfferProductWeidel()
-
-            if (struct_product and g_shopData:shouldShowWeidelOfferPopup() == true) then
-                cclog('# 바이델 축제 패키지')
-                co:work()
-                local str_uid = g_userData:get('uid') and tostring(g_userData:get('uid')) or ''
-                local weidel_offer_save_key = 'lobby_weidel_package_notice_' .. str_uid
-                local currentTime = tonumber(socket.gettime())
-                g_settingData:applySettingData(currentTime, weidel_offer_save_key)
-
-                local ui = UI_ButtonSpecialOfferWeidel:showOfferPopup(struct_product)
-                ui:setCloseCB(co.NEXT)
-                if co:waitWork() then return end
-            end
-
             -- @ MASTER ROAD
             cclog('# 마스터의 길 확인 중')
             co:work()
@@ -391,17 +375,7 @@ function UI_Lobby:entryCoroutine()
                     if co:waitWork() then return end
                 end
             end		
-	    end   		
-
-
-        -- @ 차원문 컨텐츠 오픈
-        -- 콘텐츠 오픈 팝업
-        --[[
-        local has_dmgate_key = g_settingData:get('lobby_dmgate_open_notice') or false
-
-        if (not g_contentLockData:isContentLock('dmgate') and not has_dmgate_key) then
-            UI_ContentOpenPopup('dmgate')
-        end]]
+	    end
 
         
         -- 시즌 보상이 있을 경우 팝업
@@ -1617,15 +1591,6 @@ end
 -- @brief 선물상자 버튼 (광고 보기)
 -------------------------------------
 function UI_Lobby:click_giftBoxBtn()
-    
-    -- if IS_TEST_MODE() then
-    --     --UI_DmgateScene(DIMENSION_GATE_MANUS)
-    --     require('UI_ShopPackageScene')
-    --     UI_ShopPackageScene()
-    -- else
-    --g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
-    --end
-
     g_advertisingData:request_adv_reward(AD_TYPE.RANDOM_BOX_LOBBY)
 end
 

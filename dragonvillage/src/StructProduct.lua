@@ -437,6 +437,9 @@ function StructProduct:getItemNameWithCount()
 end
 
 
+-------------------------------------
+-- function getItemNameWithCountByIndex
+-------------------------------------
 function StructProduct:getItemNameWithCountByIndex(index)
     local item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
 	if (not item_list) or (not item_list[1]) then
