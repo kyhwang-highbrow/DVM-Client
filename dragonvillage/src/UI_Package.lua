@@ -138,7 +138,13 @@ function UI_Package:initEachProduct(index, struct_product)
         end
     else
         for index, item in pairs(item_list) do
-            local item_str = Str('{1} {2}개', TableItem():getItemName(item['item_id']), comma_value(item['count']))
+            local item_str
+            if item['item_id'] == ITEM_ID_CLEAR_TICKET then
+                local count = Str('{1}일', comma_value(item['count']))
+                item_str = Str('{1} {2}', count, TableItem():getItemName(item['item_id']))
+            else
+                item_str = Str('{1} {2}개', TableItem():getItemName(item['item_id']), comma_value(item['count']))
+            end
             if vars['itemLabel' .. index] then
                 vars['itemLabel' .. index]:setString(item_str)
             end

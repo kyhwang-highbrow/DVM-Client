@@ -430,12 +430,15 @@ function StructProduct:getItemNameWithCount()
         if (result ~= '') then
             result = result .. '\n'
         end
-        result = result .. Str('{1} {2}개', item_table:getItemName(item['item_id']), comma_value(item['count']))
+        if item['item_id'] == ITEM_ID_CLEAR_TICKET then
+            result = result .. Str('{1} {2}일', item_table:getItemName(item['item_id']), comma_value(item['count']))
+        else
+            result = result .. Str('{1} {2}개', item_table:getItemName(item['item_id']), comma_value(item['count']))
+        end
     end
 
     return result
 end
-
 
 -------------------------------------
 -- function getItemNameWithCountByIndex
