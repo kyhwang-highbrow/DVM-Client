@@ -99,9 +99,9 @@ function UI_EventRouletteAutoSetting:addAutoCount(count)
 
     autoCount = autoCount + count
 
-    -- if(autoCount > maxCount) then
-    --     UIManager:toastNotificationRed(Str('이벤트 아이템이 부족합니다.'))
-    -- end
+    if(autoCount > maxCount and maxCount < AUTO_MAX_COUNT) then
+        UIManager:toastNotificationRed(Str('이벤트 아이템이 부족합니다.'))
+    end
 
     self.m_autoCount = math_clamp(autoCount, AUTO_MIN_COUNT, maxCount)
 end
