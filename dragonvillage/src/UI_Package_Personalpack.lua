@@ -18,7 +18,7 @@ function UI_Package_Personalpack:init(ppid)
 
     local pid_list = TablePersonalpack:getProductIdList(ppid)
     for i, pid in ipairs(pid_list) do
-        table.insert(self.m_structProductList, g_shopData:getTargetProduct(tonumber(pid)))
+        table.insert(self.m_structProductList, g_shopDataNew:getTargetProduct(tonumber(pid)))
     end
 
     self.m_uiName = 'UI_Package_Personalpack'

@@ -925,7 +925,7 @@ function UI_Lobby:refreshSpecialOffer()
     end
 
     -- 상점에서 특별 할인 상품을 받아온다.
-    local struct_product, idx, bonus_num = g_shopData:getSpecialOfferProduct()
+    local struct_product, idx, bonus_num = g_shopDataNew:getSpecialOfferProduct()
 
     -- UI가 없을 경우
     local button = vars['specialOfferBtn' .. idx]
@@ -1438,7 +1438,7 @@ end
 -- @brief 상점 버튼
 -------------------------------------
 function UI_Lobby:click_shopBtn()
-    g_shopData:openShopPopup()
+    g_shopDataNew:openShopPopup()
 end
 
 -------------------------------------
@@ -2317,7 +2317,7 @@ function UI_Lobby:update_rightButtons()
     do -- 패키지 상점  
         vars['cashShopBtn']:setVisible(true)
 
-        local package_list = g_shopData:getActivatedPackageList()
+        local package_list = g_shopDataNew:getActivatedPackageList()
 
         local is_noti_visible = false
         for _, data in ipairs(package_list) do
@@ -2811,11 +2811,11 @@ end
 function UI_Lobby:setShopNoti()
     local vars = self.vars
 
-    if (not g_shopData) then
+    if (not g_shopDataNew) then
         return
     end
 
-    if (g_shopData:checkDiaSale()) then
+    if (g_shopDataNew:checkDiaSale()) then
         vars['shopBonusNoti']:setVisible(true)
     else
         vars['shopBonusNoti']:setVisible(false)

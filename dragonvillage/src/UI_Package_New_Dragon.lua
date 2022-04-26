@@ -35,7 +35,7 @@ function UI_Package_New_Dragon:init(package_name, is_popup)
     end
     
     -- 상품 정보가 없는 경우 예외처리
-    if (not g_shopData:getTargetProduct(tonumber(self.m_pids[1]))) then
+    if (not g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))) then
         return
     end
 
@@ -51,7 +51,7 @@ function UI_Package_New_Dragon:initUI()
     local vars = self.vars
 
     -- 첫번째 상품을 드래곤 뽑기권이라고 보고, 드래곤 뽑기권의 드래곤들 출력
-    local struct_product = g_shopData:getTargetProduct(tonumber(self.m_pids[1]))
+    local struct_product = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))
     local item_id = self:getFirstProductItemId(struct_product)
     self:setDragonDisplay(item_id)
 end
@@ -65,7 +65,7 @@ function UI_Package_New_Dragon:setProduct()
     local product_cnt = #l_product
 
     for i, data in ipairs(l_product) do
-        local struct_product = g_shopData:getTargetProduct(tonumber(l_product[i]))
+        local struct_product = g_shopDataNew:getTargetProduct(tonumber(l_product[i]))
         local item_id = self:getFirstProductItemId(struct_product)
         local ui_product = openPackage_New_Dragon(struct_product, item_id, product_cnt)
         if (item_id) and (ui_product) then
@@ -87,7 +87,7 @@ end
 function UI_Package_New_Dragon:refresh()
     local vars = self.vars   
     
-    local struct_product = g_shopData:getTargetProduct(tonumber(self.m_pids[1])) -- 패키지들의 판매기간이 같다고 가정
+    local struct_product = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1])) -- 패키지들의 판매기간이 같다고 가정
     -- 판매종료시간 있는 경우 표시
     local time_label = vars['timeLabel']
     local end_date = struct_product:getEndDateStr()

@@ -54,7 +54,7 @@ function UI_Package_AttrTowerPopup:setLimit()
         return 
     end
     local product_id = product_id_list[1]
-    local struct_product = g_shopData:getTargetProduct(product_id)
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
 
     if (vars['limitNode'] == nil) then
         return
@@ -183,7 +183,7 @@ function UI_Package_AttrTowerPopup:update(dt)
         return 
     end
     local product_id = product_id_list[1]
-    local struct_product = g_shopData:getTargetProduct(product_id)
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
 
     local remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변경
     local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time, false) -- param : milliseconds, from_day

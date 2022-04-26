@@ -19,7 +19,7 @@ function UI_SupplyProductInfoPopup_AutoPickup:init(cb_func, hide_ad)
 
     local t_supply = TableSupply:getSupplyData_autoPickup()
     local product_id = t_supply['product_id']
-    self.m_structProduct = g_shopData:getTargetProduct(product_id) -- StructProduct
+    self.m_structProduct = g_shopDataNew:getTargetProduct(product_id) -- StructProduct
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_SupplyProductInfoPopup_AutoPickup')

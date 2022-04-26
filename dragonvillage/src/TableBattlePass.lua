@@ -70,7 +70,7 @@ function TableBattlePass:updateTableMap()
     self.m_battlePassInfoMap = {}
 
     -- 패스 상품정보를 받아온다.
-    local item_list = g_shopData:getProductList('pass')
+    local item_list = g_shopDataNew:getProductList('pass')
 
     if (not self.m_battlePassTable) then return end
 

@@ -112,7 +112,7 @@ end
 -- function setTableView
 ----------------------------------------------------------------------
 function UI_ShopPackageScene:setTableView(table_view, package_name)
-    local item_list = g_shopData:getActivatedPackageList()
+    local item_list = g_shopDataNew:getActivatedPackageList()
     local dragonList = table.MapToList(g_getDragonPackage:getPackageList())
     local total_PackageList = table.merge(dragonList, item_list)
 

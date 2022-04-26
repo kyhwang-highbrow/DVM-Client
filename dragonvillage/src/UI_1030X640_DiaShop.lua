@@ -64,7 +64,7 @@ function UI_1030X640_DiaShop:init_TableView()
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local tab_name = 'cash'--self.m_tabName
-    local l_item_list = g_shopData:getProductList(tab_name)
+    local l_item_list = g_shopDataNew:getProductList(tab_name)
 
 	-- 패키지 - 번들인 경우 하나만 ui에 나오도록
 	if (tab_name == 'package') then

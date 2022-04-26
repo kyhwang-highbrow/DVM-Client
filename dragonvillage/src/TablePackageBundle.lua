@@ -20,7 +20,7 @@ end
 -- function TableP:getEtcTableViewMap()
 --     local map = {}
 
---     local item_list = g_shopData:getProductList('etc')
+--     local item_list = g_shopDataNew:getProductList('etc')
 --     for i, v in ipairs(self.m_orgTable) do
 --     end
 -- end
@@ -31,7 +31,7 @@ end
 -------------------------------------
 function TablePackageBundle:getTableViewMap()
     local map = {}
-    local l_item_list = g_shopData:getProductList('package')
+    local l_item_list = g_shopDataNew:getProductList('package')
     for i, v in ipairs(self.m_orgTable) do
 
         local t_pids = v['t_pids']
@@ -48,7 +48,7 @@ function TablePackageBundle:getTableViewMap()
                 -- @sgkim 2018-05-29
                 -- 단계별 패키지가 2개 이상 동시에 판매되면서 우선 순위 확인
                 if (v['t_name'] == 'package_step') or (v['t_name'] == 'package_step_02') then
-                    local valid_step_package = g_shopData:getValidStepPackage()
+                    local valid_step_package = g_shopDataNew:getValidStepPackage()
 
                     -- 현재 유효한 상품이 아닐 경우 맵에 추가하지 않음
                     if (valid_step_package ~= v['t_name']) then

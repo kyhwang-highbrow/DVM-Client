@@ -128,7 +128,7 @@ function UI_EventFullPopup:initUI()
         local package_name = popup_key
         local is_popup = false
 
-        local package_list = g_shopData:getActivatedPackageList(true)
+        local package_list = g_shopDataNew:getActivatedPackageList(true)
 
 
         for index, struct_package_group in pairs(package_list) do

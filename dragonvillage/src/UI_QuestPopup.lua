@@ -538,7 +538,7 @@ function UI_QuestPopup:click_subscriptionBuyBtn()
 
     local t_supply = TableSupply:getSupplyData_dailyQuest()
     local product_id = t_supply['product_id']
-    local struct_product = g_shopData:getTargetProduct(product_id) -- StructProduct
+    local struct_product = g_shopDataNew:getTargetProduct(product_id) -- StructProduct
 
     if struct_product then
         -- 일일 퀘스트 보상 2배 상품 구매 후 콜백

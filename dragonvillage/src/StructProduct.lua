@@ -299,7 +299,7 @@ function StructProduct:isItBuyable()
             return false
         end
     else
-        buy_cnt = g_shopData:getBuyCount(self['product_id'])
+        buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
     end 
 
     return (buy_cnt < self['max_buy_count'])
@@ -380,7 +380,7 @@ function StructProduct:needRenewAfterBuy()
 	end
 
     -- 구매 제한 횟수 체크 (판매 시간은 상품 리스트 구성 시 확인한다고 가정)
-    local buy_cnt = g_shopData:getBuyCount(self['product_id'])
+    local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
     return (buy_cnt < self['max_buy_count'] + 1)
     --]]
 end
@@ -535,7 +535,7 @@ function StructProduct:getBuyCountDesc()
             return ''
         end
     else
-        buy_cnt = g_shopData:getBuyCount(self['product_id'])
+        buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
     end
 	local cnt_str = Str('구매 횟수 {1} / {2}', buy_cnt, max_buy_cnt)
 
@@ -657,7 +657,7 @@ function StructProduct:getPriceStr()
 
         if (price_type == 'money') then
 			local sku = self['sku']
-			local dicMarketPrice = g_shopData.m_dicMarketPrice
+			local dicMarketPrice = g_shopDataNew.m_dicMarketPrice
 
 			-- 엑솔라 가격
 			if (PerpleSdkManager:xsollaIsAvailable()) then
@@ -786,7 +786,7 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
             local function finish_cb(ret)
                 
                 -- 상품 리스트 갱신이 필요할 경우
-                if (g_shopData.m_bDirty == true) then
+                if (g_shopDataNew.m_bDirty == true) then
                     ret['need_refresh'] = true
                     local function info_refresh_cb()
                         if (cb_func) then
@@ -796,7 +796,7 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
                         -- 로비 노티 갱신
                         g_highlightData:setDirty(true)
                     end
-                    g_shopData:request_shopInfo(info_refresh_cb)
+                    g_shopDataNew:request_shopInfo(info_refresh_cb)
                 else
                     ret['need_refresh'] = false
                     if (cb_func) then
@@ -824,7 +824,7 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
                     end
                 end
             else
-                g_shopData:request_buy(self, count, finish_cb)
+                g_shopDataNew:request_buy(self, count, finish_cb)
             end
         end
     end
@@ -942,7 +942,7 @@ function StructProduct:checkMaxBuyCount()
             return true
         end
     else
-        buy_cnt = g_shopData:getBuyCount(self['product_id'])
+        buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
     end
     
 	-- 구매 횟수 초과한 경우
@@ -1033,7 +1033,7 @@ function StructProduct:getMaxBuyTermStr(use_rich)
             return ''
         end
     else
-	    buy_cnt = g_shopData:getBuyCount(product_id)
+	    buy_cnt = g_shopDataNew:getBuyCount(product_id)
     end 
 
     local str = ''
@@ -1159,7 +1159,7 @@ function StructProduct:isBuyAll()
             return false
         end
     else
-        buy_cnt = g_shopData:getBuyCount(product_id)
+        buy_cnt = g_shopDataNew:getBuyCount(product_id)
     end 
 
 	return (buy_cnt >= max_buy_cnt)

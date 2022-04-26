@@ -784,7 +784,7 @@ function UI_DragonRunesGrind.isBuyable()
     -- 둘 중 하나라도 판매중이면 패키지 팝업을 열어줌
 	local l_pid = {110131, 110132}
     for i, pid in ipairs(l_pid) do
-	    local struct_product = g_shopData:getProduct('package', pid)
+	    local struct_product = g_shopDataNew:getProduct('package', pid)
         if (struct_product) then
             if (struct_product:checkMaxBuyCount()) then
                 is_package_buyable = true

@@ -629,7 +629,7 @@ function UI_DragonEvolution:isPackageBuyable()
 	-- pid 찾아서 StructProduct 찾아서 구매 가능 여부 확인
 	local attr = struct_dragon_object:getAttr()
 	local pid = T_EVOLUTION_PACKAGE_ID_TABLE[rarity][attr]
-	local struct_product = g_shopData:getProduct('package', pid)
+	local struct_product = g_shopDataNew:getProduct('package', pid)
 
     if (not struct_product) then
         return false

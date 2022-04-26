@@ -145,7 +145,7 @@ function UI_RuneForgeInfoTab:refresh()
         vars['runeBlessNode']:addChild(card.root)
 
         -- 룬 축복서 product ID : 220017
-        local product_struct = g_shopData:getProduct('amethyst', 220017)
+        local product_struct = g_shopDataNew:getProduct('amethyst', 220017)
         
         -- 구매제한 설명 문구 
         local buy_count_desc = product_struct:getMaxBuyTermStr()
@@ -166,7 +166,7 @@ function UI_RuneForgeInfoTab:refresh()
         vars['grindstoneNode']:addChild(card.root)
 
         -- 룬 연마석 product ID : 210022
-        local product_struct = g_shopData:getProduct('st', 210022)
+        local product_struct = g_shopDataNew:getProduct('st', 210022)
         
         -- 구매제한 설명 문구 
         local buy_count_desc = product_struct:getMaxBuyTermStr()
@@ -189,7 +189,7 @@ function UI_RuneForgeInfoTab:click_grindstonePackageBtn()
     local vars = self.vars
     
     -- 룬 연마석 product ID : 210022
-    local product_struct = g_shopData:getProduct('st', 210022)
+    local product_struct = g_shopDataNew:getProduct('st', 210022)
     if (product_struct:isBuyable() == true) then
         product_struct:buy(function(ret)
             ItemObtainResult_Shop(ret) 
@@ -206,7 +206,7 @@ function UI_RuneForgeInfoTab:click_runBlessBuyBtn()
     local vars = self.vars
     
     -- 룬 축복서 product ID : 220017
-    local product_struct = g_shopData:getProduct('amethyst', 220017)
+    local product_struct = g_shopDataNew:getProduct('amethyst', 220017)
 
     if (product_struct:isBuyable() == true) then
         product_struct:buy(function(ret)

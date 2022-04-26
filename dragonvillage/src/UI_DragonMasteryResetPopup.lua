@@ -99,7 +99,7 @@ function UI_DragonMasteryResetPopup:click_enhanceBtn()
 
         -- 구매 팝업 띄우기
         -- 망각의 서 product_struct
-        local product_struct = g_shopData:getProduct('st', 210020)
+        local product_struct = g_shopDataNew:getProduct('st', 210020)
         product_struct:buy(function(ret)
             ItemObtainResult_Shop(ret) 
             self:refresh()

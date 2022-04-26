@@ -51,7 +51,7 @@ function UI_ButtonSpecialOfferWeidel:updateButtonStatus()
     end
 
     -- 상점에서 특별 할인 상품을 받아온다.
-    local struct_product, idx, bonus_num = g_shopData:getSpecialOfferProductWeidel()
+    local struct_product, idx, bonus_num = g_shopDataNew:getSpecialOfferProductWeidel()
 
     -- UI가 없을 경우
     local button = vars['specialOfferBtn' .. idx]
@@ -97,7 +97,7 @@ function UI_ButtonSpecialOfferWeidel:showOfferPopup(struct_product)
     local pid = struct_product['product_id']
     local package_name = TablePackageBundle:getPackageNameWithPid(pid)   
 
-    local struct_product_group = g_shopData:getTargetPackage(package_name)
+    local struct_product_group = g_shopDataNew:getTargetPackage(package_name)
     local ui = struct_product_group:getTargetUI(nil, nil, true)
 
     return ui

@@ -46,7 +46,7 @@ end
 -- function click_openShop
 -------------------------------------
 function UI_EventPopupTab_PackageGrowth:click_openShop(product_id)
-    local l_item_list = g_shopData:getProductList('package')
+    local l_item_list = g_shopDataNew:getProductList('package')
     local struct_product = l_item_list[product_id]
 
     if (struct_product) then

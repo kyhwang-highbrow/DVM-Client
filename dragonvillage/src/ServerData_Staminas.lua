@@ -335,7 +335,7 @@ function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
         --local spot_sale = ServerData_SpotSale:checkSpotSale('st', nil, finish_cb) -- price_type, price_value, finish_cb
         --
         --if (not spot_sale) then
-            --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopData:openShopPopup('st', finish_cb) end)
+            --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st', finish_cb) end)
         --end
     else
         local charge_limit = TableStaminaInfo:getDailyChargeLimit(stamina_type)

@@ -155,7 +155,7 @@ function UI_BundlePopup:click_quantityBtn(is_add)
 			return
 		end 
 	else
-		cur_buy_cnt = g_shopData:getBuyCount(struct_product['product_id'])
+		cur_buy_cnt = g_shopDataNew:getBuyCount(struct_product['product_id'])
 	end
 
     if (max_buy_cnt) then

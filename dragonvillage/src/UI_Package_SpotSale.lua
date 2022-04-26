@@ -16,7 +16,7 @@ function UI_Package_SpotSale:init(spot_sale_id)
     self.m_spotSaleID = spot_sale_id
 
     local product_id = TableSpotSale:getProductID(spot_sale_id)
-    self.m_structProduct = g_shopData:getTargetProduct(tonumber(product_id))
+    self.m_structProduct = g_shopDataNew:getTargetProduct(tonumber(product_id))
 
     self.m_uiName = 'UI_Package_SpotSale'
     local vars = self:load('package_spot_sale.ui')

@@ -154,7 +154,7 @@ function UI_TamerCostumeListItem:isInShop(price_type)
     local vars = self.vars
     local costume_data = self.m_costumeData
     local cid = costume_data:getCid()
-    local l_product = g_shopData:getProductList(price_type)
+    local l_product = g_shopDataNew:getProductList(price_type)
 
     for i, struct_product in pairs(l_product) do
         local product_str = struct_product['product_content'] or ''

@@ -548,7 +548,7 @@ function UI_Network:makeShopPopup(msg, ret, type)
             UINavigatorDefinition:goTo('package_shop', 'diamond_shop')
 
         else
-            g_shopData:openShopPopup(type)
+            g_shopDataNew:openShopPopup(type)
 
         end
 

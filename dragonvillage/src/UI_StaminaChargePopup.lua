@@ -68,7 +68,7 @@ function UI_StaminaChargePopup:initTypeVariable(type)
 
     if (type == 'buy') then
         local product_id = 10013
-        local struct_product = g_shopData:getTargetProduct(product_id)
+        local struct_product = g_shopDataNew:getTargetProduct(product_id)
         local product_price = struct_product.price
         self.m_buyCnt = 1
         self.m_needCash = product_price
@@ -219,7 +219,7 @@ end
 -------------------------------------
 function UI_StaminaChargePopup:click_purchaseBtn()
     local product_id = 10013
-    local struct_product = g_shopData:getTargetProduct(product_id)
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
     local buy_cnt = self.m_buyCnt
 
     local product_price = struct_product.price
@@ -241,7 +241,7 @@ function UI_StaminaChargePopup:click_purchaseBtn()
     end
 
     local function ok_cb()
-        g_shopData:request_buy(struct_product, buy_cnt, finish_cb)
+        g_shopDataNew:request_buy(struct_product, buy_cnt, finish_cb)
     end
 
     local buy_total_count = 180 * buy_cnt
@@ -316,7 +316,7 @@ function UI_StaminaChargePopup:conditionFunc(type, cnt)
     if (type == 'buy') then
         -- 날개 180개 묶음 아이템
         local product_id = 10013
-        local struct_product = g_shopData:getTargetProduct(product_id)
+        local struct_product = g_shopDataNew:getTargetProduct(product_id)
         local product_price = struct_product.price
         local total_price = cnt * product_price
         local user_cash = g_userData:get('cash') or 0

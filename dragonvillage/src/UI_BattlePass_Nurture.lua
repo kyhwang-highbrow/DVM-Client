@@ -327,7 +327,7 @@ end
 -- @todo replace refreshCellStatus to refresh after test
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_buyBtn()
-    local targetProduct = g_shopData:getTargetProduct(self.m_pass_id)
+    local targetProduct = g_shopDataNew:getTargetProduct(self.m_pass_id)
     
     local function cb_func(ret)
         local function cb_finish(ret)

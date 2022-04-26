@@ -78,7 +78,7 @@ end
 -------------------------------------
 function UI_Package_Select_Radio:refresh()
     local vars = self.vars
-    local l_item_list = g_shopData:getProductList('package')
+    local l_item_list = g_shopDataNew:getProductList('package')
     local target_product = self.m_pids
     if (not target_product) then
         return
@@ -153,7 +153,7 @@ function UI_Package_Select_Radio:click_buyBtn()
         self:close()
 	end
 
-    local t_struct_product = g_shopData:getProductList('package')
+    local t_struct_product = g_shopDataNew:getProductList('package')
     local struct_product = t_struct_product[self.m_selectPid]
     struct_product:buy(cb_func)
 end

@@ -67,7 +67,7 @@ function UI_RuneForgeReinforceTab:refresh()
     -- 룬 축복서 아이템 구매 제한 횟수
     do
         -- 룬 축복서 product ID : 220017
-        local product_struct = g_shopData:getProduct('amethyst', 220017)
+        local product_struct = g_shopDataNew:getProduct('amethyst', 220017)
         -- 구매제한 설명 문구 
         local buy_count_desc = product_struct:getBuyCountDesc()
         vars['buyLabel']:setString(buy_count_desc)
@@ -82,7 +82,7 @@ function UI_RuneForgeReinforceTab:click_buyBtn()
     local vars = self.vars
     
     -- 룬 축복서 product ID : 220017
-    local product_struct = g_shopData:getProduct('amethyst', 220017)
+    local product_struct = g_shopDataNew:getProduct('amethyst', 220017)
     product_struct:buy(function(ret)
         ItemObtainResult_Shop(ret) 
         self:refresh()

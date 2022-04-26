@@ -104,7 +104,7 @@ function StructProductGroup:convertPidsToStructProducts()
 
 	-- 카테고리 별로 등록된 pid 리스트
 	for _, product_id in pairs(pid_list) do
-		local struct_product = g_shopData:getTargetProduct(tonumber(product_id))
+		local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
     
 		-- pid에 해당하는 상품이 있고, 그것이 패키지 상품인 경우
 		if struct_product and (struct_product:getTabCategory() == 'package') then

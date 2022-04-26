@@ -81,7 +81,7 @@ function UI_Package_AttrTower:setLimit()
     local vars = self.vars
     local product_data = self.m_productInfo
     local product_id = product_data['product_id']
-    local struct_product = g_shopData:getTargetProduct(product_id)
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
 
     if (vars['limitNode'] == nil) then
         return
@@ -285,7 +285,7 @@ function UI_Package_AttrTower:refresh_productInfo()
     local vars = self.vars
     local product_data = self.m_productInfo
     local product_id = product_data['product_id']
-    local struct_product = g_shopData:getTargetProduct(product_id)
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
 
     if (g_attrTowerPackageData:isActive(product_id)) then
         vars['completeNode']:setVisible(true)
@@ -349,7 +349,7 @@ end
 function UI_Package_AttrTower:click_buyBtn()
 	local product_info = self.m_productInfo
     local product_id = product_info['product_id']
-    local struct_product = g_shopData:getTargetProduct(product_id)
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
 
     if (not struct_product) then
         return
@@ -442,7 +442,7 @@ function UI_Package_AttrTower:update(dt)
     
     local product_data = self.m_productInfo
     local product_id = product_data['product_id']
-    local struct_product = g_shopData:getTargetProduct(product_id)
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
 
     if (struct_product ~= nil) then
         local remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변경

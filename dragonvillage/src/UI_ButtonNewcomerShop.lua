@@ -28,7 +28,7 @@ function UI_ButtonNewcomerShop:init(ncm_id)
 
         -- 개별 상품 생성
         for i,product_id in ipairs(l_product_id) do
-            local struct_product = g_shopData:getTargetProduct(product_id)
+            local struct_product = g_shopDataNew:getTargetProduct(product_id)
             if struct_product then
                 if (struct_product:checkMaxBuyCount() == true) then
                     available_cnt = (available_cnt + 1)

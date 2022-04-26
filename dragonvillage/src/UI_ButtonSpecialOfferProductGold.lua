@@ -51,7 +51,7 @@ function UI_ButtonSpecialOfferProductGold:updateButtonStatus()
     end
 
     -- 상점에서 특별 할인 상품을 받아온다.
-    local struct_product, idx, bonus_num = g_shopData:getSpecialOfferProductGold()
+    local struct_product, idx, bonus_num = g_shopDataNew:getSpecialOfferProductGold()
 
     -- UI가 없을 경우
     local button = vars['specialOfferBtn' .. idx]

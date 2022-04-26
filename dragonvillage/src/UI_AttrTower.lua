@@ -178,7 +178,7 @@ function UI_AttrTower:initButton()
     local attr = g_attrTowerData:getSelAttr()
     local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
     for idx, product_id in ipairs(product_id_list) do
-        local struct_product = g_shopData:getTargetProduct(product_id)
+        local struct_product = g_shopDataNew:getTargetProduct(product_id)
         local b_is_sale = (struct_product ~= nil)
         local b_is_active_and_remain_rewards = g_attrTowerPackageData:isRemainReward(product_id)
         -- 판매중이거나, 판매가 끝났지만 이미 구매하였고 아직 받을 보상이 있는 경우 경우

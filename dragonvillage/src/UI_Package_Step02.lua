@@ -22,7 +22,7 @@ UI_Package_Step02 = class(PARENT,{
 -------------------------------------
 function UI_Package_Step02:init(package_name, is_popup)
     self.m_pacakgeName = package_name
-    self.m_lStepPids = g_shopData:getPakcageStepPidList(self.m_pacakgeName)
+    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList(self.m_pacakgeName)
     self:initStep(package_name)
 
     -- 판매종료시간 있는 경우 표시
@@ -76,7 +76,7 @@ end
 function UI_Package_Step02:setCurrentStep()
     local sum_buy_cnt = 0
     for idx, pid in ipairs(self.m_lStepPids) do
-        local buy_cnt = g_shopData:getBuyCount(pid)
+        local buy_cnt = g_shopDataNew:getBuyCount(pid)
         if (buy_cnt == 0) then
             self.m_curr_step = idx
             break
@@ -99,7 +99,7 @@ end
 -- function getLastStepStructProduct
 -------------------------------------
 function UI_Package_Step02:getLastStepStructProduct()
-    local l_item_list = g_shopData:getProductList('package')
+    local l_item_list = g_shopDataNew:getProductList('package')
     local last_step = #self.m_lStepPids
     local target_pid = tonumber(self.m_lStepPids[last_step])
 
@@ -129,7 +129,7 @@ function UI_Package_Step02:refresh(step)
     if (vars['timeLabel']) then
 		vars['timeLabel']:setString('') -- 타임 라벨 초기화
 	end    
-    local l_item_list = g_shopData:getProductList('package')
+    local l_item_list = g_shopDataNew:getProductList('package')
 
     for idx = 1, #self.m_lStepPids do
         vars['stepNode'..idx]:setVisible(idx == step)
@@ -258,7 +258,7 @@ function UI_Package_Step02:setLastRewardLabel(step)
 
     -- 구매 단계에 따라 전설드래곤 메세지 출력
     local str = ''
-    local l_item_list = g_shopData:getProductList('package')
+    local l_item_list = g_shopDataNew:getProductList('package')
     local last_pid = self.m_lStepPids[#self.m_lStepPids]
     if (not last_pid) then
         return
@@ -349,7 +349,7 @@ end
 -------------------------------------
 function UI_Package_Step02:setNoti()
     local vars = self.vars
-    local l_item_list = g_shopData:getProductList('package')
+    local l_item_list = g_shopDataNew:getProductList('package')
 
     for idx = 1, #self.m_lStepPids do
         local target_pid = tonumber(self.m_lStepPids[idx])
@@ -369,7 +369,7 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Package_Step02:click_buyBtn()
-    local l_item_list = g_shopData:getProductList('package')
+    local l_item_list = g_shopDataNew:getProductList('package')
     local target_pid = self.m_lStepPids[self.m_curr_step]
     local struct_product = l_item_list[target_pid]
 

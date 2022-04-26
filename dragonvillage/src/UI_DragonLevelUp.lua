@@ -818,7 +818,7 @@ end
 -------------------------------------
 function UI_DragonLevelUp:buyDragonFood()
     -- 드래곤 먹이 product_struct
-    local product_struct = g_shopData:getProduct('amethyst', 220026)
+    local product_struct = g_shopDataNew:getProduct('amethyst', 220026)
     product_struct:buy(function(ret)
         ItemObtainResult_Shop(ret) 
         self:refreshDagonFoodMenu(true)

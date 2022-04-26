@@ -100,7 +100,7 @@ function UI_ClearTicket:initButton()
     
     if g_supply:isActiveSupply(self.m_supplyType) then
         local pid = g_supply:getSupplyProductIdByType(self.m_supplyType)
-        local struct_product = g_shopData:getProduct('package', pid)
+        local struct_product = g_shopDataNew:getProduct('package', pid)
 
         if struct_product then
             vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)

@@ -42,7 +42,7 @@ function UI_PackageCategoryButton:refresh()
     local is_noti_visible = false
     for index, struct_product in pairs(product_list) do
         
-        local purchased_num = g_shopData:getBuyCount(struct_product:getProductID())
+        local purchased_num = g_shopDataNew:getBuyCount(struct_product:getProductID())
         local limit = struct_product:getMaxBuyCount()
 
         -- 특가 상품이 구매제한 초과 시 기존상품(dependency)으로 교체
@@ -52,7 +52,7 @@ function UI_PackageCategoryButton:refresh()
             if dependent_product_id then
 
                 is_changed = true
-                struct_product = g_shopData:getTargetProduct(dependent_product_id)
+                struct_product = g_shopDataNew:getTargetProduct(dependent_product_id)
                 product_list[index] = struct_product
             end
         end        

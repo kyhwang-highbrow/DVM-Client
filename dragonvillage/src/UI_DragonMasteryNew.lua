@@ -973,7 +973,7 @@ function UI_DragonMasteryNew:showAmorPackagePopup()
 	
 	-- 1.아모르의 서 패키지를 구매 가능한가
 	do
-		local is_buyable = g_shopData:isBuyablePackage({110251})
+		local is_buyable = g_shopDataNew:isBuyablePackage({110251})
 		if (not is_buyable) then
 			return 
 		end
@@ -1008,7 +1008,7 @@ function UI_DragonMasteryNew:setPackageGora(cnt)
         return
     end
     
-    local is_buyable = g_shopData:isBuyablePackage({110251})
+    local is_buyable = g_shopDataNew:isBuyablePackage({110251})
 	if (not is_buyable) then
 		return 
 	end

@@ -86,7 +86,7 @@ function ServerData:getInstance()
     g_friendData = ServerData_Friend(g_serverData)
 
 	-- 상점 및 가차
-    g_shopData = ServerData_Shop(g_serverData)
+    g_shopDataNew = ServerData_Shop(g_serverData)
 
     -- 구독형 상품
     g_subscriptionData = ServerData_Subscription(g_serverData)

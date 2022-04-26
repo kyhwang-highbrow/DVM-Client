@@ -73,7 +73,7 @@ function UI_Shop_Popup_Reinforce:init_TableView()
     local list_table_node = self.vars['tableViewNode']
 
     -- 재료로 사용 가능한 리스트를 얻어옴
-    local l_item_list = g_shopData:getProductList(self.m_category)
+    local l_item_list = g_shopDataNew:getProductList(self.m_category)
 
     local ui_class = UI_Product
     local item_per_cell = 3

@@ -181,7 +181,7 @@ function UINavigatorDefinition:goTo_shop(...)
         return
     end
 
-    g_shopData:openShopPopup(tab_name)
+    g_shopDataNew:openShopPopup(tab_name)
 end
 
 -------------------------------------
@@ -1626,7 +1626,7 @@ function UINavigatorDefinition:goTo_package_shop(...)
         end
     end
 
-    g_shopData:request_shopInfo(finish_cb)
+    g_shopDataNew:request_shopInfo(finish_cb)
 end
 
 -------------------------------------
@@ -1844,7 +1844,7 @@ function UINavigatorDefinition:goTo_shop_daily(...)
         end
     end
      -- 서버에 상품정보 요청
-	g_shopData:request_shopInfo(finish_cb)
+	g_shopDataNew:request_shopInfo(finish_cb)
 end
 
 -------------------------------------
@@ -1897,7 +1897,7 @@ function UINavigatorDefinition:goTo_shop_booster(...)
         end
     end
      -- 서버에 상품정보 요청
-	g_shopData:request_shopInfo(finish_cb)
+	g_shopDataNew:request_shopInfo(finish_cb)
 end
 
 -------------------------------------

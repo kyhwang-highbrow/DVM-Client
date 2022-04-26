@@ -23,7 +23,7 @@ function StructDragonPkgData:init(did, stTime)
     self.m_productTable = {}
     for _, pid in ipairs(self.m_packageList) do
         --Shop Data에서 pid를 통해서 상품 정보들 다 찾아놓는다.
-        self.m_productTable[pid] = g_shopData:getTargetProduct(tonumber(pid))
+        self.m_productTable[pid] = g_shopDataNew:getTargetProduct(tonumber(pid))
     end
 end
 
@@ -129,7 +129,7 @@ function StructDragonPkgData:getTotalBuyCntndMaxCnt()
     local productList = self:getProductList()
     for _, pid in ipairs(productList) do
         local product = self:getProduct(pid)
-        total_BuyCnt = total_BuyCnt + g_shopData:getBuyCount(pid)
+        total_BuyCnt = total_BuyCnt + g_shopDataNew:getBuyCount(pid)
         total_MaxCnt = total_MaxCnt + product:getMaxBuyCount()
     end
 

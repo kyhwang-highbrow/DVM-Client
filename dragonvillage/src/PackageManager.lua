@@ -36,35 +36,35 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
 
     -- 레벨업 패키지 UI
     if (_package_name == 'package_levelup') then
-        local _struct_product = g_shopData:getTargetProduct(LEVELUP_PACKAGE_PRODUCT_ID)
+        local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_PRODUCT_ID)
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_LevelUp_01(list, is_popup)
     
     -- 레벨업 패키지2 UI
     elseif (_package_name == 'package_levelup_02') then
-        local _struct_product = g_shopData:getTargetProduct(LEVELUP_PACKAGE_2_PRODUCT_ID)
+        local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_2_PRODUCT_ID)
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_LevelUp_02(list, is_popup)
 
     -- 레벨업 패키지3 UI
     elseif (_package_name == 'package_levelup_03') then
-        local _struct_product = g_shopData:getTargetProduct(LEVELUP_PACKAGE_3_PRODUCT_ID)
+        local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_3_PRODUCT_ID)
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_LevelUp_03(list, is_popup)
 
     -- 모험돌파 패키지 UI
     elseif (_package_name == 'package_adventure_clear') then
-        local _struct_product = g_shopData:getAdventureClearProduct()
+        local _struct_product = g_shopDataNew:getAdventureClearProduct()
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_AdventureClear01(list, is_popup)
     
     -- 모험돌파 패키지2 UI
     elseif (_package_name == 'package_adventure_clear_02') then
-        local _struct_product = g_shopData:getAdventureClearProduct02()
+        local _struct_product = g_shopDataNew:getAdventureClearProduct02()
         require('UI_Package_AdventureClear02')
         local list = {}
         table.insert(list, _struct_product)
@@ -72,7 +72,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
 
     -- 모험돌파 패키지3 UI
     elseif (_package_name == 'package_adventure_clear_03') then
-        local _struct_product = g_shopData:getAdventureClearProduct03()
+        local _struct_product = g_shopDataNew:getAdventureClearProduct03()
         require('UI_Package_AdventureClear03')
         local list = {}
         table.insert(list, _struct_product)
@@ -87,7 +87,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
             local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
             pid = tonumber(pid_strs[1])
         end
-        local _struct_product = g_shopData:getTargetProduct(pid)
+        local _struct_product = g_shopDataNew:getTargetProduct(pid)
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_BattlePass_Nurture(list, is_popup)
@@ -104,7 +104,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
             pid = pid_strs[1]
         end
 
-        local _struct_product = g_shopData:getTargetProduct(tonumber(pid))
+        local _struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_Dmgate(list, is_popup)
@@ -122,7 +122,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
             local l_product_list = g_attrTowerPackageData:getProductIdList(attr)
             
             for _, product_id in ipairs(l_product_list) do
-                local struct_product = g_shopData:getTargetProduct(product_id)
+                local struct_product = g_shopDataNew:getTargetProduct(product_id)
                 if (struct_product:isItBuyable()) then
                     attr_tower_package_id = product_id
                     break
@@ -208,7 +208,7 @@ end
 -- @brief 해당 패키지 상품 UI
 -------------------------------------
 function PackageManager:goToTargetUI(product_id)
-    local l_item_list = g_shopData:getProductList('package')
+    local l_item_list = g_shopDataNew:getProductList('package')
     local struct_product
 
     -- 묶음 UI 별도 처리
@@ -301,7 +301,7 @@ function PackageManager:isExist(package_name)
         local target_product = TablePackageBundle:getPidsWithName(package_name)
         local is_exist = false
         for _, pid in ipairs(target_product) do
-            local struct_product = g_shopData:getTargetProduct(tonumber(pid))
+            local struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
             if (struct_product) and (struct_product:checkMaxBuyCount()) then
                 is_exist = true
             end
@@ -319,9 +319,9 @@ function PackageManager:isExist(package_name)
     end
     
     -- 일반 패키지 & 패스 검사
-    local shop_list = g_shopData:getProductList('package')
-    local pass_list = g_shopData:getProductList('pass')
-    local etc_list = g_shopData:getProductList('etc')
+    local shop_list = g_shopDataNew:getProductList('package')
+    local pass_list = g_shopDataNew:getProductList('pass')
+    local etc_list = g_shopDataNew:getProductList('etc')
 
     for _, pid in ipairs(target_product) do
         if (shop_list[tonumber(pid)]) then
@@ -341,7 +341,7 @@ end
 -- @brief 번들 패키지일 경우 모두 구매했는지 체크
 -------------------------------------
 function PackageManager:isBuyAll(package_name)
-    local l_product_list = g_shopData:getProductList('package')
+    local l_product_list = g_shopDataNew:getProductList('package')
     local l_pid_list = TablePackageBundle:getPidsWithName(package_name)
     local is_buy_all = false
 
@@ -353,7 +353,7 @@ function PackageManager:isBuyAll(package_name)
         for _, pid in ipairs(l_pid_list) do
             local data = l_product_list[tonumber(pid)]
             if (data) then
-                local buy_cnt = g_shopData:getBuyCount(pid)
+                local buy_cnt = g_shopDataNew:getBuyCount(pid)
                 local max_buy_cnt = data['max_buy_count']
                 if (buy_cnt >= max_buy_cnt) then
                     is_buy_all = true
@@ -371,7 +371,7 @@ function PackageManager:isBuyAll(package_name)
         for _, pid in ipairs(l_pid_list) do
             local data = l_product_list[tonumber(pid)]
             if (data) then
-                local buy_cnt = g_shopData:getBuyCount(pid)
+                local buy_cnt = g_shopDataNew:getBuyCount(pid)
                 local max_buy_cnt = data['max_buy_count']
                 if (buy_cnt == '' or max_buy_cnt == '') then
                     is_buy_all = false
@@ -426,7 +426,7 @@ end
 -------------------------------------
 function PackageManager:makeOfferPopup(package_name, is_popup, is_full_popup)
     -- 리스트에서 걸러서 보여줌
-    local struct_product = g_shopData:getSpecialOfferProductCommonStep(package_name)
+    local struct_product = g_shopDataNew:getSpecialOfferProductCommonStep(package_name)
     if (not struct_product) then return nil end
     
     local pid = struct_product['product_id']
