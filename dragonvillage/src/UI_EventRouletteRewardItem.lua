@@ -15,7 +15,7 @@ function UI_EventRouletteRewardItem:init(data)
     local vars = self:load('event_roulette_item.ui')
 
     if (data['val'] == nil) or (data['val'] == '') then
-        vars['countLabel']:setString(Str(data['item_name']))
+        vars['countLabel']:setString(Str('{1} 돌림판', Str(data['item_name'])))
     else
         vars['countLabel']:setString(Str(string.format('%5d', data['val'])))
     end
