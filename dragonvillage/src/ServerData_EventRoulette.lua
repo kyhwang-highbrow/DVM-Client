@@ -653,12 +653,12 @@ function ServerData_EventRoulette:MakeRankingRewardPopup()
 
     if (last_info and reward_info) then
         -- 랭킹 보상 팝업
-        UI_EventRankingRewardPopup(false, UI_EventRouletteRankListItem, last_info, reward_info)
+        UI_EventRankingRewardPopup(false, UI_EventRouletteRankingListItem, last_info, reward_info)
     end
     
     if (lastinfo_daily and reward_info_daily) then
         -- 일일랭킹 보상 팝업
-        UI_EventRankingRewardPopup(true, UI_EventRouletteRankListItem, lastinfo_daily, reward_info_daily)
+        UI_EventRankingRewardPopup(true, UI_EventRouletteRankingListItem, lastinfo_daily, reward_info_daily)
     end
 end
 

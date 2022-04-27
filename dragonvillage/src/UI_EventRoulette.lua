@@ -896,7 +896,7 @@ end
 ----------------------------------------------------------------------
 function UI_EventRoulette:click_rankBtn()
     self:reset_start()
-    UI_EventRouletteRankPopup() 
+    UI_EventRouletteRankingPopup() 
 end
 
 ----------------------------------------------------------------------
