@@ -127,7 +127,7 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
     
         -- 5등급 전설 알은 누리 연출 보여줌 
         if (grade >= 5) then
-            self.m_currStep = 1
+            self.m_currStep = self.m_maxStep--1
         else 
             return
         end
@@ -216,7 +216,7 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
         cur_grade = TableSlime:getValue(did, 'birthgrade')
     else
         rarity = TableDragon:getValue(did, 'rarity')
-        cur_grade = math.min(TableDragon:getValue(did, 'birthgrade'), 5)
+        cur_grade = TableDragon:getValue(did, 'birthgrade')
         self.m_dragonName = TableDragon:getValue(did, 'type')
     end
 
