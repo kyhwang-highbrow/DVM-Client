@@ -646,8 +646,18 @@ function UI_EventRoulette:autoRoulette(count)
             if (getCurrStep() == 1) then
                 loop_count = loop_count + 1
                 local item_id, item_count = g_eventRouletteData:getItemIdAndCount()
+                local type = TableItem:getItemType(item_id)
+                local grade = TableItem:getItemGrade(item_id)
+                
+                if ((type == 'dragon') and (grade == 6)) then
+                    self.m_bIsShowRewardPopup = true
+                    co:work()
+                    co:waitWork()
+                    break
+                end
                 self:addItemToAutoResultList(item_id, item_count)
                 self:mergeAutoResultTable()
+
             end
 
             co:work()

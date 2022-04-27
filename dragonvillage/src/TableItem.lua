@@ -312,6 +312,18 @@ function TableItem:getItemType(item_id)
 end
 
 -------------------------------------
+-- function getItemGrade
+-- @brief
+-------------------------------------
+function TableItem:getItemGrade(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(item_id, 'grade')
+end
+
+-------------------------------------
 -- function getItemIcon
 -- @brief
 -------------------------------------
