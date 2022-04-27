@@ -155,13 +155,13 @@ function ServerData_EventRoulette:response_rouletteInfo(ret)
     end
     -- 보상 아이템 정보 들어왔을 경우 정보 저장, nil 여부로 보상 확인
     if (ret['reward_info']) then
-        self.m_rewardInfo = ret['reward_info']
+        self.m_rewardInfo = self:mergeRewardByItemId(ret['reward_info'])
     else
         self.m_rewardInfo = nil
     end
 
     if (ret['reward_info_daily']) then
-        self.m_rewardInfoDaily = ret['reward_info_daily']
+        self.m_rewardInfoDaily = self:mergeRewardByItemId(ret['reward_info_daily'])
     else
         self.m_rewardInfoDaily = nil
     end
@@ -169,6 +169,29 @@ function ServerData_EventRoulette:response_rouletteInfo(ret)
     if ret['table_event_rank'] then -- 랭킹 정보 테이블
         self:updateRankingInfo(ret['table_event_rank'])
     end
+end
+
+----------------------------------------------------------------------
+-- function mergeRewardByItemId
+----------------------------------------------------------------------
+function ServerData_EventRoulette:mergeRewardByItemId(reward_info)
+    local temp = {}
+
+    for _, item in pairs(reward_info) do
+        local key = item['item_id']
+        if temp[key] == nil then
+            temp[key] = item
+        else
+            if (temp[key]['count'] == nil) then
+                temp[key]['count'] = 0
+            else
+                temp[key]['count'] = temp[key]['count'] + 1
+            end
+        end
+    end
+
+
+    return temp
 end
 
 ----------------------------------------------------------------------
