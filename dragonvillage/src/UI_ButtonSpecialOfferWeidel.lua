@@ -69,7 +69,12 @@ function UI_ButtonSpecialOfferWeidel:updateButtonStatus()
             local ui = self:showOfferPopup(struct_product)
 
             -- 팝업이 닫히면 정보 다시 갱신
-            ui:setCloseCB(function() self:callDirtyStatusCB() end)
+            ui:setCloseCB(function() 
+                if (struct_product:getDependency() == nil) then
+                    self.m_bMarkDelete = true
+                end
+                self:callDirtyStatusCB() 
+            end)
         end)
 
         -- 매 프레임 남은 시간을 표기한다.
@@ -77,12 +82,13 @@ function UI_ButtonSpecialOfferWeidel:updateButtonStatus()
             local time_sec = struct_product:getTimeRemainingForEndOfSale()
             local time_millisec = (time_sec * 1000)
             local str = datetime.makeTimeDesc_timer(time_millisec)
-            time_label:setString(str)
+            
+            time_label:setString(str)            
         end
         update(0) -- 최초 1번 호출
         time_label.m_node:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
         self.m_bActive = true
-                
+
     else
         button:setVisible(false)
         time_label.m_node:unscheduleUpdate()
