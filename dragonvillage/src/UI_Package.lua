@@ -360,18 +360,18 @@ function UI_Package:click_buyBtn(index)
         
         if struct_product:isOnlyContain('rune_box') then
             ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX, self.m_obtainResultCloseCb)
-        else    
-            
-        local is_basic_goods_shown = false
-        if self.m_package_name and (string.find(self.m_package_name, 'package_lucky_box')) then
-            is_basic_goods_shown = true
-        end
+        else        
+            local is_basic_goods_shown = false
+            if self.m_package_name and (string.find(self.m_package_name, 'package_lucky_box')) then
+                is_basic_goods_shown = true
+            end
 
-        if (self.m_mailSelectType ~= MAIL_SELECT_TYPE.NONE) then
-            ItemObtainResult_ShowMailBox(ret, self.m_mailSelectType, self.m_obtainResultCloseCb)
-        else
-            -- 아이템 획득 결과창
-            ItemObtainResult_Shop(ret, is_basic_goods_shown, self.m_obtainResultCloseCb)
+            if (self.m_mailSelectType ~= MAIL_SELECT_TYPE.NONE) then
+                ItemObtainResult_ShowMailBox(ret, self.m_mailSelectType, self.m_obtainResultCloseCb)
+            else
+                -- 아이템 획득 결과창
+                ItemObtainResult_Shop(ret, is_basic_goods_shown, self.m_obtainResultCloseCb)
+            end
         end
 
         -- 갱신이 필요한 상태일 경우
