@@ -1394,7 +1394,7 @@ local t_module = {
 	'UI_OverallRankingPopup',
 	'UI_OverallRankingListItem',
     
-    'UI_RankingRewardPopup',
+    'UI_EventRankingRewardPopup',
 
     -- 드래곤 픽율 공통 UI
     'UI_DragonPickRates',
