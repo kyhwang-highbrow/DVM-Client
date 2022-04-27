@@ -214,7 +214,7 @@ function UI_GachaResult_Dragon:initEverything()
         
         -- 이어서 뽑기 (단차 뽑기만 지원함)
         if (cnt == 1) and (1 <= remain_cnt) then
-            local al egg_icon = IconHelper:getEggIconByEggID(egg_id)
+            local egg_icon = IconHelper:getEggIconByEggID(egg_id)
             vars['summonEggNode']:addChild(egg_icon)
             vars['summonEggLabel']:setString(Str('{1}', remain_cnt))
 
