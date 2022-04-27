@@ -7,6 +7,8 @@ StructDragonPkgData = class({PARENT,
 
     m_startTime = 'Data',      --패키지 시작 시간
     m_endTime = 'Date',        --패키지 종료 시간
+
+    t_name = 'String',
 })
 
 -------------------------------------
