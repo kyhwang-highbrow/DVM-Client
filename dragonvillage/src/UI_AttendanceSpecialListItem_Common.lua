@@ -75,7 +75,7 @@ function UI_AttendanceSpecialListItem_Common:setTimeLabel()
     local timeLabel = self.vars['timeLabel']
     if (not timeLabel) then return end
 
-    local finalText = ''
+    local time_str = ''
     local eventInfo = nil
 
     if (self.m_structAttendanceData) then
@@ -83,26 +83,15 @@ function UI_AttendanceSpecialListItem_Common:setTimeLabel()
     end
 
     if (eventInfo) then
-        local os_time = os.time()
         local end_time = eventInfo['end_date_timestamp'] / 1000
-        local remain_second = end_time - os_time
+        local curr_time = Timer:getServerTime()
 
-        finalText = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(remain_second, false, true))
+        local time = end_time - curr_time
 
-        --[[
-        local startDate = eventInfo['start_date']
-        local endDate = eventInfo['end_date']
-        ccdump(eventInfo)
-        if (startDate and startDate ~= '' and endDate and endDate ~= '') then
-            local startDateSplit = pl.stringx.split(startDate, ' ')
-            local endDateSplit = pl.stringx.split(endDate, ' ')
-
-
-            finalText = Str('이벤트 기간') .. ' ' .. startDateSplit[1] .. ' ~ ' .. endDateSplit[1]
-        end]]
+        time_str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
     end
     
-    timeLabel:setString(finalText) 
+    timeLabel:setString(time_str)
 end
 
 
