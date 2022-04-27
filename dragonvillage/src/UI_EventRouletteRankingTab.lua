@@ -20,6 +20,9 @@ UI_EventRouletteRankingTab = class(PARENT,{
         m_tabType = '',
     })
 
+    
+local OFFSET_GAP = 20
+
 -------------------------------------
 -- function init
 -------------------------------------
