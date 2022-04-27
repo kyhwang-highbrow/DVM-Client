@@ -15,8 +15,6 @@ UI_EventRouletteRankingPopup = class(UI, ITabUI:getCloneTable(),
     m_rankOffset = 'number',
 })
 
-local OFFSET_GAP = 30
-
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------

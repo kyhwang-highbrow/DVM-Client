@@ -20,8 +20,7 @@ UI_EventRouletteRankingTab = class(PARENT,{
         m_tabType = '',
     })
 
-    
-local OFFSET_GAP = 20
+local OFFSET_GAP = 30
 
 -------------------------------------
 -- function init
@@ -321,7 +320,7 @@ function UI_EventRouletteRankingTab:makeRankRewardTableView()
     table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))
 
     table_view:update(0) -- 맨 처음 각 아이템별 위치값을 계산해줌
-    table_view:relocateContainerFromIndex(idx) -- 해당하는 보상에 포커싱
+    table_view:relocateContainerFromIndex(0) -- 해당하는 보상에 포커싱
 
     self.m_rewardTableView = table_view
 end
