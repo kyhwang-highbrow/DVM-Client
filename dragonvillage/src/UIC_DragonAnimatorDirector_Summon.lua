@@ -28,6 +28,8 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:init(owner_ui)
     self.m_ownerUI = owner_ui
+
+    self.m_currStep = 1
 end
 
 -------------------------------------
@@ -73,32 +75,33 @@ function UIC_DragonAnimatorDirector_Summon:startDirecting()
     self.m_bottomEffect:setVisible(false)
     self.m_rarityEffect:setVisible(false)
     self.vars['skipBtn']:setVisible(true)
-    self.m_currStep = 1
+    --self.m_currStep = 1
 	self.m_bAnimate = false
 
 	-- 연출 시작
-	self:directingIdle()
+	self:directingIdle(1)
 end
 
 -------------------------------------
 -- function directingIdle
 -- @brief 단계별 appear + idle 연출 재생
 -------------------------------------
-function UIC_DragonAnimatorDirector_Summon:directingIdle()
+function UIC_DragonAnimatorDirector_Summon:directingIdle(step)
 	self.vars['touchNode']:setVisible(true)
 
-    local cur_step = math.max(self.m_currStep, 3)
+    if (step == nil) then
+        step = self.m_currStep
+    end
 
-	local appear_ani = string.format('appear_%02d', self.m_currStep)
+	local appear_ani = string.format('appear_%02d', step)
 	self.m_topEffect:changeAni(appear_ani)
 
-    local idle_step = self.m_currStep
-    if self.m_bMyth and (idle_step == 4) then
-        idle_step = 5
+    if self.m_bMyth and (step == 4) then
+        step = 5
     end
 
 	self.m_topEffect:addAniHandler(function() 
-		local idle_ani = string.format ('idle_%02d', idle_step)
+		local idle_ani = string.format ('idle_%02d', step)
 		self.m_topEffect:changeAni(idle_ani, true)
 	end)
 end
@@ -119,21 +122,7 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
 	-- 사운드 재생 (확정 뽑기도 나옴)
 	SoundMgr:playEffect('UI', 'ui_egg_break')
 
-    -- 확정 등급 뽑기는 연출 재생 안함 - 클릭시 바로 결과
-    local is_fix = TableSummonGacha:isFixSummon(self.m_eggID)
-    if (is_fix) then
-        self:appearDragonAnimator()
-        local grade = TableSummonGacha:getMinGrade(self.m_eggID)
-    
-        -- 5등급 전설 알은 누리 연출 보여줌 
-        if (grade >= 5) then
-            self.m_currStep = self.m_maxStep--1
-        else 
-            return
-        end
-    end
-
-    self.m_aniNum = math.min(self.m_currStep, 4)
+    self.m_aniNum = self.m_currStep
 
     local crack_ani
     if (self.m_bRareSummon) then
@@ -210,32 +199,23 @@ end
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
     local rarity
-    local cur_grade
+    local curr_grade
     if TableSlime:isSlimeID(did) then
         rarity = TableSlime:getValue(did, 'rarity')
-        cur_grade = TableSlime:getValue(did, 'birthgrade')
+        curr_grade = TableSlime:getValue(did, 'birthgrade')
     else
         rarity = TableDragon:getValue(did, 'rarity')
-        cur_grade = TableDragon:getValue(did, 'birthgrade')
+        curr_grade = TableDragon:getValue(did, 'birthgrade')
         self.m_dragonName = TableDragon:getValue(did, 'type')
     end
 
     self.m_bLegend = rarity == 'legend'
     self.m_bMyth = rarity == 'myth'
 
-    -- 뽑기 연출에만 eggID set
-    if (self.m_eggID) then
-        local min_grade = TableSummonGacha:getMinGrade(self.m_eggID)
-        -- 뽑은 용의 등급에서 소환 가능한 최소 등급을 뺀 만큼만 클릭가능함
-        self.m_maxStep = cur_grade - min_grade + 1
-        self.m_maxStep = math_max(self.m_maxStep, 1)
-    else
-        self.m_maxStep = 3
-    end
+    local min_grade = TableSummonGacha:getMinGrade(self.m_eggID)
 
-    if (self.m_bMyth) then
-        self.m_maxStep = self.m_maxStep + 1
-    end
+    self.m_currStep = (self.m_bRareSummon == true) and (min_grade - 2) or curr_grade -- 3
+    self.m_maxStep = (self.m_bRareSummon == true) and (curr_grade - 2) or curr_grade  -- 3
 
 	-- 전설등급의 경우 추가 연출을 붙여준다
 	if (self.m_bLegend or self.m_bMyth) then
