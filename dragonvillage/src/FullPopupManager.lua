@@ -51,7 +51,6 @@ function FullPopupManager:show(type, show_func)
     if (type == FULL_POPUP_TYPE.LOBBY) and (self.m_title_to_lobby) then
 
         local l_list = g_eventData:getEventFullPopupList()
-        --ccdump(l_list)
         for _, pid in ipairs(l_list) do
             local save_key = tostring(pid)
             local is_view = g_settingData:get('event_full_popup', save_key) or false

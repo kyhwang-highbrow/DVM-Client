@@ -69,11 +69,12 @@ function UI_ButtonSpecialOfferWeidel:updateButtonStatus()
             local ui = self:showOfferPopup(struct_product)
 
             -- 팝업이 닫히면 정보 다시 갱신
-            ui:setCloseCB(function() 
+            ui:setBuyCB(function() 
                 if (struct_product:getDependency() == nil) then
                     self.m_bMarkDelete = true
                 end
                 self:callDirtyStatusCB() 
+                ui:close()
             end)
         end)
 

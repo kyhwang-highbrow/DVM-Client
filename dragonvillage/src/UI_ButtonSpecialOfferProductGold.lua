@@ -89,11 +89,13 @@ function UI_ButtonSpecialOfferProductGold:updateButtonStatus()
             ui:doAction()
 
             -- 팝업이 닫히면 정보 다시 갱신
-            ui:setCloseCB(function() 
+            ui:setBuyCB(function() 
                 if (struct_product:getDependency() == nil) then
                     self.m_bMarkDelete = true
                 end
-                self:callDirtyStatusCB() end)
+                self:callDirtyStatusCB() 
+                ui:close()
+            end)
         end)
 
         -- 매 프레임 남은 시간을 표기한다.
