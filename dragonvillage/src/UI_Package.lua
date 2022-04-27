@@ -358,9 +358,9 @@ function UI_Package:click_buyBtn(index)
 
 	local function cb_func(ret)
         
-        -- if struct_product:isContain('rune_box') then
-        --     -- ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX, self.m_obtainResultCloseCb)
-        -- else    
+        if struct_product:isOnlyContain('rune_box') then
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX, self.m_obtainResultCloseCb)
+        else    
             
         local is_basic_goods_shown = false
         if self.m_package_name and (string.find(self.m_package_name, 'package_lucky_box')) then
@@ -373,7 +373,6 @@ function UI_Package:click_buyBtn(index)
             -- 아이템 획득 결과창
             ItemObtainResult_Shop(ret, is_basic_goods_shown, self.m_obtainResultCloseCb)
         end
-        -- end
 
         -- 갱신이 필요한 상태일 경우
         if ret['need_refresh'] then
