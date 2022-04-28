@@ -179,13 +179,16 @@ function ServerData_EventRoulette:mergeRewardByItemId(reward_info)
 
     for _, item in pairs(reward_info) do
         local key = item['item_id']
-        if temp[key] == nil then
-            temp[key] = item
-        else
-            if (temp[key]['count'] == nil) then
-                temp[key]['count'] = 0
+
+        if (key ~= nil) and (key ~= '') then
+            if (temp[key] == nil) then
+                temp[key] = item
             else
-                temp[key]['count'] = temp[key]['count'] + 1
+                if (temp[key]['count'] == nil) then
+                    temp[key]['count'] = item['count'] or 1
+                else
+                    temp[key]['count'] = temp[key]['count'] + item['count']
+                end
             end
         end
     end
