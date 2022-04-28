@@ -379,8 +379,7 @@ function UI_EventRoulette:refreshCeilingMenu()
         local did = TableItem():getDidByItemId(item_id)
         local item_name = did and TableDragon:getChanceUpDragonName(did)
 
-        local ceiling_str = Str('{1}\n확정 획득까지 {@yellow}{2}{@default}회', item_name, mileage)
-        --local ceiling_str = Str('{1}\n{@default}확정 획득까지 {@yellow}{2}{@default}회', item_name, mileage)  -- 번역 수정 후 변경
+        local ceiling_str = Str('{1}\n{@default}확정 획득까지 {@yellow}{2}{@default}회', item_name, mileage)
         local is_definite_reward = mileage == 0
         vars['ceilingVisualMenu']:setVisible(is_definite_reward)
 
