@@ -650,6 +650,8 @@ function UI_EventRoulette:autoRoulette(count)
                 
                 if ((type == 'dragon') and (grade == 6)) then
                     self.m_bIsShowRewardPopup = true
+                    self:addItemToAutoResultList(item_id, item_count)
+                    self:mergeAutoResultTable()
                     co:work()
                     co:waitWork()
                     break
