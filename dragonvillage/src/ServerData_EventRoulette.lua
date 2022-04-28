@@ -193,6 +193,9 @@ function ServerData_EventRoulette:mergeRewardByItemId(reward_info)
         end
     end
 
+    if (table.count(temp) == 0) then
+        temp = nil
+    end
 
     return temp
 end
