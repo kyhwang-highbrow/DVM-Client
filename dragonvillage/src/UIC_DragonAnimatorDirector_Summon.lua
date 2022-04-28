@@ -212,10 +212,13 @@ function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
     self.m_bLegend = rarity == 'legend'
     self.m_bMyth = rarity == 'myth'
 
-    local min_grade = TableSummonGacha:getMinGrade(self.m_eggID)
 
-    self.m_currStep = (self.m_bRareSummon == true) and (min_grade - 2) or curr_grade -- 3
-    self.m_maxStep = (self.m_bRareSummon == true) and (curr_grade - 2) or curr_grade  -- 3
+    if self.m_eggID then
+        local min_grade = TableSummonGacha:getMinGrade(self.m_eggID)
+
+        self.m_currStep = (self.m_bRareSummon == true) and (min_grade - 2) or curr_grade -- 3
+        self.m_maxStep = (self.m_bRareSummon == true) and (curr_grade - 2) or curr_grade  -- 3
+    end
 
 	-- 전설등급의 경우 추가 연출을 붙여준다
 	if (self.m_bLegend or self.m_bMyth) then
@@ -418,7 +421,9 @@ end
 function UIC_DragonAnimatorDirector_Summon:forceSkipDirecting()
     self.vars['touchNode']:setVisible(false)
 
-    self.m_currStep = self.m_maxStep + 1
+    if self.m_currStep and self.m_maxStep then
+        self.m_currStep = self.m_maxStep + 1
+    end
 
     -- top_appear연출 생략을 위해 부모함수 호출
     PARENT.appearDragonAnimator(self)
