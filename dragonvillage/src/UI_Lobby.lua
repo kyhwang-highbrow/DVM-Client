@@ -793,6 +793,7 @@ function UI_Lobby:initButton()
     vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
     vars['googleGameBtn']:registerScriptTapHandler(function() self:click_googleGameBtn() end)
     vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
+    vars['hbrwLoungeBtn']:registerScriptTapHandler(function() self:click_hbrwLoungeBtn() end)
     vars['expBoosterBtn']:registerScriptTapHandler(function() self:click_expBoosterBtn() end)
     vars['goldBoosterBtn']:registerScriptTapHandler(function() self:click_goldBoosterBtn() end)
 
@@ -851,6 +852,7 @@ function UI_Lobby:initButton()
         vars['expBoosterBtn']:setVisible(false)
         vars['googleGameBtn']:setVisible(false)
         vars['googleAchievementBtn']:setVisible(false)
+        vars['hbrwLoungeBtn']:setVisible(false)
     end
 end
 
@@ -1409,6 +1411,15 @@ function UI_Lobby:update_google()
 end
 
 -------------------------------------
+-- function update_hbrw_lounge
+-------------------------------------
+function UI_Lobby:update_hbrw_lounge()
+    local is_btn_visible = (g_localData:isKoreaServer() == true)
+
+    self.vars['hbrwLoungeBtn']:setVisible(is_btn_visible)
+end
+
+-------------------------------------
 -- function click_battleBtn
 -- @brief "전투" 버튼
 -------------------------------------
@@ -1851,6 +1862,17 @@ function UI_Lobby:click_googleAchievementBtn()
 end
 
 -------------------------------------
+-- function click_hbrwLoungeBtn
+-------------------------------------
+function UI_Lobby:click_hbrwLoungeBtn()
+    if (g_settingData:getHbrwLoungeSetting() ~= nil) then
+        SDKManager:goToWeb('https://discord.gg/RtctSKXxBT')
+    else
+        UI_HbrwLoungePopup()
+    end
+end
+
+-------------------------------------
 -- function click_expBoosterBtn
 -------------------------------------
 function UI_Lobby:click_expBoosterBtn()
@@ -1950,6 +1972,15 @@ function UI_Lobby:update(dt)
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
         self:update_rightButtons()
+    end
+
+    -- 하이브로 라운지
+    if (CppFunctions:isIos() == true) and (g_hotTimeData:isActiveEvent('ios_hbrw_lounge') == true) then
+
+    elseif (CppFunctions:isAndroid() == true) and (g_hotTimeData:isActiveEvent('aos_hbrw_lounge') == true) then
+        
+    else
+        self:update_hbrw_lounge()
     end
 
     -- 로비 출석 D-day 표시
@@ -2483,6 +2514,7 @@ function UI_Lobby:update_leftButtons()
     table.insert(t_btn_name, 'goldBoosterBtn')
     table.insert(t_btn_name, 'expBoosterBtn')
     table.insert(t_btn_name, 'googleGameBtn')
+    table.insert(t_btn_name, 'hbrwLoungeBtn')
     -- googleAchievementBtn은 googleGameBtn의 오른쪽에 자동으로 위치함
 
     -- visible이 켜진 버튼들 리스트
