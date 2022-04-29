@@ -750,6 +750,20 @@ function SettingData:getSelectPickUpSetting()
 end
 
 -------------------------------------
+-- function getHbrwLoungeSetting
+-------------------------------------
+function SettingData:getHbrwLoungeSetting()
+    return self:get('hbrw', 'lounge')
+end
+
+-------------------------------------
+-- function setHbrwLoungeSetting
+-------------------------------------
+function SettingData:setHbrwLoungeSetting(date)
+    self:applySettingData(date, 'hbrw', 'lounge')
+end
+
+-------------------------------------
 -- function getCloudSetting
 -- @brief
 -- @param key string
