@@ -1590,6 +1590,8 @@ local t_module = {
     'UI_EggSimulator',
     'UI_TranslationViewer',
 
+    'UI_HbrwLoungePopup',
+
     -- UI : 클랜
     'UI_Clan',
     'UI_ClanMemberListItem',
