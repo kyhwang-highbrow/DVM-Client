@@ -1414,7 +1414,8 @@ end
 -- function update_hbrw_lounge
 -------------------------------------
 function UI_Lobby:update_hbrw_lounge()
-    local is_btn_visible = (g_localData:isKoreaServer() == true)
+    local game_lang = Translate:getGameLang()
+    local is_btn_visible = (game_lang == 'ko')
 
     self.vars['hbrwLoungeBtn']:setVisible(is_btn_visible)
 end
