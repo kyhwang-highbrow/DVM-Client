@@ -2350,12 +2350,22 @@ function UI_Lobby:update_rightButtons()
         vars['cashShopBtn']:setVisible(true)
 
         local package_list = g_shopDataNew:getActivatedPackageList()
+        local t_data = TableSupply():getSupplyProductList()
 
         local is_noti_visible = false
         for _, data in ipairs(package_list) do
             for _, struct_product in ipairs(data:getProductList()) do
                 if (struct_product:getPrice() == 0) and (struct_product:isItBuyable()) then
                     is_noti_visible = true
+                end
+                
+                 -- 보급소 보상 수령 가능 상태인지 노티 체크
+                if ( struct_product['package_res'] == 'package_supply.ui') then
+                    local reward_status = g_supply:checkRewardStatus(struct_product)
+                    
+                    if(reward_status) then 
+                        is_noti_visible = true
+                    end
                 end
             end
         end

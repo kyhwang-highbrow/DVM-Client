@@ -77,6 +77,70 @@ function ServerData_Supply:getSupplyInfoByType(supply_type)
 end
 
 -------------------------------------
+-- function getRewardStatus
+-- @brief reward_status -1: 비활성화 0:일일 보상 수령 가능, 1:일일 보상 수령 완료 상태
+-------------------------------------
+function ServerData_Supply:getRewardStatus(supply_type)
+    local t_data = TableSupply():getSupplyProductList()
+    local t_supply_info = g_supply:getSupplyInfoByType(supply_type)
+    
+    -- 상태 체크 -1:비활성, 0:일일 보상 수령 가능, 1:일일 보상 수령 완료
+    local reward_status = -1
+
+    if t_supply_info then
+        local curr_time = Timer:getServerTime()
+        local end_time = (t_supply_info['end'] / 1000)
+        
+        if (end_time < curr_time) then
+            reward_status = -1
+            return reward_status
+        elseif (t_supply_info['reward'] == 0) then
+            -- 일일 지급품이 있는지 확인
+            for _, value in pairs(t_data) do
+                local package_item_str = value['daily_content']
+                if (package_item_str ~= nil) then
+                    local l_item_list = ServerData_Item:parsePackageItemStr(package_item_str)
+                    if (0 < #l_item_list) then
+                        reward_status = 0
+                        return reward_status
+                    else
+                        reward_status = 1
+                        return reward_status
+                    end
+                end
+            end
+        else
+            reward_status = t_supply_info['reward'] -- 1이어야 한다.
+            return reward_status
+        end
+    end
+end
+
+----------------------------------------------------------------------
+-- function checkRewardStatus
+----------------------------------------------------------------------
+function ServerData_Supply:checkRewardStatus(struct_product)
+    if(struct_product == nil) then
+        return false
+    end
+
+    local t_data = TableSupply():getSupplyProductList()
+
+    for _,value in pairs (t_data) do
+        if (value['product_id'] == struct_product['product_id']) then
+            local type_name = value['type']
+            local reward_status = ServerData_Supply():getRewardStatus(type_name)
+            -- reward_status 0:일일 보상 수령 가능, 1:일일 보상 수령 완료 상태
+            if (reward_status == 0) then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function request_supplyReward
 -- @brief 보급소(정액제) 일일 보상
 -- @api /users/supply/reward

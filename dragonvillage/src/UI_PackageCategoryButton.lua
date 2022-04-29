@@ -61,6 +61,17 @@ function UI_PackageCategoryButton:refresh()
         if (struct_product:getPrice() == 0) and (struct_product:isItBuyable()) then
             is_noti_visible = true
         end
+
+        -- 보급소 보상 수령 가능 상태인지 노티 체크
+        if ( struct_product['package_res'] == 'package_supply.ui') then
+            local reward_status = g_supply:checkRewardStatus(struct_product)
+            
+            if(reward_status) then 
+                is_noti_visible = true
+            end
+        end
+        
+        
     end
 
     if vars['notiSprite'] then

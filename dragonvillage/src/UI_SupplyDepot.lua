@@ -6,6 +6,8 @@ local PARENT = UI
 -------------------------------------
 UI_SupplyDepot = class(PARENT,{
         m_eventId = 'string',
+        m_tableView = 'UIC_TableView',
+        m_cbBuy = 'function'
     })
 
 -------------------------------------
@@ -47,10 +49,19 @@ function UI_SupplyDepot:initUI()
 
     require('UI_SupplyProductListItem')
 
+    local function make_func(data)
+        local ui = UI_SupplyProductListItem(data)
+        return ui
+    end
+
+    local function create_func(ui, data)
+        ui.m_parent = self
+    end
+
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(245 + 25, 405)
-    table_view:setCellUIClass(UI_SupplyProductListItem)
+    table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(l_supply_product)
     
@@ -66,6 +77,8 @@ function UI_SupplyDepot:initUI()
         return a_match < b_match
     end
     table.sort(table_view.m_itemList, sort_func)
+
+    self.m_tableView = table_view
 end
 
 -------------------------------------
@@ -83,9 +96,19 @@ function UI_SupplyDepot:initButton()
 end
 
 -------------------------------------
+-- function setBuyCB
+-------------------------------------
+function UI_SupplyDepot:setBuyCB(func)
+    self.m_cbBuy = func
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function UI_SupplyDepot:refresh()
+    if(self.m_cbBuy) then
+        self.m_cbBuy()    
+    end
 end
 
 -------------------------------------

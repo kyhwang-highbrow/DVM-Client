@@ -19,6 +19,7 @@ UI_SupplyProductListItem = class(PARENT, {
         --}
 
         m_bActive = 'boolean',
+        m_parent = 'UI_SupplyDepot'
     })
 
 -------------------------------------
@@ -238,6 +239,9 @@ function UI_SupplyProductListItem:click_buyBtn()
     -- 상품 구매 후 콜백
     local function cb_func(ret)
         self:questDoubleBuySuccessCB(ret)
+        local parent = self.m_parent
+
+        parent:refresh()
 	end
 
     -- StructProduct
@@ -252,6 +256,9 @@ function UI_SupplyProductListItem:click_receiveBtn()
     -- 상품 구매 후 콜백
     local function cb_func(ret)
         self:questDoubleBuySuccessCB(ret)
+        local parent = self.m_parent
+
+        parent:refresh()
 	end
 
     local t_data = self.m_tSupplyData
