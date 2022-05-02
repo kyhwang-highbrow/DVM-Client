@@ -5,6 +5,10 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_Hatchery = class(PARENT,{
         m_npcAnimator = 'Animator',
+        m_summonTab = 'UI_HatcheryRelationTab',
+        m_incubateTab = 'UI_HatcheryRelationTab',
+        m_combineTab = 'UI_HatcheryRelationTab',
+        m_relationTab = 'UI_HatcheryRelationTab',
     })
 
 -------------------------------------
@@ -118,6 +122,18 @@ function UI_Hatchery:initTab(focus_id)
         end 
     end
 
+    self.m_summonTab = summon_tab
+    self.m_incubateTab = incubate_tab
+    self.m_combineTab = combine_tab
+    self.m_relationTab = relation_tab
+end
+
+-------------------------------------
+-- function focusingDragonCard
+-------------------------------------
+function UI_Hatchery:focusingDragonCard(did)
+    local relation_tab = self.m_relationTab
+    relation_tab:click_dragonCard(did)
 end
 
 -------------------------------------

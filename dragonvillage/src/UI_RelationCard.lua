@@ -34,6 +34,8 @@ UI_RelationCard = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_RelationCard:init(t_dragon_data, count)
+    local vars = self.vars
+
     self.ui_res = 'card_relation.ui'
     self:getUIInfo()
 
@@ -42,6 +44,8 @@ function UI_RelationCard:init(t_dragon_data, count)
 
     self.m_count = count
     self:refreshDragonInfo()
+
+    vars['clickBtn']:registerScriptTapHandler(function() self:clickBtn() end)
 end
 
 -------------------------------------
@@ -83,6 +87,18 @@ end
 -------------------------------------
 function UI_RelationCard:makeClickBtn()
     UI_CharacterCard.makeClickBtn(self)
+end
+
+-------------------------------------
+-- function clickBtn
+-------------------------------------
+function UI_RelationCard:clickBtn()
+    local t_dragon_data = self.m_dragonData
+    local did = t_dragon_data['did']
+
+    local ui = UI_Hatchery()
+    ui:setTab('relation')
+    ui:focusingDragonCard(did)
 end
 
 -------------------------------------

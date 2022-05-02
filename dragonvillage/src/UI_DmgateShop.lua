@@ -101,9 +101,12 @@ function UI_DmgateShop:initUI()
 
         -- 카드 생성
         local ui = UI_DragonReinforceItem('dragon', struct_dragon)
+        local card = ui.m_card
         ui:showMaxRelationPoint()
         self.m_relationUI = ui
         self.m_relationNode:addChild(ui.root)
+        
+        card.vars['clickBtn']:setEnabled(true)
     end
 
     self:initTableView()
