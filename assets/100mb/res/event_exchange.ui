@@ -36,7 +36,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -99.000000;
+				y = -107.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -50,16 +50,16 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 36;
+				font_size = 40;
 				text = '수집 이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 215; 0; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 900;
 				dimension_height = 75;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -76,7 +76,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -171.000000;
+				y = -186.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -90,7 +90,7 @@
 				visible = true;
 				lua_name = 'timeLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 22;
 				text = 'timeLabel';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -116,7 +116,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -137.000000;
+				y = -152.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -134,12 +134,12 @@
 				text = '게임을 플레이하고 아이템을 모아보세요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 255; 215; 0; };
 				opacity = 255;
 				dimension_width = 860;
 				dimension_height = 58;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -196,7 +196,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 40.000000;
-				y = -225.000000;
+				y = -244.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -236,7 +236,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -146.000000;
-				y = 697.000000;
+				y = 678.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -276,7 +276,7 @@
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = 0.000000;
-				y = 630.000000;
+				y = 607.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -299,7 +299,7 @@
 				dimension_width = 689;
 				dimension_height = 56;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = false;
@@ -356,7 +356,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -350.000000;
+				y = -367.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -377,453 +377,24 @@
 			};
 			[10] =
 			{
-				type = 'Sprite';
+				type = 'Node';
 				ui_name = '';
 				x = -194.000000;
-				y = -144.000000;
+				y = -147.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 150;
 				height = 150;
-				scale_x = 0.600000;
-				scale_y = 0.600000;
+				scale_x = 0.550000;
+				scale_y = 0.550000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
-				file_name = 'ui/icons/item/event.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
+				lua_name = 'exchangeItemNode3';
 			};
 			[11] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = -190.000000;
-				y = 701.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 150;
-				height = 150;
-				scale_x = 0.600000;
-				scale_y = 0.600000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/icons/item/event.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[12] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = -333.000000;
-				y = -719.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '1';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 100;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 75; 0; 130; };
-				has_shadow = false;
-				shadow_color = { 75; 0; 130; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 1.000000;
-			};
-			[13] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = -232.000000;
-				y = -719.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '300';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 100;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 138; 98; 2; };
-				has_shadow = false;
-				shadow_color = { 138; 98; 2; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 1.000000;
-			};
-			[14] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = -134.000000;
-				y = -719.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '2';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 100;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 75; 0; 130; };
-				has_shadow = false;
-				shadow_color = { 75; 0; 130; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 1.000000;
-			};
-			[15] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 136.000000;
-				y = -719.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '20,000';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 100;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 138; 98; 2; };
-				has_shadow = false;
-				shadow_color = { 138; 98; 2; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 1.000000;
-			};
-			[16] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 235.000000;
-				y = -719.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '500';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 100;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = false;
-				stroke_tickness = 2.000000;
-				stroke_color = { 75; 0; 130; };
-				has_shadow = false;
-				shadow_color = { 75; 0; 130; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 1.000000;
-			};
-			[17] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 335.000000;
-				y = -719.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '1';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 100;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 138; 98; 2; };
-				has_shadow = false;
-				shadow_color = { 138; 98; 2; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 1.000000;
-			};
-			[18] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 88.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 220;
-					height = 60;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 28;
-					text = '상품 교환';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 215; 0; };
-					opacity = 255;
-					dimension_width = 220;
-					dimension_height = 60;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
-				[2] =
-				{
-					[1] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 16.000000;
-						y = -1.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 111;
-						height = 50;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'boxLabel';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
-						text = '';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 255; 255; 255; };
-						opacity = 255;
-						dimension_width = 111;
-						dimension_height = 50;
-						letter_spacing = 0.000000;
-						has_stroke = true;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 0; 0; 0; };
-						has_shadow = false;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 255;
-						shadow_direction = 0;
-						shadow_distance = 5.000000;
-					};
-					[2] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = -90.000000;
-						y = 4.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 150;
-						height = 150;
-						scale_x = 0.600000;
-						scale_y = 0.600000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/icons/item/event.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					type = 'Scale9Sprite';
-					ui_name = '';
-					x = 44.000000;
-					y = 0.000000;
-					dock_point = { 0.000000; 0.500000; };
-					anchor_point = { 0.000000; 0.500000; };
-					relative_size_type = 0;
-					width = 130;
-					height = 34;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/frames/base_frame_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					center_rect_x = 0;
-					center_rect_y = 0;
-					center_rect_width = 0;
-					center_rect_height = 0;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 0.000000;
-				y = -800.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 400;
-				height = 65;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'boxBtn';
-				enable = true;
-				normal = 'ui/buttons/base_btn_0101.png';
-				selected = 'ui/buttons/base_btn_0102.png';
-				disable = 'ui/buttons/base_btn_0102.png';
-				image_type = 1;
-			};
-			[19] =
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
@@ -853,7 +424,7 @@
 				mid_point_y = 0.000000;
 				percentage = 100;
 			};
-			[20] =
+			[12] =
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
@@ -883,7 +454,7 @@
 				mid_point_y = 0.000000;
 				percentage = 40;
 			};
-			[21] =
+			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -923,7 +494,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[22] =
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -963,7 +534,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[23] =
+			[15] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -982,7 +553,7 @@
 				visible = true;
 				lua_name = 'itemNode1';
 			};
-			[24] =
+			[16] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1001,7 +572,7 @@
 				visible = true;
 				lua_name = 'itemNode2';
 			};
-			[25] =
+			[17] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1020,7 +591,7 @@
 				visible = true;
 				lua_name = 'itemNode3';
 			};
-			[26] =
+			[18] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1039,7 +610,7 @@
 				visible = true;
 				lua_name = 'itemNode4';
 			};
-			[27] =
+			[19] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1058,7 +629,7 @@
 				visible = true;
 				lua_name = 'itemNode5';
 			};
-			[28] =
+			[20] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1077,7 +648,7 @@
 				visible = true;
 				lua_name = 'itemNode6';
 			};
-			[29] =
+			[21] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1096,7 +667,7 @@
 				visible = true;
 				lua_name = 'itemNode7';
 			};
-			[30] =
+			[22] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1115,7 +686,7 @@
 				visible = true;
 				lua_name = 'itemNode8';
 			};
-			[31] =
+			[23] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1134,7 +705,7 @@
 				visible = true;
 				lua_name = 'itemNode9';
 			};
-			[32] =
+			[24] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1153,7 +724,7 @@
 				visible = true;
 				lua_name = 'itemNode10';
 			};
-			[33] =
+			[25] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1172,7 +743,7 @@
 				visible = true;
 				lua_name = 'itemNode11';
 			};
-			[34] =
+			[26] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -1191,7 +762,7 @@
 				visible = true;
 				lua_name = 'itemNode12';
 			};
-			[35] =
+			[27] =
 			{
 				[1] =
 				{
@@ -1236,7 +807,7 @@
 				visible = false;
 				lua_name = 'titleNode';
 			};
-			[36] =
+			[28] =
 			{
 				[1] =
 				{
@@ -1284,7 +855,668 @@
 				alpha_threshold = 1.000000;
 				is_invert = false;
 			};
-			[37] =
+			[29] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -57.999954;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 820;
+					height = 80;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 46;
+					text = '선물 상자';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 820;
+					dimension_height = 80;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 51; 36; 0; };
+					has_shadow = false;
+					shadow_color = { 51; 36; 0; };
+					shadow_opacity = 220;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[2] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -119.000031;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 820;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 26;
+					text = '획득한 수집 아이템을 사용해 선물상자와 교환할 수 있어요.';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 0; };
+					opacity = 255;
+					dimension_width = 820;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = false;
+					stroke_tickness = 2.000000;
+					stroke_color = { 51; 36; 0; };
+					has_shadow = false;
+					shadow_color = { 51; 36; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[3] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -156.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 820;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 22;
+					text = '아래의 보상중 하나를 획득할 수 있습니다.';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 820;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 153; 18; 37; };
+					has_shadow = false;
+					shadow_color = { 153; 18; 37; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[4] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 88.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 220;
+						height = 60;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 28;
+						text = '상품 교환';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 215; 0; };
+						opacity = 255;
+						dimension_width = 220;
+						dimension_height = 60;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 0; 0; 0; };
+						has_shadow = false;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 16.000000;
+							y = -1.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 111;
+							height = 50;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'boxLabel';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 28;
+							text = '';
+							h_alignment = 1;
+							v_alignment = 1;
+							color = { 255; 255; 255; };
+							opacity = 255;
+							dimension_width = 111;
+							dimension_height = 50;
+							letter_spacing = 0.000000;
+							has_stroke = true;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 2.000000;
+							stroke_color = { 0; 0; 0; };
+							has_shadow = false;
+							shadow_color = { 0; 0; 0; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+						};
+						[2] =
+						{
+							type = 'Node';
+							ui_name = '';
+							x = -79.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 150;
+							height = 150;
+							scale_x = 0.550000;
+							scale_y = 0.550000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'exchangeItemNode2';
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 44.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 130;
+						height = 34;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/frames/base_frame_0101.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = 0.000000;
+					y = -375.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 400;
+					height = 65;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'boxBtn';
+					enable = true;
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = 'ui/buttons/base_btn_0102.png';
+					image_type = 1;
+				};
+				[5] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = -333.000000;
+						y = -85.000000;
+						dock_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardLabel1';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = 'rewardLabel1';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
+						opacity = 255;
+						dimension_width = 100;
+						dimension_height = 50;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 75; 0; 130; };
+						has_shadow = false;
+						shadow_color = { 75; 0; 130; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 1.000000;
+					};
+					[2] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = -233.000000;
+						y = -85.000000;
+						dock_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardLabel2';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = 'rewardLabel2';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
+						opacity = 255;
+						dimension_width = 100;
+						dimension_height = 50;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 138; 98; 2; };
+						has_shadow = false;
+						shadow_color = { 138; 98; 2; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 1.000000;
+					};
+					[3] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = -133.000000;
+						y = -85.000000;
+						dock_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardLabel3';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = 'rewardLabel3';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
+						opacity = 255;
+						dimension_width = 100;
+						dimension_height = 50;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 75; 0; 130; };
+						has_shadow = false;
+						shadow_color = { 75; 0; 130; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 1.000000;
+					};
+					[4] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 139.000000;
+						y = -85.000000;
+						dock_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardLabel4';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = 'rewardLabel4';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
+						opacity = 255;
+						dimension_width = 100;
+						dimension_height = 50;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 138; 98; 2; };
+						has_shadow = false;
+						shadow_color = { 138; 98; 2; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 1.000000;
+					};
+					[5] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 239.000000;
+						y = -85.000000;
+						dock_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardLabel5';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = 'rewardLabel5';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
+						opacity = 255;
+						dimension_width = 100;
+						dimension_height = 50;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = false;
+						stroke_tickness = 2.000000;
+						stroke_color = { 75; 0; 130; };
+						has_shadow = false;
+						shadow_color = { 75; 0; 130; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 1.000000;
+					};
+					[6] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 338.000000;
+						y = -85.000000;
+						dock_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardLabel6';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = 'rewardLabel6';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
+						opacity = 255;
+						dimension_width = 100;
+						dimension_height = 50;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 138; 98; 2; };
+						has_shadow = false;
+						shadow_color = { 138; 98; 2; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 1.000000;
+					};
+					[7] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = -334.000000;
+						y = 12.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.550000;
+						scale_y = 0.550000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardNode1';
+					};
+					[8] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = -234.000000;
+						y = 12.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.550000;
+						scale_y = 0.550000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardNode2';
+					};
+					[9] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = -134.000000;
+						y = 12.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.550000;
+						scale_y = 0.550000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardNode3';
+					};
+					[10] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 135.000000;
+						y = 12.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.550000;
+						scale_y = 0.550000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardNode4';
+					};
+					[11] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 235.000000;
+						y = 12.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.550000;
+						scale_y = 0.550000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardNode5';
+					};
+					[12] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 335.000000;
+						y = 12.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.550000;
+						scale_y = 0.550000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardNode6';
+					};
+					type = 'Menu';
+					ui_name = '';
+					x = 0.000000;
+					y = -40.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 815;
+					height = 110;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+				};
+				type = 'Menu';
+				ui_name = 'middle';
+				x = 0.000000;
+				y = 274.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 930;
+				height = 442;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+			};
+			[30] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -1324,127 +1556,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[38] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = -483.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 820;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 46;
-				text = '선물 상자';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 215; 0; };
-				opacity = 255;
-				dimension_width = 820;
-				dimension_height = 80;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 51; 36; 0; };
-				has_shadow = false;
-				shadow_color = { 51; 36; 0; };
-				shadow_opacity = 220;
-				shadow_direction = 0;
-				shadow_distance = 3.000000;
-			};
-			[39] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = -544.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 820;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 23;
-				text = '획득한 수집 아이템을 사용해 선물상자와 교환할 수 있어요.';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 12; 255; 206; };
-				opacity = 255;
-				dimension_width = 820;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = false;
-				stroke_tickness = 2.000000;
-				stroke_color = { 51; 36; 0; };
-				has_shadow = false;
-				shadow_color = { 51; 36; 0; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			[40] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = -581.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 820;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
-				text = '아래의 보상중 하나를 획득할 수 있습니다.';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 820;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 153; 18; 37; };
-				has_shadow = false;
-				shadow_color = { 153; 18; 37; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			[41] =
+			[31] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -1467,7 +1579,7 @@
 				text = '누적 수집 보상';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 215; 0; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 80;
@@ -1484,7 +1596,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[42] =
+			[32] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -1503,11 +1615,11 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
+				font_size = 26;
 				text = '지금까지 수집한 아이템의 개수에 따라 보상을 획득할 수 있어요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 230; 230; 250; };
+				color = { 255; 215; 0; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;
@@ -1524,7 +1636,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[43] =
+			[33] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -1564,12 +1676,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[44] =
+			[34] =
 			{
 				type = 'Sprite';
-				ui_name = '핫타임 업데이트 기념';
+				ui_name = '';
 				x = 0.000000;
-				y = -42.000000;
+				y = -45.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1580,15 +1692,34 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = '';
-				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
+				file_name = 'ui/typo/ko/ribbon_package_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
 				flip_y = false;
 				src_blend = 770;
 				dest_blend = 771;
+			};
+			[35] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -188.000000;
+				y = 678.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 150;
+				height = 150;
+				scale_x = 0.550000;
+				scale_y = 0.550000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'exchangeItemNode1';
 			};
 			type = 'Menu';
 			ui_name = '';

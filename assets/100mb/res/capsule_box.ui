@@ -3169,10 +3169,10 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'timeLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
-					text = '3/19 00:00 ~ 3/20 23:59';
+					text = '4/23 00:00 ~ 4/24 23:59';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };

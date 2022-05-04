@@ -192,7 +192,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = false;
-						lua_name = '';
+						lua_name = 'visual';
 						file_name = 'ui/a2d/package_effect/package_effect.vrp';
 						auto_play = true;
 						is_repeat = true;
@@ -201,32 +201,6 @@
 						opacity = 180;
 					};
 					[3] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 0.000000;
-						y = 11.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 150;
-						height = 150;
-						scale_x = 0.900000;
-						scale_y = 0.900000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/icons/rune/set_all_07.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[4] =
 					{
 						type = 'Sprite';
 						ui_name = '';
@@ -245,6 +219,58 @@
 						visible = true;
 						lua_name = '';
 						file_name = 'ui/icons/star/star_sell_07.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[4] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 0.000000;
+						y = 11.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.900000;
+						scale_y = 0.900000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'normalRuneSprite2';
+						file_name = 'ui/icons/rune/set_all_07.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[5] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -0.000031;
+						y = 11.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.900000;
+						scale_y = 0.900000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = 'ancientRuneSprite2';
+						file_name = 'ui/icons/rune/set_blackall_07.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -349,10 +375,10 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'runeLabel2';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '7등급 룬';
+					text = '7등급 {1} 룬';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -462,7 +488,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = '';
+						lua_name = 'normalRuneSprite1';
 						file_name = 'ui/icons/rune/set_all_06.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
@@ -472,6 +498,32 @@
 						dest_blend = 771;
 					};
 					[3] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -0.000031;
+						y = 11.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.900000;
+						scale_y = 0.900000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = 'ancientRuneSprite1';
+						file_name = 'ui/icons/rune/set_blackall_06.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[4] =
 					{
 						type = 'Sprite';
 						ui_name = '';
@@ -594,10 +646,10 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					lua_name = 'runeLabel1';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '6등급 룬';
+					text = '6등급 {1} 룬';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };

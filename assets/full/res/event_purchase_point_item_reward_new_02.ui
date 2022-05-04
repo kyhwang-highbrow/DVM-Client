@@ -40,7 +40,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				color = { 0; 0; 0; };
 				opacity = 150;
@@ -70,8 +70,8 @@
 			{
 				type = 'Visual';
 				ui_name = '';
-				x = 0.000000;
-				y = -20.000000;
+				x = -75.000000;
+				y = -10.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -93,17 +93,40 @@
 			};
 			[2] =
 			{
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Node';
 				ui_name = '';
-				x = -1.000000;
-				y = 6.000000;
+				x = -75.000000;
+				y = -20.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 0.750000;
-				scale_y = 0.750000;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -563,7 +586,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 			};
 			[4] =
@@ -617,8 +640,8 @@
 				{
 					type = 'Visual';
 					ui_name = '';
-					x = -32.000000;
-					y = 15.000000;
+					x = -30.000000;
+					y = 55.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -642,8 +665,8 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 64.000000;
-					y = 18.000000;
+					x = 65.000000;
+					y = 60.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -659,8 +682,8 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = -316.000000;
-				y = 133.000000;
+				x = -315.000000;
+				y = 70.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

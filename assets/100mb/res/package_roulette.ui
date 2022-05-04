@@ -809,7 +809,7 @@
 				text = '돌림판 티켓 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 0; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 900;
 				dimension_height = 80;
@@ -1132,7 +1132,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = '';
 				file_name = 'ui/typo/ko/ribbon_package_title_0101.png';
 				color = { 255; 255; 255; };

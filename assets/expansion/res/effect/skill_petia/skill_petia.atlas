@@ -1,0 +1,146 @@
+
+skill_petia.png
+size: 2028,642
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_cast_light
+  rotate: false
+  xy: 789, 51
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+effect_circle_7
+  rotate: false
+  xy: 558, 22
+  size: 229, 229
+  orig: 229, 229
+  offset: 0, 0
+  index: -1
+effect_light_1
+  rotate: false
+  xy: 1113, 62
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+effect_light_2
+  rotate: true
+  xy: 1872, 3
+  size: 117, 110
+  orig: 117, 110
+  offset: 0, 0
+  index: -1
+effect_light_3
+  rotate: true
+  xy: 987, 130
+  size: 121, 124
+  orig: 121, 124
+  offset: 0, 0
+  index: -1
+effect_symbol_dark
+  rotate: false
+  xy: 1611, 24
+  size: 259, 281
+  orig: 259, 281
+  offset: 0, 0
+  index: -1
+effect_symbol_earth
+  rotate: false
+  xy: 2, 11
+  size: 137, 240
+  orig: 137, 240
+  offset: 0, 0
+  index: -1
+effect_symbol_fire
+  rotate: false
+  xy: 141, 11
+  size: 137, 240
+  orig: 137, 240
+  offset: 0, 0
+  index: -1
+effect_symbol_light
+  rotate: false
+  xy: 280, 11
+  size: 137, 240
+  orig: 137, 240
+  offset: 0, 0
+  index: -1
+effect_symbol_water
+  rotate: false
+  xy: 419, 11
+  size: 137, 240
+  orig: 137, 240
+  offset: 0, 0
+  index: -1
+effect_symbol_wing_dark
+  rotate: false
+  xy: 2, 253
+  size: 303, 387
+  orig: 303, 387
+  offset: 0, 0
+  index: -1
+effect_symbol_wing_earth
+  rotate: false
+  xy: 307, 253
+  size: 303, 387
+  orig: 303, 387
+  offset: 0, 0
+  index: -1
+effect_symbol_wing_fire
+  rotate: false
+  xy: 612, 253
+  size: 303, 387
+  orig: 303, 387
+  offset: 0, 0
+  index: -1
+effect_symbol_wing_light
+  rotate: false
+  xy: 917, 253
+  size: 303, 387
+  orig: 303, 387
+  offset: 0, 0
+  index: -1
+effect_symbol_wing_water
+  rotate: true
+  xy: 1222, 2
+  size: 303, 387
+  orig: 303, 387
+  offset: 0, 0
+  index: -1
+hypnos_feather_01
+  rotate: false
+  xy: 987, 7
+  size: 73, 121
+  orig: 73, 121
+  offset: 0, 0
+  index: -1
+hypnos_feather_02
+  rotate: true
+  xy: 1113, 139
+  size: 112, 103
+  orig: 112, 103
+  offset: 0, 0
+  index: -1
+hypnos_feather_04
+  rotate: false
+  xy: 1872, 122
+  size: 130, 183
+  orig: 130, 183
+  offset: 0, 0
+  index: -1
+skill_petia1
+  rotate: false
+  xy: 1222, 307
+  size: 804, 333
+  orig: 804, 333
+  offset: 0, 0
+  index: -1
+skill_petia2
+  rotate: true
+  xy: 1062, 2
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1

@@ -138,7 +138,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 42;
-				text = '봄 맞이 패키지';
+				text = '추천 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 110; 110; };
@@ -1286,7 +1286,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '초보자 추천';
+				text = '초보자';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1326,7 +1326,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '중급자 추천';
+				text = '중급자';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1366,7 +1366,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '상급자 추천';
+				text = '상급자';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };

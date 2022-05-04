@@ -368,7 +368,7 @@
 						text = 'runBlessBuyLabel';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 0; 255; 0; };
+						color = { 255; 255; 255; };
 						opacity = 255;
 						dimension_width = 245;
 						dimension_height = 35;
@@ -566,7 +566,7 @@
 						text = 'runBlessBuyLabel';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 0; 255; 0; };
+						color = { 255; 255; 255; };
 						opacity = 255;
 						dimension_width = 245;
 						dimension_height = 35;

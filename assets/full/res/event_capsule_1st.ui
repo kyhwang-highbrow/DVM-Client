@@ -109,6 +109,44 @@
 			{
 				[1] =
 				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'bgNode';
+				};
+				[2] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'dragonNode';
+				};
+				[3] =
+				{
 					type = 'Visual';
 					ui_name = '';
 					x = 564.000000;
@@ -132,7 +170,7 @@
 					color = { 255; 215; 0; };
 					opacity = 255;
 				};
-				[2] =
+				[4] =
 				{
 					type = 'Visual';
 					ui_name = '';
@@ -157,7 +195,7 @@
 					color = { 255; 215; 0; };
 					opacity = 255;
 				};
-				[3] =
+				[5] =
 				{
 					[1] =
 					{
@@ -448,29 +486,29 @@
 			{
 				type = 'LabelTTF';
 				ui_name = 'rich';
-				x = -245.000000;
-				y = 150.000000;
+				x = -82.000000;
+				y = 127.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 477;
-				height = 111;
+				width = 683;
+				height = 66;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'infoLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
-				text = '{@light}한정드래곤 마누스(빛){@default} 획득 기회!';
-				h_alignment = 1;
+				text = 'infoLabel';
+				h_alignment = 0;
 				v_alignment = 2;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 477;
-				dimension_height = 111;
+				dimension_width = 683;
+				dimension_height = 66;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -501,10 +539,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'timeLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '3/19 00:00 ~ 3/20 23:59';
+				text = 'timeLabel';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 255; 0; };

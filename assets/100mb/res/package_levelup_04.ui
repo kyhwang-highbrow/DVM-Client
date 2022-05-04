@@ -789,10 +789,6 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			action_type = 5;
-			action_delay_1 = 0.100000;
-			action_delay_2 = 0.000000;
-			action_duration = 0.300000;
 			lua_name = '';
 		};
 		type = 'Menu';

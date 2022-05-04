@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{85,25}</string>
                 <key>textureRect</key>
-                <string>{{45,37},{85,25}}</string>
+                <string>{{31,203},{85,25}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>lobby_shop_noti_special_icon.png</key>
             <dict>
@@ -30,9 +30,39 @@
                 <key>spriteSourceSize</key>
                 <string>{35,35}</string>
                 <key>textureRect</key>
-                <string>{{175,31},{31,33}}</string>
+                <string>{{1,1},{31,33}}</string>
                 <key>textureRotated</key>
                 <true/>
+            </dict>
+            <key>res_lucky_bag.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{45,41}</string>
+                <key>spriteSourceSize</key>
+                <string>{45,45}</string>
+                <key>textureRect</key>
+                <string>{{1,71},{45,41}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>res_lucky_marble.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,1}</string>
+                <key>spriteSize</key>
+                <string>{43,43}</string>
+                <key>spriteSourceSize</key>
+                <string>{45,45}</string>
+                <key>textureRect</key>
+                <string>{{1,158},{43,43}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>res_noti_0101.png</key>
             <dict>
@@ -45,9 +75,9 @@
                 <key>spriteSourceSize</key>
                 <string>{128,34}</string>
                 <key>textureRect</key>
-                <string>{{45,1},{128,34}}</string>
+                <string>{{1,290},{128,34}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>res_noti_0102.png</key>
             <dict>
@@ -60,9 +90,9 @@
                 <key>spriteSourceSize</key>
                 <string>{100,34}</string>
                 <key>textureRect</key>
-                <string>{{175,1},{80,28}}</string>
+                <string>{{1,203},{80,28}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>res_noti_0103.png</key>
             <dict>
@@ -75,9 +105,24 @@
                 <key>spriteSourceSize</key>
                 <string>{47,42}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{47,42}}</string>
+                <string>{{1,114},{47,42}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
+            </dict>
+            <key>res_roulette_ticket.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{45,35}</string>
+                <key>spriteSourceSize</key>
+                <string>{45,45}</string>
+                <key>textureRect</key>
+                <string>{{1,34},{45,35}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -91,9 +136,9 @@
             <key>realTextureFileName</key>
             <string>lobby_shop_noti.png</string>
             <key>size</key>
-            <string>{256,63}</string>
+            <string>{57,419}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:82a72ac9515b65b10e759d4b84404453:98791877fa12e72ee2127dc891d1c888:d6b38f772483984b8a33ea5fa6ce77ba$</string>
+            <string>$TexturePacker:SmartUpdate:1a102d3a549d6c9b79477db573d12d24:400582fb2118bba26452ae8a2258709c:d6b38f772483984b8a33ea5fa6ce77ba$</string>
             <key>textureFileName</key>
             <string>lobby_shop_noti.png</string>
         </dict>
