@@ -13,40 +13,44 @@ int lua_cocos2dx_Ref_release(lua_State* tolua_S)
     cocos2d::Ref* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Ref",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Ref*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Ref_release'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Ref_release'", nullptr);
             return 0;
+        }
         cobj->release();
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "release",argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "release",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Ref:release", argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Ref_release'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -56,40 +60,44 @@ int lua_cocos2dx_Ref_retain(lua_State* tolua_S)
     cocos2d::Ref* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Ref",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Ref*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Ref_retain'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Ref_retain'", nullptr);
             return 0;
+        }
         cobj->retain();
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "retain",argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "retain",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Ref:retain", argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Ref_retain'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -99,41 +107,45 @@ int lua_cocos2dx_Ref_getReferenceCount(lua_State* tolua_S)
     cocos2d::Ref* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Ref",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Ref*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Ref_getReferenceCount'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Ref_getReferenceCount'", nullptr);
             return 0;
+        }
         unsigned int ret = cobj->getReferenceCount();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getReferenceCount",argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getReferenceCount",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Ref:getReferenceCount", argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Ref_getReferenceCount'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -3739,22 +3751,22 @@ int lua_cocos2dx_Node_addChild(lua_State* tolua_S)
     int argc = 0;
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj)
     {
-		CCLOG("invalid 'cobj' in function 'lua_cocos2dx_Node_addChild");
+		//CCLOG("invalid 'cobj' in function 'lua_cocos2dx_Node_addChild");
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_addChild'", nullptr);
         return 0;
     }
-#endif
+//#endif
     argc = lua_gettop(tolua_S)-1;
     do{
         if (argc == 2) {
@@ -3801,13 +3813,15 @@ int lua_cocos2dx_Node_addChild(lua_State* tolua_S)
         }
     }while(0);
     ok  = true;
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "addChild",argc, 3);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "addChild",argc, 3);
+
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:addChild", argc, 3);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_addChild'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -4046,24 +4060,24 @@ int lua_cocos2dx_Node_setCascadeOpacityEnabled(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setCascadeOpacityEnabled'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -4071,18 +4085,22 @@ int lua_cocos2dx_Node_setCascadeOpacityEnabled(lua_State* tolua_S)
         bool arg0;
 
         ok &= luaval_to_boolean(tolua_S, 2,&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_cocos2dx_Node_setCascadeOpacityEnabled'", nullptr);
             return 0;
+        }
         cobj->setCascadeOpacityEnabled(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setCascadeOpacityEnabled",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setCascadeOpacityEnabled", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setCascadeOpacityEnabled",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setCascadeOpacityEnabled'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -4091,21 +4109,21 @@ int lua_cocos2dx_Node_getChildren(lua_State* tolua_S)
     int argc = 0;
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj)
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getChildren'", nullptr);
         return 0;
     }
-#endif
+//#endif
     argc = lua_gettop(tolua_S)-1;
     do{
         if (argc == 0) {
@@ -4123,13 +4141,14 @@ int lua_cocos2dx_Node_getChildren(lua_State* tolua_S)
         }
     }while(0);
     ok  = true;
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getChildren",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getChildren", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getChildren",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getChildren'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -4182,40 +4201,44 @@ int lua_cocos2dx_Node_pause(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_pause'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_pause'", nullptr);
             return 0;
+        }
         cobj->pause();
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "pause",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:pause", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "pause",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_pause'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -4361,24 +4384,24 @@ int lua_cocos2dx_Node_setRotation(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setRotation'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -4386,18 +4409,22 @@ int lua_cocos2dx_Node_setRotation(lua_State* tolua_S)
         double arg0;
 
         ok &= luaval_to_number(tolua_S, 2,&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_setRotation'", nullptr);
             return 0;
+        }
         cobj->setRotation(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setRotation",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setRotation", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setRotation",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setRotation'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -4407,24 +4434,24 @@ int lua_cocos2dx_Node_setScaleZ(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setScaleZ'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -4437,13 +4464,14 @@ int lua_cocos2dx_Node_setScaleZ(lua_State* tolua_S)
         cobj->setScaleZ(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setScaleZ",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setScaleZ", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setScaleZ",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setScaleZ'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -4453,24 +4481,24 @@ int lua_cocos2dx_Node_setScaleY(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setScaleY'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -4483,13 +4511,14 @@ int lua_cocos2dx_Node_setScaleY(lua_State* tolua_S)
         cobj->setScaleY(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setScaleY",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setScaleY", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setScaleY",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setScaleY'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -4499,24 +4528,24 @@ int lua_cocos2dx_Node_setScaleX(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setScaleX'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -4529,13 +4558,14 @@ int lua_cocos2dx_Node_setScaleX(lua_State* tolua_S)
         cobj->setScaleX(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setScaleX",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setScaleX", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setScaleX",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setScaleX'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -4634,24 +4664,24 @@ int lua_cocos2dx_Node__setLocalZOrder(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node__setLocalZOrder'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -4659,18 +4689,23 @@ int lua_cocos2dx_Node__setLocalZOrder(lua_State* tolua_S)
         int arg0;
 
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node__setLocalZOrder'", nullptr);
             return 0;
+        }
         cobj->_setLocalZOrder(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "_setLocalZOrder",argc, 1);
+
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:_setLocalZOrder", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "_setLocalZOrder",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node__setLocalZOrder'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -4856,24 +4891,24 @@ int lua_cocos2dx_Node_removeChild(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_removeChild'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -4881,8 +4916,11 @@ int lua_cocos2dx_Node_removeChild(lua_State* tolua_S)
         cocos2d::Node* arg0;
 
         ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_removeChild'", nullptr);
             return 0;
+        }
         cobj->removeChild(arg0);
         return 0;
     }
@@ -4894,18 +4932,22 @@ int lua_cocos2dx_Node_removeChild(lua_State* tolua_S)
         ok &= luaval_to_object<cocos2d::Node>(tolua_S, 2, "cc.Node",&arg0);
 
         ok &= luaval_to_boolean(tolua_S, 3,&arg1);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_removeChild'", nullptr);
             return 0;
+        }
         cobj->removeChild(arg0, arg1);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeChild",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:removeChild", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeChild",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_removeChild'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -5142,41 +5184,45 @@ int lua_cocos2dx_Node_getOpacity(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getOpacity'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getOpacity'", nullptr);
             return 0;
+        }
         uint16_t ret = cobj->getOpacity();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getOpacity",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getOpacity", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getOpacity",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getOpacity'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -5232,21 +5278,21 @@ int lua_cocos2dx_Node_removeAllChildrenWithCleanup(lua_State* tolua_S)
     int argc = 0;
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
-#endif
+//#endif
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj)
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_removeAllChildrenWithCleanup'", nullptr);
         return 0;
     }
-#endif
+//#endif
     argc = lua_gettop(tolua_S)-1;
     do{
         if (argc == 1) {
@@ -5266,13 +5312,14 @@ int lua_cocos2dx_Node_removeAllChildrenWithCleanup(lua_State* tolua_S)
         }
     }while(0);
     ok  = true;
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeAllChildren",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:removeAllChildren", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeAllChildren",argc, 0);
     return 0;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_removeAllChildrenWithCleanup'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -5642,40 +5689,44 @@ int lua_cocos2dx_Node_resume(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_resume'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_resume'", nullptr);
             return 0;
+        }
         cobj->resume();
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "resume",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:resume", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "resume",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_resume'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -5728,21 +5779,21 @@ int lua_cocos2dx_Node_setPosition(lua_State* tolua_S)
     int argc = 0;
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
-#endif
+//#endif
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj)
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setPosition'", nullptr);
         return 0;
     }
-#endif
+//#endif
     argc = lua_gettop(tolua_S)-1;
     do{
         if (argc == 2) {
@@ -5770,13 +5821,14 @@ int lua_cocos2dx_Node_setPosition(lua_State* tolua_S)
         }
     }while(0);
     ok  = true;
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPosition",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setPosition", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPosition",argc, 1);
     return 0;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setPosition'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -5786,24 +5838,24 @@ int lua_cocos2dx_Node_stopActionByTag(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_stopActionByTag'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -5811,18 +5863,22 @@ int lua_cocos2dx_Node_stopActionByTag(lua_State* tolua_S)
         int arg0;
 
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_stopActionByTag'", nullptr);
             return 0;
+        }
         cobj->stopActionByTag(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "stopActionByTag",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:stopActionByTag", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "stopActionByTag",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_stopActionByTag'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -5973,24 +6029,24 @@ int lua_cocos2dx_Node_setPositionZ(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setPositionZ'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -6003,13 +6059,14 @@ int lua_cocos2dx_Node_setPositionZ(lua_State* tolua_S)
         cobj->setPositionZ(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPositionZ",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setPositionZ", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPositionZ",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setPositionZ'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -6019,24 +6076,24 @@ int lua_cocos2dx_Node_setRotation3D(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setRotation3D'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -6044,18 +6101,22 @@ int lua_cocos2dx_Node_setRotation3D(lua_State* tolua_S)
         cocos2d::Vec3 arg0;
 
         ok &= luaval_to_vec3(tolua_S, 2, &arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_setPositionX'", nullptr);
             return 0;
+        }
         cobj->setRotation3D(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setRotation3D",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setRotation3D", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setRotation3D",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setRotation3D'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -6065,24 +6126,24 @@ int lua_cocos2dx_Node_setPositionX(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setPositionX'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -6090,18 +6151,22 @@ int lua_cocos2dx_Node_setPositionX(lua_State* tolua_S)
         double arg0;
 
         ok &= luaval_to_number(tolua_S, 2,&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_setPositionX'", nullptr);
             return 0;
+        }
         cobj->setPositionX(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPositionX",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setPositionX", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPositionX",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setPositionX'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -6157,41 +6222,45 @@ int lua_cocos2dx_Node_getAnchorPoint(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getAnchorPoint'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getAnchorPoint'", nullptr);
             return 0;
+        }
         const cocos2d::Vec2& ret = cobj->getAnchorPoint();
         vec2_to_luaval(tolua_S, ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getAnchorPoint",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getAnchorPoint", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getAnchorPoint",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getAnchorPoint'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -6245,40 +6314,44 @@ int lua_cocos2dx_Node_updateTransform(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_updateTransform'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_updateTransform'", nullptr);
             return 0;
+        }
         cobj->updateTransform();
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "updateTransform",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:updateTransform", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "updateTransform",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_updateTransform'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -6288,41 +6361,45 @@ int lua_cocos2dx_Node_isVisible(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_isVisible'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
-    if (argc == 0) 
+    if (argc == 0)
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_isVisible'", nullptr);
             return 0;
+        }
         bool ret = cobj->isVisible();
         tolua_pushboolean(tolua_S,(bool)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isVisible",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:isVisible", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isVisible",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_isVisible'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -6617,41 +6694,45 @@ int lua_cocos2dx_Node_getRotation(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getRotation'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getRotation'", nullptr);
             return 0;
+        }
         double ret = cobj->getRotation();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getRotation",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getRotation", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getRotation",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getRotation'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -6705,24 +6786,24 @@ int lua_cocos2dx_Node_runAction(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_runAction'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -6730,19 +6811,23 @@ int lua_cocos2dx_Node_runAction(lua_State* tolua_S)
         cocos2d::Action* arg0;
 
         ok &= luaval_to_object<cocos2d::Action>(tolua_S, 2, "cc.Action",&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_runAction'", nullptr);
             return 0;
+        }
         cocos2d::Action* ret = cobj->runAction(arg0);
         object_to_luaval<cocos2d::Action>(tolua_S, "cc.Action",(cocos2d::Action*)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "runAction",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:runAction", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "runAction",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_runAction'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -6842,40 +6927,44 @@ int lua_cocos2dx_Node_stopAllActions(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_stopAllActions'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_stopAllActions'", nullptr);
             return 0;
+        }
         cobj->stopAllActions();
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "stopAllActions",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:stopAllActions", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "stopAllActions",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_stopAllActions'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7017,24 +7106,24 @@ int lua_cocos2dx_Node_getActionByTag(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getActionByTag'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -7042,19 +7131,23 @@ int lua_cocos2dx_Node_getActionByTag(lua_State* tolua_S)
         int arg0;
 
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getActionByTag'", nullptr);
             return 0;
+        }
         cocos2d::Action* ret = cobj->getActionByTag(arg0);
         object_to_luaval<cocos2d::Action>(tolua_S, "cc.Action",(cocos2d::Action*)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getActionByTag",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getActionByTag", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getActionByTag",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getActionByTag'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7161,41 +7254,45 @@ int lua_cocos2dx_Node_getLocalZOrder(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getLocalZOrder'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getLocalZOrder'", nullptr);
             return 0;
+        }
         int ret = cobj->getLocalZOrder();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getLocalZOrder",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getLocalZOrder", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getLocalZOrder",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getLocalZOrder'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7386,24 +7483,24 @@ int lua_cocos2dx_Node_setColor(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setColor'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -7411,18 +7508,22 @@ int lua_cocos2dx_Node_setColor(lua_State* tolua_S)
         cocos2d::Color3B arg0;
 
         ok &= luaval_to_color3b(tolua_S, 2, &arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_setColor'", nullptr);
             return 0;
+        }
         cobj->setColor(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setColor",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setColor", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setColor",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setColor'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7475,21 +7576,21 @@ int lua_cocos2dx_Node_getParent(lua_State* tolua_S)
     int argc = 0;
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj)
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getParent'", nullptr);
         return 0;
     }
-#endif
+//#endif
     argc = lua_gettop(tolua_S)-1;
     do{
         if (argc == 0) {
@@ -7507,13 +7608,14 @@ int lua_cocos2dx_Node_getParent(lua_State* tolua_S)
         }
     }while(0);
     ok  = true;
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getParent",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getParent", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getParent",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getParent'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7523,24 +7625,24 @@ int lua_cocos2dx_Node_getPositionZ(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getPositionZ'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
@@ -7551,13 +7653,14 @@ int lua_cocos2dx_Node_getPositionZ(lua_State* tolua_S)
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPositionZ",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getPositionZ", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPositionZ",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getPositionZ'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7567,41 +7670,45 @@ int lua_cocos2dx_Node_getPositionY(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getPositionY'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid 'cobj' in function 'lua_cocos2dx_Node_getPositionY'", nullptr);
             return 0;
+        }
         double ret = cobj->getPositionY();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPositionY",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getPositionY", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPositionY",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getPositionY'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7611,41 +7718,45 @@ int lua_cocos2dx_Node_getPositionX(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getPositionX'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getPositionX'", nullptr);
             return 0;
+        }
         double ret = cobj->getPositionX();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPositionX",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getPositionX", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPositionX",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getPositionX'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7655,24 +7766,24 @@ int lua_cocos2dx_Node_removeChildByTag(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_removeChildByTag'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -7680,8 +7791,11 @@ int lua_cocos2dx_Node_removeChildByTag(lua_State* tolua_S)
         int arg0;
 
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_removeChildByTag'", nullptr);
             return 0;
+        }
         cobj->removeChildByTag(arg0);
         return 0;
     }
@@ -7693,18 +7807,22 @@ int lua_cocos2dx_Node_removeChildByTag(lua_State* tolua_S)
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
 
         ok &= luaval_to_boolean(tolua_S, 3,&arg1);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_removeChildByTag'", nullptr);
             return 0;
+        }
         cobj->removeChildByTag(arg0, arg1);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeChildByTag",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:removeChildByTag", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeChildByTag",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_removeChildByTag'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7714,24 +7832,24 @@ int lua_cocos2dx_Node_setPositionY(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setPositionY'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -7739,18 +7857,22 @@ int lua_cocos2dx_Node_setPositionY(lua_State* tolua_S)
         double arg0;
 
         ok &= luaval_to_number(tolua_S, 2,&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_setPositionY'", nullptr);
             return 0;
+        }
         cobj->setPositionY(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPositionY",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setPositionY", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPositionY",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setPositionY'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7850,24 +7972,24 @@ int lua_cocos2dx_Node_setVisible(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setVisible'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -7875,19 +7997,23 @@ int lua_cocos2dx_Node_setVisible(lua_State* tolua_S)
         bool arg0;
 
         ok &= luaval_to_boolean(tolua_S, 2,&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_setVisible'", nullptr);
             return 0;
+        }
         cobj->setVisible(arg0);
         return 0;
     }
 
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setVisible",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setVisible", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setVisible",argc, 1);
     return 0;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setVisible'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7941,24 +8067,24 @@ int lua_cocos2dx_Node_setGlobalZOrder(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setGlobalZOrder'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -7966,18 +8092,22 @@ int lua_cocos2dx_Node_setGlobalZOrder(lua_State* tolua_S)
         double arg0;
 
         ok &= luaval_to_number(tolua_S, 2,&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_setGlobalZOrder'", nullptr);
             return 0;
+        }
         cobj->setGlobalZOrder(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setGlobalZOrder",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setGlobalZOrder", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setGlobalZOrder",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setGlobalZOrder'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -7986,21 +8116,21 @@ int lua_cocos2dx_Node_setScale(lua_State* tolua_S)
     int argc = 0;
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
-#endif
+//#endif
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj)
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setScale'", nullptr);
         return 0;
     }
-#endif
+//#endif
     argc = lua_gettop(tolua_S)-1;
     do{
         if (argc == 2) {
@@ -8028,13 +8158,14 @@ int lua_cocos2dx_Node_setScale(lua_State* tolua_S)
         }
     }while(0);
     ok  = true;
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setScale",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setScale", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setScale",argc, 1);
     return 0;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setScale'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8044,40 +8175,44 @@ int lua_cocos2dx_Node_setUpdateTransform(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setUpdateTransform'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getChildByTag'", nullptr);
             return 0;
+        }
         cobj->setUpdateTransform();
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setUpdateTransform",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getChildByTag", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setUpdateTransform",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setUpdateTransform'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8087,24 +8222,24 @@ int lua_cocos2dx_Node_getChildByTag(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getChildByTag'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -8112,19 +8247,23 @@ int lua_cocos2dx_Node_getChildByTag(lua_State* tolua_S)
         int arg0;
 
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getScaleZ'", nullptr);
             return 0;
+        }
         cocos2d::Node* ret = cobj->getChildByTag(arg0);
         object_to_luaval<cocos2d::Node>(tolua_S, "cc.Node",(cocos2d::Node*)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getChildByTag",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getScaleZ", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getChildByTag",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getChildByTag'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8134,24 +8273,24 @@ int lua_cocos2dx_Node_setOrderOfArrival(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setOrderOfArrival'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -8159,18 +8298,22 @@ int lua_cocos2dx_Node_setOrderOfArrival(lua_State* tolua_S)
         int arg0;
 
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getScaleY'", nullptr);
             return 0;
+        }
         cobj->setOrderOfArrival(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setOrderOfArrival",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getScaleY", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setOrderOfArrival",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setOrderOfArrival'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8180,41 +8323,45 @@ int lua_cocos2dx_Node_getScaleZ(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getScaleZ'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getScaleX'", nullptr);
             return 0;
+        }
         double ret = cobj->getScaleZ();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScaleZ",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getScaleX", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScaleZ",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getScaleZ'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8224,41 +8371,45 @@ int lua_cocos2dx_Node_getScaleY(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getScaleY'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getScaleY'", nullptr);
             return 0;
+        }
         double ret = cobj->getScaleY();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScaleY",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getScaleY", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScaleY",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getScaleY'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8268,41 +8419,45 @@ int lua_cocos2dx_Node_getScaleX(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getScaleX'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getScaleX'", nullptr);
             return 0;
+        }
         double ret = cobj->getScaleX();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScaleX",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getScaleX", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScaleX",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getScaleX'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8312,24 +8467,24 @@ int lua_cocos2dx_Node_setLocalZOrder(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setLocalZOrder'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -8337,18 +8492,22 @@ int lua_cocos2dx_Node_setLocalZOrder(lua_State* tolua_S)
         int arg0;
 
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_setLocalZOrder'", nullptr);
             return 0;
+        }
         cobj->setLocalZOrder(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setLocalZOrder",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setLocalZOrder", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setLocalZOrder",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setLocalZOrder'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8448,42 +8607,46 @@ int lua_cocos2dx_Node_setOpacity(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setOpacity'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
     {
         double arg0;
         ok &= luaval_to_number(tolua_S, 2, &arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_setOpacity'", nullptr);
             return 0;
+        }
         cobj->setOpacity(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setOpacity",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setOpacity", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setOpacity",argc, 1);
     return 0;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setOpacity'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8583,41 +8746,45 @@ int lua_cocos2dx_Node_getContentSize(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getContentSize'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getContentSize'", nullptr);
             return 0;
+        }
         const cocos2d::Size& ret = cobj->getContentSize();
         size_to_luaval(tolua_S, ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getContentSize",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getContentSize", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getContentSize",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getContentSize'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8627,41 +8794,45 @@ int lua_cocos2dx_Node_getColor(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getColor'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getColor'", nullptr);
             return 0;
+        }
         const cocos2d::Color3B& ret = cobj->getColor();
         color3b_to_luaval(tolua_S, ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getColor",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getColor", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getColor",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getColor'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8671,41 +8842,45 @@ int lua_cocos2dx_Node_getBoundingBox(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getBoundingBox'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getBoundingBox'", nullptr);
             return 0;
+        }
         cocos2d::Rect ret = cobj->getBoundingBox();
         rect_to_luaval(tolua_S, ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getBoundingBox",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getBoundingBox", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getBoundingBox",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getBoundingBox'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8761,41 +8936,45 @@ int lua_cocos2dx_Node_getGlobalZOrder(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getGlobalZOrder'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getGlobalZOrder'", nullptr);
             return 0;
+        }
         double ret = cobj->getGlobalZOrder();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getGlobalZOrder",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getGlobalZOrder", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getGlobalZOrder",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getGlobalZOrder'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8907,21 +9086,21 @@ int lua_cocos2dx_Node_removeFromParentAndCleanup(lua_State* tolua_S)
     int argc = 0;
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
-#endif
+//#endif
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj)
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_removeFromParentAndCleanup'", nullptr);
         return 0;
     }
-#endif
+//#endif
     argc = lua_gettop(tolua_S)-1;
     do{
         if (argc == 1) {
@@ -8941,13 +9120,14 @@ int lua_cocos2dx_Node_removeFromParentAndCleanup(lua_State* tolua_S)
         }
     }while(0);
     ok  = true;
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeFromParent",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:removeFromParent", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "removeFromParent",argc, 0);
     return 0;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_removeFromParentAndCleanup'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -8957,24 +9137,24 @@ int lua_cocos2dx_Node_setPosition3D(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setPosition3D'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -8987,13 +9167,14 @@ int lua_cocos2dx_Node_setPosition3D(lua_State* tolua_S)
         cobj->setPosition3D(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPosition3D",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setPosition3D", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPosition3D",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setPosition3D'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -9182,41 +9363,45 @@ int lua_cocos2dx_Node_getScale(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_getScale'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_getScale'", nullptr);
             return 0;
+        }
         double ret = cobj->getScale();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScale",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:getScale", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getScale",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_getScale'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -9402,24 +9587,24 @@ int lua_cocos2dx_Node_setTag(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setTag'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -9427,18 +9612,22 @@ int lua_cocos2dx_Node_setTag(lua_State* tolua_S)
         int arg0;
 
         ok &= luaval_to_int32(tolua_S, 2,(int *)&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_setTag'", nullptr);
             return 0;
+        }
         cobj->setTag(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setTag",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:setTag", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setTag",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setTag'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -9492,24 +9681,24 @@ int lua_cocos2dx_Node_stopAction(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_stopAction'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -9517,18 +9706,22 @@ int lua_cocos2dx_Node_stopAction(lua_State* tolua_S)
         cocos2d::Action* arg0;
 
         ok &= luaval_to_object<cocos2d::Action>(tolua_S, 2, "cc.Action",&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_stopAction'", nullptr);
             return 0;
+        }
         cobj->stopAction(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "stopAction",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Node:stopAction", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "stopAction",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_stopAction'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -9584,30 +9777,34 @@ int lua_cocos2dx_Node_create(lua_State* tolua_S)
     int argc = 0;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertable(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S) - 1;
 
     if (argc == 0)
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Node_create'", nullptr);
             return 0;
+        }
         cocos2d::Node* ret = cocos2d::Node::create();
         object_to_luaval<cocos2d::Node>(tolua_S, "cc.Node",(cocos2d::Node*)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "cc.Node:create", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "create",argc, 0);
     return 0;
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_create'.",&tolua_err);
-#endif
+//#endif
     return 0;
 }
 static int lua_cocos2dx_Node_finalize(lua_State* tolua_S)
@@ -12879,40 +13076,44 @@ int lua_cocos2dx_Director_purgeCachedData(lua_State* tolua_S)
     cocos2d::Director* cobj = nullptr;
     bool ok  = true;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.Director",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Director*)tolua_tousertype(tolua_S,1,0);
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Director_purgeCachedData'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Director_purgeCachedData'", nullptr);
             return 0;
+        }
         cobj->purgeCachedData();
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "purgeCachedData",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Director:purgeCachedData", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "purgeCachedData",argc, 0);
     return 0;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Director_purgeCachedData'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -35870,24 +36071,24 @@ int lua_cocos2dx_Label_setString(lua_State* tolua_S)
     cocos2d::Label* cobj = nullptr;
     bool ok  = true;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.Label",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::Label*)tolua_tousertype(tolua_S,1,0);
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Label_setString'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -35895,18 +36096,22 @@ int lua_cocos2dx_Label_setString(lua_State* tolua_S)
         std::string arg0;
 
         ok &= luaval_to_std_string(tolua_S, 2,&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_Label_setString'", nullptr);
             return 0;
+        }
         cobj->setString(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setString",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Label:setString", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setString",argc, 1);
     return 0;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Label_setString'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -47050,41 +47255,45 @@ int lua_cocos2dx_ProgressTimer_getPercentage(lua_State* tolua_S)
     cocos2d::ProgressTimer* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!tolua_isusertype(tolua_S,1,"cc.ProgressTimer",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::ProgressTimer*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_ProgressTimer_getPercentage'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 0) 
     {
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_ProgressTimer_getPercentage'", nullptr);
             return 0;
+        }
         double ret = cobj->getPercentage();
         tolua_pushnumber(tolua_S,(lua_Number)ret);
         return 1;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPercentage",argc, 0);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.ProgressTimer:getPercentage", argc, 0);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "getPercentage",argc, 0);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+//#if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_ProgressTimer_getPercentage'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
@@ -47458,24 +47667,24 @@ int lua_cocos2dx_ProgressTimer_setPercentage(lua_State* tolua_S)
     cocos2d::ProgressTimer* cobj = nullptr;
     bool ok  = true;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
-#endif
+//#endif
 
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.ProgressTimer",0,&tolua_err)) goto tolua_lerror;
-#endif
+//#endif
 
     cobj = (cocos2d::ProgressTimer*)tolua_tousertype(tolua_S,1,0);
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_ProgressTimer_setPercentage'", nullptr);
         return 0;
     }
-#endif
+//#endif
 
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
@@ -47483,18 +47692,22 @@ int lua_cocos2dx_ProgressTimer_setPercentage(lua_State* tolua_S)
         double arg0;
 
         ok &= luaval_to_number(tolua_S, 2,&arg0);
-        if(!ok)
+        if (!ok)
+        {
+            tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_ProgressTimer_setPercentage'", nullptr);
             return 0;
+        }
         cobj->setPercentage(arg0);
         return 0;
     }
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPercentage",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.ProgressTimer:setPercentage", argc, 1);
+    //CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setPercentage",argc, 1);
     return 0;
 
-#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+//#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_ProgressTimer_setPercentage'.",&tolua_err);
-#endif
+//#endif
 
     return 0;
 }
