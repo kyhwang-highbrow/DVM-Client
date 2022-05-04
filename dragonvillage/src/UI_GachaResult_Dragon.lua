@@ -228,7 +228,7 @@ function UI_GachaResult_Dragon:initEverything()
 
     -- 고급 소환 / 우정 소환
     else
-        local is_cash = (self.m_type == 'cash' or self.m_type == 'pickup')
+        local is_cash = self.m_type
         local is_ad = t_egg_data['is_ad']
 
         if is_cash and (not is_ad) then
@@ -237,8 +237,10 @@ function UI_GachaResult_Dragon:initEverything()
         
         do -- 아이콘
             local price_icon
-            if (is_cash) then
+            if (is_cash == 'cash' or is_cash == 'pickup') then
                 price_icon = IconHelper:getIcon('res/ui/icons/item/cash.png')
+            elseif(is_cash == 'summon_dragon_ticket') then
+                price_icon = IconHelper:getIcon('res/ui/icons/item/summon_dragon_ticket.png')
             else
                 price_icon = IconHelper:getIcon('res/ui/icons/item/fp.png')
             end
@@ -681,11 +683,31 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon:refresh_wealth()
     local vars = self.vars
+    local cash
 
-    if (self.m_type == 'cash' or self.m_type == 'pickup') then
+    if (self.m_type == 'cash' or self.m_type == 'pickup' or self.m_type == 'summon_dragon_ticket') then
         -- 캐시
-        local cash = g_userData:get('cash')
+        if (self.m_type == 'cash' or self.m_type == 'pickup') then
+            cash = g_userData:get('cash')
+        else        
+            cash = g_userData:get('summon_dragon_ticket')
+        end
+        -- local cash = g_userData:get('cash')
         vars['diaLabel']:setString(comma_value(cash))
+
+        -- 아이콘
+        local dia_icon
+        if (self.m_type == 'cash' or self.m_type == 'pickup') then
+            dia_icon = IconHelper:getIcon('res/ui/icons/item/cash.png')
+        elseif(self.m_type == 'summon_dragon_ticket') then
+            dia_icon = IconHelper:getIcon('res/ui/icons/item/summon_dragon_ticket.png')
+        else
+            dia_icon = IconHelper:getIcon('res/ui/icons/item/fp.png')
+        end
+        dia_icon:setScale(0.5)
+        vars['diaIconNode']:removeAllChildren()
+        vars['diaIconNode']:addChild(dia_icon)
+        
 
         -- 마일리지
         local mileage = g_userData:get('mileage')

@@ -47,7 +47,7 @@ function UI_Hatchery:initParentVariable()
     self.m_uiName = 'UI_Hatchery'
     self.m_titleStr = Str('부화소')
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'fp' -- 우정포인트
+    self.m_subCurrency = 'summon_dragon_ticket' -- 드래곤 소환권
 end
 
 -------------------------------------
@@ -101,6 +101,7 @@ function UI_Hatchery:initTab(focus_id)
     local incubate_tab = UI_HatcheryIncubateTab(self, focus_id)
     local combine_tab = UI_HatcheryCombineTab(self)
     local relation_tab = UI_HatcheryRelationTab(self)
+
     vars['indivisualTabMenu']:addChild(summon_tab.root)
     vars['indivisualTabMenu']:addChild(incubate_tab.root)
     vars['indivisualTabMenu']:addChild(combine_tab.root)

@@ -479,6 +479,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['topaz'], 'user', 'topaz')
         end
 
+        -- 드래곤 소환권
+        if ret['summon_dragon_ticket'] then
+            self:applyServerData(ret['summon_dragon_ticket'], 'user', 'summon_dragon_ticket')
+        end
+
         -- 열매 갯수
         if ret['fruits'] then
             self:applyServerData(ret['fruits'], 'user', 'fruits')
@@ -789,6 +794,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 이벤트 토큰
     RefreshGoods(t_added_items, 'event_token')
+
+    -- 드래곤 소환권
+    RefreshGoods(t_added_items, 'summon_dragon_ticket')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then

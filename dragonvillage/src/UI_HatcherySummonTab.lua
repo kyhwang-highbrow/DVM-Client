@@ -19,11 +19,13 @@ UI_HatcherySummonTab = class(PARENT,{
         m_summonCategoryTab = '{pickup, cash, friend}',
 
         m_selectedDragonList = 'table',  -- 한 속성에서 왔다갔다 선택 했을 때의 체크표시 처리 용
+        m_summonBtnList = 'table',
 
         m_originRateLabel = 'string',
         m_pickupID = 'string',
 
         m_dragonAnimator = 'table',
+        m_parent = 'UI_Hatchery'
     })
 
 -------------------------------------
@@ -31,6 +33,7 @@ UI_HatcherySummonTab = class(PARENT,{
 -------------------------------------
 function UI_HatcherySummonTab:init(owner_ui)
     local vars = self:load('hatchery_summon.ui')
+    self.m_parent = owner_ui
 
 	-- @ TUTORIAL : 1-7 end, 101
 	local tutorial_key = TUTORIAL.ADV_01_07_END
@@ -91,6 +94,8 @@ function UI_HatcherySummonTab:onEnterTab(first)
         self:initUI()
     end
 
+    self:refreshSummon()
+
     self:setEventMenu()
     -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
     --[[
@@ -130,16 +135,28 @@ function UI_HatcherySummonTab:initUI()
     vars['pickupGoodbyeBtn']:registerScriptTapHandler(function() self:click_pickupGoodbyeBtn() end)
 
     local default_category = self.m_curCategory
+    local hatchery_summon_item_list = {}
 
-    
     for i, t_data in pairs(g_hatcheryData:getGachaList()) do
-        local btn = UI()
+        local PARENT = UI()
+        local btn = class(PARENT,{
+            m_type = '',
+            m_count = '',
+            m_price = '',
+            m_ticket = 'boolean'
+        })
+
         btn:load('hatchery_summon_item.ui')
 
         -- addChild
         local ui_type = t_data['ui_type']
         vars['summonNode_' .. ui_type]:addChild(btn.root)
         
+        btn.m_price = t_data['price']
+        btn.m_type = t_data['price_type']
+        btn.m_count = t_data['draw_cnt']
+        btn.m_ticket = false
+
         -- 광고 무료 뽑기
         if (t_data['is_ad']) then
             btn.vars['priceLabel']:setString(Str('1일 1회'))
@@ -173,28 +190,43 @@ function UI_HatcherySummonTab:initUI()
 
         -- 버튼 콜백
         btn.vars['summonBtn']:registerScriptTapHandler(function()
-            self:requestSummon(t_data)
+            if btn.m_ticket then
+                t_data['price_type'] = 'summon_dragon_ticket'
+                t_data['price'] = btn.m_count
+                self:requestSummon(t_data)
+            else
+                t_data['price_type'] = btn.m_type
+                t_data['price'] = btn.m_price
+                self:requestSummon(t_data)
+            end
+            
 
             -- @tutorial 에서 갱신 시키는 목적
-			if (ui_type == 'cash11') then
-				local price = btn.vars['priceLabel']:getString()
-				price = tonumber(price)
-				if (price == nil) then
-					btn.vars['priceLabel']:setString(comma_value(t_data['price']))
-				end
-			end
+            if (ui_type == 'cash11') then
+                local price = btn.vars['priceLabel']:getString()
+                price = tonumber(price)
+                if (price == nil) then
+                    btn.vars['priceLabel']:setString(comma_value(t_data['price']))
+                end
+            end
         end)
         
-		-- tutorial 에서 접근하기 위함
-		if (ui_type == 'cash11') then
-			if (TutorialManager.getInstance():isDoing()) then
-				self.m_ownerUI.vars['tutorialSummon11Btn'] = btn.vars['summonBtn']
-				btn.vars['priceLabel']:setString(Str('무료'))
+        -- tutorial 에서 접근하기 위함
+        if (ui_type == 'cash11') then
+            if (TutorialManager.getInstance():isDoing()) then
+                self.m_ownerUI.vars['tutorialSummon11Btn'] = btn.vars['summonBtn']
+                btn.vars['priceLabel']:setString(Str('무료'))
 
                 default_category = 'cash'
-			end
-		end
+            end
+        end
+
+        if (t_data['price_type'] == 'cash') then 
+            table.insert(hatchery_summon_item_list, btn)
+        end
     end
+
+    self.m_summonBtnList = hatchery_summon_item_list
 
     -- 소환 확률 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'summon_info')
@@ -248,6 +280,70 @@ function UI_HatcherySummonTab:initUI()
     self:initTableView()
 
     self:initRadioButton()
+end
+
+-------------------------------------
+-- function refreshSummon
+-------------------------------------
+function UI_HatcherySummonTab:refreshSummon()
+    local btn_list = self.m_summonBtnList
+    local summon_dragon_ticket = g_userData:get('summon_dragon_ticket')
+
+    if (not summon_dragon_ticket) then 
+        for _, ui in pairs(btn_list) do
+            ui['m_ticket'] = false
+
+            -- 버튼 UI 설정
+            -- 가격
+            local price = ui['m_price']
+            ui.vars['priceLabel']:setString(comma_value(price))
+
+            -- 가격 아이콘
+            local price_type = ui['m_type']
+            local price_icon = IconHelper:getPriceIcon(price_type)
+            ui.vars['priceNode']:removeAllChildren()
+            ui.vars['priceNode']:addChild(price_icon)
+            
+            -- 뽑기 횟수 안내
+            local count = ui['m_count'] or 1
+
+            if (count > 1) then
+                ui.vars['countLabel']:setTextColor(cc.c4b(255, 215, 0, 255))
+            end
+
+            ui.vars['countLabel']:setString( Str('{1}회', count))
+        end
+
+    else
+        for _, ui in pairs(btn_list) do
+            local count = ui['m_count']
+            local type = 'summon_dragon_ticket'
+    
+            if count <= summon_dragon_ticket then
+                ui['m_ticket'] = true
+                ui.vars['priceLabel']:setString(comma_value(count))
+    
+                local goods_id = TableItem():getItemIDFromItemType(type)
+                local iconPathStrs = TABLE:get('item')[goods_id]['icon']
+                local strList = seperate(iconPathStrs, '/')
+                local iconResList = seperate(strList[#strList], '.')
+    
+                -- 가격 아이콘
+                local price_icon = IconHelper:getPriceIcon(iconResList[1])
+                ui.vars['priceNode']:removeAllChildren()
+                ui.vars['priceNode']:addChild(price_icon)
+                
+                -- 뽑기 횟수 안내
+                if (count > 1) then
+                    ui.vars['countLabel']:setTextColor(cc.c4b(255, 215, 0, 255))
+                end
+    
+                ui.vars['countLabel']:setString( Str('{1}회', count))
+            else
+
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -375,6 +471,12 @@ function UI_HatcherySummonTab:onChangeCategory(category)
     vars['chanceUpTabBtn']:setEnabled(not is_pickup)
     vars['premiumTabBtn']:setEnabled(not is_premium)
     vars['friendshipTabBtn']:setEnabled(not is_friendPoint)
+
+    if (is_friendPoint) then
+        g_topUserInfo:setSubCurrency('fp')
+    else
+        g_topUserInfo:setSubCurrency('summon_dragon_ticket')
+    end
 
     for i = 1, g_hatcheryData:getPickupStructNumber() do
         if vars['pickupTabBtn' .. i] then
@@ -800,7 +902,7 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
             old_ui:close()
         end
 
-		local gacha_type = 'cash'
+		local gacha_type = ret['type']
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local egg_res = t_egg_data['egg_res']
@@ -856,7 +958,9 @@ function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_e
             old_ui:close()
         end
 
-		local gacha_type = 'cash'
+		-- local gacha_type = 'cash'
+        -- local gacha_type = 'summon_dragon_ticket'
+        local gacha_type = ret['type']
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local egg_res = t_egg_data['egg_res']
@@ -1133,6 +1237,7 @@ function UI_HatcherySummonTab:summonApiFinished()
 
         -- 갱신
         self.m_ownerUI:refresh()
+        self:refreshSummon()
 
         self:onChangeCategory(self.m_curCategory)
     end
