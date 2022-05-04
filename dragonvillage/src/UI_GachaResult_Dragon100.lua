@@ -131,6 +131,19 @@ function UI_GachaResult_Dragon100:initUI()
     if vars['priceLabel'] and self.m_tSummonData and self.m_tSummonData['price'] then
         local price = self.m_tSummonData['price']
         vars['priceLabel']:setString(comma_value(price))
+
+        -- 아이콘 생성
+        local icon
+        if (self.m_tSummonData['price_type'] == 'cash') then
+            icon = IconHelper:getIcon('res/ui/icons/item/cash.png')
+        elseif(self.m_tSummonData['price_type'] == 'summon_dragon_ticket') then
+            icon = IconHelper:getIcon('res/ui/icons/item/summon_dragon_ticket.png')
+        end
+
+        icon:setScale(0.5)
+        vars['priceIconNode']:removeAllChildren()
+        vars['priceIconNode']:addChild(icon)
+        
     else
         vars['againBtn']:setVisible(false)
     end

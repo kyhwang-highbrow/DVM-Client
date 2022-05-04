@@ -323,13 +323,8 @@ function UI_HatcherySummonTab:refreshSummon()
                 ui['m_ticket'] = true
                 ui.vars['priceLabel']:setString(comma_value(count))
     
-                local goods_id = TableItem():getItemIDFromItemType(type)
-                local iconPathStrs = TABLE:get('item')[goods_id]['icon']
-                local strList = seperate(iconPathStrs, '/')
-                local iconResList = seperate(strList[#strList], '.')
-    
                 -- 가격 아이콘
-                local price_icon = IconHelper:getPriceIcon(iconResList[1])
+                local price_icon = IconHelper:getPriceIcon(type)
                 ui.vars['priceNode']:removeAllChildren()
                 ui.vars['priceNode']:addChild(price_icon)
                 
