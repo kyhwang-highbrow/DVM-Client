@@ -536,9 +536,9 @@ function UI_TopUserInfo:refreshChatNotiInfo()
 end
 
 -------------------------------------
--- function setExitEnbaled
+-- function setExitEnabled
 -- @brief exitBtn enable
 -------------------------------------
-function UI_TopUserInfo:setExitEnbaled(b)
+function UI_TopUserInfo:setExitEnabled(b)
 	self.vars['exitBtn']:setEnabled(b)
 end

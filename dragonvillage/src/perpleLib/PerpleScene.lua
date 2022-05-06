@@ -509,7 +509,7 @@ function replaceScene(target_scene)
 			target_scene:blockBackkey(true)
 			block_ui = UI_BlockPopup()
 			if (g_topUserInfo) then
-				g_topUserInfo:setExitEnbaled(false)
+				g_topUserInfo:setExitEnabled(false)
 			end
 
             dt = coroutine.yield()
@@ -624,7 +624,7 @@ function replaceScene(target_scene)
 		target_scene:blockBackkey(false)
 		block_ui:close()
 		if (g_topUserInfo) then
-			g_topUserInfo:setExitEnbaled(true)
+			g_topUserInfo:setExitEnabled(true)
 		end
     end)
 
