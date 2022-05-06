@@ -531,6 +531,7 @@ function ServerData_Hatchery:getGachaList()
             ['bundle'] = false,
             ['is_ad'] = true,
             ['price_type'] = '',
+            ['price'] = '',
         }
         table.insert(l_item_list, t_data)
     end
