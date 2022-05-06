@@ -112,6 +112,14 @@ function ConfirmPrice_original(price_type, price_value)
             MakeSimplePopup(POPUP_TYPE.OK, Str('고대주화가 부족합니다.\n고대주화는 고대의 탑에서 획득할 수 있습니다.'))
             return false
         end
+    elseif (price_type == 'summon_dragon_ticket') then 
+        local summon_dragon_ticket = g_userData:get('summon_dragon_ticket')
+        
+        --드래곤 티켓 체크
+        if (summon_dragon_ticket < price_value) then
+           MakeSimplePopup(POPUP_TYPE.OK, Str('드래곤 소환권이 부족합니다.')) 
+           return false
+        end
     end
 
     return true
@@ -137,6 +145,9 @@ function ConfirmPrice(price_type, price_value)
 
     elseif (price_type == 'ancient') then
         amount = g_userData:get('ancient')
+
+    elseif (price_type == 'summon_dragon_ticket') then
+        amount = g_userData:get('summon_dragon_ticket')
     else
         
         return true

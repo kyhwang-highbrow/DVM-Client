@@ -289,6 +289,10 @@ function UI_HatcherySummonTab:refreshSummon()
     local btn_list = self.m_summonBtnList
     local summon_dragon_ticket = g_userData:get('summon_dragon_ticket')
 
+    if summon_dragon_ticket == 0 then
+        summon_dragon_ticket = nil
+    end
+
     if (not summon_dragon_ticket) then 
         for _, ui in pairs(btn_list) do
             ui['m_ticket'] = false
@@ -317,9 +321,9 @@ function UI_HatcherySummonTab:refreshSummon()
     else
         for _, ui in pairs(btn_list) do
             local count = ui['m_count']
-            local type = 'summon_dragon_ticket'
     
             if count <= summon_dragon_ticket then
+                local type = 'summon_dragon_ticket'
                 ui['m_ticket'] = true
                 ui.vars['priceLabel']:setString(comma_value(count))
     
@@ -335,7 +339,27 @@ function UI_HatcherySummonTab:refreshSummon()
     
                 ui.vars['countLabel']:setString( Str('{1}회', count))
             else
+                ui['m_ticket'] = false
 
+                -- 버튼 UI 설정
+                -- 가격
+                local price = ui['m_price']
+                ui.vars['priceLabel']:setString(comma_value(price))
+
+                -- 가격 아이콘
+                local price_type = ui['m_type']
+                local price_icon = IconHelper:getPriceIcon(price_type)
+                ui.vars['priceNode']:removeAllChildren()
+                ui.vars['priceNode']:addChild(price_icon)
+                
+                -- 뽑기 횟수 안내
+                local count = ui['m_count'] or 1
+
+                if (count > 1) then
+                    ui.vars['countLabel']:setTextColor(cc.c4b(255, 215, 0, 255))
+                end
+
+                ui.vars['countLabel']:setString( Str('{1}회', count))
             end
         end
     end
@@ -891,18 +915,24 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
     end
 
     local function finish_cb(ret)
+        self:refreshSummon()
+
         -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
         if (old_ui) then
             old_ui:setCloseCB(nil)
             old_ui:close()
         end
 
-		local gacha_type = ret['type']
+		local gacha_type = ret['summon_goods_type']
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local egg_res = t_egg_data['egg_res']
         local egg_id = t_egg_data['egg_id']
         local added_mileage = ret['added_mileage'] or 0
+        
+        if gacha_type == 'cash' then
+            t_egg_data['price'] =  g_hatcheryData.CASH__SUMMON_PRICE * draw_cnt
+        end
 
 
         local ui
@@ -947,6 +977,8 @@ function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_e
     end
 
     local function finish_cb(ret)
+        self:refreshSummon()
+
         -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
         if (old_ui) then
             old_ui:setCloseCB(nil)
@@ -955,13 +987,17 @@ function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_e
 
 		-- local gacha_type = 'cash'
         -- local gacha_type = 'summon_dragon_ticket'
-        local gacha_type = ret['type']
+        local gacha_type = ret['summon_goods_type']
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local egg_res = t_egg_data['egg_res']
         local egg_id = t_egg_data['egg_id']
         local added_mileage = ret['added_mileage'] or 0
         local ui
+
+        if gacha_type == 'cash' then
+            t_egg_data['price'] =  ServerData_Hatchery.CASH__SUMMON_PRICE * draw_cnt
+        end
 
         if (draw_cnt == 100) then
             local l_dragon_list = ret['added_dragons']
@@ -1063,13 +1099,17 @@ function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_da
     end
 
     local function finish_cb(ret)
+        self:refreshSummon()
+
         -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
         if (old_ui) then
             old_ui:setCloseCB(nil)
             old_ui:close()
         end
 
-		local gacha_type = 'pickup'
+		-- local gacha_type = 'pickup'
+        -- local gacha_type = 'summon_dragon_ticket'
+        local gacha_type = ret['summon_goods_type']
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local egg_id = t_egg_data['egg_id']
@@ -1214,6 +1254,7 @@ end
 function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
     local vars = gacha_result_ui.vars
 
+    self:refreshSummon()
     if (not vars['againBtn']) then return end
 
 	-- 다시하기 버튼 등록
