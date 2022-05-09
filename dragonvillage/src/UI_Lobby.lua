@@ -2368,6 +2368,12 @@ function UI_Lobby:update_rightButtons()
                     end
                 end
             end
+
+            local t_name = data['t_name']
+
+            if g_settingData:getPackageSetting(t_name) ~= true then
+                is_noti_visible = true
+            end
         end
         
         vars['cashShopNotiSprite']:setVisible(is_noti_visible)

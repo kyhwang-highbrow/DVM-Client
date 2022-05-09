@@ -193,6 +193,12 @@ function UI_ShopPackageScene:changeTargetUI(newTarget)
 
     newTarget:SetTarget(true)
     self.m_targetButton = newTarget
+
+    local t_name = newTarget.m_data['t_name']
+
+    if t_name then
+        g_settingData:setPackageSetting(true, t_name)
+    end
 end
 
 ----------------------------------------------------------------------

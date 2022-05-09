@@ -764,6 +764,20 @@ function SettingData:setHbrwLoungeSetting(date)
 end
 
 -------------------------------------
+-- function getPackageSetting
+-------------------------------------
+function SettingData:getPackageSetting(t_name)
+    return self:get('package', t_name)
+end
+
+-------------------------------------
+-- function setPackageSetting
+-------------------------------------
+function SettingData:setPackageSetting(is_active, t_name)
+    self:applySettingData(is_active, 'package', t_name)
+end
+
+-------------------------------------
 -- function getCloudSetting
 -- @brief
 -- @param key string

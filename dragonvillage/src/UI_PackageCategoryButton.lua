@@ -70,6 +70,11 @@ function UI_PackageCategoryButton:refresh()
                 is_noti_visible = true
             end
         end
+
+        local t_name = data['t_name']
+        if (g_settingData:getPackageSetting(t_name)) ~= true then
+            is_noti_visible = true
+        end
         
         
     end
@@ -140,6 +145,8 @@ function UI_PackageCategoryButton:click_btn()
     else
         self.m_contractBtn:setVisible(false)
     end
+
+    self:refresh()
 end
 
 ----------------------------------------------------------------------

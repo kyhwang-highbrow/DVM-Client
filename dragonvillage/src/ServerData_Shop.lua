@@ -1453,6 +1453,9 @@ function ServerData_Shop:getActivatedPackageList(is_pass_included)
  
         if is_buyable then
             table.insert(package_list, struct_product_group)
+        else
+            local t_name = struct_product_group['t_name']
+            g_settingData:setPackageSetting(false, t_name)
         end
     end
 
