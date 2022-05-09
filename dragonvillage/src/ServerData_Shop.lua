@@ -1450,11 +1450,16 @@ function ServerData_Shop:getActivatedPackageList(is_pass_included)
         local struct_product_group = StructProductGroup(packages[index], is_pass_included)
         
         local is_buyable = struct_product_group:isBuyable()
+
+        local t_name = struct_product_group['t_name']
+        
+        if g_settingData:getPackageSetting(t_name) == nil then
+            g_settingData:setPackageSetting(false, t_name)
+        end
  
         if is_buyable then
             table.insert(package_list, struct_product_group)
         else
-            local t_name = struct_product_group['t_name']
             g_settingData:setPackageSetting(false, t_name)
         end
     end
