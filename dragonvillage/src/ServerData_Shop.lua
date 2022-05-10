@@ -1453,8 +1453,22 @@ function ServerData_Shop:getActivatedPackageList(is_pass_included)
 
         local t_name = struct_product_group['t_name']
         
+        local product_list = struct_product_group:getProductList()
+
+        local isNotPeriodPackage = function()
+            if product_list then
+                for _, struct_product in pairs (product_list) do
+                    if struct_product['badge'] == 'period' then
+                        return false
+                    end
+                end
+            end
+    
+            return true
+        end
+
         if g_settingData:getPackageSetting(t_name) == nil then
-            g_settingData:setPackageSetting(false, t_name)
+            g_settingData:setPackageSetting(isNotPeriodPackage(), t_name)
         end
  
         if is_buyable then
