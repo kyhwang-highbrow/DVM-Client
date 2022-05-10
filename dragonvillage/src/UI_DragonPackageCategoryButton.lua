@@ -82,3 +82,10 @@ end
 function UI_DragonPackageCategoryButton:SetTarget(isTarget)
     self.vars['mythListBtn']:setEnabled(not isTarget)
 end
+
+----------------------------------------------------------------------
+-- function isDragonPackage
+----------------------------------------------------------------------
+function UI_DragonPackageCategoryButton:isDragonPackage()
+    return true
+end
