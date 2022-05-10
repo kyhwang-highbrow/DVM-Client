@@ -70,12 +70,12 @@ function UI_SelectServerPopup:initUI()
         end
 
         -- UI생성 시 4개를 기준으로 함. 차이가 있을 경우 UI 크기 조정
-        local difference = (count - 4)
+        local difference = (count - 5)
         vars['mainMenu']:setNormalSize(width, height + (difference * interval))
 
         -- UI 생성 시 y값으로 순서 지정 (위쪽이 먼저)
         table.sort(l_info, function(a, b)
-            return a['pos_y'] > b['pos_y']
+            return a['pos_y'] < b['pos_y']
         end)
 
         -- 가운데 정렬

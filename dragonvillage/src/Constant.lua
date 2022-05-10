@@ -236,6 +236,7 @@ SERVER_NAME = {
     ASIA = 'Asia',
     JAPAN = 'Japan',
     EUROPE = 'Europe',
+    GLOBAL = 'Global',
 
     DEV = 'DEV',
     QA = 'QA', 

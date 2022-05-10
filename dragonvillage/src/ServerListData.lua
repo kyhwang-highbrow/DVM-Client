@@ -2,7 +2,7 @@
 -- class ServerListData
 -------------------------------------
 ServerListData = class({
-        -- server name 종류 (QA, DEV, Korea, Asia, Japan, America)
+        -- server name 종류 (QA, DEV, Korea, Asia, Japan, America, Global)
 	    m_recommandServerName = 'string',
         m_selectServerName = 'string',
         m_tservers = 'table'
