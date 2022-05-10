@@ -1447,7 +1447,7 @@ function ServerData_Shop:getActivatedPackageList(is_pass_included)
 
     -- csv 파일의 하단에 오는 상품이 제일 위에 노출되도록 reverse order
     for index = #packages, 1, -1 do
-        local struct_product_group = StructProductGroup(packages[index], is_pass_included)
+        local struct_product_group = StructPackageBundle(packages[index], is_pass_included)
         
         local is_buyable = struct_product_group:isBuyable()
 
@@ -1477,7 +1477,7 @@ function ServerData_Shop:getPackageList(is_pass_included)
 
     -- csv 파일의 하단에 오는 상품이 제일 위에 노출되도록 reverse order
     for index = #packages, 1, -1 do
-        local struct_product_group = StructProductGroup(packages[index], is_pass_included)
+        local struct_product_group = StructPackageBundle(packages[index], is_pass_included)
         table.insert(package_list, struct_product_group)
     end
 

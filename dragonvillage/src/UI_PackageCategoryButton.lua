@@ -4,7 +4,7 @@
 -- class UI_PackageCategoryButton
 ----------------------------------------------------------------------
 UI_PackageCategoryButton = class(class(UI, ITableViewCell:getCloneTable()), {
-    m_data = 'StructPackage',
+    m_data = 'StructPackageBundle',
     m_scrollView = '',
     m_contractBtn = '',
     m_parent = '',
@@ -256,4 +256,11 @@ function UI_PackageCategoryButton:createTableView()
 
         ui_root:setPosition(result_x, result_y)
     end
+end
+
+----------------------------------------------------------------------
+-- function isDragonPackage
+----------------------------------------------------------------------
+function UI_PackageCategoryButton:isDragonPackage()
+    return false
 end
