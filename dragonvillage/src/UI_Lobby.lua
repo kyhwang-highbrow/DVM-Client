@@ -1876,7 +1876,7 @@ end
 function UI_Lobby:click_hbrwLoungeBtn()
     local vars = self.vars
     if (g_settingData:getHbrwLoungeSetting() ~= nil) then
-        SDKManager:goToWeb('https://discord.gg/RtctSKXxBT')
+        SDKManager:goToWeb('https://discord.gg/mtM3xnE4nh')
     else
         vars['hbrwLoungeNotiSprite']:setVisible(false)
         self.m_hbrwNotiOff = true
