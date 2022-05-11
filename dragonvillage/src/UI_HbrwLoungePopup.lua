@@ -54,7 +54,7 @@ function UI_HbrwLoungePopup:click_okBtn()
 
     g_settingData:setHbrwLoungeSetting(curr_date_str)
 
-    self:setCloseCB(function() SDKManager:goToWeb('https://discord.gg/RtctSKXxBT') end)
+    self:setCloseCB(function() SDKManager:goToWeb('https://discord.gg/mtM3xnE4nh') end)
     
     self:close()
 end

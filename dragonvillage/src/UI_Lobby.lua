@@ -20,6 +20,8 @@ UI_Lobby = class(PARENT,{
 
         -- 로비 진입 시 시작 코루틴에서 의미있는 동작이 모두 완료되었는지 구분
         m_bDoneEntryCoroutine = 'bool',
+
+        m_hbrwNotiOff = 'false'
     })
 
 -------------------------------------
@@ -45,6 +47,7 @@ function UI_Lobby:init()
     local vars = self:load('lobby.ui')
     UIManager:open(self, UIManager.SCENE)
 
+    self.m_hbrwNotiOff = false
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Lobby')
 
@@ -1416,8 +1419,13 @@ end
 function UI_Lobby:update_hbrw_lounge()
     local game_lang = Translate:getGameLang()
     local is_btn_visible = (game_lang == 'ko')
+    local is_noti_visible = not g_settingData:getHbrwLoungeSetting()
 
     self.vars['hbrwLoungeBtn']:setVisible(is_btn_visible)
+
+    if self.m_hbrwNotiOff == false then
+        self.vars['hbrwLoungeNotiSprite']:setVisible(is_noti_visible)
+    end
 end
 
 -------------------------------------
@@ -1866,9 +1874,12 @@ end
 -- function click_hbrwLoungeBtn
 -------------------------------------
 function UI_Lobby:click_hbrwLoungeBtn()
+    local vars = self.vars
     if (g_settingData:getHbrwLoungeSetting() ~= nil) then
         SDKManager:goToWeb('https://discord.gg/RtctSKXxBT')
     else
+        vars['hbrwLoungeNotiSprite']:setVisible(false)
+        self.m_hbrwNotiOff = true
         UI_HbrwLoungePopup()
     end
 end
