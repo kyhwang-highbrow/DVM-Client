@@ -12,6 +12,8 @@ ServerData_EventIncarnationOfSins = class({
         m_tRewardInfo = 'table', -- 랭킹 보상 정보
         m_tAttrInfo = 'table', -- 요일별 입장 가능한 속성 정보
         m_todayDow = 'number', -- 오늘 요일 (1 = 일요일, 2, 3, 4, 5, 6, 7 = 토요일)
+        m_timeInfo = 'table', -- 
+        m_gameState = 'boolean'
     })
 
 ServerData_EventIncarnationOfSins.STATE = {
@@ -29,7 +31,7 @@ function ServerData_EventIncarnationOfSins:init()
 end
 
 -------------------------------------
--- function init
+-- function getEventState
 -------------------------------------
 function ServerData_EventIncarnationOfSins:getEventState()
     -- 예외처리
@@ -69,6 +71,18 @@ end
 -------------------------------------
 function ServerData_EventIncarnationOfSins:canReward()
     return (self:getEventState() == ServerData_EventIncarnationOfSins.STATE['REWARD'])
+end
+
+-------------------------------------
+-- function isPlaying
+-- @brief 죄악의 화신을 플레이 중인지
+-------------------------------------
+function ServerData_EventIncarnationOfSins:isPlaying()
+    if (self.m_gameState == true) then
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------
@@ -166,6 +180,16 @@ function ServerData_EventIncarnationOfSins:getOpenAttrStr(attr)
     local l_weekday_name_list = {Str('일'), Str('월'), Str('화'), Str('수'), Str('목'), Str('금'), Str('토')}
     local str = nil
     local t_attr_info = self.m_tAttrInfo[attr]
+
+    for dow = 1, 7 do
+        if t_attr_info[dow] == false then
+            return false
+        end
+
+        return str
+    end
+
+
     -- 월 ~ 토요일
     for dow = 2, 7 do
         if (t_attr_info[dow] == true) then
@@ -290,6 +314,8 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(in
         g_serverData:networkCommonRespone(ret)
 
         self:response_eventIncarnationOfSinsInfo(ret)
+
+        -- self.m_timeInfo = ret['incarnation_of_sins_info']
 
         if finish_cb then
             finish_cb(ret)
@@ -432,6 +458,8 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsStart(s
     local token2 = token2
         
     local function success_cb(ret)
+        self.m_gameState = true
+
         if (finish_cb) then
             finish_cb(ret)
         end
@@ -496,6 +524,8 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsFinish(
     local check_time = check_time
         
     local function success_cb(ret)
+        self.m_gameState = false
+
         if (finish_cb) then
             finish_cb(ret)
         end

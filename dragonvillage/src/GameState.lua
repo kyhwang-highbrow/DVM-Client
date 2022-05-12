@@ -602,10 +602,16 @@ function GameState.update_final_wave(self, dt)
         end)
 
         -- 보스 이름
+        local is_incarnation_of_sins = g_eventIncarnationOfSinsData:isPlaying()
         local l_boss_name = self:getBossNameList()
         for i, boss_name in ipairs(l_boss_name) do
             if (self.m_lBossLabel[i]) then
                 self.m_lBossLabel[i]:setString(boss_name)
+
+                --죄악의 화신의 경우 보스 이름을 하나만 표기
+                if (is_incarnation_of_sins) then
+                    break
+                end
             end
         end
         	
