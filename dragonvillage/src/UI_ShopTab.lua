@@ -38,6 +38,12 @@ function UI_ShopTab:onEnterTab(first)
         self.m_owner_ui.m_subCurrency = sub_currency
     end
     g_topUserInfo:setSubCurrency(sub_currency)
+
+    if (self.m_tabName == 'st') then
+        g_topUserInfo:setAddSubCurrency('fp')
+    else
+        g_topUserInfo:setAddSubCurrency('')
+    end
 end
 
 -------------------------------------
