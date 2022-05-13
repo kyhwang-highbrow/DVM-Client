@@ -519,7 +519,7 @@ function UI_DiceEvent.makeLap(t_data)
         value = t_reward['value']
         item_type = TableItem:getItemType(item_id)
 
-        --드래곤 카드
+        -- 드래곤 카드
         if (item_type == 'dragon') then
             icon = UI_ItemCard(item_id, nil, t_reward)
             local function click_btn()
@@ -528,7 +528,10 @@ function UI_DiceEvent.makeLap(t_data)
             end
             icon.vars['clickBtn']:registerScriptTapHandler(function() click_btn() end)
 
+            icon.root:setScale(0.95)
             vars['rewardNode']:addChild(icon.root)
+            
+        -- 그 외
         else
             icon = IconHelper:getItemIcon(item_id)
             
