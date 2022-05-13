@@ -388,9 +388,10 @@ function UI_PurchasePointBg:setItemRes(_item_id)
 
     -- 아이템의 경우 아이템 카드 출력
     else
-        local ui_card = UI_ItemCard(item_id)
+        -- local ui_card = UI_ItemCard(item_id)
+        local ui_card = IconHelper:getItemIcon(item_id, nil)
         if (ui_card) then
-            vars['itemNode']:addChild(ui_card.root)
+            vars['itemNode']:addChild(ui_card)
         end
     end
 
