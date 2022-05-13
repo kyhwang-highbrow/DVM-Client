@@ -88,6 +88,9 @@ function UI_CharacterCard:refreshDragonInfo()
     -- 카드 프레임
     self:makeFrame()
 
+    -- 신화 카드 프레임
+    self:makeMythFrame()
+
     -- 리더 여부
     self:refresh_LeaderIcon()
 
@@ -180,6 +183,19 @@ function UI_CharacterCard:makeFrame(res)
     end
     self.m_charFrameRes = res
     self:makeSprite('frameNode', res)
+end
+
+-------------------------------------
+-- function makeMythFrame
+-- @brief 프레임 생성
+-------------------------------------
+function UI_CharacterCard:makeMythFrame(res)
+    local res = 'myth_grade_frame.png'
+    if (self.m_charFrameRes == res) then
+        return
+    end
+    self.m_charFrameRes = res
+    self:makeSprite('mythSprite', res)
 end
 
 -------------------------------------
@@ -496,6 +512,16 @@ function UI_CharacterCard:setFriendSpriteVisible(visible)
 end
 
 -------------------------------------
+-- function setMythSpriteVisible
+-- @brief 신화마크 표시
+-------------------------------------
+function UI_CharacterCard:setMythSpriteVisible(visible)
+    local res = 'myth_grade_frame.png'
+    local lua_name = 'mythSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
 -- function setCheckSpriteVisible
 -- @brief 카드 체크 표시
 -- @external call
@@ -698,6 +724,9 @@ function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop, click_func)
     end
 
     local ui = UI_CharacterCard(t_dragon_data)
+    local did = t_dragon_data['did']
+    local rarity = TableDragon:getValue(did, 'rarity')
+
     local function func()
         local doid = t_dragon_data['id']
         if doid and (doid ~= '') then
@@ -708,7 +737,7 @@ function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop, click_func)
     if (click_func) then
         func = click_func
     end
-
+   
     local function tap_func()
         if (is_tooltop) then
             local str = getDragonToolTipDesc(t_dragon_data['id'])
@@ -720,6 +749,10 @@ function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop, click_func)
     end
     ui.vars['clickBtn']:registerScriptPressHandler(func)
     ui.vars['clickBtn']:registerScriptTapHandler(tap_func)
+    
+    -- 신화 드래곤 전용 테두리
+    local isMythDragon = (rarity == 'myth')
+    ui:setMythSpriteVisible(isMythDragon)
 
     -- 친구 드래곤일 경우 친구 마크 추가
     local doid = t_dragon_data['id']

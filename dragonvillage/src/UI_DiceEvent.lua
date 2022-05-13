@@ -521,9 +521,11 @@ function UI_DiceEvent.makeLap(t_data)
 
         -- 드래곤 카드
         if (item_type == 'dragon') then
-            icon = UI_ItemCard(item_id, nil, t_reward)
+
+            local did = tonumber(TableItem:getDidByItemId(item_id))
+            icon = UI_ItemCard(item_id, nil)
+
             local function click_btn()
-                local did = tonumber(TableItem:getDidByItemId(item_id))
                 UI_BookDetailPopup.openWithFrame(did, nil, nil, 0.8, true)
             end
             icon.vars['clickBtn']:registerScriptTapHandler(function() click_btn() end)
