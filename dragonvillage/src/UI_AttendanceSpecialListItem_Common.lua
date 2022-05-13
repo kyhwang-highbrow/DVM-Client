@@ -29,7 +29,6 @@ function UI_AttendanceSpecialListItem_Common:initUI()
     local struct_attendance_data = self.m_structAttendanceData
     local item_ui_res = struct_attendance_data:getItemUIRes() -- event_attendance_children_item.ui, event_attendance_1st_anniversary_item.ui
 
-
     --for i = 1,7 do
     for _,t_step_data in pairs(struct_attendance_data['step_list']) do
         local i = t_step_data['step']
@@ -163,8 +162,9 @@ function UI_AttendanceSpecialListItem_CommonItem:initUI()
     local item_cnt = t_item_data['value']
     
     -- 아이콘
-    local item_icon = IconHelper:getItemIcon(item_id, nil)
-    vars['itemNode']:addChild(item_icon)
+    -- local item_icon = IconHelper:getItemIcon(item_id, nil)
+    local item_icon = UI_ItemCard(item_id, nil, t_item_data)
+    vars['itemNode']:addChild(item_icon.root)
     
     -- 이름
     local item_name = TableItem():getValue(item_id, 't_name')
