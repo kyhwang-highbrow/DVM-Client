@@ -517,17 +517,30 @@ function UI_DiceEvent.makeLap(t_data)
     for i, t_reward in ipairs(l_reward) do
         item_id = t_reward['item_id']
         value = t_reward['value']
-        icon = IconHelper:getItemIcon(item_id)
-
         item_type = TableItem:getItemType(item_id)
-		if (item_type == 'reinforce_point') or (item_type == 'dragon') then
-			icon:setScale(0.8)
-		end
-        vars['rewardNode']:addChild(icon)
 
-        -- 보상 갯수에 따라 위치 조정
-        pos_x = (gap * i) - (ft + (ft * reward_cnt))
-        icon:setPositionX(pos_x)
+        --드래곤 카드
+        if (item_type == 'dragon') then
+            icon = UI_ItemCard(item_id, nil, t_reward)
+            local function click_btn()
+                local did = tonumber(TableItem:getDidByItemId(item_id))
+                UI_BookDetailPopup.openWithFrame(did, nil, nil, 0.8, true)
+            end
+            icon.vars['clickBtn']:registerScriptTapHandler(function() click_btn() end)
+
+            vars['rewardNode']:addChild(icon.root)
+        else
+            icon = IconHelper:getItemIcon(item_id)
+            
+            if (item_type == 'reinforce_point') or (item_type == 'dragon') or (item_type == 'slime')then
+                icon:setScale(0.8)
+            end
+            vars['rewardNode']:addChild(icon)
+    
+            -- 보상 갯수에 따라 위치 조정
+            pos_x = (gap * i) - (ft + (ft * reward_cnt))
+            icon:setPositionX(pos_x)
+        end
 
         table.insert(l_item_id_list, item_id)
     end
@@ -538,6 +551,7 @@ function UI_DiceEvent.makeLap(t_data)
     else
         vars['cntLabel']:setString(Str('각 {1}개', comma_value(value)))
     end
+    vars['cntLabel']:setScale(0.8)
 
     -- 0회차
     local lap = t_data['lap']
