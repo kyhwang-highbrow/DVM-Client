@@ -1758,6 +1758,7 @@ function loadModuleForPatchScene()
 		'uilib/UI',
 		'uilib/UILoader',
 		'uilib/TableView',
+        'uilib/Notification',
 		'perpleLib/StringUtils',
 		'perpleLib/sn',
 		'perpleLib/crand',
