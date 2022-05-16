@@ -306,7 +306,9 @@ function MissileFactory:makeMissile_(t_option)
         missile.m_maxSpeed = h_limit_speed
 
 		if (type(scale) == 'table') then
-			missile.m_rootNode:setScale(scale[1], scale[2])
+            if missile_res_name then
+                missile.m_rootNode:setScale(scale[1], scale[2])
+            end
 		else
 			missile.m_rootNode:setScale(scale)
 		end
