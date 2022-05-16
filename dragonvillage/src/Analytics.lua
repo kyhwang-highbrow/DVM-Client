@@ -699,13 +699,16 @@ function Analytics:IVEKorea_ads_complete_run(cb_func)
             t_data['av'] = adid
             t_data['ai'] = '16437'
 
-        elseif (isIOS() == true) then
+        elseif (isIos() == true) then
             t_data['ae'] = adid
             t_data['ai'] = '16438'
 
         else
             -- @sgkim 2021.09.09 테스트 코드
             --t_data['av'] = '9de91c7a-06da-4b6c-8f6b-ec73623d12b1'
+            if cb_func then
+                cb_func()
+            end
             return
         end
 
