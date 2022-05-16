@@ -677,3 +677,84 @@ function Adjust:trackEventSumPrice(sum_money)
         Adjust:trackEvent(Adjust.EVENT.PURCHASE_10_US)
     end
 end
+
+-------------------------------------
+-- function IVEKorea_ads_complete_run
+-- @brief IVE Korea CPI 캠페인
+-------------------------------------
+function Analytics:IVEKorea_ads_complete_run(cb_func)
+    local function request_cb_func(ret, advertising_id)
+
+        if IS_DEV_SERVER() == true then
+            UIManager:toastNotificationGreen('# ret : ' .. ret)
+            UIManager:toastNotificationGreen('# advertising_id : ' .. advertising_id)
+        end
+
+        local adid = advertising_id
+        
+        -- 파라미터 셋팅
+        local t_data = {}
+        
+        if (isAndroid() == true) then
+            t_data['av'] = adid
+            t_data['ai'] = '16437'
+
+        elseif (isIOS() == true) then
+            t_data['ae'] = adid
+            t_data['ai'] = '16438'
+
+        else
+            -- @sgkim 2021.09.09 테스트 코드
+            --t_data['av'] = '9de91c7a-06da-4b6c-8f6b-ec73623d12b1'
+            return
+        end
+
+        -- 요청 정보 설정
+        local t_request = {}
+        t_request['full_url'] = 'https://api.i-screen.kr/api/ads_complete_run'
+        t_request['method'] = 'GET'
+        t_request['data'] = t_data
+
+
+        local req = Network:request(t_request['full_url'], t_request['data'], t_request['method'])
+        cclog('# Analytics:IVEKorea_ads_complete_run() - t_request')
+        ccdump(t_request)
+
+        -- 성공 시 콜백 함수
+        t_request['success'] = function(ret)
+            cclog('## https://api.i-screen.kr/api/ads_complete_run - success')
+            ccdump(ret)
+
+            if (IS_DEV_SERVER() == true) then
+                local msg = 'url : ' .. req.url .. '\n\nmessage : ' .. ret['message']
+
+                MakeSimplePopup2(POPUP_TYPE.OK, msg, ret['status'], cb_func)
+            else
+                if cb_func then
+                    cb_func()
+                end
+            end
+        end
+
+        -- 실패 시 콜백 함수
+        t_request['fail'] = function(ret)
+            cclog('## https://api.i-screen.kr/api/ads_complete_run - fail')
+            ccdump(ret)
+            
+            if (IS_DEV_SERVER() == true) then
+                local msg = 'url : ' .. req.url .. '\n\nmessage : ' .. ret['message']
+                
+                MakeSimplePopup2(POPUP_TYPE.OK, msg, ret['status'], cb_func)
+            else
+                if cb_func then
+                    cb_func()
+                end
+            end
+        end
+
+        -- 네트워크 통신
+        Network:SimpleRequest(t_request)
+    end
+
+    SDKManager:getAdvertisingID(request_cb_func)
+end

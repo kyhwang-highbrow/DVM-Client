@@ -73,12 +73,15 @@ function ScenePatch:onEnter()
 		self:runPatchCore()
 	end
 
+
+    Analytics:IVEKorea_ads_complete_run(start_patch)
+
 	-- 선택된 언어가 없다면 언어 선택 후 패치 시작
     -- 2018.01.17 sgkim 어플 최초 실행 시 디바이스의 언어로 game언어를 설정하도록 처리함
 	--if (g_localData:getLang() == nil) then
 	--	UI_SelectLanguagePopup(start_patch)
 	--else
-		start_patch()
+	--start_patch()
 	--end
 end
 
