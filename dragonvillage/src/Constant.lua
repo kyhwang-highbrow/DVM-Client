@@ -240,6 +240,7 @@ SERVER_NAME = {
 
     DEV = 'DEV',
     QA = 'QA', 
+    DVM2_DEV = 'DVM2_DEV'
 }
 
 

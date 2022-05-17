@@ -31,10 +31,11 @@ function ServerListData:initWithData(tdata)
     local defaultServerName = nil
 
     --서버변경 테스트때문에 개발이랑 qa랑 보이게
-    if targetServer == SERVER_NAME.DEV or targetServer == SERVER_NAME.QA then
+    if false and  (targetServer == SERVER_NAME.DEV) or (targetServer == SERVER_NAME.QA) then
         for i, server in pairs(tserverList) do
             if (server['server_name'] == SERVER_NAME.DEV) then
             elseif (server['server_name'] == SERVER_NAME.QA) then
+            elseif (server['server_name'] == SERVER_NAME.GLOBAL) then
             --elseif (server['server_name'] == SERVER_NAME.EUROPE) then -- @sgkim 2020.11.24 유럽 서버 추가 준비를 위해 임의로 추가
             else -- 위에서 허용되지 않은 서버 항목은 삭제
                 table.insert(tremove, 1, i)
@@ -43,16 +44,17 @@ function ServerListData:initWithData(tdata)
         recommandServerName = targetServer
     else
         for i, server in pairs(tserverList) do
+            local server_name = server['server_name']
             -- 라이브 서버에서는 DEV, QA서버를 제외한다
-            if server['server_name'] == SERVER_NAME.DEV or server['server_name'] == SERVER_NAME.QA then
+            if (server_name == SERVER_NAME.DEV) or (server_name == SERVER_NAME.QA) or (server_name == SERVER_NAME.DVM2_DEV) then
                 table.insert(tremove, 1, i)
             else
                 if server['server_num'] == recommandServerNum then
-                    recommandServerName = server['server_name']
+                    recommandServerName = server_name
                 end
 
                 if defaultServerName == nil then
-                    defaultServerName = server['server_name']
+                    defaultServerName = server_name
                 end
             end
         end

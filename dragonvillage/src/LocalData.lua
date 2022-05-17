@@ -284,7 +284,7 @@ end
 -------------------------------------
 -- function setServerName
 -- @breif
--- @param string 'Korea', 'America', 'Asia', 'Japan', 'Europe', 'DEV', 'QA'
+-- @param string 'Korea', 'America', 'Asia', 'Japan', 'Global', 'Europe', 'DEV', 'QA'
 -------------------------------------
 function LocalData:setServerName(server)
 	self:applyLocalData(server, 'local', 'server')
@@ -293,7 +293,7 @@ end
 -------------------------------------
 -- function getServerName
 -- @breif
--- @return string 'Korea', 'America', 'Asia', 'Japan', 'Europe', 'DEV', 'QA'
+-- @return string 'Korea', 'America', 'Asia', 'Japan', 'Global', 'Europe', 'DEV', 'QA'
 -------------------------------------
 function LocalData:getServerName()
 	return self:get('local', 'server')
