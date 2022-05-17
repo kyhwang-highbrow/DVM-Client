@@ -31,7 +31,7 @@ function ServerListData:initWithData(tdata)
     local defaultServerName = nil
 
     --서버변경 테스트때문에 개발이랑 qa랑 보이게
-    if false and  (targetServer == SERVER_NAME.DEV) or (targetServer == SERVER_NAME.QA) then
+    if (targetServer == SERVER_NAME.DEV) or (targetServer == SERVER_NAME.QA) then
         for i, server in pairs(tserverList) do
             if (server['server_name'] == SERVER_NAME.DEV) then
             elseif (server['server_name'] == SERVER_NAME.QA) then
