@@ -40,11 +40,19 @@ end
 function UI_EventIncarnationOfSinsRankingPopup:initTab()
     local vars = self.vars
 
+    require('UI_EventIncarnationOfSinsRankingServerTotalTab')
+    require('UI_EventIncarnationOfSinsRankingTotalTab')
+    require('UI_EventIncarnationOfSinsRankingAttributeTab')
+
+    local server_rank_tab = UI_EventIncarnationOfSinsRankingServerTotalTab(self)
     local all_rank_tab = UI_EventIncarnationOfSinsRankingTotalTab(self)
     local attr_rank_tab = UI_EventIncarnationOfSinsRankingAttributeTab(self)
+    
+    vars['indivisualTabMenu']:addChild(server_rank_tab.root)
     vars['indivisualTabMenu']:addChild(all_rank_tab.root)
     vars['indivisualTabMenu']:addChild(attr_rank_tab.root)
     
+    self:addTabWithTabUIAndLabel('serverRank', vars['serverRankTabBtn'], vars['serverRankTabLabel'], server_rank_tab) -- 통합 랭킹
     self:addTabWithTabUIAndLabel('allRank', vars['allRankTabBtn'], vars['allRankTabLabel'], all_rank_tab) -- 종합 랭킹
     self:addTabWithTabUIAndLabel('attrRank', vars['attrRankTabBtn'], vars['attrRankTabLabel'], attr_rank_tab) -- 속성별 랭킹
 
