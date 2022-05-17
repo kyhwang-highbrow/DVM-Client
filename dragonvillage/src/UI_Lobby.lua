@@ -199,7 +199,9 @@ function UI_Lobby:entryCoroutine()
         if g_hotTimeData:isActiveEvent('event_roulette') or g_hotTimeData:isActiveEvent('event_roulette_reward') then
             co:work('# 룰렛 이벤트 정보 받는 중')
             local function success_cb()
-                self:setShopSpecialNoti('noti_roulette_ticket')
+                if g_hotTimeData:isActiveEvent('event_roulette') then
+                    self:setShopSpecialNoti('noti_roulette_ticket')
+                end
                 co.NEXT()
             end
             ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, success_cb, required_fail_cb)
