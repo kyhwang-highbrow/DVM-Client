@@ -931,7 +931,7 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
         local added_mileage = ret['added_mileage'] or 0
         
         if gacha_type == 'cash' then
-            t_egg_data['price'] =  g_hatcheryData.CASH__SUMMON_PRICE * draw_cnt
+            t_egg_data['price'] =  ServerData_Hatchery.CASH__SUMMON_PRICE * draw_cnt
         end
 
 
