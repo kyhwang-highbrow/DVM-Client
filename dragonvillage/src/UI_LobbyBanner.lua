@@ -185,10 +185,14 @@ function UI_LobbyBanner:click_bannerBtn()
     local url = self.m_eventData.m_eventData['url']
     local event_type = self.m_eventData.m_eventData['event_type']
 
+    cclog('!!!!!!!!!!!')
     if (url ~= nil) and (url ~= '') then
         SDKManager:goToWeb(url)
     elseif (event_type == 'event_crosspromotion') then
 	    g_fullPopupManager:showFullPopup(event_type)
+    --죄악의 화신 현물 이벤트
+    elseif (event_type == 'event_newserver') then
+        g_eventData:openEventPopup('event_incarnation_of_sins')
     end
 end
 

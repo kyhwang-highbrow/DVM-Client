@@ -376,6 +376,22 @@ function LocalData:isKoreaServer()
 end
 
 -------------------------------------
+-- function isGlobalServer
+-- @breif 한국 서버 (QA, DEV 포함)
+-------------------------------------
+function LocalData:isGlobalServer()
+	local server = self:getServerName()
+    if (server == SERVER_NAME.Global) then
+    elseif (server == SERVER_NAME.DEV) then
+    elseif (server == SERVER_NAME.QA) then
+    else
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function isAmericaServer
 -- @breif 미국 서버
 -------------------------------------

@@ -142,12 +142,29 @@ function ServerData_EventIncarnationOfSins:getMyRate(type)
 end
 
 -------------------------------------
--- function getRemainTimeString
--- @brief 이벤트 남은시간 받아오기
+-- function getTimeText
+-- @brief 이벤트 남은시간 받아오기 --> timeInfo 요청해야댐
 -------------------------------------
-function ServerData_EventIncarnationOfSins:getRemainTimeString()
-    -- TODO : 구현을 해야한다.
-    return g_hotTimeData:getEventRemainTimeTextDetail('event_incarnation_of_sins') or ''
+function ServerData_EventIncarnationOfSins:getTimeText()
+    local time_info = self.m_timeInfo
+
+    -- local start_time = time_info['start_date'] / 1000
+    -- local end_time = time_info['end_date'] / 1000
+
+    local curr_time = Timer:getServerTime()
+
+    local str = ''
+    -- if (curr_time < start_time) then
+    --     local time = (start_time - curr_time)
+    --     str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
+    -- elseif (start_time <= curr_time) and (curr_time <= end_time) then
+    --     local time = (end_time - curr_time)
+    --     str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
+    -- else
+    --     str = Str('이벤트가 종료되었습니다.')
+    -- end
+
+    return str
 end
 
 -------------------------------------

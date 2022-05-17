@@ -66,7 +66,7 @@ function UI_BannerIncarnationOfSins:update()
         end
 
         -- 남은 이벤트 시간 표시
-        vars['timeLabel']:setString(ServerData_EventIncarnationOfSins:getRemainTimeString())
+       vars['timeLabel']:setString(ServerData_EventIncarnationOfSins:getTimeText())
 
     -- 이벤트 종료 후 보상 획득 가능
     elseif (g_eventIncarnationOfSinsData:canReward()) then

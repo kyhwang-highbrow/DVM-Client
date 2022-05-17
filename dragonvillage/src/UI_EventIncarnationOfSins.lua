@@ -23,6 +23,8 @@ end
 function UI_EventIncarnationOfSins:initUI()
     local vars = self.vars
 
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
+
     vars['dayLabel1']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('light'))
     vars['dayLabel2']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('fire'))
     vars['dayLabel3']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('water'))
@@ -44,6 +46,7 @@ function UI_EventIncarnationOfSins:initButton()
     vars['buyBtn3']:registerScriptTapHandler(function() self:click_attrBtn('water') end)
     vars['buyBtn4']:registerScriptTapHandler(function() self:click_attrBtn('earth') end)
     vars['buyBtn5']:registerScriptTapHandler(function() self:click_attrBtn('dark') end)
+    vars['bannerBtn']:registerScriptTapHandler(function() self:click_bannerBtn() end)
 end
 
 -------------------------------------
@@ -116,6 +119,16 @@ function UI_EventIncarnationOfSins:onEnterTab()
     local vars = self.vars
 end
 
+----------------------------------------------------------------------
+-- function updateTimer
+----------------------------------------------------------------------
+function UI_EventIncarnationOfSins:updateTimer(dt)
+    local vars = self.vars
+
+    local str = g_eventIncarnationOfSinsData:getTimeText()
+    vars['timeLabel']:setString(str)
+end
+
 -------------------------------------
 -- function click_eventBtn
 -------------------------------------
@@ -123,6 +136,16 @@ function UI_EventIncarnationOfSins:click_eventBtn()
     local vars = self.vars
 
     local event_type = 'event_incarnation_of_sins_popup'
+    g_fullPopupManager:showFullPopup(event_type)
+end
+
+-------------------------------------
+-- function click_bannerBtn
+-------------------------------------
+function UI_EventIncarnationOfSins:click_bannerBtn()
+    local vars = self.vars
+
+    local event_type = 'event_newserver'
     g_fullPopupManager:showFullPopup(event_type)
 end
 
