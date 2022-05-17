@@ -56,7 +56,7 @@ function UI_EventIncarnationOfSinsRankingPopup:initTab()
     self:addTabWithTabUIAndLabel('allRank', vars['allRankTabBtn'], vars['allRankTabLabel'], all_rank_tab) -- 종합 랭킹
     self:addTabWithTabUIAndLabel('attrRank', vars['attrRankTabBtn'], vars['attrRankTabLabel'], attr_rank_tab) -- 속성별 랭킹
 
-    self:setTab('allRank')
+    self:setTab('serverRank')
 end
 
 -------------------------------------

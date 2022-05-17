@@ -185,7 +185,6 @@ function UI_LobbyBanner:click_bannerBtn()
     local url = self.m_eventData.m_eventData['url']
     local event_type = self.m_eventData.m_eventData['event_type']
 
-    cclog('!!!!!!!!!!!')
     if (url ~= nil) and (url ~= '') then
         SDKManager:goToWeb(url)
     elseif (event_type == 'event_crosspromotion') then

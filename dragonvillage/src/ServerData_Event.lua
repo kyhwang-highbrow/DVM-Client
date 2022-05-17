@@ -180,10 +180,7 @@ function ServerData_Event:getEventPopupTabList()
 
             -- 그 외 경우는 false
             else
-                if category == 50029 then
-                else
-                    visible = false
-                end
+                visible = false
             end
 
         -- 한정 이벤트 체크
