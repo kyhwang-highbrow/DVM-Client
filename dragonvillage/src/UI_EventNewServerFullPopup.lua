@@ -22,6 +22,12 @@ end
 -------------------------------------
 function UI_EventNewServerFullPopup:initUI()
     local vars = self.vars
+    self.m_uiName = 'UI_EventNewServerFullPopup'
+
+    local is_event_open = UINavigatorDefinition:findOpendUI('UI_EventPopup')
+    
+    --이벤트 상점이 열려있으면 버튼을 꺼줌
+    vars['linkBtn']:setVisible(not is_event_open)
 end
 
 -------------------------------------
@@ -29,6 +35,8 @@ end
 -------------------------------------
 function UI_EventNewServerFullPopup:initButton()
     local vars = self.vars
+
+    vars['linkBtn']:registerScriptTapHandler(function() self:click_linkBtn() end)
 end
 
 -------------------------------------
@@ -43,4 +51,15 @@ end
 -- @brief
 -------------------------------------
 function UI_EventNewServerFullPopup:onEnterTab()
+end
+
+-------------------------------------
+-- function click_linkBtn
+-- @brief
+-------------------------------------
+function UI_EventNewServerFullPopup:click_linkBtn()
+    local vars = self.vars
+
+    local event_type = 'event_incarnation_of_sins'
+    g_eventData:openEventPopup(event_type)
 end
