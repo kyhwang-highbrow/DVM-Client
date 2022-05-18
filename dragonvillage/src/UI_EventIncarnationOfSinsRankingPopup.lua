@@ -72,6 +72,13 @@ end
 function UI_EventIncarnationOfSinsRankingPopup:onChangeTab(tab, first)
     self.m_currTab = tab
 
+    -- '통합 랭킹'의 경우 정렬 기준을 '내 랭킹'으로 설정
+    if tab == 'serverRank' then
+        self.m_sortList:setSelectSortType('my', true)
+    else
+        self.m_sortList:setSelectSortType('top', true)
+    end
+
     -- 초기화 다 된 탭들이면
     if not first then
         -- 현재 세팅 된 탭 기준으로 refreshRank를 호출해준다.
@@ -133,7 +140,7 @@ function UI_EventIncarnationOfSinsRankingPopup:make_UIC_SortList()
     uic:addSortType('friend', Str('친구 랭킹'))
     uic:addSortType('clan', Str('클랜원 랭킹'))
     uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
-    uic:setSelectSortType('top')
+    uic:setSelectSortType('my')
 
     self.m_sortList = uic;
 end
