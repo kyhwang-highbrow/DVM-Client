@@ -12,7 +12,7 @@ ServerData_EventIncarnationOfSins = class({
         m_tRewardInfo = 'table', -- 랭킹 보상 정보
         m_tAttrInfo = 'table', -- 요일별 입장 가능한 속성 정보
         m_todayDow = 'number', -- 오늘 요일 (1 = 일요일, 2, 3, 4, 5, 6, 7 = 토요일)
-        m_timeInfo = 'table', -- 
+        m_Info = 'table', -- 
         m_gameState = 'boolean'
     })
 
@@ -143,28 +143,40 @@ end
 
 -------------------------------------
 -- function getTimeText
--- @brief 이벤트 남은시간 받아오기 --> timeInfo 요청해야댐
+-- @brief 이벤트 남은시간 받아오기
 -------------------------------------
 function ServerData_EventIncarnationOfSins:getTimeText()
-    local time_info = self.m_timeInfo
+    if (self.m_Info == nil) then 
+        return 
+    end
 
-    -- local start_time = time_info['start_date'] / 1000
-    -- local end_time = time_info['end_date'] / 1000
+    local time_info = self.m_Info
+
+    local start_time = time_info['start_date_timestamp'] / 1000
+    local end_time = time_info['end_date_timestamp'] / 1000
 
     local curr_time = Timer:getServerTime()
 
     local str = ''
-    -- if (curr_time < start_time) then
-    --     local time = (start_time - curr_time)
-    --     str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
-    -- elseif (start_time <= curr_time) and (curr_time <= end_time) then
-    --     local time = (end_time - curr_time)
-    --     str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
-    -- else
-    --     str = Str('이벤트가 종료되었습니다.')
-    -- end
+    if (curr_time < start_time) then
+        local time = (start_time - curr_time)
+        str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
+    elseif (start_time <= curr_time) and (curr_time <= end_time) then
+        local time = (end_time - curr_time)
+        str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+    else
+        str = Str('이벤트가 종료되었습니다.')
+    end
 
     return str
+end
+
+-------------------------------------
+-- function setInfo
+-- @brief 이벤트 정보 설정
+-------------------------------------
+function ServerData_EventIncarnationOfSins:setInfo(t_data)
+    self.m_Info = t_data
 end
 
 -------------------------------------
@@ -331,8 +343,6 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(in
         g_serverData:networkCommonRespone(ret)
 
         self:response_eventIncarnationOfSinsInfo(ret)
-
-        -- self.m_timeInfo = ret['incarnation_of_sins_info']
 
         if finish_cb then
             finish_cb(ret)

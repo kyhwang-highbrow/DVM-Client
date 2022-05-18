@@ -991,6 +991,11 @@ function ServerData_Event:response_eventList(ret, finish_cb)
         self.m_bDirty = true
 	end
 
+    local event_type = 'event_incarnation_of_sins'
+    local t_data = self:getEventInByEventType(event_type)
+
+    g_eventIncarnationOfSinsData:setInfo(t_data)
+
     if finish_cb then
         finish_cb(ret)
     end

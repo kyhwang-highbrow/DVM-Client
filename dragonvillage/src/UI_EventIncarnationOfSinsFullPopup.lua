@@ -24,6 +24,8 @@ function UI_EventIncarnationOfSinsFullPopup:init()
     if (not b_is_view_scen) then
         self:playEventScenario()
     end
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
 
 -------------------------------------
@@ -48,6 +50,16 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsFullPopup:refresh()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function updateTimer
+-------------------------------------
+function UI_EventIncarnationOfSinsFullPopup:updateTimer(dt)
+    local vars = self.vars
+
+    local str = g_eventIncarnationOfSinsData:getTimeText()
+    vars['timeLabel']:setString(str)
 end
 
 -------------------------------------
