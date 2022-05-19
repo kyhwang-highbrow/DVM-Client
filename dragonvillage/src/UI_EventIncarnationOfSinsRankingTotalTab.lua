@@ -208,6 +208,8 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSinsAttrRanking()
     
+    local type = 'total'
+
     local function success_cb(ret)
         -- 밑바닥 유저를 위한 예외처리
         -- 마침 현재 페이지에 20명이 차있어서 다음 페이지 버튼 클릭이 가능한 상태
@@ -234,7 +236,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSins
 
     local searchType = (self.m_searchType == 'my' or self.m_searchType == 'top') and 'world' or self.m_searchType
 
-    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking('total', searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, nil)
+    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking(type, searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, nil)
 end
 
 -------------------------------------
