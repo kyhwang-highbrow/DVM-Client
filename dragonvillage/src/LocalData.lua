@@ -377,7 +377,7 @@ end
 
 -------------------------------------
 -- function isGlobalServer
--- @breif 한국 서버 (QA, DEV 포함)
+-- @breif 글로벌 서버 (QA, DEV 포함)
 -------------------------------------
 function LocalData:isGlobalServer()
 	local server = self:getServerName()

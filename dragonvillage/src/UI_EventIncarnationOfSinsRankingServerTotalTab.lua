@@ -14,6 +14,7 @@ UI_EventIncarnationOfSinsRankingServerTotalTab = class(PARENT,{
     m_tRankData = 'table', -- 전체 랭크 정보
     m_rankOffset = 'number', -- 오프셋
     ------------------------------------------------
+    m_reward = 'table' -- 보상 정보
     })
 
 -------------------------------------
@@ -34,6 +35,7 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingServerTotalTab:onEnterTab(first)
     if (first == true) then
+        self:initReward()
         self:initUI()
         self:initButton()
         self.m_searchType = self.m_ownerUI.m_rankType
@@ -42,6 +44,24 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:onEnterTab(first)
     end
 
     self:refresh()
+end
+
+-------------------------------------
+-- function initReward
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingServerTotalTab:initReward()
+    self.m_reward = {
+        ['1'] = '애플 맥북 프로 14 (2021)',
+        ['2'] = '애플 아이패드 미니 6세대',
+        ['3'] = '뱅앤올룹슨 베오플레이 EQ',
+        ['4'] = '뱅앤올룹슨 베오플레이 EQ',
+        ['5'] = '뱅앤올룹슨 베오플레이 EQ',
+        ['7'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        ['10'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        ['20'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        ['30'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        ['524'] = '삼성 갤럭시버즈2 (펩시 콜라보)'
+    }
 end
 
 -------------------------------------
@@ -67,22 +87,70 @@ end
 -------------------------------------
 -- function makeRankTableView
 -------------------------------------
-function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data)
+function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data, type)
     local vars = self.vars
     local rank_node = vars['rankListNode']
     local rank_data = data
-    local my_rank_data = data['total_my_info'] -- g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
-
-
-    local make_my_rank_cb = function()
-        local my_data = my_rank_data or {}
-        local me_rank = UI_EventIncarnationOfSinsRankingServerTotalTabRankingListItem(my_data)
-        vars['rankMeNode']:addChild(me_rank.root)
-        me_rank.vars['meSprite']:setVisible(true)
-    end
+    local my_rank_data = data[type .. '_my_info']
     
-    local l_rank_list = rank_data['total_list'] or {}
+    local l_rank_list = rank_data[type .. '_list'] or {}
+
+    local reward_info = self.m_reward
+
+    local my_rank = my_rank_data['rank']
+
+    -- 앞에 있는 보상
+    local pre_reward_rank = nil
+    local pre_reward = nil
+    -- 뒤에 있는 보상
+    local back_reward_rank = nil
+    local back_reward = nil
+
+    if my_rank ~= -1 then
+        for rank, reward in pairs(reward_info) do
+            local reward_rank = tonumber(rank)
+
+            -- 상위 보상 정보 저장
+            if reward_rank < my_rank then
+                if pre_reward_rank == nil then
+                    pre_reward_rank = reward_rank
+                    pre_reward = reward
+                elseif pre_reward_rank < reward_rank then
+                    pre_reward_rank = reward_rank
+                    pre_reward = reward
+                end
+            end
     
+            -- 하위 보상 정보 저장
+            if reward_rank > my_rank then
+                if back_reward_rank == nil then
+                    back_reward_rank = reward_rank
+                    back_reward = reward
+                elseif back_reward_rank > reward_rank then
+                    back_reward_rank = reward_rank
+                    back_reward = reward
+                end
+            end
+        end
+        if pre_reward_rank == nil then
+            pre_reward_rank = '1'
+            pre_reward = '애플 맥북 프로 14 (2021)'
+        end
+    
+        vars['rewardUpLabel']:setString(Str('{@yellow}{1}{@default}위 달성 시 {@yellow}{2}{@default}', pre_reward_rank, pre_reward))
+        if back_reward_rank == nil then
+            vars['rewardDownLabel']:setVisible(false)
+        else
+            vars['rewardDownLabel']:setString(Str('{@yellow}{1}{@default}위 달성 시 {@yellow}{2}{@default}', back_reward_rank, back_reward))
+        end
+
+    else
+        vars['rewardUpLabel']:setString(Str('기록된 정보가 없습니다.'))
+        vars['rewardDownLabel']:setVisible(false)
+    end 
+
+    
+
     -- 이전 랭킹 버튼 누른 후 콜백
     local function func_prev_cb(offset)
         self.m_rankOffset = offset
@@ -106,7 +174,6 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data)
     rank_list:setRankUIClass(UI_EventIncarnationOfSinsRankingServerTotalTabRankingListItem, create_cb)
     rank_list:setRankList(l_rank_list)
     rank_list:setEmptyStr('랭킹 정보가 없습니다')
-    rank_list:setMyRank(make_my_rank_cb)
     rank_list:setOffset(self.m_rankOffset)
     rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, SCORE_OFFSET_GAP)
     rank_list:makeRankList(rank_node)
@@ -133,9 +200,19 @@ end
 -------------------------------------
 -- function makeRewardTableView
 -------------------------------------
-function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRewardTableView()
+function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRewardUI(ret, type)
     local vars = self.vars
-    local node = vars['reawardNode']
+
+    local my_info = ret[type .. '_my_info']
+    local my_rank = my_info['rank']
+    
+    ccdump(my_rank)
+    if my_rank == -1 then
+        vars['rankLabel']:setString('-')
+    else
+        vars['rankLabel']:setString(Str('{@yellow}{1}위{@default}', my_rank))
+    end
+    
 end
 
 -------------------------------------
@@ -163,6 +240,14 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingServerTotalTab:request_EventIncarnationOfSinsAttrRanking()
     
+    local type = 'total'
+
+    if g_localData:isGlobalServer() then 
+        type = 'total'
+    else 
+        type = 'unified'
+    end
+
     local function success_cb(ret)
         -- 밑바닥 유저를 위한 예외처리
         -- 마침 현재 페이지에 20명이 차있어서 다음 페이지 버튼 클릭이 가능한 상태
@@ -181,15 +266,15 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:request_EventIncarnation
         end
 
         -- 랭킹 테이블 다시 만듬
-        self:makeRankTableView(ret)
-        --self:makeRewardTableView()
+        self:makeRankTableView(ret, type)
+        self:makeRewardUI(ret, type)
 
         self.m_rankOffset = tonumber(ret['total_offset'])
     end  
 
     local searchType = (self.m_searchType == 'my' or self.m_searchType == 'top') and 'world' or self.m_searchType
 
-    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking('total', searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, nil)
+    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking(type, searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, nil)
 end
 
 -------------------------------------
@@ -270,10 +355,10 @@ function UI_EventIncarnationOfSinsRankingServerTotalTabRankingListItem:initUI()
             ui.root:setSwallowTouch(false)
             vars['profileNode']:addChild(ui.root)
             
-			ui.vars['clickBtn']:registerScriptTapHandler(function() 
-				local is_visit = true
-				UI_UserInfoDetailPopup:open(t_rank_info, is_visit, nil)
-			end)
+			-- ui.vars['clickBtn']:registerScriptTapHandler(function() 
+			-- 	local is_visit = true
+			-- 	UI_UserInfoDetailPopup:open(t_rank_info, is_visit, nil)
+			-- end)
         end
     end
 
