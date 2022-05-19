@@ -60,7 +60,7 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:initReward()
         ['10'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
         ['20'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
         ['30'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
-        ['524'] = '삼성 갤럭시버즈2 (펩시 콜라보)'
+        ['530'] = '삼성 갤럭시버즈2 (펩시 콜라보)'
     }
 end
 
@@ -99,14 +99,14 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data, 
 
     local my_rank = my_rank_data['rank']
 
-    -- 앞에 있는 보상
+    -- 상위 보상 정보
     local pre_reward_rank = nil
     local pre_reward = nil
-    -- 뒤에 있는 보상
+    -- 하위 보상 정보
     local back_reward_rank = nil
     local back_reward = nil
 
-    if my_rank ~= -1 then
+    if my_rank > 0 then
         for rank, reward in pairs(reward_info) do
             local reward_rank = tonumber(rank)
 
@@ -206,11 +206,10 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRewardUI(ret, type)
     local my_info = ret[type .. '_my_info']
     local my_rank = my_info['rank']
     
-    ccdump(my_rank)
-    if my_rank == -1 then
-        vars['rankLabel']:setString('-')
-    else
+    if my_rank > 0 then
         vars['rankLabel']:setString(Str('{@yellow}{1}위{@default}', my_rank))
+    else
+        vars['rankLabel']:setString('-')
     end
     
 end
