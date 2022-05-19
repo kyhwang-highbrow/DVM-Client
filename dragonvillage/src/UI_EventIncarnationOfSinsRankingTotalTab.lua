@@ -72,6 +72,14 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRankTableView(data)
     local rank_data = data
     local my_rank_data = data['total_my_info'] -- g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
 
+    local is_global_server = g_localData:isGlobalServer()
+
+    if is_global_server then
+        vars['infoLabel']:setString(Str('종합 랭킹은 속성 점수 중 가장 높은 점수로 결정됩니다.'))
+    else
+        vars['infoLabel']:setString(Str('종합 랭킹은 속성 점수를 합산하여 결정됩니다.'))
+    end
+
 
     local make_my_rank_cb = function()
         local my_data = my_rank_data or {}
