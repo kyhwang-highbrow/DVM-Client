@@ -242,6 +242,9 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:request_EventIncarnation
     local type = 'total'
 
     if g_localData:isGlobalServer() then 
+        -- type이 total
+            -- Global 서버일 경우 최고점수를 반환
+            -- 그 외 서버일 경우 총합을 반환 
         type = 'total'
     else 
         type = 'unified'
@@ -324,6 +327,20 @@ end
 function UI_EventIncarnationOfSinsRankingServerTotalTabRankingListItem:initUI()
     local vars = self.vars
     local t_rank_info = StructUserInfoArena:create_forRanking(self.m_rankInfo)
+
+
+    local rank_info = self.m_rankInfo
+    local uid = rank_info['uid']
+    local uid_server = pl.stringx.split(uid, '@')
+    local server_name = uid_server[2]
+
+    -- 서버 표시
+    vars['serverLabel']:setVisible(true)
+    if server_name then
+        vars['serverLabel']:setStirng(Str(string.upper(server_name)))
+    else
+        vars['serverLabel']:setString(Str('KOREA'))
+    end
 
     -- 점수 표시
     local score = tonumber(self.m_rankInfo['score'])
