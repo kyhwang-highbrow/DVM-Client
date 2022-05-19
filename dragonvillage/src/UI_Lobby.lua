@@ -21,7 +21,8 @@ UI_Lobby = class(PARENT,{
         -- 로비 진입 시 시작 코루틴에서 의미있는 동작이 모두 완료되었는지 구분
         m_bDoneEntryCoroutine = 'bool',
 
-        m_hbrwNotiOff = 'false'
+        m_hbrwNotiOff = 'false',
+        m_bannerNoti = 'false'
     })
 
 -------------------------------------
@@ -48,6 +49,7 @@ function UI_Lobby:init()
     UIManager:open(self, UIManager.SCENE)
 
     self.m_hbrwNotiOff = false
+    self.m_bannerNoti = true
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Lobby')
 
@@ -2791,7 +2793,7 @@ function UI_Lobby:refresh_rightBanner()
                     if (v.m_eventData['event_type'] == 'event_crosspromotion') then
                         banner = UI_BannerAppCollaboration(v)
                     else
-                        banner = UI_LobbyBanner(v)
+                        banner = UI_LobbyBanner(v, self)
                     end
                     vars['bannerMenu']:addChild(banner.root)
                     banner.root:setDockPoint(TOP_RIGHT)

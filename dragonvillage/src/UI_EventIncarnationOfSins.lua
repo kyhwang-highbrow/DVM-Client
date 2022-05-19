@@ -25,6 +25,9 @@ function UI_EventIncarnationOfSins:initUI()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 
+    local noti = g_eventIncarnationOfSinsData:getRankNoti()
+    vars['notiSprite']:setVisible(noti)
+
     vars['dayLabel1']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('light'))
     vars['dayLabel2']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('fire'))
     vars['dayLabel3']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('water'))
@@ -54,6 +57,9 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSins:refresh()
     local vars = self.vars
+
+    local noti = g_eventIncarnationOfSinsData:getRankNoti()
+    vars['notiSprite']:setVisible(noti)
 
     -- 현재 서버 데이터를 이용하여 버튼 설정
     self:refreshButton('total', vars['rankLabel'], vars['scoreLabel'], nil)
@@ -159,6 +165,9 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSins:click_rankBtn()
     local vars = self.vars
+
+    g_eventIncarnationOfSinsData:setRankNoti(false)
+    self:refresh()
 
     local ui = UI_EventIncarnationOfSinsRankingPopup()
 end

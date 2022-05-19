@@ -137,13 +137,15 @@ end
 ----------------------------------------------------------------------
 UI_LobbyBanner = class(PARENT,{
     m_eventData = 'StructEvent',
+    m_parentUI = 'UI_Lobby'
 })
 
 ----------------------------------------------------------------------
 -- class init
 ----------------------------------------------------------------------
-function UI_LobbyBanner:init(event_data)
+function UI_LobbyBanner:init(event_data, parent)
     self.m_uiName = 'UI_LobbyBanner'
+    self.m_parentUI = parent
 
     local ui_name = event_data.m_eventData['lobby_banner']
     local vars = self:load(ui_name)
@@ -161,6 +163,16 @@ end
 -- class initUI
 ----------------------------------------------------------------------
 function UI_LobbyBanner:initUI()
+    local vars = self.vars
+
+    local url = self.m_eventData.m_eventData['url']
+    local event_type = self.m_eventData.m_eventData['event_type']
+    local parent_ui = self.m_parentUI
+    local noti = parent_ui.m_bannerNoti
+
+    if (event_type == 'event_newserver') and noti then
+        vars['notiSprite']:setVisible(true)
+    end
 end
 
 
@@ -191,6 +203,7 @@ function UI_LobbyBanner:click_bannerBtn()
 	    g_fullPopupManager:showFullPopup(event_type)
     --죄악의 화신 현물 이벤트
     elseif (event_type == 'event_newserver') then
+        self.m_parentUI.m_bannerNoti = false
         g_eventData:openEventPopup('event_incarnation_of_sins')
     end
 end
