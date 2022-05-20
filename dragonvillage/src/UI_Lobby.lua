@@ -801,6 +801,7 @@ function UI_Lobby:initButton()
     vars['googleGameBtn']:registerScriptTapHandler(function() self:click_googleGameBtn() end)
     vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
     vars['hbrwLoungeBtn']:registerScriptTapHandler(function() self:click_hbrwLoungeBtn() end)
+    vars['hbrwLoungeBtn']:registerScriptPressHandler(function() self:press_hbrwLoungeBtn() end)
     vars['expBoosterBtn']:registerScriptTapHandler(function() self:click_expBoosterBtn() end)
     vars['goldBoosterBtn']:registerScriptTapHandler(function() self:click_goldBoosterBtn() end)
 
@@ -1423,7 +1424,7 @@ end
 function UI_Lobby:update_hbrw_lounge()
     local game_lang = Translate:getGameLang()
     local is_btn_visible = (game_lang == 'ko')
-    local is_noti_visible = not g_settingData:getHbrwLoungeSetting()
+    local is_noti_visible = not g_settingData:getHbrwLoungeCheckSetting()
 
     self.vars['hbrwLoungeBtn']:setVisible(is_btn_visible)
 
@@ -1879,13 +1880,20 @@ end
 -------------------------------------
 function UI_Lobby:click_hbrwLoungeBtn()
     local vars = self.vars
-    if (g_settingData:getHbrwLoungeSetting() ~= nil) then
+    if (g_settingData:getHbrwLoungeCheckSetting()) then
         SDKManager:goToWeb('https://discord.gg/mtM3xnE4nh')
     else
         vars['hbrwLoungeNotiSprite']:setVisible(false)
         self.m_hbrwNotiOff = true
         UI_HbrwLoungePopup()
     end
+end
+
+-------------------------------------
+-- function press_hbrwLoungeBtn
+-------------------------------------
+function UI_Lobby:press_hbrwLoungeBtn()
+    UI_HbrwLoungePopup()
 end
 
 -------------------------------------

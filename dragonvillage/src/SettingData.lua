@@ -750,17 +750,17 @@ function SettingData:getSelectPickUpSetting()
 end
 
 -------------------------------------
--- function getHbrwLoungeSetting
+-- function getHbrwLoungeCheckSetting
 -------------------------------------
-function SettingData:getHbrwLoungeSetting()
-    return self:get('hbrw', 'lounge')
+function SettingData:getHbrwLoungeCheckSetting()
+    return self:get('hbrw', 'check')
 end
 
 -------------------------------------
--- function setHbrwLoungeSetting
+-- function setHbrwLoungeCheckSetting
 -------------------------------------
-function SettingData:setHbrwLoungeSetting(date)
-    self:applySettingData(date, 'hbrw', 'lounge')
+function SettingData:setHbrwLoungeCheckSetting(check)
+    self:applySettingData(check, 'hbrw', 'check')
 end
 
 -------------------------------------

@@ -17,7 +17,7 @@ function UI_HbrwLoungePopup:init()
     UIManager:open(self, UIManager.POPUP)
     
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_CommunityPopup')
+    g_currScene:pushBackKeyListener(self, function() self:click_cancelBtn() end, 'UI_CommunityPopup')
     
     self:initUI()
     self:initButton()
@@ -29,7 +29,21 @@ end
 -- function initUI
 -------------------------------------
 function UI_HbrwLoungePopup:initUI()
-    
+    local vars = self.vars
+
+
+    local check = self:getCheckStatus()
+    vars['checkSprite']:setVisible(check)
+
+    if check then
+        local root_size = vars['Menu']:getContentSize()
+        local coupon_size = vars['couponNode']:getContentSize()
+        local width = root_size['width']
+        local height = root_size['height'] - coupon_size['height']
+
+        vars['Menu']:setContentSize(width, height)
+        vars['couponNode']:removeFromParent()
+    end
 end
 
 -------------------------------------
@@ -40,6 +54,7 @@ function UI_HbrwLoungePopup:initButton()
 
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
+    vars['checkBtn']:registerScriptTapHandler(function() self:click_checkBtn() end)
 end
 
 
@@ -47,12 +62,7 @@ end
 -- function initButton
 -------------------------------------
 function UI_HbrwLoungePopup:click_okBtn()
-    local date_format = pl.Date.Format('yyyy-mm-dd')
-    local curr_timestamp = Timer:getServerTime()
-
-    local curr_date_str = date_format:tostring(curr_timestamp)
-
-    g_settingData:setHbrwLoungeSetting(curr_date_str)
+    g_settingData:setHbrwLoungeCheckSetting(true)
 
     self:setCloseCB(function() SDKManager:goToWeb('https://discord.gg/mtM3xnE4nh') end)
     
@@ -63,5 +73,39 @@ end
 -- function initButton
 -------------------------------------
 function UI_HbrwLoungePopup:click_cancelBtn()
+    
+    if g_settingData:getHbrwLoungeCheckSetting() ~= true then
+        g_settingData:setHbrwLoungeCheckSetting(false)
+    end
+
     self:close()
+end
+
+-------------------------------------
+-- function click_checkBtn
+-------------------------------------
+function UI_HbrwLoungePopup:click_checkBtn()
+    local vars = self.vars
+    local check = not self:getCheckStatus()
+
+    g_settingData:setHbrwLoungeCheckSetting(check)
+    vars['checkSprite']:setVisible(check)
+end
+
+-------------------------------------
+-- function getCheckStatus
+-------------------------------------
+function UI_HbrwLoungePopup:getCheckStatus()
+    if g_settingData:getHbrwLoungeCheckSetting() == true then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_HbrwLoungePopup:refresh()
+   
 end
