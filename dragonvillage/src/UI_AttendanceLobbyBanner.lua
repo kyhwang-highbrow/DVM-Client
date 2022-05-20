@@ -1,24 +1,28 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_BannerNewServerEvent
+-- class UI_AttendanceLobbyBanner
 -------------------------------------
-UI_BannerNewServerEvent = class(PARENT,{
+UI_AttendanceLobbyBanner = class(PARENT,{
     m_structAttendanceData = '',
-    m_enddate = 'String',
-    m_atd_id = 'String'
+    m_eventData = '',
+    m_enddate = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BannerNewServerEvent:init(atd_id, end_data)
-    self.m_uiName = 'UI_BannerNewServerEvent'
-    self.m_enddate = end_data
-    self.m_atd_id = atd_id
-    local vars = self:load('lobby_banner_event_attendance.ui')
+function UI_AttendanceLobbyBanner:init(event_data)
+    self.m_uiName = 'UI_AttendanceLobbyBanner'
+    self.m_eventData = event_data
+    self.m_enddate = event_data['end_date_timestamp']
 
-    self.m_structAttendanceData = g_attendanceData:getAttendanceDataByAtdId(atd_id)
+    local ui_name = self.m_eventData['lobby_banner']
+    local event_id = tonumber(self.m_eventData['event_id'])
+
+    self.m_structAttendanceData = g_attendanceData:getAttendanceDataByAtdId(event_id)
+
+    local vars = self:load(ui_name)
 
     -- @UI_ACTION
     self:doActionReset()
@@ -34,7 +38,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_BannerNewServerEvent:initUI()
+function UI_AttendanceLobbyBanner:initUI()
     local vars = self.vars
     local step = self.m_structAttendanceData['today_step']
     -- 다음 날 보상을 체크
@@ -42,8 +46,6 @@ function UI_BannerNewServerEvent:initUI()
     local step_list = self.m_structAttendanceData['step_list']
     local item_id = ''
     local value = ''
-
-    local info = ServerData_Attendance:getAttendanceDataList()
 
     for _,v in pairs(step_list) do
         if tomorrow_step == v['step'] then
@@ -70,7 +72,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_BannerNewServerEvent:initButton()
+function UI_AttendanceLobbyBanner:initButton()
     local vars = self.vars
     vars['bannerBtn']:registerScriptTapHandler(function() self:click_bannerBtn() end)
 end
@@ -78,13 +80,13 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_BannerNewServerEvent:refresh()
+function UI_AttendanceLobbyBanner:refresh()
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
-function UI_BannerNewServerEvent:update(dt)
+function UI_AttendanceLobbyBanner:update(dt)
     local vars = self.vars
 
     local end_time = self.m_enddate / 1000
@@ -100,7 +102,20 @@ end
 -------------------------------------
 -- function click_bannerBtn
 -------------------------------------
-function UI_BannerNewServerEvent:click_bannerBtn()
-    local atd_id = 'attendance_event;event;50029'
-    FullPopupManager:showFullPopup(atd_id)
+function UI_AttendanceLobbyBanner:click_bannerBtn()
+
+    local function show_func(pid)
+        local event_id = tostring(self.m_eventData['event_id'])
+        local event_pid = pl.stringx.split(pid, ';')
+        local open_event_pid = event_pid[3]
+        
+        -- 출석 이벤트의 event_id는 pid와 동일함
+        if (event_id == open_event_pid) then
+            local ui = UI_EventFullPopup(pid)
+            ui:openEventFullPopup()
+        end
+    end
+
+    g_fullPopupManager:show(FULL_POPUP_TYPE.ATTENDANCE, show_func)
+
 end

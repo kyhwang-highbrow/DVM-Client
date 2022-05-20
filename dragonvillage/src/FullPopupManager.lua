@@ -64,10 +64,13 @@ function FullPopupManager:show(type, show_func)
     -- 출석 보상 있을 시 출석 팝업
     elseif (type == FULL_POPUP_TYPE.ATTENDANCE) then
 		for i, v in ipairs(g_attendanceData:getAttendanceDataList()) do
-			if (v:hasReward()) then
-				local atdc_type = v.attendance_type
+			    local atdc_type = v.attendance_type
                 local atdc_category = v.category
                 local atdc_id = v.atd_id
+            if (v:hasReward()) then
+				show_func('attendance_'..atdc_type..';'..atdc_category .. ';' .. atdc_id)
+            -- 금일 보상을 이미 받은 이벤트
+			else
 				show_func('attendance_'..atdc_type..';'..atdc_category .. ';' .. atdc_id)
 			end
 		end

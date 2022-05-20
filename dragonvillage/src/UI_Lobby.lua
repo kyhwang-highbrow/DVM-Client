@@ -2709,31 +2709,6 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
-    -- 죄악의 화신 현물 이벤트 배너
-    local event_list = g_eventData.m_eventList
-    for i, v in ipairs(event_list) do
-        local event_id = v['event_id']
-        local atd_id = tonumber(event_id)
-        local end_date = v['end_date_timestamp']
-        if g_attendanceData:getAttendanceDataByAtdId(atd_id) and event_id == 50029 then
-            if (not vars['banner_new_server_event']) then
-                require('UI_BannerNewServerEvent')
-                local banner = UI_BannerNewServerEvent(atd_id, end_date)
-                vars['bannerMenu']:addChild(banner.root)
-                banner.root:setDockPoint(cc.p(1, 1))
-                banner.root:setAnchorPoint(cc.p(1, 1))
-                vars['banner_new_server_event'] = banner
-            else
-                vars['banner_new_server_event']:refresh()
-            end
-            break
-        else
-            if vars['banner_new_server_event'] then
-                vars['banner_new_server_event'].root:removeFromParent()
-                vars['banner_new_server_event'] = nil
-            end
-        end
-    end
 
     -- 죄악의 화신 토벌작전 이벤트 배너
     -- if (g_eventIncarnationOfSinsData:isActive()) then
@@ -2792,6 +2767,10 @@ function UI_Lobby:refresh_rightBanner()
                     local banner 
                     if (v.m_eventData['event_type'] == 'event_crosspromotion') then
                         banner = UI_BannerAppCollaboration(v)
+                    --출석 이벤트용 배너
+                    elseif (v.m_eventData['event_type'] == 'attendance_event') then
+                        local data = v['m_eventData'] 
+                        banner = UI_AttendanceLobbyBanner(data)
                     else
                         banner = UI_LobbyBanner(v, self)
                     end
