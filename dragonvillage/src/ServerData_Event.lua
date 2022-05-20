@@ -117,6 +117,12 @@ function ServerData_Event:getEventPopupTabList()
         if (visible) and (target_server ~= '') then
             visible = self:checkTargetServer(target_server)
         end
+        
+        -- 언어 조건
+        if (visible) and (target_language ~= '') then
+            visible = (Translate:getGameLang() == target_language)
+        end
+
 
         -- 날짜 조건
         if (visible) and ((start_date ~= '') or (end_date ~= '')) then
