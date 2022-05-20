@@ -19,6 +19,7 @@ ServerData_Event = class({
 
         m_bDirty = 'boolean',
         m_tLobbyDeco = 'table',
+        m_successCb = 'success_cb'
     })
 
 local LIMITED_EVENT_LIST = {
@@ -930,6 +931,10 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             ui = UI_EventPopup(noti)
         end
 
+        if (self.m_successCb) then
+            self.m_successCb()
+        end
+
         if (close_cb) then
             ui:setCloseCB(close_cb)
         end
@@ -1288,4 +1293,8 @@ end
 -------------------------------------
 function ServerData_Event:isPossibleToGetWelcomeNewbieReward()
     return not self.m_isRewardTake
+end
+
+function ServerData_Event:setSuccessCB(success_cb)
+    self.m_successCb = success_cb
 end

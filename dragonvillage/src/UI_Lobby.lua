@@ -2850,11 +2850,6 @@ function UI_Lobby:onRefresh_banner()
         table.insert(l_node, vars['banner_incarnation_of_sins'].root)
     end
 
-    -- 죄악의 화신 현물 이벤트
-    if vars['banner_new_server_event'] then
-        table.insert(l_node, vars['banner_new_server_event'].root)
-    end
-
     -- 차원문 오픈 배너
     if vars['banner_dmgate'] then
         table.insert(l_node, vars['banner_dmgate'].root)
