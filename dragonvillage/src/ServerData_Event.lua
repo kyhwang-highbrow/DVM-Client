@@ -56,6 +56,7 @@ function ServerData_Event:getEventPopupTabList()
         local start_date = v['start_date']
         local end_date = v['end_date']
         local target_server = v['target_server'] or ''
+        local target_language = v['target_language'] or ''
         local banner = v['banner']
 
         -- 크로스 프로모션 기간인지 체크 후 기간, os체크를 하는것이 베스트
@@ -289,6 +290,7 @@ function ServerData_Event:getEventFullPopupList()
             local start_date = v['start_date']
             local end_date = v['end_date']
             local target_server = v['target_server'] or ''
+            local target_language = v['target_language'] or ''
             local banner = v['banner']
 
 
@@ -340,6 +342,11 @@ function ServerData_Event:getEventFullPopupList()
             -- 서버 조건
             if (visible) and (target_server ~= '') then
                 visible = self:checkTargetServer(target_server)
+            end
+
+            -- 언어 조건
+            if (visible) and (target_language ~= '') then
+                visible = (Translate:getGameLang() == target_language)
             end
 
             -- 날짜 조건
