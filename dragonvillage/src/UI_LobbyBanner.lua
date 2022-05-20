@@ -203,13 +203,6 @@ function UI_LobbyBanner:click_bannerBtn()
 	    g_fullPopupManager:showFullPopup(event_type)
     --죄악의 화신 현물 이벤트 및 현물 보상 풀팝업
     elseif (event_type == 'event_newserver') then
-
-        local function success_cb(ret)
-            g_fullPopupManager:showFullPopup(event_type)
-        end
-
-        g_eventData:setSuccessCB(success_cb)
-
         self.m_parentUI.m_bannerNoti = false
         g_eventData:openEventPopup('event_incarnation_of_sins')
     end

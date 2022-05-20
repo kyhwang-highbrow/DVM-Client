@@ -14,7 +14,8 @@ ServerData_EventIncarnationOfSins = class({
         m_todayDow = 'number', -- 오늘 요일 (1 = 일요일, 2, 3, 4, 5, 6, 7 = 토요일)
         m_Info = 'table', -- 
         m_gameState = 'boolean',
-        m_rankNoti = 'boolean'
+        m_rankNoti = 'boolean',
+        m_isOpened = 'boolean'
     })
 
 ServerData_EventIncarnationOfSins.STATE = {
@@ -30,6 +31,7 @@ ServerData_EventIncarnationOfSins.STATE = {
 function ServerData_EventIncarnationOfSins:init()
     self.m_rewardStatus = 0
     self.m_rankNoti = true
+    self.m_isOpened = false
 end
 
 -------------------------------------

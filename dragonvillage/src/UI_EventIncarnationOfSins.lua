@@ -15,6 +15,13 @@ function UI_EventIncarnationOfSins:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    local event_type = 'event_newserver'
+    
+    if not g_eventIncarnationOfSinsData.m_isOpened then
+        g_fullPopupManager:showFullPopup(event_type)
+        g_eventIncarnationOfSinsData.m_isOpened = true
+    end
 end
 
 -------------------------------------
@@ -87,10 +94,11 @@ function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, 
         attr = 'max'
     end
 
+    
     -- 현재 서버 데이터를 이용하여 순위 정보 표기
     local rank = g_eventIncarnationOfSinsData:getMyRank(attr)
     local score = g_eventIncarnationOfSinsData:getMyScore(attr)
-	
+    
 	-- 내 랭킹이 0보다 작으면 {-위} 로 노출
     -- 0보다 큰 의미있는 값이면 그대로 노출
     if (rank < 0) then
