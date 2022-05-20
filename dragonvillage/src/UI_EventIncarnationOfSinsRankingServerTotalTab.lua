@@ -346,7 +346,7 @@ function UI_EventIncarnationOfSinsRankingServerTotalTabRankingListItem:initUI()
     -- 서버 표시
     vars['serverLabel']:setVisible(true)
     if server_name then
-        vars['serverLabel']:setStirng(Str(string.upper(server_name)))
+        vars['serverLabel']:setString(Str(string.upper(server_name)))
     else
         vars['serverLabel']:setString(Str('KOREA'))
     end
