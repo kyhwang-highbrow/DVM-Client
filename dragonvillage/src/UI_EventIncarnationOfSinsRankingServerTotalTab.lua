@@ -145,8 +145,8 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data, 
         end
 
     else
-        vars['rewardUpLabel']:setString(Str('기록된 정보가 없습니다.'))
-        vars['rewardDownLabel']:setVisible(false)
+        vars['rewardUpLabel']:setString(Str('죄악의 화신 토벌하고 {@yellow}경품{@default} 받아가세요!'))
+        vars['rewardDownLabel']:setString(Str('죄악의 화신 토벌하고 {@yellow}경품{@default} 받아가세요!'))
     end 
 
     
