@@ -75,6 +75,9 @@ end
 -- function initButton
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingServerTotalTab:initButton()
+    local vars = self.vars
+
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -83,6 +86,12 @@ end
 function UI_EventIncarnationOfSinsRankingServerTotalTab:refresh()
 end
 
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingServerTotalTab:click_infoBtn()
+    g_fullPopupManager:showFullPopup('event_newserver')
+end
 
 -------------------------------------
 -- function makeRankTableView
