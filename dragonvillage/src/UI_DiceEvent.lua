@@ -470,7 +470,7 @@ function UI_DiceEvent.makeCell(t_data)
     local item_id = t_data['item_id']
     local res = TableItem:getItemIcon(item_id)
     -- 보상 수량
-    vars['quantityLabel']:setString(t_data['value'])
+    vars['quantityLabel']:setString(comma_value(t_data['value']))
     
     --리소스가 비어있는 경우
     if( res == '' ) then
