@@ -911,6 +911,8 @@ function UI_TitleScene:workAgreeTerms()
     self.m_loadingUI:showLoading(Str('약관 동의 확인 중...'))
     
     local function success_cb(is_needed_agree)
+        self.m_loadingUI:hideLoading()
+        
         if (is_needed_agree == true) then
             local function close_cb()
                 if (g_localData:get('local', 'agree_terms') == 0) then
@@ -920,7 +922,10 @@ function UI_TitleScene:workAgreeTerms()
                     PerpleSDK:logout()
                     self:doPreviousWork()
                 else
+                    self.m_loadingUI:showLoading()
+
                     local function agree_success_cb()
+                        self.m_loadingUI:hideLoading()
                         self:doNextWork()
                     end
 
@@ -932,11 +937,13 @@ function UI_TitleScene:workAgreeTerms()
             local ui = UI_TermsPopup()
             ui:setCloseCB(close_cb)
         else
+            self.m_loadingUI:hideLoading()
             self:doNextWork()  
         end
     end
 
-    local function fail_cb(ret)        
+    local function fail_cb(ret)     
+        self.m_loadingUI:hideLoading()   
         -- 실패하더라도 게임 진행되도록
         self:doNextWork()  
     end
