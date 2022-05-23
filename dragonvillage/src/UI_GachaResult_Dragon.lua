@@ -280,10 +280,10 @@ function UI_GachaResult_Dragon:initEverything()
             end]]
 
             -- 캐시 혹은 우정포인트
-            if (is_cash) then
-                self:registerOpenNode('diaNode')
-            else
+            if (is_cash == 'fp') then
                 self:registerOpenNode('fpNode')
+            else
+                self:registerOpenNode('diaNode')
             end
         end
     end
