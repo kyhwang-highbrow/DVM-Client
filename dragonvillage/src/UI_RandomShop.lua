@@ -107,7 +107,7 @@ function UI_RandomShop:initButton()
     vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn(1) end) -- 1번째 재화로 구매
     vars['buyBtn2']:registerScriptTapHandler(function() self:click_buyBtn(2) end) -- 2번째 재화로 구매
 
-    if (g_localData:isKoreaServer() or IS_DEV_SERVER()) then
+    if (g_localData:isKoreaServer() or (g_localData:getLang() == 'ko')) then
         if (vars['plugInfoBtn']) then vars['plugInfoBtn']:registerScriptTapHandler(function() SDKManager:goToWeb('https://cafe.naver.com/dragonvillagemobile/146207') end) end
     else
         if (vars['plugInfoBtn']) then vars['plugInfoBtn']:setVisible(false) end

@@ -73,7 +73,7 @@ function UI_CommunityPopup:initButton()
 
         if vars[button_name] then
             if (url ~= '') then
-                if g_localData:isKoreaServer() and table.find(local_btn, key) then
+                if (g_localData:isKoreaServer() or (g_localData:getLang() == 'ko')) and table.find(local_btn, key) then
                     vars[button_name]:setVisible(true)
                 end
                 vars[button_name]:registerScriptTapHandler(function() self:click_communityBtn(key) end)
@@ -85,7 +85,7 @@ function UI_CommunityPopup:initButton()
     end
 
     -- TODO : 카카오 채널 버튼 추가 시 11월 1일부터 보이게 하기 위해 추가한 코드로 업데이트 이 후 제거해야함.
-    if g_localData:isKoreaServer() and (not self:checkOpeningDateKakaoChannel()) then
+    if (g_localData:isKoreaServer() or (g_localData:getLang() == 'ko')) and (not self:checkOpeningDateKakaoChannel()) then
         for _, button in ipairs(self.m_communityBtns) do
             if (button == vars['kakaoBtn']) then
                 button:setVisible(false)

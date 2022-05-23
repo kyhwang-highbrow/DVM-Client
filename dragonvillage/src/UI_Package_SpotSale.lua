@@ -117,7 +117,7 @@ function UI_Package_SpotSale:initButton()
     vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn1() end)
     vars['buyBtn1']:setAutoShake(true)
 
-    if g_localData:isKoreaServer() then
+    if (g_localData:isKoreaServer() or (g_localData:getLang() == 'ko')) then
         vars['contractBtn']:setVisible(true)
         vars['contractBtn']:registerScriptTapHandler(function() GoToAgreeMentUrl() end)
     else
