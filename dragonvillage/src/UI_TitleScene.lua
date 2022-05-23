@@ -19,6 +19,8 @@ UI_TitleScene = class(PARENT,{
 function UI_TitleScene:init()
     local vars = self:load('title.ui')
     UIManager:open(self, UIManager.SCENE)
+    self.m_uiName = 'UI_TitleScene'
+
 
 	self.m_stopWatch = Stopwatch() --G_STOPWATCH
 	self.m_stopWatch:start()

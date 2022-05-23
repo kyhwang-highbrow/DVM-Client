@@ -5,6 +5,7 @@ local PARENT = UI
 -- @brief 타이틀 화면의 신규 유저 대상 내부 UI, 로그인, 게스트 플레이 (드래곤 만나러 가기), 서버 기능 지원
 -------------------------------------
 UI_LoginIntegratePopup = class(PARENT,{
+        m_ownerUI = 'UI_TitleScene',
         m_loadingUI = 'UI_TitleSceneLoading',
     })
 
@@ -13,12 +14,13 @@ UI_LoginIntegratePopup = class(PARENT,{
 -------------------------------------
 function UI_LoginIntegratePopup:init(owner_ui)
     -- uifile : title.ui
+    self.m_ownerUI = owner_ui
     self.vars = owner_ui.vars
 
     self:initUI()
     self:initButton()
 
-    self.m_loadingUI = UI_TitleSceneLoading()
+    self.m_loadingUI = owner_ui.m_loadingUI
     self.m_loadingUI:hideLoading()
 end
 
@@ -83,7 +85,7 @@ end
 -- function click_loginBtn
 -------------------------------------
 function UI_LoginIntegratePopup:click_loginBtn()
-    local ui_login_popup = UI_LoginPopup()
+    local ui_login_popup = UI_LoginPopup(self.m_ownerUI)
     local cb_close = function(is_back_key)
         if (is_back_key) then
             self:refresh()

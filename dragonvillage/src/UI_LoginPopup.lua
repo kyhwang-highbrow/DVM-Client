@@ -11,9 +11,11 @@ UI_LoginPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_LoginPopup:init()
+function UI_LoginPopup:init(owner_ui)
     local vars = self:load('login_popup.ui')
     UIManager:open(self, UIManager.POPUP)
+
+    self.m_uiName = 'UI_LoginPopup'
     
     -- backkey 없음
     g_currScene:pushBackKeyListener(self, function() self:close(true) end, 'UI_LoginPopup')
@@ -26,7 +28,7 @@ function UI_LoginPopup:init()
     self:initButton()
     self:refresh()
 
-    self.m_loadingUI = UI_TitleSceneLoading()
+    self.m_loadingUI = owner_ui.m_loadingUI
     self.m_loadingUI:hideLoading()
 
     LoginHelper:setup(self.m_loadingUI, function(info) self:loginSuccess(info) end)
