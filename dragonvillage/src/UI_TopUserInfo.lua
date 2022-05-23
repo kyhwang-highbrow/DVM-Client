@@ -323,10 +323,12 @@ function UI_TopUserInfo:setAddSubCurrency(subCurrency)
     local goods_type = subCurrency
     self:checkSubCurrencyPosition('sub_currency_2', goods_type)
 
-    -- 추가 서브재화는 항상 있는게 아니므로 subCurrency가 ''이면 비지블 꺼줌
+    -- 추가 서브재화는 항상 있는게 아니므로 subCurrency가 ''이면 지움
     if subCurrency == '' then
-        for k, ui in pairs(self.m_mAddedSubCurrency_2) do
-            ui.root:setVisible(false)
+        for k, ui in pairs(self.m_mAddedSubCurrency_2) do            
+            ui.root:removeFromParent()
+            self.m_mAddedSubCurrency_2[k] = nil
+            self.m_mGoodsInfo[k] = nil
         end
         return
     end
