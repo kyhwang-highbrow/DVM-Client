@@ -9,7 +9,7 @@ UI_IllusionRank = class(PARENT, {
 
         m_rewardTableView = 'UIC_TableView',
      })
-
+local OFFSET_GAP = 30
 local RANK_OFFSET_GAP = 20
 -------------------------------------
 -- function init
