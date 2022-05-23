@@ -124,6 +124,26 @@ function UI_SupplyDepot:update(dt)
     local sec = string.format('%.2d', t.sec)
     local str = Str('서버 시간 : {1}시 {2}분 {3}초 ({4})', hour, min, sec, time_zone_str)
     vars['serverTimeLabel']:setString(str)
+
+    -- 갱신 시간 표시
+    local diff_hour = 0
+    if t.min > 0 then
+        diff_hour = 1
+    end
+
+    local remain_hour = 24 - t.hour - diff_hour
+    local remain_min = 60 - t.min
+
+    if remain_min == 60 then
+        remain_min = 0
+    end
+
+    if remain_hour > 0 then
+        vars['remainTimeLabel']:setString(Str('{1}시간 후 보급품 갱신', string.format('%.2d', remain_hour)))
+    else
+        vars['remainTimeLabel']:setString(Str('{1}분 후 보급품 갱신', string.format('%.2d', remain_min)))
+    end
+    
 end
 
 -------------------------------------
