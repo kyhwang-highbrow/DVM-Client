@@ -103,8 +103,10 @@ end
 function ServerData_EventDice:getStatusText()
     local curr_time = Timer:getServerTime()
     local end_time = (self.m_endTime / 1000)
+    local offset = datetime.getTimeZoneOffset()
+    local remain_time = end_time + offset
 
-    local time = (end_time - curr_time)
+    local time = (remain_time - curr_time)
     return Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
 end
 

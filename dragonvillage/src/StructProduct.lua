@@ -154,14 +154,18 @@ function StructProduct:getEndDateStr(new_line, simple)
     if (not end_date) then
         return ''
     end
+    
+    local end_time_stamp = datetime.getTimestamp(end_date['tab'])
+    local offset = datetime.getTimeZoneOffset()
+    local end_time = end_time_stamp + offset
 
     local cur_time =  Timer:getServerTime()
-    local end_time = end_date['time']
+    local remain_time = end_time
 
-    if (end_time == nil) then
+    if (remain_time == nil) then
         return ''
     end
-    local time = (end_time - cur_time)
+    local time = (remain_time - cur_time)
 
     local msg
     if (new_line) then
