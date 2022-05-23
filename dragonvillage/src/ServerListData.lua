@@ -43,6 +43,10 @@ function ServerListData:initWithData(tdata)
         end
         recommandServerName = targetServer
     else
+        if (recommandServerNum ~= 3) then
+            recommandServerNum = 8
+        end
+
         for i, server in pairs(tserverList) do
             local server_name = server['server_name']
             -- 라이브 서버에서는 DEV, QA서버를 제외한다

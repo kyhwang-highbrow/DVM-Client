@@ -629,6 +629,7 @@ function UI_TitleScene:workCheckUserID()
         if uid then
             self:doNextWork()
         else
+            self.m_loadingUI:hideLoading()
             local ui = UI_LoginPopupWithoutFirebase()
             local function close_cb()
                 self:doNextWork()

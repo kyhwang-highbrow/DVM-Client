@@ -34,6 +34,10 @@ function UI_LoginIntegratePopup:initUI()
     vars['guestBtn']:setVisible(true)
     vars['loginBtn']:setVisible(true)
     vars['serverBtn']:setVisible(true)
+
+
+    local selected_server_name = ServerListData.getInstance():getSelectServer()
+    self:setServerName(selected_server_name)
 end
 
 -------------------------------------
@@ -105,6 +109,9 @@ function UI_LoginIntegratePopup:click_serverBtn()
     local function onFinish(name)        
         ServerListData:getInstance():selectServer(name)
         self:setServerName(name)
+
+        local is_global_server = (name == 'Global')
+        self.vars['serverRewardMenu']:setVisible(is_global_server)
     end
     
     UI_SelectServerPopup(onFinish)
@@ -116,6 +123,9 @@ end
 function UI_LoginIntegratePopup:setServerName(name)
     local vars = self.vars
     vars['serverLabel']:setString(string.upper(name))
+
+    local is_global_server =  (name == SERVER_NAME.GLOBAL)
+    vars['serverRewardMenu']:setVisible(is_global_server)
 end
 
 -------------------------------------
