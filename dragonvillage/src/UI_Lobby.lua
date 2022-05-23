@@ -336,7 +336,7 @@ function UI_Lobby:entryCoroutine()
             -- 1. 레벨 5 이상
             -- 2. 최초 로비 실행 시
 			-- ============================================= 
-            local is_show = (g_fullPopupManager:isTitleToLobby() and (g_userData:get('lv') >= 5))
+            local is_show = g_fullPopupManager:isTitleToLobby() -- and (g_userData:get('lv') >= 5))
             
 			-- 지정된 풀팝업 리스트 
             if (is_show) then
