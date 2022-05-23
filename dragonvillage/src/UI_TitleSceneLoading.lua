@@ -11,7 +11,7 @@ UI_TitleSceneLoading = class(PARENT,{
 -------------------------------------
 function UI_TitleSceneLoading:init()
     local vars = self:load('network_loading.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.LOADING)
 
     self.m_uiName = 'UI_TitleSceneLoading'
 
