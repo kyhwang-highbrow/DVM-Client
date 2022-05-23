@@ -118,6 +118,7 @@ function UI_CharacterCard:refreshDragonInfo()
             -- 멀티덱 예외처리
             if (is_multi_deck) then
                 local is_setted, num = multi_deck_mgr:isSettedDragon(doid)
+                -- is_setted : boolean, number(1, 2, 3, 99), nil
                 self:setTeamReadySpriteVisible(is_setted, num)
             else
                 local is_setted = (g_deckData:isSettedDragon(doid) ~= false)
@@ -475,6 +476,7 @@ end
 -------------------------------------
 -- function setTeamReadySpriteVisible
 -- @brief 출전중 표시 (클랜던전 전용 - 1,2 공격대)
+-- param visible : boolean, number(1, 2, 3, 99), nil 
 -------------------------------------
 function UI_CharacterCard:setTeamReadySpriteVisible(visible, num)
     if (not num) then
