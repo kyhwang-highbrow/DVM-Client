@@ -136,7 +136,7 @@ URL['DVM_XSOLLA_DOWNLOAD'] = 'http://dvmx.perplelab.com'
 URL['DVM_ONESTORE_DOWNLOAD'] = 'https://onesto.re/0000746979'
 
 function GetCSUrl(server)
-    if server == SERVER_NAME.KOREA then
+    if ((server == SERVER_NAME.KOREA) or (g_localData:getLang() == 'ko'))then
         return PerpleSdkManager:xsollaIsAvailable() and URL['DVM_CS_XSOLLA'] or URL['DVM_CS']
     else
         return PerpleSdkManager:xsollaIsAvailable() and URL['DVM_CS_XSOLLA_EN'] or URL['DVM_CS_EN']
@@ -146,7 +146,8 @@ end
 -- 약관동의 홈페이지 연결
 function GoToAgreeMentUrl()
     local url
-    if (g_localData:isKoreaServer()) then
+    -- '한국어' 일때만
+    if (g_localData:getLang() == 'ko') then
         url = URL['PERPLELAB_AGREEMENT']
     else
         url = URL['PERPLELAB_AGREEMENT_EN']
@@ -157,7 +158,8 @@ end
 -- 개인정보 홈페이지 연결
 function GoToPersonalInfoUrl()
     local url
-    if (g_localData:isKoreaServer()) then
+    -- '한국어' 일때만
+    if (g_localData:getLang() == 'ko') then
         url = URL['PERPLELAB_PI']
     else
         url = URL['PERPLELAB_PI_EN']
