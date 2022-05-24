@@ -35,6 +35,8 @@ function UI_HbrwLoungePopup:initUI()
     local check = self:getCheckStatus()
     vars['checkSprite']:setVisible(check)
 
+    self:setItemNode()
+
     if check then
         local root_size = vars['Menu']:getContentSize()
         local coupon_size = vars['couponNode']:getContentSize()
@@ -107,5 +109,30 @@ end
 -- function refresh
 -------------------------------------
 function UI_HbrwLoungePopup:refresh()
+   
+end
+
+-------------------------------------
+-- function setItemNode
+-------------------------------------
+function UI_HbrwLoungePopup:setItemNode()
+    local vars = self.vars
+
+    local t_item = {
+            {   ['item_id'] = 700404,
+                ['count'] = 7},
+            {   ['item_id'] = 700330,
+                ['count'] = 70},
+            {   ['item_id'] = 700001,
+                ['count'] = 7000},
+            {   ['item_id'] = 700002,
+                ['count'] = 7000000},
+    }
+
+    for idx, data in ipairs(t_item) do
+        local item_card = MakeItemCard(data)
+
+        vars['itemNode' .. idx]:addChild(item_card.root)
+    end
    
 end
