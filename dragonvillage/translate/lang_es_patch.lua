@@ -105,6 +105,7 @@ return {['1천 만원 상당의\n경품 이벤트 진행 중!']='A special givea
 ['글로벌 서버 오픈 기념\n진화 패키지(물)']='Anniversario dell\'apertura del server globale\nPaquete de evolución (agua)',
 ['글로벌 서버 오픈 기념\n진화 패키지(불)']='Anniversario dell\'apertura del server globale\nPaquete Evolución (Fuego)',
 ['글로벌 서버 오픈 기념\n진화 패키지(빛)']='Anniversario dell\'apertura del server globale\nPaquete de evolución (Luz)',
+['글로벌 서버 오픈 기념\n진화 패키지(어둠)']='\nPaquete de evolución (oscuro)',
 ['종합 랭킹은 속성 점수 중 가장 높은 점수로 결정됩니다.']='Azioni generali di classifica sono attributi di punteggio piu alti a punti',
 ['죄악의 화신 이벤트\n바로가기']='Encarnación del Pecado Evento\nIr Ahora',
 ['죄악의 화신 토벌하고 {@yellow}경품{@default} 받아가세요!']='Ricevi il {@yellow}premio{@default} per l\'Incarnazione del peccato!',
