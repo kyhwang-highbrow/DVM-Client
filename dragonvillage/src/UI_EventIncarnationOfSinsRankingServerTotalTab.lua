@@ -51,16 +51,16 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingServerTotalTab:initReward()
     self.m_reward = {
-        ['1'] = '애플 맥북 프로 14 (2021)',
-        ['2'] = '애플 아이패드 미니 6세대',
-        ['3'] = '뱅앤올룹슨 베오플레이 EQ',
-        ['4'] = '뱅앤올룹슨 베오플레이 EQ',
-        ['5'] = '뱅앤올룹슨 베오플레이 EQ',
-        ['7'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
-        ['10'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
-        ['20'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
-        ['30'] = '삼성 갤럭시버즈2 (펩시 콜라보)',
-        ['530'] = '삼성 갤럭시버즈2 (펩시 콜라보)'
+        [1] = '애플 맥북 프로 14 (2021)',
+        [2] = '애플 아이패드 미니 6세대',
+        [3] = '뱅앤올룹슨 베오플레이 EQ',
+        [4] = '뱅앤올룹슨 베오플레이 EQ',
+        [5] = '뱅앤올룹슨 베오플레이 EQ',
+        [7] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        [10] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        [20] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        [30] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        [530] = '삼성 갤럭시버즈2 (펩시 콜라보)'
     }
 end
 
@@ -102,7 +102,7 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data, 
     local rank_data = data
     local my_rank_data = data[type .. '_my_info']
     
-    local l_rank_list = rank_data[type .. '_list'] or {}
+    local l_rank_list = rank_data[type .. '_list'] or rank_data[type .. '_my_info']
 
     local reward_info = self.m_reward
 
@@ -220,7 +220,41 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRewardUI(ret, type)
     else
         vars['rankLabel']:setString('-')
     end
-    
+    --------------------------------------------------------------------------------
+    local node = vars['rewardNode']
+
+    if (self.m_rewardTableView) then
+        return
+    end
+
+    local create_func = function(ui, data)
+        self:createRewardFunc(ui, data, my_info)
+    end
+
+    local reward_list = {}
+    for key, data in pairs(self.m_reward) do
+        local t_data = {}
+        t_data['rank'] = key
+        t_data['reward'] = data
+        table.insert(reward_list, t_data) 
+    end
+
+    local sort_func = function(a, b)
+        return a['rank'] < b['rank']
+    end
+
+    table.sort(reward_list, sort_func)
+
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(640, 60 + 5)
+    table_view:setCellUIClass(UI_EventIncarnationOfSinsRankingServerTotalTabRewardListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(reward_list)
+
+    table_view:update(0)
+
+    self.m_rewardTableView = table_view
+
 end
 
 -------------------------------------
@@ -228,17 +262,9 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingServerTotalTab:createRewardFunc(ui, data, my_info)
     local vars = ui.vars
-    local my_data = my_info or {}
-
-    local my_rank = my_data['rank'] or 0
-    local my_ratio = my_data['rate'] or 0
-
-    local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
-    if (reward_data) then
-        if (data['rank_id'] == reward_data['rank_id']) then
-            vars['meSprite']:setVisible(true)
-        end
-    end
+    
+    vars['rankLabel']:setString(Str('{1}위', data['rank']))
+    vars['rewardLabel']:setString(Str('{1}', data['reward']))
 end
 
 
@@ -416,11 +442,11 @@ function UI_EventIncarnationOfSinsRankingServerTotalTabRankingListItem:initButto
     local t_rank_info = self.m_rankInfo
     local t_clan_info = t_rank_info['clan_info']
 
-    if (t_clan_info) then
-	    vars['clanBtn']:registerScriptTapHandler(function()
-            g_clanData:requestClanInfoDetailPopup(t_clan_info['id'])
-        end)
-    end
+    -- if (t_clan_info) then
+	--     vars['clanBtn']:registerScriptTapHandler(function()
+    --         g_clanData:requestClanInfoDetailPopup(t_clan_info['id'])
+    --     end)
+    -- end
 end
 
 
@@ -457,30 +483,6 @@ end
 function UI_EventIncarnationOfSinsRankingServerTotalTabRewardListItem:initUI()
     local vars = self.vars
     local t_data = self.m_rewardInfo
-    local l_reward = g_itemData:parsePackageItemStr(self.m_rewardInfo['reward'])
-
-    for i = 1, #l_reward do
-        local item_id = l_reward[i]['item_id']
-        local cnt = l_reward[i]['count']
-        
-        local item_card = UI_ItemCard(item_id, cnt)
-        item_card.root:setScale(0.62)
-        item_card.root:setSwallowTouch(false)
-        -- itemNode 는 좌 -> 우 1,2,3,4,5 총 5개를 갖는다
-        -- 리워드가 5개 미만일 때 총 슬롯과 리워드 차이만큼
-        -- 앞칸을 비워서 우측정렬을 실현
-        local insert_idx = i + ( 5 - #l_reward )
-
-        -- 혹시라도 인덱스 벗어나는 일이 있으면 멈추자.
-        if (insert_idx < 1 or insert_idx > 5) then
-            break
-        end
-
-        if vars['itemNode' .. insert_idx] then 
-            vars['itemNode' .. insert_idx]:addChild(item_card.root)
-        end
-    end
-
-    local rank_str = StructRankReward.getRankName(t_data) 
-    vars['rankLabel']:setString(rank_str)
+    
+    vars['rewardLabel']:setVisible(true)
 end
