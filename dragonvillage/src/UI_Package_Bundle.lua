@@ -146,7 +146,25 @@ function UI_Package_Bundle:initButton()
         end
     end
 
+    
+    if (vars['eggInfoBtn']) then
+        vars['eggInfoBtn']:registerScriptTapHandler(function() self:click_eggInfoBtn() end)
+    end
+
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+end
+
+
+-------------------------------------
+-- function click_eggInfoBtn
+-------------------------------------
+function UI_Package_Bundle:click_eggInfoBtn()
+    local ui = UI_BookEgg()
+
+    -- 바로가기 기능
+    ui.m_shortcutsFunc = function(focus_id)
+        UINavigatorDefinition:goTo('hatchery', 'incubate', focus_id)
+    end
 end
 
 -------------------------------------
