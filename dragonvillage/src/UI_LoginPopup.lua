@@ -76,6 +76,9 @@ end
 function UI_LoginPopup:setServerName(name)
     local vars = self.vars
     vars['serverLabel']:setString( string.upper( name ) )
+
+    local is_global_server = (name == 'Global')
+    self.vars['serverRewardMenu']:setVisible(is_global_server)
 end
 
 -------------------------------------
