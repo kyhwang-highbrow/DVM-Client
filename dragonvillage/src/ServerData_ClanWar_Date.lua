@@ -2,7 +2,7 @@
 -- function getClanWarState
 -------------------------------------
 function ServerData_ClanWar:getClanWarState()
-	local cur_time = Timer:getServerTime_Milliseconds()
+	local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 	local state
 
 	-- 클랜전 시즌 시작전이라면 시즌 종료 처리 (self.season_start_time - 다음 시즌까지 남은 시간)
@@ -30,7 +30,7 @@ end
 -- @brief 다음 시즌까지 남은 시간
 -------------------------------------
 function ServerData_ClanWar:getRemainSeasonTime()
-	local cur_time = Timer:getServerTime_Milliseconds()
+	local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 	local remain_time = self.season_start_time - cur_time
 
 	if (remain_time < 0) then
@@ -45,7 +45,7 @@ end
 -- @brief 14일 째의 경우 현재 시즌은 끝나지 않았는데 다음 시즌 시작 시간이 필요함
 -------------------------------------
 function ServerData_ClanWar:getRemainNextSeasonTime()
-	local cur_time = Timer:getServerTime_Milliseconds()
+	local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 	local remain_time = self.next_season_start_time - cur_time
 
 	if (remain_time < 0) then
@@ -59,7 +59,7 @@ end
 -- @brief 오늘 경기 끝나기까지 남은 시간
 -------------------------------------
 function ServerData_ClanWar:getRemainGameTime()
-	local cur_time = Timer:getServerTime_Milliseconds()
+	local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 	local remain_time = self.today_end_time - cur_time
 
 	if (remain_time < 0) then
@@ -73,7 +73,7 @@ end
 -- @brief 오늘 경기 시작까지 남은 시간
 -------------------------------------
 function ServerData_ClanWar:getRemainStartGameTime()
-	local cur_time = Timer:getServerTime_Milliseconds()
+	local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 	local remain_time = self.today_start_time - cur_time
 	
 	if (remain_time < 0) then
@@ -456,7 +456,7 @@ end
 -- function getRemainTimeText
 -------------------------------------
 function ServerData_ClanWar:getRemainTimeText()
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local milliseconds
 
     -- 경기 진행 중 (경기 종료까지 남은 시간 표시)

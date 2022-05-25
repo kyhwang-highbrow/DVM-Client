@@ -99,7 +99,7 @@ function UI_EventImageQuizIngame:init()
         self:setAllAnswerBtnEnable(true)
         
         -- 게임 타이머
-        self.m_todayEndTime = Timer:getServerTime_Milliseconds() + TIME_LIMIT_SEC * 1000 
+        self.m_todayEndTime = ServerTime:getInstance():getCurrentTimestampMilliseconds() + TIME_LIMIT_SEC * 1000 
 
         self:nextQuiz()
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
@@ -163,7 +163,7 @@ function UI_EventImageQuizIngame:update()
         return
     end
 
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local milliseconds = (self.m_todayEndTime - cur_time)
 
     -- 게임 진행 중 (게임 종료까지 남은 시간 표시)
@@ -366,7 +366,7 @@ function UI_EventImageQuizIngame:answerResult(answer)
 
         -- 시간 출력
         if (IS_TEST_MODE()) then
-            local cur_time = Timer:getServerTime_Milliseconds()
+            local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
             local milliseconds = (self.m_todayEndTime - cur_time)
             cclog('Answer : ' .. TIME_LIMIT_SEC - milliseconds/1000)
         end

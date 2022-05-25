@@ -71,7 +71,7 @@ function UI_ButtonSpotSale:update(dt)
             --local end_of_sale_time = g_spotSaleData:getSpotSaleInfo_EndOfSaleTime(spot_sale_id) / 1000
             --local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local end_of_sale_time = g_spotSaleData:getSpotSaleInfo_EndOfSaleTime(spot_sale_id)
-            local curr_time = Timer:getServerTime_Milliseconds()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 
             local str = ''
             if (curr_time < end_of_sale_time) then

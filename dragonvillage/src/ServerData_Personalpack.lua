@@ -265,7 +265,7 @@ function ServerData_Personalpack:checkPersonalpack(ppid)
 
         -- 그룹의 쿨다운 확인
         local cool_down = self:getGroupCooldown(group)
-        local curr_time = Timer:getServerTime_Milliseconds()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
         -- 쿨다운이 nil 인 경우는 아직 활성화 되지 않았기 때문
         if (cool_down ~= nil) and (curr_time < cool_down) then
             cclog('on cooldown')

@@ -39,7 +39,7 @@ function UI_ClanWarMatchingWatching:update()
 
     -- 경기 진행 중 (경기 종료까지 남은 시간 표시)
     if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-        local cur_time = Timer:getServerTime_Milliseconds()
+        local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
         local milliseconds = (g_clanWarData.today_end_time - cur_time)
 
         local hour = math.floor(milliseconds / 3600000)

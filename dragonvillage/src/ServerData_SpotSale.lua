@@ -97,7 +97,7 @@ function ServerData_SpotSale:checkCondition(id, skip_conditon)
 
     do-- 1. 개별 쿨타임(cooldown) 확인
         local cool_down = self:getSpotSaleInfo_coolDown(id)
-        local curr_time = Timer:getServerTime_Milliseconds()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 
         if (curr_time < cool_down) then
             if self.m_bDebugLog then
@@ -188,7 +188,7 @@ function ServerData_SpotSale:getGlobalCoolTimeDone()
     end
 
     -- 현재 시간    
-    local curr_time = Timer:getServerTime_Milliseconds()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 
     if self.m_bDebugLog then
         if (curr_time < global_cool_down) then
@@ -236,7 +236,7 @@ function ServerData_SpotSale:getSpotSaleInfo_activeProduct()
     end
 
     -- 현재 시간
-    local curr_time = Timer:getServerTime_Milliseconds()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 
     -- 우선 깜짝 할인 상품은 동시에 1개만 발동된다고 가정함 (기획의도)
 	for spot_sale_id, endtime in pairs(spot_sale_info['active_list']) do

@@ -64,7 +64,7 @@ function StructFevertime:isActiveFevertime()
         return false
     end
     
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     if (cur_time < self['start_date']) then
         return false
     end
@@ -100,7 +100,7 @@ end
 function StructFevertime:isFevertimeExpired()
     local end_date = self:getEndDateForSort()
 
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     if (end_date < cur_time) then
         return true
     else
@@ -114,7 +114,7 @@ end
 function StructFevertime:isAfterStartDate()
     local start_date = self:getStartDateForSort()
 
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     if (start_date < cur_time) then
         return true
     else
@@ -128,7 +128,7 @@ end
 function StructFevertime:isBeforeStartDate()
     local start_date = self:getStartDateForSort()
 
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     if (cur_time < start_date) then
         return true
     else
@@ -294,7 +294,7 @@ function StructFevertime:getTimeLabelStr()
         local str = Str('{1}', time_str)
         return str
     else
-        local cur_time = Timer:getServerTime_Milliseconds()
+        local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
         -- 시작 전
         if (cur_time < self['start_date']) then
             local milliseconds = self['end_date'] - self['start_date']

@@ -249,7 +249,7 @@ function ServerData_Supply:getSupplyTimeRemainingString(supply_type, is_simple)
         local end_time = (t_supply_info['end'] / 1000)
 
         if (curr_time < end_time) then
-            local _curr_time = Timer:getServerTime_Milliseconds()
+            local _curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
             local _end_time = t_supply_info['end']
             local time_millisec = math_max(_end_time - _curr_time, 0)
             local time_str = datetime.makeTimeDesc_timer(time_millisec, true) -- param : milliseconds, day_special

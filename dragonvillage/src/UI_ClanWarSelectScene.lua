@@ -589,7 +589,7 @@ end
 function UI_ClanWarSelectScene:update(dt)
 	local vars = self.vars
 
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local str = '-'
     -- 경기 진행 중 (경기 종료까지 남은 시간 표시)
     if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then

@@ -245,7 +245,7 @@ function ServerData_PurchasePoint:getPurchasePointEventRemainTime_milliSecond(ve
 
     end_time = end_time
 
-    local curr_time = Timer:getServerTime_Milliseconds()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local time = (end_time - curr_time)
 
     return time

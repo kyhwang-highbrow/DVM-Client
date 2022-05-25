@@ -187,7 +187,7 @@ function UI_ClanWarSelect_RivalListItem:update(dt)
         return
     end
     
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local remain_time = (end_time - cur_time)
     if (remain_time > 0) then
         vars['lastTimeLabel']:setString(datetime.makeTimeDesc_timer_filledByZero(remain_time))

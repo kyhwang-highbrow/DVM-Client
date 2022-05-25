@@ -45,7 +45,7 @@ function UI_ClanWarSelectSceneDefendHistoryItem:initUI(data)
 		end
     end
 
-	local cur_time = Timer:getServerTime_Milliseconds()
+	local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local end_date = struct_match_item:getEndDate()
 	vars['timeLogLabel']:setString('')
     if (end_date) then

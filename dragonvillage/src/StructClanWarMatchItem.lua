@@ -162,7 +162,7 @@ end
 -------------------------------------
 function StructClanWarMatchItem:getPlayState(history_number, end_date)
     local _history_number = history_number or self['attack_game_history'] or ''
-    local cur_time =  Timer:getServerTime_Milliseconds()
+    local cur_time =  ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local end_time = end_date or self:getEndDate() or 0
     local l_number = {}
     
@@ -420,7 +420,7 @@ end
 -- function getRemainEndTimeText
 -------------------------------------
 function StructClanWarMatchItem:getRemainEndTimeText()
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local end_time = self:getEndDate()
     if (not end_time) then
         return ''

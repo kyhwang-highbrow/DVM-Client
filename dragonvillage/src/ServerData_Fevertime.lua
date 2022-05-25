@@ -218,7 +218,7 @@ end
 -------------------------------------
 function ServerData_Fevertime:setExpirationTimestamp()
     if (self.m_expirationTimestamp == nil) then
-        local curr_time = Timer:getServerTime_Milliseconds()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
         self.m_expirationTimestamp = curr_time
     end
     
@@ -259,7 +259,7 @@ end
 -- function needToUpdateFevertimeInfo
 -------------------------------------
 function ServerData_Fevertime:needToUpdateFevertimeInfo()
-    local curr_time = Timer:getServerTime_Milliseconds()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 
     if (self.m_expirationTimestamp < curr_time) then
         return true

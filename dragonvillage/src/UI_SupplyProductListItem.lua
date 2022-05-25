@@ -177,7 +177,7 @@ function UI_SupplyProductListItem:refresh()
     -- 시간 표시
     if (self.m_bActive == true) then
         if t_supply_info then
-            local curr_time = Timer:getServerTime_Milliseconds()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
             local end_time = t_supply_info['end']
             local time_millisec = math_max(end_time - curr_time, 0)
             local time_str = datetime.makeTimeDesc_timer(time_millisec, true) -- param : milliseconds, day_special

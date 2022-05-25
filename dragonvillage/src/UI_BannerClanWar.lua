@@ -95,7 +95,7 @@ function UI_BannerClanWar:update()
     end
 
     -- 공격 끝날 때 까지 남은 시간 = 공격 시작 시간 + 1시간
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local remain_time = (end_time - cur_time)
     if (remain_time > 0) then
         vars['timeLabel2']:setString(datetime.makeTimeDesc_timer_filledByZero(remain_time))

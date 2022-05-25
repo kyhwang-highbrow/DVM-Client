@@ -165,7 +165,7 @@ function UI_ClanWarSelectSceneListItem:update(dt)
     end
 
     -- 공격 끝날 때 까지 남은 시간 = 공격 시작 시간 + 1시간
-    local cur_time = Timer:getServerTime_Milliseconds()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local remain_time = (end_time - cur_time)/1000
     if (remain_time > 0) then
         local hour = math.floor(remain_time / 3600)
