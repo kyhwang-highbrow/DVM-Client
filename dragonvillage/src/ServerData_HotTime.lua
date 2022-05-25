@@ -210,7 +210,7 @@ function ServerData_HotTime:refreshActiveList()
     end
 
     -- 오늘의 자정 시간을 지정
-    self.m_listExpirationTime = Timer:getServerTime_midnight(curr_time)
+    self.m_listExpirationTime = ServerTime:getInstance():getMidnightTimeStampSeconds()
 
     -- 종료된 이벤트 삭제
     for key,v in pairs(self.m_activeEventList) do
@@ -745,7 +745,7 @@ function ServerData_HotTime:refreshActivatedDiscountEvent()
     end
 
     -- 오늘의 자정 시간을 지정
-    self.m_dcExpirationTime = Timer:getServerTime_midnight(curr_time)
+    self.m_dcExpirationTime = ServerTime:getInstance():getMidnightTimeStampSeconds()
 
     -- 활성화된 항목 추출
     self.m_activeDcEventTable = {}

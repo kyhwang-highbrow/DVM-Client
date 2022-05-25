@@ -368,5 +368,5 @@ end
 -- @brief 다음 자정으로 재초기화 타임 저장
 -------------------------------------
 function ServerData_Advertising:setReinitailzeTime()
-    self.m_reinitializeTime = Timer:getServerTime_midnight()
+    self.m_reinitializeTime = ServerTime:getInstance():getMidnightTimeStampSeconds()
 end

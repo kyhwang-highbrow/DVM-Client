@@ -224,7 +224,7 @@ function ServerData_Fevertime:setExpirationTimestamp()
     
 
     -- 오늘 자정
-    local midnight = Timer:getServerTime_midnight() * 1000
+    local midnight = ServerTime:getInstance():getMidnightTimeStampMilliseconds()
     local expiration_timestamp = self.m_expirationTimestamp
 
     -- 핫타임 중 시작, 종료 시간 중 빠른 시간으로
