@@ -283,6 +283,7 @@ local t_module = {
     'SDKManager',
 	'ErrorTracker',
     'Action',
+    'ServerTime',
     'TimeLib',
     'Table',
     'TableClass',
@@ -1793,6 +1794,7 @@ function loadModuleForPatchScene()
 		-- Util
 		'SDKManager',
 		--'ErrorTracker',
+        'ServerTime',
 		'TimeLib',
 		'Table',
 		'TableClass',

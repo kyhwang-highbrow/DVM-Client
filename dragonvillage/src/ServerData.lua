@@ -414,6 +414,21 @@ function ServerData:networkCommonRespone(ret)
     end
 
     -- 서버 시간 동기화
+--     {
+--         ['midnight']=1653436800000;
+--         ['hour']=0;
+--         ['timezone']='UTC';
+--         ['server_time']=1653409423399;
+-- }
+    ccdump(ret['server_info'])
+
+    -- 시간
+    if (ServerTime ~= nil) then
+        -- ret['server_info'] 값이 있을 경우 갱신
+        ServerTime:getInstance():applyResponse(ret)
+    end
+
+
     if (ret['server_info'] and ret['server_info']['server_time']) then
         local server_time = math_floor(ret['server_info']['server_time'] / 1000)
         Timer:setServerTime(server_time)

@@ -346,7 +346,14 @@ function datetime.parseDate(str, pattern)
     local pattern = pattern or '(%d+)-(%d+)-(%d+)T(%d+):(%d+)'
     local t = {}
     t.year, t.month, t.day, t.hour, t.min, t.sec = str:match(pattern)
-    return os.time(t) - datetime.getTimeZoneOffset() + 9 *60*60
+
+    if (tonumber(t.year) > 2037) then
+        cclog('#### WARNING!! #### datetime.parseDate year : ' .. t.year)
+        cclog('year가 2037 이상이 되면 os.time함수에서 nil을 리턴함. 따라서 2037로 보정함.')
+        t.year = '2037'
+    end
+
+    return os.time(t) - datetime.getTimeZoneOffset() + 9 * 60 * 60
 end
 
 function datetime.getTimestamp(tbl)
@@ -405,6 +412,81 @@ function datetime.makeTimeDesc(sec, showSeconds, firstOnly, timeOnly)
     end
 end
 
+-------------------------------------
+-- function makeTimeDesc2
+-------------------------------------
+function datetime.makeTimeDesc2(sec)
+    local sec = math.floor(sec)
+    if sec < 3600 then
+        local min = math.floor(sec / 60)
+        return Str('{1}분', min)
+
+    elseif sec < 86400 or timeOnly then
+        local hour = math.floor(sec / 3600)
+        local min = math.floor(sec / 60) % 60
+        return Str('{1}시간 {2}분', hour, min)
+
+    else
+        local day = math.floor(sec / 86400)
+        local hour = math.floor(sec / 3600) % 24
+        local min = math.floor(sec / 60) % 60
+        return Str('{1}일 {2}시간 {3}분', day, hour, min)
+    end
+end
+
+-------------------------------------
+-- function makeTimeDesc_HHMM
+-- @brief 'hh:mm:ss', '00:00', '23:59' 형식의 시간 표기
+-- @param seconds(number) 단위:초
+-- @return time_str(string) 'hh:mm'
+-------------------------------------
+function datetime.makeTimeDesc_HHMM(seconds)
+    local _seconds = tonumber(seconds)
+    if (_seconds == nil) then
+        return '00:00:00'
+    end
+
+    -- 시 (60초 * 60분 = 3600초)
+    local hour = math.floor(_seconds / 3600)
+    _seconds = _seconds - (hour * 3600)
+
+    -- 분 (60초)
+    local min = math.floor(_seconds / 60)
+    _seconds = _seconds - (min * 60)
+
+    -- 문자열 포맷팅
+    local time_str = string.format('%.2d:%.2d',  hour, min)
+    return time_str
+end
+
+-------------------------------------
+-- function makeTimeDesc_HHMMSS
+-- @brief 'hh:mm:ss', '00:00:00', '23:59:04' 형식의 시간 표기
+-- @param seconds(number) 단위:초
+-- @return time_str(string) 'hh:mm:ss'
+-------------------------------------
+function datetime.makeTimeDesc_HHMMSS(seconds)
+    local _seconds = tonumber(seconds)
+    if (_seconds == nil) then
+        return '00:00:00'
+    end
+
+    -- 시 (60초 * 60분 = 3600초)
+    local hour = math.floor(_seconds / 3600)
+    _seconds = _seconds - (hour * 3600)
+
+    -- 분 (60초)
+    local min = math.floor(_seconds / 60)
+    _seconds = _seconds - (min * 60)
+
+    -- 초
+    local sec = math.floor(_seconds)
+
+    -- 문자열 포맷팅
+    local time_str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
+    return time_str
+end
+
 function datetime.makeTimeDesc_timer(milliseconds, day_special)
     local day = math.floor(milliseconds / 86400000)
     milliseconds = milliseconds - (day * 86400000)
@@ -450,6 +532,47 @@ function datetime.makeTimeDesc_timer(milliseconds, day_special)
     return str
 end
 
+-------------------------------------
+-- function makeTimeDesc_millsecTimer
+-------------------------------------
+function datetime.makeTimeDesc_millsecTimer(milliseconds, timeOnly)
+    local day = math.floor(milliseconds / 86400000)
+    if (timeOnly) then
+        day = 0
+    else
+        milliseconds = milliseconds - (day * 86400000)
+    end
+
+    local hour = math.floor(milliseconds / 3600000)
+    milliseconds = milliseconds - (hour * 3600000)
+
+    local min = math.floor(milliseconds / 60000)
+    milliseconds = milliseconds - (min * 60000)
+
+    local sec = math.floor(milliseconds / 1000)
+    milliseconds = milliseconds - (sec * 1000)
+
+    local millisec = milliseconds
+
+    local str = ''
+    if (0 < day) then
+        if hour == 0 then
+            return Str('{1}일', day)
+        else
+            return Str('{1}일 {2}시간', day, hour)
+        end
+
+    else
+        str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
+
+    end
+
+    return str
+end
+
+-------------------------------------
+-- function makeTimeDesc_millsec
+-------------------------------------
 function datetime.makeTimeDesc_millsec(milliseconds)
     local day = math.floor(milliseconds / 86400000)
     milliseconds = milliseconds - (day * 86400000)
@@ -515,6 +638,11 @@ end
 function datetime.secondToDay(seconds)
     local day = seconds / (24 * 60 * 60)
     return day
+end
+
+function datetime.secondToHour(seconds)
+    local hour = math_floor(seconds / (60 * 60))
+    return hour
 end
 
 function datetime.strformat(t)
