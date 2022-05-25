@@ -78,6 +78,7 @@ function UI_CharacterCard:refreshDragonInfo()
 
     local did = t_dragon_data['did']
     local attr = t_dragon_data:getAttr()
+    local rarity = TableDragon:getValue(did, 'rarity')
 
     -- 속성 따른 배경 이미지
     self:makeBg(attr)
@@ -89,7 +90,9 @@ function UI_CharacterCard:refreshDragonInfo()
     self:makeFrame()
 
     -- 신화 카드 프레임
-    self:makeMythFrame()
+    if rarity == 'myth' then
+        self:makeMythFrame()
+    end
 
     -- 리더 여부
     self:refresh_LeaderIcon()
