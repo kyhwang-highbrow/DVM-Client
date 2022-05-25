@@ -145,9 +145,9 @@ function StructProduct:getEndDateStr(new_line, simple)
     end
 
     local server_time = ServerTime:getInstance()
-    local end_timestamp_millisec = server_time:datestrToTimestampMillisec(self.m_endDate)
-    local curr_timestamp_millisec = server_time:getCurrentTimestampMilliseconds()
-    local time_desc = server_time:timestampMillisecToTimeDesc(end_timestamp_millisec - curr_timestamp_millisec)
+    local end_timestamp = server_time:datestrToTimestampSec(self.m_endDate)
+    local curr_timestamp = server_time:getCurrentTimestampSeconds()
+    local time_desc = server_time:makeTimeDescToSec(end_timestamp - curr_timestamp)
 
     local msg
     if (new_line) then

@@ -103,7 +103,8 @@ end
 function ServerData_EventDice:getStatusText()
     local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = (self.m_endTime / 1000)
-    local offset = datetime.getTimeZoneOffset()
+    --임시 조치
+    local offset = 32400
     local remain_time = end_time + offset
 
     local time = (remain_time - curr_time)

@@ -50,20 +50,13 @@ function UI_EventPopupTab_Banner:update_timer(dt)
     local time_label = self.vars['timeLabel']
 
     if end_date and time_label then
-        local temp =  parser:parse(end_date)
-        local end_time_stamp = datetime.getTimestamp(temp['tab'])
-        local offset = datetime.getTimeZoneOffset()
-        local end_time = end_time_stamp + offset
-
-        local cur_time =  Timer:getServerTime()
-        local remain_time = end_time
-
-
+        local remain_time = ServerTime:getInstance():datestrToTimestampSec(end_date)
+        local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
     
         local time = (remain_time - cur_time)
 
         if time then
-            time_label:setString(Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true)))
+            time_label:setString(Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)))
         else
             self.root:unscheduleUpdate()
         end

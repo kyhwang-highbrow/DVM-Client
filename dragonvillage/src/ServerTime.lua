@@ -100,6 +100,15 @@ function ServerTime:setServerUTCOffset(utc_offset)
 end
 
 -------------------------------------
+-- function getServerUTCOffset
+-- @brief 서버의 타임존
+-------------------------------------
+function ServerTime:getServerUTCOffset()
+    local server_utc_offset = self.m_serverUTCOffsetSec
+    return server_utc_offset
+end
+
+-------------------------------------
 -- function setLocalUTCOffset
 -- @brief 로컬(기기)의 타임존 설정
 -------------------------------------
@@ -110,6 +119,15 @@ function ServerTime:setLocalUTCOffset()
 
     -- 초단위 -> 시간단위
     self.m_localUTCOffset = (self.m_localUTCOffsetSec / 60 / 60)
+end
+
+-------------------------------------
+-- function getLocalUTCOffset
+-- @brief 서버의 타임존
+-------------------------------------
+function ServerTime:getLocalUTCOffset()
+    local local_utc_offset = self.m_localUTCOffsetSec
+    return local_utc_offset
 end
 
 -------------------------------------

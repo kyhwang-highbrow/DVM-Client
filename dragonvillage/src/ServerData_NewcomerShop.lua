@@ -50,10 +50,10 @@ function ServerData_NewcomerShop:applyNewcomderShopEndInfo_fromRet(ret)
         local parser = pl.Date.Format(date_format)
 
         -- 단말기(local)의 타임존 (단위 : 초)
-        local timezone_local = datetime.getTimeZoneOffset()
+        local timezone_local = ServerTime:getInstance():getLocalUTCOffset()
 
         -- 서버(server)의 타임존 (단위 : 초)
-        local timezone_server = Timer:getServerTimeZoneOffset()
+        local timezone_server = ServerTime:getInstance():getServerUTCOffset()
         local offset = (timezone_local - timezone_server)
 
         local parse_start_date = parser:parse('2020-06-07 23:59:59')
