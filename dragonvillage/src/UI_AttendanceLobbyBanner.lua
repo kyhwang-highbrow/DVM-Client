@@ -58,14 +58,15 @@ function UI_AttendanceLobbyBanner:initUI()
     local type = TableItem:getItemType(item_id)
     local did = tonumber(TableItem:getDidByItemId(item_id))
 
+    local reward
     if type == 'dragon' then
         local dragonName = string.format('{@%s}%s{@white}', TableDragon:getDragonAttr(did), item_name)
-        vars['rewardLabel']:setString(Str('{1} {2}마리', dragonName, value))
+        reward = Str('{1} {2}마리', dragonName, value)
     else
-        vars['rewardLabel']:setString(Str('{1} {2}개', item_name, value))
+        reward = Str('{1} {2}개', item_name, value)
     end
     vars['itemNode']:addChild(item_card)
-    vars['ddayLabel']:setString(Str('D-1'))
+    vars['rewardLabel']:setString(Str('{@YELLOW}내일 접속하시면\n{@DEFAULT}{1}', reward))
     
 end
 
