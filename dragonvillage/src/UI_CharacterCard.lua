@@ -90,9 +90,9 @@ function UI_CharacterCard:refreshDragonInfo()
     self:makeFrame()
 
     -- 신화 카드 프레임
-    if rarity == 'myth' then
-        self:makeMythFrame()
-    end
+    -- if rarity == 'myth' then
+    --     self:makeMythFrame()
+    -- end
 
     -- 리더 여부
     self:refresh_LeaderIcon()
@@ -756,8 +756,8 @@ function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop, click_func)
     ui.vars['clickBtn']:registerScriptTapHandler(tap_func)
     
     -- 신화 드래곤 전용 테두리
-    local isMythDragon = (rarity == 'myth')
-    ui:setMythSpriteVisible(isMythDragon)
+    --local isMythDragon = (rarity == 'myth')
+    --ui:setMythSpriteVisible(isMythDragon)
 
     -- 친구 드래곤일 경우 친구 마크 추가
     local doid = t_dragon_data['id']
