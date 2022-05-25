@@ -312,7 +312,7 @@ function ServerData_Highlight:loadNewDoidMap()
 	-- 변수 선언
     local dragons_map = g_dragonsData:getDragonsListRef()
 	local runes_map = g_runesData:getRuneList()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 신규 오브젝트가 삭제 되었을 경우를 체크하여 보정
     for oid_type, t_oid in pairs(self.m_newOidMap) do
@@ -390,7 +390,7 @@ function ServerData_Highlight:addNewOid(oid_type, oid, created_at)
 		return
 	end
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 생성 시간 정보가 있는 경우
     if created_at then

@@ -507,7 +507,7 @@ end
 -- @breif 고대의탑 오픈 여부
 -------------------------------------
 function ServerData_AncientTower:isOpenAncientTower()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
 	
@@ -518,7 +518,7 @@ end
 -- function getAncientTowerStatusText
 -------------------------------------
 function ServerData_AncientTower:getAncientTowerStatusText()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)

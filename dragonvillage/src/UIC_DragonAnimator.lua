@@ -109,7 +109,7 @@ end
 -------------------------------------
 function UIC_DragonAnimator:click_dragonButton(idle_motion)
     local idle_motion = idle_motion or false -- 클릭한 경우 바로 랜덤 애니메이션
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     if (self.m_timeStamp) and ((curr_time - self.m_timeStamp) < 3) then
         return

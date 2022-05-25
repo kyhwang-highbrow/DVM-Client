@@ -26,8 +26,7 @@ function ServerTime:init()
     self.m_timeDiff = 0
     self.m_timeDiffMilliseconds = 0
 
-    -- 한국은 UTC +9이므로 일단 +9로 설정. 추후에 서버에서 받는 값을 사용하도록 할 것
-    self:setServerUTCOffset(9)
+    self:setServerUTCOffset(0)
 
     -- 로컬(기기)의 타임존 설정
     self:setLocalUTCOffset()

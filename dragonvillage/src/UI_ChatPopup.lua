@@ -120,7 +120,7 @@ end
 -- @brief 매크로 채팅 전송
 -------------------------------------
 function UI_ChatPopup:click_macroListItem(msg)
-	local curr_time = Timer:getServerTime()
+	local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 	
 	-- 매크로 성공
 	if (curr_time - self.m_prevMacroTime > MACRO_INTERVAL) then

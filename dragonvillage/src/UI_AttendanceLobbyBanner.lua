@@ -90,7 +90,7 @@ function UI_AttendanceLobbyBanner:update(dt)
     local vars = self.vars
 
     local end_time = self.m_enddate / 1000
-    local cur_time = Timer:getServerTime()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local remain_time = (end_time - cur_time)
 
     if (remain_time > 0) then

@@ -68,7 +68,7 @@ function LobbyPopupAbstract:startGuide()
 
     -- 기간 체크
     local key = data['key']
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     g_lobbyPopupData:setTimestamp(key, server_time)
 end
 
@@ -118,7 +118,7 @@ function LobbyPopupAbstract:checkCondition()
     local key = data['key']
     if interval then
         local term_sec = (interval * 24 * 60 * 60)
-        local server_time = Timer:getServerTime()
+        local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local timestamp = g_lobbyPopupData:getTimestamp(key) or (server_time - term_sec)
 
         local gap = (server_time - timestamp)

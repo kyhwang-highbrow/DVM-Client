@@ -904,7 +904,7 @@ function UI_DragonRunesEnhance:showGrindPackagePopup()
     -- 4.쿨타임 7일 지났는지
     do
         local expired_time = g_settingData:getPromoteExpired('rune_grind_package')
-        local cur_time = Timer:getServerTime()
+        local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         if (cur_time < expired_time) then
             return
         end

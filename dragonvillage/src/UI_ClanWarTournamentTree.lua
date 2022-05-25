@@ -1048,7 +1048,7 @@ function UI_ClanWarTournamentTree:click_refreshBtn()
     -- 1. 쿨타임 체크
     func_check_cooldown = function()
         -- 갱신 가능 시간인지 체크한다
-	    local curr_time = Timer:getServerTime()
+	    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local RENEW_INTERVAL = 10
 	    if (curr_time - self.m_preRefreshTime > RENEW_INTERVAL) then
 		    self.m_preRefreshTime = curr_time

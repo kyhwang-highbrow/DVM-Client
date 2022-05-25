@@ -190,7 +190,7 @@ end
 -- 남은 시간
 -------------------------------------
 function UI_AttendanceSpecialListItem:getRemainTimeStr()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local start_time = self.m_tItemData['start']
     start_time = start_time and (tonumber(start_time) / 1000) or 0
 

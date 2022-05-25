@@ -75,7 +75,7 @@ function ServerData_Event:getEventPopupTabList()
                     local start_time = TimeLib:strToTimeStamp(ev_item['start'])
                     local end_time = TimeLib:strToTimeStamp(ev_item['end'])
 
-                    local server_timestamp = Timer:getServerTime()
+                    local server_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
                     local time_table = TimeLib:convertToServerDate(server_timestamp)
                     local curr_time = time_table['time']
 
@@ -582,7 +582,7 @@ end
 function ServerData_Event:checkEventTime(start_date, end_date, optional_data)
     local start_time
     local end_time
-    local cur_time = Timer:getServerTime()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local date_format = 'yyyy-mm-dd HH:MM:SS'
     local parser = pl.Date.Format(date_format)

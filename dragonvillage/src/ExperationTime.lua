@@ -65,7 +65,7 @@ end
 -- @brief 서버상 오늘의 자정 시간을 만료 시간으로 설정
 -------------------------------------
 function ExperationTime:applyExperationTime_Midnight()
-    local timestamp = Timer:getServerTime()
+    local timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     if (timestamp == nil) or (timestamp == 0) then
         return
@@ -80,7 +80,7 @@ end
 -- @brief n초 후를 만료 시간으로 설정
 -------------------------------------
 function ExperationTime:applyExperationTime_SecondsLater(second, msg)
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local timestamp = curr_time + (second * 1000)
     self:applyExperationTime(timestamp, msg)
 end
@@ -90,7 +90,7 @@ end
 -- @brief n분 후를 만료 시간으로 설정
 -------------------------------------
 function ExperationTime:applyExperationTime_MinutesLater(minute, msg)
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local timestamp = curr_time + (minute * 60 * 1000)
     self:applyExperationTime(timestamp, msg)
 end
@@ -100,7 +100,7 @@ end
 -- @brief n시간 후를 만료 시간으로 설정
 -------------------------------------
 function ExperationTime:applyExperationTime_HoursLater(hour, msg)
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local timestamp = curr_time + (hour * 60 * 60 * 1000)
     self:applyExperationTime(timestamp, msg)
 end
@@ -125,7 +125,7 @@ function ExperationTime:setUpdatedAt(timestamp, reset)
     if (timestamp ~= nil) then
         self.m_updatedAt = timestamp
     else
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         self.m_updatedAt = curr_time
     end
 
@@ -157,7 +157,7 @@ function ExperationTime:isExpired()
     end
 
     -- 만료 시간을 초과했을 경우
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     if (self.m_experationTime ~= nil) and (self.m_experationTime <= curr_time) then
         return true
     end

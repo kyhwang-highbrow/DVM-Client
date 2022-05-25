@@ -350,7 +350,7 @@ end
 -------------------------------------
 function ServerData_BattlePass:isValidTime(pass_id)
     local key = tostring(pass_id)
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     if (not self.m_passInfoData[key]) then return false end
 
@@ -406,7 +406,7 @@ end
 -------------------------------------
 function ServerData_BattlePass:getRemainTimeStr(pass_id)
     local key = tostring(pass_id)
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local start_time = self.m_passInfoData[key]['start_date']
     start_time = start_time and (tonumber(start_time) / 1000) or 0
 

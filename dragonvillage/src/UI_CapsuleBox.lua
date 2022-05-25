@@ -464,7 +464,7 @@ end
 -------------------------------------
 function UI_CapsuleBox:click_refreshBtn()
 	-- 갱신 가능 시간인지 체크한다
-	local curr_time = Timer:getServerTime()
+	local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 	if (curr_time - self.m_preRefreshTime > RENEW_INTERVAL) then
 		self.m_preRefreshTime = curr_time
 

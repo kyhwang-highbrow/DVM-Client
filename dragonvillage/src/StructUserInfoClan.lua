@@ -71,7 +71,7 @@ end
 -- @brief 최종 접속 시간 정보 갱신
 -------------------------------------
 function StructUserInfoClan:updateActiveTime()
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 최종 활동 시간을 millisecond에서 second로 변경
     local last_active = (self.m_lastActiveTime / 1000)

@@ -128,7 +128,7 @@ end
 -- @brief 만료 기한 갱신
 -------------------------------------
 function StructMail:setExpireRemainTime()
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 사용 시간을 millisecond에서 second로 변경
     local expired_at = (self['expired_at'] / 1000)

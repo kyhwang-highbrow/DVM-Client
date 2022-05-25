@@ -316,7 +316,7 @@ function LobbyDragon:update_gift(dt)
 	-- 선물이 없는 경우
 	else
 		local gift_time = g_userData:getDragonGiftTime()
-		local curr_time = Timer:getServerTime()
+		local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
 		-- 선물 가능 상태로 전환
 		if (curr_time > gift_time) then

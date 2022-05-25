@@ -175,7 +175,7 @@ function ServerData_EventIncarnationOfSins:getTimeText()
     local start_time = time_info['start_date_timestamp'] / 1000
     local end_time = time_info['end_date_timestamp'] / 1000
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local str = ''
     if (curr_time < start_time) then

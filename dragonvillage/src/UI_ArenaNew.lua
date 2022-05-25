@@ -192,7 +192,7 @@ function UI_ArenaNew:updateTimer(dt)
     --[[
     local time_label = vars['refreshLabel']
     if time_label then
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local endtime = g_arenaNewData.m_costInfo['refresh_enable_time']
         if (not endtime) then 
             endtime = 0 

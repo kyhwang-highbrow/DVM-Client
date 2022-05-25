@@ -209,7 +209,7 @@ function Analytics:firstTimeExperience(arg1, arg2)
     if (user) then
         local created_at = user:get('created_at')
         if (created_at) then
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local time = curr_time - math_floor(created_at/1000)
 
             -- 계정 생성한지 24시간 이내의 유저만 firstTimeExperience 호출

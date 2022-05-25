@@ -73,7 +73,7 @@ function UI_ButtonPersonalpack:update(dt)
 
     local time_label = self.vars['timeLabel']
     if time_label then
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         if (0 < self.m_endTime) and (curr_time < self.m_endTime) then
             local remain_time = (self.m_endTime - curr_time)
             local str = datetime.makeTimeDesc_timer_filledByZero(remain_time * 1000)

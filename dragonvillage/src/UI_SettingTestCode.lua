@@ -664,7 +664,7 @@ end
 -- @brief 드래곤 획득 패키지 UI 출력
 -------------------------------------
 function UI_SettingTestCode:click_GetDragonPackage(did)
-    local serverTime = Timer:getServerTime()
+    local serverTime = ServerTime:getInstance():getCurrentTimestampSeconds()
     local package = StructDragonPkgData(did, serverTime)
     if( package:isPossibleProduct() == false) then
         UI_ToastPopup('패키지를 모두 구매하셨습니다. 패키지 구매내역을 초기화 해주세요.')

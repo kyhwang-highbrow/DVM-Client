@@ -77,7 +77,7 @@ function LobbyGuideAbstract:startGuide()
     else
         local term_day = tonumber(term)
         if term_day then
-            local server_time = Timer:getServerTime()
+            local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             g_lobbyGuideData:setTimestamp(key, server_time)
         end
     end
@@ -138,7 +138,7 @@ function LobbyGuideAbstract:checkCondition()
         local term_day = tonumber(term)
         if term_day then
             local term_sec = (term_day * 24 * 60 * 60)
-            local server_time = Timer:getServerTime()
+            local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local timestamp = g_lobbyGuideData:getTimestamp(key) or (server_time - term_sec)
 
             local gap = (server_time - timestamp)

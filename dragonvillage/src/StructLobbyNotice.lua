@@ -67,7 +67,7 @@ end
 -- @brief 만료 기한 갱신
 -------------------------------------
 function StructLobbyNotice:setExpireRemainTime()
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local expired_at =0
 

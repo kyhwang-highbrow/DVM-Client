@@ -199,7 +199,7 @@ function ServerData_ClanWar:getRemainTimeForNextGame()
 		end
 	end
 
-	local cur_time = Timer:getServerTime()
+	local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 	local date = pl.Date()
 	date:set(cur_time)
 	date:hour(9)
@@ -220,7 +220,7 @@ end
 function ServerData_ClanWar:getRemainTimeForNextGameEnd()
 	-- 클라에서 노가다로 계산한 것
     -- 현재 사용안함
-	local cur_time = Timer:getServerTime()
+	local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 	local date = pl.Date()
 	date:set(cur_time)
 	date:hour(23)
@@ -252,7 +252,7 @@ function ServerData_ClanWar:getRemainTimeForGameEnd()
 		end
 	end
 
-	local cur_time = Timer:getServerTime()
+	local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 	local date = pl.Date()
 	date:set(cur_time)
 	date:hour(12)

@@ -106,7 +106,7 @@ function UI_FirstPurchaseRewardPopup:update(dt)
     local vars = self.vars
 
     local end_date = (self:getDataByKey('end_date') or 0) / 1000 -- timestamp 1585839600000
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 1. 남은 시간 표시 (기간제일 경우에만)
     local time_label = vars['timeLabel']

@@ -146,7 +146,7 @@ function ServerData_ClanRaid:isOpenClanRaid()
             return false
         end
     else
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local start_time = (self.m_startTime / 1000)
         local end_time = (self.m_endTime / 1000)
 	    return (self.m_bOpen) and (start_time <= curr_time) and (curr_time <= end_time)
@@ -158,7 +158,7 @@ end
 -- @breif 던전 오픈 여부 (시간만 체크)
 -------------------------------------
 function ServerData_ClanRaid:isOpenClanRaid_OnlyTime()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
 	return (start_time <= curr_time) and (curr_time <= end_time)
@@ -177,7 +177,7 @@ end
 -- function getClanRaidStatusText
 -------------------------------------
 function ServerData_ClanRaid:getClanRaidStatusText()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)

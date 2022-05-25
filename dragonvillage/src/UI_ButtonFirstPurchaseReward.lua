@@ -95,7 +95,7 @@ function UI_ButtonFirstPurchaseReward:click_btn()
     -- 이하 개발을 위한 코드
     --local t_info = g_firstPurchaseEventData:getFirstPurchaseEventInfoByEventId(self.m_eventId)
     --t_info['status'] = 1
-    --t_info['end_date'] = (Timer:getServerTime() + 3) * 1000
+    --t_info['end_date'] = (ServerTime:getInstance():getCurrentTimestampSeconds() + 3) * 1000
 end
 
 -------------------------------------
@@ -106,7 +106,7 @@ function UI_ButtonFirstPurchaseReward:update(dt)
     local vars = self.vars
     local status = self:getDataByKey('status') -- -1, 0, 1
     local end_date = (self:getDataByKey('end_date') or 0) / 1000 -- timestamp 1585839600000
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 1. 남은 시간 표시 (기간제일 경우에만)
     local time_label = vars['timeLabel']

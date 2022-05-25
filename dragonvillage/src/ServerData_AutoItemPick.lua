@@ -39,7 +39,7 @@ function ServerData_AutoItemPick:isActiveAutoItemPick()
     
     -- 만료 시간이 지났는지 체크
     expired = (expired / 1000)
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     if (expired < curr_time) then
         return false
     end
@@ -62,7 +62,7 @@ function ServerData_AutoItemPick:isActiveAutoItemPickWithType(type)
 
     -- 만료 시간이 지났는지 체크
     expired = (expired / 1000)
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     if (expired < curr_time) then
         return false
     end
@@ -126,7 +126,7 @@ function ServerData_AutoItemPick:checkSubsAlarm(auto_type, day)
         return false
     end
 
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local time = (subs_expired/1000 - server_time)
     if (time < 0) then
         return false

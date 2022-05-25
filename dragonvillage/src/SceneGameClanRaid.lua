@@ -26,7 +26,7 @@ SceneGameClanRaid = class(PARENT, {
 -------------------------------------
 function SceneGameClanRaid:init(game_key, stage_id, stage_name, develop_mode, stage_param)
     self.m_sceneName = 'SceneGameClanRaid'
-    self.m_realStartTime = Timer:getServerTime()
+    self.m_realStartTime = ServerTime:getInstance():getCurrentTimestampSeconds()
     self.m_realLiveTimer = 0
     self.m_enterBackTime = nil
     self.m_uiPopupTimeOut = nil
@@ -302,7 +302,7 @@ function SceneGameClanRaid:networkGameComeback_response(ret)
 
     -- 클랜 던전 진행 시간 재계산(백그라운드 이후 포그라운드로 진입까지 걸린 시간만큼 계산)
     if (self.m_enterBackTime) then
-        local add_time = Timer:getServerTime() - self.m_enterBackTime
+        local add_time = ServerTime:getInstance():getCurrentTimestampSeconds() - self.m_enterBackTime
         self.m_realLiveTimer = self.m_realLiveTimer + add_time
 
         self.m_enterBackTime = nil
@@ -722,7 +722,7 @@ end
 function SceneGameClanRaid:applicationDidEnterBackground()
     PARENT.applicationDidEnterBackground(self)
 
-    self.m_enterBackTime = Timer:getServerTime()
+    self.m_enterBackTime = ServerTime:getInstance():getCurrentTimestampSeconds()
 end
 
 -------------------------------------

@@ -144,8 +144,7 @@ function StructProduct:getEndDateStr(new_line, simple)
         return ''
     end
 
-
-    local server_time = ServerTime.getInstance()
+    local server_time = ServerTime:getInstance()
     local end_timestamp_millisec = server_time:datestrToTimestampMillisec(self.m_endDate)
     local curr_timestamp_millisec = server_time:getCurrentTimestampMilliseconds()
     local time_desc = server_time:timestampMillisecToTimeDesc(end_timestamp_millisec - curr_timestamp_millisec)
@@ -224,7 +223,7 @@ end
 -------------------------------------
 -- function isItOnTime
 -- param
--- local server_timestamp = Timer:getServerTime()
+-- local server_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
 -- local date = TimeLib:convertToServerDate(server_timestamp)
 -------------------------------------
 function StructProduct:isItOnTime()
@@ -241,7 +240,7 @@ function StructProduct:isItOnTime()
     end
 
     
-    local server_timestamp = Timer:getServerTime()
+    local server_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
     local time_table = TimeLib:convertToServerDate(server_timestamp)
     local curr_time = time_table['time']
 
@@ -1101,7 +1100,7 @@ function StructProduct:getTimeRemainingForEndOfSale()
         return 0
     end
 
-    local cur_time =  Timer:getServerTime()
+    local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = end_date['time']
     if (end_time == nil) then
 		return 0
@@ -1136,7 +1135,7 @@ function StructProduct:checkIsSale()
         return ''
     end
 
-    local cur_time =  Timer:getServerTime()
+    local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = end_date['time']
     if (end_time == nil) then
 		return false

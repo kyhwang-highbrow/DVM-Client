@@ -361,7 +361,7 @@ function UI_ClanRaid:showDungeonStateUI()
             label:setVisible(true)
 
             local start_time = struct_raid:getStartTime()
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local play_time = curr_time - start_time
             label:setString(Str('{1}님이 전투중입니다.\n{2} 경과되었습니다.', nick, datetime.makeTimeDesc(play_time, true)))
 
@@ -488,7 +488,7 @@ end
 function UI_ClanRaid:click_readyBtn()
 
     -- 갱신 가능 시간인지 체크한다
-	local curr_time = Timer:getServerTime()
+	local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 	if (curr_time - self.m_preRefreshTime > RENEW_INTERVAL) then
 		self.m_preRefreshTime = curr_time
 

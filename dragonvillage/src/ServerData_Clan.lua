@@ -1055,7 +1055,7 @@ function ServerData_Clan:checkClanExitTime()
         return true
     end
 
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 제한 시간을 millisecond에서 second로 변경
     local possible_time = (self.m_clanExitTimeStamp / 1000)

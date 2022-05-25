@@ -660,7 +660,7 @@ function ServerData_Hatchery:setHacheryInfoTable(t_data)
 
     if (t_data['pickup_next_100'] and tonumber(t_data['pickup_next_100'])) then self.m_isDefinitePickup = t_data['pickup_next_100'] > 0 end
 
-    self.m_updatedAt = Timer:getServerTime()
+    self.m_updatedAt = ServerTime:getInstance():getCurrentTimestampSeconds()
     self.m_dirtyHacheryInfo = false
     
 end
@@ -728,7 +728,7 @@ function ServerData_Hatchery:getSummonFreeInfo(with_str)
     end
 
     local summon_free_time = (self.m_hatcheryInfo['summon_free_time'] / 1000)
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local can_free = false
     local ret_str = ''
@@ -768,7 +768,7 @@ function ServerData_Hatchery:checkDirty()
     end
 
     -- 단위 (초)
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local refresh_sec = 10 * 60 -- 10분마다 갱신
     if ((self.m_updatedAt + refresh_sec) <= server_time) then
         self.m_dirtyHacheryInfo = true
@@ -1061,7 +1061,7 @@ function ServerData_Hatchery:getChanceUpEndDate()
     end
 
     local end_time = end_date['time']
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     if (end_time > curr_time) then
         local remain_time = end_time - curr_time
         local time_text = datetime.makeTimeDesc(remain_time, true)

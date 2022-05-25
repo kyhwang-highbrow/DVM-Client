@@ -109,7 +109,7 @@ end
 -------------------------------------
 function ServerData_Advertising:getEnableShopAdv()
     -- 서버상의 시간을 얻어옴
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     if (not self.m_adv_cool_time) then
         return false
@@ -139,7 +139,7 @@ function ServerData_Advertising:getCoolTimeStatus(ad_type)
     local time = nil
     -- 서버상의 시간을 얻어옴
     if (expired) then
-        local server_time = Timer:getServerTime()
+        local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         time = (expired/1000 - server_time)
         if (time > 0) then
             enable = false
@@ -346,7 +346,7 @@ end
 -- @brief ad info가 만기되었는지 확인
 -------------------------------------
 function ServerData_Advertising:isExpiredAdInfo()
-    if (self.m_reinitializeTime < Timer:getServerTime()) then
+    if (self.m_reinitializeTime < ServerTime:getInstance():getCurrentTimestampSeconds()) then
         return true
     end
 

@@ -45,7 +45,7 @@ end
 ------------------------------------- 
 function ErrorTracker:getTrackerText_(msg)
     -- 시간 기록
-    local date = datetime.strformat(TimeLib:initInstance():getServerTime()) or ''
+    local date = datetime.strformat(ServerTime:getInstance():getCurrentTimestampSeconds()) or ''
 
     -- 닉네임 기록
     local nick = ''
@@ -244,7 +244,7 @@ end
 -- function appendAPI
 ------------------------------------- 
 function ErrorTracker:appendAPI(s)
-    local time = Timer:getServerTime()
+    local time = ServerTime:getInstance():getCurrentTimestampSeconds()
     time = os.date('%Y-%m-%d %H:%M:%S', time)
 
     table.insert(self.m_lAPIList, {api = s, time = time})
@@ -382,7 +382,7 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
         ['nick'] = nick,
         ['os'] = getTargetOSName(),
         ['ver_info'] = PatchData:getInstance():getAppVersionAndPatchIdxString(),
-        ['date'] = datetime.strformat(TimeLib:initInstance():getServerTime()),
+        ['date'] = datetime.strformat(ServerTime:getInstance():getCurrentTimestampSeconds()),
         
         ['error_stack'] = msg,
         ['error_stack_header'] = self:getStackHeader(msg),

@@ -118,7 +118,7 @@ end
 -- function getEndTimeText
 -------------------------------------
 function ServerData_EventImageQuiz:getEndTimeText()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = (self.m_endTime / 1000)
 
     local time = (end_time - curr_time)

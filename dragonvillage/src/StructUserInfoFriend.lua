@@ -101,7 +101,7 @@ end
 -- @brief 친구 접속 시간
 -------------------------------------
 function StructUserInfoFriend:updateFriendUser_activeTime()
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 최종 활동 시간을 millisecond에서 second로 변경
     local last_active = (self.m_lastActiveTime / 1000)
@@ -141,7 +141,7 @@ end
 -- @brief 친구 드래곤 사용 시간 업데이트
 -------------------------------------
 function StructUserInfoFriend:updateFriendUser_usedTime()
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 쿨타임 체크 후 사용 가능 여부표시
     local used_time = (self.m_usedTime / 1000)
@@ -158,7 +158,7 @@ end
 -------------------------------------
 function StructUserInfoFriend:getDragonUseCoolText()
     local used_time = (self.m_usedTime / 1000)
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         
     if (used_time == 0) then
         return '미사용'

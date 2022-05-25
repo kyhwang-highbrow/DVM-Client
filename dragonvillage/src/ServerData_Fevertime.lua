@@ -596,7 +596,7 @@ function ServerData_Fevertime:getRemainTimeTextDetail(type)
         return ''
     end
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_date = end_date / 1000
     local time = math_max((end_date - curr_time), 0)
 

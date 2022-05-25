@@ -135,7 +135,7 @@ function UI_ExplorationLocationButton:update(dt)
     local location_idx = location_info['order']
 
     local end_time = (my_location_info['end_time'] / 1000)
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local remain_time = (end_time - server_time)
 
     if remain_time > 0 then

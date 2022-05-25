@@ -18,7 +18,7 @@ SceneGameIllusion = class(PARENT, {
 -- function init
 -------------------------------------
 function SceneGameIllusion:init(game_key, stage_id, stage_name, develop_mode, friend_match)
-    self.m_realStartTime = Timer:getServerTime()
+    self.m_realStartTime = ServerTime:getInstance():getCurrentTimestampSeconds()
     self.m_realLiveTimer = 0
     self.m_enterBackTime = nil
     self.m_uiPopupTimeOut = nil

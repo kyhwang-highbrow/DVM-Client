@@ -29,9 +29,9 @@ function ServerData_NewcomerShop:applyNewcomderShopEndInfo_fromRet(ret)
     -- 개발용 테스트 코드
     if false then
         ret['newcomer_shop_end_info'] = {}
-        ret['newcomer_shop_end_info']['10001'] = ((Timer:getServerTime() + 1209600) * 1000)
-        ret['newcomer_shop_end_info']['10002'] = ((Timer:getServerTime() + 60) * 1000)
-        ret['newcomer_shop_end_info']['10003'] = ((Timer:getServerTime() + 8640) * 1000)
+        ret['newcomer_shop_end_info']['10001'] = ((ServerTime:getInstance():getCurrentTimestampSeconds() + 1209600) * 1000)
+        ret['newcomer_shop_end_info']['10002'] = ((ServerTime:getInstance():getCurrentTimestampSeconds() + 60) * 1000)
+        ret['newcomer_shop_end_info']['10003'] = ((ServerTime:getInstance():getCurrentTimestampSeconds() + 8640) * 1000)
     end
 
     if (ret['newcomer_shop_end_info'] == nil) then
@@ -113,7 +113,7 @@ function ServerData_NewcomerShop:isActiveNewcomerShop(ncm_id)
         return false
     end
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = (timestamp / 1000)
 
     if (curr_time < end_time) then

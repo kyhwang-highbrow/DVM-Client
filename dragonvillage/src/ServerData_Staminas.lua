@@ -127,7 +127,7 @@ function ServerData_Staminas:updateStaminaInfo(stamina_type)
     end
 
     -- 서버상의 시간을 얻어옴
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 1000분의 1초 -> 1초로 단위 변경
     used_at = math.floor(used_at / 1000)

@@ -127,7 +127,7 @@ function UI_Package_Personalpack:update(dt)
     end
     end_time = end_time / 1000
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local remain_time = math_max(end_time - curr_time, 0)
     local str = ''
     if (0 < remain_time) then

@@ -84,7 +84,7 @@ function StructFevertime:isTodayDailyHottime()
         return false
     end
 
-    local server_timestamp = Timer:getServerTime()
+    local server_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
     local date = TimeLib:convertToServerDate(server_timestamp)
     local server_date = (date:year() * 10000) + (date:month() * 100) + (date:day())
    

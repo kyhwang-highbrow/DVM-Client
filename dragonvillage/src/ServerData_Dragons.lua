@@ -736,7 +736,7 @@ end
 -- @breif 마지막으로 데이터가 변경된 시간 갱신
 -------------------------------------
 function ServerData_Dragons:setLastChangeTimeStamp()
-    self.m_lastChangeTimeStamp = Timer:getServerTime()
+    self.m_lastChangeTimeStamp = ServerTime:getInstance():getCurrentTimestampSeconds()
 end
 
 -------------------------------------

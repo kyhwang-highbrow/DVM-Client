@@ -158,7 +158,7 @@ end
 -- @breif 콜로세움 오픈 여부
 -------------------------------------
 function ServerData_Colosseum:isOpenColosseum()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
 	
@@ -281,7 +281,7 @@ end
 -- function getColosseumStatusText
 -------------------------------------
 function ServerData_Colosseum:getColosseumStatusText()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
@@ -312,7 +312,7 @@ end
 -- @breif
 -------------------------------------
 function ServerData_Colosseum:isFreeRefresh()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local refresh_free_time = (self.m_refreshFreeTime / 1000)
 	
 	return (refresh_free_time < curr_time)
@@ -322,7 +322,7 @@ end
 -- function getRefreshStatusText
 -------------------------------------
 function ServerData_Colosseum:getRefreshStatusText()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local refresh_free_time = (self.m_refreshFreeTime / 1000)
     local str = ''
@@ -754,7 +754,7 @@ function ServerData_Colosseum:getStraightTimeText()
     end
 
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local buff_time = (self.m_buffTime / 1000)
 
     -- 시간 초과

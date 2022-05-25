@@ -192,7 +192,7 @@ function UI_Package_SpotSale:update(dt)
 
     local spot_sale_id = self.m_spotSaleID
     local end_of_sale_time = g_spotSaleData:getSpotSaleInfo_EndOfSaleTime(spot_sale_id) / 1000
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local time = math_max(end_of_sale_time - curr_time, 0)
     local str = ''
     if (0 < time) then

@@ -56,7 +56,7 @@ end
 -------------------------------------
 function StructFreeDragonSummonInfo:getFreeDragonSummonTimeText(free_type)
     if (free_type == 'normal') then
-        local server_time = Timer:getServerTime()
+        local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         if (self['normal_cnt'] >= self['normal_daily_limit']) then
             return Str('일일 무료 {1}회 종료', self['normal_daily_limit'])
         end
@@ -74,7 +74,7 @@ function StructFreeDragonSummonInfo:getFreeDragonSummonTimeText(free_type)
 
 
     elseif (free_type == 'premium') then
-        local server_time = Timer:getServerTime()
+        local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local premium_cooltime = (self['premium_cooltime'] / 1000)
         if (premium_cooltime == 0) or (premium_cooltime <= server_time) then
             return Str('')
@@ -95,7 +95,7 @@ end
 -------------------------------------
 function StructFreeDragonSummonInfo:canFreeDragonSummon(free_type)
     if (free_type == 'normal') then
-        local server_time = Timer:getServerTime()
+        local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         if (self['normal_cnt'] >= self['normal_daily_limit']) then
             return false
         end
@@ -109,7 +109,7 @@ function StructFreeDragonSummonInfo:canFreeDragonSummon(free_type)
 
 
     elseif (free_type == 'premium') then
-        local server_time = Timer:getServerTime()
+        local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local premium_cooltime = (self['premium_cooltime'] / 1000)
         if (premium_cooltime == 0) or (premium_cooltime <= server_time) then
             return true

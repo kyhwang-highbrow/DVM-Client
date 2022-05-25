@@ -137,7 +137,7 @@ end
 function ServerData_SecretDungeon:checkNeedUpdateSecretDungeonInfo()
     local l_dungeon_list = self:getSecretDungeonInfo()
 
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local time_stamp
 
     for i,v in pairs(l_dungeon_list) do
@@ -161,7 +161,7 @@ function ServerData_SecretDungeon:updateSecretDungeonTimer(dungeon_id)
     local t_dungeon_info = self.m_secretDungeonInfoMap[dungeon_id]
 
     -- 서버상의 시간을 얻어옴
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 1000분의 1초 -> 1초로 단위 변경
     local next_invalid_at = math_floor(t_dungeon_info['closetime'] / 1000)

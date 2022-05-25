@@ -87,7 +87,7 @@ end
 -------------------------------------
 function UI_ChallengeModePromotePopup:refreshCoolTime()
 	-- 팝업 만료시간 1일 후로 세팅 
-    local cur_time = Timer:getServerTime()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local next_cool_time = cur_time + datetime.dayToSecond(1)
     g_settingData:setPromoteCoolTime('challenge_mode', next_cool_time)
 end

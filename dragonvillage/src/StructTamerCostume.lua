@@ -117,7 +117,7 @@ function StructTamerCostume:isSale()
         local parser = pl.Date.Format(date_format)
 
         local end_date = parser:parse(shop_info['sale_end_date'])
-        local cur_time =  Timer:getServerTime()
+        local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
         local end_time = end_date['time']
         
         if (end_time == nil) then
@@ -144,7 +144,7 @@ function StructTamerCostume:isLimit()
         local parser = pl.Date.Format(date_format)
 
         local end_date = parser:parse(shop_info['end_date'])
-        local cur_time =  Timer:getServerTime()
+        local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
         local end_time = end_date['time']
         if (cur_time and end_time) then
             local time = (end_time - cur_time)

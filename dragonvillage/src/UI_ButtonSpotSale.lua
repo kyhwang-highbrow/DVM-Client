@@ -69,7 +69,7 @@ function UI_ButtonSpotSale:update(dt)
         local lua_name = 'spotSaleLabel' .. ui_idx
         if vars[lua_name] then
             --local end_of_sale_time = g_spotSaleData:getSpotSaleInfo_EndOfSaleTime(spot_sale_id) / 1000
-            --local curr_time = Timer:getServerTime()
+            --local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local end_of_sale_time = g_spotSaleData:getSpotSaleInfo_EndOfSaleTime(spot_sale_id)
             local curr_time = Timer:getServerTime_Milliseconds()
 

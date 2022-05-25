@@ -449,7 +449,7 @@ function ServerData_Forest:isHighlightForest()
     for _, t_stuff in pairs(self.m_tStuffInfo) do
         if (t_stuff['stuff'] ~= 'extension') then
             reward_time = t_stuff['reward_at']/1000
-            curr_time = Timer:getServerTime()
+            curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             if (curr_time > reward_time) then
                 return true
             end
@@ -524,7 +524,7 @@ function ServerData_Forest:update(dt)
     end
 
     -- 최초 보상을 받을 수 있을 때 로비 갱신해버린다.
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     for i, t_stuff in pairs(self.m_tStuffInfo) do
         if t_stuff['reward_at'] and (curr_time > t_stuff['reward_at']/1000) then
             self.m_hasReward = true

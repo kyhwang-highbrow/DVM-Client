@@ -83,7 +83,7 @@ function UI_AttendanceSpecialListItem_Common:setTimeLabel()
 
     if (eventInfo) then
         local end_time = eventInfo['end_date_timestamp'] / 1000
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
         local time = end_time - curr_time
 

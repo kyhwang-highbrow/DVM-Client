@@ -1090,7 +1090,7 @@ function ServerData_ChallengeMode:getChallengeModeStatusText()
         local remain_time = 0
         if (self.m_challengeModeStartTime) then
             local start_time = self.m_challengeModeStartTime
-            local cur_time = Timer:getServerTime()
+            local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             remain_time = (start_time/1000) - cur_time
         end
         if (remain_time > 0) then
@@ -1114,7 +1114,7 @@ end
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeMasterStatusText()
     local time = self.m_masterStartTime or 0
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = tonumber(time)/1000
     time = (end_time - curr_time)
     return time
@@ -1125,7 +1125,7 @@ end
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeRemainTime()
     local time = self.m_challengeModeEndTime or 0
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = tonumber(time)/1000
     time = (end_time - curr_time)
     return time
@@ -1439,7 +1439,7 @@ function ServerData_ChallengeMode:checkPromotePopupCondition()
     -- 3. 1일 1회만 표시
     -- 4. 모든 스테이지를 승리한 유저에게는 표시x
 
-    local cur_time = Timer:getServerTime()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     
     -- 0. 그림자 신전 이벤트 중인가
     if (not self:isOpen_challengeMode()) then

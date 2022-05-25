@@ -535,7 +535,7 @@ function UI_DragonEvolution:click_evolutionBtn()
 
         -- 승급된 드래곤 갱신
         if ret['dragon'] then
-            ret['dragon']['updated_at'] = Timer:getServerTime()
+            ret['dragon']['updated_at'] = ServerTime:getInstance():getCurrentTimestampSeconds()
             g_dragonsData:applyDragonData(ret['dragon'])
         end
 

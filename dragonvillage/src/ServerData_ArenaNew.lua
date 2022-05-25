@@ -283,7 +283,7 @@ end
 -- @breif 콜로세움 오픈 여부
 -------------------------------------
 function ServerData_ArenaNew:isOpenArena()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
 	
@@ -419,7 +419,7 @@ end
 -- function getArenaStatusText
 -------------------------------------
 function ServerData_ArenaNew:getArenaStatusText()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
@@ -453,7 +453,7 @@ end
 -- function getRefreshStatusText
 -------------------------------------
 function ServerData_ArenaNew:getRefreshStatusText()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local refresh_free_time = (self.m_refreshFreeTime / 1000)
     local str = ''
@@ -1064,7 +1064,7 @@ function ServerData_ArenaNew:isStartClanWarContents()
     date:min(59)
 
     local remove_time = date['time'] or 0
-    local cur_time =  Timer:getServerTime()
+    local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
     return cur_time > remove_time
 end
 

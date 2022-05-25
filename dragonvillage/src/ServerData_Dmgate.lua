@@ -577,7 +577,7 @@ function ServerData_Dmgate:checkStageTime(stage_id)
 
     local start_time
     local end_time
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     if (start_date ~= '' or start_date) then
         local parse_start_date = parser:parse(start_date)
@@ -1055,7 +1055,7 @@ end
 function ServerData_Dmgate:getTimeStatus()
     local end_time = (self.m_seasonEndTime / 1000)
     
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local is_season_ended = false
 
     if (curr_time > end_time) then
@@ -1105,7 +1105,7 @@ function ServerData_Dmgate:getTimeStatusText(mode_id, chapter_id)
         end
     end
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local is_season_ended = false
 
 

@@ -90,7 +90,7 @@ function ServerData_EventArenaPlay:getRemainEventTimeStr()
     if not self.m_eventData then return '' end
 
     local expire_time = self.m_eventData['end']
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local msg = ''
     time = (expire_time/1000 - server_time)
 

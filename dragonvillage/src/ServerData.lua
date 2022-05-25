@@ -420,7 +420,6 @@ function ServerData:networkCommonRespone(ret)
 --         ['timezone']='UTC';
 --         ['server_time']=1653409423399;
 -- }
-    ccdump(ret['server_info'])
 
     -- 시간
     if (ServerTime ~= nil) then

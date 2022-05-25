@@ -25,7 +25,7 @@ function LobbyPopupAbstract:startGuide()
     -- 기간 체크
     -- 팝업 노출 간격 설정
     local key = 'purchase_point' -- purchase_point1-5까지 다 똑같은 팝업 보여줄 것이기 때문에 같은 키값으로 고정
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     g_lobbyPopupData:setTimestamp(key, server_time)
 end
 
@@ -119,7 +119,7 @@ function LobbyPopup_PurchasePoint:checkDate(active_version)
         return false
     end
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local start_time = g_purchasePointData:getStartTime(active_version)
     local end_time = g_purchasePointData:getEndTime(active_version)
 

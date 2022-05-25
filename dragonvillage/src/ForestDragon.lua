@@ -58,7 +58,7 @@ function ForestDragon:init(struct_dragon_object)
     self.m_stateTimer = self.m_moveTerm
 
     -- 만족도 최초 체크
-    if (Timer:getServerTime() > self.m_structDragon.happy_at) then
+    if (ServerTime:getInstance():getCurrentTimestampSeconds() > self.m_structDragon.happy_at) then
         self.m_isHappy = true
         self:happyFull()
     end
@@ -328,7 +328,7 @@ function ForestDragon:update(dt)
         -- 만족도 유저에게 보이는게 아니므로 3~5초 정도 간격마다 계산해서 연산량을 줄인다.
         if (not self.m_isHappy) then
             if self.m_structDragon.happy_at then
-                if (Timer:getServerTime() > self.m_structDragon.happy_at) then
+                if (ServerTime:getInstance():getCurrentTimestampSeconds() > self.m_structDragon.happy_at) then
                     self.m_isHappy = true
                     self:happyFull()
                 end

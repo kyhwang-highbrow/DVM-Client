@@ -314,7 +314,7 @@ end
 -- function isGroupActive
 -------------------------------------
 function ServerData_Personalpack:isGroupActive(group)
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     for _ppid, end_time in pairs(self.m_activePPTable) do
         local ppid = tonumber(_ppid)
         if (curr_time < end_time / 1000) then
@@ -331,7 +331,7 @@ end
 -- @brief 특정 그룹에서 활성화 되어 있는 ppid가 있는지 탐색하여 반환한다.
 -------------------------------------
 function ServerData_Personalpack:findActivePpidByGroup(group)
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     for _ppid, end_time in pairs(self.m_activePPTable) do
         local ppid = tonumber(_ppid)
         if (curr_time < end_time / 1000) then

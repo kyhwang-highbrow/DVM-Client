@@ -393,7 +393,7 @@ function ServerData_EventRoulette:getTimeText()
     local start_time = self.m_rouletteInfo['start_date']
     local end_time = self.m_rouletteInfo['end_date']
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     
     local str = ''
@@ -417,7 +417,7 @@ function ServerData_EventRoulette:isActiveEvent()
     local start_time = self.m_rouletteInfo['start_date']
     local end_time = self.m_rouletteInfo['end_date']
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     if ((curr_time > start_time) and (curr_time < end_time)) then
         return true

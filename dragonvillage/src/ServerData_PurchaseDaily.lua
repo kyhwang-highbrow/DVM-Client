@@ -190,7 +190,7 @@ function ServerData_PurchaseDaily:getPurchasePointEventRemainTime(version)
 
     end_time = end_time / 1000
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local time = (end_time - curr_time)
 
     return time
@@ -256,7 +256,7 @@ function ServerData_PurchaseDaily:isActivePurchaseDailyEvent(version)
     end
 
     local purchase_daily_info = self:getPurchaseDailyInfo(version)
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local start_time = purchase_daily_info['start'] / 1000
     local end_time = purchase_daily_info['end'] / 1000
 

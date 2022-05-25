@@ -55,7 +55,7 @@ function ServerData_Exchange:request_exchangeInfo(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        local server_time = Timer:getServerTime()
+        local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
         self.m_lExchange = {}
         self.m_mProductList = {}

@@ -88,7 +88,7 @@ function ServerData_Supply:getRewardStatus(supply_type)
     local reward_status = -1
 
     if t_supply_info then
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local end_time = (t_supply_info['end'] / 1000)
         
         if (end_time < curr_time) then
@@ -188,7 +188,7 @@ function ServerData_Supply:isHighlightSupply()
         local t_supply_info = self:getSupplyInfoByType(supply_type)
 
         if t_supply_info then
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local end_time = (t_supply_info['end'] / 1000)
 
             -- 시간 확인
@@ -221,7 +221,7 @@ function ServerData_Supply:isActiveSupply(supply_type)
         return false
     end
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = (t_supply_info['end'] / 1000)
 
     if (curr_time < end_time) then
@@ -245,7 +245,7 @@ function ServerData_Supply:getSupplyTimeRemainingString(supply_type, is_simple)
             return ''
         end
 
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local end_time = (t_supply_info['end'] / 1000)
 
         if (curr_time < end_time) then
@@ -263,7 +263,7 @@ function ServerData_Supply:getSupplyTimeRemainingString(supply_type, is_simple)
             return Str('획득 가능')
         end
 
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local end_time = (t_supply_info['end'] / 1000)
 
         if (curr_time < end_time) then

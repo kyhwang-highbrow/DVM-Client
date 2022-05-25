@@ -202,7 +202,7 @@ function ServerData_HotTime:refreshActiveList()
         return {}
     end
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 아직 유효한 시간이면 체크를 하지 않음
     if (self.m_listExpirationTime) and (curr_time < self.m_listExpirationTime) then
@@ -292,7 +292,7 @@ function ServerData_HotTime:getEventRemainTime(event_name)
 
     for _, t in pairs(self.m_activeEventList) do
         if (t['event'] == event_name) then
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local end_time = t['enddate']/1000
             local time = (end_time - curr_time)
 
@@ -346,7 +346,7 @@ function ServerData_HotTime:getEventBeginTime(event_name)
 
     for _, t in pairs(self.m_activeEventList) do
         if (t['event'] == event_name) then
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             if (t['begindate']) then
                 local start_time = t['begindate']/1000
                 return start_time
@@ -366,9 +366,9 @@ function ServerData_HotTime:getChallengeMasterBeginTime()
 
     for _, t in pairs(self.m_hotTimeInfoList) do
         if (t['event'] == 'event_challenge_master') then
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             if (t['begindate']) then
-                local curr_time = Timer:getServerTime()
+                local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
                 local start_time = t['begindate']/1000
                 local time = start_time - curr_time
                 return time
@@ -388,7 +388,7 @@ function ServerData_HotTime:getEventRemainTimeText(event_name)
 
     for _, t in pairs(self.m_activeEventList) do
         if (t['event'] == event_name) then
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local end_time = t['enddate']/1000
             local time = (end_time - curr_time)
 
@@ -408,7 +408,7 @@ function ServerData_HotTime:getEventRemainTimeTextDetail(event_name)
 
     for _, t in pairs(self.m_activeEventList) do
         if (t['event'] == event_name) then
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local end_time = t['enddate']/1000
             local time = (end_time - curr_time)
 
@@ -428,7 +428,7 @@ function ServerData_HotTime:getEventRemainSec(event_name)
 
     for _, t in pairs(self.m_activeEventList) do
         if (t['event'] == event_name) then
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local end_time = t['enddate']/1000
             local time = (end_time - curr_time)
 
@@ -572,7 +572,7 @@ function ServerData_HotTime:getHotTimeBuffText(type)
 
     -- 현재 사용중
     if (t_info) then
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local end_time = t_info['enddate']/1000
         local time = (end_time - curr_time)
         -- 남은시간이 양수인 경우만 상태 변경 
@@ -729,7 +729,7 @@ end
 -- function refreshActivatedDiscountEvent
 -------------------------------------
 function ServerData_HotTime:refreshActivatedDiscountEvent()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local active_dc_event_table = (self.m_activeDcEventTable or {})
 
 	-- 종료된 이벤트 삭제

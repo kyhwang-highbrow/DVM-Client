@@ -127,7 +127,7 @@ function ServerData_Exploration:getExplorationLocationInfo(epr_id)
 
     local status
     local tamer_level = g_userData:get('lv')
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 잠금 상태
     if (tamer_level < location_info['open_condition']) then
@@ -350,7 +350,7 @@ function ServerData_Exploration:getPushTimeList()
     if (self.m_myExplorationList) then
         local table_exploration_list = TableExplorationList()
         for i, t_epr in pairs(self.m_myExplorationList) do
-            local left_sec = math_floor(t_epr['end_time']/1000 - Timer:getServerTime())
+            local left_sec = math_floor(t_epr['end_time']/1000 - ServerTime:getInstance():getCurrentTimestampSeconds())
             local name = table_exploration_list:get(t_epr['epr_id'])['t_name']
             table.insert(t_ret, {time = left_sec, name = name})
         end
@@ -370,7 +370,7 @@ function ServerData_Exploration:isExploring()
     end
 
     local end_time
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     for i, t_epr in pairs(self.m_myExplorationList) do
         end_time = (t_epr['end_time'] / 1000)
         if (end_time - server_time) > 0 then

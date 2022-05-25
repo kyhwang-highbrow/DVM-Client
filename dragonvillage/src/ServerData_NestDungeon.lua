@@ -31,11 +31,11 @@ function ServerData_NestDungeon:applyNestDungeonInfo(data)
         self.m_nestDungeonInfoMap[dungeon_id] = v
 
         -- 닫히는 시간이 임박했을 때를 위한 테스트 코드 (10초 후 갱신되도록)
-        --v['next_invalid_at'] = (Timer:getServerTime() + 10) * 1000
+        --v['next_invalid_at'] = (ServerTime:getInstance():getCurrentTimestampSeconds() + 10) * 1000
 
         -- next_valid_at 값이 없으면 현재 시간으로 입력
         if (not v['next_valid_at']) then
-            v['next_valid_at'] = Timer:getServerTime() * 1000
+            v['next_valid_at'] = ServerTime:getInstance():getCurrentTimestampSeconds() * 1000
         end
     end
 
@@ -277,7 +277,7 @@ end
 function ServerData_NestDungeon:checkNeedUpdateNestDungeonInfo()
     local l_dungeon_list = self:getNestDungeonInfo()
 
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local time_stamp
 
     for i,v in pairs(l_dungeon_list) do
@@ -312,7 +312,7 @@ function ServerData_NestDungeon:updateNestDungeonTimer(dungeon_id)
     local t_dungeon_info = self.m_nestDungeonInfoMap[dungeon_id]
 
     -- 서버상의 시간을 얻어옴
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 	
 	local _next_valid_at = t_dungeon_info['next_valid_at']
 	local _next_invalid_at = t_dungeon_info['next_invalid_at'] or 0 -- 닫혔을 경우 invaild 값을 주지 않음
@@ -351,7 +351,7 @@ function ServerData_NestDungeon:checkNestDungeonOpen(stage_id)
     local dungeon_id = self:getDungeonIDFromStateID(stage_id)
     local t_dungeon_info = self.m_nestDungeonInfoMap[dungeon_id]
 
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local time_stamp
     if (t_dungeon_info['is_open'] == 1) then

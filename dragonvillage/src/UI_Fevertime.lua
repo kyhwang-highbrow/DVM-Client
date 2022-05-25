@@ -181,7 +181,7 @@ function UI_Fevertime:update(dt)
             utc = Str('UTC{1}', h)
         end
 
-        local server_timestamp = Timer:getServerTime()
+        local server_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
         local date = TimeLib:convertToServerDate(server_timestamp)
         local wday_str = getWeekdayName(date:weekday_name())
         local str = string.format('%d.%d %s %.2d:%.2d', date:month(), date:day(), wday_str, date:hour(), date:min())

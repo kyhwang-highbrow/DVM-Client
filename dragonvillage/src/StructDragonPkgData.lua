@@ -113,7 +113,7 @@ function StructDragonPkgData:isPossibleProduct()
     end
 
     --시간체크
-    local serverTime = Timer:getServerTime()
+    local serverTime = ServerTime:getInstance():getCurrentTimestampSeconds()
     if(self.m_endTime <= serverTime) then
         return false
     end
@@ -151,7 +151,7 @@ end
 -- @brief 남은 시간 계산해서 전달
 -------------------------------------
 function StructDragonPkgData:getRemainTime()
-    local serverTime = Timer:getServerTime()
+    local serverTime = ServerTime:getInstance():getCurrentTimestampSeconds()
     local remainTime = self.m_endTime - serverTime
     return remainTime
 end

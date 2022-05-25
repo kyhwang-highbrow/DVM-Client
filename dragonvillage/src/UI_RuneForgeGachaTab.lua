@@ -85,7 +85,7 @@ function UI_RuneForgeGachaTab:initUI()
         
         local start_time = l_ret['start_date']/1000
         local end_time = l_ret['end_date']/1000
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
   
         if (start_time <= curr_time) and (curr_time <= end_time) then
             local time = (end_time - curr_time)
@@ -171,7 +171,7 @@ function UI_RuneForgeGachaTab:updateTimer(dt)
         
         local start_time = l_ret['start_date']/1000
         local end_time = l_ret['end_date']/1000
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
   
         if (start_time <= curr_time) and (curr_time <= end_time) then
             local time = (end_time - curr_time)

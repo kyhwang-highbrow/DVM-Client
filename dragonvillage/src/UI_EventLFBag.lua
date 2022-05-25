@@ -289,7 +289,7 @@ function UI_EventLFBag:update(dt)
     -- 남은 시간
     local time_label = self.vars['timeLabel']
     if time_label then
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
         local end_time = g_hotTimeData:getEventStartTime('event_lucky_fortune_bag_reward')
 
@@ -505,7 +505,7 @@ function UI_EventLFBag:click_openBtn()
                 openAnimationType = 'special'
 	        end
 
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local end_time = g_hotTimeData:getEventStartTime('event_lucky_fortune_bag_reward')
 
             if (end_time == nil) then
@@ -679,7 +679,7 @@ function UI_EventLFBag:click_stopBtn()
         g_eventLFBagData:request_eventLFBagReward(finish_cb)
     end
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = g_hotTimeData:getEventStartTime('event_lucky_fortune_bag_reward')
 
     if (end_time == nil) then

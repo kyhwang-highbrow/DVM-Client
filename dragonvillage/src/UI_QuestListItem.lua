@@ -413,7 +413,7 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     -- 2. 퀘스트 2배 상품 소개 팝업
     -- 3. 퀘스트 UI 갱신 (2배 상품 적용)
     local quest_struct = self.m_questData
-    local cur_time = Timer:getServerTime()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     -- 1. 조건 확인
     -- a. 퀘스트 10개 달성 보상 버튼만

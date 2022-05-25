@@ -50,7 +50,7 @@ end
 -- function getStatusText
 -------------------------------------
 function ServerData_RandomShop:getStatusText()
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local refresh_time = (self.m_refreshTime / 1000)
     local time = (refresh_time - curr_time)
     
@@ -99,7 +99,7 @@ end
 function ServerData_RandomShop:isHightlightShop()
     local refresh_time = g_settingData:get(REFRESH_TIME_SAVE_KEY)
     if (refresh_time) then
-        local curr_time = Timer:getServerTime()
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local _refresh_time = (refresh_time / 1000)
         return (curr_time > _refresh_time) 
     else
@@ -116,7 +116,7 @@ function ServerData_RandomShop:getRefreshRemainTimeText()
     if (not self:isHightlightShop()) then
         local refresh_time = g_settingData:get(REFRESH_TIME_SAVE_KEY)
         if (refresh_time) then
-            local curr_time = Timer:getServerTime()
+            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local _refresh_time = (refresh_time / 1000)
             local time = math_max(_refresh_time - curr_time, 0)
             if (time > 0) then

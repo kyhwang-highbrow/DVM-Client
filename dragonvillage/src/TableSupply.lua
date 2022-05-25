@@ -43,7 +43,7 @@ function TableSupply:getSupplyProductList()
                 local reward_status = -1
 
                 if t_supply_info then
-                    local curr_time = Timer:getServerTime()
+                    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
                     local end_time = (t_supply_info['end'] / 1000)
                     
                     if (end_time < curr_time) then

@@ -111,7 +111,7 @@ function UI_CommunityPopup:checkOpeningDateKakaoChannel()
 
     if (not start_date) then return false end
 
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local start_time = start_date['time']
 
     if (start_time > curr_time) then

@@ -982,7 +982,7 @@ function UI_DragonMasteryNew:showAmorPackagePopup()
     -- 2.쿨타임 7일 지났는지
     do
         local expired_time = g_settingData:getPromoteExpired('package_amor')
-        local cur_time = Timer:getServerTime()
+        local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         if (cur_time < expired_time) then
             return
         end

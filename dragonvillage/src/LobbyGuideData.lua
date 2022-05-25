@@ -236,7 +236,7 @@ end
 -- @breif
 -------------------------------------
 function LobbyGuideData:getServerTimeDate()
-    local server_time = Timer:getServerTime()   -- 서버에서 사용하는 timestamp 가져옴(단위:초)
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()   -- 서버에서 사용하는 timestamp 가져옴(단위:초)
     local tzone = Timer:getUTCHour() * 60 * 60  -- 표준시를 초 단위로 환산
     local fake_local_time = (server_time + tzone)
     local date = pl.Date(fake_local_time)
@@ -385,6 +385,6 @@ end
 -- @breif
 -------------------------------------
 function LobbyGuideData:setTimestamp(key)
-    local server_time = Timer:getServerTime()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     return self:applyLobbyGuideData(server_time, 'timestamp', key)
 end

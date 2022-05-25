@@ -83,7 +83,7 @@ function ForestStuff:update(dt)
     end
 
     -- 남은시간 출력
-    local remain_time = (self.m_rewardTime - Timer:getServerTime())
+    local remain_time = (self.m_rewardTime - ServerTime:getInstance():getCurrentTimestampSeconds())
     if remain_time > 0 then
         self.m_ui:updateTime(remain_time)
     else

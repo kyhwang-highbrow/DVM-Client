@@ -420,7 +420,7 @@ end
 function UI_DragonGoodbyeSelectNew2:checkSkipWarningPopup()
     local skip_date = g_settingData:getSkipInfoForFarewellWarningPopup()
 
-    local curr_time_info = os.date('*t', Timer:getServerTime())
+    local curr_time_info = os.date('*t', ServerTime:getInstance():getCurrentTimestampSeconds())
     local curr_date = string.format('%d%02d%02d', curr_time_info['year'], curr_time_info['month'], curr_time_info['day'])
 
     -- 팝업 띄움

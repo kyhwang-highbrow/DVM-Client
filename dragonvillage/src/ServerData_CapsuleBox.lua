@@ -398,7 +398,7 @@ end
 -- function checkReopen
 -------------------------------------
 function ServerData_CapsuleBox:checkReopen()
-	local curr_time = Timer:getServerTime()
+	local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = self.m_refillTime and self.m_refillTime or self.m_endTime
 	return (curr_time > end_time)
 end
@@ -407,7 +407,7 @@ end
 -- function openTodayCapsuleBoxDtagon
 -------------------------------------
 function ServerData_CapsuleBox:openTodayCapsuleBoxDtagon()
-    local cur_time = Timer:getServerTime()
+    local cur_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local cool_time = g_settingData:getPromoteExpired('capsule_box')
     
   
@@ -445,7 +445,7 @@ end
 -- function getRemainTimeText
 -------------------------------------
 function ServerData_CapsuleBox:getRemainTimeText()
-	local curr_time = Timer:getServerTime()
+	local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = self.m_refillTime and self.m_refillTime or self.m_endTime
 	local remain_time = end_time - curr_time
 	if (remain_time < 0) then

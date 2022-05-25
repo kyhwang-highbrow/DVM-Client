@@ -157,7 +157,7 @@ end
 -------------------------------------
 function UI_MailPopup:click_renewBtn()
 	-- 갱신 가능 시간인지 체크한다
-	local curr_time = Timer:getServerTime()
+	local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 	if (curr_time - self.m_preRenewTime > RENEW_INTERVAL) then
 		-- 갱신 가능하다면 메일리스트를 다시 호출한다.
 		local cb_func = function()
@@ -173,7 +173,7 @@ function UI_MailPopup:click_renewBtn()
             self:refresh()
 		end
 		g_mailData:request_mailList(cb_func)
-		self.m_preRenewTime = Timer:getServerTime()
+		self.m_preRenewTime = ServerTime:getInstance():getCurrentTimestampSeconds()
 	else
 		-- 시간이 되지 않았다면 몇초 남았는지 토스트 메세지를 띄운다
 		local ramain_time = math_ceil(RENEW_INTERVAL - (curr_time - self.m_preRenewTime) + 1)
@@ -199,7 +199,7 @@ function UI_MailPopup:click_renewBtn_force()
         self:refresh()
     end
     g_mailData:request_mailList(cb_func)
-    self.m_preRenewTime = Timer:getServerTime()	
+    self.m_preRenewTime = ServerTime:getInstance():getCurrentTimestampSeconds()	
 end
 
 -------------------------------------
