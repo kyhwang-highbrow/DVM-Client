@@ -221,39 +221,39 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRewardUI(ret, type)
         vars['rankLabel']:setString('-')
     end
     --------------------------------------------------------------------------------
-    local node = vars['rewardNode']
+    -- local node = vars['rewardNode']
 
-    if (self.m_rewardTableView) then
-        return
-    end
+    -- if (self.m_rewardTableView) then
+    --     return
+    -- end
 
-    local create_func = function(ui, data)
-        self:createRewardFunc(ui, data, my_info)
-    end
+    -- local create_func = function(ui, data)
+    --     self:createRewardFunc(ui, data, my_info)
+    -- end
 
-    local reward_list = {}
-    for key, data in pairs(self.m_reward) do
-        local t_data = {}
-        t_data['rank'] = key
-        t_data['reward'] = data
-        table.insert(reward_list, t_data) 
-    end
+    -- local reward_list = {}
+    -- for key, data in pairs(self.m_reward) do
+    --     local t_data = {}
+    --     t_data['rank'] = key
+    --     t_data['reward'] = data
+    --     table.insert(reward_list, t_data) 
+    -- end
 
-    local sort_func = function(a, b)
-        return a['rank'] < b['rank']
-    end
+    -- local sort_func = function(a, b)
+    --     return a['rank'] < b['rank']
+    -- end
 
-    table.sort(reward_list, sort_func)
+    -- table.sort(reward_list, sort_func)
 
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(640, 60 + 5)
-    table_view:setCellUIClass(UI_EventIncarnationOfSinsRankingServerTotalTabRewardListItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(reward_list)
+    -- local table_view = UIC_TableView(node)
+    -- table_view.m_defaultCellSize = cc.size(640, 60 + 5)
+    -- table_view:setCellUIClass(UI_EventIncarnationOfSinsRankingServerTotalTabRewardListItem, create_func)
+    -- table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    -- table_view:setItemList(reward_list)
 
-    table_view:update(0)
+    -- table_view:update(0)
 
-    self.m_rewardTableView = table_view
+    -- self.m_rewardTableView = table_view
 
 end
 
