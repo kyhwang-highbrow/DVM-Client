@@ -144,36 +144,19 @@ function StructProduct:getEndDateStr(new_line, simple)
         return ''
     end
 
-    local date_format = 'yyyy-mm-dd HH:MM:SS'
-    local parser = pl.Date.Format(date_format)
-    if (not parser) then
-        return ''
-    end
 
-    local end_date = parser:parse(self.m_endDate)
-    if (not end_date) then
-        return ''
-    end
-    
-    local end_time_stamp = datetime.getTimestamp(end_date['tab'])
-    local offset = datetime.getTimeZoneOffset()
-    local end_time = end_time_stamp + offset
-
-    local cur_time =  Timer:getServerTime()
-    local remain_time = end_time
-
-    if (remain_time == nil) then
-        return ''
-    end
-    local time = (remain_time - cur_time)
+    local server_time = ServerTime.getInstance()
+    local end_timestamp_millisec = server_time:datestrToTimestampMillisec(self.m_endDate)
+    local curr_timestamp_millisec = server_time:getCurrentTimestampMilliseconds()
+    local time_desc = server_time:timestampMillisecToTimeDesc(end_timestamp_millisec - curr_timestamp_millisec)
 
     local msg
     if (new_line) then
-        msg = Str('판매 종료까지\n{1} 남음', datetime.makeTimeDesc(time, false))
+        msg = Str('판매 종료까지\n{1} 남음', time_desc)
     elseif (simple) then
-        msg = Str('{1} 남음', datetime.makeTimeDesc(time, false))
+        msg = Str('{1} 남음', time_desc)
     else
-        msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, false))
+        msg = Str('판매 종료까지 {1} 남음', time_desc)
     end
 
     return msg
