@@ -290,7 +290,7 @@ end
 function StructFevertime:getTimeLabelStr()
     if (self:isDailyHottimeSchedule() == true) then
         local seconds = self['hour'] * 60 * 60
-        local time_str = datetime.makeTimeDesc(seconds, false) -- param : milliseconds, day_special
+        local time_str = ServerTime:getInstance():makeTimeDescToSec(seconds, false) -- param : milliseconds, day_special
         local str = Str('{1}', time_str)
         return str
     else

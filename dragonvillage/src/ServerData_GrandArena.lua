@@ -653,7 +653,7 @@ function ServerData_GrandArena:getGrandArenaStatusText()
     -- 연습전 기간 (프리시즌)
     if (self:getGrandArenaState() == ServerData_GrandArena.STATE['PRESEASON']) then
         local time = g_hotTimeData:getEventRemainTime('event_grand_arena_preseason') or 0
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
         return str
     end
 
@@ -666,7 +666,7 @@ function ServerData_GrandArena:getGrandArenaStatusText()
         end
 
     elseif (0 < time) then
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
 
     else
         str = Str('종료되었습니다.')

@@ -56,7 +56,7 @@ function UI_ExplorationIng:initUI()
 
     -- 탐험 시간
     local sec = location_info['clear_time']
-    local time_str = datetime.makeTimeDesc(sec, true)
+    local time_str = ServerTime:getInstance():makeTimeDescToSec(sec, true)
     vars['timeLabel']:setString(Str('탐험 소요 : {1}', time_str))
 
     -- 탐험 시간
@@ -203,7 +203,7 @@ function UI_ExplorationIng:update(dt)
 
     if remain_time > 0 then
         -- 탐험 시간
-        local time_str = datetime.makeTimeDesc(remain_time, true)
+        local time_str = ServerTime:getInstance():makeTimeDescToSec(remain_time, true)
         vars['timeLabel2']:setString(Str('{1} 남음', time_str))
     else
         self:refresh()

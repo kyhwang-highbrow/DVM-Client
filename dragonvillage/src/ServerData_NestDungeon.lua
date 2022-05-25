@@ -385,7 +385,7 @@ function ServerData_NestDungeon:getNestDungeonRemainTimeText(dungeon_id)
         sec = math_max(sec, 0)
         local showSeconds = true
         local firstOnly = false
-        text = datetime.makeTimeDesc(sec, showSeconds, firstOnly)
+        text = ServerTime:getInstance():makeTimeDescToSec(sec, showSeconds, firstOnly)
         text = Str('{1} 남음', text)
 
     -- 닫혀있는 던전일 경우
@@ -394,7 +394,7 @@ function ServerData_NestDungeon:getNestDungeonRemainTimeText(dungeon_id)
         sec = math_max(sec, 0)
         local showSeconds = true
         local firstOnly = false
-        text = datetime.makeTimeDesc(sec, showSeconds, firstOnly)
+        text = ServerTime:getInstance():makeTimeDescToSec(sec, showSeconds, firstOnly)
         text = Str('{1} 후 열림', text)
     end
 

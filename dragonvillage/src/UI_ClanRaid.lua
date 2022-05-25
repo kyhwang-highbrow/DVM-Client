@@ -363,7 +363,7 @@ function UI_ClanRaid:showDungeonStateUI()
             local start_time = struct_raid:getStartTime()
             local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
             local play_time = curr_time - start_time
-            label:setString(Str('{1}님이 전투중입니다.\n{2} 경과되었습니다.', nick, datetime.makeTimeDesc(play_time, true)))
+            label:setString(Str('{1}님이 전투중입니다.\n{2} 경과되었습니다.', nick, ServerTime:getInstance():makeTimeDescToSec(play_time, true)))
 
             cca.reserveFunc(self.root, 2.0, function() 
                 label:setString('')

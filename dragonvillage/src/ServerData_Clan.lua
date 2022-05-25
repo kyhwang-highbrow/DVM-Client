@@ -1065,7 +1065,7 @@ function ServerData_Clan:checkClanExitTime()
     else
         local sec = (possible_time - server_time)
         local showSeconds = true
-        local time_desc = datetime.makeTimeDesc(sec, showSeconds)
+        local time_desc = ServerTime:getInstance():makeTimeDescToSec(sec, showSeconds)
         local msg = Str('클랜 탈퇴로 인해 클랜 활동이 제한되었습니다.')
         local sub_msg = Str('({1} 후 제한 해제)', time_desc)
         MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)

@@ -124,7 +124,7 @@ function StructTamerCostume:isSale()
             return false, ''
         end
         local time = (end_time - cur_time)
-        msg = Str('할인 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+        msg = Str('할인 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
 
         return true, msg
     end
@@ -152,7 +152,7 @@ function StructTamerCostume:isLimit()
             -- 판매기간이 1년 미만으로 남은 경우에만 기간한정으로 판단
             local remain = 86400 * 365
             if (time < remain) then
-                msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+                msg = Str('판매 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
                 return true, msg
             else
                 return false, msg

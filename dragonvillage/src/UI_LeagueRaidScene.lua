@@ -114,7 +114,7 @@ function UI_LeagueRaidScene:initUI()
     if (vars['timeLabel']) then 
         local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         time = (tonumber(my_info['finishtimestamp'])/1000 - server_time)
-        local msg = Str('시즌 종료까지') .. ' ' .. Str('{1} 남음', datetime.makeTimeDesc(time, false, false))
+        local msg = Str('시즌 종료까지') .. ' ' .. Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, false, false))
         vars['timeLabel']:setString(msg)
     end
 

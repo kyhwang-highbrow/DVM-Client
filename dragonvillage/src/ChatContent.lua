@@ -195,7 +195,7 @@ function ChatContent:makeTimeDesc()
 
     local showSeconds = false
     local firstOnly = true
-    local desc = datetime.makeTimeDesc(sec, showSeconds, firstOnly)
+    local desc = ServerTime:getInstance():makeTimeDescToSec(sec,showSeconds, firstOnly)
     return desc
 end
 

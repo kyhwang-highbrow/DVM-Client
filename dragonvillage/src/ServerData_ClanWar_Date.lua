@@ -36,7 +36,7 @@ function ServerData_ClanWar:getRemainSeasonTime()
 	if (remain_time < 0) then
 		remain_time = 1
 	end
-	return datetime.makeTimeDesc(remain_time/1000)
+	return ServerTime:getInstance():makeTimeDescToSec(remain_time/1000)
 end
 
 -------------------------------------
@@ -51,7 +51,7 @@ function ServerData_ClanWar:getRemainNextSeasonTime()
 	if (remain_time < 0) then
 		remain_time = 1
 	end
-	return datetime.makeTimeDesc(remain_time/1000)
+	return ServerTime:getInstance():makeTimeDescToSec(remain_time/1000)
 end
 
 -------------------------------------
@@ -65,7 +65,7 @@ function ServerData_ClanWar:getRemainGameTime()
 	if (remain_time < 0) then
 		remain_time = 1
 	end
-	return datetime.makeTimeDesc(remain_time/1000)
+	return ServerTime:getInstance():makeTimeDescToSec(remain_time/1000)
 end
 
 -------------------------------------
@@ -79,7 +79,7 @@ function ServerData_ClanWar:getRemainStartGameTime()
 	if (remain_time < 0) then
 		remain_time = 0
 	end	
-	return datetime.makeTimeDesc(remain_time/1000)
+	return ServerTime:getInstance():makeTimeDescToSec(remain_time/1000)
 end
 
 -------------------------------------
@@ -208,7 +208,7 @@ function ServerData_ClanWar:getRemainTimeForNextGame()
 	local remain_time = 0
 	if (time) then
         remain_time = (time - cur_time) + match_start_day * 60*60*24
-		return datetime.makeTimeDesc(remain_time)
+		return ServerTime:getInstance():makeTimeDescToSec(remain_time)
 	else
 		return '-'
 	end
@@ -229,7 +229,7 @@ function ServerData_ClanWar:getRemainTimeForNextGameEnd()
 	local remain_time = 0
 	if (time) then
         remain_time = (time - cur_time)
-		return datetime.makeTimeDesc(remain_time)
+		return ServerTime:getInstance():makeTimeDescToSec(remain_time)
 	else
 		return '-'
 	end
@@ -259,7 +259,7 @@ function ServerData_ClanWar:getRemainTimeForGameEnd()
 	local time = date['time']
 	local remain_time = 0
 	if (time) then
-		return datetime.makeTimeDesc(time - cur_time)
+		return ServerTime:getInstance():makeTimeDescToSec(time - cur_time)
 	else
 		return '-'
 	end

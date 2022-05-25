@@ -600,7 +600,7 @@ function ServerData_Fevertime:getRemainTimeTextDetail(type)
     local end_date = end_date / 1000
     local time = math_max((end_date - curr_time), 0)
 
-    return Str('{1} 남음', datetime.makeTimeDesc(time, true, false)) -- params : sec, showSeconds, firstOnly, timeOnly
+    return Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true, false)) -- params : sec, showSeconds, firstOnly, timeOnly
 end
 
 -------------------------------------

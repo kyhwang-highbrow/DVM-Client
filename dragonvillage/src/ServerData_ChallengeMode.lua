@@ -1094,13 +1094,13 @@ function ServerData_ChallengeMode:getChallengeModeStatusText()
             remain_time = (start_time/1000) - cur_time
         end
         if (remain_time > 0) then
-            str = Str('다음 시즌 오픈까지 {1}', datetime.makeTimeDesc(remain_time, true))
+            str = Str('다음 시즌 오픈까지 {1}', ServerTime:getInstance():makeTimeDescToSec(remain_time, true))
         else
             str = Str('오픈시간이 아닙니다.')
         end
 
     elseif (0 < time) then
-        str = Str('시즌 종료까지') ..' '.. Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        str = Str('시즌 종료까지') ..' '.. Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
 
     else
         str = Str('종료되었습니다.')

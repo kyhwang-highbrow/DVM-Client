@@ -41,7 +41,7 @@ function UI_ArenaNewHistoryListItem:initUI()
     vars['scoreLabel']:setString(tostring(matchScore))
 
     local passedTime = socket.gettime() - (t_rival_info.m_matchTime / 1000)
-    local passedTimeText = Str('{1} 전', datetime.makeTimeDesc(passedTime, true, true))
+    local passedTimeText = Str('{1} 전', ServerTime:getInstance():makeTimeDescToSec(passedTime, true, true))
 
     vars['timeLabel']:setString(Str('{1}', passedTimeText))
 

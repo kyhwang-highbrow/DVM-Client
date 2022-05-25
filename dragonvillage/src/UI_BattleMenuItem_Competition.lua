@@ -458,9 +458,9 @@ function UI_BattleMenuItem_Competition:startUpdateChallengeMode(timer_key, has_r
 					return
 				end
 
-                local time_str = Str('{1} 남음', datetime.makeTimeDesc(time))
+                local time_str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time))
                 if param_msg then
-                    time_str = Str(param_msg, datetime.makeTimeDesc(time))
+                    time_str = Str(param_msg, ServerTime:getInstance():makeTimeDescToSec(time))
                 end
 				vars['timeLabel']:setString(title .. '\n' .. time_str)
 			end

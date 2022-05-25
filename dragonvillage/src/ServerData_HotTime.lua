@@ -392,7 +392,7 @@ function ServerData_HotTime:getEventRemainTimeText(event_name)
             local end_time = t['enddate']/1000
             local time = (end_time - curr_time)
 
-            return (time > 0) and Str('{1} 남음', datetime.makeTimeDesc(time, true, true)) or ''
+            return (time > 0) and Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true, true)) or ''
         end
     end
 
@@ -412,7 +412,7 @@ function ServerData_HotTime:getEventRemainTimeTextDetail(event_name)
             local end_time = t['enddate']/1000
             local time = (end_time - curr_time)
 
-            return (time > 0) and Str('{1} 남음', datetime.makeTimeDesc(time, true, false)) or ''
+            return (time > 0) and Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true, false)) or ''
         end
     end
 
@@ -578,7 +578,7 @@ function ServerData_HotTime:getHotTimeBuffText(type)
         -- 남은시간이 양수인 경우만 상태 변경 
         if (time > 0) then
             state = BOOSTER_ITEM_STATE.INUSE
-            str = Str('{@AQUA}{1} 남음', datetime.makeTimeDesc(time, true, true, true))
+            str = Str('{@AQUA}{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true, true, true))
         end
 
     -- 수신함에 있다면 사용가능한 상태

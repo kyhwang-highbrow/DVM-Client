@@ -195,7 +195,7 @@ function ServerData_SecretDungeon:getSecretDungeonRemainTimeText(dungeon_id)
     sec = math_max(sec, 0)
     local showSeconds = true
     local firstOnly = false
-    text = datetime.makeTimeDesc(sec, showSeconds, firstOnly)
+    text = ServerTime:getInstance():makeTimeDescToSec(sec, showSeconds, firstOnly)
     text = Str('{1} 남음', text)
 
     return text, t_dungeon_info['dirty_info']

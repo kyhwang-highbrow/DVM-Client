@@ -76,7 +76,7 @@ function UI_ButtonSpotSale:update(dt)
             local str = ''
             if (curr_time < end_of_sale_time) then
                 local time = (end_of_sale_time - curr_time)
-                --str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+                --str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
                 str = Str('{1}', datetime.makeTimeDesc_timer(time))
             end
             vars[lua_name]:setString(str)

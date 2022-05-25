@@ -452,7 +452,7 @@ function ServerData_CapsuleBox:getRemainTimeText()
 		remain_time = 0
 	end
 
-	local text = datetime.makeTimeDesc(remain_time, true)
+	local text = ServerTime:getInstance():makeTimeDescToSec(remain_time, true)
 	return text
 end
 

@@ -174,7 +174,7 @@ function UI_ExplorationReady:refresh()
     local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)    
 
     local sec = location_info['clear_time']
-    local time_str = datetime.makeTimeDesc(sec, true)
+    local time_str = ServerTime:getInstance():makeTimeDescToSec(sec, true)
     vars['timeLabel']:setString(Str('탐험 소요 : {1}', time_str))
 
     -- 획득하는 아이템 리스트

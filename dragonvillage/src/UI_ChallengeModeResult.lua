@@ -193,7 +193,7 @@ function UI_ChallengeModeResult:direction_nextStage()
             
             -- 남은 시간 표기
             local sec = g_challengeMode:getChallengeModeMasterStatusText()
-            local time_str = datetime.makeTimeDesc(sec, false, false, false)
+            local time_str = ServerTime:getInstance():makeTimeDescToSec(sec, false, false, false)
             local remain_time_str = (Str('마스터 구역 잠금해제까지\n{1}', Str(time_str)))
             MakeSimplePopup2(POPUP_TYPE.OK, Str('다음 순위부터는 마스터 구역입니다.'), remain_time_str, ok_func)
             return

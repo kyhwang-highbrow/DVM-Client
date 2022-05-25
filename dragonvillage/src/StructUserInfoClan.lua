@@ -101,7 +101,7 @@ function StructUserInfoClan:getPastActiveTimeText()
     else
         local showSeconds = false
         local firstOnly = true
-        return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_time, showSeconds, firstOnly))
+        return Str('최종접속 : {1} 전', ServerTime:getInstance():makeTimeDescToSec(last_active_time, showSeconds, firstOnly))
     end
 end
 

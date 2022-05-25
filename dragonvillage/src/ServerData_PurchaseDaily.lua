@@ -203,7 +203,7 @@ end
 function ServerData_PurchaseDaily:getPurchasePointEventRemainTimeText(version)
 	local time = self:getPurchasePointEventRemainTime(version)
     if (time > 0) then
-        local time_str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time))
+        local time_str = Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time))
         return time_str
     else
         return ''

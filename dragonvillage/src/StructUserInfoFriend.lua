@@ -132,7 +132,7 @@ function StructUserInfoFriend:getPastActiveTimeText()
     else
         local showSeconds = false
         local firstOnly = true
-        return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_time, showSeconds, firstOnly))
+        return Str('최종접속 : {1} 전', ServerTime:getInstance():makeTimeDescToSec(last_active_time, showSeconds, firstOnly))
     end
 end
 
@@ -166,14 +166,14 @@ function StructUserInfoFriend:getDragonUseCoolText()
         local gap = (used_time - server_time)
         local showSeconds = true
         local firstOnly = false
-        local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
+        local text = ServerTime:getInstance():makeTimeDescToSec(gap, showSeconds, firstOnly)
         local str = Str('{1} 후 \n사용 가능', text)
         return str
     else
         local gap = (server_time - used_time)
         local showSeconds = true
         local firstOnly = false
-        local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
+        local text = ServerTime:getInstance():makeTimeDescToSec(gap, showSeconds, firstOnly)
         local str = Str('{1} 전에 \n사용함', text)
         return str
     end

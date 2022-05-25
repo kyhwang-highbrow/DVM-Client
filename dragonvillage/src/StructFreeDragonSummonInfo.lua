@@ -67,7 +67,7 @@ function StructFreeDragonSummonInfo:getFreeDragonSummonTimeText(free_type)
             return Str('')
         else
             local showSeconds = true
-            local time_text = datetime.makeTimeDesc((normal_cooltime - server_time) + 0.5, showSeconds)
+            local time_text = ServerTime:getInstance():makeTimeDescToSec((normal_cooltime - server_time) + 0.5, showSeconds)
             local text = Str('{1} 후 무료소환', time_text)
             return text
         end
@@ -80,7 +80,7 @@ function StructFreeDragonSummonInfo:getFreeDragonSummonTimeText(free_type)
             return Str('')
         else
             local showSeconds = true
-            local time_text = datetime.makeTimeDesc((premium_cooltime - server_time) + 0.5, showSeconds)
+            local time_text = ServerTime:getInstance():makeTimeDescToSec((premium_cooltime - server_time) + 0.5, showSeconds)
             local text = Str('{1} 후 무료소환', time_text)
             return text
         end

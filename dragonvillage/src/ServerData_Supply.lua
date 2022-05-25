@@ -270,7 +270,7 @@ function ServerData_Supply:getSupplyTimeRemainingString(supply_type, is_simple)
             local time = (end_time - curr_time)
             local show_second = true
             local first_only = true
-            local str = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
+            local str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, show_second, first_only))
             return str
         else
             return Str('획득 가능')

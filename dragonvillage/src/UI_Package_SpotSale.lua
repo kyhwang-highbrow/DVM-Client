@@ -196,7 +196,7 @@ function UI_Package_SpotSale:update(dt)
     local time = math_max(end_of_sale_time - curr_time, 0)
     local str = ''
     if (0 < time) then
-        str = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        str = Str('판매 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
     end
     vars['timeLabel']:setString(str)
 end

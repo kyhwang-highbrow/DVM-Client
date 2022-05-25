@@ -299,7 +299,7 @@ function UI_EventLFBag:update(dt)
 
         if (0 < end_time) and (curr_time < end_time) then
             local remain_time = (end_time - curr_time)
-            local str = Str('{1} 남음', datetime.makeTimeDesc(remain_time, true))
+            local str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(remain_time, true))
             time_label:setString(str)
             time_label:setColor(COLOR['green'])
         else

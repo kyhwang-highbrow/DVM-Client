@@ -145,7 +145,7 @@ function ServerData_Advertising:getCoolTimeStatus(ad_type)
             enable = false
             local show_second = true
             local first_only = true
-            msg = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
+            msg = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, show_second, first_only))
         end
     end
     return msg, enable, time

@@ -289,16 +289,16 @@ function ServerData_Colosseum:getColosseumStatusText()
     local str = ''
     if (not self:isOpenColosseum()) then
         local time = (start_time - curr_time)
-        str = Str('{1} 남았습니다.', datetime.makeTimeDesc(time, true))
+        str = Str('{1} 남았습니다.', ServerTime:getInstance():makeTimeDescToSec(time, true))
 
     elseif (curr_time < start_time) then
         --str = Str('시즌이 종료되었습니다.')
         local time = (start_time - curr_time)
-        str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
+        str = Str('{1} 후 열림', ServerTime:getInstance():makeTimeDescToSec(time, true))
 
     elseif (start_time <= curr_time) and (curr_time <= end_time) then
         local time = (end_time - curr_time)
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
+        str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
 
     else
         str = Str('시즌이 종료되었습니다.')
@@ -332,7 +332,7 @@ function ServerData_Colosseum:getRefreshStatusText()
 
     else
         local time = (refresh_free_time - curr_time)
-        str = Str('{1} 후 무료', datetime.makeTimeDesc(time, true))
+        str = Str('{1} 후 무료', ServerTime:getInstance():makeTimeDescToSec(time, true))
     end
 
     return str
@@ -764,7 +764,7 @@ function ServerData_Colosseum:getStraightTimeText()
 
     
     local time = (buff_time - curr_time)
-    return Str('{1} 남음', datetime.makeTimeDesc(time, true)), true
+    return Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)), true
 end
 
 -------------------------------------

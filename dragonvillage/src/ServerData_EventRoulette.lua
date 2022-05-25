@@ -399,10 +399,10 @@ function ServerData_EventRoulette:getTimeText()
     local str = ''
     if (curr_time < start_time) then
         local time = (start_time - curr_time)
-        str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
+        str = Str('{1} 후 열림', ServerTime:getInstance():makeTimeDescToSec(time, true))
     elseif (start_time <= curr_time) and (curr_time <= end_time) then
         local time = (end_time - curr_time)
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
+        str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
     else
         str = Str('이벤트가 종료되었습니다.')
     end

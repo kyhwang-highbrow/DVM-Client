@@ -79,7 +79,7 @@ function UI_GrandArenaHistoryListItem:initUI()
         local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
         local match_time = (user_info.m_matchTime / 1000)
         local time = (curr_time - match_time)
-        local str = Str('{1} 전', datetime.makeTimeDesc(time, true))
+        local str = Str('{1} 전', ServerTime:getInstance():makeTimeDescToSec(time, true))
         vars['timeLabel']:setString(str)
     end
 

@@ -42,7 +42,7 @@ function UI_EventAdvent:initUI()
             
             local remain_time = g_hotTimeData:getEventRemainTime('event_advent')
             if remain_time > 0 then
-                local time_str = datetime.makeTimeDesc(remain_time, true)
+                local time_str = ServerTime:getInstance():makeTimeDescToSec(remain_time, true)
                 vars['timeLabel']:setString(Str('{1} 남음', time_str))
             end
         end

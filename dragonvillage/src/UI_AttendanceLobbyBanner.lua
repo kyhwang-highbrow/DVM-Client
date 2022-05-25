@@ -94,7 +94,7 @@ function UI_AttendanceLobbyBanner:update(dt)
     local remain_time = (end_time - cur_time)
 
     if (remain_time > 0) then
-        vars['timeLabel']:setString(Str('{1} 남음', datetime.makeTimeDesc(remain_time,true)))
+        vars['timeLabel']:setString(Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(remain_time,true)))
     end
     
 end

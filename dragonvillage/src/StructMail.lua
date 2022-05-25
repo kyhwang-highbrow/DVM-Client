@@ -149,7 +149,7 @@ function StructMail:getExpireRemainTimeStr()
         return Str('무기한')
     end
 
-    return Str('{1} 남음', datetime.makeTimeDesc(expire_remain_time))
+    return Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(expire_remain_time))
 end
 
 -------------------------------------

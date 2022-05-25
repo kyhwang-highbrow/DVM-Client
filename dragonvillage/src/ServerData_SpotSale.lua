@@ -101,7 +101,7 @@ function ServerData_SpotSale:checkCondition(id, skip_conditon)
 
         if (curr_time < cool_down) then
             if self.m_bDebugLog then
-                local desc = datetime.makeTimeDesc((cool_down-curr_time)/1000, true) -- param : sec, showSeconds, firstOnly, timeOnly
+                local desc = ServerTime:getInstance():makeTimeDescToSec((cool_down-curr_time)/1000, true) -- param : sec, showSeconds, firstOnly, timeOnly
                 self:log('개별 쿨 ' .. desc .. '남음')
             end
             return false
@@ -192,7 +192,7 @@ function ServerData_SpotSale:getGlobalCoolTimeDone()
 
     if self.m_bDebugLog then
         if (curr_time < global_cool_down) then
-            local desc = datetime.makeTimeDesc((global_cool_down-curr_time)/1000, true) -- param : sec, showSeconds, firstOnly, timeOnly
+            local desc = ServerTime:getInstance():makeTimeDescToSec((global_cool_down-curr_time)/1000, true) -- param : sec, showSeconds, firstOnly, timeOnly
             self:log(desc .. '남음')
         end
     end

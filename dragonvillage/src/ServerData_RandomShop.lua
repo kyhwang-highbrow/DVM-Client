@@ -60,7 +60,7 @@ function ServerData_RandomShop:getStatusText()
         -- 상품 갱신 가능
         self.m_bDirty = true
     else
-        str = Str('상품 교체까지 {1} 남음', datetime.makeTimeDesc(time, true, true))
+        str = Str('상품 교체까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true, true))
     end
 
     return str
@@ -120,7 +120,7 @@ function ServerData_RandomShop:getRefreshRemainTimeText()
             local _refresh_time = (refresh_time / 1000)
             local time = math_max(_refresh_time - curr_time, 0)
             if (time > 0) then
-                return Str('{1} 남음', datetime.makeTimeDesc(time, true, true))
+                return Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true, true))
             end
         end
     end

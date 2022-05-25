@@ -125,7 +125,7 @@ function ServerData_EventGoldDungeon:getStatusText()
     local end_time = (self.m_endTime / 1000)
 
     local time = (end_time - curr_time)
-    return Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+    return Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
 end
 
 -------------------------------------

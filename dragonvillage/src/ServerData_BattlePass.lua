@@ -417,7 +417,7 @@ function ServerData_BattlePass:getRemainTimeStr(pass_id)
 
     if (start_time <= curr_time) and (curr_time <= end_time) then
         local time = (end_time - curr_time)
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
+        str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
     else
         str = ''
     end

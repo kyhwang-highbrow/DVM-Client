@@ -116,6 +116,6 @@ function StructPickup:getRemainingTimeStr()
     if (time < 0) then
         time = 0
     end
-    return Str('남은 시간 : {1}', datetime.makeTimeDesc(time, true))
+    return Str('남은 시간 : {1}', ServerTime:getInstance():makeTimeDescToSec(time, true))
 end
 

@@ -131,7 +131,7 @@ function UI_Package_Personalpack:update(dt)
     local remain_time = math_max(end_time - curr_time, 0)
     local str = ''
     if (0 < remain_time) then
-        str = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(remain_time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        str = Str('판매 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(remain_time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
     end
     vars['timeLabel']:setString(str)
 end

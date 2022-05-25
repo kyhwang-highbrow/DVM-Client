@@ -100,7 +100,7 @@ function Serverdata_IllusionDungeon:getIllusionStatusText()
     -- 연습전 기간 (프리시즌)
     if (self:getIllusionState() == Serverdata_IllusionDungeon.STATE['PRESEASON']) then
         local time = g_hotTimeData:getEventRemainTime('event_illusion') or 0
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
         return str
     end
 
@@ -113,7 +113,7 @@ function Serverdata_IllusionDungeon:getIllusionStatusText()
         end
 
     elseif (0 < time) then
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
 
     else
         str = Str('종료되었습니다.')
@@ -131,7 +131,7 @@ function Serverdata_IllusionDungeon:getIllusionExchanageStatusText()
 
     local str = ''
     if (0 < time) then
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
 
     else
         str = Str('종료되었습니다.')

@@ -139,7 +139,7 @@ function UI_ExplorationLocationButton:update(dt)
     local remain_time = (end_time - server_time)
 
     if remain_time > 0 then
-        local time_str = datetime.makeTimeDesc(remain_time, true)
+        local time_str = ServerTime:getInstance():makeTimeDescToSec(remain_time, true)
         vars['timeLabel']:setString(time_str)
     else
         self.m_status = 'exploration_complete'

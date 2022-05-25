@@ -5,7 +5,7 @@
 ServerTime = class({
     -- 서버의 타임존
     m_serverTimeZoneStr = 'string', -- 'Asia/Seoul'와 같은 타임존 문자열
-    m_serverUTCOffset = 'number', -- 서버에서 사용하는 타임존의 증감값 e.g. 한국은 UTC +9이므로 이 값은 9가 됨.
+    m_serverUTCOffset = 'number', -- 서버에서 사용하는 타임존의 증감값 e.g. 모든 서버가 UTC + 0 시로 사실 상 0
     m_serverUTCOffsetSec = 'number',
 
     -- 로컬(기기)의 타임존
@@ -443,8 +443,50 @@ end
 -- @param timestamp_millisec(number) nil리턴 가능, 단위:밀리세컨드
 -- @return time_desc_str(string) e.g. {1}일, {1}일 {2}시간, '%.2d:%.2d:%.2d'
 -------------------------------------
-function ServerTime:timestampMillisecToTimeDesc(timestamp_millisec)
-    return datetime.makeTimeDesc_millsecTimer(timestamp_millisec)
+function ServerTime:timestampMillisecToTimeDesc(timestamp_millisec, day_special)
+
+    local day = math.floor(timestamp_millisec / 86400000)
+    timestamp_millisec = timestamp_millisec - (day * 86400000)
+
+    local hour = math.floor(timestamp_millisec / 3600000)
+    timestamp_millisec = timestamp_millisec - (hour * 3600000)
+
+    local min = math.floor(timestamp_millisec / 60000)
+    timestamp_millisec = timestamp_millisec - (min * 60000)
+
+    local sec = math.floor(timestamp_millisec / 1000)
+    timestamp_millisec = timestamp_millisec - (sec * 1000)
+
+    local millisec = timestamp_millisec
+
+    local str = ''
+    if (0 < day) then
+        --str = string.format('%.2d:%.2d:%.2d:%.2d:%.3d', day, hour, min, sec, millisec)
+        str = string.format('%.2d:%.2d:%.2d:%.2d', day, hour, min, sec)
+        if day_special then
+            --local day_str = Str('{1}일', day)
+            --local hour_min_sec_str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
+            --str = Str('{1} {2}', day_str, hour_min_sec_str)
+
+            str = Str('{1}일 {2}:{3}:{4}', day, string.format('%.2d',  hour), string.format('%.2d',  min), string.format('%.2d',  sec))
+        end
+
+    elseif (0 < hour) then
+        --str = string.format('%.2d:%.2d:%.2d:%.3d',  hour, min, sec, millisec)
+        str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
+
+    elseif (0 < min) then
+        --str = string.format('%.2d:%.2d:%.3d',  min, sec, millisec)
+        str = string.format('%.2d:%.2d',  min, sec)
+
+    --elseif (0 < sec) then
+    else
+        --str = string.format('%.2d:%.3d', sec, millisec)
+        str = string.format('%d', sec)
+
+    end
+
+    return str
 end
 
 -------------------------------------
@@ -453,11 +495,58 @@ end
 -- @param  timestamp_sec(number) nil리턴 가능, 단위:초
 -- @return time_desc_str(string) e.g. {1}일, {1}일 {2}시간, '%.2d:%.2d:%.2d'
 -------------------------------------
-function ServerTime:timestampSecToTimeDesc(timestamp_sec)
+function ServerTime:timestampSecToTimeDesc(timestamp_sec, day_special)
 
     local timestamp_millisec = timestamp_sec * 1000
 
-    return self:timestampMillisecToTimeDesc(timestamp_millisec)
+    return self:timestampMillisecToTimeDesc(timestamp_millisec, day_special)
+end
+
+-------------------------------------
+-- function timestampSecToTimeDesc
+-- @brief
+-- @param  timestamp_sec(number) nil리턴 가능, 단위:초
+-- @return time_desc_str(string) e.g. {1}일, {1}일 {2}시간, '%.2d:%.2d:%.2d'
+-------------------------------------
+function ServerTime:makeTimeDescToSec(sec, showSeconds, firstOnly, timeOnly)
+    local showSeconds = showSeconds and true or false
+    local sec = math.floor(sec)
+    if sec < 60 then
+        if showSeconds then
+            --return string.format('%d초', sec)
+            return Str('{1}초', sec)
+        else
+            --return string.format('1분 미만')
+            return Str('1분 미만')
+        end
+
+    elseif sec < 3600 then
+        local min = math.floor(sec / 60)
+        sec = sec % 60
+        if sec == 0 or firstOnly then
+            return Str('{1}분', min)
+        else
+            return Str('{1}분 {2}초', min, sec)
+        end
+
+    elseif sec < 86400 or timeOnly then
+        local hour = math.floor(sec / 3600)
+        local min = math.floor(sec / 60) % 60
+        if min == 0 or firstOnly then
+            return Str('{1}시간', hour)
+        else
+            return Str('{1}시간 {2}분', hour, min)
+        end
+
+    else
+        local day = math.floor(sec / 86400)
+        local hour = math.floor(sec / 3600) % 24
+        if hour == 0 or firstOnly then
+            return Str('{1}일', day)
+        else
+            return Str('{1}일 {2}시간', day, hour)
+        end
+    end
 end
 
 -------------------------------------

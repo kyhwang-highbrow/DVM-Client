@@ -85,6 +85,6 @@ function UI_GetDragonPackage_LobbyButton:timeUpdate(dt)
         return
     end
 
-    local strTime = datetime.makeTimeDesc(remainTime, true)
+    local strTime = ServerTime:getInstance():makeTimeDescToSec(remainTime, true)
     vars['timeLabel']:setString(strTime)
 end

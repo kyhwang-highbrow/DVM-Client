@@ -741,7 +741,7 @@ function ServerData_Hatchery:getSummonFreeInfo(with_str)
             local gap = (summon_free_time - server_time)
             local showSeconds = true
             local firstOnly = false
-            local text = datetime.makeTimeDesc(gap, showSeconds, firstOnly)
+            local text = ServerTime:getInstance():makeTimeDescToSec(gap, showSeconds, firstOnly)
             ret_str = Str('{1} 후 무료', text)
         end
 
@@ -1064,7 +1064,7 @@ function ServerData_Hatchery:getChanceUpEndDate()
     local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     if (end_time > curr_time) then
         local remain_time = end_time - curr_time
-        local time_text = datetime.makeTimeDesc(remain_time, true)
+        local time_text = ServerTime:getInstance():makeTimeDescToSec(remain_time, true)
         return Str('{1} 남음', time_text)
     end
 end

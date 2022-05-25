@@ -61,7 +61,7 @@ function ServerData_Staminas:getChargeRemainText(stamina_type)
     else
         local remain_charge_time = t_stamina_info['remain_charge_time'] or 0
         local timer = math_ceil(remain_charge_time)
-        return datetime.makeTimeDesc(timer, true, false)
+        return ServerTime:getInstance():makeTimeDescToSec(timer, true, false)
     end
 end
 

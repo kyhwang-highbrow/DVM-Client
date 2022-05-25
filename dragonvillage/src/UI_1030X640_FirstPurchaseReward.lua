@@ -116,7 +116,7 @@ function UI_1030X640_FirstPurchaseReward:update(dt)
             --local time_millisec = (end_date - curr_time) * 1000
             --local str = datetime.makeTimeDesc_timer(time_millisec)
             local time = (end_date - curr_time)
-            local str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+            local str = Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
             time_label:setString(str)
         else
             time_label:setString('')

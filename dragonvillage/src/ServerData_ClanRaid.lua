@@ -188,15 +188,15 @@ function ServerData_ClanRaid:getClanRaidStatusText()
         if (time < 0) then
             str = Str('오픈시간이 아닙니다.')
         else
-            str = Str('클랜던전 오픈 전입니다.\n오픈까지 {1}', datetime.makeTimeDesc(time, true))
+            str = Str('클랜던전 오픈 전입니다.\n오픈까지 {1}', ServerTime:getInstance():makeTimeDescToSec(time, true))
         end
 
     elseif (curr_time < start_time) then
         local time = (start_time - curr_time)
-        str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
+        str = Str('{1} 후 열림', ServerTime:getInstance():makeTimeDescToSec(time, true))
     elseif (start_time <= curr_time) and (curr_time <= end_time) then
         local time = (end_time - curr_time)
-        str = Str('시즌 종료까지') .. '\n' .. Str('{1} 남음', datetime.makeTimeDesc(time, true))
+        str = Str('시즌 종료까지') .. '\n' .. Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
     else
         str = Str('시즌이 종료되었습니다.')
     end
