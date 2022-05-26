@@ -1,131 +1,111 @@
 
 title_es.png
-size: 2040,2012
+size: 2008,1889
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-title_bg_01
+dvm_intro_title_ver.3_1680x960
   rotate: false
-  xy: 2, 1050
-  size: 1280, 960
-  orig: 1280, 960
-  offset: 0, 0
-  index: -1
-title_bg_02
-  rotate: false
-  xy: 1284, 1483
-  size: 700, 527
-  orig: 700, 527
-  offset: 0, 0
-  index: -1
-title_effect_01
-  rotate: false
-  xy: 1407, 618
-  size: 368, 441
-  orig: 368, 441
-  offset: 0, 0
-  index: -1
-title_effect_02
-  rotate: false
-  xy: 1768, 61
-  size: 219, 227
-  orig: 219, 227
+  xy: 1166, 1407
+  size: 840, 480
+  orig: 840, 480
   offset: 0, 0
   index: -1
 title_effect_03
-  rotate: true
-  xy: 1166, 296
+  rotate: false
+  xy: 1245, 936
   size: 752, 239
   orig: 752, 239
   offset: 0, 0
   index: -1
 title_effect_04
-  rotate: false
-  xy: 1840, 419
+  rotate: true
+  xy: 1669, 278
   size: 198, 268
   orig: 198, 268
   offset: 0, 0
   index: -1
 title_effect_05
-  rotate: false
-  xy: 1284, 1061
+  rotate: true
+  xy: 823, 556
   size: 617, 420
   orig: 617, 420
   offset: 0, 0
   index: -1
 title_effect_06
-  rotate: false
-  xy: 1407, 290
+  rotate: true
+  xy: 823, 1456
   size: 431, 326
   orig: 431, 326
   offset: 0, 0
   index: -1
 title_effect_07
   rotate: false
-  xy: 2, 505
+  xy: 2, 2
   size: 1162, 543
   orig: 1162, 543
   offset: 0, 0
   index: -1
-title_effect_12
+title_effect_08
   rotate: true
-  xy: 744, 2
+  xy: 2, 547
+  size: 1340, 819
+  orig: 1340, 819
+  offset: 0, 0
+  index: -1
+title_effect_12
+  rotate: false
+  xy: 1166, 87
   size: 501, 389
   orig: 501, 389
   offset: 0, 0
   index: -1
 title_effect_13
   rotate: false
-  xy: 1135, 28
+  xy: 1669, 10
   size: 259, 266
   orig: 259, 266
   offset: 0, 0
   index: -1
+title_effect_14
+  rotate: false
+  xy: 823, 1175
+  size: 289, 279
+  orig: 289, 279
+  offset: 0, 0
+  index: -1
 title_logo_01
   rotate: false
-  xy: 2, 47
+  xy: 1245, 478
   size: 740, 456
   orig: 740, 456
   offset: 0, 0
   index: -1
 title_logo_02
   rotate: false
-  xy: 1396, 60
+  xy: 1114, 1177
   size: 370, 228
   orig: 370, 228
   offset: 0, 0
   index: -1
 title_logo_03
-  rotate: true
-  xy: 1777, 689
+  rotate: false
+  xy: 1486, 1177
   size: 370, 228
   orig: 370, 228
   offset: 0, 0
   index: -1
 title_logo_05
   rotate: false
-  xy: 1777, 628
+  xy: 1166, 495
   size: 61, 59
   orig: 61, 59
   offset: 0, 0
   index: -1
 title_logo_06
   rotate: false
-  xy: 1840, 333
+  xy: 1858, 1321
   size: 123, 84
   orig: 123, 84
-  offset: 0, 0
-  index: -1
-
-title_es2.png
-size: 293,283
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-title_effect_14
-  rotate: false
-  xy: 2, 2
-  size: 289, 279
-  orig: 289, 279
   offset: 0, 0
   index: -1

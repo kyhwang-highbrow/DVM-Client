@@ -1,131 +1,90 @@
 
 title.png
-size: 2047,2038
+size: 1886,1363
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-title_bg_01
+dvm_intro_title_ver.3_1680x960
   rotate: false
-  xy: 2, 1076
-  size: 1280, 960
-  orig: 1280, 960
+  xy: 823, 881
+  size: 840, 480
+  orig: 840, 480
   offset: 0, 0
   index: -1
-title_bg_02
+title_bg_03
   rotate: false
-  xy: 1284, 810
-  size: 700, 527
-  orig: 700, 527
-  offset: 0, 0
-  index: -1
-title_effect_01
-  rotate: false
-  xy: 393, 88
-  size: 368, 441
-  orig: 368, 441
+  xy: 1053, 88
+  size: 510, 333
+  orig: 510, 333
   offset: 0, 0
   index: -1
 title_effect_02
-  rotate: true
-  xy: 1166, 536
+  rotate: false
+  xy: 1665, 1134
   size: 219, 227
   orig: 219, 227
   offset: 0, 0
   index: -1
-title_effect_03
-  rotate: false
-  xy: 1284, 1797
-  size: 752, 239
-  orig: 752, 239
-  offset: 0, 0
-  index: -1
 title_effect_04
   rotate: false
-  xy: 1395, 540
+  xy: 1665, 864
   size: 198, 268
   orig: 198, 268
   offset: 0, 0
   index: -1
-title_effect_05
-  rotate: false
-  xy: 1091, 109
-  size: 617, 420
-  orig: 617, 420
-  offset: 0, 0
-  index: -1
-title_effect_06
+title_effect_08
   rotate: true
-  xy: 763, 98
-  size: 431, 326
-  orig: 431, 326
-  offset: 0, 0
-  index: -1
-title_effect_07
-  rotate: false
-  xy: 2, 531
-  size: 1162, 543
-  orig: 1162, 543
-  offset: 0, 0
-  index: -1
-title_effect_12
-  rotate: true
-  xy: 2, 28
-  size: 501, 389
-  orig: 501, 389
+  xy: 2, 21
+  size: 1340, 819
+  orig: 1340, 819
   offset: 0, 0
   index: -1
 title_effect_13
-  rotate: false
-  xy: 1595, 542
+  rotate: true
+  xy: 1565, 206
   size: 259, 266
   orig: 259, 266
   offset: 0, 0
   index: -1
 title_effect_14
   rotate: false
-  xy: 1710, 261
+  xy: 1565, 467
   size: 289, 279
   orig: 289, 279
   offset: 0, 0
   index: -1
 title_logo_01
   rotate: false
-  xy: 1284, 1339
+  xy: 823, 423
   size: 740, 456
   orig: 740, 456
   offset: 0, 0
   index: -1
-title_logo_03
+title_logo_02
   rotate: true
-  xy: 1166, 757
+  xy: 823, 51
+  size: 370, 228
+  orig: 370, 228
+  offset: 0, 0
+  index: -1
+title_logo_03
+  rotate: false
+  xy: 1565, 748
   size: 317, 114
   orig: 317, 114
   offset: 0, 0
   index: -1
 title_logo_05
   rotate: true
-  xy: 1986, 1276
+  xy: 1178, 25
   size: 61, 59
   orig: 61, 59
   offset: 0, 0
   index: -1
 title_logo_06
   rotate: false
-  xy: 393, 2
+  xy: 1053, 2
   size: 123, 84
   orig: 123, 84
-  offset: 0, 0
-  index: -1
-
-title2.png
-size: 374,232
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-title_logo_02
-  rotate: false
-  xy: 2, 2
-  size: 370, 228
-  orig: 370, 228
   offset: 0, 0
   index: -1
