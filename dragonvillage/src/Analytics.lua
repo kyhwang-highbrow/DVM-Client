@@ -717,7 +717,7 @@ function Analytics:IVEKorea_ads_complete_run(cb_func)
     -- 성공 시 콜백 함수
     t_request['success'] = function(ret)
         cclog('## https://api.i-screen.kr/api/ads_complete_run - success')
-        if true or (IS_TEST_MODE() == true) then
+        if (IS_TEST_MODE() == true) then
             ccdump(ret)
             local msg = 'url : ' .. req.url .. '\n\nmessage : ' .. ret['message']
 
@@ -732,7 +732,7 @@ function Analytics:IVEKorea_ads_complete_run(cb_func)
     -- 실패 시 콜백 함수
     t_request['fail'] = function(ret)
         cclog('## https://api.i-screen.kr/api/ads_complete_run - fail')        
-        if true or  (IS_TEST_MODE() == true) then
+        if (IS_TEST_MODE() == true) then
             ccdump(ret)
             local msg = 'url : ' .. req.url .. '\n\nmessage : ' .. ret['message']
             
