@@ -228,9 +228,10 @@ function UI_EventPopupTab_Banner:initEventCapsule()
             string_rarity = Str(string_rarity)
 
             local dragon_name = table_dragon:getDragonNameWithAttr(dragon_id)
+            local dragon_attr = table_dragon:getDragonAttr(dragon_id)
             dragon_name = pl.stringx.replace(dragon_name, ' ', '')
 
-            dragon_name = '{@default}{@fire}' .. Str(dragon_name) .. '{@default}'
+            dragon_name = Str('{@default}{@{1}}' .. Str(dragon_name) .. '{@default}', dragon_attr)
 
             vars['infoLabel']:setString(Str('{1} {2} 획득 기회!', string_rarity, dragon_name))
         end
