@@ -237,6 +237,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) adjustTrackEvent:(NSString *)eventKey;
 - (void) adjustTrackPayment:(NSString *)key price:(NSString *)price currency:(NSString *)currency;
 - (void) adjustGdprForgetMe;
+- (NSString *) adjustGetAdid;
 
 // @adMob
 - (void) adMobInitRewardedVideoAd;

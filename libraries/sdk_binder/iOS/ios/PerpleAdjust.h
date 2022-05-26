@@ -19,6 +19,7 @@
 - (void) trackEvent:(NSString *)eventKey;
 - (void) trackPayment:(NSString *)key price:(NSString *)price currency:(NSString *)currency;
 - (void) gdprForgetMe;
+- (NSString *) getAdid;
 
 #pragma mark - AdjustDelegate
 - (void) adjustAttributionChanged:(ADJAttribution *)attribution;

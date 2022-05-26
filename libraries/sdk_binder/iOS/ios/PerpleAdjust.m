@@ -84,6 +84,12 @@
     [Adjust gdprForgetMe];
 }
 
+- (NSString *) getAdid {
+    // @sgkim 2021.09.27
+    //NSString *idfaString = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    return [Adjust idfa];
+}
+
 #pragma mark - AdjustDelegate
 
 - (void) adjustAttributionChanged:(ADJAttribution *)attribution {

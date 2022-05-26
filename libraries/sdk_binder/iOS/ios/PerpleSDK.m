@@ -1018,6 +1018,10 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     [self.mAdjust gdprForgetMe];
 }
 
+- (NSString *) adjustGetAdid {
+    return [self.mAdjust getAdid];
+}
+
 - (void) adMobInitRewardedVideoAd {
     if (self.mAdMob == nil) {
         return;

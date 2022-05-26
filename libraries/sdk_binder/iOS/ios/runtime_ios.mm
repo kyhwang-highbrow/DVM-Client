@@ -9,6 +9,8 @@
 #import "PerpleCore.h"
 #import "PerpleSDK.h"
 #import <Foundation/Foundation.h>
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
+#import <FBSDKCoreKit/FBSDKSettings.h>
 
 // autoLogin, loginWithGoogle
 // "success" :
@@ -744,6 +746,11 @@ void adjustGdprForgetMe( int funcID) {
     [[PerpleSDK sharedInstance] adjustGdprForgetMe];
 }
 
+const char*  adjustGetAdid( int funcID) {
+    NSString* adid = [[PerpleSDK sharedInstance] adjustGetAdid];
+    return [adid UTF8String];
+}
+
 #pragma mark - AdMob
 void adMobInitRewardedVideoAd(int funcID) {
     [[PerpleSDK sharedInstance] adMobInitRewardedVideoAd];
@@ -884,3 +891,4 @@ void appleLogin(int funcID) {
 void appleLogout(int funcID) {
     [[PerpleSDK sharedInstance] appleLogout];
 }
+ 
