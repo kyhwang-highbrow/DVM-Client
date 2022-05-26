@@ -216,6 +216,9 @@ function UI_CapsuleBox:setCapsuleBoxNoti()
 
         end
 
+        local remain_text = g_capsuleBoxData:getRemainTimeText()
+        vars['timeLabel']:setString(Str('{1} 남음', remain_text))
+
         vars['itemLabel']:setString(Str('전설 뽑기에 {1} 출현!', item_name))
 
     else
