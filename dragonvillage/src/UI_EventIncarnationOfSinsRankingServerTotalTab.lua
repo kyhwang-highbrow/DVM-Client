@@ -187,7 +187,7 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data, 
     local rank_list = UIC_RankingList()
     rank_list:setRankUIClass(UI_EventIncarnationOfSinsRankingServerTotalTabRankingListItem, create_cb)
     rank_list:setRankList(l_rank_list)
-    rank_list:setEmptyStr('랭킹 정보가 없습니다.')
+    rank_list:setEmptyStr(Str('랭킹 정보가 없습니다.'))
     rank_list:setOffset(self.m_rankOffset)
     rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, SCORE_OFFSET_GAP)
     rank_list:makeRankList(rank_node)

@@ -112,7 +112,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRankTableView(data)
     local rank_list = UIC_RankingList()
     rank_list:setRankUIClass(UI_EventIncarnationOfSinsRankingTotalTabRankingListItem, create_cb)
     rank_list:setRankList(l_rank_list)
-    rank_list:setEmptyStr('랭킹 정보가 없습니다')
+    rank_list:setEmptyStr(Str('랭킹 정보가 없습니다.'))
     rank_list:setMyRank(make_my_rank_cb)
     rank_list:setOffset(self.m_rankOffset)
     rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, SCORE_OFFSET_GAP)
@@ -259,7 +259,7 @@ end
 -- tableview cell class
 local CELL_PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
--- class UI_EventIncarnationOfSinsRankingAttributeTabListItem
+-- class UI_EventIncarnationOfSinsRankingTotalTabRankingListItem
 -------------------------------------
 UI_EventIncarnationOfSinsRankingTotalTabRankingListItem = class(CELL_PARENT,{
         m_rankInfo = '',
@@ -365,7 +365,7 @@ end
 -- tableview cell class
 local CELL_PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
--- class UI_EventIncarnationOfSinsRankingAttributeTabListItem
+-- class UI_EventIncarnationOfSinsRankingTotalTabRewardListItem
 -------------------------------------
 UI_EventIncarnationOfSinsRankingTotalTabRewardListItem = class(CELL_PARENT,{
         m_rewardInfo = '',

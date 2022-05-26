@@ -451,7 +451,7 @@ end
 function UI_AdventureStageInfo:click_enterBtn()
     local func = function()
         local stage_id = self.m_stageID
-
+        local game_mode = g_stageData:getGameMode(stage_id)
         local function close_cb()
             local ui = UIManager:getLastUI()
             ui:sceneFadeInAction()
