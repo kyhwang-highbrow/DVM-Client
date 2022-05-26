@@ -337,9 +337,14 @@ end
 -- utility funciton : datetime
 --###############################################
 datetime = {}
+-------------------------------------
+-- function getTimeZoneOffset
+-- @brief 로컬(기기)의 타임존 차이 확인
+-------------------------------------
 function datetime.getTimeZoneOffset()
-    local now = os.time()
-    return os.difftime(now, os.time(os.date("!*t", now)))
+    local now = os.time() -- UTC+0 기준
+    local now_utc = os.time(os.date("!*t", now))
+    return now - now_utc -- 서버와 로컬 기기의 타임존 차이를 리턴 (한국의 경우 32400(+9시간) 반환 )
 end
 
 function datetime.parseDate(str, pattern)
@@ -352,8 +357,7 @@ function datetime.parseDate(str, pattern)
         cclog('year가 2037 이상이 되면 os.time함수에서 nil을 리턴함. 따라서 2037로 보정함.')
         t.year = '2037'
     end
-
-    return os.time(t) - datetime.getTimeZoneOffset() + 9 * 60 * 60
+    return os.time(t) + datetime.getTimeZoneOffset()
 end
 
 function datetime.getTimestamp(tbl)
@@ -367,7 +371,7 @@ function datetime.getTimestamp(tbl)
         end
         localtime = os.time(date)
     end
-    return localtime - datetime.getTimeZoneOffset() + 9 * 60 * 60
+    return localtime + datetime.getTimeZoneOffset()
 end
 
 --fixed Str -> string.format(2012/11/15 by jjo)

@@ -155,7 +155,9 @@ function UI_EventPopupTab_PurchaseDaily:update(dt)
     local vars = self.vars
 
     -- 서버 시간 표시
-    local time_zone_str, t = datetime.getTimeUTCHourStr()
+    local time_zone_str = ServerTime:getInstance():getServerUTCStr()
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local t = ServerTime:getInstance():timestampToDate(server_time)
     local hour = string.format('%.2d', t.hour)
     local min = string.format('%.2d', t.min)
     local sec = string.format('%.2d', t.sec)

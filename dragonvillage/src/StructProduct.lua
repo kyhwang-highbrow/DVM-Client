@@ -144,10 +144,9 @@ function StructProduct:getEndDateStr(new_line, simple)
         return ''
     end
 
-    local server_time = ServerTime:getInstance()
-    local end_timestamp = server_time:datestrToTimestampSec(self.m_endDate)
-    local curr_timestamp = server_time:getCurrentTimestampSeconds()
-    local time_desc = server_time:makeTimeDescToSec(end_timestamp - curr_timestamp)
+    local end_timestamp = ServerTime:getInstance():datestrToTimestampSec(self.m_endDate)
+    local curr_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local time_desc = ServerTime:getInstance():makeTimeDescToSec(end_timestamp - curr_timestamp)
 
     local msg
     if (new_line) then
