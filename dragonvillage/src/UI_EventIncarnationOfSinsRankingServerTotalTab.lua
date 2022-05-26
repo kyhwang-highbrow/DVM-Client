@@ -69,6 +69,11 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingServerTotalTab:initUI()
     local vars = self.vars
+    vars['serverInfoLabel']:setString(Str('신규 글로벌 서버 외 모든 서버 통합 랭킹입니다.'))
+
+    if g_localData:isGlobalServer() then
+        vars['serverInfoLabel']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -182,7 +187,7 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data, 
     local rank_list = UIC_RankingList()
     rank_list:setRankUIClass(UI_EventIncarnationOfSinsRankingServerTotalTabRankingListItem, create_cb)
     rank_list:setRankList(l_rank_list)
-    rank_list:setEmptyStr('랭킹 정보가 없습니다')
+    rank_list:setEmptyStr('랭킹 정보가 없습니다.')
     rank_list:setOffset(self.m_rankOffset)
     rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, SCORE_OFFSET_GAP)
     rank_list:makeRankList(rank_node)
@@ -337,7 +342,7 @@ end
 -- tableview cell class
 local CELL_PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
--- class UI_EventIncarnationOfSinsRankingAttributeTabListItem
+-- class UI_EventIncarnationOfSinsRankingServerTotalTabRankingListItem
 -------------------------------------
 UI_EventIncarnationOfSinsRankingServerTotalTabRankingListItem = class(CELL_PARENT,{
         m_rankInfo = '',
@@ -462,7 +467,7 @@ end
 -- tableview cell class
 local CELL_PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
--- class UI_EventIncarnationOfSinsRankingAttributeTabListItem
+-- class UI_EventIncarnationOfSinsRankingServerTotalTabRewardListItem
 -------------------------------------
 UI_EventIncarnationOfSinsRankingServerTotalTabRewardListItem = class(CELL_PARENT,{
         m_rewardInfo = '',
