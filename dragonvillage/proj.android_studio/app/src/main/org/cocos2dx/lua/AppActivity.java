@@ -489,8 +489,9 @@ public class AppActivity extends Cocos2dxActivity{
     }
     
     private static String getAdvertisingID() {
-        String advertising_id = PerpleSDK.getInstance().getAdid();
-        return advertising_id;
+        return PerpleSDK.getAdid();
+        /*String advertising_id = PerpleSDK.getInstance().getAdid();
+        return advertising_id;*/
     }
     
     public String getHostIpAddress() {
