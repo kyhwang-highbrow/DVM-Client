@@ -140,11 +140,7 @@ function UI_SupplyDepot:update(dt)
         remain_min = 0
     end
 
-    if remain_hour > 0 then
-        vars['remainTimeLabel']:setString(Str('{1}시간 후 보급품 갱신', string.format('%.2d', remain_hour)))
-    else
-        vars['remainTimeLabel']:setString(Str('{1}분 후 보급품 갱신', string.format('%.2d', remain_min)))
-    end
+    vars['remainTimeLabel']:setString(Str('{1}시간 {2}분 후 보급품 갱신', string.format('%.2d', remain_hour), string.format('%.2d', remain_min)))
     
 end
 
