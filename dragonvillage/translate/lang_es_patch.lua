@@ -123,4 +123,5 @@ return {['1천 만원 상당의\n경품 이벤트 진행 중!']='¡Se está llev
 ['{@dark_brown}통합 랭킹{@default} 3 - 5위']='{@dark_brown}clasificación integrada{@default} 3 - 5 lugar',
 ['{@dark_brown}통합 랭킹{@default} 7, 10, 20, 30, 530위']='{@dark_brown}clasificación integrada{@default} 7, 10, 20, 30, 530 lugar',
 ['이벤트\n상품']='Evento\nPrecio',
-['{1}시간 {2}분 후 보급품 갱신']='Actualiza los suministros en {1} horas{2} minutos'}
+['{1}시간 {2}분 후 보급품 갱신']='Actualiza los suministros en {1} horas{2} minutos',
+['신규 글로벌 서버 외 모든 서버 통합 랭킹입니다.']='Clasificación integrada de todos los servidores, fuera del servidor global.'}

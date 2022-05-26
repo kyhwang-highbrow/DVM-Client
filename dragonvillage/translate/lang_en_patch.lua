@@ -123,4 +123,5 @@ return {['1천 만원 상당의\n경품 이벤트 진행 중!']='A special givea
 ['{@dark_brown}통합 랭킹{@default} 3 - 5위']='{@dark_brown}Total Ranking{@default} 3rd - 5th',
 ['{@dark_brown}통합 랭킹{@default} 7, 10, 20, 30, 530위']='{@dark_brown}Total Ranking{@default} 7th, 10th, 20th, 30th, 530th',
 ['이벤트\n상품']='Event\nPrize',
-['{1}시간 {2}분 후 보급품 갱신']='Update supplies after {1}hours{2} minutes'}
+['{1}시간 {2}분 후 보급품 갱신']='Update supplies after {1}hours{2} minutes',
+['신규 글로벌 서버 외 모든 서버 통합 랭킹입니다.']='All-server total rankings, excluding the new Global server.'}
