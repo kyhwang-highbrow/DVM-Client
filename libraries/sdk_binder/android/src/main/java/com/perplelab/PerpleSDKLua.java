@@ -1517,6 +1517,12 @@ public class PerpleSDKLua {
         PerpleSDK.getAdjust().trackPayment(eventKey, price, currency);
     }
 
+    public static String adjustGetAdid(int funcID) {
+        return PerpleSDK.getAdjust().getAdid();
+    }
+
+
+
     // @AdMob
     public static void adMobInitRewardedVideoAd(int funcID) {
         final int pID = PerpleSDK.ProcessId;

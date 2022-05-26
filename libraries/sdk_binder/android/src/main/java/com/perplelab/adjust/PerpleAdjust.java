@@ -2,6 +2,7 @@ package com.perplelab.adjust;
 
 import com.adjust.sdk.AdjustEvent;
 import com.adjust.sdk.LogLevel;
+import com.adjust.sdk.OnDeviceIdsRead;
 import com.perplelab.PerpleSDK;
 import com.perplelab.PerpleLog;
 
@@ -22,6 +23,7 @@ public class PerpleAdjust {
     private static final String LOG_TAG = "PerpleSDK Adjust";
 
     private boolean mIsInit;
+    private String mAdid = "";
 
     public PerpleAdjust() {}
 
@@ -93,6 +95,16 @@ public class PerpleAdjust {
         config.setAppSecret(secretKeyArray[0], secretKeyArray[1], secretKeyArray[2], secretKeyArray[3], secretKeyArray[4]);
 
         Adjust.onCreate(config);
+
+        PerpleLog.d(LOG_TAG, "call getGoogleAdId");
+        Adjust.getGoogleAdId(PerpleSDK.getInstance().getMainActivity(), new OnDeviceIdsRead() {
+            @Override
+            public void onGoogleAdIdRead(String googleAdId) {
+                mAdid = googleAdId;
+                PerpleLog.d(LOG_TAG, "getGoogleAdId-ADID: " + googleAdId);
+            }
+        });
+
         mIsInit = true;
     }
 
@@ -133,7 +145,9 @@ public class PerpleAdjust {
         AdjustEvent event = new AdjustEvent(eventToken);
         event.setRevenue(retPrice, currency);
         Adjust.trackEvent(event);
-
     }
 
+    public String getAdid() {
+        return mAdid;
+    }
 }
