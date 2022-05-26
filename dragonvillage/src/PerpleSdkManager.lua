@@ -108,6 +108,26 @@ function PerpleSdkManager:onestoreIsAvailable()
 end
 
 -------------------------------------
+-- function getAdid
+-- @brief 광고 식별자
+-------------------------------------
+function PerpleSdkManager:getAdid()
+    if (PerpleSDK == nil) then
+        return ''
+    end
+
+    if (PerpleSDK['adjustGetAdid'] == nil) then
+        return ''
+    end
+
+    local adid = PerpleSDK['adjustGetAdid'](PerpleSDK)
+
+    return adid
+end
+
+
+
+-------------------------------------
 -- function makeErrorPopup
 -- perpleSdk에서 반환한 에러 정보를 팝업으로 출력
 -------------------------------------
@@ -133,8 +153,6 @@ end
 function PerpleSdkManager.getCrashlytics()
     return Crashlytics
 end
-
-
 
 
 -------------------------------------
@@ -211,4 +229,5 @@ function Crashlytics:setData(key, value)
         PerpleSDK:crashlyticsSetKeyBool(key, value and true or false)
     end
 end
+
 

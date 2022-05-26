@@ -79,7 +79,7 @@ function Network:setUid(uid)
     self.uid = uid
 end
 
-function Network:request(url, data, method)
+function Network:request(url, data, method, encode_type)
 	local req = {}
 	local method = method or 'GET'
 	local data = data or {}
@@ -95,8 +95,13 @@ function Network:request(url, data, method)
 		for k,v in pairs(data) do
 			if count == 0 then req.url = req.url .. '?'
 			else req.url = req.url .. '&' end
-			--req.url = req.url .. k .. '=' .. urlencode(tostring(v))
-			req.url = req.url .. k .. '=' .. urlEncode(tostring(v))
+
+			if encode_type then
+				req.url = req.url .. k .. '=' .. urlencode(tostring(v))
+			else
+				req.url = req.url .. k .. '=' .. urlEncode(tostring(v))
+			end
+						
 			count = count + 1
 		end
 	end
@@ -214,7 +219,7 @@ function Network:decodeResult(ret)
 	return t
 end
 
-function Network:SimpleRequest(t, do_decode)
+function Network:SimpleRequest(t, do_decode, encode_type)
     local full_url = t['full_url']
 	local url = full_url or (GetApiUrl() .. t['url'])
 	local data = t['data'] or {}
@@ -252,7 +257,7 @@ function Network:SimpleRequest(t, do_decode)
         hmac_md5 = HMAC('md5', text, CONSTANT['MD5_KEY'], false)
     end
 
-	local r = Network:request(url, data, method)
+	local r = Network:request(url, data, method, encode_type)
 	r['finishHandler'] = function(data)
 		local jsondata
 		if do_decode then

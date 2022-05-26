@@ -2,11 +2,14 @@
 -- class ScenePatch
 -------------------------------------
 ScenePatch = class(PerpleScene, {
-        m_bFinishPatch = 'boolean',
-        m_vars = '',
-		m_patch_core = 'Patch_Core',
-        m_apkExpansion = 'ApkExpansion',
-    })
+    m_bFinishPatch = 'boolean',
+    m_vars = '',
+    m_patch_core = 'Patch_Core',
+    m_apkExpansion = 'ApkExpansion',
+    
+    m_lWorkList = 'list',
+    m_workIdx = 'number',
+})
 
 -------------------------------------
 -- function init
@@ -64,25 +67,85 @@ function ScenePatch:onEnter()
 
 	self:refreshPatchIdxLabel()
 
-	-- 패치 시작
-	local function start_patch()
-		self.m_vars['messageLabel']:setVisible(true)
-		self.m_vars['messageLabel']:setString(Str('패치 확인 중...'))
 
-		self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-		self:runPatchCore()
-	end
+    self:setWorkList()
+    self:doNextWork()
+end
 
+-------------------------------------
+-- function setWorkList
+-------------------------------------
+function ScenePatch:setWorkList()
+    self.m_workIdx = 0
+    self.m_lWorkList = {}
 
-    Analytics:IVEKorea_ads_complete_run(start_patch)
+    if (CppFunctions:isIos() == true) then
+        table.insert(self.m_lWorkList, 'workRequestIosAppTrackingTransparency')
+    end
+    table.insert(self.m_lWorkList, 'workIVEKoreaAds')
 
-	-- 선택된 언어가 없다면 언어 선택 후 패치 시작
-    -- 2018.01.17 sgkim 어플 최초 실행 시 디바이스의 언어로 game언어를 설정하도록 처리함
-	--if (g_localData:getLang() == nil) then
-	--	UI_SelectLanguagePopup(start_patch)
-	--else
-	--start_patch()
-	--end
+    table.insert(self.m_lWorkList, 'workStartPatch')
+end
+
+-------------------------------------
+-- function doNextWork
+-------------------------------------
+function ScenePatch:doNextWork()
+    local work_idx = (self.m_workIdx + 1)
+    self:doWorkByIdx(work_idx)
+end
+
+-------------------------------------
+-- function doWorkByIdx
+-------------------------------------
+function ScenePatch:doWorkByIdx(work_idx)
+    self.m_workIdx = work_idx
+    local func_name = self.m_lWorkList[self.m_workIdx]
+
+    if func_name and (self[func_name]) then
+        local pre_func_name = self.m_lWorkList[self.m_workIdx - 1]
+        if (pre_func_name) then
+            --self.m_stopWatch:record(pre_func_name)
+        end
+
+        cclog('\n')
+        cclog('###########################################################')
+        cclog('# idx : ' .. self.m_workIdx .. ', func_name : ' .. func_name)
+        cclog('###########################################################')
+        self[func_name](self)
+        return
+    end
+end
+
+-------------------------------------
+-- function workRequestIosAppTrackingTransparency
+-------------------------------------
+function ScenePatch:workRequestIosAppTrackingTransparency()
+    local function cb()
+        self:doNextWork()
+    end
+    SDKManager:requestTrackingAuthorization(cb)
+end
+
+-------------------------------------
+-- function workIVEKoreaAds
+-------------------------------------
+function ScenePatch:workIVEKoreaAds()
+    local function cb()
+        self:doNextWork()
+    end
+    Analytics:IVEKorea_ads_complete_run(cb)
+end
+
+-------------------------------------
+-- function workStartPatch
+-------------------------------------
+function ScenePatch:workStartPatch()
+    self.m_vars['messageLabel']:setVisible(true)
+    self.m_vars['messageLabel']:setString(Str('패치 확인 중...'))
+
+    self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    self:runPatchCore()
 end
 
 -------------------------------------
