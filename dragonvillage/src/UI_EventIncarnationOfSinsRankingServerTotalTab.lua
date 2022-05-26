@@ -128,10 +128,10 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data, 
             if reward_rank < my_rank then
                 if pre_reward_rank == nil then
                     pre_reward_rank = reward_rank
-                    pre_reward = reward
+                    pre_reward = Str(reward)
                 elseif pre_reward_rank < reward_rank then
                     pre_reward_rank = reward_rank
-                    pre_reward = reward
+                    pre_reward = Str(reward)
                 end
             end
     
@@ -139,16 +139,16 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data, 
             if reward_rank > my_rank then
                 if back_reward_rank == nil then
                     back_reward_rank = reward_rank
-                    back_reward = reward
+                    back_reward = Str(reward)
                 elseif back_reward_rank > reward_rank then
                     back_reward_rank = reward_rank
-                    back_reward = reward
+                    back_reward = Str(reward)
                 end
             end
         end
         if pre_reward_rank == nil then
             pre_reward_rank = '1'
-            pre_reward = '애플 맥북 프로 14 (2021)'
+            pre_reward = Str('애플 맥북 프로 14 (2021)')
         end
     
         vars['rewardUpLabel']:setString(Str('{@yellow}{1}{@default}위 달성 시 {@yellow}{2}{@default}', pre_reward_rank, pre_reward))
