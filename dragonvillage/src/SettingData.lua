@@ -764,6 +764,20 @@ function SettingData:setHbrwLoungeCheckSetting(check)
 end
 
 -------------------------------------
+-- function getHbrwLoungeCheckCoupon
+-------------------------------------
+function SettingData:getHbrwLoungeCheckCoupon()
+    return self:get('hbrw', 'coupon')
+end
+
+-------------------------------------
+-- function setHbrwLoungeCheckCoupon
+-------------------------------------
+function SettingData:setHbrwLoungeCheckCoupon(check)
+    self:applySettingData(check, 'hbrw', 'coupon')
+end
+
+-------------------------------------
 -- function getPackageSetting
 -------------------------------------
 function SettingData:getPackageSetting(t_name)

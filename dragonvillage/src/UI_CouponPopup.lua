@@ -186,6 +186,11 @@ function UI_CouponPopup:normal_coupon(couponCode)
     local function success_cb(ret)
         UIManager:toastNotificationGreen(Str('쿠폰의 상품이 우편함으로 지급되었습니다.'))
         MakeSimplePopup(POPUP_TYPE.OK, Str('쿠폰 사용에 성공하였습니다.'))
+
+        if couponCode == '51MF53D5H4FA' then
+            g_settingData:setHbrwLoungeCheckCoupon(true)
+        end
+
         self:close()
     end
 

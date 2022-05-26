@@ -33,11 +33,12 @@ function UI_HbrwLoungePopup:initUI()
 
 
     local check = self:getCheckStatus()
+    local is_coupon_used = self:getCheckCoupon()
     vars['checkSprite']:setVisible(check)
 
     self:setItemNode()
 
-    if check then
+    if is_coupon_used then
         local root_size = vars['Menu']:getContentSize()
         local coupon_size = vars['couponNode']:getContentSize()
         local width = root_size['width']
@@ -99,6 +100,17 @@ end
 -------------------------------------
 function UI_HbrwLoungePopup:getCheckStatus()
     if g_settingData:getHbrwLoungeCheckSetting() == true then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function getCheckCoupon
+-------------------------------------
+function UI_HbrwLoungePopup:getCheckCoupon()
+    if g_settingData:getHbrwLoungeCheckCoupon() == true then
         return true
     else
         return false
