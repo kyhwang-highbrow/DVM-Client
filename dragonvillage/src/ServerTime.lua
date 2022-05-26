@@ -67,7 +67,6 @@ function ServerTime:applyResponse(ret)
     --  }
 
     cclog('##############################')
-    ccdump(server_info)
 
     if server_info['hour'] then
         self:setServerUTCOffset(server_info['hour'])
@@ -106,6 +105,23 @@ end
 function ServerTime:getServerUTCOffset()
     local server_utc_offset = self.m_serverUTCOffsetSec
     return server_utc_offset
+end
+
+-------------------------------------
+-- function getServerUTCStr
+-- @brief 서버의 타임존 문자열
+-- @return 'UTC+0'
+-------------------------------------
+function ServerTime:getServerUTCStr()
+    local server_utc = self.m_serverUTCOffset
+    local utc = ''
+    if server_utc >= 0 then
+        utc = Str('UTC+{1}', server_utc)
+    else
+        utc = Str('UTC{1}', server_utc)
+    end
+
+    return utc
 end
 
 -------------------------------------

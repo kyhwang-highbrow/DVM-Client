@@ -92,10 +92,10 @@ function ServerData_EventArenaPlay:getRemainEventTimeStr()
     local expire_time = self.m_eventData['end']
     local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local msg = ''
-    time = (expire_time/1000 - server_time)
+    local time = (expire_time/1000 - server_time)
 
     if (time > 0) then
-        enable = false
+        local enable = false
         local show_second = true
         local first_only = false
         
