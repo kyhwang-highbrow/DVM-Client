@@ -1039,13 +1039,13 @@ end
 -------------------------------------
 function ServerData_ClanWar:getDayOfWeekString(day)
     local _day = (day % 7)
-    if     (_day == 1) then return Str('월요일')
-    elseif (_day == 2) then return Str('화요일')
-    elseif (_day == 3) then return Str('수요일')
-    elseif (_day == 4) then return Str('목요일')
-    elseif (_day == 5) then return Str('금요일')
-    elseif (_day == 6) then return Str('토요일')
-    elseif (_day == 7) then return Str('일요일')
+    if     (_day == 1) then return Str('일요일')
+    elseif (_day == 2) then return Str('월요일')
+    elseif (_day == 3) then return Str('화요일')
+    elseif (_day == 4) then return Str('수요일')
+    elseif (_day == 5) then return Str('목요일')
+    elseif (_day == 6) then return Str('금요일')
+    elseif (_day == 7) then return Str('토요일')
     else return ''
     end
 end
@@ -1057,13 +1057,13 @@ end
 -- @return string '월' ... '일'
 -------------------------------------
 function ServerData_ClanWar:getRoundOfWeekString(round)
-    if     (round >= 64) then return Str('월')
-    elseif (round == 32) then return Str('화')
-    elseif (round == 16) then return Str('수')
-    elseif (round == 8) then return Str('목')
-    elseif (round == 4) then return Str('금')
-    elseif (round == 2) then return Str('토')
-    elseif (round == 1) then return Str('일')
+    if     (round >= 64) then return Str('일')
+    elseif (round == 32) then return Str('월')
+    elseif (round == 16) then return Str('화')
+    elseif (round == 8) then return Str('수')
+    elseif (round == 4) then return Str('목')
+    elseif (round == 2) then return Str('금')
+    elseif (round == 1) then return Str('토')
     else return ''
     end
 end
