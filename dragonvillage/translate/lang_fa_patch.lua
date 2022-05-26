@@ -126,5 +126,6 @@ return {['1천 만원 상당의\n경품 이벤트 진행 중!']='A special givea
 ['이벤트\n상품']='Event\nPrize',
 ['{1}시간 {2}분 후 보급품 갱신']='Update supplies after {1}hours{2} minutes',
 ['신규 글로벌 서버 외 모든 서버 통합 랭킹입니다.']='All-server total rankings, excluding the new Global server.',
+['신규 글로벌 서버 외 모든 서버 통합 랭킹입니다']='All-server total rankings, excluding the new Global server.',
 ['{1}일 {2}시간 {3}분']='{1}일 {2}시간 {3}분',
 ['글로벌 서버 오픈 기념\n출석체크 이벤트']='Global Server Open!\nCheck-in Event'}
