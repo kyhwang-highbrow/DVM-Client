@@ -14,7 +14,7 @@ UI_EventIncarnationOfSinsRankingPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingPopup:init()
-    self.uiName = 'UI_EventIncarnationOfSinsRankingPopup'
+    self.m_uiName = 'UI_EventIncarnationOfSinsRankingPopup'
     local vars = self:load('event_incarnation_of_sins_rank_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     
