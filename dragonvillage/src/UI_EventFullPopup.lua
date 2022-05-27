@@ -228,7 +228,12 @@ function UI_EventFullPopup:initUI()
     elseif pl.stringx.startswith(popup_key, 'purchase_point') then
 		local l_str = plSplit(popup_key, ';')
         local event_version = l_str[2]
-        ui = UI_EventPopupTab_PurchasePointNew(event_version)
+        
+        if (g_purchasePointData:getPurchasePoint(event_version) > 0) or (g_userData:get('lv') >= 5)then
+            ui = UI_EventPopupTab_PurchasePointNew(event_version)
+        else
+            self:close()
+        end
         --if (g_purchasePointData:isNewTypePurchasePointEvent(event_version) == true) then
             --ui = UI_EventPopupTab_PurchasePointNew(event_version)
         --else

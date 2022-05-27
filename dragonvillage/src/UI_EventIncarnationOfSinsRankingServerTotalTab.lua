@@ -219,8 +219,9 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRewardUI(ret, type)
 
     local my_info = ret[type .. '_my_info']
     local my_rank = my_info['rank']
-    
-    if my_rank > 1000 then
+    local is_org_server = not g_localData:isGlobalServer()
+
+    if ((my_rank > 1000) and is_org_server) then
         vars['rankLabel']:setString(Str('{1}위 미만', 1000))
     elseif my_rank > 0 then
         vars['rankLabel']:setString(Str('{@yellow}{1}위{@default}', my_rank))
