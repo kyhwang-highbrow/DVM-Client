@@ -2719,23 +2719,23 @@ function UI_Lobby:refresh_rightBanner()
 
 
     --죄악의 화신 토벌작전 이벤트 배너
-    if (g_eventIncarnationOfSinsData:isActive()) then
-        if (not vars['banner_incarnation_of_sins']) then
-            require('UI_BannerIncarnationOfSins')
-            local banner = UI_BannerIncarnationOfSins()
-            vars['bannerMenu']:addChild(banner.root)
-            banner.root:setDockPoint(cc.p(1, 1))
-            banner.root:setAnchorPoint(cc.p(1, 1))
-            vars['banner_incarnation_of_sins'] = banner
-        else
-            vars['banner_incarnation_of_sins']:refresh()
-        end
-    else
-        if vars['banner_incarnation_of_sins'] then
-            vars['banner_incarnation_of_sins'].root:removeFromParent()
-            vars['banner_incarnation_of_sins'] = nil
-        end
-    end
+    -- if (g_eventIncarnationOfSinsData:isActive()) then
+    --     if (not vars['banner_incarnation_of_sins']) then
+    --         require('UI_BannerIncarnationOfSins')
+    --         local banner = UI_BannerIncarnationOfSins()
+    --         vars['bannerMenu']:addChild(banner.root)
+    --         banner.root:setDockPoint(cc.p(1, 1))
+    --         banner.root:setAnchorPoint(cc.p(1, 1))
+    --         vars['banner_incarnation_of_sins'] = banner
+    --     else
+    --         vars['banner_incarnation_of_sins']:refresh()
+    --     end
+    -- else
+    --     if vars['banner_incarnation_of_sins'] then
+    --         vars['banner_incarnation_of_sins'].root:removeFromParent()
+    --         vars['banner_incarnation_of_sins'] = nil
+    --     end
+    -- end
 
     -- 차원문 오픈 배너
     if g_dmgateData:isShowLobbyBanner() then

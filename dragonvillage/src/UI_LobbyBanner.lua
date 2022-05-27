@@ -204,7 +204,18 @@ function UI_LobbyBanner:click_bannerBtn()
     --죄악의 화신 현물 이벤트 및 현물 보상 풀팝업
     elseif (event_type == 'event_newserver') then
         self.m_parentUI.m_bannerNoti = false
-        g_eventData:openEventPopup('event_incarnation_of_sins')
+        -- 이벤트 활성화중 아님
+        if (not g_eventIncarnationOfSinsData:isActive()) then
+            return
+        
+        -- 본 이벤트 기간
+        elseif (g_eventIncarnationOfSinsData:canPlay()) then
+            g_eventData:openEventPopup('event_incarnation_of_sins')
+        
+        -- 보상 수령 및 랭킹확인 기간
+        else 
+            g_eventIncarnationOfSinsData:openRankingPopupForLobby()
+    end 
     end
 end
 

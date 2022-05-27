@@ -63,6 +63,10 @@ end
 function UI_EventNewServerFullPopup:click_linkBtn()
     local vars = self.vars
 
-    local event_type = 'event_incarnation_of_sins'
-    g_eventData:openEventPopup(event_type)
+    if (not g_eventIncarnationOfSinsData:isActive()) then
+        return
+    else
+        local event_type = 'event_incarnation_of_sins'
+        g_eventData:openEventPopup(event_type)
+    end
 end
