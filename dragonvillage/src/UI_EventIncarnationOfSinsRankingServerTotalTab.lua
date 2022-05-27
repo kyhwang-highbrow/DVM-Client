@@ -151,11 +151,11 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRankTableView(data, 
             pre_reward = Str('애플 맥북 프로 14 (2021)')
         end
     
-        vars['rewardUpLabel']:setString(Str('{@yellow}{1}{@default}위 달성 시 {@yellow}{2}{@default}', pre_reward_rank, pre_reward))
+        vars['rewardUpLabel']:setString(Str('{@yellow}{1}{@default}위 {@yellow}{2}{@default}', pre_reward_rank, pre_reward))
         if back_reward_rank == nil then
             vars['rewardDownLabel']:setVisible(false)
         else
-            vars['rewardDownLabel']:setString(Str('{@yellow}{1}{@default}위 달성 시 {@yellow}{2}{@default}', back_reward_rank, back_reward))
+            vars['rewardDownLabel']:setString(Str('{@yellow}{1}{@default}위 {@yellow}{2}{@default}', back_reward_rank, back_reward))
         end
 
     else
@@ -220,7 +220,9 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRewardUI(ret, type)
     local my_info = ret[type .. '_my_info']
     local my_rank = my_info['rank']
     
-    if my_rank > 0 then
+    if my_rank > 1000 then
+        vars['rankLabel']:setString(Str('{1}위 미만', 1000))
+    elseif my_rank > 0 then
         vars['rankLabel']:setString(Str('{@yellow}{1}위{@default}', my_rank))
     else
         vars['rankLabel']:setString('-')
@@ -286,8 +288,8 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:request_EventIncarnation
 
     if g_localData:isGlobalServer() then 
         -- type이 total
-            -- Global 서버일 경우 최고점수를 반환
-            -- 그 외 서버일 경우 총합을 반환 
+            -- Global 서버일 경우 Global 합산 점수
+            -- 그 외 서버일 경우 전서버 합산 점수
         type = 'total'
     else 
         type = 'unified'

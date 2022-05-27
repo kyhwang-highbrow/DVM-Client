@@ -89,12 +89,6 @@ end
 function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, lock_menu)
     local vars = self.vars
 
-    -- 글로벌 서버의 경우 예외 처리
-    if g_localData:isGlobalServer() and (attr == 'total') then
-        attr = 'max'
-    end
-
-    
     -- 현재 서버 데이터를 이용하여 순위 정보 표기
     local rank = g_eventIncarnationOfSinsData:getMyRank(attr)
     local score = g_eventIncarnationOfSinsData:getMyScore(attr)
@@ -117,7 +111,7 @@ function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, 
     end
 
     -- 버튼 설정
-    if (attr ~= 'total') and (attr ~= 'max') then
+    if (attr ~= 'total') then
         if (g_eventIncarnationOfSinsData:isOpenAttr(attr)) then
             if (lock_menu ~= nil) then
                 lock_menu:setVisible(false)
