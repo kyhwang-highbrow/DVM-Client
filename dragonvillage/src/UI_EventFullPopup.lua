@@ -59,6 +59,12 @@ function UI_EventFullPopup:initUI()
         local struct_data = StructEventPopupTab(event_data)
         ui = UI_EventPopupTab_Banner(self, struct_data)
 
+        --죄악의 화신 토벌 작전 예외 처리 2022.05.27 jylee (이 후 삭제 해야됨)
+        if event_data['banner'] == 'event_incarnation_of_sins_popup.ui' then
+            require('UI_EventIncarnationOfSinsFullPopup')
+            ui = UI_EventIncarnationOfSinsFullPopup()
+        end
+
         -- 환상 던전 풀팝업일 경우에만 남은 시간 표기
         if string.find(popup_key, 'event_illusion') then
             if (ui.vars['timeLabel']) then
