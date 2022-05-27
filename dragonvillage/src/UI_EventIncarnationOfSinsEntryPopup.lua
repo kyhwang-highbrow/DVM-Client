@@ -8,7 +8,7 @@ UI_EventIncarnationOfSinsEntryPopup = class(PARENT, {
         m_selectStageLv = 'number',
      })
 -- 죄악의 화신 최대 스테이지
-local STAGE_MAX = 101
+local STAGE_MAX = 120
 
 -------------------------------------
 -- function init
