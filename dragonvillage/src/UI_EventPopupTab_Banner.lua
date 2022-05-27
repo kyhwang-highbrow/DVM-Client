@@ -37,6 +37,10 @@ function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
     if (link_btn) then
         link_btn:registerScriptTapHandler(function() self:click_bannerBtn() end)
     end
+
+    if vars['scenarioBtn'] then
+        vars['scenarioBtn']:setVisible(false)
+    end
     
     self:init_customUI()
 end
