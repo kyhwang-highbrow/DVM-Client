@@ -301,7 +301,7 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:request_EventIncarnation
         if (self.m_rankOffset > 1) then
             
             -- 랭킹 리스트가 비어있는지 확인한다
-            local l_rank_list = ret['total_list'] or {}
+            local l_rank_list = ret['total_list'] or ret['unified_list'] or {}
 
             -- 비어있으면 리스트 업뎃을 안하고 팝업만 띄워주자
             if (l_rank_list and #l_rank_list <= 0) then
