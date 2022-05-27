@@ -211,11 +211,10 @@ function UI_LobbyBanner:click_bannerBtn()
         -- 본 이벤트 기간
         elseif (g_eventIncarnationOfSinsData:canPlay()) then
             g_eventData:openEventPopup('event_incarnation_of_sins')
-        
         -- 보상 수령 및 랭킹확인 기간
         else 
             g_eventIncarnationOfSinsData:openRankingPopupForLobby()
-    end 
+        end 
     end
 end
 

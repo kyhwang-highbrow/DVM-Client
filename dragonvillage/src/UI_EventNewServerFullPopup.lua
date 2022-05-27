@@ -67,6 +67,7 @@ function UI_EventNewServerFullPopup:click_linkBtn()
         return
     else
         local event_type = 'event_incarnation_of_sins'
+        g_eventIncarnationOfSinsData.m_isOpened = true
         g_eventData:openEventPopup(event_type)
     end
 end
