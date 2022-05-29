@@ -1417,7 +1417,7 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-        do 
+        if (g_dmgateData:isActive()) then 
             co:work('# 차원문 정보 받는 중')
             g_dmgateData:request_dmgateInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end

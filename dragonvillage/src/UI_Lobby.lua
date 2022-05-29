@@ -236,7 +236,7 @@ function UI_Lobby:entryCoroutine()
         if co:waitWork() then return end
 
         -- 차원문 
-        do 
+        if (g_dmgateData:isActive()) then
             co:work('# 차원문 정보 받는 중')
             g_dmgateData:request_dmgateInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
@@ -346,7 +346,7 @@ function UI_Lobby:entryCoroutine()
                 local function show_full_popup_func(pid)
                     -- 한 번 보여준 팝업 리스트에 없다면, 팝업 출력
                     if (not t_showed_popup[pid]) then
-                        show_func(pid)
+                    show_func(pid)
                         t_showed_popup[pid] = true
                     end        
                 end

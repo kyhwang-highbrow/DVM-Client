@@ -1050,19 +1050,19 @@ function ServerData_Dmgate:getStageDiffColorStrByIndex(index)
 end
 
 ----------------------------------------------------------------------------
--- function getTimeStatus
+-- function isActive
 ----------------------------------------------------------------------------
-function ServerData_Dmgate:getTimeStatus()
+function ServerData_Dmgate:isActive()
     local end_time = (self.m_seasonEndTime / 1000)
     
     local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-    local is_season_ended = false
+    local is_season = true
 
     if (curr_time > end_time) then
-        is_season_ended = true
+        is_season = false
     end
 
-    return is_season_ended
+    return is_season
 end
 
 ----------------------------------------------------------------------------
@@ -1122,6 +1122,13 @@ function ServerData_Dmgate:getTimeStatusText(mode_id, chapter_id)
     end
 
     return str, is_season_ended
+end
+
+----------------------------------------------------------------------------
+-- function isActive
+----------------------------------------------------------------------------
+function ServerData_Dmgate:isActive()
+
 end
 
 ----------------------------------------------------------------------------
