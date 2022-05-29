@@ -136,7 +136,7 @@ end
 -- function updateTimer
 ----------------------------------------------------------------------
 function UI_DmgateShop:updateTimer(dt)
-    if g_dmgateData:isActive() then 
+    if (g_dmgateData:isActive() == false) then 
         g_dmgateData:MakeSeasonEndedPopup()
         self.root:unscheduleUpdate()
     end
