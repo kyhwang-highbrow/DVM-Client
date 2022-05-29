@@ -260,8 +260,6 @@ function UI_RecommendedDragonInfoPopup:makeTableView_dragon(tab)
 		node = vars['dragonNode']
 		l_data = self.m_selecetStageInfoDragon
 		ui_class = UI_RecommendedDragonInfoListItem_Dragon
-		target_table_view = self.m_tableViewDragon
-
 	end
 
 	do -- 테이블 뷰 생성
