@@ -521,7 +521,14 @@ function UINavigatorDefinition:goTo_arena_new(...)
 
         -- 오픈 상태 여부 체크
         if (not g_arenaNewData:isOpenArena()) then
-            local msg = Str('콜로세움 오픈 전입니다.\n오픈까지 {1}', g_arenaNewData:getArenaStatusText())
+            local str, exception = g_arenaNewData:getArenaStatusText()
+            local msg = ''
+            if exception then
+                msg = Str(str)
+            else
+                msg = Str('콜로세움 오픈 전입니다.\n오픈까지 {1}', str)
+            end
+            
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return
 		end

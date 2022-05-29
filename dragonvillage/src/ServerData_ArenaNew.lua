@@ -425,10 +425,12 @@ function ServerData_ArenaNew:getArenaStatusText()
     local end_time = (self.m_endTime / 1000)
 
     local str = ''
+    local exception = false
     if (not self:isOpenArena()) then
         local time = (start_time - curr_time)
         if (time < 0) then
             str = Str('오픈시간이 아닙니다.')
+            exception = true
         else
             str = Str('{1} 남았습니다.', ServerTime:getInstance():makeTimeDescToSec(time, true))
         end
@@ -446,7 +448,7 @@ function ServerData_ArenaNew:getArenaStatusText()
         str = Str('시즌이 종료되었습니다.')
     end
 
-    return str
+    return str, exception
 end
 
 -------------------------------------
