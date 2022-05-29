@@ -382,6 +382,8 @@ end
 function LocalData:isGlobalServer()
 	local server = self:getServerName()
     if (server == SERVER_NAME.GLOBAL) then
+    elseif (server == SERVER_NAME.DEV) then
+    elseif (server == SERVER_NAME.QA) then
     else
         return false
     end

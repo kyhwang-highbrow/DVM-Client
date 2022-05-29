@@ -2065,14 +2065,21 @@ function UINavigatorDefinition:goTo_clan_war(...)
         -- 정비 상태 여부 체크
         if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['LOCK']) then
             local msg = Str('클랜전을 정비 중입니다.')
-            local sub_msg = Str('경기 준비 시간 00:00 ~ 10:00') .. '\n' .. Str('경기 진행 시간 10:00 ~ 24:00')
+            --local sub_msg = Str('경기 준비 시간 00:00 ~ 10:00') .. '\n' .. Str('경기 진행 시간 10:00 ~ 24:00')
+            local sub_msg = ''
             MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
             return       
         end
 
         -- 오픈 상태 여부 체크
         if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
-            local msg = Str('다음 클랜전까지 {1} 남음', g_clanWarData:getRemainSeasonTime())
+            local msg
+            if g_localData:isGlobalServer() then
+                msg = Str('클랜전을 정비 중입니다.')
+            else
+                msg = Str('다음 클랜전까지 {1} 남음', g_clanWarData:getRemainSeasonTime())
+            end
+            
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return       
         end
