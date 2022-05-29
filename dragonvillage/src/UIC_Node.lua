@@ -79,7 +79,13 @@ function UIC_Node:getPositionY()
 end
 
 function UIC_Node:setPosition(x, y)
-    return self.m_node:setPosition(x, y)
+    if (x == nil) then
+        return
+    elseif (x ~= nil) and (y == nil) and (type(x) == 'table') then
+        return self.m_node:setPosition(x.x, x.y)
+    else
+        return self.m_node:setPosition(x, y)
+    end
 end
 
 function UIC_Node:setPositionX(x)
