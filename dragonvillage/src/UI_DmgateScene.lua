@@ -272,7 +272,7 @@ end
 function UI_DmgateScene:initTableView()
 
     -- 생성되는 UI_DmgateStageItem 가 가지고 있는 'stageBtn'에 UI_DmgateScene:click_stageBtn()을 등록
-    create_callback = function(ui, data)
+    local function create_callback(ui, data)
         ui.m_stageBtn:registerScriptTapHandler(function() self:click_stageBtn(ui, data) end)
         ui.root:setSwallowTouch(false)
     end
