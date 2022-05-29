@@ -1125,13 +1125,6 @@ function ServerData_Dmgate:getTimeStatusText(mode_id, chapter_id)
 end
 
 ----------------------------------------------------------------------------
--- function isActive
-----------------------------------------------------------------------------
-function ServerData_Dmgate:isActive()
-
-end
-
-----------------------------------------------------------------------------
 -- function MakeSeasonEndedPopup
 ----------------------------------------------------------------------------
 function ServerData_Dmgate:MakeSeasonEndedPopup()
