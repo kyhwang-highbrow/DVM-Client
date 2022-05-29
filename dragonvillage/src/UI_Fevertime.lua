@@ -163,30 +163,12 @@ end
 function UI_Fevertime:update(dt)
     local vars = self.vars
 
-    -- 서버 시간 표시
-    --[[
-    local time_zone_str, t = datetime.getTimeUTCHourStr()
-    local hour = string.format('%.2d', t.hour)
-    local min = string.format('%.2d', t.min)
-    local sec = string.format('%.2d', t.sec)
-    local str = Str('서버 시간 : {1}시 {2}분 {3}초 ({4})', hour, min, sec, time_zone_str)
-    --]]
     do -- 서버 시간 표시
-        -- h : UTC 기준 시각 (UTC+h)
-	    local h = Timer:getUTCHour()
-        local utc = ''
-        if h >= 0 then
-            utc = Str('UTC+{1}', h)
-        else
-            utc = Str('UTC{1}', h)
-        end
-
+        local utc = ServerTime:getInstance():getServerUTCStr()
         local server_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
-        local date = TimeLib:convertToServerDate(server_timestamp)
-        local wday_str = getWeekdayName(date:weekday_name())
-        local str = string.format('%d.%d %s %.2d:%.2d', date:month(), date:day(), wday_str, date:hour(), date:min())
+        local date = ServerTime:getInstance():timestampSecToDatestr(server_timestamp)
 
-        vars['serverTimeLabel']:setString(Str('서버 시간 : {1}', str .. ' (' .. utc .. ')'))
+        vars['serverTimeLabel']:setString(Str('서버 시간 : {1}', date .. ' (' .. utc .. ')'))
     end
 
     -- 데이터 갱신이 필요할 경우
