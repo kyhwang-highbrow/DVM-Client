@@ -429,7 +429,7 @@ function UI_AncientTowerRankNew:init_rewardTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(640, 55 + 5)
-    table_view:setCellUIClass(UI_AncientTowerRewardListItem, create_func)
+    table_view:setCellUIClass(UI_AncientTowerRewardListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
     self.m_rewardTableView = table_view
@@ -608,7 +608,7 @@ function UI_AncientTowerRankNew:init_clanRewardTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(640, 52 + 5)
-    table_view:setCellUIClass(UI_AncientTowerClanRewardListItem, nil)
+    table_view:setCellUIClass(UI_AncientTowerClanRewardListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list or {})
     self.m_clanRewardTableView = table_view

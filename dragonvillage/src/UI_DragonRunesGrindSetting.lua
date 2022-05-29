@@ -75,7 +75,7 @@ function UI_DragonRunesGrindSetting:initTableView()
     end
 
     local table_view = UIC_TableView(node)
-    table_view:setCellUIClass(ctor_func, create_callback)
+    table_view:setCellUIClass(ctor_func)
     table_view.m_gapBtwCellsSize = 5
     table_view:setCellSizeToNodeSize()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)

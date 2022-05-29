@@ -51,7 +51,7 @@ function UI_EventThankAnniversary_rewardPopup:initUI()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['listNode'])
     table_view.m_defaultCellSize = cc.size(550, 105)
-    table_view:setCellUIClass(create_func, nil)
+    table_view:setCellUIClass(create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item)
 end

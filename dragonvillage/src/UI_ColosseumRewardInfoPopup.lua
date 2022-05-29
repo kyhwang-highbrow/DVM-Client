@@ -164,7 +164,7 @@ function UI_ColosseumRewardInfoPopup:init_clanRewardTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(740, 90 + 5)
-    table_view:setCellUIClass(UI_ColosseumClanRankRewardItem, nil)
+    table_view:setCellUIClass(UI_ColosseumClanRankRewardItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list or {})
 end

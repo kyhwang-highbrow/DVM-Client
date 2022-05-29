@@ -339,7 +339,7 @@ function UI_ClanWar_GroupStage:setGroupMatchList()
     table_view:setUseVariableSize(true)    -- 가변 사이즈를 쓰기 위해서 선언
     table_view.m_defaultCellSize = cc.size(660, 42)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    table_view:setCellUIClass(UI_ListItem_ClanWarGroupStageMatch, create_func)
+    table_view:setCellUIClass(UI_ListItem_ClanWarGroupStageMatch)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_list, false)
 

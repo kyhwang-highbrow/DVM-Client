@@ -173,7 +173,7 @@ function UI_GameDebug:makeTableView()
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(size_width, size_height)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setCellUIClass(create_func, nil)
+    table_view:setCellUIClass(create_func)
 
     -- 디버깅 아이템 설정
     local item_info = {}

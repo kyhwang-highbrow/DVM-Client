@@ -28,7 +28,7 @@ local set_after = function(ui_name, ui)
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(550, 55 + 5)
-        table_view:setCellUIClass(UI_GrandArenaRankingRewardListItem, create_func)
+        table_view:setCellUIClass(UI_GrandArenaRankingRewardListItem)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_item_list, true)
         table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))

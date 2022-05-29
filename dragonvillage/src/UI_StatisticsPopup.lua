@@ -243,7 +243,7 @@ function UI_StatisticsPopup:makeTableView(l_char_list, node)
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(514, 95)
-    table_view:setCellUIClass(UI_StatisticsListItem, nil)
+    table_view:setCellUIClass(UI_StatisticsListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
 	local make_item = true

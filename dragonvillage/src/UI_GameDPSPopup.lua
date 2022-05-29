@@ -140,7 +140,7 @@ function UI_GameDPSPopup:makeTableView(l_char_list, node)
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(185, 21)
-    table_view:setCellUIClass(UI_GameDPSListItem, nil)
+    table_view:setCellUIClass(UI_GameDPSListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
 	local make_item = true

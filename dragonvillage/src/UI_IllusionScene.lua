@@ -64,7 +64,7 @@ function UI_IllusionScene:initUI()
     table_view.m_defaultCellSize = cc.size(886, 120 + 10)
     table_view:setCellUIClass(UI_IllusionStageListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_stage_info, make_item)
+    table_view:setItemList(l_stage_info)
 
     
     do -- 왼측 환상 던전용 정보창
