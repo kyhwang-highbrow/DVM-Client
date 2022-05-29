@@ -131,9 +131,9 @@ function UI_EventFullPopup:initUI()
         local package_list = g_shopDataNew:getActivatedPackageList(true)
 
 
-        for index, struct_package_group in pairs(package_list) do
-            if (struct_package_group:getProductName() == package_name) and struct_package_group:isBuyable() then
-                ui = struct_package_group:getTargetUI(nil,nil,nil,true)
+        for index, struct_package_bundle in pairs(package_list) do
+            if (struct_package_bundle:getProductName() == package_name) and struct_package_bundle:isBuyable() then
+                ui = struct_package_bundle:getTargetUI(nil,nil,nil,true)
             end
         end
 

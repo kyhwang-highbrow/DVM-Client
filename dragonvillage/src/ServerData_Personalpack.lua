@@ -1,7 +1,7 @@
 -- global
 -- 레벨업, 모험돌파 패키지의 경우 최신으로 유지해야함.. 리팩토링 필요
-PACK_LV_UP = 'package_levelup_03'
-PACK_ADVENTURE = 'package_adventure_clear_03'
+PACK_LV_UP = 'package_levelup_04'
+PACK_ADVENTURE = 'package_adventure_clear_04'
 
 PERSONALPACK = 'package_personal' 
 
@@ -168,8 +168,9 @@ end
 -- function checkPackage_lvup
 -------------------------------------
 function ServerData_Personalpack:checkPackage_lvup(lv)
+    local recent_pid = g_levelUpPackageData:getRecentPid()
     -- 이미 구매했다면 비활성화
-    if (g_levelUpPackageDataOld:isActive(LEVELUP_PACKAGE_3_PRODUCT_ID)) then
+    if (g_levelUpPackageData:isActive(recent_pid)) then
         return
     end
 
@@ -198,7 +199,9 @@ end
 -------------------------------------
 function ServerData_Personalpack:checkPackage_adv(stage_clear_info, stage_id)
     -- 이 구매했다면 비활성화
-    if (g_adventureClearPackageData03:isActive()) then
+    local recent_pid = g_adventureBreakthroughPackageData:getRecentPid()
+    
+    if (g_adventureBreakthroughPackageData:isActive(recent_pid)) then
         return
     end
 
@@ -248,17 +251,12 @@ function ServerData_Personalpack:checkPersonalpack(ppid)
         return false
     end
 
-    cclog('@@@@@@@@@@@@@@@@@@@@@@@@ ServerData_Personalpack:checkPersonalpack')
-    cclog(ppid)
-
     do-- 그룹 확인
-        cclog('check group')
         local group = table_personalpack:getGroup(ppid)
 
         -- 그룹 내의 ppid가 이미 추가되어있는지 확인
         for i, ppid in ipairs(mPackageList) do
             if (TablePersonalpack:getGroup(ppid) == group) then
-                cclog('already in')
                 return false
             end
         end
@@ -268,7 +266,6 @@ function ServerData_Personalpack:checkPersonalpack(ppid)
         local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
         -- 쿨다운이 nil 인 경우는 아직 활성화 되지 않았기 때문
         if (cool_down ~= nil) and (curr_time < cool_down) then
-            cclog('on cooldown')
             return false
         end
     end
@@ -276,7 +273,6 @@ function ServerData_Personalpack:checkPersonalpack(ppid)
     do-- 결제액 확인
         local money = UserStatusAnalyser.userStatus.sum_money
         local min, max = table_personalpack:getSumMoneyMinMax(ppid)
-        cclog('check sum money', money, min, max)
         if (min > money) or (money >= max) then
             return false
         end
@@ -286,13 +282,11 @@ function ServerData_Personalpack:checkPersonalpack(ppid)
     do
         local days = UserStatusAnalyser.userStatus.days_after_join
         local std_days = table_personalpack:getDaysAfterJoin(ppid)
-        cclog('check days', days, std_days)
         if (days < std_days) then
             return false
         end
     end
 
-    cclog('@@@@@@@@@@@@@@@@@ ADD : ' .. ppid)
     return true
 end
 
