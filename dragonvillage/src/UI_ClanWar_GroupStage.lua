@@ -455,7 +455,12 @@ function UI_ClanWar_GroupStage:click_startBtn()
             end
         end
 
-        local ui_clan_war_matching = UI_ClanWarMatchingScene(struct_match)
+        local msg = Str('클랜전을 정비 중입니다.')
+        --local sub_msg = Str('경기 준비 시간 00:00 ~ 10:00') .. '\n' .. Str('경기 진행 시간 10:00 ~ 24:00')
+        local sub_msg = ''
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+
+        --local ui_clan_war_matching = UI_ClanWarMatchingScene(struct_match)
 
         -- 리그 통신에서 들고 있더 클랜 세트 승리수 전달
         local struct_league = self.m_structLeague
