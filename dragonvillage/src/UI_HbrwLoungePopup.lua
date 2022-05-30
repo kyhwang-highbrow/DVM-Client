@@ -138,7 +138,7 @@ function UI_HbrwLoungePopup:setItemNode()
             {   ['item_id'] = 700001,
                 ['count'] = 7000},
             {   ['item_id'] = 700002,
-                ['count'] = 7000000},
+                ['count'] = 700000},
     }
 
     for idx, data in ipairs(t_item) do
