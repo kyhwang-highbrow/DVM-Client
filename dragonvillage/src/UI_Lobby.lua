@@ -22,7 +22,6 @@ UI_Lobby = class(PARENT,{
         m_bDoneEntryCoroutine = 'bool',
 
         m_hbrwNotiOff = 'false',
-        m_bannerNoti = 'false'
     })
 
 -------------------------------------
@@ -49,7 +48,6 @@ function UI_Lobby:init()
     UIManager:open(self, UIManager.SCENE)
 
     self.m_hbrwNotiOff = false
-    self.m_bannerNoti = true
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Lobby')
 
@@ -2781,10 +2779,10 @@ function UI_Lobby:refresh_rightBanner()
                         banner = UI_AttendanceLobbyBanner(data)
                     elseif (v.m_eventData['event_type'] == 'event_newserver') then
                         if g_eventIncarnationOfSinsData:canPlay() then
-                            banner = UI_LobbyBanner(v, self)
+                            banner = UI_LobbyBanner(v)
                         end
                     else
-                        banner = UI_LobbyBanner(v, self)
+                        banner = UI_LobbyBanner(v)
                     end
                     
                     if banner then

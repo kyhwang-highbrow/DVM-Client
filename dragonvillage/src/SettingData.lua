@@ -778,6 +778,20 @@ function SettingData:setHbrwLoungeCheckCoupon(check)
 end
 
 -------------------------------------
+-- function getLobbyBannerNoti
+-------------------------------------
+function SettingData:getLobbyBannerNoti()
+    return self:get('noti')
+end
+
+-------------------------------------
+-- function setLobbyBannerNoti
+-------------------------------------
+function SettingData:setLobbyBannerNoti(date)
+    self:applySettingData(date, 'noti')
+end
+
+-------------------------------------
 -- function getPackageSetting
 -------------------------------------
 function SettingData:getPackageSetting(t_name)

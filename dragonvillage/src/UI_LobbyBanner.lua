@@ -137,15 +137,13 @@ end
 ----------------------------------------------------------------------
 UI_LobbyBanner = class(PARENT,{
     m_eventData = 'StructEvent',
-    m_parentUI = 'UI_Lobby'
 })
 
 ----------------------------------------------------------------------
 -- class init
 ----------------------------------------------------------------------
-function UI_LobbyBanner:init(event_data, parent)
+function UI_LobbyBanner:init(event_data)
     self.m_uiName = 'UI_LobbyBanner'
-    self.m_parentUI = parent
 
     local ui_name = event_data.m_eventData['lobby_banner']
     local vars = self:load(ui_name)
@@ -165,14 +163,14 @@ end
 function UI_LobbyBanner:initUI()
     local vars = self.vars
 
-    local url = self.m_eventData.m_eventData['url']
-    local event_type = self.m_eventData.m_eventData['event_type']
-    local parent_ui = self.m_parentUI
-    local noti = parent_ui.m_bannerNoti
+    local noti_date = g_settingData:getLobbyBannerNoti()
 
-    if (event_type == 'event_newserver') and noti then
-        vars['notiSprite']:setVisible(true)
-    end
+    local date_format = pl.Date.Format('yyyy-mm-dd')
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local time = date_format:tostring(curr_time)
+    local noti = (noti_date ~= time)
+
+    vars['notiSprite']:setVisible(noti)
 end
 
 
@@ -196,6 +194,16 @@ end
 function UI_LobbyBanner:click_bannerBtn()
     local url = self.m_eventData.m_eventData['url']
     local event_type = self.m_eventData.m_eventData['event_type']
+    
+    --로비 배너 노티 체크
+    local lobby_banner_noti = g_settingData:getLobbyBannerNoti()
+    local date_format = pl.Date.Format('yyyy-mm-dd')
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local time = date_format:tostring(curr_time)
+
+    if lobby_banner_noti ~= time then
+        g_settingData:setLobbyBannerNoti(time)
+    end
 
     if (url ~= nil) and (url ~= '') then
         SDKManager:goToWeb(url)
@@ -203,7 +211,7 @@ function UI_LobbyBanner:click_bannerBtn()
 	    g_fullPopupManager:showFullPopup(event_type)
     --죄악의 화신 현물 이벤트 및 현물 보상 풀팝업
     elseif (event_type == 'event_newserver') then
-        self.m_parentUI.m_bannerNoti = false
+
         -- 이벤트 활성화중 아님
         if (not g_eventIncarnationOfSinsData:isActive()) then
             return
