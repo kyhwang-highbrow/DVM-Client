@@ -49,6 +49,16 @@ function UI_ClearTicket:initMember(stage_id)
     self.m_supplyType = 'clear_ticket'
 
     self.m_staminaType, self.m_requiredStaminaNum = TableDrop:getStageStaminaType(self.m_stageID)
+
+    local game_mode = g_stageData:getGameMode(stage_id)
+    -- 모험 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        local active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
+        
+        if active then
+            self.m_requiredStaminaNum = math_floor(self.m_requiredStaminaNum * (1 - value / 100))
+        end
+    end
 end
 
 ----------------------------------------------------------------------
