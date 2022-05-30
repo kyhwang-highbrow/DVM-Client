@@ -229,16 +229,23 @@ function ServerData_EventIncarnationOfSins:getOpenAttrStr(attr)
     local l_weekday_name_list = {Str('일'), Str('월'), Str('화'), Str('수'), Str('목'), Str('금'), Str('토')}
     local str = nil
     local t_attr_info = self.m_tAttrInfo[attr]
+    
+    local check_all_day = true
 
-    for dow = 1, 7 do
-        if t_attr_info[dow] == false then
-            return false
+    -- 7일 모두 열려있는 경우
+    do
+        for dow = 1, 7 do
+            if t_attr_info[dow] == false then
+                check_all_day = false
+                break
+            end
         end
 
-        return str
+        if check_all_day then
+            return str
+        end
     end
-
-
+    
     -- 월 ~ 토요일
     for dow = 2, 7 do
         if (t_attr_info[dow] == true) then
