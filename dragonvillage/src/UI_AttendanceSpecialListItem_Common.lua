@@ -163,7 +163,7 @@ function UI_AttendanceSpecialListItem_CommonItem:initUI()
     
     -- 아이콘
     -- local item_icon = IconHelper:getItemIcon(item_id, nil)
-    local item_icon = UI_ItemCard(item_id, nil, t_item_data)
+    local item_icon = UI_ItemCard(item_id, nil)
     vars['itemNode']:addChild(item_icon.root)
     
     -- 이름
