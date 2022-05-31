@@ -145,7 +145,7 @@ UI_LobbyBanner = class(PARENT,{
 function UI_LobbyBanner:init(event_data)
     self.m_uiName = 'UI_LobbyBanner'
 
-    local ui_name = event_data.m_eventData['lobby_banner']
+    local ui_name = event_data['lobby_banner']
     local vars = self:load(ui_name)
 
     self.m_eventData = event_data
@@ -192,8 +192,8 @@ end
 -- class click_bannerBtn
 ----------------------------------------------------------------------
 function UI_LobbyBanner:click_bannerBtn()
-    local url = self.m_eventData.m_eventData['url']
-    local event_type = self.m_eventData.m_eventData['event_type']
+    local url = self.m_eventData['url']
+    local event_type = self.m_eventData['event_type']
     
     --로비 배너 노티 체크
     local lobby_banner_noti = g_settingData:getLobbyBannerNoti()

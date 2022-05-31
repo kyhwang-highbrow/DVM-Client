@@ -2761,39 +2761,52 @@ function UI_Lobby:refresh_rightBanner()
         index = index + 1
     end
 
-    
+    local banner_list = {}
+    local index = 1
     -- 한쿡 혹은 아메리카 서버이면 보여주는걸로 함
     if (g_eventData.m_eventList) then
         local event_list = g_eventData:getEventPopupTabList()
-        index = 1
-        
+
         for i, v in pairs(event_list) do
             if v.m_eventData['lobby_banner'] and (v.m_eventData['lobby_banner'] ~= '')  then
                 if (vars['banner_appcollaboration' .. index] == nil) then
                     local banner 
                     if (v.m_eventData['event_type'] == 'event_crosspromotion') then
-                        banner = UI_BannerAppCollaboration(v)
+                        local data = v['m_eventData']
+                        banner = UI_BannerAppCollaboration(data)
                     --출석 이벤트용 배너
                     elseif (v.m_eventData['event_type'] == 'attendance_event') then
                         local data = v['m_eventData'] 
                         banner = UI_AttendanceLobbyBanner(data)
                     elseif (v.m_eventData['event_type'] == 'event_newserver') then
                         if g_eventIncarnationOfSinsData:canPlay() then
-                            banner = UI_LobbyBanner(v)
+                            local data = v['m_eventData']
+                            banner = UI_LobbyBanner(data)
                         end
                     else
                         banner = UI_LobbyBanner(v)
                     end
-                    
-                    if banner then
-                        vars['bannerMenu']:addChild(banner.root)
-                        banner.root:setDockPoint(TOP_RIGHT)
-                        banner.root:setAnchorPoint(TOP_RIGHT)
-                    
-                        vars['banner_appcollaboration' .. index] = banner
-                        index = index + 1
-                    end
+
+                    table.insert(banner_list, banner)
                 end
+            end
+        end
+        
+        -- 로비 배너 ui_priority에 따른 순서 보장
+        local function func_sort(a,b)
+            return (a['m_eventData']['ui_priority']) < (b['m_eventData']['ui_priority'])
+        end
+
+        table.sort(banner_list, func_sort)
+        
+        for _,banner in ipairs (banner_list) do
+            if banner then
+                vars['bannerMenu']:addChild(banner.root)
+                banner.root:setDockPoint(TOP_RIGHT)
+                banner.root:setAnchorPoint(TOP_RIGHT)
+            
+                vars['banner_appcollaboration' .. index] = banner
+                index = index + 1
             end
         end
 
