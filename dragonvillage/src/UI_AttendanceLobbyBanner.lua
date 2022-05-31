@@ -50,7 +50,7 @@ function UI_AttendanceLobbyBanner:initUI()
     for _,v in pairs(step_list) do
         if tomorrow_step == v['step'] then
             item_id = v['item_id']
-            value = v['value']
+            value = comma_value(v['value'])
         end
     end
     local item_name = TableItem:getItemName(item_id)

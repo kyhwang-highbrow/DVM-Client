@@ -166,7 +166,7 @@ function UI_QuestPopup:onChangeTab(tab, first)
 end
 
 -------------------------------------
--- function makeQuestTableView
+-- function sortQuestList
 -------------------------------------
 function UI_QuestPopup.sortQuestList(a, b)
     local a_data = a['data']
