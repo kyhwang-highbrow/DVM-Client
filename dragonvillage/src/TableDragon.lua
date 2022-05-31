@@ -19,6 +19,19 @@ function TableDragon:init()
 end
 
 -------------------------------------
+-- function isDragonID
+-------------------------------------
+function TableDragon:isDragonID(id)
+    local dragon_code = getDigit(id, 10000, 2)
+    local code = getDigit(id, 1000, 1)
+    --129113
+    if (dragon_code == 12) and (code ~= 9) then
+        return true
+    end
+    return false
+end
+
+-------------------------------------
 -- function getDragonRole
 -------------------------------------
 function TableDragon:getDragonRole(key)

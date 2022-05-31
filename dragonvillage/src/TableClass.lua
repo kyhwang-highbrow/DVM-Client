@@ -44,10 +44,13 @@ function TableClass:get(key, skip_error_msg)
     self.m_currKey = key
     local t_table = self.m_orgTable[key]
 
+    if (skip_error_msg == nil) then
+        skip_error_msg = (IS_TEST_MODE() == false)
+    end
 
     if (not t_table) and (not skip_error_msg) then
         cclog('######################################')
-        cclog('# error "table_' .. self.m_tableName .. '.csv"테이블에서 ' .. key .. ' 데이터가 없습니다.')
+        cclog('# error "' .. self.m_tableName .. '.csv"테이블에서 ' .. key .. ' 데이터가 없습니다.')
         cclog('######################################')
     end
 
