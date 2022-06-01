@@ -35,7 +35,6 @@ function ServerListData:initWithData(tdata)
         for i, server in pairs(tserverList) do
             if (server['server_name'] == SERVER_NAME.DEV) then
             elseif (server['server_name'] == SERVER_NAME.QA) then
-            elseif (server['server_name'] == SERVER_NAME.GLOBAL) then
             --elseif (server['server_name'] == SERVER_NAME.EUROPE) then -- @sgkim 2020.11.24 유럽 서버 추가 준비를 위해 임의로 추가
             else -- 위에서 허용되지 않은 서버 항목은 삭제
                 table.insert(tremove, 1, i)
