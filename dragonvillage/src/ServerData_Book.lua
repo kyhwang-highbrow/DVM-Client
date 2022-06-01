@@ -86,7 +86,6 @@ function ServerData_Book:getBookList(role_type, attr_type, only_hatch)
 		if (role_type ~= 'all') and (role_type ~= v['role']) then
         elseif (attr_type ~= 'all') and (attr_type ~= v['attr']) then
         elseif (129215 == v['slime']) then -- 스킬 슬라임이 등급별(129235, 129245, 129255)로 개편되면서 기존 스슬은 도감에서 노출되지 않도록 변경
-        elseif (v['material_type'] == 'exp') then -- 속성 슬라임 제외
 
         -- 위 조건들에 해당하지 않은 경우만 추가
         else
@@ -599,44 +598,39 @@ function ServerData_Book:getBookNotiList()
 	local t_ret = {}
 	
 	for did, t_info in pairs(self.m_tBookReward) do
-        -- did의 보상이 있는지 검사	
-        have_reward = false
-        for _, reward in pairs(t_info) do
-            if (reward == 1) then
-                have_reward = true
-                break
-            end
-        end
+		-- did의 보상이 있는지 검사	
+		have_reward = false
+		for _, reward in pairs(t_info) do
+			if (reward == 1) then
+				have_reward = true
+				break
+			end
+		end
 
-        -- 노티 세팅 (속성만 표시)
-        if (have_reward) then
+		-- 노티 세팅 (속성만 표시)
+		if (have_reward) then
             local did_num = tonumber(did)
-            if table_dragon:isDragonID(did_num) then
-                t_dragon = table_dragon:get(did_num)
-            end
+			t_dragon = table_dragon:get(did_num)
 
             if (not t_dragon) then
-                if (table_slime:isSlimeID(did_num) == true) then
-                    t_dragon = table_slime:get(did_num)
-                    local attr_type = table_slime:getMaterialType(did_num)
+                t_dragon = table_slime:get(did_num)
 
-                    if (not t_dragon) then
-                        --cclog('정의되지 않은 슬라임 id :: ' .. tostring(did_num))
-                    elseif (t_dragon['slime'] == 129215) or (attr_type == 'exp') then
-                        t_dragon = nil
-                    end
+                if (not t_dragon) then
+                    --cclog('정의되지 않은 슬라임 id :: ' .. tostring(did_num))
+                elseif (t_dragon['slime'] == 129215) then
+                    t_dragon = nil
                 end
             end
 
-            if (t_dragon) then
-                attr = t_dragon['attr']
-                --role = t_dragon['role']
+			if (t_dragon) then
+				attr = t_dragon['attr']
+				--role = t_dragon['role']
 
-                t_ret[attr] = true
-                --t_ret[role] = true
-            end
-        end
-    end
+				t_ret[attr] = true
+				--t_ret[role] = true
+			end
+		end
+	end
 
 	return t_ret
 end
@@ -647,24 +641,12 @@ end
 -- @brief 하이라이트(노티) 여부
 -------------------------------------
 function ServerData_Book:isHighlightBook()
-    local table_slime = TableSlime()
-    local attr_type
-
 	for did, t_info in pairs(self.m_tBookReward) do
-        did = tonumber(did)
-    
-        if table_slime:isSlimeID(did) then
-            attr_type = table_slime:getMaterialType(did)
-        end
-
-        for i, reward in pairs(t_info) do
-            if attr_type == 'exp' then
-
-            elseif (reward == 1) then
-                return true
-            end
-        end
-    
+		for i, reward in pairs(t_info) do
+			if (reward == 1) then
+				return true
+			end
+		end
 	end
 
 	return false
