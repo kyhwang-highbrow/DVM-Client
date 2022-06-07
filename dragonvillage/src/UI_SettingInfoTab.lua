@@ -128,7 +128,8 @@ function UI_Setting:click_serviceBtn()
     url_param = url_param .. '&brand_key1=' .. brand_key
 
     local user_name = g_userData:get('nick')
-    if user_name then
+    if CppFunctions:isIos() and (IS_TEST_MODE() == false) and (getAppVerNum() < 1003007) then -- @yjkil 22.06.07 - 1.3.7 빌드 및 1.3.6 지원 종료 시 코드 제거해야 함
+    elseif user_name then
         url_param = url_param .. '&userName=' .. user_name
     end
 
@@ -143,7 +144,7 @@ function UI_Setting:click_serviceBtn()
     end
 
     local uid = g_userData:get('uid')
-    local server = CppFunctions:getTargetServer()
+    local server = ServerListData.getInstance():getSelectServer()
     if uid then
         url_param = url_param .. '&extra_field1=' .. uid
     end
@@ -156,40 +157,6 @@ function UI_Setting:click_serviceBtn()
     end
 
     SDKManager:goToWeb('https://highbrow.oqupie.com/portals/finder?' .. url_param)
-
-    -- local data = {
-    --     ['access_key'] = access_key,
-    --     ['brand_key1'] = brand_key,
-    --     ['userName'] = user_name,
-    --     ['operatingSystem'] = os,
-    --     ['deviceModel'] = device,
-    --     ['extra_field1'] = uid,
-    --     ['extra_field2'] = server
-    -- }
-
-    -- local zwt = self:getZWT(secret_key, data)
-
-
-    -- SDKManager:goToWeb('https://highbrow.oqupie.com/portals/finder?zwt=' .. zwt)
-    
-    --ccdump(base64Encode(dkjson.encode(header)))
-    --한국서버와 나머지 서버
-	-- local _url = GetCSUrl(server)
-    -- local market = GetMarketAndOS()
-    -- local ver = getAppVer() or 'undefined'
-    -- local uid = g_userData:get('uid') or 'undefined'
-    -- local lang = Translate:getGameLang()
-    -- local server = g_localData:getServerName()
-
-    -- local url;
-    -- if server == SERVER_NAME.KOREA then
-    --     url = formatMessage('{1}?market={2}&ver={3}&uid={4}', _url, market, ver, uid)
-    -- else
-    --     url = formatMessage('{1}?market={2}&ver={3}&uid={4}&lang={5}&server={6}', _url, market, ver, uid, lang, server)
-    -- end
-
-    -- cclog('url : ' .. url )
-    -- SDKManager:goToWeb(url)
 end
 
 function UI_Setting:getZWT(key, data)
