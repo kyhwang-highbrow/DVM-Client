@@ -15,7 +15,10 @@ ServerData_EventIncarnationOfSins = class({
         m_Info = 'table', -- 
         m_gameState = 'boolean',
         m_rankNoti = 'boolean',
-        m_isOpened = 'boolean'
+        m_isOpened = 'boolean',
+
+	-- jylee 2022.06.07 경품 이벤트용 메서드 추후 삭제해도 됨
+        m_eventRankInfo = 'table' -- 죄악의 화신 현물 이벤트 랭킹 정보
     })
 
 ServerData_EventIncarnationOfSins.STATE = {
@@ -416,6 +419,11 @@ function ServerData_EventIncarnationOfSins:response_eventIncarnationOfSinsInfo(r
         self.m_tRewardInfo = ret['table_incarnation_of_sins_rank']
     end
 
+	-- jylee 2022.06.07 경품 이벤트용 메서드 추후 삭제해도 됨
+    if (ret['rank']) then
+        self.m_eventRankInfo = ret['rank']
+    end
+
     if (ret['table_incarnation_of_sins_attr']) then
         local l_dow_info = ret['table_incarnation_of_sins_attr']
         local t_attr_info = {}
@@ -445,6 +453,25 @@ function ServerData_EventIncarnationOfSins:response_eventIncarnationOfSinsInfo(r
         
         self.m_tAttrInfo = t_attr_info -- table[attr(string)][dow(number)] = true(boolean) 이면 attr 속성이 dow 요일일때 열려있다.
     end
+end
+
+-------------------------------------
+-- function checkNewServerEventRanker
+-- @brief jylee 2022.06.07 경품 이벤트용 메서드 추후 삭제해도 됨
+-------------------------------------
+function ServerData_EventIncarnationOfSins:checkNewServerEventRanker()
+
+    local rank = self.m_eventRankInfo
+
+    local reward_rank = {1,2,3,4,5,7,10,20,30,530}
+
+    for _,v in ipairs(reward_rank) do
+        if rank == -1 then
+            return true
+        end
+    end
+
+    return false
 end
 
 -------------------------------------

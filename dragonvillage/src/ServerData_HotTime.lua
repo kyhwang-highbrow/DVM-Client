@@ -718,6 +718,13 @@ function ServerData_HotTime:makeHotTimeToolTip_onlyClanBuff(hottime_type, btn)
     end
 end
 
+-------------------------------------
+-- function getHotTimeActiveList
+-- @brief jylee 2022.06.07 경품 이벤트용 메서드 추후 삭제해도 됨
+-------------------------------------
+function ServerData_HotTime:getHotTimeActiveList()
+    return self.m_activeEventList
+end
 
 
 

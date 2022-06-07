@@ -35,6 +35,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     self.PRIORITY.SPECIAL_OFFER_PRODUCT = 800
     self.PRIORITY.SPOT_SALE_PRODUCT = 700
     self.PRIORITY.SUPPLY_DEPOT = 600
+    self.PRIORITY.EVENT_NEWSERVER = 500
 
     vars['productBtnMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
@@ -168,6 +169,29 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
             end
         end
     end
+
+    -- jylee 2022.06.07 경품 이벤트용 메서드 추후 삭제해도 됨
+    do -- 현물 이벤트 보상 수령
+        local event_list = g_hotTimeData:getHotTimeActiveList()
+        g_eventIncarnationOfSinsData:checkNewServerEventRanker()
+        local unique_key
+        for event_id, v in pairs(event_list) do
+            if event_id == 'event_incarnation_of_sins_reward' then
+                unique_key = event_id
+            end
+        end
+
+        if unique_key then
+            if self:getManagedButtonByUniqueKey(unique_key) == nil then
+                if g_eventIncarnationOfSinsData:checkNewServerEventRanker() then
+                    local class_ = ''
+                    local priority = self.PRIORITY.EVENT_NEWSERVER
+                    makeBtnFunction(class_,priority,unique_key)
+                end
+            end
+        end
+    end
+    -----------------------------------------------------------
 
     -- 버튼들의 상태 업데이트
     local l_remove_idx = {}
