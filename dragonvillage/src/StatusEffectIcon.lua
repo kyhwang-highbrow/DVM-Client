@@ -35,7 +35,7 @@ function StatusEffectIcon:init(parent_node, status_effect, type_str)
 
 	self.m_icon:setScale(0.375)
 
-    if (self.m_parentNode) then
+    if tolua.isnull(self.m_parentNode) ~= true then
         self.m_parentNode:addChild(self.m_icon, 1)
     end
 end
