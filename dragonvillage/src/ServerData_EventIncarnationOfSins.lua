@@ -466,12 +466,33 @@ function ServerData_EventIncarnationOfSins:checkNewServerEventRanker()
     local reward_rank = {1,2,3,4,5,7,10,20,30,530}
 
     for _,v in ipairs(reward_rank) do
-        if rank == -1 then
+        if rank == v then
             return true
         end
     end
 
     return false
+end
+
+-------------------------------------
+-- function getNewServerEventReward
+-- @brief jylee 2022.06.07 경품 이벤트용 메서드 추후 삭제해도 됨
+-------------------------------------
+function ServerData_EventIncarnationOfSins:getNewServerEventReward()
+    local reward = {
+        [1] = '애플 맥북 프로 14 (2021)',
+        [2] = '애플 아이패드 미니 6세대',
+        [3] = '뱅앤올룹슨 베오플레이 EQ',
+        [4] = '뱅앤올룹슨 베오플레이 EQ',
+        [5] = '뱅앤올룹슨 베오플레이 EQ',
+        [7] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        [10] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        [20] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        [30] = '삼성 갤럭시버즈2 (펩시 콜라보)',
+        [530] = '삼성 갤럭시버즈2 (펩시 콜라보)'
+    }
+
+    return reward
 end
 
 -------------------------------------

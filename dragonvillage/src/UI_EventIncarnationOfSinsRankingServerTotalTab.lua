@@ -50,18 +50,7 @@ end
 -- function initReward
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingServerTotalTab:initReward()
-    self.m_reward = {
-        [1] = '애플 맥북 프로 14 (2021)',
-        [2] = '애플 아이패드 미니 6세대',
-        [3] = '뱅앤올룹슨 베오플레이 EQ',
-        [4] = '뱅앤올룹슨 베오플레이 EQ',
-        [5] = '뱅앤올룹슨 베오플레이 EQ',
-        [7] = '삼성 갤럭시버즈2 (펩시 콜라보)',
-        [10] = '삼성 갤럭시버즈2 (펩시 콜라보)',
-        [20] = '삼성 갤럭시버즈2 (펩시 콜라보)',
-        [30] = '삼성 갤럭시버즈2 (펩시 콜라보)',
-        [530] = '삼성 갤럭시버즈2 (펩시 콜라보)'
-    }
+    self.m_reward = g_eventIncarnationOfSinsData:getNewServerEventReward()
 end
 
 -------------------------------------
