@@ -17,7 +17,8 @@ function UI_NewServerEventRewardPopup:init()
 
     UIManager:open(self, UIManager.POPUP)
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_NewServerEventRewardPopup')
-    
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+
     self:doActionReset()
     self:doAction()
 
@@ -34,30 +35,23 @@ end
 function UI_NewServerEventRewardPopup:initUI()
     local vars = self.vars
 
-    local reward_info = g_eventIncarnationOfSinsData:getNewServerEventReward()
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 
+    local reward_info = g_eventIncarnationOfSinsData:getNewServerEventReward()
     local type = 'total'
     if not g_localData:isGlobalServer() then
         type = 'unified'
     end
 
     local rank = g_eventIncarnationOfSinsData:getMyRank(type)
-
-    --test-
-    rank = 1
-    -------
-
     vars['titleLabel']:setString(Str('테이머님 {1}위 달성을 축하드립니다', rank))
-
     vars['rankLabel']:setString(Str('{1}위 경품', rank))
 
-    
     for rank_info,v in pairs(reward_info) do
         if rank_info == rank then
             vars['rewardLabel']:setString(Str('{1}', v))
         end
     end
-
 end
 
 
@@ -81,6 +75,21 @@ end
 function UI_NewServerEventRewardPopup:refresh()
     local vars = self.vars
 
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_NewServerEventRewardPopup:update(dt)
+    local vars = self.vars
+
+    local event_id = 'event_incarnation_of_sins_reward'
+    local end_date = g_hotTimeData:getEventEndTime(event_id)
+    local remain_date = g_hotTimeData:getEventRemainTime(event_id)
+
+    local remain_time = ServerTime:getInstance():timestampSecToTimeDesc(remain_date, true)
+    
+    vars['timeLabel']:setString(Str('문의 접수 기간 {1} 남음', remain_time))
 end
 
 -------------------------------------
@@ -134,7 +143,11 @@ end
 function UI_NewServerEventRewardPopup:click_infoBtn()
     local event_type = 'event_newserver'
     
-    g_fullPopupManager:showFullPopup(event_type)
+    local popup_ui = g_fullPopupManager:showFullPopup(event_type)
+    local event_ui = popup_ui.m_innerUI
+    if event_ui.vars['linkBtn'] then
+        event_ui.vars['linkBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------

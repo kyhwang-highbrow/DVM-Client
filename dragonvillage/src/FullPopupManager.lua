@@ -149,6 +149,8 @@ function FullPopupManager:showFullPopup(pid)
     ui.vars['checkBtn']:setVisible(false)
     ui.vars['checkLabel']:setVisible(false)
     ui.vars['mainNode']:setPositionY(0)
+
+    return ui
 end
 
 -------------------------------------
