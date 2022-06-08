@@ -1425,21 +1425,33 @@ function UI_TitleScene:workGetServerInfo()
 
         -- jylee 2022.06.07 경품 이벤트 api 추후 삭제 해야함 --
         do
-            co:work('#경품 이벤트 정보 받는 중')
-            -- param
-			local uid = g_userData:get('uid')
-            local function success_cb(ret)
-                g_eventIncarnationOfSinsData:response_eventIncarnationOfSinsInfo(ret)
-
-                co.NEXT()
+            local event_list = g_hotTimeData:getHotTimeActiveList()
+            local event = false
+            for _,v in pairs(event_list) do
+                if v == 'event_incarnation_of_sins_reward' then 
+                    event = v
+                end
             end
-			-- ui_network
-			local ui_network = UI_Network()
-			ui_network:setUrl('/event/incarnation_of_sins/get_event_rank')
-            ui_network:setParam('uid', uid)
-            ui_network:setSuccessCB(success_cb)
-            ui_network:hideLoading()
-			ui_network:request()
+
+            if event then
+                co:work('#경품 이벤트 정보 받는 중')
+                -- param
+                local uid = g_userData:get('uid')
+                local function success_cb(ret)
+                    g_eventIncarnationOfSinsData:response_eventIncarnationOfSinsInfo(ret)
+
+                    co.NEXT()
+                end
+
+                -- ui_network
+                local ui_network = UI_Network()
+                ui_network:setUrl('/event/incarnation_of_sins/get_event_rank')
+                ui_network:setParam('uid', uid)
+                ui_network:setSuccessCB(success_cb)
+                ui_network:setFailCB(fail_cb)
+                ui_network:hideLoading()
+                ui_network:request()
+            end
         end
         if co:waitWork() then return end
         ----------------------------------------------------
