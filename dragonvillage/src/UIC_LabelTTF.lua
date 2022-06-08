@@ -99,7 +99,9 @@ function UIC_LabelTTF:setString(str)
         str = Translate:persianNumberConvert(str)
     end
 
-    self.m_node:setString(str)
+    if tolua.isnull(self.m_node) ~= true then
+        self.m_node:setString(str)
+    end
 end
 
 -------------------------------------

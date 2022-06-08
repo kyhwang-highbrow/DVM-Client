@@ -55,6 +55,12 @@ function UI_AttendanceLobbyBanner:initUI()
     end
     local item_name = TableItem:getItemName(item_id)
     local item_card = IconHelper:getItemIcon(item_id)
+
+    --아이템 아이콘이 존재하는 않는 경우 예외처리
+    if item_card then
+        vars['itemNode']:addChild(item_card)
+    end
+
     local type = TableItem:getItemType(item_id)
     local did = tonumber(TableItem:getDidByItemId(item_id))
 
@@ -65,7 +71,7 @@ function UI_AttendanceLobbyBanner:initUI()
     else
         reward = Str('{1} {2}개', item_name, value)
     end
-    vars['itemNode']:addChild(item_card)
+    
     vars['rewardLabel']:setString(Str('{@YELLOW}내일 접속하시면\n{@DEFAULT}{1}', reward))
     
 end

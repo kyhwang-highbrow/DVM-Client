@@ -191,7 +191,7 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
     local t_item = table_item:get(item_id)
 
     if (not t_item) then
-        error('item_id : ' .. item_id)
+        return
     end
 
     local sprite = nil

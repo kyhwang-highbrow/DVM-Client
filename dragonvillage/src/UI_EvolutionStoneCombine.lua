@@ -176,33 +176,35 @@ function UI_EvolutionStoneCombine:refresh_mtrTableView(update)
     local mode = self.m_selMode
 
     for _, v in ipairs(item_list) do
-        local btn_map = v['ui'].m_btnMap
+        if v['ui'] then
+            local btn_map = v['ui'].m_btnMap
 
-        if (btn_map[sel_id]) then
-            local ori_card = btn_map[sel_id]
-            ori_card.vars['highlightSprite']:setVisible(true)
-            
-            self.m_selCard = btn_map[sel_id]
-        end
-
-        -- count refesh option
-        if (update) then
-            local t_data = self:getCombineData()
-
-            local origin_id = t_data['origin_item_id']
-            if (btn_map[origin_id]) then
-                local ori_card = btn_map[origin_id]
-                local count = g_evolutionStoneData:getCount(origin_id)
-                ori_card.vars['aniNumberLabel']:setNumber(count)
---                ori_card.vars['numberLabel']:setString(Str('{1}', comma_value(count)))
+            if (btn_map[sel_id]) then
+                local ori_card = btn_map[sel_id]
+                ori_card.vars['highlightSprite']:setVisible(true)
+                
+                self.m_selCard = btn_map[sel_id]
             end
 
-            local target_id = t_data['target_item_id']
-            if (btn_map[target_id]) then
-                local tar_card = btn_map[target_id]
-                local count = g_evolutionStoneData:getCount(target_id)
-                tar_card.vars['aniNumberLabel']:setNumber(count)
---                tar_card.vars['numberLabel']:setString(Str('{1}', comma_value(count)))
+            -- count refesh option
+            if (update) then
+                local t_data = self:getCombineData()
+
+                local origin_id = t_data['origin_item_id']
+                if (btn_map[origin_id]) then
+                    local ori_card = btn_map[origin_id]
+                    local count = g_evolutionStoneData:getCount(origin_id)
+                    ori_card.vars['aniNumberLabel']:setNumber(count)
+    --                ori_card.vars['numberLabel']:setString(Str('{1}', comma_value(count)))
+                end
+
+                local target_id = t_data['target_item_id']
+                if (btn_map[target_id]) then
+                    local tar_card = btn_map[target_id]
+                    local count = g_evolutionStoneData:getCount(target_id)
+                    tar_card.vars['aniNumberLabel']:setNumber(count)
+    --                tar_card.vars['numberLabel']:setString(Str('{1}', comma_value(count)))
+                end
             end
         end
     end
