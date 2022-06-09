@@ -164,9 +164,9 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         AppController *appController = (AppController *)[[UIApplication sharedApplication] delegate];
         [appController sendMail:recipient title:title body:body];
     } else if (strcmp(id, "app_gotoWeb") == 0) {
-        NSString *url_utf8 = [NSString stringWithUTF8String:arg0]; 
-        NSString *encoded_url = [url_utf8 stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]; 
-        NSURL *url = [NSURL URLWithString:encoded_url]; 
+        NSString *url_utf8 = [NSString stringWithUTF8String:arg0];
+        NSString *encoded_url = [url_utf8 stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
+        NSURL *url = [NSURL URLWithString:encoded_url];
         [[UIApplication sharedApplication] openURL:url];
     } else if (strcmp(id, "app_gotoStore") == 0) {
         NSString *appId = [NSString stringWithUTF8String:arg0];

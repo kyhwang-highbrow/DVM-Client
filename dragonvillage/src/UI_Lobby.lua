@@ -380,6 +380,26 @@ function UI_Lobby:entryCoroutine()
                     if co:waitWork() then return end
                 end
             end		
+
+            -- jylee 2022.06.07 경품 이벤트용 메서드 추후 삭제해도 됨
+            do -- 현물 이벤트 보상 수령
+                local event_list = g_hotTimeData:getHotTimeActiveList()
+                local unique_key
+                for event_id, v in pairs(event_list) do
+                    if event_id == 'event_incarnation_of_sins_reward' then
+                        unique_key = event_id
+                    end
+                end
+        
+                local is_view = g_settingData:get('event_full_popup', 'UI_NewServerEventRewardPopup') or false
+
+                if unique_key and (not is_view) then
+                    if g_eventIncarnationOfSinsData:checkNewServerEventRanker() then
+                        UI_NewServerEventRewardPopup()
+                        g_settingData:applySettingData(true, 'event_full_popup', 'UI_NewServerEventRewardPopup')
+                    end
+                end
+            end
 	    end
 
         
@@ -2778,16 +2798,16 @@ function UI_Lobby:refresh_rightBanner()
                     elseif (v.m_eventData['event_type'] == 'attendance_event') then
                         local data = v['m_eventData'] 
                         
-                        local event_id = tonumber(data['event_id']) 
-                        local atd_data = g_attendanceData:getAttendanceDataByAtdId(event_id) 
-                        local last_step = #atd_data['step_list'] 
+                        local event_id = tonumber(data['event_id'])
+                        local atd_data = g_attendanceData:getAttendanceDataByAtdId(event_id)
+                        local last_step = #atd_data['step_list']
                         
-                        if atd_data['today_step'] == last_step then 
-                            -- 마지막 보상 날은 보상을 받고 로비 배너를 띄우지 않도록 예외 처리 
-                            -- 로비 배너는 다음 날 보상을 보여주기 때문에 보여줄 필요가 없음 
-                        else 
-                            banner = UI_AttendanceLobbyBanner(data) 
-                        end  
+                        if atd_data['today_step'] == last_step then
+                            -- 마지막 보상 날은 보상을 받고 로비 배너를 띄우지 않도록 예외 처리
+                            -- 로비 배너는 다음 날 보상을 보여주기 때문에 보여줄 필요가 없음
+                        else
+                            banner = UI_AttendanceLobbyBanner(data)
+                        end 
                     elseif (v.m_eventData['event_type'] == 'event_newserver') then
                         if g_eventIncarnationOfSinsData:canPlay() then
                             local data = v['m_eventData']

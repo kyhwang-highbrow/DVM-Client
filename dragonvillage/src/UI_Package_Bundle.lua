@@ -66,11 +66,11 @@ end
 function UI_Package_Bundle:initUI()
     local vars = self.vars
 
-    --구글 피처드 선정 기념 UI 예외 처리 
-    local package_name = self.m_package_name 
-    if string.find(package_name, 'featured') then 
-        self:changeTitleSprite() 
-    end 
+    --구글 피처드 선정 기념 UI 예외 처리
+    local package_name = self.m_package_name
+    if string.find(package_name, 'featured') then
+        self:changeTitleSprite()
+    end
 
     if (not self.m_isPopup) then
         vars['closeBtn']:setVisible(false)
@@ -161,23 +161,23 @@ function UI_Package_Bundle:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
-------------------------------------- 
--- function changeTitleSprite 
-------------------------------------- 
-function UI_Package_Bundle:changeTitleSprite() 
-    local vars = self.vars 
+-------------------------------------
+-- function changeTitleSprite
+-------------------------------------
+function UI_Package_Bundle:changeTitleSprite()
+    local vars = self.vars
 
-    if (vars['otherMarketSprite'] and vars['googleSprite']) then 
-        local market, os = GetMarketAndOS() 
-        vars['googleSprite']:setVisible(false) 
-        vars['otherMarketSprite']:setVisible(false) 
-        if (market == 'google' or market == 'windows') then 
-            vars['googleSprite']:setVisible(true) 
-        else 
-            vars['otherMarketSprite']:setVisible(true) 
-        end 
-    end 
-end 
+    if (vars['otherMarketSprite'] and vars['googleSprite']) then
+        local market, os = GetMarketAndOS()
+        vars['googleSprite']:setVisible(false)
+        vars['otherMarketSprite']:setVisible(false)
+        if (market == 'google' or market == 'windows') then
+            vars['googleSprite']:setVisible(true)
+        else
+            vars['otherMarketSprite']:setVisible(true)
+        end
+    end
+end
 
 -------------------------------------
 -- function click_eggInfoBtn

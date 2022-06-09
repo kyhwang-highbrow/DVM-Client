@@ -599,7 +599,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
         card_node:addChild(card.root, 2)
 
         -- 자동작별 시 노출할 경험치 UI 추가
-        if (self.m_type == 'cash') or (self.m_type == 'pickup') or (self.m_type == 'summon_dragon_ticket') then 
+        if (self.m_type == 'cash') or (self.m_type == 'pickup') or (self.m_type == 'summon_dragon_ticket') then
             if g_hatcheryData.m_isAutomaticFarewell and (t_data['grade'] <= 3) then
                 local dragon_exp_table = TableDragonExp()
                 local exp = dragon_exp_table:getDragonGivingExp(3, 1)	
