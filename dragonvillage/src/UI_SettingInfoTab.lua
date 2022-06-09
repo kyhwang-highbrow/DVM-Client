@@ -128,8 +128,8 @@ function UI_Setting:click_serviceBtn()
     url_param = url_param .. '&brand_key1=' .. brand_key
 
     local user_name = g_userData:get('nick')
-    if CppFunctions:isIos() and (IS_TEST_MODE() == false) and (getAppVerNum() < 1003007) then -- @yjkil 22.06.07 - 1.3.7 빌드 및 1.3.6 지원 종료 시 코드 제거해야 함
-    elseif user_name then
+    if CppFunctions:isIos() and (IS_TEST_MODE() == false) and (getAppVerNum() < 1003007) then -- @yjkil 22.06.07 - 1.3.7 빌드 및 1.3.6 지원 종료 시 코드 제거해야 함 
+    elseif user_name then 
         url_param = url_param .. '&userName=' .. user_name
     end
 
@@ -144,7 +144,7 @@ function UI_Setting:click_serviceBtn()
     end
 
     local uid = g_userData:get('uid')
-    local server = ServerListData.getInstance():getSelectServer()
+    local server = ServerListData.getInstance():getSelectServer() 
     if uid then
         url_param = url_param .. '&extra_field1=' .. uid
     end

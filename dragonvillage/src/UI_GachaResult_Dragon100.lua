@@ -367,7 +367,7 @@ function UI_GachaResult_Dragon100:initDragonCardList()
             self:refresh()
 
             -- 자동작별 시 노출할 경험치 UI 추가
-            if (self.m_type == 'cash') or (self.m_type == 'pickup') or (self.m_type == 'summon_dragon_ticket')then
+            if (self.m_type == 'cash') or (self.m_type == 'pickup') or (self.m_type == 'summon_dragon_ticket')then 
             
                 if g_hatcheryData.m_isAutomaticFarewell and (struct_dragon_object['grade'] <= 3) then
                     local dragon_exp_table = TableDragonExp()
