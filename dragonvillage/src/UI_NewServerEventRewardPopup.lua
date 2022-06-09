@@ -38,17 +38,13 @@ function UI_NewServerEventRewardPopup:initUI()
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 
     local reward_info = g_eventIncarnationOfSinsData:getNewServerEventReward()
-    local type = 'total'
-    if not g_localData:isGlobalServer() then
-        type = 'unified'
-    end
-
-    local rank = g_eventIncarnationOfSinsData:getMyRank(type)
-    vars['titleLabel']:setString(Str('테이머님 {1}위 달성을 축하드립니다', rank))
-    vars['rankLabel']:setString(Str('{1}위 경품', rank))
+    local my_rank = g_eventIncarnationOfSinsData.m_eventRankInfo
+    
+    vars['titleLabel']:setString(Str('테이머님 {1}위 달성을 축하드립니다', my_rank))
+    vars['rankLabel']:setString(Str('{1}위 경품', my_rank))
 
     for rank_info,v in pairs(reward_info) do
-        if rank_info == rank then
+        if rank_info == my_rank then
             vars['rewardLabel']:setString(Str('{1}', v))
         end
     end
