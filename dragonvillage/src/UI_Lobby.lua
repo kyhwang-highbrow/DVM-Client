@@ -2777,7 +2777,17 @@ function UI_Lobby:refresh_rightBanner()
                     --출석 이벤트용 배너
                     elseif (v.m_eventData['event_type'] == 'attendance_event') then
                         local data = v['m_eventData'] 
-                        banner = UI_AttendanceLobbyBanner(data)
+                        
+                        local event_id = tonumber(data['event_id'])
+                        local atd_data = g_attendanceData:getAttendanceDataByAtdId(event_id)
+                        local last_step = #atd_data['step_list']
+                        
+                        if atd_data['today_step'] == last_step then
+                            -- 마지막 보상 날은 보상을 받고 로비 배너를 띄우지 않도록 예외 처리
+                            -- 로비 배너는 다음 날 보상을 보여주기 때문에 보여줄 필요가 없음
+                        else
+                            banner = UI_AttendanceLobbyBanner(data)
+                        end 
                     elseif (v.m_eventData['event_type'] == 'event_newserver') then
                         if g_eventIncarnationOfSinsData:canPlay() then
                             local data = v['m_eventData']
