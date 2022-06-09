@@ -380,6 +380,26 @@ function UI_Lobby:entryCoroutine()
                     if co:waitWork() then return end
                 end
             end		
+
+            -- jylee 2022.06.07 경품 이벤트용 메서드 추후 삭제해도 됨
+            do -- 현물 이벤트 보상 수령
+                local event_list = g_hotTimeData:getHotTimeActiveList()
+                local unique_key
+                for event_id, v in pairs(event_list) do
+                    if event_id == 'event_incarnation_of_sins_reward' then
+                        unique_key = event_id
+                    end
+                end
+        
+                local is_view = g_settingData:get('event_full_popup', 'UI_NewServerEventRewardPopup') or false
+
+                if unique_key and (not is_view) then
+                    if g_eventIncarnationOfSinsData:checkNewServerEventRanker() then
+                        UI_NewServerEventRewardPopup()
+                        g_settingData:applySettingData(true, 'event_full_popup', 'UI_NewServerEventRewardPopup')
+                    end
+                end
+            end
 	    end
 
         

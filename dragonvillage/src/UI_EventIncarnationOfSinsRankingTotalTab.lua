@@ -144,7 +144,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
     end
 
     -- 랭킹 보상 테이블
-    table_event_rank = g_eventIncarnationOfSinsData.m_tRewardInfo
+    local table_event_rank = g_eventIncarnationOfSinsData.m_tRewardInfo
 
     local struct_rank_reward = StructRankReward(table_event_rank, true)
     local l_event_rank = struct_rank_reward:getRankRewardList()
