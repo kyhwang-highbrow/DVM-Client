@@ -35,7 +35,7 @@ function StatusEffectIcon:init(parent_node, status_effect, type_str)
 
 	self.m_icon:setScale(0.375)
 
-    if tolua.isnull(self.m_parentNode) ~= true then
+    if (IsNull(self.m_parentNode) == false) then
         self.m_parentNode:addChild(self.m_icon, 1)
     end
 end
@@ -140,7 +140,9 @@ function StatusEffectIcon:setOverlabLabel(overlab_cnt)
     self.m_overlabNode:setPosition(-(x_offset/2), 0)
     self.m_overlabNode:setCascadeOpacityEnabled(true)
 
-    self.m_parentNode:addChild(self.m_overlabNode, 2)
+    if (IsNull(self.m_parentNode) == false) then
+     	self.m_parentNode:addChild(self.m_overlabNode, 2)
+    end
 end
 
 -------------------------------------

@@ -1492,6 +1492,14 @@ function getPosXForCenterSortting(background_width, start_pos, count, list_item_
 end
 
 -------------------------------------
+-- function IsNull
+-- @brief tolua 모듈 이용하여 들어온 값이 nullptr인지 판단
+-------------------------------------
+function IsNull(x)
+    return tolua.isnull(x)
+end
+
+-------------------------------------
 -- function PrintMemory
 -- @brief 보기 좋게 현재 메모리 출력
 -------------------------------------
