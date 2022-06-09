@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -141,6 +141,7 @@
 		50D7C96C17EBBEDF005D0B91 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96B17EBBEDF005D0B91 /* OpenGL.framework */; };
 		50D7C96E17EBBEE6005D0B91 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96D17EBBEE6005D0B91 /* AppKit.framework */; };
 		50D7C97017EBBEEC005D0B91 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96F17EBBEEC005D0B91 /* IOKit.framework */; };
+		57CF4E14146EF836A15F87B8 /* libPods-DragonVillageM Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BA3EB3200686FA2E639E75 /* libPods-DragonVillageM Mac.a */; };
 		7D73B1992772C690009A2E7E /* UserMessagingPlatform.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D73B1982772C690009A2E7E /* UserMessagingPlatform.xcframework */; };
 		7DC5F67E2772BB53000C7D2D /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC5F67D2772BB53000C7D2D /* AppTrackingTransparency.framework */; };
 		7DC5F6802772BB6A000C7D2D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC5F67F2772BB6A000C7D2D /* SwiftUI.framework */; };
@@ -151,6 +152,7 @@
 		7DC5F68A2772BBA9000C7D2D /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC5F6892772BBA9000C7D2D /* libxml2.tbd */; };
 		7DC5F6922772BDB3000C7D2D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DC5F68F2772BDB3000C7D2D /* CoreServices.framework */; };
 		9C38D294252F047C004C2A62 /* libsdk_binder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C38D1C4252EEAB3004C2A62 /* libsdk_binder.a */; };
+		B1C4B296E76E7326914EB976 /* libPods-DragonVillageM iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B9138C95A1F3A2EB37078F /* libPods-DragonVillageM iOS.a */; };
 		C255B3C51A8FEAB100A270F8 /* libbox2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A42B1834BDA200142BE0 /* libbox2d iOS.a */; };
 		F293B3CD15EB7BE500256477 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3CC15EB7BE500256477 /* QuartzCore.framework */; };
 		F293B3D115EB7BE500256477 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3D015EB7BE500256477 /* OpenAL.framework */; };
@@ -351,6 +353,7 @@
 		1CC28FA01B69003F00F75BE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2206240230447D9B23405C1D /* Pods-DragonVillageM Mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageM Mac.release.xcconfig"; path = "Target Support Files/Pods-DragonVillageM Mac/Pods-DragonVillageM Mac.release.xcconfig"; sourceTree = "<group>"; };
 		2B625BDC3EA735C585E70E2F /* Pods-DragonVillageM iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageM iOS.release.xcconfig"; path = "Target Support Files/Pods-DragonVillageM iOS/Pods-DragonVillageM iOS.release.xcconfig"; sourceTree = "<group>"; };
+		30BA3EB3200686FA2E639E75 /* libPods-DragonVillageM Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DragonVillageM Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		370B474B1F7CB5250072CA71 /* Cocos2d.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cocos2d.lua; path = ../../assets/full/Cocos2d.lua; sourceTree = "<group>"; };
 		370B474C1F7CB5260072CA71 /* extern.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = extern.lua; path = ../../assets/full/extern.lua; sourceTree = "<group>"; };
 		370B474D1F7CB5260072CA71 /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = config.json; path = ../../assets/full/config.json; sourceTree = "<group>"; };
@@ -473,6 +476,7 @@
 		50D7C96B17EBBEDF005D0B91 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		50D7C96D17EBBEE6005D0B91 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		50D7C96F17EBBEEC005D0B91 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		71B9138C95A1F3A2EB37078F /* libPods-DragonVillageM iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DragonVillageM iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D73B1982772C690009A2E7E /* UserMessagingPlatform.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = UserMessagingPlatform.xcframework; path = Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework; sourceTree = "<group>"; };
 		7DC5F67D2772BB53000C7D2D /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = DEVELOPER_DIR; };
 		7DC5F67F2772BB6A000C7D2D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
@@ -519,6 +523,7 @@
 				15A8A4851834C73500142BE0 /* libCocosDenshion Mac.a in Frameworks */,
 				15A8A4821834C73500142BE0 /* libchipmunk Mac.a in Frameworks */,
 				37F4537F20A8047E0088399C /* libbox2d Mac.a in Frameworks */,
+				57CF4E14146EF836A15F87B8 /* libPods-DragonVillageM Mac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +574,7 @@
 				15A8A4471834C43700142BE0 /* libCocosDenshion iOS.a in Frameworks */,
 				15A8A4441834C43700142BE0 /* libchipmunk iOS.a in Frameworks */,
 				C255B3C51A8FEAB100A270F8 /* libbox2d iOS.a in Frameworks */,
+				B1C4B296E76E7326914EB976 /* libPods-DragonVillageM iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,6 +790,8 @@
 				37E128C71B4538D600200C23 /* StoreKit.framework */,
 				37E128DF1B45399A00200C23 /* SystemConfiguration.framework */,
 				37E128D31B45392400200C23 /* UIKit.framework */,
+				30BA3EB3200686FA2E639E75 /* libPods-DragonVillageM Mac.a */,
+				71B9138C95A1F3A2EB37078F /* libPods-DragonVillageM iOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -918,7 +926,7 @@
 				};
 			};
 			buildConfigurationList = F293B3C215EB7BE500256477 /* Build configuration list for PBXProject "DragonVillageM" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1624,9 +1632,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DragonVillageDebug.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 14;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 84797V8WN5;
 				ENABLE_BITCODE = NO;
@@ -1657,14 +1665,14 @@
 					"$(SDKROOT)/usr/lib/swift",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.6;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit/FBSDKCoreKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit/FBSDKLoginKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit/FBSDKShareKit.modulemap\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
-				PROVISIONING_PROFILE_SPECIFIER = "DragonVillageM Dist";
+				PROVISIONING_PROFILE_SPECIFIER = "DragonVillageM DVM Dev";
 				SDKROOT = iphoneos;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit\"";
 				SWIFT_OBJC_BRIDGING_HEADER = "ios/DragonVillageM iOS-Bridging-Header.h";
@@ -1694,7 +1702,7 @@
 				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 14;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 84797V8WN5;
 				ENABLE_BITCODE = NO;
@@ -1724,7 +1732,7 @@
 					"$(SDKROOT)/usr/lib/swift",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.6;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",

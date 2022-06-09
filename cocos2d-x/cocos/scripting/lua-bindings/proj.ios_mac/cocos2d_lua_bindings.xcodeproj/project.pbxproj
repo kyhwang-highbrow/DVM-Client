@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -986,7 +986,7 @@
 				ORGANIZATIONNAME = "";
 			};
 			buildConfigurationList = 1551A339158F2AB200E66CFE /* Build configuration list for PBXProject "cocos2d_lua_bindings" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1225,7 +1225,34 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../.. $(SRCROOT)/../../.. $(SRCROOT)/../../../base $(SRCROOT)/../../../2d $(SRCROOT)/../../../deprecated $(SRCROOT)/../../../physics $(SRCROOT)/../../../math/kazmath $(SRCROOT)/../../../2d/platform $(SRCROOT)/../../../audio/include $(SRCROOT)/../../../editor-support $(SRCROOT)/../../../editor-support/spine $(SRCROOT)/../../../editor-support/cocostudio $(SRCROOT)/../../../editor-support/cocosbuilder $(SRCROOT)/../../../editor-support/perplelab $(SRCROOT)/../../../editor-support/anb $(SRCROOT)/../../../ui $(SRCROOT)/../../../storage $(SRCROOT)/../../../../extensions $(SRCROOT)/../../../../external $(SRCROOT)/../../../../external/chipmunk/include/chipmunk $(SRCROOT)/../../../../external/lua $(SRCROOT)/../../../../external/lua/luajit/include $(SRCROOT)/../../../../external/lua/tolua $(SRCROOT)/../../../../external/lua/luacrypto $(SRCROOT)/../../../../external/lua/luabins $(SRCROOT)/../../../../external/protobuf/include/win32";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../..",
+					"$(SRCROOT)/../../..",
+					"$(SRCROOT)/../../../base",
+					"$(SRCROOT)/../../../2d",
+					"$(SRCROOT)/../../../deprecated",
+					"$(SRCROOT)/../../../physics",
+					"$(SRCROOT)/../../../math/kazmath",
+					"$(SRCROOT)/../../../2d/platform",
+					"$(SRCROOT)/../../../audio/include",
+					"$(SRCROOT)/../../../editor-support",
+					"$(SRCROOT)/../../../editor-support/spine",
+					"$(SRCROOT)/../../../editor-support/cocostudio",
+					"$(SRCROOT)/../../../editor-support/cocosbuilder",
+					"$(SRCROOT)/../../../editor-support/perplelab",
+					"$(SRCROOT)/../../../editor-support/anb",
+					"$(SRCROOT)/../../../ui",
+					"$(SRCROOT)/../../../storage",
+					"$(SRCROOT)/../../../../extensions",
+					"$(SRCROOT)/../../../../external",
+					"$(SRCROOT)/../../../../external/chipmunk/include/chipmunk",
+					"$(SRCROOT)/../../../../external/lua",
+					"$(SRCROOT)/../../../../external/lua/luajit/include",
+					"$(SRCROOT)/../../../../external/lua/tolua",
+					"$(SRCROOT)/../../../../external/lua/luacrypto",
+					"$(SRCROOT)/../../../../external/lua/luabins",
+					"$(SRCROOT)/../../../../external/protobuf/include/win32",
+				);
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -1283,7 +1310,34 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../.. $(SRCROOT)/../../.. $(SRCROOT)/../../../base $(SRCROOT)/../../../2d $(SRCROOT)/../../../deprecated $(SRCROOT)/../../../physics $(SRCROOT)/../../../math/kazmath $(SRCROOT)/../../../2d/platform $(SRCROOT)/../../../audio/include $(SRCROOT)/../../../editor-support $(SRCROOT)/../../../editor-support/spine $(SRCROOT)/../../../editor-support/cocostudio $(SRCROOT)/../../../editor-support/cocosbuilder $(SRCROOT)/../../../editor-support/perplelab $(SRCROOT)/../../../editor-support/anb $(SRCROOT)/../../../ui $(SRCROOT)/../../../storage $(SRCROOT)/../../../../extensions $(SRCROOT)/../../../../external $(SRCROOT)/../../../../external/chipmunk/include/chipmunk $(SRCROOT)/../../../../external/lua $(SRCROOT)/../../../../external/lua/luajit/include $(SRCROOT)/../../../../external/lua/tolua $(SRCROOT)/../../../../external/lua/luacrypto $(SRCROOT)/../../../../external/lua/luabins $(SRCROOT)/../../../../external/protobuf/include/win32";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../..",
+					"$(SRCROOT)/../../..",
+					"$(SRCROOT)/../../../base",
+					"$(SRCROOT)/../../../2d",
+					"$(SRCROOT)/../../../deprecated",
+					"$(SRCROOT)/../../../physics",
+					"$(SRCROOT)/../../../math/kazmath",
+					"$(SRCROOT)/../../../2d/platform",
+					"$(SRCROOT)/../../../audio/include",
+					"$(SRCROOT)/../../../editor-support",
+					"$(SRCROOT)/../../../editor-support/spine",
+					"$(SRCROOT)/../../../editor-support/cocostudio",
+					"$(SRCROOT)/../../../editor-support/cocosbuilder",
+					"$(SRCROOT)/../../../editor-support/perplelab",
+					"$(SRCROOT)/../../../editor-support/anb",
+					"$(SRCROOT)/../../../ui",
+					"$(SRCROOT)/../../../storage",
+					"$(SRCROOT)/../../../../extensions",
+					"$(SRCROOT)/../../../../external",
+					"$(SRCROOT)/../../../../external/chipmunk/include/chipmunk",
+					"$(SRCROOT)/../../../../external/lua",
+					"$(SRCROOT)/../../../../external/lua/luajit/include",
+					"$(SRCROOT)/../../../../external/lua/tolua",
+					"$(SRCROOT)/../../../../external/lua/luacrypto",
+					"$(SRCROOT)/../../../../external/lua/luabins",
+					"$(SRCROOT)/../../../../external/protobuf/include/win32",
+				);
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -1311,7 +1365,11 @@
 				"OTHER_LDFLAGS[sdk=iphonesimulator7.1]" = "-llua";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../../platform/ios $(SRCROOT)/../../../../external/openssl/include/ios";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../platform/ios",
+					"$(SRCROOT)/../../../../external/openssl/include/ios",
+				);
 			};
 			name = Debug;
 		};
@@ -1336,7 +1394,11 @@
 				"OTHER_LDFLAGS[sdk=iphonesimulator7.1]" = "-llua";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../../platform/ios $(SRCROOT)/../../../../external/openssl/include/ios";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../platform/ios",
+					"$(SRCROOT)/../../../../external/openssl/include/ios",
+				);
 			};
 			name = Release;
 		};
@@ -1360,7 +1422,13 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-llua";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../../platform/mac $(SRCROOT)/../../../../external/glfw3/include/mac $(SRCROOT)/../../../../external/openssl/include/mac $(SRCROOT)/../../../../external/curl/include/mac";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../platform/mac",
+					"$(SRCROOT)/../../../../external/glfw3/include/mac",
+					"$(SRCROOT)/../../../../external/openssl/include/mac",
+					"$(SRCROOT)/../../../../external/curl/include/mac",
+				);
 				VALID_ARCHS = "armv7s armv7 x86_64 arm64";
 			};
 			name = Debug;
@@ -1384,7 +1452,13 @@
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../../../external/lua/luajit/prebuilt/mac";
 				OTHER_LDFLAGS = "-llua";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../../platform/mac $(SRCROOT)/../../../../external/glfw3/include/mac $(SRCROOT)/../../../../external/openssl/include/mac $(SRCROOT)/../../../../external/curl/include/mac";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../platform/mac",
+					"$(SRCROOT)/../../../../external/glfw3/include/mac",
+					"$(SRCROOT)/../../../../external/openssl/include/mac",
+					"$(SRCROOT)/../../../../external/curl/include/mac",
+				);
 				VALID_ARCHS = "armv7s armv7 x86_64 arm64";
 			};
 			name = Release;

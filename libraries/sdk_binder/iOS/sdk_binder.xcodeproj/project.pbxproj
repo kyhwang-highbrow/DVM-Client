@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -42,13 +42,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		17AFB2C78AE88A5133D306DB /* Pods-sdk_binder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.release.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.release.xcconfig"; sourceTree = "<group>"; };
+		04F5CB5A283EEC8A00F819F8 /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libsdk_binder.a; path = "/Users/mac/Desktop/Highbrow/DVM/DVM_Client/libraries/sdk_binder/iOS/build/Debug-iphoneos/libsdk_binder.a"; sourceTree = "<absolute>"; };
 		1C445F211D7B9ACA00714F62 /* PerpleGameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleGameCenter.h; sourceTree = "<group>"; };
 		1C445F221D7B9ACA00714F62 /* PerpleGameCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleGameCenter.m; sourceTree = "<group>"; };
 		1C445F241D7B9D6400714F62 /* PerpleBilling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleBilling.h; sourceTree = "<group>"; };
 		1C445F251D7B9D6400714F62 /* PerpleBilling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleBilling.m; sourceTree = "<group>"; };
 		1CFA7AE11D538B7F00C4F983 /* PerpleTapjoy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleTapjoy.h; sourceTree = "<group>"; };
 		1CFA7AE21D538B7F00C4F983 /* PerpleTapjoy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleTapjoy.m; sourceTree = "<group>"; };
+		33D6ED0C65252A9816DED7D7 /* Pods-sdk_binder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.debug.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.debug.xcconfig"; sourceTree = "<group>"; };
 		3706B23F1D75232E006D1143 /* PerpleGoogle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleGoogle.h; sourceTree = "<group>"; };
 		3706B2401D75232E006D1143 /* PerpleGoogle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleGoogle.m; sourceTree = "<group>"; };
 		37311F251D76706A0085C073 /* PerpleFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleFacebook.h; sourceTree = "<group>"; };
@@ -79,8 +80,8 @@
 		3C67A60B269DF6AC00C9558C /* TapjoyAdapter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TapjoyAdapter.framework; sourceTree = "<group>"; };
 		3E8FC35A250733DF00785D38 /* sdk_binder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sdk_binder-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E8FC35B250733E000785D38 /* HbApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HbApple.swift; sourceTree = "<group>"; };
-		6755498CE97091FE539A6E2F /* Pods-sdk_binder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.debug.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.debug.xcconfig"; sourceTree = "<group>"; };
-		7DC5F68E2772BD46000C7D2D /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libsdk_binder.a; path = "/Volumes/Samsung_T5/DVM-Client/src/frameworks/libraries/sdk_binder/iOS/build/Debug-iphoneos/libsdk_binder.a"; sourceTree = "<absolute>"; };
+		566C03D3B83B288C8724C024 /* libPods-sdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sdk_binder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A198FA8D52FEC37C31F9BBF /* Pods-sdk_binder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.release.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.release.xcconfig"; sourceTree = "<group>"; };
 		9C38D2F1252F0B80004C2A62 /* lua_perplesdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk.h; sourceTree = "<group>"; };
 		9C38D2F2252F0B80004C2A62 /* lua_perplesdk_macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk_macro.h; sourceTree = "<group>"; };
 		9C38D2F4252F0B8D004C2A62 /* lua_perplesdk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_perplesdk.cpp; sourceTree = "<group>"; };
@@ -150,8 +151,8 @@
 			children = (
 				1CB727551D45435500994916 /* src */,
 				1CB7275D1D45449000994916 /* ios */,
-				975FD22E784D4AB5336D943D /* Pods */,
 				B46B37E319A24343E1E59F3F /* Frameworks */,
+				B4B3379B084F5A3AADDC707A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -177,21 +178,22 @@
 			name = Swift;
 			sourceTree = "<group>";
 		};
-		975FD22E784D4AB5336D943D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6755498CE97091FE539A6E2F /* Pods-sdk_binder.debug.xcconfig */,
-				17AFB2C78AE88A5133D306DB /* Pods-sdk_binder.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		B46B37E319A24343E1E59F3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				3C67A60B269DF6AC00C9558C /* TapjoyAdapter.framework */,
+				566C03D3B83B288C8724C024 /* libPods-sdk_binder.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B4B3379B084F5A3AADDC707A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				33D6ED0C65252A9816DED7D7 /* Pods-sdk_binder.debug.xcconfig */,
+				6A198FA8D52FEC37C31F9BBF /* Pods-sdk_binder.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,7 +214,7 @@
 			);
 			name = sdk_binder;
 			productName = PerpleSDK;
-			productReference = 7DC5F68E2772BD46000C7D2D /* libsdk_binder.a */;
+			productReference = 04F5CB5A283EEC8A00F819F8 /* libsdk_binder.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -231,7 +233,7 @@
 				};
 			};
 			buildConfigurationList = 1CCD9ED51D35C5F0004AAF73 /* Build configuration list for PBXProject "sdk_binder" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -356,7 +358,11 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../cocos2d-x/cocos/scripting/lua-bindings/manual $(SRCROOT)/../../../cocos2d-x/external/lua/tolua $(SRCROOT)/../../../cocos2d-x/external/lua/luajit/include";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../cocos2d-x/cocos/scripting/lua-bindings/manual",
+					"$(SRCROOT)/../../../cocos2d-x/external/lua/tolua",
+					"$(SRCROOT)/../../../cocos2d-x/external/lua/luajit/include",
+				);
 			};
 			name = Debug;
 		};
@@ -407,14 +413,18 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../cocos2d-x/cocos/scripting/lua-bindings/manual $(SRCROOT)/../../../cocos2d-x/external/lua/tolua $(SRCROOT)/../../../cocos2d-x/external/lua/luajit/include";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../cocos2d-x/cocos/scripting/lua-bindings/manual",
+					"$(SRCROOT)/../../../cocos2d-x/external/lua/tolua",
+					"$(SRCROOT)/../../../cocos2d-x/external/lua/luajit/include",
+				);
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		1CCD9EE41D35C5F0004AAF73 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6755498CE97091FE539A6E2F /* Pods-sdk_binder.debug.xcconfig */;
+			baseConfigurationReference = 33D6ED0C65252A9816DED7D7 /* Pods-sdk_binder.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				EXCLUDED_ARCHS = "x86_64 i386";
@@ -437,7 +447,12 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../src\"",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/lib/swift,
@@ -465,7 +480,7 @@
 		};
 		1CCD9EE51D35C5F0004AAF73 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17AFB2C78AE88A5133D306DB /* Pods-sdk_binder.release.xcconfig */;
+			baseConfigurationReference = 6A198FA8D52FEC37C31F9BBF /* Pods-sdk_binder.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				EXCLUDED_ARCHS = "x86_64 i386";
@@ -488,7 +503,12 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../src\"",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/lib/swift,

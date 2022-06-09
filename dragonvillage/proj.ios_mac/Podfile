@@ -10,22 +10,22 @@ target 'DragonVillageM iOS' do
     # Pods for DragonVillageM iOS
    
     # Pods for Firebase
-    pod 'Firebase/Core'#, '= 6.10.0'
-    pod 'Firebase/Auth'#, '= 6.10.0'
-    pod 'Firebase/Messaging'#, '= 6.10.0'
+    pod 'Firebase/Core'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Messaging'
     pod 'Firebase/Crashlytics'
     pod 'Firebase/Analytics'
     
     ## SOCIAL
     # Pods for Google
-    pod 'GoogleSignIn'#, '= 5.0.1'
+    pod 'GoogleSignIn', '5.0.2'
     
     # Pods for Facebook
     # https://developers.facebook.com/docs/ios/
     # sgkim 2019.10.11 (4.39.1 -> 5.8.0)
-    pod 'FBSDKCoreKit'#, '= 5.8.0'
-    pod 'FBSDKShareKit'#, '= 5.8.0'
-    pod 'FBSDKLoginKit'#, '= 5.8.0'
+    pod 'FBSDKCoreKit', '9.1.0'
+    pod 'FBSDKShareKit', '9.1.0'
+    pod 'FBSDKLoginKit', '9.1.0'
     
     # Pods for Twitter
     pod 'TwitterKit'#, '= 3.4.2'
@@ -56,9 +56,9 @@ target 'DragonVillageM iOS' do
     # @sgkim 20190919 adbrix 정책 변경으로 인해 더이상 사용하지 않게되어 제거
 
     # Pods for Tapjoy
-    pod 'TapjoySDK'#, '= 12.3.3'
+    pod 'TapjoySDK'
     # Pods for Adjust
-    pod 'Adjust'#, '= 4.17.1'
+    pod 'Adjust', '4.29.6'
 end
 
 target 'DragonVillageM Mac' do
