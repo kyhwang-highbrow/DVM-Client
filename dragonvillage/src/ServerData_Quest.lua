@@ -124,7 +124,7 @@ function ServerData_Quest:applyQuestInfo(t_quest_info)
 			local l_quest = {}
 			for qid, rawcnt in pairs(t_focus) do
 				qid_n = tonumber(qid)
-				t_quest = self.m_tableQuest:get(qid_n)
+				local t_quest = self.m_tableQuest:get(qid_n)
 				reward = table.find(l_reward, qid_n) and true or false
             
 				-- 보상도 받았고 달성도 했는데 다음 focus를 안준다면 이미 클리어한것
@@ -158,7 +158,7 @@ function ServerData_Quest:applyQuestInfo(t_quest_info)
 			local l_quest = {}
 			for qid, rawcnt in pairs(t_focus) do
 				qid_n = tonumber(qid)
-				t_quest = self.m_tableQuest:get(qid_n)
+				local t_quest = self.m_tableQuest:get(qid_n)
 				reward = table.find(l_reward, qid_n) and true or false
             
 				-- 보상도 받았고 달성도 했는데 다음 focus를 안준다면 이미 클리어한것
