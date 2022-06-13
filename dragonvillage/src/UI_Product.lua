@@ -74,10 +74,10 @@ function UI_Product:initUI()
 		end
 
 		-- 가격
-        local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, idx)
+        local is_tag_attached = ServerData_IAP:getInstance():setGooglePlayPromotionSaleTag(self, struct_product, idx)
         local is_sale_price_written = false
         if (is_tag_attached == true) then
-            is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, idx)
+            is_sale_price_written = ServerData_IAP:getInstance():setGooglePlayPromotionPrice(self, struct_product, idx)
         end
 
         if (is_sale_price_written == false) then
@@ -159,9 +159,11 @@ function UI_Product:initItemNodePos()
     local node = vars['itemNode']
     if (ui_pos) and (ui_pos ~= '') then
         local l_str = seperate(ui_pos, ',')
-        local x = l_str[1] or 0
-        local y = l_str[2] or 0
-        node:setPosition(x, y)
+        if (l_str ~= nil) then
+            local x = l_str[1] or 0
+            local y = l_str[2] or 0
+            node:setPosition(x, y)
+        end
     end
 
     if (ui_scale) and (ui_scale ~= '') then
