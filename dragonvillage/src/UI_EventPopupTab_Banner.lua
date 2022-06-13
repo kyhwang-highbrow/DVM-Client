@@ -211,9 +211,9 @@ function UI_EventPopupTab_Banner:initEventCapsule()
         local item_id = l_reward[1]['item_id']
 
         local dragon_id = TableItem:getDidByItemId(item_id)
-        local dragon_data = table_dragon:get(tonumber(dragon_id))     
 
-        if item_id and dragon_id and dragon_data then
+        if item_id and dragon_id and (dragon_id ~= '') then
+            local dragon_data = table_dragon:get(tonumber(dragon_id))     
             local dragon_rarity_str = dragon_data['rarity']
             local dragon_rarity_num = dragonRarityStrToNum(dragon_rarity_str)
             
