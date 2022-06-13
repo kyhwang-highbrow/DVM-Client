@@ -1,5 +1,5 @@
 -------------------------------------
--- class ServerTime
+---@class ServerTime
 -- @brief 서버에 설정된 타임존으로 각종 시간을 처리하는데 도움을 주는 클래스
 -------------------------------------
 ServerTime = class({
@@ -36,6 +36,7 @@ local instance = nil
 
 -------------------------------------
 -- function getInstance
+---@return ServerTime
 -------------------------------------
 function ServerTime:getInstance()
     if (instance == nil) then
@@ -308,6 +309,92 @@ function ServerTime:getDailyInitRemainTimeStampSeconds()
     local remain_time = math_max(0, init_time - curr_time)
     return remain_time
 end
+
+
+-------------------------------------
+---function getCurrentWeekDayNumber
+---@brief return weekday as number such as 1(sunday) - 7(Saturday)
+---@return number
+-------------------------------------
+function ServerTime:getCurrentWeekDayNumber()
+    local curr_timestamp_sec = self:getCurrentTimestampSeconds()
+
+    local date = os.date('!*t', curr_timestamp_sec)
+
+    return date['wday']
+end
+
+-------------------------------------
+-- function getCurrentWeekDayString
+---@brief return weekday as string such as 일요일 - 토요일
+---@return string
+-------------------------------------
+function ServerTime:getCurrentWeekDayString()
+    local week_days = {'일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'}
+    local curr_week_day_num = self:getCurrentWeekDayNumber()
+
+    return week_days[curr_week_day_num]
+end
+
+-------------------------------------
+-- function getThisWeeklyResetTimestampSec
+---@return number
+-------------------------------------
+function ServerTime:getThisWeeklyResetTimestampSeconds()
+    local curr_timestamp_sec = self:getCurrentTimestampSeconds()
+
+    local date = os.date('!*t', curr_timestamp_sec)
+    -- TODO : @yjkil 서버에서 주간초기화 요일을 받아와야함.
+    local next_sunday = 8 - date['wday']
+
+    local time = os.time({year=date['year'], month=date['month'], day=date['day'], hour=0})
+
+    return time + next_sunday * 24 * 60 * 60 + self:getLocalUTCOffset()
+end
+
+
+-------------------------------------
+-- function getThisWeeklyResetTimestampMilliseconds
+    ---@return number
+-------------------------------------
+function ServerTime:getThisWeeklyResetTimestampMilliseconds()
+    local weekly_reset_timestamp_sec = self:getThisWeeklyResetTimestampSeconds()
+
+    return weekly_reset_timestamp_sec * 1000
+end
+
+-------------------------------------
+-- function getThisMonthlyResetTimestampSeconds
+---@return number
+-------------------------------------
+function ServerTime:getThisMonthlyResetTimestampSeconds()
+    local curr_timestamp_sec = self:getCurrentTimestampSeconds()
+
+    local date = os.date('!*t', curr_timestamp_sec)
+    -- TODO : @yjkil 서버에서 주간초기화 요일을 받아와야함.
+    local date_next_month = date['month'] + 1
+    local date_year = date['year']
+
+    if date_next_month == 13 then
+        date_next_month = date_next_month % 13
+        date_year = date_year + 1
+    end
+
+    local time = os.time({year=date_year, month=date_next_month, day=1, hour=0})
+
+    return time  + self:getLocalUTCOffset()
+end
+
+-------------------------------------
+-- function getThisMonthlyResetTimestampMilliseconds
+---@return number
+-------------------------------------
+function ServerTime:getThisMonthlyResetTimestampMilliseconds()
+    local weekly_reset_timestamp_sec = self:getThisMonthlyResetTimestampSeconds()
+
+    return weekly_reset_timestamp_sec * 1000
+end
+
 
 
 -------------------------------------
