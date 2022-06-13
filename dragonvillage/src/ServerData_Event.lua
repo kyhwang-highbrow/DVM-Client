@@ -72,26 +72,24 @@ function ServerData_Event:getEventPopupTabList()
                 local ev_item = cross_table[event_id]
 
                 if (ev_item) then
-                    local start_time = TimeLib:strToTimeStamp(ev_item['start'])
-                    local end_time = TimeLib:strToTimeStamp(ev_item['end'])
+                    local start_timestamp_sec = ServerTime:getInstance():datestrToTimestampSec(ev_item['start'])
+                    local end_timestamp_sec = ServerTime:getInstance():datestrToTimestampSec(ev_item['end'])
 
-                    local server_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
-                    local time_table = TimeLib:convertToServerDate(server_timestamp)
-                    local curr_time = time_table['time']
+                    local curr_timestamp_sec = ServerTime:getInstance():getCurrentTimestampSeconds()
 
-                    if start_time and end_time then   
-                        if (start_time <= curr_time) and (curr_time <= end_time) then
+                    if start_timestamp_sec and end_timestamp_sec then   
+                        if (start_timestamp_sec <= curr_timestamp_sec) and (curr_timestamp_sec <= end_timestamp_sec) then
                             visible = true
                         end
-                    elseif start_time and (not end_time) then
-                        if (start_time <= curr_time) then
+                    elseif start_timestamp_sec and (not end_timestamp_sec) then
+                        if (start_timestamp_sec <= curr_timestamp_sec) then
                             visible = true
                         end
-                    elseif (not start_time) and end_time then
-                        if (curr_time <= end_time) then
+                    elseif (not start_timestamp_sec) and end_timestamp_sec then
+                        if (curr_timestamp_sec <= end_timestamp_sec) then
                             visible = true
                         end
-                    elseif (not start_time) and (not end_time) then
+                    elseif (not start_timestamp_sec) and (not end_timestamp_sec) then
                         visible = true
                     end
                 end
