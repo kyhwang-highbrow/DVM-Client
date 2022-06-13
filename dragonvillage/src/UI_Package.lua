@@ -15,6 +15,8 @@ UI_Package = class(PARENT, {
         m_obtainResultCloseCb = 'function',
 
         m_mailSelectType = 'MAIL_SELECT_TYPE',
+
+        m_elapsedTime = 'number',
      })
 
 -------------------------------------
@@ -49,6 +51,7 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     self.m_isRefreshedDependency = false
 	self.m_uiName = 'UI_Package'
     self.m_mailSelectType = MAIL_SELECT_TYPE.NONE
+    self.m_elapsedTime = 0
 
     local vars = self:load(ui_name)
 
@@ -57,19 +60,6 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
         -- 백키 지정
         g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package')
     end
-    
-    -- local struct_product = struct_product_list[2]
-
-    -- if struct_product then
-    --     local ui_name
-    --     if is_popup and (struct_product['package_res_2']) and (struct_product['package_res_2'] ~= '') then
-    --         ui_name = struct_product['package_res_2']
-    --     else
-    --         ui_name = struct_product['package_res']
-    --     end
-        
-    --     self:load(ui_name)
-    -- end
 	
 	-- @UI_ACTION
     self:doActionReset()
@@ -81,6 +71,37 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     self:initUI()
 	self:initButton()
     self:refresh()
+
+
+    if vars['timeLabel'] then
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    end
+end
+
+-------------------------------------
+---function update
+---@param dt number
+-------------------------------------
+function UI_Package:update(dt)
+    self.m_elapsedTime = self.m_elapsedTime + dt
+
+    if (self.m_elapsedTime < 1) then
+        return
+    else
+        self.m_elapsedTime = 0
+    end
+
+    self:refresh_time()
+end
+
+---function refresh_time
+function UI_Package:refresh_time()
+    local vars = self.vars
+
+    if vars['timeLabel'] then
+        local struct_product = self.m_productList[1]
+        vars['timeLabel']:setString(struct_product:getEndDateStr())
+    end
 end
 
 -------------------------------------
@@ -287,17 +308,7 @@ function UI_Package:refresh()
 
 
     -- 판매 종료까지 남은 시간
-    if vars['timeLabel'] then 
-        local end_date = struct_product:getEndDateStr()
-
-        if end_date then
-            vars['timeLabel']:setString(end_date)
-        else
-            vars['timeLabel']:setString('')
-        end
-    end
-
-    
+    self:refresh_time()
 end
 
 -------------------------------------
@@ -348,6 +359,10 @@ function UI_Package:initButton()
 	if (vars['infoBtn']) then
 		vars['infoBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 	end
+
+    if (vars['timeBtn']) then
+        vars['timeBtn']:registerScriptTapHandler(function() self:click_timeBtn() end)
+    end
 end
 
 -------------------------------------
@@ -423,6 +438,18 @@ function UI_Package:click_rewardBtn()
 	ui.vars['closeBtn']:registerScriptTapHandler(function()
 		ui:close()
 	end)
+end
+
+-------------------------------------
+-- function click_timeBtn
+-------------------------------------
+function UI_Package:click_timeBtn()
+    require('UI_ServerTimePopup')
+
+    local struct_product = self.m_productList[1]
+    local end_timestamp_sec = struct_product:getEndTimestampSec()
+    
+    UI_ServerTimePopup(end_timestamp_sec)
 end
 
 -------------------------------------

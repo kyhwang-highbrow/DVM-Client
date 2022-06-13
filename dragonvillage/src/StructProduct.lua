@@ -5,7 +5,7 @@ local PARENT = Structure
 -------------------------------------
 StructProduct = class(PARENT, {
         product_id = 'number',
-        sku = 'string',
+        sku = 'string', -- Google 결제 시 상품 ID
         sale_id = 'number',
         t_name = 'string',
         t_desc = 'string',
@@ -48,10 +48,6 @@ StructProduct = class(PARENT, {
         m_endDate = 'pl.Date',
         m_dependency = 'product_id',
         m_uiPriority = 'number',
-
-        -- Google 결제 시 상품 ID
-        sku = 'stock keeping unit', -- product id
-
 
         -- 차원문 상점
         medal = 'number', -- item id in table_item
@@ -133,28 +129,80 @@ function StructProduct:setEndDate(date)
 end
 
 -------------------------------------
+-- function getEndTimestampSec
+-------------------------------------
+function StructProduct:getEndTimestampSec()
+    local max_buy_display = self:getMaxBuyDisplay()
+    local end_timestamp_sec
+
+    if (not self.m_endDate) then
+        if (max_buy_display == 'monthly') then
+            end_timestamp_sec = ServerTime:getInstance():getThisMonthlyResetTimestampSeconds()
+        elseif (max_buy_display == 'weekly') then
+            end_timestamp_sec = ServerTime:getInstance():getThisWeeklyResetTimestampSeconds()
+        elseif (max_buy_display == 'daily') then
+            end_timestamp_sec = ServerTime:getInstance():getMidnightTimeStampSeconds()
+        else
+            return nil
+        end
+    end
+
+    if (end_timestamp_sec == nil) and (type(self.m_endDate) ~= 'string') then
+        return nil
+    end
+
+    if (end_timestamp_sec == nil) then
+        end_timestamp_sec = ServerTime:getInstance():datestrToTimestampSec(self.m_endDate)
+    end
+
+    return end_timestamp_sec
+end
+
+-------------------------------------
+-- function getMaxBuyDisplay
+-------------------------------------
+function StructProduct:getMaxBuyDisplay()
+    local result
+
+    if self['max_buy_display'] == '' then
+        result = self['max_buy_term']
+    else
+        result = self['max_buy_display']
+    end
+
+    return result
+end
+
+-------------------------------------
 -- function getEndDateStr
 -------------------------------------
-function StructProduct:getEndDateStr(new_line, simple)
-    if (not self.m_endDate) then
+function StructProduct:getEndDateStr(new_line)
+    local max_buy_display = self:getMaxBuyDisplay()
+    local end_timestamp_sec = self:getEndTimestampSec()
+
+    if (end_timestamp_sec == nil) then
         return ''
     end
 
-    if (type(self.m_endDate) ~= 'string') then
-        return ''
-    end
-
-    local end_timestamp = ServerTime:getInstance():datestrToTimestampSec(self.m_endDate)
-    local curr_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
-    local time_desc = ServerTime:getInstance():makeTimeDescToSec(end_timestamp - curr_timestamp)
+    local curr_timestamp_sec = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local time_desc = ServerTime:getInstance():timestampSecToTimeDesc(end_timestamp_sec - curr_timestamp_sec, true)
 
     local msg
-    if (new_line) then
-        msg = Str('판매 종료까지\n{1} 남음', time_desc)
-    elseif (simple) then
-        msg = Str('{1} 남음', time_desc)
+
+    if (max_buy_display == 'permanent') then
+        msg = '{1}'
+    elseif (max_buy_display == '') then
+        msg = ''
     else
-        msg = Str('판매 종료까지 {1} 남음', time_desc)
+        if (new_line) then
+            msg = '초기화까지\n{1}'
+        else
+            msg = '초기화까지 {1}'
+        end
+    end
+    
+    if (msg ~= '') then
+        msg = Str(msg, Str('{1} 남음', time_desc))
     end
 
     return msg
@@ -221,41 +269,35 @@ end
 
 -------------------------------------
 -- function isItOnTime
--- param
--- local server_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
--- local date = TimeLib:convertToServerDate(server_timestamp)
 -------------------------------------
 function StructProduct:isItOnTime()
     --m_startDate = 'pl.Date' = '2021-03-24 00:00:00'
     --m_endDate = 'pl.Date'  = '2021-03-24 00:00:00'
-    local start_time = nil
-    local end_time = nil
+    local start_timestamp_sec = nil
+    local end_timestamp_sec = nil
     if self.m_startDate ~= nil and self.m_startDate ~= '' then
-        start_time = tonumber(TimeLib:strToTimeStamp(self.m_startDate))
+        start_timestamp_sec = ServerTime:getInstance():datestrToTimestampSec(self.m_startDate)
     end
 
     if self.m_endDate ~= nil and self.m_endDate ~= '' then
-        end_time = tonumber(TimeLib:strToTimeStamp(self.m_endDate))
+        end_timestamp_sec = ServerTime:getInstance():datestrToTimestampSec(self.m_endDate)
     end
+ 
+    local curr_timestamp_sec = ServerTime:getInstance():getCurrentTimestampSeconds()
 
-    
-    local server_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
-    local time_table = TimeLib:convertToServerDate(server_timestamp)
-    local curr_time = time_table['time']
-
-    if start_time and end_time then   
-        if (start_time <= curr_time) and (curr_time <= end_time) then
+    if start_timestamp_sec and end_timestamp_sec then   
+        if (start_timestamp_sec <= curr_timestamp_sec) and (curr_timestamp_sec <= end_timestamp_sec) then
             return true
         end
-    elseif start_time and (not end_time) then
-        if (start_time <= curr_time) then
+    elseif start_timestamp_sec and (not end_timestamp_sec) then
+        if (start_timestamp_sec <= curr_timestamp_sec) then
             return true
         end
-    elseif (not start_time) and end_time then
-        if (curr_time <= end_time) then
+    elseif (not start_timestamp_sec) and end_timestamp_sec then
+        if (curr_timestamp_sec <= end_timestamp_sec) then
             return true
         end
-    elseif (not start_time) and (not end_time) then
+    elseif (not start_timestamp_sec) and (not end_timestamp_sec) then
         return true
     end
 

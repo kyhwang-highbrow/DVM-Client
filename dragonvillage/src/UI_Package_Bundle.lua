@@ -18,6 +18,8 @@ UI_Package_Bundle = class(PARENT,{
         m_isFullPopup = 'boolean',
 
         m_obtainResultCloseCb = 'function',
+
+        m_elapsedTime = 'number',
     })
 
 
@@ -46,6 +48,7 @@ function UI_Package_Bundle:init(package_name, is_popup, custom_struct, is_full_p
 	
 	self.m_uiName = 'UI_Package_Bundle'
     self.m_mailSelectType = MAIL_SELECT_TYPE.NONE
+    self.m_elapsedTime = 0
 
     if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
@@ -58,6 +61,37 @@ function UI_Package_Bundle:init(package_name, is_popup, custom_struct, is_full_p
     self:refresh()
 
     self:customInit(package_name, is_popup)
+
+    if vars['timeLabel'] then
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    end
+end
+
+---function update
+---@param dt number
+function UI_Package_Bundle:update(dt)
+    self.m_elapsedTime = self.m_elapsedTime + dt
+
+    if (self.m_elapsedTime < 1) then
+        return
+    else
+        self.m_elapsedTime = 0
+    end
+
+    self:refresh_time()
+end
+
+-------------------------------------
+-- function refresh_time
+-------------------------------------
+function UI_Package_Bundle:refresh_time()
+    local vars = self.vars
+
+    if vars['timeLabel'] then
+        local pid = tonumber(self.m_pids[1])
+        local struct_product = g_shopDataNew:getTargetProduct(pid)
+        vars['timeLabel']:setString(struct_product:getEndDateStr())
+    end
 end
 
 -------------------------------------
@@ -98,10 +132,7 @@ function UI_Package_Bundle:initUI()
     if (vars['percentSprite'] ~= nil) then
         local action = cca.buttonShakeAction()
         vars['percentSprite']:runAction(action)
-    end
-
-    if (vars['timeLabel']) then vars['timeLabel']:setString('') end
-    
+    end    
 end
 
 -------------------------------------
@@ -252,15 +283,6 @@ function UI_Package_Bundle:refresh()
         if (self.m_package_name == 'event_dia_discount') or (self.m_package_name == 'event_gold_bonus') then
             local struct_product = g_shopDataNew:getTargetProduct(pid)
             if (struct_product) then
-                local time_label = vars['timeLabel']
-                local end_date = struct_product:getEndDateStr()
-                if (time_label) then
-                    if (end_date) then
-                        time_label:setString(end_date)
-                    else    
-                        time_label:setString('')
-                    end
-                end
 
                 local discount_value = struct_product:getBonusRate()              
                 vars['bonusLabel1']:setString(Str('다이아 {1}% 보너스 상품 판매!', discount_value))
@@ -288,17 +310,6 @@ function UI_Package_Bundle:refresh()
             setNodeVisible('buyBtn', idx, false)
             setNodeVisible('completeNode', idx, true)
         else
-            -- 판매종료시간 있는 경우 표시
-            local time_label = vars['timeLabel']
-            local end_date = struct_product:getEndDateStr()
-            if (time_label) then
-                if (end_date) then
-                    time_label:setString(end_date)
-                else    
-                    time_label:setString('')
-                end
-            end
-
             -- 구성품 t_desc 표시
             if (self.m_data['use_desc'] == 1) then
                 local desc_str = Str(struct_product['t_desc'])
@@ -362,6 +373,9 @@ function UI_Package_Bundle:refresh()
             end
         end
     end
+
+    -- 판매 종료 시간
+    self:refresh_time()
 end
 
 -------------------------------------
