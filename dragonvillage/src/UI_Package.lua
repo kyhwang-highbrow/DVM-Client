@@ -359,10 +359,6 @@ function UI_Package:initButton()
 	if (vars['infoBtn']) then
 		vars['infoBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 	end
-
-    if (vars['timeBtn']) then
-        vars['timeBtn']:registerScriptTapHandler(function() self:click_timeBtn() end)
-    end
 end
 
 -------------------------------------
@@ -438,18 +434,6 @@ function UI_Package:click_rewardBtn()
 	ui.vars['closeBtn']:registerScriptTapHandler(function()
 		ui:close()
 	end)
-end
-
--------------------------------------
--- function click_timeBtn
--------------------------------------
-function UI_Package:click_timeBtn()
-    require('UI_ServerTimePopup')
-
-    local struct_product = self.m_productList[1]
-    local end_timestamp_sec = struct_product:getEndTimestampSec()
-    
-    UI_ServerTimePopup(end_timestamp_sec)
 end
 
 -------------------------------------
