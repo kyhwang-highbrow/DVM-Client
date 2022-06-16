@@ -40,12 +40,12 @@ function UI_NewServerEventRewardPopup:initUI()
     local reward_info = g_eventIncarnationOfSinsData:getNewServerEventReward()
     local my_rank = g_eventIncarnationOfSinsData.m_eventRankInfo
     
-    vars['titleLabel']:setString(Str('테이머님 {1}위 달성을 축하드립니다', my_rank))
+    vars['titleLabel']:setString(Str('테이머님 {1}위 달성을 축하드립니다!', my_rank))
     vars['rankLabel']:setString(Str('{1}위 경품', my_rank))
 
     for rank_info,v in pairs(reward_info) do
         if rank_info == my_rank then
-            vars['rewardLabel']:setString(Str('{1}', v))
+            vars['rewardLabel']:setString(Str(v))
         end
     end
 end
