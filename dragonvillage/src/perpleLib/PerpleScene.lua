@@ -258,12 +258,12 @@ function PerpleScene:onEnter()
         cc.AzVRP:removeCacheAll()
         sp.SkeletonAnimation:removeCacheAll()
 
-        if SpineCacheManager then
-            SpineCacheManager:getInstance():clean()
-        end
+        -- if SpineCacheManager then
+        --     SpineCacheManager:getInstance():clean()
+        -- end
 
-        SoundMgr:stopAllEffects()
-
+        -- SoundMgr:stopAllEffects()
+        
         cc.Director:getInstance():purgeCachedData()
     end
 
