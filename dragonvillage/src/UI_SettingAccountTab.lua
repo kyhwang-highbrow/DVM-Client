@@ -15,6 +15,7 @@ function UI_Setting:init_accountTab()
     vars['clearBtn']:registerScriptTapHandler(function() LoginHelper:clearAccount() end)
     vars['logoutBtn']:registerScriptTapHandler(function() LoginHelper:logout() end)
     vars['serverBtn']:registerScriptTapHandler(function() self:click_serverBtn() end)
+    --vars['deleteBtn']:registerScriptTapHandler(function() LoginHelper:deleteAccount() end)
 
     -- 테스트 모드에서만 로그아웃, 초기화 버튼을 노출한다
     if IS_TEST_MODE() then
