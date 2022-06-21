@@ -18,7 +18,6 @@ UI_DmgateScene = class(PARENT, {
     m_chapterTableViews = 'List[UIC_TableView]',    -- chapter의 수만큼 UI_DmgateSceneItem의 UIC_TableView를 관리하기 위한 리스트
 
     -- 시즌 시간
-    m_timeNode = 'cc.Node',         -- 시즌 시간 노드 for setVisible()
     m_timeLabel = 'UIC_LabelTTF',   -- 남은 시즌 시간 텍스트
 
     m_packageNoti = 'Sprite',       -- 돌파 패키지 노티
@@ -116,8 +115,6 @@ function UI_DmgateScene:initMember(mode_id, stage_id)
 
     -- init ui nodes
     self.m_dmgateNode = vars['dmgateNode']  -- UI_DmgateSceneItem의 UIC_TableView를 위한 상위 노드
-
-    self.m_timeNode = vars['timeNode']      -- 시간 메뉴 for visible(true or false)
     self.m_timeLabel = vars['timeLabel']    -- 시간 텍스트 노드
 
 
@@ -357,7 +354,7 @@ function UI_DmgateScene:click_chapterBtn(chapter_id)
     if (not buff_list) or (#buff_list <= 0) then isSeasonBtnActive = false end
 
     self.m_seasonBtn:setVisible(isSeasonBtnActive)
-    self.m_timeNode:setVisible(isSeasonBtnActive)
+    self.vars['timeBtn']:setVisible(isSeasonBtnActive)
 
     local isSameIndex
     for i = 1, #self.m_chapterButtons do
