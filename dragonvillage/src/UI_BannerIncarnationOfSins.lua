@@ -51,8 +51,13 @@ end
 function UI_BannerIncarnationOfSins:update()
     local vars = self.vars
     
-    -- 이벤트 진행 중
-    if (g_eventIncarnationOfSinsData:canPlay()) then
+    -- 이벤트 종료 후 보상 획득 가능
+    if (g_eventIncarnationOfSinsData:canReward()) then
+        vars['timeLabel']:setString('')
+        vars['rankLabel']:setString(Str('보상'))
+    
+    -- 이벤트 종료 및 보상 받을 것도 없는 상황
+    else
         -- 내 랭킹이 0보다 작으면 {-위} 로 노출
         -- 0보다 큰 의미있는 값이면 그대로 노출
         local my_rank = g_eventIncarnationOfSinsData:getMyRank()
@@ -65,18 +70,12 @@ function UI_BannerIncarnationOfSins:update()
             vars['rankLabel']:setString(Str('{1}위 ({2}%)', comma_value(my_rank), percent_text))
         end
 
-        -- 남은 이벤트 시간 표시
-       vars['timeLabel']:setString(ServerData_EventIncarnationOfSins:getTimeText())
-
-    -- 이벤트 종료 후 보상 획득 가능
-    elseif (g_eventIncarnationOfSinsData:canReward()) then
-        vars['timeLabel']:setString('')
-        vars['rankLabel']:setString(Str('보상'))
-    
-    -- 이벤트 종료 및 보상 받을 것도 없는 상황
-    else
-        vars['timeLabel']:setString('')
-        vars['rankLabel']:setString('')
+        if (g_eventIncarnationOfSinsData:canPlay()) then
+            -- 남은 이벤트 시간 표시
+            vars['timeLabel']:setString(ServerData_EventIncarnationOfSins:getTimeText())
+        else
+            vars['timeLabel']:setString('')
+        end
     end
 end
 
