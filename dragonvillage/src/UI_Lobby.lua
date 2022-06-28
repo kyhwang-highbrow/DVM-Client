@@ -2809,7 +2809,8 @@ function UI_Lobby:refresh_rightBanner()
                             banner = UI_LobbyBanner(data)
                         end
                     else
-                        banner = UI_LobbyBanner(v)
+                        local data = v['m_eventData']
+                        banner = UI_LobbyBanner(data)
                     end
 
                     table.insert(banner_list, banner)
