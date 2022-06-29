@@ -610,13 +610,6 @@ function UI_QuestPopup:refresh_time()
         local str = g_supply:getSupplyTimeRemainingString_dailyQuest()
         vars['periodLabel']:setString(str)
     end
-
-    if vars['timeLabel'] then
-        local end_timestamp_sec = ServerTime:getInstance():getMidnightTimeStampSeconds()
-        local curr_timestamp_sec = ServerTime:getInstance():getCurrentTimestampSeconds()
-        local time_desc = ServerTime:getInstance():timestampSecToTimeDesc(end_timestamp_sec - curr_timestamp_sec, true)
-        vars['timeLabel']:setString(Str('초기화까지 {1}', Str('{1} 남음', time_desc)))
-    end
 end
 
 --@CHECK
