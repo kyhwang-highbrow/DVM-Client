@@ -905,6 +905,107 @@ function LoginHelper:logout()
 end
 
 -------------------------------------
+-- function requestDeleteAccount
+-- @brief 계정 삭제 (7일 후 삭제 진행)
+-------------------------------------
+function LoginHelper:requestDeleteAccount()
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        if (isWin32() == false) then
+            PerpleSDK:logout()
+            PerpleSDK:googleLogout()
+            PerpleSDK:facebookLogout()
+            PerpleSDK:twitterLogout()
+        end
+
+        -- 로컬 세이브 데이터 삭제
+        removeLocalFiles()
+
+        MakeSimplePopup(POPUP_TYPE.OK, Str('계정 삭제 요청이 완료되었습니다.'), function() 
+            -- 어플 재시작
+            CppFunctions:restart()
+        end)
+    end
+
+    local function fail_cb(ret)
+        local status = ret['status'] or 0
+
+        local main_msg = Str('오류가 발생했습니다.') .. '\n' .. Str('오류코드와 함께 고객센터로 문의해주시기를 바랍니다.')
+        local sub_msg = Str('에러코드 : {1}', status)
+
+        MakeSimplePopup2(POPUP_TYPE.OK, main_msg, sub_msg)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl( '/users/delete_user_account_request')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function requestCancelDeleteAccount
+-- @brief 계정 삭제 7일 내에 계정 삭제 취소
+-------------------------------------
+function LoginHelper:requestCancelDeleteAccount(uid, success_cb, fail_cb, response_status_cb)
+    local ui_network = UI_Network()
+    ui_network:setUrl( '/users/delete_user_account_request_cancel')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+
+
+-------------------------------------
+-- function deleteAccount
+-- @brief 계정 삭제 (바로 - 개발서버, QA서버용)
+-------------------------------------
+function LoginHelper:deleteAccount()
+    -- 클랜 확인 (클랜 가입 상태인 경우 계정 삭제 불가)
+    local is_clan_guest = g_clanData:isClanGuest()
+    if (is_clan_guest == false) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('클랜 탈퇴 후 이용이 가능합니다.'))
+        return
+    end
+
+    local ok_callback = function()
+        local uid = g_userData:get('uid')
+        local success_cb = function()
+            if (isWin32() == false) then
+                PerpleSDK:logout()
+                PerpleSDK:googleLogout()
+                PerpleSDK:facebookLogout()
+				PerpleSDK:twitterLogout()
+            end
+
+            removeLocalFiles()
+
+            -- AppDelegate_Custom.cpp에 구현되어 있음
+            CppFunctions:restart()
+        end
+
+        local ui_network = UI_Network()
+        ui_network:setUrl( '/users/delete_user_account')
+        ui_network:setParam('uid', uid)
+        ui_network:setSuccessCB(success_cb)
+        ui_network:setRevocable(true)
+        ui_network:setMethod('POST')
+        ui_network:request()
+    end
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('정말 계정을 삭제하시겠습니까?'), ok_callback)
+end
+
+-------------------------------------
 -- function clearAccount
 -- @brief 계정 초기화 .. 개발용
 -------------------------------------
