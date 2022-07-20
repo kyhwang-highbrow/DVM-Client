@@ -756,8 +756,8 @@ end
 -- @brief 서버의 현재 시간 문자열
 -- @return date_str(string) e.g. '2020-05-06 00:00:00'
 -------------------------------------
-function ServerTime:getServerTimeText()
-    local curr_timestamp_sec = self:getCurrentTimestampSeconds()
+function ServerTime:getServerTimeText(timestamp_sec)
+    local curr_timestamp_sec = (timestamp_sec or self:getCurrentTimestampSeconds())
     local str = self:timestampSecToDatestr(curr_timestamp_sec)
     return str
 end
@@ -767,16 +767,17 @@ end
 -- @brief 서버의 현재 시간 문자열
 -- @return date_str(string) e.g. '서버 시간 : 2020-05-06 00:00:00 (UTC +9)'
 -------------------------------------
-function ServerTime:getServerTimeTextForUI()
-    local date_str = self:getServerTimeText()
+function ServerTime:getServerTimeTextForUI(timestamp_sec, str_format)
+    local date_str = self:getServerTimeText(timestamp_sec)
 
     if (0 <= self.m_serverUTCOffset) then
         date_str = date_str .. ' (UTC +' .. self.m_serverUTCOffset .. ')'
     else
         date_str = date_str .. ' (UTC ' .. self.m_serverUTCOffset .. ')'
     end
-    
-    local str = Str('서버 시간 : {1}', date_str)
+
+    local str_format = str_format or Str('서버 시간 : {1}')
+    local str = Str(str_format, date_str)
     return str
 end
 

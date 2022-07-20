@@ -1031,6 +1031,15 @@ function UI_TitleScene:workGameLogin()
         Analytics:firstTimeExperience('Title_GameLogin_login')
 
         local success_cb = function(ret)
+            -- 계정 삭제 보류 기간 (7일)
+            if (ret['status'] == -4101) then
+                self.m_loadingUI:hideLoading()
+                
+                require('UI_AccountDeleteWaitPopup')
+                local delete_timestamp = ret['delete_time']
+                UI_AccountDeleteWaitPopup(delete_timestamp)
+                return
+            end
 
             -- 원격 설정 초기화
             if (ret['remote_config']) then
