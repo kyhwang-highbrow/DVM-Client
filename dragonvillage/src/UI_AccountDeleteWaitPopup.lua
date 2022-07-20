@@ -111,7 +111,7 @@ function UI_AccountDeleteWaitPopup:click_okBtn()
             return true
         end
     
-        LoginHelper:requestCancelDeleteAccount(uid, success_cb, fail_cb, response_status_cb)
+        LoginHelper:requestCancelDeleteAccount(self.m_uid, success_cb, fail_cb, response_status_cb)
     end
     MakeSimplePopup(POPUP_TYPE.YES_NO, Str('계정 탈퇴를 정말로 취소하시겠습니까?'), ok_cb)
 end
