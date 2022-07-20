@@ -74,6 +74,7 @@ end
 
 -------------------------------------
 -- function setRevocable
+-- @brief 통신 실패 시 취소 가능 여부
 -------------------------------------
 function UI_Network:setRevocable(revocable)
     self.m_bRevocable = revocable
@@ -81,6 +82,7 @@ end
 
 -------------------------------------
 -- function setReuse
+-- @brief 재사용 여부
 -------------------------------------
 function UI_Network:setReuse(reuse)
     self.m_bReuse = reuse

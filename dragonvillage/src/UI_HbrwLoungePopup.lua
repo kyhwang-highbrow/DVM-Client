@@ -12,12 +12,13 @@ UI_HbrwLoungePopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_HbrwLoungePopup:init()
+    self.m_uiName = 'UI_HbrwLoungePopup'
     local vars = self:load('hbrw_lounge_popup.ui')
 
     UIManager:open(self, UIManager.POPUP)
     
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_cancelBtn() end, 'UI_CommunityPopup')
+    g_currScene:pushBackKeyListener(self, function() self:click_cancelBtn() end, 'UI_HbrwLoungePopup')
     
     self:initUI()
     self:initButton()
