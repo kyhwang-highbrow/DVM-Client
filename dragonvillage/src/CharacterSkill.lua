@@ -171,6 +171,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 		local skill_type = t_skill['skill_type']
 		local chance_type = t_skill['chance_type']
+        local speech_option = t_skill['speech_option']
 
 		-- [패시브]
 		if (chance_type == 'leader' or chance_type == 'passive') then
@@ -214,11 +215,14 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 		-- [스킬]
 		else
+            local is_speechless = (speech_option == 0) or ((speech_option == 1) and (self.m_hasSpeech == true))
 
             -- 텍스트
             if ( self.m_charType == 'dragon') then
-                if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader') and not string.find(skill_type, 'skill_beam')) then
+                if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader') and (is_speechless == false)) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
+
+                    self.m_hasSpeech = true
                 end
             end
 

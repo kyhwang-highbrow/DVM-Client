@@ -169,6 +169,8 @@ Character = class(PARENT, {
         m_isRaidMonster = 'boolean',
 
         m_specialStatusIcon = 'StatusEffectIcon',
+
+        m_hasSpeech = 'boolean',
      })
 
 local SpasticityTime = 0.2
@@ -236,6 +238,8 @@ function Character:init(file_name, body, ...)
     self.m_reactingInfo = {}
 
     self.m_isRaidMonster = false
+
+    self.m_hasSpeech = false
 end
 
 -------------------------------------
