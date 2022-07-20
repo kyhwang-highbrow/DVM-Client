@@ -843,3 +843,31 @@ function ServerData_User:request_termsAgree(success_cb, fail_cb)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function request_termsAgree
+-------------------------------------
+function ServerData_User:request_checkDeletedUserID(success_cb, fail_cb)
+        -- 유저 ID
+        local uid = g_localData:get('local', 'uid')
+
+        local function success(ret)
+            local result_uid = ret['uid']
+
+            g_localData:applyLocalData(result_uid, 'local', 'uid')
+    
+            if success_cb then
+                success_cb(ret)
+            end
+        end
+    
+        -- 네트워크 통신 UI 생성
+        local ui_network = UI_Network()
+        ui_network:setUrl('/pre_login')
+        ui_network:setParam('uid', uid)
+        ui_network:setSuccessCB(success)
+        ui_network:setFailCB(fail_cb)
+        ui_network:setRevocable(true)
+        ui_network:setReuse(false)
+        ui_network:request()
+end
