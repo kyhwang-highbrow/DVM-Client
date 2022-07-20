@@ -747,7 +747,6 @@ function UI_TitleScene:workCheckDeletedUserID()
     end
 
     local function fail_cb(ret)
-        ccdump(ret)
         self:retryCurrWork3Times(nil, ret)
     end
 
