@@ -1032,12 +1032,14 @@ function UI_TitleScene:workGameLogin()
 
         local success_cb = function(ret)
             -- 계정 삭제 보류 기간 (7일)
-            if (ret['status'] == -4101) then
+            if (ret['status'] == -4101) and (ret['uid'] ~= nil) then
                 self.m_loadingUI:hideLoading()
+
+                local uid = ret['uid']
                 
                 require('UI_AccountDeleteWaitPopup')
                 local delete_timestamp = ret['delete_time']
-                UI_AccountDeleteWaitPopup(delete_timestamp)
+                UI_AccountDeleteWaitPopup(uid, delete_timestamp)
                 return
             end
 

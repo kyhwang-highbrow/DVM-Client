@@ -5,15 +5,17 @@ local PARENT = UI
 -- @brief 계정 삭제 대기 팝업
 -------------------------------------
 UI_AccountDeleteWaitPopup = class(PARENT, {
+    m_uid = 'string',
     m_deleteTimestamp = 'number', -- timestamp(millisec)
-    m_elapsedTime = ''
+    m_elapsedTime = 'number',
 }) 
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AccountDeleteWaitPopup:init(timestamp)
+function UI_AccountDeleteWaitPopup:init(uid, timestamp)
     self.m_uiName = 'UI_AccountDeleteWaitPopup'
+    self.m_uid = uid
     self.m_deleteTimestamp = timestamp
     self.m_elapsedTime = 0
 end
@@ -109,7 +111,7 @@ function UI_AccountDeleteWaitPopup:click_okBtn()
             return true
         end
     
-        LoginHelper:requestCancelDeleteAccount(success_cb, fail_cb, response_status_cb)
+        LoginHelper:requestCancelDeleteAccount(uid, success_cb, fail_cb, response_status_cb)
     end
     MakeSimplePopup(POPUP_TYPE.YES_NO, Str('계정 탈퇴를 정말로 취소하시겠습니까?'), ok_cb)
 end
