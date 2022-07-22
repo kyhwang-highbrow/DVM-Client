@@ -36,7 +36,7 @@ function UI_AccountDeleteWaitPopup:init_after(timestamp)
     self:initUI()
     self:initButton()
     self:refresh()
-    self:update()
+    self:update(0)
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
