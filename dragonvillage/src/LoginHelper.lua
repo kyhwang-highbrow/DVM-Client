@@ -906,7 +906,7 @@ end
 
 -------------------------------------
 -- function requestDeleteAccount
--- @brief 계정 삭제 (7일 후 삭제 진행)
+-- @brief 계정 탈퇴 (7일 후 삭제 진행)
 -------------------------------------
 function LoginHelper:requestDeleteAccount()
     local uid = g_userData:get('uid')
@@ -917,12 +917,13 @@ function LoginHelper:requestDeleteAccount()
             PerpleSDK:googleLogout()
             PerpleSDK:facebookLogout()
             PerpleSDK:twitterLogout()
+            PerpleSDK:appleLogout()
         end
 
         -- 로컬 세이브 데이터 삭제
         removeLocalFiles()
 
-        MakeSimplePopup(POPUP_TYPE.OK, Str('계정 삭제 요청이 완료되었습니다.'), function() 
+        MakeSimplePopup(POPUP_TYPE.OK, Str('계정 탈퇴 요청이 완료되었습니다.'), function() 
             -- 어플 재시작
             CppFunctions:restart()
         end)
@@ -949,7 +950,7 @@ end
 
 -------------------------------------
 -- function requestCancelDeleteAccount
--- @brief 계정 삭제 7일 내에 계정 삭제 취소
+-- @brief 계정 탈퇴 7일 내에 계정 탈퇴 취소
 -------------------------------------
 function LoginHelper:requestCancelDeleteAccount(uid, success_cb, fail_cb, response_status_cb)
     local ui_network = UI_Network()
@@ -967,10 +968,10 @@ end
 
 -------------------------------------
 -- function deleteAccount
--- @brief 계정 삭제 (바로 - 개발서버, QA서버용)
+-- @brief 계정 탈퇴 (바로 - 개발서버, QA서버용)
 -------------------------------------
 function LoginHelper:deleteAccount()
-    -- 클랜 확인 (클랜 가입 상태인 경우 계정 삭제 불가)
+    -- 클랜 확인 (클랜 가입 상태인 경우 계정 탈퇴 불가)
     local is_clan_guest = g_clanData:isClanGuest()
     if (is_clan_guest == false) then
         MakeSimplePopup(POPUP_TYPE.OK, Str('클랜 탈퇴 후 이용이 가능합니다.'))
@@ -985,6 +986,7 @@ function LoginHelper:deleteAccount()
                 PerpleSDK:googleLogout()
                 PerpleSDK:facebookLogout()
 				PerpleSDK:twitterLogout()
+                PerpleSDK:appleLogout()
             end
 
             removeLocalFiles()
@@ -1002,7 +1004,7 @@ function LoginHelper:deleteAccount()
         ui_network:request()
     end
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('정말 계정을 삭제하시겠습니까?'), ok_callback)
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('정말 계정을 탈퇴하시겠습니까?'), ok_callback)
 end
 
 -------------------------------------

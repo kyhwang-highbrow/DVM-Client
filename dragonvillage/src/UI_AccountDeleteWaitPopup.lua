@@ -2,7 +2,7 @@ local PARENT = UI
 
 -------------------------------------
 ---@class UI_AccountDeleteWaitPopup
--- @brief 계정 삭제 대기 팝업
+-- @brief 계정 탈퇴 대기 팝업
 -------------------------------------
 UI_AccountDeleteWaitPopup = class(PARENT, {
     m_uid = 'string',
@@ -17,7 +17,7 @@ function UI_AccountDeleteWaitPopup:init(uid, timestamp)
     self.m_uiName = 'UI_AccountDeleteWaitPopup'
     self.m_uid = uid
     self.m_deleteTimestamp = timestamp
-    self.m_elapsedTime = 0
+    self.m_elapsedTime = 1
 end
 
 -------------------------------------
@@ -36,8 +36,7 @@ function UI_AccountDeleteWaitPopup:init_after(timestamp)
     self:initUI()
     self:initButton()
     self:refresh()
-
-
+    self:update()
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 

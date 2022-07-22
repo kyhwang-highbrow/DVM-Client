@@ -715,10 +715,8 @@ function UI_TitleScene:workCheckUserID()
         PerpleSDK:googleLogout()
         PerpleSDK:facebookLogout()
 		PerpleSDK:twitterLogout()
+        PerpleSDK:appleLogout()
 
-        if (getAppVerNum() >= 1002005) then
-            PerpleSDK:appleLogout()
-        end
 
         fail_cb()
         return
@@ -739,7 +737,7 @@ end
 
 -------------------------------------
 -- function workCheckDeletedUserID
--- @breif 계정 삭제된 uid인지 체크 후 삭제된 uid라면 서버에서 전달받은 uid로 변경
+-- @breif 계정 탈퇴된 uid인지 체크 후 삭제된 uid라면 서버에서 전달받은 uid로 변경
 -------------------------------------
 function UI_TitleScene:workCheckDeletedUserID()
     local function success_cb(ret)
@@ -1055,7 +1053,7 @@ function UI_TitleScene:workGameLogin()
         Analytics:firstTimeExperience('Title_GameLogin_login')
 
         local success_cb = function(ret)
-            -- 계정 삭제 보류 기간 (7일)
+            -- 계정 탈퇴 보류 기간 (7일)
             if (ret['status'] == -4101) and (ret['uid'] ~= nil) then
                 self.m_loadingUI:hideLoading()
 

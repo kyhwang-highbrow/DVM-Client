@@ -2,7 +2,7 @@ local PARENT = UI
 
 -------------------------------------
 -- class UI_AccountDeleteRequestPopup
--- @brief 계정 삭제 요청 팝업
+-- @brief 계정 탈퇴 요청 팝업
 -------------------------------------
 UI_AccountDeleteRequestPopup = class(PARENT,{
     m_bIsGuest = 'boolean', -- 게스트 여부
