@@ -172,6 +172,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		local skill_type = t_skill['skill_type']
 		local chance_type = t_skill['chance_type']
         local speech_option = t_skill['speech_option']
+        local is_speechless = (speech_option == 0) or ((speech_option == 1) and (self.m_hasSpeech == true))
 
 		-- [패시브]
 		if (chance_type == 'leader' or chance_type == 'passive') then
@@ -191,19 +192,21 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		-- [상태 효과]만 거는 스킬
 		elseif string.find(skill_type, 'status_effect') then
             -- 특정 스킬의 말풍선 표시를 추가 상태효과가 부여되었을때만 표시하기 위한 하드코딩...
-            if (isExistValue(t_skill['sid'], 208131, 208132, 208134, 208921, 208922, 208923, 208924)) then
+            if (is_speechless == false) and (isExistValue(t_skill['sid'], 208131, 208132, 208134, 208921, 208922, 208923, 208924)) then
                 StatusEffectHelper:doStatusEffectByTable(self, t_skill, function()
                     -- 텍스트
                     if ( self.m_charType == 'dragon') then
                         self.m_world:addSkillSpeech(self, t_skill['t_name'])
+                        self.m_hasSpeech = true
                     end
                 end, t_data)
             else
 			    StatusEffectHelper:doStatusEffectByTable(self, t_skill, nil, t_data)
             
                 -- 텍스트
-                if (self.m_charType == 'dragon' and isNullOrEmpty(t_skill['t_name']) == false) then
+                if (self.m_charType == 'dragon' and isNullOrEmpty(t_skill['t_name']) == false) and (is_speechless == false) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
+                    self.m_hasSpeech = true
                 end
             end
 
@@ -215,13 +218,11 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 		-- [스킬]
 		else
-            local is_speechless = (speech_option == 0) or ((speech_option == 1) and (self.m_hasSpeech == true))
 
             -- 텍스트
             if ( self.m_charType == 'dragon') then
                 if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader') and (is_speechless == false)) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
-
                     self.m_hasSpeech = true
                 end
             end
