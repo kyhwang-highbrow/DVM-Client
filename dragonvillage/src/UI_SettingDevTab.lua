@@ -62,24 +62,28 @@ end
 -- @brief 모든 스테이지 오픈
 -------------------------------------
 function UI_Setting:click_allClearBtn()
-    -- 파라미터
-    local uid = g_userData:get('uid')
+    local function ok_callback()
+        -- 파라미터
+        local uid = g_userData:get('uid')
 
-    -- 콜백 함수
-    local function success_cb(ret)
-        UIManager:toastNotificationGreen('모든 스테이지 오픈!')
-        UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+        -- 콜백 함수
+        local function success_cb(ret)
+            UIManager:toastNotificationGreen('모든 스테이지 오픈!')
+            UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+        end
+
+        -- 네트워크 통신 UI 생성
+        local ui_network = UI_Network()
+        ui_network:setUrl('/manage/stage_clear')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('stage', 'all')
+        ui_network:setSuccessCB(success_cb)
+        ui_network:setRevocable(true) -- 통신 실패 시 취소 가능 여부
+        ui_network:setReuse(false) -- 재사용 여부
+        ui_network:request()
     end
 
-    -- 네트워크 통신 UI 생성
-    local ui_network = UI_Network()
-    ui_network:setUrl('/manage/stage_clear')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', 'all')
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setRevocable(true) -- 통신 실패 시 취소 가능 여부
-    ui_network:setReuse(false) -- 재사용 여부
-    ui_network:request()
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?'), ok_callback)
 end
 
 -------------------------------------
@@ -87,45 +91,48 @@ end
 -- @brief 해당 태생등급 드래곤 추가
 -------------------------------------
 function UI_Setting:click_allDragonBtn(birthgrade)
-    local uid = g_userData:get('uid')
-    local table_dragon = TABLE:get('dragon')
-    local t_list = {}
-    for did,t_dragon in pairs(table_dragon) do
-        if (t_dragon['birthgrade'] == birthgrade) then
-            table.insert(t_list, did)
-        end
-    end
-    local do_work
-
-    local ui_network = UI_Network()
-    ui_network:setReuse(true)
-    ui_network:setUrl('/dragons/add')
-    ui_network:setParam('uid', uid)
-
-    do_work = function(ret)
-        local did = t_list[1]
-        
-        if did then
-            table.remove(t_list, 1)
-            local msg = '"' .. table_dragon[did]['t_name'] .. '"드래곤 추가 중...'
-            ui_network:setLoadingMsg(msg)
-            ui_network:setParam('did', did)
-            ui_network:request()
-        else
-            ui_network:close()
-            UIManager:toastNotificationGreen('모든 드래곤 추가!')
-            UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
-            --self.m_bRestart = true
-        end
-
-        if (ret and ret['dragons']) then
-            for _,t_dragon in pairs(ret['dragons']) do
-                g_dragonsData:applyDragonData(t_dragon)
+    local function ok_callback()
+        local uid = g_userData:get('uid')
+        local table_dragon = TABLE:get('dragon')
+        local t_list = {}
+        for did,t_dragon in pairs(table_dragon) do
+            if (t_dragon['birthgrade'] == birthgrade) then
+                table.insert(t_list, did)
             end
         end
+
+        local ui_network = UI_Network()
+        ui_network:setReuse(true)
+        ui_network:setUrl('/dragons/add')
+        ui_network:setParam('uid', uid)
+
+        local success_cb = function(ret)
+            local did = t_list[1]
+            
+            if did then
+                table.remove(t_list, 1)
+                local msg = '"' .. table_dragon[did]['t_name'] .. '"드래곤 추가 중...'
+                ui_network:setLoadingMsg(msg)
+                ui_network:setParam('did', did)
+                ui_network:request()
+            else
+                ui_network:close()
+                UIManager:toastNotificationGreen('모든 드래곤 추가!')
+                UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+                --self.m_bRestart = true
+            end
+
+            if (ret and ret['dragons']) then
+                for _,t_dragon in pairs(ret['dragons']) do
+                    g_dragonsData:applyDragonData(t_dragon)
+                end
+            end
+        end
+        ui_network:setSuccessCB(success_cb)
+        success_cb()
     end
-    ui_network:setSuccessCB(do_work)
-    do_work()
+    
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?'), ok_callback)
 end
 
 -------------------------------------
@@ -202,7 +209,7 @@ function UI_Setting:click_removeDragonBtn()
 	local msg = '드래곤 삭제 중...'
     ui_network:setLoadingMsg(msg)
 
-    do_work = function(ret)
+    local do_work = function(ret)
         ui_network:setParam('doid', str_dragons)
         ui_network:request()
 
@@ -239,47 +246,51 @@ end
 -- @brief 모든 슬라임 추가
 -------------------------------------
 function UI_Setting:click_allSlimeBtn()
-    local uid = g_userData:get('uid')
+    local function ok_callback()
+        local uid = g_userData:get('uid')
 
-    -- 아이템 테이블의 type이 slime인 행들을 읽어서 슬라임 추가
-    local table_item = TableItem()
-    local t_list = table_item:filterList('type', 'slime')
+        -- 아이템 테이블의 type이 slime인 행들을 읽어서 슬라임 추가
+        local table_item = TableItem()
+        local t_list = table_item:filterList('type', 'slime')
 
-    local do_work
+        local do_work
 
-    local ui_network = UI_Network()
-    ui_network:setReuse(true)
-    ui_network:setUrl('/slimes/add')
-    ui_network:setParam('uid', uid)
+        local ui_network = UI_Network()
+        ui_network:setReuse(true)
+        ui_network:setUrl('/slimes/add')
+        ui_network:setParam('uid', uid)
 
-    do_work = function(ret)
-        local t_data = t_list[1]
-        
-        if t_data then
-            local item_id = t_data['item']
-            local slime_id = t_data['did']
-            table.remove(t_list, 1)
-            local msg = '"' .. table_item:getValue(item_id, 't_name') .. '" 추가 중...'
-            ui_network:setLoadingMsg(msg)
-            ui_network:setParam('sid', slime_id)
+        local success_cb = function(ret)
+            local t_data = t_list[1]
+            
+            if t_data then
+                local item_id = t_data['item']
+                local slime_id = t_data['did']
+                table.remove(t_list, 1)
+                local msg = '"' .. table_item:getValue(item_id, 't_name') .. '" 추가 중...'
+                ui_network:setLoadingMsg(msg)
+                ui_network:setParam('sid', slime_id)
 
-            -- 아이템 테이블의 등급과 진화도로 슬라임을 추가
-            ui_network:setParam('grade', t_data['grade'])
-            ui_network:setParam('evolution', t_data['evolution'])
-            ui_network:request()
-        else
-            ui_network:close()
-            UIManager:toastNotificationGreen('모든 슬라임 추가!')
-            UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
-            --self.m_bRestart = true
+                -- 아이템 테이블의 등급과 진화도로 슬라임을 추가
+                ui_network:setParam('grade', t_data['grade'])
+                ui_network:setParam('evolution', t_data['evolution'])
+                ui_network:request()
+            else
+                ui_network:close()
+                UIManager:toastNotificationGreen('모든 슬라임 추가!')
+                UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+                --self.m_bRestart = true
+            end
+
+            if ret and ret['slimes'] then
+                g_slimesData:applySlimeData_list(ret['slimes'])
+            end
         end
-
-        if ret and ret['slimes'] then
-            g_slimesData:applySlimeData_list(ret['slimes'])
-        end
+        ui_network:setSuccessCB(success_cb)
+        success_cb()
     end
-    ui_network:setSuccessCB(do_work)
-    do_work()
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?'), ok_callback)
 end
 
 -------------------------------------
@@ -287,44 +298,47 @@ end
 -- @brief 모든 열매 추가
 -------------------------------------
 function UI_Setting:click_allFruitBtn()
-    local uid = g_userData:get('uid')
-    local table_fruit = TABLE:get('fruit')
-    local t_list = {}
-    for id,_ in pairs(table_fruit) do
-        table.insert(t_list, id)
-    end
-    local do_work
+    local function ok_callback()
+        local uid = g_userData:get('uid')
+        local table_fruit = TABLE:get('fruit')
+        local t_list = {}
+        for id,_ in pairs(table_fruit) do
+            table.insert(t_list, id)
+        end
 
-    local ui_network = UI_Network()
-    ui_network:setReuse(true)
-    ui_network:setUrl('/users/manage')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('act', 'increase')
-    ui_network:setParam('key', 'fruits')
+        local ui_network = UI_Network()
+        ui_network:setReuse(true)
+        ui_network:setUrl('/users/manage')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('key', 'fruits')
 
-    do_work = function(ret)
-        local id = t_list[1]
-        
-        if id then
-            table.remove(t_list, 1)
-            local msg = '"' .. table_fruit[id]['t_name'] .. '" 추가 중...'
-            ui_network:setLoadingMsg(msg)
-            ui_network:setParam('value', tostring(id) .. ',' .. tostring(100))
-            ui_network:request()
-        else
-            ui_network:close()
-            UIManager:toastNotificationGreen('모든 열매 추가!')
-            UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
-            --self.m_bRestart = true
+        local success_cb = function(ret)
+            local id = t_list[1]
+            
+            if id then
+                table.remove(t_list, 1)
+                local msg = '"' .. table_fruit[id]['t_name'] .. '" 추가 중...'
+                ui_network:setLoadingMsg(msg)
+                ui_network:setParam('value', tostring(id) .. ',' .. tostring(100))
+                ui_network:request()
+            else
+                ui_network:close()
+                UIManager:toastNotificationGreen('모든 열매 추가!')
+                UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+                --self.m_bRestart = true
 
-            -- 한 번에 저장
-            if (ret and ret['user']) then
-                g_serverData:applyServerData(ret['user'], 'user')
+                -- 한 번에 저장
+                if (ret and ret['user']) then
+                    g_serverData:applyServerData(ret['user'], 'user')
+                end
             end
         end
+        ui_network:setSuccessCB(success_cb)
+        success_cb()
     end
-    ui_network:setSuccessCB(do_work)
-    do_work()
+    
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?'), ok_callback)
 end
 
 -------------------------------------
@@ -332,47 +346,50 @@ end
 -- @brief 모든 진화 재료 추가
 -------------------------------------
 function UI_Setting:click_allMaterialBtn()
-    local uid = g_userData:get('uid')
+    local function ok_callback()
+        local uid = g_userData:get('uid')
 
-    local table_item = TableItem()
-    local l_evolution_stone = table_item:filterTable('type', 'evolution_stone')
-    local t_list = {}
-    for id,_ in pairs(l_evolution_stone) do
-        table.insert(t_list, id)
-    end
-    local do_work
+        local table_item = TableItem()
+        local l_evolution_stone = table_item:filterTable('type', 'evolution_stone')
+        local t_list = {}
+        for id,_ in pairs(l_evolution_stone) do
+            table.insert(t_list, id)
+        end
 
-    local ui_network = UI_Network()
-    ui_network:setReuse(true)
-    ui_network:setUrl('/users/manage')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('act', 'increase')
-    ui_network:setParam('key', 'evolution_stones')
+        local ui_network = UI_Network()
+        ui_network:setReuse(true)
+        ui_network:setUrl('/users/manage')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('key', 'evolution_stones')
 
-    do_work = function(ret)
-        local id = t_list[1]
-        
-        if id then
-            table.remove(t_list, 1)
-            local name = table_item:getValue(id, 't_name')
-            local msg = '"' .. name .. '" 추가 중...'
-            ui_network:setLoadingMsg(msg)
-            ui_network:setParam('value', tostring(id) .. ',' .. tostring(100))
-            ui_network:request()
-        else
-            ui_network:close()
-            UIManager:toastNotificationGreen('모든 진화재료 추가!')
-            UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
-            --self.m_bRestart = true
+        local success_cb = function(ret)
+            local id = t_list[1]
+            
+            if id then
+                table.remove(t_list, 1)
+                local name = table_item:getValue(id, 't_name')
+                local msg = '"' .. name .. '" 추가 중...'
+                ui_network:setLoadingMsg(msg)
+                ui_network:setParam('value', tostring(id) .. ',' .. tostring(100))
+                ui_network:request()
+            else
+                ui_network:close()
+                UIManager:toastNotificationGreen('모든 진화재료 추가!')
+                UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+                --self.m_bRestart = true
 
-            -- 한 번에 저장
-            if (ret and ret['user']) then
-                g_serverData:applyServerData(ret['user'], 'user')
+                -- 한 번에 저장
+                if (ret and ret['user']) then
+                    g_serverData:applyServerData(ret['user'], 'user')
+                end
             end
         end
+        ui_network:setSuccessCB(success_cb)
+        success_cb()
     end
-    ui_network:setSuccessCB(do_work)
-    do_work()
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?'), ok_callback)
 end
 
 -------------------------------------
@@ -380,39 +397,42 @@ end
 -- @brief 모든 룬 추가
 -------------------------------------
 function UI_Setting:click_allRuneBtn()
-    local uid = g_userData:get('uid')
-    local t_list = TableItem:getRuneItemIDList()
-    local do_work
+    local function ok_callback()
+        local uid = g_userData:get('uid')
+        local t_list = TableItem:getRuneItemIDList()
 
-    local ui_network = UI_Network()
-    ui_network:setReuse(true)
-    ui_network:setUrl('/runes/add')
-    ui_network:setParam('uid', uid)
-    ui_network:setRevocable(true)
+        local ui_network = UI_Network()
+        ui_network:setReuse(true)
+        ui_network:setUrl('/runes/add')
+        ui_network:setParam('uid', uid)
+        ui_network:setRevocable(true)
 
-    do_work = function(ret)
-        local id = t_list[1]
-        
-        if id then
-            table.remove(t_list, 1)
-            local msg = '"' .. tostring(id) .. '룬" 추가 중...'
-            ui_network:setLoadingMsg(msg)
-            --ui_network:setParam('value', tostring(id) .. ',' .. tostring(2))
-            ui_network:setParam('rid', tostring(id))
-            ui_network:request()
-        else
-            ui_network:close()
-            UIManager:toastNotificationGreen('모든 룬 추가!')
-            UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
-            --self.m_bRestart = true
+        local success_cb = function(ret)
+            local id = t_list[1]
+            
+            if id then
+                table.remove(t_list, 1)
+                local msg = '"' .. tostring(id) .. '룬" 추가 중...'
+                ui_network:setLoadingMsg(msg)
+                --ui_network:setParam('value', tostring(id) .. ',' .. tostring(2))
+                ui_network:setParam('rid', tostring(id))
+                ui_network:request()
+            else
+                ui_network:close()
+                UIManager:toastNotificationGreen('모든 룬 추가!')
+                UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+                --self.m_bRestart = true
+            end
+
+            if (ret and ret['runes']) then
+                g_runesData:applyRuneData_list(ret['runes'])
+            end
         end
-
-        if (ret and ret['runes']) then
-            g_runesData:applyRuneData_list(ret['runes'])
-        end
+        ui_network:setSuccessCB(success_cb)
+        success_cb()
     end
-    ui_network:setSuccessCB(do_work)
-    do_work()
+    
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?'), ok_callback)
 end
 
 -------------------------------------
@@ -479,8 +499,10 @@ function UI_Setting:click_allStaminaBtn()
         UIManager:toastNotificationGreen('모든 입장권 추가!')
         co:close()
     end
-
-    Coroutine(coroutine_function)
+    
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?', function()
+        Coroutine(coroutine_function)
+    end))
 end
 
 -------------------------------------
@@ -529,8 +551,10 @@ function UI_Setting:click_allCostumeBtn()
         UIManager:toastNotificationGreen('모든 코스튬 추가!')
         co:close()
     end
-
-    Coroutine(coroutine_function)
+    
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?', function()
+        Coroutine(coroutine_function)
+    end))
 end
 
 
@@ -539,47 +563,49 @@ end
 -- @brief 모든 알 추가
 -------------------------------------
 function UI_Setting:click_allEggBtn()
-    local uid = g_userData:get('uid')
-    local table_item = TableItem()
-    local l_egg_list = table_item:filterList('type', 'egg')
-    local t_list = {}
-    for i,v in ipairs(l_egg_list) do
-        local egg_id = v['item']
-        table.insert(t_list, egg_id)
-    end
-    local do_work
+    local function ok_callback()
+        local uid = g_userData:get('uid')
+        local table_item = TableItem()
+        local l_egg_list = table_item:filterList('type', 'egg')
+        local t_list = {}
+        for i,v in ipairs(l_egg_list) do
+            local egg_id = v['item']
+            table.insert(t_list, egg_id)
+        end
+        local ui_network = UI_Network()
+        ui_network:setReuse(true)
+        ui_network:setUrl('/users/manage')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('act', 'increase')
+        ui_network:setParam('key', 'eggs')
 
-    local ui_network = UI_Network()
-    ui_network:setReuse(true)
-    ui_network:setUrl('/users/manage')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('act', 'increase')
-    ui_network:setParam('key', 'eggs')
+        local success_cb = function(ret)
+            local id = t_list[1]
+            
+            if id then
+                table.remove(t_list, 1)
+                local name = table_item:getValue(id, 't_name')
+                local msg = '"' .. name .. '" 추가 중...'
+                ui_network:setLoadingMsg(msg)
+                ui_network:setParam('value', tostring(id) .. ',' .. tostring(1))
+                ui_network:request()
+            else
+                ui_network:close()
+                UIManager:toastNotificationGreen('모든 알 추가!')
+                UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+                --self.m_bRestart = true
 
-    do_work = function(ret)
-        local id = t_list[1]
-        
-        if id then
-            table.remove(t_list, 1)
-            local name = table_item:getValue(id, 't_name')
-            local msg = '"' .. name .. '" 추가 중...'
-            ui_network:setLoadingMsg(msg)
-            ui_network:setParam('value', tostring(id) .. ',' .. tostring(1))
-            ui_network:request()
-        else
-            ui_network:close()
-            UIManager:toastNotificationGreen('모든 알 추가!')
-            UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
-            --self.m_bRestart = true
-
-            -- 한 번에 저장
-            if (ret and ret['user']) then
-                g_serverData:applyServerData(ret['user'], 'user')
+                -- 한 번에 저장
+                if (ret and ret['user']) then
+                    g_serverData:applyServerData(ret['user'], 'user')
+                end
             end
         end
+        ui_network:setSuccessCB(success_cb)
+        success_cb()
     end
-    ui_network:setSuccessCB(do_work)
-    do_work()
+    
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?'), ok_callback)
 end
 
 -------------------------------------
