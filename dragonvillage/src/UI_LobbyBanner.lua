@@ -86,7 +86,7 @@ function UI_BannerAppCollaboration:init(event_data)
     self.m_uiName = 'UI_BannerAppCollaboration'
     -- 설치 페이지
     -- https://app.adjust.com/1ctll5t
-    local ui_name = event_data.m_eventData['lobby_banner']
+    local ui_name = event_data['lobby_banner']
 
 
     local vars = self:load(ui_name)
@@ -163,14 +163,16 @@ end
 function UI_LobbyBanner:initUI()
     local vars = self.vars
 
-    local noti_date = g_settingData:getLobbyBannerNoti()
+    if (vars['notiSprite'] ~= nil) then
+        local noti_date = g_settingData:getLobbyBannerNoti()
 
-    local date_format = pl.Date.Format('yyyy-mm-dd')
-    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-    local time = date_format:tostring(curr_time)
-    local noti = (noti_date ~= time)
+        local date_format = pl.Date.Format('yyyy-mm-dd')
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+        local time = date_format:tostring(curr_time)
+        local noti = (noti_date ~= time)
 
-    vars['notiSprite']:setVisible(noti)
+        vars['notiSprite']:setVisible(noti)
+    end
 end
 
 
