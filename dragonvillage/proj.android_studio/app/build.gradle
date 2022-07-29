@@ -209,7 +209,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
                     cppFlags.add("-DMAJOR_VER=NUM_0")
                     cppFlags.add("-DMINOR_VER=NUM_8")
-                    cppFlags.add("-DBUILD_VER=NUM_7")
+                    cppFlags.add("-DBUILD_VER=NUM_8")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -225,9 +225,9 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
                     cppFlags.add("-DMAJOR_VER=NUM_0")
                     cppFlags.add("-DMINOR_VER=NUM_8")
-                    cppFlags.add("-DBUILD_VER=NUM_6")
+                    cppFlags.add("-DBUILD_VER=NUM_7")
                     cppFlags.add("-DUSE_LUA_EXT=false")
-                    cppFlags.add("-DIS_TEST_MODE=true")
+                    cppFlags.add("-DIS_TEST_MODE=false")
                 }
             }
         }
@@ -241,7 +241,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
                     cppFlags.add("-DMAJOR_VER=NUM_1")
                     cppFlags.add("-DMINOR_VER=NUM_3")
-                    cppFlags.add("-DBUILD_VER=NUM_6")
+                    cppFlags.add("-DBUILD_VER=NUM_7")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -256,7 +256,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
                     cppFlags.add("-DMAJOR_VER=NUM_1")
                     cppFlags.add("-DMINOR_VER=NUM_3")
-                    cppFlags.add("-DBUILD_VER=NUM_6")
+                    cppFlags.add("-DBUILD_VER=NUM_7")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=false")
                     cppFlags.add("-DLUA_DEBUG=1")
