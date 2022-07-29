@@ -104,7 +104,7 @@ function UI_EventFullPopup:initUI()
         
         -- 이벤트 출석 (오픈, 신규, 복귀)
 		elseif (key == 'open_event' or key == 'newbie' or key == 'comeback') then
-            if (atd_id < 50031) then
+            if (tonumber(atd_id) < 50031) then
 			    ui = UI_EventPopupTab_EventAttendance(key, atd_id) -- @yjkil 22.07.29 신규, 복귀 이벤트를 5일에서 7일로 변경
             else
                 require('UI_EventPopupTab_EventAttendanceSpecial')
