@@ -244,6 +244,66 @@ function ServerData_HighbrowVip:openPopup(close_cb)
 end
 
 
+-------------------------------------
+-- function isEventActive
+---@return boolean
+-------------------------------------
+function ServerData_HighbrowVip:isEventActive()
+    local t_data = g_eventData:getEventInByEventType('highbrow_vip')
+    local visible = (t_data ~= nil)
+
+    if (visible) then
+        local event_id = t_data['event_id']
+        local event_type = t_data['event_type'] 
+        local priority = t_data['ui_priority']
+        local feature = t_data['feature']
+        local user_lv = t_data['user_lv']
+        local start_date = t_data['start_date']
+        local end_date = t_data['end_date']
+        local target_server = t_data['target_server'] or ''
+        local target_language = t_data['target_language'] or ''
+
+        -- 유저 레벨 조건 (걸려있는 레벨 이상인 유저에게만 노출)
+        if (visible) and (user_lv ~= '') then
+            local curr_lv = g_userData:get('lv')
+            visible = (curr_lv >= user_lv)
+        end
+
+        -- 서버 조건
+        if (visible) and (target_server ~= '') then
+            visible = g_eventData:checkTargetServer(target_server)
+        end
+        
+        -- 언어 조건
+        if (visible) and (target_language ~= '') then
+            visible = (Translate:getGameLang() == target_language)
+        end
+
+
+        -- 날짜 조건
+        if (visible) and ((start_date ~= '') or (end_date ~= '')) then
+            visible = g_eventData:checkEventTime(start_date, end_date, t_data)
+        end
+
+        if (visible) and (string.find(feature, 'only_aos')) then
+            visible = CppFunctions:isAndroid()
+
+            if IS_TEST_MODE() then
+                visible =  visible or CppFunctions:isMac() or CppFunctions:isWin32()
+            end
+        elseif (visible) and (string.find(feature, 'only_ios')) then
+            visible = CppFunctions:isIos()
+
+            if IS_TEST_MODE() then
+                visible = visible or CppFunctions:isMac() or CppFunctions:isWin32()
+            end
+        end
+    end
+
+    return visible
+end
+
+
 
 
 

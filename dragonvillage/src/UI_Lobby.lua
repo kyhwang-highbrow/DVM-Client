@@ -91,11 +91,6 @@ function UI_Lobby:initUI()
 
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
-
-
-    -- 좌상단 버튼 관리 매니저 생성
-    self.m_lobbyLeftTopBtnManager = UI_LobbyLeftTopBtnManager(self)
-
 end
 
 -------------------------------------
@@ -256,6 +251,16 @@ function UI_Lobby:entryCoroutine()
             g_capsuleBoxData:request_capsuleBoxStatus(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
+
+        co:work()      
+        -- 좌상단 버튼 관리 매니저 생성
+        self:doAction(function()
+            self.m_lobbyLeftTopBtnManager = UI_LobbyLeftTopBtnManager(self)
+            co.NEXT()
+        end)
+        
+		if co:waitWork() then return end
+
 
         -- hard refresh
         cclog('# UI 갱신')

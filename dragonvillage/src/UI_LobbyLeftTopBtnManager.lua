@@ -40,7 +40,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     vars['productBtnMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
     local l_managed_button_info = {}
-    if (g_highbrowVipData:checkVipStatus() == true) then
+    if (g_highbrowVipData:checkVipStatus() == true) and (g_highbrowVipData:isEventActive() == true)then
         table.insert(l_managed_button_info, {self.PRIORITY.VIP, g_highbrowVipData:getVipButton()}) -- Highbrow VIP 버튼   
     end
     
