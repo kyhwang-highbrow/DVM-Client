@@ -230,9 +230,12 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
         -- 이벤트 출석 (오픈, 신규, 복귀)
 		elseif (event_id == 'open_event' or event_id == 'newbie' or event_id == 'comeback') then
-			--ui = UI_EventPopupTab_EventAttendanceSpecial(event_id, atd_id) -- @yjkil 22.07.29 신규, 복귀 이벤트를 5일에서 7일로 변경함에 따라 해당 코드 주석처리
-            require('UI_EventPopupTab_EventAttendanceSpecial')
-			ui = UI_EventPopupTab_EventAttendanceSpecial(atd_id)
+            if (atd_id < 50031) then
+			    ui = UI_EventPopupTab_EventAttendanceSpecial(event_id, atd_id) -- @yjkil 22.07.29 신규, 복귀 이벤트를 5일에서 7일로 변경
+            else
+                require('UI_EventPopupTab_EventAttendanceSpecial')
+                ui = UI_EventPopupTab_EventAttendanceSpecial(atd_id)
+            end
         
         -- 1주년 스페셜 7일 출석, 축하 메세지 전광판
         -- 2주년 스페셜 7일 출석, 축하 메세지 전광판
