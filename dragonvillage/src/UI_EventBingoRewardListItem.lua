@@ -64,18 +64,18 @@ function UI_EventBingoRewardListItem:initUI()
         reward_card.vars['commonSprite']:setVisible(false)
     end
 
-    -- 드래곤 카드의 경우: 속성, 프레임 끔
-    if (reward_card.vars['attrNode']) then
-        reward_card.vars['attrNode']:setVisible(false)
-    end
+    -- -- 드래곤 카드의 경우: 속성, 프레임 끔
+    -- if (reward_card.vars['attrNode']) then
+    --     reward_card.vars['attrNode']:setVisible(false)
+    -- end
 
-    if (reward_card.vars['frameNode']) then
-        reward_card.vars['frameNode']:setVisible(false)
-    end
+    -- if (reward_card.vars['frameNode']) then
+    --     reward_card.vars['frameNode']:setVisible(false)
+    -- end
 
-    if (reward_card.vars['bgNode']) then
-        reward_card.vars['bgNode']:setVisible(false)
-    end
+    -- if (reward_card.vars['bgNode']) then
+    --     reward_card.vars['bgNode']:setVisible(false)
+    -- end
 
     if (reward_card) then
         vars['iconNode']:addChild(reward_card.root)
