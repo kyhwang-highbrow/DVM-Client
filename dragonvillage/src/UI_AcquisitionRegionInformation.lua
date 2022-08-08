@@ -129,12 +129,16 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 		local t_dragon = TableDragon():get(did)
 
         local summon_start_date = t_dragon['summon_add']
+
+        if (string.find(summon_start_date, ':') == nil) then
+            summon_start_date = summon_start_date .. ' 00:00:00'
+        end
         
 		if (t_dragon) then
 			-- 일반 소환 or 고급소환
             if (t_dragon['rarity'] == 'myth') then
                 if (t_dragon['pick_weight'] > 0)
-                    and (checkTimeValid(summon_start_date, nil, 'yyyy-mm-dd')) then
+                    and (checkTimeValid(summon_start_date, nil, 'yyyy-mm-dd HH:MM:SS')) then
                     table.insert(l_region, 'pick_gacha')
                 else
                     table.insert(l_region, 'empty')

@@ -593,7 +593,7 @@ function ServerData_Event:checkEventTime(start_date, end_date, optional_data)
     local timezone_server = Timer:getServerTimeZoneOffset()
     local offset = (timezone_local - timezone_server)
 
-    if (start_date ~= '' or start_date) then
+    if (start_date ~= nil) and (start_date ~= '') then
         local parse_start_date = parser:parse(start_date)
         if (parse_start_date) then
             -- @sgkim 2019.10.24 time값이 nil이 들어오는 경우가 있다.
@@ -607,7 +607,7 @@ function ServerData_Event:checkEventTime(start_date, end_date, optional_data)
         end
     end
 
-    if (end_date ~= '' or end_date) then
+    if (end_date ~= nil) and (end_date ~= '') then
         local parse_end_date = parser:parse(end_date)
         if (parse_end_date) then
             -- @sgkim 2019.10.24 time값이 nil이 들어오는 경우가 있다.

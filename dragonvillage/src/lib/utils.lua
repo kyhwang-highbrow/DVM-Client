@@ -1777,7 +1777,7 @@ end
 function checkTimeValid(start_date, end_date, date_format)
     local start_time
     local end_time
-    local curr_time = Timer:getServerTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
     local parser = pl.Date.Format(date_format)
 
