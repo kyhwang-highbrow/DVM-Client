@@ -202,29 +202,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
 
     return target_ui
 end
---[[
--------------------------------------
--- function goToTargetUI
--- @brief 해당 패키지 상품 UI
--------------------------------------
-function PackageManager:goToTargetUI(product_id)
-    local l_item_list = g_shopDataNew:getProductList('package')
-    local struct_product
 
-    -- 묶음 UI 별도 처리
-    if (string.find(product_id, 'package_') and PackageManager:isExist(product_id)) then
-        struct_product = {product_id = product_id}
-            
-    else
-        struct_product = l_item_list[tonumber(product_id)]
-    end
-
-    if (struct_product) then
-        local is_popup = true
-        local ui = PackageManager:getTargetUI(struct_product, is_popup)
-    end
-end
-]]
 -------------------------------------
 -- function isExist
 -- @brief 묶음 UI에서 상품정보가 하나라도 있는지 (모두 구매해서 없거나, 기간이 자니서 없거나 하는 경우)

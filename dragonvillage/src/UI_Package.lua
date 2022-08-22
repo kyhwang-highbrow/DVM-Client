@@ -5,6 +5,8 @@ local PARENT = UI
 -------------------------------------
 UI_Package = class(PARENT, {
         m_package_name = 'string',
+        m_packageType = 'string',
+        m_targetIndex = 'number',
         m_structProduct = 'StructProduct',
         m_productList = 'List[StructProduct]',
 
@@ -22,19 +24,31 @@ UI_Package = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package:init(struct_product_list, is_popup, package_name)
+function UI_Package:init(package_type, struct_product_list, index, is_popup, package_name)
     if (not struct_product_list) 
         or (type(struct_product_list) ~= 'table') 
         or (#struct_product_list == 0) then
             return
     end
+    self.m_packageType = package_type
     self.m_package_name = package_name
 
-    local struct_product = struct_product_list[1]
+    if (index == nil) then
+        for i, struct_product in ipairs(struct_product_list) do
+            index = i
+            if struct_product:isBuyable() then
+                break;
+            end
+        end
+    end
+    
+
+    local struct_product = struct_product_list[index]
 
     if (not struct_product) then return end
 
     self.m_structProduct = struct_product
+    self.m_targetIndex = index
 
     local ui_name
     if is_popup and (struct_product['package_res_2']) and (struct_product['package_res_2'] ~= '') then
@@ -99,7 +113,7 @@ function UI_Package:refresh_time()
     local vars = self.vars
 
     if vars['timeLabel'] then
-        local struct_product = self.m_productList[1]
+        local struct_product = self.m_productList[self.m_targetIndex or 1]
         vars['timeLabel']:setString(struct_product:getEndDateStr())
     end
 end
@@ -109,7 +123,7 @@ end
 -------------------------------------
 function UI_Package:initUI()
     local vars = self.vars
-    local struct_product = self.m_productList[1]
+    local struct_product = self.m_productList[self.m_targetIndex or 1]
 
     -- 상품 이름
     if vars['titleLabel'] then
@@ -147,7 +161,7 @@ function UI_Package:initEachProduct(index, struct_product)
     end
 
     -- 번들인 경우
-    if (#self.m_productList > 1) or (is_multiple_item_labels == false) then
+    if (self.m_packageType == 'bundle') or (is_multiple_item_labels == false) then
         -- 상품 설명
         node = vars['itemLabel' .. index] or vars['itemLabel']
         if node then
@@ -265,6 +279,16 @@ function UI_Package:initEachProduct(index, struct_product)
             node:addChild(badge_icon)
         end
     end
+
+
+    node = vars['bgSprite' .. index] or vars['bgSprite']
+    if node then
+        if tonumber(index) == tonumber(self.m_targetIndex) then
+            node:setVisible(true)
+        else
+            node:setVisible(false)
+        end
+    end
 end
 
 
@@ -273,7 +297,7 @@ end
 -------------------------------------
 function UI_Package:refresh()
     local vars = self.vars
-	local struct_product = self.m_productList[1]
+	local struct_product = self.m_productList[self.m_targetIndex or 1]
 
     if (not struct_product) then
         return
@@ -281,25 +305,30 @@ function UI_Package:refresh()
 
     local is_noti_visible = false
 
-    for index, struct_product in ipairs(self.m_productList) do 
-        local purchased_num = g_shopDataNew:getBuyCount(struct_product:getProductID())
-        local limit = struct_product:getMaxBuyCount()
+    if (self.m_packageType == 'bundle') then
+        for index, struct_product in ipairs(self.m_productList) do 
+            local purchased_num = g_shopDataNew:getBuyCount(struct_product:getProductID())
+            local limit = struct_product:getMaxBuyCount()
 
-        -- 특가 상품이 구매제한 초과 시 기존상품(dependency)으로 교체
-        if purchased_num and limit and (purchased_num >= limit) 
-            and (self.m_isRefreshedDependency) then
-            local dependent_product_id = struct_product:getDependency()
+            -- 특가 상품이 구매제한 초과 시 기존상품(dependency)으로 교체
+            if purchased_num and limit and (purchased_num >= limit) 
+                and (self.m_isRefreshedDependency) then
+                local dependent_product_id = struct_product:getDependency()
 
-            if dependent_product_id then
-                struct_product = g_shopDataNew:getTargetProduct(dependent_product_id)
-                
-                self.m_productList[index] = struct_product
+                if dependent_product_id then
+                    struct_product = g_shopDataNew:getTargetProduct(dependent_product_id)
+                    
+                    self.m_productList[index] = struct_product
+                end
             end
+            
+            
+                self:initEachProduct(index, struct_product)
+
+            is_noti_visible = (struct_product:getPrice() == 0) and (struct_product:isItBuyable())
         end
-
-        self:initEachProduct(index, struct_product)
-
-        is_noti_visible = (struct_product:getPrice() == 0) and (struct_product:isItBuyable())
+    else
+        self:initEachProduct(self.m_targetIndex or 1, self.m_structProduct)
     end
 
     if self.vars['notiSprite'] then 
@@ -365,7 +394,12 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Package:click_buyBtn(index)
-	local struct_product = self.m_productList[index or 1]
+    local struct_product
+    if self.m_packageType == 'bundle' then
+        struct_product = self.m_productList[index or 1]
+    else    
+        struct_product = self.m_productList[self.m_targetIndex or 1]
+    end
 
 	local function cb_func(ret)
         
@@ -416,7 +450,7 @@ end
 -- @comment 만원의 행복 용으로 추가됨. package_lucky_box.ui
 -------------------------------------
 function UI_Package:click_rewardBtn()
-	local struct_product = self.m_productList[1]
+	local struct_product = self.m_productList[self.m_targetIndex or 1]
 
     if (not struct_product) then
         return

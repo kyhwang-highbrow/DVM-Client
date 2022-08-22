@@ -190,7 +190,7 @@ function UI_PackageCategoryButton:createTableView()
 
     local col_num = math.floor(product_num / row_num)
 
-    if (self.m_data['type'] == '') or (self.m_data['type'] == 'bundle') then
+    if (self.m_data['type'] ~= 'group') then
         row_num = 1
         col_num = 1
     end
