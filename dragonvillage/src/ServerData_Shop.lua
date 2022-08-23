@@ -1138,6 +1138,34 @@ function ServerData_Shop:getSpecialOfferProductWeidel()
 end
 
 -------------------------------------
+-- function getSpecialPeroidProduct
+-------------------------------------
+function ServerData_Shop:getSpecialPeroidProduct()
+
+    -- 5주년 기념 연속  패키지 상품 product_id (하드코딩)
+    local l_product_id = {}
+    table.insert(l_product_id, {123421})
+    table.insert(l_product_id, {123422})
+    table.insert(l_product_id, {123423})
+    table.insert(l_product_id, {123424})
+    table.insert(l_product_id, {123425})
+
+    -- 상품의 순서대로 구매가능하면 리턴
+    for i,t_data in ipairs(l_product_id) do
+        local product_id = t_data[1]
+        local struct_product = self:getTargetProduct(product_id)
+
+        if struct_product and
+            struct_product:checkIsSale() and -- 판매중인 상품인지 확인
+            struct_product:isItBuyable() then -- 구매 횟수 제한 확인
+            return struct_product, i
+        end
+    end
+    
+    return nil, 0, 0
+end
+
+-------------------------------------
 -- function canBuyWeidelPackage
 -- @brief 바이델 축제상품 당일 노출 여부
 -------------------------------------
