@@ -201,6 +201,32 @@ function TablePackageBundle:getPids(pid)
 end
 
 -------------------------------------
+-- function getPidsAsList
+-------------------------------------
+function TablePackageBundle:getPidsAsList(pid)
+    local result = {}
+    local t_pids = self:getPids(pid)
+    if (t_pids ~= nil) and (t_pids ~= '') then
+        local pid_str_list = pl.stringx.split(t_pids, ',')
+        for index, pid_str in ipairs(pid_str_list) do
+            local pid = tonumber(pid_str)
+            table.insert(result, pid)
+        end
+    end
+
+    return result
+end
+
+-------------------------------------
+-- function getPidsNum
+-------------------------------------
+function TablePackageBundle:getPidsNum(pid)
+    local list = self:getPidsAsList(pid)
+
+    return table.count(list)
+end
+
+-------------------------------------
 -- function isSelectOnePackage
 -------------------------------------
 function TablePackageBundle:isSelectOnePackage(package_name)
