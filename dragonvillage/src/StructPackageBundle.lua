@@ -108,6 +108,9 @@ end
 function StructPackageBundle:convertPidsToStructProducts()
 	local pid_list = pl.stringx.split(self.t_pids, ',')
 	local result = {}
+	local pid_index_list = {}
+	local removal_list = {} -- 
+
 	-- 카테고리 별로 등록된 pid 리스트
 	for _, product_id in pairs(pid_list) do
 		local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
@@ -118,6 +121,14 @@ function StructPackageBundle:convertPidsToStructProducts()
 			-- 상품 구매 횟수 체크
 			if (struct_product:isItBuyable()) or (self['t_name'] == 'package_daily') then
 				table.insert(result, struct_product)
+
+				pid_index_list[tonumber(product_id)] = #result
+
+				-- check dependency between packages
+				local dependency = struct_product:getDependency()
+				if dependency then
+					removal_list[tonumber(product_id)] = tonumber(dependency)
+				end
 			end
 		elseif struct_product and self.m_bIsPassIncluded and (struct_product:getTabCategory() == 'pass') then
 			if (struct_product:isItBuyable()) then
@@ -128,6 +139,14 @@ function StructPackageBundle:convertPidsToStructProducts()
 
 	-- 카테고리에 포함된 상품이 하나라도 있으면
 	if (not table.isEmpty(result)) then
+		for target_id, dependent_id in pairs(removal_list) do
+			local dependent_index = pid_index_list[dependent_id]
+			local target_index = pid_index_list[target_id]
+
+			result[dependent_index] = result[target_index]
+			result[target_index] = nil
+		end
+
 		self.m_structProductList = table.MapToList(result)
 	end
 end
@@ -189,8 +208,15 @@ function StructPackageBundle:setTargetUI(parent_node, buy_callback, is_refresh_d
 				end
 			end
 
-			local product_list = self.m_structProductList
-			ui = package_class(ui_type, product_list, false, self:getProductName(), index)
+			local product_list
+
+			if (ui_type == 'bundle') then
+				product_list = self.m_structProductList
+			else
+				product_list = {struct_product}
+			end
+
+			ui = package_class(product_list,  false, self:getProductName())
 		end
 
 		if ui then
@@ -253,8 +279,15 @@ function StructPackageBundle:getTargetUI(parent_node, buy_callback, is_popup, is
 				end
 			end
 
-			local product_list = self.m_structProductList
-			ui = package_class(ui_type, product_list, is_popup or false, self:getProductName(), index)
+			local product_list
+
+			if (ui_type == 'bundle') then
+				product_list = self.m_structProductList
+			else
+				product_list = {struct_product}
+			end
+
+			ui = package_class(product_list,  is_popup or false, self:getProductName())
 		end
 
 		if ui then

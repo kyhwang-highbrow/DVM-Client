@@ -11,7 +11,7 @@ UI_Package_AdventureBreakthrough = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_AdventureBreakthrough:init(package_type, struct_product_list, is_popup, package_name)
+function UI_Package_AdventureBreakthrough:init(struct_product_list, is_popup, package_name)
     
 end
 

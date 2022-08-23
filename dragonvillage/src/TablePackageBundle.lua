@@ -227,6 +227,21 @@ function TablePackageBundle:getPidsNum(pid)
 end
 
 -------------------------------------
+-- function getPidsIndex
+-------------------------------------
+function TablePackageBundle:getPidsIndex(pid)
+    local list = self:getPidsAsList(pid)
+
+    for index, product_id in ipairs(list) do
+        if (product_id == pid) then
+            return index
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function isSelectOnePackage
 -------------------------------------
 function TablePackageBundle:isSelectOnePackage(package_name)
