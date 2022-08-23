@@ -195,7 +195,7 @@ UI_Package_LevelUp = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_LevelUp:init(struct_product_list, is_popup, package_name)
+function UI_Package_LevelUp:init(package_type, struct_product_list, is_popup, package_name)
     
 end
 

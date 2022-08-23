@@ -190,7 +190,7 @@ function StructPackageBundle:setTargetUI(parent_node, buy_callback, is_refresh_d
 			end
 
 			local product_list = self.m_structProductList
-			ui = package_class(ui_type, product_list, index,  false, self:getProductName())
+			ui = package_class(ui_type, product_list, false, self:getProductName())
 		end
 
 		if ui then
@@ -254,7 +254,7 @@ function StructPackageBundle:getTargetUI(parent_node, buy_callback, is_popup, is
 			end
 
 			local product_list= self.m_structProductList
-			ui = package_class(ui_type, product_list, index, is_popup or false, self:getProductName())
+			ui = package_class(ui_type, product_list, is_popup or false, self:getProductName())
 		end
 
 		if ui then

@@ -24,7 +24,7 @@ UI_Package = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package:init(package_type, struct_product_list, index, is_popup, package_name)
+function UI_Package:init(package_type, struct_product_list, is_popup, package_name)
     if (not struct_product_list) 
         or (type(struct_product_list) ~= 'table') 
         or (#struct_product_list == 0) then
@@ -33,6 +33,7 @@ function UI_Package:init(package_type, struct_product_list, index, is_popup, pac
     self.m_packageType = package_type
     self.m_package_name = package_name
 
+    local index
     if (index == nil) then
         for i, struct_product in ipairs(struct_product_list) do
             index = i

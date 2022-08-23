@@ -44,7 +44,7 @@ function UI_EventPopupTab_Package:initUI()
         package_class = UI_Package
     end
 
-    local ui = package_class({self.m_structProduct}, is_popup)
+    local ui = package_class('single', {self.m_structProduct}, is_popup)
 
     --local ui = PackageManager:getTargetUI(package_name, is_popup)
     
