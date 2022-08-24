@@ -232,8 +232,8 @@ function UI_EventPopup:makeEventPopupTab(tab)
 		elseif (event_id == 'open_event' or event_id == 'newbie' or event_id == 'comeback') then
             require('UI_EventPopupTab_EventAttendanceSpecial')
             if (atd_id < 50031) then
-			    ui = UI_EventPopupTab_EventAttendanceSpecial(event_id, atd_id) -- @yjkil 22.07.29 신규, 복귀 이벤트를 5일에서 7일로 변경
-            else
+			    ui = UI_EventPopupTab_EventAttendance(event_id, atd_id)
+            else -- @yjkil 22.07.29 신규, 복귀 이벤트를 5일에서 7일로 변경
                 ui = UI_EventPopupTab_EventAttendanceSpecial(atd_id)
             end
         
