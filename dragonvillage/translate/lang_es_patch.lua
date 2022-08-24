@@ -90,8 +90,7 @@ return {['다크세븐, 쾌락과 욕망의 {@yellow}에피트{@default}']='Oscu
 ['프라이드']='frito',
 ['프라이드(어둠)']='La oscuridad.',
 ['프라이드(어둠) 인연 포인트']='Punto judío de la oscuridad',
-['오만의 귀공자, {@yellow}프라이드{@default} 강림 
-']='Excelencia de Omán, orgullo de @@default}',
+['오만의 귀공자, {@yellow}프라이드{@default} 강림 ']='Excelencia de Omán, orgullo de @@default}',
 ['가까이 오는 것을 허락하마']='Te daré permiso para acercarte a mí.',
 ['같잖은 수작 부리지 말고, 움직여라.']='¡Basta de tonterías!Muévete.',
 ['건방지구나!']='¡Qué insolente!',
@@ -142,4 +141,6 @@ return {['다크세븐, 쾌락과 욕망의 {@yellow}에피트{@default}']='Oscu
 ['자신의 치명타 확률과 효과 저항을 2배로 증가시킨다.']='자신의 치명타 확률과 효과 저항을 2배로 증가시킨다.',
 ['자신이 사망할 때, 자신 대신 가장 생명력이 낮은 아군을 희생시켜 일시적으로 무적 상태가 되며, 생명력을 모두 회복합니다. 희생당한 아군은 {1}초간 좀비 상태가 됩니다.']='자신이 사망할 때, 자신 대신 가장 생명력이 낮은 아군을 희생시켜 일시적으로 무적 상태가 되며, 생명력을 모두 회복합니다. 희생당한 아군은 {1}초간 좀비 상태가 됩니다.',
 ['적의 마력을 흡수하여 {@yellow}오만의 파편{@SKILL_DESC}으로 만듭니다. 공격당한 적은 면역 효과를 제거 당하고 {1}초 간 기절합니다.\n{@yellow}오만의 파편{@SKILL_DESC}: 프라이드의 받는 피해와 받는 회복량이 {1}%씩 감소합니다.']='적의 마력을 흡수하여 {@yellow}오만의 파편{@SKILL_DESC}으로 만듭니다. 공격당한 적은 면역 효과를 제거 당하고 {1}초 간 기절합니다.\n{@yellow}오만의 파편{@SKILL_DESC}: 프라이드의 받는 피해와 받는 회복량이 {1}%씩 감소합니다.',
-['특권계층']='특권계층'}
+['특권계층']='특권계층',
+['5주년 감사 이벤트']='Evento de Agradecimiento por el 5do Aniversario',
+['특별 감사 보상이 쏟아진다!']='¡La recompensa de la gratitud se derramará!'}
