@@ -357,12 +357,25 @@ function UI_QuestPopup:refreshEventDailyQuest()
         vars['dragonNode']:addChild(icon)
         --vars['dragonNode']:setScale(0.6)
 
+        local daily_event_data = g_eventData:getEventInByEventId('event_daily_quest')
+
+        -- @yjkil 220825 : 5주년 기념 일일 퀘스트 이벤트의 빠른 패치를 위해 반영한 임시 코드로 수정 혹은 삭제해야함.
         if (vars['eventBtn']) then
-            vars['eventBtn']:setEnabled(false)
-            -- vars['eventBtn']:registerScriptTapHandler(function()
-            --     -- 주의 :: 따라하지 마시오
-            --     g_fullPopupManager:showFullPopup('event_daily_quest;' .. ui_name)
-            -- end)
+            if daily_event_data then
+                local popup_key = daily_event_data['event_type']
+                popup_key = popup_key .. ';' .. (daily_event_data['banner'] or '')
+                popup_key = popup_key .. ';' .. (daily_event_data['url'] or '')
+                popup_key = popup_key .. ';' .. (daily_event_data['end_date'] or '')
+                popup_key = popup_key .. ';' .. (daily_event_data['start_date'] or '')
+                
+                vars['eventBtn']:registerScriptTapHandler(function()
+                    g_fullPopupManager:showFullPopup(popup_key)
+                end)
+            else
+                vars['eventBtn']:registerScriptTapHandler(function()
+                    g_fullPopupManager:showFullPopup('event_daily_quest;' .. ui_name)
+                end)
+            end
         end
     else
         vars['eventDailyQuestMenu']:setVisible(false)

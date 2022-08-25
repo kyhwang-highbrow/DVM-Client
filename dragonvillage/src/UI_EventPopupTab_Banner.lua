@@ -5,20 +5,47 @@ local PARENT = UI
 -------------------------------------
 UI_EventPopupTab_Banner = class(PARENT,{
         m_structBannerData = 'StructEventPopupTab',
+
+        m_isResourcePng = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
+    self.m_uiName = 'UI_EventPopupTab_Banner'
     self.m_structBannerData = struct_event_popup_tab.m_eventData
     local res = self.m_structBannerData['banner']
-    local is_ui_res = string.match(res, '%.ui') and true or false
-    local target_ui = (is_ui_res == true) and res or 'event_banner.ui'
-    local vars = self:load(target_ui) 
+    self.m_isResourcePng = string.match(res, '%.ui') and true or false
+    local target_ui = (self.m_isResourcePng == true) and res or 'event_banner.ui'
+    self.m_resName = target_ui
+end
+
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_EventPopupTab_Banner:init_after(owner, struct_event_popup_tab)
+    local vars = self:load(self.m_resName)
     
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+
+    self:init_customUI()
+end
+
+-------------------------------------
+-- function UI_EventPopupTab_Banner
+-------------------------------------
+function UI_EventPopupTab_Banner:initUI()
+
     -- 리소스가 png인 경우 이미지 추가
-    if (is_ui_res == false) then
+    if (self.m_isResourcePng == false) then
         local img = cc.Sprite:create(res)
         if img then
             img:setDockPoint(CENTER_POINT)
@@ -27,22 +54,58 @@ function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
         end
     end
 
+end
+
+-------------------------------------
+-- function UI_EventPopupTab_Banner
+-------------------------------------
+function UI_EventPopupTab_Banner:initButton()
+    local vars = self.vars
+
+    -- bannerBtn 경우 풀팝업에서는 동작하지 않아야 하고, linkBtn은 동작해야 한다.
     local banner_btn = vars['bannerBtn']
     if (banner_btn) then
         banner_btn:registerScriptTapHandler(function() self:click_bannerBtn() end)
     end
 
-    -- bannerBtn 경우 풀팝업에서는 막히지만 linkBtn은 막히지 않게
-    local link_btn = vars['linkBtn']
-    if (link_btn) then
-        link_btn:registerScriptTapHandler(function() self:click_bannerBtn() end)
+    -- 링크 버튼 동작 
+    local url_data = self.m_structBannerData['url']
+    if (url_data ~= '') then 
+        local url_list = pl.stringx.split(url_data, '||')
+        
+        for index, url in ipairs(url_list) do
+            local link_button = vars['linkBtn' .. index] or vars['linkBtn']
+            if (link_button ~= nil) then
+                if (url == 'cross_promotion') then
+                    link_button:registerScriptTapHandler(function() self:goToCrossPromotionAppStore() end)
+                else
+                    link_button:registerScriptTapHandler(function() self:click_linkBtn(url) end)
+                end
+            end
+        end
     end
 
     if vars['scenarioBtn'] then
         vars['scenarioBtn']:setVisible(false)
     end
+
     
-    self:init_customUI()
+    -- @yjkil 220825 : 5주년 기념 일일 퀘스트 이벤트 추가 시 외국 유저에게 네이버 카페 버튼 미노출을 위해 임시 추가 (제거 혹은 수정 필요)
+    if (string.find(url_data, 'naver') ~= nil) then
+        if (Translate:getGameLang() ~= 'ko')
+            and (vars['linkBtn1'] ~= nil)
+            and (vars['linkBtn2'] ~= nil) then
+           vars['linkBtn1']:setVisible(false)
+           vars['linkBtn2']:setPositionX(0)
+        end
+    end
+end
+
+-------------------------------------
+-- function UI_EventPopupTab_Banner
+-------------------------------------
+function UI_EventPopupTab_Banner:refresh()
+
 end
 
 -------------------------------------
@@ -53,18 +116,23 @@ function UI_EventPopupTab_Banner:update_timer(dt)
     local end_date = self.m_structBannerData['end_date']
     local time_label = self.vars['timeLabel']
 
-    if end_date and time_label then
+    if (end_date ~= nil) and (end_date ~= '') and time_label then
         local remain_time = ServerTime:getInstance():datestrToTimestampSec(end_date)
         local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
     
         local time = (remain_time - cur_time)
 
-        if time then
+        if time and (time > 0) then
             time_label:setString(Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true)))
         else
+            time_label:setString('')
             self.root:unscheduleUpdate()
         end
     else
+        if (time_label ~= nil) then
+            time_label:setString('')
+        end
+
         self.root:unscheduleUpdate()
     end
 end
@@ -96,7 +164,12 @@ function UI_EventPopupTab_Banner:init_customUI()
                     NaverCafeManager:naverCafeStartWithArticleByKey(article_key)
                 end)
         end]]
-        local url = struct_banner_data['url']
+        local url_data = struct_banner_data['url']
+        local url_list = pl.stringx.split(url_data, ';')
+
+        for index, url in ipairs(url_list) do
+            
+        end
 
         -- 게임으로 이동 (구글 플레이 or 앱스토어)
         if vars['gameLinkBtn'] then
@@ -193,6 +266,9 @@ function UI_EventPopupTab_Banner:init_customUI()
     end
 end
 
+-------------------------------------
+-- function initEventCapsule
+-------------------------------------
 function UI_EventPopupTab_Banner:initEventCapsule()
     local vars = self.vars
 
@@ -258,6 +334,16 @@ function UI_EventPopupTab_Banner:click_bannerBtn()
     end
 
     g_eventData:goToEventUrl(url)
+end
+
+-------------------------------------
+-- function click_linkBtn
+---@param url string
+-------------------------------------
+function UI_EventPopupTab_Banner:click_linkBtn(url)
+    if (url ~= nil) and (url ~= '') then
+        g_eventData:goToEventUrl(url)
+    end
 end
 
 -------------------------------------

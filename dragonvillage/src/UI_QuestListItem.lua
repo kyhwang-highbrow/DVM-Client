@@ -179,6 +179,14 @@ function UI_QuestListItem:setRewardCard()
                 -- 아이템카드의 이벤트 스프라이트
                 if (reward_card.vars['eventSprite']) then
                     reward_card.vars['eventSprite']:setVisible(true)
+                else                    
+                    local event_sprite = cc.Sprite:create('res/ui/icons/event_0103.png')
+                    if (event_sprite ~= nil) then
+                        event_sprite:setDockPoint(TOP_LEFT)
+                        event_sprite:setAnchorPoint(TOP_LEFT)
+                        
+                        reward_card.root:addChild(event_sprite)
+                    end
                 end
             end
         end
