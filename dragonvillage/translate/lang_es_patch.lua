@@ -151,4 +151,6 @@ return {['다크세븐, 쾌락과 욕망의 {@yellow}에피트{@default}']='Oscu
 ['3일 동안 접속 시 감사의 선물 증정!']='¡Reciba un regalo de agradecimiento la próxima vez que se inicie sesión durante 3 días!',
 ['다이아\n50,000개']='Diamante\nX50.000',
 ['전설 특성 재료\n3개']='Material Legendario Especializado\nX3',
-['신화 스킬 슬라임\n1개']='Slime de habilidad mítica\nX1'}
+['신화 스킬 슬라임\n1개']='Slime de habilidad mítica\nX1',
+['5주년\n일일 퀘스트 이벤트']='5 aniversario\nEvento de misión diaria',
+['5주년']='5 aniversario'}
