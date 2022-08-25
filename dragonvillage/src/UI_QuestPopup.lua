@@ -358,10 +358,11 @@ function UI_QuestPopup:refreshEventDailyQuest()
         --vars['dragonNode']:setScale(0.6)
 
         if (vars['eventBtn']) then
-            vars['eventBtn']:registerScriptTapHandler(function()
-                -- 주의 :: 따라하지 마시오
-                g_fullPopupManager:showFullPopup('event_daily_quest;' .. ui_name)
-            end)
+            vars['eventBtn']:setEnabled(false)
+            -- vars['eventBtn']:registerScriptTapHandler(function()
+            --     -- 주의 :: 따라하지 마시오
+            --     g_fullPopupManager:showFullPopup('event_daily_quest;' .. ui_name)
+            -- end)
         end
     else
         vars['eventDailyQuestMenu']:setVisible(false)
