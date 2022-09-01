@@ -5,9 +5,9 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_Hatchery = class(PARENT,{
         m_npcAnimator = 'Animator',
-        m_summonTab = 'UI_HatcheryRelationTab',
-        m_incubateTab = 'UI_HatcheryRelationTab',
-        m_combineTab = 'UI_HatcheryRelationTab',
+        m_summonTab = 'UI_HatcherySummonTab',
+        m_incubateTab = 'UI_HatcheryIncubateTab',
+        m_combineTab = 'UI_HatcheryCombineTab',
         m_relationTab = 'UI_HatcheryRelationTab',
     })
 

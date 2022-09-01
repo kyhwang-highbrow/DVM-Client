@@ -88,7 +88,8 @@ function UI_ButtonSpecialPeriod:updateButtonStatus()
 
         -- 상품 이름
         local product_name = struct_product:getProductName()
-        vars['nameLabel' .. idx]:setString(Str(product_name))
+        local string_removed_package = table.getFirst(pl.stringx.split(product_name, ' 패키지'))
+        vars['nameLabel' .. idx]:setString(Str(string_removed_package .. '\n패키지'))
 
         -- 상품 클릭 시 패키지 팝업
         button:registerScriptTapHandler(function()
