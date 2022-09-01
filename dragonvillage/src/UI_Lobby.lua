@@ -187,6 +187,12 @@ function UI_Lobby:entryCoroutine()
 
         if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then
             co:work('# 복주머니 이벤트 정보 받는 중')
+            if g_hotTimeData:isActiveEvent('noti_lucky_bag') then
+                self:setShopSpecialNoti('noti_lucky_bag')
+            elseif g_hotTimeData:isActiveEvent('noti_lucky_marble') then
+                self:setShopSpecialNoti('noti_lucky_marble')
+            end
+
             g_eventLFBagData:request_eventLFBagInfo(false, true, co.NEXT, required_fail_cb)
             if co:waitWork() then return end
         end
