@@ -99,6 +99,7 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, include_ta
         require('UI_EventLFBagRankingPopup')
         require('UI_EventLFBagRankingDailtyTab')
         require('UI_EventLFBagRankingTotalTab')
+        require('UI_EventLFBagRankingListItem')
         require('UI_EventLFBagRankingRewardPopup')
         require('StructEventLFBag')
         require('StructEventLFBagRanking')
