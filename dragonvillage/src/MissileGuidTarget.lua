@@ -47,17 +47,19 @@ function MissileGuidTarget.st_move_hero(owner, dt)
 
     -- 0.3초동안 직선 운동
     if owner.m_stateTimer == 0 then
-        owner.m_aiParam = 240
-
-		-- 한번 지정된 곳으로만 이동... 사실상 Guide 기능은 없고 예쁜 곡선 운동을 함
-		if (owner.m_target and not owner.m_target:isDead()) then
-            owner.m_targetPosX = owner.m_target.pos.x + owner.m_target.body.x
-            owner.m_targetPosY = owner.m_target.pos.y + owner.m_target.body.y
+        owner.m_aiParam = owner.m_angularVelocityGuid
+        if (owner.m_target and not owner.m_target:isDead()) then
+            if (owner.m_targetBody) then
+                owner.m_targetPosX = owner.m_target.pos.x + owner.m_targetBody['x']
+                owner.m_targetPosY = owner.m_target.pos.y + owner.m_targetBody['y']
+            else
+                
         end
+    end
 
     elseif (owner.m_stateTimer >= owner.m_straightWaitTime) and (owner.m_aiParam > 0) then
         owner.m_tergatTimer = owner.m_tergatTimer + dt
-        
+        owner.m_targetPosX, owner.m_targetPosY = owner.m_target:getCenterPos()
         if owner.m_targetPosX and owner.m_targetPosY then
             local curr_degree = owner.movement_theta
             local dest_degree = getDegree(owner.pos.x, owner.pos.y, owner.m_targetPosX, owner.m_targetPosY)
@@ -67,11 +69,7 @@ function MissileGuidTarget.st_move_hero(owner, dt)
             owner:setRotation(new_degree)
 
             owner.m_aiParam = owner.m_aiParam + (dt * dt * 900)
-
-            if (gap <= 3) then
-                owner.m_targetPosX = nil
-                owner.m_targetPosY = nil
-            end
+       
         end
 
     -- 5초 이상 지속 시 미사일 삭제
