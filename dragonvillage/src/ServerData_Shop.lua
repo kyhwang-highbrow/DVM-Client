@@ -1142,17 +1142,19 @@ end
 -------------------------------------
 function ServerData_Shop:getSpecialPeroidProduct()
 
-    -- 5주년 기념 연속  패키지 상품 product_id (하드코딩)
-    local l_product_id = {}
-    table.insert(l_product_id, {123421})
-    table.insert(l_product_id, {123422})
-    table.insert(l_product_id, {123423})
-    table.insert(l_product_id, {123424})
-    table.insert(l_product_id, {123425})
+    -- product_id (하드코딩) 
+    local l_product_id = {
+        -- 달빛 축제
+        122411, 122412,
+
+        -- 5주년 기념 연속  패키지 상품
+        1223421, 123422, 123423, 123424, 123425,
+      
+    }
+    
 
     -- 상품의 순서대로 구매가능하면 리턴
-    for i,t_data in ipairs(l_product_id) do
-        local product_id = t_data[1]
+    for i, product_id in ipairs(l_product_id) do
         local struct_product = self:getTargetProduct(product_id)
 
         if struct_product and

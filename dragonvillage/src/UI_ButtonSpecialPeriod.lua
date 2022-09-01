@@ -7,6 +7,10 @@ local PARENT = UI_ManagedButton
 -------------------------------------
 UI_ButtonSpecialPeriod = class(PARENT, {
         m_bActive = 'boolean',
+        m_elapsedTime = '',
+
+        m_targetProduct = '',
+        m_targetIndex = '', 
     })
 
 -------------------------------------
@@ -16,7 +20,7 @@ function UI_ButtonSpecialPeriod:init()
     self:load('button_special_period_product.ui')
 
     self.m_bActive = false
-
+    self.m_elapsedTime = 0
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
@@ -62,7 +66,14 @@ function UI_ButtonSpecialPeriod:updateButtonStatus()
 
     -- 특별 할인 상품 유무에 따라서 초기화
     if struct_product then
+        self.m_targetProduct = struct_product
+        self.m_targetIndex = idx
+
         button:setVisible(true)
+
+        -- 상품 이름
+        local product_name = struct_product:getProductName()
+        vars['nameLabel' .. idx]:setString(Str(product_name))
 
         -- 상품 클릭 시 패키지 팝업
         button:registerScriptTapHandler(function()
@@ -77,17 +88,11 @@ function UI_ButtonSpecialPeriod:updateButtonStatus()
                 ui:close()
             end)
         end)
+        
 
-        -- 매 프레임 남은 시간을 표기한다.
-        local function update(dt)
-            local time_sec = struct_product:getTimeRemainingForEndOfSale()
-            local time_millisec = (time_sec * 1000)
-            local str = datetime.makeTimeDesc_timer(time_millisec)
-            
-            time_label:setString(str)            
-        end
-        update(0) -- 최초 1번 호출
-        time_label.m_node:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+        self:update(0) -- 최초 1번 호출
+
+        time_label.m_node:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
         self.m_bActive = true
 
     else
@@ -109,3 +114,25 @@ function UI_ButtonSpecialPeriod:showOfferPopup(struct_product)
 
     return ui
 end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ButtonSpecialPeriod:update(dt)
+    self.m_elapsedTime = self.m_elapsedTime + dt
+
+    if (self.m_elapsedTime <  1) then
+        return
+    else
+        self.m_elapsedTime = 0
+    end
+    
+    local struct_product = self.m_targetProduct
+    local index = self.m_targetIndex
+
+    local time_sec = struct_product:getTimeRemainingForEndOfSale()
+    local time_millisec = (time_sec * 1000)
+    local str = datetime.makeTimeDesc_timer(time_millisec)
+    
+    self.vars['specialLabel' .. index]:setString(str)
+end 

@@ -53,7 +53,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     --table.insert(l_managed_button_info, {self.PRIORITY.SUPPLY_DEPOT, UI_ButtonSupplyDepot}) -- 보급소(정액제)
 
     table.insert(l_managed_button_info, {self.PRIORITY.WEIDEL_PACK, UI_ButtonSpecialOfferWeidel}) -- 바이델 축제 패키지
-    table.insert(l_managed_button_info, {self.PRIORITY.WEIDEL_PACK, UI_ButtonSpecialPeriod}) -- 바이델 축제 패키지
+    table.insert(l_managed_button_info, {self.PRIORITY.WEIDEL_PACK, UI_ButtonSpecialPeriod}) -- 5주년 축제 패키지, 달빛 축제 패키지
     for i,v in ipairs(l_managed_button_info) do
         local priority = v[1]
         local class_ = v[2]
