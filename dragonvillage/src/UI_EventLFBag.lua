@@ -174,9 +174,18 @@ function UI_EventLFBag:initButton()
     if item_data then
         local struct_dragon_obj = StructDragonObject({['did'] = item_data['did'], ['evolution'] = 3})
         if struct_dragon_obj then
+            
+            -- 드래곤 아이콘
             local icon_res = struct_dragon_obj:getIconRes()
             local dragon_icon = IconHelper:getIcon(icon_res)
-            vars['ceilingIconNode']:addChild(dragon_icon)
+            vars['ceilingIconNode']:addChild(dragon_icon, 1)
+
+            -- 속성별 배경 색상
+            local dragon_attr = struct_dragon_obj:getAttr()
+            local bg_res = 'res/ui/a2d/card/card_cha_bg_' .. tostring(dragon_attr) .. '.png'
+            local bg_sprite = IconHelper:getIcon(bg_res)
+            vars['ceilingIconNode']:addChild(bg_sprite)
+
         end
     end
 end
