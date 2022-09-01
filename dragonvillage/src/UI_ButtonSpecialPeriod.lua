@@ -25,19 +25,34 @@ function UI_ButtonSpecialPeriod:init()
 end
 
 -------------------------------------
+-- function update
+-------------------------------------
+function UI_ButtonSpecialPeriod:update(dt)
+    self.m_elapsedTime = self.m_elapsedTime + dt
+
+    if (self.m_elapsedTime <  1) then
+        return
+    else
+        self.m_elapsedTime = 0
+    end
+    
+    local struct_product = self.m_targetProduct
+    if struct_product then
+        local index = self.m_targetIndex
+
+        local time_sec = struct_product:getTimeRemainingForEndOfSale()
+        local time_millisec = (time_sec * 1000)
+        local str = datetime.makeTimeDesc_timer(time_millisec)
+        
+        self.vars['specialLabel' .. index]:setString(str)
+    end
+end 
+
+-------------------------------------
 -- function isActive
 -------------------------------------
 function UI_ButtonSpecialPeriod:isActive()
     return self.m_bActive
-end
-
-
--------------------------------------
--- function update
--- @brief UI_Lobby에서 매 프레임 호출됨
--------------------------------------
-function UI_ButtonSpecialPeriod:update(dt)
-   
 end
 
 -------------------------------------
@@ -114,25 +129,3 @@ function UI_ButtonSpecialPeriod:showOfferPopup(struct_product)
 
     return ui
 end
-
--------------------------------------
--- function update
--------------------------------------
-function UI_ButtonSpecialPeriod:update(dt)
-    self.m_elapsedTime = self.m_elapsedTime + dt
-
-    if (self.m_elapsedTime <  1) then
-        return
-    else
-        self.m_elapsedTime = 0
-    end
-    
-    local struct_product = self.m_targetProduct
-    local index = self.m_targetIndex
-
-    local time_sec = struct_product:getTimeRemainingForEndOfSale()
-    local time_millisec = (time_sec * 1000)
-    local str = datetime.makeTimeDesc_timer(time_millisec)
-    
-    self.vars['specialLabel' .. index]:setString(str)
-end 
