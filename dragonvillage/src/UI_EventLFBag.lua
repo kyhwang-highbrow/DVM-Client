@@ -169,6 +169,16 @@ function UI_EventLFBag:initButton()
     local is_ceiling_exist = g_eventLFBagData:isCeilingExist()
     vars['ceilingBtn']:setVisible(is_ceiling_exist)
     vars['ceilingBtn']:registerScriptTapHandler(function() self:click_ceilingBtn() end)
+
+    local item_data = g_eventLFBagData:getCeilingRewardData()
+    if item_data then
+        local struct_dragon_obj = StructDragonObject({['did'] = item_data['did'], ['evolution'] = 3})
+        if struct_dragon_obj then
+            local icon_res = struct_dragon_obj:getIconRes()
+            local dragon_icon = IconHelper:getIcon(icon_res)
+            vars['ceilingIconNode']:addChild(dragon_icon)
+        end
+    end
 end
 
 -------------------------------------
