@@ -48,7 +48,7 @@ function SkillEnumrate_Curve:fireMissile(idx)
 	t_option['attr_name'] = char:getAttribute()
 
 	t_option['missile_type'] = 'NORMAL'
-    t_option['movement'] ='lua_arrange_release' 
+    t_option['movement'] ='lua_arrange_curve' 
 	t_option['disable_body'] = true
 
 	local random_height = g_constant:get('SKILL', 'CURVE_HEIGHT_RANGE')
