@@ -733,6 +733,7 @@ local t_module = {
 	'SkillEnumrate_Curve',
 	'SkillEnumrate_Normal',
 	'SkillEnumrate_Penetration',
+    'SkillEnumrate_Release',
     'SkillBind',
     'SkillRandom',
     'SkillMetamorphosis',

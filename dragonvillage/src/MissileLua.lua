@@ -436,3 +436,50 @@ function MissileLua.lua_arrange_curve(owner)
 	-- 실행
     owner.m_rootNode:runAction(cc.Sequence:create(arrange_action, delay_action, set_target_function))
 end
+
+-------------------------------------
+-- function MissileLua.lua_arrange_release
+-- @brief 특정 위치로 이동 후 공격 시작하는 곡선탄, 동시 발사처리
+-------------------------------------
+
+function MissileLua.lua_arrange_release(owner)
+    local pos_x = owner.pos.x
+    local pos_y = owner.pos.y
+
+	local target_x = (pos_x - 640)
+    local target_y = (pos_y - 50)
+
+	-- 받아오는 값
+	local height = owner.m_value1
+	local jump_duration = owner.m_value2
+	local delay_time = owner.m_value3
+	local arrange_pos = owner.m_value4
+	local attack_cb_func = owner.m_value5
+    local loop = 1
+
+	-- 초기 액션
+	local arrange_action = cc.MoveBy:create(0.0, arrange_pos)
+	local delay_action = cc.DelayTime:create(delay_time)
+
+
+	-- 딜레이후 새롭게 타겟 찾아 공격 액션 실행
+	local set_target_function = cc.CallFunc:create(function() 
+	    if (owner.m_target) then
+            target_x, target_y = owner.m_target:getCenterPos()
+
+		    local jump_action = cc.JumpTo:create(jump_duration, cc.p(target_x, target_y), height, loop, true)
+			local after_delay_action = cc.DelayTime:create(0.02)  -- 도착후 바로 삭제하면 충돌인식이 되지않아 임의로 설정
+			-- 도착하면 탄을 없앤다
+			local cb_function = cc.CallFunc:create(function()
+				attack_cb_func()
+				owner:changeState('dying')
+			end)
+
+			-- 실행
+			owner.m_rootNode:runAction(cc.Sequence:create(jump_action, after_delay_action, cb_function))
+		end
+	end)
+
+	-- 실행
+    owner.m_rootNode:runAction(cc.Sequence:create(arrange_action, delay_action, set_target_function))
+end

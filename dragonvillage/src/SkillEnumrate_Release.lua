@@ -1,10 +1,9 @@
 local PARENT = SkillEnumrate
 
 -------------------------------------
--- class SkillEnumrate_Curve
+-- class   
 -------------------------------------
-SkillEnumrate_Curve = class(PARENT, {
-		m_lRandomTargetList = 'character list',
+SkillEnumrate_Release = class(PARENT, {
      })
 
 -------------------------------------
@@ -12,26 +11,33 @@ SkillEnumrate_Curve = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillEnumrate_Curve:init(file_name, body, ...)
+function SkillEnumrate_Release:init(file_name, body, ...)
 end
 
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillEnumrate_Curve:init_skill(missile_res, motionstreak_res, line_num, pos_type, target_type)
+function SkillEnumrate_Release:init_skill(missile_res, motionstreak_res, line_num, pos_type, target_type)
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, pos_type, target_type)
 
 	-- 1. 멤버 변수
-	self.m_skillInterval = g_constant:get('SKILL', 'CURVE_INTERVAL')
-	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + g_constant:get('SKILL', 'CURVE_FIRE_DELAY') -- 발사 간격 * 발사 수 + 발사 딜레이
+	self.m_skillInterval = g_constant:get('SKILL', 'ENUMRATE_APPEAR_INTERVAR')
+	self.m_skillTotalTime = (self.m_skillLineNum * self.m_skillInterval) + g_constant:get('SKILL', 'ENUMRATE_FIRE_DELAY') -- 발사 간격 * 발사 수 + 발사 딜레이
+	self.m_skillLineTotalWidth = 300
+end
+
+-------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillEnumrate_Release:initSkillSize()
+	self.m_skillLineSize = 25
 end
 
 -------------------------------------
 -- function fireMissile
--- @override
 -------------------------------------
-function SkillEnumrate_Curve:fireMissile(idx)
-    local char = self.m_owner
+function SkillEnumrate_Release:fireMissile(idx)
+	local char = self.m_owner
 	local target_char = self:getNextTarget(idx)
     
     local t_option = {}
@@ -48,15 +54,15 @@ function SkillEnumrate_Curve:fireMissile(idx)
 	t_option['attr_name'] = char:getAttribute()
 
 	t_option['missile_type'] = 'NORMAL'
-    t_option['movement'] ='lua_arrange_release' 
+    t_option['movement'] ='lua_arrange_curve' 
 	t_option['disable_body'] = true
 
 	local random_height = g_constant:get('SKILL', 'CURVE_HEIGHT_RANGE')
 
     t_option['lua_param'] = {}
-    t_option['lua_param']['value1'] = math_random(-random_height, random_height)
+    t_option['lua_param']['value1'] = math_random(-random_height*1.5, random_height*1.5)
 	t_option['lua_param']['value2'] = g_constant:get('SKILL', 'CURVE_SPEED')
-	t_option['lua_param']['value3'] = g_constant:get('SKILL', 'CURVE_FIRE_DELAY')
+	t_option['lua_param']['value3'] = 0
 	t_option['lua_param']['value4'] = self.m_skillStartPosList[idx]
 	if (target_char) then
         local pos_x, pos_y = self:getAttackPositionAtWorld()
@@ -79,12 +85,13 @@ function SkillEnumrate_Curve:fireMissile(idx)
 	
 	-- fire!!
     self:makeMissile(t_option)
+
 end
 
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillEnumrate_Curve:makeSkillInstance(owner, t_skill, t_data)
+function SkillEnumrate_Release:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
@@ -97,7 +104,7 @@ function SkillEnumrate_Curve:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------ 
 	-- 1. 스킬 생성
-    local skill = SkillEnumrate_Curve(nil)
+    local skill = SkillEnumrate_Release(nil)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)

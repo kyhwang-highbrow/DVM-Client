@@ -241,7 +241,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				CommonMissile_Shotgun:makeMissileInstance(self, t_skill, t_data)
 				return true
 			elseif (skill_type == 'missile_move_release') then
-				CommonMissile_Release:makeMissileInstance(self, t_skill, t_data)
+				CommonMissile_Release:makeSkillInstance(self, t_skill, t_data)
 				return true
 			elseif (skill_type == 'missile_move_high_angle') then
 				CommonMissile_High:makeMissileInstance(self, t_skill, t_data)
@@ -430,6 +430,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 			elseif (skill_type == 'skill_enumrate_penetration') then
 				SkillEnumrate_Penetration:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+            elseif (skill_type == 'skill_enumrate_release') then
+				SkillEnumrate_Release:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_rapid_shot') then
