@@ -24,5 +24,5 @@ return {['{@yellow}[오만의 파편]{@SKILL_DESC}을 {1}개 획득할 때 마�
 ['달빛축제\n패키지']='juego\nliterario',
 ['달빛축제\n주사위 이벤트']='달빛축제\n주사위 이벤트',
 ['달빛축제\n복주머니 이벤트']='달빛축제\n복주머니 이벤트',
-['※ 메테오라(어둠)은 코드로 지급되며, 고객센터에서 본인 확인 후 지급됩니다.']='※ The Meteora (Darkness) will be given as a code, and you will be required to verify your identity at the Customer Service',
+['※ 메테오라(어둠)은 코드로 지급되며, 고객센터에서 본인 확인 후 지급됩니다.']='※ El Mateola (oscuridad) se pagará en código y se pagará una vez que se haya completado la identificación en el centro de atención al cliente.',
 ['오만이라, 자격을 갖춘 자의 태도를 말하는 건가?']='La arrogancia, ¿Se refiere a la actitud de alguien con licencia?'}
