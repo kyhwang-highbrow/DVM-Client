@@ -750,7 +750,7 @@ function UI_EventLFBag:click_infoBtn()
     vars['descLabel09']:setString(Str('복주머니 소비 기간에는 마일리지가 누적 되지 않습니다.'))
     --vars['descLabel09']:setString(Str('{1} 소비 기간에는 마일리지가 누적 되지 않습니다.', self.m_eventItemName))
 
-    vars['descLabel10']:setString(Str('메테오라(어둠)은 코드로 지급 되며, 고객센터에서 본인 확인 후 지급 됩니다.'))
+    vars['descLabel10']:setString(Str('메테오라(어둠)은 코드로 지급되며, 고객센터에서 본인 확인 후 지급됩니다.'))
     
     if (g_hotTimeData:isActiveEvent('event_token') == true) then
         local table_item = TableItem()
