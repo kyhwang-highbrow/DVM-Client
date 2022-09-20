@@ -32,6 +32,9 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     self.PRIORITY.PAYMENT_SHOP = 1000
     self.PRIORITY.FIRST_PURCHASE_REWARD = 950
     self.PRIORITY.NEWCOMER_SHOP = 900
+    self.PRIORITY.SPECIAL_OFFER_PACK_DIA = 803
+    self.PRIORITY.SPECIAL_OFFER_PACK_GOLD = 802
+    self.PRIORITY.SPECIAL_OFFER_PACK_NURTURE = 801
     self.PRIORITY.SPECIAL_OFFER_PRODUCT = 800
     self.PRIORITY.SPOT_SALE_PRODUCT = 700
     self.PRIORITY.SUPPLY_DEPOT = 600
@@ -46,9 +49,9 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     
     --table.insert(l_managed_button_info, {self.PRIORITY.PAYMENT_SHOP, UI_ButtonPaymentShop}) -- 현금 결제 상품 상점
     table.insert(l_managed_button_info, {self.PRIORITY.PERSONALPACK, UI_ButtonPersonalpack}) -- 특별제안 패키지
-    table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PRODUCT, UI_ButtonSpecialOfferProduct}) -- 특별 할인 상품
-    table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PRODUCT, UI_ButtonSpecialOfferProductGold}) -- 특별 할인 골드 상품
-    table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PRODUCT, UI_ButtonSpecialOfferProductNurture}) -- 특별 할인 패키지 상품
+    table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PACK_DIA, UI_ButtonSpecialOfferProduct}) -- 특별 할인 상품
+    table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PACK_GOLD, UI_ButtonSpecialOfferProductGold}) -- 특별 할인 골드 상품
+    table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PACK_NURTURE, UI_ButtonSpecialOfferProductNurture}) -- 특별 할인 패키지 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPOT_SALE_PRODUCT, UI_ButtonSpotSale}) -- 깜짝 할인 상품
     --table.insert(l_managed_button_info, {self.PRIORITY.SUPPLY_DEPOT, UI_ButtonSupplyDepot}) -- 보급소(정액제)
 
