@@ -270,8 +270,8 @@ function UI_Package:initEachProduct(index, struct_product)
     -- 5주년 기념 이벤트 
     local pid = struct_product:getProductID()
     local product_index = TablePackageBundle:getPidsIndex(pid)
-    node = vars['bgSprite' .. product_index] or vars['bgSprite']
     if (product_index ~= nil) and (node ~= nil) then
+        node = vars['bgSprite' .. product_index] or vars['bgSprite']
         node:setVisible(true)
     end
 end
