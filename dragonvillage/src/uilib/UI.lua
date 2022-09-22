@@ -17,7 +17,12 @@ UI = class({
     , m_closeCB = 'function'
     , m_lHideUIList = 'list'
 
-	, m_isLabelVerified = 'boolean'	-- ui label 검증 여부
+	, m_isLabelVerified = 'boolean',	-- ui label 검증 여부
+
+
+    m_elapsedTime = 'number', -- self.root:scheduleUpdateWithPriorityLua(dt)에서 dt의 누적값
+    m_interval = 'number', -- m_updateCallback의 주기
+    m_updateCallback = 'function',  -- self.root:scheduleUpdateWithPriorityLua()에 전달될 함수
 })
 
 -------------------------------------
@@ -35,6 +40,9 @@ function UI:init()
     self.vars_key = {}
 
 	self.m_isLabelVerified = false
+
+    self.m_elapsedTime = 0
+    self.m_interval = 0
 end
 
 -------------------------------------
@@ -631,14 +639,14 @@ function UI:autoDelayedVerifier(_delay)
     self.root:addChild(node)
 
     local timer = 0
-    local function update(dt)
+    local function update_func(dt)
         timer = timer + dt
         if (timer > delay) then
             self:verifyLabelSize()
             node:unscheduleUpdate()
         end
     end
-    node:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+    node:scheduleUpdateWithPriorityLua(function(dt) update_func(dt) end, 0)
 end
 
 -------------------------------------
@@ -650,12 +658,49 @@ function UI:setSwallowTouch()
 end
 
 -------------------------------------
--- function startUpdate
--- @breif 
+-- function scheduleUpdate
+---@param update_cb function
+---@param interval number | nil
 -------------------------------------
-function UI:startUpdate(func, priority)
-    if (func == nil) then
-        error('메소드가 없네요..')
+function UI:scheduleUpdate(update_cb, interval, immediate)
+    if isFunction(update_cb) then
+        if isNumber(interval) then
+            self.m_interval = interval
+        end
+        
+        self.m_updateCallback = update_cb
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update_callback(dt) end, 0)
+
+        if (immediate == true) then
+            self:update(interval)
+        end
     end
-    self.root:scheduleUpdateWithPriorityLua(func, priority or 0)
+end
+
+-------------------------------------
+-- function update_callback
+---@param dt number
+-------------------------------------
+function UI:update_callback(dt)
+    self.m_elapsedTime = self.m_elapsedTime + dt
+
+    if (self.m_elapsedTime < self.m_interval) then
+        return
+    else        
+        self.m_elapsedTime = 0
+    end    
+
+    if (isFunction(self.m_updateCallback) == true) then
+        self.m_updateCallback(dt)
+    end
+end
+
+-------------------------------------
+-- function unschedule
+-------------------------------------
+function UI:unschedule()
+    self.root:unscheduleUpdate()
+    self.m_interval = 0
+    self.m_elapsedTime = 0
+    self.m_updateCallback = nil
 end

@@ -82,7 +82,7 @@ function UI_EventLFBag:init()
     self:setSwallowTouch()
     self.m_broadcastCheckPeriod = 2
     self.m_broadcastUpdateTime = os.time() + self.m_broadcastCheckPeriod
-    self:startUpdate(function(dt) self:update(dt) end)
+    self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
 end
 
 -------------------------------------
@@ -301,13 +301,13 @@ end
 -- function update
 -------------------------------------
 function UI_EventLFBag:update(dt)
-    if (self.m_structLFBag == nil) then
-        time_label:setString('')
-    end
-    
     -- 남은 시간
     local time_label = self.vars['timeLabel']
     if time_label then
+        if (self.m_structLFBag == nil) then
+            time_label:setString('')
+            return
+        end
         local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
 
         local end_time = g_hotTimeData:getEventStartTime('event_lucky_fortune_bag_reward')
@@ -324,6 +324,8 @@ function UI_EventLFBag:update(dt)
         else
             time_label:setString(Str('이벤트 종료'))
             time_label:setColor(COLOR['red'])
+
+            self:unschedule()
         end
     end
 

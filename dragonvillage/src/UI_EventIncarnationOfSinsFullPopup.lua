@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_EventIncarnationOfSinsFullPopup
 -------------------------------------
 UI_EventIncarnationOfSinsFullPopup = class(PARENT,{
-    })
+})
 
 
 UI_EventIncarnationOfSinsFullPopup.SCENARIO_NAME = 'scen_event_incarnation_of_sins'
@@ -25,7 +25,7 @@ function UI_EventIncarnationOfSinsFullPopup:init()
         self:playEventScenario()
     end
 
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
+    self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
 end
 
 -------------------------------------
@@ -53,9 +53,9 @@ function UI_EventIncarnationOfSinsFullPopup:refresh()
 end
 
 -------------------------------------
--- function updateTimer
+-- function update
 -------------------------------------
-function UI_EventIncarnationOfSinsFullPopup:updateTimer(dt)
+function UI_EventIncarnationOfSinsFullPopup:update(dt)
     local vars = self.vars
 
     local str = g_eventIncarnationOfSinsData:getRemainTimeString()

@@ -18,8 +18,6 @@ UI_Package_Bundle = class(PARENT,{
         m_isFullPopup = 'boolean',
 
         m_obtainResultCloseCb = 'function',
-
-        m_elapsedTime = 'number',
     })
 
 
@@ -48,7 +46,6 @@ function UI_Package_Bundle:init(package_name, is_popup, custom_struct, is_full_p
 	
 	self.m_uiName = 'UI_Package_Bundle'
     self.m_mailSelectType = MAIL_SELECT_TYPE.NONE
-    self.m_elapsedTime = 0
 
     if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
@@ -63,21 +60,13 @@ function UI_Package_Bundle:init(package_name, is_popup, custom_struct, is_full_p
     self:customInit(package_name, is_popup)
 
     if vars['timeLabel'] then
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+        self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
     end
 end
 
 ---function update
 ---@param dt number
 function UI_Package_Bundle:update(dt)
-    self.m_elapsedTime = self.m_elapsedTime + dt
-
-    if (self.m_elapsedTime < 1) then
-        return
-    else
-        self.m_elapsedTime = 0
-    end
-
     self:refresh_time()
 end
 

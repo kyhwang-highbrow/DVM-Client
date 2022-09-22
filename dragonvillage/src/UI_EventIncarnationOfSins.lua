@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_EventIncarnationOfSins
 -------------------------------------
 UI_EventIncarnationOfSins = class(PARENT,{
-    })
+})
 
 -------------------------------------
 -- function init
@@ -15,8 +15,8 @@ function UI_EventIncarnationOfSins:init()
     self:initUI()
     self:initButton()
     self:refresh()
-    
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
+
+    self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
 end
 
 -------------------------------------
@@ -119,9 +119,9 @@ function UI_EventIncarnationOfSins:onEnterTab()
 end
 
 ----------------------------------------------------------------------
--- function updateTimer
+-- function update
 ----------------------------------------------------------------------
-function UI_EventIncarnationOfSins:updateTimer(dt)
+function UI_EventIncarnationOfSins:update(dt)
     local vars = self.vars
 
     local str = g_eventIncarnationOfSinsData:getRemainTimeString()

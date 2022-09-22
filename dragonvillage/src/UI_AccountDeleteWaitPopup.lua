@@ -7,7 +7,6 @@ local PARENT = UI
 UI_AccountDeleteWaitPopup = class(PARENT, {
     m_uid = 'string',
     m_deleteTimestamp = 'number', -- timestamp(millisec)
-    m_elapsedTime = 'number',
 }) 
 
 -------------------------------------
@@ -17,7 +16,6 @@ function UI_AccountDeleteWaitPopup:init(uid, timestamp)
     self.m_uiName = 'UI_AccountDeleteWaitPopup'
     self.m_uid = uid
     self.m_deleteTimestamp = timestamp
-    self.m_elapsedTime = 1
 end
 
 -------------------------------------
@@ -36,8 +34,8 @@ function UI_AccountDeleteWaitPopup:init_after(timestamp)
     self:initUI()
     self:initButton()
     self:refresh()
-    self:update(0)
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+
+    self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
 end
 
 -------------------------------------
@@ -135,24 +133,9 @@ end
 
 -------------------------------------
 -- function update
--------------------------------------
-function UI_AccountDeleteWaitPopup:update(dt)
-    self.m_elapsedTime = self.m_elapsedTime + dt
-
-    if (self.m_elapsedTime < 1) then
-        return
-    else
-        self.m_elapsedTime = 0
-    end
-
-    self:refreshServerTime()
-end
-
--------------------------------------
--- function refreshServerTime
 -- @brief 서버 시간 표기
 -------------------------------------
-function UI_AccountDeleteWaitPopup:refreshServerTime()
+function UI_AccountDeleteWaitPopup:update(dt)
     local vars = self.vars
 
     -- e.g. '서버 시간 : 2020-05-06 00:00:00 (UTC +9)'

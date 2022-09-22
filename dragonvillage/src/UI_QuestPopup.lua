@@ -11,7 +11,6 @@ UI_QuestPopup = class(PARENT, {
         m_battlePassBtn = 'Button',
 
         m_isActiveEventDailyQuest = 'bool',
-        m_elapsedTime = 'number'
     })
 
 -------------------------------------
@@ -36,7 +35,6 @@ function UI_QuestPopup:init()
     vars['periodLabel']:setString('')
 
     self.m_battlePassBtn = vars['battlePassBtn']
-    self.m_elapsedTime = 0
 
 	-- 통신 후 UI 출력
     --[[
@@ -55,7 +53,7 @@ function UI_QuestPopup:init()
     self:initButton()
     self:refresh()
 
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
 end
 
 -------------------------------------
@@ -143,9 +141,6 @@ function UI_QuestPopup:refresh(t_quest_data)
 
     -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트) 갱신
     self:refreshEventDailyQuest()
-
-    -- 남은 시간 표기
-    self:refresh_time()
 end
 
 -------------------------------------
@@ -599,27 +594,11 @@ end
 
 -------------------------------------
 -- function update
--- @brief 매 프레임 호출됨
 -------------------------------------
 function UI_QuestPopup:update(dt)
-    self.m_elapsedTime = self.m_elapsedTime + dt
-
-    if (self.m_elapsedTime < 1) then
-        return
-    else
-        self.m_elapsedTime = 0
-    end
-
-    self:refresh_time()
-end
-
--------------------------------------
--- function update
--- @brief 매 프레임 호출됨
--------------------------------------
-function UI_QuestPopup:refresh_time()
     local vars = self.vars
 
+    -- 남은 시간 표기
     if vars['periodLabel'] then
         local str = g_supply:getSupplyTimeRemainingString_dailyQuest()
         vars['periodLabel']:setString(str)

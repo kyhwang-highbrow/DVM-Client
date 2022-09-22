@@ -56,7 +56,7 @@ function UI_DmgateShop:init(mode_id)
 
     
     -- 시즌 타이머
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
+    self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
 end
 
 -------------------------------------
@@ -133,9 +133,9 @@ function UI_DmgateShop:refresh()
 end
 
 ----------------------------------------------------------------------
--- function updateTimer
+-- function update
 ----------------------------------------------------------------------
-function UI_DmgateShop:updateTimer(dt)
+function UI_DmgateShop:update(dt)
     if (g_dmgateData:isActive() == false) then 
         g_dmgateData:MakeSeasonEndedPopup()
         self.root:unscheduleUpdate()

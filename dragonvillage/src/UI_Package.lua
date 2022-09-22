@@ -16,8 +16,6 @@ UI_Package = class(PARENT, {
         m_obtainResultCloseCb = 'function',
 
         m_mailSelectType = 'MAIL_SELECT_TYPE',
-
-        m_elapsedTime = 'number',
      })
 
 -------------------------------------
@@ -55,7 +53,6 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     self.m_isRefreshedDependency = false
 	self.m_uiName = 'UI_Package'
     self.m_mailSelectType = MAIL_SELECT_TYPE.NONE
-    self.m_elapsedTime = 0
 
     local vars = self:load(ui_name)
 
@@ -75,7 +72,7 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
 
 
     if vars['timeLabel'] then
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+        self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
     end
 end
 
@@ -84,25 +81,10 @@ end
 ---@param dt number
 -------------------------------------
 function UI_Package:update(dt)
-    self.m_elapsedTime = self.m_elapsedTime + dt
 
-    if (self.m_elapsedTime < 1) then
-        return
-    else
-        self.m_elapsedTime = 0
-    end
-
-    self:refresh_time()
-end
-
----function refresh_time
-function UI_Package:refresh_time()
-    local vars = self.vars
-
-    if vars['timeLabel'] then
-        local struct_product = self.m_productList[1]
-        vars['timeLabel']:setString(struct_product:getEndDateStr())
-    end
+    -- 판매 종료까지 남은 시간
+    local struct_product = self.m_productList[1]
+    vars['timeLabel']:setString(struct_product:getEndDateStr())
 end
 
 -------------------------------------
@@ -316,10 +298,6 @@ function UI_Package:refresh()
     if self.vars['notiSprite'] then 
         self.vars['notiSprite']:setVisible(is_noti_visible)
     end
-
-
-    -- 판매 종료까지 남은 시간
-    self:refresh_time()
 end
 
 -------------------------------------

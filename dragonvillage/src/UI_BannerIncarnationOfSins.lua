@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_BannerIncarnationOfSins
 -------------------------------------
 UI_BannerIncarnationOfSins = class(PARENT,{
-    })
+})
 
 -------------------------------------
 -- function init
@@ -21,6 +21,8 @@ function UI_BannerIncarnationOfSins:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
 end
 
 -------------------------------------
@@ -28,7 +30,6 @@ end
 -------------------------------------
 function UI_BannerIncarnationOfSins:initUI()
     local vars = self.vars
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -48,7 +49,7 @@ end
 -------------------------------------
 -- function update
 -------------------------------------
-function UI_BannerIncarnationOfSins:update()
+function UI_BannerIncarnationOfSins:update(dt)
     local vars = self.vars
     
     -- 이벤트 종료 후 보상 획득 가능

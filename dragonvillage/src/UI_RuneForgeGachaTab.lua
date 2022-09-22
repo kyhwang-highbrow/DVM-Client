@@ -139,7 +139,7 @@ function UI_RuneForgeGachaTab:initUI()
     is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
     if is_active then
         vars['runeFeverMenu']:setVisible(true)
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
+        self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
     end
 
     --package_rune_box
@@ -160,12 +160,12 @@ function UI_RuneForgeGachaTab:initUI()
 end
 
 -------------------------------------
--- function updateTimer
+-- function update
 -------------------------------------
-function UI_RuneForgeGachaTab:updateTimer(dt)
+function UI_RuneForgeGachaTab:update(dt)
     local vars = self.vars
 
-    is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
+    local is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
     if is_active then
         if #l_ret then l_ret = l_ret[1] end
         
@@ -175,7 +175,7 @@ function UI_RuneForgeGachaTab:updateTimer(dt)
   
         if (start_time <= curr_time) and (curr_time <= end_time) then
             local time = (end_time - curr_time)
-            str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
+            local str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
             vars['timeLabel']:setString(str)
         end
     else
