@@ -71,8 +71,13 @@ function UI_BannerIncarnationOfSins:update()
         end
 
         if (g_eventIncarnationOfSinsData:canPlay()) then
-            -- 남은 이벤트 시간 표시
-            vars['timeLabel']:setString(ServerData_EventIncarnationOfSins:getTimeText())
+            -- local time_str = ServerData_EventIncarnationOfSins:getTimeText()
+            -- if (time_str ~= nil) then
+            --     -- 남은 이벤트 시간 표시
+            --     vars['timeLabel']:setString(time_str)
+            -- else
+            --     vars['timeLabel']:setString('')    
+            -- end
         else
             vars['timeLabel']:setString('')
         end

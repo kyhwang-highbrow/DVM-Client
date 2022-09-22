@@ -21,7 +21,6 @@ function UI_EventIncarnationOfSinsRankingPopup:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventIncarnationOfSinsRankingPopup')
 
-    self:make_UIC_SortList()
     self:initUI()
     self:initTab()
     self:initButton()
@@ -33,6 +32,56 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingPopup:initUI()
     local vars = self.vars
+    
+    self:initSortList()
+    self:initTab()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingPopup:initButton()
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingPopup:refresh()
+    local vars = self.vars
+end
+
+-------------------------------------
+-- function initSortList
+-- @brief
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingPopup:initSortList()
+    local vars = self.vars
+    -- 내 순위 필터
+    local button = vars['userRankBtn']
+    local label = vars['rankLabel1']
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+    local uic = UIC_SortList()
+    uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+    parent:addChild(uic.m_node)
+    uic:addSortType('my', Str('내 랭킹'))
+    uic:addSortType('top', Str('최상위 랭킹'))
+    uic:addSortType('friend', Str('친구 랭킹'))
+    uic:addSortType('clan', Str('클랜원 랭킹'))
+    uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
+    uic:setSelectSortType('my')
+
+    self.m_sortList = uic;
 end
 
 -------------------------------------
@@ -97,53 +146,6 @@ function UI_EventIncarnationOfSinsRankingPopup:onChangeTab(tab, first)
         end
 
     end
-end
-
--------------------------------------
--- function initButton
--------------------------------------
-function UI_EventIncarnationOfSinsRankingPopup:initButton()
-    local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_EventIncarnationOfSinsRankingPopup:refresh()
-    local vars = self.vars
-end
-
--------------------------------------
--- function make_UIC_SortList
--- @brief
--------------------------------------
-function UI_EventIncarnationOfSinsRankingPopup:make_UIC_SortList()
-    local vars = self.vars
-    -- 내 순위 필터
-    local button = vars['userRankBtn']
-    local label = vars['rankLabel1']
-    local width, height = button:getNormalSize()
-    local parent = button:getParent()
-    local x, y = button:getPosition()
-    local uic = UIC_SortList()
-    uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
-    uic:setNormalSize(width, height)
-    uic:setPosition(x, y)
-    uic:setDockPoint(button:getDockPoint())
-    uic:setAnchorPoint(button:getAnchorPoint())
-    uic:init_container()
-    uic:setExtendButton(button)
-    uic:setSortTypeLabel(label)
-    parent:addChild(uic.m_node)
-    uic:addSortType('my', Str('내 랭킹'))
-    uic:addSortType('top', Str('최상위 랭킹'))
-    uic:addSortType('friend', Str('친구 랭킹'))
-    uic:addSortType('clan', Str('클랜원 랭킹'))
-    uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
-    uic:setSelectSortType('my')
-
-    self.m_sortList = uic;
 end
 
 -------------------------------------

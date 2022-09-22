@@ -12,7 +12,6 @@ ServerData_EventIncarnationOfSins = class({
         m_tRewardInfo = 'table', -- 랭킹 보상 정보
         m_tAttrInfo = 'table', -- 요일별 입장 가능한 속성 정보
         m_todayDow = 'number', -- 오늘 요일 (1 = 일요일, 2, 3, 4, 5, 6, 7 = 토요일)
-        m_Info = 'table', -- 
         m_gameState = 'boolean',
         m_rankNoti = 'boolean',
         m_isOpened = 'boolean',
@@ -192,14 +191,6 @@ function ServerData_EventIncarnationOfSins:getTimeText()
     end
 
     return str
-end
-
--------------------------------------
--- function setInfo
--- @brief 이벤트 정보 설정
--------------------------------------
-function ServerData_EventIncarnationOfSins:setInfo(t_data)
-    self.m_Info = t_data
 end
 
 -------------------------------------

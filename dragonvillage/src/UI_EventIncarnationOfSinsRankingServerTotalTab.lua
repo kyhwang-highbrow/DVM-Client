@@ -218,8 +218,9 @@ function UI_EventIncarnationOfSinsRankingServerTotalTab:makeRewardUI(ret, type)
         vars['rankLabel']:setString('-')
     end
 
-    local remain_time = g_eventIncarnationOfSinsData:getTimeText()
-    vars['timeLabel']:setString(remain_time)
+    -- local remain_time = g_eventIncarnationOfSinsData:getTimeText()
+    -- vars['timeLabel']:setString(remain_time)
+    
     --------------------------------------------------------------------------------
     -- local node = vars['rewardNode']
 

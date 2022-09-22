@@ -25,7 +25,7 @@ function UI_EventIncarnationOfSinsFullPopup:init()
         self:playEventScenario()
     end
 
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
+    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
 
 -------------------------------------

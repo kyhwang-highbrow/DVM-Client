@@ -30,7 +30,7 @@ end
 function UI_EventIncarnationOfSins:initUI()
     local vars = self.vars
 
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
+    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 
     local noti = g_eventIncarnationOfSinsData:getRankNoti()
     vars['notiSprite']:setVisible(noti)
@@ -171,6 +171,7 @@ function UI_EventIncarnationOfSins:click_rankBtn()
     g_eventIncarnationOfSinsData:setRankNoti(false)
     self:refresh()
 
+    require('UI_EventIncarnationOfSinsRankingPopup')
     local ui = UI_EventIncarnationOfSinsRankingPopup()
 end
 

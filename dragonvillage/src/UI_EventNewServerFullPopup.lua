@@ -26,8 +26,8 @@ function UI_EventNewServerFullPopup:initUI()
 
     local is_event_open = UINavigatorDefinition:findOpendUI('UI_EventPopup')
 
-    local str = g_eventIncarnationOfSinsData:getTimeText()
-    vars['timeLabel']:setString(str)
+    -- local str = g_eventIncarnationOfSinsData:getTimeText()
+    -- vars['timeLabel']:setString(str)
     
     --이벤트 상점이 열려있으면 버튼을 꺼줌
     vars['linkBtn']:setVisible(not is_event_open)
