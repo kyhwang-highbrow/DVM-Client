@@ -21,6 +21,7 @@ function UI_EventIncarnationOfSinsRankingPopup:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventIncarnationOfSinsRankingPopup')
 
+    self:make_UIC_SortList()
     self:initUI()
     self:initTab()
     self:initButton()
@@ -32,9 +33,59 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingPopup:initUI()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingPopup:initTab()
+    local vars = self.vars
+
+    require('UI_EventIncarnationOfSinsRankingTotalTab')
+    require('UI_EventIncarnationOfSinsRankingAttributeTab')
+
+    local all_rank_tab = UI_EventIncarnationOfSinsRankingTotalTab(self)
+    local attr_rank_tab = UI_EventIncarnationOfSinsRankingAttributeTab(self)
     
-    self:initSortList()
-    self:initTab()
+    vars['indivisualTabMenu']:addChild(all_rank_tab.root)
+    vars['indivisualTabMenu']:addChild(attr_rank_tab.root)
+    
+    self:addTabWithTabUIAndLabel('allRank', vars['allRankTabBtn'], vars['allRankTabLabel'], all_rank_tab) -- 종합 랭킹
+    self:addTabWithTabUIAndLabel('attrRank', vars['attrRankTabBtn'], vars['attrRankTabLabel'], attr_rank_tab) -- 속성별 랭킹
+
+    self:setTab('allRank')
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingPopup:click_exitBtn()
+    self:close()
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingPopup:onChangeTab(tab, first)
+    self.m_currTab = tab
+
+    -- 초기화 다 된 탭들이면
+    if not first then
+        -- 현재 세팅 된 탭 기준으로 refreshRank를 호출해준다.
+        -- 각 탭들은 자신을 세팅하기 위해 모두 refreshRank 함수를 가진다.
+        if (self.m_currTab and self.m_mTabData) then
+            if (self.m_mTabData[self.m_currTab]) then
+                -- 현재 팝업에서의 탭상태 vs 탭 UI의 상태
+                -- 다르면 리프레시 해주자.
+                local tabViewSearchType = self.m_mTabData[self.m_currTab]['ui'].m_searchType
+
+                if (self.m_rankType ~= tabViewSearchType) then
+                    self.m_mTabData[self.m_currTab]['ui']:refreshRank(self.m_rankType)
+                end
+            end
+        end
+
+    end
 end
 
 -------------------------------------
@@ -53,10 +104,10 @@ function UI_EventIncarnationOfSinsRankingPopup:refresh()
 end
 
 -------------------------------------
--- function initSortList
+-- function make_UIC_SortList
 -- @brief
 -------------------------------------
-function UI_EventIncarnationOfSinsRankingPopup:initSortList()
+function UI_EventIncarnationOfSinsRankingPopup:make_UIC_SortList()
     local vars = self.vars
     -- 내 순위 필터
     local button = vars['userRankBtn']
@@ -82,70 +133,6 @@ function UI_EventIncarnationOfSinsRankingPopup:initSortList()
     uic:setSelectSortType('my')
 
     self.m_sortList = uic;
-end
-
--------------------------------------
--- function initTab
--------------------------------------
-function UI_EventIncarnationOfSinsRankingPopup:initTab()
-    local vars = self.vars
-
-    require('UI_EventIncarnationOfSinsRankingServerTotalTab')
-    require('UI_EventIncarnationOfSinsRankingTotalTab')
-    require('UI_EventIncarnationOfSinsRankingAttributeTab')
-
-    local server_rank_tab = UI_EventIncarnationOfSinsRankingServerTotalTab(self)
-    local all_rank_tab = UI_EventIncarnationOfSinsRankingTotalTab(self)
-    local attr_rank_tab = UI_EventIncarnationOfSinsRankingAttributeTab(self)
-    
-    vars['indivisualTabMenu']:addChild(server_rank_tab.root)
-    vars['indivisualTabMenu']:addChild(all_rank_tab.root)
-    vars['indivisualTabMenu']:addChild(attr_rank_tab.root)
-    
-    self:addTabWithTabUIAndLabel('serverRank', vars['serverRankTabBtn'], vars['serverRankTabLabel'], server_rank_tab) -- 통합 랭킹
-    self:addTabWithTabUIAndLabel('allRank', vars['allRankTabBtn'], vars['allRankTabLabel'], all_rank_tab) -- 종합 랭킹
-    self:addTabWithTabUIAndLabel('attrRank', vars['attrRankTabBtn'], vars['attrRankTabLabel'], attr_rank_tab) -- 속성별 랭킹
-
-    self:setTab('serverRank')
-end
-
--------------------------------------
--- function click_exitBtn
--------------------------------------
-function UI_EventIncarnationOfSinsRankingPopup:click_exitBtn()
-    self:close()
-end
-
--------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_EventIncarnationOfSinsRankingPopup:onChangeTab(tab, first)
-    self.m_currTab = tab
-
-    -- '통합 랭킹'의 경우 정렬 기준을 '내 랭킹'으로 설정
-    if tab == 'serverRank' then
-        self.m_sortList:setSelectSortType('my', true)
-    else
-        self.m_sortList:setSelectSortType('top', true)
-    end
-
-    -- 초기화 다 된 탭들이면
-    if not first then
-        -- 현재 세팅 된 탭 기준으로 refreshRank를 호출해준다.
-        -- 각 탭들은 자신을 세팅하기 위해 모두 refreshRank 함수를 가진다.
-        if (self.m_currTab and self.m_mTabData) then
-            if (self.m_mTabData[self.m_currTab]) then
-                -- 현재 팝업에서의 탭상태 vs 탭 UI의 상태
-                -- 다르면 리프레시 해주자.
-                local tabViewSearchType = self.m_mTabData[self.m_currTab]['ui'].m_searchType
-
-                if (self.m_rankType ~= tabViewSearchType) then
-                    self.m_mTabData[self.m_currTab]['ui']:refreshRank(self.m_rankType)
-                end
-            end
-        end
-
-    end
 end
 
 -------------------------------------

@@ -15,13 +15,8 @@ function UI_EventIncarnationOfSins:init()
     self:initUI()
     self:initButton()
     self:refresh()
-
-    local event_type = 'event_newserver'
     
-    if not g_eventIncarnationOfSinsData.m_isOpened then
-        g_fullPopupManager:showFullPopup(event_type)
-        g_eventIncarnationOfSinsData.m_isOpened = true
-    end
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
 end
 
 -------------------------------------
@@ -29,11 +24,6 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSins:initUI()
     local vars = self.vars
-
-    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:updateTimer(dt) end, 0)
-
-    local noti = g_eventIncarnationOfSinsData:getRankNoti()
-    vars['notiSprite']:setVisible(noti)
 
     vars['dayLabel1']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('light'))
     vars['dayLabel2']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('fire'))
@@ -56,7 +46,6 @@ function UI_EventIncarnationOfSins:initButton()
     vars['buyBtn3']:registerScriptTapHandler(function() self:click_attrBtn('water') end)
     vars['buyBtn4']:registerScriptTapHandler(function() self:click_attrBtn('earth') end)
     vars['buyBtn5']:registerScriptTapHandler(function() self:click_attrBtn('dark') end)
-    vars['bannerBtn']:registerScriptTapHandler(function() self:click_bannerBtn() end)
 end
 
 -------------------------------------
@@ -64,9 +53,6 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSins:refresh()
     local vars = self.vars
-
-    local noti = g_eventIncarnationOfSinsData:getRankNoti()
-    vars['notiSprite']:setVisible(noti)
 
     -- 현재 서버 데이터를 이용하여 버튼 설정
     self:refreshButton('total', vars['rankLabel'], vars['scoreLabel'], nil)
@@ -138,7 +124,7 @@ end
 function UI_EventIncarnationOfSins:updateTimer(dt)
     local vars = self.vars
 
-    local str = g_eventIncarnationOfSinsData:getTimeText()
+    local str = g_eventIncarnationOfSinsData:getRemainTimeString()
     vars['timeLabel']:setString(str)
 end
 
@@ -153,25 +139,11 @@ function UI_EventIncarnationOfSins:click_eventBtn()
 end
 
 -------------------------------------
--- function click_bannerBtn
--------------------------------------
-function UI_EventIncarnationOfSins:click_bannerBtn()
-    local vars = self.vars
-
-    local event_type = 'event_newserver'
-    g_fullPopupManager:showFullPopup(event_type)
-end
-
--------------------------------------
 -- function click_rankBtn
 -------------------------------------
 function UI_EventIncarnationOfSins:click_rankBtn()
     local vars = self.vars
 
-    g_eventIncarnationOfSinsData:setRankNoti(false)
-    self:refresh()
-
-    require('UI_EventIncarnationOfSinsRankingPopup')
     local ui = UI_EventIncarnationOfSinsRankingPopup()
 end
 

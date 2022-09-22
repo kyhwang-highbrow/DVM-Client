@@ -161,18 +161,6 @@ end
 -- class initUI
 ----------------------------------------------------------------------
 function UI_LobbyBanner:initUI()
-    local vars = self.vars
-
-    if (vars['notiSprite'] ~= nil) then
-        local noti_date = g_settingData:getLobbyBannerNoti()
-
-        local date_format = pl.Date.Format('yyyy-mm-dd')
-        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-        local time = date_format:tostring(curr_time)
-        local noti = (noti_date ~= time)
-
-        vars['notiSprite']:setVisible(noti)
-    end
 end
 
 
@@ -196,45 +184,13 @@ end
 function UI_LobbyBanner:click_bannerBtn()
     local url = self.m_eventData['url']
     local event_type = self.m_eventData['event_type']
-    
-    --로비 배너 노티 체크
-    local lobby_banner_noti = g_settingData:getLobbyBannerNoti()
-    local date_format = pl.Date.Format('yyyy-mm-dd')
-    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-    local time = date_format:tostring(curr_time)
-
-    if lobby_banner_noti ~= time then
-        g_settingData:setLobbyBannerNoti(time)
-    end
 
     if (url ~= nil) and (url ~= '') then
         SDKManager:goToWeb(url)
     elseif (event_type == 'event_crosspromotion') then
 	    g_fullPopupManager:showFullPopup(event_type)
-    --죄악의 화신 현물 이벤트 및 현물 보상 풀팝업
-    elseif (event_type == 'event_newserver') then
-
-        -- 이벤트 활성화중 아님
-        if (not g_eventIncarnationOfSinsData:isActive()) then
-            return
-        
-        -- 본 이벤트 기간
-        elseif (g_eventIncarnationOfSinsData:canPlay()) then
-            g_eventData:openEventPopup('event_incarnation_of_sins')
-        -- 보상 수령 및 랭킹확인 기간
-        else 
-            g_eventIncarnationOfSinsData:openRankingPopupForLobby()
-        end 
     end
 end
-
-
-
-
-
-
-
-
 
 -- @CHECK
 UI:checkCompileError(UI_BannerDmgate)

@@ -203,11 +203,6 @@ function UI_EventFullPopup:initUI()
         require('UI_EventIncarnationOfSinsFullPopup')
         ui = UI_EventIncarnationOfSinsFullPopup()
 
-    -- 신규 서버 현물 이벤트
-    elseif string.find(popup_key, 'event_newserver') then
-       require('UI_EventNewServerFullPopup')
-       ui = UI_EventNewServerFullPopup()
-
     -- 만드라고라의 모험 이벤트 
     --elseif string.find(popup_key, 'event_mandraquest') then
         --local inner_ui = UI_EventMandragoraQuest()

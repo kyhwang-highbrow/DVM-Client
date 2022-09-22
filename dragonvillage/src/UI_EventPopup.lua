@@ -305,11 +305,6 @@ function UI_EventPopup:makeEventPopupTab(tab)
         require('UI_EventIncarnationOfSinsFullPopup')
         ui = UI_EventIncarnationOfSinsFullPopup()
 
-    -- 죄악의 화신 현물 이벤트
-    elseif (tab == 'event_newserver') then
-        require('UI_EventNewServerFullPopup')
-        ui = UI_EventNewServerFullPopup()
-
     -- 주사위 이벤트
     elseif (tab =='event_dice') then
         local inner_ui = UI_DiceEvent()

@@ -164,33 +164,12 @@ function ServerData_EventIncarnationOfSins:getMyRate(type)
 end
 
 -------------------------------------
--- function getTimeText
+-- function getRemainTimeString
 -- @brief 이벤트 남은시간 받아오기
 -------------------------------------
-function ServerData_EventIncarnationOfSins:getTimeText()
-    if (self.m_Info == nil) then 
-        return 
-    end
-
-    local time_info = self.m_Info
-
-    local start_time = time_info['start_date_timestamp'] / 1000
-    local end_time = time_info['end_date_timestamp'] / 1000
-
-    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-
-    local str = ''
-    if (curr_time < start_time) then
-        local time = (start_time - curr_time)
-        str = Str('{1} 후 열림', ServerTime:getInstance():makeTimeDescToSec(time, true))
-    elseif (start_time <= curr_time) and (curr_time <= end_time) then
-        local time = (end_time - curr_time)
-        str = Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
-    else
-        str = Str('이벤트가 종료되었습니다.')
-    end
-
-    return str
+function ServerData_EventIncarnationOfSins:getRemainTimeString()
+    -- TODO : 구현을 해야한다.
+    return g_hotTimeData:getEventRemainTimeTextDetail('event_incarnation_of_sins') or ''
 end
 
 -------------------------------------
