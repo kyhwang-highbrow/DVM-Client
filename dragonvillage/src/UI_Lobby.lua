@@ -2762,7 +2762,7 @@ function UI_Lobby:refresh_rightBanner()
 
     local banner_list = {}
     local index = 1
-    -- 한쿡 혹은 아메리카 서버이면 보여주는걸로 함
+
     if (g_eventData.m_eventList) then
         local event_list = g_eventData:getEventPopupTabList()
 
@@ -2770,11 +2770,9 @@ function UI_Lobby:refresh_rightBanner()
             if v.m_eventData['lobby_banner'] and (v.m_eventData['lobby_banner'] ~= '')  then
                 if (vars['banner_appcollaboration' .. index] == nil) then
                     local banner 
-                    if (v.m_eventData['event_type'] == 'event_crosspromotion') then
-                        local data = v['m_eventData']
-                        banner = UI_BannerAppCollaboration(data)
+
                     --출석 이벤트용 배너
-                    elseif (v.m_eventData['event_type'] == 'attendance_event') then
+                    if (v.m_eventData['event_type'] == 'attendance_event') then
                         local data = v['m_eventData'] 
                         
                         local event_id = tonumber(data['event_id'])
