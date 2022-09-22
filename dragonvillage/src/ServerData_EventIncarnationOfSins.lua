@@ -706,3 +706,32 @@ function ServerData_EventIncarnationOfSins:getPossibleReward_IncarnationsOfSins(
     local last_ind = #l_rank_list
     return l_rank_list[last_ind], last_ind or 0  
 end
+
+
+-------------------------------------
+-- function request_eventIncarnationOfSinsFinish
+--@brief 22.06.07 글로벌 서버 출시 기념 현물 이벤트 랭킹 관련 API
+---@param finish_cb function | nil
+---@param fail_cb function | nil
+-------------------------------------
+function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsFinish(finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    
+    local function success_cb(ret)
+        self:response_eventIncarnationOfSinsInfo(ret)
+        
+        if (isFunction(finish_cb) == true) then
+            finish_cb()
+        end
+    end
+    
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/event/incarnation_of_sins/get_event_rank')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:hideLoading()
+    ui_network:request()
+end

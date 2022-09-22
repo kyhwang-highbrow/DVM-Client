@@ -1451,34 +1451,13 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+        -- 차원문 /dmgate/info API
         do
             co:work('# 차원문 정보 받는 중')
             g_dmgateData:request_dmgateInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
-        -- jylee 2022.06.07 경품 이벤트 api 추후 삭제 해야함 --
-        do
-            co:work('#경품 이벤트 정보 받는 중')
-            -- param
-            local uid = g_userData:get('uid')
-            local function success_cb(ret)
-                g_eventIncarnationOfSinsData:response_eventIncarnationOfSinsInfo(ret)
-
-                co.NEXT()
-            end
-
-            -- ui_network
-            local ui_network = UI_Network()
-            ui_network:setUrl('/event/incarnation_of_sins/get_event_rank')
-            ui_network:setParam('uid', uid)
-            ui_network:setSuccessCB(success_cb)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-            ui_network:request()
-        end
-        if co:waitWork() then return end
-        ----------------------------------------------------
 
         co:close()
 
