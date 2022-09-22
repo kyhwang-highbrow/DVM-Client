@@ -943,6 +943,7 @@ end
 
 -------------------------------------
 -- function isNumber
+---@return boolean
 -------------------------------------
 function isNumber(v)
 	return v and (type(v) == 'number')
@@ -950,6 +951,7 @@ end
 
 -------------------------------------
 -- function isString
+---@return boolean
 -------------------------------------
 function isString(v)
 	return v and (type(v) == 'string')
@@ -957,6 +959,7 @@ end
 
 -------------------------------------
 -- function isTable
+---@return boolean
 -------------------------------------
 function isTable(v)
 	return v and (type(v) == 'table')
@@ -971,6 +974,14 @@ function convertToParentCoord(parent, target)
     until p == nil or p == parent
 
     return CCPoint(x, y)
+end
+
+-------------------------------------
+-- function isFunction
+---@return boolean
+-------------------------------------
+function isFunction(v)
+    return v and (type(v) == 'function')
 end
 
 -------------------------------------
