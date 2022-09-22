@@ -700,12 +700,12 @@ end
 
 
 -------------------------------------
--- function request_eventIncarnationOfSinsFinish
+-- function request_getEventRank
 --@brief 22.06.07 글로벌 서버 출시 기념 현물 이벤트 랭킹 관련 API
 ---@param finish_cb function | nil
 ---@param fail_cb function | nil
 -------------------------------------
-function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsFinish(finish_cb, fail_cb)
+function ServerData_EventIncarnationOfSins:request_getEventRank(finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     
