@@ -18,11 +18,9 @@ function UI_EventMatchCard:init()
 
     self:initUI()
     self:initButton()
+    self:refresh()
 
-    local function update(dt)
-        self:refresh()
-    end
-    self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+    self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
 end
 
 -------------------------------------
@@ -82,6 +80,13 @@ end
 -- function refresh
 -------------------------------------
 function UI_EventMatchCard:refresh()
+
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_EventMatchCard:update(dt)
     local vars = self.vars
     local play_second = g_accessTimeData:getTime()
     
