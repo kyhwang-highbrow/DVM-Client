@@ -22,6 +22,7 @@ function UI_ButtonSpecialPeriod:init()
     self.m_bActive = false
     self.m_elapsedTime = 0
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    self:update(1)
 end
 
 -------------------------------------

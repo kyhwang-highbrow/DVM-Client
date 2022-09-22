@@ -4,16 +4,18 @@
 --        UI_ManagedButton을 상속받은 버튼들을 관리
 -------------------------------------
 UI_LobbyLeftTopBtnManager = class({
-        vars = '',
+    vars = '',
 
-        m_bDirtyButtonsStatus = 'boolean',
-        m_bDirtyButtonsPos = 'boolean',
+    m_bDirtyButtonsStatus = 'boolean',
+    m_bDirtyButtonsPos = 'boolean',
 
-        m_lManagedButtonUI = 'list[UI_ManagedButton]',
-        m_interval = 'number',
+    m_lManagedButtonUI = 'list[UI_ManagedButton]',
+    m_interval = 'number',
 
-        PRIORITY = 'table',
-    })
+    PRIORITY = 'table',
+
+    m_elapsedTime = 'number',
+})
 
 -------------------------------------
 -- function init
@@ -40,7 +42,10 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     self.PRIORITY.SUPPLY_DEPOT = 600
     self.PRIORITY.EVENT_NEWSERVER = 500
 
+    self.m_elapsedTime = 0
+
     vars['productBtnMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    self:update(1)
 
     local l_managed_button_info = {}
     if (g_highbrowVipData:checkVipStatus() == true) and (g_highbrowVipData:isEventActive() == true)then
@@ -263,6 +268,13 @@ end
 -- @brief 매 프레임 호출되는 함수
 -------------------------------------
 function UI_LobbyLeftTopBtnManager:update(dt)
+    self.m_elapsedTime = self.m_elapsedTime + dt
+
+    if (self.m_elapsedTime < 1) then
+        return
+    else
+        self.m_elapsedTime = 0
+    end    
 
     -- 버튼 상태 변경이 필요한 경우 갱신
     if (self.m_bDirtyButtonsStatus == true) then
