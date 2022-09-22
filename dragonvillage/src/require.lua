@@ -879,7 +879,6 @@ local t_module = {
     'UI_ButtonSupplyDepot',
     'UI_ButtonNewcomerShop',
     'UI_DragonInfoListItem',
-    'UI_NewServerEventRewardPopup',
     'LobbyMapSpotMgr',
     'LobbyMap',
     'LobbyMapFactory',
