@@ -235,14 +235,14 @@ function UI_EventMandragoraQuest:click_eventBtn()
     local request_reward
 
     confirm_popup_func_1 = function()
-        local msg = Str('2018 캐릭터·라이선싱 페어 드래곤 빌리지 부스 직원 전용 메뉴입니다.')
-        local sub_msg = Str('직원이 아닌 경우 취소 버튼을 눌러주세요.')
+        local msg = StrForDev('2018 캐릭터·라이선싱 페어 드래곤 빌리지 부스 직원 전용 메뉴입니다.')
+        local sub_msg = StrForDev('직원이 아닌 경우 취소 버튼을 눌러주세요.')
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, confirm_popup_func_2)
     end
         
     confirm_popup_func_2 = function()
-        local msg = Str('!!경고!!\n담당 직원이 직접 확인하지 않을 경우 선물을 받으실수 없습니다!')
-        local sub_msg = Str('직원이 아닌 경우 취소 버튼을 눌러주세요.')
+        local msg = StrForDev('!!경고!!\n담당 직원이 직접 확인하지 않을 경우 선물을 받으실수 없습니다!')
+        local sub_msg = StrForDev('직원이 아닌 경우 취소 버튼을 눌러주세요.')
         local popup = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, request_reward)
         local vars = popup.vars
         vars['okBtn']:setEnabled(false)
