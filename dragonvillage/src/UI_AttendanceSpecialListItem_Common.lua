@@ -87,7 +87,9 @@ function UI_AttendanceSpecialListItem_Common:setTimeLabel()
 
         local time = end_time - curr_time
 
-        time_str = Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
+        if (time > 0) then
+            time_str = Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
+        end
     end
     
     timeLabel:setString(time_str)

@@ -199,22 +199,12 @@ function UI_AttendanceSpecialListItem:getRemainTimeStr()
 
     local str = ''
 
-
     local os_time = os.time()
     local remain_second = end_time - os_time
 
-    str = Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(remain_second, false, true))
-
-
-
-    --[[
-    if (start_time <= curr_time) and (curr_time <= end_time) then
-        local time = (end_time - curr_time)
-        str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
-
-    else
-        str = ''
-    end]]
+    if (remain_second > 0) then
+        str = Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(remain_second, false, true))
+    end
 
     return str
 end
