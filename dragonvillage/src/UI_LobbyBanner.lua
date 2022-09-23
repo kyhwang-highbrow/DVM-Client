@@ -12,11 +12,15 @@ UI_LobbyBanner = class(PARENT,{
 ----------------------------------------------------------------------
 function UI_LobbyBanner:init(event_data)
     self.m_uiName = 'UI_LobbyBanner'
-
-    local ui_name = event_data['lobby_banner']
-    local vars = self:load(ui_name)
-
+    self.m_resName = event_data['lobby_banner']
     self.m_eventData = event_data
+end
+
+----------------------------------------------------------------------
+-- class init_after
+----------------------------------------------------------------------
+function UI_LobbyBanner:init_after()
+    self:load(self.m_resName)
 
     self:initUI()
     self:initButton()
@@ -36,7 +40,10 @@ end
 -- class initButton
 ----------------------------------------------------------------------
 function UI_LobbyBanner:initButton()
-    self.vars['bannerBtn']:registerScriptTapHandler(function() self:click_bannerBtn() end)
+    local vars = self.vars
+    if vars['bannerBtn'] then
+        vars['bannerBtn']:registerScriptTapHandler(function() self:click_bannerBtn() end)
+    end
 end
 
 
