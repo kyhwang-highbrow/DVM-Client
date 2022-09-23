@@ -342,12 +342,12 @@ function UI_Package:initButton()
     end
 
 	if (vars['rewardBtn']) then
-		vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+		vars['rewardBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 	end
 
     
 	if (vars['infoBtn']) then
-		vars['infoBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+		vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 	end
 end
 
@@ -401,11 +401,10 @@ function UI_Package:click_contractBtn()
 end
 
 -------------------------------------
--- function click_rewardBtn
--- @brief 보상 안내 = 상품 안내 팝업을 출력한다 rewardBtn 보다는 infoBtn이 적절했을듯
--- @comment 만원의 행복 용으로 추가됨. package_lucky_box.ui
+-- function click_infoBtn
+-- @brief 보상 안내 팝업
 -------------------------------------
-function UI_Package:click_rewardBtn()
+function UI_Package:click_infoBtn()
 	local struct_product = self.m_productList[1]
 
     if (not struct_product) then
@@ -413,17 +412,20 @@ function UI_Package:click_rewardBtn()
     end
 
 	-- 대상 package ui 이름에 _popup을 붙인 것으로 통일
-    local ui_name = struct_product and struct_product['package_res']
-	local reward_name = ui_name:gsub('.ui', '_popup.ui')
+    local res_name = struct_product and struct_product['package_res']
+	local ui_name = res_name:gsub('.ui', '_popup.ui')
+    
+    local category = struct_product:getCategoryFromProductContent()
 
-	-- 임시 ui 생성
-	local ui = UI()
-	ui:load(reward_name)
-	UIManager:open(ui, UIManager.POPUP)
-	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_Package_Popup')
-	ui.vars['closeBtn']:registerScriptTapHandler(function()
-		ui:close()
-	end)
+    local function finish_cb(ret)
+        local item_list = ret[category]
+        if isTable(item_list) then
+            require('UI_PackageInfoPopup')
+            local ui = UI_PackageInfoPopup(item_list, ui_name)
+        end
+    end
+
+    g_shopDataNew:request_randomBoxInfo(finish_cb)
 end
 
 -------------------------------------

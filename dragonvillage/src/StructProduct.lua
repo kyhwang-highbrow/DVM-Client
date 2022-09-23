@@ -1410,8 +1410,6 @@ function StructProduct:handlingMissingPayments(l_payload, cb_func, finish_cb)
     PaymentHelper.handlingMissingPayments(l_payload, cb_func, finish_cb)
 end
 
-
-
 -------------------------------------
 -- function getPackageUI
 -------------------------------------
@@ -1430,4 +1428,40 @@ function StructProduct:getPackageUI(is_popup)
     end
 
     return package_class({self}, is_popup)
+end
+
+-------------------------------------
+-- function getCategoryFromProductContent
+---@param index number
+---@return string | nil
+-------------------------------------
+function StructProduct:getCategoryFromProductContent(index)
+    local product_content_str = self['product_content']
+
+    -- 공백 제거
+    product_content_str = string.gsub(product_content_str, ' ', '')
+
+    -- 개행 제거
+    product_content_str = string.gsub(product_content_str, '\n', '')
+
+    -- ','로 분리
+    local product_content_list = pl.stringx.split(product_content_str, ',')
+    
+    for i,v in ipairs(product_content_list) do
+        -- ';'으로 분리
+        local item_list = pl.stringx.split(v, ';')
+
+        local category = table.getFirst(item_list)
+
+        -- item_id가 아닌 string 형태의 category인 경우 (table_random_box.csv)
+        if isString(category) and (tonumber(category) == nil) then
+            if isNumber(index) then
+                if (i == index) then
+                    return category
+                end
+            else
+                return category
+            end
+        end      
+    end
 end
