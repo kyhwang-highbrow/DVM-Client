@@ -81,6 +81,7 @@ end
 ---@param dt number
 -------------------------------------
 function UI_Package:update(dt)
+    local vars = self.vars
 
     -- 판매 종료까지 남은 시간
     local struct_product = self.m_productList[1]
