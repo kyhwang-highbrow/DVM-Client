@@ -6,9 +6,7 @@ PaymentHelper = {}
 -- @brief 인앱 결제 3.0
 -- @param cb_func(ret)
 -------------------------------------
-function PaymentHelper.buy_iap(struct_product, cb_func)
-    local skip_default_after = (skip_default_after or false)
-    
+function PaymentHelper.buy_iap(struct_product, cb_func)    
     local validation_key = nil
     local test_purchase = false
     local product_id = struct_product:getProductID()
@@ -40,9 +38,14 @@ function PaymentHelper.buy_iap(struct_product, cb_func)
     func_response_get_validation_key = function(ret)
         validation_key = ret['validation_key']
 
-        -- @nextfunc
-        func_checkTestPurchase()
-        
+        if (validation_key ~= nil) and (validation_key ~= '') then
+            -- @nextfunc
+            func_checkTestPurchase()            
+        else
+            local msg = '일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'
+            MakeSimplePopup(POPUP_TYPE.OK,  msg)
+            return
+        end        
     end
 
     -- 테스트 결제 프로세스 확인
@@ -287,7 +290,14 @@ function PaymentHelper.payment(struct_product, cb_func)
             co:work()
             local function cb_func(ret)
                 validation_key = ret['validation_key']
-                co.NEXT()
+
+                if (validation_key ~= nil) and (validation_key ~= '') then
+                    co.NEXT() 
+                else
+                    local msg = '일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'
+                    MakeSimplePopup(POPUP_TYPE.OK,  msg)
+                    co.ESCAPE()
+                end        
             end
             local function fail_cb(ret)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
@@ -446,7 +456,13 @@ function PaymentHelper.payment_onestore(struct_product, cb_func)
             co:work()
             local function cb_func(ret)
                 validation_key = ret['validation_key']
-                co.NEXT()
+                if (validation_key ~= nil) and (validation_key ~= '') then
+                    co.NEXT() 
+                else
+                    local msg = '일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'
+                    MakeSimplePopup(POPUP_TYPE.OK,  msg)
+                    co.ESCAPE()
+                end     
             end
             local function fail_cb(ret)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
@@ -611,7 +627,13 @@ local function coroutine_function(dt)
             co:work()
             local function cb_func(ret)
                 validation_key = ret['validation_key']
-                co.NEXT()
+                if (validation_key ~= nil) and (validation_key ~= '') then
+                    co.NEXT() 
+                else
+                    local msg = '일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'
+                    MakeSimplePopup(POPUP_TYPE.OK,  msg)
+                    co.ESCAPE()
+                end     
             end
             local function fail_cb(ret)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
@@ -756,7 +778,13 @@ function PaymentHelper.payment_win(struct_product, cb_func)
             co:work()
             local function cb_func(ret)
                 validation_key = ret['validation_key']
-                co.NEXT()
+                if (validation_key ~= nil) and (validation_key ~= '') then
+                    co.NEXT() 
+                else
+                    local msg = '일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'
+                    MakeSimplePopup(POPUP_TYPE.OK,  msg)
+                    co.ESCAPE()
+                end     
             end
             local function fail_cb(ret)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
