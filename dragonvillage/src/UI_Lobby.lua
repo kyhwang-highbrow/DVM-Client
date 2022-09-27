@@ -916,7 +916,12 @@ function UI_Lobby:refresh(is_hard_refresh, callback)
             callback()
         end
     end
-    g_hotTimeData:request_hottime(refresh_callback, refresh_callback)
+
+    if (is_hard_refresh == true) then
+        g_hotTimeData:request_hottime(refresh_callback, refresh_callback)
+    else
+        refresh_callback()
+    end
 
 end
 
