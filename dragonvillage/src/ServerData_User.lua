@@ -1,5 +1,6 @@
 -------------------------------------
--- class ServerData_User
+---@class ServerData_User
+---@return ServerData_User
 -------------------------------------
 ServerData_User = class({
         m_serverData = 'ServerData',

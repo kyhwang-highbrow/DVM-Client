@@ -1,5 +1,6 @@
 -------------------------------------
--- class ServerData_Item
+---@class ServerData_Item
+---@return ServerData_Item
 -------------------------------------
 ServerData_Item = class({
         m_serverData = 'ServerData',

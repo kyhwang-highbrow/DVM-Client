@@ -1,5 +1,6 @@
 -------------------------------------
--- class ServerData_Event
+---@class ServerData_Event
+---@return ServerData_Event
 -------------------------------------
 ServerData_Event = class({
         m_serverData = 'ServerData',

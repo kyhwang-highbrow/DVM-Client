@@ -1,5 +1,6 @@
 -------------------------------------
--- class ServerData_Shop
+---@class ServerData_Shop
+---@return ServerData_Shop
 -------------------------------------
 ServerData_Shop = class({
         m_serverData = 'ServerData',
