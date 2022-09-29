@@ -236,7 +236,7 @@ end
 function UI_ArenaNew:initButton()
     local vars = self.vars
 
-    vars['testModeBtn']:setVisible(IS_DEV_SERVER())
+    vars['testModeBtn']:setVisible(IS_TEST_MODE())
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
     vars['tierRewardBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
 	vars['defenseBtn']:registerScriptTapHandler(function() self:click_defendDeckBtn() end)
