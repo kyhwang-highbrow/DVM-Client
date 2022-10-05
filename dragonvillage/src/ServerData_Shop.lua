@@ -1246,16 +1246,16 @@ end
 function ServerData_Shop:getPricingMatrix()
     local l_list = {}
     -- price (krw), sku
-    table.insert(l_list, {1100, 'dvm_daily_exp_1k'})  -- 경험치 부스터 패키지
-    table.insert(l_list, {3300, 'dvm_cash_3k'})  -- 다이아 300개
-    table.insert(l_list, {5500, 'dvm_cash_5k'})  -- 다이아 530개
+    table.insert(l_list, {1500, 'dvm_daily_exp_1k'})  -- 경험치 부스터 패키지
+    table.insert(l_list, {4400, 'dvm_cash_3k'})  -- 다이아 300개
+    table.insert(l_list, {6000, 'dvm_cash_5k'})  -- 다이아 530개
     table.insert(l_list, {9900, 'dvm_giftpack01_10k'})  -- 유리아의 랜덤 박스
-    table.insert(l_list, {11000, 'dvm_cash_10k'}) -- 다이아 1,100개
+    table.insert(l_list, {12000, 'dvm_cash_10k'}) -- 다이아 1,100개
 
-    table.insert(l_list, {22000, 'dvm_weekendpack02_20k'}) -- 주말 패키지
-    table.insert(l_list, {33000, 'dvm_cash_30k'}) -- 다이아 3,400개
-    table.insert(l_list, {55000, 'dvm_cash_50k'}) -- 다이아 5,900개
-    table.insert(l_list, {110000, 'dvm_cash_100k'})-- 다이아 12,600개
+    table.insert(l_list, {25000, 'dvm_weekendpack02_20k'}) -- 주말 패키지
+    table.insert(l_list, {37000, 'dvm_cash_30k'}) -- 다이아 3,400개
+    table.insert(l_list, {65000, 'dvm_cash_50k'}) -- 다이아 5,900개
+    table.insert(l_list, {119000, 'dvm_cash_100k'})-- 다이아 12,600개
 
     return l_list
 end
