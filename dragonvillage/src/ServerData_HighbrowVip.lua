@@ -276,7 +276,11 @@ function ServerData_HighbrowVip:isEventActive()
         
         -- 언어 조건
         if (visible) and (target_language ~= '') then
-            visible = (Translate:getGameLang() == target_language)
+            target_language = string.gsub(target_language, ' ', '')
+            local t_language = pl.stringx.split(target_language, ',')
+            local game_lang = Translate:getGameLang()
+            
+            visible = (table.find(t_language, game_lang) ~= nil)
         end
 
 
