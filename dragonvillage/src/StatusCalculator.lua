@@ -23,8 +23,8 @@ L_SPECIAL_STATUS_TYPE_ONLY_ADD = {
     'cri_dmg_adj_rate',-- 치명시 데미지 조정 계수
 
     -- 룬 세트가 추가되면서 추가된 능력치
-    -- 'accuracy',     -- 효과 적중 +{1}%
-    -- 'resistance',   -- 효과 저항 +{1}%
+    'accuracy',     -- 효과 적중 +{1}%
+    'resistance',   -- 효과 저항 +{1}%
     'cool_actu',    -- 패시브 쿨타임 시간 +{1}% 감소
     'drag_cool',    -- 드래그 쿨타임 시간 +{1}% 감소
     'guard_rear',   -- 자신보다 후방에 있는 아군의 피해를 대신 받아줄 확률 +{1}%
