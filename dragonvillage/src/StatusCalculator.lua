@@ -72,8 +72,25 @@ for i, v in ipairs(L_SPECIAL_STATUS_TYPE_ONLY_MULTI) do
     M_SPECIAL_STATUS_TYPE_ONLY_MULTI[v] = true
 end
 
-L_STATUS_TYPE = table.merge(L_BASIC_STATUS_TYPE, L_SPECIAL_STATUS_TYPE_ONLY_ADD)
-L_STATUS_TYPE = table.merge(L_STATUS_TYPE, L_SPECIAL_STATUS_TYPE_ONLY_MULTI)
+local function merge_without_duplicate(lhs, rhs)
+    local key_table = {}
+    for i, key in ipairs(lhs) do
+        key_table[key] = true
+    end
+    for i, key in ipairs(rhs) do
+        key_table[key] = true
+    end
+
+    local result = {}
+    for key, _ in pairs(key_table) do
+        table.insert(result, key)
+    end
+    
+    return result
+end
+
+L_STATUS_TYPE = merge_without_duplicate(L_BASIC_STATUS_TYPE, L_SPECIAL_STATUS_TYPE_ONLY_ADD)
+L_STATUS_TYPE = merge_without_duplicate(L_STATUS_TYPE, L_SPECIAL_STATUS_TYPE_ONLY_MULTI)
 
 -------------------------------------
 -- class StatusCalculator
