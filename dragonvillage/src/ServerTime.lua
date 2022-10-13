@@ -397,6 +397,18 @@ function ServerTime:getThisMonthlyResetTimestampMilliseconds()
 end
 
 
+-------------------------------------
+-- function getRemainTimeDesc
+---@param end_timestamp_millisec number
+---@return string
+-------------------------------------
+function ServerTime:getRemainTimeDesc(end_timestamp_millisec)
+    local current_milliseconds = self:getCurrentTimestampMilliseconds()
+    local remain_milliseconds = math_max(end_timestamp_millisec - current_milliseconds, 0)
+
+    -- {1}일, {1}일 {2}시간, '%.2d:%.2d:%.2d'
+    return self:timestampMillisecToTimeDesc(remain_milliseconds)
+end
 
 -------------------------------------
 -- function isPastTimestampMilliseconds
@@ -430,6 +442,32 @@ function ServerTime:datestrToTimestampSec(date_str)
 end
 
 -------------------------------------
+-- function checkTimeRange
+---@param start_datestamp_millisec number -- timestamp(millisec)
+---@param end_timestamp_millisec number -- timestamp(millisec)
+---@return boolean
+-------------------------------------
+function ServerTime:checkTimeRange(start_datestamp_millisec, end_timestamp_millisec)
+    local curr_timestamp_sec = self:getCurrentTimestampSeconds()
+
+    if (start_datestamp_millisec ~= nil) and (0 < start_datestamp_millisec) then
+        -- 시작 시간 전인 경우
+        if (curr_timestamp_sec < start_datestamp_millisec) then
+            return false
+        end
+    end
+
+    if (end_timestamp_millisec ~= nil) and (0 < end_timestamp_millisec) then
+        -- 종료 시간이 넘어간 경우
+        if (end_timestamp_millisec < curr_timestamp_sec) then
+            return false
+        end
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function checkTimeRangeWithDatestr
 -- @brief 
 -- @param start_date_str(string) e.g. '2020-05-06 00:00:00'
@@ -443,22 +481,18 @@ function ServerTime:checkTimeRangeWithDatestr(start_date_str, end_date_str)
 
     local start_timestamp_sec = self:datestrToTimestampSec(start_date_str)
     if (start_timestamp_sec ~= nil) and (0 < start_timestamp_sec) then
-
         -- 시작 시간 전인 경우
         if (curr_timestamp_sec < start_timestamp_sec) then
             return false
         end
-
     end
 
     local end_timestamp_sec = self:datestrToTimestampSec(end_date_str)
     if (end_timestamp_sec ~= nil) and (0 < end_timestamp_sec) then
-
         -- 종료 시간이 넘어간 경우
         if (end_timestamp_sec < curr_timestamp_sec) then
             return false
         end
-
     end
 
     return true
@@ -561,67 +595,24 @@ end
 
 -------------------------------------
 -- function timestampMillisecToTimeDesc
--- @brief
--- @param timestamp_millisec(number) nil리턴 가능, 단위:밀리세컨드
--- @return time_desc_str(string) e.g. {1}일, {1}일 {2}시간, '%.2d:%.2d:%.2d'
+---@param timestamp_millisec number
+---@param time_only boolean | nil -- 일,월,년도 표기 제거 여부
+---@return string e.g. {1}일, {1}일 {2}시간, '%.2d:%.2d:%.2d'
 -------------------------------------
-function ServerTime:timestampMillisecToTimeDesc(timestamp_millisec, day_special)
-
-    local day = math.floor(timestamp_millisec / 86400000)
-    timestamp_millisec = timestamp_millisec - (day * 86400000)
-
-    local hour = math.floor(timestamp_millisec / 3600000)
-    timestamp_millisec = timestamp_millisec - (hour * 3600000)
-
-    local min = math.floor(timestamp_millisec / 60000)
-    timestamp_millisec = timestamp_millisec - (min * 60000)
-
-    local sec = math.floor(timestamp_millisec / 1000)
-    timestamp_millisec = timestamp_millisec - (sec * 1000)
-
-    local millisec = timestamp_millisec
-
-    local str = ''
-    if (0 < day) then
-        --str = string.format('%.2d:%.2d:%.2d:%.2d:%.3d', day, hour, min, sec, millisec)
-        str = string.format('%.2d:%.2d:%.2d:%.2d', day, hour, min, sec)
-        if day_special then
-            --local day_str = Str('{1}일', day)
-            --local hour_min_sec_str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
-            --str = Str('{1} {2}', day_str, hour_min_sec_str)
-
-            str = Str('{1}일 {2}:{3}:{4}', day, string.format('%.2d',  hour), string.format('%.2d',  min), string.format('%.2d',  sec))
-        end
-
-    elseif (0 < hour) then
-        --str = string.format('%.2d:%.2d:%.2d:%.3d',  hour, min, sec, millisec)
-        str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
-
-    elseif (0 < min) then
-        --str = string.format('%.2d:%.2d:%.3d',  min, sec, millisec)
-        str = string.format('%.2d:%.2d',  min, sec)
-
-    --elseif (0 < sec) then
-    else
-        --str = string.format('%.2d:%.3d', sec, millisec)
-        str = string.format('%d', sec)
-
-    end
-
-    return str
+function ServerTime:timestampMillisecToTimeDesc(timestamp_millisec, time_only)
+    return datetime.makeTimeDesc_millsecTimer(timestamp_millisec, time_only)
 end
 
 -------------------------------------
 -- function timestampSecToTimeDesc
--- @brief
--- @param  timestamp_sec(number) nil리턴 가능, 단위:초
--- @return time_desc_str(string) e.g. {1}일, {1}일 {2}시간, '%.2d:%.2d:%.2d'
+---@param timestamp_sec number
+---@param time_only boolean | nil -- 일,월,년도 표기 제거 여부
+---@return string e.g. {1}일, {1}일 {2}시간, '%.2d:%.2d:%.2d'
 -------------------------------------
-function ServerTime:timestampSecToTimeDesc(timestamp_sec, day_special)
-
+function ServerTime:timestampSecToTimeDesc(timestamp_sec, time_only)
     local timestamp_millisec = timestamp_sec * 1000
 
-    return self:timestampMillisecToTimeDesc(timestamp_millisec, day_special)
+    return self:timestampMillisecToTimeDesc(timestamp_millisec, time_only)
 end
 
 -------------------------------------

@@ -1,7 +1,7 @@
 local PARENT = Structure
 
 -------------------------------------
--- class StructProduct
+---@class StructProduct
 -------------------------------------
 StructProduct = class(PARENT, {
         product_id = 'number',
@@ -185,7 +185,7 @@ function StructProduct:getEndDateStr(new_line)
     end
 
     local curr_timestamp_sec = ServerTime:getInstance():getCurrentTimestampSeconds()
-    local time_desc = ServerTime:getInstance():timestampSecToTimeDesc(end_timestamp_sec - curr_timestamp_sec, true)
+    local time_desc = ServerTime:getInstance():timestampSecToTimeDesc(end_timestamp_sec - curr_timestamp_sec)
 
     local msg
 
@@ -1115,6 +1115,14 @@ function StructProduct:getMaxBuyTermStr(use_rich)
     end
 
     return str
+end
+
+-------------------------------------
+-- function getRemainingTimeStr
+---@return string
+-------------------------------------
+function StructProduct:getRemainingTimeStr()
+    
 end
 
 -------------------------------------

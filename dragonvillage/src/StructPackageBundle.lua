@@ -1,7 +1,7 @@
 local PARENT = Structure
 
 ----------------------------------------------------------------------
--- class StructPackageBundle
+---@class StructPackageBundle
 -- brief 패키지 상점의 왼쪽 탭 버튼을 위해 talbe_package_bundle.csv의 데이터를 binding
 ----------------------------------------------------------------------
 StructPackageBundle = class(PARENT, {
@@ -181,7 +181,7 @@ function StructPackageBundle:setTargetUI(parent_node, buy_callback, is_refresh_d
 		local ui
 
 		-- 구형 방식 : PackageManager에서 패키지마다 해당하는 UI class를 if문으로 찾아 리턴하는 방식
-		if (ui_type == '') or (ui_type == 'bundle')  then
+		if (ui_type == '')  then
 			local package_name = TablePackageBundle:getPackageNameWithPid(struct_product['product_id'])
 			ui = PackageManager:getTargetUI(package_name, false)
 		else
