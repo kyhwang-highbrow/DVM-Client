@@ -7,6 +7,8 @@ local PARENT = UI
 UI_DiaShopPopup = class(PARENT, {
     m_tableView = 'UIC_TableView',
     m_structProductList = 'table', -- List<StructProduct>
+
+    m_elapsedTime = 'number',
 })
 
 -------------------------------------
@@ -17,6 +19,8 @@ function UI_DiaShopPopup:init(struct_product_list, is_popup, package_name)
     self.m_resName = 'dia_shop_popup.ui'
 
     self.m_structProductList = struct_product_list
+
+    self.m_elapsedTime = 1
 end
 
 -------------------------------------
@@ -37,6 +41,10 @@ function UI_DiaShopPopup:init_after(struct_product_list, is_popup, package_name)
     self:initUI()
     self:initButton()
     self:refresh()
+    
+    if vars['timeLabel'] then
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    end
 end
 
 -------------------------------------
@@ -98,3 +106,24 @@ end
 function UI_DiaShopPopup:click_closeBtn()
     self:close()
 end
+
+
+-------------------------------------
+---function update
+---@param dt number
+-------------------------------------
+function UI_DiaShopPopup:update(dt)
+    self.m_elapsedTime = self.m_elapsedTime + dt
+
+    if (self.m_elapsedTime < 1) then
+        return
+    end
+
+    local vars = self.vars
+    self.m_elapsedTime = 0
+
+    if vars['timeLabel'] then
+        local struct_product = table.getFirst(self.m_structProductList)
+        vars['timeLabel']:setString(struct_product:getEndDateStr())
+    end
+end 

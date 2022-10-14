@@ -134,8 +134,6 @@ function UI_DiaShopPopupItem:update(dt)
     self.m_elapsedTime = 0
 
     if vars['timeLabel'] then
-        cclog('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-        ccdump(self.m_structProduct:getEndDateStr())
         vars['timeLabel']:setString(self.m_structProduct:getEndDateStr())
     end
 end 
