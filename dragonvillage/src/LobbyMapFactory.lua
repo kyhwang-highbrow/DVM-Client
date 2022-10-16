@@ -68,20 +68,21 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby)
 
     -- 할로윈
     if (deco_type == DECO_TYPE.HALLOWEEN) then
-        -- 크리스마스
         self:makeLobbyDeco_onLayer(lobby_ground, deco_type) -- 바닥 장식
         lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 근경 레이어
+    -- 크리스마스
     elseif (deco_type == DECO_TYPE.X_MAS) then
-        -- 벚꽃
         self:makeLobbyDeco_onLayer(lobby_ground, deco_type) -- 바닥 트리
         self:makeLobbyParticle(ui_lobby, deco_type) -- 눈 파티클
+    -- 벚꽃
     elseif (deco_type == DECO_TYPE.BLOSSOM) then
-        -- 기념(케이크)
         lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 벚꽃 나무 레이어
         self:makeLobbyParticle(ui_lobby, deco_type) -- 벚꽃 파티클
+    -- 기념(케이크)
     elseif (string.find(deco_type, 'anniversary')) then
         self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
         self:makeLobbyParticleConfetti(ui_lobby) -- 종이 조각 파티클
+    -- 바이델 축제 (5월 어린이날)
     elseif (string.find(deco_type, DECO_TYPE.WEIDEL_FESTIVAL)) then
         self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
         self:makeLobbyParticle(ui_lobby, deco_type) -- 축제용 꽃 파티클
