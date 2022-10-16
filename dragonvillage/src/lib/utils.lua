@@ -14,6 +14,12 @@ function table.reverse ( tab )
     return newTable
 end
 
+-------------------------------------
+-- function find
+---@param t table
+---@param item any
+---@return any
+-------------------------------------
 function table.find(t, item)
     for k, v in pairs(t) do
         if v == item then
@@ -24,6 +30,11 @@ function table.find(t, item)
     return nil
 end
 
+-------------------------------------
+-- function isEmpty
+---@param t table
+---@return boolean
+-------------------------------------
 function table.isEmpty(t)
     for _ in pairs(t) do
         return false
@@ -32,6 +43,11 @@ function table.isEmpty(t)
     return true
 end
 
+-------------------------------------
+-- function count
+---@param t table
+---@return number
+-------------------------------------
 function table.count(t)
     local count = 0
     for _ in pairs(t) do count = count + 1 end
@@ -538,6 +554,9 @@ end
 
 -------------------------------------
 -- function makeTimeDesc_millsecTimer
+---@param timestamp_millisec number
+---@param time_only boolean | nil -- 일,월,년도 표기 제거 여부
+---@return string e.g. {1}일, {1}일 {2}시간, '%.2d:%.2d:%.2d'
 -------------------------------------
 function datetime.makeTimeDesc_millsecTimer(milliseconds, timeOnly)
     local day = math.floor(milliseconds / 86400000)
@@ -951,10 +970,20 @@ end
 
 -------------------------------------
 -- function isString
+---@param v any
 ---@return boolean
 -------------------------------------
 function isString(v)
 	return v and (type(v) == 'string')
+end
+
+-------------------------------------
+-- function isNotEmptyString
+---@param v any
+---@return boolean
+-------------------------------------
+function isNotEmptyString(v)
+	return isString(v) and (v ~= '')
 end
 
 -------------------------------------
@@ -1018,6 +1047,9 @@ end
 -------------------------------------
 -- function Str
 -- @brief add Str method for translation
+---@param id string
+---@vararg ...
+---@return string | nil
 -------------------------------------
 function Str(id, ...)
 	if (not id) then
