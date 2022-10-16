@@ -28,7 +28,8 @@
 ]]
 
 -------------------------------------
--- class ServerData_HotTime
+---@class ServerData_HotTime
+---@return ServerData_HotTime
 -- @brief 핫타임 뿐만 아니라 운영툴에서 걸어주는 이벤트를 관리한다.
 -------------------------------------
 ServerData_HotTime = class({

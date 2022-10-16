@@ -1,5 +1,5 @@
 -------------------------------------
--- class ServerData
+---@class ServerData
 -------------------------------------
 ServerData = class({
         m_rootTable = 'table',

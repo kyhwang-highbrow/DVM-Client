@@ -1,5 +1,6 @@
 -------------------------------------
--- class ServerData_AccessTime
+---@class ServerData_AccessTime
+---@return ServerData_AccessTime
 -------------------------------------
 ServerData_AccessTime = class({
         m_serverData = 'ServerData',

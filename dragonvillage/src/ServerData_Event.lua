@@ -1000,15 +1000,16 @@ function ServerData_Event:response_eventList(ret, finish_cb)
 	local event_list = ret['table_event_list']
 	if (event_list) then
 		for _, v in ipairs(event_list) do
+            local event_type = v['event_type']
 			-- 두칼럼 모두 비어있으면 제외 아니라면 등록
 			if (v['ui_priority'] ~= '') or (v['full_popup'] ~= '') then
 				table.insert(self.m_eventList, v)
                 
             -- 로비 장식은 매개변수에 저장 (유효한 로비 장식이 여러개의 경우 마지막 장식 적용)
-            elseif(v['event_type'] == 'lobby_deco') then
+            elseif(event_type == 'lobby_deco') then
                 self:setLobbyDecoData(v)
 
-            elseif (v['event_type'] == 'event_daily_quest') then
+            elseif (event_type == 'event_daily_quest') or (event_type == 'event_recall')  then
                 table.insert(self.m_eventList, v)
 			end
 

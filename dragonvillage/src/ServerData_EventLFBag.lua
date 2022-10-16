@@ -1,5 +1,6 @@
 -------------------------------------
--- class ServerData_EventLFBag
+---@class ServerData_EventLFBag
+---@return ServerData_EventLFBag
 -- g_eventLFBagData
 -------------------------------------
 ServerData_EventLFBag = class({

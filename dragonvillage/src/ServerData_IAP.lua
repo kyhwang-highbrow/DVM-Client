@@ -1,5 +1,5 @@
 -------------------------------------
--- Class ServerData_IAP
+---@class ServerData_IAP
 -- @brief In App Purchase (현금 결제)
 -------------------------------------
 ServerData_IAP = class({
@@ -25,6 +25,7 @@ local instance = nil
 
 -------------------------------------
 -- function getInstance
+---@return ServerData_IAP
 -------------------------------------
 function ServerData_IAP:getInstance()
     if (instance == nil) then

@@ -1,5 +1,6 @@
 -------------------------------------
--- class ServerData_Mail
+---@class ServerData_Mail
+---@return ServerData_Mail
 -------------------------------------
 ServerData_Mail = class({
         m_serverData = 'ServerData',

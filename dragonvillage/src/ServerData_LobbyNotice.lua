@@ -1,6 +1,7 @@
 -------------------------------------
--- class ServerData_LobbyNotice
+---@class ServerData_LobbyNotice
 -- @instance g_lobbyNoticeData
+---@return ServerData_LobbyNotice
 -------------------------------------
 ServerData_LobbyNotice = class({
         m_serverData = 'ServerData',
