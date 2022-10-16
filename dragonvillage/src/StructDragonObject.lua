@@ -1,5 +1,5 @@
 -------------------------------------
--- class StructDragonObject
+---@class StructDragonObject
 -- @instance dragon_obj
 -------------------------------------
 StructDragonObject = class({
@@ -331,6 +331,7 @@ end
 -------------------------------------
 -- function getFriendshipObject
 -- @breif
+---@return StructFriendshipObject
 -------------------------------------
 function StructDragonObject:getFriendshipObject()
     if (isNullOrEmpty(self['friendship']['frarity'])) then
@@ -425,6 +426,19 @@ function StructDragonObject:getReinforceMulti()
 	end
 	local t_reinforce_rate = TableDragonReinforce:getReinforceRateTable(self['did'], reinforce_obj:getRlv())
 	return t_reinforce_rate
+end
+
+-------------------------------------
+-- function getDragonSkillLevelUpNum
+---@return number
+-------------------------------------
+function StructDragonObject:getDragonSkillLevelUpNum()
+    local result = 0
+    for i = 1, 3 do
+        result = result + self['skill_' .. i]
+    end
+
+    return result - 1
 end
 
 -------------------------------------

@@ -81,6 +81,20 @@ function TableFriendship:getFriendshipReqExp(flv, is_myth_dragon)
 end
 
 -------------------------------------
+-- function getFriendshipReqExpBtwLevels
+---@return number
+-------------------------------------
+function TableFriendship:getFriendshipReqExpBtwLevels(min_lv, max_lv, is_myth_dragon)
+    local required_fexp = 0
+
+    for lv = min_lv, max_lv do
+        required_fexp = required_fexp + self:getFriendshipReqExp(lv, is_myth_dragon)
+    end
+
+    return required_fexp
+end
+
+-------------------------------------
 -- function getFriendshipName
 -------------------------------------
 function TableFriendship:getFriendshipName(flv)

@@ -160,6 +160,7 @@ local t_module = {
     'StructPackageState',
     'StructBattlePassInfo',
     'StructDragonPkgData',
+    'StructRecall',
 
 	-- ServerData
     'ServerData',

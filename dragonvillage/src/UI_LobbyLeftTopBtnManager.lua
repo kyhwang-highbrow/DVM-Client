@@ -178,25 +178,19 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
         end
     end
 
-    -- jylee 2022.06.07 경품 이벤트용 메서드 추후 삭제해도 됨
-    do -- 현물 이벤트 보상 수령
-        local event_list = g_hotTimeData:getHotTimeActiveList()
-        local unique_key
-        for event_id, v in pairs(event_list) do
-            if event_id == 'event_incarnation_of_sins_reward' then
-                unique_key = event_id
-            end
-        end
+    do -- 리콜
+        local unique_key = 'dragon_recall'
+        if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
+            if g_dragonsData:isRecallExist() then
+                local struct_recall_list = g_dragonsData:getRecallList()
+                local struct_recall = table.getFirst(struct_recall_list)
+                local target_dragon_list = struct_recall:getTargetDragonList()
+                local struct_dragon_object = table.getFirst(target_dragon_list)
+                local doid = struct_dragon_object:getObjectId()
 
-        if unique_key then
-            if self:getManagedButtonByUniqueKey(unique_key) == nil then
-                if g_eventIncarnationOfSinsData:checkNewServerEventRanker() then
-                    local class_ = UI_ButtonNewServerEventReward
-                    local priority = self.PRIORITY.EVENT_NEWSERVER
-                    makeBtnFunction(class_,priority,unique_key)
-                end
+                --UINavigatorDefinition:goTo('dragon_manage', 'recall', doid)
             end
-        end
+        end    
     end
     -----------------------------------------------------------
 

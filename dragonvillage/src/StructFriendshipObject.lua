@@ -1,7 +1,7 @@
 FRIENDSHIP_MAX_LV = 10
 
 -------------------------------------
--- class StructFriendshipObject
+---@class StructFriendshipObject
 -- @instance friendship_obj
 -------------------------------------
 StructFriendshipObject = class({
@@ -171,4 +171,21 @@ function StructFriendshipObject:getStringData()
     )
 
     return str
+end
+
+-------------------------------------
+-- function getFlv
+---@return number
+-------------------------------------
+function StructFriendshipObject:getFlv()
+    return self['flv']
+end
+
+
+-------------------------------------
+-- function getFexp
+---@return number
+-------------------------------------
+function StructFriendshipObject:getFexp()
+    return self['fexp']
 end

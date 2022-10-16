@@ -1,5 +1,6 @@
 -------------------------------------
--- class ServerData_Dragons
+---@class ServerData_Dragons
+---@return ServerData_Dragons
 -------------------------------------
 ServerData_Dragons = class({
         m_serverData = 'ServerData',
@@ -19,6 +20,8 @@ ServerData_Dragons = class({
         m_mSkillMovePrice = 'map',
 
         m_mReleasedDragonsByDid = 'map', -- 출시된 드래곤
+
+        m_structRecallList = 'table', -- 리콜 대상인 드래곤의 did 리스트
     })
 
 SKILL_MOVE_DRAGON_GRADE = 4 -- 스킬 이전 가능한 드래곤 태생 등급 (4등급 이상부터 가능)
@@ -32,6 +35,7 @@ function ServerData_Dragons:init(server_data)
     self.m_mNumOfDragonsByDid = {}
     self.m_mSkillMovePrice = {}
     self.m_mReleasedDragonsByDid = {}
+    self.m_structRecallList = {}
     self.m_bDirtyNumOfDragonsByDid = true
     self.m_dragonsCnt = 0
     self.m_dragonBestCombatPower = 0
@@ -1569,6 +1573,88 @@ function ServerData_Dragons:response_updatePower(ret, cb_func)
 end
 
 -------------------------------------
+-- function response_recallDragons
+---@param recall_info table
+-------------------------------------
+    -- ['full_popup']='';
+    -- ['event_type']='event_recall';
+    -- ['t_name']='드래곤 리콜';
+    -- ['package_name']='';
+    -- ['feature']='';
+    -- ['start_date_timestamp']=1665446400000;
+    -- ['banner']='';
+    -- ['url']='';
+    -- ['ui_priority']='';
+    -- ['target_app_version']='';
+    -- ['icon']='';
+    -- ['end_date_timestamp']=1666310400000;
+    -- ['target_server']='';
+    -- ['list_id']=197;
+    -- ['target_language']='';
+    -- ['lobby_banner']='';
+    -- ['user_lv']='';
+    -- ['end_date']='2022-10-21 00:00:00';
+    -- ['start_date']='2022-10-11 00:00:00';
+    -- ['event_id']='';
+function ServerData_Dragons:response_recallDragons(recall_info, success_cb)
+    if isTable(recall_info) then
+        local event_type = recall_info['event_type']
+        local event = g_eventData:getEventInByEventType(event_type)
+
+        if isTable(event) then
+            local start_time = event['start_date_timestamp']
+            local end_time = event['end_date_timestamp']
+            
+            for did, is_recalled in pairs(recall_info['did_list']) do
+                local temp = {
+                    did = tonumber(did),
+                    is_recalled = is_recalled,
+                    start_time_millisec = start_time,
+                    end_time_millisec = end_time
+                }
+                local struct_recall = StructRecall(temp)
+                table.insert(self.m_structRecallList, struct_recall) 
+            end            
+        end
+
+        if (success_cb ~= nil) then
+            success_cb()
+        end
+    end
+end
+
+-------------------------------------
+-- function getRecallList
+---@return table
+-------------------------------------
+function ServerData_Dragons:getRecallList()
+    return self.m_structRecallList
+end
+
+-------------------------------------
+-- function isRecallExist
+---@return boolean
+-------------------------------------
+function ServerData_Dragons:isRecallExist()
+    return (table.isEmpty(self.m_structRecallList) ~= true)
+end
+
+-------------------------------------
+-- function isDragonRecallTarget
+---@param did number
+---@return boolean
+-------------------------------------
+function ServerData_Dragons:isDragonRecallTarget(did)
+    for index, struct_recall in ipairs(self.m_structRecallList) do
+        if (struct_recall:getTargetDid() == did) and struct_recall:isAvailable() then
+            return true
+        end
+    end
+    
+    return false
+end
+
+-------------------------------------
 -- function dragonMaterialWarning
 -- @brief 드래곤이 판매,재료로 사용,작별 등등..될 때 경고 메시지 확인 (성장시켜놓은 드래곤)
 -- @param oid : object_id 드래곤이나 슬라임의 오브젝트 ID
@@ -1865,6 +1951,63 @@ function ServerData_Dragons:request_dragonCombine(doids, cb_func)
     ui_network:request()
 end
 
+-------------------------------------
+-- function request_recall
+-- brief 리콜 요청
+---@param doid number
+---@param cb_func function
+-------------------------------------
+function ServerData_Dragons:request_recall(doid, cb_func)
+	-- 유저 ID
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        -- 재화 갱신
+        self.m_serverData:networkCommonRespone(ret)
+
+        -- 재료로 사용된 드래곤에 장착된 룬 삭제
+        if ret['deleted_rune_oids'] then
+            g_runesData:deleteRuneData_list(ret['deleted_rune_oids'])
+        end
+        
+        if ret['modified_rune'] then
+            g_runesData:applyRuneData(ret['modified_rune'])
+        end
+
+		-- 재료로 사용된 드래곤 삭제
+		if ret['deleted_dragons_oid'] then
+			for _, doid in pairs(ret['deleted_dragons_oid']) do
+				g_dragonsData:delDragonData(doid)
+			end
+		end
+
+		-- 콜백
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+    -- 특정 리턴값 처리
+    local function response_status_cb(ret)
+        if (ret['status'] == -1651) or (ret['status'] == -1364) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('종료되었습니다.'))
+            return true
+        elseif (ret['status'] == -3051) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이미 리콜을 한 대상입니다.'))
+            return true
+        end
+
+        return false
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/reset')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:request()
+end
 
 
 -------------------------------------

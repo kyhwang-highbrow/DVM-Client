@@ -172,6 +172,9 @@ function UI_DragonManageInfo:initButton()
 
         -- 슈퍼슬라임 합성
         vars['slimeCombineBtn']:registerScriptTapHandler(function() self:click_slimeCombineBtn() end)
+
+        -- 리콜
+        vars['recallBtn']:registerScriptTapHandler(function() self:click_recallBtn() end)
     end
 
     do -- 기타 버튼
@@ -232,6 +235,11 @@ function UI_DragonManageInfo:refresh()
     --vars['goodbyeBtn']:setVisible(not is_myth_dragon)
     --vars['goodbyeSelectBtn']:setVisible(not is_myth_dragon)
     --vars['lockBtn']:setVisible(not is_myth_dragon)
+
+
+    local did = t_dragon_data['did']
+    local is_recall_target = g_dragonsData:isDragonRecallTarget(did)
+    vars['recallBtn']:setVisible(is_recall_target)
     
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -1033,6 +1041,43 @@ function UI_DragonManageInfo:click_slimeCombineBtn()
 end
 
 -------------------------------------
+-- function click_recallBtn
+-------------------------------------
+function UI_DragonManageInfo:click_recallBtn()
+    local t_dragon_data = self.m_selectDragonData
+	local did = t_dragon_data['did']
+
+    -- 리콜 대상 드래곤이 아닌 경우
+    if (g_dragonsData:isDragonRecallTarget(did) == false) then
+        UIManager:toastNotificationRed(Str('대상이 없습니다.'))
+        return
+    end
+
+    require('UI_DragonRecall')
+    
+	local oid = self.m_selectDragonOID
+    local idx = self.m_tableViewExt:getIndexFromId(oid) or 1
+
+    local close_cb = function()
+        -- 테이블 아이템갱신
+        self:init_dragonTableView()
+
+        -- 정렬
+        self:apply_dragonSort_saveData()
+
+        local next_idx = math_min(idx, self.m_tableViewExt:getItemCount())
+        local next_doid = self.m_tableViewExt:getIdFromIndex(next_idx)
+
+        -- 기존에 선택되어 있던 드래곤 교체
+        self:setDefaultSelectDragon(next_doid)
+    end
+
+    local struct_dragon_object = self.m_selectDragonData
+    local ui = UI_DragonRecall(struct_dragon_object)
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
 -- function checkDragonListRefresh
 -- @brief 드래곤 리스트에 변경이 있는지 확인 후 갱신
 -------------------------------------
@@ -1084,6 +1129,8 @@ function UI_DragonManageInfo:clickSubMenu(sub_menu)
 
     elseif (sub_menu == 'mastery') then
         self:click_masteryBtn()
+    elseif (sub_menu == 'recall') then
+        self:click_recallBtn()
 
     end
 end

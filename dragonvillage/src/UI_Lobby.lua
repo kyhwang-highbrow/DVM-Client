@@ -185,6 +185,12 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if (g_hotTimeData:isActiveEvent('halloween')) then
+            --self:setShopSpecialNoti('noti_halloween')
+            
+            
+        end
+
         if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then
             co:work('# 복주머니 이벤트 정보 받는 중')
             if g_hotTimeData:isActiveEvent('noti_lucky_bag') then
@@ -713,6 +719,14 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
             g_eventRuneFestival:applyRuneFestivalInfo(ret['rune_festival_info'])
         end
 
+        if (ret['recall_info'] ~= nil) then
+            co:work()
+            cclog('# 리콜 대상 정보')
+            g_dragonsData:response_recallDragons(ret['recall_info'], co.NEXT) 
+            
+            if co:waitWork() then return end
+        end
+
 		co.NEXT()
 	end)
 	ui_network:setFailCB(required_fail_cb)
@@ -1224,7 +1238,7 @@ function UI_Lobby:update_highlight()
     --             vars['halloweenNotiYellow']:setVisible(true)
     --         end
 
-    --         vars['shopSpecialNoti']:setVisible(true)
+    --         vars['shopEventNoti']:setVisible(true)
     --     end
     -- end
 
@@ -2918,10 +2932,20 @@ function UI_Lobby:setShopNoti()
         return
     end
 
+    -- 다이아 
     if (g_shopDataNew:checkDiaSale()) then
-        vars['shopBonusNoti']:setVisible(true)
+        vars['shopEventNoti']:setVisible(true)
+        vars['shopEventNoti']:changeAni('noti_dia')
+
+        --'noti_lucky_bag'
+        --'noti_lucky_bag'
+        --'noti_roulette_ticket'
+        --'noti_special'
+        --'noti_halloween'
+
+
     else
-        vars['shopBonusNoti']:setVisible(false)
+        vars['shopEventNoti']:setVisible(false)
     end
 end
 
@@ -2931,15 +2955,15 @@ end
 function UI_Lobby:setShopSpecialNoti(event_name)
     local vars = self.vars
 
-    local visual_list = vars['shopSpecialNoti']:getVisualList()
+    local visual_list = vars['shopEventNoti']:getVisualList()
 
     for _, visual_id in ipairs (visual_list) do
         if (visual_id == event_name) then
-            vars['shopSpecialNoti']:changeAni(visual_id, true)
-            vars['shopSpecialNoti']:setVisible(true)
+            vars['shopEventNoti']:changeAni(visual_id, true)
+            vars['shopEventNoti']:setVisible(true)
             break
         end
-        vars['shopSpecialNoti']:setVisible(false)
+        vars['shopEventNoti']:setVisible(false)
     end
 
     
