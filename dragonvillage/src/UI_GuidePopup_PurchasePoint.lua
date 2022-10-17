@@ -10,6 +10,7 @@ UI_GuidePopup_PurchasePoint = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_GuidePopup_PurchasePoint:init(ui_res)
+    self.m_uiName = 'UI_GuidePopup_PurchasePoint'
     local vars = self:load(ui_res or 'event_purchase_point_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 

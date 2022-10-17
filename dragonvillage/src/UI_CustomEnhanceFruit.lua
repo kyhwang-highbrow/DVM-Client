@@ -90,7 +90,7 @@ function UI_CustomEnhanceFruit:refresh()
     vars['applyLabel']:setColor(color)
 
     if (self.m_itemLabel) then
-	    string_format = '%s / %s'
+	    local string_format = '%s / %s'
 	    self.m_itemLabel:setString(string.format(string_format, comma_value(self.m_data['relation']), comma_value(self.m_usingCnt)))
     end
 end
@@ -106,7 +106,7 @@ end
 
 function UI_CustomEnhanceFruit:setActive(is_visible, data, label, fid)
     if (self.m_itemLabel) then
-	    string_format = '%s / %s'
+	    local string_format = '%s / %s'
 	    self.m_itemLabel:setString(comma_value(self.m_data['relation']))
     end
 

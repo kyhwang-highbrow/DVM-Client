@@ -12,6 +12,7 @@ UI_PackageCategoryButton = class(class(UI, ITableViewCell:getCloneTable()), {
 
 ----------------------------------------------------------------------
 -- function init
+---@param data StructPackageBundle
 ----------------------------------------------------------------------
 function UI_PackageCategoryButton:init(data)
     self.m_data = data

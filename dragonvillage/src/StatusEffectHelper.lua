@@ -161,15 +161,16 @@ function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_sta
 
 	-- 1. 타겟 대상에 상태효과생성
 	local idx = 1
-	local effect_str = nil
-	local t_effect = nil
 	local type = nil 
 	local target_type = nil 
+    local target_count = nil
     local trigger = nil
 	local duration = nil
 	local rate = nil
 	local value = nil
-		
+    local source = nil
+    local status_effect_struct = nil
+	
 	while true do 
 		-- 1. 파싱할 구문 가져오고 탈출 체크
 		status_effect_struct = l_status_effect_struct[idx]
