@@ -221,7 +221,7 @@ end
 -- function getVipButton
 -------------------------------------
 function ServerData_HighbrowVip:getVipButton()
-    require('UI_HighbrowVipPopup')
+    require('UI_ButtonHighbrowVIP')
     return UI_ButtonHighbrowVIP
 end
 
