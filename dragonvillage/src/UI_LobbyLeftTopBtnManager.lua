@@ -26,42 +26,46 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
 
     self.m_lManagedButtonUI = {}
     self.m_interval = 10
-    self.PRIORITY = {}
-    self.PRIORITY.VIP = 9999
-    self.PRIORITY.GETDRAGON_PACK = 1300
-    self.PRIORITY.WEIDEL_PACK = 1200
-    self.PRIORITY.PERSONALPACK = 1100
-    self.PRIORITY.PAYMENT_SHOP = 1000
-    self.PRIORITY.FIRST_PURCHASE_REWARD = 950
-    self.PRIORITY.NEWCOMER_SHOP = 900
-    self.PRIORITY.SPECIAL_OFFER_PACK_DIA = 803
-    self.PRIORITY.SPECIAL_OFFER_PACK_GOLD = 802
-    self.PRIORITY.SPECIAL_OFFER_PACK_NURTURE = 801
-    self.PRIORITY.SPECIAL_OFFER_PRODUCT = 800
-    self.PRIORITY.SPOT_SALE_PRODUCT = 700
-    self.PRIORITY.SUPPLY_DEPOT = 600
-    self.PRIORITY.EVENT_NEWSERVER = 500
+    -- 낮을 수록 우선순위 높음
+    self.PRIORITY = {
+        RECALL = 0, -- 드래곤 리콜
+        FIRST_PURCHASE_REWARD = 1, -- 첫 구매 보상
+        VIP = 2, -- 하이브로 멤버쉽
 
-    self.m_elapsedTime = 0
+        WEIDEL_PACK = 5,  -- 바이델 패키지(4대 이벤트)
+    
+        PERSONALPACK = 10, -- 개인화 패키지 (22.10.19 기준 사용하지 않고 있음)
+        NEWCOMER_SHOP = 11, -- 초보자 선물 패키지 모음
+        GETDRAGON_PACK = 12,  -- 신화 획득 축하 패키지
+
+        SPECIAL_OFFER_PACK_DIA = 15, -- 특별 할인 다이아 패키지
+        SPECIAL_OFFER_PACK_GOLD = 16, -- 특별 할인 골드 패키지
+        SPECIAL_OFFER_PACK_NURTURE = 17, -- 특별 할인 육성 패키지
+        SPOT_SALE_PRODUCT = 18  -- 깜짝 할인 패키지 
+    }
+
+    self.m_elapsedTime = 1
 
     vars['productBtnMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-    self:update(1)
+
 
     local l_managed_button_info = {}
     if (g_highbrowVipData:checkVipStatus() == true) and (g_highbrowVipData:isEventActive() == true)then
         table.insert(l_managed_button_info, {self.PRIORITY.VIP, g_highbrowVipData:getVipButton()}) -- Highbrow VIP 버튼   
     end
     
-    --table.insert(l_managed_button_info, {self.PRIORITY.PAYMENT_SHOP, UI_ButtonPaymentShop}) -- 현금 결제 상품 상점
     table.insert(l_managed_button_info, {self.PRIORITY.PERSONALPACK, UI_ButtonPersonalpack}) -- 특별제안 패키지
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PACK_DIA, UI_ButtonSpecialOfferProduct}) -- 특별 할인 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PACK_GOLD, UI_ButtonSpecialOfferProductGold}) -- 특별 할인 골드 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PACK_NURTURE, UI_ButtonSpecialOfferProductNurture}) -- 특별 할인 패키지 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPOT_SALE_PRODUCT, UI_ButtonSpotSale}) -- 깜짝 할인 상품
-    --table.insert(l_managed_button_info, {self.PRIORITY.SUPPLY_DEPOT, UI_ButtonSupplyDepot}) -- 보급소(정액제)
-
+    
     table.insert(l_managed_button_info, {self.PRIORITY.WEIDEL_PACK, UI_ButtonSpecialOfferWeidel}) -- 바이델 축제 패키지
     table.insert(l_managed_button_info, {self.PRIORITY.WEIDEL_PACK, UI_ButtonSpecialPeriod}) -- 5주년 축제 패키지, 달빛 축제 패키지
+
+    --table.insert(l_managed_button_info, {self.PRIORITY.PAYMENT_SHOP, UI_ButtonPaymentShop}) -- 현금 결제 상품 상점
+    --table.insert(l_managed_button_info, {self.PRIORITY.SUPPLY_DEPOT, UI_ButtonSupplyDepot}) -- 보급소(정액제)
+
     for i,v in ipairs(l_managed_button_info) do
         local priority = v[1]
         local class_ = v[2]
@@ -71,6 +75,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     end
 
     self:setDirtyButtonsStatus()
+    self:update()
 end
 
 -------------------------------------
@@ -182,11 +187,8 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
         local unique_key = 'dragon_recall'
         if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
             if g_dragonsData:isRecallExist() then
-                local struct_recall_list = g_dragonsData:getRecallList()
-                local struct_recall = table.getFirst(struct_recall_list)
-                local target_dragon_list = struct_recall:getTargetDragonList()
-                local struct_dragon_object = table.getFirst(target_dragon_list)
-                local doid = struct_dragon_object:getObjectId()
+                -- local calss_ = UI_ButtonDragonRecall
+                -- local priorty = self.PRIORITY.RECALL
 
                 --UINavigatorDefinition:goTo('dragon_manage', 'recall', doid)
             end
@@ -223,9 +225,9 @@ end
 -- @brief 버튼들의 위치 조정
 -------------------------------------
 function UI_LobbyLeftTopBtnManager:updateButtonsPosition()
-    -- 1. priority가 높은 순으로 리스트를 정렬
+    -- 1. priority 값이 낮은 순으로 리스트를 정렬 (낮을 수록 우선도 높음)
     table.sort(self.m_lManagedButtonUI, function(a, b)
-        return (a:getPriority() > b:getPriority())
+        return (a:getPriority() < b:getPriority())
     end)
 
     -- 2. 위치 지정
@@ -262,7 +264,7 @@ end
 -- @brief 매 프레임 호출되는 함수
 -------------------------------------
 function UI_LobbyLeftTopBtnManager:update(dt)
-    self.m_elapsedTime = self.m_elapsedTime + dt
+    self.m_elapsedTime = self.m_elapsedTime + (dt or 0)
 
     if (self.m_elapsedTime < 1) then
         return
