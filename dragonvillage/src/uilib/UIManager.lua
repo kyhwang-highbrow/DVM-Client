@@ -624,6 +624,11 @@ function UIManager:onKeyReleased(keyCode, event)
     elseif (keyCode == KEY_X) then
 		TutorialManager.getInstance():forcedClose()
 
+    -- 현재 UI 로드 캐시 제거(UI 파일 수정하고 바로 확인하고 싶을 때, 해당 기능 호출 후 해당 UI 다시 열기)
+	elseif (keyCode == KEY_C) then
+        self:toastNotificationGreen(StrForDev('UI 캐시가 삭제되었습니다.'))
+		UILoader.clearCache()
+
 	end
 
     -- 개발용 키 리스너 유연성 제고
