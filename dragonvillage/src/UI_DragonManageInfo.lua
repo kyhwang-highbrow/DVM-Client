@@ -861,6 +861,9 @@ function UI_DragonManageInfo:click_lockBtn()
     end
 
 	local function cb_func(ret)
+        -- 선택된 드래곤 데이터 최신화(잠금 여부 수정)
+        self:setSelectDragonDataRefresh()
+
 		-- 메인 잠금 표시 해제
 		self.vars['lockSprite']:setVisible(lock)
 		
