@@ -57,6 +57,9 @@ function UI_InstantSkillLevelUpPopup:initUI()
 
     self:setDefaultSelectDragon()
 
+	-- 정렬 도우미
+    self:init_dragonSortMgr()
+
     -- initTab
     self:addTabAuto(UI_DragonSkillEnhance.TAB_ENHANCE, vars, vars['materialTableViewNode'])
     --self:addTabAuto(UI_DragonSkillEnhance.TAB_MOVE, vars, vars['moveTableViewNode'])
@@ -184,15 +187,48 @@ end
 ---@return table
 -------------------------------------
 function UI_InstantSkillLevelUpPopup:getDragonList()
+    local item_list
+
     if isString(self.m_targetRarity) then
-        return g_dragonsData:getDragonsListWithRarity('myth')
+        item_list = g_dragonsData:getDragonsListWithRarity('myth')
     else
-        return g_dragonsData:getDragonsList()
+        item_list = g_dragonsData:getDragonsList()
     end
+
+    -- 레벨업 불가능한 드래곤 제외
+    for oid, v in pairs(item_list) do
+        if (g_dragonsData:impossibleSkillEnhanceForever(oid)) then
+            item_list[oid] = nil
+        end
+    end
+
+    return item_list
+end
+
+-------------------------------------
+-- function checkSelectedDragonCondition
+---@param dragon_object StructDragonObject
+---@return boolean
+-------------------------------------
+function UI_InstantSkillLevelUpPopup:checkSelectedDragonCondition(dragon_object)
+    if (not dragon_object) then
+        return false
+    end
+
+    local doid = dragon_object:getObjectId()
+    local item = self.m_tableViewExt:getItem(doid)
+
+    if (item == nil) then
+        UIManager:toastNotificationRed(Str('잘못된 요청입니다.'))
+        return false
+    end
+
+    return true
 end
 
 -------------------------------------
 -- function click_closeBtn
+---@param is_success boolean
 -------------------------------------
 function UI_InstantSkillLevelUpPopup:click_closeBtn(is_success)
     if is_success and isFunction(self.m_successCB) then
@@ -215,12 +251,7 @@ function UI_InstantSkillLevelUpPopup:click_enhanceBtn()
             local mod_struct_dragon = StructDragonObject(ret['modified_dragon'])
             local ui = UI_DragonSkillEnhance_Result(t_prev_dragon_data, mod_struct_dragon)
 		    ui:setCloseCB(function()
-			    -- 스킬 강화 가능 여부 판별하여 가능하지 않으면 닫아버림
-			    local impossible, msg = g_dragonsData:impossibleSkillEnhanceForever(doid)
-			    if (impossible) then
-				    UIManager:toastNotificationRed(msg)
-				    self:click_closeBtn(true)
-			    end
+                self:click_closeBtn(true)
 		    end)
 
             -- 동시에 본UI 갱신
