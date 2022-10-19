@@ -28,6 +28,7 @@ SKILL_MOVE_DRAGON_GRADE = 4 -- 스킬 이전 가능한 드래곤 태생 등급 (
 
 -------------------------------------
 -- function init
+---@param server_data ServerData
 -------------------------------------
 function ServerData_Dragons:init(server_data)
     self.m_serverData = server_data
@@ -123,6 +124,25 @@ function ServerData_Dragons:getDragonsListWithRole(role)
         local _role = value:getRole()
 
         if (role == _role) then
+            ret_dictionary[key] = value
+        end
+    end
+
+    return ret_dictionary
+end
+
+-------------------------------------
+-- function getDragonsListWithRarity
+-- @brief 해당 등급 드래곤만 반환
+---@param rarity string
+---@return table
+-------------------------------------
+function ServerData_Dragons:getDragonsListWithRarity(rarity)
+    local dragon_dictionary = self:getDragonsListRef()
+    local ret_dictionary = {}
+
+    for key, value in pairs(dragon_dictionary) do
+        if (value:getRarity() == rarity) then
             ret_dictionary[key] = value
         end
     end
@@ -1597,6 +1617,8 @@ end
     -- ['start_date']='2022-10-11 00:00:00';
     -- ['event_id']='';
 function ServerData_Dragons:response_recallDragons(recall_info, success_cb)
+    self.m_structRecallList = {}
+
     if isTable(recall_info) then
         local event_type = recall_info['event_type']
         local event = g_eventData:getEventInByEventType(event_type)
@@ -1605,15 +1627,17 @@ function ServerData_Dragons:response_recallDragons(recall_info, success_cb)
             local start_time = event['start_date_timestamp']
             local end_time = event['end_date_timestamp']
             
-            for did, is_recalled in pairs(recall_info['did_list']) do
-                local temp = {
-                    did = tonumber(did),
-                    is_recalled = is_recalled,
-                    start_time_millisec = start_time,
-                    end_time_millisec = end_time
-                }
-                local struct_recall = StructRecall(temp)
-                table.insert(self.m_structRecallList, struct_recall) 
+            for did, is_recalled in pairs(recall_info['did_list']) do    
+                if (is_recalled == 1) then
+                    local temp = {
+                        did = tonumber(did),
+                        is_recalled = is_recalled,
+                        start_time_millisec = start_time,
+                        end_time_millisec = end_time
+                    }
+                    local struct_recall = StructRecall(temp)
+                    table.insert(self.m_structRecallList, struct_recall) 
+                end
             end            
         end
 
@@ -1849,6 +1873,44 @@ function ServerData_Dragons:request_skillMove(src_doid, dst_doid, cb_func)
 end
 
 -------------------------------------
+-- function request_instantSkillLevelUp
+-- @brief 신화 드래곤 스킬 레벨업 티켓
+---@param mail_id string
+---@param dragon_object_id string
+---@param cb_func function
+-------------------------------------
+function ServerData_Dragons:request_instantSkillLevelUp(mail_id, dragon_object_id, cb_func)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- 드래곤 정보 갱신
+        g_dragonsData:applyDragonData(ret['modified_dragon'])
+
+        -- 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        if (cb_func) then
+            cb_func(ret)
+        end
+    end
+    
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/skillup')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('mid', mail_id)
+    ui_network:setParam('doid', dragon_object_id)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
 -- function request_goodbye
 -- @brief 드래곤 작별
 -- @param target string 'exp', 'relation', 'mastery', 'memory'
@@ -1981,6 +2043,9 @@ function ServerData_Dragons:request_recall(doid, cb_func)
 			end
 		end
 
+        -- 리콜 정보 갱신
+        g_dragonsData:response_recallDragons(ret['recall_info']) 
+
 		-- 콜백
 		if (cb_func) then
 			cb_func(ret)
@@ -2004,7 +2069,7 @@ function ServerData_Dragons:request_recall(doid, cb_func)
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
     ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:request()
 end

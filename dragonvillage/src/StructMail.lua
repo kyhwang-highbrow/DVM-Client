@@ -1,7 +1,7 @@
 local PARENT = Structure
 
 -------------------------------------
--- class StructMail
+---@class StructMail
 -------------------------------------
 StructMail = class(PARENT, {
         -- 서버에서 받음
@@ -385,6 +385,20 @@ function StructMail:isPick()
 end
 
 -------------------------------------
+-- function isInstantSkillSlime
+-- @brief 사용 날짜 제한과 같은 이유로 즉시 사용하는 형식의 스킬 슬라임
+---@return boolean
+-------------------------------------
+function StructMail:isInstantSkillSlime()
+    if (not self:getItemList()[1]) then
+        return false
+    end
+    local item_id = self:getItemList()[1]['item_id']
+    local item_type = TableItem:getItemType(item_id)
+    return (item_type == 'mail_slime')
+end
+
+-------------------------------------
 -- function isPickItem
 -- @brief 아이템 선택권 확인 
 -------------------------------------
@@ -440,6 +454,18 @@ function StructMail:readBoosterItem(cb_func)
     local msg_sub = str_msg_sub_1 .. '\n' .. str_msg_sub_2
 
     MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, msg_sub, function() self:readMe(cb_func) end)
+end
+
+-------------------------------------
+-- function isInstantSkillSlime
+-- @brief 사용 날짜 제한과 같은 이유로 즉시 사용하는 형식의 스킬 슬라임
+---@return boolean
+-------------------------------------
+function StructMail:readInstantSkillSlime(cb_func)
+	local mid = self:getMid()
+	local item_id = self['items_list'][1]['item_id']
+    require('UI_InstantSkillLevelUpPopup')
+    local ui = UI_InstantSkillLevelUpPopup(mid, item_id, cb_func)
 end
 
 -------------------------------------

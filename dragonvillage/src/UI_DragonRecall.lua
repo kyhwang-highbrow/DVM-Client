@@ -191,12 +191,13 @@ function UI_DragonRecall:refresh_recallResult()
     end
 
     local function create_func(ui, data)
-        ui.root:setScale(0.5)
+        ui.root:setScale(0.66)
     end
 
-    local table_view = UIC_TableView(list_node)
-    table_view.m_defaultCellSize = cc.size(80, 80)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    local table_view = UIC_TableViewTD(list_node)
+    table_view.m_cellSize = cc.size(100, 100)
+    table_view.m_nItemPerCell = 5
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(make_func, create_func)
 
     local item_list = self:getTempList()
@@ -225,8 +226,10 @@ function UI_DragonRecall:getTempList()
 
     -- 스킬 레벨업 수만큼의 스킬 레벨업 티켓
     local skill_point = struct_dragon_object:getDragonSkillLevelUpNum()
-    table.insert(result, {item_id = 779275, count = skill_point})
-	gold = gold + TableDragon:getBirthGrade(did) * 10000 * skill_point
+    if (skill_point > 0) then
+        table.insert(result, {item_id = 779275, count = skill_point})
+	    gold = gold + TableDragon:getBirthGrade(did) * 10000 * skill_point
+    end
 
     -- 레벨업 필요 골드, 경험치 계산
     local exp = struct_dragon_object['exp']

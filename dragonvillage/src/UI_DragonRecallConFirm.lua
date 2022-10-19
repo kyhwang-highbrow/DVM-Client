@@ -78,12 +78,9 @@ end
 -- function click_okBtn
 -------------------------------------
 function UI_DragonRecallConfirm:click_okBtn()
-    local function success_cb(ret)
-        local l_result_item_list = ret['items_list']
-        if l_result_item_list then
-            local ui = UI_ObtainPopup(l_result_item_list, nil, nil, true) -- params : l_item, msg, ok_btn_cb, is_merge_all_item)
-            ui:setCloseCB(function() self:click_closeBtn() end)
-        end
+    local function success_cb(ret)        
+        UI_ToastPopup(Str('보상이 우편함으로 전송되었습니다.'))
+        self:click_closeBtn()
     end
 
     local struct_dragon_object = self.m_structDragonObject

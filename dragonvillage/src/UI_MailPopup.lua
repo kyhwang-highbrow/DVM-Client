@@ -265,6 +265,8 @@ end
 -------------------------------------
 -- function check_readType
 -- @brief 메일 타입별 액션 - 외부에서도 쓰기 위해 분리함 (UI_MailSelectPopup)
+---@param struct_mail StructMail
+---@param success_cb function
 -------------------------------------
 function UI_MailPopup:check_readType(struct_mail, success_cb)
 
@@ -291,6 +293,9 @@ function UI_MailPopup:check_readType(struct_mail, success_cb)
         -- 공동로직을 파괴 안하고 메일에서 보상형 공지를 보기 위함
         struct_mail:readNotice(success_cb, true)
 		
+    elseif (struct_mail:isInstantSkillSlime()) then
+        struct_mail:readInstantSkillSlime(success_cb)        
+
     -- 나머지
     else
         struct_mail:readMe(success_cb)

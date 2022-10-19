@@ -434,11 +434,11 @@ end
 -------------------------------------
 function StructDragonObject:getDragonSkillLevelUpNum()
     local result = 0
-    for i = 1, 3 do
+    for i = 0, 2 do
         result = result + self['skill_' .. i]
     end
 
-    return result - 1
+    return result - 2
 end
 
 -------------------------------------
