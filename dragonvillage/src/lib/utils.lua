@@ -507,6 +507,12 @@ function datetime.makeTimeDesc_HHMMSS(seconds)
     return time_str
 end
 
+-------------------------------------
+-- function makeTimeDesc_timer
+---@param milliseconds number
+---@param day_special boolean
+---@return string
+-------------------------------------
 function datetime.makeTimeDesc_timer(milliseconds, day_special)
     local day = math.floor(milliseconds / 86400000)
     milliseconds = milliseconds - (day * 86400000)

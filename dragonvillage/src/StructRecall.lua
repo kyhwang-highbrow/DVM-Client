@@ -18,6 +18,14 @@ local THIS = StructRecall
 -- function init
 -------------------------------------
 function StructRecall:init(data)
+    
+end
+
+-------------------------------------
+-- function init_after
+-------------------------------------
+function StructRecall:init_after(data)
+    --local dragon_list = g_dragonsData:getDragonsList_specificDid(tonumber(self.did))
 
 end
 
@@ -89,6 +97,12 @@ end
 ---@return string
 -------------------------------------
 function StructRecall:getRemainingTimeStr()
-    local time_str = ServerTime:getInstance():getRemainTimeDesc(self.end_time_millisec)
-    return Str('종료까지 {1} 남음', time_str)
+
+    local left_time_millisec = self.end_time_millisec - ServerTime.getInstance():getCurrentTimestampMilliseconds()
+
+    if (left_time_millisec < 0) then
+        return Str('종료')
+    else
+        return datetime.makeTimeDesc_timer(left_time_millisec)
+    end
 end

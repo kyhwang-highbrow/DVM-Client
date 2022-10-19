@@ -1638,7 +1638,11 @@ function ServerData_Dragons:response_recallDragons(recall_info, success_cb)
                     local struct_recall = StructRecall(temp)
                     table.insert(self.m_structRecallList, struct_recall) 
                 end
-            end            
+            end
+
+            table.sort(self.m_structRecallList, function(a, b)
+                return (a['end_time_millisec'] < b['end_time_millisec'])
+            end)
         end
 
         if (success_cb ~= nil) then

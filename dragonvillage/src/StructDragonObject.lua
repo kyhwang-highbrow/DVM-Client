@@ -774,6 +774,18 @@ function StructDragonObject:getIngameRes()
 end
 
 -------------------------------------
+-- function isAppearanceChanged
+-- @breif 외형 변환 여부
+---@return boolean
+-------------------------------------
+function StructDragonObject:isAppearanceChanged()
+    local transform = self:getTransform()
+    local evolution = self:getEvolution()
+
+    return (transform ~= evolution)
+end
+
+-------------------------------------
 -- function isLeader
 -- @breif
 -------------------------------------

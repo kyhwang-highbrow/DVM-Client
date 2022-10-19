@@ -13,6 +13,12 @@ UI_DragonRecall = class(PARENT, {
 })
 
 -------------------------------------
+-- function initParentVariable
+-------------------------------------
+function UI_DragonRecall:initParentVariable()
+end
+
+-------------------------------------
 -- function init
 ---@param struct_dragon_object StructDragonObject
 -------------------------------------
@@ -44,10 +50,13 @@ function UI_DragonRecall:init_after(struct_dragon_object)
     local vars = self:load(self.m_resName)
     UIManager:open(self, UIManager.SCENE)
 
+    PARENT.init_after(self)
+
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, self.m_uiName)
 
-    self:doActionReset()
-    self:doAction(nil, false)
+    -- self:doActionReset()
+    -- self:doAction(nil, false)
+    self:sceneFadeInAction()
 
     self:initUI()
     self:initButton()
@@ -171,6 +180,14 @@ function UI_DragonRecall:refresh_recallTarget()
         vars['dragonIconNode']:removeAllChildren()
         local dragon_card = UI_DragonCard(struct_dragon_object)
         vars['dragonIconNode']:addChild(dragon_card.root)
+    end
+
+    -- 배경
+    if vars['bgNode'] then    
+        local attr = struct_dragon_object:getAttr()
+        vars['bgNode']:removeAllChildren()
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
     end
 end
 
@@ -302,6 +319,16 @@ function UI_DragonRecall:getTempList()
             end
 
             table.insert(result, {item_id = fid, count = item_num})
+        end
+    end
+
+    if struct_dragon_object:isAppearanceChanged() then
+        local map_material = TableDragonTransform():getMaterialInfoByDragon(struct_dragon_object)
+
+        for i = 1, 4 do
+            local key = 'material_' .. tostring(i)
+            local data = map_material[key]
+            table.insert(result, {item_id = data['item_id'], count = data['cnt']})
         end
     end
 

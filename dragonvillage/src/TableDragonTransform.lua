@@ -1,7 +1,8 @@
 local PARENT = TableClass
 
 -------------------------------------
--- class TableDragonTransform
+---@class TableDragonTransform
+---@return TableDragonTransform
 -------------------------------------
 TableDragonTransform = class(PARENT, {
     })

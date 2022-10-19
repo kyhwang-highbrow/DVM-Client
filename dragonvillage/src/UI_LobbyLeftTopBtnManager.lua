@@ -187,10 +187,10 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
         local unique_key = 'dragon_recall'
         if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
             if g_dragonsData:isRecallExist() then
-                -- local calss_ = UI_ButtonDragonRecall
-                -- local priorty = self.PRIORITY.RECALL
-
-                --UINavigatorDefinition:goTo('dragon_manage', 'recall', doid)
+                require('UI_ButtonDragonRecall')
+                local class_ = UI_ButtonDragonRecall
+                local priorty = self.PRIORITY.RECALL
+                makeBtnFunction(class_, priorty, unique_key)
             end
         end    
     end
