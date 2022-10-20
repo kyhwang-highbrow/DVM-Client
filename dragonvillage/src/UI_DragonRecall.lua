@@ -228,7 +228,7 @@ end
 ---@return table
 -------------------------------------
 function UI_DragonRecall:getTempList()
-    local result = {}
+    local item_list = {}
     local gold = 0
 
     ---@type StructDragonObject
@@ -237,29 +237,20 @@ function UI_DragonRecall:getTempList()
     local grade = struct_dragon_object:getGrade()
     local evolution = struct_dragon_object:getEvolution()
     local curr_lv = struct_dragon_object:getLv()
-
-    -- 신화 드래곤 선택권 1개
-    table.insert(result, {item_id = 700319, count = 1})
-
-    -- 스킬 레벨업 수만큼의 스킬 레벨업 티켓
-    local skill_point = struct_dragon_object:getDragonSkillLevelUpNum()
-    if (skill_point > 0) then
-        table.insert(result, {item_id = 779275, count = skill_point})
-	    gold = gold + TableDragon:getBirthGrade(did) * 10000 * skill_point
-    end
+    local is_myth_dragon = (struct_dragon_object:getRarity() == 'myth')
 
     -- 레벨업 필요 골드, 경험치 계산
     local exp = struct_dragon_object['exp']
     if (curr_lv > 1) then
         local table_dragon_exp = TableDragonExp()
-        local is_myth_dragon = (struct_dragon_object:getRarity() == 'myth')
+        
 
         local required_gold, required_exp = table_dragon_exp:getGoldAndDragonEXPForDragonLevelUp(grade, 1, curr_lv, is_myth_dragon)
         exp = exp + required_exp
         gold = gold + required_gold
     end
     if (exp > 0) then
-        table.insert(result, {item_id = 700017, count = exp})
+        table.insert(item_list, {item_id = 700017, count = exp})
     end
 
 
@@ -288,11 +279,11 @@ function UI_DragonRecall:getTempList()
             end
 
             -- 골드
-            gold = gold + t_dragon_evolution[evolution_str .. '_gold']
+            gold = gold + (t_dragon_evolution[evolution_str .. '_gold'] or 0)
         end 
 
         for item_id, count in pairs(temp) do
-            table.insert(result, {item_id = item_id, count = count})
+            table.insert(item_list, {item_id = item_id, count = count})
         end
     end
 
@@ -300,7 +291,8 @@ function UI_DragonRecall:getTempList()
     local struct_friendship_object = struct_dragon_object:getFriendshipObject()
     local flv = struct_friendship_object:getFlv()
     local fexp = struct_friendship_object:getFexp()
-    fexp = fexp + TableFriendship:getFriendshipReqExpBtwLevels(1, flv)
+
+    fexp = fexp + TableFriendship:getFriendshipReqExpBtwLevels(1, flv, is_myth_dragon)
     if (fexp > 0) then
         local attr = struct_dragon_object:getAttr()
         local fruit_list = TableItem:getFruitsListByAttr(attr)
@@ -318,23 +310,48 @@ function UI_DragonRecall:getTempList()
                 item_num = item_num + 1
             end
 
-            table.insert(result, {item_id = fid, count = item_num})
+            table.insert(item_list, {item_id = fid, count = item_num})
         end
     end
 
+    -- 외형 변환
     if struct_dragon_object:isAppearanceChanged() then
         local map_material = TableDragonTransform():getMaterialInfoByDragon(struct_dragon_object)
 
         for i = 1, 4 do
             local key = 'material_' .. tostring(i)
             local data = map_material[key]
-            table.insert(result, {item_id = data['item_id'], count = data['cnt']})
+            table.insert(item_list, {item_id = data['item_id'], count = data['cnt']})
         end
+
+        
+        gold = gold + (map_material['gold'] or 0)
     end
 
 
     if (gold > 0) then
-        table.insert(result, {item_id = 700002, count = gold})
+        table.insert(item_list, {item_id = 700002, count = gold})
+    end
+
+    table.sort(item_list, function(a, b)
+        return a['item_id'] < b['item_id']
+    end)
+
+
+    local result = {}
+
+    -- 신화 드래곤 선택권 1개
+    table.insert(result, {item_id = 700319, count = 1})
+
+    -- 스킬 레벨업 수만큼의 스킬 레벨업 티켓
+    local skill_point = struct_dragon_object:getDragonSkillLevelUpNum()
+    if (skill_point > 0) then
+        table.insert(result, {item_id = 779275, count = skill_point})
+        gold = gold + TableDragon:getBirthGrade(did) * 10000 * skill_point
+    end
+
+    for i, data in ipairs(item_list) do
+        table.insert(result, data)
     end
 
     return result
