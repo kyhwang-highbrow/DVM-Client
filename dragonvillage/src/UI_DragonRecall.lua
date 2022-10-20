@@ -289,29 +289,25 @@ function UI_DragonRecall:getTempList()
 
     -- 친밀도
     local struct_friendship_object = struct_dragon_object:getFriendshipObject()
-    local flv = struct_friendship_object:getFlv()
+    local curr_flv = struct_friendship_object:getFlv()
     local fexp = struct_friendship_object:getFexp()
 
-    fexp = fexp + TableFriendship:getFriendshipReqExpBtwLevels(1, flv, is_myth_dragon)
+    fexp = fexp + TableFriendship:getFriendshipReqExpBtwLevels(0, curr_flv - 1, is_myth_dragon)
     if (fexp > 0) then
         local attr = struct_dragon_object:getAttr()
         local fruit_list = TableItem:getFruitsListByAttr(attr)
-        fruit_list = table.reverse(fruit_list)
+        -- 특급 속성 열매로 지급
+        local rare_fruit = table.getLast(fruit_list) 
+        local rare_fid = rare_fruit['item']
+        local cumulative_exp = TableFruit:getFruitFeel(rare_fid)
         
-        local max_num = table.count(fruit_list)
+        local item_num = math_floor(fexp / cumulative_exp)
 
-        for index, fruit in ipairs(fruit_list) do
-            local fid = fruit['item']
-            local cumulative_exp = TableFruit:getFruitFeel(fid)
-
-            local item_num = math_floor(fexp / cumulative_exp)
-            fexp = fexp % cumulative_exp
-            if (index == max_num) and (fexp > 0) then
-                item_num = item_num + 1
-            end
-
-            table.insert(item_list, {item_id = fid, count = item_num})
+        if (fexp % cumulative_exp >= 0) then
+            item_num = item_num + 1
         end
+
+        table.insert(item_list, {item_id = rare_fid, count = item_num})
     end
 
     -- 외형 변환
@@ -328,16 +324,6 @@ function UI_DragonRecall:getTempList()
         gold = gold + (map_material['gold'] or 0)
     end
 
-
-    if (gold > 0) then
-        table.insert(item_list, {item_id = 700002, count = gold})
-    end
-
-    table.sort(item_list, function(a, b)
-        return a['item_id'] < b['item_id']
-    end)
-
-
     local result = {}
 
     -- 신화 드래곤 선택권 1개
@@ -349,6 +335,15 @@ function UI_DragonRecall:getTempList()
         table.insert(result, {item_id = 779275, count = skill_point})
         gold = gold + TableDragon:getBirthGrade(did) * 10000 * skill_point
     end
+
+    if (gold > 0) then
+        table.insert(item_list, {item_id = 700002, count = gold})
+    end
+
+    table.sort(item_list, function(a, b)
+        return a['item_id'] < b['item_id']
+    end)
+
 
     for i, data in ipairs(item_list) do
         table.insert(result, data)
