@@ -25,6 +25,7 @@ GAME_STATE_RAID_WAVE = 221
 GAME_STATE_SUCCESS_WAIT = 300
 GAME_STATE_SUCCESS = 301
 GAME_STATE_FAILURE = 302
+GAME_STATE_STOP = 303
 
 GAME_STATE_RESULT = 400
 
@@ -209,6 +210,7 @@ function GameState:initState()
     self:addState(GAME_STATE_SUCCESS_WAIT,           GameState.update_success_wait)
     self:addState(GAME_STATE_SUCCESS,                GameState.update_success)
     self:addState(GAME_STATE_FAILURE,                GameState.update_failure)
+    self:addState(GAME_STATE_STOP,                   GameState.update_failure)
 end
 
 -------------------------------------
@@ -886,7 +888,8 @@ function GameState.update_failure(self, dt)
         world.m_inGameUI:doActionReverse(function()
             world.m_inGameUI.root:setVisible(false)
         end)
-        self:makeResultUI(false)
+
+        self:makeResultUI(false, (self.m_state == GAME_STATE_STOP))
     end
 end
 
@@ -900,7 +903,7 @@ function GameState:changeState(state)
     end
 
     -- 이미 Success, Failure상태가 되었을 때 Result상태를 제외하고 상태를 변경할 수 없도록 처리
-    if (isExistValue(self.m_state, GAME_STATE_SUCCESS, GAME_STATE_FAILURE) and (state ~= GAME_STATE_RESULT)) then
+    if (isExistValue(self.m_state, GAME_STATE_SUCCESS, GAME_STATE_FAILURE, GAME_STATE_STOP) and (state ~= GAME_STATE_RESULT)) then
         return
     end
     
@@ -996,8 +999,10 @@ end
 
 -------------------------------------
 -- function makeResultUI
+---@param is_success boolean
+---@param is_stopped boolean -- @yjkil 22.10.20 할로윈 이벤트 스테이지 중단 시 날개 소비 하지 않도록 임시 추가
 -------------------------------------
-function GameState:makeResultUI(is_success)
+function GameState:makeResultUI(is_success, is_stopped)
     self.m_world:setGameFinish()
 
     -- 작업 함수들
@@ -1013,7 +1018,7 @@ function GameState:makeResultUI(is_success)
 
     -- 1. 네트워크 통신
     func_network_game_finish = function()
-        local t_param = self:makeGameFinishParam(is_success)
+        local t_param = self:makeGameFinishParam(is_success, is_stopped)
         local world = self.m_world
         if (world.m_bDevelopMode) then
             UINavigator:goTo('lobby')
@@ -1048,12 +1053,14 @@ end
 
 -------------------------------------
 -- function makeGameFinishParam
+---@param is_success boolean
+---@param is_stopped boolean -- @yjkil 22.10.20 할로윈 이벤트 스테이지 중단 시 날개 소비 하지 않도록 임시 추가
 -------------------------------------
-function GameState:makeGameFinishParam(is_success)
+function GameState:makeGameFinishParam(is_success, is_stopped)
     local t_param = {}
 
     do-- 클리어 했는지 여부 ( 0 이면 실패, 1이면 성공)
-        t_param['clear_type'] = is_success and (1 or 0)
+        t_param['clear_type'] = (is_success and 1) or (is_stopped and -1) or 0
     end
 
     do-- 클리어한 웨이브 수

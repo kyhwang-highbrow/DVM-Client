@@ -361,7 +361,12 @@ local function ok_cb()
 
     -- 멈춘 상태에서 바로 종료될시 어색하므로 resume 시키고 종료
     local world = g_gameScene.m_gameWorld
-    world.m_gameState:changeState(GAME_STATE_FAILURE)
+    -- 할로윈 이벤트 던전 
+    if table.find({1119801, 1129801, 1139801, 1149801}, self.m_stageID) then
+        world.m_gameState:changeState(GAME_STATE_STOP)
+    else
+        world.m_gameState:changeState(GAME_STATE_FAILURE)
+    end   
 
     if self.m_endCB then
         self.m_endCB()
