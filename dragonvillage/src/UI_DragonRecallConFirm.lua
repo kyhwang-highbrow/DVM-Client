@@ -69,9 +69,10 @@ end
 
 -------------------------------------
 -- function click_closeBtn
+---@param is_recalled boolean | nil
 -------------------------------------
-function UI_DragonRecallConfirm:click_closeBtn()
-    self:close()
+function UI_DragonRecallConfirm:click_closeBtn(is_recalled)
+    self:close(is_recalled)
 end
 
 -------------------------------------
@@ -80,7 +81,7 @@ end
 function UI_DragonRecallConfirm:click_okBtn()
     local function success_cb(ret)        
         UI_ToastPopup(Str('보상이 우편함으로 전송되었습니다.'))
-        self:click_closeBtn()
+        self:click_closeBtn(true)
     end
 
     local struct_dragon_object = self.m_structDragonObject

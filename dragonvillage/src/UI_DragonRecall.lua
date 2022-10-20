@@ -208,12 +208,12 @@ function UI_DragonRecall:refresh_recallResult()
     end
 
     local function create_func(ui, data)
-        ui.root:setScale(0.66)
+        ui.root:setScale(0.58)
     end
 
     local table_view = UIC_TableViewTD(list_node)
-    table_view.m_cellSize = cc.size(100, 100)
-    table_view.m_nItemPerCell = 5
+    table_view.m_cellSize = cc.size(90, 90)
+    table_view.m_nItemPerCell = 6
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(make_func, create_func)
 
@@ -384,8 +384,10 @@ end
 function UI_DragonRecall:click_recallBtn()
     require('UI_DragonRecallConfirm')
 
-    local function close_cb()
-        self:click_closeBtn()
+    local function close_cb(is_recalled)
+        if is_recalled then
+            self:click_closeBtn()
+        end
     end
 
     ---@type StructDragonObject

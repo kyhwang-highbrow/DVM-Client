@@ -67,6 +67,8 @@ end
 -- function refreshRecallList
 -------------------------------------
 function UI_ButtonDragonRecall:refreshRecallList()
+    self.m_structRecallList = g_dragonsData:getRecallList()
+
     local temp = {}
 
     local size = #self.m_structRecallList
@@ -97,7 +99,7 @@ function UI_ButtonDragonRecall:update(dt)
 
     ---@type StructRecall
     local struct_recall = table.getFirst(self.m_structRecallList)
-    if (struct_recall == nil) then
+    if (struct_recall == nil) or (struct_recall and (not struct_recall:isAvailable())) then
         self.m_bMarkDelete = true
         self:callDirtyStatusCB()
         return
@@ -105,7 +107,14 @@ function UI_ButtonDragonRecall:update(dt)
 
     local time_label = vars['timeLabel']
     if time_label and struct_recall:isAvailable() then
-        local time_str = struct_recall:getRemainingTimeStr()
+        local left_time_millisec = struct_recall:getEndTimeMillisec() - ServerTime.getInstance():getCurrentTimestampMilliseconds()
+        local time_str
+        if (left_time_millisec < 0) then
+            time_str =  Str('종료')
+        else
+            time_str = datetime.makeTimeDesc_timer(left_time_millisec)
+        end
+        
         time_label:setString(time_str)
     end    
 end

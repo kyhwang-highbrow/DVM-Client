@@ -109,7 +109,7 @@ end
 -------------------------------------
 -- function close
 -------------------------------------
-function UI:close()
+function UI:close(value)
     if self.closed then
         cclog('attempted to close twice')
         cclog(debug.traceback())
@@ -121,7 +121,7 @@ function UI:close()
     UIManager:close(self)
 
     if self.m_closeCB then
-        self.m_closeCB()
+        self.m_closeCB(value)
     end
 end
 

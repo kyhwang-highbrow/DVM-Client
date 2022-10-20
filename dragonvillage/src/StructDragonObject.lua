@@ -1188,3 +1188,28 @@ function StructDragonObject:isRuneEquipped()
 
     return false
 end
+
+-------------------------------------
+-- function getCreatedTimestampMillisec
+-- @brief 드래곤 생성 시간
+---@return number
+-------------------------------------
+function StructDragonObject:getCreatedTimestampMillisec()
+    return self['created_at']
+end
+-------------------------------------
+-- function getUpdatedTimestampMillisec
+-- @brief 드래곤 최근 정보 갱신 시간
+---@return number
+-------------------------------------
+function StructDragonObject:getUpdatedTimestampMillisec()
+    return self['updated_at']
+end
+-------------------------------------
+-- function getPlayedTimestampMillisec
+-- @brief 최근 드래곤 사용 시간
+---@return number
+-------------------------------------
+function StructDragonObject:getPlayedTimestampMillisec()
+    return self['played_at']
+end

@@ -1636,7 +1636,10 @@ function ServerData_Dragons:response_recallDragons(recall_info, success_cb)
                         end_time_millisec = end_time
                     }
                     local struct_recall = StructRecall(temp)
-                    table.insert(self.m_structRecallList, struct_recall) 
+                    
+                    if (table.count(struct_recall:getTargetDragonList()) > 0) then
+                        table.insert(self.m_structRecallList, struct_recall) 
+                    end
                 end
             end
 
@@ -1669,12 +1672,15 @@ end
 
 -------------------------------------
 -- function isDragonRecallTarget
----@param did number
+---@param doid string
 ---@return boolean
 -------------------------------------
-function ServerData_Dragons:isDragonRecallTarget(did)
+function ServerData_Dragons:isDragonRecallTarget(doid)
+    local struct_dragon_object = self:getDragonDataFromUidRef(doid)
+    local did = struct_dragon_object:getDid()
+
     for index, struct_recall in ipairs(self.m_structRecallList) do
-        if (struct_recall:getTargetDid() == did) and struct_recall:isAvailable() then
+        if (struct_recall:getTargetDid() == did) and struct_recall:isAvailable(doid) then
             return true
         end
     end

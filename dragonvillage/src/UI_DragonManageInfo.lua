@@ -237,8 +237,8 @@ function UI_DragonManageInfo:refresh()
     --vars['lockBtn']:setVisible(not is_myth_dragon)
 
 
-    local did = t_dragon_data['did']
-    local is_recall_target = g_dragonsData:isDragonRecallTarget(did)
+    local doid = t_dragon_data:getObjectId()
+    local is_recall_target = g_dragonsData:isDragonRecallTarget(doid)
     vars['recallBtn']:setVisible(is_recall_target)
     
     -- spine 캐시 정리 확인
@@ -1049,9 +1049,10 @@ end
 function UI_DragonManageInfo:click_recallBtn()
     local t_dragon_data = self.m_selectDragonData
 	local did = t_dragon_data['did']
+    local doid = t_dragon_data:getObjectId()
 
     -- 리콜 대상 드래곤이 아닌 경우
-    if (g_dragonsData:isDragonRecallTarget(did) == false) then
+    if (g_dragonsData:isDragonRecallTarget(doid) == false) then
         UIManager:toastNotificationRed(Str('대상이 없습니다.'))
         return
     end
