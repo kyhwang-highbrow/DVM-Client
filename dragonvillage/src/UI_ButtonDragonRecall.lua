@@ -42,6 +42,10 @@ end
 function UI_ButtonDragonRecall:initUI()
     local vars = self.vars
 
+    if vars['notiSprite'] then
+        local is_noti_visible = g_dragonsData:isRecallNotiVisible()
+        vars['notiSprite']:setVisible(is_noti_visible)
+    end
 end
 
 -------------------------------------
@@ -123,6 +127,13 @@ end
 -- function click_btn
 -------------------------------------
 function UI_ButtonDragonRecall:click_recallBtn()
+    local vars = self.vars
+    if vars['notiSprite'] then
+        g_dragonsData:setRecallNotiVisible(false)
+        local is_noti_visible = g_dragonsData:isRecallNotiVisible()
+        vars['notiSprite']:setVisible(is_noti_visible)
+    end
+
     local struct_recall = table.getFirst(self.m_structRecallList)
     local target_dragon_list = struct_recall:getTargetDragonList()
 

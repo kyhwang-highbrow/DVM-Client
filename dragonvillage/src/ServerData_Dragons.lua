@@ -22,6 +22,7 @@ ServerData_Dragons = class({
         m_mReleasedDragonsByDid = 'map', -- 출시된 드래곤
 
         m_structRecallList = 'table', -- 리콜 대상인 드래곤의 did 리스트
+        m_bRecallNoti = 'boolean',
     })
 
 SKILL_MOVE_DRAGON_GRADE = 4 -- 스킬 이전 가능한 드래곤 태생 등급 (4등급 이상부터 가능)
@@ -36,11 +37,13 @@ function ServerData_Dragons:init(server_data)
     self.m_mNumOfDragonsByDid = {}
     self.m_mSkillMovePrice = {}
     self.m_mReleasedDragonsByDid = {}
-    self.m_structRecallList = {}
     self.m_bDirtyNumOfDragonsByDid = true
     self.m_dragonsCnt = 0
     self.m_dragonBestCombatPower = 0
     self.m_bUpdatePower = false
+
+    self.m_structRecallList = {}
+    self.m_bRecallNoti = true
 end
 
 -------------------------------------
@@ -1652,6 +1655,21 @@ function ServerData_Dragons:response_recallDragons(recall_info, success_cb)
             success_cb()
         end
     end
+end
+
+-------------------------------------
+-- function isRecallNotiVisible
+---@return boolean
+-------------------------------------
+function ServerData_Dragons:isRecallNotiVisible()
+    return self.m_bRecallNoti
+end
+-------------------------------------
+-- function setRecallNotiVisible
+---@param is_visible boolean
+-------------------------------------
+function ServerData_Dragons:setRecallNotiVisible(is_visible)
+    self.m_bRecallNoti = is_visible
 end
 
 -------------------------------------
