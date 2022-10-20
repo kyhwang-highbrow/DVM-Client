@@ -349,6 +349,14 @@ function UI_DragonRecall:getTempList()
         table.insert(result, data)
     end
 
+    local rune_obj_list = struct_dragon_object:getRuneObjectList()
+
+    for index, struct_rune_object in pairs(rune_obj_list) do
+        
+        table.insert(result, {item_id = struct_rune_object['item_id'], count = 1, struct_rune_object})
+    end
+
+
     return result
 end
 
