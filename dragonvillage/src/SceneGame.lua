@@ -743,7 +743,10 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('gold', t_param['gold'])
     ui_network:setParam('gold_rate', t_param['gold_rate'])
     ui_network:setParam('gamekey', self.m_gameKey)
-    ui_network:setParam('bonus_items', t_param['bonus_items'])
+    -- 할로윈 이벤트 던전 중단 시 날개를 소모하지 않기 위해 clear_type을 -1로 전달하여, 보상 지급을 막음.
+    if (t_param['clear_type'] ~= -1) then
+        ui_network:setParam('bonus_items', t_param['bonus_items'])
+    end
     ui_network:setParam('clear_time', t_param['clear_time'])
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
     ui_network:setParam('rune_autosell', t_param['rune_autosell'])
