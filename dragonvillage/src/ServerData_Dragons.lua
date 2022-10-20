@@ -2055,13 +2055,9 @@ function ServerData_Dragons:request_recall(doid, cb_func)
         -- 재화 갱신
         self.m_serverData:networkCommonRespone(ret)
 
-        -- 재료로 사용된 드래곤에 장착된 룬 삭제
-        if ret['deleted_rune_oids'] then
-            g_runesData:deleteRuneData_list(ret['deleted_rune_oids'])
-        end
-        
-        if ret['modified_rune'] then
-            g_runesData:applyRuneData(ret['modified_rune'])
+        -- 룬을 장착한 드래곤이 있을 시 룬 반환
+        if (ret['returned_runes']) then
+            g_runesData:applyRuneData_list(ret['returned_runes'])
         end
 
 		-- 재료로 사용된 드래곤 삭제
