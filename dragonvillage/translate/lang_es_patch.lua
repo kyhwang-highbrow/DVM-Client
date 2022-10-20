@@ -196,4 +196,5 @@ return {['{@YELLOW}6등급 드래곤{@DEFAULT} 중 한마리를 직접 선택하
 ['다이아 상품 수량 증가 보상']='Compensación por aumentar la cantidad de bienes diamantes',
 ['깜짝이벤트!']='¡Una sorpresa!',
 ['50명 이상 응원 시 다이아 5,000개!']='¡5.000 Diamante para animar a más de 50 personas!',
-['100명 이상 응원 시 다이아 10,000개!']='¡10.000 Diamante para animar a más de 100 personas!'}
+['100명 이상 응원 시 다이아 10,000개!']='¡10.000 Diamante para animar a más de 100 personas!',
+['SVIP 테이머님의 값진 성원에 보답하고자 특별한 선물을 준비했습니다.']='Hemos preparado un obsequio especial para el valioso ¡Domador de SVIP que nos ha apoyado.'}
