@@ -216,7 +216,12 @@ function DragonSkillIndivisualInfo:getCoolTime(t_skill)
     elseif (cooltime == 0) then
         return nil
     elseif (cooltime == 1) then
-        return nil
+        -- 오베론 패시브 1 스킬 축제의 축복 재사용시간 표기
+        if (self.m_skillID == 218621) then
+            return cooltime
+        else
+            return nil
+        end
     end
 
     return cooltime
