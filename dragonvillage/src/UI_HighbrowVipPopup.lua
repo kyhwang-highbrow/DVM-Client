@@ -13,7 +13,15 @@ UI_HighbrowVipPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_HighbrowVipPopup:init(is_popup)
-    local vars = self:load('event_highbrow_vip.ui')
+    self.m_uiName = 'UI_HighbrowVipPopup'
+    self.m_resName = 'event_highbrow_vip.ui'
+end
+
+-------------------------------------
+-- function init_fater
+-------------------------------------
+function UI_HighbrowVipPopup:init_after(is_popup)
+    local vars = self:load(self.m_resName)
 
     if is_popup then
         UIManager:open(self, UIManager.POPUP)
@@ -21,7 +29,7 @@ function UI_HighbrowVipPopup:init(is_popup)
         vars['closeBtn']:setVisible(true)
         
         -- 백키 지정
-        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_HighbrowVipPopup')
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, self.m_uiName)
     end
 
     self.m_isChecked = false
