@@ -62,7 +62,7 @@ function UI_LobbyNoticePopup:initUI()
         local item_id = item['item_id']
         local count = item['count']
 
-        ui = UI_ItemCard(item_id, count)
+        local ui = UI_ItemCard(item_id, count)
         ui.root:setSwallowTouch(false)
         vars['itemNode']:addChild(ui.root)
 
