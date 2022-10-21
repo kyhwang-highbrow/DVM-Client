@@ -166,6 +166,37 @@ function UI_EventPopupTab_Banner:initEventCapsule()
             dragon_name = Str('{@default}{@{1}}' .. Str(dragon_name) .. '{@default}', dragon_attr)
 
             vars['infoLabel']:setString(Str('{1} {2} 획득 기회!', string_rarity, dragon_name))
+
+            -- 해치 정지상태의 애니메이션 추가
+            if vars['dragonNode_hatch'] then
+                local animator = UIC_DragonAnimator()
+                animator:setTalkEnable(false)    
+
+                vars['dragonNode_hatch']:addChild(animator.m_node)
+                animator:setDragonAnimator(dragon_id, 1)                                
+                animator:setFlip(true)         
+                animator:setAnimationPause(true)
+                animator:setChangeAniEnable(false)
+            end
+
+            -- 성룡 정지상태의 애니메이션 추가
+            if vars['dragonNode_adult'] then
+                local animator = UIC_DragonAnimator()
+                animator:setTalkEnable(false)
+
+                vars['dragonNode_adult']:addChild(animator.m_node)
+                animator:setDragonAnimator(dragon_id, 3)        
+                animator:setFlip(true)                        
+                animator:setAnimationPause(true)
+                animator:setChangeAniEnable(false)
+            end
+
+
+            -- 속성에 따른 배경 추가
+            if vars['bgNode'] and vars['bgNode']:isVisible() then
+                local animator = ResHelper:getUIDragonBG(dragon_attr, 'idle')
+                vars['bgNode']:addChild(animator.m_node)
+            end
         end
     end
 end

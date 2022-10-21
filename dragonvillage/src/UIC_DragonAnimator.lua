@@ -239,3 +239,21 @@ function UIC_DragonAnimator:setIdle()
     self.m_randomAnimationList = {}
     table.insert(self.m_randomAnimationList, 'idle')
 end
+
+
+-------------------------------------
+-- function setFlip
+---@param flip boolean
+-------------------------------------
+function UIC_DragonAnimator:setFlip(flip)
+    self.m_animator:setFlip(flip)
+end
+
+
+-------------------------------------
+-- function setAnimationPause
+---@param pause boolean
+-------------------------------------
+function UIC_DragonAnimator:setAnimationPause(pause)
+    self.m_animator:setAnimationPause(pause)
+end
