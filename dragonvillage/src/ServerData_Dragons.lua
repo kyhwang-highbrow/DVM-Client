@@ -967,7 +967,7 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
     local clan_war_deck = g_deckData:getDeck('clanwar')
 
     if table.find(clan_war_deck, doid) then
-        return false, Str('작별할 수 없는 드래곤입니다.')
+        return false, Str('클랜전 덱에 설정된 드래곤입니다.')
     end
     
     return true

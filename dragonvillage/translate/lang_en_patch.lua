@@ -199,4 +199,5 @@ return {['{@YELLOW}6등급 드래곤{@DEFAULT} 중 한마리를 직접 선택하
 ['깜짝이벤트!']='urprise event!',
 ['50명 이상 응원 시 다이아 5,000개!']='If more than 50 people cheer, 5,000 diamonds!',
 ['100명 이상 응원 시 다이아 10,000개!']='If more than 100 people cheer, 10,000 diamonds!',
-['SVIP 테이머님의 값진 성원에 보답하고자 특별한 선물을 준비했습니다.']='As a token of appreciation, we have a special gift for SVIP tamer.'}
+['SVIP 테이머님의 값진 성원에 보답하고자 특별한 선물을 준비했습니다.']='As a token of appreciation, we have a special gift for SVIP tamer.',
+['클랜전 덱에 설정된 드래곤입니다.']='This dragon is selected for the Clan War Deck.'}
