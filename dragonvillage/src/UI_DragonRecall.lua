@@ -387,18 +387,20 @@ end
 function UI_DragonRecall:click_recallBtn()
     require('UI_DragonRecallConfirm')
 
+    ---@type StructDragonObject
+    local struct_dragon_object = self:getSelectDragonObj() -- StructDragonObject
+    local doid = struct_dragon_object:getObjectId()
+    	-- 작별 가능한지 체크
+	local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+	if (not possible) then
+		UIManager:toastNotificationRed(msg)
+        return
+	end
+
     local function close_cb(is_recalled)
         if is_recalled then
             self:click_closeBtn()
         end
-    end
-
-    ---@type StructDragonObject
-    local struct_dragon_object = self:getSelectDragonObj() -- StructDragonObject
-
-    if struct_dragon_object:getLock() then
-        UIManager:toastNotificationRed(Str('잠금 상태입니다.'))
-        return
     end
 
     local ui = UI_DragonRecallConfirm(struct_dragon_object)
