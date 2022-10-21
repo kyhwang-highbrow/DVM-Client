@@ -65,11 +65,20 @@ function UI_LobbyNoticePopup:initUI()
         ui = UI_ItemCard(item_id, count)
         ui.root:setSwallowTouch(false)
         vars['itemNode']:addChild(ui.root)
+
+        if vars['itemLabel'] then
+            local item_name = TableItem:getItemName(item_id)
+
+            vars['itemLabel']:setString(Str('{1} {2}개', item_name, tostring(count)))
+        end
     
     else
         vars['itemNode']:setVisible(false)
         vars['itemListNode']:setVisible(true)
         self:initTableView()
+        if vars['itemLabel'] then
+            vars['itemLabel']:setVisible(false)
+        end
     end
 end
 
