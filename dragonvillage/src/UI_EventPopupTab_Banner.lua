@@ -194,9 +194,22 @@ function UI_EventPopupTab_Banner:initEventCapsule()
 
             -- 속성에 따른 배경 추가
             if vars['bgNode'] and vars['bgNode']:isVisible() then
-                local animator = ResHelper:getUIDragonBG(dragon_attr, 'idle')
-                vars['bgNode']:addChild(animator.m_node)  
-                animator:setAnimationPause(true)
+                vars['bgNode']:removeAllChildren()
+                
+                local res_name = string.format('res/ui/event/bg_1st_capsule_%s.png', dragon_attr)
+
+                local sprite = cc.Sprite:create(res_name)
+                if sprite then
+                    sprite:setDockPoint(CENTER_POINT)
+                    sprite:setAnchorPoint(CENTER_POINT)
+
+                    vars['bgNode']:addChild(sprite)
+                else
+                    local animator = ResHelper:getUIDragonBG(dragon_attr, 'idle')
+                    vars['bgNode']:addChild(animator.m_node)  
+                    animator:setAnimationPause(true)
+                end
+            
             end
         end
     end
