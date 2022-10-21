@@ -127,6 +127,23 @@ function UI_DragonRecall:getDragonList()
 end
 
 -------------------------------------
+-- function checkSelectedDragonCondition
+-- @brief 선택된 드래곤이 조건이 가능한지 체크
+-- @return boolean true면 선택이 가능
+-------------------------------------
+function UI_DragonRecall:checkSelectedDragonCondition(dragon_object)
+    local did = dragon_object:getDid()
+    for idx, struct_recall in ipairs(self.m_structRecallList) do
+        if (struct_recall:getTargetDid() == did) then
+            return true
+        end
+    end
+
+    return false
+end
+
+
+-------------------------------------
 -- function getTargetStructRecall
 ---@return StructRecall
 -------------------------------------
