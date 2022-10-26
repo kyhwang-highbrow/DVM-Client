@@ -229,6 +229,19 @@ function UI_CharacterCard:refresh_gradeIcon()
 end
 
 -------------------------------------
+-- function setGradeIconVisible
+-- @brief 등급 아이콘 숨김 처리 여부
+---@param is_visible boolean
+-------------------------------------
+function UI_CharacterCard:setGradeIconVisible(is_visible)
+    local star_node = self.vars['starNode']
+    if star_node then
+        star_node:setVisible(is_visible)
+    end
+end
+
+
+-------------------------------------
 -- function refresh_reinforceIcon
 -- @brief 강화 아이콘
 -------------------------------------

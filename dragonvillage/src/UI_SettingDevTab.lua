@@ -1275,15 +1275,36 @@ function UI_Setting:click_tierMakerBtn()
             local did = dragon_data['did']
             local type = dragon_data['type']
             local attr = dragon_data['attr']
+            local name = dragon_data['t_name']
             local file_name = string.format('tier\\%s_%s.png', type, attr)
-            cclog(file_name)
 
             local ui_card = UI_BookDragonCard(dragon_data)
             ui_card.root:setScale(0.7)
-            -- ui_card.root:setDockPoint(cc.p(0.5, 0.5))
-            -- ui_card.root:setAnchorPoint(cc.p(0.5, 0.5))
-            -- ui_card.root:setContentSize(100)
+            ui_card:setGradeIconVisible(false)
+            if name then
+                -- 라벨만들기
+                local label = cc.Label:createWithTTF(
+                    0, -- text
+                    Translate:getFontPath(),  -- font
+                    20, -- font_size
+                    1, -- stroke_thickness
+                    cc.size(150, 25),  -- size
+                    cc.TEXT_ALIGNMENT_CENTER, 
+                    cc.TEXT_ALIGNMENT_CENTER
+                )
 
+                local uic_label = UIC_LabelTTF(label)
+                ui_card.root:addChild(uic_label.m_node)
+
+                uic_label:setDockPoint(BOT_CENTER)
+                uic_label:setAnchorPoint(BOT_CENTER)
+
+                uic_label:setPosition(0, 10)
+
+                uic_label:setColor(COLOR['white'])
+                uic_label:setString(Str(name))
+            end
+            
             test_node:removeAllChildren()
             test_node:addChild(ui_card.root)
             

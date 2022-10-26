@@ -222,3 +222,42 @@ function UI_Card:setNumberText(num, use_plus)
 		idx = idx + 1
 	end
 end
+
+-------------------------------------
+-- function makeLabel
+-- @brief 카드에 사용되는 sprite는 모두 이 로직으로 생성
+-------------------------------------
+function UI_Card:makeLabel(lua_name, text, is_rich_label)
+    local vars = self.vars
+
+    if vars[lua_name] then
+        vars[lua_name]:removeFromParent()
+        vars[lua_name] = nil
+    end
+    
+
+    if (is_rich_label == true) then
+
+    else
+        -- 라벨만들기
+	    local label = cc.Label:createWithTTF(
+            '', -- text
+            Translate:getFontPath(), -- font
+            20, -- font_size
+            1, -- stroke_thickness
+            cc.size(150, 25), -- size
+            cc.TEXT_ALIGNMENT_CENTER, -- 
+            cc.TEXT_ALIGNMENT_CENTER)
+
+        local uic_label = UIC_LabelTTF(label)
+        uic_label:setDockPoint(BOT_CENTER)
+        uic_label:setAnchorPoint(BOT_CENTER)
+        uic_label:setPosition(0, 10)
+        uic_label:setColor(COLOR['white'])
+    
+        vars['clickBtn']:addChild(uic_label.m_node)
+        uic_label:setString(text)
+        
+        vars[lua_name] = uic_label
+    end
+end
