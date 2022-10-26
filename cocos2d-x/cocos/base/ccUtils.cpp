@@ -145,7 +145,6 @@ namespace utils
                     {
                         succeedSaveToFile = image->saveToFile(outputFile);
 
-                        //편의성을 위해서 윈도우에서 해당 함수 호출 시 클립보드에 저장하도록 함
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
                         int width = image->getWidth();
                         int height = image->getHeight();
@@ -156,10 +155,10 @@ namespace utils
                         int len = image->getDataLen();
                         for (int i = 0; i < len; i++)
                         {
-                            if (i % 4 == 0) // 4바이트 단위
+                            if (i % 4 == 0)
                             {
                                 int idx = (i / 4);
-                                unsigned char* pixel = (bytes + i); // 현재 바라볼 픽셀
+                                unsigned char* pixel = (bytes + i);
 
                                 // r, g, b, a -> b, g, r, a
                                 unsigned char temp = *(pixel);
@@ -278,7 +277,6 @@ namespace utils
             anchor = startNode->getAnchorPoint();
         }
 
-        // 왼쪽 하단(0,0)에 startNode의 왼쪽 하단을 맞추도록 이동
         startNode->setDockPoint(Point(0, 0));
         startNode->setPosition(Point(size.width * anchor.x, size.height * anchor.y));
         rtx->begin();
@@ -307,9 +305,8 @@ namespace utils
         Director::getInstance()->getRenderer()->render();
 
         Image* newImage = finalRtx->newImage();
-        newImage->saveToFile(filename, false); // node 기준으로 캡쳐한 이미지가 노드 외 여백 공간을 투명하게(PNG) 저장하도록 isToRGB = false 로 전달
+        newImage->saveToFile(filename, false); 
 
-        // 이용이 끝난 image 객체는 release
         CC_SAFE_DELETE(newImage);
     }
 

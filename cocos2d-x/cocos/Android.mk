@@ -122,6 +122,7 @@ base/CCTouch.cpp \
 base/CCUserDefault.cpp \
 base/CCUserDefaultAndroid.cpp \
 base/CCValue.cpp \
+base/CCAsyncTaskPool.cpp \
 base/TGAlib.cpp \
 base/ZipUtils.cpp \
 base/atitc.cpp \
