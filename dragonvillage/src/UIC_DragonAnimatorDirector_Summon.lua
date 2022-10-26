@@ -30,6 +30,7 @@ function UIC_DragonAnimatorDirector_Summon:init(owner_ui)
     self.m_ownerUI = owner_ui
 
     self.m_currStep = 1
+    self.m_maxStep = 1
 end
 
 -------------------------------------
@@ -233,7 +234,7 @@ end
 function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
     local scene_callback = finish_cb
 
-    function after_appear_cut_cb()
+    local function after_appear_cut_cb()
         PARENT.appearDragonAnimator(self)
         self:show_textAnimation(scene_callback)
 

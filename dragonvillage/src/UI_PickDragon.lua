@@ -395,9 +395,8 @@ function UI_PickDragon:request_pick(mid, did)
 		g_dragonsData:applyDragonData_list(ret['added_dragons'])
 
 		-- 결과화면
-		local gacha_type = 'immediately'
+		local gacha_type = 'mail'
 		local ui = UI_GachaResult_Dragon(gacha_type, ret['added_dragons'])
-		ui:click_skipBtn()
 
 		if (self.m_finishCB) then
 			self.m_finishCB()

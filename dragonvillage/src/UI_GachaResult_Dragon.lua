@@ -378,7 +378,7 @@ function UI_GachaResult_Dragon:refresh()
         start_directing_cb()
     else
         -- ui 다시 집어넣고 연출 시작
-    self:doActionReverse(start_directing_cb, 0.2)
+        self:doActionReverse(start_directing_cb, 0.2)
     end
 end
 
@@ -436,6 +436,8 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
         
         -- 드래곤 등장 후의 연출
         local function cb()
+            -- 사운드
+            SoundMgr:playEffect('UI', 'ui_grow_result')
 
             -- 등급
             vars['starVisual']:setVisible(true)
@@ -497,11 +499,6 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             end
 
             self:doAction(directing_done, false)
-
-            -- 사운드
-            if (vars['skipBtn']:isVisible()) and self.m_isDirecting then
-                SoundMgr:playEffect('UI', 'ui_grow_result')
-            end
 
             -- 마지막 드래곤이었을 경우 스킵 버튼 숨김
             if (table.count(self.m_lGachaDragonList) <= 0) then
@@ -856,7 +853,7 @@ function UI_GachaResult_Dragon:onSkip_special()
         
         -- 마지막 데이터만 남긴다.
         else
-            t_last_data = self.m_lGachaDragonList[#self.m_lGachaDragonList]
+            local t_last_data = self.m_lGachaDragonList[#self.m_lGachaDragonList]
             self.m_lGachaDragonList = {t_last_data}
 
         end
