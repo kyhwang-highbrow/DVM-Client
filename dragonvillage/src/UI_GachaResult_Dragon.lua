@@ -78,7 +78,8 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self.m_type = gacha_type
     self.m_eggID = egg_id
     self.m_eggRes = egg_res
-    self.m_bSkip = false
+    -- 연출없이 즉시 단일 결과 보여주는 타입
+    self.m_bSkip = (self.m_type == 'immediately')
     self.m_tSummonData = t_summon_data
     self.m_added_mileage = added_mileage or 0
     self.m_pickupID = pickup_id
@@ -89,11 +90,6 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self.m_canRetry = true
     self.m_bIsVisibleCeilingInfo = false
     self.m_animatedDragonIdTable = {}
-
-    -- 연출없이 즉시 단일 결과 보여주는 타입..
-    if (self.m_type == 'immediately') then
-        self.m_bSkip = true
-    end
 
     -- 드래곤리스트, 슬라임 리스트 copy
     local copy_dragon_list = l_gacha_dragon_list and clone(l_gacha_dragon_list) or {}
@@ -378,7 +374,7 @@ function UI_GachaResult_Dragon:refresh()
         start_directing_cb()
     else
         -- ui 다시 집어넣고 연출 시작
-        self:doActionReverse(start_directing_cb, 0.2)
+    self:doActionReverse(start_directing_cb, 0.2)
     end
 end
 
@@ -436,8 +432,6 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
         
         -- 드래곤 등장 후의 연출
         local function cb()
-            -- 사운드
-            SoundMgr:playEffect('UI', 'ui_grow_result')
 
             -- 등급
             vars['starVisual']:setVisible(true)
@@ -499,6 +493,11 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
             end
 
             self:doAction(directing_done, false)
+
+            -- 사운드
+            if (vars['skipBtn']:isVisible()) and self.m_isDirecting then
+                SoundMgr:playEffect('UI', 'ui_grow_result')
+            end
 
             -- 마지막 드래곤이었을 경우 스킵 버튼 숨김
             if (table.count(self.m_lGachaDragonList) <= 0) then

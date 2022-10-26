@@ -234,7 +234,7 @@ end
 function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator(finish_cb)
     local scene_callback = finish_cb
 
-    local function after_appear_cut_cb()
+    function after_appear_cut_cb()
         PARENT.appearDragonAnimator(self)
         self:show_textAnimation(scene_callback)
 
