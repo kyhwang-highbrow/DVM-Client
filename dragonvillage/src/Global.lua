@@ -412,6 +412,26 @@ function GetMarketAndOS()
 end
 
 -------------------------------------
+-- function DelayedCall
+-- @brief 지연 호출
+-------------------------------------
+function DelayedCall(parent, callback, delay)
+    local delay = cc.DelayTime:create(delay)
+    local sequence
+    if (callback == nil) then
+        sequence = delay
+    else
+        sequence = cc.Sequence:create(delay, cc.CallFunc:create(callback))
+    end
+
+    local node = cc.Node:create()
+    parent:addChild(node)
+
+    node:runAction(sequence)
+    return sequence
+end
+
+-------------------------------------
 -- function LoadLocalSaveJson
 -- @brief 로컬에 저장하는 세이브 데이터 json으로 읽기
 -------------------------------------

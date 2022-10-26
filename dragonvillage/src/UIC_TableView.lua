@@ -1281,6 +1281,14 @@ function UIC_TableView:sortImmediately(sort_type)
 end
 
 -------------------------------------
+-- function getItemList
+-------------------------------------
+function UIC_TableView:getItemList()
+    return self.m_itemList
+end
+
+
+-------------------------------------
 -- function getItem
 -- @breif
 -------------------------------------

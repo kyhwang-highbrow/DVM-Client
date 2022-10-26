@@ -1237,3 +1237,75 @@ function UI_Setting:testFunction_AdmobMediation()
     ccdisplay('UI_Setting:testFunction_AdmobMediation()')
     AdSDKSelector:showByAdType(ad_type, result_cb)
 end
+
+
+-------------------------------------
+-- function click_tierMakerBtn
+-- @brief 티어 메이커 드래곤 리소스 생성
+-------------------------------------
+function UI_Setting:click_tierMakerBtn()
+
+    local dragon_list = {}
+    local table_dragon = TableDragon().m_orgTable
+
+    for index, data in pairs(table_dragon) do 
+        if (data['birthgrade'] >= 5) and (g_dragonsData:isReleasedDragon(data['did'])) then            local t_dragon = clone(data)
+            local t_dragon = clone(data)
+            t_dragon['evolution'] = 3
+            t_dragon['grade'] = t_dragon['birthgrade'] + 1
+            t_dragon['lv'] = 1
+            t_dragon['bookType'] = 'dragon'
+            table.insert(dragon_list, t_dragon)
+        end
+    end
+
+    ccdump('dragon num : ' .. tostring(#dragon_list))
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+        local test_node = self.vars['testNode']
+        
+        while (#dragon_list > 0) do
+            co:work()
+            
+            local dragon_data = dragon_list[1]
+            table.remove(dragon_list, 1)
+
+            local did = dragon_data['did']
+            local type = dragon_data['type']
+            local attr = dragon_data['attr']
+            local file_name = string.format('tier\\%s_%s.png', type, attr)
+            cclog(file_name)
+
+            local ui_card = UI_BookDragonCard(dragon_data)
+            ui_card.root:setScale(0.7)
+            -- ui_card.root:setDockPoint(cc.p(0.5, 0.5))
+            -- ui_card.root:setAnchorPoint(cc.p(0.5, 0.5))
+            -- ui_card.root:setContentSize(100)
+
+            test_node:removeAllChildren()
+            test_node:addChild(ui_card.root)
+            
+
+            cc.utils:captureNodeToFile(test_node, file_name, 1)
+
+            co:NEXT()
+
+            if co:waitWork() then 
+                break
+            else
+                co:waitTime(0.01)
+            end
+        end
+
+        UIManager:toastNotificationGreen('완료')
+        test_node:removeAllChildren()
+        co:close()
+
+    end
+    
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?'), function()
+        Coroutine(coroutine_function)
+    end)
+end

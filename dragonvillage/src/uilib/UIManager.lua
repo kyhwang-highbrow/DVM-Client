@@ -629,6 +629,15 @@ function UIManager:onKeyReleased(keyCode, event)
         self:toastNotificationGreen(StrForDev('UI 캐시가 삭제되었습니다.'))
 		UILoader.clearCache()
 
+    -- 현재 보고 있는 화면 스크린샷
+    elseif (keyCode == KEY_S) then
+        --require('UIC_Notification')
+
+        local function capture_cb(success, file_name)
+            self:toastNotificationGreen(file_name)
+        end
+        local file_name = string.format('screenshot\\screen_%s.png', os.date('%Y_%m_%d_%H_%M_%S')) 
+        cc.utils:captureScreen(capture_cb, file_name)
 	end
 
     -- 개발용 키 리스너 유연성 제고
