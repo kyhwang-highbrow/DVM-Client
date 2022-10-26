@@ -53,6 +53,8 @@ USING_NS_CC;
 
 TOLUA_API int register_all_cocos2dx_manual(lua_State* tolua_S);
 
+TOLUA_API int register_all_cocos2dx_module_manual(lua_State* tolua_S);
+
 TOLUA_API int register_cocos2dx_event_releated(lua_State* tolua_S);
 
 struct LuaEventAccelerationData

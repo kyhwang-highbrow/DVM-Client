@@ -25,7 +25,12 @@ THE SOFTWARE.
 #ifndef __SUPPORT_CC_UTILS_H__
 #define __SUPPORT_CC_UTILS_H__
 
+#include <vector>
+#include <string>
+#include "2d/CCNode.h"
 #include "base/ccMacros.h"
+#include "base/CCData.h"
+
 
 /** @file ccUtils.h
 Misc free functions
@@ -50,6 +55,32 @@ int ccNextPOT(int value);
 
 namespace utils
 {
+    /** Capture the entire screen.
+     * To ensure the snapshot is applied after everything is updated and rendered in the current frame,
+     * we need to wrap the operation with a custom command which is then inserted into the tail of the render queue.
+     * @param afterCaptured specify the callback function which will be invoked after the snapshot is done.
+     * @param filename specify a filename where the snapshot is stored. This parameter can be either an absolute path or a simple
+     * base filename ("hello.png" etc.), don't use a relative path containing directory names.("mydir/hello.png" etc.).
+     * @since v3.2
+     */
+    CC_DLL void  captureScreen(const std::function<void(bool, const std::string&)>& afterCaptured, const std::string& filename);
+
+    /** Capture a specific Node.
+    * @param startNode specify the snapshot Node. It should be cocos2d::Scene
+    * @param scale
+    * @returns: return a Image, then can call saveToFile to save the image as "xxx.png or xxx.jpg".
+    * @since v3.11
+    * !!! remark: Caller is responsible for releasing it by calling delete.
+    */
+    CC_DLL Image* captureNode(Node* startNode, float scale = 1.0f);
+
+    /** Capture a specific Node and Save to file. (@kwkang 21-07-20 captureNode 참고해서 추가)
+    * @param startNode specify the snapshot Node. It should be cocos2d::Scene
+    * @param fileName specify the file name which will be saved.
+    * @param scale
+    */
+    CC_DLL void captureNodeToFile(Node* startNode, const std::string& fileName, float scale = 1.0f);
+
     /** Get current exact time, accurate to nanoseconds.
     * @return Returns the time in seconds since the Epoch.
     */
