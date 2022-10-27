@@ -1346,6 +1346,18 @@ function isContainValue(value, t)
     return (table.find(t, value) ~= nil)
 end
 
+
+-------------------------------------
+-- function SafeFuncCall
+-- @brief 인자로 받은 func가 있을때만 호출
+-------------------------------------
+function SafeFuncCall(func, ...)
+    if (func == nil) then
+        return
+    end
+    return func(...)
+end
+
 -------------------------------------
 -- function getDegreeFromChar
 -------------------------------------

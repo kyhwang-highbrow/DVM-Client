@@ -367,9 +367,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workGetServerInfo')
 
     -- @perpelsdk
-    if (isAndroid() or isIos()) then
-        table.insert(self.m_lWorkList, 'workInitAdSDKSelector') -- 광고 sdk 초기화    
-        
+    if (isAndroid() or isIos()) then        
         local is_new_billing_setup_process = false
 
         -- @mskim 2020.11.18, 1.2.7 앱 업데이트 분기 처리
@@ -421,7 +419,7 @@ function UI_TitleScene:setWorkList()
         end
 
         table.insert(self.m_lWorkList, 'workNetworkUserInfo') -- crash log에 정보 저장
-        table.insert(self.m_lWorkList, 'workPrepareAd') -- 광고 초기화
+        table.insert(self.m_lWorkList, 'workAdManagerInitialize') -- 광고 모듈 초기화
     end
 
     table.insert(self.m_lWorkList, 'workSoundPreload')
@@ -1472,21 +1470,27 @@ end
 
 
 -------------------------------------
--- function workInitAdSDKSelector
--- @brief 광고 SDK 선택자 초기화
+-- function workAdManagerInitialize
+-- @brief 광고 모듈 초기화
 -------------------------------------
-function UI_TitleScene:workInitAdSDKSelector()
-    -- 광고 재생 생략 여부
-    local skip_ad_play = g_remoteConfig:getRemoteConfig('skip_ad_play')
-    local skip_ad_aos_7_later = g_remoteConfig:getRemoteConfig('skip_ad_aos_7_later')
-    local skip_facebook_ad_play = g_remoteConfig:getRemoteConfig('skip_facebook_ad_play')
+function UI_TitleScene:workAdManagerInitialize()
+    -- 로딩 UI On
+    self.m_loadingUI:showLoading()
 
-    AdSDKSelector:initAdSDKSelector(skip_ad_play, skip_ad_aos_7_later, skip_facebook_ad_play)
-    
-    -- 다음 work로 이동
-    self:doNextWork()
+    AdManager:getInstance():adManagerInitialize(function()
+        -- -- 광고 재생 생략 여부
+        -- local skip_ad_play = g_remoteConfig:getRemoteConfig('skip_ad_play')
+        -- local skip_ad_aos_7_later = g_remoteConfig:getRemoteConfig('skip_ad_aos_7_later')
+        -- local skip_facebook_ad_play = g_remoteConfig:getRemoteConfig('skip_facebook_ad_play')
+
+        -- AdSDKSelector:initAdSDKSelector(skip_ad_play, skip_ad_aos_7_later, skip_facebook_ad_play)
+        -- 로딩 UI Off
+        self.m_loadingUI:hideLoading()
+
+        self.m_worker:doNextWork()
+    end)
 end
-function UI_TitleScene:workInitAdSDKSelector_click()
+function UI_TitleScene:workAdManagerInitialize_click()
 end
 
 -------------------------------------
@@ -1843,32 +1847,6 @@ function UI_TitleScene:workNetworkUserInfo()
 	g_errorTracker:sendUserInfoLog(success_cb)
 end
 function UI_TitleScene:workNetworkUserInfo_click()
-end
-
--------------------------------------
--- function workPrepareAd
--- @brief 광고 준비
--------------------------------------
-function UI_TitleScene:workPrepareAd()
-    PerpleSdkManager.getCrashlytics():setLog('workPrepareAd_1')
-
-    self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
-
-    AdSDKSelector:initRewardedVideoAd()
-
-    -- 2019.03.13 sgkim 전면 광고는 아직 사용하지 않기 때문에 주석 처리
-    --                  aos 비정상 종료에 영향을 주지 않을까 싶어서 주석 처리하는 의미도 포함
-    -- 2019.04.08 sgkim aos에서만 전면 광고가 초기화 되도록 추가
-    -- 2019.04.26 mskim 크래시 증가 원인으로 판명 및 수익이 크지 않아 다시 주석 처리
-    -- if (CppFunctions:isAndroid() == true) then
-    --     AdMobManager:initInterstitialAd()
-    -- end
-
-    PerpleSdkManager.getCrashlytics():setLog('workPrepareAd_2')
-
-    self:doNextWork()
-end
-function UI_TitleScene:workPrepareAd_click()
 end
 
 -------------------------------------

@@ -1,36 +1,57 @@
 -------------------------------------
--- class ServerData_Advertising
+---@class ServerData_Advertising
 -------------------------------------
 ServerData_Advertising = class({
-        m_serverData = 'ServerData',
-        m_rewardList = 'list',
+    m_serverData = 'ServerData',
+    m_rewardList = 'list',
 
-        m_selAdtype = 'AD_TYPE',
+    m_is_fail = 'boolean',
+    m_adv_cool_time = 'number',
 
-        m_countLabel = 'LabelTTF',
-        m_scheduleHandlerID = 'number',
+    m_dailyAdInfo = 'table',
+    m_reinitializeTime = 'timestamp'
+})
 
-        m_is_fail = 'boolean',
-        m_adv_cool_time = 'number',
 
-        m_dailyAdInfo = 'table',
-        m_reinitializeTime = 'timestamp',
-    })
-
+AD_TYPE = {
+    TEST = -1,
+    NONE = 0,               -- 광고 없음(에러코드 처리) : 보상은 존재
+    AUTO_ITEM_PICK = 1,     -- 자동획득
+    RANDOM_BOX_LOBBY = 2,   -- 랜덤박스(로비)
+    FOREST = 3,             -- 드래곤 숲 시간 단축
+    EXPLORE = 4,            -- 모험 시간 단축
+    FRIENDSHIP_SUMMON = 5,  -- 우정 뽑기 
+    ADVANCED_SUMMON = 6     -- 고급 뽑기
+}
     
 -- 서버 키
 local DAILY_AD_KEY = {
     [AD_TYPE.FOREST] = 'forest',  -- 드래곤의 숲 시간 단축
     [AD_TYPE.EXPLORE] = 'explore',    -- 모험 시간 단축
-    [AD_TYPE.FSUMMON] = 'fsummon'       -- 우정 뽑기
+    [AD_TYPE.FRIENDSHIP_SUMMON] = 'fsummon',       -- 우정 뽑기
+    [AD_TYPE.ADVANCED_SUMMON] = 'summon' -- 고급 뽑기
 }
+
+local instance
+
+-------------------------------------
+-- function getInstance
+---@return ServerData_Advertising
+-------------------------------------
+function ServerData_Advertising:getInstance()
+    if (instance == nil) then
+        instance = ServerData_Advertising()
+    end
+
+    return instance
+
+end
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_Advertising:init(server_data)
     self.m_serverData = server_data
-    self.m_scheduleHandlerID = nil
     self.m_dailyAdInfo = {}
 end
 
@@ -41,11 +62,11 @@ end
 function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
     PerpleSdkManager.getCrashlytics():setLog('showAdvPopup_0')
 
-	-- 광고 비활성화 시
-	if (AdSDKSelector:isAdInactive()) then
-		AdSDKSelector:makePopupAdInactive()
-		return
-	end
+	-- -- 광고 비활성화 시
+	-- if (AdSDKSelector:isAdInactive()) then
+	-- 	AdSDKSelector:makePopupAdInactive()
+	-- 	return
+	-- end
 
     local function show_popup()
         PerpleSdkManager.getCrashlytics():setLog('showAdvPopup_1')
@@ -101,7 +122,7 @@ function ServerData_Advertising:showAd(ad_type, finish_cb)
     end
 
     PerpleSdkManager.getCrashlytics():setLog('showAd_1')
-    AdSDKSelector:showByAdType(ad_type, result_cb)
+    AdManager:getInstance():showRewardAd_Common(result_cb)
 end
 
 -------------------------------------
@@ -220,7 +241,12 @@ function ServerData_Advertising:request_adv_reward(ad_type, finish_cb, fail_cb)
     ui_network:setUrl('/shop/watch_adv')
     ui_network:setParam('uid', uid)
     ui_network:setParam('type', tonumber(ad_type))
-    ui_network:setParam('ad_sdk', AdSDKSelector:getSDKName())
+
+    local ad_module_name = AdManager:getInstance():getAdModuleName()
+    if isNotEmptyString(ad_module_name) then
+        --'ad_without_play'
+        ui_network:setParam('ad_sdk', ad_module_name)
+    end
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -318,7 +344,12 @@ function ServerData_Advertising:request_dailyAdShow(ad_type, finish_cb, fail_cb)
     ui_network:setUrl('/shop/adv_show')
     ui_network:setParam('uid', uid)
     ui_network:setParam('type', ad_key)
-    ui_network:setParam('ad_sdk', AdSDKSelector:getSDKName())
+    
+    local ad_module_name = AdManager:getInstance():getAdModuleName()
+    if isNotEmptyString(ad_module_name) then
+        --'ad_without_play'
+        ui_network:setParam('ad_sdk', ad_module_name)
+    end
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -369,4 +400,12 @@ end
 -------------------------------------
 function ServerData_Advertising:setReinitailzeTime()
     self.m_reinitializeTime = ServerTime:getInstance():getMidnightTimeStampSeconds()
+end
+
+-------------------------------------
+-- function isAdvancedSummonActive
+---@return boolean
+-------------------------------------
+function ServerData_Advertising:isAdvancedSummonActive()
+    return g_hotTimeData:isActiveEvent('ad_summon') and self:isAllowToShow(AD_TYPE.ADVANCED_SUMMON)
 end

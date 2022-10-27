@@ -90,11 +90,11 @@ end
 -- function click_adBtn
 -------------------------------------
 function UI_Exploration:click_adBtn()
-	-- 광고 비활성화 시
-	if (AdSDKSelector:isAdInactive()) then
-		AdSDKSelector:makePopupAdInactive()
-		return
-	end
+	-- -- 광고 비활성화 시
+	-- if (AdSDKSelector:isAdInactive()) then
+	-- 	AdSDKSelector:makePopupAdInactive()
+	-- 	return
+	-- end
 
     -- 현재 진행중인 탐험이 없다면
     if (not g_explorationData:isExploring()) then

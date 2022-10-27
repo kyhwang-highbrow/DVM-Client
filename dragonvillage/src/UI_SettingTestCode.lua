@@ -68,10 +68,6 @@ function UI_SettingTestCode:initButton()
     self:makeButtonAutomatic('unityAdsTest01', self.unityAdsTest01)
     self:makeButtonAutomatic('unityAdsTest02', self.unityAdsTest02)
 
-    self:makeButtonAutomatic('admob init', self.admob_init)
-    self:makeButtonAutomatic('admob preload', self.admob_preload)
-    self:makeButtonAutomatic('admob showAd', self.admob_showAd)
-
     self:makeButtonAutomatic('show Personalpack', self.showPersonalpack)
 
     self:makeButtonAutomatic('Make Incomplete Purchase', self.makeIncompletePurchase)
@@ -288,10 +284,6 @@ function UI_SettingTestCode:click_testCodeBtn()
             end
         end
 
-        -- 광고 재생
-        AdMobManager:getInterstitialAd():setOneTimeCallback(one_time_callback)
-	    AdMobManager:getInterstitialAd():show()
-
     -- 윈도우 테스트 코드
     elseif (CppFunctions:isWin32() == true) then
         local loading = UI_Loading()
@@ -408,23 +400,6 @@ function UI_SettingTestCode:click_testCodeBtn2()
 	end
 	PerpleSdkManager:twitterComposeTweet(success_cb, fail_cb, cancel_cb)
 end
-
--------------------------------------
--- @brief Admob Test Code
--------------------------------------
-function UI_SettingTestCode:admob_init()
-    FacebookAudienceNetworkManager:initRewardedVideoAd()
-    ccdisplay('admob_init')
-end
-function UI_SettingTestCode:admob_preload()
-    FacebookAudienceNetworkManager:getRewardedVideoAd():adPreload(AD_TYPE.RANDOM_BOX_LOBBY)
-    ccdisplay('admob_preload')
-end
-function UI_SettingTestCode:admob_showAd()
-    FacebookAudienceNetworkManager:getRewardedVideoAd():showByAdType(AD_TYPE.RANDOM_BOX_LOBBY)
-    ccdisplay('admob_showAd')
-end
-
 
 -------------------------------------
 -- @brief 특별 제안 패키지

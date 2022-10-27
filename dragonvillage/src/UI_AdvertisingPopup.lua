@@ -28,8 +28,8 @@ function UI_AdvertisingPopup:init(ad_type)
     self:initButton()
     self:refresh()
 
-    -- 광고 프리로드 요청
-    AdSDKSelector:adPreload(ad_type)
+    -- -- 광고 프리로드 요청
+    -- AdSDKSelector:adPreload(ad_type)
 end
 
 -------------------------------------
@@ -46,7 +46,7 @@ function UI_AdvertisingPopup:initButton()
     vars['adBtn1']:registerScriptTapHandler(function() self:click_adBtn() end)
     vars['adBtn2']:registerScriptTapHandler(function() self:click_adBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
-    vars['dailyDiaBtn']:registerScriptTapHandler(function() self:click_dailyDiaBtn() end)
+    --vars['dailyDiaBtn']:registerScriptTapHandler(function() self:click_dailyDiaBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
@@ -57,7 +57,9 @@ function UI_AdvertisingPopup:refresh()
     local vars = self.vars
     local ad_type = self.m_selType
 
-    vars['adMenu'..ad_type]:setVisible(true)
+    if ad_type and vars['adMenu'..ad_type] then
+        vars['adMenu'..ad_type]:setVisible(true)
+    end
 
     local msg = {
         Str('동영상 광고를 보시면 보상을 획득할 수 있습니다.\n광고를 보시겠습니까?'),
@@ -118,7 +120,7 @@ function UI_AdvertisingPopup:click_dailyDiaBtn()
     self:close()
 
     -- 월정액 바로가기 
-    g_subscriptionData:openSubscriptionPopup()
+    --g_subscriptionData:openSubscriptionPopup()
 end
 
 -------------------------------------

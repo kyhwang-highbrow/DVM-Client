@@ -186,7 +186,7 @@ function ServerData:getInstance()
     g_highbrowData = ServerData_Highbrow(g_serverData)
 
     -- 광고
-    g_advertisingData = ServerData_Advertising(g_serverData)
+    g_advertisingData = ServerData_Advertising.getInstance()
 
     -- 진화재료
     g_evolutionStoneData = ServerData_EvolutionStone(g_serverData)

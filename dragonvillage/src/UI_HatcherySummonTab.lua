@@ -157,8 +157,8 @@ function UI_HatcherySummonTab:initUI()
         btn.m_count = t_data['draw_cnt']
         btn.m_ticket = false
 
-        -- 광고 무료 뽑기
-        if (t_data['is_ad']) then
+        -- 무료 뽑기
+        if (t_data['ui_type'] == 'fp_ad') and (t_data['is_ad']) then
             btn.vars['priceLabel']:setString(Str('1일 1회'))
             btn.vars['priceLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
             btn.vars['priceNode']:removeAllChildren()
@@ -221,6 +221,12 @@ function UI_HatcherySummonTab:initUI()
             end
         end
 
+        -- 고급 소환 광고 존재 여부
+        if btn.vars['adSummonNoti'] and t_data['is_ad'] then
+            local is_noti_visible = g_advertisingData:isAdvancedSummonActive()
+            btn.vars['adSummonNoti']:setVisible(is_noti_visible)
+        end
+
         if (t_data['price_type'] == 'cash') then 
             table.insert(hatchery_summon_item_list, btn)
         end
@@ -274,8 +280,13 @@ function UI_HatcherySummonTab:initUI()
     self:onChangeCategory(default_category)
 
     -- 광고 보기 버튼 체크
-    vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['FSUMMON']))
+    vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE.FRIENDSHIP_SUMMON))
     vars['summonNode_fp_ad']:runAction(cca.buttonShakeAction(2, 2))
+
+    if vars['adSummonNoti'] then
+        local is_noti_visible = g_advertisingData:isAdvancedSummonActive()
+        vars['adSummonNoti']:setVisible(is_noti_visible)
+    end
 
     self:initTableView()
 
@@ -569,6 +580,10 @@ function UI_HatcherySummonTab:onChangeCategory(category)
     elseif is_premium then
         ceiling_label = vars['premiumCeilingLabel']
         ceiling_menu = vars['premiumCeilingSprite']
+
+        if vars['adSummonNoti'] then -- 부화소 고급 소환 광고 존재 여부
+            vars['adSummonNoti']:setVisible(false)
+        end
     end
 
     self.m_pickupID = pickup_id
@@ -903,7 +918,7 @@ end
 -- function click_cashSummonBtn
 -- @brief 고급 소환
 -------------------------------------
-function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
+function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_ad, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
 
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
@@ -947,6 +962,14 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
 
         local function close_cb()
             self:summonApiFinished()
+            -- 광고 노티 이미지 노출 여부 갱신
+            if (is_ad) then
+                for index, btn in ipairs(self.m_summonBtnList) do
+                    local is_noti_visible = g_advertisingData:isAdvancedSummonActive()
+                    btn.vars['adSummonNoti']:setVisible(is_noti_visible)
+                end
+            end
+
             --신화 드래곤 팝업
             g_getDragonPackage:PopUp_GetDragonPackage()
         end
@@ -959,7 +982,7 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
     local function fail_cb()
     end
 
-    g_hatcheryData:request_summonCash(is_bundle, is_sale, nil, draw_cnt, finish_cb, fail_cb)
+    g_hatcheryData:request_summonCash(is_bundle, is_ad, is_sale, nil, draw_cnt, finish_cb, fail_cb)
 end
 -------------------------------------
 -- function click_fixedPickupSummonBtn
@@ -1161,7 +1184,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
             self:click_pickupSummonBtn(is_bundle, is_ad, t_egg_data, old_ui, draw_cnt, pickup_id)
 
         elseif (egg_id == 700002) then
-            self:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
+            self:click_cashSummonBtn(is_bundle, false, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
 
         elseif (egg_id == 700003) then
             self:click_friendSummonBtn(is_bundle, is_ad, t_egg_data, old_ui, draw_cnt)
@@ -1189,6 +1212,23 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 
     local cancel_btn_cb = nil
 
+    local function ad_btn_cb()
+        AdManager.getInstance():showRewardAd_Common(function(ret)
+            if (ret == 'success') then
+                local function finish_callback()
+                    if (egg_id == 700002) then
+                        self:click_cashSummonBtn(is_bundle, true--[[is_ad]], false--[[is_sale]], 
+                            t_egg_data, old_ui, draw_cnt, pickup_id)
+                    end
+                end
+                g_advertisingData:request_dailyAdShow(AD_TYPE.ADVANCED_SUMMON, finish_callback)
+            else
+                -- 실패의 경우 함수 내부에서 알아서 처리됨
+                UIManager:toastNotificationRed(Str('잘못된 요청입니다.'))
+            end
+        end)
+    end
+
     local item_key = t_egg_data['price_type']
     local item_value = t_egg_data['price']
 
@@ -1207,7 +1247,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 	elseif (TutorialManager.getInstance():isDoing()) then
 		ok_btn_cb()
 
-    elseif (is_ad) then
+    elseif (egg_id == 700003) and (is_ad) then
 		-- -- 광고 비활성화 시
 		-- if (AdSDKSelector:isAdInactive()) then
 		-- 	AdSDKSelector:makePopupAdInactive()
@@ -1243,7 +1283,12 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
         end
     else
         local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
-        MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+        
+        if (is_ad == true) and g_advertisingData:isAdvancedSummonActive() then
+            MakeSimplePopup_SummonConfirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb, ad_btn_cb)
+        else
+            MakeSimplePopup_SummonConfirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb, nil)            
+        end
     end
 end
 

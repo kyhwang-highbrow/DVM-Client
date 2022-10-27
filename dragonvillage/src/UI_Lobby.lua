@@ -1139,6 +1139,11 @@ function UI_Lobby:update_highlight()
     -- 드래곤 소환
     local highlight, t_highlight = g_hatcheryData:checkHighlight()
     vars['drawNotiSprite']:setVisible(highlight)
+    
+    if vars['adSummonNoti'] then -- 부화소 고급 소환 광고 존재 여부
+        local is_noti_visible = g_advertisingData:isAdvancedSummonActive()
+        vars['adSummonNoti']:setVisible(is_noti_visible)
+    end
 
     -- 드래곤의 숲
     vars['forestNotiSprite']:setVisible(ServerData_Forest:getInstance():isHighlightForest())

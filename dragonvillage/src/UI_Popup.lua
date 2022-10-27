@@ -65,6 +65,19 @@ function MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_bt
 end
 
 -------------------------------------
+-- function MakeSimplePopup_SummonConfirm
+-------------------------------------
+function MakeSimplePopup_SummonConfirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb, ad_btn_cb)
+    
+    if (not ConfirmPrice(item_key, item_value)) then
+        return
+    end
+
+    require('UI_SummonConfirmPopup')
+    return UI_SummonConfirmPopup(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb, ad_btn_cb)
+end
+
+-------------------------------------
 -- function ConfirmPrice_original
 -- @brief
 -- @return bool

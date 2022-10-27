@@ -123,14 +123,14 @@ end
 -- function click_adBtn
 -------------------------------------
 function UI_SupplyProductInfoPopup_AutoPickup:click_adBtn()
-	-- 광고 비활성화 시
-	if (AdSDKSelector:isAdInactive()) then
-		AdSDKSelector:makePopupAdInactive()
-		return
-	end
+	-- -- 광고 비활성화 시
+	-- if (AdSDKSelector:isAdInactive()) then
+	-- 	AdSDKSelector:makePopupAdInactive()
+	-- 	return
+	-- end
 
-    -- 광고 프리로드 요청
-    AdSDKSelector:adPreload(AD_TYPE['AUTO_ITEM_PICK'])
+    -- -- 광고 프리로드 요청
+    -- AdSDKSelector:adPreload(AD_TYPE['AUTO_ITEM_PICK'])
 
     -- 광고 안내 팝업
     local function ok_cb()

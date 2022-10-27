@@ -1235,7 +1235,7 @@ function UI_Setting:testFunction_AdmobMediation()
     end
 
     ccdisplay('UI_Setting:testFunction_AdmobMediation()')
-    AdSDKSelector:showByAdType(ad_type, result_cb)
+    --AdSDKSelector:showByAdType(ad_type, result_cb)
 end
 
 

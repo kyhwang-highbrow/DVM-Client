@@ -200,11 +200,11 @@ end
 -- function click_adBtn
 -------------------------------------
 function UI_Forest:click_adBtn()
-	-- 광고 비활성화 시
-	if (AdSDKSelector:isAdInactive()) then
-		AdSDKSelector:makePopupAdInactive()
-		return
-	end
+	-- -- 광고 비활성화 시
+	-- if (AdSDKSelector:isAdInactive()) then
+	-- 	AdSDKSelector:makePopupAdInactive()
+	-- 	return
+	-- end
 
     -- 쿨타임 돌고 있는 stuff가 없다면
     if (self.m_territory:isAllStuffHasReward()) then

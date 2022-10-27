@@ -191,7 +191,7 @@ end
 -- function request_summonCash
 -- @breif
 -------------------------------------
-function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, pickup_id, draw_cnt, finish_cb, fail_cb)
+function ServerData_Hatchery:request_summonCash(is_bundle, is_ad, is_sale, pickup_id, draw_cnt, finish_cb, fail_cb)
     -- parameters
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
@@ -258,6 +258,11 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, pickup_id, d
     if (self.m_isAutomaticFarewell and is_bundle) then
         ui_network:setParam('auto_goodbye', auto_farewell_lv)
     end
+
+    if (is_ad) then
+        ui_network:setParam('adv', is_ad)
+    end
+
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -355,7 +360,7 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
 end
 
 -------------------------------------
--- function request_summonCashEvent
+-- function request_summonPickup
 -- @breif
 -------------------------------------
 function ServerData_Hatchery:request_summonPickup(is_bundle, is_sale, pickup_id, draw_cnt, finish_cb, fail_cb)
@@ -502,6 +507,7 @@ function ServerData_Hatchery:getGachaList()
             ['ui_type'] = 'cash',
             ['draw_cnt'] = 1,
             ['bundle'] = false,
+            ['is_ad'] = true,
             ['price_type'] = 'cash',
             ['price'] = ServerData_Hatchery.CASH__SUMMON_PRICE,
             ['free_target'] = true --무료 뽑기 대상 알

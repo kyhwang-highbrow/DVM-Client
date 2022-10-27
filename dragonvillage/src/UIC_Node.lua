@@ -3,6 +3,7 @@
 -------------------------------------
 UIC_Node = class({
         m_node = 'cc.Node',
+        m_bUseSchedule = 'boolean',
     })
 
 -------------------------------------
@@ -10,6 +11,7 @@ UIC_Node = class({
 -------------------------------------
 function UIC_Node:init(node)
     self.m_node = node
+    self.m_bUseSchedule = false
 end
 
 -------------------------------------
@@ -20,6 +22,40 @@ function UIC_Node:create()
     node:setDockPoint(cc.p(0.5, 0.5))
     node:setAnchorPoint(cc.p(0.5, 0.5))
     return UIC_Node(node)
+end
+-------------------------------------
+-- function createUpdateNode
+-- @brief 매 프레임 호출되는 update함수 사용 전용 Node 생성
+-------------------------------------
+function UIC_Node:createUpdateNode(parent, func, immediately)
+    local node = cc.Node:create()
+    node:setDockPoint(cc.p(0.5, 0.5))
+    node:setAnchorPoint(cc.p(0.5, 0.5))
+    parent:addChild(node)
+    local uic_node = UIC_Node(node)
+    uic_node:scheduleUpdate(func, immediately)
+    return uic_node
+end
+
+-------------------------------------
+-- function scheduleUpdate
+-------------------------------------
+function UIC_Node:scheduleUpdate(func, immediately)
+    self.m_node:scheduleUpdateWithPriorityLua(func, 0)
+    self.m_bUseSchedule = true
+
+    -- 호출 프레임부터 바로 func 호출
+    if ((immediately == true) and (func ~= nil)) then
+        func()
+    end
+end
+
+-------------------------------------
+-- function unscheduleUpdate
+-------------------------------------
+function UIC_Node:unscheduleUpdate()
+    self.m_node:unscheduleUpdate()
+    self.m_bUseSchedule = false
 end
 
 -------------------------------------
