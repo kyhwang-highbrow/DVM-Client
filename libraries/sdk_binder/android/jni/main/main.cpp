@@ -4,10 +4,6 @@
 #include "PerpleCore.h"
 #include "cocos2d.h"
 
-void cocos_android_app_init (JNIEnv* env) {
-
-}
-
 extern "C"
 {
 

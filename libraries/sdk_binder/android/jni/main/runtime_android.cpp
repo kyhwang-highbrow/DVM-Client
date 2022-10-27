@@ -83,7 +83,7 @@ void jniFuncV_SSS(const char* funcName, int funcID, const char* arg0, const char
 
 void jniFuncV_SI(const char* funcName, int funcID, const char* arg0, int arg1)
 {
-    LOG("Lua callback, calling - funcName:%s, funcID:%d, arg0:%s, arg1:%s", funcName, funcID, arg0, arg1);
+    LOG("Lua callback, calling - funcName:%s, funcID:%d, arg0:%s, arg1:%d", funcName, funcID, arg0, arg1);
 
     JniMethodInfo t;
     if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, funcName, "(ILjava/lang/String;I)V"))
@@ -99,7 +99,7 @@ void jniFuncV_SI(const char* funcName, int funcID, const char* arg0, int arg1)
 
 void jniFuncV_SZ(const char* funcName, int funcID, const char* arg0, bool arg1)
 {
-    LOG("Lua callback, calling - funcName:%s, funcID:%d, arg0:%s, arg1:%s", funcName, funcID, arg0, arg1);
+    LOG("Lua callback, calling - funcName:%s, funcID:%d, arg0:%s, arg1:%s", funcName, funcID, arg0, arg1 ? "true" : "false");
 
     JniMethodInfo t;
     if (JniHelper::getStaticMethodInfo(t, PACKAGE_NAME, funcName, "(ILjava/lang/String;Z)V"))

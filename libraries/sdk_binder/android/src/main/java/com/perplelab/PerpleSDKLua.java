@@ -1,22 +1,11 @@
 package com.perplelab;
 
 import android.util.Log;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.perplelab.adcolony.PerpleAdColonyCallback;
-import com.perplelab.admob.PerpleAdMobCallback;
 import com.perplelab.firebase.PerpleCrashlytics;
 import com.perplelab.firebase.PerpleFirebase;
 import com.perplelab.tapjoy.PerpleTapjoyPlacementCallback;
-import com.perplelab.unityads.PerpleUnityAdsCallback;
 import com.perplelab.util.PerpleUtil;
-
-import kotlin.Function;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function2;
-import kotlin.reflect.KCallable;
 
 public class PerpleSDKLua {
     private static final String LOG_TAG = "PerpleSDKLua";
@@ -889,26 +878,27 @@ public class PerpleSDKLua {
 
     // @twitter
     public static void twitterComposeTweet(final int funcID, String imageUrl) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getTwitter() == null) {
-            PerpleSDK.callSDKResult(pID, funcID, "fail",
-                    PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TWITTER_NOTINITIALIZED, "Twitter is not initialized."));
-            return;
-        }
+         final int pID = PerpleSDK.ProcessId;
+         if (PerpleSDK.getTwitter() == null) {
+             PerpleSDK.callSDKResult(pID, funcID, "fail",
+                     PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TWITTER_NOTINITIALIZED, "Twitter is not initialized."));
+             return;
+         }
 
-        PerpleSDK.getTwitter().composeTweet(imageUrl, new PerpleSDKCallback() {
-            @Override
-            public void onSuccess(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "success", info);
-            }
-            @Override
-            public void onFail(String info) {
-                if (info.equals("cancel"))
-                    PerpleSDK.callSDKResult(pID, funcID, "cancel", info);
-                else
-                    PerpleSDK.callSDKResult(pID, funcID, "fail", info);
-            }
-        });
+         PerpleSDK.getTwitter().composeTweet(imageUrl, new PerpleSDKCallback() {
+             @Override
+             public void onSuccess(String info) {
+                 PerpleSDK.callSDKResult(pID, funcID, "success", info);
+             }
+             @Override
+             public void onFail(String info) {
+                 if (info.equals("cancel"))
+                     PerpleSDK.callSDKResult(pID, funcID, "cancel", info);
+                 else
+                     PerpleSDK.callSDKResult(pID, funcID, "fail", info);
+             }
+         });
+        Log.d("twitterComposeTweet", "disable");
     }
 
     // @twitter
@@ -935,7 +925,7 @@ public class PerpleSDKLua {
     // @tapjoy
     public static void tapjoyEvent(final int funcID, String cmd, String arg0, String arg1) {
         if (PerpleSDK.getTapjoy() != null) {
-            PerpleSDK.getTapjoy().setEvent(cmd, arg0, arg1);
+             PerpleSDK.getTapjoy().setEvent(cmd, arg0, arg1);
         }
     }
 
@@ -1290,92 +1280,6 @@ public class PerpleSDKLua {
     public static void appleLogin(final int funcID) { }
     public static void appleLogout(final int funcID) { }
 
-    // @unity-ads
-    public static void unityAdsStart(final int funcID, String mode, String metaData) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getUnityAds() == null) {
-            PerpleSDK.callSDKResult(pID, funcID, "error",
-                    PerpleSDK.getErrorInfo(PerpleSDK.ERROR_UNITYADS_NOTINITIALIZED, "UnityAds is not initialized."));
-            return;
-        }
-
-        PerpleSDK.getUnityAds().start((mode.equals("test")), metaData, new PerpleUnityAdsCallback() {
-            @Override
-            public void onStart(String placementId) {
-                PerpleSDK.callSDKResult(pID, funcID, "start", placementId);
-            }
-            @Override
-            public void onReady(String placementId) {
-                PerpleSDK.callSDKResult(pID, funcID, "ready", placementId);
-            }
-            @Override
-            public void onFinish(String placementId, String result) {
-                try {
-                    JSONObject obj = new JSONObject();
-                    obj.put("placementId", placementId);
-                    obj.put("result", result);
-                    PerpleSDK.callSDKResult(pID, funcID, "finish", obj.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_JSONEXCEPTION, ""));
-                }
-            }
-            @Override
-            public void onError(String error, String message) {
-                PerpleSDK.callSDKResult(pID, funcID, "error", error);
-            }
-        });
-    }
-
-    // @unity-ads
-    public static void unityAdsShow(final int funcID, String placementId, String metaData) {
-        if (PerpleSDK.getUnityAds() != null) {
-            PerpleSDK.getUnityAds().show(placementId, metaData);
-        }
-    }
-
-    // @adcolony
-    public static void adColonyStart(final int funcID, String zoneIds, String userId) {
-        if (PerpleSDK.getAdColony() != null) {
-            PerpleSDK.getAdColony().start(zoneIds, userId);
-        }
-    }
-
-    // @adcolony
-    public static void adColonySetUserId(final int funcID, String userId) {
-        if (PerpleSDK.getAdColony() != null) {
-            PerpleSDK.getAdColony().setUserId(userId);
-        }
-    }
-
-    // @adcolony
-    public static void adColonyReqeust(final int funcID, String zoneId) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getAdColony() != null) {
-            PerpleSDK.getAdColony().request(zoneId, new PerpleAdColonyCallback() {
-                @Override
-                public void onReward(String info) {
-                    PerpleSDK.callSDKResult(pID, funcID, "reward", info);
-                }
-                @Override
-                public void onReady(String zoneId) {
-                    PerpleSDK.callSDKResult(pID, funcID, "ready", zoneId);
-                }
-                @Override
-                public void onError(String info) {
-                    PerpleSDK.callSDKResult(pID, funcID, "error", info);
-                }
-            });
-        }
-    }
-
-    // @adcolony
-    public static void adColonyShow(final int funcID, String zoneId) {
-        if (PerpleSDK.getAdColony() != null) {
-            PerpleSDK.getAdColony().show(zoneId);
-        }
-    }
-
     // @billing
     public static void billingSetup(final int funcID, String checkReceiptServerUrl, String saveTransactionIdUrl) {
         final int pID = PerpleSDK.ProcessId;
@@ -1521,235 +1425,56 @@ public class PerpleSDKLua {
         return PerpleSDK.getAdjust().getAdid();
     }
 
-
-
     // @AdMob
-    public static void adMobInitRewardedVideoAd(int funcID) {
+    public static void adMobInitialize(final int funcID) {
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getAdMob() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
             return;
         }
 
-        PerpleSDK.getAdMob().initRewardedVideoAd();
-    }
-
-    public static void adMobInitInterstitialAd(int funcID) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getAdMob() == null) {
-            PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
-            return;
-        }
-
-        PerpleSDK.getAdMob().initInterstitialAd();
-    }
-
-    public static void rvAdLoadRequestWithId(final int funcID, String adUnitId) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getAdMob() == null) {
-            PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
-            return;
-        }
-
-        PerpleSDK.getAdMob().getPerpleRewardedVideoAd().loadRewardedVideoAd(adUnitId);
-    }
-
-    public static void rvAdSetResultCallback(final int funcID) {
-        // finish / cancel / receive / error
-        final int pID = PerpleSDK.ProcessId;
-        PerpleSDK.getAdMob().getPerpleRewardedVideoAd().setResultCallBack(new PerpleAdMobCallback() {
+        PerpleSDK.getAdMob().initialize(new SdkBinderCallback() {
             @Override
-            public void onReceive(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "receive", info);
-            }
-
-            @Override
-            public void onFail(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "fail", info);
-            }
-
-            @Override
-            public void onOpen(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "open", info);
-            }
-
-            @Override
-            public void onStart(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "start", info);
-            }
-
-            @Override
-            public void onFinish(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "finish", info);
-            }
-
-            @Override
-            public void onCancel(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "cancel", info);
-            }
-
-            @Override
-            public void onError(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "error", info);
+            public void onFinish(String result, String info) {
+                // @sgkim 2021.05.25 현재 result는 "success"만 리턴함. 초기화 완료 시점만 콜백으로 확인
+                PerpleSDK.callSDKResult(pID, funcID, result, info);
             }
         });
     }
 
-    public static void rvAdShow(int funcID, String adUnitId) {
+    // 광고 로드
+    public static void adMobLoadRewardAd(final int funcID, String adUnitId) {
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getAdMob() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
             return;
         }
 
-        PerpleSDK.getAdMob().getPerpleRewardedVideoAd().show(adUnitId);
-    }
-
-    public static void itAdSetAdUnitId(final int funcID, String adUnitId) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getAdMob() == null) {
-            PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
-            return;
-        }
-
-        PerpleSDK.getAdMob().getPerpleInterstitialAd().setAdUnitID(adUnitId);
-    }
-
-    public static void itAdLoadRequest(final int funcID) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getAdMob() == null) {
-            PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
-            return;
-        }
-
-        PerpleSDK.getAdMob().getPerpleInterstitialAd().loadAd();
-    }
-
-    public static void itAdSetResultCallback(final int funcID) {
-        // finish / cancel / receive / error
-        final int pID = PerpleSDK.ProcessId;
-        PerpleSDK.getAdMob().getPerpleInterstitialAd().setResultCallBack(new PerpleAdMobCallback() {
+        PerpleSDK.getAdMob().loadRewardedAd(adUnitId, new SdkBinderCallback() {
             @Override
-            public void onReceive(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "receive", info);
-            }
-
-            @Override
-            public void onFail(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "fail", info);
-            }
-
-            @Override
-            public void onOpen(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "open", info);
-            }
-
-            @Override
-            public void onStart(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "start", info);
-            }
-
-            @Override
-            public void onFinish(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "finish", info);
-            }
-
-            @Override
-            public void onCancel(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "cancel", info);
-            }
-
-            @Override
-            public void onError(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "error", info);
+            public void onFinish(String result, String info) {
+                // result값 "success", "fail"
+                PerpleSDK.callSDKResult(pID, funcID, result, info);
             }
         });
     }
 
-    public static void itAdShow(int funcID) {
+    // 광고 재생
+    public static void adMobShowRewardAd(final int funcID, String adUnitId) {
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getAdMob() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
             return;
         }
 
-        PerpleSDK.getAdMob().getPerpleInterstitialAd().show();
-    }
-
-    // facebook audience network
-    public static void facebookAudienceNetworkInitRewardedVideoAd(int funcID) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getFacebookAudienceNetwork() == null) {
-            PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
-            return;
-        }
-
-        PerpleSDK.getFacebookAudienceNetwork().initRewardedVideoAd();
-    }
-
-
-    public static void rvFacebookAudienceNetworkLoadWithId(final int funcID, String placementID) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getFacebookAudienceNetwork() == null) {
-            PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
-            return;
-        }
-
-        PerpleSDK.getFacebookAudienceNetwork().getRewardedVideoAd().loadRewardedVideoAd(placementID);
-    }
-
-    public static void rvFacebookAudienceNetworkSetResultCallback(final int funcID) {
-        // finish / cancel / receive / error
-        final int pID = PerpleSDK.ProcessId;
-        PerpleSDK.getFacebookAudienceNetwork().getRewardedVideoAd().setResultCallBack(new com.perplelab.facebook.AdCallback() {
+        PerpleSDK.getAdMob().showRewardedAd(adUnitId, new SdkBinderCallback() {
             @Override
-            public void onReceive(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "receive", info);
-            }
-
-            @Override
-            public void onFail(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "fail", info);
-            }
-
-            @Override
-            public void onOpen(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "open", info);
-            }
-
-            @Override
-            public void onStart(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "start", info);
-            }
-
-            @Override
-            public void onFinish(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "finish", info);
-            }
-
-            @Override
-            public void onCancel(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "cancel", info);
-            }
-
-            @Override
-            public void onError(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "error", info);
+            public void onFinish(String result, String info) {
+                // result값 "success", "fail", "cancel"
+                PerpleSDK.callSDKResult(pID, funcID, result, info);
             }
         });
     }
-
-
-    public static void rvFacebookAudienceNetworkAdShow(int funcID, String placementID) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getFacebookAudienceNetwork() == null) {
-            PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
-            return;
-        }
-
-        PerpleSDK.getFacebookAudienceNetwork().getRewardedVideoAd().show(placementID);
-    }
-
 
 
 

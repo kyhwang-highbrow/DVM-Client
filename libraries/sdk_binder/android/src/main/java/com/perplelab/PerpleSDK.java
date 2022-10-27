@@ -14,18 +14,16 @@ import android.os.AsyncTask;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.perplelab.adcolony.PerpleAdColony;
-import com.perplelab.admob.PerpleAdMob;
+
+import com.perplelab.admob.SdkBinderAdMob;
 import com.perplelab.billing.PerpleBilling;
 import com.perplelab.facebook.PerpleFacebook;
-import com.perplelab.facebook.PerpleFacebookAudienceNetwork;
 import com.perplelab.firebase.PerpleCrashlytics;
 import com.perplelab.firebase.PerpleFirebase;
 import com.perplelab.google.PerpleGoogle;
 import com.perplelab.onestore.PerpleOnestore;
 import com.perplelab.tapjoy.PerpleTapjoy;
 import com.perplelab.twitter.PerpleTwitter;
-import com.perplelab.unityads.PerpleUnityAds;
 import com.perplelab.adjust.PerpleAdjust;
 import com.perplelab.xsolla.PerpleXsolla;
 
@@ -149,11 +147,8 @@ public class PerpleSDK {
     private PerpleFacebook mFacebook;
     private PerpleTwitter mTwitter;
     private PerpleTapjoy mTapjoy;
-    private PerpleUnityAds mUnityAds;
-    private PerpleAdColony mAdColony;
     private PerpleAdjust mAdjust;
-    private PerpleAdMob mAdMob;
-    private PerpleFacebookAudienceNetwork mFacebookAudienceNetwork;
+    private SdkBinderAdMob mAdMob;
     private PerpleXsolla mXsolla;
     private PerpleOnestore mOnestore;
 
@@ -289,18 +284,6 @@ public class PerpleSDK {
         mTapjoy.init(appKey, senderId, isDebug);
     }
 
-    // @unity-ads
-    public void initUnityAds(String gameId, boolean isDebug) {
-        mUnityAds = new PerpleUnityAds();
-        mUnityAds.init(gameId, isDebug);
-    }
-
-    // @AdColony
-    public void initAdColony(String appId) {
-        mAdColony = new PerpleAdColony();
-        mAdColony.init(appId);
-    }
-
     // @Adjust
     public void initAdjust(String appToken, long[] secretKeyArray, boolean isDebug ) {
         mAdjust = new PerpleAdjust();
@@ -308,21 +291,8 @@ public class PerpleSDK {
     }
 
     // @AdMob
-    public void initAdMob(String appId) {
-        mAdMob = new PerpleAdMob(appId);
-    }
-
-    // @facebook audience network
-    public void initFacebookAudienceNetwork() {
-        mFacebookAudienceNetwork = new PerpleFacebookAudienceNetwork()
-        {
-            @Override
-            public void showLog(@NotNull String logTag, @NotNull String msg) {
-                PerpleLog.d(logTag, msg);
-            }
-        };
-
-        mFacebookAudienceNetwork.initialize(getMainActivity());
+    public void initAdMob() {
+        mAdMob = new SdkBinderAdMob();
     }
 
     // @xsolla
@@ -381,11 +351,6 @@ public class PerpleSDK {
         if (mAdMob != null) {
             mAdMob.onResume();
         }
-
-        // @facebook audience network
-        if (mFacebookAudienceNetwork != null){
-            mFacebookAudienceNetwork.onResume();
-        }
     }
 
     public void onPause() {
@@ -403,11 +368,6 @@ public class PerpleSDK {
         if (mAdMob != null) {
             mAdMob.onPause();
         }
-
-        // @facebook audience network
-        if (mFacebookAudienceNetwork != null){
-            mFacebookAudienceNetwork.onPause();
-        }
     }
 
     public void onDestroy() {
@@ -419,11 +379,6 @@ public class PerpleSDK {
         // @adMob
         if (mAdMob != null) {
             mAdMob.onDestroy();
-        }
-
-        // @facebook audience network
-        if (mFacebookAudienceNetwork != null){
-            mFacebookAudienceNetwork.onDestroy();
         }
 
         // @onestore
@@ -516,29 +471,14 @@ public class PerpleSDK {
         return getInstance().mTapjoy;
     }
 
-    // @unity-ads
-    public static PerpleUnityAds getUnityAds() {
-        return getInstance().mUnityAds;
-    }
-
-    // @adcolony
-    public static PerpleAdColony getAdColony() {
-        return getInstance().mAdColony;
-    }
-
     // @Adjust
     public static PerpleAdjust getAdjust() {
         return  getInstance().mAdjust;
     }
 
     // @AdMob
-    public static PerpleAdMob getAdMob() {
+    public static SdkBinderAdMob getAdMob() {
         return getInstance().mAdMob;
-    }
-
-    // @facebook audience network
-    public static PerpleFacebookAudienceNetwork getFacebookAudienceNetwork() {
-        return getInstance().mFacebookAudienceNetwork;
     }
 
     // @Xsolla
