@@ -83,7 +83,8 @@
             android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN" />
@@ -114,7 +115,8 @@
 
         <!-- @firebase -->
         <service
-            android:name="com.perplelab.firebase.PerpleFirebaseInstanceIdService">
+            android:name="com.perplelab.firebase.PerpleFirebaseInstanceIdService"
+            android:exported="true">
             <intent-filter>
                 <action
                     android:name="com.google.firebase.INSTANCE_ID_EVENT" />

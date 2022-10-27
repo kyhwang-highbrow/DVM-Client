@@ -57,17 +57,10 @@ import com.perplelab.PerpleConfig;
 
 //@perplesdk
 import com.perplelab.PerpleSDK;
-import com.perplelab.facebook.PerpleFacebookAudienceNetwork;
-
 
 import java.util.Locale;
 
 public class AppActivity extends Cocos2dxActivity{
-
-    // @perplesdk
-    static {
-        System.loadLibrary("perplesdk");
-    }
 
     // @obb
     private static APKExpansionDownloader sOBBDownloader;
@@ -142,10 +135,7 @@ public class AppActivity extends Cocos2dxActivity{
         perpleSdkInstance.initAdjust(PerpleConfig.ADJUST_TOKKEN_ID, PerpleConfig.ADJUST_SECRET_KEY, isDebug);
 
         // @admob
-        perpleSdkInstance.initAdMob(PerpleConfig.ADMOB_APP_ID);
-
-        // @facebook audience network
-        perpleSdkInstance.initFacebookAudienceNetwork();
+        perpleSdkInstance.initAdMob();
 
         // @xsolla
         if (PerpleConfig.USE_XSOLLA) {
@@ -701,9 +691,9 @@ public class AppActivity extends Cocos2dxActivity{
                     if (arg0.equals("debug"))
                         isDebug = true;
                     
-                    // @UnitAds
-                    PerpleSDK perpleSdkInstance = PerpleSDK.getInstance();
-                    perpleSdkInstance.initUnityAds(PerpleConfig.UNITYADS_GAME_ID, isDebug);
+//                    // @UnitAds
+//                    PerpleSDK perpleSdkInstance = PerpleSDK.getInstance();
+//                    perpleSdkInstance.initUnityAds(PerpleConfig.UNITYADS_GAME_ID, isDebug);
                 } else if (id.equals("isInstalled")) {
                     String packageName = arg0;
                     int installStatus = isInstalled(packageName);

@@ -155,14 +155,6 @@ IMPL_LUABINDING_FUNC_V_V(gameCenterLogin)
 IMPL_LUABINDING_FUNC_V_V(appleLogin)
 IMPL_LUABINDING_FUNC_V_V(appleLogout)
 
-IMPL_LUABINDING_FUNC_V_SS(unityAdsStart)
-IMPL_LUABINDING_FUNC_V_SS(unityAdsShow)
-
-IMPL_LUABINDING_FUNC_V_SS(adColonyStart)
-IMPL_LUABINDING_FUNC_V_S(adColonySetUserId)
-IMPL_LUABINDING_FUNC_V_S(adColonyReqeust)
-IMPL_LUABINDING_FUNC_V_S(adColonyShow)
-
 IMPL_LUABINDING_FUNC_V_SS(billingSetup)
 IMPL_LUABINDING_FUNC_V_S(billingConfirm)
 IMPL_LUABINDING_FUNC_V_SS(billingPurchase)
@@ -175,22 +167,9 @@ IMPL_LUABINDING_FUNC_V_SSS(adjustTrackPayment)
 IMPL_LUABINDING_FUNC_V_V(adjustGdprForgetMe)
 IMPL_LUABINDING_FUNC_S_V(adjustGetAdid)
 
-IMPL_LUABINDING_FUNC_V_V(adMobInitRewardedVideoAd)
-IMPL_LUABINDING_FUNC_V_V(adMobInitInterstitialAd)
-
-IMPL_LUABINDING_FUNC_V_V(rvAdSetResultCallback)
-IMPL_LUABINDING_FUNC_V_S(rvAdLoadRequestWithId)
-IMPL_LUABINDING_FUNC_V_S(rvAdShow)
-
-IMPL_LUABINDING_FUNC_V_S(itAdSetAdUnitId)
-IMPL_LUABINDING_FUNC_V_V(itAdSetResultCallback)
-IMPL_LUABINDING_FUNC_V_V(itAdLoadRequest)
-IMPL_LUABINDING_FUNC_V_V(itAdShow)
-
-IMPL_LUABINDING_FUNC_V_V(facebookAudienceNetworkInitRewardedVideoAd)
-IMPL_LUABINDING_FUNC_V_V(rvFacebookAudienceNetworkSetResultCallback)
-IMPL_LUABINDING_FUNC_V_S(rvFacebookAudienceNetworkLoadWithId)
-IMPL_LUABINDING_FUNC_V_S(rvFacebookAudienceNetworkAdShow)
+IMPL_LUABINDING_FUNC_V_V(adMobInitialize)
+IMPL_LUABINDING_FUNC_V_S(adMobLoadRewardAd)
+IMPL_LUABINDING_FUNC_V_S(adMobShowRewardAd)
 
 IMPL_LUABINDING_FUNC_Z_V(xsollaIsAvailable)
 IMPL_LUABINDING_FUNC_V_S(xsollaSetPaymentInfoUrl)
@@ -307,14 +286,6 @@ int registerAllPerpleSdk(lua_State* L)
 
             DECL_LUABINDING_FUNC(appleLogin)
             DECL_LUABINDING_FUNC(appleLogout)
-            
-            DECL_LUABINDING_FUNC(unityAdsStart)
-            DECL_LUABINDING_FUNC(unityAdsShow)
-
-            DECL_LUABINDING_FUNC(adColonyStart)
-            DECL_LUABINDING_FUNC(adColonySetUserId)
-            DECL_LUABINDING_FUNC(adColonyReqeust)
-            DECL_LUABINDING_FUNC(adColonyShow)
 
             DECL_LUABINDING_FUNC(billingSetup)
             DECL_LUABINDING_FUNC(billingConfirm)
@@ -328,22 +299,9 @@ int registerAllPerpleSdk(lua_State* L)
             DECL_LUABINDING_FUNC(adjustGdprForgetMe)
             DECL_LUABINDING_FUNC(adjustGetAdid)
 
-            DECL_LUABINDING_FUNC(adMobInitRewardedVideoAd)
-            DECL_LUABINDING_FUNC(adMobInitInterstitialAd)
-
-            DECL_LUABINDING_FUNC(rvAdLoadRequestWithId)
-            DECL_LUABINDING_FUNC(rvAdSetResultCallback)
-            DECL_LUABINDING_FUNC(rvAdShow)
-
-            DECL_LUABINDING_FUNC(itAdSetResultCallback)
-            DECL_LUABINDING_FUNC(itAdSetAdUnitId)
-            DECL_LUABINDING_FUNC(itAdLoadRequest)
-            DECL_LUABINDING_FUNC(itAdShow)
-
-            DECL_LUABINDING_FUNC(facebookAudienceNetworkInitRewardedVideoAd)
-            DECL_LUABINDING_FUNC(rvFacebookAudienceNetworkSetResultCallback)
-            DECL_LUABINDING_FUNC(rvFacebookAudienceNetworkLoadWithId)
-            DECL_LUABINDING_FUNC(rvFacebookAudienceNetworkAdShow)
+            DECL_LUABINDING_FUNC(adMobInitialize)
+            DECL_LUABINDING_FUNC(adMobLoadRewardAd)
+            DECL_LUABINDING_FUNC(adMobShowRewardAd)
 
             DECL_LUABINDING_FUNC(xsollaIsAvailable)
             DECL_LUABINDING_FUNC(xsollaSetPaymentInfoUrl)

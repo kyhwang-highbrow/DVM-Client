@@ -25,12 +25,9 @@ LOCAL_SRC_FILES := main/main.cpp \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../../cocos2d-x/cocos/network \
                     $(LOCAL_PATH)/../../../cocos2d-x/cocos/editor-support/spine \
-                    $(LOCAL_PATH)/../../../cocos2d-x/external/json \
-					$(LOCAL_PATH)/../../../libraries/sdk_binder/src
+                    $(LOCAL_PATH)/../../../cocos2d-x/external/json
 
-LOCAL_SHARED_LIBRARIES := perplesdk_shared
-
-LOCAL_WHOLE_STATIC_LIBRARIES := cocos_lua_static
+LOCAL_STATIC_LIBRARIES := cocos_lua_static
 
 LOCAL_SHORT_COMMANDS := true
 

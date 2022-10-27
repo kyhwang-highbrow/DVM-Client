@@ -16,9 +16,6 @@ public class PerpleConfig {
     public static final String ADJUST_TOKKEN_ID = "esjmkti8vim8";
     public static final long[] ADJUST_SECRET_KEY = {1, 562501988, 1877997235, 662395286, 1781468312};
 
-    // @admob
-    public static final String ADMOB_APP_ID = "ca-app-pub-9497777061019569~9623723983";
-    
     // @unityads
     public static final String UNITYADS_GAME_ID = "1515686";
 

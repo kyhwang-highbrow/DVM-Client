@@ -78,8 +78,9 @@ LOCAL_SRC_FILES := manual/CCLuaBridge.cpp \
           ../../../external/lua/luasocket/unix.c \
           ../../../external/lua/luasocket/usocket.c \
           ../../../external/lua/luacrypto/lcrypto.c \
-          ../../../external/lua/lfs/lfs.c
-
+          ../../../external/lua/lfs/lfs.c \
+          ../../../../libraries/sdk_binder/src/lua_perplesdk.cpp \
+          ../../../../libraries/sdk_binder/src/PerpleCore.cpp
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../external/lua/tolua \
@@ -99,7 +100,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../external/lua/tolua \
                     $(LOCAL_PATH)/auto \
                     $(LOCAL_PATH)/manual \
                     $(LOCAL_PATH)/manual/platform/android \
-                    $(LOCAL_PATH)/manual/platform/android/jni
+                    $(LOCAL_PATH)/manual/platform/android/jni \
+                    $(LOCAL_PATH)/../../../../libraries/sdk_binder/src
 
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../../external/lua/tolua \
@@ -122,6 +124,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += cocostudio_static
 LOCAL_WHOLE_STATIC_LIBRARIES += spine_static
 LOCAL_WHOLE_STATIC_LIBRARIES += anb_static
 LOCAL_WHOLE_STATIC_LIBRARIES += perplelab_static
+LOCAL_WHOLE_STATIC_LIBRARIES += sdk_binder_static
 
 LOCAL_CFLAGS += -Wno-psabi
 LOCAL_EXPORT_CFLAGS += -Wno-psabi
