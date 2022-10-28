@@ -1487,7 +1487,7 @@ function UI_TitleScene:workAdManagerInitialize()
         -- 로딩 UI Off
         self.m_loadingUI:hideLoading()
 
-        self.m_worker:doNextWork()
+        self:doNextWork()
     end)
 end
 function UI_TitleScene:workAdManagerInitialize_click()
