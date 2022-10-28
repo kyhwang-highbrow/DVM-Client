@@ -186,6 +186,13 @@ function UI_HatcherySummonTab:initUI()
             end
 
             btn.vars['countLabel']:setString( Str('{1}회', count))
+
+
+            -- 고급 소환 광고 존재 여부
+            if btn.vars['adSummonNoti'] and t_data['is_ad'] then
+                local is_noti_visible = g_advertisingData:isAdvancedSummonActive()
+                btn.vars['adSummonNoti']:setVisible(is_noti_visible)
+            end
         end
 
         -- 버튼 콜백
@@ -219,12 +226,6 @@ function UI_HatcherySummonTab:initUI()
 
                 default_category = 'cash'
             end
-        end
-
-        -- 고급 소환 광고 존재 여부
-        if btn.vars['adSummonNoti'] and t_data['is_ad'] then
-            local is_noti_visible = g_advertisingData:isAdvancedSummonActive()
-            btn.vars['adSummonNoti']:setVisible(is_noti_visible)
         end
 
         if (t_data['price_type'] == 'cash') then 
