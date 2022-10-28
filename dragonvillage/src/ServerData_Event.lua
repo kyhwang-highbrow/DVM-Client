@@ -1312,6 +1312,9 @@ function ServerData_Event:isPossibleToGetWelcomeNewbieReward()
     return not self.m_isRewardTake
 end
 
+-------------------------------------
+-- function setSuccessCB
+-------------------------------------
 function ServerData_Event:setSuccessCB(success_cb)
     self.m_successCb = success_cb
 end

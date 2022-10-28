@@ -422,6 +422,17 @@ function ServerTime:isPastTimestampMilliseconds(timestamp)
 end
 
 -------------------------------------
+-- function isFutureTimestampMilliseconds
+-- @brief millisec timestamp 받아 해당 timestamp가 미래의 시간이면 true
+-------------------------------------
+function ServerTime:isFutureTimestampMilliseconds(timestamp)
+    -- 현재 시간
+    local curr_timestamp = self:getCurrentTimestampMilliseconds()
+    local is_future = (curr_timestamp < timestamp)
+    return is_future
+end
+
+-------------------------------------
 -- function datestrToTimestampSec
 -- @brief
 -- @param date_str(string) e.g. '2020-05-06 00:00:00'
