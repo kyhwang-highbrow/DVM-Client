@@ -330,6 +330,10 @@ function UI_DragonEvolution:refresh_nextSkillInfo(t_dragon_data, t_dragon, is_ma
 
         -- 스킬 설명
         local str = skill_individual_info:getSkillDesc()
+
+        if (string.len(str) > 150) then
+            vars['skillInfoLabel']:setFontSize(16)
+        end
         vars['skillInfoLabel']:setString(str)
     end
 
