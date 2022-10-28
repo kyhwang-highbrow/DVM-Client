@@ -1043,7 +1043,7 @@ function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_e
     local function fail_cb()
     end
 
-    g_hatcheryData:request_summonCash(is_bundle, is_sale, pickup_id, draw_cnt, finish_cb, fail_cb)
+    g_hatcheryData:request_summonCash(is_bundle, false, is_sale, pickup_id, draw_cnt, finish_cb, fail_cb)
 end
 -------------------------------------
 -- function click_friendSummonBtn
