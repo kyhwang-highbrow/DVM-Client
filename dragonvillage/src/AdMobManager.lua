@@ -22,7 +22,7 @@ if (CppFunctions:isAndroid()) then
         [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/1372989407',
         [AD_TYPE.FOREST] = 'ca-app-pub-9497777061019569/7721594075',
         [AD_TYPE.EXPLORE] = 'ca-app-pub-9497777061019569/7058963688',
-        [AD_TYPE.FSUMMON] = 'ca-app-pub-9497777061019569/7338450690',
+        [AD_TYPE.FRIENDSHIP_SUMMON] = 'ca-app-pub-9497777061019569/7338450690',
         [AD_TYPE.TEST] = 'ca-app-pub-9497777061019569/7659560061',
     }
 elseif (CppFunctions:isIos()) then
@@ -32,7 +32,7 @@ elseif (CppFunctions:isIos()) then
         [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/4566955961',
         [AD_TYPE.FOREST] = 'ca-app-pub-9497777061019569/1816066243',
         [AD_TYPE.EXPLORE] = 'ca-app-pub-9497777061019569/1432922866',
-        [AD_TYPE.FSUMMON] = 'ca-app-pub-9497777061019569/4989024494',
+        [AD_TYPE.FRIENDSHIP_SUMMON] = 'ca-app-pub-9497777061019569/4989024494',
         [AD_TYPE.TEST] = 'ca-app-pub-9497777061019569/1610486021',
     }
 else
