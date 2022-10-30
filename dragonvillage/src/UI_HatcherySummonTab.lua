@@ -1093,7 +1093,7 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, is_ad, t_egg_data
 
     -- 무료 뽑기는 광고 시청
     if (is_ad) then
-        --AdSDKSelector:showDailyAd(AD_TYPE['FSUMMON'], function()
+        --AdSDKSelector:showDailyAd(AD_TYPE['FRIENDSHIP_SUMMON'], function()
         --    g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
         --end)
         
@@ -1101,7 +1101,7 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, is_ad, t_egg_data
             g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
         end
 
-        g_advertisingData:request_dailyAdShow(AD_TYPE.FSUMMON, finish_callback)
+        g_advertisingData:request_dailyAdShow(AD_TYPE.FRIENDSHIP_SUMMON, finish_callback)
     else
         g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
     end
@@ -1214,6 +1214,17 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
     local cancel_btn_cb = nil
 
     local function ad_btn_cb()
+        if (IS_LIVE_SERVER() and getAppVerNum() < 1003008) 
+            or (IS_QA_SERVER() and getAppVerNum() < 8008)
+            or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() < 8009) then
+
+                local msg = Str('새로운 버전의 게임이 업데이트 되었습니다.\n스토어를 통해 업데이트를 하기바랍니다.')
+                MakeNetworkPopup(POPUP_TYPE.YES_NO, msg, function() 
+                    SDKManager:goToAppStore()
+                    closeApplication() end)            
+            return
+        end
+        
         AdManager.getInstance():showRewardAd_Common(function(ret)
             if (ret == 'success') then
                 local function finish_callback()
@@ -1256,7 +1267,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 		-- end
 
         -- -- 광고 프리로드 요청
-        -- AdSDKSelector:adPreload(AD_TYPE['FSUMMON'])
+        -- AdSDKSelector:adPreload(AD_TYPE['FRIENDSHIP_SUMMON'])
 
         -- -- 탐험 광고 안내 팝업
         -- local msg = Str("동영상 광고를 보시면 무료 우정 소환이 가능합니다.") .. '\n' .. Str("광고를 보시겠습니까?")
