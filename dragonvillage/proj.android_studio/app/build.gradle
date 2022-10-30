@@ -228,7 +228,7 @@ android {
                     cppFlags.add("-DMINOR_VER=NUM_8")
                     cppFlags.add("-DBUILD_VER=NUM_8")
                     cppFlags.add("-DUSE_LUA_EXT=false")
-                    cppFlags.add("-DIS_TEST_MODE=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
                 }
             }
         }
