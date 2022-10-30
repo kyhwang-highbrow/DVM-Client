@@ -1,0 +1,237 @@
+
+larus_all_01.png
+size: 1261,344
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_larus_all_01_00
+  rotate: false
+  xy: 978, 5
+  size: 70, 63
+  orig: 70, 63
+  offset: 0, 0
+  index: -1
+effect_larus_all_01_03
+  rotate: false
+  xy: 2, 15
+  size: 381, 327
+  orig: 381, 327
+  offset: 0, 0
+  index: -1
+effect_larus_all_01_05
+  rotate: false
+  xy: 504, 142
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+effect_larus_all_01_06
+  rotate: false
+  xy: 385, 133
+  size: 117, 209
+  orig: 117, 209
+  offset: 0, 0
+  index: -1
+effect_larus_all_01_07
+  rotate: false
+  xy: 599, 7
+  size: 131, 133
+  orig: 131, 133
+  offset: 0, 0
+  index: -1
+effect_larus_all_01_08
+  rotate: true
+  xy: 777, 193
+  size: 149, 146
+  orig: 149, 146
+  offset: 0, 0
+  index: -1
+effect_larus_all_01_09
+  rotate: false
+  xy: 732, 5
+  size: 161, 149
+  orig: 161, 149
+  offset: 0, 0
+  index: -1
+effect_larus_all_01_14
+  rotate: false
+  xy: 385, 6
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect_larus_all_01_15
+  rotate: true
+  xy: 1001, 252
+  size: 90, 87
+  orig: 90, 87
+  offset: 0, 0
+  index: -1
+effect_larus_all_01_19
+  rotate: false
+  xy: 702, 156
+  size: 73, 186
+  orig: 73, 186
+  offset: 0, 0
+  index: -1
+larus_all_01_arm_01
+  rotate: false
+  xy: 1123, 76
+  size: 42, 53
+  orig: 42, 53
+  offset: 0, 0
+  index: -1
+larus_all_01_arm_02
+  rotate: true
+  xy: 1154, 27
+  size: 47, 42
+  orig: 47, 42
+  offset: 0, 0
+  index: -1
+larus_all_01_arm_03
+  rotate: false
+  xy: 982, 193
+  size: 45, 55
+  orig: 45, 55
+  offset: 0, 0
+  index: -1
+larus_all_01_arm_04
+  rotate: false
+  xy: 925, 250
+  size: 74, 92
+  orig: 74, 92
+  offset: 0, 0
+  index: -1
+larus_all_01_body_01
+  rotate: true
+  xy: 512, 2
+  size: 138, 85
+  orig: 138, 85
+  offset: 0, 0
+  index: -1
+larus_all_01_eye_01
+  rotate: false
+  xy: 777, 156
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+larus_all_01_eye_02
+  rotate: false
+  xy: 814, 163
+  size: 39, 28
+  orig: 39, 28
+  offset: 0, 0
+  index: -1
+larus_all_01_fur_01
+  rotate: false
+  xy: 1091, 11
+  size: 61, 63
+  orig: 61, 63
+  offset: 0, 0
+  index: -1
+larus_all_01_fur_02
+  rotate: false
+  xy: 1093, 170
+  size: 75, 81
+  orig: 75, 81
+  offset: 0, 0
+  index: -1
+larus_all_01_hair_01
+  rotate: true
+  xy: 1029, 194
+  size: 56, 62
+  orig: 56, 62
+  offset: 0, 0
+  index: -1
+larus_all_01_hair_02
+  rotate: false
+  xy: 1069, 104
+  size: 52, 53
+  orig: 52, 53
+  offset: 0, 0
+  index: -1
+larus_all_01_hair_03
+  rotate: true
+  xy: 895, 70
+  size: 121, 86
+  orig: 121, 86
+  offset: 0, 0
+  index: -1
+larus_all_01_hair_04
+  rotate: false
+  xy: 1168, 95
+  size: 78, 62
+  orig: 78, 62
+  offset: 0, 0
+  index: -1
+larus_all_01_hair_05
+  rotate: false
+  xy: 925, 193
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+larus_all_01_head_01
+  rotate: false
+  xy: 1090, 253
+  size: 79, 89
+  orig: 79, 89
+  offset: 0, 0
+  index: -1
+larus_all_01_head_02
+  rotate: false
+  xy: 1123, 131
+  size: 43, 37
+  orig: 43, 37
+  offset: 0, 0
+  index: -1
+larus_all_01_head_03
+  rotate: false
+  xy: 1198, 47
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+larus_all_01_horn_01
+  rotate: true
+  xy: 895, 3
+  size: 65, 81
+  orig: 65, 81
+  offset: 0, 0
+  index: -1
+larus_all_01_horn_02
+  rotate: false
+  xy: 1050, 20
+  size: 39, 79
+  orig: 39, 79
+  offset: 0, 0
+  index: -1
+larus_all_01_leg_01
+  rotate: true
+  xy: 1171, 275
+  size: 67, 88
+  orig: 67, 88
+  offset: 0, 0
+  index: -1
+larus_all_01_leg_02
+  rotate: true
+  xy: 1171, 215
+  size: 58, 87
+  orig: 58, 87
+  offset: 0, 0
+  index: -1
+larus_all_01_wing_01
+  rotate: true
+  xy: 983, 101
+  size: 90, 84
+  orig: 90, 84
+  offset: 0, 0
+  index: -1
+larus_all_01_wing_02
+  rotate: true
+  xy: 1170, 159
+  size: 54, 83
+  orig: 54, 83
+  offset: 0, 0
+  index: -1

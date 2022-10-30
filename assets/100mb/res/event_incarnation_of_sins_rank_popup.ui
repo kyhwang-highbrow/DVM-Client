@@ -9,6 +9,7 @@
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -22,6 +23,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
@@ -37,6 +39,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 564.000000;
 					y = 276.000000;
 					dock_point = { 1.000000; 1.000000; };
@@ -50,6 +53,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'closeBtn';
 					enable = true;
 					normal = 'ui/buttons/64_close_btn_0101.png';
@@ -63,12 +67,13 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 460;
+						width = 306;
 						height = 48;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -76,6 +81,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'attrRankTabLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
@@ -84,7 +90,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 460;
+						dimension_width = 306;
 						dimension_height = 48;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -98,15 +104,18 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 111.000000;
+					flag = '';
+					x = 100.000000;
 					y = 262.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 460;
+					width = 480;
 					height = 48;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -114,6 +123,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'attrRankTabBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -127,12 +137,13 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 460;
+						width = 306;
 						height = 48;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -140,6 +151,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'allRankTabLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
@@ -148,7 +160,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 460;
+						dimension_width = 306;
 						dimension_height = 48;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -162,15 +174,18 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					type = 'Button';
 					ui_name = '';
-					x = -348.000000;
+					flag = '';
+					x = -390.000000;
 					y = 262.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 460;
+					width = 480;
 					height = 48;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -178,6 +193,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'allRankTabBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -191,6 +207,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 13.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -204,6 +221,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'rankLabel1';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 20;
@@ -226,11 +244,14 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = 15.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
@@ -244,6 +265,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/icons/arrow_0102.png';
 						color = { 255; 255; 255; };
@@ -255,6 +277,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 467.000000;
 					y = 262.000000;
 					dock_point = { 0.500000; 1.000000; };
@@ -268,6 +291,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'userRankBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -279,6 +303,7 @@
 				{
 					type = 'Menu';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -292,10 +317,12 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'indivisualTabMenu';
 				};
 				type = 'Menu';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -309,10 +336,12 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 			};
 			type = 'Menu';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
@@ -326,10 +355,12 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = '';
 		};
 		type = 'Menu';
 		ui_name = '';
+		flag = '';
 		x = 0.000000;
 		y = 0.000000;
 		dock_point = { 0.500000; 0.500000; };
@@ -343,6 +374,7 @@
 		skew_y = 0.000000;
 		rotation = 0.000000;
 		visible = true;
+		screen_ui = 0;
 		lua_name = '';
 	};
 };

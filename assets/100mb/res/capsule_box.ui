@@ -7,6 +7,7 @@
 		{
 			type = 'Visual';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
@@ -20,6 +21,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = '';
 			file_name = 'bg/ui/master_road/master_road.vrp';
 			auto_play = true;
@@ -32,6 +34,7 @@
 		{
 			type = 'Sprite';
 			ui_name = '';
+			flag = '';
 			x = -0.000061;
 			y = -0.000015;
 			dock_point = { 0.500000; 0.500000; };
@@ -45,6 +48,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = false;
+			screen_ui = 0;
 			lua_name = '';
 			file_name = 'ui/event/event_capsule_box.png';
 			color = { 255; 255; 255; };
@@ -58,6 +62,7 @@
 		{
 			type = 'LayerColor';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
@@ -71,6 +76,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = '';
 			color = { 0; 0; 0; };
 			opacity = 150;
@@ -85,6 +91,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -25.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -98,6 +105,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'refreshBtn';
 					enable = true;
 					normal = 'ui/buttons/64_mail_refresh_btn_0101.png';
@@ -107,6 +115,7 @@
 				};
 				type = 'Menu';
 				ui_name = 'top';
+				flag = '';
 				x = 0.000000;
 				y = 191.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -120,6 +129,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 			};
 			[2] =
@@ -128,6 +138,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = -90.000000;
 					y = 125.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -141,12 +152,14 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'secondItemNode1';
 				};
 				[2] =
 				{
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = -90.000000;
 					y = 20.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -160,12 +173,14 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'secondItemNode2';
 				};
 				[3] =
 				{
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = -90.000000;
 					y = -85.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -179,6 +194,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'secondItemNode3';
 				};
 				[4] =
@@ -187,6 +203,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = -18.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -200,6 +217,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = false;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 18;
@@ -222,6 +240,8 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
@@ -231,6 +251,7 @@
 							{
 								type = 'Sprite';
 								ui_name = '';
+								flag = '';
 								x = 0.000000;
 								y = 0.000000;
 								dock_point = { 0.500000; 0.500000; };
@@ -244,6 +265,7 @@
 								skew_y = 0.000000;
 								rotation = 0.000000;
 								visible = true;
+								screen_ui = 0;
 								lua_name = '';
 								file_name = 'ui/icons/inbox/inbox_cash.png';
 								color = { 255; 255; 255; };
@@ -255,6 +277,7 @@
 							};
 							type = 'Node';
 							ui_name = '';
+							flag = '';
 							x = 0.000000;
 							y = 0.000000;
 							dock_point = { 0.000000; 0.500000; };
@@ -268,12 +291,14 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'secondPriceNode4';
 						};
 						[2] =
 						{
 							type = 'LabelTTF';
 							ui_name = '';
+							flag = '';
 							x = -5.000000;
 							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
@@ -287,6 +312,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'secondPriceLabel4';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 18;
@@ -309,9 +335,12 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+							use_auto_fontsize = false;
+							has_bold = false;
 						};
 						type = 'Scale9Sprite';
 						ui_name = '';
+						flag = '';
 						x = 7.000000;
 						y = 14.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -325,6 +354,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = false;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
@@ -338,6 +368,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -351,6 +382,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
@@ -373,9 +405,12 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 49.000000;
 					dock_point = { 0.500000; 0.000000; };
@@ -389,6 +424,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'secondDrawBtn4';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -402,6 +438,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 65.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -415,6 +452,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
@@ -437,6 +475,8 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
@@ -446,6 +486,7 @@
 							{
 								type = 'Sprite';
 								ui_name = '';
+								flag = '';
 								x = 0.000000;
 								y = 0.000000;
 								dock_point = { 0.500000; 0.500000; };
@@ -459,6 +500,7 @@
 								skew_y = 0.000000;
 								rotation = 0.000000;
 								visible = true;
+								screen_ui = 0;
 								lua_name = '';
 								file_name = 'ui/icons/inbox/inbox_cash.png';
 								color = { 255; 255; 255; };
@@ -470,6 +512,7 @@
 							};
 							type = 'Node';
 							ui_name = '';
+							flag = '';
 							x = 13.000000;
 							y = 0.000000;
 							dock_point = { 0.000000; 0.500000; };
@@ -483,12 +526,14 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'secondPriceNode2';
 						};
 						[2] =
 						{
 							type = 'LabelTTF';
 							ui_name = '';
+							flag = '';
 							x = -5.000000;
 							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
@@ -502,6 +547,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'secondPriceLabel2';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 20;
@@ -524,9 +570,12 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+							use_auto_fontsize = false;
+							has_bold = false;
 						};
 						type = 'Scale9Sprite';
 						ui_name = '';
+						flag = '';
 						x = -59.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -540,6 +589,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
@@ -551,6 +601,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = -184.000000;
 					y = 49.000000;
 					dock_point = { 0.500000; 0.000000; };
@@ -564,6 +615,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'secondDrawBtn2';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -577,6 +629,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -590,6 +643,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
@@ -612,6 +666,8 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
@@ -621,6 +677,7 @@
 							{
 								type = 'Sprite';
 								ui_name = '';
+								flag = '';
 								x = 0.000000;
 								y = 0.000000;
 								dock_point = { 0.500000; 0.500000; };
@@ -634,6 +691,7 @@
 								skew_y = 0.000000;
 								rotation = 0.000000;
 								visible = true;
+								screen_ui = 0;
 								lua_name = '';
 								file_name = 'ui/icons/inbox/inbox_gold.png';
 								color = { 255; 255; 255; };
@@ -645,6 +703,7 @@
 							};
 							type = 'Node';
 							ui_name = '';
+							flag = '';
 							x = 0.000000;
 							y = 0.000000;
 							dock_point = { 0.000000; 0.500000; };
@@ -658,12 +717,14 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'secondPriceNode3';
 						};
 						[2] =
 						{
 							type = 'LabelTTF';
 							ui_name = '';
+							flag = '';
 							x = -5.000000;
 							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
@@ -677,6 +738,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'secondPriceLabel3';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 26;
@@ -699,9 +761,12 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+							use_auto_fontsize = false;
+							has_bold = false;
 						};
 						type = 'Scale9Sprite';
 						ui_name = '';
+						flag = '';
 						x = 7.000000;
 						y = 14.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -715,6 +780,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = false;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
@@ -726,6 +792,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 125.000000;
 					dock_point = { 0.500000; 0.000000; };
@@ -739,6 +806,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'secondDrawBtn3';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -752,6 +820,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 65.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -765,6 +834,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
@@ -787,6 +857,8 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
@@ -796,6 +868,7 @@
 							{
 								type = 'Sprite';
 								ui_name = '';
+								flag = '';
 								x = 0.000000;
 								y = 0.000000;
 								dock_point = { 0.500000; 0.500000; };
@@ -809,6 +882,7 @@
 								skew_y = 0.000000;
 								rotation = 0.000000;
 								visible = true;
+								screen_ui = 0;
 								lua_name = '';
 								file_name = 'ui/icons/inbox/inbox_gold.png';
 								color = { 255; 255; 255; };
@@ -820,6 +894,7 @@
 							};
 							type = 'Node';
 							ui_name = '';
+							flag = '';
 							x = 9.000000;
 							y = 0.000000;
 							dock_point = { 0.000000; 0.500000; };
@@ -833,12 +908,14 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'secondPriceNode1';
 						};
 						[2] =
 						{
 							type = 'LabelTTF';
 							ui_name = '';
+							flag = '';
 							x = -5.000000;
 							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
@@ -852,6 +929,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'secondPriceLabel1';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 20;
@@ -874,9 +952,12 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+							use_auto_fontsize = false;
+							has_bold = false;
 						};
 						type = 'Scale9Sprite';
 						ui_name = '';
+						flag = '';
 						x = -56.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -890,6 +971,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
@@ -901,6 +983,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = -184.000000;
 					y = 125.000000;
 					dock_point = { 0.500000; 0.000000; };
@@ -914,6 +997,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'secondDrawBtn1';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -927,6 +1011,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = -15.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -940,6 +1025,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
@@ -962,11 +1048,14 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = -25.000000;
 						y = 0.000000;
 						dock_point = { 1.000000; 0.500000; };
@@ -980,6 +1069,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/buttons/help_btn_0101.png';
 						color = { 255; 255; 255; };
@@ -991,6 +1081,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = -154.000000;
 					y = 193.000000;
 					dock_point = { 0.500000; 0.000000; };
@@ -1004,6 +1095,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'secondRewardBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -1017,6 +1109,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = -57.000000;
 						y = -15.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1030,6 +1123,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'secondCurrentRateLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 35;
@@ -1052,11 +1146,14 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 177.000000;
 						y = -10.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1070,6 +1167,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 20;
@@ -1092,11 +1190,14 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[3] =
 					{
 						type = 'Visual';
 						ui_name = 'next_arrow';
+						flag = '';
 						x = 9.000000;
 						y = -10.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1110,6 +1211,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/a2d/hatchery/hatchery.vrp';
 						auto_play = true;
@@ -1120,6 +1222,7 @@
 					};
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = -186.000000;
 					y = 210.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1133,10 +1236,12 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 				};
 				type = 'Menu';
 				ui_name = 'second';
+				flag = '';
 				x = -320.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -1150,6 +1255,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 			};
 			[3] =
@@ -1158,6 +1264,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = 90.000000;
 					y = 125.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1171,12 +1278,14 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'firstItemNode1';
 				};
 				[2] =
 				{
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = 90.000000;
 					y = 20.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1190,12 +1299,14 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'firstItemNode2';
 				};
 				[3] =
 				{
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = 90.000000;
 					y = -85.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1209,6 +1320,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'firstItemNode3';
 				};
 				[4] =
@@ -1217,6 +1329,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = -56.000000;
 						y = 0.000000;
 						dock_point = { 1.000000; 0.500000; };
@@ -1230,6 +1343,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'firstHaveLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
@@ -1252,11 +1366,14 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = 77.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1270,6 +1387,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/icons/inbox/inbox_capsule_coin.png';
 						color = { 255; 255; 255; };
@@ -1281,6 +1399,7 @@
 					};
 					type = 'Scale9Sprite';
 					ui_name = 'user_coin';
+					flag = '';
 					x = 156.000000;
 					y = -216.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1294,6 +1413,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/frames/base_frame_0201.png';
 					color = { 255; 255; 255; };
@@ -1309,6 +1429,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 69.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1322,6 +1443,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
@@ -1344,6 +1466,8 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
@@ -1353,6 +1477,7 @@
 							{
 								type = 'Sprite';
 								ui_name = '';
+								flag = '';
 								x = -4.000000;
 								y = 0.000000;
 								dock_point = { 0.500000; 0.500000; };
@@ -1366,6 +1491,7 @@
 								skew_y = 0.000000;
 								rotation = 0.000000;
 								visible = true;
+								screen_ui = 0;
 								lua_name = '';
 								file_name = 'ui/icons/item/capsule_coin.png';
 								color = { 255; 255; 255; };
@@ -1377,6 +1503,7 @@
 							};
 							type = 'Node';
 							ui_name = '';
+							flag = '';
 							x = 9.000000;
 							y = 0.000000;
 							dock_point = { 0.000000; 0.500000; };
@@ -1390,12 +1517,14 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'firstPriceNode1';
 						};
 						[2] =
 						{
 							type = 'LabelTTF';
 							ui_name = '';
+							flag = '';
 							x = -5.000000;
 							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
@@ -1409,6 +1538,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'firstPriceLabel1';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 24;
@@ -1431,9 +1561,12 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+							use_auto_fontsize = false;
+							has_bold = false;
 						};
 						type = 'Scale9Sprite';
 						ui_name = '';
+						flag = '';
 						x = -73.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1447,6 +1580,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
@@ -1458,6 +1592,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 145.000000;
 					y = 49.000000;
 					dock_point = { 0.500000; 0.000000; };
@@ -1471,6 +1606,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'firstDrawBtn1';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -1484,6 +1620,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 69.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1497,6 +1634,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
@@ -1519,6 +1657,8 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
@@ -1528,6 +1668,7 @@
 							{
 								type = 'Sprite';
 								ui_name = '';
+								flag = '';
 								x = -4.000000;
 								y = 0.000000;
 								dock_point = { 0.500000; 0.500000; };
@@ -1541,6 +1682,7 @@
 								skew_y = 0.000000;
 								rotation = 0.000000;
 								visible = true;
+								screen_ui = 0;
 								lua_name = '';
 								file_name = 'ui/icons/item/capsule_coin.png';
 								color = { 255; 255; 255; };
@@ -1552,6 +1694,7 @@
 							};
 							type = 'Node';
 							ui_name = '';
+							flag = '';
 							x = 9.000000;
 							y = 0.000000;
 							dock_point = { 0.000000; 0.500000; };
@@ -1565,12 +1708,14 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'firstPriceNode2';
 						};
 						[2] =
 						{
 							type = 'LabelTTF';
 							ui_name = '';
+							flag = '';
 							x = -5.000000;
 							y = 0.000000;
 							dock_point = { 1.000000; 0.500000; };
@@ -1584,6 +1729,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'firstPriceLabel2';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 24;
@@ -1606,9 +1752,12 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+							use_auto_fontsize = false;
+							has_bold = false;
 						};
 						type = 'Scale9Sprite';
 						ui_name = '';
+						flag = '';
 						x = -73.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1622,6 +1771,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/frames/base_frame_0201.png';
 						color = { 255; 255; 255; };
@@ -1633,6 +1783,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 145.000000;
 					y = 125.000000;
 					dock_point = { 0.500000; 0.000000; };
@@ -1646,6 +1797,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'firstDrawBtn2';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -1659,6 +1811,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = -26.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1672,6 +1825,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 26;
@@ -1694,11 +1848,14 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 28.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1712,6 +1869,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/icons/item/capsule_coin.png';
 						color = { 255; 255; 255; };
@@ -1723,6 +1881,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 154.000000;
 					y = 63.000000;
 					dock_point = { 0.500000; 0.000000; };
@@ -1736,6 +1895,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'firstCoinBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -1749,6 +1909,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = -15.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1762,6 +1923,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
@@ -1784,11 +1946,14 @@
 						shadow_opacity = 150;
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = -25.000000;
 						y = 0.000000;
 						dock_point = { 1.000000; 0.500000; };
@@ -1802,6 +1967,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/buttons/help_btn_0101.png';
 						color = { 255; 255; 255; };
@@ -1813,6 +1979,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 154.000000;
 					y = 193.000000;
 					dock_point = { 0.500000; 0.000000; };
@@ -1826,6 +1993,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'firstRewardBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -1839,6 +2007,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 80.000000;
 						y = -15.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1852,6 +2021,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'firstCurrentRateLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 35;
@@ -1874,11 +2044,14 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = -162.000000;
 						y = -10.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1892,6 +2065,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 20;
@@ -1914,11 +2088,14 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[3] =
 					{
 						type = 'Visual';
 						ui_name = 'next_arrow';
+						flag = '';
 						x = 0.000000;
 						y = -10.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1932,6 +2109,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/a2d/hatchery/hatchery.vrp';
 						auto_play = true;
@@ -1942,6 +2120,7 @@
 					};
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = 180.000000;
 					y = 212.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1955,10 +2134,12 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 				};
 				type = 'Menu';
 				ui_name = 'first';
+				flag = '';
 				x = 320.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -1972,6 +2153,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 			};
 			[4] =
@@ -1984,6 +2166,7 @@
 						{
 							type = 'Scale9Sprite';
 							ui_name = '';
+							flag = '';
 							x = 0.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -1997,6 +2180,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = '';
 							file_name = 'ui/frames/attr_tower_title.png';
 							color = { 255; 255; 255; };
@@ -2010,6 +2194,7 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
+							flag = '';
 							x = 0.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2023,6 +2208,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'rotationTitleLabel1';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 26;
@@ -2045,9 +2231,12 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+							use_auto_fontsize = false;
+							has_bold = false;
 						};
 						type = 'Menu';
 						ui_name = '';
+						flag = '';
 						x = -6.000000;
 						y = 170.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2061,10 +2250,12 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = false;
+						screen_ui = 0;
 						lua_name = 'rotationTitleMenu1';
 					};
 					type = 'Visual';
 					ui_name = '';
+					flag = '';
 					x = -180.000000;
 					y = -55.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -2078,6 +2269,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'secondVisual';
 					file_name = 'ui/a2d/capsule_box/capsule_box.vrp';
 					auto_play = false;
@@ -2096,6 +2288,7 @@
 							{
 								type = 'LabelTTF';
 								ui_name = '';
+								flag = '';
 								x = -45.000000;
 								y = 0.000000;
 								dock_point = { 0.500000; 0.500000; };
@@ -2109,6 +2302,7 @@
 								skew_y = 0.000000;
 								rotation = -5.000000;
 								visible = true;
+								screen_ui = 0;
 								lua_name = '';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 25;
@@ -2131,9 +2325,12 @@
 								shadow_opacity = 255;
 								shadow_direction = 0;
 								shadow_distance = 5.000000;
+								use_auto_fontsize = false;
+								has_bold = false;
 							};
 							type = 'Sprite';
 							ui_name = '';
+							flag = '';
 							x = 0.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2147,6 +2344,7 @@
 							skew_y = 0.000000;
 							rotation = -1.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'refillReservedSprite';
 							file_name = 'ui/frames/capsule_box_badge_0401.png';
 							color = { 255; 255; 255; };
@@ -2162,6 +2360,7 @@
 							{
 								type = 'LabelTTF';
 								ui_name = '';
+								flag = '';
 								x = -45.000000;
 								y = 0.000000;
 								dock_point = { 0.500000; 0.500000; };
@@ -2175,6 +2374,7 @@
 								skew_y = 0.000000;
 								rotation = -5.000000;
 								visible = true;
+								screen_ui = 0;
 								lua_name = '';
 								font_name = 'font/common_font_01.ttf';
 								font_size = 25;
@@ -2197,9 +2397,12 @@
 								shadow_opacity = 255;
 								shadow_direction = 0;
 								shadow_distance = 5.000000;
+								use_auto_fontsize = false;
+								has_bold = false;
 							};
 							type = 'Sprite';
 							ui_name = '';
+							flag = '';
 							x = 0.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2213,6 +2416,7 @@
 							skew_y = 0.000000;
 							rotation = -1.000000;
 							visible = false;
+							screen_ui = 0;
 							lua_name = 'refillCompletedSprite';
 							file_name = 'ui/frames/capsule_box_badge_0501.png';
 							color = { 255; 255; 255; };
@@ -2226,6 +2430,7 @@
 						{
 							type = 'Button';
 							ui_name = '';
+							flag = '';
 							x = 81.000000;
 							y = 10.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2239,6 +2444,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = 'refillInfoBtn';
 							enable = true;
 							normal = 'ui/buttons/42_info_btn_0101.png';
@@ -2248,6 +2454,7 @@
 						};
 						type = 'Menu';
 						ui_name = '';
+						flag = '';
 						x = 7.000000;
 						y = 262.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2261,12 +2468,14 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = false;
+						screen_ui = 0;
 						lua_name = 'refillMenu';
 					};
 					[2] =
 					{
 						type = 'Visual';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 19.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2280,6 +2489,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/a2d/lobby_btn/lobby_btn.vrp';
 						auto_play = true;
@@ -2292,6 +2502,7 @@
 					{
 						type = 'Visual';
 						ui_name = '';
+						flag = '';
 						x = -6.000000;
 						y = 95.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2305,6 +2516,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/a2d/lobby_btn/lobby_btn.vrp';
 						auto_play = true;
@@ -2315,6 +2527,7 @@
 					};
 					type = 'Visual';
 					ui_name = '';
+					flag = '';
 					x = 200.000000;
 					y = -33.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -2328,6 +2541,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'firstVisual';
 					file_name = 'ui/a2d/capsule_box/capsule_box.vrp';
 					auto_play = false;
@@ -2338,6 +2552,7 @@
 				};
 				type = 'Menu';
 				ui_name = 'visual';
+				flag = '';
 				x = 0.000000;
 				y = -21.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -2351,6 +2566,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 			};
 			[5] =
@@ -2359,6 +2575,7 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -2372,6 +2589,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = '';
 					color = { 255; 255; 255; };
@@ -2383,6 +2601,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -2396,6 +2615,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				enable = true;
 				normal = '';
@@ -2409,6 +2629,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -58.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -2422,6 +2643,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/icons/mandragora/capsule_coin_daily_0101.png';
 					color = { 255; 255; 255; };
@@ -2437,6 +2659,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = -18.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2450,6 +2673,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'priceLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 20;
@@ -2472,11 +2696,14 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 4.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2490,6 +2717,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'buyLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 16;
@@ -2512,11 +2740,14 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[3] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 31.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2530,6 +2761,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
@@ -2552,6 +2784,8 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[4] =
 					{
@@ -2559,6 +2793,7 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
+							flag = '';
 							x = 3.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2572,6 +2807,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = '';
 							file_name = 'ui/icons/inbox/inbox_capsule_coin.png';
 							color = { 255; 255; 255; };
@@ -2585,6 +2821,7 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
+							flag = '';
 							x = -11.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2598,6 +2835,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = '';
 							file_name = 'ui/icons/inbox/inbox_capsule_coin.png';
 							color = { 255; 255; 255; };
@@ -2611,6 +2849,7 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
+							flag = '';
 							x = -25.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2624,6 +2863,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = '';
 							file_name = 'ui/icons/inbox/inbox_capsule_coin.png';
 							color = { 255; 255; 255; };
@@ -2637,6 +2877,7 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
+							flag = '';
 							x = -39.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2650,6 +2891,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = '';
 							file_name = 'ui/icons/inbox/inbox_capsule_coin.png';
 							color = { 255; 255; 255; };
@@ -2663,6 +2905,7 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
+							flag = '';
 							x = -53.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2676,6 +2919,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = '';
 							file_name = 'ui/icons/inbox/inbox_capsule_coin.png';
 							color = { 255; 255; 255; };
@@ -2689,6 +2933,7 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
+							flag = '';
 							x = 58.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2702,6 +2947,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = '';
 							file_name = 'ui/icons/inbox/inbox_capsule_coin.png';
 							color = { 255; 255; 255; };
@@ -2715,6 +2961,7 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
+							flag = '';
 							x = 37.000000;
 							y = -3.000000;
 							dock_point = { 0.500000; 0.500000; };
@@ -2728,6 +2975,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
+							screen_ui = 0;
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 30;
@@ -2750,9 +2998,12 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+							use_auto_fontsize = false;
+							has_bold = false;
 						};
 						type = 'Node';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 66.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2766,10 +3017,12 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 					};
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 36.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -2783,6 +3036,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/icons/mandragora/capsule_coin_daily_0102.png';
 					color = { 255; 255; 255; };
@@ -2798,6 +3052,7 @@
 					{
 						type = 'LabelSystemFont';
 						ui_name = '';
+						flag = '';
 						x = 45.000000;
 						y = 2.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2811,6 +3066,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'promotionPriceLabel';
 						font_name = 'Helvetica';
 						font_size = 24;
@@ -2821,11 +3077,17 @@
 						opacity = 255;
 						dimension_width = 177;
 						dimension_height = 60;
+						has_shadow = false;
+						shadow_color = { 255; 255; 255; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
 					};
 					[2] =
 					{
 						type = 'LabelSystemFont';
 						ui_name = '';
+						flag = '';
 						x = -57.000000;
 						y = 2.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2839,6 +3101,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'originalPriceLabel';
 						font_name = 'Helvetica';
 						font_size = 24;
@@ -2849,11 +3112,17 @@
 						opacity = 255;
 						dimension_width = 155;
 						dimension_height = 60;
+						has_shadow = false;
+						shadow_color = { 255; 255; 255; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
 					};
 					[3] =
 					{
 						type = 'LayerColor';
 						ui_name = '';
+						flag = '';
 						x = -58.000000;
 						y = 1.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -2867,6 +3136,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						color = { 102; 102; 102; };
 						opacity = 255;
@@ -2875,6 +3145,7 @@
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
+					flag = '';
 					x = -2.000000;
 					y = 17.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -2888,6 +3159,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'promotionSprite';
 					file_name = 'ui/frames/base_frame_0202.png';
 					color = { 255; 255; 255; };
@@ -2901,6 +3173,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = -110.000000;
 					y = 94.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -2914,6 +3187,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'saleSprite';
 					file_name = 'ui/icons/percentage_promotion_0101.png';
 					color = { 255; 255; 255; };
@@ -2925,6 +3199,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -250.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -2938,6 +3213,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'buyBtn';
 				enable = true;
 				normal = '';
@@ -2951,6 +3227,7 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -2.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -2964,6 +3241,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/frames/base_frame_0102.png';
 					color = { 255; 255; 255; };
@@ -2977,6 +3255,7 @@
 				{
 					type = 'Visual';
 					ui_name = '';
+					flag = '';
 					x = -0.000488;
 					y = 13.999878;
 					dock_point = { 0.500000; 0.500000; };
@@ -2990,6 +3269,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/a2d/package_effect/package_effect.vrp';
 					auto_play = true;
@@ -3002,6 +3282,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 23.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -3015,12 +3296,14 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'dragonNode';
 				};
 				[4] =
 				{
 					type = 'Visual';
 					ui_name = 'egg';
+					flag = '';
 					x = 0.000000;
 					y = -24.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -3034,6 +3317,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'eggVisual';
 					file_name = 'item/egg/egg_super_absolute/egg_super_absolute.vrp';
 					auto_play = true;
@@ -3048,6 +3332,7 @@
 					{
 						type = 'Visual';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -3061,6 +3346,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/a2d/result/result.vrp';
 						auto_play = true;
@@ -3073,6 +3359,7 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 9.000000;
 						dock_point = { 0.500000; 1.000000; };
@@ -3086,6 +3373,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = false;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
 						color = { 255; 255; 255; };
@@ -3097,6 +3385,7 @@
 					};
 					type = 'Node';
 					ui_name = '1주년 스페셜';
+					flag = '';
 					x = 0.000000;
 					y = -5.000000;
 					dock_point = { 0.500000; 1.000000; };
@@ -3110,12 +3399,14 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '1stEventNode';
 				};
 				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -47.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -3129,6 +3420,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'itemLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 19;
@@ -3151,11 +3443,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 1.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[7] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -83.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -3169,10 +3464,11 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'timeLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
-					text = '4/23 00:00 ~ 4/24 23:59';
+					text = 'timeLabel';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
@@ -3191,26 +3487,30 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[8] =
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 102.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 430;
-					height = 74;
-					scale_x = 0.750000;
-					scale_y = 0.750000;
+					width = 400;
+					height = 60;
+					scale_x = 0.800000;
+					scale_y = 0.800000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
-					file_name = 'ui/typo/ko/ribbon_spring_title_0101.png';
+					file_name = 'ui/typo/ko/ribbon_special_event_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -3220,6 +3520,7 @@
 				};
 				type = 'Menu';
 				ui_name = '1주년이벤트캡슐뽑기절전알';
+				flag = '';
 				x = 165.000000;
 				y = -3.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -3233,6 +3534,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = '1stEventMenu';
 			};
 			[8] =
@@ -3241,6 +3543,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = -44.000000;
 					y = -34.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -3254,6 +3557,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 21;
@@ -3276,9 +3580,12 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = -65.000000;
 				y = -96.000000;
 				dock_point = { 1.000000; 1.000000; };
@@ -3292,6 +3599,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'rotationBtn';
 				enable = true;
 				normal = 'ui/buttons/Calendar_btn_0101.png';
@@ -3305,6 +3613,7 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -22.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -3318,6 +3627,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/frames/attr_tower_title.png';
 					color = { 255; 255; 255; };
@@ -3331,6 +3641,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -5.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -3344,6 +3655,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'rotationTitleLabel2';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 32;
@@ -3366,49 +3678,138 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
-					type = 'LabelTTF';
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						flag = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 184;
+						height = 40;
+						scale_x = 1.600000;
+						scale_y = 0.800000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						screen_ui = 0;
+						lua_name = '';
+						file_name = 'ui/frames/attr_tower_title.png';
+						color = { 255; 255; 255; };
+						opacity = 200;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						flag = '';
+						x = 117.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 42;
+						height = 42;
+						scale_x = 0.900000;
+						scale_y = 0.900000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						screen_ui = 0;
+						lua_name = '';
+						file_name = 'ui/buttons/clan_war_info_btn_0101.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[3] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						flag = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 230;
+						height = 34;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						screen_ui = 0;
+						lua_name = 'remainTimeLabel';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 22;
+						text = 'remainTimeLabel';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 215; 0; };
+						opacity = 255;
+						dimension_width = 230;
+						dimension_height = 34;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 1.000000;
+						stroke_color = { 255; 255; 255; };
+						has_shadow = false;
+						shadow_color = { 255; 255; 255; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
+					};
+					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
-					y = -49.000000;
-					dock_point = { 0.500000; 0.500000; };
+					y = -86.000000;
+					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 310;
-					height = 40;
+					width = 265;
+					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'remainTimeLabel';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '11시간 59분 후 종료';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 215; 0; };
-					opacity = 255;
-					dimension_width = 310;
-					dimension_height = 40;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
+					screen_ui = 0;
+					lua_name = 'resetBtn';
+					enable = false;
+					normal = '';
+					selected = '';
+					disable = '';
+					image_type = 0;
 				};
 				type = 'Menu';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -98.000000;
 				dock_point = { 0.500000; 1.000000; };
@@ -3422,10 +3823,12 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'rotationTitleMenu2';
 			};
 			type = 'Menu';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
@@ -3443,10 +3846,12 @@
 			action_delay_1 = 0.000000;
 			action_delay_2 = 0.000000;
 			action_duration = 0.000000;
+			screen_ui = 0;
 			lua_name = '';
 		};
 		type = 'Menu';
 		ui_name = '';
+		flag = '';
 		x = 0.000000;
 		y = 0.000000;
 		dock_point = { 0.500000; 0.500000; };
@@ -3460,6 +3865,7 @@
 		skew_y = 0.000000;
 		rotation = 0.000000;
 		visible = true;
+		screen_ui = 0;
 		lua_name = '';
 	};
 };

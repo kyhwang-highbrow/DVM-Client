@@ -1,0 +1,496 @@
+
+benevolentia_earth_02.png
+size: 1494,1038
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+benevolentia_all_02_acc_1
+  rotate: true
+  xy: 1384, 64
+  size: 77, 61
+  orig: 77, 61
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_acc_3
+  rotate: false
+  xy: 1154, 2
+  size: 77, 62
+  orig: 77, 62
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_acc_5
+  rotate: false
+  xy: 739, 16
+  size: 70, 49
+  orig: 70, 49
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_arm_1
+  rotate: false
+  xy: 678, 16
+  size: 59, 80
+  orig: 59, 80
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_arm_2
+  rotate: true
+  xy: 2, 2
+  size: 69, 85
+  orig: 69, 85
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_arm_3
+  rotate: true
+  xy: 1384, 8
+  size: 54, 56
+  orig: 54, 56
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_arm_4
+  rotate: true
+  xy: 150, 12
+  size: 59, 102
+  orig: 59, 102
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_body_1
+  rotate: true
+  xy: 1407, 600
+  size: 87, 85
+  orig: 87, 85
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_body_2
+  rotate: false
+  xy: 1206, 143
+  size: 155, 148
+  orig: 155, 148
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_eye_1
+  rotate: true
+  xy: 675, 126
+  size: 39, 30
+  orig: 39, 30
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_eye_2
+  rotate: false
+  xy: 675, 98
+  size: 23, 26
+  orig: 23, 26
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_eye_3
+  rotate: true
+  xy: 811, 2
+  size: 23, 29
+  orig: 23, 29
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_eye_4
+  rotate: false
+  xy: 1051, 4
+  size: 29, 31
+  orig: 29, 31
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_eye_5
+  rotate: true
+  xy: 428, 535
+  size: 34, 29
+  orig: 34, 29
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_eye_6
+  rotate: true
+  xy: 357, 2
+  size: 38, 30
+  orig: 38, 30
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_foot_1
+  rotate: false
+  xy: 1206, 66
+  size: 116, 75
+  orig: 116, 75
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_foot_2
+  rotate: false
+  xy: 1233, 13
+  size: 97, 51
+  orig: 97, 51
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_hand_1
+  rotate: true
+  xy: 1442, 5
+  size: 41, 47
+  orig: 41, 47
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_hand_10
+  rotate: true
+  xy: 1154, 66
+  size: 40, 43
+  orig: 40, 43
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_hand_2
+  rotate: false
+  xy: 675, 167
+  size: 32, 42
+  orig: 32, 42
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_hand_3
+  rotate: false
+  xy: 821, 97
+  size: 33, 36
+  orig: 33, 36
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_hand_4
+  rotate: false
+  xy: 821, 62
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_hand_5
+  rotate: true
+  xy: 320, 2
+  size: 38, 35
+  orig: 38, 35
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_hand_6
+  rotate: false
+  xy: 389, 5
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_hand_7
+  rotate: true
+  xy: 1014, 2
+  size: 33, 35
+  orig: 33, 35
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_hand_8
+  rotate: true
+  xy: 1447, 97
+  size: 53, 45
+  orig: 53, 45
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_hand_9
+  rotate: true
+  xy: 1014, 37
+  size: 59, 66
+  orig: 59, 66
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_head
+  rotate: false
+  xy: 1407, 490
+  size: 82, 108
+  orig: 82, 108
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_head_acc_2
+  rotate: false
+  xy: 514, 13
+  size: 45, 46
+  orig: 45, 46
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_head_acc_3
+  rotate: false
+  xy: 432, 6
+  size: 80, 53
+  orig: 80, 53
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_head_acc_4
+  rotate: false
+  xy: 89, 2
+  size: 59, 69
+  orig: 59, 69
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_head_acc_5
+  rotate: true
+  xy: 1447, 48
+  size: 47, 45
+  orig: 47, 45
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_horn
+  rotate: true
+  xy: 1363, 143
+  size: 89, 81
+  orig: 89, 81
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_leg_1
+  rotate: true
+  xy: 858, 32
+  size: 64, 76
+  orig: 64, 76
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_leg_2
+  rotate: false
+  xy: 1371, 312
+  size: 114, 82
+  orig: 114, 82
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_leg_3
+  rotate: true
+  xy: 1371, 234
+  size: 76, 95
+  orig: 76, 95
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_1
+  rotate: false
+  xy: 320, 42
+  size: 110, 152
+  orig: 110, 152
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_2
+  rotate: true
+  xy: 561, 22
+  size: 74, 115
+  orig: 74, 115
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_3
+  rotate: false
+  xy: 1394, 689
+  size: 98, 125
+  orig: 98, 125
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_4
+  rotate: false
+  xy: 1215, 293
+  size: 154, 196
+  orig: 154, 196
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_5
+  rotate: false
+  xy: 882, 296
+  size: 331, 193
+  orig: 331, 193
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_1
+  rotate: false
+  xy: 890, 653
+  size: 55, 107
+  orig: 55, 107
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_12
+  rotate: false
+  xy: 1324, 66
+  size: 58, 75
+  orig: 58, 75
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_13
+  rotate: true
+  xy: 936, 28
+  size: 68, 76
+  orig: 68, 76
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_14
+  rotate: false
+  xy: 1082, 2
+  size: 70, 104
+  orig: 70, 104
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_15
+  rotate: false
+  xy: 717, 312
+  size: 163, 197
+  orig: 163, 197
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_16
+  rotate: false
+  xy: 1371, 396
+  size: 115, 92
+  orig: 115, 92
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_2
+  rotate: false
+  xy: 739, 67
+  size: 80, 66
+  orig: 80, 66
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_3
+  rotate: true
+  xy: 1409, 816
+  size: 40, 53
+  orig: 40, 53
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_6
+  rotate: true
+  xy: 254, 23
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_7
+  rotate: false
+  xy: 1446, 152
+  size: 46, 80
+  orig: 46, 80
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_tail_acc_8
+  rotate: false
+  xy: 1332, 17
+  size: 50, 47
+  orig: 50, 47
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_wing_1
+  rotate: true
+  xy: 1082, 108
+  size: 186, 122
+  orig: 186, 122
+  offset: 0, 0
+  index: -1
+benevolentia_all_02_wing_2
+  rotate: false
+  xy: 1324, 506
+  size: 81, 145
+  orig: 81, 145
+  offset: 0, 0
+  index: -1
+effect_flower
+  rotate: true
+  xy: 459, 511
+  size: 249, 429
+  orig: 249, 429
+  offset: 0, 0
+  index: -1
+effect_light1
+  rotate: false
+  xy: 428, 211
+  size: 287, 298
+  orig: 287, 298
+  offset: 0, 0
+  index: -1
+effect_light2
+  rotate: true
+  xy: 717, 135
+  size: 175, 161
+  orig: 175, 161
+  offset: 0, 0
+  index: -1
+effect_light22
+  rotate: true
+  xy: 880, 98
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+effect_part2
+  rotate: false
+  xy: 432, 110
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+effect_rose
+  rotate: false
+  xy: 2, 571
+  size: 455, 465
+  orig: 455, 465
+  offset: 0, 0
+  index: -1
+effect_sphere
+  rotate: true
+  xy: 561, 98
+  size: 111, 112
+  orig: 111, 112
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 811, 27
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+effect_twinkle_1
+  rotate: true
+  xy: 2, 73
+  size: 496, 316
+  orig: 496, 316
+  offset: 0, 0
+  index: -1
+effect_twinkle_2
+  rotate: false
+  xy: 947, 816
+  size: 460, 220
+  orig: 460, 220
+  offset: 0, 0
+  index: -1
+effect_wind_1
+  rotate: true
+  xy: 1409, 858
+  size: 178, 75
+  orig: 178, 75
+  offset: 0, 0
+  index: -1
+effect_wind_2
+  rotate: true
+  xy: 320, 196
+  size: 373, 106
+  orig: 373, 106
+  offset: 0, 0
+  index: -1
+effect_wind_3
+  rotate: false
+  xy: 432, 61
+  size: 127, 47
+  orig: 127, 47
+  offset: 0, 0
+  index: -1
+effect_wind_4
+  rotate: false
+  xy: 459, 762
+  size: 486, 274
+  orig: 486, 274
+  offset: 0, 0
+  index: -1
+effect_wind_5
+  rotate: false
+  xy: 947, 653
+  size: 445, 161
+  orig: 445, 161
+  offset: 0, 0
+  index: -1
+effect_wind_6
+  rotate: false
+  xy: 890, 491
+  size: 432, 160
+  orig: 432, 160
+  offset: 0, 0
+  index: -1

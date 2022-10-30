@@ -6,244 +6,210 @@
         <dict>
             <key>package_step_period_3step_res_btn_0101.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,482},{123,65}}</string>
+                <key>offset</key>
                 <string>{-1,0}</string>
-                <key>spriteSize</key>
-                <string>{123,65}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{123,65}}</string>
+                <key>sourceSize</key>
                 <string>{125,65}</string>
-                <key>textureRect</key>
-                <string>{{128,259},{123,65}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>package_step_period_3step_res_btn_0102.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,789},{123,65}}</string>
+                <key>offset</key>
                 <string>{-1,0}</string>
-                <key>spriteSize</key>
-                <string>{123,65}</string>
-                <key>spriteSourceSize</key>
-                <string>{125,65}</string>
-                <key>textureRect</key>
-                <string>{{1,291},{123,65}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{123,65}}</string>
+                <key>sourceSize</key>
+                <string>{125,65}</string>
             </dict>
             <key>package_step_period_3step_res_btn_0201.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,856},{123,65}}</string>
+                <key>offset</key>
                 <string>{-1,0}</string>
-                <key>spriteSize</key>
-                <string>{123,65}</string>
-                <key>spriteSourceSize</key>
-                <string>{125,65}</string>
-                <key>textureRect</key>
-                <string>{{126,326},{123,65}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{123,65}}</string>
+                <key>sourceSize</key>
+                <string>{125,65}</string>
             </dict>
             <key>package_step_period_3step_res_btn_0202.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,923},{123,65}}</string>
+                <key>offset</key>
                 <string>{-1,0}</string>
-                <key>spriteSize</key>
-                <string>{123,65}</string>
-                <key>spriteSourceSize</key>
-                <string>{125,65}</string>
-                <key>textureRect</key>
-                <string>{{1,358},{123,65}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{123,65}}</string>
+                <key>sourceSize</key>
+                <string>{125,65}</string>
             </dict>
             <key>package_step_period_3step_res_btn_0301.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{70,334},{125,55}}</string>
+                <key>offset</key>
                 <string>{0,-2}</string>
-                <key>spriteSize</key>
-                <string>{125,57}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,7},{125,55}}</string>
+                <key>sourceSize</key>
                 <string>{125,65}</string>
-                <key>textureRect</key>
-                <string>{{1,173},{125,57}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>package_step_period_3step_res_btn_0302.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{70,461},{125,55}}</string>
+                <key>offset</key>
                 <string>{0,-2}</string>
-                <key>spriteSize</key>
-                <string>{125,57}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,7},{125,55}}</string>
+                <key>sourceSize</key>
                 <string>{125,65}</string>
-                <key>textureRect</key>
-                <string>{{1,232},{125,57}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>package_step_period_3step_res_btn_normal_0101.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{-4,0}</string>
-                <key>spriteSize</key>
-                <string>{162,82}</string>
-                <key>spriteSourceSize</key>
+                <key>frame</key>
+                <string>{{2,334},{146,66}}</string>
+                <key>offset</key>
+                <string>{4,-3}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{31,20},{146,66}}</string>
+                <key>sourceSize</key>
                 <string>{200,100}</string>
-                <key>textureRect</key>
-                <string>{{1,89},{162,82}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>package_step_period_3step_res_btn_normal_0201.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{2,1}</string>
-                <key>spriteSize</key>
-                <string>{154,78}</string>
-                <key>spriteSourceSize</key>
-                <string>{200,100}</string>
-                <key>textureRect</key>
-                <string>{{175,1},{154,78}}</string>
-                <key>textureRotated</key>
+                <key>frame</key>
+                <string>{{2,174},{158,76}}</string>
+                <key>offset</key>
+                <string>{-2,3}</string>
+                <key>rotated</key>
                 <true/>
+                <key>sourceColorRect</key>
+                <string>{{19,9},{158,76}}</string>
+                <key>sourceSize</key>
+                <string>{200,100}</string>
             </dict>
             <key>package_step_period_3step_res_btn_normal_0301.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,2},{170,84}}</string>
+                <key>offset</key>
                 <string>{0,1}</string>
-                <key>spriteSize</key>
-                <string>{172,86}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{15,7},{170,84}}</string>
+                <key>sourceSize</key>
                 <string>{200,100}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{172,86}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>package_step_period_3step_res_item_0101.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{1,0}</string>
-                <key>spriteSize</key>
-                <string>{85,77}</string>
-                <key>spriteSourceSize</key>
+                <key>frame</key>
+                <string>{{65,1148},{57,67}}</string>
+                <key>offset</key>
+                <string>{0,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{19,13},{57,67}}</string>
+                <key>sourceSize</key>
                 <string>{95,95}</string>
-                <key>textureRect</key>
-                <string>{{94,518},{85,77}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>package_step_period_3step_res_item_0102.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,1148},{61,71}}</string>
+                <key>offset</key>
                 <string>{0,1}</string>
-                <key>spriteSize</key>
-                <string>{95,91}</string>
-                <key>spriteSourceSize</key>
-                <string>{95,95}</string>
-                <key>textureRect</key>
-                <string>{{1,425},{95,91}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{17,11},{61,71}}</string>
+                <key>sourceSize</key>
+                <string>{95,95}</string>
             </dict>
             <key>package_step_period_3step_res_item_0201.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{-1,1}</string>
-                <key>spriteSize</key>
-                <string>{79,79}</string>
-                <key>spriteSourceSize</key>
-                <string>{95,95}</string>
-                <key>textureRect</key>
-                <string>{{173,491},{79,79}}</string>
-                <key>textureRotated</key>
+                <key>frame</key>
+                <string>{{2,1071},{83,75}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{6,10},{83,75}}</string>
+                <key>sourceSize</key>
+                <string>{95,95}</string>
             </dict>
             <key>package_step_period_3step_res_item_0202.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{-1,0}</string>
-                <key>spriteSize</key>
-                <string>{93,91}</string>
-                <key>spriteSourceSize</key>
+                <key>frame</key>
+                <string>{{2,990},{87,79}}</string>
+                <key>offset</key>
+                <string>{0,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{4,7},{87,79}}</string>
+                <key>sourceSize</key>
                 <string>{95,95}</string>
-                <key>textureRect</key>
-                <string>{{1,518},{93,91}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>package_step_period_3step_res_item_0301.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,703},{100,84}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{100,86}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,8},{100,84}}</string>
+                <key>sourceSize</key>
                 <string>{100,100}</string>
-                <key>textureRect</key>
-                <string>{{165,157},{100,86}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>package_step_period_3step_res_item_0302.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,607},{100,94}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{100,96}</string>
-                <key>spriteSourceSize</key>
-                <string>{100,100}</string>
-                <key>textureRect</key>
-                <string>{{126,393},{100,96}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,3},{100,94}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>3</integer>
-            <key>pixelFormat</key>
-            <string>RGBA8888</string>
-            <key>premultiplyAlpha</key>
-            <false/>
+            <integer>2</integer>
             <key>realTextureFileName</key>
             <string>package_step_period_3step.png</string>
             <key>size</key>
-            <string>{254,612}</string>
+            <string>{127,1260}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ef9ebf43d5e7e87a5e4bef27d06816f1:69ca9c646b0d7bbc289d79f1d3dbe66f:91095f046352589eb99289f8b3fd17c1$</string>
+            <string>$TexturePacker:SmartUpdate:01ea5553e96e65d5540fbabaebae1516:1d110c37fea5b2e2ebda2b6ce93b411f:91095f046352589eb99289f8b3fd17c1$</string>
             <key>textureFileName</key>
             <string>package_step_period_3step.png</string>
         </dict>

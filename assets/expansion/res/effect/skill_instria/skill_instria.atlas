@@ -1,0 +1,496 @@
+
+skill_instria.png
+size: 1734,793
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body_dark
+  rotate: false
+  xy: 1080, 402
+  size: 203, 235
+  orig: 203, 235
+  offset: 0, 0
+  index: -1
+body_fire
+  rotate: true
+  xy: 1285, 388
+  size: 203, 235
+  orig: 203, 235
+  offset: 0, 0
+  index: -1
+body_light_water_earth
+  rotate: false
+  xy: 1522, 356
+  size: 203, 235
+  orig: 203, 235
+  offset: 0, 0
+  index: -1
+ear1_dark
+  rotate: false
+  xy: 577, 170
+  size: 107, 106
+  orig: 107, 106
+  offset: 0, 0
+  index: -1
+ear1_earth
+  rotate: false
+  xy: 686, 170
+  size: 107, 106
+  orig: 107, 106
+  offset: 0, 0
+  index: -1
+ear1_fire
+  rotate: false
+  xy: 795, 169
+  size: 107, 106
+  orig: 107, 106
+  offset: 0, 0
+  index: -1
+ear1_light
+  rotate: false
+  xy: 904, 169
+  size: 107, 106
+  orig: 107, 106
+  offset: 0, 0
+  index: -1
+ear1_water
+  rotate: false
+  xy: 1013, 169
+  size: 107, 106
+  orig: 107, 106
+  offset: 0, 0
+  index: -1
+ear2_dark
+  rotate: true
+  xy: 875, 2
+  size: 72, 83
+  orig: 72, 83
+  offset: 0, 0
+  index: -1
+ear2_earth
+  rotate: true
+  xy: 960, 2
+  size: 72, 83
+  orig: 72, 83
+  offset: 0, 0
+  index: -1
+ear2_fire
+  rotate: true
+  xy: 1045, 2
+  size: 72, 83
+  orig: 72, 83
+  offset: 0, 0
+  index: -1
+ear2_light
+  rotate: true
+  xy: 1130, 2
+  size: 72, 83
+  orig: 72, 83
+  offset: 0, 0
+  index: -1
+ear2_water
+  rotate: false
+  xy: 1357, 2
+  size: 72, 83
+  orig: 72, 83
+  offset: 0, 0
+  index: -1
+effect_lightning_00001
+  rotate: false
+  xy: 2, 199
+  size: 485, 75
+  orig: 485, 75
+  offset: 0, 0
+  index: -1
+effect_lightning_00006
+  rotate: false
+  xy: 818, 716
+  size: 485, 75
+  orig: 485, 75
+  offset: 0, 0
+  index: -1
+effect_lightning_00009
+  rotate: false
+  xy: 2, 122
+  size: 485, 75
+  orig: 485, 75
+  offset: 0, 0
+  index: -1
+effect_lightning_00013
+  rotate: false
+  xy: 818, 639
+  size: 485, 75
+  orig: 485, 75
+  offset: 0, 0
+  index: -1
+effect_lightning_00018
+  rotate: false
+  xy: 2, 45
+  size: 485, 75
+  orig: 485, 75
+  offset: 0, 0
+  index: -1
+effect_skill_laser_01
+  rotate: true
+  xy: 766, 14
+  size: 61, 107
+  orig: 61, 107
+  offset: 0, 0
+  index: -1
+effect_skill_portal_02
+  rotate: false
+  xy: 818, 377
+  size: 260, 260
+  orig: 260, 260
+  offset: 0, 0
+  index: -1
+effect_skill_won
+  rotate: false
+  xy: 1535, 47
+  size: 82, 87
+  orig: 82, 87
+  offset: 0, 0
+  index: -1
+eye_1_dark
+  rotate: true
+  xy: 1316, 43
+  size: 35, 39
+  orig: 35, 39
+  offset: 0, 0
+  index: -1
+eye_1_earth
+  rotate: true
+  xy: 1316, 6
+  size: 35, 39
+  orig: 35, 39
+  offset: 0, 0
+  index: -1
+eye_1_fire
+  rotate: false
+  xy: 212, 4
+  size: 35, 39
+  orig: 35, 39
+  offset: 0, 0
+  index: -1
+eye_1_light
+  rotate: false
+  xy: 1434, 147
+  size: 35, 39
+  orig: 35, 39
+  offset: 0, 0
+  index: -1
+eye_1_water
+  rotate: false
+  xy: 1604, 183
+  size: 35, 39
+  orig: 35, 39
+  offset: 0, 0
+  index: -1
+eye_2_dark
+  rotate: false
+  xy: 2, 2
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+eye_2_earth
+  rotate: false
+  xy: 44, 2
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+eye_2_fire
+  rotate: false
+  xy: 86, 2
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+eye_2_light
+  rotate: false
+  xy: 128, 2
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+eye_2_water
+  rotate: false
+  xy: 170, 2
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+eye_3_all
+  rotate: false
+  xy: 1094, 76
+  size: 75, 91
+  orig: 75, 91
+  offset: 0, 0
+  index: -1
+eye_3_dark
+  rotate: false
+  xy: 1619, 49
+  size: 75, 91
+  orig: 75, 91
+  offset: 0, 0
+  index: -1
+eye_4_all
+  rotate: false
+  xy: 1648, 249
+  size: 84, 105
+  orig: 84, 105
+  offset: 0, 0
+  index: -1
+eye_4_dark
+  rotate: false
+  xy: 1648, 142
+  size: 84, 105
+  orig: 84, 105
+  offset: 0, 0
+  index: -1
+horn_dark
+  rotate: false
+  xy: 489, 36
+  size: 91, 106
+  orig: 91, 106
+  offset: 0, 0
+  index: -1
+horn_earth
+  rotate: true
+  xy: 878, 76
+  size: 91, 106
+  orig: 91, 106
+  offset: 0, 0
+  index: -1
+horn_fire
+  rotate: true
+  xy: 986, 76
+  size: 91, 106
+  orig: 91, 106
+  offset: 0, 0
+  index: -1
+horn_light
+  rotate: false
+  xy: 1171, 80
+  size: 91, 106
+  orig: 91, 106
+  offset: 0, 0
+  index: -1
+horn_water
+  rotate: false
+  xy: 1264, 80
+  size: 91, 106
+  orig: 91, 106
+  offset: 0, 0
+  index: -1
+leg_dark
+  rotate: false
+  xy: 582, 58
+  size: 90, 110
+  orig: 90, 110
+  offset: 0, 0
+  index: -1
+leg_fire
+  rotate: false
+  xy: 674, 58
+  size: 90, 110
+  orig: 90, 110
+  offset: 0, 0
+  index: -1
+leg_light_water_earth
+  rotate: true
+  xy: 766, 77
+  size: 90, 110
+  orig: 90, 110
+  offset: 0, 0
+  index: -1
+legback_dark
+  rotate: false
+  xy: 1357, 87
+  size: 75, 99
+  orig: 75, 99
+  offset: 0, 0
+  index: -1
+legback_fire
+  rotate: true
+  xy: 1215, 3
+  size: 75, 99
+  orig: 75, 99
+  offset: 0, 0
+  index: -1
+legback_light_water_earth
+  rotate: true
+  xy: 1434, 59
+  size: 75, 99
+  orig: 75, 99
+  offset: 0, 0
+  index: -1
+mouth1_fire
+  rotate: false
+  xy: 1619, 2
+  size: 77, 45
+  orig: 77, 45
+  offset: 0, 0
+  index: -1
+mouth1_light_water_earth
+  rotate: false
+  xy: 1431, 12
+  size: 77, 45
+  orig: 77, 45
+  offset: 0, 0
+  index: -1
+mouth2_dark
+  rotate: false
+  xy: 1632, 603
+  size: 91, 51
+  orig: 91, 51
+  offset: 0, 0
+  index: -1
+mouth2_fire
+  rotate: false
+  xy: 582, 11
+  size: 60, 45
+  orig: 60, 45
+  offset: 0, 0
+  index: -1
+mouth2_light_water_earth
+  rotate: false
+  xy: 644, 11
+  size: 60, 45
+  orig: 60, 45
+  offset: 0, 0
+  index: -1
+mouth3_dark
+  rotate: false
+  xy: 1632, 656
+  size: 96, 135
+  orig: 96, 135
+  offset: 0, 0
+  index: -1
+mouth3_earth
+  rotate: false
+  xy: 1472, 224
+  size: 86, 130
+  orig: 86, 130
+  offset: 0, 0
+  index: -1
+mouth3_fire
+  rotate: false
+  xy: 1560, 224
+  size: 86, 130
+  orig: 86, 130
+  offset: 0, 0
+  index: -1
+mouth3_light
+  rotate: true
+  xy: 1472, 136
+  size: 86, 130
+  orig: 86, 130
+  offset: 0, 0
+  index: -1
+mouth3_water
+  rotate: false
+  xy: 489, 144
+  size: 86, 130
+  orig: 86, 130
+  offset: 0, 0
+  index: -1
+portal1_earth
+  rotate: false
+  xy: 2, 276
+  size: 125, 515
+  orig: 125, 515
+  offset: 0, 0
+  index: -1
+portal1_fire
+  rotate: false
+  xy: 129, 276
+  size: 125, 515
+  orig: 125, 515
+  offset: 0, 0
+  index: -1
+portal1_light
+  rotate: false
+  xy: 256, 276
+  size: 125, 515
+  orig: 125, 515
+  offset: 0, 0
+  index: -1
+portal1_water
+  rotate: false
+  xy: 383, 276
+  size: 125, 515
+  orig: 125, 515
+  offset: 0, 0
+  index: -1
+portal2_earth
+  rotate: false
+  xy: 510, 278
+  size: 75, 513
+  orig: 75, 513
+  offset: 0, 0
+  index: -1
+portal2_fire
+  rotate: false
+  xy: 587, 278
+  size: 75, 513
+  orig: 75, 513
+  offset: 0, 0
+  index: -1
+portal2_light
+  rotate: false
+  xy: 664, 278
+  size: 75, 513
+  orig: 75, 513
+  offset: 0, 0
+  index: -1
+portal2_water
+  rotate: false
+  xy: 741, 278
+  size: 75, 513
+  orig: 75, 513
+  offset: 0, 0
+  index: -1
+portal3_dark
+  rotate: true
+  xy: 1305, 693
+  size: 98, 325
+  orig: 98, 325
+  offset: 0, 0
+  index: -1
+portal3_earth
+  rotate: true
+  xy: 1305, 593
+  size: 98, 325
+  orig: 98, 325
+  offset: 0, 0
+  index: -1
+portal3_fire
+  rotate: true
+  xy: 818, 277
+  size: 98, 325
+  orig: 98, 325
+  offset: 0, 0
+  index: -1
+portal3_light
+  rotate: true
+  xy: 1145, 288
+  size: 98, 325
+  orig: 98, 325
+  offset: 0, 0
+  index: -1
+portal3_water
+  rotate: true
+  xy: 1145, 188
+  size: 98, 325
+  orig: 98, 325
+  offset: 0, 0
+  index: -1
+teeth_light_water_earth_fire
+  rotate: true
+  xy: 1510, 2
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1

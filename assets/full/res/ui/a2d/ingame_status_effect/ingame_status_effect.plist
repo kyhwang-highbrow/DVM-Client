@@ -6,799 +6,743 @@
         <dict>
             <key>ingame_status_effect_Invulnerable.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_aspd_down.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{1,51},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_aspd_up.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{52,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{51,1},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_aspd_up_super.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{52,52},{48,48}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_atk_down.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{102,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{1,101},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_atk_up.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{102,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{51,51},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_atk_up_super.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{152,2},{48,48}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_attr_change.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{152,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{101,1},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_avoid_down.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{202,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{1,151},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_avoid_up.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{202,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{1,201},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_bleed.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{252,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{51,101},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_blessing.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{252,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{101,51},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_blind.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{302,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{151,1},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_burn.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{302,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{51,151},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_cri_avoid_down.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{352,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{51,201},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_cri_avoid_up.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{352,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{101,101},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_cri_chance_down.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{402,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{151,51},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_cri_chance_up.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{402,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{201,1},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_cri_dmg_down.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{452,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{101,151},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_cri_dmg_up.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{452,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{101,201},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_def_down.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{502,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{151,101},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_def_up.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{502,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{201,51},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_def_up_super.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{552,2},{48,48}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_dot_super.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{552,52},{48,48}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_electric_shock.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{602,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{251,1},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_fury.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{602,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{151,151},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_heal.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{652,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{151,201},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_heal_deny .png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{652,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{201,101},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_hit_rate_down.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{702,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{251,51},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_hit_rate_up.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{702,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{301,1},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_hp_down.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{752,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{201,151},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_hp_drain.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{752,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{201,201},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_hp_up.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{802,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{251,101},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_immortal.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{802,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{301,51},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_immunity_debuff.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{852,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{351,1},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_m_resist.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{852,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{251,151},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_num_0.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1152,2},{26,42}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{28,44}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{451,1},{28,44}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_num_1.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1264,44},{24,40}}</string>
+                <key>offset</key>
                 <string>{1,0}</string>
-                <key>spriteSize</key>
-                <string>{26,42}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{431,147},{26,42}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{13,4},{24,40}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_num_2.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1152,46},{26,42}}</string>
+                <key>offset</key>
                 <string>{0,1}</string>
-                <key>spriteSize</key>
-                <string>{28,44}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{401,101},{28,44}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{11,2},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_num_3.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1180,2},{26,42}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{28,44}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{451,47},{28,44}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_num_4.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1252,2},{28,40}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{30,42}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{459,183},{30,42}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{10,4},{28,40}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_num_5.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1180,46},{26,42}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{28,44}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{401,147},{28,44}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_num_6.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1208,2},{26,42}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{28,44}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
                 <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{401,193},{28,44}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>ingame_status_effect_num_7.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1236,58},{26,40}}</string>
+                <key>offset</key>
                 <string>{-1,0}</string>
-                <key>spriteSize</key>
-                <string>{28,42}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{461,139},{28,42}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{10,4},{26,40}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_num_8.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1208,30},{26,42}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{28,44}</string>
-                <key>spriteSourceSize</key>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
                 <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{431,101},{28,44}}</string>
-                <key>textureRotated</key>
-                <false/>
             </dict>
             <key>ingame_status_effect_num_9.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1208,58},{26,42}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{28,44}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{461,93},{28,44}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_p_resist.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{902,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{251,201},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_pierce.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{902,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{301,101},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_poison.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{952,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{351,51},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_recovery_add.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{952,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{401,1},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_recovery_dec.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1002,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{301,151},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_silence.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1002,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{301,201},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_sleep.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1052,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{351,101},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_stun.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1052,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{401,51},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_target.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1102,2},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{351,151},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
             <key>ingame_status_effect_zombie.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{1102,52},{48,48}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,48}</string>
-                <key>textureRect</key>
-                <string>{{351,201},{48,48}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>3</integer>
-            <key>pixelFormat</key>
-            <string>RGBA8888</string>
-            <key>premultiplyAlpha</key>
-            <false/>
+            <integer>2</integer>
             <key>realTextureFileName</key>
             <string>ingame_status_effect.png</string>
             <key>size</key>
-            <string>{490,250}</string>
+            <string>{1290,102}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4366d0ce9ddcc3698e190955a02288a7:ecf9a28a1f2b6079ffda1252fd29ea47:5bac5130585617aa635dc1039f3d00de$</string>
+            <string>$TexturePacker:SmartUpdate:75d32f42c3c6627582ce02b832ca7f6f:f5e406d896f9d5849966348f6d5907d4:5bac5130585617aa635dc1039f3d00de$</string>
             <key>textureFileName</key>
             <string>ingame_status_effect.png</string>
         </dict>

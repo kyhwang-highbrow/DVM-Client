@@ -1,0 +1,377 @@
+
+benevolentia_earth_01.png
+size: 1653,404
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+benevolentia_all_01_acc
+  rotate: false
+  xy: 565, 2
+  size: 62, 48
+  orig: 62, 48
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_arm_1
+  rotate: false
+  xy: 1606, 350
+  size: 45, 52
+  orig: 45, 52
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_arm_2
+  rotate: true
+  xy: 1227, 47
+  size: 44, 68
+  orig: 44, 68
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_arm_3
+  rotate: true
+  xy: 868, 2
+  size: 50, 47
+  orig: 50, 47
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_arm_4
+  rotate: false
+  xy: 1297, 39
+  size: 56, 52
+  orig: 56, 52
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_body_1
+  rotate: false
+  xy: 629, 47
+  size: 123, 104
+  orig: 123, 104
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_body_2
+  rotate: true
+  xy: 443, 16
+  size: 68, 55
+  orig: 68, 55
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_butterfly_1
+  rotate: true
+  xy: 629, 2
+  size: 43, 45
+  orig: 43, 45
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_butterfly_2
+  rotate: false
+  xy: 1196, 4
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_eye_1
+  rotate: false
+  xy: 358, 2
+  size: 34, 27
+  orig: 34, 27
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_eye_2
+  rotate: false
+  xy: 1511, 9
+  size: 44, 42
+  orig: 44, 42
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_eye_3
+  rotate: false
+  xy: 1280, 12
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_eye_4
+  rotate: false
+  xy: 818, 13
+  size: 28, 25
+  orig: 28, 25
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_eye_5
+  rotate: true
+  xy: 394, 3
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_eye_6
+  rotate: true
+  xy: 738, 2
+  size: 36, 42
+  orig: 36, 42
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_eye_7
+  rotate: false
+  xy: 1238, 4
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_eye_8
+  rotate: false
+  xy: 1462, 9
+  size: 47, 42
+  orig: 47, 42
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_foot_1
+  rotate: true
+  xy: 358, 31
+  size: 53, 83
+  orig: 53, 83
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_foot_2
+  rotate: true
+  xy: 275, 25
+  size: 59, 81
+  orig: 59, 81
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_hand_1
+  rotate: false
+  xy: 1355, 31
+  size: 53, 47
+  orig: 53, 47
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_hand_2
+  rotate: false
+  xy: 917, 2
+  size: 41, 37
+  orig: 41, 37
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_hand_3
+  rotate: false
+  xy: 1429, 202
+  size: 34, 37
+  orig: 34, 37
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_hand_4
+  rotate: true
+  xy: 1410, 31
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_head_1
+  rotate: false
+  xy: 1076, 59
+  size: 79, 54
+  orig: 79, 54
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_head_2
+  rotate: true
+  xy: 1148, 2
+  size: 49, 46
+  orig: 49, 46
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_head_3
+  rotate: false
+  xy: 782, 6
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_head_4
+  rotate: false
+  xy: 1076, 2
+  size: 70, 55
+  orig: 70, 55
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_head_5
+  rotate: true
+  xy: 1373, 80
+  size: 120, 92
+  orig: 120, 92
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_head_6
+  rotate: true
+  xy: 1606, 263
+  size: 85, 40
+  orig: 85, 40
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_horn_1
+  rotate: false
+  xy: 184, 21
+  size: 89, 63
+  orig: 89, 63
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_horn_2
+  rotate: false
+  xy: 1585, 187
+  size: 66, 52
+  orig: 66, 52
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_leg_1
+  rotate: false
+  xy: 1585, 126
+  size: 65, 59
+  orig: 65, 59
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_leg_2
+  rotate: true
+  xy: 927, 41
+  size: 72, 76
+  orig: 72, 76
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_leg_3
+  rotate: false
+  xy: 1005, 43
+  size: 69, 70
+  orig: 69, 70
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_tail_1
+  rotate: false
+  xy: 105, 7
+  size: 77, 77
+  orig: 77, 77
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_tail_2
+  rotate: false
+  xy: 1573, 60
+  size: 59, 64
+  orig: 59, 64
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_tail_3
+  rotate: false
+  xy: 676, 4
+  size: 60, 41
+  orig: 60, 41
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_tail_4
+  rotate: true
+  xy: 1157, 61
+  size: 52, 68
+  orig: 52, 68
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_tail_5
+  rotate: false
+  xy: 2, 7
+  size: 101, 77
+  orig: 101, 77
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_tail_6
+  rotate: true
+  xy: 500, 2
+  size: 48, 63
+  orig: 48, 63
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_tail_7
+  rotate: true
+  xy: 1231, 93
+  size: 107, 140
+  orig: 107, 140
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_tail_8
+  rotate: false
+  xy: 1467, 140
+  size: 116, 99
+  orig: 116, 99
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_wing_1
+  rotate: false
+  xy: 868, 54
+  size: 57, 97
+  orig: 57, 97
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_wing_2
+  rotate: false
+  xy: 1573, 2
+  size: 59, 56
+  orig: 59, 56
+  offset: 0, 0
+  index: -1
+benevolentia_all_01_wing_3
+  rotate: false
+  xy: 1467, 53
+  size: 104, 85
+  orig: 104, 85
+  offset: 0, 0
+  index: -1
+effect_flower
+  rotate: true
+  xy: 500, 153
+  size: 249, 429
+  orig: 249, 429
+  offset: 0, 0
+  index: -1
+effect_light1
+  rotate: true
+  xy: 931, 115
+  size: 287, 298
+  orig: 287, 298
+  offset: 0, 0
+  index: -1
+effect_light2
+  rotate: false
+  xy: 1429, 241
+  size: 175, 161
+  orig: 175, 161
+  offset: 0, 0
+  index: -1
+effect_light22
+  rotate: false
+  xy: 1231, 202
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+effect_part2
+  rotate: false
+  xy: 500, 52
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+effect_sphere
+  rotate: true
+  xy: 754, 40
+  size: 111, 112
+  orig: 111, 112
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 960, 6
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+effect_twinkle
+  rotate: false
+  xy: 2, 86
+  size: 496, 316
+  orig: 496, 316
+  offset: 0, 0
+  index: -1

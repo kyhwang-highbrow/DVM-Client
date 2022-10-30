@@ -319,7 +319,7 @@
 					lua_name = 'timeLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
-					text = '토벌 기간 : 10/11 00:00 ~ 10/17 23:59';
+					text = 'timeLabel';
 					h_alignment = 1;
 					v_alignment = 0;
 					color = { 0; 200; 0; };

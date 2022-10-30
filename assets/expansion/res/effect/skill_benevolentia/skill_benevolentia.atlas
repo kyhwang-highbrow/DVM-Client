@@ -1,0 +1,251 @@
+
+skill_benevolentia.png
+size: 2046,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_circle3
+  rotate: false
+  xy: 775, 73
+  size: 124, 124
+  orig: 124, 124
+  offset: 0, 0
+  index: -1
+effect_circle_1
+  rotate: false
+  xy: 2, 53
+  size: 631, 631
+  orig: 631, 631
+  offset: 0, 0
+  index: -1
+effect_circle_2
+  rotate: false
+  xy: 2, 1059
+  size: 987, 987
+  orig: 987, 987
+  offset: 0, 0
+  index: -1
+effect_petal1
+  rotate: false
+  xy: 1799, 1908
+  size: 122, 138
+  orig: 122, 138
+  offset: 0, 0
+  index: -1
+effect_petal2
+  rotate: false
+  xy: 635, 71
+  size: 138, 126
+  orig: 138, 126
+  offset: 0, 0
+  index: -1
+effect_petal3
+  rotate: true
+  xy: 1061, 724
+  size: 74, 113
+  orig: 74, 113
+  offset: 0, 0
+  index: -1
+effect_petal4
+  rotate: true
+  xy: 1340, 160
+  size: 74, 105
+  orig: 74, 105
+  offset: 0, 0
+  index: -1
+effect_petal5
+  rotate: false
+  xy: 1200, 161
+  size: 138, 73
+  orig: 138, 73
+  offset: 0, 0
+  index: -1
+effect_petal6
+  rotate: false
+  xy: 1923, 1957
+  size: 97, 89
+  orig: 97, 89
+  offset: 0, 0
+  index: -1
+effect_petal7
+  rotate: false
+  xy: 1625, 809
+  size: 80, 63
+  orig: 80, 63
+  offset: 0, 0
+  index: -1
+effect_petal8
+  rotate: true
+  xy: 635, 2
+  size: 67, 90
+  orig: 67, 90
+  offset: 0, 0
+  index: -1
+effect_wind1_1
+  rotate: true
+  xy: 635, 199
+  size: 485, 281
+  orig: 485, 281
+  offset: 0, 0
+  index: -1
+effect_wind1_2
+  rotate: false
+  xy: 991, 1364
+  size: 452, 196
+  orig: 452, 196
+  offset: 0, 0
+  index: -1
+effect_wind1_3
+  rotate: false
+  xy: 991, 1901
+  size: 806, 145
+  orig: 806, 145
+  offset: 0, 0
+  index: -1
+effect_wind1_4
+  rotate: false
+  xy: 991, 1562
+  size: 525, 156
+  orig: 525, 156
+  offset: 0, 0
+  index: -1
+effect_wind1_5
+  rotate: true
+  xy: 1711, 1723
+  size: 176, 80
+  orig: 176, 80
+  offset: 0, 0
+  index: -1
+effect_wind1_6
+  rotate: true
+  xy: 1445, 1416
+  size: 144, 66
+  orig: 144, 66
+  offset: 0, 0
+  index: -1
+effect_wind2
+  rotate: false
+  xy: 2, 686
+  size: 1057, 371
+  orig: 1057, 371
+  offset: 0, 0
+  index: -1
+effect_wind3
+  rotate: false
+  xy: 991, 1720
+  size: 718, 179
+  orig: 718, 179
+  offset: 0, 0
+  index: -1
+hit_00000
+  rotate: false
+  xy: 991, 1082
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00001
+  rotate: false
+  xy: 1061, 800
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00002
+  rotate: false
+  xy: 1273, 1082
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00003
+  rotate: false
+  xy: 1343, 800
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00004
+  rotate: false
+  xy: 918, 404
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00005
+  rotate: false
+  xy: 918, 122
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00006
+  rotate: false
+  xy: 1200, 518
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00007
+  rotate: false
+  xy: 1200, 236
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00008
+  rotate: false
+  xy: 1482, 518
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00009
+  rotate: false
+  xy: 1482, 236
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00010
+  rotate: false
+  xy: 1518, 1438
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00011
+  rotate: false
+  xy: 1555, 1156
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00012
+  rotate: false
+  xy: 1625, 874
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00013
+  rotate: false
+  xy: 1764, 592
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00014
+  rotate: false
+  xy: 1764, 310
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+hit_00015
+  rotate: false
+  xy: 1764, 28
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1

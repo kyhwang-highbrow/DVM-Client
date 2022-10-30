@@ -9,6 +9,7 @@
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -22,6 +23,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 0; 147; 0; };
@@ -37,6 +39,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -50,6 +53,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/event/bg_new_dragon.png';
 					color = { 255; 255; 255; };
@@ -61,6 +65,7 @@
 				};
 				type = 'ClippingNode';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -74,6 +79,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				stencil_type = 0;
 				stencil_img = '';
@@ -82,8 +88,90 @@
 			};
 			[3] =
 			{
-				type = 'Sprite';
-				ui_name = '';
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					flag = '';
+					x = 564.000000;
+					y = -438.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					file_name = 'ui/a2d/clan_war/clan_war.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;light_01';
+					color = { 255; 215; 0; };
+					opacity = 255;
+				};
+				[2] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					flag = '';
+					x = -148.000000;
+					y = -439.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					file_name = 'ui/a2d/clan_war/clan_war.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;light_01';
+					color = { 255; 215; 0; };
+					opacity = 255;
+				};
+				[3] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = -320.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					file_name = 'ui/a2d/clan_war/clan_war.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;light_01';
+					color = { 255; 215; 0; };
+					opacity = 255;
+				};
+				type = 'ClippingNode';
+				ui_name = '불';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -96,20 +184,19 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
+				screen_ui = 0;
 				lua_name = '';
-				file_name = 'ui/typo/ko/event_new_dragon.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
 			};
 			[4] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
+				flag = '';
 				x = 5.000000;
 				y = 252.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -123,6 +210,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 55;
@@ -145,17 +233,20 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
+				use_auto_fontsize = false;
+				has_bold = false;
 			};
 			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 5.000000;
-				y = 298.000000;
+				flag = '';
+				x = -220.000000;
+				y = 202.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 900;
+				width = 500;
 				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -163,6 +254,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
@@ -171,7 +263,7 @@
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 900;
+				dimension_width = 500;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -185,11 +277,14 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
+				use_auto_fontsize = false;
+				has_bold = false;
 			};
 			[6] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -215.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -203,6 +298,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
@@ -225,9 +321,92 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
+				use_auto_fontsize = false;
+				has_bold = false;
+			};
+			[7] =
+			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					flag = '';
+					x = -114.000000;
+					y = 115.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.200000;
+					scale_y = 1.200000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					file_name = 'ui/a2d/package_montly_02/bg_montly_03.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;idle';
+					color = { 255; 255; 224; };
+					opacity = 180;
+				};
+				type = 'ClippingNode';
+				ui_name = '반짝이';
+				flag = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 930;
+				height = 640;
+				scale_x = -1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = '';
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
+			};
+			[8] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				flag = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 930;
+				height = 640;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = '';
+				file_name = 'ui/typo/ko/event_new_dragon.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
@@ -241,10 +420,12 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = '';
 		};
 		type = 'Menu';
 		ui_name = '';
+		flag = '';
 		x = 0.000000;
 		y = 0.000000;
 		dock_point = { 0.500000; 0.500000; };
@@ -258,6 +439,7 @@
 		skew_y = 0.000000;
 		rotation = 0.000000;
 		visible = true;
+		screen_ui = 0;
 		lua_name = '';
 	};
 };

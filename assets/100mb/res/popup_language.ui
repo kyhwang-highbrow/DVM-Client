@@ -9,6 +9,7 @@
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -22,6 +23,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/frames/base_frame_0801.png';
 				color = { 255; 255; 255; };
@@ -35,6 +37,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = -24.000000;
 				y = -24.000000;
 				dock_point = { 1.000000; 1.000000; };
@@ -48,6 +51,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'closeBtn';
 				enable = true;
 				normal = 'ui/buttons/64_close_btn_0101.png';
@@ -61,6 +65,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -74,6 +79,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 28;
@@ -96,9 +102,12 @@
 					shadow_opacity = 150;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 50.000000;
 				dock_point = { 0.500000; 0.000000; };
@@ -112,6 +121,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'okBtn';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0101.png';
@@ -125,6 +135,7 @@
 				{
 					type = 'LayerColor';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -138,6 +149,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					color = { 81; 63; 47; };
 					opacity = 100;
@@ -148,6 +160,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = 'fontFix';
+					flag = '';
 					x = 110.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -161,6 +174,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'esLabel';
 					font_name = 'font/common_font_01_ja.ttf';
 					font_size = 32;
@@ -183,11 +197,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -201,6 +218,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/radio_btn_0201.png';
 					color = { 255; 255; 255; };
@@ -214,6 +232,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -227,6 +246,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'esRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
@@ -240,6 +260,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -253,6 +274,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'esRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
@@ -264,6 +286,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -277,6 +300,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/language_set/language_set_es.png';
 					color = { 255; 255; 255; };
@@ -288,6 +312,7 @@
 				};
 				type = 'Menu';
 				ui_name = '스페인어';
+				flag = '';
 				x = 176.000000;
 				y = -31.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -300,7 +325,8 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
+				screen_ui = 0;
 				lua_name = 'esMenu';
 			};
 			[5] =
@@ -309,6 +335,7 @@
 				{
 					type = 'LayerColor';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -322,6 +349,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					color = { 81; 63; 47; };
 					opacity = 100;
@@ -332,6 +360,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = 'fontFix';
+					flag = '';
 					x = 110.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -345,6 +374,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'thLabel';
 					font_name = 'font/common_font_01_th.ttf';
 					font_size = 32;
@@ -367,11 +397,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -385,6 +418,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/radio_btn_0201.png';
 					color = { 255; 255; 255; };
@@ -398,6 +432,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -411,6 +446,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'thRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
@@ -424,6 +460,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -437,6 +474,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'thRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
@@ -448,6 +486,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -461,6 +500,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/language_set/language_set_th.png';
 					color = { 255; 255; 255; };
@@ -472,6 +512,7 @@
 				};
 				type = 'Menu';
 				ui_name = '태국어';
+				flag = '';
 				x = 176.000000;
 				y = 39.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -484,7 +525,8 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
+				screen_ui = 0;
 				lua_name = 'thMenu';
 			};
 			[6] =
@@ -493,6 +535,7 @@
 				{
 					type = 'LayerColor';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -506,6 +549,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					color = { 81; 63; 47; };
 					opacity = 100;
@@ -516,6 +560,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 110.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -529,6 +574,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'jaLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 32;
@@ -551,11 +597,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -569,6 +618,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/radio_btn_0201.png';
 					color = { 255; 255; 255; };
@@ -582,6 +632,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -595,6 +646,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'jaRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
@@ -608,6 +660,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -621,6 +674,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'jaRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
@@ -632,6 +686,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -645,6 +700,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/language_set/language_set_ja.png';
 					color = { 255; 255; 255; };
@@ -656,6 +712,7 @@
 				};
 				type = 'Menu';
 				ui_name = '일본어';
+				flag = '';
 				x = 176.000000;
 				y = 109.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -668,7 +725,8 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
+				screen_ui = 0;
 				lua_name = 'jaMenu';
 			};
 			[7] =
@@ -677,6 +735,7 @@
 				{
 					type = 'LayerColor';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -690,6 +749,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					color = { 81; 63; 47; };
 					opacity = 100;
@@ -700,6 +760,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 110.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -713,6 +774,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'faLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 32;
@@ -735,11 +797,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -753,6 +818,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/radio_btn_0201.png';
 					color = { 255; 255; 255; };
@@ -766,6 +832,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -779,6 +846,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'faRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
@@ -792,6 +860,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -805,6 +874,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'faRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
@@ -816,6 +886,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -829,6 +900,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/language_set/language_set_fa.png';
 					color = { 255; 255; 255; };
@@ -840,6 +912,7 @@
 				};
 				type = 'Menu';
 				ui_name = '페르시아어';
+				flag = '';
 				x = -174.000000;
 				y = -101.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -852,7 +925,8 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
+				screen_ui = 0;
 				lua_name = 'faMenu';
 			};
 			[8] =
@@ -861,6 +935,7 @@
 				{
 					type = 'LayerColor';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -874,6 +949,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					color = { 81; 63; 47; };
 					opacity = 100;
@@ -884,6 +960,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 110.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -897,6 +974,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'zhLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 32;
@@ -919,11 +997,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -937,6 +1018,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/radio_btn_0201.png';
 					color = { 255; 255; 255; };
@@ -950,6 +1032,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -963,6 +1046,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'zhRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
@@ -976,6 +1060,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -989,6 +1074,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'zhRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
@@ -1000,6 +1086,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1013,6 +1100,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/language_set/language_set_zh.png';
 					color = { 255; 255; 255; };
@@ -1024,6 +1112,7 @@
 				};
 				type = 'Menu';
 				ui_name = '중국어(번체)';
+				flag = '';
 				x = -174.000000;
 				y = -31.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -1036,7 +1125,8 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
+				screen_ui = 0;
 				lua_name = 'zhMenu';
 			};
 			[9] =
@@ -1045,6 +1135,7 @@
 				{
 					type = 'LayerColor';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1058,6 +1149,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					color = { 81; 63; 47; };
 					opacity = 100;
@@ -1068,6 +1160,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 110.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -1081,6 +1174,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'koLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 32;
@@ -1103,11 +1197,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -1121,6 +1218,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/radio_btn_0201.png';
 					color = { 255; 255; 255; };
@@ -1134,6 +1232,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -1147,6 +1246,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'koRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
@@ -1160,6 +1260,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1173,6 +1274,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'koRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
@@ -1184,6 +1286,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1197,6 +1300,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/language_set/language_set_ko.png';
 					color = { 255; 255; 255; };
@@ -1208,6 +1312,7 @@
 				};
 				type = 'Menu';
 				ui_name = '한국어';
+				flag = '';
 				x = -174.000000;
 				y = 39.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -1220,7 +1325,8 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
+				screen_ui = 0;
 				lua_name = 'koMenu';
 			};
 			[10] =
@@ -1229,6 +1335,7 @@
 				{
 					type = 'LayerColor';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1242,6 +1349,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					color = { 81; 63; 47; };
 					opacity = 100;
@@ -1252,6 +1360,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 110.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -1265,6 +1374,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'enLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 32;
@@ -1287,11 +1397,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -1305,6 +1418,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/radio_btn_0201.png';
 					color = { 255; 255; 255; };
@@ -1318,6 +1432,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 60.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
@@ -1331,6 +1446,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'enRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
@@ -1344,6 +1460,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1357,6 +1474,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'enRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
@@ -1368,6 +1486,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1381,6 +1500,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/buttons/language_set/language_set_en.png';
 					color = { 255; 255; 255; };
@@ -1392,6 +1512,7 @@
 				};
 				type = 'Menu';
 				ui_name = '영어';
+				flag = '';
 				x = -174.000000;
 				y = 109.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -1404,13 +1525,15 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
+				screen_ui = 0;
 				lua_name = 'enMenu';
 			};
 			[11] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -50.000000;
 				dock_point = { 0.500000; 1.000000; };
@@ -1424,6 +1547,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
@@ -1446,11 +1570,14 @@
 				shadow_opacity = 150;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
+				use_auto_fontsize = false;
+				has_bold = false;
 			};
 			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -70.000000;
 				dock_point = { 0.500000; 1.000000; };
@@ -1464,6 +1591,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
@@ -1486,11 +1614,14 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
+				use_auto_fontsize = false;
+				has_bold = false;
 			};
 			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -40.000000;
 				dock_point = { 0.500000; 1.000000; };
@@ -1504,6 +1635,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
@@ -1526,9 +1658,12 @@
 				shadow_opacity = 150;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
+				use_auto_fontsize = false;
+				has_bold = false;
 			};
 			type = 'Menu';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
@@ -1542,10 +1677,12 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = '';
 		};
 		type = 'Menu';
 		ui_name = '';
+		flag = '';
 		x = 0.000000;
 		y = 0.000000;
 		dock_point = { 0.500000; 0.500000; };
@@ -1559,6 +1696,7 @@
 		skew_y = 0.000000;
 		rotation = 0.000000;
 		visible = true;
+		screen_ui = 0;
 		lua_name = '';
 	};
 };

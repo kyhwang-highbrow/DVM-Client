@@ -1,0 +1,601 @@
+
+pride_all_03.png
+size: 2017,1038
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_01
+  rotate: true
+  xy: 1850, 856
+  size: 180, 165
+  orig: 180, 165
+  offset: 0, 0
+  index: -1
+effect_02
+  rotate: false
+  xy: 1604, 511
+  size: 189, 142
+  orig: 189, 142
+  offset: 0, 0
+  index: -1
+effect_acc1
+  rotate: false
+  xy: 1805, 300
+  size: 78, 82
+  orig: 78, 82
+  offset: 0, 0
+  index: -1
+effect_acc2
+  rotate: true
+  xy: 1866, 152
+  size: 62, 57
+  orig: 62, 57
+  offset: 0, 0
+  index: -1
+effect_back002
+  rotate: false
+  xy: 2, 46
+  size: 388, 388
+  orig: 388, 388
+  offset: 0, 0
+  index: -1
+effect_back_003
+  rotate: true
+  xy: 1084, 114
+  size: 170, 166
+  orig: 170, 166
+  offset: 0, 0
+  index: -1
+effect_circle2
+  rotate: true
+  xy: 1850, 677
+  size: 177, 165
+  orig: 177, 165
+  offset: 0, 0
+  index: -1
+effect_pose1
+  rotate: false
+  xy: 2, 436
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+effect_pride_att1
+  rotate: false
+  xy: 1795, 511
+  size: 139, 142
+  orig: 139, 142
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 1925, 183
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+pride_all_03_acc_01
+  rotate: false
+  xy: 1805, 216
+  size: 78, 82
+  orig: 78, 82
+  offset: 0, 0
+  index: -1
+pride_all_03_acc_02
+  rotate: true
+  xy: 1117, 526
+  size: 184, 170
+  orig: 184, 170
+  offset: 0, 0
+  index: -1
+pride_all_03_acc_04
+  rotate: true
+  xy: 1251, 2
+  size: 108, 112
+  orig: 108, 112
+  offset: 0, 0
+  index: -1
+pride_all_03_acc_09
+  rotate: true
+  xy: 1188, 286
+  size: 68, 126
+  orig: 68, 126
+  offset: 0, 0
+  index: -1
+pride_all_03_acc_13
+  rotate: true
+  xy: 553, 131
+  size: 46, 82
+  orig: 46, 82
+  offset: 0, 0
+  index: -1
+pride_all_03_acc_14
+  rotate: true
+  xy: 165, 4
+  size: 40, 125
+  orig: 40, 125
+  offset: 0, 0
+  index: -1
+pride_all_03_acc_15
+  rotate: false
+  xy: 1620, 12
+  size: 73, 95
+  orig: 73, 95
+  offset: 0, 0
+  index: -1
+pride_all_03_acc_16
+  rotate: false
+  xy: 562, 44
+  size: 85, 85
+  orig: 85, 85
+  offset: 0, 0
+  index: -1
+pride_all_03_acc_17
+  rotate: true
+  xy: 392, 17
+  size: 105, 168
+  orig: 105, 168
+  offset: 0, 0
+  index: -1
+pride_all_03_arm_01
+  rotate: false
+  xy: 1604, 271
+  size: 131, 102
+  orig: 131, 102
+  offset: 0, 0
+  index: -1
+pride_all_03_arm_02
+  rotate: false
+  xy: 1488, 462
+  size: 114, 81
+  orig: 114, 81
+  offset: 0, 0
+  index: -1
+pride_all_03_arm_03
+  rotate: false
+  xy: 1488, 321
+  size: 114, 139
+  orig: 114, 139
+  offset: 0, 0
+  index: -1
+pride_all_03_arm_04
+  rotate: false
+  xy: 1527, 13
+  size: 91, 94
+  orig: 91, 94
+  offset: 0, 0
+  index: -1
+pride_all_03_body_01
+  rotate: false
+  xy: 1906, 415
+  size: 90, 94
+  orig: 90, 94
+  offset: 0, 0
+  index: -1
+pride_all_03_body_02
+  rotate: false
+  xy: 1307, 387
+  size: 163, 144
+  orig: 163, 144
+  offset: 0, 0
+  index: -1
+pride_all_03_body_03
+  rotate: true
+  xy: 1604, 375
+  size: 134, 158
+  orig: 134, 158
+  offset: 0, 0
+  index: -1
+pride_all_03_effect_03
+  rotate: false
+  xy: 1474, 545
+  size: 128, 172
+  orig: 128, 172
+  offset: 0, 0
+  index: -1
+pride_all_03_effect_04
+  rotate: false
+  xy: 604, 684
+  size: 352, 352
+  orig: 352, 352
+  offset: 0, 0
+  index: -1
+pride_all_03_effect_05
+  rotate: false
+  xy: 1289, 533
+  size: 183, 184
+  orig: 183, 184
+  offset: 0, 0
+  index: -1
+pride_all_03_effect_06
+  rotate: false
+  xy: 652, 235
+  size: 224, 223
+  orig: 224, 223
+  offset: 0, 0
+  index: -1
+pride_all_03_effect_07
+  rotate: false
+  xy: 884, 36
+  size: 198, 203
+  orig: 198, 203
+  offset: 0, 0
+  index: -1
+pride_all_03_effect_08
+  rotate: false
+  xy: 958, 712
+  size: 324, 324
+  orig: 324, 324
+  offset: 0, 0
+  index: -1
+pride_all_03_effect_09
+  rotate: false
+  xy: 1284, 719
+  size: 318, 317
+  orig: 318, 317
+  offset: 0, 0
+  index: -1
+pride_all_03_eye_01
+  rotate: true
+  xy: 1925, 152
+  size: 29, 27
+  orig: 29, 27
+  offset: 0, 0
+  index: -1
+pride_all_03_eye_02
+  rotate: false
+  xy: 350, 9
+  size: 40, 35
+  orig: 40, 35
+  offset: 0, 0
+  index: -1
+pride_all_03_eye_03
+  rotate: false
+  xy: 1954, 149
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+pride_all_03_eye_04
+  rotate: true
+  xy: 614, 2
+  size: 40, 38
+  orig: 40, 38
+  offset: 0, 0
+  index: -1
+pride_all_03_hands_01
+  rotate: true
+  xy: 562, 2
+  size: 40, 50
+  orig: 40, 50
+  offset: 0, 0
+  index: -1
+pride_all_03_hands_02
+  rotate: false
+  xy: 1695, 2
+  size: 56, 49
+  orig: 56, 49
+  offset: 0, 0
+  index: -1
+pride_all_03_hands_03
+  rotate: false
+  xy: 731, 5
+  size: 68, 45
+  orig: 68, 45
+  offset: 0, 0
+  index: -1
+pride_all_03_hands_04
+  rotate: false
+  xy: 1824, 50
+  size: 55, 43
+  orig: 55, 43
+  offset: 0, 0
+  index: -1
+pride_all_03_hands_05
+  rotate: false
+  xy: 1774, 99
+  size: 60, 52
+  orig: 60, 52
+  offset: 0, 0
+  index: -1
+pride_all_03_hands_06
+  rotate: false
+  xy: 1117, 475
+  size: 61, 49
+  orig: 61, 49
+  offset: 0, 0
+  index: -1
+pride_all_03_hands_07
+  rotate: false
+  xy: 292, 2
+  size: 56, 42
+  orig: 56, 42
+  offset: 0, 0
+  index: -1
+pride_all_03_hands_08
+  rotate: false
+  xy: 1973, 241
+  size: 42, 54
+  orig: 42, 54
+  offset: 0, 0
+  index: -1
+pride_all_03_hands_09
+  rotate: false
+  xy: 1836, 95
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+pride_all_03_hands_10
+  rotate: false
+  xy: 1940, 117
+  size: 33, 30
+  orig: 33, 30
+  offset: 0, 0
+  index: -1
+pride_all_03_head_01
+  rotate: true
+  xy: 878, 241
+  size: 217, 154
+  orig: 217, 154
+  offset: 0, 0
+  index: -1
+pride_all_03_head_02
+  rotate: true
+  xy: 1581, 109
+  size: 55, 111
+  orig: 55, 111
+  offset: 0, 0
+  index: -1
+pride_all_03_leg_01
+  rotate: true
+  xy: 1084, 18
+  size: 94, 165
+  orig: 94, 165
+  offset: 0, 0
+  index: -1
+pride_all_03_leg_02
+  rotate: false
+  xy: 1188, 356
+  size: 117, 168
+  orig: 117, 168
+  offset: 0, 0
+  index: -1
+pride_all_03_leg_03
+  rotate: true
+  xy: 1365, 10
+  size: 104, 160
+  orig: 104, 160
+  offset: 0, 0
+  index: -1
+pride_all_03_leg_04
+  rotate: true
+  xy: 1478, 235
+  size: 84, 96
+  orig: 84, 96
+  offset: 0, 0
+  index: -1
+pride_all_03_leg_05
+  rotate: false
+  xy: 1936, 534
+  size: 68, 141
+  orig: 68, 141
+  offset: 0, 0
+  index: -1
+pride_all_03_tail_01
+  rotate: true
+  xy: 1034, 286
+  size: 187, 152
+  orig: 187, 152
+  offset: 0, 0
+  index: -1
+pride_all_03_tail_02
+  rotate: false
+  xy: 652, 52
+  size: 230, 181
+  orig: 230, 181
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_01
+  rotate: false
+  xy: 604, 460
+  size: 321, 222
+  orig: 321, 222
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_02
+  rotate: true
+  xy: 1701, 169
+  size: 100, 87
+  orig: 100, 87
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_03
+  rotate: false
+  xy: 927, 475
+  size: 188, 207
+  orig: 188, 207
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_04
+  rotate: true
+  xy: 2, 2
+  size: 42, 161
+  orig: 42, 161
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_05
+  rotate: false
+  xy: 392, 124
+  size: 159, 310
+  orig: 159, 310
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_06
+  rotate: true
+  xy: 801, 23
+  size: 27, 81
+  orig: 27, 81
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_07
+  rotate: true
+  xy: 1893, 97
+  size: 53, 45
+  orig: 53, 45
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_08
+  rotate: false
+  xy: 1906, 354
+  size: 87, 59
+  orig: 87, 59
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_09
+  rotate: false
+  xy: 553, 179
+  size: 97, 255
+  orig: 97, 255
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_10
+  rotate: true
+  xy: 1604, 655
+  size: 99, 230
+  orig: 99, 230
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_11
+  rotate: false
+  xy: 1581, 166
+  size: 118, 103
+  orig: 118, 103
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_12
+  rotate: false
+  xy: 1790, 153
+  size: 74, 61
+  orig: 74, 61
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_13
+  rotate: false
+  xy: 1973, 297
+  size: 42, 55
+  orig: 42, 55
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_14
+  rotate: false
+  xy: 1885, 283
+  size: 86, 69
+  orig: 86, 69
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_15
+  rotate: false
+  xy: 1604, 756
+  size: 244, 280
+  orig: 244, 280
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_16
+  rotate: false
+  xy: 1329, 233
+  size: 147, 152
+  orig: 147, 152
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_17
+  rotate: true
+  xy: 1764, 384
+  size: 125, 140
+  orig: 125, 140
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_18
+  rotate: false
+  xy: 1695, 53
+  size: 68, 58
+  orig: 68, 58
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_19
+  rotate: false
+  xy: 1753, 5
+  size: 53, 39
+  orig: 53, 39
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_20
+  rotate: true
+  xy: 1885, 218
+  size: 63, 77
+  orig: 63, 77
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_21
+  rotate: true
+  xy: 1737, 286
+  size: 87, 66
+  orig: 87, 66
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_22
+  rotate: true
+  xy: 1701, 113
+  size: 54, 71
+  orig: 54, 71
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_23
+  rotate: true
+  xy: 1765, 46
+  size: 51, 57
+  orig: 51, 57
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_24
+  rotate: false
+  xy: 1252, 112
+  size: 75, 172
+  orig: 75, 172
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_25
+  rotate: true
+  xy: 1488, 116
+  size: 117, 91
+  orig: 117, 91
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_26
+  rotate: false
+  xy: 1034, 246
+  size: 48, 38
+  orig: 48, 38
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_27
+  rotate: true
+  xy: 654, 9
+  size: 41, 75
+  orig: 41, 75
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_28
+  rotate: true
+  xy: 1964, 181
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+pride_all_03_wings_29
+  rotate: true
+  xy: 1329, 116
+  size: 115, 157
+  orig: 115, 157
+  offset: 0, 0
+  index: -1
