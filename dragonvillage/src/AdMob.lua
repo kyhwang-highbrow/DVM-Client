@@ -25,7 +25,6 @@ function AdMob:init()
     elseif CppFunctions:isIos() then
         self.m_unitID = 'ca-app-pub-9497777061019569/2042688805'
         self.m_testUnitID = 'ca-app-pub-9497777061019569/1610486021'
-
     else
 
     end
@@ -50,6 +49,7 @@ function AdMob:adModuleInitialize(callback)
     do -- Firebase Crashlytics Log
         local log = 'AdMob:adModuleInitialize'
         --FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+        PerpleSdkManager.getCrashlytics():setLog(log)
     end
 
     local loading_ui = UI_Loading()
@@ -58,6 +58,7 @@ function AdMob:adModuleInitialize(callback)
     local ret = PerpleSDK:adMobInitialize(function(ret, info)
         do -- Firebase Crashlytics Log
             local log = 'AdMob:adModuleInitialize return ' .. tostring(ret) ..  ' ' .. tostring(info)
+            PerpleSdkManager.getCrashlytics():setLog(log)
             --FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
         end
 
@@ -92,6 +93,7 @@ function AdMob:_adMobLoadRewardedAd(ad_unit_id, callback)
     do -- Firebase Crashlytics Log
         local log = 'AdMob:_adMobLoadRewardedAd #' .. tostring(ad_unit_id)
         --FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+        PerpleSdkManager.getCrashlytics():setLog(log)
     end
 
     -- PerpleSDK:adMobLoadRewardAd(adUnitId, function(ret, info) end)를 호출한 것과 같음
@@ -99,6 +101,7 @@ function AdMob:_adMobLoadRewardedAd(ad_unit_id, callback)
         do -- Firebase Crashlytics Log
             local log = 'AdMob:_adMobLoadRewardedAd return ' .. tostring(ret) ..  ' ' .. tostring(info)
             --FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+            PerpleSdkManager.getCrashlytics():setLog(log)
         end
 
         -- ret : "success", "loading", "fail", 
@@ -118,20 +121,11 @@ end
 function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
     do -- Firebase Crashlytics Log
         local log = 'AdMob:_adMobShowRewardAd #' .. tostring(ad_unit_id)
+        PerpleSdkManager.getCrashlytics():setLog(log)
         --FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
     end
 
     if (isWin32() or isMac()) then
-
-        --[[
-        local msg = '동영상 광고 시점입니다.'
-        local sub_msg = '에뮬레이터에서 노출되는 팝업입니다.\n광고를 시청했다고 간주합니다.'
-        MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, function()
-            if callback then
-                callback('success', '')
-            end
-        end)
-        --]]
         self:adModuleShowRewardAd_Highbrow(callback, 'emulator')
         return
     end
@@ -181,7 +175,7 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
                     end
                 end
 
-                local msg = Str('광고를 불러오는 과정에서 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.')
+                local msg = Str('광고를 불러오는 과정에서 에러가 발생했습니다.')
                 local sub_msg = self:parseAdMobErrorMessage(info)
                 MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
 
@@ -198,6 +192,7 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
             do -- Firebase Crashlytics Log
                 local log = 'AdMob:_adMobShowRewardAd return ' .. tostring(ret) ..  ' ' .. tostring(info)
                 --FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+                PerpleSdkManager.getCrashlytics():setLog(log)
             end
 
             -- ret : 'success', 'cancel', 'fail'
@@ -214,7 +209,7 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
                     MakeSimplePopup(POPUP_TYPE.OK, msg)
 
                 else --if(ret == 'fail') then
-                    local msg = Str('광고를 재생하는 과정에서 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.')
+                    local msg = Str('광고 재생 과정에서 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.')
                     local sub_msg = self:parseAdMobErrorMessage(info)
                     MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
                 end

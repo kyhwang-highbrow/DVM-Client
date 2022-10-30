@@ -100,14 +100,24 @@ end
 -- function click_adBtn
 -------------------------------------
 function UI_SubscriptionPopupNew:click_adBtn()
-	-- 광고 비활성화 시
-	if (AdSDKSelector:isAdInactive()) then
-		AdSDKSelector:makePopupAdInactive()
-		return
-	end
+    if (IS_LIVE_SERVER() and getAppVerNum() < 1003008) 
+        or (IS_QA_SERVER() and getAppVerNum() < 8008)
+        or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() < 8009) then       
+            local msg = Str('새로운 버전의 게임이 업데이트 되었습니다.\n스토어를 통해 업데이트를 하기바랍니다.')
+                MakeNetworkPopup(POPUP_TYPE.YES_NO, msg, function() 
+                    SDKManager:goToAppStore()
+                    closeApplication() end)            
+        return
+    end
 
-    -- 광고 프리로드 요청
-    AdSDKSelector:adPreload(AD_TYPE['AUTO_ITEM_PICK'])
+	-- -- 광고 비활성화 시
+	-- if (AdSDKSelector:isAdInactive()) then
+	-- 	AdSDKSelector:makePopupAdInactive()
+	-- 	return
+	-- end
+
+    -- -- 광고 프리로드 요청
+    -- AdSDKSelector:adPreload(AD_TYPE['AUTO_ITEM_PICK'])
 
     -- 광고 안내 팝업
     local function ok_cb()

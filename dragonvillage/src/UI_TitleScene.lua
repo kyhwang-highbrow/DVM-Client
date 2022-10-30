@@ -1474,6 +1474,13 @@ end
 -- @brief 광고 모듈 초기화
 -------------------------------------
 function UI_TitleScene:workAdManagerInitialize()
+    if (IS_LIVE_SERVER() and getAppVerNum() < 1003008) 
+        or (IS_QA_SERVER() and getAppVerNum() < 8008)
+        or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() < 8009) then       
+            self:doNextWork()
+        return
+    end
+
     -- 로딩 UI On
     self.m_loadingUI:showLoading()
 

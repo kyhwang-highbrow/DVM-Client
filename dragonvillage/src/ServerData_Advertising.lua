@@ -95,15 +95,6 @@ end
 -- @type 시간 제한
 -------------------------------------
 function ServerData_Advertising:showAd(ad_type, finish_cb)
-    if true or (IS_LIVE_SERVER() and getAppVerNum() < 1003008) 
-        or (IS_QA_SERVER() and getAppVerNum() < 8008)
-        or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() < 8009) then
-
-            local msg = Str('새로운 버전의 게임이 업데이트 되었습니다.\n스토어를 통해 업데이트를 하기바랍니다.')
-            MakeNetworkPopup(POPUP_TYPE.YES_NO, msg, function() self:gotoAppStore() end)            
-        return
-    end
-
 
     PerpleSdkManager.getCrashlytics():setLog('showAd_0')
     if (isWin32()) then 
@@ -336,7 +327,6 @@ end
 -- function request_dailyAdShow
 -------------------------------------
 function ServerData_Advertising:request_dailyAdShow(ad_type, finish_cb, fail_cb)
-    cclog(ad_type)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
