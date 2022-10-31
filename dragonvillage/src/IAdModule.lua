@@ -62,7 +62,7 @@ end
 function IAdModule:adModuleShowRewardAd_Highbrow(callback, log)
     do -- Firebase Crashlytics Log
         local log = 'IAdModule:adModuleShowRewardAd_Highbrow'
-        --FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+        --PerpleSdkManager.getCrashlytics():setLog(log)
     end
 
     require('UI_HighbrowAds')

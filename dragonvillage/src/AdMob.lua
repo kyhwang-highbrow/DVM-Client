@@ -48,7 +48,7 @@ end
 function AdMob:adModuleInitialize(callback)
     do -- Firebase Crashlytics Log
         local log = 'AdMob:adModuleInitialize'
-        FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+        PerpleSdkManager.getCrashlytics():setLog(log)
     end
 
     local loading_ui = UI_Loading()
@@ -57,7 +57,7 @@ function AdMob:adModuleInitialize(callback)
     PerpleSDK:adMobInitialize(function(ret, info)
         do -- Firebase Crashlytics Log
             local log = 'AdMob:adModuleInitialize return ' .. tostring(ret) ..  ' ' .. tostring(info)
-            FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+            PerpleSdkManager.getCrashlytics():setLog(log)
         end
 
         loading_ui:close()
@@ -91,14 +91,14 @@ end
 function AdMob:_adMobLoadRewardedAd(ad_unit_id, callback)
     do -- Firebase Crashlytics Log
         local log = 'AdMob:_adMobLoadRewardedAd #' .. tostring(ad_unit_id)
-        FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+        PerpleSdkManager.getCrashlytics():setLog(log)
     end
 
     -- PerpleSDK:adMobLoadRewardAd(adUnitId, function(ret, info) end)를 호출한 것과 같음
     PerpleSDK:adMobLoadRewardAd(ad_unit_id, function(ret, info)
         do -- Firebase Crashlytics Log
             local log = 'AdMob:_adMobLoadRewardedAd return ' .. tostring(ret) ..  ' ' .. tostring(info)
-            FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+            PerpleSdkManager.getCrashlytics():setLog(log)
         end
 
         -- ret : "success", "loading", "fail", 
@@ -118,7 +118,7 @@ end
 function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
     do -- Firebase Crashlytics Log
         local log = 'AdMob:_adMobShowRewardAd #' .. tostring(ad_unit_id)
-        FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+        PerpleSdkManager.getCrashlytics():setLog(log)
     end
 
     if (isWin32() or isMac()) then
@@ -187,7 +187,7 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
         PerpleSDK:adMobShowRewardAd(ad_unit_id, function(ret, info)
             do -- Firebase Crashlytics Log
                 local log = 'AdMob:_adMobShowRewardAd return ' .. tostring(ret) ..  ' ' .. tostring(info)
-                FirebaseCrashlytics:getInstance():crashlyticsSetLog(log)
+                PerpleSdkManager.getCrashlytics():setLog(log)
             end
 
             -- ret : 'success', 'cancel', 'fail'
