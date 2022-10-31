@@ -195,7 +195,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 42;
-				text = '할로윈 축제 기념 패키지';
+				text = '잭-오-랜턴 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 234; 0; };

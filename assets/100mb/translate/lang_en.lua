@@ -12147,6 +12147,7 @@ return {['-일반공격-\n\n전투에서 드래곤들은 자동으로 공격을 
 ['이벤트 기간 내에 보상을 수령하지 못할 경우 복구가 불가능하니 주의하시길 바랍니다.']='Any unclaimed rewards will be expired after the event period.',
 ['이벤트 기간 동안 누적 결제 금액에 따라 보너스 아이템을 수령할 수 있습니다.']='Receive bonus items based on the cumulative purchase amount during the event period.',
 ['할로윈 기념 코스튬 판매']='Halloween Costume on Sale',
+['할로윈 코스튬 판매']='Halloween Costume on Sale',
 ['해피 할로윈 랜덤 박스']='Happy Halloween Random Box',
 ['{1}점 이상']='{1} or more',
 ['첫 구매']='First Purchase',
