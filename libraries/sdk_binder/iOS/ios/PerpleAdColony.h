@@ -5,7 +5,7 @@
 //  Created by PerpleLab on 2017. 9. 21..
 //  Copyright © 2017년 PerpleLab. All rights reserved.
 //
-
+/*
 #import <Foundation/Foundation.h>
 #import <AdColony/AdColony.h>
 #import "PerpleSDK.h"
@@ -25,3 +25,4 @@
 - (void)show:(NSString *)zoneId;
 
 @end
+*/

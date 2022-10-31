@@ -105,7 +105,7 @@
 @class PerpleTwitter;
 @class PerpleTapjoy;
 @class PerpleGameCenter;
-@class PerpleUnityAds;
+//@class PerpleUnityAds;
 @class PerpleAdColony;
 @class PerpleBilling;
 @class PerpleAdjust;
@@ -126,8 +126,8 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @property (nonatomic, retain) PerpleTwitter *mTwitter;
 @property (nonatomic, retain) PerpleTapjoy *mTapjoy;
 @property (nonatomic, retain) PerpleGameCenter *mGameCenter;
-@property (nonatomic, retain) PerpleUnityAds *mUnityAds;
-@property (nonatomic, retain) PerpleAdColony *mAdColony;
+//@property (nonatomic, retain) PerpleUnityAds *mUnityAds;
+//@property (nonatomic, retain) PerpleAdColony *mAdColony;
 @property (nonatomic, retain) PerpleBilling *mBilling;
 @property (nonatomic, retain) PerpleAdjust *mAdjust;
 @property (nonatomic, retain) PerpleAdMob *mAdMob;
@@ -216,14 +216,14 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) gameCenterLoginWithCompletion:(PerpleSDKCallback)callback;
 
 // @unityads
-- (void) unityAdsStart:(BOOL)isTestMode metaData:(NSString *)metaData completion:(PerpleSDKCallback)callback;
-- (void) unityAdsShow:(NSString *)placementId metaData:(NSString *)metaData;
+//- (void) unityAdsStart:(BOOL)isTestMode metaData:(NSString *)metaData completion:(PerpleSDKCallback)callback;
+//- (void) unityAdsShow:(NSString *)placementId metaData:(NSString *)metaData;
 
 // @adColonoy
-- (void) adColonyStart:(NSString *)zoneIds userId:(NSString *)userId;
-- (void) adColonySetUserId:(NSString *)userId;
-- (void) adColonyRequest:(NSString *)zoneId completion:(PerpleSDKCallback)callback;
-- (void) adColonyShow:(NSString *)zoneId;
+//- (void) adColonyStart:(NSString *)zoneIds userId:(NSString *)userId;
+//- (void) adColonySetUserId:(NSString *)userId;
+//- (void) adColonyRequest:(NSString *)zoneId completion:(PerpleSDKCallback)callback;
+//- (void) adColonyShow:(NSString *)zoneId;
 
 // @billing
 - (void) billingSetup:(NSString *)checkReceiptServerUrl saveTransactionUrl:saveTransactionUrl completion:(PerpleSDKCallback)callback;
@@ -240,6 +240,10 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (NSString *) adjustGetAdid;
 
 // @adMob
+- (void) adMobInitialize:(PerpleSDKCallback)callback;
+- (void) adMobLoadRewardAd:(NSString *)adUnitId completion:(PerpleSDKCallback)callback;
+- (void) adMobShowRewardAd:(NSString *)adUnitId completion:(PerpleSDKCallback)callback;
+
 - (void) adMobInitRewardedVideoAd;
 - (void) adMobInitInterstitialAd;
 
@@ -274,13 +278,13 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initTwitterWithCustomerKey:(NSString *)customerKey secret:(NSString *)customerSecret;
 - (BOOL) initTapjoyWithAppKey:(NSString *)appKey usePush:(BOOL)isUsePush debug:(BOOL)isDebug;
 - (BOOL) initGameCenterWithParentView:(UIViewController *)parentView;
-- (BOOL) initUnityAdsWithParentView:(UIViewController *)parentView gameId:(NSString *)gameId debug:(BOOL)isDebug;
-- (BOOL) initAdColonyWithParentView:(UIViewController *)parentView appId:(NSString *)appId;
+//- (BOOL) initUnityAdsWithParentView:(UIViewController *)parentView gameId:(NSString *)gameId debug:(BOOL)isDebug;
+//- (BOOL) initAdColonyWithParentView:(UIViewController *)parentView appId:(NSString *)appId;
 - (BOOL) initBilling;
 - (BOOL) initAdjustWithAppKey:(NSString *)appKey secret:(NSArray *)secretKey debug:(BOOL)isDebug;
-- (BOOL) initAdMobWithAppId:(NSString *)appId;
+//- (BOOL) initAdMobWithAppId:(NSString *)appId;
+- (BOOL) initAdMobWithParentView:(UIViewController *)parentView;
 - (BOOL) initAppleWithWindow:(UIWindow *)window;
-
 
 #pragma mark - Static methods
 

@@ -5,7 +5,7 @@
 //  Created by PerpleLab on 15/01/2019.
 //  Copyright © 2019 PerpleLab. All rights reserved.
 //
-
+/*
 #import "PerpleAdMobInterstitialAd.h"
 
 @implementation PerpleAdMobInterstitialAd
@@ -138,3 +138,4 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
     NSLog(@"PerpleAdMobInterstitialAd, interstitialWillLeaveApplication");
 }
 @end
+*/

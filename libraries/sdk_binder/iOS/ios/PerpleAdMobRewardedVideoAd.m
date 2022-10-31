@@ -6,6 +6,7 @@
 //  Copyright © 2019 PerpleLab. All rights reserved.
 //
 
+/*
 #import "PerpleAdMobRewardedVideoAd.h"
 
 @implementation PerpleAdMobRewardedVideoAd
@@ -247,3 +248,4 @@
 }
 
 @end
+*/

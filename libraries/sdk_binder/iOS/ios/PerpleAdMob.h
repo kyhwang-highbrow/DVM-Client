@@ -2,8 +2,8 @@
 //  PerpleAdMob.h
 //  PerpleSDK
 //
-//  Created by PerpleLab on 2018. 4. 20..
-//  Copyright © 2018년 PerpleLab. All rights reserved.
+//  Created by sgkim on 2021. 5. 27..
+//  Copyright © 2021년 highbrow. All rights reserved.
 //
 
 #ifndef PerpleAdMob_h
@@ -11,20 +11,23 @@
 
 @import GoogleMobileAds;
 #import "PerpleSDK.h"
-#import "PerpleAdMobRewardedVideoAd.h"
-#import "PerpleAdMobInterstitialAd.h"
+#import "AdMobRewardAdUnit.h"
 
 @interface PerpleAdMob : NSObject
 
-@property (nonatomic, copy) NSString *mAppId;
-@property PerpleAdMobRewardedVideoAd* mRewardedVideoAd;
-@property PerpleAdMobInterstitialAd* mInterstitialAd;
+#pragma mark - Properties
+@property (nonatomic, retain) UIViewController *mViewController;
+@property (nonatomic, retain) NSMutableDictionary *mAdMobRewardAdUnits;
 
-- (id) initWithAppId:(NSString *)appId;
+#pragma mark - Initialization
+- (id) initWithParentView:(UIViewController *)parentView;
 
-- (void) initRewardedVideoAd;
-- (void) initInterstitialAd;
+#pragma mark - APIs
+- (void) initialize:(PerpleSDKCallback)callback;
+- (void) loadRewardAd:(NSString *)adUnitId completion:(PerpleSDKCallback)callback;
+- (void) showRewardAd:(NSString *)adUnitId completion:(PerpleSDKCallback)callback;
 
+#pragma mark - AppDelegate
 - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 
 @end

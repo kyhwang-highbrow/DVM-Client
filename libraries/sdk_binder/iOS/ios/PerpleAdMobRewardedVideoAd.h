@@ -8,7 +8,7 @@
 
 #ifndef PerpleAdMobRewardedVideoAd_h
 #define PerpleAdMobRewardedVideoAd_h
-
+/*
 @import GoogleMobileAds;
 #import "PerpleSDK.h"
 
@@ -29,5 +29,5 @@
 - (void) adMobLoadError:(GADRequestError *) error;
 
 @end
-
+*/
 #endif /* PerpleAdMobRewardedVideoAd_h */

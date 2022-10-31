@@ -8,7 +8,7 @@
 
 #ifndef PerpleAdMobInterstitialAd_h
 #define PerpleAdMobInterstitialAd_h
-
+/*
 @import GoogleMobileAds;
 #import "PerpleSDK.h"
 
@@ -27,5 +27,6 @@
 - (void) show;
 
 @end
+*/
 
 #endif /* PerpleAdMobInterstitialAd_h */

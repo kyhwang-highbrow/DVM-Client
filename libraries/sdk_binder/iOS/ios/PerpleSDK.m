@@ -13,8 +13,8 @@
 #import "PerpleTwitter.h"
 #import "PerpleTapjoy.h"
 #import "PerpleGameCenter.h"
-#import "PerpleUnityAds.h"
-#import "PerpleAdColony.h"
+//#import "PerpleUnityAds.h"
+//#import "PerpleAdColony.h"
 #import "PerpleBilling.h"
 #import "PerpleAdjust.h"
 #import "PerpleAdMob.h"
@@ -39,8 +39,8 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
 @synthesize mTwitter;
 @synthesize mTapjoy;
 @synthesize mGameCenter;
-@synthesize mUnityAds;
-@synthesize mAdColony;
+//@synthesize mUnityAds;
+//@synthesize mAdColony;
 @synthesize mBilling;
 @synthesize mAdMob;
 @synthesize mApple;
@@ -876,6 +876,7 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
                           }];
 }
 
+/*
 - (void) unityAdsStart:(BOOL)isTestMode
               metaData:(NSString *)metaData
             completion:(PerpleSDKCallback)callback {
@@ -896,8 +897,8 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
         [self.mUnityAds show:placementId
                     metaData:metaData];
     }
-}
-
+}*/
+/*
 - (void) adColonyStart:(NSString *)zoneIds
                 userId:(NSString *)userId {
     if (self.mAdColony) {
@@ -924,7 +925,7 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     if (self.mAdColony) {
         [self.mAdColony show:zoneId];
     }
-}
+}*/
 
 - (void) billingSetup:(NSString *)checkReceiptServerUrl
    saveTransactionUrl:saveTransactionUrl
@@ -1022,67 +1023,92 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     return [self.mAdjust getAdid];
 }
 
+- (void) adMobInitialize:(PerpleSDKCallback)callback {
+    if (self.mAdMob == nil) {
+        
+        NSLog(@"# mAdMob == nil");
+        return;
+    }
+    
+    NSLog(@"# PerpleSDK - adMobInitialize");
+    [self.mAdMob initialize:callback];
+}
+
+- (void) adMobLoadRewardAd:(NSString *)adUnitId completion:(PerpleSDKCallback)callback {
+    if (self.mAdMob == nil) {
+        return;
+    }
+    [self.mAdMob loadRewardAd:adUnitId completion:callback];
+}
+
+- (void) adMobShowRewardAd:(NSString *)adUnitId completion:(PerpleSDKCallback)callback {
+    if (self.mAdMob == nil) {
+        return;
+    }
+    [self.mAdMob showRewardAd:adUnitId completion:callback];
+}
+
 - (void) adMobInitRewardedVideoAd {
     if (self.mAdMob == nil) {
         return;
     }
-    [self.mAdMob initRewardedVideoAd];
+    //[self.mAdMob initRewardedVideoAd];
 }
 
 - (void) adMobInitInterstitialAd {
     if (self.mAdMob == nil) {
         return;
     }
-    [self.mAdMob initInterstitialAd];
+    //[self.mAdMob initInterstitialAd];
 }
 
 - (void) rvAdLoadRequestWithId:(NSString *)adUnitId {
     if (self.mAdMob == nil) {
         return;
     }
-    [[self.mAdMob mRewardedVideoAd] loadRequestWithId:adUnitId];
+    //[[self.mAdMob mRewardedVideoAd] loadRequestWithId:adUnitId];
 }
 
 - (void) rvAdSetResultCallback:(PerpleSDKCallback)callback {
     if (self.mAdMob == nil) {
         return;
     }
-    [[self.mAdMob mRewardedVideoAd] setResultCallback:callback];
+    //[[self.mAdMob mRewardedVideoAd] setResultCallback:callback];
 }
 
 - (void) rvAdShow:(NSString *)adUnitId {
     if (self.mAdMob == nil) {
         return;
     }
-    [[self.mAdMob mRewardedVideoAd] show:adUnitId];
+    //[[self.mAdMob mRewardedVideoAd] show:adUnitId];
 }
 
 - (void) itAdSetAdUnitId:(NSString *)adUnitId {
     if (self.mAdMob == nil) {
         return;
     }
-    [[self.mAdMob mInterstitialAd] setAdUnitId:adUnitId];
+    //[[self.mAdMob mInterstitialAd] setAdUnitId:adUnitId];
 }
 
 - (void) itAdSetResultCallback:(PerpleSDKCallback)callback {
     if (self.mAdMob == nil) {
         return;
     }
-    [[self.mAdMob mInterstitialAd] setResultCallback:callback];
+    //[[self.mAdMob mInterstitialAd] setResultCallback:callback];
 }
 
 - (void) itAdLoadRequest {
     if (self.mAdMob == nil) {
         return;
     }
-    [[self.mAdMob mInterstitialAd] loadRequest];
+    //[[self.mAdMob mInterstitialAd] loadRequest];
 }
 
 - (void) itAdShow {
     if (self.mAdMob == nil) {
         return;
     }
-    [[self.mAdMob mInterstitialAd] show];
+    //[[self.mAdMob mInterstitialAd] show];
 }
 
 - (void) crashlyticsForceCrash {
@@ -1186,7 +1212,7 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     return YES;
 }
 
-- (BOOL) initUnityAdsWithParentView:(UIViewController *)parentView
+/*- (BOOL) initUnityAdsWithParentView:(UIViewController *)parentView
                              gameId:(NSString *)gameId
                               debug:(BOOL)isDebug {
     self.mUnityAds = [[PerpleUnityAds alloc] initWithGameId:gameId
@@ -1196,8 +1222,8 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
         return NO;
     }
     return YES;
-}
-
+}*/
+/*
 - (BOOL) initAdColonyWithParentView:(UIViewController *)parentView
                               appId:(NSString *)appId {
     self.mAdColony = [[PerpleAdColony alloc] initWithAppId:appId
@@ -1207,7 +1233,7 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
         return NO;
     }
     return YES;
-}
+}*/
 
 - (BOOL) initBilling {
     self.mBilling = [[PerpleBilling alloc] init];
@@ -1226,14 +1252,15 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     return YES;
 }
 
-- (BOOL) initAdMobWithAppId:(NSString *)appId {
-    self.mAdMob = [[PerpleAdMob alloc] initWithAppId:appId];
+- (BOOL) initAdMobWithParentView:(UIViewController *)parentView {
+    self.mAdMob = [[PerpleAdMob alloc] initWithParentView:parentView];
 
     if (self.mAdMob == nil) {
         return NO;
     }
     return YES;
 }
+
 
 - (BOOL) initAppleWithWindow:(UIWindow *)window {
     self.mApple = [[HbApple alloc] initAppleWithWindow:window];
@@ -1251,8 +1278,8 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     self.mTwitter = nil;
     self.mTapjoy = nil;
     self.mGameCenter = nil;
-    self.mUnityAds = nil;
-    self.mAdColony = nil;
+    //self.mUnityAds = nil;
+    //self.mAdColony = nil;
     self.mBilling = nil;
     self.mAdMob = nil;
 

@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 project 'DragonVillageM'
 
@@ -14,7 +14,7 @@ target 'DragonVillageM iOS' do
     pod 'Firebase/Auth'
     pod 'Firebase/Messaging'
     pod 'Firebase/Crashlytics'
-    pod 'Firebase/Analytics'
+    pod 'Firebase/Analytics', '8.1.0'
     
     ## SOCIAL
     # Pods for Google

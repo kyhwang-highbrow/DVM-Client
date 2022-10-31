@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'sdk_binder' do
     # Uncomment this line if you're using Swift or would like to use dynamic frameworks
@@ -12,7 +12,7 @@ target 'sdk_binder' do
     pod 'Firebase/Auth'
     pod 'Firebase/Messaging'
     pod 'Firebase/Crashlytics'
-    pod 'Firebase/Analytics'
+    pod 'Firebase/Analytics', '8.1.0'
     
     ## SOCIAL
     # Pods for Google
@@ -58,3 +58,5 @@ target 'sdk_binder' do
     # Pods for Adjust
     pod 'Adjust', '4.29.6'
 end
+
+

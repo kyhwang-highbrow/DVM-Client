@@ -5,7 +5,7 @@
 //  Created by PerpleLab on 2017. 8. 16..
 //  Copyright © 2017년 PerpleLab. All rights reserved.
 //
-
+/*
 #import "PerpleUnityAds.h"
 
 @implementation PerpleUnityAds
@@ -203,3 +203,4 @@
 }
 
 @end
+*/

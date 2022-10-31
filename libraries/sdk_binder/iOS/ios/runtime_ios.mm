@@ -612,44 +612,44 @@ void gameCenterLogin(int funcID) {
 void unityAdsStart(int funcID, const char* mode, const char* metaData) {
     // start / ready / finish / error
     const int processId = [PerpleSDK getProcessId];
-    [[PerpleSDK sharedInstance] unityAdsStart:(!strcmp(mode, "test"))
+    /*[[PerpleSDK sharedInstance] unityAdsStart:(!strcmp(mode, "test"))
                                      metaData:[NSString stringWithUTF8String:metaData]
                                    completion:^(NSString *result, NSString *info) {
                                        if ([PerpleSDK isCurrentProcessId:processId]) {
                                            PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
                                        }
-                                   }];
+                                   }];*/
 }
 
 void unityAdsShow(int funcID, const char* placementId, const char* metaData) {
-    [[PerpleSDK sharedInstance] unityAdsShow:[NSString stringWithUTF8String:placementId]
-                                    metaData:[NSString stringWithUTF8String:metaData]];
+    /*[[PerpleSDK sharedInstance] unityAdsShow:[NSString stringWithUTF8String:placementId]
+                                    metaData:[NSString stringWithUTF8String:metaData]];*/
 }
 
 #pragma mark - AdColony
 
 void adColonyStart(int funcID, const char* zoneIds, const char* userId) {
-    [[PerpleSDK sharedInstance] adColonyStart:[NSString stringWithUTF8String:zoneIds]
-                                       userId:[NSString stringWithUTF8String:userId]];
+    /*[[PerpleSDK sharedInstance] adColonyStart:[NSString stringWithUTF8String:zoneIds]
+                                       userId:[NSString stringWithUTF8String:userId]];*/
 }
 
 void adColonySetUserId(int funcID, const char* userId) {
-    [[PerpleSDK sharedInstance] adColonySetUserId:[NSString stringWithUTF8String:userId]];
+    //[[PerpleSDK sharedInstance] adColonySetUserId:[NSString stringWithUTF8String:userId]];
 }
 
 void adColonyReqeust(int funcID, const char* zoneId) {
     // ready / reward / error
     const int processId = [PerpleSDK getProcessId];
-    [[PerpleSDK sharedInstance] adColonyRequest:[NSString stringWithUTF8String:zoneId]
+    /*[[PerpleSDK sharedInstance] adColonyRequest:[NSString stringWithUTF8String:zoneId]
                                      completion:^(NSString *result, NSString *info) {
                                          if ([PerpleSDK isCurrentProcessId:processId]) {
                                              PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
                                          }
-                                     }];
+                                     }];*/
 }
 
 void adColonyShow(int funcID, const char* zoneId) {
-    [[PerpleSDK sharedInstance] adColonyShow:[NSString stringWithUTF8String:zoneId]];
+   // [[PerpleSDK sharedInstance] adColonyShow:[NSString stringWithUTF8String:zoneId]];
 }
 
 #pragma mark - Billing
@@ -752,6 +752,37 @@ const char*  adjustGetAdid( int funcID) {
 }
 
 #pragma mark - AdMob
+void adMobInitialize(int funcID) {
+    const int processId = [PerpleSDK getProcessId];
+    
+    NSLog(@"# runtime_ios - adMobInitialize");
+    [[PerpleSDK sharedInstance] adMobInitialize:^(NSString *result, NSString *info) {
+        if ([PerpleSDK isCurrentProcessId:processId]) {
+            PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
+        }
+    }];
+}
+
+void adMobLoadRewardAd(int funcID, const char* adUnitId) {
+    const int processId = [PerpleSDK getProcessId];
+    [[PerpleSDK sharedInstance] adMobLoadRewardAd:[NSString stringWithUTF8String:adUnitId]
+                                         completion:^(NSString *result, NSString *info) {
+                                             if ([PerpleSDK isCurrentProcessId:processId]) {
+                                                 PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
+                                             }
+                                         }];
+}
+
+void adMobShowRewardAd(int funcID, const char* adUnitId) {
+    const int processId = [PerpleSDK getProcessId];
+    [[PerpleSDK sharedInstance] adMobShowRewardAd:[NSString stringWithUTF8String:adUnitId]
+                                         completion:^(NSString *result, NSString *info) {
+                                             if ([PerpleSDK isCurrentProcessId:processId]) {
+                                                 PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
+                                             }
+                                         }];
+}
+
 void adMobInitRewardedVideoAd(int funcID) {
     [[PerpleSDK sharedInstance] adMobInitRewardedVideoAd];
 }

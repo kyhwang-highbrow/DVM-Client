@@ -40,6 +40,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		04AE5BA32909652E00FFC919 /* CCAsyncTaskPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04AE5BA12909652E00FFC919 /* CCAsyncTaskPool.cpp */; };
+		04AE5BA42909652E00FFC919 /* CCAsyncTaskPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04AE5BA12909652E00FFC919 /* CCAsyncTaskPool.cpp */; };
+		04AE5BA52909652E00FFC919 /* CCAsyncTaskPool.h in Headers */ = {isa = PBXBuildFile; fileRef = 04AE5BA22909652E00FFC919 /* CCAsyncTaskPool.h */; };
+		04AE5BA62909652E00FFC919 /* CCAsyncTaskPool.h in Headers */ = {isa = PBXBuildFile; fileRef = 04AE5BA22909652E00FFC919 /* CCAsyncTaskPool.h */; };
 		06C0F2EF186AD822003594D5 /* ObjectFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06CAAABA186AD63B0012A414 /* ObjectFactory.cpp */; };
 		06C0F2F0186AD824003594D5 /* ObjectFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06CAAABA186AD63B0012A414 /* ObjectFactory.cpp */; };
 		06CAAAC5186AD7E50012A414 /* TriggerObj.h in Headers */ = {isa = PBXBuildFile; fileRef = 06CAAAC1186AD63B0012A414 /* TriggerObj.h */; };
@@ -1979,6 +1983,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04AE5BA12909652E00FFC919 /* CCAsyncTaskPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCAsyncTaskPool.cpp; path = ../base/CCAsyncTaskPool.cpp; sourceTree = "<group>"; };
+		04AE5BA22909652E00FFC919 /* CCAsyncTaskPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAsyncTaskPool.h; path = ../base/CCAsyncTaskPool.h; sourceTree = "<group>"; };
 		06CAAABA186AD63B0012A414 /* ObjectFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectFactory.cpp; sourceTree = "<group>"; };
 		06CAAABB186AD63B0012A414 /* ObjectFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectFactory.h; sourceTree = "<group>"; };
 		06CAAABC186AD63B0012A414 /* TriggerBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriggerBase.cpp; sourceTree = "<group>"; };
@@ -3225,6 +3231,8 @@
 		1A5700A2180BC5E60088DEC7 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				04AE5BA12909652E00FFC919 /* CCAsyncTaskPool.cpp */,
+				04AE5BA22909652E00FFC919 /* CCAsyncTaskPool.h */,
 				50ABBDC11925AB6E00A911A9 /* atitc.cpp */,
 				50ABBDC21925AB6E00A911A9 /* atitc.h */,
 				50ABBDC31925AB6E00A911A9 /* base64.cpp */,
@@ -5225,6 +5233,7 @@
 				1A5701BB180BCB5A0088DEC7 /* CCLabel.h in Headers */,
 				1A5701BF180BCB5A0088DEC7 /* CCLabelAtlas.h in Headers */,
 				50ABBED91925AB6F00A911A9 /* ZipUtils.h in Headers */,
+				04AE5BA52909652E00FFC919 /* CCAsyncTaskPool.h in Headers */,
 				1A5701C3180BCB5A0088DEC7 /* CCLabelBMFont.h in Headers */,
 				50ABBE5F1925AB6F00A911A9 /* CCEventListener.h in Headers */,
 				1A5701C9180BCB5A0088DEC7 /* CCLabelTextFormatter.h in Headers */,
@@ -5695,6 +5704,7 @@
 				1A570068180BC5A10088DEC7 /* CCActionCamera.h in Headers */,
 				1A57006C180BC5A10088DEC7 /* CCActionCatmullRom.h in Headers */,
 				5034CA3A191D591100CE6051 /* ccShader_PositionColorLengthTexture.frag in Headers */,
+				04AE5BA62909652E00FFC919 /* CCAsyncTaskPool.h in Headers */,
 				50ABBEC41925AB6F00A911A9 /* CCVector.h in Headers */,
 				378658371C31050A001DB2DC /* MeshAttachment.h in Headers */,
 				50ABBE501925AB6F00A911A9 /* CCEventCustom.h in Headers */,
@@ -6458,6 +6468,7 @@
 				1A57011B180BC90D0088DEC7 /* CCGrabber.cpp in Sources */,
 				1A57011F180BC90D0088DEC7 /* CCGrid.cpp in Sources */,
 				50FCEBA718C72017004AD434 /* LoadingBarReader.cpp in Sources */,
+				04AE5BA32909652E00FFC919 /* CCAsyncTaskPool.cpp in Sources */,
 				06C0F2EF186AD822003594D5 /* ObjectFactory.cpp in Sources */,
 				1A57019D180BCB590088DEC7 /* CCFont.cpp in Sources */,
 				3786588F1C31050D001DB2DC /* EventData.cpp in Sources */,
@@ -6896,6 +6907,7 @@
 				50ABBEA01925AB6F00A911A9 /* CCScheduler.cpp in Sources */,
 				50ABBE4E1925AB6F00A911A9 /* CCEventCustom.cpp in Sources */,
 				50ABBE761925AB6F00A911A9 /* CCEventListenerTouch.cpp in Sources */,
+				04AE5BA42909652E00FFC919 /* CCAsyncTaskPool.cpp in Sources */,
 				50ABBE5A1925AB6F00A911A9 /* CCEventKeyboard.cpp in Sources */,
 				1A570076180BC5A10088DEC7 /* CCActionGrid3D.cpp in Sources */,
 				B37510851823ACA100B3BA6A /* CCPhysicsWorldInfo_chipmunk.cpp in Sources */,

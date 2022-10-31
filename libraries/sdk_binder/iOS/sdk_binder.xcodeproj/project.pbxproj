@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04330415290EDF8C00F37564 /* AdMobRewardAdUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 04330405290E9DEA00F37564 /* AdMobRewardAdUnit.m */; };
 		1C445F231D7B9ACA00714F62 /* PerpleGameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C445F221D7B9ACA00714F62 /* PerpleGameCenter.m */; };
 		1C445F261D7B9D6400714F62 /* PerpleBilling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C445F251D7B9D6400714F62 /* PerpleBilling.m */; };
 		3706B2411D75232E006D1143 /* PerpleGoogle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3706B2401D75232E006D1143 /* PerpleGoogle.m */; };
@@ -42,7 +43,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		04F5CB5A283EEC8A00F819F8 /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libsdk_binder.a; path = "/Users/mac/Desktop/Highbrow/DVM/DVM_Client/libraries/sdk_binder/iOS/build/Debug-iphoneos/libsdk_binder.a"; sourceTree = "<absolute>"; };
+		04330404290E9DB100F37564 /* AdMobRewardAdUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdMobRewardAdUnit.h; sourceTree = "<group>"; };
+		04330405290E9DEA00F37564 /* AdMobRewardAdUnit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdMobRewardAdUnit.m; sourceTree = "<group>"; };
+		04330430290F0E6F00F37564 /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libsdk_binder.a; path = "/Users/mac/Desktop/Highbrow/DVM/DVM_Client/libraries/sdk_binder/iOS/build/Debug-iphoneos/libsdk_binder.a"; sourceTree = "<absolute>"; };
 		1C445F211D7B9ACA00714F62 /* PerpleGameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleGameCenter.h; sourceTree = "<group>"; };
 		1C445F221D7B9ACA00714F62 /* PerpleGameCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleGameCenter.m; sourceTree = "<group>"; };
 		1C445F241D7B9D6400714F62 /* PerpleBilling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleBilling.h; sourceTree = "<group>"; };
@@ -80,7 +83,6 @@
 		3C67A60B269DF6AC00C9558C /* TapjoyAdapter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TapjoyAdapter.framework; sourceTree = "<group>"; };
 		3E8FC35A250733DF00785D38 /* sdk_binder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sdk_binder-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E8FC35B250733E000785D38 /* HbApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HbApple.swift; sourceTree = "<group>"; };
-		566C03D3B83B288C8724C024 /* libPods-sdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sdk_binder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A198FA8D52FEC37C31F9BBF /* Pods-sdk_binder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.release.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.release.xcconfig"; sourceTree = "<group>"; };
 		9C38D2F1252F0B80004C2A62 /* lua_perplesdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk.h; sourceTree = "<group>"; };
 		9C38D2F2252F0B80004C2A62 /* lua_perplesdk_macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk_macro.h; sourceTree = "<group>"; };
@@ -165,6 +167,8 @@
 				3773CD2A21EE26AA00B22F35 /* PerpleAdMobInterstitialAd.m */,
 				3773CD2521EE190000B22F35 /* PerpleAdMobRewardedVideoAd.h */,
 				3773CD2621EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m */,
+				04330404290E9DB100F37564 /* AdMobRewardAdUnit.h */,
+				04330405290E9DEA00F37564 /* AdMobRewardAdUnit.m */,
 			);
 			name = AdMob;
 			sourceTree = "<group>";
@@ -182,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				3C67A60B269DF6AC00C9558C /* TapjoyAdapter.framework */,
-				566C03D3B83B288C8724C024 /* libPods-sdk_binder.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -214,7 +217,7 @@
 			);
 			name = sdk_binder;
 			productName = PerpleSDK;
-			productReference = 04F5CB5A283EEC8A00F819F8 /* libsdk_binder.a */;
+			productReference = 04330430290F0E6F00F37564 /* libsdk_binder.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -280,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04330415290EDF8C00F37564 /* AdMobRewardAdUnit.m in Sources */,
 				9C38D33D2533F95B004C2A62 /* lua_perplesdk.cpp in Sources */,
 				37AA47E01D4903F6008C7214 /* PerpleCore.cpp in Sources */,
 				3706B2411D75232E006D1143 /* PerpleGoogle.m in Sources */,

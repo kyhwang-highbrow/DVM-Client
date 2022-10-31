@@ -2,50 +2,66 @@
 //  PerpleAdMob.m
 //  PerpleSDK
 //
-//  Created by PerpleLab on 2018. 4. 20..
-//  Copyright © 2018년 PerpleLab. All rights reserved.
+//  Created by sgkim on 2021. 5. 27..
+//  Copyright © 2021년 highbrow. All rights reserved.
 //
 
 #import "PerpleAdMob.h"
 
 @implementation PerpleAdMob
 
-#define MAX_TRY_COUNT 10
-
 #pragma mark - Properties
-@synthesize mAppId;
-@synthesize mRewardedVideoAd;
-@synthesize mInterstitialAd;
+@synthesize mViewController;
+@synthesize mAdMobRewardAdUnits;
 
 #pragma mark - Initialization
-- (id) initWithAppId:(NSString *)appId{
-    NSLog(@"# PerpleAdMob, Initializing AdMob.");
-    self.mAppId = appId;
-    NSLog(@"# PerpleAdMob, app id : %@", self.mAppId);
-
+- (id) initWithParentView:(UIViewController *)parentView {
+    self.mViewController = parentView;
+    self.mAdMobRewardAdUnits = [NSMutableDictionary dictionary];
     return self;
 }
 
 - (void) dealloc {
-    self.mAppId = nil;
-
+    self.mViewController = nil;
+    self.mAdMobRewardAdUnits = nil;
+    
 #if !__has_feature(objc_arc)
     [super dealloc];
 #endif
 }
 
 #pragma mark - APIs
-- (void) initRewardedVideoAd {
-    mRewardedVideoAd = [[PerpleAdMobRewardedVideoAd alloc] init];
+- (void) initialize:(PerpleSDKCallback)callback {
+    
+    NSLog(@"# PerpleAdMob - initialize");
+    [[GADMobileAds sharedInstance] startWithCompletionHandler:^(GADInitializationStatus * _Nonnull status) {
+        callback(@"success", @"");
+    }];
 }
 
-- (void) initInterstitialAd {
-    mInterstitialAd = [[PerpleAdMobInterstitialAd alloc] init];
+- (void) loadRewardAd:(NSString *)adUnitId completion:(PerpleSDKCallback)callback {
+    AdMobRewardAdUnit *adUnit = [self.mAdMobRewardAdUnits objectForKey:adUnitId];
+    if (adUnit == nil) {
+        adUnit = [[AdMobRewardAdUnit alloc] initWithAdUnitId:adUnitId parentView:self.mViewController];
+        [self.mAdMobRewardAdUnits setObject:adUnit forKey:adUnitId];
+    }
+    
+    [adUnit loadRewardAd:callback];
+}
+
+- (void) showRewardAd:(NSString *)adUnitId completion:(PerpleSDKCallback)callback {
+    AdMobRewardAdUnit *adUnit = [self.mAdMobRewardAdUnits objectForKey:adUnitId];
+    if (adUnit == nil) {
+        adUnit = [[AdMobRewardAdUnit alloc] initWithAdUnitId:adUnitId parentView:self.mViewController];
+        [self.mAdMobRewardAdUnits setObject:adUnit forKey:adUnitId];
+    }
+    
+    [adUnit showRewardAd:callback];
 }
 
 #pragma mark - AppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    [GADMobileAds configureWithApplicationID:self.mAppId];
+    //[GADMobileAds configureWithApplicationID:self.mAppId];
     return YES;
 }
 

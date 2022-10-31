@@ -6,6 +6,7 @@
 //  Copyright © 2017년 PerpleLab. All rights reserved.
 //
 
+/*
 #import <Foundation/Foundation.h>
 #import "UnityAds/UnityAds.h"
 #import "PerpleSDK.h"
@@ -23,3 +24,4 @@
 - (void)show:(NSString *)placementId metaData:(NSString *)metaData;
 
 @end
+*/
