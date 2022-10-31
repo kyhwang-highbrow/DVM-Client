@@ -258,4 +258,5 @@ return {['고통을 덜어드리겠습니다.']='Déjame aliviar tu dolor.',
 ['티어메이커를 활용하여 최고의 드래곤을 뽑아주세요!']='¡que usa el Tier Maker Elige a los mejores dragones!',
 ['최우수 티어왕 (1명)']='Mejor nivel King (1 personas)',
 ['우수 티어왕 (3명)']='Excelente nivel king (3 personas)',
+['할로윈 코스튬 판매']='Venta de Traje de Halloween',
 ['참여자 보상 (10명)']='Compensación de los participantes (10 personas)'}
