@@ -118,7 +118,7 @@ end
 function PatchData:getAppVersionAndPatchIdxString()
 	local cur_app_ver = getAppVer()
     local patch_idx = self:get('patch_ver')
-    local patch_idx_str = string.format('Ver : %s, Patch : %d', cur_app_ver, patch_idx)
+    local patch_idx_str = string.format('ver : %s, Patch : %d', cur_app_ver, patch_idx)
     local select_server = g_localData:getServerName() or ' '
     local target_server = CppFunctions:getTargetServer()
 
