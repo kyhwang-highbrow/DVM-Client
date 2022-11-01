@@ -135,6 +135,11 @@ function UI_ButtonDragonRecall:click_recallBtn()
     end
 
     local struct_recall = table.getFirst(self.m_structRecallList)
+    if (struct_recall == nil) then
+        UIManager:toastNotificationRed(Str('조건에 해당하는 드래곤이 없습니다.'))
+        return        
+    end
+
     local target_dragon_list = struct_recall:getTargetDragonList()
 
     local target_dragon_object = table.getFirst(target_dragon_list)
