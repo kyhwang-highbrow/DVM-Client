@@ -1236,7 +1236,6 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
                 g_advertisingData:request_dailyAdShow(AD_TYPE.ADVANCED_SUMMON, finish_callback)
             else
                 -- 실패의 경우 함수 내부에서 알아서 처리됨
-                UIManager:toastNotificationRed(Str('잘못된 요청입니다.'))
             end
         end)
     end

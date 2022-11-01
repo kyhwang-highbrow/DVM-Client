@@ -121,7 +121,8 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
         PerpleSdkManager.getCrashlytics():setLog(log)
     end
 
-    if (isWin32() or isMac()) then
+    -- 개발환경인 경우
+    if IS_TEST_MODE() and (isWin32() or isMac()) then
         self:adModuleShowRewardAd_Highbrow(callback, 'emulator')
         return
     end
@@ -130,54 +131,72 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
 
     local func_load
     local func_show
-    local func_finish
 
     func_load = function()
         self:_adMobLoadRewardedAd(ad_unit_id, function(ret, info)
+            -- 1. 광고 로드 완료
             if (ret == 'success') then
                 -- @nextfunc
                 func_show()
-            elseif (ret == 'loading') then
+            -- 2. 이전 호출로 광고 로딩 중
+            elseif (ret == 'loading') then 
                 local msg = Str('광고를 불러오는 중입니다. 잠시 후에 다시 시도해주세요.')
-                MakeSimplePopup(POPUP_TYPE.OK, msg)
-
-                -- @escape
                 loading_ui:close()
+                MakeSimplePopup(POPUP_TYPE.OK, msg)
+                -- @escape
                 callback('fail')
+                
+            -- 3. 광고 로드 실패
             else--if (ret == 'fail') then
-                -- AdMob에서 광고를 받아오지 못하는 경우 테스트 광고로 전환
-                if (ad_unit_id ~= self.m_testUnitID) then
-                    local code = self:getCodeNumberFromInfoStr(info)
-                    if (code == 0) then
-                        -- 0: 'Internal error.'' (aos)
-                        loading_ui:close()
-                        self:adModuleShowRewardAd_Highbrow(callback, info)
-                        return
-
-                    elseif (code == 1) then
-                        -- 1: 'Request Error: No ad to show' (ios)
-                        loading_ui:close()
-                        self:adModuleShowRewardAd_Highbrow(callback, info)
-                        return
-
-                    elseif (code == 3) then
-                        -- 3: 'Ad failed to load' (aos)
-                        loading_ui:close()
-                        self:adModuleShowRewardAd_Highbrow(callback, info)
-                        return
-                    else
-                        loading_ui:close()
-                        self:adModuleShowRewardAd_Highbrow(callback, info)
+                local function fail_cb()
+                    
+                    local msg = Str('광고를 불러오는 과정에서 에러가 발생했습니다.')
+                    local sub_msg = self:parseAdMobErrorMessage(info)
+                    do
+                        local log = 'AdMob:_adMobShowRewardAd failed'
+                        if isString(sub_msg) then
+                            log = log .. ' #' .. sub_msg
+                        end
+                        PerpleSdkManager.getCrashlytics():setLog(log)
                     end
+
+                    MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+    
+                    -- @escape
+                    loading_ui:close()
+                    callback('fail')
                 end
 
-                local msg = Str('광고를 불러오는 과정에서 에러가 발생했습니다.')
-                local sub_msg = self:parseAdMobErrorMessage(info)
-                MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+                local function test_ad()
+                    -- AdMob에서 광고를 받아오지 못하는 경우 테스트 광고로 전환
+                    loading_ui:close()
+                    self:adModuleShowRewardAd_Highbrow(callback, info)
+                end
 
-                -- @escape
-                loading_ui:close()
-                callback('fail')
+                if (ad_unit_id ~= self.m_testUnitID) then
+                    local code = self:getCodeNumberFromInfoStr(info)
+                    if (code == 0) then -- ERROR_CODE_INTERNAL_ERROR
+                        -- This indicates that something happened internally; for instance, an invalid
+                        -- response was received from the ad server.
+                        fail_cb()
+                        
+                    elseif (code == 1) then -- ERROR_CODE_INVALID_REQUEST
+                        -- The ad request was invalid; for instance, the ad unit ID was incorrect.
+                        fail_cb()
+
+                    elseif (code == 2) then -- ERROR_CODE_NETWORK_ERROR
+                        -- The ad request was unsuccessful due to network connectivity.
+                        fail_cb()
+
+                    elseif (code == 3) then -- ERROR_CODE_NO_FILL
+                        -- The ad request was successful, but no ad was returned due to lack of ad inventory.
+                        test_ad()
+                    else
+                        test_ad()
+                    end
+                else
+                    fail_cb()
+                end
             end
         end)
     end
@@ -192,12 +211,11 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
 
             -- ret : 'success', 'cancel', 'fail'
             if (ret == 'success') then
-                do -- Firebase Crashlytics Value
-                    --FirebaseCrashlytics:getInstance():crashlyticsSetKeyValue('did_view_ads', true)
-                end
+                loading_ui:close()
+                callback('success', 'admob') -- params: ret, ad_network, log
 
-                -- @nextfunc
-                func_finish(ret, info)
+                -- 광고 프리로드
+                self:_adMobLoadRewardedAd(ad_unit_id)
             else
                 if (ret == 'cancel') then
                     local msg = Str('광고 시청 도중 취소하셨습니다.')
@@ -213,15 +231,6 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
                 callback(ret, 'admob', tostring(info)) -- params: ret, ad_network, log
             end
         end)
-    end
-
-    func_finish = function(ret, info)
-        -- @escape
-        loading_ui:close()
-        callback('success', 'admob') -- params: ret, ad_network, log
-
-        -- 광고 프리로드
-        self:_adMobLoadRewardedAd(ad_unit_id)
     end
 
     func_load()

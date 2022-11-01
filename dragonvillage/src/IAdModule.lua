@@ -59,20 +59,25 @@ end
 -- @brief highbrow 자체 보상형 광고 재생
 -- @param callback function(ret, ad_network, log)
 -------------------------------------
-function IAdModule:adModuleShowRewardAd_Highbrow(callback, log)
+function IAdModule:adModuleShowRewardAd_Highbrow(callback, info)
     do -- Firebase Crashlytics Log
         local log = 'IAdModule:adModuleShowRewardAd_Highbrow'
-        --PerpleSdkManager.getCrashlytics():setLog(log)
+        if isString(info) then
+            log = log .. ' #' .. info
+        elseif isNumber(info) then
+            log = log .. ' #' .. tostring(info)
+        end
+        PerpleSdkManager.getCrashlytics():setLog(log)
     end
 
     require('UI_HighbrowAds')
 
     local function success_cb()
-        callback('success', 'highbrow', log) -- params: ret, ad_network, log
+        callback('success', 'highbrow', info) -- params: ret, ad_network, log
     end
 
     local function cancel_cb()
-        callback('cancel', 'highbrow', log) -- params: ret, ad_network, log
+        callback('cancel', 'highbrow', info) -- params: ret, ad_network, log
     end
 
     UI_HighbrowAds(success_cb, cancel_cb)
