@@ -866,6 +866,12 @@ end
 -- @brief 확률업
 -------------------------------------
 function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
+    local item_key = t_egg_data['price_type']
+    local item_value = t_egg_data['price']
+    if (not ConfirmPrice(item_key, item_value)) then
+        return
+    end
+
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
     if (is_bundle == true) then
@@ -920,6 +926,11 @@ end
 -- @brief 고급 소환
 -------------------------------------
 function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_ad, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
+    local item_key = t_egg_data['price_type']
+    local item_value = t_egg_data['price']
+    if (not is_ad) and (not ConfirmPrice(item_key, item_value)) then
+        return
+    end
 
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
@@ -990,6 +1001,11 @@ end
 -- @brief 신화드래곤 확률 UP
 -------------------------------------
 function UI_HatcherySummonTab:click_fixedPickupSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
+    local item_key = t_egg_data['price_type']
+    local item_value = t_egg_data['price']
+    if (not ConfirmPrice(item_key, item_value)) then
+        return
+    end
 
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
@@ -1051,6 +1067,12 @@ end
 -- @brief 우정포인트 뽑기
 -------------------------------------
 function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
+    local item_key = t_egg_data['price_type']
+    local item_value = t_egg_data['price']
+    if (not ConfirmPrice(item_key, item_value)) then
+        return
+    end
+
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
     if (is_bundle == true) then
@@ -1112,6 +1134,12 @@ end
 -- @brief 확률 UP 고급소환
 -------------------------------------
 function UI_HatcherySummonTab:click_pickupSummonBtn(is_bundle, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
+    local item_key = t_egg_data['price_type']
+    local item_value = t_egg_data['price']
+    if (not ConfirmPrice(item_key, item_value)) then
+        return
+    end
+
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
     if (is_bundle == true) then
