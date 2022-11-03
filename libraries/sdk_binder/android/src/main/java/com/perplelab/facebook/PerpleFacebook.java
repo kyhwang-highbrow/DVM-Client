@@ -83,10 +83,10 @@ public class PerpleFacebook {
         }
     }
 
-    @SuppressWarnings("deprecation")
+    //@SuppressWarnings("deprecation")
     public void onPause() {
         if (mIsInit) {
-            AppEventsLogger.deactivateApp(PerpleSDK.getInstance().getMainActivity());
+            //AppEventsLogger.deactivateApp(PerpleSDK.getInstance().getMainActivity());
         }
     }
 
