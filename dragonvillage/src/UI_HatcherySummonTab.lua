@@ -928,7 +928,7 @@ end
 function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_ad, is_sale, t_egg_data, old_ui, draw_cnt, pickup_id)
     local item_key = t_egg_data['price_type']
     local item_value = t_egg_data['price']
-    if (not is_ad) and (not ConfirmPrice(item_key, item_value)) then
+    if (TutorialManager.getInstance():isDoing() == false) and (not is_ad) and (not ConfirmPrice(item_key, item_value)) then
         return
     end
 
