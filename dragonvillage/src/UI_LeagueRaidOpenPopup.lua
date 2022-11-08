@@ -13,6 +13,10 @@ function UI_LeagueRaidOpenPopup:init(owner_ui)
 
     self.m_uiName = 'UI_LeagueRaidOpenPopup'
     UIManager:open(self, UIManager.POPUP)
+    
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LeagueRaidOpenPopup')
+
     self:initUI()
     self:initButton()
 end
