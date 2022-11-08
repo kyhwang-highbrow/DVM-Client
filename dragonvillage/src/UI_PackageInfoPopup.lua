@@ -42,10 +42,15 @@ function UI_PackageInfoPopup:initUI()
     local vars = self.vars
 
     if isTable(self.m_itemList) then
+        local total_weight = 0
+        for i, v in ipairs(self.m_itemList) do
+            total_weight = total_weight + v['pick_weight']
+        end
+
         for i, v in ipairs(self.m_itemList) do
             local item_id = v['item_id']
             local item_count = comma_value(v['count'])
-            local item_draw_probability = v['pick_weight'] * 0.1
+            local item_draw_probability = v['pick_weight'] / total_weight * 100
 
             -- 아이템 아이콘
             local item_node = vars['itemNode' .. i]
