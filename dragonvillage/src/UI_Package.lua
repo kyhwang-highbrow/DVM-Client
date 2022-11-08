@@ -419,10 +419,8 @@ function UI_Package:click_infoBtn()
 
     local function finish_cb(ret)
         local item_list = ret[category]
-        if isTable(item_list) then
-            require('UI_PackageInfoPopup')
-            local ui = UI_PackageInfoPopup(item_list, ui_name)
-        end
+        require('UI_PackageInfoPopup')
+        local ui = UI_PackageInfoPopup(item_list, ui_name)
     end
 
     g_shopDataNew:request_randomBoxInfo(finish_cb)

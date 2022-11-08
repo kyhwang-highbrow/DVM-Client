@@ -461,37 +461,33 @@ end
 -- @brief 보상 안내 = 상품 안내 팝업을 출력한다 
 -------------------------------------
 function UI_Package_Bundle:click_rewardBtn()
-    local category 
+	local pid = self.m_pids[1]
 
-    -- 만원의 행복
-    if (self.m_package_name == 'package_lucky_box') then
-        category = 'luckybox'
-    elseif (self.m_package_name == 'package_lucky_box_9.9k') then
-        category = 'luckybox_9.9k'
-    elseif (self.m_package_name == 'package_lucky_box_9.9k_02') then
-        category = 'luckybox_9.9k_02'
-    elseif (self.m_package_name == 'package_lucky_box_dia') then
-        category = 'luckybox_9.9k_03'
+    if (pid == nil) then
+        return
+    elseif(isString(pid)) then
+        pid = tonumber(pid)
+    end
+
+    local struct_product = g_shopDataNew:getTargetProduct(pid)
+
+    if (not struct_product) then
+        return
+    end
+
+	-- 대상 package ui 이름에 _popup을 붙인 것으로 통일
+    local res_name = struct_product and struct_product['package_res']
+	local ui_name = res_name:gsub('.ui', '_popup.ui')
     
-    -- 드래곤 100개 뽑기 패키지 
-    elseif (self.m_package_name == 'package_dragon_summon_100') then
-        MakePopup('package_dragon_summon_100_info.ui', nil)
-        return
-    elseif(self.m_package_name == 'package_rune_box_plus') then
-        MakePopup('package_rune_box_plus_popup.ui', nil)
-        return
+    local category = struct_product:getCategoryFromProductContent()
+
+    local function finish_cb(ret)
+        local item_list = ret[category]
+        require('UI_PackageInfoPopup')
+        local ui = UI_PackageInfoPopup(item_list, ui_name)
     end
 
-    -- 아이템 리스트 출력
-    if (category) then
-        local finish_cb = function(ret)
-            local l_item = ret[category]
-            if (l_item) then
-                UI_PackageRandomBoxInfo(l_item, self.m_package_name)
-            end
-        end
-        g_shopDataNew:request_randomBoxInfo(finish_cb)
-    end
+    g_shopDataNew:request_randomBoxInfo(finish_cb)
 end
 
 -------------------------------------
