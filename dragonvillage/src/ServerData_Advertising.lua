@@ -326,7 +326,7 @@ end
 -------------------------------------
 -- function request_dailyAdShow
 -------------------------------------
-function ServerData_Advertising:request_dailyAdShow(ad_type, finish_cb, fail_cb)
+function ServerData_Advertising:request_dailyAdShow(ad_type, finish_cb, response_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -338,6 +338,18 @@ function ServerData_Advertising:request_dailyAdShow(ad_type, finish_cb, fail_cb)
         if finish_cb then
             finish_cb(ret)
         end
+    end
+
+    -- 응답 상태 처리 함수
+    local function response_status_cb(ret)
+        local status = ret['status']
+        if (status == -3352) then
+            self.m_dailyAdInfo[ad_key] = 0
+            local ui = MakeSimplePopup(POPUP_TYPE.OK, Str('이미 획득한 보상입니다.'))
+            ui:setCloseCB(response_cb)
+            return true
+        end
+        return false
     end
 
     -- 네트워크 통신
@@ -353,6 +365,8 @@ function ServerData_Advertising:request_dailyAdShow(ad_type, finish_cb, fail_cb)
     end
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
