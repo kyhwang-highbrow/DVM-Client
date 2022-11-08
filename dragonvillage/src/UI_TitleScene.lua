@@ -1584,6 +1584,10 @@ function UI_TitleScene:workBillingSetup()
     end
 end
 
+function UI_TitleScene:workBillingSetup_click()
+
+end
+
 -------------------------------------
 -- function workBillingSetupWithoutRestore
 -- @brief Billing 초기화
@@ -1636,7 +1640,7 @@ function UI_TitleScene:workBillingSetupWithoutRestore()
     end
 end
 
-function UI_TitleScene:workBillingSetup_click()
+function UI_TitleScene:workBillingSetupWithoutRestore_click()
 end
 
 -------------------------------------
@@ -1723,6 +1727,10 @@ function UI_TitleScene:workGetMarketInfo()
 end
 
 
+function UI_TitleScene:workGetMarketInfo_click()
+end
+
+
 -------------------------------------
 -- function workBillingSetupForOnestore
 -- @brief 마켓 정보 초기화
@@ -1800,7 +1808,7 @@ function UI_TitleScene:workGetMarketInfoForOnestore()
     PerpleSDK:billingGetItemListForOnestore(skuList, call_back)
 end
 
-function UI_TitleScene:workGetMarketInfo_click()
+function UI_TitleScene:workGetMarketInfoForOnestore_click()
 end
 
 -------------------------------------
@@ -1904,6 +1912,7 @@ function UI_TitleScene:workFinish()
         cb_touch()
     end
 end
+
 function UI_TitleScene:workFinish_click()
     -- @analytics
     Analytics:userInfo()
@@ -2097,6 +2106,9 @@ function UI_TitleScene:workNewBillingSetup()
     ServerData_IAP:getInstance():sdkBinder_BillingSetup(success_cb, fail_cb)
 end
 
+function UI_TitleScene:workNewBillingSetup_click()
+end
+
 -------------------------------------
 -- function workBillingGetItemList
 -- @brief 인앱결제 상품 정보 획득 (sku를 통해 현지화된 가격 등을 획득)
@@ -2133,6 +2145,9 @@ function UI_TitleScene:workNewBillingGetItemList()
     ServerData_IAP:getInstance():sdkBinder_BillingGetItemList(success_cb, fail_cb)
 end
 
+function UI_TitleScene:workNewBillingGetItemList_click()
+end
+
 -------------------------------------
 -- function workBillingGetIncompletePurchaseList
 -- @brief 완료되지 않은 결제건 조회
@@ -2158,6 +2173,9 @@ function UI_TitleScene:workNewBillingGetIncompletePurchaseList()
     end
 
     ServerData_IAP:getInstance():sdkBinder_BillingGetIncompletePurchaseList(success_cb, fail_cb)
+end
+
+function UI_TitleScene:workNewBillingGetIncompletePurchaseList_click()
 end
 
 -------------------------------------
@@ -2281,6 +2299,9 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
     end
 
     Coroutine(coroutine_function)
+end
+
+function UI_TitleScene:workNewBillingHandleIncompletePurchaseList_click()
 end
 
 
