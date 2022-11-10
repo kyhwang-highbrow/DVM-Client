@@ -102,6 +102,7 @@ end
 function UI_SubscriptionPopupNew:click_adBtn()
     if (IS_LIVE_SERVER() and getAppVerNum() < 1003008) 
         or (IS_QA_SERVER() and getAppVerNum() < 8008)
+        or (IS_QA_SERVER() and getAppVerNum() > 1003000 and getAppVerNum() < 1003008)
         or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() < 8009) then       
             local msg = Str('새로운 버전의 게임이 업데이트 되었습니다.\n스토어를 통해 업데이트를 하기바랍니다.')
                 MakeNetworkPopup(POPUP_TYPE.YES_NO, msg, function() 

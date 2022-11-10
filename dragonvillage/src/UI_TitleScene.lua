@@ -1476,6 +1476,7 @@ end
 function UI_TitleScene:workAdManagerInitialize()
     if (IS_LIVE_SERVER() and getAppVerNum() < 1003008) 
         or (IS_QA_SERVER() and getAppVerNum() < 8008)
+        or (IS_QA_SERVER() and getAppVerNum() > 1003000 and getAppVerNum() < 1003008)
         or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() < 8009) then       
             self:doNextWork()
         return
