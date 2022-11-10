@@ -993,11 +993,11 @@ function ServerData_Shop:getSpecialOfferProduct()
 
     -- 특별 할인 상품 product_id (하드코딩)
     local l_product_id = {}
-    table.insert(l_product_id, {110311, 350}) -- 800% 이상의 혜택
-    table.insert(l_product_id, {110312, 350}) -- 1000% 이상의 혜택
-    table.insert(l_product_id, {110313, 400}) -- 1100% 이상의 혜택
-    table.insert(l_product_id, {110314, 450}) -- 1200% 이상의 혜택
-    table.insert(l_product_id, {110315, 550}) -- 1200% 이상의 혜택
+    table.insert(l_product_id, {110311, 800}) -- 800% 이상의 혜택
+    table.insert(l_product_id, {110312, 800}) -- 800% 이상의 혜택
+    table.insert(l_product_id, {110313, 900}) -- 900% 이상의 혜택
+    table.insert(l_product_id, {110314, 900}) -- 900% 이상의 혜택
+    table.insert(l_product_id, {110315, 1000}) -- 1000% 이상의 혜택
 
     -- 상품의 순서대로 구매가능하면 리턴
     for i,t_data in ipairs(l_product_id) do
@@ -1054,11 +1054,11 @@ function ServerData_Shop:getSpecialOfferProductNurture()
 
     -- 특별 할인 상품 product_id (하드코딩)
     local l_product_id = {}
-    table.insert(l_product_id, {121501, 1100}) -- 330% 이상의 혜택
-    table.insert(l_product_id, {121502, 1200}) -- 360% 이상의 혜택
-    table.insert(l_product_id, {121503, 2000}) -- 500% 이상의 혜택
-    table.insert(l_product_id, {121504, 2300}) -- 570% 이상의 혜택
-    table.insert(l_product_id, {121505, 2600}) -- 620% 이상의 혜택
+    table.insert(l_product_id, {121501, 1100}) -- 1100% 이상의 혜택
+    table.insert(l_product_id, {121502, 1200}) -- 1200% 이상의 혜택
+    table.insert(l_product_id, {121503, 1300}) -- 1300% 이상의 혜택
+    table.insert(l_product_id, {121504, 1500}) -- 1500% 이상의 혜택
+    table.insert(l_product_id, {121505, 1800}) -- 1800% 이상의 혜택
 
 
     -- 상품의 순서대로 구매가능하면 리턴
