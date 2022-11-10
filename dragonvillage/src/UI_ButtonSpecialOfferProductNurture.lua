@@ -78,15 +78,6 @@ function UI_ButtonSpecialOfferProductNurture:updateButtonStatus()
                 ui.vars['bonusLabel']:setString(Str('{1}%', bonus_num)) -- '800% 이상의 혜택!'
             end
 
-            -- 서버에 따라 보여지는 UI 달리함 (한국은 설날, 글로벌은 2주년)
-            local is_korea_server = g_localData:isKoreaServer()
-            if ui.vars['koreaMenu'] then
-                ui.vars['koreaMenu']:setVisible(is_korea_server)
-            end
-            if ui.vars['globalMenu'] then
-                ui.vars['globalMenu']:setVisible(not is_korea_server)
-            end
-
             ui:doAction()
 
             -- 팝업이 닫히면 정보 다시 갱신

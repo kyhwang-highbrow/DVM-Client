@@ -420,7 +420,7 @@ function PackageManager:makeOfferPopup(package_name, is_popup, is_full_popup)
         local string_result = ''
 
         -- 구성품 t_desc 표시
-        if (package_data['use_desc'] == 1) then
+        if (isTable(package_data)) and (package_data['use_desc'] == 1) then
             string_result = Str(struct_product['t_desc'])
         -- 구성품 mail_content 표시
         else
@@ -444,13 +444,7 @@ function PackageManager:makeOfferPopup(package_name, is_popup, is_full_popup)
 
     -- 혜택률 표시
     -- '800% 이상의 혜택!'
-    if ui.vars['bonusLabel'] then ui.vars['bonusLabel']:setString(Str('{1}%', bonus_num)) end
-
-    -- 서버에 따라 보여지는 UI 달리함 (한국은 설날, 글로벌은 2주년)
-    local is_korea_server = g_localData:isKoreaServer()
-    if ui.vars['koreaMenu'] then ui.vars['koreaMenu']:setVisible(is_korea_server) end
-    if ui.vars['globalMenu'] then ui.vars['globalMenu']:setVisible(not is_korea_server) end
-
+    if bonus_num and ui.vars['bonusLabel'] then ui.vars['bonusLabel']:setString(Str('{1}%', bonus_num)) end
     ui:doAction()
 
     return ui
