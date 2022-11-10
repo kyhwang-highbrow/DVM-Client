@@ -997,6 +997,7 @@ function ServerData_Shop:getSpecialOfferProduct()
     table.insert(l_product_id, {110312, 1000}) -- 1000% 이상의 혜택
     table.insert(l_product_id, {110313, 1100}) -- 1100% 이상의 혜택
     table.insert(l_product_id, {110314, 1200}) -- 1200% 이상의 혜택
+    table.insert(l_product_id, {110315, 1200}) -- 1200% 이상의 혜택
 
     -- 상품의 순서대로 구매가능하면 리턴
     for i,t_data in ipairs(l_product_id) do
@@ -1057,6 +1058,8 @@ function ServerData_Shop:getSpecialOfferProductNurture()
     table.insert(l_product_id, {121502, 1000}) -- 1000% 이상의 혜택
     table.insert(l_product_id, {121503, 1100}) -- 1100% 이상의 혜택
     table.insert(l_product_id, {121504, 1200}) -- 1200% 이상의 혜택
+    table.insert(l_product_id, {121505, 1200}) -- 1200% 이상의 혜택
+
 
     -- 상품의 순서대로 구매가능하면 리턴
     for i,t_data in ipairs(l_product_id) do
