@@ -1,5 +1,5 @@
 -------------------------------------
--- class ServerListData
+---@class ServerListData
 -------------------------------------
 ServerListData = class({
         -- server name 종류 (QA, DEV, Korea, Asia, Japan, America, Global)
@@ -35,7 +35,7 @@ function ServerListData:initWithData(tdata)
         for i, server in pairs(tserverList) do
             if (server['server_name'] == SERVER_NAME.DEV) then
             elseif (server['server_name'] == SERVER_NAME.QA) then
-            --elseif (server['server_name'] == SERVER_NAME.EUROPE) then -- @sgkim 2020.11.24 유럽 서버 추가 준비를 위해 임의로 추가
+            elseif (server['server_name'] == SERVER_NAME.EUROPE) then -- @sgkim 2020.11.24 유럽 서버 추가 준비를 위해 임의로 추가
             else -- 위에서 허용되지 않은 서버 항목은 삭제
                 table.insert(tremove, 1, i)
             end
@@ -49,7 +49,7 @@ function ServerListData:initWithData(tdata)
         for i, server in pairs(tserverList) do
             local server_name = server['server_name']
             -- 라이브 서버에서는 DEV, QA서버를 제외한다
-            if (server_name == SERVER_NAME.DEV) or (server_name == SERVER_NAME.QA) or (server_name == SERVER_NAME.DVM2_DEV) then
+            if (server_name == SERVER_NAME.DEV) or (server_name == SERVER_NAME.QA) or (server_name == SERVER_NAME.EUROPE) then
                 table.insert(tremove, 1, i)
             else
                 if server['server_num'] == recommandServerNum then
@@ -164,6 +164,7 @@ end
 
 -------------------------------------
 -- function getInstance
+---@return ServerListData
 -------------------------------------
 function ServerListData:getInstance()
     if (not g_serverListData) then
