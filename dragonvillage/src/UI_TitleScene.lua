@@ -358,6 +358,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workLoading')
     table.insert(self.m_lWorkList, 'workGetServerList')
     --table.insert(self.m_lWorkList, 'workCheckSelectedGameServer') -- 유저가 선택(or 추천)한 게임 서버 확인
+    table.insert(self.m_lWorkList, 'workGetFCMToken')
     table.insert(self.m_lWorkList, 'workCheckUserID')
     table.insert(self.m_lWorkList, 'workPlatformLogin') 
     table.insert(self.m_lWorkList, 'workCheckDeletedUserID')
@@ -585,6 +586,30 @@ function UI_TitleScene:workLoading_click()
 end
 
 -------------------------------------
+-- function workGetFCMToken
+-------------------------------------
+function UI_TitleScene:workGetFCMToken()
+    PerpleSDK:getFCMToken(function(ret, info)
+        if (ret == 'success') then
+            cclog('push_token: ' .. tostring(info))
+            -- 푸시 발송을 위한 푸시토큰
+            -- 로그인할 때마다 플랫폼 서버에 저장해야 함
+            g_localData:applyLocalData(info, 'local', 'push_token')
+        -- else --if (ret == 'fail') then
+        end
+
+        self:doNextWork()
+    end)
+end
+
+-------------------------------------
+-- function workGetFCMToken_click
+-------------------------------------
+function UI_TitleScene:workGetFCMToken_click()
+    
+end
+
+-------------------------------------
 -- function workCheckUserID
 -- @breif uid가 있는지 체크, UID가 없을 경우 난수 발생하여
 --        uid로 사용
@@ -639,12 +664,10 @@ function UI_TitleScene:workCheckUserID()
     local function success_cb(info)
         local t_info = dkjson.decode(info)
         local fuid = t_info.fuid
-        local push_token = t_info.pushToken
         local platform_id = t_info.providerId
         local account_info = t_info.name
 
         cclog('fuid: ' .. tostring(fuid))
-        cclog('push_token: ' .. tostring(push_token))
         cclog('platform_id:' .. tostring(platform_id))
         cclog('account_info:' .. tostring(account_info))
 
@@ -653,10 +676,6 @@ function UI_TitleScene:workCheckUserID()
         -- Firebase에서 발급하는 uid
         -- 게임 uid로 그대로 사용하면 됨
         g_localData:applyLocalData(fuid, 'local', 'uid')
-
-        -- 푸시 발송을 위한 푸시토큰
-        -- 로그인할 때마다 플랫폼 서버에 저장해야 함
-        g_localData:applyLocalData(push_token, 'local', 'push_token')
 
         -- 현재 로그인된 계정의 플랫폼ID
         -- Google: 'google.com'

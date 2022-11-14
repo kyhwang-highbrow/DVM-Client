@@ -88,7 +88,14 @@ public class PerpleNotificationMgr extends Activity {
             if (!isScreenOn) {
                 Intent noticeIntent = new Intent(context, PerpleNotificationMgr.class);
                 noticeIntent.putExtra("message", message);
-                PendingIntent pie = PendingIntent.getActivity(context.getApplicationContext(), AppActivity.RC_LOCAL_PUSH, noticeIntent, PendingIntent.FLAG_ONE_SHOT);
+
+                int flag;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    flag = PendingIntent.FLAG_IMMUTABLE;
+                } else {
+                    flag = PendingIntent.FLAG_ONE_SHOT;
+                }
+                PendingIntent pie = PendingIntent.getActivity(context.getApplicationContext(), AppActivity.RC_LOCAL_PUSH, noticeIntent, flag);
 
                 try {
                     pie.send();
@@ -119,9 +126,15 @@ public class PerpleNotificationMgr extends Activity {
 
     public static void notifyMessageStyle1(Context context, String title, String message) {
         NotificationManager mgr = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        int flag;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            flag = PendingIntent.FLAG_IMMUTABLE;
+        } else {
+            flag = 0;
+        }
 
         Intent intent = new Intent(context, AppActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, intent, flag);
 
         Notification.Builder builder = new Notification.Builder(context)
                 .setContentIntent(pendingIntent)
@@ -173,10 +186,16 @@ public class PerpleNotificationMgr extends Activity {
             soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
         if(DEBUG) Log.d(TAG, soundUri.toString());
+        int flag;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            flag = PendingIntent.FLAG_IMMUTABLE;
+        } else {
+            flag = PendingIntent.FLAG_UPDATE_CURRENT;
+        }
 
         // 앱을 실행하는 PendingIntent 생성(notification을 터치했을 경우에 사용됨)
         Intent intent = new Intent(context, AppActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, intent, flag);
 
         // 공식카페로 이동하는 PendingIntent 생성("공식카페 바로가기"아이콘을 터치했을 경우에 사용됨)
         PendingIntent cafeIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, new Intent(Intent.ACTION_VIEW).setData(Uri.parse(cafeUrl)), 0);
@@ -240,10 +259,16 @@ public class PerpleNotificationMgr extends Activity {
         remoteViews.setInt(R.id.relativeLayout1, "setBackgroundColor", colorBG);
         remoteViews.setTextColor(R.id.push_title, colorTitle);
         remoteViews.setTextColor(R.id.push_message, colorMessage);
+        int flag;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            flag = PendingIntent.FLAG_IMMUTABLE;
+        } else {
+            flag = PendingIntent.FLAG_UPDATE_CURRENT;
+        }
 
         // 앱을 실행하는 PendingIntent 생성(notification을 터치했을 경우에 사용됨)
         Intent intent = new Intent(context, AppActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, AppActivity.RC_LOCAL_PUSH, intent, flag);
 
         Notification builder = new NotificationCompat.Builder(context)
                 .setAutoCancel(true)

@@ -50,7 +50,7 @@ dependencies {
     // @firebase
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-messaging:23.0.4'
 
     // @crashlytics
     // firebase-crashlytics, firebase-crashlytics-ndk 중 하나만 사용

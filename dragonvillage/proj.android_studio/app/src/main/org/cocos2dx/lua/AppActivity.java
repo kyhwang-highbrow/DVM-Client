@@ -115,7 +115,7 @@ public class AppActivity extends Cocos2dxActivity{
         if (perpleSdkInstance.initSDK(PerpleConfig.BASE64_PUBLIC_KEY, isDebug)) {
 
             // firebase FCM 알림을 포그라운드 상태에서도 받고자 할 경우 true로 설정
-            perpleSdkInstance.setReceivePushOnForeground(false);
+            perpleSdkInstance.setReceivePushOnForeground(true);
 
             // @google
             // default_web_client_id : auto generated from google-services.json
@@ -391,8 +391,15 @@ public class AppActivity extends Cocos2dxActivity{
     }
 
     private static void appRestart() {
+        int flag;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            flag = PendingIntent.FLAG_IMMUTABLE;
+        } else {
+            flag = PendingIntent.FLAG_CANCEL_CURRENT;
+        }
+
         Intent intent = new Intent(sActivity, AppActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(sActivity, RC_APP_RESTART, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(sActivity, RC_APP_RESTART, intent, flag);
 
         AlarmManager mgr = (AlarmManager)sActivity.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC,  System.currentTimeMillis() + 500, pendingIntent);

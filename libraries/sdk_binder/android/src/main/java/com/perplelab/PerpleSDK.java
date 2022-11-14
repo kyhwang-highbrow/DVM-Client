@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import androidx.core.app.ActivityCompat;
+
+import android.os.Build;
 import android.widget.Toast;
 import android.os.AsyncTask;
 
@@ -503,12 +505,7 @@ public class PerpleSDK {
 
         sTokenRefreshCallback = callback;
 
-        String token = getInstance().mFirebase.getPushToken();
-        if (token.isEmpty()) {
-            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_FIREBASE_FCMTOKENNOTREADY, "FCM token is not ready."));
-        } else {
-            callback.onSuccess(token);
-        }
+        getInstance().mFirebase.getPushToken(callback);
     }
 
     // @firebase fcm, callback from PerpleFirebaseMessagingService
@@ -681,8 +678,15 @@ public class PerpleSDK {
     public static void appRestart() {
         Activity mainActivity = getInstance().getMainActivity();
 
+        int flag;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            flag = PendingIntent.FLAG_IMMUTABLE;
+        } else {
+            flag = PendingIntent.FLAG_CANCEL_CURRENT;
+        }
+
         Intent intent = new Intent(mainActivity, mainActivity.getClass());
-        PendingIntent pendingIntent = PendingIntent.getActivity(mainActivity, 123456, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mainActivity, 123456, intent, flag);
 
         AlarmManager mgr = (AlarmManager)mainActivity.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC,  System.currentTimeMillis() + 500, pendingIntent);

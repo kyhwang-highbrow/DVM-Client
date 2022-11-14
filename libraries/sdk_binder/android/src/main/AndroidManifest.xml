@@ -12,6 +12,17 @@
         android:name="com.android.vending.BILLING" /-->
 
     <application>
+        <!-- @firebase -->
+        <service
+            android:name="com.perplelab.firebase.PerpleFirebaseMessagingService"
+            android:exported="false"
+            android:directBootAware="true">>
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
         <!-- @facebook -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

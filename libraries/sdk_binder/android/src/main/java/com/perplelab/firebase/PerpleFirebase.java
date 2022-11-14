@@ -29,7 +29,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import com.perplelab.PerpleSDK;
@@ -39,6 +38,8 @@ import com.perplelab.PerpleLog;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
 
 public class PerpleFirebase {
     private static final String LOG_TAG = "PerpleSDK Firebase";
@@ -525,7 +526,6 @@ public class PerpleFirebase {
                 obj.put("name", getDisplayName(user));
                 obj.put("providerId", getProviderId(providerId, user));
                 obj.put("providerData", getProviderData(user));
-                obj.put("pushToken", getPushToken());
                 return obj.toString();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -577,7 +577,6 @@ public class PerpleFirebase {
             obj.put("name", displayName);
             obj.put("providerId", getProviderId(providerId, user));
             obj.put("providerData", getProviderData(user));
-            obj.put("pushToken", getPushToken());
             return obj.toString();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -728,8 +727,29 @@ public class PerpleFirebase {
         return loginInfo;
     }
 
-    public String getPushToken() {
-        return FirebaseInstanceId.getInstance().getToken();
+    public void getPushToken(final PerpleSDKCallback callback) {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            String msg = "Fetching FCM registration token failed";
+                            Log.w(LOG_TAG, msg, task.getException());
+                            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_FIREBASE_FCMTOKENNOTREADY, msg));
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        //String msg = getString(R.string.msg_token_fmt, token);
+                        String msg = "Fetching FCM registration token success";
+                        Log.d(LOG_TAG, msg);
+                        //Toast.makeText(PerpleSDK.getInstance().getMainActivity(), msg, Toast.LENGTH_SHORT).show();
+                        callback.onSuccess(token);
+                    }
+                });
     }
 
     public String addNotificationKey(

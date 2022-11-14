@@ -59,7 +59,7 @@ public class PerpleFacebook {
     public void init() {
         PerpleLog.d(LOG_TAG, "Initializing Facebook.");
 
-        FacebookSdk.sdkInitialize(PerpleSDK.getInstance().getMainActivity().getApplicationContext());
+        //FacebookSdk.sdkInitialize(PerpleSDK.getInstance().getMainActivity().getApplicationContext()); // @yjkil 22.11.07 deprecated from 4.19.0
         AppEventsLogger.activateApp(PerpleSDK.getInstance().getMainActivity().getApplication());
 
         mCallbackManager = CallbackManager.Factory.create();
@@ -83,16 +83,17 @@ public class PerpleFacebook {
         }
     }
 
-    //@SuppressWarnings("deprecation")
     public void onPause() {
         if (mIsInit) {
-            //AppEventsLogger.deactivateApp(PerpleSDK.getInstance().getMainActivity());
+			
         }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (mIsInit) {
-            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+            if (mCallbackManager != null) {
+                mCallbackManager.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 

@@ -54,12 +54,18 @@ public class PerpleSDKLua {
             return;
         }
 
-        String token = PerpleSDK.getFirebase().getPushToken();
-        if (token.isEmpty()) {
-            PerpleSDK.callSDKResult(pID, funcID, "fail", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_FIREBASE_FCMTOKENNOTREADY, "FCM token is not ready."));
-        } else {
-            PerpleSDK.callSDKResult(pID, funcID, "success", token);
-        }
+        PerpleSDK.getFirebase().getPushToken(
+                new PerpleSDKCallback() {
+                    @Override
+                    public void onSuccess(String info) {
+                        PerpleSDK.callSDKResult(pID, funcID, "success", info);
+                    }
+                    @Override
+                    public void onFail(String info) {
+                        PerpleSDK.callSDKResult(pID, funcID, "fail", info);
+                    }
+                }
+        );
     }
 
     // @firebase fcm
