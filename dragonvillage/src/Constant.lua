@@ -239,8 +239,7 @@ SERVER_NAME = {
     GLOBAL = 'Global',
 
     DEV = 'DEV',
-    QA = 'QA', 
-    DVM2_DEV = 'DVM2_DEV'
+    QA = 'QA'
 }
 
 

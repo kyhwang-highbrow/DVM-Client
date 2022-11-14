@@ -108,9 +108,6 @@ function UI_LoginIntegratePopup:click_serverBtn()
     local function onFinish(name)        
         ServerListData:getInstance():selectServer(name)
         self:refresh()
-
-        -- local is_global_server = (name == 'Global')
-        -- self.vars['serverRewardMenu']:setVisible(is_global_server)
     end
     
     UI_SelectServerPopup(onFinish)
@@ -122,9 +119,6 @@ end
 function UI_LoginIntegratePopup:setServerName(name)
     local vars = self.vars
     vars['serverLabel']:setString(string.upper(name))
-
-    -- local is_global_server =  (name == SERVER_NAME.GLOBAL)
-    -- vars['serverRewardMenu']:setVisible(is_global_server)
 end
 
 -------------------------------------
@@ -134,6 +128,10 @@ function UI_LoginIntegratePopup:refresh()
     local vars = self.vars
     local target_server = ServerListData:getInstance():getSelectServer()
     self:setServerName(target_server)
+
+    
+    local is_new_server = (target_server == SERVER_NAME.EUROPE)
+    self.vars['serverRewardMenu']:setVisible(is_new_server)
 
     if IS_TEST_MODE() then
         if (target_server == 'DEV') or (target_server == 'QA') then
