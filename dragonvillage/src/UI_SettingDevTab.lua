@@ -43,6 +43,8 @@ function UI_Setting:init_devTab()
         UI_VideoMaker()
     end)
 
+    vars['adTestBtn']:registerScriptTapHandler(function() self:click_adTestBtn() end)
+
     self:refresh_devTap()
 end
 
@@ -909,6 +911,14 @@ function UI_Setting:click_dailyInitBtn()
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function click_adTestBtn
+-- @brief 광고 테스트 버튼
+-------------------------------------
+function UI_Setting:click_adTestBtn()
+    AdManager.getInstance():showRewardAd_Test()
 end
 
 -------------------------------------

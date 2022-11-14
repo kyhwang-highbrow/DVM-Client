@@ -144,7 +144,9 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
                 loading_ui:close()
                 MakeSimplePopup(POPUP_TYPE.OK, msg)
                 -- @escape
-                callback('fail')
+                if callback then
+                    callback('fail')
+                end
                 
             -- 3. 광고 로드 실패
             else--if (ret == 'fail') then
@@ -164,7 +166,9 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
     
                     -- @escape
                     loading_ui:close()
-                    callback('fail')
+                    if callback then
+                        callback('fail')
+                    end
                 end
 
                 local function test_ad()
@@ -212,7 +216,9 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
             -- ret : 'success', 'cancel', 'fail'
             if (ret == 'success') then
                 loading_ui:close()
-                callback('success', 'admob') -- params: ret, ad_network, log
+                if callback then
+                    callback('success', 'admob') -- params: ret, ad_network, log
+                end
 
                 -- 광고 프리로드
                 self:_adMobLoadRewardedAd(ad_unit_id)
@@ -228,7 +234,9 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
                 end
                 -- @escape
                 loading_ui:close()
-                callback(ret, 'admob', tostring(info)) -- params: ret, ad_network, log
+                if callback then
+                    callback(ret, 'admob', tostring(info)) -- params: ret, ad_network, log
+                end
             end
         end)
     end

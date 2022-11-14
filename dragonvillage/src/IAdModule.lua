@@ -73,11 +73,15 @@ function IAdModule:adModuleShowRewardAd_Highbrow(callback, info)
     require('UI_HighbrowAds')
 
     local function success_cb()
-        callback('success', 'highbrow', info) -- params: ret, ad_network, log
+        if callback then
+            callback('success', 'highbrow', info) -- params: ret, ad_network, log
+        end
     end
 
     local function cancel_cb()
-        callback('cancel', 'highbrow', info) -- params: ret, ad_network, log
+        if callback then
+            callback('cancel', 'highbrow', info) -- params: ret, ad_network, log
+        end
     end
 
     UI_HighbrowAds(success_cb, cancel_cb)
