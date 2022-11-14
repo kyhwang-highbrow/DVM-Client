@@ -59,6 +59,7 @@ function UI_LoginPopup:initButton()
     vars['guestBtn']:registerScriptTapHandler(function() LoginHelper:loginAsGuest() end)
     vars['serverBtn']:registerScriptTapHandler(function() self:click_changeServer() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close(true) end)
+    vars['testmodeBtn']:registerScriptTapHandler(function() self:click_testmodeBtn() end)
 	
     LoginHelper:alignLoginButtons(self.vars, true) -- use_guest
 end
@@ -67,7 +68,17 @@ end
 -- function refresh
 -------------------------------------
 function UI_LoginPopup:refresh()    
-    self:setServerName( ServerListData:getInstance():getSelectServer() )    
+    local vars = self.vars
+    local target_server = ServerListData:getInstance():getSelectServer()
+    self:setServerName(target_server)
+
+    if IS_TEST_MODE() then
+        if (target_server == 'DEV') or (target_server == 'QA') then
+            vars['testmodeBtn']:setVisible(true)
+        else
+            vars['testmodeBtn']:setVisible(false)
+        end        
+    end
 end
 
 -------------------------------------
@@ -120,6 +131,16 @@ function UI_LoginPopup:click_changeServer()
         self:setServerName( name )
     end
     UI_SelectServerPopup( onFinish )
+end
+
+-------------------------------------
+-- function click_testmodeBtn
+-------------------------------------
+function UI_LoginPopup:click_testmodeBtn()
+    local ui = UI_LoginPopupWithoutFirebase()
+    ui:setCloseCB(function()
+        self:close()
+    end)
 end
 
 -------------------------------------

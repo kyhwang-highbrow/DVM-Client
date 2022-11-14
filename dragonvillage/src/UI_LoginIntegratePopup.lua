@@ -19,6 +19,7 @@ function UI_LoginIntegratePopup:init(owner_ui)
 
     self:initUI()
     self:initButton()
+    self:refresh()
 
     self.m_loadingUI = owner_ui.m_loadingUI
     self.m_loadingUI:hideLoading()
@@ -34,10 +35,6 @@ function UI_LoginIntegratePopup:initUI()
     vars['guestBtn']:setVisible(true)
     vars['loginBtn']:setVisible(true)
     vars['serverBtn']:setVisible(true)
-
-
-    local selected_server_name = ServerListData.getInstance():getSelectServer()
-    self:setServerName(selected_server_name)
 end
 
 -------------------------------------
@@ -65,6 +62,8 @@ function UI_LoginIntegratePopup:initButton()
     vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
     vars['loginBtn']:registerScriptTapHandler(function() self:click_loginBtn() end)
     vars['serverBtn']:registerScriptTapHandler(function() self:click_serverBtn() end)
+
+    vars['testmodeBtn']:registerScriptTapHandler(function() self:click_testmodeBtn() end)
 end
 
 -------------------------------------
@@ -108,7 +107,7 @@ end
 function UI_LoginIntegratePopup:click_serverBtn()
     local function onFinish(name)        
         ServerListData:getInstance():selectServer(name)
-        self:setServerName(name)
+        self:refresh()
 
         -- local is_global_server = (name == 'Global')
         -- self.vars['serverRewardMenu']:setVisible(is_global_server)
@@ -132,7 +131,17 @@ end
 -- function refresh
 -------------------------------------
 function UI_LoginIntegratePopup:refresh()
-    self:setServerName(ServerListData:getInstance():getSelectServer())
+    local vars = self.vars
+    local target_server = ServerListData:getInstance():getSelectServer()
+    self:setServerName(target_server)
+
+    if IS_TEST_MODE() then
+        if (target_server == 'DEV') or (target_server == 'QA') then
+            vars['testmodeBtn']:setVisible(true)
+        else
+            vars['testmodeBtn']:setVisible(false)
+        end        
+    end
 end
 
 -------------------------------------
@@ -188,6 +197,16 @@ function UI_LoginIntegratePopup:click_exitBtn()
         closeApplication()
     end
     MakeSimplePopup(POPUP_TYPE.YES_NO, Str('종료하시겠습니까?'), yes_cb)
+end
+
+-------------------------------------
+-- function click_testmodeBtn
+-------------------------------------
+function UI_LoginIntegratePopup:click_testmodeBtn()
+    local ui = UI_LoginPopupWithoutFirebase()
+    ui:setCloseCB(function()
+        self:close()
+    end)
 end
 
 --@CHECK

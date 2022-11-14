@@ -612,10 +612,6 @@ function UI_TitleScene:workCheckUserID()
         not_available_firebase = true
     end
 
-    -- 테스트 모드에서는 firebase 사용 불가
-    if (IS_TEST_MODE()) then
-        not_available_firebase = true
-    end
 
     -- 카페 바자르 빌드에서는 이란 제재로 firebase 서비스 불가
     if (CppFunctions:isCafeBazaarBuild() == true) then
