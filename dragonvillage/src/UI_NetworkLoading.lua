@@ -23,6 +23,9 @@ end
 -- function setLoadingMsg
 -------------------------------------
 function UI_NetworkLoading:setLoadingMsg(msg)
+    if (msg == nil) then
+        msg = ''
+    end
     self.vars['loadingLabel']:setString(msg)
 end
 
