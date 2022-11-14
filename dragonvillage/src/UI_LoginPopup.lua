@@ -128,7 +128,8 @@ end
 function UI_LoginPopup:click_changeServer()
     local function onFinish( name )        
         ServerListData:getInstance():selectServer( name )
-        self:setServerName( name )
+        self:refresh()
+        
     end
     UI_SelectServerPopup( onFinish )
 end
