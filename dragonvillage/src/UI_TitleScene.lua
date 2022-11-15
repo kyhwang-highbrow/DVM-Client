@@ -589,6 +589,12 @@ end
 -- function workGetFCMToken
 -------------------------------------
 function UI_TitleScene:workGetFCMToken()
+
+    if (isWin32() or isMac()) then
+        self:doNextWork()
+        return
+    end
+
     PerpleSDK:getFCMToken(function(ret, info)
         if (ret == 'success') then
             cclog('push_token: ' .. tostring(info))
