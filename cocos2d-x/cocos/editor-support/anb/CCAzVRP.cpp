@@ -93,7 +93,7 @@ struct VRP {
 			const KEY* pick_key = _keys;
 			while (pick_key->_frame < frame)
 			{
-				if (pick_key->_frame == _end) // ¸¶Áö¸· Å°¿¡ µ¥ ´ëÇÑ Ã³¸®
+				if (pick_key->_frame == _end) // ë§ˆì§€ë§‰ í‚¤ì— ë° ëŒ€í•œ ì²˜ë¦¬
 				{
 					out_key = *pick_key;
 					return true;
@@ -1089,16 +1089,16 @@ public:
     static bool isLowEndMode() { return s_bLowEndMode; }
     static void setLowEndMode(bool lowendmode) { s_bLowEndMode = lowendmode; }
 
-    virtual bool isIgnoreLowEndMode() { return _quad_maker.isIgnoreLowEndMode(); }
-    virtual void setIgnoreLowEndMode(bool ignore) { _quad_maker.setIgnoreLowEndMode(ignore); }
+    virtual bool isIgnoreLowEndMode() override { return _quad_maker.isIgnoreLowEndMode(); }
+    virtual void setIgnoreLowEndMode(bool ignore) override { _quad_maker.setIgnoreLowEndMode(ignore); }
 
 	AzVRP_IMPL();
 	virtual ~AzVRP_IMPL();
 
 	void clear();
 
-	virtual bool init();
-	virtual bool initWithFile(const std::string& filename);
+	virtual bool init() override;
+	virtual bool initWithFile(const std::string& filename) override;
 	bool initWithData(const unsigned char* data, ssize_t dataLen);
 
 	virtual bool setVisual(const std::string& visual_group_name, const std::string& visual_name) override;
@@ -1114,9 +1114,9 @@ public:
 	virtual std::string getVisualListLuaTable() override;
     virtual void getVisualList(const std::string& bind_token, std::list<std::string>& visual_list) override;
 
-    virtual void setCustomShader(int customShaderType, float arg);
-	virtual float getSocketPosX(const std::string& socket_name);
-	virtual float getSocketPosY(const std::string& socket_name);
+    virtual void setCustomShader(int customShaderType, float arg) override;
+	virtual float getSocketPosX(const std::string& socket_name) override;
+	virtual float getSocketPosY(const std::string& socket_name) override;
 
 protected:
 	std::shared_ptr< const VRP > _vrp;
@@ -1241,8 +1241,8 @@ protected:
 	bool _check_visible_rect;
 
 public:
-	virtual void SetCheckValidRect(bool v) { _check_visible_rect = v; }
-	virtual cocos2d::Rect getValidRect() const { return _quad_maker.getValidRect(); }
+	virtual void SetCheckValidRect(bool v) override { _check_visible_rect = v; }
+	virtual cocos2d::Rect getValidRect() const override { return _quad_maker.getValidRect(); }
 };
 
 AzVRP_IMPL::TYPE_VRP_CACHE AzVRP_IMPL::s_vrp_cache;
@@ -1252,7 +1252,7 @@ bool AzVRP_IMPL::s_bLowEndMode = false;
 
 AzVRP* AzVRP::create(const std::string& filename)
 {
-	std::string typeName = typeid(cocos2d::AzVRP_IMPL).name(); // AzVRP_IMPL °´Ã¼¸¦ ·ç¾Æ¿¡¼­ ÀÚ½Ä °´Ã¼ ¸ñ·ÏÀ¸·Î Àü´Ş ¹Ş±â À§ÇØ µî·Ï
+	std::string typeName = typeid(cocos2d::AzVRP_IMPL).name(); // AzVRP_IMPL ê°ì²´ë¥¼ ë£¨ì•„ì—ì„œ ìì‹ ê°ì²´ ëª©ë¡ìœ¼ë¡œ ì „ë‹¬ ë°›ê¸° ìœ„í•´ ë“±ë¡
 	if (g_luaType.find(typeName) == g_luaType.end())
 	{
 		g_luaType[typeName] = "cc.AzVRP";
@@ -1329,9 +1329,9 @@ void AzVRP::onEnter()
 
 	/* 
 		17.6.19 @mskim
-		A2D »ç¿ë½Ã Schedular¿¡¼­ markedForDeletionÀÌ ÀÌ¹Ì falseÀÎ °´Ã¼°¡ ´Ù½Ã schedule µî·ÏµÉ¶§ ¿¡·¯ ¹ß»ıÇÏ´Â Áõ»óÀÌ ´Ù·® ¹ß»ı
-		A2DÀÚÃ¼¸¦ ¶®´Ù°¡ ´Ù½Ã ºÙÀÌ´Â °úÁ¤¿¡¼­ ¹ß»ıÇÏ´Â °ÍÀ¸·Î ÃßÁ¤µÊ.
-		ÀÌ¸¦ ¹æÁöÇÏ±â À§ÇØ ÀÓ½Ã·Î unscheduleUpdateÀ» È£ÃâÇÏµµ·ÏÇÔ
+		A2D ì‚¬ìš©ì‹œ Schedularì—ì„œ markedForDeletionì´ ì´ë¯¸ falseì¸ ê°ì²´ê°€ ë‹¤ì‹œ schedule ë“±ë¡ë ë•Œ ì—ëŸ¬ ë°œìƒí•˜ëŠ” ì¦ìƒì´ ë‹¤ëŸ‰ ë°œìƒ
+		A2Dìì²´ë¥¼ ë• ë‹¤ê°€ ë‹¤ì‹œ ë¶™ì´ëŠ” ê³¼ì •ì—ì„œ ë°œìƒí•˜ëŠ” ê²ƒìœ¼ë¡œ ì¶”ì •ë¨.
+		ì´ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•´ ì„ì‹œë¡œ unscheduleUpdateì„ í˜¸ì¶œí•˜ë„ë¡í•¨
 	*/
 	unscheduleUpdate();
 	scheduleUpdate();

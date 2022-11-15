@@ -48,14 +48,14 @@ public:
     virtual void onTouchEnded(Touch *touch, Event *event);
     virtual void onTouchCancelled(Touch *touch, Event *event);
 
-    virtual void addChild(Node* child, int localZOrder, int tag);
-    virtual void removeAllChildrenWithCleanup(bool cleanup);
+    virtual void addChild(Node* child, int localZOrder, int tag) override;
+    virtual void removeAllChildrenWithCleanup(bool cleanup) override;
 
-    virtual bool isDragging() const { return _dragging; }
-    virtual bool isTouchMoved() const { return _touchMoved; }
-    virtual Rect getTouchableRect();
+    virtual bool isDragging() const override { return _dragging; }
+    virtual bool isTouchMoved() const override { return _touchMoved; }
+    virtual Rect getTouchableRect() override;
 
-    virtual bool isSlideNode() const { return true; }
+    virtual bool isSlideNode() const override { return true; }
 
     Rect getSlideTouchableRect();
 
@@ -65,7 +65,7 @@ protected:
 
     bool init(float radiusX, float radiusY, float minScale, float maxScale, int originDir = OriginDirection::DOWN);
     void update(Node *node, float angle);
-    void update(float angle);
+    void update(float angle) override;
 
     void deaccelerateSliding(float dt);
 

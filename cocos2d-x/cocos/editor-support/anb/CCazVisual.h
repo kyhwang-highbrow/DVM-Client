@@ -95,7 +95,7 @@ protected:
 	AzVisual(void);
 	virtual ~AzVisual(void);
 
-	virtual bool init(void);
+	virtual bool init(void) override;
 	virtual bool initWithFile(const std::string& filename);
 
 	static bool load(const std::string& filename, azModel::AzDataDictionary*& azddic, azModel::AzID& project_id);

@@ -294,7 +294,7 @@ CC_CONSTRUCTOR_ACCESS:
     LayerColor();
     virtual ~LayerColor();
     
-    bool init();
+    bool init() override;
     bool initWithColor(const Color4B& color, GLfloat width, GLfloat height);
     bool initWithColor(const Color4B& color);
 
@@ -386,7 +386,7 @@ CC_CONSTRUCTOR_ACCESS:
     LayerGradient();
     virtual ~LayerGradient();
     
-    virtual bool init();
+    virtual bool init() override;
     /** Initializes the Layer with a gradient between start and end.
      * @js init
      * @lua init

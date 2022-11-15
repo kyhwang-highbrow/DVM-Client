@@ -238,7 +238,7 @@ public:
      */
     virtual bool initWithSpriteFrameName(const std::string& spriteFrameName);
 
-    virtual bool init();
+    virtual bool init() override;
     virtual bool initWithBatchNode(SpriteBatchNode* batchnode, const Rect& rect, bool rotated, const Rect& capInsets);
     virtual bool initWithBatchNode(SpriteBatchNode* batchnode, const Rect& rect, const Rect& capInsets);
 

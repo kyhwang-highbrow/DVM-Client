@@ -105,7 +105,7 @@ public:
      */
     virtual ~ScrollView();
 
-    bool init();
+    bool init() override;
     /**
      * Returns a scroll view object
      *
@@ -180,11 +180,11 @@ public:
     bool isLimitedOffset() const { return _limitedOffset; }
     void setLimitedOffset(bool bLimitedOffset) { _limitedOffset = bLimitedOffset; }
 
-    virtual bool isDragging() const {return _dragging;}
-    virtual bool isTouchMoved() const { return _touchMoved; }
-    virtual Rect getTouchableRect();
+    virtual bool isDragging() const override {return _dragging;}
+    virtual bool isTouchMoved() const override { return _touchMoved; }
+    virtual Rect getTouchableRect() override;
 
-    virtual bool isSlideNode() const { return true; }
+    virtual bool isSlideNode() const override { return true; }
 
     /**
      * size to clip. Node boundingBox uses contentSize directly.

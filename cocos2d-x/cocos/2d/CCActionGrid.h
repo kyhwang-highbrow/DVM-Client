@@ -77,7 +77,7 @@ class CC_DLL Grid3DAction : public GridAction
 public:
 
     /** returns the grid */
-    virtual GridBase* getGrid();
+    virtual GridBase* getGrid() override;
     /** returns the vertex than belongs to certain position in the grid 
      * @js NA
      * @lua NA
@@ -153,7 +153,7 @@ public:
     void setTile(const Vec2& position, const Quad3& coords);
 
     /** returns the grid */
-    virtual GridBase* getGrid();
+    virtual GridBase* getGrid() override;
 
     // Override
     virtual TiledGrid3DAction * clone() const override = 0;

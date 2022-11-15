@@ -194,7 +194,7 @@ public:
     /** returns the action that will be performed */
     virtual ActionInterval* action(void);
 
-    virtual ActionInterval* easeActionWithAction(ActionInterval * action);
+    virtual ActionInterval* easeActionWithAction(ActionInterval * action) override;
 
     //
     // Overrides
@@ -274,7 +274,7 @@ class CC_DLL TransitionSlideInL : public TransitionScene, public TransitionEaseS
 public:
     static TransitionSlideInL* create(float t, Scene* scene);
 
-    virtual ActionInterval* easeActionWithAction(ActionInterval * action);
+    virtual ActionInterval* easeActionWithAction(ActionInterval * action) override;
 
     /** returns the action that will be performed by the incoming and outgoing scene */
     virtual ActionInterval* action(void);
@@ -306,14 +306,14 @@ public:
     static TransitionSlideInR* create(float t, Scene* scene);
 
     /** returns the action that will be performed by the incoming and outgoing scene */
-    virtual ActionInterval* action(void);
+    virtual ActionInterval* action(void) override;
 
 protected:
     TransitionSlideInR();
     virtual ~TransitionSlideInR();
 
     /** initializes the scenes */
-    virtual void initScenes(void);
+    virtual void initScenes(void) override;
 
     virtual void sceneOrder() override;
 
@@ -330,14 +330,14 @@ public:
     static TransitionSlideInB* create(float t, Scene* scene);
 
     /** returns the action that will be performed by the incoming and outgoing scene */
-    virtual ActionInterval* action(void);
+    virtual ActionInterval* action(void) override;
 
 protected:
     TransitionSlideInB();
     virtual ~TransitionSlideInB();
 
     /** initializes the scenes */
-    virtual void initScenes();
+    virtual void initScenes() override;
 
     virtual void sceneOrder() override;
 
@@ -354,14 +354,14 @@ public:
     static TransitionSlideInT* create(float t, Scene* scene);
 
     /** returns the action that will be performed by the incoming and outgoing scene */
-    virtual ActionInterval* action(void);
+    virtual ActionInterval* action(void) override;
 
 protected:
     TransitionSlideInT();
     virtual ~TransitionSlideInT();
 
     /** initializes the scenes */
-    virtual void initScenes(void);
+    virtual void initScenes(void) override;
 
     virtual void sceneOrder() override;
 
@@ -740,7 +740,7 @@ protected:
     TransitionFadeTR();
     virtual ~TransitionFadeTR();
 
-    virtual void sceneOrder();
+    virtual void sceneOrder() override;
 
     NodeGrid* _outSceneProxy;
 

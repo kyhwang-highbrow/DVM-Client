@@ -23,11 +23,11 @@ public:
 
 	bool initWithFile(const char *filename);
 
-	virtual void onEnter();
-	virtual void onExit();
+	virtual void onEnter() override;
+	virtual void onExit() override;
 
 	virtual void draw(Renderer *renderer, const Mat4 &transform, bool transformUpdated) override;
-	virtual void update(float dt);
+	virtual void update(float dt) override;
 
 	//build
 	void buildSprite(const char *baseDir);

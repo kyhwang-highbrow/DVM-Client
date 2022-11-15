@@ -177,7 +177,7 @@ public:
     void addEventListener(const ccCheckBoxCallback& callback);
 
     //override "onTouchEnded" method of widget.
-    virtual void onTouchEnded(Touch *touch, Event *unusedEvent);
+    virtual void onTouchEnded(Touch *touch, Event *unusedEvent) override;
 
     //override "getVirtualRendererSize" method of widget.
     virtual const Size& getVirtualRendererSize() const override;
