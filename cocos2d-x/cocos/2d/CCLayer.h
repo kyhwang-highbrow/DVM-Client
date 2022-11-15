@@ -491,7 +491,7 @@ CC_CONSTRUCTOR_ACCESS:
      */
     virtual ~LayerMultiplex();
     
-    virtual bool init();
+    virtual bool init() override;
     /** initializes a MultiplexLayer with one or more layers using a variable argument list.
      * @js NA
      * @lua NA
