@@ -1,5 +1,5 @@
 -------------------------------------
--- class ErrorTracker
+---@class ErrorTracker
 -- @brief Error, Bug 관련 정보 수집
 -------------------------------------
 ErrorTracker = class({
@@ -30,6 +30,7 @@ end
 
 -------------------------------------
 -- function getInstance
+---@return ErrorTracker
 ------------------------------------- 
 function ErrorTracker:getInstance()
     if g_errorTracker then
@@ -503,64 +504,4 @@ function ErrorTracker:getDevice()
     end
 
     return model
-end
-
--------------------------------------
--- function sendUserInfoLog
-------------------------------------- 
-function ErrorTracker:sendUserInfoLog(success_cb)
-
-    local uid = 'nil'
-    local nick = 'nil'
-
-    if g_userData then
-        uid = tostring(g_userData:get('uid'))
-        nick = tostring(g_userData:get('nick'))
-    elseif g_localData then
-        uid = tostring(g_localData:get('local', 'uid'))
-        nick = tostring(g_localData:get('local', 'nick'))
-    end
-
-	local device_str = self:getDeviceStr()
-
-	-- 파라미터 셋팅
-    local t_json = {
-        ['uid'] = uid,
-        ['nick'] = nick,
-		['device'] = device_str,
-        ['os'] = getTargetOSName(),	-- android, ios, window
-		['auth'] = g_localData:getAuth(),	-- google.com, facebook.com, twitter.com firebase
-        ['glang'] = Translate:getGameLang(),	-- ko, ja, en, zh
-		['dlang'] = Translate:getDeviceLang(),	-- ko, ja, en, zh
-    } 
-
-	local t_data = {
-        ['json_str'] = dkjson.encode(t_json),
-
-		-- 같은 crashlog api를 사용하되 desc로 구분한다
-		['desc'] = 'user_info'
-    }
-
-    -- 요청 정보 설정
-    local t_request = {}
-    t_request['url'] = '/crashlog'
-    t_request['method'] = 'POST'
-    t_request['data'] = t_data
-
-    -- 성공 시 콜백 함수
-    t_request['success'] = function(ret)
-        if (success_cb) then
-            success_cb(ret)
-        end
-    end
-
-    -- 실패 시 콜백 함수
-    t_request['fail'] = function(ret)
-        if (success_cb) then
-            success_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    Network:SimpleRequest(t_request)
 end

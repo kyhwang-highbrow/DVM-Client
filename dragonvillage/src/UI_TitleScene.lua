@@ -419,7 +419,6 @@ function UI_TitleScene:setWorkList()
             end
         end
 
-        table.insert(self.m_lWorkList, 'workNetworkUserInfo') -- crash log에 정보 저장
         table.insert(self.m_lWorkList, 'workAdManagerInitialize') -- 광고 모듈 초기화
     end
 
@@ -1869,21 +1868,6 @@ function UI_TitleScene:workGetMarketInfo_Monthly()
     PerpleSDK:billingGetItemList(skuList, call_back)
 end
 function UI_TitleScene:workGetMarketInfo_Monthly_click()
-end
-
--------------------------------------
--- function workNetworkUserInfo
--- @brief 기본 유저 정보 통신
--------------------------------------
-function UI_TitleScene:workNetworkUserInfo()
-    self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
-
-	local function success_cb()
-		self:doNextWork()
-	end
-	g_errorTracker:sendUserInfoLog(success_cb)
-end
-function UI_TitleScene:workNetworkUserInfo_click()
 end
 
 -------------------------------------
