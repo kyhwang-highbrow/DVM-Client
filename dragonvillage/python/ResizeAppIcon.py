@@ -1,24 +1,14 @@
 #-*- coding:utf-8 -*-
 
-# 모듈 import(설치되어있지 않은 경우 install 후 import)
-# 자주 사용하는 기능들은 모듈화 하자 .. PyHighbrow
-def installIfNotExist(package):
-    import importlib
-    try:
-        importlib.import_module(package)
-    except ImportError:
-        import pip
-        pip.main(['install', package])
-    # finally:
-    #     globals()[package] = importlib.import_module(package)
-
 ####################################
 # IMPORT
 ####################################
+import sys
 import os
 import shutil
+import module.utility as utils
 # Pillow - PIL
-installIfNotExist('Pillow')
+utils.install_and_import('Pillow')
 from PIL import Image
 
 
@@ -27,6 +17,11 @@ from PIL import Image
 ####################################
 SAVE_PATH_FORMAT = '{folder}/{name}.png'
 ICON_ORG_PATH = './app_icon.png'
+ICON_ANDROID_PATH = '../proj.android_studio/app/res/'
+ANDROID_FLAVOR_LIST = {'common'}
+ICON_WINDOWS_PATH = '../proj.win32/res/'
+ICON_IOS_PATH = '../proj.ios_mac/ios/Images.xcassets/AppIcon.appiconset/'
+ICON_MAC_PATH = '../proj.ios_mac/mac/'
 
 ####################################
 # FUNCTION
@@ -41,53 +36,83 @@ def ResizeImage(image, size, folder, image_name):
     resize_image.save(path)
     print(path)
 
+def Main(argv):
+    print('############### START ResizeImage')
+
+    # 외부에서 이미지 경로를 전달받은 경우
+    if (1<len(argv)):
+        png_path = argv[1]
+    else:
+        png_path = ICON_ORG_PATH
+
+    print('png_path : ' + png_path)
+
+    ## Orginal
+    try:
+        image = Image.open(png_path)
+    except BaseException as e:
+        print(e)
+        print('############### FAIL ResizeImage')
+        os.system("pause")
+        return
+
+    ## iOS
+    print('############### iOS')
+    ResizeImage(image, 20, ICON_IOS_PATH, 'icon-20')
+    ResizeImage(image, 40, ICON_IOS_PATH, 'icon-20@2x')
+    ResizeImage(image, 60, ICON_IOS_PATH, 'icon-20@3x')
+    ResizeImage(image, 29, ICON_IOS_PATH, 'icon-29')
+    ResizeImage(image, 58, ICON_IOS_PATH, 'icon-29@2x')
+    ResizeImage(image, 87, ICON_IOS_PATH, 'icon-29@3x')
+    ResizeImage(image, 40, ICON_IOS_PATH, 'icon-40')
+    ResizeImage(image, 80, ICON_IOS_PATH, 'icon-40@2x')
+    ResizeImage(image, 120, ICON_IOS_PATH, 'icon-40@3x')
+    ResizeImage(image, 50, ICON_IOS_PATH, 'icon-50')
+    ResizeImage(image, 100, ICON_IOS_PATH, 'icon-50@2x')
+    ResizeImage(image, 57, ICON_IOS_PATH, 'icon-57')
+    ResizeImage(image, 114, ICON_IOS_PATH, 'icon-57@2x')
+    ResizeImage(image, 120, ICON_IOS_PATH, 'icon-60@2x')
+    ResizeImage(image, 180, ICON_IOS_PATH, 'icon-60@3x')
+    ResizeImage(image, 72, ICON_IOS_PATH, 'icon-72')
+    ResizeImage(image, 144, ICON_IOS_PATH, 'icon-72@2x')
+    ResizeImage(image, 76, ICON_IOS_PATH, 'icon-76')
+    ResizeImage(image, 152, ICON_IOS_PATH, 'icon-76@2x')
+    ResizeImage(image, 167, ICON_IOS_PATH, 'icon-83.5@2x')
+    ResizeImage(image, 1024, ICON_IOS_PATH, 'icon-1024')
+
+    # Android
+    print('############### Android')
+    for res_flovor in ANDROID_FLAVOR_LIST:
+        path = ICON_ANDROID_PATH + res_flovor + '/'
+        ResizeImage(image, 24, path + 'drawable', 'icon')
+        ResizeImage(image, 72, path + 'drawable-hdpi', 'icon')
+        ResizeImage(image, 36, path + 'drawable-ldpi', 'icon')
+        ResizeImage(image, 48, path + 'drawable-mdpi', 'icon')
+        ResizeImage(image, 96, path + 'drawable-xhdpi', 'icon')
+        ResizeImage(image, 144, path + 'drawable-xxhdpi', 'icon')
+        ResizeImage(image, 192, path + 'drawable-xxxhdpi', 'icon')
+
+
+    # Windows
+    print('############### Windows')
+    path = ICON_WINDOWS_PATH + 'game.ico'
+    print(path)
+    image.save(path, format = 'ICO', sizes=[(48,48)])
+
+    # MAC
+    print('############### Mac')
+    # @sgkim 2021.03.31 MAC용 icns는 python에서 변환하는 것이 준비되어 있지 않다.
+    #                   https://anyconv.com/ 와 같은 웹에서 제공하는 기능을 활용 할 것.
+
+    print('############### FINISH ResizeImage')
+    os.system("pause")
+
+
 ####################################
 # MAIN
 ####################################
 if __name__ == '__main__':
-    
-    print('############### START ResizeImage')
-
-    ## Orginal
-    image = Image.open(ICON_ORG_PATH)
-
-    ## iOS
-    print('############### iOS')
-    ResizeImage(image, 20, 'ios', 'icon_20')
-    ResizeImage(image, 40, 'ios', 'icon_20@2x')
-    ResizeImage(image, 60, 'ios', 'icon_20@3x')
-    ResizeImage(image, 29, 'ios', 'icon_29')
-    ResizeImage(image, 58, 'ios', 'icon_29@2x')
-    ResizeImage(image, 87, 'ios', 'icon_29@3x')
-    ResizeImage(image, 40, 'ios', 'icon_40')
-    ResizeImage(image, 80, 'ios', 'icon_40@2x')
-    ResizeImage(image, 120, 'ios', 'icon_40@3x')
-    ResizeImage(image, 50, 'ios', 'icon_50')
-    ResizeImage(image, 100, 'ios', 'icon_50@2x')
-    ResizeImage(image, 57, 'ios', 'icon_57')
-    ResizeImage(image, 114, 'ios', 'icon_57@2x')
-    ResizeImage(image, 120, 'ios', 'icon_60@2x')
-    ResizeImage(image, 180, 'ios', 'icon_60@3x')
-    ResizeImage(image, 72, 'ios', 'icon_72')
-    ResizeImage(image, 144, 'ios', 'icon_72@2x')
-    ResizeImage(image, 76, 'ios', 'icon_76')
-    ResizeImage(image, 152, 'ios', 'icon_76@2x')
-    ResizeImage(image, 167, 'ios', 'icon_83.5@2x')
-    ResizeImage(image, 1024, 'ios', 'icon_1024')
-
-    # Android
-    print('############### Android')
-    ResizeImage(image, 24, 'aos/drawable', 'icon')
-    ResizeImage(image, 72, 'aos/drawable-hdpi', 'icon')
-    ResizeImage(image, 36, 'aos/drawable-ldpi', 'icon')
-    ResizeImage(image, 48, 'aos/drawable-mdpi', 'icon')
-    ResizeImage(image, 96, 'aos/drawable-xhdpi', 'icon')
-    ResizeImage(image, 144, 'aos/drawable-xxhdpi', 'icon')
-    ResizeImage(image, 192, 'aos/drawable-xxxhdpi', 'icon')
-
-    # Copy는 다음에 만들자
-
-    print('############### FINISH ResizeImage')
+    Main(sys.argv)
 
 else:
     print('## I am being imported from another module')
