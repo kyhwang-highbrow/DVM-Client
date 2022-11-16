@@ -1063,6 +1063,13 @@ function Str(id, ...)
 		return
 	end
 
+    -- 숫자가 들어오더라도 정상 작동되도록 문자열로 변환
+    -- 숫자만 변환시킨 건 table, userdata 등 정말 이상한 값이 들어오면 하단 함수에서 에러를 내야하니까 그런다.
+    if (type(id) == 'number') then
+        cclog('## trying to translate number // check it :' .. tostring(id))
+        id = tostring(id) -- 숫자가 들어오더라도 문자열로 변환
+    end
+
     local str = formatMessage(Translate:get(id), ...)
 
     -- 한글이라면 조사 선택 처리
