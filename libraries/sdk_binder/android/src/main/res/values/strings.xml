@@ -2,4 +2,6 @@
 <resources>
     <string name="facebook_app_id" translatable="false">1959320877684820</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb1959320877684820</string>
+    <string name="facebook_client_token" translatable="false">5a64a13ec975bab5ffc000cd54bd5ba5</string>
+    <string name="app_name" translatable="false">Dragon Village M</string>
 </resources>

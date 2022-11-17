@@ -28,6 +28,7 @@ import com.facebook.LoggingBehavior;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.share.Sharer;
@@ -255,8 +256,7 @@ public class PerpleFacebook {
                 peopleIds.add(to);
 
                 ShareLinkContent content = new ShareLinkContent.Builder()
-                    .setContentTitle(title)
-                    .setContentDescription(message)
+                    .setQuote(message)
                     .setContentUrl(Uri.parse(url))
                     .setPeopleIds(peopleIds)
                     .build();
