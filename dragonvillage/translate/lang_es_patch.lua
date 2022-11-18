@@ -1,4 +1,5 @@
 return {['노려라! 속성 전설의 알 랜덤박스']='¡Apunta a la meta! Atributo Caja aleatoria de huevos legendarios',
+['노려라! 속성 전설알 랜덤박스']='¡Apunta a la meta! Atributo Caja aleatoria de huevos legendarios',
 ['노려라! 속성 전설알 패키지']='¡Apunta a la meta! Paquete de huevos legendarios de atributo',
 ['신규 서버 시작 시\n다이아 10,000개 지급!']='¡Únase al nuevo servidor\ny obtenga 10,000 diamantes!',
 ['유럽 서버 시작 시\n다이아 10,000개 지급!']='¡Únase al servidor de Europa\ny obtenga 10,000 diamantes!',
@@ -7,6 +8,7 @@ return {['노려라! 속성 전설의 알 랜덤박스']='¡Apunta a la meta! At
 ['옵션 확정! 피해 룬 패키지 ']='Mantener Opciones! Paquete de runas de daño',
 ['전설 특성 재료 랜덤박스']='Caja aleatoria de material de dominio legendario',
 ['축구 축제 승리 기원 알 패키지']='Paquete de huevos de vítores de la victoria del festival de fútbol',
+['축구 축제 승리기원 알 패키지']='Paquete de huevos de vítores de la victoria del festival de fútbol',
 ['축구 축제 승리기원 알 패키지 1']='Festival de Fútbol Victory Cheering Egg Paquete 1',
 ['축구 축제 승리기원 알 패키지 2']='Festival de Fútbol Victory Cheering Egg Paquete 2',
 ['특성 강화 재료 랜덤박스']='Caja aleatoria de material de mejora de maestría',

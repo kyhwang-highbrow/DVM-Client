@@ -1,4 +1,5 @@
 return {['노려라! 속성 전설의 알 랜덤박스']='Aim for the goal! Attribute Legendary Egg Random Box',
+['노려라! 속성 전설알 랜덤박스']='Aim for the goal! Attribute Legendary Egg Random Box',
 ['노려라! 속성 전설알 패키지']='Aim for the goal! Attribute Legendary Egg Package',
 ['신규 서버 시작 시\n다이아 10,000개 지급!']='Join the new server\nand get 10,000 Diamonds!',
 ['유럽 서버 시작 시\n다이아 10,000개 지급!']='Join the Europe server\nand get 10,000 Diamonds!',
@@ -7,6 +8,7 @@ return {['노려라! 속성 전설의 알 랜덤박스']='Aim for the goal! Attr
 ['옵션 확정! 피해 룬 패키지 ']='Keep Options! Damage Rune Package',
 ['전설 특성 재료 랜덤박스']='Legendary Mastery Material Random Box',
 ['축구 축제 승리 기원 알 패키지']='Soccer Festival Victory Cheering Egg Package',
+['축구 축제 승리기원 알 패키지']='Soccer Festival Victory Cheering Egg Package',
 ['축구 축제 승리기원 알 패키지 1']='Soccer Festival Victory Cheering Egg Package 1',
 ['축구 축제 승리기원 알 패키지 2']='Soccer Festival Victory Cheering Egg Package 2',
 ['특성 강화 재료 랜덤박스']='Mastery Enhance Material Random Box',
