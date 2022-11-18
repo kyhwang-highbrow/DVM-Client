@@ -23032,4 +23032,5 @@ return {['(광고) SVIP 테이머님을 위해 신화 드래곤 선택권을 선
 ['스테이지에 입장해 볼까요?\n1-1 스테이지 버튼을 눌러 주세요.']='¿Ingresamos al estado?\nPresiona el botón de Estado 1-1.',
 ['스테이지 정보 화면에서는 해당 스테이지에 대한 보상과\n출현 몬스터의 정보를 확인할 수 있습니다.']='En la Pantalla de Información del Estado puedes confirmar las recompensas del estado al igual que\nla información relacionada a los monstruos que aparecen en los estados.',
 ['전투 준비 화면에서는 전투에 참여할 드래곤을 선택할 수 있습니다.\n또한 드래곤들의 {@yellow}진형{@default}, 전투를 치를 {@yellow}테이머{@default}를 바꾸는 것도 가능합니다.']='Puedes seleccionar a los dragones que participarán en la batalla en la Pantalla de Preparación de la Batalla.\nAdemás, puedes cambiar al {@yellow}domador{@default} que peleará en la baalla, y la {@yellow}formación{@default} de los dragones.',
-['그럼 전투를 시작해 볼까요!']='¿¡Entonces comenzamos la batalla!?'}
+['그럼 전투를 시작해 볼까요!']='¿¡Entonces comenzamos la batalla!?',
+['원더드래곤(물) 성장 지원 상자'] = 'Box de ayuda al crecimiento de Dragón Maravilla (Agua)'}
