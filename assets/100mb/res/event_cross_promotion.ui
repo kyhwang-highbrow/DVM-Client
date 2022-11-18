@@ -108,12 +108,12 @@
 				ui_name = '게임으로 이동';
 				flag = '';
 				x = -187.000000;
-				y = -198.000000;
+				y = -234.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 410;
-				height = 181;
+				width = 490;
+				height = 90;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;

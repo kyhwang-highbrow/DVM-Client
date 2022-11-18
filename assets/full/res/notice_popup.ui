@@ -246,7 +246,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 200;
+				width = 220;
 				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -257,13 +257,13 @@
 				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '다이아\n10,000개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 200;
+				dimension_width = 220;
 				dimension_height = 70;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -290,7 +290,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 200;
+				width = 220;
 				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -301,13 +301,13 @@
 				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '다이아\n20,000개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 200;
+				dimension_width = 220;
 				dimension_height = 70;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -334,7 +334,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 200;
+				width = 220;
 				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -345,13 +345,13 @@
 				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '다이아\n30,000개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 200;
+				dimension_width = 220;
 				dimension_height = 70;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -379,7 +379,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 240;
-				height = 45;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -396,7 +396,7 @@
 				color = { 0; 0; 0; };
 				opacity = 255;
 				dimension_width = 240;
-				dimension_height = 45;
+				dimension_height = 50;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -423,7 +423,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 240;
-				height = 45;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -440,7 +440,7 @@
 				color = { 0; 0; 0; };
 				opacity = 255;
 				dimension_width = 240;
-				dimension_height = 45;
+				dimension_height = 50;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -467,7 +467,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 240;
-				height = 45;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -484,7 +484,7 @@
 				color = { 0; 0; 0; };
 				opacity = 255;
 				dimension_width = 240;
-				dimension_height = 45;
+				dimension_height = 50;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -547,9 +547,9 @@
 			[13] =
 			{
 				type = 'LabelTTF';
-				ui_name = '';
+				ui_name = 'rich';
 				flag = '';
-				x = 19.000000;
+				x = 0.000000;
 				y = 204.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -565,7 +565,7 @@
 				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 30;
+				font_size = 26;
 				text = '티어메이커를 활용하여 최고의 드래곤을 뽑아주세요!';
 				h_alignment = 1;
 				v_alignment = 1;
