@@ -13,4 +13,5 @@ return {['노려라! 속성 전설의 알 랜덤박스']='Aim for the goal! Attr
 ['축구 축제 승리기원 알 패키지 2']='Soccer Festival Victory Cheering Egg Package 2',
 ['특성 강화 재료 랜덤박스']='Mastery Enhance Material Random Box',
 ['축구 축제 이벤트!']='Soccer Festival Event!',
-['좋아하는 나라 응원도 하고 보상도 받고 !']='Support your favorite team and receive rewards!'}
+['좋아하는 나라 응원도 하고 보상도 받고 !']='Support your favorite team and receive rewards!',
+['원더드래곤(물) 성장 지원 상자'] = 'Wonder Dragon (Water) growth support box'}
