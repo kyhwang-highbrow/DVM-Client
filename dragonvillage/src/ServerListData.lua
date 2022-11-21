@@ -35,21 +35,20 @@ function ServerListData:initWithData(tdata)
         for i, server in pairs(tserverList) do
             if (server['server_name'] == SERVER_NAME.DEV) then
             elseif (server['server_name'] == SERVER_NAME.QA) then
-            elseif (isWin32() == false) and (isMac() == false)  and (server['server_name'] == SERVER_NAME.EUROPE) then -- @sgkim 2020.11.24 유럽 서버 추가 준비를 위해 임의로 추가
             else -- 위에서 허용되지 않은 서버 항목은 삭제
                 table.insert(tremove, 1, i)
             end
         end
         recommandServerName = targetServer
     else
-        if (recommandServerNum ~= 3) then
+        if (recommandServerNum ~= 3) or (recommandedServerNum ~= 7) then
             recommandServerNum = 8
         end
 
         for i, server in pairs(tserverList) do
             local server_name = server['server_name']
             -- 라이브 서버에서는 DEV, QA서버를 제외한다
-            if (server_name == SERVER_NAME.DEV) or (server_name == SERVER_NAME.QA) or (server_name == SERVER_NAME.EUROPE) then
+            if (server_name == SERVER_NAME.DEV) or (server_name == SERVER_NAME.QA) then
                 table.insert(tremove, 1, i)
             else
                 if server['server_num'] == recommandServerNum then
