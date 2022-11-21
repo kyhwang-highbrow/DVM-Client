@@ -594,6 +594,11 @@ function UI_TitleScene:workGetFCMToken()
         return
     end
 
+    if (getAppVerNum() < 1004000) then -- @yjkil 22.11.07 - 1.3.7 빌드 및 1.3.6 지원 종료 시 코드 제거해야 함
+        self:doNextWork()
+        return
+    end
+
     PerpleSDK:getFCMToken(function(ret, info)
         if (ret == 'success') then
             cclog('push_token: ' .. tostring(info))
@@ -671,6 +676,15 @@ function UI_TitleScene:workCheckUserID()
         local fuid = t_info.fuid
         local platform_id = t_info.providerId
         local account_info = t_info.name
+
+        if (getAppVerNum() < 1004000) then
+            local push_token = t_info.pushToken
+            cclog('push_token: ' .. tostring(push_token))
+
+            -- 푸시 발송을 위한 푸시토큰
+            -- 로그인할 때마다 플랫폼 서버에 저장해야 함
+            g_localData:applyLocalData(push_token, 'local', 'push_token')
+        end
 
         cclog('fuid: ' .. tostring(fuid))
         cclog('platform_id:' .. tostring(platform_id))
