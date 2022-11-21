@@ -44,7 +44,7 @@ function ServerListData:initWithData(tdata)
         end
         recommandServerName = targetServer
     else
-        if (recommandServerNum ~= 3) or (recommandedServerNum ~= 7) then
+        if (recommandServerNum ~= 3) or (recommandServerNum ~= 7) then
             recommandServerNum = 8
         end
 
