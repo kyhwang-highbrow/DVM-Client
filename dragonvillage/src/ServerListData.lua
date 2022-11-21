@@ -5,7 +5,9 @@ ServerListData = class({
         -- server name 종류 (QA, DEV, Korea, Asia, Japan, America, Global)
 	    m_recommandServerName = 'string',
         m_selectServerName = 'string',
-        m_tservers = 'table'
+        m_tservers = 'table',
+
+        m_isLocatedAtEU = 'boolean'
     })
 
 -------------------------------------
@@ -15,6 +17,7 @@ function ServerListData:init()
     self.m_recommandServerName = ''
     self.m_selectServerName = ''
     self.m_tservers = {}
+    self.m_isLocatedAtEU = false
 end
 
 -------------------------------------
@@ -66,6 +69,8 @@ function ServerListData:initWithData(tdata)
         table.remove(tserverList, v)
     end
 
+    self.m_isLocatedAtEU = tdata['isEU'] or false
+
     --로컬에 저장된거 있으면 그거 우선
     local local_server_name = g_localData:getServerName()
     if local_server_name then        
@@ -73,6 +78,7 @@ function ServerListData:initWithData(tdata)
     else
         self.m_recommandServerName = recommandServerName or defaultServerName    
     end
+    
     self:selectServer(self.m_recommandServerName)
 end
 
