@@ -235,9 +235,9 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
         if (not ui_priority) then
             ui_priority = 0
         end
-        local t_product = nil
 
-        t_product = table_shop_cash[product_id] or table_shop_basic[product_id]
+        local t_product = table_shop_cash[product_id] or table_shop_basic[product_id]
+
         if t_product then
             local struct_product = StructProduct(t_product)
            
@@ -271,7 +271,6 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
             --     end
             
             if(tab_category == 'pass') then
-                --
                 if g_eventData:checkEventTime(start_date, end_date) then
                     self:insertProduct(struct_product)
                 end
@@ -924,15 +923,12 @@ function ServerData_Shop:getTargetProduct(product_id)
     local l_product_list = {}
     for _,v in pairs(self.m_dicProduct) do
         for _,struct_product in pairs(v) do
-            table.insert(l_product_list, struct_product)
+            if struct_product['product_id'] == product_id then
+                return struct_product
+            end
         end
     end
 
-    for _,struct_product in ipairs(l_product_list) do
-        if (struct_product['product_id'] == product_id) then
-            return struct_product
-        end
-    end
     
     return nil
 end

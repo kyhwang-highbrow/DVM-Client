@@ -46,28 +46,17 @@ function UI_NewcomerShop:initUI()
 
 
     do -- 테이블 뷰 생성
-        local l_struct_product = {}
+        local struct_product_list = {}
         for _,product_id in pairs(l_product_id) do
             local struct_product = g_shopDataNew:getTargetProduct(product_id)
             if (struct_product) then
-                l_struct_product[product_id] = struct_product
+                table.insert(struct_product_list, struct_product)
             end
         end
 
-        local node = vars['listNode']
-        local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(265 + 10, 405)
-        require('UI_ProductNewcomerShop')
-        table_view:setCellUIClass(UI_ProductNewcomerShop)
-        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-        table_view:setItemList(l_struct_product)
-    
-        -- ui_priority로 정렬
-        local function sort_func(a, b)
+        table.sort(struct_product_list, function(a_struct_product, b_struct_product)
             -- 1. 구매 가능한 상품 우선
             -- 2. product_id가 작으면 우선
-            local a_struct_product = a['data']
-            local b_struct_product = b['data']
 
             local a_is_buy_all = a_struct_product:isBuyAll()
             local b_is_buy_all = b_struct_product:isBuyAll()
@@ -81,8 +70,15 @@ function UI_NewcomerShop:initUI()
             else--if (b_is_buy_all == false) then
                 return false
             end
-        end
-        table.sort(table_view.m_itemList, sort_func)
+        end)
+
+        local node = vars['listNode']
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(265 + 10, 405)
+        require('UI_ProductNewcomerShop')
+        table_view:setCellUIClass(UI_ProductNewcomerShop)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+        table_view:setItemList(struct_product_list)
     end
 end
 

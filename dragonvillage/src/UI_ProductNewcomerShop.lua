@@ -51,8 +51,17 @@ end
 -------------------------------------
 function UI_ProductNewcomerShop:initButton()
     local vars = self.vars
+    local struct_product = self.m_structProduct
+    
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
-    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+
+    local str = struct_product:getToolTipStr()
+    if (str == nil) or (str == '') then
+        vars['infoBtn']:setVisible(false)
+    else
+        vars['infoBtn']:setVisible(true)
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    end
 end
 
 -------------------------------------
@@ -102,7 +111,10 @@ function UI_ProductNewcomerShop:click_buyBtn()
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
         
-        self:refresh()
+        -- 갱신이 필요한 상태일 경우
+        if ret['need_refresh'] then
+            self:refresh()
+        end
     end
         
 	struct_product:buy(cb_func)
