@@ -17,7 +17,7 @@ function UI_MasterRoadRewardPopupNew:init(stage_id)
     self.m_uiName = 'UI_MasterRoadRewardPopupNew'
 
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() end, 'UI_MasterRoadRewardPopupNew')
+    g_currScene:pushBackKeyListener(self, function() self:click_rewardBtn() end, 'UI_MasterRoadRewardPopupNew')
 
 
 	self:initUI()
