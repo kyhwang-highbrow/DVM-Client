@@ -77,7 +77,7 @@ function UI_ChallengeMode:initUI()
     vars['rewardNode']:setVisible(true)
 
     -- 하드코딩에, 연마석은 축적된 연마석이 아니라 승리한 층 갯수를 받아옴, 후에 수정해야함
-    local str = Str('{1}/{2}', comma_value(g_challengeMode:getCumulativeGrindStone()), comma_value(60))
+    local str = Str('{1}/{2}', comma_value(g_challengeMode:getCumulativeGrindStone()), comma_value(320))
     vars['rewardLabel']:setString(str)
     
     -- 정렬 함수 셋팅
