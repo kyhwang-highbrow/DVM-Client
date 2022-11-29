@@ -4,7 +4,8 @@ local PARENT = UI
 -- class UI_BannerChallengeMode
 -------------------------------------
 UI_BannerChallengeMode = class(PARENT,{
-    })
+    m_elapsedTime = 'number',
+})
 
 -------------------------------------
 -- function init
@@ -18,9 +19,13 @@ function UI_BannerChallengeMode:init()
     self:doActionReset()
     self:doAction(nil, false)
 
+    self.m_elapsedTime = 1
+
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -29,7 +34,6 @@ end
 function UI_BannerChallengeMode:initUI()
     local vars = self.vars
 
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     vars['titleLabel']:setString(Str('그림자의 신전'))
     
     -- 스페인어의 경우 그림자의 신전 번역이 잘리는 이슈 때문에 폰트 사이즈 줄임
@@ -60,6 +64,14 @@ end
 function UI_BannerChallengeMode:update(dt)
     local vars = self.vars
 
+    self.m_elapsedTime = self.m_elapsedTime + dt
+
+    if (self.m_elapsedTime < 1) then
+        return
+    end
+
+    self.m_elapsedTime = 0
+
     local state = g_challengeMode:getChallengeModeState_Routine()
     
     -- 이벤트 진행 중
@@ -68,7 +80,12 @@ function UI_BannerChallengeMode:update(dt)
         vars['timeLabel']:setString(text)
 
         local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
-        local rank_text = struct_user_info:getChallengeMode_RankText()
+        local rank_text = struct_user_info:getChallengeMode_RankText(true)
+
+		if (rank_text ~= nil) then
+        	vars['descLabel']:setString(rank_text)
+        end
+        vars['changedLabel']:setString('')
 
     -- 이벤트 종료 후 보상 획득 가능
     elseif (state == ServerData_ChallengeMode.STATE['REWARD']) then
