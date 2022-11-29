@@ -4,7 +4,7 @@ local L_TAB = {'adventure', 'dungeon', 'competition', 'clan'}
 local L_TAB_CONTENTS = {}
 L_TAB_CONTENTS['adventure'] = {'adventure', 'exploration'}
 L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'dmgate', 'secret_relation'}
-L_TAB_CONTENTS['competition'] = {'ancient', 'attr_tower', 'colosseum', 'grand_arena', 'arena_new', 'league_raid', 'challenge_mode'}
+L_TAB_CONTENTS['competition'] = {'ancient', 'attr_tower', 'arena_new', 'league_raid', 'grand_arena', 'challenge_mode'}
 L_TAB_CONTENTS['clan'] = {'clan_raid', 'rune_guardian', 'clan_war'}
 
 
@@ -463,50 +463,42 @@ function UI_BattleMenu:initCompetitionTab()
     local interval_x = 415
     local pos_y = -80
 
-    local l_content_str = {}
+    local content_list = {}
     -- 개편아레나 아이템 추가여부 확인
     local arenaNewAttached = false
 
     for _, dungeon_name in ipairs(L_TAB_CONTENTS['competition']) do
+        -- 컨텐츠 해금이 된 경우
         if (not g_contentLockData:isContentLock(dungeon_name)) then
-            -- 콜로세움 혹은 개편 후아레나 아니면 그냥 추가            
-            if (dungeon_name ~= 'colosseum' and dungeon_name ~= 'arena_new') then
-                table.insert(l_content_str, dungeon_name)
-            end
-
-            if (HAS_ARENA_NEW_SEASON()) then
-                -- 시즌정보가 있으면?
-                if (dungeon_name == 'colosseum' and not arenaNewAttached) then
-                    -- 기존 콜로세움?
-                    arenaNewAttached = true
-                    table.insert(l_content_str, 'arena_new')
-                elseif (dungeon_name == 'arena_new' and not arenaNewAttached) then
-                    -- 신규 콜로세움?
-                    arenaNewAttached = true
-                    table.insert(l_content_str, dungeon_name)
+            -- 그랜드 콜로세움이 비활성화(핫타임)인 경우
+            if (dungeon_name == 'grand_arena') then
+                if (g_grandArena:getGrandArenaState() ~= ServerData_GrandArena.STATE['INACTIVE']) then
+                    table.insert(content_list, dungeon_name)                        
+                end
+            -- 그림자 신전이 비활성화(핫타임)인 경우
+            elseif (dungeon_name == 'challenge_mode') then
+                if (g_challengeMode:getChallengeModeState() ~= ServerData_ChallengeMode.STATE['INACTIVE']) then
+                    table.insert(content_list, dungeon_name)
                 end
             else
-                if (dungeon_name == 'colosseum') then
-                    --콜로세움일 때만 추가
-                    table.insert(l_content_str, dungeon_name)
-                end
+                table.insert(content_list, dungeon_name)
             end
         end
     end 
 
     -- 리스트 갯수에 따라 interval_x 간격 조절
-    local list_count = table.count(l_content_str)
-    if (list_count == 4) then
+    local content_num = table.count(content_list)
+    if (content_num == 4) then
         interval_x = 285
-    elseif (list_count >= 5) then
+    elseif (content_num >= 5) then
         interval_x = 208
     end
 
     local l_btn_ui = {}
     do -- 콘텐츠 리스트 UI 생성
-        local l_pos = getSortPosList(interval_x, table.count(l_content_str))
-        for i,v in ipairs(l_content_str) do
-            local ui = UI_BattleMenuItem_Competition(v, list_count)
+        local l_pos = getSortPosList(interval_x, table.count(content_list))
+        for i,v in ipairs(content_list) do
+            local ui = UI_BattleMenuItem_Competition(v, content_num)
             local pos_x = l_pos[i]
             ui.root:setPosition(pos_x, pos_y)
             vars['competitionMenu']:addChild(ui.root)
