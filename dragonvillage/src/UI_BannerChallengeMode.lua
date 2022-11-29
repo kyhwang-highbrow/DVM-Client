@@ -80,12 +80,16 @@ function UI_BannerChallengeMode:update(dt)
         vars['timeLabel']:setString(text)
 
         local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
-        local rank_text = struct_user_info:getChallengeMode_RankText(true)
+        local user_rank = struct_user_info:getRank()
+        local total_user_num = struct_user_info:getRankTotal()
 
-		if (rank_text ~= nil) then
-        	vars['descLabel']:setString(rank_text)
+        if isNumber(user_rank) or isString(user_rank) then
+            vars['descLabel']:setString(Str('{1}위',tostring(user_rank)))
         end
-        vars['changedLabel']:setString('')
+
+        if isNumber(total_user_num) or isString(total_user_num) then
+            vars['changedLabel']:setString('/' .. tostring(total_user_num))
+        end
 
     -- 이벤트 종료 후 보상 획득 가능
     elseif (state == ServerData_ChallengeMode.STATE['REWARD']) then

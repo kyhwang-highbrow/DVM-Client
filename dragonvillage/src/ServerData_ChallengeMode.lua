@@ -94,6 +94,7 @@ function ServerData_ChallengeMode:init(server_data)
     self.m_tempLogData = {}
     self.m_lStagesDetailInfo = {}
     self.m_isMasterMode = false
+    self.m_isChallengeModeOpen = false
 end
 
 -------------------------------------
@@ -247,6 +248,10 @@ function ServerData_ChallengeMode:refresh_playerUserInfo(t_data, l_deck)
             struct_user_info.m_rank = t_data['rank']
         end
 
+        if t_data['total'] then
+            struct_user_info.m_rankTotal = t_data['total']
+        end
+
         if t_data['tier'] then
             struct_user_info.m_tier = t_data['tier']
         end
@@ -392,7 +397,7 @@ end
 function ServerData_ChallengeMode:getChallengeModeStagePoint(stage)
     local point = 0
 
-    if self.m_lTotalPoint[stage] then
+    if self.m_lTotalPoint and self.m_lTotalPoint[stage] then
         -- point = (self.m_lTotalPoint[stage] - 10000)
         -- @sgkim 2018-10-24 클리어 층 개념이 사라지면서 점수를 그대로 사용
         point = self.m_lTotalPoint[stage]
@@ -1560,6 +1565,12 @@ function ServerData_ChallengeMode:setInfoForLobby(ret)
     else
         self.m_tableLastInfo = nil
     end
+
+    -- 플레이어 랭킹 정보 갱신
+    if ret['my_info'] then
+        self:refresh_playerUserInfo(ret['my_info'], nil)
+    end
+
 
     -- 시즌 보상 정보 저장
     if ret['reward_info'] and (0 < table.count(ret['reward_info'])) then

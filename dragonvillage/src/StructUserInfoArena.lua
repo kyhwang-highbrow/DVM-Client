@@ -45,6 +45,7 @@ StructUserInfoArena = class(PARENT, {
 
         m_rp = 'number',         -- ranking point
         m_rank = 'number',       -- 월드 랭킹
+        m_rankTotal= 'number', --랭킹 유저 총합
         m_rankPercent = 'float',-- 월드 랭킹 퍼센트
         m_tier = 'string',       -- 티어
         m_straight = 'number',   -- 연승 정보
@@ -954,4 +955,20 @@ function StructUserInfoArena:getGrandArena_RankText(detail, carriage_return)
     end
 
     return self:getChallengeMode_RankText(detail, carriage_return)
+end
+
+-------------------------------------
+--- getRank 유저의 랭킹
+---@return number
+-------------------------------------
+function StructUserInfoArena:getRank()
+    return self.m_rank
+end
+
+-------------------------------------
+--- getRankTotal 랭킹 참여 총 유저 수 
+---@return number
+-------------------------------------
+function StructUserInfoArena:getRankTotal()
+    return self.m_rankTotal
 end
