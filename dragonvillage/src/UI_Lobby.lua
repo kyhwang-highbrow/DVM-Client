@@ -531,7 +531,7 @@ function UI_Lobby:entryCoroutine_Escapable(co)
     self:entryCoroutine_personalpack(co)
     self:entryCoroutine_spotSale(co)
     self:entryCoroutine_linkAccount(co)
-    --self:entryCoroutine_challengeModePopup(co)
+    self:entryCoroutine_challengeModePopup(co)
 end
 
 -------------------------------------
@@ -2602,23 +2602,21 @@ function UI_Lobby:refresh_rightBanner()
     local vars = self.vars
 
     -- 그림자의 신전
-    if IS_DEV_SERVER() then
-        local state = g_challengeMode:getChallengeModeState_Routine()
-        if isExistValue(state, ServerData_ChallengeMode.STATE['OPEN'], ServerData_ChallengeMode.STATE['REWARD']) then
-            if (not vars['banner_challenge_mode']) then
-                local banner = UI_BannerChallengeMode()
-                vars['bannerMenu']:addChild(banner.root)
-                banner.root:setDockPoint(cc.p(1, 1))
-                banner.root:setAnchorPoint(cc.p(1, 1))
-                vars['banner_challenge_mode'] = banner
-            else
-                vars['banner_challenge_mode']:refresh()
-            end
+    local state = g_challengeMode:getChallengeModeState_Routine()
+    if isExistValue(state, ServerData_ChallengeMode.STATE['OPEN'], ServerData_ChallengeMode.STATE['REWARD']) then
+        if (not vars['banner_challenge_mode']) then
+            local banner = UI_BannerChallengeMode()
+            vars['bannerMenu']:addChild(banner.root)
+            banner.root:setDockPoint(cc.p(1, 1))
+            banner.root:setAnchorPoint(cc.p(1, 1))
+            vars['banner_challenge_mode'] = banner
         else
-            if vars['banner_challenge_mode'] then
-                vars['banner_challenge_mode'].root:removeFromParent()
-                vars['banner_challenge_mode'] = nil
-            end
+            vars['banner_challenge_mode']:refresh()
+        end
+    else
+        if vars['banner_challenge_mode'] then
+            vars['banner_challenge_mode'].root:removeFromParent()
+            vars['banner_challenge_mode'] = nil
         end
     end
 
