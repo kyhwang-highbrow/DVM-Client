@@ -1357,7 +1357,14 @@ function ServerData_ChallengeMode:getCumulativeGrindStone()
     for stage=1, 60 do
         -- 승리 보상
         if self:isClearStage_challengeMode(stage) then
-            cumulative_gold = (cumulative_gold + 1)
+            cumulative_gold = (cumulative_gold + 2)
+        end
+    end
+
+    for stage=61, 100 do
+        -- 승리 보상
+        if self:isClearStage_challengeMode(stage) then
+            cumulative_gold = (cumulative_gold + 5)
         end
     end
 
