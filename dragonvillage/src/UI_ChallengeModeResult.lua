@@ -62,8 +62,8 @@ function UI_ChallengeModeResult:setWorkList()
     -- 승리 시, 승리 보상 UI 출력
     if (self.m_isWin) then
 	    table.insert(self.m_lWorkList, 'direction_winReward')
+        table.insert(self.m_lWorkList, 'direction_nextStage')
 	end
-    table.insert(self.m_lWorkList, 'direction_nextStage')
 end
 
 -------------------------------------
@@ -199,8 +199,11 @@ function UI_ChallengeModeResult:direction_nextStage()
             return
         end
     end      
-        challenge_stage = g_challengeMode:getTopStage() - self.m_currStage
+
+    challenge_stage = g_challengeMode:getTopStage() - self.m_currStage
+    if (challenge_stage > 0) then
         MakeSimplePopup2(POPUP_TYPE.OK, Str('다음 순위 잠금해제!'), Str('{1}위 팀에 도전할 수 있습니다.', challenge_stage), ok_func)
+    end
 end
 
 -------------------------------------
