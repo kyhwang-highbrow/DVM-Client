@@ -1,7 +1,7 @@
 return {['H조 승리 맞추기 이벤트! 경기 승리를 맞추면 다이아가 와르르!']='H조 승리 맞추기 이벤트! 경기 승리를 맞추면 다이아가 와르르!',
 ['감히 내 심기를 거스르려 하지 마라!']='Don\'t you dare defy my will!',
 ['고요한 격앙']='Silent Rage',
-['드래곤 소환권 33']='Derecho de convocación de dragones 33',
+['드래곤 소환권 33개']='Derecho de convocación de dragones x33',
 ['라스']='Wrath',
 ['라스(불)']='Wrath (Fire)',
 ['라스(불) 인연 포인트']='Wrath (Fire) Relationship Point',

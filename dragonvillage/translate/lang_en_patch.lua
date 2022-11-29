@@ -1,7 +1,7 @@
 return {['H조 승리 맞추기 이벤트! 경기 승리를 맞추면 다이아가 와르르!']='H조 승리 맞추기 이벤트! 경기 승리를 맞추면 다이아가 와르르!',
 ['감히 내 심기를 거스르려 하지 마라!']='Don\'t you dare defy my will!',
 ['고요한 격앙']='Silent Rage',
-['드래곤 소환권 33']='Dragon Summon Ticket 33',
+['드래곤 소환권 33개']='Dragon Summon Ticket x33',
 ['라스']='Wrath',
 ['라스(불)']='Wrath (Fire)',
 ['라스(불) 인연 포인트']='Wrath (Fire) Relationship Point',
@@ -42,4 +42,5 @@ return {['H조 승리 맞추기 이벤트! 경기 승리를 맞추면 다이아�
 ['축구 축제 승리기원 알 패키지 2']='Soccer Festival Victory Cheering Egg Package 2',
 ['특성 강화 재료 랜덤박스']='Mastery Enhance Material Random Box',
 ['축구 축제 이벤트!']='Soccer Festival Event!',
-['좋아하는 나라 응원도 하고 보상도 받고 !']='Support your favorite team and receive rewards!'}
+['좋아하는 나라 응원도 하고 보상도 받고 !']='Support your favorite team and receive rewards!',
+['드래곤 소환권 {1}개']='Dragon Summon Ticket x{1}'}
