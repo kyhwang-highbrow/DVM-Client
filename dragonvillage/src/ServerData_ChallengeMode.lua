@@ -1055,9 +1055,9 @@ function ServerData_ChallengeMode:getChallengeMode_staminaCost(stage)
     
     local is_master = self:isMasterStage(100-stage)
     if (is_master) then
-        return self.m_challengeManageTable['cost_value_master'] or 20 -- 테이블 값 하드 코딩
+        return self.m_challengeManageTable['cost_value_master'] or 50 -- 테이블 값 하드 코딩
     else
-        return self.m_challengeManageTable['cost_value'] or 10 -- 테이블 값 하드 코딩
+        return self.m_challengeManageTable['cost_value'] or 30 -- 테이블 값 하드 코딩
     end
 
     --[[
