@@ -863,8 +863,15 @@ function UI_DmgateRankTotalTopItem:initUI(rank_info)
     
     do -- 테이머 아이콘 갱신
         local icon = IconHelper:getTamerProfileIconWithCostumeID(self.m_rankInfo['m_costume'])
+        -- 전달 받은 랭킹 유저의 코스튬 ID에 해당하는 정보가 없는 경우
+        if (icon == nil) then
+            icon = IconHelper:getTamerProfileIconWithCostumeID()
+        end
         vars['tamerNode']:removeAllChildren()
-        vars['tamerNode']:addChild(icon)
+
+        if icon then
+            vars['tamerNode']:addChild(icon)
+        end
     end
 
     -- 레벨, 닉네임
