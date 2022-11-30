@@ -19,7 +19,7 @@ return {['H조 승리 맞추기 이벤트! 경기 승리를 맞추면 다이아�
 ['전설룬 만원의 행복 랜덤박스']='Legendary Rune Cheapy Happy Random Box',
 ['절대적인 전설의 알 랜덤박스']='Absolute Legendary Egg Random Box',
 ['절대적인 전설의 알 랜덤박스 패키지']='Absolute Legendary Egg Random Box Package',
-['초보자 뽑기 특가권']='Beginner Bargain Draw Ticket',
+['초보자 특가 뽑기권']='Beginner Bargain Draw Ticket',
 ['초보자 특가 다이아 보급소']='Beginner Bargain Diamond Supply Depot',
 ['치명 확률 15% 추가 증가']='Additional CRIT Rate increased by 15%',
 ['치명 확률 20% 추가 증가']='Additional CRIT Rate increased by 20%',
