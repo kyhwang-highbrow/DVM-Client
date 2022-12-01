@@ -141,7 +141,8 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
                     and (checkTimeValid(summon_start_date, nil, 'yyyy-mm-dd HH:MM:SS')) then
                     table.insert(l_region, 'pick_gacha')
                 else
-                    table.insert(l_region, 'empty')
+                    --@yjkil 22.12.01 4대 이벤트 신화 드래곤은 확률업에 6개월 뒤 포함 될 예정이나, 유저가 오해할 여지가 있어 임시 제거
+                    --table.insert(l_region, 'empty')
                 end
 			elseif (t_dragon['pick_weight'] > 0) then
 				local birth_grade = t_dragon['birthgrade']
@@ -191,9 +192,9 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 			table.insert(l_region, 'dmgate')
 		end
 
-		-- 아무것도 없다면 하나 출력해준다... 뭐...
 		if (#l_region == 0) then
-			table.insert(l_region, 'empty')
+            --@yjkil 22.12.01 4대 이벤트 신화 드래곤은 확률업에 6개월 뒤 포함 될 예정이나, 유저가 오해할 여지가 있어 임시 제거
+			--table.insert(l_region, 'empty')
 		end
 
 	-- 슬라임
@@ -230,10 +231,9 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
         end
 
 		-- 슬라임은 조합이나 인연이 없다.
-
-		-- 아무것도 없다면 하나 출력해준다... 뭐...
 		if (#l_region == 0) then
-			table.insert(l_region, 'empty')
+            --@yjkil 22.12.01 4대 이벤트 신화 드래곤은 확률업에 6개월 뒤 포함 될 예정이나, 유저가 오해할 여지가 있어 임시 제거
+			--table.insert(l_region, 'empty')
 		end
 
     -- 룬 연마석
