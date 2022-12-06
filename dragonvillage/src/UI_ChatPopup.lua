@@ -158,6 +158,7 @@ function UI_ChatPopup.sendMsg(msg, tab, edit_box, whisper_nick)
 
     -- 비속어 필터링
     local function proceed_func()
+        msg = ConvertBanWordOverlay(msg)
 		-- 현재 탭에 따라 메세지 전송 분기 처리
 		local chat_ret = false
 		if (tab == 'general') then

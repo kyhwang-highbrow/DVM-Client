@@ -192,8 +192,8 @@ end
 -- @brief 금칙어 검사
 -------------------------------------
 function CheckBlockStr(str, proceed_func, cancel_func)
-    -- 긴 문자열 순으로 나열된 테이블
-    local t_ban_word = TABLE:get('table_ban_word_chat')
+    -- 긴 문자열 순으로 나열된 테이블    
+    local t_ban_word = TableBanWord.getInstance():getStrictBanWordList_Lower()
     if (not t_ban_word) then
         if (proceed_func) then
             proceed_func()
@@ -207,9 +207,8 @@ function CheckBlockStr(str, proceed_func, cancel_func)
     -- 금칙어 추출
     local l_match_list = {}
     local word = nil
-    for _, t_word in ipairs(t_ban_word) do
-        word = string.lower(t_word['word'])
-        if string.match(lower_str, word) then
+    for _, word in ipairs(t_ban_word) do
+        if string.find(lower_str, word, nil, true) then
             table.insert(l_match_list, word)
             lower_str = string.gsub(lower_str, word, '')
             
@@ -236,6 +235,46 @@ function CheckBlockStr(str, proceed_func, cancel_func)
         local warning = '{@DESC}' .. Str('금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)')
         MakeSimplePopup2(POPUP_TYPE.YES_NO, ret_str, warning, proceed_func, cancel_func)
     end
+end
+
+-------------------------------------
+-- function ConvertBanWordOverlay
+-- @brief 입력된 string에서 금지어에 해당하는 부분을 **로 변경하여 반환 ex 시발123 **123, 시 발123 ***123
+-------------------------------------
+function ConvertBanWordOverlay(str_origin)
+    -- 모두 소문자로 변경
+    local lower_str = string.lower(str_origin)
+
+    -- 금칙어를 글자수에 맞춰 *로 변환
+    local l_ban_word = TableBanWord.getInstance():getStrictBanWordList_Lower()
+    for _, word in ipairs(l_ban_word) do
+        local split_index = string.find(lower_str, word)
+
+        --동굴 공지 최대 300자 가장 짧은 2글자 짜리 금지어라해도 150개 이상 같은 필터링이 반복 될 수 없다.
+        for i = 1, 150 do
+            if split_index == nil then
+                break
+            end
+
+            local word_len = uc_len(word) --글자수 얻기
+            local word_byte_len = string.len(word)
+            local star_list = {}
+            for i = 1, word_len do
+                table.insert(star_list, '*')
+            end
+            local str_star = table.concat(star_list)
+
+            --str_origin 계속해서 바뀌고 있다. 매번 길이를 새로 구해줘야 함.
+            local str_len = string.len(str_origin)
+            local split_head = string.sub(str_origin, 1, split_index - 1)
+            local split_tail = string.sub(str_origin, split_index + word_byte_len, str_len)
+
+            str_origin = table.concat({split_head, str_star, split_tail})
+            lower_str = string.lower(str_origin)
+            split_index = string.find(lower_str, word)
+        end
+    end
+    return str_origin
 end
 
 -------------------------------------

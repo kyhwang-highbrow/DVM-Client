@@ -473,6 +473,7 @@ local t_module = {
     'TableFevertime', -- 핫타임
     'TablePersonalpack',
     'TableSummonObject',
+    'TableBanWord',
 
     -- Scene
     'SceneCommon',
