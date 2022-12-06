@@ -1695,11 +1695,13 @@ end
 -------------------------------------
 function ServerData_Dragons:isDragonRecallTarget(doid)
     local struct_dragon_object = self:getDragonDataFromUidRef(doid)
-    local did = struct_dragon_object:getDid()
+    if struct_dragon_object then
+        local did = struct_dragon_object:getDid()
 
-    for index, struct_recall in ipairs(self.m_structRecallList) do
-        if (struct_recall:getTargetDid() == did) and struct_recall:isAvailable(doid) then
-            return true
+        for index, struct_recall in ipairs(self.m_structRecallList) do
+            if (struct_recall:getTargetDid() == did) and struct_recall:isAvailable(doid) then
+                return true
+            end
         end
     end
     
