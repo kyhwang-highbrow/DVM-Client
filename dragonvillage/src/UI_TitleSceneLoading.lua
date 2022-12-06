@@ -17,6 +17,10 @@ function UI_TitleSceneLoading:init()
 
     -- 타이틀에서는 로딩 배경을 출력하지 않음
     vars['bgLayerColor']:setVisible(false)
+
+    if vars['loadingLabel'] then
+        vars['loadingLabel']:setString('')
+    end
 end
 
 -------------------------------------

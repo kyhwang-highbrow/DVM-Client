@@ -17,6 +17,10 @@ function UI_NetworkLoading:init()
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() end, 'UI_NetworkLoading')
+
+    if vars['loadingLabel'] then
+        vars['loadingLabel']:setString('')
+    end
 end
 
 -------------------------------------
