@@ -261,8 +261,13 @@ end
 -- @breif
 -------------------------------------
 function LocalData:isInAppReview()
-	local b = (CppFunctions:isIos() and self:get('in_app_review'))
-	return b
+    local is_in_app_review = self:get('in_app_review') or false
+
+    if (false == IS_TEST_MODE()) then
+        is_in_app_review = is_in_app_review and CppFunctions:isIos()
+    end
+
+	return is_in_app_review
 end
 
 -------------------------------------
