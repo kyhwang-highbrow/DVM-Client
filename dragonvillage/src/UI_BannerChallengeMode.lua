@@ -83,7 +83,7 @@ function UI_BannerChallengeMode:update(dt)
         local user_rank = struct_user_info:getRank()
         local total_user_num = struct_user_info:getRankTotal()
 
-        if (user_rank == nil) or (user_rank == 0) then
+        if (user_rank == nil) or (user_rank <= 0) then
             vars['descLabel']:setString('-')
             vars['changedLabel']:setString('')
         else

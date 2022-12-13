@@ -921,7 +921,7 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfoArena:getChallengeMode_RankText(detail, carriage_return)
-    if (not self.m_rank) or (self.m_rank == 0) then
+    if (not self.m_rank) or (self.m_rank <= 0) then
         return Str('-')
     end
 
