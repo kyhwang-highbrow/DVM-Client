@@ -112,12 +112,11 @@ function StatusEffect_Protection:onUnapplyOverlab(unit)
         self.m_shieldCountOrg = self.m_shieldCountOrg - shield_count
         self.m_shieldCount = math_min(self.m_shieldCount, self.m_shieldCountOrg)
     else
-        --local shield_hp = unit:getParam('shield_hp')
         local t_status_effect = self.m_statusEffectTable
         local adj_value = t_status_effect['val_1'] * (unit:getValue() / 100)
         local shield_hp = unit:getStandardStat() * (adj_value / 100)
 
-        self.m_shieldHPOrg = self.m_shieldHPOrg - shield_hp
+        self.m_shieldHPOrg = math_max(self.m_shieldHPOrg - shield_hp, 0)
         self.m_shieldHP = math_min(self.m_shieldHP, self.m_shieldHPOrg)
     end
 end
