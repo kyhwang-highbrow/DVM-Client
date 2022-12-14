@@ -1526,6 +1526,8 @@ function ServerData_ChallengeMode:getUserServer(uid, is_color)
             server_str = "<JPN>"
         elseif(server_str[2] == 'Asia') then
             server_str = "<ASIA>"
+        elseif(server_str[2] == 'Global') then 
+            server_str = "<Global>"
         else
             server_str = "<KOR>"
         end
