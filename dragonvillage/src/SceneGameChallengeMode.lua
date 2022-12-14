@@ -241,13 +241,13 @@ function SceneGameChallengeMode:getStartOption_Opponent()
     -- 쉬움
     if (difficulty == DIFFICULTY.EASY) then
         -- 피해량 증가 : 주는 피해량 +{1}%
-        table.insert(l_buff_list, {type='final_dmg_rate_multi', value=-50})
+        table.insert(l_buff_list, {type='final_dmg_rate_multi', value=-80})
 
         -- 받는 피해량 감소 : 받는 피해량 -{1}%
-        table.insert(l_buff_list, {type='dmg_adj_rate_multi', value=50})
+        table.insert(l_buff_list, {type='dmg_adj_rate_multi', value=80})
 
         -- 치유량 감소 : 주는 치유량 -{1}%
-        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=-50})
+        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=-80})
 
     -- 보통
     elseif (difficulty == DIFFICULTY.NORMAL) then
