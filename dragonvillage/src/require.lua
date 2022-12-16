@@ -474,6 +474,7 @@ local t_module = {
     'TablePersonalpack',
     'TableSummonObject',
     'TableBanWord',
+    'TablePackageAchievement',
 
     -- Scene
     'SceneCommon',
