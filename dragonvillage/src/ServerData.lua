@@ -188,6 +188,9 @@ function ServerData:getInstance()
     -- 광고
     g_advertisingData = ServerData_Advertising.getInstance()
 
+    -- 광고 룰렛 (2022.12.16 @dhkim)
+    g_advertisingRouletteData = ServerData_Roulette.getInstance()
+
     -- 진화재료
     g_evolutionStoneData = ServerData_EvolutionStone(g_serverData)
 
@@ -236,6 +239,11 @@ function ServerData:getInstance()
 
     -- 배틀패스 패키지
     g_battlePassData = ServerData_BattlePass(g_serverData)
+
+    -- 클랜 던전 패키지 (@dhkim 2022.12.16)
+    g_clanDungeonScorePackageData = ServerData_ClanDungeonScorePackage(g_serverData)
+
+
 
     -- 클랜
     g_clanData = ServerData_Clan(g_serverData)

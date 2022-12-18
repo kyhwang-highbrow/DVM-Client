@@ -219,6 +219,7 @@ local t_module = {
     'ServerData_Tutorial',
     'ServerData_Highbrow',
     'ServerData_Advertising',
+    'ServerData_Roulette',
     'ServerData_EvolutionStone',
     'ServerData_FriendMatch',
     'ServerData_Clan',
@@ -266,7 +267,7 @@ local t_module = {
     'ServerData_LeagueRaid',
     'ServerData_HighbrowVip', -- 하이브로 VIP
     'ServerData_GetDragonPackage',
-
+    'ServerData_ClanDungeonScorePackage',
 
     -- Interface
     'IEventDispatcher',
@@ -1026,6 +1027,7 @@ local t_module = {
     'UI_CouponPopup_Confirm',
     'UI_CouponPopupPreOccupancyNick',
     'UI_AdvertisingPopup',
+    'UI_AdsRoulettePopup',
     'UI_FormationDetailPopup',
     'UI_IngameNoticeFullPopup',
     'UI_EventFullPopup',
