@@ -185,9 +185,9 @@ function UI_AdsRoulettePopup:click_rewardBtn()
 
     local function success_cb(ret)
 
-        UIC_Button:setGlobalClickFunc(function()
-            return true
-        end)
+        -- UIC_Button:setGlobalClickFunc(function()
+        --     return true
+        -- end)
 
         -- local rewarded_result = ret['rewarded_result']
         -- if (rewarded_result == nil) then
@@ -214,12 +214,14 @@ function UI_AdsRoulettePopup:click_rewardBtn()
 
         self:simpleSpin(self.m_targetIdx, function()
             vars['finishSpineNode']:removeAllChildren()
-            local animator = MakeAnimator('res/spine/up_eff/up_eff.json')
+            local animator = MakeAnimator('res/effect/up_eff/up_eff.json')
             animator:setScale(2)
-            animator:playDefaultAni()
+            animator:changeAni('up_eff', false)
             vars['finishSpineNode']:addChild(animator.m_node)
 
-            animator:addAniHandler(function()
+            local function end_animation()
+                animator:setVisible(false)
+
                 local item_info = ret['item_info']
 
                 -- 아이템 정보가 있다면 팝업 처리
@@ -231,10 +233,28 @@ function UI_AdsRoulettePopup:click_rewardBtn()
                     local msg = Str('광고 보상을 받았습니다.')
                     UIManager:toastNotificationGreen(msg)
                 end
-                
-                reward_ui:setCloseCB(function()
-                    self.m_bIsCanSpin = true
+            end
+    
+            animator:addAniHandler(function()
+                animator:changeAni('idle', false)
+                animator:addAniHandler(function()
+                    if (animator:hasAni('end')) then
+                        animator:changeAni('end', false)
+                    end
                 end)
+    
+                animator:addAniHandler(function()
+                    end_animation()
+                end)
+            end)
+
+            animator:addAniHandler(function()
+                UIC_Button:setGlobalClickFunc()
+                require('UI_RewardPopup')
+                -- local reward_ui = UI_RewardPopup:open(struct_item_list)
+                -- reward_ui:setCloseCB(function()
+                --     self.m_bIsCanSpin = true
+                -- end)
             end)
         end)
     end
@@ -247,7 +267,8 @@ function UI_AdsRoulettePopup:click_rewardBtn()
         end
     end
 
-    AdManager:getInstance():showRewardAd_Common(ads_callback)
+    -- AdManager:getInstance():showRewardAd_Common(ads_callback)
+    AdManager:getInstance():showRewardAd_Common(success_cb)
 end
 
 -------------------------------------
