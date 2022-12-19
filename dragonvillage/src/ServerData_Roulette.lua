@@ -158,7 +158,7 @@ function ServerData_Roulette:request_rouletteInfo(success_cb, fail_cb, status_cb
     --ui_network:setSuccessCBDelayTime(1) -- 로그인 레이턴시 강제로 조정 (개발 중에 통신 중임을 확인하기 위함)
     ui_network:hideBGLayerColor() -- 배경에 어두은 음영 숨김
     ui_network:setLoadingMsg(Str('통신 중 ...')) -- 메세지
-    ui_network:setUrl('roulettes/info')
+    ui_network:setUrl('Shop/randombox_info')
     ui_network:setParam('uid', uid)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(_success_cb)

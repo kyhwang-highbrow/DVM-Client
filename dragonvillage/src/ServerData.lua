@@ -189,7 +189,7 @@ function ServerData:getInstance()
     g_advertisingData = ServerData_Advertising.getInstance()
 
     -- 광고 룰렛 (2022.12.16 @dhkim)
-    g_advertisingRouletteData = ServerData_Roulette.getInstance()
+    g_advRouletteData = ServerData_Roulette.getInstance()
 
     -- 진화재료
     g_evolutionStoneData = ServerData_EvolutionStone(g_serverData)

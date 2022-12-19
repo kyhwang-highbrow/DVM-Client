@@ -108,7 +108,22 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_Dmgate(list, is_popup)
-        
+    elseif string.find(_package_name, 'package_clan_dungeon_score') and (not g_contentLockData:isContentLock('clan')) then
+        require('UI_Package_ClanDungeonScore')
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local _struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_Dmgate(list, is_popup)
+    
     -- 시험의 탑 정복선물 패키지
     elseif (_package_name == 'package_attr_tower') then
         require('UI_Package_AttrTowerPopup')

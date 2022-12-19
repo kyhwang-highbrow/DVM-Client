@@ -28,7 +28,7 @@ function UI_AdsRoulettePopup:init()
     self.m_bIsCanSpin   = true
     self.m_expTime      = ExperationTime()
     self.m_targetIdx    = 1
-    self.m_itemMaxCount = 0
+    self.m_itemMaxCount = 8
     UIManager:open(self, UIManager.POPUP)
 
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end)
@@ -83,7 +83,7 @@ function UI_AdsRoulettePopup:initUI()
     -- end)
 
     -- server_noti:addNotification('ServerData_Roulette')
-    -- ServerData_Roulette:getInstance():request_rouletteInfo()
+    ServerData_Roulette:getInstance():request_rouletteInfo()
 
     -- self:initItemIcon()
     self:calibrateItemAngle()

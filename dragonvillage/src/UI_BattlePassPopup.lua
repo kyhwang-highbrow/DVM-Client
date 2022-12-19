@@ -133,6 +133,11 @@ function UI_BattlePassPopup:initTableView()
             if (g_adventureBreakthroughPackageData:isButtonVisible(product_id) == true) then
                 table.insert(tabList, v)
             end
+        elseif g_clanDungeonScorePackageData:checkProductInTable(product_id) then
+            -- if (not g_contentLockData:isContentLock('clan')) and g_clanDungeonScorePackageData:isPackageVisible(product_id) then
+            if (not g_contentLockData:isContentLock('clan')) then
+                table.insert(tabList, v)
+            end
         elseif g_dmgatePackageData:checkProductInTable(product_id) then
             if (not g_contentLockData:isContentLock('dmgate')) and g_dmgatePackageData:isPackageVisible(product_id) then
                 table.insert(tabList, v)
