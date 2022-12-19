@@ -3,11 +3,13 @@ local PARENT = UI
 
 -------------------------------------
 ---@class UI_AdsRoulettePopup:UI
----@field m_lRewardItems StructItem[]
+-- ---@field m_lRewardItems StructItem[]
+---@field m_rewardItems table
 ---@field m_expTime ExperationTime
 -------------------------------------
 UI_AdsRoulettePopup = class(PARENT, {
-    m_lRewardItems = 'list<StructItem>',
+    -- m_lRewardItems = 'list<StructItem>',
+    m_rewardItems = 'table',
     m_bIsCanSpin = 'boolean',
 
     m_expTime = 'ExperationTime',
@@ -24,11 +26,11 @@ UI_AdsRoulettePopup = class(PARENT, {
 function UI_AdsRoulettePopup:init()
     self.m_uiName = 'UI_AdsRoulettePopup'
     self:load('ad_roulette_popup.ui')
-    self.m_lRewardItems = {}
+    self.m_rewardItems = {}
     self.m_bIsCanSpin   = true
     self.m_expTime      = ExperationTime()
     self.m_targetIdx    = 1
-    self.m_itemMaxCount = 8
+    self.m_itemMaxCount = 0
     UIManager:open(self, UIManager.POPUP)
 
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end)
@@ -38,7 +40,7 @@ function UI_AdsRoulettePopup:init()
 
     self:initUI()
     self:initButton()
-    -- self:initDevPanel()
+    self:initDevPanel()
     self:refresh()
 
 
@@ -51,6 +53,7 @@ end
 -------------------------------------
 function UI_AdsRoulettePopup:initUI()
     local vars = self.vars
+    self.m_rewardItems = {}
     self.m_spinTerm = 10
     self.m_dailyMaxCount = 10
     -- vars['waitTimeLabel']:setVisible(false)
@@ -83,10 +86,27 @@ function UI_AdsRoulettePopup:initUI()
     -- end)
 
     -- server_noti:addNotification('ServerData_Roulette')
-    ServerData_Roulette:getInstance():request_rouletteInfo()
 
-    -- self:initItemIcon()
-    self:calibrateItemAngle()
+    local function setting_reward_info(ret)
+        local ret_adv_lobby = ret['adv_lobby']
+
+        for _,v in ipairs(ret_adv_lobby) do
+            local item_id = v['item_id']
+            local cnt = v['count']
+            local pick_weight = v['pick_weight']
+
+            table.insert(self.m_rewardItems, {['item_id'] = item_id, ['count'] = cnt, ['pick_weight'] = pick_weight})
+        end
+
+        self:initItemIcon()
+        self:calibrateItemAngle()
+    end
+
+    g_advRouletteData:request_rouletteInfo(setting_reward_info)
+
+    print('@dhkim - 초기화 데이터 확인 중')
+    print('아이템 최대 카운트 : '..self.m_itemMaxCount)
+    print('@dhkim - 초기화 데이터 확인 중')
 end
 
 -------------------------------------
@@ -108,25 +128,25 @@ end
 -------------------------------------
 function UI_AdsRoulettePopup:refresh()
     local vars = self.vars
-    local daily_roll_count = ServerData_Roulette:getInstance():getDailyCount()
+    local daily_roll_count = g_advRouletteData:getDailyCount()
     -- 횟수 모두 소진
     local is_end = self.m_dailyMaxCount <= daily_roll_count
     local is_can_spin = self.m_expTime:isExpired()
 
-    -- if (is_end == true) then
-    --     vars['adsNode']:setVisible(false)
-    --     vars['spinLabel']:setVisible(true)
-    --     vars['lockSprite']:setVisible(true)
-    -- else
-    --     vars['lockSprite']:setVisible(not is_can_spin)
-    --     if (is_can_spin) then
-    --         vars['adsNode']:setVisible(true)
-    --         vars['spinLabel']:setVisible(false)
-    --     else
-    --         vars['adsNode']:setVisible(false)
-    --         vars['spinLabel']:setVisible(false)
-    --     end
-    -- end
+    if (is_end == true) then
+        vars['adsNode']:setVisible(false)
+        vars['spinLabel']:setVisible(true)
+        vars['lockSprite']:setVisible(true)
+    else
+        vars['lockSprite']:setVisible(not is_can_spin)
+        if (is_can_spin) then
+            vars['adsNode']:setVisible(true)
+            vars['spinLabel']:setVisible(false)
+        else
+            vars['adsNode']:setVisible(false)
+            vars['spinLabel']:setVisible(false)
+        end
+    end
 end
 
 --#endregion UI Inherit Override Functions
@@ -145,7 +165,7 @@ end
 -------------------------------------
 function UI_AdsRoulettePopup:click_rewardBtn()
     local vars = self.vars
-    local daily_roll_count = ServerData_Roulette:getInstance():getDailyCount()
+    local daily_roll_count = g_advRouletteData:getDailyCount()
 
     if (self.m_bIsCanSpin == false) then
         return
@@ -169,50 +189,61 @@ function UI_AdsRoulettePopup:click_rewardBtn()
             return true
         end)
 
-        local rewarded_result = ret['rewarded_result']
-        if (rewarded_result == nil) then
-            return
-        end
+        -- local rewarded_result = ret['rewarded_result']
+        -- if (rewarded_result == nil) then
+        --     return
+        -- end
 
-        local struct_item_list = StructItem:createListWithResultResponse(ret['rewarded_result'])
+        -- local struct_item_list = StructItem:createListWithResultResponse(ret['rewarded_result'])
 
-        local reward = struct_item_list[1]
+        -- local reward = struct_item_list[1]
 
-        local r_id = reward:getItemId()
-        local r_count = reward:getItemCount()
+        -- local r_id = reward:getItemId()
+        -- local r_count = reward:getItemCount()
 
         self.m_targetIdx = 1
-        for i, v in ipairs(self.m_lRewardItems) do
-            local id = v:getItemId()
-            local count = v:getItemCount()
-            if (id == r_id and count == r_count) then
-                self.m_targetIdx = i
-                break
-            end
+        for i, v in ipairs(self.m_rewardItems) do
+            local id = v['item_id']
+            local count = v['count']
+            -- if (id == r_id and count == r_count) then
+            --     self.m_targetIdx = i
+            --     break
+            -- end
         end
+
+
+        self:simpleSpin(self.m_targetIdx, function()
+            vars['finishSpineNode']:removeAllChildren()
+            local animator = MakeAnimator('res/spine/up_eff/up_eff.json')
+            animator:setScale(2)
+            animator:playDefaultAni()
+            vars['finishSpineNode']:addChild(animator.m_node)
+
+            animator:addAniHandler(function()
+                local item_info = ret['item_info']
+
+                -- 아이템 정보가 있다면 팝업 처리
+                if (item_info) then
+                    UI_MailRewardPopup(item_info)
+            
+                -- 없다면 노티
+                else
+                    local msg = Str('광고 보상을 받았습니다.')
+                    UIManager:toastNotificationGreen(msg)
+                end
+                
+                reward_ui:setCloseCB(function()
+                    self.m_bIsCanSpin = true
+                end)
+            end)
+        end)
     end
 
     local function ads_callback(ret, ad_network, log)
         if (ret == 'success') then
             --@dhkim 임시 광고 보상 받기 기능 추가
-            g_advertisingData:request_adv_reward(AD_TYPE.RANDOM_BOX_LOBBY)
-            -- ServerData_Roulette:getInstance():request_rouletteRoll(ad_network, log, success_cb)
-            -- self:simpleSpin(self.m_targetIdx, function()
-            --     vars['finishSpineNode']:removeAllChildren()
-            --     local animator = MakeAnimator('res/spine/up_eff/up_eff.json')
-            --     animator:setScale(2)
-            --     animator:playDefaultAni()
-            --     vars['finishSpineNode']:addChild(animator.m_node)
-    
-            --     animator:addAniHandler(function()
-            --         UIC_Button:setGlobalClickFunc()
-            --         require('UI_RewardPopup')
-            --         local reward_ui = UI_RewardPopup:open(struct_item_list)
-            --         reward_ui:setCloseCB(function()
-            --             self.m_bIsCanSpin = true
-            --         end)
-            --     end)
-            -- end)
+            -- g_advertisingData:request_adv_reward(AD_TYPE.RANDOM_BOX_LOBBY)
+            g_advRouletteData:request_rouletteRoll(ad_network, log, success_cb)
         end
     end
 
@@ -253,7 +284,7 @@ function UI_AdsRoulettePopup:update(dt)
     local vars = self.vars
     local exp_time = self.m_expTime
     local exp_at = exp_time:getExperationTime()
-    local daily_roll_count = ServerData_Roulette:getInstance():getDailyCount()
+    local daily_roll_count = g_advRouletteData:getDailyCount()
 
     local is_end = self.m_dailyMaxCount <= daily_roll_count
 
@@ -278,7 +309,7 @@ end
 -------------------------------------
 function UI_AdsRoulettePopup:setExpTime()
     local exp_time = self.m_expTime
-    local last_timestamp = ServerData_Roulette:getInstance():getLastRollTimestamp()
+    local last_timestamp = g_advRouletteData:getLastRollTimestamp()
     exp_time:setUpdatedAt(last_timestamp)
 
     -- local term_sec = TableBalanceConfig:getInstance():getBalanceConfigValue('roulette_term')
@@ -293,8 +324,18 @@ end
 -- function initItemIcon
 -------------------------------------
 function UI_AdsRoulettePopup:initItemIcon()
-    for idx, struct_item in ipairs(self.m_lRewardItems) do
-        local result = self:createItem(idx, struct_item)
+    print('initItemIcon Enter')
+
+    for idx, value in ipairs(self.m_rewardItems) do
+
+        print('@dhkim - 초기화 데이터 확인 중')
+        print('현재 보상 아이템 인덱스 : '..idx)
+        print('현재 보상 아이템 아이디 : '..value['item_id'])
+        print('현재 보상 아이템 숫자 : '..value['count'])
+        print('현재 보상 아이템 확률 : '..value['pick_weight'])
+        print('@dhkim - 초기화 데이터 확인 중')
+
+        local result = self:createItem(idx, value['item_id'], value['count'])
         if (result == true) then
             self.m_itemMaxCount = idx
         end
@@ -319,36 +360,64 @@ end
 ---@param idx number
 ---@param struct_item StructItem
 -------------------------------------
-function UI_AdsRoulettePopup:createItem(idx, struct_item)
+function UI_AdsRoulettePopup:createItem(idx, item_id, item_count)
     local vars = self.vars
 
-    local name = struct_item:getItemName()
-    local count = struct_item:getItemCount()
+    local name = TableItem():getItemName(item_id)
 
     local item_node = vars['itemNode' .. idx]
     local item_label = vars['itemLabel' .. idx]
     if (item_node ~= nil) then
-        local animator = struct_item:getIcon()
+        -- local animator = struct_item:getIcon()
+        local item_icon_res = self:getIconRes(item_id)
+        local animator = MakeAnimator(item_icon_res)
+
         item_node:removeAllChildren()
         item_node:addChild(animator.m_node)
 
-        item_label:setStringArg(name, FormatSIPostFixKo(count))
+        item_label:setString('x' .. item_count)
         return true
     end
     return false
 end
 
 -------------------------------------
+-- function getIconRes
+-- @return icon sprite resource name
+-------------------------------------
+function UI_AdsRoulettePopup:getIconRes(item_id)
+    if (TableItem():get(item_id) == nil) then
+        error('## 존재하지 않는 ITEM ID : ' .. item_id)
+    end
+
+    -- local res = TableItem():getItemName(item_id)
+    local res = string.format('res/ui/icons/item/shop_cash_07.png')
+
+    -- if res == nil then
+    --     res = string.format('res/temp/DEV.png', item_id)
+    -- else
+    --     res = string.format('res/ui/icons/item/%s.png', res)
+    -- end
+
+    -- 없는 경우
+    if (cc.FileUtils:getInstance():isFileExist(res) == false) then
+        res = 'res/temp/DEV.png'
+    end
+    
+    return res
+end
+
+-------------------------------------
 -- function createDummyItems
 -------------------------------------
 function UI_AdsRoulettePopup:createDummyItems()
-    local start_item_id = ITEM_ID_MAP['jewel']
-    for i = 1, 6 do
+    -- local start_item_id = ITEM_ID_MAP['jewel']
+    -- for i = 1, 6 do
 
-        local struct_item = StructItem:createSimple(start_item_id + i, 311)
-        table.insert(self.m_lRewardItems, struct_item)
+    --     local struct_item = StructItem:createSimple(start_item_id + i, 311)
+    --     table.insert(self.m_rRewardItems, struct_item)
 
-    end
+    -- end
     self:initItemIcon()
 end
 
@@ -411,72 +480,72 @@ end
 -- function initDevPanel
 -------------------------------------
 function UI_AdsRoulettePopup:initDevPanel()
-    ---@type UI_DevPanel
-    local dev_panel = UI_DevPanel()
+    -- ---@type UI_DevPanel
+    -- local dev_panel = UI_DevPanel()
 
-    if (IS_TEST_MODE() == true) then
-        self.root:addChild(dev_panel.root)
-        self:addAction(dev_panel.root, UI_ACTION_TYPE_LEFT, 0, 0.5)
-        do -- 스핀 테스트
-            local t_component = StructDevPanelComponent:create('spin_test')
-            local function func(text)
-                text      = text or 1
-                local idx = tonumber(text)
-                self:simpleSpin(idx)
-                dev_panel:showDebugUI(false)
-            end
+    -- if (IS_TEST_MODE() == true) then
+    --     self.root:addChild(dev_panel.root)
+    --     self:addAction(dev_panel.root, UI_ACTION_TYPE_LEFT, 0, 0.5)
+    --     do -- 스핀 테스트
+    --         local t_component = StructDevPanelComponent:create('spin_test')
+    --         local function func(text)
+    --             text      = text or 1
+    --             local idx = tonumber(text)
+    --             self:simpleSpin(idx)
+    --             dev_panel:showDebugUI(false)
+    --         end
 
-            t_component['edit_cb'] = func
-            t_component['str'] = '테스트 스핀'
-            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
-        end
-        do -- 일일 제한 초기화
-            local t_component = StructDevPanelComponent:create('init_daily')
-            local function func(text)
-                ServerData_Roulette:getInstance():request_resetRouletteInfo(0, 0, function()
-                    self:refresh()
-                    self:setExpTime()
-                end)
-            end
+    --         t_component['edit_cb'] = func
+    --         t_component['str'] = '테스트 스핀'
+    --         dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+    --     end
+    --     do -- 일일 제한 초기화
+    --         local t_component = StructDevPanelComponent:create('init_daily')
+    --         local function func(text)
+    --             g_advRouletteData:request_resetRouletteInfo(0, 0, function()
+    --                 self:refresh()
+    --                 self:setExpTime()
+    --             end)
+    --         end
 
-            t_component['cb1'] = func
-            t_component['str'] = '일일 제한 초기화'
-            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
-        end
-        do -- 스핀 횟수 지정
-            local t_component = StructDevPanelComponent:create('set_daily')
-            local function func(text)
-                text = text or 0
-                text = tonumber(text)
-                ServerData_Roulette:getInstance():request_resetRouletteInfo(text, nil, function()
-                    self:refresh()
-                    self:setExpTime()
-                end)
-            end
+    --         t_component['cb1'] = func
+    --         t_component['str'] = '일일 제한 초기화'
+    --         dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+    --     end
+    --     do -- 스핀 횟수 지정
+    --         local t_component = StructDevPanelComponent:create('set_daily')
+    --         local function func(text)
+    --             text = text or 0
+    --             text = tonumber(text)
+    --             g_advRouletteData:request_resetRouletteInfo(text, nil, function()
+    --                 self:refresh()
+    --                 self:setExpTime()
+    --             end)
+    --         end
 
-            t_component['edit_cb'] = func
-            t_component['str'] = '횟수 지정'
-            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
-        end
-        do -- 쿨타임 초기화
-            local t_component = StructDevPanelComponent:create('init_term')
-            local function func(text)
-                local time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
-                time = time - 100000
-                local count = ServerData_Roulette:getInstance():getDailyCount()
-                ServerData_Roulette:getInstance():request_resetRouletteInfo(count, 0, function()
-                    self:refresh()
-                    self:setExpTime()
-                end)
+    --         t_component['edit_cb'] = func
+    --         t_component['str'] = '횟수 지정'
+    --         dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+    --     end
+    --     do -- 쿨타임 초기화
+    --         local t_component = StructDevPanelComponent:create('init_term')
+    --         local function func(text)
+    --             local time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
+    --             time = time - 100000
+    --             local count = g_advRouletteData:getDailyCount()
+    --             g_advRouletteData:request_resetRouletteInfo(count, 0, function()
+    --                 self:refresh()
+    --                 self:setExpTime()
+    --             end)
 
-            end
+    --         end
 
-            t_component['cb1'] = func
-            t_component['str'] = '쿨타임 초기화'
-            dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
-        end
+    --         t_component['cb1'] = func
+    --         t_component['str'] = '쿨타임 초기화'
+    --         dev_panel:addDevComponent(t_component) -- params: struct_dev_panel_component(StructDevPanelComponent)
+    --     end
 
-    end
+    -- end
 end
 
 -------------------------------------
