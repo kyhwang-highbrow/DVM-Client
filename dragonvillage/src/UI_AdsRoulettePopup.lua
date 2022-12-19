@@ -249,8 +249,8 @@ function UI_AdsRoulettePopup:click_rewardBtn()
             end)
 
             animator:addAniHandler(function()
-                UIC_Button:setGlobalClickFunc()
-                require('UI_RewardPopup')
+                -- UIC_Button:setGlobalClickFunc()
+                -- require('UI_RewardPopup')
                 -- local reward_ui = UI_RewardPopup:open(struct_item_list)
                 -- reward_ui:setCloseCB(function()
                 --     self.m_bIsCanSpin = true
