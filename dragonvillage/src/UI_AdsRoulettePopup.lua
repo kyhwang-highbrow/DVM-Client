@@ -71,7 +71,7 @@ function UI_AdsRoulettePopup:initUI()
     --     -- return StructItem:createSimple(item_id, item_count)
     -- end)
 
-    vars['numberLabel']:setString(Str('일일 남은 횟수 %d/%d', self.m_spinTerm, self.m_dailyMaxCount))
+    vars['numberLabel']:setString(string.format('일일 남은 횟수 %d/%d', self.m_spinTerm, self.m_dailyMaxCount))
 
     -- vars['badgeNode']:removeAllChildren()
     -- UI_DotNode:create(vars['badgeNode'], 'expedition.roulette')
@@ -189,26 +189,29 @@ function UI_AdsRoulettePopup:click_rewardBtn()
         --     return true
         -- end)
 
-        -- local rewarded_result = ret['rewarded_result']
-        -- if (rewarded_result == nil) then
-        --     return
-        -- end
+        local rewarded_result =  ret['added_items']['items_list']
+        if (rewarded_result == nil) then
+            return
+        end
 
-        -- local struct_item_list = StructItem:createListWithResultResponse(ret['rewarded_result'])
+        local reward = rewarded_result[1]
 
-        -- local reward = struct_item_list[1]
+        local r_id = reward['item_id']
+        local r_count = reward['count']
 
-        -- local r_id = reward:getItemId()
-        -- local r_count = reward:getItemCount()
+        print('--------------------------------items_list-------------------------------------')
+        print('item_id : ' ..r_id)
+        print('item_count : ' ..r_count)
+        print('--------------------------------items_list-------------------------------------')
 
         self.m_targetIdx = 1
         for i, v in ipairs(self.m_rewardItems) do
             local id = v['item_id']
             local count = v['count']
-            -- if (id == r_id and count == r_count) then
-            --     self.m_targetIdx = i
-            --     break
-            -- end
+            if (id == r_id and count == r_count) then
+                self.m_targetIdx = i
+                break
+            end
         end
 
 
@@ -220,14 +223,20 @@ function UI_AdsRoulettePopup:click_rewardBtn()
             vars['finishSpineNode']:addChild(animator.m_node)
 
             local function end_animation()
-                animator:setVisible(false)
+                print('end_animation start')
+                -- animator:setVisible(false)
 
-                local item_info = ret['item_info']
+                local item_info = ret['added_items']['items_list'][1]
+
+                -- local msg = Str('광고 보상을 받았습니다.')
+                -- UIManager:toastNotificationGreen(msg)
 
                 -- 아이템 정보가 있다면 팝업 처리
                 if (item_info) then
-                    UI_MailRewardPopup(item_info)
-            
+                    local ui = UI_AdRewardPopup(item_info)
+                    ui:setCloseCB(function()
+                        self.m_bIsCanSpin = true
+                    end)
                 -- 없다면 노티
                 else
                     local msg = Str('광고 보상을 받았습니다.')
@@ -235,21 +244,21 @@ function UI_AdsRoulettePopup:click_rewardBtn()
                 end
             end
     
-            animator:addAniHandler(function()
-                animator:changeAni('idle', false)
-                animator:addAniHandler(function()
-                    if (animator:hasAni('end')) then
-                        animator:changeAni('end', false)
-                    end
-                end)
-    
-                animator:addAniHandler(function()
-                    end_animation()
-                end)
-            end)
+            -- animator:addAniHandler(function()
+            --     print('idle ani start')
+            --     animator:changeAni('idle', false)
+            --     animator:addAniHandler(function()
+            --         if (animator:hasAni('end')) then
+            --             animator:changeAni('end', false)
+
+            --         end
+            --     end)
+            -- end)
 
             animator:addAniHandler(function()
-                -- UIC_Button:setGlobalClickFunc()
+                print('next ani start')
+                animator:stopAllActions()
+                end_animation()
                 -- require('UI_RewardPopup')
                 -- local reward_ui = UI_RewardPopup:open(struct_item_list)
                 -- reward_ui:setCloseCB(function()
@@ -267,8 +276,8 @@ function UI_AdsRoulettePopup:click_rewardBtn()
         end
     end
 
-    -- AdManager:getInstance():showRewardAd_Common(ads_callback)
-    AdManager:getInstance():showRewardAd_Common(success_cb)
+    AdManager:getInstance():showRewardAd_Common(ads_callback)
+    -- AdManager:getInstance():showRewardAd_Common(success_cb)
 end
 
 -------------------------------------
@@ -390,7 +399,7 @@ function UI_AdsRoulettePopup:createItem(idx, item_id, item_count)
     local item_label = vars['itemLabel' .. idx]
     if (item_node ~= nil) then
         -- local animator = struct_item:getIcon()
-        local item_icon_res = self:getIconRes(item_id)
+        local item_icon_res = self:getIconRes(item_id, item_count)
         local animator = MakeAnimator(item_icon_res)
 
         item_node:removeAllChildren()
@@ -406,14 +415,22 @@ end
 -- function getIconRes
 -- @return icon sprite resource name
 -------------------------------------
-function UI_AdsRoulettePopup:getIconRes(item_id)
+function UI_AdsRoulettePopup:getIconRes(item_id, item_count)
     if (TableItem():get(item_id) == nil) then
         error('## 존재하지 않는 ITEM ID : ' .. item_id)
     end
 
-    -- local res = TableItem():getItemName(item_id)
-    local res = string.format('res/ui/icons/item/shop_cash_07.png')
+    local res = ""
 
+    if item_count <= 800 then
+        res = string.format('res/ui/icons/item/cash.png')
+    elseif item_count <= 1500 then
+        res = string.format('res/ui/icons/item/shop_cash_03.png')
+    elseif item_count <= 3000 then
+        res = string.format('res/ui/icons/item/shop_cash_05.png')
+    elseif item_count <= 6000 then
+        res = string.format('res/ui/icons/item/shop_cash_07.png')
+    end
     -- if res == nil then
     --     res = string.format('res/temp/DEV.png', item_id)
     -- else
@@ -422,7 +439,7 @@ function UI_AdsRoulettePopup:getIconRes(item_id)
 
     -- 없는 경우
     if (cc.FileUtils:getInstance():isFileExist(res) == false) then
-        res = 'res/temp/DEV.png'
+        error('## 존재하지 않는 Resource : ' .. res)
     end
     
     return res

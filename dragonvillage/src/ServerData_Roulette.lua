@@ -182,8 +182,8 @@ function ServerData_Roulette:request_rouletteRoll(ad_network, log, success_cb, f
     -- 성공 콜백
     local function _success_cb(ret)
 
-        -- -- 공통 데이터 갱신
-        -- ServerData:getInstance():applyCommonResponse(ret)
+        -- 공통 데이터 갱신
+        -- g_serverData:applyCommonResponse(ret)
         self:applyResponse(ret)
 
         if success_cb then
@@ -203,7 +203,7 @@ function ServerData_Roulette:request_rouletteRoll(ad_network, log, success_cb, f
     --ui_network:setSuccessCBDelayTime(1) -- 로그인 레이턴시 강제로 조정 (개발 중에 통신 중임을 확인하기 위함)
     ui_network:hideBGLayerColor() -- 배경에 어두은 음영 숨김
     ui_network:setLoadingMsg(Str('통신 중 ...')) -- 메세지
-    ui_network:setUrl('roulettes/roll')
+    ui_network:setUrl('/users/lobby/reward')
     ui_network:setParam('uid', uid)
     ui_network:setParam('ad_network', ad_network)
     ui_network:setParam('log', log)
