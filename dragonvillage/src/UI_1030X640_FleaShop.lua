@@ -1,26 +1,26 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_NewcomerShop
--- @brief 초보자 선물 (신규 유저 전용 상점)
+-- class UI_1030X640_FleaShop
+-- @brief 벼룩시장 선물
 -------------------------------------
-UI_NewcomerShop = class(PARENT,{
+UI_1030X640_FleaShop = class(PARENT,{
         m_ncmId = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_NewcomerShop:init(ncm_id)
+function UI_1030X640_FleaShop:init(ncm_id)
     self.m_ncmId = ncm_id
-    self.m_uiName = 'UI_NewcomerShop'
+    self.m_uiName = 'UI_1030X640_FleaShop'
     
     local ui_res = 'newcomer_shop.ui'
     local vars = self:load(ui_res)
-    UIManager:open(self, UIManager.POPUP)
+    --UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_NewcomerShop')
+    --g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_1030X640_FleaShop')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -37,43 +37,25 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_NewcomerShop:initUI()
+function UI_1030X640_FleaShop:initUI()
     local vars = self.vars
 
-    vars['newcomerTitle']:setVisible(true)
-    vars['titleLabel']:setVisible(false)
+    vars['newcomerTitle']:setVisible(false)
+    vars['titleLabel']:setVisible(true)
 
     -- 상품 리스트 받아옴
-    require('TableNewcomerShop')
-    local l_product_id = TableNewcomerShop:getNewcomerShopProductList(self.m_ncmId)
+    require('TablFleaShop')
+    local l_product_id = TablFleaShop:getFleaShopProductList(self.m_ncmId)
 
 
     do -- 테이블 뷰 생성
-        local struct_product_list = {}
+        local l_struct_product = {}
         for _,product_id in pairs(l_product_id) do
             local struct_product = g_shopDataNew:getTargetProduct(product_id)
             if (struct_product) then
-                table.insert(struct_product_list, struct_product)
+                l_struct_product[product_id] = struct_product
             end
         end
-
-        table.sort(struct_product_list, function(a_struct_product, b_struct_product)
-            -- 1. 구매 가능한 상품 우선
-            -- 2. product_id가 작으면 우선
-
-            local a_is_buy_all = a_struct_product:isBuyAll()
-            local b_is_buy_all = b_struct_product:isBuyAll()
-
-            if (a_is_buy_all == b_is_buy_all) then
-                local a_ui_priority = a_struct_product:getUIPriority()
-                local b_ui_priority = b_struct_product:getUIPriority()
-                return a_ui_priority < b_ui_priority
-            elseif (a_is_buy_all == false) then
-                return true
-            else--if (b_is_buy_all == false) then
-                return false
-            end
-        end)
 
         local node = vars['listNode']
         local table_view = UIC_TableView(node)
@@ -81,16 +63,39 @@ function UI_NewcomerShop:initUI()
         require('UI_ProductNewcomerShop')
         table_view:setCellUIClass(UI_ProductNewcomerShop)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-        table_view:setItemList(struct_product_list)
+        table_view:setItemList(l_struct_product)
+    
+        -- ui_priority로 정렬
+        local function sort_func(a, b)
+            -- 1. 구매 가능한 상품 우선
+            -- 2. product_id가 작으면 우선
+            local a_struct_product = a['data']
+            local b_struct_product = b['data']
+
+            local a_is_buy_all = a_struct_product:isBuyAll()
+            local b_is_buy_all = b_struct_product:isBuyAll()
+
+            if (a_is_buy_all == b_is_buy_all) then
+                local a_product_id = a_struct_product['product_id']
+                local b_product_id = b_struct_product['product_id']
+                return a_product_id < b_product_id
+            elseif (a_is_buy_all == false) then
+                return true
+            else--if (b_is_buy_all == false) then
+                return false
+            end
+        end
+        table.sort(table_view.m_itemList, sort_func)
     end
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_NewcomerShop:initButton()
+function UI_1030X640_FleaShop:initButton()
     local vars = self.vars
     if vars['closeBtn'] then
+        vars['closeBtn']:setVisible(false)
         vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     end
 
@@ -102,13 +107,13 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_NewcomerShop:refresh()
+function UI_1030X640_FleaShop:refresh()
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
-function UI_NewcomerShop:update(dt)
+function UI_1030X640_FleaShop:update(dt)
     local vars = self.vars
 
     local end_date = (g_newcomerShop:getNewcomerShopEndTimestamp(self.m_ncmId) or 0) / 1000 -- timestamp 1585839600000
@@ -132,9 +137,9 @@ end
 -------------------------------------
 -- function click_contractBtn
 -------------------------------------
-function UI_NewcomerShop:click_contractBtn()
+function UI_1030X640_FleaShop:click_contractBtn()
     GoToAgreeMentUrl()
 end
 
 --@CHECK
-UI:checkCompileError(UI_NewcomerShop)
+UI:checkCompileError(UI_1030X640_FleaShop)

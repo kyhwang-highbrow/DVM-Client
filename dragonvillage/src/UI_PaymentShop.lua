@@ -134,6 +134,29 @@ function UI_PaymentShop:getPaymentShopTabList()
         end
     end
 
+    do -- 벼룩시장 선물
+        local t_flea_shop_map = g_fleaShop:getNewcomerShopList()
+        for ncm_id, _ in pairs(t_flea_shop_map) do
+            if (g_fleaShop:isActiveNewcomerShop(ncm_id) == true) then
+                -- 벼룩시장 선물 데이터가 있고, 종료 시간이 지나지 않은 경우 생성
+                local unique_key = ('flea_shop' .. ncm_id)
+
+                local display_name = Str('벼룩시장 선물')
+                local ui_priority = 900
+                local icon_res = ''
+                local func_get_badge_count = function() return 0 end
+                local func_make_tab_content = function()
+                    require('UI_1030X640_NewcomerShop')
+                    local ui = UI_1030X640_NewcomerShop(ncm_id)
+                    return ui
+                end
+                local struct = StructPaymentShopTab:Create(unique_key, display_name, ui_priority, icon_res, func_get_badge_count, func_make_tab_content)
+                struct.m_uiCategoryPriority = 100
+                l_tab[unique_key] = struct
+            end
+        end
+    end
+
     do -- 다이아 상점
         local unique_key = 'dia_shop'
         local display_name = Str('다이아 상점')

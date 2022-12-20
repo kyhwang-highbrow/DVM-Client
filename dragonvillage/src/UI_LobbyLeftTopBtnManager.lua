@@ -37,6 +37,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
         PERSONALPACK = 10, -- 개인화 패키지 (22.10.19 기준 사용하지 않고 있음)
         NEWCOMER_SHOP = 11, -- 초보자 선물 패키지 모음
         GETDRAGON_PACK = 12,  -- 신화 획득 축하 패키지
+        FLEA_SHOP = 13,         -- 벼룩시장 패키지 모음
 
         SPECIAL_OFFER_PACK_DIA = 15, -- 특별 할인 다이아 패키지
         SPECIAL_OFFER_PACK_GOLD = 16, -- 특별 할인 골드 패키지
@@ -165,6 +166,22 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
                     if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
                         local class_ = UI_ButtonNewcomerShop
                         local priority = self.PRIORITY.NEWCOMER_SHOP
+                        makeBtnFunction(class_, priority, unique_key, ncm_id)
+                    end
+                end
+            end
+        end
+
+        do -- 벼룩시장 선물 버튼 생성
+            local t_flea_shop_map = g_fleaShop:getFleaShopList()
+            for ncm_id, _ in pairs(t_flea_shop_map) do
+                if (g_fleaShop:isActiveFleaShop(ncm_id) == true) then
+                    -- 벼룩시장 선물 데이터가 있고, 종료 시간이 지나지 않은 경우 생성
+                    local unique_key = ('flea_shop' .. ncm_id)
+                    -- 존재하지 않으면 생성 (삭제는 managed button에서 알아서 진행)
+                    if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
+                        local class_ = UI_ButtonFleaShop
+                        local priority = self.PRIORITY.FLEA_SHOP
                         makeBtnFunction(class_, priority, unique_key, ncm_id)
                     end
                 end

@@ -40,6 +40,9 @@ end
 function UI_1030X640_NewcomerShop:initUI()
     local vars = self.vars
 
+    vars['newcomerTitle']:setVisible(true)
+    vars['titleLabel']:setVisible(false)
+
     -- 상품 리스트 받아옴
     require('TableNewcomerShop')
     local l_product_id = TableNewcomerShop:getNewcomerShopProductList(self.m_ncmId)

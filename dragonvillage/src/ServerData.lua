@@ -308,6 +308,9 @@ function ServerData:getInstance()
     -- 초보자 선물(신규 유저 전용 상점)
     g_newcomerShop = ServerData_NewcomerShop()
 
+    -- 벼룩시장
+    g_fleaShop = ServerData_FleaShop()
+
     -- 드래곤 이미지 퀴즈 이벤트
     g_eventImageQuizData = ServerData_EventImageQuiz()
 

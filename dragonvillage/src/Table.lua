@@ -219,6 +219,7 @@ local TableInfo_fromServer = {
         ['table_rune_opt_status'] = {'table_rune_opt_status', 'id'}, -- 옵션 최대치
         ['table_supply'] = {'table_supply', 'supply_id'}, -- 보급소(정액제)
         ['table_newcomer_shop'] = {'table_newcomer_shop', 'ncm_id'}, -- 초보자 선물(신규 유저 전용 상점)
+        ['table_flea_market'] = {'table_flea_market', 'ncm_id'}, -- 벼룩시장
 
         -- 배틀패스
         ['table_battle_pass'] = {'table_battle_pass', 'index'},
