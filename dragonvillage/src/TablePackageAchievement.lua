@@ -1,7 +1,7 @@
 local PARENT = TableClass
 
 -------------------------------------
----@class TableDragon
+---@class TablePackageAchievement
 -------------------------------------
 TablePackageAchievement = class(PARENT, {
 

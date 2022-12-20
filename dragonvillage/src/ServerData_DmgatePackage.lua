@@ -152,7 +152,8 @@ end
 -- function response_reward
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:getPackageTable(product_id)
-    local package_table = TablePackageAchievement():filterTable('type', 'dmgate')
+
+    local package_table = TABLE:get(self.m_tableName)
 
     if (not product_id) then return package_table end
 
@@ -164,7 +165,7 @@ end
 -- @brief convert key from 'package_id' to 'product_id'
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:convertPackageTableKey()
-    local package_table = TablePackageAchievement():filterTable('type', 'dmgate')
+    local package_table = TABLE:get(self.m_tableName)
     local result = {}
 
     local product_id
@@ -240,7 +241,7 @@ end
 -- function getProductIdWithDmgateID
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:getProductIdWithDmgateID(dmgate_id)
-    local data = TablePackageAchievement():filterTable('type', 'dmgate')
+    local data = TABLE:get(self.m_tableName)
 
     for key, value in pairs(data) do
         for k, v in pairs(value) do
