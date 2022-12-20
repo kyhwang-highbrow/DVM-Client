@@ -97,5 +97,6 @@ return {['노려라! 속성 전설의 알 랜덤박스']='Aim for the goal! Attr
 ['룬 연마석 149개'] = 'Rune Enchant Stone x149',
 ['캡슐코인 10개'] = 'Capsule Coin x10',
 ['일일 남은 횟수'] = '1 Day Remaining Count',
-['광고보기']='Watch Ad'
+['광고보기']='Watch Ad',
+['획득 가능 다이아']='Can get a Diamond'
 }
