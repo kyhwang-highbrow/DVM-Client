@@ -103,7 +103,7 @@ function UI_ClanwarRewardInfoPopup:setLeague(league_rank)
     end
 
     local my_rank_text = ''
-	if (league_rank == 0) then
+	if (league_rank <= 0) then
 		my_rank_text = '-'
 	else
 		my_rank_text = Str('조별리그') .. ' ' .. Str('{1}위', league_rank)
@@ -156,7 +156,7 @@ function UI_ClanwarRewardInfoPopup:setTournament(league_rank, tournament_rank)
 
     local my_rank = tournament_rank
     local category = 'clanwar_tournament'
-    if (tournament_rank == 0) then
+    if (tournament_rank <= 0) then
         my_rank = league_rank
         category = 'clanwar_league'
     end
@@ -188,7 +188,7 @@ function UI_ClanwarRewardInfoPopup:setTournament(league_rank, tournament_rank)
     end
 
     local my_rank_text = ''
-	if (league_rank == 0) then
+	if (league_rank <= 0) then
 		my_rank_text = '-'
 	else
 		my_rank_text = Str('조별리그') .. ' ' .. Str('{1}위', league_rank)

@@ -779,7 +779,7 @@ end
 -- function getRankStr
 -------------------------------------
 function StructEventRouletteRanking:getRankStr()
-    if (self.m_rank == 0) then
+    if (self.m_rank <= 0) then
         return '-'
     else
         return Str('{1}위', comma_value(self.m_rank))

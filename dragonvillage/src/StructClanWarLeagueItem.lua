@@ -100,7 +100,7 @@ end
 function StructClanWarLeagueItem:getClanWarRankText()
     local rank = self:getLeagueRank()
 
-    if (rank == 0) then
+    if (rank <= 0) then
         return '-'
     end
     return Str('{1}위', rank)

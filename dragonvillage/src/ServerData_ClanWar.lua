@@ -1080,7 +1080,7 @@ function ServerData_ClanWar:getClancoinRewardCount_atGroupStage(rank)
     elseif (rank == 3) then return Str('120')
     elseif (rank == 2) then return Str('180')
     elseif (rank == 1) then return Str('180')
-    elseif (rank == 0) then return '-'
+    elseif (rank <= 0) then return '-'
     else return ''
     end
 end

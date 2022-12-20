@@ -73,7 +73,7 @@ UI_ListItem_ClanWarGroupStageRankInAll = class(PARENT, {
                 end
             end
 
-	        if (clan_rank == 0) then
+	        if (clan_rank <= 0) then
 		        clan_rank = '-'
 	        end
             vars['rankLabel']:setString(font_color_tag .. tostring(clan_rank))
@@ -455,7 +455,7 @@ UI_ListItem_ClanWarGroupStageRankInGroup = class(PARENT, {
             local clan_name = struct_clan_rank:getClanName() or ''
             vars['clanNameLabel']:setString(font_color_tag .. clan_name)
 
-	        if (clan_rank == 0) then
+	        if (clan_rank <= 0) then
 		        clan_rank = '-'
 	        end
             vars['rankLabel']:setString(font_color_tag .. tostring(clan_rank))
