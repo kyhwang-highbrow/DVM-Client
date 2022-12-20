@@ -2,7 +2,7 @@ local PARENT = TableClass
 
 -------------------------------------
 -- class TableFleaShop
--- @brief 벼룩시장 선물
+-- @brief 벼룩시장
 -------------------------------------
 TableFleaShop = class(PARENT, {
     })
@@ -28,7 +28,7 @@ end
 
 -------------------------------------
 -- function getFleaShopProductList
--- @brief 벼룩시장 선물 상품 리스트 (product_id 리스트)
+-- @brief 벼룩시장 상품 리스트 (product_id 리스트)
 -- @param ncm_id number
 -- @return list table(list)
 -------------------------------------

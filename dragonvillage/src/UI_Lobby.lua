@@ -695,7 +695,7 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 		    g_firstPurchaseEventData:applyFirstPurchaseEvent(ret['first_purchase_event_info'])
         end
 
-        cclog('# 벼룩시장 선물')
+        cclog('# 벼룩시장')
         if ret['table_flea_market'] then
             g_fleaShop:applyFleaShopEndInfo_fromRet(ret['table_flea_market'])
         end

@@ -172,11 +172,11 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
             end
         end
 
-        do -- 벼룩시장 선물 버튼 생성
+        do -- 벼룩시장 버튼 생성
             local t_flea_shop_map = g_fleaShop:getFleaShopList()
             for ncm_id, _ in pairs(t_flea_shop_map) do
                 if (g_fleaShop:isActiveFleaShop(ncm_id) == true) then
-                    -- 벼룩시장 선물 데이터가 있고, 종료 시간이 지나지 않은 경우 생성
+                    -- 벼룩시장 데이터가 있고, 종료 시간이 지나지 않은 경우 생성
                     local unique_key = ('flea_shop' .. ncm_id)
                     -- 존재하지 않으면 생성 (삭제는 managed button에서 알아서 진행)
                     if (self:getManagedButtonByUniqueKey(unique_key) == nil) then

@@ -2,7 +2,7 @@ local PARENT = UI
 
 -------------------------------------
 -- class UI_FleaShop
--- @brief 벼룩시장 선물
+-- @brief 벼룩시장
 -------------------------------------
 UI_FleaShop = class(PARENT,{
         m_ncmId = 'number',

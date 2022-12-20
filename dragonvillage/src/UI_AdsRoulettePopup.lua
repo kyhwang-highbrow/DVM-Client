@@ -122,18 +122,15 @@ function UI_AdsRoulettePopup:refresh()
     if (is_end == true) then
         vars['badgeNode']:setVisible(false)
         vars['adsNode']:setVisible(false)
-        vars['spinLabel']:setVisible(true)
         vars['lockSprite']:setVisible(true)
     else
         vars['lockSprite']:setVisible(not is_can_spin)
         if (is_can_spin) then
             vars['badgeNode']:setVisible(true)
             vars['adsNode']:setVisible(true)
-            vars['spinLabel']:setVisible(false)
         else
             vars['badgeNode']:setVisible(false)
             vars['adsNode']:setVisible(false)
-            vars['spinLabel']:setVisible(false)
         end
     end
 end

@@ -134,14 +134,14 @@ function UI_PaymentShop:getPaymentShopTabList()
         end
     end
 
-    do -- 벼룩시장 선물
+    do -- 벼룩시장
         local t_flea_shop_map = g_fleaShop:getNewcomerShopList()
         for ncm_id, _ in pairs(t_flea_shop_map) do
             if (g_fleaShop:isActiveNewcomerShop(ncm_id) == true) then
-                -- 벼룩시장 선물 데이터가 있고, 종료 시간이 지나지 않은 경우 생성
+                -- 벼룩시장 데이터가 있고, 종료 시간이 지나지 않은 경우 생성
                 local unique_key = ('flea_shop' .. ncm_id)
 
-                local display_name = Str('벼룩시장 선물')
+                local display_name = Str('벼룩시장')
                 local ui_priority = 900
                 local icon_res = ''
                 local func_get_badge_count = function() return 0 end

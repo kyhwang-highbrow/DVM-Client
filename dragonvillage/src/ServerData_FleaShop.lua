@@ -1,7 +1,7 @@
 -------------------------------------
 -- class ServerData_FleaShop
 -- @instance g_FleaShop
--- @brief 벼룩시장 선물(신규 유저 전용 상점)
+-- @brief 벼룩시장(신규 유저 전용 상점)
 -------------------------------------
 ServerData_FleaShop = class({
         m_serverData = 'ServerData',
@@ -58,7 +58,7 @@ end
 
 -------------------------------------
 -- function getFleaShopList
--- @brief 벼룩시장 선물
+-- @brief 벼룩시장
 -- @return table
 -------------------------------------
 function ServerData_FleaShop:getFleaShopList()
@@ -67,7 +67,7 @@ end
 
 -------------------------------------
 -- function getFleaShopEndTimestamp
--- @brief 벼룩시장 선물 ID를 통해 종료 시간 얻어옴
+-- @brief 벼룩시장 ID를 통해 종료 시간 얻어옴
 -- @param ncm_id number
 -------------------------------------
 function ServerData_FleaShop:getFleaShopEndTimestamp(ncm_id)
