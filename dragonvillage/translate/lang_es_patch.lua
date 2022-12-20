@@ -95,8 +95,5 @@ return {['노려라! 속성 전설의 알 랜덤박스']='¡Apunta a la meta! At
 ['벼룩 시장 상품4'] = 'Item 4 del mercado de pulgas',
 ['날개 5999개'] = 'Alas x5,999',
 ['룬 연마석 149개'] = 'Piedra Pulidora de Runas x149',
-['캡슐코인 10개'] = 'Cápsula de Monedas x10',
-['일일 남은 횟수'] = 'Recuento restante de 1 día',
-['광고보기']='Ver anuncio',
-['획득 가능 다이아']='Puede obtener un diamante'
+['캡슐코인 10개'] = 'Cápsula de Monedas x10'
 }
