@@ -71,7 +71,7 @@ function UI_AdsRoulettePopup:initUI()
     --     -- return StructItem:createSimple(item_id, item_count)
     -- end)
 
-    vars['numberLabel']:setString(string.format('일일 남은 횟수 %d/%d', self.m_spinTerm, self.m_dailyMaxCount))
+    vars['numberLabel']:setString(Str('1일 남은 횟수: {1}/{2}', self.m_spinTerm, self.m_dailyMaxCount))
 
     -- vars['badgeNode']:removeAllChildren()
     -- UI_DotNode:create(vars['badgeNode'], 'expedition.roulette')

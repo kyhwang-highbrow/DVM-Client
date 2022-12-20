@@ -514,7 +514,7 @@ function StructItem:isNeedItemCountEnough(use_toast)
     local is_enough = my_count >= need_count
 
     if is_enough == false and is_use_toast == true then
-        UIManager:toastNotificationRed(Str('[{1}] 아이템이 충분하지 않습니다.', self:getItemName()))
+        UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.', self:getItemName()))
     end
 
     return is_enough
