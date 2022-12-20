@@ -87,4 +87,13 @@ return {['노려라! 속성 전설의 알 랜덤박스']='Aim for the goal! Attr
 ['화가... 나는구나...']='My anger... is building up...',
 ['화를 돋구는구나!']='You are making me angry!',
 ['화를 자초하지 마라...']='Do not beg for your demise...',
-['매 초 자신에게 {@yellow}[타오르는 분노]{@SKILL_DESC}를 부여합니다. \n{@yellow}[타오르는 분노]{@SKILL_DESC} : 공격력이 {1}% 증가하며 최대 {2}개까지 중첩됩니다. [분노의 불길] 사용 후 모두 제거됩니다.']='Every second imbues {@yellow}[Burning Wrath]{@SKILL_DESC} to self. \n{@yellow}[Burning Wrath]{@SKILL_DESC}: ATK increases by 1% per stack and stacks up to {3} times. Removes all after using [Fury Flame].'}
+['매 초 자신에게 {@yellow}[타오르는 분노]{@SKILL_DESC}를 부여합니다. \n{@yellow}[타오르는 분노]{@SKILL_DESC} : 공격력이 {1}% 증가하며 최대 {2}개까지 중첩됩니다. [분노의 불길] 사용 후 모두 제거됩니다.']='Every second imbues {@yellow}[Burning Wrath]{@SKILL_DESC} to self. \n{@yellow}[Burning Wrath]{@SKILL_DESC}: ATK increases by 1% per stack and stacks up to {3} times. Removes all after using [Fury Flame].',
+['벼룩시장'] = 'Flea Market',
+['벼룩 시장 상품1'] = 'Flea Market Item 1',
+['벼룩 시장 상품2'] = 'Flea Market Item 2',
+['벼룩 시장 상품3'] = 'Flea Market Item 3',
+['벼룩 시장 상품4'] = 'Flea Market Item 4',
+['날개 5999개'] = 'Wings x5,999',
+['룬 연마석 149개'] = 'Rune Enchant Stone x149',
+['캡슐코인 10개'] = 'Capsule Coin x10'
+}
