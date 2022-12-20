@@ -166,7 +166,7 @@ function UI_AdsRoulettePopup:click_rewardBtn()
     end
 
     if (not (exp_at <= now)) then
-        UIManager:toastNotification(Str('아직 사용할 수 없습니다.'))
+        UIManager:toastNotificationRed(Str('지금은 사용 할 수 없습니다.'))
         return
     end
     -- 중복 진입 방지
