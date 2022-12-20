@@ -359,8 +359,6 @@ end
 -- function initItemIcon
 -------------------------------------
 function UI_AdsRoulettePopup:initItemIcon()
-    print('initItemIcon Enter')
-
     for idx, value in ipairs(self.m_rewardItems) do
         local result = self:createItem(idx, value['item_id'], value['count'])
         if (result == true) then

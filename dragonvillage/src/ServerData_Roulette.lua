@@ -159,6 +159,13 @@ function ServerData_Roulette:getCoolTimeStatus()
     local msg = Str('획득 가능')
     local enable = true
 
+    if self.daily_roulette_cnt <= 0 then
+        enable = false
+        msg = Str('완료')
+
+        return msg, enable
+    end
+
     -- 남은 시간
     local expired = self.last_roulette_rolled_at + (self.roulette_spin_Term * 60000)
     local time = nil
