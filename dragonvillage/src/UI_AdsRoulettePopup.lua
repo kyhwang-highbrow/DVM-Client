@@ -57,7 +57,7 @@ function UI_AdsRoulettePopup:initUI()
     self.m_dailyRemainCount = g_advRouletteData:getDailyCount()
     self.m_dailyMaxCount = g_advRouletteData:getDailyMaxCount()
 
-    vars['numberLabel']:setString(string.format('일일 남은 횟수 %d/%d', self.m_dailyRemainCount, self.m_dailyMaxCount))
+    vars['numberLabel']:setString(Str('1일 남은 횟수: {1}/{2}', self.m_dailyRemainCount, self.m_dailyMaxCount))
 
     self:setExpTime()
 
@@ -117,7 +117,7 @@ function UI_AdsRoulettePopup:refresh()
     -- 횟수 모두 소진
     local is_end = 0 >= daily_roll_count
 
-    vars['numberLabel']:setString(string.format('일일 남은 횟수 %d/%d', self.m_dailyRemainCount, self.m_dailyMaxCount))
+    vars['numberLabel']:setString(Str('1일 남은 횟수: {1}/{2}', self.m_dailyRemainCount, self.m_dailyMaxCount))
 
     if (is_end == true) then
         vars['badgeNode']:setVisible(false)
