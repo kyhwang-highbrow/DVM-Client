@@ -1,5 +1,5 @@
--- @inherit ServerData_Base
-local DATA_KEY = { DAILY_CNT = 'daily_roulette_cnt', LAST_ROLLED_AT = 'last_roulette_rolled_at' }
+-- -- @inherit ServerData_Base
+-- local DATA_KEY = { DAILY_CNT = 'daily_roulette_cnt', LAST_ROLLED_AT = 'last_roulette_rolled_at' }
 -------------------------------------
 ---@class ServerData_Roulette
 -------------------------------------
@@ -7,31 +7,50 @@ ServerData_Roulette = class({
     m_serverData = 'ServerData',
 
     daily_roulette_cnt = 'number',
-    last_roulette_rolled_at = 'number'
+    daily_max_roulette_cnt = 'number',
+    roulette_spin_Term = 'number',
+    last_roulette_rolled_at = 'number',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function ServerData_Roulette:init()
-    self.m_serverData = ServerData:getInstance()
-    self.daily_roulette_cnt = 0
-    self.last_roulette_rolled_at = 0
+function ServerData_Roulette:init(serverData)
+    self.m_serverData = serverData
+
 end
 
-local instance = nil
+-- local instance = nil
 
--------------------------------------
--- function getInstance
----@return ServerData_Roulette
--------------------------------------
-function ServerData_Roulette:getInstance()
-    if (instance == nil) then
-        instance = ServerData_Roulette()
+-- -------------------------------------
+-- -- function getInstance
+-- ---@return ServerData_Roulette
+-- -------------------------------------
+-- function ServerData_Roulette:getInstance()
+--     if (instance == nil) then
+--         instance = ServerData_Roulette()
+--     end
+
+--     return instance
+-- end
+function ServerData_Roulette:response_rouletteInfo(ret)
+    if ret == nil then
+        return
+    end
+    
+    self.daily_roulette_cnt = ret['adv_lobby_remain_count']
+    self.daily_max_roulette_cnt = ret['max_adv_lobby_count']
+    self.roulette_spin_Term = ret['adv_lobby_timer']
+
+    if self.daily_roulette_cnt == self.daily_max_roulette_cnt then
+        self.last_roulette_rolled_at = 0
+    else
+        self.last_roulette_rolled_at = ret['last_adv_lobby_at']
     end
 
-    return instance
+    
 end
+
 
 -------------------------------------
 -- function showAdRoulettePopup
@@ -70,10 +89,28 @@ function ServerData_Roulette:getServerDataName()
 end
 
 -------------------------------------
+-- function getDailyMaxCount
+-------------------------------------
+function ServerData_Roulette:getDailyMaxCount()
+    return self.daily_max_roulette_cnt
+end
+
+-------------------------------------
 -- function getDailyCount
 -------------------------------------
 function ServerData_Roulette:getDailyCount()
     return self.daily_roulette_cnt
+end
+
+-------------------------------------
+-- function setDailyCount
+-------------------------------------
+function ServerData_Roulette:setDailyCount(cnt)
+    self.daily_roulette_cnt = cnt
+end
+
+function ServerData_Roulette:getRouletteTerm()
+    return self.roulette_spin_Term
 end
 
 -------------------------------------
@@ -84,43 +121,69 @@ function ServerData_Roulette:getLastRollTimestamp()
 end
 
 -------------------------------------
+-- function setLastRollTimestamp
+-------------------------------------
+function ServerData_Roulette:setLastRollTimestamp(timestamp)
+    self.last_roulette_rolled_at = timestamp
+end
+
+-------------------------------------
 -- function isFirstRoll
 -------------------------------------
 function ServerData_Roulette:isFirstRoll()
     return self.daily_roulette_cnt == 0
 end
 
--------------------------------------
--- function isAvailableRoulette
--------------------------------------
-function ServerData_Roulette:isAvailableRoulette()
+-- -------------------------------------
+-- -- function isAvailableRoulette
+-- -------------------------------------
+-- function ServerData_Roulette:isAvailableRoulette()
 
-    -- local daily_max_count = TableBalanceConfig:getInstance():getBalanceConfigValue('max_roulette_cnt')
-    local daily_max_count = 10
-    local cur_count       = self:getDailyCount()
-    if (daily_max_count <= cur_count) then
-        return false
+--     -- local daily_max_count = TableBalanceConfig:getInstance():getBalanceConfigValue('max_roulette_cnt')
+--     -- local daily_max_count = 6
+--     local cur_count = self:getDailyCount()
+--     if (self.daily_max_roulette_cnt <= cur_count) then
+--         return false
+--     end
+
+--     local cur_time_msd = ServerTime:getInstance():getCurrentTimestampMilliseconds()
+--     local delta_time_ms = cur_time_msd - self:getLastRollTimestamp()
+
+--     -- local term_sec = TableBalanceConfig:getInstance():getBalanceConfigValue('roulette_term')
+--     local term_sec = self.roulette_spin_Term
+--     local term_ms = term_sec * 60000
+--     return term_ms < delta_time_ms
+-- end
+
+function ServerData_Roulette:getCoolTimeStatus()
+    local msg = Str('획득 가능')
+    local enable = true
+
+    -- 남은 시간
+    local expired = self.last_roulette_rolled_at + (self.roulette_spin_Term * 60000)
+    local time = nil
+    -- 서버상의 시간을 얻어옴
+    if (expired) then
+        local server_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
+        time = (expired - server_time)
+        if (time > 0) then
+            enable = false
+            msg = Str('{1} 남음', datetime.makeTimeDesc_timer(time, false))
+        end
     end
-
-    local cur_time_msd = ServerTime:getInstance():getCurrentTimestampMilliseconds()
-    local delta_time_ms = cur_time_msd - self:getLastRollTimestamp()
-
-    -- local term_sec = TableBalanceConfig:getInstance():getBalanceConfigValue('roulette_term')
-    local term_sec = 5
-    local term_ms = term_sec * 60000
-    return term_ms < delta_time_ms
+    return msg, enable, time
 end
 
--------------------------------------
--- function applyResponse
--------------------------------------
-function ServerData_Roulette:applyResponse(ret)
-    local info = ret['roulette_info']
-    if (info ~= nil) then
-        self:applyTableData(info)
-        self:setUpdateTimeForData()
-    end
-end
+-- -------------------------------------
+-- -- function applyResponse
+-- -------------------------------------
+-- function ServerData_Roulette:applyResponse(ret)
+--     local info = ret['roulette_info']
+--     if (info ~= nil) then
+--         self:applyTableData(info)
+--         self:setUpdateTimeForData()
+--     end
+-- end
 
 --#region Request
 
@@ -139,7 +202,7 @@ function ServerData_Roulette:request_rouletteInfo(success_cb, fail_cb, status_cb
 
         -- -- 공통 데이터 갱신
         -- ServerData:getInstance():applyCommonResponse(ret)
-        self:applyResponse(ret)
+        -- self:applyResponse(ret)
 
         if success_cb then
             success_cb(ret)
@@ -184,7 +247,7 @@ function ServerData_Roulette:request_rouletteRoll(ad_network, log, success_cb, f
 
         -- 공통 데이터 갱신
         -- g_serverData:applyCommonResponse(ret)
-        self:applyResponse(ret)
+        -- self:applyResponse(ret)
 
         if success_cb then
             success_cb(ret)
@@ -232,9 +295,9 @@ function ServerData_Roulette:request_resetRouletteInfo(roll_count, last_roll_at,
     -- 성공 콜백
     local function _success_cb(ret)
 
-       -- 공통 데이터 갱신
-       g_serverData:applyCommonResponse(ret)
-        self:applyResponse(ret)
+    --    -- 공통 데이터 갱신
+    --    g_serverData:applyCommonResponse(ret)
+    --     self:applyResponse(ret)
 
         if success_cb then
             success_cb(ret)

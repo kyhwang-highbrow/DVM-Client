@@ -1475,6 +1475,9 @@ function UI_TitleScene:workGetServerInfo()
                 cclog('# 드래곤 획득 패키지 정보 갱신')
                 g_getDragonPackage:applyPackageList(ret, true)
 
+                cclog('# 광고 룰렛 정보 갱신')
+                g_advRouletteData:response_rouletteInfo(ret)
+
                 co.NEXT()
 			end)
 			ui_network:setFailCB(fail_cb)

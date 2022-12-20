@@ -2056,7 +2056,8 @@ function UI_Lobby:update(dt)
     -- 광고 (자동재화, 선물상자 정보)
     do
         -- 선물상자
-        local msg2, enable2 = g_advertisingData:getCoolTimeStatus(AD_TYPE.RANDOM_BOX_LOBBY)
+        -- local msg2, enable2 = g_advertisingData:getCoolTimeStatus(AD_TYPE.RANDOM_BOX_LOBBY)
+        local msg2, enable2 = g_advRouletteData:getCoolTimeStatus()
         vars['giftBoxLabel']:setString(msg2)
         vars['giftBoxBtn']:setEnabled(enable2)
         if (self.m_bGiftBoxEnabled == nil) or (self.m_bGiftBoxEnabled ~= enable2) then

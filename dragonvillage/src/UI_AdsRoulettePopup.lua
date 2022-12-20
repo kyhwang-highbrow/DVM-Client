@@ -13,6 +13,7 @@ UI_AdsRoulettePopup = class(PARENT, {
     m_bIsCanSpin = 'boolean',
 
     m_expTime = 'ExperationTime',
+    m_dailyRemainCount = 'number',
     m_dailyMaxCount = 'number',
     m_spinTerm = 'number',
 
@@ -42,8 +43,6 @@ function UI_AdsRoulettePopup:init()
     self:initButton()
     self:initDevPanel()
     self:refresh()
-
-
 end
 
 --#region UI Inherit Override Functions
@@ -54,38 +53,23 @@ end
 function UI_AdsRoulettePopup:initUI()
     local vars = self.vars
     self.m_rewardItems = {}
-    self.m_spinTerm = 10
-    self.m_dailyMaxCount = 10
-    -- vars['waitTimeLabel']:setVisible(false)
+    self.m_spinTerm = g_advRouletteData:getRouletteTerm()
+    self.m_dailyRemainCount = g_advRouletteData:getDailyCount()
+    self.m_dailyMaxCount = g_advRouletteData:getDailyMaxCount()
 
-    -- 리워드 그룹에서 StructItem 추출
-    -- local reward_group_id = TableBalanceConfig:getInstance():getBalanceConfigValue('roulette_reward_group_id')
-    -- local reward_group_id = 7000001
-    -- self.m_lRewardItems = TableReward:getInstance():getRewardItemListFromRewardGroupId(reward_group_id)
-    -- table.sort(self.m_lRewardItems, function(a, b)
-    --     return a['id'] < b['id']
-    -- end)
-    -- table.map(self.m_lRewardItems, function(v, k)
-    --     local item_id = v['reward_item_id']
-    --     local item_count = v['reward_count_min']
-    --     -- return StructItem:createSimple(item_id, item_count)
-    -- end)
+    vars['numberLabel']:setString(string.format('일일 남은 횟수 %d/%d', self.m_dailyRemainCount, self.m_dailyMaxCount))
 
-    vars['numberLabel']:setString(Str('1일 남은 횟수: {1}/{2}', self.m_spinTerm, self.m_dailyMaxCount))
+    self:setExpTime()
 
-    -- vars['badgeNode']:removeAllChildren()
-    -- UI_DotNode:create(vars['badgeNode'], 'expedition.roulette')
-    -- vars['badgeNode']:setVisible(true)
+    local exp_time = self.m_expTime
+    local exp_at = exp_time:getExperationTime()
+    local now = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 
-    -- self.m_dailyMaxCount = TableBalanceConfig:getInstance():getBalanceConfigValue('max_roulette_cnt')
-
-    -- self:setExpTime()
-
-    -- local server_noti = UI_ServerNotification:create(self.root, function()
-    --     self:setExpTime()
-    -- end)
-
-    -- server_noti:addNotification('ServerData_Roulette')
+    if (exp_at <= now) then
+        vars['badgeNode']:setVisible(true)
+    else
+        vars['badgeNode']:setVisible(false)
+    end
 
     local function setting_reward_info(ret)
         local ret_adv_lobby = ret['adv_lobby']
@@ -103,10 +87,6 @@ function UI_AdsRoulettePopup:initUI()
     end
 
     g_advRouletteData:request_rouletteInfo(setting_reward_info)
-
-    print('@dhkim - 초기화 데이터 확인 중')
-    print('아이템 최대 카운트 : '..self.m_itemMaxCount)
-    print('@dhkim - 초기화 데이터 확인 중')
 end
 
 -------------------------------------
@@ -129,20 +109,29 @@ end
 function UI_AdsRoulettePopup:refresh()
     local vars = self.vars
     local daily_roll_count = g_advRouletteData:getDailyCount()
+    local exp_time = self.m_expTime
+    local exp_at = exp_time:getExperationTime()
+    local now = ServerTime:getInstance():getCurrentTimestampMilliseconds()
+    local is_can_spin = exp_at <= now
+    
     -- 횟수 모두 소진
-    local is_end = self.m_dailyMaxCount <= daily_roll_count
-    local is_can_spin = self.m_expTime:isExpired()
+    local is_end = 0 >= daily_roll_count
+
+    vars['numberLabel']:setString(string.format('일일 남은 횟수 %d/%d', self.m_dailyRemainCount, self.m_dailyMaxCount))
 
     if (is_end == true) then
+        vars['badgeNode']:setVisible(false)
         vars['adsNode']:setVisible(false)
         vars['spinLabel']:setVisible(true)
         vars['lockSprite']:setVisible(true)
     else
         vars['lockSprite']:setVisible(not is_can_spin)
         if (is_can_spin) then
+            vars['badgeNode']:setVisible(true)
             vars['adsNode']:setVisible(true)
             vars['spinLabel']:setVisible(false)
         else
+            vars['badgeNode']:setVisible(false)
             vars['adsNode']:setVisible(false)
             vars['spinLabel']:setVisible(false)
         end
@@ -166,17 +155,20 @@ end
 function UI_AdsRoulettePopup:click_rewardBtn()
     local vars = self.vars
     local daily_roll_count = g_advRouletteData:getDailyCount()
+    local exp_time = self.m_expTime
+    local exp_at = exp_time:getExperationTime()
+    local now = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 
     if (self.m_bIsCanSpin == false) then
         return
     end
 
-    if (self.m_dailyMaxCount <= daily_roll_count) then
+    if (0 >= daily_roll_count) then
         MakeSimplePopup(POPUP_TYPE.OK, '일일 사용 가능한 횟수를 모두 소모하셨습니다.')
         return
     end
 
-    if (self.m_expTime:isExpired() == false) then
+    if (not (exp_at <= now)) then
         UIManager:toastNotification(Str('아직 사용할 수 없습니다.'))
         return
     end
@@ -199,11 +191,6 @@ function UI_AdsRoulettePopup:click_rewardBtn()
         local r_id = reward['item_id']
         local r_count = reward['count']
 
-        print('--------------------------------items_list-------------------------------------')
-        print('item_id : ' ..r_id)
-        print('item_count : ' ..r_count)
-        print('--------------------------------items_list-------------------------------------')
-
         self.m_targetIdx = 1
         for i, v in ipairs(self.m_rewardItems) do
             local id = v['item_id']
@@ -214,70 +201,91 @@ function UI_AdsRoulettePopup:click_rewardBtn()
             end
         end
 
-
+        --@temp dhkim - 22.12.20 현재 연출에 투명도가 적용되지 않아 이펙트를 제외함. 추후에 적용 가능 
         self:simpleSpin(self.m_targetIdx, function()
             vars['finishSpineNode']:removeAllChildren()
-            local animator = MakeAnimator('res/effect/up_eff/up_eff.json')
-            animator:setScale(2)
-            animator:changeAni('up_eff', false)
-            vars['finishSpineNode']:addChild(animator.m_node)
+            -- local animator = MakeAnimator('res/effect/up_eff/up_eff.json')
+            -- animator:setScale(1)
+            -- animator:changeAni('up_eff', false)
+            -- vars['finishSpineNode']:addChild(animator.m_node)
 
-            local function end_animation()
-                print('end_animation start')
-                -- animator:setVisible(false)
+            -- print('end_animation start')
+            -- animator:setVisible(false)
 
-                local item_info = ret['added_items']['items_list'][1]
+            local item_info = ret['added_items']['items_list'][1]
 
-                -- local msg = Str('광고 보상을 받았습니다.')
-                -- UIManager:toastNotificationGreen(msg)
-
-                -- 아이템 정보가 있다면 팝업 처리
-                if (item_info) then
-                    local ui = UI_AdRewardPopup(item_info)
-                    ui:setCloseCB(function()
-                        self.m_bIsCanSpin = true
-                    end)
-                -- 없다면 노티
-                else
-                    local msg = Str('광고 보상을 받았습니다.')
-                    UIManager:toastNotificationGreen(msg)
-                end
+            -- 아이템 정보가 있다면 팝업 처리
+            if (item_info) then
+                self.m_dailyRemainCount = ret['adv_lobby_remain_count']
+                g_advRouletteData:setLastRollTimestamp(ret['last_adv_lobby_at'])
+                g_advRouletteData:setDailyCount(ret['adv_lobby_remain_count'])
+                vars['badgeNode']:setVisible(false)
+                self:setExpTime()
+                local ui = UI_AdRewardPopup(item_info)
+                ui:setCloseCB(function()
+                    self.m_bIsCanSpin = true
+                    self:refresh()
+                end)
+            -- 없다면 노티
+            else
+                local msg = Str('광고 보상을 받았습니다.')
+                UIManager:toastNotificationGreen(msg)
             end
+
+
+            -- local function end_animation()
+            --     print('end_animation start')
+            --     animator:setVisible(false)
+
+            --     local item_info = ret['added_items']['items_list'][1]
+
+            --     -- local msg = Str('광고 보상을 받았습니다.')
+            --     -- UIManager:toastNotificationGreen(msg)
+
+            --     -- 아이템 정보가 있다면 팝업 처리
+            --     if (item_info) then
+            --         local ui = UI_AdRewardPopup(item_info)
+            --         ui:setCloseCB(function()
+            --             self.m_bIsCanSpin = true
+            --         end)
+            --     -- 없다면 노티
+            --     else
+            --         local msg = Str('광고 보상을 받았습니다.')
+            --         UIManager:toastNotificationGreen(msg)
+            --     end
+            -- end
     
+            -- -- animator:addAniHandler(function()
+            -- --     print('idle ani start')
+            -- --     animator:changeAni('idle', false)
+            -- --     animator:addAniHandler(function()
+            -- --         if (animator:hasAni('end')) then
+            -- --             animator:changeAni('end', false)
+
+            -- --         end
+            -- --     end)
+            -- -- end)
+
             -- animator:addAniHandler(function()
-            --     print('idle ani start')
-            --     animator:changeAni('idle', false)
-            --     animator:addAniHandler(function()
-            --         if (animator:hasAni('end')) then
-            --             animator:changeAni('end', false)
-
-            --         end
-            --     end)
+            --     print('next ani start')
+            --     animator:stopAllActions()
+            --     end_animation()
+            --     -- require('UI_RewardPopup')
+            --     -- local reward_ui = UI_RewardPopup:open(struct_item_list)
+            --     -- reward_ui:setCloseCB(function()
+            --     --     self.m_bIsCanSpin = true
+            --     -- end)
             -- end)
-
-            animator:addAniHandler(function()
-                print('next ani start')
-                animator:stopAllActions()
-                end_animation()
-                -- require('UI_RewardPopup')
-                -- local reward_ui = UI_RewardPopup:open(struct_item_list)
-                -- reward_ui:setCloseCB(function()
-                --     self.m_bIsCanSpin = true
-                -- end)
-            end)
         end)
     end
 
     local function ads_callback(ret, ad_network, log)
         if (ret == 'success') then
-            --@dhkim 임시 광고 보상 받기 기능 추가
-            -- g_advertisingData:request_adv_reward(AD_TYPE.RANDOM_BOX_LOBBY)
             g_advRouletteData:request_rouletteRoll(ad_network, log, success_cb)
         end
     end
 
     AdManager:getInstance():showRewardAd_Common(ads_callback)
-    -- AdManager:getInstance():showRewardAd_Common(success_cb)
 end
 
 -------------------------------------
@@ -314,24 +322,24 @@ function UI_AdsRoulettePopup:update(dt)
     local vars = self.vars
     local exp_time = self.m_expTime
     local exp_at = exp_time:getExperationTime()
+    local now = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local daily_roll_count = g_advRouletteData:getDailyCount()
 
-    local is_end = self.m_dailyMaxCount <= daily_roll_count
+    local is_end = 0 >= daily_roll_count
 
     self:refresh()
 
-    if (exp_time:isExpired() == true or exp_at == nil or is_end == true) then
+    if ((exp_at <= now) or exp_at == nil or is_end == true) then
         vars['timeLabel']:setVisible(false)
         self.root:unscheduleUpdate()
         return
     end
+
     vars['adsNode']:setVisible(false)
     vars['timeLabel']:setVisible(true)
 
-    local now = ServerTime:getInstance():getCurrentTimestampMilliseconds()
-    local time_desc = datetime.makeTimeDesc_MMSS((exp_at - now) / 1000)
+    local time_desc = datetime.makeTimeDesc_timer((exp_at - now), false)
     vars['timeLabel']:setString(time_desc)
-
 end
 
 -------------------------------------
@@ -343,11 +351,11 @@ function UI_AdsRoulettePopup:setExpTime()
     exp_time:setUpdatedAt(last_timestamp)
 
     -- local term_sec = TableBalanceConfig:getInstance():getBalanceConfigValue('roulette_term')
-    local term_sec = 5
-    exp_time:applyExperationTime(last_timestamp + term_sec * 60000)
+    local term_min = g_advRouletteData:getRouletteTerm()
+    local term_mmss = term_min * 60000
+    exp_time:applyExperationTime(last_timestamp + term_mmss)
 
-    self.root:scheduleUpdate(function(dt) self:update(dt) end)
-
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -357,14 +365,6 @@ function UI_AdsRoulettePopup:initItemIcon()
     print('initItemIcon Enter')
 
     for idx, value in ipairs(self.m_rewardItems) do
-
-        print('@dhkim - 초기화 데이터 확인 중')
-        print('현재 보상 아이템 인덱스 : '..idx)
-        print('현재 보상 아이템 아이디 : '..value['item_id'])
-        print('현재 보상 아이템 숫자 : '..value['count'])
-        print('현재 보상 아이템 확률 : '..value['pick_weight'])
-        print('@dhkim - 초기화 데이터 확인 중')
-
         local result = self:createItem(idx, value['item_id'], value['count'])
         if (result == true) then
             self.m_itemMaxCount = idx
