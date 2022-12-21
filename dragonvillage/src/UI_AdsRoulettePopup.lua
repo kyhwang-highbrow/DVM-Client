@@ -218,11 +218,13 @@ function UI_AdsRoulettePopup:click_rewardBtn()
                 g_advRouletteData:setDailyCount(ret['adv_lobby_remain_count'])
                 vars['badgeNode']:setVisible(false)
                 self:setExpTime()
+                g_serverData:networkCommonRespone(ret)
+                g_serverData:networkCommonRespone_addedItems(ret)
                 local ui = UI_AdRewardPopup(item_info)
                 ui:setCloseCB(function()
                     self.m_bIsCanSpin = true
-                    self:refresh()
                 end)
+                self:refresh()
             -- 없다면 노티
             else
                 local msg = Str('광고 보상을 받았습니다.')
