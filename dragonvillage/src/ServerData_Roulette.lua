@@ -41,16 +41,16 @@ function ServerData_Roulette:response_rouletteInfo(ret)
     self.daily_roulette_cnt = ret['adv_lobby_remain_count']
     self.daily_max_roulette_cnt = ret['max_adv_lobby_count']
     self.roulette_spin_Term = ret['adv_lobby_timer']
-
-    if self.daily_roulette_cnt == self.daily_max_roulette_cnt then
-        self.last_roulette_rolled_at = 0
-    else
-        self.last_roulette_rolled_at = ret['last_adv_lobby_at']
-    end
-
-    
+    self.last_roulette_rolled_at = ret['last_adv_lobby_at']
 end
 
+function ServerData_Roulette:isDailyRouletteBtnAvailable()
+    if self.daily_roulette_cnt ~= 0 then
+        return true
+    end
+
+    return false
+end
 
 -------------------------------------
 -- function showAdRoulettePopup
@@ -159,7 +159,7 @@ function ServerData_Roulette:getCoolTimeStatus()
     local msg = Str('획득 가능')
     local enable = true
 
-    if self.daily_roulette_cnt <= 0 then
+    if (not self:isDailyRouletteBtnAvailable()) then
         enable = false
         msg = Str('완료')
 

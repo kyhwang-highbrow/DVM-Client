@@ -718,6 +718,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
         if (ret['personalpack_info']) then
             g_personalpackData:response_personalpackInfo(ret['personalpack_info'])
         end
+        
+        cclog('# 로비 광고 룰렛 정보')
+        if (ret['adv_lobby']) then
+            g_advRouletteData:response_rouletteInfo(ret['adv_lobby'])
+        end
 
         cclog('# 할로윈 룬 축제(할로윈 이벤트)')
         if (ret['rune_festival_info']) then
