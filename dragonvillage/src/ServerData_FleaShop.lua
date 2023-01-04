@@ -5,6 +5,7 @@
 -------------------------------------
 ServerData_FleaShop = class({
         m_serverData = 'ServerData',
+        m_tFleaShopStartInfo = 'map',
         m_tFleaShopEndInfo = 'map', -- 활성화된 flea_shop의 종료 타임스탬프들 ex) {"10001":1590728992552, "10002":1590728992552}
     })
 
@@ -17,11 +18,11 @@ function ServerData_FleaShop:init(server_data)
 end
 
 -------------------------------------
--- function applyFleaShopEndInfo_fromRet
+-- function applyFleaShopInfo_fromRet
 -- @brief
 -- @used_at users/title
 -------------------------------------
-function ServerData_FleaShop:applyFleaShopEndInfo_fromRet(ret)
+function ServerData_FleaShop:applyFleaShopInfo_fromRet(ret)
     if (ret == nil) then
         return
     end
@@ -39,8 +40,21 @@ function ServerData_FleaShop:applyFleaShopEndInfo_fromRet(ret)
     -- if (ret['flea_shop_end_info'] == false) then
     --     return
     -- end
-
+    self:applyFleaShopStartInfo(ret)
     self:applyFleaShopEndInfo(ret)
+end
+
+-------------------------------------
+-- function applyFleaShopStartInfo
+-- @brief
+-------------------------------------
+function ServerData_FleaShop:applyFleaShopStartInfo(t_data)
+    self.m_tFleaShopStartInfo = {}
+    
+    for i,v in pairs(t_data) do
+        local ncm_id = tonumber(v['ncm_id'])
+        self.m_tFleaShopStartInfo[ncm_id] = ServerTime:getInstance():datestrToTimestampMillisec(v['start_date'])
+    end
 end
 
 -------------------------------------
@@ -66,6 +80,20 @@ function ServerData_FleaShop:getFleaShopList()
 end
 
 -------------------------------------
+-- function getFleaShopStartTimestamp
+-- @brief 벼룩시장 ID를 통해 시작 시간 얻어옴
+-- @param ncm_id number
+-------------------------------------
+function ServerData_FleaShop:getFleaShopStartTimestamp(ncm_id)
+    if (not self.m_tFleaShopStartInfo) then
+        return 0
+    end
+
+    local ret = self.m_tFleaShopStartInfo[ncm_id]
+    return ret
+end
+
+-------------------------------------
 -- function getFleaShopEndTimestamp
 -- @brief 벼룩시장 ID를 통해 종료 시간 얻어옴
 -- @param ncm_id number
@@ -85,15 +113,17 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_FleaShop:isActiveFleaShop(ncm_id)
-    local timestamp = self:getFleaShopEndTimestamp(ncm_id)
+    local start_timestamp = self:getFleaShopStartTimestamp(ncm_id)
+    local end_timestamp = self:getFleaShopEndTimestamp(ncm_id)
     if (timestamp == nil) then
         return false
     end
 
     local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-    local end_time = (timestamp / 1000)
+    local start_time = (start_timestamp / 1000)
+    local end_time = (end_timestamp / 1000)
 
-    if (curr_time < end_time) then
+    if (curr_time >= start_time and curr_time < end_time) then
         return true
     else
         return false

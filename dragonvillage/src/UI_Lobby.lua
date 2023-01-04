@@ -697,7 +697,7 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 
         cclog('# 벼룩시장')
         if ret['table_flea_market'] then
-            g_fleaShop:applyFleaShopEndInfo_fromRet(ret['table_flea_market'])
+            g_fleaShop:applyFleaShopInfo_fromRet(ret['table_flea_market'])
         end
 
         cclog('# 마을 알림 (lobby_notice)')
