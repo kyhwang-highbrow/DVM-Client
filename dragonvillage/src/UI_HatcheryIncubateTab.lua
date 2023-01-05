@@ -114,8 +114,10 @@ function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
 		self:requestIncubate(egg_id, cnt)
 	end
 	local count = t_data['count']
-	if (count) and (count > 1) then
+	if (count) and (count > 1) and (count < 100) then
 		local ui = UI_EggPopup(t_data, request_incubate)
+    elseif (count) and (count == 100) then
+        local ui = UI_EggPopupHundred(t_data, request_incubate)
 	else
 		request_incubate()
 	end
@@ -143,18 +145,30 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local egg_res = TableItem:getEggRes(egg_id)
+        
 		local t_summon_data = {
 			['count'] = cnt,
 			['remain_cnt'] = g_eggsData:getEggCount(egg_id)
 		}
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data)
+        local ui = nil
 
-        local function close_cb()
-            local last_ui = UIManager:getLastUI()
-            last_ui:sceneFadeInAction()
+        if cnt == 100 then
+            ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list,t_summon_data)
+
+            local function close_cb()
+                local last_ui = UIManager:getLastUI()
+                last_ui:sceneFadeInAction()
+            end
+            ui:setCloseCB(close_cb)
+        else
+            ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data)
+
+            local function close_cb()
+                local last_ui = UIManager:getLastUI()
+                last_ui:sceneFadeInAction()
+            end
+            ui:setCloseCB(close_cb)
         end
-        ui:setCloseCB(close_cb)
-
         -- 리스트 갱신
         self:refreshEggList()
 
@@ -260,7 +274,15 @@ function UI_HatcheryIncubateTab:refreshEggList()
             local _res_10 = string.format('res/item/egg/%s_10/%s_10.vrp', _res, _res)
             -- 10개 묶음 이미지 파일이 있다면 그 이미지 파일을 사용
             if (LuaBridge:isFileExist(_res_10)) then
-                res = _res_10   
+                res = _res_10
+            else
+                using_bundle_label = true
+            end
+        elseif (v['count'] == 100) then
+            local _res_10 = string.format('res/item/egg/%s_10/%s_10.vrp', _res, _res)
+            -- 10개 묶음 이미지 파일이 있다면 그 이미지 파일을 사용
+            if (LuaBridge:isFileExist(_res_10)) then
+                res = _res_10
             else
                 using_bundle_label = true
             end

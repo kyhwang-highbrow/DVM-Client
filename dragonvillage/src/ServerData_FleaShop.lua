@@ -5,7 +5,7 @@
 -------------------------------------
 ServerData_FleaShop = class({
         m_serverData = 'ServerData',
-        m_tFleaShopStartInfo = 'map',
+        m_tFleaShopStartInfo = 'map', -- 활성화된 flea_shop의 시작 타임스탬프들 ex) {"10001":1590728992552, "10002":1590728992552}
         m_tFleaShopEndInfo = 'map', -- 활성화된 flea_shop의 종료 타임스탬프들 ex) {"10001":1590728992552, "10002":1590728992552}
     })
 

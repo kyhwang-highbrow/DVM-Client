@@ -154,9 +154,15 @@ function ServerData_Eggs:getEggListForUI()
         elseif (0 < count) then
             local full_type = table_item:getValue(tonumber(egg_id), 'full_type')
             
-            local bundle_cnt = math_floor(count / 10)
-            local indivisual_cnt = count - (bundle_cnt * 10)
+            local bundle_100_cnt = math_floor(count / 100)
+            local bundle_cnt = math_floor((count % 100) / 10)
+            local indivisual_cnt = count % 10
+            -- local indivisual_cnt = count - (bundle_cnt * 10)
             
+            for _i=1, bundle_100_cnt do
+                table.insert(t_ret, {['egg_id']=egg_id, ['count']=100})
+            end
+
             for _i=1, bundle_cnt do
                 table.insert(t_ret, {['egg_id']=egg_id, ['count']=10})
             end

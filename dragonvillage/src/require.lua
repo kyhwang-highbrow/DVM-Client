@@ -910,6 +910,7 @@ local t_module = {
     'UI_ObtainToastPopup',
     'UI_CheersPopup',
 	'UI_EggPopup',
+    'UI_EggPopupHundred',
 	'UI_BundlePopup',
     'UI_BundlePopupNew',
     'UI_BundlePopupBtnPress',
