@@ -14,6 +14,7 @@ ServerData_FleaShop = class({
 -------------------------------------
 function ServerData_FleaShop:init(server_data)
     self.m_serverData = server_data
+    self.m_tFleaShopStartInfo = {}
     self.m_tFleaShopEndInfo = {}
 end
 
@@ -115,7 +116,7 @@ end
 function ServerData_FleaShop:isActiveFleaShop(ncm_id)
     local start_timestamp = self:getFleaShopStartTimestamp(ncm_id)
     local end_timestamp = self:getFleaShopEndTimestamp(ncm_id)
-    if (timestamp == nil) then
+    if (start_timestamp == nil or end_timestamp == nil) then
         return false
     end
 
