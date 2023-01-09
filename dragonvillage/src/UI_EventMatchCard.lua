@@ -113,6 +113,11 @@ function UI_EventMatchCard:update(dt)
         end
     end
 
+    -- 접속시간 이벤트 보상 리스트 갱신
+    for i, ui in ipairs(self.m_accessTimeDataUI) do
+        ui:refresh()
+    end
+
     -- 보상 리스트 갱신
     for i, ui in ipairs(self.m_productDataUI) do
         ui:refresh()
