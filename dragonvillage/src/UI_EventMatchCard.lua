@@ -6,6 +6,7 @@ local PARENT = UI
 UI_EventMatchCard = class(PARENT,{
         m_accessTimeDataUI = '',
         m_productDataUI = '',
+        m_lastAccessTime = '',
     })
 
 -------------------------------------
@@ -31,6 +32,9 @@ function UI_EventMatchCard:initUI()
 
     -- 남은 시간 
     vars['limitTimeLabel']:setString(g_eventMatchCardData:getStatusText())
+
+    -- @dhkim 2022.01.09 마지막 접속시간 초기화
+    self.m_lastAccessTime = g_accessTimeData:getTime(true)
 
     -- 접속 보상 정보
     local access_time_info = g_eventMatchCardData.m_accessTimeInfo
@@ -97,6 +101,16 @@ function UI_EventMatchCard:update(dt)
         local is_minute = true
         local play_min = g_accessTimeData:getTime(is_minute)
         vars['timeLabel']:setString(Str('{1}분', play_min))
+
+        if (self.m_lastAccessTime ~= play_min) then
+            -- @dhkim 2022.01.09 분이 바뀔 때 마다 리퀘스트
+            self.m_lastAccessTime = play_min
+
+            -- @dhkim 2022.01.09 접속 종료할 시 로컬에서 계산하던 게임 접속시간을 서버로 전달.
+            --                    이를 통해 접속시간 관련 이벤트에서 로비에 입장하지 않고 바로 끄면 접속시간이 갱신이 안되는 문제 해결
+            g_accessTimeData:request_saveTime()
+            -- cclog('request_saveTime')
+        end
     end
 
     -- 보상 리스트 갱신
