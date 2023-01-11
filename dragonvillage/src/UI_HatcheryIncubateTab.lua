@@ -264,6 +264,10 @@ function UI_HatcheryIncubateTab:refreshEggList()
     -- 알이 10개 이상일 경우 10개 묶음 이미지가 사용되지만, 해당 이미지가 없는 알들의 경우는 'x10'라벨로 대체한다.
     -- 이 경우에 해당 라벨을 사용할지 여부를 결정하는 변수
     local using_bundle_label = false
+    -- @dhkim using_hundred_bundle_label
+    -- 알이 100개 일 경우, 10개 묶음 이미지와 'X10' 라벨을 사용
+    -- 다만 10개 묶음 이미지가 없으면 'X100' 라벨을 사용할지 결정하는 변수
+    local using_hundred_bundle_label = false
 
     -- 알들 추가
     for i,v in ipairs(l_item_list) do
@@ -281,10 +285,12 @@ function UI_HatcheryIncubateTab:refreshEggList()
         elseif (v['count'] == 100) then
             local _res_10 = string.format('res/item/egg/%s_10/%s_10.vrp', _res, _res)
             -- 10개 묶음 이미지 파일이 있다면 그 이미지 파일을 사용
+            -- 100개이기 때문에 추가적으로 x10 텍스트 이미지 추가
             if (LuaBridge:isFileExist(_res_10)) then
                 res = _res_10
-            else
                 using_bundle_label = true
+            else
+                using_hundred_bundle_label = true
             end
         end
 
@@ -294,10 +300,18 @@ function UI_HatcheryIncubateTab:refreshEggList()
         animator:changeAni('egg')
 
         -- 10개 꾸러미 리소스 없을 경우 'x10' 라벨 붙임
+        -- 100개 묶음의 경우에는 10개 꾸러미 리소스를 사용하면서 동시에 'x10' 라벨을 붙임
         if (using_bundle_label) then
             local sprite = self.makeBundleLabelImage()
             animator.m_node:addChild(sprite)
             using_bundle_label = false
+        end
+
+        -- 100개 알 묶음에 10개 꾸러미 리소스 없을 경우 'x100' 라벨 붙임
+        if (using_hundred_bundle_label) then
+            local sprite = self.makeHundredBundleLabelImage()
+            animator.m_node:addChild(sprite)
+            using_hundred_bundle_label = false
         end
 
         local data = v
@@ -335,4 +349,13 @@ function UI_HatcheryIncubateTab.makeBundleLabelImage()
     local bundle_label_image = cc.Sprite:create('res/ui/icons/item/egg_bundle.png')
     bundle_label_image:setPosition(115, -145)
     return bundle_label_image
+end
+
+-------------------------------------
+-- function makeHundredBundleLabelImage
+-------------------------------------
+function UI_HatcheryIncubateTab.makeHundredBundleLabelImage()
+    local hundred_bundle_label_image = cc.Sprite:create('res/ui/icons/item/egg_bundle_100.png')
+    hundred_bundle_label_image:setPosition(115, -145)
+    return hundred_bundle_label_image
 end
