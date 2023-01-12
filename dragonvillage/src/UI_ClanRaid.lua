@@ -205,6 +205,9 @@ function UI_ClanRaid:initButton()
     vars['clanRankBtn']:registerScriptTapHandler(function() self:click_clanRankBtn() end)
 
     vars['trainingBtn']:registerScriptTapHandler(function() self:click_trainBtn() end)
+
+    --@dhkim 23.01.12 배틀 패스 버튼 추가
+    vars['battlePassBtn']:registerScriptTapHandler(function() self:click_battlePassBtn() end)
 end
 
 -------------------------------------
@@ -547,6 +550,14 @@ end
 -------------------------------------
 function UI_ClanRaid:click_clanRankBtn()
     UI_ClanRaidRankingPopup()
+end
+
+-------------------------------------
+-- function click_battlePassBtn
+-- @brief 배틀패스 버튼
+-------------------------------------
+function UI_ClanRaid:click_battlePassBtn()
+    UI_BattlePassPopup()
 end
 
 -------------------------------------

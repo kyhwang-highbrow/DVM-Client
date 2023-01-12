@@ -214,7 +214,7 @@ end
 --------------------------------------------------------------------------
 function ServerData_DmgatePackage:isPackageActive(product_id)
     --if (not self.m_packageInfo[tostring(product_id)]) then return false end
-
+    
     return self.m_packageInfo[tostring(product_id)]['active']
 end
 
@@ -267,15 +267,16 @@ function ServerData_DmgatePackage:isVisibleAtBattlePassShop()
         for i, v in pairs(package_table) do
             for key, data in pairs(v) do
                 product_id = data['product_id']
-
-                if self:isPackageActive(product_id) then
-                    stage_id = data['achive_2']
-        
-                    if (not self:isRewardReceived(product_id, stage_id)) then
+                if data['type'] == 'dmgate' then
+                    if self:isPackageActive(product_id) then
+                        stage_id = data['achive_2']
+            
+                        if (not self:isRewardReceived(product_id, stage_id)) then
+                            return true
+                        end
+                    else
                         return true
                     end
-                else
-                    return true
                 end
             end
         end
@@ -298,16 +299,16 @@ function ServerData_DmgatePackage:isNotiVisible()
         for i, v in pairs(package_table) do
             for key, data in pairs(v) do
                 product_id = data['product_id']
-
-                if self:isPackageActive(product_id) then
-                    stage_id = data['achive_2']
-        
-                    if (not self:isRewardReceived(product_id, stage_id))
-                    and g_dmgateData:isStageEverCleared(stage_id) then
+                if data['type'] == 'dmgate' then
+                    if self:isPackageActive(product_id) then
+                        stage_id = data['achive_2']
+            
+                        if (not self:isRewardReceived(product_id, stage_id)) then
+                            return true
+                        end
+                    else
                         return true
                     end
-                else
-                    break
                 end
             end
         end
@@ -324,20 +325,24 @@ function ServerData_DmgatePackage:isUnclearedAnyPackage()
         return true
     end
 
+    local package_table = self:getPackageTable()
+    local product_id
+    local stage_id
+
     if (not g_contentLockData:isContentLock('dmgate')) then
         for i, v in pairs(package_table) do
             for key, data in pairs(v) do 
                 product_id = data['product_id']
-
-                if self:isPackageActive(product_id) then
-                    stage_id = data['achive_2']
-        
-                    if self:isRewardReceived(product_id, stage_id)
-                    and g_dmgateData:isStageEverCleared(stage_id) then
+                if data['type'] == 'dmgate' then
+                    if self:isPackageActive(product_id) then
+                        stage_id = data['achive_2']
+            
+                        if (not self:isRewardReceived(product_id, stage_id)) then
+                            return true
+                        end
+                    else
                         return true
                     end
-                else
-                   return true 
                 end
             end
         end
@@ -362,11 +367,14 @@ function ServerData_DmgatePackage:isPackageVisible(product_id)
     for i, v in pairs(package_table) do
         for key, data in pairs(v) do 
             product_id = data['product_id']
-
-            if self:isPackageActive(product_id) then
-                stage_id = data['achive_2']
-    
-                if (not self:isRewardReceived(product_id, stage_id)) then
+            if data['type'] == 'dmgate' then
+                if self:isPackageActive(product_id) then
+                    stage_id = data['achive_2']
+        
+                    if (not self:isRewardReceived(product_id, stage_id)) then
+                        return true
+                    end
+                else
                     return true
                 end
             end
