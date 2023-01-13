@@ -1,4 +1,7 @@
-return {['{1}이(가) 부족합니다.']='{1} Son insuficientes.',
+return {['복주머니 12개']='bolsas de la suerte X12',
+['복주머니 66개']='bolsas de la suerte X66',
+['복주머니 126개']='bolsas de la suerte X126',
+['{1}이(가) 부족합니다.']='{1} Son insuficientes.',
 ['노려라! 속성 전설의 알 랜덤박스']='¡Apunta a la meta! Atributo Caja aleatoria de huevos legendarios',
 ['노려라! 속성 전설알 랜덤박스']='¡Apunta a la meta! Atributo Caja aleatoria de huevos legendarios',
 ['노려라! 속성 전설알 패키지']='¡Apunta a la meta! Paquete de huevos legendarios de atributo',

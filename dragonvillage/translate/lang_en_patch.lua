@@ -1,4 +1,7 @@
-return {['이번 임무도 멋지게 완료했네요. 마스터의 길 보상을 받아볼까요?']='You\'ve done a great job completing this mission as well. Why don\'t we get your Master\'s Path Reward?',
+return {['복주머니 12개']='Lucky Bag X12',
+['복주머니 66개']='Lucky Bag X66',
+['복주머니 126개']='Lucky Bag X126',
+['이번 임무도 멋지게 완료했네요. 마스터의 길 보상을 받아볼까요?']='You\'ve done a great job completing this mission as well. Why don\'t we get your Master\'s Path Reward?',
 ['-일반공격-\n\n전투에서 드래곤들은 자동으로 공격을 하게 될거야. 드래곤의 공격은 일반공격 외에도\n 정해진 시간 혹은 조건에 따라 스킬 공격을 하기도 해.']='- Normal Attack - \n\nDuring battles, dragons will attack automatically. Other than their Normal attacks,\n they use skills based on conditions or cooltimes.',
 ['노려라! 속성 전설의 알 랜덤박스']='Aim for the goal! Attribute Legendary Egg Random Box',
 ['노려라! 속성 전설알 랜덤박스']='Aim for the goal! Attribute Legendary Egg Random Box',
