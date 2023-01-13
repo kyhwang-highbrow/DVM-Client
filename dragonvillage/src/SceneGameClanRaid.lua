@@ -358,6 +358,22 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
         if (not (struct_raid:isTrainingMode() or struct_raid:isEventIncarnationOfSinsMode())) then
             if (ret['dungeon']) then
                 g_clanRaidData.m_structClanRaid = StructClanRaid(ret['dungeon'])
+
+                if (ret['cldg_score_e']) then
+                    g_clanRaidData:setClanDungeonEarthScore(ret['cldg_score_e'])
+                end
+                if (ret['cldg_score_w']) then
+                    g_clanRaidData:setClanDungeonWaterScore(ret['cldg_score_w'])
+                end
+                if (ret['cldg_score_f']) then
+                    g_clanRaidData:setClanDungeonFireScore(ret['cldg_score_f'])
+                end
+                if (ret['cldg_score_l']) then
+                    g_clanRaidData:setClanDungeonLightScore(ret['cldg_score_l'])
+                end
+                if (ret['cldg_score_d']) then
+                    g_clanRaidData:setClanDungeonDarkScore(ret['cldg_score_d'])
+                end
             end
         -- 연습 모드나 이벤트 모드일 경우, @jhakim 190325  training 모드는 finish통신에서 hp/등급을 받지 않기 때문에 클라에서 계산
         else

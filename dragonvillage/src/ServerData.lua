@@ -240,10 +240,19 @@ function ServerData:getInstance()
     -- 배틀패스 패키지
     g_battlePassData = ServerData_BattlePass(g_serverData)
 
-    -- -- 클랜 던전 패키지 (@dhkim 2022.12.16)
-    -- g_clanDungeonScorePackageData = ServerData_ClanDungeonScorePackage(g_serverData)
+    -- -- 클랜 던전 패키지
+    -- g_clanDungeonPackageData = ServerData_ClanRaidPackage(g_serverData)
 
-
+    -- 클랜 던전 (땅) 패키지 (@dhkim 2023.01.12)
+    g_clanDungeonEarthPackageData = ServerData_ClanRaidEarthPackage(g_serverData)
+    -- 클랜 던전 (물) 패키지 (@dhkim 2023.01.12)
+    g_clanDungeonWaterPackageData = ServerData_ClanRaidWaterPackage(g_serverData)
+    -- 클랜 던전 (불) 패키지 (@dhkim 2023.01.12)
+    g_clanDungeonFirePackageData = ServerData_ClanRaidFirePackage(g_serverData)
+    -- 클랜 던전 (빛) 패키지 (@dhkim 2023.01.12)
+    g_clanDungeonLightPackageData = ServerData_ClanRaidLightPackage(g_serverData)
+    -- 클랜 던전 (어둠) 패키지 (@dhkim 2023.01.12)
+    g_clanDungeonDarkPackageData = ServerData_ClanRaidDarkPackage(g_serverData)
 
     -- 클랜
     g_clanData = ServerData_Clan(g_serverData)

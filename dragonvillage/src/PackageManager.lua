@@ -108,8 +108,8 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_Dmgate(list, is_popup)
-    elseif string.find(_package_name, 'package_clan_dungeon_score') and (not g_contentLockData:isContentLock('clan')) then
-        require('UI_Package_ClanDungeonScore')
+    elseif string.find(_package_name, 'package_clan_raid_earth') and (not g_contentLockData:isContentLock('clan')) then
+        require('UI_Package_ClanRaid_Earth')
         local pid
         if product_id then 
             pid = product_id
@@ -122,8 +122,67 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local _struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
         local list = {}
         table.insert(list, _struct_product)
-        target_ui = UI_Package_Dmgate(list, is_popup)
-    
+        target_ui = UI_Package_ClanRaid_Earth(list, is_popup)
+    elseif string.find(_package_name, 'package_clan_raid_water') and (not g_contentLockData:isContentLock('clan')) then
+        require('UI_Package_ClanRaid_Water')
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local _struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_ClanRaid_Water(list, is_popup)
+    elseif string.find(_package_name, 'package_clan_raid_fire') and (not g_contentLockData:isContentLock('clan')) then
+        require('UI_Package_ClanRaid_Fire')
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local _struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_ClanRaid_Fire(list, is_popup)
+    elseif string.find(_package_name, 'package_clan_raid_light') and (not g_contentLockData:isContentLock('clan')) then
+        require('UI_Package_ClanRaid_Light')
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local _struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_ClanRaid_Light(list, is_popup)
+    elseif string.find(_package_name, 'package_clan_raid_dark') and (not g_contentLockData:isContentLock('clan')) then
+        require('UI_Package_ClanRaid_Dark')
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local _struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
+        local list = {}
+        table.insert(list, _struct_product)
+        target_ui = UI_Package_ClanRaid_Dark(list, is_popup)
     -- 시험의 탑 정복선물 패키지
     elseif (_package_name == 'package_attr_tower') then
         require('UI_Package_AttrTowerPopup')
@@ -285,6 +344,86 @@ function PackageManager:isExist(package_name)
         end
 
         local is_visible = g_dmgatePackageData:isPackageVisible(pid)
+
+        return is_visible
+    end
+
+    -- 클랜 던전 (땅) 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요)
+    if string.find(package_name, 'package_clan_raid_earth') then
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local is_visible = g_clanDungeonEarthPackageData:isPackageVisible(pid)
+
+        return is_visible
+    end
+    
+    -- 클랜 던전 (물) 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요)
+    if string.find(package_name, 'package_clan_raid_water') then
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local is_visible = g_clanDungeonWaterPackageData:isPackageVisible(pid)
+
+        return is_visible
+    end
+    
+    -- 클랜 던전 (불) 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요)
+    if string.find(package_name, 'package_clan_raid_fire') then
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local is_visible = g_clanDungeonFirePackageData:isPackageVisible(pid)
+
+        return is_visible
+    end
+    
+    -- 클랜 던전 (빛) 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요)
+    if string.find(package_name, 'package_clan_raid_light') then
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local is_visible = g_clanDungeonLightPackageData:isPackageVisible(pid)
+
+        return is_visible
+    end
+
+    -- 클랜 던전 (어둠) 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요)
+    if string.find(package_name, 'package_clan_raid_dark') then
+        local pid
+        if product_id then 
+            pid = product_id
+        else
+            local pid_strs = TablePackageBundle:getPidsWithName(package_name)
+
+            pid = pid_strs[1]
+        end
+
+        local is_visible = g_clanDungeonDarkPackageData:isPackageVisible(pid)
 
         return is_visible
     end

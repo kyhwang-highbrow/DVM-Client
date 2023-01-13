@@ -981,6 +981,51 @@ function ServerData_Shop:getDailyCapsulePackage()
 end
 
 -------------------------------------
+-- function getClanRaidEarthPackage
+-- @brief 클랜던전 패키지 (땅) 상품 정보
+-------------------------------------
+function ServerData_Shop:getClanRaidEarthPackage()
+    local product_id = 130401
+    return self:getTargetProduct(product_id)
+end
+
+-------------------------------------
+-- function getClanRaidWaterPackage
+-- @brief 클랜던전 패키지 (물) 상품 정보
+-------------------------------------
+function ServerData_Shop:getClanRaidWaterPackage()
+    local product_id = 130402
+    return self:getTargetProduct(product_id)
+end
+
+-------------------------------------
+-- function getClanRaidFirePackage
+-- @brief 클랜던전 패키지 (불) 상품 정보
+-------------------------------------
+function ServerData_Shop:getClanRaidFirePackage()
+    local product_id = 130403
+    return self:getTargetProduct(product_id)
+end
+
+-------------------------------------
+-- function getClanRaidLightPackage
+-- @brief 클랜던전 패키지 (빛) 상품 정보
+-------------------------------------
+function ServerData_Shop:getClanRaidLightPackage()
+    local product_id = 130404
+    return self:getTargetProduct(product_id)
+end
+
+-------------------------------------
+-- function getClanRaidDarkPackage
+-- @brief 클랜던전 패키지 (어듬) 상품 정보
+-------------------------------------
+function ServerData_Shop:getClanRaidDarkPackage()
+    local product_id = 130405
+    return self:getTargetProduct(product_id)
+end
+
+-------------------------------------
 -- function getSpecialOfferProduct
 -- @brief 특별 할인
 -- @return StructProduct

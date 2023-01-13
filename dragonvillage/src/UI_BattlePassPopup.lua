@@ -133,16 +133,31 @@ function UI_BattlePassPopup:initTableView()
             if (g_adventureBreakthroughPackageData:isButtonVisible(product_id) == true) then
                 table.insert(tabList, v)
             end
-        -- elseif g_clanDungeonScorePackageData:checkProductInTable(product_id) then
-        --     -- if (not g_contentLockData:isContentLock('clan')) and g_clanDungeonScorePackageData:isPackageVisible(product_id) then
-        --     if (not g_contentLockData:isContentLock('clan')) then
-        --         table.insert(tabList, v)
-        --     end
         elseif g_dmgatePackageData:checkProductInTable(product_id) then
             if (not g_contentLockData:isContentLock('dmgate')) and g_dmgatePackageData:isPackageVisible(product_id) then
                 table.insert(tabList, v)
             end
 
+        elseif g_clanDungeonEarthPackageData:checkProductInTable(product_id) then
+            if (not g_contentLockData:isContentLock('clan')) and g_clanDungeonEarthPackageData:isPackageVisible(product_id) then
+                table.insert(tabList, v)
+            end
+        elseif g_clanDungeonWaterPackageData:checkProductInTable(product_id) then
+            if (not g_contentLockData:isContentLock('clan')) and g_clanDungeonWaterPackageData:isPackageVisible(product_id) then
+                table.insert(tabList, v)
+            end
+        elseif g_clanDungeonFirePackageData:checkProductInTable(product_id) then
+            if (not g_contentLockData:isContentLock('clan')) and g_clanDungeonFirePackageData:isPackageVisible(product_id) then
+                table.insert(tabList, v)
+            end
+        elseif g_clanDungeonLightPackageData:checkProductInTable(product_id) then
+            if (not g_contentLockData:isContentLock('clan')) and g_clanDungeonLightPackageData:isPackageVisible(product_id) then
+                table.insert(tabList, v)
+            end
+        elseif g_clanDungeonDarkPackageData:checkProductInTable(product_id) then
+            if (not g_contentLockData:isContentLock('clan')) and g_clanDungeonDarkPackageData:isPackageVisible(product_id) then
+                table.insert(tabList, v)
+            end
         else
             table.insert(tabList, v)
         end

@@ -1412,6 +1412,46 @@ function UI_TitleScene:workGetServerInfo()
                     end
                 end
 
+                if (ret['clan_dungeon_score_pack_earth_info']) then
+                    cclog('# 클랜 던전 (땅) 패키지 정보')
+                    for k, v in pairs(ret['clan_dungeon_score_pack_earth_info']) do
+
+                        g_clanDungeonEarthPackageData:response_info(v,k)
+                    end
+                end
+
+                if (ret['clan_dungeon_score_pack_water_info']) then
+                    cclog('# 클랜 던전 (물) 패키지 정보')
+                    for k, v in pairs(ret['clan_dungeon_score_pack_water_info']) do
+
+                        g_clanDungeonWaterPackageData:response_info(v,k)
+                    end
+                end
+
+                if (ret['clan_dungeon_score_pack_fire_info']) then
+                    cclog('# 클랜 던전 (불) 패키지 정보')
+                    for k, v in pairs(ret['clan_dungeon_score_pack_fire_info']) do
+
+                        g_clanDungeonFirePackageData:response_info(v,k)
+                    end
+                end
+
+                if (ret['clan_dungeon_score_pack_light_info']) then
+                    cclog('# 클랜 던전 (빛) 패키지 정보')
+                    for k, v in pairs(ret['clan_dungeon_score_pack_light_info']) do
+
+                        g_clanDungeonLightPackageData:response_info(v,k)
+                    end
+                end
+
+                if (ret['clan_dungeon_score_pack_dark_info']) then
+                    cclog('# 클랜 던전 (어둠) 패키지 정보')
+                    for k, v in pairs(ret['clan_dungeon_score_pack_dark_info']) do
+
+                        g_clanDungeonDarkPackageData:response_info(v,k)
+                    end
+                end
+
                 -- 시험의 탑 정복 선물 패키지 2020.11.25
                 if (ret['attr_tower_pack_info']) then
                     cclog('# 시험의 탑 정복 선물 패키지 정보')

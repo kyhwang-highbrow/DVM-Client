@@ -45,6 +45,13 @@ ServerData_ClanRaid = class({
         m_tMyClanInfo = 'table',
         -- UI_ReasultLeaderBoard에서 사용하는 이전 내 랭킹
         m_tExMyClanInfo = 'table',
+
+        -- @dhkim 23.01.13 클랜 던전 점수 저장용
+        m_myEarthClanDungeonScore = 'number',
+        m_myWaterClanDungeonScore = 'number',
+        m_myFireClanDungeonScore = 'number',
+        m_myLightClanDungeonScore = 'number',
+        m_myDarkClanDungeonScore = 'number',
     })
 
 local USE_CASH_LIMIT = 1 -- 하루 최대 여의주 사용 입장횟수
@@ -744,3 +751,65 @@ function ServerData_ClanRaid:possibleReward_ClanRaid(my_rank, my_ratio)
     -- 디폴트로 마지막 보상 돌려줌
     return l_reward[#l_reward]
 end
+
+--#region @dhkim 23.01.13 클랜던전 점수
+function ServerData_ClanRaid:getClanDungeonEarthScore()
+    return self.m_myEarthClanDungeonScore
+end
+
+function ServerData_ClanRaid:setClanDungeonEarthScore(score)
+    if self.m_myEarthClanDungeonScore == nil then
+        self.m_myEarthClanDungeonScore = 0
+    end
+    
+    self.m_myEarthClanDungeonScore = score
+end
+
+function ServerData_ClanRaid:getClanDungeonWaterScore()
+    return self.m_myWaterClanDungeonScore
+end
+
+function ServerData_ClanRaid:setClanDungeonWaterScore(score)
+    if self.m_myWaterClanDungeonScore == nil then
+        self.m_myWaterClanDungeonScore = 0
+    end
+    
+    self.m_myWaterClanDungeonScore = score
+end
+
+function ServerData_ClanRaid:getClanDungeonFireScore()
+    return self.m_myFireClanDungeonScore
+end
+
+function ServerData_ClanRaid:setClanDungeonFireScore(score)
+    if self.m_myFireClanDungeonScore == nil then
+        self.m_myFireClanDungeonScore = 0
+    end
+    
+    self.m_myFireClanDungeonScore = score
+end
+
+function ServerData_ClanRaid:getClanDungeonLightScore()
+    return self.m_myLightClanDungeonScore
+end
+
+function ServerData_ClanRaid:setClanDungeonLightScore(score)
+    if self.m_myLightClanDungeonScore == nil then
+        self.m_myLightClanDungeonScore = 0
+    end
+    
+    self.m_myLightClanDungeonScore = score
+end
+
+function ServerData_ClanRaid:getClanDungeonDarkScore()
+    return self.m_myDarkClanDungeonScore
+end
+
+function ServerData_ClanRaid:setClanDungeonDarkScore(ret)
+    if self.m_myDarkClanDungeonScore == nil then
+        self.m_myDarkClanDungeonScore = 0
+    end
+
+    self.m_myDarkClanDungeonScore = ret
+end
+--#endregion @dhkim 클랜던전 점수 저장

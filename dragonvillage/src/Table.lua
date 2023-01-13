@@ -230,6 +230,12 @@ local TableInfo_fromServer = {
         ['table_dmgate_buff_schedule'] = {'table_dmgate_buff_schedule', 'week'},
 
         ['table_package_achievement'] = {'table_package_achievement', 'package_id'},
+
+        ['table_battlepass_clan_earth'] = {'table_battlepass_clan_earth', 'package_id'},
+        ['table_battlepass_clan_water'] = {'table_battlepass_clan_water', 'package_id'},
+        ['table_battlepass_clan_fire'] = {'table_battlepass_clan_fire', 'package_id'},
+        ['table_battlepass_clan_light'] = {'table_battlepass_clan_light', 'package_id'},
+        ['table_battlepass_clan_dark'] = {'table_battlepass_clan_dark', 'package_id'},
         ['table_arena_new'] = {'table_arena_new', 'id'}, -- 콜로세움 개선 후 돌파 보상
         ['table_cross_promotion'] = {'table_cross_promotion', 'event_id'}, -- 콜로세움 개선 후 돌파 보상
 

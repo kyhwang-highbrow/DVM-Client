@@ -724,6 +724,31 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
             g_advRouletteData:response_rouletteInfo(ret['adv_lobby'])
         end
 
+        cclog('# 클랜 던전 (땅) 점수 정보')
+        if (ret['cldg_score_e']) then
+            g_clanRaidData:setClanDungeonEarthScore(ret['cldg_score_e'])
+        end
+
+        cclog('# 클랜 던전 (물) 점수 정보')
+        if (ret['cldg_score_w']) then
+            g_clanRaidData:setClanDungeonWaterScore(ret['cldg_score_w'])
+        end
+
+        cclog('# 클랜 던전 (불) 점수 정보')
+        if (ret['cldg_score_f']) then
+            g_clanRaidData:setClanDungeonFireScore(ret['cldg_score_f'])
+        end
+
+        cclog('# 클랜 던전 (빛) 점수 정보')
+        if (ret['cldg_score_l']) then
+            g_clanRaidData:setClanDungeonLightScore(ret['cldg_score_l'])
+        end
+
+        cclog('# 클랜 던전 (어둠) 점수 정보')
+        if (ret['cldg_score_d']) then
+            g_clanRaidData:setClanDungeonDarkScore(ret['cldg_score_d'])
+        end
+
         cclog('# 할로윈 룬 축제(할로윈 이벤트)')
         if (ret['rune_festival_info']) then
             g_eventRuneFestival:applyRuneFestivalInfo(ret['rune_festival_info'])
@@ -2388,12 +2413,22 @@ function UI_Lobby:update_rightButtons()
         local is_button_visible = (g_adventureBreakthroughPackageData:isButtonVisible() == true)
                             or (g_levelUpPackageData:isButtonVisible() == true)
                             or (g_dmgatePackageData:isVisibleAtBattlePassShop() == true)
+                            or (g_clanDungeonEarthPackageData:isVisibleAtBattlePassShop() == true)
+                            or (g_clanDungeonWaterPackageData:isVisibleAtBattlePassShop() == true)
+                            or (g_clanDungeonFirePackageData:isVisibleAtBattlePassShop() == true)
+                            or (g_clanDungeonLightPackageData:isVisibleAtBattlePassShop() == true)
+                            or (g_clanDungeonDarkPackageData:isVisibleAtBattlePassShop() == true)
                             
         vars['battlePassBtn']:setVisible(is_button_visible)
 
         local is_noti_visible = (g_adventureBreakthroughPackageData:isNotiVisible() == true)
                             or (g_levelUpPackageData:isNotiVisible() == true)
                             or (g_dmgatePackageData:isNotiVisible() == true)
+                            or (g_clanDungeonEarthPackageData:isVisibleAtBattlePassShop() == true)
+                            or (g_clanDungeonWaterPackageData:isVisibleAtBattlePassShop() == true)
+                            or (g_clanDungeonFirePackageData:isVisibleAtBattlePassShop() == true)
+                            or (g_clanDungeonLightPackageData:isVisibleAtBattlePassShop() == true)
+                            or (g_clanDungeonDarkPackageData:isVisibleAtBattlePassShop() == true)
 
         vars['battlePassNotiSprite']:setVisible(is_noti_visible)
     end

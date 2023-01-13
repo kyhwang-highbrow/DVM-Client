@@ -268,7 +268,12 @@ local t_module = {
     'ServerData_LeagueRaid',
     'ServerData_HighbrowVip', -- 하이브로 VIP
     'ServerData_GetDragonPackage',
-    'ServerData_ClanDungeonScorePackage',
+    'ServerData_ClanRaidEarthPackage',
+    'ServerData_ClanRaidWaterPackage',
+    'ServerData_ClanRaidFirePackage',
+    'ServerData_ClanRaidLightPackage',
+    'ServerData_ClanRaidDarkPackage',
+    'ServerData_ClanRaidPackage',
 
     -- Interface
     'IEventDispatcher',
@@ -1127,6 +1132,11 @@ local t_module = {
     'UI_Package_AdventureBreakthrough',
     'UI_Package_AdventureClear',
     'UI_Package_AdventureClearListItem',
+    -- 'UI_Package_ClanRaid_Earth',
+    -- 'UI_Package_ClanRaid_Water',
+    -- 'UI_Package_ClanRaid_Fire',
+    -- 'UI_Package_ClanRaid_Light',
+    -- 'UI_Package_ClanRaid_Dark',
     'UI_Package_Step',
     'UI_Package_Step02',
     'UI_Package_Select_Radio',
