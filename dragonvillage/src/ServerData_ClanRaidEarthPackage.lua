@@ -58,7 +58,8 @@ function ServerData_ClanRaidEarthPackage:request_info(product_id, cb_func, fail_
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/clan_dungeon_score/info')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('product_id', product_id) 
+    ui_network:setParam('product_id', product_id)
+    ui_network:setParam('dungeon_id', 0)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -109,7 +110,7 @@ end
 --------------------------------------------------------------------------
 -- function request_reward
 --------------------------------------------------------------------------
-function ServerData_ClanRaidEarthPackage:request_reward(product_id, stage, cb_func, fail_cb)
+function ServerData_ClanRaidEarthPackage:request_reward(product_id, dungeon_score, cb_func, fail_cb)
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
@@ -125,8 +126,9 @@ function ServerData_ClanRaidEarthPackage:request_reward(product_id, stage, cb_fu
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/clan_dungeon_score/reward')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('product_id', product_id) 
-    ui_network:setParam('stage', stage) 
+    ui_network:setParam('product_id', product_id)
+    ui_network:setParam('dungeon_id', 0)
+    ui_network:setParam('score', dungeon_score)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

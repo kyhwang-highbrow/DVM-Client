@@ -110,7 +110,7 @@ function UI_Package_ClanRaid_Dark:initTableView()
     
             local curr_score = g_clanRaidData:getClanDungeonDarkScore()
             
-            local isOverScore = (curr_score > dungeon_score)
+            local isOverScore = (curr_score >= dungeon_score)
 
             isReceivableReward = (not isRewardReceived) and isOverScore
             if isReceivableReward then 
@@ -240,7 +240,7 @@ function UI_Package_ClanRaid_DarkListItem:refresh()
     
     local curr_score = g_clanRaidData:getClanDungeonDarkScore()
     
-    local isOverScore = (curr_score > dungeon_score)
+    local isOverScore = (curr_score >= dungeon_score)
 
     vars['receiveSprite']:setVisible(isRewardReceived)
     vars['rewardBtn']:setEnabled((not isRewardReceived) and isOverScore)
@@ -258,7 +258,7 @@ end
 ----------------------------------------------------------------------
 function UI_Package_ClanRaid_DarkListItem:click_rewardBtn()
     local product_id = self.m_data['product_id']
-    local stage_id = self.m_data['achive_2']
+    local dunegon_score = self.m_data['achive_2']
 
     
     local function success_cb(ret)
@@ -273,5 +273,5 @@ function UI_Package_ClanRaid_DarkListItem:click_rewardBtn()
         UINavigator:goTo('lobby')
     end
     
-    g_clanDungeonDarkPackageData:request_reward(product_id, stage_id, success_cb, fail_cb)
+    g_clanDungeonDarkPackageData:request_reward(product_id, dunegon_score, success_cb, fail_cb)
 end
