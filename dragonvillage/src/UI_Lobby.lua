@@ -1808,18 +1808,14 @@ end
 -- @brief 배틀패스 상점 버튼
 -------------------------------------
 function UI_Lobby:click_battlePassBtn()
-    local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_BattlePassPopup')
+    -- local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_BattlePassPopup')
 
-    if (is_opend == true) then
-        UINavigatorDefinition:closeUIList(idx)
-        return
-    end
+    -- if (is_opend == true) then
+    --     UINavigatorDefinition:closeUIList(idx)
+    --     return
+    -- end
 
-    local ui = UI_BattlePassPopup()
-
-    if(close_cb) then
-        ui:setCloseCB(close_cb)
-    end
+    UI_BattlePassPopup()
 end
 -------------------------------------
 -- function click_lvUpPackBtn
@@ -2424,11 +2420,11 @@ function UI_Lobby:update_rightButtons()
         local is_noti_visible = (g_adventureBreakthroughPackageData:isNotiVisible() == true)
                             or (g_levelUpPackageData:isNotiVisible() == true)
                             or (g_dmgatePackageData:isNotiVisible() == true)
-                            or (g_clanDungeonEarthPackageData:isVisibleAtBattlePassShop() == true)
-                            or (g_clanDungeonWaterPackageData:isVisibleAtBattlePassShop() == true)
-                            or (g_clanDungeonFirePackageData:isVisibleAtBattlePassShop() == true)
-                            or (g_clanDungeonLightPackageData:isVisibleAtBattlePassShop() == true)
-                            or (g_clanDungeonDarkPackageData:isVisibleAtBattlePassShop() == true)
+                            or (g_clanDungeonEarthPackageData:isNotiVisible() == true)
+                            or (g_clanDungeonWaterPackageData:isNotiVisible() == true)
+                            or (g_clanDungeonFirePackageData:isNotiVisible() == true)
+                            or (g_clanDungeonLightPackageData:isNotiVisible() == true)
+                            or (g_clanDungeonDarkPackageData:isNotiVisible() == true)
 
         vars['battlePassNotiSprite']:setVisible(is_noti_visible)
     end

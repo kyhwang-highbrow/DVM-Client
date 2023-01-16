@@ -224,13 +224,13 @@ end
 --------------------------------------------------------------------------
 -- function isRewardReceived
 --------------------------------------------------------------------------
-function ServerData_ClanRaidEarthPackage:isRewardReceived(product_id, stage_id)
+function ServerData_ClanRaidEarthPackage:isRewardReceived(product_id, dungeon_score)
     --if (not self.m_packageInfo[tostring(product_id)]) then return false end
 
     local product_table = self.m_packageInfo[tostring(product_id)]['received_list']
 
     for key, value in pairs(product_table) do
-        if value == stage_id then
+        if value == dungeon_score then
             return true
         end
     end
@@ -263,25 +263,27 @@ end
 function ServerData_ClanRaidEarthPackage:isVisibleAtBattlePassShop()
     local package_table = self:getPackageTable()
     local product_id
-    local stage_id
+    local dungeon_score
     
-    if (not g_contentLockData:isContentLock('clan_raid')) then
-        for i, v in pairs(package_table) do
-            for key, data in pairs(v) do
-                product_id = data['product_id']
-                if self:isPackageActive(product_id) then
-                    stage_id = data['achive_2']
-        
-                    if (not self:isRewardReceived(product_id, stage_id)) then
-                        return true
-                    end
-                else
+    -- if (not g_contentLockData:isContentLock('clan_raid')) then
+
+    -- else
+    --     return false
+    -- end
+
+    for i, v in pairs(package_table) do
+        for key, data in pairs(v) do
+            product_id = data['product_id']
+            if self:isPackageActive(product_id) then
+                dungeon_score = data['achive_2']
+    
+                if (not self:isRewardReceived(product_id, dungeon_score)) then
                     return true
                 end
+            else
+                return true
             end
         end
-    else
-        return false
     end
 
     return false
@@ -293,21 +295,23 @@ end
 function ServerData_ClanRaidEarthPackage:isNotiVisible()
     local package_table = self:getPackageTable()
     local product_id
-    local stage_id
+    local dungeon_score
 
-    if (not g_contentLockData:isContentLock('clan_raid')) then
-        for i, v in pairs(package_table) do
-            for key, data in pairs(v) do
-                product_id = data['product_id']
-                if self:isPackageActive(product_id) then
-                    stage_id = data['achive_2']
-        
-                    if (not self:isRewardReceived(product_id, stage_id)) then
-                        return true
-                    end
-                else
+    -- if (not g_contentLockData:isContentLock('clan_raid')) then
+
+    -- end
+
+    for i, v in pairs(package_table) do
+        for key, data in pairs(v) do
+            product_id = data['product_id']
+            if self:isPackageActive(product_id) then
+                dungeon_score = data['achive_2']
+    
+                if (not self:isRewardReceived(product_id, dungeon_score)) then
                     return true
                 end
+            else
+                return true
             end
         end
     end
@@ -319,28 +323,30 @@ end
 -- function isUnclearedAnyPackage
 --------------------------------------------------------------------------
 function ServerData_ClanRaidEarthPackage:isUnclearedAnyPackage()
-    if g_contentLockData:isContentLock('clan_raid') then
-        return true
-    end
+    -- if g_contentLockData:isContentLock('clan_raid') then
+    --     return true
+    -- end
 
     local package_table = self:getPackageTable()
     local product_id
-    local stage_id
+    local dungeon_score
 
-    if (not g_contentLockData:isContentLock('clan_raid')) then
-        for i, v in pairs(package_table) do
-            for key, data in pairs(v) do 
-                product_id = data['product_id']
-                if data['type'] == 'clan_dungeon' and data['achive_1'] == 0 then
-                    if self:isPackageActive(product_id) then
-                        stage_id = data['achive_2']
-            
-                        if (not self:isRewardReceived(product_id, stage_id)) then
-                            return true
-                        end
-                    else
+    -- if (not g_contentLockData:isContentLock('clan_raid')) then
+
+    -- end
+
+    for i, v in pairs(package_table) do
+        for key, data in pairs(v) do 
+            product_id = data['product_id']
+            if data['type'] == 'clan_dungeon' and data['achive_1'] == 0 then
+                if self:isPackageActive(product_id) then
+                    dungeon_score = data['achive_2']
+        
+                    if (not self:isRewardReceived(product_id, dungeon_score)) then
                         return true
                     end
+                else
+                    return true
                 end
             end
         end
@@ -351,9 +357,9 @@ end
 -- function isPackageVisible
 --------------------------------------------------------------------------
 function ServerData_ClanRaidEarthPackage:isPackageVisible(product_id)
-    if (g_contentLockData:isContentLock('clan_raid')) then 
-        return false
-    end
+    -- if (g_contentLockData:isContentLock('clan_raid')) then 
+    --     return false
+    -- end
 
     if (not self:isPackageActive(product_id)) then
         return true
@@ -361,14 +367,14 @@ function ServerData_ClanRaidEarthPackage:isPackageVisible(product_id)
     
     local package_table = self:getPackageTable()
     local product_id
-    local stage_id
+    local dungeon_score
     for i, v in pairs(package_table) do
         for key, data in pairs(v) do 
             product_id = data['product_id']
             if self:isPackageActive(product_id) then
-                stage_id = data['achive_2']
+                dungeon_score = data['achive_2']
     
-                if (not self:isRewardReceived(product_id, stage_id)) then
+                if (not self:isRewardReceived(product_id, dungeon_score)) then
                     return true
                 end
             else

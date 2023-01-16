@@ -105,7 +105,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_Dmgate(list, is_popup)
-    elseif string.find(_package_name, 'package_clan_raid_earth') and (not g_contentLockData:isContentLock('clan_raid')) then
+    elseif string.find(_package_name, 'package_clan_raid_earth') then
         require('UI_Package_ClanRaid_Earth')
         local pid
         if product_id then 
@@ -120,7 +120,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_ClanRaid_Earth(list, is_popup)
-    elseif string.find(_package_name, 'package_clan_raid_water') and (not g_contentLockData:isContentLock('clan_raid')) then
+    elseif string.find(_package_name, 'package_clan_raid_water') then
         require('UI_Package_ClanRaid_Water')
         local pid
         if product_id then 
@@ -135,7 +135,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_ClanRaid_Water(list, is_popup)
-    elseif string.find(_package_name, 'package_clan_raid_fire') and (not g_contentLockData:isContentLock('clan_raid')) then
+    elseif string.find(_package_name, 'package_clan_raid_fire') then
         require('UI_Package_ClanRaid_Fire')
         local pid
         if product_id then 
@@ -150,7 +150,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_ClanRaid_Fire(list, is_popup)
-    elseif string.find(_package_name, 'package_clan_raid_light') and (not g_contentLockData:isContentLock('clan_raid')) then
+    elseif string.find(_package_name, 'package_clan_raid_light') then
         require('UI_Package_ClanRaid_Light')
         local pid
         if product_id then 
@@ -165,7 +165,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_ClanRaid_Light(list, is_popup)
-    elseif string.find(_package_name, 'package_clan_raid_dark') and (not g_contentLockData:isContentLock('clan_raid')) then
+    elseif string.find(_package_name, 'package_clan_raid_dark') then
         require('UI_Package_ClanRaid_Dark')
         local pid
         if product_id then 
