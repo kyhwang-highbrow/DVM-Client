@@ -157,7 +157,7 @@ function UI_HighbrowAds:click_downloadBtn()
     -- else
     --     SDKManager:goToWeb('https://app.adjust.com/7w20nep')
     -- end
-    SDKManager:goToWeb('https://app.adjust.com/7w20nep')
+    SDKManager:goToWeb('https://play.google.com/store/apps/details?id=com.highbrow.games.dvarena')
 end
 
 -------------------------------------
