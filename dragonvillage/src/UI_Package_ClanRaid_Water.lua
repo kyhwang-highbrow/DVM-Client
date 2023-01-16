@@ -61,6 +61,10 @@ function UI_Package_ClanRaid_Water:initTableView()
 
     local product_id = self.m_structProduct['product_id']
 
+    cclog('--------------------------------------------------------------')
+    cclog('product_id Water : ' .. product_id)
+    cclog('--------------------------------------------------------------')
+
     vars['productNode']:removeAllChildren()
     vars['productNodeLong']:removeAllChildren()
 
@@ -70,12 +74,13 @@ function UI_Package_ClanRaid_Water:initTableView()
     vars['productNodeLong']:setVisible(isPackagePurchased)
     vars['productNode']:setVisible(not isPackagePurchased)
     vars['buyBtn']:setVisible(not isPackagePurchased)
+    vars['buyLabel']:setVisible(not isPackagePurchased)
     vars['contractBtn']:setVisible(not isPackagePurchased)
     -- vars['rewardVisual']:setVisible(not isPackagePurchased)
 
     if isPackagePurchased then
         node = vars['productNodeLong']
-        vars['infoLabel']:setString(Str('수령 완료'))
+        -- vars['infoLabel']:setString(Str('수령 완료'))
     else
         node = vars['productNode']
         -- vars['rewardVisual']:setTimeScale(2)

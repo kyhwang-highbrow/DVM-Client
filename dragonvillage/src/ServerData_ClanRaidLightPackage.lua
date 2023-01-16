@@ -56,7 +56,7 @@ function ServerData_ClanRaidLightPackage:request_info(product_id, cb_func, fail_
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/clan_dungeon_score/info')
+    ui_network:setUrl('/shop/clan_dungeon_score_l/info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('product_id', product_id)
     ui_network:setParam('dungeon_id', 3)
@@ -217,6 +217,8 @@ end
 function ServerData_ClanRaidLightPackage:isPackageActive(product_id)
     --if (not self.m_packageInfo[tostring(product_id)]) then return false end
     
+    cclog(self.m_packageInfo[tostring(product_id)]['active'])
+
     return self.m_packageInfo[tostring(product_id)]['active']
 end
 
@@ -265,20 +267,18 @@ function ServerData_ClanRaidLightPackage:isVisibleAtBattlePassShop()
     local product_id
     local stage_id
     
-    if (not g_contentLockData:isContentLock('clan')) then
+    if (not g_contentLockData:isContentLock('clan_raid')) then
         for i, v in pairs(package_table) do
             for key, data in pairs(v) do
                 product_id = data['product_id']
-                if data['type'] == 'clan_dungeon' and data['achive_1'] == 3 then
-                    if self:isPackageActive(product_id) then
-                        stage_id = data['achive_2']
-            
-                        if (not self:isRewardReceived(product_id, stage_id)) then
-                            return true
-                        end
-                    else
+                if self:isPackageActive(product_id) then
+                    stage_id = data['achive_2']
+        
+                    if (not self:isRewardReceived(product_id, stage_id)) then
                         return true
                     end
+                else
+                    return true
                 end
             end
         end
@@ -297,20 +297,18 @@ function ServerData_ClanRaidLightPackage:isNotiVisible()
     local product_id
     local stage_id
 
-    if (not g_contentLockData:isContentLock('clan')) then
+    if (not g_contentLockData:isContentLock('clan_raid')) then
         for i, v in pairs(package_table) do
             for key, data in pairs(v) do
                 product_id = data['product_id']
-                if data['type'] == 'clan_dungeon' and data['achive_1'] == 3 then
-                    if self:isPackageActive(product_id) then
-                        stage_id = data['achive_2']
-            
-                        if (not self:isRewardReceived(product_id, stage_id)) then
-                            return true
-                        end
-                    else
+                if self:isPackageActive(product_id) then
+                    stage_id = data['achive_2']
+        
+                    if (not self:isRewardReceived(product_id, stage_id)) then
                         return true
                     end
+                else
+                    return true
                 end
             end
         end
@@ -323,7 +321,7 @@ end
 -- function isUnclearedAnyPackage
 --------------------------------------------------------------------------
 function ServerData_ClanRaidLightPackage:isUnclearedAnyPackage()
-    if g_contentLockData:isContentLock('clan') then
+    if g_contentLockData:isContentLock('clan_raid') then
         return true
     end
 
@@ -331,20 +329,18 @@ function ServerData_ClanRaidLightPackage:isUnclearedAnyPackage()
     local product_id
     local stage_id
 
-    if (not g_contentLockData:isContentLock('clan')) then
+    if (not g_contentLockData:isContentLock('clan_raid')) then
         for i, v in pairs(package_table) do
             for key, data in pairs(v) do 
                 product_id = data['product_id']
-                if data['type'] == 'clan_dungeon' and data['achive_1'] == 3 then
-                    if self:isPackageActive(product_id) then
-                        stage_id = data['achive_2']
-            
-                        if (not self:isRewardReceived(product_id, stage_id)) then
-                            return true
-                        end
-                    else
+                if self:isPackageActive(product_id) then
+                    stage_id = data['achive_2']
+        
+                    if (not self:isRewardReceived(product_id, stage_id)) then
                         return true
                     end
+                else
+                    return true
                 end
             end
         end
@@ -355,7 +351,7 @@ end
 -- function isPackageVisible
 --------------------------------------------------------------------------
 function ServerData_ClanRaidLightPackage:isPackageVisible(product_id)
-    if (g_contentLockData:isContentLock('clan')) then 
+    if (g_contentLockData:isContentLock('clan_raid')) then 
         return false
     end
 
@@ -369,16 +365,14 @@ function ServerData_ClanRaidLightPackage:isPackageVisible(product_id)
     for i, v in pairs(package_table) do
         for key, data in pairs(v) do 
             product_id = data['product_id']
-            if data['type'] == 'clan_dungeon' and data['achive_1'] == 3 then
-                if self:isPackageActive(product_id) then
-                    stage_id = data['achive_2']
-        
-                    if (not self:isRewardReceived(product_id, stage_id)) then
-                        return true
-                    end
-                else
+            if self:isPackageActive(product_id) then
+                stage_id = data['achive_2']
+    
+                if (not self:isRewardReceived(product_id, stage_id)) then
                     return true
                 end
+            else
+                return true
             end
         end
     end

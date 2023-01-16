@@ -74,6 +74,7 @@ function UI_Package_ClanRaid_Earth:initTableView()
     vars['productNodeLong']:setVisible(isPackagePurchased)
     vars['productNode']:setVisible(not isPackagePurchased)
     vars['buyBtn']:setVisible(not isPackagePurchased)
+    vars['buyLabel']:setVisible(not isPackagePurchased)
     vars['contractBtn']:setVisible(not isPackagePurchased)
     -- vars['rewardVisual']:setVisible(not isPackagePurchased)
 
