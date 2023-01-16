@@ -122,7 +122,7 @@ function AdMob:_adMobShowRewardAd(ad_unit_id, callback)
     end
 
     -- 개발환경인 경우
-    if IS_TEST_MODE() and (isWin32() or isMac()) then
+    if (IS_TEST_MODE() and (isWin32() or isMac())) or (PerpleSdkManager:onestoreIsAvailable()) then
         self:adModuleShowRewardAd_Highbrow(callback, 'emulator')
         return
     end

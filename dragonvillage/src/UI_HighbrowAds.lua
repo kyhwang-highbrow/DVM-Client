@@ -55,7 +55,7 @@ function UI_HighbrowAds:initUI()
     self.m_imgList = {}
     vars['screenShotNode']:removeAllChildren()
     for i=1, 5 do
-        local animator = MakeAnimator('res/ui/ads/self_ad_dvm_730x410_en_0' .. i .. '.png')
+        local animator = MakeAnimator('res/ui/ads/self_ad_dva_730x410_ko_0' .. i .. '.png')
         vars['screenShotNode']:addChild(animator.m_node)
         animator:setVisible(false)
         table.insert(self.m_imgList, animator)
@@ -68,10 +68,16 @@ function UI_HighbrowAds:initUI()
     --vars['pageMenu']:setVisible(false)
 
     -- 영어일 경우 분기 처리 (Admob에서 사용하는 문구)
-    if (Translate:getGameLang() == 'en') then
-        vars['downloadBtnLabel']:setString('Register')
-    else
+    if (Translate:getGameLang() == 'ko') then
         vars['downloadBtnLabel']:setString(Str('설치하기'))
+        vars['topLabel']:setString(Str('다양한 드래곤을 모아보자!'))
+        vars['titleLabel']:setString(Str('드래곤 빌리지 아레나'))
+        vars['subLabel']:setString(Str('수집! 경쟁! 드래곤 RPG! 드래곤 빌리지 아레나는 언제 어디서나 손쉽게 즐길 수 있는 방치형 모바일 게임입니다.\n어디서도 본 적 없던 귀엽고 다양한 드래곤을 육성하여 최고의 테이머가 되어보세요!'))
+    else
+        vars['downloadBtnLabel']:setString('Register')
+        vars['topLabel']:setString(Str('Let\'s gather various dragons!'))
+        vars['titleLabel']:setString(Str('Dragon Village Arena'))
+        vars['subLabel']:setString(Str('Collect! Competition! Dragon RPG! Dragon Village Arena is an idle mobile game that can be easily enjoyed anytime, anywhere.\nBecome the best Tamer by fostering cute and diverse dragons you\'ve never seen before!'))
     end
 end
 
@@ -146,11 +152,12 @@ end
 -- function click_downloadBtn
 -------------------------------------
 function UI_HighbrowAds:click_downloadBtn()
-    if isIOS() == true then
-        Functions.goToWeb('https://apps.apple.com/app/id1281873988')
-    else
-        Functions.goToWeb('https://play.google.com/store/apps/details?id=com.perplelab.dragonvillagem.kr')
-    end
+    -- if CppFunctions:isIos() == true then
+    --     SDKManager:goToWeb('https://app.adjust.com/7w20nep')
+    -- else
+    --     SDKManager:goToWeb('https://app.adjust.com/7w20nep')
+    -- end
+    SDKManager:goToWeb('https://app.adjust.com/7w20nep')
 end
 
 -------------------------------------
