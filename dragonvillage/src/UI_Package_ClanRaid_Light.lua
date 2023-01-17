@@ -201,7 +201,7 @@ function UI_Package_ClanRaid_LightListItem:initUI()
     --     diff_name = diff_name .. ' '
     -- end
 
-    vars['stepLabel']:setString("클랜 던전 점수")
+    vars['stepLabel']:setString(Str("클랜 던전 점수"))
     vars['raidScoreLabel']:setString(comma_value(stage_score))
     --vars['levelLabel']:setTextColor(diff_color)
     
