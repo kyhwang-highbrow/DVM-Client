@@ -2419,7 +2419,7 @@ function UI_Lobby:update_rightButtons()
 
         local is_noti_visible = (g_adventureBreakthroughPackageData:isNotiVisible() == true)
                             or (g_levelUpPackageData:isNotiVisible() == true)
-                            or (g_dmgatePackageData:isNotiVisible() == true)
+                            -- or (g_dmgatePackageData:isNotiVisible() == true)
                             -- or (g_clanDungeonEarthPackageData:isNotiVisible() == true)
                             -- or (g_clanDungeonWaterPackageData:isNotiVisible() == true)
                             -- or (g_clanDungeonFirePackageData:isNotiVisible() == true)
