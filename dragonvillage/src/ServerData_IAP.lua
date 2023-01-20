@@ -95,7 +95,7 @@ function ServerData_IAP:sdkBinder_BillingGetItemList(success_cb, fail_cb)
         -- @sgkim 2021.03.17 billingGetItemList ret은 'success'와 'fail' 두가지 경우만 리턴된다.
         if (ret == 'success') then
             -- success일 경우 info의 케이스
-            local info_json = json_decode(info) -- 문자열에서 json형태로 변환하는 코드
+            local info_json = dkjson.decode(info) -- 문자열에서 json형태로 변환하는 코드
             self.m_structIAPProductMap = {}
 
             g_shopDataNew:setMarketPrice(info_json)
@@ -115,15 +115,18 @@ function ServerData_IAP:sdkBinder_BillingGetItemList(success_cb, fail_cb)
                 --ccdump(v)
                 -- android e.g.
                 --{
-                --    ['skuDetailsToken']='AEuhp4KgGu-Ibs03LV6HOsl-jf8B9pEHlmG6ly1AEG_GPr3CV0wMekvW53Rf9g6hweZx';
-                --    ['price']='₩1,100';
-                --    ['title']='1100원 상품 (Bubbly Operator)';
-                --    ['description']='1100원 상품';
-                --    ['productId']='dvnew_default_1.1k';
+                --    ['skuDetailsToken']='AEuhp4IMFXMpxwUacttOOQJ89n19SxgQN5HQ2DVezyfuSuoOsooxaPi-d2d5_7CeIeQ=';
+                --    ['price']='₩6,000';
+                --    ['title']='상점 아이템 005 (드래곤빌리지 M : 전투형 RPG)';
+                --    ['description']='상점 구매 아이템입니다.';
+                --    ['productId']='dvm_shopitem_5k';
                 --    ['type']='inapp';
-                --    ['price_amount_micros']=1100000000;
+                --    ['price_amount_micros']=6000000000;
                 --    ['price_currency_code']='KRW';
-                --}
+                --    ['iconUrl']='https://lh3.googleusercontent.com/UHfIZnziZHliknkPZqVHdoGQwrIrvDWfv_4t7ahO6SsuSR_l3pHPSkmIcmdQ8y6ZtA';
+                --    ['name']='상점 아이템 005';
+                -- }
+                
                 -- apple e.g.
                 --{
                 --    ['price']='¥120';
@@ -143,7 +146,7 @@ function ServerData_IAP:sdkBinder_BillingGetItemList(success_cb, fail_cb)
         else--if (ret == 'fail') then
             -- fail일 경우 info의 케이스
             -- 1. '{"code":"-1501","subcode":"0","msg":""}' 형태의 json 문자열
-            --local info_json = json_decode(info) -- 문자열에서 json형태로 변환하는 코드
+            --local info_json = dkjson.decode(info) -- 문자열에서 json형태로 변환하는 코드
             ui:close()
             fail_cb(info)
         end
