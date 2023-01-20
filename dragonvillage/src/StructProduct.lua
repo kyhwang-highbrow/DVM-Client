@@ -707,9 +707,12 @@ function StructProduct:getPriceStr()
                 -- 원스토어 빌드에서는 원화로 표시
                 elseif (PerpleSdkManager:onestoreIsAvailable()) then
                     return '￦ ' .. comma_value(self:getPrice())
-                else
-                    return '$ ' .. comma_value(self['price_dollar'])
-                    --return '￦ ' .. comma_value(self:getPrice())
+                else                    
+                    if (Translate:getGameLang() == 'ko') then
+                        return '￦ ' .. comma_value(self:getPrice())
+                    else
+                        return '$ ' .. comma_value(self['price_dollar'])
+                    end                
                 end
             end
 
