@@ -63,6 +63,13 @@ local BOSS_GOLD_REWARD = 100000 -- 보스 처치시 받는 골드 고정
 -------------------------------------
 function ServerData_ClanRaid:init(server_data)
     self.m_serverData = server_data
+
+    --@dhkim 23.01.26 로비 진입할 때 / 클랜 던전 끝낼 때 값을 갱신 받는다. 여기서는 초기화만
+    self.m_myEarthClanDungeonScore = 0
+    self.m_myWaterClanDungeonScore = 0
+    self.m_myFireClanDungeonScore = 0
+    self.m_myLightClanDungeonScore = 0
+    self.m_myDarkClanDungeonScore = 0
 end
 
 -------------------------------------
@@ -752,11 +759,20 @@ function ServerData_ClanRaid:possibleReward_ClanRaid(my_rank, my_ratio)
     return l_reward[#l_reward]
 end
 
---#region @dhkim 23.01.13 클랜던전 점수
+--#region @dhkim 23.01.13 클랜던전 점수 관련 메소드 모음
+
+-------------------------------------
+-- function getClanDungeonEarthScore
+-- @brief 유저의 클랜 던전 (땅) 점수 가져옴
+-------------------------------------
 function ServerData_ClanRaid:getClanDungeonEarthScore()
     return self.m_myEarthClanDungeonScore
 end
 
+-------------------------------------
+-- function setClanDungeonEarthScore
+-- @brief 유저의 클랜 던전 (땅) 점수 세팅
+-------------------------------------
 function ServerData_ClanRaid:setClanDungeonEarthScore(score)
     if self.m_myEarthClanDungeonScore == nil then
         self.m_myEarthClanDungeonScore = 0
@@ -765,10 +781,30 @@ function ServerData_ClanRaid:setClanDungeonEarthScore(score)
     self.m_myEarthClanDungeonScore = score
 end
 
+-------------------------------------
+-- function isClanDungeonEarthRewardAvailable
+-- @brief 유저의 클랜 던전(땅) 패키지 보상 기준 점수과 유저의 점수 비교 후 배틀패스 버튼 레드닷 활성화 여부 결정
+-------------------------------------
+function ServerData_ClanRaid:isClanDungeonEarthRewardAvailable(dungeon_score)
+    if self.m_myEarthClanDungeonScore == nil then
+        return false
+    end
+
+    return self.m_myEarthClanDungeonScore >= dungeon_score
+end
+
+-------------------------------------
+-- function getClanDungeonWaterScore
+-- @brief 유저의 클랜 던전 (물) 점수 가져옴
+-------------------------------------
 function ServerData_ClanRaid:getClanDungeonWaterScore()
     return self.m_myWaterClanDungeonScore
 end
 
+-------------------------------------
+-- function setClanDungeonWaterScore
+-- @brief 유저의 클랜 던전 (물) 점수 세팅
+-------------------------------------
 function ServerData_ClanRaid:setClanDungeonWaterScore(score)
     if self.m_myWaterClanDungeonScore == nil then
         self.m_myWaterClanDungeonScore = 0
@@ -777,10 +813,30 @@ function ServerData_ClanRaid:setClanDungeonWaterScore(score)
     self.m_myWaterClanDungeonScore = score
 end
 
+-------------------------------------
+-- function isClanDungeonWaterRewardAvailable
+-- @brief 유저의 클랜 던전(물) 패키지 보상 기준 점수과 유저의 점수 비교 후 배틀패스 버튼 레드닷 활성화 여부 결정
+-------------------------------------
+function ServerData_ClanRaid:isClanDungeonWaterRewardAvailable(dungeon_score)
+    if self.m_myWaterClanDungeonScore == nil then
+        return false
+    end
+
+    return self.m_myWaterClanDungeonScore >= dungeon_score
+end
+
+-------------------------------------
+-- function getClanDungeonFireScore
+-- @brief 유저의 클랜 던전 (불) 점수 가져옴
+-------------------------------------
 function ServerData_ClanRaid:getClanDungeonFireScore()
     return self.m_myFireClanDungeonScore
 end
 
+-------------------------------------
+-- function setClanDungeonFireScore
+-- @brief 유저의 클랜 던전 (불) 점수 세팅
+-------------------------------------
 function ServerData_ClanRaid:setClanDungeonFireScore(score)
     if self.m_myFireClanDungeonScore == nil then
         self.m_myFireClanDungeonScore = 0
@@ -789,10 +845,30 @@ function ServerData_ClanRaid:setClanDungeonFireScore(score)
     self.m_myFireClanDungeonScore = score
 end
 
+-------------------------------------
+-- function isClanDungeonFireRewardAvailable
+-- @brief 유저의 클랜 던전(불) 패키지 보상 기준 점수과 유저의 점수 비교 후 배틀패스 버튼 레드닷 활성화 여부 결정
+-------------------------------------
+function ServerData_ClanRaid:isClanDungeonFireRewardAvailable(dungeon_score)
+    if self.m_myFireClanDungeonScore == nil then
+        return false
+    end
+
+    return self.m_myFireClanDungeonScore >= dungeon_score
+end
+
+-------------------------------------
+-- function getClanDungeonLightScore
+-- @brief 유저의 클랜 던전 (빛) 점수 가져옴
+-------------------------------------
 function ServerData_ClanRaid:getClanDungeonLightScore()
     return self.m_myLightClanDungeonScore
 end
 
+-------------------------------------
+-- function setClanDungeonLightScore
+-- @brief 유저의 클랜 던전 (빛) 점수 세팅
+-------------------------------------
 function ServerData_ClanRaid:setClanDungeonLightScore(score)
     if self.m_myLightClanDungeonScore == nil then
         self.m_myLightClanDungeonScore = 0
@@ -801,15 +877,47 @@ function ServerData_ClanRaid:setClanDungeonLightScore(score)
     self.m_myLightClanDungeonScore = score
 end
 
+-------------------------------------
+-- function isClanDungeonLightRewardAvailable
+-- @brief 유저의 클랜 던전(빛) 패키지 보상 기준 점수과 유저의 점수 비교 후 배틀패스 버튼 레드닷 활성화 여부 결정
+-------------------------------------
+function ServerData_ClanRaid:isClanDungeonLightRewardAvailable(dungeon_score)
+    if self.m_myLightClanDungeonScore == nil then
+        return false
+    end
+
+    return self.m_myLightClanDungeonScore >= dungeon_score
+end
+
+-------------------------------------
+-- function getClanDungeonDarkScore
+-- @brief 유저의 클랜 던전 (어둠) 점수 가져옴
+-------------------------------------
 function ServerData_ClanRaid:getClanDungeonDarkScore()
     return self.m_myDarkClanDungeonScore
 end
 
+-------------------------------------
+-- function setClanDungeonDarkScore
+-- @brief 유저의 클랜 던전 (어둠) 점수 세팅
+-------------------------------------
 function ServerData_ClanRaid:setClanDungeonDarkScore(ret)
     if self.m_myDarkClanDungeonScore == nil then
         self.m_myDarkClanDungeonScore = 0
     end
 
     self.m_myDarkClanDungeonScore = ret
+end
+
+-------------------------------------
+-- function isClanDungeonDarkRewardAvailable
+-- @brief 유저의 클랜 던전(어둠) 패키지 보상 기준 점수과 유저의 점수 비교 후 배틀패스 버튼 레드닷 활성화 여부 결정
+-------------------------------------
+function ServerData_ClanRaid:isClanDungeonDarkRewardAvailable(dungeon_score)
+    if self.m_myDarkClanDungeonScore == nil then
+        return false
+    end
+
+    return self.m_myDarkClanDungeonScore >= dungeon_score
 end
 --#endregion @dhkim 클랜던전 점수 저장

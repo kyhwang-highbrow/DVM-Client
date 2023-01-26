@@ -2419,12 +2419,12 @@ function UI_Lobby:update_rightButtons()
 
         local is_noti_visible = (g_adventureBreakthroughPackageData:isNotiVisible() == true)
                             or (g_levelUpPackageData:isNotiVisible() == true)
-                            -- or (g_dmgatePackageData:isNotiVisible() == true)
-                            -- or (g_clanDungeonEarthPackageData:isNotiVisible() == true)
-                            -- or (g_clanDungeonWaterPackageData:isNotiVisible() == true)
-                            -- or (g_clanDungeonFirePackageData:isNotiVisible() == true)
-                            -- or (g_clanDungeonLightPackageData:isNotiVisible() == true)
-                            -- or (g_clanDungeonDarkPackageData:isNotiVisible() == true)
+                            or (g_dmgatePackageData:isNotiVisible() == true)
+                            or (g_clanDungeonEarthPackageData:isNotiVisible() == true)
+                            or (g_clanDungeonWaterPackageData:isNotiVisible() == true)
+                            or (g_clanDungeonFirePackageData:isNotiVisible() == true)
+                            or (g_clanDungeonLightPackageData:isNotiVisible() == true)
+                            or (g_clanDungeonDarkPackageData:isNotiVisible() == true)
 
         vars['battlePassNotiSprite']:setVisible(is_noti_visible)
     end

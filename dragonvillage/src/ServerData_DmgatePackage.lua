@@ -299,16 +299,16 @@ function ServerData_DmgatePackage:isNotiVisible()
         for i, v in pairs(package_table) do
             for key, data in pairs(v) do
                 product_id = data['product_id']
-                if data['type'] == 'dmgate' then
-                    if self:isPackageActive(product_id) then
-                        stage_id = data['achive_2']
-            
-                        if (not self:isRewardReceived(product_id, stage_id)) then
-                            return true
-                        end
-                    else
+                
+                if self:isPackageActive(product_id) then
+                    stage_id = data['achive_2']
+        
+                    if (not self:isRewardReceived(product_id, stage_id)) 
+                    and g_dmgateData:isStageEverCleared(stage_id) then
                         return true
                     end
+                else
+                    break
                 end
             end
         end

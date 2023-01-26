@@ -307,11 +307,12 @@ function ServerData_ClanRaidFirePackage:isNotiVisible()
             if self:isPackageActive(product_id) then
                 dungeon_score = data['achive_2']
     
-                if (not self:isRewardReceived(product_id, dungeon_score)) then
+                if (not self:isRewardReceived(product_id, dungeon_score)) 
+                and (g_clanRaidData:isClanDungeonFireRewardAvailable(dungeon_score))then
                     return true
                 end
             else
-                return true
+                break
             end
         end
     end

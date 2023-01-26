@@ -140,27 +140,27 @@ function UI_BattlePassPopup:initTableView()
 
         elseif g_clanDungeonEarthPackageData:checkProductInTable(product_id) then
             if g_clanDungeonEarthPackageData:isPackageVisible(product_id) then
-                cclog('earth package available!')
+                -- cclog('earth package available!')
                 table.insert(tabList, v)
             end
         elseif g_clanDungeonWaterPackageData:checkProductInTable(product_id) then
             if g_clanDungeonWaterPackageData:isPackageVisible(product_id) then
-                cclog('water package available!')
+                -- cclog('water package available!')
                 table.insert(tabList, v)
             end
         elseif g_clanDungeonFirePackageData:checkProductInTable(product_id) then
             if g_clanDungeonFirePackageData:isPackageVisible(product_id) then
-                cclog('fire package available!')
+                -- cclog('fire package available!')
                 table.insert(tabList, v)
             end
         elseif g_clanDungeonLightPackageData:checkProductInTable(product_id) then
             if g_clanDungeonLightPackageData:isPackageVisible(product_id) then
-                cclog('light package available!')
+                -- cclog('light package available!')
                 table.insert(tabList, v)
             end
         elseif g_clanDungeonDarkPackageData:checkProductInTable(product_id) then
             if g_clanDungeonDarkPackageData:isPackageVisible(product_id) then
-                cclog('dark package available!')
+                -- cclog('dark package available!')
                 table.insert(tabList, v)
             end
         else
