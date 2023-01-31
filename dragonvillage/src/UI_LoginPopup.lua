@@ -71,9 +71,6 @@ function UI_LoginPopup:refresh()
     local vars = self.vars
     local target_server = ServerListData:getInstance():getSelectServer()
     self:setServerName(target_server)
-    
-    local is_new_server = (target_server == SERVER_NAME.EUROPE)
-    self.vars['serverRewardMenu']:setVisible(is_new_server)
 
     if IS_TEST_MODE() then
         if (target_server == 'DEV') or (target_server == 'QA') then
