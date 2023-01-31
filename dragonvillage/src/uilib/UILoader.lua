@@ -369,10 +369,11 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     local delegator
     local type = data.type
     local ui_name = data.ui_name
+    local flag = data.flag
     local var = data.lua_name
 
     -- UIMaker에서 영역 확인용으로 생성한 컬러 레이어는 생성하지 않음
-    if (type == 'LayerColor') and (ui_name == 'hide') then
+    if (type == 'LayerColor') and ((ui_name == 'hide') or (flag =='hide')) then
         return
     end
 
@@ -383,7 +384,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             data.font_name = ''
         else
 			-- ui 파일에서 지정된 폰트 사용
-			if (data.ui_name == 'fontFix') then
+			if (data.ui_name == 'fontFix') or (flag =='fontFix') then
 				
 			-- std 언어 이외는 font 변경
 			elseif (Translate:isNeedTranslate()) then
@@ -400,7 +401,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     elseif type == 'Menu' then
         node = cc.Menu:create()
         setPropsForLayer(node, data)
-        if (data.ui_name == 'swallowMenu') then
+        if (data.ui_name == 'swallowMenu') or (flag =='swallowMenu') then
             node:setSwallowTouch(false)
         end
 
@@ -439,7 +440,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             , data.v_alignment
             )
         setPropsForLabel(node, data)
-    elseif (type == 'LabelTTF') and ((ui_name == 'rich') or (ui_name == 'scroll')) then
+    elseif (type == 'LabelTTF') and ((ui_name == 'rich') or (ui_name == 'scroll') or (flag =='rich') or (flag =='scroll')) then
         local rich_label = UIC_RichLabel()
         node = rich_label.m_node
         setPropsForNode(node, data)
@@ -487,10 +488,10 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
 
         
 
-        if (ui_name == 'scroll') then
+        if (ui_name == 'scroll') or (flag =='scroll') then
             delegator = UIC_ScrollLabel:create(rich_label)
             node = delegator.m_node
-        elseif (ui_name == 'rich') then
+        elseif (ui_name == 'rich') or (flag =='rich') then
             delegator = rich_label
         else
             error('ui_name : ' .. ui_name)
@@ -625,7 +626,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         -- 2017-07-10 sgkim TableView대신 UIC_TableView로 전환함
 		cclog('2017-07-10 sgkim TableView대신 UIC_TableView로 전환함')
     elseif type == 'Sprite' then
-        if (ui_name == 'spine') then
+        if (ui_name == 'spine') or (flag =='rich') then
             node = makeSpine(data.file_name)
             if (node) then
                 setPropsForNode(node, data)
@@ -691,7 +692,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         animator.m_node = node
         delegator = animator
 
-        if (ui_name == 'low_mode') then
+        if (ui_name == 'low_mode') or (flag =='low_mode') then
             animator:setIgnoreLowEndMode(true)
         end
 
