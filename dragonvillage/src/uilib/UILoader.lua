@@ -369,6 +369,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     local delegator
     local type = data.type
     local ui_name = data.ui_name
+    local flag = data.flag
     local var = data.lua_name
 
     -- UIMaker에서 영역 확인용으로 생성한 컬러 레이어는 생성하지 않음
@@ -400,7 +401,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     elseif type == 'Menu' then
         node = cc.Menu:create()
         setPropsForLayer(node, data)
-        if (data.ui_name == 'swallowMenu') then
+        if (flag == 'swallowMenu') then
             node:setSwallowTouch(false)
         end
 
