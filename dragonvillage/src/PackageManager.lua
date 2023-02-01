@@ -267,6 +267,9 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
     elseif (string.find(_package_name, 'winter_festival')) then
         target_ui = self:makeOfferPopup(_package_name, is_popup, is_full_popup)
 
+    elseif (string.find(_package_name, 'package_2000day_01')) then
+        target_ui = self:makeOfferPopup(_package_name, is_popup, is_full_popup)
+
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
     elseif (TablePackageBundle:checkBundleWithName(_package_name)) then
