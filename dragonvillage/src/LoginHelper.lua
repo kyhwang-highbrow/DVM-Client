@@ -59,7 +59,8 @@ function LoginHelper:visibleButtons(vars, use_guest, use_gamecenter)
     -- 일반적인 케이스
 	vars['googleBtn']:setVisible(true)
 	vars['facebookBtn']:setVisible(true)
-	vars['twitterBtn']:setVisible(true)
+    --@dhkim 23.02.13 - 트위터 API 유료화 관련 대응을 위해 트위터 로그인 버튼 막음
+	vars['twitterBtn']:setVisible(false)
 	vars['gamecenterBtn']:setVisible(CppFunctions:isIos())
     vars['appleBtn']:setVisible(self:availableSignInWithApple())
 
@@ -496,69 +497,73 @@ function LoginHelper:linkWithTwitter()
         return
     end
 
-    self.m_loadingUI:showLoading(Str('계정 연동 중...'))
+    -- 23.02.13 dhkim - 트위터 계정으로의 연동 막음
+    local msg = Str('계정 연동 과정에 오류가 발생하였습니다. (오류코드:{1})', error_str)
+    MakeSimplePopup(POPUP_TYPE.OK, msg)
 
-    local old_platform_id = g_localData:get('local', 'platform_id')
+    -- self.m_loadingUI:showLoading(Str('계정 연동 중...'))
 
-    PerpleSDK:linkWithTwitter(function(ret, info)
+    -- local old_platform_id = g_localData:get('local', 'platform_id')
 
-        if ret == 'success' then
+    -- PerpleSDK:linkWithTwitter(function(ret, info)
 
-            cclog('Firebase Twitter link was successful.')
-            self.m_loadingUI:hideLoading()
+    --     if ret == 'success' then
 
-            self:loginSuccess(info)
+    --         cclog('Firebase Twitter link was successful.')
+    --         self.m_loadingUI:hideLoading()
 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
-                self:unlink(old_platform_id)
-            end)
+    --         self:loginSuccess(info)
 
-        elseif ret == 'already_in_use' then
+    --         MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
+    --             self:unlink(old_platform_id)
+    --         end)
 
-            local ok_btn_cb = function()
-                self.m_loadingUI:showLoading(Str('계정 전환 중...'))
-                PerpleSDK:logout()
-                PerpleSDK:loginWithTwitter(function(ret, info)
-                    self.m_loadingUI:hideLoading()
-                    if ret == 'success' then
-                        cclog('Firebase Twitter link was successful.(already_in_use)')
+    --     elseif ret == 'already_in_use' then
 
-                        self:loginSuccess(info)
+    --         local ok_btn_cb = function()
+    --             self.m_loadingUI:showLoading(Str('계정 전환 중...'))
+    --             PerpleSDK:logout()
+    --             PerpleSDK:loginWithTwitter(function(ret, info)
+    --                 self.m_loadingUI:hideLoading()
+    --                 if ret == 'success' then
+    --                     cclog('Firebase Twitter link was successful.(already_in_use)')
 
-                        if (old_platform_id == 'google.com') then
-                            PerpleSDK:googleLogout()
-                        end
+    --                     self:loginSuccess(info)
 
-                        -- 앱 재시작
-                        CppFunctions:restart()
+    --                     if (old_platform_id == 'google.com') then
+    --                         PerpleSDK:googleLogout()
+    --                     end
 
-                    elseif ret == 'fail' then
-                        self:loginFail(info)
-                    elseif ret == 'cancel' then
-						self:loginCancel()
-                    end
-                end)
-            end
+    --                     -- 앱 재시작
+    --                     CppFunctions:restart()
 
-            local cancel_btn_cb = nil
+    --                 elseif ret == 'fail' then
+    --                     self:loginFail(info)
+    --                 elseif ret == 'cancel' then
+	-- 					self:loginCancel()
+    --                 end
+    --             end)
+    --         end
 
-            self.m_loadingUI:hideLoading()
-            local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
-            local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
-            MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
+    --         local cancel_btn_cb = nil
 
-        elseif ret == 'fail' then
-            cclog('Firebase Twitter link failed')
-			self:loginFail(info)
-            self.m_loadingUI:hideLoading()
+    --         self.m_loadingUI:hideLoading()
+    --         local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
+    --         local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
+    --         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
 
-        elseif ret == 'cancel' then
-            cclog('Firebase Twitter link canceled.')
-			self:loginCancel()
-            self.m_loadingUI:hideLoading()
+    --     elseif ret == 'fail' then
+    --         cclog('Firebase Twitter link failed')
+	-- 		self:loginFail(info)
+    --         self.m_loadingUI:hideLoading()
 
-        end
-    end)
+    --     elseif ret == 'cancel' then
+    --         cclog('Firebase Twitter link canceled.')
+	-- 		self:loginCancel()
+    --         self.m_loadingUI:hideLoading()
+
+    --     end
+    -- end)
 
 end
 
