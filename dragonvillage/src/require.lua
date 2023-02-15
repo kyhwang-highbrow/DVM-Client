@@ -96,6 +96,7 @@ local t_module = {
     'StructRuneSetObject',
     'StructRuneCombine',
     'StructDragonObject',
+    'StructDragonSkin',
     'StructUpgradeMaterialCombine',
     'StructSlimeObject',
     'StructFriendshipObject',
@@ -168,6 +169,7 @@ local t_module = {
 	'ServerData_Tamer',
     'ServerData_TamerCostume',
     'ServerData_Dragons',
+    'ServerData_DragonSkin',
     'ServerData_Slimes',
     'ServerData_Deck',
     'ServerData_Staminas',
@@ -404,6 +406,7 @@ local t_module = {
     'TableStageDesc',
     'TableDragon',
     'TableDragonType',
+    'TableDragonSkin',
     'TableDragonExp',
 	'TableDragonReinforce',
     'TableDragonSkill',
@@ -1473,6 +1476,9 @@ local t_module = {
     'UI_DragonSkillInfo',
     'UI_DragonSelectPopup',
     'UI_DragonTransformChange',
+    'UI_DragonSkinManageInfo',
+    'UI_DragonSkinConfirmPopup',
+    'UI_DragonSkinListItem',
 
 	-- UI : 드래곤 관리 - 결과
     'UI_DragonManageFriendshipResult',

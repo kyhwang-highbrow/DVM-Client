@@ -203,6 +203,9 @@ function ServerData:getInstance()
     -- 테이머 코스튬
     g_tamerCostumeData = ServerData_TamerCostume(g_serverData)
 
+    -- 드래곤 스킨 (@dhkim 23.02.13 추가) 
+    g_dragonSkinData = ServerData_DragonSkin(g_serverData)
+
     -- 교환 이벤트 
     g_exchangeEventData = ServerData_ExchangeEvent(g_serverData)
 
