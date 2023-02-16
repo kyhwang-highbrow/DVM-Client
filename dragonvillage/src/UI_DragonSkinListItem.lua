@@ -11,7 +11,7 @@ UI_DragonSkinListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_DragonSkinListItem:init(costume_data)
-    local vars = self:load('tamer_costume_item.ui')
+    local vars = self:load('dragon_skin_item.ui')
     self.m_costumeData = costume_data
 
     self:initUI()
@@ -29,19 +29,19 @@ function UI_DragonSkinListItem:initUI()
     local costume_data = self.m_costumeData
 
     -- 이름
-    vars['costumeTitleLabel']:setString(costume_data:getName())
+    vars['skinLabel']:setString(costume_data:getName())
 
     -- 이미지
     local img = costume_data:getTamerSDIcon()
     if (img) then
-        vars['tamerNode']:addChild(img)
+        vars['dragonNode']:addChild(img)
     end
     
     -- 생성시에는 사용중인 코스튬 선택처리
-    local is_used = costume_data:isUsed()
-    vars['selectSprite']:setVisible(is_used)
+    -- local is_used = costume_data:isUsed()
+    vars['selectSprite']:setVisible(false)
 
-    vars['costumeMenu']:setSwallowTouch(false)
+    vars['skinMenu']:setSwallowTouch(false)
 end
 
 -------------------------------------
@@ -62,15 +62,15 @@ function UI_DragonSkinListItem:refresh()
     -- StructTamerCostume
     local costume_data = self.m_costumeData
 
-    local is_used = costume_data:isUsed()
-    vars['useSprite']:setVisible(is_used)
+    -- local is_used = costume_data:isUsed()
+    vars['useSprite']:setVisible(true)
 
-    local is_open = costume_data:isOpen()
+    -- local is_open = costume_data:isOpen()
     local badge_node = vars['badgeNode']
     badge_node:removeAllChildren()
     
     local badge
-    if (not is_open) then
+    if (not true) then
         local is_sale, msg_sale = costume_data:isSale()
         local is_limit, msg_limit = costume_data:isLimit()
         local is_end = costume_data:isEnd()
@@ -126,13 +126,15 @@ function UI_DragonSkinListItem:refresh()
     end
 
     -- 선택 버튼
-    vars['selectBtn']:setVisible(not is_used and is_open)
-
+    -- vars['selectBtn']:setVisible(not is_used and is_open)
+    vars['selectBtn']:setVisible(true)
     -- 사용 버튼
-    vars['useBtn']:setVisible(is_used)
+    -- vars['useBtn']:setVisible(is_used)
+    vars['useBtn']:setVisible(true)
 
     -- 테이머 잠금이 아니라 오픈 여부로 변경
-    vars['lockSprite']:setVisible(not is_open)
+    -- vars['lockSprite']:setVisible(not is_open)
+    vars['lockSprite']:setVisible(true)
 end
 
 -------------------------------------

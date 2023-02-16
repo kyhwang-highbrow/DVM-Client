@@ -4,12 +4,13 @@
 -------------------------------------
 StructDragonSkin = class({
         m_bStruct = 'boolean',
-        m_cid = 'number',
+        m_skin_id = 'number',
+        m_did = 'number',
+        m_priority = 'number',
         m_name = 'string',
-        m_type = 'string',
         m_desc = 'string',
 
-        m_res_sd = 'string',
+        m_res = 'string',
         m_res_icon = 'string',
 
         m_price = 'number',
@@ -18,7 +19,6 @@ StructDragonSkin = class({
         m_scale = 'number',
         m_stat_bonus = 'table',
 
-        m_priority = 'number',
         m_bUsed = 'boolean',
         m_saleType = 'string', -- valor : 용맹훈장 상점에서 구매
     })
@@ -41,12 +41,14 @@ end
 function StructDragonSkin:applyTableData(data)
     
     local replacement = {}
-    replacement['cid'] = 'm_cid'
+    replacement['skin_id'] = 'm_skin_id'
+    replacement['did'] = 'm_did'
+    replacement['ui_priority'] = 'm_priority'
     replacement['t_name'] = 'm_name'
-    replacement['type'] = 'm_type'
+    replacement['sale_type'] = 'm_saleType'
     replacement['t_desc'] = 'm_desc'
 
-    replacement['res_sd'] = 'm_res_sd'
+    replacement['res'] = 'm_res'
     replacement['res_icon'] = 'm_res_icon'
 
     replacement['price'] = 'm_price'
@@ -54,8 +56,6 @@ function StructDragonSkin:applyTableData(data)
 
     replacement['scale'] = 'm_scale'
     replacement['stat_bonus'] = 'm_stat_bonus'
-    replacement['ui_priority'] = 'm_priority'
-    replacement['sale_type'] = 'm_saleType'
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
         self[key] = v
@@ -98,7 +98,7 @@ function StructDragonSkin:isUsed()
 
     -- 테이머 정보가 없다면 기본복장 사용중인걸로 처리
     else
-        used_costume_id = TableTamerCostume:getDefaultCostumeID(tamer_id)
+        used_costume_id = TableDragonSkin:getDefaultCostumeID(did)
     end 
 
     return (self.m_cid == used_costume_id)
@@ -228,8 +228,8 @@ end
 -------------------------------------
 -- function getResSD
 -------------------------------------
-function StructDragonSkin:getResSD()
-    return self.m_res_sd
+function StructDragonSkin:getRes()
+    return self.m_res
 end
 
 -------------------------------------

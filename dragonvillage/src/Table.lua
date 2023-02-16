@@ -130,8 +130,8 @@ local TableInfo = {
         -- 레이드 
         table_league_raid_data = {'table_league_raid_data', 'lv', false},
 
-        -- -- 드래곤 스킨
-        -- table_dragon_skin = {'table_dragon_skin', 'skin_id', false},
+        -- 드래곤 스킨
+        dragon_skin = {'table_dragon_skin', 'skin_id', false},
     }
 
 -------------------------------------

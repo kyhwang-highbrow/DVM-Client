@@ -107,24 +107,23 @@ function ServerData_DragonSkin:getUsedStructCostumeData(tamer_id)
 end
 
 -------------------------------------
--- function makeStructCostumeList
--- @breif 해당 테이머의 모든 코스튬 정보 리스트로 반환
+-- function makeStructSkinList
+-- @breif 해당 드래곤의 모든 스킨 정보 리스트로 반환
 -------------------------------------
-function ServerData_DragonSkin:makeStructCostumeList(tamer_id)
-    local sel_type = TableTamer:getTamerType(tamer_id)
-    local costume_list = TableTamerCostume():filterList('type', sel_type) 
-    table.sort(costume_list, function(a,b)
+function ServerData_DragonSkin:makeStructSkinList(did)
+    local skin_list = TableDragonSkin():filterList('did', did) 
+    table.sort(skin_list, function(a,b)
         local a_priority = a['ui_priority'] or 0
         local b_priority = b['ui_priority'] or 0
         return a_priority > b_priority
     end)
 
-    local l_struct_costume = {}
-    for k, v in ipairs(costume_list) do
-        table.insert(l_struct_costume, StructTamerCostume(v)) 
+    local l_struct_skin = {}
+    for k, v in ipairs(skin_list) do
+        table.insert(l_struct_skin, StructDragonSkin(v)) 
     end
 
-    return l_struct_costume
+    return l_struct_skin
 end
 
 -------------------------------------
