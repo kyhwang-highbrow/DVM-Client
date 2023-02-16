@@ -18,7 +18,7 @@ function UI_DragonSkinListItem:init(costume_data)
     self:initButton()
     self:refresh()
 
-    self.m_cellSize = cc.size(200, 250)
+    self.m_cellSize = cc.size(221, 393)
 end
 
 -------------------------------------

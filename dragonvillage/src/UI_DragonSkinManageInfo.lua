@@ -101,8 +101,6 @@ function UI_DragonSkinManageInfo:initUI()
     local dragon_name = TableDragon:getDragonName(did)
     vars['dragonNameLabel']:setString(Str(dragon_name))
 
-
-
     for i = 1, 3 do 
         local node = vars['dragonNode'..i]
         if (node) then
@@ -333,7 +331,7 @@ function UI_DragonSkinManageInfo:setDragonSkin()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(170, 280)
+    table_view.m_defaultCellSize = cc.size(221, 393)
     table_view:setCellUIClass(UI_DragonSkinListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(l_struct_dragon_skin)
