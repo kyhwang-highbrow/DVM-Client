@@ -89,6 +89,61 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
 end
 
 -------------------------------------
+-- function setDragonAnimator
+-- @dhkim 23.02.17 - 드래곤 리소스 호출을 통해 스킨을 연출해야 됨
+-------------------------------------
+function UIC_DragonAnimator:setDragonAnimatorRes(did, res_name, evolution, flv)
+    self.m_friendshipLv = flv or 0
+    
+    -- if (self.m_did == did) and (self.m_evolution == evolution) then
+    --     return
+    -- end
+
+    local is_slime = TableSlime:isSlimeID(did)
+
+    self.m_did = did
+    self.m_evolution = evolution
+    
+    local t_dragon
+    if is_slime then
+        t_dragon = TableSlime():get(did)
+    else
+        t_dragon = TableDragon():get(did)
+    end
+    
+    -- local res_name = t_dragon['res']
+    local attr = t_dragon['attr']
+
+    self.vars['dragonNode']:removeAllChildren()
+    self.m_animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+    self.vars['dragonNode']:addChild(self.m_animator.m_node)
+    
+    -- 자코 몹들은 1.5배로 키워서 출력!
+    if (t_dragon['birthgrade'] == 1) then
+        -- 골드라고라만 귀여운 사이즈로 적용
+        if (self.m_did == 128004) then
+            self.m_animator:setScale(0.6)
+        else
+            self.m_animator:setScale(1.5)
+        end
+    end
+
+    -- 랜덤 에니메이션 리스트 생성
+    self.m_randomAnimationList = {}
+    for i,ani in ipairs(self.m_animator:getVisualList()) do
+        if isExistValue(ani, 'attack', 'pose_1', 'pose_2', 'change') then
+            table.insert(self.m_randomAnimationList, ani)
+        end
+    end
+
+    self.m_timeStamp = nil
+    self.vars['talkMenu']:setVisible(false)
+
+    local idle_motion = true
+    self:click_dragonButton(idle_motion)
+end
+
+-------------------------------------
 -- function setDragonAnimatorByTransform
 -------------------------------------
 function UIC_DragonAnimator:setDragonAnimatorByTransform(struct_dragon_data)

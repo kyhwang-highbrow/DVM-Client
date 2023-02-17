@@ -8,6 +8,8 @@ UI_DragonSkinManageInfo = class(PARENT,{
         m_dragonListLastChangeTime = 'timestamp',
         m_skinTableView = 'UIC_TableView',
         m_selectedSkinData = 'StructDragonSkin',
+
+        m_evolution_lv = 'number',
     })
 
 -------------------------------------
@@ -22,7 +24,8 @@ function UI_DragonSkinManageInfo:initParentVariable()
     self.m_bVisible = true or false
     self.m_titleStr = nil
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
-    self.m_bShowInvenBtn = true 
+    self.m_bShowInvenBtn = true
+    self.m_evolution_lv = 1
 end
 
 -------------------------------------
@@ -37,6 +40,8 @@ function UI_DragonSkinManageInfo:init(struct_dragon_object)
 
     self.m_selectDragonOID = struct_dragon_object:getObjectId()
     self.m_selectDragonData = struct_dragon_object
+
+    self.m_selectedSkinData = nil
     self.m_elapsedTime = 1
 end
 
@@ -133,6 +138,7 @@ function UI_DragonSkinManageInfo:initUI()
     -- 드래곤 실리소스
     if vars['dragonNode'] then
         self.m_dragonAnimator = UIC_DragonAnimator()
+        self.m_dragonAnimator.m_node:setScale(0.9)
         vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
     end
 end
@@ -256,7 +262,10 @@ end
 function UI_DragonSkinManageInfo:click_evolutionBtn(i)
     cclog('CLICK EVOLUTION BTN : ' .. i)
     do -- 드래곤 리소스
-        self.m_dragonAnimator:setDragonAnimator(self.m_selectDragonData['did'], i)
+        -- -- 이미지
+        local res = self.m_selectedSkinData:getDragonRes()
+        self.m_evolution_lv = i
+        self.m_dragonAnimator:setDragonAnimatorRes(self.m_selectDragonData['did'], res, self.m_evolution_lv)
     end
 end
 
@@ -302,17 +311,19 @@ function UI_DragonSkinManageInfo:setDragonSkin()
     node:removeAllChildren()
 
     local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
+    self.m_selectedSkinData = l_struct_dragon_skin[1]
     vars['skinTitleLabel']:setString(Str(l_struct_dragon_skin[1]:getName()))
     -- 코스튬 버튼
     local function create_func(ui, data)
-        -- -- 코스튬 미리보기
-        -- ui.vars['costumeBtn']:registerScriptTapHandler(function()
-        --     self:click_costume(ui.m_costumeData)
-        -- end)
+        -- 코스튬 미리보기
+        ui.vars['skinBtn']:registerScriptTapHandler(function()
+            self:click_skin(ui.m_skinData)
+            vars['skinTitleLabel']:setString(Str(ui.m_skinData:getName()))
+        end)
 
         -- 코스튬 선택하기
         ui.vars['selectBtn']:registerScriptTapHandler(function()
-            -- self:click_select_skin(ui.m_skinData)
+            self:click_select_skin(ui.m_skinData)
             vars['skinTitleLabel']:setString(Str(ui.m_skinData:getName()))
         end)
 
@@ -341,8 +352,24 @@ function UI_DragonSkinManageInfo:setDragonSkin()
 end
 
 -------------------------------------
--- function click_select_costume
--- @brief 코스튬 선택
+-- function click_skin
+-- @brief 스킨 미리보기
+-------------------------------------
+function UI_DragonSkinManageInfo:click_skin(skin_data)
+    -- if (self.m_selectDragonData['did'] ~= self.m_selectedSkinData:getDid()) then
+    --     return
+    -- end
+
+    self.m_selectedSkinData = skin_data
+    -- self:refreshSkinData()
+
+    -- 드래곤 스킨 Res만 변경
+    self:setDragonSkinRes(skin_data)
+end
+
+-------------------------------------
+-- function click_select_skin
+-- @brief 스킨 선택
 -------------------------------------
 function UI_DragonSkinManageInfo:click_select_skin(skin_data)
     self.m_selectDragonData = skin_data
@@ -385,8 +412,8 @@ function UI_DragonSkinManageInfo:refreshSkinData()
         for _, v in pairs(self.m_skinTableView.m_itemList) do
             local ui = v['ui']
             if ui then
-                local did = self.m_selectDragonData:getCid()
-                ui:setSelected(did)
+                local skin_id = self.m_selectDragonData:getSkinID()
+                ui:setSelected(skin_id)
                 ui:refresh()
             end
         end
@@ -440,296 +467,6 @@ function UI_DragonSkinManageInfo:refreshDragonCard(modified_dragons, modified_sl
 end
 
 -------------------------------------
--- function click_lockBtn
--- @brief 잠금
--- @comment ,로 oid 보내는것들은 다 리팩토링 해야함
--------------------------------------
-function UI_DragonSkinManageInfo:click_lockBtn()
-    if (not self.m_selectDragonOID) then
-        return
-    end
-	
-	local struct_dragon_data
-	local doids = ''
-	local soids = ''
-	if (self.m_bSlimeObject) then
-		soids = self.m_selectDragonOID
-		struct_dragon_data = g_slimesData:getSlimeObject(self.m_selectDragonOID)
-	else
-		doids = self.m_selectDragonOID
-		struct_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
-	end
-
-	local lock = (not struct_dragon_data:getLock())
-
-	--[[
-		-- 드래곤 성장일지 제거
-		local start_dragon_doid = g_userData:get('start_dragon')
-	    if (start_dragon_doid) and (not g_dragonDiaryData:isClearAll()) then
-	        
-	        if (doids == start_dragon_doid) then
-	            local msg = Str('육성 퀘스트가 진행중인 드래곤입니다.\n퀘스트를 모두 수행해야 잠금 해제가 가능합니다.')
-	            MakeSimplePopup(POPUP_TYPE.OK, msg)
-	            return
-	        end
-	    end
-	--]]
-
-    -- 슬라임이 아닐 경우에만 드래곤 성장일지 잠금 체크
-    if (not self.m_bSlimeObject) then
-        -- 드래곤 성장일지 (퀘스트 진행중이면 잠금 풀 수 없음)
-        if (g_dragonDiaryData:isSelectedDragonLock(doids)) then
-            local msg = ''
-	    	if (not g_dragonDiaryData:isEnable()) then
-	    		msg = Str('함께 모험을 시작한 드래곤입니다.\n5성 달성 시 잠금 해제가 가능합니다')
-	    	else
-	    		msg = Str('육성 퀘스트가 진행중인 드래곤입니다.\n퀘스트를 모두 수행해야 잠금 해제가 가능합니다.')
-	    	end
-	    	
-	    	MakeSimplePopup(POPUP_TYPE.OK, msg)
-	    	return
-        end
-    end
-
-	local function cb_func(ret)
-        -- 선택된 드래곤 데이터 최신화(잠금 여부 수정)
-        self:setSelectDragonDataRefresh()
-
-		-- 메인 잠금 표시 해제
-		self.vars['lockSprite']:setVisible(lock)
-		
-		-- 잠금 안내 팝업
-		local msg = lock and Str('잠금되었습니다.') or Str('잠금이 해제되었습니다.')
-		UIManager:toastNotificationGreen(msg)
-
-		-- 하단 리스트 갱신
-		self:refreshDragonCard(ret['modified_dragons'], ret['modified_slimes'], 'lock')
-	end
-
-	g_dragonsData:request_dragonLock(doids, soids, lock, cb_func)
-end
-
--------------------------------------
--- function click_goodbyeBtn
--- @brief 드래곤 레벨업 시스템 개편으로 
--- 새로 만든 개별 작별
--------------------------------------
-function UI_DragonSkinManageInfo:click_goodbyeBtn()
-	require('UI_DragonGoodbyePopup')
-
-    if (not self.m_selectDragonOID) then
-        return
-    end
-
-	local oid = self.m_selectDragonOID
-    
-	-- 작별 가능한지 체크
-	local possible, msg = g_dragonsData:possibleMaterialDragon(oid)
-	if (not possible) then
-		UIManager:toastNotificationRed(msg)
-        return false
-	end
-	
-	local dragon_data = self.m_selectDragonData
-	local msg = g_dragonsData:dragonStateStr(oid, nil)
-
-    local idx = self.m_tableViewExt:getIndexFromId(oid) or 1
-
-	-- 작별 연출
-    local function show_effect(ret)
-        
-        local finish_cb = function()
-		    -- 테이블 아이템갱신
-		    self:init_dragonTableView()
-
-		    -- 정렬
-		    self:apply_dragonSort_saveData()
-
-            local next_idx = math_min(idx, self.m_tableViewExt:getItemCount())
-            local next_doid = self.m_tableViewExt:getIdFromIndex(next_idx)
-
-            -- 기존에 선택되어 있던 드래곤 교체
-		    self:setDefaultSelectDragon(next_doid)
-	    end
-
-        local dragon_data = self.m_selectDragonData
-        local info_data = ret
-        local ui = UI_DragonGoodbyeResult(dragon_data, info_data)
-        
-		ui:setCloseCB(finish_cb)
-    end
-
-    local ui = UI_DragonGoodbyePopup(oid, dragon_data, msg, show_effect)
-end
-
--------------------------------------
--- function click_goodbyeSelectBtn
--- @brief 일괄 작별
--------------------------------------
-function UI_DragonSkinManageInfo:click_goodbyeSelectBtn()
-    require('UI_DragonGoodbyeSelect')
-    local ui = UI_DragonGoodbyeSelect()
-	
-    local oid = self.m_selectDragonOID
-    local idx = self.m_tableViewExt:getIndexFromId(oid) or 1
-
-    local function close_cb()
-	    if ui.m_bChangeDragonList then
-			-- 테이블 아이템갱신
-			self:init_dragonTableView()
-
-			-- 정렬
-			self:apply_dragonSort_saveData()
-
-            local next_idx = math_min(idx, self.m_tableViewExt:getItemCount())
-            local next_doid = self.m_tableViewExt:getIdFromIndex(next_idx)
-
-			-- 기존에 선택되어 있던 드래곤 교체
-			self:setDefaultSelectDragon(next_doid)
-
-            self:sceneFadeInAction()
-		end
-	end
-	ui:setCloseCB(close_cb)
-end
-
--------------------------------------
--- function click_assessBtn
--- @brief 평가 게시판
--------------------------------------
-function UI_DragonSkinManageInfo:click_assessBtn()
-	UI_DragonBoardPopup(self.m_selectDragonData)
-end
-
--------------------------------------
--- function click_bookBtn
--- @brief 도감
--------------------------------------
-function UI_DragonSkinManageInfo:click_bookBtn()
-    local t_dragon_data = self.m_selectDragonData
-
-	local did = t_dragon_data['did']
-    local grade = t_dragon_data['grade']
-    local evolution = t_dragon_data['evolution']
-
-    UI_BookDetailPopup.open(did, grade, evolution)
-end
-
--------------------------------------
--- function click_combineBtn
--- @brief 조합 하러가기
--------------------------------------
-function UI_DragonSkinManageInfo:click_combineBtn()
-	local did = self.m_selectDragonData['did']
-	local comb_did = TableDragonCombine:getCombinationDid(did)
-
-	if (comb_did) then
-		local ui = UI_HatcheryCombinePopup(comb_did)
-		ui:setCloseCB(function()
-			if (ui:isDirty()) then
-				-- 테이블 아이템갱신
-				self:init_dragonTableView()
-
-				-- 기존에 선택되어 있던 드래곤 교체
-				self:setDefaultSelectDragon()
-
-				-- 정렬
-				self:apply_dragonSort_saveData()
-			end
-		end)
-	end
-end
-
--------------------------------------
--- function click_teamBonusBtn
--- @brief 팀 보너스
--------------------------------------
-function UI_DragonSkinManageInfo:click_teamBonusBtn()
-    local sel_did = self.m_selectDragonData['did']
-	UI_TeamBonus(TEAM_BONUS_MODE.DRAGON, nil, sel_did)
-end
-
--------------------------------------
--- function click_slimeCombineBtn
--- @brief 슈퍼 슬라임 합성
--------------------------------------
-function UI_DragonSkinManageInfo:click_slimeCombineBtn()
-    local ui = UI_DragonUpgradeCombineMaterial()
-
-    local function close_cb()
-        -- 슬라임 합성을 한 경우 
-        if (ui.m_bDirty) then
-            -- 테이블 아이템 갱신
-			self:init_dragonTableView()
-
-            local dragon_object_id = self.m_selectDragonOID
-            local b_force = true
-            self:setSelectDragonData(dragon_object_id, b_force)
-
-            -- 정렬
-			self:apply_dragonSort_saveData()
-        end        
-    end
-
-    ui:setCloseCB(close_cb)
-end
-
--------------------------------------
--- function click_skinBtn
--- @brief 드래곤 스킨 버튼
--------------------------------------
-function UI_DragonSkinManageInfo:click_skinBtn()
-    local t_dragon_data = self.m_selectDragonData
-	local did = t_dragon_data['did']
-    local doid = t_dragon_data:getObjectId()
-
-    local ui = UI_DragonSkin()
-
-    local function close_cb()
-    end
-
-    ui:setCloseCB(close_cb)
-end
-
--------------------------------------
--- function click_recallBtn
--------------------------------------
-function UI_DragonSkinManageInfo:click_recallBtn()
-    local t_dragon_data = self.m_selectDragonData
-	local did = t_dragon_data['did']
-    local doid = t_dragon_data:getObjectId()
-
-    -- 리콜 대상 드래곤이 아닌 경우
-    if (g_dragonsData:isDragonRecallTarget(doid) == false) then
-        UIManager:toastNotificationRed(Str('대상이 없습니다.'))
-        return
-    end
-
-    require('UI_DragonRecall')
-    
-	local oid = self.m_selectDragonOID
-    local idx = self.m_tableViewExt:getIndexFromId(oid) or 1
-
-    local close_cb = function()
-        -- 테이블 아이템갱신
-        self:init_dragonTableView()
-
-        -- 정렬
-        self:apply_dragonSort_saveData()
-
-        local next_idx = math_min(idx, self.m_tableViewExt:getItemCount())
-        local next_doid = self.m_tableViewExt:getIdFromIndex(next_idx)
-
-        -- 기존에 선택되어 있던 드래곤 교체
-        self:setDefaultSelectDragon(next_doid)
-    end
-
-    local struct_dragon_object = self.m_selectDragonData
-    local ui = UI_DragonRecall(struct_dragon_object)
-    ui:setCloseCB(close_cb)
-end
-
--------------------------------------
 -- function checkDragonListRefresh
 -- @brief 드래곤 리스트에 변경이 있는지 확인 후 갱신
 -------------------------------------
@@ -748,43 +485,39 @@ function UI_DragonSkinManageInfo:checkDragonListRefresh()
 end
 
 -------------------------------------
--- function clickSubMenu
--- @brief
+-- function setTamerRes
+-- @brief 테이머 SD
 -------------------------------------
-function UI_DragonSkinManageInfo:clickSubMenu(sub_menu)
-	-- 하위 메뉴는 정부 슬라임 이용 불가이므로 이경우 슬라임은 선택되지 않도록 한다
-	self:checkSelectedDragonIsSlime()
+function UI_DragonSkinManageInfo:setDragonSkinRes(skin_data)
+	local vars = self.vars
+    local table_skin = TableDragonSkin()
+    local target_id = skin_data and skin_data:getSkinID()
+	local t_skin = table_skin:get(target_id)
+    self.m_selectedSkinData = skin_data
+	-- -- 기존 이미지 정리
+	-- vars['dragonNode']:removeAllChildren(true)
 
-    if (not sub_menu) then
-        -- nothing to do
+	-- 드래곤 스킨
+    local skin_data = skin_data or g_tamerCostumeData:getCostumeDataWithTamerID(target_id)
+    local res = skin_data:getDragonRes()
 
-    elseif (sub_menu == 'level_up') then
-        self:click_levelupBtn()
+	-- local dragon_animator = MakeAnimator(res)
+	-- dragon_animator:setFlip(true)
 
-    elseif (sub_menu == 'grade') then
-        self:click_upgradeBtn()
-
-    elseif (sub_menu == 'evolution') then
-        self:click_evolutionBtn()
-
-    elseif (sub_menu == 'friendship') then
-        self:click_friendshipBtn()
-
-    elseif (sub_menu == 'skill_enc') then
-        self:click_skillEnhanceBtn()
-
-    elseif (sub_menu == 'rune') then
-        self:click_runeBtn()
-
-    elseif (sub_menu == 'reinforce') then
-        self:click_reinforceBtn()
-
-    elseif (sub_menu == 'mastery') then
-        self:click_masteryBtn()
-    elseif (sub_menu == 'recall') then
-        self:click_recallBtn()
-
+    if (res) then
+        self.m_dragonAnimator:setDragonAnimatorRes(skin_data:getDid(), res, self.m_evolution_lv)
+        -- vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
     end
+
+    -- vars['dragonNode']:addChild(dragon_animator.m_node)
+
+    local skin_name = skin_data:getName()
+    vars['skinTitleLabel']:setString(skin_name)
+
+	-- -- 없는 테이머는 음영 처리
+	-- if (not self:_hasTamer(target_id)) then
+	-- 	dragon_animator:setColor(COLOR['gray'])
+	-- end
 end
 
 --@CHECK

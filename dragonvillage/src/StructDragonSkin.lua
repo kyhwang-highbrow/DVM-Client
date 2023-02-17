@@ -81,7 +81,7 @@ function StructDragonSkin:isOpen()
         end
     end
 
-    return false
+    return true
 end
 
 -------------------------------------
@@ -208,14 +208,14 @@ end
 -------------------------------------
 -- function getTamerID
 -------------------------------------
-function StructDragonSkin:getTamerID()
-    local tamer_idx = getDigit(self.m_cid, 100, 2)
-    local tamer_id = tonumber(string.format('1100%02d', tamer_idx))
-	if (not tamer_id) then
-		tamer_id = self.m_serverData:getRef('user', 'tamer')
-	end
+function StructDragonSkin:getSkinID()
+    -- local dragon_idx = getDigit(self.m_did, 10, 2)
+    -- local dragon_id = tonumber(string.format('1100%02d', dragon_idx))
+	-- if (not tamer_id) then
+	-- 	tamer_id = self.m_serverData:getRef('user', 'tamer')
+	-- end
 
-    return tamer_id
+    return self.m_skin_id
 end
 
 -------------------------------------
@@ -243,8 +243,8 @@ end
 -------------------------------------
 -- function getCid
 -------------------------------------
-function StructDragonSkin:getCid()
-    return self.m_cid
+function StructDragonSkin:getDid()
+    return self.m_did
 end
 
 -------------------------------------
@@ -266,12 +266,12 @@ end
 -- @brief 기본 복장인지 여부
 -------------------------------------
 function StructDragonSkin:isDefaultCostume()
-    if (not self.m_cid) then
+    if (not self.m_did) then
         return true
     end
 
     -- 1~10의자리 숫자가 개별 코스튬 아이디
-    local individual_costume_id = getDigit(self.m_cid, 1, 2)
+    local individual_costume_id = getDigit(self.m_did, 1, 2)
     
     if (individual_costume_id == 0) then
         return true
