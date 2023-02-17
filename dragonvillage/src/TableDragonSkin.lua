@@ -20,10 +20,11 @@ end
 -- function getDefaultCostumeID
 -- @brief 드래곤의 기본 스킨 ID
 -------------------------------------
-function TableDragonSkin:getDefaultCostumeID(dragon_id)
+function TableDragonSkin:getDefaultSkinID(dragon_id)
     -- local tamer_idx = tonumber(tamer_id)%100
     -- local default_id = string.format('73%02d00', tamer_idx)
-    return tonumber(dragon_id)
+    
+    return self:getValue(dragon_id, 'skin_id')
 end
 
 -------------------------------------

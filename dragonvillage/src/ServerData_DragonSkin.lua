@@ -67,11 +67,17 @@ end
 -- @brief 스킨이 존재하는 드래곤인지 확인
 -------------------------------------
 function ServerData_DragonSkin:isDragonSkinExist(doid)
+
+    --@dhkim temp 23.02.17 - 스킨 있는 드래곤 우선 임시 확인용
     if doid == 121854 or doid == 121842 or doid == 121752 or doid == 121861 then
         return true
     end
 
     return false
+end
+
+function ServerData_DragonSkin:getDragonList()
+
 end
 
 -------------------------------------

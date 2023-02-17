@@ -559,6 +559,57 @@ function UI_Setting:click_allCostumeBtn()
     end))
 end
 
+-------------------------------------
+-- function click_allDragonSkinBtn
+-- @brief 모든 드래곤 스킨 추가
+-------------------------------------
+function UI_Setting:click_allDragonSkinBtn()
+    local l_costume_list = {}
+    local table_stamina_info = TABLE:get('dragon_skin')
+    for k,v in pairs(table_stamina_info) do
+        table.insert(l_costume_list, k)
+    end
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        while (0 < #l_costume_list) do
+            co:work()
+            local uid = g_userData:get('uid')
+
+            local function success_cb(ret)
+                if ret['user'] then
+                    g_serverData:applyServerData(ret['user'], 'user')
+                end
+                g_topUserInfo:refreshData()
+                co.NEXT()
+            end
+
+            local key = l_costume_list[1]
+            table.remove(l_costume_list, 1)
+
+            local ui_network = UI_Network()            
+            local api = '/users/manage'
+            ui_network:setParam('act', 'update')
+            ui_network:setParam('key', 'costumes')
+            ui_network:setParam('value', key .. ',' .. 1)
+            ui_network:setUrl(api)
+            ui_network:setParam('uid', uid)
+            ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+            ui_network:setRevocable(false)
+            ui_network:request()
+            if co:waitWork() then return end
+        end
+
+        UIManager:toastNotificationGreen('모든 코스튬 추가!')
+        co:close()
+    end
+    
+    MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?', function()
+        Coroutine(coroutine_function)
+    end))
+end
 
 -------------------------------------
 -- function click_allEggBtn

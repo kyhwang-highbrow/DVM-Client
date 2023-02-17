@@ -314,12 +314,69 @@ function UI_DragonManage_Base:init_dragonTableView()
 end
 
 -------------------------------------
+-- function init_dragonSkinTableView
+-- @breif 드래곤 스킨 리스트 테이블 뷰
+-------------------------------------
+function UI_DragonManage_Base:init_dragonSkinTableView()
+
+    if (not self.m_tableViewExt) then
+        local list_table_node = self.vars['listTableNode']
+
+        local function make_func(object)
+            return UI_DragonCard(object)
+        end
+
+        local function create_func(ui, data)
+            self:createDragonCardCB(ui, data)
+            ui.root:setScale(0.66)
+            ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectDragonData(data['id']) end)
+            ui.vars['clickBtn']:unregisterScriptPressHandler()
+
+            -- 선택한 드래곤
+            if (data['id'] == self.m_selectDragonOID) then
+                self:changeDragonSelectFrame(ui)
+            end
+
+            -- 승급/진화/스킬강화 
+            -- local is_noti_dragon = data:isNotiDragon()
+            -- ui:setNotiSpriteVisible(is_noti_dragon)
+
+            -- 새로 획득한 드래곤 뱃지
+            local is_new_dragon = data:isNewDragon()
+            ui:setNewSpriteVisible(is_new_dragon)
+        end
+
+        local table_view = UIC_TableView(list_table_node)
+        table_view.m_defaultCellSize = cc.size(100, 100)
+        table_view:setCellUIClass(make_func, create_func)
+        self.m_tableViewExt = table_view
+    end
+
+    local l_item_list = self:getDragonSkinList()
+    self.m_tableViewExt:setItemList(l_item_list)
+
+    -- 드래곤 선택 버튼이 있다면
+    local list_btn = self.vars['listBtn']
+    if (list_btn) then
+        list_btn:registerScriptTapHandler(function() self:click_listBtn() end)
+    end
+end
+
+-------------------------------------
 -- function getDragonList
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -------------------------------------
 function UI_DragonManage_Base:getDragonList()
     --return g_dragonsData:getDragonListWithSlime()
     return g_dragonsData:getDragonsListRef()
+end
+
+-------------------------------------
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 스킨이 있는 드래곤 리스트
+-------------------------------------
+function UI_DragonManage_Base:getDragonSkinList()
+    return g_dragonsData:getDragonsListWithSkin()
 end
 
 -------------------------------------

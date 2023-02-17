@@ -68,14 +68,14 @@ end
 -------------------------------------
 function StructDragonSkin:isOpen()
     -- 기본 코스튬은 오픈 상태
-    if (self.m_cid%100 == 0) then
+    if (self.m_skin_id%10 == 0) then
         return true
 
     -- 유료 코스튬은 구매리스트와 비교하여 오픈 상태인지 판단
     else
-        local open_list = g_tamerCostumeData.m_openList
-        for _, cid in ipairs(open_list) do
-            if (self.m_cid == cid) then
+        local open_list = g_dragonSkinData.m_openList
+        for _, skin_id in ipairs(open_list) do
+            if (self.m_skin_id == skin_id) then
                 return true
             end
         end
@@ -89,19 +89,21 @@ end
 -- @brief 사용중인 코스튬인지
 -------------------------------------
 function StructDragonSkin:isUsed()
-    local tamer_id = self:getTamerID()
-    local tamer_map = g_tamerData.m_mTamerMap
+    -- local tamer_map = g_tamerData.m_mTamerMap
     local used_costume_id = 0
 
-    if (tamer_map[tamer_id]) then
-        used_costume_id =  tamer_map[tamer_id]['costume'] 
+    -- if (tamer_map[did]) then
+    --     used_costume_id =  tamer_map[tamer_id]['costume'] 
 
-    -- 테이머 정보가 없다면 기본복장 사용중인걸로 처리
-    else
-        used_costume_id = TableDragonSkin:getDefaultCostumeID(did)
-    end 
+    -- -- 테이머 정보가 없다면 기본복장 사용중인걸로 처리
+    -- else
+    --     used_costume_id = TableDragonSkin:getDefaultSkinID(did)
+    -- end 
 
-    return (self.m_cid == used_costume_id)
+    -- return (self.m_cid == used_costume_id)
+
+    used_costume_id = TableDragonSkin:getDefaultSkinID(self.m_did)
+    return (self.m_skin_id == used_costume_id)
 end
 
 -------------------------------------
@@ -109,27 +111,29 @@ end
 -- @brief 할인중인지
 -------------------------------------
 function StructDragonSkin:isSale()
-    local sale_info = g_tamerCostumeData.m_saleInfo
-    local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
-    local msg 
-    if (shop_info and sale_info and sale_info[tostring(self.m_cid)]) then
-        local date_format = 'yyyy-mm-dd HH:MM:SS'
-        local parser = pl.Date.Format(date_format)
+    -- local sale_info = g_tamerCostumeData.m_saleInfo
+    -- local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
+    -- local msg 
+    -- if (shop_info and sale_info and sale_info[tostring(self.m_cid)]) then
+    --     local date_format = 'yyyy-mm-dd HH:MM:SS'
+    --     local parser = pl.Date.Format(date_format)
 
-        local end_date = parser:parse(shop_info['sale_end_date'])
-        local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
-        local end_time = end_date['time']
+    --     local end_date = parser:parse(shop_info['sale_end_date'])
+    --     local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
+    --     local end_time = end_date['time']
         
-        if (end_time == nil) then
-            return false, ''
-        end
-        local time = (end_time - cur_time)
-        msg = Str('할인 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
+    --     if (end_time == nil) then
+    --         return false, ''
+    --     end
+    --     local time = (end_time - cur_time)
+    --     msg = Str('할인 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
 
-        return true, msg
-    end
+    --     return true, msg
+    -- end
         
-    return false, msg
+    -- return false, msg
+
+    return false, ''
 end
 
 -------------------------------------
@@ -137,30 +141,32 @@ end
 -- @brief 기간한정인지 (기간한정이라면 남은 기간도 같이 반환)
 -------------------------------------
 function StructDragonSkin:isLimit()
-    local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
-    local msg
-    if (shop_info) then
-        local date_format = 'yyyy-mm-dd HH:MM:SS'
-        local parser = pl.Date.Format(date_format)
+    -- local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
+    -- local msg
+    -- if (shop_info) then
+    --     local date_format = 'yyyy-mm-dd HH:MM:SS'
+    --     local parser = pl.Date.Format(date_format)
 
-        local end_date = parser:parse(shop_info['end_date'])
-        local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
-        local end_time = end_date['time']
-        if (cur_time and end_time) then
-            local time = (end_time - cur_time)
+    --     local end_date = parser:parse(shop_info['end_date'])
+    --     local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
+    --     local end_time = end_date['time']
+    --     if (cur_time and end_time) then
+    --         local time = (end_time - cur_time)
 
-            -- 판매기간이 1년 미만으로 남은 경우에만 기간한정으로 판단
-            local remain = 86400 * 365
-            if (time < remain) then
-                msg = Str('판매 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
-                return true, msg
-            else
-                return false, msg
-            end
-        end
-    end
+    --         -- 판매기간이 1년 미만으로 남은 경우에만 기간한정으로 판단
+    --         local remain = 86400 * 365
+    --         if (time < remain) then
+    --             msg = Str('판매 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
+    --             return true, msg
+    --         else
+    --             return false, msg
+    --         end
+    --     end
+    -- end
 
-    return false, msg
+    -- return false, msg
+
+    return false, ''
 end
 
 -------------------------------------
@@ -168,11 +174,11 @@ end
 -- @brief 판매종료 (서버에서 코스튬 샵정보 안줌)
 -------------------------------------
 function StructDragonSkin:isEnd()
-    local is_default = self:isDefaultCostume()
-    local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
-    if (not shop_info) and (not is_default) then
-         return true
-    end
+    -- local is_default = self:isDefaultCostume()
+    -- local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
+    -- if (not shop_info) and (not is_default) then
+    --      return true
+    -- end
 
     return false
 end
@@ -189,14 +195,14 @@ end
 -- function isTamerLock
 -- @brief 해당 코스튬 테이머가 열려있는지
 -------------------------------------
-function StructDragonSkin:isTamerLock()
-    local tamer_id = self:getTamerID()
+function StructDragonSkin:isDragonLock()
+    -- local tamer_id = self:getTamerID()
     -- 기본 코스튬은 테이머 열려있지 않아도 잠금처리 안함
-    if (self.m_cid == TableTamerCostume:getDefaultCostumeID(tamer_id)) then
+    if (self.m_skin_id == TableDragonSkin:getDefaultSkinID(self.m_did)) then
         return false
     end
 
-    return not g_tamerData:hasTamer(tamer_id)
+    return not g_dragonsData:has(self.m_did)
 end
 
 -------------------------------------
@@ -213,9 +219,11 @@ function StructDragonSkin:getTamerID()
 end
 
 -------------------------------------
--- function getTamerSDIcon
+-- function getDragonIcon
 -------------------------------------
-function StructDragonSkin:getTamerSDIcon()
+function StructDragonSkin:getDragonIcon()
+    cclog(self.m_res_icon)
+
     local image = cc.Sprite:create(self.m_res_icon)
     if (image) then
         image:setDockPoint(CENTER_POINT)
@@ -226,9 +234,9 @@ function StructDragonSkin:getTamerSDIcon()
 end
 
 -------------------------------------
--- function getResSD
+-- function getDragonRes
 -------------------------------------
-function StructDragonSkin:getRes()
+function StructDragonSkin:getDragonRes()
     return self.m_res
 end
 

@@ -6,8 +6,8 @@ local PARENT = UI_DragonManage_Base
 UI_DragonSkinManageInfo = class(PARENT,{
         -- 서버상의 드래곤 정보가 마지막으로 변경된 시간 (refresh 체크 용도)
         m_dragonListLastChangeTime = 'timestamp',
-
         m_skinTableView = 'UIC_TableView',
+        m_selectedSkinData = 'StructDragonSkin',
     })
 
 -------------------------------------
@@ -78,7 +78,7 @@ end
 -------------------------------------
 function UI_DragonSkinManageInfo:initUI()
     local vars = self.vars
-    self:init_dragonTableView()
+    self:init_dragonSkinTableView()
 
     -- -- 드래곤 정보 보드 생성
     -- self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
@@ -302,7 +302,7 @@ function UI_DragonSkinManageInfo:setDragonSkin()
     node:removeAllChildren()
 
     local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
-
+    vars['skinTitleLabel']:setString(Str(l_struct_dragon_skin[1]:getName()))
     -- 코스튬 버튼
     local function create_func(ui, data)
         -- -- 코스튬 미리보기
@@ -310,10 +310,11 @@ function UI_DragonSkinManageInfo:setDragonSkin()
         --     self:click_costume(ui.m_costumeData)
         -- end)
 
-        -- -- 코스튬 선택하기
-        -- ui.vars['selectBtn']:registerScriptTapHandler(function()
-        --     self:click_select_costume(ui.m_costumeData)
-        -- end)
+        -- 코스튬 선택하기
+        ui.vars['selectBtn']:registerScriptTapHandler(function()
+            -- self:click_select_skin(ui.m_skinData)
+            vars['skinTitleLabel']:setString(Str(ui.m_skinData:getName()))
+        end)
 
         -- -- 코스튬 구입하기
         -- ui.vars['buyBtn']:registerScriptTapHandler(function()
@@ -337,6 +338,59 @@ function UI_DragonSkinManageInfo:setDragonSkin()
     table_view:setItemList(l_struct_dragon_skin)
 
     self.m_skinTableView = table_view
+end
+
+-------------------------------------
+-- function click_select_costume
+-- @brief 코스튬 선택
+-------------------------------------
+function UI_DragonSkinManageInfo:click_select_skin(skin_data)
+    self.m_selectDragonData = skin_data
+    -- local costume_id = skin_data:getCid()
+    -- local tamer_id = skin_data:getTamerID()
+    -- local has_tamer = self:_hasTamer(tamer_id)
+
+    -- -- 변경 불가
+    -- if (not has_tamer) then
+    --     UIManager:toastNotificationRed(Str('열려있지 않은 테이머는 코스튬을 변경 할 수 없습니다.'))
+
+    -- -- 코스튬 선택
+    -- else
+    --     local function finish_cb()
+    --         UIManager:toastNotificationGreen(Str('코스튬을 변경하였습니다.'))
+
+    --         -- 모든 상태 변경
+    --         self:refresh()
+    --         -- 코스튬 테이블뷰 초기화
+    --         self:refreshCostumeData()
+    --     end
+
+    --     g_tamerCostumeData:request_costumeSelect(costume_id, tamer_id, finish_cb)
+    -- end
+
+        UIManager:toastNotificationGreen(Str('스킨을 변경하였습니다.'))
+
+        -- 모든 상태 변경
+        self:refresh()
+        -- 코스튬 테이블뷰 초기화
+        self:refreshSkinData()
+end
+
+-------------------------------------
+-- function refreshCostumeData
+-- @brief 해당 테이머 코스튬 메뉴 갱신
+-------------------------------------
+function UI_DragonSkinManageInfo:refreshSkinData()
+    if (self.m_selectDragonData) then
+        for _, v in pairs(self.m_skinTableView.m_itemList) do
+            local ui = v['ui']
+            if ui then
+                local did = self.m_selectDragonData:getCid()
+                ui:setSelected(did)
+                ui:refresh()
+            end
+        end
+    end
 end
 
 -------------------------------------

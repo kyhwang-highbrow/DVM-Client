@@ -4,15 +4,16 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_DragonSkinListItem
 -------------------------------------
 UI_DragonSkinListItem = class(PARENT, {
-        m_costumeData = 'StructTamerCostume',
+        m_skinData = 'StructDragonSkin',
+        m_dragonAnimator = 'UIC_DragonAnimator',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonSkinListItem:init(costume_data)
+function UI_DragonSkinListItem:init(skin_data)
     local vars = self:load('dragon_skin_item.ui')
-    self.m_costumeData = costume_data
+    self.m_skinData = skin_data
 
     self:initUI()
     self:initButton()
@@ -26,15 +27,21 @@ end
 -------------------------------------
 function UI_DragonSkinListItem:initUI()
     local vars = self.vars
-    local costume_data = self.m_costumeData
+    local skin_data = self.m_skinData
 
     -- 이름
-    vars['skinLabel']:setString(costume_data:getName())
+    vars['skinLabel']:setString(skin_data:getName())
 
     -- 이미지
-    local img = costume_data:getTamerSDIcon()
+    local img = skin_data:getDragonRes()
+
     if (img) then
-        vars['dragonNode']:addChild(img)
+        self.m_dragonAnimator = AnimatorHelper:makeDragonAnimator(img, 3)
+        self.m_dragonAnimator.m_node:setScale(0.75)
+        self.m_dragonAnimator.m_node:setDockPoint(cc.p(0.4, 0.5))
+        self.m_dragonAnimator.m_node:setAnchorPoint(cc.p(0.4, 0.5))
+        self.m_dragonAnimator:setAnimationPause(true)
+        vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
     end
     
     -- 생성시에는 사용중인 코스튬 선택처리
@@ -60,20 +67,20 @@ function UI_DragonSkinListItem:refresh()
     local vars = self.vars
 
     -- StructTamerCostume
-    local costume_data = self.m_costumeData
+    local skin_data = self.m_skinData
 
-    -- local is_used = costume_data:isUsed()
-    vars['useSprite']:setVisible(true)
+    local is_used = skin_data:isUsed()
+    vars['useSprite']:setVisible(is_used)
 
-    -- local is_open = costume_data:isOpen()
+    local is_open = skin_data:isOpen()
     local badge_node = vars['badgeNode']
     badge_node:removeAllChildren()
     
     local badge
-    if (not true) then
-        local is_sale, msg_sale = costume_data:isSale()
-        local is_limit, msg_limit = costume_data:isLimit()
-        local is_end = costume_data:isEnd()
+    if (not is_open) then
+        local is_sale, msg_sale = skin_data:isSale()
+        local is_limit, msg_limit = skin_data:isLimit()
+        local is_end = skin_data:isEnd()
         
         -- 할인
         if (is_sale) then            
@@ -92,7 +99,7 @@ function UI_DragonSkinListItem:refresh()
         elseif (is_end) then
             -- 용맹코스튬은 table_tamer_costume_info에서 판매일이 지정되지 않아 판매종료 판정이 났지만 
             -- 용맹 상점에서 구매 가능하기 때문에 판매종료 뱃지,버튼 적용x
-            if (not costume_data:isValorCostume()) then
+            if (not skin_data:isValorCostume()) then
                 badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_finish.png'))
                 vars['finishBtn']:setVisible(true)
                 vars['finishBtn']:setEnabled(false)
@@ -103,12 +110,12 @@ function UI_DragonSkinListItem:refresh()
         end
 
         -- 판매 종료여부 상관없이 상품이 닫힌 상태면 바로가기 버튼 활성화 
-        if (costume_data:isValorCostume()) then
+        if (skin_data:isValorCostume()) then
             vars['gotoLabel']:setString(Str('용맹훈장 상점에서 구매'))
             vars['gotoBtn']:setVisible(true)
             vars['gotoBtn']:setEnabled(true)
 
-        elseif (costume_data:isTopazCostume()) then
+        elseif (skin_data:isTopazCostume()) then
             -- 상점에서 팔고 있다면 상점으로 이동/없다면 구매 불가
             if (self:isInShop('topaz')) then
                 vars['gotoLabel']:setString(Str('토파즈 상점에서 구매'))
@@ -126,15 +133,15 @@ function UI_DragonSkinListItem:refresh()
     end
 
     -- 선택 버튼
-    -- vars['selectBtn']:setVisible(not is_used and is_open)
-    vars['selectBtn']:setVisible(true)
+    vars['selectBtn']:setVisible(not is_used and is_open)
+    -- vars['selectBtn']:setVisible(true)
     -- 사용 버튼
-    -- vars['useBtn']:setVisible(is_used)
-    vars['useBtn']:setVisible(true)
+    vars['useBtn']:setVisible(is_used)
+    -- vars['useBtn']:setVisible(true)
 
     -- 테이머 잠금이 아니라 오픈 여부로 변경
-    -- vars['lockSprite']:setVisible(not is_open)
-    vars['lockSprite']:setVisible(true)
+    vars['lockSprite']:setVisible(not is_open)
+    -- vars['lockSprite']:setVisible(true)
 end
 
 -------------------------------------
@@ -142,10 +149,10 @@ end
 -------------------------------------
 function UI_DragonSkinListItem:setSelected(sel_id)
     local vars = self.vars
-    local costume_data = self.m_costumeData
-    local cid = costume_data:getCid()
+    -- local costume_data = self.m_skinData
+    -- local cid = costume_data:getCid()
 
-    vars['selectSprite']:setVisible(cid == sel_id)
+    -- vars['selectSprite']:setVisible(cid == sel_id)
 end
 
 -------------------------------------
@@ -154,16 +161,16 @@ end
 -------------------------------------
 function UI_DragonSkinListItem:isInShop(price_type)
     local vars = self.vars
-    local costume_data = self.m_costumeData
-    local cid = costume_data:getCid()
+    -- local costume_data = self.m_skinData
+    -- local cid = costume_data:getCid()
     local l_product = g_shopDataNew:getProductList(price_type)
 
-    for i, struct_product in pairs(l_product) do
-        local product_str = struct_product['product_content'] or ''
-        if (string.match(product_str, tostring(cid))) then
-            return true
-        end
-    end
+    -- for i, struct_product in pairs(l_product) do
+    --     local product_str = struct_product['product_content'] or ''
+    --     if (string.match(product_str, tostring(cid))) then
+    --         return true
+    --     end
+    -- end
 
     return false
 end
@@ -172,37 +179,37 @@ end
 -- function setPriceData
 -------------------------------------
 function UI_DragonSkinListItem:setPriceData(is_sale)
-    local vars = self.vars
-    local is_sale = is_sale or false
-    local costume_data = self.m_costumeData
+    -- local vars = self.vars
+    -- local is_sale = is_sale or false
+    -- local costume_data = self.m_costumeData
 
-    -- 가격 정보
-    local costume_id = costume_data:getCid()
-    local shop_info = g_tamerCostumeData:getShopInfo(costume_id)
-    local origin_price = shop_info['origin_price'] 
-    local price = is_sale and shop_info['sale_price'] or shop_info['origin_price'] 
-    local price_type = shop_info['price_type']
-    local price_icon = IconHelper:getPriceIcon(price_type)
+    -- -- 가격 정보
+    -- local costume_id = costume_data:getCid()
+    -- local shop_info = g_tamerCostumeData:getShopInfo(costume_id)
+    -- local origin_price = shop_info['origin_price'] 
+    -- local price = is_sale and shop_info['sale_price'] or shop_info['origin_price'] 
+    -- local price_type = shop_info['price_type']
+    -- local price_icon = IconHelper:getPriceIcon(price_type)
 
-    if (is_sale) then
-        vars['saleNode']:setVisible(true)
-        vars['salePriceLabel1']:setString(comma_value(origin_price))
-        vars['salePriceLabel2']:setString(comma_value(price))
-        vars['priceLabel']:setString('')
-        vars['saleTimeLabel']:setString(msg)
-        vars['salePriceNode']:addChild(price_icon)
-    else
-        -- 가격 정보가 있을 경우
-        if (type(price) == 'number') then
-            vars['priceLabel']:setString(comma_value(price))
-            vars['priceNode']:removeAllChildren()
-            vars['priceNode']:addChild(price_icon)
-        -- 가격 정보가 없을 경우 '구매 불가'
-        else
-            vars['finishBtn']:setVisible(true)
-            vars['finishBtn']:setEnabled(false)
-            vars['buyBtn']:setEnabled(false)
-            vars['selectBtn']:setEnabled(false)
-        end
-    end
+    -- if (is_sale) then
+    --     vars['saleNode']:setVisible(true)
+    --     vars['salePriceLabel1']:setString(comma_value(origin_price))
+    --     vars['salePriceLabel2']:setString(comma_value(price))
+    --     vars['priceLabel']:setString('')
+    --     vars['saleTimeLabel']:setString(msg)
+    --     vars['salePriceNode']:addChild(price_icon)
+    -- else
+    --     -- 가격 정보가 있을 경우
+    --     if (type(price) == 'number') then
+    --         vars['priceLabel']:setString(comma_value(price))
+    --         vars['priceNode']:removeAllChildren()
+    --         vars['priceNode']:addChild(price_icon)
+    --     -- 가격 정보가 없을 경우 '구매 불가'
+    --     else
+    --         vars['finishBtn']:setVisible(true)
+    --         vars['finishBtn']:setEnabled(false)
+    --         vars['buyBtn']:setEnabled(false)
+    --         vars['selectBtn']:setEnabled(false)
+    --     end
+    -- end
 end

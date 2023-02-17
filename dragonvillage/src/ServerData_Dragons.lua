@@ -200,6 +200,48 @@ end
 
 
 -------------------------------------
+-- function getDragonsListWithSkin
+-- @brief 스킨 있는 드래곤들만 리스트에서 반환
+-- @dhkim 23.02.17
+-------------------------------------
+function ServerData_Dragons:getDragonsListWithSkin()
+    local dragon_dictionary = self:getDragonsListRef()
+    local ret_dictionary = {}
+
+    for key,value in pairs(dragon_dictionary) do
+        local did = value['did']
+        local is_skin_exist = g_dragonSkinData:isDragonSkinExist(did)
+
+        if (is_skin_exist) then
+            ret_dictionary[key] = value
+        end
+    end
+
+    return ret_dictionary
+end
+
+-------------------------------------
+-- function getDragonsListWithSkin
+-- @brief 내 드래곤들이 장착한 스킨 확인
+-- @dhkim 23.02.17
+-------------------------------------
+function ServerData_Dragons:getCurrentDragonSkin()
+    local dragon_dictionary = self:getDragonsListWithSkin()
+    local ret_dictionary = {}
+
+    for key,value in pairs(dragon_dictionary) do
+        local did = value['did']
+        local is_skin_exist = g_dragonSkinData:isDragonSkinExist(did)
+
+        if (is_skin_exist) then
+            ret_dictionary[key] = value
+        end
+    end
+
+    return ret_dictionary
+end
+
+-------------------------------------
 -- function getDragonSkillMoveList
 -------------------------------------
 function ServerData_Dragons:getDragonSkillMoveList(tar_doid)
