@@ -312,8 +312,7 @@ function UI_GameResult_LeagueRaid:direction_showRunes()
     table_view.m_nItemPerCell = max_cnt_per_line
     table_view:setCellUIClass(UI_RuneCard, create_func)
     table_view:setItemList(l_item, true)
-    table_view.m_scrollView:setTouchEnabled(false)
-
+    --table_view.m_scrollView:setTouchEnabled(false)
     table_view:update(0)
 
     local ui_list = table_view.m_itemList
