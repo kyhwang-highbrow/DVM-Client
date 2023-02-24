@@ -513,6 +513,9 @@ T_LINK_FUNC = {
     ['rune_gacha'] = function () 
         UINavigator:goTo('rune_forge', 'gacha')
     end,
+    ['raid_play'] = function()
+        UINavigator:goTo('league_raid')
+    end,
 
     -- 바로가기 키를 띄우지 않을 것들
 	--[[
