@@ -50,8 +50,7 @@ end
 -- Patch server
 URL['PATCH_DEV'] = 'http://patch-12.perplelab.net/dv_test'
 URL['PATCH_QA'] = 'http://patch-12.perplelab.net/dv_test'
-URL['PATCH_LIVE'] = 'https://d21szaa8hsx6xd.cloudfront.net/dv_test'
-
+URL['PATCH_LIVE'] = 'http://s3.dvm.perplelab.com/dv_test'
 function GetPatchServer()
     local target_server = CppFunctions:getTargetServer()
     local key = 'PATCH_' .. target_server
