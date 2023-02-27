@@ -9,7 +9,8 @@ UI_DragonSkinManageInfo = class(PARENT,{
         m_skinTableView = 'UIC_TableView',
         m_selectedSkinData = 'StructDragonSkin',
 
-        m_evolution_lv = 'number',
+        m_evolutionLevel = 'number',
+        m_mapEvolutionBtnUI = 'map',
     })
 
 -------------------------------------
@@ -25,7 +26,8 @@ function UI_DragonSkinManageInfo:initParentVariable()
     self.m_titleStr = nil
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
     self.m_bShowInvenBtn = true
-    self.m_evolution_lv = 1
+    self.m_evolutionLevel = 1
+    self.m_mapEvolutionBtnUI = {}
 end
 
 -------------------------------------
@@ -112,7 +114,7 @@ function UI_DragonSkinManageInfo:initUI()
             local data = clone(self.m_selectDragonData)
             data['evolution'] = i
 
-            local card = UI_BookDragonCard(data)
+            local card = UI_SkinDragonCard(data)
             card.root:setSwallowTouch(false)
             card.root:setScale(0.8)
             node:addChild(card.root)
@@ -130,6 +132,8 @@ function UI_DragonSkinManageInfo:initUI()
             card.vars['clickBtn']:registerScriptTapHandler(function()
                 self:click_evolutionBtn(i)
             end)
+
+            self.m_mapEvolutionBtnUI[i] = card
             -- self.m_mapEvolutionBtnUI[i] = card
         end
     end
@@ -229,7 +233,7 @@ function UI_DragonSkinManageInfo:refresh()
             local data = clone(self.m_selectDragonData)
             data['evolution'] = i
 
-            local card = UI_BookDragonCard(data)
+            local card = UI_SkinDragonCard(data)
             card.root:setSwallowTouch(false)
             card.root:setScale(0.8)
             node:addChild(card.root)
@@ -247,7 +251,7 @@ function UI_DragonSkinManageInfo:refresh()
             card.vars['clickBtn']:registerScriptTapHandler(function()
                 self:click_evolutionBtn(i)
             end)
-            -- self.m_mapEvolutionBtnUI[i] = card
+            self.m_mapEvolutionBtnUI[i] = card
         end
     end
     -- spine 캐시 정리 확인
@@ -263,9 +267,9 @@ function UI_DragonSkinManageInfo:click_evolutionBtn(i)
     cclog('CLICK EVOLUTION BTN : ' .. i)
     do -- 드래곤 리소스
         -- -- 이미지
-        local res = self.m_selectedSkinData:getDragonRes()
-        self.m_evolution_lv = i
-        self.m_dragonAnimator:setDragonAnimatorRes(self.m_selectDragonData['did'], res, self.m_evolution_lv)
+        local res = self.m_selectedSkinData:getDragonSkinRes()
+        self.m_evolutionLevel = i
+        self.m_dragonAnimator:setDragonAnimatorRes(self.m_selectDragonData['did'], res, self.m_evolutionLevel)
     end
 end
 
@@ -363,8 +367,10 @@ function UI_DragonSkinManageInfo:click_skin(skin_data)
     self.m_selectedSkinData = skin_data
     -- self:refreshSkinData()
 
-    -- 드래곤 스킨 Res만 변경
+    -- 드래곤 스킨 Res 변경
     self:setDragonSkinRes(skin_data)
+    -- 좌측 드래곤 아이콘 이미지 변경
+    self:setDragonSkinIconRes(skin_data)
 end
 
 -------------------------------------
@@ -372,7 +378,7 @@ end
 -- @brief 스킨 선택
 -------------------------------------
 function UI_DragonSkinManageInfo:click_select_skin(skin_data)
-    self.m_selectDragonData = skin_data
+    self.m_selectedSkinData = skin_data
     -- local costume_id = skin_data:getCid()
     -- local tamer_id = skin_data:getTamerID()
     -- local has_tamer = self:_hasTamer(tamer_id)
@@ -485,8 +491,8 @@ function UI_DragonSkinManageInfo:checkDragonListRefresh()
 end
 
 -------------------------------------
--- function setTamerRes
--- @brief 테이머 SD
+-- function setDragonSkinRes
+-- @brief 드래곤 스킨 스파인 리소스 설정
 -------------------------------------
 function UI_DragonSkinManageInfo:setDragonSkinRes(skin_data)
 	local vars = self.vars
@@ -499,13 +505,13 @@ function UI_DragonSkinManageInfo:setDragonSkinRes(skin_data)
 
 	-- 드래곤 스킨
     local skin_data = skin_data or g_tamerCostumeData:getCostumeDataWithTamerID(target_id)
-    local res = skin_data:getDragonRes()
+    local res = skin_data:getDragonSkinRes()
 
 	-- local dragon_animator = MakeAnimator(res)
 	-- dragon_animator:setFlip(true)
 
     if (res) then
-        self.m_dragonAnimator:setDragonAnimatorRes(skin_data:getDid(), res, self.m_evolution_lv)
+        self.m_dragonAnimator:setDragonAnimatorRes(skin_data:getDid(), res, self.m_evolutionLevel)
         -- vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
     end
 
@@ -513,6 +519,35 @@ function UI_DragonSkinManageInfo:setDragonSkinRes(skin_data)
 
     local skin_name = skin_data:getName()
     vars['skinTitleLabel']:setString(skin_name)
+
+	-- -- 없는 테이머는 음영 처리
+	-- if (not self:_hasTamer(target_id)) then
+	-- 	dragon_animator:setColor(COLOR['gray'])
+	-- end
+end
+
+-------------------------------------
+-- function setTamerRes
+-- @brief 테이머 SD
+-------------------------------------
+function UI_DragonSkinManageInfo:setDragonSkinIconRes(skin_data)
+	local vars = self.vars
+    local table_skin = TableDragonSkin()
+    local target_id = skin_data and skin_data:getSkinID()
+	local t_skin = table_skin:get(target_id)
+    self.m_selectedSkinData = skin_data
+
+    for i=1,3 do
+        local res = skin_data:getDragonSkinIcon(i)
+        if (res) then
+            cclog('UI_DragonSkinManageInfo:setDragonSkinIconRes')
+            cclog(res)
+            self.m_mapEvolutionBtnUI[i].m_charSkinIconRes = res
+            self.m_mapEvolutionBtnUI[i]:refreshDragonInfo()
+            -- self.m_mapEvolutionBtnUI[i] = card
+        end
+    end
+
 
 	-- -- 없는 테이머는 음영 처리
 	-- if (not self:_hasTamer(target_id)) then

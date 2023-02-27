@@ -223,22 +223,21 @@ end
 -------------------------------------
 -- function getDragonIcon
 -------------------------------------
-function StructDragonSkin:getDragonIcon()
-    cclog(self.m_res_icon)
+function StructDragonSkin:getDragonSkinIcon(i)
+    local path = string.gsub(self.m_res_icon, '#', '0' .. i)
+    -- local image = cc.Sprite:create(path)
+    -- if (image) then
+    --     image:setDockPoint(CENTER_POINT)
+    --     image:setAnchorPoint(CENTER_POINT)
+    -- end
 
-    local image = cc.Sprite:create(self.m_res_icon)
-    if (image) then
-        image:setDockPoint(CENTER_POINT)
-        image:setAnchorPoint(CENTER_POINT)
-    end
-
-    return image
+    return path
 end
 
 -------------------------------------
 -- function getDragonRes
 -------------------------------------
-function StructDragonSkin:getDragonRes()
+function StructDragonSkin:getDragonSkinRes()
     return self.m_res
 end
 

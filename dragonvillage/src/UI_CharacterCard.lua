@@ -42,6 +42,7 @@ UI_CharacterCard = class(PARENT, {
         m_starIconRes = 'string',
         m_charFrameRes = 'string',
         m_charLevelNumber = 'number',
+        m_charSkinIconRes = 'string',
 
         m_tag = '',
     })
@@ -85,6 +86,12 @@ function UI_CharacterCard:refreshDragonInfo()
 
     -- 드래곤 아이콘
     self:makeDragonIcon()
+
+    -- 드래곤 스킨 아이콘
+    if self.m_charSkinIconRes then
+        cclog('self.m_charSkinIconRes exist')
+        self:makeDragonSkinIcon(self.m_charSkinIconRes)
+    end
 
     -- 카드 프레임
     self:makeFrame()
@@ -174,6 +181,15 @@ function UI_CharacterCard:makeDragonIcon()
     end
     self.m_charIconRes = res
     self:makeSprite('chaNode', res, true) -- (lua_name, res, no_use_frames)
+end
+
+-------------------------------------
+-- function makeDragonSkinIcon
+-- @brief 드래곤 스킨 아이콘 생성
+-------------------------------------
+function UI_CharacterCard:makeDragonSkinIcon(res_icon)
+    self.m_charSkinIconRes = res_icon
+    self:makeSprite('chaNode', res_icon, true) -- (lua_name, res, no_use_frames)
 end
 
 -------------------------------------
@@ -870,6 +886,28 @@ end
 -- @brief 도감 전용 카드
 -------------------------------------
 function UI_BookDragonCard(t_dragon)
+	local did = t_dragon['did']
+    local t_dragon_data = {}
+	t_dragon_data['did'] = did
+	t_dragon_data['evolution'] = t_dragon['evolution']
+	t_dragon_data['grade'] = t_dragon['grade']
+
+	local struct_data
+	if (TableSlime:isSlimeID(did)) then
+		t_dragon_data['slime_id'] = did
+		struct_data = StructSlimeObject(t_dragon_data)
+	else
+		struct_data = StructDragonObject(t_dragon_data)
+	end
+
+    return UI_DragonCard(struct_data)
+end
+
+------------------------------------
+-- function UI_SkinDragonCard
+-- @brief 스킨 전용 카드
+-------------------------------------
+function UI_SkinDragonCard(t_dragon, icon_res)
 	local did = t_dragon['did']
     local t_dragon_data = {}
 	t_dragon_data['did'] = did

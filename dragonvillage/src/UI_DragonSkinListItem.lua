@@ -33,7 +33,7 @@ function UI_DragonSkinListItem:initUI()
     vars['skinLabel']:setString(skin_data:getName())
 
     -- 이미지
-    local img = skin_data:getDragonRes()
+    local img = skin_data:getDragonSkinRes()
 
     if (img) then
         self.m_dragonAnimator = AnimatorHelper:makeDragonAnimator(img, 3)
