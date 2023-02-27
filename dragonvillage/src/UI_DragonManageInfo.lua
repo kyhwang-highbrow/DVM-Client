@@ -247,14 +247,15 @@ function UI_DragonManageInfo:refresh()
     vars['recallBtn']:setVisible(is_recall_target)
     
 
-    -- -- 스킨 버튼 표시
-    -- -- @dhkim 23.02.14 만약 해당 드래곤에 스킨이 없다면 스킨 버튼 비활성화
-    -- local struct_dragon_object = g_dragonsData:getDragonDataFromUidRef(doid)
-    -- if struct_dragon_object then
-    --     local did = struct_dragon_object:getDid()
-    --     local is_skin_Exist = g_dragonSkinData:isDragonSkinExist(did)
-    --     vars['skinBtn']:setVisible(is_skin_Exist)
-    -- end
+    -- 스킨 버튼 표시
+    -- @dhkim 23.02.14 만약 해당 드래곤에 스킨이 없다면 스킨 버튼 눌렀을 시 준비중이라는 메세지 토스트 팝업 노출
+    local struct_dragon_object = g_dragonsData:getDragonDataFromUidRef(doid)
+    if struct_dragon_object then
+        local did = struct_dragon_object:getDid()
+        local is_myth_dragon = struct_dragon_object:getRarity() == 'myth'
+        local is_skin_Exist = g_dragonSkinData:isDragonSkinExist(did)
+        vars['skinBtn']:setVisible(is_myth_dragon)
+    end
 
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -1081,6 +1082,8 @@ function UI_DragonManageInfo:click_skinBtn()
             end
         
             self.m_dragonSkinManageUI:setCloseCB(close_cb)
+        else
+            UIManager:toastNotificationRed(Str('해당 드래곤 스킨은 추후 업데이트 예정입니다.'))
         end
     end
 
