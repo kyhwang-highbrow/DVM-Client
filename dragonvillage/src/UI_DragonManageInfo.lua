@@ -247,14 +247,14 @@ function UI_DragonManageInfo:refresh()
     vars['recallBtn']:setVisible(is_recall_target)
     
 
-    -- 스킨 버튼 표시
-    -- @dhkim 23.02.14 만약 해당 드래곤에 스킨이 없다면 스킨 버튼 비활성화
-    local struct_dragon_object = g_dragonsData:getDragonDataFromUidRef(doid)
-    if struct_dragon_object then
-        local did = struct_dragon_object:getDid()
-        local is_skin_Exist = g_dragonSkinData:isDragonSkinExist(did)
-        vars['skinBtn']:setVisible(is_skin_Exist)
-    end
+    -- -- 스킨 버튼 표시
+    -- -- @dhkim 23.02.14 만약 해당 드래곤에 스킨이 없다면 스킨 버튼 비활성화
+    -- local struct_dragon_object = g_dragonsData:getDragonDataFromUidRef(doid)
+    -- if struct_dragon_object then
+    --     local did = struct_dragon_object:getDid()
+    --     local is_skin_Exist = g_dragonSkinData:isDragonSkinExist(did)
+    --     vars['skinBtn']:setVisible(is_skin_Exist)
+    -- end
 
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -1063,19 +1063,28 @@ end
 -- @brief 드래곤 스킨 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_skinBtn()
+
     local t_dragon_data = self.m_selectDragonData
+    if t_dragon_data then
+        local did = t_dragon_data:getDid()
+        local is_skin_Exist = g_dragonSkinData:isDragonSkinExist(did)
+        
+        if is_skin_Exist then
+            self.m_dragonSkinManageUI = UI_DragonSkinManageInfo(t_dragon_data)
 
-    self.m_dragonSkinManageUI = UI_DragonSkinManageInfo(t_dragon_data)
-
-    local function close_cb()
-        -- 테이블 아이템갱신
-        self:init_dragonTableView()
-
-        -- 정렬
-        self:apply_dragonSort_saveData()
+            local function close_cb()
+                -- 테이블 아이템갱신
+                self:init_dragonTableView()
+        
+                -- 정렬
+                self:apply_dragonSort_saveData()
+            end
+        
+            self.m_dragonSkinManageUI:setCloseCB(close_cb)
+        end
     end
 
-    self.m_dragonSkinManageUI:setCloseCB(close_cb)
+
 end
 
 -------------------------------------
