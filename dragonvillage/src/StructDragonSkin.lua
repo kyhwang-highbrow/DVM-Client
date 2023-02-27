@@ -9,6 +9,7 @@ StructDragonSkin = class({
         m_priority = 'number',
         m_name = 'string',
         m_desc = 'string',
+        m_attribute = 'string',
 
         m_res = 'string',
         m_res_icon = 'string',
@@ -47,6 +48,7 @@ function StructDragonSkin:applyTableData(data)
     replacement['t_name'] = 'm_name'
     replacement['sale_type'] = 'm_saleType'
     replacement['t_desc'] = 'm_desc'
+    replacement['attribute'] = 'm_attribute'
 
     replacement['res'] = 'm_res'
     replacement['res_icon'] = 'm_res_icon'
