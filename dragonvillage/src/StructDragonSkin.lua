@@ -83,7 +83,7 @@ function StructDragonSkin:isOpen()
         end
     end
 
-    return true
+    return false
 end
 
 -------------------------------------
@@ -91,21 +91,22 @@ end
 -- @brief 사용중인 코스튬인지
 -------------------------------------
 function StructDragonSkin:isUsed()
-    -- local tamer_map = g_tamerData.m_mTamerMap
-    local used_costume_id = 0
+    local dragon_skin_map = nil
+    local used_skin_id = 0
 
-    -- if (tamer_map[did]) then
-    --     used_costume_id =  tamer_map[tamer_id]['costume'] 
+    -- if dragon_skin_map ~= nil or (dragon_skin_map[did]) then
+    --     used_skin_id =  dragon_skin_map[tamer_id]['costume'] 
 
     -- -- 테이머 정보가 없다면 기본복장 사용중인걸로 처리
     -- else
-    --     used_costume_id = TableDragonSkin:getDefaultSkinID(did)
+    --     used_skin_id = TableDragonSkin:getDefaultSkinID(self.m_did)
     -- end 
+    used_skin_id = TableDragonSkin:getDefaultSkinID(self.m_did)
 
-    -- return (self.m_cid == used_costume_id)
+    cclog(used_skin_id)
+    cclog(self.m_skin_id == used_skin_id)
 
-    used_costume_id = TableDragonSkin:getDefaultSkinID(self.m_did)
-    return (self.m_skin_id == used_costume_id)
+    return (self.m_skin_id == used_skin_id)
 end
 
 -------------------------------------
@@ -195,7 +196,7 @@ end
 
 -------------------------------------
 -- function isTamerLock
--- @brief 해당 코스튬 테이머가 열려있는지
+-- @brief 해당 스킨 드래곤이 열려있는지
 -------------------------------------
 function StructDragonSkin:isDragonLock()
     -- local tamer_id = self:getTamerID()
@@ -208,7 +209,7 @@ function StructDragonSkin:isDragonLock()
 end
 
 -------------------------------------
--- function getTamerID
+-- function getSkinID
 -------------------------------------
 function StructDragonSkin:getSkinID()
     -- local dragon_idx = getDigit(self.m_did, 10, 2)
@@ -221,7 +222,7 @@ function StructDragonSkin:getSkinID()
 end
 
 -------------------------------------
--- function getDragonIcon
+-- function getDragonSkinIcon
 -------------------------------------
 function StructDragonSkin:getDragonSkinIcon(i)
     local path = string.gsub(self.m_res_icon, '#', '0' .. i)
@@ -235,7 +236,7 @@ function StructDragonSkin:getDragonSkinIcon(i)
 end
 
 -------------------------------------
--- function getDragonRes
+-- function getDragonSkinRes
 -------------------------------------
 function StructDragonSkin:getDragonSkinRes()
     return self.m_res
@@ -263,18 +264,18 @@ function StructDragonSkin:getPrice()
 end
 
 -------------------------------------
--- function isDefaultCostume
+-- function isDefaultSkin
 -- @brief 기본 복장인지 여부
 -------------------------------------
-function StructDragonSkin:isDefaultCostume()
+function StructDragonSkin:isDefaultSkin()
     if (not self.m_did) then
         return true
     end
 
     -- 1~10의자리 숫자가 개별 코스튬 아이디
-    local individual_costume_id = getDigit(self.m_did, 1, 2)
+    local individual_skin_id = getDigit(self.m_did, 1, 2)
     
-    if (individual_costume_id == 0) then
+    if (individual_skin_id == 0) then
         return true
     end
 
@@ -282,18 +283,9 @@ function StructDragonSkin:isDefaultCostume()
 end
 
 -------------------------------------
--- function isValorCostume
+-- function isPackageSkin
 -- @brief 용맹 코스튬인지 여부
 -------------------------------------
-function StructDragonSkin:isValorCostume()
-    return (self.m_saleType == 'valor')
+function StructDragonSkin:isPackageSkin()
+    return (self.m_saleType == 'package')
 end
-
--------------------------------------
--- function isTopazCostume
--- @brief 상품 세일 타입이 topaz인지 여부 ex) 겨울 여왕 코스튬
--------------------------------------
-function StructDragonSkin:isTopazCostume()
-    return (self.m_saleType == 'topaz')
-end
-

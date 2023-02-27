@@ -332,15 +332,15 @@ function UI_DragonSkinManageInfo:setDragonSkin()
             vars['skinTitleLabel']:setString(Str(ui.m_skinData:getName()))
         end)
 
-        -- -- 코스튬 구입하기
-        -- ui.vars['buyBtn']:registerScriptTapHandler(function()
-        --     self:click_buy_costume(ui.m_costumeData)
-        -- end)
+        -- 스킨 구입하기
+        ui.vars['buyBtn']:registerScriptTapHandler(function()
+            self:click_buy_skin(ui.m_skinData)
+        end)
 
-        --  -- 상점으로 이동
-        -- ui.vars['gotoBtn']:registerScriptTapHandler(function()
-        --     self:click_go_shop(ui.m_costumeData)
-        -- end)
+         -- 상점으로 이동
+        ui.vars['gotoBtn']:registerScriptTapHandler(function()
+            self:click_go_shop(ui.m_skinData)
+        end)
     end
 
      -- 상품 정보 주지 않는 코스튬은 리스트에서 제외(토파즈 부류만) 
@@ -505,7 +505,7 @@ function UI_DragonSkinManageInfo:setDragonSkinRes(skin_data)
 	-- vars['dragonNode']:removeAllChildren(true)
 
 	-- 드래곤 스킨
-    local skin_data = skin_data or g_tamerCostumeData:getCostumeDataWithTamerID(target_id)
+    -- local skin_data = skin_data or g_tamerCostumeData:getCostumeDataWithTamerID(target_id)
     local res = skin_data:getDragonSkinRes()
 
 	-- local dragon_animator = MakeAnimator(res)
@@ -528,8 +528,8 @@ function UI_DragonSkinManageInfo:setDragonSkinRes(skin_data)
 end
 
 -------------------------------------
--- function setTamerRes
--- @brief 테이머 SD
+-- function setDragonSkinIconRes
+-- @brief 드래곤 스킨 아이콘 변경
 -------------------------------------
 function UI_DragonSkinManageInfo:setDragonSkinIconRes(skin_data)
 	local vars = self.vars
@@ -541,19 +541,10 @@ function UI_DragonSkinManageInfo:setDragonSkinIconRes(skin_data)
     for i=1,3 do
         local res = skin_data:getDragonSkinIcon(i)
         if (res) then
-            cclog('UI_DragonSkinManageInfo:setDragonSkinIconRes')
-            cclog(res)
             self.m_mapEvolutionBtnUI[i].m_charSkinIconRes = res
             self.m_mapEvolutionBtnUI[i]:refreshDragonInfo()
-            -- self.m_mapEvolutionBtnUI[i] = card
         end
     end
-
-
-	-- -- 없는 테이머는 음영 처리
-	-- if (not self:_hasTamer(target_id)) then
-	-- 	dragon_animator:setColor(COLOR['gray'])
-	-- end
 end
 
 --@CHECK

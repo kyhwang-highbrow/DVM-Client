@@ -89,7 +89,6 @@ function UI_CharacterCard:refreshDragonInfo()
 
     -- 드래곤 스킨 아이콘
     if self.m_charSkinIconRes then
-        cclog('self.m_charSkinIconRes exist')
         self:makeDragonSkinIcon(self.m_charSkinIconRes)
     end
 

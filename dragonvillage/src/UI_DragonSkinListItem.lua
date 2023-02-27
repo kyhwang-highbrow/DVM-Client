@@ -45,8 +45,8 @@ function UI_DragonSkinListItem:initUI()
     end
     
     -- 생성시에는 사용중인 코스튬 선택처리
-    -- local is_used = costume_data:isUsed()
-    vars['selectSprite']:setVisible(false)
+    local is_used = skin_data:isUsed()
+    vars['selectSprite']:setVisible(is_used)
 
     vars['skinMenu']:setSwallowTouch(false)
 end
@@ -91,15 +91,15 @@ function UI_DragonSkinListItem:refresh()
         elseif (is_limit) then
             badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_period.png'))
 
-            --vars['limitNode']:setVisible(true)
-            --vars['limitLabel']:setString(msg_limit)
+            -- vars['limitNode']:setVisible(true)
+            -- vars['limitLabel']:setString(msg_limit)
             self:setPriceData()
 
         -- 판매종료
         elseif (is_end) then
             -- 용맹코스튬은 table_tamer_costume_info에서 판매일이 지정되지 않아 판매종료 판정이 났지만 
             -- 용맹 상점에서 구매 가능하기 때문에 판매종료 뱃지,버튼 적용x
-            if (not skin_data:isValorCostume()) then
+            if (not skin_data:isPackageSkin()) then
                 badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_finish.png'))
                 vars['finishBtn']:setVisible(true)
                 vars['finishBtn']:setEnabled(false)
@@ -110,18 +110,18 @@ function UI_DragonSkinListItem:refresh()
         end
 
         -- 판매 종료여부 상관없이 상품이 닫힌 상태면 바로가기 버튼 활성화 
-        if (skin_data:isValorCostume()) then
-            vars['gotoLabel']:setString(Str('용맹훈장 상점에서 구매'))
+        if (skin_data:isPackageSkin()) then
+            vars['gotoLabel']:setString(Str('패키지 상점에서 구매'))
             vars['gotoBtn']:setVisible(true)
             vars['gotoBtn']:setEnabled(true)
 
-        elseif (skin_data:isTopazCostume()) then
-            -- 상점에서 팔고 있다면 상점으로 이동/없다면 구매 불가
-            if (self:isInShop('topaz')) then
-                vars['gotoLabel']:setString(Str('토파즈 상점에서 구매'))
-                vars['gotoBtn']:setVisible(true)
-                vars['gotoBtn']:setEnabled(true)
-            end
+        -- elseif (skin_data:isTopazCostume()) then
+        --     -- 상점에서 팔고 있다면 상점으로 이동/없다면 구매 불가
+        --     if (self:isInShop('topaz')) then
+        --         vars['gotoLabel']:setString(Str('토파즈 상점에서 구매'))
+        --         vars['gotoBtn']:setVisible(true)
+        --         vars['gotoBtn']:setEnabled(true)
+        --     end
         end
     
     end
