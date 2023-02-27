@@ -75,7 +75,7 @@ function UI_DragonSkinListItem:refresh()
     local is_open = skin_data:isOpen()
     local badge_node = vars['badgeNode']
     badge_node:removeAllChildren()
-    
+
     local badge
     if (not is_open) then
         local is_sale, msg_sale = skin_data:isSale()
@@ -147,12 +147,12 @@ end
 -------------------------------------
 -- function setSelected
 -------------------------------------
-function UI_DragonSkinListItem:setSelected(sel_id)
+function UI_DragonSkinListItem:setSelected(selected_skin_id)
     local vars = self.vars
-    -- local costume_data = self.m_skinData
-    -- local cid = costume_data:getCid()
+    local skin_data = self.m_skinData
+    local skin_id = skin_data:getSkinID()
 
-    -- vars['selectSprite']:setVisible(cid == sel_id)
+    vars['selectSprite']:setVisible(skin_id == selected_skin_id)
 end
 
 -------------------------------------

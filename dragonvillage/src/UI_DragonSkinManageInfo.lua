@@ -317,15 +317,16 @@ function UI_DragonSkinManageInfo:setDragonSkin()
     local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
     self.m_selectedSkinData = l_struct_dragon_skin[1]
     vars['skinTitleLabel']:setString(Str(l_struct_dragon_skin[1]:getName()))
-    -- 코스튬 버튼
+    -- 스킨 버튼
     local function create_func(ui, data)
-        -- 코스튬 미리보기
+        -- 스킨 미리보기
         ui.vars['skinBtn']:registerScriptTapHandler(function()
             self:click_skin(ui.m_skinData)
+            ui.vars['selectSprite']:setVisible(true)
             vars['skinTitleLabel']:setString(Str(ui.m_skinData:getName()))
         end)
 
-        -- 코스튬 선택하기
+        -- 스킨 선택하기
         ui.vars['selectBtn']:registerScriptTapHandler(function()
             self:click_select_skin(ui.m_skinData)
             vars['skinTitleLabel']:setString(Str(ui.m_skinData:getName()))
@@ -365,7 +366,7 @@ function UI_DragonSkinManageInfo:click_skin(skin_data)
     -- end
 
     self.m_selectedSkinData = skin_data
-    -- self:refreshSkinData()
+    self:refreshSkinData()
 
     -- 드래곤 스킨 Res 변경
     self:setDragonSkinRes(skin_data)
@@ -414,11 +415,11 @@ end
 -- @brief 해당 테이머 코스튬 메뉴 갱신
 -------------------------------------
 function UI_DragonSkinManageInfo:refreshSkinData()
-    if (self.m_selectDragonData) then
+    if (self.m_selectedSkinData) then
         for _, v in pairs(self.m_skinTableView.m_itemList) do
             local ui = v['ui']
             if ui then
-                local skin_id = self.m_selectDragonData:getSkinID()
+                local skin_id = self.m_selectedSkinData:getSkinID()
                 ui:setSelected(skin_id)
                 ui:refresh()
             end
