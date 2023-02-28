@@ -322,7 +322,7 @@ function UI_DragonSkinManageInfo:setDragonSkin()
         -- 스킨 미리보기
         ui.vars['skinBtn']:registerScriptTapHandler(function()
             self:click_skin(ui.m_skinData)
-            ui.vars['selectSprite']:setVisible(true)
+            ui:setSelected(ui.m_skinData:getSkinID())
             vars['skinTitleLabel']:setString(Str(ui.m_skinData:getName()))
         end)
 

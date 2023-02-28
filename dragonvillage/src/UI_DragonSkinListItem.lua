@@ -134,14 +134,12 @@ function UI_DragonSkinListItem:refresh()
 
     -- 선택 버튼
     vars['selectBtn']:setVisible(not is_used and is_open)
-    -- vars['selectBtn']:setVisible(true)
+
     -- 사용 버튼
     vars['useBtn']:setVisible(is_used)
-    -- vars['useBtn']:setVisible(true)
 
-    -- 테이머 잠금이 아니라 오픈 여부로 변경
+    -- 스킨 잠금이 아니라 오픈 여부로 변경
     vars['lockSprite']:setVisible(not is_open)
-    -- vars['lockSprite']:setVisible(true)
 end
 
 -------------------------------------
@@ -181,11 +179,11 @@ end
 function UI_DragonSkinListItem:setPriceData(is_sale)
     -- local vars = self.vars
     -- local is_sale = is_sale or false
-    -- local costume_data = self.m_costumeData
+    -- local skin_data = self.m_skinData
 
     -- -- 가격 정보
-    -- local costume_id = costume_data:getCid()
-    -- local shop_info = g_tamerCostumeData:getShopInfo(costume_id)
+    -- local skin_id = skin_data:getSkinID()
+    -- local shop_info = g_dragonSkinData:getShopInfo(skin_id)
     -- local origin_price = shop_info['origin_price'] 
     -- local price = is_sale and shop_info['sale_price'] or shop_info['origin_price'] 
     -- local price_type = shop_info['price_type']
