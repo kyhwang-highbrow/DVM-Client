@@ -513,7 +513,15 @@ end
 -------------------------------------
 function UI_Setting:click_allCostumeBtn()
     local l_costume_list = {}
-    local table_stamina_info = TABLE:get('tamer_costume')
+
+    local table_dragon_skin_info = TABLE:get('table_dragon_skin_info')
+
+    if table_dragon_skin_info ~= nil then
+        cclog('우와 찾았따!!!!!!!!!!!!!!!!!!!!!')
+    end
+    
+
+--[[     local table_stamina_info = TABLE:get('tamer_costume')
     for k,v in pairs(table_stamina_info) do
         table.insert(l_costume_list, k)
     end
@@ -556,7 +564,7 @@ function UI_Setting:click_allCostumeBtn()
     
     MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?', function()
         Coroutine(coroutine_function)
-    end))
+    end)) ]]
 end
 
 -------------------------------------

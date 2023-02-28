@@ -126,6 +126,53 @@ function TableClass:filterList_condition(condition_func)
     return l_ret
 end
 
+
+-------------------------------------
+-- function CheckValidDateFromTableDataValue
+-- @brief 테이블에서 사용되는 날짜 문자열 방식과 현재 날짜와 비교하여 유효한지 확인, 유효하면 true 반환
+-- @parma date_min_str(str) '9999-12-31 23:59:59'
+-- @parma date_max_str(str) '9999-12-31 23:59:59'
+-------------------------------------
+function CheckValidDateFromTableDataValue(date_min_str, date_max_str)
+    local curr_timestamp = ServerTime:getInstance():getCurrentTimestampSeconds()
+
+    -- date_min_str 값이 있는 경우 현재 날짜와 비교해서 데이터 처리
+    if (date_min_str ~= nil) and (date_min_str ~= '') then
+        -- ex. 9999-12-31 23:59:59
+        local require_timestamp = ServerTime:getInstance():datestrToTimestampSec(date_min_str)
+        -- 날짜 조건에 해당되지 않을 때 데이터 제거 
+        if (require_timestamp > curr_timestamp) then 
+            return false
+        end
+    end
+
+    -- date_max_str 값이 있는 경우 현재 날짜와 비교해서 데이터 처리
+    if (date_max_str ~= nil) and (date_max_str ~= '') then
+        -- ex. 9999-12-31 23:59:59
+        local require_timestamp = ServerTime:getInstance():datestrToTimestampSec(date_max_str)
+        -- 날짜 조건에 해당되지 않을 때 데이터 제거 
+        if (require_timestamp < curr_timestamp) then 
+            return false
+        end
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function filterTable_conditionDate
+-- @brief 날짜 조건으로 현재 날짜와 비교해서 필터함
+-------------------------------------
+function TableClass:filterTable_conditionDate(min_column, max_column)
+    local function condition_func(v)
+        return CheckValidDateFromTableDataValue(v[min_column], v[max_column])
+    end
+    
+    local t_ret = self:filterTable_condition(condition_func)
+    return t_ret
+end
+
+
 -------------------------------------
 -- function getRandomRow
 -------------------------------------

@@ -11,6 +11,7 @@ StructProduct = class(PARENT, {
         t_desc = 'string',
         use_desc = 'number', -- '' or 1
 
+        product_type = 'string',
         price_type = 'string',
         price = 'number',
         price_dollar = 'number',
@@ -48,6 +49,7 @@ StructProduct = class(PARENT, {
         m_endDate = 'pl.Date',
         m_dependency = 'product_id',
         m_uiPriority = 'number',
+
 
         -- 차원문 상점
         medal = 'number', -- item id in table_item
@@ -1337,6 +1339,13 @@ end
 -------------------------------------
 function StructProduct:getPriceType()
 	return self['price_type']
+end
+
+-------------------------------------
+-- function getProductType
+-------------------------------------
+function StructProduct:getProductType()
+	return self['product_type']
 end
 
 -------------------------------------
