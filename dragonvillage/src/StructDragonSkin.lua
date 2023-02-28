@@ -284,7 +284,7 @@ end
 
 -------------------------------------
 -- function isPackageSkin
--- @brief 용맹 코스튬인지 여부
+-- @brief 패키지로 판매하는 코스튬인지 여부
 -------------------------------------
 function StructDragonSkin:isPackageSkin()
     return (self.m_saleType == 'package')

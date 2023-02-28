@@ -411,6 +411,20 @@ function UI_DragonSkinManageInfo:click_select_skin(skin_data)
 end
 
 -------------------------------------
+-- function click_buy_skin
+-- @brief 스킨 구매
+-------------------------------------
+function UI_DragonSkinManageInfo:click_buy_skin(skin_data)
+end
+
+-------------------------------------
+-- function click_go_shop
+-- @brief 패키지 상점으로 이동
+-------------------------------------
+function UI_DragonSkinManageInfo:click_go_shop(skin_data)
+end
+
+-------------------------------------
 -- function refreshCostumeData
 -- @brief 해당 테이머 코스튬 메뉴 갱신
 -------------------------------------
