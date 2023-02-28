@@ -11,7 +11,7 @@ local THIS = TableDragonSkinPackage
 -- function init
 -------------------------------------
 function TableDragonSkinPackage:init()
-    self.m_tableName = 'table_dragon_skin_info'
+    self.m_tableName = 'table_dragon_skin_sale'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 

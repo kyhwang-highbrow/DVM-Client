@@ -514,7 +514,7 @@ end
 function UI_Setting:click_allCostumeBtn()
     local l_costume_list = {}
 
-    local table_dragon_skin_info = TABLE:get('table_dragon_skin_info')
+    local table_dragon_skin_info = TABLE:get('table_dragon_skin_sale')
 
     if table_dragon_skin_info ~= nil then
         cclog('우와 찾았따!!!!!!!!!!!!!!!!!!!!!')

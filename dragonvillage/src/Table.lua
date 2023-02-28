@@ -242,7 +242,7 @@ local TableInfo_fromServer = {
         ['table_arena_new'] = {'table_arena_new', 'id'}, -- 콜로세움 개선 후 돌파 보상
         ['table_cross_promotion'] = {'table_cross_promotion', 'event_id'}, -- 콜로세움 개선 후 돌파 보상
         -- 드래곤 스킨 판매 정보
-        ['table_dragon_skin_info'] = {'table_dragon_skin_info', 'pid'},
+        ['table_dragon_skin_sale'] = {'table_dragon_skin_sale', 'pid'},
         -- 드래곤 획득 패키지
         ['table_get_dragon_package'] = {'table_get_dragon_package', 'product_id'},
     }
