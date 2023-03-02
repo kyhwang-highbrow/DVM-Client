@@ -65,12 +65,9 @@ end ]]
 function TableDragonSkinSale:makeDragonSkinSaleMap()
     local struct_dragon_skin_sale_map = {}
     local struct_product_list = g_shopDataNew:getProductList('dragon_skin')
-    cclog('struct_product_list',table.count(struct_product_list) )
 
     for _, struct_product in pairs(struct_product_list) do
         local is_skin_product, skin_id = struct_product:isDragonSkinProduct()
-        cclog('is_skin_product, skin_id',is_skin_product, skin_id )
-
         if is_skin_product == true then
             local struct_dragon_skin_sale = struct_dragon_skin_sale_map[skin_id]
             if struct_dragon_skin_sale == nil then

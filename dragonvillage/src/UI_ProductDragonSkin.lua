@@ -40,6 +40,14 @@ end
 function UI_ProductDragonSkin:refresh()
     local vars = self.vars
     PARENT.refresh(self)    
+
+--[[     local item_id = v['item_id']
+    local count = v['count']
+
+    local ui = UI_ItemCard(item_id, count)
+    ui.root:setSwallowTouch(false)
+    ui.root:setPositionX((i-1) * -150) ]]
+
     --vars['priceLabel']:setString(Str('구매하기'))
     vars['priceLabel']:setVisible(false)
     vars['priceNode']:removeAllChildren()

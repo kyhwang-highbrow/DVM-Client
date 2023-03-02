@@ -41,7 +41,7 @@ end
 function UI_DragonSkinSale:initUI()
     local l_dragon_skin_sale = TableDragonSkinSale:getInstance():getDragonSkinSaleMap(true) --
     --local l_dragon_skin_sale = g_shopDataNew:getProductList('dragon_skin')
-    cclog('l_dragon_skin_sale', table.count(l_dragon_skin_sale))
+    --cclog('l_dragon_skin_sale', table.count(l_dragon_skin_sale))
    
     local vars = self.vars
     local node = vars['listNode']
