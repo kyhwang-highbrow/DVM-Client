@@ -95,7 +95,6 @@ function ServerData_DragonSkin:makeStructSkinList(did)
     basic_data['did'] = did
     basic_data['ui_priority'] = 99
     basic_data['t_name'] = '기본 스킨'
-    basic_data['sale_type'] = ''
     basic_data['t_desc'] = ''
     basic_data['attribute'] = TableDragon:getValue(did, 'attr')
     basic_data['res'] = TableDragon:getValue(did, 'res')

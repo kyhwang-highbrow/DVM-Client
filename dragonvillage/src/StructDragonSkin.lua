@@ -3,32 +3,35 @@
 -- @instance
 -------------------------------------
 StructDragonSkin = class({
-        m_bStruct = 'boolean',
-        m_skin_id = 'number',
-        m_did = 'number',
-        m_priority = 'number',
-        m_name = 'string',
-        m_desc = 'string',
-        m_attribute = 'string',
+        bStruct = 'boolean',
+        skin_id = 'number',
+        did = 'number',
+        priority = 'number',
+        name = 'string',
+        desc = 'string',
+        attribute = 'string',
 
-        m_res = 'string',
-        m_res_icon = 'string',
+        res = 'string',
+        res_icon = 'string',
 
-        m_price = 'number',
-        m_price_type = 'number',
+        scale = 'number',
 
-        m_scale = 'number',
-        m_stat_bonus = 'table',
+        cash_price = 'number',
+        money_price = 'number',
+        sku = 'string',
 
-        m_bUsed = 'boolean',
-        m_saleType = 'string', -- package : 패키지 상점에서 구매
+        price_dollar = 'number',
+        xsolla_price_dollar = 'number',
+
+        bUsed = 'boolean',
+        saleType = 'string', -- package : 패키지 상점에서 구매
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function StructDragonSkin:init(data)
-    self.m_bStruct = true
+    self.bStruct = true
 
     if data then
         self:applyTableData(data)
@@ -42,22 +45,23 @@ end
 function StructDragonSkin:applyTableData(data)
     
     local replacement = {}
-    replacement['skin_id'] = 'm_skin_id'
-    replacement['did'] = 'm_did'
-    replacement['ui_priority'] = 'm_priority'
-    replacement['t_name'] = 'm_name'
-    replacement['sale_type'] = 'm_saleType'
-    replacement['t_desc'] = 'm_desc'
-    replacement['attribute'] = 'm_attribute'
+    replacement['skin_id'] = 'skin_id'
+    replacement['did'] = 'did'
+    replacement['ui_priority'] = 'priority'
+    replacement['t_name'] = 'name'
+    replacement['t_desc'] = 'desc'
+    replacement['attribute'] = 'attribute'
 
-    replacement['res'] = 'm_res'
-    replacement['res_icon'] = 'm_res_icon'
+    replacement['res'] = 'res'
+    replacement['res_icon'] = 'res_icon'
 
-    replacement['price'] = 'm_price'
-    replacement['price_type'] = 'm_price_type'
+    replacement['scale'] = 'scale'
+    replacement['cash_price'] = 'cash_price'
+    replacement['money_price'] = 'money_price'
+    replacement['sku'] = 'sku'
+    replacement['price_dollar'] = 'price_dollar'
+    replacement['xsolla_price_dollar'] = 'xsolla_price_dollar'
 
-    replacement['scale'] = 'm_scale'
-    replacement['stat_bonus'] = 'm_stat_bonus'
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
         self[key] = v
@@ -70,14 +74,14 @@ end
 -------------------------------------
 function StructDragonSkin:isOpen()
     -- 기본 스킨은 오픈 상태
-    if (self.m_skin_id%10 == 0) then
+    if (self.skin_id%10 == 0) then
         return true
 
     -- 유료 스킨은 구매리스트와 비교하여 오픈 상태인지 판단
     else
         -- local open_list = g_userData.m_openList
         -- for _, skin_id in ipairs(open_list) do
-        --     if (self.m_skin_id == skin_id) then
+        --     if (self.skin_id == skin_id) then
         --         return true
         --     end
         -- end
@@ -99,11 +103,11 @@ function StructDragonSkin:isUsed()
 
     -- -- 테이머 정보가 없다면 기본복장 사용중인걸로 처리
     -- else
-    --     used_skin_id = TableDragonSkin:getDefaultSkinID(self.m_did)
+    --     used_skin_id = TableDragonSkin:getDefaultSkinID(self.did)
     -- end 
-    used_skin_id = TableDragonSkin:getDefaultSkinID(self.m_did)
+    used_skin_id = TableDragonSkin:getDefaultSkinID(self.did)
 
-    return (self.m_skin_id == used_skin_id)
+    return (self.skin_id == used_skin_id)
 end
 
 -------------------------------------
@@ -198,41 +202,41 @@ end
 function StructDragonSkin:isDragonLock()
     -- local tamer_id = self:getTamerID()
     -- 기본 코스튬은 테이머 열려있지 않아도 잠금처리 안함
-    if (self.m_skin_id == TableDragonSkin:getDefaultSkinID(self.m_did)) then
+    if (self.skin_id == TableDragonSkin:getDefaultSkinID(self.did)) then
         return false
     end
 
-    return not g_dragonsData:has(self.m_did)
+    return not g_dragonsData:has(self.did)
 end
 
 -------------------------------------
 -- function getSkinID
 -------------------------------------
 function StructDragonSkin:getSkinID()
-    -- local dragon_idx = getDigit(self.m_did, 10, 2)
+    -- local dragon_idx = getDigit(self.did, 10, 2)
     -- local dragon_id = tonumber(string.format('1100%02d', dragon_idx))
 	-- if (not tamer_id) then
 	-- 	tamer_id = self.m_serverData:getRef('user', 'tamer')
 	-- end
 
-    return self.m_skin_id
+    return self.skin_id
 end
 
 -------------------------------------
 -- function getSkinAttribute
 -------------------------------------
 function StructDragonSkin:getSkinAttribute()
-    return self.m_attribute
+    return self.attribute
 end
 
 -------------------------------------
 -- function getDragonSkinIcon
 -------------------------------------
 function StructDragonSkin:getDragonSkinIcon(i)
-    local path = string.gsub(self.m_res_icon, '#', '0' .. i)
+    local path = string.gsub(self.res_icon, '#', '0' .. i)
 
     if string.find(path, '@') then
-        path = string.gsub(path, '@', self.m_attribute)
+        path = string.gsub(path, '@', self.attribute)
     end
     -- local image = cc.Sprite:create(path)
     -- if (image) then
@@ -247,10 +251,10 @@ end
 -- function getDragonSkinRes
 -------------------------------------
 function StructDragonSkin:getDragonSkinRes()
-    local res = self.m_res
+    local res = self.res
 
     if string.find(res, '@') then
-        res = string.gsub(res, '@', self.m_attribute)
+        res = string.gsub(res, '@', self.attribute)
     end
 
     return res
@@ -260,14 +264,14 @@ end
 -- function getCid
 -------------------------------------
 function StructDragonSkin:getDid()
-    return self.m_did
+    return self.did
 end
 
 -------------------------------------
 -- function getName
 -------------------------------------
 function StructDragonSkin:getName()
-    return Str(self.m_name)
+    return Str(self.name)
 end
 
 -------------------------------------
@@ -282,24 +286,16 @@ end
 -- @brief 기본 복장인지 여부
 -------------------------------------
 function StructDragonSkin:isDefaultSkin()
-    if (not self.m_did) then
+    if (not self.did) then
         return true
     end
 
     -- 1~10의자리 숫자가 개별 코스튬 아이디
-    local individual_skin_id = getDigit(self.m_did, 1, 2)
+    local individual_skin_id = getDigit(self.did, 1, 2)
     
     if (individual_skin_id == 0) then
         return true
     end
 
     return false
-end
-
--------------------------------------
--- function isPackageSkin
--- @brief 패키지로 판매하는 코스튬인지 여부
--------------------------------------
-function StructDragonSkin:isPackageSkin()
-    return (self.m_saleType == 'package')
 end

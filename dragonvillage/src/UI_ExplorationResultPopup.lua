@@ -114,11 +114,11 @@ function UI_ExplorationResultPopup:initUI()
             local grade = user_data['grade']
 		    local attr = table_data['attr']
 
-            local animaotr = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
-            animaotr.m_node:setDockPoint(cc.p(0.5, 0.5))
-            animaotr.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-            --animaotr.m_node:setScale(0.5)
-            vars['dragonNode' .. i]:addChild(animaotr.m_node)
+            local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+            animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+            animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+            --animator.m_node:setScale(0.5)
+            vars['dragonNode' .. i]:addChild(animator.m_node)
 
             local lv_label      = vars['lvLabel' .. i]
             local exp_label     = vars['expLabel' .. i]
@@ -129,8 +129,8 @@ function UI_ExplorationResultPopup:initUI()
 
             -- 최초 레벨업 시 포즈
             levelup_director.m_cbFirstLevelup = function()
-                animaotr:changeAni('pose_1', false)
-                animaotr:addAniHandler(function() animaotr:changeAni('idle', true) end)
+                animator:changeAni('pose_1', false)
+                animator:addAniHandler(function() animator:changeAni('idle', true) end)
             end
 
             local t_levelup_data = v['levelup_data']

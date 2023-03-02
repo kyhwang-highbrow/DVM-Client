@@ -92,7 +92,7 @@ end
 -- function setDragonAnimator
 -- @dhkim 23.02.17 - 드래곤 리소스 호출을 통해 스킨을 연출해야 됨
 -------------------------------------
-function UIC_DragonAnimator:setDragonAnimatorRes(did, res_name, evolution, flv)
+function UIC_DragonAnimator:setDragonAnimatorRes(did, res_name, skin_attribute, evolution, flv)
     self.m_friendshipLv = flv or 0
     
     -- if (self.m_did == did) and (self.m_evolution == evolution) then
@@ -112,10 +112,10 @@ function UIC_DragonAnimator:setDragonAnimatorRes(did, res_name, evolution, flv)
     end
     
     -- local res_name = t_dragon['res']
-    local attr = t_dragon['attr']
+    -- local attr = t_dragon['attr']
 
     self.vars['dragonNode']:removeAllChildren()
-    self.m_animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+    self.m_animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, skin_attribute)
     self.vars['dragonNode']:addChild(self.m_animator.m_node)
     
     -- 자코 몹들은 1.5배로 키워서 출력!

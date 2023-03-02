@@ -527,7 +527,7 @@ function UI_DragonSkinManageInfo:setDragonSkinRes(skin_data)
 	-- 드래곤 스킨
     -- local skin_data = skin_data or g_tamerCostumeData:getCostumeDataWithTamerID(target_id)
     local res = skin_data:getDragonSkinRes()
-    local attr = self.m_selectedSkinData:getSkinAttribute()
+    local attr = skin_data:getSkinAttribute()
 	-- local dragon_animator = MakeAnimator(res)
 	-- dragon_animator:setFlip(true)
 
