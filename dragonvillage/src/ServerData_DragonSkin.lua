@@ -21,7 +21,7 @@ function ServerData_DragonSkin:init(server_data)
 end
 
 -------------------------------------
--- function getCostumeID
+-- function getSkinID
 -- @brief 코스튬 ID 반환
 -------------------------------------
 function ServerData_DragonSkin:getSkinID(did)
@@ -76,8 +76,18 @@ function ServerData_DragonSkin:isDragonSkinExist(doid)
     return false
 end
 
-function ServerData_DragonSkin:getDragonList()
-
+-------------------------------------
+-- function isDragonSkinOpened
+-- @brief 해당 스킨을 보유 중인지 확인
+-------------------------------------
+function ServerData_DragonSkin:isDragonSkinOpened(skin_id)
+    for _,v in pairs(self.m_openList) do
+        if v == skin_id then
+            return true
+        end
+    end
+    
+    return false
 end
 
 -------------------------------------
