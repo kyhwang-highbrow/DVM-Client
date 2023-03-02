@@ -75,15 +75,15 @@ function StructDragonSkin:isOpen()
 
     -- 유료 스킨은 구매리스트와 비교하여 오픈 상태인지 판단
     else
-        local open_list = g_dragonSkinData.m_openList
-        for _, skin_id in ipairs(open_list) do
-            if (self.m_skin_id == skin_id) then
-                return true
-            end
-        end
+        -- local open_list = g_userData.m_openList
+        -- for _, skin_id in ipairs(open_list) do
+        --     if (self.m_skin_id == skin_id) then
+        --         return true
+        --     end
+        -- end
     end
 
-    return true
+    return false
 end
 
 -------------------------------------
@@ -248,7 +248,7 @@ function StructDragonSkin:getDragonSkinRes()
     if string.find(res, '@') then
         res = string.gsub(res, '@', self.m_attribute)
     end
-    
+
     return res
 end
 
