@@ -5,7 +5,6 @@ StructDragonSkinSale = class({
     skin_id = 'number',
     money_product_list = 'List<StructProduct>',
     cash_product_list = 'List<StructProduct>',
-    is_price_sorted = 'boolean'
 })
 
 local THIS = StructDragonSkinSale
@@ -29,7 +28,6 @@ end
 -------------------------------------
 function StructDragonSkinSale:init(skin_id)
     self.skin_id = skin_id
-    self.is_price_sorted = false
 end
 
 -------------------------------------
@@ -62,14 +60,31 @@ function StructDragonSkinSale:isDragonSkinOwned()
 end
 
 -------------------------------------
--- function isDragonSkinSaleOnSale
+-- function getDragonSkinProductOriginalPriceStr
+-- @brief 할인가 표기를 위한 원가 가격 스트링
 -------------------------------------
-function StructDragonSkinSale:isDragonSkinSaleOnSale()
-    local struct_product = self:getDragonSkinProduct('money')
-    if struct_product:getProductBadge() == 'sale' then
-        return true        
+function StructDragonSkinSale:getDragonSkinProductOriginalPriceStr(price_type)
+    local skin_id = self:getDragonSkinSaleSkinId()
+    local t_data = {
+        ['sku'] = '' ,
+        ['price'] = '',
+        ['price_dollar'] = '',
+        ['xsolla_price_dollar'] = '',
+    }
+
+    for key_name, _ in pairs(t_data) do
+        if key_name == 'price' then
+            local str = string.format('%s_price', price_type)
+            t_data[key_name] = TableDragonSkin:getDragonSkinValue(str, skin_id)
+        else
+            t_data[key_name] = TableDragonSkin:getDragonSkinValue(key_name, skin_id)
+        end
     end
-    return false
+
+    t_data['price_type'] = price_type
+    local struct_product = StructProduct()
+    struct_product:applyTableData(t_data)
+    return struct_product:getPriceStr(), struct_product:getPrice()
 end
 
 -------------------------------------
@@ -121,7 +136,6 @@ function StructDragonSkinSale:checkDragonSkinPurchaseValidation()
 
     return true
 end
-
 
 -------------------------------------
 -- function getUIPriority

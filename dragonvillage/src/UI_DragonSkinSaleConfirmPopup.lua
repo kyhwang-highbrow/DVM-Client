@@ -34,7 +34,7 @@ function UI_DragonSkinSaleConfirmPopup:initUI()
     local vars = self.vars
     local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct('money')
     local struct_product_cash = self.m_structDragonSkinSale:getDragonSkinProduct('cash')
-    local is_sale = struct_product:getProductBadge() == 'sale'
+    
 
 	-- 상품 이름
 	local product_name = Str(struct_product['t_name'])
@@ -52,35 +52,46 @@ function UI_DragonSkinSaleConfirmPopup:initUI()
 
     do -- 현금 결제
         local price = struct_product:getPriceStr()
+        local sale_str, origin_price = self.m_structDragonSkinSale:getDragonSkinProductOriginalPriceStr('money')
+        local percent = (origin_price - struct_product:getPrice()) * 100/origin_price
+        local is_sale = percent > 0
+
 		vars['priceLabel']:setString(price)
         vars['money1PriceLabel']:setString(price)
-        vars['money2PriceLabel']:setString(price)
+        vars['money2PriceLabel']:setString(sale_str)
+
+        if is_sale == true then
+            vars['saleLabel']:setStringArg(string.format('%0.f',percent))
+        end
+
+        vars['saleSprite']:setVisible(is_sale)
+        vars['promotionSprite']:setVisible(is_sale)
     end
 
     do -- 다이아 결제
 		local icon = struct_product_cash:makePriceIcon()
 		local price_node = vars['diaNode']
 		if (icon) then
+            price_node:removeAllChildren()
 			price_node:addChild(icon)
-		else
-			price_node:setScale(0)
 		end
 
 		-- 가격
         local str = struct_product_cash:getPriceStr()
+        local sale_str, origin_price = self.m_structDragonSkinSale:getDragonSkinProductOriginalPriceStr('cash')
+        local percent = (origin_price - struct_product_cash:getPrice()) * 100/origin_price
+        local is_sale = percent > 0
+
         vars['diaLabel']:setString(str)
         vars['cash1PriceLabel']:setString(str)
-        vars['cash2PriceLabel']:setString(str)
-    end
-
-    do -- 할인 표시
-        vars['saleSprite']:setVisible(is_sale)
-        vars['diaPromotionSprite']:setVisible(is_sale)
-        vars['promotionSprite']:setVisible(is_sale)
+        vars['cash2PriceLabel']:setString(sale_str)
 
         if is_sale == true then
-            vars['saleLabel']:setStringArg(0)
+            vars['diaSaleLabel']:setStringArg(string.format('%0.f',percent))
         end
+
+        vars['diaSaleSprite']:setVisible(is_sale)
+        vars['diaPromotionSprite']:setVisible(is_sale)
     end
 end
 

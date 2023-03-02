@@ -24,7 +24,7 @@ function TableDragonSkin:getDragonSkinIdList()
     if (self == THIS) then
         self = THIS()
     end
-    
+
     return self:getTableKeyList()
 end
 
@@ -80,5 +80,17 @@ function TableDragonSkin:getDragonResIcon(did)
     end
 
     return image
+end
+
+
+-------------------------------------
+-- function getDragonSkinValue
+-------------------------------------
+function TableDragonSkin:getDragonSkinValue(col_name, skin_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(skin_id, col_name)
 end
 
