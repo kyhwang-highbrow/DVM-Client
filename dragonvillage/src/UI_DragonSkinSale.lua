@@ -45,8 +45,8 @@ function UI_DragonSkinSale:initUI()
     -- 테이블 뷰 인스턴스 생성
     local item_per_cell = 3
     local interval = 2
-    local cell_width = 250
-    local cell_height = 288
+    local cell_width = 300
+    local cell_height = 290
 
     require('UI_ProductDragonSkin')
     local function make_func(dragon_skin_sale)
