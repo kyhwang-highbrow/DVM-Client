@@ -6,7 +6,7 @@ local PARENT = UI
 -------------------------------------
 UI_DragonSkinSale = class(PARENT,{
     m_eventId = 'string',
-    m_tableView = 'UIC_TableView',
+    m_tableViewTD = 'UIC_TableView',
     m_cbBuy = 'function'
 })
 
@@ -39,7 +39,37 @@ end
 -- function initUI
 -------------------------------------
 function UI_DragonSkinSale:initUI()
+    local vars = self.vars
+    local node = vars['listNode']
+    node:removeAllChildren()
+    -- 테이블 뷰 인스턴스 생성
+    local item_per_cell = 3
+    local interval = 2
+    local cell_width = 250
+    local cell_height = 288
 
+    require('UI_ProductDragonSkin')
+    local function make_func(dragon_skin_sale)
+        --local struct_product = dragon_skin_sale:getDragonSkinProduct('money')
+        local ui = UI_ProductDragonSkin(dragon_skin_sale)
+        return ui
+    end
+
+    local function create_func(ui, data)
+        ui.vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn(data) end)
+    end
+
+    local table_view_td = UIC_TableViewTD(node)
+    table_view_td.m_cellSize = cc.size((cell_width + interval), (cell_height + interval))
+    table_view_td:setCellUIClass(make_func, create_func)
+    table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view_td.m_nItemPerCell = item_per_cell
+    table_view_td:setItemList({})
+
+
+
+    
+    self.m_tableViewTD = table_view_td
 end
 
 -------------------------------------
@@ -56,52 +86,23 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonSkinSale:refresh()
-    local l_dragon_skin_sale = TableDragonSkinSale:getInstance():getDragonSkinSaleMap(true) --
-    --local l_dragon_skin_sale = g_shopDataNew:getProductList('dragon_skin')
-    --cclog('l_dragon_skin_sale', table.count(l_dragon_skin_sale))
-   
-    local vars = self.vars
-    local node = vars['listNode']
-    node:removeAllChildren()
-
-    require('UI_ProductDragonSkin')
-    local function make_func(dragon_skin_sale)
-        --local struct_product = dragon_skin_sale:getDragonSkinProduct('money')
-        local ui = UI_ProductDragonSkin(dragon_skin_sale)
-        return ui
-    end
-
-    local function create_func(ui, data)
-        ui.vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn(data) end)
-    end
-
-    -- 테이블 뷰 인스턴스 생성
-    local item_per_cell = 3
-    local interval = 2
-    local cell_width = 250
-    local cell_height = 288
-
-    local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size((cell_width + interval), (cell_height + interval))
-    table_view_td:setCellUIClass(make_func, create_func)
-    table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view_td.m_nItemPerCell = item_per_cell
-    table_view_td:setItemList(l_dragon_skin_sale)
-
+    local l_dragon_skin_sale = TableDragonSkinSale:getInstance():getDragonSkinSaleMap(true)
+    -- 리스트 머지 (조건에 맞는 항목만 노출)
+    self.m_tableViewTD:mergeItemList(l_dragon_skin_sale)
+    -- 정렬
     -- ui_priority로 정렬
     local function sort_func(a, b)
         local a_data = a['data']
         local b_data = b['data']
 
-        -- table_supply의 ui_priority로 정렬
-        local a_match = a_data['ui_priority'] or 0
-        local b_match = b_data['ui_priority'] or 0
+        local a_match = a_data:getUIPriority()
+        local b_match = b_data:getUIPriority()
 
-        return a_match < b_match
+        return a_match > b_match
     end
 
-    --table.sort(table_view.m_itemList, sort_func)
-    self.m_tableView = table_view_td
+    table.sort(self.m_tableViewTD.m_itemList, sort_func)
+    self.m_tableViewTD:setDirtyItemList()
 end
 
 -------------------------------

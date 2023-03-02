@@ -49,6 +49,7 @@ end
 function UI_ProductDragonSkin:refresh()
     local vars = self.vars
     local struct_product = self.m_structProduct
+    local item_id = self.m_structSkinSale:getDragonSkinSaleSkinId()
 
     do
         vars['eventSprite']:setVisible(false)
@@ -56,9 +57,6 @@ function UI_ProductDragonSkin:refresh()
         vars['maxBuyTermLabel']:setVisible(false)
         vars['dscLabel']:setVisible(false)
     end
-
-    --local t_item =  {['item_id'] = self.m_structSkinSale:getDragonSkinSaleSkinId(), ['count'] = 1}
-    local item_id = self.m_structSkinSale:getDragonSkinSaleSkinId()
 
     -- 스킨 이름
     do
@@ -78,13 +76,18 @@ function UI_ProductDragonSkin:refresh()
 
     do -- 버튼 처리
         local is_skin_owned = self.m_structSkinSale:isDragonSkinOwned()
-        vars['buyBtn']:setEnabled(not is_skin_owned)
+        local is_valid_purchase =  self.m_structSkinSale:checkDragonSkinPurchaseValidation()
         vars['priceNode']:removeAllChildren()
 
         if is_skin_owned == true then
             vars['priceLabel']:setString(Str('보유 중'))
+            vars['buyBtn']:setEnabled(false)
+        elseif is_valid_purchase == false then
+            vars['priceLabel']:setString(Str('구매 불가'))
+            vars['buyBtn']:setEnabled(false)
         else
             vars['priceLabel']:setString(Str('구매하기'))
+            vars['buyBtn']:setEnabled(true)
         end
     end
 

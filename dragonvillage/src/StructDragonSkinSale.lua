@@ -121,3 +121,21 @@ function StructDragonSkinSale:checkDragonSkinPurchaseValidation()
 
     return true
 end
+
+
+-------------------------------------
+-- function getUIPriority
+-------------------------------------
+function StructDragonSkinSale:getUIPriority()
+    local order = 1
+
+    if self:isDragonSkinOwned() == false then
+        order = order + 100
+    end
+
+    if self:checkDragonSkinPurchaseValidation() == true then
+        order = order + 10
+    end
+
+    return order
+end

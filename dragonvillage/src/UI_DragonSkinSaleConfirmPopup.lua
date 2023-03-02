@@ -95,11 +95,11 @@ function UI_DragonSkinSaleConfirmPopup:initButton()
 	end
 
     if vars['diaBtn'] ~= nil then
-        vars['diaBtn']:registerScriptTapHandler(function() self:click_diaBtn() end)
+        vars['diaBtn']:registerScriptTapHandler(function() self:click_purchaseBtn('cash') end)
     end
 
     if vars['purchaseBtn'] ~= nil then
-        vars['purchaseBtn']:registerScriptTapHandler(function() self:click_purchaseBtn() end)
+        vars['purchaseBtn']:registerScriptTapHandler(function() self:click_purchaseBtn('money') end)
     end
 end
 
@@ -110,32 +110,16 @@ function UI_DragonSkinSaleConfirmPopup:refresh()
 end
 
 -------------------------------------
--- function click_diaBtn
--------------------------------------
-function UI_DragonSkinSaleConfirmPopup:click_diaBtn()
-    local success_cb = function (ret)
-        if self.m_finishCB ~= nil then
-            self.m_finishCB()
-        end
-    end
-
---[[     local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct('cash')
-    if struct_product ~= nil then
-        struct_product:buy(nil)
-    end ]]
-end
-
--------------------------------------
 -- function click_purchaseBtn
 -------------------------------------
-function UI_DragonSkinSaleConfirmPopup:click_purchaseBtn()
+function UI_DragonSkinSaleConfirmPopup:click_purchaseBtn(price_type)
     local success_cb = function (ret)
         if self.m_finishCB ~= nil then
             self.m_finishCB()
         end
     end
 
---[[     local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct('money')
+--[[     local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct(price_type)
     if struct_product ~= nil then    
         struct_product:buy(nil)
     end ]]
