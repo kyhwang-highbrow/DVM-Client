@@ -297,7 +297,6 @@ local t_module = {
     'TimeLib',
     'Table',
     'TableClass',
-    'TableDragonSkinSale',
     'SecurityNumber',
     'ResPreloadMgr',
     'NumberLabel',
