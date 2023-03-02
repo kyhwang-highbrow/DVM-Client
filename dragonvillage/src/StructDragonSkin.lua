@@ -230,6 +230,10 @@ end
 -------------------------------------
 function StructDragonSkin:getDragonSkinIcon(i)
     local path = string.gsub(self.m_res_icon, '#', '0' .. i)
+
+    if string.find(path, '@') then
+        path = string.gsub(path, '@', self.m_attribute)
+    end
     -- local image = cc.Sprite:create(path)
     -- if (image) then
     --     image:setDockPoint(CENTER_POINT)
