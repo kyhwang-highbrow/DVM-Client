@@ -50,6 +50,8 @@ function UI_ProductDragonSkin:refresh()
     local vars = self.vars
     local struct_product = self.m_structProduct
     local item_id = self.m_structSkinSale:getDragonSkinSaleSkinId()
+    local is_skin_owned = self.m_structSkinSale:isDragonSkinOwned()
+    local is_valid_purchase =  self.m_structSkinSale:checkDragonSkinPurchaseValidation()
 
     do
         vars['eventSprite']:setVisible(false)
@@ -75,15 +77,12 @@ function UI_ProductDragonSkin:refresh()
     end
 
     do -- 버튼 처리
-        local is_skin_owned = self.m_structSkinSale:isDragonSkinOwned()
-        local is_valid_purchase =  self.m_structSkinSale:checkDragonSkinPurchaseValidation()
         vars['priceNode']:removeAllChildren()
-
         if is_skin_owned == true then
             vars['priceLabel']:setString(Str('보유 중'))
             vars['buyBtn']:setEnabled(false)
         elseif is_valid_purchase == false then
-            vars['priceLabel']:setString(Str('구매 불가'))
+            vars['priceLabel']:setString(Str('{@red}구매 불가{@}'))
             vars['buyBtn']:setEnabled(false)
         else
             vars['priceLabel']:setString(Str('구매하기'))
@@ -91,7 +90,7 @@ function UI_ProductDragonSkin:refresh()
         end
     end
 
-    do -- 판매할 경우 정보 처리
+    if is_skin_owned == false and is_valid_purchase == true then -- 판매할 경우 정보 처리
         self:refreshProduct(struct_product)
     end
     

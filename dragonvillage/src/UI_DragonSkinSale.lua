@@ -59,16 +59,28 @@ function UI_DragonSkinSale:initUI()
         ui.vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn(data) end)
     end
 
+    -- ui_priority로 정렬
+    local function sort_func(a, b)
+        local a_data = a['data']
+        local b_data = b['data']
+
+        local a_match = a_data:getUIPriority()
+        local b_match = b_data:getUIPriority()
+
+        if a_match == b_match then
+            return a_data:getDragonSkinSaleSkinId() <  b_data:getDragonSkinSaleSkinId()
+        end
+
+        return a_match > b_match
+    end
+
     local table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = cc.size((cell_width + interval), (cell_height + interval))
     table_view_td:setCellUIClass(make_func, create_func)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view_td:insertSortInfo('default', sort_func)
     table_view_td.m_nItemPerCell = item_per_cell
     table_view_td:setItemList({})
-
-
-
-    
     self.m_tableViewTD = table_view_td
 end
 
@@ -89,20 +101,7 @@ function UI_DragonSkinSale:refresh()
     local l_dragon_skin_sale = g_dragonSkinData:getDragonSkinSaleMap(true)
     -- 리스트 머지 (조건에 맞는 항목만 노출)
     self.m_tableViewTD:mergeItemList(l_dragon_skin_sale)
-    -- 정렬
-    -- ui_priority로 정렬
-    local function sort_func(a, b)
-        local a_data = a['data']
-        local b_data = b['data']
-
-        local a_match = a_data:getUIPriority()
-        local b_match = b_data:getUIPriority()
-
-        return a_match > b_match
-    end
-
-    table.sort(self.m_tableViewTD.m_itemList, sort_func)
-    self.m_tableViewTD:setDirtyItemList()
+    self.m_tableViewTD:sortTableView('default')
 end
 
 -------------------------------
@@ -112,7 +111,7 @@ function UI_DragonSkinSale:click_buyBtn(struct_dragon_skin_sale)
     local did = struct_dragon_skin_sale:getDragonSkinDId()
     local ret = g_dragonsData:getDragonsByDid(did)
 
-    if table.count(ret) == 0 then
+    if g_dragonsData:getNumOfDragonsByDid(did) == 0 then
         local msg = Str('현재 보유 중인 드래곤이 없습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return

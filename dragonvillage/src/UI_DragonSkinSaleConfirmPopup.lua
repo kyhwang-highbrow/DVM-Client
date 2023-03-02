@@ -127,8 +127,11 @@ function UI_DragonSkinSaleConfirmPopup:click_purchaseBtn(price_type)
     local success_cb = function (ret)
         if self.m_finishCB ~= nil then
             self.m_finishCB()
+            self:close()
         end
     end
+
+    success_cb()
 
 --[[     local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct(price_type)
     if struct_product ~= nil then    
