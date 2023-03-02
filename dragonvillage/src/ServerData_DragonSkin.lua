@@ -100,10 +100,12 @@ function ServerData_DragonSkin:makeStructSkinList(did)
     basic_data['attribute'] = TableDragon:getValue(did, 'attr')
     basic_data['res'] = TableDragon:getValue(did, 'res')
     basic_data['res_icon'] = TableDragon:getValue(did, 'icon')
-    basic_data['price'] = 0
-    basic_data['price_type'] = 0
-    basic_data['scale'] = 0
-    basic_data['stat_bonus'] = 0
+    basic_data['scale'] = 1
+    basic_data['cash_price'] = 0
+    basic_data['money_price'] = 0
+    basic_data['sku'] = ''
+    basic_data['price_dollar'] = 0
+    basic_data['xsolla_price_dollar'] = 0
 
     local struct_basic_skin = StructDragonSkin(basic_data)
 
