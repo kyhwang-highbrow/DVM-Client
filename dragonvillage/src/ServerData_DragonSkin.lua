@@ -6,6 +6,7 @@ ServerData_DragonSkin = class({
     m_shopInfo = 'map',
     m_saleInfo = 'map',
     m_bDirtyCostumeInfo = 'bool', -- 코스튬 구매로 인해 갱신이 필요한지 여부
+    m_skinPackageMap = 'Map',
 })
 
 -------------------------------------
