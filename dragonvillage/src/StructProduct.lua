@@ -443,7 +443,7 @@ function StructProduct:isDragonSkinProduct()
     end 
 
     local item_type = TableItem:getItemTypeFromItemID(item_id)
-    if item_type == 'skin' then
+    if item_type == 'dragon_skin' then
         return false
     end
 
