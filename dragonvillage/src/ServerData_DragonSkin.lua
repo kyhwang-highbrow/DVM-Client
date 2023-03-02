@@ -2,12 +2,11 @@
 -- class ServerData_DragonSkin
 -------------------------------------
 ServerData_DragonSkin = class({
-        m_serverData = 'ServerData',
-        m_shopInfo = 'map',
-        m_openList = 'list',
-        m_saleInfo = 'map',
-        m_bDirtyCostumeInfo = 'bool', -- 코스튬 구매로 인해 갱신이 필요한지 여부
-    })
+    m_serverData = 'ServerData',
+    m_shopInfo = 'map',
+    m_saleInfo = 'map',
+    m_bDirtyCostumeInfo = 'bool', -- 코스튬 구매로 인해 갱신이 필요한지 여부
+})
 
 -------------------------------------
 -- function init
@@ -15,7 +14,6 @@ ServerData_DragonSkin = class({
 function ServerData_DragonSkin:init(server_data)
     self.m_serverData = server_data
     self.m_shopInfo = {}
-    self.m_openList = {}
     self.m_saleInfo = {}
     self.m_bDirtyCostumeInfo = false
 end
@@ -73,20 +71,6 @@ function ServerData_DragonSkin:isDragonSkinExist(doid)
         return true
     end
 
-    return false
-end
-
--------------------------------------
--- function isDragonSkinOpened
--- @brief 해당 스킨을 보유 중인지 확인
--------------------------------------
-function ServerData_DragonSkin:isDragonSkinOpened(skin_id)
-    for _,v in pairs(self.m_openList) do
-        if v == skin_id then
-            return true
-        end
-    end
-    
     return false
 end
 
@@ -152,14 +136,6 @@ function ServerData_DragonSkin:getShopInfo(costume_id)
     end
 
     return nil
-end
-
--------------------------------------
--- function applyTamersCostume
--------------------------------------
-function ServerData_DragonSkin:applyTamersCostume(l_tamers_costume_id_list)
-    assert(l_tamers_costume_id_list, 'tamer costume id list is nil')
-    self.m_openList = l_tamers_costume_id_list
 end
 
 -------------------------------------

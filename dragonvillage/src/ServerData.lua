@@ -666,6 +666,8 @@ function ServerData:networkCommonRespone(ret)
         self:applyServerData(ret['quest_info'], 'quest_info')
     end
 
+
+
     -- 자동 재화 줍기 갱신
     if (ret['auto_item_pick']) then
         g_autoItemPickData:applyAutoItemPickData(ret['auto_item_pick'])
@@ -674,6 +676,11 @@ function ServerData:networkCommonRespone(ret)
     -- 코스튬 획득 정보 갱신
     if (ret['tamers_costume']) then
         g_tamerCostumeData:applyTamersCostume(ret['tamers_costume'])
+    end
+
+    -- 드래곤 스킨 리스트 갱신
+    if (ret['skin_list']) then
+        self:applyServerData(ret['skin_list'], 'skin_list')
     end
 
     -- UI 하일라이트 정보 갱신

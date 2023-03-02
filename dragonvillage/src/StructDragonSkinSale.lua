@@ -56,7 +56,16 @@ end
 -------------------------------------
 function StructDragonSkinSale:isDragonSkinOwned()
     local skin_id = self:getDragonSkinSaleSkinId()
-    return g_dragonSkinData:isDragonSkinOpened(skin_id)
+    return g_userData:isDragonSkinOpened(skin_id)
+end
+
+-------------------------------------
+-- function getDragonSkinDId
+-------------------------------------
+function StructDragonSkinSale:getDragonSkinDId()
+    local skin_id = self:getDragonSkinSaleSkinId()
+    local did = TableDragonSkin:getDragonSkinValue('did', skin_id)
+    return did
 end
 
 -------------------------------------

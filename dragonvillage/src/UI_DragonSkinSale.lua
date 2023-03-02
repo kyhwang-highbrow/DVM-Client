@@ -109,6 +109,15 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_DragonSkinSale:click_buyBtn(struct_dragon_skin_sale)
+    local did = struct_dragon_skin_sale:getDragonSkinDId()
+    local ret = g_dragonsData:getDragonsByDid(did)
+
+    if table.count(ret) == 0 then
+        local msg = Str('현재 보유 중인 드래곤이 없습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+
     require('UI_DragonSkinSaleConfirmPopup')
     UI_DragonSkinSaleConfirmPopup.open(struct_dragon_skin_sale, function() self:refresh() end)
 end
