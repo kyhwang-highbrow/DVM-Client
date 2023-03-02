@@ -113,8 +113,7 @@ function StructPackageBundle:convertPidsToStructProducts()
 
 	-- 카테고리 별로 등록된 pid 리스트
 	for _, product_id in pairs(pid_list) do
-		local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
-    
+		local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))   
 		-- pid에 해당하는 상품이 있고, 그것이 패키지 상품인 경우
 		if struct_product and (struct_product:getTabCategory() == 'package') then
 			-- TODO (YJK_210622) : isItBuyable으로 체크할지 말지 table_shop_list에서 상품별로 체크하도록
@@ -135,7 +134,15 @@ function StructPackageBundle:convertPidsToStructProducts()
 				table.insert(result, struct_product)
 			end
 		end
-	end	
+	end
+
+	-- 스킨 임의로 추가
+	if self:getProductName() == 'package_dragon_skin' then
+		local l_product = g_shopDataNew:getProductList('dragon_skin')
+		for _, struct_product in pairs(l_product) do
+			table.insert(result, struct_product)
+		end
+	end
 
 	-- 카테고리에 포함된 상품이 하나라도 있으면
 	if (not table.isEmpty(result)) then
@@ -179,11 +186,10 @@ function StructPackageBundle:setTargetUI(parent_node, buy_callback, is_refresh_d
 
 	for index, struct_product in pairs(self.m_structProductList) do
 		local ui
-
 		-- 구형 방식 : PackageManager에서 패키지마다 해당하는 UI class를 if문으로 찾아 리턴하는 방식
-		if (ui_type == '') or (ui_type == 'bundle')  then
+		if (ui_type == '') or (ui_type == 'bundle') then
 			local package_name = TablePackageBundle:getPackageNameWithPid(struct_product['product_id'])
-			ui = PackageManager:getTargetUI(package_name, false)
+			ui = PackageManager:getTargetUI(package_name or self:getProductName(), false)
 		else
 			-- UI_Package 가 아닌 별도의 파일을 쓰는지 체크
 			local package_class = struct_product['package_class']
@@ -308,7 +314,7 @@ end
 -- function getProductIdList
 ----------------------------------------------------------------------
 function StructPackageBundle:getProductList()
-	return self.m_structProductList
+	return self.m_structProductList or {}
 end
 
 ----------------------------------------------------------------------

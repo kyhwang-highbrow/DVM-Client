@@ -162,6 +162,7 @@ local t_module = {
     'StructBattlePassInfo',
     'StructDragonPkgData',
     'StructRecall',
+    'StructDragonSkinSale',
 
 	-- ServerData
     'ServerData',
@@ -296,6 +297,7 @@ local t_module = {
     'TimeLib',
     'Table',
     'TableClass',
+    'TableDragonSkinSale',
     'SecurityNumber',
     'ResPreloadMgr',
     'NumberLabel',

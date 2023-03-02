@@ -414,6 +414,42 @@ function StructProduct:needRenewAfterBuy()
     --]]
 end
 
+
+-------------------------------------
+-- function getItemList
+-------------------------------------
+function StructProduct:getItemList()
+    local l_item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
+	if (not l_item_list) or (not l_item_list[1]) then
+		l_item_list = ServerData_Item:parsePackageItemStr(self['mail_content'])
+	end
+    return l_item_list
+end
+
+-------------------------------------
+-- function isDragonSkinProduct
+-- @brief 오직 드래곤 스킨 1개만 파는 전용 상품이냐?
+-------------------------------------
+function StructProduct:isDragonSkinProduct()
+    local l_item_list = self:getItemList()
+    if #l_item_list ~= 1 then
+        return false
+    end
+
+    local item_id = l_item_list[1].item_id
+    local item_count = l_item_list[1].count
+    if item_count ~= 1 then
+        return false
+    end 
+
+    local item_type = TableItem:getItemTypeFromItemID(item_id)
+    if item_type == 'skin' then
+        return false
+    end
+
+    return true, item_id
+end
+
 -------------------------------------
 -- function getFirstItemNameWithCount
 -------------------------------------

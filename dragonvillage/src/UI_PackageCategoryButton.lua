@@ -160,12 +160,11 @@ function UI_PackageCategoryButton:createTableView()
     if not container then 
         return
     end
+
     container:removeAllChildren()
 
     -- struct_package
     self.m_data:setTargetUI(container, function() self:refresh() end, true)
-
-
     local ui_list = container:getChildren()
 
     local product_num = #product_list

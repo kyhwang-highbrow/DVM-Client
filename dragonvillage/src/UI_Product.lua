@@ -47,7 +47,9 @@ function UI_Product:initUI()
 			icon:setScale(0.8)
 			icon:setPositionY(-20)
 		end
-		vars['itemNode']:addChild(icon)
+        if vars['itemNode'] ~= nil then
+		    vars['itemNode']:addChild(icon)
+        end
 	end
 
 	-- 예외처리
@@ -83,8 +85,7 @@ function UI_Product:initUI()
         if (is_sale_price_written == false) then
             vars['priceLabel']:setString(struct_product:getPriceStr())
         end
-
-
+        
 		-- 가격 아이콘 및 라벨, 배경 조정
 		UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
 	end

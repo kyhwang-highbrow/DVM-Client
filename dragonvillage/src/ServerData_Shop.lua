@@ -39,6 +39,7 @@ function ServerData_Shop:init(server_data)
     self.m_dicProduct['skillslime'] = {}
     self.m_dicProduct['etc'] = {}
     self.m_dicProduct['pass'] = {}
+    self.m_dicProduct['dragon_skin'] = {}
     self.m_dicBuyCnt = {}
     self.m_dicMarketPrice = {}
     self.m_dicStructMarketProduct = {}
@@ -67,7 +68,6 @@ function ServerData_Shop:insertProduct(struct_product)
 
     table.insert(self.m_dicProduct[tab_category], struct_product)
 end
-
 
 -------------------------------------
 -- function getProductList
@@ -240,8 +240,6 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
 
         if t_product then
             local struct_product = StructProduct(t_product)
-           
-
             struct_product:setTabCategory(tab_category)
             struct_product:setStartDate(start_date) -- 판매 시작 시간
             struct_product:setEndDate(end_date) -- 판매 종료 시간
@@ -278,7 +276,6 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
             else
                 self:insertProduct(struct_product)
             end
-
         end
     end
 
@@ -1523,11 +1520,8 @@ function ServerData_Shop:getActivatedPackageList(is_pass_included)
     -- csv 파일의 하단에 오는 상품이 제일 위에 노출되도록 reverse order
     for index = #packages, 1, -1 do
         local struct_product_group = StructPackageBundle(packages[index], is_pass_included)
-        
         local is_buyable = struct_product_group:isBuyable()
-
         local t_name = struct_product_group['t_name']
-        
         local product_list = struct_product_group:getProductList()
 
         local isNotPeriodPackage = function()
@@ -1546,7 +1540,7 @@ function ServerData_Shop:getActivatedPackageList(is_pass_included)
             g_settingData:setPackageSetting(isNotPeriodPackage(), t_name)
         end
  
-        if is_buyable then
+        if is_buyable == true then
             table.insert(package_list, struct_product_group)
         else
             g_settingData:setPackageSetting(false, t_name)

@@ -99,12 +99,8 @@ function UI_ShopPackageScene:createButtonTableView(package_name)
     table_view:setCellSizeToNodeSize()
     table_view:setGapBtwCells(3)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-
-
-
+    
     self:setTableView(table_view, package_name)
-
-
     self.m_tableView = table_view
 end
 

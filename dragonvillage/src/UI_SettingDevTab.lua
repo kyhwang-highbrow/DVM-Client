@@ -516,11 +516,7 @@ function UI_Setting:click_allCostumeBtn()
 
     local table_dragon_skin_info = TABLE:get('table_dragon_skin_sale')
 
-    if table_dragon_skin_info ~= nil then
-        cclog('우와 찾았따!!!!!!!!!!!!!!!!!!!!!')
-    end
     
-
 --[[     local table_stamina_info = TABLE:get('tamer_costume')
     for k,v in pairs(table_stamina_info) do
         table.insert(l_costume_list, k)

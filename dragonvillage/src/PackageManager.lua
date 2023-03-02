@@ -264,6 +264,11 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         require('UI_SupplyDepot')
         target_ui = UI_SupplyDepot(_package_name, is_popup)
 
+    -- 드래곤 스킨 판매
+    elseif (_package_name == 'package_dragon_skin') then
+        require('UI_DragonSkinSale')
+        target_ui = UI_DragonSkinSale(_package_name, is_popup)
+
     elseif (string.find(_package_name, 'winter_festival')) then
         target_ui = self:makeOfferPopup(_package_name, is_popup, is_full_popup)
 
