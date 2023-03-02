@@ -762,6 +762,14 @@ function StructProduct:getPriceStr()
 end
 
 -------------------------------------
+-- function getProductBadge
+-------------------------------------
+function StructProduct:getProductBadge()
+    local badge = self['badge']
+    return badge
+end
+
+-------------------------------------
 -- function makeBadgeIcon
 -------------------------------------
 function StructProduct:makeBadgeIcon()

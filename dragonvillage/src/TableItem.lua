@@ -129,7 +129,15 @@ for i,v in pairs(ITEM_ID_MAP) do
     ITEM_TYPE_MAP[v] = i
 end
 
-
+-------------------------------------
+-- function getInstance
+-------------------------------------
+function TableItem:getInstance()
+    if (self == THIS) then
+        self = THIS()
+    end
+    return self
+end
 
 -------------------------------------
 -- function getItemIDFromItemType

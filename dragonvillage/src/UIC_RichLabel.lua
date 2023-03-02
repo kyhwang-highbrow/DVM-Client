@@ -786,6 +786,14 @@ function UIC_RichLabel:makeClickReaction(node, org_color)
 end
 
 -------------------------------------
+-- function setStringArg
+-- @brief 처음 생성될 때의 라벨 텍스트의 값에 Str 함수를 취해서 처리
+-------------------------------------
+function UIC_RichLabel:setStringArg(...)
+    self:setString(Str(self.m_originString, ...))
+end
+
+-------------------------------------
 -- function UIC_RichLabel_Sample
 -------------------------------------
 function UIC_RichLabel_Sample(parent_node)
@@ -823,3 +831,4 @@ function UIC_RichLabel_Sample(parent_node)
     -- m_node맴버 변수를 addChild
     parent_node:addChild(rich_label.m_node)
 end
+

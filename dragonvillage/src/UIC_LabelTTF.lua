@@ -470,3 +470,11 @@ function UIC_LabelTTF:isOutOfBound(str)
 
     return false
 end
+
+-------------------------------------
+-- function setStringArg
+-- @brief 처음 생성될 때의 라벨 텍스트의 값에 Str 함수를 취해서 처리
+-------------------------------------
+function UIC_LabelTTF:setStringArg(...)
+    self:setString(Str(self.m_originString, ...))
+end

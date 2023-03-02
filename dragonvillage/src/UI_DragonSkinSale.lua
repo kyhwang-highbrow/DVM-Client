@@ -39,18 +39,35 @@ end
 -- function initUI
 -------------------------------------
 function UI_DragonSkinSale:initUI()
+
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_DragonSkinSale:initButton()
+    local vars = self.vars
+    if vars['closeBtn'] then
+        vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    end
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_DragonSkinSale:refresh()
     local l_dragon_skin_sale = TableDragonSkinSale:getInstance():getDragonSkinSaleMap(true) --
     --local l_dragon_skin_sale = g_shopDataNew:getProductList('dragon_skin')
     --cclog('l_dragon_skin_sale', table.count(l_dragon_skin_sale))
    
     local vars = self.vars
     local node = vars['listNode']
+    node:removeAllChildren()
 
     require('UI_ProductDragonSkin')
     local function make_func(dragon_skin_sale)
-        local struct_product = dragon_skin_sale:getDragonSkinProduct('money')
-        local ui = UI_ProductDragonSkin(struct_product)
-        ui.m_structSkinSale = dragon_skin_sale
+        --local struct_product = dragon_skin_sale:getDragonSkinProduct('money')
+        local ui = UI_ProductDragonSkin(dragon_skin_sale)
         return ui
     end
 
@@ -87,28 +104,12 @@ function UI_DragonSkinSale:initUI()
     self.m_tableView = table_view_td
 end
 
--------------------------------------
--- function initButton
--------------------------------------
-function UI_DragonSkinSale:initButton()
-    local vars = self.vars
-    if vars['closeBtn'] then
-        vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-    end
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_DragonSkinSale:refresh()
-end
-
 -------------------------------
 -- function click_buyBtn
 -------------------------------------
 function UI_DragonSkinSale:click_buyBtn(struct_dragon_skin_sale)
     require('UI_DragonSkinSaleConfirmPopup')
-    UI_DragonSkinSaleConfirmPopup.open(struct_dragon_skin_sale)
+    UI_DragonSkinSaleConfirmPopup.open(struct_dragon_skin_sale, function() self:refresh() end)
 end
 
 -------------------------------------

@@ -136,7 +136,7 @@ function ServerData_DragonSkin:makeStructSkinList(did)
 
     local l_struct_skin = {}
     for k, v in ipairs(skin_list) do
-        table.insert(l_struct_skin, StructDragonSkin(v)) 
+        table.insert(l_struct_skin, StructDragonSkin(v))
     end
 
     return l_struct_skin

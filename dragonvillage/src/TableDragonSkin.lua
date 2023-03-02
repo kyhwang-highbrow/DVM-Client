@@ -16,6 +16,19 @@ function TableDragonSkin:init()
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
+
+-------------------------------------
+-- function getDragonSkinIdList
+-------------------------------------
+function TableDragonSkin:getDragonSkinIdList()
+    if (self == THIS) then
+        self = THIS()
+    end
+    
+    return self:getTableKeyList()
+end
+
+
 -------------------------------------
 -- function getDefaultSkinID
 -- @brief 드래곤의 기본 스킨 ID

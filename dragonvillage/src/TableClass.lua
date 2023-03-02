@@ -244,6 +244,20 @@ function TableClass:seperate(str, divider, trim_execution)
 end
 
 -------------------------------------
+-- function getTableKeyList
+-- @brief 테이블의 키 리스트
+-------------------------------------
+function TableClass:getTableKeyList()
+    local t_ret_list = {}
+
+    for key,_ in pairs(self.m_orgTable) do
+        table.insert(t_ret_list, key)
+    end
+    
+    return t_ret_list
+end
+
+-------------------------------------
 -- function cloneOrgTable
 -------------------------------------
 function TableClass:cloneOrgTable()
