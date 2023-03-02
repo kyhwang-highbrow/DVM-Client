@@ -87,6 +87,27 @@ function ServerData_DragonSkin:makeStructSkinList(did)
     end)
 
     local l_struct_skin = {}
+
+    -- @dhkim 23.03.02 항상 스킨 리스트 첫번째엔 기본 스킨이 포함되야 한다
+    local basic_data = {}
+    basic_data['skin_id'] = 0
+    basic_data['did'] = did
+    basic_data['ui_priority'] = 99
+    basic_data['t_name'] = '기본 스킨'
+    basic_data['sale_type'] = ''
+    basic_data['t_desc'] = ''
+    basic_data['attribute'] = TableDragon:getValue(did, 'attr')
+    basic_data['res'] = TableDragon:getValue(did, 'res')
+    basic_data['res_icon'] = TableDragon:getValue(did, 'icon')
+    basic_data['price'] = 0
+    basic_data['price_type'] = 0
+    basic_data['scale'] = 0
+    basic_data['stat_bonus'] = 0
+
+    local struct_basic_skin = StructDragonSkin(basic_data)
+
+    table.insert(l_struct_skin, struct_basic_skin)
+
     for k, v in ipairs(skin_list) do
         table.insert(l_struct_skin, StructDragonSkin(v))
     end

@@ -21,7 +21,7 @@ StructDragonSkin = class({
         m_stat_bonus = 'table',
 
         m_bUsed = 'boolean',
-        m_saleType = 'string', -- valor : 용맹훈장 상점에서 구매
+        m_saleType = 'string', -- package : 패키지 상점에서 구매
     })
 
 -------------------------------------
@@ -66,14 +66,14 @@ end
 
 -------------------------------------
 -- function isOpen
--- @brief 열려있는 코스튬인지
+-- @brief 열려있는 스킨인지
 -------------------------------------
 function StructDragonSkin:isOpen()
-    -- 기본 코스튬은 오픈 상태
+    -- 기본 스킨은 오픈 상태
     if (self.m_skin_id%10 == 0) then
         return true
 
-    -- 유료 코스튬은 구매리스트와 비교하여 오픈 상태인지 판단
+    -- 유료 스킨은 구매리스트와 비교하여 오픈 상태인지 판단
     else
         local open_list = g_dragonSkinData.m_openList
         for _, skin_id in ipairs(open_list) do
@@ -83,7 +83,7 @@ function StructDragonSkin:isOpen()
         end
     end
 
-    return false
+    return true
 end
 
 -------------------------------------
@@ -102,9 +102,6 @@ function StructDragonSkin:isUsed()
     --     used_skin_id = TableDragonSkin:getDefaultSkinID(self.m_did)
     -- end 
     used_skin_id = TableDragonSkin:getDefaultSkinID(self.m_did)
-
-    cclog(used_skin_id)
-    cclog(self.m_skin_id == used_skin_id)
 
     return (self.m_skin_id == used_skin_id)
 end
@@ -195,8 +192,8 @@ function StructDragonSkin:isBuyable()
 end
 
 -------------------------------------
--- function isTamerLock
--- @brief 해당 스킨 드래곤이 열려있는지
+-- function isDragonLock
+-- @brief 해당 스킨의 드래곤을 보유중인지
 -------------------------------------
 function StructDragonSkin:isDragonLock()
     -- local tamer_id = self:getTamerID()
@@ -222,6 +219,13 @@ function StructDragonSkin:getSkinID()
 end
 
 -------------------------------------
+-- function getSkinAttribute
+-------------------------------------
+function StructDragonSkin:getSkinAttribute()
+    return self.m_attribute
+end
+
+-------------------------------------
 -- function getDragonSkinIcon
 -------------------------------------
 function StructDragonSkin:getDragonSkinIcon(i)
@@ -239,7 +243,13 @@ end
 -- function getDragonSkinRes
 -------------------------------------
 function StructDragonSkin:getDragonSkinRes()
-    return self.m_res
+    local res = self.m_res
+
+    if string.find(res, '@') then
+        res = string.gsub(res, '@', self.m_attribute)
+    end
+    
+    return res
 end
 
 -------------------------------------

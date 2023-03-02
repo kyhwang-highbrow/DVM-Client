@@ -763,16 +763,28 @@ end
 
 -------------------------------------
 -- function getIngameRes
--- @breif
+-- @breif 로비의 리더 드래곤일시 따라다니는 드래곤 리소스 호출
 -------------------------------------
 function StructDragonObject:getIngameRes()
     local table_dragon = TableDragon()
     local t_dragon = table_dragon:get(self['did'])
     -- 외형 변환 적용
     local transform = self['transform']
-    local evolution = transform and transform or self:getEvolution()
-    local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
-    return res
+    if self['did'] == 121854 then 
+        cclog('SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN SKIN ')
+        local evolution = transform and transform or self:getEvolution()
+        local skin_list = g_dragonSkinData:makeStructSkinList(self['did'])
+        local skin_res = skin_list[1]:getDragonSkinRes()
+        local skin_attribute = skin_list[1]:getSkinAttribute()
+        cclog(skin_res)
+        cclog(skin_attribute)
+        local res = AnimatorHelper:getDragonResName(skin_res, evolution, skin_attribute)
+        return res
+    else
+        local evolution = transform and transform or self:getEvolution()
+        local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
+        return res
+    end
 end
 
 -------------------------------------

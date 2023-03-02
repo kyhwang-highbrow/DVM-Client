@@ -105,6 +105,8 @@ function UI_DragonSkinManageInfo:initUI()
     vars['evolutionLabel3']:setString(Str("성룡"))
 
     local did = self.m_selectDragonData['did']
+    local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
+    self.m_selectedSkinData = l_struct_dragon_skin[1]
     local dragon_name = TableDragon:getDragonName(did)
     vars['dragonNameLabel']:setString(Str(dragon_name))
 
@@ -268,8 +270,12 @@ function UI_DragonSkinManageInfo:click_evolutionBtn(i)
     do -- 드래곤 리소스
         -- -- 이미지
         local res = self.m_selectedSkinData:getDragonSkinRes()
+        local attr = self.m_selectedSkinData:getSkinAttribute()
         self.m_evolutionLevel = i
-        self.m_dragonAnimator:setDragonAnimatorRes(self.m_selectDragonData['did'], res, self.m_evolutionLevel)
+
+        cclog(res)
+
+        self.m_dragonAnimator:setDragonAnimatorRes(self.m_selectDragonData['did'], res, attr, self.m_evolutionLevel)
     end
 end
 
@@ -315,7 +321,7 @@ function UI_DragonSkinManageInfo:setDragonSkin()
     node:removeAllChildren()
 
     local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
-    self.m_selectedSkinData = l_struct_dragon_skin[1]
+    -- self.m_selectedSkinData = l_struct_dragon_skin[1]
     vars['skinTitleLabel']:setString(Str(l_struct_dragon_skin[1]:getName()))
     -- 스킨 버튼
     local function create_func(ui, data)
@@ -521,12 +527,12 @@ function UI_DragonSkinManageInfo:setDragonSkinRes(skin_data)
 	-- 드래곤 스킨
     -- local skin_data = skin_data or g_tamerCostumeData:getCostumeDataWithTamerID(target_id)
     local res = skin_data:getDragonSkinRes()
-
+    local attr = self.m_selectedSkinData:getSkinAttribute()
 	-- local dragon_animator = MakeAnimator(res)
 	-- dragon_animator:setFlip(true)
 
     if (res) then
-        self.m_dragonAnimator:setDragonAnimatorRes(skin_data:getDid(), res, self.m_evolutionLevel)
+        self.m_dragonAnimator:setDragonAnimatorRes(skin_data:getDid(), res, attr, self.m_evolutionLevel)
         -- vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
     end
 
