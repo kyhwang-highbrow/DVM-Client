@@ -86,7 +86,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonSkinSale:refresh()
-    local l_dragon_skin_sale = TableDragonSkinSale:getInstance():getDragonSkinSaleMap(true)
+    local l_dragon_skin_sale = g_dragonSkinData:getDragonSkinSaleMap(true)
     -- 리스트 머지 (조건에 맞는 항목만 노출)
     self.m_tableViewTD:mergeItemList(l_dragon_skin_sale)
     -- 정렬

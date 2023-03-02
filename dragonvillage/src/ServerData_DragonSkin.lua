@@ -107,6 +107,46 @@ function ServerData_DragonSkin:getShopInfo(costume_id)
 end
 
 -------------------------------------
+-- function makeDragonSkinSaleMap
+-------------------------------------
+function ServerData_DragonSkin:makeDragonSkinSaleMap()
+    local struct_dragon_skin_sale_map = {}
+    local struct_product_list = g_shopDataNew:getProductList('dragon_skin')
+    local skin_id_list = TableDragonSkin:getDragonSkinIdList()
+
+    for _ ,skin_id in ipairs(skin_id_list) do
+        local struct_dragon_skin_sale = StructDragonSkinSale(skin_id)
+        if TableItem:getInstance():exists(skin_id) == true then
+            struct_dragon_skin_sale_map[skin_id] = struct_dragon_skin_sale
+        end
+    end
+
+    for _, struct_product in pairs(struct_product_list) do
+        local is_skin_product, skin_id = struct_product:isDragonSkinProduct()
+        if is_skin_product == true then
+            local struct_dragon_skin_sale = struct_dragon_skin_sale_map[skin_id]
+
+            if struct_dragon_skin_sale ~= nil then
+                struct_dragon_skin_sale:insertDragonSkinProduct(struct_product)
+            end
+        end
+    end
+
+    self.m_skinPackageMap = struct_dragon_skin_sale_map
+end
+
+-------------------------------------
+-- function getDragonSkinSaleMap
+-------------------------------------
+function ServerData_DragonSkin:getDragonSkinSaleMap(force_make)
+    if self.m_skinPackageMap == nil or force_make == true then
+        self:makeDragonSkinSaleMap()
+    end
+
+    return self.m_skinPackageMap
+end
+
+-------------------------------------
 -- function request_costumeSelect
 -------------------------------------
 function ServerData_DragonSkin:request_costumeSelect(cid, tid, cb_func)
