@@ -243,6 +243,8 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
         t_dragon_data['attr'] = attr
 
         local card = UI_DragonCard(StructDragonObject(t_dragon_data))
+        card.vars['attrNode']:setVisible(false)
+        card.vars['starNode']:setVisible(false)
         card.vars['clickBtn']:setEnabled(false)
         sprite = card.root
 
