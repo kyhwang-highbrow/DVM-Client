@@ -1213,6 +1213,18 @@ function StructDragonObject:isRuneEquipped()
 end
 
 -------------------------------------
+-- function isSkinEquipped
+-- @brief 스킨 장착 여부
+-------------------------------------
+function StructDragonObject:isSkinEquipped()
+    if (self['dragon_skin'] ~= nil) and (self['dragon_skin'] ~= 0) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function getCreatedTimestampMillisec
 -- @brief 드래곤 생성 시간
 ---@return number

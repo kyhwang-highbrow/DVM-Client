@@ -58,6 +58,15 @@ function AnimatorHelper:makeDragonAnimatorByTransform(struct_dragon_data)
     local res_name = t_dragon['res']
     local attr = t_dragon['attr']
 
+    if struct_dragon_data['dragon_skin'] ~= nil and struct_dragon_data['dragon_skin'] ~= 0 then
+        local skin_id = struct_dragon_data['dragon_skin']
+        local skin_res = TableDragonSkin:getDragonSkinValue('res', skin_id)
+        local skin_attribute = TableDragonSkin:getDragonSkinValue('res_icon', skin_id)
+
+        res_name = skin_res
+        attr = skin_attribute
+    end
+
     -- 성체부터 외형변환 적용
     if (evolution == POSSIBLE_TRANSFORM_CHANGE_EVO) then
         evolution = struct_dragon_data['transform'] or evolution

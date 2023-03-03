@@ -21,7 +21,7 @@ end
 
 -------------------------------------
 -- function getSkinID
--- @brief 코스튬 ID 반환
+-- @brief 스킨 ID 반환
 -------------------------------------
 function ServerData_DragonSkin:getSkinID(did)
 	local tamer_id = did or g_tamerData:getCurrTamerID()
@@ -119,11 +119,11 @@ end
 
 -------------------------------------
 -- function getShopInfo
--- @breif 해당 코스튬 샵정보 반환
+-- @breif 해당 스킨 샵정보 반환
 -------------------------------------
-function ServerData_DragonSkin:getShopInfo(costume_id)
-    if (self.m_shopInfo[costume_id]) then
-        return self.m_shopInfo[costume_id]
+function ServerData_DragonSkin:getShopInfo(dragon_skin)
+    if (self.m_skinPackageMap[dragon_skin]) then
+        return self.m_skinPackageMap[dragon_skin]
     end
 
     return nil

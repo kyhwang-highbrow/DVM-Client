@@ -156,7 +156,14 @@ function UIC_DragonAnimator:setDragonAnimatorByTransform(struct_dragon_data)
         evolution = struct_dragon_data['transform'] or evolution
     end
 
-    self:setDragonAnimator(did, evolution, flv)
+    if struct_dragon_data['dragon_skin'] ~= nil and struct_dragon_data['dragon_skin'] ~= 0 then
+        local skin_id = struct_dragon_data['dragon_skin']
+        local skin_res = TableDragonSkin:getDragonSkinValue('res', skin_id)
+        local skin_attribute = TableDragonSkin:getDragonSkinValue('res_icon', skin_id)
+        self:setDragonAnimatorRes(did, skin_res, skin_attribute, evolution, flv)
+    else
+        self:setDragonAnimator(did, evolution, flv)
+    end
 end
 
 -------------------------------------
