@@ -162,7 +162,6 @@ local t_module = {
     'StructBattlePassInfo',
     'StructDragonPkgData',
     'StructRecall',
-    'StructDragonSkinSale',
 
 	-- ServerData
     'ServerData',

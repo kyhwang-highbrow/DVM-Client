@@ -138,7 +138,8 @@ function ServerData_DragonSkin:makeDragonSkinSaleMap()
     local skin_id_list = TableDragonSkin:getDragonSkinIdList()
 
     for _ ,skin_id in ipairs(skin_id_list) do
-        local struct_dragon_skin_sale = StructDragonSkinSale(skin_id)
+        local t_data = {['skin_id'] = skin_id}
+        local struct_dragon_skin_sale = StructDragonSkin(t_data)
         if TableItem:getInstance():exists(skin_id) == true then
             struct_dragon_skin_sale_map[skin_id] = struct_dragon_skin_sale
         end

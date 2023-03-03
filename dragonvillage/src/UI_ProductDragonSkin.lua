@@ -49,7 +49,7 @@ end
 function UI_ProductDragonSkin:refresh()
     local vars = self.vars
     local struct_product = self.m_structProduct
-    local item_id = self.m_structSkinSale:getDragonSkinSaleSkinId()
+    local item_id = self.m_structSkinSale:getSkinID()
     local is_skin_owned = self.m_structSkinSale:isDragonSkinOwned()
     local is_valid_purchase =  self.m_structSkinSale:checkDragonSkinPurchaseValidation()
 

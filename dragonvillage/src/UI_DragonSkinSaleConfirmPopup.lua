@@ -34,7 +34,7 @@ function UI_DragonSkinSaleConfirmPopup:initUI()
     local vars = self.vars
     local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct('money')
     local struct_product_cash = self.m_structDragonSkinSale:getDragonSkinProduct('cash')
-    local skin_id = self.m_structDragonSkinSale:getDragonSkinSaleSkinId()
+    local skin_id = self.m_structDragonSkinSale:getSkinID()
     
 
 	-- 상품 이름
@@ -145,7 +145,7 @@ end
 -------------------------------------
 function UI_DragonSkinSaleConfirmPopup.open(struct_dragon_skin_sale, finish_cb)
     if struct_dragon_skin_sale:checkDragonSkinPurchaseValidation() == false then
-        local skin_id = struct_dragon_skin_sale:getDragonSkinSaleSkinId()
+        local skin_id = struct_dragon_skin_sale:getSkinID()
         error(string.format('스킨 상품의 테이블 세팅이 잘못되었습니다. 유료/재화 아이템 모두 입력해주세요. [%d]'), skin_id)
         return
     end
