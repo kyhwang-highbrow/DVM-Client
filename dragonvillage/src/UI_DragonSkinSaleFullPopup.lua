@@ -55,7 +55,6 @@ function UI_DragonSkinSaleFullPopup:initUI()
 
     do -- 배경
         local res_file = string.format('res/ui/event/bg_dragon_skin_%s.png', attribute)
-        cclog('res_file', res_file)
         local animator = MakeAnimator(res_file)
         vars['bgNode']:removeAllChildren()
         vars['bgNode']:addChild(animator.m_node)

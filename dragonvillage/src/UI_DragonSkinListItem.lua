@@ -5,15 +5,17 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_DragonSkinListItem = class(PARENT, {
         m_skinData = 'StructDragonSkin',
+        m_structDragon = 'StructDragonObject',
         m_dragonAnimator = 'UIC_DragonAnimator',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonSkinListItem:init(skin_data)
+function UI_DragonSkinListItem:init(skin_data, struct_dragon)
     local vars = self:load('dragon_skin_item.ui')
     self.m_skinData = skin_data
+    self.m_structDragon = struct_dragon
 
     self:initUI()
     self:initButton()
@@ -28,6 +30,7 @@ end
 function UI_DragonSkinListItem:initUI()
     local vars = self.vars
     local skin_data = self.m_skinData
+    local is_skin_on = self.m_structDragon:isSkinOn(skin_data:getSkinID())
 
     -- 이름
     vars['skinLabel']:setString(skin_data:getName())
@@ -43,12 +46,8 @@ function UI_DragonSkinListItem:initUI()
         self.m_dragonAnimator:setAnimationPause(true)
         vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
     end
-    
-    -- 생성시에는 사용중인 코스튬 선택처리
-    local is_used = skin_data:isUsed()
-    
-    vars['selectSprite']:setVisible(is_used)
 
+    vars['selectSprite']:setVisible(is_skin_on)
     vars['skinMenu']:setSwallowTouch(false)
 end
 
@@ -70,17 +69,15 @@ function UI_DragonSkinListItem:refresh()
     -- StructDragonSkin
     local skin_data = self.m_skinData
 
-    local is_used = skin_data:isUsed()
-    vars['useSprite']:setVisible(is_used)
+    local is_skin_on = self.m_structDragon:isSkinOn(skin_data:getSkinID())
+    vars['useSprite']:setVisible(is_skin_on)
 
     local is_open = skin_data:isDragonSkinOwned()
     -- local is_open = true
     local is_default = skin_data:isDefaultSkin()
-
     if is_default then
         is_open = true
     end
-
 
     cclog('---------------------------------')
     cclog('is_default : '..tostring(is_default))
@@ -110,10 +107,10 @@ function UI_DragonSkinListItem:refresh()
     end
 
     -- 선택 버튼
-    vars['selectBtn']:setVisible(not is_used and is_open)
+    vars['selectBtn']:setVisible(not is_skin_on and is_open)
 
     -- 사용 버튼
-    vars['useBtn']:setVisible(is_used)
+    vars['useBtn']:setVisible(is_skin_on)
 
     -- 스킨 잠금이 아니라 오픈 여부로 변경
     vars['lockSprite']:setVisible(not is_open)
@@ -128,17 +125,6 @@ function UI_DragonSkinListItem:setSelected(selected_skin_id)
     local skin_id = skin_data:getSkinID()
 
     vars['selectSprite']:setVisible(skin_id == selected_skin_id)
-end
-
--------------------------------------
--- function isNotUsed
--------------------------------------
-function UI_DragonSkinListItem:isUsedSkin()
-    -- StructDragonSkin
-    local skin_data = self.m_skinData
-    local is_used = skin_data:isUsed()
-    
-    return is_used
 end
 
 -------------------------------------

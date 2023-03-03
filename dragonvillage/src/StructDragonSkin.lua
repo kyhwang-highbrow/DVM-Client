@@ -88,7 +88,7 @@ end
 
 -------------------------------------
 -- function isUsed
--- @brief 사용중인 코스튬인지
+-- @brief 사용중인 스킨인지
 -------------------------------------
 function StructDragonSkin:isUsed()
     local dragon_skin_map = g_dragonsData:getMyDragonsListWithSkin()
@@ -282,11 +282,15 @@ end
 -- @brief 기본 복장인지 여부
 -------------------------------------
 function StructDragonSkin:isDefaultSkin()
-    if (not self.did) then
+    if self.skin_id == nil then
         return true
     end
 
-    return self.is_default
+    if self.skin_id == 0 then
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------

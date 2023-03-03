@@ -676,13 +676,22 @@ function StructDragonObject:getLock()
     return self['lock']
 end
 
+-------------------------------------
+-- function getSkinID
+-------------------------------------
 function StructDragonObject:getSkinID()
-    return self['dragon_skin']
+    return self['dragon_skin'] or 0
+end
+
+-------------------------------------
+-- function isSkinOn
+-------------------------------------
+function StructDragonObject:isSkinOn(skin_id)
+    return self:getSkinID() == skin_id
 end
 
 -------------------------------------
 -- function setLock
--- @breif
 -------------------------------------
 function StructDragonObject:setLock(b)
     self['lock'] = b
