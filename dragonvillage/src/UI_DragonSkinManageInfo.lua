@@ -202,14 +202,13 @@ function UI_DragonSkinManageInfo:refresh_dragonBasicInfo(struct_dragon)
     end
 
     -- 드래곤 실리소스
-
-    cclog('t_dragon_data', t_dragon_data['dragon_skin'] )
+    -- cclog('t_dragon_data', t_dragon_data['dragon_skin'] )
 
     
 
     if self.m_dragonAnimator then
         -- 외형 변환 적용 Animator
-        self.m_dragonAnimator:setDragonAnimatorByTransform(t_dragon_data)
+        self.m_dragonAnimator:setDragonAnimatorByTransform(struct_dragon)
     end
 
 
