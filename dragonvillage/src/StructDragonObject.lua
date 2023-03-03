@@ -50,8 +50,11 @@ StructDragonObject = class({
         ----------------------------------------------
         -- 드래곤의 숲에서 사용
         happy_at = 'timestapm',
+
+        ----------------------------------------------
         -- 스킨 아이디
         skin_id = 'number',
+
         ----------------------------------------------
         -- 지울 것들
         uid = '',
@@ -70,7 +73,7 @@ function StructDragonObject:init(data)
     self.eclv = 0
     self.rlv = 0
     self.m_mRuneObjects = nil
-  
+    self.skin_id = 0
     if data then
         self:applyTableData(data)
     end
@@ -96,6 +99,10 @@ function StructDragonObject:applyTableData(data)
 	-- 구조를 살짝 바꿔준다
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
+
+        cclog(key)
+        cclog(v)
+
         self[key] = v
     end
 end
@@ -723,6 +730,11 @@ function StructDragonObject:getIconRes()
 
     local evolution = self['evolution']
     local attr = self:getAttr() --t_dragon['attr']
+
+    if self.skin_id ~= 0 then
+        local table_dragon_skin = TableDragonSkin()
+        res = table_dragon_skin:getDragonResIcon(self['did'])
+    end
 
     -- 성체부터 외형변환 적용
     if (evolution == POSSIBLE_TRANSFORM_CHANGE_EVO) then
