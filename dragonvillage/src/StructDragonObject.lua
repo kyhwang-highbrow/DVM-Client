@@ -593,10 +593,6 @@ end
 -- @breif 드래곤 속성
 -------------------------------------
 function StructDragonObject:getAttr()
-    if self['dragon_skin'] ~= nil and self['dragon_skin'] > 0 then
-        return TableDragonSkin:getDragonSkinValue('attribute', self['dragon_skin'])
-    end
-
     return TableDragon:getValue(self['did'], 'attr')
 end
 
@@ -723,17 +719,8 @@ function StructDragonObject:getIconRes()
     local t_dragon = table_dragon:get(self['did'])
 
     local res = t_dragon['icon']
-    if self['dragon_skin'] ~= nil and self['dragon_skin'] > 0 then
-        res = TableDragonSkin:getDragonSkinValue('res_icon', self['dragon_skin'])
-    end
-
     local evolution = self['evolution']
     local attr = self:getAttr() --t_dragon['attr']
-
-    if self['dragon_skin'] ~= nil and self['dragon_skin'] > 0 then
-        local table_dragon_skin = TableDragonSkin()
-        res = table_dragon_skin:getDragonResIcon(self['did'])
-    end
 
     -- 성체부터 외형변환 적용
     if (evolution == POSSIBLE_TRANSFORM_CHANGE_EVO) then
