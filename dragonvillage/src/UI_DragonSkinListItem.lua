@@ -66,64 +66,32 @@ end
 function UI_DragonSkinListItem:refresh()
     local vars = self.vars
 
-    -- StructTamerCostume
+    -- StructDragonSkin
     local skin_data = self.m_skinData
 
     local is_used = skin_data:isUsed()
     vars['useSprite']:setVisible(is_used)
 
-    local is_open = skin_data:isOpen()
+    local is_open = skin_data:isDragonSkinOwned(skin_data)
+    local is_default = skin_data:isDefaultSkin()
+    if is_default then
+        is_open = true
+    end
+
     local badge_node = vars['badgeNode']
     badge_node:removeAllChildren()
 
     local badge
     if (not is_open) then
-        local is_sale, msg_sale = skin_data:isSale()
-        local is_limit, msg_limit = skin_data:isLimit()
         local is_end = skin_data:isEnd()
-        
-        -- 할인
-        if (is_sale) then            
-            badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_discount.png'))
-            self:setPriceData(is_sale)
-
-        -- 기간한정
-        elseif (is_limit) then
-            badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_period.png'))
-
-            -- vars['limitNode']:setVisible(true)
-            -- vars['limitLabel']:setString(msg_limit)
-            self:setPriceData()
-
-        -- 판매종료
-        elseif (is_end) then
-            -- 용맹코스튬은 table_tamer_costume_info에서 판매일이 지정되지 않아 판매종료 판정이 났지만 
-            -- 용맹 상점에서 구매 가능하기 때문에 판매종료 뱃지,버튼 적용x
-            -- if (not skin_data:isPackageSkin()) then
-            --     badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_finish.png'))
-            --     vars['finishBtn']:setVisible(true)
-            --     vars['finishBtn']:setEnabled(false)
-            -- end
+    
+        if (is_end) then
+            vars['finishBtn']:setVisible(true)
         -- 판매중
-        else        
+        else
+            vars['finishBtn']:setVisible(false)
             self:setPriceData()
         end
-
-        -- -- 판매 종료여부 상관없이 상품이 닫힌 상태면 바로가기 버튼 활성화 
-        -- if (skin_data:isPackageSkin()) then
-        --     vars['gotoLabel']:setString(Str('패키지 상점에서 구매'))
-        --     vars['gotoBtn']:setVisible(true)
-        --     vars['gotoBtn']:setEnabled(true)
-
-        -- -- elseif (skin_data:isTopazCostume()) then
-        -- --     -- 상점에서 팔고 있다면 상점으로 이동/없다면 구매 불가
-        -- --     if (self:isInShop('topaz')) then
-        -- --         vars['gotoLabel']:setString(Str('토파즈 상점에서 구매'))
-        -- --         vars['gotoBtn']:setVisible(true)
-        -- --         vars['gotoBtn']:setEnabled(true)
-        -- --     end
-        -- end
-    
     end
 
     if (badge) then
@@ -151,6 +119,17 @@ function UI_DragonSkinListItem:setSelected(selected_skin_id)
     local skin_id = skin_data:getSkinID()
 
     vars['selectSprite']:setVisible(skin_id == selected_skin_id)
+end
+
+-------------------------------------
+-- function isNotUsed
+-------------------------------------
+function UI_DragonSkinListItem:isUsedSkin()
+    -- StructDragonSkin
+    local skin_data = self.m_skinData
+    local is_used = skin_data:isUsed()
+    
+    return is_used
 end
 
 -------------------------------------

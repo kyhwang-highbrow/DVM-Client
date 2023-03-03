@@ -221,25 +221,26 @@ function ServerData_Dragons:getDragonsListWithSkin()
 end
 
 -------------------------------------
--- function getDragonsListWithSkin
--- @brief 내 드래곤들이 장착한 스킨 확인
+-- function getMyDragonsListWithSkin
+-- @brief 현재 스킨을 장착한 드래곤 리스트 가져옴
 -- @dhkim 23.02.17
 -------------------------------------
-function ServerData_Dragons:getCurrentDragonSkin()
-    local dragon_dictionary = self:getDragonsListWithSkin()
+function ServerData_Dragons:getMyDragonsListWithSkin()
+    local dragon_dictionary = self:getDragonsListRef()
     local ret_dictionary = {}
 
     for key,value in pairs(dragon_dictionary) do
-        local did = value['did']
-        local is_skin_exist = g_dragonSkinData:isDragonSkinExist(did)
+        local skin_id = value['dragon_skin']
 
-        if (is_skin_exist) then
+        if (skin_id ~= nil or skin_id ~= 0) then
             ret_dictionary[key] = value
         end
     end
 
     return ret_dictionary
 end
+
+
 
 -------------------------------------
 -- function getDragonSkillMoveList

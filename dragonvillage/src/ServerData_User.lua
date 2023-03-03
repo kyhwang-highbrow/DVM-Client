@@ -380,7 +380,7 @@ function ServerData_User:isDragonSkinOpened(skin_id)
     end
 
     if m_dragon_skins[tostring(skin_id)] == 0 then
-        return false
+        return true
     end
 
     return true

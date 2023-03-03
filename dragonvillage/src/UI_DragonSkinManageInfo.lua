@@ -321,6 +321,7 @@ function UI_DragonSkinManageInfo:setDragonSkin()
     node:removeAllChildren()
 
     local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
+
     -- self.m_selectedSkinData = l_struct_dragon_skin[1]
     vars['skinTitleLabel']:setString(Str(l_struct_dragon_skin[1]:getName()))
     -- 스킨 버튼
@@ -342,11 +343,6 @@ function UI_DragonSkinManageInfo:setDragonSkin()
         ui.vars['buyBtn']:registerScriptTapHandler(function()
             self:click_buy_skin(ui.m_skinData)
         end)
-
-         -- 상점으로 이동
-        ui.vars['gotoBtn']:registerScriptTapHandler(function()
-            self:click_go_shop(ui.m_skinData)
-        end)
     end
 
      -- 상품 정보 주지 않는 코스튬은 리스트에서 제외(토파즈 부류만) 
@@ -354,7 +350,7 @@ function UI_DragonSkinManageInfo:setDragonSkin()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(221, 393)
+    table_view.m_defaultCellSize = cc.size(231, 393)
     table_view:setCellUIClass(UI_DragonSkinListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(l_struct_dragon_skin)
@@ -421,13 +417,6 @@ end
 -- @brief 스킨 구매
 -------------------------------------
 function UI_DragonSkinManageInfo:click_buy_skin(skin_data)
-end
-
--------------------------------------
--- function click_go_shop
--- @brief 패키지 상점으로 이동
--------------------------------------
-function UI_DragonSkinManageInfo:click_go_shop(skin_data)
 end
 
 -------------------------------------

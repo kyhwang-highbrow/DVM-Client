@@ -34,11 +34,7 @@ end
 -- @brief 드래곤의 기본 스킨 ID
 -------------------------------------
 function TableDragonSkin:getDefaultSkinID(did)
-    -- local tamer_idx = tonumber(tamer_id)%100
-    local default_id = 0
-
-    -- return self:getValue(did, 'skin_id')
-    return default_id
+    return 0
 end
 
 -- -------------------------------------

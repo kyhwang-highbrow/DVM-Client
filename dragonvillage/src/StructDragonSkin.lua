@@ -27,6 +27,8 @@ StructDragonSkin = class({
     saleType = 'string', -- package : 패키지 상점에서 구매
     money_product_list = 'List<StructProduct>', -- 현금 상품 리스트
     cash_product_list = 'List<StructProduct>', -- 다이아 상품 리스트
+
+    is_default = 'boolean', -- 기본 스킨일 때만 true
 })
 
 -------------------------------------
@@ -34,6 +36,7 @@ StructDragonSkin = class({
 -------------------------------------
 function StructDragonSkin:init(data)
     self.bStruct = true
+    self.is_default = false
 
     if data then
         self:applyTableData(data)
@@ -78,18 +81,9 @@ function StructDragonSkin:isOpen()
     -- 기본 스킨은 오픈 상태
     if (self.skin_id%10 == 0) then
         return true
-
-    -- 유료 스킨은 구매리스트와 비교하여 오픈 상태인지 판단
-    else
-        -- local open_list = g_userData.m_openList
-        -- for _, skin_id in ipairs(open_list) do
-        --     if (self.skin_id == skin_id) then
-        --         return true
-        --     end
-        -- end
     end
 
-    return false
+    return g_userData:isDragonSkinOpened(self.skin_id)
 end
 
 -------------------------------------
@@ -97,19 +91,19 @@ end
 -- @brief 사용중인 코스튬인지
 -------------------------------------
 function StructDragonSkin:isUsed()
-    local dragon_skin_map = nil
-    local used_skin_id = 0
+    local dragon_skin_map = g_dragonsData:getMyDragonsListWithSkin()
 
-    -- if dragon_skin_map ~= nil or (dragon_skin_map[did]) then
-    --     used_skin_id =  dragon_skin_map[tamer_id]['costume'] 
+    for _,v in pairs(dragon_skin_map) do
+        if v['dragon_skin'] == self.skin_id then
+            return true
+        end
+    end
 
-    -- -- 테이머 정보가 없다면 기본복장 사용중인걸로 처리
-    -- else
-    --     used_skin_id = TableDragonSkin:getDefaultSkinID(self.did)
-    -- end 
-    used_skin_id = TableDragonSkin:getDefaultSkinID(self.did)
+    if self:isDefaultSkin() then
+        return true
+    end
 
-    return (self.skin_id == used_skin_id)
+    return false
 end
 
 -------------------------------------
@@ -292,16 +286,40 @@ function StructDragonSkin:isDefaultSkin()
         return true
     end
 
-    -- 1~10의자리 숫자가 개별 코스튬 아이디
-    local individual_skin_id = getDigit(self.did, 1, 2)
-    
-    if (individual_skin_id == 0) then
-        return true
-    end
-
-    return false
+    return self.is_default
 end
 
+-------------------------------------
+-- function makeDefaultSkin
+-- @brief 기본 복장인지 여부
+-------------------------------------
+function StructDragonSkin:makeDefaultSkin(did)
+    -- @dhkim 23.03.02 항상 스킨 리스트 첫번째엔 기본 스킨이 포함되야 한다
+    local basic_data = {}
+    basic_data['skin_id'] = 0
+    basic_data['did'] = did
+    basic_data['ui_priority'] = 99
+    basic_data['t_name'] = '기본 스킨'
+    basic_data['t_desc'] = ''
+    basic_data['attribute'] = TableDragon:getValue(did, 'attr')
+    basic_data['res'] = TableDragon:getValue(did, 'res')
+    basic_data['res_icon'] = TableDragon:getValue(did, 'icon')
+    basic_data['scale'] = 1
+    basic_data['cash_price'] = 0
+    basic_data['money_price'] = 0
+    basic_data['sku'] = ''
+    basic_data['price_dollar'] = 0
+    basic_data['xsolla_price_dollar'] = 0
+    
+    local struct_dragon_skin = StructDragonSkin(basic_data)
+    struct_dragon_skin:setDefaultStatus(true)
+
+    return struct_dragon_skin
+end
+
+function StructDragonSkin:setDefaultStatus(isDefault)
+    self.is_default = isDefault
+end
 
 -------------------------------------
 -- function getDragonSkinDId

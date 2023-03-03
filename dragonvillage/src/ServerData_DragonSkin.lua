@@ -5,7 +5,7 @@ ServerData_DragonSkin = class({
     m_serverData = 'ServerData',
     m_shopInfo = 'map',
     m_saleInfo = 'map',
-    m_bDirtyCostumeInfo = 'bool', -- 코스튬 구매로 인해 갱신이 필요한지 여부
+    m_bDirtySkinInfo = 'bool', -- 스킨 구매로 인해 갱신이 필요한지 여부
     m_skinPackageMap = 'Map',
 })
 
@@ -16,7 +16,7 @@ function ServerData_DragonSkin:init(server_data)
     self.m_serverData = server_data
     self.m_shopInfo = {}
     self.m_saleInfo = {}
-    self.m_bDirtyCostumeInfo = false
+    self.m_bDirtySkinInfo = false
 end
 
 -------------------------------------
@@ -24,17 +24,17 @@ end
 -- @brief 스킨 ID 반환
 -------------------------------------
 function ServerData_DragonSkin:getSkinID(did)
-	local tamer_id = did or g_tamerData:getCurrTamerID()
-    local costume_id
-    if (g_tamerData.m_mTamerMap[tamer_id]) then
-        costume_id = g_tamerData.m_mTamerMap[tamer_id]['costume']
+	local tamer_id = did
+    local skin_id
+    if (g_tamerData.m_skinPackageMap [did]) then
+        skin_id = g_tamerData.m_skinPackageMap [did]['skin_id']
     end
 
-    if (not costume_id) then
-        costume_id = TableTamerCostume:getDefaultCostumeID(tamer_id)
+    if (not skin_id) then
+        skin_id = 0
     end
     
-    return costume_id
+    return skin_id
 end
 
 -------------------------------------
@@ -90,23 +90,7 @@ function ServerData_DragonSkin:makeStructSkinList(did)
     local l_struct_skin = {}
 
     -- @dhkim 23.03.02 항상 스킨 리스트 첫번째엔 기본 스킨이 포함되야 한다
-    local basic_data = {}
-    basic_data['skin_id'] = 0
-    basic_data['did'] = did
-    basic_data['ui_priority'] = 99
-    basic_data['t_name'] = '기본 스킨'
-    basic_data['t_desc'] = ''
-    basic_data['attribute'] = TableDragon:getValue(did, 'attr')
-    basic_data['res'] = TableDragon:getValue(did, 'res')
-    basic_data['res_icon'] = TableDragon:getValue(did, 'icon')
-    basic_data['scale'] = 1
-    basic_data['cash_price'] = 0
-    basic_data['money_price'] = 0
-    basic_data['sku'] = ''
-    basic_data['price_dollar'] = 0
-    basic_data['xsolla_price_dollar'] = 0
-
-    local struct_basic_skin = StructDragonSkin(basic_data)
+    local struct_basic_skin = StructDragonSkin:makeDefaultSkin(did)
 
     table.insert(l_struct_skin, struct_basic_skin)
 
