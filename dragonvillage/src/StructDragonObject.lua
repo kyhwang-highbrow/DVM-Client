@@ -729,7 +729,6 @@ function StructDragonObject:getIconRes()
 
     if self['dragon_skin'] ~= nil and self['dragon_skin'] > 0 then
         res = TableDragonSkin:getDragonSkinValue('res_icon', self['dragon_skin'])
-        return res
     end
 
     res = string.gsub(res, '#', '0' .. evolution)
