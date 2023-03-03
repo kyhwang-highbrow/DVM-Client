@@ -166,7 +166,18 @@ function UI_DragonLevelUpNew:refresh_dragonInfo()
 	do -- 드래곤 리소스
         local evolution = t_dragon_data['evolution']
         vars['dragonNode']:removeAllChildren()
-        local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
+
+        local dragon_res = t_dragon['res']
+        local dragon_attr = t_dragon['attr']
+
+        if t_dragon_data['dragon_skin'] ~= nil and t_dragon_data['dragon_skin'] ~= 0 then
+            local skin_id = t_dragon_data['dragon_skin']
+            dragon_res = TableDragonSkin:getDragonSkinValue('res', skin_id)
+            dragon_attr = TableDragonSkin:getDragonSkinValue('attribute', skin_id)
+        end
+        
+        
+        local animator = AnimatorHelper:makeDragonAnimator(dragon_res, evolution, dragon_attr)
         animator:setDockPoint(cc.p(0.5, 0.5))
         animator:setAnchorPoint(cc.p(0.5, 0.5))
         animator:changeAni('idle', true)

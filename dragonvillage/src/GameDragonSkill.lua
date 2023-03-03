@@ -489,7 +489,7 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
 
         local aniName = self:getDragonAniForCut(dragon)
         local res_name = dragon.m_animator.m_resName
-        local animator = AnimatorHelper:makeDragonAnimator(res_name, dragon.m_evolutionLv, dragon:getAttribute())
+        local animator = AnimatorHelper:makeDragonAnimator(res_name, dragon.m_evolutionLv, dragon:getAttributeForRes())
 
         if (dragon.m_bMetamorphosis) then
             animator:setAniAddName('_d')

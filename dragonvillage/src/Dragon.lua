@@ -67,7 +67,15 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, 
 
 	-- 각종 init 함수 실행
 	do
-        self:initAnimatorDragon(t_dragon['res'], evolution, attr, scale)
+        local res = t_dragon['res']
+
+        if t_dragon_data['dragon_skin'] ~= nil and t_dragon_data['dragon_skin'] ~= 0 then
+            local skin_id = t_dragon_data['dragon_skin']
+            res = TableDragonSkin:getDragonSkinValue('res', skin_id)
+            attr = self:getAttributeForRes()
+        end
+
+        self:initAnimatorDragon(res, evolution, attr, scale)
 		self:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
 		self:initDragonSkillManager(t_dragon_data)
 		self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
@@ -224,6 +232,23 @@ function Dragon:initAnimator(file_name)
 end
 
 -------------------------------------
+-- function getAttributeForRes
+-------------------------------------
+function Dragon:getAttributeForRes()
+    local t_dragon_data = self.m_tDragonInfo
+
+    local attr = PARENT:getAttributeForRes()
+
+    if t_dragon_data['dragon_skin'] ~= nil and t_dragon_data['dragon_skin'] ~= 0 then
+        local skin_id = t_dragon_data['dragon_skin']
+        attr = TableDragonSkin:getDragonSkinValue('attribute', skin_id)
+    end
+
+    return attr
+end
+
+
+-------------------------------------
 -- function initAnimatorDragon
 -------------------------------------
 function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
@@ -326,7 +351,7 @@ function Dragon:doAttack(skill_id, x, y)
 
     -- 일반 스킬에만 이펙트를 추가
     if (self.m_charTable['skill_basic'] ~= skill_id) then
-        local attr = self:getAttribute()
+        local attr = self:getAttributeForRes()
         local res = 'res/effect/effect_missile_charge/effect_missile_charge.vrp'
 
         local animator = MakeAnimator(res)
@@ -609,7 +634,7 @@ end
 function Dragon:makeSkillPrepareEffect()
     if self.m_skillPrepareEffect then return end
 
-    local attr = self:getAttribute()
+    local attr = self:getAttributeForRes()
     local res = 'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp'
 
     self.m_skillPrepareEffect = MakeAnimator(res)

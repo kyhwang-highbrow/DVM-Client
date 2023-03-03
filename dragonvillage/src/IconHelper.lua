@@ -78,6 +78,12 @@ function IconHelper:getDragonIconFromTable(t_dragon_data, t_dragon, is_metamorph
     local evolution = t_dragon_data['transform'] and t_dragon_data['transform'] or t_dragon_data['evolution']
     evolution = evolution or 3
     local attr = t_dragon['attr']
+    
+    if t_dragon_data['dragon_skin'] ~= nil and t_dragon_data['dragon_skin'] ~= 0 then
+        local skin_id = t_dragon_data['dragon_skin']
+        res = TableDragonSkin:getDragonSkinValue('res_icon', skin_id)
+    end
+
 	local sprite = IconHelper:getHeroIcon(res, evolution, attr, is_metamorphosis)
     return sprite
 end
