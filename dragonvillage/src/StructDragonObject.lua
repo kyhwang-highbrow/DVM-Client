@@ -676,6 +676,10 @@ function StructDragonObject:getLock()
     return self['lock']
 end
 
+function StructDragonObject:getSkinID()
+    return self['dragon_skin']
+end
+
 -------------------------------------
 -- function setLock
 -- @breif
@@ -781,20 +785,18 @@ function StructDragonObject:getIngameRes()
     local t_dragon = table_dragon:get(self['did'])
     -- 외형 변환 적용
     local transform = self['transform']
-    -- if self['did'] == 121854 then 
-    --     local evolution = transform and transform or self:getEvolution()
-    --     local skin_list = g_dragonSkinData:makeStructSkinList(self['did'])
-    --     local skin_res = skin_list[1]:getDragonSkinRes()
-    --     local skin_attribute = skin_list[1]:getSkinAttribute()
-    --     local res = AnimatorHelper:getDragonResName(skin_res, evolution, skin_attribute)
-    --     return res
-    -- else
-    --     local evolution = transform and transform or self:getEvolution()
-    --     local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, self:getAttr())
-    --     return res
-    -- end
     local evolution = transform and transform or self:getEvolution()
-    local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, self:getAttr())
+
+    local res = t_dragon['res']
+    local attr = self:getAttr()
+
+    if self['dragon_skin'] ~= nil and self['dragon_skin'] ~= 0 then 
+        res = TableDragonSkin:getDragonSkinValue('res', self['dragon_skin'])
+        attr = TableDragonSkin:getDragonSkinValue('attribute', self['dragon_skin'])
+    end
+
+    local res = AnimatorHelper:getDragonResName(res, evolution, attr)
+
     return res
 end
 

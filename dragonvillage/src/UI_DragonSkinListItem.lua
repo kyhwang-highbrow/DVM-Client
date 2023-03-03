@@ -46,6 +46,7 @@ function UI_DragonSkinListItem:initUI()
     
     -- 생성시에는 사용중인 코스튬 선택처리
     local is_used = skin_data:isUsed()
+    
     vars['selectSprite']:setVisible(is_used)
 
     vars['skinMenu']:setSwallowTouch(false)
@@ -72,11 +73,19 @@ function UI_DragonSkinListItem:refresh()
     local is_used = skin_data:isUsed()
     vars['useSprite']:setVisible(is_used)
 
-    local is_open = skin_data:isDragonSkinOwned(skin_data)
+    local is_open = skin_data:isDragonSkinOwned()
+    -- local is_open = true
     local is_default = skin_data:isDefaultSkin()
+
     if is_default then
         is_open = true
     end
+
+
+    cclog('---------------------------------')
+    cclog('is_default : '..tostring(is_default))
+    cclog('is_open : '..tostring(is_open))
+    cclog('---------------------------------')
 
     local badge_node = vars['badgeNode']
     badge_node:removeAllChildren()

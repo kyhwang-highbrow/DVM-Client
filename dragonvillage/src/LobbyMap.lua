@@ -648,7 +648,17 @@ function LobbyMap:addLobbyDragon(tamer, is_bot, struct_user_info)
         end
     end
 
-    local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
+    local dragon_res = t_dragon['res']
+    local dragon_attr = t_dragon['attr']
+
+    local dragon_skin = leader_dragon:getSkinID()
+
+    if dragon_skin ~= nil and dragon_skin ~= 0 then
+        dragon_res = TableDragonSkin:getDragonSkinValue('res', dragon_skin)
+        dragon_attr = TableDragonSkin:getDragonSkinValue('res_icon', dragon_skin)
+    end
+
+    local res = AnimatorHelper:getDragonResName(dragon_res, evolution, dragon_attr)
 
     -- 드래곤 생성
     local lobby_dragon = LobbyDragon(t_dragon['did'], flv, evolution, is_bot)

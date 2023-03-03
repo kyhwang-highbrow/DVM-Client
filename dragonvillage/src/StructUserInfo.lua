@@ -303,6 +303,9 @@ function StructUserInfo:syncSUser(server_user)
             data['transform'] = tonumber(str_list[3])
         end
 
+        --@dhkim todo str_list[4]로 스킨 아이디 받아와서 갱신해야 됨
+
+
         self.m_leaderDragonObject = StructDragonObject(data)
     end
 

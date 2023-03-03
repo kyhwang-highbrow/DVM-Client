@@ -181,18 +181,15 @@ function ServerData_DragonSkin:request_dragonSkinSelect(skin_id, doid, cb_func)
 
     -- 콜백 함수
     local function success_cb(ret)
-        
-        -- 테이머 정보 갱신
-		g_tamerData:applyTamerInfo(ret['tamer'])
-		g_tamerData:reMappingTamerInfo()
+        g_dragonsData:applyDragonData(ret['dragon'])
 
-        -- 채팅 서버에 변경사항 적용
-        if g_chatClientSocket then
-            local tamer_id = tonumber(tid)
-            if (tamer_id == g_tamerData:getCurrTamerID()) then
-                g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
-            end
-        end
+        -- -- 채팅 서버에 변경사항 적용
+        -- if g_chatClientSocket then
+        --     local tamer_id = tonumber(tid)
+        --     if (tamer_id == g_tamerData:getCurrTamerID()) then
+        --         g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
+        --     end
+        -- end
 
 		if (cb_func) then
 			cb_func()
@@ -201,7 +198,7 @@ function ServerData_DragonSkin:request_dragonSkinSelect(skin_id, doid, cb_func)
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/users/set/costume')
+    ui_network:setUrl('/dragons/set/skin')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
     ui_network:setParam('skin_id', skin_id)
