@@ -43,7 +43,6 @@ function UI_DragonSkinManageInfo:init(struct_dragon_object)
     self.m_selectDragonOID = struct_dragon_object:getObjectId()
     self.m_selectDragonData = struct_dragon_object
 
-    self.m_selectedSkinData = nil
     self.m_elapsedTime = 1
 end
 
@@ -56,11 +55,19 @@ function UI_DragonSkinManageInfo:init_after(struct_dragon_object)
     PARENT.init_after(self)
     self:sceneFadeInAction()
 
+    local skin_id = struct_dragon_object:getSkinID()
+    
+    if skin_id ~= 0 then 
+        self.m_selectedSkinData = g_dragonSkinData:getDragonSkinDataWithSkinID(skin_id)
+    else
+        local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
+        self.m_selectedSkinData = l_struct_dragon_skin[1]
+    end
+
     self:initUI()
     self:initButton()
     self:refresh()
     
-
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData()
 
@@ -141,8 +148,7 @@ function UI_DragonSkinManageInfo:refreshEvolutionCards()
     vars['evolutionLabel3']:setString(Str("성룡"))
 
     local did = self.m_selectDragonData['did']
-    local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
-    self.m_selectedSkinData = l_struct_dragon_skin[1]
+
     local dragon_name = TableDragon:getDragonName(did)
     vars['dragonNameLabel']:setString(Str(dragon_name))
 
@@ -238,6 +244,10 @@ function UI_DragonSkinManageInfo:refresh()
     self:refreshSkinTableView()
     -- 스킨 데이터
     self:refreshSkinData()
+    -- 드래곤 스킨 Res 변경
+    self:setDragonSkinRes(self.m_selectedSkinData)
+    -- 좌측 드래곤 아이콘 이미지 변경
+    self:setDragonSkinIconRes(self.m_selectedSkinData)
 
     -- -- 리더 드래곤 여부 표시
     -- self:refresh_leaderDragon(t_dragon_data)
@@ -338,9 +348,7 @@ function UI_DragonSkinManageInfo:refreshSkinTableView()
     node:removeAllChildren()
 
     local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
-
-    -- self.m_selectedSkinData = l_struct_dragon_skin[1]
-    vars['skinTitleLabel']:setString(Str(l_struct_dragon_skin[1]:getName()))
+    vars['skinTitleLabel']:setString(Str(self.m_selectedSkinData:getName()))
 
     local function make_func(dragon_skin_sale)
         --local struct_product = dragon_skin_sale:getDragonSkinProduct('money')

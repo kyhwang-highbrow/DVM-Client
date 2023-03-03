@@ -6,7 +6,6 @@ ServerData_DragonSkin = class({
     m_shopInfo = 'map',
     m_saleInfo = 'map',
     m_bDirtySkinInfo = 'bool', -- 스킨 구매로 인해 갱신이 필요한지 여부
-    m_skinPackageMap = 'Map',
 })
 
 -------------------------------------
@@ -20,45 +19,14 @@ function ServerData_DragonSkin:init(server_data)
 end
 
 -------------------------------------
--- function getSkinID
--- @brief 스킨 ID 반환
+-- function getDragonSkinDataWithSkinID
+-- @brief 스킨 정보 반환
 -------------------------------------
-function ServerData_DragonSkin:getSkinID(did)
-	local tamer_id = did
-    local skin_id
-    if (g_tamerData.m_skinPackageMap [did]) then
-        skin_id = g_tamerData.m_skinPackageMap [did]['skin_id']
-    end
+function ServerData_DragonSkin:getDragonSkinDataWithSkinID(skin_id)
+    local table_skin = TableDragonSkin()
+    local t_skin = table_skin:get(skin_id)
 
-    if (not skin_id) then
-        skin_id = 0
-    end
-    
-    return skin_id
-end
-
--------------------------------------
--- function getCostumeDataWithTamerID
--- @brief 코스튬 정보 반환
--------------------------------------
-function ServerData_DragonSkin:getCostumeDataWithTamerID(tamer_id)
-    local costume_id = self:getCostumeID(tamer_id)
-    
-    local table_tamer = TableTamerCostume()
-    local t_costume = table_tamer:get(costume_id)
-
-    return StructTamerCostume(t_costume)
-end
-
--------------------------------------
--- function getCostumeDataWithCostumeID
--- @brief 코스튬 정보 반환
--------------------------------------
-function ServerData_DragonSkin:getCostumeDataWithCostumeID(costume_id)
-    local table_tamer = TableTamerCostume()
-    local t_costume = table_tamer:get(costume_id)
-
-    return StructTamerCostume(t_costume)
+    return StructDragonSkin(t_skin)
 end
 
 -------------------------------------
