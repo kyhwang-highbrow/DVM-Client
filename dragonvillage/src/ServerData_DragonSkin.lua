@@ -175,11 +175,9 @@ end
 -------------------------------------
 -- function request_costumeSelect
 -------------------------------------
-function ServerData_DragonSkin:request_costumeSelect(cid, tid, cb_func)
+function ServerData_DragonSkin:request_dragonSkinSelect(skin_id, doid, cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
-    local cid = (cid % 100 == 0) and 0 or cid
-    -- 0 으로 처리해도 안됨..
 
     -- 콜백 함수
     local function success_cb(ret)
@@ -205,8 +203,8 @@ function ServerData_DragonSkin:request_costumeSelect(cid, tid, cb_func)
     local ui_network = UI_Network()
     ui_network:setUrl('/users/set/costume')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('tid', tid)
-    ui_network:setParam('costume', cid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('skin_id', skin_id)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)

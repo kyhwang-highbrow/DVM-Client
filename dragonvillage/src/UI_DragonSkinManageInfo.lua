@@ -341,7 +341,7 @@ function UI_DragonSkinManageInfo:setDragonSkin()
 
         -- 스킨 구입하기
         ui.vars['buyBtn']:registerScriptTapHandler(function()
-            self:click_buy_skin(ui.m_skinData)
+            self:click_buy_skin(self.m_selectDragonData)
         end)
     end
 
@@ -382,34 +382,38 @@ end
 -------------------------------------
 function UI_DragonSkinManageInfo:click_select_skin(skin_data)
     self.m_selectedSkinData = skin_data
-    -- local costume_id = skin_data:getCid()
-    -- local tamer_id = skin_data:getTamerID()
-    -- local has_tamer = self:_hasTamer(tamer_id)
+    local skin_id = skin_data:getSkinID()
+    local did = self.m_selectDragonData:getDid()
+    local doid = self.m_selectDragonData:getObjectId()
+    local has_dragon = self:_hasDragon(did)
 
-    -- -- 변경 불가
-    -- if (not has_tamer) then
-    --     UIManager:toastNotificationRed(Str('열려있지 않은 테이머는 코스튬을 변경 할 수 없습니다.'))
+    -- 변경 불가
+    if (not has_dragon) then
+        UIManager:toastNotificationRed(Str('보유하지 않은 드래곤은 스킨을 변경 할 수 없습니다.'))
 
-    -- -- 코스튬 선택
-    -- else
-    --     local function finish_cb()
-    --         UIManager:toastNotificationGreen(Str('코스튬을 변경하였습니다.'))
+    -- 코스튬 선택
+    else
+        local function finish_cb()
+            UIManager:toastNotificationGreen(Str('스킨을 변경하였습니다.'))
 
-    --         -- 모든 상태 변경
-    --         self:refresh()
-    --         -- 코스튬 테이블뷰 초기화
-    --         self:refreshCostumeData()
-    --     end
+            -- 모든 상태 변경
+            self:refresh()
+            -- 코스튬 테이블뷰 초기화
+            self:refreshSkinData()
+        end
 
-    --     g_tamerCostumeData:request_costumeSelect(costume_id, tamer_id, finish_cb)
-    -- end
+        g_dragonSkinData:request_dragonSkinSelect(skin_id, doid, finish_cb)
+    end
+end
 
-        UIManager:toastNotificationGreen(Str('스킨을 변경하였습니다.'))
-
-        -- 모든 상태 변경
-        self:refresh()
-        -- 코스튬 테이블뷰 초기화
-        self:refreshSkinData()
+-------------------------------------
+-- function _hasDragon
+-- @brief 플레이어가 드래곤를 보유 했는지 여부
+-- @return boolean
+-------------------------------------
+function UI_DragonSkinManageInfo:_hasDragon(did)
+    local dragon_cnt = g_dragonsData:getNumOfDragonsByDid(did)
+    return (dragon_cnt ~= 0)
 end
 
 -------------------------------------
