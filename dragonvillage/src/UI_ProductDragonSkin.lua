@@ -78,10 +78,7 @@ function UI_ProductDragonSkin:refresh()
 
     do -- 버튼 처리
         vars['priceNode']:removeAllChildren()
-        if is_skin_owned == true then
-            vars['priceLabel']:setString(Str('보유 중'))
-            vars['buyBtn']:setEnabled(false)
-        elseif is_valid_purchase == false then
+        if is_valid_purchase == false then
             vars['priceLabel']:setString(Str('{@red}구매 불가{@}'))
             vars['buyBtn']:setEnabled(false)
         else

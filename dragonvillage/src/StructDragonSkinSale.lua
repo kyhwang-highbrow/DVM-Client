@@ -132,14 +132,37 @@ function StructDragonSkinSale:getDragonSkinProduct(price_type)
 end
 
 -------------------------------------
--- function checkDragonSkinPurchaseValidation
+-- function checkDragonSkinPurchaseBuyCount
+-- @brief 동일한 스킨 상품들 중에 하나라도 구매했으면 구매 불가 처리
 -------------------------------------
-function StructDragonSkinSale:checkDragonSkinPurchaseValidation()
-    if self:getDragonSkinProduct('money') == nil then
+function StructDragonSkinSale:checkDragonSkinPurchaseBuyCount(struct_product_list)
+    if struct_product_list == nil then
         return false
     end
 
-    if self:getDragonSkinProduct('cash') == nil then
+    for _, struct_product in ipairs(struct_product_list) do
+        if struct_product:checkMaxBuyCount() == false then
+            return false
+        end
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function checkDragonSkinPurchaseValidation
+-- @brief 다이아, 현금 모두 구매할 수 있는 상태여야 함
+-------------------------------------
+function StructDragonSkinSale:checkDragonSkinPurchaseValidation()
+    local struct_product_money_list = self:getDragonSkinProductList('money')
+    -- 동일한 스킨 상품들 중에 하나라도 구매했으면 구매 불가 처리
+    if self:checkDragonSkinPurchaseBuyCount(struct_product_money_list) == false then
+        return false
+    end
+
+    local struct_product_cash_list = self:getDragonSkinProductList('cash')
+    -- 동일한 스킨 상품들 중에 하나라도 구매했으면 구매 불가 처리    
+    if self:checkDragonSkinPurchaseBuyCount(struct_product_cash_list) == false then
         return false
     end
 

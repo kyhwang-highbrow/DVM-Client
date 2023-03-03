@@ -132,12 +132,12 @@ function UI_DragonSkinSaleConfirmPopup:click_purchaseBtn(price_type)
         end
     end
 
-    success_cb()
+    --success_cb()
 
---[[     local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct(price_type)
+    local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct(price_type)
     if struct_product ~= nil then    
-        struct_product:buy(nil)
-    end ]]
+        struct_product:buy(success_cb)
+    end
 end
 
 -------------------------------------
