@@ -17,7 +17,7 @@ UI_EventFullPopup = class(PARENT,{
 -------------------------------------
 function UI_EventFullPopup:init(popup_key, target_ui, m_check_cb)
     self.m_popupKey = popup_key
-    
+    cclog('popup_key', popup_key)
     -- @jhakim 로비 풀 팝용이 아닌 용도, 나중에 클래스 분리할 거임
     self.m_targetUI = target_ui
     self.m_check_cb = m_check_cb
@@ -49,6 +49,8 @@ end
 function UI_EventFullPopup:initUI()
     local vars = self.vars
     local popup_key = self.m_popupKey
+
+    cclog('popup_key', popup_key)
 	local ui
     local is_btn_lock = true
 
@@ -223,6 +225,12 @@ function UI_EventFullPopup:initUI()
         if (g_eventData:isPossibleToGetWelcomeNewbieReward()) then
 		    ui = UI_EventWelcomeNewbie()
         end
+
+    -- 신규 스킨
+	elseif (popup_key == 'dragon_skin') then
+        -- 리워드 받을 수 있는 경우에만 풀 팝업 노출
+        require('UI_DragonSkinSaleFullPopup')
+		ui = UI_DragonSkinSaleFullPopup()
 
     -- 누적 결제 보상 이벤트
     elseif pl.stringx.startswith(popup_key, 'purchase_point') then
