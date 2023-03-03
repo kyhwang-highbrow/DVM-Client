@@ -653,6 +653,10 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['event_token'], 'user', 'event_token')
         end
 
+        -- 드래곤 스킨 리스트 갱신
+        if (ret['dragon_skins']) then
+            self:applyServerData(ret['dragon_skins'], 'user', 'dragon_skins')
+        end
 
 		-- 모든 특성 재료 (구 공통 특성 재료 포함)
         -- @mskim 기존 mastery_materials_02~04를 mastery_materials 컨테이너로 통합하여 수령함
@@ -666,8 +670,6 @@ function ServerData:networkCommonRespone(ret)
         self:applyServerData(ret['quest_info'], 'quest_info')
     end
 
-
-
     -- 자동 재화 줍기 갱신
     if (ret['auto_item_pick']) then
         g_autoItemPickData:applyAutoItemPickData(ret['auto_item_pick'])
@@ -676,11 +678,6 @@ function ServerData:networkCommonRespone(ret)
     -- 코스튬 획득 정보 갱신
     if (ret['tamers_costume']) then
         g_tamerCostumeData:applyTamersCostume(ret['tamers_costume'])
-    end
-
-    -- 드래곤 스킨 리스트 갱신
-    if (ret['skin_list']) then
-        self:applyServerData(ret['skin_list'], 'skin_list')
     end
 
     -- UI 하일라이트 정보 갱신
@@ -838,6 +835,10 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 드래곤 소환권
     RefreshGoods(t_added_items, 'summon_dragon_ticket')
+
+    -- 훈장 (갱신)
+    RefreshGoods(t_added_items, 'dragon_skins')
+
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then

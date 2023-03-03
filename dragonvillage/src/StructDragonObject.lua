@@ -53,7 +53,7 @@ StructDragonObject = class({
 
         ----------------------------------------------
         -- 스킨 아이디
-        skin_id = 'number',
+        dragon_skin = 'number',
 
         ----------------------------------------------
         -- 지울 것들
@@ -594,8 +594,8 @@ end
 -- @breif 드래곤 속성
 -------------------------------------
 function StructDragonObject:getAttr()
-    if self['skin_id'] ~= nil and self['skin_id'] > 0 then
-        return TableDragonSkin:getDragonSkinValue('attribute', self['skin_id'])
+    if self['dragon_skin'] ~= nil and self['dragon_skin'] > 0 then
+        return TableDragonSkin:getDragonSkinValue('attribute', self['dragon_skin'])
     end
 
     return TableDragon:getValue(self['did'], 'attr')
@@ -724,8 +724,8 @@ function StructDragonObject:getIconRes()
     local t_dragon = table_dragon:get(self['did'])
 
     local res = t_dragon['icon']
-    if self['skin_id'] ~= nil and self['skin_id'] > 0 then
-        res = TableDragonSkin:getDragonSkinValue('res_icon', self['skin_id'])
+    if self['dragon_skin'] ~= nil and self['dragon_skin'] > 0 then
+        res = TableDragonSkin:getDragonSkinValue('res_icon', self['dragon_skin'])
     end
 
     local evolution = self['evolution']

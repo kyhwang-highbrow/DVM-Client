@@ -239,7 +239,7 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
         t_dragon_data['did'] = did
         t_dragon_data['evolution'] = struct_dragon and struct_dragon['evolution'] or 3
         t_dragon_data['grade'] = struct_dragon and struct_dragon['grade'] or 1
-        t_dragon_data['skin_id'] = item_id
+        t_dragon_data['dragon_skin'] = item_id
         t_dragon_data['attr'] = attr
 
         local card = UI_DragonCard(StructDragonObject(t_dragon_data))
