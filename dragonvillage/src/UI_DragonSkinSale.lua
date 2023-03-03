@@ -118,7 +118,10 @@ function UI_DragonSkinSale:click_buyBtn(struct_dragon_skin_sale)
     end
 
     require('UI_DragonSkinSaleConfirmPopup')
-    UI_DragonSkinSaleConfirmPopup.open(struct_dragon_skin_sale, function() self:refresh() end)
+    UI_DragonSkinSaleConfirmPopup.open(struct_dragon_skin_sale, function() 
+        self:initUI()
+        self:refresh()
+    end)
 end
 
 -------------------------------------

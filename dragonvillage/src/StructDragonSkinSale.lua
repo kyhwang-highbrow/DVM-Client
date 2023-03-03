@@ -140,8 +140,12 @@ function StructDragonSkinSale:checkDragonSkinPurchaseBuyCount(struct_product_lis
         return false
     end
 
+    if #struct_product_list % 2 ~= 0 then
+        return false
+    end
+
     for _, struct_product in ipairs(struct_product_list) do
-        if struct_product:checkMaxBuyCount() == false then
+        if struct_product:isBuyAll() == true then
             return false
         end
     end
