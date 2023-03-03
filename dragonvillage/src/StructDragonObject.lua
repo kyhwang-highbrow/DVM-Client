@@ -73,7 +73,6 @@ function StructDragonObject:init(data)
     self.eclv = 0
     self.rlv = 0
     self.m_mRuneObjects = nil
-    self.skin_id = 0
     if data then
         self:applyTableData(data)
     end
@@ -731,7 +730,7 @@ function StructDragonObject:getIconRes()
     local evolution = self['evolution']
     local attr = self:getAttr() --t_dragon['attr']
 
-    if self.skin_id ~= 0 then
+    if self['dragon_skin'] ~= nil and self['dragon_skin'] > 0 then
         local table_dragon_skin = TableDragonSkin()
         res = table_dragon_skin:getDragonResIcon(self['did'])
     end
