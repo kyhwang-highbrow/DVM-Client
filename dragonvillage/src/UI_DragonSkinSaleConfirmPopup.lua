@@ -34,6 +34,7 @@ function UI_DragonSkinSaleConfirmPopup:initUI()
     local vars = self.vars
     local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct('money')
     local struct_product_cash = self.m_structDragonSkinSale:getDragonSkinProduct('cash')
+    local skin_id = self.m_structDragonSkinSale:getDragonSkinSaleSkinId()
     
 
 	-- 상품 이름
@@ -42,7 +43,7 @@ function UI_DragonSkinSaleConfirmPopup:initUI()
 
 	-- 상품 아이콘
     do
-        local icon = struct_product:makeProductIcon()
+        local icon = IconHelper:getItemIcon(skin_id)
         if (icon) then
             if vars['itemNode'] ~= nil then
                 vars['itemNode']:addChild(icon)

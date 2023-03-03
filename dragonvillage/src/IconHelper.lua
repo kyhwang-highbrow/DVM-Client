@@ -230,19 +230,17 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
 
     elseif (item_type == 'dragon_skin') then
 
-        cclog('여기 들어오나????')
+        local did = TableDragonSkin:getDragonSkinValue('did', item_id)
+        local attr = TableDragonSkin:getDragonSkinValue('attr', item_id)
 
-        -- 2017-11-21 sgkim (상점에서 아르주나, 카르나를 판매할 때 UI_DragonCard로 변경함)
-        --local dragon_id = t_item['did']
-        --local evolution = t_item['evolution']
-        --local grade = 1
-        --local eclv = 0
-        --sprite = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
+        local struct_dragon = g_dragonsData:getBestDragonByDid(did)
 
         local t_dragon_data = {}
-        t_dragon_data['did'] = TableDragonSkin:getDragonSkinValue('did', item_id)
-        t_dragon_data['evolution'] = 1
-        t_dragon_data['grade'] = 1
+        t_dragon_data['did'] = did
+        t_dragon_data['evolution'] = struct_dragon and struct_dragon['evolution'] or 3
+        t_dragon_data['grade'] = struct_dragon and struct_dragon['grade'] or 1
+        t_dragon_data['skin_id'] = item_id
+        t_dragon_data['attr'] = attr
 
         local card = UI_DragonCard(StructDragonObject(t_dragon_data))
         card.vars['clickBtn']:setEnabled(false)

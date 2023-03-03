@@ -159,9 +159,9 @@ function StructDragonSkinSale:getUIPriority()
         order = order + 1000
     end
 
-    -- 소유하지 못한 스킨일 경우
-    if self:isDragonSkinOwned() == false then
-        order = order + 100
+    -- 소유한 스킨일 경우
+    if self:isDragonSkinOwned() == true then
+        order = order - 1000
     end
 
     -- 구매가 가능한 상태일 경우

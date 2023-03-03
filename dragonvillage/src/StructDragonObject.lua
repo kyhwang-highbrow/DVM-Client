@@ -50,7 +50,8 @@ StructDragonObject = class({
         ----------------------------------------------
         -- 드래곤의 숲에서 사용
         happy_at = 'timestapm',
-
+        -- 스킨 아이디
+        skin_id = 'number',
         ----------------------------------------------
         -- 지울 것들
         uid = '',
@@ -586,6 +587,10 @@ end
 -- @breif 드래곤 속성
 -------------------------------------
 function StructDragonObject:getAttr()
+    if self['skin_id'] ~= nil and self['skin_id'] > 0 then
+        return TableDragonSkin:getDragonSkinValue('attribute', self['skin_id'])
+    end
+
     return TableDragon:getValue(self['did'], 'attr')
 end
 
@@ -712,8 +717,12 @@ function StructDragonObject:getIconRes()
     local t_dragon = table_dragon:get(self['did'])
 
     local res = t_dragon['icon']
+    if self['skin_id'] ~= nil and self['skin_id'] > 0 then
+        res = TableDragonSkin:getDragonSkinValue('res_icon', self['skin_id'])
+    end
+
     local evolution = self['evolution']
-    local attr = t_dragon['attr']
+    local attr = self:getAttr() --t_dragon['attr']
 
     -- 성체부터 외형변환 적용
     if (evolution == POSSIBLE_TRANSFORM_CHANGE_EVO) then
@@ -782,7 +791,7 @@ function StructDragonObject:getIngameRes()
         return res
     else
         local evolution = transform and transform or self:getEvolution()
-        local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
+        local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, self:getAttr())
         return res
     end
 end
