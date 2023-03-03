@@ -373,13 +373,13 @@ end
 -- @brief 보유중인 스킨인지 체크
 -------------------------------------
 function ServerData_User:isDragonSkinOpened(skin_id)
-    local m_evolution_stone = self:getRef('dragon_skins') or {}
+    local m_dragon_skins = self:getRef('dragon_skins') or {}
 
-    if m_evolution_stone[tostring(skin_id)] == nil then
+    if m_dragon_skins[tostring(skin_id)] == nil then
         return false
     end
 
-    if m_evolution_stone[tostring(skin_id)] == 0 then
+    if m_dragon_skins[tostring(skin_id)] == 0 then
         return false
     end
 
