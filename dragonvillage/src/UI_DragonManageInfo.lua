@@ -1074,11 +1074,15 @@ function UI_DragonManageInfo:click_skinBtn()
             self.m_dragonSkinManageUI = UI_DragonSkinManageInfo(t_dragon_data)
 
             local function close_cb()
+                self.m_selectDragonData = self.m_dragonSkinManageUI:getSelectedDragon()
+
                 -- 테이블 아이템갱신
                 self:init_dragonTableView()
-        
                 -- 정렬
                 self:apply_dragonSort_saveData()
+
+                cclog(self.m_selectDragonData:getSkinID())
+                self.m_dragonAnimator:setDragonAnimatorByTransform(self.m_selectDragonData)
             end
         
             self.m_dragonSkinManageUI:setCloseCB(close_cb)
@@ -1086,8 +1090,6 @@ function UI_DragonManageInfo:click_skinBtn()
             UIManager:toastNotificationRed(Str('해당 드래곤 스킨은 추후 업데이트 예정입니다.'))
         end
     end
-
-
 end
 
 -------------------------------------

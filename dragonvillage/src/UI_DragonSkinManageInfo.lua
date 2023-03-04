@@ -43,6 +43,17 @@ function UI_DragonSkinManageInfo:init(struct_dragon_object)
     self.m_selectDragonOID = struct_dragon_object:getObjectId()
     self.m_selectDragonData = struct_dragon_object
 
+    local skin_id = struct_dragon_object:getSkinID()
+    
+    cclog(skin_id)
+
+    if skin_id ~= 0 then 
+        self.m_selectedSkinData = g_dragonSkinData:getDragonSkinDataWithSkinID(skin_id)
+    else
+        local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
+        self.m_selectedSkinData = l_struct_dragon_skin[1]
+    end
+
     self.m_elapsedTime = 1
 end
 
@@ -54,15 +65,6 @@ function UI_DragonSkinManageInfo:init_after(struct_dragon_object)
     UIManager:open(self, UIManager.SCENE)
     PARENT.init_after(self)
     self:sceneFadeInAction()
-
-    local skin_id = struct_dragon_object:getSkinID()
-    
-    if skin_id ~= 0 then 
-        self.m_selectedSkinData = g_dragonSkinData:getDragonSkinDataWithSkinID(skin_id)
-    else
-        local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
-        self.m_selectedSkinData = l_struct_dragon_skin[1]
-    end
 
     self:initUI()
     self:initButton()
@@ -217,7 +219,6 @@ function UI_DragonSkinManageInfo:refresh_dragonBasicInfo(struct_dragon)
         self.m_dragonAnimator:setDragonAnimatorByTransform(struct_dragon)
     end
 
-
 --[[     do -- 스킨 스파인 -- 드래곤 스킨 Res 변경
         self:setDragonSkinRes(skin_data)
     end
@@ -244,6 +245,9 @@ function UI_DragonSkinManageInfo:refresh()
     self:refreshSkinTableView()
     -- 스킨 데이터
     self:refreshSkinData()
+
+    self:init_dragonSkinTableView()
+
     -- 드래곤 스킨 Res 변경
     self:setDragonSkinRes(self.m_selectedSkinData)
     -- 좌측 드래곤 아이콘 이미지 변경
@@ -323,8 +327,6 @@ function UI_DragonSkinManageInfo:click_evolutionBtn(i)
         local attr = self.m_selectedSkinData:getSkinAttribute()
         self.m_evolutionLevel = i
 
-        cclog(res)
-
         self.m_dragonAnimator:setDragonAnimatorRes(self.m_selectDragonData['did'], res, attr, self.m_evolutionLevel)
     end
 end
@@ -335,6 +337,10 @@ end
 -------------------------------------
 function UI_DragonSkinManageInfo:click_exitBtn()
     self:close()
+end
+
+function UI_DragonSkinManageInfo:getSelectedDragon()
+    return self.m_selectDragonData
 end
 
 -------------------------------------
@@ -484,7 +490,7 @@ function UI_DragonSkinManageInfo:checkDragonListRefresh()
         self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
         
         -- 드래곤 리스트 새로 생성
-        self:init_dragonTableView()
+        self:init_dragonSkinTableView()
 
         -- 정렬
         self:apply_dragonSort_saveData()
