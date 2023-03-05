@@ -304,6 +304,9 @@ function StructUserInfo:syncSUser(server_user)
         end
 
         --@dhkim todo str_list[4]로 스킨 아이디 받아와서 갱신해야 됨
+        if str_list[4] then
+            data['dragon_skin'] = tonumber(str_list[4])
+        end
 
 
         self.m_leaderDragonObject = StructDragonObject(data)

@@ -448,7 +448,7 @@ end
 
 -------------------------------------
 -- function updateUser
--- @brief 유저 삭제
+-- @brief 유저 업데이트
 -------------------------------------
 function LobbyManager:updateUser(uid, server_user)
     local struct_user_info = self.m_userInfoList[uid]

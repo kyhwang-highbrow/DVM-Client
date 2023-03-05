@@ -114,6 +114,12 @@ function UI_ExplorationResultPopup:initUI()
             local grade = user_data['grade']
 		    local attr = table_data['attr']
 
+            if v['dragon_skin'] ~= nil and v['dragon_skin'] ~= 0 then
+                local skin_id = v['dragon_skin']
+                res_name = TableDragonSkin:getDragonSkinValue('res', skin_id)
+                attr = TableDragonSkin:getDragonSkinValue('attr', skin_id)
+            end
+
             local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
             animator.m_node:setDockPoint(cc.p(0.5, 0.5))
             animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
