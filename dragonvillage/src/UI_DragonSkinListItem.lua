@@ -78,6 +78,7 @@ function UI_DragonSkinListItem:refresh()
     if is_default then
         is_open = true
     end
+    local is_valid_purchase =  skin_data:checkDragonSkinPurchaseValidation()
 
     cclog('---------------------------------')
     cclog('is_default : '..tostring(is_default))
@@ -114,6 +115,16 @@ function UI_DragonSkinListItem:refresh()
 
     -- 스킨 잠금이 아니라 오픈 여부로 변경
     vars['lockSprite']:setVisible(not is_open)
+
+    do -- 버튼 처리
+        if is_valid_purchase == false then
+            vars['priceLabel']:setString(Str('{@red}구매 불가{@}'))
+            vars['buyBtn']:setEnabled(false)
+        else
+            vars['priceLabel']:setString(Str('구매하기'))
+            vars['buyBtn']:setEnabled(true)
+        end
+    end
 end
 
 -------------------------------------

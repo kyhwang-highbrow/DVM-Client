@@ -111,28 +111,6 @@ end
 -- @brief 할인중인지
 -------------------------------------
 function StructDragonSkin:isSale()
-    -- local sale_info = g_tamerCostumeData.m_saleInfo
-    -- local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
-    -- local msg 
-    -- if (shop_info and sale_info and sale_info[tostring(self.m_cid)]) then
-    --     local date_format = 'yyyy-mm-dd HH:MM:SS'
-    --     local parser = pl.Date.Format(date_format)
-
-    --     local end_date = parser:parse(shop_info['sale_end_date'])
-    --     local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
-    --     local end_time = end_date['time']
-        
-    --     if (end_time == nil) then
-    --         return false, ''
-    --     end
-    --     local time = (end_time - cur_time)
-    --     msg = Str('할인 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
-
-    --     return true, msg
-    -- end
-        
-    -- return false, msg
-
     return false, ''
 end
 
@@ -141,31 +119,6 @@ end
 -- @brief 기간한정인지 (기간한정이라면 남은 기간도 같이 반환)
 -------------------------------------
 function StructDragonSkin:isLimit()
-    -- local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
-    -- local msg
-    -- if (shop_info) then
-    --     local date_format = 'yyyy-mm-dd HH:MM:SS'
-    --     local parser = pl.Date.Format(date_format)
-
-    --     local end_date = parser:parse(shop_info['end_date'])
-    --     local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
-    --     local end_time = end_date['time']
-    --     if (cur_time and end_time) then
-    --         local time = (end_time - cur_time)
-
-    --         -- 판매기간이 1년 미만으로 남은 경우에만 기간한정으로 판단
-    --         local remain = 86400 * 365
-    --         if (time < remain) then
-    --             msg = Str('판매 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
-    --             return true, msg
-    --         else
-    --             return false, msg
-    --         end
-    --     end
-    -- end
-
-    -- return false, msg
-
     return false, ''
 end
 
@@ -174,12 +127,6 @@ end
 -- @brief 판매종료 (서버에서 코스튬 샵정보 안줌)
 -------------------------------------
 function StructDragonSkin:isEnd()
-    -- local is_default = self:isDefaultCostume()
-    -- local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
-    -- if (not shop_info) and (not is_default) then
-    --      return true
-    -- end
-
     return false
 end
 

@@ -1477,7 +1477,6 @@ local t_module = {
     'UI_DragonSelectPopup',
     'UI_DragonTransformChange',
     'UI_DragonSkinManageInfo',
-    'UI_DragonSkinConfirmPopup',
     'UI_DragonSkinListItem',
 
 	-- UI : 드래곤 관리 - 결과

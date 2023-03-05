@@ -44,9 +44,6 @@ function UI_DragonSkinManageInfo:init(struct_dragon_object)
     self.m_selectDragonData = struct_dragon_object
 
     local skin_id = struct_dragon_object:getSkinID()
-    
-    cclog(skin_id)
-
     if skin_id ~= 0 then 
         self.m_selectedSkinData = g_dragonSkinData:getDragonSkinDataWithSkinID(skin_id)
     else
@@ -67,11 +64,12 @@ function UI_DragonSkinManageInfo:init_after(struct_dragon_object)
     self:sceneFadeInAction()
 
     self:initUI()
+    self:init_dragonSkinTableView()
     self:initButton()
     self:refresh()
     
     -- spine 캐시 정리 확인
-    SpineCacheManager:getInstance():purgeSpineCacheData()
+    -- SpineCacheManager:getInstance():purgeSpineCacheData()
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, self.m_uiName)
@@ -91,21 +89,7 @@ end
 -------------------------------------
 function UI_DragonSkinManageInfo:initUI()
     local vars = self.vars
-    self:init_dragonSkinTableView()
-    -- -- 드래곤 정보 보드 생성
-    -- self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
-
-    -- if (IS_TEST_MODE()) then
-    --     self.m_dragonInfoBoardUI.vars['equipmentBtn']:setVisible(true)
-    --     self.m_dragonInfoBoardUI.vars['equipmentBtn']:registerScriptTapHandler(function() self:click_equipmentBtn() end)
-    -- else
-    --     self.m_dragonInfoBoardUI.vars['equipmentBtn']:setVisible(false)
-    -- end
-    -- self.vars['infoNode']:addChild(self.m_dragonInfoBoardUI.root)
-    --self.root:addChild(self.m_dragonInfoBoardUI.root)
-    -- @TODO77
-
-
+    
     -- 드래곤 실리소스
     if vars['dragonNode'] then
         self.m_dragonAnimator = UIC_DragonAnimator()
@@ -115,30 +99,62 @@ function UI_DragonSkinManageInfo:initUI()
 end
 
 -------------------------------------
+-- function init_dragonSkinTableView
+-- @breif 드래곤 스킨 리스트 테이블 뷰
+-------------------------------------
+function UI_DragonManage_Base:init_dragonSkinTableView()
+
+    if (not self.m_tableViewExt) then
+        local list_table_node = self.vars['listTableNode']
+
+        local function make_func(object)
+            return UI_DragonCard(object)
+        end
+
+        local function create_func(ui, data)
+            self:createDragonCardCB(ui, data)
+            ui.root:setScale(0.66)
+            ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectDragonData(data['id']) end)
+            ui.vars['clickBtn']:unregisterScriptPressHandler()
+
+            -- 선택한 드래곤
+            if (data['id'] == self.m_selectDragonOID) then
+                self:changeDragonSelectFrame(ui)
+            end
+
+            -- 승급/진화/스킬강화 
+            -- local is_noti_dragon = data:isNotiDragon()
+            -- ui:setNotiSpriteVisible(is_noti_dragon)
+
+            -- 새로 획득한 드래곤 뱃지
+            local is_new_dragon = data:isNewDragon()
+            ui:setNewSpriteVisible(is_new_dragon)
+        end
+
+        local table_view = UIC_TableView(list_table_node)
+        table_view.m_defaultCellSize = cc.size(100, 100)
+        table_view:setCellUIClass(make_func, create_func)
+        self.m_tableViewExt = table_view
+    end
+
+    local l_item_list = self:getDragonSkinList()
+    self.m_tableViewExt:setItemList(l_item_list)
+
+    -- 드래곤 선택 버튼이 있다면
+    local list_btn = self.vars['listBtn']
+    if (list_btn) then
+        list_btn:registerScriptTapHandler(function() self:click_listBtn() end)
+    end
+end
+
+
+-------------------------------------
 -- function initButton
 -- @brief 버튼 UI 초기화
 -------------------------------------
 function UI_DragonSkinManageInfo:initButton()
     local vars = self.vars
-    
-	-- -- 우측 버튼
-    -- do 
- 
-    -- end
-
-    do -- 기타 버튼
-        -- 장비 개별 버튼 1~3
-        --[[ @TODO77
-        vars['equipSlotBtn1']:registerScriptTapHandler(function() self:click_runeBtn(1) end)
-        vars['equipSlotBtn2']:registerScriptTapHandler(function() self:click_runeBtn(2) end)
-        vars['equipSlotBtn3']:registerScriptTapHandler(function() self:click_runeBtn(3) end)
-        vars['equipSlotBtn4']:registerScriptTapHandler(function() self:click_runeBtn(4) end)
-        vars['equipSlotBtn5']:registerScriptTapHandler(function() self:click_runeBtn(5) end)
-        vars['equipSlotBtn6']:registerScriptTapHandler(function() self:click_runeBtn(6) end)
-        --]]
-    end
 end
-
 
 -------------------------------------
 -- function refreshEvolutionCards
@@ -209,25 +225,57 @@ function UI_DragonSkinManageInfo:refresh_dragonBasicInfo(struct_dragon)
         vars['dragonNameLabel']:setString(dragon_name)
     end
 
-    -- 드래곤 실리소스
-    -- cclog('t_dragon_data', t_dragon_data['dragon_skin'] )
-
-    
-
-    if self.m_dragonAnimator then
+    if self.m_dragonAnimator ~= nil then
         -- 외형 변환 적용 Animator
         self.m_dragonAnimator:setDragonAnimatorByTransform(struct_dragon)
     end
+end
 
---[[     do -- 스킨 스파인 -- 드래곤 스킨 Res 변경
-        self:setDragonSkinRes(skin_data)
+
+-------------------------------------
+-- function setSelectDragonData
+-- @brief 선택된 드래곤 설정
+-------------------------------------
+function UI_DragonSkinManageInfo:setSelectDragonData(object_id, b_force)
+    if (not b_force) and (self.m_selectDragonOID == object_id) then
+        return
     end
 
-    do -- 좌측 드래곤 아이콘 이미지 변경
-        self:setDragonSkinIconRes(skin_data)
-    end ]]
+    local object_data = g_dragonsData:getDragonDataFromUid(object_id)
+    if (not object_data) then
+        object_data = g_slimesData:getSlimeObject(object_id)
+    end
 
+    if (not object_data) then
+        return self:setDefaultSelectDragon()
+    end
 
+    if (not self:checkDragonSelect(object_id)) then
+        return
+    end
+
+    -- 선택된 드래곤의 데이터를 최신으로 갱신
+    self.m_selectDragonOID = object_id
+    self.m_selectDragonData = object_data
+
+    local skin_id = object_data:getSkinID()
+    if skin_id ~= 0 then 
+        self.m_selectedSkinData = g_dragonSkinData:getDragonSkinDataWithSkinID(skin_id)
+    else
+        local l_struct_dragon_skin = g_dragonSkinData:makeStructSkinList(self.m_selectDragonData['did'])
+        self.m_selectedSkinData = l_struct_dragon_skin[1]
+    end
+
+    self.m_bSlimeObject = (object_data.m_objectType == 'slime')
+
+    -- 선택된 드래곤 카드에 프레임 표시
+    self:changeDragonSelectFrame()
+
+    -- 선택된 드래곤이 변경되면 refresh함수를 호출
+    self:refresh()
+
+    -- 신규 드래곤이면 삭제
+    g_highlightData:removeNewDoid(object_id)
 end
 
 -------------------------------------
@@ -235,6 +283,7 @@ end
 -------------------------------------
 function UI_DragonSkinManageInfo:refresh()
     local vars = self.vars
+
     -- self:refresh_buttonState()
     local t_dragon_data = self.m_selectDragonData
     -- 드래곤 기본 정보 갱신
@@ -245,75 +294,14 @@ function UI_DragonSkinManageInfo:refresh()
     self:refreshSkinTableView()
     -- 스킨 데이터
     self:refreshSkinData()
-
-    self:init_dragonSkinTableView()
-
     -- 드래곤 스킨 Res 변경
     self:setDragonSkinRes(self.m_selectedSkinData)
     -- 좌측 드래곤 아이콘 이미지 변경
     self:setDragonSkinIconRes(self.m_selectedSkinData)
 
-    -- -- 리더 드래곤 여부 표시
-    -- self:refresh_leaderDragon(t_dragon_data)
-
-    -- -- 도감작 (해치, 해츨링, 성룡의 도감을 채워서 다이아를 받는 행위) 상태 갱신
-    -- self:refresh_bookSprite(t_dragon_data)
-
-    -- -- 진화/승급/스킬강화 알림 - 개발 하다가 중단 
-    -- --self:refresh_buttonNoti()
-
-	-- -- 조합 드래곤
-	-- self:refresh_combination()
-
-	-- -- 잠금 표시
-	-- vars['lockSprite']:setVisible(t_dragon_data:getLock())
-
-    -- -- 외형 변환 표시
-    -- local b_transform_change = t_dragon_data:isPossibleTransformChange()
-    -- vars['transformBtn']:setVisible(b_transform_change)
-    -- vars['evolutionBtn']:setVisible(not b_transform_change)
-
-    --local is_myth_dragon = t_dragon_data:getRarity() == 'myth'
-    --vars['upgradeBtn']:setEnabled(not is_myth_dragon)
-    --vars['reinforceBtn']:setEnabled(not is_myth_dragon)
-    --vars['goodbyeBtn']:setVisible(not is_myth_dragon)
-    --vars['goodbyeSelectBtn']:setVisible(not is_myth_dragon)
-    --vars['lockBtn']:setVisible(not is_myth_dragon)
-
-    -- local doid = t_dragon_data:getObjectId()
-    -- local is_recall_target = g_dragonsData:isDragonRecallTarget(doid)
-    -- vars['recallBtn']:setVisible(is_recall_target)
-
---[[     for i = 1, 3 do 
-        local node = vars['dragonNode'..i]
-        if (node) then
-            local data = clone(self.m_selectDragonData)
-            data['evolution'] = i
-
-            local card = UI_SkinDragonCard(data)
-            card.root:setSwallowTouch(false)
-            card.root:setScale(0.8)
-            node:addChild(card.root)
-
-            -- -- 수집 여부에 따른 음영 처리
-            -- if (not g_bookData:isExist(data)) then
-            --     card:setShadowSpriteVisible(true)
-            -- end
-
-            -- 등급 표시 안함
-            card.vars['starNode']:setVisible(false)
-            -- -- 선택한 카드 표시
-            -- card:setHighlightSpriteVisibleWithNoAction(i == self.m_evolution)
-            -- 진화 단계 선택 
-            card.vars['clickBtn']:registerScriptTapHandler(function()
-                self:click_evolutionBtn(i)
-            end)
-            self.m_mapEvolutionBtnUI[i] = card
-        end
-    end ]]
-    
+   
     -- spine 캐시 정리 확인
-    SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
+    -- SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
 end
 
 -------------------------------------
@@ -460,6 +448,7 @@ end
 -- @brief 스킨 구매
 -------------------------------------
 function UI_DragonSkinManageInfo:click_buy_skin(skin_data)
+    UINavigatorDefinition:goTo('package_shop', 'package_dragon_skin')
 end
 
 -------------------------------------
@@ -488,10 +477,6 @@ function UI_DragonSkinManageInfo:checkDragonListRefresh()
 
     if is_changed then
         self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
-        
-        -- 드래곤 리스트 새로 생성
-        self:init_dragonSkinTableView()
-
         -- 정렬
         self:apply_dragonSort_saveData()
     end

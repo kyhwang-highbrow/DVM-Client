@@ -168,6 +168,8 @@ function UIC_DragonAnimator:setDragonAnimatorByTransform(struct_dragon_data)
     end
 
     self:setDragonAnimatorRes(did, res, attr, evolution, flv)
+    cclog('self:setDragonAnimatorRes',did, res, attr, evolution, flv)
+    --while true do end
 end
 
 -------------------------------------

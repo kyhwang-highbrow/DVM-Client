@@ -49,6 +49,7 @@ end
 -- @breif 해당 드래곤의 모든 스킨 정보 리스트로 반환
 -------------------------------------
 function ServerData_DragonSkin:makeStructSkinList(did)
+    local struct_dragon_skin_sale_map = self:getDragonSkinSaleMap(true)
     local skin_list = TableDragonSkin():filterList('did', did) 
     table.sort(skin_list, function(a,b)
         local a_priority = a['ui_priority'] or 0
@@ -60,11 +61,19 @@ function ServerData_DragonSkin:makeStructSkinList(did)
 
     -- @dhkim 23.03.02 항상 스킨 리스트 첫번째엔 기본 스킨이 포함되야 한다
     local struct_basic_skin = StructDragonSkin:makeDefaultSkin(did)
-
     table.insert(l_struct_skin, struct_basic_skin)
 
-    for k, v in ipairs(skin_list) do
-        table.insert(l_struct_skin, StructDragonSkin(v))
+    for _, v in ipairs(skin_list) do
+        local skin_id = v['skin_id']
+        local struct_dragon_skin = StructDragonSkin(v)
+
+        local struct_dragon_skin_sale = struct_dragon_skin_sale_map[skin_id]
+        if struct_dragon_skin_sale ~= nil then
+            struct_dragon_skin.money_product_list = struct_dragon_skin_sale.money_product_list
+            struct_dragon_skin.cash_product_list = struct_dragon_skin_sale.cash_product_list
+        end
+
+        table.insert(l_struct_skin, struct_dragon_skin)
     end
 
     return l_struct_skin
