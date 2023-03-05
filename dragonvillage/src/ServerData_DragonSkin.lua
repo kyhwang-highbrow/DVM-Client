@@ -5,6 +5,7 @@ ServerData_DragonSkin = class({
     m_serverData = 'ServerData',
     m_shopInfo = 'map',
     m_saleInfo = 'map',
+    m_skinPackageMap = 'map',
     m_bDirtySkinInfo = 'bool', -- 스킨 구매로 인해 갱신이 필요한지 여부
 })
 
