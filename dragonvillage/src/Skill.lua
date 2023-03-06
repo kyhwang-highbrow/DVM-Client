@@ -211,8 +211,8 @@ function Skill:adjustAnimator()
 		end
 	end
 
-	-- 스킬 애니 속성 세팅
-	self.m_animator:setAniAttr(self.m_owner:getAttribute())
+    -- 스킬 애니 속성 세팅
+	self.m_animator:setAniAttr(self.m_owner:getAttributeForRes())
 end
 
 -------------------------------------

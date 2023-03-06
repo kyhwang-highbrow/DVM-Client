@@ -117,6 +117,41 @@ function IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
 
     return sprite
 end
+-------------------------------------
+-- function getDragonIconFromDid
+-------------------------------------
+function IconHelper:getDragonIconFromDidWithSkin(dragon_id, evolution, grade, eclv, skin_id)
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[dragon_id]
+
+    assert(t_dragon, 'dragon_id : ' .. dragon_id)
+
+    local res_name = t_dragon['icon']
+    local evolution = evolution
+    local attr = t_dragon['attr']
+
+    if skin_id ~= nil and skin_id ~= 0 then
+        res_name = TableDragonSkin:getDragonSkinValue('res_icon', skin_id)
+        attr = TableDragonSkin:getDragonSkinValue('attribute', skin_id)
+    end
+
+    local sprite = IconHelper:getHeroIcon(res_name, evolution, attr)
+
+    -- 등급 정보가 있을 경우
+    if (grade and eclv) then
+		local t_dragon_data = clone(t_dragon)
+		t_dragon_data['grade'] = grade
+		t_dragon_data['evolution'] = evolution 
+        local grade_sprite = self:getDragonGradeIcon(t_dragon_data, 1)
+        if grade_sprite then
+            grade_sprite:setScale(0.38)
+            grade_sprite:setPositionY(-50)
+            sprite:addChild(grade_sprite)
+        end
+    end
+
+    return sprite
+end
 
 -------------------------------------
 -- function getDragonGradeIcon

@@ -46,9 +46,9 @@ function SkillAoESquare_Width:adjustAnimator()
 	-- delay state 종료시 켜준다.
 	self.m_animator:setVisible(false) 
 	self.m_animator:setScaleY(self.m_resScale)
-		    
+
     -- 스킬 애니 속성 세팅
-	self.m_animator:setAniAttr(self.m_owner:getAttribute())
+	self.m_animator:setAniAttr(self.m_owner:getAttributeForRes())
 end
 
 -------------------------------------

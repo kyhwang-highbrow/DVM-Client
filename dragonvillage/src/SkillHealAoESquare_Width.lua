@@ -55,7 +55,7 @@ function SkillHealAoESquare_Width:adjustAnimator()
     self.m_animator:setScaleY(self.m_resScale)
 
     -- 스킬 애니 속성 세팅
-	self.m_animator:setAniAttr(self.m_owner:getAttribute())
+	self.m_animator:setAniAttr(self.m_owner:getAttributeForRes())
 end
 
 -------------------------------------
