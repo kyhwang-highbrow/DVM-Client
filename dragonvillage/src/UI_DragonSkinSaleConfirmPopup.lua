@@ -17,7 +17,7 @@ function UI_DragonSkinSaleConfirmPopup:init(struct_dragon_skin_sale, finish_cb)
     self.m_finishCB = finish_cb
     UIManager:open(self, UIManager.POPUP)
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonSkinSaleConfirmPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonSkinSaleConfirmPopup')
 
     self:initUI()
     self:initButton()
