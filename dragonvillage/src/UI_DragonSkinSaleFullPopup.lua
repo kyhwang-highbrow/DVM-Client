@@ -50,7 +50,7 @@ function UI_DragonSkinSaleFullPopup:initUI()
     end
 
     do -- 이름
-        local dragon_name = TableDragonSkin:getDragonSkinValue(item_id ,'t_name')
+        local dragon_name = TableDragonSkin:getDragonSkinValue('t_desc', item_id)
         vars['titleLabel']:setString(Str(dragon_name))
     end
 
