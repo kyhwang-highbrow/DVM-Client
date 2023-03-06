@@ -30,7 +30,7 @@ function UI_DragonSkinSaleFullPopup:initUI()
     local vars = self.vars
     --local _, struct_product = g_dragonSkinData:isDragonSkinSalePurchaseAvailable()
     --local item_list = struct_product:getItemList()
-    local item_id = self.m_skinId --item_list[1].item_id
+    local item_id = 731031 --self.m_skinId --item_list[1].item_id
 
     local t_dragon_data = {}
     local did = TableDragonSkin:getDragonSkinValue('did', item_id)
