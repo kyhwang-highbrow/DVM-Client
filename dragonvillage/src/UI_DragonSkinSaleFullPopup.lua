@@ -11,7 +11,7 @@ UI_DragonSkinSaleFullPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_DragonSkinSaleFullPopup:init(skin_id)
-    self.m_skinId = skin_id
+    self.m_skinId = skin_id or 731031
     local vars = self:load('event_dragon_skin.ui')
 
     -- @UI_ACTION
@@ -30,7 +30,7 @@ function UI_DragonSkinSaleFullPopup:initUI()
     local vars = self.vars
     --local _, struct_product = g_dragonSkinData:isDragonSkinSalePurchaseAvailable()
     --local item_list = struct_product:getItemList()
-    local item_id = 731031 --self.m_skinId --item_list[1].item_id
+    local item_id = self.m_skinId
 
     local t_dragon_data = {}
     local did = TableDragonSkin:getDragonSkinValue('did', item_id)

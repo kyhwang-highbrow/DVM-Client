@@ -280,6 +280,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab == 'costume_event') then
         ui = UI_CostumeEventPopup()
 
+    -- 드래곤 스킨 할인 이벤트
+    elseif (tab == 'dragon_skin') then
+        require('UI_DragonSkinSaleFullPopup')
+        ui = UI_DragonSkinSaleFullPopup()
+
     -- 업데이트 공지 
     elseif (tab == 'notice') then
         ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)
