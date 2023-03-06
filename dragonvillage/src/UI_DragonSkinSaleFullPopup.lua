@@ -38,7 +38,7 @@ function UI_DragonSkinSaleFullPopup:initUI()
     local struct_dragon_exist = g_dragonsData:getBestDragonByDid(did)
 
     t_dragon_data['did'] = did
-    t_dragon_data['evolution'] = struct_dragon_exist and struct_dragon_exist['evolution'] or 3
+    t_dragon_data['evolution'] = 3 --struct_dragon_exist and struct_dragon_exist['evolution'] or 3
     t_dragon_data['grade'] = struct_dragon_exist and struct_dragon_exist['grade'] or 1
     t_dragon_data['dragon_skin'] = item_id
 
@@ -50,8 +50,8 @@ function UI_DragonSkinSaleFullPopup:initUI()
     end
 
     do -- 이름
-        local dragon_name = TableDragon:getDragonName(did)
-        vars['titleLabel']:setString(dragon_name)
+        local dragon_name = TableDragonSkin:getDragonSkinValue(item_id ,'t_name')
+        vars['titleLabel']:setString(Str(dragon_name))
     end
 
     do -- 배경
