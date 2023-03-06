@@ -655,7 +655,7 @@ function LobbyMap:addLobbyDragon(tamer, is_bot, struct_user_info)
 
     if dragon_skin ~= nil and dragon_skin ~= 0 then
         dragon_res = TableDragonSkin:getDragonSkinValue('res', dragon_skin)
-        dragon_attr = TableDragonSkin:getDragonSkinValue('res_icon', dragon_skin)
+        dragon_attr = TableDragonSkin:getDragonSkinValue('attribute', dragon_skin)
     end
 
     local res = AnimatorHelper:getDragonResName(dragon_res, evolution, dragon_attr)

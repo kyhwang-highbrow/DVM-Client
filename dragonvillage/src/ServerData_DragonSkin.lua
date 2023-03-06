@@ -163,8 +163,8 @@ function ServerData_DragonSkin:request_dragonSkinSelect(skin_id, doid, cb_func)
 
         -- -- 채팅 서버에 변경사항 적용
         -- if g_chatClientSocket then
-        --     local tamer_id = tonumber(tid)
-        --     if (tamer_id == g_tamerData:getCurrTamerID()) then
+        --     local doid = tonumber(doid)
+        --     if (g_dragonsData:isLeaderDragon(doid)) then
         --         g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
         --     end
         -- end

@@ -410,9 +410,14 @@ function ChatClientSocket:globalUpdatePlayerUserInfo()
     if (did ~= '') then
         did = did .. ';' .. leader_dragon['evolution']
         -- 외형 변환 존재하는 경우에 추가 
-        local transform = leader_dragon['transform'] 
+        local transform = leader_dragon['transform']
         if (transform) then
             did = did .. ';' .. transform
+        end
+
+        local dragon_skin = leader_dragon['dragon_skin']
+        if (dragon_skin) then
+            did = did ..';' .. dragon_skin
         end
     end
 
