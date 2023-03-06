@@ -524,6 +524,8 @@ function UI_DragonSkinManageInfo:setDragonSkinRes(skin_data)
 
     if (res) then
         self.m_dragonAnimator:setDragonAnimatorRes(skin_data:getDid(), res, attr, self.m_evolutionLevel)
+
+        UIManager:toastNotificationGreen("res : " .. res .. ", attr : " .. attr)
         -- vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
     end
 
