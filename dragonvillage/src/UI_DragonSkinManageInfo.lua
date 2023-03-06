@@ -432,6 +432,14 @@ function UI_DragonSkinManageInfo:click_select_skin(skin_data)
             self:refreshSkinData()
 
             self:init_dragonSkinTableView()
+
+            do
+                --local leader_dragon = g_dragonsData:getLeaderDragon()
+                if self.m_selectDragonData:isLeader() == true then
+                    g_dragonsData:request_setLeaderDragon('lobby', doid)
+                end
+            end
+
         end
 
         g_dragonSkinData:request_dragonSkinSelect(skin_id, doid, finish_cb)
