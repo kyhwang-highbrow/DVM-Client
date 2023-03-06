@@ -118,7 +118,7 @@ function UI_DragonSkinListItem:refresh()
 
     do -- 버튼 처리
         if is_valid_purchase == false then
-            vars['priceLabel']:setString(Str('{@red}구매 불가{@}'))
+            vars['priceLabel']:setString(Str('보유 중'))
             vars['buyBtn']:setEnabled(false)
         else
             vars['priceLabel']:setString(Str('구매하기'))
