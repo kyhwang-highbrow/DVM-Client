@@ -210,9 +210,8 @@ function ServerData_Dragons:getDragonsListWithSkin()
 
     for key,value in pairs(dragon_dictionary) do
         local did = value['did']
-        local is_skin_exist = g_dragonSkinData:isDragonSkinExist(did)
 
-        if (is_skin_exist) then
+        if (g_dragonSkinData:isDragonSkinExist(did) == true) then
             ret_dictionary[key] = value
         end
     end
