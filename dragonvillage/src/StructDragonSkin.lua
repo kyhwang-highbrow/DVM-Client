@@ -409,6 +409,27 @@ function StructDragonSkin:checkDragonSkinPurchaseValidation()
 end
 
 -------------------------------------
+-- function isDragonSkinSale
+-------------------------------------
+function StructDragonSkin:isDragonSkinSale()
+    if self:checkDragonSkinPurchaseValidation() == false then
+        return false        
+    end
+
+    local struct_product = self:getDragonSkinProduct('money')
+    if struct_product == nil then
+        return false
+    end
+
+    if struct_product:getProductBadge() ~= 'sale' then
+        return false
+    end
+
+
+    return true
+end
+
+-------------------------------------
 -- function getUIPriority
 -------------------------------------
 function StructDragonSkin:getUIPriority()

@@ -128,7 +128,7 @@ function ServerData_DragonSkin:isDragonSkinSalePurchaseAvailable()
     local struct_product_list = g_shopDataNew:getProductList('dragon_skin')
     cclog('struct_product_list', #struct_product_list)
 
-    for _, struct_product in ipairs(struct_product_list) do
+    for _, struct_product in pairs(struct_product_list) do
         return true, struct_product
 --[[         if struct_product:getPriceType() == 'money' and struct_product:getProductBadge() == 'sale' then
             if struct_product:isBuyable() == true then

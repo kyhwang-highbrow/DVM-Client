@@ -4,10 +4,10 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_DragonSkinListItem
 -------------------------------------
 UI_DragonSkinListItem = class(PARENT, {
-        m_skinData = 'StructDragonSkin',
-        m_structDragon = 'StructDragonObject',
-        m_dragonAnimator = 'UIC_DragonAnimator',
-    })
+    m_skinData = 'StructDragonSkin',
+    m_structDragon = 'StructDragonObject',
+    m_dragonAnimator = 'UIC_DragonAnimator',
+})
 
 -------------------------------------
 -- function init

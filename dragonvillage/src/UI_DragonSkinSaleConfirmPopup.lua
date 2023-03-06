@@ -132,11 +132,19 @@ function UI_DragonSkinSaleConfirmPopup:click_purchaseBtn(price_type)
         end
     end
 
-    --success_cb()
-
-    local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct(price_type)
-    if struct_product ~= nil then    
-        struct_product:buy(success_cb)
+    local buy_cb = function ()
+        local struct_product = self.m_structDragonSkinSale:getDragonSkinProduct(price_type)
+        if struct_product ~= nil then    
+            struct_product:buy(success_cb)
+        end
+    end
+    
+    local did = self.m_structDragonSkinSale:getDragonSkinDId()
+    if g_dragonsData:getNumOfDragonsByDid(did) == 0 then
+        local msg = Str('현재 보유 중인 드래곤이 아닙니다.\n\n그래도 구매하시겠습니까?')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, buy_cb)
+    else
+        buy_cb()
     end
 end
 
