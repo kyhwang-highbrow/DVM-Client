@@ -20,7 +20,7 @@ end
 -------------------------------------
 -- function getDragonSkinIdList
 -------------------------------------
-function TableDragonSkin:getDragonSkinIdList()
+function TableDragonSkin:getDragonSkinIdList(did)
     if (self == THIS) then
         self = THIS()
     end
@@ -29,10 +29,31 @@ function TableDragonSkin:getDragonSkinIdList()
     local id_list = {}
 
     for _, v in pairs(ret) do
-        table.insert(id_list, v['skin_id'])
+
+        if did ~= nil then
+            if did == v['did'] then
+                table.insert(id_list, v['skin_id'])                
+            end
+        else
+            table.insert(id_list, v['skin_id'])
+        end
+
+        
     end
 
     return id_list
+end
+
+
+-------------------------------------
+-- function getDragonSkinInfo
+-------------------------------------
+function TableDragonSkin:getDragonSkinInfo(skin_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:get(skin_id)
 end
 
 

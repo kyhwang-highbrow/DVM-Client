@@ -50,10 +50,10 @@ end
 -------------------------------------
 function ServerData_DragonSkin:makeStructSkinList(did)
     local struct_dragon_skin_sale_map = self:getDragonSkinSaleMap(true)
-    local skin_list = TableDragonSkin():filterList('did', did) 
-    table.sort(skin_list, function(a,b)
-        local a_priority = a['ui_priority'] or 0
-        local b_priority = b['ui_priority'] or 0
+    local skin_id_list = TableDragonSkin:getDragonSkinIdList(did)
+    table.sort(skin_id_list, function(a,b)
+        local a_priority = TableDragonSkin:getDragonSkinValue('ui_priority', a) or 0
+        local b_priority = TableDragonSkin:getDragonSkinValue('ui_priority', b) or 0
         return a_priority > b_priority
     end)
 
@@ -63,9 +63,9 @@ function ServerData_DragonSkin:makeStructSkinList(did)
     local struct_basic_skin = StructDragonSkin:makeDefaultSkin(did)
     table.insert(l_struct_skin, struct_basic_skin)
 
-    for _, v in ipairs(skin_list) do
-        local skin_id = v['skin_id']
-        local struct_dragon_skin = StructDragonSkin(v)
+    for _, skin_id in ipairs(skin_id_list) do
+        local t_skin_info = clone(TableDragonSkin:getDragonSkinInfo(skin_id))
+        local struct_dragon_skin = StructDragonSkin(t_skin_info)
 
         local struct_dragon_skin_sale = struct_dragon_skin_sale_map[skin_id]
         if struct_dragon_skin_sale ~= nil then
