@@ -894,7 +894,7 @@ function StructDragonObject:getStringData()
 
     -- [ 드래곤 정보 ]
     -- did;lv;exp;eclv;rlv;rexp;evolution;grade;skill_0;skill_1;skill_2;skill_3;transform;dragon_skin
-    local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
+    local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
         self['did'],
         self['lv'],
         self['exp'],
@@ -907,8 +907,8 @@ function StructDragonObject:getStringData()
         self['skill_1'],
         self['skill_2'],
         self['skill_3'],
-        self['transform'],
-        self['dragon_skin']
+        self['transform']
+        --self:getSkinID()
     )
 
     -- [ 친밀도 정보 ]
