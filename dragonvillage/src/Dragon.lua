@@ -231,22 +231,21 @@ function Dragon:initAnimator(file_name)
 
 end
 
--- -------------------------------------
--- -- function getAttributeForRes
--- -------------------------------------
--- function Dragon:getAttributeForRes()
---     local t_dragon_data = self.m_tDragonInfo
+-------------------------------------
+-- function getAttributeForRes
+-------------------------------------
+function Dragon:getAttributeForRes()
+    local t_dragon_data = self.m_tDragonInfo
 
---     local attr = PARENT:getAttributeForRes()
+    local attr = self:getAttributeOrg() or self:getAttribute() or ''
 
---     if t_dragon_data['dragon_skin'] ~= nil and t_dragon_data['dragon_skin'] ~= 0 then
---         local skin_id = t_dragon_data['dragon_skin']
---         attr = TableDragonSkin:getDragonSkinValue('attribute', skin_id)
---     end
+    if t_dragon_data['dragon_skin'] ~= nil and t_dragon_data['dragon_skin'] ~= 0 then
+        local skin_id = t_dragon_data['dragon_skin']
+        attr = TableDragonSkin:getDragonSkinValue('attribute', skin_id)
+    end
 
---     return attr
--- end
-
+    return attr
+end
 
 -------------------------------------
 -- function initAnimatorDragon
