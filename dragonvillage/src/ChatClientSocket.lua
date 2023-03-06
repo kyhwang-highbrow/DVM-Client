@@ -186,6 +186,24 @@ function ChatClientSocket:setUserInfo(t_data)
 
     self.m_user['tamerTitleID'] = t_data['tamerTitleID'] or self.m_user['tamerTitleID'] or 0
 
+    -- 리더 드래곤
+    local leader_dragon = g_dragonsData:getLeaderDragon()
+    local did = leader_dragon and tostring(leader_dragon['did']) or ''
+    if (did ~= '') then
+        did = did .. ';' .. leader_dragon['evolution']
+        -- 외형 변환 존재하는 경우에 추가 
+        local transform = leader_dragon['transform'] 
+        if (transform) then
+            did = did .. ';' .. transform
+        end
+        local dragon_skin = leader_dragon['dragon_skin']
+        if (dragon_skin) then
+            did = did ..';' .. dragon_skin
+        end
+    end
+
+    self.m_user['did'] = did
+
     -- json 스트링 처리
     if t_data['json'] then
         local json_str = self.m_user['json'] or '{}'
