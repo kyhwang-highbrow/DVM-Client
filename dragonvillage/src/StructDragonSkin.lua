@@ -375,10 +375,6 @@ function StructDragonSkin:checkDragonSkinPurchaseBuyCount(struct_product_list)
         return false
     end
 
-    if #struct_product_list % 2 ~= 0 then
-        return false
-    end
-
     for _, struct_product in ipairs(struct_product_list) do
         if struct_product:isBuyAll() == true then
             return false
@@ -402,6 +398,11 @@ function StructDragonSkin:checkDragonSkinPurchaseValidation()
     local struct_product_cash_list = self:getDragonSkinProductList('cash')
     -- 동일한 스킨 상품들 중에 하나라도 구매했으면 구매 불가 처리    
     if self:checkDragonSkinPurchaseBuyCount(struct_product_cash_list) == false then
+        return false
+    end
+
+    local count = #struct_product_money_list + #struct_product_cash_list
+    if count % 2 ~= 0 then
         return false
     end
 
