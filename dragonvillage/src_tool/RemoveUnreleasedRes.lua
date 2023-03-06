@@ -42,6 +42,7 @@ function RemoveUnreleasedRes:removeDragonRes()
     
     local dragon_res_path = 'res\\character\\dragon'
     local table_dragon = TableDragon()
+
     
     for file in lfs.dir(dragon_res_path) do
 		if (file ~= ".") and (file ~= "..") then
@@ -67,12 +68,19 @@ function RemoveUnreleasedRes:findTargetDragon(table_dragon, file_name)
         return true
     end
 
+    local exclude_name_list = {'instria', 'oberon', 'envy', 'deathlock'}
+
     -- 파일 이름으로 드래곤 타입과 속성 파싱
     local dragon_type, attr, _ = string.match(file_name, '(.+)_(%a+)_(%d+)')
 	
 	-- 속성 베리가 합쳐진 경우(애니메이션 파일을 공통으로 사용하는 경우)
 	if (attr == 'all') then
 		local dragon_res_path = 'res\\character\\dragon\\' .. file_name .. '\\'
+        for _, ex_name in ipairs(exclude_name_list) do
+            if string.find(file_name, ex_name) ~= nil then
+                return true
+            end
+        end
 		
 		for file in lfs.dir(dragon_res_path) do
 			if (file ~= ".") and (file ~= "..") then
