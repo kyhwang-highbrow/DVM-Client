@@ -431,6 +431,7 @@ function UI_DragonSkinManageInfo:click_select_skin(skin_data)
             -- 코스튬 테이블뷰 초기화
             self:refreshSkinData()
 
+            self:init_dragonSkinTableView()
         end
 
         g_dragonSkinData:request_dragonSkinSelect(skin_id, doid, finish_cb)

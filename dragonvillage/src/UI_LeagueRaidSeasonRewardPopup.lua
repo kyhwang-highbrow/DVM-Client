@@ -66,7 +66,9 @@ function UI_LeagueRaidSeasonRewardPopup:initUI()
             local dragon_id = leader_info['did']
             local transform = leader_info['transform']
             local evolution = transform and transform or leader_info['evolution']
-            local icon = IconHelper:getDragonIconFromDid(dragon_id, evolution, 0, 0)
+            local dragon_skin = leader_info['dragon_skin']
+            local icon = IconHelper:getDragonIconFromDidWithSkin(dragon_id, evolution, 0, 0, dragon_skin)
+            -- local icon = IconHelper:getDragonIconFromDid(dragon_id, evolution, 0, 0)
             icon:setDockPoint(cc.p(0.5, 0.5))
             icon:setAnchorPoint(cc.p(0.5, 0.5))
             icon:setFlippedX(true)

@@ -41,8 +41,8 @@ function UI_DragonSkinListItem:initUI()
     if (img) then
         local animator = AnimatorHelper:makeDragonAnimator(img, evolution)
         animator.m_node:setScale(0.75)
-        animator.m_node:setDockPoint(cc.p(0.4, 0.5))
-        animator.m_node:setAnchorPoint(cc.p(0.4, 0.5))
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         animator:setAnimationPause(true)
         vars['dragonNode']:addChild(animator.m_node)
     end

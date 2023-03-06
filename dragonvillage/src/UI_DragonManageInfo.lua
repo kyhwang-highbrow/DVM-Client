@@ -1084,6 +1084,11 @@ function UI_DragonManageInfo:click_skinBtn()
                 --cclog(self.m_selectDragonData:getSkinID())
                 --self.m_dragonAnimator:setDragonAnimatorByTransform(self.m_selectDragonData)
                 self:refresh()
+
+                -- 테이블 아이템갱신
+                self:init_dragonTableView()                
+                -- 정렬
+                self:apply_dragonSort_saveData()
             end
         
             self.m_dragonSkinManageUI:setCloseCB(close_cb)

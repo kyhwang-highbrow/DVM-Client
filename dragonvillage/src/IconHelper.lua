@@ -118,7 +118,7 @@ function IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
     return sprite
 end
 -------------------------------------
--- function getDragonIconFromDid
+-- function getDragonIconFromDidWithSkin
 -------------------------------------
 function IconHelper:getDragonIconFromDidWithSkin(dragon_id, evolution, grade, eclv, skin_id)
     local table_dragon = TABLE:get('dragon')

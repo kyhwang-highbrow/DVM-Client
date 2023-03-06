@@ -233,6 +233,10 @@ function UI_TitleScene:makeUserDataForChatSocket()
         if (transform) then
             did = did .. ';' .. transform
         end
+        local dragon_skin = leader_dragon['dragon_skin']
+        if (dragon_skin) then
+            did = did ..';' .. dragon_skin
+        end
     end
 
     local t_data = {}
