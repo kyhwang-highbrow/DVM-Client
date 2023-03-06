@@ -237,7 +237,6 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
         end
 
         local t_product = table_shop_cash[product_id] or table_shop_basic[product_id]
-
         if t_product then
             local struct_product = StructProduct(t_product)
             struct_product:setTabCategory(tab_category)
@@ -1540,7 +1539,7 @@ function ServerData_Shop:getActivatedPackageList(is_pass_included)
             g_settingData:setPackageSetting(isNotPeriodPackage(), t_name)
         end
  
-        if is_buyable == true then
+        if is_buyable then
             table.insert(package_list, struct_product_group)
         else
             g_settingData:setPackageSetting(false, t_name)
