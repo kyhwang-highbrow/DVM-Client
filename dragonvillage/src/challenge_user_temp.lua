@@ -16,6 +16,7 @@ return {
 			['fhp']=0;
 		};
 		['evolution']=3;
+		['dragon_skin']=0;
 	};
 	['m_straight']=0;
 	['m_dragonsObject']={

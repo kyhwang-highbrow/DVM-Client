@@ -893,8 +893,8 @@ function StructDragonObject:getStringData()
 	local rexp = self['reinforce']:getExp()
 
     -- [ 드래곤 정보 ]
-    -- did;lv;exp;eclv;rlv;rexp;evolution;grade;skill_0;skill_1;skill_2;skill_3;transform
-    local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
+    -- did;lv;exp;eclv;rlv;rexp;evolution;grade;skill_0;skill_1;skill_2;skill_3;transform;dragon_skin
+    local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
         self['did'],
         self['lv'],
         self['exp'],
@@ -907,7 +907,8 @@ function StructDragonObject:getStringData()
         self['skill_1'],
         self['skill_2'],
         self['skill_3'],
-        self['transform']
+        self['transform'],
+        self['dragon_skin']
     )
 
     -- [ 친밀도 정보 ]
@@ -999,6 +1000,7 @@ function StructDragonObject:parseDragonStringData(str)
     l_key['skill_2'] = getIdx()
     l_key['skill_3'] = getIdx()
     l_key['transform'] = getIdx()
+    l_key['dragon_skin'] = getIdx()
 
     l_key['flv'] = getIdx()
     l_key['fexp'] = getIdx()
@@ -1017,6 +1019,7 @@ function StructDragonObject:parseDragonStringData(str)
     t_data['evolution'] = getValue('evolution', true)
     t_data['grade'] = getValue('grade', true)
     t_data['mastery_lv'] = getValue('mastery_lv', true)
+    t_data['dragon_skin'] = getValue('dragon_skin', true)
 
     local struct_dragon_object = StructDragonObject(t_data)
 

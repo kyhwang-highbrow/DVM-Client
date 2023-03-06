@@ -287,7 +287,6 @@ function StructUserInfo:syncSUser(server_user)
     -- 드래곤 정보
     local did_str = server_user['did']
     if (did_str and (did_str ~= '')) then
-
         local str_list = pl.stringx.split(did_str, ';')
 
         local data = {}
@@ -299,15 +298,14 @@ function StructUserInfo:syncSUser(server_user)
             data['evolution'] = tonumber(str_list[2])
         end
 
+        --@dhkim todo str_list[3]로 스킨 아이디 받아와서 갱신해야 됨
         if str_list[3] then
-            data['transform'] = tonumber(str_list[3])
+            data['dragon_skin'] = tonumber(str_list[3])
         end
 
-        --@dhkim todo str_list[4]로 스킨 아이디 받아와서 갱신해야 됨
         if str_list[4] then
-            data['dragon_skin'] = tonumber(str_list[4])
+            data['transform'] = tonumber(str_list[4])
         end
-
 
         self.m_leaderDragonObject = StructDragonObject(data)
     end

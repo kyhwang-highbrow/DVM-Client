@@ -191,14 +191,11 @@ function ChatClientSocket:setUserInfo(t_data)
     local did = leader_dragon and tostring(leader_dragon['did']) or ''
     if (did ~= '') then
         did = did .. ';' .. leader_dragon['evolution']
+        did = did .. ';' .. (leader_dragon['dragon_skin'] or 0)
         -- 외형 변환 존재하는 경우에 추가 
         local transform = leader_dragon['transform'] 
         if (transform) then
             did = did .. ';' .. transform
-        end
-        local dragon_skin = leader_dragon['dragon_skin']
-        if (dragon_skin) then
-            did = did ..';' .. dragon_skin
         end
     end
 
@@ -427,14 +424,11 @@ function ChatClientSocket:globalUpdatePlayerUserInfo()
     local did = leader_dragon and tostring(leader_dragon['did']) or ''
     if (did ~= '') then
         did = did .. ';' .. leader_dragon['evolution']
+        did = did .. ';' .. (leader_dragon['dragon_skin'] or 0)
         -- 외형 변환 존재하는 경우에 추가 
         local transform = leader_dragon['transform']
         if (transform) then
             did = did .. ';' .. transform
-        end
-        local dragon_skin = leader_dragon['dragon_skin']
-        if (dragon_skin) then
-            did = did ..';' .. dragon_skin
         end
 
         cclog('chat client userinfo update-----------------------------------')

@@ -62,7 +62,7 @@ function ChatContent:init(data)
         local l_str = pl.stringx.split(self.did, ';')
         self.m_dragonID = tonumber(l_str[1]) or 120011
         self.m_dragonEvolution = tonumber(l_str[2]) or 1
-        self.m_dragonSkinID = tonumber(l_str[4]) or 0
+        self.m_dragonSkinID = tonumber(l_str[3]) or 0
     end
 end
 
@@ -212,7 +212,11 @@ function ChatContent:openUserInfoMini()
     t_data['uid'] = self['uid']
     t_data['nickname'] = self['nickname']
     t_data['lv'] = self['level']
-    t_data['leader_dragon_object'] = StructDragonObject({['did']=self.m_dragonID, ['evolution']=self.m_dragonEvolution, ['dragon_skin']=self.m_dragonSkinID})
+    t_data['leader_dragon_object'] = StructDragonObject({
+        ['did']=self.m_dragonID, 
+        ['evolution']=self.m_dragonEvolution, 
+        ['dragon_skin']=self.m_dragonSkinID
+    })
 
     local struct_user_info = StructUserInfo(t_data)
 
