@@ -436,7 +436,8 @@ function UI_DragonSkinManageInfo:click_select_skin(skin_data)
             do
                 --local leader_dragon = g_dragonsData:getLeaderDragon()
                 if self.m_selectDragonData:isLeader() == true then
-                    g_dragonsData:request_setLeaderDragon('lobby', doid)
+                    -- 채팅 서버에 변경사항 적용
+                    g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
                 end
             end
 
