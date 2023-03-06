@@ -23,6 +23,9 @@ StructDragonSkin = class({
     price_dollar = 'number',
     xsolla_price_dollar = 'number',
 
+    start_date = 'string',
+    end_date = 'string',
+
     bUsed = 'boolean',
     saleType = 'string', -- package : 패키지 상점에서 구매
     money_product_list = 'List<StructProduct>', -- 현금 상품 리스트
@@ -66,6 +69,9 @@ function StructDragonSkin:applyTableData(data)
     replacement['sku'] = 'sku'
     replacement['price_dollar'] = 'price_dollar'
     replacement['xsolla_price_dollar'] = 'xsolla_price_dollar'
+
+    replacement['start_date'] = 'start_date'
+    replacement['end_date'] = 'end_date'
 
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
