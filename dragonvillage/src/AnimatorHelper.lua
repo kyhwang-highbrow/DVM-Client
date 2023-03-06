@@ -177,8 +177,6 @@ end
 function AnimatorHelper:getDragonResName(res_name, evolution, attr)
 	local res_name = res_name
 	
-    UIManager:toastNotificationRed(res_name .. ' : 1')
-
 	if evolution then 
 		res_name = string.gsub(res_name, '#', '0' .. evolution)
 	end
@@ -187,8 +185,6 @@ function AnimatorHelper:getDragonResName(res_name, evolution, attr)
 	end
     
     res_name = string.gsub(res_name, '!', 'all')
-    
-    UIManager:toastNotificationRed(res_name .. ' : 2')
 
     return res_name
 end
