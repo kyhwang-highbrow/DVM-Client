@@ -40,7 +40,7 @@ function UI_DragonSkinListItem:initUI()
     local img = skin_data:getDragonSkinRes()
     if (img) then
         local animator = AnimatorHelper:makeDragonAnimator(img, evolution)
-        animator.m_node:setScale(0.75)
+        animator.m_node:setScale(0.8)
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
         animator:setAnimationPause(true)
@@ -79,11 +79,6 @@ function UI_DragonSkinListItem:refresh()
         is_open = true
     end
     local is_valid_purchase =  skin_data:checkDragonSkinPurchaseValidation()
-
-    cclog('---------------------------------')
-    cclog('is_default : '..tostring(is_default))
-    cclog('is_open : '..tostring(is_open))
-    cclog('---------------------------------')
 
     local badge_node = vars['badgeNode']
     badge_node:removeAllChildren()
