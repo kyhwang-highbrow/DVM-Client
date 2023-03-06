@@ -31,20 +31,20 @@ function UI_DragonSkinListItem:initUI()
     local vars = self.vars
     local skin_data = self.m_skinData
     local is_skin_on = self.m_structDragon:isSkinOn(skin_data:getSkinID())
+    local evolution = self.m_structDragon:getEvolution()
 
     -- 이름
     vars['skinLabel']:setString(skin_data:getName())
 
     -- 이미지
     local img = skin_data:getDragonSkinRes()
-
     if (img) then
-        self.m_dragonAnimator = AnimatorHelper:makeDragonAnimator(img, 3)
-        self.m_dragonAnimator.m_node:setScale(0.75)
-        self.m_dragonAnimator.m_node:setDockPoint(cc.p(0.4, 0.5))
-        self.m_dragonAnimator.m_node:setAnchorPoint(cc.p(0.4, 0.5))
-        self.m_dragonAnimator:setAnimationPause(true)
-        vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
+        local animator = AnimatorHelper:makeDragonAnimator(img, evolution)
+        animator.m_node:setScale(0.75)
+        animator.m_node:setDockPoint(cc.p(0.4, 0.5))
+        animator.m_node:setAnchorPoint(cc.p(0.4, 0.5))
+        animator:setAnimationPause(true)
+        vars['dragonNode']:addChild(animator.m_node)
     end
 
     vars['selectSprite']:setVisible(is_skin_on)

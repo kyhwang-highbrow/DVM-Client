@@ -267,6 +267,7 @@ function UI_DragonSkinManageInfo:setSelectDragonData(object_id, b_force)
     end
 
     self.m_bSlimeObject = (object_data.m_objectType == 'slime')
+    self.m_evolutionLevel = self.m_selectDragonData:getEvolution()
 
     -- 선택된 드래곤 카드에 프레임 표시
     self:changeDragonSelectFrame()
@@ -394,6 +395,7 @@ function UI_DragonSkinManageInfo:click_skin(skin_data)
     -- end
 
     self.m_selectedSkinData = skin_data
+    self.m_evolutionLevel = self.m_selectDragonData:getEvolution()
     self:refreshSkinData()
 
     -- 드래곤 스킨 Res 변경
@@ -422,6 +424,8 @@ function UI_DragonSkinManageInfo:click_select_skin(skin_data)
         local function finish_cb()
             UIManager:toastNotificationGreen(Str('스킨을 변경하였습니다.'))
             self.m_selectDragonData = g_dragonsData:get(doid)
+            self.m_evolutionLevel = self.m_selectDragonData:getEvolution()
+
             -- 모든 상태 변경
             self:refresh()
             -- 코스튬 테이블뷰 초기화
