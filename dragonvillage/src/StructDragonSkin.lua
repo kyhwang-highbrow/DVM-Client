@@ -401,7 +401,7 @@ function StructDragonSkin:checkDragonSkinPurchaseValidation()
 
     local struct_product_cash_list = self:getDragonSkinProductList('cash')
     -- 동일한 스킨 상품들 중에 하나라도 구매했으면 구매 불가 처리    
-    if self:checkDragonSkinPurchaseBuyCount(struct_product_cash_list) == false then
+    if self:checkDranbgonSkinPurchaseBuyCount(struct_product_cash_list) == false then
         return false
     end
 

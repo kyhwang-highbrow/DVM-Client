@@ -220,8 +220,8 @@ function UI_DragonManageInfo:refresh()
 
     -- 진화/승급/스킬강화 알림 - 개발 하다가 중단 
     --self:refresh_buttonNoti()
-
 	-- 조합 드래곤
+
 	self:refresh_combination()
 
     local vars = self.vars
@@ -1068,21 +1068,22 @@ function UI_DragonManageInfo:click_skinBtn()
     local t_dragon_data = self.m_selectDragonData
     if t_dragon_data then
         local did = t_dragon_data:getDid()
+        local doid = t_dragon_data:getObjectId()
         local is_skin_Exist = g_dragonSkinData:isDragonSkinExist(did)
         
         if is_skin_Exist then
             self.m_dragonSkinManageUI = UI_DragonSkinManageInfo(t_dragon_data)
 
             local function close_cb()
-                self.m_selectDragonData = self.m_dragonSkinManageUI:getSelectedDragon()
-
+                self.m_selectDragonData = g_dragonsData:get(doid)
+                --self.m_selectDragonData = self.m_dragonSkinManageUI:getSelectedDragon()
                 -- 테이블 아이템갱신
-                self:init_dragonTableView()
+                --self:init_dragonTableView()
                 -- 정렬
-                self:apply_dragonSort_saveData()
-
-                cclog(self.m_selectDragonData:getSkinID())
-                self.m_dragonAnimator:setDragonAnimatorByTransform(self.m_selectDragonData)
+                --self:apply_dragonSort_saveData()
+                --cclog(self.m_selectDragonData:getSkinID())
+                --self.m_dragonAnimator:setDragonAnimatorByTransform(self.m_selectDragonData)
+                self:refresh()
             end
         
             self.m_dragonSkinManageUI:setCloseCB(close_cb)

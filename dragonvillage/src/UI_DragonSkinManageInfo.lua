@@ -293,7 +293,7 @@ function UI_DragonSkinManageInfo:refresh()
     -- 스킨 리스트
     self:refreshSkinTableView()
     -- 스킨 데이터
-    self:refreshSkinData()
+    --self:refreshSkinData()
     -- 드래곤 스킨 Res 변경
     self:setDragonSkinRes(self.m_selectedSkinData)
     -- 좌측 드래곤 아이콘 이미지 변경
@@ -367,7 +367,7 @@ function UI_DragonSkinManageInfo:refreshSkinTableView()
 
         -- 스킨 구입하기
         ui.vars['buyBtn']:registerScriptTapHandler(function()
-            self:click_buy_skin(self.m_selectDragonData)
+            self:click_buy_skin(ui.m_skinData)
         end)
     end
 
@@ -425,7 +425,7 @@ function UI_DragonSkinManageInfo:click_select_skin(skin_data)
             -- 모든 상태 변경
             self:refresh()
             -- 코스튬 테이블뷰 초기화
-            -- self:refreshSkinData()
+            self:refreshSkinData()
 
         end
 
@@ -448,7 +448,13 @@ end
 -- @brief 스킨 구매
 -------------------------------------
 function UI_DragonSkinManageInfo:click_buy_skin(skin_data)
-    UINavigatorDefinition:goTo('package_shop', 'package_dragon_skin')
+    ---UINavigatorDefinition:goTo('package_shop', 'package_dragon_skin')
+    local finish_cb = function (ret)
+        self:refresh()
+    end
+
+    require('UI_DragonSkinSaleConfirmPopup')
+    UI_DragonSkinSaleConfirmPopup.open(skin_data, finish_cb)
 end
 
 -------------------------------------
@@ -456,7 +462,7 @@ end
 -- @brief 해당 테이머 코스튬 메뉴 갱신
 -------------------------------------
 function UI_DragonSkinManageInfo:refreshSkinData()
-    if (self.m_selectedSkinData) then
+    if (self.m_selectedSkinData and self.m_skinTableView) then
         for _, v in ipairs(self.m_skinTableView.m_itemList) do
             local ui = v['ui']
             if ui then
