@@ -25,7 +25,14 @@ function TableDragonSkin:getDragonSkinIdList()
         self = THIS()
     end
 
-    return self:getTableKeyList()
+    local ret = self:filterTable_conditionDate('start_date', 'end_date')
+    local id_list = {}
+
+    for _, v in pairs(ret) do
+        table.insert(id_list, v['skin_id'])
+    end
+
+    return id_list
 end
 
 
