@@ -130,7 +130,7 @@ function IconHelper:getDragonIconFromDidWithSkin(dragon_id, evolution, grade, ec
     local evolution = evolution
     local attr = t_dragon['attr']
 
-    if skin_id ~= nil and skin_id ~= 0 then
+    if ((skin_id ~= nil) and (skin_id ~= 0)) then
         res_name = TableDragonSkin:getDragonSkinValue('res_icon', skin_id)
         attr = TableDragonSkin:getDragonSkinValue('attribute', skin_id)
     end

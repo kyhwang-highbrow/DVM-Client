@@ -66,8 +66,7 @@ function UI_ChatListItem_myMsg:init(chat_content)
         local grade = 0
         local eclv = 0
         -- @dhkim todo 내 채팅의 아이콘에 스킨을 낀 드래곤이 나와야 됨
-        -- local dragon_skin = chat_content['dragon_skin']
-        local icon = IconHelper:getDragonIconFromDidWithSkin(dragon_id, evolution, 0, 0, dragon_skin)
+        local icon = IconHelper:getDragonIconFromDidWithSkin(dragon_id, evolution, grade, eclv, dragon_skin)
         -- local icon = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
         icon:setDockPoint(cc.p(0.5, 0.5))
         icon:setAnchorPoint(cc.p(0.5, 0.5))

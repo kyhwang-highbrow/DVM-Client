@@ -653,7 +653,7 @@ function LobbyMap:addLobbyDragon(tamer, is_bot, struct_user_info)
 
     local dragon_skin = leader_dragon:getSkinID()
 
-    if dragon_skin ~= nil and dragon_skin ~= 0 then
+    if ((dragon_skin ~= nil) and (dragon_skin ~= 0)) then
         dragon_res = TableDragonSkin:getDragonSkinValue('res', dragon_skin)
         dragon_attr = TableDragonSkin:getDragonSkinValue('attribute', dragon_skin)
     end

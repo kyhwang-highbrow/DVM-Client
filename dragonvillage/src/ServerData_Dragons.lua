@@ -231,7 +231,7 @@ function ServerData_Dragons:getMyDragonsListWithSkin()
     for key,value in pairs(dragon_dictionary) do
         local skin_id = value['dragon_skin']
 
-        if (skin_id ~= nil or skin_id ~= 0) then
+        if (skin_id ~= nil and skin_id ~= 0) then
             ret_dictionary[key] = value
         end
     end
