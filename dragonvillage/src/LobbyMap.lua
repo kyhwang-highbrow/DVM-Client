@@ -623,6 +623,7 @@ function LobbyMap:addLobbyDragon(tamer, is_bot, struct_user_info)
     local evolution = leader_dragon:getEvolution()
     local did = leader_dragon:getDid()
 	local flv = leader_dragon:getFlv()
+    local dragon_skin = leader_dragon:getSkinID()
 
     -- 서버에서 오류로 인해 did가 0으로 넘어오는 이슈가 있어서 예외처리함
     if (did == 0) then
@@ -651,11 +652,17 @@ function LobbyMap:addLobbyDragon(tamer, is_bot, struct_user_info)
     local dragon_res = t_dragon['res']
     local dragon_attr = t_dragon['attr']
 
-    local dragon_skin = leader_dragon:getSkinID()
+    if dragon_skin ~= 0 then
+        local skin_res = TableDragonSkin:getDragonSkinValue('res', dragon_skin)
+        local skin_attr = TableDragonSkin:getDragonSkinValue('attribute', dragon_skin)        
 
-    if ((dragon_skin ~= nil) and (dragon_skin ~= 0)) then
-        dragon_res = TableDragonSkin:getDragonSkinValue('res', dragon_skin)
-        dragon_attr = TableDragonSkin:getDragonSkinValue('attribute', dragon_skin)
+        if skin_res ~= nil then
+            dragon_res = skin_res
+        end
+
+        if skin_attr ~= nil then
+            dragon_attr = skin_attr
+        end
     end
 
     local res = AnimatorHelper:getDragonResName(dragon_res, evolution, dragon_attr)

@@ -62,7 +62,7 @@ function ChatContent:init(data)
         local l_str = pl.stringx.split(self.did, ';')
         self.m_dragonID = tonumber(l_str[1]) or 120011
         self.m_dragonEvolution = tonumber(l_str[2]) or 1
-        self.m_dragonSkinID = tonumber(l_str[3]) or 0
+        self.m_dragonSkinID = tonumber(l_str[4]) or 0
     end
 end
 

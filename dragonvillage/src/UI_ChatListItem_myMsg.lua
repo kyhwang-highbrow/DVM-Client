@@ -62,7 +62,7 @@ function UI_ChatListItem_myMsg:init(chat_content)
     do -- 리더 드래곤 아이콘
         local dragon_id = chat_content.m_dragonID
         local evolution = chat_content.transform and chat_content.transform or chat_content.m_dragonEvolution
-        local dragon_skin = chat_content.m_dragonSkinID
+        local dragon_skin = chat_content.m_dragonSkinID or 0
         local grade = 0
         local eclv = 0
         -- @dhkim todo 내 채팅의 아이콘에 스킨을 낀 드래곤이 나와야 됨
