@@ -58,9 +58,6 @@ function ChatContent:init(data)
         self.m_timestamp = socket.gettime()
     end
 
-    cclog('ChatContent ChatContent ChatContent ChatContent ChatContent ChatContent ChatContent ChatContent ChatContent ChatContent ChatContent ChatContent ')
-    cclog(self.did)
-
     if self.did then
         local l_str = pl.stringx.split(self.did, ';')
         self.m_dragonID = tonumber(l_str[1]) or 120011
