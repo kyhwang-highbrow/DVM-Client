@@ -430,10 +430,6 @@ function ChatClientSocket:globalUpdatePlayerUserInfo()
         if (transform) then
             did = did .. ';' .. transform
         end
-
-        cclog('chat client userinfo update-----------------------------------')
-        cclog(did)
-        cclog('chat client userinfo update-----------------------------------')
     end
 
     local t_data = {}
