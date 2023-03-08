@@ -178,6 +178,9 @@ end
 function UI_Product:initButton()
 	local vars = self.vars
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    if vars['infoBtn'] ~= nil then
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    end
 
     if self:isValorCostume() then
         vars['valorCostumeBtn']:setVisible(true)
@@ -256,6 +259,12 @@ function UI_Product:refresh()
         vars['buyBtn']:setEnabled(false)
     else
         vars['buyBtn']:setEnabled(true)
+    end
+
+    -- 돋보기 표시 여부
+    local is_need_product_info = struct_product:isNeedProductInfo()
+    if vars['infoBtn'] ~= nil then
+        vars['infoBtn']:setVisible(is_need_product_info)
     end
 end
 
@@ -416,4 +425,24 @@ function UI_Product:click_valorCostumeBtn()
         self:click_buyBtn()
     end
     local ui = UI_ValorCostumeInfoPopup(buy_btn_func)
+end
+
+----------------------------------
+-- function click_infoBtn
+-- @brief 돋보기 버튼 클릭
+-------------------------------------
+function UI_Product:click_infoBtn()
+    local item_list = self.m_structProduct:getItemList()
+    local t_item = table.getFirst(item_list)
+    if t_item == nil then
+        return false
+    end
+
+    local item_id = t_item['item_id']
+    local item_type = TableItem:getInstance():getItemType(t_item['item_id'])
+    -- 룬일 경우 설명 팝업
+    if item_type == 'fixed_rune' then
+        local struct_rune_obj = StructRuneObject:createSimpleRuneByItemId(item_id)
+        local ui = UI_ItemInfoPopup(item_id, 1, struct_rune_obj)
+    end
 end

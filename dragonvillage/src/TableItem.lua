@@ -397,6 +397,19 @@ function TableItem:getItemDesc(item_id)
 end
 
 -------------------------------------
+-- function getItemAttr
+-- @brief
+-------------------------------------
+function TableItem:getItemAttr(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+	local attr = self:getValue(item_id, 'attr')
+    return attr
+end
+
+-------------------------------------
 -- function getToolTipDesc
 -- @brief
 -------------------------------------

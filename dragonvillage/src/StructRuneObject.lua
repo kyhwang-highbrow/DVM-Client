@@ -89,6 +89,10 @@ function StructRuneObject:applyTableData(data)
     -- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
     local replacement = {}
     replacement['id'] = 'roid'
+    replacement['sopt1'] = 'sopt_1'
+    replacement['sopt2'] = 'sopt_2'
+    replacement['sopt3'] = 'sopt_3'
+    replacement['sopt4'] = 'sopt_4'
     
     -- 연마된 옵션값 초기화
     self['grind_opt'] = nil

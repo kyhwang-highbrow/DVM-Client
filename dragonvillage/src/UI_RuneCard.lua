@@ -166,11 +166,6 @@ end
 -- @brief 등급 아이콘
 -------------------------------------
 function UI_RuneCard:refresh_gradeIcon()
-    -- 이벤트 룬일 경우 등급을 보여주지 않음
-    if self.m_runeData:isEventRune() == true then
-        return
-    end
-
 	local grade = self.m_runeData['grade']
     local res = string.format('card_star_yellow_01%02d.png', grade)
     self:makeSprite('starNode', res)

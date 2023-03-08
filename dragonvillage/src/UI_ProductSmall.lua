@@ -14,6 +14,7 @@ UI_ProductSmall = class(PARENT, {
 function UI_ProductSmall:init(struct_product)
     local vars = self:load('shop_list_02.ui')
 
+    cclog('shop_list_02.ui')
     self.m_structProduct = struct_product
     
     self:initItemNodePos()

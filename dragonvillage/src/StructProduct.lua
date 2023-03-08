@@ -451,6 +451,26 @@ function StructProduct:isDragonSkinProduct()
 end
 
 -------------------------------------
+-- function isNeedProductInfo
+-- @brief 돋보기 정보가 필요한 상품이냐?
+-------------------------------------
+function StructProduct:isNeedProductInfo()
+    local item_list = self:getItemList()
+    local t_item = table.getFirst(item_list)
+    if t_item == nil then
+        return false
+    end
+
+    -- 고정 룬
+    local item_type = TableItem:getInstance():getItemType(t_item['item_id'])
+    if item_type == 'fixed_rune' then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function getFirstItemNameWithCount
 -------------------------------------
 function StructProduct:getFirstItemNameWithCount()
