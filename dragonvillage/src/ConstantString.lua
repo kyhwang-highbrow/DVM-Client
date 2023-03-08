@@ -40,7 +40,7 @@ function chapterName(chapter)
         return Str('부서진 검은 요새')
 
     elseif (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then
-        return Str('할로윈 비밀 스테이지')
+        return Str('로롤리의 간식 창고')
 
     elseif (chapter == SPECIAL_CHAPTER.ADVENT) then
         return Str('깜짝 출현')
