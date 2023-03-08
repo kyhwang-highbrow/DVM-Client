@@ -71,7 +71,7 @@ function StructRuneObject:init(data)
     self['set_id'] = getDigit(rid, 100, 2)
     self['slot'] = getDigit(rid, 10, 1)
     self['grade'] = getDigit(rid, 1, 1)
-    self['name'] = TableItem:getItemName(rid)
+    self['name'] = TableItem:getItemName(rid) or 'none'
 
     self['is_ancient'] = (self['set_id'] > 8) and true or false
 
@@ -991,11 +991,34 @@ function StructRuneObject:hasAuxiliaryOption(l_opt_list) -- ex) {atk_multi}
     return (check_count == 0)
 end
 
-
-
 -------------------------------------
 -- function isGrindedOption
 -------------------------------------
 function StructRuneObject:isGrindedOption(opt_name)
     return self.grind_opt == opt_name
+end
+
+-------------------------------------
+-- function createSimpleRuneByItemId
+-------------------------------------
+function StructRuneObject:createSimpleRuneByItemId(item_id)
+    local attr = TableItem:getItemAttr(item_id)
+    local l_item = plSplit(attr, ',')
+    local t_rune_data = {
+        ['rid'] = 0,
+        ['lv'] = 0,
+    }
+
+    -- id;750616,lv;15,mopt;atk_add,uopt;cri_chance_add;8,sopt1;cri_dmg_add;6,sopt2;hit_rate_add;6,sopt3;atk_multi;6,sopt4;hp_multi;6
+    for _, str in ipairs(l_item) do
+        local parse_list = plSplit(str, ';')
+        if parse_list[1] == 'id' then
+            t_rune_data['rid'] = tonumber(parse_list[2])
+        else
+            t_rune_data[parse_list[1]] = tonumber(parse_list[2]) or parse_list[2]
+        end
+    end
+
+    local struct_rune_obj = StructRuneObject(t_rune_data)
+    return struct_rune_obj
 end
