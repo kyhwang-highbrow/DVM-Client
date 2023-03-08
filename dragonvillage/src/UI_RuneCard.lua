@@ -133,6 +133,11 @@ function UI_RuneCard:makeRuneNumberIcon()
         return
     end
 
+    -- 이벤트 룬일 경우 룬 넘버를 보여주지 않음
+    if self.m_runeData:isEventRune() == true then
+        return
+    end
+
 	local slot = self.m_runeData['slot']
 	local res = string.format('res/ui/icons/rune/rune_number_%.2d.png', slot)
     self:makeSprite('runeNumberNode', res, true) -- (lua_name, res, no_use_frames)
