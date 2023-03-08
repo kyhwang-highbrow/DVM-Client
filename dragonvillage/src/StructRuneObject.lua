@@ -373,6 +373,17 @@ function StructRuneObject:isMaxRuneLv()
 end
 
 -------------------------------------
+-- function isEventRune
+-- @brief 아이템 번호 대역이 75번대일 경우 이벤트룬으로 식별
+-------------------------------------
+function StructRuneObject:isEventRune()
+    local rid = self.rid
+    local item_id_range = getDigit(rid, 10000, 2)
+    return item_id_range == 75
+end
+
+
+-------------------------------------
 -- function getRuneEnhanceReqGold
 -------------------------------------
 function StructRuneObject:getRuneEnhanceReqGold()
@@ -631,6 +642,14 @@ end
 -- function getRuneRes
 -------------------------------------
 function StructRuneObject:getRuneRes()
+    -- 이벤트 룬이고 png리소스가 설정되어 있을 경우 작동
+    if self:isEventRune() == true then
+        local res_icon = TableItem:getItemIcon(self['rid']) or ''
+        if string.find(res_icon, '.png') ~= nil then
+            return res_icon
+        end
+    end
+
     local slot = self['slot']
     local grade = self['grade']
     local set_id = self['set_id']
