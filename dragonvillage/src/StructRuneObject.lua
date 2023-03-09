@@ -1004,7 +1004,7 @@ end
 -------------------------------------
 function StructRuneObject:createSimpleRuneByItemId(item_id)
     local attr = TableItem:getItemAttr(item_id)
-    
+
     local t_rune_data = {}
     local replacement = {}
     replacement['id'] = 'rid'
@@ -1012,6 +1012,8 @@ function StructRuneObject:createSimpleRuneByItemId(item_id)
     replacement['sopt2'] = 'sopt_2'
     replacement['sopt3'] = 'sopt_3'
     replacement['sopt4'] = 'sopt_4'
+    -- 주옵션의 경우 획득 시 서버에서 계산한다. 획득하기 전에는 모른다. 그래서 깡 수치를 뿌려준다.
+    replacement['mopt_show'] = 'mopt' 
 
     -- id;750616,lv;15,mopt;atk_add,uopt;cri_chance_add;8,sopt1;cri_dmg_add;6,sopt2;hit_rate_add;6,sopt3;atk_multi;6,sopt4;hp_multi;6
     local l_item = plSplit(attr, ',')
