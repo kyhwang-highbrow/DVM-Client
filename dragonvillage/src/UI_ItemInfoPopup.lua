@@ -46,12 +46,10 @@ end
 -------------------------------------
 function UI_ItemInfoPopup:initUI()
     local vars = self.vars
-
     self.m_itemType = TableItem:getItemType(self.m_itemID)
-
     
     -- 아이템명 출력
-    if (self.m_itemType == 'rune') and self.m_tSubData then
+    if (self.m_itemType == 'rune' or self.m_itemType == 'fixed_rune') and self.m_tSubData then
         vars['titleLabel']:setString(self.m_tSubData['name'])
     else
         local item_name = TableItem:getItemName(self.m_itemID)
@@ -71,7 +69,7 @@ function UI_ItemInfoPopup:initUI()
             local item_card = UI_DragonCard(self.m_tSubData)
             vars['itemNode']:addChild(item_card.root)
 
-		elseif (self.m_itemType == 'rune') and self.m_tSubData then
+		elseif (self.m_itemType == 'rune' or self.m_itemType == 'fixed_rune') and self.m_tSubData then
             local item_card = UI_RuneCard(self.m_tSubData)
             self.m_tItemCard = item_card
             vars['itemNode']:addChild(item_card.root)
@@ -95,7 +93,7 @@ function UI_ItemInfoPopup:initUI()
 
     -- 아이템 설명
     local desc = ''
-    if (self.m_itemType == 'rune') and self.m_tSubData then
+    if (self.m_itemType == 'rune' or self.m_itemType == 'fixed_rune') and self.m_tSubData then
         -- 룬일 경우
         local t_rune_data = self.m_tSubData
         
@@ -112,7 +110,7 @@ function UI_ItemInfoPopup:initUI()
     vars['itemDscLabel']:setString(Str(desc))
 
     -- 룬 세트 옵션 설명
-    if (self.m_itemType == 'rune') then
+    if (self.m_itemType == 'rune'  or self.m_itemType == 'fixed_rune') then
         -- 임시 룬 오브젝트를 생성 (룬 세트 설명 함수를 사용하기 위해)
         local _data = {}
         _data['rid'] = self.m_itemID

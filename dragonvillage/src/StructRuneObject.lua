@@ -89,10 +89,6 @@ function StructRuneObject:applyTableData(data)
     -- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
     local replacement = {}
     replacement['id'] = 'roid'
-    replacement['sopt1'] = 'sopt_1'
-    replacement['sopt2'] = 'sopt_2'
-    replacement['sopt3'] = 'sopt_3'
-    replacement['sopt4'] = 'sopt_4'
     
     -- 연마된 옵션값 초기화
     self['grind_opt'] = nil
@@ -1007,19 +1003,26 @@ end
 -------------------------------------
 function StructRuneObject:createSimpleRuneByItemId(item_id)
     local attr = TableItem:getItemAttr(item_id)
-    local l_item = plSplit(attr, ',')
-    local t_rune_data = {
-        ['rid'] = 0,
-        ['lv'] = 0,
-    }
+    
+    local t_rune_data = {}
+    local replacement = {}
+    replacement['id'] = 'rid'
+    replacement['sopt1'] = 'sopt_1'
+    replacement['sopt2'] = 'sopt_2'
+    replacement['sopt3'] = 'sopt_3'
+    replacement['sopt4'] = 'sopt_4'
 
     -- id;750616,lv;15,mopt;atk_add,uopt;cri_chance_add;8,sopt1;cri_dmg_add;6,sopt2;hit_rate_add;6,sopt3;atk_multi;6,sopt4;hp_multi;6
+    local l_item = plSplit(attr, ',')
     for _, str in ipairs(l_item) do
         local parse_list = plSplit(str, ';')
-        if parse_list[1] == 'id' then
-            t_rune_data['rid'] = tonumber(parse_list[2])
+        local key = clone(parse_list[1])
+        table.remove(parse_list, 1)
+        local val = table.concat(parse_list, ';')
+        if replacement[key] ~= nil then
+            t_rune_data[replacement[key]] = tonumber(val) or val
         else
-            t_rune_data[parse_list[1]] = tonumber(parse_list[2]) or parse_list[2]
+            t_rune_data[key] = tonumber(val) or val
         end
     end
 
