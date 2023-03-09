@@ -421,7 +421,7 @@ function UI_DragonSkinManageInfo:click_select_skin(skin_data)
 
     -- 코스튬 선택
     else
-        local function finish_cb()
+        local function finish_cb(ret)
             UIManager:toastNotificationGreen(Str('스킨을 변경하였습니다.'))
             self.m_selectDragonData = g_dragonsData:get(doid)
             self.m_evolutionLevel = self.m_selectDragonData:getEvolution()
@@ -430,18 +430,8 @@ function UI_DragonSkinManageInfo:click_select_skin(skin_data)
             self:refresh()
             -- 코스튬 테이블뷰 초기화
             self:refreshSkinData()
-
             self:init_dragonSkinTableView()
-
-            do
-                --local leader_dragon = g_dragonsData:getLeaderDragon()
-                if self.m_selectDragonData:isLeader() == true then
-                    -- 채팅 서버에 변경사항 적용
-                    g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
-                end
-            end
-
-        end
+       end
 
         g_dragonSkinData:request_dragonSkinSelect(skin_id, doid, finish_cb)
     end

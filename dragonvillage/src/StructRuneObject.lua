@@ -1000,6 +1000,7 @@ end
 
 -------------------------------------
 -- function createSimpleRuneByItemId
+-- @brief 룬 획득하기 전의 옵션 정보를 보여주고 싶은 경우, 임시 룬 오브젝트 생성
 -------------------------------------
 function StructRuneObject:createSimpleRuneByItemId(item_id)
     local attr = TableItem:getItemAttr(item_id)

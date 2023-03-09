@@ -398,20 +398,17 @@ function StructDragonSkin:checkDragonSkinPurchaseValidation()
     local struct_product_money_list = self:getDragonSkinProductList('money')
     -- 동일한 스킨 상품들 중에 하나라도 구매했으면 구매 불가 처리
     if self:checkDragonSkinPurchaseBuyCount(struct_product_money_list) == false then
-        cclog('money 구매 안됨')
         return false
     end
 
     local struct_product_cash_list = self:getDragonSkinProductList('cash')
     -- 동일한 스킨 상품들 중에 하나라도 구매했으면 구매 불가 처리    
     if self:checkDragonSkinPurchaseBuyCount(struct_product_cash_list) == false then
-        cclog('cash 구매 안됨')
         return false
     end
 
     local count = #struct_product_money_list + #struct_product_cash_list
     if count % 2 ~= 0 then
-        cclog('count % 2 구매 안됨')
         return false
     end
 

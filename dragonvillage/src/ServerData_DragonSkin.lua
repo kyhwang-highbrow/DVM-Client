@@ -169,7 +169,7 @@ function ServerData_DragonSkin:request_dragonSkinSelect(skin_id, doid, cb_func)
         -- end
 
 		if (cb_func) then
-			cb_func()
+			cb_func(ret)
 		end
     end
 

@@ -574,8 +574,10 @@ function LobbyMap:updateLobbyTamer(uid, struct_user_info)
     -- 리더 드래곤
     local prev_dragon = tamer.m_userData:getLeaderDragonObject()
     local curr_dragon = struct_user_info:getLeaderDragonObject()
+
     if (prev_dragon:getDid() ~= curr_dragon:getDid()) or 
        (prev_dragon:getEvolution() ~= curr_dragon:getEvolution()) or 
+       (prev_dragon:getSkinID() ~= curr_dragon:getSkinID()) or 
        (prev_dragon:getTransform() ~= curr_dragon:getTransform()) then
 		local lobby_dragon = tamer.m_dragon
 
@@ -589,7 +591,11 @@ function LobbyMap:updateLobbyTamer(uid, struct_user_info)
 		
 		-- 위치 갱신
 		lobby_dragon:moveToTamer()
+
+        
     end
+
+    
 
     -- 복사를 해서 사용함 (변경 여부를 관리하기 위해)
     -- UI는 변경여부 상관없이 무조건 갱신 (퍼포먼스 이슈가 거의 없음)
