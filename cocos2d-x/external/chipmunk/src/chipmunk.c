@@ -45,7 +45,9 @@ cpMessage(const char *condition, const char *file, int line, cpBool isError, cpB
 #define STR(s) #s
 #define XSTR(s) STR(s)
 
-const char *cpVersionString = XSTR(CP_VERSION_MAJOR)"."XSTR(CP_VERSION_MINOR)"."XSTR(CP_VERSION_RELEASE);
+//리터럴 에러가 나오는데 문법적으로 못쓰게 막은듯?? 일단 주석
+//const char *cpVersionString = XSTR(CP_VERSION_MAJOR)"."XSTR(CP_VERSION_MINOR)"."XSTR(CP_VERSION_RELEASE);
+const char* cpVersionString = "none";
 
 void
 cpInitChipmunk(void)

@@ -49,9 +49,13 @@ typedef SSIZE_T ssize_t;
     #define isnan   _isnan
 #endif
 
+/*
+쓰이지 않는 것으로 보임
 #ifndef snprintf
 #define snprintf _snprintf
 #endif
+*/
+
 
 #endif // __MINGW32__
 

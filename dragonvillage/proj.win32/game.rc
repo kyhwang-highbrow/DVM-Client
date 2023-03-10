@@ -7,8 +7,10 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "afxres.h"
-
+// 빌드가 안되어 구글링을 하니 아래 주석을 아래 주석을 그 아래 2줄로 수정하라고 나와있음
+//#include "afxres.h"
+#include <winresrc.h>
+#define IDC_STATIC (-1)
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
