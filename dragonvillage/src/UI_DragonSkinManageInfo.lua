@@ -309,7 +309,6 @@ end
 -- function click_evolutionBtn
 -------------------------------------
 function UI_DragonSkinManageInfo:click_evolutionBtn(i)
-    cclog('CLICK EVOLUTION BTN : ' .. i)
     do -- 드래곤 리소스
         -- -- 이미지
         local res = self.m_selectedSkinData:getDragonSkinRes()
