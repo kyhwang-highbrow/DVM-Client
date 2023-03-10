@@ -68,9 +68,9 @@ function StructRuneObject:init(data)
     -- xx01xx -- set_id 1번 세트
     -- xxxx1x -- slot 1번 슬롯
     -- xxxxx1 -- grade 등급
-    self['set_id'] = getDigit(rid, 100, 2)
-    self['slot'] = getDigit(rid, 10, 1)
-    self['grade'] = getDigit(rid, 1, 1)
+    self['set_id'] = TableRune:getRuneSetId(rid)
+    self['slot'] = TableRune:getRuneSlot(rid)
+    self['grade'] = TableRune:getRuneGrade(rid)
     self['name'] = TableItem:getItemName(rid) or 'none'
 
     self['is_ancient'] = (self['set_id'] > 8) and true or false

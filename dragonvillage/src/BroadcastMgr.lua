@@ -313,7 +313,7 @@ function BroadcastMgr:makeMessage(msg_info)
         elseif (value == 'grade' or value == 'd_grade') then
             -- 등급(룬의 경우는 승급이 존재하지 않음)
             if (data['rid']) then
-                t_value[i] = getDigit(data['rid'], 1, 1)
+                t_value[i] = TableRune:getRuneGrade(data['rid']) --getDigit(data['rid'], 1, 1)
             else
                 t_value[i] = data['grade'] or data['d_grade']
             end

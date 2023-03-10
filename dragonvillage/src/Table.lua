@@ -140,6 +140,7 @@ local TableInfo = {
 local TableInfo_fromServer = {
         -- ['csv 테이블 이름'] = {'테이블 약어', 'key'},
 		-- 룬 
+        ['table_rune'] = {'table_rune', 'rune_id'},
         ['table_rune_enhance'] = {'table_rune_enhance', 'rune_lv'},
         ['table_rune_grade'] = {'table_rune_grade', 'grade'},
         ['table_rune_mopt_status'] = {'table_rune_mopt_status', 'vid'},
@@ -493,9 +494,10 @@ function TABLE:setServerTable(table_name, table_data)
     local tablekey = t_table_info[2]
 
     local tables = {}
-
-    for i,v in pairs(table_data) do
-        tables[v[tablekey]] = v
+    for _, v in pairs(table_data) do
+        if v['ignore_row'] ~= 1 then
+            tables[v[tablekey]] = v
+        end
     end
 
     TABLE[tablename] = tables

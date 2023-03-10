@@ -199,7 +199,7 @@ function TableRuneSet:runeSetAnalysis(l_rid)
     local rune_set_analysis = {}
 
     for _,rid in pairs(l_rid) do
-        local set_id = getDigit(rid, 100, 2)
+        local set_id = TableRune:getRuneSetId(rid)
 
         local t_set_data = rune_set_analysis[set_id]
         if (not t_set_data) then

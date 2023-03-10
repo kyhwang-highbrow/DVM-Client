@@ -162,12 +162,6 @@ end
 -- function getSkinID
 -------------------------------------
 function StructDragonSkin:getSkinID()
-    -- local dragon_idx = getDigit(self.did, 10, 2)
-    -- local dragon_id = tonumber(string.format('1100%02d', dragon_idx))
-	-- if (not tamer_id) then
-	-- 	tamer_id = self.m_serverData:getRef('user', 'tamer')
-	-- end
-
     return self.skin_id
 end
 

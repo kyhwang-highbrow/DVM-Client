@@ -484,6 +484,7 @@ local t_module = {
     'TableSummonObject',
     'TableBanWord',
     'TablePackageAchievement',
+    'TableRune', -- 룬
 
     -- Scene
     'SceneCommon',

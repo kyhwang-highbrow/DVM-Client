@@ -253,7 +253,7 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 
         -- 1성룬 합성 불가
         -- 뽑기 획등 가능한 룬은 6성 이상
-        local grade = getDigit(item_id, 1, 1)
+        local grade = TableRune:getRuneGrade(item_id)--getDigit(item_id, 1, 1)
 
         -- 뽑기에서는 6성 이상만 획득 가능하네.
         if (grade >= 6) then
