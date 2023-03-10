@@ -264,6 +264,10 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
         if (grade >= 2) then
             table.insert(l_region, 'rune_combine')
         end
+
+    -- 고정 룬일 경우는 획득 불가 이벤트에서 획득으로 처리
+    elseif (item_type == 'fixed_rune') then
+        table.insert(l_region, 'empty')        
     end
 
 	return l_region

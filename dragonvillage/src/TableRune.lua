@@ -34,7 +34,6 @@ function TableRune:getRuneSetId(rune_id)
         return getDigit(rune_id, 100, 2)
     end
 
-
     local set_id = self:getValue(rune_id, 'set_id')
     return set_id
 end

@@ -13,8 +13,6 @@ UI_LobbyBanner = class(PARENT,{
 function UI_LobbyBanner:init(event_data)
     self.m_uiName = 'UI_LobbyBanner'
     self.m_resName = event_data['lobby_banner']
-
-    cclog('self.m_resName', self.m_resName)
     self.m_eventData = event_data
 end
 
