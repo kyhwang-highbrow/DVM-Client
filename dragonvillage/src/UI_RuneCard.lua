@@ -117,7 +117,8 @@ function UI_RuneCard:makeIcon()
     self:makeSprite('runeNode', res, true) -- (lua_name, res, no_use_frames)
 
 	-- 이거 없애려면 50개의 아이콘을 수정해야 함
-	if (self.m_runeData['slot'] == 1) then
+    -- 이벤트 한정 룬은 Y포지션 1로 보정처리를 하지 않도록 예외처리 kyhawng
+	if (self.m_runeData['slot'] == 1 and self.m_runeData:isEventRune() == false) then 
 		self.vars['runeNode']:setPositionY(1)
 	end
 end

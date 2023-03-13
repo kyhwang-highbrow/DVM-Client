@@ -77,10 +77,8 @@ function ChatClientSocket:dispatchEvent(_socket, t)
 
     local name = t['name']
     --cclogf("dispatch event : name=%s", name)
-    --ccdump(t)
     if (name == SocketTCP.EVENT_CONNECTED) then
         self:setStatus('Connecting')
-        --ccdump(t)
         --session 접속을 요청
         --return self:requestLogin()
         return self:requestLogin()
@@ -114,8 +112,6 @@ function ChatClientSocket:dispatchEvent(_socket, t)
                 self:setStatus('Success')
                 return 0
             else
-
-                cclog('1 여기ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ')
                 self:disconnect()
                 return -1
             end
@@ -274,9 +270,6 @@ function ChatClientSocket:requestLogin()
 
     if (self:write(self.m_protocolCode.C_LOGIN_REQ, p) == false) then
         -- 소켓 라이팅 실패, 로그인 실패로 처리
-
-        cclog('2 여기ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ')
-
         self:disconnect()
         --self.m_cbConnectFail({ret = 'Socket Writing Fail'})
         return -1
