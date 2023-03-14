@@ -17,7 +17,6 @@ UI_EventFullPopup = class(PARENT,{
 -------------------------------------
 function UI_EventFullPopup:init(popup_key, target_ui, m_check_cb)
     self.m_popupKey = popup_key
-    cclog('popup_key', popup_key)
     -- @jhakim 로비 풀 팝용이 아닌 용도, 나중에 클래스 분리할 거임
     self.m_targetUI = target_ui
     self.m_check_cb = m_check_cb
@@ -49,8 +48,6 @@ end
 function UI_EventFullPopup:initUI()
     local vars = self.vars
     local popup_key = self.m_popupKey
-
-    cclog('popup_key', popup_key)
 	local ui
     local is_btn_lock = true
 
