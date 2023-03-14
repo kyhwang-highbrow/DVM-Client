@@ -34,13 +34,6 @@ android {
     // SYMBOL_TABLE | FULL
     // android.buildTypes.release.ndk.debugSymbolLevel = "FULL"
 
-    // 빌드를 하는데 빌드가 안됨. 구글링해서 아래 옵션을 추가. kyhwang 23.03.13
-    // https://stackoverflow.com/questions/24098494/applintvitalrelease-error-when-generating-signed-apk
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
-
     defaultConfig {
         applicationId PROP_PACKAGE_NAME
 		versionCode PROP_VERSION_CODE.toInteger()
