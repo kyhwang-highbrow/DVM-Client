@@ -51,6 +51,8 @@ function UI_LeagueRaidScene:init()
     self:refresh()
 
     self:sceneFadeInAction()
+    -- 업데이트 스케줄러
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 ----------------------------------------------------------------------
@@ -208,28 +210,40 @@ function UI_LeagueRaidScene:refresh()
     
     -- 날개
     local wing_cost = my_info['cost_value']
-
-    if (vars['actingPowerLabel']) then vars['actingPowerLabel']:setString(comma_value(wing_cost)) end
+    if (vars['actingPowerLabel']) then 
+        vars['actingPowerLabel']:setString(comma_value(wing_cost))
+    end
+    
+    do -- 핫타임
+        local visible = g_fevertimeData:isActiveFevertime_raidUp()
+        vars['hotTimeMenu']:setVisible(visible)
+    end
 end
 
+----------------------------------------------------------------------
+-- function update
+----------------------------------------------------------------------
+function UI_LeagueRaidScene:update(delta)
+end
 
 ----------------------------------------------------------------------
 -- function initTableView
 -- brief : 유저별로 UIC_TableView 생성을 위한 help function
 ----------------------------------------------------------------------
 function UI_LeagueRaidScene:initTableView()
-
-
 end
 
-
+----------------------------------------------------------------------
+-- function canQuickClear
+----------------------------------------------------------------------
 function UI_LeagueRaidScene:canQuickClear()
     local my_info = g_leagueRaidData:getMyInfo()
-
     return my_info and my_info['today_play_count'] > 0
 end
 
-
+----------------------------------------------------------------------
+-- function setRankView
+----------------------------------------------------------------------
 function UI_LeagueRaidScene:setRankView()
     local vars = self.vars
     local ui = UI_LeagueRaidRankMenu()
@@ -242,6 +256,9 @@ function UI_LeagueRaidScene:setRankView()
 end
 
 
+----------------------------------------------------------------------
+-- function setRankImage
+----------------------------------------------------------------------
 function UI_LeagueRaidScene:setRankImage()
     local vars = self.vars
     local my_info = g_leagueRaidData:getMyInfo()
@@ -275,8 +292,9 @@ function UI_LeagueRaidScene:setRankImage()
     end
 end
 
-
-
+----------------------------------------------------------------------
+-- function updateDeckDotImage
+----------------------------------------------------------------------
 function UI_LeagueRaidScene:updateDeckDotImage()
     local vars = self.vars
 

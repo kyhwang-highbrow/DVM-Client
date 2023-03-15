@@ -415,6 +415,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
         require('UI_EventArenaPlay')
         ui = UI_EventArenaPlay()
 
+    -- 레이드 참여 이벤트
+    elseif string.find(tab, 'event_raid_play') then
+        require('UI_EventLeagueRaid')
+        ui = UI_EventLeagueRaid()
+
     -- 게임 설치 유도 이벤트
     elseif (tab == 'event_crosspromotion') then
         ui = UI_CrossPromotion(tab)

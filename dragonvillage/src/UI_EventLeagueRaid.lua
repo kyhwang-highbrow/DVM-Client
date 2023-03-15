@@ -1,24 +1,20 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_EventArenaPlay
+-- class UI_EventLeagueRaid
 -- @brief
 -------------------------------------
-UI_EventArenaPlay = class(PARENT,{
-
-    
+UI_EventLeagueRaid = class(PARENT,{
     m_tabButtonCallback = 'function',
  })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventArenaPlay:init(popup_key)
-    require('UI_EventArenaPlayItem')
-
-    local ui_name = 'event_update_reward.ui'
+function UI_EventLeagueRaid:init(popup_key)
+    require('UI_EventLeagueRaidItem')
+    local ui_name = 'event_raid_update_reward.ui'
     self:load(ui_name)
-
     self:initButton()
     self:initUI()
     self:refresh()
@@ -28,20 +24,20 @@ end
 -- function initUI
 -- @breif 초기화
 -------------------------------------
-function UI_EventArenaPlay:initUI()
+function UI_EventLeagueRaid:initUI()
 end
 
 -------------------------------------
 -- function onEnterTab
 -- @breif 탭 진입
 -------------------------------------
-function UI_EventArenaPlay:onEnterTab()
+function UI_EventLeagueRaid:onEnterTab()
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_EventArenaPlay:initButton()
+function UI_EventLeagueRaid:initButton()
     local vars = self.vars
     
     if (vars['rewardPlayBtn']) then vars['rewardPlayBtn']:registerScriptTapHandler(function() self:click_rewardBtn('play') end) end
@@ -52,15 +48,15 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_EventArenaPlay:refresh() 
+function UI_EventLeagueRaid:refresh()
     local vars = self.vars
 
-    if (vars['timeLabel']) then vars['timeLabel']:setString(g_eventArenaPlayData:getRemainEventTimeStr()) end
-    if (vars['playNumberLabel']) then  vars['playNumberLabel']:setString(Str('참여 횟수 보상: {1}회', g_eventArenaPlayData:getPlayCount())) end
-    if (vars['winNumberLabel']) then  vars['winNumberLabel']:setString(Str('승리 횟수 보상: {1}회', g_eventArenaPlayData:getWinCount())) end
+    if (vars['timeLabel']) then vars['timeLabel']:setString(g_eventLeagueRaidData:getRemainEventTimeStr()) end
+    if (vars['playNumberLabel']) then  vars['playNumberLabel']:setString(Str('참여 횟수 보상: {1}회', g_eventLeagueRaidData:getPlayCount())) end
+    if (vars['winNumberLabel']) then  vars['winNumberLabel']:setString(Str('레이드 점수: {1}점', g_eventLeagueRaidData:getWinCount())) end
     
-    local play_reward_info = g_eventArenaPlayData:getPlayRewardInfo()
-    local win_reward_info = g_eventArenaPlayData:getWinRewardInfo()
+    local play_reward_info = g_eventLeagueRaidData:getPlayRewardInfo()
+    local win_reward_info = g_eventLeagueRaidData:getWinRewardInfo()
 
     local play_reward_step = play_reward_info['product']['step']
     local win_reward_step = win_reward_info['product']['step']
@@ -73,7 +69,7 @@ function UI_EventArenaPlay:refresh()
         if itemNode then
             -- itemNode 하위 존재하면 지워주고 다시 생성 해야 한다
             itemNode:removeAllChildren()
-            local play_reward_item = UI_EventArenaPlayItem('play', idx)
+            local play_reward_item = UI_EventLeagueRaidItem('play', idx)
             itemNode:addChild(play_reward_item.root)
         end
     end
@@ -86,14 +82,14 @@ function UI_EventArenaPlay:refresh()
         if itemNode then
             -- itemNode 하위 존재하면 지워주고 다시 생성 해야 한다
             itemNode:removeAllChildren()
-            local win_reward_item = UI_EventArenaPlayItem('win', idx)
+            local win_reward_item = UI_EventLeagueRaidItem('win', idx)
             itemNode:addChild(win_reward_item.root)
         end
     end
 
     -- 참여 횟수 버튼
-    local has_play_reward = g_eventArenaPlayData:hasReward('play')
-    local is_all_play_received = g_eventArenaPlayData:isAllReceived('play')
+    local has_play_reward = g_eventLeagueRaidData:hasReward('play')
+    local is_all_play_received = g_eventLeagueRaidData:isAllReceived('play')
 
     if (vars['receivePlaySprite']) then vars['receivePlaySprite']:setVisible(is_all_play_received) end
     if (vars['rewardPlayBtn']) then 
@@ -111,8 +107,8 @@ function UI_EventArenaPlay:refresh()
     end
 
     -- 승리 횟수 버튼
-    local has_win_reward = g_eventArenaPlayData:hasReward('win')
-    local is_all_win_received = g_eventArenaPlayData:isAllReceived('win')
+    local has_win_reward = g_eventLeagueRaidData:hasReward('win')
+    local is_all_win_received = g_eventLeagueRaidData:isAllReceived('win')
 
     if (vars['receiveWinSprite']) then vars['receiveWinSprite']:setVisible(is_all_win_received) end
     if (vars['rewardWinBtn']) then
@@ -133,7 +129,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_EventArenaPlay:click_rewardBtn(reward_type)
+function UI_EventLeagueRaid:click_rewardBtn(reward_type)
     function finish_cb(ret)
         UI_ToastPopup(Str('보상이 우편함으로 전송되었습니다.'))
         self:refresh()
@@ -144,8 +140,8 @@ function UI_EventArenaPlay:click_rewardBtn(reward_type)
     end
 
     -- play or win
-    g_eventArenaPlayData:request_eventReward(reward_type, finish_cb)
+    g_eventLeagueRaidData:request_eventReward(reward_type, finish_cb)
 end
 
 --@CHECK
-UI:checkCompileError(UI_EventArenaPlay)
+UI:checkCompileError(UI_EventLeagueRaid)

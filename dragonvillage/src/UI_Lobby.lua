@@ -227,6 +227,12 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if g_hotTimeData:isActiveEvent('event_raid_play') then
+            co:work('# 레이드 참여 이벤트 정보 받는 중')
+            g_eventLeagueRaidData:request_eventData(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
         -- 그랜드 콜로세움 (이벤트 PvP 10대10)
         if (g_hotTimeData:isActiveEvent('event_grand_arena') or g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
         	co:work('# 그랜드 콜로세움 정보 받는 중')
@@ -1078,6 +1084,7 @@ function UI_Lobby:update_highlight()
             or g_fevertimeData:isActiveFevertime_dungeonGtStDc()
             or g_fevertimeData:isActiveFevertime_dungeonGdStDc()
             or g_fevertimeData:isActiveFevertime_dungeonRgStDc()
+            or g_fevertimeData:isActiveFevertime_raidUp()
         ) then
             vars['battleHotSprite']:setVisible(true)
         end

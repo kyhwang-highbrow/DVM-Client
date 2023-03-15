@@ -459,8 +459,12 @@ function ServerData_Event:getEventFullPopupList()
 				visible = g_hotTimeData:isActiveEvent(event_type)
 
                 -- 콜로세움 참여 이벤트 보상을 전부 받은 경우 풀팝업 X
-                if visible and (event_type == 'event_arena_play') then
-                    visible = not (g_eventArenaPlayData:isAllReceived('play') and g_eventArenaPlayData:isAllReceived('win'))
+                if visible == true then
+                    if (event_type == 'event_arena_play') then
+                        visible = not (g_eventArenaPlayData:isAllReceived('play') and g_eventArenaPlayData:isAllReceived('win'))
+                    elseif event_type == 'event_raid_play' then
+                        visible = not (g_eventLeagueRaidData:isAllReceived('play') and g_eventLeagueRaidData:isAllReceived('win'))
+                    end
                 end
 
             -- 누적 결제 보상 이벤트
@@ -742,6 +746,10 @@ function ServerData_Event:setEventTabNoti(event_tab)
     elseif (string.find(event_type, 'event_arena_play')) then
         event_tab.m_hasNoti = g_eventArenaPlayData:hasReward('play') or g_eventArenaPlayData:hasReward('win')
 
+    -- 레이드 참여 이벤트
+    elseif (string.find(event_type, 'event_raid_play')) then
+        event_tab.m_hasNoti = g_eventLeagueRaidData:hasReward('play') or g_eventLeagueRaidData:hasReward('win')
+
     else
         event_tab.m_hasNoti = false
     end
@@ -782,6 +790,11 @@ function ServerData_Event:hasAvailableReward(event_tab)
     -- 콜로세움 참여 이벤트
     elseif (string.find(event_type, 'event_arena_play')) then
         has_available_reward = g_eventArenaPlayData:hasReward('play') or g_eventArenaPlayData:hasReward('win')
+
+    -- 레이드 참여 이벤트
+    elseif (string.find(event_type, 'event_raid_play')) then
+        has_available_reward = g_eventLeagueRaidData:hasReward('play') or g_eventLeagueRaidData:hasReward('win')
+
 
     else
         has_available_reward = false
@@ -919,8 +932,13 @@ function ServerData_Event:openEventPopup(tab, close_cb)
 
         if (g_hotTimeData:isActiveEvent('event_arena_play')) then
             co:work('# 콜로세움 이벤트 정보 받는 중')
-
             g_eventArenaPlayData:request_eventData(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
+        if (g_hotTimeData:isActiveEvent('event_raid_play')) then
+            co:work('# 레이드 이벤트 정보 받는 중')
+            g_eventLeagueRaidData:request_eventData(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 

@@ -132,6 +132,10 @@ function UI_BattleMenuItem:refresh()
     elseif (content_type == 'arena_new') then
         local visible = g_fevertimeData:isActiveFevertime_pvpHonorUp()
         self.vars['HotSprite']:setVisible(visible)
+
+    elseif (content_type == 'league_raid') then
+        local visible = g_fevertimeData:isActiveFevertime_raidUp()
+        self.vars['HotSprite']:setVisible(visible)
         
     elseif (content_type == 'exploration') then
         has_noti = g_highlightData:isHighlightExploration()

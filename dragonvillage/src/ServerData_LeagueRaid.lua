@@ -373,19 +373,29 @@ function ServerData_LeagueRaid:applyServerData(ret)
     if (not ret) then return end
 
     -- 레이드 현재 시즌
-    if (ret['league_raid_season'] ~= nil) then self.m_raidLobbyData['league_raid_season'] = ret['league_raid_season'] end
+    if (ret['league_raid_season'] ~= nil) then 
+        self.m_raidLobbyData['league_raid_season'] = ret['league_raid_season'] 
+    end
 
     -- 레이드 스테이지 정보
-    if (ret['league_raid_stage'] ~= nil) then self.m_raidLobbyData['league_raid_stage'] = ret['league_raid_stage'] end
+    if (ret['league_raid_stage'] ~= nil) then 
+        self.m_raidLobbyData['league_raid_stage'] = ret['league_raid_stage'] 
+    end
 
     -- 레이드 오픈 여부
-    if (ret['league_raid_is_open'] ~= nil) then self.m_raidLobbyData['league_raid_is_open'] = ret['league_raid_is_open'] end
+    if (ret['league_raid_is_open'] ~= nil) then 
+        self.m_raidLobbyData['league_raid_is_open'] = ret['league_raid_is_open'] 
+    end
 
     -- 레이드 플레이 가능 여부 ( 고대유적 10층 클리어)
-    if (ret['league_raid_play_condition'] ~= nil) then self.m_raidLobbyData['league_raid_play_condition'] = ret['league_raid_play_condition'] end
+    if (ret['league_raid_play_condition'] ~= nil) then 
+        self.m_raidLobbyData['league_raid_play_condition'] = ret['league_raid_play_condition'] 
+    end
 
     -- 현재 시즌 레이드 참여 여부
-    if (ret['league_raid_is_play'] ~= nil) then self.m_raidLobbyData['league_raid_is_play'] = ret['league_raid_is_play'] end
+    if (ret['league_raid_is_play'] ~= nil) then 
+        self.m_raidLobbyData['league_raid_is_play'] = ret['league_raid_is_play'] 
+    end
 end
 
 

@@ -1,0 +1,231 @@
+-------------------------------------
+-- class ServerData_EventLeagueRaidPlay
+-------------------------------------
+ServerData_EventLeagueRaidPlay = class({
+    m_serverData = 'ServerData',
+    m_eventData = 'Table',
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function ServerData_EventLeagueRaidPlay:init(server_data)
+        self.m_serverData = server_data
+end
+
+-------------------------------------
+-- function request_eventData
+-------------------------------------
+function ServerData_EventLeagueRaidPlay:request_eventData(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        self.m_eventData = ret['event_raid_play_info']
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/raid/event_raid_play/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+	ui_network:hideBGLayerColor()
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function ServerData_EventLeagueRaidPlay:request_eventReward(reward_type, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    local type = reward_type
+
+    -- 콜백
+    local function success_cb(ret)
+        -- 보상수령은 우편함으로...
+        self.m_eventData = ret['event_arena_play_info']
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/raid/event_raid_play/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', type)
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+	ui_network:hideBGLayerColor()
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function getRemainEventTimeStr
+-- @breif 초기화
+-------------------------------------
+function ServerData_EventLeagueRaidPlay:getRemainEventTimeStr()
+    if not self.m_eventData then return '' end
+
+    local expire_time = self.m_eventData['end']
+    local server_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local msg = ''
+    local time = (expire_time/1000 - server_time)
+
+    if (time > 0) then
+        local enable = false
+        local show_second = true
+        local first_only = false
+        
+        msg = Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, show_second, first_only))
+    end
+
+    return msg
+end
+
+-------------------------------------
+-- function getWinRewardInfo
+-- @breif 승리 횟수 보상
+-------------------------------------
+function ServerData_EventLeagueRaidPlay:getWinRewardInfo()
+    local list = {}
+
+    if (self.m_eventData) then
+        list = self.m_eventData['highscore_info']
+    end
+
+    return list
+end
+
+-------------------------------------
+-- function getPlayRewardInfo
+-- @breif 참여 횟수 보상
+-------------------------------------
+function ServerData_EventLeagueRaidPlay:getPlayRewardInfo()
+    local list = {}
+
+    if (self.m_eventData) then
+        list = self.m_eventData['play_info']
+    end
+
+    return list
+end
+
+
+-------------------------------------
+-- function getPlayCount
+-- @breif 참여 횟수 보상
+-------------------------------------
+function ServerData_EventLeagueRaidPlay:getPlayCount()
+    local count = 0
+
+    if (self.m_eventData) then
+        count = self.m_eventData['play_cnt']
+    end
+
+    return count
+end
+
+-------------------------------------
+-- function getWinCount
+-- @breif 승리 횟수 보상
+-------------------------------------
+function ServerData_EventLeagueRaidPlay:getWinCount()
+    local count = 0
+
+    if (self.m_eventData) then
+        count = self.m_eventData['highscore']
+    end
+
+    return count
+end
+
+-------------------------------------
+-- function hasReward
+-- @breif 받을 보상이 있는지?
+-------------------------------------
+function ServerData_EventLeagueRaidPlay:hasReward(reward_type)
+    local has_reward = false
+    local reward_info
+    local reward_step
+    local play_count
+
+    if (reward_type == 'play') then
+        reward_info = self:getPlayRewardInfo()
+        play_count  = self:getPlayCount()
+
+    else
+        reward_info = self:getWinRewardInfo()
+        play_count  = self:getWinCount()
+    end
+
+    if (not reward_info) or (not reward_info['product']) or (not reward_info['product']['step']) then
+         return false
+    end
+
+    reward_step = reward_info['product']['step']
+
+    for idx = 1, reward_step do
+        local is_received = reward_info['reward'][tostring(idx)] == 1
+        local is_larger_number = play_count >= reward_info['product']['price_' .. idx]
+
+        if (is_larger_number) and (not is_received) then
+            has_reward = true
+            break
+        end
+    end
+
+    return has_reward
+end
+
+-------------------------------------
+-- function isAllReceived
+-- @breif 보상 다받았는지?
+-------------------------------------
+function ServerData_EventLeagueRaidPlay:isAllReceived(reward_type)
+    local is_all_received = true
+    local reward_info
+    local reward_step
+    local play_count
+
+    if (reward_type == 'play') then
+        reward_info = self:getPlayRewardInfo()
+        play_count  = self:getPlayCount()
+
+    else
+        reward_info = self:getWinRewardInfo()
+        play_count  = self:getWinCount()
+
+    end
+
+    if (not reward_info) or (not reward_info['product']) or (not reward_info['product']['step']) then return false end
+
+    reward_step = reward_info['product']['step']
+
+    for idx = 1, reward_step do
+        local is_received = reward_info['reward'][tostring(idx)] == 1
+
+        if (not is_received) then
+            is_all_received = false
+            break
+        end
+    end
+
+    return is_all_received
+end

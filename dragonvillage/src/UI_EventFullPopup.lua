@@ -270,6 +270,11 @@ function UI_EventFullPopup:initUI()
         require('UI_EventArenaPlay')
         ui = UI_EventArenaPlay(popup_key)
 
+    -- 레이드 참여 이벤트
+    elseif (string.find(popup_key, 'event_raid_play')) then
+        require('UI_EventLeagueRaid')
+        ui = UI_EventLeagueRaid(popup_key)
+
     -- 게임 설치 유도 이벤트
     elseif (popup_key == 'event_crosspromotion') then
         ui = UI_CrossPromotion(popup_key)

@@ -438,9 +438,24 @@ function ServerData_Fevertime:isActiveFevertime_dungeonRuneLegendUp()
     end
 
     local is_active_dg_rune_legend_up = self:isActiveFevertimeByType('dg_rune_legend_up')
-
     return is_active_dg_rune_legend_up
 end
+
+-------------------------------------
+-- function isActiveFevertime_raidUp
+-- @brief 레이드 스태미나 소모 감소 핫타임
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_raidUp()
+    -- 레이드가 언락 상태가 아니면
+    if g_contentLockData:isContentLock('league_raid') == true then
+        return false 
+    end
+
+    local is_raid_up = self:isActiveFevertimeByType('raid_up')
+    return is_raid_up
+end
+
 
 -------------------------------------
 -- function isActiveFevertime_dungeonRuneUp

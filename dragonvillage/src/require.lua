@@ -267,6 +267,7 @@ local t_module = {
 	'ServerData_EventRoulette', -- 어린이날 룰렛 이벤트
     'ServerData_DmgatePackage',
     'ServerData_EventArenaPlay',    -- 콜로세움 참여 이벤트
+    'ServerData_EventLeagueRaidPlay',    -- 레이드 참여 이벤트
     'ServerData_LeagueRaid',
     'ServerData_HighbrowVip', -- 하이브로 VIP
     'ServerData_GetDragonPackage',
