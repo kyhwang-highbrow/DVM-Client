@@ -40,9 +40,13 @@ end
 function UI_EventLeagueRaid:initButton()
     local vars = self.vars
     
-    if (vars['rewardPlayBtn']) then vars['rewardPlayBtn']:registerScriptTapHandler(function() self:click_rewardBtn('play') end) end
-    if (vars['rewardWinBtn']) then  vars['rewardWinBtn']:registerScriptTapHandler(function() self:click_rewardBtn('highscore') end) end
-
+    if (vars['rewardPlayBtn']) then 
+        vars['rewardPlayBtn']:registerScriptTapHandler(function() self:click_rewardBtn('play') end) 
+    end
+    
+    if (vars['rewardWinBtn']) then  
+        vars['rewardWinBtn']:registerScriptTapHandler(function() self:click_rewardBtn('highscore') end) 
+    end
 end
 
 -------------------------------------

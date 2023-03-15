@@ -217,6 +217,7 @@ function UI_LeagueRaidScene:refresh()
     do -- 핫타임
         local visible = g_fevertimeData:isActiveFevertime_raidUp()
         vars['hotTimeMenu']:setVisible(visible)
+        vars['hotTimeRaidLabel']:setString()
     end
 end
 
@@ -400,13 +401,6 @@ function UI_LeagueRaidScene:click_quickClearBtn()
     local function success_cb(ret)
         -- UI연출에 필요한 테이블들
         function proceeding_end_cb()
-        
-
-
-
-
-            
-
             self:networkGameFinish_response_drop_reward(ret)
             self:refresh()
             
@@ -416,22 +410,6 @@ function UI_LeagueRaidScene:click_quickClearBtn()
             ItemObtainResult(ret, text)
             self:refresh()
             self.m_allowBackKey = true]]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         end
 
         local proceeding_ui = UI_Proceeding()

@@ -399,8 +399,8 @@ end
 
 
 -------------------------------------
--- function getLastRewardDesc
--- @breif 최종 보상 설명 반환
+-- function getLastRewardStep
+-- @breif 최종 보상 단계
 -------------------------------------
 function ServerData_PurchasePoint:getLastRewardStep(version)
     local step_count = self:getPurchasePoint_stepCount(version)
@@ -416,13 +416,13 @@ function ServerData_PurchasePoint:getLastRewardStep(version)
 end
 
 -------------------------------------
--- function getLastRewardType
+-- function getPurchasePointRewardType
 -- @breif 최종 보상 타입 반환
 -------------------------------------
-function ServerData_PurchasePoint:getLastRewardType(version, reward_idx)
+function ServerData_PurchasePoint:getPurchasePointRewardType(version, step, reward_idx)
     local reward_idx = (reward_idx or 1)
-    local last_step = self.m_itemlastIndexMap[tonumber(version)] or self:getPurchasePoint_stepCount(version)
-    local t_last_reward = self:getPurchasePoint_rewardStepInfo(version, last_step)
+    --local last_step = self.m_itemlastIndexMap[tonumber(version)] or self:getPurchasePoint_stepCount(version)
+    local t_last_reward = self:getPurchasePoint_rewardStepInfo(version, step)
     local reward_type = t_last_reward['reward_type']
     if (reward_idx ~= 1) then
         reward_type = t_last_reward['reward_type_' .. reward_idx]
@@ -431,12 +431,12 @@ function ServerData_PurchasePoint:getLastRewardType(version, reward_idx)
 end
 
 -------------------------------------
--- function getLastRewardDesc
+-- function getPurchasePointRewardDesc
 -- @breif 최종 보상 설명 반환
 -------------------------------------
-function ServerData_PurchasePoint:getLastRewardDesc(version)
-    local last_step = self.m_itemlastIndexMap[tonumber(version)] or self:getPurchasePoint_stepCount(version)
-    local t_last_reward = self:getPurchasePoint_rewardStepInfo(version, last_step)
+function ServerData_PurchasePoint:getPurchasePointRewardDesc(version, step)
+    --local last_step = self.m_itemlastIndexMap[tonumber(version)] or self:getPurchasePoint_stepCount(version)
+    local t_last_reward = self:getPurchasePoint_rewardStepInfo(version, step)
     
     if (not t_last_reward) then
         return ''

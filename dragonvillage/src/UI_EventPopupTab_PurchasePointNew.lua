@@ -80,7 +80,7 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
     vars['purchaseGgSprite']:setScaleY(PgBar_Scale)
     
     -- 타입에 따른 누적 결제 배경UI
-    local last_reward_type = g_purchasePointData:getLastRewardType(version)
+    local last_reward_type = g_purchasePointData:getPurchasePointRewardType(version, last_step)
     local last_reward_item_id, count = self:getRewardInfoByStep(version, last_step)
     local ui_bg = UI_PurchasePointBgNew(last_reward_type, last_reward_item_id, count, version)
     if (ui_bg) then
@@ -88,29 +88,44 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
     end
 
     -- 마지막 단계 보상 3개 버튼 생성
-    for reward_idx=1, 3 do
-        local item_id, item_cnt = self:getRewardInfoByStep(version, last_step, reward_idx)
-        if item_id ~= nil then
-            local ui = UI()
-            ui:load('event_purchase_point_item_new_03.ui')
+    local func_fill_reward = function (_last_step, is_extra)
+        for reward_idx=1, 3 do
+            local item_id, item_cnt = self:getRewardInfoByStep(version, _last_step, reward_idx)
+            if item_id ~= nil then
+                local ui = UI()
+                ui:load('event_purchase_point_item_new_03.ui')
+                
+                -- 아이템 카드
+                local ui_card = UI_ItemCard(item_id, item_cnt)
+                ui_card:setEnabledClickBtn(false) -- 아이콘 클릭 안되게
+                ui.vars['itemNode']:addChild(ui_card.root)
             
-            -- 아이템 카드
-            local ui_card = UI_ItemCard(item_id, item_cnt)
-            ui_card:setEnabledClickBtn(false) -- 아이콘 클릭 안되게
-            ui.vars['itemNode']:addChild(ui_card.root)
-        
-            -- 아이템 이름 (수량)
-            local item_name = TableItem:getItemName(item_id)
-            if (item_cnt > 1) then
-                item_name =  Str('{1} {2}개', item_name, comma_value(item_cnt))
+                -- 아이템 이름 (수량)
+                local item_name = TableItem:getItemName(item_id)
+                if (item_cnt > 1) then
+                    item_name =  Str('{1} {2}개', item_name, comma_value(item_cnt))
+                end
+                ui.vars['itemLabel']:setString(item_name)
+            
+                -- 버튼
+                ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_lastRewardIdx(_last_step, reward_idx, is_extra) end)
+
+                local str_node = 'clickNode' .. reward_idx
+                if is_extra == true then
+                    str_node = 'clickNode' .. reward_idx .. '_2'
+                end
+
+                vars[str_node]:addChild(ui.root) -- clickNode1, clickNode2, clickNode3
             end
-            ui.vars['itemLabel']:setString(item_name)
-        
-            -- 버튼
-            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_lastRewardIdx(reward_idx) end)
-            vars['clickNode' .. reward_idx]:addChild(ui.root) -- clickNode1, clickNode2, clickNode3
-        end
+        end    
     end
+
+    func_fill_reward(last_step)
+    if last_step < step_count then
+        func_fill_reward(step_count, true)        
+    end
+
+    vars['lastRewardMenu']:setVisible(last_step < step_count)
 end
 
 -------------------------------------
@@ -215,10 +230,10 @@ function UI_EventPopupTab_PurchasePointNew:refresh()
         _purchase_point = (_purchase_point - _point)
     end
     percentage = math_clamp((percentage * 100), 0, 100)
-
     vars['purchaseGg']:runAction(cc.ProgressTo:create(0.1, percentage))
 
-    self:SetInfoLabel()
+    last_step =  g_purchasePointData:getLastRewardStep(version) or self.m_rewardListCount
+    self:SetInfoLabel(last_step)
     self:refresh_rewardBoxUIList()
 end
 
@@ -309,14 +324,15 @@ end
 -- function click_lastRewardIdx
 -- @brief 마지막 보상 선택 버튼
 -------------------------------------
-function UI_EventPopupTab_PurchasePointNew:click_lastRewardIdx(reward_idx)
-    if (self.m_selectedLastRewardIdx == reward_idx) then
+function UI_EventPopupTab_PurchasePointNew:click_lastRewardIdx(last_step, reward_idx, is_extra)
+--[[     if (self.m_selectedLastRewardIdx == reward_idx) then
         return
-    end
-    self.m_selectedLastRewardIdx = reward_idx
+    end ]]
 
-    self:SetInfoLabel()
-    self:refresh_lastReward(reward_idx)
+
+    self.m_selectedLastRewardIdx = reward_idx
+    self:SetInfoLabel(last_step)
+    self:refresh_lastReward(last_step, reward_idx, is_extra)
     self:refresh_rewardBoxUIList()
 end
 
@@ -324,16 +340,18 @@ end
 -- function refresh_lastReward
 -- @brief idx에 맞는 마지막 보상 UI 출력
 -------------------------------------
-function UI_EventPopupTab_PurchasePointNew:refresh_lastReward(idx)
+function UI_EventPopupTab_PurchasePointNew:refresh_lastReward(last_step, idx, is_extra)
     local vars = self.vars    
     local version = self.m_eventVersion
     -- 배경 생성
     vars['productNode']:removeAllChildren()
-    local step_count = self.m_rewardListCount
-    local last_step = g_purchasePointData:getLastRewardStep(version) or self.m_rewardListCount
+--[[     local last_step = g_purchasePointData:getLastRewardStep(version) or self.m_rewardListCount
+    if is_extra == true then
+        last_step = self.m_rewardListCount
+    end ]]
 
     -- 타입에 따른 누적 결제 배경UI
-    local last_reward_type = g_purchasePointData:getLastRewardType(version, idx)
+    local last_reward_type = g_purchasePointData:getPurchasePointRewardType(version, last_step, idx)
     if (last_reward_type == nil) then
         last_reward_type = 'item'
     end
@@ -359,11 +377,11 @@ end
 -- function SetInfoLabel
 -- @brief Step에 따른 InfoLabel 변경
 -------------------------------------
-function UI_EventPopupTab_PurchasePointNew:SetInfoLabel()
+function UI_EventPopupTab_PurchasePointNew:SetInfoLabel(last_step)
     local version = self.m_eventVersion
     local vars = self.vars
 
-    local last_step =  g_purchasePointData:getLastRewardStep(version) or self.m_rewardListCount
+    --local last_step =  g_purchasePointData:getLastRewardStep(version) or self.m_rewardListCount
     local item_id, count = self:getRewardInfoByStep(version, last_step, self.m_selectedLastRewardIdx)
     local did = tonumber(TableItem:getDidByItemId(item_id))
 
