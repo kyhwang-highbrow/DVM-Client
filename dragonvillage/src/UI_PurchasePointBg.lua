@@ -19,6 +19,8 @@ UI_PurchasePointBg = class(PARENT,{
 function UI_PurchasePointBg:init(bg_type, item_id, item_count, version)
     
     local url = self:getUrl(bg_type)
+
+    cclog('url', url)
     self:load(url)
     self.m_item_id = item_id
     self.m_version = version
@@ -341,6 +343,7 @@ function UI_PurchasePointBg:setSkillSlime()
 
     -- 별 비주얼 출력
     vars['starVisual']:setVisible(true)
+    vars['starVisual']:changeAni(string.format('gray_%d', t_dragon['birthgrade']))
 
     -- 배경 visual  세팅
     local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
