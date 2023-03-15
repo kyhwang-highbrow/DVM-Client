@@ -423,7 +423,7 @@ function UI_EventPopupTab_PurchasePointNew:SetInfoLabel(last_step)
     end
     self.vars['infoLabel']:setString(str_Info)
 
-    local last_point = g_purchasePointData:getPurchasePoint_lastStepPoint(version)
+--[[     local last_point = g_purchasePointData:getPurchasePoint_lastStepPoint(version)
     local curr_point = g_purchasePointData:getPurchasePoint(version)
 
     vars['info2Label']:setVisible(false)
@@ -435,7 +435,10 @@ function UI_EventPopupTab_PurchasePointNew:SetInfoLabel(last_step)
         AlignUIPos({vars['infoLabel'], vars['info2Label'], vars['timeBtn']}, 'VERTICAL', 'HEAD', 10) -- ui list, direction, align, offset
     else
         AlignUIPos({vars['infoLabel'], vars['timeBtn']}, 'VERTICAL', 'HEAD', 10) -- ui list, direction, align, offset
-    end
+    end ]]
+    
+    vars['info2Label']:setVisible(false)
+    AlignUIPos({vars['infoLabel'], vars['timeBtn']}, 'VERTICAL', 'HEAD', 10) -- ui list, direction, align, offset
 end
 
 -------------------------------------
