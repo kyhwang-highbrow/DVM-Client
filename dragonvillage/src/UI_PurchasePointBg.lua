@@ -332,7 +332,11 @@ function UI_PurchasePointBg:setSkillSlime()
     local item_id = self.m_item_id
     
     -- 스킬 슬라임 스파인
-    local animator = MakeAnimator('res/character/monster/skill_slime_03/skill_slime_03.json') -- json...
+    local did = TableItem:getDidByItemId(item_id)
+    local t_dragon = TableSlime():get(did)
+    local res_name = t_dragon['res']
+
+    local animator = AnimatorHelper:makeDragonAnimator(res_name, 10, t_dragon['attr'])
     vars['slimeNode']:addChild(animator.m_node)
 
     -- 별 비주얼 출력
