@@ -53,8 +53,10 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
     local vars = self.vars
     local version = self.m_eventVersion
     local step_count = self.m_rewardListCount
+    local last_step = g_purchasePointData:getLastRewardStep(version)
+    
 
-    vars['selectLabel']:setString(Str('선택 가능한 {1}단계 보상', step_count))
+    vars['selectLabel']:setString(Str('선택 가능한 {1}단계 보상', last_step))
     for step=1, step_count do
         local item_node = vars['itemNode'..step]
         item_node:setVisible(true)
@@ -79,7 +81,7 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
     
     -- 타입에 따른 누적 결제 배경UI
     local last_reward_type = g_purchasePointData:getLastRewardType(version)
-    local last_reward_item_id, count = self:getRewardInfoByStep(version, step_count)
+    local last_reward_item_id, count = self:getRewardInfoByStep(version, last_step)
     local ui_bg = UI_PurchasePointBgNew(last_reward_type, last_reward_item_id, count, version)
     if (ui_bg) then
         vars['productNode']:addChild(ui_bg.root)
@@ -87,25 +89,27 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
 
     -- 마지막 단계 보상 3개 버튼 생성
     for reward_idx=1, 3 do
-        local item_id, item_cnt = self:getRewardInfoByStep(version, step_count, reward_idx)
-        local ui = UI()
-        ui:load('event_purchase_point_item_new_03.ui')
+        local item_id, item_cnt = self:getRewardInfoByStep(version, last_step, reward_idx)
+        if item_id ~= nil then
+            local ui = UI()
+            ui:load('event_purchase_point_item_new_03.ui')
+            
+            -- 아이템 카드
+            local ui_card = UI_ItemCard(item_id, item_cnt)
+            ui_card:setEnabledClickBtn(false) -- 아이콘 클릭 안되게
+            ui.vars['itemNode']:addChild(ui_card.root)
         
-        -- 아이템 카드
-        local ui_card = UI_ItemCard(item_id, item_cnt)
-        ui_card:setEnabledClickBtn(false) -- 아이콘 클릭 안되게
-        ui.vars['itemNode']:addChild(ui_card.root)
-    
-        -- 아이템 이름 (수량)
-        local item_name = TableItem:getItemName(item_id)
-        if (item_cnt > 1) then
-            item_name =  Str('{1} {2}개', item_name, comma_value(item_cnt))
+            -- 아이템 이름 (수량)
+            local item_name = TableItem:getItemName(item_id)
+            if (item_cnt > 1) then
+                item_name =  Str('{1} {2}개', item_name, comma_value(item_cnt))
+            end
+            ui.vars['itemLabel']:setString(item_name)
+        
+            -- 버튼
+            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_lastRewardIdx(reward_idx) end)
+            vars['clickNode' .. reward_idx]:addChild(ui.root) -- clickNode1, clickNode2, clickNode3
         end
-        ui.vars['itemLabel']:setString(item_name)
-    
-        -- 버튼
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_lastRewardIdx(reward_idx) end)
-        vars['clickNode' .. reward_idx]:addChild(ui.root) -- clickNode1, clickNode2, clickNode3
     end
 end
 
@@ -128,8 +132,12 @@ function UI_EventPopupTab_PurchasePointNew:getRewardInfoByStep(version, step, re
     if (reward_idx ~= 1) then
         package_item_str = t_step['item_' .. tostring(reward_idx)]
     end
+
+    if package_item_str == nil then
+        return nil
+    end
+
     local l_reward = ServerData_Item:parsePackageItemStr(package_item_str)
-    
     -- 구조상 다중 보상 지급이 가능하나, 현재로선 하나만 처리 중 sgkim 2018.10.17
     local first_item = l_reward[1]
     local item_id = first_item['item_id']
@@ -352,8 +360,9 @@ end
 -------------------------------------
 function UI_EventPopupTab_PurchasePointNew:SetInfoLabel()
     local version = self.m_eventVersion
+    local vars = self.vars
 
-    local last_step = self.m_rewardListCount
+    local last_step =  g_purchasePointData:getLastRewardStep(version) or self.m_rewardListCount
     local item_id, count = self:getRewardInfoByStep(version, last_step, self.m_selectedLastRewardIdx)
     local did = tonumber(TableItem:getDidByItemId(item_id))
 
@@ -394,6 +403,20 @@ function UI_EventPopupTab_PurchasePointNew:SetInfoLabel()
         end
     end
     self.vars['infoLabel']:setString(str_Info)
+
+    local last_point = g_purchasePointData:getPurchasePoint_lastStepPoint(version)
+    local curr_point = g_purchasePointData:getPurchasePoint(version)
+
+    vars['info2Label']:setVisible(false)
+    if self.m_rewardListCount > last_step and curr_point < last_point then
+        local item_id, count = self:getRewardInfoByStep(version, self.m_rewardListCount, 1)
+        local ItemName = TableItem:getItemName(item_id)
+        vars['info2Label']:setStringArg(ItemName, last_point - curr_point)        
+        vars['info2Label']:setVisible(true)
+        AlignUIPos({vars['infoLabel'], vars['info2Label'], vars['timeBtn']}, 'VERTICAL', 'HEAD', 10) -- ui list, direction, align, offset
+    else
+        AlignUIPos({vars['infoLabel'], vars['timeBtn']}, 'VERTICAL', 'HEAD', 10) -- ui list, direction, align, offset
+    end
 end
 
 -------------------------------------

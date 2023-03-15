@@ -5,7 +5,7 @@
 ServerData_PurchasePoint = class({
         m_serverData = 'ServerData',
         m_purchasePointInfo = 'table',
-        m_itemlastIndexMap = 'table', -- 유아이에서 표기되는 마지막 아이템 보상을 7번이 아니라 6번 적용하기 위한 맵정보
+        m_itemlastIndexMap = 'table', 
     })
 
 -------------------------------------
@@ -15,6 +15,8 @@ function ServerData_PurchasePoint:init(server_data)
     self.m_serverData = server_data
     self.m_purchasePointInfo = {}
     self.m_itemlastIndexMap = {}
+
+    -- 유아이에서 표기되는 마지막 아이템 보상을 7번이 아니라 6번 적용하기 위한 맵정보
     self.m_itemlastIndexMap[2140002] = 6
 end
 
@@ -404,8 +406,6 @@ function ServerData_PurchasePoint:getLastRewardStep(version)
     local step_count = self:getPurchasePoint_stepCount(version)
     local last_step = self.m_itemlastIndexMap[tonumber(version)] or step_count
     local reward_step = self:getPurchaseRewardStep(version)
-
-    self:getPurchasePoint_lastStepPoint()
 
     -- 6단계 7단계
     if last_step <= reward_step then
