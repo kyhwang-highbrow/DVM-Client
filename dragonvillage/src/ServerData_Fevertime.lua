@@ -27,6 +27,8 @@ FEVERTIME_SALE_EVENT = {
 
     RUNE_GACHA_UP = 'rune_gacha_up',
     RUNE_COMBINE_UP = 'rune_combine_up',
+
+    RAID_UP = 'raid_up', -- 레이드 핫타임
 }
 
 -------------------------------------
