@@ -411,7 +411,7 @@ function UI_EventPopupTab_PurchasePointNew:SetInfoLabel()
     if self.m_rewardListCount > last_step and curr_point < last_point then
         local item_id, count = self:getRewardInfoByStep(version, self.m_rewardListCount, 1)
         local ItemName = TableItem:getItemName(item_id)
-        vars['info2Label']:setStringArg(ItemName, last_point - curr_point)        
+        vars['info2Label']:setStringArg(ItemName, comma_value(last_point - curr_point))        
         vars['info2Label']:setVisible(true)
         AlignUIPos({vars['infoLabel'], vars['info2Label'], vars['timeBtn']}, 'VERTICAL', 'HEAD', 10) -- ui list, direction, align, offset
     else
