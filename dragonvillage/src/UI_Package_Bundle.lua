@@ -29,7 +29,6 @@ function UI_Package_Bundle:init(package_name, is_popup, custom_struct, is_full_p
     self.m_package_name = package_name
     self.m_customStruct = custom_struct
     self.m_isFullPopup = is_full_popup
-
     local vars
 
     if (custom_struct) then
@@ -157,6 +156,15 @@ function UI_Package_Bundle:initButton()
     if (vars['rewardBtn']) then
 		vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 	end
+
+    -- 보상 보기
+    for i = 1,3 do 
+        local str_btn_name = string.format('infoBtn%d', i)
+        if (vars[str_btn_name]) then
+            vars[str_btn_name]:registerScriptTapHandler(function() self:click_packageInfoBtn(self.m_pids[i]) end)
+        end
+    end
+    
 
     -- 바로 가기
     if (vars['quickBtn']) then
@@ -293,6 +301,7 @@ function UI_Package_Bundle:refresh()
         if (not struct_product) then
             setLabelString('itemLabel', idx, Str('구매 완료'))
 
+            setNodeVisible('infoBtn', idx, false)
             setNodeVisible('priceNode', idx, false)
             setNodeVisible('buyLabel', idx, false)
             setNodeVisible('priceLabel', idx, false)
@@ -303,7 +312,6 @@ function UI_Package_Bundle:refresh()
             if (self.m_data['use_desc'] == 1) then
                 local desc_str = Str(struct_product['t_desc'])
                 setLabelString('itemLabel', idx, desc_str)
-
             -- 구성품 mail_content 표시
             else
                 local full_str = ServerData_Item:getPackageItemFullStr(struct_product['mail_content'], true)
@@ -365,6 +373,22 @@ function UI_Package_Bundle:refresh()
 
     -- 판매 종료 시간
     self:refresh_time()
+end
+
+-------------------------------------
+-- function click_packageInfoBtn
+-------------------------------------
+function UI_Package_Bundle:click_packageInfoBtn(pid)
+    local l_item_list = self:getProductList()
+    local struct_product = l_item_list[tonumber(pid)]
+
+    if struct_product ~= nil then
+        local item_list = struct_product:getItemList()
+        local first_item = item_list[1]
+        local t_item = TableItem:getInstance():get(first_item['item_id'])
+        local full_str = ServerData_Item:getPackageItemFullStr(t_item['package'], true)
+        MakeSimplePopup(POPUP_TYPE.OK, full_str)
+    end
 end
 
 -------------------------------------
