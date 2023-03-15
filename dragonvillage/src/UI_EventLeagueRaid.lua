@@ -41,7 +41,7 @@ function UI_EventLeagueRaid:initButton()
     local vars = self.vars
     
     if (vars['rewardPlayBtn']) then vars['rewardPlayBtn']:registerScriptTapHandler(function() self:click_rewardBtn('play') end) end
-    if (vars['rewardWinBtn']) then  vars['rewardWinBtn']:registerScriptTapHandler(function() self:click_rewardBtn('win') end) end
+    if (vars['rewardWinBtn']) then  vars['rewardWinBtn']:registerScriptTapHandler(function() self:click_rewardBtn('highscore') end) end
 
 end
 
@@ -51,9 +51,17 @@ end
 function UI_EventLeagueRaid:refresh()
     local vars = self.vars
 
-    if (vars['timeLabel']) then vars['timeLabel']:setString(g_eventLeagueRaidData:getRemainEventTimeStr()) end
-    if (vars['playNumberLabel']) then  vars['playNumberLabel']:setString(Str('참여 횟수 보상: {1}회', g_eventLeagueRaidData:getPlayCount())) end
-    if (vars['winNumberLabel']) then  vars['winNumberLabel']:setString(Str('레이드 점수: {1}점', g_eventLeagueRaidData:getWinCount())) end
+    if (vars['timeLabel']) then 
+        vars['timeLabel']:setString(g_eventLeagueRaidData:getRemainEventTimeStr()) 
+    end
+
+    if (vars['playNumberLabel']) then  
+        vars['playNumberLabel']:setString(Str('참여 횟수 보상: {1}회', g_eventLeagueRaidData:getPlayCount())) 
+    end
+    
+    if (vars['winNumberLabel']) then  
+        vars['winNumberLabel']:setString(Str('레이드 점수: {1}점', comma_value(g_eventLeagueRaidData:getWinCount()))) 
+    end
     
     local play_reward_info = g_eventLeagueRaidData:getPlayRewardInfo()
     local win_reward_info = g_eventLeagueRaidData:getWinRewardInfo()

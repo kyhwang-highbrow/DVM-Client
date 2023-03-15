@@ -54,7 +54,7 @@ function ServerData_EventLeagueRaidPlay:request_eventReward(reward_type, finish_
     -- 콜백
     local function success_cb(ret)
         -- 보상수령은 우편함으로...
-        self.m_eventData = ret['event_arena_play_info']
+        self.m_eventData = ret['event_raid_play_info']
 
         if finish_cb then
             finish_cb(ret)
