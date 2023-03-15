@@ -17,7 +17,7 @@ function ServerData_PurchasePoint:init(server_data)
     self.m_itemlastIndexMap = {}
 
     -- 유아이에서 표기되는 마지막 아이템 보상을 7번이 아니라 6번 적용하기 위한 맵정보
-    -- self.m_itemlastIndexMap[2140002] = 6
+    self.m_itemlastIndexMap[2140002] = 6
 end
 
 -------------------------------------
