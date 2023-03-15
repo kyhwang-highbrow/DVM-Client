@@ -330,20 +330,21 @@ function UI_EventPopupTab_PurchasePointNew:refresh_lastReward(idx)
     -- 배경 생성
     vars['productNode']:removeAllChildren()
     local step_count = self.m_rewardListCount
+    local last_step = g_purchasePointData:getLastRewardStep(version) or self.m_rewardListCount
 
     -- 타입에 따른 누적 결제 배경UI
     local last_reward_type = g_purchasePointData:getLastRewardType(version, idx)
     if (last_reward_type == nil) then
         last_reward_type = 'item'
     end
-    local last_reward_item_id, count = self:getRewardInfoByStep(version, step_count, idx)
+    local last_reward_item_id, count = self:getRewardInfoByStep(version, last_step, idx)
     local ui_bg = UI_PurchasePointBgNew(last_reward_type, last_reward_item_id, count, version)
     if (ui_bg) then
         vars['productNode']:addChild(ui_bg.root)
     end
 
     -- 아이템 프레임
-    local step = self.m_rewardListCount
+    local step = last_step
     local item_node = vars['itemNode'..step]
 
     local item_id, count = self:getRewardInfoByStep(version, step, idx)
