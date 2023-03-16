@@ -42,7 +42,6 @@ function UI_Package_Bundle:init(package_name, is_popup, custom_struct, is_full_p
     end
     
     self.m_isPopup = is_popup or false
-	
 	self.m_uiName = 'UI_Package_Bundle'
     self.m_mailSelectType = MAIL_SELECT_TYPE.NONE
 
@@ -158,10 +157,11 @@ function UI_Package_Bundle:initButton()
 	end
 
     -- 보상 보기
-    for i = 1,3 do 
+    for i, pid in ipairs(self.m_pids) do 
         local str_btn_name = string.format('infoBtn%d', i)
         if (vars[str_btn_name]) then
-            vars[str_btn_name]:registerScriptTapHandler(function() self:click_packageInfoBtn(self.m_pids[i]) end)
+            vars[str_btn_name]:registerScriptTapHandler(function() self:click_packageInfoBtn(pid) end)
+            --vars[str_btn_name]:setVisible(false)
         end
     end
     
@@ -368,6 +368,11 @@ function UI_Package_Bundle:refresh()
                     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)
                 end
             end
+
+            -- 돋보기 정보가 필요하면
+            if struct_product:isNeedProductInfo() == true then
+                setNodeVisible('infoBtn', idx, true)
+            end
         end
     end
 
@@ -381,18 +386,7 @@ end
 function UI_Package_Bundle:click_packageInfoBtn(pid)
     local l_item_list = self:getProductList()
     local struct_product = l_item_list[tonumber(pid)]
-
-    if struct_product ~= nil then
-        local item_list = struct_product:getItemList()
-        local first_item = item_list[1]
-        local t_item = TableItem:getInstance():get(first_item['item_id'])
-        if t_item['package'] ~= nil then
-            local package_item_list = ServerData_Item:parsePackageItemStr(t_item['package'])
-            --require('UI_Package_ItemListPopup')
-            --UI_Package_ItemListPopup(first_item, package_item_list)
-            UI_ObtainPopup(package_item_list)
-        end
-    end
+    UI_Product.showProductItemInfo(struct_product)
 end
 
 -------------------------------------

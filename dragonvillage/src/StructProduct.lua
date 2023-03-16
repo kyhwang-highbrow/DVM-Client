@@ -463,7 +463,8 @@ function StructProduct:isNeedProductInfo()
 
     -- 고정 룬
     local item_type = TableItem:getInstance():getItemType(t_item['item_id'])
-    if item_type == 'fixed_rune' then
+    local item_type_list = {'fixed_rune', 'package'}
+    if table.find(item_type_list, item_type) ~= nil then
         return true
     end
 

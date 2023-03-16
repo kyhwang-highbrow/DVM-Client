@@ -432,7 +432,19 @@ end
 -- @brief 돋보기 버튼 클릭
 -------------------------------------
 function UI_Product:click_infoBtn()
-    local item_list = self.m_structProduct:getItemList()
+    UI_Product.showProductItemInfo(self.m_structProduct)
+end
+
+----------------------------------
+-- function showProductItemInfo
+-- @brief 비멤버 함수(일원화를 위해 이렇게 만듦)
+-------------------------------------
+function UI_Product.showProductItemInfo(struct_product)
+    if struct_product == nil then
+        return
+    end
+
+    local item_list = struct_product:getItemList()
     local t_item = table.getFirst(item_list)
     if t_item == nil then
         return false
@@ -443,6 +455,10 @@ function UI_Product:click_infoBtn()
     -- 룬일 경우 설명 팝업
     if item_type == 'fixed_rune' then
         local struct_rune_obj = StructRuneObject:createSimpleRuneByItemId(item_id)
-        local ui = UI_ItemInfoPopup(item_id, 1, struct_rune_obj)
+        UI_ItemInfoPopup(item_id, 1, struct_rune_obj)
+    elseif item_type == 'package' then
+        local t_item_detail = TableItem:getInstance():get(item_id)
+        local package_item_list = ServerData_Item:parsePackageItemStr(t_item_detail['package'])
+        UI_ObtainPopup(package_item_list)
     end
 end
