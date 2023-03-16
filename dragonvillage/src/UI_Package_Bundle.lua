@@ -386,8 +386,12 @@ function UI_Package_Bundle:click_packageInfoBtn(pid)
         local item_list = struct_product:getItemList()
         local first_item = item_list[1]
         local t_item = TableItem:getInstance():get(first_item['item_id'])
-        local full_str = ServerData_Item:getPackageItemFullStr(t_item['package'], true)
-        MakeSimplePopup(POPUP_TYPE.OK, full_str)
+        if t_item['package'] ~= nil then
+            local package_item_list = ServerData_Item:parsePackageItemStr(t_item['package'])
+            --require('UI_Package_ItemListPopup')
+            --UI_Package_ItemListPopup(first_item, package_item_list)
+            UI_ObtainPopup(package_item_list)
+        end
     end
 end
 
