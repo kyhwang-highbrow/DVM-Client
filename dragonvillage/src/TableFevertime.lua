@@ -60,3 +60,14 @@ function TableFevertime:getIcon(type)
     
     return self:getValue(type, 'icon')
 end
+
+-------------------------------------
+-- function getFevertimeIconLabel
+-------------------------------------
+function TableFevertime:getFevertimeIconLabel(type)
+    if (self == THIS) then
+        self = THIS()
+    end
+    
+    return self:getValue(type, 't_icon_label')
+end

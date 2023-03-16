@@ -215,9 +215,14 @@ function UI_LeagueRaidScene:refresh()
     end
     
     do -- 핫타임
-        local visible = g_fevertimeData:isActiveFevertime_raidUp()
-        vars['hotTimeMenu']:setVisible(visible)
-        vars['hotTimeRaidLabel']:setString()
+        local is_fever_time, _, l_struct_fevertime = g_fevertimeData:isActiveFevertime_raidUp()
+        vars['hotTimeMenu']:setVisible(is_fever_time)
+        if is_fever_time == true and #l_struct_fevertime > 0 then
+            local struct_fevertime = l_struct_fevertime[1]
+            if struct_fevertime ~= nil then
+                vars['hotTimeRaidLabel']:setString(struct_fevertime:getFevertimeIconLabelStr())
+            end
+        end
     end
 end
 

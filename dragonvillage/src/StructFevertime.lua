@@ -224,8 +224,61 @@ end
 function StructFevertime:getFevertimeDesc()
     local desc = TableFevertime:getFevertimeDesc(self['type'])
     local value = self['value'] * 100
+    local icon_label_str = self:getFevertimeIconLabelStr()
+
+    if icon_label_str ~= nil then
+        local ret_desc = Str(desc, icon_label_str)
+        return ret_desc
+    end
+
     local ret_desc = Str(desc, value)
     return ret_desc
+end
+
+
+-------------------------------------
+-- function isFevertimeDc
+-- @ brief 할인 피버타임인가?
+-------------------------------------
+function StructFevertime:isFevertimeDc(fevertime_type)
+    if (fevertime_type == 'ad_st_dc' or fevertime_type == 'rune_lvup_dc' or fevertime_type == 'rune_dc' or fevertime_type == 'reinforce_dc'
+        or fevertime_type == 'skill_move_dc' or fevertime_type == 'mastery_dc' or fevertime_type == 'dg_gt_st_dc' or fevertime_type == 'dg_gd_st_dc'
+        or fevertime_type == 'dg_nm_st_dc' or fevertime_type == 'dg_ar_st_dc' or fevertime_type == 'dg_rg_st_dc'
+    ) then
+        return true
+    end
+    
+    return false
+end
+
+-------------------------------------
+-- function getFevertimeIconLabelStr
+-------------------------------------
+function StructFevertime:getFevertimeIconLabelStr()
+    if self:getFevertimeIconLabelColStr() ~= nil then
+        local str = self:getFevertimeIconLabelColStr()
+        return str
+    end
+
+    local fevertime_value = tostring(self:getFevertimeValue() * 100)
+    local fevertime_type = self:getFevertimeType()
+
+    local result_str = ''
+    if (self:isFevertimeDc(fevertime_type)) then
+        result_str = '-' .. fevertime_value .. '%'
+    else
+        result_str = '+' .. fevertime_value .. '%'
+    end
+    
+    return result_str
+end
+
+-------------------------------------
+-- function getFevertimeIconLabelColStr
+-------------------------------------
+function StructFevertime:getFevertimeIconLabelColStr()
+    local name = TableFevertime:getFevertimeIconLabel(self['type'])
+    return name
 end
 
 -------------------------------------

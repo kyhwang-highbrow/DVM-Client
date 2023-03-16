@@ -452,8 +452,8 @@ function ServerData_Fevertime:isActiveFevertime_raidUp()
         return false 
     end
 
-    local is_raid_up = self:isActiveFevertimeByType('raid_up')
-    return is_raid_up
+    local is_raid_up, _, list = self:isActiveFevertimeByType('raid_up')
+    return is_raid_up, _, list
 end
 
 
