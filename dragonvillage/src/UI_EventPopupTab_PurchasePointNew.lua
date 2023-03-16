@@ -46,6 +46,24 @@ function UI_EventPopupTab_PurchasePointNew:initData(event_version)
 end
 
 -------------------------------------
+-- function getDefaulSelectionRewardStep
+-- @breif 선택 보상이 존재하는 단계(보통 마지막 단계에 해당되지만 아닌 경우가 존재)
+-------------------------------------
+function UI_EventPopupTab_PurchasePointNew:getDefaulSelectionRewardStep()
+    local version = self.m_eventVersion
+    local step_count = self.m_rewardListCount
+    local last_step = g_purchasePointData:getSelectionRewardStep(version)
+    local reward_step = g_purchasePointData:getPurchaseRewardStep(version)
+
+    -- 6단계 7단계
+    if last_step <= reward_step then
+        return step_count
+    end
+
+    return last_step
+end
+
+-------------------------------------
 -- function initUI
 -- @breif
 -------------------------------------
@@ -53,10 +71,8 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
     local vars = self.vars
     local version = self.m_eventVersion
     local step_count = self.m_rewardListCount
-    local last_step = g_purchasePointData:getLastRewardStep(version)
+    local last_step = self:getDefaulSelectionRewardStep()
     
-
-    vars['selectLabel']:setString(Str('선택 가능한 {1}단계 보상', last_step))
     for step=1, step_count do
         local item_node = vars['itemNode'..step]
         item_node:setVisible(true)
@@ -89,6 +105,18 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
 
     -- 마지막 단계 보상 3개 버튼 생성
     local func_fill_reward = function (_last_step, is_extra)
+        local str_label = 'selectLabel'
+        if is_extra == true then
+            str_label = 'selectLabel_2'
+        end
+
+        local is_select_able = self:getRewardInfoByStep(version, _last_step, 2)
+        if is_select_able ~= nil then -- 아이템 2번 인덱스가 존재하면 선택 가능으로 간주
+            vars[str_label]:setString(Str('선택 가능한 {1}단계 보상', _last_step))
+        else
+            vars[str_label]:setString(Str('{1}단계 보상', _last_step))
+        end
+
         for reward_idx=1, 3 do
             local item_id, item_cnt = self:getRewardInfoByStep(version, _last_step, reward_idx)
             if item_id ~= nil then
@@ -117,7 +145,7 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
 
                 vars[str_node]:addChild(ui.root) -- clickNode1, clickNode2, clickNode3
             end
-        end    
+        end
     end
 
     func_fill_reward(last_step)
@@ -232,7 +260,7 @@ function UI_EventPopupTab_PurchasePointNew:refresh()
     percentage = math_clamp((percentage * 100), 0, 100)
     vars['purchaseGg']:runAction(cc.ProgressTo:create(0.1, percentage))
 
-    last_step =  g_purchasePointData:getLastRewardStep(version) or self.m_rewardListCount
+    last_step =  self:getDefaulSelectionRewardStep()
     self:SetInfoLabel(last_step)
     self:refresh_rewardBoxUIList()
 end
@@ -298,9 +326,9 @@ end
 -- @brief
 -------------------------------------
 function UI_EventPopupTab_PurchasePointNew:click_receiveBtn(reward_step)
-
-    if (reward_step == self.m_rewardListCount) then
-        local ui = UI_PurchasePointRewardSelectPopup(self.m_eventVersion, self.m_rewardListCount)
+    local last_step = g_purchasePointData:getSelectionRewardStep(self.m_eventVersion, true)
+    if (reward_step == last_step) then
+        local ui = UI_PurchasePointRewardSelectPopup(self.m_eventVersion, last_step)
         ui:setCloseCB(function() self:refresh() end)
         return
     end
@@ -345,10 +373,6 @@ function UI_EventPopupTab_PurchasePointNew:refresh_lastReward(last_step, idx, is
     local version = self.m_eventVersion
     -- 배경 생성
     vars['productNode']:removeAllChildren()
---[[     local last_step = g_purchasePointData:getLastRewardStep(version) or self.m_rewardListCount
-    if is_extra == true then
-        last_step = self.m_rewardListCount
-    end ]]
 
     -- 타입에 따른 누적 결제 배경UI
     local last_reward_type = g_purchasePointData:getPurchasePointRewardType(version, last_step, idx)
@@ -380,8 +404,6 @@ end
 function UI_EventPopupTab_PurchasePointNew:SetInfoLabel(last_step)
     local version = self.m_eventVersion
     local vars = self.vars
-
-    --local last_step =  g_purchasePointData:getLastRewardStep(version) or self.m_rewardListCount
     local item_id, count = self:getRewardInfoByStep(version, last_step, self.m_selectedLastRewardIdx)
     local did = tonumber(TableItem:getDidByItemId(item_id))
 
@@ -436,7 +458,7 @@ function UI_EventPopupTab_PurchasePointNew:SetInfoLabel(last_step)
     else
         AlignUIPos({vars['infoLabel'], vars['timeBtn']}, 'VERTICAL', 'HEAD', 10) -- ui list, direction, align, offset
     end ]]
-    
+
     vars['info2Label']:setVisible(false)
     AlignUIPos({vars['infoLabel'], vars['timeBtn']}, 'VERTICAL', 'HEAD', 10) -- ui list, direction, align, offset
 end

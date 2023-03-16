@@ -399,19 +399,12 @@ end
 
 
 -------------------------------------
--- function getLastRewardStep
--- @breif 최종 보상 단계
+-- function getSelectionRewardStep
+-- @breif 선택 보상이 존재하는 단계(보통 마지막 단계에 해당되지만 아닌 경우가 존재)
 -------------------------------------
-function ServerData_PurchasePoint:getLastRewardStep(version)
+function ServerData_PurchasePoint:getSelectionRewardStep(version)
     local step_count = self:getPurchasePoint_stepCount(version)
     local last_step = self.m_itemlastIndexMap[tonumber(version)] or step_count
-    local reward_step = self:getPurchaseRewardStep(version)
-
-    -- 6단계 7단계
-    if last_step <= reward_step then
-        return step_count
-    end
-
     return last_step
 end
 

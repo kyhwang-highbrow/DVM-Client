@@ -431,7 +431,7 @@ end
 function UI_PurchasePointBg:setDescLabel(item_count)
     local version = self.m_version
     local vars = self.vars
-    local last_step = g_purchasePointData:getLastRewardStep(version)
+    local last_step = g_purchasePointData:getSelectionRewardStep(version)
 
     -- 설명 값 and 설명라벨 있다면 설명 출력
     local last_reward_desc = g_purchasePointData:getPurchasePointRewardDesc(version, last_step)
