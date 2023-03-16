@@ -179,17 +179,40 @@ end
 function UI_LeagueRaidScene:initButton()
     local vars = self.vars
 
-    if (vars['infoBtn']) then vars['infoBtn']:registerScriptTapHandler(function() UI_LeagueRaidInfoPopup() end) end
-    if (vars['rateBtn']) then vars['rateBtn']:registerScriptTapHandler(function() UI_LeagueRaidRatePopup() end) end
+    if (vars['infoBtn']) then 
+        vars['infoBtn']:registerScriptTapHandler(function() UI_LeagueRaidInfoPopup() end) 
+    end
 
-    if (vars['enterBtn']) then vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end) end
+    if (vars['rateBtn']) then 
+        vars['rateBtn']:registerScriptTapHandler(function() UI_LeagueRaidRatePopup() end) 
+    end
 
-    if (vars['teamTabBtn1']) then vars['teamTabBtn1']:registerScriptTapHandler(function() self:click_deckBtn(1) end) end
-    if (vars['teamTabBtn2']) then vars['teamTabBtn2']:registerScriptTapHandler(function() self:click_deckBtn(2) end) end
-    if (vars['teamTabBtn3']) then vars['teamTabBtn3']:registerScriptTapHandler(function() self:click_deckBtn(3) end) end
+    if (vars['enterBtn']) then 
+        vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end) 
+    end
 
-    if (vars['clearTicketBtn']) then vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_quickClearBtn() end) end
-    
+    if (vars['teamTabBtn1']) then 
+        vars['teamTabBtn1']:registerScriptTapHandler(function() self:click_deckBtn(1) end) 
+    end
+    if (vars['teamTabBtn2']) then 
+        vars['teamTabBtn2']:registerScriptTapHandler(function() self:click_deckBtn(2) end) 
+    end
+    if (vars['teamTabBtn3']) then 
+        vars['teamTabBtn3']:registerScriptTapHandler(function() self:click_deckBtn(3) end) 
+    end
+
+    if (vars['clearTicketBtn']) then 
+        vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_quickClearBtn() end) 
+    end
+
+    if (vars['hotTimeRaidBtn']) then 
+        vars['hotTimeRaidBtn']:registerScriptTapHandler(function()
+            local struct_fevertime = self:getStructRaidFeverTime()
+            local desc = struct_fevertime:getFevertimeDesc()
+            local tool_tip = UI_Tooltip_Skill(0, 0, desc)
+            tool_tip:autoPositioning(vars['hotTimeRaidBtn'])
+        end) 
+    end
 end
 
 ----------------------------------------------------------------------
@@ -215,15 +238,24 @@ function UI_LeagueRaidScene:refresh()
     end
     
     do -- 핫타임
-        local is_fever_time, _, l_struct_fevertime = g_fevertimeData:isActiveFevertime_raidUp()
-        vars['hotTimeMenu']:setVisible(is_fever_time)
-        if is_fever_time == true and #l_struct_fevertime > 0 then
-            local struct_fevertime = l_struct_fevertime[1]
-            if struct_fevertime ~= nil then
-                vars['hotTimeRaidLabel']:setString(struct_fevertime:getFevertimeIconLabelStr())
-            end
+        local struct_fevertime = self:getStructRaidFeverTime()
+        vars['hotTimeMenu']:setVisible(struct_fevertime ~= nil)
+        if struct_fevertime ~= nil then
+            vars['hotTimeRaidLabel']:setString(struct_fevertime:getFevertimeIconLabelStr())
         end
     end
+end
+
+----------------------------------------------------------------------
+-- function getStructRaidFeverTime
+----------------------------------------------------------------------
+function UI_LeagueRaidScene:getStructRaidFeverTime()
+    local is_fever_time, _, l_struct_fevertime = g_fevertimeData:isActiveFevertime_raidUp()
+    if is_fever_time == true and #l_struct_fevertime > 0 then
+        local struct_fevertime = l_struct_fevertime[1]
+        return struct_fevertime
+    end
+    return nil
 end
 
 ----------------------------------------------------------------------
