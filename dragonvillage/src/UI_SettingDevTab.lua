@@ -35,6 +35,7 @@ function UI_Setting:init_devTab()
     vars['eggSimulBtn']:registerScriptTapHandler(function() self:click_eggSimulBtn() end)
     vars['translationViewerBtn']:registerScriptTapHandler(function() self:click_translationViewerBtn() end)
     vars['presetDeckBtn']:registerScriptTapHandler(function() self:click_presetDeckBtn() end)
+    vars['newDragonEventBtn']:registerScriptTapHandler(function() self:click_newDragonEventBtn() end)
     
     vars['testCodeBtn']:registerScriptTapHandler(function() UI_SettingTestCode() end)
     
@@ -507,6 +508,16 @@ function UI_Setting:click_allStaminaBtn()
     end))
 end
 
+
+-------------------------------------
+-- function click_newDragonEventBtn
+-- @brief 태초의 고신 이벤트
+-------------------------------------
+function UI_Setting:click_newDragonEventBtn()
+    require('UI_NewDragonEventScene')
+    local ui = UI_NewDragonEventScene()
+end
+
 -------------------------------------
 -- function click_allCostumeBtn
 -- @brief 모든 코스튬 추가
@@ -557,14 +568,6 @@ function UI_Setting:click_allCostumeBtn()
     MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?', function()
         Coroutine(coroutine_function)
     end))
-end
-
--------------------------------------
--- function click_newDragonEventBtn
--- @brief 신규 드래곤 이벤트
--------------------------------------
-function UI_Setting:click_newDragonEventBtn()
-
 end
 
 -------------------------------------

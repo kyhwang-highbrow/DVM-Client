@@ -278,6 +278,8 @@ function UIManager:makeTouchBlock(ui, bNotBlendBGLayer)
     if bNotBlendBGLayer then
         ui.vars['bgLayerColor']:setVisible(false)
     end
+
+    return ui
 end
 
 -------------------------------------

@@ -99,7 +99,7 @@ end
 -------------------------------------
 -- function playScenario
 -------------------------------------
-function ScenarioViewingHistory:playScenario(scenario_name)
+function ScenarioViewingHistory:playScenario(scenario_name, is_force_play)
     -- 벤치마크 도중에는 재생하지 않도록 수정
     if (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
         return
@@ -128,6 +128,11 @@ function ScenarioViewingHistory:playScenario(scenario_name)
         if (not self:isViewed(scenario_name)) then
             play = true
         end
+    end
+
+    -- 강제 재생 처리
+    if is_force_play == true then
+        play = true
     end
 
     -- 시청 기록에 등록

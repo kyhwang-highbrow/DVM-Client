@@ -276,6 +276,7 @@ local t_module = {
     'ServerData_ClanRaidFirePackage',
     'ServerData_ClanRaidLightPackage',
     'ServerData_ClanRaidDarkPackage',
+    'ServerData_NewDragonEvent',
 
     -- Interface
     'IEventDispatcher',

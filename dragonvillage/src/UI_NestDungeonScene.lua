@@ -22,7 +22,6 @@ UI_NestDungeonScene = class(PARENT, {
 function UI_NestDungeonScene:init(stage_id, dungeon_type)
     local vars = self:load('dungeon_scene.ui')
     UIManager:open(self, UIManager.SCENE)
-
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_NestDungeonScene')
 
@@ -267,6 +266,7 @@ function UI_NestDungeonScene:makeNestModeTableView()
 
     local t_data = self.m_selectNestDungeonInfo['data']
     local nest_dungeon_id = t_data['mode_id']
+    cclog('local nest_dungeon_id', nest_dungeon_id)
     local stage_list = g_nestDungeonData:getNestDungeon_stageListForUI(nest_dungeon_id)
 
 
