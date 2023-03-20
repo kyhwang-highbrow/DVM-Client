@@ -28,10 +28,7 @@ end
 -------------------------------------
 function UI_DragonSkinSaleFullPopup:initUI()
     local vars = self.vars
-    --local _, struct_product = g_dragonSkinData:isDragonSkinSalePurchaseAvailable()
-    --local item_list = struct_product:getItemList()
     local item_id = self.m_skinId
-
     local t_dragon_data = {}
     local did = TableDragonSkin:getDragonSkinValue('did', item_id)
     local attribute = TableDragonSkin:getDragonSkinValue('attribute', item_id)
@@ -47,6 +44,10 @@ function UI_DragonSkinSaleFullPopup:initUI()
     do -- 스파인
 	    local animator = AnimatorHelper:makeDragonAnimatorByTransform(struct_dragon)
 	    vars['dragonSpineNode']:addChild(animator.m_node)
+
+        animator:changeAni('pose_1', false)
+        animator:addAniHandler(function() animator:changeAni('idle', true) end)
+
     end
 
     do -- 이름

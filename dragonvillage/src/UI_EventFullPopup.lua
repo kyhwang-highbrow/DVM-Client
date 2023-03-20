@@ -225,9 +225,25 @@ function UI_EventFullPopup:initUI()
 
     -- 신규 스킨
 	elseif (popup_key == 'dragon_skin') then
-        -- 리워드 받을 수 있는 경우에만 풀 팝업 노출
-        require('UI_DragonSkinSaleFullPopup')
-		ui = UI_DragonSkinSaleFullPopup()
+        local struct_dragon_skin_map = g_dragonSkinData:getDragonSkinSaleMap()
+        local skin_id = 0
+
+        -- 현재 할인 중인 스킨 상품이 있는지, 있으면 skin_id가 가장 큰 것(최신)으로 선택됨
+        for _, struct_dragon_skin in pairs(struct_dragon_skin_map) do
+            if struct_dragon_skin:isDragonSkinSale() == true then
+                if skin_id < struct_dragon_skin:getSkinID() then
+                    skin_id = struct_dragon_skin:getSkinID()
+                end
+            end
+        end
+
+        -- 스킨 상품이 있는 경우에만 풀 팝업 노출
+        if skin_id > 0 then
+            require('UI_DragonSkinSaleFullPopup')
+		    ui = UI_DragonSkinSaleFullPopup(skin_id)
+        else
+            self:close()
+        end
 
     -- 누적 결제 보상 이벤트
     elseif pl.stringx.startswith(popup_key, 'purchase_point') then

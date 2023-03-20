@@ -513,11 +513,7 @@ end
 -------------------------------------
 function UI_Setting:click_allCostumeBtn()
     local l_costume_list = {}
-
-    local table_dragon_skin_info = TABLE:get('table_dragon_skin_sale')
-
-    
---[[     local table_stamina_info = TABLE:get('tamer_costume')
+    local table_stamina_info = TABLE:get('tamer_costume')
     for k,v in pairs(table_stamina_info) do
         table.insert(l_costume_list, k)
     end
@@ -560,7 +556,15 @@ function UI_Setting:click_allCostumeBtn()
     
     MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?', function()
         Coroutine(coroutine_function)
-    end)) ]]
+    end))
+end
+
+-------------------------------------
+-- function click_newDragonEventBtn
+-- @brief 신규 드래곤 이벤트
+-------------------------------------
+function UI_Setting:click_newDragonEventBtn()
+
 end
 
 -------------------------------------
