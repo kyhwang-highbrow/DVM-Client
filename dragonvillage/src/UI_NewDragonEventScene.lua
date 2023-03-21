@@ -103,7 +103,10 @@ function UI_NewDragonEventScene:makeNestModeTableView()
  ]]
     local content_size = node:getContentSize()
 
-    table_view:setCellUIClass(UI_NestDungeonStageListItem, create_func)
+
+    require('UI_NewDragonEventStageListItem')
+    table_view:setCellUIClass(UI_NewDragonEventStageListItem, create_func)
+    
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(stage_list, true)
     table_view.m_cellUIAppearCB = function(ui)
