@@ -60,19 +60,23 @@ function UI_LeagueRaidSeasonRewardPopup:initUI()
     end
     
     if(vars['userNode']) then 
-        local leader_info = my_data['leader'] == nil and {} or my_data['leader']
+        --local leader_info = my_data['leader'] == nil and {} or my_data['leader']
 
         do -- 리더 드래곤 아이콘
-            local dragon_id = leader_info['did']
-            local transform = leader_info['transform']
-            local evolution = transform and transform or leader_info['evolution']
-            local dragon_skin = leader_info['dragon_skin']
-            local icon = IconHelper:getDragonIconFromDidWithSkin(dragon_id, evolution, 0, 0, dragon_skin)
-            -- local icon = IconHelper:getDragonIconFromDid(dragon_id, evolution, 0, 0)
-            icon:setDockPoint(cc.p(0.5, 0.5))
-            icon:setAnchorPoint(cc.p(0.5, 0.5))
-            icon:setFlippedX(true)
-            vars['userNode']:addChild(icon)
+            vars['userNode']:removeAllChildren()
+            local leader_dragon = g_dragonsData:getLeaderDragon()
+            if leader_dragon ~= nil then
+                local dragon_id = leader_dragon['did']
+                local transform = leader_dragon['transform']
+                local evolution = transform and transform or leader_dragon['evolution']
+                local dragon_skin = leader_dragon['dragon_skin']
+
+                local icon = IconHelper:getDragonIconFromDidWithSkin(dragon_id, evolution, 0, 0, dragon_skin)
+                icon:setDockPoint(cc.p(0.5, 0.5))
+                icon:setAnchorPoint(cc.p(0.5, 0.5))
+                icon:setFlippedX(true)
+                vars['userNode']:addChild(icon)
+            end
         end
     end
     
