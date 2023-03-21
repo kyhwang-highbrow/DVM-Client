@@ -11,7 +11,7 @@ UI_NewDragonEventStageListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_NewDragonEventStageListItem:init(stage_id)
-    local vars = self:load('dungeon_item.ui')
+    local vars = self:load('dungeon_new_dragon_stage_item.ui')
     self.m_stageId = stage_id
     self:initUI()
     self:initButton()
