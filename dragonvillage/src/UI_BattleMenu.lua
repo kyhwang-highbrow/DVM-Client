@@ -194,7 +194,7 @@ function UI_BattleMenu:update(dt)
             or g_fevertimeData:isActiveFevertime_dungeonArStDc()
             or g_fevertimeData:isActiveFevertime_dungeonNmStDc()
             or g_fevertimeData:isActiveFevertime_dungeonGtStDc()
-            or g_fevertimeData:isActiveFevertime_dungeonGdStDc()
+            or g_fevertimeData:isActiveFevertime_dungeonGdStDc()            
         ) then
             t_noti[menu_name .. '_dungeon'] = true
         end
@@ -203,7 +203,8 @@ function UI_BattleMenu:update(dt)
     -- noti 표시할 때 주의사항 : 아직 열리지 않은 탭의 경우 노티를 표시하면 안 된다.
     if (menu_name ~= 'first') then
         if (not t_noti[menu_name .. '_competition']) then
-            if (g_fevertimeData:isActiveFevertime_pvpHonorUp()) then
+            if (g_fevertimeData:isActiveFevertime_pvpHonorUp() or 
+                g_fevertimeData:isActiveFevertime_raidUp()) then
                 t_noti[menu_name .. '_competition'] = true
             end
         end

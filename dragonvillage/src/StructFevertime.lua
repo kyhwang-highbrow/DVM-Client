@@ -224,17 +224,9 @@ end
 function StructFevertime:getFevertimeDesc()
     local desc = TableFevertime:getFevertimeDesc(self['type'])
     local value = self['value'] * 100
-    local icon_label_str = self:getFevertimeIconLabelStr()
-
-    if icon_label_str ~= nil then
-        local ret_desc = Str(desc, icon_label_str)
-        return ret_desc
-    end
-
     local ret_desc = Str(desc, value)
     return ret_desc
 end
-
 
 -------------------------------------
 -- function isFevertimeDc
@@ -278,6 +270,9 @@ end
 -------------------------------------
 function StructFevertime:getFevertimeIconLabelColStr()
     local name = TableFevertime:getFevertimeIconLabel(self['type'])
+    if name == '' then
+        return nil
+    end
     return name
 end
 
