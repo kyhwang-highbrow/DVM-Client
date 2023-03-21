@@ -1,9 +1,9 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
--- class UI_NewDragonEventScene
+-- class UI_DragonStoryDungeonEventScene
 -------------------------------------
-UI_NewDragonEventScene = class(PARENT, {
+UI_DragonStoryDungeonEventScene = class(PARENT, {
         m_tableView = 'UIC_TableView', -- 네스트 던전의 세부 모드들 리스트
         m_selectNestDungeonInfo = 'table', -- 현재 선택된 세부 모드
         m_bDirtyDungeonList = 'boolean',
@@ -18,13 +18,13 @@ UI_NewDragonEventScene = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_NewDragonEventScene:init(stage_id)
-    local vars = self:load('dungeon_new_dragon_scene.ui')
+function UI_DragonStoryDungeonEventScene:init(stage_id)
+    local vars = self:load('dragon_story_dungeon_scene.ui')
     self.m_dungeonType = NEST_DUNGEON_TREE
     self.m_stageID = stage_id
     UIManager:open(self, UIManager.SCENE)
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_NewDragonEventScene')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonStoryDungeonEventScene')
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
@@ -40,9 +40,9 @@ end
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_NewDragonEventScene:initParentVariable()
+function UI_DragonStoryDungeonEventScene:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_NewDragonEventScene'
+    self.m_uiName = 'UI_DragonStoryDungeonEventScene'
     self.m_bUseExitBtn = true
     self.m_uiBgm = 'bgm_lobby'
 end
@@ -50,7 +50,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_NewDragonEventScene:initUI()
+function UI_DragonStoryDungeonEventScene:initUI()
     local vars = self.vars	
 	self.m_tempUI = nil
 	self.m_tempData = nil
@@ -66,12 +66,12 @@ end
 -- function makeNestModeTableView
 -- @brief 네스트 던전 모드 선택했을 때 오른쪽에 나오는 세부 리스트
 -------------------------------------
-function UI_NewDragonEventScene:makeNestModeTableView()
+function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
     local node = self.vars['detailTableViewNode']
 
     --local t_data = self.m_selectNestDungeonInfo['data']
     local nest_dungeon_id = 1230400 --t_data['mode_id']
-    local stage_list = g_eventNewDragon:getNewDragonEventDungeonStageIdList()
+    local stage_list = g_eventDragonStoryDungeon:getNewDragonEventDungeonStageIdList()
 
 
     -- 셀 아이템 생성 콜백
@@ -104,9 +104,9 @@ function UI_NewDragonEventScene:makeNestModeTableView()
     local content_size = node:getContentSize()
 
 
-    require('UI_NewDragonEventStageListItem')
-    table_view:setCellUIClass(UI_NewDragonEventStageListItem, create_func)
-    
+    require('UI_DragonStoryDungeonStageListItem')
+    table_view:setCellUIClass(UI_DragonStoryDungeonStageListItem, create_func)
+
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(stage_list, true)
     table_view.m_cellUIAppearCB = function(ui)
@@ -136,7 +136,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_NewDragonEventScene:initButton()
+function UI_DragonStoryDungeonEventScene:initButton()
     local vars = self.vars
 	vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
 
@@ -161,21 +161,21 @@ end
 -- function click_infoBtn
 -- @breif 던전 정보 (룬 드랍 정보)
 -------------------------------------
-function UI_NewDragonEventScene:click_infoBtn(tab_type)
+function UI_DragonStoryDungeonEventScene:click_infoBtn(tab_type)
     UI_HelpRune('probability', tab_type)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_NewDragonEventScene:refresh()
+function UI_DragonStoryDungeonEventScene:refresh()
 end
 
 -------------------------------------
 -- function arrangeItemUI
 -- @brief itemUI들을 정렬한다!
 -------------------------------------
-function UI_NewDragonEventScene:arrangeItemUI(l_hottime)
+function UI_DragonStoryDungeonEventScene:arrangeItemUI(l_hottime)
     for i, ui_name in pairs(l_hottime) do
         local ui = self.vars[ui_name]
         if (ui ~= nil) then
@@ -189,7 +189,7 @@ end
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_NewDragonEventScene:click_exitBtn()
+function UI_DragonStoryDungeonEventScene:click_exitBtn()
     if self.m_selectNestDungeonInfo then
         self:closeSubMenu()
 		if (not self.m_isIsolation) then
@@ -209,14 +209,14 @@ end
 -------------------------------------
 -- function click_dragonInfoBtn
 -------------------------------------
-function UI_NewDragonEventScene:click_dragonInfoBtn()
+function UI_DragonStoryDungeonEventScene:click_dragonInfoBtn()
 	UI_RecommendedDragonInfoPopup(self.m_selectNestDungeonInfo)
 end
 
 -------------------------------------
 -- function closeSubMenu
 -------------------------------------
-function UI_NewDragonEventScene:closeSubMenu()
+function UI_DragonStoryDungeonEventScene:closeSubMenu()
 	local vars = self.vars
 
     -- 탑바의 입장권
@@ -274,7 +274,7 @@ end
 -------------------------------------
 -- function playScenario
 -------------------------------------
-function UI_NewDragonEventScene:playScenario(stage_id, scenario_type, cb_func)
+function UI_DragonStoryDungeonEventScene:playScenario(stage_id, scenario_type, cb_func)
     -- 콜백
     local ui_block
 
@@ -306,4 +306,4 @@ end
 
 
 --@CHECK
-UI:checkCompileError(UI_NewDragonEventScene)
+UI:checkCompileError(UI_DragonStoryDungeonEventScene)

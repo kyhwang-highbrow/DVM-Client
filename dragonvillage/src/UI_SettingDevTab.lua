@@ -514,8 +514,8 @@ end
 -- @brief 태초의 고신 이벤트
 -------------------------------------
 function UI_Setting:click_newDragonEventBtn()
-    require('UI_NewDragonEventScene')
-    local ui = UI_NewDragonEventScene()
+    require('UI_DragonStoryDungeonEventScene')
+    local ui = UI_DragonStoryDungeonEventScene()
 end
 
 -------------------------------------

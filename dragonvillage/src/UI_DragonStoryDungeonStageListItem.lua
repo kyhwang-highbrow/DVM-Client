@@ -1,17 +1,17 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable(), UI_FevertimeUIHelper:getCloneTable())
 
 -------------------------------------
--- class UI_NewDragonEventStageListItem
+-- class UI_DragonStoryDungeonStageListItem
 -------------------------------------
-UI_NewDragonEventStageListItem = class(PARENT, {
+UI_DragonStoryDungeonStageListItem = class(PARENT, {
     m_stageId = 'number',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_NewDragonEventStageListItem:init(stage_id)
-    local vars = self:load('dungeon_new_dragon_stage_item.ui')
+function UI_DragonStoryDungeonStageListItem:init(stage_id)
+    local vars = self:load('dragon_story_dungeon_stage_item.ui')
     self.m_stageId = stage_id
     self:initUI()
     self:initButton()
@@ -23,7 +23,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_NewDragonEventStageListItem:initUI()
+function UI_DragonStoryDungeonStageListItem:initUI()
     local vars = self.vars
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
         local stage_id = self.m_stageId
@@ -36,7 +36,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_NewDragonEventStageListItem:initButton()
+function UI_DragonStoryDungeonStageListItem:initButton()
     local vars = self.vars
     vars['enterButton']:registerScriptTapHandler(function() self:enterButton() end)
 
@@ -45,7 +45,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_NewDragonEventStageListItem:refresh(t_data)
+function UI_DragonStoryDungeonStageListItem:refresh(t_data)
     local vars = self.vars
     --local game_mode = g_stageData:getGameMode(t_data['stage'])
     local stage_id = self.m_stageId
@@ -83,7 +83,7 @@ end
 -- function refresh_dropItem
 -- @brief 드랍 아이템 표시
 -------------------------------------
-function UI_NewDragonEventStageListItem:refresh_dropItem()
+function UI_DragonStoryDungeonStageListItem:refresh_dropItem()
     local vars = self.vars
     local stage_id = self.m_stageId
     local drop_helper = DropHelper(stage_id)
@@ -102,7 +102,7 @@ end
 -------------------------------------
 -- function enterButton
 -------------------------------------
-function UI_NewDragonEventStageListItem:enterButton()
-    --local stage_id = self.m_stageId
-    --UI_AdventureStageInfo(stage_id)
+function UI_DragonStoryDungeonStageListItem:enterButton()
+    local stage_id = self.m_stageId
+    UI_AdventureStageInfo(stage_id)
 end
