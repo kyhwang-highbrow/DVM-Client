@@ -212,7 +212,11 @@ local HOTTIME_UI_INFO = {
 		['label'] = 'hotTimeDgGdStLabel',
 		['format'] = '-%s%%',
 	},
-
+    ['raid_up'] = {
+		['button'] = 'hotTimeDgArStBtn',
+		['label'] = 'hotTimeDgArStLabel',
+		['format'] = '-500',
+	},
 }
 -------------------------------------
 -- function initHotTimeUI
@@ -314,6 +318,12 @@ function UI_Game:initHotTimeUI()
 
         -- 고대 유적 던전 날개 할인
         local type = 'dg_ar_st_dc'
+        self:applyFevertime(type, t_hottime_calc_value)
+
+    -- 레이드
+    elseif (game_mode == GAME_MODE_LEAGUE_RAID) then
+        -- 레이드 스태미나 감소
+        local type = 'raid_up'
         self:applyFevertime(type, t_hottime_calc_value)
 
     -- 룬 수호자 던전
