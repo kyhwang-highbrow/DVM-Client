@@ -42,6 +42,7 @@ function UI_DragonSkinManageInfo:init(struct_dragon_object)
 
     self.m_selectDragonOID = struct_dragon_object:getObjectId()
     self.m_selectDragonData = struct_dragon_object
+    
 
     local skin_id = struct_dragon_object:getSkinID()
     if skin_id ~= 0 then 
@@ -57,19 +58,18 @@ end
 -------------------------------------
 -- function init_after
 -------------------------------------
-function UI_DragonSkinManageInfo:init_after(struct_dragon_object)
-    local vars = self:load(self.m_resName)
+function UI_DragonSkinManageInfo:init_after()
+    self:load(self.m_resName)
     UIManager:open(self, UIManager.SCENE)
     PARENT.init_after(self)
     self:sceneFadeInAction()
+    local transform = self.m_selectDragonData:getTransform()
+    self.m_evolutionLevel = transform ~= nil and transform or self.m_selectDragonData:getEvolution()
 
     self:initUI()
     self:init_dragonSkinTableView()
     self:initButton()
     self:refresh()
-    
-    -- spine 캐시 정리 확인
-    -- SpineCacheManager:getInstance():purgeSpineCacheData()
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, self.m_uiName)
@@ -77,11 +77,6 @@ function UI_DragonSkinManageInfo:init_after(struct_dragon_object)
     -- 정렬 도우미
     self:init_dragonSortMgr()
     self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
-
-    -- local sub_menu = self.m_startSubMenu
-    -- if sub_menu then
-    --     self:clickSubMenu(sub_menu)
-    -- end
 end
 
 -------------------------------------
@@ -227,7 +222,7 @@ function UI_DragonSkinManageInfo:refresh_dragonBasicInfo(struct_dragon)
 
     if self.m_dragonAnimator ~= nil then
         -- 외형 변환 적용 Animator
-        self.m_dragonAnimator:setDragonAnimatorByTransform(struct_dragon)
+        --self.m_dragonAnimator:setDragonAnimatorByTransform(struct_dragon)
     end
 end
 
@@ -299,10 +294,6 @@ function UI_DragonSkinManageInfo:refresh()
     self:setDragonSkinRes(self.m_selectedSkinData)
     -- 좌측 드래곤 아이콘 이미지 변경
     self:setDragonSkinIconRes(self.m_selectedSkinData)
-
-   
-    -- spine 캐시 정리 확인
-    -- SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
 end
 
 -------------------------------------
@@ -513,12 +504,10 @@ function UI_DragonSkinManageInfo:setDragonSkinRes(skin_data)
 
     if (res) then
         self.m_dragonAnimator:setDragonAnimatorRes(skin_data:getDid(), res, attr, self.m_evolutionLevel)
-
-        -- vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
+        --vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
     end
 
     -- vars['dragonNode']:addChild(dragon_animator.m_node)
-
     local skin_name = skin_data:getName()
     vars['skinTitleLabel']:setString(skin_name)
 
