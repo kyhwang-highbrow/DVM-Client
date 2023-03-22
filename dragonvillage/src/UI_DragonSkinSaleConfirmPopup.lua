@@ -127,6 +127,8 @@ end
 function UI_DragonSkinSaleConfirmPopup:click_purchaseBtn(price_type)
     local success_cb = function (ret)
         if self.m_finishCB ~= nil then
+            local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+            UI_ToastPopup(toast_msg)
             self.m_finishCB()
             self:close()
         end
