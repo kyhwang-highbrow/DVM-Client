@@ -151,23 +151,29 @@ function UIC_DragonAnimator:setDragonAnimatorByTransform(struct_dragon_data)
     local evolution = struct_dragon_data['evolution']
     local flv = struct_dragon_data:getFlv()
 
-    -- 성체부터 외형변환 적용
-    if (evolution == POSSIBLE_TRANSFORM_CHANGE_EVO) then
-        evolution = struct_dragon_data['transform'] or evolution
-    end
+    -- 슬라임 예외처리 추가
+    local is_slime = TableSlime:isSlimeID(did)    
+    if is_slime == true then
+        local t_dragon = TableSlime():get(did)
+        self:setDragonAnimatorRes(did, t_dragon['res'], t_dragon['attr'], evolution, nil)
+    else
+        -- 성체부터 외형변환 적용
+        if (evolution == POSSIBLE_TRANSFORM_CHANGE_EVO) then
+            evolution = struct_dragon_data['transform'] or evolution
+        end
 
-    local t_dragon = TableDragon():get(did)
+        local t_dragon = TableDragon():get(did)
+        local res = t_dragon['res']
+        local attr = t_dragon['attr']
     
-    local res = t_dragon['res']
-    local attr = t_dragon['attr']
+        if struct_dragon_data['dragon_skin'] ~= nil and struct_dragon_data['dragon_skin'] ~= 0 then
+            local skin_id = struct_dragon_data['dragon_skin']
+            res = TableDragonSkin:getDragonSkinValue('res', skin_id)
+            attr = TableDragonSkin:getDragonSkinValue('attribute', skin_id)
+        end
 
-    if struct_dragon_data['dragon_skin'] ~= nil and struct_dragon_data['dragon_skin'] ~= 0 then
-        local skin_id = struct_dragon_data['dragon_skin']
-        res = TableDragonSkin:getDragonSkinValue('res', skin_id)
-        attr = TableDragonSkin:getDragonSkinValue('attribute', skin_id)
-    end
-
-    self:setDragonAnimatorRes(did, res, attr, evolution, flv)
+        self:setDragonAnimatorRes(did, res, attr, evolution, flv)
+   end
 end
 
 -------------------------------------
