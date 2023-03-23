@@ -238,7 +238,7 @@ function AnimatorHelper:getTitleAnimator(is_first_enter)
         if (self:isSameDate('04', '01') and not is_first_enter) then
             res = 'res/ui/spine/title_april_fool/title.spine'
         else
-            res = 'res/ui/spine/title/title.spine'
+            res = 'res/ui/spine/title_april_fool/title.spine' --'res/ui/spine/title/title.spine'
         end
 	end
 
