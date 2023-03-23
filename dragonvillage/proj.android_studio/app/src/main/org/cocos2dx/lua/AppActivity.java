@@ -51,6 +51,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
 
 // @app configuration
 import com.perplelab.PerpleConfig;
@@ -544,6 +545,7 @@ public class AppActivity extends Cocos2dxActivity{
                     } else {
                         AppActivity.startAPKExpansionDownloader(mVersionCode, mFileSize, mMd5, mCrc32);
                     }
+
                 } else if (id.equals("apkexp_check")) {
                     String[] array1 = arg0.split(";");
                     int versionCode = Integer.parseInt(array1[0]);
@@ -693,7 +695,21 @@ public class AppActivity extends Cocos2dxActivity{
                     permissions[0] = arg0;
                     ActivityCompat.requestPermissions(sActivity, permissions, RC_APP_PERMISSION);
 
-                } else if (id.equals("unityads_initialize")) {
+                }
+
+                else if (id.equals("app_requestAppSetting")) {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                .setData(Uri.parse("package:" + sActivity.getPackageName()));
+                        sActivity.startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        e.printStackTrace();
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+                        sActivity.startActivity(intent);
+                    }
+                }
+
+                else if (id.equals("unityads_initialize")) {
                     boolean isDebug = false;
                     if (arg0.equals("debug"))
                         isDebug = true;

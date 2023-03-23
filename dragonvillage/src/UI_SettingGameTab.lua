@@ -202,12 +202,10 @@ function UI_Setting:init_notification()
         radio_button:setSelectedButton('off')
     end
 
-    --local push_state = g_localData:get('push_state') or 1
-    --if push_state == 1 then
-    --    radio_button:setSelectedButton('on')
-    --else
-    --    radio_button:setSelectedButton('off')
-    --end
+    local function func_android_permission()
+        SDKManager:checkAndroidPushPermission(function ()
+        end)
+    end
 
     local function change_cb(selected)
         local pushToken = g_localData:get('local', 'push_token')
@@ -221,8 +219,15 @@ function UI_Setting:init_notification()
             push_all = false
             game_push = 0
         end
+
         Network_platform_registerToken(game_push, pushToken)
-        g_settingData:request_setSetting(push_all)
+
+        if push_all == true then
+            g_settingData:request_setSetting(push_all, func_android_permission)
+        else
+            g_settingData:request_setSetting(push_all)
+        end
+        
         g_localData:applyLocalData(game_push, 'push_state')
     end
 

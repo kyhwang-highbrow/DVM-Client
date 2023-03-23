@@ -369,6 +369,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workPlatformLogin')
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workAgreeTerms')
+    table.insert(self.m_lWorkList, 'workAnroidPushPermissions') -- 안드로이드 푸시 퍼미션 요청
     table.insert(self.m_lWorkList, 'workGetServerInfo')
 
     -- @perpelsdk
@@ -1010,8 +1011,22 @@ function UI_TitleScene:workAgreeTerms()
     g_userData:request_termsInfo(success_cb, fail_cb)
 end
 
-function UI_TitleScene:workAgreeTerms_click()
+-------------------------------------
+-- function workAnroidPushPermissions
+-- @brief 안드로이드 푸시 퍼미션 요청
+-------------------------------------
+function UI_TitleScene:workAnroidPushPermissions()
+    self.m_loadingUI:showLoading(Str('약관 동의 확인 중...'))
+    SDKManager:requestAndroidPushPermission(false, function ()
+        self.m_loadingUI:hideLoading()
+        self:doNextWork()
+    end)
+end
 
+-------------------------------------
+-- function workAgreeTerms_click
+-------------------------------------
+function UI_TitleScene:workAgreeTerms_click()
 end
 
 -------------------------------------

@@ -219,6 +219,13 @@ function SDKManager:app_requestPermission(permission_name, cb_func)
 end
 
 -------------------------------------
+-- function app_requestAppSetting
+-------------------------------------
+function SDKManager:app_requestAppSetting(cb_func)
+    self:sendEvent('app_requestAppSetting', '', '', cb_func)
+end
+
+-------------------------------------
 -- function requestTrackingAuthorization
 -- @brief 2020.09.04 iOS14 대응으로 추가 / Android는 사용하지 않음
 --[[
@@ -269,4 +276,132 @@ function SDKManager:isTrackingNotDetermined(cb_func)
     --     elseif (result   == 'fail') then
     --     end
     -- end
+end
+
+-------------------------------------
+-- function requestAndroidPushPermission
+-- @brief 2023.03.23 Android 13 대응 - Push Permission / iOS는 사용하지 않음
+-------------------------------------
+function SDKManager:requestAndroidPushPermission(force_inquiry, func_next)
+    local permission_name = 'android.permission.POST_NOTIFICATIONS'
+    local check = nil
+    local check_cb = nil
+    local request = nil
+    local request_cb = nil
+
+
+    -- 안드로이드가 아니면 다음 단계로 스킵
+    if isAndroid() == false then 
+        func_next()
+        return
+    end
+
+    -- 1.4.1 부터 대응이 되어있다. 아니면 스킵
+    if (getAppVerNum() < 1004001) then
+        func_next()
+        return
+    end
+
+    -- 이전에 이미 거부하였다면 
+    local permission_replied = g_localData:get('local', 'push_permission')
+    if permission_replied == 'denied' and force_inquiry ~= true then
+        func_next()
+        return
+    end
+
+    -- 퍼미션이 필요한지 확인
+    check = function()
+        cclog('## 1. 퍼미션이 필요한지 확인')
+        SDKManager:app_checkPermission(permission_name, check_cb)
+    end
+
+    -- 퍼미션 확인 결과
+    check_cb = function(result)
+        cclog('## 2. 퍼미션 확인 결과')
+        -- 퍼미션 필요한 경우
+        if (result == 'denied') then
+            request()
+        -- 퍼미션이 필요하지 않은 경우
+        elseif (result == 'granted') then
+            func_next()
+        end
+    end
+    
+    -- 퍼미션 요청
+    request = function()
+        cclog('## 3. 퍼미션 요청')
+        SDKManager:app_requestPermission(permission_name, request_cb)
+    end
+
+    -- 퍼미션 요청 결과
+    request_cb = function(result)
+        cclog('## 4. 퍼미션 요청 결과 : ' .. tostring(result))
+        -- 푸시 퍼미션은 선택 사항이기 때문에 거절을 하더라도 다음 단계로 넘어가야 함
+        -- result == 'denied' or 'granted'
+        -- 거절한 경우 다시 요청 팝업이 뜨지 않도록 하기 위해 로컬에 저장
+        g_localData:applyLocalData(result, 'local', 'push_permission')
+        -- 다음 단계로 넘어감
+        func_next()
+    end
+
+    check()
+end
+
+
+-------------------------------------
+-- function checkAndroidPermission
+-- @brief 2023.03.23 Android 13 대응 - Push Permission / iOS는 사용하지 않음
+-------------------------------------
+function SDKManager:checkAndroidPushPermission(func_next)
+    local permission_name = 'android.permission.POST_NOTIFICATIONS'
+    local check = nil
+    local check_cb = nil
+    local info_popup = nil
+    local request = nil
+    local request_cb = nil
+
+
+    -- 안드로이드가 아니면 다음 단계로 스킵
+    if isAndroid() == false then 
+        func_next()
+        return
+    end
+
+    -- 1.4.1 부터 대응이 되어있다. 아니면 스킵
+    if (getAppVerNum() < 1004001) then
+        func_next()
+        return
+    end
+
+    -- 퍼미션이 필요한지 확인
+    check = function()
+        cclog('## 1. 퍼미션이 필요한지 확인')
+        SDKManager:app_checkPermission(permission_name, check_cb)
+    end
+
+    -- 퍼미션 확인 결과
+    check_cb = function(result)
+        cclog('## 2. 퍼미션 확인 결과')
+        -- 퍼미션 필요한 경우
+        if (result == 'denied') then
+            info_popup()
+        else
+            func_next()
+        end
+    end
+
+    -- 퍼미션 안내 팝업
+    info_popup = function()
+        cclog('## 3. 퍼미션 안내 팝업')
+        local msg = Str('현재 드빌M의 알림 설정이 비활성화된 상태입니다.')
+        local submsg =  Str('드빌M의 풍성한 이벤트와 소식들을 제공받기 위해서는 알림 활성화가 필요합니다.\n지금 앱 정보에서 알림 상태를 확인하시겠습니까?')
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, request)
+    end
+
+    -- 퍼미션 요청
+    request = function()
+        SDKManager:app_requestAppSetting(request_cb)
+    end
+
+    check()
 end
