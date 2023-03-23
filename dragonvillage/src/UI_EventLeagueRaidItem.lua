@@ -7,7 +7,7 @@ local PARENT = UI
 UI_EventLeagueRaidItem = class(PARENT, {
     m_itemIndex = 'number',   -- 몇 번째 보상인지 (1 - 5)
     m_rewardInfo = 'g_eventLeagueRaidData', -- 
-    m_rewardType = 'string', -- 보상 타입
+    m_rewardType = 'string', -- 보상 타
 })
 
 -------------------------------------
@@ -21,7 +21,7 @@ function UI_EventLeagueRaidItem:init(reward_type, item_index)
     elseif (reward_type == 'win') then
         self.m_rewardInfo = g_eventLeagueRaidData:getWinRewardInfo()
     end
-        
+
     self.m_itemIndex = item_index
     self.m_rewardType = reward_type
     local ui_name = 'event_raid_update_reward_item.ui'
@@ -43,19 +43,28 @@ function UI_EventLeagueRaidItem:initUI()
 
     -- 수령한 보상인지, 수령 가능한 보상인지 확인
     local is_received = rewardInfo['reward'][tostring(itemIndex)] == 1
-    local can_receive = g_eventLeagueRaidData:getPlayCount() >= rewardInfo['product']['price_' .. itemIndex] and (not is_received)
+    local count = rewardInfo['product']['price_' .. itemIndex]
+    local val
+    if self.m_rewardType == 'win' then
+        val = g_eventLeagueRaidData:getWinCount()
+        --cclog('win', val, count)
+    else
+        val = g_eventLeagueRaidData:getPlayCount()
+        --cclog('play', val, count)
+    end
+    
+    local can_receive = val >= count and (not is_received)
 
     -- 수령한 보상, 수령 가능한 보상
     vars['checkSprite']:setVisible(is_received)
     vars['playRewardSprite']:setVisible(can_receive)
 
     -- 참여 횟수
-    local count = rewardInfo['product']['price_' .. itemIndex]
     if self.m_rewardType == 'win' then
         vars['countLabel']:setString(Str('{1}점', comma_value(count)))
     else
         vars['countLabel']:setString(Str('{1}회', count))
-    end    
+    end
 
     -- 아이템 Icon
     local item_id, item_count = g_itemData:parsePackageItemStrIndivisual(rewardInfo['product']['mail_content_' .. itemIndex])

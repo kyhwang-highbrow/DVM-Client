@@ -19,7 +19,7 @@ UI_DragonStoryDungeonEventScene = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:init(stage_id)
-    local vars = self:load('dragon_story_dungeon_scene.ui')
+    local vars = self:load('story_dungeon_scene.ui')
     self.m_dungeonType = NEST_DUNGEON_TREE
     self.m_stageID = stage_id
     UIManager:open(self, UIManager.SCENE)
