@@ -394,7 +394,7 @@ function SDKManager:checkAndroidPushPermission(func_next)
     info_popup = function()
         cclog('## 3. 퍼미션 안내 팝업')
         local msg = Str('현재 드빌M의 알림 설정이 비활성화된 상태입니다.')
-        local submsg =  Str('드빌M의 풍성한 이벤트와 소식들을 제공받기 위해서는 알림 활성화가 필요합니다.\n지금 앱 정보에서 알림 상태를 확인하시겠습니까?')
+        local submsg =  Str('드빌M의 다양한 이벤트와 소식들을 제공받기 위해서는 알림 활성화가 필요합니다.\n지금 앱 정보에서 알림 상태를 확인하시겠습니까?')
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, request)
     end
 
