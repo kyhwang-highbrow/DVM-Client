@@ -34,6 +34,9 @@ function UI_DragonStoryDungeonEventScene:init(stage_id)
     self:refresh()
     self:makeNestModeTableView()
     self:sceneFadeInAction()
+
+
+    g_eventDragonStoryDungeon:applyNestDungeonStageList()
 end
 
 -------------------------------------
@@ -68,6 +71,7 @@ end
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
     local node = self.vars['detailTableViewNode']
+    local vars = self.vars
 
     --local t_data = self.m_selectNestDungeonInfo['data']
     local nest_dungeon_id = 1230400 --t_data['mode_id']
@@ -131,6 +135,12 @@ function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
         end
         table_view:relocateContainerFromIndex(focus_idx, false)
     end ]]
+
+    local ui_menu = UI_BattleMenuItem_Adventure('story_dungeon', 4)
+    vars['dungeonNode']:removeAllChildren()
+    vars['dungeonNode']:addChild(ui_menu.root)
+
+    ui_menu.vars['enterBtn']:setEnabled(false)
 end
 
 -------------------------------------

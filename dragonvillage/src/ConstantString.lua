@@ -395,6 +395,9 @@ function getContentName(content_type)
     elseif (content_type == 'league_raid') then
         content_name = Str('레이드')
 
+    elseif (content_type == 'story_dungeon') then
+        content_name = Str('드래곤 스토리 던전')
+
     else
         error('content_type : ' .. content_type)
     end

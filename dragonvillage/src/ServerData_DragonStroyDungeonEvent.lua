@@ -91,15 +91,162 @@ end
 -- @brief 서버에서 전달받은 데이터를 클라이언트에 적용
 -------------------------------------
 function ServerData_DragonStroyDungeonEvent:applyNestDungeonStageList(data)
+    --local info = TABLE:loadJsonTable('tesssst', '.json')
+    --cclog('test.json')
+    --ccdump(info)
 
-    -- 서버에서 줄여진 key명칭을 사용
-    for i,v in pairs(data) do
-        if v['cl_cnt'] then
-            v['clear_cnt'] = v['cl_cnt']
-        end
-    end
+    local t_data = {
+        ["story_dungeon_stage_info"] = 
+            {
+                {
+                    ['stage_id'] = 4230101,
+                    ['play_cnt'] = 0,
+                    ['clear_cnt'] = 0
+                },       
+    
+                {
+                    ['stage_id'] = 4230102,
+                    ['play_cnt'] = 0,
+                    ['clear_cnt'] = 0
+                },        
+    
+                {
+                    ['stage_id'] = 4230103,
+                    ['play_cnt'] = 0,
+                    ['clear_cnt'] = 0
+                },         
+    
+    
+                {
+                    ['stage_id'] = 4230104,
+                    ['play_cnt'] = 0,
+                    ['clear_cnt'] = 0
+                },       
 
-    self.m_serverData:applyServerData(data, 'nest_dungeon_stage_list')
+                {
+                    ['stage_id'] = 4230105,
+                    ['play_cnt'] = 0,
+                    ['clear_cnt'] = 0
+                },       
+    
+                {
+                    ['stage_id'] = 4230106,
+                    ['play_cnt'] = 0,
+                    ['clear_cnt'] = 0
+                },       
+    
+                {
+                    ['stage_id'] = 4230107,
+                    ['play_cnt'] = 0,
+                    ['clear_cnt'] = 0
+                },       
+
+                {
+                    ['stage_id'] = 4230108,
+                    ['play_cnt'] = 0,
+                    ['clear_cnt'] = 0
+                },       
+    
+                {
+                    ['stage_id'] = 4230109,
+                    ['play_cnt'] = 0,
+                    ['clear_cnt'] = 0
+                },       
+    
+                {
+                    ['stage_id'] = 4230110,
+                    ['play_cnt'] = 0,
+                    ['clear_cnt'] = 0
+                }    
+            }
+        }
+
+    
+    local json = dkjson.encode(t_data, {indent=true})
+    ccdump(json)
+
+    --[[
+
+  "quest_info":{
+    "special":{
+      "reward":[],
+      "focus":{
+        "20306":25937,
+        "20606":66899,
+        "20206":2078,
+        "20406":1680,
+        "20106":197,
+        "20506":856
+      }
+    },
+
+    "story_dungeon_stage_info":{
+        [
+            {
+                "stage_id":4230101,
+                "play_cnt":0,
+                "clear_cnt":0,
+            },       
+
+            {
+                "stage_id":4230102,
+                "play_cnt":0,
+                "clear_cnt":0,
+            },       
+
+            {
+                "stage_id":4230103,
+                "play_cnt":0,
+                "clear_cnt":0,
+            },       
+
+
+            {
+                "stage_id":4230104,
+                "play_cnt":0,
+                "clear_cnt":0,
+            },       
+
+
+            {
+                "stage_id":4230105,
+                "play_cnt":0,
+                "clear_cnt":0,
+            },       
+
+            {
+                "stage_id":4230106,
+                "play_cnt":0,
+                "clear_cnt":0,
+            },       
+
+            {
+                "stage_id":4230107,
+                "play_cnt":0,
+                "clear_cnt":0,
+            },       
+
+            {
+                "stage_id":4230108,
+                "play_cnt":0,
+                "clear_cnt":0,
+            },       
+
+            {
+                "stage_id":4230109,
+                "play_cnt":0,
+                "clear_cnt":0,
+            },       
+
+            {
+                "stage_id":4230110,
+                "play_cnt":0,
+                "clear_cnt":0,
+            }
+        ]
+    },]]--
+
+    self.m_serverData:applyServerData(t_data or {}, 'nest_dungeon_stage_list')
 end
 
 -------------------------------------
