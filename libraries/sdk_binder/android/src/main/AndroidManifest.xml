@@ -73,7 +73,7 @@
         <!-- @admob -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9497777061019569~9623723983"/>
+            android:value="ca-app-pub-4135263923809648~8952914647"/>
 
         <!-- @firebase analytics -->
         <!-- stop automatic initializing -->

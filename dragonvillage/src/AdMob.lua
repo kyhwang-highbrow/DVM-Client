@@ -17,14 +17,14 @@ local instance = nil
 -------------------------------------
 function AdMob:init()
     self.m_moduleName = 'admob'
-
+    
     if CppFunctions:isAndroid() then
         self.m_unitID = 'ca-app-pub-4135263923809648/9688844339'
-        self.m_testUnitID = 'ca-app-pub-9497777061019569/7659560061'
+        self.m_testUnitID = 'ca-app-pub-4135263923809648/4640022311'
 
     elseif CppFunctions:isIos() then
         self.m_unitID = 'ca-app-pub-4135263923809648/9305700959'
-        self.m_testUnitID = 'ca-app-pub-9497777061019569/1610486021'
+        self.m_testUnitID = 'ca-app-pub-4135263923809648/3870436946'
     else
 
     end
