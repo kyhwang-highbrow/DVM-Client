@@ -1,0 +1,307 @@
+
+skill_macaroon.png
+size: 1985,1129
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_ball
+  rotate: false
+  xy: 1705, 45
+  size: 110, 110
+  orig: 110, 110
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_1
+  rotate: true
+  xy: 573, 311
+  size: 365, 406
+  orig: 365, 406
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_10
+  rotate: false
+  xy: 1470, 720
+  size: 417, 407
+  orig: 417, 407
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_2
+  rotate: false
+  xy: 2, 556
+  size: 569, 571
+  orig: 569, 571
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_3
+  rotate: false
+  xy: 924, 53
+  size: 259, 251
+  orig: 259, 251
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_4
+  rotate: false
+  xy: 1353, 350
+  size: 361, 361
+  orig: 361, 361
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_5
+  rotate: false
+  xy: 534, 7
+  size: 388, 302
+  orig: 388, 302
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_6
+  rotate: false
+  xy: 573, 678
+  size: 479, 449
+  orig: 479, 449
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_7
+  rotate: false
+  xy: 1054, 713
+  size: 414, 414
+  orig: 414, 414
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_8
+  rotate: false
+  xy: 981, 306
+  size: 370, 370
+  orig: 370, 370
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_9
+  rotate: false
+  xy: 2, 24
+  size: 530, 530
+  orig: 530, 530
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_macaron_1
+  rotate: false
+  xy: 1185, 62
+  size: 157, 104
+  orig: 157, 104
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_macaron_2
+  rotate: false
+  xy: 1705, 157
+  size: 117, 121
+  orig: 117, 121
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_effect_macaron_3
+  rotate: true
+  xy: 1854, 370
+  size: 157, 104
+  orig: 157, 104
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_fx_heart_3
+  rotate: false
+  xy: 1749, 3
+  size: 43, 40
+  orig: 43, 40
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_fx_star_b_1
+  rotate: false
+  xy: 1889, 842
+  size: 89, 90
+  orig: 89, 90
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_fx_star_b_2
+  rotate: true
+  xy: 534, 510
+  size: 44, 37
+  orig: 44, 37
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_fx_star_b_3
+  rotate: true
+  xy: 1889, 1032
+  size: 95, 92
+  orig: 95, 92
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_fx_star_p
+  rotate: false
+  xy: 1931, 347
+  size: 22, 21
+  orig: 22, 21
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_fx_star_w
+  rotate: false
+  xy: 534, 472
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_fx_star_y
+  rotate: false
+  xy: 1824, 122
+  size: 62, 61
+  orig: 62, 61
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_macaron_a_1
+  rotate: false
+  xy: 1903, 659
+  size: 72, 89
+  orig: 72, 89
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_macaron_a_2
+  rotate: false
+  xy: 1903, 529
+  size: 40, 37
+  orig: 40, 37
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_macaron_a_3
+  rotate: false
+  xy: 1903, 568
+  size: 72, 89
+  orig: 72, 89
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_macaron_c_4
+  rotate: true
+  xy: 1716, 280
+  size: 109, 128
+  orig: 109, 128
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_star_big
+  rotate: false
+  xy: 1716, 529
+  size: 185, 189
+  orig: 185, 189
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_twinkle_1
+  rotate: false
+  xy: 1889, 750
+  size: 89, 90
+  orig: 89, 90
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_twinkle_2
+  rotate: false
+  xy: 1945, 529
+  size: 38, 37
+  orig: 38, 37
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_twinkle_3
+  rotate: false
+  xy: 1846, 285
+  size: 83, 83
+  orig: 83, 83
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_twinkle_4
+  rotate: false
+  xy: 1099, 685
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_twinkle_5
+  rotate: true
+  xy: 924, 13
+  size: 38, 64
+  orig: 38, 64
+  offset: 0, 0
+  index: -1
+effect_macaroon_all_03_twinkle_6
+  rotate: false
+  xy: 1353, 23
+  size: 350, 325
+  orig: 350, 325
+  offset: 0, 0
+  index: -1
+macaroon_all_03_acc
+  rotate: false
+  xy: 1705, 2
+  size: 42, 41
+  orig: 42, 41
+  offset: 0, 0
+  index: -1
+macaroon_all_03_macaron_a_3
+  rotate: false
+  xy: 1323, 233
+  size: 24, 26
+  orig: 24, 26
+  offset: 0, 0
+  index: -1
+macaroon_all_03_macaron_a_4
+  rotate: false
+  xy: 1824, 185
+  size: 68, 93
+  orig: 68, 93
+  offset: 0, 0
+  index: -1
+macaroon_all_03_macaron_a_5
+  rotate: false
+  xy: 1894, 190
+  size: 68, 93
+  orig: 68, 93
+  offset: 0, 0
+  index: -1
+macaroon_all_03_macaron_b_1
+  rotate: true
+  xy: 1323, 261
+  size: 43, 28
+  orig: 43, 28
+  offset: 0, 0
+  index: -1
+macaroon_all_03_macaron_b_2
+  rotate: false
+  xy: 1054, 678
+  size: 43, 33
+  orig: 43, 33
+  offset: 0, 0
+  index: -1
+macaroon_all_03_macaron_b_3
+  rotate: true
+  xy: 1889, 934
+  size: 96, 84
+  orig: 96, 84
+  offset: 0, 0
+  index: -1
+macaroon_all_03_macaron_c_1
+  rotate: true
+  xy: 990, 3
+  size: 48, 56
+  orig: 48, 56
+  offset: 0, 0
+  index: -1
+macaroon_all_03_macaron_c_2
+  rotate: false
+  xy: 1817, 70
+  size: 54, 50
+  orig: 54, 50
+  offset: 0, 0
+  index: -1
+macaroon_all_03_macaron_c_3
+  rotate: false
+  xy: 1185, 168
+  size: 136, 136
+  orig: 136, 136
+  offset: 0, 0
+  index: -1
+macaroon_all_03_macaron_c_4
+  rotate: false
+  xy: 1716, 391
+  size: 136, 136
+  orig: 136, 136
+  offset: 0, 0
+  index: -1

@@ -112,7 +112,7 @@
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'group;light_01';
-					color = { 255; 215; 0; };
+					color = { 50; 205; 50; };
 					opacity = 255;
 				};
 				[2] =
@@ -139,7 +139,7 @@
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'group;light_01';
-					color = { 255; 215; 0; };
+					color = { 50; 205; 50; };
 					opacity = 255;
 				};
 				[3] =
@@ -166,7 +166,7 @@
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'group;light_01';
-					color = { 255; 215; 0; };
+					color = { 50; 205; 50; };
 					opacity = 255;
 				};
 				type = 'ClippingNode';
@@ -184,7 +184,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				screen_ui = 0;
 				lua_name = '';
 				stencil_type = 0;
@@ -218,7 +218,7 @@
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'group;idle';
-					color = { 64; 224; 208; };
+					color = { 255; 255; 255; };
 					opacity = 180;
 				};
 				type = 'ClippingNode';
@@ -236,7 +236,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				screen_ui = 0;
 				lua_name = '';
 				stencil_type = 0;

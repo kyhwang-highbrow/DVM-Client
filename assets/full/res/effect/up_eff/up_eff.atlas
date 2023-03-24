@@ -1,0 +1,76 @@
+
+up_eff.png
+size: 915,881
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+star_up_eff_00001
+  rotate: false
+  xy: 542, 2
+  size: 254, 203
+  orig: 365, 291
+  offset: 69, 46
+  index: -1
+star_up_eff_00002
+  rotate: true
+  xy: 303, 35
+  size: 278, 237
+  orig: 365, 291
+  offset: 59, 28
+  index: -1
+star_up_eff_00003
+  rotate: false
+  xy: 626, 630
+  size: 287, 249
+  orig: 365, 291
+  offset: 54, 20
+  index: -1
+star_up_eff_00004
+  rotate: false
+  xy: 317, 319
+  size: 306, 270
+  orig: 365, 291
+  offset: 45, 7
+  index: -1
+star_up_eff_00005
+  rotate: false
+  xy: 2, 315
+  size: 313, 277
+  orig: 365, 291
+  offset: 42, 3
+  index: -1
+star_up_eff_00006
+  rotate: false
+  xy: 2, 594
+  size: 322, 285
+  orig: 365, 291
+  offset: 39, 0
+  index: -1
+star_up_eff_00007
+  rotate: false
+  xy: 2, 25
+  size: 299, 288
+  orig: 365, 291
+  offset: 62, 0
+  index: -1
+star_up_eff_00008
+  rotate: false
+  xy: 326, 591
+  size: 298, 288
+  orig: 365, 291
+  offset: 63, 0
+  index: -1
+star_up_eff_00009
+  rotate: false
+  xy: 626, 414
+  size: 282, 214
+  orig: 365, 291
+  offset: 79, 29
+  index: -1
+star_up_eff_00010
+  rotate: false
+  xy: 625, 207
+  size: 279, 205
+  orig: 365, 291
+  offset: 82, 30
+  index: -1

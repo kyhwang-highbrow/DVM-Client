@@ -1,131 +1,293 @@
 
 title.png
-size: 2047,2038
+size: 2033,1858
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-title_bg_01
+bg
   rotate: false
-  xy: 2, 1076
-  size: 1280, 960
-  orig: 1280, 960
+  xy: 2, 555
+  size: 840, 480
+  orig: 840, 480
   offset: 0, 0
   index: -1
-title_bg_02
-  rotate: false
-  xy: 1284, 810
-  size: 700, 527
-  orig: 700, 527
+dragon_body
+  rotate: true
+  xy: 1876, 89
+  size: 134, 107
+  orig: 134, 107
   offset: 0, 0
   index: -1
-title_effect_01
+dragon_effect1
+  rotate: true
+  xy: 1802, 1609
+  size: 247, 229
+  orig: 247, 229
+  offset: 0, 0
+  index: -1
+dragon_effect2
   rotate: false
-  xy: 393, 88
-  size: 368, 441
-  orig: 368, 441
+  xy: 1356, 781
+  size: 331, 333
+  orig: 331, 333
+  offset: 0, 0
+  index: -1
+dragon_head
+  rotate: false
+  xy: 1466, 63
+  size: 91, 78
+  orig: 91, 78
+  offset: 0, 0
+  index: -1
+dragon_legb1
+  rotate: true
+  xy: 1964, 225
+  size: 7, 20
+  orig: 7, 20
+  offset: 0, 0
+  index: -1
+dragon_legb2
+  rotate: true
+  xy: 1935, 225
+  size: 7, 27
+  orig: 7, 27
+  offset: 0, 0
+  index: -1
+dragon_legf1
+  rotate: false
+  xy: 1326, 115
+  size: 11, 26
+  orig: 11, 26
+  offset: 0, 0
+  index: -1
+dragon_legf2
+  rotate: true
+  xy: 1328, 432
+  size: 16, 20
+  orig: 16, 20
+  offset: 0, 0
+  index: -1
+dragon_mouth1
+  rotate: true
+  xy: 2, 2
+  size: 30, 20
+  orig: 30, 20
+  offset: 0, 0
+  index: -1
+dragon_mouth2
+  rotate: false
+  xy: 844, 676
+  size: 35, 24
+  orig: 35, 24
+  offset: 0, 0
+  index: -1
+dragon_wing
+  rotate: true
+  xy: 1243, 3
+  size: 110, 126
+  orig: 110, 126
+  offset: 0, 0
+  index: -1
+funeffect
+  rotate: false
+  xy: 1693, 425
+  size: 310, 113
+  orig: 310, 113
+  offset: 0, 0
+  index: -1
+k
+  rotate: true
+  xy: 1559, 80
+  size: 61, 82
+  orig: 61, 82
+  offset: 0, 0
+  index: -1
+krrreffecr
+  rotate: false
+  xy: 1243, 115
+  size: 81, 134
+  orig: 81, 134
+  offset: 0, 0
+  index: -1
+r1
+  rotate: false
+  xy: 1980, 1029
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: -1
+r2
+  rotate: false
+  xy: 1980, 965
+  size: 48, 62
+  orig: 48, 62
+  offset: 0, 0
+  index: -1
+r3
+  rotate: true
+  xy: 300, 20
+  size: 55, 62
+  orig: 55, 62
+  offset: 0, 0
+  index: -1
+text1
+  rotate: false
+  xy: 2, 34
+  size: 186, 41
+  orig: 186, 41
+  offset: 0, 0
+  index: -1
+text2
+  rotate: false
+  xy: 1356, 739
+  size: 125, 40
+  orig: 125, 40
+  offset: 0, 0
+  index: -1
+text3
+  rotate: false
+  xy: 190, 36
+  size: 108, 39
+  orig: 108, 39
+  offset: 0, 0
+  index: -1
+title1
+  rotate: false
+  xy: 2, 77
+  size: 867, 215
+  orig: 867, 215
+  offset: 0, 0
+  index: -1
+title2
+  rotate: false
+  xy: 1371, 49
+  size: 93, 92
+  orig: 93, 92
+  offset: 0, 0
+  index: -1
+title_bg_03
+  rotate: false
+  xy: 844, 702
+  size: 510, 333
+  orig: 510, 333
   offset: 0, 0
   index: -1
 title_effect_02
   rotate: true
-  xy: 1166, 536
+  xy: 1647, 4
   size: 219, 227
   orig: 219, 227
   offset: 0, 0
   index: -1
-title_effect_03
-  rotate: false
-  xy: 1284, 1797
-  size: 752, 239
-  orig: 752, 239
-  offset: 0, 0
-  index: -1
 title_effect_04
-  rotate: false
-  xy: 1395, 540
+  rotate: true
+  xy: 1665, 225
   size: 198, 268
   orig: 198, 268
   offset: 0, 0
   index: -1
-title_effect_05
+title_effect_08
   rotate: false
-  xy: 1091, 109
-  size: 617, 420
-  orig: 617, 420
-  offset: 0, 0
-  index: -1
-title_effect_06
-  rotate: true
-  xy: 763, 98
-  size: 431, 326
-  orig: 431, 326
-  offset: 0, 0
-  index: -1
-title_effect_07
-  rotate: false
-  xy: 2, 531
-  size: 1162, 543
-  orig: 1162, 543
-  offset: 0, 0
-  index: -1
-title_effect_12
-  rotate: true
-  xy: 2, 28
-  size: 501, 389
-  orig: 501, 389
+  xy: 2, 1037
+  size: 1340, 819
+  orig: 1340, 819
   offset: 0, 0
   index: -1
 title_effect_13
   rotate: false
-  xy: 1595, 542
+  xy: 1693, 540
   size: 259, 266
   orig: 259, 266
   offset: 0, 0
   index: -1
 title_effect_14
   rotate: false
-  xy: 1710, 261
+  xy: 1689, 808
   size: 289, 279
   orig: 289, 279
   offset: 0, 0
   index: -1
 title_logo_01
-  rotate: false
-  xy: 1284, 1339
+  rotate: true
+  xy: 1344, 1116
   size: 740, 456
   orig: 740, 456
   offset: 0, 0
   index: -1
+title_logo_02
+  rotate: false
+  xy: 871, 21
+  size: 370, 228
+  orig: 370, 228
+  offset: 0, 0
+  index: -1
 title_logo_03
-  rotate: true
-  xy: 1166, 757
+  rotate: false
+  xy: 1328, 143
   size: 317, 114
   orig: 317, 114
   offset: 0, 0
   index: -1
 title_logo_05
-  rotate: true
-  xy: 1986, 1276
+  rotate: false
+  xy: 1466, 2
   size: 61, 59
   orig: 61, 59
   offset: 0, 0
   index: -1
 title_logo_06
   rotate: false
-  xy: 393, 2
+  xy: 1876, 3
   size: 123, 84
   orig: 123, 84
   offset: 0, 0
   index: -1
-
-title2.png
-size: 374,232
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-title_logo_02
+titlelight1
   rotate: false
-  xy: 2, 2
-  size: 370, 228
-  orig: 370, 228
+  xy: 1328, 259
+  size: 335, 171
+  orig: 335, 171
+  offset: 0, 0
+  index: -1
+titlelight2
+  rotate: false
+  xy: 881, 251
+  size: 445, 197
+  orig: 445, 197
+  offset: 0, 0
+  index: -1
+titlelight3
+  rotate: false
+  xy: 881, 450
+  size: 611, 250
+  orig: 611, 250
+  offset: 0, 0
+  index: -1
+titlelight4
+  rotate: true
+  xy: 1802, 1089
+  size: 518, 198
+  orig: 518, 198
+  offset: 0, 0
+  index: -1
+titlelight5
+  rotate: true
+  xy: 1494, 432
+  size: 347, 197
+  orig: 347, 197
+  offset: 0, 0
+  index: -1
+titlelight6
+  rotate: true
+  xy: 1935, 234
+  size: 189, 84
+  orig: 189, 84
+  offset: 0, 0
+  index: -1
+titlelightbig
+  rotate: false
+  xy: 2, 294
+  size: 877, 259
+  orig: 877, 259
   offset: 0, 0
   index: -1

@@ -1,0 +1,615 @@
+
+forner_light_03.png
+size: 1986,724
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_circle1
+  rotate: false
+  xy: 2, 67
+  size: 327, 326
+  orig: 327, 326
+  offset: 0, 0
+  index: -1
+effect_circle2
+  rotate: false
+  xy: 1454, 488
+  size: 231, 234
+  orig: 231, 234
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_effect_1
+  rotate: false
+  xy: 1208, 478
+  size: 244, 244
+  orig: 244, 244
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_effect_2
+  rotate: false
+  xy: 956, 472
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_effect_3
+  rotate: false
+  xy: 2, 395
+  size: 327, 327
+  orig: 327, 327
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_1
+  rotate: false
+  xy: 331, 401
+  size: 297, 321
+  orig: 297, 321
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_10
+  rotate: true
+  xy: 1522, 56
+  size: 74, 73
+  orig: 74, 73
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_11
+  rotate: false
+  xy: 1444, 49
+  size: 76, 76
+  orig: 76, 76
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_12
+  rotate: false
+  xy: 1530, 211
+  size: 83, 83
+  orig: 83, 83
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_13
+  rotate: false
+  xy: 1907, 300
+  size: 77, 77
+  orig: 77, 77
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_14
+  rotate: false
+  xy: 1359, 42
+  size: 83, 83
+  orig: 83, 83
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_15
+  rotate: true
+  xy: 1199, 366
+  size: 104, 100
+  orig: 104, 100
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_16
+  rotate: false
+  xy: 901, 388
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_17
+  rotate: false
+  xy: 1687, 273
+  size: 109, 109
+  orig: 109, 109
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_2
+  rotate: false
+  xy: 1652, 72
+  size: 71, 71
+  orig: 71, 71
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_3
+  rotate: false
+  xy: 1725, 76
+  size: 71, 71
+  orig: 71, 71
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_4
+  rotate: false
+  xy: 1740, 3
+  size: 71, 71
+  orig: 71, 71
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_5
+  rotate: false
+  xy: 1452, 297
+  size: 83, 83
+  orig: 83, 83
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_6
+  rotate: false
+  xy: 1301, 377
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_7
+  rotate: false
+  xy: 1391, 198
+  size: 81, 81
+  orig: 81, 81
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_8
+  rotate: true
+  xy: 1570, 135
+  size: 74, 73
+  orig: 74, 73
+  offset: 0, 0
+  index: -1
+effect_forner_all_03_star_9
+  rotate: false
+  xy: 1645, 145
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+effect_llight
+  rotate: false
+  xy: 619, 168
+  size: 219, 218
+  orig: 219, 218
+  offset: 0, 0
+  index: -1
+effect_sphere
+  rotate: false
+  xy: 1163, 127
+  size: 111, 112
+  orig: 111, 112
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 1870, 246
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+forner_all_03_Bread_11
+  rotate: false
+  xy: 1199, 262
+  size: 100, 102
+  orig: 100, 102
+  offset: 0, 0
+  index: -1
+forner_all_03_Bread_22
+  rotate: true
+  xy: 1439, 127
+  size: 69, 67
+  orig: 69, 67
+  offset: 0, 0
+  index: -1
+forner_all_03_Bread_3
+  rotate: false
+  xy: 1573, 372
+  size: 112, 114
+  orig: 112, 114
+  offset: 0, 0
+  index: -1
+forner_all_03_Bread_4
+  rotate: false
+  xy: 1014, 127
+  size: 147, 112
+  orig: 147, 112
+  offset: 0, 0
+  index: -1
+forner_all_03_Bread_5
+  rotate: true
+  xy: 1537, 296
+  size: 74, 91
+  orig: 74, 91
+  offset: 0, 0
+  index: -1
+forner_all_03_body_1
+  rotate: false
+  xy: 1454, 382
+  size: 117, 104
+  orig: 117, 104
+  offset: 0, 0
+  index: -1
+forner_all_03_bread_1
+  rotate: false
+  xy: 840, 189
+  size: 172, 197
+  orig: 172, 197
+  offset: 0, 0
+  index: -1
+forner_all_03_bread_2
+  rotate: false
+  xy: 848, 17
+  size: 144, 170
+  orig: 144, 170
+  offset: 0, 0
+  index: -1
+forner_all_03_cookie_1
+  rotate: false
+  xy: 1359, 2
+  size: 39, 38
+  orig: 39, 38
+  offset: 0, 0
+  index: -1
+forner_all_03_cookie_2
+  rotate: false
+  xy: 2, 2
+  size: 68, 63
+  orig: 68, 63
+  offset: 0, 0
+  index: -1
+forner_all_03_cookie_3
+  rotate: false
+  xy: 901, 472
+  size: 34, 30
+  orig: 34, 30
+  offset: 0, 0
+  index: -1
+forner_all_03_cookie_4
+  rotate: false
+  xy: 1498, 5
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+forner_all_03_cookie_5
+  rotate: false
+  xy: 1400, 5
+  size: 43, 35
+  orig: 43, 35
+  offset: 0, 0
+  index: -1
+forner_all_03_cookie_6
+  rotate: false
+  xy: 1910, 88
+  size: 53, 48
+  orig: 53, 48
+  offset: 0, 0
+  index: -1
+forner_all_03_cookie_7
+  rotate: false
+  xy: 1907, 240
+  size: 76, 58
+  orig: 76, 58
+  offset: 0, 0
+  index: -1
+forner_all_03_donut_1
+  rotate: false
+  xy: 994, 20
+  size: 144, 105
+  orig: 144, 105
+  offset: 0, 0
+  index: -1
+forner_all_03_donut_2
+  rotate: true
+  xy: 1276, 127
+  size: 70, 74
+  orig: 70, 74
+  offset: 0, 0
+  index: -1
+forner_all_03_dough_1
+  rotate: false
+  xy: 516, 33
+  size: 101, 62
+  orig: 101, 62
+  offset: 0, 0
+  index: -1
+forner_all_03_dough_2
+  rotate: false
+  xy: 1919, 472
+  size: 65, 72
+  orig: 65, 72
+  offset: 0, 0
+  index: -1
+forner_all_03_dough_3
+  rotate: true
+  xy: 630, 504
+  size: 218, 324
+  orig: 218, 324
+  offset: 0, 0
+  index: -1
+forner_all_03_dough_4
+  rotate: true
+  xy: 1474, 210
+  size: 85, 54
+  orig: 85, 54
+  offset: 0, 0
+  index: -1
+forner_all_03_dough_5
+  rotate: true
+  xy: 619, 13
+  size: 153, 227
+  orig: 153, 227
+  offset: 0, 0
+  index: -1
+forner_all_03_dough_6
+  rotate: false
+  xy: 331, 97
+  size: 286, 302
+  orig: 286, 302
+  offset: 0, 0
+  index: -1
+forner_all_03_eye_1
+  rotate: false
+  xy: 1402, 377
+  size: 40, 45
+  orig: 40, 45
+  offset: 0, 0
+  index: -1
+forner_all_03_eye_2
+  rotate: false
+  xy: 1542, 20
+  size: 39, 34
+  orig: 39, 34
+  offset: 0, 0
+  index: -1
+forner_all_03_grass_1
+  rotate: false
+  xy: 1668, 2
+  size: 70, 68
+  orig: 70, 68
+  offset: 0, 0
+  index: -1
+forner_all_03_head_1
+  rotate: true
+  xy: 1263, 13
+  size: 112, 94
+  orig: 112, 94
+  offset: 0, 0
+  index: -1
+forner_all_03_head_2
+  rotate: true
+  xy: 1597, 59
+  size: 74, 53
+  orig: 74, 53
+  offset: 0, 0
+  index: -1
+forner_all_03_het_1
+  rotate: true
+  xy: 1014, 241
+  size: 229, 183
+  orig: 229, 183
+  offset: 0, 0
+  index: -1
+forner_all_03_horn_1
+  rotate: true
+  xy: 1929, 189
+  size: 49, 55
+  orig: 49, 55
+  offset: 0, 0
+  index: -1
+forner_all_03_horn_2
+  rotate: false
+  xy: 1301, 277
+  size: 86, 98
+  orig: 86, 98
+  offset: 0, 0
+  index: -1
+forner_all_03_horn_3
+  rotate: false
+  xy: 1798, 209
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+forner_all_03_leg_1
+  rotate: true
+  xy: 1786, 149
+  size: 58, 55
+  orig: 58, 55
+  offset: 0, 0
+  index: -1
+forner_all_03_leg_2
+  rotate: false
+  xy: 1843, 150
+  size: 54, 57
+  orig: 54, 57
+  offset: 0, 0
+  index: -1
+forner_all_03_leg_3
+  rotate: true
+  xy: 1597, 2
+  size: 55, 69
+  orig: 55, 69
+  offset: 0, 0
+  index: -1
+forner_all_03_leg_4
+  rotate: false
+  xy: 1851, 87
+  size: 57, 61
+  orig: 57, 61
+  offset: 0, 0
+  index: -1
+forner_all_03_leg_5
+  rotate: false
+  xy: 1630, 299
+  size: 55, 71
+  orig: 55, 71
+  offset: 0, 0
+  index: -1
+forner_all_03_leg_6
+  rotate: false
+  xy: 1720, 149
+  size: 64, 73
+  orig: 64, 73
+  offset: 0, 0
+  index: -1
+forner_all_03_lemon_1
+  rotate: false
+  xy: 1929, 138
+  size: 55, 49
+  orig: 55, 49
+  offset: 0, 0
+  index: -1
+forner_all_03_lemon_2
+  rotate: false
+  xy: 1402, 424
+  size: 50, 52
+  orig: 50, 52
+  offset: 0, 0
+  index: -1
+forner_all_03_lemon_3
+  rotate: false
+  xy: 1445, 7
+  size: 51, 40
+  orig: 51, 40
+  offset: 0, 0
+  index: -1
+forner_all_03_ribbon_1
+  rotate: false
+  xy: 331, 2
+  size: 73, 93
+  orig: 73, 93
+  offset: 0, 0
+  index: -1
+forner_all_03_ribbon_2
+  rotate: false
+  xy: 1929, 42
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: -1
+forner_all_03_ribbon_3
+  rotate: true
+  xy: 72, 2
+  size: 63, 64
+  orig: 63, 64
+  offset: 0, 0
+  index: -1
+forner_all_03_ribbon_4
+  rotate: false
+  xy: 1798, 81
+  size: 51, 66
+  orig: 51, 66
+  offset: 0, 0
+  index: -1
+forner_all_03_ribbon_5
+  rotate: false
+  xy: 1615, 220
+  size: 70, 74
+  orig: 70, 74
+  offset: 0, 0
+  index: -1
+forner_all_03_tag_1
+  rotate: false
+  xy: 406, 14
+  size: 108, 81
+  orig: 108, 81
+  offset: 0, 0
+  index: -1
+forner_all_03_tag_2
+  rotate: false
+  xy: 1919, 379
+  size: 64, 91
+  orig: 64, 91
+  offset: 0, 0
+  index: -1
+forner_all_03_tail_1
+  rotate: false
+  xy: 1301, 199
+  size: 88, 76
+  orig: 88, 76
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_1
+  rotate: true
+  xy: 1140, 12
+  size: 113, 121
+  orig: 113, 121
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_10
+  rotate: true
+  xy: 1389, 281
+  size: 94, 61
+  orig: 94, 61
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_11
+  rotate: false
+  xy: 1798, 281
+  size: 107, 101
+  orig: 107, 101
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_12
+  rotate: false
+  xy: 1687, 384
+  size: 230, 160
+  orig: 230, 160
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_13
+  rotate: false
+  xy: 1687, 546
+  size: 282, 176
+  orig: 282, 176
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_2
+  rotate: false
+  xy: 630, 388
+  size: 269, 114
+  orig: 269, 114
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_3
+  rotate: false
+  xy: 1687, 224
+  size: 81, 47
+  orig: 81, 47
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_4
+  rotate: false
+  xy: 138, 5
+  size: 99, 60
+  orig: 99, 60
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_5
+  rotate: true
+  xy: 1508, 132
+  size: 76, 60
+  orig: 76, 60
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_6
+  rotate: false
+  xy: 1352, 127
+  size: 85, 69
+  orig: 85, 69
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_7
+  rotate: true
+  xy: 1813, 17
+  size: 62, 56
+  orig: 62, 56
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_8
+  rotate: true
+  xy: 1871, 24
+  size: 61, 56
+  orig: 61, 56
+  offset: 0, 0
+  index: -1
+forner_all_03_tray_9
+  rotate: true
+  xy: 239, 3
+  size: 62, 87
+  orig: 62, 87
+  offset: 0, 0
+  index: -1

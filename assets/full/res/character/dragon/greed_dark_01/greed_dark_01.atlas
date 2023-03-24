@@ -1,0 +1,300 @@
+
+greed_dark_01.png
+size: 1810,608
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_back_light
+  rotate: false
+  xy: 1618, 441
+  size: 177, 165
+  orig: 177, 165
+  offset: 0, 0
+  index: -1
+effect_charge_00000
+  rotate: false
+  xy: 2, 406
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00001
+  rotate: false
+  xy: 2, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00002
+  rotate: false
+  xy: 204, 406
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00003
+  rotate: false
+  xy: 2, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00004
+  rotate: false
+  xy: 204, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00005
+  rotate: false
+  xy: 406, 406
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00006
+  rotate: false
+  xy: 204, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00007
+  rotate: false
+  xy: 406, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00008
+  rotate: false
+  xy: 608, 406
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00009
+  rotate: false
+  xy: 406, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00010
+  rotate: false
+  xy: 608, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00011
+  rotate: false
+  xy: 810, 406
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00012
+  rotate: false
+  xy: 608, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00013
+  rotate: false
+  xy: 810, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00014
+  rotate: false
+  xy: 1012, 406
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00015
+  rotate: false
+  xy: 810, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00016
+  rotate: false
+  xy: 1012, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00017
+  rotate: false
+  xy: 1214, 406
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00018
+  rotate: false
+  xy: 1012, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00019
+  rotate: false
+  xy: 1214, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00020
+  rotate: false
+  xy: 1416, 406
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00021
+  rotate: false
+  xy: 1214, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_charge_00022
+  rotate: false
+  xy: 1416, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_portunus_all_01_attack_03
+  rotate: false
+  xy: 1651, 148
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+effect_portunus_all_01_effect_01
+  rotate: true
+  xy: 1731, 353
+  size: 86, 77
+  orig: 86, 77
+  offset: 0, 0
+  index: -1
+effect_sphere
+  rotate: false
+  xy: 1618, 327
+  size: 111, 112
+  orig: 111, 112
+  offset: 0, 0
+  index: -1
+greed_01_arm01
+  rotate: false
+  xy: 1659, 8
+  size: 45, 40
+  orig: 45, 40
+  offset: 0, 0
+  index: -1
+greed_01_arm02
+  rotate: false
+  xy: 1749, 65
+  size: 23, 29
+  orig: 23, 29
+  offset: 0, 0
+  index: -1
+greed_01_artifact
+  rotate: false
+  xy: 1574, 21
+  size: 83, 84
+  orig: 83, 84
+  offset: 0, 0
+  index: -1
+greed_01_body
+  rotate: false
+  xy: 1731, 251
+  size: 74, 100
+  orig: 74, 100
+  offset: 0, 0
+  index: -1
+greed_01_eye
+  rotate: false
+  xy: 1696, 115
+  size: 27, 31
+  orig: 27, 31
+  offset: 0, 0
+  index: -1
+greed_01_eye_back
+  rotate: true
+  xy: 1651, 112
+  size: 34, 43
+  orig: 34, 43
+  offset: 0, 0
+  index: -1
+greed_01_head
+  rotate: false
+  xy: 1416, 21
+  size: 156, 181
+  orig: 156, 181
+  offset: 0, 0
+  index: -1
+greed_01_leg
+  rotate: false
+  xy: 1659, 50
+  size: 43, 60
+  orig: 43, 60
+  offset: 0, 0
+  index: -1
+greed_01_subeye
+  rotate: true
+  xy: 1733, 142
+  size: 25, 49
+  orig: 25, 49
+  offset: 0, 0
+  index: -1
+greed_01_subeyeball
+  rotate: true
+  xy: 1618, 204
+  size: 24, 26
+  orig: 24, 26
+  offset: 0, 0
+  index: -1
+greed_01_tail
+  rotate: false
+  xy: 1618, 230
+  size: 111, 95
+  orig: 111, 95
+  offset: 0, 0
+  index: -1
+greed_01_wing1
+  rotate: false
+  xy: 1574, 107
+  size: 75, 95
+  orig: 75, 95
+  offset: 0, 0
+  index: -1
+greed_01_wing1_back
+  rotate: true
+  xy: 1725, 96
+  size: 44, 47
+  orig: 44, 47
+  offset: 0, 0
+  index: -1
+greed_01_wing2
+  rotate: false
+  xy: 1733, 169
+  size: 54, 80
+  orig: 54, 80
+  offset: 0, 0
+  index: -1
+greed_01_wing2_back
+  rotate: false
+  xy: 1704, 52
+  size: 43, 42
+  orig: 43, 42
+  offset: 0, 0
+  index: -1
