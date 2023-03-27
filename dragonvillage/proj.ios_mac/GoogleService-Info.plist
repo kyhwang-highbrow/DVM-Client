@@ -25,20 +25,20 @@
 	<key>STORAGE_BUCKET</key>
 	<string>dragonvillagem-36213842.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:983890984134:ios:b913a5f60540f02b</string>
 	<key>DATABASE_URL</key>
 	<string>https://dragonvillagem-36213842.firebaseio.com</string>
 	<key>ADMOB_APP_ID</key>
-	<string>ca-app-pub-9497777061019569~6778068791</string>
+	<string>ca-app-pub-4135263923809648~6871109304</string>
 </dict>
 </plist>

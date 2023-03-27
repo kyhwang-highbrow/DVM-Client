@@ -48,7 +48,7 @@
 #define ADJUST_TOKKEN_ID            @"esjmkti8vim8"
 #define TWITTER_CUSTOMER_KEY        @"VCJ9gb6EjeIQO74rAbUl9B6aj"
 #define TWITTER_CUSTOMER_SECRET     @"D0kt613Jye142Efej1DxtvJguItaK5PtgvYyJfY34Pvqs1HCBH"
-#define ADMOB_APP_ID                @"ca-app-pub-9497777061019569~6778068791"
+#define ADMOB_APP_ID                @"ca-app-pub-4135263923809648~6871109304"
 
 // iTunes Connect App ID : 1281873988
 

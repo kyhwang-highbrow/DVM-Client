@@ -1624,7 +1624,7 @@
 				CODE_SIGN_ENTITLEMENTS = DragonVillageDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 84797V8WN5;
 				ENABLE_BITCODE = NO;
@@ -1655,7 +1655,7 @@
 					"$(SDKROOT)/usr/lib/swift",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.4.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1690,9 +1690,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 84797V8WN5;
 				ENABLE_BITCODE = NO;
@@ -1722,7 +1722,7 @@
 					"$(SDKROOT)/usr/lib/swift",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.4.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -1732,7 +1732,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit/FBSDKCoreKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit/FBSDKLoginKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit/FBSDKShareKit.modulemap\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
-				PROVISIONING_PROFILE_SPECIFIER = "DragonVillageM Dist";
+				PROVISIONING_PROFILE_SPECIFIER = "DragonVillageM DVM Dev";
 				SDKROOT = iphoneos;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit\"";
 				SWIFT_OBJC_BRIDGING_HEADER = "ios/DragonVillageM iOS-Bridging-Header.h";
