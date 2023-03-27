@@ -227,6 +227,10 @@ function ServerData_Stage:isOpenStage(stage_id)
     elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
         ret = true
 
+    -- 스토리 던전 모드
+    elseif (game_mode == GAME_MODE_STORY_DUNGEON) then
+        ret = g_eventDragonStoryDungeon:isOpenStage(stage_id)
+
     end
 
     return ret

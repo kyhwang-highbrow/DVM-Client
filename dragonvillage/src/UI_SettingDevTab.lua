@@ -515,7 +515,7 @@ end
 -------------------------------------
 function UI_Setting:click_newDragonEventBtn()
     require('UI_DragonStoryDungeonEventScene')
-    local ui = UI_DragonStoryDungeonEventScene()
+    UI_DragonStoryDungeonEventScene.open()
 end
 
 -------------------------------------

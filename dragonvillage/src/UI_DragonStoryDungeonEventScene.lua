@@ -7,21 +7,20 @@ UI_DragonStoryDungeonEventScene = class(PARENT, {
         m_tableView = 'UIC_TableView', -- 네스트 던전의 세부 모드들 리스트
         m_selectNestDungeonInfo = 'table', -- 현재 선택된 세부 모드
         m_bDirtyDungeonList = 'boolean',
-
-		m_stageID = 'num',
 		m_dungeonType = 'string',		-- 네스트 던전 타입
 		m_isIsolation = 'boolean',		-- 악몽, 황금 던전 구분
 		m_tempUI = 'UI',
 		m_tempData = 'table',
+        m_seasonId = 'string', -- 시즌 아이디
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonStoryDungeonEventScene:init(stage_id)
+function UI_DragonStoryDungeonEventScene:init(season_id)
     local vars = self:load('story_dungeon_scene.ui')
     self.m_dungeonType = NEST_DUNGEON_TREE
-    self.m_stageID = stage_id
+    self.m_seasonId = season_id
     UIManager:open(self, UIManager.SCENE)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonStoryDungeonEventScene')
@@ -34,9 +33,6 @@ function UI_DragonStoryDungeonEventScene:init(stage_id)
     self:refresh()
     self:makeNestModeTableView()
     self:sceneFadeInAction()
-
-
-    g_eventDragonStoryDungeon:applyNestDungeonStageList()
 end
 
 -------------------------------------
@@ -74,9 +70,7 @@ function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
     local vars = self.vars
 
     --local t_data = self.m_selectNestDungeonInfo['data']
-    local nest_dungeon_id = 1230400 --t_data['mode_id']
-    local stage_list = g_eventDragonStoryDungeon:getNewDragonEventDungeonStageIdList()
-
+    local stage_list = g_eventDragonStoryDungeon:getStoryDungeonStageIdList(self.m_seasonId)
 
     -- 셀 아이템 생성 콜백
     local function create_func(ui, data)
@@ -90,8 +84,9 @@ function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
         return true
     end
 
-    --local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(nest_dungeon_id)
-    --local dungeon_mode = t_dungeon_id_info['dungeon_mode']
+    local function make_func(data)
+        return UI_DragonStoryDungeonStageListItem(self.m_seasonId, data)
+    end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
@@ -105,12 +100,10 @@ function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
         table_view:setCellUIClass(UI_NestDungeonStageListItem, create_func)
     end
  ]]
+
     local content_size = node:getContentSize()
-
-
     require('UI_DragonStoryDungeonStageListItem')
-    table_view:setCellUIClass(UI_DragonStoryDungeonStageListItem, create_func)
-
+    table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(stage_list, true)
     table_view.m_cellUIAppearCB = function(ui)
@@ -314,6 +307,19 @@ function UI_DragonStoryDungeonEventScene:playScenario(stage_id, scenario_type, c
     start()
 end
 
+
+-------------------------------------
+-- function open
+-------------------------------------
+function UI_DragonStoryDungeonEventScene.open()
+    local request_cb = function (ret)
+        local season_id = g_eventDragonStoryDungeon:getStoryDungeonSeason()
+        UI_DragonStoryDungeonEventScene(season_id)
+    end
+
+    g_eventDragonStoryDungeon:requestStoryDungeonInfo(request_cb)
+
+end
 
 --@CHECK
 UI:checkCompileError(UI_DragonStoryDungeonEventScene)

@@ -345,7 +345,7 @@ function ServerData:getInstance()
     g_eventLeagueRaidData = ServerData_EventLeagueRaidPlay(g_serverData)
 
     --- 신규 드래곤 이벤트
-    g_eventDragonStoryDungeon = ServerData_DragonStroyDungeonEvent(g_serverData)
+    g_eventDragonStoryDungeon = ServerData_StoryDungeonEvent(g_serverData)
 
     -- Highbrow VIP 
     g_highbrowVipData = ServerData_HighbrowVip.getInstance(g_serverData)

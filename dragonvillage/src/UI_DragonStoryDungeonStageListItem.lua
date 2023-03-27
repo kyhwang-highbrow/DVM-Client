@@ -5,14 +5,16 @@ local PARENT = class(UI, ITableViewCell:getCloneTable(), UI_FevertimeUIHelper:ge
 -------------------------------------
 UI_DragonStoryDungeonStageListItem = class(PARENT, {
     m_stageId = 'number',
+    m_seasonId = 'string',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonStoryDungeonStageListItem:init(stage_id)
+function UI_DragonStoryDungeonStageListItem:init(season_id, stage_id)
     local vars = self:load('story_dungeon_stage_item.ui')
     self.m_stageId = stage_id
+    self.m_seasonId = season_id
     self:initUI()
     self:initButton()
     self:refresh()
@@ -39,7 +41,6 @@ end
 function UI_DragonStoryDungeonStageListItem:initButton()
     local vars = self.vars
     vars['enterButton']:registerScriptTapHandler(function() self:enterButton() end)
-
 end
 
 -------------------------------------
@@ -66,6 +67,12 @@ function UI_DragonStoryDungeonStageListItem:refresh(t_data)
     do -- 스태미나 갯수 표시
         local type, cost_value = TableDrop:getStageStaminaType(stage_id)
         vars['actingPowerLabel']:setString(comma_value(cost_value))
+    end
+
+    do -- 오픈 여부
+        local is_open = g_eventDragonStoryDungeon:isOpenStage(stage_id, self.m_seasonId)
+        vars['lockNode']:setVisible(not is_open)
+        vars['enterButton']:setVisible(is_open)
     end
 
     do -- 보스 썸네일 표시
