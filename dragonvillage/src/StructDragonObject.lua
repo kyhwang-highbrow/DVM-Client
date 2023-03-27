@@ -893,7 +893,7 @@ function StructDragonObject:getStringData()
 	local rexp = self['reinforce']:getExp()
 
     -- [ 드래곤 정보 ]
-    -- did;lv;exp;eclv;rlv;rexp;evolution;grade;skill_0;skill_1;skill_2;skill_3;transform;dragon_skin
+    -- did;lv;exp;eclv;rlv;rexp;evolution;grade;skill_0;skill_1;skill_2;skill_3;transform
     local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
         self['did'],
         self['lv'],
@@ -908,7 +908,6 @@ function StructDragonObject:getStringData()
         self['skill_2'],
         self['skill_3'],
         self['transform']
-        --self:getSkinID()
     )
 
     -- [ 친밀도 정보 ]
@@ -957,10 +956,12 @@ function StructDragonObject:getStringData()
         end
     end
 
-    --cclog('token : ' .. t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4)
+    -- [ 드래곤 스킨 정보 ]
+    local t5 = self:getSkinID()
 
-    -- t1 + t2 + t3 + t4
-    return t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4
+    --cclog('token : ' .. t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4 ..  t5)
+    -- t1 + t2 + t3 + t4 + t5
+    return t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4 .. ';' .. t5
 end
 
 -------------------------------------
