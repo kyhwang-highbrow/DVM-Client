@@ -12,11 +12,12 @@ AdMobInterstitialAd = {
 local ADMOB_INTERSTITIAL_AD_ID
 
 if (CppFunctions:isAndroid()) then
-    --ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-3940256099942544/1033173712' -- Admob에서 제공하는 test id
-    ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-9497777061019569/3511157419'
+    -- Admob에서 제공하는 Android test id
+    ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-4135263923809648/4640022311'
 
 elseif (CppFunctions:isIos()) then
-    ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-3940256099942544/4411468910' -- test id 이며 생성 필요
+    -- Admob에서 제공하는 iOS test id
+    ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-4135263923809648/3870436946'
 
 end
 

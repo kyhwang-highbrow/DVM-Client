@@ -15,25 +15,26 @@ local AdMobRewardedVideoAd = {
 local ADMOB_AD_UNIT_ID_TABLE
 local ADMOB_APP_AD_UNIT_ID -- app launching 시 사용
 
+-- admob 광고 단위 key 주석에서 검색 안되도록 삭제 2023-03-27 kyhwang
 if (CppFunctions:isAndroid()) then
-    ADMOB_APP_AD_UNIT_ID = 'ca-app-pub-9497777061019569/6433744394'
+    ADMOB_APP_AD_UNIT_ID = ''
     ADMOB_AD_UNIT_ID_TABLE = {
-        [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/8284077763',
-        [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/1372989407',
-        [AD_TYPE.FOREST] = 'ca-app-pub-9497777061019569/7721594075',
-        [AD_TYPE.EXPLORE] = 'ca-app-pub-9497777061019569/7058963688',
-        [AD_TYPE.FRIENDSHIP_SUMMON] = 'ca-app-pub-9497777061019569/7338450690',
-        [AD_TYPE.TEST] = 'ca-app-pub-9497777061019569/7659560061',
+        [AD_TYPE.AUTO_ITEM_PICK] = '',
+        [AD_TYPE.RANDOM_BOX_LOBBY] = '',
+        [AD_TYPE.FOREST] = '',
+        [AD_TYPE.EXPLORE] = '',
+        [AD_TYPE.FRIENDSHIP_SUMMON] = '',
+        [AD_TYPE.TEST] = '',
     }
 elseif (CppFunctions:isIos()) then
-	ADMOB_APP_AD_UNIT_ID = 'ca-app-pub-9497777061019569/2042688805'
+	ADMOB_APP_AD_UNIT_ID = ''
     ADMOB_AD_UNIT_ID_TABLE = {
-        [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/5295237757',
-        [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/4566955961',
-        [AD_TYPE.FOREST] = 'ca-app-pub-9497777061019569/1816066243',
-        [AD_TYPE.EXPLORE] = 'ca-app-pub-9497777061019569/1432922866',
-        [AD_TYPE.FRIENDSHIP_SUMMON] = 'ca-app-pub-9497777061019569/4989024494',
-        [AD_TYPE.TEST] = 'ca-app-pub-9497777061019569/1610486021',
+        [AD_TYPE.AUTO_ITEM_PICK] = '',
+        [AD_TYPE.RANDOM_BOX_LOBBY] = '',
+        [AD_TYPE.FOREST] = '',
+        [AD_TYPE.EXPLORE] = '',
+        [AD_TYPE.FRIENDSHIP_SUMMON] = '',
+        [AD_TYPE.TEST] = '',
     }
 else
     ADMOB_AD_UNIT_ID_TABLE = {}
