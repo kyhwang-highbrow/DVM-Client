@@ -14,7 +14,6 @@ function ServerData_StoryDungeonEvent:init(server_data)
     self.m_cachedStageIdListMap = {}    
 end
 
-
 -------------------------------------
 -- function getStoryDungeonSeason
 -------------------------------------
@@ -117,6 +116,47 @@ end
 -------------------------------------
 function ServerData_StoryDungeonEvent:applyStoryDungeonSeasonInfo(t_data)
     self.m_serverData:applyServerData(t_data or {}, 'story_dungeon_stage_info')
+end
+
+
+-------------------------------------
+-- function updateTable
+-- @brief 서버에서 전달받은 데이터를 클라이언트에 적용
+-------------------------------------
+function ServerData_StoryDungeonEvent:updateTable(a_table, b_table)
+    if type(a_table) ~= 'table' then
+        return
+    end
+
+    for k, v in pairs(b_table) do
+        if type(v) == 'table' and a_table[k] ~= nil then
+            self:updateTable(a_table[k], v)
+        else
+            a_table[k] = v
+        end
+    end
+end
+
+-------------------------------------
+-- function applyStoryDungeonSeasonStage
+-- @brief 서버에서 전달받은 데이터를 클라이언트에 적용
+-------------------------------------
+function ServerData_StoryDungeonEvent:applyStoryDungeonSeasonStage(t_data)
+    for season_id, t_season_info in pairs(t_data) do
+        local season_info = self:getStoryDungeonSeasonInfo(season_id)
+        self:updateTable(season_info, t_season_info)
+--[[         if season_info ~= nil then
+            local t_stage_play_count = t_season_info['stage_play_count']
+            for stage_id, play_count in pairs(t_stage_play_count) do
+                season_info['stage_play_count'][stage_id] = play_count
+            end
+
+            local t_stage_clear_count = t_season_info['stage_clear_count']
+            for stage_id, clear_count in pairs(t_stage_clear_count) do
+                season_info['stage_clear_count'][stage_id] = clear_count
+            end
+        end ]]
+    end
 end
 
 -------------------------------------

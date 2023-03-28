@@ -113,7 +113,9 @@ function UI_Product:initUI()
     -- 뱃지 아이콘 추가
     local badge = struct_product:makeBadgeIcon()
     if (badge) then
-		vars['badgeNode']:addChild(badge)
+        if vars['badgeNode'] ~= nil then
+		    vars['badgeNode']:addChild(badge)
+        end
     end
 
     -- 광고
@@ -135,13 +137,24 @@ function UI_Product:initUI()
     local struct_product = self.m_structProduct
     local product_id = struct_product:getProductID()
     if (82011 <= product_id) and (product_id <= 82036) then
-        vars['eventSprite']:setVisible(true)
-        vars['limitNoti']:setVisible(true)
-        local shake_action = cca.buttonShakeAction(10, 0.5)
-        cca.runAction(vars['limitNoti'], shake_action)
+        if vars['eventSprite'] ~= nil then
+            vars['eventSprite']:setVisible(true)
+        end
+
+        if vars['limitNoti'] ~= nil then
+            vars['limitNoti']:setVisible(true)
+
+            local shake_action = cca.buttonShakeAction(10, 0.5)
+            cca.runAction(vars['limitNoti'], shake_action)
+        end
     else
-        vars['eventSprite']:setVisible(false)
-        vars['limitNoti']:setVisible(false)        
+        if vars['eventSprite'] ~= nil then
+            vars['eventSprite']:setVisible(false)
+        end
+
+        if vars['limitNoti'] ~= nil then
+            vars['limitNoti']:setVisible(false)
+        end
     end
 end
 

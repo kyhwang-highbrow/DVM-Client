@@ -638,8 +638,6 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         local is_success = (t_param['clear_type'] == 1) and true or false
         self:networkGameFinish_response(ret, t_result_ref, is_success)
 
-
-
         if next_func then
             if ret['stage'] == nil then
                 ret['stage'] = self.m_stageID
@@ -720,8 +718,13 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
 
         total_damage = math_floor(g_leagueRaidData.m_currentDamage)
         ui_network:setParam('score', total_damage)
-    end
 
+    elseif (game_mode == GAME_MODE_STORY_DUNGEON) then
+        -- 스토리 던전
+        api_url = '/game/story_dungeon/finish'
+        auto = g_autoPlaySetting:getSequenceAutoPlay() and 1 or 0
+
+    end
     
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
@@ -1149,6 +1152,11 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON or self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         g_nestDungeonData:applyNestStageClearCnt(stage_id, stage_clear_info['cl_cnt'])
 
+    elseif (self.m_gameMode == GAME_MODE_STORY_DUNGEON) then
+        if ret['story_dungeon_stage_info'] ~= nil then
+            g_eventDragonStoryDungeon:applyStoryDungeonSeasonStage(ret['story_dungeon_stage_info'])
+        end
+
     elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
 
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
@@ -1159,7 +1167,6 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
 
     -- 차원문
     elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
-
         
     end
 end

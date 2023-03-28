@@ -48,6 +48,13 @@ UI_QuestListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_QuestListItem:init(t_data, isHighlight)
+    self:init_after(t_data, isHighlight)
+end
+
+-------------------------------------
+-- function init_after
+-------------------------------------
+function UI_QuestListItem:init_after(t_data, isHighlight)
 	-- UI load
 	local ui_name = nil 
 	if (isHighlight) then 
