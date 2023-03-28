@@ -41,6 +41,8 @@ function UI_ScenarioPlayer:init(scenario_name)
     self.m_scenarioPlayerTalk = UI_ScenarioPlayer_Talk(self)
     self.m_currPage = 0
 
+    
+
 	self:loadScenario(scenario_name)
     self.m_maxPage = table.count(self.m_scenarioTable)
 
@@ -123,6 +125,11 @@ function UI_ScenarioPlayer:click_next()
         return
     end
 
+    if self.m_titleUI ~= nil then
+        self.vars['titleNode']:removeAllChildren()
+        self.m_titleUI = nil
+    end
+
     self:next()
 end
 
@@ -150,7 +157,6 @@ end
 -- function showPage
 -------------------------------------
 function UI_ScenarioPlayer:showPage()
-
     -- 2018-05-03 sgkim
     -- 타이밍 이슈로 ui가 삭제된 후 showPage가 콜이 되는경우가 있음
     if (self.root == nil) then
@@ -284,7 +290,7 @@ function UI_ScenarioPlayer:showPage()
         end
     end
 end
-
+--[[ 
 -------------------------------------
 -- function applyEffect
 -------------------------------------
@@ -299,7 +305,7 @@ function UI_ScenarioPlayer:applyEffect(effect)
     local val_2 = l_str[3]
 
     self[effect](val_1, val_2)
-end
+end ]]
 
 -------------------------------------
 -- function isExistEffect
