@@ -1,7 +1,5 @@
-return {['드빌M의 다양한 이벤트와 소식들을 제공받기 위해서는 알림 활성화가 필요합니다.\n지금 앱 정보에서 알림 상태를 확인하시겠습니까?']='Notification activation is required to receive various events and news from [Dragon Village M].\nCheck the notification status in the app information now?',
-['봄의 기사 카스티타스 스킨']='knight of spring Castitas Skin',
-['현재 드빌M의 알림 설정이 비활성화된 상태입니다.']='Currently, [Dragon Village M] notification setting is disabled.',
-['황금 날개 라루스 스킨']='Golden Wing Larus Skin',
+return {['네무스']='Nemus',
+['네무스(땅)']='Nemus(earth)',
 ['테이머 코스튬 선택권']='Tamer Costume Selection Ticket',
 ['해당 상품은 원하시는 코스튬 선택하여 고객센터로 문의주시면 지급됩니다.']='The product will be paid if you select the costume you want and contact the customer service center.',
 ['{@red}구매 불가{@}']='{@red}Not available for purchase{@}',
@@ -44,8 +42,6 @@ return {['드빌M의 다양한 이벤트와 소식들을 제공받기 위해서�
 ['기회 5번 사탕']='No. 5 Chance Candy',
 ['꼭, 숲의 목소리가 느껴지는 것 같아요.']='It\'s like hearing the voices of the forest.',
 ['나의 힘이 필요할 때를 기다리죠.']='I will wait for when you need my strength.',
-['네무스']='nemus',
-['네무스(땅)']='nemus(earth)',
 ['누군가 숲을 망가뜨리고 있군요.']='Someone is destroying the forest, isn\'t it?',
 ['달콤한 사탕']='sweet candy',
 ['달콤한 사탕 패키지']='sweet candy package',
@@ -156,4 +152,8 @@ return {['드빌M의 다양한 이벤트와 소식들을 제공받기 위해서�
 ['전설 드래곤 점핑 패키지']='Legendary Dragon Jumping package',
 ['전설 드래곤 점핑 패키지(땅)']='Legendary Dragon Jumping package (Earth)',
 ['전설 드래곤 점핑 패키지(물)']='Legendary Dragon Jumping package (Water)',
-['전설 드래곤 점핑 패키지(불)']='Legendary Dragon Jumping package (Fire)'}
+['전설 드래곤 점핑 패키지(불)']='Legendary Dragon Jumping package (Fire)',
+['황금 날개 라루스 스킨']='Golden Wing Larus Skin',
+['드빌M의 다양한 이벤트와 소식들을 제공받기 위해서는 알림 활성화가 필요합니다.\n지금 앱 정보에서 알림 상태를 확인하시겠습니까?']='Notification activation is required to receive various events and news from [Dragon Village M].\nCheck the notification status in the app information now?',
+['봄의 기사 카스티타스 스킨']='knight of spring Castitas Skin',
+['현재 드빌M의 알림 설정이 비활성화된 상태입니다.']='Currently, [Dragon Village M] notification setting is disabled.'}

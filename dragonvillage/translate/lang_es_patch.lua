@@ -1,7 +1,5 @@
-return {['드빌M의 다양한 이벤트와 소식들을 제공받기 위해서는 알림 활성화가 필요합니다.\n지금 앱 정보에서 알림 상태를 확인하시겠습니까?']='La activación de la notificación es necesaria para recibir varios eventos y noticias de [Dragon Village M].\NControlar el estado de notificación en la información de la aplicación ahora?',
-['봄의 기사 카스티타스 스킨']='Piel caballero de la primavera Castitas',
-['현재 드빌M의 알림 설정이 비활성화된 상태입니다.']='La configuración de notificación para [Dragon Village M] está actualmente deshabilitada.',
-['황금 날개 라루스 스킨']='Piel Ala Dorada de Larus',
+return {['네무스']='nemo',
+['네무스(땅)']='Nemus (tierra)',
 ['테이머 코스튬 선택권']='Traje de Domador Billete de selección de',
 ['해당 상품은 원하시는 코스튬 선택하여 고객센터로 문의주시면 지급됩니다.']='El producto será pagado si seleccionas el disfraz que quieres y contactas con el centro de servicio al cliente.',
 ['{@red}구매 불가{@}']='{@red}No disponible para la compra{@}',
@@ -44,8 +42,6 @@ return {['드빌M의 다양한 이벤트와 소식들을 제공받기 위해서�
 ['기회 5번 사탕']='golosina de Oportunidad No. 5',
 ['꼭, 숲의 목소리가 느껴지는 것 같아요.']='Es como escuchar las voces del bosque.',
 ['나의 힘이 필요할 때를 기다리죠.']='Te esperaré cuando necesites mi fuerza.',
-['네무스']='nemo',
-['네무스(땅)']='nemus (tierra)',
 ['누군가 숲을 망가뜨리고 있군요.']='Alguien está destruyendo el bosque, ¿no?',
 ['달콤한 사탕']='dulce caramelo',
 ['달콤한 사탕 패키지']='paquete de dulces',
@@ -156,4 +152,8 @@ return {['드빌M의 다양한 이벤트와 소식들을 제공받기 위해서�
 ['전설 드래곤 점핑 패키지']='El legendario Paquete de salto de dragón',
 ['전설 드래곤 점핑 패키지(땅)']='El legendario Paquete(Tierra) de salto de dragón',
 ['전설 드래곤 점핑 패키지(물)']='El legendario Paquete(Agua) de salto de dragón',
-['전설 드래곤 점핑 패키지(불)']='El legendario Paquete(Fuego) de salto de dragón'}
+['전설 드래곤 점핑 패키지(불)']='El legendario Paquete(Fuego) de salto de dragón',
+['황금 날개 라루스 스킨']='Piel Ala Dorada de Larus',
+['드빌M의 다양한 이벤트와 소식들을 제공받기 위해서는 알림 활성화가 필요합니다.\n지금 앱 정보에서 알림 상태를 확인하시겠습니까?']='La activación de la notificación es necesaria para recibir varios eventos y noticias de [Dragon Village M].\NControlar el estado de notificación en la información de la aplicación ahora?',
+['봄의 기사 카스티타스 스킨']='Piel caballero de la primavera Castitas',
+['현재 드빌M의 알림 설정이 비활성화된 상태입니다.']='La configuración de notificación para [Dragon Village M] está actualmente deshabilitada.'}
