@@ -37,6 +37,11 @@ function UI_StoryDungeonEventQuest:initUI()
     local vars = self.vars
     self:makeQuestTableView(TableQuest.CHALLENGE, vars['listNode'])
 
+    do -- 타이틀
+        local str = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
+        vars['titleLabel']:setString(str)
+    end
+
 --[[     -- 종료 시간
     local end_text = g_mandragoraQuest:getStatusText()
     vars['timeLabel']:setString(end_text)
