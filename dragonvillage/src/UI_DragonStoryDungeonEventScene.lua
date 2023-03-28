@@ -35,6 +35,8 @@ end
 function UI_DragonStoryDungeonEventScene:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_DragonStoryDungeonEventScene'
+    self.m_titleStr = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
+    self.m_subCurrency = 'medal_angra'
     self.m_bUseExitBtn = true
     self.m_uiBgm = 'bgm_lobby'
 end
@@ -54,7 +56,6 @@ end
 
 -------------------------------------
 -- function makeNestModeTableView
--- @brief 네스트 던전 모드 선택했을 때 오른쪽에 나오는 세부 리스트
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
     local node = self.vars['detailTableViewNode']

@@ -43,14 +43,13 @@ function UI_StoryDungeonEventShop:initMember()
     self.m_listNode = vars['listNode']
 end
 
-
 -------------------------------------
 -- function initParentVariable
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 -------------------------------------
 function UI_StoryDungeonEventShop:initParentVariable()
     self.m_uiName = 'UI_StoryDungeonEventShop'
-    self.m_titleStr = ''
+    self.m_titleStr = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
     self.m_subCurrency = 'medal_angra'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
