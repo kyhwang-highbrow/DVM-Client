@@ -100,10 +100,10 @@ function UI_StoryDungeonEventShop:initUI()
         dragon_card.root:setScale(86/150)
         vars['dragonIconNode']:removeAllChildren()
         vars['dragonIconNode']:addChild(dragon_card.root)
-
-        -- 재료 카드 클릭 시
-        dragon_card.vars['clickBtn']:registerScriptTapHandler(
-            function() end)
+        -- 이벤트 소환 바로 가기
+        dragon_card.vars['clickBtn']:registerScriptTapHandler(function() 
+            cclog('재료 카드 클릭')
+        end)
     end
 end
 
@@ -117,8 +117,8 @@ end
 -- function refresh
 -------------------------------------
 function UI_StoryDungeonEventShop:refresh()
-    if self.m_productTableview then
-        self.m_productTableview:refreshAllItemUI()
+    if self.m_tableView then
+        self.m_tableView:refreshAllItemUI()
     end
 end
 
@@ -163,7 +163,11 @@ function UI_StoryDungeonEventShop:initTableView()
 
     -- 생성 콜백
 	local function create_cb_func(ui, data)
-        --ui:setBuyCB(self.m_cbBuy)
+        ui:setBuyCB(
+            function ()
+                self:refresh()
+            end
+        )
 	end
     
     -- 테이블 뷰 인스턴스 생성

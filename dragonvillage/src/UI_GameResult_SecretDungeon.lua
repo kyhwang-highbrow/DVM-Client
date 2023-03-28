@@ -13,10 +13,8 @@ UI_GameResult_SecretDungeon = class(PARENT, {
 -- @param body
 -------------------------------------
 function UI_GameResult_SecretDungeon:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon)
-    
     -- 서버에서 받아온 비밀 던전의 정보
     self.m_secretDungeonInfo = g_secretDungeonData:getSelectedSecretDungeonInfo()
-
     local vars = self.vars
 
     vars['nextBtn']:setVisible(false)

@@ -16,6 +16,6 @@ function UI_StoryDungeonEventShopItem:init(struct_product)
     self.m_structProduct = struct_product
     self:initItemNodePos()
     self:initUI()
-	--self:initButton()
+	self:initButton()
 	--self:refresh()
 end

@@ -245,6 +245,9 @@ local TableInfo_fromServer = {
 
         -- 드래곤 획득 패키지
         ['table_get_dragon_package'] = {'table_get_dragon_package', 'product_id'},
+
+        -- 스토리 던전 이벤트 테이블
+        ['table_story_dungeon_event'] = {'table_story_dungeon_event', 'season_id'},
     }
 
 -------------------------------------

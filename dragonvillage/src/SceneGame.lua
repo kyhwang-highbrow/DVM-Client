@@ -1154,7 +1154,7 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
 
     elseif (self.m_gameMode == GAME_MODE_STORY_DUNGEON) then
         if ret['story_dungeon_stage_info'] ~= nil then
-            g_eventDragonStoryDungeon:applyStoryDungeonSeasonStage(ret['story_dungeon_stage_info'])
+            g_eventDragonStoryDungeon:applyStoryDungeonSeasonInfo(ret['story_dungeon_stage_info'])
         end
 
     elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then

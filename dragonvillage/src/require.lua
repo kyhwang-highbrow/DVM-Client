@@ -487,6 +487,7 @@ local t_module = {
     'TableBanWord',
     'TablePackageAchievement',
     'TableRune', -- 룬
+    'TableStoryDungeonEvent', -- 스토리 던전 이벤트 테이블
 
     -- Scene
     'SceneCommon',
@@ -560,6 +561,7 @@ local t_module = {
     'GameState_ClanWar',
     'GameState_Dmgate',
     'GameState_LeagueRaid',
+    'GameState_StoryDungeonEvent',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
@@ -1338,6 +1340,7 @@ local t_module = {
     'UI_GameResult_Illusion',
     'UI_GameResult_ClanWar',
     'UI_GameResult_Dmgate',
+    'UI_GameResult_StoryDungeon',
     'UI_GamePause',
     'UI_GamePause_AncientTower',
     'UI_GamePause_NestDungeon',
