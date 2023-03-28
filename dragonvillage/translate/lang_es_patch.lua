@@ -1,4 +1,4 @@
-return {['네무스']='nemo',
+return {['네무스']='Nemus',
 ['네무스(땅)']='Nemus (tierra)',
 ['테이머 코스튬 선택권']='Traje de Domador Billete de selección de',
 ['해당 상품은 원하시는 코스튬 선택하여 고객센터로 문의주시면 지급됩니다.']='El producto será pagado si seleccionas el disfraz que quieres y contactas con el centro de servicio al cliente.',
