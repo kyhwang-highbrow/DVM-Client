@@ -11,6 +11,7 @@
 				{
 					type = 'Visual';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -24,6 +25,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'itemVisual';
 					file_name = 'ui/a2d/battle_menu_adventure/battle_menu_adventure.vrp';
 					auto_play = true;
@@ -36,6 +38,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -184.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -49,6 +52,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'titleLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
@@ -71,6 +75,8 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
@@ -78,6 +84,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = -64.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -91,6 +98,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'lockLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 30;
@@ -113,11 +121,14 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -131,6 +142,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/icons/lock_0101.png';
 						color = { 255; 255; 255; };
@@ -142,6 +154,7 @@
 					};
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 1.000000;
 					y = 60.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -155,6 +168,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'lockSprite';
 					file_name = 'ui/buttons/battle_menu_adventure_lock.png';
 					color = { 255; 255; 255; };
@@ -168,6 +182,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = -89.000000;
 					y = -129.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -181,6 +196,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'battleHotSprite';
 					file_name = 'ui/icons/hot_time/hot_time_noti.png';
 					color = { 255; 255; 255; };
@@ -196,6 +212,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -209,6 +226,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'timeLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
@@ -231,9 +249,12 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 175.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -247,6 +268,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'timeSprite';
 					file_name = 'ui/frames/attr_tower_title.png';
 					color = { 255; 255; 255; };
@@ -256,8 +278,203 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
+				[6] =
+				{
+					[1] =
+					{
+						type = 'Visual';
+						ui_name = '';
+						flag = '';
+						x = 127.000000;
+						y = -48.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 0;
+						height = 0;
+						scale_x = 0.520000;
+						scale_y = 0.520000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						screen_ui = 0;
+						lua_name = 'tierVisual';
+						file_name = 'ui/a2d/arena_new/arena_new.vrp';
+						auto_play = true;
+						is_repeat = true;
+						visual_id = 'group;tier_07';
+						color = { 255; 255; 255; };
+						opacity = 255;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							[1] =
+							{
+								type = 'Node';
+								ui_name = '';
+								flag = '';
+								x = 0.000000;
+								y = 0.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 80;
+								height = 93;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								screen_ui = 0;
+								lua_name = 'dragonIconNode';
+							};
+							type = 'ClippingNode';
+							ui_name = '';
+							flag = '';
+							x = 3.000061;
+							y = 2.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 100;
+							height = 100;
+							scale_x = 0.880000;
+							scale_y = 0.880000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							screen_ui = 0;
+							lua_name = '';
+							stencil_type = 1;
+							stencil_img = 'ui/buttons/lucky_bag_dragon_btn_0101.png';
+							alpha_threshold = 0.000000;
+							is_invert = false;
+						};
+						[2] =
+						{
+							type = 'LabelTTF';
+							ui_name = 'rich';
+							flag = '';
+							x = 0.000000;
+							y = -75.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 138;
+							height = 89;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							screen_ui = 0;
+							lua_name = 'storyEventLabel';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 20;
+							text = '{@yellow}{1}{@default}\n획득 가능!';
+							h_alignment = 1;
+							v_alignment = 0;
+							color = { 255; 255; 255; };
+							opacity = 255;
+							dimension_width = 138;
+							dimension_height = 89;
+							letter_spacing = 0.000000;
+							has_stroke = true;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 2.000000;
+							stroke_color = { 0; 0; 0; };
+							has_shadow = false;
+							shadow_color = { 0; 0; 0; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+							use_auto_fontsize = false;
+							has_bold = false;
+						};
+						type = 'Sprite';
+						ui_name = '';
+						flag = '';
+						x = 130.000000;
+						y = -50.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 94;
+						height = 94;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						screen_ui = 0;
+						lua_name = '';
+						file_name = 'ui/buttons/lucky_bag_dragon_btn.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[3] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						flag = '';
+						x = -130.000000;
+						y = 240.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 165;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						screen_ui = 0;
+						lua_name = '';
+						file_name = 'ui/frames/capsule_box_badge_0301.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Node';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					screen_ui = 0;
+					lua_name = 'storyEventNode';
+				};
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -271,6 +488,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'enterBtn';
 				enable = true;
 				normal = '';
@@ -280,6 +498,7 @@
 			};
 			type = 'Menu';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
@@ -293,10 +512,12 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = 'swallowTouchMenu';
 		};
 		type = 'Menu';
 		ui_name = '';
+		flag = '';
 		x = 0.000000;
 		y = 0.000000;
 		dock_point = { 0.500000; 0.500000; };
@@ -310,6 +531,7 @@
 		skew_y = 0.000000;
 		rotation = 0.000000;
 		visible = true;
+		screen_ui = 0;
 		lua_name = '';
 	};
 };

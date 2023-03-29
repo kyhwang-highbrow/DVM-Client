@@ -1,0 +1,704 @@
+
+skill_greed.png
+size: 2042,2044
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+broken0015
+  rotate: false
+  xy: 2, 2
+  size: 58, 32
+  orig: 58, 32
+  offset: 0, 0
+  index: -1
+magiccircle_00000
+  rotate: false
+  xy: 2, 1542
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00001
+  rotate: false
+  xy: 2, 1040
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00002
+  rotate: false
+  xy: 504, 1542
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00003
+  rotate: false
+  xy: 2, 538
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00004
+  rotate: false
+  xy: 504, 1040
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00005
+  rotate: false
+  xy: 1006, 1542
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00006
+  rotate: false
+  xy: 2, 36
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00007
+  rotate: false
+  xy: 504, 538
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00008
+  rotate: false
+  xy: 1006, 1040
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00009
+  rotate: false
+  xy: 1508, 1542
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00010
+  rotate: false
+  xy: 504, 36
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00011
+  rotate: false
+  xy: 1006, 538
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00012
+  rotate: false
+  xy: 1508, 1040
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00013
+  rotate: false
+  xy: 1006, 36
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00014
+  rotate: false
+  xy: 1508, 538
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00015
+  rotate: false
+  xy: 1508, 36
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+symmiddle_03
+  rotate: false
+  xy: 2010, 1982
+  size: 30, 60
+  orig: 30, 60
+  offset: 0, 0
+  index: -1
+symmiddle_04
+  rotate: true
+  xy: 62, 10
+  size: 24, 54
+  orig: 24, 54
+  offset: 0, 0
+  index: -1
+
+skill_greed2.png
+size: 2048,2044
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+broken0001
+  rotate: false
+  xy: 1882, 1406
+  size: 126, 132
+  orig: 126, 132
+  offset: 0, 0
+  index: -1
+broken0002
+  rotate: true
+  xy: 1981, 1317
+  size: 87, 57
+  orig: 87, 57
+  offset: 0, 0
+  index: -1
+broken0003
+  rotate: false
+  xy: 1904, 1891
+  size: 103, 151
+  orig: 103, 151
+  offset: 0, 0
+  index: -1
+broken0005
+  rotate: true
+  xy: 1508, 1554
+  size: 186, 207
+  orig: 186, 207
+  offset: 0, 0
+  index: -1
+broken0007
+  rotate: false
+  xy: 1810, 1744
+  size: 67, 46
+  orig: 67, 46
+  offset: 0, 0
+  index: -1
+broken0009
+  rotate: true
+  xy: 1589, 1055
+  size: 89, 104
+  orig: 89, 104
+  offset: 0, 0
+  index: -1
+broken0010
+  rotate: true
+  xy: 1952, 670
+  size: 96, 91
+  orig: 96, 91
+  offset: 0, 0
+  index: -1
+broken0011
+  rotate: false
+  xy: 1448, 606
+  size: 59, 50
+  orig: 59, 50
+  offset: 0, 0
+  index: -1
+broken0012
+  rotate: false
+  xy: 1912, 527
+  size: 113, 129
+  orig: 113, 129
+  offset: 0, 0
+  index: -1
+broken0013
+  rotate: true
+  xy: 1738, 1055
+  size: 183, 203
+  orig: 183, 203
+  offset: 0, 0
+  index: -1
+broken0014
+  rotate: true
+  xy: 1943, 1056
+  size: 73, 103
+  orig: 73, 103
+  offset: 0, 0
+  index: -1
+broken0016
+  rotate: false
+  xy: 1941, 768
+  size: 105, 83
+  orig: 105, 83
+  offset: 0, 0
+  index: -1
+broken0019
+  rotate: true
+  xy: 1486, 1054
+  size: 90, 101
+  orig: 90, 101
+  offset: 0, 0
+  index: -1
+broken0020
+  rotate: false
+  xy: 1844, 757
+  size: 95, 94
+  orig: 95, 94
+  offset: 0, 0
+  index: -1
+broken0021
+  rotate: false
+  xy: 1943, 1131
+  size: 93, 132
+  orig: 93, 132
+  offset: 0, 0
+  index: -1
+explosion_00000
+  rotate: false
+  xy: 1788, 1540
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+explosion_00001
+  rotate: false
+  xy: 1844, 853
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+forcein_00000
+  rotate: false
+  xy: 1006, 304
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00001
+  rotate: false
+  xy: 1308, 304
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00002
+  rotate: false
+  xy: 1448, 752
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00003
+  rotate: false
+  xy: 1486, 1240
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00004
+  rotate: false
+  xy: 1508, 1742
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00005
+  rotate: false
+  xy: 1610, 356
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00006
+  rotate: false
+  xy: 1610, 54
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00007
+  rotate: false
+  xy: 1006, 2
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00008
+  rotate: false
+  xy: 1308, 2
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+greed_skill_eye0010
+  rotate: false
+  xy: 1448, 658
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0011
+  rotate: false
+  xy: 1486, 1146
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0012
+  rotate: true
+  xy: 1810, 1792
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0013
+  rotate: true
+  xy: 1788, 1288
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0014
+  rotate: false
+  xy: 1700, 658
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0015
+  rotate: true
+  xy: 1750, 803
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0016
+  rotate: true
+  xy: 1912, 275
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0017
+  rotate: true
+  xy: 1912, 23
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+magiccircle_00016
+  rotate: false
+  xy: 2, 1542
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00017
+  rotate: false
+  xy: 2, 1040
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00018
+  rotate: false
+  xy: 2, 538
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00019
+  rotate: false
+  xy: 2, 36
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00020
+  rotate: false
+  xy: 504, 1542
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00021
+  rotate: false
+  xy: 504, 1040
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00022
+  rotate: false
+  xy: 504, 538
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccircle_00023
+  rotate: false
+  xy: 504, 36
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+magiccirclelight_00000
+  rotate: false
+  xy: 1006, 1542
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+symeteL_01
+  rotate: false
+  xy: 1882, 1265
+  size: 97, 139
+  orig: 97, 139
+  offset: 0, 0
+  index: -1
+symeteR_01
+  rotate: false
+  xy: 1904, 1750
+  size: 98, 139
+  orig: 98, 139
+  offset: 0, 0
+  index: -1
+symmiddle_01
+  rotate: false
+  xy: 1717, 1558
+  size: 69, 182
+  orig: 69, 182
+  offset: 0, 0
+  index: -1
+symmiddle_02
+  rotate: false
+  xy: 1990, 1584
+  size: 51, 164
+  orig: 51, 164
+  offset: 0, 0
+  index: -1
+symwhole_01
+  rotate: false
+  xy: 1006, 606
+  size: 440, 446
+  orig: 440, 446
+  offset: 0, 0
+  index: -1
+symwhole_02
+  rotate: false
+  xy: 1006, 1054
+  size: 478, 486
+  orig: 478, 486
+  offset: 0, 0
+  index: -1
+
+skill_greed3.png
+size: 1608,808
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+broken0004
+  rotate: true
+  xy: 908, 225
+  size: 177, 212
+  orig: 177, 212
+  offset: 0, 0
+  index: -1
+broken0006
+  rotate: true
+  xy: 810, 124
+  size: 78, 96
+  orig: 78, 96
+  offset: 0, 0
+  index: -1
+broken0008
+  rotate: false
+  xy: 810, 29
+  size: 84, 93
+  orig: 84, 93
+  offset: 0, 0
+  index: -1
+broken0017
+  rotate: true
+  xy: 1122, 226
+  size: 176, 190
+  orig: 176, 190
+  offset: 0, 0
+  index: -1
+broken0018
+  rotate: true
+  xy: 1493, 129
+  size: 85, 76
+  orig: 85, 76
+  offset: 0, 0
+  index: -1
+explosion_00002
+  rotate: false
+  xy: 2, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+explosion_00003
+  rotate: false
+  xy: 908, 606
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+explosion_00004
+  rotate: false
+  xy: 204, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+explosion_00005
+  rotate: false
+  xy: 908, 404
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+explosion_00006
+  rotate: false
+  xy: 1110, 606
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+explosion_00007
+  rotate: false
+  xy: 406, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+explosion_00008
+  rotate: false
+  xy: 1110, 404
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+explosion_00009
+  rotate: false
+  xy: 1312, 606
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+explosion_00010
+  rotate: false
+  xy: 608, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+explosion_00011
+  rotate: false
+  xy: 1312, 404
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+forcein_00009
+  rotate: false
+  xy: 2, 506
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00010
+  rotate: false
+  xy: 2, 204
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00011
+  rotate: false
+  xy: 304, 506
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00012
+  rotate: false
+  xy: 304, 204
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00013
+  rotate: false
+  xy: 606, 506
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+forcein_00014
+  rotate: false
+  xy: 606, 204
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+greed_skill_eye0018
+  rotate: true
+  xy: 1514, 556
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0019
+  rotate: false
+  xy: 1314, 310
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0020
+  rotate: false
+  xy: 1314, 216
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0021
+  rotate: false
+  xy: 908, 131
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0022
+  rotate: false
+  xy: 908, 37
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0023
+  rotate: false
+  xy: 1241, 122
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+greed_skill_eye0024
+  rotate: false
+  xy: 1241, 28
+  size: 250, 92
+  orig: 250, 92
+  offset: 0, 0
+  index: -1
+symeteL_02
+  rotate: false
+  xy: 1160, 103
+  size: 79, 121
+  orig: 79, 121
+  offset: 0, 0
+  index: -1
+symeteR_02
+  rotate: false
+  xy: 1514, 433
+  size: 80, 121
+  orig: 80, 121
+  offset: 0, 0
+  index: -1

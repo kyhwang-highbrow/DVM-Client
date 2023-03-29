@@ -36,7 +36,7 @@ function UI_DragonStoryDungeonEventScene:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_DragonStoryDungeonEventScene'
     self.m_titleStr = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
-    self.m_subCurrency = 'medal_angra'
+    self.m_subCurrency = 'origingoddragon_ticket'
     self.m_bUseExitBtn = true
     self.m_uiBgm = 'bgm_lobby'
 end

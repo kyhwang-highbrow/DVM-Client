@@ -4,6 +4,19 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>lobby_shop_noti_candy.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{210,2},{39,41}}</string>
+                <key>offset</key>
+                <string>{-1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,2},{39,41}}</string>
+                <key>sourceSize</key>
+                <string>{45,45}</string>
+            </dict>
             <key>lobby_shop_noti_holoween.png</key>
             <dict>
                 <key>frame</key>
@@ -20,7 +33,7 @@
             <key>lobby_shop_noti_special.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{371,2},{83,23}}</string>
+                <string>{{412,2},{83,23}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +46,7 @@
             <key>lobby_shop_noti_special_icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{340,2},{29,31}}</string>
+                <string>{{381,2},{29,31}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +85,7 @@
             <key>res_noti_0101.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{210,2},{128,34}}</string>
+                <string>{{251,2},{128,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +98,7 @@
             <key>res_noti_0102.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{371,27},{78,26}}</string>
+                <string>{{412,27},{78,26}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -129,9 +142,9 @@
             <key>realTextureFileName</key>
             <string>lobby_shop_noti.png</string>
             <key>size</key>
-            <string>{456,55}</string>
+            <string>{497,55}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:50e01333294b08b9b9d09ebb0f2c7b61:bd4b22fcff96b0fdb0634ce2165c6cf9:d6b38f772483984b8a33ea5fa6ce77ba$</string>
+            <string>$TexturePacker:SmartUpdate:3e853b48575eb583299c4bf27fbf16be:50dddae5d7734b0a8ab36665df4d4d8f:d6b38f772483984b8a33ea5fa6ce77ba$</string>
             <key>textureFileName</key>
             <string>lobby_shop_noti.png</string>
         </dict>

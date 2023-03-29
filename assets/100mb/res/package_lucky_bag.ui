@@ -567,7 +567,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '복주머니 100개';
+				text = '복주머니 126개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -611,7 +611,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '복주머니 50개';
+				text = '복주머니 66개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -655,7 +655,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '복주머니 10개';
+				text = '복주머니 12개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -769,7 +769,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = 'titleSprite';
-				file_name = 'ui/typo/ko/ribbon_chuseok_title_0101.png';
+				file_name = 'ui/typo/ko/ribbon_new_year_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

@@ -1,0 +1,1973 @@
+
+instria_all_03.png
+size: 1842,1162
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_cas1
+  rotate: false
+  xy: 2, 727
+  size: 369, 433
+  orig: 369, 433
+  offset: 0, 0
+  index: -1
+effect_circle_00000
+  rotate: true
+  xy: 1278, 756
+  size: 177, 105
+  orig: 177, 105
+  offset: 0, 0
+  index: -1
+effect_circle_00001
+  rotate: false
+  xy: 914, 648
+  size: 184, 98
+  orig: 184, 98
+  offset: 0, 0
+  index: -1
+effect_circle_00002
+  rotate: true
+  xy: 445, 372
+  size: 152, 121
+  orig: 152, 121
+  offset: 0, 0
+  index: -1
+effect_circle_00003
+  rotate: false
+  xy: 541, 89
+  size: 98, 140
+  orig: 98, 140
+  offset: 0, 0
+  index: -1
+effect_circle_00004
+  rotate: false
+  xy: 552, 2
+  size: 119, 85
+  orig: 119, 85
+  offset: 0, 0
+  index: -1
+effect_circle_00005
+  rotate: true
+  xy: 283, 537
+  size: 188, 67
+  orig: 188, 67
+  offset: 0, 0
+  index: -1
+effect_circle_00006
+  rotate: false
+  xy: 650, 550
+  size: 181, 117
+  orig: 181, 117
+  offset: 0, 0
+  index: -1
+effect_circle_00007
+  rotate: false
+  xy: 431, 88
+  size: 108, 144
+  orig: 108, 144
+  offset: 0, 0
+  index: -1
+effect_lightning_00001
+  rotate: true
+  xy: 129, 240
+  size: 485, 75
+  orig: 485, 75
+  offset: 0, 0
+  index: -1
+effect_lightning_00006
+  rotate: false
+  xy: 373, 1008
+  size: 485, 75
+  orig: 485, 75
+  offset: 0, 0
+  index: -1
+effect_lightning_00009
+  rotate: false
+  xy: 888, 1085
+  size: 485, 75
+  orig: 485, 75
+  offset: 0, 0
+  index: -1
+effect_lightning_00013
+  rotate: true
+  xy: 206, 240
+  size: 485, 75
+  orig: 485, 75
+  offset: 0, 0
+  index: -1
+effect_lightning_00018
+  rotate: false
+  xy: 373, 931
+  size: 485, 75
+  orig: 485, 75
+  offset: 0, 0
+  index: -1
+effect_skill_laser_01
+  rotate: false
+  xy: 1039, 539
+  size: 61, 107
+  orig: 61, 107
+  offset: 0, 0
+  index: -1
+effect_skill_portal_02
+  rotate: false
+  xy: 652, 669
+  size: 260, 260
+  orig: 260, 260
+  offset: 0, 0
+  index: -1
+effect_skill_won
+  rotate: false
+  xy: 1712, 967
+  size: 82, 87
+  orig: 82, 87
+  offset: 0, 0
+  index: -1
+effect_stun_06
+  rotate: false
+  xy: 1355, 73
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+instria_all_03_acc_1
+  rotate: true
+  xy: 1205, 415
+  size: 42, 45
+  orig: 42, 45
+  offset: 0, 0
+  index: -1
+instria_all_03_acc_2
+  rotate: true
+  xy: 1725, 257
+  size: 47, 52
+  orig: 47, 52
+  offset: 0, 0
+  index: -1
+instria_all_03_acc_3
+  rotate: false
+  xy: 1449, 217
+  size: 44, 49
+  orig: 44, 49
+  offset: 0, 0
+  index: -1
+instria_all_03_acc_4
+  rotate: false
+  xy: 1074, 213
+  size: 46, 50
+  orig: 46, 50
+  offset: 0, 0
+  index: -1
+instria_all_03_acc_5
+  rotate: false
+  xy: 1190, 213
+  size: 32, 50
+  orig: 32, 50
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_1
+  rotate: false
+  xy: 1796, 967
+  size: 44, 93
+  orig: 44, 93
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_10
+  rotate: true
+  xy: 428, 2
+  size: 84, 122
+  orig: 84, 122
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_11
+  rotate: false
+  xy: 1264, 559
+  size: 93, 86
+  orig: 93, 86
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_12
+  rotate: false
+  xy: 1444, 171
+  size: 50, 44
+  orig: 50, 44
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_13
+  rotate: true
+  xy: 1552, 166
+  size: 52, 34
+  orig: 52, 34
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_14
+  rotate: false
+  xy: 1681, 676
+  size: 83, 46
+  orig: 83, 46
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_15
+  rotate: false
+  xy: 998, 265
+  size: 97, 51
+  orig: 97, 51
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_16
+  rotate: true
+  xy: 1119, 732
+  size: 49, 146
+  orig: 49, 146
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_17
+  rotate: true
+  xy: 1692, 122
+  size: 40, 48
+  orig: 40, 48
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_18
+  rotate: false
+  xy: 856, 424
+  size: 56, 143
+  orig: 56, 143
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_19
+  rotate: false
+  xy: 1493, 119
+  size: 49, 45
+  orig: 49, 45
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_2
+  rotate: false
+  xy: 271, 2
+  size: 36, 37
+  orig: 36, 37
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_3
+  rotate: true
+  xy: 976, 2
+  size: 68, 50
+  orig: 68, 50
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_4
+  rotate: false
+  xy: 1562, 600
+  size: 74, 74
+  orig: 74, 74
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_5
+  rotate: true
+  xy: 218, 2
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_6
+  rotate: true
+  xy: 1643, 516
+  size: 82, 56
+  orig: 82, 56
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_7
+  rotate: true
+  xy: 914, 566
+  size: 80, 123
+  orig: 80, 123
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_8
+  rotate: false
+  xy: 1432, 93
+  size: 44, 42
+  orig: 44, 42
+  offset: 0, 0
+  index: -1
+instria_all_03_arm_9
+  rotate: true
+  xy: 1201, 265
+  size: 48, 50
+  orig: 48, 50
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_1
+  rotate: true
+  xy: 1496, 864
+  size: 107, 106
+  orig: 107, 106
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_10
+  rotate: false
+  xy: 936, 304
+  size: 60, 45
+  orig: 60, 45
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_11
+  rotate: true
+  xy: 1385, 747
+  size: 90, 110
+  orig: 90, 110
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_12
+  rotate: false
+  xy: 914, 748
+  size: 203, 235
+  orig: 203, 235
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_13
+  rotate: false
+  xy: 1627, 431
+  size: 72, 83
+  orig: 72, 83
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_14
+  rotate: true
+  xy: 1499, 676
+  size: 75, 99
+  orig: 75, 99
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_2
+  rotate: true
+  xy: 320, 2
+  size: 91, 106
+  orig: 91, 106
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_3
+  rotate: true
+  xy: 1550, 523
+  size: 75, 91
+  orig: 75, 91
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_4
+  rotate: true
+  xy: 1006, 453
+  size: 84, 105
+  orig: 84, 105
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_5
+  rotate: false
+  xy: 1276, 94
+  size: 35, 39
+  orig: 35, 39
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_6
+  rotate: false
+  xy: 1598, 84
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_7
+  rotate: false
+  xy: 1684, 724
+  size: 91, 51
+  orig: 91, 51
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_8
+  rotate: false
+  xy: 1790, 113
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+instria_all_03_bigmouse_9
+  rotate: false
+  xy: 1381, 950
+  size: 96, 135
+  orig: 96, 135
+  offset: 0, 0
+  index: -1
+instria_all_03_body_1
+  rotate: true
+  xy: 1385, 677
+  size: 68, 112
+  orig: 68, 112
+  offset: 0, 0
+  index: -1
+instria_all_03_body_2
+  rotate: false
+  xy: 914, 459
+  size: 90, 105
+  orig: 90, 105
+  offset: 0, 0
+  index: -1
+instria_all_03_book_1
+  rotate: true
+  xy: 1779, 292
+  size: 78, 61
+  orig: 78, 61
+  offset: 0, 0
+  index: -1
+instria_all_03_book_10
+  rotate: false
+  xy: 1187, 935
+  size: 192, 148
+  orig: 192, 148
+  offset: 0, 0
+  index: -1
+instria_all_03_book_11
+  rotate: false
+  xy: 1375, 1087
+  size: 128, 73
+  orig: 128, 73
+  offset: 0, 0
+  index: -1
+instria_all_03_book_2
+  rotate: false
+  xy: 1257, 287
+  size: 71, 69
+  orig: 71, 69
+  offset: 0, 0
+  index: -1
+instria_all_03_book_3
+  rotate: true
+  xy: 1638, 600
+  size: 74, 56
+  orig: 74, 56
+  offset: 0, 0
+  index: -1
+instria_all_03_book_4
+  rotate: true
+  xy: 1038, 132
+  size: 79, 69
+  orig: 79, 69
+  offset: 0, 0
+  index: -1
+instria_all_03_book_5
+  rotate: false
+  xy: 1780, 433
+  size: 60, 76
+  orig: 60, 76
+  offset: 0, 0
+  index: -1
+instria_all_03_book_6
+  rotate: false
+  xy: 1482, 340
+  size: 42, 49
+  orig: 42, 49
+  offset: 0, 0
+  index: -1
+instria_all_03_book_7
+  rotate: true
+  xy: 2, 10
+  size: 198, 158
+  orig: 198, 158
+  offset: 0, 0
+  index: -1
+instria_all_03_book_8
+  rotate: false
+  xy: 352, 526
+  size: 166, 149
+  orig: 166, 149
+  offset: 0, 0
+  index: -1
+instria_all_03_book_9
+  rotate: true
+  xy: 162, 41
+  size: 197, 156
+  orig: 197, 156
+  offset: 0, 0
+  index: -1
+instria_all_03_document_1
+  rotate: true
+  xy: 1016, 86
+  size: 44, 88
+  orig: 44, 88
+  offset: 0, 0
+  index: -1
+instria_all_03_document_2
+  rotate: false
+  xy: 833, 569
+  size: 79, 98
+  orig: 79, 98
+  offset: 0, 0
+  index: -1
+instria_all_03_document_3
+  rotate: true
+  xy: 1343, 471
+  size: 62, 93
+  orig: 62, 93
+  offset: 0, 0
+  index: -1
+instria_all_03_document_4
+  rotate: true
+  xy: 1359, 535
+  size: 78, 94
+  orig: 78, 94
+  offset: 0, 0
+  index: -1
+instria_all_03_document_5
+  rotate: true
+  xy: 1467, 604
+  size: 70, 93
+  orig: 70, 93
+  offset: 0, 0
+  index: -1
+instria_all_03_document_6
+  rotate: false
+  xy: 1175, 135
+  size: 44, 76
+  orig: 44, 76
+  offset: 0, 0
+  index: -1
+instria_all_03_ear_1
+  rotate: false
+  xy: 1385, 839
+  size: 109, 109
+  orig: 109, 109
+  offset: 0, 0
+  index: -1
+instria_all_03_ear_2
+  rotate: false
+  xy: 936, 351
+  size: 60, 106
+  orig: 60, 106
+  offset: 0, 0
+  index: -1
+instria_all_03_eb_1
+  rotate: false
+  xy: 1148, 74
+  size: 38, 32
+  orig: 38, 32
+  offset: 0, 0
+  index: -1
+instria_all_03_eb_2
+  rotate: true
+  xy: 1751, 2
+  size: 25, 24
+  orig: 25, 24
+  offset: 0, 0
+  index: -1
+instria_all_03_eb_3
+  rotate: false
+  xy: 283, 240
+  size: 26, 23
+  orig: 26, 23
+  offset: 0, 0
+  index: -1
+instria_all_03_eb_4
+  rotate: false
+  xy: 1429, 41
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+instria_all_03_eb_5
+  rotate: false
+  xy: 1204, 2
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+instria_all_03_eb_6
+  rotate: false
+  xy: 1229, 2
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_1
+  rotate: true
+  xy: 1343, 403
+  size: 66, 91
+  orig: 66, 91
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_10
+  rotate: false
+  xy: 1355, 41
+  size: 36, 30
+  orig: 36, 30
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_11
+  rotate: false
+  xy: 1544, 119
+  size: 44, 45
+  orig: 44, 45
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_12
+  rotate: true
+  xy: 869, 227
+  size: 75, 105
+  orig: 75, 105
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_13
+  rotate: true
+  xy: 641, 111
+  size: 118, 49
+  orig: 118, 49
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_14
+  rotate: false
+  xy: 1267, 712
+  size: 116, 42
+  orig: 116, 42
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_15
+  rotate: false
+  xy: 673, 2
+  size: 77, 107
+  orig: 77, 107
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_16
+  rotate: true
+  xy: 998, 375
+  size: 76, 106
+  orig: 76, 106
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_17
+  rotate: false
+  xy: 1704, 849
+  size: 115, 43
+  orig: 115, 43
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_18
+  rotate: true
+  xy: 1505, 1079
+  size: 81, 135
+  orig: 81, 135
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_19
+  rotate: false
+  xy: 1113, 423
+  size: 90, 34
+  orig: 90, 34
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_2
+  rotate: true
+  xy: 566, 231
+  size: 136, 109
+  orig: 136, 109
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_20
+  rotate: false
+  xy: 1253, 193
+  size: 64, 51
+  orig: 64, 51
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_21
+  rotate: true
+  xy: 1028, 2
+  size: 82, 32
+  orig: 82, 32
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_22
+  rotate: true
+  xy: 1779, 241
+  size: 49, 61
+  orig: 49, 61
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_23
+  rotate: false
+  xy: 913, 2
+  size: 61, 68
+  orig: 61, 68
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_24
+  rotate: false
+  xy: 1113, 459
+  size: 80, 105
+  orig: 80, 105
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_28
+  rotate: true
+  xy: 1701, 360
+  size: 67, 76
+  orig: 67, 76
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_3
+  rotate: false
+  xy: 1701, 515
+  size: 77, 85
+  orig: 77, 85
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_4
+  rotate: true
+  xy: 520, 532
+  size: 143, 128
+  orig: 143, 128
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_5
+  rotate: true
+  xy: 373, 677
+  size: 252, 277
+  orig: 252, 277
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_6
+  rotate: true
+  xy: 1273, 58
+  size: 34, 38
+  orig: 34, 38
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_7
+  rotate: false
+  xy: 1305, 19
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_8
+  rotate: true
+  xy: 1478, 75
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+instria_all_03_effect_9
+  rotate: false
+  xy: 1265, 18
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+instria_all_03_eye_1
+  rotate: true
+  xy: 1393, 41
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+instria_all_03_eye_2
+  rotate: false
+  xy: 1598, 46
+  size: 41, 36
+  orig: 41, 36
+  offset: 0, 0
+  index: -1
+instria_all_03_eye_5
+  rotate: false
+  xy: 1415, 7
+  size: 31, 32
+  orig: 31, 32
+  offset: 0, 0
+  index: -1
+instria_all_03_eye_6
+  rotate: true
+  xy: 1152, 46
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+instria_all_03_eye_7
+  rotate: true
+  xy: 1799, 159
+  size: 44, 41
+  orig: 44, 41
+  offset: 0, 0
+  index: -1
+instria_all_03_eye_8
+  rotate: true
+  xy: 1342, 9
+  size: 30, 36
+  orig: 30, 36
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_1
+  rotate: false
+  xy: 1151, 265
+  size: 48, 46
+  orig: 48, 46
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_10
+  rotate: true
+  xy: 1106, 74
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_11
+  rotate: false
+  xy: 1228, 27
+  size: 35, 31
+  orig: 35, 31
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_12
+  rotate: false
+  xy: 1380, 8
+  size: 33, 31
+  orig: 33, 31
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_13
+  rotate: false
+  xy: 1252, 358
+  size: 76, 66
+  orig: 76, 66
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_2
+  rotate: false
+  xy: 1188, 69
+  size: 41, 38
+  orig: 41, 38
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_3
+  rotate: true
+  xy: 1524, 74
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_4
+  rotate: false
+  xy: 1097, 265
+  size: 52, 46
+  orig: 52, 46
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_5
+  rotate: false
+  xy: 1590, 127
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_6
+  rotate: false
+  xy: 1600, 737
+  size: 82, 83
+  orig: 82, 83
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_7
+  rotate: true
+  xy: 1495, 41
+  size: 32, 26
+  orig: 32, 26
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_8
+  rotate: false
+  xy: 1006, 539
+  size: 30, 25
+  orig: 30, 25
+  offset: 0, 0
+  index: -1
+instria_all_03_flower_9
+  rotate: false
+  xy: 1106, 2
+  size: 34, 42
+  orig: 34, 42
+  offset: 0, 0
+  index: -1
+instria_all_03_fur_1
+  rotate: false
+  xy: 1616, 364
+  size: 83, 65
+  orig: 83, 65
+  offset: 0, 0
+  index: -1
+instria_all_03_glasses_1
+  rotate: true
+  xy: 1818, 213
+  size: 26, 22
+  orig: 26, 22
+  offset: 0, 0
+  index: -1
+instria_all_03_glasses_2
+  rotate: true
+  xy: 1747, 160
+  size: 43, 50
+  orig: 43, 50
+  offset: 0, 0
+  index: -1
+instria_all_03_glasses_3
+  rotate: true
+  xy: 1313, 91
+  size: 29, 40
+  orig: 29, 40
+  offset: 0, 0
+  index: -1
+instria_all_03_glasses_4
+  rotate: false
+  xy: 129, 210
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+instria_all_03_hair_1
+  rotate: true
+  xy: 1142, 2
+  size: 42, 34
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
+instria_all_03_hair_2
+  rotate: false
+  xy: 1330, 349
+  size: 76, 52
+  orig: 76, 52
+  offset: 0, 0
+  index: -1
+instria_all_03_hair_3
+  rotate: true
+  xy: 1783, 649
+  size: 71, 57
+  orig: 71, 57
+  offset: 0, 0
+  index: -1
+instria_all_03_hair_4
+  rotate: false
+  xy: 1588, 173
+  size: 51, 46
+  orig: 51, 46
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_1
+  rotate: false
+  xy: 1482, 10
+  size: 27, 28
+  orig: 27, 28
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_10
+  rotate: false
+  xy: 1558, 45
+  size: 32, 26
+  orig: 32, 26
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_11
+  rotate: true
+  xy: 1392, 73
+  size: 33, 34
+  orig: 33, 34
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_12
+  rotate: true
+  xy: 1576, 13
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_13
+  rotate: true
+  xy: 1790, 85
+  size: 26, 27
+  orig: 26, 27
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_14
+  rotate: false
+  xy: 1722, 36
+  size: 25, 27
+  orig: 25, 27
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_15
+  rotate: false
+  xy: 1448, 10
+  size: 32, 28
+  orig: 32, 28
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_16
+  rotate: true
+  xy: 1634, 14
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_17
+  rotate: false
+  xy: 1692, 65
+  size: 29, 26
+  orig: 29, 26
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_18
+  rotate: false
+  xy: 1662, 10
+  size: 28, 28
+  orig: 28, 28
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_19
+  rotate: false
+  xy: 1692, 9
+  size: 28, 25
+  orig: 28, 25
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_2
+  rotate: false
+  xy: 1511, 11
+  size: 31, 26
+  orig: 31, 26
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_20
+  rotate: false
+  xy: 1722, 9
+  size: 27, 25
+  orig: 27, 25
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_21
+  rotate: false
+  xy: 1692, 36
+  size: 28, 27
+  orig: 28, 27
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_22
+  rotate: true
+  xy: 1723, 65
+  size: 26, 27
+  orig: 26, 27
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_23
+  rotate: false
+  xy: 1523, 39
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_3
+  rotate: false
+  xy: 1544, 10
+  size: 30, 27
+  orig: 30, 27
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_4
+  rotate: false
+  xy: 1604, 15
+  size: 28, 29
+  orig: 28, 29
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_5
+  rotate: true
+  xy: 1662, 100
+  size: 26, 28
+  orig: 26, 28
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_6
+  rotate: false
+  xy: 1460, 40
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_7
+  rotate: false
+  xy: 834, 72
+  size: 29, 25
+  orig: 29, 25
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_8
+  rotate: true
+  xy: 1231, 60
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+instria_all_03_hand_9
+  rotate: true
+  xy: 1662, 71
+  size: 27, 28
+  orig: 27, 28
+  offset: 0, 0
+  index: -1
+instria_all_03_head_1
+  rotate: false
+  xy: 1604, 876
+  size: 98, 96
+  orig: 98, 96
+  offset: 0, 0
+  index: -1
+instria_all_03_horn_1
+  rotate: true
+  xy: 1495, 222
+  size: 47, 26
+  orig: 47, 26
+  offset: 0, 0
+  index: -1
+instria_all_03_horn_2
+  rotate: true
+  xy: 1584, 221
+  size: 36, 59
+  orig: 36, 59
+  offset: 0, 0
+  index: -1
+instria_all_03_horn_3
+  rotate: false
+  xy: 692, 111
+  size: 46, 25
+  orig: 46, 25
+  offset: 0, 0
+  index: -1
+instria_all_03_horn_4
+  rotate: true
+  xy: 1570, 73
+  size: 44, 26
+  orig: 44, 26
+  offset: 0, 0
+  index: -1
+instria_all_03_horn_5
+  rotate: true
+  xy: 1645, 221
+  size: 35, 56
+  orig: 35, 56
+  offset: 0, 0
+  index: -1
+instria_all_03_horn_6
+  rotate: false
+  xy: 1106, 46
+  size: 44, 26
+  orig: 44, 26
+  offset: 0, 0
+  index: -1
+instria_all_03_jewelry_1
+  rotate: true
+  xy: 1533, 442
+  size: 79, 92
+  orig: 79, 92
+  offset: 0, 0
+  index: -1
+instria_all_03_jewelry_10
+  rotate: false
+  xy: 1217, 652
+  size: 47, 78
+  orig: 47, 78
+  offset: 0, 0
+  index: -1
+instria_all_03_jewelry_2
+  rotate: true
+  xy: 1313, 57
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+instria_all_03_jewelry_3
+  rotate: true
+  xy: 1221, 137
+  size: 63, 28
+  orig: 63, 28
+  offset: 0, 0
+  index: -1
+instria_all_03_jewelry_4
+  rotate: true
+  xy: 1693, 164
+  size: 39, 52
+  orig: 39, 52
+  offset: 0, 0
+  index: -1
+instria_all_03_jewelry_5
+  rotate: true
+  xy: 1224, 202
+  size: 61, 27
+  orig: 61, 27
+  offset: 0, 0
+  index: -1
+instria_all_03_jewelry_6
+  rotate: true
+  xy: 1100, 653
+  size: 77, 115
+  orig: 77, 115
+  offset: 0, 0
+  index: -1
+instria_all_03_jewelry_7
+  rotate: false
+  xy: 786, 72
+  size: 46, 25
+  orig: 46, 25
+  offset: 0, 0
+  index: -1
+instria_all_03_jewelry_8
+  rotate: true
+  xy: 1383, 160
+  size: 32, 54
+  orig: 32, 54
+  offset: 0, 0
+  index: -1
+instria_all_03_jewelry_9
+  rotate: false
+  xy: 1187, 109
+  size: 44, 24
+  orig: 44, 24
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_1
+  rotate: true
+  xy: 1187, 315
+  size: 39, 68
+  orig: 39, 68
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_10
+  rotate: false
+  xy: 1102, 566
+  size: 106, 85
+  orig: 106, 85
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_11
+  rotate: true
+  xy: 1526, 325
+  size: 49, 74
+  orig: 49, 74
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_12
+  rotate: true
+  xy: 1252, 426
+  size: 44, 89
+  orig: 44, 89
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_13
+  rotate: true
+  xy: 1767, 1062
+  size: 98, 73
+  orig: 98, 73
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_14
+  rotate: true
+  xy: 1122, 213
+  size: 50, 66
+  orig: 50, 66
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_15
+  rotate: true
+  xy: 1780, 511
+  size: 89, 60
+  orig: 89, 60
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_16
+  rotate: false
+  xy: 836, 2
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_17
+  rotate: false
+  xy: 1436, 391
+  size: 88, 61
+  orig: 88, 61
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_18
+  rotate: false
+  xy: 976, 213
+  size: 96, 50
+  orig: 96, 50
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_19
+  rotate: true
+  xy: 1744, 306
+  size: 52, 33
+  orig: 52, 33
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_2
+  rotate: true
+  xy: 1696, 602
+  size: 72, 85
+  orig: 72, 85
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_20
+  rotate: false
+  xy: 1386, 194
+  size: 56, 32
+  orig: 56, 32
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_21
+  rotate: true
+  xy: 1210, 564
+  size: 86, 52
+  orig: 86, 52
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_22
+  rotate: true
+  xy: 998, 318
+  size: 55, 107
+  orig: 55, 107
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_23
+  rotate: false
+  xy: 869, 304
+  size: 65, 118
+  orig: 65, 118
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_24
+  rotate: true
+  xy: 1455, 530
+  size: 72, 93
+  orig: 72, 93
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_25
+  rotate: true
+  xy: 1704, 894
+  size: 71, 113
+  orig: 71, 113
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_3
+  rotate: true
+  xy: 787, 169
+  size: 72, 80
+  orig: 72, 80
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_4
+  rotate: false
+  xy: 1251, 135
+  size: 60, 56
+  orig: 60, 56
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_5
+  rotate: true
+  xy: 1195, 459
+  size: 103, 55
+  orig: 103, 55
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_6
+  rotate: false
+  xy: 1408, 268
+  size: 74, 49
+  orig: 74, 49
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_7
+  rotate: false
+  xy: 692, 138
+  size: 92, 101
+  orig: 92, 101
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_8
+  rotate: false
+  xy: 1062, 5
+  size: 42, 79
+  orig: 42, 79
+  offset: 0, 0
+  index: -1
+instria_all_03_lace_9
+  rotate: false
+  xy: 1793, 763
+  size: 47, 84
+  orig: 47, 84
+  offset: 0, 0
+  index: -1
+instria_all_03_leg_1
+  rotate: true
+  xy: 1703, 205
+  size: 50, 56
+  orig: 50, 56
+  offset: 0, 0
+  index: -1
+instria_all_03_leg_2
+  rotate: true
+  xy: 1661, 258
+  size: 55, 62
+  orig: 55, 62
+  offset: 0, 0
+  index: -1
+instria_all_03_letter_1
+  rotate: false
+  xy: 1780, 372
+  size: 60, 59
+  orig: 60, 59
+  offset: 0, 0
+  index: -1
+instria_all_03_letter_2
+  rotate: false
+  xy: 1313, 122
+  size: 61, 49
+  orig: 61, 49
+  offset: 0, 0
+  index: -1
+instria_all_03_letter_3
+  rotate: true
+  xy: 1497, 753
+  size: 109, 101
+  orig: 109, 101
+  offset: 0, 0
+  index: -1
+instria_all_03_letter_4
+  rotate: false
+  xy: 1479, 973
+  size: 121, 104
+  orig: 121, 104
+  offset: 0, 0
+  index: -1
+instria_all_03_letter_5
+  rotate: false
+  xy: 283, 389
+  size: 160, 135
+  orig: 160, 135
+  offset: 0, 0
+  index: -1
+instria_all_03_letter_6
+  rotate: false
+  xy: 1322, 224
+  size: 62, 52
+  orig: 62, 52
+  offset: 0, 0
+  index: -1
+instria_all_03_letter_7
+  rotate: true
+  xy: 437, 234
+  size: 136, 127
+  orig: 136, 127
+  offset: 0, 0
+  index: -1
+instria_all_03_lock_1
+  rotate: true
+  xy: 869, 149
+  size: 76, 85
+  orig: 76, 85
+  offset: 0, 0
+  index: -1
+instria_all_03_lock_2
+  rotate: true
+  xy: 1191, 356
+  size: 57, 59
+  orig: 57, 59
+  offset: 0, 0
+  index: -1
+instria_all_03_lock_3
+  rotate: false
+  xy: 786, 99
+  size: 81, 68
+  orig: 81, 68
+  offset: 0, 0
+  index: -1
+instria_all_03_lock_4
+  rotate: false
+  xy: 752, 2
+  size: 82, 68
+  orig: 82, 68
+  offset: 0, 0
+  index: -1
+instria_all_03_lock_5
+  rotate: true
+  xy: 568, 369
+  size: 161, 103
+  orig: 161, 103
+  offset: 0, 0
+  index: -1
+instria_all_03_lock_6
+  rotate: true
+  xy: 673, 387
+  size: 161, 103
+  orig: 161, 103
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_1
+  rotate: false
+  xy: 1752, 83
+  size: 26, 27
+  orig: 26, 27
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_10
+  rotate: true
+  xy: 1135, 108
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_11
+  rotate: true
+  xy: 1161, 108
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_12
+  rotate: false
+  xy: 1662, 40
+  size: 28, 29
+  orig: 28, 29
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_13
+  rotate: false
+  xy: 1780, 56
+  size: 26, 27
+  orig: 26, 27
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_14
+  rotate: true
+  xy: 1808, 57
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_15
+  rotate: true
+  xy: 1777, 2
+  size: 25, 24
+  orig: 25, 24
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_16
+  rotate: true
+  xy: 1178, 2
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_17
+  rotate: false
+  xy: 1641, 128
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_18
+  rotate: true
+  xy: 1692, 93
+  size: 27, 30
+  orig: 27, 30
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_19
+  rotate: true
+  xy: 1330, 278
+  size: 69, 76
+  orig: 69, 76
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_2
+  rotate: true
+  xy: 1602, 315
+  size: 47, 71
+  orig: 47, 71
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_3
+  rotate: true
+  xy: 1109, 108
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_4
+  rotate: false
+  xy: 1778, 30
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_5
+  rotate: false
+  xy: 1185, 27
+  size: 41, 40
+  orig: 41, 40
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_6
+  rotate: true
+  xy: 1752, 56
+  size: 25, 26
+  orig: 25, 26
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_7
+  rotate: false
+  xy: 1751, 29
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_8
+  rotate: false
+  xy: 860, 931
+  size: 51, 52
+  orig: 51, 52
+  offset: 0, 0
+  index: -1
+instria_all_03_mouse_9
+  rotate: true
+  xy: 1266, 647
+  size: 63, 101
+  orig: 63, 101
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_1
+  rotate: true
+  xy: 1376, 108
+  size: 50, 54
+  orig: 50, 54
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_10
+  rotate: true
+  xy: 677, 241
+  size: 144, 108
+  orig: 144, 108
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_11
+  rotate: false
+  xy: 1106, 381
+  size: 83, 40
+  orig: 83, 40
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_12
+  rotate: false
+  xy: 1107, 313
+  size: 78, 66
+  orig: 78, 66
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_13
+  rotate: false
+  xy: 955, 72
+  size: 59, 59
+  orig: 59, 59
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_14
+  rotate: false
+  xy: 1642, 1056
+  size: 123, 104
+  orig: 123, 104
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_15
+  rotate: true
+  xy: 1526, 376
+  size: 64, 88
+  orig: 64, 88
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_16
+  rotate: true
+  xy: 1600, 676
+  size: 59, 79
+  orig: 59, 79
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_17
+  rotate: false
+  xy: 320, 95
+  size: 109, 168
+  orig: 109, 168
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_18
+  rotate: false
+  xy: 1119, 783
+  size: 157, 150
+  orig: 157, 150
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_19
+  rotate: true
+  xy: 1484, 271
+  size: 67, 39
+  orig: 67, 39
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_2
+  rotate: false
+  xy: 1699, 777
+  size: 92, 70
+  orig: 92, 70
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_20
+  rotate: false
+  xy: 1369, 615
+  size: 96, 60
+  orig: 96, 60
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_21
+  rotate: true
+  xy: 1594, 259
+  size: 54, 65
+  orig: 54, 65
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_22
+  rotate: true
+  xy: 778, 394
+  size: 154, 76
+  orig: 154, 76
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_23
+  rotate: false
+  xy: 787, 243
+  size: 80, 149
+  orig: 80, 149
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_3
+  rotate: false
+  xy: 752, 77
+  size: 32, 59
+  orig: 32, 59
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_4
+  rotate: true
+  xy: 1439, 137
+  size: 32, 52
+  orig: 32, 52
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_5
+  rotate: false
+  xy: 1233, 98
+  size: 41, 35
+  orig: 41, 35
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_6
+  rotate: true
+  xy: 1386, 228
+  size: 38, 61
+  orig: 38, 61
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_7
+  rotate: true
+  xy: 1523, 220
+  size: 39, 59
+  orig: 39, 59
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_8
+  rotate: true
+  xy: 1641, 174
+  size: 45, 50
+  orig: 45, 50
+  offset: 0, 0
+  index: -1
+instria_all_03_paper_9
+  rotate: true
+  xy: 283, 265
+  size: 122, 152
+  orig: 122, 152
+  offset: 0, 0
+  index: -1
+instria_all_03_portal_1
+  rotate: false
+  xy: 2, 210
+  size: 125, 515
+  orig: 125, 515
+  offset: 0, 0
+  index: -1
+instria_all_03_portal_2
+  rotate: true
+  xy: 373, 1085
+  size: 75, 513
+  orig: 75, 513
+  offset: 0, 0
+  index: -1
+instria_all_03_portal_3
+  rotate: true
+  xy: 860, 985
+  size: 98, 325
+  orig: 98, 325
+  offset: 0, 0
+  index: -1
+instria_all_03_prop_1
+  rotate: false
+  xy: 1602, 974
+  size: 108, 80
+  orig: 108, 80
+  offset: 0, 0
+  index: -1
+instria_all_03_prop_2
+  rotate: false
+  xy: 1604, 822
+  size: 93, 52
+  orig: 93, 52
+  offset: 0, 0
+  index: -1
+instria_all_03_prop_3
+  rotate: false
+  xy: 1319, 173
+  size: 62, 49
+  orig: 62, 49
+  offset: 0, 0
+  index: -1
+instria_all_03_prop_4
+  rotate: false
+  xy: 1761, 205
+  size: 55, 34
+  orig: 55, 34
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_1
+  rotate: false
+  xy: 1119, 935
+  size: 59, 48
+  orig: 59, 48
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_10
+  rotate: false
+  xy: 1253, 246
+  size: 67, 39
+  orig: 67, 39
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_11
+  rotate: false
+  xy: 1783, 602
+  size: 56, 45
+  orig: 56, 45
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_12
+  rotate: false
+  xy: 1742, 112
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_2
+  rotate: false
+  xy: 1252, 472
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_3
+  rotate: true
+  xy: 1701, 429
+  size: 84, 77
+  orig: 84, 77
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_4
+  rotate: true
+  xy: 1777, 722
+  size: 39, 63
+  orig: 39, 63
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_5
+  rotate: false
+  xy: 1408, 319
+  size: 72, 70
+  orig: 72, 70
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_6
+  rotate: true
+  xy: 1438, 454
+  size: 74, 93
+  orig: 74, 93
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_7
+  rotate: true
+  xy: 1109, 133
+  size: 78, 64
+  orig: 78, 64
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_8
+  rotate: true
+  xy: 1525, 261
+  size: 62, 67
+  orig: 62, 67
+  offset: 0, 0
+  index: -1
+instria_all_03_tail_9
+  rotate: true
+  xy: 956, 133
+  size: 78, 80
+  orig: 78, 80
+  offset: 0, 0
+  index: -1
+instria_all_03_wing_1
+  rotate: false
+  xy: 1496, 166
+  size: 54, 52
+  orig: 54, 52
+  offset: 0, 0
+  index: -1
+instria_all_03_wing_2
+  rotate: false
+  xy: 1675, 315
+  size: 67, 43
+  orig: 67, 43
+  offset: 0, 0
+  index: -1
+instria_all_03_wing_3
+  rotate: false
+  xy: 869, 72
+  size: 84, 75
+  orig: 84, 75
+  offset: 0, 0
+  index: -1
+instria_all_03_wing_4
+  rotate: false
+  xy: 162, 2
+  size: 54, 37
+  orig: 54, 37
+  offset: 0, 0
+  index: -1

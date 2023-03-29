@@ -6,49 +6,67 @@
         <dict>
             <key>adventure_exploration.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,283},{410,522}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{410,522}</string>
-                <key>spriteSourceSize</key>
-                <string>{410,522}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{410,522}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{410,522}}</string>
+                <key>sourceSize</key>
+                <string>{410,522}</string>
             </dict>
             <key>adventure_scenario.png</key>
             <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
+                <key>frame</key>
+                <string>{{2,807},{410,522}}</string>
+                <key>offset</key>
                 <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{410,522}</string>
-                <key>spriteSourceSize</key>
-                <string>{410,522}</string>
-                <key>textureRect</key>
-                <string>{{1,525},{410,522}}</string>
-                <key>textureRotated</key>
+                <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{410,522}}</string>
+                <key>sourceSize</key>
+                <string>{410,522}</string>
+            </dict>
+            <key>adventure_story_dungeon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,1331},{410,522}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{410,522}}</string>
+                <key>sourceSize</key>
+                <string>{410,522}</string>
+            </dict>
+            <key>adventure_story_dungeon_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{279,506}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{1,1},{279,506}}</string>
+                <key>sourceSize</key>
+                <string>{281,508}</string>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>3</integer>
-            <key>pixelFormat</key>
-            <string>RGBA8888</string>
-            <key>premultiplyAlpha</key>
-            <false/>
+            <integer>2</integer>
             <key>realTextureFileName</key>
             <string>battle_menu_adventure.png</string>
             <key>size</key>
-            <string>{412,1048}</string>
+            <string>{510,1855}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f9b9d96c1e8dc717fd982d6e09568c66:5181f104a6796c1a0f70d7061ed421cc:f198d4ae7f9567a6d05c74ca56856983$</string>
+            <string>$TexturePacker:SmartUpdate:3e2e5947571c5fe125e93a4ec9c9b145:7ed35f8e52e1afb85e873005f471b923:f198d4ae7f9567a6d05c74ca56856983$</string>
             <key>textureFileName</key>
             <string>battle_menu_adventure.png</string>
         </dict>

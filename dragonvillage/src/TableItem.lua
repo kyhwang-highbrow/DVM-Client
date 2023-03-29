@@ -95,7 +95,9 @@ ITEM_ID_MAP['medal_manus'] = 700902
 ITEM_ID_MAP['max_fixed_ticket'] = 704901
 ITEM_ID_MAP['opt_keep_ticket'] = 704902
 
-
+-- 스토리 던전 이벤트 티켓, 토큰
+ITEM_ID_MAP['origingoddragon_ticket'] = 700821
+ITEM_ID_MAP['origingoddragon_token'] = 700822
 
 -- 특성 재료
 ITEM_ID_MAP['mastery_material_02'] = 741021

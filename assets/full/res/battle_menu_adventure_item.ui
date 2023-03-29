@@ -330,7 +330,7 @@
 								rotation = 0.000000;
 								visible = true;
 								screen_ui = 0;
-								lua_name = 'dragonNode';
+								lua_name = 'dragonIconNode';
 							};
 							type = 'ClippingNode';
 							ui_name = '';

@@ -1354,7 +1354,7 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = false;
+						visible = true;
 						screen_ui = 0;
 						lua_name = '';
 						color = { 81; 63; 47; };
@@ -1434,7 +1434,7 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						screen_ui = 0;
 						lua_name = 'GlobalNewSprite';
 						file_name = 'ui/frames/server_frame_new.png';
@@ -1744,7 +1744,7 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						screen_ui = 0;
 						lua_name = 'serverRewardMenu';
 					};

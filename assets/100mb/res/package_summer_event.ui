@@ -85,7 +85,7 @@
 					text = '청약 철회는 구매일로부터 7일 이내에 가능합니다. (단 사용했을 경우 청약철회 불가)\n법정 대리인의 동의를 받지않은 미성년자의 거래는 취소할 수 있습니다. 자세히보기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 170; 130; 70; };
+					color = { 150; 60; 60; };
 					opacity = 255;
 					dimension_width = 700;
 					dimension_height = 50;
@@ -108,7 +108,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = 3.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
@@ -150,7 +150,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 42;
-				text = '추천 패키지';
+				text = '봄 맞이 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -163,9 +163,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = false;
 				stroke_tickness = 2.000000;
-				stroke_color = { 15; 90; 90; };
+				stroke_color = { 200; 70; 70; };
 				has_shadow = true;
-				shadow_color = { 15; 90; 90; };
+				shadow_color = { 200; 70; 70; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
@@ -1383,7 +1383,7 @@
 				ui_name = '';
 				flag = '';
 				x = -300.000000;
-				y = 170.000000;
+				y = 175.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1412,9 +1412,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 106; 106; };
+				stroke_color = { 200; 70; 70; };
 				has_shadow = false;
-				shadow_color = { 0; 106; 106; };
+				shadow_color = { 200; 70; 70; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -1427,7 +1427,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = 170.000000;
+				y = 175.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1456,9 +1456,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 106; 106; };
+				stroke_color = { 200; 70; 70; };
 				has_shadow = false;
-				shadow_color = { 0; 106; 106; };
+				shadow_color = { 200; 70; 70; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -1471,7 +1471,7 @@
 				ui_name = '';
 				flag = '';
 				x = 300.000000;
-				y = 170.000000;
+				y = 175.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1500,9 +1500,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 106; 106; };
+				stroke_color = { 200; 70; 70; };
 				has_shadow = false;
-				shadow_color = { 0; 106; 106; };
+				shadow_color = { 200; 70; 70; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;

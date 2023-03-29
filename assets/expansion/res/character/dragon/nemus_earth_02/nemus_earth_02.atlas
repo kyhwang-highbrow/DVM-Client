@@ -1,0 +1,321 @@
+
+nemus_earth_02.png
+size: 2010,576
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_nemusl_all_03_effect_01
+  rotate: false
+  xy: 984, 117
+  size: 177, 178
+  orig: 177, 178
+  offset: 0, 0
+  index: -1
+effect_nemusl_all_03_effect_02
+  rotate: false
+  xy: 1163, 117
+  size: 187, 188
+  orig: 187, 188
+  offset: 0, 0
+  index: -1
+effect_particle
+  rotate: false
+  xy: 586, 6
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+effect_ring
+  rotate: false
+  xy: 1460, 328
+  size: 243, 246
+  orig: 243, 246
+  offset: 0, 0
+  index: -1
+effect_sphere
+  rotate: false
+  xy: 1052, 3
+  size: 111, 112
+  orig: 111, 112
+  offset: 0, 0
+  index: -1
+nemusl_all_03_bird_01
+  rotate: true
+  xy: 478, 105
+  size: 108, 103
+  orig: 108, 103
+  offset: 0, 0
+  index: -1
+nemusl_all_03_bird_02
+  rotate: false
+  xy: 583, 107
+  size: 190, 106
+  orig: 190, 106
+  offset: 0, 0
+  index: -1
+nemusl_all_03_bird_03
+  rotate: false
+  xy: 1775, 2
+  size: 73, 80
+  orig: 73, 80
+  offset: 0, 0
+  index: -1
+nemusl_all_03_body_01
+  rotate: false
+  xy: 807, 297
+  size: 214, 277
+  orig: 214, 277
+  offset: 0, 0
+  index: -1
+nemusl_all_03_body_02
+  rotate: false
+  xy: 1799, 200
+  size: 83, 141
+  orig: 83, 141
+  offset: 0, 0
+  index: -1
+nemusl_all_03_body_03
+  rotate: false
+  xy: 1790, 343
+  size: 85, 146
+  orig: 85, 146
+  offset: 0, 0
+  index: -1
+nemusl_all_03_body_04
+  rotate: true
+  xy: 1850, 2
+  size: 80, 65
+  orig: 80, 65
+  offset: 0, 0
+  index: -1
+nemusl_all_03_body_05
+  rotate: false
+  xy: 1689, 9
+  size: 84, 150
+  orig: 84, 150
+  offset: 0, 0
+  index: -1
+nemusl_all_03_body_06
+  rotate: true
+  xy: 1165, 4
+  size: 111, 200
+  orig: 111, 200
+  offset: 0, 0
+  index: -1
+nemusl_all_03_fingers_01
+  rotate: false
+  xy: 1917, 4
+  size: 91, 78
+  orig: 91, 78
+  offset: 0, 0
+  index: -1
+nemusl_all_03_fingers_02
+  rotate: false
+  xy: 2, 6
+  size: 90, 58
+  orig: 90, 58
+  offset: 0, 0
+  index: -1
+nemusl_all_03_fingers_03
+  rotate: false
+  xy: 715, 7
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+nemusl_all_03_fingers_04
+  rotate: true
+  xy: 1884, 423
+  size: 66, 96
+  orig: 66, 96
+  offset: 0, 0
+  index: -1
+nemusl_all_03_fingers_05
+  rotate: false
+  xy: 193, 12
+  size: 42, 52
+  orig: 42, 52
+  offset: 0, 0
+  index: -1
+nemusl_all_03_fingers_06
+  rotate: false
+  xy: 807, 244
+  size: 47, 51
+  orig: 47, 51
+  offset: 0, 0
+  index: -1
+nemusl_all_03_fingers_07
+  rotate: true
+  xy: 856, 246
+  size: 49, 43
+  orig: 49, 43
+  offset: 0, 0
+  index: -1
+nemusl_all_03_fingers_08
+  rotate: false
+  xy: 1877, 346
+  size: 72, 75
+  orig: 72, 75
+  offset: 0, 0
+  index: -1
+nemusl_all_03_head_01
+  rotate: false
+  xy: 1522, 152
+  size: 139, 174
+  orig: 139, 174
+  offset: 0, 0
+  index: -1
+nemusl_all_03_head_02
+  rotate: true
+  xy: 237, 13
+  size: 51, 125
+  orig: 51, 125
+  offset: 0, 0
+  index: -1
+nemusl_all_03_leaf_01
+  rotate: false
+  xy: 1884, 190
+  size: 68, 70
+  orig: 68, 70
+  offset: 0, 0
+  index: -1
+nemusl_all_03_leaf_02
+  rotate: true
+  xy: 146, 12
+  size: 52, 45
+  orig: 52, 45
+  offset: 0, 0
+  index: -1
+nemusl_all_03_leaf_03
+  rotate: false
+  xy: 1352, 133
+  size: 168, 190
+  orig: 168, 190
+  offset: 0, 0
+  index: -1
+nemusl_all_03_leaf_04
+  rotate: true
+  xy: 775, 112
+  size: 117, 127
+  orig: 117, 127
+  offset: 0, 0
+  index: -1
+nemusl_all_03_leaf_05
+  rotate: true
+  xy: 1884, 262
+  size: 82, 91
+  orig: 82, 91
+  offset: 0, 0
+  index: -1
+nemusl_all_03_leaf_06
+  rotate: false
+  xy: 94, 7
+  size: 50, 57
+  orig: 50, 57
+  offset: 0, 0
+  index: -1
+nemusl_all_03_rntmf_01
+  rotate: true
+  xy: 1367, 16
+  size: 115, 93
+  orig: 115, 93
+  offset: 0, 0
+  index: -1
+nemusl_all_03_tail_01
+  rotate: true
+  xy: 1023, 307
+  size: 267, 239
+  orig: 267, 239
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_01
+  rotate: false
+  xy: 269, 105
+  size: 207, 469
+  orig: 207, 469
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_02
+  rotate: true
+  xy: 1775, 84
+  size: 75, 231
+  orig: 75, 231
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_03
+  rotate: false
+  xy: 1705, 355
+  size: 83, 219
+  orig: 83, 219
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_07
+  rotate: false
+  xy: 904, 112
+  size: 78, 183
+  orig: 78, 183
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_08
+  rotate: true
+  xy: 1790, 491
+  size: 83, 217
+  orig: 83, 217
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_09
+  rotate: false
+  xy: 478, 215
+  size: 204, 359
+  orig: 204, 359
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_10
+  rotate: false
+  xy: 2, 66
+  size: 265, 508
+  orig: 265, 508
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_14
+  rotate: true
+  xy: 815, 6
+  size: 104, 235
+  orig: 104, 235
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_15
+  rotate: true
+  xy: 1462, 22
+  size: 109, 225
+  orig: 109, 225
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_17
+  rotate: false
+  xy: 684, 231
+  size: 121, 343
+  orig: 121, 343
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_1818
+  rotate: false
+  xy: 1264, 325
+  size: 194, 249
+  orig: 194, 249
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_19
+  rotate: true
+  xy: 364, 2
+  size: 101, 220
+  orig: 101, 220
+  offset: 0, 0
+  index: -1
+nemusl_all_03_wing_20
+  rotate: false
+  xy: 1663, 161
+  size: 134, 165
+  orig: 134, 165
+  offset: 0, 0
+  index: -1

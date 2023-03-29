@@ -35,33 +35,6 @@
 			};
 			[2] =
 			{
-				type = 'Visual';
-				ui_name = '';
-				flag = '';
-				x = -208.000000;
-				y = -33.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 0;
-				height = 0;
-				scale_x = 0.450000;
-				scale_y = 0.450000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				screen_ui = 0;
-				lua_name = '';
-				file_name = 'ui/a2d/package_effect/package_effect.vrp';
-				auto_play = true;
-				is_repeat = true;
-				visual_id = 'group;pack_idle_01';
-				color = { 255; 255; 255; };
-				opacity = 255;
-			};
-			[3] =
-			{
 				[1] =
 				{
 					type = 'Visual';
@@ -93,7 +66,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = 2.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -112,34 +85,7 @@
 				alpha_threshold = 1.000000;
 				is_invert = false;
 			};
-			[4] =
-			{
-				type = 'Visual';
-				ui_name = '';
-				flag = '';
-				x = -208.000000;
-				y = -115.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 0;
-				height = 0;
-				scale_x = 0.650000;
-				scale_y = 0.650000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				screen_ui = 0;
-				lua_name = '';
-				file_name = 'item/egg/egg_high_legend/egg_high_legend.vrp';
-				auto_play = true;
-				is_repeat = true;
-				visual_id = 'group;egg_move';
-				color = { 255; 255; 255; };
-				opacity = 255;
-			};
-			[5] =
+			[3] =
 			{
 				[1] =
 				{
@@ -209,7 +155,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[6] =
+			[4] =
 			{
 				[1] =
 				{
@@ -423,7 +369,7 @@
 				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
-			[7] =
+			[5] =
 			{
 				[1] =
 				{
@@ -495,7 +441,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[8] =
+			[6] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -521,7 +467,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[9] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -538,7 +484,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				screen_ui = 0;
 				lua_name = 'itemLabel5';
 				font_name = 'font/common_font_01.ttf';
@@ -565,13 +511,13 @@
 				use_auto_fontsize = false;
 				has_bold = false;
 			};
-			[10] =
+			[8] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = 128.000000;
-				y = -142.000000;
+				x = 155.000000;
+				y = -150.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -609,13 +555,13 @@
 				use_auto_fontsize = false;
 				has_bold = false;
 			};
-			[11] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = 282.000000;
-				y = 36.000000;
+				x = 0.000000;
+				y = -150.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -653,13 +599,13 @@
 				use_auto_fontsize = false;
 				has_bold = false;
 			};
-			[12] =
+			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = 128.000000;
-				y = 36.000000;
+				x = -155.000000;
+				y = -150.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -697,18 +643,72 @@
 				use_auto_fontsize = false;
 				has_bold = false;
 			};
+			[11] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				flag = '';
+				x = -10.000000;
+				y = 76.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 0.500000;
+				scale_y = 0.500000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = '';
+				file_name = 'ui/a2d/package_effect/package_effect.vrp';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;pack_idle_01';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[12] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				flag = '';
+				x = 0.000000;
+				y = 7.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 0.500000;
+				scale_y = 0.500000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = '';
+				file_name = 'item/egg/egg_high_legend/egg_high_legend.vrp';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;egg_move';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
 			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				flag = '';
-				x = -210.000000;
-				y = -171.000000;
+				x = 0.000000;
+				y = 12.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 300;
-				height = 90;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -725,7 +725,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 300;
-				dimension_height = 90;
+				dimension_height = 60;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -807,7 +807,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 42;
-				text = '달빛축제 패키지';
+				text = '새해맞이 패키지 1';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
