@@ -57,6 +57,13 @@ function ServerData_StoryDungeonEvent:getStoryDungeonStageIdList(season_id)
 end
 
 -------------------------------------
+-- function isStoryDungeonEventDoing
+-------------------------------------
+function ServerData_StoryDungeonEvent:isStoryDungeonEventDoing()
+    return self:getStoryDungeonSeason() ~= nil    
+end
+
+-------------------------------------
 -- function isOpenStage
 -------------------------------------
 function ServerData_StoryDungeonEvent:isOpenStage(stage_id, _season_id)
