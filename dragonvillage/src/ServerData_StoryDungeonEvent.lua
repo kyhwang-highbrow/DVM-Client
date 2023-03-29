@@ -120,7 +120,7 @@ end
 
 -------------------------------------
 -- function requestStoryDungeonInfo
--- @return ui_network
+-- @brief 이벤트 정보
 -------------------------------------
 function ServerData_StoryDungeonEvent:requestStoryDungeonInfo(cb_func, fail_cb)
     local uid = g_userData:get('uid')
@@ -141,6 +141,34 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonInfo(cb_func, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/story_dungeon/info')
     ui_network:setParam('uid', uid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
+-- function requestStoryDungeonGacha
+-- @brief 소환하기
+-------------------------------------
+function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_cnt, cb_func, fail_cb)
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+        if cb_func ~= nil then
+            cb_func()
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/summon/story_dungeon')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('sals', false)
+    ui_network:setParam('season_id', season_id)
+    ui_network:setParam('draw_cnt', draw_cnt)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

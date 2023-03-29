@@ -60,7 +60,7 @@ end
 -------------------------------------
 function UI_StoryDungeonEventShop:initUI() 
     local vars = self.vars
-    local did =  120101--TableItem:getDidByItemId(item_id)
+    local did =  TableStoryDungeonEvent:getStoryDungeonEventDid(self.m_seasonId)
     local table_dragon = TableDragon()
 
     local attr = table_dragon:getDragonAttr(did)
@@ -96,12 +96,12 @@ function UI_StoryDungeonEventShop:initUI()
 
     do -- 드래곤 카드
         local dragon_card = MakeSimpleDragonCard(did, {})
-        dragon_card.root:setScale(86/150)
+        dragon_card.root:setScale(100/150)
         vars['dragonIconNode']:removeAllChildren()
         vars['dragonIconNode']:addChild(dragon_card.root)
         -- 이벤트 소환 바로 가기
         dragon_card.vars['clickBtn']:registerScriptTapHandler(function() 
-            cclog('재료 카드 클릭')
+            self:click_gachaBtn()
         end)
     end
 end
@@ -198,6 +198,14 @@ end
 function UI_StoryDungeonEventShop:onFocus() 
 end
 
+-------------------------------------
+-- function click_gachaBtn
+-------------------------------------
+function UI_StoryDungeonEventShop:click_gachaBtn()
+    require('UI_EventPopupTab_StoryDungeonGacha')
+    UI_EventPopupTab_StoryDungeonGacha.open(self.m_seasonId)
+ end
+ 
 -------------------------------------
 -- function click_exitBtn
 -- @brief pure virtual function of ITopUserInfo_EventListener 
