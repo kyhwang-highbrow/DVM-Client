@@ -36,3 +36,27 @@ function TableStoryDungeonEvent:getStoryDungeonSeasonCode(season_id)
 
     return Str(self:getValue(season_id, 'season_code'))
 end
+
+-------------------------------------
+-- function getStoryDungeonEventTicketKey
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonEventTicketKey(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local code = self:getStoryDungeonSeasonCode(season_id)
+    return 'ticket_event_' .. code 
+end
+
+-------------------------------------
+-- function getStoryDungeonEventTokentKey
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonEventTokentKey(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local code = self:getStoryDungeonSeasonCode(season_id)
+    return 'token_event_' .. code
+end

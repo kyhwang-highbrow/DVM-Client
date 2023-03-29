@@ -50,7 +50,7 @@ end
 function UI_StoryDungeonEventShop:initParentVariable()
     self.m_uiName = 'UI_StoryDungeonEventShop'
     self.m_titleStr = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
-    self.m_subCurrency = 'medal_angra'
+    self.m_subCurrency = TableStoryDungeonEvent:getStoryDungeonEventTokentKey(self.m_seasonId)
     self.m_bVisible = true
     self.m_bUseExitBtn = true
 end

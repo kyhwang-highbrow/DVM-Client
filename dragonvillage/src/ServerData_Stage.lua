@@ -158,6 +158,10 @@ function ServerData_Stage:getStageName(stage_id)
     elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
 		--name = TABLE:get('stage_data')[stage_id]['t_name']
         name = g_dmgateData:getStageName(stage_id)
+
+    -- 스테이지
+    else
+        name = Str(TableStageData():getValue(stage_id, 't_name'))
     end
 
     return name
