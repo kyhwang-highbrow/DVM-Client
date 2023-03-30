@@ -62,7 +62,7 @@ function UI_EventPopupTab_StoryDungeonGacha:makeGachaMap()
         ['bundle'] = false,
         ['draw_cnt'] = 10,
         ['price_type'] = self.m_ticketItemKey,
-        ['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE,
+        ['price'] = 10,
     }
     
     local t_data_1 = {
@@ -72,10 +72,10 @@ function UI_EventPopupTab_StoryDungeonGacha:makeGachaMap()
         ['ui_type'] = 'cash',
         ['draw_cnt'] = 1,
         ['bundle'] = false,
-        ['is_ad'] = true,
+        ['is_ad'] = false,
         ['price_type'] = self.m_ticketItemKey,
-        ['price'] = ServerData_Hatchery.CASH__SUMMON_PRICE,
-        ['free_target'] = true --무료 뽑기 대상 알
+        ['price'] = 1,
+        ['free_target'] = false --무료 뽑기 대상 알
     }
 
     gacha_map[1] = t_data_1
@@ -98,7 +98,6 @@ function UI_EventPopupTab_StoryDungeonGacha:initUI()
     local role_type = table_dragon:getDragonRole(did)
     local rarity_type = 'legend'
     local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
-
 
 
     do -- 드래곤 스파인
@@ -171,6 +170,20 @@ function UI_EventPopupTab_StoryDungeonGacha:refresh()
 end
 
 -------------------------------------
+-- function subsequentSummons
+-- @brief 이어서 뽑기 설정
+-------------------------------------
+function UI_EventPopupTab_StoryDungeonGacha:subsequentSummons(gacha_result_ui, count)
+    local vars = gacha_result_ui.vars
+    if (not vars['againBtn']) then return end
+
+	-- 다시하기 버튼 등록
+    vars['againBtn']:registerScriptTapHandler(function()
+        gacha_result_ui:close()
+        self:click_summonBtn(count) -- is_again
+    end)
+end
+-------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_EventPopupTab_StoryDungeonGacha:click_exitBtn()
@@ -195,7 +208,7 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count)
 
     local ok_cb = function ()
         local success_cb = function (ret)
-            local gacha_type = 'cash'
+            local gacha_type = self.m_ticketItemKey
             local l_dragon_list = ret['added_dragons']
             local l_slime_list = ret['added_slimes']
             local egg_id = t_gacha['egg_id']
@@ -207,11 +220,12 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count)
                 self:refresh()
             end
             ui:setCloseCB(close_cb)
+            self:subsequentSummons(ui, count)
         end
     
         local season_id = self.m_seasonId
         local draw_cnt = count
-      
+
         g_eventDragonStoryDungeon:requestStoryDungeonGacha(season_id, draw_cnt, success_cb)
     end
 

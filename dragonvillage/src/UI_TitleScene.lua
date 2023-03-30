@@ -1270,6 +1270,15 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+        -- 스토리 던전 정보 받기
+        co:work()
+        self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...') .. '(4)')
+        local ui_network = g_eventDragonStoryDungeon:requestStoryDungeonInfo(co.NEXT, fail_cb)
+        if ui_network then
+            ui_network:hideLoading()
+        end
+        if co:waitWork() then return end
+
 		-- /users/title : title 통합 api
 		co:work()
 		self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))
