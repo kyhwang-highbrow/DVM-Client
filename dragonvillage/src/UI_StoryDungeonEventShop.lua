@@ -143,7 +143,6 @@ function UI_StoryDungeonEventShop:initTableView()
     local function create_callback(ui, data)
         ui.m_parent = self
     end
-
     
     -- create TableView
     local table_view = UIC_TableViewTD(self.m_listNode)
@@ -157,8 +156,9 @@ function UI_StoryDungeonEventShop:initTableView()
 
     self.m_productTableview = table_view ]]
 
+    local shop_tab_key = TableStoryDungeonEvent:getStoryDungeonEventShopTabKey(self.m_seasonId)
     local list_table_node = self.m_listNode
-    local l_item_list = g_shopDataNew:getProductList('st') 
+    local l_item_list = g_shopDataNew:getProductList(shop_tab_key)
 
     -- 생성 콜백
 	local function create_cb_func(ui, data)

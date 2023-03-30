@@ -6,6 +6,8 @@ local PARENT = UI--class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_EventPopupTab_StoryDungeonGacha = class(PARENT,{
         m_eventVersion = '',
         m_seasonId = 'string',
+        m_ticketItemKey = 'string',
+        m_gachaMap = 'table',
     })
 
 -------------------------------------
@@ -14,7 +16,10 @@ UI_EventPopupTab_StoryDungeonGacha = class(PARENT,{
 function UI_EventPopupTab_StoryDungeonGacha:init(season_id)
     self.m_eventVersion = nil
     self.m_seasonId = season_id
+    self.m_ticketItemKey = TableStoryDungeonEvent:getStoryDungeonEventTicketKey(self.m_seasonId)
     self.m_uiName = 'UI_EventPopupTab_StoryDungeonGacha'
+    self.m_gachaMap = self:makeGachaMap()
+    
     local code = TableStoryDungeonEvent:getStoryDungeonSeasonCode(season_id)
     self:load(string.format('story_dungeon_%s_event.ui', code))
     UIManager:open(self, UIManager.POPUP)
@@ -39,6 +44,42 @@ function UI_EventPopupTab_StoryDungeonGacha:initParentVariable()
     self.m_subCurrency = TableStoryDungeonEvent:getStoryDungeonEventTicketKey(self.m_seasonId)
     self.m_bVisible = true
     self.m_bUseExitBtn = true
+end
+
+-------------------------------------
+-- function makeGachaMap
+-------------------------------------
+function UI_EventPopupTab_StoryDungeonGacha:makeGachaMap()
+    local gacha_map = {}
+
+    local t_data_1 = {
+        ['name'] = Str('고급 소환 10회'),
+        ['egg_id'] = TableItem:getItemIDFromItemType(self.m_ticketItemKey),
+        ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
+        ['ui_type'] = 'cash11',
+        ['bundle'] = true,
+        ['draw_cnt'] = 10,
+        ['price_type'] = self.m_ticketItemKey,
+        ['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE,
+    }
+    
+    local t_data_10 = {
+        ['name'] = Str('고급 소환'),
+        ['egg_id'] = TableItem:getItemIDFromItemType(self.m_ticketItemKey),
+        ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
+        ['ui_type'] = 'cash',
+        ['draw_cnt'] = 1,
+        ['bundle'] = false,
+        ['is_ad'] = true,
+        ['price_type'] = self.m_ticketItemKey,
+        ['price'] = ServerData_Hatchery.CASH__SUMMON_PRICE,
+        ['free_target'] = true --무료 뽑기 대상 알
+    }
+
+    gacha_map[1] = t_data_1
+    gacha_map[10] = t_data_10
+    
+    return gacha_map
 end
 
 -------------------------------------
@@ -73,10 +114,14 @@ function UI_EventPopupTab_StoryDungeonGacha:initUI()
         dragon_card.root:setScale(100/150)
         vars['ceilingIconNode']:removeAllChildren()
         vars['ceilingIconNode']:addChild(dragon_card.root)
---[[         -- 이벤트 소환 바로 가기
-        dragon_card.vars['clickBtn']:registerScriptTapHandler(function() 
-            self:click_gachaBtn()
-        end) ]]
+        dragon_card.vars['clickBtn']:setEnabled(false)
+    end
+
+    do -- 상단 재화
+        local currency = TableStoryDungeonEvent:getStoryDungeonEventTicketKey(self.m_seasonId)
+        local ui = UI_GoodsInfo(currency)
+        vars['ticketNode']:removeAllChildren()
+        vars['ticketNode']:addChild(ui.root)
     end
 end
 
@@ -101,16 +146,18 @@ end
 -------------------------------------
 function UI_EventPopupTab_StoryDungeonGacha:refresh()
     local vars = self.vars
-    --local version = self.m_eventVersion
 
-    local goods_type = TableStoryDungeonEvent:getStoryDungeonEventTicketKey(self.m_seasonId)
+    local goods_type = self.m_ticketItemKey
     local value = g_userData:get(goods_type) or 0
 
-    vars['ticketLabel_txt_10']:setStringArg(math_clamp(value, 2, 10))
-    vars['ticketLabel_10']:setStringArg(math_clamp(value, 2, 10))
+    vars['ticketLabel_txt_10']:setStringArg(10)   
+    vars['ticketLabel_txt_1']:setStringArg(1)
 
-    vars['summonBtn_1']:setEnabled( value > 0 )
-    vars['summonBtn_10']:setEnabled( value > 1 )
+    vars['ticketLabel_1']:setString(math_clamp(value, 0, 1))
+    vars['ticketLabel_10']:setString(math_clamp(value, 2, 10))
+
+    --vars['summonBtn_1']:setEnabled( value > 0 )
+    --vars['summonBtn_10']:setEnabled( value > 1 )
 end
 
 -------------------------------------
@@ -133,13 +180,27 @@ end
 -- @brief 소환
 -------------------------------------
 function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count)
-    local success_cb = function (ret)
+    local t_gacha = self.m_gachaMap[count]   
+    local msg = Str('"{1}" 진행하시겠습니까?', t_gacha['name'])
+
+    local ok_cb = function ()
+        local success_cb = function (ret)
+            local gacha_type = 'cash'
+            local l_dragon_list = ret['added_dragons']
+            local l_slime_list = ret['added_slimes']
+            local egg_id = t_gacha['egg_id']
+            local egg_res = t_gacha['egg_res']
+            local added_mileage = ret['added_mileage'] or 0
+            local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_gacha, added_mileage, 0)
+        end
+    
+        local season_id = self.m_seasonId
+        local draw_cnt = count
+      
+        g_eventDragonStoryDungeon:requestStoryDungeonGacha(season_id, draw_cnt, success_cb)
     end
 
-    local season_id = self.m_seasonId
-    local draw_cnt = count
-
-    g_eventDragonStoryDungeon:requestStoryDungeonGacha(season_id, draw_cnt, success_cb)
+    MakeSimplePopup_SummonConfirm(self.m_ticketItemKey, count, msg, ok_cb)
 end
 
 -------------------------------------

@@ -96,8 +96,8 @@ ITEM_ID_MAP['max_fixed_ticket'] = 704901
 ITEM_ID_MAP['opt_keep_ticket'] = 704902
 
 -- 스토리 던전 이벤트 티켓, 토큰
-ITEM_ID_MAP['token_event_origingoddragon'] = 700821
-ITEM_ID_MAP['ticket_event_origingoddragon'] = 700822
+ITEM_ID_MAP['token_story_dungeon'] = 700821
+ITEM_ID_MAP['ticket_story_dungeon'] = 700822
 
 -- 특성 재료
 ITEM_ID_MAP['mastery_material_02'] = 741021
@@ -123,7 +123,6 @@ ITEM_ID_MAP['mastery_material_legend_light'] = 741144
 ITEM_ID_MAP['mastery_material_rare_dark'] = 741125
 ITEM_ID_MAP['mastery_material_hero_dark'] = 741135
 ITEM_ID_MAP['mastery_material_legend_dark'] = 741145
-
 
 
 local ITEM_TYPE_MAP = {}

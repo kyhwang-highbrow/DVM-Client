@@ -52,22 +52,36 @@ end
 -- function getStoryDungeonEventTicketKey
 -------------------------------------
 function TableStoryDungeonEvent:getStoryDungeonEventTicketKey(season_id)
-    if (self == THIS) then
+    return 'ticket_story_dungeon'
+--[[     if (self == THIS) then
         self = THIS()
     end
 
     local code = self:getStoryDungeonSeasonCode(season_id)
-    return 'ticket_event_' .. code 
+    return 'ticket_event_' .. code  ]]
 end
 
 -------------------------------------
 -- function getStoryDungeonEventTokentKey
 -------------------------------------
 function TableStoryDungeonEvent:getStoryDungeonEventTokentKey(season_id)
+    return 'token_story_dungeon'
+--[[     if (self == THIS) then
+        self = THIS()
+    end
+
+    local code = self:getStoryDungeonSeasonCode(season_id)
+    return 'token_event_' .. code ]]
+end
+
+-------------------------------------
+-- function getStoryDungeonEventShopTabKey
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonEventShopTabKey(season_id)
     if (self == THIS) then
         self = THIS()
     end
 
     local code = self:getStoryDungeonSeasonCode(season_id)
-    return 'token_event_' .. code
+    return 'sd_' .. code
 end

@@ -40,6 +40,8 @@ function ServerData_Shop:init(server_data)
     self.m_dicProduct['etc'] = {}
     self.m_dicProduct['pass'] = {}
     self.m_dicProduct['dragon_skin'] = {}
+    self.m_dicProduct['sd_origingoddragon'] = {}
+
     self.m_dicBuyCnt = {}
     self.m_dicMarketPrice = {}
     self.m_dicStructMarketProduct = {}

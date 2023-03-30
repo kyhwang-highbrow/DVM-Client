@@ -209,7 +209,7 @@ function UIHelper:checkPrice(price_type, price, price_type_id)
 
     -- 다이아, 자수정, 토파즈, 마일리지, 명예, 캡슐, 골드, 우정포인트, 고대주화, 클랜코인, 캡슐코인, 용맹훈장, 이벤트 토큰
     elseif isExistValue(price_type, 'cash', 'amethyst', 'topaz', 'mileage', 'honor', 'capsule', 
-    'gold', 'fp', 'ancient', 'clancoin', 'capsule_coin', 'valor', 'event_token') then
+    'gold', 'fp', 'ancient', 'clancoin', 'capsule_coin', 'valor', 'event_token', 'token_story_dungeon') then
         local own_item_number = g_userData:get(price_type) or 0
         local item_name = TableItem:getItemNameFromItemType(price_type)
 

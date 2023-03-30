@@ -4,6 +4,8 @@
 ServerData_StoryDungeonEvent = class({
     m_serverData = 'ServerData',
     m_cachedStageIdListMap = 'table',
+    m_ceilingInfo = 'table',
+    m_ceilingMax = 'number',
 })
 
 -------------------------------------
@@ -12,6 +14,8 @@ ServerData_StoryDungeonEvent = class({
 function ServerData_StoryDungeonEvent:init(server_data)
     self.m_serverData = server_data
     self.m_cachedStageIdListMap = {}    
+    self.m_ceilingInfo = {}
+    self.m_ceilingMax = 100
 end
 
 -------------------------------------
@@ -126,6 +130,33 @@ function ServerData_StoryDungeonEvent:applyStoryDungeonSeasonInfo(t_data)
 end
 
 -------------------------------------
+-- function update_hatcheryInfo
+-- @breif 천장 정보 갱신
+-------------------------------------
+function ServerData_StoryDungeonEvent:applyPickupCeilingInfo(ret)
+    local summon_ceiling_info = ret['summon_ceiling_info']
+
+    if summon_ceiling_info then
+        self.m_ceilingInfo = summon_ceiling_info['ceiling_info']
+        self.m_ceilingMax = summon_ceiling_info['ceiling_max']
+    end
+end
+
+-------------------------------------
+-- function getStoryDungeonSeasonTokenItemType
+-------------------------------------
+function ServerData_StoryDungeonEvent:getStoryDungeonSeasonTokenItemType()
+    local season_id = self:getStoryDungeonSeason()
+
+    if season_id == nil then
+        return 
+    end
+
+    local season_code = TableStoryDungeonEvent:getStoryDungeonSeasonCode(season_id)
+    return string.format('', season_code)
+end
+
+-------------------------------------
 -- function requestStoryDungeonInfo
 -- @brief 이벤트 정보
 -------------------------------------
@@ -164,7 +195,33 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_c
 
     -- 성공 시 콜백
     local function success_cb(ret)
+        -- cash(캐시) / summon_dragon_ticket(드래곤 소환권) 갱신
         g_serverData:networkCommonRespone(ret)
+--[[         -- 추가된 마일리지
+        local after_mileage = g_userData:get('mileage')
+        local added_mileage = (after_mileage - prev_mileage)
+        ret['added_mileage'] = added_mileage ]]
+        
+        -- 드래곤들 추가
+        local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'], false)
+        g_dragonsData:applyDragonData_list(add_dragon_list)
+
+        -- 슬라임들 추가
+        g_slimesData:applySlimeData_list(ret['added_slimes'])
+
+        -- 신규 드래곤 new 뱃지 정보 저장
+        g_highlightData:saveNewDoidMap()
+
+        -- 천장 남은 횟수 정보 갱신
+        self:applyPickupCeilingInfo(ret)
+
+        --드래곤 획득 패키지 정보 갱신
+        g_getDragonPackage:applyPackageList(ret)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+
         if cb_func ~= nil then
             cb_func()
         end
