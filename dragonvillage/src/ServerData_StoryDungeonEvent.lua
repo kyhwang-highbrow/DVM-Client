@@ -6,6 +6,7 @@ ServerData_StoryDungeonEvent = class({
     m_cachedStageIdListMap = 'table',
     m_ceilingInfo = 'table',
     m_ceilingMax = 'number',
+    m_isAutomaticFarewell = 'boolean',
 })
 
 -------------------------------------
@@ -14,6 +15,7 @@ ServerData_StoryDungeonEvent = class({
 function ServerData_StoryDungeonEvent:init(server_data)
     self.m_serverData = server_data
     self.m_cachedStageIdListMap = {}    
+    self.m_isAutomaticFarewell = false
     self.m_ceilingInfo = {}
     self.m_ceilingMax = 100
 end
@@ -157,6 +159,24 @@ function ServerData_StoryDungeonEvent:getStoryDungeonSeasonTokenItemType()
 end
 
 -------------------------------------
+-- function makeAddedDragonTable
+-- @breif
+-------------------------------------
+function ServerData_StoryDungeonEvent:makeAddedDragonTable(org_list, is_bundle)
+    local result = {}
+    
+    if (not self.m_isAutomaticFarewell) or (not is_bundle) then return org_list end
+
+    for key, value in pairs(org_list) do
+        if (value['grade'] > 3) then
+            result[key] = value
+        end
+    end
+
+    return result
+end
+
+-------------------------------------
 -- function requestStoryDungeonInfo
 -- @brief 이벤트 정보
 -------------------------------------
@@ -190,7 +210,7 @@ end
 -- function requestStoryDungeonGacha
 -- @brief 소환하기
 -------------------------------------
-function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_cnt, cb_func, fail_cb)
+function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_cnt, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     -- 성공 시 콜백
@@ -207,7 +227,7 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_c
         g_dragonsData:applyDragonData_list(add_dragon_list)
 
         -- 슬라임들 추가
-        g_slimesData:applySlimeData_list(ret['added_slimes'])
+        --g_slimesData:applySlimeData_list(ret['added_slimes'])
 
         -- 신규 드래곤 new 뱃지 정보 저장
         g_highlightData:saveNewDoidMap()
@@ -220,10 +240,6 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_c
 
         if finish_cb then
             finish_cb(ret)
-        end
-
-        if cb_func ~= nil then
-            cb_func()
         end
     end
 
