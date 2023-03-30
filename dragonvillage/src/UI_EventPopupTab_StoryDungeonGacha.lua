@@ -57,7 +57,7 @@ function UI_EventPopupTab_StoryDungeonGacha:makeGachaMap()
         ['egg_id'] = TableItem:getItemIDFromItemType(self.m_ticketItemKey),
         ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
         ['ui_type'] = 'cash11',
-        ['bundle'] = true,
+        ['bundle'] = false,
         ['draw_cnt'] = 10,
         ['price_type'] = self.m_ticketItemKey,
         ['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE,
