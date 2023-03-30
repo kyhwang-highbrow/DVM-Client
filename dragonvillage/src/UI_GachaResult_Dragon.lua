@@ -288,11 +288,14 @@ function UI_GachaResult_Dragon:initEverything()
 
     if vars['ceilingNotiMenu'] and vars['ceilingNotiLabel'] and self.m_originCeilingNotiLabel then
         local struct_pickup = g_hatcheryData:getPickupStructByPickupID(self.m_pickupID)
-
         local did = struct_pickup and struct_pickup:getTargetDragonID() or nil
-
         local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
         local target_dragon_name = did and TableDragon:getChanceUpDragonName(did) or ('{@yellow}' .. Str('신화 드래곤') .. '{@default}')
+
+        if self.m_type == 'ticket_story_dungeon' then
+            left_ceiling_num = g_eventDragonStoryDungeon:getStoryDungeonSeasonGachaCeilCount()
+            target_dragon_name = TableDragon:getChanceUpDragonName(self.m_pickupID)
+        end
 
         if (not left_ceiling_num) then
             self.m_bIsVisibleCeilingInfo = false

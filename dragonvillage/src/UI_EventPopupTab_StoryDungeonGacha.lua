@@ -179,8 +179,7 @@ function UI_EventPopupTab_StoryDungeonGacha:subsequentSummons(gacha_result_ui, c
 
 	-- 다시하기 버튼 등록
     vars['againBtn']:registerScriptTapHandler(function()
-        gacha_result_ui:close()
-        self:click_summonBtn(count) -- is_again
+        self:click_summonBtn(count, gacha_result_ui) -- is_again
     end)
 end
 -------------------------------------
@@ -202,7 +201,7 @@ end
 -- function click_summonBtn
 -- @brief 소환
 -------------------------------------
-function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count)
+function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count, gacha_result_ui)
     local t_gacha = self.m_gachaMap[count]   
     local msg = Str('"{1}" 진행하시겠습니까?', t_gacha['name'])
 
@@ -214,11 +213,17 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count)
             local egg_id = t_gacha['egg_id']
             local egg_res = t_gacha['egg_res']
             local added_mileage = ret['added_mileage'] or 0
+            local pickup_id = TableStoryDungeonEvent:getStoryDungeonEventDid(self.m_seasonId)
 
-            local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_gacha, added_mileage, 0)
+            if gacha_result_ui ~= nil then
+                gacha_result_ui:close()
+            end
+
+            local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_gacha, added_mileage, pickup_id)
             local function close_cb()
                 self:refresh()
             end
+
             ui:setCloseCB(close_cb)
             self:subsequentSummons(ui, count)
         end
@@ -229,7 +234,11 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count)
         g_eventDragonStoryDungeon:requestStoryDungeonGacha(season_id, draw_cnt, success_cb)
     end
 
-    MakeSimplePopup_SummonConfirm(self.m_ticketItemKey, count, msg, ok_cb)
+    if gacha_result_ui ~= nil then
+        ok_cb()
+    else
+        MakeSimplePopup_SummonConfirm(self.m_ticketItemKey, count, msg, ok_cb)
+    end
 end
 
 -------------------------------------
