@@ -128,7 +128,19 @@ end
 -- @brief 서버에서 전달받은 데이터를 클라이언트에 적용
 -------------------------------------
 function ServerData_StoryDungeonEvent:applyStoryDungeonSeasonInfo(t_data)
-    self.m_serverData:applyServerData(t_data or {}, 'story_dungeon_stage_info')
+    if t_data['story_dungeon_stage_info'] ~= nil then
+        self.m_serverData:applyServerData(t_data['story_dungeon_stage_info'] or {}, 'story_dungeon_stage_info')
+    end
+end
+
+-------------------------------------
+-- function applyStoryDungeonSeasonGachaCeilCount
+-- @brief 서버에서 전달받은 천장 값
+-------------------------------------
+function ServerData_StoryDungeonEvent:applyStoryDungeonSeasonGachaCeilCount(t_data)
+    if t_data['story_dungeon_ceiling_count'] ~= nil then
+        self.m_serverData:applyServerData(t_data['story_dungeon_ceiling_count'] or 0, 'story_dungeon_ceiling_count')
+    end
 end
 
 -------------------------------------
@@ -142,6 +154,15 @@ function ServerData_StoryDungeonEvent:applyPickupCeilingInfo(ret)
         self.m_ceilingInfo = summon_ceiling_info['ceiling_info']
         self.m_ceilingMax = summon_ceiling_info['ceiling_max']
     end
+end
+
+-------------------------------------
+-- function getStoryDungeonSeasonGachaCeilCount
+-- @brief 서버에서 전달받은 천장 값
+-------------------------------------
+function ServerData_StoryDungeonEvent:getStoryDungeonSeasonGachaCeilCount()
+    local ceil_count = self.m_serverData:get('story_dungeon_ceiling_count') or 0
+    return ceil_count
 end
 
 -------------------------------------
@@ -187,9 +208,12 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonInfo(cb_func, fail_cb)
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
 
-        if ret['story_dungeon_stage_info'] ~= nil then
-            self:applyStoryDungeonSeasonInfo(ret['story_dungeon_stage_info'])
-        end
+        -- 스테이지 정보
+        self:applyStoryDungeonSeasonInfo(ret)
+        
+        -- 시즌 천장 정보
+        self:applyStoryDungeonSeasonGachaCeilCount(ret)
+        
 
         if cb_func ~= nil then
             cb_func()
@@ -232,8 +256,8 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_c
         -- 신규 드래곤 new 뱃지 정보 저장
         g_highlightData:saveNewDoidMap()
 
-        -- 천장 남은 횟수 정보 갱신
-        self:applyPickupCeilingInfo(ret)
+        -- 시즌 천장 정보
+        self:applyStoryDungeonSeasonGachaCeilCount(ret)
 
         --드래곤 획득 패키지 정보 갱신
         g_getDragonPackage:applyPackageList(ret)

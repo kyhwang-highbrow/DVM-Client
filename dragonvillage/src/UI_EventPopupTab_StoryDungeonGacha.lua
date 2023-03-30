@@ -8,6 +8,7 @@ UI_EventPopupTab_StoryDungeonGacha = class(PARENT,{
         m_seasonId = 'string',
         m_ticketItemKey = 'string',
         m_gachaMap = 'table',
+        m_mGoodsInfo = 'ui',
     })
 
 -------------------------------------
@@ -19,6 +20,7 @@ function UI_EventPopupTab_StoryDungeonGacha:init(season_id)
     self.m_ticketItemKey = TableStoryDungeonEvent:getStoryDungeonEventTicketKey(self.m_seasonId)
     self.m_uiName = 'UI_EventPopupTab_StoryDungeonGacha'
     self.m_gachaMap = self:makeGachaMap()
+    self.m_mGoodsInfo = nil
     
     local code = TableStoryDungeonEvent:getStoryDungeonSeasonCode(season_id)
     self:load(string.format('story_dungeon_%s_event.ui', code))
@@ -52,7 +54,7 @@ end
 function UI_EventPopupTab_StoryDungeonGacha:makeGachaMap()
     local gacha_map = {}
 
-    local t_data_1 = {
+    local t_data_10 = {
         ['name'] = Str('고급 소환 10회'),
         ['egg_id'] = TableItem:getItemIDFromItemType(self.m_ticketItemKey),
         ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
@@ -63,7 +65,7 @@ function UI_EventPopupTab_StoryDungeonGacha:makeGachaMap()
         ['price'] = ServerData_Hatchery.CASH__BUNDLE_SUMMON_PRICE,
     }
     
-    local t_data_10 = {
+    local t_data_1 = {
         ['name'] = Str('고급 소환'),
         ['egg_id'] = TableItem:getItemIDFromItemType(self.m_ticketItemKey),
         ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
@@ -97,10 +99,7 @@ function UI_EventPopupTab_StoryDungeonGacha:initUI()
     local rarity_type = 'legend'
     local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
 
-    do -- 이름
-        local dragon_name = table_dragon:getDragonName(did)
-        vars['ceilingLabel']:setStringArg(dragon_name, 1)
-    end
+
 
     do -- 드래곤 스파인
         local dragon_animator = UIC_DragonAnimator()
@@ -122,6 +121,7 @@ function UI_EventPopupTab_StoryDungeonGacha:initUI()
         local ui = UI_GoodsInfo(currency)
         vars['ticketNode']:removeAllChildren()
         vars['ticketNode']:addChild(ui.root)
+        self.m_mGoodsInfo = ui
     end
 end
 
@@ -146,6 +146,16 @@ end
 -------------------------------------
 function UI_EventPopupTab_StoryDungeonGacha:refresh()
     local vars = self.vars
+    self.m_mGoodsInfo:refresh()
+
+    do -- 이름
+        local did =  TableStoryDungeonEvent:getStoryDungeonEventDid(self.m_seasonId)
+        local table_dragon = TableDragon()
+        local ceil_count = g_eventDragonStoryDungeon:getStoryDungeonSeasonGachaCeilCount()
+        local dragon_name = table_dragon:getDragonName(did)
+        vars['ceilingLabel']:setStringArg(dragon_name, ceil_count)
+    end
+
 
     local goods_type = self.m_ticketItemKey
     local value = g_userData:get(goods_type) or 0
@@ -191,7 +201,12 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count)
             local egg_id = t_gacha['egg_id']
             local egg_res = t_gacha['egg_res']
             local added_mileage = ret['added_mileage'] or 0
+
             local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_gacha, added_mileage, 0)
+            local function close_cb()
+                self:refresh()
+            end
+            ui:setCloseCB(close_cb)
         end
     
         local season_id = self.m_seasonId

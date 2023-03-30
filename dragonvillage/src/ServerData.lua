@@ -669,6 +669,16 @@ function ServerData:networkCommonRespone(ret)
         if ret['mastery_materials'] then
             self:applyServerData(ret['mastery_materials'], 'user', 'mastery_materials')
         end
+
+        -- 스토리 던전 이벤트 토큰
+        if ret['token_story_dungeon'] then
+            self:applyServerData(ret['token_story_dungeon'], 'user', 'token_story_dungeon')
+        end
+
+        -- 스토리 던전 이벤트 티켓
+        if ret['ticket_story_dungeon'] then
+            self:applyServerData(ret['ticket_story_dungeon'], 'user', 'ticket_story_dungeon')
+        end
     end
 
 	-- 퀘스트 갱신

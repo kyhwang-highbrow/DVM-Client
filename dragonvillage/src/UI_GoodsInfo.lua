@@ -68,7 +68,7 @@ function UI_GoodsInfo:refresh()
                 value = data[tostring(goods_id)]
             else
                 value = data
-            end         
+            end
         end 
     end
 
