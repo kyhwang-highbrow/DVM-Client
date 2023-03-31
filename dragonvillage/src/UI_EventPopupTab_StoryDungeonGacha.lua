@@ -245,6 +245,11 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count, gacha_result_
     local msg = Str('"{1}" 진행하시겠습니까?', t_gacha['name'])
 
     local ok_cb = function ()
+        local goods_type = self.m_ticketItemKey
+        if (not ConfirmPrice(goods_type, count)) then
+            return
+        end
+
         local success_cb = function (ret)
             local gacha_type = self.m_ticketItemKey
             local l_dragon_list = ret['added_dragons']

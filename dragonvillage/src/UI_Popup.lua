@@ -128,6 +128,13 @@ function ConfirmPrice_original(price_type, price_value)
            MakeSimplePopup(POPUP_TYPE.OK, Str('드래곤 소환권이 부족합니다.')) 
            return false
         end
+
+    else 
+        local item_count = g_userData:get(price_type)
+        if (item_count < price_value) then
+           MakeSimplePopup(POPUP_TYPE.OK, Str('{1}이 부족합니다.', TableItem:getItemName(price_type))) 
+           return false
+        end
     end
 
     return true
@@ -156,6 +163,13 @@ function ConfirmPrice(price_type, price_value)
 
     elseif (price_type == 'summon_dragon_ticket') then
         amount = g_userData:get('summon_dragon_ticket')
+
+    elseif (price_type == 'token_story_dungeon') then
+        amount = g_userData:get('token_story_dungeon')
+
+    elseif (price_type == 'ticket_story_dungeon') then
+        amount = g_userData:get('ticket_story_dungeon')
+
     else
         
         return true

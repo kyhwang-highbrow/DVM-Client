@@ -116,6 +116,12 @@ function ServerData_ContentLock:isContentLock(content_name)
         return (not is_open)
     end
 
+    -- [스토리 던전]
+    if (content_name == 'story_dungeon') then
+        local is_open = g_eventDragonStoryDungeon:isStoryDungeonEventDoing()
+         return (not is_open)
+    end
+
     return not self:isContentOpenByServer(content_name)
 end
 

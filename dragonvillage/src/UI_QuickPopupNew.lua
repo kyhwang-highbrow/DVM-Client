@@ -58,9 +58,13 @@ function UI_QuickPopupNew:init_adventureBtn()
     local l_content = {}
     table.insert(l_content, 'home') -- 로비 버튼은 여기 추가
     table.insert(l_content, 'adventure')
-   
+
     if (not g_contentLockData:isContentLock('exploration')) then
         table.insert(l_content, 'exploration') 
+    end
+
+    if (not g_contentLockData:isContentLock('story_dungeon')) then
+        table.insert(l_content, 'story_dungeon')
     end
 
     -- 2층만 있을 경우 위치 조절 
