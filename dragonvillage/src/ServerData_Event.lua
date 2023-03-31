@@ -344,11 +344,11 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
 			end
 
             do -- 1000으로 설정된 긴급 팝업(출석보다 우선순위가 높음)
-                if (visible) and tonumber(priority) == -1000 then
-                    if is_emergency_popup  == true then
-                        visible = true
+                if (visible) then
+                    if is_emergency_popup == true then
+                        visible = (tonumber(priority) == -1000)
                     else
-                        visible = false
+                        visible = (tonumber(priority) ~= -1000)
                     end
                 end
             end
