@@ -98,6 +98,7 @@ function UI_EventPopupTab_StoryDungeonGacha:initUI()
     local role_type = table_dragon:getDragonRole(did)
     local rarity_type = 'legend'
     local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
+    local currency = TableStoryDungeonEvent:getStoryDungeonEventTicketKey(self.m_seasonId)
 
 
     do -- 드래곤 스파인
@@ -116,11 +117,21 @@ function UI_EventPopupTab_StoryDungeonGacha:initUI()
     end
 
     do -- 상단 재화
-        local currency = TableStoryDungeonEvent:getStoryDungeonEventTicketKey(self.m_seasonId)
+        
         local ui = UI_GoodsInfo(currency)
         vars['ticketNode']:removeAllChildren()
         vars['ticketNode']:addChild(ui.root)
         self.m_mGoodsInfo = ui
+    end
+
+    do -- 하단 재화
+        local item_icon_1 = IconHelper:getItemIcon(currency)
+        vars['itemNode_1']:removeAllChildren()
+        vars['itemNode_1']:addChild(item_icon_1)
+
+        local item_icon_10 = IconHelper:getItemIcon(currency)
+        vars['itemNode_10']:removeAllChildren()
+        vars['itemNode_10']:addChild(item_icon_10)
     end
 end
 
