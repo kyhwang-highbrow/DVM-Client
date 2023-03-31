@@ -16,6 +16,7 @@ FULL_POPUP_TYPE = {
     INGAME_NOTICE = 'lobby_ingame_notice',
 
     LOBBY_BY_CONDITION = 5, -- 코드로 조건 체크하는 로비 풀팝업, table_lobby_popup 에 있는 항목들
+    EMERGENCY_PROMOTION = 6, -- 정말 긴급하고 중요한 팝업인 경우(ui_priority -1000 으로 설정된 하나만)
 }
 -------------------------------------
 -- class FullPopupManager
@@ -60,6 +61,20 @@ function FullPopupManager:show(type, show_func)
                 show_func(pid)
             end                
         end
+
+    elseif (type == FULL_POPUP_TYPE.EMERGENCY_PROMOTION) then
+        
+        local l_list = g_eventData:getEventFullPopupList(true)
+        for _, pid in ipairs(l_list) do
+            local save_key = tostring(pid)
+            local is_view = g_settingData:get('event_full_popup', save_key) or false
+
+            -- 봤던 기록 없는 이벤트 풀팝업 띄워줌
+            if (not is_view) then
+                show_func(pid)
+            end
+        end
+
   
     -- 출석 보상 있을 시 출석 팝업
     elseif (type == FULL_POPUP_TYPE.ATTENDANCE) then

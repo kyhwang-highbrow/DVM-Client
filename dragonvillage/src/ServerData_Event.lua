@@ -280,7 +280,7 @@ end
 -- function getEventFullPopupList
 -- @brief 이벤트 풀팝업 노출 리스트 (로비 진입시)
 -------------------------------------
-function ServerData_Event:getEventFullPopupList()
+function ServerData_Event:getEventFullPopupList(is_emergency_popup)
     local l_list = {}
     local l_priority = {}
     local event_list = self.m_eventList or {}
@@ -551,6 +551,14 @@ function ServerData_Event:getEventFullPopupList()
                 end
             end
 
+            -- -1000으로 설정된 긴급 팝업(출석보다 우선순위가 높음)
+            if priority == -1000 then
+                if is_emergency_popup  == true then
+                    visible = true
+                else
+                    visible = false
+                end
+            end
 
             if (visible) then
                 l_priority[event_type] = tonumber(priority)

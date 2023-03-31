@@ -296,6 +296,12 @@ function UI_Lobby:entryCoroutine()
 			-- 풀팝업 출력 조건 예외처리(레벨 5 미만에도 띄워야 할 경우) (신규 유저 대상일 경우)
 			-- =============================================
             do 
+                -- 0. 긴급 중요 팝업 홍보
+                do
+                    cclog('# 긴급 중요 팝업 show')
+                    g_fullPopupManager:show(FULL_POPUP_TYPE.EMERGENCY_PROMOTION, show_func)
+                end
+
 			    -- 1.출석 보상 정보 (보상 존재할 경우 출력)
                 if (g_attendanceData:hasAttendanceReward()) then
                     cclog('# 출석 show')
