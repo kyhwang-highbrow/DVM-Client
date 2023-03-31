@@ -135,6 +135,12 @@ function UI_ShopPackageScene:setTableView(table_view, package_name)
         ui:refresh()
     end
 
+    for i,v in ipairs(total_PackageList) do
+        if v:isHiddenPackage() then
+            table.remove(total_PackageList, i)
+        end
+    end
+
     --ItemList 추가는 여기서 작업[count, UI, createCB]
     local keyPartition = {}
     table.insert(keyPartition, {count = #dragonList, UI = UI_DragonPackageCategoryButton , createCB = createDragonPkg_func})
