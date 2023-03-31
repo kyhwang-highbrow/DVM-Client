@@ -253,10 +253,6 @@ function ServerData_Event:getEventPopupTabList()
             end
         end
 
---[[         if full_popup_priority == -1000 then
-            v['ui_priority'] = -1000
-        end ]]
-
         if (visible) then
             local event_popup_tab = StructEventPopupTab(v)
 
