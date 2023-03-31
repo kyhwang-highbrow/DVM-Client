@@ -131,6 +131,8 @@ function UI_EventPopupTab_StoryDungeonGacha:initButton()
     local vars = self.vars
     vars['summonBtn_1']:registerScriptTapHandler(function() self:click_summonBtn(1) end)
     vars['summonBtn_10']:registerScriptTapHandler(function() self:click_summonBtn(10) end)
+
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -190,11 +192,17 @@ function UI_EventPopupTab_StoryDungeonGacha:click_exitBtn()
 end
 
 -------------------------------------
--- function click_helpBtn
+-- function click_infoBtn
 -- @brief 도움말
 -------------------------------------
-function UI_EventPopupTab_StoryDungeonGacha:click_helpBtn()
-    UI_GuidePopup_PurchasePoint()
+function UI_EventPopupTab_StoryDungeonGacha:click_infoBtn()
+    local did =  TableStoryDungeonEvent:getStoryDungeonEventDid(self.m_seasonId)
+    local table_dragon = TableDragon()
+    local dragon_name = table_dragon:getDragonName(did)
+
+    require('UI_HacheryInfoBtnPopup')
+    local ui = UI_HacheryInfoBtnPopup('story_dungeon_event_rate_popup.ui')
+    ui.vars['dragonName']:setStringArg(dragon_name)
 end
 
 -------------------------------------
