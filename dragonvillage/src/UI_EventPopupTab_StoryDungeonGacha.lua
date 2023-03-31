@@ -144,6 +144,9 @@ function UI_EventPopupTab_StoryDungeonGacha:initButton()
     vars['summonBtn_10']:registerScriptTapHandler(function() self:click_summonBtn(10) end)
 
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+
+    vars['ceilingBtn']:registerScriptTapHandler(function() self:click_dragonBtn() end)
+    vars['story_dungeonBtn']:registerScriptTapHandler(function() self:click_goBtn() end)
 end
 
 -------------------------------------
@@ -200,6 +203,23 @@ end
 -------------------------------------
 function UI_EventPopupTab_StoryDungeonGacha:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function click_goBtn
+-- @brief 바로 가기
+-------------------------------------
+function UI_EventPopupTab_StoryDungeonGacha:click_goBtn()
+    UINavigator:goTo('story_dungeon')
+end
+
+-------------------------------------
+-- function click_dragonBtn
+-- @brief 드래곤
+-------------------------------------
+function UI_EventPopupTab_StoryDungeonGacha:click_dragonBtn()
+    local did =  TableStoryDungeonEvent:getStoryDungeonEventDid(self.m_seasonId)
+    UI_BookDetailPopup.openWithFrame(did, 6, 3, 1, true)
 end
 
 -------------------------------------

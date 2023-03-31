@@ -2265,6 +2265,61 @@ function UINavigatorDefinition:goTo_league_raid(...)
     g_leagueRaidData:request_RaidInfo(finish_cb, fail_cb)
 end
 
+
+-------------------------------------
+-- function goTo_story_dungeon
+-- @brief 스토리 던전으로 이동
+-- @usage UINavigatorDefinition:goTo('story_dungeon')
+-------------------------------------
+function UINavigatorDefinition:goTo_story_dungeon(...)
+    local args = {...}
+    local stage = args[1]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opened, index, ui = self:findOpendUI('UI_DragonStoryDungeonEventScene')
+    if is_opened then 
+        self:closeUIList(index)
+        return
+    end
+
+    local function finish_cb()
+
+        -- 전투 메뉴가 열려 있을 경우
+        local is_opened, index, ui = self:findOpendUI('UI_BattleMenu')
+        if is_opened then
+            self:closeUIList(index) 
+            ui:setTab('adventure')
+            ui:resetButtonsPosition()
+            UI_DragonStoryDungeonEventScene()
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opened, index, ui = self:findOpendUI('UI_Lobby')
+        if is_opened then
+            self:closeUIList(index) 
+            UI_DragonStoryDungeonEventScene()
+            return
+        end
+   
+        do -- Scene으로 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_DragonStoryDungeonEventScene, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb() end
+
+    -- TODO : 업데이트하는 조건 추가 필요.
+    g_eventDragonStoryDungeon:requestStoryDungeonInfo(finish_cb, fail_cb)
+
+end
+
+
 -------------------------------------
 -- function goTo_slime_combine
 -- @brief 슈퍼 슬라임 합성으로 이동

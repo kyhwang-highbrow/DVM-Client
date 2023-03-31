@@ -1197,6 +1197,9 @@ local t_module = {
     'UI_LeagueRaidOpenPopup',
     'GameWorldLeagueRaid',
 
+    -- UI : 스토리 던전
+    'UI_DragonStoryDungeonEventScene',
+
 	-- UI : 모험
     'UI_AdventureSceneNew',
     'UI_AdventureStageButton',

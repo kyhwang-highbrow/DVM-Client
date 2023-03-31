@@ -23,9 +23,9 @@ function ServerData_StoryDungeonEvent:init(server_data)
 end
 
 -------------------------------------
--- function getStoryDungeonSeason
+-- function getStoryDungeonSeasonId
 -------------------------------------
-function ServerData_StoryDungeonEvent:getStoryDungeonSeason()
+function ServerData_StoryDungeonEvent:getStoryDungeonSeasonId()
     local t_stage_clear_info = self.m_serverData:getRef('story_dungeon_stage_info') or {}
     if t_stage_clear_info ~= nil then
         for key, v in pairs(t_stage_clear_info) do
@@ -68,14 +68,14 @@ end
 -- function isStoryDungeonEventDoing
 -------------------------------------
 function ServerData_StoryDungeonEvent:isStoryDungeonEventDoing()
-    return self:getStoryDungeonSeason() ~= nil    
+    return self:getStoryDungeonSeasonId() ~= nil    
 end
 
 -------------------------------------
 -- function isOpenStage
 -------------------------------------
 function ServerData_StoryDungeonEvent:isOpenStage(stage_id, _season_id)
-    local season_id = _season_id or self:getStoryDungeonSeason()
+    local season_id = _season_id or self:getStoryDungeonSeasonId()
     local prev_stage_id = stage_id - 1
 
     if (prev_stage_id % 10 == 0) then
@@ -171,7 +171,7 @@ end
 -- function getStoryDungeonSeasonTokenItemType
 -------------------------------------
 function ServerData_StoryDungeonEvent:getStoryDungeonSeasonTokenItemType()
-    local season_id = self:getStoryDungeonSeason()
+    local season_id = self:getStoryDungeonSeasonId()
 
     if season_id == nil then
         return 'token_event_origingoddragon'
@@ -185,7 +185,7 @@ end
 -- function getStoryDungeonSeasonTicketItemType
 -------------------------------------
 function ServerData_StoryDungeonEvent:getStoryDungeonSeasonTicketItemType()
-    local season_id = self:getStoryDungeonSeason()
+    local season_id = self:getStoryDungeonSeasonId()
 
     if season_id == nil then
         return 'ticket_event_origingoddragon'
@@ -224,7 +224,7 @@ function ServerData_StoryDungeonEvent:replaceStoryDungeonRelatedItems()
         return
     end
 
-    local season_id = self:getStoryDungeonSeason()
+    local season_id = self:getStoryDungeonSeasonId()
     local l_replace_id_list = {}
     table.insert(l_replace_id_list, TableStoryDungeonEvent:getStoryDungeonEventTicketReplaceId(season_id))
     table.insert(l_replace_id_list, TableStoryDungeonEvent:getStoryDungeonEventTokenReplaceId(season_id))

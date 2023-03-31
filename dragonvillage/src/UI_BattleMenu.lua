@@ -2,7 +2,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 local L_TAB = {'adventure', 'dungeon', 'competition', 'clan'}
 
 local L_TAB_CONTENTS = {}
-L_TAB_CONTENTS['adventure'] = {'adventure', 'exploration'}
+L_TAB_CONTENTS['adventure'] = {'adventure', 'exploration', 'story_dungeon'}
 L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'dmgate', 'secret_relation'}
 L_TAB_CONTENTS['competition'] = {'ancient', 'attr_tower', 'arena_new', 'league_raid', 'grand_arena', 'challenge_mode'}
 L_TAB_CONTENTS['clan'] = {'clan_raid', 'rune_guardian', 'clan_war'}
@@ -353,6 +353,11 @@ function UI_BattleMenu:initAdventureTab()
     -- 탐험
     if (not g_contentLockData:isContentLock('exploration')) then
         table.insert(l_content_str, 'exploration')
+    end
+
+    -- 스토리 던전
+    if (not g_contentLockData:isContentLock('story_dungeon')) then
+        table.insert(l_content_str, 'story_dungeon')
     end
 
     local l_btn_ui = {}

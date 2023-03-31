@@ -256,9 +256,13 @@ function UI_BattleMenuItem:click_enterBtn()
     elseif (content_type == 'dmgate') then
         UINavigator:goTo('dmgate')
 
+    -- 레이드
     elseif (content_type == 'league_raid') then
         UINavigator:goTo('league_raid')
 
+    -- 스토리 던전
+    elseif (content_type == 'story_dungeon') then
+        UINavigator:goTo('story_dungeon')
     else
         error('content_type : ' .. content_type)
     end
