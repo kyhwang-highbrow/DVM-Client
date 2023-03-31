@@ -24,6 +24,8 @@ StructPackageBundle = class(PARENT, {
 	
 	select_one = '',
 
+	is_hidden = '',
+
 	scroll_direction = 'string', -- vertical, horizontal
 	dock_point = 'number', -- 1 or 
 
