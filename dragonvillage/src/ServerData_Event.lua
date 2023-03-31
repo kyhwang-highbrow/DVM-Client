@@ -343,6 +343,16 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
 				end
 			end
 
+            do -- 1000으로 설정된 긴급 팝업(출석보다 우선순위가 높음)
+                if (visible) and tonumber(priority) == -1000 then
+                    if is_emergency_popup  == true then
+                        visible = true
+                    else
+                        visible = false
+                    end
+                end
+            end
+
             -- 유저 레벨 조건 (걸려있는 레벨 이상인 유저에게만 노출)
             if (visible) and (user_lv ~= '') then
                 local curr_lv = g_userData:get('lv')
@@ -353,6 +363,7 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
             if (visible) and (target_server ~= '') then
                 visible = self:checkTargetServer(target_server)
             end
+
 
             -- 언어 조건
             if (visible) and (target_language ~= '') then
@@ -552,14 +563,8 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
                 end
             end
 
-            -- -1000으로 설정된 긴급 팝업(출석보다 우선순위가 높음)
-            if priority == -1000 then
-                if is_emergency_popup  == true then
-                    visible = true
-                else
-                    visible = false
-                end
-            end
+
+
 
             if (visible) then
                 l_priority[event_type] = tonumber(priority)
