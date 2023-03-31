@@ -59,6 +59,7 @@ function ServerData_Event:getEventPopupTabList()
         local target_server = v['target_server'] or ''
         local target_language = v['target_language'] or ''
         local banner = v['banner']
+        local full_popup_priority = v['full_popup']
 
         -- 크로스 프로모션 기간인지 체크 후 기간, os체크를 하는것이 베스트
         if (string.find(event_type, 'event_crosspromotion')) then
@@ -250,6 +251,10 @@ function ServerData_Event:getEventPopupTabList()
             else
                 visible = false
             end
+        end
+
+        if full_popup_priority == -1000 then
+            v['ui_priority'] = -1000
         end
 
         if (visible) then
