@@ -132,6 +132,10 @@ local TableInfo = {
 
         -- 드래곤 스킨
         dragon_skin = {'table_dragon_skin', 'skin_id', false},
+
+        -- 아이템 교체 테이블
+        table_item_replace = {'table_item_replace', 'id', false},
+
     }
 
 -------------------------------------

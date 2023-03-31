@@ -65,30 +65,6 @@ function TableDragonSkin:getDefaultSkinID(did)
     return 0
 end
 
--- -------------------------------------
--- -- function getDragonRes
--- -------------------------------------
--- function TableDragonSkin:getDragonRes(did)
---     if (self == THIS) then
---         self = THIS()
---     end
-
---     local path = self:getValue(did, 'res')
---     return path
--- end
-
--- -------------------------------------
--- -- function getDragonResIcon
--- -------------------------------------
--- function TableDragonSkin:getDragonResIcon(did)
---     if (self == THIS) then
---         self = THIS()
---     end
-
---     local path = self:getValue(did, 'res_icon')
---     return path
--- end
-
 
 -------------------------------------
 -- function getDragonSkinValue

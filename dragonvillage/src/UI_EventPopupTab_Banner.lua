@@ -16,6 +16,8 @@ function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
     self.m_uiName = 'UI_EventPopupTab_Banner'
     self.m_structBannerData = struct_event_popup_tab.m_eventData
     local res = self.m_structBannerData['banner']
+
+    cclog('self.m_structBannerData', res)
     self.m_isResourcePng = string.match(res, '%.ui') and true or false
     local target_ui = (self.m_isResourcePng == true) and res or 'event_banner.ui'
     self.m_resName = target_ui

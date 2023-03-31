@@ -238,7 +238,7 @@ function UI_GachaResult_Dragon:initEverything()
             elseif(is_cash == 'summon_dragon_ticket') then
                 price_icon = IconHelper:getIcon('res/ui/icons/item/summon_dragon_ticket.png')
             elseif(is_cash == 'ticket_story_dungeon') then
-                price_icon = IconHelper:getPriceIcon(is_cash)
+                price_icon = IconHelper:getItemIcon(is_cash)
             else
                 price_icon = IconHelper:getIcon('res/ui/icons/item/fp.png')
             end
@@ -708,7 +708,7 @@ function UI_GachaResult_Dragon:refresh_wealth()
         elseif(self.m_type == 'summon_dragon_ticket') then
             dia_icon = IconHelper:getIcon('res/ui/icons/item/summon_dragon_ticket.png')
         elseif(self.m_type == 'ticket_story_dungeon') then
-            dia_icon = IconHelper:getPriceIcon(is_cash)
+            dia_icon = IconHelper:getItemIcon(self.m_type)
         else
             dia_icon = IconHelper:getIcon('res/ui/icons/item/fp.png')
         end

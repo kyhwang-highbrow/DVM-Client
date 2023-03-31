@@ -130,6 +130,9 @@ for i,v in pairs(ITEM_ID_MAP) do
     ITEM_TYPE_MAP[v] = i
 end
 
+-- 인박스 아이템 타입
+local ITEM_INBOX_ICON_TYPE_MAP = {}
+
 -------------------------------------
 -- function getInstance
 -------------------------------------
@@ -167,6 +170,17 @@ function TableItem:getItemTypeFromItemID(item_id)
     return item_type
 end
 
+-------------------------------------
+-- function getInboxIconReplaceType
+-- @brief 아이템 인박스용 아이콘을 대체
+-------------------------------------
+function TableItem:getInboxIconReplaceType(item_type)
+    if ITEM_INBOX_ICON_TYPE_MAP[item_type] ~= nil then
+        return ITEM_INBOX_ICON_TYPE_MAP[item_type]
+    end
+
+    return item_type
+end
 
 -------------------------------------
 -- function getRewardItem
@@ -524,3 +538,29 @@ function TableItem:isDragonByItemId(item_id)
     return true
 end
 
+-------------------------------------
+-- function replaceDisplayInfo
+-- @brief 아이템 표시 교체 시스템
+-------------------------------------
+function TableItem:replaceDisplayInfo(replace_id_list)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    for _, replace_id in ipairs(replace_id_list) do
+        local t_replace_info = TableItemReplace:getItemReplaceInfo(replace_id)
+        if t_replace_info ~= nil then
+            local item_id = t_replace_info['target_item_id']
+            local t_item_info = self.m_orgTable[item_id]
+
+            for k, v in pairs(t_replace_info) do
+                if t_item_info[k] ~= nil then
+                    t_item_info[k] = v
+                end
+            end
+
+            local item_type = t_replace_info['target_item_type']
+            ITEM_INBOX_ICON_TYPE_MAP[item_type] = t_replace_info['inbox_icon_type']
+        end
+    end
+end

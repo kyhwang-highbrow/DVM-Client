@@ -7,6 +7,7 @@ ServerData_StoryDungeonEvent = class({
     m_ceilingInfo = 'table',
     m_ceilingMax = 'number',
     m_isAutomaticFarewell = 'boolean',
+    m_isItemReplaced = 'boolean',
 })
 
 -------------------------------------
@@ -18,6 +19,7 @@ function ServerData_StoryDungeonEvent:init(server_data)
     self.m_isAutomaticFarewell = false
     self.m_ceilingInfo = {}
     self.m_ceilingMax = 100
+    self.m_isItemReplaced = false
 end
 
 -------------------------------------
@@ -172,11 +174,25 @@ function ServerData_StoryDungeonEvent:getStoryDungeonSeasonTokenItemType()
     local season_id = self:getStoryDungeonSeason()
 
     if season_id == nil then
-        return 
+        return 'token_event_origingoddragon'
     end
 
     local season_code = TableStoryDungeonEvent:getStoryDungeonSeasonCode(season_id)
-    return string.format('', season_code)
+    return string.format('token_event_%s', season_code)
+end
+
+-------------------------------------
+-- function getStoryDungeonSeasonTicketItemType
+-------------------------------------
+function ServerData_StoryDungeonEvent:getStoryDungeonSeasonTicketItemType()
+    local season_id = self:getStoryDungeonSeason()
+
+    if season_id == nil then
+        return 'ticket_event_origingoddragon'
+    end
+
+    local season_code = TableStoryDungeonEvent:getStoryDungeonSeasonCode(season_id)
+    return string.format('ticket_event_%s', season_code)
 end
 
 -------------------------------------
@@ -197,6 +213,24 @@ function ServerData_StoryDungeonEvent:makeAddedDragonTable(org_list, is_bundle)
     return result
 end
 
+
+-------------------------------------
+-- function replaceStoryDungeonRelatedItems
+-- @brief 스토리 던전 관련 아이템을 시즌별로 다르게 보이도록 처리
+-- 앱 구동 후 info 받고 한번만 처리
+-------------------------------------
+function ServerData_StoryDungeonEvent:replaceStoryDungeonRelatedItems()
+    if self.m_isItemReplaced == true then
+        return
+    end
+
+    local season_id = self:getStoryDungeonSeason()
+    local l_replace_id_list = {}
+    table.insert(l_replace_id_list, TableStoryDungeonEvent:getStoryDungeonEventTicketReplaceId(season_id))
+    table.insert(l_replace_id_list, TableStoryDungeonEvent:getStoryDungeonEventTokenReplaceId(season_id))
+    TableItem:replaceDisplayInfo(l_replace_id_list)
+end
+
 -------------------------------------
 -- function requestStoryDungeonInfo
 -- @brief 이벤트 정보
@@ -213,6 +247,9 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonInfo(cb_func, fail_cb)
         
         -- 시즌 천장 정보
         self:applyStoryDungeonSeasonGachaCeilCount(ret)
+
+        -- 스토리 던전 관련 아이템을 시즌별로 다르게 보이도록 처리
+        self:replaceStoryDungeonRelatedItems()
         
 
         if cb_func ~= nil then

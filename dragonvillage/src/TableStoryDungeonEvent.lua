@@ -74,6 +74,30 @@ function TableStoryDungeonEvent:getStoryDungeonEventTokentKey(season_id)
     return 'token_event_' .. code ]]
 end
 
+
+-------------------------------------
+-- function getStoryDungeonEventTicketReplaceId
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonEventTicketReplaceId(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+
+    return self:getValue(season_id, 'ui_ticket_id')
+end
+
+-------------------------------------
+-- function getStoryDungeonEventTokenReplaceId
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonEventTokenReplaceId(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(season_id, 'ui_token_id')
+end
+
 -------------------------------------
 -- function getStoryDungeonEventShopTabKey
 -------------------------------------

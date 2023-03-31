@@ -698,7 +698,9 @@ function IconHelper:getPriceIcon(price_type)
     if (price_type == 'money') then
         return nil
     end
-    
+
+    -- 아이템 인박스용 아이콘을 대체
+    local price_type = TableItem:getInboxIconReplaceType(price_type)
     local res = string.format('res/ui/icons/inbox/inbox_%s.png', price_type)
     local icon = IconHelper:getIcon(res)
     return icon
