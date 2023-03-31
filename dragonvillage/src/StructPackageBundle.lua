@@ -373,6 +373,9 @@ function StructPackageBundle:isSelectOnePackage()
 	return self.select_one and (self.select_one ~= 0) and (self.select_one ~= '')
 end
 
+----------------------------------------------------------------------
+-- function isHiddenPackage
+----------------------------------------------------------------------
 function StructPackageBundle:isHiddenPackage()
 	return self.is_hidden == 1
 end

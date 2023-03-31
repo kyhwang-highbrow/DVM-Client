@@ -135,9 +135,10 @@ function UI_ShopPackageScene:setTableView(table_view, package_name)
         ui:refresh()
     end
 
-    for i,v in ipairs(total_PackageList) do
-        if v:isHiddenPackage() then
-            table.remove(total_PackageList, i)
+    -- @dhkim 23.03.31 만약 해당 패키지가 숨김처리 되었다면 패키지 씬에 노출 안함
+    for idx = #total_PackageList, 1, -1 do
+        if total_PackageList[idx]:isHiddenPackage() then
+            table.remove(total_PackageList, idx)
         end
     end
 
