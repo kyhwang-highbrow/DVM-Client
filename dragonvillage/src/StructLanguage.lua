@@ -68,6 +68,10 @@ function StructLanguage:patchLanguageMap()
                     language_map[k] = v
                 end
             end
+        else
+            if IS_TEST_MODE() == true then
+                error(string.format('%s.lua 파일에 텍스트 오류가 있습니다.', patch_name))
+            end
         end
     
     end
