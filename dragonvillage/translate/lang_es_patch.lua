@@ -1,7 +1,7 @@
 return {['네무스']='Nemus',
 ['네무스(땅)']='Nemus (tierra)',
 ['정령의 의지가 깃든 오래된 숲에서 태어난 숲 드래곤이다. 네무스는 거대한 숲을 지키기 위해 움직이며 정령의 힘으로 만들어 낸 새를 통해 위험을 감지한다. 네무스의 구슬은 숲의 힘을 담고 있으며 강력한 정화의 힘을 지니고 있다. 오염된 힘이 강할수록 구슬은 더욱 강하게 빛나며 네무스에게 힘을 빌려준다.']='Un dragón del bosque nacido en un antiguo bosque que contiene la voluntad del espíritu. Nemus trabaja para proteger el vasto bosque, sintiendo el peligro a través de las aves que crea con el poder de los espíritus. La joya de Nemus contiene el poder del bosque y tiene un poderoso poder de limpieza. Cuanto más fuerte es el poder contaminado, más brillante brilla el orbe, lo que le otorga poder a Nemus.',
-['드빌M의 다양한 이벤트와 소식들을 제공받기 위해서는 알림 활성화가 필요합니다.\n지금 앱 정보에서 알림 상태를 확인하시겠습니까?']='La activación de la notificación es necesaria para recibir varios eventos y noticias de [Dragon Village M].\NControlar el estado de notificación en la información de la aplicación ahora?',
+['드빌M의 다양한 이벤트와 소식들을 제공받기 위해서는 알림 활성화가 필요합니다.\n지금 앱 정보에서 알림 상태를 확인하시겠습니까?']='La activación de la notificación es necesaria para recibir varios eventos y noticias de [Dragon Village M].\nControlar el estado de notificación en la información de la aplicación ahora?',
 ['테이머 코스튬 선택권']='Traje de Domador Billete de selección de',
 ['해당 상품은 원하시는 코스튬 선택하여 고객센터로 문의주시면 지급됩니다.']='El producto será pagado si seleccionas el disfraz que quieres y contactas con el centro de servicio al cliente.',
 ['{@red}구매 불가{@}']='{@red}No disponible para la compra{@}',
