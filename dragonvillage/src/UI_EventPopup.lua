@@ -280,11 +280,6 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab == 'costume_event') then
         ui = UI_CostumeEventPopup()
 
-    -- 드래곤 스킨 할인 이벤트
-    elseif (tab == 'dragon_skin') then
-        require('UI_DragonSkinSaleFullPopup')
-        ui = UI_DragonSkinSaleFullPopup()
-
     -- 업데이트 공지 
     elseif (tab == 'notice') then
         ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)
@@ -377,6 +372,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
     -- 신규 유저 환영 이벤트
 	elseif (tab == 'event_welcome_newbie') then
 		ui = UI_EventWelcomeNewbie()
+
+    -- 스토리 던전 소환 이벤트
+	elseif (tab == 'story_dungeon_gacha') then
+        require('UI_EventPopupTab_StoryDungeonGacha')
+        ui = UI_EventPopupTab_StoryDungeonGacha()
 
     -- 누적 결제 보상 이벤트 
     elseif pl.stringx.startswith(tab, 'purchase_point') then

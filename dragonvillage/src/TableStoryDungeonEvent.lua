@@ -51,7 +51,7 @@ end
 -------------------------------------
 -- function getStoryDungeonEventTicketKey
 -------------------------------------
-function TableStoryDungeonEvent:getStoryDungeonEventTicketKey(season_id)
+function TableStoryDungeonEvent:getStoryDungeonEventTicketKey()
     return 'ticket_story_dungeon'
 --[[     if (self == THIS) then
         self = THIS()

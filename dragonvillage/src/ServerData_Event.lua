@@ -251,6 +251,14 @@ function ServerData_Event:getEventPopupTabList()
             else
                 visible = false
             end
+
+        -- 스토리 던전 가챠
+        elseif (visible) and (event_type == 'story_dungeon_gacha') then
+            if g_eventDragonStoryDungeon:isStoryDungeonEventDoing() == true then
+                visible = true
+            else
+                visible = false
+            end
         end
 
         if (visible) then
@@ -562,8 +570,6 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
                     visible = false
                 end
             end
-
-
 
 
             if (visible) then

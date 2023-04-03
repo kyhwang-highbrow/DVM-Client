@@ -72,6 +72,18 @@ function ServerData_StoryDungeonEvent:isStoryDungeonEventDoing()
 end
 
 -------------------------------------
+-- function isStoryDungeonEventGachaAvailable
+-------------------------------------
+function ServerData_StoryDungeonEvent:isStoryDungeonEventGachaAvailable()
+    if self:isStoryDungeonEventDoing() == true then
+        local goods_type = TableStoryDungeonEvent:getStoryDungeonEventTicketKey()
+        local goods_value = g_userData:get(goods_type) or 0
+        return goods_value > 0
+    end
+    return false
+end
+
+-------------------------------------
 -- function isOpenStage
 -------------------------------------
 function ServerData_StoryDungeonEvent:isOpenStage(stage_id, _season_id)

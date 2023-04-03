@@ -245,6 +245,15 @@ function UI_EventFullPopup:initUI()
             self:close()
         end
 
+    -- 스토리 던전 소환 풀팝업
+	elseif (popup_key == 'story_dungeon_gacha') then
+        if g_eventDragonStoryDungeon:isStoryDungeonEventGachaAvailable() == true then
+            require('UI_EventPopupTab_StoryDungeonGacha')
+            ui = UI_EventPopupTab_StoryDungeonGacha()
+        else
+            self:close()
+        end
+
     -- 누적 결제 보상 이벤트
     elseif pl.stringx.startswith(popup_key, 'purchase_point') then
 		local l_str = plSplit(popup_key, ';')

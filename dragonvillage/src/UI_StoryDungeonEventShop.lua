@@ -202,8 +202,10 @@ end
 -- function click_gachaBtn
 -------------------------------------
 function UI_StoryDungeonEventShop:click_gachaBtn()
-    require('UI_EventPopupTab_StoryDungeonGacha')
-    UI_EventPopupTab_StoryDungeonGacha.open(self.m_seasonId)
+    --require('UI_EventPopupTab_StoryDungeonGacha')
+    --UI_EventPopupTab_StoryDungeonGacha.open(self.m_seasonId)
+    local ui = UI_EventFullPopup('story_dungeon_gacha')
+    ui:openEventFullPopup()
  end
  
 -------------------------------------

@@ -14,18 +14,19 @@ UI_EventPopupTab_StoryDungeonGacha = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopupTab_StoryDungeonGacha:init(season_id)
+function UI_EventPopupTab_StoryDungeonGacha:init()
     self.m_eventVersion = nil
-    self.m_seasonId = season_id
+    self.m_seasonId = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
     self.m_ticketItemKey = TableStoryDungeonEvent:getStoryDungeonEventTicketKey(self.m_seasonId)
-    self.m_uiName = 'UI_EventPopupTab_StoryDungeonGacha'
+    
     self.m_gachaMap = self:makeGachaMap()
     self.m_mGoodsInfo = nil
-    
-    local code = TableStoryDungeonEvent:getStoryDungeonSeasonCode(season_id)
+
+    local code = TableStoryDungeonEvent:getStoryDungeonSeasonCode(self.m_seasonId)
+    self.m_uiName = 'UI_EventPopupTab_StoryDungeonGacha'
     self:load(string.format('story_dungeon_%s_event.ui', code))
-    UIManager:open(self, UIManager.POPUP)
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_StoryDungeonEventShop')
+    --UIManager:open(self, UIManager.POPUP)
+    --g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_StoryDungeonEventShop')
 
     self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
     self:doActionReset()
@@ -36,17 +37,6 @@ function UI_EventPopupTab_StoryDungeonGacha:init(season_id)
     self:refresh()
 end
 
--------------------------------------
--- function initParentVariable
--- @brief pure virtual function of ITopUserInfo_EventListener 
--------------------------------------
-function UI_EventPopupTab_StoryDungeonGacha:initParentVariable()
-    self.m_uiName = 'UI_EventPopupTab_StoryDungeonGacha'
-    self.m_titleStr = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
-    self.m_subCurrency = TableStoryDungeonEvent:getStoryDungeonEventTicketKey(self.m_seasonId)
-    self.m_bVisible = true
-    self.m_bUseExitBtn = true
-end
 
 -------------------------------------
 -- function makeGachaMap

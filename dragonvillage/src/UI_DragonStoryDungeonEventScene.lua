@@ -67,11 +67,10 @@ function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
     -- 셀 아이템 생성 콜백
     local function create_func(ui, data)
         local stage_id = data
-        ui.vars['scenarioStartButton']:registerScriptTapHandler(function() 
-            self:playScenario(stage_id, 'snro_start')
-        end)
         ui.vars['scenarioEndButton']:registerScriptTapHandler(function() 
-            self:playScenario(stage_id, 'snro_finish')
+            self:playScenario(stage_id, 'snro_start', function() 
+                self:playScenario(stage_id, 'snro_finish')
+            end)
         end)
         return true
     end
@@ -155,33 +154,18 @@ end
 -- function playScenario
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:playScenario(stage_id, scenario_type, cb_func)
-    -- 콜백
-    local ui_block
-
-    local function start()
-        ui_block = UIManager:makeTouchBlock(self, true)
-        if (cb_func) then
-            cb_func()
-        end
-    end
-    
     -- 스테이지 id와 시나리오 타입(start or finish)로 시나리오를 찾아와 있으면 재생
     local scenario_name = TableStageDesc:getScenarioName(stage_id, scenario_type)
     if scenario_name then
         local ui = g_scenarioViewingHistory:playScenario(scenario_name, true)
         if ui then
-            if ui_block ~= nil then
-                ui_block:removeFromParent()
-            end
             --self.m_containerLayer:setVisible(false)
-            ui:setCloseCB(start)
+            ui:setCloseCB(cb_func)
             ui:next()
             return
         end
     end
 
-    -- 시나리오를 재생 못하고 콜백 콜
-    start()
 end
 
 -------------------------------------
