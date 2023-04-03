@@ -206,6 +206,7 @@ function UI_StoryDungeonEventShop:click_gachaBtn()
     --UI_EventPopupTab_StoryDungeonGacha.open(self.m_seasonId)
     local ui = UI_EventFullPopup('story_dungeon_gacha')
     ui:openEventFullPopup()
+    ui.vars['checkLabel']:setVisible(false)
  end
  
 -------------------------------------

@@ -60,8 +60,7 @@ end
 function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
     local node = self.vars['detailTableViewNode']
     local vars = self.vars
-
-    --local t_data = self.m_selectNestDungeonInfo['data']
+    
     local stage_list = g_eventDragonStoryDungeon:getStoryDungeonStageIdList(self.m_seasonId)
 
     -- 셀 아이템 생성 콜백
@@ -159,13 +158,11 @@ function UI_DragonStoryDungeonEventScene:playScenario(stage_id, scenario_type, c
     if scenario_name then
         local ui = g_scenarioViewingHistory:playScenario(scenario_name, true)
         if ui then
-            --self.m_containerLayer:setVisible(false)
             ui:setCloseCB(cb_func)
             ui:next()
             return
         end
     end
-
 end
 
 -------------------------------------
