@@ -66,11 +66,15 @@ function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
     -- 셀 아이템 생성 콜백
     local function create_func(ui, data)
         local stage_id = data
+        local scenario_name = TableStageDesc:getScenarioName(stage_id, 'snro_start')
+        local is_clear = g_eventDragonStoryDungeon:getStoryDungeonStageClearCount(self.m_seasonId, stage_id)
+        ui.vars['scenarioEndButton']:setVisible(scenario_name ~= nil and is_clear > 0)
         ui.vars['scenarioEndButton']:registerScriptTapHandler(function() 
             self:playScenario(stage_id, 'snro_start', function() 
                 self:playScenario(stage_id, 'snro_finish')
             end)
         end)
+
         return true
     end
 

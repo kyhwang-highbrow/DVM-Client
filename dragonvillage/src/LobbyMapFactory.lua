@@ -25,7 +25,8 @@ local DECO_TYPE = {
     ['ANNIVERSARY_2ST_GLOBAL'] = '2st_anniversary_global',
     ['ANNIVERSARY_3RD'] = '3rd_anniversary',
     ['ANNIVERSARY_4TH'] = '4th_anniversary',
-    ['WEIDEL_FESTIVAL'] = 'event_weidel_festival'
+    ['WEIDEL_FESTIVAL'] = 'event_weidel_festival',
+    ['STORY_DUNGEON'] = 'story_dungeon',
 }
 
 -- ## 장식 추가 스텝 ##
@@ -87,6 +88,10 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby)
         self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
         self:makeLobbyParticle(ui_lobby, deco_type) -- 축제용 꽃 파티클
         self:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
+    -- 스토리 던전
+    elseif (deco_type == DECO_TYPE.STORY_DUNGEON) then
+        self:makeLobbyDeco_onLayer(lobby_ground, deco_type) -- 바닥 장식
+        lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 근경 레이어
     end
 
     return lobby_map
@@ -312,6 +317,17 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
         --node:addChild(button)
 
         self:makeLobbyEffectByMode(node)
+
+    elseif (deco_type == DECO_TYPE.STORY_DUNGEON) then -- 스토리 던전
+        animator = MakeAnimator('res/lobby/lobby_season_deco/story_dungeon/origingoddragon_230324.spine')
+        if (animator.m_node) then
+            animator:setDockPoint(CENTER_POINT)
+            animator:setAnchorPoint(CENTER_POINT)
+            animator:setPosition(235, 0)
+            node:addChild(animator.m_node, 1)
+        end
+        
+        --self:makeEventRoulette(self.m_lobbyMap.m_groudNode, cc.p(-300, 155))
     end
 end
 
