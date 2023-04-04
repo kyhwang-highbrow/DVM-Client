@@ -16,13 +16,10 @@ function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
     self.m_uiName = 'UI_EventPopupTab_Banner'
     self.m_structBannerData = struct_event_popup_tab.m_eventData
     local res = self.m_structBannerData['banner']
-
-    cclog('self.m_structBannerData', res)
     self.m_isResourcePng = string.match(res, '%.ui') and true or false
     local target_ui = (self.m_isResourcePng == true) and res or 'event_banner.ui'
     self.m_resName = target_ui
 end
-
 
 -------------------------------------
 -- function init
@@ -43,6 +40,8 @@ function UI_EventPopupTab_Banner:init_after(owner, struct_event_popup_tab)
     -- 남은 시간 등록
     if struct_banner_data['end_date'] and vars['timeLabel'] then
         self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update_timer(dt) end, 0)
+    elseif vars['reservationLinkBtn'] ~= nil then 
+        self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update_reservation_timer(dt) end, 0)
     end
 end
 
@@ -77,6 +76,21 @@ end
 function UI_EventPopupTab_Banner:initButton()
     local vars = self.vars
 
+    -- 사전 예약 버튼이 있으면 우선 적용
+    if vars['reservationLinkBtn'] ~= nil then
+        vars['reservationLinkBtn']:registerScriptTapHandler(function() self:click_reservationBtn() end)
+    end
+
+    -- 사전 예약 버튼이 있으면 우선 적용
+    if vars['reservationAccountBtn'] ~= nil then
+        vars['reservationAccountBtn']:registerScriptTapHandler(function() self:click_reservationAccountBtn() end)
+    end
+
+    -- 사전 예약 버튼이 있으면 우선 적용
+    if vars['reservationRewardBtn'] ~= nil then
+        vars['reservationRewardBtn']:registerScriptTapHandler(function() self:click_reservationRewardBtn() end)
+    end
+
      -- 링크 버튼 동작 
     local link_button = vars['linkBtn'] or vars['gameLinkBtn']
     if link_button then
@@ -88,7 +102,6 @@ end
 -- function UI_EventPopupTab_Banner
 -------------------------------------
 function UI_EventPopupTab_Banner:refresh()
-
 end
 
 -------------------------------------
@@ -120,6 +133,27 @@ function UI_EventPopupTab_Banner:update_timer(dt)
     end
 end
 
+-------------------------------------
+-- function update_reservation_timer
+-------------------------------------
+function UI_EventPopupTab_Banner:update_reservation_timer(dt)
+    local vars = self.vars
+    local seconds = g_userData:getAfterReservationSeconds()
+    -- 사전예약 바로가기
+    if vars['reservationLinkBtn'] ~= nil then
+        vars['reservationLinkBtn']:setVisible(seconds == 0)
+    end
+
+    -- 정산중
+    if vars['reservationAccountBtn'] ~= nil then
+        vars['reservationAccountBtn']:setVisible(seconds > 0 and seconds < 60)
+    end
+
+    -- 정산 후 보상받기
+    if vars['reservationRewardBtn'] ~= nil then
+        vars['reservationRewardBtn']:setVisible(seconds > 60)
+    end
+end
 -------------------------------------
 -- function initEventCapsule
 -------------------------------------
@@ -216,6 +250,7 @@ function UI_EventPopupTab_Banner:initEventCapsule()
         end
     end
 end
+
 -------------------------------------
 -- function click_linkBtn
 -------------------------------------
@@ -226,6 +261,35 @@ function UI_EventPopupTab_Banner:click_linkBtn()
     end
     
     g_eventData:goToEventUrl(url)
+end
+
+-------------------------------------
+-- function click_reservationBtn
+-------------------------------------
+function UI_EventPopupTab_Banner:click_reservationBtn()
+    local url = self.m_structBannerData['url']
+    if (url == '') then
+        return
+    end
+    
+    g_eventData:goToEventUrl(url)
+
+    do
+
+    end
+end
+
+-------------------------------------
+-- function click_reservationAccountBtn
+-------------------------------------
+function UI_EventPopupTab_Banner:click_reservationAccountBtn()
+end
+
+
+-------------------------------------
+-- function click_reservationRewardBtn
+-------------------------------------
+function UI_EventPopupTab_Banner:click_reservationRewardBtn()
 end
 
 -------------------------------------

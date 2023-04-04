@@ -577,6 +577,31 @@ function ServerData_User:getDeviceInfoByKey(key)
 end
 
 -------------------------------------
+-- function saveReservationTime
+-------------------------------------
+function ServerData_User:saveReservationTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local str_key = string.format('pre_reservation_time', key)
+    g_localData:applyLocalData(curr_time, 'local', str_key)
+end
+
+-------------------------------------
+-- function getAfterReservationSeconds
+-------------------------------------
+function ServerData_User:getAfterReservationSeconds()
+    local str_key = string.format('pre_reservation_time', key)
+    local sec = g_localData:applyLocalData('local', str_key) or 0
+    return sec
+end
+
+-------------------------------------
+-- function isAvailableAfterReservationReward
+-------------------------------------
+function ServerData_User:isAvailableAfterReservationReward()
+    return self:getAfterReservationSeconds() > 60    
+end
+
+-------------------------------------
 -- function getiOSMajorVersion
 --[[ @breif
     Android : SDK_INT, api level .. like 27, 30
