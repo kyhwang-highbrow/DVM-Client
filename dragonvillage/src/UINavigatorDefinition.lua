@@ -2273,7 +2273,7 @@ end
 -------------------------------------
 function UINavigatorDefinition:goTo_story_dungeon(...)
     local args = {...}
-    local stage = args[1]
+    local stage_id = args[1]
 
     -- 해당 UI가 열려있을 경우
     local is_opened, index, ui = self:findOpendUI('UI_DragonStoryDungeonEventScene')

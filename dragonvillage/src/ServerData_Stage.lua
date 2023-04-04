@@ -276,6 +276,10 @@ function ServerData_Stage:getNextStage(stage_id)
     -- 고대 유적 던전 모드
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         ret = g_ancientRuinData:getNextStageID(stage_id)
+
+    -- 스토리 던전 모드
+    elseif (game_mode == GAME_MODE_STORY_DUNGEON) then
+        ret = g_eventDragonStoryDungeon:getNextStageID(stage_id)
     
     -- 룬 수호자 던전 (다음 스테이지 개념 없음)
     elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then

@@ -81,6 +81,10 @@ function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
     elseif (game_mode == GAME_MODE_DIMENSION_GATE) then
         link_type = 'ply_dmgate'
 
+    -- 스토리 던전
+    elseif (game_mode == GAME_MODE_STORY_DUNGEON) then
+        link_type = 'ply_story_dungeon'
+
     -- 모험 모드
     else
         link_type = 'ply_adv'
@@ -265,6 +269,11 @@ T_LINK_FUNC = {
         UINavigator:goTo('rune_guardian')
     end,
 
+    -- 스토리 던전 플레이
+    ['ply_story_dungeon'] = function()
+        UINavigator:goTo('story_dungeon')
+    end,
+
     -- 유저 레벨 달성
     ['u_lv'] = function()
         UINavigator:goTo('adventure')
@@ -294,14 +303,12 @@ T_LINK_FUNC = {
     ['t_get'] = function()
         UINavigator:goTo('tamer')
     end,
+
     -- 테이머 스킬 레벨 업
     ['t_sklvup'] = function()
         UINavigator:goTo('tamer')
     end,
     
-
-
-
     -- 룬 장착
     ['r_eq'] = function()
         UINavigator:goTo('dragon_manage', 'rune')
@@ -328,9 +335,6 @@ T_LINK_FUNC = {
     ['r_enc_fail'] = function()
         UINavigator:goTo('dragon_manage', 'rune')
     end,
-
-
-
 
     -- 드래곤 스킬 레벨 업
     ['d_sklvup'] = function()

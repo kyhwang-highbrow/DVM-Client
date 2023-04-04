@@ -88,15 +88,53 @@ end
 -------------------------------------
 function ServerData_StoryDungeonEvent:isOpenStage(stage_id, _season_id)
     local season_id = _season_id or self:getStoryDungeonSeasonId()
-    local prev_stage_id = stage_id - 1
+    local stage_list = self:getStoryDungeonStageIdList(season_id)
+    local stage_count = #stage_list
 
-    if (prev_stage_id % 10 == 0) then
+    local prev_stage_id = stage_id - 1
+    if (prev_stage_id % stage_count == 0) then
         return true
     else
         local clear_count = self:getStoryDungeonStageClearCount(season_id, prev_stage_id)
         local is_open = (0 < clear_count)
         return is_open
     end
+end
+
+-------------------------------------
+-- function getPrevStageID
+-------------------------------------
+function ServerData_StoryDungeonEvent:getPrevStageID(stage_id)
+    local season_id = self:getStoryDungeonSeasonId()
+    local stage_list = self:getStoryDungeonStageIdList(season_id)
+
+    if #stage_list == 0 then
+        return nil
+    end
+
+    local first_stage_id = stage_list[1]
+    if first_stage_id > stage_id - 1 then
+        return nil
+    end
+    return stage_id - 1
+end
+
+-------------------------------------
+-- function getNextStageID
+-------------------------------------
+function ServerData_StoryDungeonEvent:getNextStageID(stage_id)
+    local season_id = self:getStoryDungeonSeasonId()
+    local stage_list = self:getStoryDungeonStageIdList(season_id)
+
+    if #stage_list == 0 then
+        return nil
+    end
+
+    local last_stage_id = stage_list[#stage_list]
+    if last_stage_id < stage_id + 1 then
+        return nil
+    end
+    return stage_id + 1
 end
 
 -------------------------------------

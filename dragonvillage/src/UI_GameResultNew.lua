@@ -128,6 +128,7 @@ function UI_GameResultNew:initButton()
     -- 모드별 버튼
     vars['mapBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['relationBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['storyDungeonBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['goldBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['nightmareBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['treeBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
@@ -749,7 +750,9 @@ function UI_GameResultNew:set_modeButton()
         --vars['statsBtn']:setVisible(false)
         --vars['homeBtn']:setVisible(false)
         self:adjustMenuButtonPos()
-
+    -- 스토리 던전
+    elseif (game_mode == GAME_MODE_STORY_DUNGEON) then
+        vars['storyDungeonBtn']:setVisible(true)
     -- 모험 
     else
         vars['mapBtn']:setVisible(true)
