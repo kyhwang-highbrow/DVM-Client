@@ -311,6 +311,7 @@ function UI_Package_Bundle:refresh()
             -- 구성품 t_desc 표시
             if (self.m_data['use_desc'] == 1) then
                 local desc_str = Str(struct_product['t_desc'])
+
                 setLabelString('itemLabel', idx, desc_str)
             -- 구성품 mail_content 표시
             else
@@ -373,6 +374,18 @@ function UI_Package_Bundle:refresh()
             if struct_product:isNeedProductInfo() == true then
                 setNodeVisible('infoBtn', idx, true)
             end
+            
+            do -- 뱃지 노출 처리
+                local str_badge = 'badgeNode' .. idx
+                if vars[str_badge] ~= nil then
+                    local badge = struct_product:makeBadgeIcon()
+                    if (badge) then
+                        vars[str_badge]:removeAllChildren()
+                        vars[str_badge]:addChild(badge)
+                    end
+                end
+            end
+
         end
     end
 
