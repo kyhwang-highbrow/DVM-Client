@@ -91,7 +91,7 @@ function LobbyMapFactory:setDeco(lobby_map, ui_lobby)
     -- 스토리 던전
     elseif (deco_type == DECO_TYPE.STORY_DUNGEON) then
         self:makeLobbyDeco_onLayer(lobby_ground, deco_type) -- 바닥 장식
-        lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 근경 레이어
+        --lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 근경 레이어
     end
 
     return lobby_map
@@ -307,6 +307,9 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
             end
         end
 
+        local x, y = self.m_lobbyMap.m_targetTamer.m_rootNode:getPosition()
+
+
         --[[
         button:addTouchEventListener(function(sender,eventType)
             ccdump(sender)
@@ -325,9 +328,28 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
             animator:setAnchorPoint(CENTER_POINT)
             animator:setPosition(235, 0)
             node:addChild(animator.m_node, 1)
+
+            local delay = cc.DelayTime:create(10)
+            local seq = cc.Sequence:create(
+                cc.CallFunc:create(function()
+                    SensitivityHelper:completeBubbleText(animator.m_node, '{@BLACK}이, 이것은 이벤트 한정 룬 빛의 검!!{@}', 4, 300)
+                end),
+                
+                cc.DelayTime:create(5),
+
+                cc.CallFunc:create(function()
+                    SensitivityHelper:completeBubbleText(animator.m_node, '{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 빛의 검!!{@}', 4, 300)
+                end)
+            )
+
+            local rep = cc.RepeatForever:create(cc.Sequence:create(seq, delay))
+            node:runAction(rep)
+
+            self:makeTouchEvent(animator, function ()
+                UINavigator:goTo('story_dungeon')
+            end)
+
         end
-        
-        --self:makeEventRoulette(self.m_lobbyMap.m_groudNode, cc.p(-300, 155))
     end
 end
 
@@ -543,7 +565,10 @@ function LobbyMapFactory:makeLayoutForWeidelFestival(lobby_map, ui_lobby)
     )
 end
 
-
+-------------------------------------
+-- function makeEventRoulette
+-- @brief 룰렛 이벤트 생성
+-------------------------------------
 function LobbyMapFactory:makeEventRoulette(lobby_ground, pos)
     if not g_hotTimeData:isActiveEvent('event_roulette') and not g_hotTimeData:isActiveEvent('event_roulette_reward') then return end
 
@@ -597,5 +622,42 @@ function LobbyMapFactory:makeEventRoulette(lobby_ground, pos)
     if (self.m_lobbyMap) then
         self.m_lobbyMap:makeTouchLayer(roulette, touch_event)
     end
+end
 
+
+-------------------------------------
+-- function makeTouchEvent
+-- @brief 터치 이벤트 생성
+-------------------------------------
+function LobbyMapFactory:makeTouchEvent(animator, touch_cb)
+    local is_requested = false
+    local function touch_event(touches, event)
+        if (is_requested == true) then
+            is_requested = false
+            return
+        end
+
+        local world_pos = convertToWorldSpace(animator.m_node)
+        local touch_pos = touches[1]:getLocation()
+
+        -- 화면상에 보이는 Y스케일을 얻어옴
+        local transform = animator.m_node:getNodeToWorldTransform()
+        local scale_y = transform[5 + 1]
+
+        local std_distance = (180 * scale_y)
+        local distance = getDistance(touch_pos['x'], touch_pos['y'], world_pos['x'], world_pos['y'])
+
+        if (distance > std_distance) then
+            return
+        end
+
+        is_requested = true
+        if touch_cb ~= nil then
+            touch_cb()
+        end
+    end
+
+    if (self.m_lobbyMap) then
+        self.m_lobbyMap:makeTouchLayer(animator, touch_event)
+    end
 end
