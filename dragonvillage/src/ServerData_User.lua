@@ -604,7 +604,26 @@ end
 -- function isAvailableAfterReservationReward
 -------------------------------------
 function ServerData_User:isAvailableAfterReservationReward()
-    return self:getAfterReservationSeconds() > 60    
+    if self:isReceivedAfterReservationReward() == false then
+        return self:getAfterReservationSeconds() > 60
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isAvailablePreReservation
+-------------------------------------
+function ServerData_User:isAvailablePreReservation()
+    if self:getAfterReservationSeconds() == 0 then
+        return true
+    end
+
+    if self:isAvailableAfterReservationReward() == true then
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------
@@ -927,4 +946,31 @@ function ServerData_User:request_checkDeletedUserID(success_cb, fail_cb)
         ui_network:setRevocable(true)
         ui_network:setReuse(false)
         ui_network:request()
+end
+
+-------------------------------------
+-- function request_receivePreReservationReward
+-------------------------------------
+function ServerData_User:request_receivePreReservationReward(success_cb, fail_cb)
+    do
+        return
+    end
+
+    -- 유저 ID
+    local uid = g_localData:get('local', 'uid')
+    local function success(ret)
+        if success_cb then
+            success_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/terms_agree')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
 end

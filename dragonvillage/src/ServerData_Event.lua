@@ -737,6 +737,7 @@ end
 -------------------------------------
 function ServerData_Event:setEventTabNoti(event_tab)
     local event_type = event_tab.m_type
+    local event_id = event_tab:getEventID()
 
     -- 접속 시간 받을 보상 있음
     if (event_type == 'access_time') then
@@ -769,6 +770,12 @@ function ServerData_Event:setEventTabNoti(event_tab)
     -- 레이드 참여 이벤트
     elseif (string.find(event_type, 'event_raid_play')) then
         event_tab.m_hasNoti = g_eventLeagueRaidData:hasReward('play') or g_eventLeagueRaidData:hasReward('win')
+    
+    -- 사전 예약 보상 이벤트
+    elseif (string.find(event_type, 'banner')) then
+        if event_id == 'pre_reservation_reward' then
+            event_tab.m_hasNoti = g_userData:isAvailablePreReservation()
+        end
 
     else
         event_tab.m_hasNoti = false
@@ -781,6 +788,7 @@ end
 -------------------------------------
 function ServerData_Event:hasAvailableReward(event_tab)
     local event_type = event_tab.m_type
+    local event_id = event_tab:getEventID()
     local has_available_reward
 
     -- 접속 시간 받을 보상 있음
@@ -814,8 +822,12 @@ function ServerData_Event:hasAvailableReward(event_tab)
     -- 레이드 참여 이벤트
     elseif (string.find(event_type, 'event_raid_play')) then
         has_available_reward = g_eventLeagueRaidData:hasReward('play') or g_eventLeagueRaidData:hasReward('win')
-
-
+    
+    -- 사전 예약 보상 이벤트
+    elseif (string.find(event_type, 'banner')) then
+        if event_id == 'pre_reservation_reward' then
+            has_available_reward = g_userData:isAvailablePreReservation()
+        end
     else
         has_available_reward = false
     end
