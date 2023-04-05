@@ -274,3 +274,12 @@ function UI_EventPopupTab_Banner:click_reservationBtn()
 
     g_eventData:goToEventUrl(url)
 end
+
+
+-------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_EventPopupTab_Banner:onEnterTab()
+    local vars = self.vars
+end

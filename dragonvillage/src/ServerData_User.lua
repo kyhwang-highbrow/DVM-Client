@@ -590,7 +590,7 @@ end
 -------------------------------------
 function ServerData_User:getAfterReservationSeconds()
     local str_key = 'pre_reservation_time'
-    local sec = g_localData:applyLocalData('local', str_key) or 0
+    local sec = g_localData:get('local', str_key) or 0
 
     if sec > 0 then
         local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
