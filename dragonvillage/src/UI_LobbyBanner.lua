@@ -25,7 +25,7 @@ function UI_LobbyBanner:init_after()
     self:initUI()
     self:initButton()
     self:refresh()
-    
+
     local vars = self.vars
     if vars['notiSprite'] ~= nil then
         self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update_reservation_timer(dt) end, 0)
@@ -76,7 +76,11 @@ function UI_LobbyBanner:click_bannerBtn()
     local event_type = self.m_eventData['event_type']
 
     if (url ~= nil) and (url ~= '') then
-        SDKManager:goToWeb(url)
+        if (event_type == 'event_crosspromotion') then
+            g_fullPopupManager:showFullPopup(event_type)
+        else
+            SDKManager:goToWeb(url)
+        end
     elseif (event_type == 'event_crosspromotion') then
 	    g_fullPopupManager:showFullPopup(event_type)
     end
