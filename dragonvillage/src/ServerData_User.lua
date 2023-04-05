@@ -581,7 +581,7 @@ end
 -------------------------------------
 function ServerData_User:saveReservationTime()
     local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-    local str_key = string.format('pre_reservation_time', key)
+    local str_key = 'pre_reservation_time'
     g_localData:applyLocalData(curr_time, 'local', str_key)
 end
 
@@ -589,8 +589,14 @@ end
 -- function getAfterReservationSeconds
 -------------------------------------
 function ServerData_User:getAfterReservationSeconds()
-    local str_key = string.format('pre_reservation_time', key)
+    local str_key = 'pre_reservation_time'
     local sec = g_localData:applyLocalData('local', str_key) or 0
+
+    if sec > 0 then
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+        return curr_time - sec
+    end
+
     return sec
 end
 
@@ -599,6 +605,13 @@ end
 -------------------------------------
 function ServerData_User:isAvailableAfterReservationReward()
     return self:getAfterReservationSeconds() > 60    
+end
+
+-------------------------------------
+-- function isReceivedAfterReservationReward
+-------------------------------------
+function ServerData_User:isReceivedAfterReservationReward()
+    return false
 end
 
 -------------------------------------
