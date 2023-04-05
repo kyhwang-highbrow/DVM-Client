@@ -7,6 +7,7 @@ local PARENT = UI
 -------------------------------------
 UI_CrossPromotion = class(PARENT,{
         m_eventData = 'map',
+        m_eventId = 'string',
     })
 
 -------------------------------------
@@ -22,15 +23,21 @@ function UI_CrossPromotion:init(event_type)
     if (event_data and event_data.m_eventData and event_data.m_eventData['banner']) then
         ui_name = event_data.m_eventData['banner']
         self.m_eventData = event_data.m_eventData
+        self.m_eventId = event_data:getEventID()
     end
 
     if (ui_name == nil) then return end
 
     self:load(ui_name)
-
     self:initUI()
     self:initButton()
     self:refresh()
+
+    local vars = self.vars
+    if vars['reservationLinkBtn'] ~= nil then 
+        self:update_reservation_timer()
+        self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update_reservation_timer(dt) end, 0)
+    end
 end
 
 -------------------------------------
@@ -43,13 +50,17 @@ function UI_CrossPromotion:initUI()
     if (linkBtn) then linkBtn:setVisible(false) end
 end
 
-
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_CrossPromotion:initButton()
     local vars = self.vars
     local linkBtn = vars['linkBtn']
+
+    -- 사전 예약 버튼이 있으면 우선 적용
+    if vars['reservationLinkBtn'] ~= nil then
+        vars['reservationLinkBtn']:registerScriptTapHandler(function() self:click_reservationBtn() end)
+    end
 
     if (linkBtn) then 
         linkBtn:registerScriptTapHandler(function() self:click_linkBtn() end)
@@ -124,11 +135,63 @@ function UI_CrossPromotion:click_linkBtn()
 end
 
 -------------------------------------
+-- function click_reservationBtn
+-------------------------------------
+function UI_CrossPromotion:click_reservationBtn()
+    local event_id = self.m_eventData['event_id']
+
+    if g_userData:isAvailableAfterReservationReward(event_id) == true then
+        self:request_InstallReward()
+        return
+    end
+
+    local seconds = g_userData:getAfterReservationSeconds(event_id)
+    if seconds == 0 then
+        g_userData:saveReservationTime(event_id)
+    end
+
+    local url = self.m_eventData['url']
+    if (url == '') then
+        return
+    end
+
+    g_eventData:goToEventUrl(url)
+end
+
+-------------------------------------
 -- function onEnterTab
 -------------------------------------
 function UI_CrossPromotion:onEnterTab()
 
 end
+
+-------------------------------------
+-- function update_reservation_timer
+-------------------------------------
+function UI_CrossPromotion:update_reservation_timer(dt)
+    local vars = self.vars
+    local event_id = self.m_eventData['event_id']
+
+    local seconds = g_userData:getAfterReservationSeconds(event_id)
+    -- 사전예약 바로가기
+    if vars['reservationLinkBtn'] == nil then
+        return
+    end
+
+    vars['reservationRewardSprite']:setVisible(false)
+    if g_userData:isReceivedAfterReservationReward(event_id) == true then
+        vars['reservationLinkLabel']:setString(Str('보상 수령 완료'))
+    elseif seconds == 0 then
+        vars['reservationLinkLabel']:setString(Str('사전예약하러 가기'))
+        vars['reservationRewardSprite']:setVisible(true)
+    elseif seconds > 0 and seconds < 60 then
+        vars['reservationLinkLabel']:setString(Str('보상 확인 중..'))
+    else
+        vars['reservationLinkLabel']:setString(Str('보상 받기'))
+        vars['reservationRewardSprite']:setVisible(true)
+    end
+end
+
 
 -------------------------------------
 -- function refresh
@@ -184,7 +247,9 @@ function UI_CrossPromotion:refresh()
     end
 
     if (not is_link_btn_active) then
-        vars['linkBtn']:setVisible(true)
+        if vars['linkBtn'] ~= nil then
+            vars['linkBtn']:setVisible(true)
+        end
         if (vars['stateLabel']) then vars['stateLabel']:setString(Str('수령 완료')) end
         
     elseif CppFunctions:isAndroid() or CppFunctions:isIos() then

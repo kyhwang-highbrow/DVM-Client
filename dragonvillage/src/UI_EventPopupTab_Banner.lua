@@ -40,8 +40,6 @@ function UI_EventPopupTab_Banner:init_after(owner, struct_event_popup_tab)
     -- 남은 시간 등록
     if struct_banner_data['end_date'] and vars['timeLabel'] then
         self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update_timer(dt) end, 0)
-    elseif vars['reservationLinkBtn'] ~= nil then 
-        self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update_reservation_timer(dt) end, 0)
     end
 end
 
@@ -75,11 +73,6 @@ end
 -------------------------------------
 function UI_EventPopupTab_Banner:initButton()
     local vars = self.vars
-
-    -- 사전 예약 버튼이 있으면 우선 적용
-    if vars['reservationLinkBtn'] ~= nil then
-        vars['reservationLinkBtn']:registerScriptTapHandler(function() self:click_reservationBtn() end)
-    end
 
      -- 링크 버튼 동작 
     local link_button = vars['linkBtn'] or vars['gameLinkBtn']
@@ -120,31 +113,6 @@ function UI_EventPopupTab_Banner:update_timer(dt)
         end
 
         self.root:unscheduleUpdate()
-    end
-end
-
--------------------------------------
--- function update_reservation_timer
--------------------------------------
-function UI_EventPopupTab_Banner:update_reservation_timer(dt)
-    local vars = self.vars
-    local seconds = g_userData:getAfterReservationSeconds()
-    -- 사전예약 바로가기
-    if vars['reservationLinkBtn'] == nil then
-        return
-    end
-
-    vars['reservationRewardSprite']:setVisible(false)
-    if g_userData:isReceivedAfterReservationReward() == true then
-        vars['reservationLinkLabel']:setString(Str('보상 수령 완료'))
-    elseif seconds == 0 then
-        vars['reservationLinkLabel']:setString(Str('사전예약하러 가기'))
-        vars['reservationRewardSprite']:setVisible(true)
-    elseif seconds > 0 and seconds < 60 then
-        vars['reservationLinkLabel']:setString(Str('보상 확인 중..'))
-    else
-        vars['reservationLinkLabel']:setString(Str('보상 받기'))
-        vars['reservationRewardSprite']:setVisible(true)
     end
 end
 
@@ -256,33 +224,6 @@ function UI_EventPopupTab_Banner:click_linkBtn()
     
     g_eventData:goToEventUrl(url)
 end
-
--------------------------------------
--- function click_reservationBtn
--------------------------------------
-function UI_EventPopupTab_Banner:click_reservationBtn()
-    if g_userData:isAvailableAfterReservationReward() == true then
-        local success_cb = function(ret)
-            ItemObtainResult_hasCloseCb(ret, nil, nil)
-        end
-
-        g_userData:request_receivePreReservationReward(success_cb)
-        return
-    end
-
-    local seconds = g_userData:getAfterReservationSeconds()
-    if seconds == 0 then
-        g_userData:saveReservationTime()
-    end
-
-    local url = self.m_structBannerData['url']
-    if (url == '') then
-        return
-    end
-
-    g_eventData:goToEventUrl(url)
-end
-
 
 -------------------------------------
 -- function onEnterTab

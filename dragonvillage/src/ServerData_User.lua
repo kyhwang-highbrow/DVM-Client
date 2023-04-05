@@ -579,17 +579,17 @@ end
 -------------------------------------
 -- function saveReservationTime
 -------------------------------------
-function ServerData_User:saveReservationTime()
+function ServerData_User:saveReservationTime(event_id)
     local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-    local str_key = 'pre_reservation_time'
+    local str_key = event_id
     g_localData:applyLocalData(curr_time, 'local', str_key)
 end
 
 -------------------------------------
 -- function getAfterReservationSeconds
 -------------------------------------
-function ServerData_User:getAfterReservationSeconds()
-    local str_key = 'pre_reservation_time'
+function ServerData_User:getAfterReservationSeconds(event_id)
+    local str_key = event_id
     local sec = g_localData:get('local', str_key) or 0
 
     if sec > 0 then
@@ -603,9 +603,9 @@ end
 -------------------------------------
 -- function isAvailableAfterReservationReward
 -------------------------------------
-function ServerData_User:isAvailableAfterReservationReward()
-    if self:isReceivedAfterReservationReward() == false then
-        return self:getAfterReservationSeconds() > 60
+function ServerData_User:isAvailableAfterReservationReward(event_id)
+    if self:isReceivedAfterReservationReward(event_id) == false then
+        return self:getAfterReservationSeconds(event_id) > 60
     end
 
     return false
@@ -614,12 +614,12 @@ end
 -------------------------------------
 -- function isAvailablePreReservation
 -------------------------------------
-function ServerData_User:isAvailablePreReservation()
-    if self:getAfterReservationSeconds() == 0 then
+function ServerData_User:isAvailablePreReservation(event_id)
+    if self:getAfterReservationSeconds(event_id) == 0 then
         return true
     end
 
-    if self:isAvailableAfterReservationReward() == true then
+    if self:isAvailableAfterReservationReward(event_id) == true then
         return true
     end
 
@@ -629,7 +629,18 @@ end
 -------------------------------------
 -- function isReceivedAfterReservationReward
 -------------------------------------
-function ServerData_User:isReceivedAfterReservationReward()
+function ServerData_User:isReceivedAfterReservationReward(event_id)
+    local cross_event_data = g_serverData:get('user', 'cross_promotion_event')
+    if (cross_event_data == nil) then
+        cross_event_data = {}
+    end
+
+    for _, event_name in ipairs(cross_event_data) do
+        if (event_name == event_id) then
+            return true
+        end
+    end
+
     return false
 end
 

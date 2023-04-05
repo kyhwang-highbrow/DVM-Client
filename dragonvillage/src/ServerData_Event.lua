@@ -99,7 +99,7 @@ function ServerData_Event:getEventPopupTabList()
 
 
             for _, event_name in ipairs(cross_event_data) do
-                if (event_name == event_id) then
+                if (event_name == event_id and string.find(event_id, 'pre_reservation_') == nil) then
                     visible = false
                     break
                 end
@@ -318,7 +318,7 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
                 if (cross_event_data == nil) then cross_event_data = {} end
 
                 for _, event_name in ipairs(cross_event_data) do
-                    if (event_name == event_id) then
+                    if (event_name == event_id and string.find(event_id, 'pre_reservation_') == nil) then
                         -- 받은거 있다
                         visible = false
                         break
@@ -772,9 +772,9 @@ function ServerData_Event:setEventTabNoti(event_tab)
         event_tab.m_hasNoti = g_eventLeagueRaidData:hasReward('play') or g_eventLeagueRaidData:hasReward('win')
     
     -- 사전 예약 보상 이벤트
-    elseif (string.find(event_type, 'banner')) then
-        if event_id == 'pre_reservation_reward' then
-            event_tab.m_hasNoti = g_userData:isAvailablePreReservation()
+    elseif (string.find(event_type, 'event_crosspromotion')) then
+        if (string.find(event_id, 'pre_reservation_')) then
+            event_tab.m_hasNoti = g_userData:isAvailablePreReservation(event_id)
         end
 
     else
@@ -824,9 +824,9 @@ function ServerData_Event:hasAvailableReward(event_tab)
         has_available_reward = g_eventLeagueRaidData:hasReward('play') or g_eventLeagueRaidData:hasReward('win')
     
     -- 사전 예약 보상 이벤트
-    elseif (string.find(event_type, 'banner')) then
-        if event_id == 'pre_reservation_reward' then
-            has_available_reward = g_userData:isAvailablePreReservation()
+    elseif (string.find(event_type, 'event_crosspromotion')) then
+        if (string.find(event_id, 'pre_reservation_')) then
+            has_available_reward = g_userData:isAvailablePreReservation(event_id)
         end
     else
         has_available_reward = false
