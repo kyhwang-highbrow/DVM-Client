@@ -21,10 +21,15 @@ end
 ----------------------------------------------------------------------
 function UI_LobbyBanner:init_after()
     self:load(self.m_resName)
-
+    
     self:initUI()
     self:initButton()
     self:refresh()
+    
+    local vars = self.vars
+    if vars['notiSprite'] ~= nil then
+        self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update_reservation_timer(dt) end, 0)
+    end
 end
 
 --local text_color = TableFriendship:getTextColorWithFlv(flv)
@@ -51,6 +56,16 @@ end
 -- class refresh
 ----------------------------------------------------------------------
 function UI_LobbyBanner:refresh()
+end
+
+-------------------------------------
+-- function update_reservation_timer
+-------------------------------------
+function UI_LobbyBanner:update_reservation_timer(dt)
+    local vars = self.vars
+    local event_id = self.m_eventData['event_id']
+    local is_available = g_userData:isAvailablePreReservation(event_id)
+    vars['notiSprite']:setVisible(is_available)
 end
 
 ----------------------------------------------------------------------
