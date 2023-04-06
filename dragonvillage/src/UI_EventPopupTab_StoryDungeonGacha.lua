@@ -14,7 +14,7 @@ UI_EventPopupTab_StoryDungeonGacha = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopupTab_StoryDungeonGacha:init()
+function UI_EventPopupTab_StoryDungeonGacha:init(is_fullpopup)
     self.m_eventVersion = nil
     self.m_seasonId = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
     self.m_ticketItemKey = TableStoryDungeonEvent:getStoryDungeonEventTicketKey(self.m_seasonId)
@@ -28,15 +28,36 @@ function UI_EventPopupTab_StoryDungeonGacha:init()
     --UIManager:open(self, UIManager.POPUP)
     --g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_StoryDungeonEventShop')
 
-    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
-    self:doActionReset()
-    self:doAction(nil, false)
+    if is_fullpopup ~= true then
+        self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+        self:doActionReset()
+        self:doAction(nil, false)
+
+        self:initUI()
+        self:initButton()
+        self:refresh()
+    end
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_EventPopupTab_StoryDungeonGacha:open()
+    UIManager:open(self, UIManager.POPUP)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventPopupTab_StoryDungeonGacha')
 
     self:initUI()
     self:initButton()
     self:refresh()
-end
 
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self.vars['closeBtn']:setVisible(true)
+end
 
 -------------------------------------
 -- function makeGachaMap
@@ -95,6 +116,7 @@ function UI_EventPopupTab_StoryDungeonGacha:initUI()
         local dragon_animator = UIC_DragonAnimator()
         dragon_animator:setDragonAnimator(did, 3)
         dragon_animator:setTalkEnable(false)
+        vars['dragonNode']:removeAllChildren()
         vars['dragonNode']:addChild(dragon_animator.m_node)
     end
 
@@ -137,6 +159,8 @@ function UI_EventPopupTab_StoryDungeonGacha:initButton()
 
     vars['ceilingBtn']:registerScriptTapHandler(function() self:click_dragonBtn() end)
     vars['story_dungeonBtn']:registerScriptTapHandler(function() self:click_goBtn() end)
+
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------
@@ -274,10 +298,3 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count, gacha_result_
         MakeSimplePopup_SummonConfirm(self.m_ticketItemKey, count, msg, ok_cb)
     end
 end
-
--------------------------------------
--- function UI_StoryDungeonEventShop.open()
--------------------------------------
-function UI_EventPopupTab_StoryDungeonGacha.open(season_id)
-    UI_EventPopupTab_StoryDungeonGacha(season_id)
- end

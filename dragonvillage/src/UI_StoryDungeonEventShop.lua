@@ -202,13 +202,14 @@ end
 -- function click_gachaBtn
 -------------------------------------
 function UI_StoryDungeonEventShop:click_gachaBtn()
-    --require('UI_EventPopupTab_StoryDungeonGacha')
-    --UI_EventPopupTab_StoryDungeonGacha.open(self.m_seasonId)
-    local ui = UI_EventFullPopup('story_dungeon_gacha')
-    ui:openEventFullPopup()
-    ui.vars['checkLabel']:setVisible(false)
- end
- 
+
+    require('UI_EventPopupTab_StoryDungeonGacha')
+    local ui = UI_EventPopupTab_StoryDungeonGacha(true)
+    ui:open()
+
+    
+end
+
 -------------------------------------
 -- function click_exitBtn
 -- @brief pure virtual function of ITopUserInfo_EventListener 
