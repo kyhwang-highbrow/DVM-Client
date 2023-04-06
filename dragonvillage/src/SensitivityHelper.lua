@@ -71,6 +71,8 @@ function SensitivityHelper:completeBubbleText(parent, bubble_str, delay, pos_y, 
 	local remove_action = cc.RemoveSelf:create()
 	local seq_action = cc.Sequence:create(scale_action, scale_action_2, delay_action, fade_action, cb_action, remove_action)
 	bubble_text:runAction(seq_action)
+
+	return bubble_text
 end
 
 -------------------------------------

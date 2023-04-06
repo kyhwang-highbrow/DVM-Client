@@ -322,33 +322,58 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
         self:makeLobbyEffectByMode(node)
 
     elseif (deco_type == DECO_TYPE.STORY_DUNGEON) then -- 스토리 던전
-        animator = MakeAnimator('res/lobby/lobby_season_deco/story_dungeon/origingoddragon_230324.spine')
+        animator = MakeAnimator('res/lobby/lobby_season_deco/story_dungeon/sword.spine')
         if (animator.m_node) then
             animator:setDockPoint(CENTER_POINT)
             animator:setAnchorPoint(CENTER_POINT)
             animator:setPosition(235, 0)
             node:addChild(animator.m_node, 1)
 
-            local delay = cc.DelayTime:create(10)
-            local seq = cc.Sequence:create(
-                cc.CallFunc:create(function()
-                    SensitivityHelper:completeBubbleText(animator.m_node, '{@BLACK}이, 이것은 이벤트 한정 룬 빛의 검!!{@}', 4, 300)
-                end),
-                
-                cc.DelayTime:create(5),
-
-                cc.CallFunc:create(function()
-                    SensitivityHelper:completeBubbleText(animator.m_node, '{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 빛의 검!!{@}', 4, 300)
-                end)
-            )
-
-            local rep = cc.RepeatForever:create(cc.Sequence:create(seq, delay))
-            node:runAction(rep)
-
             self:makeTouchEvent(animator, function ()
                 UINavigator:goTo('story_dungeon')
             end)
+        end
 
+        animator = MakeAnimator('res/lobby/lobby_season_deco/story_dungeon/goldragora.spine')
+        if (animator.m_node) then
+            animator:setDockPoint(CENTER_POINT)
+            animator:setAnchorPoint(CENTER_POINT)
+            animator:setPosition(0, 200)
+            node:addChild(animator.m_node, 2)
+
+            local delayedText = nil
+            -- 골드 만드라고라 움직임 구현
+            local action = cc.Sequence:create(
+                cca.makeBasicEaseMove(1, 0, 200),
+                cc.CallFunc:create(function()
+                    --@dhkim 골드 만드라고라 다시 뒤집기
+                    animator:setFlip(false)
+                end),
+                cc.CallFunc:create(function()
+                    --@dhkim 첫번째 말풍선
+                    SensitivityHelper:completeBubbleText(animator.m_node, '{@BLACK}이, 이것은 이벤트 한정 룬 빛의 검!!{@}', 4, 110)
+                end),
+                cc.DelayTime:create(5),
+                cca.makeBasicEaseMove(1, 500, 200),
+                cc.CallFunc:create(function()
+                    --@dhkim - 두번째 말풍선
+                    delayedText = SensitivityHelper:completeBubbleText(animator.m_node, '{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 빛의 검!!{@}', 4, 110, function() delayedText = nil end)
+                end),
+                cc.DelayTime:create(0.3),
+                cc.CallFunc:create(function()
+                    --@dhkim 골드 만드라고라 다시 뒤집기
+                    animator:setFlip(true)
+
+                    --@dhkim 말풍선이 뒤집혀지지 않게 스케일 -1로
+                    if delayedText ~= nil then
+                        delayedText:setScaleX(-1)
+                    end
+                end),
+                cc.DelayTime:create(5)
+            )
+
+            local movement = cc.RepeatForever:create(action)
+            animator.m_node:runAction(movement)
         end
     end
 end
