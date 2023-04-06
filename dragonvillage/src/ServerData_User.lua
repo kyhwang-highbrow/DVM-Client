@@ -615,8 +615,10 @@ end
 -- function isAvailablePreReservation
 -------------------------------------
 function ServerData_User:isAvailablePreReservation(event_id)
-    if self:getAfterReservationSeconds(event_id) == 0 then
-        return true
+    if self:isReceivedAfterReservationReward(event_id) == false then
+        if self:getAfterReservationSeconds(event_id) == 0 then
+            return true
+        end
     end
 
     if self:isAvailableAfterReservationReward(event_id) == true then
