@@ -737,7 +737,7 @@
 					ui_name = '';
 					flag = '';
 					x = 0.000000;
-					y = -67.000000;
+					y = -80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -794,9 +794,9 @@
 				screen_ui = 0;
 				lua_name = 'story_dungeonBtn';
 				enable = true;
-				normal = 'ui/buttons/lobby_main_btn_dungeon_0101.png';
-				selected = '';
-				disable = '';
+				normal = 'ui/buttons/story_dungeon_btn_0101.png';
+				selected = 'ui/buttons/story_dungeon_btn_0102.png';
+				disable = 'ui/buttons/story_dungeon_btn_0102.png';
 				image_type = 0;
 			};
 			[9] =

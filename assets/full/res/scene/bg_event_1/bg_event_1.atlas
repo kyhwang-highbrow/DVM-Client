@@ -1,0 +1,75 @@
+
+bg_event_1.png
+size: 1902,2033
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bg_1
+  rotate: false
+  xy: 2, 1132
+  size: 1498, 899
+  orig: 1498, 899
+  offset: 0, 0
+  index: -1
+bg_2
+  rotate: false
+  xy: 2, 213
+  size: 1427, 917
+  orig: 1427, 917
+  offset: 0, 0
+  index: -1
+bg_3
+  rotate: false
+  xy: 1886, 2021
+  size: 14, 10
+  orig: 14, 10
+  offset: 0, 0
+  index: -1
+effect_illusion_lighting_02
+  rotate: false
+  xy: 1502, 1649
+  size: 382, 382
+  orig: 382, 382
+  offset: 0, 0
+  index: -1
+effect_illusion_lighting_03
+  rotate: false
+  xy: 1502, 1265
+  size: 382, 382
+  orig: 382, 382
+  offset: 0, 0
+  index: -1
+effect_illusion_lighting_04
+  rotate: true
+  xy: 1502, 965
+  size: 298, 332
+  orig: 298, 332
+  offset: 0, 0
+  index: -1
+gosin_1
+  rotate: false
+  xy: 2, 2
+  size: 268, 209
+  orig: 268, 209
+  offset: 0, 0
+  index: -1
+
+bg_event_12.png
+size: 2018,785
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+acient_1
+  rotate: false
+  xy: 2, 2
+  size: 1154, 781
+  orig: 1154, 781
+  offset: 0, 0
+  index: -1
+light_1
+  rotate: false
+  xy: 1158, 161
+  size: 858, 622
+  orig: 858, 622
+  offset: 0, 0
+  index: -1
