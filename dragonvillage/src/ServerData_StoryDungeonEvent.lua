@@ -157,7 +157,7 @@ end
 -------------------------------------
 function ServerData_StoryDungeonEvent:getStoryDungeonStageClearCount(season_id, stage_id)
     local t_season_info = self:getStoryDungeonSeasonInfo(season_id)
-    local t_clear_info = t_season_info['stage_play_count']
+    local t_clear_info = t_season_info['stage_clear_count']
 
     if t_clear_info == nil then
         return 0
