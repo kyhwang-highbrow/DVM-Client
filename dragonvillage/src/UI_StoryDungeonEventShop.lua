@@ -168,6 +168,12 @@ function UI_StoryDungeonEventShop:initTableView()
             end
         )
 	end
+
+    local function sort_func(a, b)
+        local struct_a = a['data']
+        local struct_b = b['data']
+        return struct_a:getUIPriority() > struct_b:getUIPriority()
+    end
     
     -- 테이블 뷰 인스턴스 생성
     require('UI_StoryDungeonEventShopItem')
@@ -179,6 +185,9 @@ function UI_StoryDungeonEventShop:initTableView()
     -- 리스트가 비었을 때
     table_view_td:makeDefaultEmptyDescLabel('')
     table_view_td:setItemList(l_item_list)
+    table_view_td:insertSortInfo('sort', sort_func)
+    table_view_td:sortImmediately('sort')
+
     self.m_tableView = table_view_td
 end
 
