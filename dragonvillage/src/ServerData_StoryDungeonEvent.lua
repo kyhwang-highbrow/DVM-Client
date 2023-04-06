@@ -89,10 +89,9 @@ end
 function ServerData_StoryDungeonEvent:isOpenStage(stage_id, _season_id)
     local season_id = _season_id or self:getStoryDungeonSeasonId()
     local stage_list = self:getStoryDungeonStageIdList(season_id)
-    local stage_count = #stage_list
 
     local prev_stage_id = stage_id - 1
-    if (prev_stage_id % stage_count == 0) then
+    if (stage_list[1] > prev_stage_id) then
         return true
     else
         local clear_count = self:getStoryDungeonStageClearCount(season_id, prev_stage_id)
