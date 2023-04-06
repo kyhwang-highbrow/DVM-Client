@@ -112,9 +112,9 @@ end
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:initButton()
     local vars = self.vars
-    
     vars['shopBtn']:registerScriptTapHandler(function () self:click_shopBtn() end)
     vars['questBtn']:registerScriptTapHandler(function () self:click_questBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function () self:click_helpBtn() end)
 end
 
 -------------------------------------
@@ -183,6 +183,16 @@ end
 function UI_DragonStoryDungeonEventScene:click_questBtn()
     require('UI_StoryDungeonEventQuest')
     UI_StoryDungeonEventQuest.open(self.m_seasonId)
+end
+
+-------------------------------------
+-- function click_questBtn
+-------------------------------------
+function UI_DragonStoryDungeonEventScene:click_helpBtn()
+    local ui = MakePopup('story_dungeon_event_help.ui')
+    -- @UI_ACTION
+    ui:doActionReset()
+    ui:doAction(nil, false)
 end
 
 -------------------------------------
