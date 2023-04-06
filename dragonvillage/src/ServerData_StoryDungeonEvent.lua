@@ -274,10 +274,12 @@ function ServerData_StoryDungeonEvent:replaceStoryDungeonRelatedItems()
     end
 
     local season_id = self:getStoryDungeonSeasonId()
-    local l_replace_id_list = {}
-    table.insert(l_replace_id_list, TableStoryDungeonEvent:getStoryDungeonEventTicketReplaceId(season_id))
-    table.insert(l_replace_id_list, TableStoryDungeonEvent:getStoryDungeonEventTokenReplaceId(season_id))
-    TableItem:replaceDisplayInfo(l_replace_id_list)
+    if season_id ~= nil then
+        local l_replace_id_list = {}
+        table.insert(l_replace_id_list, TableStoryDungeonEvent:getStoryDungeonEventTicketReplaceId(season_id))
+        table.insert(l_replace_id_list, TableStoryDungeonEvent:getStoryDungeonEventTokenReplaceId(season_id))
+        TableItem:replaceDisplayInfo(l_replace_id_list)
+    end
 end
 
 -------------------------------------
