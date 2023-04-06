@@ -129,6 +129,18 @@ function ConfirmPrice_original(price_type, price_value)
            return false
         end
 
+    elseif (price_type == 'ticket_story_dungeon') then 
+        local ticket_story_dungeon = g_userData:get('ticket_story_dungeon')
+        -- 티켓
+        if (ticket_story_dungeon < price_value) then
+            local str = TableItem:getItemName(price_type)
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('{1}이(가) 부족합니다.\n상점으로 이동하시겠습니까?', str), 
+            function() 
+                local _,season_code =  g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+                UINavigatorDefinition:goTo('package_shop', string.format('package_ticket_event_%s', season_code)) 
+            end)
+           return false
+        end
     else 
         local item_count = g_userData:get(price_type)
         if (item_count < price_value) then

@@ -32,7 +32,7 @@ function UI_StoryDungeonEventShop:init(season_id)
     self:refresh()
 
     -- 시즌 타이머
-    self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
+    --self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
 end
 
 -------------------------------------
@@ -71,21 +71,6 @@ function UI_StoryDungeonEventShop:initUI()
     -- 이름
     local dragon_name = table_dragon:getDragonName(did)
     vars['storyEventLabel']:setStringArg(Str(dragon_name))
-    
---[[     -- 속성 ex) dark
-    DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
-
-    -- 역할 ex) healer
-    local role_type = table_dragon:getDragonRole(did)
-    DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'], t_info)
-
-    -- 희귀도 ex) legend
-    DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
-
-    -- 진화도 by 별
-    local res = string.format('res/ui/icons/star/star_%s_%02d%02d.png', 'yellow', 2, 5)
-    local sprite = IconHelper:getIcon(res)
-	vars['starNode']:addChild(sprite) ]]
 
     do -- 드래곤 스파인
         local dragon_animator = UIC_DragonAnimator()
@@ -125,37 +110,13 @@ end
 -- function update
 -------------------------------------
 function UI_StoryDungeonEventShop:update(dt)
-    if (g_dmgateData:isActive() == false) then 
-        g_dmgateData:MakeSeasonEndedPopup()
-        self.root:unscheduleUpdate()
-    end
+
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_StoryDungeonEventShop:initTableView() 
---[[     local vars = self.vars
-
-    self.m_listNode:removeAllChildren()
-    local product_list = g_dmgateData:getShopInfoProductList()
-
-    local function create_callback(ui, data)
-        ui.m_parent = self
-    end
-    
-    -- create TableView
-    local table_view = UIC_TableViewTD(self.m_listNode)
-    
-    --table_view:setCellSizeToNodeSize(true)
-    table_view.m_cellSize = cc.size(225 + 5, 275 + 5)
-    table_view.m_nItemPerCell = 3
-    table_view:setCellUIClass(UI_StoryDungeonEventShopItem, create_callback)
-    table_view:setItemList(product_list)
-    table_view.m_scrollView:setTouchEnabled(false)
-
-    self.m_productTableview = table_view ]]
-
     local shop_tab_key = TableStoryDungeonEvent:getStoryDungeonEventShopTabKey(self.m_seasonId)
     local list_table_node = self.m_listNode
     local l_item_list = g_shopDataNew:getProductList(shop_tab_key)
@@ -182,8 +143,7 @@ function UI_StoryDungeonEventShop:initTableView()
     table_view_td.m_nItemPerCell = 3
     table_view_td:setCellUIClass(UI_StoryDungeonEventShopItem, create_cb_func)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    -- 리스트가 비었을 때
-    table_view_td:makeDefaultEmptyDescLabel('')
+    table_view_td:makeDefaultEmptyDescLabel('') -- 리스트가 비었을 때
     table_view_td:setItemList(l_item_list)
     table_view_td:insertSortInfo('sort', sort_func)
     table_view_td:sortImmediately('sort')
@@ -211,12 +171,9 @@ end
 -- function click_gachaBtn
 -------------------------------------
 function UI_StoryDungeonEventShop:click_gachaBtn()
-
     require('UI_EventPopupTab_StoryDungeonGacha')
     local ui = UI_EventPopupTab_StoryDungeonGacha(true)
     ui:open()
-
-    
 end
 
 -------------------------------------

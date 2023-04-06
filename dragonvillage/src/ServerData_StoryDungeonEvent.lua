@@ -29,7 +29,8 @@ function ServerData_StoryDungeonEvent:getStoryDungeonSeasonId()
     local t_stage_clear_info = self.m_serverData:getRef('story_dungeon_stage_info') or {}
     if t_stage_clear_info ~= nil then
         for key, v in pairs(t_stage_clear_info) do
-            return key
+            local season_id = key
+            return key, TableStoryDungeonEvent:getStoryDungeonSeasonCode(season_id)
         end
     end
 
