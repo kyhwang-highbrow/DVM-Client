@@ -290,12 +290,25 @@ end
 function ServerData_StoryDungeonEvent:requestStoryDungeonInfo(cb_func, fail_cb)
     local uid = g_userData:get('uid')
 
+    -- 라이브일 경우 요청하지 않도록 하드코딩(검수등록위해)
+    if IS_TEST_MODE() == false then
+        if cb_func then
+            cb_func()
+        end
+        return
+    end
+
     -- 성공 시 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
 
         -- 스테이지 정보
         self:applyStoryDungeonSeasonInfo(ret)
+
+        -- 스테이지가 없을 경우
+        if ret['story_dungeon_stage_info'] == nil then
+            self.m_serverData:applyServerData({}, 'story_dungeon_stage_info')
+        end
         
         -- 시즌 천장 정보
         self:applyStoryDungeonSeasonGachaCeilCount(ret)

@@ -55,6 +55,13 @@ function ServerData_ContentLock:isContentLock(content_name)
 		return true
     end
 
+    -- [스토리 던전]
+    if (content_name == 'story_dungeon') then
+        local is_open = g_eventDragonStoryDungeon:isStoryDungeonEventDoing()
+        return (not is_open)
+    end
+    
+
     -- 테이블에 있어서 조건 검사해야하는 던전들 =====================
     
     -- 테이블에 없는 컨텐츠 이름은 다 풀어준다.
@@ -116,11 +123,8 @@ function ServerData_ContentLock:isContentLock(content_name)
         return (not is_open)
     end
 
-    -- [스토리 던전]
-    if (content_name == 'story_dungeon') then
-        local is_open = g_eventDragonStoryDungeon:isStoryDungeonEventDoing()
-         return (not is_open)
-    end
+
+    
 
     return not self:isContentOpenByServer(content_name)
 end

@@ -1200,6 +1200,7 @@ local t_module = {
 
     -- UI : 스토리 던전
     'UI_DragonStoryDungeonEventScene',
+    'UI_StoryDungeonEventShop',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

@@ -508,14 +508,11 @@ function UI_Setting:click_allStaminaBtn()
     end))
 end
 
-
 -------------------------------------
 -- function click_newDragonEventBtn
 -- @brief 태초의 고신 이벤트
 -------------------------------------
 function UI_Setting:click_newDragonEventBtn()
-    require('UI_DragonStoryDungeonEventScene')
-    UI_DragonStoryDungeonEventScene.open()
 end
 
 -------------------------------------

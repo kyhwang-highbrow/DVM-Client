@@ -2273,7 +2273,7 @@ end
 -------------------------------------
 function UINavigatorDefinition:goTo_story_dungeon(...)
     local args = {...}
-    local stage_id = args[1]
+    local stage_id = args[1]    
 
     -- 해당 UI가 열려있을 경우
     local is_opened, index, ui = self:findOpendUI('UI_DragonStoryDungeonEventScene')
@@ -2283,6 +2283,12 @@ function UINavigatorDefinition:goTo_story_dungeon(...)
     end
 
     local function finish_cb()
+        -- 콜로세움 진입 가능 레벨 체크
+        if (g_contentLockData:isContentLock('story_dungeon')) then
+            UINavigatorDefinition:goTo('lobby')
+            UIManager:toastNotificationRed(Str('이벤트가 종료되었습니다.'))
+            return
+        end
 
         -- 전투 메뉴가 열려 있을 경우
         local is_opened, index, ui = self:findOpendUI('UI_BattleMenu')
@@ -2290,7 +2296,11 @@ function UINavigatorDefinition:goTo_story_dungeon(...)
             self:closeUIList(index) 
             ui:setTab('adventure')
             ui:resetButtonsPosition()
-            UI_DragonStoryDungeonEventScene()
+            if stage_id == 'shop' then
+                UI_StoryDungeonEventShop(stage_id)
+            else
+                UI_DragonStoryDungeonEventScene(stage_id)
+            end
             return
         end
 
@@ -2298,7 +2308,11 @@ function UINavigatorDefinition:goTo_story_dungeon(...)
         local is_opened, index, ui = self:findOpendUI('UI_Lobby')
         if is_opened then
             self:closeUIList(index) 
-            UI_DragonStoryDungeonEventScene()
+            if stage_id == 'shop' then
+                UI_StoryDungeonEventShop(stage_id)
+            else
+                UI_DragonStoryDungeonEventScene(stage_id)
+            end
             return
         end
    
@@ -2306,8 +2320,14 @@ function UINavigatorDefinition:goTo_story_dungeon(...)
             local function close_cb()
                 UINavigatorDefinition:goTo('lobby')
             end
+            local scene
 
-            local scene = SceneCommon(UI_DragonStoryDungeonEventScene, close_cb)
+            if stage_id == 'shop' then
+                scene = SceneCommon(UI_StoryDungeonEventShop, close_cb, stage_id)
+            else
+                scene = SceneCommon(UI_DragonStoryDungeonEventScene, close_cb, stage_id)
+            end
+            
             scene:runScene()
         end
     end

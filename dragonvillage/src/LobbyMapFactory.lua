@@ -330,7 +330,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
             node:addChild(animator.m_node, 1)
 
             self:makeTouchEvent(animator, function ()
-                UINavigator:goTo('story_dungeon')
+                UINavigator:goTo('story_dungeon', 'shop')
             end)
         end
 

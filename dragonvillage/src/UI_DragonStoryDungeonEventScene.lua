@@ -11,7 +11,7 @@ UI_DragonStoryDungeonEventScene = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonStoryDungeonEventScene:init()
+function UI_DragonStoryDungeonEventScene:init(move_arg)
     local vars = self:load('story_dungeon_scene.ui')
     self.m_seasonId = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
     UIManager:open(self, UIManager.SCENE)
@@ -174,7 +174,7 @@ end
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:click_shopBtn()
     require('UI_StoryDungeonEventShop')
-    UI_StoryDungeonEventShop.open(self.m_seasonId)
+    UI_StoryDungeonEventShop(self.m_seasonId)
 end
 
 -------------------------------------
@@ -193,17 +193,6 @@ function UI_DragonStoryDungeonEventScene:click_helpBtn()
     -- @UI_ACTION
     ui:doActionReset()
     ui:doAction(nil, false)
-end
-
--------------------------------------
--- function open
--------------------------------------
-function UI_DragonStoryDungeonEventScene.open()
-    local request_cb = function (ret)
-        UI_DragonStoryDungeonEventScene()
-    end
-
-    g_eventDragonStoryDungeon:requestStoryDungeonInfo(request_cb)
 end
 
 --@CHECK

@@ -15,16 +15,17 @@ UI_StoryDungeonEventShop = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_StoryDungeonEventShop:init(season_id) 
-    self.m_seasonId = season_id
+function UI_StoryDungeonEventShop:init() 
+    self.m_seasonId = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
     local vars = self:load('story_dungeon_shop.ui')
     UIManager:open(self, UIManager.SCENE)
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_StoryDungeonEventShop')
     
-    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+--[[     self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
     self:doActionReset()
-    self:doAction(nil, false)
-    
+    self:doAction(nil, false) ]]
+
+    self:doActionReset()
     self:initMember()
     self:initUI()
     self:initTableView()
