@@ -35,7 +35,6 @@ end
 function UI_Package_Bundle_Dependency:refresh()
     local vars = self.vars
     local l_item_list = self:getProductList()
-    cclog('l_item_list 갯수', #l_item_list)
 
     local function setLabelString(target_key, idx, str)
         if (vars[target_key..idx]) then
