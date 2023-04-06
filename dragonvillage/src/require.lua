@@ -1151,6 +1151,7 @@ local t_module = {
     'UI_Package_SpotSale',
     'UI_Package_New_DragonBg',
     'UI_Package_New_Dragon',
+    'UI_Package_Bundle_Dependency',
     'UI_SubscriptionDayListItem',
     'UI_SubscriptionDayListItemNew',
     'UI_ShopBasic',
