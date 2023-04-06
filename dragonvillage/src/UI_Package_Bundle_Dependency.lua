@@ -30,14 +30,6 @@ function UI_Package_Bundle_Dependency:getProductList()
 end
 
 -------------------------------------
--- function initUI
--------------------------------------
-function UI_Package_Bundle_Dependency:initUI()
-    local vars = self.vars
-end
-
-
--------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Package_Bundle_Dependency:refresh()
