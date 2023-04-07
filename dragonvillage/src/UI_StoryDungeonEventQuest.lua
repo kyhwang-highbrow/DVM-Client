@@ -23,12 +23,14 @@ function UI_StoryDungeonEventQuest:init(season_id)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_StoryDungeonEventQuest')
     UIManager:open(self, UIManager.SCENE)
-    self:initUI()
-    self:initButton()
 
-    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+    --self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
     self:doActionReset()
     self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -42,57 +44,6 @@ function UI_StoryDungeonEventQuest:initUI()
         local str = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
         vars['titleLabel']:setString(str)
     end
-
---[[     -- 종료 시간
-    local end_text = g_mandragoraQuest:getStatusText()
-    vars['timeLabel']:setString(end_text)
-
-    -- 최종 보상을 받기 위한 퀘스트 수
-    local last_reward_condition = g_mandragoraQuest:getLastRewardCondition()
-    vars['infoLabel']:setString(Str('{1}일차 클리어 시 스페셜 보상 획득!', last_reward_condition))
-
-    -- 퀘스트 UI
-    self.m_itemUiList = {}
-    local quest_info = g_mandragoraQuest.m_questInfo
-    for i, v in ipairs(quest_info) do
-        local ui = UI_StoryDungeonEventQuestListItem(v)
-        ui.m_refreshFunc = function()
-            self:refresh()
-        end
-
-        local node = vars['node'.. i]
-        if (node) then
-            node:addChild(ui.root)
-            table.insert(self.m_itemUiList, ui)
-        end
-    end
-
-
-    -- 최종 보상 UI
-    do
-        local last_reward_info = g_mandragoraQuest:getLastRewardInfo()
-
-        for idx, v in ipairs(last_reward_info) do
-            local node_name = 'itemNode' .. idx
-
-            if (vars[node_name] == nil) then
-                if (idx == 1) then
-                    node_name = 'itemNode'
-                else
-                    break
-                end
-            end
-
-            local item_card_ui = UI_ItemCard(v['item_id'], v['count'])
-            local item_id = v['item_id']
-            local did = tonumber(TableItem:getDidByItemId(item_id))
-            if did and (0 < did) then
-                item_card_ui.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true) end)
-            end
-
-            vars[node_name]:addChild(item_card_ui.root)
-        end
-    end ]]
 end
 
 -------------------------------------
@@ -101,6 +52,23 @@ end
 function UI_StoryDungeonEventQuest:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end) -- 닫기
+end
+
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_StoryDungeonEventQuest:refresh(t_quest_data)
+    -- 테이블뷰 아이템 데이터 교체
+    if (t_quest_data and t_quest_data['idx']) then
+        local t_item = self.m_tableView:getItem(t_quest_data['idx'])
+        if t_item then
+            t_item['data'] = t_quest_data
+        end
+    end
+    
+    -- 정렬
+    self.m_tableView:sortTableView('sort', 'force')
 end
 
 -------------------------------------
@@ -140,7 +108,7 @@ end
 function UI_StoryDungeonEventQuest.sortQuestList(a, b)
     local a_data = a['data']
     local b_data = b['data']
-
+--[[ 
     -- "일일 퀘스트 10개 클리어하기" 항목은 최상단으로 고정
     if (a_data:getQuestClearType() ~= b_data:getQuestClearType()) then
         if (a_data:getQuestClearType() == 'dq_clear') then
@@ -148,7 +116,7 @@ function UI_StoryDungeonEventQuest.sortQuestList(a, b)
         elseif (b_data:getQuestClearType() == 'dq_clear') then
             return false
         end
-    end
+    end ]]
 
     if (a_data:isEnd() and not b_data:isEnd()) then
         return false
