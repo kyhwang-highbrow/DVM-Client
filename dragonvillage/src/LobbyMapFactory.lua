@@ -327,6 +327,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
             animator:setDockPoint(CENTER_POINT)
             animator:setAnchorPoint(CENTER_POINT)
             animator:setPosition(235, 0)
+            animator:setScale(0.85)
             node:addChild(animator.m_node, 1)
 
             self:makeTouchEvent(animator, function ()
@@ -339,6 +340,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
             animator:setDockPoint(CENTER_POINT)
             animator:setAnchorPoint(CENTER_POINT)
             animator:setPosition(0, 200)
+            animator:setScale(0.85)
             node:addChild(animator.m_node, 2)
 
             local delayedText = nil
