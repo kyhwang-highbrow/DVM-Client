@@ -22,7 +22,7 @@ function UI_StoryDungeonEventQuest:init(season_id)
     local vars = self:load('story_dungeon_quest.ui')
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_StoryDungeonEventQuest')
-    UIManager:open(self, UIManager.SCENE)
+    UIManager:open(self, UIManager.POPUP)
 
     --self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
     self:doActionReset()

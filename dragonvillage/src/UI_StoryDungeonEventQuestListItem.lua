@@ -23,6 +23,22 @@ function UI_StoryDungeonEventQuestListItem:init_after(t_data)
 end
 
 -------------------------------------
+-- function setQuestDescLabel
+-- @brief 퀘스트 설명 표시
+-------------------------------------
+function UI_StoryDungeonEventQuestListItem:setQuestDescLabel()
+    local vars = self.vars
+    local quest_type = self.m_questData['quest_type']
+    local desc = self.m_questData:getQuestDesc()
+
+    if quest_type == 'daily' then
+        vars['questLabel']:setString(string.format('{@yellow}%s{@}',desc))
+    else
+        vars['questLabel']:setString(desc)
+    end
+end
+
+-------------------------------------
 -- function click_rewardBtn
 -------------------------------------
 function UI_StoryDungeonEventQuestListItem:click_rewardBtn(ui_quest_popup)
