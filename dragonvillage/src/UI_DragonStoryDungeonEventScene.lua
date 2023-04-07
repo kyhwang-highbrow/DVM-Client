@@ -181,8 +181,12 @@ end
 -- function click_questBtn
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:click_questBtn()
-    require('UI_StoryDungeonEventQuest')
-    UI_StoryDungeonEventQuest.open(self.m_seasonId)
+    local success_cb = function ()
+        require('UI_StoryDungeonEventQuest')
+        UI_StoryDungeonEventQuest.open(self.m_seasonId)
+    end
+
+    g_eventDragonStoryDungeon:requestStoryDungeonQuest(success_cb)
 end
 
 -------------------------------------

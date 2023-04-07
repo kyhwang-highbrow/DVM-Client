@@ -891,6 +891,11 @@ function StructRuneObject:isMaxOption(opt_name)
     -- ex)hp_mult;30 를 파싱하여
     -- hp_multi를 키로 사용해 max값을 구한다
     local opt_str = self[opt_name]
+
+    if opt_str == nil then
+        return false      
+    end
+
     opt_str = pl.stringx.split(opt_str, ';')
     
     if (#opt_str>0) then

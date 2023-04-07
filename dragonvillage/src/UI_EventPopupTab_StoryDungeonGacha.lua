@@ -192,8 +192,8 @@ function UI_EventPopupTab_StoryDungeonGacha:refresh()
     vars['ticketLabel_txt_10']:setStringArg(10)   
     vars['ticketLabel_txt_1']:setStringArg(1)
 
-    vars['ticketLabel_1']:setString(math_clamp(value, 0, 1))
-    vars['ticketLabel_10']:setString(math_clamp(value, 2, 10))
+    --vars['ticketLabel_1']:setString(math_clamp(value, 0, 1))
+    --vars['ticketLabel_10']:setString(math_clamp(value, 2, 10))
 
     --vars['summonBtn_1']:setEnabled( value > 0 )
     --vars['summonBtn_10']:setEnabled( value > 1 )

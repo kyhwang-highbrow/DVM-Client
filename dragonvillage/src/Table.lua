@@ -122,10 +122,6 @@ local TableInfo = {
         table_lucky_fortune_bag_rank = {'table_lucky_fortune_bag_rank', 'rank_id', false},
 
         table_talk_deet = {'table_talk_deet', 'text_id', false},
-        
-        -- 차원의 문
-        --dmgate_bless = {'table_dmgate_bless', 'type_id', false}, -- 차원의 문 축복
-        --dmgate_stage = {'table_dmgate_stage', 'stage_id', false}, -- 차원의 문 스테이지 (테스트용)
 
         -- 레이드 
         table_league_raid_data = {'table_league_raid_data', 'lv', false},
@@ -136,6 +132,8 @@ local TableInfo = {
         -- 아이템 교체 테이블
         table_item_replace = {'table_item_replace', 'id', false},
 
+        -- 이벤트 퀘스트
+        table_event_quest  = {'table_event_quest',	'qid',	false},
     }
 
 -------------------------------------

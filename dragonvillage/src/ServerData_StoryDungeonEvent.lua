@@ -8,6 +8,8 @@ ServerData_StoryDungeonEvent = class({
     m_ceilingMax = 'number',
     m_isAutomaticFarewell = 'boolean',
     m_isItemReplaced = 'boolean',
+    m_tableQuest = '',
+    m_questList = 'List<StructQuest>',
 })
 
 -------------------------------------
@@ -20,6 +22,8 @@ function ServerData_StoryDungeonEvent:init(server_data)
     self.m_ceilingInfo = {}
     self.m_ceilingMax = 100
     self.m_isItemReplaced = false
+    self.m_tableQuest = TableEventQuest()
+    self.m_questList = {}
 end
 
 -------------------------------------
@@ -265,6 +269,101 @@ end
 
 
 -------------------------------------
+-- function getQuestListByType
+-- @brief 해당 타입의 진행중인 퀘스트를 리턴한다.
+-------------------------------------
+function ServerData_StoryDungeonEvent:getQuestListByType(quest_type)
+    local l_quest = self.m_tQuestInfo[quest_type]
+
+	-- 보상 있는 퀘스트, 완료한 퀘스트만 추출
+	local l_reward_quest = {}
+	local l_completed_quest = {}
+	local l_normal_quest = {}
+
+	for i, quest in pairs(l_quest) do
+		-- 보상 있는 퀘스트
+		if quest:hasReward() then
+			table.insert(l_reward_quest ,quest)
+		
+        -- 남아있는 퀘스트
+		elseif (not quest:isEnd()) then
+			table.insert(l_normal_quest, quest)
+		
+        -- 완료한 퀘스트
+		else
+            table.insert(l_completed_quest, quest)
+			
+		end
+	end
+
+    -- 전부 qid 순으로 정렬    
+    table.sort(l_reward_quest, function(a, b)
+        return (tonumber(a['qid']) < tonumber(b['qid']))
+	end)
+	table.sort(l_normal_quest, function(a, b)
+        return (tonumber(a['qid']) < tonumber(b['qid']))
+	end)
+	table.sort(l_completed_quest, function(a, b)
+        return (tonumber(a['qid']) < tonumber(b['qid']))
+	end)
+
+	-- merge 해서 리턴
+	local l_ret = table.merge(l_reward_quest, l_normal_quest)
+	l_ret = table.merge(l_ret, l_completed_quest)
+    
+	return l_ret
+end
+
+-------------------------------------
+-- function getQuestList
+-------------------------------------
+function ServerData_StoryDungeonEvent:getQuestList()
+    return self.m_questList or {}
+end
+
+-------------------------------------
+-- function applyQuestInfo
+-- @breif 테이블 데이타와 서버 데이타를 조합해서 UI에서 활용 가능한 퀘스트 데이타 생성
+-------------------------------------
+function ServerData_StoryDungeonEvent:applyQuestInfo(t_quest_info)
+    local t_data, struct_quest
+    local qid_n, rawcnt, reward, clear
+    local is_end
+
+    self.m_questList = {}
+    local quest_type_list = {'daily', 'main'}
+
+    for _, type in ipairs(quest_type_list) do
+        local quest_type = type
+        local t_challenge = t_quest_info[quest_type]
+		if (t_challenge) then
+			-- server_data 분류
+			local t_focus = t_challenge['focus']
+			local l_reward = t_challenge['reward']
+
+			-- 클라 데이터 생성 (서버 정보 기반)
+			local l_quest = {}
+			for qid, rawcnt in pairs(t_focus) do
+				qid_n = tonumber(qid)
+				local t_quest = self.m_tableQuest:get(qid_n)
+				reward = table.find(l_reward, qid_n) and true or false
+            
+				-- 보상도 받았고 달성도 했는데 다음 focus를 안준다면 이미 클리어한것
+				is_end = false
+				if (rawcnt >= t_quest['clear_value']) and (reward == false) then
+					is_end = true
+				end
+
+				-- StructQuestData 생성
+				t_data ={['qid'] = qid_n, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
+				struct_quest = StructQuestData(t_data)
+				table.insert(self.m_questList, struct_quest)
+			end
+		end
+    end
+end
+
+-------------------------------------
 -- function replaceStoryDungeonRelatedItems
 -- @brief 스토리 던전 관련 아이템을 시즌별로 다르게 보이도록 처리
 -- 앱 구동 후 info 받고 한번만 처리
@@ -378,6 +477,68 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_c
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
+-- function requestStoryDungeonQuest
+-- @brief 이벤트 정보
+-------------------------------------
+function ServerData_StoryDungeonEvent:requestStoryDungeonQuest(cb_func, fail_cb)
+    local uid = g_userData:get('uid')
+
+    -- 성공 시 콜백
+    local function success_cb(ret)       
+        if ret['quest_info'] then
+            self:applyQuestInfo(ret['quest_info'])
+        end
+
+        if cb_func then
+            cb_func()
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/story_dungeon/quest_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
+-- function requestStoryDungeonQuestReward
+-- @brief 이벤트 정보
+-------------------------------------
+function ServerData_StoryDungeonEvent:requestStoryDungeonQuestReward(quest, cb_func)
+    local uid = g_userData:get('uid')
+    local qid = quest['qid']
+
+    
+	if (not qid) then 
+		error('잘못된 퀘스트 보상 접근')
+	end
+
+    -- 성공 시 콜백
+    local function success_cb(ret)       
+        if ret['quest_info'] then
+            self:applyQuestInfo(ret['quest_info'])
+        end
+
+        if cb_func then
+            cb_func()
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/story_dungeon/quest_reward')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('qid', qid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
     return ui_network
 end

@@ -20,7 +20,8 @@ function UI_StoryDungeonEventQuest:init(season_id)
     self.m_uiName = 'UI_StoryDungeonEventQuest'
     self.m_titleStr = ''
     local vars = self:load('story_dungeon_quest.ui')
-
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_StoryDungeonEventQuest')
     UIManager:open(self, UIManager.SCENE)
     self:initUI()
     self:initButton()
@@ -109,7 +110,7 @@ function UI_StoryDungeonEventQuest:makeQuestTableView(tab, node)
     local vars = self.vars
 
 	-- 퀘스트 뭉치
-	local l_quest = g_questData:getQuestListByType(tab)
+	local l_quest = g_eventDragonStoryDungeon:getQuestList()
     for idx, v in pairs(l_quest) do
         v['idx'] = idx
     end
