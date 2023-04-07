@@ -330,7 +330,8 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
             animator:setScale(0.85)
             node:addChild(animator.m_node, 1)
 
-            self:makeTouchEvent(animator, function ()
+            --@dhkim 빛의 검 구조물용 터치 이벤트 영역 설정
+            self:makeSwordTouchEvent(animator, function ()
                 UINavigator:goTo('story_dungeon', 'shop')
             end)
         end
@@ -654,7 +655,7 @@ end
 
 -------------------------------------
 -- function makeTouchEvent
--- @brief 터치 이벤트 생성
+-- @brief 로비 구조물에 원형의 터치 이벤트 생성
 -------------------------------------
 function LobbyMapFactory:makeTouchEvent(animator, touch_cb)
     local is_requested = false
@@ -675,6 +676,40 @@ function LobbyMapFactory:makeTouchEvent(animator, touch_cb)
         local distance = getDistance(touch_pos['x'], touch_pos['y'], world_pos['x'], world_pos['y'])
 
         if (distance > std_distance) then
+            return
+        end
+
+        is_requested = true
+        if touch_cb ~= nil then
+            touch_cb()
+        end
+    end
+
+    if (self.m_lobbyMap) then
+        self.m_lobbyMap:makeTouchLayer(animator, touch_event)
+    end
+end
+
+-------------------------------------
+-- function makeSwordTouchEvent
+-- @brief 로비의 빛의 검 구조물에 터치 이벤트 생성
+-------------------------------------
+function LobbyMapFactory:makeSwordTouchEvent(animator, touch_cb)
+    local is_requested = false
+    local function touch_event(touches, event)
+        if (is_requested == true) then
+            is_requested = false
+            return
+        end
+
+        local touch_pos = touches[1]:getLocation()
+
+        -- 빛의 검 구조물의 바운드 박스 안에 터치가 있을 때만 터치 이벤트되도록 구현
+        local bounding_box = animator.m_node:getBoundingBox()
+        local local_location = animator.m_node:getParent():convertToNodeSpace(touch_pos)
+        local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+
+        if (is_contain ~= true) then
             return
         end
 
