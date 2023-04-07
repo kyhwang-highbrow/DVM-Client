@@ -38,7 +38,6 @@ end
 -------------------------------------
 function UI_StoryDungeonEventQuest:initUI()
     local vars = self.vars
-    self:makeQuestTableView(TableQuest.CHALLENGE, vars['listNode'])
 
     do -- 타이틀
         local str = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
@@ -54,11 +53,12 @@ function UI_StoryDungeonEventQuest:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end) -- 닫기
 end
 
-
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_StoryDungeonEventQuest:refresh(t_quest_data)
+    self:makeQuestTableView()
+
     -- 테이블뷰 아이템 데이터 교체
     if (t_quest_data and t_quest_data['idx']) then
         local t_item = self.m_tableView:getItem(t_quest_data['idx'])
@@ -74,8 +74,9 @@ end
 -------------------------------------
 -- function makeQuestTableView
 -------------------------------------
-function UI_StoryDungeonEventQuest:makeQuestTableView(tab, node)
+function UI_StoryDungeonEventQuest:makeQuestTableView()
     local vars = self.vars
+    local node = vars['listNode']
 
 	-- 퀘스트 뭉치
 	local l_quest = g_eventDragonStoryDungeon:getQuestList()
