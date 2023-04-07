@@ -2297,7 +2297,9 @@ function UINavigatorDefinition:goTo_story_dungeon(...)
             ui:setTab('adventure')
             ui:resetButtonsPosition()
             if stage_id == 'shop' then
-                UI_StoryDungeonEventShop(stage_id)
+                UI_DragonStoryDungeonEventScene(stage_id)
+                UI_StoryDungeonEventShop()
+                
             else
                 UI_DragonStoryDungeonEventScene(stage_id)
             end
@@ -2309,7 +2311,9 @@ function UINavigatorDefinition:goTo_story_dungeon(...)
         if is_opened then
             self:closeUIList(index) 
             if stage_id == 'shop' then
+                UI_DragonStoryDungeonEventScene(stage_id)
                 UI_StoryDungeonEventShop(stage_id)
+
             else
                 UI_DragonStoryDungeonEventScene(stage_id)
             end
