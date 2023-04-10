@@ -18,6 +18,7 @@ ServerData_Highlight = class({
         invite = '',
         fpoint_send = '',
 		daily_mission_clan = '',
+        story_dungeon_quest = '',
         ----------------------------------------------
 
         ----------------------------------------------
@@ -199,6 +200,13 @@ end
 -------------------------------------
 function ServerData_Highlight:isHighlighDailyMissionClan()
     return (0 < self['daily_mission_clan'])
+end
+
+-------------------------------------
+-- function isHighlightStoryDungeonQuest
+-------------------------------------
+function ServerData_Highlight:isHighlightStoryDungeonQuest()
+    return (self['story_dungeon_quest'] == true)
 end
 
 -------------------------------------
