@@ -246,6 +246,10 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
         if (pl.stringx.startswith(t_item['full_type'], 'rune_rand_')) then
             local grade = string.gsub(t_item['full_type'], 'rune_rand_', '')
             sprite = self:getRuneSetIcon(t_item['icon'], grade)
+        elseif item_type == 'fixed_rune' then
+            local rune_obj = StructRuneObject({['rid'] = item_id})
+            local rune_card = UI_RuneCard(rune_obj)
+            sprite = rune_card.root
         else
             sprite = self:getIcon(t_item['icon'])
         end
