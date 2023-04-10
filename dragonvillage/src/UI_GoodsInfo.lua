@@ -156,9 +156,10 @@ function UI_GoodsInfo:click_chargeBtn()
     local vars = self.vars
 
     local goods_type = self.m_goodsType
+    cclog('goods_type', goods_type)
 
     if (goods_type == nil) then
-        
+
     elseif (goods_type == 'gold') then
         UINavigatorDefinition:goTo('shop', 'gold')
     elseif (goods_type == 'cash') then
@@ -174,6 +175,9 @@ function UI_GoodsInfo:click_chargeBtn()
     elseif (goods_type == 'st') then
         local b_use_cash_label = false
         local ui_charge_popup = UI_StaminaChargePopup(b_use_cash_label)
+    elseif (goods_type == 'ticket_story_dungeon') then
+        local _,season_code =  g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+        UINavigatorDefinition:goTo('package_shop', string.format('package_ticket_event_%s', season_code))
     else
         self:showToolTip()
     end

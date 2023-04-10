@@ -278,8 +278,7 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
     elseif (TablePackageBundle:checkBundleWithName(_package_name)) then
-        --Dependency 구매 처리가 가능한 UI_Package_Bundle 버전
-        if (_package_name == 'package_ticket_event_origingoddragon') then
+        if (string.find(_package_name, 'package_ticket_event_')) then
             target_ui = UI_Package_Bundle_Dependency(_package_name, is_popup)
         else
             target_ui = UI_Package_Bundle(_package_name, is_popup)

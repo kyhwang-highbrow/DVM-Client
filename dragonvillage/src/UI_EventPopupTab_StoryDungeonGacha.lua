@@ -277,7 +277,10 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count, gacha_result_
                 gacha_result_ui:close()
             end
 
-            local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_gacha, added_mileage, pickup_id)
+            --local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_gacha, added_mileage, pickup_id)
+            require('UI_GachaResult_StoryDungeonDragon10')
+            local ui = UI_GachaResult_StoryDungeonDragon10(gacha_type, l_dragon_list, t_gacha, pickup_id)
+
             local function close_cb()
                 self:refresh()
             end

@@ -588,14 +588,14 @@ function UI_AdventureStageInfo:click_clearStoryDungeonTicketBtn()
         return
     end
 
---[[     if (not g_supply:isActiveSupply('clear_ticket')) then
+    if (not g_supply:isActiveSupply('clear_ticket')) then
         local period = 7
         local target_data = g_supply:getTargetSupplyData('clear_ticket', period)
 
         require('UI_SupplyProductInfoPopup')
         UI_SupplyProductInfoPopup(target_data)
         return
-    end ]]
+    end
 
     local ui = UI_ClearTicket(self.m_stageID)
 end

@@ -525,7 +525,7 @@ end
 
 -------------------------------------
 -- function requestStoryDungeonQuestReward
--- @brief 이벤트 정보
+-- @brief 이벤트 업적 보상 받기
 -------------------------------------
 function ServerData_StoryDungeonEvent:requestStoryDungeonQuestReward(quest, cb_func)
     local uid = g_userData:get('uid')
@@ -558,4 +558,42 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonQuestReward(quest, cb_f
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
     return ui_network
+end
+
+-------------------------------------
+-- function requestStoryDungeonStageClearTicket
+-- @brief 스테이지 소탕
+-------------------------------------
+function ServerData_StoryDungeonEvent:requestStoryDungeonStageClearTicket(stage_id, clear_count, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+    
+    local function success_cb(ret)
+        local ref_table = {}
+        ref_table['user_levelup_data'] = {}
+        ref_table['drop_reward_list'] = {}
+        g_highlightData:setDirty(true)
+
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        g_userData:response_userInfo(ret, ref_table)
+        self:response_dropItems(ret, ref_table)
+
+        -- 일일 드랍 아이템 획득량 갱신
+        g_userData:response_ingameDropInfo(ret)
+        
+        finish_cb(ref_table)
+    end
+
+    local network = UI_Network()
+    network:setUrl('/game/stage/use_clear_ticket')
+
+    network:setParam('uid', uid)
+    network:setParam('stage', stage_id)
+    network:setParam('clear_cnt', clear_count)
+
+    network:setSuccessCB(success_cb)
+    network:setFailCB(fail_cb)
+    network:request()
 end

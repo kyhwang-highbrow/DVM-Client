@@ -19,10 +19,17 @@ UI_ClearTicket = class(PARENT, {
 -- function init
 ----------------------------------------------------------------------
 function UI_ClearTicket:init(stage_id)
+    local game_mode = g_stageData:getGameMode(stage_id)
+    local vars
 
-    local vars = self:load('clear_ticket_popup.ui')
+    if game_mode == GAME_MODE_STORY_DUNGEON then
+        vars = self:load('clear_ticket_story_dungeon_popup.ui')
+    else
+        vars = self:load('clear_ticket_popup.ui')
+    end
+
     UIManager:open(self, UIManager.POPUP)
-    
+
     -- UI 클래스명 지정
     self.m_uiName = 'UI_ClearTicket'
 
@@ -157,6 +164,11 @@ end
 ----------------------------------------------------------------------
 function UI_ClearTicket:refreshDropInfo()
     local vars = self.vars
+
+    local game_mode = g_stageData:getGameMode(self.m_stageID)
+    if game_mode == GAME_MODE_STORY_DUNGEON then
+        return
+    end
 
     local str = '{1}/{2}'
     vars['diaLabel']:setString(Str(str, g_userData:getDropInfoDia(), g_userData:getDropInfoMaxDia()))
@@ -319,6 +331,7 @@ end
 -- function click_startBtn
 ----------------------------------------------------------------------
 function UI_ClearTicket:click_startBtn()  
+    local game_mode = g_stageData:getGameMode(self.m_stageID)
     -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
     local function manage_func()
         UINavigatorDefinition:goTo('dragon')
@@ -346,9 +359,12 @@ function UI_ClearTicket:click_startBtn()
     end
 
     clear_ticket = function()
-        g_stageData:request_clearTicket(self.m_stageID, self.m_clearNum, finish_cb)
+        if game_mode == GAME_MODE_STORY_DUNGEON then
+            g_eventDragonStoryDungeon:requestStoryDungeonStageClearTicket(self.m_stageID, self.m_clearNum, finish_cb)
+        else
+            g_stageData:request_clearTicket(self.m_stageID, self.m_clearNum, finish_cb)
+        end
     end
-
     
     -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
     check_item_inven = function()

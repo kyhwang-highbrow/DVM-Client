@@ -1202,6 +1202,7 @@ local t_module = {
     -- UI : 스토리 던전
     'UI_DragonStoryDungeonEventScene',
     'UI_StoryDungeonEventShop',
+    'UI_GachaResult_StoryDungeonDragon10',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',
