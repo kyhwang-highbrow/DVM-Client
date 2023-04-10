@@ -51,6 +51,15 @@ function UI_DragonStoryDungeonEventScene:initUI()
     local scr_size = cc.Director:getInstance():getWinSize()
     vars['bgVisual']:setScale(scr_size.width / 1280)
     vars['bgVisual']:setLocalZOrder(-1)
+
+    local function update(dt)
+        local is_noti_on = g_highlightData:isHighlightStoryDungeonQuest()
+        vars['notiSprite']:setVisible(is_noti_on)
+    end
+
+    if vars['notiSprite'] ~= nil then
+        vars['notiSprite']:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+    end
 end
 
 
@@ -105,6 +114,9 @@ function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
     vars['dungeonNode']:addChild(ui_menu.root)
 
     ui_menu.vars['enterBtn']:setEnabled(false)
+    ui_menu.vars['storyEventNode']:setVisible(false)
+    ui_menu.vars['timeSprite']:setVisible(false)
+    
 end
 
 -------------------------------------

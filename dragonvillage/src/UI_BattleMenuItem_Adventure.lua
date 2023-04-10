@@ -19,6 +19,8 @@ function UI_BattleMenuItem_Adventure:init(content_type)
 
     if (content_type == 'adventure') then
         self:initUI_advent()
+    elseif (content_type == 'story_dungeon') then
+        self:initUI_storyDungeon()
     end
 end
 
@@ -28,6 +30,7 @@ end
 function UI_BattleMenuItem_Adventure:initUI_advent()
     if (g_hotTimeData:isActiveEvent('event_advent')) then
         local vars = self.vars
+        vars['storyEventNode']:setVisible(true)
 
         -- 깜짝 출현 남은 시간
         vars['timeSprite']:setVisible(true)
@@ -50,6 +53,51 @@ function UI_BattleMenuItem_Adventure:initUI_advent()
                 vars['timeLabel']:setString(title .. '\n' .. Str('{1} 남음', time_str))
             end
         end
+        vars['timeSprite']:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+    end
+end
+
+-------------------------------------
+-- function initUI_storyDungeon
+-------------------------------------
+function UI_BattleMenuItem_Adventure:initUI_storyDungeon()
+    if (g_contentLockData:isContentLock('story_dungeon') == false) then
+        local vars = self.vars
+        vars['storyEventNode']:setVisible(true)
+
+        local season_id = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+        local did =  TableStoryDungeonEvent:getStoryDungeonEventDid(season_id)
+        local table_dragon = TableDragon()
+    
+        -- 이름
+        local dragon_name = table_dragon:getDragonName(did)
+        vars['storyEventLabel']:setStringArg(Str(dragon_name))
+    
+        do -- 드래곤 카드
+            local dragon_card = MakeSimpleDragonCard(did, {})
+            dragon_card.root:setScale(100/150)
+            vars['dragonIconNode']:removeAllChildren()
+            vars['dragonIconNode']:addChild(dragon_card.root)
+            -- 이벤트 소환 바로 가기
+            dragon_card.vars['clickBtn']:setEnabled(false)
+        end
+
+        vars['timeSprite']:setVisible(true)
+        vars['timeLabel']:setString('')
+
+        -- 깜짝 출현 타이틀
+        -- local title = g_eventAdventData:getAdventTitle()
+    
+        local function update(dt)
+            local timestamp = TableStoryDungeonEvent:getStoryDungeonEventEndTimeStamp(season_id)
+            timestamp = timestamp/1000
+            local remain_time = timestamp - ServerTime:getInstance():getCurrentTimestampSeconds()
+            if remain_time > 0 then
+                local time_str = ServerTime:getInstance():makeTimeDescToSec(remain_time, true)
+                vars['timeLabel']:setString(Str('{1} 남음', time_str))
+            end
+        end
+
         vars['timeSprite']:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
     end
 end

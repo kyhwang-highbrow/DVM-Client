@@ -49,6 +49,18 @@ function TableStoryDungeonEvent:getStoryDungeonEventDid(season_id)
 end
 
 -------------------------------------
+-- function getStoryDungeonEventEndDate
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonEventEndDate(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(season_id, 'end_date')
+end
+
+
+-------------------------------------
 -- function getStoryDungeonEventTicketKey
 -------------------------------------
 function TableStoryDungeonEvent:getStoryDungeonEventTicketKey()
@@ -108,4 +120,17 @@ function TableStoryDungeonEvent:getStoryDungeonEventShopTabKey(season_id)
 
     local code = self:getStoryDungeonSeasonCode(season_id)
     return 'sd_' .. code
+end
+
+
+-------------------------------------
+-- function getStoryDungeonEventEndTimeStamp
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonEventEndTimeStamp(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local end_date = self:getStoryDungeonEventEndDate(season_id)
+    return ServerTime:getInstance():datestrToTimestampMillisec(end_date)
 end

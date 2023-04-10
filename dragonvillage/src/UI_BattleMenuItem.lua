@@ -109,6 +109,12 @@ function UI_BattleMenuItem:refresh()
         local visible = g_fevertimeData:isActiveFevertime_dungeonGdItemUp() or g_fevertimeData:isActiveFevertime_dungeonGdStDc() 
         self.vars['HotSprite']:setVisible(visible)
 
+    elseif (content_type == 'story_dungeon') then
+        has_noti = g_highlightData:isHighlightStoryDungeonQuest()
+        if self.vars['notiSprite'] ~= nil then
+            self.vars['notiSprite']:setVisible(has_noti)
+        end
+
     elseif (content_type == 'nest_tree') then
         local visible = g_fevertimeData:isActiveFevertime_dungeonGtItemUp() or g_fevertimeData:isActiveFevertime_dungeonGtStDc() 
         self.vars['HotSprite']:setVisible(visible)
