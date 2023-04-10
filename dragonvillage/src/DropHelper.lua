@@ -31,6 +31,28 @@ function DropHelper:validDropField(t_drop, item_type, item_grade)
     return true
 end
 
+
+-------------------------------------
+-- function getDisplayItemCount
+-------------------------------------
+function DropHelper:getDisplayItemCount(arg_item_id)
+    local table_drop = TABLE:get('drop')
+    local t_drop = table_drop[self.m_stageID]
+    local item_count = 0
+
+    for i=0, 10 do
+        -- item_4_min
+        local key = 'item_' .. i .. '_id'
+        local item_id = t_drop[key]
+        if item_id == arg_item_id then
+            local min_key = 'item_' .. i .. '_min'
+            item_count = item_count + (t_drop[min_key] or 0)
+        end
+    end
+
+    return item_count
+end
+
 -------------------------------------
 -- function getDisplayItemList
 -------------------------------------

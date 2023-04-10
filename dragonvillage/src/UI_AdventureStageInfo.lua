@@ -423,6 +423,7 @@ function UI_AdventureStageInfo:refresh_rewardInfo()
     local stage_id = self.m_stageID
     local drop_helper = DropHelper(stage_id)
     local l_item_list = drop_helper:getDisplayItemList()
+    local game_mode = g_stageData:getGameMode(stage_id)
 
     -- 생성 콜백
     local function create_func(ui, item_id)
@@ -434,6 +435,13 @@ function UI_AdventureStageInfo:refresh_rewardInfo()
 				ui.vars['eventSprite']:setVisible(true)
 			end
 		end
+
+
+        -- 스토리 던전일 경우 아이템 수량도 표기
+        if game_mode == GAME_MODE_STORY_DUNGEON then
+            local item_count = drop_helper:getDisplayItemCount(item_id)
+            ui.vars['numberLabel']:setString(Str('{1}', comma_value(item_count)))
+        end
     end
 
     -- 테이블 뷰 인스턴스 생성
