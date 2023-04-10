@@ -83,6 +83,10 @@ function UI_LobbyBanner:click_bannerBtn()
         end
     elseif (event_type == 'event_crosspromotion') then
 	    g_fullPopupManager:showFullPopup(event_type)
+
+    elseif (event_type == 'story_dungeon_gacha') then
+        g_fullPopupManager:showFullPopup(event_type)
+
     end
 end
 
