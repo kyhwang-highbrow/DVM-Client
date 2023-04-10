@@ -117,6 +117,23 @@ function ServerData_StoryDungeonEvent:isClearStage(stage_id)
     return is_open
 end
 
+
+-------------------------------------
+-- function getLastStageIdx
+-------------------------------------
+function ServerData_StoryDungeonEvent:getLastStageIdx()
+    local season_id = self:getStoryDungeonSeasonId()
+    local stage_id_list = self:getStoryDungeonStageIdList(season_id)
+    for idx, stage_id in ipairs(stage_id_list) do
+        local clear_count = self:getStoryDungeonStageClearCount(season_id, stage_id)
+        if clear_count == 0 then
+            return idx
+        end
+    end
+
+    return 1
+end
+
 -------------------------------------
 -- function getPrevStageID
 -------------------------------------
@@ -566,7 +583,7 @@ end
 -------------------------------------
 function ServerData_StoryDungeonEvent:requestStoryDungeonStageClearTicket(stage_id, clear_count, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
-    
+
     local function success_cb(ret)
         local ref_table = {}
         ref_table['user_levelup_data'] = {}

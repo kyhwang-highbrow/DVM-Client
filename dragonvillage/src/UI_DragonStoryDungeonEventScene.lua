@@ -100,14 +100,18 @@ function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
     table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(stage_list, true)
-    table_view.m_cellUIAppearCB = function(ui)
+--[[     table_view.m_cellUIAppearCB = function(ui)
         local x, y = ui.root:getPosition()
         local new_x = x + content_size['width']
         ui.root:setPosition(new_x, y)
 
         local force = true
         ui:cellMoveTo(0.25, cc.p(x, y), force)
-    end
+    end ]]
+
+    -- focus할 stage_id가 있을 경우 
+    local stage_idx = g_eventDragonStoryDungeon:getLastStageIdx()
+    table_view:relocateContainerFromIndex(stage_idx, false)
 
     local ui_menu = UI_BattleMenuItem_Adventure('story_dungeon', 4, true)
     vars['dungeonNode']:removeAllChildren()
@@ -144,20 +148,6 @@ end
 function UI_DragonStoryDungeonEventScene:refresh()
 end
 
--------------------------------------
--- function arrangeItemUI
--- @brief itemUI들을 정렬한다!
--------------------------------------
-function UI_DragonStoryDungeonEventScene:arrangeItemUI(l_hottime)
-    for i, ui_name in pairs(l_hottime) do
-        local ui = self.vars[ui_name]
-        if (ui ~= nil) then
-            ui:setVisible(true)
-            local pos_x = (i-1) * 72
-            ui:setPositionX(pos_x)
-        end
-    end
-end
 
 -------------------------------------
 -- function click_exitBtn
