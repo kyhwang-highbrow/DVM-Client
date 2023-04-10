@@ -108,6 +108,16 @@ function ServerData_StoryDungeonEvent:isOpenStage(stage_id, _season_id)
 end
 
 -------------------------------------
+-- function isClearStage
+-------------------------------------
+function ServerData_StoryDungeonEvent:isClearStage(stage_id)
+    local season_id = self:getStoryDungeonSeasonId()
+    local clear_count = self:getStoryDungeonStageClearCount(season_id, stage_id)
+    local is_open = (0 < clear_count)
+    return is_open
+end
+
+-------------------------------------
 -- function getPrevStageID
 -------------------------------------
 function ServerData_StoryDungeonEvent:getPrevStageID(stage_id)
@@ -416,7 +426,7 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonInfo(cb_func, fail_cb)
         -- 스토리 던전 관련 아이템을 시즌별로 다르게 보이도록 처리
         self:replaceStoryDungeonRelatedItems()
         self.m_bDirty = true
-        
+
         if cb_func ~= nil then
             cb_func()
         end

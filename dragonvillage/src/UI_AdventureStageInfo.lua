@@ -86,8 +86,13 @@ function UI_AdventureStageInfo:initButton()
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 
     if vars['clearTicketBtn'] then
-        if (game_mode == GAME_MODE_ADVENTURE) and (not is_event_stage) then
-            vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearTicketBtn() end)
+        if (game_mode == GAME_MODE_ADVENTURE or game_mode == GAME_MODE_STORY_DUNGEON) and (not is_event_stage) then
+            if game_mode == GAME_MODE_STORY_DUNGEON then
+                vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearStoryDungeonTicketBtn() end)
+            else
+                vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearTicketBtn() end)
+            end
+
             vars['clearTicketBtn']:setVisible(true)
         else
             vars['clearTicketBtn']:setVisible(false)
@@ -569,6 +574,28 @@ function UI_AdventureStageInfo:click_clearTicketBtn()
         UI_SupplyProductInfoPopup(target_data)
         return
     end
+
+    local ui = UI_ClearTicket(self.m_stageID)
+end
+
+-------------------------------------
+-- function click_clearStoryDungeonTicketBtn
+-- @brief 스토리 던전 소탕
+-------------------------------------
+function UI_AdventureStageInfo:click_clearStoryDungeonTicketBtn()
+    if (not g_eventDragonStoryDungeon:isClearStage(self.m_stageID)) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('스테이지 클리어 후에 이용할 수 있습니다.'))
+        return
+    end
+
+--[[     if (not g_supply:isActiveSupply('clear_ticket')) then
+        local period = 7
+        local target_data = g_supply:getTargetSupplyData('clear_ticket', period)
+
+        require('UI_SupplyProductInfoPopup')
+        UI_SupplyProductInfoPopup(target_data)
+        return
+    end ]]
 
     local ui = UI_ClearTicket(self.m_stageID)
 end
