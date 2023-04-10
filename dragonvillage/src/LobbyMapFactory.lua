@@ -362,7 +362,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
                     --@dhkim - 두번째 말풍선
                     delayedText = SensitivityHelper:completeBubbleText(animator.m_node, '{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 빛의 검!!{@}', 4, 110, function() delayedText = nil end)
                 end),
-                cc.DelayTime:create(0.3),
+                cc.DelayTime:create(0.5),
                 cc.CallFunc:create(function()
                     --@dhkim 골드 만드라고라 다시 뒤집기
                     animator:setFlip(true)
@@ -393,7 +393,7 @@ function LobbyMapFactory:makeLobbyEffectByMode(node)
 
     local temp_pos = -150
 
-    -- 생성
+    -- 생성0
     for i = 1, 5 do
         local pos_x = 150 + temp_pos
         local pos_y = math.random(340, 380)
