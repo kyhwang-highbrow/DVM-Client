@@ -249,6 +249,8 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
         elseif item_type == 'fixed_rune' then
             local rune_obj = StructRuneObject({['rid'] = item_id})
             local rune_card = UI_RuneCard(rune_obj)
+            rune_card.vars['clickBtn']:setEnabled(false)
+            rune_card.vars['clickBtn']:registerScriptPressHandler(function () end)
             sprite = rune_card.root
         else
             sprite = self:getIcon(t_item['icon'])
