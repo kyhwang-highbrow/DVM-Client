@@ -528,6 +528,7 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonQuestReward(quest, cb_f
 
         if ret['quest_info'] then
             self:applyQuestInfo(ret['quest_info'])
+            g_highlightData:setDirty(true)
         end
 
         if cb_func then

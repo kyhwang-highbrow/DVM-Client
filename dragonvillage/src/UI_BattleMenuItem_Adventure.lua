@@ -64,6 +64,7 @@ function UI_BattleMenuItem_Adventure:initUI_storyDungeon()
     if (g_contentLockData:isContentLock('story_dungeon') == false) then
         local vars = self.vars
         vars['storyEventNode']:setVisible(true)
+        vars['timeSprite']:setVisible(true)
 
         local season_id = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
         local did =  TableStoryDungeonEvent:getStoryDungeonEventDid(season_id)
@@ -81,13 +82,8 @@ function UI_BattleMenuItem_Adventure:initUI_storyDungeon()
             -- 이벤트 소환 바로 가기
             dragon_card.vars['clickBtn']:setEnabled(false)
         end
-
-        vars['timeSprite']:setVisible(true)
-        vars['timeLabel']:setString('')
-
-        -- 깜짝 출현 타이틀
-        -- local title = g_eventAdventData:getAdventTitle()
-    
+        
+        vars['timeLabel']:setString('')   
         local function update(dt)
             local timestamp = TableStoryDungeonEvent:getStoryDungeonEventEndTimeStamp(season_id)
             timestamp = timestamp/1000
