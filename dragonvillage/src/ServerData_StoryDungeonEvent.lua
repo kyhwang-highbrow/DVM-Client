@@ -197,6 +197,7 @@ end
 -------------------------------------
 function ServerData_StoryDungeonEvent:applyStoryDungeonSeasonInfo(t_data)
     if t_data['story_dungeon_stage_info'] ~= nil then
+        g_highlightData:setDirty(true)
         self.m_serverData:applyServerData(t_data['story_dungeon_stage_info'] or {}, 'story_dungeon_stage_info')
     end
 end
@@ -457,6 +458,7 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_c
         local after_mileage = g_userData:get('mileage')
         local added_mileage = (after_mileage - prev_mileage)
         ret['added_mileage'] = added_mileage ]]
+        g_highlightData:setDirty(true)
         
         -- 드래곤들 추가
         local add_dragon_list = self:makeAddedDragonTable(ret['added_dragons'], false)
