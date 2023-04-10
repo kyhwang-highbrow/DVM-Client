@@ -1396,6 +1396,40 @@ function UI_Lobby:update_masterRoad()
 end
 
 -------------------------------------
+-- function update_storyDungeon
+-------------------------------------
+function UI_Lobby:update_storyDungeon()
+    local vars = self.vars
+    local is_event_doing = g_eventDragonStoryDungeon:isStoryDungeonEventDoing()
+    vars['story_dungeonNode']:setVisible(is_event_doing)
+
+    if is_event_doing == false then
+        return
+    end
+
+    local season_id = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+    local did =  TableStoryDungeonEvent:getStoryDungeonEventDid(season_id)
+    local table_dragon = TableDragon()
+
+    -- 이름
+    local dragon_name = table_dragon:getDragonName(did)
+    vars['storyEventLabel']:setStringArg(Str(dragon_name))
+
+    do -- 드래곤 카드
+        local dragon_card = MakeSimpleDragonCard(did, {})
+        dragon_card.root:setScale(100/150)
+        vars['dragonNode']:removeAllChildren()
+        vars['dragonNode']:addChild(dragon_card.root)
+        -- 이벤트 소환 바로 가기
+        dragon_card.vars['clickBtn']:setEnabled(false)
+    end
+
+    local tint_action = cca.buttonShakeAction(1 ,3.0)
+    vars['story_dungeonNode']:stopAllActions()
+    vars['story_dungeonNode']:runAction(tint_action)
+end
+
+-------------------------------------
 -- function update_dragonDiary
 -------------------------------------
 function UI_Lobby:update_dragonDiary()
@@ -2053,6 +2087,12 @@ function UI_Lobby:update(dt)
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
         self:update_rightButtons()
+    end
+
+    -- 이벤트 갱신된 경우
+    if (g_eventDragonStoryDungeon.m_bDirty) then
+        g_eventDragonStoryDungeon.m_bDirty = false
+        self:update_storyDungeon()
     end
 
     -- 하이브로 라운지

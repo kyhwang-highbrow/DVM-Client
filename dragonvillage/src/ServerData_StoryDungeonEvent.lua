@@ -10,6 +10,7 @@ ServerData_StoryDungeonEvent = class({
     m_isItemReplaced = 'boolean',
     m_tableQuest = '',
     m_questList = 'List<StructQuest>',
+    m_bDirty = 'false',
 })
 
 -------------------------------------
@@ -24,6 +25,7 @@ function ServerData_StoryDungeonEvent:init(server_data)
     self.m_isItemReplaced = false
     self.m_tableQuest = TableEventQuest()
     self.m_questList = {}
+    self.m_bDirty = true
 end
 
 -------------------------------------
@@ -413,8 +415,8 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonInfo(cb_func, fail_cb)
 
         -- 스토리 던전 관련 아이템을 시즌별로 다르게 보이도록 처리
         self:replaceStoryDungeonRelatedItems()
+        self.m_bDirty = true
         
-
         if cb_func ~= nil then
             cb_func()
         end
