@@ -164,3 +164,11 @@ function StructDragonPkgData:getBadgeIcon()
 
     return product:makeBadgeIcon()
 end
+
+----------------------------------------------------------------------
+-- function isHiddenPackage
+----------------------------------------------------------------------
+function StructDragonPkgData:isHiddenPackage()
+	-- @dhkim - 23.04.10 만약 히든 상태가 없는 패키지일 경우 무조건 false 처리
+	return false
+end
