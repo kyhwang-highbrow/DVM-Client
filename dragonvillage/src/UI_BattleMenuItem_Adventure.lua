@@ -92,6 +92,12 @@ function UI_BattleMenuItem_Adventure:initUI_storyDungeon()
                 local time_str = ServerTime:getInstance():makeTimeDescToSec(remain_time, true)
                 vars['timeLabel']:setString(Str('{1} 남음', time_str))
             end
+
+            -- 스토리 던전은 노티를 여기에서 처리
+            local has_noti = g_highlightData:isHighlightStoryDungeonQuest()
+            if vars['notiSprite'] ~= nil then
+                vars['notiSprite']:setVisible(has_noti)
+            end
         end
 
         vars['timeSprite']:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)

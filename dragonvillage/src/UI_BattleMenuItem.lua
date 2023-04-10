@@ -78,7 +78,6 @@ function UI_BattleMenuItem:initUI()
     elseif (self.m_listCnt >= 5) then
         ani_num = '_03'
     end
-    cclog(content_type..ani_num)
     vars['itemVisual']:changeAni(content_type .. ani_num, true)
     vars['titleLabel']:setString(getContentName(content_type))
 end
@@ -108,12 +107,6 @@ function UI_BattleMenuItem:refresh()
     elseif (content_type == 'nest_evo_stone') then
         local visible = g_fevertimeData:isActiveFevertime_dungeonGdItemUp() or g_fevertimeData:isActiveFevertime_dungeonGdStDc() 
         self.vars['HotSprite']:setVisible(visible)
-
-    elseif (content_type == 'story_dungeon') then
-        has_noti = g_highlightData:isHighlightStoryDungeonQuest()
-        if self.vars['notiSprite'] ~= nil then
-            self.vars['notiSprite']:setVisible(has_noti)
-        end
 
     elseif (content_type == 'nest_tree') then
         local visible = g_fevertimeData:isActiveFevertime_dungeonGtItemUp() or g_fevertimeData:isActiveFevertime_dungeonGtStDc() 
@@ -160,6 +153,9 @@ function UI_BattleMenuItem:refresh()
 
     elseif (content_type == 'clan_raid') then
         has_noti = false
+
+    elseif (content_type == 'story_dungeon') then
+        has_noti = g_highlightData:isHighlightStoryDungeonQuest()
     end
 
     if (has_noti) then
