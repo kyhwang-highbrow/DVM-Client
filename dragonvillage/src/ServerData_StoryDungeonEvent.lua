@@ -267,7 +267,6 @@ function ServerData_StoryDungeonEvent:makeAddedDragonTable(org_list, is_bundle)
     return result
 end
 
-
 -------------------------------------
 -- function getQuestListByType
 -- @brief 해당 타입의 진행중인 퀘스트를 리턴한다.
@@ -491,6 +490,7 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonQuest(cb_func, fail_cb)
     -- 성공 시 콜백
     local function success_cb(ret)       
         if ret['quest_info'] then
+            g_serverData:networkCommonRespone(ret)
             self:applyQuestInfo(ret['quest_info'])
         end
 
@@ -524,6 +524,8 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonQuestReward(quest, cb_f
 
     -- 성공 시 콜백
     local function success_cb(ret)       
+        g_serverData:networkCommonRespone(ret)
+
         if ret['quest_info'] then
             self:applyQuestInfo(ret['quest_info'])
         end

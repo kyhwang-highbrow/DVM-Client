@@ -1074,7 +1074,9 @@ function UI_Lobby:update_highlight()
     end
 
     -- 전투 메뉴
-    vars['battleNotiSprite']:setVisible(g_highlightData:isHighlightExploration() or g_secretDungeonData:isSecretDungeonExist())
+    vars['battleNotiSprite']:setVisible(g_highlightData:isHighlightExploration() 
+                                            or g_secretDungeonData:isSecretDungeonExist()
+                                            or g_highlightData:isHighlightStoryDungeonQuest())
 
     do -- 핫타임
         if (

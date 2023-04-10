@@ -10,7 +10,7 @@ local THIS = UI_BattleMenuItem_Adventure
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BattleMenuItem_Adventure:init(content_type)
+function UI_BattleMenuItem_Adventure:init(content_type, list_cnt, not_same)
     local vars = self:load('battle_menu_adventure_item.ui')
 
     self:initUI()
@@ -19,7 +19,7 @@ function UI_BattleMenuItem_Adventure:init(content_type)
 
     if (content_type == 'adventure') then
         self:initUI_advent()
-    elseif (content_type == 'story_dungeon') then
+    elseif (content_type == 'story_dungeon' and not_same ~= true) then
         self:initUI_storyDungeon()
     end
 end

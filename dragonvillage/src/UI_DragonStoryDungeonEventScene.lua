@@ -109,13 +109,14 @@ function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
         ui:cellMoveTo(0.25, cc.p(x, y), force)
     end
 
-    local ui_menu = UI_BattleMenuItem_Adventure('story_dungeon', 4)
+    local ui_menu = UI_BattleMenuItem_Adventure('story_dungeon', 4, true)
     vars['dungeonNode']:removeAllChildren()
     vars['dungeonNode']:addChild(ui_menu.root)
-
+--[[ 
     ui_menu.vars['enterBtn']:setEnabled(false)
     ui_menu.vars['storyEventNode']:setVisible(false)
     ui_menu.vars['timeSprite']:setVisible(false)
+    ui_menu.vars['notiSprite']:notiSprite(false) ]]
     
 end
 

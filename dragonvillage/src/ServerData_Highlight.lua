@@ -206,7 +206,7 @@ end
 -- function isHighlightStoryDungeonQuest
 -------------------------------------
 function ServerData_Highlight:isHighlightStoryDungeonQuest()
-    return (self['story_dungeon_quest'] == true)
+    return (0 < self['story_dungeon_quest'])
 end
 
 -------------------------------------
