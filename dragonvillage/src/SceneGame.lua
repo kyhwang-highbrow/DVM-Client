@@ -1091,12 +1091,15 @@ end
 -- @breif
 -------------------------------------
 function SceneGame:networkGameFinish_response_stage_clear_info(ret)
-
     -- 고대의 탑 클리어 최고층 저장
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
         if ret['ancient_clear_stage'] then
             g_ancientTowerData:setClearStage(ret['ancient_clear_stage'])
         end
+
+    -- 스토리 던전
+    elseif (self.m_gameMode == GAME_MODE_STORY_DUNGEON) then
+        g_eventDragonStoryDungeon:applyStoryDungeonSeasonInfo(ret)        
     end
 
     if (not ret['stage_clear_info']) then
@@ -1151,9 +1154,6 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
 
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON or self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         g_nestDungeonData:applyNestStageClearCnt(stage_id, stage_clear_info['cl_cnt'])
-
-    elseif (self.m_gameMode == GAME_MODE_STORY_DUNGEON) then
-        g_eventDragonStoryDungeon:applyStoryDungeonSeasonInfo(ret)        
 
     elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
 
