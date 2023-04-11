@@ -122,6 +122,16 @@ function TableStoryDungeonEvent:getStoryDungeonEventShopTabKey(season_id)
     return 'sd_' .. code
 end
 
+-------------------------------------
+-- function getStoryDungeonEventSpecialStageId
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonEventSpecialStageId(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(season_id, 'special_stage_id')
+end
 
 -------------------------------------
 -- function getStoryDungeonEventEndTimeStamp

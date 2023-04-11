@@ -412,6 +412,19 @@ function ServerData_StoryDungeonEvent:replaceStoryDungeonRelatedItems()
 end
 
 -------------------------------------
+-- function getStoryDungeonSpecialStageId
+-------------------------------------
+function ServerData_StoryDungeonEvent:getStoryDungeonSpecialStageId()
+    local season_id = self:getStoryDungeonSeasonId()
+    if season_id ~= nil then
+        local stage_id = TableStoryDungeonEvent:getStoryDungeonEventSpecialStageId(season_id)
+        return stage_id
+    end
+    return 0
+end
+
+
+-------------------------------------
 -- function requestStoryDungeonInfo
 -- @brief 이벤트 정보
 -------------------------------------
@@ -588,23 +601,25 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonStageClearTicket(stage_
         local ref_table = {}
         ref_table['user_levelup_data'] = {}
         ref_table['drop_reward_list'] = {}
-        g_highlightData:setDirty(true)
+        
 
         -- server_info, staminas 정보를 갱신
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
         g_userData:response_userInfo(ret, ref_table)
-        self:response_dropItems(ret, ref_table)
+        g_stageData:response_dropItems(ret, ref_table)
 
         -- 일일 드랍 아이템 획득량 갱신
         g_userData:response_ingameDropInfo(ret)
+
+        g_highlightData:setDirty(true)
         
         finish_cb(ref_table)
     end
 
     local network = UI_Network()
-    network:setUrl('/game/stage/use_clear_ticket')
+    network:setUrl('/game/story_dungeon/clear')
 
     network:setParam('uid', uid)
     network:setParam('stage', stage_id)

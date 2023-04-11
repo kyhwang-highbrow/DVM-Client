@@ -89,11 +89,17 @@ function UI_AdventureStageInfo:initButton()
         if (game_mode == GAME_MODE_ADVENTURE or game_mode == GAME_MODE_STORY_DUNGEON) and (not is_event_stage) then
             if game_mode == GAME_MODE_STORY_DUNGEON then
                 vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearStoryDungeonTicketBtn() end)
+                local special_stage_id = g_eventDragonStoryDungeon:getStoryDungeonSpecialStageId()
+                vars['clearTicketBtn']:setVisible(stage_id < special_stage_id)
+
+                if stage_id >= special_stage_id then
+                    vars['enterBtn']:setPositionX(0)
+                end
+
             else
                 vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearTicketBtn() end)
+                vars['clearTicketBtn']:setVisible(true)
             end
-
-            vars['clearTicketBtn']:setVisible(true)
         else
             vars['clearTicketBtn']:setVisible(false)
             vars['enterBtn']:setPositionX(0)
