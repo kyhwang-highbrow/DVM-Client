@@ -153,3 +153,79 @@ function UI_Package_Bundle_Dependency:refresh()
     -- 판매 종료 시간
     self:refresh_time()
 end
+
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_Package_Bundle_Dependency:click_buyBtn(struct_product)
+    local vars = self.vars
+
+	local function cb_func(ret)
+        if (self.m_cbBuy) then
+            self.m_cbBuy(ret)
+        end
+
+        -- 만원의 행복은 구입 즉시 지급되므로 기본재화들도 결과 보여줌
+        local show_all = false
+        if (string.find(self.m_package_name, 'package_lucky_box')) then
+            show_all = true
+        end
+
+        -- 캡슐 코인 패키지 상품 구매시 우편함 팝업 출력
+        if (self.m_package_name == 'package_capsule_coin') then
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.GOODS, self.m_obtainResultCloseCb)
+        
+        -- 룬 상자 패키지 상품 구매시 우편함 팝업 출력
+        elseif (self.m_package_name == 'package_rune_box') then
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX, self.m_obtainResultCloseCb)
+
+        -- 슬라임 군단 패키지 상품 구매시 우편함 팝업 출력        
+        elseif (self.m_package_name == 'package_super_slime_swarm') then
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.SUPER_SLIME, self.m_obtainResultCloseCb)
+
+        else
+            -- 아이템 획득 결과창
+            if (self.m_mailSelectType == MAIL_SELECT_TYPE.NONE) then
+                ItemObtainResult_Shop(ret, show_all, self.m_obtainResultCloseCb)
+            else
+                ItemObtainResult_ShowMailBox(ret, self.m_mailSelectType, self.m_obtainResultCloseCb)
+            end
+        end
+
+        UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM)
+
+        -- m_package_name
+        -- 일단은 버튼부터 막는다
+        --[[
+        if (ret['status'] == 0) then
+            if (vars['buyBtn']) then vars['buyBtn']:setEnabled(false) end
+            if (vars['buyBtn1']) then vars['buyBtn1']:setEnabled(false) end
+            if (vars['buyBtn2']) then vars['buyBtn2']:setEnabled(false) end
+            if (vars['buyBtn3']) then vars['buyBtn3']:setEnabled(false) end
+        end]]
+
+        if (self.m_isFullPopup) then
+            self:refresh()
+            g_eventData.m_bDirty = true
+            return
+        end
+
+        -- 뒷 패키지가 있으면?
+        -- 그런데 풀팝업에서는 리프레시 해줘야 한다
+        if (not self.m_isPopup and struct_product:getDependency() and struct_product:getDependency() ~= '') then
+            return
+        end
+
+        -- 갱신이 필요한 상태일 경우
+        if ret['need_refresh'] then
+            self:refresh()
+            g_eventData.m_bDirty = true
+
+        elseif (self.m_isPopup == true) then
+            self:close()
+		end
+	end
+    
+    struct_product:buy(cb_func)
+end
