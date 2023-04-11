@@ -572,12 +572,25 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonQuestReward(quest, cb_f
 
         if ret['quest_info'] then
             self:applyQuestInfo(ret['quest_info'])
-            g_highlightData:setDirty(true)
         end
 
-        if cb_func then
-            cb_func()
+
+        -- 바로 지급되는 리워드의 경우 added_items로 들어옴 table_quest의 product_content, mail_content 참고
+        local l_reward_item = {}
+        if (ret['added_items']) then
+            if (ret['added_items']['items_list']) then
+                l_reward_item = ret['added_items']['items_list']
+            end
         end
+
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        -- 여기서 highlight 정보가 넘어오긴 하는데.. 어차피 로비에서 다시 통신하는 구조이므로
+		-- 노티 정보를 갱신하기 위해서 호출
+		g_highlightData:setDirty(true)
+
+        local t_quest_data = self:getQuest(quest['quest_type'], qid)
+        cb_func(t_quest_data, l_reward_item) -- quest_data, l_reward_item
     end
 
     local ui_network = UI_Network()
