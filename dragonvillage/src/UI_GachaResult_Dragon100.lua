@@ -134,10 +134,13 @@ function UI_GachaResult_Dragon100:initUI()
 
         -- 아이콘 생성
         local icon
-        if (self.m_tSummonData['price_type'] == 'cash') then
+        local price_type = self.m_tSummonData['price_type']
+        if (price_type == 'cash') then
             icon = IconHelper:getIcon('res/ui/icons/item/cash.png')
-        elseif(self.m_tSummonData['price_type'] == 'summon_dragon_ticket') then
+        elseif(price_type == 'summon_dragon_ticket') then
             icon = IconHelper:getIcon('res/ui/icons/item/summon_dragon_ticket.png')
+        else
+            icon = IconHelper:getItemIcon(price_type)
         end
 
         icon:setScale(0.5)
@@ -158,6 +161,11 @@ function UI_GachaResult_Dragon100:initUI()
             local did = struct_pickup and struct_pickup:getTargetDragonID() or nil
             local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
             local target_dragon_name = did and TableDragon:getChanceUpDragonName(did) or ('{@yellow}' .. Str('신화 드래곤') .. '{@default}')
+
+            if self.m_type == 'ticket_story_dungeon' then
+                left_ceiling_num = g_eventDragonStoryDungeon:getStoryDungeonSeasonGachaCeilCount()
+                target_dragon_name = TableDragon:getChanceUpDragonName(self.m_pickupID)
+            end
 
             if (not left_ceiling_num) or (not is_ceiling_info_exist) then
                 vars['ceilingNotiMenu']:setVisible(false)

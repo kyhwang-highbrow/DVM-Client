@@ -4,42 +4,26 @@ local PARENT = UI_GachaResult_Dragon100
 -- class UI_GachaResult_StoryDungeonDragon10
 -------------------------------------
 UI_GachaResult_StoryDungeonDragon10 = class(PARENT, {
-     })
-
+})
 
 UI_GachaResult_StoryDungeonDragon10.UPDATE_CARD_SUMMON_OFFSET = 0.2 -- 카드 줄마다 처음에 소환되는 간격
 UI_GachaResult_StoryDungeonDragon10.UPDATE_CARD_OPEN_OFFSET = 0.05 -- 스킵할 때 다음 카드 뒤집는 간격
-UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH = 10 -- 드래곤 카드가 가로줄 당 몇 개씩?
-UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_SCALE = 1 -- 드래곤 카드 스케일 조정
-UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_WIDTH_OFFSET = 72 -- 드래곤 카드 가로 오프셋
-UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_HEIGHT_OFFSET = 72 -- 드래곤 카드 세로 오프셋
+UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH = 5 -- 드래곤 카드가 가로줄 당 몇 개씩?
+UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_SCALE = 0.8 -- 드래곤 카드 스케일 조정
+UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_WIDTH_OFFSET = 144 -- 드래곤 카드 가로 오프셋
+UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_HEIGHT_OFFSET = 144 -- 드래곤 카드 세로 오프셋
 
-     
+
 -------------------------------------
 -- function initDragonCardList
 -------------------------------------
 function UI_GachaResult_StoryDungeonDragon10:initDragonCardList()
 	local vars = self.vars
-
     self.m_tDragonCardTable = {}
-	local total_card_count = table.count(self.m_lGachaDragonList)	-- 총 드래곤 카드 수
-    local first_width_card_count = (total_card_count % UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH)
-    if (first_width_card_count == 0) then
-        first_width_card_count = UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH
-    end
-    local vertical_count = math_floor(total_card_count / UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH) -- 세로 줄 수
-    if (total_card_count % UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH ~= 0) then
-        vertical_count = vertical_count + 1
-    end
+    local vertical_count = 2
 
-	local horizontal_card_interval = UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_WIDTH_OFFSET	-- 드래곤 카드 가로 오프셋
-	local vertical_card_interval = UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_HEIGHT_OFFSET	-- 드래곤 카드 세로 오프셋
-
-    local l_horizontal_pos_list = getSortPosList(horizontal_card_interval, UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH)
-    local l_first_horizontal_pos_list = getSortPosList(horizontal_card_interval, first_width_card_count)
-
-
-    local l_vertical_pos_list = getSortPosList(vertical_card_interval, vertical_count)
+    local l_horizontal_pos_list = getSortPosList(UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_WIDTH_OFFSET, UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH)
+    local l_vertical_pos_list = getSortPosList(UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_HEIGHT_OFFSET, vertical_count)
     
 	for idx, t_dragon_data in ipairs(self.m_lGachaDragonList) do
 		-- 드래곤 카드 생성
@@ -92,32 +76,21 @@ function UI_GachaResult_StoryDungeonDragon10:initDragonCardList()
 
 		self.m_tDragonCardTable[doid] = card
 
-        -- 카드 위치 정렬
-        local x_idx = (idx <= first_width_card_count) and idx or (idx - first_width_card_count)
-        x_idx = x_idx % UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH
+        local x_idx = math_floor((idx % UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH))
 
-        local y_idx = 1 
-        
-        --[[ math_floor(idx / UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH)
-        if (idx <= first_width_card_count) then
-            y_idx = 0
-        else
-            y_idx = math_floor((idx - first_width_card_count) / UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH) + 1
-        end
-
-        if (x_idx == 0) then
+        if x_idx == 0 then
             x_idx = UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH
-        else
-            y_idx = y_idx + 1
         end
 
-        cclog('y_idx', y_idx, #l_vertical_pos_list)
- ]]
-        local pos_x = l_first_horizontal_pos_list[x_idx]
-        local pos_y = l_vertical_pos_list[y_idx]
+        local y_idx = math_floor((idx-1)/UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_PER_WIDTH) + 1
 
-        card.root:setPositionX(pos_x)
-        card.root:setPositionY(-pos_y)
+        local pos_x = l_horizontal_pos_list[x_idx]
+        local pos_y = l_vertical_pos_list[y_idx]
+        
+        --cclog('x_idx, y_idx', x_idx, y_idx, #l_horizontal_pos_list, #l_vertical_pos_list)
+        
+        card.root:setPositionX(pos_x)     
+        card.root:setPositionY(-pos_y)   
 
         local function open_condition_func()
             return self.m_bCanOpenCard
@@ -155,10 +128,7 @@ function UI_GachaResult_StoryDungeonDragon10:initDragonCardList()
         -- 카드를 뒤집고 난 이후 호출되는 콜백함수
         local function open_finish_cb()
             local str_rarity = struct_dragon_object:getRarity()
-            -- 3성은 어둡게
-            -- if (str_rarity == 'rare') then
-            --     card.m_dragonCard:setShadowSpriteVisible(true)
-            
+
             -- 5성 추가 연출
             if (str_rarity == 'legend')  or (str_rarity == 'myth') then
                 self:directingLegend(struct_dragon_object, pos_x, -pos_y)
@@ -210,7 +180,7 @@ function UI_GachaResult_StoryDungeonDragon10:initDragonCardList()
             SoundMgr:playEffect('UI', 'ui_card_set')
         end
 
-        local sequence = cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_StoryDungeonDragon10.UPDATE_CARD_SUMMON_OFFSET * (y_idx - 1)), cc.CallFunc:create(card_set_sound_play), move_action)
+        local sequence = cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET * (y_idx - 1)), cc.CallFunc:create(card_set_sound_play), move_action)
 
         card.root:setPositionY(y + move_distance)
         card.root:runAction(sequence)
@@ -221,6 +191,59 @@ function UI_GachaResult_StoryDungeonDragon10:initDragonCardList()
         self.m_bCanOpenCard = true
     end
     
-    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_StoryDungeonDragon10.UPDATE_CARD_SUMMON_OFFSET * (vertical_count - 1) + 0.2), cc.CallFunc:create(skip_btn_visible_true)))
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET * (vertical_count - 1) + 0.2), cc.CallFunc:create(skip_btn_visible_true)))
 end
 
+
+-------------------------------------
+-- function relocate_callback
+-------------------------------------
+function UI_GachaResult_StoryDungeonDragon10:relocate_callback(struct_dragon_object, pos_x, pos_y)
+    local animator = self.m_dragonAnimator
+    local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0), 1.7)
+    local doid = struct_dragon_object.id
+    local did = struct_dragon_object.did
+    local rarity = TableDragon:getValue(did, 'rarity')
+
+
+    
+    local function card_relocate_finish_cb()
+        self.m_bCanOpenCard = true
+
+        -- 연출동안 오래 기다렸으니 바로 다음 카드 뒤집을 수 있도록 하자
+        self.m_timer = 0
+        self.m_dragonAnimator = nil
+    end
+
+    local function card_relocate_func()
+        -- 0.7초간 원래 자리로 돌아가기
+        local relocate_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.7, cc.p(pos_x, pos_y)), 1.7)
+        local rescale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.7, UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_SCALE), 1.7)
+        local spawn_action = cc.Spawn:create(relocate_action, rescale_action)
+        local card_sequence = cc.Sequence:create(spawn_action, cc.CallFunc:create(card_relocate_finish_cb))
+        
+        local card = self.m_tDragonCardTable[doid]
+        card.root:runAction(card_sequence)
+    end
+
+    local function dragon_animation_finish_cb()
+        card_relocate_func()
+        animator.m_node:removeFromParent()
+    end
+
+    local function sound_cb()
+        -- 오픈 될 때 사운드 재생
+        if (struct_dragon_object:isLimited()) or (rarity == 'myth') then
+            SoundMgr:playEffect('BG', 'bgm_dungeon_victory')
+        else
+            SoundMgr:playEffect('UI', 'ui_star_up')
+        end
+    end
+    
+    local finish_action = cc.Sequence:create(cc.CallFunc:create(sound_cb), cc.DelayTime:create(2), scale_finish_action, 
+    cc.CallFunc:create(function() self:closeDragonInfo() end),
+    cc.CallFunc:create(dragon_animation_finish_cb))
+
+--    cc.Sequence:create(cc.DelayTime:create(1), cc.CallFunc:create(finish_action))
+    animator.m_node:runAction(finish_action)
+end

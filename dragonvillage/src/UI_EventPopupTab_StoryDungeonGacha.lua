@@ -123,6 +123,8 @@ function UI_EventPopupTab_StoryDungeonGacha:initUI()
     do -- 드래곤 카드
         local dragon_card = MakeSimpleDragonCard(did, {})
         dragon_card.root:setScale(100/150)
+        dragon_card.vars['attrNode']:setVisible(false)
+
         vars['ceilingIconNode']:removeAllChildren()
         vars['ceilingIconNode']:addChild(dragon_card.root)
         dragon_card.vars['clickBtn']:setEnabled(false)
@@ -185,18 +187,8 @@ function UI_EventPopupTab_StoryDungeonGacha:refresh()
         vars['ceilingLabel']:setStringArg(dragon_name, ceil_count)
     end
 
-
-    local goods_type = self.m_ticketItemKey
-    local value = g_userData:get(goods_type) or 0
-
     vars['ticketLabel_txt_10']:setStringArg(10)   
     vars['ticketLabel_txt_1']:setStringArg(1)
-
-    --vars['ticketLabel_1']:setString(math_clamp(value, 0, 1))
-    --vars['ticketLabel_10']:setString(math_clamp(value, 2, 10))
-
-    --vars['summonBtn_1']:setEnabled( value > 0 )
-    --vars['summonBtn_10']:setEnabled( value > 1 )
 end
 
 -------------------------------------
@@ -277,9 +269,13 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count, gacha_result_
                 gacha_result_ui:close()
             end
 
-            local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_gacha, added_mileage, pickup_id)
-            --require('UI_GachaResult_StoryDungeonDragon10')
-            --local ui = UI_GachaResult_StoryDungeonDragon10(gacha_type, l_dragon_list, t_gacha, pickup_id)
+            local ui
+            if count == 1 then
+                ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_gacha, added_mileage, pickup_id)
+            else
+                require('UI_GachaResult_StoryDungeonDragon10')
+                ui = UI_GachaResult_StoryDungeonDragon10(gacha_type, l_dragon_list, t_gacha, pickup_id)
+            end
 
             local function close_cb()
                 self:refresh()
