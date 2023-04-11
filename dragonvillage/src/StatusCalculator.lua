@@ -574,7 +574,7 @@ function StatusCalculator:getNewCombatPower()
     else
         -- 태초의 고대 신룡이라면 공격 포인트에 1.5배를 더해준다(하드코딩)
         if (self.m_chapterID == 121954) then
-            attack_point = 1.5 * table_stat['atk'] * (1 + table_stat['cri_chance'] * 0.01 * table_stat['cri_dmg'] * 0.01) * (4 + table_stat['aspd'] * 0.01) / 5 * (4 + table_stat['hit_rate'] * 0.01) / 5
+            attack_point = (math_pow(table_stat['atk'], 1.06)) * (1 + table_stat['cri_chance'] * 0.01 * table_stat['cri_dmg'] * 0.01) * (4 + table_stat['aspd'] * 0.01) / 5 * (4 + table_stat['hit_rate'] * 0.01) / 5
         else
             -- 일반 공격 점수 = 공격력*(1+치확*치피)*(4+공격속도)/5*(4+적중)/5
             attack_point = table_stat['atk'] * (1 + table_stat['cri_chance'] * 0.01 * table_stat['cri_dmg'] * 0.01) * (4 + table_stat['aspd'] * 0.01) / 5 * (4 + table_stat['hit_rate'] * 0.01) / 5
