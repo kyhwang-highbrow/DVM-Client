@@ -852,9 +852,14 @@ function ServerData:networkCommonRespone_addedItems(ret)
     -- 드래곤 소환권
     RefreshGoods(t_added_items, 'summon_dragon_ticket')
 
-    -- 훈장 (갱신)
+    -- 드래곤 스킨
     RefreshGoods(t_added_items, 'dragon_skins')
 
+    -- 스토리던전 소환권
+    RefreshGoods(t_added_items, 'ticket_story_dungeon')
+
+    -- 스토리던전 토큰
+    RefreshGoods(t_added_items, 'token_story_dungeon')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then
