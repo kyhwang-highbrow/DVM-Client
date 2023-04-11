@@ -44,6 +44,7 @@ function ServerData_Highlight:init(server_data)
 
     self.attendance_reward = 0
     self.attendance_event_reward = 0
+    self.story_dungeon_quest = 0
     self.quest_reward = 0
     self.explore_reward = 0
     self.summon_free = 0
