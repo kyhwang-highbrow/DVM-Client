@@ -76,6 +76,72 @@ function SensitivityHelper:completeBubbleText(parent, bubble_str, delay, pos_y, 
 end
 
 -------------------------------------
+-- function completeStoryDungeonBubbleText
+-- @brief 스토리 던전용 버블 텍스트 완성
+-------------------------------------
+function SensitivityHelper:completeStoryDungeonBubbleText(parent, bubble_str, delay, pos_y, cb_func)
+	-- 이전 버블 텍스트가 있다면 삭제해버린다.
+	self:deleteBubbleText(parent)
+
+	-- 버블 텍스트 생성하여 부모에 붙임
+	local bubble_text = SensitivityHelper:getStoryDungeonBubbleText(bubble_str)
+	bubble_text:setTag(TAG_BUBBLE)
+	bubble_text:setPosition(0, pos_y)
+	parent:addChild(bubble_text, 2)
+	
+	-- 띠용~ 후 페이드 아웃 하는 액션
+	local scale_action = cc.ScaleTo:create(0.17, 1.25)
+	local scale_action_2 = cc.ScaleTo:create(0.08, 1)
+	local delay_action = cc.DelayTime:create(delay)
+	local fade_action = cc.FadeOut:create(0.25)
+	local cb_action = cc.CallFunc:create(function() if (cb_func) then cb_func() end end)
+	local remove_action = cc.RemoveSelf:create()
+	local seq_action = cc.Sequence:create(scale_action, scale_action_2, delay_action, fade_action, cb_action, remove_action)
+	bubble_text:runAction(seq_action)
+
+	return bubble_text
+end
+
+-------------------------------------
+-- function getStoryDungeonBubbleText
+-------------------------------------
+function SensitivityHelper:getStoryDungeonBubbleText(txt_str)
+	-- 베이스 노드
+	local node = cc.Node:create()
+	node:setDockPoint(CENTER_POINT)
+	node:setAnchorPoint(CENTER_POINT)
+
+	-- 말풍선 프레임
+	local frame = cc.Scale9Sprite:create('res/ui/frames/master_road_navi_0101.png')
+	frame:setDockPoint(CENTER_POINT)
+	frame:setAnchorPoint(CENTER_POINT)
+
+	-- 텍스트 (rich_label)
+	local rich_label = UIC_RichLabel()
+    rich_label:setString(txt_str)
+    rich_label:setFontSize(24)
+    rich_label:setDimension(500, 70)
+    rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+	rich_label:setDockPoint(CENTER_POINT)
+    rich_label:setAnchorPoint(CENTER_POINT)
+	rich_label:setPosition(0, 10)
+
+	-- label 사이즈로 프레임 조정
+	local width = math_max(226, rich_label:getStringWidth() + 50)
+	local size = frame:getContentSize()
+	frame:setNormalSize(width, size['height'] + 50)
+
+	-- addChild
+	frame:addChild(rich_label.m_node)
+	node:addChild(frame)
+
+	-- fade out을 위해 설정
+	doAllChildren(node, function(node) node:setCascadeOpacityEnabled(true) end)
+
+	return node
+end
+
+-------------------------------------
 -- function getBubbleText
 -------------------------------------
 function SensitivityHelper:getBubbleText(txt_str)

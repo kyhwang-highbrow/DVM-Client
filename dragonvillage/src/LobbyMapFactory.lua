@@ -354,13 +354,16 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
                 end),
                 cc.CallFunc:create(function()
                     --@dhkim 첫번째 말풍선
-                    SensitivityHelper:completeBubbleText(animator.m_node, Str('{@BLACK}이, 이것은 이벤트 한정 룬 빛의 검!!{@}'), 4, 110)
+                    SensitivityHelper:completeStoryDungeonBubbleText(animator.m_node, Str('{@BLACK}이, 이것은 이벤트 한정 룬 빛의 검!!{@}'), 4, 110)
                 end),
                 cc.DelayTime:create(5),
                 cca.makeBasicEaseMove(1, 500, 200),
                 cc.CallFunc:create(function()
                     --@dhkim - 두번째 말풍선
-                    delayedText = SensitivityHelper:completeBubbleText(animator.m_node, Str('{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 빛의 검!!{@}'), 4, 110, function() delayedText = nil end)
+                    delayedText = SensitivityHelper:completeStoryDungeonBubbleText(animator.m_node, Str('{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 빛의 검!!{@}'), 4, 110, 
+                    function() 
+                        delayedText = nil 
+                    end)
                 end),
                 cc.DelayTime:create(0.5),
                 cc.CallFunc:create(function()
