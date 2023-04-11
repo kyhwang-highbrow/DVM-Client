@@ -25,6 +25,8 @@ StructProduct = class(PARENT, {
         max_buy_count = 'number',
         max_buy_term = 'string',
         max_buy_display = 'string',
+        max_buy_bundle_count = 'number',
+        
         badge = 'string',
         lock = 'number',
         token = 'string',

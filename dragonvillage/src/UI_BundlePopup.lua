@@ -136,12 +136,15 @@ function UI_BundlePopup:click_quantityBtn(is_add)
 		return
 	end
 
-	if (count > 1000) then
-		count = 1000
+	local struct_product = self.m_structProduct
+	local max_buy_count = struct_product.max_buy_bundle_count ~= '' and struct_product.max_buy_bundle_count or 1000
+	if (count > max_buy_count) then
+		UIManager:toastNotificationRed(Str('한 번에 {1}개 까지 구매가 가능한 상품입니다.', max_buy_count))
+		count = max_buy_count
 		return
 	end
 
-    local struct_product = self.m_structProduct
+    
 	local price_type = struct_product:getPriceType()
     
     -- 구매 한도 예외처리
