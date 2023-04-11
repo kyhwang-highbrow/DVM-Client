@@ -153,6 +153,12 @@ function UI_EventPopupTab_StoryDungeonGacha:initUI()
         vars['itemNode_10']:removeAllChildren()
         vars['itemNode_10']:addChild(item_icon_10)
     end
+
+    local function update(dt)
+        self.m_mGoodsInfo:refresh()
+    end
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
 end
 
 -------------------------------------
