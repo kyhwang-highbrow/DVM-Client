@@ -1598,6 +1598,8 @@ local t_module = {
 
 	-- UI : 연출
 	'DirectingCharacter',
+    'UI_DragonCard_Gacha',
+    'UI_DragonCard_StoryDungeonGacha',
 
 	-- UI : 채팅
 	'UI_ChatPopup',

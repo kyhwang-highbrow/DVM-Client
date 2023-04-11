@@ -30,7 +30,7 @@ function UI_GachaResult_StoryDungeonDragon10:initDragonCardList()
         local struct_dragon_object = StructDragonObject(t_dragon_data) -- raw data를 StructDragonObject 형태로 변경
         local doid = t_dragon_data['id']
 		
-        local card = UI_DragonCard_Gacha(struct_dragon_object)
+        local card = UI_DragonCard_StoryDungeonGacha(struct_dragon_object)
         card.root:setScale(UI_GachaResult_StoryDungeonDragon10.DRAGON_CARD_SCALE)
 
         card.vars['skipBtn']:registerScriptTapHandler(function() 
@@ -87,8 +87,6 @@ function UI_GachaResult_StoryDungeonDragon10:initDragonCardList()
         local pos_x = l_horizontal_pos_list[x_idx]
         local pos_y = l_vertical_pos_list[y_idx]
         
-        --cclog('x_idx, y_idx', x_idx, y_idx, #l_horizontal_pos_list, #l_vertical_pos_list)
-        
         card.root:setPositionX(pos_x)     
         card.root:setPositionY(-pos_y)   
 
@@ -101,7 +99,7 @@ function UI_GachaResult_StoryDungeonDragon10:initDragonCardList()
             local str_rarity = struct_dragon_object:getRarity()
             
             -- 5성은 카드가 1초간 가운데로 확대대며 이동
-            if (str_rarity == 'legend') or (str_rarity == 'myth') then
+            if str_rarity == 'myth' then
                  self.m_bCanOpenCard = false
 
                 -- 움직이는게 잘 보이도록 해당 카드의 z order 맨 위로
@@ -130,7 +128,7 @@ function UI_GachaResult_StoryDungeonDragon10:initDragonCardList()
             local str_rarity = struct_dragon_object:getRarity()
 
             -- 5성 추가 연출
-            if (str_rarity == 'legend')  or (str_rarity == 'myth') then
+            if str_rarity == 'myth' then
                 self:directingLegend(struct_dragon_object, pos_x, -pos_y)
             end
 
@@ -246,4 +244,56 @@ function UI_GachaResult_StoryDungeonDragon10:relocate_callback(struct_dragon_obj
 
 --    cc.Sequence:create(cc.DelayTime:create(1), cc.CallFunc:create(finish_action))
     animator.m_node:runAction(finish_action)
+end
+
+
+-------------------------------------
+-- function update_skip
+-------------------------------------
+function UI_GachaResult_StoryDungeonDragon10:update_skip(dt)
+    -- 연출 중에는 타이머 X
+    if (self.m_bCanOpenCard == false) then
+        return
+    end
+    
+    self.m_timer = self.m_timer - dt
+    
+    if (self.m_timer <= 0) then
+        for idx, t_dragon_data in ipairs(self.m_lGachaDragonList) do
+            local doid = t_dragon_data['id']
+            local dragon_card = self.m_tDragonCardTable[doid]
+
+            if (dragon_card:isClose()) then
+                dragon_card:openCard(true)
+
+                local rarity = dragon_card.m_tDragonData:getRarity()
+
+                if rarity == 'myth'  then
+                    self.m_bCanOpenCard = false
+                    
+                    -- 연출 전 미리 애니메이터 스파인 캐시에 저장 (렉 제거)
+                    local did = dragon_card.m_tDragonData['did']
+                    local t_dragon = TableDragon():get(did)
+                    local res_name = t_dragon['res']
+                    local evolution = 3
+                    local attr = t_dragon['attr']
+                    local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+                    animator:release()
+
+                else
+                    SoundMgr:playEffect('UI', 'ui_card_flip')
+                end
+
+                self.m_timer = self.m_timer + UI_GachaResult_Dragon100.UPDATE_CARD_OPEN_OFFSET
+                return
+            end
+        end
+
+        -- 모든 카드를 오픈한 이후
+        if (self:isAllCardOpen()) then
+            self.m_bIsSkipping = false
+            self:refresh()
+            self.m_skipUpdateNode:unscheduleUpdate()
+        end
+    end
 end
