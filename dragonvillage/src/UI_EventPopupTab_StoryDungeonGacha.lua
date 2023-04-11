@@ -36,6 +36,8 @@ function UI_EventPopupTab_StoryDungeonGacha:init(is_fullpopup)
         self:initUI()
         self:initButton()
         self:refresh()
+
+        self:hideStoryDungeonButton()
     end
 end
 
@@ -296,4 +298,14 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count, gacha_result_
     else
         MakeSimplePopup_SummonConfirm(self.m_ticketItemKey, count, msg, ok_cb)
     end
+end
+
+-------------------------------------
+-- function hideStoryDungeonButton
+-- @brief 풀팝업일 시에는 스토리 던전 버튼 가림
+-------------------------------------
+function UI_EventPopupTab_StoryDungeonGacha:hideStoryDungeonButton()
+    local vars = self.vars
+
+    vars['story_dungeonBtn']:setVisible(false)
 end
