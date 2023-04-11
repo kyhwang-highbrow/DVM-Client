@@ -97,6 +97,14 @@ function UI_BundlePopupBtnPress:update(dt)
             count = count - 1
         end
 
+        local max_buy_count = struct_product.max_buy_bundle_count ~= '' and struct_product.max_buy_bundle_count or 1000
+        if (count > max_buy_count) then
+            UIManager:toastNotificationRed(Str('한 번에 {1}개 까지 구매가 가능한 상품입니다.', max_buy_count))
+            self:resetQuantityBtnPress()
+            return
+        end
+
+
         -- 1 이하 예외처리
         if (count < 1) then
 		    count = 1
@@ -104,8 +112,8 @@ function UI_BundlePopupBtnPress:update(dt)
 		    return
 	    end
 
-        if (count > 1000) then
-            count = 1000
+        if (count > max_buy_count) then
+            count = max_buy_count
             self:resetQuantityBtnPress()
             return
         end
