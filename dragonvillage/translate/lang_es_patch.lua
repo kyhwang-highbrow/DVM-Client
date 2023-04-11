@@ -1,9 +1,7 @@
-return {['아모르의 첫 번째 자손으로써 태초의 힘을 지닌 빛의 수호자이다. 유타칸 뿐만 아닌 우주 전체를 수호하는 사명을 지녔다. 커다란 날갯짓 만으로도 악한 이들의 마음을 잠재울 수 있으며 단단한 갑옷은 무너지는 일이 없다. 포효 만으로도 태초의 고대신룡을 우러러보게 된다. ']='아모르의 첫 번째 자손으로써 태초의 힘을 지닌 빛의 수호자이다. 유타칸 뿐만 아닌 우주 전체를 수호하는 사명을 지녔다. 커다란 날갯짓 만으로도 악한 이들의 마음을 잠재울 수 있으며 단단한 갑옷은 무너지는 일이 없다. 포효 만으로도 태초의 고대신룡을 우러러보게 된다. ',
-['자신의 치명타 확률이 999% 감소합니다. 일반 공격 시마다 강력한 빛의 광선으로 직선 범위의 모든 적을 공격합니다. ']='자신의 치명타 확률이 999% 감소합니다. 일반 공격 시마다 강력한 빛의 광선으로 직선 범위의 모든 적을 공격합니다. ',
-['DVC 사전 예약 인증']='DVC 사전 예약 인증',
-['[태초의 고대신룡] 친밀도 10레벨 달성']='[El antiguo dragón divino del principio] Alcanzado el nivel 10 de Cercanía',
-['나만의 드래곤 마을을 그려보자!']='나만의 드래곤 마을을 그려보자!',
-['드빌 컬렉션\n사전예약']='드빌 컬렉션\n사전예약',
+return {['{1}이(가) 부족합니다.\n상점으로 이동하시겠습니까?']='¿Desea ir a la tienda porque {1} es insuficiente?',
+['가장 위대한 빛의 힘으로 눈 앞의 모든 것을 소멸시킵니다. 이 공격은 방어력, 수호, 무적, 부활등의 모든 방어 수단을 무시하며 어둠 속성 대상에게는 20배의 피해를 입힙니다.전투 시작 시에 1회만 발동합니다.']='Con la fuerza de la luz más grande, todo a su alcance se desvanece. Este ataque ignora todas las defensas, como la defensa, la protección, el invencible, la resurrección, y causa un daño 20 veces mayor a los objetivos de oscuridad. Solo se activa una vez al comienzo de la batalla.',
+['세트 효과 없음']='No hay efecto de conjunto',
+['없음']='no hay',
 ['밝은 광채를 내뿜으며 거대한 빛은 날갯짓을 했다.']='Brillando con un resplandor luminoso, la gran luz hizo una reverencia',
 ['\"당신은 누구십니까?\"']='¿Quién eres?',
 ['거대한 빛은 어둠속을 가로지르며 천천히 날아가기 시작했다.']='La luz gigante comenzó a atravesar la oscuridad y volar lentamente. ',
@@ -95,4 +93,5 @@ return {['아모르의 첫 번째 자손으로써 태초의 힘을 지닌 빛의
 ['스토리를 즐길 수 있는 5개의 스토리 스테이지,\n재화를 반복 획득할 수 있는 5개의 반복 스테이지,\n매우 어려운 난이도의 보스에게 도전하는 5개의 도전 스테이지로 구성되어 있습니다.']='Está compuesto por 5 etapas de historia para disfrutar de la historia, 5 etapas repetitivas para obtener recursos repetidamente y 5 etapas desafiantes para desafiar a jefes de dificultad extremadamente alta.',
 ['{@BLACK}이, 이것은 이벤트 한정 룬 빛의 검!!{@}']='{@BLACK}Esto es un runa de evento limitado llamada [espada de la luz]!!',
 ['{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 빛의 검!!{@}']='{@BLACK}¡El legendario [espada de la luz], el cual no podrás obtener de nuevo si te pierdes este evento!!{@}',
-['아모르의 첫 번째 자손으로써 태초의 힘을 지닌 빛의 수호자이다. 유타칸 뿐만 아닌 우주 전체를 수호하는 사명을 지녔다. 커다란 날갯짓 만으로도 악한 이들의 마음을 잠재울 수 있으며 단단한 갑옷은 무너지는 일이 없다. 포효 만으로도 태초의 고대신룡을 우러러보게 된다.']='Como el primer descendiente de Amor con el poder primordial, es el protector de la luz. Tiene la misión de custodiar no solo Yutacán, sino todo el universo. Con solo un movimiento de su gran aliento, puede calmar el corazón de aquellos malvados y su armadura nunca se desmorona. Su rugido hace que el dragón antiguo primigenio lo mire directamente.'}
+['아모르의 첫 번째 자손으로써 태초의 힘을 지닌 빛의 수호자이다. 유타칸 뿐만 아닌 우주 전체를 수호하는 사명을 지녔다. 커다란 날갯짓 만으로도 악한 이들의 마음을 잠재울 수 있으며 단단한 갑옷은 무너지는 일이 없다. 포효 만으로도 태초의 고대신룡을 우러러보게 된다.']='Como el primer descendiente de Amor con el poder primordial, es el protector de la luz. Tiene la misión de custodiar no solo Yutacán, sino todo el universo. Con solo un movimiento de su gran aliento, puede calmar el corazón de aquellos malvados y su armadura nunca se desmorona. Su rugido hace que el dragón antiguo primigenio lo mire directamente.',
+['[태초의 고대신룡] 친밀도 10레벨 달성']='[El antiguo dragón divino del principio] Alcanzado el nivel 10 de Cercanía'}
