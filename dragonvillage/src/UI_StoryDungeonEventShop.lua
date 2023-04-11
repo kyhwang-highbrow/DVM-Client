@@ -64,10 +64,10 @@ function UI_StoryDungeonEventShop:initUI()
     local did =  TableStoryDungeonEvent:getStoryDungeonEventDid(self.m_seasonId)
     local table_dragon = TableDragon()
 
-    local attr = table_dragon:getDragonAttr(did)
-    local role_type = table_dragon:getDragonRole(did)
-    local rarity_type = 'legend'
-    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
+    --local attr = table_dragon:getDragonAttr(did)
+    --local role_type = table_dragon:getDragonRole(did)
+    --local rarity_type = 'legend'
+    --local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
 
     -- 이름
     local dragon_name = table_dragon:getDragonName(did)
@@ -83,12 +83,12 @@ function UI_StoryDungeonEventShop:initUI()
     do -- 드래곤 카드
         local dragon_card = MakeSimpleDragonCard(did, {})
         dragon_card.root:setScale(100/150)
+        dragon_card.vars['attrNode']:setVisible(false)
+
         vars['dragonIconNode']:removeAllChildren()
         vars['dragonIconNode']:addChild(dragon_card.root)
-        -- 이벤트 소환 바로 가기
-        dragon_card.vars['clickBtn']:registerScriptTapHandler(function() 
-            self:click_gachaBtn()
-        end)
+        
+        dragon_card.vars['clickBtn']:setEnabled(false)
     end
 end
 
@@ -96,6 +96,11 @@ end
 -- function initButton
 -------------------------------------
 function UI_StoryDungeonEventShop:initButton()
+    local vars = self.vars
+    -- 이벤트 소환 바로 가기
+    vars['storyEventBtn']:registerScriptTapHandler(function() 
+        self:click_gachaBtn()
+    end)
 end
 
 -------------------------------------

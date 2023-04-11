@@ -77,6 +77,8 @@ function UI_BattleMenuItem_Adventure:initUI_storyDungeon()
         do -- 드래곤 카드
             local dragon_card = MakeSimpleDragonCard(did, {})
             dragon_card.root:setScale(100/150)
+            dragon_card.vars['attrNode']:setVisible(false)
+            
             vars['dragonIconNode']:removeAllChildren()
             vars['dragonIconNode']:addChild(dragon_card.root)
             -- 이벤트 소환 바로 가기
