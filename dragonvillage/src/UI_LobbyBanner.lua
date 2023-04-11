@@ -85,8 +85,10 @@ function UI_LobbyBanner:click_bannerBtn()
 	    g_fullPopupManager:showFullPopup(event_type)
 
     elseif (event_type == 'story_dungeon_gacha') then
-        g_fullPopupManager:showFullPopup(event_type)
-
+        local ui = g_fullPopupManager:showFullPopup(event_type)
+        if ui.m_innerUI.vars['story_dungeonBtn'] ~= nil then
+            ui.m_innerUI.vars['story_dungeonBtn']:setVisible(true)
+        end
     end
 end
 
