@@ -135,6 +135,8 @@ function ConfirmPrice_original(price_type, price_value)
         if (ticket_story_dungeon < price_value) then
             local _,season_code =  g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
             g_fullPopupManager:showFullPopup(string.format('package_ticket_event_%s', season_code))
+            
+            UIManager:toastNotificationRed(Str('{1}이 부족합니다.', TableItem:getItemName(price_type)))
            return false
         end
     else 
