@@ -332,7 +332,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 
             --@dhkim 빛의 검 구조물용 터치 이벤트 영역 설정
             self:makeSwordTouchEvent(animator, function ()
-                UINavigator:goTo('story_dungeon', 'shop')
+                UINavigator:goTo('story_dungeon')
             end)
         end
 
