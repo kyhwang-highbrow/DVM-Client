@@ -511,6 +511,17 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_c
         end
     end
 
+    
+    -- 성공 시 콜백
+    local function status_cb(ret)       
+        if ret['status'] == -2128 then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'), function () 
+                UINavigator:goTo('lobby')
+            end)
+            return true
+        end
+    end
+
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/summon/story_dungeon')
     ui_network:setParam('uid', uid)
@@ -519,6 +530,7 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonGacha(season_id, draw_c
     ui_network:setParam('draw_cnt', draw_cnt)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(status_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:request()
     return ui_network
@@ -588,12 +600,23 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonQuestReward(quest, cb_f
         cb_func() -- quest_data, l_reward_item
     end
 
+    -- 성공 시 콜백
+    local function status_cb(ret)       
+        if ret['status'] == -2128 then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'), function () 
+                UINavigator:goTo('lobby')
+            end)
+            return true
+        end
+    end
+
     local ui_network = UI_Network()
     ui_network:setUrl('/game/story_dungeon/quest_reward')
     ui_network:setParam('uid', uid)
 	ui_network:setParam('qid', qid)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:setResponseStatusCB(status_cb)
     ui_network:request()
     return ui_network
 end
@@ -626,14 +649,25 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonStageClearTicket(stage_
         finish_cb(ref_table)
     end
 
+    -- 성공 시 콜백
+    local function status_cb(ret)       
+        if ret['status'] == -2128 then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'), function () 
+                UINavigator:goTo('lobby')
+            end)
+            return true
+        end
+    end
+
+
     local network = UI_Network()
     network:setUrl('/game/story_dungeon/clear')
 
     network:setParam('uid', uid)
     network:setParam('stage', stage_id)
     network:setParam('clear_cnt', clear_count)
-
     network:setSuccessCB(success_cb)
+    network:setResponseStatusCB(status_cb)
     network:setFailCB(fail_cb)
     network:request()
 end

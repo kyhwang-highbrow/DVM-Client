@@ -538,6 +538,15 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
                 return true
             end
 
+            if ret['status'] == -2128 then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'), function () 
+                    UINavigator:goTo('lobby')
+                end)
+                return true
+            end
+
+
+
             return false
         end
 
