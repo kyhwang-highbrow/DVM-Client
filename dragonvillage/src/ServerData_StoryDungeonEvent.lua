@@ -589,8 +589,8 @@ function ServerData_StoryDungeonEvent:requestStoryDungeonQuestReward(quest, cb_f
 		-- 노티 정보를 갱신하기 위해서 호출
 		g_highlightData:setDirty(true)
 
-        local t_quest_data = self:getQuest(quest['quest_type'], qid)
-        cb_func(t_quest_data, l_reward_item) -- quest_data, l_reward_item
+        --local t_quest_data = self:getQuest(quest['quest_type'], qid)
+        cb_func() -- quest_data, l_reward_item
     end
 
     local ui_network = UI_Network()
