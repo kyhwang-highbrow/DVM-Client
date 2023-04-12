@@ -326,7 +326,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
         if (animator.m_node) then
             animator:setDockPoint(CENTER_POINT)
             animator:setAnchorPoint(CENTER_POINT)
-            animator:setPosition(235, 0)
+            animator:setPosition(235, -80)
             animator:setScale(0.85)
             node:addChild(animator.m_node, 1)
 
@@ -340,7 +340,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
         if (animator.m_node) then
             animator:setDockPoint(CENTER_POINT)
             animator:setAnchorPoint(CENTER_POINT)
-            animator:setPosition(0, 200)
+            animator:setPosition(0, 120)
             animator:setScale(0.85)
             node:addChild(animator.m_node, 2)
 
