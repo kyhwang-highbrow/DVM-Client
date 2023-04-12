@@ -1,4 +1,6 @@
-return {['밝은 광채를 내뿜으며 거대한 빛은 날갯짓을 했다.']='With a bright radiance, the huge light flickered.',
+return {['{@BLACK}이, 이것은 이벤트 한정 룬 빛의 검!!{@}']='{@BLACK}This, this is the Event-exclusive Rune [Sword of Light] !!',
+['{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 빛의 검!!{@}']='{@BLACK}Legend has it that if you miss this event, you\'ll never be able to obtain the [Sword of Light again]!!',
+['밝은 광채를 내뿜으며 거대한 빛은 날갯짓을 했다.']='With a bright radiance, the huge light flickered.',
 ['\"당신은 누구십니까?\"']='Who are you?',
 ['고통 속에서도 꺼지지 않은 지혜']='Wisdom that remained unextinguished in pain.',
 ['\"A포인트로 몬스터를 유인해주세요. 그다음 댐을 무너뜨려 길을 끊겠어요!\"']='Please lure the monsters using A points. Then, let\'s destroy the dam and block the road!',
@@ -87,7 +89,5 @@ return {['밝은 광채를 내뿜으며 거대한 빛은 날갯짓을 했다.']=
 ['태초의 빛 소환권 50개']='Summoning Scroll of the Primordial Lights X50',
 ['반복 스테이지와 도전 스테이지의 보스는 매우 강력합니다.\n소환 이벤트를 진행 중인 드래곤을 사용하면 더 유리하게 전투를 진행할 수 있습니다.']='The bosses of the repeat stages and challenge stages are very powerful.\nYou can make the battle more favorable by using the dragon being summoned during the summoning event.',
 ['스토리를 즐길 수 있는 5개의 스토리 스테이지,\n재화를 반복 획득할 수 있는 5개의 반복 스테이지,\n매우 어려운 난이도의 보스에게 도전하는 5개의 도전 스테이지로 구성되어 있습니다.']='It is composed of 5 Story stages where you can enjoy the story, 5 Repeat stages where you can repeatedly obtain resources, and 5 Challenge stages where you can challenge very difficult bosses.',
-['{@BLACK}이, 이것은 이벤트 한정 룬 빛의 검!!{@}']='This, this is the Event-exclusive Rune [Sword of Light] !!',
-['{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 빛의 검!!{@}']='Legend has it that if you miss this event, you\'ll never be able to obtain the [Sword of Light again]!!',
 ['아모르의 첫 번째 자손으로써 태초의 힘을 지닌 빛의 수호자이다. 유타칸 뿐만 아닌 우주 전체를 수호하는 사명을 지녔다. 커다란 날갯짓 만으로도 악한 이들의 마음을 잠재울 수 있으며 단단한 갑옷은 무너지는 일이 없다. 포효 만으로도 태초의 고대신룡을 우러러보게 된다.']='As the first descendant of Amor, he is the guardian of the light with the power of the beginning. He has the mission to protect not only Yutakan but the entire universe. Just with his great roar, he can calm the hearts of evil ones and his strong armor never breaks down. His roar even makes the Origin God Dragon look up to him.',
 ['[태초의 고대신룡] 친밀도 10레벨 달성']='[El antiguo dragón divino del principio] Alcanzado el nivel 10 de atracción.'}
