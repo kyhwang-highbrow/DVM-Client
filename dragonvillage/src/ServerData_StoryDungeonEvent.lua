@@ -431,14 +431,6 @@ end
 function ServerData_StoryDungeonEvent:requestStoryDungeonInfo(cb_func, fail_cb)
     local uid = g_userData:get('uid')
 
-    -- 라이브일 경우 요청하지 않도록 하드코딩(검수등록위해)
-    if IS_TEST_MODE() == false then
-        if cb_func then
-            cb_func()
-        end
-        return
-    end
-
     -- 성공 시 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
