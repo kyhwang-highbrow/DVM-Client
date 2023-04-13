@@ -690,11 +690,11 @@ function Analytics:IVEKorea_ads_complete_run(cb_func)
     
     if (CppFunctions:isAndroid() == true) then
         t_data['av'] = adid
-        t_data['ai'] = '16437'
+        t_data['ai'] = '21368'
 
     elseif (CppFunctions:isIos() == true) then
         t_data['ae'] = adid
-        t_data['ai'] = '16438'
+        t_data['ai'] = '21348'
 
     else
         -- @sgkim 2021.09.09 테스트 코드
