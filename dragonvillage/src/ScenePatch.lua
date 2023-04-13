@@ -82,8 +82,9 @@ function ScenePatch:setWorkList()
     if (CppFunctions:isIos() == true) then
         table.insert(self.m_lWorkList, 'workRequestIosAppTrackingTransparency')
     end
-    table.insert(self.m_lWorkList, 'workIVEKoreaAds')
 
+    table.insert(self.m_lWorkList, 'workIVEKoreaAds1') -- IVEKoreaAds ai 구버전으로 호출
+    table.insert(self.m_lWorkList, 'workIVEKoreaAds2') -- IVEKoreaAds ai 신버전으로 호출
     table.insert(self.m_lWorkList, 'workStartPatch')
 end
 
@@ -128,14 +129,39 @@ function ScenePatch:workRequestIosAppTrackingTransparency()
 end
 
 -------------------------------------
--- function workIVEKoreaAds
+-- function workIVEKoreaAds1
+-- @brief 구버전 ai 값들을 키로 전달 (aos ai : 16437, ios ai : 16438)
 -------------------------------------
-function ScenePatch:workIVEKoreaAds()
+function ScenePatch:workIVEKoreaAds1()
     local function cb()
         self:doNextWork()
     end
-    Analytics:IVEKorea_ads_complete_run(cb)
+
+    local t_ai = {
+        ['aos'] = '16437',
+        ['ios'] = '16438',
+    }
+
+    Analytics:IVEKorea_ads_complete_run(t_ai, cb)
 end
+
+-------------------------------------
+-- function workIVEKoreaAds2
+-- @brief 신버전 ai 값들을 키로 전달 (aos ai : 21368, ios ai : 21348)
+-------------------------------------
+function ScenePatch:workIVEKoreaAds2()
+    local function cb()
+        self:doNextWork()
+    end
+
+    local t_ai = {
+        ['aos'] = '21368',
+        ['ios'] = '21348',
+    }
+    
+    Analytics:IVEKorea_ads_complete_run(t_ai, cb)
+end
+
 
 -------------------------------------
 -- function workStartPatch

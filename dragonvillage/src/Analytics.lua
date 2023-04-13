@@ -680,9 +680,10 @@ end
 
 -------------------------------------
 -- function IVEKorea_ads_complete_run
--- @brief IVE Korea CPI 캠페인
+-- @param t_ai = {['aos'] = string, ['ios'] = string}
+-- @brief IVE Korea CPI 캠페인 
 -------------------------------------
-function Analytics:IVEKorea_ads_complete_run(cb_func)
+function Analytics:IVEKorea_ads_complete_run(t_ai, cb_func)
     local adid = PerpleSdkManager:getAdid()
     
     -- 파라미터 셋팅
@@ -690,11 +691,11 @@ function Analytics:IVEKorea_ads_complete_run(cb_func)
     
     if (CppFunctions:isAndroid() == true) then
         t_data['av'] = adid
-        t_data['ai'] = '21368'
+        t_data['ai'] = t_ai['aos']
 
     elseif (CppFunctions:isIos() == true) then
         t_data['ae'] = adid
-        t_data['ai'] = '21348'
+        t_data['ai'] = t_ai['ios']
 
     else
         -- @sgkim 2021.09.09 테스트 코드
