@@ -37,7 +37,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				flag = '';
+				flag = 'rich';
 				x = 60.000000;
 				y = 14.000000;
 				dock_point = { 0.000000; 0.500000; };

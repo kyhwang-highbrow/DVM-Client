@@ -6082,7 +6082,7 @@
 							ui_name = 'rich';
 							flag = '';
 							x = 19.000000;
-							y = 3.000000;
+							y = 5.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
@@ -6095,9 +6095,9 @@
 							rotation = 0.000000;
 							visible = true;
 							screen_ui = 0;
-							lua_name = '';
+							lua_name = 'storyEventLabel';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 20;
+							font_size = 18;
 							text = '태초의 빛 EVENT!';
 							h_alignment = 1;
 							v_alignment = 1;

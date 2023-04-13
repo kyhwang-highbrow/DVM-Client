@@ -446,7 +446,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '태초의 고대신룡';
+					text = '태초의 빛';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
