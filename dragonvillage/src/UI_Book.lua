@@ -21,6 +21,9 @@ UI_Book = class(PARENT, {
         m_curDragonList = 'list',
      })
 
+
+UI_Book.isOnceTouched = false
+
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
@@ -39,7 +42,7 @@ end
 function UI_Book:init()
     local vars = self:load_keepZOrder('book.ui')
     UIManager:open(self, UIManager.SCENE)
-
+    UI_Book.isOnceTouched = true
     self.m_curDragonList = {}
 
     -- backkey 지정
@@ -252,8 +255,11 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
         ui:setNotiSpriteVisible(true)
 	end
 
+
 	-- 버튼 클릭시 상세 팝업
 	ui.vars['clickBtn']:registerScriptTapHandler(function()
+
+
         
 		-- 보상이 있다면 보상 수령
 		if (g_bookData:haveBookReward(did, evolution)) then
@@ -268,7 +274,14 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
                 -- 테이블 리셋
                 book_ui.m_tableViewTD:clearItemList()
                 book_ui:onChangeOption()
+                UI_Book.isOnceTouched = false
 			end
+
+            if UI_Book.isOnceTouched == true then
+                return
+            end
+
+            UI_Book.isOnceTouched = true
 			g_bookData:request_bookReward(did, evolution, finish_cb)
 				
 		-- 없으면 상세 팝업
