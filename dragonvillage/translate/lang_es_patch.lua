@@ -1,4 +1,6 @@
-return {['16스테이지 클리어']='Estado de 16 Completado',
+return {['{@dark_brown}통합 랭킹{@default} {1}위']='Clasificación integrada: {@dark_brown} {1}',
+['{1}\n확정 획득까지 {@yellow}{2}{@default}회']='{1} Hasta la adquisición de la confirmación de {@yellow}{2}{@default}',
+['16스테이지 클리어']='Estado de 16 Completado',
 ['17스테이지 클리어']='Estado de 17 Completado',
 ['18스테이지 클리어']='Estado de 18 Completado',
 ['19스테이지 클리어']='Estado de 19 Completado',
