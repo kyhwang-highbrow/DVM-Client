@@ -291,6 +291,8 @@ function UI_EventPopupTab_StoryDungeonGacha:click_summonBtn(count, gacha_result_
 
             local function close_cb()
                 self:refresh()
+                --신화 드래곤 팝업
+                g_getDragonPackage:PopUp_GetDragonPackage()
             end
 
             ui:setCloseCB(close_cb)
