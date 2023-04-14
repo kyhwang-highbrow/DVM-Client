@@ -42,7 +42,7 @@ end
 function UI_Book:init()
     local vars = self:load_keepZOrder('book.ui')
     UIManager:open(self, UIManager.SCENE)
-    UI_Book.isOnceTouched = true
+    UI_Book.isOnceTouched = false
     self.m_curDragonList = {}
 
     -- backkey 지정
