@@ -68,7 +68,7 @@ function UI_DragonSkinSale:initUI()
         local b_match = b_data:getUIPriority()
 
         if a_match == b_match then
-            return a_data:getSkinID() <  b_data:getSkinID()
+            return a_data:getSkinID() >  b_data:getSkinID()
         end
 
         return a_match > b_match
