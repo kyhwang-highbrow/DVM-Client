@@ -70,7 +70,7 @@ end
 function UI_PackagePopup:init_tableView()
     local node = self.vars['listNode']
 
-    local l_item_list = TablePackageBundle():getTableViewMap()
+    local l_item_list = TablePackageBundle:getTableViewMap()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)

@@ -11,22 +11,23 @@ UI_Package_Bundle_Dependency = class(PARENT,{
 -- @brief bundle형태는 package카테고리의 상품을 사용하다가 etc 카테고리 상품도 추가함
 -------------------------------------
 function UI_Package_Bundle_Dependency:getProductList()
-    local packages = TABLE:get('table_package_bundle')
-    local package_list = {}
+    local t_bundle_data = TablePackageBundle:getDataWithName(self.m_package_name)
+    if t_bundle_data == nil then
+        return {}
+    end
 
-    -- csv 파일의 하단에 오는 상품이 제일 위에 노출되도록 reverse order
-    for index = #packages, 1, -1 do
+    local struct_product_group = StructPackageBundle(t_bundle_data, false)
+    local l_product = struct_product_group:getProductList()
+    return l_product
+
+--[[     for index = #packages, 1, -1 do
         if packages[index]['t_name'] == self.m_package_name then
             local struct_product_group = StructPackageBundle(packages[index], false)
             local l_product = struct_product_group:getProductList()
---[[             table.sort(l_product, function(a, b) 
-                return a.product_id < b.product_id
-            end) ]]
             return l_product
         end
     end
-
-    return {}
+    return {} ]]
 end
 
 -------------------------------------
@@ -152,6 +153,8 @@ function UI_Package_Bundle_Dependency:refresh()
 
     -- 판매 종료 시간
     self:refresh_time()
+
+    cclog('UI_Package_Bundle_Dependency:refresh')
 end
 
 
@@ -164,6 +167,8 @@ function UI_Package_Bundle_Dependency:click_buyBtn(struct_product)
 	local function cb_func(ret)
         if (self.m_cbBuy) then
             self.m_cbBuy(ret)
+        else
+            self:refresh()
         end
 
         -- 만원의 행복은 구입 즉시 지급되므로 기본재화들도 결과 보여줌
@@ -195,16 +200,6 @@ function UI_Package_Bundle_Dependency:click_buyBtn(struct_product)
 
         UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM)
 
-        -- m_package_name
-        -- 일단은 버튼부터 막는다
-        --[[
-        if (ret['status'] == 0) then
-            if (vars['buyBtn']) then vars['buyBtn']:setEnabled(false) end
-            if (vars['buyBtn1']) then vars['buyBtn1']:setEnabled(false) end
-            if (vars['buyBtn2']) then vars['buyBtn2']:setEnabled(false) end
-            if (vars['buyBtn3']) then vars['buyBtn3']:setEnabled(false) end
-        end]]
-
         if (self.m_isFullPopup) then
             self:refresh()
             g_eventData.m_bDirty = true
@@ -221,7 +216,6 @@ function UI_Package_Bundle_Dependency:click_buyBtn(struct_product)
         if ret['need_refresh'] then
             self:refresh()
             g_eventData.m_bDirty = true
-
         elseif (self.m_isPopup == true) then
             self:close()
 		end

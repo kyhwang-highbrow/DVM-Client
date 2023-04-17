@@ -4,26 +4,34 @@ local PARENT = TableClass
 -- class TablePackageBundle
 -------------------------------------
 TablePackageBundle = class(PARENT, {
-    })
+    m_namePackageBundleMap = 'map',
+})
 
-local THIS = TablePackageBundle
-
+local instance = nil
 -------------------------------------
 -- function init
 -------------------------------------
 function TablePackageBundle:init()
+    -- 여기 2번 이상 들어오면 안된다.
+    assert(instance == nil, 'Can not initalize twice')
     self.m_tableName = 'table_package_bundle'
     self.m_orgTable = TABLE:get(self.m_tableName)
+    self.m_namePackageBundleMap = {}
 
+    for _, v in pairs(self.m_orgTable) do        
+        self.m_namePackageBundleMap[v['t_name']] = v
+    end
 end
 
--- function TableP:getEtcTableViewMap()
---     local map = {}
-
---     local item_list = g_shopDataNew:getProductList('etc')
---     for i, v in ipairs(self.m_orgTable) do
---     end
--- end
+-------------------------------------
+-- function getInstance
+-------------------------------------
+function TablePackageBundle:getInstance()
+    if (instance == nil) then
+        instance = TablePackageBundle()
+    end
+    return instance
+end
 
 -------------------------------------
 -- function getTableViewMap
@@ -31,8 +39,10 @@ end
 -------------------------------------
 function TablePackageBundle:getTableViewMap()
     local map = {}
+    local tb_instance = TablePackageBundle:getInstance()
+
     local l_item_list = g_shopDataNew:getProductList('package')
-    for i, v in ipairs(self.m_orgTable) do
+    for i, v in ipairs(tb_instance.m_orgTable) do
 
         local t_pids = v['t_pids']
         local l_str = pl.stringx.split(t_pids, ',')
@@ -96,15 +106,18 @@ end
 -- function getDataWithName
 -------------------------------------
 function TablePackageBundle:getDataWithName(package_name)
-    if (self == THIS) then
-        self = THIS()
+    local tb_instance = TablePackageBundle:getInstance()
+
+    local val = tb_instance.m_namePackageBundleMap[package_name]
+    if val ~= nil then
+        return val
     end
 
-    for _, v in pairs(self.m_orgTable) do        
+--[[     for _, v in pairs(tb_instance.m_orgTable) do        
         if (v['t_name'] == package_name) then
             return v
         end
-    end
+    end ]]
 
     return nil
 end
@@ -114,15 +127,18 @@ end
 -- @brief 등록된 패키지인지 
 -------------------------------------
 function TablePackageBundle:checkBundleWithName(package_name)
-    if (self == THIS) then
-        self = THIS()
+    local tb_instance = TablePackageBundle:getInstance()
+
+    local val = tb_instance.m_namePackageBundleMap[package_name]
+    if val ~= nil then
+        return true
     end
 
-    for _, v in pairs(self.m_orgTable) do        
+--[[     for _, v in pairs(self.m_orgTable) do        
         if (v['t_name'] == package_name) then
             return true
         end
-    end
+    end ]]
 
     return false
 end
@@ -131,11 +147,9 @@ end
 -- function getPackageNameWithPid
 -------------------------------------
 function TablePackageBundle:getPackageNameWithPid(pid)
-    if (self == THIS) then
-        self = THIS()
-    end
+    local tb_instance = TablePackageBundle:getInstance()
 
-    for _, v in pairs(self.m_orgTable) do
+    for _, v in pairs(tb_instance.m_orgTable) do
         local t_pids = v['t_pids']
         if (string.find(t_pids, tostring(pid))) then
             return v['t_name']
@@ -149,11 +163,9 @@ end
 -- function getPackageDescWithPid
 -------------------------------------
 function TablePackageBundle:getPackageDescWithPid(pid)
-    if (self == THIS) then
-        self = THIS()
-    end
+    local tb_instance = TablePackageBundle:getInstance()
 
-    for _, v in pairs(self.m_orgTable) do
+    for _, v in pairs(tb_instance.m_orgTable) do
         local t_pids = v['t_pids']
         if (string.find(t_pids, tostring(pid))) then
             return Str(v['t_desc'])
@@ -167,11 +179,9 @@ end
 -- function getPidsWithName
 -------------------------------------
 function TablePackageBundle:getPidsWithName(package_name)
-    if (self == THIS) then
-        self = THIS()
-    end
+    local tb_instance = TablePackageBundle:getInstance()
 
-    for _, v in pairs(self.m_orgTable) do
+    for _, v in pairs(tb_instance.m_orgTable) do
         if (v['t_name'] == package_name) then
             local t_pids = tostring(v['t_pids'])
             local l_str = pl.stringx.split(t_pids, ',')
@@ -186,11 +196,9 @@ end
 -- function getPids
 -------------------------------------
 function TablePackageBundle:getPids(pid)
-    if (self == THIS) then
-        self = THIS()
-    end
+    local tb_instance = TablePackageBundle:getInstance()
 
-    for _, v in pairs(self.m_orgTable) do
+    for _, v in pairs(tb_instance.m_orgTable) do
         local t_pids = v['t_pids']
         if (string.find(t_pids, tostring(pid))) then
             return t_pids
@@ -204,8 +212,9 @@ end
 -- function getPidsAsList
 -------------------------------------
 function TablePackageBundle:getPidsAsList(pid)
+    local tb_instance = TablePackageBundle:getInstance()
     local result = {}
-    local t_pids = self:getPids(pid)
+    local t_pids = tb_instance:getPids(pid)
     if (t_pids ~= nil) and (t_pids ~= '') then
         local pid_str_list = pl.stringx.split(t_pids, ',')
         for index, pid_str in ipairs(pid_str_list) do
@@ -221,8 +230,8 @@ end
 -- function getPidsNum
 -------------------------------------
 function TablePackageBundle:getPidsNum(pid)
-    local list = self:getPidsAsList(pid)
-
+    local tb_instance = TablePackageBundle:getInstance()
+    local list = tb_instance:getPidsAsList(pid)
     return table.count(list)
 end
 
@@ -230,7 +239,8 @@ end
 -- function getPidsIndex
 -------------------------------------
 function TablePackageBundle:getPidsIndex(pid)
-    local list = self:getPidsAsList(pid)
+    local tb_instance = TablePackageBundle:getInstance()
+    local list = tb_instance:getPidsAsList(pid)
 
     for index, product_id in ipairs(list) do
         if (product_id == pid) then
@@ -245,11 +255,9 @@ end
 -- function isSelectOnePackage
 -------------------------------------
 function TablePackageBundle:isSelectOnePackage(package_name)
-    if (self == THIS) then
-        self = THIS()
-    end
+    local tb_instance = TablePackageBundle:getInstance()
 
-    for _, v in pairs(self.m_orgTable) do        
+    for _, v in pairs(tb_instance.m_orgTable) do        
         if (v['t_name'] == package_name) then
             return (v['select_one'] == 1)
         end
@@ -262,15 +270,13 @@ end
 -- function isBuyableLv
 -------------------------------------
 function TablePackageBundle:isBuyableLv(package_name, user_lv)
-    if (self == THIS) then
-        self = THIS()
-    end
+    local tb_instance = TablePackageBundle:getInstance()
 
 	if (not user_lv) then
 		return false
 	end
 
-    for _, v in pairs(self.m_orgTable) do        
+    for _, v in pairs(tb_instance.m_orgTable) do        
         if (v['t_name'] == package_name) then
             -- 레벨 제한
             if (v['buyable_from_lv'] ~= '') or (v['buyable_to_lv'] ~= '') then
@@ -288,4 +294,17 @@ function TablePackageBundle:isBuyableLv(package_name, user_lv)
     end
 
     return false
+end
+
+-------------------------------------
+-- function getBundleValueByPackageName
+-------------------------------------
+function TablePackageBundle:getBundleValueByPackageName(name, key)
+    local tb_instance = TablePackageBundle:getInstance()
+    local val = tb_instance.m_namePackageBundleMap[name]
+    if val == nil then
+        return nil
+    end
+
+    return val[key]
 end

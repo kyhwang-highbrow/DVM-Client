@@ -190,7 +190,7 @@ function UI_PaymentShop:getPaymentShopTabList()
     end
 
     do -- 패키지
-        local l_item_list = TablePackageBundle():getTableViewMap()
+        local l_item_list = TablePackageBundle:getTableViewMap()
         for i,v in pairs(l_item_list) do
             local tab = i
             local struct_product = v

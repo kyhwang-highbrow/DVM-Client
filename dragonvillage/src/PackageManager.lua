@@ -278,7 +278,9 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
     elseif (TablePackageBundle:checkBundleWithName(_package_name)) then
-        if (string.find(_package_name, 'package_ticket_event_')) then
+        local row_num = TablePackageBundle:getBundleValueByPackageName(_package_name, 'row_num')
+        -- type이 bundle에서 row_num을 1로 설정할 경우 순차 구매 패키지로 간주
+        if (row_num == 1) then
             target_ui = UI_Package_Bundle_Dependency(_package_name, is_popup)
         else
             target_ui = UI_Package_Bundle(_package_name, is_popup)
