@@ -307,9 +307,6 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
             end
         end
 
-        local x, y = self.m_lobbyMap.m_targetTamer.m_rootNode:getPosition()
-
-
         --[[
         button:addTouchEventListener(function(sender,eventType)
             ccdump(sender)
