@@ -194,10 +194,12 @@ function UI_Product:initButton()
     if vars['infoBtn'] ~= nil then
         vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     end
-
+    
     if self:isValorCostume() then
-        vars['valorCostumeBtn']:setVisible(true)
-        vars['valorCostumeBtn']:registerScriptTapHandler(function() self:click_valorCostumeBtn() end)
+        if vars['valorCostumeBtn'] ~= nil then
+            vars['valorCostumeBtn']:setVisible(true)
+            vars['valorCostumeBtn']:registerScriptTapHandler(function() self:click_valorCostumeBtn() end)
+        end
     end
 end
 
