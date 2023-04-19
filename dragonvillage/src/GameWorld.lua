@@ -610,11 +610,14 @@ end
 -------------------------------------
 function GameWorld:cleanupSkill()
     local count = 0
-
+    
     -- 스킬 다 날려 버리자
 	for _, v in pairs(self.m_lSkillList) do
-        v:changeState('dying', true)
-        count = count + 1
+        -- 웨이브 지속 스킬인 경우는 삭제하지 않음
+        if v:isWaveRetainSkill() ~= true or self.m_waveMgr:isFinalWave() == true then
+            v:changeState('dying', true)
+            count = count + 1
+        end
     end
 
     return count

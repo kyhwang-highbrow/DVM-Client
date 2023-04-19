@@ -423,6 +423,7 @@ function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
 	local res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
     
 	local duration = t_skill['val_1']
+    local is_wave_retail = t_skill['val_2']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -433,6 +434,7 @@ function SkillGuardian:makeSkillInstance(owner, t_skill, t_data)
 	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(res, duration)
 	skill:initState()
+    skill.m_bWaveRetainSkill = (is_wave_retail == 1)
 
 	-- 3. state 시작 
     skill:changeState('delay')

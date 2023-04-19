@@ -64,7 +64,10 @@ Skill = class(PARENT, {
         m_dataForTemporaryPause = '',
 
         -- 미사일 사용 여부(미사일 사용시는 일정시간 동안 스킬을 살림)
-        m_bUseMissile = 'boolean'
+        m_bUseMissile = 'boolean',
+
+        -- 영구 지속 스킬(웨이브가 끝나더라도 지속 시간에 따라 유지)
+        m_bWaveRetainSkill = 'boolean',
      })
 
 -------------------------------------
@@ -79,6 +82,7 @@ function Skill:init(file_name, body, ...)
 
     self.m_dataForTemporaryPause = nil
     self.m_bUseMissile = false
+    self.m_bWaveRetainSkill = false
 end
 
 -------------------------------------
@@ -271,7 +275,8 @@ function Skill:changeState(state, forced)
             state = 'dying_wait'
         end
     end
-
+    
+    
     local ret = PARENT.changeState(self, state, forced)
     return ret
 end
@@ -992,6 +997,7 @@ function Skill:isRightFormation()
     return (self.m_owner.m_bLeftFormation == false)
 end
 
+
 -------------------------------------
 -- function makeSkillInstance
 -- @brief 사용할 변수 정리 및 실제 스킬 인스턴스를 생성하고 월드에 등록하는 부분
@@ -1056,4 +1062,11 @@ function Skill:getSkillScaleByStatusEffect()
     end
 
     return final_scale
+end
+
+-------------------------------------
+-- function isWaveRetainSkill
+-------------------------------------
+function Skill:isWaveRetainSkill()
+    return self.m_bWaveRetainSkill
 end
