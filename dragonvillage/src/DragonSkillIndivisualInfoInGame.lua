@@ -464,3 +464,15 @@ end
 function DragonSkillIndivisualInfoInGame:getMapToIgnore()
     return self.m_mIgnore
 end
+
+-------------------------------------
+-- function getStartExtraCooldownSec
+-- @brief 전투 시작 시에 부여되는 추가 쿨다운 타임
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:getStartExtraCooldownSec()
+    local data = self.m_tOrgSkill['start_cooldown']
+    if type(data) == 'number' then
+        return data
+    end
+    return 0
+end
