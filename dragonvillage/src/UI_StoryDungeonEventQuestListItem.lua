@@ -78,7 +78,7 @@ end
 -- function setRewardCard
 -- @brief 보상 아이콘 표시
 -------------------------------------
-function UI_QuestListItem:setRewardCard()
+function UI_StoryDungeonEventQuestListItem:setRewardCard()
     local vars = self.vars
 
     local l_reward_info = self.m_questData:getRewardInfoList()
