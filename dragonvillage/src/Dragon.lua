@@ -471,12 +471,18 @@ end
 -- function initActiveSkillCool
 -- @brief 드래그 쿨타임은 세팅
 -------------------------------------
-function Dragon:initActiveSkillCool(sec)
+function Dragon:initActiveSkillCool(sec, is_dev_key_event)
     local sec = sec or 0
     local skill_info = self:getSkillIndivisualInfo('active')
 
     if (skill_info) then
         local extra_start_cooldown_sec = skill_info:getStartExtraCooldownSec()
+
+        -- 개발 테스트용 키 입력 시는 적용 안받도록 처리
+        if is_dev_key_event == true then
+            extra_start_cooldown_sec = 0
+        end
+
         skill_info:setCoolTime(extra_start_cooldown_sec + sec)
     end
 end

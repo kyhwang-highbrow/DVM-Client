@@ -107,7 +107,7 @@ function GameWorld:skill_charge()
 
     -- 쿨타임
     for i, v in ipairs(self:getDragonList()) do
-        v:initActiveSkillCool()
+        v:initActiveSkillCool(nil, true)
     end
 end
 
