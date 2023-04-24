@@ -359,6 +359,14 @@ function LocalData:isShowContractBtn()
         return false
     end
 
+    -- 청약 철회 불가 상품인지?
+    local struct_product = g_shopDataNew:getConfirmBuyProduct()
+    if struct_product ~= nil then
+        if struct_product:isNotAvailableWithDrawal() == true then
+            return false
+        end
+    end
+
     return true
 end
 

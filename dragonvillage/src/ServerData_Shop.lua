@@ -11,6 +11,7 @@ ServerData_Shop = class({
         m_dicMarketPrice = '', -- 마켓에서 받은 가격 (통화까지 표시)
         m_dicStructMarketProduct = '[sku][StructMarketProduct]', -- 마켓에서 받은 상품 정보
         m_bDirty = 'boolean',
+        m_confirmBuyProduct = 'StructProduct', -- 구매하려는 아이템 구매 확인용
     })
 
 -------------------------------------
@@ -45,6 +46,7 @@ function ServerData_Shop:init(server_data)
     self.m_dicBuyCnt = {}
     self.m_dicMarketPrice = {}
     self.m_dicStructMarketProduct = {}
+    self.m_confirmBuyProduct = nil
 
     self:setDirty()
 end
@@ -1603,3 +1605,20 @@ function ServerData_Shop:getTargetPackageAll(package_name)
 
     return nil
 end
+
+-------------------------------------
+-- function setConfirmBuyProduct
+-- @brief 구매하려는 상품
+-------------------------------------
+function ServerData_Shop:setConfirmBuyProduct(struct_product)
+    self.m_confirmBuyProduct = clone(struct_product)
+end
+
+-------------------------------------
+-- function getConfirmBuyProduct
+-- @brief 구매하려는 상품
+-------------------------------------
+function ServerData_Shop:getConfirmBuyProduct()
+    return self.m_confirmBuyProduct
+end
+

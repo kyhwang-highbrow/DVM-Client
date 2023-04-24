@@ -57,6 +57,7 @@ StructProduct = class(PARENT, {
         medal = 'number', -- item id in table_item
 
         m_priceItemID = 'number',
+        no_withdrawal = 'boolean', -- 청약 철회 불가 상품
     })
 
 local THIS = StructProduct
@@ -949,11 +950,14 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
         local price_type = self:getPriceType()
 
         if (price_type == 'money') then
+            g_shopDataNew:setConfirmBuyProduct(self)
             price = ServerData_IAP.getInstance():getGooglePlayPromotionPriceStr(self)
             --price = self:getPriceStr()
         else
             price = self:getPrice()
+            g_shopDataNew:setConfirmBuyProduct(nil)
         end
+
         local ui
         if (rawget(self, price_type)) then
             if (self[price_type] ~= nil) then    
@@ -1515,6 +1519,14 @@ function StructProduct:getPackageUI(is_popup)
     end
 
     return package_class({self}, is_popup)
+end
+
+-------------------------------------
+-- function isNotAvailableWithDrawal
+-- @brief 청약철회 불가 상품이냐?
+-------------------------------------
+function StructProduct:isNotAvailableWithDrawal()
+    return self.no_withdrawal == 1
 end
 
 -------------------------------------
