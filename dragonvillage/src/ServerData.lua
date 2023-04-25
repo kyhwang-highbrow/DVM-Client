@@ -679,6 +679,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['ticket_story_dungeon'] then
             self:applyServerData(ret['ticket_story_dungeon'], 'user', 'ticket_story_dungeon')
         end
+
+        -- 용맹훈장
+        if ret['valor'] then
+            self:applyServerData(ret['valor'], 'user', 'valor')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -860,6 +865,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 스토리던전 토큰
     RefreshGoods(t_added_items, 'token_story_dungeon')
+
+    -- 용맹 훈장
+    RefreshGoods(t_added_items, 'valor')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then
