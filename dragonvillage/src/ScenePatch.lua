@@ -83,8 +83,11 @@ function ScenePatch:setWorkList()
         table.insert(self.m_lWorkList, 'workRequestIosAppTrackingTransparency')
     end
 
-    table.insert(self.m_lWorkList, 'workIVEKoreaAds1') -- IVEKoreaAds ai 구버전으로 호출
-    table.insert(self.m_lWorkList, 'workIVEKoreaAds2') -- IVEKoreaAds ai 신버전으로 호출
+    if CppFunctions:isTestMode() == false then
+        table.insert(self.m_lWorkList, 'workIVEKoreaAds1') -- IVEKoreaAds ai 구버전으로 호출
+        table.insert(self.m_lWorkList, 'workIVEKoreaAds2') -- IVEKoreaAds ai 신버전으로 호출
+    end
+    
     table.insert(self.m_lWorkList, 'workStartPatch')
 end
 
