@@ -613,9 +613,19 @@ function StructRuneObject:getRuneStatus()
     for i,v in pairs(StructRuneObject.OPTION_LIST) do
         local option_string = self[v]
         local option, value = self:parseRuneOptionStr(option_string)
+
+
+
         if option then
             local stat_type = table_option:getValue(option, 'status')
             local action = table_option:getValue(option, 'action')
+
+            -- 공격 속도 옵션은 무조건 multi를 사용하지 않고 add로 처리(kyhwang 23.04.26)
+            -- 이벤트 한정 룬에 설정된 공격 속도 옵션이 multi로 적용해서 문제가 생김
+            if stat_type == 'aspd' then
+                action = 'add'
+            end
+
             if (action == 'add') then
                 if (not l_add_status[stat_type]) then
                     l_add_status[stat_type] = 0
