@@ -42,12 +42,13 @@ function UI_CouponPopup:initUI()
     local vars = self.vars
 
     -- normal
+    self.m_maxCodeLength = 16
     self.m_titleText = Str("'드래곤빌리지M' 쿠폰 입력")
-    self.m_editText = Str('12자리의 쿠폰 번호를 입력하세요.')
+    self.m_editText = Str('{1}~{2}자리의 쿠폰 번호를 입력하세요.',12, self.m_maxCodeLength)
     self.m_dscText = Str("지급되는 상품은 '우편함'에서 수령 가능하며,\n입력 시 쿠폰의 유효기한 및 횟수 제한을 확인하시기 바랍니다.\n('드래곤빌리지 콜렉션게임카드'의 '아이템 코드'는 '드빌전용관'을 통해 이용 가능합니다.)")
     self.m_errText = Str('쿠폰 번호의 길이가 맞지 않습니다.')
-    self.m_errSubText = Str('12자리의 쿠폰 번호를 입력해 주세요.')
-    self.m_maxCodeLength = 12
+    self.m_errSubText = Str('{1}~{2}자리의 쿠폰 번호를 입력해 주세요.',12, self.m_maxCodeLength)
+   
 
     -- highbrow
     if self.m_couponType == 'highbrow' then
