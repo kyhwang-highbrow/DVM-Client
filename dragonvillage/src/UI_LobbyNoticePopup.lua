@@ -14,13 +14,21 @@ UI_LobbyNoticePopup = class(PARENT,{
 -------------------------------------
 function UI_LobbyNoticePopup:init(struct_lobby_notice)
     self.m_structLobbyNotice = struct_lobby_notice
+
     
     local ui_res = self:getUIRes()
+    local type = struct_lobby_notice:getType()
     local vars = self:load(ui_res)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LobbyNoticePopup')
+    if type == 'push_newbie' then
+        g_currScene:pushBackKeyListener(self, function()
+            UIManager:toastNotificationRed(Str('보상 수령 후 닫기 버튼을 이용해주세요.'))
+        end, 'UI_LobbyNoticePopup')
+    else
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LobbyNoticePopup')
+    end
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
