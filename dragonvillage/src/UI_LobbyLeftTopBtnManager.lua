@@ -100,8 +100,6 @@ function UI_LobbyLeftTopBtnManager:makeManagedButton(class_, ...)
     managed_button:setDirtyPositionCB(dirty_position_cb)
     vars['productBtnMenu']:addChild(managed_button.root)
 
-    cclog('여기 계속 들어오는지??????????')
-
     table.insert(self.m_lManagedButtonUI, managed_button)
 
     return managed_button
@@ -212,7 +210,7 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
                 local priorty = self.PRIORITY.RECALL
                 makeBtnFunction(class_, priorty, unique_key)
             end
-        end    
+        end
     end
     -----------------------------------------------------------
 

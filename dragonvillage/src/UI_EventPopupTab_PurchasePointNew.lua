@@ -263,6 +263,11 @@ function UI_EventPopupTab_PurchasePointNew:refresh()
     last_step =  self:getDefaulSelectionRewardStep()
     self:SetInfoLabel(last_step)
     self:refresh_rewardBoxUIList()
+
+    do 
+        local last_reward_type = g_purchasePointData:getPurchasePointRewardType(version, last_step)
+        vars['summonHatchGuideLabel']:setVisible(last_reward_type == 'dragon')
+    end
 end
 
 -------------------------------------

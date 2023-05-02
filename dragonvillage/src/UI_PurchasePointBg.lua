@@ -17,16 +17,13 @@ UI_PurchasePointBg = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_PurchasePointBg:init(bg_type, item_id, item_count, version)
-    
-    local url = self:getUrl(bg_type)
-
-    cclog('url', url)
-    self:load(url)
     self.m_item_id = item_id
     self.m_version = version
     self.m_count = item_count
     self.m_type = bg_type
-
+    
+    local url = self:getUrl(bg_type)
+    self:load(url)
     self:doActionReset()
     self:doAction(nil, false)
 
