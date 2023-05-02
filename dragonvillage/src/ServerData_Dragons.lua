@@ -1727,7 +1727,24 @@ end
 ---@return boolean
 -------------------------------------
 function ServerData_Dragons:isRecallExist()
-    return (table.isEmpty(self.m_structRecallList) ~= true)
+    -- 리콜 리스트가 비었거나
+    if table.isEmpty(self.m_structRecallList) == true then
+        return false
+    end
+
+    -- 첫 번째 요소가 없거나
+    ---@type StructRecall
+    local struct_recall = table.getFirst(self.m_structRecallList)
+    if struct_recall == nil then
+        return false
+    end
+
+    -- 첫 번째 요소의 리콜이 가능하지 않거나
+    if struct_recall:isAvailable() == false then
+        return false
+    end
+
+    return true
 end
 
 -------------------------------------

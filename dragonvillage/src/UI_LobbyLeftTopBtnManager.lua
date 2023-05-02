@@ -99,6 +99,9 @@ function UI_LobbyLeftTopBtnManager:makeManagedButton(class_, ...)
     managed_button:setDirtyStatusCB(dirty_status_cb)
     managed_button:setDirtyPositionCB(dirty_position_cb)
     vars['productBtnMenu']:addChild(managed_button.root)
+
+    cclog('여기 계속 들어오는지??????????')
+
     table.insert(self.m_lManagedButtonUI, managed_button)
 
     return managed_button
