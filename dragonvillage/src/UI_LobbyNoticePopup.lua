@@ -15,20 +15,10 @@ UI_LobbyNoticePopup = class(PARENT,{
 function UI_LobbyNoticePopup:init(struct_lobby_notice)
     self.m_structLobbyNotice = struct_lobby_notice
 
-    
     local ui_res = self:getUIRes()
-    local type = struct_lobby_notice:getType()
     local vars = self:load(ui_res)
     UIManager:open(self, UIManager.POPUP)
-
-    -- backkey 지정
-    if type == 'push_newbie' then
-        g_currScene:pushBackKeyListener(self, function()
-            UIManager:toastNotificationRed(Str('보상 수령 후 닫기 버튼을 이용해주세요.'))
-        end, 'UI_LobbyNoticePopup')
-    else
-        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LobbyNoticePopup')
-    end
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_LobbyNoticePopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -176,7 +166,7 @@ function UI_LobbyNoticePopup:initButton()
     local close_btn = vars['closeBtn']
     if close_btn then
         close_btn:setVisible(not has_reward)
-        close_btn:registerScriptTapHandler(function() self:close() end)
+        close_btn:registerScriptTapHandler(function() self:click_closeBtn() end)
     end
 end
 
@@ -220,6 +210,25 @@ function UI_LobbyNoticePopup:click_receiveBtn()
 
     --finish_cb()
     g_lobbyNoticeData:request_getLobbyNoticeReward(lobby_notice_id, finish_cb)
+end
+
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_LobbyNoticePopup:click_closeBtn()
+    local type = self.m_structLobbyNotice:getType()
+    local vars = self.vars
+    local close_btn = vars['closeBtn']
+
+    if type == 'push_newbie' then
+        if close_btn:isVisible() == false then
+            UIManager:toastNotificationRed(Str('보상을 받아주세요.'))
+            return
+        end
+    end
+
+    self:close()
 end
 
 --@CHECK
