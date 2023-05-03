@@ -1466,13 +1466,6 @@ end
 -- @brief 결제 상품 처리
 -------------------------------------
 function StructProduct:payment(cb_func)
-    local market, os = GetMarketAndOS()
-    if market == 'google' then
-        local msg = '일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'
-        MakeSimplePopup(POPUP_TYPE.OK,  msg)
-        return
-    end
-
 	PaymentHelper.payment(self, cb_func)
 end
 
