@@ -1214,7 +1214,7 @@ function StructProduct:getTimeRemainingForEndOfSale()
         return 0
     end
 
-    local date_format = 'yyyy-mm-dd HH:MM:SS'
+--[[     local date_format = 'yyyy-mm-dd HH:MM:SS'
     local parser = pl.Date.Format(date_format)
     if (not parser) then
         return 0
@@ -1223,10 +1223,10 @@ function StructProduct:getTimeRemainingForEndOfSale()
     local end_date = parser:parse(self.m_endDate)
     if (not end_date) then
         return 0
-    end
+    end ]]
 
     local cur_time =  ServerTime:getInstance():getCurrentTimestampSeconds()
-    local end_time = end_date['time']
+    local end_time = self:getEndTimestampSec()
     if (end_time == nil) then
 		return 0
     end
