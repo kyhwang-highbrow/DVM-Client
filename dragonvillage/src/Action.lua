@@ -361,6 +361,22 @@ function cca.getBrrrAction(cnt)
 end
 
 -------------------------------------
+-- function repeatScaleInOut
+-- @brief 룬 강화 시 가능한 옵션 수치 fade in fade out 액션
+-------------------------------------
+function cca.repeatScaleInOut(duration, scale_origin ,scale_percent)
+    local scale_to = scale_origin * scale_percent
+	return cc.RepeatForever:create(
+		cc.EaseInOut:create(
+            cc.Sequence:create(
+			    cc.ScaleTo:create(duration/2, scale_to),
+			    cc.ScaleTo:create(duration/2, scale_origin)
+		    )
+        , 1.4)
+	)    
+end
+
+-------------------------------------
 -- function actGetObject
 -- @brief 마이홈에서 재화를 획득하는 모습을 따라한 액션 부르르 떤 후에 베지어 이동
 -- @comment 톡 또르르르 부르르르 슈웅

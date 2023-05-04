@@ -156,6 +156,14 @@ function UI_PurchasePointBg:initUI_dragonTicket()
     animator = MakeAnimator(res)    
     vars['bgNode']:addChild(animator.m_node)
 
+    -- 뒷 배경 제거
+    ui_card.vars['bgSprite']:setVisible(false)
+    ui_card.vars['commonSprite']:setVisible(false)
+
+    do -- 스케일 인앤 아웃 무한 반복
+        local scale = ui_card.root:getScale()
+        ui_card.root:runAction(cca.repeatScaleInOut(3, scale, 0.95))
+    end
 end
 
 -------------------------------------
