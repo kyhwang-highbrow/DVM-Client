@@ -40,7 +40,7 @@ function UI_Network:init()
     self:setLoadingMsg(Str('네트워크 통신 중...'))
 
     if g_serverData:isNetworkLoadingVisible() == false then
-        self:hideLoading()
+        self.root:setVisible(false)
     end
 end
 
