@@ -3,7 +3,7 @@
 -------------------------------------
 ServerData = class({
         m_rootTable = 'table',
-
+        m_isNetworkLoadingVisible = 'boolean',
         m_nLockCnt = 'number',
         m_bDirtyDataTable = 'boolean',
     })
@@ -14,6 +14,7 @@ ServerData = class({
 function ServerData:init()
     self.m_rootTable = {}
     self.m_nLockCnt = 0
+    self.m_isNetworkLoadingVisible = true
     self.m_bDirtyDataTable = false
 end
 
@@ -731,6 +732,22 @@ function ServerData:unlockSaveData()
         end
         self.m_bDirtyDataTable = false
     end
+end
+
+-------------------------------------
+-- function setNetworkLoadingVisible
+-- @breif 네트워크 로딩 상태 visible on/off(타이틀 로딩 시 처리용)
+-------------------------------------
+function ServerData:setNetworkLoadingVisible(bVisible)
+    self.m_isNetworkLoadingVisible = bVisible
+end
+
+-------------------------------------
+-- function isNetworkLoadingVisible
+-- @breif 네트워크 로딩 상태 visible on/off(타이틀 로딩 시 처리용)
+-------------------------------------
+function ServerData:isNetworkLoadingVisible()
+    return self.m_isNetworkLoadingVisible
 end
 
 -------------------------------------

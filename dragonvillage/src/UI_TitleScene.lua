@@ -1282,6 +1282,10 @@ function UI_TitleScene:workGetServerInfo()
 		-- /users/title : title 통합 api
 		co:work()
 		self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))
+
+        -- 네트워크 로딩 visible off
+        g_serverData:setNetworkLoadingVisible(false)
+
         do
 			-- param
 			local uid = g_userData:get('uid')
@@ -1293,7 +1297,7 @@ function UI_TitleScene:workGetServerInfo()
             ui_network:setParam('uid', uid)
 			ui_network:setRevocable(true)
             ui_network:setSuccessCB(function(ret)
-				
+
                 -- server_info 정보를 갱신
                 g_serverData:networkCommonRespone(ret)
 
@@ -1561,6 +1565,8 @@ function UI_TitleScene:workGetServerInfo()
             if co:waitWork() then return end
         end
 
+        -- 네트워크 로딩 visible on
+        g_serverData:setNetworkLoadingVisible(true)
 
         co:close()
 
