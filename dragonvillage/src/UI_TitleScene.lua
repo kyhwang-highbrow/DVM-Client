@@ -1565,9 +1565,6 @@ function UI_TitleScene:workGetServerInfo()
             if co:waitWork() then return end
         end
 
-        -- 네트워크 로딩 visible on
-        g_serverData:setNetworkLoadingVisible(true)
-
         co:close()
 
         -- 다음 work로 이동
@@ -1988,6 +1985,8 @@ end
 function UI_TitleScene:workFinish()
     -- 로딩창 숨김
     self.m_loadingUI:hideLoading()
+    -- 네트워크 로딩 visible on
+    g_serverData:setNetworkLoadingVisible(true)
 
     -- 화면을 터치하세요. 출력
     --self:setTouchScreen() -- @jhakim 190709 화면 터치 단계 제거
