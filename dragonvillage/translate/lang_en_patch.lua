@@ -1,5 +1,5 @@
-return {['이미 완료한 일일 퀘스트의 추가 보상은 구매 즉시 우편으로 지급됩니다.\n일일 퀘스트 이벤트, 이벤트의 일일 퀘스트 등의 보상에는 적용되지 않습니다.']='The additional rewards for already completed daily quests will be immediately delivered via mail upon purchase.\nThis does not apply to rewards for daily quest events or daily quests within events.',
-['일정시간마다 모든 적을 공격하고, 대상의 드래그 스킬의 재사용 시간을 {1}초 증가 시킵니다. \n위력은 자신의 최대 생명력에 비례합니다. \n이 공격은 전투 시작 시부터 발동됩니다.']='Every certain period of time, it attacks all enemies and increases the reuse time of the target\'s drag skill by {1} seconds.\nThe power is proportional to your maximum health.\nThis attack is activated from the beginning of the battle.',
+return {['{1}~{2}자리의 쿠폰 번호를 입력하세요.']='Enter {1}~{2}-digit coupon number.',
+['{1}~{2}자리의 쿠폰 번호를 입력해 주세요.']='Please enter {1}~{2}-digit coupon number.',
 ['16스테이지 클리어']='Clear Stage 16',
 ['17스테이지 클리어']='Clear Stage 17',
 ['18스테이지 클리어']='Clear Stage 18',
@@ -78,4 +78,8 @@ return {['이미 완료한 일일 퀘스트의 추가 보상은 구매 즉시 �
 ['DVC 사전 예약 인증']='DVC 사전 예약 인증',
 ['나만의 드래곤 마을을 그려보자!']='나만의 드래곤 마을을 그려보자!',
 ['드빌 컬렉션\n사전예약']='드빌 컬렉션\n사전예약',
-['최애 드래곤을 알려주세요.']='최애 드래곤을 알려주세요.'}
+['최애 드래곤을 알려주세요.']='최애 드래곤을 알려주세요.',
+['이미 완료한 일일 퀘스트의 추가 보상은 구매 즉시 우편으로 지급됩니다.\n일일 퀘스트 이벤트, 이벤트의 일일 퀘스트 등의 보상에는 적용되지 않습니다.']='The additional rewards for already completed daily quests will be immediately delivered via mail upon purchase.\nThis does not apply to rewards for daily quest events or daily quests within events.',
+['일정시간마다 모든 적을 공격하고, 대상의 드래그 스킬의 재사용 시간을 {1}초 증가 시킵니다. \n위력은 자신의 최대 생명력에 비례합니다. \n이 공격은 전투 시작 시부터 발동됩니다.']='Every certain period of time, it attacks all enemies and increases the reuse time of the target\'s drag skill by {1} seconds.\nThe power is proportional to your maximum health.\nThis attack is activated from the beginning of the battle.',
+['DVC 리뷰 인증 이벤트']='DVC 리뷰 인증 이벤트',
+['드래곤 도감북 출시']='드래곤 도감북 출시'}
