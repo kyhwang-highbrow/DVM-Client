@@ -52,6 +52,7 @@ function AdMob:adModuleInitialize(callback)
     end
 
     local loading_ui = UI_Loading()
+    loading_ui:hideLoading()
 
     -- PerpleSDK:adMobInitialize(function(ret, info) end)를 호출한 것과 같음
     PerpleSDK:adMobInitialize(function(ret, info)
