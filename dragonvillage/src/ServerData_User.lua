@@ -934,7 +934,7 @@ function ServerData_User:request_termsAgree(success_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_termsAgree
+---function request_checkDeletedUserID
 -------------------------------------
 function ServerData_User:request_checkDeletedUserID(success_cb, fail_cb)
         -- 유저 ID
