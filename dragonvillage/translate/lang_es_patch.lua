@@ -1,6 +1,4 @@
-return {['{1}~{2}자리의 쿠폰 번호를 입력하세요.']='Ingresa un número de cupón de {1}~{2} dígitos.',
-['{1}~{2}자리의 쿠폰 번호를 입력해 주세요.']='Ingresa un código de cupón de {1}~{2} dígitos.',
-['{1}\n확정 획득까지 {@yellow}{2}{@default}회']='{1} Hasta la adquisición de la confirmación de {@yellow}{2}{@default}',
+return {['{1}\n확정 획득까지 {@yellow}{2}{@default}회']='{1} Hasta la adquisición de la confirmación de {@yellow}{2}{@default}',
 ['16스테이지 클리어']='Estado de 16 Completado',
 ['17스테이지 클리어']='Estado de 17 Completado',
 ['18스테이지 클리어']='Estado de 18 Completado',
@@ -84,4 +82,6 @@ return {['{1}~{2}자리의 쿠폰 번호를 입력하세요.']='Ingresa un núme
 ['이미 완료한 일일 퀘스트의 추가 보상은 구매 즉시 우편으로 지급됩니다.\n일일 퀘스트 이벤트, 이벤트의 일일 퀘스트 등의 보상에는 적용되지 않습니다.']='La recompensa adicional de las misiones diarias ya completadas se entregará inmediatamente por correo después de la compra.\nEsto no se aplica a las recompensas de eventos diarios de misiones ni a las misiones diarias de eventos. ',
 ['일정시간마다 모든 적을 공격하고, 대상의 드래그 스킬의 재사용 시간을 {1}초 증가 시킵니다. \n위력은 자신의 최대 생명력에 비례합니다. \n이 공격은 전투 시작 시부터 발동됩니다.']='Ataca a todos los enemigos cada cierto tiempo y aumenta el tiempo de reutilización de la habilidad de arrastre del objetivo en {1} segundos.\nEl poder depende de la máxima vida del usuario.\nEste ataque se activa desde el comienzo del combate.',
 ['DVC 리뷰 인증 이벤트']='DVC 리뷰 인증 이벤트',
-['드래곤 도감북 출시']='드래곤 도감북 출시'}
+['드래곤 도감북 출시']='드래곤 도감북 출시',
+['{1}~{2}자리의 쿠폰 번호를 입력하세요.']='Ingresa un número de cupón de {1}~{2} dígitos.',
+['{1}~{2}자리의 쿠폰 번호를 입력해 주세요.']='Ingresa un código de cupón de {1}~{2} dígitos.'}
