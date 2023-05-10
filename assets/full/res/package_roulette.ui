@@ -1255,7 +1255,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/typo/ko/ribbon_package_title_0101.png';

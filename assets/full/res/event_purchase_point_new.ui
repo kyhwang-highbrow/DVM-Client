@@ -887,7 +887,7 @@
 					rotation = 0.000000;
 					visible = true;
 					screen_ui = 0;
-					lua_name = '';
+					lua_name = 'summonHatchGuideLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 17;
 					text = '드래곤은 해치 상태로 소환됩니다.';

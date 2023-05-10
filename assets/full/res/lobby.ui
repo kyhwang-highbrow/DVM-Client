@@ -6579,7 +6579,7 @@
 						file_name = 'ui/a2d/lobby_shop_noti/lobby_shop_noti.vrp';
 						auto_play = true;
 						is_repeat = true;
-						visual_id = 'group;noti_candy';
+						visual_id = 'group;noti_roulette_ticket';
 						color = { 255; 255; 255; };
 						opacity = 255;
 					};
