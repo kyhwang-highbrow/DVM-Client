@@ -150,10 +150,9 @@ function StatusEffectHelper:doStatusEffectByTable(char, t_skill, cb_func, t_data
 
 	-- 3. 타겟에 상태효과생성
 	 StatusEffectHelper:doStatusEffectByStruct(char, l_target, l_status_effect_struct, cb_func, t_skill['sid'])
-
      
     -- 테이머 스킬 미발동 가능성
-    -- 0. 아예 이쪽 함수로 안들어오는 경우 (Tamer.st_skillAppear 코드 확인)
+    -- 0. 아예 이쪽 함수로 안들어오는 경우 (Tamer.st_skillAppear 코드 확인, statetimer 부동소수점 이슈?, addAniHandler 안의 예약 작업 취소?)
     -- 1. l_target이 없는 경우 : 아닌 것 같음
     -- 2. l_status_effect_struct 이 없는 경우 : 아닌 것 같음
     -- 3. StatusEffectHelper:doStatusEffectByStruct 이 발동하지 않는 경우
