@@ -3,7 +3,7 @@
 -------------------------------------
 ServerData_EventVote = class({
     m_dragonList = 'List<number>', -- 신화 드래곤 리스트
-    m_rewardMap = 'Map<>', -- 투표 보상 리스트
+    m_rewardList = 'List<table>', -- 투표 보상 리스트
     m_eventVoteCount = 'number', -- 튜표 횟수
     m_staminaDropInfo = 'Map<>', -- 투표권 획득 플레이 요구 사항
 })
@@ -13,7 +13,7 @@ ServerData_EventVote = class({
 -------------------------------------
 function ServerData_EventVote:init(server_data)
     self.m_dragonList = {}
-    self.m_rewardMap = {}
+    self.m_rewardList = {}
     self.m_eventVoteCount = 0
     self.m_staminaDropInfo = {}
 end
@@ -33,6 +33,21 @@ function ServerData_EventVote:getStaminaInfo()
 end
 
 -------------------------------------
+-- function getRewardList
+-------------------------------------
+function ServerData_EventVote:getRewardList()
+    return self.m_rewardList
+end
+
+-------------------------------------
+-- function getStatusText
+-------------------------------------
+function ServerData_EventVote:getStatusText()
+    local time = g_hotTimeData:getEventRemainTime('event_vote')
+    return Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
+end
+
+-------------------------------------
 -- function applyDragonVoteResponse
 -- @brief 투표 대상 드래곤 리스트 세팅
 -------------------------------------
@@ -45,11 +60,12 @@ function ServerData_EventVote:applyDragonVoteResponse(t_ret)
 
     -- 투표 확률 보상 정보
     if t_ret['event_vote_reward'] ~= nil then
-        self.m_rewardMap = {}
+        self.m_rewardList = {}
         local vote_reward_map = t_ret['event_vote_reward']
 
         for item_id, v in pairs(vote_reward_map) do
-            self.m_rewardMap[tonumber(item_id)] = clone(v)
+            local t_data = {item_id = tonumber(item_id), count = v['count'], rate = v['rate']}
+            table.insert(self.m_rewardList, t_data)
         end
     end
 

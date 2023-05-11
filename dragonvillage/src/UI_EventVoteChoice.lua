@@ -12,7 +12,7 @@ UI_EventVoteChoice = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventVoteChoice:init()
-
+    self.m_selectDidList = {}
     local vars = self:load('event_vote_ticket_choice.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -33,7 +33,6 @@ end
 -------------------------------------
 function UI_EventVoteChoice:initUI()
     local vars = self.vars
-    self.m_selectDidList = {}
 end
 
 -------------------------------------
@@ -41,6 +40,8 @@ end
 -------------------------------------
 function UI_EventVoteChoice:initTableView()
     local node = self.vars['listNode']
+    self.vars['listNode']:removeAllChildren()
+
     local l_item_list = g_eventVote:getDragonList()
 
 	-- cell_size 지정
@@ -167,7 +168,7 @@ function UI_EventVoteChoice:click_selectBtn(did)
     else
 
         local vote_count = g_userData:get('event_vote_ticket')
-        if vote_count == #self.m_selectDidList then
+        if #self.m_selectDidList + 1 > vote_count then
             UIManager:toastNotificationRed(Str('더 이상 선택이 불가능합니다.'))
             return
         end
@@ -192,7 +193,12 @@ function UI_EventVoteChoice:click_voteBtn()
         return
     end
 
-    UI_EventVoteChoiceConfirmPopup.open(self.m_selectDidList)
+    local ui = UI_EventVoteChoiceConfirmPopup.open(self.m_selectDidList)
+    ui:setCloseCB(function () 
+        self.m_selectDidList = {}
+        self:initTableView()
+        self:refresh()
+    end)
 end
 
 -------------------------------------

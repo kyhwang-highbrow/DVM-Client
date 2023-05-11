@@ -18,7 +18,7 @@ function UI_EventVoteChoiceConfirmPopup:init(did_list)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventVoteChoiceConfirmPopup')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_EventVoteChoiceConfirmPopup')
 
     self:doActionReset()
     self:doAction(nil, false)
@@ -81,17 +81,6 @@ function UI_EventVoteChoiceConfirmPopup:initButton()
 end
 
 -------------------------------------
--- function isVoteSelectDid
--------------------------------------
-function UI_EventVoteChoiceConfirmPopup:isVoteSelectDid(did)
-    if table.find(self.m_selectDidList, did) ~= nil then
-        return true
-    end
-
-    return false
-end
-
--------------------------------------
 -- function refresh
 -------------------------------------
 function UI_EventVoteChoiceConfirmPopup:refresh()
@@ -106,12 +95,13 @@ function UI_EventVoteChoiceConfirmPopup:click_voteBtn()
 
     local success_cb = function (ret)
         local l_item_list = ret['mail_item_info'] or {}
-        self:close()
-        
-        UI_EventVoteRewardPopup.open(l_item_list)
+        local ui = UI_EventVoteRewardPopup.open(l_item_list)
+        ui:setCloseCB(function ()
+            self:close()
+        end)
 
-        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-        UI_ToastPopup(toast_msg)
+--[[         local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg) ]]
     end
 
     g_eventVote:requestEventVoteDragon(did_str, success_cb)
@@ -121,7 +111,7 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_EventVoteChoiceConfirmPopup:click_closeBtn()
-    self:close()
+    self:closeWithoutCB()
 end
 
 -------------------------------------

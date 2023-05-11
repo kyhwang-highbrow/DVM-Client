@@ -62,9 +62,6 @@ function UI_EventVoteRewardPopup:initTableView()
 	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(l_item_list)
     table_view:setAlignCenter(true)
-
-    -- 정렬
-    self.m_tableViewTD = table_view_td
 end
 
 -------------------------------------
