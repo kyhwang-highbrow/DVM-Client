@@ -2,7 +2,7 @@
 -- class ServerData_EventVote
 -------------------------------------
 ServerData_EventVote = class({
-    m_dragonMap = 'Map<StructDragonObject>', -- 신화 드래곤 리스트
+    m_dragonList = 'List<number>', -- 신화 드래곤 리스트
     m_rewardMap = 'Map<>', -- 투표 보상 리스트
     m_eventVoteCount = 'number', -- 튜표 횟수
     m_staminaDropInfo = 'Map<>', -- 투표권 획득 플레이 요구 사항
@@ -12,10 +12,24 @@ ServerData_EventVote = class({
 -- function init
 -------------------------------------
 function ServerData_EventVote:init(server_data)
-    self.m_dragonMap = {}
+    self.m_dragonList = {}
     self.m_rewardMap = {}
     self.m_eventVoteCount = 0
     self.m_staminaDropInfo = {}
+end
+
+-------------------------------------
+-- function getDragonList
+-------------------------------------
+function ServerData_EventVote:getDragonList()
+    return self.m_dragonList
+end
+
+-------------------------------------
+-- function getStaminaInfo
+-------------------------------------
+function ServerData_EventVote:getStaminaInfo()
+    return self.m_staminaDropInfo
 end
 
 -------------------------------------
@@ -26,17 +40,7 @@ function ServerData_EventVote:applyDragonVoteResponse(t_ret)
 
     -- 드래곤 리스트
     if t_ret['event_vote_dragon_list'] ~= nil then
-        local dragon_list = t_ret['event_vote_dragon_list']
-        self.m_dragonMap = {}
-
-        for _, did in ipairs(dragon_list) do
-            local t_dragon_data = {}
-            t_dragon_data['did'] = did
-            t_dragon_data['evolution'] = 3
-            t_dragon_data['grade'] = 6
-            local struct_dragon = StructDragonObject(t_dragon_data)
-            table.insert(self.m_dragonMap, struct_dragon)
-        end
+        self.m_dragonList = t_ret['event_vote_dragon_list']
     end
 
     -- 투표 확률 보상 정보

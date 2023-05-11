@@ -18,6 +18,7 @@ function UI_EventPopupTab_EventVote:init(ower_ui, struct_event_popup_tab)
 
     self:initUI()
 	self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -38,7 +39,7 @@ end
 -------------------------------------
 function UI_EventPopupTab_EventVote:initButton()
     local vars = self.vars
-    --vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['voteBtn']:registerScriptTapHandler(function() self:click_voteBtn() end)
 end
 
 -------------------------------------
@@ -47,10 +48,15 @@ end
 function UI_EventPopupTab_EventVote:refresh()
     local vars = self.vars
 
---[[ 
+    -- 투표권 갯수
+    do
+        local vote_count = g_userData:get('event_vote_ticket')
+        vars['ticketLabel']:setString(Str('{1}개', comma_value(vote_count)))
+    end
+
     -- 모드별 입장권 획득 개수
-    local stamina_info = event_data:getStaminaInfo()
-    if (stamina_info) then
+    do
+        local stamina_info = g_eventVote:getStaminaInfo()
         local total_ticket = 1 -- 하루에 한개는 충전되므로 1 default
         local max_total_ticket = 1
         for mode, data in pairs(stamina_info) do
@@ -69,7 +75,12 @@ function UI_EventPopupTab_EventVote:refresh()
         end
 
         vars['totalTicketLabel']:setString(Str('(일일 최대 {1}/{2}개 획득 가능)', total_ticket, max_total_ticket))
-    end ]]
+    end
+end
 
-
+-------------------------------------
+-- function click_voteBtn
+-------------------------------------
+function UI_EventPopupTab_EventVote:click_voteBtn()
+    local ui = UI_EventVoteChoice.open()
 end

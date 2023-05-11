@@ -1591,7 +1591,12 @@ local t_module = {
     'UI_CustomEnhanceFruit',
     'UI_EventVIP', -- @yjkil 2022.01.13 VIP 설문조사
     'UI_HighbrowVipPopup', -- @yjkil 2022.02.14 VIP 
-    'UI_EventPopupTab_EventVote', -- 신화 드래곤 투표 이벤트
+
+    -- 신화 드래곤 투표 이벤트
+    'UI_EventPopupTab_EventVote', -- 인트로 
+    'UI_EventVoteChoice', -- 투표
+    'UI_EventVoteChoiceConfirmPopup', -- 투표 확인 팝업
+    'UI_EventVoteRewardPopup', --투표 보상 팝업
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',
