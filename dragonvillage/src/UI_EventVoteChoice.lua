@@ -172,7 +172,7 @@ function UI_EventVoteChoice:click_selectBtn(did)
             return
         end
 
-        if #self.m_selectDidList + 1 >= 5 then
+        if #self.m_selectDidList + 1 > 5 then
             UIManager:toastNotificationRed(Str('한번에 최대 5마리까지 투표 가능합니다.'))
             return
         end
