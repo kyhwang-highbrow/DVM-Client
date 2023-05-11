@@ -34,14 +34,13 @@ end
 -------------------------------------
 function UI_EventVoteRewardPopup:initUI()
     local vars = self.vars
-    vars['ticketLabel']:setStringArg(#self.m_selectDidList)
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_EventVoteRewardPopup:initTableView()
-    local node = self.vars['listNode']
+    local node = self.vars['rewardListNode']
     local l_item_list = self.m_itemList
 
 	-- cell_size 지정
@@ -73,9 +72,7 @@ end
 -------------------------------------
 function UI_EventVoteRewardPopup:initButton()
     local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    --vars['cancelBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    --vars['voteBtn']:registerScriptTapHandler(function() self:click_voteBtn() end)
+    vars['okBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
