@@ -1,7 +1,7 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_EventGoldDungeon
+-- class UI_EventVoteChoice
 -------------------------------------
 UI_EventVoteChoice = class(PARENT,{
     m_selectDidList = 'List<Number>',
@@ -118,41 +118,6 @@ function UI_EventVoteChoice:refresh()
         vars['ticketLabel']:setStringArg(comma_value(select_count))
     end
 
-
---[[     -- 누적 보상 갱신
-    local play_cnt = event_data:getPlayCount()
-    local reward_info = event_data:getProductInfo()
-    local reward_line = 6 -- 한줄에 표시되는 보상 갯수
-
-    for i, info in ipairs(reward_info) do
-        local need_cnt = info['price']
-        if (play_cnt < need_cnt) then
-            local pre_need = (i == 1) and 0 or reward_info[(i - 1)]['price']
-            local need_cnt = need_cnt - pre_need
-            local event_cnt = play_cnt - pre_need
-            local div = 100/reward_line
-            local per = div * (i - 1) + (div * (event_cnt/(need_cnt)))
-            
-            if (i > reward_line) then
-                per = per - 100
-                per = math_min(per, 100)
-                vars['timeGauge']:setPercentage(100)
-                vars['timeGauge2']:setPercentage(per)
-            else
-                per = math_min(per, 100)
-                vars['timeGauge']:setPercentage(per)
-                vars['timeGauge2']:setPercentage(0)
-            end
-            break
-        else
-            vars['timeGauge']:setPercentage(100)
-            vars['timeGauge2']:setPercentage(100)
-        end
-    end
-
-    for i, ui in ipairs(self.m_eventDataUI) do
-        ui:refresh()
-    end ]]
 end
 
 -------------------------------------

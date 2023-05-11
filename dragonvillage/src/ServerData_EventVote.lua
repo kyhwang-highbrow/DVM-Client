@@ -6,16 +6,20 @@ ServerData_EventVote = class({
     m_rewardList = 'List<table>', -- 투표 보상 리스트
     m_eventVoteCount = 'number', -- 튜표 횟수
     m_staminaDropInfo = 'Map<>', -- 투표권 획득 플레이 요구 사항
+    m_rankList = 'List<table>', -- 랭킹 정보
+    m_updatedAt = 'ExperationTime',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_EventVote:init(server_data)
+    self.m_updatedAt = ExperationTime:createWithUpdatedAyInitialized()
     self.m_dragonList = {}
     self.m_rewardList = {}
     self.m_eventVoteCount = 0
     self.m_staminaDropInfo = {}
+    self.m_rankList = {}
 end
 
 -------------------------------------
@@ -40,11 +44,30 @@ function ServerData_EventVote:getRewardList()
 end
 
 -------------------------------------
+-- function getDragonRankList
+-------------------------------------
+function ServerData_EventVote:getDragonRankList()
+    return self.m_rankList
+end
+
+-------------------------------------
 -- function getStatusText
 -------------------------------------
 function ServerData_EventVote:getStatusText()
     local time = g_hotTimeData:getEventRemainTime('event_vote')
     return Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
+end
+
+-------------------------------------
+-- function isExpiredRankingUpdate
+-------------------------------------
+function ServerData_EventVote:isExpiredRankingUpdate()
+    if #self.m_rankList == 0 or self.m_updatedAt:isExpired() == true then
+        self.m_updatedAt:applyExperationTime_SecondsLater(10)
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------
@@ -56,6 +79,11 @@ function ServerData_EventVote:applyDragonVoteResponse(t_ret)
     -- 드래곤 리스트
     if t_ret['event_vote_dragon_list'] ~= nil then
         self.m_dragonList = t_ret['event_vote_dragon_list']
+    end
+
+    -- 랭크 리스트
+    if t_ret['rank_list'] ~= nil then
+        self.m_rankList = t_ret['rank_list']
     end
 
     -- 투표 확률 보상 정보
@@ -159,7 +187,6 @@ function ServerData_EventVote:requestEventVoteGetRanking(finish_cb, fail_cb)
 
     -- 성공 시 콜백
     local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
 
         -- 투표 정보
         self:applyDragonVoteResponse(ret)
