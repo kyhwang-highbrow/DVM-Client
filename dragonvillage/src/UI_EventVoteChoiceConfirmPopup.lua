@@ -77,7 +77,7 @@ function UI_EventVoteChoiceConfirmPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    vars['voteBtn']:registerScriptTapHandler(function() self:click_voteBtn() end)
+    vars['okBtn']:registerScriptTapHandler(function() self:click_voteBtn() end)
 end
 
 -------------------------------------
@@ -98,7 +98,6 @@ function UI_EventVoteChoiceConfirmPopup:refresh()
     local vars = self.vars
 end
 
-
 -------------------------------------
 -- function click_voteBtn
 -------------------------------------
@@ -106,7 +105,7 @@ function UI_EventVoteChoiceConfirmPopup:click_voteBtn()
     local did_str = table.concat(self.m_selectDidList, ',')
 
     local success_cb = function (ret)
-        local l_item_list = g_itemData:parsePackageItemStr(ret['mail_item_info'])
+        local l_item_list = ret['mail_item_info'] or {}
         self:close()
         
         UI_EventVoteRewardPopup.open(l_item_list)
