@@ -136,11 +136,27 @@ function StatusEffectHelper:doStatusEffectByTable(char, t_skill, cb_func, t_data
         log = log .. v:getName() .. ' :: '
     end
 
+
+    
+    if char:getCharType() == 'tamer' then
+        cclog("----------------------------------------")
+        cclog("LUA ERROR: " .. tostring(msg) .. "\n")
+        cclog(debug.traceback())
+        cclog("----------------------------------------")
+    end
+
 	-- 2. 상태효과 구조체
 	local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
 
 	-- 3. 타겟에 상태효과생성
-	StatusEffectHelper:doStatusEffectByStruct(char, l_target, l_status_effect_struct, cb_func, t_skill['sid'])
+	 StatusEffectHelper:doStatusEffectByStruct(char, l_target, l_status_effect_struct, cb_func, t_skill['sid'])
+
+     
+    -- 테이머 스킬 미발동 가능성
+    -- 0. 아예 이쪽 함수로 안들어오는 경우 (Tamer.st_skillAppear 코드 확인)
+    -- 1. l_target이 없는 경우 : 아닌 것 같음
+    -- 2. l_status_effect_struct 이 없는 경우 : 아닌 것 같음
+    -- 3. StatusEffectHelper:doStatusEffectByStruct 이 발동하지 않는 경우
 end
 
 -------------------------------------
@@ -187,6 +203,7 @@ function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_sta
 		rate = status_effect_struct.m_rate
 		value = status_effect_struct.m_value
         source = status_effect_struct.m_source
+
 		
         -- 3. 타겟 리스트 순회하며 상태효과 걸어준다.
         self:doStatusEffect(caster, l_skill_target, type, target_type, target_count,
@@ -223,7 +240,6 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     if (self:isHarmful(status_effect_category) and not world.m_gameState:isFight()) then
         return nil
     end
-
 
     -- 시전자가 몬스터의 경우 같은 스킬 아이디의 상태효과는 일정시간 내에 다시 걸리지 않도록 처리
     if (caster:getCharType() == 'monster' and status_effect) then
@@ -511,6 +527,11 @@ function StatusEffectHelper:checkRate(caster, target_char, status_effect_rate, a
         rate = tonumber(status_effect_rate or 100)
     end
     rate = math_max(rate, 0)
+
+    if caster:getCharType() == 'tamer' then
+        cclog('StatusEffectHelper:checkRate rate', rate)
+        cclog('StatusEffectHelper:checkRate skill_id', skill_id)        
+    end
 
     return (math_random(1, 100) > rate)
 end
