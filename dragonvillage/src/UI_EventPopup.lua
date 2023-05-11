@@ -331,7 +331,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
     -- 신화 드래곤 투표 이벤트
-    elseif (tab =='event_vote_ticket') then
+    elseif (tab =='event_vote') then
         local inner_ui = UI_EventPopupTab_EventVote()
         ui = UI_EventPopupTab_EventVote(self, struct_event_popup_tab, inner_ui)
 
