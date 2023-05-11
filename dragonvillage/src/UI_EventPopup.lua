@@ -330,6 +330,12 @@ function UI_EventPopup:makeEventPopupTab(tab)
         local inner_ui = UI_EventMandragoraQuest()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
+    -- 신화 드래곤 투표 이벤트
+    elseif (tab =='event_vote_ticket') then
+        local inner_ui = UI_EventPopupTab_EventVote()
+        ui = UI_EventPopupTab_EventVote(self, struct_event_popup_tab, inner_ui)
+
+
 	-- Daily Mission
 	elseif (tab == 'daily_mission') then
 		local key = struct_event_popup_tab.m_eventData['event_id']

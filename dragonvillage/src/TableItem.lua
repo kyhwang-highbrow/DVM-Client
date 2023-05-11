@@ -124,6 +124,8 @@ ITEM_ID_MAP['mastery_material_rare_dark'] = 741125
 ITEM_ID_MAP['mastery_material_hero_dark'] = 741135
 ITEM_ID_MAP['mastery_material_legend_dark'] = 741145
 
+ITEM_ID_MAP['event_vote_ticket'] = 700021
+
 
 local ITEM_TYPE_MAP = {}
 for i,v in pairs(ITEM_ID_MAP) do

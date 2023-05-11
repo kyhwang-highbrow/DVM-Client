@@ -351,6 +351,9 @@ function ServerData:getInstance()
     -- Highbrow VIP 
     g_highbrowVipData = ServerData_HighbrowVip.getInstance(g_serverData)
 
+    -- 신화 드래곤 투표 이벤트
+    g_eventVote = ServerData_EventVote(g_serverData)
+
     return g_serverData
 end
 
@@ -685,6 +688,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['valor'] then
             self:applyServerData(ret['valor'], 'user', 'valor')
         end
+
+        -- 신화 드래곤 투표권
+        if ret['event_vote_ticket'] then
+            self:applyServerData(ret['event_vote_ticket'], 'user', 'event_vote_ticket')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -885,6 +893,10 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 용맹 훈장
     RefreshGoods(t_added_items, 'valor')
+
+    -- 신화 드래곤 투표권
+    RefreshGoods(t_added_items, 'event_vote_ticket')
+
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then

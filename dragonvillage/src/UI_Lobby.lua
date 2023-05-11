@@ -185,10 +185,10 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        if (g_hotTimeData:isActiveEvent('halloween')) then
-            --self:setShopSpecialNoti('noti_halloween')
-            
-            
+        if (g_hotTimeData:isActiveEvent('event_vote_ticket')) then
+            co:work('# 신화 드래곤 투표권 이벤트 정보 받는 중')
+            g_eventVote:requestEventVoteInfo(co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
         end
 
         if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then

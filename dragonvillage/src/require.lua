@@ -277,6 +277,7 @@ local t_module = {
     'ServerData_ClanRaidLightPackage',
     'ServerData_ClanRaidDarkPackage',
     'ServerData_StoryDungeonEvent',
+    'ServerData_EventVote',
 
     -- Interface
     'IEventDispatcher',
@@ -1590,6 +1591,7 @@ local t_module = {
     'UI_CustomEnhanceFruit',
     'UI_EventVIP', -- @yjkil 2022.01.13 VIP 설문조사
     'UI_HighbrowVipPopup', -- @yjkil 2022.02.14 VIP 
+    'UI_EventPopupTab_EventVote', -- 신화 드래곤 투표 이벤트
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',
