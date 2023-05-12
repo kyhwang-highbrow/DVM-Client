@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_EventVoteChoice = class(PARENT,{
     m_selectDidList = 'List<Number>',
+    m_selectDragonUIList = 'List<UI_EventVoteDragonCard>',
     m_tableViewTD  = 'UIC_TableViewTD',
 })
 
@@ -33,6 +34,28 @@ end
 -------------------------------------
 function UI_EventVoteChoice:initUI()
     local vars = self.vars
+    self.m_selectDragonUIList = {}
+
+    do -- 선택된 드래곤 카드
+        for i = 1,5 do
+            local str = string.format('itemNode%d',i)
+            local ui = UI_EventVoteDragonCard()
+
+            local select_cb = function ()
+                local did = ui:getDragonDid()
+
+                if did ~= 0 then
+                    self:click_selectBtn(did)
+                    self:refresh()
+                end
+            end
+
+            ui.vars['cancelBtn']:registerScriptTapHandler(select_cb)
+            vars[str]:removeAllChildren()
+            vars[str]:addChild(ui.root)
+            table.insert(self.m_selectDragonUIList, ui)
+        end
+    end
 end
 
 -------------------------------------
@@ -58,8 +81,7 @@ function UI_EventVoteChoice:initTableView()
 
 		-- 선택 클릭
 		card_ui.vars['clickBtn']:registerScriptTapHandler(function() 
-            local is_selelct_visible = self:click_selectBtn(did)
-            card_ui:setCheckSpriteVisible(is_selelct_visible)
+            self:click_selectBtn(did)
             self:refresh()
           end)
 
@@ -107,16 +129,38 @@ end
 function UI_EventVoteChoice:refresh()
     local vars = self.vars
 
-    -- 투표권 갯수
-    do
+    
+    do -- 투표권 갯수
         local vote_count = g_userData:get('event_vote_ticket')
         vars['numberLabel1']:setStringArg(comma_value(vote_count))
     end
-
-    -- 선택 갯수
-    do
+    
+    do -- 선택 갯수
         local select_count = #self.m_selectDidList
         vars['ticketLabel']:setStringArg(comma_value(select_count))
+    end
+    
+    do -- 선택 드래곤 카드
+        for i = 1,5 do
+            local did = self.m_selectDidList[i]
+            local ui = self.m_selectDragonUIList[i]
+            if ui:getDragonDid() ~= did then
+                ui:setDragonDid(did)
+                ui:refresh()
+            end
+        end
+    end
+
+    do -- 드래곤 리스트
+        local l_card = self.m_tableViewTD.m_itemList
+        for i, t_data in ipairs(l_card) do
+            if (t_data['ui']) then
+                local card_ui = t_data['ui']
+                local did = card_ui.m_dragonData.did
+                local is_selelct_visible = self:isVoteSelectDid(did)
+                card_ui:setCheckSpriteVisible(is_selelct_visible)
+            end
+        end
     end
 end
 

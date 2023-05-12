@@ -108,7 +108,6 @@ function UI_EventPopupTab_EventVote:refresh()
 
         vars['totalTicketLabel']:setString(Str('(일일 최대 {1}/{2}개 획득 가능)', total_ticket, max_total_ticket))
     end
-
 end
 
 -------------------------------------

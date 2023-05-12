@@ -1599,6 +1599,7 @@ local t_module = {
     'UI_EventVoteRewardPopup', --투표 보상 팝업
     'UI_EventVoteRanking',
     'UI_EventVoteRankingItem',
+    'UI_EventVoteDragonCard',
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',
