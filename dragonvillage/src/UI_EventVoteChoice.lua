@@ -43,9 +43,8 @@ function UI_EventVoteChoice:initUI()
 
             local select_cb = function ()
                 local did = ui:getDragonDid()
-
                 if did ~= 0 then
-                    self:click_selectBtn(did)
+                    self:delete_vote(i)
                     self:refresh()
                 end
             end
@@ -81,9 +80,10 @@ function UI_EventVoteChoice:initTableView()
 
 		-- 선택 클릭
 		card_ui.vars['clickBtn']:registerScriptTapHandler(function() 
-            self:click_selectBtn(did)
-            self:refresh()
-          end)
+            if self:select_vote(did) == true then
+                self:refresh()
+            end 
+        end)
 
         return card_ui
     end
@@ -129,7 +129,6 @@ end
 function UI_EventVoteChoice:refresh()
     local vars = self.vars
 
-    
     do -- 투표권 갯수
         local vote_count = g_userData:get('event_vote_ticket')
         vars['numberLabel1']:setStringArg(comma_value(vote_count))
@@ -151,7 +150,7 @@ function UI_EventVoteChoice:refresh()
         end
     end
 
-    do -- 드래곤 리스트
+--[[     do -- 드래곤 리스트
         local l_card = self.m_tableViewTD.m_itemList
         for i, t_data in ipairs(l_card) do
             if (t_data['ui']) then
@@ -161,35 +160,35 @@ function UI_EventVoteChoice:refresh()
                 card_ui:setCheckSpriteVisible(is_selelct_visible)
             end
         end
-    end
+    end ]]
 end
 
 -------------------------------------
--- function click_selectBtn
+-- function select_vote
 -------------------------------------
-function UI_EventVoteChoice:click_selectBtn(did)
-    local is_selected, idx = self:isVoteSelectDid(did)
-
-    -- 셀렉트 되었으면 지움
-    if is_selected == true then
-        table.remove(self.m_selectDidList, idx)
+function UI_EventVoteChoice:select_vote(did)
+    local vote_count = g_userData:get('event_vote_ticket')
+    if #self.m_selectDidList + 1 > vote_count then
+        UIManager:toastNotificationRed(Str('투표권이 부족합니다.'))
         return false
-    else
-
-        local vote_count = g_userData:get('event_vote_ticket')
-        if #self.m_selectDidList + 1 > vote_count then
-            UIManager:toastNotificationRed(Str('투표권이 부족합니다.'))
-            return
-        end
-
-        if #self.m_selectDidList + 1 > 5 then
-            UIManager:toastNotificationRed(Str('한번에 최대 5마리까지 투표 가능합니다.'))
-            return
-        end
-
-        table.insert(self.m_selectDidList, did)
-        return true
     end
+
+    if #self.m_selectDidList + 1 > 5 then
+        UIManager:toastNotificationRed(Str('한번에 최대 5마리까지 투표 가능합니다.'))
+        return false
+    end
+
+    table.insert(self.m_selectDidList, did)
+    return true
+end
+
+-------------------------------------
+-- function delete_vote
+-------------------------------------
+function UI_EventVoteChoice:delete_vote(idx)
+    --local is_selected, idx = self:isVoteSelectDid(did)
+    table.remove(self.m_selectDidList, idx)
+    return true
 end
 
 -------------------------------------
