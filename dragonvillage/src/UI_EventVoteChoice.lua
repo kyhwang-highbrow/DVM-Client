@@ -85,6 +85,7 @@ function UI_EventVoteChoice:initButton()
     local vars = self.vars
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['voteBtn']:registerScriptTapHandler(function() self:click_voteBtn() end)
+    vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
 end
 
 -------------------------------------
@@ -117,7 +118,6 @@ function UI_EventVoteChoice:refresh()
         local select_count = #self.m_selectDidList
         vars['ticketLabel']:setStringArg(comma_value(select_count))
     end
-
 end
 
 -------------------------------------
@@ -164,6 +164,13 @@ function UI_EventVoteChoice:click_voteBtn()
         self:initTableView()
         self:refresh()
     end)
+end
+
+-------------------------------------
+-- function click_rankBtn
+-------------------------------------
+function UI_EventVoteChoice:click_rankBtn()
+    UI_EventVoteRanking.open()
 end
 
 -------------------------------------
