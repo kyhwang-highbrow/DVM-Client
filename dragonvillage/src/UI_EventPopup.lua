@@ -335,7 +335,6 @@ function UI_EventPopup:makeEventPopupTab(tab)
         local inner_ui = UI_EventPopupTab_EventVote()
         ui = UI_EventPopupTab_EventVote(self, struct_event_popup_tab, inner_ui)
 
-
 	-- Daily Mission
 	elseif (tab == 'daily_mission') then
 		local key = struct_event_popup_tab.m_eventData['event_id']

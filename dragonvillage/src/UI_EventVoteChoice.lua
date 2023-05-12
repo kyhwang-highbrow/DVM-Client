@@ -178,7 +178,7 @@ function UI_EventVoteChoice:click_selectBtn(did)
 
         local vote_count = g_userData:get('event_vote_ticket')
         if #self.m_selectDidList + 1 > vote_count then
-            UIManager:toastNotificationRed(Str('더 이상 선택이 불가능합니다.'))
+            UIManager:toastNotificationRed(Str('투표권이 부족합니다.'))
             return
         end
 
@@ -198,7 +198,7 @@ end
 function UI_EventVoteChoice:click_voteBtn()
     -- 한마리도 선택 안함
     if #self.m_selectDidList == 0 then
-        UIManager:toastNotificationRed(Str('최소 한 마리 이상 선택해주세요.'))
+        UIManager:toastNotificationRed(Str('드래곤을 선택해주세요.'))
         return
     end
 

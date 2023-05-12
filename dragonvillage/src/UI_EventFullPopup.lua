@@ -248,7 +248,15 @@ function UI_EventFullPopup:initUI()
     -- 스토리 던전 소환 풀팝업
 	elseif (popup_key == 'story_dungeon_gacha') then        
         require('UI_EventPopupTab_StoryDungeonGacha')
-        ui = UI_EventPopupTab_StoryDungeonGacha(nil, true)        
+        ui = UI_EventPopupTab_StoryDungeonGacha(nil, true)
+
+    -- 신화 드래곤 투표 이벤트
+	elseif (popup_key == 'event_vote') then
+        if g_hotTimeData:isActiveEvent('event_vote') then
+            ui = UI_EventPopupTab_EventVote(nil, true)
+        else
+            self:close()
+        end
 
     -- 누적 결제 보상 이벤트
     elseif pl.stringx.startswith(popup_key, 'purchase_point') then

@@ -755,6 +755,10 @@ function ServerData_Event:setEventTabNoti(event_tab)
     elseif (event_type == 'fevertime') then
         event_tab.m_hasNoti = g_fevertimeData:isNotUsedFevertimeExist()
 
+    -- 신화 드래곤 투표 이벤트
+    elseif (event_type == 'event_vote') then
+        event_tab.m_hasNoti = g_eventVote:isAvailableEventVote()
+
     -- 누적 결제 이벤트
     elseif (string.find(event_type, 'purchase_point_')) then
         event_tab.m_hasNoti = g_purchasePointData:hasAvailableReward(event_tab:getVersion())
@@ -806,6 +810,10 @@ function ServerData_Event:hasAvailableReward(event_tab)
     -- 핫타임
     elseif (event_type == 'fevertime') then
         has_available_reward = g_fevertimeData:isNotUsedFevertimeExist()
+    
+    -- 신화 드래곤 투표 이벤트
+    elseif (event_type == 'event_vote') then
+        has_available_reward = g_eventVote:isAvailableEventVote()
 
     -- 누적 결제 이벤트
     elseif (string.find(event_type, 'purchase_point_')) then

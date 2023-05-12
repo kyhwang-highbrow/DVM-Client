@@ -64,6 +64,7 @@ function UI_EventPopupTab_EventVote:initButton()
     local vars = self.vars
     vars['voteBtn']:registerScriptTapHandler(function() self:click_voteBtn() end)
     vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -118,6 +119,13 @@ function UI_EventPopupTab_EventVote:click_voteBtn()
     ui:setCloseCB(function () 
         self:refresh()
     end)
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_EventPopupTab_EventVote:click_infoBtn()
+    local ui = MakePopup('event_vote_ticket_info.ui')
 end
 
 -------------------------------------
