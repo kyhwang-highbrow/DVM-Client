@@ -63,7 +63,7 @@ end
 function UI_EventPopupTab_EventVote:initButton()
     local vars = self.vars
     vars['voteBtn']:registerScriptTapHandler(function() self:click_voteBtn() end)
-    vars['rankingBtn']:registerScriptTapHandler(function() self:click_voteBtn() end)
+    vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
 end
 
 -------------------------------------
@@ -125,5 +125,5 @@ end
 -- function click_rankBtn
 -------------------------------------
 function UI_EventPopupTab_EventVote:click_rankBtn()
-    UI_EventVoteChoice.open()
+    UI_EventVoteRanking.open()
 end

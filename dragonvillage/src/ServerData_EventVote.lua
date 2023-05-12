@@ -51,6 +51,13 @@ function ServerData_EventVote:getDragonRankList()
 end
 
 -------------------------------------
+-- function getMyVoteCount
+-------------------------------------
+function ServerData_EventVote:getMyVoteCount()
+    return self.m_eventVoteCount
+end
+
+-------------------------------------
 -- function getStatusText
 -------------------------------------
 function ServerData_EventVote:getStatusText()
@@ -62,7 +69,8 @@ end
 -- function isExpiredRankingUpdate
 -------------------------------------
 function ServerData_EventVote:isExpiredRankingUpdate()
-    if #self.m_rankList == 0 or self.m_updatedAt:isExpired() == true then
+    if self.m_updatedAt:isExpired() == true or #self.m_rankList == 0 then
+        self.m_updatedAt:setUpdatedAt()
         self.m_updatedAt:applyExperationTime_SecondsLater(10)
         return true
     end

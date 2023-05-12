@@ -81,7 +81,7 @@ end
 -------------------------------------
 function ExperationTime:applyExperationTime_SecondsLater(second, msg)
     local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-    local timestamp = curr_time + (second * 1000)
+    local timestamp = curr_time + second
     self:applyExperationTime(timestamp, msg)
 end
 
@@ -161,6 +161,9 @@ function ExperationTime:isExpired()
     if (self.m_experationTime ~= nil) and (self.m_experationTime <= curr_time) then
         return true
     end
+
+    cclog('self.m_updatedAt', self.m_updatedAt)
+    cclog('self.m_experationTime', self.m_experationTime)
 
     return false
 end
