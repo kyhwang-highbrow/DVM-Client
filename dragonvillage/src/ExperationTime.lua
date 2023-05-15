@@ -162,9 +162,6 @@ function ExperationTime:isExpired()
         return true
     end
 
-    cclog('self.m_updatedAt', self.m_updatedAt)
-    cclog('self.m_experationTime', self.m_experationTime)
-
     return false
 end
 

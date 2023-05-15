@@ -99,7 +99,7 @@ function ServerData_EventVote:applyDragonVoteResponse(t_ret)
 
     -- 랭크 리스트
     if t_ret['rank_list'] ~= nil then
-        self.m_rankList = t_ret['rank_list']
+        self.m_rankList = clone(t_ret['rank_list'])
     end
 
     -- 투표 확률 보상 정보
