@@ -82,10 +82,6 @@ function UI_EventVoteRanking:refresh()
     
         local l_item_list = self.m_rankList
     
-        -- cell_size 지정
---[[         local item_scale = 0.52
-        local cell_size = cc.size(80, 80) ]]
-    
         local function make_func(data)
             local ui = UI_EventVoteRankingItem(data, self.m_voteSum)
             return ui
@@ -96,6 +92,7 @@ function UI_EventVoteRanking:refresh()
         table_view.m_defaultCellSize = cc.size(200, 70)
         table_view:setCellUIClass(make_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setCellCreateDirecting(-1)
         table_view:setItemList(l_item_list)
     end
 

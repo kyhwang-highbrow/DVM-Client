@@ -100,6 +100,7 @@ function UI_EventVoteChoice:initTableView()
 	table_view_td:setCellUIClass(create_func)
 	table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td:setItemList(l_item_list)
+    table_view_td.m_scrollView:setTouchEnabled(false)
 
     -- 정렬
     self.m_tableViewTD = table_view_td
