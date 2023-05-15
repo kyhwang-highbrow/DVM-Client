@@ -156,6 +156,11 @@ function UI_EventVoteChoice:refresh()
         end
     end
 
+    do -- 레드닷
+        local is_event_vote = g_eventVote:isAvailableEventVote()
+        vars['notiSprite']:setVisible(is_event_vote)
+    end
+
 --[[     do -- 드래곤 리스트
         local l_card = self.m_tableViewTD.m_itemList
         for i, t_data in ipairs(l_card) do

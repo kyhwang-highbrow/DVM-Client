@@ -73,6 +73,9 @@ end
 function UI_EventPopupTab_EventVote:update()
     local vars =  self.vars
     vars['timeLabel']:setString(g_eventVote:getStatusText())    
+
+    local is_event_vote = g_eventVote:isAvailableEventVote()
+    vars['notiSprite']:setVisible(is_event_vote)
 end
 
 -------------------------------------

@@ -82,8 +82,12 @@ end
 -- function isAvailableEventVote
 -------------------------------------
 function ServerData_EventVote:isAvailableEventVote()
-    local vote_count = g_userData:get('event_vote_ticket')
-    return vote_count > 0
+    if g_hotTimeData:isActiveEvent('event_vote') == true then
+        local vote_count = g_userData:get('event_vote_ticket')
+        return vote_count > 0
+    end
+
+    return false
 end
 
 -------------------------------------
