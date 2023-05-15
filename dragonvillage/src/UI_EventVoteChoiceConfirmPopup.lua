@@ -91,8 +91,12 @@ end
 -- function click_voteBtn
 -------------------------------------
 function UI_EventVoteChoiceConfirmPopup:click_voteBtn()
-    local did_str = table.concat(self.m_selectDidList, ',')
+    if g_hotTimeData:isActiveEvent('event_vote') == false then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
+        return
+    end
 
+    local did_str = table.concat(self.m_selectDidList, ',')
     local success_cb = function (ret)
         local l_item_list = ret['mail_item_info'] or {}
         local ui = UI_EventVoteRewardPopup.open(l_item_list)

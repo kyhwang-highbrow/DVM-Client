@@ -133,7 +133,7 @@ end
 function UI_EventVoteRanking.open()
     if g_eventVote:isExpiredRankingUpdate() == true then
         local success_cb = function (ret)
-            local ui = UI_EventVoteRanking(ret['rank_list'] or {})
+            local ui = UI_EventVoteRanking(ret['rank_list'] or g_eventVote:getDragonRankList())
         end
 
         g_eventVote:requestEventVoteGetRanking(success_cb)

@@ -268,6 +268,7 @@ function GameState_ClanRaid:makeResultUI(is_success)
     local t_result_ref = {}
     t_result_ref['drop_reward_list'] = {}
     t_result_ref['mail_reward_list'] = {}
+    t_result_ref['event_goods_list'] = {}
 
     -- 1. 네트워크 통신
     func_network_game_finish = function()

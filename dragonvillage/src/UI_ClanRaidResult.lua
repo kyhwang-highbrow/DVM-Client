@@ -402,8 +402,51 @@ end
 -------------------------------------
 function UI_ClanRaidResult:direction_end()
     local vars = self.vars
+
     vars['okBtn']:setVisible(true)
     vars['statsBtn']:setVisible(true)
+
+    -- 이벤트 아이템 표시
+    local t_data = self.m_data
+    local event_act = cc.CallFunc:create(function()
+        if (not t_data['event_goods_list']) then 
+            return 
+        end
+        local drop_list = t_data['event_goods_list'] or {}
+        local idx = 1
+        for _, item in ipairs(drop_list) do
+            -- 보호 장치
+            if (idx > 2) then
+                break
+            end
+
+            -- item_id 로 직접 체크한다
+            if (item['from'] == 'event') then
+                -- visible on
+                vars['eventNode' .. idx]:setVisible(true)
+
+                -- 재화 아이콘
+                local item_id = item['item_id']
+                local icon = IconHelper:getItemIcon(item_id)
+                vars['eventIconNode' .. idx]:addChild(icon)
+
+                -- 재화 이름
+                local item_name = TableItem:getItemName(item_id)
+                vars['eventNameLabel' .. idx]:setString(item_name)
+
+                -- 재화 수량
+                local cnt = item['count']
+                vars['eventLabel' .. idx]:setString(comma_value(cnt))
+
+                idx = idx + 1
+            end
+        end
+
+        -- 특정 상황에선 노드 이동
+        if (vars['eventNode1']:isVisible() == false) and (vars['eventNode2']:isVisible() == true) then
+            vars['eventNode2']:setPositionY(100)
+        end
+    end)
 
     local func_show_leader = function()
         local struct_raid = g_clanRaidData:getClanRaidStruct()
@@ -425,6 +468,7 @@ function UI_ClanRaidResult:direction_end()
         local action = cc.Sequence:create(cc.DelayTime:create(0.5),
             cc.CallFunc:create(function() self:show_finalblowReward(reward_info, func_show_leader) end))
         self.root:runAction(action)
+        self.root:runAction(event_act)
     else
         func_show_leader()
     end

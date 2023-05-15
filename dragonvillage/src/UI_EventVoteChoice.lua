@@ -85,6 +85,11 @@ function UI_EventVoteChoice:initTableView()
             end 
         end)
 
+        -- 꾹 눌렀을 떄 
+        card_ui.vars['clickBtn']:registerScriptPressHandler(function ()
+            UI_BookDetailPopup.openWithFrame(did, 7, 3, 1, true)
+        end)
+
         return card_ui
     end
 
@@ -195,6 +200,11 @@ end
 -- function click_voteBtn
 -------------------------------------
 function UI_EventVoteChoice:click_voteBtn()
+    if g_hotTimeData:isActiveEvent('event_vote') == false then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
+        return
+    end
+
     -- 한마리도 선택 안함
     if #self.m_selectDidList == 0 then
         UIManager:toastNotificationRed(Str('드래곤을 선택해주세요.'))
@@ -213,6 +223,11 @@ end
 -- function click_rankBtn
 -------------------------------------
 function UI_EventVoteChoice:click_rankBtn()
+    if g_hotTimeData:isActiveEvent('event_vote') == false then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
+        return
+    end
+
     UI_EventVoteRanking.open()
 end
 

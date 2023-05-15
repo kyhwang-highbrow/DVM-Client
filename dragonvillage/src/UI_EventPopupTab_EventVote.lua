@@ -115,6 +115,11 @@ end
 -- function click_voteBtn
 -------------------------------------
 function UI_EventPopupTab_EventVote:click_voteBtn()
+    if g_hotTimeData:isActiveEvent('event_vote') == false then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
+        return
+    end
+
     local ui = UI_EventVoteChoice.open()
     ui:setCloseCB(function () 
         self:refresh()
@@ -132,5 +137,10 @@ end
 -- function click_rankBtn
 -------------------------------------
 function UI_EventPopupTab_EventVote:click_rankBtn()
+    if g_hotTimeData:isActiveEvent('event_vote') == false then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
+        return
+    end
+
     UI_EventVoteRanking.open()
 end

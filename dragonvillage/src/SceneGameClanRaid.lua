@@ -537,6 +537,9 @@ function SceneGameClanRaid:networkGameFinish_response(ret, t_result_ref)
     -- 메일 보상 정보 mail_reward
     self:networkGameFinish_response_mail_reward(ret, t_result_ref)
 
+    -- 이벤트 재화 보상 정보 event_goods_list(황금 던전 티켓, 투표권)
+    self:networkGameFinish_response_event_reward(ret, t_result_ref)
+
     -- 스테이지 클리어 정보 stage_clear_info
     self:networkGameFinish_response_stage_clear_info(ret)
 end
@@ -718,6 +721,20 @@ function SceneGameClanRaid:networkGameFinish_response_mail_reward(ret, t_result_
     end
 
     t_result_ref['mail_reward_list'] = ret['reward_info']
+end
+
+-------------------------------------
+-- function networkGameFinish_response_event_reward
+-- @breif 이벤트 재화 드롭 처리()
+-------------------------------------
+function SceneGameClanRaid:networkGameFinish_response_event_reward(ret, t_result_ref)
+    local items_list = ret['event_goods_list']
+    if (not items_list) then
+        return
+    end
+
+    cclog('요기기기긱들어오아아라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    t_result_ref['event_goods_list'] = items_list
 end
 
 -------------------------------------
