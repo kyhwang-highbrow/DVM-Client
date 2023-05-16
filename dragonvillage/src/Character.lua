@@ -583,13 +583,15 @@ end
 -- @brief 피해 이전 여부 검사
 -------------------------------------
 function Character:checkGuard(attacker, defender)
-    if (self:isInGuard()) then
+    
+    local is_in_guardian, guardian_skill = self:isInGuard()
+    if (is_in_guardian) then
         -- 수호 스킬 효과
-
 		-- Event Carrier 세팅
 		local t_event = clone(EVENT_HIT_CARRIER)
 		t_event['attacker'] = attacker
         t_event['defender'] = defender
+        t_event['skill'] = guardian_skill
 		-- @EVENT
 		self:dispatch('guardian', t_event)
 		return true

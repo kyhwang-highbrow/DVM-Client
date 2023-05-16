@@ -261,19 +261,21 @@ function SkillGuardian:onEvent(event_name, t_event, ...)
 	PARENT.onEvent(self, event_name, t_event, ...)
 
 	if (event_name == 'guardian') then
-		local attacker = t_event['attacker']
+        if t_event['skill'] == self then
+            local attacker = t_event['attacker']
 
-	    -- 공격자 정보
-	    local attack_activity_carrier = attacker.m_activityCarrier
+            -- 공격자 정보
+            local attack_activity_carrier = attacker.m_activityCarrier
 
-        -- ignore 체크
-        if (attack_activity_carrier) then
-            if (attack_activity_carrier:isIgnoreGuardian()) then return end
+            -- ignore 체크
+            if (attack_activity_carrier) then
+                if (attack_activity_carrier:isIgnoreGuardian()) then return end
+            end
+
+            self:onHit(t_event['defender'])
+            local defender = self.m_owner
+            defender:undergoAttack(attacker, defender, defender.pos.x, defender.pos.y, 0, false, true)
         end
-
-		self:onHit(t_event['defender'])
-		local defender = self.m_owner
-		defender:undergoAttack(attacker, defender, defender.pos.x, defender.pos.y, 0, false, true)
 	end
 end
 
