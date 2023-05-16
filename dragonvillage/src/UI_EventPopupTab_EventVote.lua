@@ -124,7 +124,10 @@ function UI_EventPopupTab_EventVote:click_voteBtn()
     end
 
     local ui = UI_EventVoteChoice.open()
-    ui:setCloseCB(function () 
+    ui:setCloseCB(function ()
+        if self.m_ownerUI ~= nil then
+            self.m_ownerUI:checkNotiList()
+        end
         self:refresh()
     end)
 end
