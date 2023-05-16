@@ -99,6 +99,12 @@ function UI_EventVoteRanking:refresh()
     do -- 몇번 투표했는지?
         vars['voteCountLabel']:setStringArg(g_eventVote:getMyVoteCount())
     end
+
+    do -- 투표 정보가 없을 경우
+        vars['infoMenu']:setVisible(self.m_voteSum == 0)
+        vars['rankMenu']:setVisible(self.m_voteSum > 0)
+        vars['totalRankListNode']:setVisible(self.m_voteSum > 0)
+    end
 end
 
 -------------------------------------

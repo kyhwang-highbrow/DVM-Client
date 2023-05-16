@@ -1,5 +1,5 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
-local COMMON_UI_ACTION_TIME = 0.8
+local COMMON_UI_ACTION_TIME = 0.5
 
 -------------------------------------
 -- class UI_EventVoteRankingItem
@@ -24,7 +24,7 @@ function UI_EventVoteRankingItem:init(t_data, sum)
     self.m_rank = t_data['rank']
     self.m_score = t_data['score']
     self.m_structDragon = StructDragonObject(t_dragon_data)
-	self.m_voteSum = sum == 0 and 1 or sum
+	self.m_voteSum = sum
 
     if self.m_rank <= 5 then    
 	    self:load('event_vote_ticket_ranking_item_01.ui')
@@ -108,7 +108,11 @@ function UI_EventVoteRankingItem:refresh()
 	end
 
 	-- 퍼센트
-	local percentage = (self.m_score/self.m_voteSum) * 100
+	local percentage = 0
+	if self.m_voteSum > 0 then
+		percentage = (self.m_score/self.m_voteSum) * 100
+	end
+
 	if vars['pickRateLabel'] ~= nil then		
 		vars['pickRateLabel']:setString('0(0.0%%)')
 		local func = function(value)			
@@ -119,7 +123,10 @@ function UI_EventVoteRankingItem:refresh()
 		end
 	
 		local tween = cc.ActionTweenForLua:create(COMMON_UI_ACTION_TIME, 0, self.m_score, func)
-		vars['pickRateLabel']:runAction(tween)
+
+		if self.m_voteSum > 0  then
+			vars['pickRateLabel']:runAction(tween)
+		end
 	end
 
 	-- 누적 수치의 비율	
@@ -128,24 +135,15 @@ function UI_EventVoteRankingItem:refresh()
 		local size = gauge_node:getContentSize()
 		local width = size['width']
 		local basic_x = gauge_node:getPositionX()
-		
-
-		if percentage > 0.05 then
-			basic_x = basic_x + 10
-		end
-
-		local func = function(value)			
-			local per = (math_floor(value)/self.m_voteSum) * 100
-			vars['pickRateLabel']:setPositionX(basic_x + (width * 1.3 * (per/100)))
-		end
+		basic_x = basic_x + 5
 		
 		gauge_node:stopAllActions()
 		gauge_node:setPercentage(0)
 
-		local tween = cc.EaseElasticOut:create(cc.ActionTweenForLua:create(COMMON_UI_ACTION_TIME, 0, self.m_score, func), 1)
-		local progress_to = cc.EaseElasticOut:create(cc.ProgressTo:create(COMMON_UI_ACTION_TIME, percentage), 1)
+		vars['pickRateLabel']:setPositionX(basic_x + (width * 1.3 * (percentage/100)))
+		--local tween = cc.ActionTweenForLua:create(COMMON_UI_ACTION_TIME, 0, self.m_score, func)
+		local progress_to = cc.EaseIn:create(cc.ProgressTo:create(COMMON_UI_ACTION_TIME, percentage), 1)
 
 		gauge_node:runAction(progress_to)
-		gauge_node:runAction(tween)
 	end
 end
