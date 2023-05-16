@@ -227,12 +227,11 @@ end
 function SkillGuardian:onStart()
     for _, v in pairs(self.m_lTargetChar) do
 
-        if (v:getGuard()) then
-            v:getGuard():changeState('end')
+        if (v:getGuard(self.m_owner:getPosIdx())) then
+            v:getGuard(self.m_owner:getPosIdx()):changeState('end')
         end
     
-        v:setGuard(self)
-
+        v:setGuard(self.m_owner:getPosIdx(), self)
         v:addListener('guardian', self)
     end
 
@@ -248,8 +247,8 @@ end
 -------------------------------------
 function SkillGuardian:onEnd()
     for _, v in pairs (self.m_lTargetChar) do
-	    if (v:getGuard() == self) then
-		    v:setGuard(nil)
+	    if (v:getGuard(self.m_owner:getPosIdx()) == self) then
+		    v:setGuard(self.m_owner:getPosIdx(), nil)
 		    v:removeListener('guardian', self)
 	    end
     end
