@@ -227,11 +227,12 @@ end
 function SkillGuardian:onStart()
     for _, v in pairs(self.m_lTargetChar) do
 
-        if (v:getGuard(self.m_owner:getPosIdx())) then
-            v:getGuard(self.m_owner:getPosIdx()):changeState('end')
+        if (v:getGuard()) then
+            v:getGuard():changeState('end')
         end
     
-        v:setGuard(self.m_owner:getPosIdx(), self)
+        v:setGuard(self)
+
         v:addListener('guardian', self)
     end
 
@@ -247,8 +248,8 @@ end
 -------------------------------------
 function SkillGuardian:onEnd()
     for _, v in pairs (self.m_lTargetChar) do
-	    if (v:getGuard(self.m_owner:getPosIdx()) == self) then
-		    v:setGuard(self.m_owner:getPosIdx(), nil)
+	    if (v:getGuard() == self) then
+		    v:setGuard(nil)
 		    v:removeListener('guardian', self)
 	    end
     end
@@ -261,21 +262,19 @@ function SkillGuardian:onEvent(event_name, t_event, ...)
 	PARENT.onEvent(self, event_name, t_event, ...)
 
 	if (event_name == 'guardian') then
-        if t_event['skill'] == self then
-            local attacker = t_event['attacker']
+		local attacker = t_event['attacker']
 
-            -- 공격자 정보
-            local attack_activity_carrier = attacker.m_activityCarrier
+	    -- 공격자 정보
+	    local attack_activity_carrier = attacker.m_activityCarrier
 
-            -- ignore 체크
-            if (attack_activity_carrier) then
-                if (attack_activity_carrier:isIgnoreGuardian()) then return end
-            end
-
-            self:onHit(t_event['defender'])
-            local defender = self.m_owner
-            defender:undergoAttack(attacker, defender, defender.pos.x, defender.pos.y, 0, false, true)
+        -- ignore 체크
+        if (attack_activity_carrier) then
+            if (attack_activity_carrier:isIgnoreGuardian()) then return end
         end
+
+		self:onHit(t_event['defender'])
+		local defender = self.m_owner
+		defender:undergoAttack(attacker, defender, defender.pos.x, defender.pos.y, 0, false, true)
 	end
 end
 

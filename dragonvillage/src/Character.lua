@@ -131,7 +131,7 @@ Character = class(PARENT, {
 		---------------------------------------------------------------------------------------
 
 		-- @TODO 수호 스킬 관련 .. 없애고 싶은데....
-		m_guard = 'Map<CharId, SkillGuard>',	-- guard 되고 있는 상태(damage hijack)
+		m_guard = 'SkillGuard',	-- guard 되고 있는 상태(damage hijack)
 
         -- 부활 스킬 관련
         m_resurrect = 'SkillResurrect',     -- resurrect 되고 있는 상태
@@ -205,7 +205,7 @@ function Character:init(file_name, body, ...)
     self.m_bUseCastingEffect = true
 	self.m_isUseAfterImage = false
 
-	self.m_guard = {}
+	self.m_guard = false
     self.m_resurrect = false
 
     self.m_posIdx = 0
@@ -583,15 +583,13 @@ end
 -- @brief 피해 이전 여부 검사
 -------------------------------------
 function Character:checkGuard(attacker, defender)
-    
-    local is_in_guardian, guardian_skill = self:isInGuard()
-    if (is_in_guardian) then
+    if (self.m_guard) then
         -- 수호 스킬 효과
+
 		-- Event Carrier 세팅
 		local t_event = clone(EVENT_HIT_CARRIER)
 		t_event['attacker'] = attacker
         t_event['defender'] = defender
-        t_event['skill'] = guardian_skill
 		-- @EVENT
 		self:dispatch('guardian', t_event)
 		return true
@@ -3193,25 +3191,15 @@ end
 -------------------------------------
 -- function setGuard
 -------------------------------------
-function Character:setGuard(caster, skill)
-	self.m_guard[caster] = skill
+function Character:setGuard(skill)
+	self.m_guard = skill
 end
 
 -------------------------------------
 -- function getGuard
 -------------------------------------
-function Character:getGuard(caster)
-	return self.m_guard[caster]
-end
-
--------------------------------------
--- function isInGuard
--------------------------------------
-function Character:isInGuard()
-	for char, v in pairs(self.m_guard) do
-        return true, v
-    end
-    return false
+function Character:getGuard()
+	return self.m_guard
 end
 
 -------------------------------------
