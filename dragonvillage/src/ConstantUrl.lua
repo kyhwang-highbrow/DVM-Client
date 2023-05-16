@@ -48,8 +48,8 @@ function GetPlatformApiUrl()
 end
 
 -- Patch server
-URL['PATCH_DEV'] = 'http://patch-12.perplelab.net/dv_test'
-URL['PATCH_QA'] = 'http://patch-12.perplelab.net/dv_test'
+URL['PATCH_DEV'] = 'http://s3.dvm.perplelab.com/dv_test'
+URL['PATCH_QA'] = 'http://s3.dvm.perplelab.com/dv_test'
 URL['PATCH_LIVE'] = 'http://s3.dvm.perplelab.com/dv_test'
 function GetPatchServer()
     local target_server = CppFunctions:getTargetServer()
