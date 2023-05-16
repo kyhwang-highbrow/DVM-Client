@@ -1,5 +1,4 @@
-return {['신화 드래곤 인기 투표']='Mythic Dragon Popularity Vote',
-['태초의 고대신룡, 레슬로, 바르그는 인기 투표 리스트에서 제외 됩니다.']='Origin God Dragon, Leslo, Vargr will be excluded from the popular vote list.',
+return {['태초의 고대신룡, 레슬로, 바르그는 인기 투표에서 제외 됩니다.']='Origin God Dragon, Leslo, Vargr will be excluded from the popular vote list.',
 ['16스테이지 클리어']='Clear Stage 16',
 ['17스테이지 클리어']='Clear Stage 17',
 ['18스테이지 클리어']='Clear Stage 18',
@@ -147,4 +146,6 @@ return {['신화 드래곤 인기 투표']='Mythic Dragon Popularity Vote',
 ['투표하러 가기']='Go to vote',
 ['피의 칼날']='Blade of Blood',
 ['한번에 최대 5마리까지 투표 가능합니다.']='You can vote for up to a maximum of 5 candidates at once.',
-['획득한 투표 보상']='Acquired voting reward'}
+['획득한 투표 보상']='Acquired voting reward',
+['신화 드래곤 인기 투표']='Mythic Dragon Popularity Vote',
+['태초의 고대신룡, 레슬로, 바르그는 인기 투표 리스트에서 제외 됩니다.']='Origin God Dragon, Leslo, Vargr will be excluded from the popular vote list.'}
