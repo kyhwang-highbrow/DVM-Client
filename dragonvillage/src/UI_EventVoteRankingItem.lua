@@ -139,11 +139,22 @@ function UI_EventVoteRankingItem:refresh()
 		
 		gauge_node:stopAllActions()
 		gauge_node:setPercentage(0)
+		--vars['pickRateLabel']:setPositionX(basic_x + (width * 1.3 * (percentage/100)))
+		
+		local func = function(value)
+			local per = value/self.m_voteSum
 
-		vars['pickRateLabel']:setPositionX(basic_x + (width * 1.3 * (percentage/100)))
-		--local tween = cc.ActionTweenForLua:create(COMMON_UI_ACTION_TIME, 0, self.m_score, func)
+			if self.m_voteSum == 0 then
+				per = 0
+			end
+
+			vars['pickRateLabel']:setPositionX(basic_x + (width * 1.3 * (per)))
+		end
+
+		local tween = cc.EaseIn:create(cc.ActionTweenForLua:create(COMMON_UI_ACTION_TIME, 0, self.m_score, func), 1)
 		local progress_to = cc.EaseIn:create(cc.ProgressTo:create(COMMON_UI_ACTION_TIME, percentage), 1)
 
 		gauge_node:runAction(progress_to)
+		gauge_node:runAction(tween)
 	end
 end
