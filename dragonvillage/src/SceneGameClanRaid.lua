@@ -732,8 +732,7 @@ function SceneGameClanRaid:networkGameFinish_response_event_reward(ret, t_result
     if (not items_list) then
         return
     end
-
-    cclog('요기기기긱들어오아아라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    
     t_result_ref['event_goods_list'] = items_list
 end
 
