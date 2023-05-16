@@ -39,7 +39,7 @@
 				ui_name = '';
 				flag = '';
 				x = 0.000000;
-				y = -100.000000;
+				y = -105.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -63,7 +63,7 @@
 				dimension_width = 900;
 				dimension_height = 75;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -146,15 +146,15 @@
 				text = '게임을 플레이하고 아이템을 모아보세요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 0; 120; 100; };
+				color = { 255; 255; 0; };
 				opacity = 255;
 				dimension_width = 860;
 				dimension_height = 58;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
-				is_sharp_text = true;
+				is_sharp_text = false;
 				stroke_tickness = 2.000000;
 				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
@@ -259,7 +259,7 @@
 				ui_name = '';
 				flag = '';
 				x = -146.000000;
-				y = 681.000000;
+				y = 677.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -322,12 +322,12 @@
 				text = '일일 최대 {0}/1,000개 획득 가능';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 0; 120; 100; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 689;
 				dimension_height = 56;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = false;
@@ -417,7 +417,7 @@
 				ui_name = '';
 				flag = '';
 				x = -194.000000;
-				y = -152.000000;
+				y = -148.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -546,7 +546,7 @@
 				ui_name = '';
 				flag = '';
 				x = -153.000000;
-				y = -152.000000;
+				y = -148.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -964,7 +964,7 @@
 					text = '선물 상자';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 0; 120; 100; };
+					color = { 255; 255; 0; };
 					opacity = 255;
 					dimension_width = 820;
 					dimension_height = 80;
@@ -1052,7 +1052,7 @@
 					text = '아래의 보상중 하나를 획득할 수 있습니다.';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 150; 255; 240; };
+					color = { 152; 251; 152; };
 					opacity = 255;
 					dimension_width = 820;
 					dimension_height = 50;
@@ -1392,7 +1392,7 @@
 						dimension_width = 100;
 						dimension_height = 50;
 						letter_spacing = 0.000000;
-						has_stroke = true;
+						has_stroke = false;
 						stroke_type = 0;
 						stroke_detail_level = 0;
 						is_sharp_text = true;
@@ -1436,7 +1436,7 @@
 						dimension_width = 100;
 						dimension_height = 50;
 						letter_spacing = 0.000000;
-						has_stroke = true;
+						has_stroke = false;
 						stroke_type = 0;
 						stroke_detail_level = 0;
 						is_sharp_text = true;
@@ -1480,7 +1480,7 @@
 						dimension_width = 100;
 						dimension_height = 50;
 						letter_spacing = 0.000000;
-						has_stroke = true;
+						has_stroke = false;
 						stroke_type = 0;
 						stroke_detail_level = 0;
 						is_sharp_text = true;
@@ -1524,7 +1524,7 @@
 						dimension_width = 100;
 						dimension_height = 50;
 						letter_spacing = 0.000000;
-						has_stroke = true;
+						has_stroke = false;
 						stroke_type = 0;
 						stroke_detail_level = 0;
 						is_sharp_text = true;
@@ -1568,7 +1568,7 @@
 						dimension_width = 100;
 						dimension_height = 50;
 						letter_spacing = 0.000000;
-						has_stroke = true;
+						has_stroke = false;
 						stroke_type = 0;
 						stroke_detail_level = 0;
 						is_sharp_text = false;
@@ -1612,7 +1612,7 @@
 						dimension_width = 100;
 						dimension_height = 50;
 						letter_spacing = 0.000000;
-						has_stroke = true;
+						has_stroke = false;
 						stroke_type = 0;
 						stroke_detail_level = 0;
 						is_sharp_text = true;
@@ -1777,7 +1777,7 @@
 				text = '지금까지 수집한 아이템의 개수에 따라 보상을 획득할 수 있어요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 0; 120; 100; };
+				color = { 255; 255; 0; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;
@@ -1821,7 +1821,7 @@
 				text = '누적 보상은 최초 1회만 획득 가능합니다.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 15; 130; 140; };
+				color = { 255; 215; 0; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;
@@ -1850,8 +1850,8 @@
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 428;
-				height = 65;
+				width = 430;
+				height = 74;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1860,7 +1860,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = '';
-				file_name = 'ui/typo/ko/ribbon_candy_title_0101.png';
+				file_name = 'ui/typo/ko/ribbon_package_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
