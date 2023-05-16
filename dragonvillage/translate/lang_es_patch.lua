@@ -1,4 +1,4 @@
-return {['태초의 고대신룡, 레슬로, 바르그는 인기 투표에서 제외 됩니다.']='El antiguo dragón divino del principio,Leslo,Vargr serán excluidos de la lista de votaciones populares.',
+return {['태초의 고대신룡, 레슬로, 바르그는 인기 투표에서 제외 됩니다.']='El antiguo dragón divino del principio,Leslo,Vargr son excluidos de la votación popular.',
 ['{1}\n확정 획득까지 {@yellow}{2}{@default}회']='{1} Hasta la adquisición de la confirmación de {@yellow}{2}{@default}',
 ['16스테이지 클리어']='Estado de 16 Completado',
 ['17스테이지 클리어']='Estado de 17 Completado',
@@ -149,5 +149,4 @@ return {['태초의 고대신룡, 레슬로, 바르그는 인기 투표에서 �
 ['피의 칼날']='El filo de la sangre',
 ['한번에 최대 5마리까지 투표 가능합니다.']='Se pueden votar hasta un máximo de 5 mascotas a la vez.',
 ['획득한 투표 보상']='recompensa de votación obtenida',
-['신화 드래곤 인기 투표']='votación popular de Dragón mítico',
-['태초의 고대신룡, 레슬로, 바르그는 인기 투표 리스트에서 제외 됩니다.']='El antiguo dragón divino del principio,Leslo,Vargr serán excluidos de la lista de votaciones populares.'}
+['신화 드래곤 인기 투표']='votación popular de Dragón mítico'}
