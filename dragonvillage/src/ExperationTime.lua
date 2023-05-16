@@ -173,7 +173,6 @@ function ExperationTime:getExperationMsg()
     return self.m_experationMsg or 'none'
 end
 
-
 -------------------------------------
 -- function printExperationTime
 -- @brief 개발 확인용 프린트
