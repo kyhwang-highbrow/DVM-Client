@@ -1,6 +1,4 @@
-return {['[계약의 마검]이 각각 {1}% 확률로 아래의 효과를 발동합니다. [광기] 상태면 {3}% 확률로 발동합니다.\n- 적용 중인 재사용 시간을 20초 감소시킵니다.\n- 마나를 {2}개 획득합니다. ']='[Curse of the Contract] has a {1}% chance to activate the following effects respectively. If in [Madness] state, it has a {3}% chance of activation. 
-\n- Reduces the remaining cooldown time by 20 seconds.
-\n- Acquires {2} mana. ',
+return {['[계약의 마검]이 각각 {1}% 확률로 아래의 효과를 발동합니다. [광기] 상태면 {3}% 확률로 발동합니다.\n- 적용 중인 재사용 시간을 20초 감소시킵니다.\n- 마나를 {2}개 획득합니다. ']='[Curse of the Contract] has a {1}% chance to activate the following effects respectively. If in [Madness] state, it has a {3}% chance of activation. \n- Reduces the remaining cooldown time by 20 seconds.\n- Acquires {2} mana. ',
 ['{1}회 공격마다 무작위 적에게 피해를 줍니다. 자신의 공격 속도에 따라 위력이 증가하며 {2}% 확률로 대상의 치명 회피를 {3}초간 감소 시킵니다.']='With each attack, it inflicts random damage to an enemy. Its power increases according to its attack speed and has a {2}% chance of decreasing the target\'s critical avoidance for {3} seconds.',
 ['게임을 플레이 하고 이벤트 페이지에 안내된 조건에 따라 투표권을 획득 가능합니다.']='You can obtain voting rights according to the conditions listed on the event page by playing the game.',
 ['계약의 마검']='Curse of the Contract',
