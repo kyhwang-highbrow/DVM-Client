@@ -25,8 +25,7 @@ return {['[계약의 마검]이 각각 {1}% 확률로 아래의 효과를 발동
 ['신화 드래곤 인기 투표 순위 1~5위 드래곤은 추후 확률 업 이벤트에서 만나볼 수 있습니다.']='Ranking of popular Mythical Dragons voted 1-5th. You can meet these Dragons in a future probability-up event.',
 ['싸움을 좋아하면 같이 있을 이유는 충분해.']='If you like fighting, there\'s enough reason to be together.',
 ['아아, 죽음의 기운이 느껴지는군.']='Ah, I can feel the power of death.',
-['악의 힘으로 타오르는 마검으로 적을 공격합니다. 자신의 공격 속도에 따라 위력이 크게 증가합니다.\n대상에게 적용된 해로운 효과 {1}개당 위력이 {2}% 증가합니다. (최대 {3}%)']='Attacks the enemy with a burning devil sword powered by evil. The power of the attack increases greatly depending on the attacker\'s speed. 
-For each harmful effect applied to the target, the power increases by {2}% (up to {3}%).',
+['악의 힘으로 타오르는 마검으로 적을 공격합니다. 자신의 공격 속도에 따라 위력이 크게 증가합니다.\n대상에게 적용된 해로운 효과 {1}개당 위력이 {2}% 증가합니다. (최대 {3}%)']='Attacks the enemy with a burning devil sword powered by evil. The power of the attack increases greatly depending on the attacker\'s speed.\nFor each harmful effect applied to the target, the power increases by {2}% (up to {3}%).',
 ['악의 힘이 나를 부르고 있군.']='The power of evil is calling me.',
 ['어둠 속에 좀 더 있고 싶었는데... ']='I wanted to stay in the darkness a little longer...',
 ['어둠이 느껴지지 않나? 누군가 복수를 꿈꾸고 있군.']='Don\'t you feel the darkness? Someone is dreaming of revenge.',
