@@ -171,6 +171,9 @@ function ServerData_EventVote:requestEventVoteDragon(did_str, finish_cb, fail_cb
         -- 투표 정보
         self:applyDragonVoteResponse(ret)
 
+        -- 투표 랭킹 초기화(투표를 하고 바로 랭킹을 확인하려는 경우 반영이 안되면 벙찌기 때문)
+        self.m_rankList = {}
+
         if finish_cb then
             finish_cb(ret)
         end
