@@ -104,7 +104,6 @@ function UI_CrossPromotionFullPopup:update_reservation_timer(dt)
     local wait_time = g_userData:getReservationWaitTime(event_id)
 
     local seconds = g_userData:getAfterReservationSeconds(event_id)
-    -- 사전예약 바로가기
     if vars['reservationLinkBtn'] == nil then
         return
     end
@@ -113,21 +112,12 @@ function UI_CrossPromotionFullPopup:update_reservation_timer(dt)
     if g_userData:isReceivedAfterReservationReward(event_id) == true then
         vars['reservationLinkLabel']:setString(Str('받기 완료'))
     elseif seconds == 0 then
-
-        if string.find(event_id, '_install') ~= nil then
-            vars['reservationLinkLabel']:setString(Str('다운로드'))
-        else
-            vars['reservationLinkLabel']:setString(Str('사전예약하러 가기'))
-        end
-        
+        vars['reservationLinkLabel']:setString(Str('다운로드'))        
         vars['reservationRewardSprite']:setVisible(true)
+
     elseif seconds > 0 and seconds < wait_time then
-        
-        if string.find(event_id, '_install') ~= nil then
-            vars['reservationLinkLabel']:setString(Str('다운로드 확인 중'))
-        else
-            vars['reservationLinkLabel']:setString(Str('보상 확인 중..'))
-        end
+        vars['reservationLinkLabel']:setString(Str('다운로드 확인 중'))
+
     else
         vars['reservationLinkLabel']:setString(Str('보상 받기'))
         vars['reservationRewardSprite']:setVisible(true)
@@ -164,8 +154,6 @@ end
 function UI_CrossPromotionFullPopup:click_closeBtn()
     self:close()
 end
-
-
 
 -------------------------------------
 -- function request_InstallReward
