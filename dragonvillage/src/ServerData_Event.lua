@@ -41,7 +41,7 @@ end
 -- function getEventPopupTabList
 -- @brief 이벤트 탭 노출 리스트 (이벤트 버튼 클릭시)
 -------------------------------------
-function ServerData_Event:getEventPopupTabList(is_ignore_uiproirity)
+function ServerData_Event:getEventPopupTabList()
     local item_list = {}
     local event_list = self.m_eventList
 
@@ -134,7 +134,7 @@ function ServerData_Event:getEventPopupTabList(is_ignore_uiproirity)
         end
         
         -- ui_priority가 없는 것은 등록하지 않는다.
-        if (visible) and (priority == '') and (is_ignore_uiproirity ~= true) then
+        if (visible) and (priority == '') then
             visible = false
         end
 
@@ -323,11 +323,6 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
                         visible = false
                         break
                     end
-                end
-
-                -- dvc 설치 버튼 visible off
-                if event_id == 'pre_reservation_dvc_install' then
-                    visible = false
                 end
             end
 
