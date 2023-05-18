@@ -585,6 +585,18 @@ function ServerData_User:saveReservationTime(event_id)
     g_localData:applyLocalData(curr_time, 'local', str_key)
 end
 
+
+-------------------------------------
+-- function getReservationWaitTime
+-------------------------------------
+function ServerData_User:getReservationWaitTime(event_id)
+    if string.find(event_id, '_install') ~= nil then
+        return 30
+    end
+
+    return 60
+end
+
 -------------------------------------
 -- function getAfterReservationSeconds
 -------------------------------------
@@ -604,8 +616,10 @@ end
 -- function isAvailableAfterReservationReward
 -------------------------------------
 function ServerData_User:isAvailableAfterReservationReward(event_id)
+    local wait_time = self:getReservationWaitTime(event_id)
+
     if self:isReceivedAfterReservationReward(event_id) == false then
-        return self:getAfterReservationSeconds(event_id) > 60
+        return self:getAfterReservationSeconds(event_id) > wait_time
     end
 
     return false

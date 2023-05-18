@@ -41,7 +41,7 @@ end
 -- function getEventPopupTabList
 -- @brief 이벤트 탭 노출 리스트 (이벤트 버튼 클릭시)
 -------------------------------------
-function ServerData_Event:getEventPopupTabList()
+function ServerData_Event:getEventPopupTabList(is_ignore_uiproirity)
     local item_list = {}
     local event_list = self.m_eventList
 
@@ -134,7 +134,7 @@ function ServerData_Event:getEventPopupTabList()
         end
         
         -- ui_priority가 없는 것은 등록하지 않는다.
-        if (visible) and (priority == '') then
+        if (visible) and (priority == '') and (is_ignore_uiproirity ~= true) then
             visible = false
         end
 

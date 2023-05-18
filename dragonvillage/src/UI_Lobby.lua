@@ -185,11 +185,12 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        if (g_hotTimeData:isActiveEvent('event_vote')) then
+        -- hky
+--[[         if (g_hotTimeData:isActiveEvent('event_vote')) then
             co:work('# 신화 드래곤 투표권 이벤트 정보 받는 중')
             g_eventVote:requestEventVoteInfo(co.NEXT, required_fail_cb)
             if co:waitWork() then return end
-        end
+        end ]]
 
         if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then
             co:work('# 복주머니 이벤트 정보 받는 중')
@@ -865,6 +866,9 @@ function UI_Lobby:initButton()
     vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
     vars['hbrwLoungeBtn']:registerScriptTapHandler(function() self:click_hbrwLoungeBtn() end)
     vars['hbrwLoungeBtn']:registerScriptPressHandler(function() self:press_hbrwLoungeBtn() end)
+    vars['promotionBtn']:registerScriptTapHandler(function() self:click_dvcInstallBtn() end)
+
+
     vars['expBoosterBtn']:registerScriptTapHandler(function() self:click_expBoosterBtn() end)
     vars['goldBoosterBtn']:registerScriptTapHandler(function() self:click_goldBoosterBtn() end)
 
@@ -923,6 +927,7 @@ function UI_Lobby:initButton()
         vars['googleGameBtn']:setVisible(false)
         vars['googleAchievementBtn']:setVisible(false)
         vars['hbrwLoungeBtn']:setVisible(false)
+        vars['promotionBtn']:setVisible(false)
     end
 end
 
@@ -1521,11 +1526,24 @@ function UI_Lobby:update_hbrw_lounge()
     local game_lang = Translate:getGameLang()
     local is_btn_visible = (game_lang == 'ko')
     local is_noti_visible = not g_settingData:getHbrwLoungeCheckSetting()
-
-    self.vars['hbrwLoungeBtn']:setVisible(is_btn_visible)
+    self.vars['hbrwLoungeBtn']:setVisible(false)
 
     if self.m_hbrwNotiOff == false then
         self.vars['hbrwLoungeNotiSprite']:setVisible(is_noti_visible)
+    end
+end
+
+-------------------------------------
+-- function update_dvc_install
+-------------------------------------
+function UI_Lobby:update_dvc_install()
+    local game_lang = Translate:getGameLang()
+    local is_btn_visible = (game_lang == 'ko')
+    self.vars['promotionBtn']:setVisible(is_btn_visible)
+
+    if is_btn_visible == true then
+        local is_noti_visible = g_userData:isAvailablePreReservation('pre_reservation_dvc_install')
+        self.vars['promotionNotiSprite']:setVisible(is_noti_visible)
     end
 end
 
@@ -1983,6 +2001,15 @@ function UI_Lobby:click_hbrwLoungeBtn()
 end
 
 -------------------------------------
+-- function click_dvcInstallBtn
+-------------------------------------
+function UI_Lobby:click_dvcInstallBtn()
+    local vars = self.vars
+    local event_key = 'event_crosspromotion'
+    g_fullPopupManager:showFullPopup(event_key)
+end
+
+-------------------------------------
 -- function press_hbrwLoungeBtn
 -------------------------------------
 function UI_Lobby:press_hbrwLoungeBtn()
@@ -2105,6 +2132,9 @@ function UI_Lobby:update(dt)
     else
         self:update_hbrw_lounge()
     end
+
+    -- dvc 설치 유도 버튼
+    self:update_dvc_install()
 
     -- 로비 출석 D-day 표시
     -- if (g_attendanceData.m_bDirtyAttendanceInfo) then
@@ -2660,7 +2690,8 @@ function UI_Lobby:update_leftButtons()
     table.insert(t_btn_name, 'goldBoosterBtn')
     table.insert(t_btn_name, 'expBoosterBtn')
     table.insert(t_btn_name, 'googleGameBtn')
-    table.insert(t_btn_name, 'hbrwLoungeBtn')
+    table.insert(t_btn_name, 'promotionBtn')
+    --table.insert(t_btn_name, 'hbrwLoungeBtn')
     -- googleAchievementBtn은 googleGameBtn의 오른쪽에 자동으로 위치함
 
     -- visible이 켜진 버튼들 리스트
