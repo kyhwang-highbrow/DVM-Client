@@ -2006,7 +2006,9 @@ end
 function UI_Lobby:click_dvcInstallBtn()
     local vars = self.vars
     local event_key = 'event_crosspromotion'
-    g_fullPopupManager:showFullPopup(event_key)
+
+    require('UI_CrossPromotionFullPopup')
+    local ui = UI_CrossPromotionFullPopup()
 end
 
 -------------------------------------
