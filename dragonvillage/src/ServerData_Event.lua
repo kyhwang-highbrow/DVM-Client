@@ -324,6 +324,11 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
                         break
                     end
                 end
+
+                -- dvc 설치 버튼 visible off
+                if event_id == 'pre_reservation_dvc_install' then
+                    visible = false
+                end
             end
 
 

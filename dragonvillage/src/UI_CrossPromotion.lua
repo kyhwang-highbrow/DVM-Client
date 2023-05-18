@@ -183,14 +183,19 @@ function UI_CrossPromotion:update_reservation_timer(dt)
     elseif seconds == 0 then
 
         if string.find(event_id, '_install') ~= nil then
-            vars['reservationLinkLabel']:setString(Str('설치하러 가기'))
+            vars['reservationLinkLabel']:setString(Str('다운로드'))
         else
             vars['reservationLinkLabel']:setString(Str('사전예약하러 가기'))
         end
         
         vars['reservationRewardSprite']:setVisible(true)
     elseif seconds > 0 and seconds < wait_time then
-        vars['reservationLinkLabel']:setString(Str('보상 확인 중..'))
+        
+        if string.find(event_id, '_install') ~= nil then
+            vars['reservationLinkLabel']:setString(Str('다운로드 확인 중'))
+        else
+            vars['reservationLinkLabel']:setString(Str('보상 확인 중..'))
+        end
     else
         vars['reservationLinkLabel']:setString(Str('보상 받기'))
         vars['reservationRewardSprite']:setVisible(true)
