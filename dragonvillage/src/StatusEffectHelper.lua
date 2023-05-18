@@ -523,13 +523,8 @@ function StatusEffectHelper:checkRate(caster, target_char, status_effect_rate, a
     else
         rate = tonumber(status_effect_rate or 100)
     end
+    
     rate = math_max(rate, 0)
-
-    if caster:getCharType() == 'tamer' then
-        cclog('StatusEffectHelper:checkRate rate', rate)
-        cclog('StatusEffectHelper:checkRate skill_id', skill_id)        
-    end
-
     return (math_random(1, 100) > rate)
 end
 
