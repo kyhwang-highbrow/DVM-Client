@@ -111,7 +111,7 @@ function UI_CrossPromotionFullPopup:update_reservation_timer(dt)
 
     vars['reservationRewardSprite']:setVisible(false)
     if g_userData:isReceivedAfterReservationReward(event_id) == true then
-        vars['reservationLinkLabel']:setString(Str('보상 수령 완료'))
+        vars['reservationLinkLabel']:setString(Str('받기 완료'))
     elseif seconds == 0 then
 
         if string.find(event_id, '_install') ~= nil then
