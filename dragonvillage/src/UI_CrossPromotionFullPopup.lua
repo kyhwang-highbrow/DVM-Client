@@ -4,14 +4,8 @@ local PARENT = UI
 -- class UI_CrossPromotionFullPopup
 -------------------------------------
 UI_CrossPromotionFullPopup = class(PARENT,{
-        m_popupKey = 'string',
-		m_innerUI = 'UI',
         m_eventId = 'string',
         m_url = 'string',
-
-        -- @jhakim 로비 풀 팝용이 아닌 용도, 나중에 클래스 분리할 거임
-        m_targetUI = 'UI', -- 외부 UI를 이 형식에 맞추어 사용
-        m_check_cb = 'function'
     })
 
 -------------------------------------
@@ -36,15 +30,10 @@ function UI_CrossPromotionFullPopup:init()
     self:doAction(nil, false)
 end
 
-
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_CrossPromotionFullPopup:initUI()
-    local vars = self.vars
-    local linkBtn = vars['linkBtn']
-    if (linkBtn) then linkBtn:setVisible(false) end
-
     local vars = self.vars
     if vars['reservationLinkBtn'] ~= nil then 
         self:update_reservation_timer()
@@ -69,30 +58,6 @@ end
 -- function refresh
 -------------------------------------
 function UI_CrossPromotionFullPopup:refresh()
-end
-
--------------------------------------
--- function setBtnBlock
--------------------------------------
-function UI_CrossPromotionFullPopup:setBtnBlock()
-	if (not self.m_innerUI) then
-		return
-	end
-
-	local ui_vars = self.m_innerUI.vars
-	if (not ui_vars) then
-		return
-	end
-
-	local btn = ui_vars['bannerBtn']
-	if (btn) then
-		btn:setEnabled(false)
-	end
-
-	btn = ui_vars['clickBtn']
-	if (btn) then
-		btn:setEnabled(false)
-	end
 end
 
 -------------------------------------
@@ -209,21 +174,6 @@ function UI_CrossPromotionFullPopup:request_InstallReward()
     ui_network:request()
 
     return ui_network
-end
-
-
--------------------------------------
--- function changeTitleSprite
--- @brief 구글 피쳐드 선정 기념. 구글 market -> '구글 피처드 선정 기념 ~', 아니면 '피처드 선정 기념 ~'
--- @brief UI_GoogleFeaturedContentChange를 상속받아 함수의 중복을 없앤다. (쓸모 없는 코드지만 이미 작업을 완료 하였으니 피처드 끝난 이후 커밋하여 코드를 깔끔하게 한다.)
--------------------------------------
-function UI_CrossPromotionFullPopup:changeTitleSprite(ui)
-    if (ui['otherMarketSprite'] and ui['googleSprite']) then
-        local market, os = GetMarketAndOS()
-        local is_google = (market == 'google')
-        ui['googleSprite']:setVisible(is_google)
-        ui['otherMarketSprite']:setVisible(not is_google)
-    end
 end
 
 --@CHECK
