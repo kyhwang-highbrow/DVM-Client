@@ -490,6 +490,17 @@ function UI_EventPopup:click_packageTabBtn()
 end
 
 -------------------------------------
+-- function refreshTabList
+-------------------------------------
+function UI_EventPopup:refreshTabList()
+    for i,v in pairs(self.m_tableView.m_itemList) do
+        local type = v['data'].m_type
+        local ui = v['ui']
+        ui:refresh()
+    end
+end
+
+-------------------------------------
 -- function checkNotiList
 -------------------------------------
 function UI_EventPopup:checkNotiList()
