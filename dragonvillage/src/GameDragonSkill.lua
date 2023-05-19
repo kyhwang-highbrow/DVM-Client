@@ -454,8 +454,11 @@ function GameDragonSkill.st_playTamerSkill(self, dt)
 
     elseif (self:getStep() == 5) then
         if (self:isBeginningStep()) then
-            self:releaseFocusingUnit()
 
+            local active_skill_id = tamer:getSkillID('active')
+			tamer:doSkill(active_skill_id)
+
+            self:releaseFocusingUnit()
             -- 스킬 시전 주체를 제외한 게임 오브젝트 resume
             world:setTemporaryPause(false, tamer, INGAME_PAUSE__ACTIVE_SKILL)
 

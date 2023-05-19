@@ -28,12 +28,14 @@ function Tamer.st_skillIdle(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 애프터 이미지 해제
 		owner:setAfterImage(false)
-
+        
         -- 테이머 애니메이션 종료 콜백
 		owner.m_animator:addAniHandler(function()
-			local active_skill_id = owner:getSkillID('active')
-			owner:doSkill(active_skill_id)
-
+            -- 간헐적으로 테이머의 스킬이 발동하지 않는 현상 
+            -- 디바이스 성능 차이에 의한 프레임 변동으로 애니메이션 콜백이 호출되지 않을 가능성 존재한다고 추측됨
+            -- 아래 2줄을 GameDragonSkill.st_playTamerSkill 쪽으로 옮김
+            ----local active_skill_id = owner:getSkillID('active')
+			----owner:doSkill(active_skill_id)
             owner.m_animator:changeAni('i_idle', true)
 		end)
     end

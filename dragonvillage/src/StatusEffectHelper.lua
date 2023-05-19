@@ -136,13 +136,6 @@ function StatusEffectHelper:doStatusEffectByTable(char, t_skill, cb_func, t_data
         log = log .. v:getName() .. ' :: '
     end
 
---[[     if char:getCharType() == 'tamer' then
-        cclog("----------------------------------------")
-        cclog("LUA ERROR: " .. tostring(msg) .. "\n")
-        cclog(debug.traceback())
-        cclog("----------------------------------------")
-    end ]]
-
 	-- 2. 상태효과 구조체
 	local l_status_effect_struct = SkillHelper:makeStructStatusEffectList(t_skill)
 
