@@ -1,4 +1,8 @@
-return {['태초의 고대신룡, 레슬로, 바르그는 인기 투표에서 제외 됩니다.']='El antiguo dragón divino del principio,Leslo,Vargr son excluidos de la votación popular.',
+return {['[계약의 마검]이 각각 {1}% 확률로 아래의 효과를 발동합니다. [광기] 상태면 {3}% 확률로 발동합니다.\n- 적용 중인 재사용 시간을 20초 감소시킵니다.\n- 마나를 {2}개 획득합니다.\n- 자신의 공격력을 15초간 증가시킵니다.']='[Contrato de la espada mágica] tiene una probabilidad del {1}% de activar los siguientes efectos. Si estás en el estado de [Locura], la probabilidad es del {3}%.\n- Reduce el tiempo de reutilización en 20 segundos.\n- Obtienes {2} de maná.\n- Incrementa el ATQ del jugador durante 15 s.',
+['신화 드래곤 인기 투표 랭킹']='Clasificación de votación popular de Dragón mítico',
+['전투 시작 시 [계약의 마검] 스킬의 재사용 시간을 1초 남기고 초기화 시키며 {@yellow}[광기]{@SKILL_DESC} 효과를 {1}초간 획득합니다. \n{@yellow}[광기]{@SKILL_DESC} : 공격력이 {2}% 증가하며, 모든 해로운 효과에 걸리지 않습니다. 이미 걸린 해로운 효과는 해제되지 않습니다.']='Al comenzar la batalla, el tiempo de reutilización de la habilidad [Contrato de la espada mágica] se reinicia dejando 1 segundo restante y se obtiene el efecto {@yellow}[Locura]{@SKILL_DESC} durante {1} segundo. {@yellow}[Locura]{@SKILL_DESC} : Aumenta el poder de ataque en un {2}%, y no se afecta por ningún efecto perjudicial. Los efectos perjudiciales que ya estén activos no se desactivarán.',
+['투표권 1개']='Recompensas al voto X1',
+['투표권 1개 자동 충전']='Recompensas al voto de Recarga Automática X1',
 ['{1}\n확정 획득까지 {@yellow}{2}{@default}회']='{1} Hasta la adquisición de la confirmación de {@yellow}{2}{@default}',
 ['16스테이지 클리어']='Estado de 16 Completado',
 ['17스테이지 클리어']='Estado de 17 Completado',
@@ -108,7 +112,6 @@ return {['태초의 고대신룡, 레슬로, 바르그는 인기 투표에서 �
 ['비늘이 자라기 시작한 모양이다. 좀 더 강해질 수 있겠어.']='Parece que el bambú está comenzando a crecer. Podría volverse más fuerte.',
 ['선택한 드래곤에게 투표하시겠습니까?']='¿Votaría por el dragón que ha elegido?',
 ['시시한 죽음인 모양이군.']='Parece una muerte insignificante.',
-['신화 드래곤 인기 투표 랭킹']='Clasificación de votación popular de Dragón mítico',
 ['신화 드래곤 인기 투표 보상']='Dragón mítico Recompensa por votación popular',
 ['신화 드래곤 인기 투표 순위 1~5위 드래곤은 추후 확률 업 이벤트에서 만나볼 수 있습니다.']='Clasificación de los Dragones Míticos populares votados del 1 al 5. Podrás conocer a estos dragones en un evento de probabilidad futura.',
 ['싸움을 좋아하면 같이 있을 이유는 충분해.']='Si te gusta pelear, hay suficiente motivo para estar juntos. ',
@@ -149,4 +152,5 @@ return {['태초의 고대신룡, 레슬로, 바르그는 인기 투표에서 �
 ['피의 칼날']='El filo de la sangre',
 ['한번에 최대 5마리까지 투표 가능합니다.']='Se pueden votar hasta un máximo de 5 mascotas a la vez.',
 ['획득한 투표 보상']='recompensa de votación obtenida',
-['신화 드래곤 인기 투표']='votación popular de Dragón mítico'}
+['신화 드래곤 인기 투표']='votación popular de Dragón mítico',
+['태초의 고대신룡, 레슬로, 바르그는 인기 투표에서 제외 됩니다.']='El antiguo dragón divino del principio,Leslo,Vargr son excluidos de la votación popular.'}
