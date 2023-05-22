@@ -216,8 +216,6 @@ end
 --------------------------------------------------------------------------
 function ServerData_ClanRaidLightPackage:isPackageActive(product_id)
     --if (not self.m_packageInfo[tostring(product_id)]) then return false end
-    
-    cclog(self.m_packageInfo[tostring(product_id)]['active'])
 
     return self.m_packageInfo[tostring(product_id)]['active']
 end
