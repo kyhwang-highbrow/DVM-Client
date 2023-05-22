@@ -179,13 +179,14 @@ end
 -------------------------------------
 function UI_EventVoteChoice:select_vote(did)
     local vote_count = g_userData:get('event_vote_ticket')
-    if #self.m_selectDidList + 1 > vote_count then
-        UIManager:toastNotificationRed(Str('투표권이 부족합니다.'))
-        return false
-    end
 
     if #self.m_selectDidList + 1 > 5 then
         UIManager:toastNotificationRed(Str('한번에 최대 5마리까지 투표 가능합니다.'))
+        return false
+    end
+
+    if #self.m_selectDidList + 1 > vote_count then
+        UIManager:toastNotificationRed(Str('투표권이 부족합니다.'))
         return false
     end
 
