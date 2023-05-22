@@ -1008,9 +1008,12 @@ function ServerData_Event:openEventPopup(tab, close_cb)
         local ui
         if (tab) then
             local noti = false -- 탭 타겟을 정한 경우 이벤트 노티 체크하는 부분이랑 꼬임, 노티 꺼줌
-
             ui = UI_EventPopup(noti)
-            ui:setTab(tab, true)
+            if ui:existTab(tab) == true then
+                ui:setTab(tab, true)
+            else
+                UIManager:toastNotificationRed(Str('이벤트가 종료되었습니다.'))
+            end
         else
             local noti = true
             ui = UI_EventPopup(noti)

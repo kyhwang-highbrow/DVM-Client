@@ -2004,7 +2004,6 @@ end
 -------------------------------------
 function UI_Lobby:click_dvcInstallBtn()
     local vars = self.vars
-    local event_key = 'event_crosspromotion'
 
     require('UI_CrossPromotionFullPopup')
     local ui = UI_CrossPromotionFullPopup()

@@ -147,6 +147,10 @@ end
 function ITabUI:deactivate(tab)
     local t_tab_data = self.m_mTabData[tab]
 
+    if t_tab_data == nil then
+        return
+    end
+
     local button = t_tab_data['button']
     button:setEnabled(true)
 
