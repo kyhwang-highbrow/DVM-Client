@@ -842,9 +842,14 @@ end
 -- @brief UID 설정
 -------------------------------------
 function UI_Setting:click_setUidBtn()
+    if isWin32() == false then
+        UIManager:toastNotificationRed('PC 에뮬에서만 동작합니다.')
+        return 
+    end
+
     local edit_box = UI_SimpleEditBoxPopup()
     edit_box:setPopupTitle(Str(''))
-    edit_box:setPopupDsc(Str('UID 설정'))
+    edit_box:setPopupDsc(Str('UID 설정(PC 에뮬용)'))
     edit_box:setPlaceHolder(Str('UID를 입력하세요.'))
     edit_box:setMaxLength(50)
 
