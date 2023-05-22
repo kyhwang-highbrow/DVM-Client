@@ -1,8 +1,4 @@
-return {['[계약의 마검]이 각각 {1}% 확률로 아래의 효과를 발동합니다. [광기] 상태면 {3}% 확률로 발동합니다.\n- 적용 중인 재사용 시간을 20초 감소시킵니다.\n- 마나를 {2}개 획득합니다.\n- 자신의 공격력을 15초간 증가시킵니다.']='[Curse of the Contract] has a {1}% chance to activate the following effects respectively. If in [Madness] state, it has a {3}% chance of activation. \n- Reduces the remaining cooldown time by 20 seconds.\n- Acquires {2} mana.\n- Increase your ATK for 15 sec',
-['신화 드래곤 인기 투표 랭킹']='Mythic Dragon Popularity Vote Ranking',
-['전투 시작 시 [계약의 마검] 스킬의 재사용 시간을 1초 남기고 초기화 시키며 {@yellow}[광기]{@SKILL_DESC} 효과를 {1}초간 획득합니다. \n{@yellow}[광기]{@SKILL_DESC} : 공격력이 {2}% 증가하며, 모든 해로운 효과에 걸리지 않습니다. 이미 걸린 해로운 효과는 해제되지 않습니다.']='At the start of the battle, the [Curse of the Contract] skill\'s cooldown is reset leaving 1 second and grants the [Madness] effect for {1} second. {@yellow}[Madness]{@SKILL_DESC}: Increases attack power by {2}%, and immune to all harmful effects. This effect does not remove any existing harmful effects.',
-['투표권 1개']='1 voting right',
-['투표권 1개 자동 충전']='Auto-replenish 1 voting right',
+return {['신화 드래곤 인기 투표 랭킹']='Mythic Dragon Popularity Vote Ranking',
 ['16스테이지 클리어']='Clear Stage 16',
 ['17스테이지 클리어']='Clear Stage 17',
 ['18스테이지 클리어']='Clear Stage 18',
@@ -151,4 +147,8 @@ return {['[계약의 마검]이 각각 {1}% 확률로 아래의 효과를 발동
 ['한번에 최대 5마리까지 투표 가능합니다.']='You can vote for up to a maximum of 5 candidates at once.',
 ['획득한 투표 보상']='Acquired voting reward',
 ['신화 드래곤 인기 투표']='Mythic Dragon Popularity Vote',
-['태초의 고대신룡, 레슬로, 바르그는 인기 투표에서 제외 됩니다.']='Origin God Dragon, Leslo, Vargr will be excluded from the popular vote.'}
+['태초의 고대신룡, 레슬로, 바르그는 인기 투표에서 제외 됩니다.']='Origin God Dragon, Leslo, Vargr will be excluded from the popular vote.',
+['[계약의 마검]이 각각 {1}% 확률로 아래의 효과를 발동합니다. [광기] 상태면 {3}% 확률로 발동합니다.\n- 적용 중인 재사용 시간을 20초 감소시킵니다.\n- 마나를 {2}개 획득합니다.\n- 자신의 공격력을 15초간 증가시킵니다.']='[Curse of the Contract] has a {1}% chance to activate the following effects respectively. If in [Madness] state, it has a {3}% chance of activation. \n- Reduces the remaining cooldown time by 20 seconds.\n- Acquires {2} mana.\n- Increase your ATK for 15 sec',
+['전투 시작 시 [계약의 마검] 스킬의 재사용 시간을 1초 남기고 초기화 시키며 {@yellow}[광기]{@SKILL_DESC} 효과를 {1}초간 획득합니다. \n{@yellow}[광기]{@SKILL_DESC} : 공격력이 {2}% 증가하며, 모든 해로운 효과에 걸리지 않습니다. 이미 걸린 해로운 효과는 해제되지 않습니다.']='At the start of the battle, the [Curse of the Contract] skill\'s cooldown is reset leaving 1 second and grants the [Madness] effect for {1} second. {@yellow}[Madness]{@SKILL_DESC}: Increases attack power by {2}%, and immune to all harmful effects. This effect does not remove any existing harmful effects.',
+['투표권 1개']='1 voting right',
+['투표권 1개 자동 충전']='Auto-replenish 1 voting right'}
