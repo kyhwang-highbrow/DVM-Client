@@ -447,13 +447,8 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
 
         local size = node:getContentSize()
 
-        local text = data.text
-        if data.lua_name == '' then
-            text = Str(data.text)
-        end
-
         -- label의 속성들
-        rich_label:setString(text)
+        rich_label:setString(Str(data.text))
         rich_label:setFontSize(data.font_size)
         rich_label:setDimension(size['width'], size['height'])
         rich_label:setAlignment(data.h_alignment, data.v_alignment)
