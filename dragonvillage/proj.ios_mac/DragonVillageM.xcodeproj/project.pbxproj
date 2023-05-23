@@ -1655,7 +1655,7 @@
 					"$(SDKROOT)/usr/lib/swift",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1722,7 +1722,7 @@
 					"$(SDKROOT)/usr/lib/swift",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
