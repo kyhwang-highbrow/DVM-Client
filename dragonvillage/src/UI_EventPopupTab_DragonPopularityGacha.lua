@@ -33,11 +33,6 @@ function UI_EventPopupTab_DragonPopularityGacha:init(is_fullpopup, is_not_show_g
         self:initButton()
         self:refresh()
     end
-
-    local vars = self.vars
-    if is_not_show_go_stage == true then
-        vars['story_dungeonBtn']:setVisible(false)
-    end
 end
 
 -------------------------------------
