@@ -150,8 +150,9 @@ function UI_EventVoteChoice:refresh()
             local did = self.m_selectDidList[i]
             local ui = self.m_selectDragonUIList[i]
             if ui:getDragonDid() ~= did then
+                local old_did = ui:getDragonDid()
                 ui:setDragonDid(did)
-                ui:refresh()
+                ui:refresh(old_did == 0)
             end
         end
     end

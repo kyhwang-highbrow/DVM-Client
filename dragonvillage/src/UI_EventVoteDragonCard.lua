@@ -63,7 +63,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_EventVoteDragonCard:refresh()
+function UI_EventVoteDragonCard:refresh(is_appear_animation)
 	local vars = self.vars
     local did = self.m_structDragon.did
     local is_selected = self.m_structDragon.did ~= 0
@@ -77,6 +77,14 @@ function UI_EventVoteDragonCard:refresh()
 
     do -- 스파인
         self.m_dragonAnimator:setDragonAnimator(did, 3)
+        if is_appear_animation == true then
+            local animator = self.m_dragonAnimator
+            animator:setPositionY(-100)
+
+            local action = cc.EaseExponentialOut:create(cc.MoveTo:create(0.5, cc.p(0, 0)))
+            animator:stopAllActions()
+            animator:runAction(action)
+        end
     end
 	
     do -- 드래곤 이름
