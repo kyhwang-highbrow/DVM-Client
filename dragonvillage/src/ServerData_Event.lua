@@ -759,6 +759,10 @@ function ServerData_Event:setEventTabNoti(event_tab)
     elseif (event_type == 'event_vote') then
         event_tab.m_hasNoti = g_eventVote:isAvailableEventVote()
 
+    -- 신화 드래곤 인기 투표 가챠
+--[[     elseif (event_type == 'event_popularity') then
+        event_tab.m_hasNoti = g_eventPopularityGacha:isAvailableEventGacha() ]]
+
     -- 누적 결제 이벤트
     elseif (string.find(event_type, 'purchase_point_')) then
         event_tab.m_hasNoti = g_purchasePointData:hasAvailableReward(event_tab:getVersion())
@@ -814,6 +818,10 @@ function ServerData_Event:hasAvailableReward(event_tab)
     -- 신화 드래곤 투표 이벤트
     elseif (event_type == 'event_vote') then
         has_available_reward = g_eventVote:isAvailableEventVote()
+
+    -- 신화 드래곤 투표 가챠
+--[[     elseif (event_type == 'event_popularity') then
+        has_available_reward = g_eventPopularityGacha:isAvailableEventGacha() ]]
 
     -- 누적 결제 이벤트
     elseif (string.find(event_type, 'purchase_point_')) then
@@ -984,7 +992,13 @@ function ServerData_Event:openEventPopup(tab, close_cb)
 
         if (g_hotTimeData:isActiveEvent('event_vote')) then
             co:work('# 신화 드래곤 투표 정보 받는 중')
-            g_eventVote:requestEventVoteInfo(co.NEXT, co.ESCAPE)
+            g_eventVote:request_event_vote_Info(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
+        if (g_hotTimeData:isActiveEvent('event_popularity')) then
+            co:work('# 신화 드래곤 인기 투표 가챠 정보 받는 중')
+            g_eventPopularityGacha:request_popularity_gacha_info(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 

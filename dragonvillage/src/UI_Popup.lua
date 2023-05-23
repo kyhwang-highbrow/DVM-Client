@@ -180,6 +180,9 @@ function ConfirmPrice(price_type, price_value)
     elseif (price_type == 'ticket_story_dungeon') then
         amount = g_userData:get('ticket_story_dungeon')
 
+    elseif (price_type == 'event_popularity_ticket') then
+        amount = g_userData:get('event_popularity_ticket')
+
     else
         
         return true

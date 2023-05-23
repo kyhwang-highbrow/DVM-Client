@@ -354,6 +354,9 @@ function ServerData:getInstance()
     -- 신화 드래곤 투표 이벤트
     g_eventVote = ServerData_EventVote(g_serverData)
 
+    -- 신화 드래곤 인기 투표 가챠
+    g_eventPopularityGacha = ServerData_EventPopularityGacha(g_serverData)
+
     return g_serverData
 end
 
@@ -693,6 +696,16 @@ function ServerData:networkCommonRespone(ret)
         if ret['event_vote_ticket'] then
             self:applyServerData(ret['event_vote_ticket'], 'user', 'event_vote_ticket')
         end
+
+        -- 신화 드래곤 인기 소환권
+        if ret['event_popularity_ticket'] then
+            self:applyServerData(ret['event_popularity_ticket'], 'user', 'event_popularity_ticket')
+        end
+
+        -- 신화 드래곤 인기 소환 마일리지
+        if ret['event_popularity_mileage'] then
+            self:applyServerData(ret['event_popularity_mileage'], 'user', 'event_popularity_mileage')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -897,6 +910,11 @@ function ServerData:networkCommonRespone_addedItems(ret)
     -- 신화 드래곤 투표권
     RefreshGoods(t_added_items, 'event_vote_ticket')
 
+    -- 신화 드래곤 인기 투표 소환권
+    RefreshGoods(t_added_items, 'event_popularity_ticket')
+    
+    -- 신화 드래곤 인기 투표 마일리지
+    RefreshGoods(t_added_items, 'event_popularity_mileage')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then

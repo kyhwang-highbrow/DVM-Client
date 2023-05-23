@@ -278,6 +278,7 @@ local t_module = {
     'ServerData_ClanRaidDarkPackage',
     'ServerData_StoryDungeonEvent',
     'ServerData_EventVote',
+    'ServerData_EventPopularityGacha',
 
     -- Interface
     'IEventDispatcher',
@@ -1600,6 +1601,9 @@ local t_module = {
     'UI_EventVoteRanking',
     'UI_EventVoteRankingItem',
     'UI_EventVoteDragonCard',
+
+    -- 신화 드래곤 인기 가챠
+    'UI_EventPopupTab_DragonPopularityGacha',
 
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',

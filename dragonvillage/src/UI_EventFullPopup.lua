@@ -258,6 +258,14 @@ function UI_EventFullPopup:initUI()
             self:close()
         end
 
+     -- 신화 드래곤 투표 가챠 이벤트
+	elseif (popup_key == 'event_popularity') then
+        if g_hotTimeData:isActiveEvent('event_popularity') then
+            ui = UI_EventPopupTab_DragonPopularityGacha(nil, true)
+        else
+            self:close()
+        end
+
     -- 누적 결제 보상 이벤트
     elseif pl.stringx.startswith(popup_key, 'purchase_point') then
 		local l_str = plSplit(popup_key, ';')

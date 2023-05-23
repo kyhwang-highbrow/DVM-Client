@@ -129,10 +129,10 @@ function ServerData_EventVote:applyDragonVoteResponse(t_ret)
 end
 
 -------------------------------------
--- function requestEventVoteInfo
+-- function request_event_vote_Info
 -- @brief 이벤트 정보
 -------------------------------------
-function ServerData_EventVote:requestEventVoteInfo(cb_func, fail_cb)
+function ServerData_EventVote:request_event_vote_Info(cb_func, fail_cb)
     local uid = g_userData:get('uid')
 
     -- 성공 시 콜백

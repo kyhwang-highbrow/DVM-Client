@@ -239,9 +239,12 @@ function UI_GachaResult_Dragon:initEverything()
                 price_icon = IconHelper:getIcon('res/ui/icons/item/summon_dragon_ticket.png')
             elseif(is_cash == 'ticket_story_dungeon') then
                 price_icon = IconHelper:getItemIcon(is_cash)
-            else
+            elseif(is_cash == 'fp') then 
                 price_icon = IconHelper:getIcon('res/ui/icons/item/fp.png')
+            else
+                price_icon = IconHelper:getItemIcon(is_cash)
             end
+            
             price_icon:setScale(0.5)
             vars['priceIconNode']:removeAllChildren()
             vars['priceIconNode']:addChild(price_icon)
@@ -295,6 +298,8 @@ function UI_GachaResult_Dragon:initEverything()
         if self.m_type == 'ticket_story_dungeon' then
             left_ceiling_num = g_eventDragonStoryDungeon:getStoryDungeonSeasonGachaCeilCount()
             target_dragon_name = TableDragon:getChanceUpDragonName(self.m_pickupID)
+        elseif self.m_type == 'event_popularity_ticket' then
+            left_ceiling_num = nil
         end
 
         if (not left_ceiling_num) then
@@ -734,6 +739,15 @@ function UI_GachaResult_Dragon:refresh_wealth()
         local fp = g_userData:get('fp')
         vars['fpLabel']:setString(comma_value(fp))
 
+    else
+        cash = g_userData:get(self.m_type)
+        vars['diaLabel']:setString(comma_value(cash))
+
+        -- 아이콘
+        local dia_icon = IconHelper:getItemIcon(self.m_type)
+        dia_icon:setScale(0.5)
+        vars['diaIconNode']:removeAllChildren()
+        vars['diaIconNode']:addChild(dia_icon)
     end
 end
 

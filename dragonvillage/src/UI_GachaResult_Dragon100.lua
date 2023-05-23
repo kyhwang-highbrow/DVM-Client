@@ -154,9 +154,6 @@ function UI_GachaResult_Dragon100:initUI()
     local is_ceiling_info_exist = g_hatcheryData:checkCeilingInfoExist()
 
     if vars['ceilingNotiMenu'] and vars['ceilingNotiLabel'] and self.m_originCeilingNotiLabel then
-        -- if (not self.m_pickupID) then
-        --     vars['ceilingNotiMenu']:setVisible(false)
-        -- else
             local struct_pickup = g_hatcheryData:getPickupStructByPickupID(self.m_pickupID)
             local did = struct_pickup and struct_pickup:getTargetDragonID() or nil
             local left_ceiling_num = g_hatcheryData:getLeftCeilingNum(self.m_pickupID)
@@ -165,6 +162,8 @@ function UI_GachaResult_Dragon100:initUI()
             if self.m_type == 'ticket_story_dungeon' then
                 left_ceiling_num = g_eventDragonStoryDungeon:getStoryDungeonSeasonGachaCeilCount()
                 target_dragon_name = TableDragon:getChanceUpDragonName(self.m_pickupID)
+            elseif self.m_type == 'event_popularity_ticket' then
+                left_ceiling_num = nil
             end
 
             if (not left_ceiling_num) or (not is_ceiling_info_exist) then
