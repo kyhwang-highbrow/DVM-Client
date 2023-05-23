@@ -323,12 +323,6 @@ function UI_PaymentShop:onChangeTab(tab, first)
         end
     end
     
-    --[[
-    local item = self.m_tableView:getItem(tab)
-    if item and item['data'] then
-        item['data'].m_hasNoti = false
-    end
-    --]]
 end
 
 -------------------------------------

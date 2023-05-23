@@ -497,9 +497,8 @@ end
 -------------------------------------
 function UI_EventPopup:refreshTabList()
     for i,v in pairs(self.m_tableView.m_itemList) do
-        local type = v['data'].m_type
         local ui = v['ui']
-        ui:refresh()
+        ui:refreshNoti()
     end
 end
 

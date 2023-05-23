@@ -56,3 +56,15 @@ function UI_EventPopupTabButton:refresh()
         vars['notiSprite']:setVisible(self.m_structEventPopupTab.m_hasNoti)
     end
 end
+
+-------------------------------------
+-- function refreshNoti
+-------------------------------------
+function UI_EventPopupTabButton:refreshNoti()
+    local vars = self.vars
+    local is_noti_on = self.m_structEventPopupTab:isNotiVisible()
+
+    if vars['notiSprite'] then
+        vars['notiSprite']:setVisible(is_noti_on)
+    end
+end
