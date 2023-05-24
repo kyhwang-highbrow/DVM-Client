@@ -741,13 +741,13 @@ function UI_GachaResult_Dragon:refresh_wealth()
 
     else
         cash = g_userData:get(self.m_type)
-        vars['diaLabel']:setString(comma_value(cash))
-
-        -- 아이콘
-        local dia_icon = IconHelper:getItemIcon(self.m_type)
-        dia_icon:setScale(0.5)
-        vars['diaIconNode']:removeAllChildren()
-        vars['diaIconNode']:addChild(dia_icon)
+        if cash ~= nil then
+            vars['diaLabel']:setString(comma_value(cash))
+            local dia_icon = IconHelper:getItemIcon(self.m_type) -- 아이콘
+            dia_icon:setScale(0.5)
+            vars['diaIconNode']:removeAllChildren()
+            vars['diaIconNode']:addChild(dia_icon)
+        end
     end
 end
 
