@@ -62,7 +62,7 @@ function UI_DragonBoardListItem:initUI()
 	vars['timeLabel']:setString(review_time)
 	
 	-- 내용
-	local review = t_data['review']
+	local review = ConvertBanWordOverlay(t_data['review'])
 	self:setContentWithAdjHeight(review)
 
 	-- 내가 쓴 리뷰 처리

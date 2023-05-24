@@ -125,12 +125,23 @@ end
 -- function click_writeBtn
 -------------------------------------
 function UI_DragonBoardPopup_Write:click_writeBtn()
-	local did = self.m_did
 	local context = self.vars['editBox']:getText()
-	local function cb_func()
-		self:close()
+
+	local proceed_func = function ()
+		local did = self.m_did
+
+		local function cb_func()
+			self:close()
+		end
+
+		g_boardData:request_writeBoard(did, context, cb_func)
 	end
-	g_boardData:request_writeBoard(did, context, cb_func)
+
+	local function cancel_func()
+		self.vars['editBox']:setText('')
+	end
+
+	CheckBlockStr(context, proceed_func, cancel_func)
 end
 
 --@CHECK
