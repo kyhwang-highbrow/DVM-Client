@@ -66,6 +66,12 @@ end
 function ServerData_Shop:insertProduct(struct_product)
     local tab_category = struct_product:getTabCategory()
 
+    -- kyhwang 2023.05.24
+    -- table_shop_list에 새로운 탭을 추가할 때마다 코드 작업을 해줘야하기 때문에 번거로움
+    -- 그래서 정의된 탭이 없더라도 암묵적으로 새로운 탭을 정의해서 처리
+    -- 애초에 명시적인 탭이름으로 상점에 접근하기 때문에 이슈도 없을 것으로 판단됨.
+    -- 혹시 모르니 예전에 정의해뒀던 탭 리스트들은 유지
+
     if (not self.m_dicProduct[tab_category]) then
         self.m_dicProduct[tab_category] = {}
         cclog('지정되어있지 않은 상점 tab :' .. tab_category)
