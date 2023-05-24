@@ -338,32 +338,7 @@ end
 -------------------------------------
 function ServerData_Shop:getBuyCount(product_id)
     local product_id = tostring(product_id)
-
-    -- 23.05.03 khynwang
-    -- 바이델 패키지가 monthly로 되어 있어서 월이 초기화되고 2번 구매되는 문제 발생, 이를 해결하기 위해
-    -- 바이델 패키지를 하나 더 파는데 거기에 따른 상품 판매 갯수에 의한 노출 처리를 위한 하드코딩
-    -- 바이델 패키지 판매 종류 후 해당 코드 삭제 예정
-
-    local buy_cnt
-
-    if product_id == '122428' then
-        buy_cnt = self.m_dicBuyCnt['122425'] or 0
-        if buy_cnt >= 2 then
-            return 1
-        end
-    elseif product_id == '122429' then
-        buy_cnt = self.m_dicBuyCnt['122426'] or 0
-        if buy_cnt >= 2 then
-            return 1
-        end
-    elseif product_id == '122430' then
-        buy_cnt = self.m_dicBuyCnt['122427'] or 0
-        if buy_cnt >= 2 then
-            return 1
-        end
-    end
-
-    buy_cnt = self.m_dicBuyCnt[product_id] or 0
+    local buy_cnt = self.m_dicBuyCnt[product_id] or 0
     return buy_cnt
 end
 
