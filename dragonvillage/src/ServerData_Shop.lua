@@ -85,8 +85,11 @@ end
 -- function getProductList
 -------------------------------------
 function ServerData_Shop:getProductList(tab_category)
+    if (not self.m_dicProduct[tab_category]) then
+        return {}
+    end
+
     local l_product = self.m_dicProduct[tab_category]
-    
     return self:getProductList_(l_product)
 end
 
