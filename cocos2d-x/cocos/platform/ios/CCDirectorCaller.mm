@@ -32,7 +32,7 @@
 #import "CCDirector.h"
 #import "CCGLView.h"
 #import "CCEAGLView.h"
-
+    
 static id s_sharedDirectorCaller;
 
 @interface NSObject(CADisplayLink)
@@ -48,9 +48,8 @@ static id s_sharedDirectorCaller;
 
 +(id) sharedDirectorCaller
 {
-    if (s_sharedDirectorCaller == nil)
-    {
-        s_sharedDirectorCaller = [CCDirectorCaller new];
+    if (s_sharedDirectorCaller == nil){
+        s_sharedDirectorCaller = [[CCDirectorCaller alloc] init];
     }
     
     return s_sharedDirectorCaller;
@@ -58,38 +57,48 @@ static id s_sharedDirectorCaller;
 
 +(void) destroy
 {
+    [s_sharedDirectorCaller stopMainLoop];
     [s_sharedDirectorCaller release];
     s_sharedDirectorCaller = nil;
 }
 
--(void) alloc
+-(id) init
 {
+    if (self = [super init]){
         interval = 1;
+    }
+    
+    return self;
 }
+
 
 -(void) dealloc
 {
-    [displayLink release];
+    //[displayLink release];
     [super dealloc];
 }
 
 -(void) startMainLoop
 {
         // Director::setAnimationInterval() is called, we should invalidate it first
-        [displayLink invalidate];
-        displayLink = nil;
-        
+        [self stopMainLoop];
         displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(doCaller:)];
         [displayLink setFrameInterval: self.interval];
         [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
+-(void) stopMainLoop
+{
+    if (displayLink != nil) {
+        [displayLink invalidate];
+        displayLink = nil;
+    }
+}
+
 -(void) setAnimationInterval:(double)intervalNew
 {
         // Director::setAnimationInterval() is called, we should invalidate it first
-        [displayLink invalidate];
-        displayLink = nil;
-        
+        [self stopMainLoop];
         self.interval = 60.0 * intervalNew;
         
         displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(doCaller:)];
@@ -100,7 +109,7 @@ static id s_sharedDirectorCaller;
 -(void) doCaller: (id) sender
 {
     cocos2d::Director* director = cocos2d::Director::getInstance();
-    [EAGLContext setCurrentContext: [(CCEAGLView*)director->getOpenGLView()->getEAGLView() context]];
+    //[EAGLContext setCurrentContext: [(CCEAGLView*)director->getOpenGLView()->getEAGLView() context]];
     director->mainLoop();
 }
 
