@@ -67,7 +67,9 @@ function ServerData_Shop:insertProduct(struct_product)
     local tab_category = struct_product:getTabCategory()
 
     if (not self.m_dicProduct[tab_category]) then
-        error('지정되어있지 않은 상점 tab : ' .. tab_category)
+        self.m_dicProduct[tab_category] = {}
+        cclog('지정되어있지 않은 상점 tab :' .. tab_category)
+        --error('지정되어있지 않은 상점 tab : ' .. tab_category)
     end
 
     table.insert(self.m_dicProduct[tab_category], struct_product)
