@@ -155,8 +155,7 @@ function UI_EventPopupTab_DragonPopularityGacha:initButton()
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
-
-    
+    vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end)    
 end
 
 -------------------------------------
@@ -202,7 +201,7 @@ function UI_EventPopupTab_DragonPopularityGacha:refresh()
         gauge_node:setPercentage(percent)
 
         -- 게이지 수치
-        vars['mileageLabel']:setStringArg(curr_count, need_count)
+        vars['mileageLabel']:setStringArg(comma_value(curr_count), comma_value(need_count))
     end
 
     do -- 이름
@@ -272,6 +271,14 @@ function UI_EventPopupTab_DragonPopularityGacha:click_rewardBtn()
     end
 
     struct_product:buy(cb_func)
+end
+
+-------------------------------------
+-- function click_rankingBtn
+-- @brief 랭킹 버튼
+-------------------------------------
+function UI_EventPopupTab_DragonPopularityGacha:click_rankingBtn()
+    UI_EventVoteRankingResult.open()
 end
 
 -------------------------------------

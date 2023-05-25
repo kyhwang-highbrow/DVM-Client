@@ -2,12 +2,14 @@
 -- class ServerData_EventPopularityGacha
 -------------------------------------
 ServerData_EventPopularityGacha = class({
+    m_rankMap = 'Map<string, table>',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_EventPopularityGacha:init(server_data)
+    self.m_rankMap = {}
 end
 
 -------------------------------------
@@ -30,6 +32,25 @@ function ServerData_EventPopularityGacha:isAvailableEventGacha()
     return false
 end
 
+-------------------------------------
+-- function getRankList
+-------------------------------------
+function ServerData_EventPopularityGacha:getRankList(server_code)
+    local rank_list = self.m_rankMap[server_code]
+    if rank_list == nil then
+        return {}
+    end
+    return rank_list
+end
+
+-------------------------------------
+-- function applyPopularityGachaRankMap
+-------------------------------------
+function ServerData_EventPopularityGacha:applyPopularityGachaRankMap(ret)
+    if ret['rank_list'] ~= nil then
+        self.m_rankMap = clone(ret['rank_list'])
+    end
+end
 
 -------------------------------------
 -- function makeAddedDragonTable
@@ -48,6 +69,9 @@ function ServerData_EventPopularityGacha:request_popularity_gacha_info(cb_func, 
 
     -- 성공 시 콜백
     local function success_cb(ret)
+        -- 랭킹 입력
+        self:applyPopularityGachaRankMap(ret)
+
         g_serverData:networkCommonRespone(ret)
 
         if cb_func ~= nil then

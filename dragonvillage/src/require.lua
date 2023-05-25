@@ -1601,6 +1601,7 @@ local t_module = {
     'UI_EventVoteRanking',
     'UI_EventVoteRankingItem',
     'UI_EventVoteDragonCard',
+    'UI_EventVoteRankingResult', -- 투표 월드 랭킹 결과
 
     -- 신화 드래곤 인기 가챠
     'UI_EventPopupTab_DragonPopularityGacha',
