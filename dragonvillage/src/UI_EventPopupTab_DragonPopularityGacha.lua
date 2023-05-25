@@ -155,6 +155,8 @@ function UI_EventPopupTab_DragonPopularityGacha:initButton()
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+    vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
+
     vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end)    
 end
 
@@ -252,6 +254,25 @@ end
 function UI_EventPopupTab_DragonPopularityGacha:click_dragonBtn()
     --local did =  
     --UI_BookDetailPopup.openWithFrame(did, 6, 3, 1, true)
+end
+
+-------------------------------------
+-- function click_rewardInfoBtn
+-- @brief 선택권 리스트
+-------------------------------------
+function UI_EventPopupTab_DragonPopularityGacha:click_rewardInfoBtn()
+    local struct_product = self:getMileageProduct()
+    if struct_product == nil then
+        return
+    end
+
+    local item_list = struct_product:getItemList()
+    if item_list[1] == nil then
+        return
+    end
+
+    local item_id = item_list[1].item_id
+    UI_PickDragon(nil, item_id, nil, true)
 end
 
 -------------------------------------
