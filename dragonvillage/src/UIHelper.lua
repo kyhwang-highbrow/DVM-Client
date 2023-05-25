@@ -246,7 +246,30 @@ function UIHelper:checkPrice(price_type, price, price_type_id)
             return false
         end
     else
-        error('price_type : ' .. price_type)
+
+        local own_item_number = g_userData:get(price_type)
+        local item_name = TableItem:getItemNameFromItemType(price_type)
+        if own_item_number ~= nil then
+            if (own_item_number < price) then
+                local msg = Str('{1}이(가) 부족합니다.', Str(item_name))
+                local popup_type = POPUP_TYPE.OK
+                local ok_cb
+
+                if (price_type == 'cash') then
+                    msg = msg .. Str('\n상점으로 이동하시겠습니까??')
+                    popup_type = POPUP_TYPE.YES_NO
+
+                    ok_cb = function() UINavigatorDefinition:goTo('package_shop', 'diamond_shop') end
+                end
+
+                if(own_item_number < price) then
+                    MakeSimplePopup(popup_type, Str(msg), ok_cb)
+                    return false
+                end
+            end
+        else
+            error('price_type : ' .. price_type)
+        end
     end
 
 	return true

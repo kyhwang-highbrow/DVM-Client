@@ -52,19 +52,42 @@ end
 -- function update
 ----------------------------------------------------------------------
 function UI_LobbyBanner:update()
+    self:updateTime()
+    self:updateNoti()
+end
+
+----------------------------------------------------------------------
+-- function updateTime
+----------------------------------------------------------------------
+function UI_LobbyBanner:updateTime()
     local vars = self.vars
+    if vars['timeLabel'] == nil then
+        return
+    end
 
     local event_type = self.m_eventData['event_type']
-    local event_id = self.m_eventData['event_id']
+    --local event_id = self.m_eventData['event_id']
 
     if event_type == 'event_popularity' then
         vars['timeLabel']:setString(g_eventPopularityGacha:getStatusText())
+    end
+end
 
-    elseif event_type == 'event_crosspromotion' then
-        if vars['notiSprite'] ~= nil then
-            local is_available = g_userData:isAvailablePreReservation(event_id)
-            vars['notiSprite']:setVisible(is_available)
-        end
+----------------------------------------------------------------------
+-- function updateNoti
+----------------------------------------------------------------------
+function UI_LobbyBanner:updateNoti()
+    local vars = self.vars
+    if vars['notiSprite'] == nil then
+        return
+    end
+    
+    local event_type = self.m_eventData['event_type']
+    local event_id = self.m_eventData['event_id']
+
+    if event_type == 'event_crosspromotion' then        
+        local is_available = g_userData:isAvailablePreReservation(event_id)
+        vars['notiSprite']:setVisible(is_available)        
     end
 end
 

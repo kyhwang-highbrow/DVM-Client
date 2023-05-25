@@ -22,7 +22,7 @@ function UI_EventPopupTab_DragonPopularityGacha:init(is_fullpopup, is_not_show_g
     self.m_mGoodsInfo = nil
 
     self.m_uiName = 'UI_EventPopupTab_DragonPopularityGacha'
-    self:load('event_popularity_gacha.ui')
+    self:load('event_popularity.ui')
 
     if is_fullpopup ~= true then
         self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
@@ -62,7 +62,7 @@ function UI_EventPopupTab_DragonPopularityGacha:makeGachaMap()
     local gacha_map = {}
 
     local t_data_10 = {
-        ['name'] = Str('고급 소환 10회'),
+        ['name'] = Str('인기 신화 드래곤 확률업 소환 10회'),
         ['egg_id'] = TableItem:getItemIDFromItemType(self.m_ticketItemKey),
         ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
         ['ui_type'] = 'cash11',
@@ -73,7 +73,7 @@ function UI_EventPopupTab_DragonPopularityGacha:makeGachaMap()
     }
     
     local t_data_1 = {
-        ['name'] = Str('고급 소환'),
+        ['name'] = Str('인기 신화 드래곤 확률업 소환'),
         ['egg_id'] = TableItem:getItemIDFromItemType(self.m_ticketItemKey),
         ['egg_res'] = 'res/item/egg/egg_cash_mystery/egg_cash_mystery.vrp',
         ['ui_type'] = 'cash',
@@ -118,8 +118,9 @@ function UI_EventPopupTab_DragonPopularityGacha:initUI()
     end
  ]]
 
+
+
     do -- 상단 재화
-        
         local ui = UI_GoodsInfo(currency)
         vars['ticketNode']:removeAllChildren()
         vars['ticketNode']:addChild(ui.root)
@@ -153,6 +154,9 @@ function UI_EventPopupTab_DragonPopularityGacha:initButton()
 
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+
+    
 end
 
 -------------------------------------
@@ -167,11 +171,38 @@ end
 -------------------------------------
 function UI_EventPopupTab_DragonPopularityGacha:refresh()
     local vars = self.vars
+    local struct_product = self:getMileageProduct()
+
     self.m_mGoodsInfo:refresh()
 
-    do -- 마일리지
+--[[     do -- 마일리지
         local mileage_count = g_userData:get('event_popularity_mileage')
         vars['mileageLabel']:setStringArg(mileage_count)
+    end ]]
+
+    -- 마일리지 상품
+    if struct_product ~= nil then 
+        -- 상품 이름
+        local product_name = Str(struct_product['t_name'])
+        vars['itemLabel']:setString(product_name)
+
+        -- 상품 아이콘
+        local icon = struct_product:makeProductIcon()
+        if (icon) then
+            vars['rewardNode']:removeAllChildren()
+            vars['rewardNode']:addChild(icon)
+        end
+
+        local curr_count = g_userData:get('event_popularity_mileage')
+        local need_count = struct_product:getPrice()
+        local percent = (curr_count/need_count)*100
+
+        -- 게이지
+        local gauge_node = vars['mileageGauge']
+        gauge_node:setPercentage(percent)
+
+        -- 게이지 수치
+        vars['mileageLabel']:setStringArg(curr_count, need_count)
     end
 
     do -- 이름
@@ -184,6 +215,16 @@ function UI_EventPopupTab_DragonPopularityGacha:refresh()
 
     vars['ticketLabel_txt_10']:setStringArg(10)
     vars['ticketLabel_txt_1']:setStringArg(1)
+end
+
+
+-------------------------------------
+-- function getMileageProduct
+-------------------------------------
+function UI_EventPopupTab_DragonPopularityGacha:getMileageProduct()
+    local struct_product_list = g_shopDataNew:getProductList('event_popularity')
+    local struct_product =  table.getFirst(struct_product_list)
+    return struct_product
 end
 
 -------------------------------------
@@ -199,6 +240,7 @@ function UI_EventPopupTab_DragonPopularityGacha:subsequentSummons(gacha_result_u
         self:click_summonBtn(count, gacha_result_ui) -- is_again
     end)
 end
+
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
@@ -216,6 +258,23 @@ function UI_EventPopupTab_DragonPopularityGacha:click_dragonBtn()
 end
 
 -------------------------------------
+-- function click_rewardBtn
+-- @brief 마일리지 상품 구매
+-------------------------------------
+function UI_EventPopupTab_DragonPopularityGacha:click_rewardBtn()
+    local struct_product = self:getMileageProduct()
+    if struct_product == nil then
+        return
+    end
+
+    local cb_func = function ()
+        self:refresh()
+    end
+
+    struct_product:buy(cb_func)
+end
+
+-------------------------------------
 -- function click_infoBtn
 -- @brief 도움말
 -------------------------------------
@@ -225,7 +284,7 @@ function UI_EventPopupTab_DragonPopularityGacha:click_infoBtn()
     --local dragon_name = table_dragon:getDragonName(did)
 
     require('UI_HacheryInfoBtnPopup')
-    local ui = UI_HacheryInfoBtnPopup('story_dungeon_event_rate_popup.ui')
+    local ui = UI_HacheryInfoBtnPopup('event_popularity_rate_popup.ui')
     --ui.vars['dragonName']:setStringArg(dragon_name)
 end
 
