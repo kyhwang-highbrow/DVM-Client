@@ -8,7 +8,7 @@ UI_LobbyBanner = class(PARENT,{
 })
 
 ----------------------------------------------------------------------
--- class init
+-- function init
 ----------------------------------------------------------------------
 function UI_LobbyBanner:init(event_data)
     self.m_uiName = 'UI_LobbyBanner'
@@ -17,7 +17,7 @@ function UI_LobbyBanner:init(event_data)
 end
 
 ----------------------------------------------------------------------
--- class init_after
+-- function init_after
 ----------------------------------------------------------------------
 function UI_LobbyBanner:init_after()
     self:load(self.m_resName)
@@ -26,23 +26,20 @@ function UI_LobbyBanner:init_after()
     self:initButton()
     self:refresh()
 
-    local vars = self.vars
-    if vars['notiSprite'] ~= nil then
-        self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update_reservation_timer(dt) end, 0)
-    end
+    self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update() end, 0)
 end
 
 --local text_color = TableFriendship:getTextColorWithFlv(flv)
 
 ----------------------------------------------------------------------
--- class initUI
+-- function initUI
 ----------------------------------------------------------------------
 function UI_LobbyBanner:initUI()
 end
 
 
 ----------------------------------------------------------------------
--- class initButton
+-- function initButton
 ----------------------------------------------------------------------
 function UI_LobbyBanner:initButton()
     local vars = self.vars
@@ -51,6 +48,25 @@ function UI_LobbyBanner:initButton()
     end
 end
 
+----------------------------------------------------------------------
+-- function update
+----------------------------------------------------------------------
+function UI_LobbyBanner:update()
+    local vars = self.vars
+
+    local event_type = self.m_eventData['event_type']
+    local event_id = self.m_eventData['event_id']
+
+    if event_type == 'event_popularity' then
+        vars['timeLabel']:setString(g_eventPopularityGacha:getStatusText())
+
+    elseif event_type == 'event_crosspromotion' then
+        if vars['notiSprite'] ~= nil then
+            local is_available = g_userData:isAvailablePreReservation(event_id)
+            vars['notiSprite']:setVisible(is_available)
+        end
+    end
+end
 
 ----------------------------------------------------------------------
 -- class refresh
@@ -63,9 +79,7 @@ end
 -------------------------------------
 function UI_LobbyBanner:update_reservation_timer(dt)
     local vars = self.vars
-    local event_id = self.m_eventData['event_id']
-    local is_available = g_userData:isAvailablePreReservation(event_id)
-    vars['notiSprite']:setVisible(is_available)
+
 end
 
 ----------------------------------------------------------------------
@@ -89,6 +103,10 @@ function UI_LobbyBanner:click_bannerBtn()
         if ui.m_innerUI.vars['story_dungeonBtn'] ~= nil then
             ui.m_innerUI.vars['story_dungeonBtn']:setVisible(true)
         end
+
+    elseif (event_type == 'event_popularity') then
+        g_fullPopupManager:showFullPopup(event_type)
+
     end
 end
 
