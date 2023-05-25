@@ -126,6 +126,11 @@ end
 -------------------------------------
 function UI_DragonBoardPopup_Write:click_writeBtn()
 	local context = self.vars['editBox']:getText()
+	
+	local _, is_valid = self:validateEditText()
+	if is_valid == false then
+		return
+	end
 
 	local proceed_func = function ()
 		local did = self.m_did
