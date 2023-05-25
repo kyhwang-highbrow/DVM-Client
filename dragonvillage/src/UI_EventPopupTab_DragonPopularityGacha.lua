@@ -174,11 +174,6 @@ function UI_EventPopupTab_DragonPopularityGacha:refresh()
 
     self.m_mGoodsInfo:refresh()
 
---[[     do -- 마일리지
-        local mileage_count = g_userData:get('event_popularity_mileage')
-        vars['mileageLabel']:setStringArg(mileage_count)
-    end ]]
-
     -- 마일리지 상품
     if struct_product ~= nil then 
         -- 상품 이름
@@ -202,6 +197,9 @@ function UI_EventPopupTab_DragonPopularityGacha:refresh()
 
         -- 게이지 수치
         vars['mileageLabel']:setStringArg(comma_value(curr_count), comma_value(need_count))
+
+        -- 소환권 획득이 가능할 경우
+        vars['rewardNotiSprite']:setVisible(curr_count >= need_count)
     end
 
     do -- 이름

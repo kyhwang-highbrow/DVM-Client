@@ -21,6 +21,7 @@ function UI_EventVoteRankingResult:init(rank_list)
     self:doActionReset()
     self:doAction(nil, false)
 
+    self:initUI()
     self:initTab()
     self:initButton()
 end
@@ -30,6 +31,9 @@ end
 -------------------------------------
 function UI_EventVoteRankingResult:initUI()
     local vars = self.vars
+
+    local server_name = g_localData:getServerName()
+    cclog('server_name', server_name)
 end
 
 -------------------------------------
@@ -53,7 +57,27 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_EventVoteRankingResult:onChangeTab(tab, first)
+    local vars = self.vars
+
     self.m_rankList = clone(g_eventPopularityGacha:getRankList(tab))
+
+    local server_map = {
+        ['DEV'] = 'kr',
+        ['QA'] = 'kr',
+        ['Korea'] = 'kr',
+        ['America'] = 'us',
+        ['Asia'] = 'asia',
+        ['Europe'] = 'eu',
+        ['Japan'] = 'jp',
+        ['Global'] = 'global',
+    }
+
+    local server_code = server_map[g_localData:getServerName()] or 'global'
+    local btn = vars[string.format('%sTabBtn', server_code)]
+    local pos = cc.p(btn:getPositionX() + 50, btn:getPositionY() + 20)
+
+    vars['serverLabel']:setPosition(pos)
+
     self:refresh()
 end
 

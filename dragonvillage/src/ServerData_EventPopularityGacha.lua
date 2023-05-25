@@ -3,6 +3,7 @@
 -------------------------------------
 ServerData_EventPopularityGacha = class({
     m_rankMap = 'Map<string, table>',
+    m_cacheMileagePrice = 'number',
 })
 
 -------------------------------------
@@ -10,6 +11,7 @@ ServerData_EventPopularityGacha = class({
 -------------------------------------
 function ServerData_EventPopularityGacha:init(server_data)
     self.m_rankMap = {}
+    self.m_cacheMileagePrice = 0
 end
 
 -------------------------------------
@@ -30,6 +32,35 @@ function ServerData_EventPopularityGacha:isAvailableEventGacha()
     end
 
     return false
+end
+
+-------------------------------------
+-- function isAvailableMileagePoint
+-------------------------------------
+function ServerData_EventPopularityGacha:isAvailableMileagePoint()
+    if g_hotTimeData:isActiveEvent('event_popularity') == true then
+        local curr_count = g_userData:get('event_popularity_mileage')
+        if self.m_cacheMileagePrice == 0 then
+            local struct_product = self:getMileageProduct()
+            if struct_product ~= nil then                
+                local need_count = struct_product:getPrice()
+                self.m_cacheMileagePrice = need_count
+                return curr_count >= need_count
+            end
+        else
+            return curr_count >= self.m_cacheMileagePrice
+        end
+    end
+    return false
+end
+
+-------------------------------------
+-- function getMileageProduct
+-------------------------------------
+function ServerData_EventPopularityGacha:getMileageProduct()
+    local struct_product_list = g_shopDataNew:getProductList('event_popularity')
+    local struct_product =  table.getFirst(struct_product_list)
+    return struct_product
 end
 
 -------------------------------------

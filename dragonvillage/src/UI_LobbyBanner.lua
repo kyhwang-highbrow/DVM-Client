@@ -87,7 +87,10 @@ function UI_LobbyBanner:updateNoti()
 
     if event_type == 'event_crosspromotion' then        
         local is_available = g_userData:isAvailablePreReservation(event_id)
-        vars['notiSprite']:setVisible(is_available)        
+        vars['notiSprite']:setVisible(is_available)
+    elseif event_type == 'event_popularity' then
+        local is_available = g_eventPopularityGacha:isAvailableMileagePoint()
+        vars['notiSprite']:setVisible(is_available)
     end
 end
 

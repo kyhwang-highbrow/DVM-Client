@@ -769,8 +769,8 @@ function ServerData_Event:hasAvailableReward(event_tab)
         has_available_reward = g_eventVote:isAvailableEventVote()
 
     -- 신화 드래곤 투표 가챠
---[[     elseif (event_type == 'event_popularity') then
-        has_available_reward = g_eventPopularityGacha:isAvailableEventGacha() ]]
+    elseif (event_type == 'event_popularity') then
+        has_available_reward = g_eventPopularityGacha:isAvailableMileagePoint()
 
     -- 누적 결제 이벤트
     elseif (string.find(event_type, 'purchase_point_')) then
