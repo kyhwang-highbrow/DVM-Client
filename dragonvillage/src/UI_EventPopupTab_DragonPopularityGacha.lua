@@ -267,6 +267,11 @@ function UI_EventPopupTab_DragonPopularityGacha:click_rewardBtn()
     end
 
     local cb_func = function ()
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+
+        g_highlightData:setHighlightMail()
+
         self:refresh()
     end
 
@@ -286,13 +291,8 @@ end
 -- @brief 도움말
 -------------------------------------
 function UI_EventPopupTab_DragonPopularityGacha:click_infoBtn()
-    --local did =  
-    --local table_dragon = TableDragon()
-    --local dragon_name = table_dragon:getDragonName(did)
-
     require('UI_HacheryInfoBtnPopup')
     local ui = UI_HacheryInfoBtnPopup('event_popularity_rate_popup.ui')
-    --ui.vars['dragonName']:setStringArg(dragon_name)
 end
 
 -------------------------------------
