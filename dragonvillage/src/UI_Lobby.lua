@@ -194,6 +194,7 @@ function UI_Lobby:entryCoroutine()
         if (g_hotTimeData:isActiveEvent('event_popularity')) then
             co:work('# 신화 드래곤 투표 가챠 이벤트 정보 받는 중')
             g_eventPopularityGacha:request_popularity_gacha_info(co.NEXT, required_fail_cb)
+            self:setShopSpecialNoti('noti_event_popularity')
             if co:waitWork() then return end
         end
 
