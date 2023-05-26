@@ -432,6 +432,9 @@ function UI_Lobby:entryCoroutine()
         if (1 < ENTRY_LOBBY_CNT) and (not TutorialManager.getInstance():checkFullPopupBlock()) then
 		    self:entryCoroutine_Escapable(co)
 	    end
+
+        -- 핫타임 노티 처리
+        self:refreshShopHottimeNoti()
     end
 
     Coroutine(coroutine_function, '로비 코루틴')
@@ -2263,7 +2266,7 @@ function UI_Lobby:onFocus(is_push)
         end
 
         -- 상점에서 노티 상품 다 사고 돌아왔을 경우 정보 갱신을 위해
-        self:setShopNoti()
+        self:refreshShopHottimeNoti()
     end
 
     
@@ -3026,17 +3029,11 @@ function UI_Lobby:onRefresh_banner()
 end
 
 -------------------------------------
--- function setShopNoti
+-- function refreshShopHottimeNoti
 -------------------------------------
-function UI_Lobby:setShopNoti()
+function UI_Lobby:refreshShopHottimeNoti()
     local vars = self.vars
-
-    if (not g_shopDataNew) then
-        return
-    end
-
     vars['shopEventNoti']:setVisible(false)
-    
 
     -- 다이아 
     if (g_shopDataNew:checkDiaSale()) then
