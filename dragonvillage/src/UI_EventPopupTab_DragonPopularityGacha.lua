@@ -156,6 +156,8 @@ function UI_EventPopupTab_DragonPopularityGacha:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
+    vars['packageBtn']:registerScriptTapHandler(function() self:click_packageBtn() end)
+
 
     vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end)    
 end
@@ -312,6 +314,14 @@ end
 function UI_EventPopupTab_DragonPopularityGacha:click_infoBtn()
     require('UI_HacheryInfoBtnPopup')
     local ui = UI_HacheryInfoBtnPopup('event_popularity_rate_popup.ui')
+end
+
+-------------------------------------
+-- function click_packageBtn
+-- @brief 패키지 버튼
+-------------------------------------
+function UI_EventPopupTab_DragonPopularityGacha:click_packageBtn()
+    g_fullPopupManager:showFullPopup('package_popularity')
 end
 
 -------------------------------------

@@ -139,6 +139,16 @@ function ConfirmPrice_original(price_type, price_value)
             UIManager:toastNotificationRed(Str('{1}이 부족합니다.', TableItem:getItemName(price_type)))
            return false
         end
+
+    elseif (price_type == 'event_popularity_ticket') then 
+        local ticket_story_dungeon = g_userData:get('event_popularity_ticket')
+        -- 티켓
+        if (ticket_story_dungeon < price_value) then
+            g_fullPopupManager:showFullPopup('package_popularity')
+            UIManager:toastNotificationRed(Str('{1}이 부족합니다.', TableItem:getItemName(price_type)))
+           return false
+        end
+
     else 
         local item_count = g_userData:get(price_type)
         if (item_count < price_value) then
