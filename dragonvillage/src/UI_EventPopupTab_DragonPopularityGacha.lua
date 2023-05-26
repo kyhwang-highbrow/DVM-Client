@@ -203,10 +203,17 @@ function UI_EventPopupTab_DragonPopularityGacha:refresh()
         vars['mileageLabel']:setStringArg(comma_value(curr_count), comma_value(need_count))
 
         -- 소환권 획득이 가능할 경우
-        vars['rewardNotiSprite']:setVisible(curr_count >= need_count)
+        local is_enough_mileage = curr_count >= need_count
+        vars['rewardNotiSprite']:setVisible(is_enough_mileage)
 
         -- 버튼 enable
-        vars['rewardBtn']:setEnabled(curr_count >= need_count)
+        vars['rewardBtn']:setEnabled(is_enough_mileage)
+
+        if is_enough_mileage then
+            vars['changeLabel']:setTextColor(cc.c4b(0, 0, 0, 255))
+        else
+            vars['changeLabel']:setTextColor(cc.c4b(70, 60, 0, 255))
+        end
     end
 
     do -- 이름
