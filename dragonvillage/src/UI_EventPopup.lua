@@ -10,6 +10,7 @@ UI_EventPopup = class(PARENT,{
         m_mTabUI = 'map',
 
         m_noti = 'boolean',
+        m_enterTabMap = 'Map<string>',
     })
 
 -------------------------------------
@@ -17,6 +18,7 @@ UI_EventPopup = class(PARENT,{
 -------------------------------------
 function UI_EventPopup:init(noti)
     self.m_noti = noti or false
+    self.m_enterTabMap = {}
 
     local vars = self:load('event.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -180,11 +182,9 @@ function UI_EventPopup:onChangeTab(tab, first)
             self.m_mTabUI[tab]:onEnterTab()
         end
     end
-    
-    if item and item['data'] then
-        item['data'].m_hasNoti = false
-        --item['ui']:refreshNotification()
-    end
+
+    -- 입장 탭
+    self.m_enterTabMap[tab] = true
 end
 
 -------------------------------------
@@ -498,7 +498,7 @@ end
 function UI_EventPopup:refreshTabList()
     for i,v in pairs(self.m_tableView.m_itemList) do
         local ui = v['ui']
-        ui:refreshNoti()
+        ui:refresh()
     end
 end
 
@@ -507,21 +507,16 @@ end
 -------------------------------------
 function UI_EventPopup:checkNotiList()
     if (not self.m_noti) then 
-        return 
+        return
     end
 
     for i,v in pairs(self.m_tableView.m_itemList) do
-        local type = v['data'].m_type
-        if v['data'].m_hasNoti and self.m_currTab ~= type then
+        local type = v['data'].m_type        
+        if self.m_enterTabMap[type] ~= true and 
+            v['data']:isNotiVisible() == true then
             self:setTab(type)
             self.m_tableView:relocateContainerFromIndex(i, true)
             return true
-        end
-
-        local ui = v['ui'] or v['generated_ui']
-        if ui then
-            local is_noti = v['data'].m_hasNoti
-            ui.vars['notiSprite']:setVisible(is_noti)
         end
     end
 
