@@ -336,7 +336,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
     -- 신화 드래곤 인기 투표 가챠 이벤트
     elseif (tab =='event_popularity') then
-        ui = UI_EventPopupTab_DragonPopularityGacha(self, struct_event_popup_tab)
+        ui = UI_EventPopupTab_DragonPopularityGacha(false, self)
 
 	-- Daily Mission
 	elseif (tab == 'daily_mission') then

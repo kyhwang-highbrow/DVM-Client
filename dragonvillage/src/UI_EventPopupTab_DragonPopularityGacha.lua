@@ -9,17 +9,20 @@ UI_EventPopupTab_DragonPopularityGacha = class(PARENT,{
         m_ticketItemKey = 'string',
         m_gachaMap = 'table',
         m_mGoodsInfo = 'ui',
+        m_ownerUI = 'ui',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopupTab_DragonPopularityGacha:init(is_fullpopup, is_not_show_go_stage)
+function UI_EventPopupTab_DragonPopularityGacha:init(is_fullpopup, owner_ui)
     self.m_eventVersion = nil
     self.m_ticketItemKey = 'event_popularity_ticket'
     
     self.m_gachaMap = self:makeGachaMap()
     self.m_mGoodsInfo = nil
+
+    self.m_ownerUI = owner_ui
 
     self.m_uiName = 'UI_EventPopupTab_DragonPopularityGacha'
     self:load('event_popularity.ui')
@@ -117,8 +120,6 @@ function UI_EventPopupTab_DragonPopularityGacha:initUI()
         dragon_card.vars['clickBtn']:setEnabled(false)
     end
  ]]
-
-
 
     do -- 상단 재화
         local ui = UI_GoodsInfo(currency)
@@ -298,10 +299,13 @@ function UI_EventPopupTab_DragonPopularityGacha:click_rewardBtn()
     end
 
     local cb_func = function ()
+        if self.m_ownerUI ~= nil then
+            self.m_ownerUI:refreshTabList()
+        end
+
         local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
         UI_ToastPopup(toast_msg)
 
-        g_highlightData:setHighlightMail()
 
         self:refresh()
     end

@@ -261,7 +261,7 @@ function UI_EventFullPopup:initUI()
      -- 신화 드래곤 투표 가챠 이벤트
 	elseif (popup_key == 'event_popularity') then
         if g_hotTimeData:isActiveEvent('event_popularity') then
-            ui = UI_EventPopupTab_DragonPopularityGacha(nil, true)
+            ui = UI_EventPopupTab_DragonPopularityGacha()
         else
             self:close()
         end
