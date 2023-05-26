@@ -31,9 +31,6 @@ end
 -------------------------------------
 function UI_EventVoteRankingResult:initUI()
     local vars = self.vars
-
-    local server_name = g_localData:getServerName()
-    cclog('server_name', server_name)
 end
 
 -------------------------------------
@@ -60,7 +57,6 @@ function UI_EventVoteRankingResult:onChangeTab(tab, first)
     local vars = self.vars
 
     self.m_rankList = clone(g_eventPopularityGacha:getRankList(tab))
-
     local server_map = {
         ['DEV'] = 'kr',
         ['QA'] = 'kr',
@@ -73,10 +69,8 @@ function UI_EventVoteRankingResult:onChangeTab(tab, first)
     }
 
     local server_code = server_map[g_localData:getServerName()] or 'global'
-    local btn = vars[string.format('%sTabBtn', server_code)]
-    local pos = cc.p(btn:getPositionX() + 50, btn:getPositionY() + 20)
-
-    vars['serverLabel']:setPosition(pos)
+    local node = vars[string.format('%sServerLabel', server_code)]
+    node:setVisible(true)
 
     self:refresh()
 end
