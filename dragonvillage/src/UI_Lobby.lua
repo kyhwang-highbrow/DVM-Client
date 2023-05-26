@@ -193,32 +193,19 @@ function UI_Lobby:entryCoroutine()
 
         if (g_hotTimeData:isActiveEvent('event_popularity')) then
             co:work('# 신화 드래곤 투표 가챠 이벤트 정보 받는 중')
-            g_eventPopularityGacha:request_popularity_gacha_info(co.NEXT, required_fail_cb)
-            self:setShopSpecialNoti('noti_event_popularity')
+            g_eventPopularityGacha:request_popularity_gacha_info(co.NEXT, required_fail_cb)            
             if co:waitWork() then return end
         end
 
         if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then
             co:work('# 복주머니 이벤트 정보 받는 중')
-            if g_hotTimeData:isActiveEvent('noti_lucky_bag') then
-                self:setShopSpecialNoti('noti_lucky_bag')
-            elseif g_hotTimeData:isActiveEvent('noti_lucky_marble') then
-                self:setShopSpecialNoti('noti_lucky_marble')
-            end
-
             g_eventLFBagData:request_eventLFBagInfo(false, true, co.NEXT, required_fail_cb)
             if co:waitWork() then return end
         end
 
         if g_hotTimeData:isActiveEvent('event_roulette') or g_hotTimeData:isActiveEvent('event_roulette_reward') then
             co:work('# 룰렛 이벤트 정보 받는 중')
-            local function success_cb()
-                if g_hotTimeData:isActiveEvent('event_roulette') then
-                    self:setShopSpecialNoti('noti_roulette_ticket')
-                end
-                co.NEXT()
-            end
-            ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, success_cb, required_fail_cb)
+            ServerData_EventRoulette:getInstance():request_rouletteInfo(true, false, co.NEXT, required_fail_cb)
             if co:waitWork() then return end
         end
 
@@ -847,10 +834,7 @@ function UI_Lobby:initButton()
     vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end) -- 전투
     
     -- 상점
-    do
-        vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
-        self:setShopNoti()
-    end
+    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
     vars['runeForgeBtn']:registerScriptTapHandler(function() self:click_runeForgeBtn() end) -- 룬 세공소
     vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
@@ -1286,10 +1270,6 @@ function UI_Lobby:update_highlight()
     do -- 할로윈 이벤트
         vars['halloweenNotiSprite']:setVisible(false)
         vars['halloweenNotiYellow']:setVisible(false)
-
-        if g_hotTimeData:isActiveEvent('event_rune_festival') then
-            vars['shopEventNoti']:setVisible(true)
-        end
     end
 
     do -- 알파벳 이벤트
@@ -3055,20 +3035,37 @@ function UI_Lobby:setShopNoti()
         return
     end
 
+    vars['shopEventNoti']:setVisible(false)
+    
+
     -- 다이아 
     if (g_shopDataNew:checkDiaSale()) then
-        vars['shopEventNoti']:setVisible(true)
-        vars['shopEventNoti']:changeAni('noti_dia')
+        self:setShopSpecialNoti('noti_dia')
 
-        --'noti_lucky_bag'
-        --'noti_lucky_bag'
-        --'noti_roulette_ticket'
-        --'noti_special'
-        --'noti_halloween'
+    -- 인기 소환
+    elseif (g_hotTimeData:isActiveEvent('event_popularity')) then
+        self:setShopSpecialNoti('noti_event_popularity')
 
+    -- 복주머니 1
+    elseif g_hotTimeData:isActiveEvent('noti_lucky_bag') then
+        if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then
+            self:setShopSpecialNoti('noti_lucky_bag')
+        end
 
-    else
-        vars['shopEventNoti']:setVisible(false)
+    -- 복주머니 2
+    elseif g_hotTimeData:isActiveEvent('noti_lucky_marble') then
+        if (g_eventLFBagData:canPlay() or g_eventLFBagData:canReward()) then
+            self:setShopSpecialNoti('noti_lucky_marble')
+        end
+
+    -- 룰렛
+    elseif g_hotTimeData:isActiveEvent('event_roulette') then
+        self:setShopSpecialNoti('noti_roulette_ticket')
+
+    -- 룬 페스티발, 할로윈
+    elseif g_hotTimeData:isActiveEvent('event_rune_festival') then
+        self:setShopSpecialNoti('noti_holoween')
+
     end
 end
 
