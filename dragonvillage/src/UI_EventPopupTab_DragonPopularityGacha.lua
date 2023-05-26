@@ -209,7 +209,7 @@ function UI_EventPopupTab_DragonPopularityGacha:refresh()
         -- 버튼 enable
         vars['rewardBtn']:setEnabled(is_enough_mileage)
 
-        if is_enough_mileage then
+        if is_enough_mileage == false then
             vars['changeLabel']:setTextColor(cc.c4b(0, 0, 0, 255))
         else
             vars['changeLabel']:setTextColor(cc.c4b(70, 60, 0, 255))
