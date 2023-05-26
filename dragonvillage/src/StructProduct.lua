@@ -942,7 +942,15 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
 	else
 		-- 아이템 이름 두줄인 경우 한줄로 변경
 		local name = string.gsub(self['t_name'], '\n', '')
-		local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', Str(name))
+
+        local msg
+
+        if (price_type == 'event_popularity_mileage') then
+            msg = Str('{@item_name}"{1}"\n{@default}교환하시겠습니까?', Str(name))
+        else
+            msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', Str(name))
+        end
+		
         if sub_msg then
             msg = (msg .. '\n{@sub_msg}' .. sub_msg)
         end

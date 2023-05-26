@@ -204,6 +204,9 @@ function UI_EventPopupTab_DragonPopularityGacha:refresh()
 
         -- 소환권 획득이 가능할 경우
         vars['rewardNotiSprite']:setVisible(curr_count >= need_count)
+
+        -- 버튼 enable
+        vars['rewardBtn']:setEnabled(curr_count >= need_count)
     end
 
     do -- 이름
