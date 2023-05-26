@@ -152,10 +152,8 @@ function ServerData_EventPopularityGacha:request_popularity_gacha(draw_cnt, fini
     
     -- 성공 시 콜백
     local function status_cb(ret)       
-        if ret['status'] == -2128 then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'), function () 
-                UINavigator:goTo('lobby')
-            end)
+        if ret['status'] == 1364 then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
             return true
         end
     end
