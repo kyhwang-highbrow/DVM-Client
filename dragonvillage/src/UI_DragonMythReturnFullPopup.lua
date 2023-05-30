@@ -61,6 +61,8 @@ function UI_DragonMythReturnFullPopup:initUI()
         local dragon_name = TableDragon:getDragonName(did)
         local curr_time_millisec = ServerTime:getInstance():getCurrentTimestampMilliseconds()
         local desc = ServerTime:getInstance():timestampMillisecToDatestrExceptTime(curr_time_millisec)
+        desc = string.gsub(desc, '-', '.')
+
         vars['infoLabel']:setStringArg(desc, dragon_name)
         vars['titleLabel']:setStringArg(dragon_name)
     end
