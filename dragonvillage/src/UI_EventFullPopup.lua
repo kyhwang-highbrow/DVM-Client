@@ -224,9 +224,10 @@ function UI_EventFullPopup:initUI()
         end
 
      -- 신규 확률업 일정 (자동화)
-	elseif (popup_key == 'dragon_myth_return') then
+	elseif (string.find(popup_key,'dragon_myth_return') ~= nil) then
+        local l_str = plSplit(popup_key, ';')
         require('UI_DragonMythReturnFullPopup')
-		ui = UI_DragonMythReturnFullPopup()
+		ui = UI_DragonMythReturnFullPopup(tonumber(l_str[2]))
 
     -- 신규 스킨
 	elseif (popup_key == 'dragon_skin') then

@@ -310,7 +310,7 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
             local target_server = v['target_server'] or ''
             local target_language = v['target_language'] or ''
             local banner = v['banner']
-
+            local add_event_list = {}
 
             -- 먼저 크로스 프로모션 기간인지 체크
             if (string.find(event_type, 'event_crosspromotion')) then
@@ -539,6 +539,16 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
             elseif (visible) and (event_type == 'event_welcome_newbie') then
 		        visible = false
 
+            -- 신화 드래곤 복각 일정 (기간 영구적으로 설정 필요)
+            elseif (visible) and (event_type == 'dragon_myth_return') then
+                local did_list = g_dragonPickRateData:getDragonMythReturnDidList()
+                visible = false
+                for _, did in ipairs(did_list) do
+                    table.insert(add_event_list, event_type .. ';' .. did)
+                    l_priority[event_type .. ';' .. did] = tonumber(priority)
+                    visible = true
+                end
+
 			-- VIP 설문조사 (참여하면 풀팝업 뜨지 않도록)
             elseif (visible) and string.find(event_type, 'vip_survey') then
                 local is_participated                
@@ -573,8 +583,12 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
 
 
             if (visible) then
-                l_priority[event_type] = tonumber(priority)
-                table.insert(l_list, event_type)
+                if #add_event_list > 0 then
+                    table.addList(l_list, add_event_list)
+                else
+                    l_priority[event_type] = tonumber(priority)
+                    table.insert(l_list, event_type)
+                end
             end
         end
     end

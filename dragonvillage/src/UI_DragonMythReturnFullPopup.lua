@@ -4,15 +4,18 @@ local PARENT = UI
 -- class UI_DragonMythReturnFullPopup
 -------------------------------------
 UI_DragonMythReturnFullPopup = class(PARENT, {
+    m_didList = 'list<number>',
     m_dId = 'number',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonMythReturnFullPopup:init()
+function UI_DragonMythReturnFullPopup:init(did)
     local vars = self:load('event_dragon_myth_return.ui')
-    self.m_dId = 120435
+    self.m_dId = did
+    --self.m_didList = did_list
+
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
@@ -89,5 +92,12 @@ end
 -------------------------------------
 -- function open
 -------------------------------------
-function UI_DragonMythReturnFullPopup.open()
+function UI_DragonMythReturnFullPopup.open(ower_ui)
+    local did_list = {120431, 120432, 120433, 120434, 120435}
+
+    if #did_list  == 0 then
+        return nil
+    else
+        return UI_DragonMythReturnFullPopup(ower_ui, did_list)
+    end
 end
