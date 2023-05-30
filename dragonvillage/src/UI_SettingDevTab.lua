@@ -18,6 +18,8 @@ function UI_Setting:init_devTab()
     vars['allStaminaBtn']:registerScriptTapHandler(function() self:click_allStaminaBtn() end)
     vars['allCostumeBtn']:registerScriptTapHandler(function() self:click_allCostumeBtn() end)
     vars['allEggBtn']:registerScriptTapHandler(function() self:click_allEggBtn() end)
+
+    vars['exitBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     
     vars['addFpBtn']:registerScriptTapHandler(function() self:click_addFpBtn() end)
     vars['addRpBtn']:registerScriptTapHandler(function() self:click_addRpBtn() end)
@@ -617,6 +619,17 @@ function UI_Setting:click_allDragonSkinBtn()
     MakeSimplePopup(POPUP_TYPE.YES_NO, StrForDev('진행하시겠습니까?', function()
         Coroutine(coroutine_function)
     end))
+end
+
+-------------------------------------
+-- function click_exitBtn
+-- @brief 앱 종료 테스트
+-------------------------------------
+function UI_Setting:click_exitBtn()
+    local function yes_cb()
+        closeApplication()
+    end
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('종료하시겠습니까?'), yes_cb)
 end
 
 -------------------------------------
