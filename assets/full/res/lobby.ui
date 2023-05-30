@@ -3860,6 +3860,104 @@
 					rotation = 0.000000;
 					visible = false;
 					screen_ui = 0;
+					lua_name = 'promotionNotiSprite';
+					file_name = 'ui/icons/noti_icon_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = -29.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 101;
+					height = 27;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = '다운로드';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 101;
+					dimension_height = 27;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
+				};
+				type = 'Button';
+				ui_name = '';
+				flag = '';
+				x = 570.000000;
+				y = 0.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 80;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = 'promotionBtn';
+				enable = true;
+				normal = 'ui/buttons/lobby_side_btn_event_promotion_0101.png';
+				selected = 'ui/buttons/lobby_side_btn_event_promotion_0102.png';
+				disable = 'ui/buttons/lobby_side_btn_event_promotion_0102.png';
+				image_type = 0;
+			};
+			[2] =
+			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = -2.000000;
+					dock_point = { 1.000000; 1.000000; };
+					anchor_point = { 1.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 28;
+					height = 28;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					screen_ui = 0;
 					lua_name = 'hbrwLoungeNotiSprite';
 					file_name = 'ui/icons/noti_icon_0101.png';
 					color = { 255; 255; 255; };
@@ -3893,7 +3991,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[2] =
+			[3] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -3919,7 +4017,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[3] =
+			[4] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -3945,7 +4043,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[4] =
+			[5] =
 			{
 				[1] =
 				{
@@ -4087,7 +4185,7 @@
 				disable = 'ui/buttons/lobby_event_btn_booster_gold_0102.png';
 				image_type = 0;
 			};
-			[5] =
+			[6] =
 			{
 				[1] =
 				{
@@ -4229,7 +4327,7 @@
 				disable = 'ui/buttons/lobby_event_btn_booster_exp_0102.png';
 				image_type = 0;
 			};
-			[6] =
+			[7] =
 			{
 				[1] =
 				{
@@ -4355,7 +4453,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[7] =
+			[8] =
 			{
 				[1] =
 				{
