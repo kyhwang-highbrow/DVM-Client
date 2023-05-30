@@ -62,7 +62,9 @@ function UI_DragonMythReturnFullPopup:initUI()
         local curr_time_millisec = ServerTime:getInstance():getCurrentTimestampMilliseconds()
         local desc = ServerTime:getInstance():timestampMillisecToDatestrExceptTime(curr_time_millisec)
         vars['infoLabel']:setStringArg(desc, dragon_name)
+        vars['titleLabel']:setStringArg(dragon_name)
     end
+    
 
     do -- 배경
         local res_file = string.format('res/ui/event/bg_dragon_skin_%s.png', attribute)
