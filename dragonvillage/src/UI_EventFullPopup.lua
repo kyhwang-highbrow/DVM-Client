@@ -223,6 +223,11 @@ function UI_EventFullPopup:initUI()
 		    ui = UI_EventWelcomeNewbie()
         end
 
+     -- 신규 확률업 일정 (자동화)
+	elseif (popup_key == 'dragon_myth_return') then
+        require('UI_DragonMythReturnFullPopup')
+		ui = UI_DragonMythReturnFullPopup()
+
     -- 신규 스킨
 	elseif (popup_key == 'dragon_skin') then
         local struct_dragon_skin_map = g_dragonSkinData:getDragonSkinSaleMap()
