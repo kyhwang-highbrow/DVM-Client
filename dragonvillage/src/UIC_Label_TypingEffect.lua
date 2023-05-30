@@ -184,7 +184,7 @@ function UIC_Label_TypingEffect:startDirect()
         local color = node:getColor()
 
         -- getLetter 함수는 인덱스가 루아와 다르게 0부터 시작한다.
-        for idx = 0, (str_len - 1) do
+        for idx = 0, str_len do
             -- 맨 처음 getLetter 할 때 글자가 색을 잃어버리는 버그가 있어서 다시 한번 색상 지정
             local letter = node:getLetter(idx)
 
