@@ -50,13 +50,18 @@ function UI_DragonMythReturnFullPopup:initUI()
 
         animator:changeAni('pose_1', false)
         animator:addAniHandler(function() animator:changeAni('idle', true) end)
+
+        local action = cc.EaseExponentialOut:create(cc.MoveTo:create(0.8, cc.p(0, 0)))
+
+        animator:setPositionY(-200)
+        animator:runAction(action)
     end
 
     do -- 이름
         local dragon_name = TableDragon:getDragonName(did)
         local curr_time_millisec = ServerTime:getInstance():getCurrentTimestampMilliseconds()
         local desc = ServerTime:getInstance():timestampMillisecToDatestrExceptTime(curr_time_millisec)
-        vars['infoLabel']:setStringArg(dragon_name, desc)
+        vars['infoLabel']:setStringArg(desc, dragon_name)
     end
 
     do -- 배경
