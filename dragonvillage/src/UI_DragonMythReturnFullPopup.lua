@@ -6,6 +6,7 @@ local PARENT = UI
 UI_DragonMythReturnFullPopup = class(PARENT, {
     m_didList = 'list<number>',
     m_dId = 'number',
+    m_timestamp = '',
 })
 
 -------------------------------------
@@ -14,8 +15,17 @@ UI_DragonMythReturnFullPopup = class(PARENT, {
 function UI_DragonMythReturnFullPopup:init(did)
     local vars = self:load('event_dragon_myth_return.ui')
     self.m_dId = did
-    --self.m_didList = did_list
+    self.m_timestamp = 0
 
+    local t_dragon = TableDragon():get(did)
+    local summon_start_date = t_dragon['summon_add']
+    if summon_start_date ~= '' then
+        if (string.find(summon_start_date, ':') == nil) then
+            summon_start_date = summon_start_date .. ' 00:00:00'
+        end
+        self.m_timestamp = ServerTime:getInstance():datestrToTimestampSec(summon_start_date)
+    end
+    
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
@@ -60,8 +70,11 @@ function UI_DragonMythReturnFullPopup:initUI()
     do -- 이름
         local dragon_name = TableDragon:getDragonName(did)
         local curr_time_millisec = ServerTime:getInstance():getCurrentTimestampMilliseconds()
-        local desc = ServerTime:getInstance():timestampMillisecToDatestrExceptTime(curr_time_millisec)
+        local desc = ServerTime:getInstance():timestampMillisecToDatestrExceptTime(self.m_timestamp * 1000)
+        local wday = ServerTime:getInstance():getWeekDaySimpleStringFromTimeStampSec(self.m_timestamp)
+
         desc = string.gsub(desc, '-', '.')
+        desc = desc .. '(' .. Str(wday) .. ')'
 
         vars['infoLabel']:setStringArg(desc, dragon_name)
         vars['titleLabel']:setStringArg(dragon_name)

@@ -338,6 +338,21 @@ function ServerTime:getCurrentWeekDayString()
 end
 
 -------------------------------------
+-- function getWeekDaySimpleStringFromTimeStampSec
+---@brief return weekday as string such as 일 ~ 토
+---@return string
+-------------------------------------
+function ServerTime:getWeekDaySimpleStringFromTimeStampSec(timestampSec)
+    local week_days = {'일', '월', '화', '수', '목', '금', '토'}
+    local curr_timestamp_sec = timestampSec
+
+    local date = os.date('!*t', curr_timestamp_sec)
+    local curr_week_day_num = date['wday']
+
+    return week_days[curr_week_day_num]
+end
+
+-------------------------------------
 -- function getThisWeeklyResetTimestampSec
 ---@return number
 -------------------------------------
