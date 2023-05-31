@@ -183,8 +183,8 @@ function UI_EventPopupTab_DragonPopularityGacha:refresh()
     -- 마일리지 상품
     if struct_product ~= nil then 
         -- 상품 이름
-        local product_name = Str(struct_product['t_name'])
-        vars['itemLabel']:setString(product_name)
+        --local product_name = Str(struct_product['t_name'])
+        vars['itemLabel']:setString(Str('인기 신화 드래곤\n소환권'))
 
         -- 상품 아이콘
         local icon = struct_product:makeProductIcon()
