@@ -140,6 +140,7 @@ function UI_EventPopupTab_DragonPopularityGacha:initUI()
 
     local function update(dt)
         self.m_mGoodsInfo:refresh()
+        vars['timeLabel']:setString(g_eventPopularityGacha:getStatusText())    
     end
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
@@ -217,13 +218,6 @@ function UI_EventPopupTab_DragonPopularityGacha:refresh()
         end
     end
 
-    do -- 이름
---[[         local did =  
-        local table_dragon = TableDragon()
-        local ceil_count = g_eventDragonStoryDungeon:getStoryDungeonSeasonGachaCeilCount()
-        local dragon_name = table_dragon:getDragonName(did)
-        vars['ceilingLabel']:setStringArg(dragon_name, ceil_count) ]]
-    end
 
     vars['ticketLabel_txt_10']:setStringArg(10)
     vars['ticketLabel_txt_1']:setStringArg(1)
