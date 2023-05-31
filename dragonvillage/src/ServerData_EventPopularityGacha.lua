@@ -17,8 +17,11 @@ end
 -------------------------------------
 -- function getStatusText
 -------------------------------------
-function ServerData_EventPopularityGacha:getStatusText()
+function ServerData_EventPopularityGacha:getStatusText(is_HHMMSS)
     local time = g_hotTimeData:getEventRemainTime('event_popularity')
+    if is_HHMMSS == true then
+        return datetime.makeTimeDesc_timer_filledByZero(time*1000, false) -- param : milliseconds, from_day
+    end
     return Str('이벤트 종료까지 {1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
 end
 

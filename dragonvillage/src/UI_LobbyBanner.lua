@@ -69,7 +69,7 @@ function UI_LobbyBanner:updateTime()
     --local event_id = self.m_eventData['event_id']
 
     if event_type == 'event_popularity' then
-        vars['timeLabel']:setString(g_eventPopularityGacha:getStatusText())
+        vars['timeLabel']:setString(g_eventPopularityGacha:getStatusText(true))
     end
 end
 
