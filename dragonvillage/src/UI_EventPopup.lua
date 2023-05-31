@@ -197,10 +197,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
     local ui = nil
     local item = self.m_tableView:getItem(tab)
-    local struct_event_popup_tab = item['data']
-
-    cclog('이벤트 탭 : ', tab, struct_event_popup_tab.m_eventData['event_id'])
-   
+    local struct_event_popup_tab = item['data']   
 
 	-- 출석 (일반)
     if string.find(tab, 'attendance') then

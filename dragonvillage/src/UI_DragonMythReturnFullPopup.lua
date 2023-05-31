@@ -78,6 +78,23 @@ function UI_DragonMythReturnFullPopup:initUI()
         vars['bgNode']:removeAllChildren()
         vars['bgNode']:addChild(animator.m_node)
     end
+
+
+    do -- 타이핑 효과
+        local str = clone(vars['titleLabel']:getString())
+        vars['titleLabel']:setString('')
+
+        local typing_label = MakeTypingEffectLabel(vars['titleLabel'])
+        --typing_label.m_node:setGlobalZOrder(animator.m_node:getGlobalZOrder() + 5)
+        typing_label:setDueTime(0.6)
+
+        local function act_text()
+            typing_label:setString(str)
+            --typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(5.1), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
+        end
+
+        typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(0.2), cc.CallFunc:create(function() act_text() end)))
+    end
 end
 
 -------------------------------------
