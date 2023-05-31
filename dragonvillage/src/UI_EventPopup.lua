@@ -199,12 +199,15 @@ function UI_EventPopup:makeEventPopupTab(tab)
     local item = self.m_tableView:getItem(tab)
     local struct_event_popup_tab = item['data']
 
+    cclog('이벤트 탭 : ', tab, struct_event_popup_tab.m_eventData['event_id'])
+   
+
 	-- 출석 (일반)
     if string.find(tab, 'attendance') then
         local event_type = struct_event_popup_tab.m_eventData['event_type']
 		local event_id = struct_event_popup_tab.m_eventData['event_id']
         local atd_id = tonumber(event_id)
-
+        
         -- 신규, 복귀유저 이벤트인지 구분하기 위함
         -- 어텐던스 정보를 받아와서 있으면 event_id를 category로 설정
         if (atd_id and atd_id ~= '') then

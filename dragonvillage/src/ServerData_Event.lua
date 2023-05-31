@@ -541,7 +541,7 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
 
             -- 신화 드래곤 복각 일정 (기간 영구적으로 설정 필요)
             elseif (visible) and (event_type == 'dragon_myth_return') then
-                local did_list = g_dragonPickRateData:getDragonMythReturnDidList()
+                local did_list = TablePickupSchedule:getInstance():getDragonMythReturnDidList()
                 visible = false
                 for _, did in ipairs(did_list) do
                     table.insert(add_event_list, event_type .. ';' .. did)

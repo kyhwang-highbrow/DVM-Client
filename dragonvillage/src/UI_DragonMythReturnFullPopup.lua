@@ -15,17 +15,8 @@ UI_DragonMythReturnFullPopup = class(PARENT, {
 function UI_DragonMythReturnFullPopup:init(did)
     local vars = self:load('event_dragon_myth_return.ui')
     self.m_dId = did
-    self.m_timestamp = 0
+    self.m_timestamp = TablePickupSchedule:getInstance():getReturnTimeStampByDid(did)
 
-    local t_dragon = TableDragon():get(did)
-    local summon_start_date = t_dragon['summon_add']
-    if summon_start_date ~= '' then
-        if (string.find(summon_start_date, ':') == nil) then
-            summon_start_date = summon_start_date .. ' 00:00:00'
-        end
-        self.m_timestamp = ServerTime:getInstance():datestrToTimestampSec(summon_start_date)
-    end
-    
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
@@ -109,17 +100,4 @@ end
 -------------------------------------
 function UI_DragonMythReturnFullPopup:click_rewardBtn()
     local vars = self.vars
-end
-
--------------------------------------
--- function open
--------------------------------------
-function UI_DragonMythReturnFullPopup.open(ower_ui)
-    local did_list = {120431, 120432, 120433, 120434, 120435}
-
-    if #did_list  == 0 then
-        return nil
-    else
-        return UI_DragonMythReturnFullPopup(ower_ui, did_list)
-    end
 end
