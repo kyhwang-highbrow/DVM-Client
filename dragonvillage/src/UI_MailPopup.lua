@@ -220,6 +220,7 @@ function UI_MailPopup:click_rewardBtn(ui, struct_mail)
 		else
 			-- 메일 삭제
 			self.m_mTableView[self.m_currTab]:delItem(struct_mail:getMid())
+            g_mailData:deleteMailData(struct_mail:getMid())
 		end
 
         -- 우편함 갱신
