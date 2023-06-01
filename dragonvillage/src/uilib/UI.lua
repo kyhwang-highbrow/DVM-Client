@@ -704,3 +704,25 @@ function UI:unschedule()
     self.m_elapsedTime = 0
     self.m_updateCallback = nil
 end
+
+-------------------------------------
+-- virtual function onFocusing
+-- @brief UI가 focus되었을 때 (화면상 최상단에 표시되었을 때)
+-------------------------------------
+function UI:onFocusing(is_first)
+end
+
+-------------------------------------
+-- virtual function onFocusingOut
+-- @brief UI가 focus out되었을 때 (화면상 최상단에 표시되었다가 가려질 때)
+-------------------------------------
+function UI:onFocusingOut()
+end
+
+-------------------------------------
+-- function isFocusing
+-- @brief 해당 UI가 포커싱 중이라면 true 반환
+-------------------------------------
+function UI:isFocusing()
+    return (self == UIManager:getFocusUI())
+end

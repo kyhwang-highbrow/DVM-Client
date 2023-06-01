@@ -817,7 +817,6 @@ function UI_GachaResult_Dragon:click_skipBtn()
     end
 end
 
-
 -------------------------------------
 -- function onSkip_special
 -------------------------------------
@@ -1000,6 +999,7 @@ function UI_GachaResult_Dragon:click_lockBtn()
 
     g_dragonsData:request_dragonLock(doid, '', is_locked, callback_function)
 end
+
 -------------------------------------
 -- function click_closeBtn
 -------------------------------------
@@ -1030,6 +1030,15 @@ function UI_GachaResult_Dragon:onFocus()
 end
 
 -------------------------------------
+-- function onFocusing
+-------------------------------------
+function UI_GachaResult_Dragon:onFocusing(is_first)
+    if is_first ~= true then
+        self:refresh_wealth()
+    end
+end
+
+-------------------------------------
 -- function setLockSprite
 -------------------------------------
 function UI_GachaResult_Dragon:setLockSprite(is_locked)
@@ -1044,7 +1053,9 @@ function UI_GachaResult_Dragon:setLockSprite(is_locked)
     end
 end
 
-
+-------------------------------------
+-- function isShownAppearAnimation
+-------------------------------------
 function UI_GachaResult_Dragon:isShownAppearAnimation(did)
     local is_shown = false
 
@@ -1056,10 +1067,6 @@ function UI_GachaResult_Dragon:isShownAppearAnimation(did)
 
     return is_shown
 end
-
-
-
-
 
 
 -------------------------------------

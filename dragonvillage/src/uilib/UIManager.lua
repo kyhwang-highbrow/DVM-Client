@@ -56,6 +56,8 @@ UIManager = {
     m_cbUIOpen = nil,
 
     m_keyListenerList = 'list',
+
+    m_focusUI = 'UI',
 }
 
 -------------------------------------
@@ -89,7 +91,8 @@ function UIManager:init(perple_scene)
     self.m_toastBroadcastLayer:setDockPoint(cc.p(0.5, 0.5))
     self.m_toastBroadcastLayer:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_scene:addChild(self.m_toastBroadcastLayer, SCENE_ZORDER.TOAST)
-
+    self.m_focusUI = nil
+    
     -- TopUserInfo를 사용하는 Scene일 경우 초기화
     if perple_scene.m_bShowTopUserInfo then
         self:makeTopUserInfo()
@@ -238,6 +241,9 @@ function UIManager:open(ui, mode, bNotBlendBGLayer, ignore_add)
         --ccdisplay(ui_str)
         PerpleSdkManager.getCrashlytics():setLog(ui_str)
     end
+
+    -- focus 처리
+    self:setFocusUI(ui, true) -- params : ui, is_first
 end
 
 -------------------------------------
@@ -395,6 +401,11 @@ function UIManager:close(ui)
                 child:setVisible(true)
             end
         end
+    end
+
+    do -- 포커스 설정
+        local top_ui = self.m_uiList[#self.m_uiList]
+        self:setFocusUI(top_ui)
     end
 end
 
@@ -703,3 +714,38 @@ function UIManager:replaceResource(parent_node, res_name)
     sprite:setAnchorPoint(anchor_point)
     parent_node:addChild(sprite)
 end
+
+
+-------------------------------------
+-- function setFocusUI
+-- @brief 화면상 최상단에 표시된 UI focus 처리
+-- @param is_first(boolean) 해당 UI가 생성되고 처음 포커싱될 때 true로 넣을 것
+-------------------------------------
+function UIManager:setFocusUI(ui, is_first)
+    if (self.m_focusUI == ui) then
+        return
+    end
+
+    local is_first = (is_first or false)
+
+    -- 포커싱되던 UI가 close되면서 해당 함수가 호출된 경우 onFocusingOut 함수를 호출하지 않는다.
+    -- UI가 close할 때 호출되는 콜백함수들은 close_cb, ui_destroy_cb 활용하자
+    if ((self.m_focusUI ~= nil) and (self.m_focusUI:isClosed() == false)) then
+        self.m_focusUI:onFocusingOut()
+    end
+
+    self.m_focusUI = ui
+
+    if (self.m_focusUI ~= nil) then
+        self.m_focusUI:onFocusing(is_first)
+    end
+end
+
+-------------------------------------
+-- function getFocusUI
+-- @brief 화면상 최상단에 표시된 UI 객체 반환
+-------------------------------------
+function UIManager:getFocusUI()
+    return self.m_focusUI
+end
+
