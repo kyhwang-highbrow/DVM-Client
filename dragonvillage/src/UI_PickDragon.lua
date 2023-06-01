@@ -220,7 +220,8 @@ function UI_PickDragon:initTableView()
 		
         local ui = MakeSimpleDragonCard(did, t_data)
 		ui.root:setScale(item_scale)
-
+        ui:setHighlightSpriteVisible(self.m_currDragonData.did == did)
+        
 		-- 클릭
 		ui.vars['clickBtn']:registerScriptTapHandler(function()
 			self:refresh(data)
@@ -256,6 +257,7 @@ end
 -------------------------------------
 function UI_PickDragon:refresh(t_dragon)
     local vars = self.vars
+    
 	if (not t_dragon) then
         if (not self.m_currDragonData) then
             vars['starNode']:removeAllChildren()
@@ -302,6 +304,18 @@ function UI_PickDragon:refresh(t_dragon)
 
 	-- 속성, 직군, 레어도
 	self:refresh_icons(t_dragon)
+
+    do -- 드래곤 리스트 선택 표시
+        local l_card = self.m_tableViewTD.m_itemList
+        for i, t_data in ipairs(l_card) do
+            if (t_data['ui']) then
+                local card_ui = t_data['ui']
+                local did = card_ui.m_dragonData.did
+                local is_selelct_visible = self.m_currDragonData.did == did
+                card_ui:setHighlightSpriteVisible(is_selelct_visible)
+            end
+        end
+    end
 end
 
 -------------------------------------
