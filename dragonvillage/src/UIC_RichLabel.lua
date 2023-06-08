@@ -47,7 +47,13 @@ UIC_RichLabel = class(UIC_Node, {
 
         m_mContentNodeData = 'map',
 
-        m_wordSpacing = 'number'
+        m_wordSpacing = 'number',
+        m_orgFontSize = 'number',
+
+        m_orgLineInterval = 'number',
+        m_lineInterval = 'number', -- 각 라인별 간격
+
+        m_bAutoFontSize = 'boolean',
     })
 
 -------------------------------------
@@ -58,12 +64,17 @@ function UIC_RichLabel:init()
     self.m_root:setPosition(0, 0)
     self.m_node = self.m_root
 
+    self.m_orgFontSize = 20
     self.m_fontSize = 20
     self.m_dimension = cc.size(300, 720/2)
     self.m_root:setNormalSize(self.m_dimension)
     self.m_outlineSize = 0
     self.m_outlineColor = cc.c4b(0,0,0,255)
     self.m_bDirty = true
+    
+    self.m_orgLineInterval = 2
+    self.m_lineInterval = 2
+    self.m_bAutoFontSize = false
 
     self.m_lineHeight = 1.1
     self.m_wordSpacing = 0.4
@@ -99,6 +110,11 @@ function UIC_RichLabel:setString(text)
     end
 
     self:setRichText(text)
+
+    if (self.m_bAutoFontSize == true) then
+        self:autoFontSizeScaling()
+    end
+
 end
 
 -------------------------------------
@@ -593,6 +609,10 @@ function UIC_RichLabel:setFontSize(font_size)
 
     self.m_fontSize = font_size
     self:setDirty()
+
+    if (self.m_bAutoFontSize == true) then
+        self:autoFontSizeScaling()
+    end
 end
 
 -------------------------------------
@@ -791,6 +811,100 @@ end
 -------------------------------------
 function UIC_RichLabel:setStringArg(...)
     self:setString(Str(self.m_originString, ...))
+end
+
+-------------------------------------
+-- function getDimensions
+-------------------------------------
+function UIC_RichLabel:getDimensions()
+    return self.m_dimension
+end
+
+-------------------------------------
+-- function autoFontSizeScaling
+-- @brief 라벨 상자 크기에 맞춰 폰트 사이즈 수정
+-------------------------------------
+function UIC_RichLabel:autoFontSizeScaling()
+    local size_dimensions = self:getDimensions()
+
+    do -- 기본값을 적용했을 때 영역을 넘어가는지 확인
+--[[         local org_font_size = self.m_orgFontSize
+        if (org_font_size ~= self.m_fontSize) then
+            self.m_fontSize = org_font_size
+            self:setDirty()
+        end
+    
+        local org_line_interval = self.m_orgLineInterval
+        if (org_line_interval ~= self.m_lineInterval) then
+            self.m_lineInterval = org_line_interval
+            self:setDirty()
+        end
+ ]]
+        -- 사이즈 체크
+        local string_width = self:getStringWidth()
+        local string_height = self:getStringHeight()
+        if (size_dimensions.width >= string_width) and (size_dimensions.height >= string_height) then
+            return
+        end
+    end
+
+    -- 이분 탐색으로 적절한 사이즈의 폰트 사이즈를 찾음
+    local s = 10 -- 너무 작은 사이즈로는 어짜피 못쓰니까 최소 10 이상으로 한다.
+    local e = self.m_orgFontSize
+    while ((s + 1) < e) do
+        -- 중간
+        local m = math_floor((s + e) / 2)
+
+        -- 폰트 사이즈 및 라인 간격 적용 
+        self.m_fontSize = m
+        --self.m_lineInterval = math_min((m * 0.4), self.m_orgLineInterval)
+        self:setDirty()
+
+        -- 사이즈 체크
+        local string_width = self:getStringWidth()
+        local string_height = self:getStringHeight()
+        
+        -- 사이즈가 넘어가는 경우
+        if (size_dimensions.width < string_width) or (size_dimensions.height < string_height) then        
+            e = m
+        
+        -- 사이즈 안에 포함되는 경우 (사용 가능)
+        else
+            s = m
+        end
+    end
+
+    -- 안에 포함될 수 있는 사이즈 중 가장 큰 폰트 사이즈로 적용
+    self.m_fontSize = s
+    --self.m_lineInterval = math_min((s * 0.4), self.m_orgLineInterval)
+    self:setDirty()
+    self:update(0)
+end
+
+-------------------------------------
+-- function setAutoFontSizeScaling
+-- @breif 해당 옵션이 켜지면 라벨 영역에 맞춰 폰트 사이즈를 스케일링한다.
+-------------------------------------
+function UIC_RichLabel:setAutoFontSizeScaling(b)
+    self.m_bAutoFontSize = b
+
+    if (b == true) then
+        self:autoFontSizeScaling()
+    
+    -- 옵션이 꺼지는 경우 원래 크기로 되돌린다.
+    else
+        local org_font_size = self.m_orgFontSize
+        if (org_font_size ~= self.m_fontSize) then
+            self.m_fontSize = org_font_size
+            self:setDirty()
+        end
+
+        local org_line_interval = self.m_orgLineInterval
+        if (org_line_interval ~= self.m_lineInterval) then
+            self.m_lineInterval = org_line_interval
+            self:setDirty()
+        end
+    end
 end
 
 -------------------------------------

@@ -9,7 +9,7 @@ UIC_LabelTTF = class(PARENT, {
         m_orgFontSize = 'number',
         m_orgFontScaleX = 'number',
         m_orgFontScaleY = 'number',
-         
+        m_bAutoFontSize = 'bool',
         m_isVerified = 'bool',
 
         m_originString = 'string',
@@ -30,12 +30,12 @@ function UIC_LabelTTF:init(node)
 
     -- 테스트 모드일때 동작하도록 설정
     self.m_isVerified = not IS_TEST_MODE() 
+    self.m_bAutoFontSize = false
 
     --ui에 text가 들어있는경우 때문에
     -- local org = node:getString()
     -- self:setString( "" )
     -- self:setString( org )
-
     self.m_originString = self:getString()
 end
 
@@ -101,6 +101,11 @@ function UIC_LabelTTF:setString(str)
 
     if tolua.isnull(self.m_node) ~= true then
         self.m_node:setString(str)
+    end
+
+    if (self.m_bAutoFontSize == true) then
+        cclog('UIC_LabelTTF:setString : ', str)
+        self:autoFontSizeScaling()
     end
 end
 
@@ -314,11 +319,17 @@ function UIC_LabelTTF:setHorizontalAlignment(text_alignment_h)
 end
 
 -------------------------------------
+-- function setLineBreakWithoutSpace
+-- @brief 공백이 없는 경우에도 개행을 시킨다.
+-------------------------------------
+function UIC_LabelTTF:setLineBreakWithoutSpace(b)
+    return self.m_node:setLineBreakWithoutSpace(b)
+end
+
+-------------------------------------
 -- function getStringWidth
 -------------------------------------
 function UIC_LabelTTF:getStringWidth()
-    
-
     -- label의 getStringWidth() 함수는 개행을 하지 않은 상태의 넓이를 리텀함
     local str_width = self.m_node:getStringWidth()
 
@@ -327,14 +338,6 @@ function UIC_LabelTTF:getStringWidth()
     local size = self:getContentSize()
     local ret_str_width = math_min(size['width'], str_width)
     return ret_str_width
-end
-
--------------------------------------
--- function setLineBreakWithoutSpace
--- @brief 공백이 없는 경우에도 개행을 시킨다.
--------------------------------------
-function UIC_LabelTTF:setLineBreakWithoutSpace(b)
-    return self.m_node:setLineBreakWithoutSpace(b)
 end
 
 -------------------------------------
@@ -403,6 +406,10 @@ function UIC_LabelTTF:setFontSize(fontSize)
     ttfInfo.fontSize = fontSize
     self.m_orgFontSize = fontSize
     self.m_node:setTTFConfig( ttfInfo )
+
+    if (self.m_bAutoFontSize == true) then
+        self:autoFontSizeScaling()
+    end
 end
 
 -------------------------------------
@@ -478,3 +485,109 @@ end
 function UIC_LabelTTF:setStringArg(...)
     self:setString(Str(self.m_originString, ...))
 end
+
+-------------------------------------
+-- function autoFontSizeScaling
+-- @brief 라벨 상자 크기에 맞춰 폰트 사이즈 수정
+-------------------------------------
+function UIC_LabelTTF:autoFontSizeScaling()
+    if (self:isOutOfBound() == false) then
+        return
+    end
+
+    -- 이분 탐색으로 적절한 사이즈의 폰트 사이즈를 찾음
+    local s = 10 -- 너무 작은 사이즈로는 어짜피 못쓰니까 최소 10 이상으로 한다.
+    local e = self.m_orgFontSize
+    while ((s + 1) < e) do
+        -- 중간
+        local m = math_floor((s + e) / 2)
+        -- 폰트 사이즈 및 라인 간격 적용 
+        local ttf_info = self.m_node:getTTFConfig() 
+        ttf_info.fontSize = m
+        self.m_node:setTTFConfig(ttf_info)
+        --self.m_lineInterval = math_min((m * 0.4), self.m_orgLineInterval)
+        --local line_height = (m + self.m_lineInterval)
+        --self.m_node:setLineHeight(line_height)
+
+        if (self:isOutOfBound() == true) then -- 사이즈가 넘어가는 경우
+            e = m
+        else -- 사이즈 안에 포함되는 경우 (사용 가능)
+            s = m
+        end
+    end
+
+    -- 안에 포함될 수 있는 사이즈 중 가장 큰 폰트 사이즈로 적용
+    local ttf_info = self.m_node:getTTFConfig() 
+    ttf_info.fontSize = s
+    self.m_node:setTTFConfig(ttf_info)
+
+    --self.m_node:setCommonLineHeight(ttf_info.fontSize)
+    --self.m_lineInterval = math_min((s * 0.4), self.m_orgLineInterval)
+    --local line_height = (s + self.m_lineInterval)
+    --self.m_node:setLineHeight(line_height)
+end
+
+
+-------------------------------------
+-- function setAutoFontSizeScaling
+-- @breif 해당 옵션이 켜지면 라벨 영역에 맞춰 폰트 사이즈를 스케일링한다.
+-------------------------------------
+function UIC_LabelTTF:setAutoFontSizeScaling(b)
+    self.m_bAutoFontSize = b
+
+    if (b == true) then
+        self:autoFontSizeScaling()
+    
+    -- 옵션이 꺼지는 경우 원래 크기로 되돌린다.
+    else
+        local ttf_info = self.m_node:getTTFConfig() 
+        local org_font_size = self.m_orgFontSize
+        if (org_font_size ~= ttf_info.fontSize) then
+            ttf_info.fontSize = org_font_size
+            self.m_node:setTTFConfig(ttf_info)
+        end
+        
+--[[         local org_line_interval = self.m_orgLineInterval
+        if (org_line_interval ~= self.m_lineInterval) then
+            self.m_lineInterval = org_line_interval
+            local line_height = org_font_size + org_line_interval
+            self.m_node:setLineHeight(line_height)
+        end ]]
+    end
+end
+--[[ 
+
+-------------------------------------
+-- function getTextSize
+-------------------------------------
+function UIC_LabelTTF:getTextSize()
+    -- 라벨 텍스트가 차지하는 크기를 반환한다.
+    local content_size = self.m_node:getContentSize()
+    return content_size
+end
+
+-------------------------------------
+-- function getStringWidth
+-------------------------------------
+function UIC_LabelTTF:getStringWidth2()
+    -- label의 getStringWidth() 함수는 개행을 하지 않은 상태의 넓이를 리텀함
+    -- contentSize의 width를 리턴하게 함
+    local size = self:getTextSize()
+    return size['width']
+end
+
+-------------------------------------
+-- function getStringHeight
+-------------------------------------
+function UIC_LabelTTF:getStringHeight2()
+    local size = self:getTextSize()
+    return size['height']
+end
+
+-------------------------------------
+-- function getDimensions
+-- @brief
+-------------------------------------
+function UIC_LabelTTF:getDimensions()
+    return self.m_node:getDimensions()
+end ]]

@@ -481,7 +481,10 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             rich_label:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0)
 		end
 
-        
+        -- AUTO FONT SIZE SCALING (라벨 영역에 텍스트가 들어가도록 자동으로 폰트 사이즈 스케일링)
+        if data.use_auto_fontsize then
+            rich_label:setAutoFontSizeScaling(true)
+        end
 
         if (ui_name == 'scroll') or (flag =='scroll') then
             delegator = UIC_ScrollLabel:create(rich_label)
@@ -552,6 +555,12 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
 			--node:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0) -- // enableShadow(shadowColor = Color4B::BLACK, offset = Size(2,-2),int 	blurRadius = 0)
             delegator:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0) -- // enableShadow(shadowColor = Color4B::BLACK, offset = Size(2,-2),int 	blurRadius = 0)
 		end
+
+        -- AUTO FONT SIZE SCALING (라벨 영역에 텍스트가 들어가도록 자동으로 폰트 사이즈 스케일링)
+        if data.use_auto_fontsize then
+            delegator:setAutoFontSizeScaling(true)
+        end
+
 		-- SPACE BETWEEN LETTER
         if (use_ttf == true) then -- Not supported system font!
 		    if data['letter_spacing'] and data['letter_spacing'] ~= 0 then
