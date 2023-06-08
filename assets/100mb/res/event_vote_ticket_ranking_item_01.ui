@@ -180,7 +180,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 230;
-				height = 26;
+				height = 32;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -197,7 +197,7 @@
 				color = { 240; 215; 159; };
 				opacity = 255;
 				dimension_width = 230;
-				dimension_height = 26;
+				dimension_height = 32;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;

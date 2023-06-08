@@ -38,7 +38,7 @@
 				[2] =
 				{
 					type = 'LabelTTF';
-					ui_name = 'rich';
+					ui_name = '';
 					flag = '';
 					x = 0.000000;
 					y = -40.000000;
@@ -442,7 +442,7 @@
 						ui_name = '';
 						flag = '';
 						x = 0.000000;
-						y = -1.000000;
+						y = 15.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -564,7 +564,7 @@
 						ui_name = '';
 						flag = '';
 						x = 0.000000;
-						y = -1.000000;
+						y = 15.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -686,7 +686,7 @@
 						ui_name = '';
 						flag = '';
 						x = 0.000000;
-						y = 12.000000;
+						y = 17.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -713,7 +713,7 @@
 						ui_name = '';
 						flag = '';
 						x = 2.000000;
-						y = 20.000000;
+						y = 25.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
