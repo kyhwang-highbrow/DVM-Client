@@ -24,7 +24,11 @@ UI_DiceEvent = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_DiceEvent:init()
-    local vars = self:load('event_dice.ui')
+    if g_eventDiceData:isExpansionLap() == true then
+        self:load('event_dice_02.ui')
+    else
+        self:load('event_dice.ui')
+    end
 
     -- initailze 
     self.m_cellUIList = {}
@@ -462,7 +466,12 @@ end
 -------------------------------------
 function UI_DiceEvent.makeCell(t_data)
     local ui = UI()
-    local vars = ui:load('event_dice_item.ui')
+    local vars
+    if g_eventDiceData:isExpansionLap() == true then
+        vars = ui:load('event_dice_item_02.ui')
+    else
+        vars = ui:load('event_dice_item.ui')
+    end
 
     -- 선택 표시
     vars['selectSprite']:setVisible(false)
@@ -505,7 +514,23 @@ end
 -------------------------------------
 function UI_DiceEvent.makeLap(t_data)
     local ui = UI()
-    local vars = ui:load('event_dice_reward_item.ui')
+
+    local vars
+    if g_eventDiceData:isExpansionLap() == true then
+        vars = ui:load('event_dice_reward_item_02.ui')
+    else
+        vars = ui:load('event_dice_reward_item.ui')
+    end
+
+    -- 0회차
+    local lap = t_data['lap']
+    local function finish_cb(ret)
+        t_data['is_recieved'] = true
+        UI_DiceEvent.refershLap(ui, t_data, 0)
+
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+    end
 
     -- 보상 아이콘
     local gap = 30
@@ -558,10 +583,8 @@ function UI_DiceEvent.makeLap(t_data)
     end
     vars['cntLabel']:setScale(0.8)
 
-    -- 0회차
-    local lap = t_data['lap']
-    vars['timeLabel']:setString(Str('{1}회 완주', lap))
 
+    vars['timeLabel']:setString(Str('{1}회 완주', lap))
     -- 터치시 툴팁
     vars['clickBtn']:registerScriptTapHandler(function()
         local desc = ''
@@ -575,13 +598,6 @@ function UI_DiceEvent.makeLap(t_data)
 
     -- 보상 수령
     vars['rewardBtn']:registerScriptTapHandler(function()
-        local function finish_cb(ret)
-            t_data['is_recieved'] = true
-            UI_DiceEvent.refershLap(ui, t_data, 0)
-
-            local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-            UI_ToastPopup(toast_msg)
-        end
         g_eventDiceData:request_diceReward(lap, finish_cb)
     end)
 
@@ -623,8 +639,19 @@ function UI_DiceEvent.refershLap(lap_ui, t_lap, curr_lap)
 
     end
 
-    lap_ui.vars['rewardBtn']:setEnabled(is_btn_able)
-    lap_ui.vars['rewardLabel']:setString(btn_str)
-    lap_ui.vars['rewardLabel']:setColor(btn_color)
-    lap_ui.vars['checkSprite']:setVisible(is_recieved)
+    if lap_ui.vars['rewardBtn'] ~= nil then
+        lap_ui.vars['rewardBtn']:setEnabled(is_btn_able)
+    end
+
+    if lap_ui.vars['rewardLabel'] ~= nil then
+        lap_ui.vars['rewardLabel']:setString(btn_str)
+    end
+
+    if lap_ui.vars['rewardLabel'] ~= nil then
+        lap_ui.vars['rewardLabel']:setColor(btn_color)
+    end
+
+    if lap_ui.vars['checkSprite'] ~= nil then
+        lap_ui.vars['checkSprite']:setVisible(is_recieved)
+    end
 end

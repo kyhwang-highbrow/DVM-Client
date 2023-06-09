@@ -38,6 +38,25 @@ function ServerData_EventDice:getLapList()
 end
 
 -------------------------------------
+-- function isExpansionLap
+-------------------------------------
+function ServerData_EventDice:isExpansionLap()
+    if self.m_lLapList == nil then
+        return false
+    end
+
+    if #self.m_lLapList <= 6 then
+        return false
+    end
+
+    if #self.m_lLapList == 10 then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function makePrettyCellList
 -------------------------------------
 function ServerData_EventDice:makePrettyCellList(t_data)
