@@ -152,8 +152,8 @@ end
 -------------------------------------
 function UI_DiceEvent:initButton()
     local vars = self.vars
-    vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end)
-	vars['goldBtn']:registerScriptTapHandler(function() self:click_diceBtn() end)
+    vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn('dice') end)
+	vars['goldBtn']:registerScriptTapHandler(function() self:click_diceBtn('gold') end)
 end
 
 -------------------------------------
@@ -168,6 +168,7 @@ function UI_DiceEvent:refresh()
     local curr_cell = dice_info:getCurrCell()
     local lap_cnt = dice_info:getCurrLapCnt()
     local curr_cell_ui = self.m_cellUIList[curr_cell]
+    local use_add_all = dice_info:useAllAddDice()
 
     -- 주사위 갯수
     vars['diceLabel']:setString(curr_dice)
@@ -192,9 +193,9 @@ function UI_DiceEvent:refresh()
 
 	-- 추가 주사위 처리
 	do
-		local is_add = (curr_dice == 0)
+		local is_add = (curr_dice == 0)       
 		vars['goldBtn']:setEnabled(is_add)
-		vars['diceBtn']:setEnabled(not is_add)
+		--vars['diceBtn']:setEnabled(use_add_all)
 	
 		-- 추가 주사위 현황
 		local add_desc = dice_info:getAdditionalStateDesc()
@@ -286,13 +287,16 @@ end
 -------------------------------------
 -- function click_diceBtn
 -------------------------------------
-function UI_DiceEvent:click_diceBtn()
+function UI_DiceEvent:click_diceBtn(price_type)
     -- 추가 주사위 또는 주사위가 있을 때만 동작하도록 한다.
     local dice_info = g_eventDiceData:getDiceInfo()
     local curr_dice = dice_info:getCurrDice()
 	local use_add_all = dice_info:useAllAddDice()
-    if (use_add_all) and (curr_dice < 1) then
+    if (use_add_all == true and curr_dice < 1) or (price_type == 'dice' and curr_dice < 1) then
         UIManager:toastNotificationRed(Str('주사위가 부족합니다'))
+        if g_eventDiceData:isExpansionLap() == true then
+            g_fullPopupManager:showFullPopup('package_dice')
+        end
         return
     end
 
