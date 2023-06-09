@@ -57,13 +57,38 @@ function ServerData_EventDice:isExpansionLap()
 end
 
 -------------------------------------
+-- function isAvailableLapReward
+-------------------------------------
+function ServerData_EventDice:isAvailableLapReward(lap)
+    if self.m_lLapList == nil then
+        return false
+    end
+
+    local dice_info = self:getDiceInfo()
+    if dice_info == nil then
+        return false
+    end
+
+    local lap_cnt = dice_info:getCurrLapCnt()
+    for i, t_lap in ipairs(self.m_lLapList) do
+        if lap == t_lap['lap'] then
+            --cclog('lap: ', lap)
+            --cclog('log: ', lap_cnt, t_lap['lap'], t_lap['is_recieved'])
+            return lap_cnt >= t_lap['lap'] and t_lap['is_recieved'] == false
+        end
+    end
+
+    return false    
+end
+
+-------------------------------------
 -- function getDiceDailyGold
 -------------------------------------
 function ServerData_EventDice:getDiceDailyGold()
     if self.m_diceInfo == nil then
         return 0
     end
-    
+
     return self.m_diceInfo['gold_use'] or 0
 end
 

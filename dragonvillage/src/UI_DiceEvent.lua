@@ -556,10 +556,17 @@ function UI_DiceEvent.makeLap(t_data)
             icon = UI_ItemCard(item_id, nil)
 
             local function click_btn()
+                if g_eventDiceData:isExpansionLap() == true then
+                    if g_eventDiceData:isAvailableLapReward(lap) == true then
+                        g_eventDiceData:request_diceReward(lap, finish_cb)
+                        return
+                    end
+                end
+
                 UI_BookDetailPopup.openWithFrame(did, nil, nil, 0.8, true)
             end
-            icon.vars['clickBtn']:registerScriptTapHandler(function() click_btn() end)
 
+            icon.vars['clickBtn']:registerScriptTapHandler(function() click_btn() end)
             icon.root:setScale(0.95)
             vars['rewardNode']:addChild(icon.root)
             
@@ -592,6 +599,13 @@ function UI_DiceEvent.makeLap(t_data)
     vars['timeLabel']:setString(Str('{1}회 완주', lap))
     -- 터치시 툴팁
     vars['clickBtn']:registerScriptTapHandler(function()
+        if g_eventDiceData:isExpansionLap() == true then
+            if g_eventDiceData:isAvailableLapReward(lap) == true then
+                g_eventDiceData:request_diceReward(lap, finish_cb)
+                return
+            end
+        end
+    
         local desc = ''
         for i, item_id in ipairs(l_item_id_list) do
             desc = desc .. TableItem:getToolTipDesc(item_id) .. '\n'
@@ -658,5 +672,19 @@ function UI_DiceEvent.refershLap(lap_ui, t_lap, curr_lap)
 
     if lap_ui.vars['checkSprite'] ~= nil then
         lap_ui.vars['checkSprite']:setVisible(is_recieved)
+    end
+
+    if lap_ui.vars['rewardNotiSprite'] ~= nil then
+        lap_ui.vars['rewardNotiSprite']:setVisible(is_btn_able)
+    end
+
+    if g_eventDiceData:isExpansionLap() == true then
+        local node_color = cc.c4b(255, 255, 255, 255)
+
+        if is_recieved == true then
+            node_color = cc.c4b(100, 100, 100, 255)
+        end
+
+        doAllChildren(lap_ui.vars['rewardNode'], function(node) node:setColor(node_color) end)
     end
 end
