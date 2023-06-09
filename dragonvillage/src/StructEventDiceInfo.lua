@@ -27,6 +27,8 @@ StructEventDiceInfo = class(PARENT, {
 
         curr_cell = 'number',
         lap_cnt = 'number',
+
+        gold_use = 'number',
     })
 
 local THIS = StructEventDiceInfo

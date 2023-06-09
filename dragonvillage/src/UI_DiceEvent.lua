@@ -138,6 +138,11 @@ function UI_DiceEvent:initUI()
         self.m_rollAnimator = roll_ani
 	end
 
+    do -- 일일 골드 사용량
+        local gold_price = g_eventDiceData:getDiceDailyGold()
+        vars['goldPriceLabel']:setString(comma_value(gold_price))
+    end
+
     -- touch 먹히도록 함
     self.root:setSwallowTouch(false)
 end

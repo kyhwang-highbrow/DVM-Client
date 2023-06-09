@@ -57,6 +57,17 @@ function ServerData_EventDice:isExpansionLap()
 end
 
 -------------------------------------
+-- function getDiceDailyGold
+-------------------------------------
+function ServerData_EventDice:getDiceDailyGold()
+    if self.m_diceInfo == nil then
+        return 0
+    end
+    
+    return self.m_diceInfo['gold_use'] or 0
+end
+
+-------------------------------------
 -- function makePrettyCellList
 -------------------------------------
 function ServerData_EventDice:makePrettyCellList(t_data)
