@@ -6,6 +6,7 @@ ServerData_EventDice = class({
         m_lLapList = 'table',
 
         m_diceInfo = 'StructEventDiceInfo',
+        m_receiveDiceDirty = 'boolean',
 
         m_endTime = 'time',
     })
@@ -14,6 +15,7 @@ ServerData_EventDice = class({
 -- function init
 -------------------------------------
 function ServerData_EventDice:init()
+    self.m_receiveDiceDirty = false
 end
 
 -------------------------------------
@@ -35,6 +37,21 @@ end
 -------------------------------------
 function ServerData_EventDice:getLapList()
     return self.m_lLapList
+end
+
+
+-------------------------------------
+-- function setReceiveDiceDirty
+-------------------------------------
+function ServerData_EventDice:setReceiveDiceDirty(b)
+    self.m_receiveDiceDirty = b
+end
+
+-------------------------------------
+-- function getReceiveDirty
+-------------------------------------
+function ServerData_EventDice:getReceiveDiceDirty()
+    return self.m_receiveDiceDirty
 end
 
 -------------------------------------

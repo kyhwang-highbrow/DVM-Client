@@ -456,6 +456,11 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
             end
         end
 
+        -- 주사위 패키지의 경우는 바로 우편 팝업이 뜨게 처리함
+        if self.m_package_name == 'package_dice' then
+            UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM)
+        end
+
         -- m_package_name
         -- 일단은 버튼부터 막는다
         --[[

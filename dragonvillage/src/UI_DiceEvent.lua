@@ -295,7 +295,12 @@ function UI_DiceEvent:click_diceBtn(price_type)
     if (use_add_all == true and curr_dice < 1) or (price_type == 'dice' and curr_dice < 1) then
         UIManager:toastNotificationRed(Str('주사위가 부족합니다'))
         if g_eventDiceData:isExpansionLap() == true then
-            g_fullPopupManager:showFullPopup('package_dice')
+            local ui = g_fullPopupManager:showFullPopup('package_dice')
+            ui:setCloseCB(function ()
+                g_eventDiceData:request_diceInfo(function ()
+                    self:refresh()
+                end)
+            end)
         end
         return
     end
