@@ -1,6 +1,5 @@
-return {['{@item_name}\"{1}\"\n{@default}교환하시겠습니까?']='{1} for {@item_name}. \nDo you want to exchange it with {@default}?',
-['※ 인기 신화 드래곤 5종은 각각 확률이 동일합니다.']='The probability for each of the five types of popular mythical dragons is equal.',
-['신화 드래곤 인기 투표 결과']='Results of the Mythic Dragon Popularity Vote',
+return {['DVC 자작룡 이벤트']='DVC 자작룡 이벤트',
+['주사위 패키지']='Dice Package',
 ['16스테이지 클리어']='Clear Stage 16',
 ['17스테이지 클리어']='Clear Stage 17',
 ['18스테이지 클리어']='Clear Stage 18',
@@ -212,4 +211,7 @@ return {['{@item_name}\"{1}\"\n{@default}교환하시겠습니까?']='{1} for {@
 ['※ 신화 드래곤은 인기 투표 종합 랭킹 1~5위의 드래곤만 등장합니다.']='※ Mythic Dragon only appears among the top 1-5 dragons in the popular Vote Comprehensive Ranking.',
 ['인기 신화 드래곤 선택권은 우편함에서 30일 이내 미사용시 삭제됩니다.']='The Popular Mythic Dragon Selection Ticket will be deleted from your mailbox if it is not used within 30 days.',
 ['{1} 부화소에서 {2}(을)를 만나 보실 수 있습니다.']='You can meet {2} at {1} Summon.',
-['인기 신화 드래곤\n소환권']='Popular Mythic Dragon\nSelection Ticket'}
+['인기 신화 드래곤\n소환권']='Popular Mythic Dragon\nSelection Ticket',
+['{@item_name}\"{1}\"\n{@default}교환하시겠습니까?']='{1} for {@item_name}. \nDo you want to exchange it with {@default}?',
+['※ 인기 신화 드래곤 5종은 각각 확률이 동일합니다.']='The probability for each of the five types of popular mythical dragons is equal.',
+['신화 드래곤 인기 투표 결과']='Results of the Mythic Dragon Popularity Vote'}
