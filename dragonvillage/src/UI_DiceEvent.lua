@@ -373,10 +373,13 @@ function UI_DiceEvent:directingDice()
 
         -- 사운드 재생
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')
+        if ret_cache == nil then
+            co:close()
+            return
+        end
 
         -- 나온 주사위 눈
         local dt_cell = ret_cache['dt_cell']
-
         -- ani list 재생
         local ani_list = {'appear', 'idle', 'disappear', tostring(dt_cell)}
         while (#ani_list > 0) do
@@ -550,6 +553,8 @@ function UI_DiceEvent.makeLap(t_data, ower_ui)
     local function finish_cb(ret)
         t_data['is_recieved'] = true
         UI_DiceEvent.refershLap(ui, t_data, 0)
+        g_eventDiceData:setLapRewardReceived(lap)
+        
         ower_ui:refresh()
         local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
         UI_ToastPopup(toast_msg)
@@ -559,6 +564,9 @@ function UI_DiceEvent.makeLap(t_data, ower_ui)
     local gap = 30
     local ft = gap/2
     local l_reward = t_data['l_reward']
+
+
+
     local reward_cnt = #l_reward
     local item_id, res, icon, pos_x, value, item_type
     local l_item_id_list = {}

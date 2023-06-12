@@ -73,10 +73,23 @@ function ServerData_EventDice:isExpansionLap()
     return false
 end
 
+
+-------------------------------------
+-- function getCurrLapCount
+-------------------------------------
+function ServerData_EventDice:getCurrLapCount()
+    local dice_info = self:getDiceInfo()
+    if dice_info == nil then
+        return 0
+    end
+
+    return dice_info:getCurrLapCnt()
+end
+
 -------------------------------------
 -- function isAvailableLapReward
 -------------------------------------
-function ServerData_EventDice:isAvailableLapReward(_lap)
+function ServerData_EventDice:isAvailableLapReward(lap)
     if (g_hotTimeData:isActiveEvent('event_dice') == false) then
         return false
     end
@@ -92,9 +105,9 @@ function ServerData_EventDice:isAvailableLapReward(_lap)
 
     local lap_cnt = dice_info:getCurrLapCnt()
     for i, t_lap in ipairs(self.m_lLapList) do
-        local lap = _lap
-        local is_available = lap_cnt >= t_lap['lap'] and t_lap['is_recieved'] == false
-        
+
+        local is_available = (lap_cnt >= t_lap['lap']) and (t_lap['is_recieved'] == false)
+
         if lap == nil then
             if is_available == true then
                 return true
@@ -107,6 +120,17 @@ function ServerData_EventDice:isAvailableLapReward(_lap)
     end
 
     return false
+end
+
+-------------------------------------
+-- function setLapRewardReceived
+-------------------------------------
+function ServerData_EventDice:setLapRewardReceived(lap)
+    for i, t_lap in ipairs(self.m_lLapList) do
+        if lap == t_lap['lap'] then
+            t_lap['is_recieved'] = true
+        end
+    end
 end
 
 -------------------------------------
