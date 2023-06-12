@@ -807,6 +807,11 @@ function ServerData_Event:hasAvailableReward(event_tab)
         if (string.find(event_id, 'pre_reservation_')) then
             has_available_reward = g_userData:isAvailablePreReservation(event_id)
         end
+
+    -- 주사위 이벤트
+    elseif (event_type == 'event_dice') then
+        has_available_reward = g_eventDiceData:isAvailableLapReward()
+
     else
         has_available_reward = false
     end

@@ -115,6 +115,10 @@ function StructEventPopupTab:isNotiVisible()
         if (string.find(event_id, 'pre_reservation_')) then
             is_noti = g_userData:isAvailablePreReservation(event_id)
         end
+
+    -- 주사위 이벤트 완주 보상
+    elseif (event_type == 'event_dice') then
+        is_noti = g_eventDiceData:isAvailableLapReward()
     end
 
     return is_noti

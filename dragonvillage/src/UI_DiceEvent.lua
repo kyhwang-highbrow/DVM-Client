@@ -18,12 +18,13 @@ UI_DiceEvent = class(PARENT,{
         m_coroutineHelper = 'CoroutineHelper',
         m_directingState = 'number',
         m_destCell = 'number',
+        m_owerUI = 'UI_EventPopup',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DiceEvent:init()
+function UI_DiceEvent:init(ower_ui)
     if g_eventDiceData:isExpansionLap() == true then
         self:load('event_dice_02.ui')
     else
@@ -31,6 +32,7 @@ function UI_DiceEvent:init()
     end
 
     -- initailze 
+    self.m_owerUI = ower_ui
     self.m_cellUIList = {}
     self.m_lapRewardInfoList = {}
     self.m_container = nil
@@ -67,7 +69,7 @@ function UI_DiceEvent:initUI()
     local lap_list = g_eventDiceData:getLapList()
     for i, t_lap in ipairs(lap_list) do
         if (vars['rewardMenu' .. i]) then
-            local ui = self.makeLap(t_lap)
+            local ui = self.makeLap(t_lap, self)
             vars['rewardMenu' .. i]:addChild(ui.root)
             self.m_lapRewardInfoList[i] = {
                 ['ui'] = ui,
@@ -139,7 +141,7 @@ function UI_DiceEvent:initUI()
 	end
 
     do -- 일일 골드 사용량
-        local gold_price = g_eventDiceData:getDiceDailyGold()
+        local gold_price = g_eventDiceData:getDiceDailyGoldPrice()
         vars['goldPriceLabel']:setString(comma_value(gold_price))
     end
 
@@ -201,6 +203,13 @@ function UI_DiceEvent:refresh()
 		local add_desc = dice_info:getAdditionalStateDesc()
 		vars['goldCountLabel']:setString(add_desc)
 	end
+
+    -- 이벤트 탭 레드닷 업데이트를 위해 UI_EventPopup refreshTabList
+    do 
+        if self.m_owerUI ~= nil then
+            self.m_owerUI:refreshTabList()
+        end
+    end
 end
 
 -------------------------------------
@@ -526,7 +535,7 @@ end
 -- function makeLap
 -- @static
 -------------------------------------
-function UI_DiceEvent.makeLap(t_data)
+function UI_DiceEvent.makeLap(t_data, ower_ui)
     local ui = UI()
 
     local vars
@@ -541,7 +550,7 @@ function UI_DiceEvent.makeLap(t_data)
     local function finish_cb(ret)
         t_data['is_recieved'] = true
         UI_DiceEvent.refershLap(ui, t_data, 0)
-
+        ower_ui:refresh()
         local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
         UI_ToastPopup(toast_msg)
     end

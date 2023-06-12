@@ -76,7 +76,11 @@ end
 -------------------------------------
 -- function isAvailableLapReward
 -------------------------------------
-function ServerData_EventDice:isAvailableLapReward(lap)
+function ServerData_EventDice:isAvailableLapReward(_lap)
+    if (g_hotTimeData:isActiveEvent('event_dice') == false) then
+        return false
+    end
+
     if self.m_lLapList == nil then
         return false
     end
@@ -88,20 +92,27 @@ function ServerData_EventDice:isAvailableLapReward(lap)
 
     local lap_cnt = dice_info:getCurrLapCnt()
     for i, t_lap in ipairs(self.m_lLapList) do
-        if lap == t_lap['lap'] then
-            --cclog('lap: ', lap)
-            --cclog('log: ', lap_cnt, t_lap['lap'], t_lap['is_recieved'])
-            return lap_cnt >= t_lap['lap'] and t_lap['is_recieved'] == false
+        local lap = _lap
+        local is_available = lap_cnt >= t_lap['lap'] and t_lap['is_recieved'] == false
+        
+        if lap == nil then
+            if is_available == true then
+                return true
+            end
+        else
+            if lap == t_lap['lap'] then
+                return  is_available
+            end
         end
     end
 
-    return false    
+    return false
 end
 
 -------------------------------------
--- function getDiceDailyGold
+-- function getDiceDailyGoldPrice
 -------------------------------------
-function ServerData_EventDice:getDiceDailyGold()
+function ServerData_EventDice:getDiceDailyGoldPrice()
     if self.m_diceInfo == nil then
         return 0
     end

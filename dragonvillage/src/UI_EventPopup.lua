@@ -307,7 +307,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
     -- 주사위 이벤트
     elseif (tab =='event_dice') then
-        local inner_ui = UI_DiceEvent()
+        local inner_ui = UI_DiceEvent(self)
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
     -- 황금던전 이벤트
