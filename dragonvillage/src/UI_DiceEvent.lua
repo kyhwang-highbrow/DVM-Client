@@ -386,9 +386,15 @@ function UI_DiceEvent:directingDice()
             -- skip 시 강제 탈출 하도록 함
             if (self.m_directingState == 2) then
                 -- 주사위 연출을 숨기고 애니메이션 정지
-                self.m_rollAnimator:setAnimationPause(true)
-                self.m_rollAnimator:setVisible(false)
-                self.m_maskingUI.root:setVisible(false)
+                --self.m_rollAnimator:setAnimationPause(true)
+                --self.m_rollAnimator:setVisible(false)
+                --self.m_maskingUI.root:setVisible(false)
+                --self.m_rollAnimator:setTimeScale(4)
+                
+                co:work()
+                self.m_rollAnimator:changeAni(tostring(dt_cell))
+                self.m_rollAnimator:addAniHandler(co.NEXT)
+                if co:waitWork() then return end
                 break
             end
 
@@ -403,13 +409,12 @@ function UI_DiceEvent:directingDice()
 
             if co:waitWork() then return end
         end
-        
-        -- Directing State 2
-        self.m_directingState = 2
 
         -- 굴리기 연출 OFF
         self.m_rollAnimator:setVisible(false)
         self.m_maskingUI.root:setVisible(false)
+        -- Directing State 2
+        self.m_directingState = 2
 
         -- 이동 연출
         local old_cell = ret_cache['old_pos']
@@ -444,6 +449,7 @@ function UI_DiceEvent:directingDice()
         
         -- Directing State 3
         self.m_directingState = 3
+
         
         -- 도착 연출
         do  
@@ -455,7 +461,8 @@ function UI_DiceEvent:directingDice()
             self.m_selectAnimator:changeAni('arrival')
             self.m_selectAnimator:addAniHandler(function()
                 -- 도착 후 정리
-                self.m_selectAnimator:changeAni('select', true)
+                self.m_selectAnimator:changeAni('select', true)                
+
             end)
         end
 
@@ -714,3 +721,4 @@ function UI_DiceEvent.refershLap(lap_ui, t_lap, curr_lap)
         doAllChildren(lap_ui.vars['rewardNode'], function(node) node:setColor(node_color) end)
     end
 end
+
