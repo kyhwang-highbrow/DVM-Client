@@ -1308,6 +1308,9 @@ function UI_Lobby:update_highlight()
         end
     end
 
+    do -- 주사위 이벤트
+        vars['diceNotiSprite']:setVisible(g_eventDiceData:isAvailableLapReward())
+    end
 end
 
 -------------------------------------
