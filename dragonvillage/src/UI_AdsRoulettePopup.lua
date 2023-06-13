@@ -147,7 +147,7 @@ end
 -------------------------------------
 function UI_AdsRoulettePopup:click_closeBtn()
     if self.m_blockClose == true then
-        UIManager:toastNotificationRed(Str('지금은 사용 할 수 없습니다.'))
+        UIManager:toastNotificationRed(Str('잠시 후에 다시 시도해주세요.'))
         return
     end
 
