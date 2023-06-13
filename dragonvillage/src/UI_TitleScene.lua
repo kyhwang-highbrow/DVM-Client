@@ -726,9 +726,13 @@ function UI_TitleScene:workCheckUserID()
         end
     end
 
-    local function fail_cb()
+
+    local auto_login_failed_msg
+    local function fail_cb(_msg)
         -- 자동로그인에 실패한 경우 로그인 팝업 출력
         --local ui = UI_LoginPopup()
+        g_errorTracker:setAutoLoginFailedMsg(_msg)
+
         local ui = UI_LoginIntegratePopup(self)
         local function close_cb()
             self:doNextWork()
@@ -741,8 +745,10 @@ function UI_TitleScene:workCheckUserID()
     -- 이전 플랫폼 관련 로그인 세션을 모두 로그아웃하고 로그인 팝업 출력
     local needLogOut = false    
     if g_localData:getServerName() == nil then  --선택 서버 내용이 없어도.
+        auto_login_failed_msg = 'g_localData:getServerName() == nil'
         needLogOut = true
     elseif isIos() and (g_localData:get('local', 'platform_id') == nil) then        
+        auto_login_failed_msg = 'ios platform_id == nil'
         needLogOut = true
     end
 
@@ -755,8 +761,7 @@ function UI_TitleScene:workCheckUserID()
 		PerpleSDK:twitterLogout()
         PerpleSDK:appleLogout()
 
-
-        fail_cb()
+        fail_cb(auto_login_failed_msg)
         return
     end
         
@@ -767,7 +772,7 @@ function UI_TitleScene:workCheckUserID()
             success_cb(info)
         elseif ret == 'fail' then
             cclog('Firebase autoLogin failed.')
-            fail_cb()
+            fail_cb('Firebase autoLogin failed.')
         end
     end)
 
@@ -1141,6 +1146,9 @@ function UI_TitleScene:workGameLogin()
             else
                 login_existing_user(ret)
             end
+
+            -- 자동 로그인 실패할 경우에 대한 에러 로그 처리
+            g_errorTracker:sendErrorLog_AutoLoginFailed()
         end
 
         local fail_cb = function(ret)

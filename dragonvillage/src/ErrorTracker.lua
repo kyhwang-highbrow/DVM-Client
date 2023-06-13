@@ -11,6 +11,9 @@ ErrorTracker = class({
     m_lFailedResList = 'list<string>',
     m_tDeviceInfo = 'table',
     m_bErrorPopupOpen = 'bool',
+
+
+    m_msgAutoLoginFailedMsg = 'string',
 })
 
 -------------------------------------
@@ -504,4 +507,23 @@ function ErrorTracker:getDevice()
     end
 
     return model
+end
+
+-------------------------------------
+-- function setAutoLoginFailedMsg
+------------------------------------- 
+function ErrorTracker:setAutoLoginFailedMsg(msg)
+    self.m_msgAutoLoginFailedMsg = msg
+end
+
+-------------------------------------
+-- function sendErrorLog_AutoLoginFailed
+------------------------------------- 
+function ErrorTracker:sendErrorLog_AutoLoginFailed()
+    if self.m_msgAutoLoginFailedMsg == nil then
+        return
+    end
+
+    self:sendErrorLog(self.m_msgAutoLoginFailedMsg)
+    self.m_msgAutoLoginFailedMsg = nil
 end
