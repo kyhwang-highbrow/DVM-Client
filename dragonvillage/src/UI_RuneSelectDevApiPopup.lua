@@ -681,12 +681,12 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
             self:makeComboBox('mopt', l_str)
         
         elseif (key == 'set') then
-            if (not isExistValue(self.m_set, 0, 1, 2, 4, 6, 7, 8)) then
+            if (not isExistValue(self.m_set, 0, 1, 2, 4, 6, 7, 8, 9, 10, 11, 13, 14)) then
                 self.m_grade = math_min(self.m_grade, 6)
             end
         
         elseif (key == 'grade') then
-            if (not isExistValue(self.m_set, 0, 1, 2, 4, 6, 7, 8)) then
+            if (not isExistValue(self.m_set, 0, 1, 2, 4, 6, 7, 8, 9, 10, 11, 13, 14)) then
                 self.m_grade = math_min(self.m_grade, 6)
             end
 
