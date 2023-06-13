@@ -391,15 +391,17 @@ function UI_DiceEvent:directingDice()
                 --self.m_maskingUI.root:setVisible(false)
                 --self.m_rollAnimator:setTimeScale(4)
                 
-                co:work()
+                --co:work()
                 self.m_rollAnimator:changeAni(tostring(dt_cell))
-                self.m_rollAnimator:addAniHandler(co.NEXT)
-                if co:waitWork() then return end
+                --self.m_rollAnimator:addAniHandler(co.NEXT)
+                co:waitTime(0.5)
+                --if co:waitWork() then return end
+                self.m_rollAnimator:setTimeScale(0)
+
                 break
             end
 
             co:work()
-
             local ani_name = ani_list[1]
             table.remove(ani_list, 1)
             self.m_rollAnimator:changeAni(ani_name)
@@ -413,6 +415,7 @@ function UI_DiceEvent:directingDice()
         -- 굴리기 연출 OFF
         self.m_rollAnimator:setVisible(false)
         self.m_maskingUI.root:setVisible(false)
+
         -- Directing State 2
         self.m_directingState = 2
 
