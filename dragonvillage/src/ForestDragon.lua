@@ -387,6 +387,11 @@ function ForestDragon:getHappy()
     local doid = self.m_structDragon['id']
     local curr_happy = ServerData_Forest:getInstance():getHappy()
     local function finish_cb(ret)
+        -- 드래곤 배치에서 드래곤을 뺴고 나오면 m_rootNode가 nil일 수 있음
+        if self.m_rootNode == nil then
+            return
+        end
+
         -- 만족도 하트 흡수 연출
         self.m_happyAnimator:changeAni('heart_tap', false)
         self.m_happyAnimator:addAniHandler(function()
