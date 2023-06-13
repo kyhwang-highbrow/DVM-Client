@@ -171,13 +171,14 @@ function UI_RuneForgeInfoTab:refresh()
         -- 구매제한 설명 문구 
         local buy_count_desc = product_struct:getMaxBuyTermStr()
         vars['grindstoneBuyLabel']:setString(buy_count_desc)
-
         
         if (product_struct:checkMaxBuyCount() == true) then
             vars['grindstoneBuyLabel']:setColor(COLOR['green'])
         else
             vars['grindstoneBuyLabel']:setColor(COLOR['red'])
         end
+
+        vars['grindstoneNameLabel']:setString(product_struct:getProductName())
     end
 end
 
