@@ -19,6 +19,8 @@ UI_AdsRoulettePopup = class(PARENT, {
 
     m_itemMaxCount = 'number',
     m_targetIdx = 'number',
+
+    m_blockClose = 'boolean',
 })
 
 -------------------------------------
@@ -32,6 +34,7 @@ function UI_AdsRoulettePopup:init()
     self.m_expTime      = ExperationTime()
     self.m_targetIdx    = 1
     self.m_itemMaxCount = 0
+    self.m_blockClose = false
     UIManager:open(self, UIManager.POPUP)
 
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end)
@@ -143,6 +146,11 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_AdsRoulettePopup:click_closeBtn()
+    if self.m_blockClose == true then
+        UIManager:toastNotificationRed(Str('지금은 사용 할 수 없습니다.'))
+        return
+    end
+
     self:close()
 end
 
@@ -171,13 +179,9 @@ function UI_AdsRoulettePopup:click_rewardBtn()
     end
     -- 중복 진입 방지
     self.m_bIsCanSpin = false
+    self.m_blockClose = true
 
     local function success_cb(ret)
-
-        -- UIC_Button:setGlobalClickFunc(function()
-        --     return true
-        -- end)
-
         local rewarded_result =  ret['added_items']['items_list']
         if (rewarded_result == nil) then
             return
@@ -208,9 +212,9 @@ function UI_AdsRoulettePopup:click_rewardBtn()
 
             -- print('end_animation start')
             -- animator:setVisible(false)
-
+            self.m_blockClose = false
             local item_info = ret['added_items']['items_list'][1]
-
+            
             -- 아이템 정보가 있다면 팝업 처리
             if (item_info) then
                 self.m_dailyRemainCount = ret['adv_lobby_remain_count']
@@ -228,59 +232,20 @@ function UI_AdsRoulettePopup:click_rewardBtn()
             -- 없다면 노티
             else
                 local msg = Str('광고 보상을 받았습니다.')
-                UIManager:toastNotificationGreen(msg)
+                UIManager:toastNotificationGreen(msg)                
             end
-
-
-            -- local function end_animation()
-            --     print('end_animation start')
-            --     animator:setVisible(false)
-
-            --     local item_info = ret['added_items']['items_list'][1]
-
-            --     -- local msg = Str('광고 보상을 받았습니다.')
-            --     -- UIManager:toastNotificationGreen(msg)
-
-            --     -- 아이템 정보가 있다면 팝업 처리
-            --     if (item_info) then
-            --         local ui = UI_AdRewardPopup(item_info)
-            --         ui:setCloseCB(function()
-            --             self.m_bIsCanSpin = true
-            --         end)
-            --     -- 없다면 노티
-            --     else
-            --         local msg = Str('광고 보상을 받았습니다.')
-            --         UIManager:toastNotificationGreen(msg)
-            --     end
-            -- end
-    
-            -- -- animator:addAniHandler(function()
-            -- --     print('idle ani start')
-            -- --     animator:changeAni('idle', false)
-            -- --     animator:addAniHandler(function()
-            -- --         if (animator:hasAni('end')) then
-            -- --             animator:changeAni('end', false)
-
-            -- --         end
-            -- --     end)
-            -- -- end)
-
-            -- animator:addAniHandler(function()
-            --     print('next ani start')
-            --     animator:stopAllActions()
-            --     end_animation()
-            --     -- require('UI_RewardPopup')
-            --     -- local reward_ui = UI_RewardPopup:open(struct_item_list)
-            --     -- reward_ui:setCloseCB(function()
-            --     --     self.m_bIsCanSpin = true
-            --     -- end)
-            -- end)
         end)
     end
 
     local function ads_callback(ret, ad_network, log)
+        local fail_cb = function ()
+            self.m_blockClose = false
+        end
+
         if (ret == 'success') then
-            g_advRouletteData:request_rouletteRoll(ad_network, log, success_cb)
+            g_advRouletteData:request_rouletteRoll(ad_network, log, success_cb, fail_cb)
+        else
+            self.m_blockClose = false
         end
     end
 

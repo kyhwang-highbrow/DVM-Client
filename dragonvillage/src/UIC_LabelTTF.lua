@@ -104,7 +104,6 @@ function UIC_LabelTTF:setString(str)
     end
 
     if (self.m_bAutoFontSize == true) then
-        cclog('UIC_LabelTTF:setString : ', str)
         self:autoFontSizeScaling()
     end
 end
