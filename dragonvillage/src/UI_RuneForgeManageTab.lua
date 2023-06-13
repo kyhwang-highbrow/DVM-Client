@@ -738,12 +738,15 @@ function UI_RuneForgeManageTab:setActiveSelectSell(active)
     local vars = self.vars
 
     self.m_bSelectSellActive = active
-
     if (not active) then
-        for i,v in pairs(self.m_mSelectedRuneUIMap) do
-            local ui = v['ui']
-            ui:setCheckSpriteVisible(false)
+        local l_item_list = self.m_tableViewTD.m_itemList
+        for _, v in ipairs(l_item_list) do
+            if (v['ui']) then
+                local ui = v['ui']
+                ui:setCheckSpriteVisible(false)
+            end
         end
+
         self.m_mSelectedRuneRoidMap = {}
         self.m_mSelectedRuneUIMap = {}
     end
