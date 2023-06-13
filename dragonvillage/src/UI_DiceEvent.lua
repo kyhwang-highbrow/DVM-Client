@@ -718,7 +718,7 @@ function UI_DiceEvent.refershLap(lap_ui, t_lap, curr_lap)
         local node_color = cc.c4b(255, 255, 255, 255)
 
         if is_recieved == true then
-            node_color = cc.c4b(100, 100, 100, 255)
+            node_color = cc.c4b(150, 150, 150, 255)
         end
 
         doAllChildren(lap_ui.vars['rewardNode'], function(node) node:setColor(node_color) end)
