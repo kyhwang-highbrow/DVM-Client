@@ -1395,7 +1395,7 @@
 						rotation = 0.000000;
 						visible = true;
 						screen_ui = 0;
-						lua_name = '';
+						lua_name = 'goldPriceLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 28;
 						text = '10,000';
