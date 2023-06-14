@@ -156,6 +156,8 @@ function UI_RuneForgeInfoTab:refresh()
         else
             vars['runeBlessBuyLabel']:setColor(COLOR['red'])
         end
+
+        vars['runeBlessNameLabel']:setString(product_struct:getProductName())
     end
     
     do -- 룬 연마석
