@@ -518,9 +518,16 @@ end
 
 -------------------------------------
 -- function sendErrorLog_AutoLoginFailed
+-- @brief 자동 로그인 풀린다는 유저 제보 확인용 에러 로그(확인 후 제거할 예정)
 ------------------------------------- 
 function ErrorTracker:sendErrorLog_AutoLoginFailed()
     if self.m_msgAutoLoginFailedMsg == nil then
+        return
+    end
+
+    local uid = g_userData:get('uid')
+    -- 해당 유저가 아니면 에러 로그를 남기지 않음
+    if uid ~=  'jEleYjqjPSfOk5ylW1rGZZVM2vO2' then
         return
     end
 
