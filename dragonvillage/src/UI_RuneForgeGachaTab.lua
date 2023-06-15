@@ -48,25 +48,24 @@ end
 -------------------------------------
 function UI_RuneForgeGachaTab:initUI()
     local vars = self.vars
-    local start_product_id = STANDARD_RUNE_PACKAGE_ID
-
     local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
     vars['diaCostLabel']:setString(comma_value(rune_gacha_cash))
 
-    -- 가격 표기
-    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
-    local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, nil)
-    local is_sale_price_written = false
-    if (is_tag_attached == true) then
-        is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)
-    end
+    -- 가격 표기(비활성화로 인해 관련 로직 제거 23.06.15)
+--[[     local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
+    if struct_product ~= nil then
+        local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, nil)
+        local is_sale_price_written = false
+        if (is_tag_attached == true) then
+            is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)
+        end
 
-    if (is_sale_price_written == false) then
-        vars['priceLabel']:setString(struct_product:getPriceStr())
-    end
-    -- // 가격표기
-    
-    cca.pickMePickMe(vars['buyBtn'], 10)
+        if (is_sale_price_written == false) then
+            vars['priceLabel']:setString(struct_product:getPriceStr())
+        end
+        -- // 가격표기
+        cca.pickMePickMe(vars['buyBtn'], 10)
+    end ]]
 
     -- 이벤트!!!
     local is_diamond_event_active = g_hotTimeData:isActiveEvent('event_rune_gacha')
@@ -221,7 +220,6 @@ function UI_RuneForgeGachaTab:click_gachaBtn()
         return
     end
 
-    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
     local item_key = 700651 -- 룬 10개 뽑기 상자
     local item_value = 1
     local msg = Str('{@item_name}"{1} x{2}"\n{@default}사용하시겠습니까?', Str('룬 10개 뽑기 상자'), comma_value(item_value))
@@ -242,7 +240,6 @@ function UI_RuneForgeGachaTab:click_diamondGachaBtn()
         return
     end
 
-    local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
     local msg = Str('"{1}" 진행하시겠습니까?', Str('10회 뽑기'))
     local item_value = g_userData:get('rune_gacha_cash') or 0
 
