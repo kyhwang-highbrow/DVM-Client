@@ -62,6 +62,7 @@ static id s_sharedDirectorCaller;
     s_sharedDirectorCaller = nil;
 }
 
+
 -(id) init
 {
     if (self = [super init]){
@@ -70,7 +71,6 @@ static id s_sharedDirectorCaller;
     
     return self;
 }
-
 
 -(void) dealloc
 {
@@ -109,7 +109,7 @@ static id s_sharedDirectorCaller;
 -(void) doCaller: (id) sender
 {
     cocos2d::Director* director = cocos2d::Director::getInstance();
-    //[EAGLContext setCurrentContext: [(CCEAGLView*)director->getOpenGLView()->getEAGLView() context]];
+    [EAGLContext setCurrentContext: [(CCEAGLView*)director->getOpenGLView()->getEAGLView() context]];
     director->mainLoop();
 }
 
