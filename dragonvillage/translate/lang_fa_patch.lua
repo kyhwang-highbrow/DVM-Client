@@ -1,6 +1,4 @@
-return {['카네드']='Kaned',
-['카네드(땅)']='Kaned (Earth)',
-['16스테이지 클리어']='Clear Stage 16',
+return {['16스테이지 클리어']='Clear Stage 16',
 ['17스테이지 클리어']='Clear Stage 17',
 ['18스테이지 클리어']='Clear Stage 18',
 ['19스테이지 클리어']='Clear Stage 19',
@@ -252,4 +250,6 @@ return {['카네드']='Kaned',
 ['이해하지 말고 받아들이게나.']='Don\'t understand and accept it.',
 ['자네. 이게 무엇인지 아는가?']='Do you know what this is?',
 ['자신을 증오하지 말게!']='Don\'t hate yourself!',
-['흐름이란 끊기지 않고 유연해야 생긴다네.']='Flow is created when it is flexible without interruption.'}
+['흐름이란 끊기지 않고 유연해야 생긴다네.']='Flow is created when it is flexible without interruption.',
+['카네드']='Kaned',
+['카네드(땅)']='Kaned (Earth)'}

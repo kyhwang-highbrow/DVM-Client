@@ -1,5 +1,4 @@
-return {['카네드']='Kaned',
-['카네드(땅)']='Kaned (Tierra)',
+return {['\n{1} {2}개']='\n{1} X{2}',
 ['{1}\n확정 획득까지 {@yellow}{2}{@default}회']='{1} Hasta la adquisición de la confirmación de {@yellow}{2}{@default}',
 ['16스테이지 클리어']='Estado de 16 Completado',
 ['17스테이지 클리어']='Estado de 17 Completado',
@@ -254,4 +253,6 @@ return {['카네드']='Kaned',
 ['이해하지 말고 받아들이게나.']='Acéptalo sin entenderlo.',
 ['자네. 이게 무엇인지 아는가?']='¿Sabes qué es esto?',
 ['자신을 증오하지 말게!']='No te odies a ti mismo/a.',
-['흐름이란 끊기지 않고 유연해야 생긴다네.']='El flujo se crea cuando es flexible sin interrupción.'}
+['흐름이란 끊기지 않고 유연해야 생긴다네.']='El flujo se crea cuando es flexible sin interrupción.',
+['카네드']='Kaned',
+['카네드(땅)']='Kaned (Tierra)'}
