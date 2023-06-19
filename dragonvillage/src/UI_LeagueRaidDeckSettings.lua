@@ -41,7 +41,6 @@ function UI_LeagueRaidDeckSettings:init(stage_id, sub_info, bChangeMode)
     self.m_changeMode = bChangeMode or false -- 바로 시작인지 덱만 바꾸는 건지
     self.m_subInfo = sub_info
     self.m_dontSaveOnExit = true
-    cclog('UI_LeagueRaidDeckSettings' .. self.m_subInfo)
     -- 덱 변경만 가능
     if (self.m_changeMode) then
         vars['actingPowerNode']:setVisible(false)
@@ -62,6 +61,88 @@ function UI_LeagueRaidDeckSettings:init(stage_id, sub_info, bChangeMode)
 
         vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_stamina(dt) end, 0.1)
     end
+
+end
+
+-------------------------------------
+-- function initMultiDeckMode
+-- @brief 멀티 덱 모드
+-------------------------------------
+function UI_LeagueRaidDeckSettings:initMultiDeckMode()
+    local make_deck = true
+    self.m_multiDeckMgr = MultiDeckMgr_Raid(MULTI_DECK_MODE.LEAGUE_RAID, make_deck)    
+end
+
+-------------------------------------
+-- function initDeck
+-------------------------------------
+function UI_LeagueRaidDeckSettings:initDeck()
+	self.m_readySceneDeck = UI_ReadySceneNew_Deck_Raid(self)
+    self.m_readySceneDeck:setOnDeckChangeCB(function() 
+		self:refresh_combatPower()
+		self:refresh_buffInfo()
+        self:refresh_slotLight()
+        self:refresh_tamer()
+        self:refresh_dragon_cards()
+	end)
+    
+    self:refresh_dragon_cards()
+end
+
+-------------------------------------
+-- function refresh_dragon_cards
+-------------------------------------
+function UI_LeagueRaidDeckSettings:refresh_dragon_cards()
+    local table_view = self.m_readySceneSelect:getTableView(nil)
+    if (not table_view) then
+        return
+    end
+
+    local multi_deck_mgr = self.m_multiDeckMgr
+    for doid, t_data in pairs(table_view.m_itemMap) do
+        local pos 
+        if (multi_deck_mgr) then
+            pos = multi_deck_mgr:isSetDragon(doid)
+        end
+
+        local ui = t_data['ui']
+        if ui ~= nil then
+            if pos ~= nil then
+                ui:setTeamReadySpriteVisible(true, pos)
+            else
+                ui:setReadySpriteVisible(false)
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function refresh_slotLight
+-------------------------------------
+function UI_LeagueRaidDeckSettings:refresh_slotLight()
+    local vars = self.vars
+    local multi_deck_mgr = self.m_multiDeckMgr
+    if (multi_deck_mgr) then
+        for i = 1,3 do 
+            local down_deck_cnt = multi_deck_mgr:getDeckDragonCnt(i)            
+            local start_idx = (i - 1) * 5
+            for idx = 1, 5 do
+                local slot_light = vars['slotSprite'..(idx + start_idx)]
+                slot_light:setVisible(idx <= down_deck_cnt)
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function getCurrTamerID
+-------------------------------------
+function UI_LeagueRaidDeckSettings:getCurrTamerID()
+    if (not self.m_currTamerID) then
+        local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
+        self.m_currTamerID = tamer_id
+    end
+    return self.m_currTamerID
 end
 
 -------------------------------------
@@ -112,16 +193,6 @@ function UI_LeagueRaidDeckSettings:refresh_buffInfo_TamerBuff()
 	vars['tamerBuffLabel']:setString(tamer_buff)
 end
 
--------------------------------------
--- function getCurrTamerID
--------------------------------------
-function UI_LeagueRaidDeckSettings:getCurrTamerID()
-    if (not self.m_currTamerID) then
-        local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
-        self.m_currTamerID = tamer_id
-    end
-    return self.m_currTamerID
-end
 
 -------------------------------------
 -- function click_tamerBtn
@@ -220,4 +291,25 @@ function UI_LeagueRaidDeckSettings:click_startBtn()
     end
 
     check_dragon_inven()
+end
+
+
+-------------------------------------
+-- function click_autoBtn
+-- @breif
+-------------------------------------
+function UI_LeagueRaidDeckSettings:click_autoBtn()
+    local stage_id = self.m_stageID
+    local formation = self.m_readySceneDeck.m_currFormation
+    local l_dragon_list
+    local multi_deck_mgr = self.m_multiDeckMgr
+
+    local exist_dragons = multi_deck_mgr:getUsingDidTable()
+    l_dragon_list = g_dragonsData:getDragonsListExceptTargetDoids(exist_dragons)
+
+
+    local helper = DragonAutoSetHelperNew(stage_id, formation, l_dragon_list)
+    local l_auto_deck = helper:getAutoDeck()
+    
+    self:applyDeck(l_auto_deck)
 end
