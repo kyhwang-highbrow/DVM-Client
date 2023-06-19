@@ -158,7 +158,6 @@ function MultiDeckMgr_Raid:getUsingDidTable()
             for k, _ in pairs(target) do
                 if k ~= nil then
                     table_dragon[k] = string.format('league_raid_%d', pos)
-                    cclog('k ', k)
                 end
             end
         end
