@@ -87,6 +87,27 @@ function SkillCross:initState()
 	self:addState('disappear', SkillCross.st_disappear, nil, false)
 end
 
+
+
+-------------------------------------
+-- function getIdleAniName
+-------------------------------------
+function SkillCross:getIdleAniName()
+    local ani_name = 'idle'
+
+    if self.m_animator ~= nil then
+        local visual_list = self.m_animator:getVisualList()
+        for _ , name in ipairs(visual_list) do
+            if name == ani_name then
+                return ani_name
+            end
+        end
+    end
+
+    return self.m_owner:getAttributeForRes() .. '_idle'
+end
+
+
 -------------------------------------
 -- function enterAttack
 -- @brief 공격이 시작되는 시점에 실행
@@ -95,6 +116,7 @@ function SkillCross:enterAttack()
     self.m_lTargetPos = {}
 
     local effect
+    local idle_ani_name = self:getIdleAniName()
 
     -- 이펙트
     if (#self.m_lNextTarget > 0) then   
@@ -107,7 +129,7 @@ function SkillCross:enterAttack()
             local x = target_char.pos.x + body.x
             local y = target_char.pos.y + body.y
 
-            effect = self:makeEffect(self.m_missileRes, x, y, 'idle')
+            effect = self:makeEffect(self.m_missileRes, x, y, idle_ani_name)
 
             table.insert(self.m_lTargetPos, { x = x, y = y })
 
@@ -116,7 +138,7 @@ function SkillCross:enterAttack()
 
         self.m_lNextTarget = {}
     else
-        effect = self:makeEffect(self.m_missileRes, self.m_targetPos['x'], self.m_targetPos['y'], 'idle')
+        effect = self:makeEffect(self.m_missileRes, self.m_targetPos['x'], self.m_targetPos['y'], idle_ani_name)
 
         table.insert(self.m_lTargetPos, { x = self.m_targetPos['x'], y = self.m_targetPos['y'] })
     end
