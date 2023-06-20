@@ -167,17 +167,37 @@ function MultiDeckMgr_Raid:getUsingDidTable()
 end
 
 -------------------------------------
--- function isSetDragon
+-- function isSettedDragon
+-- @breif Multi 덱에 출전중인 드래곤인지
 -------------------------------------
-function MultiDeckMgr_Raid:isSetDragon(doid)
-    for pos = 1,3 do
-        local target = self[string.format('m_tDeckMap_%d', pos)]
-        if target ~= nil and target[doid] ~= nil then
-            return pos
+function MultiDeckMgr_Raid:isSettedDragon(doid)
+--[[     local is_setted = self.m_tDeckMap_1[doid] or nil
+
+    -- 1 공격대
+    if (is_setted) then
+        return is_setted, 1
+    end
+
+    -- 2 공격대
+    local is_setted = self.m_tDeckMap_2[doid] or nil
+    if (is_setted) then
+        return is_setted, 2
+    end
+ ]]
+    -- 3 공격대
+    for pos= 1, 3 do
+        local str = string.format('m_tDeckMap_%d', pos)
+        local target = self[str]
+
+        if target ~= nil then
+            local is_setted = target[doid] or nil
+            if (is_setted) then
+                return true, pos
+            end
         end
     end
 
-    return nil
+    return false, 99
 end
 
 -------------------------------------

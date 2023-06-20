@@ -240,9 +240,8 @@ function UI_ReadySceneNew_Deck_Raid:clear_deck(skip_sort)
             ui.root:removeFromParent()
         end
     end
-    self.m_lSettedDragonCard = {}
     
-
+    self.m_lSettedDragonCard = {}
     local l_refresh_dragon_doid = clone(self.m_lDeckList)
 
     self.m_lDeckList = {}
@@ -286,12 +285,8 @@ function UI_ReadySceneNew_Deck_Raid:refresh_dragonCard(doid, is_friend)
     end
 
     local item = table_view.m_itemMap[doid]
-    local pos = nil
-
     local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
-    if (multi_deck_mgr) then
-        pos = multi_deck_mgr:isSetDragon(doid)
-    end
+    local is_set, pos = multi_deck_mgr:isSettedDragon(doid)    
 
     --cclog('pos ~= nil, pos', pos ~= nil, pos, item['ui'] ~= nil)
     if (not item) then
@@ -303,11 +298,9 @@ function UI_ReadySceneNew_Deck_Raid:refresh_dragonCard(doid, is_friend)
         return
     end
 
-    if pos ~= nil then
+    if is_set == true then
         ui:setTeamReadySpriteVisible(true, pos)
     else
         ui:setReadySpriteVisible(false)
     end
-
-    --cca.uiReactionSlow(ui.root, DC_SCALE, DC_SCALE, DC_SCALE_PICK)
 end
