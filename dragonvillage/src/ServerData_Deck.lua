@@ -424,7 +424,6 @@ function ServerData_Deck:request_setDeckPvpCollection(deckname, formation, leade
             if (string.find(deckname, 'league_raid')) then
                 for i = 1, 3 do
                     local raid_deck_name = 'league_raid_' .. tostring(i)
-                    cclog(raid_deck_name)
                     if (ret[raid_deck_name]) then
                         ccdump(ret[raid_deck_name])
                         g_deckData:setDeck_usedDeckPvp(raid_deck_name, ret[raid_deck_name])
