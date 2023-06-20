@@ -234,7 +234,7 @@ end
 -- function dragonPick
 -------------------------------------
 function UI_ReadySceneNew_Deck:dragonPick(t_dragon_data, focus_deck_slot, delay_rate)
-
+    local vars = self.m_uiReadyScene.vars
     -- 드래곤이 선택되면 new뱃지를 삭제
     local doid = t_dragon_data['id']
     g_highlightData:removeNewDoid(doid)
@@ -246,7 +246,8 @@ function UI_ReadySceneNew_Deck:dragonPick(t_dragon_data, focus_deck_slot, delay_
         local did = t_dragon_data['did']
 	    local delay_action = cc.DelayTime:create(duration)
 	    local cb_action = cc.CallFunc:create(function()
-                SensitivityHelper:doActionBubbleText(ui.root, did, nil, 'party_in')
+                local ui_bubble = SensitivityHelper:doActionBubbleText(ui.root, did, nil, 'party_in')
+                doAllChildren(ui_bubble, function(child) child:setGlobalZOrder(100) end)
 		    end)
 	    local action = cc.Sequence:create(delay_action, cb_action)
 	    ui.root:runAction(action)

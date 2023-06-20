@@ -45,7 +45,7 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custo
 	end
 	
 	-- run
-	self:completeBubbleText(parent, sens_str, delay_time, pos_y, cb_func)
+	return self:completeBubbleText(parent, sens_str, delay_time, pos_y, cb_func)
 end
 
 -------------------------------------
