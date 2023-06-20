@@ -1,4 +1,4 @@
-return {['{1} 공격대']='Raid Party {}',
+return {['{1} 공격대']='Raid Party {1}',
 ['16스테이지 클리어']='Clear Stage 16',
 ['17스테이지 클리어']='Clear Stage 17',
 ['18스테이지 클리어']='Clear Stage 18',
