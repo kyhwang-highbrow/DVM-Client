@@ -309,5 +309,5 @@ function UI_ReadySceneNew_Deck_Raid:refresh_dragonCard(doid, is_friend)
         ui:setReadySpriteVisible(false)
     end
 
-    cca.uiReactionSlow(ui.root, DC_SCALE, DC_SCALE, DC_SCALE_PICK)
+    --cca.uiReactionSlow(ui.root, DC_SCALE, DC_SCALE, DC_SCALE_PICK)
 end

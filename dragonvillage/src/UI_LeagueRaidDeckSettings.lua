@@ -97,22 +97,9 @@ function UI_LeagueRaidDeckSettings:refresh_dragon_cards()
     if (not table_view) then
         return
     end
-
-    local multi_deck_mgr = self.m_multiDeckMgr
+    
     for doid, t_data in pairs(table_view.m_itemMap) do
-        local pos 
-        if (multi_deck_mgr) then
-            pos = multi_deck_mgr:isSetDragon(doid)
-        end
-
-        local ui = t_data['ui']
-        if ui ~= nil then
-            if pos ~= nil then
-                ui:setTeamReadySpriteVisible(true, pos)
-            else
-                ui:setReadySpriteVisible(false)
-            end
-        end
+        self.m_readySceneDeck:refresh_dragonCard(doid)
     end
 end
 
