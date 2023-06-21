@@ -43,7 +43,7 @@ def make_csv(data_list):
     sum_size = 0
     for data in data_list:
         sum_size = data[3] + sum_size    
-        print(' ', os.path.basename(data[0]), ':' , sum_size, 'MB')
+        print(' ', os.path.basename(data[0]), ':' , data[3], 'MB')
     print('Total Size :', sum_size, 'MB')
         
 
