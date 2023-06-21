@@ -28,7 +28,8 @@ def get_file_size_data(root):
             if ext == '.zip' :
                 file_size = os.path.getsize(full_file_name)
                 name = root_simple + full_file_name[len(ROOT):]
-                data = [name, file_size, round(file_size / 1024, 2), round(file_size / 1024 / 1024, 2)]
+                patch_num = re.sub(r'[^0-9]', '', name)
+                data = [name, file_size, round(file_size / 1024, 2), round(file_size / 1024 / 1024, 2), int(patch_num)]
                 data_list.append(data)
 
     return data_list
@@ -40,10 +41,11 @@ def make_header():
 
 
 def make_csv(data_list):
+    data_list.sort(key=lambda x:x[4])
     sum_size = 0
     for data in data_list:
         sum_size = data[3] + sum_size    
-        print(' ', os.path.basename(data[0]), ':' , data[3], 'MB')
+        print('>>>>', os.path.basename(data[0]), ':' , data[3], 'MB')
     print('Total Size :', round(sum_size, 2), 'MB')
         
 
