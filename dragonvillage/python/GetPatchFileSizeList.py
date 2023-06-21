@@ -2,60 +2,40 @@
 
 import os
 import re
-import csv
 import sys
-import imghdr
+import shutil
+import module.utility as utils
+
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../patch/', 'patch_')
-
-MAKE_CSV_NAME = 'result/FILE_SIZE_LIST.csv'
-
 root_simple = os.path.basename(ROOT)
 # brief : 특정 파일 이름 및 사이즈 리스트 반환
+# 서버로부터 패치 정보 얻어옴
+def info_patch_size(app_ver):
+    print(app_ver, 'version get patch size info ...')
+    # import requests
+    utils.install_and_import('requests', globals())
+    params = {'app_ver': app_ver}
 
+    # 라이브만 사이즈를 가져오도록 수정
+    r = requests.get('http://dvm-api.perplelab.com/get_patch_info', params=params)
+    ret_data = r.json()
 
-def get_file_size_data(root):
-    data_list = []
-    file_name_list = os.listdir(root)
-    for file_name in file_name_list:
-        full_file_name = os.path.join(root, file_name)
-        if os.path.isdir(full_file_name):
-            sub_data_list = get_file_size_data(full_file_name)
-            data_list.extend(sub_data_list)
-        else:
-            ext = os.path.splitext(full_file_name)[-1]
-            if ext == '.zip' :
-                file_size = os.path.getsize(full_file_name)
-                name = root_simple + full_file_name[len(ROOT):]
-                patch_num = re.sub(r'[^0-9]', '', name)
-                data = [name, file_size, file_size / 1024, file_size / 1024 / 1024, int(patch_num)]
-                data_list.append(data)
-
-    return data_list
-
-
-# brief : csv 생성에 쓰일 헤더 생성
-def make_header():
-    return ['name', 'byte', 'KB', 'MB']
-
-
-def make_csv(data_list):
-    data_list.sort(key=lambda x:x[4])
+    list = ret_data['list']
     sum_size = 0
-    for data in data_list:
-        sum_size = data[3] + sum_size    
-        print('>>>>', os.path.basename(data[0]), ':' , round(data[3],2), 'MB')
+    for v in list:
+        mb_size = v['size']/1024/1024
+        sum_size = sum_size + mb_size
+        print('>>', os.path.basename(v['name']) , ':' , round(mb_size ,2), 'MB')
+
     print('Total Size :', round(sum_size, 2), 'MB')
-        
+
+    # 현재 패치 ver를 리턴
+    cur_patch_ver = max([0, ret_data['cur_patch_ver']])
+    return cur_patch_ver
 
 def main():
-    root = ROOT + sys.argv[1].replace('.', '_')
-    print("# Make Patch File Zip List And Size")
-    print("# Root :", root)
-
     # 파일 이름 및 사이즈 데이터 리스트 얻음
-    data_list = get_file_size_data(root)
-    make_csv(data_list)
-
+    info_patch_size(sys.argv[1])
 
 if __name__ == '__main__':
     main()
