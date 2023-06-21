@@ -19,8 +19,8 @@ def info_patch_size(app_ver):
     r = requests.get('http://dv-qa.perplelab.com:9003/get_patch_info', params=params)
     ret_data = r.json()
 
-    if ret_data['cur_patch_ver'] == -1:
-        print('패치 정보가 존재하지 않습니다. 라이브에 활성화된 앱버전으로 입력해주세요.')
+    if ret_data['status'] < 0:
+        print(ret_data)
         return
 
     list = ret_data['list']
