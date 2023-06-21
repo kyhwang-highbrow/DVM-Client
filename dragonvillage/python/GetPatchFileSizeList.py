@@ -14,7 +14,7 @@ def info_patch_size(app_ver):
     utils.install_and_import('requests', globals())
     params = {'app_ver': app_ver}
 
-    # 라이브만 사이즈를 가져오도록 수정
+    # QA서버에서 사이즈를 가져오도록 수정
     # http://dvm-api.perplelab.com/get_patch_info
     r = requests.get('http://dv-qa.perplelab.com:9003/get_patch_info', params=params)
     ret_data = r.json()
