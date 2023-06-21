@@ -15,8 +15,13 @@ def info_patch_size(app_ver):
     params = {'app_ver': app_ver}
 
     # 라이브만 사이즈를 가져오도록 수정
-    r = requests.get('http://dvm-api.perplelab.com/get_patch_info', params=params)
+    # http://dvm-api.perplelab.com/get_patch_info
+    r = requests.get('http://dv-qa.perplelab.com:9003/get_patch_info', params=params)
     ret_data = r.json()
+
+    if ret_data['cur_patch_ver'] == -1:
+        print('패치 정보가 존재하지 않습니다. 라이브에 활성화된 앱버전으로 입력해주세요.')
+        return
 
     list = ret_data['list']
     sum_size = 0
