@@ -18,18 +18,16 @@ def get_file_size_data(root):
     file_name_list = os.listdir(root)
     for file_name in file_name_list:
         full_file_name = os.path.join(root, file_name)
-
         if os.path.isdir(full_file_name):
             sub_data_list = get_file_size_data(full_file_name)
             data_list.extend(sub_data_list)
-
         else:
             ext = os.path.splitext(full_file_name)[-1]
             if ext == '.zip' :
                 file_size = os.path.getsize(full_file_name)
                 name = root_simple + full_file_name[len(ROOT):]
                 patch_num = re.sub(r'[^0-9]', '', name)
-                data = [name, file_size, round(file_size / 1024, 2), round(file_size / 1024 / 1024, 2), int(patch_num)]
+                data = [name, file_size, file_size / 1024, file_size / 1024 / 1024, int(patch_num)]
                 data_list.append(data)
 
     return data_list
@@ -45,7 +43,7 @@ def make_csv(data_list):
     sum_size = 0
     for data in data_list:
         sum_size = data[3] + sum_size    
-        print('>>>>', os.path.basename(data[0]), ':' , data[3], 'MB')
+        print('>>>>', os.path.basename(data[0]), ':' , round(data[3],2), 'MB')
     print('Total Size :', round(sum_size, 2), 'MB')
         
 
