@@ -54,12 +54,7 @@ def main():
 
     # 파일 이름 및 사이즈 데이터 리스트 얻음
     data_list = get_file_size_data(root)
-
     make_csv(data_list)
-
-    print("# FINISH :", MAKE_CSV_NAME)
-
-    os.system('pause')    
 
 
 if __name__ == '__main__':
