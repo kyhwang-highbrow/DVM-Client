@@ -317,7 +317,8 @@ function UI_DiceEvent:click_diceBtn(price_type)
 	-- 추가 주사위 사용하는 경우 골드 검사
 	if (not use_add_all) and (curr_dice == 0) then
 		local curr_gold = g_userData:get('gold')
-		if (curr_gold <= 10000) then
+        local gold_price = g_eventDiceData:getDiceDailyGoldPrice()
+		if (curr_gold <= gold_price) then
 			UIManager:toastNotificationRed(Str('골드가 부족합니다'))
 			return
 		end
