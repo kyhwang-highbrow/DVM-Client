@@ -391,8 +391,9 @@ function ForestDragon:getHappy()
         if self.m_rootNode == nil then
             return
         end
-
+        
         -- 만족도 하트 흡수 연출
+        self:happyFull()
         self.m_happyAnimator:changeAni('heart_tap', false)
         self.m_happyAnimator:addAniHandler(function()
             self.m_happyAnimator:setVisible(false)
