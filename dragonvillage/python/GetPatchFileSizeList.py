@@ -1,13 +1,11 @@
-# 특정 ROOT의 특정 확장자 파일의 이름과 사이즈 반환
-
+# 패치 파일 사이즈 출력 기능
+# 라이브 서버만 확인하도록 개발해놓음
 import os
 import re
 import sys
 import shutil
 import module.utility as utils
 
-ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../patch/', 'patch_')
-root_simple = os.path.basename(ROOT)
 # brief : 특정 파일 이름 및 사이즈 리스트 반환
 # 서버로부터 패치 정보 얻어옴
 def info_patch_size(app_ver):
