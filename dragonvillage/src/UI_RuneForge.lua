@@ -97,17 +97,20 @@ function UI_RuneForge:initTab(type, focus_id)
     local manage_tab = UI_RuneForgeManageTab(self)
     local combine_tab = UI_RuneForgeCombineTab(self)
     local gacha_tab = UI_RuneForgeGachaTab(self)
+    local exchange_tab = UI_RuneForgeExchange(self)
+
     vars['indivisualTabMenu']:addChild(info_tab.root)
     vars['indivisualTabMenu']:addChild(manage_tab.root)
     vars['indivisualTabMenu']:addChild(combine_tab.root)
     vars['indivisualTabMenu']:addChild(gacha_tab.root)
+    vars['indivisualTabMenu']:addChild(exchange_tab.root)
     
     self:addTabWithTabUIAndLabel('info', vars['infoTabBtn'], vars['infoTabLabel'], info_tab)       -- 정보
     self:addTabWithTabUIAndLabel('manage', vars['manageTabBtn'], vars['manageTabLabel'], manage_tab) -- 관리
     self:addTabWithTabUIAndLabel('combine', vars['combineTabBtn'], vars['combineTabLabel'], combine_tab)    -- 조합
     self:addTabWithTabUIAndLabel('gacha', vars['gachaTabBtn'], vars['gachaTabLabel'], gacha_tab) -- 가챠
-    self:addTabWithTabUIAndLabel('exchange', vars['exchangeTabBtn'], vars['exchangeTabLabel'], gacha_tab) -- 교환
-    
+    self:addTabWithTabUIAndLabel('exchange', vars['exchangeTabBtn'], vars['exchangeTabLabel'], exchange_tab) -- 교환
+
     
     local has_gacha_event = g_fevertimeData:isActiveFevertime_runeGachaUp() or g_hotTimeData:isActiveEvent('event_rune_gacha')
      
@@ -177,6 +180,8 @@ function UI_RuneForge:onChangeTab(tab, first)
 
     if (tab == 'gacha') then
         self.m_subCurrency = 'rune_box'
+    elseif (tab == 'exchange') then
+        self.m_subCurrency = 'rune_ticket'
     else
         self.m_subCurrency = 'amethyst'
     end

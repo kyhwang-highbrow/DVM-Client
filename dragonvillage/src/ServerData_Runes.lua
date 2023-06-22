@@ -720,6 +720,48 @@ function ServerData_Runes:request_runeBless(owner_doid, roid, finish_cb, fail_cb
 end
 
 -------------------------------------
+-- function request_runeGachaExchange
+-------------------------------------
+function ServerData_Runes:request_runeGachaExchange(is_bundle, is_cash, rune_Type, finish_cb, fail_cb)
+    -- parameters
+    local is_cash = is_cash or false
+    local uid = g_userData:get('uid')
+    local item_id = TableItem:getItemIDFromItemType('rune_ticket')
+    local is_bundle = is_bundle and is_bundle or false
+
+    -- 성공 콜백
+    local function success_cb(ret)           
+        -- cash(캐시) 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        -- 룬들 추가
+        g_runesData:applyRuneData_list(ret['runes'])
+
+        -- 신규 룬 new 뱃지 정보 저장
+        g_highlightData:saveNewDoidMap()
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/rune_gacha_new')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('item_id', item_id)
+    ui_network:setParam('bundle', is_bundle)
+    ui_network:setParam('is_cash', is_cash)
+    ui_network:setParam('type', rune_Type)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function checkRuneGachaMaximum
 -- @brief 룬 뽑기 최대치 확인
 -- @return bool true : 뽑기 가능

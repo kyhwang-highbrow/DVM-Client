@@ -129,6 +129,8 @@ ITEM_ID_MAP['event_vote_ticket'] = 700021
 ITEM_ID_MAP['event_popularity_ticket'] = 700832
 ITEM_ID_MAP['event_popularity_mileage'] = 700831
 
+ITEM_ID_MAP['rune_ticket'] = 700652
+
 local ITEM_TYPE_MAP = {}
 for i,v in pairs(ITEM_ID_MAP) do
     ITEM_TYPE_MAP[v] = i

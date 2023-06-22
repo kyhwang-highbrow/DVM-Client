@@ -706,6 +706,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['event_popularity_mileage'] then
             self:applyServerData(ret['event_popularity_mileage'], 'user', 'event_popularity_mileage')
         end
+
+        -- 룬 교환 티켓
+        if ret['rune_ticket'] then
+            self:applyServerData(ret['rune_ticket'], 'user', 'rune_ticket')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -915,6 +920,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
     
     -- 신화 드래곤 인기 투표 마일리지
     RefreshGoods(t_added_items, 'event_popularity_mileage')
+
+    -- 룬 교환 티켓
+    RefreshGoods(t_added_items, 'rune_ticket')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then
