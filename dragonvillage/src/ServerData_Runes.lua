@@ -5,6 +5,7 @@ ServerData_Runes = class({
         m_serverData = 'ServerData',
         m_mRuneObjects = 'map',
         m_runeCount = 'number',
+        m_mGachaMileages = 'Map<string, number>',
     })
 
 -------------------------------------
@@ -14,6 +15,7 @@ function ServerData_Runes:init(server_data)
     self.m_serverData = server_data
     self.m_mRuneObjects = {}
     self.m_runeCount = 0
+    self.m_mGachaMileages = {}
 end
 
 -------------------------------------
@@ -40,6 +42,9 @@ function ServerData_Runes:request_runesInfo(finish_cb, fail_cb)
 
         -- 보유 중인 룬 정보를 받아옴
         self:applyRuneData_list(ret['runes'])
+
+        -- 룬 마일리지 보유량
+        self:applyRuneMileageData(ret)
 
         -- 룬 메모 파일 로드
         g_runeMemoData:loadRuneMemoMap()
@@ -434,6 +439,29 @@ function ServerData_Runes:applyRuneData_list(l_rune_data)
 end
 
 -------------------------------------
+-- function applyRuneMileageData
+-- @breif 룬 마일리지 적용
+-------------------------------------
+function ServerData_Runes:applyRuneMileageData(t_rune_data)
+    if t_rune_data['rune_mileage'] ~= nil then
+        self.m_mGachaMileages[1] = t_rune_data['rune_mileage']
+    end
+
+    if t_rune_data['rune_ancient_mileage'] ~= nil then
+        self.m_mGachaMileages[2] = t_rune_data['rune_ancient_mileage']
+    end
+end
+
+-------------------------------------
+-- function getRuneMileage
+-- @breif 룬 마일리지 값 얻어오기
+-------------------------------------
+function ServerData_Runes:getRuneMileage(type)
+    local mileage = self.m_mGachaMileages[type] or 0
+    return mileage
+end
+
+-------------------------------------
 -- function deleteRuneData
 -- @breif 룬 오브젝트 삭제
 -------------------------------------
@@ -477,8 +505,8 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include, r
     if (lock_include == nil) then
         lock_include = true
     end
-
     local isAncient = (runeType == 'ancient')
+
     local l_ret = {}
     for i,v in pairs(self.m_mRuneObjects) do
         -- 슬롯 확인
@@ -736,6 +764,9 @@ function ServerData_Runes:request_runeGachaExchange(is_bundle, is_cash, rune_Typ
 
         -- 룬들 추가
         g_runesData:applyRuneData_list(ret['runes'])
+
+        -- 룬 마일리지 보유량
+        self:applyRuneMileageData(ret)
 
         -- 신규 룬 new 뱃지 정보 저장
         g_highlightData:saveNewDoidMap()
