@@ -1,0 +1,315 @@
+local PARENT = UI_IndivisualTab
+
+STANDARD_RUNE_PACKAGE_ID = 121401    -- 1+1 상품 id 121401 ~ 121404
+SPECIAL_RUNE_PACKAGE_ID = 121405    -- 1+1 상품 id 121405 ~ 121408
+
+-------------------------------------
+-- class UI_RuneForgeExchange
+-------------------------------------
+UI_RuneForgeExchange = class(PARENT,{
+    m_TabCount = 'number',  --탭 개수
+    m_myTab = 'number',     --바라보고있는 탭번호
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_RuneForgeExchange:init(owner_ui)
+    local vars = self:load('rune_forge_exchange.ui')
+    --[1]:일반 [2]:고대
+    self.m_TabCount = 2 
+    self.m_myTab = 1    --기본은 일반
+    self:refresh()
+end
+
+-------------------------------------
+-- function onEnterTab
+-------------------------------------
+function UI_RuneForgeExchange:onEnterTab(first)
+    self.m_ownerUI:showNpc() -- NPC 등장
+
+    if (first == true) then
+        self:initUI()
+    end
+
+    self:refresh()
+
+end
+
+-------------------------------------
+-- function onExitTab
+-------------------------------------
+function UI_RuneForgeExchange:onExitTab()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_RuneForgeExchange:initUI()
+    local vars = self.vars
+    local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
+    vars['diaCostLabel']:setString(comma_value(rune_gacha_cash))
+
+    -- 가격 표기(비활성화로 인해 관련 로직 제거 23.06.15)
+--[[     local struct_product = g_shopDataNew:getTargetProduct(STANDARD_RUNE_PACKAGE_ID)
+    if struct_product ~= nil then
+        local is_tag_attached = ServerData_IAP.getInstance():setGooglePlayPromotionSaleTag(self, struct_product, nil)
+        local is_sale_price_written = false
+        if (is_tag_attached == true) then
+            is_sale_price_written = ServerData_IAP.getInstance():setGooglePlayPromotionPrice(self, struct_product, nil)
+        end
+
+        if (is_sale_price_written == false) then
+            vars['priceLabel']:setString(struct_product:getPriceStr())
+        end
+        -- // 가격표기
+        cca.pickMePickMe(vars['buyBtn'], 10)
+    end ]]
+
+    -- 이벤트!!!
+    local is_diamond_event_active = g_hotTimeData:isActiveEvent('event_rune_gacha')
+    vars['eventNode']:setVisible(is_diamond_event_active)
+    vars['diaBtn']:setVisible(is_diamond_event_active)
+
+    if (is_diamond_event_active) then
+        vars['diaBtn']:registerScriptTapHandler(function() self:click_diamondGachaBtn() end)
+        vars['eventTimeLabel']:setString(g_hotTimeData:getEventRemainTimeTextDetail('event_rune_gacha'))
+    end
+
+    -- 확률 2배 이벤트
+    local is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
+    if is_active then
+        if #l_ret then l_ret = l_ret[1] end
+        
+        local start_time = l_ret['start_date']/1000
+        local end_time = l_ret['end_date']/1000
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+  
+        if (start_time <= curr_time) and (curr_time <= end_time) then
+            local time = (end_time - curr_time)
+            str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
+            vars['timeLabel']:setString(str)
+        end
+    else
+        vars['runeFeverMenu']:setVisible(false)
+        --UINavigator:goto('lobby')
+    end
+
+    local is_active 
+    local value
+    local l_ret 
+    is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
+    if is_active then
+        vars['runeFeverMenu']:setVisible(true)
+        self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
+    end
+
+    --package_rune_box
+    local package_rune = g_shopDataNew:getTargetPackage('package_rune_box')
+
+    if package_rune then
+        vars['buyBtn']:registerScriptTapHandler(function() UI_Package(package_rune:getProductList(), true) end)
+    else
+        vars['buyBtn']:setVisible(false)
+    end
+    vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeGachaInfo(self.m_myTab) end)
+
+    --룬 뽑기 버튼 설정
+    for index = 1, self.m_TabCount do
+        vars['runeSelectBtn'..index]:registerScriptTapHandler(function() self:click_ChangeBtn(index) end)
+    end
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_RuneForgeExchange:update(dt)
+    local vars = self.vars
+
+    local is_active, value, l_ret = g_fevertimeData:isActiveFevertime_runeGachaUp()
+    if is_active then
+        if #l_ret then l_ret = l_ret[1] end
+        
+        local start_time = l_ret['start_date']/1000
+        local end_time = l_ret['end_date']/1000
+        local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+  
+        if (start_time <= curr_time) and (curr_time <= end_time) then
+            local time = (end_time - curr_time)
+            local str = Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true))
+            vars['timeLabel']:setString(str)
+        end
+    else
+        vars['runeFeverMenu']:setVisible(false)
+        --UINavigator:goto('lobby')
+    end
+end
+
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_RuneForgeExchange:click_buyBtn(product_id)
+    local product_id = product_id 
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
+
+    if (not struct_product) then
+        return
+    end
+
+    local function close_cb()
+        -- 갱신
+        self:refresh()
+    end
+
+	local function cb_func(ret)
+        -- 아이템 획득 우편함
+        ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX, close_cb)
+	end
+
+	struct_product:buy(cb_func)
+end
+
+-------------------------------------
+-- function click_gachaBtn
+-------------------------------------
+function UI_RuneForgeExchange:click_gachaBtn()
+    -- 조건 체크
+    local rune_box_count = g_userData:get('rune_box') or 0
+
+    if (rune_box_count <= 0) then
+        UIManager:toastNotificationRed(Str('룬 상자가 부족합니다.'))
+        return
+    end
+
+    local item_key = 700651 -- 룬 10개 뽑기 상자
+    local item_value = 1
+    local msg = Str('{@item_name}"{1} x{2}"\n{@default}사용하시겠습니까?', Str('룬 10개 뽑기 상자'), comma_value(item_value))
+
+    MakeSimplePopup_Confirm('rune_box', item_value, msg, function() self:request_runeGacha() end)
+end
+
+-------------------------------------
+-- function click_diamondGachaBtn
+-------------------------------------
+function UI_RuneForgeExchange:click_diamondGachaBtn()
+    -- 조건 체크
+    local rune_gacha_cash = g_userData:get('rune_gacha_cash') or 0
+    local cur_cash = g_userData:get('cash') or 0
+
+    if (cur_cash < rune_gacha_cash) then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('다이아몬드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() UINavigatorDefinition:goTo('package_shop', 'diamond_shop') end)
+        return
+    end
+
+    local msg = Str('"{1}" 진행하시겠습니까?', Str('10회 뽑기'))
+    local item_value = g_userData:get('rune_gacha_cash') or 0
+
+    MakeSimplePopup_Confirm('cash', item_value, msg, function() self:request_runeGacha(true) end)
+end
+
+-------------------------------------
+-- function subsequentSummons
+-- @brief 이어서 뽑기 설정
+-------------------------------------
+function UI_RuneForgeExchange:subsequentSummons(gacha_result_ui, is_cash)
+    local vars = gacha_result_ui.vars
+	-- 다시하기 버튼 등록
+    vars['againBtn']:registerScriptTapHandler(function()
+        gacha_result_ui:close()
+        self:request_runeGacha(is_cash)
+    end)
+end
+
+-------------------------------------
+-- function request_runeGacha
+-------------------------------------
+function UI_RuneForgeExchange:request_runeGacha(is_cash)
+    local myTab = tostring(self.m_myTab)
+    -- 룬 최대 보유 수량 체크
+    if (not g_runesData:checkRuneGachaMaximum(10)) then
+        return
+    end
+
+    local function close_cb()
+        self.m_ownerUI:refresh_highlight()
+        self:refresh()
+    end
+
+    local function finish_cb(ret)
+		local gacha_type = is_cash and 'cash' or 'rune_box'
+        local l_rune_list = ret['runes']
+
+        local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
+        
+        ui:setCloseCB(close_cb)
+
+        -- 이어서 뽑기 설정
+        self:subsequentSummons(ui, is_cash)
+    end
+    
+    local is_bundle = true
+    g_runesData:request_runeGacha(is_bundle, is_cash, myTab, finish_cb, nil) -- param: is_bundle, finish_cb, fail_cb
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_RuneForgeExchange:refresh()
+    local vars = self.vars
+
+    --룬 상자 이미지
+    vars['runeBoxNode']:removeAllChildren()
+    vars['runeBoxNode']:addChild(self:getRuneBoxIcon())
+
+    --룬 상자 텍스트
+    self:setRuneBoxString()
+
+    --룬 버튼 상태
+    local myTab = self.m_myTab
+    for i = 1, self.m_TabCount do
+        vars['runeSelectBtn'..i]:setEnabled(not (myTab == i))
+    end
+    --[[
+    local rune_box_count = g_userData:get('rune_box') or 0
+    vars['itemLabel']:setString(rune_box_count)]]
+end
+
+-------------------------------------
+-- function click_ChangeBtn
+-------------------------------------
+function UI_RuneForgeExchange:click_ChangeBtn(myTab)
+    local vars = self.vars
+    self.m_myTab = myTab
+
+    self:refresh()
+end
+
+-------------------------------------
+-- function getRuneBoxIcon
+-- @breif 탭에 맞는 룬상자 리소스 리턴
+-------------------------------------
+function UI_RuneForgeExchange:getRuneBoxIcon()
+    local myTab = self.m_myTab
+    local res = 'res/ui/icons/rune_forge_gacha/rune_forge_020'..myTab..'.png'
+    local sprite = IconHelper:getIcon(res)
+    return sprite
+end
+
+-------------------------------------
+-- function setRuneBoxString
+-- @breif 탭에 맞는 룬상자 텍스트 설정
+-------------------------------------
+function UI_RuneForgeExchange:setRuneBoxString()
+    local vars = self.vars
+    local myTab = self.m_myTab
+
+    local text = ''
+    if (myTab == 1) then        --일반
+        text = Str('룬 뽑기 상자')
+    elseif (myTab == 2) then    --고대
+        text = Str('고대 룬 뽑기 상자')
+    end
+    vars['runeLabel']:setString(text)
+end
