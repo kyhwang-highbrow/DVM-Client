@@ -473,7 +473,9 @@ function UI_AdsRoulettePopup:simpleSpin(result_idx, finish_cb)
     local finish_func = cc.CallFunc:create(_finish_cb)
     local sequence = cc.Sequence:create(ease_rotate, delay_time, finish_func)
 
-    self.root:runAction(sequence)
+    if self.root and (tolua.isnull(self.root) == false) then
+        self.root:runAction(sequence)
+    end
 end
 
 -------------------------------------
