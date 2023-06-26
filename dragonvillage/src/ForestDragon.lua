@@ -118,10 +118,12 @@ ForestDragon.st_move = PARENT.st_move
 -------------------------------------
 function ForestDragon.st_pose(self, dt)
     if (self.m_stateTimer == 0) then
-        self.m_animator:addAniHandler(function()
-            self:onActionEnd()
-            self:changeState('idle')
-        end)
+        if self.m_animator ~= nil then
+            self.m_animator:addAniHandler(function()
+                self:onActionEnd()
+                self:changeState('idle')
+            end)
+        end
     end
 end
 
@@ -383,6 +385,23 @@ function ForestDragon:getHappy()
 
     self.m_isHappy = false
 
+    -- 연출을 먼저 만족도 하트 흡수 연출
+    self:happyFull()
+    self.m_happyAnimator:setVisible(true)
+    self.m_happyAnimator:changeAni('heart_tap', false)
+    self.m_happyAnimator:addAniHandler(function()
+        self.m_happyAnimator:setVisible(false)
+    end)
+
+    -- 대사 연출
+    self:speakHeart()
+
+    -- 하트 회수 후의 행동
+    self:changeState('pose')
+
+    -- 사운드 이펙트 재생
+    SoundMgr:playEffect('SFX', 'sfx_heal')
+
     -- 서버 통신
     local doid = self.m_structDragon['id']
     local curr_happy = ServerData_Forest:getInstance():getHappy()
@@ -391,15 +410,6 @@ function ForestDragon:getHappy()
         if self.m_rootNode == nil then
             return
         end
-        
-        -- 만족도 하트 흡수 연출
-        self:happyFull()
-        self.m_happyAnimator:changeAni('heart_tap', false)
-        self.m_happyAnimator:addAniHandler(function()
-            self.m_happyAnimator:setVisible(false)
-        end)
-        
-        SoundMgr:playEffect('SFX', 'sfx_heal')
 
         -- 드래곤 만족도 연출 이벤트
         local struct_event = StructForestEvent()
@@ -408,11 +418,8 @@ function ForestDragon:getHappy()
         struct_event:setHappy(curr_happy)
         struct_event:setResponse(ret)
         self:dispatch('forest_dragon_happy', struct_event)
-
-        -- 하트 회수 후의 행동
-        self:changeState('pose')
-        self:speakHeart()
     end
+
     ServerData_Forest:getInstance():request_dragonHappy(doid, finish_cb)
     
     return true
