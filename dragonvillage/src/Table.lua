@@ -134,6 +134,9 @@ local TableInfo = {
 
         -- 이벤트 퀘스트
         table_event_quest  = {'table_event_quest',	'qid',	false},
+
+        -- 룬 필터 
+        table_rune_filter_point = {'table_rune_filter_point', 'enhance_id', false},
     }
 
 -------------------------------------

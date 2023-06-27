@@ -494,6 +494,7 @@ local t_module = {
     'TableItemReplace', -- 아이템 표시 대체용 테이블
     'TableEventQuest', -- 이벤트 퀘스트
     'TablePickupSchedule', -- 픽업 스케쥴
+    'TableRuneFilterPoint', -- 룬 필터 포인트
 
     -- Scene
     'SceneCommon',
