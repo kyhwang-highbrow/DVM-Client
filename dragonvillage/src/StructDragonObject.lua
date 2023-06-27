@@ -988,6 +988,34 @@ function StructDragonObject:parseDragonStringData(str)
         end
     end
 
+
+    --121882; 
+    --60;
+    --0;
+    --0;
+    --0;
+    --0;
+    --3;
+    --6;
+    --1;
+    --1;
+    --1;
+    --1;
+    --3;
+    --9;
+    --0;
+    --225;
+    --13500;
+    --225;
+    --0;
+    --710116:15:4:atk_add|492::cri_chance_add|8:hp_multi|5:accuracy_add|4:hp_add|1251;
+    --711226:15:4:aspd_add|46::hp_multi|9:hp_add|650:avoid_add|6:accuracy_add|8;
+    --710136:15:4:def_add|492::hp_multi|9:hp_add|1249:atk_add|9:aspd_add|6;
+    --711246:15:4:hp_multi|46::hp_add|518:def_multi|10:resistance_add|1:atk_multi|6;
+    --710156:15:4:hp_add|34440:def_add|13:atk_add|15:hit_rate_add|3:avoid_add|2:hp_multi|8;
+    --710166:15:4:hp_multi|46::def_add|9:aspd_add|1:def_multi|10:cri_dmg_add|7
+
+
     l_key['did'] = getIdx()
     l_key['lv'] = getIdx()
     l_key['exp'] = getIdx()
@@ -1000,16 +1028,20 @@ function StructDragonObject:parseDragonStringData(str)
     l_key['skill_1'] = getIdx()
     l_key['skill_2'] = getIdx()
     l_key['skill_3'] = getIdx()
-    l_key['transform'] = getIdx()
-    l_key['dragon_skin'] = getIdx()
-
+    l_key['transform'] = getIdx()   
     l_key['flv'] = getIdx()
     l_key['fexp'] = getIdx()
     l_key['fatk'] = getIdx()
     l_key['fhp'] = getIdx()
     l_key['fdef'] = getIdx()
-
     l_key['mastery_lv'] = getIdx()
+    l_key['rune_1'] = getIdx()
+    l_key['rune_2'] = getIdx()
+    l_key['rune_3'] = getIdx()
+    l_key['rune_4'] = getIdx()
+    l_key['rune_5'] = getIdx()
+    l_key['rune_6'] = getIdx()
+    l_key['dragon_skin'] = getIdx()
 
     local t_data = {}
     t_data['did'] = getValue('did', true)
@@ -1023,8 +1055,6 @@ function StructDragonObject:parseDragonStringData(str)
     t_data['dragon_skin'] = getValue('dragon_skin', true)
 
     local struct_dragon_object = StructDragonObject(t_data)
-
-
     return struct_dragon_object
 end
 
