@@ -95,6 +95,11 @@ function UI_ConfirmPopup:refresh()
 	if (price_icon) then
 		vars['iconNode']:addChild(price_icon)
 	end
+
+    -- 마일리지류의 아이템은 확인 팝업에서 아이콘 표시를 하지 않도록 처리
+    if string.find(self.m_itemKey, '_mileage') ~= nil then
+        vars['iconNode']:setVisible(false)
+    end
 end
 
 -------------------------------------

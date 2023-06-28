@@ -972,7 +972,7 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
 
         local msg
 
-        if (price_type == 'event_popularity_mileage') then
+        if (string.find(price_type, '_mileage') ~= nil) then
             msg = Str('{@item_name}"{1}"\n{@default}교환하시겠습니까?', Str(name))
         else
             msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', Str(name))
