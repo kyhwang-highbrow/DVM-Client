@@ -97,7 +97,7 @@ function UI_RuneForge:initTab(type, focus_id)
     local manage_tab = UI_RuneForgeManageTab(self)
     local combine_tab = UI_RuneForgeCombineTab(self)
     local gacha_tab = UI_RuneForgeGachaTab(self)
-    local exchange_tab = UI_RuneForgeExchange(self)
+    local exchange_tab = UI_RuneForgeGachaTicket(self)
 
     vars['indivisualTabMenu']:addChild(info_tab.root)
     vars['indivisualTabMenu']:addChild(manage_tab.root)

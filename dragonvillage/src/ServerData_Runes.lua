@@ -748,9 +748,9 @@ function ServerData_Runes:request_runeBless(owner_doid, roid, finish_cb, fail_cb
 end
 
 -------------------------------------
--- function request_runeGachaExchange
+-- function request_runeGachaTicket
 -------------------------------------
-function ServerData_Runes:request_runeGachaExchange(is_bundle, is_cash, rune_Type, finish_cb, fail_cb)
+function ServerData_Runes:request_runeGachaTicket(is_bundle, is_cash, rune_Type, finish_cb, fail_cb)
     -- parameters
     local is_cash = is_cash or false
     local uid = g_userData:get('uid')

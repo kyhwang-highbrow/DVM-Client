@@ -711,6 +711,16 @@ function ServerData:networkCommonRespone(ret)
         if ret['rune_ticket'] then
             self:applyServerData(ret['rune_ticket'], 'user', 'rune_ticket')
         end
+
+        -- 룬 선택권 교환 일반 마일리지
+        if ret['rune_mileage'] then
+            self:applyServerData(ret['rune_mileage'], 'user', 'rune_mileage')
+        end
+
+        -- 룬 선택권 교환 고대 마일리지
+        if ret['rune_ancient_mileage'] then
+            self:applyServerData(ret['rune_ancient_mileage'], 'user', 'rune_ancient_mileage')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -923,6 +933,12 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 룬 교환 티켓
     RefreshGoods(t_added_items, 'rune_ticket')
+
+    -- 룬 선택권 교환 일반 마일리지
+    RefreshGoods(t_added_items, 'rune_mileage')
+
+    -- 룬 선택권 교환 고대 마일리지
+    RefreshGoods(t_added_items, 'rune_ancient_mileage')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then

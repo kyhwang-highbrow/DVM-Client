@@ -474,6 +474,33 @@ function StructProduct:isNeedProductInfo()
     return false
 end
 
+
+-------------------------------------
+-- function getFirstItemName
+-------------------------------------
+function StructProduct:getFirstItemName()
+    local l_item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
+	if (not l_item_list) or (not l_item_list[1]) then
+		l_item_list = ServerData_Item:parsePackageItemStr(self['mail_content'])
+	end
+
+    if (not l_item_list) then
+        return ''
+    end
+
+	local first_item = l_item_list[1]
+	if (not first_item) or (not first_item['item_id']) then
+		return ''
+	end
+
+	-- 첫 번째 아이템의 설명을 사용
+	local table_item = TableItem()
+	local item_id = first_item['item_id']
+    local t_name = table_item:getItemName(item_id)
+    --local count = first_item['count']
+	return t_name
+end
+
 -------------------------------------
 -- function getFirstItemNameWithCount
 -------------------------------------

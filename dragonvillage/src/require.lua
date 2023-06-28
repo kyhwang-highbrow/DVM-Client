@@ -950,7 +950,7 @@ local t_module = {
     'UI_RuneForgeInfoTab',
     'UI_RuneForgeManageTab',
     'UI_RuneForgeCombineTab',
-    'UI_RuneForgeExchange',
+    'UI_RuneForgeGachaTicket',
     'UI_RuneForgeCombineItem',
     'UI_RuneForgeGachaTab',
     'UI_RuneForgeGachaInfo',
