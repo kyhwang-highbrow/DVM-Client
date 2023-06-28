@@ -1199,7 +1199,10 @@ function UI_Lobby:update_highlight()
     -- 룬
     local rune_box_count = g_userData:get('rune_box') or 0
     local b_rune_gacha_highlight = (rune_box_count > 0)
-    vars['runeForgeNotiSprite']:setVisible(g_highlightData:isHighlightRune() or b_rune_gacha_highlight)
+    local b_rune_gacha_ticket_highlight = g_runesData:isRuneTicketGachaAvailable()
+    vars['runeForgeNotiSprite']:setVisible(g_highlightData:isHighlightRune() or 
+                                            b_rune_gacha_highlight or 
+                                            b_rune_gacha_ticket_highlight)
 
     -- 기타 (친구 or 도감 or 가방)
     local is_etc_noti = (etc_vars['friendNotiSprite']:isVisible() or etc_vars['bookNotiSprite']:isVisible() or etc_vars['inventoryNotiSprite']:isVisible())

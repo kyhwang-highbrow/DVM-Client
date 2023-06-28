@@ -5,7 +5,7 @@ ServerData_Runes = class({
         m_serverData = 'ServerData',
         m_mRuneObjects = 'map',
         m_runeCount = 'number',
-        m_mGachaMileages = 'Map<string, number>',
+        m_mRuneTicketGachaMileagePrice = 'Map<string, number>',
     })
 
 -------------------------------------
@@ -15,7 +15,7 @@ function ServerData_Runes:init(server_data)
     self.m_serverData = server_data
     self.m_mRuneObjects = {}
     self.m_runeCount = 0
-    self.m_mGachaMileages = {}
+    self.m_mRuneTicketGachaMileagePrice = {}
 end
 
 -------------------------------------
@@ -42,9 +42,6 @@ function ServerData_Runes:request_runesInfo(finish_cb, fail_cb)
 
         -- 보유 중인 룬 정보를 받아옴
         self:applyRuneData_list(ret['runes'])
-
-        -- 룬 마일리지 보유량
-        self:applyRuneMileageData(ret)
 
         -- 룬 메모 파일 로드
         g_runeMemoData:loadRuneMemoMap()
@@ -439,29 +436,6 @@ function ServerData_Runes:applyRuneData_list(l_rune_data)
 end
 
 -------------------------------------
--- function applyRuneMileageData
--- @breif 룬 마일리지 적용
--------------------------------------
-function ServerData_Runes:applyRuneMileageData(t_rune_data)
-    if t_rune_data['rune_mileage'] ~= nil then
-        self.m_mGachaMileages[1] = t_rune_data['rune_mileage']
-    end
-
-    if t_rune_data['rune_ancient_mileage'] ~= nil then
-        self.m_mGachaMileages[2] = t_rune_data['rune_ancient_mileage']
-    end
-end
-
--------------------------------------
--- function getRuneMileage
--- @breif 룬 마일리지 값 얻어오기
--------------------------------------
-function ServerData_Runes:getRuneMileage(type)
-    local mileage = self.m_mGachaMileages[type] or 0
-    return mileage
-end
-
--------------------------------------
 -- function deleteRuneData
 -- @breif 룬 오브젝트 삭제
 -------------------------------------
@@ -606,7 +580,6 @@ function ServerData_Runes:applyEquippedRuneInfo(roid, doid)
     rune_object:setOwnerDragon(doid)
 end
 
-
 -------------------------------------
 -- function getUnequippedRuneCount
 -- @breif
@@ -616,6 +589,42 @@ function ServerData_Runes:getUnequippedRuneCount()
     local l_runes = self:getFilteredRuneList(unequipped)
     local count = table.count(l_runes)
     return count
+end
+
+-------------------------------------
+-- function getRuneTicketGachaMileageProductPrice
+-------------------------------------
+function ServerData_Runes:getRuneTicketGachaMileageProductPrice(type)
+    local struct_product_list = g_shopDataNew:getProductList(type)
+    local struct_product =  table.getFirst(struct_product_list)
+    local price
+    if struct_product ~= nil then
+        price = struct_product:getPrice()
+        self.m_mRuneTicketGachaMileagePrice[type] = price
+    end
+    return price
+end
+
+-------------------------------------
+-- function isRuneTicketGachaAvailable
+-------------------------------------
+function ServerData_Runes:isRuneTicketGachaAvailable()
+    local rune_box_count = g_userData:get('rune_ticket') or 0
+    if rune_box_count > 0 then
+        return true
+    end
+
+    local rune_ticket_mileage_type = {'rune_mileage', 'rune_ancient_mileage'}
+    for _, type in ipairs(rune_ticket_mileage_type) do
+        local rune_mileage = g_userData:get(type) or 0
+        local price = self.m_mRuneTicketGachaMileagePrice[type] 
+                            or self:getRuneTicketGachaMileageProductPrice(type)
+        if price <= rune_mileage then
+            return true
+        end
+    end
+
+    return false
 end
 
 -------------------------------------
@@ -764,9 +773,6 @@ function ServerData_Runes:request_runeGachaTicket(is_bundle, is_cash, rune_Type,
 
         -- 룬들 추가
         g_runesData:applyRuneData_list(ret['runes'])
-
-        -- 룬 마일리지 보유량
-        self:applyRuneMileageData(ret)
 
         -- 신규 룬 new 뱃지 정보 저장
         g_highlightData:saveNewDoidMap()

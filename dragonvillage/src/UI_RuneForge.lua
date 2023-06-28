@@ -133,13 +133,16 @@ function UI_RuneForge:refresh_highlight()
     -- 새로운 룬이 존재하는 경우
     local b_manage_highlight = (g_highlightData:isHighlightRune())
     vars['manageNotiSprite']:setVisible(b_manage_highlight)
-    
     -- vars['combineNotiSprite']:setVisible(false)
 
     -- 룬 상자를 소유하고 있는 경우
     local rune_box_count = g_userData:get('rune_box') or 0
     local b_gacha_highlight = (rune_box_count > 0)
     vars['gachaNotiSprite']:setVisible(b_gacha_highlight)
+
+    -- 룬 티켓 가지고 있거나 마일리지를 교환할 수 있거나
+    b_gacha_highlight = g_runesData:isRuneTicketGachaAvailable()
+    vars['exchangeNotiSprite']:setVisible(b_gacha_highlight) 
 end
 
 -------------------------------------
