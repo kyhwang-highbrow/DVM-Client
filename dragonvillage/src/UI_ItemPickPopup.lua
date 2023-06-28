@@ -75,6 +75,11 @@ function UI_ItemPickPopup:initUI()
 
 	vars['okBtn']:setVisible(not self.m_isDraw)
 	vars['choiceBtn']:setVisible(self.m_isDraw)
+
+    -- "위 아이템 중 하나를 선택해 받을 수 있습니다." 대신 들어갈 문구를 지정
+    if t_pick_item['t_explain'] ~= '' then
+        vars['infoLabel']:setString(Str(t_pick_item['t_explain']))
+    end
 end
 
 -------------------------------------

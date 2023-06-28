@@ -6,10 +6,10 @@ UI_RuneForgeGachaInfo = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_RuneForgeGachaInfo:init(version)
+function UI_RuneForgeGachaInfo:init(version, ui_res)
     self.m_version = version
 
-    self:load('rune_forge_gacha_info.ui')
+    self:load(ui_res or 'rune_forge_gacha_info.ui')
     UIManager:open(self, UIManager.POPUP)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_RuneForgeGachaInfo')

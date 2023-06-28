@@ -54,7 +54,7 @@ function UI_RuneForgeGachaTicket:initUI()
     end
 
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
-    vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeGachaInfo(self.m_myTab) end)
+    vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeGachaInfo(self.m_myTab, 'rune_forge_gacha_ticket_info.ui') end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     --vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
 
