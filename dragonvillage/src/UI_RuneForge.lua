@@ -97,19 +97,19 @@ function UI_RuneForge:initTab(type, focus_id)
     local manage_tab = UI_RuneForgeManageTab(self)
     local combine_tab = UI_RuneForgeCombineTab(self)
     local gacha_tab = UI_RuneForgeGachaTab(self)
-    local exchange_tab = UI_RuneForgeGachaTicket(self)
+    local gacha_ticket_tab = UI_RuneForgeGachaTicket(self)
 
     vars['indivisualTabMenu']:addChild(info_tab.root)
     vars['indivisualTabMenu']:addChild(manage_tab.root)
     vars['indivisualTabMenu']:addChild(combine_tab.root)
     vars['indivisualTabMenu']:addChild(gacha_tab.root)
-    vars['indivisualTabMenu']:addChild(exchange_tab.root)
+    vars['indivisualTabMenu']:addChild(gacha_ticket_tab.root)
     
     self:addTabWithTabUIAndLabel('info', vars['infoTabBtn'], vars['infoTabLabel'], info_tab)       -- 정보
     self:addTabWithTabUIAndLabel('manage', vars['manageTabBtn'], vars['manageTabLabel'], manage_tab) -- 관리
     self:addTabWithTabUIAndLabel('combine', vars['combineTabBtn'], vars['combineTabLabel'], combine_tab)    -- 조합
     self:addTabWithTabUIAndLabel('gacha', vars['gachaTabBtn'], vars['gachaTabLabel'], gacha_tab) -- 가챠
-    self:addTabWithTabUIAndLabel('exchange', vars['exchangeTabBtn'], vars['exchangeTabLabel'], exchange_tab) -- 교환
+    self:addTabWithTabUIAndLabel('gacha_ticket', vars['gacha_ticketTabBtn'], vars['gacha_ticketTabLabel'], gacha_ticket_tab) -- 교환
 
     
     local has_gacha_event = g_fevertimeData:isActiveFevertime_runeGachaUp() or g_hotTimeData:isActiveEvent('event_rune_gacha')
@@ -142,7 +142,7 @@ function UI_RuneForge:refresh_highlight()
 
     -- 룬 티켓 가지고 있거나 마일리지를 교환할 수 있거나
     b_gacha_highlight = g_runesData:isRuneTicketGachaAvailable()
-    vars['exchangeNotiSprite']:setVisible(b_gacha_highlight) 
+    vars['gacha_ticketNotiSprite']:setVisible(b_gacha_highlight) 
 end
 
 -------------------------------------
@@ -183,7 +183,7 @@ function UI_RuneForge:onChangeTab(tab, first)
 
     if (tab == 'gacha') then
         self.m_subCurrency = 'rune_box'
-    elseif (tab == 'exchange') then
+    elseif (tab == 'gacha_ticket') then
         self.m_subCurrency = 'rune_ticket'
     else
         self.m_subCurrency = 'amethyst'
