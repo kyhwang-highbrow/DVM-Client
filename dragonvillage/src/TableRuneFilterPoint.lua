@@ -7,6 +7,8 @@ TableRuneFilterPoint = class(PARENT, {
 })
 
 local THIS = TableRuneFilterPoint
+local instance = nil
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -16,17 +18,28 @@ function TableRuneFilterPoint:init()
 end
 
 -------------------------------------
--- function getRuneSetId
+-- function getInstance
+---@return TableRuneFilterPoint
 -------------------------------------
-function TableRuneFilterPoint:getRuneSetId(rune_id)
+function TableRuneFilterPoint:getInstance()
+    if (instance == nil) then
+        instance = TableRuneFilterPoint()
+    end
+    return instance
+end
+
+-------------------------------------
+-- function getRuneLevelPoint
+-------------------------------------
+function TableRuneFilterPoint:getRuneLevelPoint(grade, lv)
     if (self == THIS) then
         self = THIS()
     end
 
-    if self.m_orgTable == nil or self:exists(rune_id) == false then
-        return getDigit(rune_id, 100, 2)
+    if self:exists(lv) == false then
+        return 0
     end
-
-    local set_id = self:getValue(rune_id, 'set_id')
-    return set_id
+    
+    local filter_point = self:getValue(lv, tostring(grade)) or 0
+    return filter_point
 end

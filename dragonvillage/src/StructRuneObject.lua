@@ -21,8 +21,8 @@ StructRuneObject = class({
 
         -- 서브 옵션
         sopt_1 = 'string',
-        sopt_2 = 'string',
         sopt_3 = 'string',
+        sopt_2 = 'string',
         sopt_4 = 'string',
 
         -- 잠금 여부
@@ -46,6 +46,10 @@ StructRuneObject = class({
         owner_doid = 'doid', -- 룬을 장착 중인 드래곤 doid
         ---------------------------------------------
         grind_opt = 'table',
+
+        ---------------------------------------------
+        filter_point_dirty = 'boolean', -- 필터 포인트 계산 더티 플래그
+        filter_point_cached = 'number', -- 필터 포인트 임시 저장용
     })
 
 StructRuneObject.OPTION_LIST = {'mopt', 'uopt', 'sopt_1', 'sopt_2', 'sopt_3', 'sopt_4'}
@@ -79,6 +83,11 @@ function StructRuneObject:init(data)
     if prefix then
         self['name'] = prefix .. ' ' .. self['name']
     end
+
+    -- 점수 계산 더티 플래그
+    self.filter_point_dirty = true
+    -- 필터 포인트 임시 저장용
+    self.filter_point_cached = 0
 end
 
 -------------------------------------
@@ -1011,6 +1020,99 @@ end
 -------------------------------------
 function StructRuneObject:isGrindedOption(opt_name)
     return self.grind_opt == opt_name
+end
+
+-------------------------------------
+-- function setRuneFilterPointDirty()
+-------------------------------------
+function StructRuneObject:setRuneFilterPointDirty()
+    self.filter_point_dirty = true
+end
+
+-------------------------------------
+-- function getRuneFilterPoint()
+-------------------------------------
+function StructRuneObject:getRuneFilterPoint()
+    -- 더티 플래그 처리
+    if self.filter_point_dirty == false then
+        return self.filter_point_cached
+    end
+
+    local grade = self.grade
+    local lv = self.lv
+
+    -- 룬 능력치 점수
+    local rune_ability_point = self:getRuneAbilityPoint()
+    -- 룬 강화 점수
+    local rune_level_point = TableRuneFilterPoint:getInstance():getRuneLevelPoint(grade, lv)
+    -- 룬 능력치 점수 + 룬 강화 점수
+    local result = rune_ability_point + rune_level_point
+    self.filter_point_cached = result
+    self.filter_point_dirty = false
+
+    if IS_TEST_MODE() == true then
+        cclog('==============================================')
+        cclog(string.format('%s의 점수 ability:%0.2f + level:%0.2f = total:%0.2f', self.name, rune_ability_point, rune_level_point, result))
+        cclog(string.format('등급 : %d', self.grade))
+        cclog(string.format('강화 : %d', self.lv))
+        self:getRuneAbilityPoint(true)
+    end
+
+    return result
+end
+
+-------------------------------------
+-- function getRuneAbilityPoint()
+-------------------------------------
+function StructRuneObject:getRuneAbilityPoint(show_log)
+    -- 결과값
+    local result = 0
+    -- 값 저장용 map
+    local option_value_map = {}
+    -- 부 옵션 및 추가 옵션 계산
+    local option_list = {'uopt', 'sopt_1', 'sopt_2', 'sopt_3', 'sopt_4'}    
+    for _, v in ipairs(option_list) do
+        if (self[v] ~= '') then
+            local option_str = self[v]
+            local option, value = self:parseRuneOptionStr(option_str)
+            local point = self:getRuneAbilityOptionPoint(option, value)
+
+            if show_log == true then
+                cclog(string.format('%s : %s => %0.2f', v, option_str, point))
+            end
+
+            if option_value_map[option] == nil then
+                option_value_map[option] = point
+            else
+                option_value_map[option] = option_value_map[option] + point
+            end
+        end
+    end
+
+    -- 총합
+    for k, v in pairs(option_value_map) do
+        result = result + v
+    end
+
+    return result
+end
+
+-------------------------------------
+-- function getRuneAbilityOptionPoint()
+-------------------------------------
+function StructRuneObject:getRuneAbilityOptionPoint(option, option_value)    
+    local calc, val = TableOption:getInstance():getRuneAbilityPointCalcVals(option)
+    local result = 0
+
+    -- per는 특정val 당 1점
+    if calc == 'per' then
+        result = option_value/val
+    -- mul은 특정val에 n배
+    elseif calc == 'mul' then
+        result = option_value*val
+    end
+
+    return result
 end
 
 -------------------------------------

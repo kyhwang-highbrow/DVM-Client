@@ -7,6 +7,7 @@ TableOption = class(PARENT, {
     })
 
 THIS = TableOption
+local instance = nil
 
 -------------------------------------
 -- function init
@@ -14,6 +15,18 @@ THIS = TableOption
 function TableOption:init()
     self.m_tableName = 'table_option'
     self.m_orgTable = TABLE:get(self.m_tableName)
+end
+
+-------------------------------------
+-- function getInstance
+---@return TableOption
+-------------------------------------
+function TableOption:getInstance()
+    if (instance == nil) then
+        instance = TableOption()
+    end
+
+    return instance
 end
 
 -------------------------------------
@@ -124,4 +137,18 @@ function TableOption:parseOptionContentStr(buff_content_str)
 --        };
 --    }
     return t_ret
+end
+
+-------------------------------------
+-- function getRuneAbilityPointCalcVals
+-------------------------------------
+function TableOption:getRuneAbilityPointCalcVals(option)
+    local str = self:getValue(option, 'rune_ability_pt')
+    local list = plSplit(str, ':')
+
+    if list == nil then
+        return 'none', 0
+    end
+
+    return list[1], tonumber(list[2])
 end

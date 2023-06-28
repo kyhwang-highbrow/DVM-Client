@@ -22,6 +22,7 @@ function SortManager_Rune:init()
 	self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end, Str('획득순'))
     self:addSortType('mopt', false, function(a, b, ascending) return self:sort_mopt(a, b, ascending) end, Str('주옵션'))
     self:addSortType('equipped', false, function(a, b, ascending) return self:sort_equipped(a, b, ascending) end, Str('장착'))
+    self:addSortType('filter_point', false, function(a, b, ascending) return self:sort_filter_point(a, b, ascending) end, Str('룬점수'))
 
 	self:pushSortOrder('created_at')
 	self:pushSortOrder('rarity')
@@ -140,6 +141,25 @@ function SortManager_Rune:sort_equipped(a, b, ascending)
     return self:equipped_sort(key, a, b, ascending)
 end
 
+-------------------------------------
+-- function sort_filter_point
+-- @brief 룬 점수
+-------------------------------------
+function SortManager_Rune:sort_filter_point(a, b, ascending)
+    local a_value = a['data'] and a['data']:getRuneFilterPoint() or 0
+    local b_value = b['data'] and b['data']:getRuneFilterPoint() or 0
+
+    if (a_value == b_value) then
+        return nil
+    end
+
+    -- 오름차순 or 내림차순
+    if ascending then
+        return a_value < b_value
+    else
+        return a_value > b_value
+    end
+end
 
 -------------------------------------
 -- function mopt_sort
