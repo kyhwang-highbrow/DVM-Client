@@ -33,7 +33,6 @@ function UI_RuneForgeGachaTab:onEnterTab(first)
     end
 
     self:refresh()
-
 end
 
 -------------------------------------
@@ -311,6 +310,33 @@ function UI_RuneForgeGachaTab:refresh()
     --[[
     local rune_box_count = g_userData:get('rune_box') or 0
     vars['itemLabel']:setString(rune_box_count)]]
+
+    do
+        self:refreshTabNoti()
+    end
+
+    do
+        local rune_box_count = g_userData:get('rune_box') or 0
+        local is_gacha_on = rune_box_count > 0
+        vars['gachaNotiSprite']:setVisible(is_gacha_on)
+    end
+end
+
+
+-------------------------------------
+-- function refreshNoti
+-------------------------------------
+function UI_RuneForgeGachaTab:refreshTabNoti()
+    local vars = self.vars
+
+    local rune_box_count = g_userData:get('rune_box') or 0
+    local is_gacha_on = rune_box_count > 0
+
+    local rune_ticket_mileage_type = {'rune_mileage', 'rune_ancient_mileage'}
+    for idx, type in ipairs(rune_ticket_mileage_type) do        
+        local str = string.format('runeSelectNotiSprite%d',idx)
+        vars[str]:setVisible(is_gacha_on)
+    end
 end
 
 -------------------------------------

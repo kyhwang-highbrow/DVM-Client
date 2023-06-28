@@ -615,22 +615,41 @@ end
 -------------------------------------
 -- function isRuneTicketGachaAvailable
 -------------------------------------
-function ServerData_Runes:isRuneTicketGachaAvailable()
+function ServerData_Runes:isRuneTicketGachaAvailable(is_check_gacha_only)
     local rune_box_count = g_userData:get('rune_ticket') or 0
     if rune_box_count > 0 then
         return true
     end
 
+    local cash = g_userData:get('cash') or 0
+    if cash >= self:getRuneTicketGachaDiaPrice() then
+        return true
+    end
+
+    if is_check_gacha_only == true then
+        return false
+    end
+
     local rune_ticket_mileage_type = {'rune_mileage', 'rune_ancient_mileage'}
     for _, type in ipairs(rune_ticket_mileage_type) do
-        local rune_mileage = g_userData:get(type) or 0
-        local price = self.m_mRuneTicketGachaMileagePrice[type] 
-                            or self:getRuneTicketGachaMileageProductPrice(type)
-        if price <= rune_mileage then
+        if self:isRuneTicketGachaMileageAvailable(type) then
             return true
         end
     end
 
+    return false
+end
+
+-------------------------------------
+-- function isRuneTicketGachaMileageAvailable
+-------------------------------------
+function ServerData_Runes:isRuneTicketGachaMileageAvailable(type)
+    local rune_mileage = g_userData:get(type) or 0
+    local price = self.m_mRuneTicketGachaMileagePrice[type] 
+                        or self:getRuneTicketGachaMileageProductPrice(type)
+    if price <= rune_mileage then
+        return true
+    end
     return false
 end
 

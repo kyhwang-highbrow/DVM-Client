@@ -67,7 +67,7 @@ function UI_RuneForgeGachaTicket:initUI()
 
     do -- 다이아 가격
         local item_value = g_runesData:getRuneTicketGachaDiaPrice()
-        vars['diaCostLabel']:setString(comma_value(item_value))
+        vars['gachaDiaLabel']:setString(comma_value(item_value))
     end
 end
 
@@ -163,10 +163,24 @@ function UI_RuneForgeGachaTicket:refresh()
         vars['runeSelectBtn'..i]:setEnabled(not (myTab == i))
     end
 
+    do -- 다이아 노티
+        local cash = g_userData:get('cash') or 0
+        local is_cash_on = cash >= g_runesData:getRuneTicketGachaDiaPrice()
+        vars['diaNotiSprite']:setVisible(is_cash_on)
+    end 
+
+    do -- 룬티켓 노티
+        local ticket = g_userData:get('rune_ticket') or 0
+        local is_ticket_on = ticket > 0
+        vars['ticketNotiSprite']:setVisible(is_ticket_on)
+    end
+
     -- 룬 마일리지 정보
     self:refreshMileage()
-end
 
+    -- 탭 레드닷 노출
+    self:refreshTabNoti()
+end
 
 -------------------------------------
 -- function getMileageProduct
@@ -221,6 +235,20 @@ function UI_RuneForgeGachaTicket:refreshMileage()
     end
 end
 
+-------------------------------------
+-- function refreshNoti
+-------------------------------------
+function UI_RuneForgeGachaTicket:refreshTabNoti()
+    local vars = self.vars
+    local is_gacha_on = g_runesData:isRuneTicketGachaAvailable(true)
+
+    local rune_ticket_mileage_type = {'rune_mileage', 'rune_ancient_mileage'}
+    for idx, type in ipairs(rune_ticket_mileage_type) do
+        local is_mileage_on = g_runesData:isRuneTicketGachaMileageAvailable(type)
+        local str = string.format('runeSelectNotiSprite%d',idx)
+        vars[str]:setVisible(is_gacha_on or is_mileage_on)
+    end
+end
 
 -------------------------------------
 -- function click_ChangeBtn
