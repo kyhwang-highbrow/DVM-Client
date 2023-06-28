@@ -251,9 +251,6 @@ function UI_RuneForgeGachaTicket:click_rewardBtn()
     end
 
     local cb_func = function ()
-        if self.m_ownerUI ~= nil then
-            self.m_ownerUI:refreshTabList()
-        end
 
         local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
         UI_ToastPopup(toast_msg)
