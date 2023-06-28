@@ -77,12 +77,13 @@ end
 function UI_RuneForgeGachaTicket:click_gachaBtn()
     -- 조건 체크
     local rune_ticket_count = g_userData:get('rune_ticket') or 0
+    local item_name = TableItem:getItemNameFromItemType('rune_ticket') -- 룬 교환 티켓
+
     if (rune_ticket_count <= 0) then
-        UIManager:toastNotificationRed(Str('{1} 이(가) 부족합니다.'))
+        UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.', item_name))
         return
     end
-
-    local item_name = TableItem:getItemNameFromItemType('rune_ticket') -- 룬 교환 티켓
+    
     local item_value = 1
     local msg = Str('{@item_name}"{1} x{2}"\n{@default}사용하시겠습니까?', item_name, comma_value(item_value))
 
