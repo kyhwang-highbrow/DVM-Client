@@ -162,12 +162,12 @@ function UI_RuneForgeGachaTicket:refresh()
     for i = 1, self.m_TabCount do
         vars['runeSelectBtn'..i]:setEnabled(not (myTab == i))
     end
-
+--[[ 
     do -- 다이아 노티
         local cash = g_userData:get('cash') or 0
         local is_cash_on = cash >= g_runesData:getRuneTicketGachaDiaPrice()
         vars['diaNotiSprite']:setVisible(is_cash_on)
-    end 
+    end  ]]
 
     do -- 룬티켓 노티
         local ticket = g_userData:get('rune_ticket') or 0

@@ -621,10 +621,10 @@ function ServerData_Runes:isRuneTicketGachaAvailable(is_check_gacha_only)
         return true
     end
 
-    local cash = g_userData:get('cash') or 0
+--[[     local cash = g_userData:get('cash') or 0
     if cash >= self:getRuneTicketGachaDiaPrice() then
         return true
-    end
+    end ]]
 
     if is_check_gacha_only == true then
         return false
