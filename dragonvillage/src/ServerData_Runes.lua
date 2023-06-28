@@ -6,6 +6,7 @@ ServerData_Runes = class({
         m_mRuneObjects = 'map',
         m_runeCount = 'number',
         m_mRuneTicketGachaMileagePrice = 'Map<string, number>',
+        m_runeTicketGachaDiaPrice = 'number',
     })
 
 -------------------------------------
@@ -16,6 +17,7 @@ function ServerData_Runes:init(server_data)
     self.m_mRuneObjects = {}
     self.m_runeCount = 0
     self.m_mRuneTicketGachaMileagePrice = {}
+    self.m_runeTicketGachaDiaPrice = 0
 end
 
 -------------------------------------
@@ -45,6 +47,11 @@ function ServerData_Runes:request_runesInfo(finish_cb, fail_cb)
 
         -- 룬 메모 파일 로드
         g_runeMemoData:loadRuneMemoMap()
+
+        -- 룬 티켓 뽑기 가격
+        if ret['buy_rune_ticket'] ~= nil then
+            self.m_runeTicketGachaDiaPrice = ret['buy_rune_ticket']
+        end
 
         if finish_cb then
             finish_cb(ret)
@@ -625,6 +632,13 @@ function ServerData_Runes:isRuneTicketGachaAvailable()
     end
 
     return false
+end
+
+-------------------------------------
+-- function getRuneTicketGachaDiaPrice
+-------------------------------------
+function ServerData_Runes:getRuneTicketGachaDiaPrice()
+    return self.m_runeTicketGachaDiaPrice or 0
 end
 
 -------------------------------------

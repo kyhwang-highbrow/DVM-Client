@@ -53,7 +53,9 @@ function UI_RuneForgeGachaTicket:initUI()
         vars['buyBtn']:setVisible(false)
     end
 
-    vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
+    vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn('rune_ticket') end)
+    vars['diaBtn']:registerScriptTapHandler(function() self:click_gachaBtn('cash') end)
+
     vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeGachaInfo(self.m_myTab, 'rune_forge_gacha_ticket_info.ui') end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     --vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
@@ -61,6 +63,11 @@ function UI_RuneForgeGachaTicket:initUI()
     --룬 뽑기 버튼 설정
     for index = 1, self.m_TabCount do
         vars['runeSelectBtn'..index]:registerScriptTapHandler(function() self:click_ChangeBtn(index) end)
+    end
+
+    do -- 다이아 가격
+        local item_value = g_runesData:getRuneTicketGachaDiaPrice()
+        vars['diaCostLabel']:setString(comma_value(item_value))
     end
 end
 
@@ -74,39 +81,42 @@ end
 -------------------------------------
 -- function click_gachaBtn
 -------------------------------------
-function UI_RuneForgeGachaTicket:click_gachaBtn()
+function UI_RuneForgeGachaTicket:click_gachaBtn(goods_type)
     -- 조건 체크
-    local rune_ticket_count = g_userData:get('rune_ticket') or 0
-    local item_name = TableItem:getItemNameFromItemType('rune_ticket') -- 룬 교환 티켓
+    local rune_ticket_count = g_userData:get(goods_type) or 0
+    local item_name = TableItem:getItemNameFromItemType(goods_type) -- 룬 교환 티켓
 
     if (rune_ticket_count <= 0) then
         UIManager:toastNotificationRed(Str('{1}이(가) 부족합니다.', item_name))
         return
     end
-    
-    local item_value = 1
-    local msg = Str('{@item_name}"{1} x{2}"\n{@default}사용하시겠습니까?', item_name, comma_value(item_value))
 
-    MakeSimplePopup_Confirm('rune_box', item_value, msg, function() self:request_runeGacha() end)
+    local item_value = 1
+    if goods_type == 'cash' then
+        item_value = g_runesData:getRuneTicketGachaDiaPrice()
+    end
+
+    local msg = Str('{@item_name}"{1} x{2}"\n{@default}사용하시겠습니까?', item_name, comma_value(item_value))
+    MakeSimplePopup_Confirm(goods_type, item_value, msg, function() self:request_runeGacha(goods_type == 'cash') end)
 end
 
 -------------------------------------
 -- function subsequentSummons
 -- @brief 이어서 뽑기 설정
 -------------------------------------
-function UI_RuneForgeGachaTicket:subsequentSummons(gacha_result_ui)
+function UI_RuneForgeGachaTicket:subsequentSummons(gacha_result_ui, is_cash)
     local vars = gacha_result_ui.vars
 	-- 다시하기 버튼 등록
     vars['againBtn']:registerScriptTapHandler(function()
         gacha_result_ui:close()
-        self:request_runeGacha()
+        self:request_runeGacha(is_cash)
     end)
 end
 
 -------------------------------------
 -- function request_runeGacha
 -------------------------------------
-function UI_RuneForgeGachaTicket:request_runeGacha()
+function UI_RuneForgeGachaTicket:request_runeGacha(is_cash)
     local myTab = tostring(self.m_myTab)
     -- 룬 최대 보유 수량 체크
     if (not g_runesData:checkRuneGachaMaximum(10)) then
@@ -127,12 +137,10 @@ function UI_RuneForgeGachaTicket:request_runeGacha()
         ui:setCloseCB(close_cb)
 
         -- 이어서 뽑기 설정
-        self:subsequentSummons(ui)
+        self:subsequentSummons(ui, is_cash)
     end
     
     local is_bundle = true
-    local is_cash = false
-
     g_runesData:request_runeGachaTicket(is_bundle, is_cash, myTab, finish_cb, nil) -- param: is_bundle, finish_cb, fail_cb
 end
 
