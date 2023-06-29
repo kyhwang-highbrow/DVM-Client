@@ -867,6 +867,7 @@ local t_module = {
     'UI_ReinforcePointCard',
     'UI_ItemCard',
     'UI_RuneCard',
+    'UI_RuneCardOption',
     'UI_MonsterCard',
     'UI_MonsterCustomCard',
 	'UI_RewardCard',

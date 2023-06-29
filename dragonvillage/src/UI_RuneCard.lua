@@ -37,9 +37,7 @@ UI_RuneCard = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_RuneCard:init(t_rune_data)
-    self.ui_res = 'card_rune.ui'
-    self:getUIInfo()
-
+    self:loadUI()
     self.m_runeData = t_rune_data
 	self.m_itemID = t_rune_data['rid']
     self.m_tRuneUI = {}
@@ -49,6 +47,14 @@ function UI_RuneCard:init(t_rune_data)
 
     -- 드래곤 정보 생성
     self:refreshInfo()
+end
+
+-------------------------------------
+-- function load
+-------------------------------------
+function UI_RuneCard:loadUI()
+    self.ui_res = 'card_rune.ui'
+    self:getUIInfo()
 end
 
 -------------------------------------
@@ -98,10 +104,16 @@ function UI_RuneCard:refreshInfo()
     self:refresh_grind()
 
     -- 장착 표시
-    self:refresh_equip()
+    -- self:refresh_equip()
 
     -- 메모 표시
     self:refresh_memo()
+
+    -- 주옵션/룬점수 표시
+    self:refreshOption()
+    
+    -- 장착한 드래곤
+    self:refreshEquipDragon()
 end
 
 -------------------------------------
@@ -336,6 +348,30 @@ function UI_RuneCard:setShadowSpriteVisible(visible)
     local res = 'card_cha_frame_disable.png'
     local lua_name = 'disableSprite'
     self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
+--- function setOptionSpriteVisible
+-- @brief 옵션 표시
+-------------------------------------
+function UI_RuneCard:setOptionSpriteVisible(visible)
+    local res = 'card_item_frame.png'
+    local lua_name = 'optionSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
+--- function refreshOption
+-- @brief 옵션 표시
+-------------------------------------
+function UI_RuneCard:refreshOption()  
+end
+
+-------------------------------------
+--- function refreshEquipDragon
+-- @brief 장착 드래곤 표시
+-------------------------------------
+function UI_RuneCard:refreshEquipDragon()
 end
 
 -------------------------------------

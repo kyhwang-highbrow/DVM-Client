@@ -306,15 +306,12 @@ function UI_RuneForgeGachaTicket:click_ChangeBtn(myTab)
             select_animator:stopAllActions()
             select_animator:runAction(select_action)
         end
-
-        
-        if other_animator ~= nil then           
-            local other_action = cc.EaseOut:create(cc.ScaleTo:create(0.2, 0, 0), 0.3)
-            local call_func = cc.CallFunc:create(func_select)
-            local seq = cc.Sequence:create(other_action, call_func)
-            other_animator:stopAllActions()
-            other_animator:runAction(seq)
-        end
+             
+        local other_action = cc.EaseOut:create(cc.ScaleTo:create(0.2, 0, 0), 0.3)
+        local call_func = cc.CallFunc:create(func_select)
+        local seq = cc.Sequence:create(other_action, call_func)
+        other_animator:stopAllActions()
+        other_animator:runAction(seq)
     end
 end
 

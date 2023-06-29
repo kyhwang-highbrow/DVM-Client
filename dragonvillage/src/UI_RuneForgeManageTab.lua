@@ -27,7 +27,7 @@ UI_RuneForgeManageTab = class(PARENT,{
 
 
 UI_RuneForgeManageTab.CARD_SCALE = 0.52
-UI_RuneForgeManageTab.CARD_CELL_SIZE = cc.size(80, 80)
+UI_RuneForgeManageTab.CARD_CELL_SIZE = cc.size(80, 100)
 
 -------------------------------------
 -- function init
@@ -327,7 +327,7 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)
-    table_view_td:setCellUIClass(UI_RuneCard, create_func)
+    table_view_td:setCellUIClass(UI_RuneCardOption, create_func)
     table_view_td:setItemList(l_item_list)
     table_view_td:makeDefaultEmptyDescLabel(Str('룬 가방이 비어있습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))
 

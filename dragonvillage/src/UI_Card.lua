@@ -81,7 +81,7 @@ end
 -- function makeSprite
 -- @brief 카드에 사용되는 sprite는 모두 이 로직으로 생성
 -------------------------------------
-function UI_Card:makeSprite(lua_name, res, no_use_frames)
+function UI_Card:makeSprite(lua_name, res, no_use_frames, z_order)
     local vars = self.vars
 
     if vars[lua_name] then
@@ -101,6 +101,10 @@ function UI_Card:makeSprite(lua_name, res, no_use_frames)
     vars['clickBtn']:addChild(sprite)
     self:setCardInfo(lua_name, sprite)
     vars[lua_name] = sprite
+    
+    if isNumber(z_order) == true then
+        sprite:setLocalZOrder(z_order)
+    end
 end
 
 -------------------------------------
@@ -150,8 +154,8 @@ function UI_Card:setAnimatorVisible(lua_name, res, ani, visible)
     elseif (visible) then
         return self:makeVisual(lua_name, res, ani)
     end
+    
 end
-
 -------------------------------------
 -- function setAnimatorVisible_IgnoreLowMode
 -- @brief visible 관리하고 없다면 만든다.
