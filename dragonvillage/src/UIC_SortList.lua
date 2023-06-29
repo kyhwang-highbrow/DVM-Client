@@ -609,7 +609,7 @@ function MakeUICSortList_runeManage(button, label)
 	uic:addSortType('created_at', Str('획득순'))
     uic:addSortType('mopt', Str('주옵션'))
     uic:addSortType('equipped', Str('장착'))
-    uic:addSortType('filter_point', Str('룬점수'))
+    uic:addSortType('filter_point', Str('룬 점수'))
 
     return uic
 end

@@ -22,7 +22,7 @@ function SortManager_Rune:init()
 	self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end, Str('획득순'))
     self:addSortType('mopt', false, function(a, b, ascending) return self:sort_mopt(a, b, ascending) end, Str('주옵션'))
     self:addSortType('equipped', false, function(a, b, ascending) return self:sort_equipped(a, b, ascending) end, Str('장착'))
-    self:addSortType('filter_point', false, function(a, b, ascending) return self:sort_filter_point(a, b, ascending) end, Str('룬점수'))
+    self:addSortType('filter_point', false, function(a, b, ascending) return self:sort_filter_point(a, b, ascending) end, Str('룬 점수'))
 
 	self:pushSortOrder('created_at')
 	self:pushSortOrder('rarity')
