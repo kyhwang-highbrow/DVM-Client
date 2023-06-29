@@ -6,6 +6,7 @@ UI_RuneForgeGachaTicket = class(PARENT,{
     m_TabCount = 'number',  --탭 개수
     m_myTab = 'number',     --바라보고있는 탭번호
     m_mapConstMileage = 'List<string>',
+    m_mTabAnimator = 'Map<number, Animator>',
     })
 
 -------------------------------------
@@ -16,6 +17,7 @@ function UI_RuneForgeGachaTicket:init(owner_ui)
     --[1]:일반 [2]:고대
     self.m_TabCount = 2 
     self.m_myTab = 1    --기본은 일반
+    self.m_mTabAnimator = {}
     self.m_mapConstMileage = {'rune_mileage', 'rune_ancient_mileage'}
     self:refresh()
 end
@@ -31,7 +33,6 @@ function UI_RuneForgeGachaTicket:onEnterTab(first)
     end
 
     self:refresh()
-
 end
 
 -------------------------------------
@@ -68,6 +69,12 @@ function UI_RuneForgeGachaTicket:initUI()
     do -- 다이아 가격
         local item_value = g_runesData:getRuneTicketGachaDiaPrice()
         vars['gachaDiaLabel']:setString(comma_value(item_value))
+    end
+
+    do
+        local tint_action = cca.buttonShakeAction(1 ,3.0)
+        vars['speechSprite']:stopAllActions()
+        vars['speechSprite']:runAction(tint_action)
     end
 end
 
@@ -207,10 +214,24 @@ function UI_RuneForgeGachaTicket:refreshMileage()
         vars['itemLabel']:setString(product_name)
         
         -- 상품 아이콘
-        local icon = struct_product:makeProductIcon()
-        if (icon) then
-            vars['rewardNode']:removeAllChildren()
-            vars['rewardNode']:addChild(icon)
+        if self.m_mTabAnimator[self.m_myTab] == nil then
+            local icon = struct_product:makeProductIcon()
+            if (icon) then            
+                vars['rewardNode']:addChild(icon)
+                self.m_mTabAnimator[self.m_myTab] = icon
+            end
+        end
+
+        self.m_mTabAnimator[self.m_myTab]:setVisible(true)
+        local other_animator = self.m_mTabAnimator[3 - self.m_myTab]
+        if other_animator ~= nil then
+            other_animator:setVisible(false)
+        end
+
+        self.m_mTabAnimator[self.m_myTab]:setVisible(true)
+        local other_animator = self.m_mTabAnimator[3 - self.m_myTab]
+        if other_animator ~= nil then
+            other_animator:setVisible(false)
         end
 
         local curr_count = g_userData:get(mileage_type)
@@ -256,8 +277,45 @@ end
 function UI_RuneForgeGachaTicket:click_ChangeBtn(myTab)
     local vars = self.vars
     self.m_myTab = myTab
-
     self:refresh()
+
+    do -- 게이지 연출
+        local struct_product, mileage_type = self:getMileageProduct()
+        if struct_product ~= nil then
+            local curr_count = g_userData:get(mileage_type)
+            local need_count = struct_product:getPrice()
+            local percent = (curr_count/need_count)*100
+
+            local gauge_node = vars['mileageGauge']    
+            gauge_node:setPercentage(0)
+            gauge_node:runAction(cc.ProgressTo:create(0.5, percent))
+        end
+    end
+
+    do -- 
+        local select_animator = self.m_mTabAnimator[self.m_myTab]
+        local other_animator = self.m_mTabAnimator[3 - self.m_myTab]
+
+        select_animator:setVisible(true)
+        select_animator:setScale(0)
+        other_animator:setVisible(true)
+        other_animator:setScale(1)
+
+        local func_select = function ()
+            local select_action = cc.EaseIn:create(cc.ScaleTo:create(0.2, 1, 1), 0.3)
+            select_animator:stopAllActions()
+            select_animator:runAction(select_action)
+        end
+
+        
+        if other_animator ~= nil then           
+            local other_action = cc.EaseOut:create(cc.ScaleTo:create(0.2, 0, 0), 0.3)
+            local call_func = cc.CallFunc:create(func_select)
+            local seq = cc.Sequence:create(other_action, call_func)
+            other_animator:stopAllActions()
+            other_animator:runAction(seq)
+        end
+    end
 end
 
 -------------------------------------
@@ -288,10 +346,10 @@ function UI_RuneForgeGachaTicket:click_rewardBtn()
     end
 
     local cb_func = function ()
-
         local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
         UI_ToastPopup(toast_msg)
 
+        self.m_ownerUI:refresh_highlight()
         self:refresh()
     end
 
