@@ -21,8 +21,8 @@ StructRuneObject = class({
 
         -- 서브 옵션
         sopt_1 = 'string',
-        sopt_3 = 'string',
         sopt_2 = 'string',
+        sopt_3 = 'string',
         sopt_4 = 'string',
 
         -- 잠금 여부

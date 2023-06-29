@@ -54,7 +54,7 @@ function UI_RuneForgeGachaTicket:initUI()
     end
 
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn('rune_ticket') end)
-    vars['diaBtn']:registerScriptTapHandler(function() self:click_gachaBtn('cash') end)
+    vars['gachaDiaBtn']:registerScriptTapHandler(function() self:click_gachaBtn('cash') end)
 
     vars['infoBtn']:registerScriptTapHandler(function() UI_RuneForgeGachaInfo(self.m_myTab, 'rune_forge_gacha_ticket_info.ui') end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
