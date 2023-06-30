@@ -152,3 +152,12 @@ function TableOption:getRuneAbilityPointCalcVals(option)
 
     return list[1], tonumber(list[2])
 end
+
+
+-------------------------------------
+-- function getRuneAbilityIconRes
+-------------------------------------
+function TableOption:getRuneAbilityIconRes(option)
+    local res = self:getValue(option, 'rune_ability_res')
+    return res
+end

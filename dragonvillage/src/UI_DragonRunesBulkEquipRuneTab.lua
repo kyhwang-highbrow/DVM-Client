@@ -32,7 +32,7 @@ function UI_DragonRunesBulkEquipRuneTab:init(owner_ui)
     self.m_setID = 0
     self.m_lMoptList = nil
     self.m_lSoptList = nil
-    self.m_bIncludeEquipped = not g_settingData:get('option_rune_filter', 'not_include_equipped')
+    self.m_bIncludeEquipped = g_settingData:get('option_rune_filter', 'not_include_equipped')
 
     self.m_selectRoid = nil
 

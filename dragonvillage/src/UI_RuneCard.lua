@@ -355,8 +355,8 @@ end
 -- @brief 옵션 표시
 -------------------------------------
 function UI_RuneCard:setOptionSpriteVisible(visible)
-    local res = 'card_item_frame.png'
-    local lua_name = 'optionSprite'
+    local res = 'card_option_num_frame.png'
+    local lua_name = 'pointBgSprite'
     self:setSpriteVisible(lua_name, res, visible)
 end
 

@@ -1030,14 +1030,27 @@ function StructRuneObject:setRuneFilterPointDirty()
 end
 
 -------------------------------------
+-- function getRuneAbilityIconResAndVal
+-- 룬 주옵션에 들어갈 아이콘 리소스명과 수치얻기
+-------------------------------------
+function StructRuneObject:getRuneAbilityIconResAndVal(option_unit)
+    local option_string = self[option_unit]
+    
+    -- 없으면 룬점수로 간주
+    if option_string == nil or option_unit == 'filter_point' then
+        return 'card_option_atk.png', math_floor(self:getRuneAbilityPoint())
+    end
+    
+    -- 능력치
+    local option, value = self:parseRuneOptionStr(option_string)
+    local res = TableOption:getInstance():getRuneAbilityIconRes(option)
+    return res, value
+end
+
+-------------------------------------
 -- function getRuneFilterPoint()
 -------------------------------------
 function StructRuneObject:getRuneFilterPoint()
-    -- 더티 플래그 처리
-    if self.filter_point_dirty == false then
-        return self.filter_point_cached
-    end
-
     local grade = self.grade
     local lv = self.lv
 
@@ -1047,8 +1060,6 @@ function StructRuneObject:getRuneFilterPoint()
     local rune_level_point = TableRuneFilterPoint:getInstance():getRuneLevelPoint(grade, lv)
     -- 룬 능력치 점수 + 룬 강화 점수
     local result = rune_ability_point + rune_level_point
-    self.filter_point_cached = result
-    self.filter_point_dirty = false
 
     if IS_TEST_MODE() == true then
         cclog('==============================================')
@@ -1065,6 +1076,11 @@ end
 -- function getRuneAbilityPoint()
 -------------------------------------
 function StructRuneObject:getRuneAbilityPoint(show_log)
+    -- 더티 플래그 처리
+    if self.filter_point_dirty == false then
+        return self.filter_point_cached
+    end
+
     -- 결과값
     local result = 0
     -- 값 저장용 map
@@ -1094,6 +1110,8 @@ function StructRuneObject:getRuneAbilityPoint(show_log)
         result = result + v
     end
 
+    self.filter_point_cached = result
+    self.filter_point_dirty = false
     return result
 end
 
