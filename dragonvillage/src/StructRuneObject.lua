@@ -1035,16 +1035,17 @@ end
 -------------------------------------
 function StructRuneObject:getRuneAbilityIconResAndVal(option_unit)
     local option_string = self[option_unit]
-    
+
     -- 없으면 룬점수로 간주
     if option_string == nil or option_unit == 'filter_point' then
-        return 'card_option_atk.png', math_floor(self:getRuneAbilityPoint())
+        return 'card_option_atk.png', math_floor(self:getRuneAbilityPoint()), nil
     end
     
     -- 능력치
     local option, value = self:parseRuneOptionStr(option_string)
     local res = TableOption:getInstance():getRuneAbilityIconRes(option)
-    return res, value
+    local is_percent_value = TableOption:getInstance():isPercentAbilityValueUnit(option)
+    return res, value, is_percent_value
 end
 
 -------------------------------------

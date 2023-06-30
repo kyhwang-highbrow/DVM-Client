@@ -153,11 +153,21 @@ function TableOption:getRuneAbilityPointCalcVals(option)
     return list[1], tonumber(list[2])
 end
 
-
 -------------------------------------
 -- function getRuneAbilityIconRes
 -------------------------------------
 function TableOption:getRuneAbilityIconRes(option)
     local res = self:getValue(option, 'rune_ability_res')
     return res
+end
+
+-------------------------------------
+-- function isPercentAbilityValueUnit 
+-------------------------------------
+function TableOption:isPercentAbilityValueUnit(option)
+    local str = self:getValue(option, 't_desc')
+    if string.find(str, '%%') ~= nil then
+       return true 
+    end
+    return false
 end

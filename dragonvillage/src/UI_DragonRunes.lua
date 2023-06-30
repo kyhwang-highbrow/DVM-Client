@@ -345,7 +345,7 @@ function UI_DragonRunes:refresh_runeOptionFilter(l_mopt_list, l_sopt_list, b_inc
     self.m_lSoptList = l_sopt_list
     self.m_bIncludeEquipped = b_include_equipped
 
-    self:refreshTableViewList()
+    self:refreshTableViewList(true)
 
     -- 룬 개수 갱신
     self:refreshRunesCount()
@@ -406,12 +406,12 @@ function UI_DragonRunes:init_tableViewTD()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(86, 86)
+    table_view_td.m_cellSize = cc.size(86, 106)
     table_view_td.m_nItemPerCell = 6
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)
-    table_view_td:setCellUIClass(UI_RuneCard, create_func)
+    table_view_td:setCellUIClass(UI_RuneCardOption, create_func)
     table_view_td:setItemList(l_item_list)
     table_view_td:makeDefaultEmptyDescLabel(Str('조건에 맞는 룬이 없습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))
 
@@ -492,16 +492,15 @@ end
 -- function refreshTableViewList
 -- @brief
 -------------------------------------
-function UI_DragonRunes:refreshTableViewList()
-    local vars = self.vars
+function UI_DragonRunes:refreshTableViewList(is_force_refresh)
+    local vars = self.vars    
 
     local slot = self.m_currTab
     local l_item_list = self:getFilteredRuneList(slot)
 
     local function refresh_func(item, new_data)
         local old_data = item['data']
-
-        if (old_data['updated_at'] ~= new_data['updated_at']) then
+        if is_force_refresh == true or (old_data['updated_at'] ~= new_data['updated_at']) then
             local roid = new_data['roid']
             self.m_tableViewTD:replaceItemUI(roid, new_data)
         end
@@ -1159,9 +1158,7 @@ function UI_DragonRunes:click_optSortBtn()
 
     local function close_cb(l_mopt_list, l_sopt_list, b_include_equipped) 
         local b_is_using_filter = (l_mopt_list ~= nil) or (l_sopt_list ~= nil)
-
         self.vars['optSortLabel']:setColor((b_is_using_filter == false) and cc.c4b(240, 215, 159) or cc.c4b(255, 215, 0))
-
         self:refresh_runeOptionFilter(l_mopt_list, l_sopt_list, b_include_equipped)
     end
 

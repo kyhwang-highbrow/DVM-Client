@@ -78,6 +78,12 @@ function UI_RuneOptionFilter:init(l_mopt_list, l_sopt_list, b_include_equipped)
         vars['equipBtn']:setVisible(false)
     end
 
+    do -- 룬점수 보기
+        local look_rune_filter_point = g_settingData:get('option_rune_filter', 'look_rune_filter_point')
+        vars['pointBtn'] = UIC_CheckBox(vars['pointBtn'].m_node, vars['pointSprite'], look_rune_filter_point)
+        vars['pointBtn']:registerScriptTapHandler(function() self:click_pointBtn() end)
+    end
+
     self:initUI()
     self:initButton()
     self:refresh()
@@ -213,6 +219,15 @@ function UI_RuneOptionFilter:click_equipBtn()
 end
 
 -------------------------------------
+-- function click_pointBtn
+-------------------------------------
+function UI_RuneOptionFilter:click_pointBtn()
+    local vars = self.vars
+
+    self.m_bDirty = true
+end
+
+-------------------------------------
 -- function click_refreshBtn
 -------------------------------------
 function UI_RuneOptionFilter:click_refreshBtn()
@@ -240,18 +255,16 @@ end
 function UI_RuneOptionFilter:click_closeBtn()
     if (self.m_closeCB) and (self.m_bDirty == true) then
         local vars = self.vars
-
         local l_mopt_list = self:getOptionList('mopt')
         local l_sopt_list = self:getOptionList('sopt')
         local b_include_equipped = nil
-        if (vars['equipBtn']:isVisible()) then
-            b_include_equipped = not vars['equipBtn']:isChecked()
+        b_include_equipped = not vars['equipBtn']:isChecked()
 
-            g_settingData:lockSaveData()
-            g_settingData:applySettingData(b_include_equipped, 'option_rune_filter', 'not_include_equipped')
-            g_settingData:unlockSaveData()
-        end
-
+        g_settingData:lockSaveData()
+        g_settingData:applySettingData(b_include_equipped, 'option_rune_filter', 'not_include_equipped')
+        g_settingData:applySettingData(vars['pointBtn']:isChecked(), 'option_rune_filter', 'look_rune_filter_point')
+        g_settingData:unlockSaveData()
+        
         self.m_closeCB(l_mopt_list, l_sopt_list, b_include_equipped)
     end
 

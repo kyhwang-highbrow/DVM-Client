@@ -7,6 +7,7 @@ UI_RuneCardOption = class(PARENT, {
     m_charAttrIconRes = 'string',
 
     m_moptAbilityIconRes = 'string',
+    m_filterPointStr = 'string',
 })
 
 -------------------------------------
@@ -22,15 +23,32 @@ end
 -- @brief 옵션 표시
 -------------------------------------
 function UI_RuneCardOption:refreshOption()
+    local vars = self.vars
     -- 바깥 테두리는 무조건 표시해줌
     self:setOptionSpriteVisible(true)
-    local res, val = self.m_runeData:getRuneAbilityIconResAndVal('mopt')
 
-    -- 아이콘
-    self:makeRuneAbilityIcon(res)
+    local res, val, is_per
+    local is_filter_point = g_settingData:get('option_rune_filter', 'look_rune_filter_point')
 
-    -- 숫자
-    self:setPointNumberText(val)
+    if is_filter_point == true then
+        res, val = 'card_option_atk.png', math_floor(self.m_runeData:getRuneAbilityPoint())
+        -- 숫자
+        self:setPointNumberText(val)
+
+        if vars['pointIconNode'] ~= nil then
+            vars['pointIconNode']:setVisible(false)
+        end
+    else
+        res, val, is_per = self.m_runeData:getRuneAbilityIconResAndVal('mopt')
+        -- 숫자
+        self:setPointNumberText(val, not is_per, is_per)
+        -- 아이콘
+        self:makeRuneAbilityIcon(res)
+
+        if vars['pointIconNode'] ~= nil then
+            vars['pointIconNode']:setVisible(true)
+        end
+    end
 end
 
 -------------------------------------
@@ -140,9 +158,13 @@ end
 -- @brief 숫자 텍스트 생성용
 -------------------------------------
 function UI_RuneCardOption:setPointNumberText(num, use_plus, use_per)
-    if (not num) or (num == 0) then
+    if (not num) then
 		return
 	end
+
+    if self.m_filterPointStr ==  num then
+        return
+    end
 
     local vars = self.vars
 
@@ -173,6 +195,7 @@ function UI_RuneCardOption:setPointNumberText(num, use_plus, use_per)
 			char = 'plus'
         elseif (char == 'p') then
             char = 'per'
+            font_size = 12
 		end
 
 		local lua_name = 'pointNumberSprite' .. idx
@@ -187,4 +210,6 @@ function UI_RuneCardOption:setPointNumberText(num, use_plus, use_per)
 
 		idx = idx + 1
 	end
+
+    self.m_filterPointStr =  num
 end
