@@ -604,7 +604,7 @@ end
 function ServerData_Runes:getRuneTicketGachaMileageProductPrice(type)
     local struct_product_list = g_shopDataNew:getProductList(type)
     local struct_product =  table.getFirst(struct_product_list)
-    local price
+    local price = 0
     if struct_product ~= nil then
         price = struct_product:getPrice()
         self.m_mRuneTicketGachaMileagePrice[type] = price
