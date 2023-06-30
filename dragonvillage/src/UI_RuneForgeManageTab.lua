@@ -38,7 +38,7 @@ function UI_RuneForgeManageTab:init(owner_ui)
    self.m_bSelectSellActive = false
    self.m_mSelectedRuneUIMap = {}
    self.m_mSelectedRuneRoidMap = {}
-   self.m_bIncludeEquipped = g_settingData:get('option_rune_filter', 'include_equipped')
+   self.m_bIncludeEquipped = not g_settingData:get('option_rune_filter', 'not_include_equipped')
 
    self.m_setID = 0
    self.m_lMoptList = nil
@@ -892,7 +892,7 @@ function UI_RuneForgeManageTab:click_optSortBtn()
     local l_mopt_list = self.m_lMoptList
     local l_sopt_list = self.m_lSoptList
     local b_include_equipped = self.m_bIncludeEquipped
-    local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, b_include_equipped)
+    local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, not b_include_equipped)
 
     local function close_cb(l_mopt_list, l_sopt_list, b_include_equipped)
         self.m_lMoptList = l_mopt_list

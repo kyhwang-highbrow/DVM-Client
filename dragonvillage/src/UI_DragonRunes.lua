@@ -46,7 +46,7 @@ function UI_DragonRunes:init(doid, slot_idx)
     self.m_listFilterSetID = 0
     self.m_lMoptList = nil
     self.m_lSoptList = nil
-    self.m_bIncludeEquipped = g_settingData:get('option_rune_filter', 'include_equipped')
+    self.m_bIncludeEquipped = not g_settingData:get('option_rune_filter', 'not_include_equipped')
     self.m_mEquippedRuneObjects = {}
     self.m_selectOptionLabel = nil
     self.m_useOptionLabel = nil
@@ -1155,7 +1155,7 @@ function UI_DragonRunes:click_optSortBtn()
     local l_sopt_list = self.m_lSoptList
     local b_include_equipped = self.m_bIncludeEquipped
 
-    local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, b_include_equipped)
+    local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, not b_include_equipped)
 
     local function close_cb(l_mopt_list, l_sopt_list, b_include_equipped) 
         local b_is_using_filter = (l_mopt_list ~= nil) or (l_sopt_list ~= nil)

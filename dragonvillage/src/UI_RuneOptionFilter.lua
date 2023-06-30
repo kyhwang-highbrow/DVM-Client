@@ -245,10 +245,10 @@ function UI_RuneOptionFilter:click_closeBtn()
         local l_sopt_list = self:getOptionList('sopt')
         local b_include_equipped = nil
         if (vars['equipBtn']:isVisible()) then
-            b_include_equipped = vars['equipBtn']:isChecked()
+            b_include_equipped = not vars['equipBtn']:isChecked()
 
             g_settingData:lockSaveData()
-            g_settingData:applySettingData(b_include_equipped, 'option_rune_filter', 'include_equipped')
+            g_settingData:applySettingData(b_include_equipped, 'option_rune_filter', 'not_include_equipped')
             g_settingData:unlockSaveData()
         end
 
