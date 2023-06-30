@@ -1,5 +1,4 @@
-return {['죽음에서 부활하기 위해 악의 힘과 계약한 악마 드래곤이다. 강해지고 싶다는 욕망으로 악의 힘을 빌려 자신의 비늘을 불태웠다 전해진다. 머리에 쓰는 뼈는 가면 역할을 하며 그 속엔 화상 자국이 남아있다. 악의 힘을 빌릴 때마다 몸이 불타오르며 비늘을 태운다. ']='At certain intervals, randomly attack one enemy and inflict {1}% chance each of decreasing their attack power, defense power, attack speed, and causing continuous damage for {2} seconds.',
-['일정 시간마다 무작위 적 하나를 공격하여 대상에게 각각 {1}% 확률로 {2}초간 공격력 감소, 방어력 감소, 공격속도 감소, 지속피해를 부여합니다.']='It is a demon dragon who made a contract with the power of evil to be resurrected from death. It is said that it burned its scales with the desire to become stronger. The bones worn on its head serve as a mask and bear the scars of burns. Whenever it borrows the power of evil, its body burns and its scales are singed.',
+return {['죽음에서 부활하기 위해 악의 힘과 계약한 악마 드래곤이다. 강해지고 싶다는 욕망으로 악의 힘을 빌려 자신의 비늘을 불태웠다 전해진다. 머리에 쓰는 뼈는 가면 역할을 하며 그 속엔 화상 자국이 남아있다. 악의 힘을 빌릴 때마다 몸이 불타오르며 비늘을 태운다.']='It is a demon dragon who made a contract with the power of evil to be resurrected from death. It is said that it burned its scales with the desire to become stronger. The bones worn on its head serve as a mask and bear the scars of burns. Whenever it borrows the power of evil, its body burns and its scales are singed.',
 ['16스테이지 클리어']='Clear Stage 16',
 ['17스테이지 클리어']='Clear Stage 17',
 ['18스테이지 클리어']='Clear Stage 18',
@@ -253,4 +252,5 @@ return {['죽음에서 부활하기 위해 악의 힘과 계약한 악마 드래
 ['흐름이란 끊기지 않고 유연해야 생긴다네.']='Flow is created when it is flexible without interruption.',
 ['카네드']='Kaned',
 ['카네드(땅)']='Kaned (Earth)',
-['{1} 공격대']='Raid Party {1}'}
+['{1} 공격대']='Raid Party {1}',
+['일정 시간마다 무작위 적 하나를 공격하여 대상에게 각각 {1}% 확률로 {2}초간 공격력 감소, 방어력 감소, 공격속도 감소, 지속피해를 부여합니다.']='It is a demon dragon who made a contract with the power of evil to be resurrected from death. It is said that it burned its scales with the desire to become stronger. The bones worn on its head serve as a mask and bear the scars of burns. Whenever it borrows the power of evil, its body burns and its scales are singed.'}

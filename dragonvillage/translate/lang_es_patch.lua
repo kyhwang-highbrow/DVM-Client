@@ -1,5 +1,4 @@
-return {['죽음에서 부활하기 위해 악의 힘과 계약한 악마 드래곤이다. 강해지고 싶다는 욕망으로 악의 힘을 빌려 자신의 비늘을 불태웠다 전해진다. 머리에 쓰는 뼈는 가면 역할을 하며 그 속엔 화상 자국이 남아있다. 악의 힘을 빌릴 때마다 몸이 불타오르며 비늘을 태운다. ']='Cada cierto tiempo atacará a un enemigo al azar, otorgando al objetivo una probabilidad del {1}% de reducir su poder de ataque, poder de defensa, velocidad de ataque y provocando daño continuo durante {2} segundos.',
-['일정 시간마다 무작위 적 하나를 공격하여 대상에게 각각 {1}% 확률로 {2}초간 공격력 감소, 방어력 감소, 공격속도 감소, 지속피해를 부여합니다.']='Es un dragón demonio que hizo un pacto con el poder del mal para resucitar de la muerte. Según se cuenta, prendió fuego a sus propias escamas por el deseo de volverse más fuerte. Los huesos que lleva en su cabeza sirven como máscara para ocultar su verdadera identidad y tienen marcas de quemaduras. Cada vez que utiliza el poder del mal, su cuerpo se quema y quema sus escamas.',
+return {['죽음에서 부활하기 위해 악의 힘과 계약한 악마 드래곤이다. 강해지고 싶다는 욕망으로 악의 힘을 빌려 자신의 비늘을 불태웠다 전해진다. 머리에 쓰는 뼈는 가면 역할을 하며 그 속엔 화상 자국이 남아있다. 악의 힘을 빌릴 때마다 몸이 불타오르며 비늘을 태운다.']='Es un dragón demonio que hizo un pacto con el poder del mal para resucitar de la muerte. Según se cuenta, prendió fuego a sus propias escamas por el deseo de volverse más fuerte. Los huesos que lleva en su cabeza sirven como máscara para ocultar su verdadera identidad y tienen marcas de quemaduras. Cada vez que utiliza el poder del mal, su cuerpo se quema y quema sus escamas.',
 ['{1}\n확정 획득까지 {@yellow}{2}{@default}회']='{1} Hasta la adquisición de la confirmación de {@yellow}{2}{@default}',
 ['16스테이지 클리어']='Estado de 16 Completado',
 ['17스테이지 클리어']='Estado de 17 Completado',
@@ -256,4 +255,5 @@ return {['죽음에서 부활하기 위해 악의 힘과 계약한 악마 드래
 ['카네드']='Kaned',
 ['카네드(땅)']='Kaned (Tierra)',
 ['\n{1} {2}개']='\n{1} X{2}',
-['{1} 공격대']='Comando {1}'}
+['{1} 공격대']='Comando {1}',
+['일정 시간마다 무작위 적 하나를 공격하여 대상에게 각각 {1}% 확률로 {2}초간 공격력 감소, 방어력 감소, 공격속도 감소, 지속피해를 부여합니다.']='Es un dragón demonio que hizo un pacto con el poder del mal para resucitar de la muerte. Según se cuenta, prendió fuego a sus propias escamas por el deseo de volverse más fuerte. Los huesos que lleva en su cabeza sirven como máscara para ocultar su verdadera identidad y tienen marcas de quemaduras. Cada vez que utiliza el poder del mal, su cuerpo se quema y quema sus escamas.'}
