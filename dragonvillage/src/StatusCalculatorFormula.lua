@@ -9,7 +9,7 @@ function StatusCalculator:calcStat(char_type, cid, status_name, lv, grade, evolu
     local t_char = table_char[cid]
 
     if (not t_char) then
-        error('cid : ' .. cid)
+        error(char_type .. ' cid : ' .. cid)
     end
 
     -- 능력치 테이블
