@@ -21,7 +21,7 @@ UI_RuneForgeCombineTab = class(PARENT,{
     })
 
 UI_RuneForgeCombineTab.CARD_SCALE = 0.51
-UI_RuneForgeCombineTab.CARD_CELL_SIZE = cc.size(78, 78)
+UI_RuneForgeCombineTab.CARD_CELL_SIZE = cc.size(78, 98)
 UI_RuneForgeCombineTab.MAX_COMBINE_COUNT = 10 -- 한번에 합성 가능한 최대 갯수
 
 -------------------------------------
@@ -129,9 +129,8 @@ function UI_RuneForgeCombineTab:initTableView()
     
     -- 리스트 아이템 생성 콜백
     local function make_func(object)
-        return UI_RuneCard(object)
+        return UI_RuneCardOption(object)
     end
-    
 
     local function create_func(ui, data)
         -- 새로 획득한 룬 뱃지
