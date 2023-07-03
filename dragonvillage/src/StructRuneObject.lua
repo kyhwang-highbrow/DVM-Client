@@ -1067,7 +1067,8 @@ function StructRuneObject:getRuneFilterPoint()
         cclog(string.format('%s의 점수 ability:%0.2f + level:%0.2f = total:%0.2f', self.name, rune_ability_point, rune_level_point, result))
         cclog(string.format('등급 : %d', self.grade))
         cclog(string.format('강화 : %d', self.lv))
-        self:getRuneAbilityPoint(true)
+        self.filter_point_dirty = true
+        self:getRuneAbilityPoint()
     end
 
     return result
@@ -1076,10 +1077,10 @@ end
 -------------------------------------
 -- function getRuneAbilityPoint()
 -------------------------------------
-function StructRuneObject:getRuneAbilityPoint(show_log)
+function StructRuneObject:getRuneAbilityPoint()
     -- 더티 플래그 처리
     if self.filter_point_dirty == false then
-        return self.filter_point_cached
+        return self.filter_point_cached or 0
     end
 
     -- 결과값
@@ -1094,7 +1095,7 @@ function StructRuneObject:getRuneAbilityPoint(show_log)
             local option, value = self:parseRuneOptionStr(option_str)
             local point = self:getRuneAbilityOptionPoint(option, value)
 
-            if show_log == true then
+            if IS_TEST_MODE() == true then
                 cclog(string.format('%s : %s => %0.2f', v, option_str, point))
             end
 

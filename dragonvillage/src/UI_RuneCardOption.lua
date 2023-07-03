@@ -31,7 +31,7 @@ function UI_RuneCardOption:refreshOption()
     local is_filter_point = g_settingData:get('option_rune_filter', 'look_rune_filter_point')
 
     if is_filter_point == true then
-        res, val = 'card_option_atk.png', math_floor(self.m_runeData:getRuneAbilityPoint())
+        res, val = 'card_option_atk.png', math_floor(self.m_runeData:getRuneFilterPoint())
         -- 숫자
         self:setPointNumberText(val)
 
