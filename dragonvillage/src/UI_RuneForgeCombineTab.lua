@@ -339,23 +339,8 @@ function UI_RuneForgeCombineTab:refresh()
         vars['infoTabLabel'..index]:setColor(color)
     end
 
-    do -- 룬 세트 필터
-        local set_id = self.m_setID
-        local table_rune_set = TableRuneSet()
-        
-        local text 
-        if (set_id == 0) then
-            text = Str('전체')
-        elseif (set_id == 'normal') then
-            text = Str('일반 룬')
-        elseif (set_id == 'ancient') then
-            text = Str('고대 룬')
-        else
-            text = table_rune_set:makeRuneSetNameRichTextWithoutNeed(set_id)
-        end
-    
-        vars['setSortLabel']:setString(text)
-    end
+    -- 룬 필터 초기화
+    vars['setSortLabel']:setString(Str('세트'))
 
     self:refreshCombineItems()
 end
@@ -388,6 +373,23 @@ function UI_RuneForgeCombineTab:refresh_runeSetFilter()
     self:initTableView()
     self:initCombineTableView()
     self:refresh()
+
+    -- 룬 세트 필터
+    local set_id = self.m_setID
+    local table_rune_set = TableRuneSet()
+    
+    local text 
+    if (set_id == 0) then
+        text = Str('전체')
+    elseif (set_id == 'normal') then
+        text = Str('일반 룬')
+    elseif (set_id == 'ancient') then
+        text = Str('고대 룬')
+    else
+        text = table_rune_set:makeRuneSetNameRichTextWithoutNeed(set_id)
+    end
+
+    vars['setSortLabel']:setString(text)
 end
 
 -------------------------------------
@@ -724,7 +726,7 @@ function UI_RuneForgeCombineTab:click_optSortBtn()
     local l_sopt_list = self.m_lSoptList
     local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, true)
 
-    ui.vars['equipBtn']:setBlockMsg(Str('여기에서 사용할 수 없는 기능입니다.'))
+    ui.vars['equipBtn']:setBlockMsg('block')
     ui.vars['equipBtn']:setEnabled(false)
 
     local function close_cb(l_mopt_list, l_sopt_list, b_include_equipped)
@@ -748,8 +750,10 @@ end
 function UI_RuneForgeCombineTab:click_setSortBtn()
     local ui = UI_RuneSetFilter()
 
-    ui.vars['btnAncient']:setBlockMsg(Str('여기에서 사용할 수 없는 기능입니다.'))
-    ui.vars['btnNormal']:setBlockMsg(Str('여기에서 사용할 수 없는 기능입니다.'))
+    ui.vars['btnAncient']:setBlockMsg('block')
+    ui.vars['btnAncient']:setEnabled(false)
+    ui.vars['btnNormal']:setBlockMsg('block')
+    ui.vars['btnNormal']:setEnabled(false)
     
     local function close_cb(set_id) 
         self.m_setID = set_id
