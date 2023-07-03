@@ -241,9 +241,8 @@ function UI_RuneOptionFilter:click_refreshBtn()
     self.m_mMoptStatus['all'] = true
     self.m_mSoptStatus['all'] = true
 
-    if (vars['equipBtn']:isVisible()) then
-        b_include_equipped = vars['equipBtn']:setChecked(false)
-    end
+    vars['equipBtn']:setChecked(false)
+    vars['pointBtn']:setChecked(false)
 
     self.m_bDirty = true
     self:refresh()
