@@ -1055,6 +1055,12 @@ function StructRuneObject:getRuneFilterPoint()
     local grade = self.grade
     local lv = self.lv
 
+    -- 더티 플래그 처리
+    if self.filter_point_dirty == false then
+        return self.filter_point_cached or 0
+    end
+
+
     -- 룬 능력치 점수
     local rune_ability_point = self:getRuneAbilityPoint()
     -- 룬 강화 점수
@@ -1062,15 +1068,18 @@ function StructRuneObject:getRuneFilterPoint()
     -- 룬 능력치 점수 + 룬 강화 점수
     local result = rune_ability_point + rune_level_point
 
-    if IS_TEST_MODE() == true then
+--[[     if IS_TEST_MODE() == true then
         cclog('==============================================')
         cclog(string.format('%s의 점수 ability:%0.2f + level:%0.2f = total:%0.2f', self.name, rune_ability_point, rune_level_point, result))
         cclog(string.format('등급 : %d', self.grade))
         cclog(string.format('강화 : %d', self.lv))
         self.filter_point_dirty = true
         self:getRuneAbilityPoint()
-    end
+    end ]]
 
+
+    self.filter_point_cached = result
+    self.filter_point_dirty = false
     return result
 end
 
@@ -1078,11 +1087,6 @@ end
 -- function getRuneAbilityPoint()
 -------------------------------------
 function StructRuneObject:getRuneAbilityPoint()
-    -- 더티 플래그 처리
-    if self.filter_point_dirty == false then
-        return self.filter_point_cached or 0
-    end
-
     -- 결과값
     local result = 0
     -- 값 저장용 map
@@ -1094,10 +1098,9 @@ function StructRuneObject:getRuneAbilityPoint()
             local option_str = self[v]
             local option, value = self:parseRuneOptionStr(option_str)
             local point = self:getRuneAbilityOptionPoint(option, value)
-
-            if IS_TEST_MODE() == true then
+--[[             if IS_TEST_MODE() == true then
                 cclog(string.format('%s : %s => %0.2f', v, option_str, point))
-            end
+            end ]]
 
             if option_value_map[option] == nil then
                 option_value_map[option] = point
@@ -1112,8 +1115,7 @@ function StructRuneObject:getRuneAbilityPoint()
         result = result + v
     end
 
-    self.filter_point_cached = result
-    self.filter_point_dirty = false
+
     return result
 end
 
