@@ -472,7 +472,7 @@ end
 -- function getUnequippedRuneList
 -- @brief 장착되지 않은 룬 리스트
 -------------------------------------
-function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include, runeType)
+function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include, runeType, l_mopt_list, l_sopt_list)
     if (slot_idx == nil) then
         -- 전체
         slot_idx = 0
@@ -500,6 +500,12 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include, r
         elseif (not lock_include) and (v['lock']) then
         -- 장착 여부 확인
         elseif v:isEquippedRune() then
+        -- 주옵션 필터
+        elseif l_mopt_list and (not v:hasMainOption(l_mopt_list)) then
+        -- 보조옵션 필터
+        elseif l_sopt_list and (not v:hasAuxiliaryOption(l_sopt_list)) then
+        -- 보조옵션2 필터
+
         else
             local roid = v['roid']
             l_ret[roid] = clone(v)
@@ -508,7 +514,6 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include, r
 
     return l_ret
 end
-
 
 -------------------------------------
 -- function getFilteredRuneList

@@ -10,6 +10,10 @@ UI_RuneForgeCombineTab = class(PARENT,{
         m_sortManager = 'SortManager',
         m_sortGrade = 'number',
 
+        m_lMoptList = 'list', -- 주옵션 필터 리스트
+        m_lSoptList = 'list', -- 보조옵션 필터 리스트
+        m_setID = 'number', -- 0번은 전체 1~8은 해당 세트만
+
         m_runeTypeTable = 'table',
         m_runeType = 'string', -- normal, ancient
         ---------------------------------
@@ -29,10 +33,12 @@ UI_RuneForgeCombineTab.MAX_COMBINE_COUNT = 10 -- 한번에 합성 가능한 최�
 -------------------------------------
 function UI_RuneForgeCombineTab:init(owner_ui)
     local vars = self:load('rune_forge_combine.ui')
-    
+    self.m_setID = 0
     self.m_sortGrade = 0
     self.m_runeTypeTable = {[1]='normal', [2]= 'ancient'}
     self.m_runeType = 'normal'
+    self.m_lMoptList = nil
+    self.m_lSoptList = nil
 
     self:initBtn()
 end
@@ -97,6 +103,8 @@ function UI_RuneForgeCombineTab:initUI()
 
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
+    vars['optSortBtn']:registerScriptTapHandler(function() self:click_optSortBtn() end) -- 룬 옵션 필터
+    vars['setSortBtn']:registerScriptTapHandler(function() self:click_setSortBtn() end) -- 룬 세트 필터
 
     local uic_sort_list = MakeUICSortList_runeCombine(vars['sortBtn'], vars['sortLabel'])
     uic_sort_list:setSelectSortType(0) -- 필터 '전체' 선택
@@ -114,6 +122,29 @@ function UI_RuneForgeCombineTab:initUI()
 
     self:initTableView()
     self:initCombineTableView()
+end
+
+-------------------------------------
+-- function getFilteredRuneList
+-- @brief UI상에서 설정된 필터에 해당하는 StructRuneObject 리스트 (리스트가 아닌 map의 형태임을 주의하자)
+-------------------------------------
+function UI_RuneForgeCombineTab:getFilteredRuneList()
+    local l_mopt_list = self.m_lMoptList
+    local l_sopt_list = self.m_lSoptList
+    local set_id = self.m_setID
+
+    -- 재료로 사용 가능한 리스트를 얻어옴
+    local grade = self.m_sortGrade
+    local runeType = self.m_runeType
+    local lock_include = false
+    local l_rune_list = g_runesData:getUnequippedRuneList(set_id, grade, lock_include, runeType, l_mopt_list, l_sopt_list) -- param : set_id, grade, lock_include
+    local l_rune_no_ancient_list = {}
+
+    for roid, t_rune_data in pairs(l_rune_list) do
+        l_rune_no_ancient_list[roid] = t_rune_data
+    end
+
+    return l_rune_no_ancient_list
 end
 
 -------------------------------------
@@ -165,6 +196,7 @@ function UI_RuneForgeCombineTab:initTableView()
     end
 
     -- 테이블뷰 생성
+    local l_rune_no_ancient_list = self:getFilteredRuneList()
     local table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = UI_RuneForgeCombineTab.CARD_CELL_SIZE
     table_view_td.m_nItemPerCell = 6
@@ -174,18 +206,6 @@ function UI_RuneForgeCombineTab:initTableView()
     table_view_td:setCellCreatePerTick(3)
     table_view_td:makeDefaultEmptyDescLabel(Str('룬 가방이 비어있습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))
     self.m_tableView = table_view_td
-
-    -- 재료로 사용 가능한 리스트를 얻어옴
-    local grade = self.m_sortGrade
-    local runeType = self.m_runeType
-    local lock_include = false
-    local l_rune_list = g_runesData:getUnequippedRuneList(nil, grade, lock_include, runeType) -- param : set_id, grade, lock_include
-    local l_rune_no_ancient_list = {}
-
-    for roid, t_rune_data in pairs(l_rune_list) do
-        l_rune_no_ancient_list[roid] = t_rune_data
-    end
-
     self.m_tableView:setItemList(l_rune_no_ancient_list)
 
     if (self.m_sortManager == nil) then
@@ -318,6 +338,25 @@ function UI_RuneForgeCombineTab:refresh()
         local color = isMyType and COLOR['DESC'] or COLOR['b']
         vars['infoTabLabel'..index]:setColor(color)
     end
+
+    do -- 룬 세트 필터
+        local set_id = self.m_setID
+        local table_rune_set = TableRuneSet()
+        
+        local text 
+        if (set_id == 0) then
+            text = Str('전체')
+        elseif (set_id == 'normal') then
+            text = Str('일반 룬')
+        elseif (set_id == 'ancient') then
+            text = Str('고대 룬')
+        else
+            text = table_rune_set:makeRuneSetNameRichTextWithoutNeed(set_id)
+        end
+    
+        vars['setSortLabel']:setString(text)
+    end
+
     self:refreshCombineItems()
 end
 
@@ -329,6 +368,27 @@ function UI_RuneForgeCombineTab:refreshCombineItems()
     self.m_combineTableView:refreshAllItemUI()
 end
 
+-------------------------------------
+-- function refresh_runeOptionFilter
+-------------------------------------
+function UI_RuneForgeCombineTab:refresh_runeOptionFilter()
+    local vars = self.vars
+
+    self:initTableView()
+    --self:initCombineTableView()
+    self:refresh()
+end
+
+-------------------------------------
+-- function refresh_runeSetFilter
+-------------------------------------
+function UI_RuneForgeCombineTab:refresh_runeSetFilter()
+    local vars = self.vars
+
+    self:initTableView()
+    --self:initCombineTableView()
+    self:refresh()
+end
 
 -------------------------------------
 -- function FindCombineItem
@@ -655,11 +715,50 @@ function UI_RuneForgeCombineTab:click_combineBtn()
 	MakeSimplePopup(POPUP_TYPE.YES_NO, combine_str, ok_btn_cb)
 end
 
+-------------------------------------
+-- function click_optSortBtn
+-- @brief 룬 옵션 필터 버튼
+-------------------------------------
+function UI_RuneForgeCombineTab:click_optSortBtn()
+    local l_mopt_list = self.m_lMoptList
+    local l_sopt_list = self.m_lSoptList
+    local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, true)
+    
+    ui.vars['equipBtn']:setBlockMsg(Str('여기에서 사용할 수 없는 기능입니다.'))
+    ui.vars['equipBtn']:setEnabled(false)
+
+    local function close_cb(l_mopt_list, l_sopt_list, b_include_equipped)
+        self.m_lMoptList = l_mopt_list
+        self.m_lSoptList = l_sopt_list
+    
+        local b_is_using_filter = (l_mopt_list ~= nil) or (l_sopt_list ~= nil)
+        self.vars['optSortLabel']:setColor((b_is_using_filter == false) and cc.c4b(240, 215, 159) or cc.c4b(255, 215, 0))
+
+        self:refresh_runeOptionFilter()
+    end
+
+    ui:setCloseCB(close_cb)
+end
 
 
+-------------------------------------
+-- function click_setSortBtn
+-- @brief 룬 세트 필터 버튼
+-------------------------------------
+function UI_RuneForgeCombineTab:click_setSortBtn()
+    local ui = UI_RuneSetFilter()
 
+    ui.vars['btnAncient']:setBlockMsg(Str('여기에서 사용할 수 없는 기능입니다.'))
+    ui.vars['btnNormal']:setBlockMsg(Str('여기에서 사용할 수 없는 기능입니다.'))
+    
+    local function close_cb(set_id) 
+        self.m_setID = set_id
 
-
+        self:refresh_runeSetFilter()
+    end
+    
+    ui:setCloseCB(close_cb)
+end
 
 -------------------------------------
 -- class UI_RuneForgeCombineHelp
