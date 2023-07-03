@@ -375,7 +375,7 @@ function UI_RuneForgeCombineTab:refresh_runeOptionFilter()
     local vars = self.vars
 
     self:initTableView()
-    --self:initCombineTableView()
+    self:initCombineTableView()
     self:refresh()
 end
 
@@ -386,7 +386,7 @@ function UI_RuneForgeCombineTab:refresh_runeSetFilter()
     local vars = self.vars
 
     self:initTableView()
-    --self:initCombineTableView()
+    self:initCombineTableView()
     self:refresh()
 end
 
@@ -723,7 +723,7 @@ function UI_RuneForgeCombineTab:click_optSortBtn()
     local l_mopt_list = self.m_lMoptList
     local l_sopt_list = self.m_lSoptList
     local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, true)
-    
+
     ui.vars['equipBtn']:setBlockMsg(Str('여기에서 사용할 수 없는 기능입니다.'))
     ui.vars['equipBtn']:setEnabled(false)
 

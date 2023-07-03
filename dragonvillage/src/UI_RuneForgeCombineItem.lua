@@ -80,7 +80,7 @@ function UI_RuneForgeCombineItem:refresh()
         else
             if (self.m_mRuneCardUI[idx] == nil) then -- 룬 정보가 있는데 UI 카드가 없던 경우생성
                 local t_rune_data = t_rune_combine_data:getRuneDataFromIndex(idx)
-                local rune_card_ui = UI_RuneCard(t_rune_data)
+                local rune_card_ui = UI_RuneCardOption(t_rune_data)
                 rune_card_ui.root:setSwallowTouch(false)
                 rune_card_ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_rune(t_rune_data) end)
                 vars['itemNode' .. idx]:addChild(rune_card_ui.root)
