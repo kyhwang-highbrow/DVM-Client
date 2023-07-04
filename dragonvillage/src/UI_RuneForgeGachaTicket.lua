@@ -301,16 +301,18 @@ function UI_RuneForgeGachaTicket:click_ChangeBtn(myTab)
         other_animator:setVisible(true)
         other_animator:setScale(1)
 
+        other_animator:stopAllActions()
+        select_animator:stopAllActions()
+
         local func_select = function ()
             local select_action = cc.EaseIn:create(cc.ScaleTo:create(0.2, 1, 1), 0.3)
-            select_animator:stopAllActions()
             select_animator:runAction(select_action)
         end
              
         local other_action = cc.EaseOut:create(cc.ScaleTo:create(0.2, 0, 0), 0.3)
         local call_func = cc.CallFunc:create(func_select)
         local seq = cc.Sequence:create(other_action, call_func)
-        other_animator:stopAllActions()
+        
         other_animator:runAction(seq)
     end
 end
