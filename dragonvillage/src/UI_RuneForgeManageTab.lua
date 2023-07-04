@@ -279,8 +279,8 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
 
     -- 생성 콜백
     local function create_func(ui, data)
-        ui.root:setScale(UI_RuneForgeManageTab.CARD_SCALE)
-        		
+        ui.root:setScale(UI_RuneForgeManageTab.CARD_SCALE)       
+
 		-- 새로 획득한 룬 뱃지
         local is_new = data:isNewRune()
         ui:setNewSpriteVisible(is_new)
@@ -324,6 +324,7 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
     local table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = UI_RuneForgeManageTab.CARD_CELL_SIZE
     table_view_td.m_nItemPerCell = 8
+    table_view_td.m_marginFinish = 15
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)

@@ -47,6 +47,8 @@ UIC_TableViewTD = class(PARENT, {
 		m_visibleStartIdx = 'number',
 		m_visibleEndIdx = 'number',
 
+        m_marginFinish = 'number', -- 설정되면 테이블뷰의 끝 인덱스가 contentSize 끝으로부터 해당 값만큼 떨어져서 생긴다.
+
 		_cellCreateDirecting = 'CELL_CREATE_DIRECTING',
         m_stability = 'bool',
     })
@@ -72,6 +74,7 @@ function UIC_TableViewTD:init(node)
     self.m_bDirtyItemList = false
 	self.m_bAlignCenterInInsufficient = false
     self.m_bHoriziontalCenterInInsufficient = false
+    self.m_marginFinish = 0
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
@@ -252,7 +255,7 @@ function UIC_TableViewTD:_updateLinePositions()
                 currentPos = currentPos + cellSize['height']
             end
         end
-        self._vLinePositions[lineCount + 1] = currentPos;--1 extra value allows us to get right/bottom of the last cell
+        self._vLinePositions[lineCount + 1] = currentPos + self.m_marginFinish; --1 extra value allows us to get right/bottom of the last cell
     end
 end
 -------------------------------------

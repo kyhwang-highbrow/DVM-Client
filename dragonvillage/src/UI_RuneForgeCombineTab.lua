@@ -202,6 +202,7 @@ function UI_RuneForgeCombineTab:initTableView()
     local table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = UI_RuneForgeCombineTab.CARD_CELL_SIZE
     table_view_td.m_nItemPerCell = 6
+    table_view_td.m_marginFinish = 15
     table_view_td:setCellUIClass(make_func, create_func)
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])

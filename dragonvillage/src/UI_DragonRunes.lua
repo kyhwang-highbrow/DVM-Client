@@ -408,6 +408,7 @@ function UI_DragonRunes:init_tableViewTD()
     local table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = cc.size(86, 106)
     table_view_td.m_nItemPerCell = 6
+    table_view_td.m_marginFinish = 15
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)
