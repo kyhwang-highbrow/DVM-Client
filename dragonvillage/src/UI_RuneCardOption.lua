@@ -207,6 +207,13 @@ function UI_RuneCardOption:setPointNumberText(num, use_plus, use_per)
 
         local pos_x = start_pos_x + (font_size * idx)
 		sprite:setPositionX(pos_x)
+
+        if char == 'per' then
+            sprite:setPositionX(pos_x + 5)
+        else
+            sprite:setPositionX(pos_x)
+        end
+        
 		idx = idx + 1
 	end
 
