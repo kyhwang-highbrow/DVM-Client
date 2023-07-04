@@ -169,9 +169,9 @@ function UI_RuneCardOption:setPointNumberText(num, use_plus, use_per)
     local vars = self.vars
 
 	local str
-	if (use_plus) then
+	if (use_plus == true) then
 		str = 'a' .. num
-    elseif (use_per) then
+    elseif (use_per == true) then
         str = num .. 'p'
 	else
 		str = tostring(num)
@@ -187,15 +187,15 @@ function UI_RuneCardOption:setPointNumberText(num, use_plus, use_per)
         end
     end
 
-	-- 모든 글자와 매치되는 반복자
-    local font_size = 10
+    -- 모든 글자와 매치되는 반복자
+    local font_size = 14
+    local start_pos_x = -(font_size * string.len(str))/2 + (font_size/2)
 	local idx = 0
 	for char in string.gmatch(str, '.') do
 		if (char == 'a') then
 			char = 'plus'
         elseif (char == 'p') then
             char = 'per'
-            font_size = 12
 		end
 
 		local lua_name = 'pointNumberSprite' .. idx
@@ -205,9 +205,8 @@ function UI_RuneCardOption:setPointNumberText(num, use_plus, use_per)
 		local sprite = vars[lua_name]
 		self:setCardInfo('pointNumberNode', sprite)
 
-		local pos_x = (font_size/2) + (font_size * idx)
+        local pos_x = start_pos_x + (font_size * idx)
 		sprite:setPositionX(pos_x)
-
 		idx = idx + 1
 	end
 
