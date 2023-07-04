@@ -732,6 +732,11 @@ function UI_RuneForgeCombineTab:click_optSortBtn()
     ui.vars['equipBtn']:setBlockMsg('block')
     ui.vars['equipBtn']:setEnabled(false)
 
+    ui.vars['refreshBtn']:registerScriptTapHandler(function() 
+        ui:click_refreshBtn()
+        ui.vars['equipBtn']:setChecked(true)
+    end)
+
     local function close_cb(l_mopt_list, l_sopt_list, b_include_equipped)
         self.m_lMoptList = l_mopt_list
         self.m_lSoptList = l_sopt_list
