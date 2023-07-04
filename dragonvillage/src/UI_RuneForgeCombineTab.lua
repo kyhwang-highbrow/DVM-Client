@@ -122,6 +122,8 @@ function UI_RuneForgeCombineTab:initUI()
 
     self:initTableView()
     self:initCombineTableView()
+
+    vars['optSortLabel']:setColor(cc.c4b(240, 215, 159))
 end
 
 -------------------------------------
