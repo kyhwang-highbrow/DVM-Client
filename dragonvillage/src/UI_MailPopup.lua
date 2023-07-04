@@ -164,6 +164,9 @@ function UI_MailPopup:click_renewBtn()
 			for tab, table_view in pairs(self.m_mTableView) do 
 				local t_item_list = g_mailData:getMailList(tab)
 				table_view:setItemList(t_item_list)
+                table_view:update(0)
+                table_view:relocateContainerDefault()
+
 				if (tab == 'notice') then
 					g_mailData:sortNoticeList(table_view.m_itemList)
 				else
@@ -190,6 +193,8 @@ function UI_MailPopup:click_renewBtn_force()
     	for tab, table_view in pairs(self.m_mTableView) do 
     		local t_item_list = g_mailData:getMailList(tab)
     		table_view:setItemList(t_item_list)
+            table_view:update(0)
+            table_view:relocateContainerDefault()
     		if (tab == 'notice') then
     			g_mailData:sortNoticeList(table_view.m_itemList)
     		else
@@ -224,6 +229,9 @@ function UI_MailPopup:click_rewardBtn(ui, struct_mail)
 		end
 
         -- 우편함 갱신
+        self.m_mTableView[self.m_currTab]:update(0)
+        self.m_mTableView[self.m_currTab]:relocateContainerDefault()
+
         self:refresh()
         -- 더티 처리
         self.m_dirty = true
@@ -280,6 +288,7 @@ function UI_MailPopup:check_readType(struct_mail, success_cb)
 	-- 아이템 선택권
 	elseif (struct_mail:isPickItem()) then
         struct_mail:readPickItem(success_cb)
+        
     -- 드래곤 선택권
 	elseif (struct_mail:isPick()) then
         struct_mail:readPickDragon(success_cb)
