@@ -117,7 +117,7 @@ function SettingData:makeDefaultSettingData()
     do -- 룬 옵션 필터 옵션
         local t_data = {}
         t_data['include_equipped'] = false -- 구 버전(장착중인 룬이 안보기가 기본, 장착중인 룬 보기가 선택)
-        t_data['not_include_equipped'] = false -- 신 버전(장착중인 룬 보기가 기본, 장착중인 룬 안보기가 선택)
+        t_data['not_include_equipped_2'] = true -- 신 버전(장착중인 룬 보기가 기본, 장착중인 룬 안보기가 선택)
         t_data['look_rune_filter_point'] = false -- 필터 점수 보기
         root_table['option_rune_filter'] = t_data
     end

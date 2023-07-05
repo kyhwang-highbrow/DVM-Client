@@ -46,7 +46,7 @@ function UI_DragonRunes:init(doid, slot_idx)
     self.m_listFilterSetID = 0
     self.m_lMoptList = nil
     self.m_lSoptList = nil
-    self.m_bIncludeEquipped = g_settingData:get('option_rune_filter', 'not_include_equipped')
+    self.m_bIncludeEquipped = g_settingData:get('option_rune_filter', 'not_include_equipped_2')
     self.m_mEquippedRuneObjects = {}
     self.m_selectOptionLabel = nil
     self.m_useOptionLabel = nil

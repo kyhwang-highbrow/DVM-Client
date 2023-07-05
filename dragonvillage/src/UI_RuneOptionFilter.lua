@@ -260,7 +260,7 @@ function UI_RuneOptionFilter:click_closeBtn()
         b_include_equipped = not vars['equipBtn']:isChecked()
 
         g_settingData:lockSaveData()
-        g_settingData:applySettingData(b_include_equipped, 'option_rune_filter', 'not_include_equipped')
+        g_settingData:applySettingData(b_include_equipped, 'option_rune_filter', 'not_include_equipped_2')
         g_settingData:applySettingData(vars['pointBtn']:isChecked(), 'option_rune_filter', 'look_rune_filter_point')
         g_settingData:unlockSaveData()
         
