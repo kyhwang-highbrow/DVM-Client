@@ -14,6 +14,8 @@ UI_DragonStoryDungeonEventScene = class(PARENT, {
 function UI_DragonStoryDungeonEventScene:init(move_arg)
     local vars = self:load('story_dungeon_scene.ui')
     self.m_seasonId = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+
+    cclog('시즌 아이디 : ', self.m_seasonId)
     UIManager:open(self, UIManager.SCENE)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonStoryDungeonEventScene')

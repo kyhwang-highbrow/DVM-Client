@@ -11,6 +11,7 @@ ServerData_StoryDungeonEvent = class({
     m_tableQuest = '',
     m_questList = 'List<StructQuest>',
     m_bDirty = 'false',
+    m_seasonId = 'string',
 })
 
 -------------------------------------
@@ -26,6 +27,7 @@ function ServerData_StoryDungeonEvent:init(server_data)
     self.m_tableQuest = TableEventQuest()
     self.m_questList = {}
     self.m_bDirty = true
+    self.m_seasonId = nil
 end
 
 -------------------------------------
@@ -33,10 +35,17 @@ end
 -------------------------------------
 function ServerData_StoryDungeonEvent:getStoryDungeonSeasonId()
     local t_stage_clear_info = self.m_serverData:getRef('story_dungeon_stage_info') or {}
+    local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     if t_stage_clear_info ~= nil then
         for key, v in pairs(t_stage_clear_info) do
             local season_id = key
-            return key, TableStoryDungeonEvent:getStoryDungeonSeasonCode(season_id)
+            local date_min = v['start_date']
+            local date_max = v['end_date']
+            
+            if cur_time > date_min and cur_time < date_max then
+                self.m_seasonId = season_id
+                return key, TableStoryDungeonEvent:getStoryDungeonSeasonCode(season_id)
+            end
         end
     end
 
@@ -69,6 +78,19 @@ function ServerData_StoryDungeonEvent:getStoryDungeonStageIdList(season_id)
 
     self.m_cachedStageIdListMap[season_id] = list
     return list
+end
+
+-------------------------------------
+-- function getStoryDungeonStageIdIndex
+-------------------------------------
+function ServerData_StoryDungeonEvent:getStoryDungeonStageIdIndex(season_id, _stage_id)
+    local stage_id_list = self:getStoryDungeonStageIdList(season_id)
+    for idx, stage_id in ipairs(stage_id_list) do
+        if _stage_id == stage_id then
+            return idx
+        end
+    end
+    return 1
 end
 
 -------------------------------------

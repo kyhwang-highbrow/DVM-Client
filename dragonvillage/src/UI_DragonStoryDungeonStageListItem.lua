@@ -57,10 +57,8 @@ function UI_DragonStoryDungeonStageListItem:refresh(t_data)
     end
 
     do -- 티어 표시
-        local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(stage_id)
-        local tier = t_dungeon_id_info['tier']
-        local str = Str('{1}단계', tier)
-
+        local idx = g_eventDragonStoryDungeon:getStoryDungeonStageIdIndex(self.m_seasonId, stage_id)
+        local str = Str('{1}단계', idx)
         vars['dungeonLevelLabel']:setString(str)
     end
 
