@@ -24,6 +24,14 @@ function UI_EventPopupTab_StoryDungeonGacha:init(is_fullpopup, is_not_show_go_st
 
     local code = TableStoryDungeonEvent:getStoryDungeonSeasonCode(self.m_seasonId)
     self.m_uiName = 'UI_EventPopupTab_StoryDungeonGacha'
+
+    if IS_TEST_MODE() == true then
+        local path = string.format('story_dungeon_%s_event.ui', code)
+        if (cc.FileUtils:getInstance():isFileExist(path) == false) then
+            error(string.format('해당 이름의 UI 파일을 추가해주세요. [%s]', path))
+        end
+    end
+
     self:load(string.format('story_dungeon_%s_event.ui', code))
     --UIManager:open(self, UIManager.POPUP)
     --g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_StoryDungeonEventShop')
