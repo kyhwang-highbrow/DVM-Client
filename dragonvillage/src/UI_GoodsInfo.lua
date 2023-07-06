@@ -154,10 +154,7 @@ end
 -------------------------------------
 function UI_GoodsInfo:click_chargeBtn()
     local vars = self.vars
-
-    local goods_type = self.m_goodsType
-    cclog('goods_type', goods_type)
-
+    local goods_type = self.m_goodsType    
     if (goods_type == nil) then
 
     elseif (goods_type == 'gold') then
