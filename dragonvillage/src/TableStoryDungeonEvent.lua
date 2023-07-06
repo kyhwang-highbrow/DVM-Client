@@ -144,3 +144,15 @@ function TableStoryDungeonEvent:getStoryDungeonEventEndTimeStamp(season_id)
     local end_date = self:getStoryDungeonEventEndDate(season_id)
     return ServerTime:getInstance():datestrToTimestampMillisec(end_date)
 end
+
+-------------------------------------
+-- function getStoryDungeonEventBgRes
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonEventBgRes(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local bg_res = self:getValue(season_id, 'bg_res')
+    return bg_res
+end

@@ -90,6 +90,13 @@ function UI_StoryDungeonEventShop:initUI()
         
         dragon_card.vars['clickBtn']:setEnabled(false)
     end
+
+    do -- 배경 이미지
+        local bg_res = TableStoryDungeonEvent:getStoryDungeonEventBgRes(self.m_seasonId)
+        local animator = MakeAnimator(bg_res)
+        vars['bgNode']:removeAllChildren()
+        vars['bgNode']:addChild(animator.m_node)
+    end
 end
 
 -------------------------------------
