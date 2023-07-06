@@ -74,10 +74,8 @@ end
 -------------------------------------
 function UI_RuneForgeManageTab:initUI()
     local vars = self.vars
-
 	self.m_tNotiSprite = {}
     self.m_optionLabel = nil
-    local vars = self.vars
 
     -- 룬 번호 1~6
     for i = 1, 6 do
@@ -97,7 +95,6 @@ function UI_RuneForgeManageTab:initUI()
 
     -- 룬 필터 초기화
     vars['setSortLabel']:setString(Str('세트'))
-
     vars['optSortLabel']:setColor(cc.c4b(240, 215, 159))
 end
 

@@ -471,12 +471,21 @@ end
 -- @override
 -------------------------------------
 function UI_DragonEvolution:getDragonList()
-    local dragon_dic = g_dragonsData:getDragonListWithSlime()
+    local dragon_dic = g_dragonsData:getDragonsList()
 
     -- 절대 진화 불가능한 드래곤 제외
-    for oid, v in pairs(dragon_dic) do
-        if (g_dragonsData:impossibleEvolutionForever(oid)) then
-            dragon_dic[oid] = nil
+    for doid, _ in pairs(dragon_dic) do
+        local t_dragon_data = self:getDragonObject(doid)
+        if t_dragon_data == nil then
+            dragon_dic[doid] = nil
+        else 
+            local did = t_dragon_data['did']
+            local evolution = t_dragon_data:getEvolution()
+            if TableDragon:isUnderling(did) then
+                dragon_dic[doid] = nil
+            elseif (evolution >= MAX_DRAGON_EVOLUTION) then
+                dragon_dic[doid] = nil
+            end
         end
     end
 
