@@ -219,8 +219,9 @@ public class PerpleBilling implements PurchasesUpdatedListener {
         }
 
         ProductDetails productDetails = allProductDetails.getValue().get(productId);
-        if (productDetails == null)
+        if (productDetails == null) {
             return null;
+        }
 
         ArrayList<ProductDetailsParams> productDetailsParamsList = new ArrayList<>();
         productDetailsParamsList.add(
@@ -332,9 +333,21 @@ public class PerpleBilling implements PurchasesUpdatedListener {
                                             PerpleLog.d(LOG_TAG, "productDetailsResponseListener - adding product id : " + productDetails.getProductId());
                                             productDetailsMap.put(productDetails.getProductId(), productDetails);
                                         }
+
+                                        // 기존에 추가된 productId들도 함께 추가
+                                        if (allProductDetails.getValue() != null) {
+                                            for (ProductDetails curDetails : allProductDetails.getValue().values()) {
+                                                if (!productDetailsMap.containsKey(curDetails.getProductId())) {
+                                                    PerpleLog.d(LOG_TAG,
+                                                            "onProductDetailsResponse - adding exsist productId : "
+                                                                    + curDetails.getProductId());
+                                                    productDetailsMap.put(curDetails.getProductId(), curDetails);
+                                                }
+                                            }
+                                        }
+
                                         allProductDetails.postValue(productDetailsMap);
                                         PerpleLog.d(LOG_TAG, "productDetailsResponseListener - current productDetailsMap size : " + productDetailsMap.size());
-
 
                                         // ProductDetails를 json리스트로 변환
                                         JSONArray productDetailsJsonArray = new JSONArray();
@@ -354,9 +367,8 @@ public class PerpleBilling implements PurchasesUpdatedListener {
                                         // e.g. [{"productId":"dvnew_default_1.1k","type":"inapp","price":"₩1,100","price_amount_micros":1100000000,"price_currency_code":"KRW","title":"1100원 상품 (Bubbly Operator)","description":"1100원 상품","skuDetailsToken":"AEuhp4IPSGPiSWeSqp5ik7wMKL5jDf-Dz6G9r8J8r9DrmfF5dOyqfR0QjKfORd5n2QY="},
                                         // {"productId":"dvnew_default_3.3k","type":"inapp","price":"₩3,300","price_amount_micros":3300000000,"price_currency_code":"KRW","title":"3300원 상품 (Bubbly Operator)","description":"3300원 상품","skuDetailsToken":"AEuhp4JTWyaUFQKsx-DLo25w6nrywVBYepk7gaG9p5NDCbWk721CUajyfu-p4hX7PgY="}]
                                         callback.onSuccess(info); // success 콜백
-
-
                                         break;
+
                                     // 실패의 경우
                                     default:
                                         String code = PerpleSDK.ERROR_BILLING_QUARY_PRODUCT_DETAIL;
