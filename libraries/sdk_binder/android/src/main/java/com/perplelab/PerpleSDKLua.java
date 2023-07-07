@@ -1326,7 +1326,7 @@ public class PerpleSDKLua {
     }
 
     // @billing
-    public static void billingPurchase(final int funcID, String sku, String payload) {
+    public static void billingPurchase(final int funcID, String productId, String payload) {
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getBilling() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "fail",
@@ -1334,7 +1334,7 @@ public class PerpleSDKLua {
             return;
         }
 
-        PerpleSDK.getBilling().purchase(sku, payload, new PerpleSDKCallback() {
+        PerpleSDK.getBilling().purchase(productId, payload, new PerpleSDKCallback() {
             @Override
             public void onSuccess(String info) {
                 Log.d(LOG_TAG, "billingPurchase success : " + info);
@@ -1349,7 +1349,7 @@ public class PerpleSDKLua {
     }
 
     // @billing
-    public static void billingGetItemList(final int funcID, String skuList ) {
+    public static void billingGetItemList(final int funcID, String productIdList ) {
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getBilling() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "fail",
@@ -1357,7 +1357,7 @@ public class PerpleSDKLua {
             return;
         }
 
-        PerpleSDK.getBilling().getItemList(skuList, new PerpleSDKCallback() {
+        PerpleSDK.getBilling().getItemList(productIdList, new PerpleSDKCallback() {
             @Override
             public void onSuccess(String info) {
                 PerpleSDK.callSDKResult(pID, funcID, "success", info);
@@ -1559,7 +1559,7 @@ public class PerpleSDKLua {
     }
 
     // @onestore
-    public static void billingPurchaseForOnestore(final int funcID, final String sku, final String payload) {
+    public static void billingPurchaseForOnestore(final int funcID, final String productId, final String payload) {
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getOnestore() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ONESTORE_NOTINITIALIZED, "Onestore is not initialized."));
@@ -1575,17 +1575,17 @@ public class PerpleSDKLua {
                 PerpleLog.d(LOG_TAG, String.format("isOnestorePurchaseAvailable : %s",info));
 
 
-                PerpleSDK.getOnestore().getMPerpleOnestoreBilling().buyProduct(sku, payload, new PerpleSDKCallback() {
+                PerpleSDK.getOnestore().getMPerpleOnestoreBilling().buyProduct(productId, payload, new PerpleSDKCallback() {
                     // 구매 성공 여부
                     @Override
                     public void onSuccess(String info) {
                         PerpleSDK.callSDKResult(pID, funcID, "success", info);
-                        PerpleLog.d(LOG_TAG, String.format("buyProduct  sku : %s | payload : %s | info : %s",sku , payload, info));
+                        PerpleLog.d(LOG_TAG, String.format("buyProduct  sku : %s | payload : %s | info : %s",productId , payload, info));
                     }
                     @Override
                     public void onFail(String info) {
                         PerpleSDK.callSDKResult(pID, funcID, "cancel", info);
-                        PerpleLog.d(LOG_TAG, String.format("buyProduct  sku : %s | payload : %s | info : %s",sku , payload, info));
+                        PerpleLog.d(LOG_TAG, String.format("buyProduct  sku : %s | payload : %s | info : %s",productId , payload, info));
                     }
                 });
             }

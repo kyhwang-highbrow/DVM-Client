@@ -88,7 +88,7 @@ public class PerpleSDK {
     public static final String ERROR_BILLING_CHECKRECEIPT               = "-1503";
     public static final String ERROR_BILLING_PURCHASEFINISH             = "-1504";
     public static final String ERROR_BILLING_PURCHASE                   = "-1505";
-    public static final String ERROR_BILLING_QUARY_SKU_DETAIL           = "-1506";
+    public static final String ERROR_BILLING_QUARY_PRODUCT_DETAIL       = "-1506";
     public static final String ERROR_BILLING_INVALIDPRODUCT             = "-1507";
 
     public static final String ERROR_TAPJOY_NOTINITIALIZED              = "-1600";

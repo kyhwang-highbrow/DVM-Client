@@ -86,7 +86,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
     }
 
     // @Do '관리형 상품' 구매
-    fun buyProduct(sku: String, devPayload: String, callback : PerpleSDKCallback) {
+    fun buyProduct(productId: String, devPayload: String, callback : PerpleSDKCallback) {
         val productType = IapEnum.ProductType.IN_APP
         mPurchaseCallBack = callback
 
@@ -97,7 +97,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
             @Override
             override fun run() {
                 // 상품명을 공백("")으로 요청할 경우 개발자센터에 등록된 상품명을 결제화면에 노출
-                if (!mPurchaseClient.launchPurchaseFlowAsync(PerpleSDK.getOnestore().IAP_API_VERSION, PerpleSDK.getInstance().mainActivity, PerpleSDK.RC_ONE_STORE_PURCHASE, sku, "", productType.type, mDeveloperPayload.toString(), mUid, false, mPurchaseFlowListener)) {
+                if (!mPurchaseClient.launchPurchaseFlowAsync(PerpleSDK.getOnestore().IAP_API_VERSION, PerpleSDK.getInstance().mainActivity, PerpleSDK.RC_ONE_STORE_PURCHASE, productId, "", productType.type, mDeveloperPayload.toString(), mUid, false, mPurchaseFlowListener)) {
                     // mPurchaseFlowListener가 없을 경우
                     mPurchaseCallBack?.onFail("")
                 }
