@@ -5,7 +5,35 @@
 	{
 		[1] =
 		{
-			type = 'Sprite';
+			[1] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				flag = 'hide';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 1500;
+				height = 1000;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = '';
+				file_name = 'bg/story_dungeon_bg.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			type = 'Node';
 			ui_name = '';
 			flag = '';
 			x = 0.000000;
@@ -13,8 +41,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1500;
-			height = 1000;
+			width = 100;
+			height = 100;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -22,14 +50,7 @@
 			rotation = 0.000000;
 			visible = true;
 			screen_ui = 0;
-			lua_name = '';
-			file_name = 'bg/story_dungeon_bg.png';
-			color = { 255; 255; 255; };
-			opacity = 255;
-			flip_x = false;
-			flip_y = false;
-			src_blend = 770;
-			dest_blend = 771;
+			lua_name = 'bgNode';
 		};
 		[2] =
 		{
