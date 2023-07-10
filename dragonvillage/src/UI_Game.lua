@@ -44,11 +44,10 @@ UI_Game = class(PARENT, {
         m_stackableDamageUI = '',
 
         m_dpsUI = '',
-
         -- 
         m_tooltip = '',
-     })
 
+     })
 -------------------------------------
 -- function getUIFileName
 -------------------------------------
@@ -99,7 +98,7 @@ end
 function UI_Game:initUI()
 	local vars = self.vars
     local game_mode = self.m_gameScene.m_gameMode
-    
+    local world = self.m_gameScene.m_gameWorld
     --vars['goldLabel']:setString('0')
     
     -- 스테이지명 지정
@@ -109,17 +108,6 @@ function UI_Game:initUI()
     -- 연속 전투 정보
     do
         self:setAutoPlayUI()
-    end
-
-    -- 2배속
-    do
-        local b = g_autoPlaySetting:get('quick_mode')
-
-        --if (game_mode == GAME_MODE_INTRO) then
-            --b = true
-        --end
-        
-        vars['speedVisual']:setVisible(b)
     end
 
     do -- 일일 드랍아이템 획득량 툴팁 ui 생성
@@ -620,31 +608,11 @@ end
 -- function click_speedButton
 -------------------------------------
 function UI_Game:click_speedButton()
-    if (not self.m_gameScene.m_gameWorld) then return end
-
-    local game_mode = self.m_gameScene.m_gameMode
-	local gameTimeScale = self.m_gameScene.m_gameWorld.m_gameTimeScale
-	local quick_time_scale = g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
-
-    if (gameTimeScale:getBase() >= quick_time_scale) then
-        UIManager:toastNotificationGreen(Str('빠른모드 비활성화'))
-
-        gameTimeScale:setBase(1)
-
-        if (game_mode ~= GAME_MODE_INTRO) then
-            g_autoPlaySetting:setWithoutSaving('quick_mode', false)
-        end
-    else
-        UIManager:toastNotificationGreen(Str('빠른모드 활성화'))
-
-        gameTimeScale:setBase(quick_time_scale)
-
-        if (game_mode ~= GAME_MODE_INTRO) then
-            g_autoPlaySetting:setWithoutSaving('quick_mode', true)
-        end
-    end
-
-    self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= quick_time_scale))
+    local world = self.m_gameScene.m_gameWorld
+    if (not world) then return end
+    local cur_timescale_step = world.m_gameTimeScale:increaseTimeScaleStep()
+    self.vars['speedVisual']:setVisible(cur_timescale_step == 2)
+    self.vars['speedVisual2']:setVisible(cur_timescale_step == 3)
 end
 
 -------------------------------------
@@ -781,6 +749,15 @@ end
 -------------------------------------
 function UI_Game:init_timeUI(display_wave, time)
     local vars = self.vars
+    local world = self.m_gameScene.m_gameWorld
+    -- 2배속
+    --cclog('UI_Game:initUI() cur_timescale_step', cur_timescale_step)
+    if (world ~= nil) then
+        local gameTimeScale = world.m_gameTimeScale 
+        local cur_timescale_step = gameTimeScale:getTimeScaleStep()
+        vars['speedVisual']:setVisible(cur_timescale_step == 2)
+        vars['speedVisual2']:setVisible(cur_timescale_step == 3)
+    end
 
     if (g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID) then
         vars['timeNode']:setVisible(false)

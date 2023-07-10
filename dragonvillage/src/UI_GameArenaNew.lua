@@ -38,18 +38,6 @@ function UI_GameArenaNew:initUI()
     self.vars['tamerGaugeVisual2']:setRepeat(false)
     self.vars['tamerGaugeVisual1']:setRepeat(false)
 
-    -- 2배속
-    do
-        --vars['speedVisual']:setVisible(g_autoPlaySetting:get('quick_mode'))
-        local quick_time_scale_2 = 1.5
-	    local quick_time_scale_4 = 3
-        local time_scale = g_autoPlaySetting:get('quick_mode_time_scale')
-        if (time_scale) then
-            vars['speedVisual']:setVisible((time_scale == quick_time_scale_2))
-            vars['speedVisual2']:setVisible((time_scale == quick_time_scale_4))
-        end
-    end
-
     -- 닉네임
     do
         -- 플레이어 정보
@@ -199,42 +187,6 @@ function UI_GameArenaNew:click_chatBtn()
 end
 
 -------------------------------------
--- function click_speedButton
--------------------------------------
-function UI_GameArenaNew:click_speedButton()
-    local world = self.m_gameScene.m_gameWorld
-    if (not world) then return end
-
-	local gameTimeScale = world.m_gameTimeScale
-	local quick_time_scale_2 = 1.5
-	local quick_time_scale_4 = 3
-
-    if (gameTimeScale:getBase() == quick_time_scale_2) then
-        UIManager:toastNotificationGreen(Str('4배속 모드 활성화'))
-
-        gameTimeScale:setBase(COLOSSEUM__TIME_SCALE * quick_time_scale_4)
-
-        g_autoPlaySetting:setWithoutSaving('quick_mode_time_scale', quick_time_scale_4)
-
-    elseif (gameTimeScale:getBase() == quick_time_scale_4) then
-        UIManager:toastNotificationGreen(Str('빠른모드 비활성화'))
-
-        gameTimeScale:setBase(COLOSSEUM__TIME_SCALE)
-
-        g_autoPlaySetting:setWithoutSaving('quick_mode_time_scale', 1)
-    else
-        UIManager:toastNotificationGreen(Str('2배속 모드 활성화'))
-
-        gameTimeScale:setBase(COLOSSEUM__TIME_SCALE  * quick_time_scale_2)
-
-        g_autoPlaySetting:setWithoutSaving('quick_mode_time_scale', quick_time_scale_2)
-    end
-
-    self.vars['speedVisual']:setVisible((gameTimeScale:getBase() == quick_time_scale_2))
-    self.vars['speedVisual2']:setVisible((gameTimeScale:getBase() == quick_time_scale_4))
-end
-
--------------------------------------
 -- function init_goldUI
 -------------------------------------
 function UI_GameArenaNew:init_goldUI()
@@ -246,6 +198,16 @@ end
 function UI_GameArenaNew:init_timeUI(display_wave, time)
     if (time) then
         self:setTime(time)
+    end
+    local vars = self.vars
+    local world = self.m_gameScene.m_gameWorld
+        -- 2배속
+    --cclog('UI_Game:initUI() cur_timescale_step', cur_timescale_step)
+    if (world ~= nil) then
+        local gameTimeScale = world.m_gameTimeScale 
+        local cur_timescale_step = gameTimeScale:getTimeScaleStep()
+        vars['speedVisual']:setVisible(cur_timescale_step == 2)
+        vars['speedVisual2']:setVisible(cur_timescale_step == 3)
     end
 end
 

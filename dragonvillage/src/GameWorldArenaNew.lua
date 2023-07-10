@@ -43,12 +43,7 @@ function GameWorldArenaNew:createComponents()
     self.m_gameState = g_gameScene:makeGameState(self)
     self.m_inGameUI:init_timeUI(false, self.m_gameState.m_limitTime)
 
-    -- 타임 스케일 설정
-    local baseTimeScale = COLOSSEUM__TIME_SCALE
-    if (g_autoPlaySetting:get('quick_mode_time_scale')) then
-        baseTimeScale = baseTimeScale * g_autoPlaySetting:get('quick_mode_time_scale')
-    end
-    self.m_gameTimeScale:setBase(baseTimeScale)
+
 
     -- 적 마나 및 쿨타임 표시 상태인 경우 처리
     if (g_constant:get('DEBUG', 'DISPLAY_ENEMY_MANA_COOLDOWN')) then
