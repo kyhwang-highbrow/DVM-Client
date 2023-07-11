@@ -346,7 +346,7 @@ function UI_ArenaNewDailyRewardConfirm:setCurrntReward()
     local vars = self.vars
     local start_posX
     local place_distance
-    local item_list = self.m_rewardData
+    local item_list = self.m_rewardData or {}
     local item_count = #item_list
 
     
