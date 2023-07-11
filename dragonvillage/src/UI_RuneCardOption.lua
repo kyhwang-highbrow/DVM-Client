@@ -87,6 +87,12 @@ function UI_RuneCardOption:makeDragonAttrIcon()
     end
 
     local t_dragon_data = g_dragonsData:getDragonDataFromUidRef(doid)
+    -- 드래곤이 존재하는지?
+    if t_dragon_data == nil then
+        self:setSpriteVisible('chaFrameNode', 'none', false)
+        return
+    end
+
     local attr = t_dragon_data:getAttr() or 'fire'
     local res = 'card_cha_attr_' .. attr .. '.png'
     
