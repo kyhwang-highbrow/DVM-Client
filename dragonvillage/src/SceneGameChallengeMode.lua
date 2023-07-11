@@ -46,6 +46,7 @@ end
 function SceneGameChallengeMode:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
+    self:setAutoPlayGameMode()
 
     SoundMgr:playBGM(self.m_bgmName)
     

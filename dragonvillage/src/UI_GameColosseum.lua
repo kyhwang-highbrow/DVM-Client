@@ -134,33 +134,6 @@ function UI_GameColosseum:click_chatBtn()
 end
 
 -------------------------------------
--- function click_speedButton
--------------------------------------
-function UI_GameColosseum:click_speedButton()
-    local world = self.m_gameScene.m_gameWorld
-    if (not world) then return end
-
-	local gameTimeScale = world.m_gameTimeScale
-	local quick_time_scale = g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
-
-    if (gameTimeScale:getBase() >= quick_time_scale) then
-        UIManager:toastNotificationGreen(Str('빠른모드 비활성화'))
-
-        gameTimeScale:setBase(COLOSSEUM__TIME_SCALE)
-
-         g_autoPlaySetting:setWithoutSaving('quick_mode', false)
-    else
-        UIManager:toastNotificationGreen(Str('빠른모드 활성화'))
-
-        gameTimeScale:setBase(COLOSSEUM__TIME_SCALE * quick_time_scale)
-
-        g_autoPlaySetting:setWithoutSaving('quick_mode', true)
-    end
-
-    self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= quick_time_scale))
-end
-
--------------------------------------
 -- function init_goldUI
 -------------------------------------
 function UI_GameColosseum:init_goldUI()

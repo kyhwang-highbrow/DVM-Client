@@ -86,16 +86,26 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     -- 자동 전투 off
     if (stage_id == ARENA_STAGE_ID) then
         g_autoPlaySetting:setMode(AUTO_COLOSSEUM)
-    
+        
     elseif (stage_id == CLAN_WAR_STAGE_ID) then
         g_autoPlaySetting:setMode(AUTO_CLAN_WAR)
 
     -- 그랜드 콜로세움 (이벤트 PvP 10대10)
     elseif (stage_id == GRAND_ARENA_STAGE_ID) then
         g_autoPlaySetting:setMode(AUTO_GRAND_ARENA)
-    else
-        g_autoPlaySetting:setMode(AUTO_NORMAL)
+
+    else        
+        if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+            g_autoPlaySetting:setMode(AUTO_ANCIENT_TOWER)
+        elseif (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+            g_autoPlaySetting:setMode(AUTO_LEAGUE_RAID)
+        elseif (self.m_gameMode == GAME_MODE_CHALLENGE_MODE) then
+            g_autoPlaySetting:setMode(AUTO_CHALLENGE_MODE)
+        else
+            g_autoPlaySetting:setMode(AUTO_NORMAL)
+        end
     end
+
     g_autoPlaySetting:setAutoPlay(false)
 
     -- 매일매일 다이아 풀팝업

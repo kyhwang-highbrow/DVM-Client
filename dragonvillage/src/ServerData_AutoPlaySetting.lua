@@ -17,6 +17,9 @@ AUTO_NORMAL = 'normal'
 AUTO_COLOSSEUM = 'colosseum'
 AUTO_GRAND_ARENA = 'grand_arena'
 AUTO_CLAN_WAR = 'clan_war'
+AUTO_ANCIENT_TOWER = 'ancient_tower'
+AUTO_LEAGUE_RAID = 'league_raid'
+AUTO_CHALLENGE_MODE = 'challenge_mode'
 
 -------------------------------------
 -- function init
@@ -38,7 +41,7 @@ function ServerData_AutoPlaySetting:init_auto_play_setting()
     if (not t_auto_play_setting) then
         t_auto_play_setting = {}
         
-        local l_mode = {AUTO_NORMAL, AUTO_COLOSSEUM, AUTO_GRAND_ARENA, AUTO_CLAN_WAR}
+        local l_mode = {AUTO_NORMAL, AUTO_COLOSSEUM, AUTO_GRAND_ARENA, AUTO_CLAN_WAR, AUTO_ANCIENT_TOWER, AUTO_LEAGUE_RAID, AUTO_CHALLENGE_MODE}
         for _, mode in pairs(l_mode) do
             self:setDefaultSetting(mode, t_auto_play_setting)
         end

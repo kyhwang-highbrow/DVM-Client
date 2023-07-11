@@ -259,8 +259,7 @@ end
 function SceneGame:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
-    
-    g_autoPlaySetting:setMode(AUTO_NORMAL)
+    self:setAutoPlayGameMode()
 
     if (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
         self.m_inGameUI = UI_GameEventGold(self)
@@ -272,6 +271,21 @@ function SceneGame:onEnter()
 
     -- 절전모드 설정
     SetSleepMode(false)
+end
+
+-------------------------------------
+-- function onEnter
+-------------------------------------
+function SceneGame:setAutoPlayGameMode()
+    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        g_autoPlaySetting:setMode(AUTO_ANCIENT_TOWER)
+    elseif (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+        g_autoPlaySetting:setMode(AUTO_LEAGUE_RAID)
+    elseif (self.m_gameMode == GAME_MODE_CHALLENGE_MODE) then
+        g_autoPlaySetting:setMode(AUTO_CHALLENGE_MODE)
+    else
+        g_autoPlaySetting:setMode(AUTO_NORMAL)
+    end
 end
 
 -------------------------------------
