@@ -53,7 +53,6 @@ function GameTimeScale:init(world)
         self.m_baseTimeScale = time_scale
         if idx ~= nil then
             self.m_curTimeScaleStep = math_min(idx, self.m_maxTimeScaleStep)
-            cclog('self.m_curTimeScaleStep', self.m_curTimeScaleStep)
         end
     end
 
