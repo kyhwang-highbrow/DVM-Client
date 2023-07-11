@@ -30,11 +30,6 @@ function UI_GameColosseum:initUI()
 
     self.m_orgEnemyTamerGaugeScaleX = vars['tamerGauge']:getScaleX()
 
-    -- 2배속
-    do
-        vars['speedVisual']:setVisible(g_autoPlaySetting:get('quick_mode'))
-    end
-
     -- 닉네임
     do
         local is_friendMatch = self.m_gameScene.m_bFriendMatch

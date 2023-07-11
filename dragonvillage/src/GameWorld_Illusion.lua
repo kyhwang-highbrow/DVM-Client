@@ -104,6 +104,7 @@ function GameWorld_Illusion:createComponents()
         local display_time = nil
         self.m_gameState = GameState_Illusion(self)
         self.m_inGameUI:init_timeUI(display_wave, 0)
+        self.m_inGameUI:init_speedUI()
 
     end
 

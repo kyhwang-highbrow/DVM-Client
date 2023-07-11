@@ -199,16 +199,6 @@ function UI_GameArenaNew:init_timeUI(display_wave, time)
     if (time) then
         self:setTime(time)
     end
-    local vars = self.vars
-    local world = self.m_gameScene.m_gameWorld
-        -- 2배속
-    --cclog('UI_Game:initUI() cur_timescale_step', cur_timescale_step)
-    if (world ~= nil) then
-        local gameTimeScale = world.m_gameTimeScale 
-        local cur_timescale_step = gameTimeScale:getTimeScaleStep()
-        vars['speedVisual']:setVisible(cur_timescale_step == 2)
-        vars['speedVisual2']:setVisible(cur_timescale_step == 3)
-    end
 end
 
 -------------------------------------

@@ -47,14 +47,8 @@ function GameWorldEventArena:createComponents()
 
     self.m_gameState = GameState_EventArena(self)
     self.m_inGameUI:init_timeUI(false, self.m_gameState.m_limitTime)
-
-    -- 타임 스케일 설정
-    local baseTimeScale = COLOSSEUM__TIME_SCALE
-    if (g_autoPlaySetting:get('quick_mode')) then
-        baseTimeScale = baseTimeScale * g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
-    end
-    self.m_gameTimeScale:setBase(baseTimeScale)
-
+        -- 속도 배율 비주얼 처리
+    self.m_inGameUI:init_speedUI()
     -- 적 마나 및 쿨타임 표시 상태인 경우 처리
     if (g_constant:get('DEBUG', 'DISPLAY_ENEMY_MANA_COOLDOWN')) then
         local pc_group = self:getPCGroup()

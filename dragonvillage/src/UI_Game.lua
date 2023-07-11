@@ -744,21 +744,32 @@ function UI_Game:init_goldUI()
     ]]--
 end
 
+
+-------------------------------------
+-- function init_speedUI
+-------------------------------------
+function UI_Game:init_speedUI()
+    local vars = self.vars
+    local world = self.m_gameScene.m_gameWorld
+    if (world ~= nil) then
+        local gameTimeScale = world.m_gameTimeScale 
+        local cur_timescale_step = gameTimeScale:getTimeScaleStep()
+
+        if vars['speedVisual'] ~= nil then
+            vars['speedVisual']:setVisible(cur_timescale_step == 2)
+        end
+
+        if vars['speedVisual2'] ~= nil then
+            vars['speedVisual2']:setVisible(cur_timescale_step == 3)
+        end
+    end
+end
+
 -------------------------------------
 -- function init_timeUI
 -------------------------------------
 function UI_Game:init_timeUI(display_wave, time)
     local vars = self.vars
-    local world = self.m_gameScene.m_gameWorld
-    -- 2배속
-    --cclog('UI_Game:initUI() cur_timescale_step', cur_timescale_step)
-    if (world ~= nil) then
-        local gameTimeScale = world.m_gameTimeScale 
-        local cur_timescale_step = gameTimeScale:getTimeScaleStep()
-        vars['speedVisual']:setVisible(cur_timescale_step == 2)
-        vars['speedVisual2']:setVisible(cur_timescale_step == 3)
-    end
-
     if (g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID) then
         vars['timeNode']:setVisible(false)
         vars['waveVisual']:setVisible(false)

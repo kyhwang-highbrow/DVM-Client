@@ -103,6 +103,9 @@ function GameWorldForDoubleTeam:createComponents()
         error('invalid game mode : ' .. self.m_gameMode)
 
     end
+
+    -- 속도 배율 비주얼 처리
+    self.m_inGameUI:init_speedUI()
 end
 
 -------------------------------------

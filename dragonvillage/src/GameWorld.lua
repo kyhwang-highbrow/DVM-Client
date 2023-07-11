@@ -357,9 +357,9 @@ function GameWorld:createComponents()
         if (isAdventStageID(self.m_stageID)) then
             self.m_inGameUI:setSnowParticle()
         end
-
-        --self.m_inGameUI:init_timeUI(display_wave, display_time)
+        
         self.m_inGameUI:init_timeUI(display_wave, 0)
+        self.m_inGameUI:init_speedUI()
     end
 
     self:initGold()
