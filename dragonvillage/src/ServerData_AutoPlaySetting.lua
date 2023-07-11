@@ -17,10 +17,22 @@ AUTO_NORMAL = 'normal'
 AUTO_COLOSSEUM = 'colosseum'
 AUTO_GRAND_ARENA = 'grand_arena'
 AUTO_CLAN_WAR = 'clan_war'
+
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_AutoPlaySetting:init()
+    self:init_auto_play_setting()
+    self.m_autoMode = AUTO_NORMAL
+    self.m_bAutoPlay = false
+    self.m_bSequenceAutoPlay = false
+    self.m_autoPlayCnt = 1
+end
+
+-------------------------------------
+-- function init_auto_play_setting
+-------------------------------------
+function ServerData_AutoPlaySetting:init_auto_play_setting()
     local t_auto_play_setting = g_settingData:get('auto_play_setting')
 
     if (not t_auto_play_setting) then
@@ -33,12 +45,8 @@ function ServerData_AutoPlaySetting:init()
         
         g_settingData:applySettingData(t_auto_play_setting, 'auto_play_setting')
     end
-
-    self.m_autoMode = AUTO_NORMAL
-    self.m_bAutoPlay = false
-    self.m_bSequenceAutoPlay = false
-    self.m_autoPlayCnt = 1
 end
+
 
 -------------------------------------
 -- function setDefaultSetting

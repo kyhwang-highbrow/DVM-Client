@@ -67,7 +67,7 @@ function UI_StoryDungeonEventQuestListItem:click_rewardBtn(ui_quest_popup)
 		--ui_quest_popup:setBlock(false)
 
         -- 일일퀘스트 보상 2배 상품 판매촉진하는 팝업 조건 체크 후 팝업 출력
-        self:checkPromoteQuestDouble(ui_quest_popup)
+        -- self:checkPromoteQuestDouble(ui_quest_popup)
 	end
 
 	g_eventDragonStoryDungeon:requestStoryDungeonQuestReward(self.m_questData, cb_function)

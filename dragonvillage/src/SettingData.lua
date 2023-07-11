@@ -513,6 +513,7 @@ function SettingData:migration(local_data_instance)
 
         'event_full_popup',
         'auto_play_setting',
+        'lock_drag_skill_setting', -- 드래그 스킬 자동 전투에서 잠금 처리
         'exploration_deck',
         'clan_raid',
         'sound_module',
@@ -828,6 +829,43 @@ end
 -------------------------------------
 function SettingData:applyCloudSettings(t_data)
     self.m_cloudRootTable = t_data or {}
+end
+
+-------------------------------------
+-- function make_lock_drag_skill_setting
+-------------------------------------
+function SettingData:make_lock_drag_skill_setting()
+    local t_setting = self:get('lock_drag_skill_setting')
+    if t_setting == nil then
+        local default_setting = function (deck_key, t_data)
+            t_data[deck_key] = {}
+        end
+
+        t_setting = {}        
+        local list = g_deckData:getAllDeckList()
+        for _, t_deck in ipairs(list) do
+            local deck_key = t_deck['deckName']
+            cclog('#덱추가', deck_key)
+            default_setting(deck_key, t_setting)
+        end
+
+        self:applySettingData(t_setting, 'lock_drag_skill_setting')
+    end
+end
+
+-------------------------------------
+-- function getLockDragSkillMap
+-------------------------------------
+function SettingData:getLockDragSkillMap(deck_key)
+    local ret = self:get('lock_drag_skill_setting', deck_key) or {}
+    return ret
+end
+
+-------------------------------------
+-- function setLockDragSkill
+-------------------------------------
+function SettingData:setLockDragSkill(deck_key, deck_idx, skill_id)
+    return self:applySettingData(skill_id, 'lock_drag_skill_setting', deck_key, deck_idx)
 end
 
 -------------------------------------

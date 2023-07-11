@@ -41,6 +41,15 @@ function ServerData_Deck:get(key)
 end
 
 -------------------------------------
+-- function getAllDeckList
+-- @brief
+-------------------------------------
+function ServerData_Deck:getAllDeckList()
+    local l_deck = self.m_serverData:get('deck')
+    return l_deck
+end
+
+-------------------------------------
 -- function setDeck
 -- @brief
 -------------------------------------

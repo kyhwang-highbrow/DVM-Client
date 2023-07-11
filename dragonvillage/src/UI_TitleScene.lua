@@ -1558,6 +1558,9 @@ function UI_TitleScene:workGetServerInfo()
                 cclog('# 광고 룰렛 정보 갱신')
                 g_advRouletteData:response_rouletteInfo(ret)
 
+                cclog('# 드래그 스킬 잠금 정보 처리')
+                -- g_settingData:make_lock_drag_skill_setting()
+
                 co.NEXT()
 			end)
 			ui_network:setFailCB(fail_cb)
