@@ -66,6 +66,9 @@ function UI_AncientRuinStageListItem:refresh_dropItem(t_data)
 
     elseif (tier == 10) then
         table.insert(l_item_list, 'star_56.png')
+
+    elseif (tier >= 11) then
+        table.insert(l_item_list, 'star_56.png')
     end
 
     -- 고대 유적 던전 소비 활동력 핫타임 관련
