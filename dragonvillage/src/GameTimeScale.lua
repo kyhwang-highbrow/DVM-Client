@@ -48,7 +48,7 @@ function GameTimeScale:init(world)
         self.m_baseTimeScale = g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
     else
         
-        local time_scale = g_autoPlaySetting:get('quick_mode_time_scale')
+        local time_scale = g_autoPlaySetting:get('quick_mode_time_scale') or 1
         local idx = table.find(self.m_timeScaleStepList, time_scale)
         self.m_baseTimeScale = time_scale
         if idx ~= nil then
