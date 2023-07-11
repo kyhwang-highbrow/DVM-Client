@@ -608,11 +608,19 @@ end
 -- function click_speedButton
 -------------------------------------
 function UI_Game:click_speedButton()
+    local vars = self.vars
     local world = self.m_gameScene.m_gameWorld
     if (not world) then return end
+    
     local cur_timescale_step = world.m_gameTimeScale:increaseTimeScaleStep()
-    self.vars['speedVisual']:setVisible(cur_timescale_step == 2)
-    self.vars['speedVisual2']:setVisible(cur_timescale_step == 3)
+
+    if vars['speedVisual'] ~= nil then
+        vars['speedVisual']:setVisible(cur_timescale_step == 2)
+    end
+
+    if vars['speedVisual2'] ~= nil then
+        vars['speedVisual2']:setVisible(cur_timescale_step == 3)
+    end
 end
 
 -------------------------------------
