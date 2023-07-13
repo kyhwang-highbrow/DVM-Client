@@ -126,9 +126,6 @@ function UI_AdventureStageInfo:initButton()
             -- 고대 유적 던전
             elseif game_mode == GAME_MODE_ANCIENT_RUIN then
                 local next_stage_id = g_stageData:getNextStage(stage_id)
-                --local next_stage_clear =  next_stage_id and g_nestDungeonData:isNestDungeonStageClear(next_stage_id) or false
-                cclog('next_stage_id', next_stage_id)
-
                 if next_stage_id ~= nil then
                     vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
                     vars['clearTicketBtn']:setVisible(true)
