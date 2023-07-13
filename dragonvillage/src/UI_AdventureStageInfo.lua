@@ -91,6 +91,11 @@ function UI_AdventureStageInfo:initButton()
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 
     if vars['clearTicketBtn'] then
+        -- 소탕이 없는 상태
+        vars['clearTicketBtn']:setVisible(false)
+        vars['enterBtn']:setPositionX(0)
+
+        -- 소탕이 있는 상태
         if (table.find(l_clear_ticket_contents, game_mode)) and (not is_event_stage) then
                 -- 모험
             if game_mode == GAME_MODE_ADVENTURE then
@@ -102,30 +107,41 @@ function UI_AdventureStageInfo:initButton()
                 vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearStoryDungeonTicketBtn() end)
                 local special_stage_id = g_eventDragonStoryDungeon:getStoryDungeonSpecialStageId()
                 vars['clearTicketBtn']:setVisible(stage_id < special_stage_id)
-                if stage_id >= special_stage_id then
-                    vars['enterBtn']:setPositionX(0)
-                end
 
                 -- 네스트 던전
             elseif game_mode == GAME_MODE_NEST_DUNGEON then
                 local dungeon_mode = g_nestDungeonData:getDungeonMode(stage_id)
-                local nest_dungeon_mode_list = {NEST_DUNGEON_NIGHTMARE, NEST_DUNGEON_TREE, NEST_DUNGEON_EVO_STONE}
-                if table.find(nest_dungeon_mode_list, dungeon_mode) ~= nil then
+                local nest_dungeon_mode_list = {NEST_DUNGEON_NIGHTMARE, NEST_DUNGEON_TREE, NEST_DUNGEON_EVO_STONE}                
+                local next_stage_id = g_stageData:getNextStage(stage_id)
+                local next_stage_clear =  next_stage_id and g_nestDungeonData:isNestDungeonStageClear(next_stage_id) or false
+
+                cclog('next_stage_id', next_stage_id)
+
+                if table.find(nest_dungeon_mode_list, dungeon_mode) ~= nil and next_stage_id ~= nil then
                     vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
                     vars['clearTicketBtn']:setVisible(true)
-                else
-                    vars['clearTicketBtn']:setVisible(false)
-                    vars['enterBtn']:setPositionX(0)
                 end
-                
+
+            -- 고대 유적 던전
+            elseif game_mode == GAME_MODE_ANCIENT_RUIN then
+                local next_stage_id = g_stageData:getNextStage(stage_id)
+                --local next_stage_clear =  next_stage_id and g_nestDungeonData:isNestDungeonStageClear(next_stage_id) or false
+                cclog('next_stage_id', next_stage_id)
+
+                if next_stage_id ~= nil then
+                    vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
+                    vars['clearTicketBtn']:setVisible(true)
+                end
+
             else
                 vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
                 vars['clearTicketBtn']:setVisible(true)
             end
-        else
-            vars['clearTicketBtn']:setVisible(false)
-            vars['enterBtn']:setPositionX(0)
         end
+    end
+
+    if vars['clearTicketBtn']:isVisible() == true then
+        vars['enterBtn']:setPositionX(106)
     end
 
     if (game_mode == GAME_MODE_ADVENTURE) and (not is_event_stage) then
@@ -642,12 +658,20 @@ function UI_AdventureStageInfo:click_clearEtcTicketBtn()
 
     if game_mode == GAME_MODE_NEST_DUNGEON or 
         game_mode == GAME_MODE_ANCIENT_RUIN then
-        local t_dungeon_id_info = g_nestDungeonData:getNestDungeonStageClearInfo(stage_id)
-        local is_clear = (0 < t_dungeon_id_info['clear_cnt'])
-        if is_clear ~= true then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('스테이지 클리어 후에 이용할 수 있습니다.'))
+        local next_stage_id = g_stageData:getNextStage(stage_id)
+        local next_stage_clear =  next_stage_id and g_nestDungeonData:isNestDungeonStageClear(next_stage_id) or false
+        local t_next_stage_info = next_stage_id and g_nestDungeonData:parseNestDungeonID(next_stage_id) or nil
+
+        local tier = 1
+        if t_next_stage_info ~= nil then
+            tier = t_next_stage_info['tier']
+        end
+
+        if next_stage_clear == false then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}단계까지 클리어 후에 이용할 수 있습니다.', tier))
             return
         end
+
     elseif game_mode == GAME_MODE_RUNE_GUARDIAN then
         if g_runeGuardianData:isRuneGuardianStageClear(stage_id) == false then
             MakeSimplePopup(POPUP_TYPE.OK, Str('스테이지 클리어 후에 이용할 수 있습니다.'))

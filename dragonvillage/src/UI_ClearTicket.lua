@@ -73,6 +73,7 @@ end
 function UI_ClearTicket:initUI()
     local vars = self.vars
     local stage_id = self.m_stageID    
+    local game_mode = self.m_gameMode
 
     do -- 스테이지 이름 및 난이도
         local stage_name = g_stageData:getStageName(stage_id)
@@ -88,6 +89,12 @@ function UI_ClearTicket:initUI()
     do
         vars['sliderBarSprite']:setPercentage(0)
         vars['sliderBarBtn']:setPositionX(0)
+    end
+
+    do -- 난이도 텍스트 visible 처리
+        if (game_mode ~= GAME_MODE_ADVENTURE) then
+            vars['difficultyLabel']:setVisible(false)
+        end
     end
 end
 
@@ -228,9 +235,6 @@ function UI_ClearTicket:refresh(is_refreshed_by_button, is_button_pressed)
     -- 상단 일일 획득 드랍 아이템
     self:refreshDropInfo()
 
-    -- 소탕 횟수
-    vars['countLabel']:setString(Str('{1}회', comma_value(self.m_clearNum)))
-
     -- 현재 유저가 보유하고 있는 입장권(날개) 갯수
     self.m_currStaminaNum = g_staminasData:getStaminaCount(self.m_staminaType)
     -- 입장권(날개)에 따른 최대 입장 가능 횟수
@@ -240,6 +244,11 @@ function UI_ClearTicket:refresh(is_refreshed_by_button, is_button_pressed)
         self.m_gameMode == GAME_MODE_ANCIENT_RUIN or -- 고대 유적 던전
         self.m_gameMode == GAME_MODE_NEST_DUNGEON then  -- 악몽 던전
         self.m_availableStageNum = math_min(self.m_availableStageNum, 200)
+        vars['maxCountLabel']:setStringArg(200)
+        vars['countLabel']:setString(Str('{1}/{2}', comma_value(self.m_clearNum), 200))
+    else
+        -- 소탕 횟수
+        vars['countLabel']:setString(Str('{1}회', comma_value(self.m_clearNum)))
     end
 
     -- 입장권 갯수 

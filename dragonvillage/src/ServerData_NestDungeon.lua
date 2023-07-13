@@ -493,6 +493,15 @@ function ServerData_NestDungeon:getNestDungeonStageClearInfoRef(stage_id)
 end
 
 -------------------------------------
+-- function isNestDungeonStageClear
+-- @brief 클리어한 스테이지
+-------------------------------------
+function ServerData_NestDungeon:isNestDungeonStageClear(stage_id)
+    local t_stage_clear_info = self:getNestDungeonStageClearInfo(stage_id)
+    return (0 < t_stage_clear_info['clear_cnt'])
+end
+
+-------------------------------------
 -- function applyNestStageClearCnt
 -- @brief 스테이지 클리어 횟수 저장
 -------------------------------------
