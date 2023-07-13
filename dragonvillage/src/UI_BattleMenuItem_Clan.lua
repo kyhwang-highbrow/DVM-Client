@@ -29,7 +29,7 @@ function UI_BattleMenuItem_Clan:initUI()
     vars['dscLabel']:setString(self:getDescStr(content_type))
 
 
-    -- 룬 수호자 던전
+--[[     -- 룬 수호자 던전
     if (content_type == 'rune_guardian') then
         if (not g_nestDungeonData:isClearNightmare()) then
             vars['lockSprite']:setVisible(true)
@@ -37,7 +37,7 @@ function UI_BattleMenuItem_Clan:initUI()
         end
         
         vars['speechSprite']:setVisible(true)
-    end
+    end ]]
 end
 
 -------------------------------------

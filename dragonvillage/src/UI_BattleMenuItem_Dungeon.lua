@@ -51,11 +51,11 @@ function UI_BattleMenuItem_Dungeon:initUI()
             end
     end
 
-    local content_type = self.m_contentType
+--[[     local content_type = self.m_contentType
     local clear_sweep_type_list = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare'}
     if table.find(clear_sweep_type_list, content_type) ~= nil then
         vars['speechSprite']:setVisible(true)
-    end
+    end ]]
 end
 
 -------------------------------------
