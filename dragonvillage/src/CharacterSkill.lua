@@ -49,6 +49,11 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
     -- @ E.T.
     g_errorTracker:appendSkillHistory(skill_id, self:getName())
 
+    cclog('스킬 실행 ================================')
+    cclog('캐릭터명 :', self:getName())
+    cclog('스킬 아이디 :', skill_id)
+    cclog('==========================================')
+
     -- skill_indivisual_info로부터 무시 속성 정보를 가져옴(스크립트 탄에서는 사용되지 않음)
     if (skill_indivisual_info) then
         t_data['ignore'] = skill_indivisual_info:getMapToIgnore()
