@@ -15,7 +15,7 @@ UI_ClearTicketConfirm = class(PARENT, {
 ----------------------------------------------------------------------
 -- function init
 ----------------------------------------------------------------------
-function UI_ClearTicketConfirm:init(clear_num, result_table)
+function UI_ClearTicketConfirm:init(clear_num, result_table, result_str)
     local vars = self:load('clear_ticket_popup_confirm.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -26,7 +26,7 @@ function UI_ClearTicketConfirm:init(clear_num, result_table)
 
 
     self:initMember(clear_num, result_table)
-    self:initUI()
+    self:initUI(result_str)
     self:initButton()
     self:initDropItems()
     self:initUserInfo()
@@ -46,14 +46,15 @@ end
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
-function UI_ClearTicketConfirm:initUI()
+function UI_ClearTicketConfirm:initUI(result_str)
     local vars = self.vars 
 
-    vars['resultLabel']:setString(Str(vars['resultLabel']:getString(), self.m_clearNum))
-
-
+    if result_str ~= nil then
+        vars['resultLabel']:setString(result_str)
+    else
+        vars['resultLabel']:setString(Str(vars['resultLabel']:getString(), self.m_clearNum))
+    end
 end
-
 
 ----------------------------------------------------------------------
 -- function initButton

@@ -113,9 +113,7 @@ function UI_AdventureStageInfo:initButton()
                 local dungeon_mode = g_nestDungeonData:getDungeonMode(stage_id)
                 local nest_dungeon_mode_list = {NEST_DUNGEON_NIGHTMARE, NEST_DUNGEON_TREE, NEST_DUNGEON_EVO_STONE}                
                 local next_stage_id = g_stageData:getNextStage(stage_id)
-                local next_stage_clear =  next_stage_id and g_nestDungeonData:isNestDungeonStageClear(next_stage_id) or false
-
-                cclog('next_stage_id', next_stage_id)
+                --local next_stage_clear =  next_stage_id and g_nestDungeonData:isNestDungeonStageClear(next_stage_id) or false
 
                 if table.find(nest_dungeon_mode_list, dungeon_mode) ~= nil and next_stage_id ~= nil then
                     vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
@@ -641,7 +639,7 @@ function UI_AdventureStageInfo:click_clearStoryDungeonTicketBtn()
         return
     end
 
-    local ui = UI_ClearTicket(self.m_stageID)
+    local ui = UI_ClearTicketStoryDungeon(self.m_stageID)
 end
 
 -------------------------------------
@@ -654,41 +652,11 @@ function UI_AdventureStageInfo:click_clearEtcTicketBtn()
     GAME_MODE_RUNE_GUARDIAN, ]]
 
     local stage_id = self.m_stageID
-    local game_mode = g_stageData:getGameMode(stage_id)
-
-    if game_mode == GAME_MODE_NEST_DUNGEON or 
-        game_mode == GAME_MODE_ANCIENT_RUIN then
-        local next_stage_id = g_stageData:getNextStage(stage_id)
-        local next_stage_clear =  next_stage_id and g_nestDungeonData:isNestDungeonStageClear(next_stage_id) or false
-        local t_next_stage_info = next_stage_id and g_nestDungeonData:parseNestDungeonID(next_stage_id) or nil
-
-        local tier = 1
-        if t_next_stage_info ~= nil then
-            tier = t_next_stage_info['tier']
-        end
-
-        if next_stage_clear == false then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}단계까지 클리어 후에 이용할 수 있습니다.', tier))
-            return
-        end
-
-    elseif game_mode == GAME_MODE_RUNE_GUARDIAN then
-        if g_runeGuardianData:isRuneGuardianStageClear(stage_id) == false then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('스테이지 클리어 후에 이용할 수 있습니다.'))
-            return
-        end
-    end
-
-    if (not g_supply:isActiveSupply('clear_ticket')) then
-        local period = 7
-        local target_data = g_supply:getTargetSupplyData('clear_ticket', period)
-
-        require('UI_SupplyProductInfoPopup')
-        UI_SupplyProductInfoPopup(target_data)
+    if UI_ClearTicketEtc.isClearTicketAvailable(stage_id) == false then
         return
     end
 
-    local ui = UI_ClearTicket(self.m_stageID)
+    local ui = UI_ClearTicketEtc(self.m_stageID)
 end
 
 -------------------------------------

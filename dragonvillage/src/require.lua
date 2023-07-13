@@ -1225,6 +1225,8 @@ local t_module = {
     'UI_ChapterSelectListItem',
 
     'UI_ClearTicket',
+    'UI_ClearTicketEtc',
+    'UI_ClearTicketStoryDungeon',
 
 	-- UI : 모험 준비
     'UI_ReadySceneNew',
