@@ -197,6 +197,19 @@ function UI_ClearTicketConfirm:initDropItems()
         local action = cc.EaseInOut:create(scale_to, 2)
         ui.root:runAction(action)
     end
+
+    local func_sort = function (_a, _b)
+        local a = _a['data']
+        local b = _b['data']
+
+        local is_rune_a = TableItem:getItemType(a[1]) == 'rune'
+        local is_rune_b = TableItem:getItemType(b[1]) == 'rune'
+
+        local sort_score_a = is_rune_a and a[4]:getRuneFilterPoint() or 10000
+        local sort_score_b = is_rune_b and b[4]:getRuneFilterPoint() or 10000
+
+        return sort_score_a > sort_score_b
+    end
     
     -- 테이블뷰 생성 TD
     local table_view = UIC_TableViewTD(vars['dropRewardMenu'])
@@ -209,6 +222,8 @@ function UI_ClearTicketConfirm:initDropItems()
     table_view:setItemList(self.m_dropItems, true)
     table_view:setCellCreateInterval(0.1)
     table_view:setCellCreatePerTick(10)
+    table_view:insertSortInfo('default', func_sort)
+    table_view:sortImmediately('default')
     --table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['scale'])
-    table_view:update(0)
+    --table_view:update(0)
 end
