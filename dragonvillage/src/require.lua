@@ -279,6 +279,7 @@ local t_module = {
     'ServerData_StoryDungeonEvent',
     'ServerData_EventVote',
     'ServerData_EventPopularityGacha',
+    'ServerData_RuneGuardian', -- 룬 수호자 클리어 정보
 
     -- Interface
     'IEventDispatcher',
@@ -1100,6 +1101,7 @@ local t_module = {
     'UI_StartingTamer',
     'UI_FevertimeConfirmPopup',
     'UI_FevertimeUIHelper',
+    'UI_ClearTicketConfirm', -- 소탕 결과 보상 화면
 
     -- UI : 환상 던전
     'UI_EventScene_Illusion',

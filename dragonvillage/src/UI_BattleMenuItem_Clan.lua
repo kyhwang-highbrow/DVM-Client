@@ -35,6 +35,8 @@ function UI_BattleMenuItem_Clan:initUI()
             vars['lockSprite']:setVisible(true)
             vars['lockLabel2']:setVisible(true)
         end
+        
+        vars['speechSprite']:setVisible(true)
     end
 end
 

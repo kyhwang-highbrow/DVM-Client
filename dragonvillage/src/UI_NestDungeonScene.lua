@@ -266,9 +266,7 @@ function UI_NestDungeonScene:makeNestModeTableView()
 
     local t_data = self.m_selectNestDungeonInfo['data']
     local nest_dungeon_id = t_data['mode_id']
-    cclog('local nest_dungeon_id', nest_dungeon_id)
     local stage_list = g_nestDungeonData:getNestDungeon_stageListForUI(nest_dungeon_id)
-
 
     -- 셀 아이템 생성 콜백
     local function create_func(ui, data)

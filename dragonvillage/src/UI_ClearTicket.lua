@@ -12,6 +12,8 @@ UI_ClearTicket = class(PARENT, {
     m_requiredStaminaNum = 'number',    -- m_stageID에 대응하는 스테이지가 요구하는 입장권 갯수
     m_currStaminaNum = 'number',        -- 현재 유저가 보유하고 있는 입장권 갯수
     m_availableStageNum = 'number',     -- 입장권에 따른 최대 입장 가능 횟수
+
+    m_gameMode = 'number',              -- 게임 모드
     
 })
 
@@ -19,20 +21,18 @@ UI_ClearTicket = class(PARENT, {
 -- function init
 ----------------------------------------------------------------------
 function UI_ClearTicket:init(stage_id)
-    local game_mode = g_stageData:getGameMode(stage_id)
+    self.m_gameMode = g_stageData:getGameMode(stage_id)
     local vars
 
-    if game_mode == GAME_MODE_STORY_DUNGEON then
-        vars = self:load('clear_ticket_story_dungeon_popup.ui')
-    else
+    if self.m_gameMode == GAME_MODE_ADVENTURE then
         vars = self:load('clear_ticket_popup.ui')
+    else
+        vars = self:load('clear_ticket_story_dungeon_popup.ui')
     end
 
     UIManager:open(self, UIManager.POPUP)
-
     -- UI 클래스명 지정
     self.m_uiName = 'UI_ClearTicket'
-
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClearTicket')
 
@@ -40,7 +40,6 @@ function UI_ClearTicket:init(stage_id)
     self:initUI()
     self:initButton()
     self:refresh()
-
     
     if vars['periodLabel'] and vars['buyMenu'] then
         vars['buyMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
@@ -57,7 +56,7 @@ function UI_ClearTicket:initMember(stage_id)
 
     self.m_staminaType, self.m_requiredStaminaNum = TableDrop:getStageStaminaType(self.m_stageID)
 
-    local game_mode = g_stageData:getGameMode(stage_id)
+    local game_mode = self.m_gameMode
     -- 모험 소비 활동력 핫타임 관련
     if (game_mode == GAME_MODE_ADVENTURE) then
         local active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
@@ -73,8 +72,7 @@ end
 ----------------------------------------------------------------------
 function UI_ClearTicket:initUI()
     local vars = self.vars
-    local stage_id = self.m_stageID
-    local game_mode = g_stageData:getGameMode(stage_id)
+    local stage_id = self.m_stageID    
 
     do -- 스테이지 이름 및 난이도
         local stage_name = g_stageData:getStageName(stage_id)
@@ -165,8 +163,8 @@ end
 function UI_ClearTicket:refreshDropInfo()
     local vars = self.vars
 
-    local game_mode = g_stageData:getGameMode(self.m_stageID)
-    if game_mode == GAME_MODE_STORY_DUNGEON then
+    local game_mode = self.m_gameMode
+    if game_mode ~= GAME_MODE_ADVENTURE then
         return
     end
 
@@ -237,6 +235,12 @@ function UI_ClearTicket:refresh(is_refreshed_by_button, is_button_pressed)
     self.m_currStaminaNum = g_staminasData:getStaminaCount(self.m_staminaType)
     -- 입장권(날개)에 따른 최대 입장 가능 횟수
     self.m_availableStageNum = math_floor(self.m_currStaminaNum /  self.m_requiredStaminaNum)
+    
+    if self.m_gameMode == GAME_MODE_RUNE_GUARDIAN or -- 룬 수호자 던전
+        self.m_gameMode == GAME_MODE_ANCIENT_RUIN or -- 고대 유적 던전
+        self.m_gameMode == GAME_MODE_NEST_DUNGEON then  -- 악몽 던전
+        self.m_availableStageNum = math_min(self.m_availableStageNum, 200)
+    end
 
     -- 입장권 갯수 
     vars['staminaLabel']:setString(Str('{1}/{2}', comma_value(self.m_requiredStaminaNum * self.m_clearNum), comma_value(self.m_currStaminaNum)))
@@ -331,7 +335,7 @@ end
 -- function click_startBtn
 ----------------------------------------------------------------------
 function UI_ClearTicket:click_startBtn()  
-    local game_mode = g_stageData:getGameMode(self.m_stageID)
+    local game_mode = self.m_gameMode
     -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
     local function manage_func()
         UINavigatorDefinition:goTo('dragon')
@@ -361,6 +365,12 @@ function UI_ClearTicket:click_startBtn()
     clear_ticket = function()
         if game_mode == GAME_MODE_STORY_DUNGEON then
             g_eventDragonStoryDungeon:requestStoryDungeonStageClearTicket(self.m_stageID, self.m_clearNum, finish_cb)
+        elseif game_mode == GAME_MODE_NEST_DUNGEON then
+            g_stageData:request_etcClearTicket('/game/nest/clear', self.m_stageID, self.m_clearNum, finish_cb)
+        elseif game_mode == GAME_MODE_ANCIENT_RUIN then
+            g_stageData:request_etcClearTicket('/game/ruin/clear', self.m_stageID, self.m_clearNum, finish_cb)
+        elseif game_mode == GAME_MODE_RUNE_GUARDIAN then
+            g_stageData:request_etcClearTicket('/game/rune_guardian/clear', self.m_stageID, self.m_clearNum, finish_cb)
         else
             g_stageData:request_clearTicket(self.m_stageID, self.m_clearNum, finish_cb)
         end
@@ -396,182 +406,4 @@ function UI_ClearTicket:click_buyBtn(struct_product)
     local ui = UI_SupplyProductInfoPopup(supply_product)
 
     ui:setBuyCallback(callback)
-end
-
-
-
-
-
-
-
-----------------------------------------------------------------------
--- class UI_ClearTicketConfirm
-----------------------------------------------------------------------
-UI_ClearTicketConfirm = class(PARENT, {
-    m_changedUserInfo = 'table',
-    m_dropItems = 'table',
-
-    m_clearNum = 'number',
-
-    m_originalTitleLabel = 'string',
-
-    m_levelUpDirector = 'LevelupDirector_GameResult',
-})
-
-
-
-----------------------------------------------------------------------
--- function init
-----------------------------------------------------------------------
-function UI_ClearTicketConfirm:init(clear_num, result_table)
-    local vars = self:load('clear_ticket_popup_confirm.ui')
-    UIManager:open(self, UIManager.POPUP)
-
-    -- UI 클래스명 지정
-    self.m_uiName = 'UI_ClearTicketConfirm'
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClearTiUI_ClearTicketConfirmcket')
-
-
-    self:initMember(clear_num, result_table)
-    self:initUI()
-    self:initButton()
-    self:refresh()
-end
-
-----------------------------------------------------------------------
--- function initUI
-----------------------------------------------------------------------
-function UI_ClearTicketConfirm:initMember(clear_num, result_table)
-    local vars = self.vars
-
-    self.m_clearNum = clear_num
-    self.m_changedUserInfo = result_table['user_levelup_data']
-    self.m_dropItems = result_table['drop_reward_list']
-end
-
-----------------------------------------------------------------------
--- function initUI
-----------------------------------------------------------------------
-function UI_ClearTicketConfirm:initUI()
-    local vars = self.vars 
-
-    vars['resultLabel']:setString(Str(vars['resultLabel']:getString(), self.m_clearNum))
-
-
-end
-
-
-----------------------------------------------------------------------
--- function initButton
-----------------------------------------------------------------------
-function UI_ClearTicketConfirm:initButton()
-    local vars = self.vars
-
-    vars['okBtn']:registerScriptTapHandler(function() self:close() end)
-end
-
-
-
-----------------------------------------------------------------------
--- function refresh
-----------------------------------------------------------------------
-function UI_ClearTicketConfirm:refresh()
-    self:initDropItems()
-    self:initUserInfo()    
-end
-
-
-----------------------------------------------------------------------
--- function initUserInfo
-----------------------------------------------------------------------
-function UI_ClearTicketConfirm:initUserInfo()
-    local vars = self.vars
-
-    local prev_lv = self.m_changedUserInfo['prev_lv']
-    local prev_exp = self.m_changedUserInfo['prev_exp']
-    local curr_lv = self.m_changedUserInfo['curr_lv']
-    local curr_exp = self.m_changedUserInfo['curr_exp']
-
-    local level_up_director = LevelupDirector_GameResult(
-        vars['userLvLabel'],
-        vars['userExpLabel'],
-        vars['userMaxSprite'],
-        vars['userExpGg'],
-        vars['userLvUpVisual']
-    )
-
-    -- if (prev_lv ~= curr) then
-    --     level_up_director.m_cbAniFinish = function()
-    --         --self.root:stopAllActions()
-            
-    --         -- @ GOOGLE ACHIEVEMENT
-    --         local t_data = {clear_key = 'u_lv'}
-    --         GoogleHelper.updateAchievement(t_data)
-
-    --         local ui = UI_UserLevelUp(self.m_changedUserInfo)
-    --         --ui:setCloseCB(function() self:doNextWork() end)
-    --     end
-    -- end
-
-    level_up_director:initLevelupDirector(prev_lv, prev_exp, curr_lv, curr_exp, 'tamer')
-
-    self.m_levelUpDirector = level_up_director
-
-    local function finish_cb()
-        self.m_levelUpDirector:stop()  
-
-        if (prev_lv ~= curr_lv) then
-            local t_data = {clear_key = 'u_lv'}
-            GoogleHelper.updateAchievement(t_data)
-
-            local ui = UI_UserLevelUp(self.m_changedUserInfo)
-        end
-    end
-    self.m_levelUpDirector.m_cbAniFinish = finish_cb
-    self.m_levelUpDirector:start()
-end
-
-
-
-----------------------------------------------------------------------
--- function initDropItems
-----------------------------------------------------------------------
-function UI_ClearTicketConfirm:initDropItems()
-    local vars = self.vars
-    local count = #self.m_dropItems
-
-    if (count <= 0) then
-        return
-    end
-
-    local interval = 95
-    local pos_list = getSortPosList(interval, count)
-
-    for index, value in ipairs(self.m_dropItems) do
-        -- value = {item_id, count, from, data}
-        local item_id = value[1]
-        local item_num = value[2]
-        local from = value[3]
-        local data = value[4]
-
-        local item_card = UI_ItemCard(item_id, item_num, data)
-
-        if item_card then
-            item_card.root:setScale(0.6)
-
-            vars['dropRewardMenu']:addChild(item_card.root)
-
-            item_card.root:setPositionX(pos_list[index])
-
-            if (from =='bonus') then
-                local animator = MakeAnimator('res/item/item_marble/item_marble.vrp')
-                animator:setAnchorPoint(cc.p(0.5, 0.5))
-                animator:setDockPoint(cc.p(1, 1))
-                animator:setScale(0.85)
-                animator:setPosition(-20, -20)
-                item_card.vars['clickBtn']:addChild(animator.m_node)
-            end
-        end
-    end
 end

@@ -357,6 +357,9 @@ function ServerData:getInstance()
     -- 신화 드래곤 인기 투표 가챠
     g_eventPopularityGacha = ServerData_EventPopularityGacha(g_serverData)
 
+    -- 룬 가디언 클리어 정보
+    g_runeGuardianData = ServerData_RuneGuardian(g_serverData)
+
     return g_serverData
 end
 

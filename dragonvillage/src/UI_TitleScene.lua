@@ -1328,6 +1328,12 @@ function UI_TitleScene:workGetServerInfo()
                     cclog('# 네스트 던전 리스트')
                     local game_list = ret['stage_list']['stage_list']
                     g_nestDungeonData:applyNestDungeonStageListWithCheckID(game_list)
+
+                    cclog('# 룬 수호자 클리어 정보')
+                    local t_stage_list = ret['stage_list']
+                    if (t_stage_list['rune_guardian_stage_clear_info']) then
+                        g_runeGuardianData:applyRuneGuardianClearInfo(t_stage_list['rune_guardian_stage_clear_info'])
+                    end
                 end
 
                 if (ret['accesstime_info']) then

@@ -1177,6 +1177,9 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
             Analytics:firstTimeExperience('AncientTower_1_Clear')
         end
 
+    elseif self.m_gameMode == GAME_MODE_RUNE_GUARDIAN then
+        g_runeGuardianData:applyRuneGuardianClearInfo(ret['stage_clear_info'])
+
     -- 차원문
     elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
         
