@@ -5,6 +5,7 @@ local PARENT = UI_ClearTicket
 ---@class UI_ClearTicketEtc
 -------------------------------------
 UI_ClearTicketEtc = class(PARENT, {
+    m_mGoodsInfo = 'ui',
 })
 
 ----------------------------------------------------------------------
@@ -24,6 +25,19 @@ function UI_ClearTicketEtc:initUI()
     PARENT.initUI(self)
     local vars = self.vars
     vars['difficultyLabel']:setVisible(false)
+
+    do -- 상단 재화
+        local ui = UI_GoodsInfo('subjugation_ticket')
+        vars['ticketNode']:removeAllChildren()
+        vars['ticketNode']:addChild(ui.root)
+        self.m_mGoodsInfo = ui
+    end
+
+    local function update(dt)
+        self.m_mGoodsInfo:refresh()
+    end
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
 end
 
 ----------------------------------------------------------------------
@@ -56,10 +70,13 @@ function UI_ClearTicketEtc:refresh()
     PARENT.refresh(self)
     local vars = self.vars    
     if self.m_gameMode == GAME_MODE_RUNE_GUARDIAN or -- 룬 수호자 던전
-    self.m_gameMode == GAME_MODE_ANCIENT_RUIN or -- 고대 유적 던전
-    self.m_gameMode == GAME_MODE_NEST_DUNGEON then  -- 악몽 던전
+        self.m_gameMode == GAME_MODE_ANCIENT_RUIN or -- 고대 유적 던전
+        self.m_gameMode == GAME_MODE_NEST_DUNGEON then  -- 악몽 던전
+
         self.m_availableStageNum = math_min(self.m_availableStageNum, 200)
-        vars['maxCountLabel']:setStringArg(200)
+        self.m_availableStageNum = math_min(self.m_availableStageNum, g_userData:get('subjugation_ticket') or 0)
+
+        --vars['maxCountLabel']:setStringArg(200)
         vars['countLabel']:setString(Str('{1}/{2}', comma_value(self.m_clearNum), 200))
     end
 end
@@ -123,7 +140,7 @@ end
 -- function isClearTicketAvailable
 -- @brief 소탕 가능 여부
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc.isClearTicketAvailable(stage_id)
+function UI_ClearTicketEtc.isClearTicketAvailable(stage_id, use_toast)
     local game_mode = g_stageData:getGameMode(stage_id)
 
     if game_mode == GAME_MODE_NEST_DUNGEON or game_mode == GAME_MODE_ANCIENT_RUIN then
@@ -137,16 +154,33 @@ function UI_ClearTicketEtc.isClearTicketAvailable(stage_id)
         end
 
         if next_stage_clear == false then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}단계까지 클리어 후에 이용할 수 있습니다.', tier))
+            if use_toast == true then
+                local str = g_nestDungeonData:getStageName(next_stage_id)
+                MakeSimplePopup(POPUP_TYPE.OK, Str('{@ORANGE}[{1}]{@}\n\n\n클리어 후에 이용할 수 있습니다.', str))
+            end
             return false
         end
 
     elseif game_mode == GAME_MODE_RUNE_GUARDIAN then
         if g_runeGuardianData:isRuneGuardianStageClear(stage_id) == false then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('스테이지 클리어 후에 이용할 수 있습니다.'))
+            if use_toast == true then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('스테이지 클리어 후에 이용할 수 있습니다.'))
+            end
             return false
         end
     end
+--[[ 
+    -- 캐쉬가 충분히 있는지 확인
+    if (use_toast == true) then
+        if not ConfirmPrice('subjugation_ticket', 1) then
+            return false
+        end
+    end
+
+    local value = g_userData:get('subjugation_ticket') or 0
+    if value == 0 then
+        return false
+    end ]]
 
     return true
 end

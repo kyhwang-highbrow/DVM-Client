@@ -120,6 +120,9 @@ function UI_AdventureStageInfo:initButton()
                     vars['clearTicketBtn']:setVisible(true)
                 end
 
+                vars['clearTicketNameLabel']:setString(Str('토벌'))
+                vars['clearSpeechSprite']:setVisible(UI_ClearTicketEtc.isClearTicketAvailable(stage_id))
+
             -- 고대 유적 던전
             elseif game_mode == GAME_MODE_ANCIENT_RUIN then
                 local next_stage_id = g_stageData:getNextStage(stage_id)
@@ -131,12 +134,25 @@ function UI_AdventureStageInfo:initButton()
                     vars['clearTicketBtn']:setVisible(true)
                 end
 
+                vars['clearTicketNameLabel']:setString(Str('토벌'))
+                vars['clearSpeechSprite']:setVisible(UI_ClearTicketEtc.isClearTicketAvailable(stage_id))
+
             else
                 vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
                 vars['clearTicketBtn']:setVisible(true)
+
+                vars['clearTicketNameLabel']:setString(Str('토벌'))
+                vars['clearSpeechSprite']:setVisible(UI_ClearTicketEtc.isClearTicketAvailable(stage_id))
             end
         end
+
+        local tint_action = cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(1, 0), cc.FadeTo:create(1, 255)))
+        vars['clearSpeechSprite']:stopAllActions()
+        doAllChildren(vars['clearSpeechSprite'], function(child) child:setCascadeOpacityEnabled(true) end)
+        vars['clearSpeechSprite']:runAction(tint_action)
+        --cca.buttonShakeAction(vars['clearSpeechSprite'], 5)
     end
+
 
     if vars['clearTicketBtn']:isVisible() == true then
         vars['enterBtn']:setPositionX(106)
@@ -652,7 +668,7 @@ function UI_AdventureStageInfo:click_clearEtcTicketBtn()
     GAME_MODE_RUNE_GUARDIAN, ]]
 
     local stage_id = self.m_stageID
-    if UI_ClearTicketEtc.isClearTicketAvailable(stage_id) == false then
+    if UI_ClearTicketEtc.isClearTicketAvailable(stage_id, true) == false then
         return
     end
 
