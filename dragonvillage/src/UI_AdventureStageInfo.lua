@@ -639,10 +639,6 @@ end
 -- @brief 기타 던전 소탕
 -------------------------------------
 function UI_AdventureStageInfo:click_clearEtcTicketBtn()
---[[     GAME_MODE_NEST_DUNGEON,
-    GAME_MODE_ANCIENT_RUIN,
-    GAME_MODE_RUNE_GUARDIAN, ]]
-
     local stage_id = self.m_stageID
     if UI_ClearTicketEtc.isClearTicketAvailable(stage_id, true) == false then
         return

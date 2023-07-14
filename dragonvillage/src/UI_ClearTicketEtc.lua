@@ -206,10 +206,10 @@ function UI_ClearTicketEtc.isClearTicketAvailable(stage_id, use_toast)
             return false
         end
     end
---[[ 
+
     -- 캐쉬가 충분히 있는지 확인
     if (use_toast == true) then
-        if not ConfirmPrice('subjugation_ticket', 1) then
+        if not ConfirmPrice_original('subjugation_ticket', 1) then
             return false
         end
     end
@@ -217,7 +217,7 @@ function UI_ClearTicketEtc.isClearTicketAvailable(stage_id, use_toast)
     local value = g_userData:get('subjugation_ticket') or 0
     if value == 0 then
         return false
-    end ]]
+    end
 
     return true
 end
