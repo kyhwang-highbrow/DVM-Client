@@ -104,7 +104,7 @@ function UI_ClearTicketEtc:refresh(is_refreshed_by_button, is_button_pressed)
         vars['sliderBarSprite']:stopAllActions()
         vars['sliderBarSprite']:setPercentage(ratio * 100)
     end
-        
+
     local is_startBtn_enabled = ((self.m_requiredStaminaNum * self.m_clearNum) <= self.m_currStaminaNum) 
     vars['startBtn']:setEnabled(is_startBtn_enabled)     
     
@@ -141,7 +141,24 @@ function UI_ClearTicketEtc:click_startBtn()
             end)
         end
 
-        local proceeding_ui = UI_Proceeding()
+        local bg_script_res = 'map_nightmare'
+        if game_mode == GAME_MODE_NEST_DUNGEON then
+            local dungeon_mode = g_nestDungeonData:getDungeonMode(self.m_stageID)
+            if dungeon_mode == NEST_DUNGEON_NIGHTMARE then
+                bg_script_res = 'map_nightmare'
+            elseif dungeon_mode == NEST_DUNGEON_TREE then
+                bg_script_res = 'map_nest_fire'
+            elseif dungeon_mode == NEST_DUNGEON_EVO_STONE then
+                bg_script_res = 'map_sky_temple'
+            end
+
+        elseif game_mode == GAME_MODE_ANCIENT_RUIN then
+            bg_script_res = 'map_ancient_ruin'
+        elseif game_mode == GAME_MODE_RUNE_GUARDIAN then
+            bg_script_res = 'map_rune_guardian_dungeon'
+        end
+
+        local proceeding_ui = UI_Proceeding(bg_script_res)
         proceeding_ui.vars['descLabel']:setString(Str('토벌 중..'))
         proceeding_ui.root:runAction(cc.Sequence:create(cc.DelayTime:create(2.1), 
             cc.CallFunc:create(function() 

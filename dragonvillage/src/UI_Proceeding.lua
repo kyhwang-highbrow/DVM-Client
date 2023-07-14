@@ -5,12 +5,14 @@ PARENT = UI
 -------------------------------------
 UI_Proceeding = class(PARENT, {
     m_dragonAnimator = 'UIC_DragonAnimator',
+    m_bgScriptRes = 'string',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Proceeding:init()
+function UI_Proceeding:init(bg_script_res)
+    self.m_bgScriptRes = bg_script_res
     local vars = self:load('proceeding_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -25,7 +27,6 @@ function UI_Proceeding:init()
     self:refresh()
 end
 
-
 -------------------------------------
 -- function initUI
 -------------------------------------
@@ -33,7 +34,6 @@ function UI_Proceeding:initUI()
     local vars = self.vars
 
     -- vars['dragonNode']
-
     -- vars['bgNode']
     -- vars['descLabel']
 
@@ -41,21 +41,20 @@ function UI_Proceeding:initUI()
     --self:initDragon()
     
     do -- 배경 이미지 생성
-        local stage_id = 1110403
-
-        local difficulty, chapter, stage = parseAdventureID(stage_id)
-
         local bg_node = vars['bgNode']
-        local scroll_map = ResHelper:makeUIAdventureChapterBG(bg_node, chapter)
-
-        --scroll_map:setDockPoint(cc.p(0.5, 0.5))
-        --scroll_map:setAnchorPoint(cc.p(0.5, 0.5))
-
-
-        --setTexture('res/ui/event/myth/bg_hatchery_myth_0' .. i .. '.png')
+        if self.m_bgScriptRes == nil then
+            local stage_id = 1110403
+            local difficulty, chapter, stage = parseAdventureID(stage_id)
+            local scroll_map = ResHelper:makeUIAdventureChapterBG(bg_node, chapter)
+        else
+            local scroll_map = self:makeBgUI(bg_node, self.m_bgScriptRes)
+        end
     end
 end
 
+-------------------------------------
+-- function initTamer
+-------------------------------------
 function UI_Proceeding:initTamer()
     local vars = self.vars
 
@@ -74,6 +73,9 @@ function UI_Proceeding:initTamer()
 	end
 end
 
+-------------------------------------
+-- function initDragon
+-------------------------------------
 function UI_Proceeding:initDragon()
     
     if (not self.m_dragonAnimator) then
@@ -93,10 +95,28 @@ end
 function UI_Proceeding:initButton()
 end
 
-
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Proceeding:refresh()
+end
 
+-------------------------------------
+-- function makeBgUI
+-------------------------------------
+function UI_Proceeding:makeBgUI(bg_node, map_script_name)
+    local vars = self.vars
+    local map_script = map_script_name or 'map_rune_guardian_dungeon'
+    local scroll_map = ScrollMap(bg_node)
+    scroll_map:setBg(map_script, nil)
+    scroll_map:setSpeed(-100)
+    scroll_map:update(0)
+
+    -- 배경 스크롤을 위해 스케쥴러 등록
+    local function update(dt)
+        scroll_map:update(dt)
+    end
+
+    bg_node:scheduleUpdateWithPriorityLua(update, 0)
+    return scroll_map
 end
