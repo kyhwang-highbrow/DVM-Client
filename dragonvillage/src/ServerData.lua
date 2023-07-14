@@ -724,6 +724,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['rune_ancient_mileage'] then
             self:applyServerData(ret['rune_ancient_mileage'], 'user', 'rune_ancient_mileage')
         end
+
+        -- 토벌석
+        if ret['subjugation_ticket'] then
+            self:applyServerData(ret['subjugation_ticket'], 'user', 'subjugation_ticket')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -942,6 +947,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 룬 선택권 교환 고대 마일리지
     RefreshGoods(t_added_items, 'rune_ancient_mileage')
+
+    -- 던전 토벌석
+    RefreshGoods(t_added_items, 'subjugation_ticket')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then

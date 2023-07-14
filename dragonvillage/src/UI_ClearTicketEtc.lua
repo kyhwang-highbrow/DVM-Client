@@ -116,6 +116,7 @@ function UI_ClearTicketEtc:click_startBtn()
             -- Back Key unlock
             UIManager:blockBackKey(false)
             ui:setCloseCB(function() 
+                self.m_currDungeonClearTicketNum = g_userData:get('subjugation_ticket') or 0
                 self.m_clearNum = 1
                 self:refresh()
             end)
