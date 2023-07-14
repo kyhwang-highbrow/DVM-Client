@@ -78,81 +78,60 @@ function UI_AdventureStageInfo:initButton()
     local stage_id = self.m_stageID
     local game_mode = g_stageData:getGameMode(stage_id)
     local is_event_stage = g_stageData:checkEventStage(stage_id)
-    local l_clear_ticket_contents = {   GAME_MODE_ADVENTURE, 
-                                        GAME_MODE_STORY_DUNGEON, 
-                                        GAME_MODE_NEST_DUNGEON,
-                                        GAME_MODE_ANCIENT_RUIN,
-                                        GAME_MODE_RUNE_GUARDIAN,}
+
+    local is_dungeon_clear_show = false
+    local is_story_dungeon_clear_show = false
+    local is_adventure_clear_show = false
 
     vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+    
+    if (game_mode == GAME_MODE_ADVENTURE) and (not is_event_stage) then -- 모험
+        is_adventure_clear_show = true
+    
+    elseif game_mode == GAME_MODE_STORY_DUNGEON then -- 스토리 던전
+        local special_stage_id = g_eventDragonStoryDungeon:getStoryDungeonSpecialStageId()
+        is_story_dungeon_clear_show = stage_id < special_stage_id
+    
+    elseif game_mode == GAME_MODE_NEST_DUNGEON then -- 네스트 던전
+        local dungeon_mode = g_nestDungeonData:getDungeonMode(stage_id)
+        local nest_dungeon_mode_list = {NEST_DUNGEON_NIGHTMARE, NEST_DUNGEON_TREE, NEST_DUNGEON_EVO_STONE}
+        local next_stage_id = g_stageData:getNextStage(stage_id)
+        is_dungeon_clear_show = table.find(nest_dungeon_mode_list, dungeon_mode) ~= nil and next_stage_id ~= nil
+    
+    elseif game_mode == GAME_MODE_ANCIENT_RUIN then -- 고대 유적 던전
+        local next_stage_id = g_stageData:getNextStage(stage_id)
+        is_dungeon_clear_show = next_stage_id ~= nil
+    
+    elseif game_mode == GAME_MODE_RUNE_GUARDIAN then -- 룬 수호자 던전
+        is_dungeon_clear_show = true
+    end
+    
+    if is_adventure_clear_show == true then -- 모험 콘텐츠
+        vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearTicketBtn() end)
+        vars['clearTicketBtn']:setVisible(true)
 
-    if vars['clearTicketBtn'] then
-        -- 소탕이 없는 상태
-        vars['clearTicketBtn']:setVisible(false)
-        vars['enterBtn']:setPositionX(0)
+    elseif is_story_dungeon_clear_show == true then -- 스토리 던전 콘텐츠
+        vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearStoryDungeonTicketBtn() end)
+        vars['clearTicketBtn']:setVisible(true)
 
-        -- 소탕이 있는 상태
-        if (table.find(l_clear_ticket_contents, game_mode)) and (not is_event_stage) then
-                -- 모험
-            if game_mode == GAME_MODE_ADVENTURE then
-                vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearTicketBtn() end)
-                vars['clearTicketBtn']:setVisible(true)
+    elseif is_dungeon_clear_show == true then -- 토벌 콘텐츠일 경우
+        vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
+        vars['clearTicketBtn']:setVisible(true)
 
-                -- 스토리 던전
-            elseif game_mode == GAME_MODE_STORY_DUNGEON then
-                vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearStoryDungeonTicketBtn() end)
-                local special_stage_id = g_eventDragonStoryDungeon:getStoryDungeonSpecialStageId()
-                vars['clearTicketBtn']:setVisible(stage_id < special_stage_id)
-
-                -- 네스트 던전
-            elseif game_mode == GAME_MODE_NEST_DUNGEON then
-                local dungeon_mode = g_nestDungeonData:getDungeonMode(stage_id)
-                local nest_dungeon_mode_list = {NEST_DUNGEON_NIGHTMARE, NEST_DUNGEON_TREE, NEST_DUNGEON_EVO_STONE}                
-                local next_stage_id = g_stageData:getNextStage(stage_id)
-                --local next_stage_clear =  next_stage_id and g_nestDungeonData:isNestDungeonStageClear(next_stage_id) or false
-
-                if table.find(nest_dungeon_mode_list, dungeon_mode) ~= nil and next_stage_id ~= nil then
-                    vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
-                    vars['clearTicketBtn']:setVisible(true)
-                end
-
-                vars['clearTicketNameLabel']:setString(Str('토벌'))
-                vars['clearSpeechSprite']:setVisible(UI_ClearTicketEtc.isClearTicketAvailable(stage_id))
-
-            -- 고대 유적 던전
-            elseif game_mode == GAME_MODE_ANCIENT_RUIN then
-                local next_stage_id = g_stageData:getNextStage(stage_id)
-                if next_stage_id ~= nil then
-                    vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
-                    vars['clearTicketBtn']:setVisible(true)
-                end
-
-                vars['clearTicketNameLabel']:setString(Str('토벌'))
-                vars['clearSpeechSprite']:setVisible(UI_ClearTicketEtc.isClearTicketAvailable(stage_id))
-
-            else
-                vars['clearTicketBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
-                vars['clearTicketBtn']:setVisible(true)
-
-                vars['clearTicketNameLabel']:setString(Str('토벌'))
-                vars['clearSpeechSprite']:setVisible(UI_ClearTicketEtc.isClearTicketAvailable(stage_id))
-            end
-        end
+        vars['clearTicketNameLabel']:setString(Str('토벌'))
+        vars['clearSpeechSprite']:setVisible(UI_ClearTicketEtc.isClearTicketAvailable(stage_id))
 
         local tint_action = cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(1, 0), cc.FadeTo:create(1, 255)))
         vars['clearSpeechSprite']:stopAllActions()
         doAllChildren(vars['clearSpeechSprite'], function(child) child:setCascadeOpacityEnabled(true) end)
         vars['clearSpeechSprite']:runAction(tint_action)
-        --cca.buttonShakeAction(vars['clearSpeechSprite'], 5)
-    end
-
-
-    if vars['clearTicketBtn']:isVisible() == true then
-        vars['enterBtn']:setPositionX(106)
+    else
+        vars['enterBtn']:setPositionX(0)
+        vars['clearTicketBtn']:setVisible(false)
     end
 
     if (game_mode == GAME_MODE_ADVENTURE) and (not is_event_stage) then

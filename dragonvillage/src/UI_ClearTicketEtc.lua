@@ -6,7 +6,19 @@ local PARENT = UI_ClearTicket
 -------------------------------------
 UI_ClearTicketEtc = class(PARENT, {
     m_mGoodsInfo = 'ui',
+    m_requiredDungeonClearTicketNum = 'number',
+    m_currDungeonClearTicketNum = 'number',
 })
+
+
+----------------------------------------------------------------------
+-- function initMember
+----------------------------------------------------------------------
+function UI_ClearTicketEtc:initMember(stage_id)
+    PARENT.initMember(self, stage_id)
+    self.m_requiredDungeonClearTicketNum = 1
+    self.m_currDungeonClearTicketNum = g_userData:get('subjugation_ticket') or 0
+end
 
 ----------------------------------------------------------------------
 -- function loadUI
@@ -26,7 +38,7 @@ function UI_ClearTicketEtc:initUI()
     local vars = self.vars
     vars['difficultyLabel']:setVisible(false)
 
-    do -- 상단 재화
+--[[     do -- 상단 재화
         local ui = UI_GoodsInfo('subjugation_ticket')
         vars['ticketNode']:removeAllChildren()
         vars['ticketNode']:addChild(ui.root)
@@ -35,9 +47,10 @@ function UI_ClearTicketEtc:initUI()
 
     local function update(dt)
         self.m_mGoodsInfo:refresh()
-    end
+    end 
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+    ]]
 end
 
 ----------------------------------------------------------------------
@@ -53,6 +66,9 @@ function UI_ClearTicketEtc:initButton()
     vars['minusBtn']:registerScriptPressHandler(function() self:click_adjustBtn(-1, true) end)
     vars['maxBtn']:registerScriptTapHandler(function() self:click_adjustBtn(100) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+
+    vars['staminaBtn']:registerScriptTapHandler(function() self:click_itemTooltip('stamina', 'staminaBtn') end)
+    vars['dungeonClearTicketBtn']:registerScriptTapHandler(function() self:click_itemTooltip('subjugation_ticket', 'dungeonClearTicketBtn') end)
 
     self:initSlideBar()
 end
@@ -79,6 +95,10 @@ function UI_ClearTicketEtc:refresh()
         --vars['maxCountLabel']:setStringArg(200)
         vars['countLabel']:setString(Str('{1}/{2}', comma_value(self.m_clearNum), 200))
     end
+
+    -- 토벌권 갯수 
+    vars['dungeonClearTicketLabel']:setString(Str('{1}/{2}', 
+            comma_value(self.m_requiredDungeonClearTicketNum * self.m_clearNum), comma_value(self.m_currDungeonClearTicketNum)))
 end
 
 ----------------------------------------------------------------------
@@ -137,6 +157,29 @@ function UI_ClearTicketEtc:click_startBtn()
 end
 
 ----------------------------------------------------------------------
+-- function click_itemTooltip
+----------------------------------------------------------------------
+function UI_ClearTicketEtc:click_itemTooltip(goods_type, btn_name)
+    local vars = self.vars
+    local item_id = TableItem:getItemIDFromItemType(goods_type)
+    local table_item = TABLE:get('item')
+    local t_item = table_item[item_id]
+    -- @delete_rune
+    if (not t_item) then
+        return '{@SKILL_NAME}none'
+    end
+    local desc = t_item['t_desc']
+
+    -- 설정된 별도의 이름이 있으면 우선 사용
+    local name = t_item['t_name']
+    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', Str(name), Str(desc))
+    
+    local tool_tip = UI_Tooltip_Skill(70, -145, str)
+    -- 자동 위치 지정
+    tool_tip:autoPositioning(vars[btn_name])
+end
+
+----------------------------------------------------------------------
 -- function isClearTicketAvailable
 -- @brief 소탕 가능 여부
 ----------------------------------------------------------------------
@@ -146,12 +189,6 @@ function UI_ClearTicketEtc.isClearTicketAvailable(stage_id, use_toast)
     if game_mode == GAME_MODE_NEST_DUNGEON or game_mode == GAME_MODE_ANCIENT_RUIN then
         local next_stage_id = g_stageData:getNextStage(stage_id)
         local next_stage_clear =  next_stage_id and g_nestDungeonData:isNestDungeonStageClear(next_stage_id) or false
-        local t_next_stage_info = next_stage_id and g_nestDungeonData:parseNestDungeonID(next_stage_id) or nil
-        local tier = 1
-
-        if t_next_stage_info ~= nil then
-            tier = t_next_stage_info['tier']
-        end
 
         if next_stage_clear == false then
             if use_toast == true then
