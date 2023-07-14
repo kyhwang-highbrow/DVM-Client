@@ -123,7 +123,7 @@ function UI_AdventureStageInfo:initButton()
         vars['clearTicketBtn']:setVisible(true)
 
         vars['clearTicketNameLabel']:setString(Str('토벌'))
-        vars['clearSpeechSprite']:setVisible(UI_ClearTicketEtc.isClearTicketAvailable(stage_id))
+        vars['clearSpeechSprite']:setVisible(true)
 
         local tint_action = cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(1, 0), cc.FadeTo:create(1, 255)))
         vars['clearSpeechSprite']:stopAllActions()

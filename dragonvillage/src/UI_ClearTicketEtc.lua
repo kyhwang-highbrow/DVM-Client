@@ -5,7 +5,6 @@ local PARENT = UI_ClearTicket
 ---@class UI_ClearTicketEtc
 -------------------------------------
 UI_ClearTicketEtc = class(PARENT, {
-    m_mGoodsInfo = 'ui',
     m_requiredDungeonClearTicketNum = 'number',
     m_currDungeonClearTicketNum = 'number',
 })
@@ -37,20 +36,6 @@ function UI_ClearTicketEtc:initUI()
     PARENT.initUI(self)
     local vars = self.vars
     vars['difficultyLabel']:setVisible(false)
-
---[[     do -- 상단 재화
-        local ui = UI_GoodsInfo('subjugation_ticket')
-        vars['ticketNode']:removeAllChildren()
-        vars['ticketNode']:addChild(ui.root)
-        self.m_mGoodsInfo = ui
-    end
-
-    local function update(dt)
-        self.m_mGoodsInfo:refresh()
-    end 
-
-    self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
-    ]]
 end
 
 ----------------------------------------------------------------------
@@ -82,23 +67,57 @@ end
 ----------------------------------------------------------------------
 -- function refresh
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc:refresh()
-    PARENT.refresh(self)
-    local vars = self.vars    
-    if self.m_gameMode == GAME_MODE_RUNE_GUARDIAN or -- 룬 수호자 던전
-        self.m_gameMode == GAME_MODE_ANCIENT_RUIN or -- 고대 유적 던전
-        self.m_gameMode == GAME_MODE_NEST_DUNGEON then  -- 악몽 던전
-
-        self.m_availableStageNum = math_min(self.m_availableStageNum, 200)
-        self.m_availableStageNum = math_min(self.m_availableStageNum, g_userData:get('subjugation_ticket') or 0)
-
-        --vars['maxCountLabel']:setStringArg(200)
-        vars['countLabel']:setString(Str('{1}/{2}', comma_value(self.m_clearNum), 200))
-    end
-
+function UI_ClearTicketEtc:refresh(is_refreshed_by_button, is_button_pressed)
+    local vars = self.vars
+    -- 상단 일일 획득 드랍 아이템
+    self:refreshDropInfo()
+    -- 현재 유저가 보유하고 있는 입장권(날개) 갯수
+    self.m_currStaminaNum = g_staminasData:getStaminaCount(self.m_staminaType)
+    -- 입장권(날개)에 따른 최대 입장 가능 횟수
+    self.m_availableStageNum = math_floor(self.m_currStaminaNum /  self.m_requiredStaminaNum)
+    -- 토벌석
+    self.m_availableStageNum = math_min(self.m_availableStageNum, g_userData:get('subjugation_ticket') or 0)
+    -- 200회 제한
+    self.m_availableStageNum = math_min(self.m_availableStageNum, 200)
+    -- 시도 횟수
+    vars['countLabel']:setString(Str('{1}/{2}', comma_value(self.m_clearNum), 200))
+    -- 입장권 갯수 
+    vars['staminaLabel']:setString(Str('{1}/{2}', comma_value(self.m_requiredStaminaNum * self.m_clearNum), comma_value(self.m_currStaminaNum)))
     -- 토벌권 갯수 
     vars['dungeonClearTicketLabel']:setString(Str('{1}/{2}', 
-            comma_value(self.m_requiredDungeonClearTicketNum * self.m_clearNum), comma_value(self.m_currDungeonClearTicketNum)))
+        comma_value(self.m_requiredDungeonClearTicketNum * self.m_clearNum), comma_value(self.m_currDungeonClearTicketNum)))
+    
+    local ratio = self.m_clearNum / self.m_availableStageNum
+    local slider_bar_content_size = vars['sliderBarNode']:getContentSize()
+
+    -- 드래그가 아닌 버튼 터치 시 
+    if is_refreshed_by_button then
+        vars['sliderBarBtn']:stopAllActions()
+        vars['sliderBarBtn']:runAction(cc.MoveTo:create(0.2, cc.p(ratio * slider_bar_content_size.width, 0)))
+
+        vars['sliderBarSprite']:stopAllActions()
+        vars['sliderBarSprite']:runAction(cc.ProgressTo:create(0.2, ratio * 100))
+    else
+        vars['sliderBarBtn']:stopAllActions()
+        vars['sliderBarBtn']:setPositionX(ratio * slider_bar_content_size.width)
+
+        vars['sliderBarSprite']:stopAllActions()
+        vars['sliderBarSprite']:setPercentage(ratio * 100)
+    end
+        
+    local is_startBtn_enabled = ((self.m_requiredStaminaNum * self.m_clearNum) <= self.m_currStaminaNum) 
+    vars['startBtn']:setEnabled(is_startBtn_enabled)     
+    
+    if is_startBtn_enabled then
+        vars['startLabel']:setColor(COLOR['BLACK'])
+    else
+        vars['startLabel']:setColor(COLOR['DESC'])
+        vars['staminaLabel']:setColor(COLOR['RED'])
+
+        if (not is_button_pressed) then
+            UIManager:toastNotificationRed(Str('날개가 부족합니다.'))
+        end
+    end
 end
 
 ----------------------------------------------------------------------
