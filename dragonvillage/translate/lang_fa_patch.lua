@@ -1,4 +1,6 @@
-return {['고룡의 이름으로! ']='In the name of the dragon!',
+return {['고룡의 이름으로!']='In the name of the dragon!',
+['던전 토벌석']='Dungeon subjugation stone',
+['던전 토벌석 1개']='Dungeon subjugation stone x1',
 ['16스테이지 클리어']='Clear Stage 16',
 ['17스테이지 클리어']='Clear Stage 17',
 ['18스테이지 클리어']='Clear Stage 18',

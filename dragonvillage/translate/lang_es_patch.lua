@@ -1,4 +1,7 @@
-return {['{1}\n확정 획득까지 {@yellow}{2}{@default}회']='{1} Hasta la adquisición de la confirmación de {@yellow}{2}{@default}',
+return {['고룡의 이름으로!']='¡El nombre del dragón!',
+['던전 토벌석']='Mazmorra piedra de conquista',
+['던전 토벌석 1개']='Mazmorra piedra de conquista X1',
+['{1}\n확정 획득까지 {@yellow}{2}{@default}회']='{1} Hasta la adquisición de la confirmación de {@yellow}{2}{@default}',
 ['16스테이지 클리어']='Estado de 16 Completado',
 ['17스테이지 클리어']='Estado de 17 Completado',
 ['18스테이지 클리어']='Estado de 18 Completado',
