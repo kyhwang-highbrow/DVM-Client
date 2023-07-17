@@ -251,7 +251,7 @@ function UI_ClearTicketEtc.isClearTicketAvailable(stage_id, use_toast)
         if next_stage_clear == false then
             if use_toast == true then
                 local str = g_nestDungeonData:getStageName(next_stage_id)
-                MakeSimplePopup(POPUP_TYPE.OK, Str('{@ORANGE}[{1}]{@}\n\n\n클리어 후에 이용할 수 있습니다.', str))
+                MakeSimplePopup(POPUP_TYPE.OK, Str('{@ORANGE}[{1}]{@}\n\n\n다음 스테이지 클리어 후에 이용할 수 있습니다.', str))
             end
             return false
         end
