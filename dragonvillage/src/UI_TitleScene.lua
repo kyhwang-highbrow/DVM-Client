@@ -539,17 +539,19 @@ function UI_TitleScene:workLoading()
         co:yield()
 
         do -- TABLE:init의 기능을 여기서 수행
-            local t_tale_info = TABLE:getTableInfo()
-            local max_count = table.count(t_tale_info)
-            local count = 0
-            for k,v in pairs(t_tale_info) do
-                count = (count + 1)
-                -- self.m_loadingUI:showLoading(Str('로딩 중...') .. string.format(' %d/%d', count, max_count), false)
-                co:yield()
+            if (isWin32() ~= true) then -- 타이틀 화면 로딩 시간 단축을 위해 윈도우 환경에서는 미리 로딩을 하지 않도록 함.
+                local t_tale_info = TABLE:getTableInfo()
+                local max_count = table.count(t_tale_info)
+                local count = 0
+                for k,v in pairs(t_tale_info) do
+                    count = (count + 1)
+                    -- self.m_loadingUI:showLoading(Str('로딩 중...') .. string.format(' %d/%d', count, max_count), false)
+                    co:yield()
 
-                TABLE:loadCSVTable(v[1], k, v[2], v[3])
+                    TABLE:loadCSVTable(v[1], k, v[2], v[3])
+                end
+                TableGradeInfo:initGlobal()
             end
-            TableGradeInfo:initGlobal()
 		end
 
 	    ConstantData:getInstance()
