@@ -120,11 +120,32 @@ function UI_ClearTicketEtc:refresh(is_refreshed_by_button, is_button_pressed)
     end
 end
 
+-------------------------------------
+-- virtual function onFocusing
+-- @brief UI가 focus되었을 때 (화면상 최상단에 표시되었을 때)
+-------------------------------------
+function UI_ClearTicketEtc:onFocusing(is_first)
+    if is_first ~= true then
+        local ticket_count = g_userData:get('subjugation_ticket') or 0
+        if ticket_count ~= self.m_currDungeonClearTicketNum then
+            self.m_currDungeonClearTicketNum =ticket_count
+            self.m_clearNum = 1
+            self:refresh()
+        end
+    end
+end
+
 ----------------------------------------------------------------------
 -- function click_startBtn
 ----------------------------------------------------------------------
 function UI_ClearTicketEtc:click_startBtn()  
     local game_mode = self.m_gameMode
+    local stage_id = self.m_stageID
+
+    if UI_ClearTicketEtc.isClearTicketAvailable(stage_id, true) == false then
+        return
+    end
+
     local function manage_func()
         UINavigatorDefinition:goTo('dragon')
     end
