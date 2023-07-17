@@ -612,6 +612,7 @@ function UI_Game:click_speedButton()
     local world = self.m_gameScene.m_gameWorld
     if (not world) then return end
     
+    local max_time_scale_step = world.m_gameTimeScale:getMaxTimeScaleStep()
     local cur_timescale_step = world.m_gameTimeScale:increaseTimeScaleStep()
 
     if vars['speedVisual'] ~= nil then
@@ -621,6 +622,12 @@ function UI_Game:click_speedButton()
     if vars['speedVisual2'] ~= nil then
         vars['speedVisual2']:setVisible(cur_timescale_step == 3)
     end
+
+    if vars['speedUpVisual'] ~= nil then
+        vars['speedUpVisual']:setVisible(max_time_scale_step > 2 and cur_timescale_step == 2)
+    end
+
+    cclog(':getUIFileName()', self:getUIFileName())
 end
 
 -------------------------------------
@@ -762,6 +769,7 @@ function UI_Game:init_speedUI()
     if (world ~= nil) then
         local gameTimeScale = world.m_gameTimeScale 
         local cur_timescale_step = gameTimeScale:getTimeScaleStep()
+        local max_time_scale_step = gameTimeScale:getMaxTimeScaleStep()
 
         if vars['speedVisual'] ~= nil then
             vars['speedVisual']:setVisible(cur_timescale_step == 2)
@@ -769,6 +777,10 @@ function UI_Game:init_speedUI()
 
         if vars['speedVisual2'] ~= nil then
             vars['speedVisual2']:setVisible(cur_timescale_step == 3)
+        end
+
+        if vars['speedUpVisual'] ~= nil then
+            vars['speedUpVisual']:setVisible(max_time_scale_step > 2 and cur_timescale_step == 2)
         end
     end
 end

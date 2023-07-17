@@ -38,11 +38,6 @@ function UI_GameArena:initUI()
     self.vars['tamerGaugeVisual2']:setRepeat(false)
     self.vars['tamerGaugeVisual1']:setRepeat(false)
 
-    -- 2배속
-    do
-        vars['speedVisual']:setVisible(g_autoPlaySetting:get('quick_mode'))
-    end
-
     -- 닉네임
     do
         -- 플레이어 정보

@@ -155,6 +155,14 @@ function GameTimeScale:increaseTimeScaleStep()
 end
 
 -------------------------------------
+-- function getMaxTimeScaleStep
+-- @brief 최대 게임 배속
+-------------------------------------
+function GameTimeScale:getMaxTimeScaleStep()
+    return self.m_maxTimeScaleStep
+end
+
+-------------------------------------
 -- function getTimeScaleStep
 -- @brief 게임 배속 단계
 -------------------------------------
