@@ -69,7 +69,7 @@ function UI_NightmareStageListItem:refresh_dropItem(t_data)
         table.insert(l_icon_res, '06_all_06.png')
         table.insert(l_icon_res, '05_all_06.png')
     
-    elseif (tier == 10) then
+    elseif (tier >= 10) then
         table.insert(l_icon_res, 'star_46.png')
         table.insert(l_icon_res, 'set_all_06.png')
     end
