@@ -119,12 +119,11 @@ function UI_AdventureStageInfo:initButton()
         vars['clearTicketBtn']:setVisible(true)
 
     elseif is_dungeon_clear_show == true then -- 토벌 콘텐츠일 경우
+        local is_available = UI_ClearTicketEtc.isClearTicketAvailable(stage_id)
         vars['subjugationBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
         vars['subjugationBtn']:setVisible(true)
         vars['clearTicketBtn']:setVisible(false)
-
-        --vars['clearTicketNameLabel']:setString(Str('토벌'))
-        vars['clearSpeechSprite']:setVisible(true)
+        vars['clearSpeechSprite']:setVisible(is_available)
         vars['enterBtn']:setPositionX(180)
 
         local tint_action = cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(1, 0), cc.FadeTo:create(1, 255)))
