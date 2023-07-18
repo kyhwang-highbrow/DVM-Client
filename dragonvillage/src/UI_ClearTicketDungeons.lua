@@ -2,9 +2,9 @@
 local PARENT = UI_ClearTicket
 
 -------------------------------------
----@class UI_ClearTicketEtc
+---@class UI_ClearTicketDungeons
 -------------------------------------
-UI_ClearTicketEtc = class(PARENT, {
+UI_ClearTicketDungeons = class(PARENT, {
     m_requiredDungeonClearTicketNum = 'number',
     m_currDungeonClearTicketNum = 'number',
 })
@@ -13,7 +13,7 @@ UI_ClearTicketEtc = class(PARENT, {
 ----------------------------------------------------------------------
 -- function initMember
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc:initMember(stage_id)
+function UI_ClearTicketDungeons:initMember(stage_id)
     PARENT.initMember(self, stage_id)
     self.m_requiredDungeonClearTicketNum = 1
     self.m_currDungeonClearTicketNum = g_userData:get('subjugation_ticket') or 0
@@ -22,17 +22,17 @@ end
 ----------------------------------------------------------------------
 -- function loadUI
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc:loadUI()
+function UI_ClearTicketDungeons:loadUI()
     self:load('clear_ticket_etc_dungeon_popup.ui')
     UIManager:open(self, UIManager.POPUP)
-    self.m_uiName = 'UI_ClearTicketEtc' -- UI 클래스명 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClearTicketEtc') -- backkey 지정
+    self.m_uiName = 'UI_ClearTicketDungeons' -- UI 클래스명 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClearTicketDungeons') -- backkey 지정
 end
 
 ----------------------------------------------------------------------
 -- function initUI
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc:initUI()
+function UI_ClearTicketDungeons:initUI()
     PARENT.initUI(self)
     local vars = self.vars
     vars['difficultyLabel']:setVisible(false)
@@ -41,7 +41,7 @@ end
 ----------------------------------------------------------------------
 -- function initButton
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc:initButton()
+function UI_ClearTicketDungeons:initButton()
     local vars = self.vars
     
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
@@ -61,13 +61,13 @@ end
 ----------------------------------------------------------------------
 -- function refreshDropInfo
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc:refreshDropInfo()
+function UI_ClearTicketDungeons:refreshDropInfo()
 end
 
 ----------------------------------------------------------------------
 -- function refresh
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc:refresh(is_refreshed_by_button, is_button_pressed)
+function UI_ClearTicketDungeons:refresh(is_refreshed_by_button, is_button_pressed)
     local vars = self.vars
     -- 상단 일일 획득 드랍 아이템
     self:refreshDropInfo()
@@ -124,7 +124,7 @@ end
 -- virtual function onFocusing
 -- @brief UI가 focus되었을 때 (화면상 최상단에 표시되었을 때)
 -------------------------------------
-function UI_ClearTicketEtc:onFocusing(is_first)
+function UI_ClearTicketDungeons:onFocusing(is_first)
     if is_first ~= true then
         local ticket_count = g_userData:get('subjugation_ticket') or 0
         if ticket_count ~= self.m_currDungeonClearTicketNum then
@@ -138,11 +138,11 @@ end
 ----------------------------------------------------------------------
 -- function click_startBtn
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc:click_startBtn()  
+function UI_ClearTicketDungeons:click_startBtn()  
     local game_mode = self.m_gameMode
     local stage_id = self.m_stageID
 
-    if UI_ClearTicketEtc.isClearTicketAvailable(stage_id, true) == false then
+    if UI_ClearTicketDungeons.isClearTicketAvailable(stage_id, true) == false then
         return
     end
 
@@ -217,7 +217,7 @@ end
 ----------------------------------------------------------------------
 -- function click_itemTooltip
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc:click_itemTooltip(goods_type, btn_name)
+function UI_ClearTicketDungeons:click_itemTooltip(goods_type, btn_name)
     local vars = self.vars
     local item_id = TableItem:getItemIDFromItemType(goods_type)
     local table_item = TABLE:get('item')
@@ -241,7 +241,7 @@ end
 -- function isClearTicketAvailable
 -- @brief 소탕 가능 여부
 ----------------------------------------------------------------------
-function UI_ClearTicketEtc.isClearTicketAvailable(stage_id, use_toast)
+function UI_ClearTicketDungeons.isClearTicketAvailable(stage_id, use_toast)
     local game_mode = g_stageData:getGameMode(stage_id)
 
     if game_mode == GAME_MODE_NEST_DUNGEON or game_mode == GAME_MODE_ANCIENT_RUIN then

@@ -119,7 +119,7 @@ function UI_AdventureStageInfo:initButton()
         vars['clearTicketBtn']:setVisible(true)
 
     elseif is_dungeon_clear_show == true then -- 토벌 콘텐츠일 경우
-        local is_available = UI_ClearTicketEtc.isClearTicketAvailable(stage_id)
+        local is_available = UI_ClearTicketDungeons.isClearTicketAvailable(stage_id)
         vars['subjugationBtn']:registerScriptTapHandler(function() self:click_clearEtcTicketBtn() end)
         vars['subjugationBtn']:setVisible(true)
         vars['clearTicketBtn']:setVisible(false)
@@ -641,11 +641,11 @@ end
 -------------------------------------
 function UI_AdventureStageInfo:click_clearEtcTicketBtn()
     local stage_id = self.m_stageID
-    if UI_ClearTicketEtc.isClearTicketAvailable(stage_id, true) == false then
+    if UI_ClearTicketDungeons.isClearTicketAvailable(stage_id, true) == false then
         return
     end
 
-    local ui = UI_ClearTicketEtc(self.m_stageID)
+    local ui = UI_ClearTicketDungeons(self.m_stageID)
 end
 
 -------------------------------------
