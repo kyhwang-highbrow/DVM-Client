@@ -52,8 +52,15 @@ end
 -------------------------------------
 function UI_AdventureStageInfo:initUI()
     local size = self.vars['popupNode']:getContentSize()
+    local vars = self.vars
+    
     self.m_orgWidth = size['width']
     self.m_orgHeight = size['height']
+
+    local tint_action = cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(1, 0), cc.FadeTo:create(1, 255)))
+    vars['clearSpeechSprite']:stopAllActions()
+    doAllChildren(vars['clearSpeechSprite'], function(child) child:setCascadeOpacityEnabled(true) end)
+    vars['clearSpeechSprite']:runAction(tint_action)
     
     self:initTab()
 end
@@ -125,11 +132,6 @@ function UI_AdventureStageInfo:initButton()
         vars['clearTicketBtn']:setVisible(false)
         vars['clearSpeechSprite']:setVisible(is_available)
         vars['enterBtn']:setPositionX(180)
-
-        local tint_action = cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(1, 0), cc.FadeTo:create(1, 255)))
-        vars['clearSpeechSprite']:stopAllActions()
-        doAllChildren(vars['clearSpeechSprite'], function(child) child:setCascadeOpacityEnabled(true) end)
-        vars['clearSpeechSprite']:runAction(tint_action)
     else
         vars['enterBtn']:setPositionX(0)
         vars['clearTicketBtn']:setVisible(false)
@@ -662,6 +664,7 @@ function UI_AdventureStageInfo:changeStageID(stage_id)
     end
 
     self.m_stageID = stage_id
+    self:initButton()
     self:refresh()
 
     self.m_bInitItemTableView = false
