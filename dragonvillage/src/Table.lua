@@ -584,7 +584,7 @@ function TABLE:init()
         TABLE:loadCSVTable(v[1], k, v[2], v[3])
     end
 
-    TableGradeInfo:initGlobal()
+    --TableGradeInfo:initGlobal()
     --TableDragonSkill:initGlobal()
     --TableMonsterSkill:initGlobal()
 

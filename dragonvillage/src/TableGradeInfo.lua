@@ -3,7 +3,7 @@ local PARENT = TableClass
 local ECVL_KEY_OFFSET = 100 -- 초월은 삭제되었지만 테이블 구조로 인해 남겨둠
 
 -- initGlobal 함수에서 설정함
-MAX_DRAGON_GRADE = nil
+MAX_DRAGON_GRADE = 6
 
 -------------------------------------
 -- class TableGradeInfo
@@ -60,31 +60,27 @@ function TableGradeInfo:getBonusStatusLv(grade)
 end
 
 -------------------------------------
--- function initGlobal
+-- function getMaxDragonGrade
 -------------------------------------
-function TableGradeInfo:initGlobal()
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    MAX_DRAGON_GRADE = nil
-
+function TableGradeInfo:getMaxDragonGrade()
+    local max_grade = 0
     for i,v in pairs(self.m_orgTable) do
         local key = v['grade']
-
         -- 등급
         if (key < ECVL_KEY_OFFSET) then
             local grade = key
-            if (not MAX_DRAGON_GRADE) then
-                MAX_DRAGON_GRADE = grade
-            elseif (MAX_DRAGON_GRADE < grade) then
-                MAX_DRAGON_GRADE = grade
+            if (not max_grade) then
+                max_grade = grade
+            elseif (max_grade < grade) then
+                max_grade = grade
             end
         -- 초월 (테이블 구조때문에 남겨둠)
         else
 
         end
     end
+
+    return max_grade
 end
 
 -------------------------------------
@@ -114,6 +110,7 @@ local T_ORIGIN_GRADE = {
 	legend = 5,
     myth = 6,
 }
+
 -------------------------------------
 -- function getOriginGrade
 -- @breif 태생 등급을 리턴한다.

@@ -550,7 +550,6 @@ function UI_TitleScene:workLoading()
 
                     TABLE:loadCSVTable(v[1], k, v[2], v[3])
                 end
-                TableGradeInfo:initGlobal()
             end
 		end
 
