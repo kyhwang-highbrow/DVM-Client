@@ -854,18 +854,19 @@ function SettingData:make_lock_drag_skill_setting()
 end
 
 -------------------------------------
--- function getLockDragSkillMap
+-- function getAutoDragSkillLockDidMap
 -------------------------------------
-function SettingData:getLockDragSkillMap(deck_key)
+function SettingData:getAutoDragSkillLockDidMap(deck_key)
     local ret = self:get('lock_drag_skill_setting', deck_key) or {}
     return ret
 end
 
 -------------------------------------
--- function setLockDragSkill
+-- function setLockDragSkillDid
+-- @brief 드래곤은 하나의 드래그 스킬을 가지므로 사실상 하나의 드래곤을 설정하는 것과 마찬가지
 -------------------------------------
-function SettingData:setLockDragSkill(deck_key, deck_idx, skill_id)
-    return self:applySettingData(skill_id, 'lock_drag_skill_setting', deck_key, deck_idx)
+function SettingData:setAutoDragSkillLockDid(deck_key, deck_idx, doid)
+    return self:applySettingData(doid, 'lock_drag_skill_setting', deck_key, deck_idx)
 end
 
 -------------------------------------

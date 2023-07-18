@@ -626,8 +626,6 @@ function UI_Game:click_speedButton()
     if vars['speedUpVisual'] ~= nil then
         vars['speedUpVisual']:setVisible(max_time_scale_step > 2 and cur_timescale_step == 2)
     end
-
-    cclog(':getUIFileName()', self:getUIFileName())
 end
 
 -------------------------------------

@@ -3498,3 +3498,10 @@ function Character:hideSpeech()
         self.m_characterSpeech:setVisible(false)
     end)
 end
+
+-------------------------------------
+-- function getCharacterId
+-------------------------------------
+function Character:getCharacterId()
+    return 0
+end

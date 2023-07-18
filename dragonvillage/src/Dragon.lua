@@ -796,3 +796,10 @@ function Dragon:updateDebugingInfo()
 
     end
 end
+
+-------------------------------------
+-- function getCharacterId
+-------------------------------------
+function Dragon:getCharacterId()
+    return self.m_dragonID
+end
