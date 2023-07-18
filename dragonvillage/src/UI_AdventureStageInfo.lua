@@ -95,6 +95,8 @@ function UI_AdventureStageInfo:initButton()
 
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+
+    vars['subjugationBtn']:setVisible(false)
     
     if (game_mode == GAME_MODE_ADVENTURE) and (not is_event_stage) then -- 모험
         is_adventure_clear_show = true

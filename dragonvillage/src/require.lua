@@ -1383,9 +1383,11 @@ local t_module = {
     'UI_IngameBossInfo',
     'UI_IngameBossHp',
     'UI_AutoPlaySettingPopup',
+    'UI_AutoPlaySettingDragSkillPopup',
     'UI_EventGoldDungeonResult',
     'UI_ResultLeaderBoardListItem',
     'UI_ResultLeaderBoard',
+    'UI_DeckDragSkillItemList',
 
     -- UI : 챌린지 모드
     'UI_ChallengeMode',

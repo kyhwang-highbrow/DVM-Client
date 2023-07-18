@@ -180,7 +180,7 @@ function TableBattlePass:getPremiumRewardList(pass_id)
 end
 
 -------------------------------------
--- function getPremiumRewardList
+-- function getMinLevel
 -- pid 받으면 현재 유저 경험치 반환
 -------------------------------------
 
