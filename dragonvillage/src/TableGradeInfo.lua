@@ -19,6 +19,12 @@ local THIS = TableGradeInfo
 function TableGradeInfo:init()
     self.m_tableName = 'grade_info'
     self.m_orgTable = TABLE:get(self.m_tableName)
+
+    if isWin32() == true then
+        if self:getMaxDragonGrade() ~= MAX_DRAGON_GRADE then
+            error('MAX_DRAGON_GRADE 수정 필요. table_dragon_grade_info에 세팅된 최대 등급으로')
+        end
+    end
 end
 
 -------------------------------------
