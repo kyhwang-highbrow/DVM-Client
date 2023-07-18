@@ -141,6 +141,9 @@ end
 function UI_ClearTicketDungeons:click_startBtn()  
     local game_mode = self.m_gameMode
     local stage_id = self.m_stageID
+    local clear_num = self.m_clearNum
+
+    cclog('m_clearNum', clear_num)
 
     if UI_ClearTicketDungeons.isClearTicketAvailable(stage_id, true) == false then
         return
@@ -152,7 +155,7 @@ function UI_ClearTicketDungeons:click_startBtn()
 
     local function finish_cb(ret)
         function proceeding_end_cb()
-            local ui = UI_ClearTicketConfirm(self.m_clearNum, ret, Str('토벌 {1}회 결과', self.m_clearNum))
+            local ui = UI_ClearTicketConfirm(clear_num, ret, Str('토벌 {1}회 결과', clear_num))
             -- Back Key unlock
             UIManager:blockBackKey(false)
             ui:setCloseCB(function() 
@@ -192,11 +195,11 @@ function UI_ClearTicketDungeons:click_startBtn()
 
     clear_ticket = function()
         if game_mode == GAME_MODE_NEST_DUNGEON then
-            g_stageData:request_etcClearTicket('/game/nest/clear', self.m_stageID, self.m_clearNum, finish_cb)
+            g_stageData:request_etcClearTicket('/game/nest/clear', self.m_stageID, clear_num, finish_cb)
         elseif game_mode == GAME_MODE_ANCIENT_RUIN then
-            g_stageData:request_etcClearTicket('/game/ruin/clear', self.m_stageID, self.m_clearNum, finish_cb)
+            g_stageData:request_etcClearTicket('/game/ruin/clear', self.m_stageID, clear_num, finish_cb)
         elseif game_mode == GAME_MODE_RUNE_GUARDIAN then
-            g_stageData:request_etcClearTicket('/game/rune_guardian/clear', self.m_stageID, self.m_clearNum, finish_cb)
+            g_stageData:request_etcClearTicket('/game/rune_guardian/clear', self.m_stageID, clear_num, finish_cb)
         end
     end
 
