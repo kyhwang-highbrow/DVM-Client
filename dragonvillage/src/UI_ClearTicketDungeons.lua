@@ -142,9 +142,6 @@ function UI_ClearTicketDungeons:click_startBtn()
     local game_mode = self.m_gameMode
     local stage_id = self.m_stageID
     local clear_num = self.m_clearNum
-
-    cclog('m_clearNum', clear_num)
-
     if UI_ClearTicketDungeons.isClearTicketAvailable(stage_id, true) == false then
         return
     end

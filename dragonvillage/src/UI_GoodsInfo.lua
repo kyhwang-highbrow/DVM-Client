@@ -167,6 +167,8 @@ function UI_GoodsInfo:click_chargeBtn()
         UINavigatorDefinition:goTo('shop', 'valor')
     elseif (goods_type == 'amethyst') then
         UINavigatorDefinition:goTo('shop', 'amethyst')
+    elseif (goods_type == 'subjugation_ticket') then
+        UINavigatorDefinition:goTo('shop')
     elseif (goods_type == 'capsule_coin') then
         local capsule_coin_package_popup = PackageManager:getTargetUI('package_capsule_coin', true)
     elseif (goods_type == 'st') then

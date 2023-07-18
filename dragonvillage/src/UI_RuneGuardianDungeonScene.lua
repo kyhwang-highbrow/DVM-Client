@@ -39,6 +39,7 @@ function UI_RuneGuardianDungeonScene:initParentVariable()
     self.m_uiName = 'UI_RuneGuardianDungeonScene'
     self.m_titleStr = Str('룬 수호자 던전')
     self.m_uiBgm = 'bgm_lobby'
+    self.m_subCurrency = 'subjugation_ticket'
 end
 
 -------------------------------------

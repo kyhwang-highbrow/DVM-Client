@@ -35,6 +35,7 @@ function UI_BattleMenu:initParentVariable()
     self.m_titleStr = Str('전투')
     self.m_bUseExitBtn = true
     self.m_uiBgm = 'bgm_lobby'
+    self.m_subCurrency = 'subjugation_ticket'
 end
 
 -------------------------------------

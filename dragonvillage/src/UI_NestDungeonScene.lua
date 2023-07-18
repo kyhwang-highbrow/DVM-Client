@@ -67,6 +67,7 @@ function UI_NestDungeonScene:initParentVariable()
 		self.m_titleStr = Str('고대 유적 던전')
 	end
     self.m_uiBgm = 'bgm_lobby'
+    self.m_subCurrency = 'subjugation_ticket'
 end
 
 -------------------------------------
