@@ -7,15 +7,19 @@ UI_DeckDragSkillItemList = class(PARENT, {
     m_keyName = 'string',
     m_ownerUI = 'UI',
     m_tableView = 'UIC_TableViewTD',
+    m_selectList = 'List<number>',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DeckDragSkillItemList:init(key_name, owner_ui)
+function UI_DeckDragSkillItemList:init(key_name)
     self.m_keyName = key_name
-    self.m_ownerUI = owner_ui
+    self.m_selectList = g_settingData:getAutoDragSkillLockDidMap(self.m_keyName)
+
     self:load('ui_item_deck_dragon.ui')
+
+    self:correctData()
     self:initUI()
     self:initButton()
     self:refresh()
@@ -29,13 +33,13 @@ function UI_DeckDragSkillItemList:initUI()
     local node = vars['dragonListNode']
     local function create_func(ui, data)
         ui.root:setScale(0.6)
-        local is_locked = self.m_ownerUI:isDragonSelected(data['did'])
+        local is_locked = self:isDragonSelected(data['did'])
         ui:setCheckSpriteVisible(is_locked)
 
         -- 클릭 버튼 설정
         ui.vars['clickBtn']:registerScriptTapHandler(function() 
-            self.m_ownerUI:click_dragonCard(data['did'])
-            local is_locked = self.m_ownerUI:isDragonSelected(data['did'])
+            self:saveData(data['did'])
+            local is_locked = self:isDragonSelected(data['did'])
             ui:setCheckSpriteVisible(is_locked)
         end)
     end
@@ -67,19 +71,6 @@ function UI_DeckDragSkillItemList:refresh()
 end
 
 -------------------------------------
--- function refreshTableView
--------------------------------------
-function UI_DeckDragSkillItemList:refreshTableView()
-    for i,v in pairs(self.m_tableView.m_itemList) do
-        local ui = v['ui']
-        local data = v['data']
-        local did = data['did']
-        local is_locked = self.m_ownerUI:isDragonSelected(did)
-        --ui:setCheckSpriteVisible(is_locked)
-    end
-end
-
--------------------------------------
 -- function getDeckDragonList
 -------------------------------------
 function UI_DeckDragSkillItemList:getDeckDragonList()
@@ -95,4 +86,54 @@ function UI_DeckDragSkillItemList:getDeckDragonList()
     end
 
     return l_dragon_data
+end
+
+-------------------------------------
+-- function correctData
+-------------------------------------
+function UI_DeckDragSkillItemList:correctData()
+    local did_list = {}    
+    local dirty = false
+    local l_deck = g_deckData:getDeck(self.m_keyName)
+    for _, v in pairs(l_deck) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
+        if (t_dragon_data) then
+            table.insert(did_list, t_dragon_data['did'])
+        end
+    end
+    
+    for idx, did in ipairs(self.m_selectList) do
+        if table.find(did_list, did) == nil then
+            idx = table.remove(self.m_selectList, idx)
+            dirty = true
+        end
+    end
+
+    if dirty == true then
+        g_settingData:setAutoDragSkillLockDidMap(self.m_keyName, self.m_selectList)
+    end
+end
+
+-------------------------------------
+-- function saveData
+-------------------------------------
+function UI_DeckDragSkillItemList:saveData(did)
+    if did ~= nil then
+        local find_idx = table.find(self.m_selectList, did)
+        if find_idx ~= nil then
+            table.remove(self.m_selectList, find_idx)
+        else
+            table.insert(self.m_selectList, did)
+        end
+    end
+
+    g_settingData:setAutoDragSkillLockDidMap(self.m_keyName, self.m_selectList)
+end
+
+-------------------------------------
+-- function isDragonSelected
+-------------------------------------
+function UI_DeckDragSkillItemList:isDragonSelected(did)
+    local is_locked = table.find(self.m_selectList, did) ~= nil
+    return is_locked
 end
