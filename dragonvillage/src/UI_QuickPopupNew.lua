@@ -189,6 +189,13 @@ function UI_QuickPopupNew:checkLockContent(l_content)
             vars[content .. 'Btn']:registerScriptTapHandler(function() 
                 self:goTo(content) 
             end)
+
+            if content == 'story_dungeon' then
+                local _, code = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+                if vars[code] ~= nil then
+                    vars[code]:setVisible(true)
+                end
+            end
         end
 
         -- 베타 버튼 표시
