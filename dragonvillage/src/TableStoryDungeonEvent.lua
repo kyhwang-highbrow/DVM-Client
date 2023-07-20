@@ -165,6 +165,11 @@ function TableStoryDungeonEvent:getStoryDungeonLobbyBgRes(season_id)
         self = THIS()
     end
 
+    if season_id == nil or self:exists(season_id) ~= true then
+        return 'res/bg/story_dungeon_bg.png'
+    end
+
+
     local bg_res = self:getValue(season_id, 'lobby_res')
     return bg_res
 end
@@ -176,6 +181,10 @@ end
 function TableStoryDungeonEvent:getStoryDungeonLimitRuneName(season_id)
     if (self == THIS) then
         self = THIS()
+    end
+
+    if season_id == nil or self:exists(season_id) ~= true then
+        return Str('빛의 검')
     end
 
     local name = self:getValue(season_id, 't_rune_name')
