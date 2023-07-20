@@ -162,6 +162,7 @@ local t_module = {
     'StructBattlePassInfo',
     'StructDragonPkgData',
     'StructRecall',
+    'StructPresetDeck',
 
 	-- ServerData
     'ServerData',
@@ -280,6 +281,7 @@ local t_module = {
     'ServerData_EventVote',
     'ServerData_EventPopularityGacha',
     'ServerData_RuneGuardian', -- 룬 수호자 클리어 정보
+    'ServerData_DeckPreset', -- 프리셋 덱
 
     -- Interface
     'IEventDispatcher',
@@ -1735,6 +1737,11 @@ local t_module = {
     'ForestStuff',
     'ForestUserStatusUI',
     'ForestStuffUI',
+
+    -- 덱 프리셋
+    'UI_PresetDeckSetting',
+    'UI_PresetDeckSetting_Select',
+    'UI_PresetDeckSetting_Deck',
 
     -- Tutorial
     'UI_TutorialPlayer',

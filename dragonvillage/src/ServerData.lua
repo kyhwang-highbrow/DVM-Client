@@ -360,6 +360,9 @@ function ServerData:getInstance()
     -- 룬 가디언 클리어 정보
     g_runeGuardianData = ServerData_RuneGuardian(g_serverData)
 
+    -- 룬 가디언 클리어 정보
+    g_deckPresetData = ServerData_DeckPreset(g_serverData)
+
     return g_serverData
 end
 

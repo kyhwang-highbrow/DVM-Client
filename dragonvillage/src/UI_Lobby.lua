@@ -1410,7 +1410,6 @@ function UI_Lobby:update_storyDungeon()
     local season_id = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
     local did =  TableStoryDungeonEvent:getStoryDungeonEventDid(season_id)
     local name = TableStoryDungeonEvent:getStoryDungeonEventName(season_id)
-    local table_dragon = TableDragon()
 
     -- 이름
     vars['storyEventLabel']:setString(name)

@@ -1204,7 +1204,8 @@ end
 -------------------------------------
 function UI_ReadySceneNew:click_autoBtn()
     local stage_id = self.m_stageID
-    local formation = self.m_readySceneDeck.m_currFormation
+    UI_PresetDeckSetting.open()
+--[[     local formation = self.m_readySceneDeck.m_currFormation
     local l_dragon_list
 
     local game_mode = self.m_gameMode
@@ -1237,7 +1238,7 @@ function UI_ReadySceneNew:click_autoBtn()
     local helper = DragonAutoSetHelperNew(stage_id, formation, l_dragon_list)
     local l_auto_deck = helper:getAutoDeck()
     
-    self:applyDeck(l_auto_deck)
+    self:applyDeck(l_auto_deck) ]]
 end
 
 -------------------------------------

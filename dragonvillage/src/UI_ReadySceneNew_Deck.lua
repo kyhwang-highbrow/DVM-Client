@@ -433,7 +433,6 @@ function UI_ReadySceneNew_Deck:init_deck()
 	self.m_currLeader = leader
     self.m_lDeckList = {}
     self.m_tDeckMap = {}
-
     
     local friendDragonIndex = g_friendData:getFriendDragonSlotIdx()
     local friendDragonId = g_friendData:getSettedFriendDragonID()
