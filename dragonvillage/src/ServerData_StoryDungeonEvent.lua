@@ -445,6 +445,16 @@ function ServerData_StoryDungeonEvent:getStoryDungeonSpecialStageId()
     return 0
 end
 
+-------------------------------------
+-- function getStoryDungeonLobbyRes
+-------------------------------------
+function ServerData_StoryDungeonEvent:getStoryDungeonLobbyRes()
+    local season_id = self:getStoryDungeonSeasonId()
+    if season_id ~= nil then
+        return TableStoryDungeonEvent:getStoryDungeonLobbyBgRes(season_id)    
+    end
+    return 'sword.spine'
+end
 
 -------------------------------------
 -- function requestStoryDungeonInfo

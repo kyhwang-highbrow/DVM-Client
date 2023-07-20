@@ -156,3 +156,15 @@ function TableStoryDungeonEvent:getStoryDungeonEventBgRes(season_id)
     local bg_res = self:getValue(season_id, 'bg_res')
     return bg_res
 end
+
+-------------------------------------
+-- function getStoryDungeonLobbyBgRes
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonLobbyBgRes(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local bg_res = self:getValue(season_id, 'lobby_res')
+    return bg_res
+end

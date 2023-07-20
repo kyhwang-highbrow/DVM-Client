@@ -319,7 +319,8 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
         self:makeLobbyEffectByMode(node)
 
     elseif (deco_type == DECO_TYPE.STORY_DUNGEON) then -- 스토리 던전
-        animator = MakeAnimator('res/lobby/lobby_season_deco/story_dungeon/sword.spine')
+        local lobby_res = g_eventDragonStoryDungeon:getStoryDungeonLobbyRes()
+        animator = MakeAnimator(string.format('res/lobby/lobby_season_deco/story_dungeon/%s', lobby_res))
         if (animator.m_node) then
             animator:setDockPoint(CENTER_POINT)
             animator:setAnchorPoint(CENTER_POINT)
