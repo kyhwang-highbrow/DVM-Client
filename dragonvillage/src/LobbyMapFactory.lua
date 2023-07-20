@@ -319,7 +319,10 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
         self:makeLobbyEffectByMode(node)
 
     elseif (deco_type == DECO_TYPE.STORY_DUNGEON) then -- 스토리 던전
-        local lobby_res = g_eventDragonStoryDungeon:getStoryDungeonLobbyRes()
+        local season_id = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+        local lobby_res = TableStoryDungeonEvent:getStoryDungeonLobbyBgRes(season_id)
+        local rune_name = TableStoryDungeonEvent:getStoryDungeonLimitRuneName(season_id)
+
         animator = MakeAnimator(string.format('res/lobby/lobby_season_deco/story_dungeon/%s', lobby_res))
         if (animator.m_node) then
             animator:setDockPoint(CENTER_POINT)
@@ -352,13 +355,15 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
                 end),
                 cc.CallFunc:create(function()
                     --@dhkim 첫번째 말풍선
-                    SensitivityHelper:completeStoryDungeonBubbleText(animator.m_node, Str('{@BLACK}이, 이것은 이벤트 한정 룬 빛의 검!!{@}'), 4, 110)
+                    local str = Str('{@BLACK}이, 이것은 이벤트 한정 룬 {1}!!{@}', rune_name)
+                    SensitivityHelper:completeStoryDungeonBubbleText(animator.m_node, str, 4, 110)
                 end),
                 cc.DelayTime:create(5),
                 cca.makeBasicEaseMove(1, 500, 200),
                 cc.CallFunc:create(function()
                     --@dhkim - 두번째 말풍선
-                    delayedText = SensitivityHelper:completeStoryDungeonBubbleText(animator.m_node, Str('{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 빛의 검!!{@}'), 4, 110, 
+                    local str = Str('{@BLACK}이번 이벤트를 놓치면 다시는 얻을 수 없다는 그 전설의 {1}!!{@}', rune_name)
+                    delayedText = SensitivityHelper:completeStoryDungeonBubbleText(animator.m_node, str, 4, 110, 
                     function() 
                         delayedText = nil 
                     end)

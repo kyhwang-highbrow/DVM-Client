@@ -168,3 +168,16 @@ function TableStoryDungeonEvent:getStoryDungeonLobbyBgRes(season_id)
     local bg_res = self:getValue(season_id, 'lobby_res')
     return bg_res
 end
+
+
+-------------------------------------
+-- function getStoryDungeonLimitRuneName
+-------------------------------------
+function TableStoryDungeonEvent:getStoryDungeonLimitRuneName(season_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local name = self:getValue(season_id, 't_rune_name')
+    return Str(name)
+end
