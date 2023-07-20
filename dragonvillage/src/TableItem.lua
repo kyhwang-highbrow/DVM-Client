@@ -555,7 +555,7 @@ function TableItem:replaceDisplayInfo(replace_id_list)
     end
 
     for _, replace_id in ipairs(replace_id_list) do
-        local t_replace_info = TableItemReplace:getItemReplaceInfo(replace_id)
+        local t_replace_info = TableItemDisplay:getItemReplaceInfo(replace_id)
         if t_replace_info ~= nil then
             local item_id = t_replace_info['target_item_id']
             local t_item_info = self.m_orgTable[item_id]

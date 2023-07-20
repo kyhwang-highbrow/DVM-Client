@@ -130,7 +130,7 @@ local TableInfo = {
         dragon_skin = {'table_dragon_skin', 'skin_id', false},
 
         -- 아이템 교체 테이블
-        table_item_replace = {'table_item_replace', 'id', false},
+        table_item_display = {'table_item_display', 'id', false},
 
         -- 이벤트 퀘스트
         table_event_quest  = {'table_event_quest',	'qid',	false},

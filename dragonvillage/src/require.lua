@@ -492,7 +492,7 @@ local t_module = {
     'TablePackageAchievement',
     'TableRune', -- 룬
     'TableStoryDungeonEvent', -- 스토리 던전 이벤트 테이블
-    'TableItemReplace', -- 아이템 표시 대체용 테이블
+    'TableItemDisplay', -- 아이템 표시 대체용 테이블
     'TableEventQuest', -- 이벤트 퀘스트
     'TablePickupSchedule', -- 픽업 스케쥴
     'TableRuneFilterPoint', -- 룬 필터 포인트
