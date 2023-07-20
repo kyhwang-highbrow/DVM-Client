@@ -1,4 +1,4 @@
-return {['가장 오래된 주술의 힘으로 적을 공격합니다. 자신의 효과적중에 따라 피해가 크게 증가하며 대상에게 걸린 모든 해로운 효과를 다른 적 {1}명에게 {2}% 확률로 전염시킵니다.']='Ataca al enemigo con el poder del hechizo más antiguo. El daño aumenta significativamente según su efectividad y tiene {2}% de probabilidad de propagar todos los efectos negativos al otro {1} enemigo.',
+return {['일정 시간마다 무작위 적 하나를 공격하여 대상에게 각각 {1}% 확률로 {2}초간 공격력 감소, 방어력 감소, 공격속도 감소, 지속피해를 부여합니다.']='Cada cierto tiempo, ataca a un enemigo aleatorio con una probabilidad del {1}% de reducir su poder de ataque, poder de defensa, velocidad de ataque y causar daño continuo durante {2} segundos.',
 ['{1}\n확정 획득까지 {@yellow}{2}{@default}회']='{1} Hasta la adquisición de la confirmación de {@yellow}{2}{@default}',
 ['16스테이지 클리어']='Estado de 16 Completado',
 ['17스테이지 클리어']='Estado de 17 Completado',
@@ -255,7 +255,6 @@ return {['가장 오래된 주술의 힘으로 적을 공격합니다. 자신의
 ['카네드(땅)']='Kaned (Tierra)',
 ['\n{1} {2}개']='\n{1} X{2}',
 ['{1} 공격대']='Comando {1}',
-['일정 시간마다 무작위 적 하나를 공격하여 대상에게 각각 {1}% 확률로 {2}초간 공격력 감소, 방어력 감소, 공격속도 감소, 지속피해를 부여합니다.']='Es un dragón demonio que hizo un pacto con el poder del mal para resucitar de la muerte. Según se cuenta, prendió fuego a sus propias escamas por el deseo de volverse más fuerte. Los huesos que lleva en su cabeza sirven como máscara para ocultar su verdadera identidad y tienen marcas de quemaduras. Cada vez que utiliza el poder del mal, su cuerpo se quema y quema sus escamas.',
 ['죽음에서 부활하기 위해 악의 힘과 계약한 악마 드래곤이다. 강해지고 싶다는 욕망으로 악의 힘을 빌려 자신의 비늘을 불태웠다 전해진다. 머리에 쓰는 뼈는 가면 역할을 하며 그 속엔 화상 자국이 남아있다. 악의 힘을 빌릴 때마다 몸이 불타오르며 비늘을 태운다.']='Es un dragón demonio que hizo un pacto con el poder del mal para resucitar de la muerte. Según se cuenta, prendió fuego a sus propias escamas por el deseo de volverse más fuerte. Los huesos que lleva en su cabeza sirven como máscara para ocultar su verdadera identidad y tienen marcas de quemaduras. Cada vez que utiliza el poder del mal, su cuerpo se quema y quema sus escamas.',
 ['7등급 강렬 세트 룬(부 옵션 확정)']='Set de Runa de Poder de rango 7 (Confirmación de Opciones Adicionales)',
 ['7등급 견고 세트 룬(부 옵션 확정)']='Set de Runa de Firmeza de rango 7 (Confirmación de Opciones Adicionales)',
@@ -303,4 +302,5 @@ return {['가장 오래된 주술의 힘으로 적을 공격합니다. 자신의
 ['던전에서 전투 과정을 생략하고 전투 결과를 바로 확인할 수 있습니다.']='Puedes saltarte las peleas y comprobar inmediatamente los resultados en el Mazmorra.',
 ['신규 토벌 오픈!']='¡Apertura del nuevo conquista!',
 ['{@ORANGE}[{1}]{@} 클리어 후에 이용할 수 있습니다.']='{@ORANGE}[{1}]{@}Después de borrar, estará disponible.',
-['획득한 재화는 합산하여 표기됩니다. (일부 아이템은 예외)']='Las ganancias obtenidas se mostrarán sumadas (a excepción de algunos ítems).'}
+['획득한 재화는 합산하여 표기됩니다. (일부 아이템은 예외)']='Las ganancias obtenidas se mostrarán sumadas (a excepción de algunos ítems).',
+['가장 오래된 주술의 힘으로 적을 공격합니다. 자신의 효과적중에 따라 피해가 크게 증가하며 대상에게 걸린 모든 해로운 효과를 다른 적 {1}명에게 {2}% 확률로 전염시킵니다.']='Ataca al enemigo con el poder del hechizo más antiguo. El daño aumenta significativamente según su efectividad y tiene {2}% de probabilidad de propagar todos los efectos negativos al otro {1} enemigo.'}

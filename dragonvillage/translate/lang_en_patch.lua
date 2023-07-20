@@ -1,4 +1,4 @@
-return {['가장 오래된 주술의 힘으로 적을 공격합니다. 자신의 효과적중에 따라 피해가 크게 증가하며 대상에게 걸린 모든 해로운 효과를 다른 적 {1}명에게 {2}% 확률로 전염시킵니다.']='Attacks the enemy with the power of the oldest sorcery. The damage increases significantly depending on the effectiveness of the attack and there is a {2}% chance to spread all harmful effects on the target to {1} other enemies.',
+return {['일정 시간마다 무작위 적 하나를 공격하여 대상에게 각각 {1}% 확률로 {2}초간 공격력 감소, 방어력 감소, 공격속도 감소, 지속피해를 부여합니다.']='Attack a random enemy every certain amount of time, with a {1}% chance each, to inflict a {2}-second debuff of reduced attack power, reduced defense power, reduced attack speed, and continuous damage.',
 ['16스테이지 클리어']='Clear Stage 16',
 ['17스테이지 클리어']='Clear Stage 17',
 ['18스테이지 클리어']='Clear Stage 18',
@@ -252,7 +252,6 @@ return {['가장 오래된 주술의 힘으로 적을 공격합니다. 자신의
 ['카네드']='Kaned',
 ['카네드(땅)']='Kaned (Earth)',
 ['{1} 공격대']='Raid Party {1}',
-['일정 시간마다 무작위 적 하나를 공격하여 대상에게 각각 {1}% 확률로 {2}초간 공격력 감소, 방어력 감소, 공격속도 감소, 지속피해를 부여합니다.']='It is a demon dragon who made a contract with the power of evil to be resurrected from death. It is said that it burned its scales with the desire to become stronger. The bones worn on its head serve as a mask and bear the scars of burns. Whenever it borrows the power of evil, its body burns and its scales are singed.',
 ['죽음에서 부활하기 위해 악의 힘과 계약한 악마 드래곤이다. 강해지고 싶다는 욕망으로 악의 힘을 빌려 자신의 비늘을 불태웠다 전해진다. 머리에 쓰는 뼈는 가면 역할을 하며 그 속엔 화상 자국이 남아있다. 악의 힘을 빌릴 때마다 몸이 불타오르며 비늘을 태운다.']='It is a demon dragon who made a contract with the power of evil to be resurrected from death. It is said that it burned its scales with the desire to become stronger. The bones worn on its head serve as a mask and bear the scars of burns. Whenever it borrows the power of evil, its body burns and its scales are singed.',
 ['7등급 강렬 세트 룬(부 옵션 확정)']='Grade 7 Might Rune Set (Sub Option confirmation)',
 ['7등급 견고 세트 룬(부 옵션 확정)']='Grade 7 Solidity Rune Set (Sub Option confirmation)',
@@ -300,4 +299,5 @@ return {['가장 오래된 주술의 힘으로 적을 공격합니다. 자신의
 ['던전에서 전투 과정을 생략하고 전투 결과를 바로 확인할 수 있습니다.']='You can skip fighting and immediately check the results in Dungeon.',
 ['신규 토벌 오픈!']='New Subjugation Open!',
 ['{@ORANGE}[{1}]{@} 클리어 후에 이용할 수 있습니다.']='{@ORANGE}[{1}]{@}It will be available after clearing.',
-['획득한 재화는 합산하여 표기됩니다. (일부 아이템은 예외)']='Acquired resources will be displayed as a total (some items are exceptions).'}
+['획득한 재화는 합산하여 표기됩니다. (일부 아이템은 예외)']='Acquired resources will be displayed as a total (some items are exceptions).',
+['가장 오래된 주술의 힘으로 적을 공격합니다. 자신의 효과적중에 따라 피해가 크게 증가하며 대상에게 걸린 모든 해로운 효과를 다른 적 {1}명에게 {2}% 확률로 전염시킵니다.']='Attacks the enemy with the power of the oldest sorcery. The damage increases significantly depending on the effectiveness of the attack and there is a {2}% chance to spread all harmful effects on the target to {1} other enemies.'}
