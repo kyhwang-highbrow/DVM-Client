@@ -1409,11 +1409,11 @@ function UI_Lobby:update_storyDungeon()
 
     local season_id = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
     local did =  TableStoryDungeonEvent:getStoryDungeonEventDid(season_id)
+    local name = TableStoryDungeonEvent:getStoryDungeonEventName(season_id)
     local table_dragon = TableDragon()
 
     -- 이름
-    local dragon_name = table_dragon:getDragonName(did)
-    vars['storyEventLabel']:setStringArg(Str(dragon_name))
+    vars['storyEventLabel']:setString(name)
 
     do -- 드래곤 카드
         local dragon_card = MakeSimpleDragonCard(did, {})
