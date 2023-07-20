@@ -66,6 +66,9 @@ function UI_DragonStoryDungeonEventScene:initUI()
     do -- 배경 이미지
         local bg_res = TableStoryDungeonEvent:getStoryDungeonEventBgRes(self.m_seasonId)
         local animator = MakeAnimator(bg_res)
+
+        cclog('bg_res', self.m_seasonId, bg_res)
+
         vars['bgNode']:removeAllChildren()
         vars['bgNode']:addChild(animator.m_node)
     end

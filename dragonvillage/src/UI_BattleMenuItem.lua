@@ -78,7 +78,15 @@ function UI_BattleMenuItem:initUI()
     elseif (self.m_listCnt >= 5) then
         ani_num = '_03'
     end
-    vars['itemVisual']:changeAni(content_type .. ani_num, true)
+
+    if content_type == 'story_dungeon' then
+        local _, code = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+        local ani_name = string.format('story_dungeon_%s', code)
+        vars['itemVisual']:changeAni(ani_name .. ani_num, true)
+    else
+        vars['itemVisual']:changeAni(content_type .. ani_num, true)
+    end
+    
     vars['titleLabel']:setString(getContentName(content_type))
 end
 
