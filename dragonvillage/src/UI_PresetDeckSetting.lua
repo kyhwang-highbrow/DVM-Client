@@ -52,7 +52,7 @@ end
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
 function UI_PresetDeckSetting:initParentVariable()
-    self.m_titleStr = Str('덱 프리셋')
+    self.m_titleStr = Str('덱 프리셋 - {1}', self.m_presetDeck:getPresetDeckName())
 end
 
 -------------------------------------
