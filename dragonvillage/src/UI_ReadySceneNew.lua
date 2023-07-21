@@ -113,6 +113,11 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
         g_fullPopupManager:show(FULL_POPUP_TYPE.AUTO_PICK)
     end
 
+    -- 프리셋 버튼
+    local curr_deck_name = g_deckData:getSelectedDeckName()
+    local is_available_preset = g_deckPresetData:isExistPresetDeckByDeckName(curr_deck_name)
+    vars['presetBtn']:setVisible(is_available_preset)
+
     -- @ TUTORIAL : 1-1 end , 104
 	local tutorial_key = TUTORIAL.FIRST_END
 	local check_step = 104
@@ -155,6 +160,7 @@ end
 -- function initDeck
 -------------------------------------
 function UI_ReadySceneNew:initDeck()
+    local vars = self.vars
 	self.m_readySceneDeck = UI_ReadySceneNew_Deck(self)
     self.m_readySceneDeck:setOnDeckChangeCB(function() 
 		self:refresh_combatPower()
@@ -1207,17 +1213,80 @@ end
 -------------------------------------
 function UI_ReadySceneNew:click_presetBtn()
     local curr_deck_name = g_deckData:getSelectedDeckName()
+    local l_struct_preset_deck = {}
+    local l_deck_name = {}
+    local multi_deck_mgr = self.m_multiDeckMgr
+    local is_league_raid = false
+    local tab = self.m_readySceneDeck.m_selTab
 
-    local formation = self.m_readySceneDeck.m_currFormation
-    local l_deck = self.m_readySceneDeck.m_lDeckList
-    local leader = self.m_readySceneDeck.m_currLeader
+    local cur_deck_name
+    if multi_deck_mgr ~= nil then
+        cur_deck_name = multi_deck_mgr:getDeckName(tab)
+    end
 
-    local struct_preset_deck = StructPresetDeck()
-    struct_preset_deck:setDeckMap(l_deck)
-    struct_preset_deck:setLeader(leader)
-    struct_preset_deck:setFormation(formation)
+    if string.find(curr_deck_name, 'league_raid') ~= nil then
+        l_deck_name = {'league_raid_1', 'league_raid_2', 'league_raid_3'}
+        is_league_raid = true
+--[[     elseif string.find(curr_deck_name, 'clan_raid') ~= nil then
+        l_deck_name = {'clan_raid_dark_up', 'clan_raid_dark_down'} ]]
+    elseif string.find(curr_deck_name, 'arena_new') ~= nil then
+        l_deck_name = {'arena_new_a', 'arena_new_d'}
+    end
 
-    UI_PresetDeckList.open(curr_deck_name, struct_preset_deck)
+    local cur_deck = nil
+    for _, deck_str in ipairs(l_deck_name) do
+        local l_deck, formation, deck_name, leader, tamer_id, formation_lv = g_deckData:getDeck(deck_str)
+        local struct_preset_deck = StructPresetDeck()
+
+        if cur_deck_name == deck_str then
+            formation = self.m_readySceneDeck.m_currFormation
+            l_deck = self.m_readySceneDeck.m_lDeckList
+            leader = self.m_readySceneDeck.m_currLeader
+        end
+
+        struct_preset_deck:setDeckMap(l_deck)
+        struct_preset_deck:setLeader(leader)
+        struct_preset_deck:setFormation(formation)
+
+        if cur_deck_name == deck_str then
+            cur_deck = clone(struct_preset_deck)
+        end
+
+        table.insert(l_struct_preset_deck, struct_preset_deck)
+    end
+
+    local dirty = g_deckPresetData:makeDefaultDeck(curr_deck_name, l_struct_preset_deck)
+    local cb_deck_change = function(struct_preset_deck)
+        local l_deck = struct_preset_deck:getDeckMap()
+        local formation = struct_preset_deck:getFormation()
+        local leader = struct_preset_deck:getLeader()
+
+        -- 다른 번호 덱에 세팅되어 있는지 체크
+        for _, doid in ipairs(l_deck) do
+            if is_league_raid == true then
+                if multi_deck_mgr and multi_deck_mgr:checkSameDidAnoterDeck_Raid(doid) == true then
+                    return
+                end
+            else
+                if multi_deck_mgr and multi_deck_mgr:checkSameDidAnoterDeckNew(doid) == true then
+                    return
+                end
+            end
+        end
+
+        local next_func = function ()
+            self.m_readySceneDeck:init_deck()
+            self:apply_dragonSort()
+        end
+
+        self.m_readySceneDeck.m_currFormation = formation
+        self.m_readySceneDeck.m_lDeckList = l_deck
+        self.m_readySceneDeck.m_currLeader = leader
+        self.m_readySceneDeck:checkChangeDeck(next_func)
+    end
+
+    local ui = UI_PresetDeckList.open(curr_deck_name, cur_deck, cb_deck_change)
+    ui:setDirty(dirty)
 end
 
 -------------------------------------

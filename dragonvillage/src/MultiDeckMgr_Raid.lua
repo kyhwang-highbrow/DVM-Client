@@ -59,7 +59,6 @@ function MultiDeckMgr_Raid:getDeckMap(pos)
     return target
 end
 
-
 -------------------------------------
 -- function getDeckDragonCnt
 -- @breif 선택한 덱 셋팅된 드래곤 수
@@ -98,6 +97,7 @@ function MultiDeckMgr_Raid:addRaidDragon(pos, doid)
         target[doid] = 1
     end
 end
+
 -------------------------------------
 -- function deleteRaidDragon
 -- @breif Multi 덱 해당 드래곤 삭제 
@@ -111,7 +111,6 @@ function MultiDeckMgr_Raid:deleteRaidDragon(doid)
         end
     end
 end
-
 
 -------------------------------------
 -- function checkSameDidAnoterDeck_Raid

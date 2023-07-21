@@ -8,17 +8,21 @@ UI_PresetDeckList = class(PARENT, {
         m_deckCategory = 'string',
         m_tableView = 'UIC_TableViewTD',
         m_jsonCode = 'string',
+        m_changeCb = 'function',
+        m_dirty = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PresetDeckList:init(deck_category, curr_deck)
+function UI_PresetDeckList:init(deck_category, curr_deck, cb_deck_change)
     self.m_uiName = 'UI_PresetDeckList'
     self.m_deckCategory = deck_category
     self.m_presetDeckMap = g_deckPresetData:getPresetDeckMap(deck_category)
     self.m_currDeck = curr_deck
     self.m_jsonCode = dkjson.encode(self.m_presetDeckMap)
+    self.m_dirty = false
+    self.m_changeCb = cb_deck_change
 
     self:load('preset_deck_list.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -90,10 +94,26 @@ function UI_PresetDeckList:onChanged(struct_preset_deck)
 end
 
 -------------------------------------
+-- function onApply
+-------------------------------------
+function UI_PresetDeckList:onApply(struct_preset_deck)
+    if self.m_changeCb ~= nil then
+        self.m_changeCb(struct_preset_deck)
+    end
+end
+
+-------------------------------------
 -- function getCurrDeckInfo
 -------------------------------------
 function UI_PresetDeckList:getCurrDeckInfo()
     return self.m_currDeck
+end
+
+-------------------------------------
+-- function setDirty
+-------------------------------------
+function UI_PresetDeckList:setDirty(dirty)
+    self.m_dirty = dirty
 end
 
 ------------------------------------
@@ -103,7 +123,7 @@ function UI_PresetDeckList:click_closeBtn()
     local jsonCode = dkjson.encode(self.m_presetDeckMap)
     --self:close()
 
-    if self.m_jsonCode == jsonCode then
+    if self.m_jsonCode == jsonCode and self.m_dirty == false then
         self:close()
         return
     end
@@ -118,13 +138,9 @@ end
 -------------------------------------
 -- function open
 -------------------------------------
-function UI_PresetDeckList.open(deck_name, curr_deck)
-    if g_deckPresetData:isExistPresetDeckByDeckName(deck_name) == false then
-        g_deckPresetData:makeDefaultDeck(deck_name, curr_deck)
-    end
-
+function UI_PresetDeckList.open(deck_name, curr_deck, cb_deck_change)
     local deck_category = g_deckPresetData:getPresetDeckCategory(deck_name)
-    local ui = UI_PresetDeckList(deck_category, curr_deck)
+    local ui = UI_PresetDeckList(deck_category, curr_deck, cb_deck_change)
     return ui
 end
 

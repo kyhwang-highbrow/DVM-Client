@@ -1288,17 +1288,15 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-        -- 프리셋 덱 정보 받기
-        if isWin32() == true then
-            co:work()
-            self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...') .. '(5)')
-            local ui_network = g_deckPresetData:request_info(co.NEXT, fail_cb)
-            if ui_network then
-                ui_network:hideLoading()
-            end
-            if co:waitWork() then return end
+        -- 프리셋 덱 정보 받기        
+        co:work()
+        self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...') .. '(5)')
+        local ui_network = g_deckPresetData:request_info(co.NEXT, fail_cb)
+        if ui_network then
+            ui_network:hideLoading()
         end
-
+        if co:waitWork() then return end
+        
 		-- /users/title : title 통합 api
 		co:work()
 		self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))

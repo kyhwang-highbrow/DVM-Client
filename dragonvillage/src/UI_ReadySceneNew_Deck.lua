@@ -390,7 +390,7 @@ function UI_ReadySceneNew_Deck:clear_deck(skip_sort)
 
     local l_refresh_dragon_doid = clone(self.m_lDeckList)
 
-    self.m_lDeckList = {}
+    self.m_lDeckList = {} 
     self.m_tDeckMap = {}
 
     -- 멀티 덱 해제

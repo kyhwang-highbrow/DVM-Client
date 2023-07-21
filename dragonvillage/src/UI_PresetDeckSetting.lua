@@ -23,10 +23,10 @@ UI_PresetDeckSetting = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PresetDeckSetting:init(struct_preset_deck, success_cb)
+function UI_PresetDeckSetting:init(struct_preset_deck, is_arena, success_cb)
     self.m_uiName = 'UI_PresetDeckSetting'
     self.m_gameMode = 0
-    self.m_bArena = false
+    self.m_bArena = is_arena
     self.m_presetDeck = struct_preset_deck
     self.m_successCb = success_cb
     self:load('preset_deck_set.ui')
@@ -91,8 +91,6 @@ function UI_PresetDeckSetting:initButton()
     vars['attrInfoBtn']:registerScriptTapHandler(function() self:click_attrInfoBtn() end)
     -- 적용
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
-
-    
 end
 
 -------------------------------------
@@ -257,6 +255,13 @@ function UI_PresetDeckSetting:refresh()
 end
 
 -------------------------------------
+-- function checkChangeDeck
+-------------------------------------
+function UI_PresetDeckSetting:checkChangeDeck(next_func)
+    return self.m_readySceneDeck:checkChangeDeck(next_func)
+end
+
+-------------------------------------
 -- function refresh_dragonCard
 -- @brief 장착여부에 따른 카드 갱신
 -------------------------------------
@@ -369,50 +374,70 @@ function UI_PresetDeckSetting:refresh_buffInfo()
 end
 
 -------------------------------------
+-- function click_dragonCard
+-------------------------------------
+function UI_PresetDeckSetting:click_dragonCard(t_dragon_data, skip_sort, idx)
+    self.m_readySceneDeck:click_dragonCard(t_dragon_data, skip_sort, idx)
+end
+
+-------------------------------------
+-- function applyDeck
+-------------------------------------
+function UI_PresetDeckSetting:applyDeck(l_deck)
+    local new_deck = UI_ReadySceneNew_Deck:convertSimpleDeck(l_deck)
+ 
+    -- 1. 덱을 비움
+    local skip_sort = true
+    self.m_readySceneDeck:clear_deck(skip_sort)
+
+    -- 2. 덱을 채움
+    for i,t_dragon_data in pairs(new_deck) do
+        self.m_readySceneDeck:setFocusDeckSlotEffect(i)
+        local skip_sort = true
+        self:click_dragonCard(t_dragon_data, skip_sort, i)
+    end
+
+    -- 정렬
+    self:apply_dragonSort()
+end
+
+-------------------------------------
 -- function click_okBtn
 -------------------------------------
 function UI_PresetDeckSetting:click_okBtn()
     self:close()
 end
 
-
 -------------------------------------
 -- function click_manageBtn
 -- @breif 드래곤 관리
 -------------------------------------
 function UI_PresetDeckSetting:click_manageBtn()
-    local function next_func()
-        local ui = UI_DragonManageInfo()
-        local function close_cb()
-            local function func()
-                self:refresh()
-                self.m_readySceneSelect:init_dragonTableView()
-                self.m_readySceneDeck:init_deck()
-                
-                do -- 정렬 도우미
-					self:apply_dragonSort()
-                end
+    local ui = UI_DragonManageInfo()
+    local function close_cb()
+        local function func()
+            self:refresh()
+            self.m_readySceneSelect:init_dragonTableView()
+            self.m_readySceneDeck:init_deck()
+            
+            do -- 정렬 도우미
+                self:apply_dragonSort()
             end
-            self:sceneFadeInAction(func)
         end
-        ui:setCloseCB(close_cb)
+        self:sceneFadeInAction(func)
     end
-    
-    -- 덱 저장 후 이동
-    self:checkChangeDeck(next_func)
+    ui:setCloseCB(close_cb)
 end
-
 
 -------------------------------------
 -- function click_autoBtn
 -- @breif
 -------------------------------------
 function UI_PresetDeckSetting:click_autoBtn()
-    local stage_id = self.m_stageID
     local formation = self.m_readySceneDeck.m_currFormation
     local l_dragon_list = g_dragonsData:getDragonsList()
 
-    local helper = DragonAutoSetHelperNew(stage_id, formation, l_dragon_list)
+    local helper = DragonAutoSetHelperNew(1110502, formation, l_dragon_list)
     local l_auto_deck = helper:getAutoDeck()
     
     self:applyDeck(l_auto_deck)
@@ -483,14 +508,13 @@ end
 function UI_PresetDeckSetting:click_fomationBtn()
 	-- m_readySceneDeck에서 현재 formation 받아와 전달
 	local curr_formation_type = self.m_readySceneDeck.m_currFormation
-    local ui = UI_FormationPopup(curr_formation_type)
+    local ui
 
-    -- 삼뉴체크
---[[ 	if (self.m_bArena) then
+	if (self.m_bArena) then
         ui = UI_FormationArenaPopup(curr_formation_type)
     else
         ui = UI_FormationPopup(curr_formation_type)
-    end ]]
+    end
 
 	-- 종료하면서 선택된 formation을 m_readySceneDeck으로 전달
 	local function close_cb(formation_type)
@@ -551,8 +575,10 @@ end
 -- function open
 -------------------------------------
 function UI_PresetDeckSetting.open(struct_prset_deck, success_cb)
-    --local struct_prset_deck = StructPresetDeck()
-    local ui = UI_PresetDeckSetting(struct_prset_deck, success_cb)
+    local curr_deck_name = g_deckData:getSelectedDeckName()
+    local category = g_deckPresetData:getPresetDeckCategory(curr_deck_name)
+    local is_arena = string.find(category, 'arena') ~= nil
+    local ui = UI_PresetDeckSetting(struct_prset_deck, is_arena, success_cb)
     return ui
 end
 

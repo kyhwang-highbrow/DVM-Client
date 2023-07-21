@@ -11,19 +11,18 @@ UI_PresetDeckSetting_Deck = class({
 
 
     m_focusDeckSlot = '',
-    m_currLeader = '',
-    m_currLeaderOID = '',
-    m_currFormation = '',
-    m_currFormationLv = '',
+    m_currLeader = 'number',
+    m_currLeaderOID = 'number',
+    m_currFormation = 'string',
+    m_currFormationLv = 'string',
     m_focusDeckSlotEffect = '',
     m_lSettedDragonCard = 'list',
     m_bSelectedTouch = 'boolean',
-
+    m_bRuneInfo = 'boolean',
 
     -- 드래그로 이동
     m_selectedDragonSlotIdx = 'number',
     m_selectedDragonCard = 'UI_DragonCard',
-
 })
 
 local TOTAL_POS_CNT = 5
@@ -48,7 +47,9 @@ local DC_SCALE_PICK = (DC_SCALE * 0.8)
 function UI_PresetDeckSetting_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
     self.m_bDirtyDeck = true
+    self.m_bRuneInfo = false
     self.m_lDeckList = {}
+    
 
 
     self.m_currLeader = 0
@@ -274,10 +275,10 @@ function UI_PresetDeckSetting_Deck:getRotatedPosList(formation)
 	local vars = self.m_uiReadyScene.vars
 	local formation = formation or self.m_currFormation
     local interval = 110
-    --local b_arena = self.m_uiReadyScene.m_bArena
-    --삼뉴_
-    --local t_table = b_arena and TableFormationArena() or TableFormation()
-    local t_table = TableFormation()
+    local b_arena = self.m_uiReadyScene.m_bArena
+
+    cclog('b_arena', b_arena)
+    local t_table = b_arena and TableFormationArena() or TableFormation()
     local l_pos_list = t_table:getFormationPositionListNew(formation, interval)
 
 	local ret_list = {}
@@ -321,6 +322,12 @@ function UI_PresetDeckSetting_Deck:checkSameDid(idx, doid)
     end
 
     return false
+end
+
+-------------------------------------
+-- function checkChangeDeck
+-------------------------------------
+function UI_PresetDeckSetting_Deck:checkChangeDeck(next_func)
 end
 
 -------------------------------------
@@ -398,6 +405,10 @@ function UI_PresetDeckSetting_Deck:makeSettedDragonCard(t_dragon_data, idx)
     -- 설정된 드래곤 표시 없애기
     ui:setReadySpriteVisible(false)
     vars['positionNode' .. idx]:addChild(ui.root, ZORDER.DRAGON_CARD)
+
+    -- 착용 룬 보기
+    ui:setRunesVisible(self.m_bRuneInfo)
+    ui:setShadowSpriteVisible(self.m_bRuneInfo)
 
     -- 선택된 드래곤 포지션 노드 zorder 높게 변경 (2D 덱으로 바뀌면서 드래곤 대사가 겹침)
     for i = 1, 5 do
@@ -660,8 +671,16 @@ function UI_PresetDeckSetting_Deck:clear_deck(skip_sort)
     self:setDirtyDeck()
 end
 
-
-
+-------------------------------------
+-- function setVisibleEquippedRunes
+-------------------------------------
+function UI_PresetDeckSetting_Deck:setVisibleEquippedRunes(is_visible)
+    self.m_bRuneInfo = is_visible
+    for _, dragon_card in pairs(self.m_lSettedDragonCard) do
+        dragon_card:setShadowSpriteVisible(is_visible)
+        dragon_card:setRunesVisible(is_visible)
+    end
+end
 
 
 
@@ -900,3 +919,5 @@ function UI_PresetDeckSetting_Deck:moveSelectDragonCard(touch, event)
 		end
 	end
 end
+
+
