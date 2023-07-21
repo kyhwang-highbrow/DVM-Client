@@ -9,15 +9,12 @@ UI_PresetDeckSetting = class(PARENT,{
         m_readySceneSelect = 'UI_ReadySceneNew_Select',
         -- UI_ReadyScene_Deck 관련 변수
         m_readySceneDeck = 'UI_ReadySceneNew_Deck',
-
         m_bArena = 'boolean',
         -- 정렬 도우미
         m_sortManagerDragon = '',
         m_uicSortList = 'UIC_SortList',
 
         m_successCb = '',
-
-
     })
 
 -------------------------------------
@@ -66,6 +63,11 @@ function UI_PresetDeckSetting:initUI()
 
     self.m_readySceneSelect = UI_PresetDeckSetting_Select(self)
     self.m_readySceneDeck = UI_PresetDeckSetting_Deck(self)
+    self.m_readySceneDeck:setOnDeckChangeCB(function() 
+		self:refresh_combatPower()
+		self:refresh_buffInfo()
+        --self:refresh_slotLight()
+	end)
 end
 
 -------------------------------------
@@ -97,7 +99,6 @@ end
 -- function init_sortMgr
 -------------------------------------
 function UI_PresetDeckSetting:init_sortMgr(stage_id)
-
 	-- 정렬 매니저 생성
     self.m_sortManagerDragon = SortManager_Dragon()
 
@@ -137,7 +138,6 @@ function UI_PresetDeckSetting:init_sortMgr(stage_id)
     -- 세이브데이터에 있는 정렬 값을 적용
     self:apply_dragonSort_saveData()
 end
-
 
 -------------------------------------
 -- function condition_deck_idx

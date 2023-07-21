@@ -1294,6 +1294,7 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_autoBtn()
+    local stage_id = self.m_stageID
     local formation = self.m_readySceneDeck.m_currFormation
     local l_dragon_list
 

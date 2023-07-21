@@ -7,7 +7,7 @@ UI_PresetDeckSetting_Deck = class({
     m_uiReadyScene = 'UI_ReadyScene',
     m_bDirtyDeck = 'boolean',
     m_lDeckList = '',
-    
+    m_cbOnDeckChange = '',
 
 
     m_focusDeckSlot = '',
@@ -50,8 +50,6 @@ function UI_PresetDeckSetting_Deck:init(ui_ready_scene)
     self.m_bRuneInfo = false
     self.m_lDeckList = {}
     
-
-
     self.m_currLeader = 0
     self.m_currFormation = 0
     self.m_currFormationLv = 1
@@ -60,9 +58,10 @@ function UI_PresetDeckSetting_Deck:init(ui_ready_scene)
     self:initButton()
     self:init_deck()
 
+    self.m_uiReadyScene.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     self:makeTouchLayer_formation(self.m_uiReadyScene.vars['formationNode'])
-    --self.m_uiReadyScene.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
+
 
 -------------------------------------
 -- function initUI
@@ -384,11 +383,33 @@ function UI_PresetDeckSetting_Deck:setSlot(idx, doid, skip_sort)
 end
 
 -------------------------------------
+-- function setOnDeckChangeCB
+-- @brief
+-------------------------------------
+function UI_PresetDeckSetting_Deck:setOnDeckChangeCB(func)
+    self.m_cbOnDeckChange = func
+end
+
+-------------------------------------
 -- function setDirtyDeck
 -- @brief
 -------------------------------------
 function UI_PresetDeckSetting_Deck:setDirtyDeck()
     self.m_bDirtyDeck = true
+end
+
+-------------------------------------
+-- function update
+-- @brief
+-------------------------------------
+function UI_PresetDeckSetting_Deck:update(dt)
+    if self.m_bDirtyDeck then
+        if self.m_cbOnDeckChange then
+            self.m_cbOnDeckChange()
+        end
+    end
+
+    self.m_bDirtyDeck = false
 end
 
 -------------------------------------
@@ -625,7 +646,7 @@ function UI_PresetDeckSetting_Deck:click_dragonCard(t_dragon_data, skip_sort, id
     local setted_idx = self:getSettedDragonDeckIdx(doid)
 
     if setted_idx > 0 then
-        self:setSlot(idx, nil, skip_sort)
+        self:setSlot(setted_idx, nil, skip_sort)
         self:setFocusDeckSlotEffect(setted_idx)
     else
         local ret = self:setSlot(self.m_focusDeckSlot, doid, skip_sort)
@@ -639,7 +660,6 @@ function UI_PresetDeckSetting_Deck:click_dragonCard(t_dragon_data, skip_sort, id
 
     self:refreshFocusDeckSlot()
 end
-
 
 -------------------------------------
 -- function clear_deck
@@ -663,6 +683,7 @@ function UI_PresetDeckSetting_Deck:clear_deck(skip_sort)
     end
 
     self:setFocusDeckSlotEffect(1)
+
     -- 즉시 정렬
     if (not skip_sort) then
         self.m_uiReadyScene:apply_dragonSort()
@@ -711,9 +732,7 @@ function UI_PresetDeckSetting_Deck:makeTouchLayer_formation(target_node)
                 
     local eventDispatcher = target_node:getEventDispatcher()
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, target_node)
-
 end
-
 
 -------------------------------------
 -- function onTouchBegan
@@ -823,6 +842,8 @@ function UI_PresetDeckSetting_Deck:onTouchEnded(touch, event)
     local local_location = vars['formationNode']:getParent():convertToNodeSpace(location)
     local is_contain = cc.rectContainsPoint(bounding_box, local_location)
     if (not is_contain) then
+
+        cclog('여기 들어온나??')
         
         -- 장착 해제
         local doid = self.m_lDeckList[self.m_selectedDragonSlotIdx]
