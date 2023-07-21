@@ -120,7 +120,7 @@ end
 -- function CheckNickName
 -- @brief 닉네임 검사
 -------------------------------------
-function CheckNickName(str, proceed_func, cancel_func, is_clan)
+function CheckNickName(str, proceed_func, cancel_func, is_clan, is_preset)
 	local t_ban_word = TABLE:get('table_ban_word_chat')
 	if (not t_ban_word) then
 		if (proceed_func) then
@@ -143,6 +143,8 @@ function CheckNickName(str, proceed_func, cancel_func, is_clan)
 		local msg
 		if (is_clan) then
 			msg = Str('클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.', MIN_NICK, MAX_NICK)
+        elseif (is_preset) then
+            msg = Str('덱 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.', MIN_NICK, MAX_NICK)
 		else    
 	        msg = Str('닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.', MIN_NICK, MAX_NICK)
 		end

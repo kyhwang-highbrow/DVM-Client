@@ -4,6 +4,7 @@
 ServerData_DeckPreset = class({
     m_serverData = 'ServerData',
     m_presetMap = 'Map<Key, Value>',
+    m_presetSettingMap = 'Map<Key, Value>',
 })
 
 
@@ -13,18 +14,19 @@ ServerData_DeckPreset = class({
 function ServerData_DeckPreset:init(server_data)
     self.m_serverData = server_data
     self.m_presetMap = {}
+
+    self.m_presetSettingMap = {}
+    self.m_presetSettingMap['clan_raid'] = 6
+    self.m_presetSettingMap['league_raid'] = 9
+    self.m_presetSettingMap['arena'] = 3
+    self.m_presetSettingMap['adv'] = 3
 end
 
 -------------------------------------
 -- function getPresetDeckCategoryMap
 -------------------------------------
 function ServerData_DeckPreset:getPresetDeckCategoryMap()
-    local map = {
-        ['clan_raid'] = 6, 
-        ['league_raid'] = 9, 
-        ['arena'] = 3
-    }
-    return map
+    return self.m_presetSettingMap
 end
 
 -------------------------------------
@@ -32,35 +34,34 @@ end
 -------------------------------------
 function ServerData_DeckPreset:getPresetDeckCategory(deck_key)
     local map = self:getPresetDeckCategoryMap()
-    local deck_category = nil
-    for key, _ in ipairs(map) do
+    for key, count in pairs(map) do
         if string.find(deck_key, key) ~= nil then
-            deck_category = key
-            return deck_category, map[key]
+            return key, count
         end
     end
-    return deck_category
+    return nil
 end
 
 -------------------------------------
 -- function makeDefaultDeck
 -------------------------------------
-function ServerData_DeckPreset:makeDefaultDeck(deck_key)
-    local deck_category, make_count = self:getPresetDeckCategory(deck_key)
+function ServerData_DeckPreset:makeDefaultDeck(deck_name, curr_deck)
+    local deck_category, make_count = self:getPresetDeckCategory(deck_name)
     if deck_category == nil then
         return
     end
 
-    local l_deck, formation, deck_name, leader, tamer_id, formation_lv = g_deckData:getDeck(deck_key)
+    local l_deck, formation, deck_name, leader, tamer_id, formation_lv = g_deckData:getDeck(deck_name)
     local default_idx = 1
     local preset_deck_map = {}    
 
     for i = 1, make_count do        
         local struct_preset_deck = StructPresetDeck()
+        struct_preset_deck.idx = i
         if i == default_idx then
-            struct_preset_deck.l_deck = l_deck
-            struct_preset_deck.formation = formation
-            struct_preset_deck.leader = leader
+            struct_preset_deck.l_deck = curr_deck.l_deck
+            struct_preset_deck.formation = curr_deck.formation
+            struct_preset_deck.leader = curr_deck.leader
         end
 
         preset_deck_map[i] = struct_preset_deck
@@ -90,30 +91,43 @@ end
 -------------------------------------
 -- function setPresetDeckMap
 -------------------------------------
-function ServerData_DeckPreset:setPresetDeckMap(deck_key, deck_preset_map)
-    self.m_presetMap[deck_key] = deck_preset_map
+function ServerData_DeckPreset:setPresetDeckMap(deck_category, deck_preset_map)
+    self.m_presetMap[deck_category] = deck_preset_map
 end
 
 -------------------------------------
 -- function getPresetDeckMap
 -------------------------------------
-function ServerData_DeckPreset:getPresetDeckMap(deck_key)
-    return self.m_presetMap[deck_key] or {}
+function ServerData_DeckPreset:getPresetDeckMap(deck_category)
+    return clone(self.m_presetMap[deck_category]) or {}
 end
 
 -------------------------------------
 -- function getPresetDeck
 -------------------------------------
-function ServerData_DeckPreset:getPresetDeck(deck_key, idx)
-    local deck_preset_map = self:getPresetDeckMap(deck_key)
-    return deck_preset_map[idx] or StructPresetDeck()
+function ServerData_DeckPreset:getPresetDeck(deck_category, idx)
+    local deck_preset_map = self:getPresetDeckMap(deck_category)
+    return deck_preset_map[idx] or StructPresetDeck(idx)
 end
 
 -------------------------------------
--- function isExistPresetDeck
+-- function isExistPresetDeckByDeckName
 -------------------------------------
-function ServerData_DeckPreset:isExistPresetDeck(deck_key)
-    return self.m_presetMap[deck_key] ~= nil 
+function ServerData_DeckPreset:isExistPresetDeckByDeckName(deck_name)
+    cclog('deck_name', deck_name)
+    local deck_category, make_count = self:getPresetDeckCategory(deck_name)
+    if deck_category == nil then
+        return false
+    end
+
+    return self.m_presetMap[deck_category] ~= nil
+end
+
+-------------------------------------
+-- function isExistPresetDeckCategory
+-------------------------------------
+function ServerData_DeckPreset:isExistPresetDeckCategory(deck_category)
+    return self.m_presetMap[deck_category] ~= nil
 end
 
 -------------------------------------
@@ -148,13 +162,13 @@ end
 -------------------------------------
 -- function request_setPresetDeck
 -------------------------------------
-function ServerData_DeckPreset:request_setPresetDeck(deck_key, value, finish_cb, fail_cb)
+function ServerData_DeckPreset:request_setPresetDeck(deck_category, value, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 성공 콜백
     local function success_cb(ret)
-        self:applyPresetDeck(ret['preset'])
+        self:applyPresetDeck(ret['modified_preset'])
 
         if finish_cb then
             finish_cb(ret)
@@ -166,7 +180,7 @@ function ServerData_DeckPreset:request_setPresetDeck(deck_key, value, finish_cb,
     ui_network:setUrl('/preset/set')
     
     ui_network:setParam('uid', uid)
-    ui_network:setParam('key', deck_key)
+    ui_network:setParam('key', deck_category)
     ui_network:setParam('value', value)
 
     ui_network:setMethod('POST')

@@ -7,13 +7,11 @@ UI_PresetDeckSetting_Select = class(PARENT, {
     })
 
 local DC_SCALE = 0.61
-
---[[ 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_PresetDeckSetting_Select:initUI()
-    local vars = self.vars
+    self:onEnterDragonTableView()
 end
 
 -------------------------------------
@@ -27,8 +25,6 @@ end
 -------------------------------------
 function UI_PresetDeckSetting_Select:refresh()
 end
- ]]
-
 
 -------------------------------------
 -- function init_dragonTableView
@@ -88,4 +84,11 @@ function UI_PresetDeckSetting_Select:init_dragonTableView()
     local l_dragon_list = g_dragonsData:getDragonsList() 
     table_view_td:setItemList(l_dragon_list)
     self.m_tableViewExtMine = table_view_td
+end
+
+-------------------------------------
+-- function click_dragonCard
+-------------------------------------
+function UI_PresetDeckSetting_Select:click_dragonCard(t_dragon_data, skip_sort, idx)
+    self.m_uiReadyScene.m_readySceneDeck:click_dragonCard(t_dragon_data, skip_sort, idx)
 end

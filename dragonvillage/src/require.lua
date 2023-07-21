@@ -1739,6 +1739,8 @@ local t_module = {
     'ForestStuffUI',
 
     -- 덱 프리셋
+    'UI_PresetDeckList',
+    'UI_PresetDeckListItem',
     'UI_PresetDeckSetting',
     'UI_PresetDeckSetting_Select',
     'UI_PresetDeckSetting_Deck',

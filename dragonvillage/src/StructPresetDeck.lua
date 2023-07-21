@@ -6,6 +6,7 @@ local PARENT = Structure
 ---@class StructPresetDeck:Structure
 -------------------------------------
 StructPresetDeck = class(PARENT, {
+    idx = 'number', -- 덱 번호
     l_deck = 'Map<idx, doid>',
     name = 'string',
     formation = 'string', -- attack, defense ...
@@ -44,10 +45,77 @@ end
 function StructPresetDeck:init()
     --local t_data = dkjson.decode(json_string)
     self.l_deck = {}
+    self.idx = 0
     self.formation = 'attack'
     self.leader = 0
     self.name = Str('기본 덱')
 end
+
+-------------------------------------
+-- function setDeckMap
+-------------------------------------
+function StructPresetDeck:setDeckMap(l_deck)
+    self.l_deck = l_deck
+end
+
+-------------------------------------
+-- function getDeckMap
+-------------------------------------
+function StructPresetDeck:getDeckMap()
+    return self.l_deck or {}
+end
+
+-------------------------------------
+-- function getIndex
+-------------------------------------
+function StructPresetDeck:getIndex()
+    return self.idx
+end
+
+
+-------------------------------------
+-- function setFormation
+-------------------------------------
+function StructPresetDeck:setFormation(formation)
+    self.formation = formation
+end
+
+-------------------------------------
+-- function getFormation
+-------------------------------------
+function StructPresetDeck:getFormation()
+    return self.formation
+end
+
+-------------------------------------
+-- function setLeader
+-------------------------------------
+function StructPresetDeck:setLeader(leader)
+    self.leader = leader
+end
+
+-------------------------------------
+-- function getLeader
+-------------------------------------
+function StructPresetDeck:getLeader()
+    return self.leader
+end
+
+
+-------------------------------------
+-- function setPresetDeckName
+-------------------------------------
+function StructPresetDeck:setPresetDeckName(name)
+    self.name = name
+end
+
+-------------------------------------
+-- function getPresetDeckName
+-------------------------------------
+function StructPresetDeck:getPresetDeckName()
+    return self.name
+end
+
 
 -------------------------------------
 -- function getJsonString

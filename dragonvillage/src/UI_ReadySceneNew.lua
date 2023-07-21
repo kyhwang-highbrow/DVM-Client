@@ -659,6 +659,9 @@ function UI_ReadySceneNew:initButton()
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
 
+    -- 프리셋
+    vars['presetBtn']:registerScriptTapHandler(function() self:click_presetBtn() end)
+
     vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
 
 	-- 전투 시작
@@ -1199,13 +1202,30 @@ function UI_ReadySceneNew:click_teamBonusBtn()
 end
 
 -------------------------------------
+-- function click_presetBtn
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew:click_presetBtn()
+    local curr_deck_name = g_deckData:getSelectedDeckName()
+
+    local formation = self.m_readySceneDeck.m_currFormation
+    local l_deck = self.m_readySceneDeck.m_lDeckList
+    local leader = self.m_readySceneDeck.m_currLeader
+
+    local struct_preset_deck = StructPresetDeck()
+    struct_preset_deck:setDeckMap(l_deck)
+    struct_preset_deck:setLeader(leader)
+    struct_preset_deck:setFormation(formation)
+
+    UI_PresetDeckList.open(curr_deck_name, struct_preset_deck)
+end
+
+-------------------------------------
 -- function click_autoBtn
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_autoBtn()
-    local stage_id = self.m_stageID
-    UI_PresetDeckSetting.open()
---[[     local formation = self.m_readySceneDeck.m_currFormation
+    local formation = self.m_readySceneDeck.m_currFormation
     local l_dragon_list
 
     local game_mode = self.m_gameMode
@@ -1238,7 +1258,7 @@ function UI_ReadySceneNew:click_autoBtn()
     local helper = DragonAutoSetHelperNew(stage_id, formation, l_dragon_list)
     local l_auto_deck = helper:getAutoDeck()
     
-    self:applyDeck(l_auto_deck) ]]
+    self:applyDeck(l_auto_deck)
 end
 
 -------------------------------------

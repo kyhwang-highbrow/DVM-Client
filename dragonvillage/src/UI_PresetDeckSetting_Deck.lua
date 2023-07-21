@@ -7,7 +7,9 @@ UI_PresetDeckSetting_Deck = class({
     m_uiReadyScene = 'UI_ReadyScene',
     m_bDirtyDeck = 'boolean',
     m_lDeckList = '',
-    m_tDeckMap = '',
+    
+
+
     m_focusDeckSlot = '',
     m_currLeader = '',
     m_currLeaderOID = '',
@@ -16,6 +18,11 @@ UI_PresetDeckSetting_Deck = class({
     m_focusDeckSlotEffect = '',
     m_lSettedDragonCard = 'list',
     m_bSelectedTouch = 'boolean',
+
+
+    -- 드래그로 이동
+    m_selectedDragonSlotIdx = 'number',
+    m_selectedDragonCard = 'UI_DragonCard',
 
 })
 
@@ -42,7 +49,8 @@ function UI_PresetDeckSetting_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
     self.m_bDirtyDeck = true
     self.m_lDeckList = {}
-    self.m_tDeckMap = {}
+
+
     self.m_currLeader = 0
     self.m_currFormation = 0
     self.m_currFormationLv = 1
@@ -71,33 +79,26 @@ end
 -- function init_deck
 -------------------------------------
 function UI_PresetDeckSetting_Deck:init_deck()
-    do -- UI 정리
-        if self.m_lSettedDragonCard then
-            for _,ui in pairs(self.m_lSettedDragonCard) do
-                ui.root:removeFromParent()
-            end
+    if self.m_lSettedDragonCard then
+        for _,ui in pairs(self.m_lSettedDragonCard) do
+            ui.root:removeFromParent()
         end
-        self.m_lSettedDragonCard = {}
     end
 
-    local l_deck, formation, deck_name, leader, tamer_id, formation_lv = g_deckData:getDeck()
+    self.m_lSettedDragonCard = {}
+    local struct_preset_deck = self.m_uiReadyScene:getCurrPresetDeck()
+    local l_deck = struct_preset_deck:getDeckMap()
+    local formation = struct_preset_deck:getFormation()
+    local leader = struct_preset_deck:getLeader()
+
 	l_deck = self:convertSimpleDeck(l_deck)
 
 	self.m_currLeader = leader
-    self.m_lDeckList = {}
-    self.m_tDeckMap = {}
+    self.m_lDeckList = clone(l_deck)
 
-    for idx,doid in pairs(l_deck) do
-        local skip_sort = true
+    for idx, doid in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-
-        if (t_dragon_data) then
-            self:setSlot(idx, doid, skip_sort)
-        end
-        
-        if (idx == leader) then
-            self.m_currLeaderOID = doid
-        end
+        self:makeSettedDragonCard(t_dragon_data, idx)
     end
 
     -- focus deck
@@ -105,8 +106,46 @@ function UI_PresetDeckSetting_Deck:init_deck()
 	-- leader set
 	self:refreshLeader()
     self:setFormation(formation)
-    self:setFormationLv(formation_lv)
+    self:setFormationLv(1)
     self:setDirtyDeck()
+end
+
+-------------------------------------
+-- function getSettedDragonDeckIdx
+-------------------------------------
+function UI_PresetDeckSetting_Deck:getSettedDragonDeckIdx(_doid)
+    for idx, doid in pairs(self.m_lDeckList) do
+        if doid == _doid then
+            return idx
+        end
+    end
+    return 0
+end
+
+-------------------------------------
+-- function getDeckCombatPower
+-- @brief
+-------------------------------------
+function UI_PresetDeckSetting_Deck:getDeckCombatPower()
+    local combat_power = 0
+    for _, doid in pairs(self.m_lDeckList) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        if t_dragon_data then
+            combat_power = combat_power + t_dragon_data:getCombatPower()
+        end
+    end
+
+    local b_arena = self.m_uiReadyScene.m_bArena
+    -- 진형
+    if (not b_arena) then
+        local l_formation = g_formationData:getFormationInfoList()
+	    local curr_formation = self.m_currFormation
+	    local formation_data = l_formation[curr_formation]
+
+        combat_power = combat_power + (formation_data['formation_lv'] * g_constant:get('UI', 'FORMATION_LEVEL_COMBAT_POWER'))
+    end
+
+    return combat_power
 end
 
 -------------------------------------
@@ -236,7 +275,7 @@ function UI_PresetDeckSetting_Deck:getRotatedPosList(formation)
 	local formation = formation or self.m_currFormation
     local interval = 110
     --local b_arena = self.m_uiReadyScene.m_bArena
-    --삼뉴
+    --삼뉴_
     --local t_table = b_arena and TableFormationArena() or TableFormation()
     local t_table = TableFormation()
     local l_pos_list = t_table:getFormationPositionListNew(formation, interval)
@@ -287,9 +326,9 @@ end
 -------------------------------------
 -- function setSlot
 -------------------------------------
-function UI_PresetDeckSetting_Deck:setSlot(idx, doid)
+function UI_PresetDeckSetting_Deck:setSlot(idx, doid, skip_sort)
     do -- 갯수 체크
-        local count = table.count(self.m_tDeckMap)
+        local count = table.count(self.m_lDeckList)
         if self.m_lDeckList[idx] then
             count = (count - 1)
         end
@@ -308,11 +347,9 @@ function UI_PresetDeckSetting_Deck:setSlot(idx, doid)
     -- 설정되어 있는 덱 해제
     if self.m_lDeckList[idx] then
         local prev_doid = self.m_lDeckList[idx]
-        local prev_idx = self.m_tDeckMap[prev_doid]
+        local prev_idx = self:getSettedDragonDeckIdx(prev_doid)
 
         self.m_lDeckList[prev_idx] = nil
-        self.m_tDeckMap[prev_doid] = nil
-
         -- 설정된 드래곤의 카드 삭제
         if self.m_lSettedDragonCard[prev_idx] then
             self.m_lSettedDragonCard[prev_idx].root:removeFromParent()
@@ -326,10 +363,13 @@ function UI_PresetDeckSetting_Deck:setSlot(idx, doid)
     -- 새롭게 생성
     if doid then
         self.m_lDeckList[idx] = doid
-        self.m_tDeckMap[doid] = idx
-
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         self:makeSettedDragonCard(t_dragon_data, idx)
+    end
+
+    -- 즉시 정렬
+    if (not skip_sort) then
+        self.m_uiReadyScene:apply_dragonSort()
     end
 
     self:setDirtyDeck()
@@ -390,7 +430,7 @@ end
 -- @brief
 -------------------------------------
 function UI_PresetDeckSetting_Deck:refreshFocusDeckSlot()
-    local count = table.count(self.m_tDeckMap)
+    local count = table.count(self.m_lDeckList)
     if (count >= TOTAL_POS_CNT) then
         return
     end
@@ -518,7 +558,7 @@ function UI_PresetDeckSetting_Deck:refresh_dragonCard(doid, is_friend)
     end
 
     local item = table_view.m_itemMap[doid]
-    local is_setted = self.m_tDeckMap[doid]
+    local is_setted = self:getSettedDragonDeckIdx(doid) ~= 0
 
     if (not item) then
         return
@@ -547,20 +587,114 @@ function UI_PresetDeckSetting_Deck:setReadySpriteVisible(ui, visible)
 end
 
 -------------------------------------
+-- function dragonPick
+-------------------------------------
+function UI_PresetDeckSetting_Deck:dragonPick(t_dragon_data, focus_deck_slot, delay_rate)
+    local vars = self.m_uiReadyScene.vars
+	-- 감성 말풍선
+    local ui = self.m_lSettedDragonCard[focus_deck_slot]
+    if ui then
+	    local duration = delay_rate and (0.5 * delay_rate) or 0.05
+        local did = t_dragon_data['did']
+	    local delay_action = cc.DelayTime:create(duration)
+	    local cb_action = cc.CallFunc:create(function()
+                local ui_bubble = SensitivityHelper:doActionBubbleText(ui.root, did, nil, 'party_in')
+                doAllChildren(ui_bubble, function(child) child:setGlobalZOrder(100) end)
+		    end)
+	    local action = cc.Sequence:create(delay_action, cb_action)
+	    ui.root:runAction(action)
+    end
+end
+
+-------------------------------------
+-- function click_dragonCard
+-------------------------------------
+function UI_PresetDeckSetting_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
+    local doid = t_dragon_data['id']
+    local setted_idx = self:getSettedDragonDeckIdx(doid)
+
+    if setted_idx > 0 then
+        self:setSlot(idx, nil, skip_sort)
+        self:setFocusDeckSlotEffect(setted_idx)
+    else
+        local ret = self:setSlot(self.m_focusDeckSlot, doid, skip_sort)
+
+        -- 드래곤이 선택되었을 경우
+        if (ret == true) then
+            local delay_rate = idx
+            self:dragonPick(t_dragon_data, self.m_focusDeckSlot, delay_rate)
+        end
+    end
+
+    self:refreshFocusDeckSlot()
+end
+
+
+-------------------------------------
+-- function clear_deck
+-------------------------------------
+function UI_PresetDeckSetting_Deck:clear_deck(skip_sort)
+    do -- UI 정리
+        if self.m_lSettedDragonCard then
+            for _,ui in pairs(self.m_lSettedDragonCard) do
+                ui.root:removeFromParent()
+            end
+        end
+        self.m_lSettedDragonCard = {}
+    end
+
+    local l_refresh_dragon_doid = clone(self.m_lDeckList)
+    self.m_lDeckList = {}
+
+    -- 드래곤 인벤의 카드 갱신을 위해 호출
+    for _,doid in  pairs(l_refresh_dragon_doid) do
+        self:refresh_dragonCard(doid)
+    end
+
+    self:setFocusDeckSlotEffect(1)
+    -- 즉시 정렬
+    if (not skip_sort) then
+        self.m_uiReadyScene:apply_dragonSort()
+    end
+
+    self:setDirtyDeck()
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
 -- function makeTouchLayer_formation
 -- @brief 터치 레이어 생성
 -------------------------------------
 function UI_PresetDeckSetting_Deck:makeTouchLayer_formation(target_node)
     self.m_bSelectedTouch = false
---[[     local listener = cc.EventListenerTouchOneByOne:create()
+    local listener = cc.EventListenerTouchOneByOne:create()
     listener:registerScriptHandler(function(touch, event) return self:onTouchBegan(touch, event) end, cc.Handler.EVENT_TOUCH_BEGAN)
     listener:registerScriptHandler(function(touch, event) return self:onTouchMoved(touch, event) end, cc.Handler.EVENT_TOUCH_MOVED)
     listener:registerScriptHandler(function(touch, event) return self:onTouchEnded(touch, event) end, cc.Handler.EVENT_TOUCH_ENDED)
     listener:registerScriptHandler(function(touch, event) return self:onTouchEnded(touch, event) end, cc.Handler.EVENT_TOUCH_CANCELLED)
                 
     local eventDispatcher = target_node:getEventDispatcher()
-    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, target_node) ]]
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, target_node)
+
 end
+
 
 -------------------------------------
 -- function onTouchBegan
@@ -731,4 +865,38 @@ function UI_PresetDeckSetting_Deck:onTouchEnded(touch, event)
 
         self:refreshFocusDeckSlot()
     end
+end
+
+-------------------------------------
+-- function moveSelectDragonCard
+-------------------------------------
+function UI_PresetDeckSetting_Deck:moveSelectDragonCard(touch, event)
+    local vars = self.m_uiReadyScene.vars
+    
+    local location = touch:getLocation()
+    local local_location = convertToNodeSpace(vars['formationNode'], location)
+
+    local node = self.m_selectedDragonCard.root
+
+    -- 카드를 터치 홀딩 중에 덱 해체를 하거나 할 경우를 대비해 체크
+    if (not node) then
+        return
+    end
+
+    node:setPosition(local_location['x'], local_location['y'])
+		
+	-- 진형을 벗어나는지 체크하여 벗어났다면 감성 말풍선 띄운다.
+	do
+		local bounding_box = vars['formationNode']:getBoundingBox()
+		local local_location = vars['formationNode']:getParent():convertToNodeSpace(location)
+		local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+		if (not is_contain) then
+			-- 감성 말풍선
+			local pre_bubble = node:getChildByTag(TAG_BUBBLE)
+			if (not pre_bubble) then
+				local did = self.m_selectedDragonCard.m_dragonData['did']
+				SensitivityHelper:doActionBubbleText(node, did, nil, 'party_out')
+			end
+		end
+	end
 end
