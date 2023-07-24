@@ -52,6 +52,29 @@ function StructPresetDeck:init()
 end
 
 -------------------------------------
+-- function correctData
+-------------------------------------
+function StructPresetDeck:correctData()
+    local next_leader = 0
+    for key, doid in pairs(self.l_deck) do
+        if g_dragonsData:getDragonDataFromUidRef(doid) == nil then
+            self.l_deck[key] = nil
+            if self.leader == key then
+                self.leader = 0
+            end
+        else
+            if (g_dragonsData:haveLeaderSkill(doid) and next_leader == 0) then
+                next_leader = key
+            end
+        end
+    end
+
+    if self.leader == 0 then
+        self.leader = next_leader
+    end
+end
+
+-------------------------------------
 -- function setDeckMap
 -------------------------------------
 function StructPresetDeck:setDeckMap(l_deck)

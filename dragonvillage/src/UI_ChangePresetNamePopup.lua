@@ -1,5 +1,5 @@
 local PARENT = UI
-local MAX_NICK = 10
+local MAX_NICK = 15
 -------------------------------------
 -- class UI_ChangeNickPopup
 -------------------------------------
@@ -42,10 +42,23 @@ function UI_ChangePresetNamePopup:initUI()
 			-- 닉네임 검증
 			local function proceed_func()
 			end
+
 			local function cancel_func()
+                local msg = Str('덱 이름은 최대 {1}자까지 생성할 수 있습니다.', MAX_NICK)
+                MakeSimplePopup(POPUP_TYPE.OK, msg)
                 editbox:setText('')
 			end
-			CheckNickName(str, proceed_func, cancel_func, nil, true)
+
+            local len = uc_len(str)
+
+            -- 한글, 영어, 가나, 한자만 포함되었는지 확인
+            -- 글자수 확인
+            if (len > MAX_NICK) then
+                if (cancel_func) then
+                    cancel_func()
+                end
+            end
+
         end
     end
 

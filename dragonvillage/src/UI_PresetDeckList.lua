@@ -18,9 +18,8 @@ UI_PresetDeckList = class(PARENT, {
 function UI_PresetDeckList:init(deck_category, curr_deck, cb_deck_change)
     self.m_uiName = 'UI_PresetDeckList'
     self.m_deckCategory = deck_category
-    self.m_presetDeckMap = g_deckPresetData:getPresetDeckMap(deck_category)
     self.m_currDeck = curr_deck
-    self.m_jsonCode = dkjson.encode(self.m_presetDeckMap)
+    
     self.m_dirty = false
     self.m_changeCb = cb_deck_change
 
@@ -46,6 +45,14 @@ end
 -------------------------------------
 function UI_PresetDeckList:initUI()
     local vars = self.vars
+
+    self.m_presetDeckMap = g_deckPresetData:getPresetDeckMap(self.m_deckCategory)
+
+    self.m_jsonCode = dkjson.encode(self.m_presetDeckMap)
+
+    for _, struct_preset_deck in ipairs(self.m_presetDeckMap) do
+        struct_preset_deck:correctData()
+    end
 end
 
 -------------------------------------

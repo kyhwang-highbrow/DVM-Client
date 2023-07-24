@@ -1212,27 +1212,27 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_presetBtn()
-    local curr_deck_name = g_deckData:getSelectedDeckName()
     local l_struct_preset_deck = {}
     local l_deck_name = {}
     local multi_deck_mgr = self.m_multiDeckMgr
     local is_league_raid = false
     local tab = self.m_readySceneDeck.m_selTab
 
-    local cur_deck_name
+    local cur_deck_name = g_deckData:getSelectedDeckName()
     if multi_deck_mgr ~= nil then
         cur_deck_name = multi_deck_mgr:getDeckName(tab)
     end
 
-    if string.find(curr_deck_name, 'league_raid') ~= nil then
+    if string.find(cur_deck_name, 'league_raid') ~= nil then
         l_deck_name = {'league_raid_1', 'league_raid_2', 'league_raid_3'}
         is_league_raid = true
---[[     elseif string.find(curr_deck_name, 'clan_raid') ~= nil then
+--[[     elseif string.find(cur_deck_name, 'clan_raid') ~= nil then
         l_deck_name = {'clan_raid_dark_up', 'clan_raid_dark_down'} ]]
-    elseif string.find(curr_deck_name, 'arena_new') ~= nil then
+    elseif string.find(cur_deck_name, 'arena_new') ~= nil then
         l_deck_name = {'arena_new_a', 'arena_new_d'}
     end
 
+    
     local cur_deck = nil
     for _, deck_str in ipairs(l_deck_name) do
         local l_deck, formation, deck_name, leader, tamer_id, formation_lv = g_deckData:getDeck(deck_str)
@@ -1255,11 +1255,12 @@ function UI_ReadySceneNew:click_presetBtn()
         table.insert(l_struct_preset_deck, struct_preset_deck)
     end
 
-    local dirty = g_deckPresetData:makeDefaultDeck(curr_deck_name, l_struct_preset_deck)
+    local dirty = g_deckPresetData:makeDefaultDeck(cur_deck_name, l_struct_preset_deck)
     local cb_deck_change = function(struct_preset_deck)
         local l_deck = struct_preset_deck:getDeckMap()
-        local formation = struct_preset_deck:getFormation()
+        local formation_new = struct_preset_deck:getFormation()
         local leader = struct_preset_deck:getLeader()
+        local name = struct_preset_deck:getPresetDeckName()
 
         -- 다른 번호 덱에 세팅되어 있는지 체크
         for _, doid in ipairs(l_deck) do
@@ -1277,15 +1278,20 @@ function UI_ReadySceneNew:click_presetBtn()
         local next_func = function ()
             self.m_readySceneDeck:init_deck()
             self:apply_dragonSort()
+            UIManager:toastNotificationGreen(Str('{1}덱으로 설정되었습니다.', name))
         end
-
-        self.m_readySceneDeck.m_currFormation = formation
+        
+        self.m_readySceneDeck:setFormation(formation_new)
+        self.m_readySceneDeck.m_currFormation = formation_new
         self.m_readySceneDeck.m_lDeckList = l_deck
         self.m_readySceneDeck.m_currLeader = leader
+
+        self:refresh_combatPower()
+        self:refresh_buffInfo()
         self.m_readySceneDeck:checkChangeDeck(next_func)
     end
 
-    local ui = UI_PresetDeckList.open(curr_deck_name, cur_deck, cb_deck_change)
+    local ui = UI_PresetDeckList.open(cur_deck_name, cur_deck, cb_deck_change)
     ui:setDirty(dirty)
 end
 

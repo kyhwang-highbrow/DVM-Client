@@ -58,6 +58,9 @@ function UI_PresetDeckListItem:refreshName()
     do -- 이름
         vars['deckNameLabel']:setString(struct_preset_deck:getPresetDeckName()) 
     end
+
+    local l_align_ui_list = {vars['deckNameLabel'], vars['nameBtn']}
+    AlignUIPos(l_align_ui_list, 'HORIZONTAL', 'HEAD', 10)
 end
 
 -------------------------------------

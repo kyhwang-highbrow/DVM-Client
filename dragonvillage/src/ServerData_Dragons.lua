@@ -54,13 +54,6 @@ function ServerData_Dragons:get(key)
 end
 
 -------------------------------------
--- function get
--------------------------------------
-function ServerData_Dragons:get(key)
-    return self.m_serverData:get('dragons', key)
-end
-
--------------------------------------
 -- function getDragonsList
 -------------------------------------
 function ServerData_Dragons:getDragonsList()

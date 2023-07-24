@@ -83,8 +83,10 @@ function UI_PresetDeckSetting:initButton()
     -- 룬 보기
     vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
     -- 테이머 변경
-    vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
-    vars['tamerBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+    --vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
+    --vars['tamerBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+    vars['tamerBtn']:setEnabled(false)
+    vars['tamerBtn']:setBlockMsg('..')
     -- 리더 변경
     vars['leaderBtn']:registerScriptTapHandler(function() self:click_leaderBtn() end)
     -- 진형 관리
@@ -146,7 +148,21 @@ end
 function UI_PresetDeckSetting:condition_deck_idx(a, b)
     local a_deck_idx = self.m_readySceneDeck:getSettedDragonDeckIdx(a['data']['id'])
     local b_deck_idx = self.m_readySceneDeck:getSettedDragonDeckIdx(b['data']['id'])
-    return a_deck_idx > b_deck_idx
+
+    if a_deck_idx > 0 and b_deck_idx > 0 then
+        return nil
+    -- A드래곤만 덱에 설정된 경우
+    elseif a_deck_idx > 0 then
+        return true
+
+    -- B드래곤만 덱에 설정된 경우
+    elseif b_deck_idx > 0 then
+        return false
+
+    else
+        return nil
+    end
+
 end
 
 -------------------------------------
@@ -154,8 +170,7 @@ end
 -- @brief 테이블 뷰에 정렬 적용
 -------------------------------------
 function UI_PresetDeckSetting:apply_dragonSort()
-    local sort_func 
-    sort_func = function(table_view, friend)
+    local sort_func = function(table_view, friend)
         if (table_view == nil) then return end
         local target_sort_mgr = self.m_sortManagerDragon
         target_sort_mgr:sortExecution(table_view.m_itemList)
@@ -493,12 +508,14 @@ end
 -- function click_tamerBtn
 -------------------------------------
 function UI_PresetDeckSetting:click_tamerBtn()
-    local function refresh_cb()
+    
+
+--[[     local function refresh_cb()
 		self:refresh_tamer()
         self:refresh_combatPower()
 		self:refresh_buffInfo()
 	end
-	UINavigator:goTo('tamer', nil, refresh_cb)
+	UINavigator:goTo('tamer', nil, refresh_cb) ]]
 end
 
 -------------------------------------

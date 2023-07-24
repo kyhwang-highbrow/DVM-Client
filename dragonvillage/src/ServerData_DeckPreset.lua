@@ -65,18 +65,21 @@ function ServerData_DeckPreset:makeDefaultDeck(deck_name, curr_deck_list)
         struct_preset_deck.l_deck = curr_deck.l_deck
         struct_preset_deck.formation = curr_deck.formation
         struct_preset_deck.leader = curr_deck.leader           
+        struct_preset_deck.name = string.format('no. %d', default_idx)
         preset_deck_map[default_idx] = struct_preset_deck
     end
 
     for i = #curr_deck_list + 1, make_count do
         local struct_preset_deck = StructPresetDeck()
         struct_preset_deck.idx = i
+        struct_preset_deck.name = string.format('no. %d', i)
         preset_deck_map[i] = struct_preset_deck
     end
 
     self:setPresetDeckMap(deck_category, preset_deck_map)
     return true
 end
+
 
 -------------------------------------
 -- function applyPresetDeck
