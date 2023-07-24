@@ -15,11 +15,10 @@ function ServerData_DeckPreset:init(server_data)
     self.m_serverData = server_data
     self.m_presetMap = {}
     self.m_presetSettingMap = {}
-
-    --self.m_presetSettingMap['clan_raid'] = 6
-    --self.m_presetSettingMap['adv'] = 3
+    
     self.m_presetSettingMap['league_raid'] = 9
     self.m_presetSettingMap['arena'] = 6
+    self.m_presetSettingMap['clan_raid'] = 30
 end
 
 -------------------------------------

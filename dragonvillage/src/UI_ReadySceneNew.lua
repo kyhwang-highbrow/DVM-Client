@@ -1226,8 +1226,16 @@ function UI_ReadySceneNew:click_presetBtn()
     if string.find(cur_deck_name, 'league_raid') ~= nil then
         l_deck_name = {'league_raid_1', 'league_raid_2', 'league_raid_3'}
         is_league_raid = true
---[[     elseif string.find(cur_deck_name, 'clan_raid') ~= nil then
-        l_deck_name = {'clan_raid_dark_up', 'clan_raid_dark_down'} ]]
+    elseif string.find(cur_deck_name, 'clan_raid') ~= nil then
+        table.insert(l_deck_name, cur_deck_name)
+        local other_deck_name
+        if string.find(cur_deck_name,'_up') ~= nil then
+            other_deck_name = string.gsub(cur_deck_name, '_up', '_down')
+        elseif string.find(cur_deck_name,'_up') ~= nil then
+            other_deck_name = string.gsub(cur_deck_name, '_down', '_up')
+        end        
+        table.insert(l_deck_name, other_deck_name)
+
     elseif string.find(cur_deck_name, 'arena_new') ~= nil then
         l_deck_name = {'arena_new_a', 'arena_new_d'}
     end
