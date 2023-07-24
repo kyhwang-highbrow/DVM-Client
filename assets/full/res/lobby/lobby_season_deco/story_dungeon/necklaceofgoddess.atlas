@@ -1,0 +1,62 @@
+
+necklaceofgoddess.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+acc1
+  rotate: false
+  xy: 2, 2
+  size: 69, 81
+  orig: 69, 81
+  offset: 0, 0
+  index: -1
+acc1_light_01
+  rotate: false
+  xy: 110, 110
+  size: 69, 81
+  orig: 69, 81
+  offset: 0, 0
+  index: -1
+acc1_light_02
+  rotate: false
+  xy: 585, 316
+  size: 69, 81
+  orig: 69, 81
+  offset: 0, 0
+  index: -1
+acc1_light_03
+  rotate: false
+  xy: 687, 419
+  size: 69, 81
+  orig: 69, 81
+  offset: 0, 0
+  index: -1
+acc2
+  rotate: false
+  xy: 181, 125
+  size: 78, 66
+  orig: 78, 66
+  offset: 0, 0
+  index: -1
+all_03_light_1
+  rotate: false
+  xy: 2, 85
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+effect_01
+  rotate: false
+  xy: 585, 399
+  size: 100, 101
+  orig: 100, 101
+  offset: 0, 0
+  index: -1
+statue
+  rotate: true
+  xy: 2, 193
+  size: 307, 581
+  orig: 307, 581
+  offset: 0, 0
+  index: -1

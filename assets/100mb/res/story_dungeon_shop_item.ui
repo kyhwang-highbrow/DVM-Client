@@ -147,9 +147,9 @@
 				screen_ui = 0;
 				lua_name = 'buyBtn';
 				enable = true;
-				normal = 'ui/buttons/story_dungeon_shop_btn_0301.png';
-				selected = 'ui/buttons/story_dungeon_shop_btn_0302.png';
-				disable = 'ui/buttons/story_dungeon_shop_btn_0302.png';
+				normal = 'ui/buttons/story_dungeon_shop_btn_0401.png';
+				selected = 'ui/buttons/story_dungeon_shop_btn_0402.png';
+				disable = 'ui/buttons/story_dungeon_shop_btn_0402.png';
 				image_type = 1;
 			};
 			[3] =

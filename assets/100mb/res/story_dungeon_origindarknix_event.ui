@@ -5,31 +5,6 @@
 	{
 		[1] =
 		{
-			type = 'LayerColor';
-			ui_name = '';
-			flag = '';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 930;
-			height = 640;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			screen_ui = 0;
-			lua_name = '';
-			color = { 136; 240; 240; };
-			opacity = 255;
-			src_blend = 770;
-			dest_blend = 771;
-		};
-		[2] =
-		{
 			[1] =
 			{
 				type = 'Sprite';
@@ -50,7 +25,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = '';
-				file_name = 'ui/event/bg_story_dungeon_event.png';
+				file_name = 'ui/event/bg_story_dungeon_event_origindarknix.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -88,8 +63,8 @@
 				type = 'Node';
 				ui_name = '';
 				flag = '';
-				x = 0.000000;
-				y = -30.000000;
+				x = -15.000000;
+				y = -7.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -127,7 +102,7 @@
 			alpha_threshold = 1.000000;
 			is_invert = false;
 		};
-		[3] =
+		[2] =
 		{
 			[1] =
 			{
@@ -352,7 +327,7 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
-					use_auto_fontsize = false;
+					use_auto_fontsize = true;
 					has_bold = false;
 				};
 				type = 'Button';
@@ -820,7 +795,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = '';
-				file_name = 'ui/typo/ko/typo_story_dungeon_event.png';
+				file_name = 'ui/typo/ko/typo_story_dungeon_event_origindarknix.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -835,13 +810,13 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					flag = '';
-					x = 0.000000;
-					y = -80.000000;
+					x = -2.000000;
+					y = -52.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 225;
-					height = 95;
+					width = 143;
+					height = 70;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -851,14 +826,14 @@
 					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 22;
 					text = '던전\n바로가기';
 					h_alignment = 1;
 					v_alignment = 0;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 225;
-					dimension_height = 95;
+					dimension_width = 143;
+					dimension_height = 70;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -871,21 +846,21 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
-					use_auto_fontsize = false;
+					use_auto_fontsize = true;
 					has_bold = false;
 				};
 				type = 'Button';
 				ui_name = '';
 				flag = '';
 				x = 375.000000;
-				y = -85.000000;
+				y = -109.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 144;
-				height = 144;
-				scale_x = 0.600000;
-				scale_y = 0.600000;
+				width = 110;
+				height = 110;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;

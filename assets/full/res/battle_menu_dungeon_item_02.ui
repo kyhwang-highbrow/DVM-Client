@@ -11,6 +11,7 @@
 				{
 					type = 'Visual';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -24,6 +25,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'itemVisual';
 					file_name = 'ui/a2d/battle_menu_dungeon/battle_menu_dungeon.vrp';
 					auto_play = true;
@@ -36,6 +38,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -208.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -49,6 +52,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'dscLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
@@ -71,11 +75,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -134.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -89,6 +96,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'titleLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
@@ -111,6 +119,8 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[4] =
 				{
@@ -118,6 +128,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = -64.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -131,6 +142,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'lockLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 26;
@@ -153,11 +165,14 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					[2] =
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -171,6 +186,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/icons/lock_0101.png';
 						color = { 255; 255; 255; };
@@ -182,6 +198,7 @@
 					};
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 95.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -195,6 +212,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'lockSprite';
 					file_name = 'ui/frames/battle_menu_competition_lock_0102.png';
 					color = { 255; 255; 255; };
@@ -208,6 +226,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -64.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -221,6 +240,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'betaLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
@@ -243,11 +263,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[6] =
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = -65.000000;
 					y = -70.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -261,6 +284,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'HotSprite';
 					file_name = 'ui/icons/hot_time/hot_time_noti.png';
 					color = { 255; 255; 255; };
@@ -270,8 +294,81 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
+				[7] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						flag = '';
+						x = 0.000000;
+						y = 5.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 36;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						screen_ui = 0;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = '소탕 가능!';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 0; };
+						opacity = 255;
+						dimension_width = 150;
+						dimension_height = 36;
+						letter_spacing = 0.000000;
+						has_stroke = true;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 165; 42; 0; };
+						has_shadow = false;
+						shadow_color = { 165; 42; 0; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
+						use_auto_fontsize = true;
+						has_bold = false;
+					};
+					type = 'Scale9Sprite';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = 134.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 54;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					screen_ui = 0;
+					lua_name = 'speechSprite';
+					file_name = 'ui/frames/event_0201.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -285,6 +382,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'enterBtn';
 				enable = true;
 				normal = '';
@@ -294,6 +392,7 @@
 			};
 			type = 'Menu';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
@@ -307,10 +406,12 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = 'swallowTouchMenu';
 		};
 		type = 'Menu';
 		ui_name = '';
+		flag = '';
 		x = 0.000000;
 		y = 0.000000;
 		dock_point = { 0.500000; 0.500000; };
@@ -324,6 +425,7 @@
 		skew_y = 0.000000;
 		rotation = 0.000000;
 		visible = true;
+		screen_ui = 0;
 		lua_name = '';
 	};
 };

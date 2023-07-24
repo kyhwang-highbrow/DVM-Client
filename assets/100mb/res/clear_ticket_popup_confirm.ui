@@ -9,19 +9,21 @@
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
 				width = 0;
-				height = 0;
+				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
@@ -37,6 +39,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -50,6 +53,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
@@ -72,11 +76,14 @@
 					shadow_opacity = 150;
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
-				y = 50.000000;
+				y = 3.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -88,6 +95,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'okBtn';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0101.png';
@@ -101,6 +109,7 @@
 				{
 					type = 'LayerColor';
 					ui_name = 'hide';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -114,6 +123,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					color = { 255; 255; 255; };
 					opacity = 30;
@@ -122,8 +132,9 @@
 				};
 				type = 'Node';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
-				y = -38.000000;
+				y = -8.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -135,33 +146,37 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'itemNode';
 			};
 			[4] =
 			{
 				type = 'Menu';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
-				y = -37.000000;
+				y = -40.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 700;
-				height = 125;
+				width = 780;
+				height = 200;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'dropRewardMenu';
 			};
 			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
-				y = -70.000000;
+				y = -38.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -173,10 +188,11 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '획득한 재화는 합산하여 표기됩니다.';
+				text = '획득한 재화는 합산하여 표기됩니다. (일부 아이템은 예외)';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -195,6 +211,8 @@
 				shadow_opacity = 150;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
+				use_auto_fontsize = false;
+				has_bold = false;
 			};
 			[6] =
 			{
@@ -204,6 +222,7 @@
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -217,6 +236,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = false;
+						screen_ui = 0;
 						lua_name = 'userExpAddGg';
 						file_name = 'ui/gauges/result_user_exp_gg_0103.png';
 						color = { 255; 255; 255; };
@@ -234,6 +254,7 @@
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -247,6 +268,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = 'userExpGg';
 						file_name = 'ui/gauges/result_user_exp_gg_0102.png';
 						color = { 255; 255; 255; };
@@ -264,6 +286,7 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -277,6 +300,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = false;
+						screen_ui = 0;
 						lua_name = 'userMaxSprite';
 						file_name = 'ui/gauges/result_user_exp_gg_0104.png';
 						color = { 255; 255; 255; };
@@ -288,6 +312,7 @@
 					};
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 2.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -301,6 +326,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/gauges/result_user_exp_gg_0101.png';
 					color = { 255; 255; 255; };
@@ -314,6 +340,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = -134.000000;
 					y = -2.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -327,6 +354,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'userLvLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
@@ -349,11 +377,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 149.000000;
 					y = -2.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -367,6 +398,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'userExpLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
@@ -389,11 +421,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[4] =
 				{
 					type = 'Visual';
 					ui_name = '';
+					flag = '';
 					x = -93.000000;
 					y = -40.000000;
 					dock_point = { 0.500000; 1.000000; };
@@ -407,6 +442,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
+					screen_ui = 0;
 					lua_name = 'userLvUpVisual';
 					file_name = 'ui/a2d/result_level_up/result_level_up.vrp';
 					auto_play = false;
@@ -417,8 +453,9 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
-				y = 63.000000;
+				y = 95.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -430,6 +467,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/frames/title_frame_0101.png';
 				color = { 255; 255; 255; };
@@ -443,8 +481,9 @@
 			{
 				type = 'LabelTTF';
 				ui_name = 'rich';
+				flag = '';
 				x = 0.000000;
-				y = -35.000000;
+				y = -3.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -456,6 +495,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'resultLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
@@ -478,9 +518,12 @@
 				shadow_opacity = 150;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
+				use_auto_fontsize = false;
+				has_bold = false;
 			};
 			type = 'Menu';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
@@ -494,10 +537,12 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = '';
 		};
 		type = 'Menu';
 		ui_name = '';
+		flag = '';
 		x = 0.000000;
 		y = 0.000000;
 		dock_point = { 0.500000; 0.500000; };
@@ -511,6 +556,7 @@
 		skew_y = 0.000000;
 		rotation = 0.000000;
 		visible = true;
+		screen_ui = 0;
 		lua_name = '';
 	};
 };
