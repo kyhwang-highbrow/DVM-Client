@@ -275,11 +275,8 @@ function UI_PresetDeckSetting_Deck:getRotatedPosList(formation)
 	local formation = formation or self.m_currFormation
     local interval = 110
     local b_arena = self.m_uiReadyScene.m_bArena
-
-    cclog('b_arena', b_arena)
     local t_table = b_arena and TableFormationArena() or TableFormation()
     local l_pos_list = t_table:getFormationPositionListNew(formation, interval)
-
 	local ret_list = {}
 
 	for i, v in ipairs(l_pos_list) do
