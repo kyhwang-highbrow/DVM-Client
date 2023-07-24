@@ -17,7 +17,7 @@ return {['악에 사로잡힌 몬스터의 습격은 끝없는 불행을 만들�
 ['모든 생명을 지키기 위해서만 어둠의 힘을 사용하겠다고요.']='Para proteger toda vida, solo usaré el poder de la oscuridad.',
 ['어둠은 마이아 아오라의 다정한 빛으로 변화를 맞이하였다.']='La oscuridad ha sido recibida con la suave luz cálida de Maya, ahora.',
 ['다크닉스는 다짐하고 또 다짐했다.']='Darknix se comprometió y se comprometió una vez más.',
-['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='Si ella es la luz deslumbrante, yo seré la oscuridad que la protege detrás de ella\'',
+['\'그녀가 눈이 부신 빛이라면 나 자신은 그 뒤를 지키는 어둠이 되리라\'']='\'Si ella es la luz deslumbrante, yo seré la oscuridad que la protege detrás de ella\'',
 ['\'너무나도 한심하다... 이리 나약한 존재가 삶을 살아간다니!\'']='Eres tan patético... ¡Qué vergüenza que una existencia tan débil viva su vida!\'',
 ['다크닉스는 수많은 생명을 살리면서도 이들의 약함에 한숨이 나왔다.']='Darknix salvó innumerables vidas, pero también suspiró por sus debilidades.',
 ['하지만 그런 생각이 들 때면, 마이아 아오라의 목소리가 어디선가 들려오는 기분이었다.']='Sin embargo, cuando tenía ese pensamiento, me sentía como si escuchara la voz de Maya, ahora en algún lugar.',
