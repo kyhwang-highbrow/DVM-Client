@@ -1,4 +1,6 @@
-return {['악에 사로잡힌 몬스터의 습격은 끝없는 불행을 만들었다.']='El ataque de los monstruos atrapados por la maldad ha causado una infelicidad interminable.',
+return {['10초마다 피해량이 증가합니다. 이 효과는 무한히 중첩되며 해제할 수 없습니다.']='Cada 10 segundos, el daño aumenta. Este efecto se acumula infinitamente y no se puede desactivar.',
+['파멸']='Apocalipsis',
+['악에 사로잡힌 몬스터의 습격은 끝없는 불행을 만들었다.']='El ataque de los monstruos atrapados por la maldad ha causado una infelicidad interminable.',
 ['무고한 생명의 간절한 소망이 담긴 빛은 하늘 위 신에게로 향했다.']='La luz llena de ferviente esperanza por las vidas inocentes se dirigió hacia el dios en el cielo.',
 ['그 빛이 닿은 것일까. 불행으로 뒤덮였던 어둑한 하늘에서 강한 빛을 내는 두 드래곤이 나타났다.']='¿Será eso lo que tocó la luz? Dos dragones aparecieron emitendo una fuerte luz desde el oscuro cielo que estaba cubierto de desgracia.',
 ['세상을 어지럽히는 자들이여, 빛의 힘으로 정화하리라!']='¡Oh, aquellos que perturban el mundo, serán purificados por el poder de la luz!',
