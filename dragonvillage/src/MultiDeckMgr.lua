@@ -378,36 +378,6 @@ function MultiDeckMgr:sort_multi_deck_raid(a, b)
     end
 end
 
-
--------------------------------------
--- function checkSameDidAnoterDeckNew
--- @brief 다른 위치 덱 - 동종 동속성 드래곤 검사 
--------------------------------------
-function MultiDeckMgr:checkSameDidAnoterDeckNew(doid)
-    if (not doid) then
-        return false
-    end
-
-    local deck_name = g_deckData:getSelectedDeckName()
-    local is_up = string.find(deck_name, 'up')
-
-    local deck_var = pl.stringx.replace(deck_name, 'up', '1')
-    deck_var = pl.stringx.replace(deck_name, 'down', '2')
-
-    local another_deck = self[deck_var]
-    for e_doid, _ in pairs(another_deck) do
-        if (g_dragonsData:isSameDid(doid, e_doid)) then
-            local another_pos = is_up and 'up' or 'down'
-            local team_name = self:getTeamName(another_pos)
-            local msg = Str('{1} 출전중인 드래곤과 같은 드래곤은 동시에 출전할 수 없습니다.', team_name)
-            UIManager:toastNotificationRed(msg)
-            return true
-        end
-    end
-
-    return false
-end
-
 -------------------------------------
 -- function checkSameDidAnoterDeck
 -- @brief 다른 위치 덱 - 동종 동속성 드래곤 검사 

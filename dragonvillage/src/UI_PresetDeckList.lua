@@ -70,7 +70,7 @@ function UI_PresetDeckList:initTableView()
 
     -- 테이블뷰 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(700, 155)
+    table_view.m_defaultCellSize = cc.size(600, 155)
     table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(deck_map)

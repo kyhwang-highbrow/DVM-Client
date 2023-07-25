@@ -95,7 +95,7 @@ function UI_PresetDeckListItem:refreshTableView()
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(100, 100)
+    table_view_td.m_cellSize = cc.size(95, 95)
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_CharacterCard, create_func)
     table_view_td:setCellCreateInterval(0)
