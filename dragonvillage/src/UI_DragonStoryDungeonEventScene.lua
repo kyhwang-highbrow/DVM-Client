@@ -12,22 +12,22 @@ UI_DragonStoryDungeonEventScene = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:init(move_arg)
-    local vars = self:load('story_dungeon_scene.ui')
     self.m_seasonId = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
-
-    cclog('시즌 아이디 : ', self.m_seasonId)
+    self:load('story_dungeon_scene.ui')
     UIManager:open(self, UIManager.SCENE)
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonStoryDungeonEventScene')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonStoryDungeonEventScene') -- backkey 지정
+
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+
+    cclog('시즌 아이디 : ', self.m_seasonId)
     self:doActionReset()
     self:doAction(nil, false)
     self:initUI()
 	self:initButton()
     self:refresh()
-    self:makeNestModeTableView()
-    self:sceneFadeInAction()
+    self:makeTableView()
+    --self:sceneFadeInAction()
 end
 
 -------------------------------------
@@ -75,7 +75,7 @@ end
 -------------------------------------
 -- function makeNestModeTableView
 -------------------------------------
-function UI_DragonStoryDungeonEventScene:makeNestModeTableView()
+function UI_DragonStoryDungeonEventScene:makeTableView()
     local node = self.vars['detailTableViewNode']
     local vars = self.vars
     
