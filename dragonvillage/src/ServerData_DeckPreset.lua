@@ -124,10 +124,6 @@ end
 -- function isExistPresetDeckByDeckName
 -------------------------------------
 function ServerData_DeckPreset:isExistPresetDeckByDeckName(deck_name)
-    if IS_TEST_MODE() == false then
-        return false
-    end
-
     local deck_category, make_count = self:getPresetDeckCategory(deck_name)
     if deck_category == nil then
         return false
@@ -140,13 +136,6 @@ end
 -- function request_info
 -------------------------------------
 function ServerData_DeckPreset:request_info(finish_cb, fail_cb)
-    if IS_TEST_MODE() == false then
-        if finish_cb then
-            finish_cb()
-        end
-        return
-    end
-
     -- 유저 ID
     local uid = g_userData:get('uid')
 
