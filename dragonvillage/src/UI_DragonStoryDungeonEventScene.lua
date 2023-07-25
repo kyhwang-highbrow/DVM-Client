@@ -14,12 +14,9 @@ UI_DragonStoryDungeonEventScene = class(PARENT, {
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:init(move_arg)
     self.m_seasonId, self.m_seasonCode = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
-    
     self:load('story_dungeon_scene.ui')
-
     UIManager:open(self, UIManager.SCENE)
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonStoryDungeonEventScene') -- backkey 지정
-    
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
 
@@ -27,12 +24,10 @@ function UI_DragonStoryDungeonEventScene:init(move_arg)
     self:doActionReset()
     self:doAction(nil, false)
 
-
     self:initUI()
 	self:initButton()
     self:refresh()
     self:makeTableView()
-    --self:sceneFadeInAction()
 end
 
 -------------------------------------
@@ -53,12 +48,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:initUI()
-    local vars = self.vars	
-
---[[     -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
-    local scr_size = cc.Director:getInstance():getWinSize()
-    vars['bgVisual']:setScale(scr_size.width / 1280)
-    vars['bgVisual']:setLocalZOrder(-1) ]]
+    local vars = self.vars
 
     local function update(dt)
         local is_noti_on = g_highlightData:isHighlightStoryDungeonQuest()
@@ -69,13 +59,13 @@ function UI_DragonStoryDungeonEventScene:initUI()
         vars['notiSprite']:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
     end
 
---[[     do -- 배경 이미지
+    do -- 배경 이미지
         local bg_res = TableStoryDungeonEvent:getStoryDungeonEventBgRes(self.m_seasonId)
         local animator = MakeAnimator(bg_res)
 
         vars['bgNode']:removeAllChildren()
         vars['bgNode']:addChild(animator.m_node)
-    end ]]
+    end
 end
 
 -------------------------------------
