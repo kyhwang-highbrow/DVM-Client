@@ -22,23 +22,14 @@ function UI_StoryDungeonEventShop:init()
     UIManager:open(self, UIManager.POPUP)
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_StoryDungeonEventShop')
 
-    self:doActionReset()
-    self:initMember()
+    -- @UI_ACTION
+    -- self:doActionReset()
+    -- self:doAction(nil, false)
+
     self:initUI()
     self:initTableView()
     self:initButton()
     self:refresh()
-
-    -- 시즌 타이머
-    --self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
-end
-
--------------------------------------
--- function initUI
--------------------------------------
-function UI_StoryDungeonEventShop:initMember() 
-    local vars = self.vars
-    self.m_listNode = vars['listNode']
 end
 
 -------------------------------------
@@ -46,7 +37,6 @@ end
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 -------------------------------------
 function UI_StoryDungeonEventShop:initParentVariable()
-
     self.m_titleStr = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
     self.m_subCurrency = TableStoryDungeonEvent:getStoryDungeonEventTokentKey(self.m_seasonId)
     self.m_bVisible = true
@@ -117,16 +107,11 @@ function UI_StoryDungeonEventShop:refresh()
 end
 
 -------------------------------------
--- function update
--------------------------------------
-function UI_StoryDungeonEventShop:update(dt)
-
-end
-
--------------------------------------
 -- function initUI
 -------------------------------------
 function UI_StoryDungeonEventShop:initTableView() 
+    self.m_listNode = self.vars['listNode']
+
     local shop_tab_key = TableStoryDungeonEvent:getStoryDungeonEventShopTabKey(self.m_seasonId)
     local list_table_node = self.m_listNode
     local l_item_list = g_shopDataNew:getProductList(shop_tab_key)
@@ -162,22 +147,6 @@ function UI_StoryDungeonEventShop:initTableView()
 end
 
 -------------------------------------
--- function onClose
--- @brief pure virtual function of ITopUserInfo_EventListener 
--------------------------------------
-function UI_StoryDungeonEventShop:onClose() 
-    self:releaseI_TopUserInfo_EventListener()
-    g_currScene:removeBackKeyListener(self)
-end
-
--------------------------------------
--- function onFocus
--- @brief pure virtual function of ITopUserInfo_EventListener 
--------------------------------------
-function UI_StoryDungeonEventShop:onFocus() 
-end
-
--------------------------------------
 -- function click_gachaBtn
 -------------------------------------
 function UI_StoryDungeonEventShop:click_gachaBtn()
@@ -197,6 +166,6 @@ end
 -------------------------------------
 -- function UI_StoryDungeonEventShop.open()
 -------------------------------------
-function UI_StoryDungeonEventShop.open(season_id)
-    UI_StoryDungeonEventShop(season_id)
+function UI_StoryDungeonEventShop.open()
+    UI_StoryDungeonEventShop()
  end

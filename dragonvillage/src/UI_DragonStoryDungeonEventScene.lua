@@ -6,24 +6,28 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_DragonStoryDungeonEventScene = class(PARENT, {
     m_tableView = 'UIC_TableView', -- 스토리 던전
     m_seasonId = 'string', -- 시즌 아이디
+    m_seasonCode = 'string',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:init(move_arg)
-    self.m_seasonId = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+    self.m_seasonId, self.m_seasonCode = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
     self.m_uiName = 'UI_DragonStoryDungeonEventScene'
-    self:load('story_dungeon_scene.ui')
+    self:load(string.format('story_dungeon_scene_%s.ui', self.m_seasonCode))
+
     UIManager:open(self, UIManager.SCENE)
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonStoryDungeonEventScene') -- backkey 지정
-
+    
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
 
     cclog('시즌 아이디 : ', self.m_seasonId)
-    self:doActionReset()
-    self:doAction(nil, false)
+    --self:doActionReset()
+    --self:doAction(nil, false)
+
+
     self:initUI()
 	self:initButton()
     self:refresh()
@@ -187,7 +191,7 @@ end
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:click_shopBtn()
     require('UI_StoryDungeonEventShop')
-    UI_StoryDungeonEventShop(self.m_seasonId)
+    UI_StoryDungeonEventShop.open()
 end
 
 -------------------------------------
