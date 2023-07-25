@@ -25,7 +25,7 @@ function UI_StoryDungeonEventShop:init()
     -- @UI_ACTION
     -- self:doActionReset()
     -- self:doAction(nil, false)
-
+    
     self:initUI()
     self:initTableView()
     self:initButton()
@@ -41,6 +41,7 @@ function UI_StoryDungeonEventShop:initParentVariable()
     self.m_subCurrency = TableStoryDungeonEvent:getStoryDungeonEventTokentKey(self.m_seasonId)
     self.m_bVisible = true
     self.m_bUseExitBtn = true
+    self.m_useTopUserInfo = false
 end
 
 -------------------------------------
