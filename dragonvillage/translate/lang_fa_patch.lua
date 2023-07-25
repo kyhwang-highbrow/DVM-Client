@@ -1,5 +1,9 @@
-return {['10초마다 피해량이 증가합니다. 이 효과는 무한히 중첩되며 해제할 수 없습니다.']='The damage increases every 10 seconds. This effect stacks infinitely and cannot be removed.',
-['파멸']='Ruin',
+return {['모든 증오를 담아 강력한 마법으로 적에게 피해를 줍니다.\n치명 확률에 따라 위력이 크게 증가합니다.\n보스 공격 시 타겟이 적을수록 피해량이 증가합니다.']='It inflicts damage on enemies with powerful magic, containing all hatred.\nIts power increases significantly depending on the critical chance.\nWhen attacking a boss, the damage increases as the target becomes an enemy.',
+['지속시간 16초 증가']='Duration increased by 16 sec.',
+['지속시간 24초 증가']='Duration increased by 24 sec.',
+['파멸의 징벌']='The Punishment of ruin',
+['파멸의 징벌+']='The Punishment of ruin+',
+['혼돈의 그림자']='Shadow of chaos',
 ['악에 사로잡힌 몬스터의 습격은 끝없는 불행을 만들었다.']='The attack of the monster possessed by evil has created endless misery.',
 ['무고한 생명의 간절한 소망이 담긴 빛은 하늘 위 신에게로 향했다.']='The light filled with the desperate hope of innocent lives headed towards the gods in the sky.',
 ['그 빛이 닿은 것일까. 불행으로 뒤덮였던 어둑한 하늘에서 강한 빛을 내는 두 드래곤이 나타났다.']='I wonder if that light is what it touched. Two strong dragons, shining brightly, appeared from the dark sky that had been covered with misfortune.',
@@ -109,4 +113,10 @@ return {['10초마다 피해량이 증가합니다. 이 효과는 무한히 중�
 ['사용 할 이름을 입력하세요.']='Please enter the name to use.',
 ['적용하기']='Apply',
 ['최상급 어둠의 열매 100개']='Top Tier Dark Fruit X100',
-['크킄... 마지막 선물이다.']='Hehe... It\'s the last gift.'}
+['크킄... 마지막 선물이다.']='Hehe... It\'s the last gift.',
+['10초마다 피해량이 증가합니다. 이 효과는 무한히 중첩되며 해제할 수 없습니다.']='The damage increases every 10 seconds. This effect stacks infinitely and cannot be removed.',
+['파멸']='Ruin',
+['DVC 길드명 계승 이벤트']='DVC 길드명 계승 이벤트',
+['고정적인 효과를 가진 룬']='고정적인 효과를 가진 룬',
+['소탕 가능!']='소탕 가능!',
+['테스트 룬']='테스트 룬'}

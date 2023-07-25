@@ -1,5 +1,9 @@
-return {['10초마다 피해량이 증가합니다. 이 효과는 무한히 중첩되며 해제할 수 없습니다.']='Cada 10 segundos, el daño aumenta. Este efecto se acumula infinitamente y no se puede desactivar.',
-['파멸']='Apocalipsis',
+return {['모든 증오를 담아 강력한 마법으로 적에게 피해를 줍니다.\n치명 확률에 따라 위력이 크게 증가합니다.\n보스 공격 시 타겟이 적을수록 피해량이 증가합니다.']='Inflige daño a los enemigos con poderosos hechizos cargados de odio.\nEl poder aumenta significativamente según la probabilidad de golpe crítico.\nEl daño aumenta en proporción al objetivo enemigo al atacar a los jefes.',
+['지속시간 16초 증가']='Incremento del Daño Continuo en 16 segundo.',
+['지속시간 24초 증가']='Incremento del Daño Continuo en 24 segundo.',
+['파멸의 징벌']='La condena del apocalipsis',
+['파멸의 징벌+']='La condena del apocalipsis+',
+['혼돈의 그림자']='Sombra del caos',
 ['악에 사로잡힌 몬스터의 습격은 끝없는 불행을 만들었다.']='El ataque de los monstruos atrapados por la maldad ha causado una infelicidad interminable.',
 ['무고한 생명의 간절한 소망이 담긴 빛은 하늘 위 신에게로 향했다.']='La luz llena de ferviente esperanza por las vidas inocentes se dirigió hacia el dios en el cielo.',
 ['그 빛이 닿은 것일까. 불행으로 뒤덮였던 어둑한 하늘에서 강한 빛을 내는 두 드래곤이 나타났다.']='¿Será eso lo que tocó la luz? Dos dragones aparecieron emitendo una fuerte luz desde el oscuro cielo que estaba cubierto de desgracia.',
@@ -106,4 +110,10 @@ return {['10초마다 피해량이 증가합니다. 이 효과는 무한히 중�
 ['사용 할 이름을 입력하세요.']='Por favor, ingresa el nombre que deseas utilizar.',
 ['적용하기']='Aplicar',
 ['최상급 어둠의 열매 100개']='Fruto de Oscuridad de Rango Superior X100',
-['크킄... 마지막 선물이다.']='¡Jajaja... es el último regalo.'}
+['크킄... 마지막 선물이다.']='¡Jajaja... es el último regalo.',
+['10초마다 피해량이 증가합니다. 이 효과는 무한히 중첩되며 해제할 수 없습니다.']='Cada 10 segundos, el daño aumenta. Este efecto se acumula infinitamente y no se puede desactivar.',
+['파멸']='Apocalipsis',
+['DVC 길드명 계승 이벤트']='DVC 길드명 계승 이벤트',
+['고정적인 효과를 가진 룬']='고정적인 효과를 가진 룬',
+['소탕 가능!']='소탕 가능!',
+['테스트 룬']='테스트 룬'}
