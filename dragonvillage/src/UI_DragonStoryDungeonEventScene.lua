@@ -13,6 +13,7 @@ UI_DragonStoryDungeonEventScene = class(PARENT, {
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:init(move_arg)
     self.m_seasonId = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+    self.m_uiName = 'UI_DragonStoryDungeonEventScene'
     self:load('story_dungeon_scene.ui')
     UIManager:open(self, UIManager.SCENE)
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonStoryDungeonEventScene') -- backkey 지정
@@ -36,7 +37,7 @@ end
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_DragonStoryDungeonEventScene'
+    
     self.m_titleStr = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
     self.m_subCurrency = TableStoryDungeonEvent:getStoryDungeonEventTokentKey(self.m_seasonId)
     self.m_bUseExitBtn = true
