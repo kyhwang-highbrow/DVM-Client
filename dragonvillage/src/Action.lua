@@ -361,6 +361,33 @@ function cca.getBrrrAction(cnt)
 end
 
 -------------------------------------
+-- function getBrrr2Action
+-- @brief 부르르르 떠는 액션
+-------------------------------------
+function cca.getBrrr2Action(node, cnt, amp)
+    local func
+
+    func = function ()
+        if cnt == 0 then
+            return
+        end
+
+        local amp = amp or 5
+        local x = math_random(0, amp * 2) - amp
+        local y = math_random(0, amp * 2) - amp
+        
+        cnt = cnt - 1
+        
+        local brrr = cc.MoveBy:create(0.05, cc.p(x, y))
+        local sequence_brrr = cc.Sequence:create(brrr, brrr:reverse(), cc.CallFunc:create(func))
+        
+        node:runAction(sequence_brrr)
+    end
+    
+    node:runAction(cc.CallFunc:create(func))
+end
+
+-------------------------------------
 -- function repeatScaleInOut
 -- @brief 룬 강화 시 가능한 옵션 수치 fade in fade out 액션
 -------------------------------------
