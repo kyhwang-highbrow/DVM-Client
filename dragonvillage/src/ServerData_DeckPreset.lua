@@ -64,14 +64,14 @@ function ServerData_DeckPreset:makeDefaultDeck(deck_name, curr_deck_list)
         struct_preset_deck.l_deck = curr_deck.l_deck
         struct_preset_deck.formation = curr_deck.formation
         struct_preset_deck.leader = curr_deck.leader           
-        struct_preset_deck.name = string.format('no. %d', default_idx)
+        struct_preset_deck.name = string.format('No. %d', default_idx)
         preset_deck_map[default_idx] = struct_preset_deck
     end
 
     for i = #curr_deck_list + 1, make_count do
         local struct_preset_deck = StructPresetDeck()
         struct_preset_deck.idx = i
-        struct_preset_deck.name = string.format('no. %d', i)
+        struct_preset_deck.name = string.format('No. %d', i)
         preset_deck_map[i] = struct_preset_deck
     end
 
@@ -131,6 +131,20 @@ function ServerData_DeckPreset:isExistPresetDeckByDeckName(deck_name)
 
     return self.m_presetMap[deck_category] ~= nil
 end
+
+
+-------------------------------------
+-- function isAvailablePreset
+-------------------------------------
+function ServerData_DeckPreset:isAvailablePreset(deck_name)
+    local deck_category, make_count = self:getPresetDeckCategory(deck_name)
+    if deck_category == nil then
+        return false
+    end
+
+    return true
+end
+
 
 -------------------------------------
 -- function request_info

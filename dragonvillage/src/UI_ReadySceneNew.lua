@@ -115,7 +115,7 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
 
     -- 프리셋 버튼
     local curr_deck_name = g_deckData:getSelectedDeckName()
-    local is_available_preset = g_deckPresetData:isExistPresetDeckByDeckName(curr_deck_name)
+    local is_available_preset = g_deckPresetData:isAvailablePreset(curr_deck_name)
     vars['presetBtn']:setVisible(is_available_preset)
 
     -- @ TUTORIAL : 1-1 end , 104
