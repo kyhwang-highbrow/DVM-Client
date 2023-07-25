@@ -17,15 +17,15 @@ UI_StoryDungeonEventShop = class(PARENT, {
 -------------------------------------
 function UI_StoryDungeonEventShop:init() 
     self.m_seasonId = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
-    self.m_uiName = 'UI_StoryDungeonEventShop'
+    
     self:load('story_dungeon_shop.ui')
     UIManager:open(self, UIManager.POPUP)
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_StoryDungeonEventShop')
 
     -- @UI_ACTION
-    -- self:doActionReset()
-    -- self:doAction(nil, false)
-    
+    self:doActionReset()
+    self:doAction(nil, false)
+
     self:initUI()
     self:initTableView()
     self:initButton()
@@ -37,6 +37,7 @@ end
 -- @brief pure virtual function of ITopUserInfo_EventListener 
 -------------------------------------
 function UI_StoryDungeonEventShop:initParentVariable()
+    self.m_uiName = 'UI_StoryDungeonEventShop'
     self.m_titleStr = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
     self.m_subCurrency = TableStoryDungeonEvent:getStoryDungeonEventTokentKey(self.m_seasonId)
     self.m_bVisible = true

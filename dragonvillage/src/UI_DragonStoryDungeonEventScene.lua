@@ -14,7 +14,7 @@ UI_DragonStoryDungeonEventScene = class(PARENT, {
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:init(move_arg)
     self.m_seasonId, self.m_seasonCode = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
-    self.m_uiName = 'UI_DragonStoryDungeonEventScene'
+    
     self:load('story_dungeon_scene.ui')
 
     UIManager:open(self, UIManager.SCENE)
@@ -24,8 +24,8 @@ function UI_DragonStoryDungeonEventScene:init(move_arg)
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
 
     cclog('시즌 아이디 : ', self.m_seasonId)
-    --self:doActionReset()
-    --self:doAction(nil, false)
+    self:doActionReset()
+    self:doAction(nil, false)
 
 
     self:initUI()
@@ -41,6 +41,7 @@ end
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_DragonStoryDungeonEventScene'
     self.m_useTopUserInfo = false
     self.m_titleStr = TableStoryDungeonEvent:getStoryDungeonEventName(self.m_seasonId)
     self.m_subCurrency = TableStoryDungeonEvent:getStoryDungeonEventTokentKey(self.m_seasonId)
@@ -68,13 +69,13 @@ function UI_DragonStoryDungeonEventScene:initUI()
         vars['notiSprite']:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
     end
 
-    do -- 배경 이미지
+--[[     do -- 배경 이미지
         local bg_res = TableStoryDungeonEvent:getStoryDungeonEventBgRes(self.m_seasonId)
         local animator = MakeAnimator(bg_res)
 
         vars['bgNode']:removeAllChildren()
         vars['bgNode']:addChild(animator.m_node)
-    end
+    end ]]
 end
 
 -------------------------------------
