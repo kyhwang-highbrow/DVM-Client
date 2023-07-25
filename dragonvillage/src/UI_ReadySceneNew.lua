@@ -1277,7 +1277,7 @@ function UI_ReadySceneNew:click_presetBtn()
                     return
                 end
             else
-                if multi_deck_mgr and multi_deck_mgr:checkSameDidAnoterDeckNew(doid) == true then
+                if multi_deck_mgr and multi_deck_mgr:checkSameDidAnoterDeck(tab, doid) == true then
                     return
                 end
             end

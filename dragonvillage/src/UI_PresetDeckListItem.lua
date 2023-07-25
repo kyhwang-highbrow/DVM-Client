@@ -71,10 +71,24 @@ function UI_PresetDeckListItem:refreshTableView()
     local node = vars['dragonListNode']
     node:removeAllChildren()
 
-    local function create_func(ui, data)
+    local function create_func(ui, t_dragon_data)
         ui.root:setScale(0.6)
         -- 카드 프레임
         ui:makeFrame()
+
+        local function func()
+            local doid = t_dragon_data['id']
+            if doid and (doid ~= '') then
+                UI_SimpleDragonInfoPopup(t_dragon_data)
+            end
+        end
+
+        local function tap_func()
+            self:click_changeBtn()
+        end
+
+        ui.vars['clickBtn']:registerScriptPressHandler(func)
+        ui.vars['clickBtn']:registerScriptTapHandler(tap_func)
     end
 
     local deck_dragon_list = self:getDeckDragonList()
