@@ -542,6 +542,7 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
                 cc.size(700, 100), 
                 1, 1)
 
+                local lang = Translate:getGameLang()
                 local str
                 local uic_label = UIC_LabelTTF(label)
                 uic_label:setPosition(0, -30)
@@ -553,36 +554,31 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
                 str = TableDragonPhrase():getValue(did, 't_dragon_appear')
                 if (not str) then str = '' end
 
+                local is_darknix = did == 122055 and lang == 'ko'
+                local delay_time_text = is_darknix and 7 or 5.1
                 local typing_label = MakeTypingEffectLabel(uic_label)
                 typing_label.m_node:setGlobalZOrder(myth_cutscene_animator.m_node:getGlobalZOrder() + 5)
                 typing_label:setDueTime(2.5)
         
                 local function act_text()
                     typing_label:setString(Str(str))
-                    typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(5.1), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
+                    typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time_text), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
                 end
         
                 typing_label.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(0.9), cc.CallFunc:create(function() act_text() end)))
-
                 -- 
                 myth_cutscene_animator:changeAni('appear', false)
                 myth_cutscene_animator:addAniHandler(function()
                     myth_cutscene_animator:changeAni('idle', false)
                     myth_cutscene_animator:addAniHandler(function()
-                        local lang = Translate:getGameLang()
-
+                        local delay_time = is_darknix and 1.5 or 0.01
                         -- 다크닉스일 경우 성우 대사가 끝나고 검은 화면에서 1.5초 정도 딜레이를 더 준다.
-                        if did == 122055 and lang == 'ko' then
-                            local call_func = function ()
-                                myth_cutscene_animator:setVisible(false)
-                                self:relocate_callback(struct_dragon_object, pos_x, pos_y)
-                            end
-                            local seq = cc.Sequence:create(cc.DelayTime:create(1.5), cc.CallFunc:create(call_func))
-                            self.vars['effectNode']:runAction(seq)
-                        else
+                        local call_func = function ()
                             myth_cutscene_animator:setVisible(false)
                             self:relocate_callback(struct_dragon_object, pos_x, pos_y)
                         end
+                        local seq = cc.Sequence:create(cc.DelayTime:create(delay_time), cc.CallFunc:create(call_func))
+                        self.vars['effectNode']:runAction(seq)
                     end)
                 end)
                 
