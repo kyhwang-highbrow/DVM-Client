@@ -534,7 +534,6 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
                 local sound_file_name = string.format('appear_%s', dragon_name)
 	             SoundMgr:playEffect('VOICE', sound_file_name)
 
-
                 -- 
                 local label = cc.Label:createWithTTF(0, 
                 Translate:getFontPath(), 
@@ -573,7 +572,16 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
                     myth_cutscene_animator:changeAni('idle', false)
                     myth_cutscene_animator:addAniHandler(function()
                         myth_cutscene_animator:setVisible(false)
-                        self:relocate_callback(struct_dragon_object, pos_x, pos_y)
+                        -- 다크닉스일 경우 성우 대사가 끝나고 검은 화면에서 1.5초 정도 딜레이를 더 준다.
+                        if did == 122055 then
+                            local call_func = function ()
+                                self:relocate_callback(struct_dragon_object, pos_x, pos_y)
+                            end
+                            local seq = cc.Sequence:create(cc.DelayTime:create(1.5), cc.CallFunc:create(call_func))
+                            self.vars['effectNode']:runAction(seq)
+                        else
+                            self:relocate_callback(struct_dragon_object, pos_x, pos_y)
+                        end
                     end)
                 end)
                 
