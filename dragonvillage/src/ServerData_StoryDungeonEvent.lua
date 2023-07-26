@@ -68,8 +68,15 @@ function ServerData_StoryDungeonEvent:getStoryDungeonStageIdList(season_id)
         return {}
     end
 
+    local table_drop = TableDrop()
+
     for stage_id, _ in pairs(t_clear_info) do
-        table.insert(list, tonumber(stage_id))
+        local num_stage_id = tonumber(stage_id)
+        if table_drop:exists(num_stage_id) then
+            table.insert(list, num_stage_id)
+        else
+            --error('table_drop에 없는 스테이지 아이디가 내려오고 있음 stage id : ' .. num_stage_id)
+        end
     end
 
     table.sort(list, function (a, b) 

@@ -25,7 +25,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DragonStoryDungeonStageListItem:initUI()
+function UI_DragonStoryDungeonStageListItem:initUI()           
     local vars = self.vars
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
         local stage_id = self.m_stageId
