@@ -47,7 +47,7 @@ function UI_ReadySceneNew_Deck_Raid:initUI()
         vars['teamTabBtn3']:setVisible(true)
 
         vars['clanRaidMenu']:setPositionY(65)
-        vars['cpNode2']:setPosition(cc.p(255, -20))
+        vars['cpNode2']:setPosition(cc.p(246, -19))
     end
 end
 

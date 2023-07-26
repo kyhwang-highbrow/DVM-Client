@@ -118,6 +118,12 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     local is_available_preset = g_deckPresetData:isAvailablePreset(curr_deck_name)
     vars['presetBtn']:setVisible(is_available_preset)
 
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+        vars['presetBtn']:setVisible(false)
+        vars['preset2Btn']:setVisible(true)
+        vars['cpNode1']:setPositionY(vars['cpNode2']:getPositionY())
+    end
+
     -- @ TUTORIAL : 1-1 end , 104
 	local tutorial_key = TUTORIAL.FIRST_END
 	local check_step = 104
@@ -667,6 +673,7 @@ function UI_ReadySceneNew:initButton()
 
     -- 프리셋
     vars['presetBtn']:registerScriptTapHandler(function() self:click_presetBtn() end)
+    vars['preset2Btn']:registerScriptTapHandler(function() self:click_presetBtn() end)
 
     vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
 
