@@ -8,7 +8,7 @@ UI_PresetDeckList = class(PARENT, {
         m_deckCategory = 'string',
         m_tableView = 'UIC_TableViewTD',
         m_jsonCode = 'string',
-        m_changeCb = 'function',
+        m_applyCb = 'function',
         m_dirty = 'boolean',
     })
 
@@ -21,7 +21,7 @@ function UI_PresetDeckList:init(deck_category, curr_deck, cb_deck_change)
     self.m_currDeck = curr_deck
     
     self.m_dirty = false
-    self.m_changeCb = cb_deck_change
+    self.m_applyCb = cb_deck_change
 
     self:load('preset_deck_list.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -29,8 +29,6 @@ function UI_PresetDeckList:init(deck_category, curr_deck, cb_deck_change)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_PresetDeckList')
 
-    -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
 
@@ -74,7 +72,9 @@ function UI_PresetDeckList:initTableView()
     table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(deck_map)
-    self.m_tableView = table_view_td
+    self.m_tableView = table_view
+
+
 end
 
 -------------------------------------
@@ -104,8 +104,22 @@ end
 -- function onApply
 -------------------------------------
 function UI_PresetDeckList:onApply(struct_preset_deck)
-    if self.m_changeCb ~= nil then
-        self.m_changeCb(struct_preset_deck)
+    if self.m_applyCb ~= nil then
+        self.m_applyCb(struct_preset_deck)
+    end
+end
+
+-------------------------------------
+-- function onApplied
+-------------------------------------
+function UI_PresetDeckList:onApplied(struct_preset_deck)
+    self.m_currDeck = struct_preset_deck
+
+    for i,v in pairs(self.m_tableView.m_itemList) do
+        local ui = v['ui']
+        if ui ~= nil then
+            ui:refresh()
+        end
     end
 end
 

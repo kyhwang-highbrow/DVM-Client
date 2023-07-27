@@ -6,7 +6,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 UI_PresetDeckListItem = class(PARENT, {
     m_presetDeck = 'StructPresetDeck',
     m_ownerUI = '',
-    m_tableView = 'UIC_TableViewTD',
+    m_tableViewUI = 'UIC_TableViewTD',
     })
 
 -------------------------------------
@@ -18,7 +18,7 @@ function UI_PresetDeckListItem:init(struct_preset_deck, owner_ui)
     self:load('preset_deck_list_item.ui')
     self:initUI()
     self:initButton()
-    self:refresh()
+    self:initTableView()
     self:refreshName()
 end
 
@@ -63,10 +63,11 @@ function UI_PresetDeckListItem:refreshName()
     AlignUIPos(l_align_ui_list, 'HORIZONTAL', 'HEAD', 10)
 end
 
+
 -------------------------------------
--- function refreshTableView
+-- function initTableView
 -------------------------------------
-function UI_PresetDeckListItem:refreshTableView()
+function UI_PresetDeckListItem:initTableView()
     local vars = self.vars
     local node = vars['dragonListNode']
     node:removeAllChildren()
@@ -101,8 +102,22 @@ function UI_PresetDeckListItem:refreshTableView()
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setItemList(deck_dragon_list)
+    
     table_view_td.m_scrollView:setTouchEnabled(false)
-    self.m_tableView = table_view_td
+    self.m_tableViewUI = table_view_td
+end
+
+-------------------------------------
+-- function refreshTableView
+-------------------------------------
+function UI_PresetDeckListItem:refreshTableView()
+    local deck_dragon_list = self:getDeckDragonList()
+    local table_view_td = self.m_tableViewUI
+    --table_view_td:mergeItemList(deck_dragon_list)
+
+    for i, v in ipairs(deck_dragon_list) do
+        table_view_td:replaceItemUI(i, v)
+    end
 end
 
 -------------------------------------
@@ -130,31 +145,29 @@ end
 -------------------------------------
 function UI_PresetDeckListItem:click_importBtn()
     local curr_deck_info = self.m_ownerUI:getCurrDeckInfo()
-    local struct_preset_deck = self.m_presetDeck
 
-    struct_preset_deck:setDeckMap(curr_deck_info:getDeckMap())
-    struct_preset_deck:setFormation(curr_deck_info:getFormation())
-    struct_preset_deck:setLeader(curr_deck_info:getLeader())
+    self.m_presetDeck:setDeckMap(curr_deck_info:getDeckMap())
+    self.m_presetDeck:setFormation(curr_deck_info:getFormation())
+    self.m_presetDeck:setLeader(curr_deck_info:getLeader())
 
-    self.m_ownerUI:onChanged(struct_preset_deck)
     self:refresh()
+    self.m_ownerUI:onChanged(clone(self.m_presetDeck))
 end
 
 -------------------------------------
 -- function click_changeBtn
 -------------------------------------
 function UI_PresetDeckListItem:click_changeBtn()
-    local struct_preset_deck = self.m_presetDeck
-
     local success_cb = function (preset_deck_new)
-        struct_preset_deck:setDeckMap(preset_deck_new:getDeckMap())
-        struct_preset_deck:setFormation(preset_deck_new:getFormation())
-        struct_preset_deck:setLeader(preset_deck_new:getLeader())
+        self.m_presetDeck:setDeckMap(preset_deck_new:getDeckMap())
+        self.m_presetDeck:setFormation(preset_deck_new:getFormation())
+        self.m_presetDeck:setLeader(preset_deck_new:getLeader())
+
         self:refresh()
-        self.m_ownerUI:onChanged(struct_preset_deck)
+        self.m_ownerUI:onChanged(clone(self.m_presetDeck))
     end
 
-    UI_PresetDeckSetting.open(struct_preset_deck, success_cb)
+    UI_PresetDeckSetting.open(clone(self.m_presetDeck), success_cb)
 end
 
 -------------------------------------
@@ -166,7 +179,7 @@ function UI_PresetDeckListItem:click_nameBtn()
     local success_cb = function (name)
         struct_preset_deck:setPresetDeckName(name)
         self:refreshName()
-        self.m_ownerUI:onChanged(struct_preset_deck)
+        self.m_ownerUI:onChanged(clone(struct_preset_deck))
     end
 
     require('UI_ChangePresetNamePopup')

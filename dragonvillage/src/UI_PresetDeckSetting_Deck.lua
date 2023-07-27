@@ -94,6 +94,7 @@ function UI_PresetDeckSetting_Deck:init_deck()
 	l_deck = self:convertSimpleDeck(l_deck)
 
 	self.m_currLeader = leader
+    self.m_currLeaderOID = l_deck[leader] or 0
     self.m_lDeckList = clone(l_deck)
 
     for idx, doid in pairs(l_deck) do
@@ -488,8 +489,6 @@ function UI_PresetDeckSetting_Deck:refreshLeader()
 	local vars = self.m_uiReadyScene.vars
 	local leader_idx = self.m_currLeader
     local pre_leader_doid = self.m_currLeaderOID
-	local new_leader_doid = self.m_lDeckList[leader_idx]
-
 	local idx
 
 	-- 위치가 바뀌었는지 찾아본다
@@ -498,7 +497,8 @@ function UI_PresetDeckSetting_Deck:refreshLeader()
             idx = i
         end
     end
-        
+
+    --self.m_lDeckList[leader_idx] ~= nil
     -- 없다면 앞에서 부터 새로이 찾는다.
     if (idx == nil) then
 		for i, doid in pairs(self.m_lDeckList) do

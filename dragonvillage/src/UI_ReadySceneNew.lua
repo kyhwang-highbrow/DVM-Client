@@ -1248,7 +1248,7 @@ function UI_ReadySceneNew:click_presetBtn()
     end
 
     
-    local cur_deck = nil
+    local cur_deck = StructPresetDeck()
     for _, deck_str in ipairs(l_deck_name) do
         local l_deck, formation, deck_name, leader, tamer_id, formation_lv = g_deckData:getDeck(deck_str)
         local struct_preset_deck = StructPresetDeck()
@@ -1270,8 +1270,9 @@ function UI_ReadySceneNew:click_presetBtn()
         table.insert(l_struct_preset_deck, struct_preset_deck)
     end
 
+    local ui
     local dirty = g_deckPresetData:makeDefaultDeck(cur_deck_name, l_struct_preset_deck)
-    local cb_deck_change = function(struct_preset_deck)
+    local cb_deck_apply = function(struct_preset_deck)
         local l_deck = struct_preset_deck:getDeckMap()
         local formation_new = struct_preset_deck:getFormation()
         local leader = struct_preset_deck:getLeader()
@@ -1292,21 +1293,23 @@ function UI_ReadySceneNew:click_presetBtn()
 
         local next_func = function ()
             self.m_readySceneDeck:init_deck()
-            self:apply_dragonSort()
+            self:apply_dragonSort()            
+            ui:onApplied(struct_preset_deck)
             UIManager:toastNotificationGreen(Str('{1}덱으로 설정되었습니다.', name))
         end
         
         self.m_readySceneDeck:setFormation(formation_new)
-        self.m_readySceneDeck.m_currFormation = formation_new
+        --self.m_readySceneDeck.m_currFormation = formation_new
         self.m_readySceneDeck.m_lDeckList = l_deck
         self.m_readySceneDeck.m_currLeader = leader
+        self.m_readySceneDeck.m_currLeaderOID = l_deck[leader] or 0
 
         self:refresh_combatPower()
         self:refresh_buffInfo()
         self.m_readySceneDeck:checkChangeDeck(next_func)
     end
 
-    local ui = UI_PresetDeckList.open(cur_deck_name, cur_deck, cb_deck_change)
+    ui = UI_PresetDeckList.open(cur_deck_name, cur_deck, cb_deck_apply)
     ui:setDirty(dirty)
 end
 
