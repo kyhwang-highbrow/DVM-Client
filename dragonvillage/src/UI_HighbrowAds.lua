@@ -69,15 +69,15 @@ function UI_HighbrowAds:initUI()
 
     -- 영어일 경우 분기 처리 (Admob에서 사용하는 문구)
     if (Translate:getGameLang() == 'ko') then
-        vars['downloadBtnLabel']:setString(Str('설치하기'))
-        vars['topLabel']:setString(Str('다양한 드래곤을 모아보자!'))
-        vars['titleLabel']:setString(Str('드래곤 빌리지 아레나'))
-        vars['subLabel']:setString(Str('수집! 경쟁! 드래곤 RPG! 드래곤 빌리지 아레나는 언제 어디서나 손쉽게 즐길 수 있는 방치형 모바일 게임입니다.\n어디서도 본 적 없던 귀엽고 다양한 드래곤을 육성하여 최고의 테이머가 되어보세요!'))
+        vars['downloadBtnLabel']:setString('다운로드')
+        vars['topLabel']:setString('모으는 내내 즐겁게!')
+        vars['titleLabel']:setString('드래곤빌리지 컬렉션')
+        vars['subLabel']:setString('마침내 드래곤빌리지 컬렉션! 게임, 카드, 책 모든 것을 수집해보세요! 탐험을 통해 얻은 수백가지 다양한 드래곤을 교배하면 새로운 드래곤을 더 발견할 수 있어요! 빌리지 꾸미기, 광장에서 다양한 친구와 소통! 드래곤 성격에 따라 개성을 표현해보세요!')
     else
-        vars['downloadBtnLabel']:setString('Register')
-        vars['topLabel']:setString(Str('Let\'s gather various dragons!'))
-        vars['titleLabel']:setString(Str('Dragon Village Arena'))
-        vars['subLabel']:setString(Str('Collect! Competition! Dragon RPG! Dragon Village Arena is an idle mobile game that can be easily enjoyed anytime, anywhere.\nBecome the best Tamer by fostering cute and diverse dragons you\'ve never seen before!'))
+        vars['downloadBtnLabel']:setString('Download')
+        vars['topLabel']:setString('Collect! Hatch! and Breed!')
+        vars['titleLabel']:setString('Dragon Village Collection')
+        vars['subLabel']:setString('GAMES, CARDS, BOOKS! COLLECT EVERYTHING! Explore, find new dragons and breed to discover new species! Show off your own village and meet new friends at the square! You can build character with unique personalities!')
     end
 end
 
@@ -152,12 +152,7 @@ end
 -- function click_downloadBtn
 -------------------------------------
 function UI_HighbrowAds:click_downloadBtn()
-    -- if CppFunctions:isIos() == true then
-    --     SDKManager:goToWeb('https://app.adjust.com/7w20nep')
-    -- else
-    --     SDKManager:goToWeb('https://app.adjust.com/7w20nep')
-    -- end
-    SDKManager:goToWeb('https://play.google.com/store/apps/details?id=com.highbrow.games.dvarena')
+    SDKManager:goToWeb('https://play.google.com/store/apps/details?id=com.highbrow.games.dv&referrer=utm_source%3DDVM%2B%25EC%259B%2590%25EC%258A%25A4%25ED%2586%25A0%25EC%2596%25B4%2B%25EC%259D%25B8%25EA%25B2%258C%25EC%259E%2584%2B%25EA%25B4%2591%25EA%25B3%25A0_2023.07.28_DVC%2B%25EC%2584%25A4%25EC%25B9%2598%25EB%259E%259C%25EB%2594%25A9%26utm_medium%3DDVM%2B%25EC%259B%2590%25EC%258A%25A4%25ED%2586%25A0%25EC%2596%25B4%2B%25EC%259D%25B8%25EA%25B2%258C%25EC%259E%2584%2B%25EA%25B4%2591%25EA%25B3%25A0_2023.07.28_DVC%2B%25EC%2584%25A4%25EC%25B9%2598%25EB%259E%259C%25EB%2594%25A9%26utm_term%3DDVM%2B%25EC%259B%2590%25EC%258A%25A4%25ED%2586%25A0%25EC%2596%25B4%2B%25EC%259D%25B8%25EA%25B2%258C%25EC%259E%2584%2B%25EA%25B4%2591%25EA%25B3%25A0_2023.07.28_DVC%2B%25EC%2584%25A4%25EC%25B9%2598%25EB%259E%259C%25EB%2594%25A9%26utm_content%3DDVM%2B%25EC%259B%2590%25EC%258A%25A4%25ED%2586%25A0%25EC%2596%25B4%2B%25EC%259D%25B8%25EA%25B2%258C%25EC%259E%2584%2B%25EA%25B4%2591%25EA%25B3%25A0_2023.07.28_DVC%2B%25EC%2584%25A4%25EC%25B9%2598%25EB%259E%259C%25EB%2594%25A9%26utm_campaign%3DDVM%2B%25EC%259B%2590%25EC%258A%25A4%25ED%2586%25A0%25EC%2596%25B4%2B%25EC%259D%25B8%25EA%25B2%258C%25EC%259E%2584%2B%25EA%25B4%2591%25EA%25B3%25A0_2023.07.28_DVC%2B%25EC%2584%25A4%25EC%25B9%2598%25EB%259E%259C%25EB%2594%25A9')
 end
 
 -------------------------------------
