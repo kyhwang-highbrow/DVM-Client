@@ -275,8 +275,9 @@ function ErrorTracker:appendBattleSkillHistory(t_skill, char_name, sec)
     local m = math_floor(sec / 60)
     local s = sec % 60
     local str = string.format('[%02d:%02d]', m, s)
+    local skill_type = t_skill['r_s_name'] or '몬스터 스킬'
 
-    local msg = string.format('%s 스킬[%s:%d] 시전자[%s]',str, t_skill['t_name'], tonumber(t_skill['sid']), char_name)
+    local msg = string.format('%s %s[%s:%d] 시전자[%s]',str, skill_type, t_skill['t_name'], tonumber(t_skill['sid']), char_name)
     self:appendBattleHistory(msg)
 end
 
@@ -606,7 +607,7 @@ function ErrorTracker:sendErrorLog_RaidBattleLogHistory(sec)
         return
     end
 
-    local log_time = 60 * 1
+    local log_time = 60 * 10
     if self.m_battleLogHistoryTime == 0 then
         self.m_battleLogHistoryTime = log_time
         return
@@ -615,6 +616,7 @@ function ErrorTracker:sendErrorLog_RaidBattleLogHistory(sec)
     if sec > self.m_battleLogHistoryTime then
        local msg = self:getBattleSkillHistoryStack()
        self:sendErrorLog(msg, nil, 'ErrorTracker:sendErrorLog_RaidBattleLogHistory()')
+       --cclog(msg)
        self.m_battleLogHistoryTime = sec + log_time
     end
 end
