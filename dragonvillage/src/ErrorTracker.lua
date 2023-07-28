@@ -7,11 +7,14 @@ ErrorTracker = class({
     lastStage = 'get_set_gen',
 
     m_lSkillHistoryList = 'list<table>',
+    
     m_lAPIList = 'list<table>',
     m_lFailedResList = 'list<string>',
     m_tDeviceInfo = 'table',
     m_bErrorPopupOpen = 'bool',
 
+    m_lBattleHistoryList = 'list<table>',
+    m_battleLogHistoryTime = 'number',
 
     m_msgAutoLoginFailedMsg = 'string',
 })
@@ -22,7 +25,9 @@ ErrorTracker = class({
 -------------------------------------
 function ErrorTracker:init()
     self.lastStage = 0
+    self.m_battleLogHistoryTime = 0
     self.m_lSkillHistoryList = {}
+    self.m_lBattleHistoryList = {}
     self.m_lAPIList = {}
     self.m_lFailedResList = {}
     self.m_bErrorPopupOpen = false
@@ -168,6 +173,24 @@ function ErrorTracker:getSkillHistoryStack()
     return ui_str
 end
 
+
+-------------------------------------
+-- function getBattleSkillHistoryStack
+------------------------------------- 
+function ErrorTracker:getBattleSkillHistoryStack()
+    if (#self.m_lBattleHistoryList == 0) then
+        return ''
+    end
+
+    local ui_str = '\n'
+
+    for _, t_history in pairs(table.reverse(self.m_lBattleHistoryList)) do
+        ui_str = ui_str .. '        - ' .. t_history .. '\n'
+    end
+
+    return ui_str
+end
+
 -------------------------------------
 -- function getUIStack
 ------------------------------------- 
@@ -245,6 +268,41 @@ function ErrorTracker:appendSkillHistory(skill_id, char_name)
 end
 
 -------------------------------------
+-- function appendBattleSkillHistory
+------------------------------------- 
+function ErrorTracker:appendBattleSkillHistory(t_skill, char_name, sec)
+    local sec = math_floor(sec)
+    local m = math_floor(sec / 60)
+    local s = sec % 60
+    local str = string.format('[%02d:%02d]', m, s)
+
+    local msg = string.format('%s 스킬[%s:%d] 시전자[%s]',str, t_skill['t_name'], tonumber(t_skill['sid']), char_name)
+    self:appendBattleHistory(msg)
+end
+
+-------------------------------------
+-- function appendBattleKeyInputHistory
+------------------------------------- 
+function ErrorTracker:appendBattleKeyInputHistory(input_type, sec)
+    local sec = math_floor(sec)
+    local m = math_floor(sec / 60)
+    local s = sec % 60
+    local str = string.format('[%02d:%02d]', m, s)
+    local msg = string.format('%s 터치이벤트[%s]',str, input_type)
+    self:appendBattleHistory(msg)
+end
+
+-------------------------------------
+-- function appendBattleHistory
+------------------------------------- 
+function ErrorTracker:appendBattleHistory(msg)
+    table.insert(self.m_lBattleHistoryList, msg)
+    if (#self.m_lBattleHistoryList > 60) then
+        table.remove(self.m_lBattleHistoryList, 1)
+    end
+end
+
+-------------------------------------
 -- function appendAPI
 ------------------------------------- 
 function ErrorTracker:appendAPI(s)
@@ -307,6 +365,14 @@ function ErrorTracker:cleanupIngameLog()
 end
 
 -------------------------------------
+-- function cleanupIngameBattleLog
+------------------------------------- 
+function ErrorTracker:cleanupIngameBattleLog()
+    self.m_lBattleHistoryList = {}
+    self.m_battleLogHistoryTime = 0
+end
+
+-------------------------------------
 -- function openErrorPopup
 ------------------------------------- 
 function ErrorTracker:openErrorPopup(error_msg)
@@ -344,10 +410,6 @@ function ErrorTracker:openErrorPopup(error_msg)
     cclog('############## openErrorPopup end')
 end
 
-
-
-
-
 -------------------------------------
 -- LIVE 용
 -------------------------------------
@@ -355,7 +417,7 @@ end
 -------------------------------------
 -- function sendErrorLog
 ------------------------------------- 
-function ErrorTracker:sendErrorLog(msg, success_cb)
+function ErrorTracker:sendErrorLog(msg, success_cb, msg_key)
     -- device info는 추려서 넣도록 함
     if (not self.m_tDeviceInfo) then
         self.m_tDeviceInfo = {}
@@ -381,7 +443,7 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
 
     -- 파라미터 셋팅
     local t_json = {
-        ['id'] = HMAC('sha1', msg, CONSTANT['HMAC_KEY'], false), -- HMAC으로 고유ID 생성
+        ['id'] = HMAC('sha1', msg_key or msg, CONSTANT['HMAC_KEY'], false), -- HMAC으로 고유ID 생성
         ['uid'] = uid,
         ['nick'] = nick,
         ['os'] = getTargetOSName(),
@@ -389,7 +451,7 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
         ['date'] = datetime.strformat(ServerTime:getInstance():getCurrentTimestampSeconds()),
         
         ['error_stack'] = msg,
-        ['error_stack_header'] = self:getStackHeader(msg),
+        ['error_stack_header'] = self:getStackHeader(msg),        
         
         ['device'] = device_str,
         ['memory(MB)'] = curr_memory,
@@ -533,4 +595,26 @@ function ErrorTracker:sendErrorLog_AutoLoginFailed()
 
     self:sendErrorLog(self.m_msgAutoLoginFailedMsg)
     self.m_msgAutoLoginFailedMsg = nil
+end
+
+-------------------------------------
+-- function sendErrorLog_RaidBattleLogHistory
+-- @brief 레이드 이상 점수 확인용 로그
+------------------------------------- 
+function ErrorTracker:sendErrorLog_RaidBattleLogHistory(sec)
+    if (#self.m_lBattleHistoryList == 0) then
+        return
+    end
+
+    local log_time = 60 * 1
+    if self.m_battleLogHistoryTime == 0 then
+        self.m_battleLogHistoryTime = log_time
+        return
+    end
+
+    if sec > self.m_battleLogHistoryTime then
+       local msg = self:getBattleSkillHistoryStack()
+       self:sendErrorLog(msg, nil, 'ErrorTracker:sendErrorLog_RaidBattleLogHistory()')
+       self.m_battleLogHistoryTime = sec + log_time
+    end
 end

@@ -106,6 +106,7 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
         end
     end
 
+    g_errorTracker:cleanupIngameBattleLog()
     g_autoPlaySetting:setAutoPlay(false)
 
     -- 매일매일 다이아 풀팝업

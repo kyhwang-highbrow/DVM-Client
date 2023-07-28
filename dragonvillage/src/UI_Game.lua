@@ -515,10 +515,28 @@ function UI_Game:click_autoStartButton()
 end
 
 -------------------------------------
+-- function appendRaidBattleInputKeyLog
+-------------------------------------
+function UI_Game:appendRaidBattleInputKeyLog(input_type)
+    local world = self.m_gameScene.m_gameWorld
+    if (not world) then return end
+    if (not world.m_gameState) then return end
+
+
+    local game_mode = self.m_gameScene.m_gameMode
+    if (game_mode == GAME_MODE_LEAGUE_RAID) then
+        g_errorTracker:appendBattleKeyInputHistory(input_type, world.m_gameState.m_fightTimer)
+        g_errorTracker:sendErrorLog_RaidBattleLogHistory(world.m_gameState.m_fightTimer)
+    end
+end
+
+-------------------------------------
 -- function click_pauseButton
 -------------------------------------
 function UI_Game:click_pauseButton()
 	-- 튜토리얼 진행 중 block
+    self:appendRaidBattleInputKeyLog('click_pauseButton')
+
 	local stage_id = self.m_gameScene.m_stageID
 	if (TutorialManager.getInstance():blockIngamePause(stage_id)) then
 		UIManager:toastNotificationRed(Str('튜토리얼 진행 중입니다.'))
@@ -602,6 +620,8 @@ function UI_Game:click_autoButton()
     else
         world:getAuto():onEnd()
     end
+
+    self:appendRaidBattleInputKeyLog('click_autoButton')
 end
 
 -------------------------------------
@@ -626,6 +646,8 @@ function UI_Game:click_speedButton()
     if vars['speedUpVisual'] ~= nil then
         vars['speedUpVisual']:setVisible(max_time_scale_step > 2 and cur_timescale_step == 2)
     end
+
+    self:appendRaidBattleInputKeyLog('click_speedButton')
 end
 
 -------------------------------------
@@ -656,12 +678,16 @@ function UI_Game:click_effectBtn()
     if (self.m_effectBtnIcon2) then
         self.m_effectBtnIcon2:setVisible(not new_skip_mode)
     end
+
+    self:appendRaidBattleInputKeyLog('click_effectBtn')
 end
 
 -------------------------------------
 -- function click_chatBtn
 -------------------------------------
 function UI_Game:click_chatBtn()
+    self:appendRaidBattleInputKeyLog('click_chatBtn')
+
     g_chatManager:toggleChatPopup()
 end
 
