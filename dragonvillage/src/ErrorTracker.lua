@@ -607,7 +607,7 @@ function ErrorTracker:sendErrorLog_RaidBattleLogHistory(sec)
         return
     end
 
-    local log_time = 60 * 10
+    local log_time = 60 * 15 -- 15분
     if self.m_battleLogHistoryTime == 0 then
         self.m_battleLogHistoryTime = log_time
         return
