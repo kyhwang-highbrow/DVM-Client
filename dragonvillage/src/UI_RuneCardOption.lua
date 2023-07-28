@@ -123,8 +123,11 @@ function UI_RuneCardOption:makeDragonIcon()
     end
     
     local t_dragon_data = g_dragonsData:getDragonDataFromUidRef(doid)
+    if t_dragon_data == nil then
+        return
+    end
+
     local res = t_dragon_data:getIconRes()
-    
     if (self.m_charIconRes == res) then
         return
     end
