@@ -613,6 +613,7 @@ function ErrorTracker:sendErrorLog_RaidBattleLogHistory(sec)
         return
     end
 
+    -- id : d5e9132291b3ea4a1ba74df0d5b6fbb4f6b04253 로 검색
     if sec > self.m_battleLogHistoryTime then
        local msg = self:getBattleSkillHistoryStack()
        self:sendErrorLog(msg, nil, 'ErrorTracker:sendErrorLog_RaidBattleLogHistory()')
