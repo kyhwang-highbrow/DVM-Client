@@ -314,17 +314,8 @@ function GameWorld:makeHeroDeck()
             end
         end
     end
-
-    -- 오토 드래그 스킬 잠금 정보 가져오기    
-    --self.m_mapAutoDragSkillLockDid = g_settingData:getAutoDragSkillLockDidMap(deck_name)
 end
 
--------------------------------------
--- function isAutoDragSkillLocked
--------------------------------------
-function GameWorld:isAutoDragSkillLocked(did)
-    return (self.m_mapAutoDragSkillLockDid[did] == true)
-end
 
 -------------------------------------
 -- function makeFriendHero

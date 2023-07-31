@@ -47,13 +47,17 @@ function UI_DeckDragSkillItemList:initUI()
     local deck_dragon_list = self:getDeckDragonList()
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(100, 100)
+    table_view_td.m_cellSize = cc.size(95, 95)
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
     table_view_td:setCellCreateInterval(0)
-	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
+	table_view_td:setCellCreateDirecting(-1)
     table_view_td:setItemList(deck_dragon_list)
     table_view_td.m_scrollView:setTouchEnabled(false)
+    table_view_td:setAlignCenter(true)
+    table_view_td:setHorizotalCenter(true)
+    table_view_td:update(0)
+
     self.m_tableView = table_view_td
 end
 
@@ -110,7 +114,7 @@ function UI_DeckDragSkillItemList:correctData()
     end
 
     if dirty == true then
-        g_settingData:setAutoDragSkillLockDidMap(self.m_keyName, self.m_selectList)
+        g_settingData:setAutoDragSkillLockDidList(self.m_keyName, self.m_selectList)
     end
 end
 
@@ -127,7 +131,7 @@ function UI_DeckDragSkillItemList:saveData(did)
         end
     end
 
-    g_settingData:setAutoDragSkillLockDidMap(self.m_keyName, self.m_selectList)
+    g_settingData:setAutoDragSkillLockDidList(self.m_keyName, self.m_selectList)
 end
 
 -------------------------------------

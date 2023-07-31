@@ -9,11 +9,14 @@ UI_IngameDragonPanelItem = class(PARENT, {
         m_world = 'GameWorld',
         m_dragon = 'Dragon',
         m_dragonIdx = 'number', -- 999번일 경우 친구?! 
-        ----
+        m_deckName = 'string', -- 덱 이름
+
         m_hpRatio = 'number',
         
         m_skillCoolTime = 'number',         -- 스킬 재사용 대기 시간(초)
         m_skillGaugePercentage = 'number',  -- 스킬 재사용 대기 시간(%)
+
+        m_dragSkillLockList = 'list<number>',
 
         m_bEnabled = 'boolean',
 		m_bHaveActive = 'boolean',  -- 액티브 스킬 보유 여부
@@ -30,6 +33,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     
     self.m_skillCoolTime = 0
 	self.m_skillGaugePercentage = 0
+    
 
     self.m_bEnabled = false
 
@@ -47,12 +51,15 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     dragon:addListener('touch_began', self)
     dragon:addListener('dragon_mana_reduce', self)
     dragon:addListener('dragon_mana_reduce_finish', self)
+    self.m_world:addListener('auto_mode_changed', self)
     
     self:refreshHP(dragon:getHpRate())
     self:refreshManaCost(dragon:getSkillManaCost())
     self:refreshSkill()
     self:refreshSkillGauge(0)
+    self:refreshAutoDragSkillCheckBox()
 
+    self:initDragSkillLock()
     self:initUI()
 	self:initButton()
 end
@@ -159,6 +166,14 @@ end
 -- function initButton
 -------------------------------------
 function UI_IngameDragonPanelItem:initButton()
+    local vars = self.vars
+
+    local did = self.m_dragon:getCharacterId()
+    local active = g_settingData:isAutoDragSkillLockDid(self.m_deckName, did)
+    
+    --while true do end
+    vars['autoDragLockBtn'] = UIC_CheckBox(vars['autoDragLockBtn'].m_node, vars['autoDragLockSprite'], active)
+    vars['autoDragLockBtn']:registerScriptTapHandler(function() self:click_autoDragSkillLockCheckBox() end)
 end
 
 -------------------------------------
@@ -228,6 +243,8 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
     elseif (event_name == 'dragon_mana_reduce' or event_name == 'dragon_mana_reduce_finish') then
         self:refreshManaCost(t_event['value'])
 
+    elseif (event_name == 'auto_mode_changed') then
+        self:refreshAutoDragSkillCheckBox(true)
     end
 end
 
@@ -436,4 +453,79 @@ function UI_IngameDragonPanelItem:setPanelInActive()
             UIManager:toastNotificationRed(Str('드래그 스킬 사용 불가'))
         end)
 	end
+end
+
+-------------------------------------
+-- function refreshAutoDragSkillCheckBox
+-------------------------------------
+function UI_IngameDragonPanelItem:refreshAutoDragSkillCheckBox(is_change_event)
+    local vars = self.vars
+    local is_auto_mode = self.m_world:isAutoPlay()
+
+--[[     if is_auto_mode == true then
+        vars['autoDragLockBtn']:setScale(0.0)
+        local scale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 1), 1)
+        vars['autoDragLockBtn']:stopAllActions()
+        vars['autoDragLockBtn']:runAction(scale_action)
+    else
+        vars['autoDragLockBtn']:setScale(1.0)
+        local scale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0), 1)
+        vars['autoDragLockBtn']:stopAllActions()
+        vars['autoDragLockBtn']:runAction(scale_action)
+    end
+ ]]
+
+    vars['autoDragLockBtn']:setVisible(is_auto_mode)
+end
+
+-------------------------------------
+-- function click_autoDragSkillLockCheckBox
+-------------------------------------
+function UI_IngameDragonPanelItem:click_autoDragSkillLockCheckBox()
+    local vars = self.vars
+    local did = self.m_dragon:getCharacterId()
+    local dragon_name = self.m_dragon:getName()
+    local dirty = false
+    local checked = vars['autoDragLockBtn']:isChecked()
+    local drag_did_list = g_settingData:getAutoDragSkillLockDidList(self.m_deckName)
+
+    if checked == true then
+        if table.find(drag_did_list, did) == nil then
+            table.insert(drag_did_list, did)
+            dirty = true
+            UIManager:toastNotificationGreen(Str('{1}의 드래그 스킬 잠금', dragon_name))
+        end
+    else
+        for idx, _did in ipairs(drag_did_list) do
+            if _did == did then
+                table.remove(drag_did_list, idx)
+                dirty = true
+            end
+        end
+
+        if dirty == true then
+            UIManager:toastNotificationGreen(Str('{1}의 드래그 스킬 잠금 해제', dragon_name))
+        end
+    end
+
+    if dirty == true then
+        g_settingData:setAutoDragSkillLockDidList(self.m_deckName, drag_did_list)
+    end
+end
+
+-------------------------------------
+-- function initDragSkillLock
+-------------------------------------
+function UI_IngameDragonPanelItem:initDragSkillLock()
+    local l_deck, formation, deck_name, leader = g_deckData:getDeck()
+    local did = self.m_dragon:getCharacterId()
+    local drag_did_list = g_settingData:getAutoDragSkillLockDidList(deck_name)
+    self.m_deckName = deck_name
+
+--[[     local did_list = {}
+    local dirty = false
+
+    if dirty == true then
+        g_settingData:setAutoDragSkillLockDidList(self.m_deckName, drag_did_list)
+    end ]]
 end

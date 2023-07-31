@@ -832,41 +832,29 @@ function SettingData:applyCloudSettings(t_data)
 end
 
 -------------------------------------
--- function make_lock_drag_skill_setting
--------------------------------------
-function SettingData:make_lock_drag_skill_setting()
-    local t_setting = self:get('lock_drag_skill_setting')
-    if t_setting == nil then
-        local default_setting = function (deck_key, t_data)
-            t_data[deck_key] = {}
-        end
-
-        t_setting = {}        
-        local list = g_deckData:getAllDeckList()
-        for _, t_deck in ipairs(list) do
-            local deck_key = t_deck['deckName']
-            cclog('#덱추가', deck_key)
-            default_setting(deck_key, t_setting)
-        end
-
-        self:applySettingData(t_setting, 'lock_drag_skill_setting')
-    end
-end
-
--------------------------------------
--- function getAutoDragSkillLockDidMap
--------------------------------------
-function SettingData:getAutoDragSkillLockDidMap(deck_key)
-    local ret = self:get('lock_drag_skill_setting', deck_key) or {}
-    return ret
-end
-
--------------------------------------
--- function setAutoDragSkillLockDidMap
+-- function setAutoDragSkillLockDidList
 -- @brief 드래곤은 하나의 드래그 스킬을 가지므로 사실상 하나의 드래곤을 설정하는 것과 마찬가지
 -------------------------------------
-function SettingData:setAutoDragSkillLockDidMap(deck_key, did_map)
-    return self:applySettingData(did_map, 'lock_drag_skill_setting', deck_key)
+function SettingData:setAutoDragSkillLockDidList(deck_key, did_list)
+    self:applySettingData(did_list, 'lock_drag_skill_setting', deck_key)
+end
+
+-------------------------------------
+-- function getAutoDragSkillLockDidList
+-- @brief 잠금 did 리스트
+-------------------------------------
+function SettingData:getAutoDragSkillLockDidList(deck_key)
+    local list = self:get('lock_drag_skill_setting', deck_key) or {}
+    return list
+end
+
+-------------------------------------
+-- function isAutoDragSkillLockDid
+-- @brief 잠금 did 인가?
+-------------------------------------
+function SettingData:isAutoDragSkillLockDid(deck_key, did)
+    local list = self:getAutoDragSkillLockDidList(deck_key)
+    return table.find(list, did) ~= nil
 end
 
 -------------------------------------

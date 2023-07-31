@@ -1398,7 +1398,6 @@ end
 function UI_ReadySceneNew:click_removeBtn()
     -- 친구 드래곤 해제
     g_friendData:delSettedFriendDragon()
-
     self.m_readySceneDeck:clear_deck()
 end
 

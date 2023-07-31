@@ -231,7 +231,7 @@ function GameAuto:makeSkillInfoListSortedByPriority(state)
             for _, unit in ipairs(self.m_lUnitList) do
                 local l_skill = self.m_mSkillListPerUnit[unit]
                 if (l_skill) then
-                    for _, struct_skill_info in ipairs(l_skill) do
+                    for _, struct_skill_info in ipairs(l_skill) do                       
                         local mAiAttr = struct_skill_info.m_mAiAttr or {}
                         if (not mAiAttr[SKILL_AI_ATTR__HEAL]) then
                             table.insert(list[priority], struct_skill_info)
@@ -248,7 +248,7 @@ function GameAuto:makeSkillInfoListSortedByPriority(state)
                 for _, unit in ipairs(self.m_lUnitList) do
                     local l_skill = self.m_mSkillListPerUnit[unit]
                     if (l_skill) then
-                        for _, struct_skill_info in ipairs(l_skill) do
+                        for _, struct_skill_info in ipairs(l_skill) do                            
                             local mAiAttr = struct_skill_info.m_mAiAttr or {}
                             if (mAiAttr[attr]) then
                                 table.insert(list[priority], struct_skill_info)
@@ -378,6 +378,10 @@ function GameAuto:doWork_skill(struct_skill_info, priority)
         m_reason[REASON_TO_DO_NOT_USE_SKILL.NO_ENABLE] = true
     end
 
+    -- 드래그 스킬 잠금
+    if self:isAutoDragSkillLocked(unit, struct_skill_info) == true then
+        return true
+    end
     -------------------------------------
     -- 스킬 사용 처리
     if (b) then
@@ -501,11 +505,9 @@ function GameAuto:getRandomSkill()
 
     -- 사용횟수를 고려하여 뽑음
     local l_temp = {}
-
     for i, unit in ipairs(self.m_lUnitList) do
-        if (unit:isDragon() and unit:isPossibleActiveSkill()) then
+        if (unit:isDragon() and unit:isPossibleActiveSkill()) then           
             table.insert(l_temp, unit)
-
             if (not self.m_mUsedCount[unit]) then
                 self.m_mUsedCount[unit] = 0
             end
@@ -525,6 +527,13 @@ function GameAuto:getRandomSkill()
     end
     
     return ret
+end
+
+-------------------------------------
+-- function isAutoDragSkillLocked
+-------------------------------------
+function GameAuto:isAutoDragSkillLocked(unit, t_skill_info)
+    return false
 end
 
 -------------------------------------

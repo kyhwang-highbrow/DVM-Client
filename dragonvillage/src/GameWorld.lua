@@ -103,8 +103,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_bGameFinish = 'bool',
 
-        m_mapAutoDragSkillLockDid ='Map<string, boolean>', -- 오토 중 잠금 스킬
-
         -- 테스트를 위한 임시 변수
         m_test = 'number',
     })
@@ -239,7 +237,6 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_friendDragon = nil
 
     self.m_bGameFinish = false
-    self.m_mapAutoDragSkillLockDid = {}
 end
 
 -------------------------------------

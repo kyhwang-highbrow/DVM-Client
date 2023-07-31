@@ -56,11 +56,11 @@ function UI_AutoPlaySettingDragSkillPopup:initTableView()
     local deck_list = self.m_deckList
     -- 테이블뷰 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(500, 130)
+    table_view.m_defaultCellSize = cc.size(550, 115)
     table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(deck_list)
-    self.m_tableView = table_view_td
+    self.m_tableView = table_view
 end
 
 -------------------------------------
@@ -68,7 +68,7 @@ end
 -------------------------------------
 function UI_AutoPlaySettingDragSkillPopup:initButton()
     local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    --vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
@@ -98,12 +98,18 @@ function UI_AutoPlaySettingDragSkillPopup:getSelectDeckList()
     return deck_list, deck_name
 end
 
-
 -------------------------------------
 -- function click_okBtn
 -------------------------------------
 function UI_AutoPlaySettingDragSkillPopup:click_closeBtn()
     self:close()
+end
+
+-------------------------------------
+-- function open
+-------------------------------------
+function UI_AutoPlaySettingDragSkillPopup.open()
+    local ui = UI_AutoPlaySettingDragSkillPopup()
 end
 
 

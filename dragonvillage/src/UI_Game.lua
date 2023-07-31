@@ -621,6 +621,7 @@ function UI_Game:click_autoButton()
         world:getAuto():onEnd()
     end
 
+    world:dispatch('auto_mode_changed')
     self:appendRaidBattleInputKeyLog('click_autoButton')
 end
 

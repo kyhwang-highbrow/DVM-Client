@@ -6,6 +6,7 @@ local PARENT = GameAuto
 GameAuto_Hero = class(PARENT, {
         m_inGameUI = 'UI',
         m_group = 'string', -- PHYS.HERO or PHYS.HERO_TOP or PHYS.HERO_BOTTOM
+        m_deckName = 'string',
      })
 
 -------------------------------------
@@ -31,6 +32,10 @@ function GameAuto_Hero:init(world, game_mana, ui)
     if (is_auto_mode) then
         self:onStart()
     end
+
+    -- 덱 이름
+    local l_deck, formation, deck_name, leader = g_deckData:getDeck()
+    self.m_deckName = deck_name
 end
 
 
@@ -123,19 +128,48 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
+-- function isAutoDragSkillLocked
+-------------------------------------
+function GameAuto_Hero:isAutoDragSkillLocked(unit, t_skill_info)
+    -- 드래그 스킬 잠금일 경우 체크
+    local did = unit:getCharacterId()
+
+    -- 드래그 스킬 여부 체크
+    if t_skill_info ~= nil then
+        local skill_id = t_skill_info.m_skillId
+        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+        if skill_indivisual_info == nil then
+            return false
+        end
+
+        if skill_id ~= skill_indivisual_info:getSkillID() then
+            return false
+        end
+    end
+
+    if g_settingData:isAutoDragSkillLockDid(self.m_deckName, did) == true then
+        return true
+    end
+    
+    return false
+end
+
+-------------------------------------
 -- function makeSkillInfoListSortedByPriority
 -- @brief state 상태에서의 우선순위별 해당하는 스킬 정보 리스트를 만듬
 -------------------------------------
 function GameAuto_Hero:makeSkillInfoListSortedByPriority(state)
     local list = PARENT.makeSkillInfoListSortedByPriority(self, state)
+    local new_list = {}
 
+
+    
 	-- 모험모드 및 쫄작 옵션 체크
 	if (not self.m_world:isDragonFarming()) then
 		return list
 	end
 
-    local new_list = {}
-
+    new_list = {}
 	-- 쫄작(farming) 시 쫄작기사(farmer)가 아니면 제외시킴
 	for priority, l_skill in ipairs(list) do
 		new_list[priority] = {}
