@@ -42,6 +42,7 @@
 			};
 			type = 'Visual';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.000000; };
@@ -55,6 +56,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = 'skillFullVisual1';
 			file_name = 'ui/a2d/ingame_panel/ingame_panel.vrp';
 			auto_play = false;
@@ -69,6 +71,7 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -82,6 +85,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/a2d/ingame_panel/ingame_panel_0102.png';
 				color = { 255; 255; 255; };
@@ -95,6 +99,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
+				flag = '';
 				x = -20.000000;
 				y = -8.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -108,12 +113,14 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'indicaterNode';
 			};
 			[3] =
 			{
 				type = 'Node';
 				ui_name = '';
+				flag = '';
 				x = 21.000000;
 				y = -10.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -127,10 +134,12 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'targetNode';
 			};
 			type = 'Menu';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.000000; };
@@ -144,6 +153,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = 'bottomMenu';
 		};
 		[3] =
@@ -152,6 +162,7 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -165,6 +176,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/a2d/ingame_panel/ingame_panel_0101.png';
 				color = { 255; 255; 255; };
@@ -178,6 +190,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -4.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -191,6 +204,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'dragonNode';
 			};
 			[3] =
@@ -232,6 +246,7 @@
 				};
 				type = 'Visual';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 35.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -245,6 +260,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = 'skillGaugeVisual';
 				file_name = 'ui/a2d/ingame_panel/ingame_panel.vrp';
 				auto_play = false;
@@ -257,6 +273,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
+				flag = '';
 				x = -27.000000;
 				y = 34.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -270,12 +287,14 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'attrNode';
 			};
 			[5] =
 			{
 				type = 'Node';
 				ui_name = '';
+				flag = '';
 				x = 15.000000;
 				y = 36.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -289,6 +308,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'manaNode';
 			};
 			[6] =
@@ -297,6 +317,7 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
+					flag = '';
 					x = 2.000015;
 					y = 3.000008;
 					dock_point = { 0.000000; 0.500000; };
@@ -310,6 +331,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'dragonHpGauge';
 					file_name = 'ui/a2d/ingame_panel/ingame_panel_portrait_hp_0202.png';
 					color = { 255; 255; 255; };
@@ -325,6 +347,7 @@
 				};
 				type = 'Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -38.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -338,6 +361,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'hpGauge';
 				file_name = 'ui/a2d/ingame_panel/ingame_panel_portrait_hp_0201.png';
 				color = { 255; 255; 255; };
@@ -351,6 +375,7 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
+				flag = '';
 				x = -23.000000;
 				y = -16.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -364,6 +389,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = 'swapSprite';
 				file_name = 'ui/a2d/ingame_panel/ingame_panel_change_0101.png';
 				color = { 255; 255; 255; };
@@ -377,6 +403,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -390,6 +417,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'cooltimeLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
@@ -412,11 +440,14 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
+				use_auto_fontsize = false;
+				has_bold = false;
 			};
 			[9] =
 			{
 				type = 'Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -430,6 +461,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = 'dieSprite';
 				file_name = 'ui/a2d/ingame_panel/ingame_panel_die_0201.png';
 				color = { 255; 255; 255; };
@@ -443,6 +475,7 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -456,6 +489,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = 'dragNotSprite';
 				file_name = 'ui/a2d/ingame_panel/ingame_panel_drag_mute_0101.png';
 				color = { 255; 255; 255; };
@@ -469,6 +503,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -482,6 +517,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = 'dragNotBtn';
 				enable = true;
 				normal = 'ui/a2d/ingame_panel/ingame_panel_drag_mute_0102.png';
@@ -489,8 +525,112 @@
 				disable = 'ui/a2d/ingame_panel/ingame_panel_drag_mute_0102.png';
 				image_type = 0;
 			};
+			[12] =
+			{
+				[1] =
+				{
+					[1] =
+					{
+						[1] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							flag = '';
+							x = 0.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 90;
+							height = 99;
+							scale_x = 0.800000;
+							scale_y = 0.800000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							screen_ui = 0;
+							lua_name = 'autoDragLockSprite';
+							file_name = 'ui/a2d/ingame_panel/ingame_panel_drag_mute_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						flag = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 52;
+						height = 52;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						screen_ui = 0;
+						lua_name = '';
+						file_name = 'ui/a2d/ingame_panel/ingame_panel_portrait.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
+					};
+					type = 'Button';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 50;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = 'autoDragLockBtn';
+					enable = true;
+					normal = '';
+					selected = '';
+					disable = '';
+					image_type = 1;
+				};
+				type = 'Menu';
+				ui_name = '';
+				flag = '';
+				x = 65.000000;
+				y = 95.000000;
+				dock_point = { 0.000000; 0.000000; };
+				anchor_point = { 0.000000; 0.000000; };
+				relative_size_type = 0;
+				width = 50;
+				height = 50;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = 'autoDragLockMenu';
+			};
 			type = 'Menu';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 54.000000;
 			dock_point = { 0.500000; 0.000000; };
@@ -504,6 +644,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = 'topMenu';
 		};
 		[4] =
@@ -545,6 +686,7 @@
 			};
 			type = 'Visual';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.000000; };
@@ -558,6 +700,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = 'skillFullVisual2';
 			file_name = 'ui/a2d/ingame_panel/ingame_panel.vrp';
 			auto_play = false;
@@ -568,6 +711,7 @@
 		};
 		type = 'Menu';
 		ui_name = '';
+		flag = '';
 		x = 0.000000;
 		y = 0.000000;
 		dock_point = { 0.500000; 0.500000; };
@@ -581,6 +725,7 @@
 		skew_y = 0.000000;
 		rotation = 0.000000;
 		visible = true;
+		screen_ui = 0;
 		lua_name = '';
 	};
 };
