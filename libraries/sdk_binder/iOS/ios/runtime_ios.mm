@@ -666,7 +666,7 @@ void billingSetup(int funcID, const char* checkReceiptServerUrl, const char* sav
     }];
 }
 
-void billingConfirm(int funcID, const char* orderId) {
+void billingConfirm(int funcID, const char* orderId, const char* purchaseToken) {
     [[PerpleSDK sharedInstance] billingConfirm:[NSString stringWithUTF8String:orderId]];
 }
 

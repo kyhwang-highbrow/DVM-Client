@@ -941,7 +941,7 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
                                             completion:callback];
 }
 
-- (void) billingConfirm:(NSString *)orderId {
+- (void) billingConfirm:(NSString *)orderId purchaseToken:(NSString *)purchaseToken {
     if (self.mBilling == nil) {
         return;
     }
