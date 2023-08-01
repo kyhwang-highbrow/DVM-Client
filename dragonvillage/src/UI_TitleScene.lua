@@ -1650,17 +1650,6 @@ function UI_TitleScene:workBillingSetup()
             --[[
                 -- info : [{"orderId":"@orderId","payload":"@payload"},...]
                 local info_json = dkjson.decode(info)
-                if (info_json and type(info_json) == 'table' and 0 < #info_json) then
-                    local l_payload = info_json
-    
-                    local function finish_cb()
-                        self:doNextWork()
-                    end
-    
-                    StructProduct:handlingMissingPayments(l_payload, nil, finish_cb)
-                else
-                    self:doNextWork()
-                end
                 --]]
 
             local function finish_cb()
@@ -2330,7 +2319,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
                 -- 로딩 UI Off
                 self.m_loadingUI:hideLoading()
 
-                PerpleSDK:billingConfirm(order_id)
+                PaymentHelper.billingConfirm(order_id, purchase_token)
 
                 -- 지표
                 if (test_purchase == false) then
@@ -2370,7 +2359,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
 
                         local function ok_btn_cb()
                             -- PerpleSDK:billingConfirm(order_id(string))를 호출한 것과 같음
-                            PerpleSDK:billingConfirm(order_id)
+                            PaymentHelper.billingConfirm(order_id, purchase_token)
                             co.NEXT()
                         end
 
@@ -2384,7 +2373,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
                 elseif (ret['status'] == 107) then
                     -- 이미 해당 order_id로 상품이 지급된 경우
                     -- ALREADY_EXIST(107 , "already exist"),
-                    PerpleSDK:billingConfirm(order_id)
+                    PaymentHelper.billingConfirm(order_id, purchase_token)
                     
                     co.NEXT()
                     return true
@@ -2393,7 +2382,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
                     -- 라이브 환경에서는 알 수 없는 오류에서 billingConfirm처리를 하고 cs로 해결하도록 한다.
                     -- PerpleSDK:billingConfirm(order_id(string))를 호출한 것과 같음
                     --SdkBinder.callPerpleSDKFunc('billingConfirm', order_id)
-                    PerpleSDK:billingConfirm(order_id)
+                    PaymentHelper.billingConfirm(order_id, purchase_token)
 
                     co.NEXT()
                     return true

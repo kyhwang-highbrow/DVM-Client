@@ -223,7 +223,7 @@ function PaymentHelper.buy_iap(struct_product, cb_func)
         
         -- 컨슘 (스토어 구매 과정 종료)
         if (test_purchase == false) then
-            PerpleSDK:billingConfirm(order_id)
+            PaymentHelper.billingConfirm(order_id, purchase_token)
         end
 
         if cb_func then
@@ -409,7 +409,7 @@ function PaymentHelper.payment(struct_product, cb_func)
             -- 구매 완료 성공 콜백을 받은 후 게임 서버에서 정상적으로 상품 지급을 한 다음 다시 이 함수를 호출해서 구매 프로세스를 완료시킴
             -- 이 함수를 호출하면 구글 결제 가방에서 해당 Purchase 를 Consume 처리함.
             if orderId then
-                PerpleSDK:billingConfirm(orderId)
+                PaymentHelper.billingConfirm(orderId)
             end
         end
         --------------------------------------------------------
@@ -927,7 +927,7 @@ function PaymentHelper.handlingMissingPayments(l_payload, result_cb, error_cb)
                     -- 구매 완료 성공 콜백을 받은 후 게임 서버에서 정상적으로 상품 지급을 한 다음 다시 이 함수를 호출해서 구매 프로세스를 완료시킴
                     -- 이 함수를 호출하면 구글 결제 인벤토리에서 해당 Purchase 를 Consume 처리함.
                     if orderId then
-                        PerpleSDK:billingConfirm(orderId)
+                        PaymentHelper.billingConfirm(orderId)
 
                         -- @sgkim 2019.09.25
                         -- PerpleSDK:billingConfirm 함수에서 다른 쓰레드를 통해서 코드가 동작함
@@ -1059,3 +1059,16 @@ function PaymentHelper.handlingMissingPayments_onestore(l_payload, cb_func, fini
     Coroutine(coroutine_function, '#handlingMissingPayments 코루틴')
 end
 
+-------------------------------------
+-- function billingConfirm
+-- @brief 빌링 컨슘 처리
+-------------------------------------
+function PaymentHelper.billingConfirm(order_id, purchase_token)
+    if purchase_token ~= nil and 
+        CppFunctionsClass:isAndroid() == true and 
+        getAppVerNum() > 1004003 then
+        PerpleSDK:billingConfirm(order_id, purchase_token)
+    else
+        PerpleSDK:billingConfirm(order_id)
+    end
+end
