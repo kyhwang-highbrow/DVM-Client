@@ -54,8 +54,14 @@ function UI_HighbrowAds:initUI()
     self.m_currImgIdx = nil
     self.m_imgList = {}
     vars['screenShotNode']:removeAllChildren()
-    for i=1, 5 do
-        local animator = MakeAnimator('res/ui/ads/self_ad_dva_730x410_ko_0' .. i .. '.png')
+
+    local lang_code = Translate:getGameLang()
+    if lang_code ~= 'ko' then
+        lang_code = 'en'
+    end
+
+    for i=1, 4 do
+        local animator = MakeAnimator(string.format('res/ui/ads/self_ad_dvc_730x410_%s_0%d.png', lang_code, i))
         vars['screenShotNode']:addChild(animator.m_node)
         animator:setVisible(false)
         table.insert(self.m_imgList, animator)
