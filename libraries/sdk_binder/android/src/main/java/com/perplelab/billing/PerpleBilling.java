@@ -232,7 +232,7 @@ public class PerpleBilling implements PurchasesUpdatedListener {
         return productDetailsParamsList;
     }
 
-    public void consume(final String orderId) {
+    public void consume(final String orderId, final String purchaseToken) {
         if (!isReady()) {
             return;
         }
@@ -240,15 +240,10 @@ public class PerpleBilling implements PurchasesUpdatedListener {
         mAppHandler.post(new Runnable() {
             @Override
             public void run() {
-                Purchase purchase = getPurchasesByOrderId(orderId);
-
-                if (purchase == null) {
-                    return;
-                }
 
                 ConsumeParams consumeParams =
                         ConsumeParams.newBuilder()
-                                .setPurchaseToken(purchase.getPurchaseToken())
+                                .setPurchaseToken(purchaseToken)
                                 .build();
 
                 ConsumeResponseListener listener = new ConsumeResponseListener() {

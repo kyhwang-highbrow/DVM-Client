@@ -1319,9 +1319,9 @@ public class PerpleSDKLua {
     }
 
     // @billing
-    public static void billingConfirm(final int funcID, String orderId) {
+    public static void billingConfirm(final int funcID, String orderId, String purchaseToken) {
         if (PerpleSDK.getBilling() != null) {
-            PerpleSDK.getBilling().consume(orderId);
+            PerpleSDK.getBilling().consume(orderId, purchaseToken);
         }
     }
 
