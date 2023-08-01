@@ -346,17 +346,16 @@ function GameAuto:doWork(dt)
                 else
                     self.m_curSkill = list[1]
                 end
-            
-                -- 드래그 스킬 잠금
-                if self.m_curSkill and self:isAutoDragSkillLocked(self.m_curSkill.m_unit, self.m_curSkill) == true then
-                    self.m_curSkill = nil
-                end
             end
         end
     end
 
+    -- 드래그 스킬 잠금
+    if self.m_curSkill and self:isAutoDragSkillLocked(self.m_curSkill.m_unit, self.m_curSkill) == true then
+        self.m_curSkill = nil
+    end
+
     local do_next = true
-    
     if (self.m_curSkill) then
         do_next = self:doWork_skill(self.m_curSkill, self.m_curPriority)
     end
