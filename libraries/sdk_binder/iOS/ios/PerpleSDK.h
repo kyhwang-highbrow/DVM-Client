@@ -227,7 +227,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 
 // @billing
 - (void) billingSetup:(NSString *)checkReceiptServerUrl saveTransactionUrl:saveTransactionUrl completion:(PerpleSDKCallback)callback;
-- (void) billingConfirm:(NSString *)orderId purchaseToken:(NSString *)purchaseToken;
+- (void) billingConfirm:(NSString *)orderId;
 - (void) billingPurchase:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
 - (void) billingSubscription:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
 - (void) billingGetItemList:(NSString *)skuList completion:(PerpleSDKCallback)callback;
