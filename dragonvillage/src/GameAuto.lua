@@ -348,7 +348,7 @@ function GameAuto:doWork(dt)
                 end
             
                 -- 드래그 스킬 잠금
-                if self:isAutoDragSkillLocked(self.m_curSkill.m_unit, self.m_curSkill) == true then
+                if self.m_curSkill and self:isAutoDragSkillLocked(self.m_curSkill.m_unit, self.m_curSkill) == true then
                     self.m_curSkill = nil
                 end
             end
