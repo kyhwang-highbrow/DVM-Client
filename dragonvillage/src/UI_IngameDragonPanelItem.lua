@@ -518,14 +518,5 @@ end
 -------------------------------------
 function UI_IngameDragonPanelItem:initDragSkillLock()
     local l_deck, formation, deck_name, leader = g_deckData:getDeck()
-    local did = self.m_dragon:getCharacterId()
-    local drag_did_list = g_settingData:getAutoDragSkillLockDidList(deck_name)
     self.m_deckName = deck_name
-
---[[     local did_list = {}
-    local dirty = false
-
-    if dirty == true then
-        g_settingData:setAutoDragSkillLockDidList(self.m_deckName, drag_did_list)
-    end ]]
 end
