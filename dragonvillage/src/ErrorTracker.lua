@@ -621,3 +621,76 @@ function ErrorTracker:sendErrorLog_RaidBattleLogHistory(sec)
        self.m_battleLogHistoryTime = sec + log_time
     end
 end
+
+-------------------------------------
+-- function sendIncompletePurchaseLog
+-- @brief 미지급 결제건에 대한 처리 로그
+------------------------------------- 
+function ErrorTracker:sendIncompletePurchaseLog(sku, order_id, purchase_token , success_cb)
+    -- device info는 추려서 넣도록 함
+    if (not self.m_tDeviceInfo) then
+        self.m_tDeviceInfo = {}
+    end
+
+	local device_str = self:getDeviceStr()
+    local uid = 'nil'
+    local nick = 'nil'
+
+    if g_userData then
+        uid = tostring(g_userData:get('uid'))
+        nick = tostring(g_userData:get('nick'))
+    elseif g_localData then
+        uid = tostring(g_localData:get('local', 'uid'))
+        nick = tostring(g_localData:get('local', 'nick'))
+    end
+
+    local curr_memory = collectgarbage('count') or 0
+    curr_memory = math.floor(curr_memory / 1024)
+    curr_memory = tonumber(curr_memory) or 0
+    local global_var = table.count(_G)
+
+    -- 파라미터 셋팅
+    local t_json = {
+        ['id'] = HMAC('sha1', msg_key or msg, CONSTANT['HMAC_KEY'], false), -- HMAC으로 고유ID 생성
+        ['uid'] = uid,
+        ['nick'] = nick,
+        ['os'] = getTargetOSName(),
+        ['ver_info'] = PatchData:getInstance():getAppVersionAndPatchIdxString(),
+        ['date'] = datetime.strformat(ServerTime:getInstance():getCurrentTimestampSeconds()),
+        
+        ['order_id'] = order_id,
+        ['purchase_token'] = purchase_token,
+        ['sku'] = sku,
+        
+        ['device'] = device_str,
+        ['memory(MB)'] = curr_memory,
+        ['global_var'] = global_var,
+    }
+
+    local t_data = {
+        ['json_str'] = dkjson.encode(t_json)
+    }
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['url'] = '/incomplete_purchase'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = function(ret)
+        if (success_cb) then
+            success_cb(ret)
+        end
+    end
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = function(ret)
+        if (success_cb) then
+            success_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
