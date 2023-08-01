@@ -326,6 +326,11 @@ function GameAuto:doWork(dt)
                         m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
                     end
 
+                    -- 드래그 스킬 잠금
+                    if self:isAutoDragSkillLocked(unit, struct_skill_info) == true then
+                        m_reason[REASON_TO_DO_NOT_USE_SKILL.LOCK] = true
+                    end
+
                     if (table.isEmpty(m_reason)) then
                         self.m_curSkill = struct_skill_info
                         break
@@ -340,6 +345,11 @@ function GameAuto:doWork(dt)
                     end
                 else
                     self.m_curSkill = list[1]
+                end
+            
+                -- 드래그 스킬 잠금
+                if self:isAutoDragSkillLocked(self.m_curSkill.m_unit, self.m_curSkill) == true then
+                    self.m_curSkill = nil
                 end
             end
         end
@@ -378,10 +388,6 @@ function GameAuto:doWork_skill(struct_skill_info, priority)
         m_reason[REASON_TO_DO_NOT_USE_SKILL.NO_ENABLE] = true
     end
 
-    -- 드래그 스킬 잠금
-    if self:isAutoDragSkillLocked(unit, struct_skill_info) == true then
-        return true
-    end
     -------------------------------------
     -- 스킬 사용 처리
     if (b) then

@@ -34,4 +34,5 @@ REASON_TO_DO_NOT_USE_SKILL = {
     STATUS_EFFECT   = 6,
     USING_SKILL     = 7,
     NO_ENABLE       = 8,
+    LOCK            = 9,
 }
