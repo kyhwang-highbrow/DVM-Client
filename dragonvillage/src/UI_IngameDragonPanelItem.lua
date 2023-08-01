@@ -462,20 +462,19 @@ function UI_IngameDragonPanelItem:refreshAutoDragSkillCheckBox(is_change_event)
     local vars = self.vars
     local is_auto_mode = self.m_world:isAutoPlay()
 
---[[     if is_auto_mode == true then
-        vars['autoDragLockBtn']:setScale(0.0)
-        local scale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 1), 1)
-        vars['autoDragLockBtn']:stopAllActions()
-        vars['autoDragLockBtn']:runAction(scale_action)
+    if is_auto_mode == true then
+        vars['autoDragLockMenu']:setScale(0.0)
+        local scale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0.6), 1)
+        vars['autoDragLockMenu']:stopAllActions()
+        vars['autoDragLockMenu']:runAction(scale_action)
     else
-        vars['autoDragLockBtn']:setScale(1.0)
-        local scale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0), 1)
-        vars['autoDragLockBtn']:stopAllActions()
-        vars['autoDragLockBtn']:runAction(scale_action)
+        vars['autoDragLockMenu']:setScale(0.6)
+        local scale_action = cc.EaseElasticIn:create(cc.ScaleTo:create(0.5, 0), 1)
+        vars['autoDragLockMenu']:stopAllActions()
+        vars['autoDragLockMenu']:runAction(scale_action)
     end
- ]]
 
-    vars['autoDragLockBtn']:setVisible(is_auto_mode)
+    --vars['autoDragLockBtn']:setVisible(is_auto_mode)
 end
 
 -------------------------------------
