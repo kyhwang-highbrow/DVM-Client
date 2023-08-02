@@ -81,6 +81,9 @@ function GameWorldForDoubleTeam:makeHeroDeck()
                 end
             end
         end
+
+        -- 드래그 스킬 잠금 보정 처리
+        self:correctDragSkillLock(main_deck_name, l_deck)
     end
 
     -- 조작할 수 없는 덱을 가져옴

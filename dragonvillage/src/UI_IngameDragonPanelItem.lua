@@ -516,6 +516,33 @@ end
 -- function initDragSkillLock
 -------------------------------------
 function UI_IngameDragonPanelItem:initDragSkillLock()
-    local l_deck, formation, deck_name, leader = g_deckData:getDeck()
-    self.m_deckName = deck_name
+    local g_data
+    if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
+        local attr = TableStageData:getStageAttr(self.m_world.m_stageID)
+        g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, nil, attr)
+
+    elseif (self.m_world.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+        g_data = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
+    end
+
+    local l_doid_list = {}
+    if g_data ~= nil then
+        local sel_deck = g_data:getMainDeck()
+        local main_deck_name
+
+        if (sel_deck == 'up') then
+            main_deck_name = g_data:getDeckName('up')
+        elseif (sel_deck == 'down') then
+            main_deck_name = g_data:getDeckName('down')
+        end
+
+        -- 덱 이름
+        local l_deck, formation, deck_name, leader = g_deckData:getDeck(main_deck_name)
+        l_doid_list = clone(l_deck)
+        self.m_deckName = main_deck_name
+    else
+        local l_deck, formation, deck_name, leader = g_deckData:getDeck()
+        l_doid_list = clone(l_deck)
+        self.m_deckName = deck_name
+    end
 end
