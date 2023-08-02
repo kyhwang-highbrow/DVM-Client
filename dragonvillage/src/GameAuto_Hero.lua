@@ -72,6 +72,9 @@ function GameAuto_Hero:init(world, game_mana, ui)
             self.m_mMainDeck[tonumber(t_dragon_data['did'])] = true
         end
     end
+
+    -- 보정 처리
+    self:correctDragSkillLock(self.m_deckName, l_doid_list)
 end
 
 -------------------------------------
@@ -83,6 +86,34 @@ function GameAuto_Hero:prepare(unit_list)
     local unit = self.m_lUnitList[1]
     if (unit) then
         self.m_group = unit:getPhysGroup()
+    end
+end
+
+-------------------------------------
+-- function correctDragSkillLock
+-------------------------------------
+function GameAuto_Hero:correctDragSkillLock(deck_name, l_deck)
+    local drag_did_list = g_settingData:getAutoDragSkillLockDidList(deck_name)    
+    local deck_did_list = {}
+    local dirty = false
+
+    for _, v in pairs(l_deck) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
+        if (t_dragon_data) then
+            table.insert(deck_did_list, t_dragon_data['did'])
+        end
+    end
+    
+    for idx = #drag_did_list, 1 , -1 do
+        local did = drag_did_list[idx]
+        if table.find(deck_did_list, did) == nil then
+            table.remove(drag_did_list, idx)
+            dirty = true
+        end
+    end
+
+    if dirty == true then
+        g_settingData:setAutoDragSkillLockDidList(deck_name, drag_did_list)
     end
 end
 

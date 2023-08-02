@@ -314,37 +314,6 @@ function GameWorld:makeHeroDeck()
             end
         end
     end
-
-    -- 드래그 스킬 잠금 보정 처리
-    self:correctDragSkillLock(deck_name, l_deck)
-end
-
--------------------------------------
--- function correctDragSkillLock
--------------------------------------
-function GameWorld:correctDragSkillLock(deck_name, l_deck)
-    local drag_did_list = g_settingData:getAutoDragSkillLockDidList(deck_name)    
-    local deck_did_list = {}
-    local dirty = false
-
-    for _, v in pairs(l_deck) do
-        local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
-        if (t_dragon_data) then
-            table.insert(deck_did_list, t_dragon_data['did'])
-        end
-    end
-    
-    for idx = #drag_did_list, 1 , -1 do
-        local did = drag_did_list[idx]
-        if table.find(deck_did_list, did) == nil then
-            table.remove(drag_did_list, idx)
-            dirty = true
-        end
-    end
-
-    if dirty == true then
-        g_settingData:setAutoDragSkillLockDidList(deck_name, drag_did_list)
-    end
 end
 
 -------------------------------------
