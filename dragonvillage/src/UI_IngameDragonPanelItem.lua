@@ -174,6 +174,10 @@ function UI_IngameDragonPanelItem:initButton()
     --while true do end
     vars['autoDragLockBtn'] = UIC_CheckBox(vars['autoDragLockBtn'].m_node, vars['autoDragLockSprite'], active)
     vars['autoDragLockBtn']:registerScriptTapHandler(function() self:click_autoDragSkillLockCheckBox() end)
+
+    if (self.m_world.m_gameMode == GAME_MODE_INTRO) then
+        vars['autoDragLockMenu']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -517,6 +521,10 @@ end
 -------------------------------------
 function UI_IngameDragonPanelItem:initDragSkillLock()
     local g_data
+    if (self.m_world.m_gameMode == GAME_MODE_INTRO) then
+        return
+    end
+
     if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
         local attr = TableStageData:getStageAttr(self.m_world.m_stageID)
         g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, nil, attr)

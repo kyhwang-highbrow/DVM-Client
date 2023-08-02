@@ -8,6 +8,7 @@ GameAuto_Hero = class(PARENT, {
         m_group = 'string', -- PHYS.HERO or PHYS.HERO_TOP or PHYS.HERO_BOTTOM
         m_deckName = 'string',
         m_mMainDeck = 'Map<number, string>',
+        m_useAutoMode = 'boolean',
      })
 
 -------------------------------------
@@ -18,10 +19,12 @@ function GameAuto_Hero:init(world, game_mana, ui)
 
     -- 전투 시작 시 자동모드 설정 처리
     local is_auto_mode = g_autoPlaySetting:get('auto_mode')
+    self.m_useAutoMode = true
 
     if (self.m_world.m_gameMode == GAME_MODE_INTRO) then
         -- 인트로에서는 비활성화시킴
         is_auto_mode = false
+        self.m_useAutoMode = false
 
     elseif (g_autoPlaySetting:isAutoPlay()) then
         -- 연속 전투가 활성화되어있다면 즉시 자동모드를 활성화시킴
@@ -34,7 +37,12 @@ function GameAuto_Hero:init(world, game_mana, ui)
         self:onStart()
     end
 
-    
+    self.m_mMainDeck = {}
+
+    if self.m_useAutoMode == false then
+        return
+    end
+
     local g_data
     if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
         local attr = TableStageData:getStageAttr(self.m_world.m_stageID)
@@ -65,7 +73,7 @@ function GameAuto_Hero:init(world, game_mana, ui)
         self.m_deckName = deck_name
     end
 
-    self.m_mMainDeck = {}
+    
     for i, doid in pairs(l_doid_list) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         if t_dragon_data ~= nil then
@@ -197,6 +205,11 @@ end
 -- function isAutoDragSkillLocked
 -------------------------------------
 function GameAuto_Hero:isAutoDragSkillLocked(unit, t_skill_info)
+    -- 덱이름이 없으면 false
+    if self.m_deckName == nil then
+        return false
+    end
+
     -- 드래그 스킬 잠금일 경우 체크
     local did = unit:getCharacterId()
 
@@ -204,6 +217,8 @@ function GameAuto_Hero:isAutoDragSkillLocked(unit, t_skill_info)
     if self.m_mMainDeck[did] ~= true then
         return false
     end
+
+
 
     -- 드래그 스킬 여부 체크
     if t_skill_info ~= nil then
