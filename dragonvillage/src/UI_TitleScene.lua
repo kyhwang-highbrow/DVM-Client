@@ -2299,8 +2299,6 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
 
         -- StructIAPPurchase
         for i,struct_iap_purchase in ipairs(l_struct_iap_purchase) do
-            co:work()
-
             -- 로딩 UI On
             self.m_loadingUI:showLoading()
 
@@ -2314,6 +2312,11 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
             local purchase_token = struct_iap_purchase:getPurchaseToken()
             local test_purchase = false
 
+            PaymentHelper.billingConfirm(order_id, purchase_token)
+            g_errorTracker:sendIncompletePurchaseLog(sku, order_id, purchase_token)            
+            co:waitTime(0.2)
+
+            co:work()
             -- 성공 시에는 billingConfirm으로 결제건 종료
             local success_cb = function(ret)
                 -- 로딩 UI Off
@@ -2359,7 +2362,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
 
                         local function ok_btn_cb()
                             -- PerpleSDK:billingConfirm(order_id(string))를 호출한 것과 같음
-                            PaymentHelper.billingConfirm(order_id, purchase_token)
+                            -- PaymentHelper.billingConfirm(order_id, purchase_token)
                             co.NEXT()
                         end
 
@@ -2373,7 +2376,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
                 elseif (ret['status'] == 107) then
                     -- 이미 해당 order_id로 상품이 지급된 경우
                     -- ALREADY_EXIST(107 , "already exist"),
-                    PaymentHelper.billingConfirm(order_id, purchase_token)
+                    -- PaymentHelper.billingConfirm(order_id, purchase_token)
                     
                     co.NEXT()
                     return true
@@ -2382,7 +2385,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
                     -- 라이브 환경에서는 알 수 없는 오류에서 billingConfirm처리를 하고 cs로 해결하도록 한다.
                     -- PerpleSDK:billingConfirm(order_id(string))를 호출한 것과 같음
                     --SdkBinder.callPerpleSDKFunc('billingConfirm', order_id)
-                    PaymentHelper.billingConfirm(order_id, purchase_token)
+                    -- PaymentHelper.billingConfirm(order_id, purchase_token)
 
                     co.NEXT()
                     return true

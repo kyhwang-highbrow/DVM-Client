@@ -651,7 +651,7 @@ function ErrorTracker:sendIncompletePurchaseLog(sku, order_id, purchase_token , 
 
     -- 파라미터 셋팅
     local t_json = {
-        ['id'] = HMAC('sha1', msg_key or msg, CONSTANT['HMAC_KEY'], false), -- HMAC으로 고유ID 생성
+        ['id'] = HMAC('sha1', 'sendIncompletePurchaseLog', CONSTANT['HMAC_KEY'], false), -- HMAC으로 고유ID 생성
         ['uid'] = uid,
         ['nick'] = nick,
         ['os'] = getTargetOSName(),
