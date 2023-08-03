@@ -2313,7 +2313,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
             local test_purchase = false
 
             PaymentHelper.billingConfirm(order_id, purchase_token)
-            g_errorTracker:sendIncompletePurchaseLog(sku, order_id, purchase_token)            
+            g_errorTracker:sendIncompletePurchaseLog(sku, order_id, purchase_token)
             co:waitTime(0.2)
 
             co:work()
@@ -2321,8 +2321,7 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
             local success_cb = function(ret)
                 -- 로딩 UI Off
                 self.m_loadingUI:hideLoading()
-
-                PaymentHelper.billingConfirm(order_id, purchase_token)
+                --PaymentHelper.billingConfirm(order_id, purchase_token)
 
                 -- 지표
                 if (test_purchase == false) then
