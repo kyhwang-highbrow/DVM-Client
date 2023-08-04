@@ -125,7 +125,7 @@ function UI_BattlePass_Nurture:refreshLevel()
 
         vars['nextLevelLabel']:setString(next_level)
 
-        if next_level > max_level then
+        if user_level >= max_level then
             vars['nextPointLabel']:setString(Str('최대 레벨'))
             vars['nextLevelGauge']:setPercentage(100)
         else
