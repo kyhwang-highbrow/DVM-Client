@@ -14,24 +14,39 @@ function ServerData_IndivPass:init(server_data)
     self.m_mPassData = {}
 end
 
+
+-------------------------------------
+-- function isIndivPassEventOnGoing
+-------------------------------------
+function ServerData_IndivPass:isIndivPassEventOnGoing()
+    local list = self:getEventRepresentProductList(true)
+    return #list > 0
+end
+
 -------------------------------------
 -- function getEventRepresentProductList
 -- @brief 더미 대표 상품, 지금 패스 구조상 1개의 상품당 탭 1개로 처리해야 하는데
 --        개인 패스는 한 탭에 상품 2개가 같이 노출되어야 함
 -------------------------------------
-function ServerData_IndivPass:getEventRepresentProductList()
+function ServerData_IndivPass:getEventRepresentProductList(is_for_check)
     local list = {}
     local priority = 1
 
     for key, struct_indv_pass in pairs(self.m_mPassData) do
+        if struct_indv_pass:isIndivPassValidTime() == true then
+            struct_indv_pass.product_id = struct_indv_pass:getAdvancePassPid()
+            struct_indv_pass.m_uiPriority = priority
+            struct_indv_pass.package_res = 'battle_pass_3step.ui'
+            struct_indv_pass.package_res_2 = 'battle_pass_3step.ui'
+            struct_indv_pass.package_class = 'UI_BattlePass_Nurture'
+            
+            table.insert(list, struct_indv_pass)
+            priority = priority - 1
 
-        struct_indv_pass.product_id = struct_indv_pass:getAdvancePassPid()
-        struct_indv_pass.m_uiPriority = priority
-        struct_indv_pass.package_res = 'battle_pass_3step.ui'
-        struct_indv_pass.package_class = 'UI_BattlePass_Nurture'
-        
-        table.insert(list, struct_indv_pass)
-        priority = priority - 1
+            if is_for_check == true then
+                return list
+            end
+        end
     end
 
     return list

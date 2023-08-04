@@ -329,6 +329,19 @@ function UI_EventFullPopup:initUI()
     elseif (string.find(popup_key, 'highbrow_vip')) then
         ui = UI_HighbrowVipPopup()
 
+    -- 개인 패스
+    elseif popup_key == 'event_indiv_pass' then
+        local package_name = popup_key
+        local is_popup = false
+
+        local list = g_indivPassData:getEventRepresentProductList()
+        if #list > 0 then
+            ui = UI_BattlePass_Nurture(list)
+            ui.vars['questBtn']:setVisible(false)
+        else
+            self:close()
+        end
+
     elseif (self.m_targetUI) then
         ui = self.m_targetUI
     end

@@ -17,6 +17,7 @@ StructIndivPass = class(PARENT, {
     product_id = 'number',
     m_uiPriority = 'number',
     package_res = 'string',
+    package_res_2 = 'string',
     package_class = 'Class',
 
     m_passLevelList = '',
@@ -85,6 +86,19 @@ function StructIndivPass:isIndivPassReceivedReward(reward_id)
     end
     
     return self.rewards[tostring(reward_id)] ~= nil
+end
+
+-------------------------------------
+-- function isIndivPassValidTime
+-------------------------------------
+function StructIndivPass:isIndivPassValidTime()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
+
+    if curr_time >= self.start_time and curr_time <= self.end_time then
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------

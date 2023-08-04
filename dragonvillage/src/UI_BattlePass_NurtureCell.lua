@@ -27,10 +27,10 @@ function UI_BattlePass_NurtureCell:init(data)
 
     self:load('battle_pass_3step_item.ui')
 
-    -- @UI_ACTION
-    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
+--[[     -- @UI_ACTION
+    self:addAction(self.root, UI_ACTION_TYPE_TOP, 1)
     self:doActionReset()
-    self:doAction(nil, false)
+    self:doAction(nil, false) ]]
 
     self:initUI()
     self:initButton()

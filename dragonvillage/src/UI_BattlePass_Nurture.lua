@@ -15,34 +15,18 @@ UI_BattlePass_Nurture.START_TYPE_IDX = 0
 UI_BattlePass_Nurture.END_TYPE_IDX = 2
 
 --------------------------------------------------------------------------
--- @function init 
--- @brief
---------------------------------------------------------------------------
-function UI_BattlePass_Nurture:init(struct_product_list, is_popup)
-    -- 유아이 파일
-    -- battle_pass_3step.ui
-
-    -- 유아이 클래스
-    --UI_BattlePass_Nurture
-
-    -- 업데이트 갱신
-    self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
-
-    -- @UI_ACTION
-    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
-    self:doActionReset()
-    self:doAction(nil, false)
-end
-
---------------------------------------------------------------------------
 -- @function initUI 
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:initUI()
+    local vars = self.vars
+
     local struct_product = self.m_structProduct
     self.m_passId = struct_product.pass_id
     self.m_passData = g_indivPassData:getIndivPass(self.m_passId)
     self.m_passLevelList = TableIndivPassReward:getInstance():getIndivPassLevelDataList(self.m_passId)
+
+    self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
 
     self:initTableView()
     self:update()
@@ -200,6 +184,7 @@ function UI_BattlePass_Nurture:initTableView()
     table_view.m_defaultCellSize = cc.size(120, 480)
     table_view:setCellUIClass(UI_BattlePass_NurtureCell, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setCellCreateDirecting(nil)
     table_view:setItemList(self.m_passLevelList)
 
     --table_view:CreateCellUIClass(self.m_pass_id, g_battlePassData:getLevelNum(self.m_pass_id))

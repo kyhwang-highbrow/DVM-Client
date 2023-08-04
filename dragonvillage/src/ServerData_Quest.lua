@@ -343,6 +343,10 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
             end
         end
 
+        -- 개인 패스 퀘스특 경험치 업데이트
+        g_indivPassData:applyPassData(ret)
+
+
         g_serverData:networkCommonRespone_addedItems(ret)
 
 		-- 여기서 highlight 정보가 넘어오긴 하는데.. 어차피 로비에서 다시 통신하는 구조이므로

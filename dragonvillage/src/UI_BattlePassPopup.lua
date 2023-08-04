@@ -168,13 +168,6 @@ function UI_BattlePassPopup:initTableView()
         end
     end
 
-    do -- 개인 패스 상품은 별도로 추가
-        local struct_product_list = g_indivPassData:getEventRepresentProductList()
-        for _, v in ipairs(struct_product_list) do
-            table.insert(tabList, v)
-        end
-    end
-
     local tableView = UIC_TableView(self.m_listNode)
     -- TODO (YOUNGJIN) : ui 파일에서 노드 생성후 사이즈 적용으로 바꾸기
     tableView.m_defaultCellSize = cc.size(264, 104 + 5)

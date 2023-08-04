@@ -42,7 +42,9 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
         SPECIAL_OFFER_PACK_DIA = 15, -- 특별 할인 다이아 패키지
         SPECIAL_OFFER_PACK_GOLD = 16, -- 특별 할인 골드 패키지
         SPECIAL_OFFER_PACK_NURTURE = 17, -- 특별 할인 육성 패키지
-        SPOT_SALE_PRODUCT = 18  -- 깜짝 할인 패키지 
+
+        SPOT_SALE_PRODUCT = 18,  -- 깜짝 할인 패키지 
+        BATTLE_INDIV_PASS = 19, -- 개인 패스
     }
 
     self.m_elapsedTime = 1
@@ -60,6 +62,8 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PACK_GOLD, UI_ButtonSpecialOfferProductGold}) -- 특별 할인 골드 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PACK_NURTURE, UI_ButtonSpecialOfferProductNurture}) -- 특별 할인 패키지 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPOT_SALE_PRODUCT, UI_ButtonSpotSale}) -- 깜짝 할인 상품
+    table.insert(l_managed_button_info, {self.PRIORITY.BATTLE_INDIV_PASS, UI_ButtonBattlePassIndiv}) -- 개인 패스
+
     
     table.insert(l_managed_button_info, {self.PRIORITY.WEIDEL_PACK, UI_ButtonSpecialOfferWeidel}) -- 바이델 축제 패키지
     table.insert(l_managed_button_info, {self.PRIORITY.WEIDEL_PACK, UI_ButtonSpecialPeriod}) -- 5주년 축제 패키지, 달빛 축제 패키지

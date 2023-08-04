@@ -252,6 +252,22 @@ function UI_QuestListItem:setRewardCard()
 		end
 	end
 
+    -- 개인 패스 경험치
+    local indiv_pass_exp = self.m_questData:getRewardIndivPassExp()
+    if (g_indivPassData:isIndivPassEventOnGoing() and indiv_pass_exp > 0) then
+        local battle_pass_card = UI_BattlePassCard(indiv_pass_exp)
+        battle_pass_card.root:setSwallowTouch(false)
+        local reward_node = vars['rewardNode' .. reward_idx]
+        if (reward_node) then
+            if (battle_pass_card) then
+                reward_node:removeAllChildren()
+                reward_node:addChild(battle_pass_card.root)
+                reward_idx = reward_idx + 1
+                table.insert(l_rewardCardUI, battle_pass_card)
+            end
+        end
+    end
+
     local max_reward = reward_idx - 1
     -- 아이템 카드에 보상 받음 여부 표시(체크 표시)
     for i = 1, max_reward do

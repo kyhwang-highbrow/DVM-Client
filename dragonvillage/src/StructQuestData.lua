@@ -160,3 +160,15 @@ function StructQuestData:getRewardClanExp()
 	end
 	return clan_exp
 end
+
+-------------------------------------
+-- function getRewardIndivPassExp
+-- @breif 개인 패스 경험치
+-------------------------------------
+function StructQuestData:getRewardIndivPassExp()
+	local pass_exp = self['t_quest']['pass_exp']
+	if (pass_exp == '') then
+		return nil
+	end
+	return pass_exp
+end
