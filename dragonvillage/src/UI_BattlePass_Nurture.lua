@@ -106,8 +106,6 @@ function UI_BattlePass_Nurture:refreshLevel()
     local vars =  self.vars
     local user_level = self:getPassLevel()
 
-    cclog('user_level', user_level)
-
     do -- 유저 레벨
         vars['levelLabel']:setString(user_level == 0 and Str('없음') or user_level)
     end
@@ -233,13 +231,6 @@ end
 -- @function click_buyBtn 
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_buyBtn(type_id)
-
-    do
-        UIManager:toastNotificationRed('개발 중입니다.')
-        return
-    end
-
-
     local struct_indiv_pass = self.m_passData
     local curreny_buy_type = struct_indiv_pass:getIndivPassCurrentBuyType()
 

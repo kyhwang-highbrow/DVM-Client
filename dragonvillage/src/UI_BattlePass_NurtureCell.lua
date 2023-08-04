@@ -124,7 +124,7 @@ function UI_BattlePass_NurtureCell:refreshReward(type_id)
         vars[item_node_str]:addChild(ui.root)
     end
 
-    self.m_card[type_id]:setEnabledClickBtn(true)
+    self.m_card[type_id]:setEnabledClickBtn(not is_available)
 
     -- 아이템 수량
     local item_label_str = string.format('%dItemLabel', type_id)
