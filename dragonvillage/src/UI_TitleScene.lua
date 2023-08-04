@@ -2313,8 +2313,8 @@ function UI_TitleScene:workNewBillingHandleIncompletePurchaseList()
             local test_purchase = false
 
             PaymentHelper.billingConfirm(order_id, purchase_token)
-            g_errorTracker:sendIncompletePurchaseLog(sku, order_id, purchase_token)
-            co:waitTime(0.2)
+            --g_errorTracker:sendIncompletePurchaseLog(sku, order_id, purchase_token)
+            --co:waitTime(0.2)
 
             co:work()
             -- 성공 시에는 billingConfirm으로 결제건 종료

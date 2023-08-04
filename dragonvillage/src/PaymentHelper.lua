@@ -1055,7 +1055,6 @@ function PaymentHelper.handlingMissingPayments_onestore(l_payload, cb_func, fini
         co:close()
     end
 
-
     Coroutine(coroutine_function, '#handlingMissingPayments 코루틴')
 end
 
@@ -1064,9 +1063,7 @@ end
 -- @brief 빌링 컨슘 처리
 -------------------------------------
 function PaymentHelper.billingConfirm(order_id, purchase_token)
-    if purchase_token ~= nil and 
-        CppFunctionsClass:isAndroid() == true and 
-        getAppVerNum() > 1004003 then
+    if purchase_token ~= nil then
         PerpleSDK:billingConfirm(order_id, purchase_token)
     else
         PerpleSDK:billingConfirm(order_id)
