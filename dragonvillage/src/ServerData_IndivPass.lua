@@ -48,14 +48,21 @@ end
 -- function applyPassData
 -------------------------------------
 function ServerData_IndivPass:applyPassData(ret)
-    local t_info = ret['indiv_pass_map'] or ret['modified_indiv_pass_map']
-
-    if t_info == nil then
-        return
+    if ret['modified_indiv_pass_map'] ~= nil then
+        local t_info = ret['modified_indiv_pass_map'] 
+        for k, v in pairs(t_info) do
+            local struct_indiv_pass = self.m_mPassData[tonumber(k)]
+            for var_name, var_value in pairs(v) do
+                struct_indiv_pass[var_name] = var_value
+            end
+        end
     end
 
-    for k, v in pairs(t_info) do
-        self.m_mPassData[tonumber(k)] = StructIndivPass(v)
+    if ret['indiv_pass_map'] ~= nil then
+        local t_info = ret['indiv_pass_map']
+        for k, v in pairs(t_info) do
+            self.m_mPassData[tonumber(k)] = StructIndivPass(v)
+        end
     end
 end
 
@@ -109,7 +116,7 @@ function ServerData_IndivPass:request_reward(pass_id, reward_ids ,finish_cb, fai
     ui_network:setUrl('/indiv_pass/reward')
     ui_network:setParam('uid', uid)
     ui_network:setParam('pass_id', pass_id)
-    ui_network:setParam('reward_id', reward_ids)
+    ui_network:setParam('reward_ids', reward_ids)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

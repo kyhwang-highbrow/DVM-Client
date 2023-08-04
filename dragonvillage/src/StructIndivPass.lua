@@ -79,8 +79,8 @@ end
 -------------------------------------
 -- function isIndivPassReceivedReward
 -------------------------------------
-function StructIndivPass:isIndivPassReceivedReward(type_id, reward_id)
-    return false
+function StructIndivPass:isIndivPassReceivedReward(reward_id)
+    return self.rewards[tostring(reward_id)] ~= nil
 end
 
 -------------------------------------
@@ -114,17 +114,21 @@ end
 -- function getIndivPassAvailableRewardIdList
 -------------------------------------
 function StructIndivPass:getIndivPassAvailableRewardIdList(type_id, check_available)
+    local user_exp = self:getIndivPassExp()
+    local user_type = self:getIndivPassCurrentBuyType()
+
     if self.m_passLevelList == nil then
         self.m_passLevelList = TableIndivPassReward:getInstance():getIndivPassLevelDataList(self.pass_id)
     end
 
-    local user_exp = self:getIndivPassExp()
     local reward_id_list = {}
     for level, t_data in ipairs(self.m_passLevelList) do
         local reward_id = (self.pass_id * 10000) + (type_id * 100) + level
         local is_clear = (user_exp >= t_data['exp'])
-        local is_rewarded = self:isIndivPassReceivedReward(type_id, reward_id)
-        local is_available = is_clear == true and is_rewarded == false
+        local is_rewarded = self:isIndivPassReceivedReward(reward_id)
+        local is_reach = user_type >= type_id
+        local is_available = is_reach == true and is_clear == true and is_rewarded == false        
+
         if is_available == true then
             table.insert(reward_id_list, reward_id)
             if check_available == true then

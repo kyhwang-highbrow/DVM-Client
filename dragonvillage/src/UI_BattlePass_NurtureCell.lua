@@ -8,6 +8,8 @@ UI_BattlePass_NurtureCell = class(PARENT, {
     m_passId = 'number',
     m_passLevel = 'number',
     m_passExp = 'number',
+
+    m_card = '',
 })
 
 UI_BattlePass_NurtureCell.START_TYPE_IDX = 0
@@ -21,6 +23,7 @@ function UI_BattlePass_NurtureCell:init(data)
     self.m_passId = data['pass_id']
     self.m_passLevel = data['level']
     self.m_passExp = data['exp']
+    self.m_card = {}
 
     self:load('battle_pass_3step_item.ui')
 
@@ -45,6 +48,18 @@ end
 -- @function initButton 
 --------------------------------------------------------------------------
 function UI_BattlePass_NurtureCell:initButton()
+    local vars = self.vars
+    self.root:setSwallowTouch(false)
+    vars['swallowTouchMenu']:setSwallowTouch(false)
+
+    -- 보상 리스트
+    for idx = UI_BattlePass_NurtureCell.START_TYPE_IDX, UI_BattlePass_NurtureCell.END_TYPE_IDX do
+        -- 보상 버튼 표시
+        local reward_btn_str = string.format('%dRewardBtn', idx + 1)
+        if vars[reward_btn_str] ~= nil then
+            vars[reward_btn_str]:getParent():setSwallowTouch(false)
+        end
+    end
 end
 
 --------------------------------------------------------------------------
@@ -89,24 +104,27 @@ function UI_BattlePass_NurtureCell:refreshReward(type_id)
     local user_exp = struct_indiv_pass:getIndivPassExp()
     local item_id, item_num = TableIndivPassReward:getInstance():getPassRewardItem(reward_id)
 
+    local is_reached = struct_indiv_pass:getIndivPassCurrentBuyType() >= type_id
     local is_clear = (user_exp >= self.m_passExp)
-    local is_rewarded = struct_indiv_pass:isIndivPassReceivedReward(type_id, reward_id)
-    local is_available = is_clear == true and is_rewarded == false
+    local is_rewarded = struct_indiv_pass:isIndivPassReceivedReward(reward_id)
+    local is_available = is_reached == true and is_clear == true and is_rewarded == false
 
     type_id = type_id + 1
     
     -- 아이템 노드
     local item_node_str = string.format('%dItemNode', type_id)
-    if vars[item_node_str] ~= nil then
+    if vars[item_node_str] ~= nil and self.m_card[type_id] == nil then
         local ui = UI_ItemCard(item_id)
+        self.m_card[type_id] = ui
 
-        ui:setEnabledClickBtn(true)
-        ui:SetBackgroundVisible(false)
         ui:setSwallowTouch()
+        ui:SetBackgroundVisible(false)
 
         vars[item_node_str]:removeAllChildren()
         vars[item_node_str]:addChild(ui.root)
     end
+
+    self.m_card[type_id]:setEnabledClickBtn(true)
 
     -- 아이템 수량
     local item_label_str = string.format('%dItemLabel', type_id)
@@ -123,7 +141,7 @@ function UI_BattlePass_NurtureCell:refreshReward(type_id)
     -- 클리어 표시
     local clear_sprite_str = string.format('%dClearSprite', type_id)
     if vars[clear_sprite_str] ~= nil then
-        vars[clear_sprite_str]:setVisible(is_clear)
+        vars[clear_sprite_str]:setVisible(is_rewarded)
     end
 
     -- 보상 버튼 표시

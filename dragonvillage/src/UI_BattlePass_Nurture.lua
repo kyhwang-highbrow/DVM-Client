@@ -53,7 +53,7 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:getPassLevel()
     local struct_indv_pass = self.m_passData
-    return struct_indv_pass:getIndivPassExp()
+    return struct_indv_pass:getIndivPassUserLevel()
 end
 
 --------------------------------------------------------------------------
@@ -105,6 +105,8 @@ end
 function UI_BattlePass_Nurture:refreshLevel()
     local vars =  self.vars
     local user_level = self:getPassLevel()
+
+    cclog('user_level', user_level)
 
     do -- 유저 레벨
         vars['levelLabel']:setString(user_level == 0 and Str('없음') or user_level)
@@ -163,9 +165,9 @@ function UI_BattlePass_Nurture:refreshButtons()
         local is_available_reward = struct_indiv_pass:isIndivPassAvailableReward(type_id)
         local reward_btn_str = string.format('passRewardBtn%d', type_id)
         if vars[reward_btn_str] ~= nil then
-            vars[reward_btn_str]:setEnabled(is_available_reward)
-            vars[reward_btn_str]:setBlockMsg(is_available_reward == true and nil or '')
-            vars[reward_btn_str]:setVisible(not is_buyable)
+            --vars[reward_btn_str]:setEnabled(is_available_reward)
+            --vars[reward_btn_str]:setBlockMsg(is_available_reward and nil or '')
+            vars[reward_btn_str]:setVisible(is_available_reward)
         end
     end
 end
@@ -188,6 +190,7 @@ function UI_BattlePass_Nurture:initTableView()
             -- 보상 버튼 표시
             local reward_btn_str = string.format('%dRewardBtn', idx + 1)
             if ui.vars[reward_btn_str] ~= nil then
+                --ui.vars[reward_btn_str].m_node:setSwallowTouch(false)
                 ui.vars[reward_btn_str]:registerScriptTapHandler(function ()
                     self:click_rewardLevelBtn(idx, data['level'], finish_cb)
                 end)
@@ -271,11 +274,6 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_rewardBtn(type_id, level)
 
-    do
-        UIManager:toastNotificationRed('개발 중입니다.')
-        return
-    end
-
     local struct_indiv_pass = self.m_passData
     local reward_id_list = struct_indiv_pass:getIndivPassAvailableRewardIdList(type_id)
 
@@ -300,11 +298,6 @@ end
 -- @function click_rewardLevelBtn 
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_rewardLevelBtn(type_id, level, finish_cb)
-    
-    do
-        UIManager:toastNotificationRed('개발 중입니다.')
-        return
-    end
 
     local pass_id = self.m_passId
     local reward_id = (pass_id * 10000) + (type_id * 100) + level
