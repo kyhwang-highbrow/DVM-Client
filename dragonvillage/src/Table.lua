@@ -247,12 +247,11 @@ local TableInfo_fromServer = {
         ['table_battlepass_clan_dark'] = {'table_battlepass_clan_dark', 'package_id'},
         ['table_arena_new'] = {'table_arena_new', 'id'}, -- 콜로세움 개선 후 돌파 보상
         ['table_cross_promotion'] = {'table_cross_promotion', 'event_id'}, -- 콜로세움 개선 후 돌파 보상
+        ['table_get_dragon_package'] = {'table_get_dragon_package', 'product_id'}, -- 드래곤 획득 패키지
+        ['table_story_dungeon_event'] = {'table_story_dungeon_event', 'season_id'}, -- 스토리 던전 이벤트 테이블
 
-        -- 드래곤 획득 패키지
-        ['table_get_dragon_package'] = {'table_get_dragon_package', 'product_id'},
-
-        -- 스토리 던전 이벤트 테이블
-        ['table_story_dungeon_event'] = {'table_story_dungeon_event', 'season_id'},
+        ['table_indiv_pass'] = {'table_indiv_pass', 'id'}, -- 개인 패스
+        ['table_indiv_pass_reward'] = {'table_indiv_pass_reward', 'id'}, -- 개인 패스
     }
 
 -------------------------------------

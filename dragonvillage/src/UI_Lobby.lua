@@ -130,9 +130,6 @@ function UI_Lobby:entryCoroutine()
         -- lobby 공통 함수
         self:entryCoroutine_requestUsersLobby(co)
 
-        do
-            
-        end
 
 		if (g_hotTimeData:isActiveEvent('event_exchange')) then
             co:work()
@@ -239,6 +236,14 @@ function UI_Lobby:entryCoroutine()
         co:work('# 네스트 정보 갱신 중')
         g_nestDungeonData:requestNestDungeonInfo(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
+
+        do -- 배틀 패스
+            if IS_TEST_MODE() == true then
+                co:work('# 배틀 패스 정보 중')
+                g_indivPassData:request_info(co.NEXT, co.ESCAPE)
+                if co:waitWork() then return end
+            end
+        end
 
         -- 차원문 
         do

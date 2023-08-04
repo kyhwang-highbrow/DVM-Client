@@ -42,6 +42,13 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePassTabButton:initUI()
     local vars = self.vars
+
+    if self.m_structProduct:getClassName() == 'StructIndivPass' then
+        local pass_name = self.m_structProduct:getIndivPassName()
+        self.m_listLabel:setString(pass_name)
+        return
+    end
+
     
     local pid = self.m_structProduct['product_id']
     local desc = TablePackageBundle:getPackageDescWithPid(pid)

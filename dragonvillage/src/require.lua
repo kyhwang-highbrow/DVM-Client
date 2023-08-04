@@ -163,8 +163,9 @@ local t_module = {
     'StructDragonPkgData',
     'StructRecall',
     'StructPresetDeck',
+    'StructIndivPass',
 
-	-- ServerData
+	-- ServerData 
     'ServerData',
     'ServerData_User',
 	'ServerData_Tamer',
@@ -282,6 +283,7 @@ local t_module = {
     'ServerData_EventPopularityGacha',
     'ServerData_RuneGuardian', -- 룬 수호자 클리어 정보
     'ServerData_DeckPreset', -- 프리셋 덱
+    'ServerData_IndivPass', -- 개인 패스
 
     -- Interface
     'IEventDispatcher',
@@ -498,6 +500,8 @@ local t_module = {
     'TableEventQuest', -- 이벤트 퀘스트
     'TablePickupSchedule', -- 픽업 스케쥴
     'TableRuneFilterPoint', -- 룬 필터 포인트
+    'TableIndivPass', -- 개인 패스
+    'TableIndivPassReward', -- 개인 패스 보상 테이블
 
     -- Scene
     'SceneCommon',

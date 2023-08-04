@@ -11,6 +11,8 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
     local _package_name = package_name
     
     print('Package Name : ' .. _package_name)
+
+
     -- 패키지에 뜨는 UI와 풀팝업에 뜨는 UI를 구분하고 싶은 경우
     -- 패키지 네임 뒤에 _popup 추가하고, 아래 조건문에서 분기로 구분하여 사용
     if (string.find(package_name, '_popup')) then
@@ -74,20 +76,6 @@ function PackageManager:getTargetUI(package_name, is_popup, product_id, is_full_
         local list = {}
         table.insert(list, _struct_product)
         target_ui = UI_Package_AdventureClear03(list, is_popup)
-
-    -- 육성패스 
-    elseif string.find(_package_name, 'battle_pass') then
-        local pid
-        if product_id then
-            pid = product_id
-        else
-            local pid_strs = TablePackageBundle:getPidsWithName(_package_name)
-            pid = tonumber(pid_strs[1])
-        end
-        local _struct_product = g_shopDataNew:getTargetProduct(pid)
-        local list = {}
-        table.insert(list, _struct_product)
-        target_ui = UI_BattlePass_Nurture(list, is_popup)
 
     -- 차원문 돌파 패키지
     elseif string.find(_package_name, 'package_dmgate') and (not g_contentLockData:isContentLock('dmgate')) then

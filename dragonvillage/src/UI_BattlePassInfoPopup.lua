@@ -10,10 +10,10 @@ UI_BattlePassInfoPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BattlePassInfoPopup:init()
+function UI_BattlePassInfoPopup:init(ui_res)
 	self.m_uiName = 'UI_BattlePassInfoPopup'
 
-    local vars = self:load('battle_pass_info_popup.ui')
+    local vars = self:load(ui_res or 'battle_pass_info_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- @UI_ACTION

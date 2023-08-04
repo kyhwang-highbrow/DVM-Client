@@ -363,6 +363,9 @@ function ServerData:getInstance()
     -- 룬 가디언 클리어 정보
     g_deckPresetData = ServerData_DeckPreset(g_serverData)
 
+    -- 배틀패스 패키지
+    g_indivPassData = ServerData_IndivPass(g_serverData)
+
     return g_serverData
 end
 
