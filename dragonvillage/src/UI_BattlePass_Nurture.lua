@@ -289,6 +289,8 @@ function UI_BattlePass_Nurture:click_rewardBtn(type_id, level)
         g_indivPassData:applyPassData(ret)
         self.m_passData = g_indivPassData:getIndivPass(self.m_passId)
         self:refresh()
+
+        ItemObtainResult(ret)
 	end
 
     g_indivPassData:request_reward(pass_id, reward_ids, cb_func)
@@ -309,6 +311,8 @@ function UI_BattlePass_Nurture:click_rewardLevelBtn(type_id, level, finish_cb)
         if finish_cb ~= nil then
             finish_cb()
         end
+
+        ItemObtainResult(ret)
 	end
 
     g_indivPassData:request_reward(pass_id, tostring(reward_id), cb_func)
