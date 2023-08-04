@@ -80,6 +80,10 @@ end
 -- function isIndivPassReceivedReward
 -------------------------------------
 function StructIndivPass:isIndivPassReceivedReward(reward_id)
+    if self.rewards == nil then
+        return false
+    end
+    
     return self.rewards[tostring(reward_id)] ~= nil
 end
 
