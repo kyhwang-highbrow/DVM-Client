@@ -76,13 +76,12 @@ function UI_BattlePass_NurtureCell:refresh()
     end
 
     do -- 경험치 게이지
-        local percentage = 100
-        local next_level = user_level + 1
-
-        if next_level == self.m_passLevel then
+        local percentage = 0
+        
+        if user_level == self.m_passLevel then
             percentage = 50
-        elseif next_level < self.m_passLevel then
-            percentage = 0
+        elseif user_level > self.m_passLevel then
+            percentage = 100
         end
 
         vars['passGauge']:setPercentage(percentage)
