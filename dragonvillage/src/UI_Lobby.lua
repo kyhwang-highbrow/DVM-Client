@@ -237,12 +237,10 @@ function UI_Lobby:entryCoroutine()
         g_nestDungeonData:requestNestDungeonInfo(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
 
-        do -- 배틀 패스
-            if IS_TEST_MODE() == true then
-                co:work('# 배틀 패스 정보 중')
-                g_indivPassData:request_info(co.NEXT, co.ESCAPE)
-                if co:waitWork() then return end
-            end
+        do -- 배틀 패스            
+            co:work('# 배틀 패스 정보 중')
+            g_indivPassData:request_info(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
         end
 
         -- 차원문 
