@@ -139,6 +139,16 @@ function ServerData_IndivPass:request_reward(pass_id, reward_ids ,finish_cb, fai
     local function success_cb(ret)
         self:applyPassData(ret)
         
+        g_serverData:networkCommonRespone_addedItems(ret)
+        -- 여기서 highlight 정보가 넘어오긴 하는데.. 어차피 로비에서 다시 통신하는 구조이므로
+		-- 노티 정보를 갱신하기 위해서 호출
+		g_highlightData:setDirty(true)
+
+        -- 탑바 갱신
+        if (g_topUserInfo) then
+            g_topUserInfo:refreshData(true)
+        end
+        
         if finish_cb then
             finish_cb(ret)
         end
