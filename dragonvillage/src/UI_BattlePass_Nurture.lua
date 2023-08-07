@@ -144,13 +144,16 @@ function UI_BattlePass_Nurture:refreshButtons()
         end
 
         -- 보상 버튼 처리
-        local is_buy = curreny_buy_type >= type_id
         local is_available_reward = struct_indiv_pass:isIndivPassAvailableReward(type_id)
         local reward_btn_str = string.format('passRewardBtn%d', type_id)
         if vars[reward_btn_str] ~= nil then
-            vars[reward_btn_str]:setVisible(is_buy)
-            vars[reward_btn_str]:setEnabled(is_available_reward)
-            vars[reward_btn_str]:setBlockMsg(is_available_reward and '' or nil)
+            vars[reward_btn_str]:setVisible(not is_buyable)
+
+            if is_available_reward == false then 
+                vars[reward_btn_str]:setBlockMsg(Str('수령할 수 있는 아이템이 없습니다.'))
+            else
+                vars[reward_btn_str]:setBlockMsg(nil)
+            end
         end
     end
 end
