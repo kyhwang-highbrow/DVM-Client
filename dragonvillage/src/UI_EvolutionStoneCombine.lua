@@ -11,7 +11,7 @@ UI_EvolutionStoneCombine = class(PARENT,{
         m_selCard = 'table',
         m_selMulti = 'number',
         m_selDragonData = '',
-
+        m_quantityBtnPress = 'UI_CntBtnPress',
         m_bUpdate = 'boolean',
     })
 
@@ -50,6 +50,7 @@ function UI_EvolutionStoneCombine:init(item_id, dragon_data)
 
     self.m_selMulti = 1
     self.m_selCard = {}
+    
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EvolutionStoneCombine')
@@ -68,6 +69,30 @@ end
 -------------------------------------
 function UI_EvolutionStoneCombine:initUI()
     local vars = self.vars
+
+    local cnt_func = function ()
+        return self.m_selMulti
+    end
+
+    local cond_func = function (next_count)
+        local origin_id = self:getOriginID()
+        local need = self:getOriginCnt(origin_id, next_count)
+        local curr_cnt = g_evolutionStoneData:getCount(origin_id)
+        if (need > curr_cnt) then
+            UIManager:toastNotificationRed(Str('진화재료가 부족합니다.'))
+            return false
+        end
+
+        if(next_count <= 0) then 
+            return false
+        end
+
+        self.m_selMulti = next_count
+        self:refresh_mtrIcon()
+        return true
+    end
+
+    self.m_quantityBtnPress = UI_CntBtnPress(self, cnt_func, cond_func)
     self:init_mtrableView()
 end
 
@@ -78,8 +103,16 @@ function UI_EvolutionStoneCombine:initButton()
     local vars = self.vars
     vars['plusBtn1']:registerScriptTapHandler(function() self:click_plusBtn() end)
     vars['plusBtn2']:registerScriptTapHandler(function() self:click_plusBtn() end)
+
+    vars['plusBtn1']:registerScriptPressHandler(function() self:press_quantityBtn(1, true) end)
+    vars['plusBtn2']:registerScriptPressHandler(function() self:press_quantityBtn(2, true) end)
+
     vars['minusBtn1']:registerScriptTapHandler(function() self:click_minusBtn() end)
     vars['minusBtn2']:registerScriptTapHandler(function() self:click_minusBtn() end)
+
+    vars['minusBtn1']:registerScriptPressHandler(function() self:press_quantityBtn(1, false) end)
+    vars['minusBtn2']:registerScriptPressHandler(function() self:press_quantityBtn(2, false) end)
+
     vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
     vars['divisionBtn']:registerScriptTapHandler(function() self:click_divisionBtn() end)
 
@@ -538,6 +571,24 @@ function UI_EvolutionStoneCombine:click_minusBtn()
 
     self.m_selMulti = sub_multi
     self:refresh_mtrIcon()
+end
+
+
+-------------------------------------
+-- function press_quantityBtn
+-- @param is_add 수량에 더할지 뺄지 결정
+-------------------------------------
+function UI_EvolutionStoneCombine:press_quantityBtn(idx, is_add)
+	local vars = self.vars
+
+    local quantity_btn
+    if (is_add) then
+        quantity_btn = vars[string.format('plusBtn%d', idx)]
+    else
+        quantity_btn = vars[string.format('minusBtn%d', idx)]
+    end
+
+    self.m_quantityBtnPress:quantityBtnPressHandler(quantity_btn, is_add and 1 or -1)
 end
 
 -------------------------------------
