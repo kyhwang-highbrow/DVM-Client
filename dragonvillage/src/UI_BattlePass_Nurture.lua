@@ -21,11 +21,10 @@ UI_BattlePass_Nurture.END_TYPE_IDX = 2
 function UI_BattlePass_Nurture:initUI()
     local vars = self.vars
 
-    local struct_product = self.m_structProduct
-    self.m_passId = struct_product.pass_id
+    local struct_indiv_pass = self.m_structProduct
+    self.m_passId = struct_indiv_pass.pass_id
     self.m_passData = g_indivPassData:getIndivPass(self.m_passId)
     self.m_passLevelList = TableIndivPassReward:getInstance():getIndivPassLevelDataList(self.m_passId)
-
     self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
 
     self:initTableView()

@@ -336,9 +336,17 @@ function UI_EventFullPopup:initUI()
 
         local list = g_indivPassData:getEventRepresentProductList()
         if #list > 0 then
-            ui = UI_BattlePass_Nurture(list)
-            ui.vars['questBtn']:setVisible(false)
-        else
+            local struct_indv_pass = list[1]
+            local start_timestamp = struct_indv_pass:getIndivPassStartTime()
+
+            if g_settingData:isIndivPassPopupShowUpOnce(start_timestamp) == false then
+                ui = UI_BattlePass_Nurture(list)
+                ui.vars['questBtn']:setVisible(false)
+                g_settingData:setIndivPassPopupShowUpTimeStamp(start_timestamp)
+            end
+        end
+
+        if ui == nil then
             self:close()
         end
 

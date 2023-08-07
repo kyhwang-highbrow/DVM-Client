@@ -858,6 +858,24 @@ function SettingData:isAutoDragSkillLockDid(deck_key, did)
 end
 
 -------------------------------------
+-- function setIndivPassPopupShowUpTimeStamp
+-------------------------------------
+function SettingData:setIndivPassPopupShowUpTimeStamp(timestamp)
+    self:applySettingData(timestamp, 'indiv_pass_timestamp')
+end
+
+-------------------------------------
+-- function isIndivPassPopupShowUpOnce
+-------------------------------------
+function SettingData:isIndivPassPopupShowUpOnce(_timestamp)
+    local timestamp = self:get('indiv_pass_timestamp') or nil
+    if _timestamp == timestamp then
+        return true
+    end
+    return false
+end
+
+-------------------------------------
 -- function request_setSetting
 -- @breif
 -- @param push_all boolean

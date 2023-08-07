@@ -89,6 +89,13 @@ function StructIndivPass:isIndivPassReceivedReward(reward_id)
 end
 
 -------------------------------------
+-- function getIndivPassStartTime
+-------------------------------------
+function StructIndivPass:getIndivPassStartTime()
+    return self.start_time
+end
+
+-------------------------------------
 -- function isIndivPassValidTime
 -------------------------------------
 function StructIndivPass:isIndivPassValidTime()
