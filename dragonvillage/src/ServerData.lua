@@ -735,6 +735,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['subjugation_ticket'] then
             self:applyServerData(ret['subjugation_ticket'], 'user', 'subjugation_ticket')
         end
+
+        -- 개인 패스 경험치
+        if ret['indiv_pass_exp'] then
+            self:applyServerData(ret['indiv_pass_exp'], 'user', 'indiv_pass_exp')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -956,6 +961,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 던전 토벌석
     RefreshGoods(t_added_items, 'subjugation_ticket')
+
+    -- 아이콘
+    RefreshGoods(t_added_items, 'indiv_pass_exp')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then
