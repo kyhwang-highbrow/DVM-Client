@@ -294,6 +294,7 @@ function UI_BattlePass_Nurture:click_rewardLevelBtn(type_id, level, finish_cb)
         end
 
         ItemObtainResult(ret)
+        UI_ToastPopup(Str('보상을 수령하였습니다.'))
 	end
 
     g_indivPassData:request_reward(pass_id, tostring(reward_id), cb_func)
