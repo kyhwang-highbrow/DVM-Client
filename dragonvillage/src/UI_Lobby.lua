@@ -3071,7 +3071,7 @@ function UI_Lobby:refreshShopHottimeNoti()
 
     -- 룬 페스티발, 할로윈
     elseif g_hotTimeData:isActiveEvent('event_rune_festival') then
-        self:setShopSpecialNoti('noti_holoween')
+        self:setShopSpecialNoti('noti_summer')
 
     end
 end
