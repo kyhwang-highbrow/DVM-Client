@@ -87,7 +87,7 @@ function UI_IndivPassScene:initMember()
 
     -- base class variables
     self.m_uiName = 'UI_IndivPassScene'
-    self.m_titleStr = Str('개인패스')
+    self.m_titleStr = Str('개인 패스')
     self.m_bUseExitBtn = true
 
     self.m_containerList = {}
