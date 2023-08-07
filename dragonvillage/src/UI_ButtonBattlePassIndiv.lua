@@ -63,12 +63,14 @@ function UI_ButtonBattlePassIndiv:updateButtonStatus()
     local vars = self.vars
 
     local list = g_indivPassData:getEventRepresentProductList()
-
     local is_available = #list > 0
 
     vars['passBtn']:setVisible(is_available)
-
     self.m_bActive = is_available
+
+    local is_available_reward = g_indivPassData:isAvailableIndivPassExpPointReward()
+    vars['passNotiSprite']:setVisible(is_available_reward)
+
 
 --[[     -- 모든 특별 할인 상품 visible을 꺼준다.
     for i=1, 10 do

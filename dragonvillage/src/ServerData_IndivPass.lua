@@ -52,6 +52,24 @@ function ServerData_IndivPass:getEventRepresentProductList(is_for_check)
     return list
 end
 
+
+-------------------------------------
+-- function isAvailableIndivPassExpPointReward
+-------------------------------------
+function ServerData_IndivPass:isAvailableIndivPassExpPointReward()
+    for key, struct_indv_pass in pairs(self.m_mPassData) do
+        if struct_indv_pass:isIndivPassValidTime() == true then
+            for type=0,2,1 do
+                if struct_indv_pass:isIndivPassAvailableReward(type) == true then
+                    return true
+                end
+            end
+        end
+    end
+
+    return false
+end
+
 -------------------------------------
 -- function getIndivPass
 -------------------------------------
