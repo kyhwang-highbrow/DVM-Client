@@ -111,7 +111,7 @@ function UI_BattlePass_Nurture:refreshLevel()
             vars['nextPointLabel']:setString(Str('최대 레벨'))
             vars['nextLevelGauge']:setPercentage(100)
         else
-            vars['nextPointLabel']:setStringArg(exp ,need_exp)
+            vars['nextPointLabel']:setStringArg(comma_value(exp), comma_value(need_exp))
             vars['nextLevelGauge']:setPercentage((exp/need_exp) * 100)
         end
     end
@@ -135,7 +135,6 @@ function UI_BattlePass_Nurture:refreshButtons()
     local curreny_buy_type = struct_indiv_pass:getIndivPassCurrentBuyType()
 
     for type_id = UI_BattlePass_Nurture.START_TYPE_IDX, UI_BattlePass_Nurture.END_TYPE_IDX do
-
         -- 구매 버튼 처리
         local is_buyable = type_id > 0 and curreny_buy_type < type_id
         local buy_btn_str = string.format('buyBtn%d', type_id)
@@ -154,6 +153,12 @@ function UI_BattlePass_Nurture:refreshButtons()
             else
                 vars[reward_btn_str]:setBlockMsg(nil)
             end
+        end
+
+        -- 보상 버튼 레드닷
+        local reward_btn_noti_str = string.format('passNotiSprite%d', type_id)
+        if vars[reward_btn_noti_str] ~= nil then
+            vars[reward_btn_noti_str]:setVisible(is_available_reward)
         end
     end
 end

@@ -769,6 +769,9 @@ function UI_DragonRunesEnhance:show_upgradeEffect(is_success, cb_func, is_grind)
     top_visual:setVisible(true)
     bottom_visual:setVisible(true)
 
+    top_visual:setTimeScale(2)
+    bottom_visual:setTimeScale(2)
+
     local ani_name = (is_success) and 'success' or 'fail'
     top_visual:changeAni(ani_name..'_top', false)
     bottom_visual:changeAni(ani_name..'_bottom', false)
