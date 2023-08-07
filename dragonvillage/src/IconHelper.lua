@@ -782,4 +782,3 @@ function IconHelper:getClanBuffIcon(clan_buff_type)
 
 	return res and IconHelper:getIcon(res) or nil
 end
-
