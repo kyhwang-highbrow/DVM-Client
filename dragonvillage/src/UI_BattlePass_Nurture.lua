@@ -144,12 +144,13 @@ function UI_BattlePass_Nurture:refreshButtons()
         end
 
         -- 보상 버튼 처리
+        local is_buy = curreny_buy_type >= type_id
         local is_available_reward = struct_indiv_pass:isIndivPassAvailableReward(type_id)
         local reward_btn_str = string.format('passRewardBtn%d', type_id)
         if vars[reward_btn_str] ~= nil then
-            --vars[reward_btn_str]:setEnabled(is_available_reward)
-            --vars[reward_btn_str]:setBlockMsg(is_available_reward and nil or '')
-            vars[reward_btn_str]:setVisible(is_available_reward)
+            vars[reward_btn_str]:setVisible(is_buy)
+            vars[reward_btn_str]:setEnabled(is_available_reward)
+            vars[reward_btn_str]:setBlockMsg(is_available_reward and '' or nil)
         end
     end
 end
@@ -187,12 +188,6 @@ function UI_BattlePass_Nurture:initTableView()
     table_view:setCellCreateDirecting(nil)
     table_view:setItemList(self.m_passLevelList)
 
-    --table_view:CreateCellUIClass(self.m_pass_id, g_battlePassData:getLevelNum(self.m_pass_id))
---[[     self.m_totalExpBar:retain()
-    self.m_totalExpBar:removeFromParent()
-    self.m_totalExpBar:setLocalZOrder(self.m_totalExpBar:getLocalZOrder() - 1)
-    table_view.m_scrollView:addChild(self.m_totalExpBar) ]]
-
     self.m_tableView = table_view
     self.m_tableView:update(0)
     self.m_tableView:relocateContainerFromIndex(self:getPassLevel())
@@ -218,9 +213,13 @@ end
 function UI_BattlePass_Nurture:click_buyBtn(type_id)
     local struct_indiv_pass = self.m_passData
     local curreny_buy_type = struct_indiv_pass:getIndivPassCurrentBuyType()
+    local diff = type_id - curreny_buy_type
 
-    if type_id > curreny_buy_type + 1 then
+    if diff >= 2 then
         UIManager:toastNotificationRed(Str('이전 단계의 패스 상품을 먼저 구매해주세요.'))
+        return
+    elseif diff <= 0 then
+        UIManager:toastNotificationRed(Str('구매가 불가능한 상태입니다.'))
         return
     end
 
@@ -232,7 +231,6 @@ function UI_BattlePass_Nurture:click_buyBtn(type_id)
     local is_buyable = struct_product ~= nil and struct_product:isItBuyable()
 
     if is_buyable == false then
-        UIManager:toastNotificationRed(Str('구매가 불가능한 상태입니다.'))
         return
     end
 

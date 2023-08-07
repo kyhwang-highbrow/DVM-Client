@@ -135,7 +135,13 @@ function UI_BattlePass_NurtureCell:refreshReward(type_id)
     -- 잠금 표시
     local lock_str = string.format('%dLockSprite', type_id)
     if vars[lock_str] ~= nil then
-        vars[lock_str]:setVisible(false)
+        vars[lock_str]:setVisible(not is_clear)
+    end
+
+    -- 구매 잠금 표시
+    local purchase_str = string.format('%dPurchaseSprite', type_id)
+    if vars[purchase_str] ~= nil then
+        vars[purchase_str]:setVisible(not is_reached)
     end
 
     -- 클리어 표시
