@@ -1766,6 +1766,9 @@ local t_module = {
     'UI_HallOfFame',
 	'UI_HallOfFameRankListItem',
     'UI_HallOfFameRank',
+
+    -- 개인 패스
+    'UI_IndivPassScene',
 }
 
 -------------------------------------

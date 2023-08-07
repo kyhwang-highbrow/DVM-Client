@@ -49,9 +49,11 @@ function UI_ButtonBattlePassIndiv:click_battlePassBtn()
         return
     end
 
-    local ui = UI_EventPopupTab_Package(list[1])
-    UIManager:open(ui, UIManager.SCENE)
-    g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_EventPopupTab_Package')
+    local ui = UI_IndivPassScene()
+
+    --local ui = UI_EventPopupTab_Package(list[1])
+    --UIManager:open(ui, UIManager.SCENE)
+    --g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_EventPopupTab_Package')
 end
 
 -------------------------------------
