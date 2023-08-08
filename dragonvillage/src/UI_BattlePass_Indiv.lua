@@ -75,7 +75,16 @@ end
 function UI_BattlePass_Indiv:refresh()
     self:refreshLevel()
     self:refreshButtons()
+    self:refreshQuestNoti()
     self:refreshTableList()
+end
+
+-------------------------------------
+-- function refreshQuestNoti
+-------------------------------------
+function UI_BattlePass_Indiv:refreshQuestNoti()
+    local vars = self.vars
+    vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
 end
 
 -------------------------------------
