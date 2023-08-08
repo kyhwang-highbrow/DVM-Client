@@ -415,7 +415,7 @@ function UI_BattlePassCard(pass_exp)
 
 	-- 클릭 시 툴팁
 	vars['clickBtn']:registerScriptTapHandler(function()
-		local str = '{@SKILL_NAME}' .. Str('패스 포인트')
+		local str = '{@SKILL_NAME}' .. Str('개인 패스 경험치')
 		local tool_tip = UI_Tooltip_Skill(70, -145, str)
 		tool_tip:autoPositioning(vars['clickBtn'])
 	end)
