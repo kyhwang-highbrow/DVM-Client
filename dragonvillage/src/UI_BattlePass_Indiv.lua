@@ -59,6 +59,11 @@ function UI_BattlePass_Indiv:initButton()
         if vars[buy_btn_str] ~= nil then
             vars[buy_btn_str]:registerScriptTapHandler(function() self:click_buyBtn(type_id) end)
         end
+
+        local info_btn_str = string.format('infoBtn%d', type_id)
+        if vars[info_btn_str] ~= nil then
+            vars[info_btn_str]:registerScriptTapHandler(function() self:click_itemInfoBtn(type_id) end)
+        end
     end
 end
 
@@ -248,7 +253,7 @@ function UI_BattlePass_Indiv:click_buyBtn(type_id)
     local diff = type_id - curreny_buy_type
 
     if diff >= 2 then
-        UIManager:toastNotificationRed(Str('이전 단계의 패스 상품을 먼저 구매해주세요.'))
+        MakeSimplePopup(POPUP_TYPE.OK, Str('{@ORANGE}고급 패스{@}를 구매해야 합니다.'))
         return
     elseif diff <= 0 then
         UIManager:toastNotificationRed(Str('구매가 불가능한 상태입니다.'))

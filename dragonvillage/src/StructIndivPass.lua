@@ -201,7 +201,7 @@ function StructIndivPass:getIndivPassAllItemList(type_id)
         local t_item = {}
 
         t_item['item_id'] = item_id
-        t_item['item_count'] = item_count
+        t_item['count'] = item_count
 
         table.insert(item_list, t_item)
     end
