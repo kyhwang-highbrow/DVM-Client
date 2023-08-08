@@ -21,29 +21,38 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_ShopTab:onEnterTab(first)
+
     if (not self.m_tableView) then
         self:initUI()
     end
   
     local sub_currency = self.m_tabName
+
     if (self.m_tabName == 'st') then
-        if g_hotTimeData:isActiveEvent('event_token') then
-            sub_currency = 'event_token'
-        else
-            sub_currency = 'memory_myth'
-        end
+        sub_currency = 'memory_myth'
     end
 
     if (self.m_owner_ui) then
         self.m_owner_ui.m_subCurrency = sub_currency
     end
+
     g_topUserInfo:setSubCurrency(sub_currency)
 
+    local add_sub_currency = ''
     if (self.m_tabName == 'st') then
-        g_topUserInfo:setAddSubCurrency('fp')
-    else
-        g_topUserInfo:setAddSubCurrency('')
+        if g_hotTimeData:isActiveEvent('event_token') or
+            g_hotTimeData:isActiveEvent('event_rune_festival') then
+            add_sub_currency = 'event_token'
+        else
+            add_sub_currency = 'fp'
+        end
     end
+
+    if (self.m_owner_ui) then
+        self.m_owner_ui.m_addSubCurrency = add_sub_currency
+    end
+
+    g_topUserInfo:setAddSubCurrency(add_sub_currency)
 end
 
 -------------------------------------
