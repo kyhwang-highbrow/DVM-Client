@@ -51,7 +51,7 @@
 				text = 'item\n{0}개';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 0; 90; 120; };
 				opacity = 255;
 				dimension_width = 128;
 				dimension_height = 70;
@@ -95,7 +95,7 @@
 				text = '1일 차';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 180; 0; 55; };
+				color = { 0; 90; 120; };
 				opacity = 255;
 				dimension_width = 128;
 				dimension_height = 48;

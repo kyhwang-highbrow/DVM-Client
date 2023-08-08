@@ -91,41 +91,16 @@
 			};
 			[3] =
 			{
-				[1] =
-				{
-					type = 'LayerColor';
-					ui_name = 'hide';
-					flag = '';
-					x = 1.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 800;
-					height = 385;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					screen_ui = 0;
-					lua_name = '';
-					color = { 0; 0; 0; };
-					opacity = 30;
-					src_blend = 770;
-					dest_blend = 771;
-				};
 				type = 'Node';
 				ui_name = '';
 				flag = '';
 				x = 70.000000;
-				y = -125.000000;
+				y = -79.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 790;
-				height = 385;
+				height = 480;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -234,7 +209,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				screen_ui = 0;
 				lua_name = '';
 			};
@@ -284,6 +259,34 @@
 					use_auto_fontsize = false;
 					has_bold = false;
 				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					flag = '';
+					x = 6.000000;
+					y = 9.000000;
+					dock_point = { 1.000000; 1.000000; };
+					anchor_point = { 1.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 28;
+					height = 28;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = 'passNotiSprite2';
+					file_name = 'ui/icons/noti_icon_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				flag = '';
@@ -312,12 +315,12 @@
 			{
 				[1] =
 				{
-					type = 'LabelTTF';
+					type = 'LabelSystemFont';
 					ui_name = '';
 					flag = '';
 					x = 0.000000;
-					y = -24.000000;
-					dock_point = { 0.500000; 1.000000; };
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 110;
@@ -330,29 +333,20 @@
 					visible = true;
 					screen_ui = 0;
 					lua_name = 'buyLabel2';
-					font_name = 'font/common_font_01.ttf';
+					font_name = 'Helvetica';
 					font_size = 20;
-					text = '구매하기';
+					text = 'buyLabel2';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 0; 0; 0; };
 					opacity = 255;
 					dimension_width = 110;
 					dimension_height = 40;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = false;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
 					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
+					shadow_color = { 255; 255; 255; };
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
-					use_auto_fontsize = false;
-					has_bold = false;
 				};
 				type = 'Button';
 				ui_name = '';
@@ -468,6 +462,34 @@
 					use_auto_fontsize = false;
 					has_bold = false;
 				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					flag = '';
+					x = 6.000000;
+					y = 9.000000;
+					dock_point = { 1.000000; 1.000000; };
+					anchor_point = { 1.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 28;
+					height = 28;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = 'passNotiSprite1';
+					file_name = 'ui/icons/noti_icon_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				flag = '';
@@ -496,12 +518,12 @@
 			{
 				[1] =
 				{
-					type = 'LabelTTF';
+					type = 'LabelSystemFont';
 					ui_name = '';
 					flag = '';
 					x = 0.000000;
-					y = -24.000000;
-					dock_point = { 0.500000; 1.000000; };
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 110;
@@ -514,29 +536,20 @@
 					visible = true;
 					screen_ui = 0;
 					lua_name = 'buyLabel1';
-					font_name = 'font/common_font_01.ttf';
+					font_name = 'Helvetica';
 					font_size = 20;
-					text = '구매하기';
+					text = 'buyLabel1';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 0; 0; 0; };
 					opacity = 255;
 					dimension_width = 110;
 					dimension_height = 40;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = false;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
 					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
+					shadow_color = { 255; 255; 255; };
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
-					use_auto_fontsize = false;
-					has_bold = false;
 				};
 				type = 'Button';
 				ui_name = '';
@@ -584,7 +597,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '육성 패스';
+				text = '고급 패스';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -652,6 +665,34 @@
 					use_auto_fontsize = false;
 					has_bold = false;
 				};
+				[2] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					flag = '';
+					x = 6.000000;
+					y = 9.000000;
+					dock_point = { 1.000000; 1.000000; };
+					anchor_point = { 1.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 28;
+					height = 28;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = 'passNotiSprite0';
+					file_name = 'ui/icons/noti_icon_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Button';
 				ui_name = '';
 				flag = '';
@@ -669,7 +710,7 @@
 				rotation = 0.000000;
 				visible = true;
 				screen_ui = 0;
-				lua_name = 'normalRewardBtn';
+				lua_name = 'passRewardBtn0';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0103.png';
 				selected = 'ui/buttons/base_btn_0105.png';
@@ -724,6 +765,34 @@
 			{
 				[1] =
 				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					flag = '';
+					x = 1.999756;
+					y = -11.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 592;
+					height = 8;
+					scale_x = 0.420000;
+					scale_y = 0.800000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					file_name = 'ui/gauges/adventure_map_reward_gg_0102.png';
+					color = { 0; 0; 0; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
+				{
 					type = 'ProgressTimer';
 					ui_name = '';
 					flag = '';
@@ -758,7 +827,7 @@
 					mid_point_y = 0.000000;
 					percentage = 100;
 				};
-				[2] =
+				[3] =
 				{
 					[1] =
 					{
@@ -830,7 +899,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[3] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
@@ -1100,8 +1169,8 @@
 				type = 'Button';
 				ui_name = '';
 				flag = '';
-				x = 781.000000;
-				y = -55.000000;
+				x = 129.000000;
+				y = -45.000000;
 				dock_point = { 0.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1113,6 +1182,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				action_type = 5;
+				action_delay_1 = 0.000000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.400000;
 				screen_ui = 0;
 				lua_name = 'questBtn';
 				enable = true;
@@ -1198,8 +1271,8 @@
 				type = 'Button';
 				ui_name = '';
 				flag = '';
-				x = 875.000000;
-				y = -55.000000;
+				x = 42.000000;
+				y = -45.000000;
 				dock_point = { 0.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1250,6 +1323,154 @@
 				flip_y = false;
 				src_blend = 770;
 				dest_blend = 771;
+			};
+			[21] =
+			{
+				type = 'Button';
+				ui_name = '';
+				flag = '';
+				x = -447.000000;
+				y = 145.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 64;
+				height = 64;
+				scale_x = 0.700000;
+				scale_y = 0.700000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = 'infoBtn1';
+				enable = true;
+				normal = 'ui/buttons/64_detail_btn_0101.png';
+				selected = 'ui/buttons/64_detail_btn_0102.png';
+				disable = 'ui/buttons/64_detail_btn_0102.png';
+				image_type = 1;
+			};
+			[22] =
+			{
+				type = 'Button';
+				ui_name = '';
+				flag = '';
+				x = -447.000000;
+				y = -15.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 64;
+				height = 64;
+				scale_x = 0.700000;
+				scale_y = 0.700000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = 'infoBtn2';
+				enable = true;
+				normal = 'ui/buttons/64_detail_btn_0101.png';
+				selected = 'ui/buttons/64_detail_btn_0102.png';
+				disable = 'ui/buttons/64_detail_btn_0102.png';
+				image_type = 1;
+			};
+			[23] =
+			{
+				type = 'Button';
+				ui_name = '';
+				flag = '';
+				x = -447.000000;
+				y = -175.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 64;
+				height = 64;
+				scale_x = 0.700000;
+				scale_y = 0.700000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = 'infoBtn3';
+				enable = true;
+				normal = 'ui/buttons/64_detail_btn_0101.png';
+				selected = 'ui/buttons/64_detail_btn_0102.png';
+				disable = 'ui/buttons/64_detail_btn_0102.png';
+				image_type = 1;
+			};
+			[24] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.000000; };
+					relative_size_type = 0;
+					width = 700;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 18;
+					text = '본 상품은 구매 후 즉시 사용되며, 청약철회가 불가능합니다.';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 108; 138; 95; };
+					opacity = 255;
+					dimension_width = 700;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
+				};
+				type = 'Button';
+				ui_name = '';
+				flag = '';
+				x = 0.000000;
+				y = 3.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.000000; };
+				relative_size_type = 0;
+				width = 700;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = 'contractBtn';
+				enable = true;
+				normal = 'ui/temp/empty.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
 			};
 			type = 'Menu';
 			ui_name = '';

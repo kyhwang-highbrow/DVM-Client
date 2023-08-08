@@ -195,7 +195,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 42;
-				text = '달콤한 사탕 패키지';
+				text = '시원한 수박 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -208,9 +208,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 3.000000;
-				stroke_color = { 200; 0; 20; };
+				stroke_color = { 0; 100; 130; };
 				has_shadow = false;
-				shadow_color = { 200; 0; 20; };
+				shadow_color = { 0; 100; 130; };
 				shadow_opacity = 150;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
@@ -237,7 +237,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = '';
-				file_name = 'ui/typo/ko/ribbon_candy_title_0101.png';
+				file_name = 'ui/typo/ko/ribbon_summer_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
