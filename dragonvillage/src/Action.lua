@@ -473,6 +473,27 @@ function cca.fadeInDelayOut(node, in_time, delay_time, out_time, forever)
     end
 end
 
+
+-------------------------------------
+-- function fadeInDelayOut2
+-- @brief 
+-------------------------------------
+function cca.fadeInDelayOut2(node, in_time, delay_time, out_time, delay_time_2, forever)
+	doAllChildren(node, function(child) child:setCascadeOpacityEnabled(true) end)
+
+    node:setOpacity(0)
+    local fadein = cc.FadeIn:create(in_time) 
+    local delay = cc.DelayTime:create(delay_time)
+	local fadeout = cc.FadeOut:create(out_time)
+    local delay_2 = cc.DelayTime:create(delay_time_2)
+
+    if (forever) then
+        cca.runAction(node, cc.RepeatForever:create(cc.Sequence:create(fadein, delay, fadeout, delay_2)))
+    else
+	    cca.runAction(node, cc.Sequence:create(fadein, delay, fadeout))
+    end
+end
+
 -------------------------------------
 -- function fadeOutAndRemoveChild
 -- @brief fade out 후에 자식들을 삭제하고 opcity를 원복

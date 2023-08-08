@@ -210,7 +210,7 @@ function UI_BattlePass_Indiv:refreshButtons()
 
             local reward_menu_str = string.format('rewardMenu%d', type_id)
             if vars[reward_menu_str] ~= nil then
-                cca.fadeInDelayOut(vars[reward_menu_str], 0.5, 3, 0.5, true)
+                cca.fadeInDelayOut2(vars[reward_menu_str], 0.5, 1, 0.5, 3, true)
                 vars[reward_menu_str]:setVisible(is_rewarded == false)
             end
         end
