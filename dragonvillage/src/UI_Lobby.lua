@@ -1874,6 +1874,9 @@ function UI_Lobby:click_battlePassBtn()
     --     return
     -- end
 
+    local vars = self.vars
+    vars['battlePassBtn']:setScale(1)
+
     UI_BattlePassPopup()
 end
 -------------------------------------
