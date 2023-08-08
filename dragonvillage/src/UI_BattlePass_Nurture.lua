@@ -8,6 +8,7 @@ UI_BattlePass_Nurture = class(PARENT, {
     m_passId = 'number',
     m_passLevelList = 'List<>',
     m_passData = 'StructIndivPass',    
+    m_passLastExp = 'number',
     m_tableView = 'UIC_TableView',      -- 스크롤뷰 (횡스크롤)
 })
 
@@ -113,6 +114,9 @@ function UI_BattlePass_Nurture:refreshLevel()
             vars['nextPointLabel']:setStringArg(comma_value(exp), comma_value(need_exp))
             vars['nextLevelGauge']:setPercentage((exp/need_exp) * 100)
         end
+
+
+        self.m_passLastExp = user_exp
     end
 end
 
@@ -121,8 +125,13 @@ end
 -------------------------------------
 function UI_BattlePass_Nurture:update()
     local vars =  self.vars
-    local struct_indiv_pass = self.m_passData
+    
+    local struct_indiv_pass = g_indivPassData:getIndivPass(self.m_passId)
     vars['timeLabel']:setString(struct_indiv_pass:getRemainTimeText())
+
+    if struct_indiv_pass:getIndivPassExp() ~= self.m_passLastExp then
+        self:refresh()
+    end
 end
 
 --------------------------------------------------------------------------
