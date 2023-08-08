@@ -340,7 +340,7 @@ function UI_EventFullPopup:initUI()
             local start_timestamp = struct_indv_pass:getIndivPassStartTime()
 
             if g_settingData:isIndivPassPopupShowUpOnce(start_timestamp) == false then
-                ui = UI_BattlePass_Nurture(list)
+                ui = UI_BattlePass_Indiv(list)
                 ui.vars['questBtn']:setVisible(false)
                 g_settingData:setIndivPassPopupShowUpTimeStamp(start_timestamp)
             end

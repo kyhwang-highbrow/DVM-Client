@@ -241,9 +241,6 @@ function ServerData:getInstance()
     -- 드래곤 획득 패키지
     g_getDragonPackage = ServerData_GetDragonPackage(g_serverData)
 
-    -- 배틀패스 패키지
-    g_battlePassData = ServerData_BattlePass(g_serverData)
-
     -- 클랜 던전 (땅) 패키지 (@dhkim 2023.01.12)
     g_clanDungeonEarthPackageData = ServerData_ClanRaidEarthPackage(g_serverData)
     -- 클랜 던전 (물) 패키지 (@dhkim 2023.01.12)

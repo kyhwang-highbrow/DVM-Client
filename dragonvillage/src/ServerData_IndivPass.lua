@@ -38,7 +38,7 @@ function ServerData_IndivPass:getEventRepresentProductList(is_for_check)
             struct_indv_pass.m_uiPriority = priority
             struct_indv_pass.package_res = 'battle_pass_3step.ui'
             struct_indv_pass.package_res_2 = 'battle_pass_3step.ui'
-            struct_indv_pass.package_class = 'UI_BattlePass_Nurture'
+            struct_indv_pass.package_class = 'UI_BattlePass_Indiv'
             
             table.insert(list, struct_indv_pass)
             priority = priority - 1

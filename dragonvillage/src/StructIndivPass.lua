@@ -77,6 +77,25 @@ function StructIndivPass:getPremiumPassPid()
     return TableIndivPass:getInstance():getPremiumPassPid(id)
 end
 
+
+-------------------------------------
+-- function getIndivPassProduct
+-------------------------------------
+function StructIndivPass:getIndivPassProduct(type_id)
+    local product_map = g_shopDataNew:getProductList('indiv_pass') or {}
+
+    if type_id == 0 then
+        return nil
+    elseif type_id == 1 then
+        return product_map[self:getAdvancePassPid()]
+    elseif type_id == 2 then
+        return product_map[self:getPremiumPassPid()]
+    end
+
+    return nil
+end
+
+
 -------------------------------------
 -- function isIndivPassReceivedReward
 -------------------------------------

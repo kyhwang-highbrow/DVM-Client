@@ -264,7 +264,6 @@ local t_module = {
     'ServerData_AttrTowerPackage',
     'ServerData_EventIncarnationOfSins', -- 죄악의 화신 토벌작전
     'ServerData_RuneMemo', -- 룬 메모
-    'ServerData_BattlePass', -- 패틀패스
     'ServerData_Dmgate', -- 시련(차원문)
 	'ServerData_EventRoulette', -- 어린이날 룰렛 이벤트
     'ServerData_DmgatePackage',
@@ -1192,8 +1191,8 @@ local t_module = {
     'UI_EventRouletteAutoSettingCheck',
 
     -- UI : 배틀패스 상점 관련
-    'UI_BattlePass_Nurture',
-    'UI_BattlePass_NurtureCell',
+    'UI_BattlePass_Indiv',
+    'UI_BattlePass_IndivCell',
 
     
     
