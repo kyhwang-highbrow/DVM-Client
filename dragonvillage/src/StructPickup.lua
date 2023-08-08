@@ -13,6 +13,7 @@ StructPickup = class(PARENT, {
     end_date = 'pl.Date',
     date_format = 'string',
     end_date_timestamp = 'date',
+    return_date = 'date',
 
     res_text = 'string',
     res_btn = 'string',

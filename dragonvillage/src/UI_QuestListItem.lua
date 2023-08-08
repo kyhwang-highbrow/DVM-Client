@@ -432,7 +432,7 @@ function UI_QuestListItem:makeRewardList()
     local indiv_pass_exp = self.m_questData:getRewardIndivPassExp()
     if (g_indivPassData:isIndivPassEventOnGoing() and indiv_pass_exp > 0) then
         local t_data = {}
-        t_data['item_id'] = TableItem:getItemIDFromItemType('indiv_pass_exp')
+        t_data['item_id'] = 'pass_point'--TableItem:getItemIDFromItemType('indiv_pass_exp')
         t_data['count'] = indiv_pass_exp
         table.insert(l_total_reward, t_data)
     end
