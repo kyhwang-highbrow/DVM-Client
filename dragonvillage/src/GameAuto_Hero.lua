@@ -36,9 +36,20 @@ function GameAuto_Hero:init(world, game_mana, ui)
     if (is_auto_mode) then
         self:onStart()
     end
+end
+
+-------------------------------------
+-- function prepare
+-------------------------------------
+function GameAuto_Hero:prepare(unit_list)
+    PARENT.prepare(self, unit_list)
+
+    local unit = self.m_lUnitList[1]
+    if (unit) then
+        self.m_group = unit:getPhysGroup()
+    end
 
     self.m_mMainDeck = {}
-
     if self.m_useAutoMode == false then
         return
     end
@@ -80,21 +91,8 @@ function GameAuto_Hero:init(world, game_mana, ui)
             self.m_mMainDeck[tonumber(t_dragon_data['did'])] = true
         end
     end
-
     -- 보정 처리
     self:correctDragSkillLock(self.m_deckName, l_doid_list)
-end
-
--------------------------------------
--- function prepare
--------------------------------------
-function GameAuto_Hero:prepare(unit_list)
-    PARENT.prepare(self, unit_list)
-
-    local unit = self.m_lUnitList[1]
-    if (unit) then
-        self.m_group = unit:getPhysGroup()
-    end
 end
 
 -------------------------------------
