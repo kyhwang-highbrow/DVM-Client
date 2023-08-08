@@ -9,6 +9,7 @@ UI_BattlePass_Indiv = class(PARENT, {
     m_passLevelList = 'List<>',
     m_passData = 'StructIndivPass',    
     m_passLastExp = 'number',
+    m_passRewardCards = 'UI_Card',
     m_tableView = 'UIC_TableView',      -- 스크롤뷰 (횡스크롤)
 })
 
@@ -21,6 +22,7 @@ UI_BattlePass_Indiv.END_TYPE_IDX = 2
 --------------------------------------------------------------------------
 function UI_BattlePass_Indiv:initUI()
     local vars = self.vars
+    self.m_passRewardCards = {}
 
     local struct_indiv_pass = self.m_structProduct
     self.m_passId = struct_indiv_pass.pass_id
@@ -182,6 +184,34 @@ function UI_BattlePass_Indiv:refreshButtons()
                 vars[buy_label_str]:setString(struct_product:getPriceStr())
             else
                 vars[buy_label_str]:setString(Str('구매하기'))
+            end
+        end
+
+        -- 보상
+        --self.m_passRewardCards
+        local reward_node_str = string.format('rewardNode%d', type_id)
+        if vars[reward_node_str] ~= nil then
+            local max_level = #self.m_passLevelList
+            local reward_id = (self.m_passId * 10000) + (type_id * 100) + max_level
+            local is_rewarded = struct_indiv_pass:isIndivPassReceivedReward(reward_id)
+
+            local item_id, item_count = TableIndivPassReward:getInstance():getPassRewardItem(reward_id)
+
+            if self.m_passRewardCards[type_id] == nil then
+                local ui = UI_ItemCard(item_id)
+                self.m_passRewardCards[type_id] = ui
+        
+                --ui:setSwallowTouch()
+                ui:SetBackgroundVisible(false)
+        
+                vars[reward_node_str]:removeAllChildren()
+                vars[reward_node_str]:addChild(ui.root)
+            end
+
+            local reward_menu_str = string.format('rewardMenu%d', type_id)
+            if vars[reward_menu_str] ~= nil then
+                cca.fadeInDelayOut(vars[reward_menu_str], 0.5, 3, 0.5, true)
+                vars[reward_menu_str]:setVisible(is_rewarded == false)
             end
         end
     end
