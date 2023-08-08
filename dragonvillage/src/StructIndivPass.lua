@@ -165,6 +165,31 @@ function StructIndivPass:getIndivPassAvailableRewardIdList(type_id, check_availa
     return reward_id_list
 end
 
+
+-------------------------------------
+-- function getIndivPassAllItemList
+-------------------------------------
+function StructIndivPass:getIndivPassAllItemList(type_id)
+
+    if self.m_passLevelList == nil then
+        self.m_passLevelList = TableIndivPassReward:getInstance():getIndivPassLevelDataList(self.pass_id)
+    end
+
+    local item_list = {}
+    for level, t_data in ipairs(self.m_passLevelList) do
+        local reward_id = (self.pass_id * 10000) + (type_id * 100) + level
+        local item_id, item_count = TableIndivPassReward:getInstance():getPassRewardItem(reward_id)
+        local t_item = {}
+
+        t_item['item_id'] = item_id
+        t_item['item_count'] = item_count
+
+        table.insert(item_list, t_item)
+    end
+
+    return item_list
+end
+
 -------------------------------------
 -- function getRemainTimeText
 -------------------------------------

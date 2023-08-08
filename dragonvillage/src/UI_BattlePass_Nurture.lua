@@ -321,3 +321,12 @@ function UI_BattlePass_Nurture:click_rewardLevelBtn(type_id, level, finish_cb)
 
     g_indivPassData:request_reward(pass_id, tostring(reward_id), cb_func)
 end
+
+--------------------------------------------------------------------------
+-- @function click_itemInfoBtn 
+--------------------------------------------------------------------------
+function UI_BattlePass_Nurture:click_itemInfoBtn(type_id)
+    local struct_indiv_pass = self.m_passData
+    local l_item = struct_indiv_pass:getIndivPassAllItemList(type_id)
+    UI_ObtainPopup(l_item, Str('보상 리스트'))
+end

@@ -181,5 +181,10 @@ function UI_IndivPassScene:makeEventPopupTab(tab_id)
     return ui
 end
 
+--------------------------------------------------------------------------
+-- @function  
+--------------------------------------------------------------------------
+function UI_IndivPassScene.open()
 
+end
 
