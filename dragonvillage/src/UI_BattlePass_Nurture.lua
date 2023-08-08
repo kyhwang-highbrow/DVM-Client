@@ -228,6 +228,11 @@ end
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_buyBtn(type_id)
     local struct_indiv_pass = self.m_passData
+    if struct_indiv_pass:isIndivPassValidTime() == false then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
+        return
+    end
+
     local curreny_buy_type = struct_indiv_pass:getIndivPassCurrentBuyType()
     local diff = type_id - curreny_buy_type
 
@@ -263,10 +268,13 @@ end
 -- @function click_rewardBtn 
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_rewardBtn(type_id, level)
-
     local struct_indiv_pass = self.m_passData
-    local reward_id_list = struct_indiv_pass:getIndivPassAvailableRewardIdList(type_id)
+    if struct_indiv_pass:isIndivPassValidTime() == false then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
+        return
+    end
 
+    local reward_id_list = struct_indiv_pass:getIndivPassAvailableRewardIdList(type_id)
     if #reward_id_list == 0 then
         UIManager:toastNotificationRed(Str('수령할 수 있는 아이템이 없습니다.'))
         return
@@ -290,6 +298,11 @@ end
 -- @function click_rewardLevelBtn 
 --------------------------------------------------------------------------
 function UI_BattlePass_Nurture:click_rewardLevelBtn(type_id, level, finish_cb)
+    local struct_indiv_pass = self.m_passData
+    if struct_indiv_pass:isIndivPassValidTime() == false then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
+        return
+    end
 
     local pass_id = self.m_passId
     local reward_id = (pass_id * 10000) + (type_id * 100) + level
