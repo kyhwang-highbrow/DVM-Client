@@ -164,7 +164,7 @@ function NaverCafeManager:getUrlByChannel(article_id)
     local plug_url
     local channel_code = self:naverCafeGetChannelCode()
     if (channel_code == 'ko') then
-        plug_url = 'http://cafe.naver.com/dragonvillagemobile/'
+        plug_url = 'https://cafe.naver.com/dragonvillagemobile?iframe_url=/ArticleList.nhn%3Fsearch.clubid=29168475%26search.menuid=6%26search.boardtype=L'
     elseif (channel_code == 'en') then
         plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031345#/posts/'
     elseif (channel_code == 'ja') then
