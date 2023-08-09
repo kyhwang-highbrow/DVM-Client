@@ -482,16 +482,15 @@ function cca.fadeInDelayOut2(node, in_time, delay_time, out_time, delay_time_2, 
 	doAllChildren(node, function(child) child:setCascadeOpacityEnabled(true) end)
 
     node:setOpacity(0)
+
+    local cfuncin = cc.CallFunc:create(function() node:setVisible(true) end)
     local fadein = cc.FadeIn:create(in_time) 
     local delay = cc.DelayTime:create(delay_time)
 	local fadeout = cc.FadeOut:create(out_time)
-    local delay_2 = cc.DelayTime:create(delay_time_2)
+    local cfuncout = cc.CallFunc:create(function() node:setVisible(false) end)
 
-    if (forever) then
-        cca.runAction(node, cc.RepeatForever:create(cc.Sequence:create(fadein, delay, fadeout, delay_2)))
-    else
-	    cca.runAction(node, cc.Sequence:create(fadein, delay, fadeout))
-    end
+    local delay_2 = cc.DelayTime:create(delay_time_2)
+    cca.runAction(node, cc.RepeatForever:create(cc.Sequence:create(cfuncin, fadein, delay, fadeout, cfuncout, delay_2)))
 end
 
 -------------------------------------
