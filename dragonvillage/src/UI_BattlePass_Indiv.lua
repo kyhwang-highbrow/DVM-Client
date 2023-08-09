@@ -50,7 +50,8 @@ function UI_BattlePass_Indiv:initButton()
     local vars = self.vars
     vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
-
+    vars['contractBtn']:registerScriptTapHandler(function() self:click_contractBtn() end)
+    
     for type_id = UI_BattlePass_Indiv.START_TYPE_IDX, UI_BattlePass_Indiv.END_TYPE_IDX do
         local reward_btn_str = string.format('passRewardBtn%d', type_id)
         if vars[reward_btn_str] ~= nil then
@@ -67,6 +68,7 @@ function UI_BattlePass_Indiv:initButton()
             vars[info_btn_str]:registerScriptTapHandler(function() self:click_itemInfoBtn(type_id) end)
         end
     end
+
 end
 
 --------------------------------------------------------------------------
@@ -384,4 +386,12 @@ function UI_BattlePass_Indiv:click_itemInfoBtn(type_id)
     local struct_indiv_pass = self.m_passData
     local l_item = struct_indiv_pass:getIndivPassAllItemList(type_id)
     UI_ObtainPopup(l_item, Str('보상 리스트'))
+end
+
+
+-------------------------------------
+-- function click_contractBtn
+-------------------------------------
+function UI_BattlePass_Indiv:click_contractBtn()
+    GoToAgreeMentUrl()
 end
