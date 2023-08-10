@@ -164,6 +164,8 @@ local t_module = {
     'StructRecall',
     'StructPresetDeck',
     'StructIndivPass',
+    'StructRunePreset',
+    'StructRunePresetGroup',
 
 	-- ServerData 
     'ServerData',
@@ -283,6 +285,7 @@ local t_module = {
     'ServerData_RuneGuardian', -- 룬 수호자 클리어 정보
     'ServerData_DeckPreset', -- 프리셋 덱
     'ServerData_IndivPass', -- 개인 패스
+    'ServerData_RunePreset', -- 룬 프리셋
 
     -- Interface
     'IEventDispatcher',
@@ -957,6 +960,7 @@ local t_module = {
     'UI_RuneForge',
     'UI_RuneForgeInfoTab',
     'UI_RuneForgeManageTab',
+    'UI_RuneForgePresetTab',
     'UI_RuneForgeCombineTab',
     'UI_RuneForgeGachaTicket',
     'UI_RuneForgeCombineItem',

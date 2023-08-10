@@ -363,6 +363,9 @@ function ServerData:getInstance()
     -- 배틀패스 패키지
     g_indivPassData = ServerData_IndivPass(g_serverData)
 
+    -- 룬 프리셋
+    g_runePresetData = ServerData_RunePreset(g_serverData)
+
     return g_serverData
 end
 
