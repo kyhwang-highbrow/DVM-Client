@@ -117,6 +117,7 @@ function UI_DragonLatea:setSelectDragonData(object_id, b_force)
         local struct_dragon = g_dragonsData:getDragonObject(object_id)
         if struct_dragon ~= nil then
             self.m_lateaTableView:addItem(object_id, struct_dragon)
+            self.m_tableViewExt:delItem(object_id)
         end
     end
 
@@ -124,7 +125,6 @@ function UI_DragonLatea:setSelectDragonData(object_id, b_force)
     local submsg = Str('라테아에 등록해도 자유롭게 해제가 가능합니다.')
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
-
 
 -------------------------------------
 -- function setSelectLateaDragonData
@@ -134,7 +134,10 @@ function UI_DragonLatea:setSelectLateaDragonData(object_id, b_force)
     local ok_btn_cb = function ()
         local struct_dragon = g_dragonsData:getDragonObject(object_id)
         if struct_dragon ~= nil then
+            self.m_tableViewExt:addItem(object_id, struct_dragon)
             self.m_lateaTableView:delItem(object_id)
+
+            self:apply_dragonSort()
         end
     end
 
