@@ -1720,6 +1720,9 @@ local t_module = {
     'UI_ClanWarSelectSceneDefendHistoryItem',
     'UI_ClanWarSelectScene',
 	'UI_LoadingClanWar',
+
+    -- UI : 컬렉션
+    'UI_DragonCollection',
     
 
     -- Forest

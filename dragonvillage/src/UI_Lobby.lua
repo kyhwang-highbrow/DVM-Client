@@ -838,6 +838,8 @@ function UI_Lobby:initButton()
     vars['forestBtn']:registerScriptTapHandler(function() self:click_forestBtn() end) -- 드래곤의숲
     vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
     vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end) -- 전투
+
+    vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 드래곤
     
     -- 상점
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
@@ -1560,6 +1562,22 @@ function UI_Lobby:click_dragonManageBtn()
     local func = function()
         g_deckData:setSelectedDeck('arena_new_d')
         local ui = UI_DragonManageInfo()
+        local function close_cb()
+            self:sceneFadeInAction()
+        end
+        ui:setCloseCB(close_cb)
+    end
+
+    self:sceneFadeOutAndCallFunc(func)
+end
+
+-------------------------------------
+-- function click_collectionBtn
+-- @brief 드래곤 컬렉션 버튼
+-------------------------------------
+function UI_Lobby:click_collectionBtn()
+    local func = function()
+        local ui = UI_DragonCollection()
         local function close_cb()
             self:sceneFadeInAction()
         end

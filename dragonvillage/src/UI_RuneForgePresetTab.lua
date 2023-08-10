@@ -66,7 +66,7 @@ end
 -- function onExitTab
 -------------------------------------
 function UI_RuneForgePresetTab:onExitTab()
-    
+
 end
 
 -------------------------------------
