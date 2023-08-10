@@ -1577,7 +1577,7 @@ end
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
     local func = function()
-        local ui = UI_DragonCollection()
+        local ui = UI_DragonLatea()
         local function close_cb()
             self:sceneFadeInAction()
         end

@@ -1722,7 +1722,7 @@ local t_module = {
 	'UI_LoadingClanWar',
 
     -- UI : 컬렉션
-    'UI_DragonCollection',
+    'UI_DragonLatea',
     
 
     -- Forest
