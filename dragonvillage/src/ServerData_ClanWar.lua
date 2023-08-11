@@ -373,6 +373,7 @@ function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 		struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info.m_lv = g_userData:get('lv')
 		struct_user_info.m_nickname = g_userData:get('nick')	
+        struct_user_info.m_lateaStats = g_lateaData:getLateaStats()
 
 		local struct_clan = g_clanData:getClanStruct()
 		if (struct_clan) then
@@ -442,6 +443,7 @@ function ServerData_ClanWar:makeEnemyUserInfo(data)
 
     struct_user_info.m_rp = data['rp']
     struct_user_info.m_matchResult = data['match']
+    struct_user_info.m_lateaStats = data['latea_stats']
     
     struct_user_info:applyRunesDataList(data['runes'])
     struct_user_info:applyDragonsDataList(data['dragons'])
