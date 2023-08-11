@@ -257,6 +257,7 @@ local TableInfo_fromServer = {
         ['table_indiv_pass_reward'] = {'table_indiv_pass_reward', 'id'}, -- 개인 패스
 
         ['table_latea_status'] = {'table_latea_status', 'lid'}, -- 라테아
+        ['table_latea_condition'] = {'table_latea_condition', 'rarity'}, -- 라테아 등록 조건 테이블
     }
 
 -------------------------------------

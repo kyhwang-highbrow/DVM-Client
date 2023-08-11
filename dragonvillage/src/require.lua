@@ -507,6 +507,7 @@ local t_module = {
     'TableIndivPassReward', -- 개인 패스 보상 테이블
     'TableLatea', -- 라테아 (컬렉션)
     'TableLateaStatus', -- 라테아 돌림판 능력치 (컬렉셔)
+    'TableLateaCondition', -- 라테아 등록 조건
 
     -- Scene
     'SceneCommon',

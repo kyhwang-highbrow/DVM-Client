@@ -27,9 +27,9 @@ function TableLateaStatus:getInstance()
 end
 
 -------------------------------------
--- function getLateaBuffsByIdList
+-- function getLateaStatsByIdList
 -------------------------------------
-function TableLateaStatus:getLateaBuffsByIdList(l_ids)
+function TableLateaStatus:getLateaStatsByIdList(l_ids)
     local l_buffs = {}
 
     for _ , id in ipairs(l_ids) do
