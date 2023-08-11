@@ -120,6 +120,10 @@ function GameWorldLeagueRaid:makeHeroDeck_internal(index)
 
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
+               
+                -- 라테아 버프 적용
+                hero.m_statusCalc:applyLateaBuffs(g_lateaData:getMyLateaBuffIdList())
+
                 hero:setStatusCalc(hero.m_statusCalc)
 
                 -- 팀보너스 적용

@@ -585,6 +585,10 @@ function GameWorldEventArena:makeHeroDeck()
 
                     -- 스테이지 버프 적용
                     hero.m_statusCalc:applyStageBonus(self.m_stageID)
+
+                    -- 라테아 버프 적용
+                    hero.m_statusCalc:applyLateaBuffs(g_lateaData:getMyLateaBuffIdList())
+
                     hero:setStatusCalc(hero.m_statusCalc)
 
                     -- 팀보너스 적용
@@ -631,6 +635,10 @@ function GameWorldEventArena:makeHeroDeck()
 
                     -- 스테이지 버프 적용
                     hero.m_statusCalc:applyStageBonus(self.m_stageID)
+
+                    -- 라테아 버프 적용
+                    hero.m_statusCalc:applyLateaBuffs(g_lateaData:getMyLateaBuffIdList())
+
                     hero:setStatusCalc(hero.m_statusCalc)
 
                     -- 팀보너스 적용
@@ -691,6 +699,10 @@ function GameWorldEventArena:makeEnemyDeck()
 
                     -- 스테이지 버프 적용
                     enemy.m_statusCalc:applyStageBonus(self.m_stageID)
+
+                    -- 라테아 버프 적용(삼뉴체크)
+                    enemy.m_statusCalc:applyLateaBuffs({})
+
                     enemy:setStatusCalc(enemy.m_statusCalc)
 
                     -- 팀보너스 적용
@@ -740,6 +752,10 @@ function GameWorldEventArena:makeEnemyDeck()
 
                     -- 스테이지 버프 적용
                     enemy.m_statusCalc:applyStageBonus(self.m_stageID)
+
+                    -- 라테아 버프 적용(삼뉴체크)
+                    enemy.m_statusCalc:applyLateaBuffs({})
+
                     enemy:setStatusCalc(enemy.m_statusCalc)
 
                     -- 팀보너스 적용

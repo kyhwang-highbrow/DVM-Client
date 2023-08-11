@@ -137,6 +137,9 @@ local TableInfo = {
 
         -- 룬 필터 
         table_rune_filter_point = {'table_rune_filter_point', 'enhance_id', false},
+
+        -- 라테아
+        table_latea = {'table_latea', 'id', false},
     }
 
 -------------------------------------
@@ -252,6 +255,8 @@ local TableInfo_fromServer = {
 
         ['table_indiv_pass'] = {'table_indiv_pass', 'id'}, -- 개인 패스
         ['table_indiv_pass_reward'] = {'table_indiv_pass_reward', 'id'}, -- 개인 패스
+
+        ['table_latea_status'] = {'table_latea_status', 'lid'}, -- 라테아
     }
 
 -------------------------------------

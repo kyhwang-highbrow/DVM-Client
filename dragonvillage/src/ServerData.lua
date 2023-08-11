@@ -366,6 +366,9 @@ function ServerData:getInstance()
     -- 룬 프리셋
     g_runePresetData = ServerData_RunePreset(g_serverData)
 
+    -- 라테아
+    g_lateaData = ServerData_Latea(g_serverData)
+
     return g_serverData
 end
 

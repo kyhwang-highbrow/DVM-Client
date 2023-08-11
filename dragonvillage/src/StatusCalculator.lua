@@ -513,6 +513,36 @@ function StatusCalculator:applyAdditionalOptions(buff_str)
 end
 
 -------------------------------------
+-- function applyLateaBuffs
+-- @brief 라테아 보너스 적용
+-------------------------------------
+function StatusCalculator:applyLateaBuffs(_l_latea_status_ids)
+   local l_latea_status_ids = {}
+
+    if _l_latea_status_ids ~= nil then
+        l_latea_status_ids = _l_latea_status_ids
+    end
+
+    local l_buffs = TableLateaStatus:getInstance():getLateaBuffsByIdList(l_latea_status_ids)
+    for _, v in ipairs(l_buffs) do
+        local buff_type = v['buff_type']
+        local buff_value = v['buff_value']
+        local t_option = TableOption():get(buff_type)
+    
+        if (t_option) then
+            local status_type = t_option['status']
+            if (status_type) then
+                if (t_option['action'] == 'multi') then
+                    self:addStageMulti(status_type, buff_value)
+                elseif (t_option['action'] == 'add') then
+                    self:addStageAdd(status_type, buff_value)
+                end
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function getCombatPower
 -- @brief 드래곤의 최종 전투력을 얻어옴
 --        UI에서 사용되는 함수이므로 패시브 발동은 제외

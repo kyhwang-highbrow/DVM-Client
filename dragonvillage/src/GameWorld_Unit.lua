@@ -300,6 +300,10 @@ function GameWorld:makeHeroDeck()
 
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
+
+                -- 라테아 버프 적용
+                hero.m_statusCalc:applyLateaBuffs(g_lateaData:getMyLateaBuffIdList())
+
                 hero:setStatusCalc(hero.m_statusCalc)
 
                 -- 팀보너스 적용
@@ -363,6 +367,10 @@ function GameWorld:joinFriendHero(posIdx)
 
     -- 스테이지 버프 적용
     self.m_friendDragon.m_statusCalc:applyStageBonus(self.m_stageID)
+
+    -- 친구 라테아 버프 적용(삼뉴체크)
+    self.m_friendDragon.m_statusCalc:applyLateaBuffs()
+
     self.m_friendDragon:setStatusCalc(self.m_friendDragon.m_statusCalc)
 
     -- 친구 드래곤 전투 통계 추가

@@ -286,6 +286,7 @@ local t_module = {
     'ServerData_DeckPreset', -- 프리셋 덱
     'ServerData_IndivPass', -- 개인 패스
     'ServerData_RunePreset', -- 룬 프리셋
+    'ServerData_Latea', -- 라테아
 
     -- Interface
     'IEventDispatcher',
@@ -504,6 +505,8 @@ local t_module = {
     'TableRuneFilterPoint', -- 룬 필터 포인트
     'TableIndivPass', -- 개인 패스
     'TableIndivPassReward', -- 개인 패스 보상 테이블
+    'TableLatea', -- 라테아 (컬렉션)
+    'TableLateaStatus', -- 라테아 돌림판 능력치 (컬렉셔)
 
     -- Scene
     'SceneCommon',
