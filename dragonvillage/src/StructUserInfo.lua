@@ -18,6 +18,7 @@ StructUserInfo = class({
         m_tamerCostumeID = 'number', -- nil이면 기본 복장
         m_tamerPosX = 'float',
         m_tamerPosY = 'float',
+        m_lateaStats = 'List<number>', -- 라테아 스탯
 
         -- 드래곤, 룬
         m_dragonsObject = 'StructDragonObject',
@@ -41,6 +42,7 @@ function StructUserInfo:init(data)
 
     self.m_dragonsObject = {}
     self.m_runesObject = {}
+    self.m_lateaStats = {}
 
     if data then
         self:applyTableData(data)
@@ -59,6 +61,7 @@ function StructUserInfo:applyTableData(data)
     replacement['nick'] = 'm_nickname'
     replacement['lv'] = 'm_lv'
     replacement['leader_dragon_object'] = 'm_leaderDragonObject'
+    replacement['latea_stats'] = 'm_lateaStats'
     
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
@@ -339,6 +342,23 @@ end
 -------------------------------------
 function StructUserInfo:getStructClan()
     return self.m_structClan
+end
+
+
+-------------------------------------
+-- function setLateaStats
+-- @breif
+-------------------------------------
+function StructUserInfo:setLateaStats(latea_Stats)
+    self.m_lateaStats = latea_Stats
+end
+
+-------------------------------------
+-- function getLateaStats
+-- @breif
+-------------------------------------
+function StructUserInfo:getLateaStats()
+    return self.m_lateaStats
 end
 
 -------------------------------------

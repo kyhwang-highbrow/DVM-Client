@@ -312,6 +312,7 @@ function ServerData_ArenaNew:refresh_playerUserInfo(t_data, l_deck, str_deckName
         local struct_user_info = StructUserInfoArenaNew()
         struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info:setStructClan(g_clanData:getClanStruct())
+        struct_user_info:setLateaStats(g_lateaData:getLateaStats())
         self.m_playerUserInfo = struct_user_info
     end
 
@@ -499,6 +500,7 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_rankPercent = data['rate']
     struct_user_info.m_state = data['state']
     struct_user_info.m_power = data['power']
+    struct_user_info.m_lateaStats = data['latea_stats']
     
     if (not data['rank'] and data['rankInfo']) then
         if (not data['rank'] and data['rankInfo']['rank']) then
@@ -1104,8 +1106,10 @@ function ServerData_ArenaNew:makeDragonToken()
         end
     end
 
-    --cclog('token = ' .. token)
+    -- 라테아 
+    token = token .. g_lateaData:getLateaStatsStringData()
 
+    --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
     
     return token

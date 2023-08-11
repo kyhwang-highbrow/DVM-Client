@@ -285,7 +285,7 @@ function ServerData_FriendMatch:refresh_playerUserInfo(l_deck)
     struct_user_info.m_uid = g_userData:get('uid')
     struct_user_info.m_nickname = g_userData:get('nick')
     struct_user_info.m_lv = g_userData:get('lv')
-
+    struct_user_info.m_lateaStats = g_lateaData:getLateaStats()
     self.m_playerUserInfo = struct_user_info
 
     -- 덱 설정
@@ -341,6 +341,7 @@ function ServerData_FriendMatch:refresh_matchList(match_info)
     struct_user_info.m_tamerID = match_info['tamer']
     struct_user_info.m_leaderDragonObject = StructDragonObject(match_info['leader'])
     struct_user_info.m_tier = match_info['tier']
+    struct_user_info.m_lateaStats = match_info['latea_stats']
 
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = match_info['rp']
@@ -410,9 +411,11 @@ function ServerData_FriendMatch:makeDragonToken()
             token = token .. ','
         end
     end
+    
+    -- 라테아 
+    token = token .. g_lateaData:getLateaStatsStringData()
 
     --cclog('token = ' .. token)
-
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
     
     return token

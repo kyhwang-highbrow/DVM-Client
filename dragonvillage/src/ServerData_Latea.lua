@@ -3,6 +3,7 @@
 -------------------------------------
 ServerData_Latea = class({
     m_serverData = 'ServerData',
+    m_lateaStats = 'list<number>',
 })
 
 -------------------------------------
@@ -10,11 +11,24 @@ ServerData_Latea = class({
 -------------------------------------
 function ServerData_Latea:init(server_data)
     self.m_serverData = server_data
+    self.m_lateaStats = {}
 end
 
 -------------------------------------
--- function getMyLateaBuffIdList
+-- function getLateaStats
 -------------------------------------
-function ServerData_Latea:getMyLateaBuffIdList(deck_key)
-    return {}
+function ServerData_Latea:getLateaStats()
+    return self.m_lateaStats
+end
+
+-------------------------------------
+-- function getLateaStatsStringData
+-------------------------------------
+function ServerData_Latea:getLateaStatsStringData()
+    if #self.m_lateaStats == 0 then
+        return ''
+    end
+
+    local str = table.concat(self.m_lateaStats, ',')
+    return ',' .. str
 end

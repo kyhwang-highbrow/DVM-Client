@@ -405,6 +405,7 @@ function GameWorldArena:makeHeroDeck()
     local user_info = g_gameScene:getStructUserInfo_Player()
 
     local t_pvp_deck = user_info:getPvpDeck()
+    local latea_stats = user_info:getLateaStats()
     local l_deck = user_info:getDeck_dragonList(true)
     local formation = t_pvp_deck['formation']
     local formation_lv = t_pvp_deck['formationlv']
@@ -440,8 +441,8 @@ function GameWorldArena:makeHeroDeck()
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
 
-                -- 라테아 버프 적용(삼뉴체크)
-                hero.m_statusCalc:applyLateaBuffs({})
+                -- 라테아 버프 적용
+                hero.m_statusCalc:applyLateaStats(latea_stats)
 
 
                 hero:setStatusCalc(hero.m_statusCalc)
@@ -477,6 +478,7 @@ function GameWorldArena:makeEnemyDeck()
     local formation = t_pvp_deck['formation']
     local formation_lv = t_pvp_deck['formationlv']
     local leader = t_pvp_deck['leader']
+    local latea_stats = user_info:getLateaStats()
 
     self.m_enemyDeckFormation = formation
     self.m_enemyDeckFormationLv = formation_lv
@@ -520,7 +522,7 @@ function GameWorldArena:makeEnemyDeck()
                 enemy.m_statusCalc:applyStageBonus(self.m_stageID)
 
                 -- 라테아 버프 적용(삼뉴체크)
-                enemy.m_statusCalc:applyLateaBuffs({})
+                enemy.m_statusCalc:applyLateaStats(latea_stats)
 
                 enemy:setStatusCalc(enemy.m_statusCalc)
 

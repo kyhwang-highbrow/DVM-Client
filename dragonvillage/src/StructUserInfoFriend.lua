@@ -40,6 +40,7 @@ function StructUserInfoFriend:create(t_data)
     user_info.m_usedTime = t_data['used_time']
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     user_info.m_arenaTier = t_data['debris']['tier'] and t_data['debris']['tier'] or 'beginner'
+    user_info.m_lateaStats = t_data['latea_stats']
 
     -- 친구 드래곤 룬 세팅
     user_info.m_leaderDragonObject:setRuneObjects(t_data['runes'])

@@ -357,8 +357,9 @@ function ServerData_Friend:getParticipationFriendDragon()
 
     local dragon_object = t_friend_info.m_leaderDragonObject
     local rune_object = t_friend_info.m_runesObject
+    local latea_stats = t_friend_info.m_lateaStats
 
-    return dragon_object, rune_object
+    return dragon_object, rune_object, latea_stats
 end
 
 -------------------------------------

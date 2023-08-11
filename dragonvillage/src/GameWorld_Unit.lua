@@ -302,7 +302,7 @@ function GameWorld:makeHeroDeck()
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
 
                 -- 라테아 버프 적용
-                hero.m_statusCalc:applyLateaBuffs(g_lateaData:getMyLateaBuffIdList())
+                hero.m_statusCalc:applyLateaStats(g_lateaData:getLateaStats())
 
                 hero:setStatusCalc(hero.m_statusCalc)
 
@@ -329,7 +329,7 @@ function GameWorld:makeFriendHero()
         return
     end
 
-    local t_dragon_data, l_runes_data = g_friendData:getParticipationFriendDragon()
+    local t_dragon_data, l_runes_data, latea_stats = g_friendData:getParticipationFriendDragon()
     if (not t_dragon_data) then return end
 
     local status_calc = g_friendData:makeFriendDragonStatusCalculator(t_dragon_data, l_runes_data)
@@ -344,7 +344,7 @@ function GameWorld:makeFriendHero()
         
         local idx = g_friendData:getFriendDragonSlotIdx()
         if (idx) then
-            self:joinFriendHero(idx)
+            self:joinFriendHero(idx, latea_stats)
             self.m_bUsedFriend = true
         end
     end
@@ -353,7 +353,7 @@ end
 -------------------------------------
 -- function joinFriendHero
 -------------------------------------
-function GameWorld:joinFriendHero(posIdx)
+function GameWorld:joinFriendHero(posIdx, latea_stats)
     if (not self.m_friendDragon) then return end
 
     self.m_friendDragon:setPosIdx(posIdx)
@@ -368,8 +368,8 @@ function GameWorld:joinFriendHero(posIdx)
     -- 스테이지 버프 적용
     self.m_friendDragon.m_statusCalc:applyStageBonus(self.m_stageID)
 
-    -- 친구 라테아 버프 적용(삼뉴체크)
-    self.m_friendDragon.m_statusCalc:applyLateaBuffs()
+    -- 친구 라테아 버프 적용
+    self.m_friendDragon.m_statusCalc:applyLateaStats(latea_stats)
 
     self.m_friendDragon:setStatusCalc(self.m_friendDragon.m_statusCalc)
 

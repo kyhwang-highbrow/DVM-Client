@@ -516,7 +516,7 @@ end
 -- function applyLateaBuffs
 -- @brief 라테아 보너스 적용
 -------------------------------------
-function StatusCalculator:applyLateaBuffs(_l_latea_status_ids)
+function StatusCalculator:applyLateaStats(_l_latea_status_ids)
    local l_latea_status_ids = {}
 
     if _l_latea_status_ids ~= nil then

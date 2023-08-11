@@ -975,8 +975,10 @@ function ServerData_Stage:makeDragonToken(deckname)
         end
     end
 
-    --cclog('token = ' .. token)
+    -- 라테아 
+    token = token .. g_lateaData:getLateaStatsStringData()
 
+    --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
     
     return token
