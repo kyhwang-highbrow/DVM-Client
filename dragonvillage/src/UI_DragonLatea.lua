@@ -4,8 +4,6 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonLatea
 -------------------------------------
 UI_DragonLatea = class(PARENT,{
-    -- 서버상의 드래곤 정보가 마지막으로 변경된 시간 (refresh 체크 용도)
-    m_dragonListLastChangeTime = 'timestamp',
     m_lateaTableView = '',
 
     })
@@ -42,8 +40,6 @@ function UI_DragonLatea:init(doid)
 
     -- 정렬 도우미
     self:init_dragonSortMgr()
-
-    self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
 end
 
 -------------------------------------
@@ -71,6 +67,22 @@ function UI_DragonLatea:initButton()
     local vars = self.vars
 end
 
+-------------------------------------
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 드래곤 리스트
+-------------------------------------
+function UI_DragonLatea:getDragonList()
+    local result_dragon_map = {}
+    local m_dragons = g_dragonsData:getDragonsListRef()
+
+    for doid, struct_dragon_data in pairs(m_dragons) do
+        if TableLateaCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
+            result_dragon_map[doid] = struct_dragon_data
+        end
+    end
+
+    return result_dragon_map
+end
 
 -------------------------------------
 -- function init_lateaTableView
@@ -87,7 +99,7 @@ function UI_DragonLatea:init_lateaTableView()
 --[[         -- 새로 획득한 드래곤 뱃지
         local is_new_dragon = data:isNewDragon()
         ui:setNewSpriteVisible(is_new_dragon) ]]
-
+        
         ui.root:setScale(0.66)
         -- 클릭 버튼 설정
         ui.vars['clickBtn']:registerScriptTapHandler(function()
@@ -158,37 +170,6 @@ end
 -------------------------------------
 function UI_DragonLatea:click_exitBtn()
     self:close()
-end
-
--------------------------------------
--- function getSelectedDragon
--------------------------------------
-function UI_DragonLatea:getSelectedDragon()
-    return self.m_selectDragonData
-end
-
--------------------------------------
--- function _hasDragon
--- @brief 플레이어가 드래곤를 보유 했는지 여부
--- @return boolean
--------------------------------------
-function UI_DragonLatea:_hasDragon(did)
-    local dragon_cnt = g_dragonsData:getNumOfDragonsByDid(did)
-    return (dragon_cnt ~= 0)
-end
-
--------------------------------------
--- function checkDragonListRefresh
--- @brief 드래곤 리스트에 변경이 있는지 확인 후 갱신
--------------------------------------
-function UI_DragonLatea:checkDragonListRefresh()
-    local is_changed = g_dragonsData:checkChange(self.m_dragonListLastChangeTime)
-
-    if is_changed then
-        self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
-        -- 정렬
-        self:apply_dragonSort_saveData()
-    end
 end
 
 --@CHECK
