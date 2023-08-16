@@ -1,27 +1,27 @@
 local PARENT = TableClass
 -------------------------------------
--- class TableLatea
+-- class TableLair
 -------------------------------------
-TableLatea = class(PARENT, {
+TableLair = class(PARENT, {
 })
 
 local instance = nil
 -------------------------------------
 -- function init
 -------------------------------------
-function TableLatea:init()
+function TableLair:init()
     assert(instance == nil, 'Can not initalize twice')
-    self.m_tableName = 'table_latea'
+    self.m_tableName = 'table_lair'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
 -------------------------------------
 -- function getInstance
----@return TableLatea instance
+---@return TableLair instance
 -------------------------------------
-function TableLatea:getInstance()
+function TableLair:getInstance()
     if (instance == nil) then
-        instance = TableLatea()
+        instance = TableLair()
     end
     return instance
 end
@@ -29,6 +29,6 @@ end
 -------------------------------------
 -- function getLat
 -------------------------------------
-function TableLatea:getIndivPassName(id)
+function TableLair:getIndivPassName(id)
     return Str(self:getValue(id, 't_pass_name'))
 end

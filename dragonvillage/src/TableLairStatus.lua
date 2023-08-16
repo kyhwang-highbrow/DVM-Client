@@ -1,35 +1,35 @@
 local PARENT = TableClass
 -------------------------------------
--- class TableLateaStatus
+-- class TableLairStatus
 -------------------------------------
-TableLateaStatus = class(PARENT, {
+TableLairStatus = class(PARENT, {
 })
 
 local instance = nil
 -------------------------------------
 -- function init
 -------------------------------------
-function TableLateaStatus:init()
+function TableLairStatus:init()
     assert(instance == nil, 'Can not initalize twice')
-    self.m_tableName = 'table_latea_status'
+    self.m_tableName = 'table_lair_status'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
 -------------------------------------
 -- function getInstance
----@return TableLateaStatus instance
+---@return TableLairStatus instance
 -------------------------------------
-function TableLateaStatus:getInstance()
+function TableLairStatus:getInstance()
     if (instance == nil) then
-        instance = TableLateaStatus()
+        instance = TableLairStatus()
     end
     return instance
 end
 
 -------------------------------------
--- function getLateaStatsByIdList
+-- function getLairStatsByIdList
 -------------------------------------
-function TableLateaStatus:getLateaStatsByIdList(l_ids)
+function TableLairStatus:getLairStatsByIdList(l_ids)
     local l_buffs = {}
 
     for _ , id in ipairs(l_ids) do

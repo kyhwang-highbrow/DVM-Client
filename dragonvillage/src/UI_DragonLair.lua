@@ -1,10 +1,10 @@
 local PARENT = UI_DragonManage_Base
 
 -------------------------------------
--- class UI_DragonLatea
+-- class UI_DragonLair
 -------------------------------------
-UI_DragonLatea = class(PARENT,{
-    m_lateaTableView = '',
+UI_DragonLair = class(PARENT,{
+    m_lairTableView = '',
 
     })
 
@@ -12,9 +12,9 @@ UI_DragonLatea = class(PARENT,{
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_DragonLatea:initParentVariable()
+function UI_DragonLair:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_DragonLatea'
+    self.m_uiName = 'UI_DragonLair'
     
     self.m_subCurrency = 'memory_myth'  -- 상단 유저 재화 정보 중 서브 재화
     self.m_bVisible = true or false
@@ -26,8 +26,8 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonLatea:init(doid)
-    local vars = self:load('dragon_latea.ui')
+function UI_DragonLair:init(doid)
+    local vars = self:load('dragon_lair.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -45,25 +45,25 @@ end
 -------------------------------------
 -- function init_after
 -------------------------------------
-function UI_DragonLatea:init_after()
+function UI_DragonLair:init_after()
     PARENT.init_after(self)
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DragonLatea:initUI()
+function UI_DragonLair:initUI()
     local vars = self.vars
 
     self:init_dragonTableView()
-    self:init_lateaTableView()
+    self:init_lairTableView()
 end
 
 -------------------------------------
 -- function initButton
 -- @brief 버튼 UI 초기화
 -------------------------------------
-function UI_DragonLatea:initButton()
+function UI_DragonLair:initButton()
     local vars = self.vars
 end
 
@@ -71,12 +71,12 @@ end
 -- function getDragonList
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -------------------------------------
-function UI_DragonLatea:getDragonList()
+function UI_DragonLair:getDragonList()
     local result_dragon_map = {}
     local m_dragons = g_dragonsData:getDragonsListRef()
 
     for doid, struct_dragon_data in pairs(m_dragons) do
-        if TableLateaCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
+        if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
             result_dragon_map[doid] = struct_dragon_data
         end
     end
@@ -85,10 +85,10 @@ function UI_DragonLatea:getDragonList()
 end
 
 -------------------------------------
--- function init_lateaTableView
+-- function init_lairTableView
 -------------------------------------
-function UI_DragonLatea:init_lateaTableView()
-    local node = self.vars['lateaListNode']
+function UI_DragonLair:init_lairTableView()
+    local node = self.vars['lairListNode']
 
     -- 리스트 아이템 생성 콜백
     local function make_func(object)
@@ -104,7 +104,7 @@ function UI_DragonLatea:init_lateaTableView()
         -- 클릭 버튼 설정
         ui.vars['clickBtn']:registerScriptTapHandler(function()
             --self:click_dragon(data)
-            self:setSelectLateaDragonData(data['id'])
+            self:setSelectLairDragonData(data['id'])
         end)
     end
 
@@ -116,19 +116,19 @@ function UI_DragonLatea:init_lateaTableView()
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['scale'])
     table_view_td:setCellCreatePerTick(3)
-    self.m_lateaTableView = table_view_td
-    self.m_lateaTableView:setItemList({})
+    self.m_lairTableView = table_view_td
+    self.m_lairTableView:setItemList({})
 end
 
 -------------------------------------
 -- function setSelectDragonData
 -- @brief 선택된 드래곤 설정
 -------------------------------------
-function UI_DragonLatea:setSelectDragonData(object_id, b_force)
+function UI_DragonLair:setSelectDragonData(object_id, b_force)
     local ok_btn_cb = function ()
         local struct_dragon = g_dragonsData:getDragonObject(object_id)
         if struct_dragon ~= nil then
-            self.m_lateaTableView:addItem(object_id, struct_dragon)
+            self.m_lairTableView:addItem(object_id, struct_dragon)
             self.m_tableViewExt:delItem(object_id)
         end
     end
@@ -139,15 +139,15 @@ function UI_DragonLatea:setSelectDragonData(object_id, b_force)
 end
 
 -------------------------------------
--- function setSelectLateaDragonData
+-- function setSelectLairDragonData
 -- @brief 선택된 라테아 드래곤 설정
 -------------------------------------
-function UI_DragonLatea:setSelectLateaDragonData(object_id, b_force)
+function UI_DragonLair:setSelectLairDragonData(object_id, b_force)
     local ok_btn_cb = function ()
         local struct_dragon = g_dragonsData:getDragonObject(object_id)
         if struct_dragon ~= nil then
             self.m_tableViewExt:addItem(object_id, struct_dragon)
-            self.m_lateaTableView:delItem(object_id)
+            self.m_lairTableView:delItem(object_id)
 
             self:apply_dragonSort()
         end
@@ -161,16 +161,16 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_DragonLatea:refresh()
+function UI_DragonLair:refresh()
     local vars = self.vars
 end
 
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_DragonLatea:click_exitBtn()
+function UI_DragonLair:click_exitBtn()
     self:close()
 end
 
 --@CHECK
-UI:checkCompileError(UI_DragonLatea)
+UI:checkCompileError(UI_DragonLair)

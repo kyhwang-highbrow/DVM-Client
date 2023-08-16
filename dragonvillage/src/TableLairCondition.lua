@@ -1,27 +1,27 @@
 local PARENT = TableClass
 -------------------------------------
--- class TableLateaCondition
+-- class TableLairCondition
 -------------------------------------
-TableLateaCondition = class(PARENT, {
+TableLairCondition = class(PARENT, {
 })
 
 local instance = nil
 -------------------------------------
 -- function init
 -------------------------------------
-function TableLateaCondition:init()
+function TableLairCondition:init()
     assert(instance == nil, 'Can not initalize twice')
-    self.m_tableName = 'table_latea_condition'
+    self.m_tableName = 'table_lair_condition'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
 -------------------------------------
 -- function getInstance
----@return TableLateaCondition instance
+---@return TableLairCondition instance
 -------------------------------------
-function TableLateaCondition:getInstance()
+function TableLairCondition:getInstance()
     if (instance == nil) then
-        instance = TableLateaCondition()
+        instance = TableLairCondition()
     end
     return instance
 end
@@ -30,7 +30,7 @@ end
 -- function isMeetCondition
 ---@return  boolean
 -------------------------------------
-function TableLateaCondition:isMeetCondition(struct_dragon_object)
+function TableLairCondition:isMeetCondition(struct_dragon_object)
     local birth_grade = struct_dragon_object:getBirthGrade()
 
     -- 존재 여부
