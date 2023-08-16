@@ -18,7 +18,7 @@ StructUserInfo = class({
         m_tamerCostumeID = 'number', -- nil이면 기본 복장
         m_tamerPosX = 'float',
         m_tamerPosY = 'float',
-        m_lateaStats = 'List<number>', -- 라테아 스탯
+        m_lairStats = 'List<number>', -- 라테아 스탯
 
         -- 드래곤, 룬
         m_dragonsObject = 'StructDragonObject',
@@ -42,7 +42,7 @@ function StructUserInfo:init(data)
 
     self.m_dragonsObject = {}
     self.m_runesObject = {}
-    self.m_lateaStats = {}
+    self.m_lairStats = {}
 
     if data then
         self:applyTableData(data)
@@ -61,7 +61,7 @@ function StructUserInfo:applyTableData(data)
     replacement['nick'] = 'm_nickname'
     replacement['lv'] = 'm_lv'
     replacement['leader_dragon_object'] = 'm_leaderDragonObject'
-    replacement['latea_stats'] = 'm_lateaStats'
+    replacement['lair_stats'] = 'm_lairStats'
     
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
@@ -346,19 +346,19 @@ end
 
 
 -------------------------------------
--- function setLateaStats
+-- function setLairStats
 -- @breif
 -------------------------------------
-function StructUserInfo:setLateaStats(latea_Stats)
-    self.m_lateaStats = latea_Stats
+function StructUserInfo:setLairStats(lair_Stats)
+    self.m_lairStats = lair_Stats
 end
 
 -------------------------------------
--- function getLateaStats
+-- function getLairStats
 -- @breif
 -------------------------------------
-function StructUserInfo:getLateaStats()
-    return self.m_lateaStats
+function StructUserInfo:getLairStats()
+    return self.m_lairStats
 end
 
 -------------------------------------

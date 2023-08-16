@@ -134,7 +134,7 @@ function ServerData_Arena:refresh_playerUserInfo(t_data, l_deck)
         local struct_user_info = StructUserInfoArena()
         struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info:setStructClan(g_clanData:getClanStruct())
-        struct_user_info:setLateaStats(g_lateaData:getLateaStats())
+        struct_user_info:setLairStats(g_lairData:getLairStats())
         self.m_playerUserInfo = struct_user_info
     end
 
@@ -289,7 +289,7 @@ function ServerData_Arena:makeMatchUserInfo(data)
     struct_user_info.m_tier = data['tier']
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
-    struct_user_info.m_lateaStats = data['latea_stats']
+    struct_user_info.m_lairStats = data['lair_stats']
 
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = data['rp']
@@ -787,7 +787,7 @@ function ServerData_Arena:makeDragonToken()
     end
 
     -- 라테아 
-    token = token .. g_lateaData:getLateaStatsStringData()
+    token = token .. g_lairData:getLairStatsStringData()
 
     --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))

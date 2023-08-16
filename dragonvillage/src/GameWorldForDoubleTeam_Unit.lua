@@ -69,7 +69,7 @@ function GameWorldForDoubleTeam:makeHeroDeck()
                     hero.m_statusCalc:applyStageBonus(self.m_stageID)
 
                     -- 라테아 버프 적용
-                    hero.m_statusCalc:applyLateaStats(g_lateaData:getLateaStats())
+                    hero.m_statusCalc:applyLairStats(g_lairData:getLairStats())
 
                     hero:setStatusCalc(hero.m_statusCalc)
 
@@ -119,7 +119,7 @@ function GameWorldForDoubleTeam:makeHeroDeck()
                     hero.m_statusCalc:applyStageBonus(self.m_stageID)
                     
                     -- 라테아 버프 적용
-                    hero.m_statusCalc:applyLateaStats(g_lateaData:getLateaStats())
+                    hero.m_statusCalc:applyLairStats(g_lairData:getLairStats())
 
                     hero:setStatusCalc(hero.m_statusCalc)
 

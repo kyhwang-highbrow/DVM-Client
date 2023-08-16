@@ -305,7 +305,7 @@ function GameWorldColosseum:makeHeroDeck()
 
     local t_pvp_deck = user_info:getPvpAtkDeck()
     local l_deck = user_info:getAtkDeck_dragonList(true)
-    local latea_stats = user_info:getLateaStats()
+    local lair_stats = user_info:getLairStats()
     local formation = t_pvp_deck['formation']
     local formation_lv = t_pvp_deck['formationlv']
     local leader = t_pvp_deck['leader']
@@ -341,7 +341,7 @@ function GameWorldColosseum:makeHeroDeck()
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
 
                 -- 라테아 버프 적용(삼뉴체크)
-                hero.m_statusCalc:applyLateaStats(latea_stats)
+                hero.m_statusCalc:applyLairStats(lair_stats)
 
 
                 hero:setStatusCalc(hero.m_statusCalc)
@@ -369,20 +369,20 @@ function GameWorldColosseum:makeEnemyDeck()
     local getDragonObject
     local is_friendMatch = g_gameScene.m_bFriendMatch
 
-    local latea_stats = {}
+    local lair_stats = {}
     if (self.m_bDevelopMode) then
         local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
         -- 개발모드에선 자신의 방어덱을 상대로 설정
         t_pvp_deck = user_info:getPvpDefDeck()
         l_deck = user_info:getDefDeck_dragonList(true)
-        latea_stats = user_info:getLateaStats()
+        lair_stats = user_info:getLairStats()
         getDragonObject = function(doid) return g_dragonsData:getDragonDataFromUid(doid) end
     else
         -- 상대방의 덱 정보를 얻어옴
         local user_info =(is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
         t_pvp_deck = user_info:getPvpDefDeck()
         l_deck = user_info:getDefDeck_dragonList(true)
-        latea_stats = user_info:getLateaStats()
+        lair_stats = user_info:getLairStats()
         getDragonObject = function(doid) return user_info:getDragonObject(doid) end
     end
 
@@ -432,7 +432,7 @@ function GameWorldColosseum:makeEnemyDeck()
                 enemy.m_statusCalc:applyStageBonus(self.m_stageID)
 
                 -- 라테아 버프 적용(삼뉴체크)
-                enemy.m_statusCalc:applyLateaStats(latea_stats)
+                enemy.m_statusCalc:applyLairStats(lair_stats)
 
                 enemy:setStatusCalc(enemy.m_statusCalc)
 

@@ -120,7 +120,7 @@ function ServerData_Colosseum:refresh_matchList(l_match_list)
             struct_user_info.m_tamerID = v['tamer']
             struct_user_info.m_leaderDragonObject = StructDragonObject(v['leader'])
             struct_user_info.m_tier = v['tier']
-            struct_user_info.m_lateaStats = v['latea_stats']
+            struct_user_info.m_lairStats = v['lair_stats']
 
             -- 콜로세움 유저 정보
             struct_user_info.m_rp = v['rp']
@@ -187,7 +187,7 @@ function ServerData_Colosseum:refresh_playerUserInfo(t_data, l_deck)
         local struct_user_info = StructUserInfoColosseum()
         struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info:setStructClan(g_clanData:getClanStruct())
-        struct_user_info:setLateaStats(g_lateaData:getLateaStats())
+        struct_user_info:setLairStats(g_lairData:getLairStats())
         self.m_playerUserInfo = struct_user_info
     end
 
@@ -813,7 +813,7 @@ function ServerData_Colosseum:makeDragonToken()
     end
 
     -- 라테아 
-    token = token .. g_lateaData:getLateaStatsStringData()
+    token = token .. g_lairData:getLairStatsStringData()
 
     --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))

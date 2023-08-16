@@ -160,7 +160,7 @@ function StructUserInfoArena:createUserInfo(t_data)
     user_info.m_rankPercent = t_data['rate']
     user_info.m_tier = t_data['tier']
     user_info.m_rp = t_data['rp']
-    user_info.m_lateaStats = t_data['latea_stats']
+    user_info.m_lairStats = t_data['lair_stats']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     
@@ -186,7 +186,7 @@ function StructUserInfoArena:createUserInfo_forGrandArena(t_data)
     user_info.m_rankPercent = t_data['rate']
     user_info.m_tier = t_data['tier']
     user_info.m_rp = t_data['rp']
-    user_info.m_lateaStats = t_data['latea_stats']
+    user_info.m_lairStats = t_data['lair_stats']
 
     --match??
     --tamer??

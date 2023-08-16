@@ -1,34 +1,34 @@
 -------------------------------------
--- class ServerData_Latea
+-- class ServerData_Lair
 -------------------------------------
-ServerData_Latea = class({
+ServerData_Lair = class({
     m_serverData = 'ServerData',
-    m_lateaStats = 'list<number>',
+    m_lairStats = 'list<number>',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function ServerData_Latea:init(server_data)
+function ServerData_Lair:init(server_data)
     self.m_serverData = server_data
-    self.m_lateaStats = {}
+    self.m_lairStats = {}
 end
 
 -------------------------------------
--- function getLateaStats
+-- function getLairStats
 -------------------------------------
-function ServerData_Latea:getLateaStats()
-    return self.m_lateaStats
+function ServerData_Lair:getLairStats()
+    return self.m_lairStats
 end
 
 -------------------------------------
--- function getLateaStatsStringData
+-- function getLairStatsStringData
 -------------------------------------
-function ServerData_Latea:getLateaStatsStringData()
-    if #self.m_lateaStats == 0 then
+function ServerData_Lair:getLairStatsStringData()
+    if #self.m_lairStats == 0 then
         return ''
     end
 
-    local str = table.concat(self.m_lateaStats, ',')
+    local str = table.concat(self.m_lairStats, ',')
     return ',' .. str
 end

@@ -513,17 +513,17 @@ function StatusCalculator:applyAdditionalOptions(buff_str)
 end
 
 -------------------------------------
--- function applyLateaBuffs
+-- function applyLairBuffs
 -- @brief 라테아 보너스 적용
 -------------------------------------
-function StatusCalculator:applyLateaStats(_l_latea_status_ids)
-   local l_latea_status_ids = {}
+function StatusCalculator:applyLairStats(_l_lair_status_ids)
+   local l_lair_status_ids = {}
 
-    if _l_latea_status_ids ~= nil then
-        l_latea_status_ids = _l_latea_status_ids
+    if _l_lair_status_ids ~= nil then
+        l_lair_status_ids = _l_lair_status_ids
     end
 
-    local l_buffs = TableLateaStatus:getInstance():getLateaStatsByIdList(l_latea_status_ids)
+    local l_buffs = TableLairStatus:getInstance():getLairStatsByIdList(l_lair_status_ids)
     for _, v in ipairs(l_buffs) do
         local buff_type = v['buff_type']
         local buff_value = v['buff_value']

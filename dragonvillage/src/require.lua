@@ -286,7 +286,7 @@ local t_module = {
     'ServerData_DeckPreset', -- 프리셋 덱
     'ServerData_IndivPass', -- 개인 패스
     'ServerData_RunePreset', -- 룬 프리셋
-    'ServerData_Latea', -- 라테아
+    'ServerData_Lair', -- 라테아
 
     -- Interface
     'IEventDispatcher',
@@ -505,9 +505,9 @@ local t_module = {
     'TableRuneFilterPoint', -- 룬 필터 포인트
     'TableIndivPass', -- 개인 패스
     'TableIndivPassReward', -- 개인 패스 보상 테이블
-    'TableLatea', -- 라테아 (컬렉션)
-    'TableLateaStatus', -- 라테아 돌림판 능력치 (컬렉셔)
-    'TableLateaCondition', -- 라테아 등록 조건
+    'TableLair', -- 라테아 (컬렉션)
+    'TableLairStatus', -- 라테아 돌림판 능력치 (컬렉셔)
+    'TableLairCondition', -- 라테아 등록 조건
 
     -- Scene
     'SceneCommon',
@@ -1726,7 +1726,7 @@ local t_module = {
 	'UI_LoadingClanWar',
 
     -- UI : 컬렉션
-    'UI_DragonLatea',
+    'UI_DragonLair',
     
 
     -- Forest

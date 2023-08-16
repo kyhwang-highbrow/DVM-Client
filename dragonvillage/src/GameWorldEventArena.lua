@@ -587,7 +587,7 @@ function GameWorldEventArena:makeHeroDeck()
                     hero.m_statusCalc:applyStageBonus(self.m_stageID)
 
                     -- 라테아 버프 적용
-                    hero.m_statusCalc:applyLateaStats(g_lateaData:getLateaStats())
+                    hero.m_statusCalc:applyLairStats(g_lairData:getLairStats())
 
                     hero:setStatusCalc(hero.m_statusCalc)
 
@@ -637,7 +637,7 @@ function GameWorldEventArena:makeHeroDeck()
                     hero.m_statusCalc:applyStageBonus(self.m_stageID)
 
                     -- 라테아 버프 적용
-                    hero.m_statusCalc:applyLateaStats(g_lateaData:getLateaStats())
+                    hero.m_statusCalc:applyLairStats(g_lairData:getLairStats())
 
                     hero:setStatusCalc(hero.m_statusCalc)
 
@@ -670,7 +670,7 @@ function GameWorldEventArena:makeEnemyDeck()
         local deck_name = 'grand_arena_up'
         local l_deck = struct_user_info:getDeck_dragonObjList(deck_name)
         local t_deck_low_data = struct_user_info:getDeckLowData(deck_name)
-        local latea_stats = struct_user_info:getLateaStats()
+        local lair_stats = struct_user_info:getLairStats()
         local formation = t_deck_low_data['formation']
         local formation_lv = t_deck_low_data['formationlv']
         local leader = t_deck_low_data['leader']
@@ -702,7 +702,7 @@ function GameWorldEventArena:makeEnemyDeck()
                     enemy.m_statusCalc:applyStageBonus(self.m_stageID)
 
                     -- 라테아 버프 적용(삼뉴체크)
-                    enemy.m_statusCalc:applyLateaStats(latea_stats)
+                    enemy.m_statusCalc:applyLairStats(lair_stats)
 
                     enemy:setStatusCalc(enemy.m_statusCalc)
 
@@ -725,7 +725,7 @@ function GameWorldEventArena:makeEnemyDeck()
         local deck_name = 'grand_arena_down'
         local l_deck = struct_user_info:getDeck_dragonObjList(deck_name)
         local t_deck_low_data = struct_user_info:getDeckLowData(deck_name)
-        local latea_stats = struct_user_info:getLateaStats()
+        local lair_stats = struct_user_info:getLairStats()
         local formation = t_deck_low_data['formation']
         local formation_lv = t_deck_low_data['formationlv']
         local leader = t_deck_low_data['leader']
@@ -756,7 +756,7 @@ function GameWorldEventArena:makeEnemyDeck()
                     enemy.m_statusCalc:applyStageBonus(self.m_stageID)
 
                     -- 라테아 버프 적용(삼뉴체크)
-                    enemy.m_statusCalc:applyLateaStats(latea_stats)
+                    enemy.m_statusCalc:applyLairStats(lair_stats)
 
                     enemy:setStatusCalc(enemy.m_statusCalc)
 

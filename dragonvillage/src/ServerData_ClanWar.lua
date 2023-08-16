@@ -373,7 +373,7 @@ function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 		struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info.m_lv = g_userData:get('lv')
 		struct_user_info.m_nickname = g_userData:get('nick')	
-        struct_user_info.m_lateaStats = g_lateaData:getLateaStats()
+        struct_user_info.m_lairStats = g_lairData:getLairStats()
 
 		local struct_clan = g_clanData:getClanStruct()
 		if (struct_clan) then
@@ -443,7 +443,7 @@ function ServerData_ClanWar:makeEnemyUserInfo(data)
 
     struct_user_info.m_rp = data['rp']
     struct_user_info.m_matchResult = data['match']
-    struct_user_info.m_lateaStats = data['latea_stats']
+    struct_user_info.m_lairStats = data['lair_stats']
     
     struct_user_info:applyRunesDataList(data['runes'])
     struct_user_info:applyDragonsDataList(data['dragons'])
@@ -570,7 +570,7 @@ function ServerData_ClanWar:makeDragonToken()
     end
 
     -- 라테아 
-    token = token .. g_lateaData:getLateaStatsStringData()
+    token = token .. g_lairData:getLairStatsStringData()
 
     --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))

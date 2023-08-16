@@ -976,7 +976,7 @@ function ServerData_Stage:makeDragonToken(deckname)
     end
 
     -- 라테아 
-    token = token .. g_lateaData:getLateaStatsStringData()
+    token = token .. g_lairData:getLairStatsStringData()
 
     --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
