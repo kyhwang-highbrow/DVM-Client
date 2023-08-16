@@ -406,8 +406,8 @@ public class PerpleBilling implements PurchasesUpdatedListener {
                                 JSONArray purchaseJsonArray = new JSONArray();
                                 for (Purchase purchase : purchaseList) {
                                     // 구매 확인 consume
-                                    PerpleLog.e(LOG_TAG, "getIncompletePurchaseList : consume req token" + purchase.getPurchaseToken());
-                                    consume(purchase.getOrderId(), purchase.getPurchaseToken());
+                                    PerpleLog.e(LOG_TAG, "getIncompletePurchaseList : consume req token => " + purchase.getPurchaseToken());
+                                    //consume(purchase.getOrderId(), purchase.getPurchaseToken());
                                     String purchaseOriginJson = purchase.getOriginalJson();
 
                                     try {
@@ -451,18 +451,20 @@ public class PerpleBilling implements PurchasesUpdatedListener {
                     Purchase purchase = null;
                     for (final Purchase p : purchases) {
                         // 구매 확인 consume
-                        PerpleLog.e(LOG_TAG, "onPurchasesUpdated : consume req token" + p.getPurchaseToken());
-                        consume(p.getOrderId(), p.getPurchaseToken());
+                        PerpleLog.e(LOG_TAG, "onPurchasesUpdated : consume req token => " + p.getPurchaseToken());
+                        //consume(p.getOrderId(), p.getPurchaseToken());
 
                         List<String> products = p.getProducts();
-                        for (final String product : products)
-                        {
-                            if (mPurchasingProductId.equals(product))
-                            {
+                        for (final String product : products) {
+                            if (mPurchasingProductId != null && mPurchasingProductId.equals(product)) {
                                 purchase = p;
                                 break;
                             }
                         }
+                    }
+
+                    if (mPurchaseCallback == null) {
+                        return;
                     }
 
                     if (purchase == null) {
