@@ -330,12 +330,21 @@ public class PerpleBilling implements PurchasesUpdatedListener {
                                         JSONArray productDetailsJsonArray = new JSONArray();
                                         for (ProductDetails productDetails : productDetailsList) {
                                             String itemInfo = productDetails.toString();
+                                            //JSONObject item = new JSONObject(itemInfo);
+
+                                            String[] str_arr = itemInfo.split("\'");
+                                            //String ret1 = str_arr[0];
+                                            String json_str = str_arr[1];
+                                            //String ret3 = str_arr[2];
+
                                             try {
-                                                JSONObject jitem = new JSONObject(itemInfo);
+                                                JSONObject jitem = new JSONObject(json_str);
                                                 productDetailsJsonArray.put(jitem);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
+
+                                            //PerpleLog.e(LOG_TAG, "getItemList Product String : " + json_str);
                                         }
 
                                         // json 문자열로 info를 전달
