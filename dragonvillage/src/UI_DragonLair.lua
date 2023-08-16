@@ -27,7 +27,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonLair:init(doid)
-    local vars = self:load('dragon_lair.ui')
+    local vars = self:load('dragon_latea.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -88,7 +88,7 @@ end
 -- function init_lairTableView
 -------------------------------------
 function UI_DragonLair:init_lairTableView()
-    local node = self.vars['lairListNode']
+    local node = self.vars['lateaListNode']
 
     -- 리스트 아이템 생성 콜백
     local function make_func(object)
