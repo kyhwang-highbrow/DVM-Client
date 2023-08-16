@@ -221,6 +221,8 @@ public class PerpleBilling implements PurchasesUpdatedListener {
             return;
         }
 
+        PerpleLog.e(LOG_TAG, "consume req by lua : " + purchaseToken);
+
         ConsumeParams consumeParams =
                 ConsumeParams.newBuilder()
                         .setPurchaseToken(purchaseToken)
@@ -337,12 +339,15 @@ public class PerpleBilling implements PurchasesUpdatedListener {
                                             String json_str = str_arr[1];
                                             //String ret3 = str_arr[2];
 
+                                            /*
                                             try {
                                                 JSONObject jitem = new JSONObject(json_str);
                                                 productDetailsJsonArray.put(jitem);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
+                                            */
+
 
                                             //PerpleLog.e(LOG_TAG, "getItemList Product String : " + json_str);
                                         }
@@ -420,8 +425,8 @@ public class PerpleBilling implements PurchasesUpdatedListener {
 
                                 // json 문자열로 info를 전달
                                 String info = purchaseJsonArray.toString();
-                                String msg = "getIncompletePurchaseList: info - " + info;
-                                callback.onSuccess(msg);
+                                //String msg = "getIncompletePurchaseList: info - " + info;
+                                callback.onSuccess(info);
                             }
                         });
     }
