@@ -1428,10 +1428,10 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
-				text = '코스모의 여름 휴가';
+				text = '로롤리의 사탕 창고';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 255; 255; 51; };
 				opacity = 255;
 				dimension_width = 400;
 				dimension_height = 80;
@@ -1516,7 +1516,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '비밀 스테이지에서 시원한 수박을 획득하세요!';
+				text = '화이트데이 비밀 스테이지에서 달콤한 사탕을 획득하세요!';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 222; 0; };
@@ -1529,9 +1529,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
+				stroke_color = { 66; 6; 6; };
 				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
+				shadow_color = { 66; 6; 6; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -1660,7 +1660,7 @@
 				text = '획득 수량';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 255; 215; 0; };
+				color = { 80; 10; 30; };
 				opacity = 255;
 				dimension_width = 118;
 				dimension_height = 39;
@@ -1712,7 +1712,7 @@
 				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
-				is_sharp_text = false;
+				is_sharp_text = true;
 				stroke_tickness = 2.000000;
 				stroke_color = { 98; 0; 0; };
 				has_shadow = false;

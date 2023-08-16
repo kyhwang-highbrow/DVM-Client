@@ -404,9 +404,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 60; 83; 176; };
+				stroke_color = { 220; 70; 135; };
 				has_shadow = true;
-				shadow_color = { 60; 83; 176; };
+				shadow_color = { 220; 70; 135; };
 				shadow_opacity = 150;
 				shadow_direction = 0;
 				shadow_distance = 4.000000;
@@ -433,7 +433,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = '';
-				file_name = 'ui/typo/ko/ribbon_summer_title_0101.png';
+				file_name = 'ui/typo/ko/ribbon_candy_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
