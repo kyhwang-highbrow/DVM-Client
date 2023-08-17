@@ -37,6 +37,7 @@ end
 function UI_DragonLairBlessingPopup:initButton()
     local vars = self.vars
 
+    vars['blessBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['blessAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
@@ -109,7 +110,7 @@ end
 -- @function click_autoBtn
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:click_autoBtn()
-    local ui = UI_DragonLairBlessingAutoPopup()
+    UIManager:toastNotificationRed('작업 중입니다.')
 end
 
 --------------------------------------------------------------------------
