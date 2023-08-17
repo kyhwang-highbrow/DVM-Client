@@ -1726,8 +1726,9 @@ local t_module = {
 	'UI_LoadingClanWar',
 
     -- UI : 컬렉션
-    'UI_DragonLair',
-    
+    'UI_DragonLair', -- 메인
+    'UI_DragonLairBlessingPopup', -- 축복 팝업
+    'UI_DragonLairBlessingPopupItem', -- 축복 팝업 아이템
 
     -- Forest
     'SceneForest',

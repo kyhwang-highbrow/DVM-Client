@@ -131,8 +131,8 @@ ITEM_ID_MAP['event_popularity_mileage'] = 700831
 
 ITEM_ID_MAP['rune_ticket'] = 700652
 ITEM_ID_MAP['subjugation_ticket'] = 700110 -- 던전 토벌권
-
 ITEM_ID_MAP['indiv_pass_exp'] = 700113 -- 개인 패스 경험치
+ITEM_ID_MAP['blessing_ticket'] = 700022 -- 축복 티켓
 
 local ITEM_TYPE_MAP = {}
 for i,v in pairs(ITEM_ID_MAP) do

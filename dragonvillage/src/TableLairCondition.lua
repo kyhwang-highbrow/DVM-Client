@@ -27,6 +27,22 @@ function TableLairCondition:getInstance()
 end
 
 -------------------------------------
+-- function getLairConditionGrade
+---@return number
+-------------------------------------
+function TableLairCondition:getLairConditionGrade(birth_grade)
+    return self:getValue(birth_grade, 'grade')
+end
+
+-------------------------------------
+-- function getLairConditionLevel
+---@return number
+-------------------------------------
+function TableLairCondition:getLairConditionLevel(birth_grade)
+    return self:getValue(birth_grade, 'level')
+end
+
+-------------------------------------
 -- function isMeetCondition
 ---@return  boolean
 -------------------------------------

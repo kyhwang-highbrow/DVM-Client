@@ -97,6 +97,22 @@ function TableClass:filterList(key, value)
 end
 
 -------------------------------------
+-- function filterColumnList
+-------------------------------------
+function TableClass:filterColumnList(key, value, column)
+    local l_ret = {}
+
+    for i,v in pairs(self.m_orgTable) do 
+        if (v[key] == value) then
+            table.insert(l_ret, v[column])
+        end
+    end
+
+    return l_ret
+end
+
+
+-------------------------------------
 -- function filterTable_condition
 -------------------------------------
 function TableClass:filterTable_condition(condition_func)
