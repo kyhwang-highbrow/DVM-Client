@@ -332,7 +332,7 @@ function UI_DragonLair:click_refreshBtn()
         g_lairData:request_lairReload(success_cb)
     end
 
-    local msg = Str('드래곤 리스트 새로고침')
+    local msg = Str('드래곤 동굴 새로고침')
     local submsg = Str('다이아 500개를 소모해서 새로고침 하시겠습니까?')
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
