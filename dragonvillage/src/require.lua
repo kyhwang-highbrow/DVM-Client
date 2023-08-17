@@ -166,6 +166,7 @@ local t_module = {
     'StructIndivPass',
     'StructRunePreset',
     'StructRunePresetGroup',
+    'StructLairStat',
 
 	-- ServerData 
     'ServerData',
@@ -1725,10 +1726,11 @@ local t_module = {
     'UI_ClanWarSelectScene',
 	'UI_LoadingClanWar',
 
-    -- UI : 컬렉션
+    -- UI 둥지
     'UI_DragonLair', -- 메인
     'UI_DragonLairBlessingPopup', -- 축복 팝업
     'UI_DragonLairBlessingPopupItem', -- 축복 팝업 아이템
+    'UI_DragonLairBlessingAutoPopup', -- 자동 축복 팝업    
 
     -- Forest
     'SceneForest',

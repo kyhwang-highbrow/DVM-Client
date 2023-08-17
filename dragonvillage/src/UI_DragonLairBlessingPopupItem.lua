@@ -52,7 +52,7 @@ function UI_DragonLairBlessingPopupItem:refresh()
     local is_exist = self.m_isExist
 
     if is_exist == false then
-        vars['optionLabel']:setString(Str('{@deep_gray}추후 업데이트{@}'))
+        vars['optionLabel']:setString(Str('{@deep_gray}추후 업데이트 예정{@}'))
         return
     end
 

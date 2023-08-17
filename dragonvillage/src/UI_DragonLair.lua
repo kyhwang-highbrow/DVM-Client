@@ -1,12 +1,11 @@
-local PARENT = UI_DragonManage_Base
+local PARENT = class(UI_DragonManage_Base, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_DragonLair
 -------------------------------------
 UI_DragonLair = class(PARENT,{
     m_lairTableView = '',
-
-    })
+})
 
 -------------------------------------
 -- function initParentVariable
@@ -34,7 +33,8 @@ function UI_DragonLair:init(doid)
 
     self:sceneFadeInAction()
     self:initUI()
-    self:initButton()    
+    self:initTab()
+    self:initButton()
     self:refresh()
 
     -- 정렬 도우미
@@ -53,10 +53,36 @@ end
 -------------------------------------
 function UI_DragonLair:initUI()
     local vars = self.vars
-
     self:init_lairSlot()
     self:init_dragonTableView()
     --self:init_lairTableView()
+end
+
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_DragonLair:initTab()
+    local vars = self.vars
+
+    local func_cb = function (tab, first)
+        self:onEnterTab(tab, first)
+    end
+
+    self:setChangeTabCB(func_cb)
+
+    self:addTabAuto('add', vars) -- 추가 
+    self:addTabAuto('remove', vars) -- 삭제
+
+    self:setTab('add')
+end
+
+--------------------------------------------------------------------------
+-- @function onEnterTab
+--------------------------------------------------------------------------
+function UI_DragonLair:onEnterTab(tab, first)
+    local vars = self.vars
+    self:init_dragonTableView()
 end
 
 -------------------------------------
@@ -68,6 +94,7 @@ function UI_DragonLair:initButton()
 
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
     vars['blessBtn']:registerScriptTapHandler(function() self:click_blessBtn() end)
+    vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
 end
 
 -------------------------------------
@@ -76,27 +103,30 @@ end
 -------------------------------------
 function UI_DragonLair:getDragonList()
     local result_dragon_map = {}
-    local m_dragons = g_dragonsData:getDragonsListRef()
+    if self.m_currTab == 'remove' then
+        return g_lairData:getDragonsListRef()
+    end
 
+    local m_dragons = g_dragonsData:getDragonsListRef()
     for doid, struct_dragon_data in pairs(m_dragons) do
         if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
             result_dragon_map[doid] = struct_dragon_data
         end
     end
-
     return result_dragon_map
 end
 
 -------------------------------------
 -- function init_lairSlot
 -------------------------------------
-function UI_DragonLair:init_lairSlot()
+function UI_DragonLair:init_lairSlot(is_not_show_popup)
     local vars = self.vars
 
     local l_dids = g_lairData:getLairSlotDidList()
     for i, did in ipairs(l_dids) do
         local node_str = string.format('dragonNode%d', i)
         local birth_grade = TableDragon:getBirthGrade(did)
+        local is_register_dragon = g_lairData:isRegisterLairDid(did)
 
         local t_dragon_data = {}
         t_dragon_data['did'] = did
@@ -105,8 +135,31 @@ function UI_DragonLair:init_lairSlot()
         t_dragon_data['lv'] = TableLairCondition:getInstance():getLairConditionLevel(birth_grade)
 
         local card_ui = MakeSimpleDragonCard(did, t_dragon_data)
+        card_ui:setHighlightSpriteVisible(is_register_dragon)
+
         vars[node_str]:removeAllChildren()
         vars[node_str]:addChild(card_ui.root)
+    end
+
+    -- 팝업일 경우 띄우지 않음
+    if is_not_show_popup == true then
+        return
+    end
+
+    -- ok 콜백
+    local ok_btn_cb = function ()
+        local sucess_cb = function (ret)
+            self:init_lairSlot(true)
+        end
+
+        g_lairData:request_lairComplete(sucess_cb)
+    end
+
+    -- 동굴 슬롯 완성했는지
+    if g_lairData:isLairSlotComplete() == true then
+        local msg = Str('축하드립니다.')
+        local submsg = Str('말판을 완성하였습니다.')
+        local ui = MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_btn_cb)
     end
 end
 
@@ -123,10 +176,27 @@ function UI_DragonLair:init_dragonTableView()
         end
 
         local function create_func(ui, data)
+            local function open_simple_popup()
+                if self.m_currTab == 'remove' then
+                    return
+                end
+
+                local doid = data['id']
+                if doid and (doid ~= '') then
+                    local popup = UI_SimpleDragonInfoPopup(data)
+                    popup:setManagePossible(true)
+                    --popup:setRefreshFunc(function() popup_close_cb() end)
+                end
+            end
+
+            cclog('did : ', data['did'])
+            
             self:createDragonCardCB(ui, data)
             ui.root:setScale(0.66)
             ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectDragonData(data['id']) end)
             ui.vars['clickBtn']:unregisterScriptPressHandler()
+            ui.vars['clickBtn']:registerScriptPressHandler(function() open_simple_popup() end)
+
             -- 승급/진화/스킬강화 
             -- local is_noti_dragon = data:isNotiDragon()
             -- ui:setNotiSpriteVisible(is_noti_dragon)
@@ -145,45 +215,6 @@ function UI_DragonLair:init_dragonTableView()
 
     local l_item_list = self:getDragonList()
     self.m_tableViewExt:setItemList(l_item_list)
-
---[[     -- 드래곤 선택 버튼이 있다면
-    local list_btn = self.vars['listBtn']
-    if (list_btn) then
-        list_btn:registerScriptTapHandler(function() self:click_listBtn() end)
-    end ]]
-end
-
--------------------------------------
--- function init_lairTableView
--------------------------------------
-function UI_DragonLair:init_lairTableView()
---[[      local node = self.vars['materialTableViewNode']
-
-    -- 리스트 아이템 생성 콜백
-    local function make_func(object)
-        return UI_DragonCard(object)
-    end
-
-    local function create_func(ui, data)
-        
-        ui.root:setScale(0.66)
-        -- 클릭 버튼 설정
-        ui.vars['clickBtn']:registerScriptTapHandler(function()
-            --self:click_dragon(data)
-            self:setSelectLairDragonData(data['id'])
-        end)
-    end
-
-    -- 테이블뷰 생성
-    local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(102, 102)
-    table_view_td.m_nItemPerCell = 5
-    table_view_td:setCellUIClass(make_func, create_func)
-    table_view_td:setCellCreateInterval(0)
-	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['scale'])
-    table_view_td:setCellCreatePerTick(3)
-    self.m_lairTableView = table_view_td
-    self.m_lairTableView:setItemList({}) ]]
 end
 
 -------------------------------------
@@ -193,7 +224,7 @@ end
 -------------------------------------
 function UI_DragonLair:checkDragonSelect(doid)
 	-- 재료용 검증 함수이지만 판매와 동일하기 때문에 사용
-    local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+    local possible, msg = g_dragonsData:possibleLairMaterialDragon(doid)
 
     if possible then
         return true
@@ -208,12 +239,25 @@ end
 -- @brief 선택된 드래곤 설정
 -------------------------------------
 function UI_DragonLair:setSelectDragonData(doid, b_force)
+    if self.m_currTab == 'remove' then
+        self:removeFromLair(doid)
+    else
+        self:addToLair(doid)
+    end
+end
+
+-------------------------------------
+-- function addToLair
+-- @brief 드래곤 둥지 추가
+-------------------------------------
+function UI_DragonLair:addToLair(doid, b_force)
     local ok_btn_cb = function ()
-        local struct_dragon = g_dragonsData:getDragonObject(doid)
-        if struct_dragon ~= nil then
-            self.m_lairTableView:addItem(doid, struct_dragon)
+        local sucess_cb = function (ret)
             self.m_tableViewExt:delItem(doid)
+            self:init_lairSlot()
         end
+
+        g_lairData:request_lairAdd(doid, sucess_cb)
     end
 
     -- 등록 가능 여부 체크
@@ -221,27 +265,30 @@ function UI_DragonLair:setSelectDragonData(doid, b_force)
         return
     end
 
-    local msg = Str('드래곤을 라테아에 등록하시겠습니까?')
-    local submsg = Str('라테아에 등록해도 자유롭게 해제가 가능합니다.')
+        -- 리더로 설정된 드래곤인지 체크
+    local is_dragon_locked = g_dragonsData:isLeaderDragon(doid)
+    local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
+    local submsg_1 = Str('동굴에 등록해도 자유롭게 해제가 가능합니다.')
+    local submsg_2 = is_dragon_locked == false and Str('\n드래곤 잠금을 해제하고 등록하시겠습니까?') or ''
+    local submsg = submsg_1 .. submsg_2
+
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 
 -------------------------------------
--- function setSelectLairDragonData
--- @brief 선택된 라테아 드래곤 설정
+-- function removeFromLair
+-- @brief 드래곤 둥지 제거
 -------------------------------------
-function UI_DragonLair:setSelectLairDragonData(object_id, b_force)
+function UI_DragonLair:removeFromLair(doid, b_force)
     local ok_btn_cb = function ()
-        local struct_dragon = g_dragonsData:getDragonObject(object_id)
-        if struct_dragon ~= nil then
-            self.m_tableViewExt:addItem(object_id, struct_dragon)
-            self.m_lairTableView:delItem(object_id)
-
-            self:apply_dragonSort()
+        local sucess_cb = function (ret)
+            self.m_tableViewExt:delItem(doid)
         end
+
+        g_lairData:request_lairRemove(doid, sucess_cb)
     end
 
-    local msg = Str('드래곤을 라테아에서 해제하시겠습니까?')
+    local msg = Str('드래곤을 동굴에서 해제하시겠습니까?')
     local submsg = Str('해제해도 자유롭게 등록이 가능합니다.')
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
@@ -270,6 +317,24 @@ end
 -------------------------------------
 function UI_DragonLair:click_blessBtn()
     UI_DragonLairBlessingPopup.open()
+end
+
+-------------------------------------
+-- function click_refreshBtn
+-------------------------------------
+function UI_DragonLair:click_refreshBtn()
+    local ok_btn_cb = function ()
+        local success_cb = function (ret)
+            self:init_lairSlot()
+            self:refresh()
+        end
+    
+        g_lairData:request_lairReload(success_cb)
+    end
+
+    local msg = Str('드래곤 리스트 새로고침')
+    local submsg = Str('다이아 500개를 소모해서 새로고침 하시겠습니까?')
+    local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 
 -------------------------------------

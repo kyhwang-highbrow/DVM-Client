@@ -36,6 +36,8 @@ end
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:initButton()
     local vars = self.vars
+
+    vars['blessAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
@@ -101,6 +103,13 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
     table_view:setItemList(item_list, true)
     
     self.m_listView = table_view
+end
+
+--------------------------------------------------------------------------
+-- @function click_autoBtn
+--------------------------------------------------------------------------
+function UI_DragonLairBlessingPopup:click_autoBtn()
+    local ui = UI_DragonLairBlessingAutoPopup()
 end
 
 --------------------------------------------------------------------------

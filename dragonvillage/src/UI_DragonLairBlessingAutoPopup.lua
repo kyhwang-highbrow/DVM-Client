@@ -18,7 +18,7 @@ UI_DragonLairBlessingAutoPopup = class(UI, {
 -- function init
 -------------------------------------
 function UI_DragonLairBlessingAutoPopup:init(selected_option, rune_obj, item_type)
-    local vars = self:load('rune_upgrade_scene_setting_popup.ui')
+    local vars = self:load('dragon_lair_blessing_setting_popup.ui')
     self.m_uiName = 'UI_DragonLairBlessingAutoPopup'
     UIManager:open(self, UIManager.POPUP)
 
@@ -345,7 +345,7 @@ UI_DragonLairBlessingAutoPopupItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_DragonLairBlessingAutoPopupItem:init(data, rune_obj)
-    local vars = self:load('rune_upgrade_scene_setting_popup_item.ui')
+    local vars = self:load('dragon_lair_blessing_setting_popup_item.ui')
 
     -- @UI_ACTION
     --self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)

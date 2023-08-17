@@ -330,7 +330,7 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
         return
     end
 
-    if (not dragon_obj) then
+    if (not dragon_obj) then   
         self.m_dragonsCnt = self.m_dragonsCnt + 1
         local created_at = t_dragon_data['created_at'] or nil
         g_highlightData:addNewDoid(doid, created_at)
@@ -355,7 +355,6 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
     -- 드래곤 오브젝트 생성
     local dragon_obj = StructDragonObject(t_dragon_data)
     self.m_serverData:applyServerData(dragon_obj, 'dragons', doid)
-
     -- 드래곤 정렬 데이터 수정
     self:setDragonsSortData(doid)
 
@@ -369,6 +368,16 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
     if self:isLeaderDragon(doid) then
         -- 채팅 서버에 변경사항 적용
         g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
+    end
+
+    -- 둥지 등록되었으면 드래곤 리스트에서 삭제
+    if dragon_obj.lair == true then
+
+        -- 드래곤 리스트에서 삭제
+        self:delDragonData(doid)
+
+        -- 둥지 리스트로 옮김
+        g_lairData:applyDragonData(t_dragon_data)
     end
 
     self:setLastChangeTimeStamp()
@@ -983,6 +992,55 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
     -- 리더로 설정된 드래곤인지 체크
     if self:isLeaderDragon(doid) then
         return false, Str('대표드래곤으로 설정된 드래곤입니다.')
+    end
+
+    -- 콜로세움 정보 확인
+    if IS_ARENA_NEW_OPEN() and HAS_ARENA_NEW_SEASON() then
+        if g_arenaNewData then
+            local struct_user_info = g_arenaNewData:getPlayerArenaUserInfo() -- return : StructUserInfoArena
+            if struct_user_info then
+                -- 덱
+                local l_pvp_deck = struct_user_info:getDefenseDeck_dragonList(true) -- param : use_doid
+                if table.find(l_pvp_deck, doid) then
+                    return false, Str('콜로세움 덱에 설정된 드래곤입니다.')
+                end
+            end
+        end
+    end
+    
+    local clan_war_deck = g_deckData:getDeck('clanwar')
+
+    if table.find(clan_war_deck, doid) then
+        return false, Str('클랜전 덱에 설정된 드래곤입니다.')
+    end
+    
+    return true
+end
+
+
+-------------------------------------
+-- function possibleLairMaterialDragon
+-- @brief 둥지 드래곤으로 사용 가능한지 여부 : 리더나 잠금 상태를 제외한다
+-------------------------------------
+function ServerData_Dragons:possibleLairMaterialDragon(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+    if (not t_dragon_data) then
+        return false, ''
+    end
+
+    -- 리더로 설정된 드래곤인지 체크
+    if self:isLeaderDragon(doid) then
+        return false, Str('대표드래곤으로 설정된 드래곤입니다.')
+    end
+
+    -- 등록 가능한 드래곤 슬롯 체크
+    if g_lairData:isInSlotDidList(t_dragon_data['did']) == false then
+        return false, Str('등록 가능한 드래곤 슬롯이 없습니다.')
+    end
+
+    -- 이미 둥지에 등록된 드래곤인지 체크
+    if g_lairData:isRegisterLairDid(t_dragon_data['did']) == true then
+        return false, Str('둥지에 한 번 등록되었던 드래곤은 다시 등록할 수 없습니다.')
     end
 
     -- 콜로세움 정보 확인
