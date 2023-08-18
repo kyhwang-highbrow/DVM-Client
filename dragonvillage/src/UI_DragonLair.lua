@@ -32,7 +32,7 @@ function UI_DragonLair:init(doid)
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, self.m_uiName)
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonLair')
 
     self:sceneFadeInAction()
     self:initUI()

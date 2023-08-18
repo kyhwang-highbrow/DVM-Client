@@ -1582,15 +1582,7 @@ end
 -- @brief 드래곤 컬렉션 버튼
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
-    local func = function()
-        local ui = UI_DragonLair()
-        local function close_cb()
-            self:sceneFadeInAction()
-        end
-        ui:setCloseCB(close_cb)
-    end
-
-    self:sceneFadeOutAndCallFunc(func)
+    UINavigator:goTo('lair')
 end
 
 -------------------------------------

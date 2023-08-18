@@ -2343,6 +2343,29 @@ function UINavigatorDefinition:goTo_story_dungeon(...)
 
 end
 
+-------------------------------------
+-- function goTo_lair
+-- @brief 동굴로 이동
+-- @usage UINavigatorDefinition:goTo('dmgate')
+-------------------------------------
+function UINavigatorDefinition:goTo_lair(...)
+    local args = {...}
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_DragonLair')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+    
+    local function finish_cb()
+        local ui = UI_DragonLair()
+    end
+
+     -- 서버에 상품정보 요청
+	g_lairData:request_lairInfo(finish_cb)
+end
+
 
 -------------------------------------
 -- function goTo_slime_combine
