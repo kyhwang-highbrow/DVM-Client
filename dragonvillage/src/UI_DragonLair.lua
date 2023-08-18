@@ -364,7 +364,12 @@ function UI_DragonLair:refresh()
             vars[label_str]:setString(Str('축복 효과 없음'))
         else
             local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
-            vars[label_str]:setString(attr_str)
+            local bonus_str = TableLairStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
+
+            if bonus_str == '' then
+                vars[label_str]:setString(attr_str)
+            else
+            end
         end
     end
 end

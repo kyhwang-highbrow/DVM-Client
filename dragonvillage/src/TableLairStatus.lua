@@ -31,8 +31,15 @@ end
 -------------------------------------
 function TableLairStatus:getLairStatsByIdList(l_ids)
     local l_buffs = {}
+    local count_map = {}
 
     for _ , id in ipairs(l_ids) do
+        if count_map[id] == nil then
+            count_map[id] = 1
+        else
+            count_map[id] = count_map[id] + 1
+        end
+
         local key = self:getValue(id, 'key')
         local value = self:getValue(id, 'key_value')
 
@@ -41,6 +48,19 @@ function TableLairStatus:getLairStatsByIdList(l_ids)
         t_ret['buff_value'] = value
 
         table.insert(l_buffs, t_ret)
+    end
+
+
+    for id, count in pairs(count_map) do
+        local key = self:getValue(id, 'key')
+        local value = self:getValue(id, 'key_value')
+
+        if count >= 3 then
+            local t_ret = {}
+            t_ret['buff_type'] = key
+            t_ret['buff_value'] = value * (count - 3 + 1)
+            table.insert(l_buffs, t_ret)
+        end
     end
 
     return l_buffs
@@ -62,6 +82,43 @@ function TableLairStatus:getLairStatStrByIds(l_ids)
             str = str .. ', ' .. table_option:getOptionDesc(option, value)
         else
             str = str .. table_option:getOptionDesc(option, value)
+        end
+    end
+
+    return str
+end
+
+-------------------------------------
+-- function getLairBonusStatStrByIds
+-------------------------------------
+function TableLairStatus:getLairBonusStatStrByIds(l_ids)
+    local table_option = TableOption()
+    local str = ''
+
+    local count_map = {}
+    for _ , id in ipairs(l_ids) do
+        if count_map[id] == nil then
+            count_map[id] = 1
+        else
+            count_map[id] = count_map[id] + 1
+        end
+    end
+
+
+    local idx = 1
+    for id, count in pairs(count_map) do
+        local option = self:getValue(id, 'key')
+        local value = self:getValue(id, 'key_value')
+
+        if count >= 3 then
+            value = value * (count - 3 + 1)
+            if idx > 1 then
+                str = str .. ', ' .. table_option:getOptionDesc(option, value)
+            else
+                str = str .. table_option:getOptionDesc(option, value)
+            end
+
+            idx = idx + 1
         end
     end
 

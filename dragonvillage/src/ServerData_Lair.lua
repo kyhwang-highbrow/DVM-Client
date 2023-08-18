@@ -38,7 +38,13 @@ end
 -- function getLairStats
 -------------------------------------
 function ServerData_Lair:getLairStats()
-    return self.m_lairStats
+    local list = {}
+    
+    for k, v in pairs(self.m_lairStatsInfoMap) do
+        table.insert(list, v:getStatId())
+    end
+
+    return list
 end
 
 -------------------------------------
@@ -179,11 +185,14 @@ end
 -- function getLairStatsStringData
 -------------------------------------
 function ServerData_Lair:getLairStatsStringData()
-    if #self.m_lairStats == 0 then
+    local list = self:getLairStats()
+    if #list == 0 then
         return ''
     end
 
-    local str = table.concat(self.m_lairStats, ',')
+    table.sort(list, function(a, b) return a < b  end)
+
+    local str = table.concat(list, ',')
     return ',' .. str
 end
 
@@ -595,7 +604,7 @@ function ServerData_Lair:request_lairSeasonResetManage(finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
-        
+
         self:init_variables()
 
         self:applyLairInfo(ret['lair'])
