@@ -3,9 +3,12 @@
 -------------------------------------
 ServerData_Lair = class({
     m_serverData = 'ServerData',
+
     m_lairStats = 'list<number>',
+    m_lairStatsInfoMap = 'list<number>',
+
     m_lairSlotDids = 'list<number>',
-    m_lairSlotFinishCount = 'number',
+    m_lairSlotCompleteCount = 'number',
     m_lairRegisterMap = 'map<number>',
 })
 
@@ -15,9 +18,12 @@ ServerData_Lair = class({
 function ServerData_Lair:init(server_data)
     self.m_serverData = server_data
     self.m_lairStats = {}
+    self.m_lairStatsInfoMap = {}
     self.m_lairSlotDids = {}
     self.m_lairRegisterMap = {}
-    self.m_lairSlotFinishCount = 0
+    self.m_lairSlotCompleteCount = 0
+
+    self:makeLairStatInfo()
 end
 
 -------------------------------------
@@ -42,10 +48,10 @@ function ServerData_Lair:isInSlotDidList(did)
 end
 
 -------------------------------------
--- function getLairSlotFinishCount
+-- function getLairSlotCompleteCount
 -------------------------------------
-function ServerData_Lair:getLairSlotFinishCount()
-    return self.m_lairSlotFinishCount
+function ServerData_Lair:getLairSlotCompleteCount()
+    return self.m_lairSlotCompleteCount
 end
 
 -------------------------------------
@@ -60,6 +66,66 @@ function ServerData_Lair:isLairSlotComplete()
 
     return true
 end
+
+-------------------------------------
+-- function makeLairStatInfo
+-------------------------------------
+function ServerData_Lair:makeLairStatInfo()
+    self.m_lairStatsInfoMap = {}
+    
+    local id_list = TableLair:getInstance():getLairIdListAll()
+
+    for _, id in ipairs(id_list) do
+        local struct_lair_stat = StructLairStat()
+        struct_lair_stat:initVariables()
+        self.m_lairStatsInfoMap[id] = struct_lair_stat
+    end
+end
+
+-------------------------------------
+-- function getLairStatInfo
+-------------------------------------
+function ServerData_Lair:getLairStatInfo(buff_id)
+    return self.m_lairStatsInfoMap[buff_id]
+end
+
+-------------------------------------
+-- function getLairStatBlessTargetIdList
+-------------------------------------
+function ServerData_Lair:getLairStatBlessTargetIdList(type)
+    local id_list = TableLair:getInstance():getLairIdListByType(type, true)
+    local curr_count = self:getLairSlotCompleteCount()
+    local result_id_list = {}
+
+    for _, lair_id in ipairs(id_list) do
+        local req_count = TableLair:getInstance():getLairRequireCount(lair_id)
+        local struct_lair_stat = self:getLairStatInfo(lair_id)
+
+        if curr_count >= req_count and struct_lair_stat:isStatLock() == false then
+            table.insert(result_id_list, lair_id)
+        end
+    end
+
+    return result_id_list, #result_id_list
+end
+
+-------------------------------------
+-- function getLairStatIdList
+-------------------------------------
+function ServerData_Lair:getLairStatIdList(type)
+    local id_list = TableLair:getInstance():getLairIdListByType(type, true)
+    local result_id_list = {}
+
+    for _, stat_id in ipairs(id_list) do
+        local struct_lair_stat = self:getLairStatInfo(stat_id)
+        if struct_lair_stat:getStatId() > 0 then
+            table.insert(result_id_list, struct_lair_stat:getStatId())
+        end
+    end
+
+    return result_id_list, #result_id_list
+end
+
 
 -------------------------------------
 -- function isRegisterLairDid
@@ -104,13 +170,30 @@ function ServerData_Lair:applyLairInfo(t_ret)
     end
 
     if t_ret['listCnt'] ~= nil then
-        self.m_lairSlotFinishCount = t_ret['listCnt']
+        self.m_lairSlotCompleteCount = t_ret['listCnt']
     end
 
     if t_ret['list'] ~= nil then
         local t_list = t_ret['list']
         for k, v in pairs(t_list) do
             self.m_lairRegisterMap[tonumber(k)] = v
+        end
+    end
+
+    if t_ret['buff'] ~= nil then
+        local t_list = t_ret['buff']
+        for k, v in pairs(t_list) do
+            self.m_lairStatsInfoMap[tonumber(k)] = StructLairStat(v)
+        end
+    end
+
+    if t_ret['removed_buff'] ~= nil then
+        local t_list = t_ret['removed_buff']
+        for _, id in ipairs(t_list) do
+            local struct_lair_stat = self.m_lairStatsInfoMap[id]
+            if struct_lair_stat ~= nil then
+                struct_lair_stat:initVariables()
+            end
         end
     end
 end
@@ -333,6 +416,104 @@ function ServerData_Lair:request_lairComplete(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/lair/slot/complete')
     ui_network:setParam('uid', uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
+-- function request_lairStatPick
+-------------------------------------
+function ServerData_Lair:request_lairStatPick(ids, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        self:applyLairInfo(ret['lair'])
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/lair/buff/pick')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('ids', ids)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
+-- function request_lairStatLock
+-------------------------------------
+function ServerData_Lair:request_lairStatLock(ids, lock, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        self:applyLairInfo(ret['lair'])
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/lair/buff/lock')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('ids', ids)
+    ui_network:setParam('lock', lock)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+    return ui_network
+end
+
+
+-------------------------------------
+-- function request_lairStatReset
+-------------------------------------
+function ServerData_Lair:request_lairStatReset(ids, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        self:applyLairInfo(ret['lair'])
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/lair/buff/reset')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('ids', ids)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

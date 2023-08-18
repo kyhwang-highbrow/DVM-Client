@@ -2,6 +2,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 
 UI_DragonLairBlessingPopup = class(PARENT, {
     m_listView = 'UIC_TableView',
+    m_blessTargetIdList = 'List<id>',
 })
 
 --------------------------------------------------------------------------
@@ -28,6 +29,12 @@ end
 -- @function initUI
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:initUI()
+    local vars = self.vars
+
+    local price_icon = IconHelper:getItemIcon(TableItem:getItemIDFromItemType('blessing_ticket'))
+    vars['priceNode']:removeAllChildren()
+    vars['priceNode']:addChild(price_icon)
+
     self:initTab()
 end
 
@@ -37,7 +44,7 @@ end
 function UI_DragonLairBlessingPopup:initButton()
     local vars = self.vars
 
-    vars['blessBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
+    vars['blessBtn']:registerScriptTapHandler(function() self:click_blessBtn() end)
     vars['blessAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
@@ -46,6 +53,23 @@ end
 -- @function refresh 
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:refresh()
+    local vars = self.vars
+
+    do -- 타입별 모든 능력치 
+        local stat_id_list, stat_count = g_lairData:getLairStatIdList(self.m_currTab)
+
+        if stat_count == 0 then
+            vars['infoLabel']:setString(Str('축복 효과 없음'))
+        else
+            local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
+            vars['infoLabel']:setString(attr_str)
+        end
+    end
+
+    do -- 가격
+        local price_value = g_userData:get('blessing_ticket') or 0
+        vars['priceLabel']:setString(comma_value(price_value))
+    end
 end
 
 --------------------------------------------------------------------------
@@ -73,11 +97,9 @@ end
 function UI_DragonLairBlessingPopup:onEnterTab(tab, first)
     local vars = self.vars
     self:makeTableView(self.m_currTab)
+    self.m_blessTargetIdList = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
 
-    do -- 타입별 모든 능력치 
-        local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds({10001, 10004, 10006, 10007})
-        vars['infoLabel']:setString(attr_str)
-    end
+    self:refresh()
 end
 
 --------------------------------------------------------------------------
@@ -92,6 +114,36 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
 
     local function create_func(data)
         local ui = UI_DragonLairBlessingPopupItem(data)
+        local lair_id = data
+
+        local click_refresh = function()
+            self:click_refreshBtn(lair_id)
+        end
+
+        ui.vars['refreshBtn']:registerScriptTapHandler(click_refresh)
+    
+        local click_lock = function()
+            local struct_lair_stat = g_lairData:getLairStatInfo(lair_id)
+            local is_lock = ui.vars['lockBtn']:isChecked()        
+            local req_count = TableLair:getInstance():getLairRequireCount(lair_id)
+            local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
+            is_available = is_available and struct_lair_stat:getStatId() ~= 0
+        
+            if is_available == false then
+                UIManager:toastNotificationRed(Str('아직 이용할 수 없습니다.'))
+                ui.vars['lockBtn']:setChecked(not is_lock)
+                return
+            end
+        
+            local success_cb = function ()
+                self:refresh()
+                ui:refresh()
+            end
+            
+            g_lairData:request_lairStatLock(lair_id, is_lock, success_cb)
+        end
+        
+        ui.vars['lockBtn']:registerScriptTapHandler(click_lock)
         return ui
     end
 
@@ -112,6 +164,66 @@ end
 function UI_DragonLairBlessingPopup:click_autoBtn()
     UIManager:toastNotificationRed('작업 중입니다.')
 end
+
+--------------------------------------------------------------------------
+-- @function click_blessBtn
+--------------------------------------------------------------------------
+function UI_DragonLairBlessingPopup:click_blessBtn()
+    -- 축복 티켓이 없을 경우 예외 처리
+    local target_id_list, need_count = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
+    if ConfirmPrice('blessing_ticket', need_count) == false then
+        return
+    end
+
+    if need_count == 0 then
+        UIManager:toastNotificationRed(Str('하나 이상의 축복 효과가 잠금이 해제되어야 합니다.'))
+        return
+    end
+
+    local ok_btn_cb = function()
+        local success_cb = function(ret)
+            self:makeTableView(self.m_currTab)
+            self:refresh()
+        end
+    
+        local str_ids = table.concat(target_id_list, ',')
+        g_lairData:request_lairStatPick(str_ids, success_cb)
+    end
+    
+    local msg = Str('축복 효과 부여')
+    local submsg = Str('{1}개 슬롯의 축복 효과를 받으시겠습니까?', need_count)
+    local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+end
+
+--------------------------------------------------------------------------
+-- @function click_refreshBtn
+--------------------------------------------------------------------------
+function UI_DragonLairBlessingPopup:click_refreshBtn(stat_id)
+    local struct_lair_stat = g_lairData:getLairStatInfo(stat_id)
+    if struct_lair_stat == nil then
+        return
+    end
+
+    -- 옵션이 없을 경우 예외 처리
+    if struct_lair_stat:getStatPickCount() == 0 then
+        UIManager:toastNotificationRed(Str('버프 효과가 없습니다.'))
+        return
+    end
+
+    -- 잠겼을 경우 예외 처리
+    if struct_lair_stat:isStatLock() == true then
+        UIManager:toastNotificationRed(Str('잠긴 상태에서는 초기화가 불가능합니다.'))
+        return
+    end
+
+    local success_cb = function(ret)
+        self:makeTableView(self.m_currTab)
+        self:refresh()
+    end
+
+    g_lairData:request_lairStatReset(stat_id, success_cb)
+end
+
 
 --------------------------------------------------------------------------
 -- @function click_closeBtn

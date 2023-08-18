@@ -300,13 +300,13 @@ function UI_DragonLair:refresh()
     local vars = self.vars
     
     for type = 1, 5 do
-        local stat_id_list = {10001, 10004, 10006, 10007}
-        local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
+        local stat_id_list, stat_count = g_lairData:getLairStatIdList(self.m_currTab)
         local label_str = string.format('typeLabel%d', type)
 
-        if #stat_id_list == 0 then
+        if stat_count == 0 then
             vars[label_str]:setString(Str('축복 효과 없음'))
         else
+            local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
             vars[label_str]:setString(attr_str)
         end
     end

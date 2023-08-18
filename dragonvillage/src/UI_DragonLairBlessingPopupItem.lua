@@ -40,6 +40,8 @@ end
 function UI_DragonLairBlessingPopupItem:initButton()
     local vars = self.vars
 
+    vars['lockBtn'] = UIC_CheckBox(vars['lockBtn'].m_node, vars['lockSprite'], false)
+
     vars['refreshBtn']:setVisible(self.m_isExist)
     vars['lockBtn']:setVisible(self.m_isExist)
 end
@@ -56,14 +58,61 @@ function UI_DragonLairBlessingPopupItem:refresh()
         return
     end
 
-    local str = TableLairStatus:getInstance():getLairStatStrByIds({10004})
+    local struct_lair_stat = g_lairData:getLairStatInfo(self.m_lairId)
     local req_count = TableLair:getInstance():getLairRequireCount(self.m_lairId)
+    local stat_id = struct_lair_stat:getStatId()
+    local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
 
-    do
-        if req_count > 0 then
-            str = str .. ' ' .. Str('{@Y}(컬렉션 {1}회 이상 완성 시 오픈){@}', req_count)
+    do  -- 잠금 처리
+        local str 
+        if is_available == true then
+            if stat_id == 0 then
+                str = Str('축복 효과 없음')
+            else
+                str = TableLairStatus:getInstance():getLairStatStrByIds({stat_id})
+            end
+
+        else
+            str = Str('{@Y}컬렉션 {1}회 이상 완성 시 오픈{@}', req_count)
         end
+
+        vars['optionLabel']:setString(str)
     end
 
-    vars['optionLabel']:setString(str)
+    do
+        is_available = is_available and stat_id ~= 0
+        vars['refreshBtn']:setBlockMsg(is_available == false and Str('아직 이용할 수 없습니다.') or nil)
+    end
+
+    do
+        local is_lock = struct_lair_stat:isStatLock()
+        vars['lockBtn']:setChecked(is_lock)
+    end
 end
+
+--[[ -------------------------------------
+-- function change_lockBtn
+-------------------------------------
+function UI_DragonLairBlessingPopupItem:change_lockBtn(is_checked)
+    local vars = self.vars
+    local is_lock = vars['lockBtn']:isChecked()
+
+    local struct_lair_stat = g_lairData:getLairStatInfo(self.m_lairId)
+    local stat_id = struct_lair_stat:getStatId()
+
+    local req_count = TableLair:getInstance():getLairRequireCount(self.m_lairId)
+    local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
+    is_available = is_available and stat_id ~= 0
+
+    if is_available == false then
+        UIManager:toastNotificationRed(Str('아직 이용할 수 없습니다.'))
+        vars['lockBtn']:setChecked(not is_lock)
+        return
+    end
+
+    local success_cb = function ()
+        self:refresh()
+    end
+    
+    g_lairData:request_lairStatLock(self.m_lairId, is_lock, success_cb)
+end ]]

@@ -6,6 +6,9 @@ local PARENT = Structure
 ---@class StructLairStat:Structure
 -------------------------------------
 StructLairStat = class(PARENT, {
+    opt = 'number',
+    use = 'number',
+    lock = 'boolean',
 })
 
 local THIS = StructLairStat
@@ -21,4 +24,35 @@ end
 -------------------------------------
 function StructLairStat:getThis()
     return THIS
+end
+
+
+-------------------------------------
+-- function initVariables
+-------------------------------------
+function StructLairStat:initVariables()
+    self.opt = 0
+    self.lock = false
+    self.use = 0
+end
+
+-------------------------------------
+-- function getStatId
+-------------------------------------
+function StructLairStat:getStatId()
+    return self.opt
+end
+
+-------------------------------------
+-- function isStatLock
+-------------------------------------
+function StructLairStat:isStatLock()
+    return self.lock
+end
+
+-------------------------------------
+-- function getStatPickCount
+-------------------------------------
+function StructLairStat:getStatPickCount()
+    return self.use
 end
