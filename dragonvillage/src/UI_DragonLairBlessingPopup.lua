@@ -190,8 +190,8 @@ function UI_DragonLairBlessingPopup:click_blessBtn()
         g_lairData:request_lairStatPick(str_ids, success_cb)
     end
     
-    local msg = Str('축복 효과 부여')
-    local submsg = Str('{1}개 슬롯의 축복 효과를 받으시겠습니까?', need_count)
+    local msg = Str('축복 효과를 받으시겠습니까?')
+    local submsg = Str('{1}개의 축복 티켓이 사용됩니다.', need_count)
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 
@@ -216,14 +216,20 @@ function UI_DragonLairBlessingPopup:click_refreshBtn(stat_id)
         return
     end
 
-    local success_cb = function(ret)
-        self:makeTableView(self.m_currTab)
-        self:refresh()
+
+    local ok_btn_cb = function()
+        local success_cb = function(ret)
+            self:makeTableView(self.m_currTab)
+            self:refresh()
+        end
+    
+        g_lairData:request_lairStatReset(stat_id, success_cb)
     end
 
-    g_lairData:request_lairStatReset(stat_id, success_cb)
+    local msg = Str('축복 효과를 초기화하시겠습니까?')
+    local submsg = Str('초기화를 할 경우 {1}개의 축복 티켓을 돌려받습니다.', struct_lair_stat:getStatPickCount())
+    local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
-
 
 --------------------------------------------------------------------------
 -- @function click_closeBtn
