@@ -1035,12 +1035,12 @@ function ServerData_Dragons:possibleLairMaterialDragon(doid, is_not_check_slot)
 
     -- 등록 가능한 드래곤 슬롯 체크
     if g_lairData:isInSlotDidList(t_dragon_data['did']) == false and is_not_check_slot ~= true then
-        return false, Str('등록 가능한 드래곤 슬롯이 없습니다.')
+        return false, Str('등록 가능한 말판이 없습니다.')
     end
 
     -- 이미 둥지에 등록된 드래곤인지 체크
     if g_lairData:isRegisterLairDid(t_dragon_data['did']) == true then
-        return false, Str('둥지에 한 번 등록되었던 드래곤은 다시 등록할 수 없습니다.')
+        return false, Str('동굴에 한 번 등록되었던 드래곤은 동굴 초기화 전까지 다시 등록할 수 없습니다.')
     end
 
     -- 콜로세움 정보 확인

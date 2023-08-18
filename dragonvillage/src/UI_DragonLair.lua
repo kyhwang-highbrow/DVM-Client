@@ -317,7 +317,7 @@ function UI_DragonLair:removeFromLair(doid, b_force)
     end
 
     local msg = Str('드래곤을 동굴에서 해제하시겠습니까?')
-    local submsg = Str('해제해도 자유롭게 등록이 가능합니다.')
+    local submsg = Str('해제시 동굴에 다시 등록 불가합니다.')
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 
@@ -364,7 +364,7 @@ function UI_DragonLair:click_refreshBtn()
         g_lairData:request_lairReload(success_cb)
     end
 
-    local msg = Str('드래곤 동굴 새로고침')
+    local msg = Str('말판 새로고침')
     local submsg = Str('다이아 500개를 소모해서 새로고침 하시겠습니까?')
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end

@@ -126,7 +126,6 @@ function ServerData_Lair:getLairStatIdList(type)
     return result_id_list, #result_id_list
 end
 
-
 -------------------------------------
 -- function isRegisterLairDid
 -------------------------------------
