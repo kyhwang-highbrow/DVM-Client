@@ -243,7 +243,6 @@ function UI_DragonLairBlessingPopup:click_refreshBtn(stat_id)
         return
     end
 
-
     local ok_btn_cb = function()
         local success_cb = function(ret)
             self:makeTableView(self.m_currTab)

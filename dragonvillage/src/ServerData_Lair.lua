@@ -17,12 +17,20 @@ ServerData_Lair = class({
 -------------------------------------
 function ServerData_Lair:init(server_data)
     self.m_serverData = server_data
+    self:init_variables()
+end
+
+-------------------------------------
+-- function init_variables
+-------------------------------------
+function ServerData_Lair:init_variables()
     self.m_lairStats = {}
     self.m_lairStatsInfoMap = {}
     self.m_lairSlotDids = {}
     self.m_lairRegisterMap = {}
     self.m_lairSlotCompleteCount = 0
 
+    self.m_serverData:applyServerData({}, 'lair_dragons')
     self:makeLairStatInfo()
 end
 
@@ -145,6 +153,21 @@ function ServerData_Lair:isRegisterLairByDoid(did, doid)
 
     return info['doid'] == doid
 end
+
+-------------------------------------
+-- function isRegisterLairDragonExist
+-------------------------------------
+function ServerData_Lair:isRegisterLairDragonExist(did)
+    local info = self.m_lairRegisterMap[did]
+
+    if info == nil then
+        return false
+    end
+
+    local doid = info['doid']
+    return g_lairData:getDragonDataFromUid(doid) ~= nil
+end
+
 -------------------------------------
 -- function getRegisterLairInfo
 -------------------------------------
@@ -242,10 +265,7 @@ end
 -------------------------------------
 function ServerData_Lair:getDragonDataFromUid(doid)
     local dragon_obj = self.m_serverData:getRef('lair_dragons', doid)
-
-    if dragon_obj then
-        return clone(dragon_obj)
-    end
+    return dragon_obj
 end
 
 -------------------------------------
@@ -575,6 +595,8 @@ function ServerData_Lair:request_lairSeasonResetManage(finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
+        
+        self:init_variables()
 
         self:applyLairInfo(ret['lair'])
 

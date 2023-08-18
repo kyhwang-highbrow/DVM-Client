@@ -198,14 +198,17 @@ function UI_DragonLair:init_dragonTableView()
         local function create_func(ui, data)
             if self.m_currTab == 'remove' then
                 local is_registered = g_lairData:isRegisterLairDid(data['did'])
-                ui.root:setColor(is_registered and COLOR['white'] or COLOR['deep_gray'])
+                local is_exist_doid = g_lairData:isRegisterLairDragonExist(data['did'])
+
+
+                ui.root:setColor((is_registered and is_exist_doid) and COLOR['white'] or COLOR['deep_gray'])
                 ui:setTeamBonusCheckSpriteVisible(is_registered)
-                ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectDragonData(data['id']) end)
+                ui.vars['clickBtn']:registerScriptTapHandler(function() self:removeFromLair(data['did'], ui) end)
             else
                 -- 이미 한번 등록된 드래곤이냐?
                 local is_register_doid = g_lairData:isRegisterLairByDoid(data['did'], data['id'])
                 ui:setTeamBonusCheckSpriteVisible(is_register_doid)
-                ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectDragonData(data['id']) end)
+                ui.vars['clickBtn']:registerScriptTapHandler(function() self:addToLair(data['id']) end)
             end
 
             ui.root:setScale(0.66)
@@ -263,22 +266,13 @@ function UI_DragonLair:checkDragonSelect(doid)
 end
 
 -------------------------------------
--- function setSelectDragonData
--- @brief 선택된 드래곤 설정
--------------------------------------
-function UI_DragonLair:setSelectDragonData(doid, b_force)
-    if self.m_currTab == 'remove' then
-        self:removeFromLair(doid)
-    else
-        self:addToLair(doid)
-    end
-end
-
--------------------------------------
 -- function addToLair
 -- @brief 드래곤 둥지 추가
 -------------------------------------
 function UI_DragonLair:addToLair(doid, b_force)
+    local ok_cb_1
+    local ok_cb_2
+
     local ok_btn_cb = function ()
         local sucess_cb = function (ret)
             self.m_tableViewExt:delItem(doid)
@@ -293,31 +287,66 @@ function UI_DragonLair:addToLair(doid, b_force)
         return
     end
 
-    -- 잠금 설정된 드래곤인지 체크
     local is_dragon_locked = g_dragonsData:isLockDragon(doid)
-    local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
-    local submsg_1 = Str('동굴에 등록해도 자유롭게 해제가 가능합니다.')
-    local submsg_2 = is_dragon_locked == false and Str('\n드래곤 잠금을 해제하고 등록하시겠습니까?') or ''
-    local submsg = submsg_1 .. submsg_2
 
-    local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    ok_cb_1 = function()
+        local ok_cb = function ()
+            if is_dragon_locked == true then
+                ok_cb_2()
+            else
+                ok_btn_cb()
+            end
+        end
+
+        local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
+        local submsg = Str('동굴에 등록해도 자유롭게 해제가 가능합니다.')
+        local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_cb)
+
+        -- 잠금 설정된 드래곤인지 체크
+        local check_cb = function()
+            g_settingData:setSkipAddToLairConfimPopup()
+        end
+        
+        ui:setCheckBoxCallback(check_cb)
+    end
+
+    ok_cb_2 = function()
+        local msg = Str('드래곤이 잠금된 상태입니다.')
+        local submsg = Str('드래곤 잠금을 무시하고 등록하시겠습니까?')
+        local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    end
+
+    if g_settingData:isSkipAddToLairConfimPopup() == true then
+        ok_btn_cb()
+    else
+        ok_cb_1()
+    end
 end
 
 -------------------------------------
 -- function removeFromLair
 -- @brief 드래곤 둥지 제거
 -------------------------------------
-function UI_DragonLair:removeFromLair(doid, b_force)
+function UI_DragonLair:removeFromLair(did, ui_cell)
+    local info = g_lairData:getRegisterLairInfo(did)
+    if info == nil then
+        return
+    end
+
+    local doid = info['doid']
     local ok_btn_cb = function ()
         local sucess_cb = function (ret)
-            self.m_tableViewExt:delItem(doid)
+--[[             local is_registered = g_lairData:isRegisterLairDid(did)
+            local is_exist_doid = g_lairData:isRegisterLairDragonExist(data['did']) ]]
+            ui_cell.root:setColor(COLOR['deep_gray'])
         end
 
         g_lairData:request_lairRemove(doid, sucess_cb)
     end
 
+
     local msg = Str('드래곤을 동굴에서 해제하시겠습니까?')
-    local submsg = Str('해제시 동굴에 다시 등록 불가합니다.')
+    local submsg = Str('해제 시 동굴에 다시 등록 불가합니다.')
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 
@@ -375,8 +404,12 @@ end
 function UI_DragonLair:click_resethBtn()
     local ok_btn_cb = function ()
         local success_cb = function (ret)
-            self:close()
-            local ui = UI_DragonLair()
+            local success_cb_1 = function()
+                self:close()
+                local ui = UI_DragonLair()
+            end
+
+            g_dragonsData:request_dragonsInfo(success_cb_1)
         end
     
         g_lairData:request_lairSeasonResetManage(success_cb)
