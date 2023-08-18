@@ -1022,7 +1022,7 @@ end
 -- function possibleLairMaterialDragon
 -- @brief 둥지 드래곤으로 사용 가능한지 여부 : 리더나 잠금 상태를 제외한다
 -------------------------------------
-function ServerData_Dragons:possibleLairMaterialDragon(doid)
+function ServerData_Dragons:possibleLairMaterialDragon(doid, is_not_check_slot)
     local t_dragon_data = self:getDragonDataFromUid(doid)
     if (not t_dragon_data) then
         return false, ''
@@ -1034,7 +1034,7 @@ function ServerData_Dragons:possibleLairMaterialDragon(doid)
     end
 
     -- 등록 가능한 드래곤 슬롯 체크
-    if g_lairData:isInSlotDidList(t_dragon_data['did']) == false then
+    if g_lairData:isInSlotDidList(t_dragon_data['did']) == false and is_not_check_slot ~= true then
         return false, Str('등록 가능한 드래곤 슬롯이 없습니다.')
     end
 

@@ -47,6 +47,28 @@ function UI_DragonLairBlessingPopup:initButton()
     vars['blessBtn']:registerScriptTapHandler(function() self:click_blessBtn() end)
     vars['blessAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+
+
+    	-- editBox handler 등록
+	local function editBoxTextEventHandle(strEventName, pSender)
+        if (strEventName == "return") then
+            local text = vars['addTicketEdit']:getText()
+
+            local success_cb = function()
+                self:refresh()
+            end
+
+            g_lairData:request_lairAddBlessingTicketManage(tonumber(text), success_cb)
+        end
+    end
+
+    if IS_TEST_MODE() == true then
+        vars['addTicketEdit']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+        vars['addTicketEdit']:setMaxLength(5)
+        vars['addTicketEdit']:setVisible(true)
+        vars['addTicketBtn']:registerScriptTapHandler(function() self:click_addTicketBtn() end)
+    end
+
 end
 
 --------------------------------------------------------------------------
@@ -242,6 +264,16 @@ end
 function UI_DragonLairBlessingPopup:click_closeBtn()
     self:close()
 end
+
+--------------------------------------------------------------------------
+-- @function click_addTicketBtn
+--------------------------------------------------------------------------
+function UI_DragonLairBlessingPopup:click_addTicketBtn()
+    local vars = self.vars
+    vars['memoEditBox']:openKeyboard()
+end
+
+
 
 --------------------------------------------------------------------------
 -- @function open

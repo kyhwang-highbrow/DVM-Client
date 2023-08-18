@@ -66,6 +66,14 @@ function UI_Help:makeTableView_category()
 
 	local l_help_list = TableHelp:getArrangedList()
 
+    local focus_idx = nil
+    for i, v in pairs(l_help_list) do
+        if v['category'] == self.m_focusCategory then
+            focus_idx = v['idx']
+            break
+        end
+    end
+
 	do -- 테이블 뷰 생성
         node:removeAllChildren()
 
@@ -101,7 +109,13 @@ function UI_Help:makeTableView_category()
         table_view.m_defaultCellSize = cc.size(200, 70 + 3)
         table_view:setCellUIClass(self.makeCellUI_category, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList(l_help_list)
+        table_view:setItemList3(l_help_list)
+
+        table_view:update(0)
+        table_view:relocateContainerFromIndex(focus_idx or 1)
+
+        cclog('focus_idx', focus_idx)
+        
     end
 end
 

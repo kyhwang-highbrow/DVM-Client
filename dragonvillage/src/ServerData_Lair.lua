@@ -135,6 +135,18 @@ function ServerData_Lair:isRegisterLairDid(did)
 end
 
 -------------------------------------
+-- function isRegisterLairByDoid
+-------------------------------------
+function ServerData_Lair:isRegisterLairByDoid(did, doid)
+    local info = self.m_lairRegisterMap[did]
+
+    if info == nil then
+        return false
+    end
+
+    return info['doid'] == doid
+end
+-------------------------------------
 -- function getRegisterLairInfo
 -------------------------------------
 function ServerData_Lair:getRegisterLairInfo(did)
@@ -242,6 +254,37 @@ end
 -------------------------------------
 function ServerData_Lair:getDragonsListRef()
     return self.m_serverData:getRef('lair_dragons') or {}
+end
+
+-------------------------------------
+-- function getLairTargetDragonMap
+-------------------------------------
+function ServerData_Lair:getLairTargetDragonMap()
+    local l_ret = {}
+
+    local table_dragon = TableDragon()
+    for i, v in pairs(table_dragon.m_orgTable) do
+        -- 개발 중인 드래곤은 도감에 나타내지 않는다.
+        if (not g_dragonsData:isReleasedDragon(v['did'])) then
+        -- 위 조건들에 해당하지 않은 경우만 추가
+        else
+            local did = v['did']
+			local key = did
+			
+			-- 자코는 진화하지 않으므로
+			if (table_dragon:isUnderling(did) == false) then
+                local t_dragon = {}
+                --t_dragon['id'] = 'none'
+                t_dragon['did'] = did
+                t_dragon['evolution'] = 3
+                t_dragon['grade'] = 6
+                t_dragon['lv'] = 60
+                l_ret[key] = StructDragonObject(t_dragon)
+			end
+        end
+    end
+
+    return l_ret
 end
 
 -------------------------------------
@@ -514,6 +557,101 @@ function ServerData_Lair:request_lairStatReset(ids, finish_cb, fail_cb)
     ui_network:setUrl('/lair/buff/reset')
     ui_network:setParam('uid', uid)
     ui_network:setParam('ids', ids)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
+-- function request_lairSeasonResetManage
+-------------------------------------
+function ServerData_Lair:request_lairSeasonResetManage(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        self:applyLairInfo(ret['lair'])
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/lair/reset')
+    ui_network:setParam('uid', uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
+-- function request_lairAddBlessingTicketManage
+-------------------------------------
+function ServerData_Lair:request_lairAddBlessingTicketManage(count, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        self:applyLairInfo(ret['lair'])
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/lair/ticket/set')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('ticket', count)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
+-- function request_lairAutoReloadManage
+-------------------------------------
+function ServerData_Lair:request_lairAutoReloadManage(dids, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        self:applyLairInfo(ret['lair'])
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/lair/slot/set')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('dids', dids)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
