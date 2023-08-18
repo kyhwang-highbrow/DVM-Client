@@ -293,8 +293,8 @@ function UI_DragonLair:addToLair(doid, b_force)
         return
     end
 
-        -- 리더로 설정된 드래곤인지 체크
-    local is_dragon_locked = g_dragonsData:isLeaderDragon(doid)
+    -- 잠금 설정된 드래곤인지 체크
+    local is_dragon_locked = g_dragonsData:isLockDragon(doid)
     local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
     local submsg_1 = Str('동굴에 등록해도 자유롭게 해제가 가능합니다.')
     local submsg_2 = is_dragon_locked == false and Str('\n드래곤 잠금을 해제하고 등록하시겠습니까?') or ''
