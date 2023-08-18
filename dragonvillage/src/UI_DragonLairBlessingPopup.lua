@@ -31,7 +31,7 @@ end
 function UI_DragonLairBlessingPopup:initUI()
     local vars = self.vars
 
-    local price_icon = IconHelper:getItemIcon(TableItem:getItemIDFromItemType('blessing_ticket'))
+    local price_icon = IconHelper:getPriceIcon('blessing_ticket')
     vars['priceNode']:removeAllChildren()
     vars['priceNode']:addChild(price_icon)
 
