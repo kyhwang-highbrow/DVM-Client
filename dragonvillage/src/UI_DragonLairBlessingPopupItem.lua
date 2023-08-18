@@ -81,7 +81,8 @@ function UI_DragonLairBlessingPopupItem:refresh()
 
     do
         is_available = is_available and stat_id ~= 0
-        vars['refreshBtn']:setBlockMsg(is_available == false and Str('아직 이용할 수 없습니다.') or nil)
+        vars['refreshBtn']:setBlockMsg(is_available == false and '' or nil)
+        vars['refreshBtn']:setEnabled(is_available)
     end
 
     do

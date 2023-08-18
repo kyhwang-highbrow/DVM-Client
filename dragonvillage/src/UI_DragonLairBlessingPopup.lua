@@ -127,10 +127,15 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
             local is_lock = ui.vars['lockBtn']:isChecked()        
             local req_count = TableLair:getInstance():getLairRequireCount(lair_id)
             local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
-            is_available = is_available and struct_lair_stat:getStatId() ~= 0
         
             if is_available == false then
                 UIManager:toastNotificationRed(Str('아직 이용할 수 없습니다.'))
+                ui.vars['lockBtn']:setChecked(not is_lock)
+                return
+            end
+
+            if struct_lair_stat:getStatId() == 0 then
+                UIManager:toastNotificationRed(Str('축복 효과가 없는 상태에서 잠금이 불가합니다.'))
                 ui.vars['lockBtn']:setChecked(not is_lock)
                 return
             end
