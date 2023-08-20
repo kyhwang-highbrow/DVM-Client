@@ -68,7 +68,6 @@ function UI_DragonLairBlessingPopup:initButton()
         vars['addTicketEdit']:setVisible(true)
         vars['addTicketBtn']:registerScriptTapHandler(function() self:click_addTicketBtn() end)
     end
-
 end
 
 --------------------------------------------------------------------------
@@ -195,7 +194,13 @@ end
 -- @function click_autoBtn
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:click_autoBtn()
-    UIManager:toastNotificationRed('작업 중입니다.')
+    -- 축복 티켓이 없을 경우 예외 처리
+    local target_id_list, need_count = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
+    if ConfirmPrice('blessing_ticket', need_count) == false then
+        return
+    end
+
+    UI_DragonLairBlessingAutoPopup(self.m_currTab, target_id_list)
 end
 
 --------------------------------------------------------------------------

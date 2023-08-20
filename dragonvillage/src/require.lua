@@ -1728,9 +1728,12 @@ local t_module = {
 
     -- UI 둥지
     'UI_DragonLair', -- 메인
+    'UI_DragonLairRegisterTab',
+    'UI_DragonLairUnregisterTab',
     'UI_DragonLairBlessingPopup', -- 축복 팝업
     'UI_DragonLairBlessingPopupItem', -- 축복 팝업 아이템
     'UI_DragonLairBlessingAutoPopup', -- 자동 축복 팝업    
+
 
     -- Forest
     'SceneForest',

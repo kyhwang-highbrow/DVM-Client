@@ -27,6 +27,53 @@ function TableLairStatus:getInstance()
 end
 
 -------------------------------------
+-- function getLairStatLevel
+-------------------------------------
+function TableLairStatus:getLairStatLevel(id)
+    return self:getValue(id, 'level')
+end
+
+-------------------------------------
+-- function getLairStatOptionKey
+-------------------------------------
+function TableLairStatus:getLairStatOptionKey(id)
+    return self:getValue(id, 'key')
+end
+
+-------------------------------------
+-- function getLairStatOptionKey
+-------------------------------------
+function TableLairStatus:getLairStatOptionValue(id)
+    return self:getValue(id, 'key_value')
+end
+-------------------------------------
+-- function getLairStatOptionMaxLevel
+-------------------------------------
+function TableLairStatus:getLairStatOptionMaxLevel(option_key)
+    local id_list = self:filterColumnList('key', option_key, 'level')
+    return #id_list
+end
+
+-------------------------------------
+-- function getLairRepresentOptionListByType
+-------------------------------------
+function TableLairStatus:getLairRepresentOptionListByType(type_id)
+    local id_list = self:filterColumnList('type', type_id, 'lid')
+    local result = {}
+
+    for _, id in ipairs(id_list) do
+        local lv = self:getLairStatLevel(id)
+        if lv == 1 then
+            table.insert(result, id)
+        end
+    end
+
+    table.sort(result, function(a, b) return a < b end)
+    return result
+end
+
+
+-------------------------------------
 -- function getLairStatsByIdList
 -------------------------------------
 function TableLairStatus:getLairStatsByIdList(l_ids)

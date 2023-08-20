@@ -2,10 +2,8 @@
 -- class UI_DragonLairBlessingAutoPopup
 -------------------------------------
 UI_DragonLairBlessingAutoPopup = class(UI, {
-    m_targetRune = 'StructRuneObject',
-    m_selectedOption = 'string',
-    m_itemType = 'string',
-
+    m_lairIdList = 'List<number>',
+    m_lairType = 'number',
     m_tableview = 'UIC_TableView',
 
     m_grindNum = 'number',
@@ -17,31 +15,23 @@ UI_DragonLairBlessingAutoPopup = class(UI, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonLairBlessingAutoPopup:init(selected_option, rune_obj, item_type)
-    local vars = self:load('dragon_lair_blessing_setting_popup.ui')
+function UI_DragonLairBlessingAutoPopup:init(type, target_id_list)
+    self.m_lairIdList = target_id_list
+    self.m_lairType = type
+    self:load('dragon_lair_blessing_setting_popup.ui')
     self.m_uiName = 'UI_DragonLairBlessingAutoPopup'
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DragonLairBlessingAutoPopup')
-
     
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
 
-    if (item_type == 'none_select') then
-        item_type = 'grindstone'
-    end
-
-    self.m_targetRune = rune_obj
-    self.m_selectedOption = selected_option
-    self.m_itemType = item_type
-    self.m_grindNum = 1
-
-    local item_num = g_userData:get(item_type)
-    local gold_num = math.floor(g_userData:get('gold') / rune_obj:getRuneGrindReqGold())
+    local item_num = g_userData:get('blessing_ticket')
+    local gold_num = 3--math.floor(g_userData:get('gold') / rune_obj:getRuneGrindReqGold())
     
     self.m_maxItemNum = math.min(item_num, gold_num)
 
@@ -66,11 +56,11 @@ end
 function UI_DragonLairBlessingAutoPopup:initTableView()
     local vars = self.vars
     local node = vars['optionNode']
-
-    local item_list = self:getExpectedOptionList()
+    local type_id = self.m_lairType
+    local item_list = TableLairStatus:getInstance():getLairRepresentOptionListByType(type_id)
 
     local function ctor_func(data)
-        local ui = UI_DragonLairBlessingAutoPopupItem(data, self.m_targetRune)
+        local ui = UI_DragonLairBlessingAutoPopupItem(data)
         return ui
     end
 
@@ -91,11 +81,11 @@ end
 function UI_DragonLairBlessingAutoPopup:initButton()
     local vars = self.vars
 
-    vars['grindAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
+    --vars['grindAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
 
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     
-    vars['plusBtn']:registerScriptTapHandler(function() self:click_adjustBtn(1) end)
+--[[     vars['plusBtn']:registerScriptTapHandler(function() self:click_adjustBtn(1) end)
     
     vars['plusBtn']:registerScriptPressHandler(function() self:click_adjustBtn(1, true) end)
 
@@ -105,7 +95,7 @@ function UI_DragonLairBlessingAutoPopup:initButton()
     
     vars['100Btn']:registerScriptTapHandler(function() self:click_adjustBtn(100) end)
 
-    vars['100Btn']:registerScriptPressHandler(function() self:click_adjustBtn(100, true) end)
+    vars['100Btn']:registerScriptPressHandler(function() self:click_adjustBtn(100, true) end) ]]
 end
 
 -------------------------------------
@@ -113,47 +103,6 @@ end
 -------------------------------------
 function UI_DragonLairBlessingAutoPopup:refresh()
     local vars = self.vars
-end
-
-
--------------------------------------
--- function getExpectedOptionStr
--- @brief 연마로 다시 나올 수 있는 옵션 나열한 String 반환 
--------------------------------------
-function UI_DragonLairBlessingAutoPopup:getExpectedOptionList()
-    local rune_obj = self.m_targetRune
-    local selected_option = plSplit(rune_obj[self.m_selectedOption], ';')[1]
-    local table_opt = TableOption()
-    
-    -- 연마로 나올 수 있는 옵션
-    -- 1. 주옵션 or 부 옵션 or 선택하지 않은 추가 옵션과 중복되지 않는 옵션
-    -- 2. table_rune_opt_status의 none과 aspd_multi 제외
-    -- 3. 현재 선택한 옵션은 연마로 다시 나올 수 있음
-    -- 4. 치명회피와, 속도 %는 제외
-    local t_rune_opt = TABLE:get('table_rune_opt_status')
-
-    local result = {}
-
-    for id, v in pairs(t_rune_opt) do
-        if (pl.stringx.endswith(id, '_1')) then
-            local opt_type = v['key']
-            local is_expected = true
-            for _, opt_str in ipairs(StructRuneObject.OPTION_LIST) do
-                local l_str = plSplit(rune_obj[opt_str], ';')
-                -- 1, 3번 조건 처리
-                if (l_str[1] == opt_type) and (opt_type ~= selected_option) then
-                    is_expected = false
-                end
-            end
-
-            -- 2, 4번 조건 처리
-            if (is_expected) and (opt_type ~= 'none') and (opt_type ~= 'aspd_multi') and (opt_type ~= 'cri_avoid_add') then
-                table.insert(result, v)
-            end    
-        end
-    end
-
-    return result
 end
 
 -------------------------------------
@@ -330,8 +279,9 @@ PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_DragonLairBlessingAutoPopupItem
 -------------------------------------
 UI_DragonLairBlessingAutoPopupItem = class(PARENT, {
-    m_data = 'table',
+    m_lairStatId = 'table',
     m_targetRune = 'StructRuneObject',
+    m_tableOption = '',
 
     m_isPercent = 'boolean',
     m_isChecked = 'boolean',
@@ -344,16 +294,16 @@ UI_DragonLairBlessingAutoPopupItem = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonLairBlessingAutoPopupItem:init(data, rune_obj)
-    local vars = self:load('dragon_lair_blessing_setting_popup_item.ui')
+function UI_DragonLairBlessingAutoPopupItem:init(data)
+    self.m_tableOption = TableOption()
+    self:load('dragon_lair_blessing_setting_popup_item.ui')
 
     -- @UI_ACTION
     --self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self.m_targetRune = rune_obj
-    self.m_data = data
+    self.m_lairStatId = data
     self.m_isChecked = false
 
     self:initUI()
@@ -366,25 +316,18 @@ end
 -------------------------------------
 function UI_DragonLairBlessingAutoPopupItem:initUI()
     local vars = self.vars
-    local table_opt = TableOption()
+    local option_type = TableLairStatus:getInstance():getLairStatOptionKey(self.m_lairStatId)
 
-    local option_type = self.m_data['key']
-    local option_str = table_opt:getValue(option_type, 't_desc')
-    self.m_isPercent = (string.find(option_str, '%%') ~= nil)
-
-    local min_value = self.m_targetRune:getOptionMinValue(option_type)
-    local max_value = self.m_targetRune:getOptionMaxValue(option_type)
+    local min_value = 1
+    local max_value = TableLairStatus:getInstance():getLairStatOptionMaxLevel(option_type)
     self.m_minValue = min_value
     self.m_maxValue = max_value
-    local min_max_str = string.format('%d~%d', min_value, max_value)
 
     self.m_currValue = min_value
-
-    vars['optionLabel']:setString(Str(option_str, min_max_str))
 end
 
 -------------------------------------
--- function init
+-- function initButton
 -------------------------------------
 function UI_DragonLairBlessingAutoPopupItem:initButton()
     local vars = self.vars
@@ -411,6 +354,16 @@ function UI_DragonLairBlessingAutoPopupItem:refresh()
 
     vars['skipLabel']:setVisible(self.m_isChecked == false)
 
+    do
+        local min_max_str = string.format('%d~%d', self.m_minValue, self.m_maxValue)
+        local option_type = TableLairStatus:getInstance():getLairStatOptionKey(self.m_lairStatId)
+        local option_str = self.m_tableOption:getValue(option_type, 't_desc')
+
+        vars['optionLabel']:setString(Str(option_str, min_max_str))
+        self.m_isPercent = (string.find(option_str, '%%') ~= nil)
+    end
+
+
     if (self.m_isChecked == true) then
         local option_type = self.m_data['key']
 
@@ -425,6 +378,9 @@ function UI_DragonLairBlessingAutoPopupItem:refresh()
     end
 end
 
+-------------------------------------
+-- function click_checkBoxBtn
+-------------------------------------
 function UI_DragonLairBlessingAutoPopupItem:click_checkBoxBtn()
     local vars = self.vars
     self.m_isChecked = (not self.m_isChecked)
@@ -432,7 +388,9 @@ function UI_DragonLairBlessingAutoPopupItem:click_checkBoxBtn()
     self:refresh()
 end
 
-
+-------------------------------------
+-- function click_adjustBtn
+-------------------------------------
 function UI_DragonLairBlessingAutoPopupItem:click_adjustBtn(value, is_pressed)
     local vars = self.vars
     local function adjust_function()

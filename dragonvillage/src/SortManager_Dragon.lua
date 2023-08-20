@@ -80,6 +80,14 @@ function SortManager_Dragon:init()
     self:addSortType('underling', false, function(a, b, ascending) return self:sort_underling(a, b, ascending) end)
     self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end)
 
+    -- 동굴 정렬(동굴에서만 쓰임)
+    -- 1. 동굴 슬롯에 등록이 가능한 드래곤
+    --self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end)
+    -- 2. 동굴에 등록을 한번도 안했던 드래곤
+    --self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end)
+
+
+
     self:setDefaultSortFunc(function(a, b, ascending) return self:sort_doid(a, b, ascending) end)
 end
 
@@ -95,6 +103,10 @@ T_DRAGON_SORT_TYPE_NAME['rarity'] = Str('희귀도')
 T_DRAGON_SORT_TYPE_NAME['grade'] = Str('등급')
 T_DRAGON_SORT_TYPE_NAME['lv'] = Str('레벨')
 T_DRAGON_SORT_TYPE_NAME['created_at'] = Str('획득순')
+
+--동굴
+
+
 
 -------------------------------------
 -- function getTopSortingName
@@ -158,7 +170,6 @@ function SortManager_Dragon:sort_object_type_book(a, b, ascending)
     else              return a_value > b_value
     end
 end
-
 
 -------------------------------------
 -- function sort_did
