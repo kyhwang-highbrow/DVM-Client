@@ -845,7 +845,7 @@ function UI_Lobby:initButton()
     vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
     vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end) -- 전투
 
-    vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 드래곤
+    vars['lairBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 드래곤
     
     -- 상점
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
@@ -2609,7 +2609,7 @@ function UI_Lobby:update_bottomLeftButtons()
     local t_btn_name = {}
     -- @sgkim 2020.12.14 퀘스트 버튼은 좌상단의 우편함 옆으로 이동
     --local l_content = {'quest', 'forest', 'tamer', 'runeForge', 'dragonManage'}
-    local l_content = {'collection', 'tamer', 'runeForge', 'dragonManage'}
+    local l_content = {'lair', 'tamer', 'runeForge', 'dragonManage'}
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
@@ -2686,7 +2686,7 @@ function UI_Lobby:update_bottomRightButtons()
 
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
-        if i == #l_btn_list then
+        if i == #l_btn_list and #l_btn_list >= 5 then
             interval = 113
         else
             interval = 119
