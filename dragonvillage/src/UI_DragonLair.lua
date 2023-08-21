@@ -130,7 +130,7 @@ function UI_DragonLair:refresh()
     local vars = self.vars
     
     for type = 1, 5 do
-        local stat_id_list, stat_count = g_lairData:getLairStatIdList(self.m_currTab)
+        local stat_id_list, stat_count = g_lairData:getLairStatIdList(type)
         local label_str = string.format('typeLabel%d', type)
 
         if stat_count == 0 then
