@@ -139,8 +139,8 @@ local TableInfo = {
         table_rune_filter_point = {'table_rune_filter_point', 'enhance_id', false},
 
         -- 라테아
-        table_lair = {'table_lair', 'id', false},
-        table_lair_status = {'table_lair_status', 'lid', false}, -- 라테아 스탯
+        table_lair_buff = {'table_lair_buff', 'id', false},
+        table_lair_buff_status = {'table_lair_buff_status', 'lid', false}, -- 라테아 스탯
         table_lair_condition = {'table_lair_condition', 'birthgrade', false}, -- 라테아 등록 조건 테이블
     }
 

@@ -11,7 +11,7 @@ local instance = nil
 -------------------------------------
 function TableLair:init()
     assert(instance == nil, 'Can not initalize twice')
-    self.m_tableName = 'table_lair'
+    self.m_tableName = 'table_lair_buff'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
