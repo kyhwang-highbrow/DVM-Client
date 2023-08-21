@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_DragonLair
 -------------------------------------
 UI_DragonLair = class(PARENT,{
+    m_cardList = 'List<UI_DragonCard>',
     
 })
 
@@ -26,6 +27,7 @@ end
 -------------------------------------
 function UI_DragonLair:init(doid)
     local vars = self:load('dragon_lair.ui')
+    self.m_cardList = {}
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -146,7 +148,7 @@ function UI_DragonLair:refresh()
         end
     end
 
-
+    require('UI_DragonCard_Flip')
     local l_dids = g_lairData:getLairSlotDidList()
     for i, did in ipairs(l_dids) do
         local node_str = string.format('dragonNode%d', i)
@@ -159,8 +161,15 @@ function UI_DragonLair:refresh()
         t_dragon_data['grade'] = TableLairCondition:getInstance():getLairConditionGrade(birth_grade)
         t_dragon_data['lv'] = TableLairCondition:getInstance():getLairConditionLevel(birth_grade)
 
-        local card_ui = MakeSimpleDragonCard(did, t_dragon_data)
-        card_ui:setHighlightSpriteVisible(is_register_dragon)
+        local card_ui = UI_DragonCard_Flip(StructDragonObject(t_dragon_data))
+        self.m_cardList[i] = card_ui
+        card_ui:openCard()
+     --[[        card_ui:openCard()
+
+            cclog('여기 안들어놔??')
+        end) ]]
+        
+        --card_ui:setHighlightSpriteVisible(is_register_dragon)
 
         vars[node_str]:removeAllChildren()
         vars[node_str]:addChild(card_ui.root)
@@ -186,6 +195,9 @@ function UI_DragonLair:click_refreshBtn()
         local success_cb = function (ret)
             self:apply_dragonSort()
             self:refresh()
+
+            
+            SoundMgr:playEffect('UI', 'ui_card_flip')
         end
     
         g_lairData:request_lairReload(success_cb)
@@ -242,6 +254,8 @@ function UI_DragonLair:click_autoReloadBtn()
         local success_cb = function (ret)
             self:apply_dragonSort()
             self:refresh()
+
+            SoundMgr:playEffect('UI', 'ui_card_flip')
         end
 
         g_lairData:request_lairAutoReloadManage(table.concat(result_list,','), success_cb)
