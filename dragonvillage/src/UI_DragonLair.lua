@@ -65,8 +65,8 @@ function UI_DragonLair:checkCompleteAllSlots()
 
     -- 동굴 슬롯 완성했는지
     if g_lairData:isLairSlotComplete() == true then
-        local msg = Str('축하드립니다.')
-        local submsg = Str('말판을 완성하였습니다.')
+        local msg = Str('말판을 완성하였습니다.')
+        local submsg = Str('말판이 리로드됩니다.')
         local ui = MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_btn_cb)
     end
 end
