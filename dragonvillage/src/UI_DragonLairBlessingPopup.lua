@@ -202,7 +202,6 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
     self.m_listView = table_view
 end
 
-
 --------------------------------------------------------------------------
 -- @function begin_autoBlessingSeq
 --------------------------------------------------------------------------
@@ -210,6 +209,7 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
     local target_option_list = _target_option_list
     local auto_count = _auto_count
     local curr_count = 0
+    local is_stop_auto = false
     local vars = self.vars
 
     local refresh_target_list = function() 
@@ -239,7 +239,13 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
-        co:setBlockPopup()
+
+        vars['blessAutoStopBtn']:setVisible(true)
+        vars['blessAutoStopBtn']:registerScriptTapHandler(function() 
+            is_stop_auto = true
+        end)
+
+        vars['blockBtn']:setVisible(true)
         vars['ingMenu']:setVisible(true)
 
         while true do
@@ -265,6 +271,11 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
                 break
             end
 
+            if is_stop_auto == true then
+                UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
+                break
+            end
+
             -- 서버 요청
             co:work()            
             local str_ids = table.concat(target_id_list, ',')
@@ -283,6 +294,8 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
         end
 
         vars['ingMenu']:setVisible(false)
+        vars['blessAutoStopBtn']:setVisible(false)
+        vars['blockBtn']:setVisible(false)
         co:close()
     end
 
