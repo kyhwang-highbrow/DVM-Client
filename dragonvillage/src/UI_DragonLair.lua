@@ -184,7 +184,7 @@ end
 function UI_DragonLair:click_refreshBtn()
     local ok_btn_cb = function ()
         local success_cb = function (ret)
-
+            self:apply_dragonSort()
             self:refresh()
         end
     
@@ -240,7 +240,7 @@ function UI_DragonLair:click_autoReloadBtn()
 
     local ok_btn_cb = function ()
         local success_cb = function (ret)
-
+            self:apply_dragonSort()
             self:refresh()
         end
 
