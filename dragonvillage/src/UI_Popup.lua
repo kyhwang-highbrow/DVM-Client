@@ -28,6 +28,14 @@ function MakeSimplePopup2(type, msg, submsg, ok_btn_cb, cancel_btn_cb)
 end
 
 -------------------------------------
+-- function MakeSimplePricePopup
+-------------------------------------
+function MakeSimplePricePopup(type, msg, submsg, ok_btn_cb, cancel_btn_cb)
+    local popup = UI_SimplePricePopup(type, msg, submsg, ok_btn_cb, cancel_btn_cb)
+    return popup
+end
+
+-------------------------------------
 -- function MakeNetworkPopup
 -- @brief 네트워크 통신에서 사용되는 SimplePopup
 --        LOADING과 NETWORK POPUP은 동일한 레이어를 사용

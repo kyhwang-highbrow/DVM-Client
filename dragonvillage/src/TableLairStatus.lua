@@ -30,7 +30,7 @@ end
 -- function getLairStatLevel
 -------------------------------------
 function TableLairStatus:getLairStatLevel(id)
-    return self:getValue(id, 'level')
+    return self:getValue(id, 'rate')
 end
 
 -------------------------------------
@@ -41,34 +41,38 @@ function TableLairStatus:getLairStatOptionKey(id)
 end
 
 -------------------------------------
--- function getLairStatOptionKey
+-- function getLairStatOptionValue
 -------------------------------------
 function TableLairStatus:getLairStatOptionValue(id)
     return self:getValue(id, 'key_value')
 end
+
 -------------------------------------
--- function getLairStatOptionMaxLevel
+-- function getLairStatOptionIdList
 -------------------------------------
-function TableLairStatus:getLairStatOptionMaxLevel(option_key)
-    local id_list = self:filterColumnList('key', option_key, 'level')
-    return #id_list
+function TableLairStatus:getLairStatOptionIdList(option_key)
+    local id_list = self:filterColumnList('key', option_key, 'lid')
+    table.sort(id_list, function(a, b) return a < b end)
+    return id_list
 end
 
 -------------------------------------
--- function getLairRepresentOptionListByType
+-- function getLairRepresentOptionKeyListByType
 -------------------------------------
-function TableLairStatus:getLairRepresentOptionListByType(type_id)
+function TableLairStatus:getLairRepresentOptionKeyListByType(type_id)
     local id_list = self:filterColumnList('type', type_id, 'lid')
     local result = {}
+    local key_map = {}
 
     for _, id in ipairs(id_list) do
-        local lv = self:getLairStatLevel(id)
-        if lv == 1 then
-            table.insert(result, id)
+        local key = self:getLairStatOptionKey(id)
+        if key_map[key] == nil then
+            key_map[key] = true
+            table.insert(result, key)
         end
     end
 
-    table.sort(result, function(a, b) return a < b end)
+    --table.sort(result, function(a, b) return a < b end)
     return result
 end
 
@@ -96,7 +100,6 @@ function TableLairStatus:getLairStatsByIdList(l_ids)
 
         table.insert(l_buffs, t_ret)
     end
-
 
     for id, count in pairs(count_map) do
         local key = self:getValue(id, 'key')

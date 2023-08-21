@@ -2351,6 +2351,8 @@ end
 function UINavigatorDefinition:goTo_lair(...)
     local args = {...}
 
+    
+
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_DragonLair')
     if (is_opend == true) then

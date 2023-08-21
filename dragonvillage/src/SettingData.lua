@@ -759,6 +759,20 @@ function SettingData:getGrindAutoSetting(option_type)
 end
 
 -------------------------------------
+-- function setLairBlessingAutoSetting
+-------------------------------------
+function SettingData:setLairBlessingAutoSetting(option_type, option_value)
+    self:applySettingData(option_value, 'lair_blessing', option_type)
+end
+
+-------------------------------------
+-- function getLairBlessingAutoSetting
+-------------------------------------
+function SettingData:getLairBlessingAutoSetting(option_type)
+    return self:get('lair_blessing', option_type)
+end
+
+-------------------------------------
 -- function setSelectPickUpSetting
 -------------------------------------
 function SettingData:setSelectPickUpSetting(selectpickUp)

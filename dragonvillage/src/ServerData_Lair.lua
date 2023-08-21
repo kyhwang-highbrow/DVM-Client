@@ -3,6 +3,7 @@
 -------------------------------------
 ServerData_Lair = class({
     m_serverData = 'ServerData',
+    m_seasonEndTime = 'timestamp',
 
     m_lairStats = 'list<number>',
     m_lairStatsInfoMap = 'list<number>',
@@ -29,6 +30,7 @@ function ServerData_Lair:init_variables()
     self.m_lairSlotDids = {}
     self.m_lairRegisterMap = {}
     self.m_lairSlotCompleteCount = 0
+    self.m_seasonEndTime = 0
 
     self.m_serverData:applyServerData({}, 'lair_dragons')
     self:makeLairStatInfo()
@@ -39,9 +41,15 @@ end
 -------------------------------------
 function ServerData_Lair:getLairStats()
     local list = {}
+
+    if self:isLairSeasonEnd() == true then
+        return list
+    end
     
     for k, v in pairs(self.m_lairStatsInfoMap) do
-        table.insert(list, v:getStatId())
+        if v:getStatId() > 0 then
+            table.insert(list, v:getStatId())
+        end
     end
 
     return list
@@ -197,6 +205,26 @@ function ServerData_Lair:getLairStatsStringData()
 end
 
 -------------------------------------
+-- function isSeasonEnd
+-------------------------------------
+function ServerData_Lair:isLairSeasonEnd()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local end_time = self.m_seasonEndTime/1000
+    local time = (end_time - curr_time)
+    return (time <= 0)
+end
+
+-------------------------------------
+-- function getLairSeasonEndRemainTimeText
+-------------------------------------
+function ServerData_Lair:getLairSeasonEndRemainTimeText()
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local end_time = self.m_seasonEndTime/1000
+    local time = (end_time - curr_time)
+    return (time > 0) and Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true, false)) or ''
+end
+
+-------------------------------------
 -- function applyLairInfo
 -------------------------------------
 function ServerData_Lair:applyLairInfo(t_ret)
@@ -214,6 +242,10 @@ function ServerData_Lair:applyLairInfo(t_ret)
 
     if t_ret['listCnt'] ~= nil then
         self.m_lairSlotCompleteCount = t_ret['listCnt']
+    end
+
+    if t_ret['end'] ~= nil then
+        self.m_seasonEndTime = t_ret['end']
     end
 
     if t_ret['list'] ~= nil then

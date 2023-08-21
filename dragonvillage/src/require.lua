@@ -1733,7 +1733,7 @@ local t_module = {
     'UI_DragonLairBlessingPopup', -- 축복 팝업
     'UI_DragonLairBlessingPopupItem', -- 축복 팝업 아이템
     'UI_DragonLairBlessingAutoPopup', -- 자동 축복 팝업    
-
+    'UI_SimplePricePopup',
 
     -- Forest
     'SceneForest',
@@ -1939,6 +1939,7 @@ function loadModuleForPatchScene()
 		'UI_Popup',
 		'UI_SimplePopup',
 		'UI_SimplePopup2',
+        
 
 		-- UI : 햬외
 		'UI_SelectServerPopup',

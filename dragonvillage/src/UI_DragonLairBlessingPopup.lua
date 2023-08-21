@@ -99,6 +99,18 @@ function UI_DragonLairBlessingPopup:refresh()
     end
 end
 
+
+--------------------------------------------------------------------------
+-- @function refreshTableView
+--------------------------------------------------------------------------
+function UI_DragonLairBlessingPopup:refreshTableView()
+    local vars = self.vars
+    for i,v in pairs(self.m_listView.m_itemList) do
+        local ui = v['ui']
+        ui:refresh()
+    end
+end
+
 --------------------------------------------------------------------------
 -- @function initTab
 --------------------------------------------------------------------------
@@ -190,6 +202,93 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
     self.m_listView = table_view
 end
 
+
+--------------------------------------------------------------------------
+-- @function begin_autoBlessingSeq
+--------------------------------------------------------------------------
+function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_option_list)
+    local target_option_list = _target_option_list
+    local auto_count = _auto_count
+    local curr_count = 0
+    local vars = self.vars
+
+    local refresh_target_list = function() 
+        local result_list = {}
+        local target_id_list, need_count = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
+        local available_count = math_min(g_userData:get('blessing_ticket'), need_count)
+
+        for _, lair_id in ipairs(target_id_list) do
+            local struct_lair_stat = g_lairData:getLairStatInfo(lair_id)
+            local option_key = struct_lair_stat:getStatOptionKey()
+            local option_value = struct_lair_stat:getStatOptionValue()
+             local is_satify = false
+            for key, val in pairs(target_option_list) do
+                if option_key == key and option_value >= val then
+                    is_satify = true
+                    break
+                end
+            end
+
+            if is_satify == false and #result_list < available_count then
+                table.insert(result_list, lair_id)
+            end
+        end
+
+        return result_list, #result_list
+    end
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+        vars['ingMenu']:setVisible(true)
+
+        while true do
+            local target_id_list, target_id_count  = refresh_target_list()
+
+            if g_userData:get('blessing_ticket') < target_id_count == true then
+                UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
+                break
+            end
+
+            if #target_id_list == 0 then
+                if g_userData:get('blessing_ticket') > 0 then
+                    UIManager:toastNotificationGreen(Str('원하시는 옵션을 획득하였습니다.'))
+                else
+                    UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
+                end
+                
+                break
+            end
+
+            if curr_count >= auto_count then
+                UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
+                break
+            end
+
+            -- 서버 요청
+            co:work()            
+            local str_ids = table.concat(target_id_list, ',')
+            g_lairData:request_lairStatPick(str_ids, function(ret)
+                self:refreshTableView()
+                self:refresh()
+                curr_count = curr_count + (#target_id_list)
+                co.NEXT()
+            end, co.ESCAPE)
+            if co:waitWork() then return end
+
+            vars['ingLabel']:setString(Str('{1}/{2}회 진행 중', curr_count, auto_count))
+
+            -- 0.5초 기다림
+            co:waitTime(0.5)
+        end
+
+        vars['ingMenu']:setVisible(false)
+        co:close()
+    end
+
+    Coroutine(coroutine_function, 'begin_autoBlessingSeq')
+end
+
 --------------------------------------------------------------------------
 -- @function click_autoBtn
 --------------------------------------------------------------------------
@@ -200,7 +299,17 @@ function UI_DragonLairBlessingPopup:click_autoBtn()
         return
     end
 
-    UI_DragonLairBlessingAutoPopup(self.m_currTab, target_id_list)
+    if need_count == 0 then
+        UIManager:toastNotificationRed(Str('하나 이상의 축복 효과가 잠금이 해제되어야 합니다.'))
+        return
+    end
+
+    local function ok_callback(auto_count, target_option_list)
+        self:begin_autoBlessingSeq(auto_count, target_option_list)
+    end
+
+    local ui = UI_DragonLairBlessingAutoPopup(self.m_currTab, target_id_list)
+    ui:setOkCallback(ok_callback)
 end
 
 --------------------------------------------------------------------------
@@ -220,7 +329,7 @@ function UI_DragonLairBlessingPopup:click_blessBtn()
 
     local ok_btn_cb = function()
         local success_cb = function(ret)
-            self:makeTableView(self.m_currTab)
+            self:refreshTableView()
             self:refresh()
         end
     
@@ -230,7 +339,8 @@ function UI_DragonLairBlessingPopup:click_blessBtn()
     
     local msg = Str('축복 효과를 받으시겠습니까?')
     local submsg = Str('{1}개의 축복 티켓이 사용됩니다.', need_count)
-    local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    ui:setPrice('blessing_ticket', need_count)
 end
 
 --------------------------------------------------------------------------
@@ -265,7 +375,8 @@ function UI_DragonLairBlessingPopup:click_refreshBtn(stat_id)
 
     local msg = Str('{1}개의 다이아를 사용하여 축복 효과를 초기화하시겠습니까?', 500)
     local submsg = Str('초기화를 할 경우 {1}개의 축복 티켓을 돌려받습니다.', struct_lair_stat:getStatPickCount())
-    local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    ui:setPrice('cash', 500)
 end
 
 --------------------------------------------------------------------------

@@ -44,6 +44,28 @@ function StructLairStat:getStatId()
 end
 
 -------------------------------------
+-- function getStatOptionKey
+-------------------------------------
+function StructLairStat:getStatOptionKey()
+    if self.opt == 0 then
+        return 'none'
+    end
+
+    return  TableLairStatus:getInstance():getLairStatOptionKey(self.opt)
+end
+
+-------------------------------------
+-- function getStatOptionValue
+-------------------------------------
+function StructLairStat:getStatOptionValue()
+    if self.opt == 0 then
+        return 0
+    end
+
+    return  TableLairStatus:getInstance():getLairStatOptionValue(self.opt)
+end
+
+-------------------------------------
 -- function isStatLock
 -------------------------------------
 function StructLairStat:isStatLock()
