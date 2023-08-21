@@ -278,15 +278,9 @@ end
 -------------------------------------
 function ServerData_Lair:applyDragonData(t_dragon_data)
     local doid = t_dragon_data['id']
+    local dragon_obj = StructDragonObject(t_dragon_data)
 
-    if t_dragon_data['lair'] == nil or t_dragon_data['lair'] == false then
-        -- 둥지 리스트에서 삭제
-        self:delDragonData(doid)
-        -- 드래곤 리스트로 옮김
-        g_dragonsData:applyDragonData(t_dragon_data)
-    else
-
-        local dragon_obj = StructDragonObject(t_dragon_data)
+    if dragon_obj['lair'] == true then
         self.m_serverData:applyServerData(dragon_obj, 'lair_dragons', doid)
     end
 end
@@ -395,7 +389,9 @@ function ServerData_Lair:request_lairAdd(doid, finish_cb, fail_cb)
         -- 반드시 룬을 먼저 갱신하고 dragon을 갱신할 것
 		if (ret['modified_dragons']) then
 			for _, t_dragon in ipairs(ret['modified_dragons']) do
+                cclog('doid', t_dragon['id'])
 				self:applyDragonData(t_dragon)
+                g_dragonsData:delDragonData(t_dragon['id'])
 			end
 		end
 
@@ -440,7 +436,9 @@ function ServerData_Lair:request_lairRemove(doid, finish_cb, fail_cb)
         -- 반드시 룬을 먼저 갱신하고 dragon을 갱신할 것
 		if (ret['modified_dragons']) then
 			for _, t_dragon in ipairs(ret['modified_dragons']) do
-				self:applyDragonData(t_dragon)
+                cclog('doid', t_dragon['id'])
+				g_dragonsData:applyDragonData(t_dragon)
+                self:delDragonData(t_dragon['id'])
 			end
 		end
     
