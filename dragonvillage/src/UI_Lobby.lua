@@ -2609,7 +2609,7 @@ function UI_Lobby:update_bottomLeftButtons()
     local t_btn_name = {}
     -- @sgkim 2020.12.14 퀘스트 버튼은 좌상단의 우편함 옆으로 이동
     --local l_content = {'quest', 'forest', 'tamer', 'runeForge', 'dragonManage'}
-    local l_content = {'forest', 'tamer', 'runeForge', 'dragonManage'}
+    local l_content = {'collection', 'tamer', 'runeForge', 'dragonManage'}
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
@@ -2660,7 +2660,7 @@ end
 function UI_Lobby:update_bottomRightButtons()
     local vars = self.vars
     local t_btn_name = {}
-    local l_content = {'clan','shop', 'draw', 'etc'}
+    local l_content = {'forest', 'clan','shop', 'draw', 'etc'}
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
@@ -2686,6 +2686,12 @@ function UI_Lobby:update_bottomRightButtons()
 
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
+        if i == #l_btn_list then
+            interval = 113
+        else
+            interval = 119
+        end
+
         local _pos_x = pos_x + ((i-1) * interval)
         if (v:getPositionX() ~= _pos_x) then
             v:setPositionX(_pos_x)
