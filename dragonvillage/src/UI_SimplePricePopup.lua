@@ -10,6 +10,9 @@ UI_SimplePricePopup = class(PARENT,{
     m_cbOKBtn = 'function',
     m_cbCancelBtn = 'function',
 
+    m_priceType = 'string',
+    m_priceValue = 'number',
+
     m_bIsCheckboxActivated = 'boolean',
     m_checkboxCallback = 'function',
     })
@@ -116,6 +119,11 @@ end
 -- function click_okBtn
 -------------------------------------
 function UI_SimplePricePopup:click_okBtn()
+    if ConfirmPrice(self.m_priceType, self.m_priceValue) == false then
+        self:click_cancelBtn()
+        return
+    end
+
     if self.m_cbOKBtn then
         if self.m_cbOKBtn() then
             return
@@ -150,6 +158,9 @@ end
 -------------------------------------
 function UI_SimplePricePopup:setPrice(price_type, price_value)
     local vars = self.vars
+    self.m_priceType = price_type
+    self.m_priceValue = price_value
+
     local price_icon = IconHelper:getPriceIcon(price_type)
     vars['priceNode']:removeAllChildren()
     vars['priceNode']:addChild(price_icon)
