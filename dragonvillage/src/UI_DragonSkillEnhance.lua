@@ -582,6 +582,13 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
         -- 드래곤 정보 갱신
         g_dragonsData:applyDragonData(ret['modified_dragon'])
 
+        -- 드래곤 동굴 갱신
+        local old_blessing_ticket = g_userData:get('blessing_ticket')
+        g_lairData:applyLairInfo(ret['lair'])
+        local new_blessing_ticket = g_userData:get('blessing_ticket')
+        local add_blessing_ticket = new_blessing_ticket - old_blessing_ticket
+        
+
         -- 갱신
         g_serverData:networkCommonRespone(ret)
 
@@ -610,6 +617,13 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 				    self:close()
 			    end
 		    end)
+
+            -- 축복 티켓을 받았을 경우
+            if add_blessing_ticket > 0 then
+                local msg_ticket_1 = Str('축복 티켓을 획득하였습니다.')
+                local msg_ticket_2 = Str('동굴에 등록되었던 신화 드래곤의 스킬 강화로 축복 티켓 {1}개를 획득하였습니다.', add_blessing_ticket)
+                MakeSimplePopup2(POPUP_TYPE.OK, msg_ticket_1, msg_ticket_2)
+            end
 
             -- 동시에 본UI 갱신
 		    self.m_selectDragonData = mod_struct_dragon
