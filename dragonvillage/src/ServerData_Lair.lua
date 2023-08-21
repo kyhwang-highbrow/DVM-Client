@@ -327,13 +327,15 @@ function ServerData_Lair:getLairTargetDragonMap()
 			
 			-- 자코는 진화하지 않으므로
 			if (table_dragon:isUnderling(did) == false) then
-                local t_dragon = {}
-                --t_dragon['id'] = 'none'
-                t_dragon['did'] = did
-                t_dragon['evolution'] = 3
-                t_dragon['grade'] = 6
-                t_dragon['lv'] = 60
-                l_ret[key] = StructDragonObject(t_dragon)
+                if v['birthgrade'] >= 5 then
+                    local t_dragon = {}
+                    --t_dragon['id'] = 'none'
+                    t_dragon['did'] = did
+                    t_dragon['evolution'] = 3
+                    t_dragon['grade'] = 6
+                    t_dragon['lv'] = 60
+                    l_ret[key] = StructDragonObject(t_dragon)
+                end
 			end
         end
     end
