@@ -140,8 +140,8 @@ function UI_DragonLairUnregisterTab:unregisterFromLair(data, ui_cell)
         g_lairData:request_lairRemove(doid, sucess_cb)
     end
 
-
     local msg = Str('드래곤을 동굴에서 해제하시겠습니까?')
     local submsg = Str('해제 시 동굴에 다시 등록 불가합니다.')
-    local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    ui:setPrice('cash', 3000)
 end

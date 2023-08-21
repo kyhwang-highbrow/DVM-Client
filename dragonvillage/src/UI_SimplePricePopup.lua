@@ -153,7 +153,7 @@ function UI_SimplePricePopup:setPrice(price_type, price_value)
     local price_icon = IconHelper:getPriceIcon(price_type)
     vars['priceNode']:removeAllChildren()
     vars['priceNode']:addChild(price_icon)
-    vars['priceLabel']:setString(price_value)
+    vars['priceLabel']:setString(comma_value(price_value))
 end
 
 
