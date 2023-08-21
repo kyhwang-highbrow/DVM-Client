@@ -94,7 +94,7 @@ function UI_DragonLairBlessingPopup:refresh()
     end
 
     do -- 가격
-        local price_value = g_userData:get('blessing_ticket') or 0
+        local price_value = g_userData:get('blessing_ticket')
         vars['priceLabel']:setString(comma_value(price_value))
     end
 end
@@ -244,19 +244,19 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
 
         while true do
             local target_id_list, target_id_count  = refresh_target_list()
+            local blessing_ticket = g_userData:get('blessing_ticket')
 
-            if g_userData:get('blessing_ticket') < target_id_count == true then
+            if blessing_ticket < target_id_count == true then
                 UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
                 break
             end
 
             if #target_id_list == 0 then
-                if g_userData:get('blessing_ticket') > 0 then
+                if blessing_ticket > 0 then
                     UIManager:toastNotificationGreen(Str('원하시는 옵션을 획득하였습니다.'))
                 else
                     UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
                 end
-                
                 break
             end
 

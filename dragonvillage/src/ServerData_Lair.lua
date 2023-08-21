@@ -352,6 +352,8 @@ function ServerData_Lair:request_lairInfo(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        g_serverData:applyServerData(0, 'user', 'blessing_ticket')
+        
         self:applyLairInfo(ret['lair'])
 
         if finish_cb then
