@@ -496,8 +496,7 @@ end
 function TutorialManager:continueTutorial(tutorial_key, check_step, tar_ui)
 	local is_done = g_tutorialData:isTutorialDone(tutorial_key)
 	if (not is_done) then
-		local step = g_tutorialData:getStep(tutorial_key)
-        cclog('스탭 ' .. tostring(step))
+		local step = g_tutorialData:getStep(tutorial_key)        
 		if (step == check_step) then
 			-- continue되는 경우는 이전 튜토리얼 정보를 날려버린다
 			self:deleteNodeAll()

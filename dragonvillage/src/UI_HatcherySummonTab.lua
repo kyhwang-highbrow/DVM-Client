@@ -791,14 +791,18 @@ function UI_HatcherySummonTab:setEventMenu()
         return
     end
 
+    if isExistValue(self.m_curCategory, 'pickup_1', 'pickup_2') == true then
+        return
+    end
+
     -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
     -- 기존 핫타임
---[[     local is_event_active = g_hotTimeData:isActiveEvent('event_legend_chance_up')
+    local is_event_active = g_hotTimeData:isActiveEvent('event_legend_chance_up')
     if (is_event_active == true) then
         owner_vars['eventInfoMenu']:setVisible(true)
         owner_vars['timeLabel']:setString(g_hotTimeData:getEventRemainTimeTextDetail('event_legend_chance_up'))
         return
-    end ]]
+    end
 
         -- 핫타임(fevertime)
     local is_active = g_fevertimeData:isActiveFevertime_summonLegendUp()
