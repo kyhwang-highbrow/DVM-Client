@@ -61,7 +61,7 @@ function UI_DragonLairUnregisterTab:initTableView()
         ui.root:setColor((is_registered and is_exist_doid) and COLOR['white'] or COLOR['deep_gray'])
         ui:setTeamBonusCheckSpriteVisible(is_registered)
         
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:unregisterFromLair(data['did'], ui) end)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:unregisterFromLair(data, ui) end)
         return ui
     end
 
@@ -118,14 +118,16 @@ function UI_DragonLairUnregisterTab:apply_dragonSort()
     self.m_dragonTableView:setDirtyItemList()
 end
 
-
 -------------------------------------
 -- function unregisterFromLair
 -- @brief 드래곤 둥지 제거
 -------------------------------------
-function UI_DragonLairUnregisterTab:unregisterFromLair(did, ui_cell)
-    local info = g_lairData:getRegisterLairInfo(did)
-    if info == nil then
+function UI_DragonLairUnregisterTab:unregisterFromLair(data, ui_cell)
+    local info = g_lairData:getRegisterLairInfo(data['did'])
+    local is_exist_doid = g_lairData:isRegisterLairDragonExist(data['did'])
+
+    if info == nil or is_exist_doid == false then
+        UI_BookDetailPopup.openWithFrame(data['did'], 6, 3, 1, true)
         return
     end
 
