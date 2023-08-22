@@ -31,7 +31,7 @@ function ServerData_Lair:init_variables()
     self.m_lairSlotCompleteCount = 0
     self.m_seasonEndTime = 0
 
-    self.m_serverData:applyServerData({}, 'lair_dragons')
+
     self:makeLairStatInfo()
 end
 
@@ -157,7 +157,7 @@ function ServerData_Lair:isRegisterLairDragonExist(did)
     end
 
     local doid = info['doid']
-    return g_lairData:getDragonDataFromUid(doid) ~= nil
+    return g_dragonsData:getDragonDataFromUid(doid) ~= nil
 end
 
 -------------------------------------
@@ -245,43 +245,6 @@ function ServerData_Lair:applyLairInfo(t_ret)
             end
         end
     end
-end
-
--------------------------------------
--- function applyDragonData
--------------------------------------
-function ServerData_Lair:applyDragonData(t_dragon_data)
-    local doid = t_dragon_data['id']
-    local dragon_obj = StructDragonObject(t_dragon_data)
-
-    if dragon_obj['lair'] == true then
-        self.m_serverData:applyServerData(dragon_obj, 'lair_dragons', doid)
-    end
-end
-
--------------------------------------
--- function delDragonData
--------------------------------------
-function ServerData_Lair:delDragonData(doid)
-    if self.m_serverData:getRef('lair_dragons', doid) then
-        self.m_serverData:applyServerData(nil, 'lair_dragons', doid)
-    end
-end
-
--------------------------------------
--- function getDragonDataFromUid
--- @brief doid 로 드래곤 정보를 얻음
--------------------------------------
-function ServerData_Lair:getDragonDataFromUid(doid)
-    local dragon_obj = self.m_serverData:getRef('lair_dragons', doid)
-    return dragon_obj
-end
-
--------------------------------------
--- function getDragonsListRef
--------------------------------------
-function ServerData_Lair:getDragonsListRef()
-    return self.m_serverData:getRef('lair_dragons') or {}
 end
 
 -------------------------------------
@@ -390,54 +353,6 @@ function ServerData_Lair:request_lairAdd(doid, finish_cb, fail_cb)
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/lair/list/add')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('doids', doid)
-    ui_network:setMethod('POST')
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
-    return ui_network
-end
-
--------------------------------------
--- function request_lairRemove
--------------------------------------
-function ServerData_Lair:request_lairRemove(doid, finish_cb, fail_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-
-    -- 성공 콜백
-    local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
-        
-        -- 반드시 룬을 먼저 갱신하고 dragon을 갱신할 것
-        if ret['modified_runes'] then
-            g_runesData:applyRuneData_list(ret['modified_runes'])
-        end
-        
-        -- 반드시 룬을 먼저 갱신하고 dragon을 갱신할 것
-		if (ret['modified_dragons']) then
-			for _, t_dragon in ipairs(ret['modified_dragons']) do
-                cclog('doid', t_dragon['id'])
-				g_dragonsData:applyDragonData(t_dragon)
-                self:delDragonData(t_dragon['id'])
-			end
-		end
-    
-        -- 티켓 차감
-        self:applyLairInfo(ret['lair'])
-        
-
-        if finish_cb then
-            finish_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/lair/list/remove')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doids', doid)
     ui_network:setMethod('POST')

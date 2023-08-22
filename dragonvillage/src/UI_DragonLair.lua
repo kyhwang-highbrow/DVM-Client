@@ -80,8 +80,8 @@ function UI_DragonLair:initButton()
         vars['resetBtn']:setVisible(true)        
         vars['resetBtn']:registerScriptTapHandler(function() self:click_resethBtn() end)
 
-        vars['autoReloadtBtn']:setVisible(true)        
-        vars['autoReloadtBtn']:registerScriptTapHandler(function() self:click_autoReloadBtn() end)
+        --vars['autoReloadtBtn']:setVisible(true)        
+        --vars['autoReloadtBtn']:registerScriptTapHandler(function() self:click_autoReloadBtn() end)
     end
 end
 
@@ -234,7 +234,7 @@ function UI_DragonLair:click_autoReloadBtn()
 end
  ]]
 
- 
+
 -------------------------------------
 -- function click_helpBtn
 -------------------------------------
