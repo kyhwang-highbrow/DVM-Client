@@ -5,7 +5,6 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_DragonLair = class(PARENT,{
     m_cardList = 'List<UI_DragonCard>',
-    
 })
 
 -------------------------------------
@@ -38,7 +37,6 @@ function UI_DragonLair:init(doid)
     self:initTab()
     self:initButton()
     self:refresh()
-    self:checkCompleteAllSlots()
 end
 
 -------------------------------------
@@ -47,33 +45,6 @@ end
 function UI_DragonLair:initUI()
     local vars = self.vars
 end
-
-
--------------------------------------
--- function checkCompleteAllSlots
--------------------------------------
-function UI_DragonLair:checkCompleteAllSlots()
-    local vars = self.vars
-    
-    -- ok 콜백
-    local ok_btn_cb = function ()
-        local sucess_cb = function (ret)
-            self:refresh()
-            self:apply_dragonSort()
-        end
-
-        g_lairData:request_lairComplete(sucess_cb)
-    end
-
-    -- 동굴 슬롯 완성했는지
-    if g_lairData:isLairSlotComplete() == true then
-        local msg = Str('말판을 완성하였습니다.')
-        local submsg = Str('말판이 새로고침됩니다.')
-        local ui = MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_btn_cb)
-    end
-end
-
-
 
 -------------------------------------
 -- function initUI
@@ -148,7 +119,7 @@ function UI_DragonLair:refresh()
         end
     end
 
-    require('UI_DragonCard_Flip')
+--[[     require('UI_DragonCard_Flip')
     local l_dids = g_lairData:getLairSlotDidList()
     for i, did in ipairs(l_dids) do
         local node_str = string.format('dragonNode%d', i)
@@ -164,16 +135,10 @@ function UI_DragonLair:refresh()
         local card_ui = UI_DragonCard_Flip(StructDragonObject(t_dragon_data))
         self.m_cardList[i] = card_ui
         card_ui:openCard()
-     --[[        card_ui:openCard()
-
-            cclog('여기 안들어놔??')
-        end) ]]
-        
-        --card_ui:setHighlightSpriteVisible(is_register_dragon)
 
         vars[node_str]:removeAllChildren()
         vars[node_str]:addChild(card_ui.root)
-    end
+    end ]]
 end
 
 -------------------------------------
@@ -231,6 +196,8 @@ function UI_DragonLair:click_resethBtn()
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 
+
+--[[ 
 -------------------------------------
 -- function click_autoReloadBtn
 -------------------------------------
@@ -265,7 +232,9 @@ function UI_DragonLair:click_autoReloadBtn()
     local submsg = '해당 버튼은 라이브환경에서는 노출되지 않습니다.'
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
+ ]]
 
+ 
 -------------------------------------
 -- function click_helpBtn
 -------------------------------------

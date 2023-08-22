@@ -27,15 +27,6 @@ function UI_DragonLairRegisterTab:initUI()
     
         local a_value = (g_lairData:isRegisterLairDid(a_data['did']) == false) and 1 or 0
         local b_value = (g_lairData:isRegisterLairDid(b_data['did']) == false) and 1 or 0
-
-
-        if a_value == 1 then
-            a_value = a_value + ((g_lairData:isInSlotDidList(a_data['did']) == true) and 1 or 0)
-        end
-
-        if b_value == 1 then
-            b_value = b_value + ((g_lairData:isInSlotDidList(b_data['did']) == true) and 1 or 0)
-        end
     
         -- 같을 경우 리턴
         if (a_value == b_value) then
@@ -133,66 +124,32 @@ function UI_DragonLairRegisterTab:onExitTab()
 end
 
 -------------------------------------
--- function checkDragonSelect
--- @brief 선택이 가능한 드래곤인지 여부
--- @override
--------------------------------------
-function UI_DragonLairRegisterTab:checkDragonSelect(doid)
-	-- 재료용 검증 함수이지만 판매와 동일하기 때문에 사용
-    local possible, msg = g_dragonsData:possibleLairMaterialDragon(doid)
-
-    if possible then
-        return true
-    else
-        UIManager:toastNotificationRed(msg)
-        return false
-    end
-end
-
--------------------------------------
 -- function registerToLair
 -- @brief 드래곤 둥지 추가
 -------------------------------------
 function UI_DragonLairRegisterTab:registerToLair(doid, b_force)
-    -- 등록 가능 여부 체크
-    if self:checkDragonSelect(doid) == false then
-        return
-    end
-
     local ok_btn_cb = function ()
         local sucess_cb = function (ret)
             self.m_dragonTableView:delItem(doid)
-            self.m_ownerUI:checkCompleteAllSlots()
             self.m_ownerUI:refresh()
         end
 
         g_lairData:request_lairAdd(doid, sucess_cb)
     end    
 
-    local ok_cb_1 = function()
-        if g_settingData:isSkipAddToLairConfimPopup() == true then
-            ok_btn_cb()
-            return
-        end
-
-        local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
-        local submsg = Str('동굴에 등록해도 자유롭게 해제가 가능합니다.')
-        local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
-
-        -- 잠금 설정된 드래곤인지 체크
-        local check_cb = function()
-            g_settingData:setSkipAddToLairConfimPopup()
-        end
-        
-        ui:setCheckBoxCallback(check_cb)
+    if g_settingData:isSkipAddToLairConfimPopup() == true then
+        ok_btn_cb()
+        return
     end
 
+    local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
+    local submsg = Str('동굴에 등록해도 자유롭게 해제가 가능합니다.')
+    local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 
-    if g_dragonsData:isLockDragon(doid) == true then
-        local msg = Str('드래곤이 잠금된 상태입니다.')
-        local submsg = Str('드래곤 잠금을 무시하고 등록하시겠습니까?')
-        local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_cb_1)
-    else
-        ok_cb_1()
+    -- 잠금 설정된 드래곤인지 체크
+    local check_cb = function()
+        g_settingData:setSkipAddToLairConfimPopup()
     end
+    
+    ui:setCheckBoxCallback(check_cb)
 end

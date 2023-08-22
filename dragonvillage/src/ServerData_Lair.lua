@@ -8,7 +8,6 @@ ServerData_Lair = class({
     m_lairStats = 'list<number>',
     m_lairStatsInfoMap = 'list<number>',
 
-    m_lairSlotDids = 'list<number>',
     m_lairSlotCompleteCount = 'number',
     m_lairRegisterMap = 'map<number>',
 })
@@ -27,7 +26,7 @@ end
 function ServerData_Lair:init_variables()
     self.m_lairStats = {}
     self.m_lairStatsInfoMap = {}
-    self.m_lairSlotDids = {}
+
     self.m_lairRegisterMap = {}
     self.m_lairSlotCompleteCount = 0
     self.m_seasonEndTime = 0
@@ -60,38 +59,12 @@ function ServerData_Lair:getLairStats()
     return list
 end
 
--------------------------------------
--- function getLairSlotDidList
--------------------------------------
-function ServerData_Lair:getLairSlotDidList()
-    return self.m_lairSlotDids
-end
-
--------------------------------------
--- function isInSlotDidList
--------------------------------------
-function ServerData_Lair:isInSlotDidList(did)
-    return table.find(self.m_lairSlotDids, did) ~= nil
-end
 
 -------------------------------------
 -- function getLairSlotCompleteCount
 -------------------------------------
 function ServerData_Lair:getLairSlotCompleteCount()
     return self.m_lairSlotCompleteCount
-end
-
--------------------------------------
--- function isLairSlotComplete
--------------------------------------
-function ServerData_Lair:isLairSlotComplete()
-    for _, did in ipairs(self.m_lairSlotDids) do
-        if self:isRegisterLairDid(did) == false then
-            return false
-        end
-    end
-
-    return true
 end
 
 -------------------------------------
@@ -235,10 +208,6 @@ end
 function ServerData_Lair:applyLairInfo(t_ret)
     if t_ret == nil then
         return
-    end
-
-    if t_ret['slot'] ~= nil then
-        self.m_lairSlotDids = t_ret['slot']
     end
 
     if t_ret['ticket'] ~= nil then
