@@ -214,6 +214,15 @@ end
 -- function checkVipStatus
 -------------------------------------
 function ServerData_HighbrowVip:checkVipStatus()
+--[[     -- 현재 등급이 골드일 경우
+    if self.m_vipGrade == 'gold' then
+        -- 이전에 정보를 수집했던 적이 있던 유저일 경우 주석처리
+        if self.m_vipSurveyStatus == 'silver' then
+            return false
+        end
+    end ]]
+
+
     return (self.m_vipGrade ~= nil) and (self.m_vipGrade ~= self.m_vipSurveyStatus)
 end
 
@@ -229,7 +238,7 @@ end
 -- function openPopup
 -------------------------------------
 function ServerData_HighbrowVip:openPopup(close_cb)
-    if (self.m_vipGrade == nil) or (self.m_vipGrade == self.m_vipSurveyStatus) then
+    if self:checkVipStatus() == false then
         if close_cb then
             close_cb()
         end
