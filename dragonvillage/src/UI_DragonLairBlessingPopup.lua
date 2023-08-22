@@ -43,11 +43,9 @@ end
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:initButton()
     local vars = self.vars
-
     vars['blessBtn']:registerScriptTapHandler(function() self:click_blessBtn() end)
     vars['blessAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-
 
     	-- editBox handler 등록
 	local function editBoxTextEventHandle(strEventName, pSender)
@@ -98,7 +96,6 @@ function UI_DragonLairBlessingPopup:refresh()
         vars['priceLabel']:setString(comma_value(price_value))
     end
 end
-
 
 --------------------------------------------------------------------------
 -- @function refreshTableView
@@ -240,12 +237,12 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
     local function coroutine_function(dt)
         local co = CoroutineHelper()
 
+        vars['blessAutoBtn']:setVisible(false)
         vars['blessAutoStopBtn']:setVisible(true)
         vars['blessAutoStopBtn']:registerScriptTapHandler(function() 
             is_stop_auto = true
         end)
 
-        vars['blockBtn']:setVisible(true)
         vars['ingMenu']:setVisible(true)
 
         while true do
@@ -294,8 +291,8 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
         end
 
         vars['ingMenu']:setVisible(false)
+        vars['blessAutoBtn']:setVisible(true)
         vars['blessAutoStopBtn']:setVisible(false)
-        vars['blockBtn']:setVisible(false)
         co:close()
     end
 

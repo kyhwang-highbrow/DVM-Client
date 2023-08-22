@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_DragonLair
@@ -34,7 +34,7 @@ function UI_DragonLair:init(doid)
 
     self:sceneFadeInAction()
     self:initUI()
-    self:initTab()
+
     self:initButton()
     self:refresh()
 end
@@ -45,7 +45,7 @@ end
 function UI_DragonLair:initUI()
     local vars = self.vars
 end
-
+--[[ 
 -------------------------------------
 -- function initUI
 -------------------------------------
@@ -62,7 +62,7 @@ function UI_DragonLair:initTab()
     self:addTabWithTabUIAndLabel('remove', vars['removeTabBtn'], vars['removeTabLabel'], remove_tab) -- 관리
 
     self:setTab('add')
-end
+end ]]
 
 -------------------------------------
 -- function initButton
@@ -77,24 +77,14 @@ function UI_DragonLair:initButton()
     
 
     if IS_TEST_MODE() == true then
-        vars['resetBtn']:setVisible(true)        
-        vars['resetBtn']:registerScriptTapHandler(function() self:click_resethBtn() end)
-
+        --vars['resetBtn']:setVisible(true)        
+        --vars['resetBtn']:registerScriptTapHandler(function() self:click_resethBtn() end)
         --vars['autoReloadtBtn']:setVisible(true)        
         --vars['autoReloadtBtn']:registerScriptTapHandler(function() self:click_autoReloadBtn() end)
     end
+
 end
 
--------------------------------------
--- function apply_dragonSort
--------------------------------------
-function UI_DragonLair:apply_dragonSort()
-    for _, v in pairs(self.m_mTabData) do
-        if v['ui'] ~= nil then
-            v['ui']:apply_dragonSort()
-        end
-    end
-end
 
 -------------------------------------
 -- function refresh
@@ -102,19 +92,21 @@ end
 function UI_DragonLair:refresh()
     local vars = self.vars
     
-    for type = 1, 5 do
-        local stat_id_list, stat_count = g_lairData:getLairStatIdList(type)
-        local label_str = string.format('typeLabel%d', type)
-
-        if stat_count == 0 then
-            vars[label_str]:setString(Str('축복 효과 없음'))
-        else
-            local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
-            local bonus_str = TableLairStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
-
-            if bonus_str == '' then
-                vars[label_str]:setString(attr_str)
+    for idx = 1, 2 do
+        for type = 1, 5 do
+            local stat_id_list, stat_count = g_lairData:getLairStatIdList(type)
+            local label_str = string.format('%dtypeLabel%d', type, idx)
+    
+            if stat_count == 0 then
+                vars[label_str]:setString(Str('축복 효과 없음'))
             else
+                local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
+                local bonus_str = TableLairStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
+    
+                if bonus_str == '' then
+                    vars[label_str]:setString(attr_str)
+                else
+                end
             end
         end
     end
