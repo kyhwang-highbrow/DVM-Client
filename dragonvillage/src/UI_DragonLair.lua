@@ -37,6 +37,9 @@ function UI_DragonLair:init(doid)
 
     self:initButton()
     self:refresh()
+
+    self:update()
+    self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
 end
 
 -------------------------------------
@@ -73,8 +76,8 @@ function UI_DragonLair:initButton()
 
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
     vars['blessBtn']:registerScriptTapHandler(function() self:click_blessBtn() end)
-    vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
-    
+
+    --vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
 
     if IS_TEST_MODE() == true then
         --vars['resetBtn']:setVisible(true)        
@@ -91,25 +94,41 @@ end
 -------------------------------------
 function UI_DragonLair:refresh()
     local vars = self.vars
+    local table_option = TableOption()
     
-    for idx = 1, 2 do
-        for type = 1, 5 do
-            local stat_id_list, stat_count = g_lairData:getLairStatIdList(type)
-            local label_str = string.format('%dtypeLabel%d', type, idx)
-    
-            if stat_count == 0 then
-                vars[label_str]:setString(Str('축복 효과 없음'))
-            else
-                local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
-                local bonus_str = TableLairStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
-    
-                if bonus_str == '' then
-                    vars[label_str]:setString(attr_str)
-                else
-                end
-            end
+    for type = 1, 5 do
+        local option_key_list = TableLairStatus:getInstance():getLairRepresentOptionKeyListByType(type)
+        --local g_lair:getLairStatIdList(type)
+
+        for idx, option_key in ipairs(option_key_list) do
+            local option_name = table_option:getOptionName(option_key)
+            local option_value_sum = g_lairData:getLairStatOptionValueSum(type ,option_key)
+
+            local label_str = string.format('%dTypeLabel%d', type, idx)
+            vars[label_str]:setString(option_name)
+
+            local progress_label_str =  string.format('%dTypeProgressLabel%d', type, idx)
+            vars[progress_label_str]:setString(comma_value(option_value_sum))
+
+            local progress_bar_str =  string.format('%dTypeProgress%d', type, idx)
+            vars[progress_bar_str]:setPercentage(0)
         end
+
+        --local stat_id_list, stat_count = g_lairData:getLairStatIdList(type)
+
+--[[         if stat_count == 0 then
+            vars[label_str]:setString(Str('축복 효과 없음'))
+        else
+            local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
+            local bonus_str = TableLairStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
+
+            if bonus_str == '' then
+                vars[label_str]:setString(attr_str)
+            else
+            end
+        end ]]
     end
+    
 
 --[[     require('UI_DragonCard_Flip')
     local l_dids = g_lairData:getLairSlotDidList()
@@ -131,6 +150,15 @@ function UI_DragonLair:refresh()
         vars[node_str]:removeAllChildren()
         vars[node_str]:addChild(card_ui.root)
     end ]]
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_DragonLair:update()
+    local vars =  self.vars
+    local text = Str('시즌 종료까지 {1}', g_lairData:getLairSeasonEndRemainTimeText())
+    vars['remainTimeLabel']:setString(text)
 end
 
 -------------------------------------

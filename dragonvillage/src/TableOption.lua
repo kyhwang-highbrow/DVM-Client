@@ -162,6 +162,19 @@ function TableOption:getRuneAbilityIconRes(option)
 end
 
 -------------------------------------
+-- function getOptionName
+-------------------------------------
+function TableOption:getOptionName(option)
+    local str = self:getValue(option, 't_name')
+
+    if self:isPercentAbilityValueUnit(option) == true then
+        return Str(str) .. '(%%)'
+    else
+        return Str(str)
+    end
+end
+
+-------------------------------------
 -- function isPercentAbilityValueUnit 
 -------------------------------------
 function TableOption:isPercentAbilityValueUnit(option)

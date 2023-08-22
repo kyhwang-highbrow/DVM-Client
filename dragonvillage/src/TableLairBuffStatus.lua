@@ -3,6 +3,7 @@ local PARENT = TableClass
 -- class TableLairStatus
 -------------------------------------
 TableLairStatus = class(PARENT, {
+    m_mapOptionMaximum = 'Map<string, number>'
 })
 
 local instance = nil
@@ -13,6 +14,7 @@ function TableLairStatus:init()
     assert(instance == nil, 'Can not initalize twice')
     self.m_tableName = 'table_lair_buff_status'
     self.m_orgTable = TABLE:get(self.m_tableName)
+
 end
 
 -------------------------------------
@@ -115,7 +117,6 @@ function TableLairStatus:getLairStatsByIdList(l_ids)
 
     return l_buffs
 end
-
 
 -------------------------------------
 -- function getLairStatStrByIds

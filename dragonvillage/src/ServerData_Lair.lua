@@ -127,6 +127,23 @@ function ServerData_Lair:getLairStatIdList(type)
 end
 
 -------------------------------------
+-- function getLairStatOptionValueSum
+-------------------------------------
+function ServerData_Lair:getLairStatOptionValueSum(type, option_type)
+    local id_list = self:getLairStatIdList(type)
+    local sum = 0
+
+    for _, stat_id in ipairs(id_list) do
+        local struct_lair_stat = self:getLairStatInfo(stat_id)
+        if struct_lair_stat:getStatId() > 0 and struct_lair_stat:getStatOptionKey() == option_type then
+            sum = sum + struct_lair_stat:getStatOptionValue()
+        end
+    end
+
+    return sum
+end
+
+-------------------------------------
 -- function isRegisterLairDid
 -------------------------------------
 function ServerData_Lair:isRegisterLairDid(did)
