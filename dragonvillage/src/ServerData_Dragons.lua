@@ -313,13 +313,6 @@ function ServerData_Dragons:applyDragonData_list(l_dragon_data)
     for i,v in pairs(l_dragon_data) do
         local t_dragon_data = v
         self:applyDragonData(t_dragon_data)
-        -- 둥지 등록되었으면 드래곤 리스트에서 삭제
-        if t_dragon_data and t_dragon_data.lair == true then
-            -- 드래곤 리스트에서 삭제
-            self:delDragonData(t_dragon_data['id'])
-            -- 둥지 리스트로 옮김
-            g_lairData:applyDragonData(t_dragon_data)
-        end
     end
 
     g_serverData:unlockSaveData()

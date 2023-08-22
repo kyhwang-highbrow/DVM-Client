@@ -42,6 +42,11 @@ end
 function ServerData_Lair:getLairStats()
     local list = {}
 
+    -- 삼뉴체크
+    if CppFunctions:isWin32() ~= true then
+        return list
+    end
+
     if self:isLairSeasonEnd() == true then
         return list
     end
@@ -350,6 +355,14 @@ function ServerData_Lair:request_lairInfo(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
+    -- 삼뉴체크
+    if CppFunctions:isWin32() ~= true then
+        if finish_cb then
+            finish_cb()
+        end
+        return
+    end
+
     -- 성공 콜백
     local function success_cb(ret)
         g_serverData:applyServerData(0, 'user', 'blessing_ticket')
@@ -393,9 +406,7 @@ function ServerData_Lair:request_lairAdd(doid, finish_cb, fail_cb)
         -- 반드시 룬을 먼저 갱신하고 dragon을 갱신할 것
 		if (ret['modified_dragons']) then
 			for _, t_dragon in ipairs(ret['modified_dragons']) do
-                cclog('doid', t_dragon['id'])
-				self:applyDragonData(t_dragon)
-                g_dragonsData:delDragonData(t_dragon['id'])
+                g_dragonsData:applyDragonData(t_dragon)
 			end
 		end
 

@@ -844,8 +844,12 @@ function UI_Lobby:initButton()
     vars['forestBtn']:registerScriptTapHandler(function() self:click_forestBtn() end) -- 드래곤의숲
     vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
     vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end) -- 전투
-
     vars['lairBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 드래곤
+
+    -- 삼뉴체크
+    if CppFunctions:isWin32() ~= true then
+        vars['lairBtn']:setVisible(false)
+    end
     
     -- 상점
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
@@ -1582,6 +1586,11 @@ end
 -- @brief 드래곤 컬렉션 버튼
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
+    -- 삼뉴체크
+    if CppFunctions:isWin32() ~= true then
+        return
+    end
+
     UINavigator:goTo('lair')
 end
 
@@ -2610,6 +2619,12 @@ function UI_Lobby:update_bottomLeftButtons()
     -- @sgkim 2020.12.14 퀘스트 버튼은 좌상단의 우편함 옆으로 이동
     --local l_content = {'quest', 'forest', 'tamer', 'runeForge', 'dragonManage'}
     local l_content = {'lair', 'tamer', 'runeForge', 'dragonManage'}
+
+    -- 삼뉴체크
+    if CppFunctions:isWin32() ~= true then
+        l_content = {'forest', 'tamer', 'runeForge', 'dragonManage'}
+    end
+
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
@@ -2661,6 +2676,12 @@ function UI_Lobby:update_bottomRightButtons()
     local vars = self.vars
     local t_btn_name = {}
     local l_content = {'forest', 'clan','shop', 'draw', 'etc'}
+
+    -- 삼뉴체크
+    if CppFunctions:isWin32() ~= true then
+        l_content = {'clan','shop', 'draw', 'etc'}
+    end
+
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
