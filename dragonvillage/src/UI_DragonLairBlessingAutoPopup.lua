@@ -39,11 +39,11 @@ function UI_DragonLairBlessingAutoPopup:init(type, target_id_list)
     self:doActionReset()
     self:doAction(nil, false)
 
-    local item_num = g_userData:get('blessing_ticket') or 0
+    local item_num = g_userData:get('blessing_ticket')
     local auto_num = math_floor(item_num/self.m_ticketnumPerBlessing)
     
-    self.m_autoCount = auto_num
-    self.m_maxAutoCount = auto_num
+    self.m_autoCount = auto_num * self.m_ticketnumPerBlessing
+    self.m_maxAutoCount = auto_num * self.m_ticketnumPerBlessing
 
     self:initUI()
     self:initButton()
