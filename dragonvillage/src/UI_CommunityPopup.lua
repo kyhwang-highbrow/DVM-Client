@@ -36,7 +36,7 @@ function UI_CommunityPopup:init(t_notice)
     self.m_link = {
         ['instagram'] = '304r5YA',
         ['facebook'] = '2XYU1js',
-        ['naver'] = '47sg4S0',
+        ['naver'] = '45kbSlM',
         ['discord'] = '3kueg3m',
         ['kakao'] = '3EdgOuV'
     }

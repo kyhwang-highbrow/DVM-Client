@@ -281,7 +281,7 @@ function UI_IngameNoticeFullPopup:click_communityButton()
     -- TODO
     -- 링크를 저장할 곳을 찾아서 보금자리를 마련해주자
     if lang == 'ko' then
-        SDKManager:goToWeb('https://bit.ly/47sg4S0')
+        SDKManager:goToWeb('https://bit.ly/45kbSlM')
     else
         SDKManager:goToWeb('https://www.facebook.com/DragonVillageM')
     end
