@@ -5,6 +5,7 @@ local PARENT = UI
 UI_DragonLairRegister = class(PARENT,{
     m_dragonTableView = 'TableVIew',
     m_sortManagerDragon = '',
+    m_availableDragonList = 'Lit<>',
     })
 
 -------------------------------------
@@ -12,6 +13,7 @@ UI_DragonLairRegister = class(PARENT,{
 -------------------------------------
 function UI_DragonLairRegister:init(owner_ui)
     self.m_uiName = 'UI_DragonLairRegister'
+    self.m_availableDragonList = {}
     
     local vars = self:load('dragon_lair_register.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -84,31 +86,41 @@ end
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -------------------------------------
 function UI_DragonLairRegister:getDragonList()
-    local result_dragon_map = {}
+--[[     local result_dragon_map = {}
     local m_dragons = g_dragonsData:getDragonsListRef()
     for doid, struct_dragon_data in pairs(m_dragons) do
         if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
             result_dragon_map[doid] = struct_dragon_data
         end
-    end
+    end ]]
 
     return g_dragonsData:getDragonsListRef()
 end
 
 -------------------------------------
--- function getAvailableDragonCount
-
+-- function makeAvailableDragonList
 -------------------------------------
-function UI_DragonLairRegister:getAvailableDragonCount()
-    local count = 0
+function UI_DragonLairRegister:makeAvailableDragonList()
     local m_dragons = g_dragonsData:getDragonsListRef()
+    local list = {}
 
+    self.m_availableDragonList = {}
     for _, struct_dragon_data in pairs(m_dragons) do
         if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
-            count = count + 1
+            table.insert(self.m_availableDragonList, struct_dragon_data)
         end
     end
-    return count
+end
+
+-------------------------------------
+-- function getAvailableDragonDoids
+-------------------------------------
+function UI_DragonLairRegister:getAvailableDragonDoids()
+    local doid_list = {}
+    for i,v in ipairs(self.m_availableDragonList) do
+        table.insert(doid_list, v['id'])
+    end
+    return table.concat(doid_list, ',')
 end
 
 -------------------------------------
@@ -174,7 +186,7 @@ end
 -------------------------------------
 function UI_DragonLairRegister:refresh()
     local vars = self.vars
-    local count = self:getAvailableDragonCount()
+    local count = #self.m_availableDragonList
     vars['dragonCountLabel']:setString(Str('등록 가능한 드래곤 수 : {1}마리', count))
 end
 
@@ -182,37 +194,43 @@ end
 -- function registerToLair
 -- @brief 드래곤 둥지 추가
 -------------------------------------
-function UI_DragonLairRegister:registerToLair(doid, b_force)
+function UI_DragonLairRegister:registerToLair(doids)
     local ok_btn_cb = function ()
         local sucess_cb = function (ret)
-            self.m_dragonTableView:delItem(doid)
-            self.m_ownerUI:refresh()
         end
 
         g_lairData:request_lairAdd(doid, sucess_cb)
     end    
 
-    if g_settingData:isSkipAddToLairConfimPopup() == true then
+--[[     if g_settingData:isSkipAddToLairConfimPopup() == true then
         ok_btn_cb()
         return
-    end
+    end ]]
 
     local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
     local submsg = Str('동굴에 등록해도 자유롭게 해제가 가능합니다.')
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 
-    -- 잠금 설정된 드래곤인지 체크
+--[[     -- 잠금 설정된 드래곤인지 체크
     local check_cb = function()
         g_settingData:setSkipAddToLairConfimPopup()
     end
     
-    ui:setCheckBoxCallback(check_cb)
+    ui:setCheckBoxCallback(check_cb) ]]
 end
 
 -------------------------------------
 -- function click_registerBtn
 -------------------------------------
 function UI_DragonLairRegister:click_registerBtn()
+
+
+    local sucess_cb = function (ret)
+    end
+
+    --g_lairData:request_lairAdd(doid, sucess_cb)
+
+
     
 end
 
