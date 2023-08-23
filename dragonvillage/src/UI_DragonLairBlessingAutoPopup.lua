@@ -42,7 +42,7 @@ function UI_DragonLairBlessingAutoPopup:init(type, target_id_list)
     local item_num = g_userData:get('blessing_ticket')
     local auto_num = math_floor(item_num/self.m_ticketnumPerBlessing)
     
-    self.m_autoCount = auto_num * self.m_ticketnumPerBlessing
+    self.m_autoCount = self.m_ticketnumPerBlessing
     self.m_maxAutoCount = auto_num * self.m_ticketnumPerBlessing
 
     self:initUI()
@@ -57,7 +57,12 @@ function UI_DragonLairBlessingAutoPopup:initUI()
     local vars = self.vars
     self:initTableView()
 
+    local price_icon = IconHelper:getPriceIcon('blessing_ticket')
+    vars['priceNode']:removeAllChildren()
+    vars['priceNode']:addChild(price_icon)
+
     vars['quantityLabel']:setString(self.m_autoCount)
+    vars['priceLabel']:setString(self.m_autoCount)
 end
 
 -------------------------------------
@@ -75,10 +80,8 @@ function UI_DragonLairBlessingAutoPopup:initTableView()
     table_view:setCellSizeToNodeSize()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(item_list, true)
-    
     self.m_tableview = table_view
 end
-
 
 -------------------------------------
 -- function initButton
@@ -221,6 +224,7 @@ function UI_DragonLairBlessingAutoPopup:click_adjustBtn(value, is_pressed)
         end
 
         vars['quantityLabel']:setString(self.m_autoCount)
+        vars['priceLabel']:setString(self.m_autoCount)
         return true
     end
 

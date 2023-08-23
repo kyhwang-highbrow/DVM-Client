@@ -3,6 +3,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_DragonLairBlessingPopup = class(PARENT, {
     m_listView = 'UIC_TableView',
     m_blessTargetIdList = 'List<id>',
+    m_isAuto = 'boolean',
 })
 
 --------------------------------------------------------------------------
@@ -12,6 +13,7 @@ function UI_DragonLairBlessingPopup:init()
     local vars = self:load('dragon_lair_blessing.ui')
     UIManager:open(self, UIManager.POPUP)
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DragonLairBlessingPopup') -- backkey 지정
+    self.m_isAuto = false
     
     -- @UI_ACTION
     self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.3)
@@ -35,6 +37,10 @@ function UI_DragonLairBlessingPopup:initUI()
     vars['priceNode']:removeAllChildren()
     vars['priceNode']:addChild(price_icon)
 
+    local goods_icon = IconHelper:getPriceIcon('blessing_ticket')
+    vars['goodsNode']:removeAllChildren()
+    vars['goodsNode']:addChild(goods_icon)
+
     self:initTab()
 end
 
@@ -46,6 +52,7 @@ function UI_DragonLairBlessingPopup:initButton()
     vars['blessBtn']:registerScriptTapHandler(function() self:click_blessBtn() end)
     vars['blessAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    --vars['blockBtn']:registerScriptTapHandler(function() end)
 
     	-- editBox handler 등록
 	local function editBoxTextEventHandle(strEventName, pSender)
@@ -92,8 +99,15 @@ function UI_DragonLairBlessingPopup:refresh()
     end
 
     do -- 가격
-        local price_value = g_userData:get('blessing_ticket')
-        vars['priceLabel']:setString(comma_value(price_value))
+        local _, need_count = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
+        vars['priceLabel']:setString(need_count)
+    end
+
+    do -- 보유 재화
+        local goods_count = g_userData:get('blessing_ticket')
+        if vars['goodsLabel'] ~= nil then
+            vars['goodsLabel']:setString(comma_value(goods_count))
+        end
     end
 end
 
@@ -163,6 +177,10 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
             local is_lock = ui.vars['lockBtn']:isChecked()        
             local req_count = TableLair:getInstance():getLairRequireCount(lair_id)
             local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
+
+            if self.m_isAuto == true then
+                return
+            end
         
             if is_available == false then
                 UIManager:toastNotificationRed(Str('아직 이용할 수 없습니다.'))
@@ -206,7 +224,6 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
     local target_option_list = _target_option_list
     local auto_count = _auto_count
     local curr_count = 0
-    local is_stop_auto = false
     local vars = self.vars
 
     local refresh_target_list = function() 
@@ -236,11 +253,14 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
-
+        self.m_isAuto = true
+        UIManager:blockBackKey(true)
         vars['blessAutoBtn']:setVisible(false)
         vars['blessAutoStopBtn']:setVisible(true)
+        vars['blockMenu']:setVisible(true)
+
         vars['blessAutoStopBtn']:registerScriptTapHandler(function() 
-            is_stop_auto = true
+            self.m_isAuto = false
         end)
 
         vars['ingMenu']:setVisible(true)
@@ -268,7 +288,7 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
                 break
             end
 
-            if is_stop_auto == true then
+            if self.m_isAuto == false then
                 UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
                 break
             end
@@ -290,9 +310,13 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
             co:waitTime(0.5)
         end
 
+        self.m_isAuto = false
         vars['ingMenu']:setVisible(false)
         vars['blessAutoBtn']:setVisible(true)
         vars['blessAutoStopBtn']:setVisible(false)
+        vars['blockMenu']:setVisible(false)
+        UIManager:blockBackKey(false)
+
         co:close()
     end
 
@@ -303,6 +327,12 @@ end
 -- @function click_autoBtn
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:click_autoBtn()
+
+    if self.m_isAuto == true then
+        return
+    end
+
+
     -- 축복 티켓이 없을 경우 예외 처리
     local target_id_list, need_count = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
     if ConfirmPrice('blessing_ticket', need_count) == false then
@@ -326,6 +356,11 @@ end
 -- @function click_blessBtn
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:click_blessBtn()
+
+    if self.m_isAuto == true then
+        return
+    end
+
     -- 축복 티켓이 없을 경우 예외 처리
     local target_id_list, need_count = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
     if ConfirmPrice('blessing_ticket', need_count) == false then
@@ -357,6 +392,12 @@ end
 -- @function click_refreshBtn
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:click_refreshBtn(stat_id)
+
+    if self.m_isAuto == true then
+        return
+    end
+
+
     local struct_lair_stat = g_lairData:getLairStatInfo(stat_id)
     if struct_lair_stat == nil then
         return
@@ -393,6 +434,12 @@ end
 -- @function click_closeBtn
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:click_closeBtn()
+
+    if self.m_isAuto == true then
+        return
+    end
+
+
     self:close()
 end
 
@@ -400,6 +447,12 @@ end
 -- @function click_addTicketBtn
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:click_addTicketBtn()
+
+    if self.m_isAuto == true then
+        return
+    end
+
+
     local vars = self.vars
     vars['memoEditBox']:openKeyboard()
 end

@@ -73,7 +73,7 @@ function UI_DragonLairBlessingPopupItem:refresh()
             end
 
         else
-            str = Str('{@Y}동굴 {1}회 이상 등록 시 오픈{@}', req_count)
+            str = Str('{@Y}드래곤 {1}마리 이상 등록 시 오픈{@}', req_count)
         end
 
         vars['optionLabel']:setString(str)

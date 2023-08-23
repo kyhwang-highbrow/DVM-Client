@@ -173,23 +173,19 @@ end
 -- function getAvailableTicketCount
 -------------------------------------
 function UI_DragonLairRegister:getAvailableTicketCount()
-    local doid_list = {}
     local count = 0
-    local basic_ticket = 3 
-
+    local basic_ticket = 3
     for _, v in pairs(self.m_availableDragonList) do
         if v:getBirthGrade() == 6 then
-            count = count + basic_ticket
             if g_lairData:isRegisterLairDid(v['did']) == false then
-                count = count + v:getDragonSkillLevelUpNum()
+                count = count + basic_ticket + v:getDragonSkillLevelUpNum()
             else
-                count = count + g_lairData:getAdditionalBlessingTicketExpectCount(data)
+                count = count + g_lairData:getAdditionalBlessingTicketExpectCount(v)
             end
         else 
             count = count + basic_ticket
         end
     end
-
     return count
 end
 
@@ -198,7 +194,6 @@ end
 -- @breif 드래곤 리스트 테이블 뷰
 -------------------------------------
 function UI_DragonLairRegister:initTableView()
-
     local list_table_node = self.vars['materialList']
     list_table_node:removeAllChildren()
 
