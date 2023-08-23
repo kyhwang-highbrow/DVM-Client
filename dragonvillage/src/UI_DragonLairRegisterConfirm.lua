@@ -44,7 +44,6 @@ end
 function UI_DragonLairRegisterConfirm:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    vars['okBtn']:registerScriptTapHandler(function() self:click_registerBtn() end)
 end
 
 -------------------------------------
@@ -150,4 +149,3 @@ end
 function UI_DragonLairRegisterConfirm.open(struct_dragon_list)
     return UI_DragonLairRegisterConfirm(struct_dragon_list)
 end
-

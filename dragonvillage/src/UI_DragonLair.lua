@@ -81,8 +81,8 @@ function UI_DragonLair:initButton()
     --vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
 
     if IS_TEST_MODE() == true then
-        --vars['resetBtn']:setVisible(true)        
-        --vars['resetBtn']:registerScriptTapHandler(function() self:click_resethBtn() end)
+        vars['resetBtn']:setVisible(true)        
+        vars['resetBtn']:registerScriptTapHandler(function() self:click_resethBtn() end)
         --vars['autoReloadtBtn']:setVisible(true)        
         --vars['autoReloadtBtn']:registerScriptTapHandler(function() self:click_autoReloadBtn() end)
     end

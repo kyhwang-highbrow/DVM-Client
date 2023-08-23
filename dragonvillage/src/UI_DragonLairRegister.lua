@@ -143,9 +143,9 @@ function UI_DragonLairRegister:initTableView()
 
         local is_meet_condition = TableLairCondition:getInstance():isMeetCondition(data)
         local is_registered = g_lairData:isRegisterLairDid(data['did'])
-        local is_register_available = is_meet_condition == true and is_registered == false
+        local is_register_available = is_meet_condition == true and (is_registered == false)
 
-        ui.root:setColor(is_registered == true and COLOR['white'] or COLOR['deep_gray'])
+        ui.root:setColor((is_registered == true or is_register_available == true) and COLOR['white'] or COLOR['deep_gray'])
         ui:setHighlightSpriteVisible(is_register_available)
 
         --ui.vars['clickBtn']:registerScriptTapHandler(function() self:registerToLair(data['id']) end)
@@ -208,7 +208,8 @@ function UI_DragonLairRegister:click_registerBtn()
             end)
         end
 
-        g_lairData:request_lairAdd(doid, sucess_cb)
+        local str_doids = self:getAvailableDragonDoids()
+        g_lairData:request_lairAdd(str_doids, sucess_cb)
     end    
 
 --[[     if g_settingData:isSkipAddToLairConfimPopup() == true then
@@ -218,8 +219,8 @@ function UI_DragonLairRegister:click_registerBtn()
 
     local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
     local submsg = Str('총 {1}마리의 드래곤이 등록됩니다.', #self.m_availableDragonList)
-    local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
-    ui:setPrice('cash', 500)
+    local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    --ui:setPrice('cash', 500)
 
 --[[     -- 잠금 설정된 드래곤인지 체크
     local check_cb = function()
