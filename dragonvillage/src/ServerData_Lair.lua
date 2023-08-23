@@ -59,7 +59,6 @@ function ServerData_Lair:getLairStats()
     return list
 end
 
-
 -------------------------------------
 -- function getLairSlotCompleteCount
 -------------------------------------
@@ -176,6 +175,30 @@ function ServerData_Lair:isRegisterLairDragonExist(did)
 
     local doid = info['doid']
     return g_dragonsData:getDragonDataFromUid(doid) ~= nil
+end
+
+
+-------------------------------------
+-- function getAdditionalBlessingTicketExpectCount
+-------------------------------------
+function ServerData_Lair:getAdditionalBlessingTicketExpectCount(struct_dragon_object)
+    local info = self.m_lairRegisterMap[struct_dragon_object['did']]
+    
+    if info == nil then
+        return 0
+    end
+
+    if struct_dragon_object['id'] ~= info['doid'] then
+        return 0
+    end
+
+    if struct_dragon_object:getBirthGrade() == 5 then
+        return 0
+    end
+
+    local basic_ticket = 3
+    local expect_ticket_count = basic_ticket + struct_dragon_object:getDragonSkillLevelUpNum()
+    return expect_ticket_count - (info['ticket'])
 end
 
 -------------------------------------

@@ -59,7 +59,7 @@ end
 -------------------------------------
 function UI_DragonLairRegisterConfirm:getAvailableDragonDoids()
     local doid_list = {}
-    for i,v in ipairs(self.m_dragonList) do
+    for i,v in pairs(self.m_dragonList) do
         table.insert(doid_list, v['id'])
     end
     return table.concat(doid_list, ',')
@@ -80,18 +80,6 @@ function UI_DragonLairRegisterConfirm:initTableView()
 
     local function create_func(ui, data)
         ui.root:setScale(0.66)
-        -- 이미 한번 등록된 드래곤이냐?
-        --local is_register_doid = g_lairData:isRegisterLairByDoid(data['did'], data['id'])
-        --ui:setTeamBonusCheckSpriteVisible(is_register_doid)
-
-        local is_meet_condition = TableLairCondition:getInstance():isMeetCondition(data)
-        local is_registered = g_lairData:isRegisterLairDid(data['did'])
-        local is_register_available = is_meet_condition == true and is_registered == false
-
-        ui.root:setColor(is_registered == true and COLOR['white'] or COLOR['deep_gray'])
-        ui:setHighlightSpriteVisible(is_register_available)
-
-        --ui.vars['clickBtn']:registerScriptTapHandler(function() self:registerToLair(data['id']) end)
         return ui
     end
 
@@ -101,11 +89,8 @@ function UI_DragonLairRegisterConfirm:initTableView()
     table_view_td:setCellUIClass(make_func, create_func)
     self.m_dragonTableView = table_view_td
     
-
     local l_item_list = self:getDragonList()
     self.m_dragonTableView:setItemList(l_item_list)
-
-
     self:apply_dragonSort()
 end
 

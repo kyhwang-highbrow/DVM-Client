@@ -136,7 +136,7 @@ function UI_DragonLair:refresh()
     for i, did in ipairs(l_dids) do
         local node_str = string.format('dragonNode%d', i)
         local birth_grade = TableDragon:getBirthGrade(did)
-        local is_register_dragon = g_lairData:isRegisterLairDid(did)
+        local is_register_dragon = g_lairData:isRegisterLairhDid(did)
 
         local t_dragon_data = {}
         t_dragon_data['did'] = did

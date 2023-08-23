@@ -6,6 +6,7 @@ UI_DragonLairRegister = class(PARENT,{
     m_dragonTableView = 'TableVIew',
     m_sortManagerDragon = '',
     m_availableDragonList = 'Lit<>',
+    m_dragonPriorityMap = 'Map<did, combat_power, create_at>',
     })
 
 -------------------------------------
@@ -34,12 +35,13 @@ function UI_DragonLairRegister:initUI()
 
     local func_condition_value = function(struct_dragon_data)
         local val = 0
-
-        if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
-            val = 10
-            if g_lairData:isRegisterLairDid(struct_dragon_data['did']) == true then
-                val = val + 1
-            end
+        local did = struct_dragon_data['did']
+        local doid = struct_dragon_data['id']
+        
+        if self:isExistAvailableMap(did, doid) == true then
+            val = val + 2
+        elseif g_lairData:isRegisterLairDid(did) == true then
+            val = val + 1
         end
 
         return val
@@ -101,14 +103,59 @@ end
 -------------------------------------
 function UI_DragonLairRegister:makeAvailableDragonList()
     local m_dragons = g_dragonsData:getDragonsListRef()
-    local list = {}
+    local did_map = {}
 
-    self.m_availableDragonList = {}
+    self.m_dragonPriorityMap = {}
     for _, struct_dragon_data in pairs(m_dragons) do
         if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
-            table.insert(self.m_availableDragonList, struct_dragon_data)
+            local is_add_ticket_count = g_lairData:getAdditionalBlessingTicketExpectCount(struct_dragon_data) > 0
+            local is_registered = g_lairData:isRegisterLairDid(struct_dragon_data['did'])
+            if is_registered == false or is_add_ticket_count == true then
+                local did = struct_dragon_data['did']
+
+                local t_data = {}
+                t_data['doid'] = struct_dragon_data['id']
+                t_data['power'] = struct_dragon_data:getCombatPower()
+                t_data['created_at'] = struct_dragon_data['created_at']
+
+                if self.m_dragonPriorityMap[did] == nil then                    
+                    self.m_dragonPriorityMap[did] = t_data
+                    
+                else
+                    -- 전투력으 우선순위로 가져옴
+                    local exist_data = self.m_dragonPriorityMap[did]
+                    if exist_data['power'] < t_data['power'] then
+                        self.m_dragonPriorityMap[did] = t_data
+
+                    elseif exist_data['power'] == t_data['power'] then
+                        -- 전투력 다음 획득이 오래된 것을 우선 순위로 가져옴
+                        if exist_data['created_at'] > t_data['created_at'] then
+                            self.m_dragonPriorityMap[did] = t_data
+                        end
+                    end
+                end
+            end
         end
     end
+
+
+    for did, v in pairs(self.m_dragonPriorityMap) do
+        did_map[did] = g_dragonsData:getDragonDataFromUidRef(v['doid'])
+    end
+
+    self.m_availableDragonList = did_map
+end
+
+-------------------------------------
+-- function isExistAvailableMap
+-------------------------------------
+function UI_DragonLairRegister:isExistAvailableMap(did, doid)
+    local info = self.m_dragonPriorityMap[did]
+    if info == nil then
+        return false
+    end
+
+    return info['doid'] == doid
 end
 
 -------------------------------------
@@ -116,10 +163,34 @@ end
 -------------------------------------
 function UI_DragonLairRegister:getAvailableDragonDoids()
     local doid_list = {}
-    for i,v in ipairs(self.m_availableDragonList) do
+    for i,v in pairs(self.m_availableDragonList) do
         table.insert(doid_list, v['id'])
     end
     return table.concat(doid_list, ',')
+end
+
+-------------------------------------
+-- function getAvailableTicketCount
+-------------------------------------
+function UI_DragonLairRegister:getAvailableTicketCount()
+    local doid_list = {}
+    local count = 0
+    local basic_ticket = 3 
+
+    for _, v in pairs(self.m_availableDragonList) do
+        if v:getBirthGrade() == 6 then
+            count = count + basic_ticket
+            if g_lairData:isRegisterLairDid(v['did']) == false then
+                count = count + v:getDragonSkillLevelUpNum()
+            else
+                count = count + g_lairData:getAdditionalBlessingTicketExpectCount(data)
+            end
+        else 
+            count = count + basic_ticket
+        end
+    end
+
+    return count
 end
 
 -------------------------------------
@@ -137,18 +208,13 @@ function UI_DragonLairRegister:initTableView()
 
     local function create_func(ui, data)
         ui.root:setScale(0.66)
-        -- 이미 한번 등록된 드래곤이냐?
-        --local is_register_doid = g_lairData:isRegisterLairByDoid(data['did'], data['id'])
-        --ui:setTeamBonusCheckSpriteVisible(is_register_doid)
 
-        local is_meet_condition = TableLairCondition:getInstance():isMeetCondition(data)
         local is_registered = g_lairData:isRegisterLairDid(data['did'])
-        local is_register_available = is_meet_condition == true and (is_registered == false)
+        local is_register_available = self:isExistAvailableMap(data['did'], data['id'])
 
         ui.root:setColor((is_registered == true or is_register_available == true) and COLOR['white'] or COLOR['deep_gray'])
         ui:setHighlightSpriteVisible(is_register_available)
 
-        --ui.vars['clickBtn']:registerScriptTapHandler(function() self:registerToLair(data['id']) end)
         return ui
     end
 
@@ -161,8 +227,7 @@ function UI_DragonLairRegister:initTableView()
 
     local l_item_list = self:getDragonList()
     self.m_dragonTableView:setItemList(l_item_list)
-
-
+    
     self:apply_dragonSort()
 end
 
@@ -185,7 +250,7 @@ end
 -------------------------------------
 function UI_DragonLairRegister:refresh()
     local vars = self.vars
-    local count = #self.m_availableDragonList
+    local count = table.count(self.m_availableDragonList)
     local dragons_cnt = g_dragonsData:getDragonsCnt()
     vars['dragonCountLabel']:setString(Str('등록 가능한 드래곤 {1}/{2}', count, dragons_cnt))
 end
@@ -194,7 +259,8 @@ end
 -- function click_registerBtn
 -------------------------------------
 function UI_DragonLairRegister:click_registerBtn()
-    if #self.m_availableDragonList == 0 then
+    local dragon_count = table.count(self.m_availableDragonList)
+    if dragon_count == 0 then
         UIManager:toastNotificationRed(Str('등록 가능한 드래곤이 없습니다.'))
         return
     end
@@ -203,6 +269,7 @@ function UI_DragonLairRegister:click_registerBtn()
         local sucess_cb = function (ret)
             local ui = UI_DragonLairRegisterConfirm.open(self.m_availableDragonList)
             ui:setCloseCB(function()
+                self:makeAvailableDragonList()
                 self:initTableView()
                 self:refresh()
             end)
@@ -218,7 +285,9 @@ function UI_DragonLairRegister:click_registerBtn()
     end ]]
 
     local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
-    local submsg = Str('총 {1}마리의 드래곤이 등록됩니다.', #self.m_availableDragonList)
+    local submsg = Str('총 {1}마리의 드래곤이 등록됩니다.\n\n획득 축복 티켓 {2}개', 
+                                    dragon_count, self:getAvailableTicketCount())
+
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
     --ui:setPrice('cash', 500)
 
@@ -243,4 +312,3 @@ end
 function UI_DragonLairRegister.open()
     return UI_DragonLairRegister()
 end
-
