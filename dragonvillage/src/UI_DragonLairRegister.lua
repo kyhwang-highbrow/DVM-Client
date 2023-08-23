@@ -12,15 +12,14 @@ UI_DragonLairRegister = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_DragonLairRegister:init(owner_ui)
-    self.m_uiName = 'UI_DragonLairRegister'
-    self.m_availableDragonList = {}
-    
-    local vars = self:load('dragon_lair_register.ui')
+    self.m_uiName = 'UI_DragonLairRegister'    
+    self:load('dragon_lair_register.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_backKey() end, 'UI_SimplePopup2')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DragonLairRegister')
 
+    self:makeAvailableDragonList()
     self:initUI()
     self:initButton()
     self:initTableView()
@@ -187,16 +186,26 @@ end
 function UI_DragonLairRegister:refresh()
     local vars = self.vars
     local count = #self.m_availableDragonList
-    vars['dragonCountLabel']:setString(Str('등록 가능한 드래곤 수 : {1}마리', count))
+    local dragons_cnt = g_dragonsData:getDragonsCnt()
+    vars['dragonCountLabel']:setString(Str('등록 가능한 드래곤 {1}/{2}', count, dragons_cnt))
 end
 
 -------------------------------------
--- function registerToLair
--- @brief 드래곤 둥지 추가
+-- function click_registerBtn
 -------------------------------------
-function UI_DragonLairRegister:registerToLair(doids)
+function UI_DragonLairRegister:click_registerBtn()
+    if #self.m_availableDragonList == 0 then
+        UIManager:toastNotificationRed(Str('등록 가능한 드래곤이 없습니다.'))
+        return
+    end
+
     local ok_btn_cb = function ()
         local sucess_cb = function (ret)
+            local ui = UI_DragonLairRegisterConfirm.open(self.m_availableDragonList)
+            ui:setCloseCB(function()
+                self:initTableView()
+                self:refresh()
+            end)
         end
 
         g_lairData:request_lairAdd(doid, sucess_cb)
@@ -208,8 +217,9 @@ function UI_DragonLairRegister:registerToLair(doids)
     end ]]
 
     local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
-    local submsg = Str('동굴에 등록해도 자유롭게 해제가 가능합니다.')
-    local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    local submsg = Str('총 {1}마리의 드래곤이 등록됩니다.', #self.m_availableDragonList)
+    local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+    ui:setPrice('cash', 500)
 
 --[[     -- 잠금 설정된 드래곤인지 체크
     local check_cb = function()
@@ -217,21 +227,6 @@ function UI_DragonLairRegister:registerToLair(doids)
     end
     
     ui:setCheckBoxCallback(check_cb) ]]
-end
-
--------------------------------------
--- function click_registerBtn
--------------------------------------
-function UI_DragonLairRegister:click_registerBtn()
-
-
-    local sucess_cb = function (ret)
-    end
-
-    --g_lairData:request_lairAdd(doid, sucess_cb)
-
-
-    
 end
 
 -------------------------------------
