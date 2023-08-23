@@ -134,9 +134,10 @@ function ServerData_Lair:getLairStatOptionValueSum(type, option_type)
     local sum = 0
 
     for _, stat_id in ipairs(id_list) do
-        local struct_lair_stat = self:getLairStatInfo(stat_id)
-        if struct_lair_stat:getStatId() > 0 and struct_lair_stat:getStatOptionKey() == option_type then
-            sum = sum + struct_lair_stat:getStatOptionValue()
+        local opt_type = TableLairStatus:getInstance():getLairStatOptionKey(stat_id)
+        local opt_val = TableLairStatus:getInstance():getLairStatOptionValue(stat_id)
+        if opt_type == option_type then
+            sum = sum + opt_val
         end
     end
 

@@ -31,12 +31,26 @@ end
 function UI_DragonLairRegister:initUI()
     local vars = self.vars
 
-    local sort_lair_register_available = function (a, b, ascending)
+    local func_condition_value = function(struct_dragon_data)
+        local val = 0
+
+        if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
+            val = 10
+            if g_lairData:isRegisterLairDid(struct_dragon_data['did']) == true then
+                val = val + 1
+            end
+        end
+
+        return val
+    end
+
+
+    local sort_lair_register = function (a, b, ascending)
         local a_data = a['data'] and a['data'] or a
         local b_data = b['data'] and b['data'] or b
-    
-        local a_value = (g_lairData:isRegisterLairDid(a_data['did']) == false) and 1 or 0
-        local b_value = (g_lairData:isRegisterLairDid(b_data['did']) == false) and 1 or 0
+
+        local a_value = func_condition_value(a_data)
+        local b_value = func_condition_value(b_data)
     
         -- 같을 경우 리턴
         if (a_value == b_value) then
@@ -49,8 +63,11 @@ function UI_DragonLairRegister:initUI()
         end
     end
 
-    self.m_sortManagerDragon = SortManager_Dragon()
-    self.m_sortManagerDragon:addPreSortType('sort_lair_register_available', false, sort_lair_register_available)
+    local sort_mgr = SortManager_Dragon()
+    sort_mgr:addPreSortType('sort_lair_register', false, sort_lair_register)
+    sort_mgr:pushSortOrder('grade')
+    self.m_sortManagerDragon = sort_mgr
+    --self.m_sortManagerDragon:addPreSortType('sort_lair_register_available', false, sort_lair_register_available)
 end
 
 -------------------------------------
@@ -75,7 +92,23 @@ function UI_DragonLairRegister:getDragonList()
         end
     end
 
-    return result_dragon_map
+    return g_dragonsData:getDragonsListRef()
+end
+
+-------------------------------------
+-- function getAvailableDragonCount
+
+-------------------------------------
+function UI_DragonLairRegister:getAvailableDragonCount()
+    local count = 0
+    local m_dragons = g_dragonsData:getDragonsListRef()
+
+    for _, struct_dragon_data in pairs(m_dragons) do
+        if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
+            count = count + 1
+        end
+    end
+    return count
 end
 
 -------------------------------------
@@ -94,9 +127,17 @@ function UI_DragonLairRegister:initTableView()
     local function create_func(ui, data)
         ui.root:setScale(0.66)
         -- 이미 한번 등록된 드래곤이냐?
-        local is_register_doid = g_lairData:isRegisterLairByDoid(data['did'], data['id'])
-        ui:setTeamBonusCheckSpriteVisible(is_register_doid)
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:registerToLair(data['id']) end)
+        --local is_register_doid = g_lairData:isRegisterLairByDoid(data['did'], data['id'])
+        --ui:setTeamBonusCheckSpriteVisible(is_register_doid)
+
+        local is_meet_condition = TableLairCondition:getInstance():isMeetCondition(data)
+        local is_registered = g_lairData:isRegisterLairDid(data['did'])
+        local is_register_available = is_meet_condition == true and is_registered == false
+
+        ui.root:setColor(is_registered == true and COLOR['white'] or COLOR['deep_gray'])
+        ui:setHighlightSpriteVisible(is_register_available)
+
+        --ui.vars['clickBtn']:registerScriptTapHandler(function() self:registerToLair(data['id']) end)
         return ui
     end
 
@@ -132,7 +173,9 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonLairRegister:refresh()
-
+    local vars = self.vars
+    local count = self:getAvailableDragonCount()
+    vars['dragonCountLabel']:setString(Str('등록 가능한 드래곤 수 : {1}마리', count))
 end
 
 -------------------------------------
