@@ -55,7 +55,7 @@ end
 function UI_DragonLair:initTab()
     local vars = self.vars
 
-    local add_tab = UI_DragonLairRegisterTab(self)
+    local add_tab = UI_DragonLairRegister(self)
     local remove_tab = UI_DragonLairUnregisterTab(self)
 
     vars['indivisualTabMenu']:addChild(add_tab.root)
@@ -76,6 +76,7 @@ function UI_DragonLair:initButton()
 
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
     vars['blessBtn']:registerScriptTapHandler(function() self:click_blessBtn() end)
+    vars['registerBtn']:registerScriptTapHandler(function() self:click_registerBtn() end)
 
     --vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
 
@@ -168,6 +169,16 @@ function UI_DragonLair:click_blessBtn()
     local ui = UI_DragonLairBlessingPopup.open()
 
     ui:setCloseCB(function () 
+        self:refresh()
+    end)
+end
+
+-------------------------------------
+-- function click_registerBtn
+-------------------------------------
+function UI_DragonLair:click_registerBtn()
+    local ui = UI_DragonLairRegister.open()
+    ui:setCloseCB(function ()
         self:refresh()
     end)
 end

@@ -1,8 +1,8 @@
-local PARENT = UI_IndivisualTab
+local PARENT = UI
 -------------------------------------
--- class UI_DragonLairRegisterTab
+-- class UI_DragonLairRegister
 -------------------------------------
-UI_DragonLairRegisterTab = class(PARENT,{
+UI_DragonLairRegister = class(PARENT,{
     m_dragonTableView = 'TableVIew',
     m_sortManagerDragon = '',
     })
@@ -10,15 +10,25 @@ UI_DragonLairRegisterTab = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonLairRegisterTab:init(owner_ui)
+function UI_DragonLairRegister:init(owner_ui)
+    self.m_uiName = 'UI_DragonLairRegister'
+    
     local vars = self:load('dragon_lair_register.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_backKey() end, 'UI_SimplePopup2')
+
     self:initUI()
+    self:initButton()
+    self:initTableView()
+    self:refresh()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DragonLairRegisterTab:initUI()
+function UI_DragonLairRegister:initUI()
     local vars = self.vars
 
     local sort_lair_register_available = function (a, b, ascending)
@@ -44,10 +54,19 @@ function UI_DragonLairRegisterTab:initUI()
 end
 
 -------------------------------------
+-- function initButton
+-------------------------------------
+function UI_DragonLairRegister:initButton()
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    vars['okBtn']:registerScriptTapHandler(function() self:click_registerBtn() end)
+end
+
+-------------------------------------
 -- function getDragonList
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -------------------------------------
-function UI_DragonLairRegisterTab:getDragonList()
+function UI_DragonLairRegister:getDragonList()
     local result_dragon_map = {}
     local m_dragons = g_dragonsData:getDragonsListRef()
     for doid, struct_dragon_data in pairs(m_dragons) do
@@ -63,7 +82,7 @@ end
 -- function initTableView
 -- @breif 드래곤 리스트 테이블 뷰
 -------------------------------------
-function UI_DragonLairRegisterTab:initTableView()
+function UI_DragonLairRegister:initTableView()
 
     local list_table_node = self.vars['materialList']
     list_table_node:removeAllChildren()
@@ -83,7 +102,7 @@ function UI_DragonLairRegisterTab:initTableView()
 
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = cc.size(100, 100)
-    table_view_td.m_nItemPerCell = 5
+    table_view_td.m_nItemPerCell = 9
     table_view_td:setCellUIClass(make_func, create_func)
     self.m_dragonTableView = table_view_td
     
@@ -99,7 +118,7 @@ end
 -- function apply_dragonSort
 -- @brief 테이블 뷰에 정렬 적용
 -------------------------------------
-function UI_DragonLairRegisterTab:apply_dragonSort()
+function UI_DragonLairRegister:apply_dragonSort()
     if self.m_dragonTableView == nil then
         return
     end
@@ -110,24 +129,17 @@ function UI_DragonLairRegisterTab:apply_dragonSort()
 end
 
 -------------------------------------
--- function onEnterTab
+-- function refresh
 -------------------------------------
-function UI_DragonLairRegisterTab:onEnterTab(first)
-    self:initTableView()
-    
-end
+function UI_DragonLairRegister:refresh()
 
--------------------------------------
--- function onExitTab
--------------------------------------
-function UI_DragonLairRegisterTab:onExitTab()
 end
 
 -------------------------------------
 -- function registerToLair
 -- @brief 드래곤 둥지 추가
 -------------------------------------
-function UI_DragonLairRegisterTab:registerToLair(doid, b_force)
+function UI_DragonLairRegister:registerToLair(doid, b_force)
     local ok_btn_cb = function ()
         local sucess_cb = function (ret)
             self.m_dragonTableView:delItem(doid)
@@ -153,3 +165,25 @@ function UI_DragonLairRegisterTab:registerToLair(doid, b_force)
     
     ui:setCheckBoxCallback(check_cb)
 end
+
+-------------------------------------
+-- function click_registerBtn
+-------------------------------------
+function UI_DragonLairRegister:click_registerBtn()
+    
+end
+
+-------------------------------------
+-- function click_backKey
+-------------------------------------
+function UI_DragonLairRegister:click_closeBtn()
+    self:close()
+end
+
+-------------------------------------
+-- function open
+-------------------------------------
+function UI_DragonLairRegister.open()
+    return UI_DragonLairRegister()
+end
+
