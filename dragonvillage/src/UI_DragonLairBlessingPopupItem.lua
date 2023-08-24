@@ -46,6 +46,22 @@ function UI_DragonLairBlessingPopupItem:initButton()
 end
 
 -------------------------------------
+-- function showLabelEffect
+-------------------------------------
+function UI_DragonLairBlessingPopupItem:showLabelEffect()
+    local vars = self.vars
+    local find_node = vars['optionLabel']
+    cca.stampShakeActionLabel(find_node, 1.1, 0.1, 0, 0)
+
+    vars['effectVisual']:setVisible(true)
+    vars['effectVisual']:changeAni('grind_2')
+    vars['effectVisual']:addAniHandler(function()
+        vars['effectVisual']:setVisible(false)
+    end)
+    --cca.reserveFunc(find_node, 0.1, onFinish)
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function UI_DragonLairBlessingPopupItem:refresh()
@@ -63,6 +79,11 @@ function UI_DragonLairBlessingPopupItem:refresh()
     local stat_id = struct_lair_stat:getStatId()
     local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
 
+    local option_key = stat_id == 0 and 'none' or TableLairBuffStatus:getInstance():getLairStatOptionKey(stat_id)
+    local level = TableLairBuffStatus:getInstance():getLairStatLevel(stat_id) or 0
+    local max_level = TableLairBuffStatus:getInstance():getLairStatMaxLevelByOptionKey(option_key) or 0
+    local is_max_level = max_level == level
+
     do  -- 잠금 처리
         local str 
         if is_available == true then
@@ -70,8 +91,10 @@ function UI_DragonLairBlessingPopupItem:refresh()
                 str = Str('축복 효과 없음')
             else
                 str = TableLairBuffStatus:getInstance():getLairStatStrByIds({stat_id})
+                if is_max_level == true then
+                    str = string.format('{@green}%s [MAX]{@}', str)
+                end
             end
-
         else
             str = Str('{@Y}드래곤 {1}마리 이상 등록 시 오픈{@}', req_count)
         end
@@ -86,9 +109,6 @@ function UI_DragonLairBlessingPopupItem:refresh()
     end
 
     do
-        local option_key = TableLairBuffStatus:getInstance():getLairStatOptionKey(stat_id)
-        local level = TableLairBuffStatus:getInstance():getLairStatLevel(stat_id) or 0
-        
         for i = 1,5 do
             local node_str = string.format('progress%d', i)
             if level ~= nil and i <= level then
@@ -97,12 +117,11 @@ function UI_DragonLairBlessingPopupItem:refresh()
                 vars[node_str]:setPercentage(0)
             end
         end
-
         
         vars['perLabel']:setVisible(false)
-        if option_key ~= nil then
-            local max_level = TableLairBuffStatus:getInstance():getLairStatMaxLevelByOptionKey(option_key) or 0
-            vars['perLabel']:setStringArg(math_floor((level/max_level)*100))
+        if is_available == true then
+            local str = string.format('(%d/%d)', level, max_level)
+            vars['perLabel']:setString(str)
             vars['perLabel']:setVisible(true)
         end
     end

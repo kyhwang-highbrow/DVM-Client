@@ -123,11 +123,27 @@ end
 --------------------------------------------------------------------------
 -- @function refreshTableView
 --------------------------------------------------------------------------
-function UI_DragonLairBlessingPopup:refreshTableView()
+function UI_DragonLairBlessingPopup:refreshTableView(lair_id_list)
     local vars = self.vars
+    ccdump(lair_id_list)
+
+    local func_find = function(val)
+        for i,v in ipairs(lair_id_list) do
+            if v == val then
+                return true
+            end
+        end
+
+        return false
+    end
+
     for i,v in pairs(self.m_listView.m_itemList) do
         local ui = v['ui']
         ui:refresh()
+
+        if func_find(v['data']) == true then
+            ui:showLabelEffect()
+        end
     end
 end
 
@@ -309,7 +325,7 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
             co:work()            
             local str_ids = table.concat(target_id_list, ',')
             g_lairData:request_lairStatPick(str_ids, function(ret)
-                self:refreshTableView()
+                self:refreshTableView(target_id_list)
                 self:refresh()
                 curr_count = curr_count + (#target_id_list)
                 co.NEXT()
@@ -374,7 +390,7 @@ function UI_DragonLairBlessingPopup:click_blessBtn()
 
     local ok_btn_cb = function()
         local success_cb = function(ret)
-            self:refreshTableView()
+            self:refreshTableView(target_id_list)
             self:refresh()
         end
     
