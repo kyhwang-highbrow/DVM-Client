@@ -131,6 +131,9 @@ end
 function ServerData_Lair:getLairStatOptionValueSum(type, option_type)
     local id_list = self:getLairStatIdList(type)
     local sum = 0
+    local bonus_check_map = {}
+    local bonus_sum = 0
+
 
     for _, stat_id in ipairs(id_list) do
         local opt_type = TableLairBuffStatus:getInstance():getLairStatOptionKey(stat_id)
@@ -138,9 +141,22 @@ function ServerData_Lair:getLairStatOptionValueSum(type, option_type)
         if opt_type == option_type then
             sum = sum + opt_val
         end
+
+        if bonus_check_map[opt_val] == nil then
+            bonus_check_map[opt_val] = 1
+        else
+            bonus_check_map[opt_val] = bonus_check_map[opt_val] + 1
+        end
     end
 
-    return sum
+    local bonus_count = 3
+    for val, count in pairs(bonus_check_map) do
+        if count >= bonus_count then
+            bonus_sum = bonus_sum + (val * (count - bonus_count + 1))
+        end
+    end
+
+    return sum + bonus_sum, bonus_sum
 end
 
 -------------------------------------
