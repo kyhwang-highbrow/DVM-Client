@@ -106,10 +106,17 @@ function UI_DragonLair:refresh()
             local option_value_sum = g_lairData:getLairStatOptionValueSum(type ,option_key)
 
             local label_str = string.format('%dTypeLabel%d', type, idx)
-            vars[label_str]:setString(option_name)
+            vars[label_str]:setVisible(false)
+            --vars[label_str]:setString(option_name)
 
             local progress_label_str =  string.format('%dTypeProgressLabel%d', type, idx)
-            vars[progress_label_str]:setString(comma_value(option_value_sum))
+            local desc = table_option:getOptionDesc(option_key, option_value_sum)
+
+            if option_value_sum == 0 then
+                vars[progress_label_str]:setString(option_name .. ' ' .. Str('없음'))
+            else
+                vars[progress_label_str]:setString(desc)
+            end
 
             local progress_bar_str =  string.format('%dTypeProgress%d', type, idx)
             vars[progress_bar_str]:setPercentage(0)

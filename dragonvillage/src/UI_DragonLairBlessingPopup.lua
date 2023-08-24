@@ -80,19 +80,30 @@ function UI_DragonLairBlessingPopup:refresh()
     local vars = self.vars
 
     do -- 타입별 모든 능력치 
-        local stat_id_list, stat_count = g_lairData:getLairStatIdList(self.m_currTab)
+        local table_option = TableOption()
+        
+        local type = self.m_currTab
+        local option_key_list = TableLairBuffStatus:getInstance():getLairRepresentOptionKeyListByType(type)
 
-        if stat_count == 0 then
-            vars['infoLabel']:setString(Str('축복 효과 없음'))
-        else
-            local attr_str = TableLairBuffStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
-            local bonus_str = TableLairBuffStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
+        for idx, option_key in ipairs(option_key_list) do
+            local option_name = table_option:getOptionName(option_key)
+            local label_str = string.format('TypeLabel%d', idx)
+            vars[label_str]:setVisible(false)
+            --local attr_str = TableLairBuffStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
 
-            if bonus_str == '' then
-                vars['infoLabel']:setString(attr_str)
+            local option_value_sum = g_lairData:getLairStatOptionValueSum(type ,option_key)
+            local progress_label_str = string.format('TypeProgressLabel%d', idx)
+
+            local desc = table_option:getOptionDesc(option_key, option_value_sum)
+            
+            if option_value_sum == 0 then
+                vars[progress_label_str]:setString(option_name .. ' ' .. Str('없음'))
             else
-                vars['infoLabel']:setString(string.format('%s ({@GREEN}+ %s{@})',attr_str, bonus_str))
+                vars[progress_label_str]:setString(desc)
             end
+
+            local progress_bar_str =  string.format('TypeProgress%d', idx)
+            vars[progress_bar_str]:setPercentage(0)
         end
     end
 

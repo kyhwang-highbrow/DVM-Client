@@ -166,12 +166,13 @@ end
 -------------------------------------
 function TableOption:getOptionName(option)
     local str = self:getValue(option, 't_name')
+    return Str(str)
 
-    if self:getValue(option, 't_desc') ~= nil then
+--[[     if self:getValue(option, 't_desc') ~= nil then
         return Str(str) .. '(%)'
     else
         return Str(str)
-    end
+    end ]]
 end
 
 -------------------------------------

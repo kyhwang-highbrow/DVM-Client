@@ -53,6 +53,7 @@ function UI_DragonLairBlessingPopupItem:refresh()
     local vars = self.vars
     local is_exist = self.m_isExist
 
+    vars['perLabel']:setVisible(false)
     if is_exist == false then
         vars['optionLabel']:setString(Str('{@deep_gray}추후 업데이트 예정{@}'))
         return
@@ -86,7 +87,9 @@ function UI_DragonLairBlessingPopupItem:refresh()
     end
 
     do
-        local level = TableLairBuffStatus:getInstance():getLairStatLevel(stat_id)
+        local option_key = TableLairBuffStatus:getInstance():getLairStatOptionKey(stat_id)
+        local level = TableLairBuffStatus:getInstance():getLairStatLevel(stat_id) or 0
+        
         for i = 1,5 do
             local node_str = string.format('progress%d', i)
             if level ~= nil and i <= level then
@@ -94,6 +97,14 @@ function UI_DragonLairBlessingPopupItem:refresh()
             else
                 vars[node_str]:setPercentage(0)
             end
+        end
+
+        
+        vars['perLabel']:setVisible(false)
+        if option_key ~= nil then
+            local max_level = TableLairBuffStatus:getInstance():getLairStatMaxLevelByOptionKey(option_key) or 0
+            vars['perLabel']:setStringArg(math_floor((level/max_level)*100))
+            vars['perLabel']:setVisible(true)
         end
     end
 
