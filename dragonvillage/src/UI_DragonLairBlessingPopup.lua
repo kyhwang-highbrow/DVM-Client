@@ -99,7 +99,7 @@ function UI_DragonLairBlessingPopup:refresh()
             if option_value_sum == 0 then
                 vars[progress_label_str]:setString(option_name .. ' ' .. Str('없음'))
             else
-                vars[progress_label_str]:setString(desc)
+                vars[progress_label_str]:setString(string.format('{@ORANGE}%s{@}',desc))
             end
 
             local progress_bar_str =  string.format('TypeProgress%d', idx)
