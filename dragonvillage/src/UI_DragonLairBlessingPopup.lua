@@ -423,7 +423,7 @@ function UI_DragonLairBlessingPopup:click_refreshBtn(stat_id)
     local msg = Str('{1}개의 다이아를 사용하여 축복 효과를 초기화하시겠습니까?', 500)
     local submsg = Str('초기화를 할 경우 {1}개의 축복 티켓을 돌려받습니다.', struct_lair_stat:getStatPickCount())
     local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
-    ui:setPrice('cash', 500)
+    ui:setPrice('cash', 3000)
 end
 
 --------------------------------------------------------------------------
