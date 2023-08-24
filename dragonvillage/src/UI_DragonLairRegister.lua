@@ -279,7 +279,7 @@ function UI_DragonLairRegister:click_registerBtn()
         return
     end ]]
 
-    local msg = Str('드래곤을 동굴에 등록하시겠습니까?')
+    local msg = Str('드래곤들을 등록하시겠습니까?')
     local submsg = Str('총 {1}마리의 드래곤이 등록됩니다.\n\n획득 축복 티켓 {2}개', 
                                     dragon_count, self:getAvailableTicketCount())
 
