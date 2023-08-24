@@ -86,6 +86,18 @@ function UI_DragonLairBlessingPopupItem:refresh()
     end
 
     do
+        local level = TableLairBuffStatus:getInstance():getLairStatLevel(stat_id)
+        for i = 1,5 do
+            local node_str = string.format('progress%d', i)
+            if level ~= nil and i <= level then
+                vars[node_str]:setPercentage(100)
+            else
+                vars[node_str]:setPercentage(0)
+            end
+        end
+    end
+
+    do
         local is_lock = struct_lair_stat:isStatLock()
         vars['lockBtn']:setChecked(is_lock)
     end

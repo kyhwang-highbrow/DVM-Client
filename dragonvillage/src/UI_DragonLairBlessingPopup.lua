@@ -208,6 +208,8 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
     table_view:setCellSizeToNodeSize()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(item_list, true)
+    table_view.m_scrollView:setTouchEnabled(false)
+    
     
     self.m_listView = table_view
 end
