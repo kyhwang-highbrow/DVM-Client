@@ -42,7 +42,7 @@ function ServerData_Lair:getLairStats()
     local list = {}
 
     -- 삼뉴체크
-    if CppFunctions:isWin32() ~= true then
+    if IS_TEST_MODE() ~= true then
         return list
     end
 
@@ -346,7 +346,7 @@ function ServerData_Lair:request_lairInfo(finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     -- 삼뉴체크
-    if CppFunctions:isWin32() ~= true then
+    if IS_TEST_MODE() ~= true then
         if finish_cb then
             finish_cb()
         end

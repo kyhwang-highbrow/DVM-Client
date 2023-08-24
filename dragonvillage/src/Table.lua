@@ -138,10 +138,9 @@ local TableInfo = {
         -- 룬 필터 
         table_rune_filter_point = {'table_rune_filter_point', 'enhance_id', false},
 
-        -- 라테아
+        -- 축복
         table_lair_buff = {'table_lair_buff', 'id', false},
-        table_lair_buff_status = {'table_lair_buff_status', 'lid', false}, -- 라테아 스탯
-        table_lair_condition = {'table_lair_condition', 'birthgrade', false}, -- 라테아 등록 조건 테이블
+        table_lair_condition = {'table_lair_condition', 'birthgrade', false},
     }
 
 -------------------------------------
@@ -257,6 +256,9 @@ local TableInfo_fromServer = {
 
         ['table_indiv_pass'] = {'table_indiv_pass', 'id'}, -- 개인 패스
         ['table_indiv_pass_reward'] = {'table_indiv_pass_reward', 'id'}, -- 개인 패스
+
+        -- 축복
+        ['table_lair_buff_status'] = {'table_lair_buff_status', 'lid', false},
     }
 
 -------------------------------------

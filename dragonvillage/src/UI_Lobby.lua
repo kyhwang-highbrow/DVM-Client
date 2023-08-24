@@ -847,7 +847,7 @@ function UI_Lobby:initButton()
     vars['lairBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 드래곤
 
     -- 삼뉴체크
-    if CppFunctions:isWin32() ~= true then
+    if IS_TEST_MODE() ~= true then
         vars['lairBtn']:setVisible(false)
     end
     
@@ -1587,7 +1587,7 @@ end
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
     -- 삼뉴체크
-    if CppFunctions:isWin32() ~= true then
+    if IS_TEST_MODE() ~= true then
         return
     end
 
@@ -2621,7 +2621,7 @@ function UI_Lobby:update_bottomLeftButtons()
     local l_content = {'lair', 'tamer', 'runeForge', 'dragonManage'}
 
     -- 삼뉴체크
-    if CppFunctions:isWin32() ~= true then
+    if IS_TEST_MODE() ~= true then
         l_content = {'forest', 'tamer', 'runeForge', 'dragonManage'}
     end
 
@@ -2678,7 +2678,7 @@ function UI_Lobby:update_bottomRightButtons()
     local l_content = {'forest', 'clan','shop', 'draw', 'etc'}
 
     -- 삼뉴체크
-    if CppFunctions:isWin32() ~= true then
+    if IS_TEST_MODE() ~= true then
         l_content = {'clan','shop', 'draw', 'etc'}
     end
 
