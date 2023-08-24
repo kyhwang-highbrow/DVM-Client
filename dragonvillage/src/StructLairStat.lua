@@ -51,7 +51,7 @@ function StructLairStat:getStatOptionKey()
         return 'none'
     end
 
-    return  TableLairStatus:getInstance():getLairStatOptionKey(self.opt)
+    return  TableLairBuffStatus:getInstance():getLairStatOptionKey(self.opt)
 end
 
 -------------------------------------
@@ -62,7 +62,7 @@ function StructLairStat:getStatOptionValue()
         return 0
     end
 
-    return  TableLairStatus:getInstance():getLairStatOptionValue(self.opt)
+    return  TableLairBuffStatus:getInstance():getLairStatOptionValue(self.opt)
 end
 
 -------------------------------------

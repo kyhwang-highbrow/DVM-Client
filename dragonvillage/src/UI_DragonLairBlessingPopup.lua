@@ -85,8 +85,8 @@ function UI_DragonLairBlessingPopup:refresh()
         if stat_count == 0 then
             vars['infoLabel']:setString(Str('축복 효과 없음'))
         else
-            local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
-            local bonus_str = TableLairStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
+            local attr_str = TableLairBuffStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
+            local bonus_str = TableLairBuffStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
 
             if bonus_str == '' then
                 vars['infoLabel']:setString(attr_str)

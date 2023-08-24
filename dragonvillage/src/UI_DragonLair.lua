@@ -98,7 +98,7 @@ function UI_DragonLair:refresh()
     local table_option = TableOption()
     
     for type = 1, 5 do
-        local option_key_list = TableLairStatus:getInstance():getLairRepresentOptionKeyListByType(type)
+        local option_key_list = TableLairBuffStatus:getInstance():getLairRepresentOptionKeyListByType(type)
         --local g_lair:getLairStatIdList(type)
 
         for idx, option_key in ipairs(option_key_list) do
@@ -120,8 +120,8 @@ function UI_DragonLair:refresh()
 --[[         if stat_count == 0 then
             vars[label_str]:setString(Str('축복 효과 없음'))
         else
-            local attr_str = TableLairStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
-            local bonus_str = TableLairStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
+            local attr_str = TableLairBuffStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
+            local bonus_str = TableLairBuffStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
 
             if bonus_str == '' then
                 vars[label_str]:setString(attr_str)

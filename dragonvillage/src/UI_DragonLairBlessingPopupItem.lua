@@ -69,7 +69,7 @@ function UI_DragonLairBlessingPopupItem:refresh()
             if stat_id == 0 then
                 str = Str('축복 효과 없음')
             else
-                str = TableLairStatus:getInstance():getLairStatStrByIds({stat_id})
+                str = TableLairBuffStatus:getInstance():getLairStatStrByIds({stat_id})
             end
 
         else

@@ -456,14 +456,15 @@ end
 
 
 -------------------------------------
--- function getDragonSkillLeveSum
+-- function getDragonSkillLevelSum
 ---@return number
 -------------------------------------
-function StructDragonObject:getDragonSkillLeveSum()
+function StructDragonObject:getDragonSkillLevelSum()
     local result = 0
     for i = 0, 2 do
-        if (self['skill_' .. i] > 0) then
-            result = result + self['skill_' .. i]
+        local skill_lv = self['skill_' .. i]
+        if (skill_lv and skill_lv > 0) then
+            result = result + skill_lv
         end
     end
 

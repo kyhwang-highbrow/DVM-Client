@@ -67,7 +67,7 @@ function UI_DragonLairBlessingAutoPopup:initTableView()
     local vars = self.vars
     local node = vars['optionNode']
     local type_id = self.m_lairType
-    local item_list = TableLairStatus:getInstance():getLairRepresentOptionKeyListByType(type_id)
+    local item_list = TableLairBuffStatus:getInstance():getLairRepresentOptionKeyListByType(type_id)
 
     local table_view = UIC_TableView(node)
     table_view:setCellUIClass(UI_DragonLairBlessingAutoPopupItem)
@@ -126,7 +126,7 @@ function UI_DragonLairBlessingAutoPopup:getTargetOptionList()
             local option_type = ui.m_optionKey
 
             local cur_id = ui.m_optionIdList[ui.m_currValue]
-            local option_value = TableLairStatus:getInstance():getLairStatOptionValue(cur_id)
+            local option_value = TableLairBuffStatus:getInstance():getLairStatOptionValue(cur_id)
 
             result[option_type] = option_value
         end
@@ -288,7 +288,7 @@ UI_DragonLairBlessingAutoPopupItem = class(PARENT, {
 function UI_DragonLairBlessingAutoPopupItem:init(data)
     self.m_isChecked = false
     self.m_optionKey = data
-    self.m_optionIdList = TableLairStatus:getInstance():getLairStatOptionIdList(self.m_optionKey)
+    self.m_optionIdList = TableLairBuffStatus:getInstance():getLairStatOptionIdList(self.m_optionKey)
 
     self:load('dragon_lair_blessing_setting_popup_item.ui')
 
@@ -351,8 +351,8 @@ function UI_DragonLairBlessingAutoPopupItem:refresh()
         local min_id = self.m_optionIdList[self.m_minValue]
         local max_id = self.m_optionIdList[self.m_maxValue]
 
-        local min_num = TableLairStatus:getInstance():getLairStatOptionValue(min_id)
-        local max_num = TableLairStatus:getInstance():getLairStatOptionValue(max_id)
+        local min_num = TableLairBuffStatus:getInstance():getLairStatOptionValue(min_id)
+        local max_num = TableLairBuffStatus:getInstance():getLairStatOptionValue(max_id)
 
         local min_max_str = string.format('%d~%d', min_num, max_num)
         local option_str = self.m_tableOption:getValue(option_type, 't_desc')
@@ -364,7 +364,7 @@ function UI_DragonLairBlessingAutoPopupItem:refresh()
 
     if (self.m_isChecked == true) then
         local cur_id = self.m_optionIdList[self.m_currValue]
-        local cur_num = TableLairStatus:getInstance():getLairStatOptionValue(cur_id)
+        local cur_num = TableLairBuffStatus:getInstance():getLairStatOptionValue(cur_id)
         local percent_str = self.m_isPercent and '%' or ''
         vars['quantityLabel']:setString(cur_num .. percent_str)
     end
@@ -403,7 +403,7 @@ function UI_DragonLairBlessingAutoPopupItem:click_adjustBtn(value, is_pressed)
         end
 
         local cur_id = self.m_optionIdList[self.m_currValue]
-        local cur_num = TableLairStatus:getInstance():getLairStatOptionValue(cur_id)
+        local cur_num = TableLairBuffStatus:getInstance():getLairStatOptionValue(cur_id)
         local percent_str = self.m_isPercent and '%' or ''
         vars['quantityLabel']:setString(cur_num .. percent_str)        
         return true

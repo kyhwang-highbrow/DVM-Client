@@ -1,29 +1,38 @@
 local PARENT = TableClass
 -------------------------------------
--- class TableLairStatus
+-- class TableLairBuffStatus
 -------------------------------------
-TableLairStatus = class(PARENT, {
-    m_mapOptionMaximum = 'Map<string, number>'
+TableLairBuffStatus = class(PARENT, {
+    m_mapOptionMaxLevel = 'Map<string, number>'
 })
 
 local instance = nil
 -------------------------------------
 -- function init
 -------------------------------------
-function TableLairStatus:init()
+function TableLairBuffStatus:init()
     assert(instance == nil, 'Can not initalize twice')
     self.m_tableName = 'table_lair_buff_status'
     self.m_orgTable = TABLE:get(self.m_tableName)
 
+    self.m_mapOptionMaxLevel = {}
+    for _, v in pairs(self.m_orgTable) do
+        local key = v['key']
+        if self.m_mapOptionMaxLevel[key] == nil then
+            self.m_mapOptionMaxLevel[key] = 1
+        else
+            self.m_mapOptionMaxLevel[key] = self.m_mapOptionMaxLevel[key] + 1
+        end
+    end
 end
 
 -------------------------------------
 -- function getInstance
----@return TableLairStatus instance
+---@return TableLairBuffStatus instance
 -------------------------------------
-function TableLairStatus:getInstance()
+function TableLairBuffStatus:getInstance()
     if (instance == nil) then
-        instance = TableLairStatus()
+        instance = TableLairBuffStatus()
     end
     return instance
 end
@@ -31,28 +40,35 @@ end
 -------------------------------------
 -- function getLairStatLevel
 -------------------------------------
-function TableLairStatus:getLairStatLevel(id)
-    return self:getValue(id, 'rate')
+function TableLairBuffStatus:getLairStatLevel(id)
+    return self:getValue(id, 'option_level')
 end
 
 -------------------------------------
 -- function getLairStatOptionKey
 -------------------------------------
-function TableLairStatus:getLairStatOptionKey(id)
+function TableLairBuffStatus:getLairStatOptionKey(id)
     return self:getValue(id, 'key')
 end
 
 -------------------------------------
 -- function getLairStatOptionValue
 -------------------------------------
-function TableLairStatus:getLairStatOptionValue(id)
+function TableLairBuffStatus:getLairStatOptionValue(id)
     return self:getValue(id, 'key_value')
+end
+
+-------------------------------------
+-- function getLairStatMaxLevelByOptionKey
+-------------------------------------
+function TableLairBuffStatus:getLairStatMaxLevelByOptionKey(option_key)
+    return self.m_mapOptionMaxLevel[option_key] or 1
 end
 
 -------------------------------------
 -- function getLairStatOptionIdList
 -------------------------------------
-function TableLairStatus:getLairStatOptionIdList(option_key)
+function TableLairBuffStatus:getLairStatOptionIdList(option_key)
     local id_list = self:filterColumnList('key', option_key, 'lid')
     table.sort(id_list, function(a, b) return a < b end)
     return id_list
@@ -61,7 +77,7 @@ end
 -------------------------------------
 -- function getLairRepresentOptionKeyListByType
 -------------------------------------
-function TableLairStatus:getLairRepresentOptionKeyListByType(type_id)
+function TableLairBuffStatus:getLairRepresentOptionKeyListByType(type_id)
     local id_list = self:filterColumnList('type', type_id, 'lid')
     local result = {}
     local key_map = {}
@@ -74,15 +90,13 @@ function TableLairStatus:getLairRepresentOptionKeyListByType(type_id)
         end
     end
 
-    --table.sort(result, function(a, b) return a < b end)
     return result
 end
-
 
 -------------------------------------
 -- function getLairStatsByIdList
 -------------------------------------
-function TableLairStatus:getLairStatsByIdList(l_ids)
+function TableLairBuffStatus:getLairStatsByIdList(l_ids)
     local l_buffs = {}
     local count_map = {}
 
@@ -121,7 +135,7 @@ end
 -------------------------------------
 -- function getLairStatStrByIds
 -------------------------------------
-function TableLairStatus:getLairStatStrByIds(l_ids)
+function TableLairBuffStatus:getLairStatStrByIds(l_ids)
     local table_option = TableOption()
     local str = ''
 
@@ -142,7 +156,7 @@ end
 -------------------------------------
 -- function getLairBonusStatStrByIds
 -------------------------------------
-function TableLairStatus:getLairBonusStatStrByIds(l_ids)
+function TableLairBuffStatus:getLairBonusStatStrByIds(l_ids)
     local table_option = TableOption()
     local str = ''
 
@@ -179,7 +193,7 @@ end
 -------------------------------------
 -- function getLairOverlapStatStrByIds
 -------------------------------------
-function TableLairStatus:getLairOverlapStatStrByIds(l_ids)
+function TableLairBuffStatus:getLairOverlapStatStrByIds(l_ids)
     local table_option = TableOption()
     local str = ''
     local buff_map = {}
