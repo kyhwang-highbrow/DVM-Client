@@ -177,20 +177,17 @@ end
 -------------------------------------
 function Translate:getTranslatedPath(full_path)
     -- 번역이 필요한 언어 사용중인지 체크
-	if (not Translate:isNeedTranslate()) then
-        cclog('1')
+	if (not Translate:isNeedTranslate()) then        
 		return full_path
 	end
 
     -- 쓰레기 값은 버림
-	if (not full_path) or (full_path == '') then
-        cclog('2')
+	if (not full_path) or (full_path == '') then        
 		return full_path
 	end
 
 	-- typo경로의 파일인지 확인
 	if (not string.find(full_path, 'typo/')) then
-        cclog('3')
 		return full_path
 	end
 
