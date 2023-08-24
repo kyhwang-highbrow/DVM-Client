@@ -19,10 +19,8 @@ TABLE_HIGHBROW_VIP = {
         ['name'] = '실버'
     },
     ['gold'] = {
-        ['res_num'] = 2,
-        ['name'] = '골드',
-        ['item'] = '700001;51000',
-        ['item_icon_res'] = 'ui/icons/item/shop_cash_05.png',
+        ['res_num'] = 1,
+        ['name'] = '실버',
     },
     ['vip'] = {
         ['res_num'] = 3,
@@ -103,6 +101,14 @@ function ServerData_HighbrowVip:response_info(ret)
         self.m_vipSurveyStatus = ret['hvip_survey_state']
     end
 end
+
+-------------------------------------
+-- function getVipGrade
+-------------------------------------
+function ServerData_HighbrowVip:getVipGrade()
+    return self.m_vipGrade
+end
+
 
 -------------------------------------
 -- function getVipName
@@ -214,13 +220,13 @@ end
 -- function checkVipStatus
 -------------------------------------
 function ServerData_HighbrowVip:checkVipStatus()
---[[     -- 현재 등급이 골드일 경우
+    -- 현재 등급이 골드일 경우
     if self.m_vipGrade == 'gold' then
         -- 이전에 정보를 수집했던 적이 있던 유저일 경우 주석처리
         if self.m_vipSurveyStatus == 'silver' then
             return false
         end
-    end ]]
+    end
 
 
     return (self.m_vipGrade ~= nil) and (self.m_vipGrade ~= self.m_vipSurveyStatus)

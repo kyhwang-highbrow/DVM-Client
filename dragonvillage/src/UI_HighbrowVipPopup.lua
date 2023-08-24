@@ -94,10 +94,14 @@ function UI_HighbrowVipPopup:initUI()
         vars['goldMenu']:setVisible(is_reward_exist)
     end    
 
+    if isExistValue(g_highbrowVipData:getVipGrade(), 'silver', 'gold') == true then
+        if vars['highbrowCouponLabel'] ~= nil then
+            vars['highbrowCouponLabel']:setString('하이브로 멤버십 혜택!!')
+        end
+    end
+
     self:initEditBox()
 end
-
-
 
 -------------------------------------
 -- function initButton
