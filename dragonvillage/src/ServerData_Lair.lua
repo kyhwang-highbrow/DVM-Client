@@ -233,6 +233,23 @@ function ServerData_Lair:isLairSeasonEnd()
     return (time <= 0)
 end
 
+
+-------------------------------------
+-- function checkSeasonEnd
+-------------------------------------
+function ServerData_Lair:checkSeasonEnd()
+    if self:isLairSeasonEnd() == true then
+        local cb_func = function ()
+            UINavigator:goTo('lobby')
+        end
+
+        MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), cb_func)
+        return true
+    end
+
+    return false
+end
+
 -------------------------------------
 -- function getLairSeasonEndRemainTimeText
 -------------------------------------
@@ -364,9 +381,13 @@ end
 -- function request_lairAdd
 -------------------------------------
 function ServerData_Lair:request_lairAdd(doid, finish_cb, fail_cb)
+    -- 시즌 종료 처리
+    if self:checkSeasonEnd() == true then
+        return
+    end
+
     -- 유저 ID
     local uid = g_userData:get('uid')
-
     -- 성공 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
@@ -406,73 +427,16 @@ function ServerData_Lair:request_lairAdd(doid, finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_lairReload
--------------------------------------
-function ServerData_Lair:request_lairReload(finish_cb, fail_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-
-    -- 성공 콜백
-    local function success_cb(ret)
-        g_serverData:networkCommonRespone(ret)
-
-        self:applyLairInfo(ret['lair'])
-
-        if finish_cb then
-            finish_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/lair/slot/reload')
-    ui_network:setParam('uid', uid)
-    ui_network:setMethod('POST')
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
-    return ui_network
-end
-
--------------------------------------
--- function request_lairComplete
--------------------------------------
-function ServerData_Lair:request_lairComplete(finish_cb, fail_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-
-    -- 성공 콜백
-    local function success_cb(ret)
-
-        self:applyLairInfo(ret['lair'])
-
-        if finish_cb then
-            finish_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/lair/slot/complete')
-    ui_network:setParam('uid', uid)
-    ui_network:setMethod('POST')
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
-    return ui_network
-end
-
--------------------------------------
 -- function request_lairStatPick
 -------------------------------------
 function ServerData_Lair:request_lairStatPick(ids, finish_cb, fail_cb)
+    -- 시즌 종료 처리
+    if self:checkSeasonEnd() == true then
+        return
+    end
+
     -- 유저 ID
     local uid = g_userData:get('uid')
-
     -- 성공 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
@@ -502,6 +466,11 @@ end
 -- function request_lairStatLock
 -------------------------------------
 function ServerData_Lair:request_lairStatLock(ids, lock, finish_cb, fail_cb)
+    -- 시즌 종료 처리
+    if self:checkSeasonEnd() == true then
+        return
+    end
+
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -531,14 +500,12 @@ function ServerData_Lair:request_lairStatLock(ids, lock, finish_cb, fail_cb)
     return ui_network
 end
 
-
 -------------------------------------
 -- function request_lairStatReset
 -------------------------------------
 function ServerData_Lair:request_lairStatReset(ids, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
-
     -- 성공 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)

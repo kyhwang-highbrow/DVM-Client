@@ -91,7 +91,7 @@ function UI_DragonLairBlessingPopup:refresh()
             if bonus_str == '' then
                 vars['infoLabel']:setString(attr_str)
             else
-                vars['infoLabel']:setString(string.format('%s {@GREEN}(+ %s){@}',attr_str, bonus_str))
+                vars['infoLabel']:setString(string.format('%s ({@GREEN}+ %s{@})',attr_str, bonus_str))
             end
         end
     end
@@ -264,6 +264,11 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
         while true do
             local target_id_list, target_id_count  = refresh_target_list()
             local blessing_ticket = g_userData:get('blessing_ticket')
+
+            -- 시즌 종료
+            if g_lairData:checkSeasonEnd() == true then
+                break
+            end
 
             if blessing_ticket < target_id_count == true then
                 UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
