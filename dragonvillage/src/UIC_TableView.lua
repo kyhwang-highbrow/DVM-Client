@@ -5,6 +5,9 @@ CELL_CREATE_DIRECTING = {}
 CELL_CREATE_DIRECTING['scale'] = 0
 CELL_CREATE_DIRECTING['fadein'] = 1
 CELL_CREATE_DIRECTING['fadein_fast'] = 2
+CELL_CREATE_DIRECTING['ui_action'] = 3
+
+
 
 -------------------------------------
 -- class UIC_TableView
@@ -55,6 +58,7 @@ UIC_TableView = class(PARENT, {
 		m_visibleEndIdx = 'number',
 		
 		_cellCreateDirecting = 'enum',
+        m_makeInterval = 'number',
         
 		m_stability = 'bool',
 
@@ -79,6 +83,7 @@ function UIC_TableView:init(node)
     self.m_defaultCellSize = cc.size(100, 100)
     self.m_bFixedCellSize = false
     self.m_gapBtwCellsSize = 0
+    self.m_makeInterval = 0.03
 
 
     self._vordering = cc.TABLEVIEW_FILL_TOPDOWN
@@ -210,6 +215,9 @@ function UIC_TableView:update(dt)
 				local action = cc.EaseInOut:create(fade_in, 2)
 				ui.root:runAction(action)
 
+            elseif (self._cellCreateDirecting == CELL_CREATE_DIRECTING['ui_action']) then
+				ui:doActionReset()
+                ui:doAction(nil, false)
             end
 
             local idx = t_item['idx']
@@ -222,7 +230,7 @@ function UIC_TableView:update(dt)
             end
         end
 
-        self.m_makeTimer = 0.03
+        self.m_makeTimer = self.m_makeInterval
     end
 
     -- 아이템 리스트가 변경되었을 경우
@@ -1614,6 +1622,18 @@ end
 function UIC_TableView:setCellCreateDirecting(n)
     self._cellCreateDirecting = n
 end
+
+-------------------------------------
+-- function setCellCreateInterval
+-- @brief 셀 생성 간격
+-------------------------------------
+function UIC_TableView:setCellCreateInterval(n)
+	if (n < 0) then
+		return
+	end
+    self.m_makeInterval = n
+end
+
 
 -------------------------------------
 -- function setMakeLookingCellFirst

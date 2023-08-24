@@ -14,10 +14,10 @@ function UI_DragonLairBlessingPopup:init()
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DragonLairBlessingPopup') -- backkey 지정
 
     -- @UI_ACTION
-    self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.3)
+    --self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.3)
 
-    self:doActionReset()
-    self:doAction(nil, false)
+    --self:doActionReset()
+    --self:doAction(nil, false)
 
     self:initUI()
     self:initButton()
@@ -171,8 +171,7 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
 
     local item_list = TableLair:getInstance():getLairIdListByType(curr_tab)
 
-    local function create_func(data)
-        local ui = UI_DragonLairBlessingPopupItem(data)
+    local function create_func(ui, data)
         local lair_id = data
 
         local click_refresh = function()
@@ -214,14 +213,13 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
 
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(990, 25)
-    table_view:setCellUIClass(create_func)
-    --table_view.m_gapBtwCellsSize = 5
+    table_view:setCellUIClass(UI_DragonLairBlessingPopupItem, create_func)
+    --table_view:setCellCreateInterval(0.1)
+    table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['ui_action'])
     table_view:setCellSizeToNodeSize()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(item_list, true)
     table_view.m_scrollView:setTouchEnabled(false)
-    
-    
     self.m_listView = table_view
 end
 

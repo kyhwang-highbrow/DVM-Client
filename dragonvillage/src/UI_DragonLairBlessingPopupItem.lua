@@ -18,9 +18,8 @@ function UI_DragonLairBlessingPopupItem:init(data)
 
     -- @UI_ACTION
     --self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0.2, 0.3)
-    self:doActionReset()
-    self:doAction(nil, false)
-
+    --self:doActionReset()
+    --self:doAction(nil, false)
 
     self:initUI()
     self:initButton()
