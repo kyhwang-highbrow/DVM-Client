@@ -94,6 +94,7 @@ function UI_EventPopup:init_tableView()
     local function create_func(ui, data)
         local res = data:getTabIcon()
         if res then
+            res = Translate:getTranslatedPath(res)
             local icon = cc.Sprite:create(res)
             if icon then
                 icon:setDockPoint(cc.p(0.5, 0.5))
