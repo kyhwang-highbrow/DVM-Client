@@ -454,6 +454,23 @@ function StructDragonObject:getDragonSkillLevelUpNum()
     return result
 end
 
+
+-------------------------------------
+-- function getDragonSkillLeveSum
+---@return number
+-------------------------------------
+function StructDragonObject:getDragonSkillLeveSum()
+    local result = 0
+    for i = 0, 2 do
+        if (self['skill_' .. i] > 0) then
+            result = result + self['skill_' .. i]
+        end
+    end
+
+    return result
+end
+
+
 -------------------------------------
 -- function getCombatPower
 -- @breif

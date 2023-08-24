@@ -93,8 +93,8 @@ function TableLairCondition:isMeetCondition(struct_dragon_object)
     end
 
     -- 스킬 강화 단계 합계
-    if struct_dragon_object:getDragonSkillLevelUpNum() < self:getValue(birth_grade, 'sum_skill_level') then
-        cclog('sum_skill_level', struct_dragon_object:getDragonSkillLevelUpNum())
+    if struct_dragon_object:getDragonSkillLeveSum() < self:getValue(birth_grade, 'sum_skill_level') then
+        --cclog('sum_skill_level', struct_dragon_object:getDragonSkillLevelUpNum())
         return false
     end
 
