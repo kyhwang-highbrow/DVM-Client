@@ -10,12 +10,7 @@ UI_DragonLairBlessingAutoPopup = class(UI, {
     m_autoCount = 'number',
     m_maxAutoCount = 'number',
 
-
     m_ticketnumPerBlessing = 'number',
-
-
-    
-
     m_okCallback = 'function',
 })
 
@@ -95,8 +90,8 @@ function UI_DragonLairBlessingAutoPopup:initButton()
     vars['plusBtn']:registerScriptPressHandler(function() self:click_adjustBtn(1, true) end)
     vars['minusBtn']:registerScriptTapHandler(function() self:click_adjustBtn(-1) end)
     vars['minusBtn']:registerScriptPressHandler(function() self:click_adjustBtn(-1, true) end)    
-    vars['100Btn']:registerScriptTapHandler(function() self:click_adjustBtn(10) end)
-    vars['100Btn']:registerScriptPressHandler(function() self:click_adjustBtn(10, true) end)
+    vars['100Btn']:registerScriptTapHandler(function() self:click_adjustBtn(5) end)
+    vars['100Btn']:registerScriptPressHandler(function() self:click_adjustBtn(5, true) end)
 end
 
 -------------------------------------
@@ -220,6 +215,7 @@ function UI_DragonLairBlessingAutoPopup:click_adjustBtn(value, is_pressed)
 
         --값이 변경되지 않았으면 팝업과 함께 리턴
         if (before_Value == self.m_autoCount) then
+            cclog('여기 들어오나?', before_Value, self.m_autoCount)
             return false
         end
 
@@ -234,7 +230,7 @@ function UI_DragonLairBlessingAutoPopup:click_adjustBtn(value, is_pressed)
         local button
         if (value < 0) then
             button = vars['minusBtn']
-        elseif (value >= 100) then
+        elseif (value >= 5) then
             button = vars['100Btn']
         else
             button = vars['plusBtn']
