@@ -112,17 +112,59 @@ end
 -- function getLairStatIdList
 -------------------------------------
 function ServerData_Lair:getLairStatIdList(type)
-    local id_list = TableLair:getInstance():getLairIdListByType(type, true)
+    local lair_id_list = TableLair:getInstance():getLairIdListByType(type, true)
     local result_id_list = {}
 
-    for _, stat_id in ipairs(id_list) do
-        local struct_lair_stat = self:getLairStatInfo(stat_id)
+    for _, lair_id in ipairs(lair_id_list) do
+        local struct_lair_stat = self:getLairStatInfo(lair_id)
         if struct_lair_stat:getStatId() > 0 then
             table.insert(result_id_list, struct_lair_stat:getStatId())
         end
     end
 
     return result_id_list, #result_id_list
+end
+
+
+-------------------------------------
+-- function getLairOwnedStatOptionKeyMap
+-------------------------------------
+function ServerData_Lair:getLairOwnedStatOptionKeyMap(type)
+    local lair_id_list = TableLair:getInstance():getLairIdListByType(type, true)
+    local map = {}
+
+    for _, lair_id in ipairs(lair_id_list) do
+        local struct_lair_stat = self:getLairStatInfo(lair_id)
+        if struct_lair_stat:getStatId() > 0 then
+            local stat_id = struct_lair_stat:getStatId()
+            local option_key = TableLairBuffStatus:getInstance():getLairStatOptionKey(stat_id)
+            map[option_key] = true
+        end
+    end
+
+    return map
+end
+
+-------------------------------------
+-- function getLairRepresentOptionKeyListByType
+-------------------------------------
+function ServerData_Lair:getLairRepresentOptionKeyListByType(type)
+    local sort_option_key_map = g_lairData:getLairOwnedStatOptionKeyMap(type)
+    local result = TableLairBuffStatus:getInstance():getLairRepresentOptionKeyListByType(type)
+
+    local func_sort = function (a, b)
+        local a_exist = sort_option_key_map[a] and 1 or 0
+        local b_exist = sort_option_key_map[b] and 1 or 0
+        
+        if a_exist ~= b_exist then
+            return a_exist > b_exist
+        end
+
+        return nil
+    end
+
+    table.sort(result, func_sort)
+    return result
 end
 
 -------------------------------------
@@ -140,12 +182,12 @@ function ServerData_Lair:getLairStatOptionValueSum(type, option_type)
         local opt_val = TableLairBuffStatus:getInstance():getLairStatOptionValue(stat_id)
         if opt_type == option_type then
             sum = sum + opt_val
-        end
 
-        if bonus_check_map[opt_val] == nil then
-            bonus_check_map[opt_val] = 1
-        else
-            bonus_check_map[opt_val] = bonus_check_map[opt_val] + 1
+            if bonus_check_map[opt_val] == nil then
+                bonus_check_map[opt_val] = 1
+            else
+                bonus_check_map[opt_val] = bonus_check_map[opt_val] + 1
+            end
         end
     end
 

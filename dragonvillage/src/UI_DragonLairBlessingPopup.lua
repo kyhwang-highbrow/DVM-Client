@@ -83,13 +83,12 @@ function UI_DragonLairBlessingPopup:refresh()
         local table_option = TableOption()
         
         local type = self.m_currTab
-        local option_key_list = TableLairBuffStatus:getInstance():getLairRepresentOptionKeyListByType(type)
+        local option_key_list = g_lairData:getLairRepresentOptionKeyListByType(type)
 
         for idx, option_key in ipairs(option_key_list) do
             local option_name = table_option:getOptionName(option_key)
             local label_str = string.format('TypeLabel%d', idx)
             vars[label_str]:setVisible(false)
-            --local attr_str = TableLairBuffStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
 
             local option_value_sum, option_bonus_sum = g_lairData:getLairStatOptionValueSum(type ,option_key)
             local progress_label_str = string.format('TypeProgressLabel%d', idx)

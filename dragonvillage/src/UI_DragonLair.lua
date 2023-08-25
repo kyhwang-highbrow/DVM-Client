@@ -98,7 +98,7 @@ function UI_DragonLair:refresh()
     local table_option = TableOption()
     
     for type = 1, 5 do
-        local option_key_list = TableLairBuffStatus:getInstance():getLairRepresentOptionKeyListByType(type)
+        local option_key_list = g_lairData:getLairRepresentOptionKeyListByType(type)
         --local g_lair:getLairStatIdList(type)
 
         for idx, option_key in ipairs(option_key_list) do

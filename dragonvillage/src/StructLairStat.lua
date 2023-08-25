@@ -66,6 +66,28 @@ function StructLairStat:getStatOptionValue()
 end
 
 -------------------------------------
+-- function getStatOptionLevel
+-------------------------------------
+function StructLairStat:getStatOptionLevel()
+    if self.opt == 0 then
+        return 0
+    end
+
+    return TableLairBuffStatus:getInstance():getLairStatLevel(self.opt)
+end
+
+-------------------------------------
+-- function getStatOptionMaxLevel
+-------------------------------------
+function StructLairStat:getStatOptionMaxLevel()
+    if self.opt == 0 then
+        return 0
+    end
+
+    return TableLairBuffStatus:getInstance():getLairStatLevel(self.opt)
+end
+
+-------------------------------------
 -- function isStatLock
 -------------------------------------
 function StructLairStat:isStatLock()

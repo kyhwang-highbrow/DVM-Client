@@ -79,8 +79,8 @@ function UI_DragonLairBlessingPopupItem:refresh()
     local stat_id = struct_lair_stat:getStatId()
     local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
 
-    local option_key = stat_id == 0 and 'none' or TableLairBuffStatus:getInstance():getLairStatOptionKey(stat_id)
-    local level = TableLairBuffStatus:getInstance():getLairStatLevel(stat_id) or 0
+    local option_key = struct_lair_stat:getStatOptionKey()
+    local level = struct_lair_stat:getStatOptionLevel(stat_id)
     local max_level = TableLairBuffStatus:getInstance():getLairStatMaxLevelByOptionKey(option_key) or 0
     local is_max_level = max_level == level
 

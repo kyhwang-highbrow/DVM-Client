@@ -3,7 +3,8 @@ local PARENT = TableClass
 -- class TableLairBuffStatus
 -------------------------------------
 TableLairBuffStatus = class(PARENT, {
-    m_mapOptionMaxLevel = 'Map<string, number>'
+    m_mapOptionMaxLevel = 'Map<string, number>',
+    m_listUniqueOptionId = 'List<number>',
 })
 
 local instance = nil
@@ -16,14 +17,19 @@ function TableLairBuffStatus:init()
     self.m_orgTable = TABLE:get(self.m_tableName)
 
     self.m_mapOptionMaxLevel = {}
-    for _, v in pairs(self.m_orgTable) do
+    self.m_listUniqueOptionId = {}
+
+    for id, v in pairs(self.m_orgTable) do
         local key = v['key']
         if self.m_mapOptionMaxLevel[key] == nil then
             self.m_mapOptionMaxLevel[key] = 1
+            table.insert(self.m_listUniqueOptionId, id)
         else
             self.m_mapOptionMaxLevel[key] = self.m_mapOptionMaxLevel[key] + 1
         end
     end
+
+    table.sort(self.m_listUniqueOptionId, function(a, b) return a < b  end)
 end
 
 -------------------------------------
@@ -78,18 +84,13 @@ end
 -- function getLairRepresentOptionKeyListByType
 -------------------------------------
 function TableLairBuffStatus:getLairRepresentOptionKeyListByType(type_id)
-    local id_list = self:filterColumnList('type', type_id, 'lid')
     local result = {}
-    local key_map = {}
-
-    for _, id in ipairs(id_list) do
+    for _, id in ipairs(self.m_listUniqueOptionId) do
         local key = self:getLairStatOptionKey(id)
-        if key_map[key] == nil then
-            key_map[key] = true
+        if self:getValue(id, 'type') == type_id then
             table.insert(result, key)
         end
     end
-
     return result
 end
 
