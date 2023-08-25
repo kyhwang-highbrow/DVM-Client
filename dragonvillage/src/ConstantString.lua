@@ -396,7 +396,7 @@ function getContentName(content_type)
         content_name = Str('레이드')
 
     elseif (content_type == 'lair') then
-        content_name = Str('동굴')
+        content_name = Str('축복')
 
     elseif (content_type == 'story_dungeon') then
         local season_id = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
