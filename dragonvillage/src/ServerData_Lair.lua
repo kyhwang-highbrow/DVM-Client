@@ -4,12 +4,16 @@
 ServerData_Lair = class({
     m_serverData = 'ServerData',
     m_seasonEndTime = 'timestamp',
+    m_seasonId =  'number',
 
     m_lairStats = 'list<number>',
     m_lairStatsInfoMap = 'list<number>',
 
     m_lairSlotCompleteCount = 'number',
     m_lairRegisterMap = 'map<number>',
+
+    m_isAvailableRegister = 'boolean',
+    m_availableRegisterDirty = 'boolean',
 })
 
 -------------------------------------
@@ -30,7 +34,10 @@ function ServerData_Lair:init_variables()
     self.m_lairRegisterMap = {}
     self.m_lairSlotCompleteCount = 0
     self.m_seasonEndTime = 0
+    self.m_seasonId = 0
 
+    self.m_isAvailableRegister = false
+    self.m_availableRegisterDirty = true
 
     self:makeLairStatInfo()
 end
@@ -57,6 +64,31 @@ function ServerData_Lair:getLairStats()
     end
 
     return list
+end
+
+-------------------------------------
+-- function getLairSeasonId
+-------------------------------------
+function ServerData_Lair:getLairSeasonId()
+    return self.m_seasonId
+end
+
+-------------------------------------
+-- function getLairSeasonName
+-------------------------------------
+function ServerData_Lair:getLairSeasonName()
+    local season_id = self:getLairSeasonId()
+    local str = TableLairSchedule:getInstance():getLairSeasonName(season_id)
+    return str
+end
+
+-------------------------------------
+-- function getLairSeasonDesc
+-------------------------------------
+function ServerData_Lair:getLairSeasonDesc()
+    local season_id = self:getLairSeasonId()
+    local str = TableLairSchedule:getInstance():getLairSeasonDesc(season_id)
+    return str
 end
 
 -------------------------------------
@@ -124,7 +156,6 @@ function ServerData_Lair:getLairStatIdList(type)
 
     return result_id_list, #result_id_list
 end
-
 
 -------------------------------------
 -- function getLairOwnedStatOptionKeyMap
@@ -309,6 +340,38 @@ function ServerData_Lair:checkSeasonEnd()
 end
 
 -------------------------------------
+-- function setAvailableRegisterDragonsDirty
+-------------------------------------
+function ServerData_Lair:setAvailableRegisterDragonsDirty(b)
+    self.m_availableRegisterDirty = b
+end
+
+-------------------------------------
+-- function isAvailableRegisterDragons
+-------------------------------------
+function ServerData_Lair:isAvailableRegisterDragons()
+    if self.m_availableRegisterDirty == false then
+        return self.m_isAvailableRegister
+    end
+    
+
+    local m_dragons = g_dragonsData:getDragonsListRef()
+    for _, struct_dragon_data in pairs(m_dragons) do
+        if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
+            local is_add_ticket_count = g_lairData:getAdditionalBlessingTicketExpectCount(struct_dragon_data) > 0
+            local is_registered = g_lairData:isRegisterLairDid(struct_dragon_data['did'])
+            if is_registered == false or is_add_ticket_count == true then
+                self.m_isAvailableRegister = true
+                break
+            end
+        end
+    end
+
+    --self.m_availableRegisterDirty = true
+    return self.m_isAvailableRegister
+end
+
+-------------------------------------
 -- function getLairSeasonEndRemainTimeText
 -------------------------------------
 function ServerData_Lair:getLairSeasonEndRemainTimeText()
@@ -336,6 +399,10 @@ function ServerData_Lair:applyLairInfo(t_ret)
 
     if t_ret['end'] ~= nil then
         self.m_seasonEndTime = t_ret['end']
+    end
+
+    if t_ret['season_id'] ~= nil then
+        self.m_seasonId = t_ret['season_id']
     end
 
     if t_ret['list'] ~= nil then
@@ -465,6 +532,9 @@ function ServerData_Lair:request_lairAdd(doid, finish_cb, fail_cb)
         -- 티켓 차감
         self:applyLairInfo(ret['lair'])
 
+        -- dirty flag
+        self:setAvailableRegisterDragonsDirty(true)
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -570,6 +640,9 @@ function ServerData_Lair:request_lairStatReset(ids, finish_cb, fail_cb)
 
         self:applyLairInfo(ret['lair'])
 
+        -- dirty flag
+        self:setAvailableRegisterDragonsDirty(true)
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -603,6 +676,9 @@ function ServerData_Lair:request_lairSeasonResetManage(finish_cb, fail_cb)
         self:init_variables()
 
         self:applyLairInfo(ret['lair'])
+        
+        -- dirty flag
+        self:setAvailableRegisterDragonsDirty(true)
 
         if finish_cb then
             finish_cb(ret)

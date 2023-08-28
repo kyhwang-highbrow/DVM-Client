@@ -39,6 +39,14 @@ function UI_DragonLairBlessingPopup:initUI()
     vars['goodsNode']:removeAllChildren()
     vars['goodsNode']:addChild(goods_icon)
 
+    
+    do -- 이름
+        local season_name = g_lairData:getLairSeasonName()
+        local season_desc = g_lairData:getLairSeasonDesc()
+        vars['titleLabel']:setString(string.format('%s {@R}(%s){@}', season_name, season_desc))
+    end
+
+
     self:initTab()
 end
 
@@ -86,7 +94,6 @@ function UI_DragonLairBlessingPopup:refresh()
         local option_key_list = g_lairData:getLairRepresentOptionKeyListByType(type)
 
         for idx, option_key in ipairs(option_key_list) do
-            local option_name = table_option:getOptionName(option_key)
             local label_str = string.format('TypeLabel%d', idx)
             vars[label_str]:setVisible(false)
 
@@ -96,7 +103,7 @@ function UI_DragonLairBlessingPopup:refresh()
             local desc = table_option:getOptionDesc(option_key, option_value_total)
             
             if option_value_sum == 0 then
-                vars[progress_label_str]:setString(option_name .. ' ' .. Str('없음'))
+                vars[progress_label_str]:setString(desc)
             else
                 vars[progress_label_str]:setString(string.format('{@ORANGE}%s(%d + {@green}%d{@}{@ORANGE}){@}',desc, option_value_sum, option_bonus_sum))
             end
@@ -104,7 +111,7 @@ function UI_DragonLairBlessingPopup:refresh()
             -- 프로그레스 (무의미한거 같다)
             local progress_bar_str =  string.format('TypeProgress%d', idx)
             vars[progress_bar_str]:setPercentage(0)
-            
+
             -- 보너스
             local bonus_label_str =  string.format('BonusLabel%d', idx)
 --[[             local bonus_desc = option_bonus_sum > 0 and table_option:getOptionDesc(option_key, option_bonus_sum) or ''

@@ -1329,6 +1329,10 @@ function UI_Lobby:update_highlight()
     do -- 주사위 이벤트
         vars['diceNotiSprite']:setVisible(g_eventDiceData:isAvailableLapReward())
     end
+
+    do -- 축복 
+        vars['lairNotiSprite']:setVisible(g_lairData:isAvailableRegisterDragons())
+    end
 end
 
 -------------------------------------

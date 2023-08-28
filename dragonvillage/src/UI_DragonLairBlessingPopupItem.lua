@@ -87,9 +87,8 @@ function UI_DragonLairBlessingPopupItem:refresh()
     do  -- 잠금 처리
         local str = Str('{@Y}드래곤 {1}마리 이상 등록 시 오픈 [{2}/{3}]{@}', req_count, reg_count, req_count)
         if is_available == true then
-            if stat_id == 0 then
-                str = Str('축복 효과 없음')
-            else
+            str = Str('축복 효과 없음')
+            if stat_id > 0 then
                 str = TableLairBuffStatus:getInstance():getLairStatStrByIds({stat_id})
                 if is_max_level == true then
                     str = string.format('{@green}%s [MAX]{@}', str)

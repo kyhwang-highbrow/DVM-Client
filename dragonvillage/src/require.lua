@@ -506,9 +506,10 @@ local t_module = {
     'TableRuneFilterPoint', -- 룬 필터 포인트
     'TableIndivPass', -- 개인 패스
     'TableIndivPassReward', -- 개인 패스 보상 테이블
-    'TableLairBuff', -- 라테아 (컬렉션)
-    'TableLairBuffStatus', -- 라테아 돌림판 능력치 (컬렉셔)
-    'TableLairCondition', -- 라테아 등록 조건
+    'TableLairBuff', -- 축복 (컬렉션)
+    'TableLairBuffStatus', -- 축복 돌림판 능력치 (컬렉션)
+    'TableLairCondition', -- 축복 등록 조건
+    'TableLairSchedule', -- 축복 시즌
 
     -- Scene
     'SceneCommon',

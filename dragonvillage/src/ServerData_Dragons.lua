@@ -362,6 +362,9 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
     -- 드래곤 did별 갯수 갱신 필요
     self.m_bDirtyNumOfDragonsByDid = true
 
+    -- 드래곤 축복 등록 가능 조건
+    g_lairData:setAvailableRegisterDragonsDirty(true)
+
     -- 추가된 드래곤은 도감에 추가
     g_bookData:setDragonBook(t_dragon_data)
 
@@ -403,6 +406,7 @@ function ServerData_Dragons:delDragonData(doid)
     if self.m_serverData:getRef('dragons', doid) then
         self.m_serverData:applyServerData(nil, 'dragons', doid)
         self.m_dragonsCnt = (self.m_dragonsCnt - 1)
+        g_lairData:setAvailableRegisterDragonsDirty(true)
     end
 
     -- 드래곤 did별 갯수 갱신 필요

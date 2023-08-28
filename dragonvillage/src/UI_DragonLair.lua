@@ -47,25 +47,13 @@ end
 -------------------------------------
 function UI_DragonLair:initUI()
     local vars = self.vars
+
+    do -- 이름
+        local season_name = g_lairData:getLairSeasonName()
+        local season_desc = g_lairData:getLairSeasonDesc()
+        vars['seasonNameLabel']:setString(string.format('%s {@R}(%s){@}', season_name, season_desc))
+    end
 end
---[[ 
--------------------------------------
--- function initUI
--------------------------------------
-function UI_DragonLair:initTab()
-    local vars = self.vars
-
-    local add_tab = UI_DragonLairRegister(self)
-    local remove_tab = UI_DragonLairUnregisterTab(self)
-
-    vars['indivisualTabMenu']:addChild(add_tab.root)
-    vars['indivisualTabMenu']:addChild(remove_tab.root)
-
-    self:addTabWithTabUIAndLabel('add', vars['addTabBtn'], vars['addTabLabel'], add_tab)       -- 정보
-    self:addTabWithTabUIAndLabel('remove', vars['removeTabBtn'], vars['removeTabLabel'], remove_tab) -- 관리
-
-    self:setTab('add')
-end ]]
 
 -------------------------------------
 -- function initButton
@@ -86,7 +74,6 @@ function UI_DragonLair:initButton()
         --vars['autoReloadtBtn']:setVisible(true)        
         --vars['autoReloadtBtn']:registerScriptTapHandler(function() self:click_autoReloadBtn() end)
     end
-
 end
 
 
@@ -197,7 +184,6 @@ function UI_DragonLair:click_resethBtn()
     local submsg = '해당 버튼은 라이브환경에서는 노출되지 않습니다.'
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
-
 
 --[[ 
 -------------------------------------

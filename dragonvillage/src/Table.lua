@@ -141,6 +141,7 @@ local TableInfo = {
         -- 축복
         table_lair_buff = {'table_lair_buff', 'id', false},
         table_lair_condition = {'table_lair_condition', 'birthgrade', false},
+        table_lair_schedule = {'table_lair_schedule', 'lair_season_id', false},
     }
 
 -------------------------------------
