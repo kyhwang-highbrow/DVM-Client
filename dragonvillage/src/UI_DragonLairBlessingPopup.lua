@@ -57,6 +57,7 @@ function UI_DragonLairBlessingPopup:initButton()
     vars['blessBtn']:registerScriptTapHandler(function() self:click_blessBtn() end)
     vars['blessAutoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
     --vars['blockBtn']:registerScriptTapHandler(function() end)
 
     	-- editBox handler 등록
@@ -497,6 +498,13 @@ function UI_DragonLairBlessingPopup:click_refreshBtn(stat_id)
     local submsg = Str('초기화를 할 경우 {1}개의 축복 티켓을 돌려받습니다.', struct_lair_stat:getStatPickCount())
     local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
     ui:setPrice('cash', 3000)
+end
+
+--------------------------------------------------------------------------
+-- @function click_helpBtn
+--------------------------------------------------------------------------
+function UI_DragonLairBlessingPopup:click_helpBtn()
+    UI_Help('blessing')
 end
 
 --------------------------------------------------------------------------
