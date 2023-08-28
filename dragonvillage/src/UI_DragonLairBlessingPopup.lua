@@ -113,12 +113,6 @@ function UI_DragonLairBlessingPopup:refresh()
 
             -- 보너스
             local bonus_label_str =  string.format('BonusLabel%d', idx)
---[[             local bonus_desc = option_bonus_sum > 0 and table_option:getOptionDesc(option_key, option_bonus_sum) or ''
-            
-            if bonus_desc ~= '' then
-                bonus_desc = string.format('[%s] %s', Str('보너스'), bonus_desc)
-            end ]]
-
             vars[bonus_label_str]:setVisible(false)
         end
     end

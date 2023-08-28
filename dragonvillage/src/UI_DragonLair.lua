@@ -76,7 +76,6 @@ function UI_DragonLair:initButton()
     end
 end
 
-
 -------------------------------------
 -- function refresh
 -------------------------------------
@@ -91,6 +90,7 @@ function UI_DragonLair:refresh()
             
             local option_value_sum, option_bonus_sum = g_lairData:getLairStatOptionValueSum(type ,option_key)
             local option_value_total = option_value_sum + option_bonus_sum
+            local desc = table_option:getOptionDesc(option_key, option_value_total)
 
             local label_str = string.format('%dTypeLabel%d', type, idx)
             vars[label_str]:setVisible(false)
@@ -99,7 +99,6 @@ function UI_DragonLair:refresh()
             if option_value_sum == 0 then
                 vars[progress_label_str]:setString(desc)
             else
-                local desc = table_option:getOptionDesc(option_key, option_value_total)
                 vars[progress_label_str]:setString(string.format('{@ORANGE}%s(%d + {@green}%d{@}{@ORANGE}){@}',desc, option_value_sum, option_bonus_sum))
             end
 
