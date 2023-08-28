@@ -19,7 +19,7 @@ function UI_DragonLairRegister:init(owner_ui)
     self.m_uiName = 'UI_DragonLairRegister'    
     self.m_isRegistered = false
     self:load('dragon_lair_register.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.POPUP, true)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DragonLairRegister')

@@ -363,7 +363,6 @@ function ServerData_Lair:isAvailableRegisterDragons()
     if self.m_availableRegisterDirty == false then
         return self.m_isAvailableRegister
     end
-    
 
     local m_dragons = g_dragonsData:getDragonsListRef()
     for _, struct_dragon_data in pairs(m_dragons) do
@@ -372,12 +371,14 @@ function ServerData_Lair:isAvailableRegisterDragons()
             local is_registered = g_lairData:isRegisterLairDid(struct_dragon_data['did'])
             if is_registered == false or is_add_ticket_count == true then
                 self.m_isAvailableRegister = true
+
+                cclog('이거 여기 들어오면 안되는데? self.m_isAvailableRegister', self.m_isAvailableRegister)
                 break
             end
         end
     end
 
-    --self.m_availableRegisterDirty = true
+    self.m_availableRegisterDirty = false
     return self.m_isAvailableRegister
 end
 

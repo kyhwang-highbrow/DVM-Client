@@ -18,7 +18,7 @@ function UI_DragonLairBlessingPopup:init()
 
     --self:doActionReset()
     --self:doAction(nil, false)
-
+    
     self:initUI()
     self:initButton()
     --self:makeTableView()
