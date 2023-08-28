@@ -43,7 +43,7 @@ function UI_DragonLairRegister:initUI()
         
         if self:isExistAvailableMap(did, doid) == true then
             val = val + 2
-        elseif g_lairData:isRegisterLairDid(did) == true then
+        elseif g_lairData:isRegisterLairDid(did, doid) == true then
             val = val + 1
         end
 
@@ -234,7 +234,7 @@ function UI_DragonLairRegister:initTableView()
     local function create_func(ui, data)
         ui.root:setScale(0.66)
 
-        local is_registered = g_lairData:isRegisterLairDid(data['did'])
+        local is_registered = g_lairData:isRegisterLairDid(data['did'], data['id'])
         local is_register_available = self:isExistAvailableMap(data['did'], data['id'])
 
         ui.root:setColor((is_registered == true or is_register_available == true) and COLOR['white'] or COLOR['deep_gray'])

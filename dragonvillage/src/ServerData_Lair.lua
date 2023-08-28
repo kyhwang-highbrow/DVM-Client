@@ -235,8 +235,18 @@ end
 -------------------------------------
 -- function isRegisterLairDid
 -------------------------------------
-function ServerData_Lair:isRegisterLairDid(did)
-    return self.m_lairRegisterMap[did] ~= nil
+function ServerData_Lair:isRegisterLairDid(did, doid)
+    local info = self.m_lairRegisterMap[did]
+
+    if info == nil then
+        return false
+    end
+
+    if doid == nil then
+        return true
+    end
+
+    return info['doid'] == doid
 end
 
 -------------------------------------
