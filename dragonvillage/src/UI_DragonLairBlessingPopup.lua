@@ -3,6 +3,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_DragonLairBlessingPopup = class(PARENT, {
     m_listView = 'UIC_TableView',
     m_blessTargetIdList = 'List<id>',
+    m_mGoodsInfo = 'UI',
 })
 
 --------------------------------------------------------------------------
@@ -21,6 +22,7 @@ function UI_DragonLairBlessingPopup:init()
     
     self:initUI()
     self:initButton()
+    self:initTab()
     --self:makeTableView()
     self:refresh()
 end
@@ -39,6 +41,13 @@ function UI_DragonLairBlessingPopup:initUI()
     vars['goodsNode']:removeAllChildren()
     vars['goodsNode']:addChild(goods_icon)
 
+
+    do -- 상단 재화
+        local ui = UI_GoodsInfo('blessing_ticket')
+        vars['goodsNode']:removeAllChildren()
+        vars['goodsNode']:addChild(ui.root)
+        self.m_mGoodsInfo = ui
+    end
     
     do -- 이름
         local season_name = g_lairData:getLairSeasonName()
@@ -46,7 +55,11 @@ function UI_DragonLairBlessingPopup:initUI()
         vars['titleLabel']:setString(string.format('%s {@R}(%s){@}', season_name, season_desc))
     end
 
-    self:initTab()
+    local function update(dt)
+        self.m_mGoodsInfo:refresh()
+    end
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
 end
 
 --------------------------------------------------------------------------
@@ -492,7 +505,7 @@ function UI_DragonLairBlessingPopup:click_refreshBtn(stat_id)
         g_lairData:request_lairStatReset(stat_id, success_cb)
     end
 
-    local msg = Str('{1}개의 다이아를 사용하여 축복 효과를 초기화하시겠습니까?', 500)
+    local msg = Str('{1}개의 다이아를 사용하여 축복 효과를 초기화하시겠습니까?', 3000)
     local submsg = Str('초기화를 할 경우 {1}개의 축복 티켓을 돌려받습니다.', struct_lair_stat:getStatPickCount())
     local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
     ui:setPrice('cash', 3000)
