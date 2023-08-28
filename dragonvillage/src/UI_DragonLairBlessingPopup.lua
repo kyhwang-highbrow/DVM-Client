@@ -91,28 +91,29 @@ function UI_DragonLairBlessingPopup:refresh()
             vars[label_str]:setVisible(false)
 
             local option_value_sum, option_bonus_sum = g_lairData:getLairStatOptionValueSum(type ,option_key)
+            local option_value_total = option_value_sum + option_bonus_sum
             local progress_label_str = string.format('TypeProgressLabel%d', idx)
-            local desc = table_option:getOptionDesc(option_key, option_value_sum)
+            local desc = table_option:getOptionDesc(option_key, option_value_total)
             
             if option_value_sum == 0 then
                 vars[progress_label_str]:setString(option_name .. ' ' .. Str('없음'))
             else
-                vars[progress_label_str]:setString(string.format('{@ORANGE}%s{@}',desc))
+                vars[progress_label_str]:setString(string.format('{@ORANGE}%s(%d + {@green}%d{@}{@ORANGE}){@}',desc, option_value_sum, option_bonus_sum))
             end
 
             -- 프로그레스 (무의미한거 같다)
             local progress_bar_str =  string.format('TypeProgress%d', idx)
             vars[progress_bar_str]:setPercentage(0)
-
+            
             -- 보너스
             local bonus_label_str =  string.format('BonusLabel%d', idx)
-            local bonus_desc = option_bonus_sum > 0 and table_option:getOptionDesc(option_key, option_bonus_sum) or ''
+--[[             local bonus_desc = option_bonus_sum > 0 and table_option:getOptionDesc(option_key, option_bonus_sum) or ''
             
             if bonus_desc ~= '' then
                 bonus_desc = string.format('[%s] %s', Str('보너스'), bonus_desc)
-            end
+            end ]]
 
-            vars[bonus_label_str]:setString(string.format('{@green}%s{@}',bonus_desc))
+            vars[bonus_label_str]:setVisible(false)
         end
     end
 
