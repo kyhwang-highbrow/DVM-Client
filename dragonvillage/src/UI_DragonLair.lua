@@ -99,7 +99,6 @@ function UI_DragonLair:refresh()
     
     for type = 1, 5 do
         local option_key_list = g_lairData:getLairRepresentOptionKeyListByType(type)
-        --local g_lair:getLairStatIdList(type)
 
         for idx, option_key in ipairs(option_key_list) do
             local option_name = table_option:getOptionName(option_key)
@@ -107,57 +106,20 @@ function UI_DragonLair:refresh()
 
             local label_str = string.format('%dTypeLabel%d', type, idx)
             vars[label_str]:setVisible(false)
-            --vars[label_str]:setString(option_name)
 
             local progress_label_str =  string.format('%dTypeProgressLabel%d', type, idx)
-            local desc = table_option:getOptionDesc(option_key, option_value_sum)
-
             if option_value_sum == 0 then
                 vars[progress_label_str]:setString(option_name .. ' ' .. Str('없음'))
             else
+                local desc = table_option:getOptionDesc(option_key, option_value_sum)
                 vars[progress_label_str]:setString(string.format('{@ORANGE}%s{@}',desc))
             end
 
             local progress_bar_str =  string.format('%dTypeProgress%d', type, idx)
-            vars[progress_bar_str]:setPercentage(0)
+            vars[progress_bar_str]:setPercentage(50)
         end
-
-        --local stat_id_list, stat_count = g_lairData:getLairStatIdList(type)
-
---[[         if stat_count == 0 then
-            vars[label_str]:setString(Str('축복 효과 없음'))
-        else
-            local attr_str = TableLairBuffStatus:getInstance():getLairOverlapStatStrByIds(stat_id_list)
-            local bonus_str = TableLairBuffStatus:getInstance():getLairBonusStatStrByIds(stat_id_list)
-
-            if bonus_str == '' then
-                vars[label_str]:setString(attr_str)
-            else
-            end
-        end ]]
     end
     
-
---[[     require('UI_DragonCard_Flip')
-    local l_dids = g_lairData:getLairSlotDidList()
-    for i, did in ipairs(l_dids) do
-        local node_str = string.format('dragonNode%d', i)
-        local birth_grade = TableDragon:getBirthGrade(did)
-        local is_register_dragon = g_lairData:isRegisterLairhDid(did)
-
-        local t_dragon_data = {}
-        t_dragon_data['did'] = did
-        t_dragon_data['evolution'] = 3
-        t_dragon_data['grade'] = TableLairCondition:getInstance():getLairConditionGrade(birth_grade)
-        t_dragon_data['lv'] = TableLairCondition:getInstance():getLairConditionLevel(birth_grade)
-
-        local card_ui = UI_DragonCard_Flip(StructDragonObject(t_dragon_data))
-        self.m_cardList[i] = card_ui
-        card_ui:openCard()
-
-        vars[node_str]:removeAllChildren()
-        vars[node_str]:addChild(card_ui.root)
-    end ]]
 end
 
 -------------------------------------

@@ -9,6 +9,7 @@ StructLairStat = class(PARENT, {
     opt = 'number',
     use = 'number',
     lock = 'boolean',
+    reserve_lock = 'boolean',
 })
 
 local THIS = StructLairStat
@@ -34,6 +35,7 @@ function StructLairStat:initVariables()
     self.opt = 0
     self.lock = false
     self.use = 0
+    self.reserve_lock = false
 end
 
 -------------------------------------
@@ -81,11 +83,36 @@ end
 -------------------------------------
 function StructLairStat:getStatOptionMaxLevel()
     if self.opt == 0 then
-        return 0
+        return 1
     end
 
-    return TableLairBuffStatus:getInstance():getLairStatLevel(self.opt)
+    local option_key = TableLairBuffStatus:getInstance():getLairStatOptionKey(self.opt)
+    return TableLairBuffStatus:getInstance():getLairStatMaxLevelByOptionKey(option_key)
 end
+
+
+-------------------------------------
+-- function isStatOptionMaxLevel
+-------------------------------------
+function StructLairStat:isStatOptionMaxLevel()
+    return self:getStatOptionLevel() >= self:getStatOptionMaxLevel()
+end
+
+
+-------------------------------------
+-- function setStatReserveLock
+-------------------------------------
+function StructLairStat:setStatReserveLock()
+    self.reserve_lock = true
+end
+
+-------------------------------------
+-- function isStatReserveLock
+-------------------------------------
+function StructLairStat:isStatReserveLock()
+    return (self.reserve_lock == true)
+end
+
 
 -------------------------------------
 -- function isStatLock

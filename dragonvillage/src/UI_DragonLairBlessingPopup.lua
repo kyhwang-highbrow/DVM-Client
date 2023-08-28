@@ -220,6 +220,15 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
                 ui.vars['lockBtn']:setChecked(not is_lock)
                 return
             end
+
+            if is_lock == false and struct_lair_stat:isStatOptionMaxLevel() == true then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('최대 옵션 수치를 달성한 상태입니다.\n그래도 잠금을 해제하시겠습니까?'),
+                    function()
+                        ui.vars['lockBtn']:setChecked(is_lock)
+                    end)
+                ui.vars['lockBtn']:setChecked(not is_lock)
+                return
+            end
         
             local success_cb = function ()
                 self:refresh()
@@ -249,12 +258,14 @@ end
 -- @function begin_autoBlessingSeq
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_option_list)
+    local vars = self.vars
     local target_option_list = _target_option_list
     local auto_count = _auto_count
     local curr_count = 0
     local is_auto_stop = false
-    local vars = self.vars
-
+    local lock_id_list = {} -- 자동 중 최대 옵션이 나온 경우 잠근다
+    
+    -- 매 루프마다 만족하는 옵션이 나왔는지 체크
     local refresh_target_list = function() 
         local result_list = {}
         local target_id_list, need_count = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
@@ -267,7 +278,9 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
              local is_satify = false
             for key, val in pairs(target_option_list) do
                 if option_key == key and option_value >= val then
+                    table.insert(lock_id_list, lair_id)
                     is_satify = true
+                    struct_lair_stat:setStatReserveLock()
                     break
                 end
             end
@@ -287,11 +300,7 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
         vars['blessAutoBtn']:setVisible(false)
         vars['blessAutoStopBtn']:setVisible(true)
         vars['blockMenu']:setVisible(true)
-
-        vars['blessAutoStopBtn']:registerScriptTapHandler(function() 
-            is_auto_stop = true
-        end)
-
+        vars['blessAutoStopBtn']:registerScriptTapHandler(function() is_auto_stop = true end)
         vars['ingMenu']:setVisible(true)
 
         while true do
@@ -300,35 +309,36 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
 
             -- 시즌 종료
             if g_lairData:checkSeasonEnd() == true then
+                UIManager:toastNotificationGreen(Str('시즌이 종료되었습니다.'))
                 break
             end
 
+            -- 티켓이 모자란 경우
             if blessing_ticket < target_id_count == true then
                 UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
                 break
             end
 
+            -- 대상이 없을 경우
             if #target_id_list == 0 then
-                if blessing_ticket > 0 then
-                    UIManager:toastNotificationGreen(Str('원하시는 옵션을 획득하였습니다.'))
-                else
-                    UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
-                end
+                UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
                 break
             end
 
+            -- 횟수를 채운 경우
             if curr_count >= auto_count then
                 UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
                 break
             end
 
+            -- 자동 축복을 종료한 경우
             if is_auto_stop == true then
                 UIManager:toastNotificationGreen(Str('자동 축복이 종료되었습니다.'))
                 break
             end
 
             -- 서버 요청
-            co:work()            
+            co:work()
             local str_ids = table.concat(target_id_list, ',')
             g_lairData:request_lairStatPick(str_ids, function(ret)
                 self:refreshTableView(target_id_list)
@@ -344,6 +354,13 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
             co:waitTime(0.5)
         end
 
+        -- 만족하는 옵션이 나왔을 경우 잠금 처리
+        if #lock_id_list > 0 then
+            co:work()
+            self:request_lair_lock(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
         vars['ingMenu']:setVisible(false)
         vars['blessAutoBtn']:setVisible(true)
         vars['blessAutoStopBtn']:setVisible(false)
@@ -354,6 +371,34 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
     end
 
     Coroutine(coroutine_function, 'begin_autoBlessingSeq')
+end
+
+--------------------------------------------------------------------------
+-- @function request_lair_lock
+--------------------------------------------------------------------------
+function UI_DragonLairBlessingPopup:request_lair_lock(success_cb, fail_cb)
+    local lock_id_list = {}
+    local target_id_list, need_count = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
+    
+    for _, lair_id in ipairs(target_id_list) do
+        local struct_lair_stat = g_lairData:getLairStatInfo(lair_id)
+        if struct_lair_stat:isStatReserveLock() == true then
+            table.insert(lock_id_list, lair_id)
+        end
+    end
+
+    if #lock_id_list == 0 then
+        return
+    end
+
+    local str_ids = table.concat(lock_id_list, ',')
+    g_lairData:request_lairStatLock(str_ids, function(ret) 
+        self:refreshTableView(lock_id_list)
+        self:refresh()
+        if success_cb ~= nil then
+            success_cb()
+        end
+    end, fail_cb)
 end
 
 --------------------------------------------------------------------------
@@ -396,8 +441,16 @@ function UI_DragonLairBlessingPopup:click_blessBtn()
 
     local ok_btn_cb = function()
         local success_cb = function(ret)
+            for _, lair_id in ipairs(target_id_list) do
+                local struct_lair_stat = g_lairData:getLairStatInfo(lair_id)
+                if struct_lair_stat:isStatOptionMaxLevel() == true then
+                    struct_lair_stat:setStatReserveLock()
+                end
+            end
+
             self:refreshTableView(target_id_list)
             self:refresh()
+            self:request_lair_lock(target_id_list)
         end
     
         local str_ids = table.concat(target_id_list, ',')
