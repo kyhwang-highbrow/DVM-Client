@@ -9,6 +9,7 @@ UI_DragonLairRegister = class(PARENT,{
     m_dragonPriorityMap = 'Map<did, combat_power, create_at>',
     m_preAttr = 'string',
     m_attrRadioButton = 'UIC_RadioButton',
+    m_isRegistered = 'boolean',
     })
 
 -------------------------------------
@@ -16,6 +17,7 @@ UI_DragonLairRegister = class(PARENT,{
 -------------------------------------
 function UI_DragonLairRegister:init(owner_ui)
     self.m_uiName = 'UI_DragonLairRegister'    
+    self.m_isRegistered = false
     self:load('dragon_lair_register.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -280,7 +282,10 @@ end
 -- function click_registerBtn
 -------------------------------------
 function UI_DragonLairRegister:click_registerBtn()
+    local vars = self.vars
     local dragon_count = table.count(self.m_availableDragonList)
+    local ticket_count = self:getAvailableTicketCount()
+    
     if dragon_count == 0 then
         UIManager:toastNotificationRed(Str('등록 가능한 드래곤이 없습니다.'))
         return
@@ -288,11 +293,19 @@ function UI_DragonLairRegister:click_registerBtn()
 
     local ok_btn_cb = function ()
         local sucess_cb = function (ret)
-            local ui = UI_DragonLairRegisterConfirm.open(self.m_availableDragonList)
-            ui:setCloseCB(function()
-                self:onChangeOption()
-                self:refresh()
+            self.m_isRegistered = true
+            local animator = MakeAnimator('res/effect/effect_blesssing_dragon/bless.json')
+            animator:changeAni('bless')
+            animator:addAniHandler(function ()
+                animator:setVisible(false)
+                local ui = UI_DragonLairRegisterResult.open(ticket_count, dragon_count)
+                ui:setCloseCB(function()
+                    self:close()
+                end)
             end)
+
+            vars['spineNode']:removeAllChildren()
+            vars['spineNode']:addChild(animator.m_node)
         end
 
         local str_doids = self:getAvailableDragonDoids()
@@ -301,7 +314,7 @@ function UI_DragonLairRegister:click_registerBtn()
 
     local msg = Str('드래곤들을 등록하시겠습니까?')
     local submsg = Str('총 {1}마리의 드래곤이 등록됩니다.\n\n획득 축복 티켓 {2}개', 
-                                    dragon_count, self:getAvailableTicketCount())
+                                    dragon_count, ticket_count)
 
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end

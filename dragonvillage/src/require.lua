@@ -1731,6 +1731,7 @@ local t_module = {
     'UI_DragonLair', -- 메인
     'UI_DragonLairRegister', -- 등록 
     'UI_DragonLairRegisterConfirm', -- 등록 확인
+    'UI_DragonLairRegisterResult', -- 등록 결과
     'UI_DragonLairBlessingPopup', -- 축복 팝업
     'UI_DragonLairBlessingPopupItem', -- 축복 팝업 아이템
     'UI_DragonLairBlessingAutoPopup', -- 자동 축복 팝업    
