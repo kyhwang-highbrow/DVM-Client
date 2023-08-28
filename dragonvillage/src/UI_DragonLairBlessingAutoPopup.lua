@@ -215,7 +215,6 @@ function UI_DragonLairBlessingAutoPopup:click_adjustBtn(value, is_pressed)
 
         --값이 변경되지 않았으면 팝업과 함께 리턴
         if (before_Value == self.m_autoCount) then
-            cclog('여기 들어오나?', before_Value, self.m_autoCount)
             return false
         end
 

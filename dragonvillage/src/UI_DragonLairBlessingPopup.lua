@@ -241,7 +241,7 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
                 ui:refresh()
             end
             
-            g_lairData:request_lairStatLock(lair_id, is_lock, success_cb)
+            g_lairData:request_lairStatLock(tostring(lair_id), is_lock, success_cb)
         end
         
         ui.vars['lockBtn']:registerScriptTapHandler(click_lock)
@@ -398,7 +398,7 @@ function UI_DragonLairBlessingPopup:request_lair_lock(success_cb, fail_cb)
     end
 
     local str_ids = table.concat(lock_id_list, ',')
-    g_lairData:request_lairStatLock(str_ids, function(ret) 
+    g_lairData:request_lairStatLock(str_ids, true, function(ret) 
         self:refreshTableView(lock_id_list)
         self:refresh()
         if success_cb ~= nil then
