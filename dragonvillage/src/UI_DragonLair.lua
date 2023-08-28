@@ -92,7 +92,6 @@ function UI_DragonLair:refresh()
             local option_value_sum, option_bonus_sum = g_lairData:getLairStatOptionValueSum(type ,option_key)
             local option_value_total = option_value_sum + option_bonus_sum
 
-
             local label_str = string.format('%dTypeLabel%d', type, idx)
             vars[label_str]:setVisible(false)
 
@@ -108,7 +107,10 @@ function UI_DragonLair:refresh()
             vars[progress_bar_str]:setPercentage(0)
         end
     end
-    
+
+    do -- 레드닷
+        vars['lairNotiSprite']:setVisible(g_lairData:isAvailableRegisterDragons())
+    end
 end
 
 -------------------------------------

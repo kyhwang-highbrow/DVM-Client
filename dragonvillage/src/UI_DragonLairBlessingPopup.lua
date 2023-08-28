@@ -46,7 +46,6 @@ function UI_DragonLairBlessingPopup:initUI()
         vars['titleLabel']:setString(string.format('%s {@R}(%s){@}', season_name, season_desc))
     end
 
-
     self:initTab()
 end
 
