@@ -499,13 +499,19 @@ function StructMail:readCouponCode(cb_func)
     }
 
     local text = self:getTitle()
-    local ui = UI_CouponPopup('highbrow')
-    ui.vars['editBox']:setText(text)
-    ui.vars['editBox']:registerScriptEditBoxHandler(function() end)
-    ui.vars['editBtn']:setEnabled(false)
+    local ui = UI_CouponPopup()
+    ui.m_couponCode = text
+    --ui.vars['editBox']:setText(text)
+    --ui.vars['editBox']:registerScriptEditBoxHandler(function() end)
+    --ui.vars['editBtn']:setEnabled(false)
+
+    ui.vars['editMenu']:setVisible(false)
+    ui.vars['blockMenu']:setVisible(true)
+    ui.vars['blockText']:setString(text)
+    
     ui:setCloseCB(function() 
         if ui.m_couponCode == text then
-            if ui.m_isSuccess == true then
+            if ui.m_isResponsed == true then
                 g_mailData:request_mailRead(mail_id_list, mail_type_list, cb_func)
             end
         end

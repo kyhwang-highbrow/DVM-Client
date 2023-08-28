@@ -177,7 +177,6 @@ end
 -- @function onEnterTab
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:onEnterTab(tab, first)
-    local vars = self.vars
     self:makeTableView(self.m_currTab)
     self.m_blessTargetIdList = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
 

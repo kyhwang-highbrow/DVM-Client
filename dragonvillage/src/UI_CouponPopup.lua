@@ -10,7 +10,7 @@ UI_CouponPopup = class(UI, {
         m_dscText = 'string',
         m_errText = 'string',
         m_errSubText = 'string',
-        m_isSuccess = 'boolean', -- 성공
+        m_isResponsed = 'boolean', -- 성공
      })
 
 -------------------------------------
@@ -21,7 +21,7 @@ UI_CouponPopup = class(UI, {
 function UI_CouponPopup:init(couponType)
     self.m_couponType = couponType or ''
     self.m_couponCode = ''
-    self.m_isSuccess = false
+    self.m_isResponsed= false
 
     local vars = self:load('coupon_input.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -108,6 +108,8 @@ end
 function UI_CouponPopup:click_okBtn()
     -- 쿠폰코드 길이 검증
     local len = string.len(self.m_couponCode or '')
+
+    cclog('self.m_couponCode', self.m_couponCode, len)
     if len ~= 12 and len ~= self.m_maxCodeLength then
         MakeSimplePopup2(POPUP_TYPE.OK, self.m_errText, self.m_errSubText)
         return
@@ -144,7 +146,7 @@ function UI_CouponPopup:highbrow_coupon(couponCode)
 
         local itemId = couponData['item_id'] or 0
         if itemId > 0 then
-            self.m_isSuccess = true
+            self.m_isResponsed = true
             UI_CouponPopup_Confirm(couponCode, couponData)
             self:close()
         else
@@ -168,6 +170,7 @@ function UI_CouponPopup:highbrow_coupon(couponCode)
             msg = Str('유효하지 않은 아이템 코드입니다.\n다시 입력해 주세요.')
         elseif t_ret['rs'] == 2 then
             msg = Str('이미 사용된 아이템 코드입니다.\n다시 입력해 주세요.')
+            self.m_isResponsed = true
         elseif t_ret['rs'] == 3 then
             msg = Str('본 게임에서 사용할 수 없는 아이템 코드입니다.\n카드를 다시 확인해 주세요.')
         elseif t_ret['rs'] == 6 then
@@ -189,7 +192,7 @@ end
 -------------------------------------
 function UI_CouponPopup:normal_coupon(couponCode)
     local function success_cb(ret)
-        self.m_isSuccess = true
+        self.m_isResponsed = true
         UIManager:toastNotificationGreen(Str('쿠폰의 상품이 우편함으로 지급되었습니다.'))
         MakeSimplePopup(POPUP_TYPE.OK, Str('쿠폰 사용에 성공하였습니다.'))
 
@@ -204,6 +207,7 @@ function UI_CouponPopup:normal_coupon(couponCode)
         local msg = ''
         if (ret['status'] == -3167) then
             msg = Str('이미 사용된 쿠폰 번호입니다.\n다시 입력해 주세요.')
+            self.m_isResponsed = true
         elseif (ret['status'] == -1167) then
             msg = Str('유효하지 않은 쿠폰 번호입니다.\n다시 입력해 주세요.')
         elseif (ret['status'] == -1667) then

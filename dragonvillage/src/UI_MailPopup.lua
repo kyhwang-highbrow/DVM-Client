@@ -313,7 +313,7 @@ function UI_MailPopup:check_readType(struct_mail, success_cb)
 
     -- 나머지
     else
-        struct_mail:readCouponCode(success_cb)
+        struct_mail:readMe(success_cb)
     end
 end
 
