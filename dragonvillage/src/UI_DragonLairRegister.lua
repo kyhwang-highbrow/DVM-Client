@@ -7,6 +7,8 @@ UI_DragonLairRegister = class(PARENT,{
     m_sortManagerDragon = '',
     m_availableDragonList = 'Lit<>',
     m_dragonPriorityMap = 'Map<did, combat_power, create_at>',
+    m_preAttr = 'string',
+    m_attrRadioButton = 'UIC_RadioButton',
     })
 
 -------------------------------------
@@ -20,11 +22,12 @@ function UI_DragonLairRegister:init(owner_ui)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DragonLairRegister')
 
-    self:makeAvailableDragonList()
+    self:initTableView()
     self:initUI()
     self:initButton()
-    self:initTableView()
     self:refresh()
+
+    self.m_attrRadioButton:setSelectedButton('all')
 end
 
 -------------------------------------
@@ -71,6 +74,19 @@ function UI_DragonLairRegister:initUI()
     sort_mgr:pushSortOrder('grade')
     self.m_sortManagerDragon = sort_mgr
     --self.m_sortManagerDragon:addPreSortType('sort_lair_register_available', false, sort_lair_register_available)
+
+    do -- 속성(attribute)
+        local radio_button = UIC_RadioButton()
+        self.m_attrRadioButton = radio_button
+
+        radio_button:addButtonAuto('all',vars)
+        radio_button:addButtonAuto('fire', vars)
+        radio_button:addButtonAuto('water', vars)
+        radio_button:addButtonAuto('earth', vars)
+        radio_button:addButtonAuto('dark', vars)
+        radio_button:addButtonAuto('light', vars)        
+        radio_button:setChangeCB(function() self:onChangeOption() end)
+    end
 end
 
 -------------------------------------
@@ -87,15 +103,29 @@ end
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -------------------------------------
 function UI_DragonLairRegister:getDragonList()
---[[     local result_dragon_map = {}
-    local m_dragons = g_dragonsData:getDragonsListRef()
-    for doid, struct_dragon_data in pairs(m_dragons) do
-        if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
-            result_dragon_map[doid] = struct_dragon_data
-        end
-    end ]]
-
+    local attr_option = self.m_attrRadioButton.m_selectedButton
+    if attr_option ~= 'all' then
+        return g_dragonsData:getDragonsListWithAttr(attr_option)
+    end
     return g_dragonsData:getDragonsListRef()
+end
+
+-------------------------------------
+-- function onChangeOption
+-------------------------------------
+function UI_DragonLairRegister:onChangeOption()
+    self:makeAvailableDragonList()
+    local attr_option = self.m_attrRadioButton.m_selectedButton
+    local l_item_list = self:getDragonList()
+
+    -- 리스트 머지 (조건에 맞는 항목만 노출)
+    self.m_dragonTableView:setItemList(l_item_list)
+    --self.m_dragonTableView:update(0)
+
+    -- 정렬
+    self:apply_dragonSort()
+	self.m_preAttr = attr_option
+    self.m_dragonTableView:relocateContainerDefault()
 end
 
 -------------------------------------
@@ -106,7 +136,7 @@ function UI_DragonLairRegister:makeAvailableDragonList()
     local did_map = {}
 
     self.m_dragonPriorityMap = {}
-    for _, struct_dragon_data in pairs(m_dragons) do
+    for _, struct_dragon_data in pairs(m_dragons) do 
         if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
             local is_add_ticket_count = g_lairData:getAdditionalBlessingTicketExpectCount(struct_dragon_data) > 0
             local is_registered = g_lairData:isRegisterLairDid(struct_dragon_data['did'])
@@ -218,12 +248,7 @@ function UI_DragonLairRegister:initTableView()
     table_view_td.m_nItemPerCell = 9
     table_view_td:setCellUIClass(make_func, create_func)
     self.m_dragonTableView = table_view_td
-    
-
-    local l_item_list = self:getDragonList()
-    self.m_dragonTableView:setItemList(l_item_list)
-    
-    self:apply_dragonSort()
+    self.m_dragonTableView:setItemList({})
 end
 
 -------------------------------------
@@ -265,8 +290,7 @@ function UI_DragonLairRegister:click_registerBtn()
         local sucess_cb = function (ret)
             local ui = UI_DragonLairRegisterConfirm.open(self.m_availableDragonList)
             ui:setCloseCB(function()
-                self:makeAvailableDragonList()
-                self:initTableView()
+                self:onChangeOption()
                 self:refresh()
             end)
         end
@@ -275,24 +299,11 @@ function UI_DragonLairRegister:click_registerBtn()
         g_lairData:request_lairAdd(str_doids, sucess_cb)
     end    
 
---[[     if g_settingData:isSkipAddToLairConfimPopup() == true then
-        ok_btn_cb()
-        return
-    end ]]
-
     local msg = Str('드래곤들을 등록하시겠습니까?')
     local submsg = Str('총 {1}마리의 드래곤이 등록됩니다.\n\n획득 축복 티켓 {2}개', 
                                     dragon_count, self:getAvailableTicketCount())
 
     local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
-    --ui:setPrice('cash', 500)
-
---[[     -- 잠금 설정된 드래곤인지 체크
-    local check_cb = function()
-        g_settingData:setSkipAddToLairConfimPopup()
-    end
-    
-    ui:setCheckBoxCallback(check_cb) ]]
 end
 
 -------------------------------------

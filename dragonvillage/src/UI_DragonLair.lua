@@ -5,6 +5,8 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -------------------------------------
 UI_DragonLair = class(PARENT,{
     m_cardList = 'List<UI_DragonCard>',
+    m_preAttr = 'string',
+    m_attrRadioButton = 'UIC_RadioButton',
 })
 
 -------------------------------------
