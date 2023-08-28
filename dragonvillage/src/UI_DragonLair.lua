@@ -172,14 +172,9 @@ end
 function UI_DragonLair:click_resethBtn()
     local ok_btn_cb = function ()
         local success_cb = function (ret)
-            local success_cb_1 = function()
-                self:close()
-                local ui = UI_DragonLair()
-            end
-
-            g_dragonsData:request_dragonsInfo(success_cb_1)
+            self:close()
+            UINavigator:goTo('lair')
         end
-    
         g_lairData:request_lairSeasonResetManage(success_cb)
     end
 

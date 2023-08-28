@@ -48,11 +48,6 @@ end
 function ServerData_Lair:getLairStats()
     local list = {}
 
-    -- 삼뉴체크
-    if IS_TEST_MODE() ~= true then
-        return list
-    end
-
     if self:isLairSeasonEnd() == true then
         return list
     end
@@ -295,9 +290,14 @@ function ServerData_Lair:getAdditionalBlessingTicketExpectCount(struct_dragon_ob
         return 0
     end
 
-    local basic_ticket = 3
-    local expect_ticket_count = basic_ticket + struct_dragon_object:getDragonSkillLevelUpNum()
-    return expect_ticket_count - (info['ticket'])
+    local expect_ticket_count = struct_dragon_object:getDragonSkillLevelSum()
+    local diff_count = expect_ticket_count - (info['ticket'])
+
+--[[     cclog(struct_dragon_object:getDragonNameWithEclv(), expect_ticket_count, (info['ticket']))
+    if diff_count > 0 then
+    end ]]
+
+    return diff_count
 end
 
 -------------------------------------
@@ -360,26 +360,20 @@ end
 -- function isAvailableRegisterDragons
 -------------------------------------
 function ServerData_Lair:isAvailableRegisterDragons()
-    if self.m_availableRegisterDirty == false then
-        return self.m_isAvailableRegister
-    end
-
+    self.m_availableRegisterDirty = false
     local m_dragons = g_dragonsData:getDragonsListRef()
     for _, struct_dragon_data in pairs(m_dragons) do
         if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
-            local is_add_ticket_count = g_lairData:getAdditionalBlessingTicketExpectCount(struct_dragon_data) > 0
+            local is_add_ticket_count = self:getAdditionalBlessingTicketExpectCount(struct_dragon_data) > 0
             local is_registered = g_lairData:isRegisterLairDid(struct_dragon_data['did'])
             if is_registered == false or is_add_ticket_count == true then
                 self.m_isAvailableRegister = true
-
-                cclog('이거 여기 들어오면 안되는데? self.m_isAvailableRegister', self.m_isAvailableRegister)
-                break
+                return true                
             end
         end
     end
-
-    self.m_availableRegisterDirty = false
-    return self.m_isAvailableRegister
+    self.m_isAvailableRegister = false    
+    return false
 end
 
 -------------------------------------
@@ -506,14 +500,6 @@ end
 function ServerData_Lair:request_lairInfo(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
-
-    -- 삼뉴체크
-    if IS_TEST_MODE() ~= true then
-        if finish_cb then
-            finish_cb()
-        end
-        return
-    end
 
     -- 성공 콜백
     local function success_cb(ret)

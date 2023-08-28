@@ -462,8 +462,8 @@ end
 function StructDragonObject:getDragonSkillLevelSum()
     local result = 0
     for i = 0, 2 do
-        local skill_lv = self['skill_' .. i]
-        if (skill_lv and skill_lv > 0) then
+        local skill_lv = self['skill_' .. i]        
+        if (skill_lv) then
             result = result + skill_lv
         end
     end

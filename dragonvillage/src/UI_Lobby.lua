@@ -850,11 +850,6 @@ function UI_Lobby:initButton()
     vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
     vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end) -- 전투
     vars['lairBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end) -- 드래곤
-
-    -- 삼뉴체크
-    if IS_TEST_MODE() ~= true then
-        vars['lairBtn']:setVisible(false)
-    end
     
     -- 상점
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
@@ -1595,11 +1590,6 @@ end
 -- @brief 드래곤 컬렉션 버튼
 -------------------------------------
 function UI_Lobby:click_collectionBtn()
-    -- 삼뉴체크
-    if IS_TEST_MODE() ~= true then
-        return
-    end
-
     UINavigator:goTo('lair')
 end
 
@@ -2629,10 +2619,6 @@ function UI_Lobby:update_bottomLeftButtons()
     --local l_content = {'quest', 'forest', 'tamer', 'runeForge', 'dragonManage'}
     local l_content = {'lair', 'tamer', 'runeForge', 'dragonManage'}
 
-    -- 삼뉴체크
-    if IS_TEST_MODE() ~= true then
-        l_content = {'forest', 'tamer', 'runeForge', 'dragonManage'}
-    end
 
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
@@ -2685,11 +2671,6 @@ function UI_Lobby:update_bottomRightButtons()
     local vars = self.vars
     local t_btn_name = {}
     local l_content = {'forest', 'clan','shop', 'draw', 'etc'}
-
-    -- 삼뉴체크
-    if IS_TEST_MODE() ~= true then
-        l_content = {'clan','shop', 'draw', 'etc'}
-    end
 
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
