@@ -64,7 +64,7 @@ function UI_MailListItem:refresh()
     -- 우편 제목
     vars['mailLabel']:setString(t_text['title'])
 
-	-- 우편 본문
+
     vars['infoLabel']:setString(t_text['content'])
 
     -- 유효 기간 (남은 시간)
