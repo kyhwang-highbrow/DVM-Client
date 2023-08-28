@@ -354,13 +354,15 @@ end
 -------------------------------------
 function ServerData_Lair:setAvailableRegisterDragonsDirty(b)
     self.m_availableRegisterDirty = b
+    -- 하이라이트 처리
+    g_highlightData:setDirty(true)
 end
 
 -------------------------------------
 -- function isAvailableRegisterDragons
 -------------------------------------
 function ServerData_Lair:isAvailableRegisterDragons()
-    self.m_availableRegisterDirty = false
+    --self.m_availableRegisterDirty = false
     local m_dragons = g_dragonsData:getDragonsListRef()
     for _, struct_dragon_data in pairs(m_dragons) do
         if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
@@ -372,7 +374,7 @@ function ServerData_Lair:isAvailableRegisterDragons()
             end
         end
     end
-    self.m_isAvailableRegister = false    
+    self.m_isAvailableRegister = false
     return false
 end
 
@@ -544,7 +546,7 @@ function ServerData_Lair:request_lairAdd(doid, finish_cb, fail_cb)
         if ret['modified_runes'] then
             g_runesData:applyRuneData_list(ret['modified_runes'])
         end
-        
+
         -- 반드시 룬을 먼저 갱신하고 dragon을 갱신할 것
 		if (ret['modified_dragons']) then
 			for _, t_dragon in ipairs(ret['modified_dragons']) do
