@@ -88,7 +88,7 @@ function UI_DragonLair:refresh()
         local option_key_list = g_lairData:getLairRepresentOptionKeyListByType(type)
 
         for idx, option_key in ipairs(option_key_list) do
-            local option_name = table_option:getOptionName(option_key)
+            
             local option_value_sum, option_bonus_sum = g_lairData:getLairStatOptionValueSum(type ,option_key)
             local option_value_total = option_value_sum + option_bonus_sum
 
@@ -97,7 +97,7 @@ function UI_DragonLair:refresh()
 
             local progress_label_str =  string.format('%dTypeProgressLabel%d', type, idx)
             if option_value_sum == 0 then
-                vars[progress_label_str]:setString(option_name .. ' ' .. Str('없음'))
+                vars[progress_label_str]:setString(desc)
             else
                 local desc = table_option:getOptionDesc(option_key, option_value_total)
                 vars[progress_label_str]:setString(string.format('{@ORANGE}%s(%d + {@green}%d{@}{@ORANGE}){@}',desc, option_value_sum, option_bonus_sum))
