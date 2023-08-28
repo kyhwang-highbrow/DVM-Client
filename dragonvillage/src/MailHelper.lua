@@ -15,13 +15,14 @@ function MailHelper.getMailText(struct_mail)
 		    return {title = '형식 없음', content = '내용 없음'}
 	    end
 
+
         -- 순수하게 서버에서 주는 메세지만 사용
-        if (mail_type == 'custom') then
+        if (mail_type == 'custom' ) then
             return MailHelper.makePureCustomMail(struct_mail)
         end
 
         -- 공지사항 메일 전용
-        if (mail_type == 'notice') then
+        if (mail_type == 'notice' ) then
             return MailHelper.makeNoticeMail(struct_mail)
         end
 
@@ -33,7 +34,7 @@ function MailHelper.getMailText(struct_mail)
 
         -- system인 경우 포함된 텍스트 반환
         if (t_template['template_type'] == 'system') then
-            return {title = Str(t_template['t_title']), content = struct_mail:getMessage() or Str(t_template['t_content'])}
+            
         end
 
         -- template_type이 custom인 경우 별도 로직 태움
@@ -70,10 +71,14 @@ function MailHelper.makeFormalMail(struct_mail, t_template)
         elseif (value == 'msg') then
             t_value[i] = struct_mail:getMessage()
 
+        -- 타이틀
+        elseif (value == 'title') then
+            t_value[i] = struct_mail:getTitle()
+
         end
     end
 
-	local title = Str(t_template['t_title'])
+    local title = Str(t_template['t_title'])
 	local content = Str(t_template['t_content'], t_value[1], t_value[2], t_value[3], t_value[4], t_value[5])
 
 	return {title = title, content = content}
@@ -101,6 +106,15 @@ function MailHelper.makePureCustomMail(struct_mail)
     end
 
 	return {title = title, content = content}
+end
+
+
+-------------------------------------
+-- function makeSystemMail
+-------------------------------------
+function MailHelper.makeSystemMail(struct_mail, t_template)
+    local result = {title = Str(t_template['t_title']), content = struct_mail:getMessage() or Str(t_template['t_content'])}
+    return result
 end
 
 -------------------------------------

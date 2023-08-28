@@ -10,6 +10,7 @@ UI_CouponPopup = class(UI, {
         m_dscText = 'string',
         m_errText = 'string',
         m_errSubText = 'string',
+        m_isSuccess = 'boolean', -- 성공
      })
 
 -------------------------------------
@@ -20,6 +21,7 @@ UI_CouponPopup = class(UI, {
 function UI_CouponPopup:init(couponType)
     self.m_couponType = couponType or ''
     self.m_couponCode = ''
+    self.m_isSuccess = false
 
     local vars = self:load('coupon_input.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -142,6 +144,7 @@ function UI_CouponPopup:highbrow_coupon(couponCode)
 
         local itemId = couponData['item_id'] or 0
         if itemId > 0 then
+            self.m_isSuccess = true
             UI_CouponPopup_Confirm(couponCode, couponData)
             self:close()
         else
@@ -186,6 +189,7 @@ end
 -------------------------------------
 function UI_CouponPopup:normal_coupon(couponCode)
     local function success_cb(ret)
+        self.m_isSuccess = true
         UIManager:toastNotificationGreen(Str('쿠폰의 상품이 우편함으로 지급되었습니다.'))
         MakeSimplePopup(POPUP_TYPE.OK, Str('쿠폰 사용에 성공하였습니다.'))
 

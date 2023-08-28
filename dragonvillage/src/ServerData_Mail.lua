@@ -270,23 +270,31 @@ function ServerData_Mail:makeMailMap(l_mail_list)
                     self.m_excludedNoticeCnt = (self.m_excludedNoticeCnt + 1)
                 end
             end
+        
+        elseif (mail_type == 'coupon_mail') then
+            category = 'goods'
+            t_mail['items_list'] = {}
+            t_mail['items_list'][1] = {item_id = 700501, count = 1}
 
 		-- 아이템에 따라 분류한다.
 		else
 			local t_item = t_mail['items_list'][1]
-			local item_id = t_item['item_id']
-	
-			if (table_item_type:isMailStaminas(item_id)) then
-				category = 'st'		
-			elseif (table_item_type:isMailFp(item_id)) then
-				category = 'friend'	
-			elseif (table_item_type:isMailItem(item_id)) then
-				category = 'item'
-			elseif (table_item_type:isMailMoney(item_id)) then
-				category = 'goods'
-			else
-				category = 'item'
-			end
+            if t_item == nil then
+                category = 'goods'
+            else
+                local item_id = t_item['item_id'] or 0	
+                if (table_item_type:isMailStaminas(item_id)) then
+                    category = 'st'		
+                elseif (table_item_type:isMailFp(item_id)) then
+                    category = 'friend'	
+                elseif (table_item_type:isMailItem(item_id)) then
+                    category = 'item'
+                elseif (table_item_type:isMailMoney(item_id)) then
+                    category = 'goods'
+                else
+                    category = 'item'
+                end
+            end
 		end
         -- mail struct로 생성
         if (is_mail) then

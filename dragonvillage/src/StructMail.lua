@@ -174,6 +174,11 @@ function StructMail:isMailCanReadAll()
         return false
     end
 
+    -- 쿠폰 제외
+    if (self['mail_type'] == 'coupon_mail') then
+        return false
+    end
+
     -- 아이템 있는지 확인
 	if (not self['items_list']) then
 		return false
@@ -240,6 +245,18 @@ function StructMail:readMe(cb_func)
     else
         g_mailData:request_mailRead(mail_id_list, mail_type_list, finish_cb)
     end
+end
+
+-------------------------------------
+-- function isCouponCode
+-- @brief 쿠폰 코드 확인 
+-------------------------------------
+function StructMail:isCouponCode()
+    if (self['mail_type'] == 'coupon_mail') then
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------
@@ -466,6 +483,35 @@ function StructMail:readInstantSkillSlime(cb_func)
 	local item_id = self['items_list'][1]['item_id']
     require('UI_InstantSkillLevelUpPopup')
     local ui = UI_InstantSkillLevelUpPopup(mid, item_id, cb_func)
+end
+
+-------------------------------------
+-- function readCouponCode
+---@return boolean
+-------------------------------------
+function StructMail:readCouponCode(cb_func)
+	local mail_id_list = {
+        self:getMid()
+    }
+
+    local mail_type_list = {
+        self:getMailType()
+    }
+
+    local text = self:getTitle()
+    local ui = UI_CouponPopup('highbrow')
+    ui.vars['editBox']:setText(text)
+    ui.vars['editBox']:registerScriptEditBoxHandler(function() end)
+    ui.vars['editBtn']:setEnabled(false)
+    ui:setCloseCB(function() 
+        if ui.m_couponCode == text then
+            if ui.m_isSuccess == true then
+                g_mailData:request_mailRead(mail_id_list, mail_type_list, cb_func)
+            end
+        end
+    end)
+
+    return true
 end
 
 -------------------------------------
