@@ -222,7 +222,7 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
             end
 
             if is_lock == false and struct_lair_stat:isStatOptionMaxLevel() == true then
-                MakeSimplePopup(POPUP_TYPE.OK, Str('최대 옵션 수치를 달성한 상태입니다.\n그래도 잠금을 해제하시겠습니까?'),
+                MakeSimplePopup(POPUP_TYPE.YES_NO, Str('최대 옵션 수치를 달성한 상태입니다.\n그래도 잠금을 해제하시겠습니까?'),
                     function()
                         ui.vars['lockBtn']:setChecked(is_lock)
                     end)
