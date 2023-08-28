@@ -78,13 +78,14 @@ function UI_DragonLairBlessingPopupItem:refresh()
     local struct_lair_stat = g_lairData:getLairStatInfo(self.m_lairId)
     local req_count = TableLair:getInstance():getLairRequireCount(self.m_lairId)
     local stat_id = struct_lair_stat:getStatId()
-    local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
+    local reg_count = g_lairData:getLairSlotCompleteCount()
+    local is_available = reg_count >= req_count
     local level = struct_lair_stat:getStatOptionLevel(stat_id)
     local max_level = struct_lair_stat:getStatOptionMaxLevel()
     local is_max_level = max_level == level
 
     do  -- 잠금 처리
-        local str = Str('{@Y}드래곤 {1}마리 이상 등록 시 오픈{@}', req_count)
+        local str = Str('{@Y}드래곤 {1}마리 이상 등록 시 오픈 [{2}/{3}]{@}', req_count, reg_count, req_count)
         if is_available == true then
             if stat_id == 0 then
                 str = Str('축복 효과 없음')
