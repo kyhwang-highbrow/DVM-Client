@@ -407,6 +407,11 @@ function UI_Lobby:entryCoroutine()
             end		
 	    end
 
+        -- 축복 시즌 오픈 팝업
+        co:work()
+        g_lairData:openSeasonPopup(co.NEXT)
+        if co:waitWork() then return end
+
         
         -- 시즌 보상이 있을 경우 팝업
         if g_challengeMode.m_tSeasonRewardInfo then
