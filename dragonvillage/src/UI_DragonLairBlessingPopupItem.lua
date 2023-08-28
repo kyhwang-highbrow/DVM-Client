@@ -68,6 +68,7 @@ function UI_DragonLairBlessingPopupItem:refresh()
     local vars = self.vars
     local is_exist = self.m_isExist
 
+    vars['progressNode']:removeAllChildren()
     vars['perLabel']:setVisible(false)
     if is_exist == false then
         vars['optionLabel']:setString(Str('{@deep_gray}추후 업데이트 예정{@}'))
@@ -83,7 +84,7 @@ function UI_DragonLairBlessingPopupItem:refresh()
     local is_max_level = max_level == level
 
     do  -- 잠금 처리
-        local str 
+        local str = Str('{@Y}드래곤 {1}마리 이상 등록 시 오픈{@}', req_count)
         if is_available == true then
             if stat_id == 0 then
                 str = Str('축복 효과 없음')
@@ -93,8 +94,6 @@ function UI_DragonLairBlessingPopupItem:refresh()
                     str = string.format('{@green}%s [MAX]{@}', str)
                 end
             end
-        else
-            str = Str('{@Y}드래곤 {1}마리 이상 등록 시 오픈{@}', req_count)
         end
 
         vars['optionLabel']:setString(str)
@@ -107,17 +106,12 @@ function UI_DragonLairBlessingPopupItem:refresh()
     end
 
     do
-        for i = 1,5 do
-            local node_str = string.format('progress%d', i)
-            if level ~= nil and i <= level then
-                vars[node_str]:setPercentage(100)
-            else
-                vars[node_str]:setPercentage(0)
-            end
-        end
-        
         vars['perLabel']:setVisible(false)
         if is_available == true then
+            -- 진행도 프로그레스
+            self:refreshProgress(level, max_level)
+
+            --진행도 텍스트
             local str = string.format('(%d/%d)', level, max_level)
             vars['perLabel']:setString(str)
             vars['perLabel']:setVisible(true)
@@ -130,29 +124,30 @@ function UI_DragonLairBlessingPopupItem:refresh()
     end
 end
 
---[[ -------------------------------------
--- function change_lockBtn
 -------------------------------------
-function UI_DragonLairBlessingPopupItem:change_lockBtn(is_checked)
+-- function refreshProgress
+-------------------------------------
+function UI_DragonLairBlessingPopupItem:refreshProgress(curr_count, max_count)
     local vars = self.vars
-    local is_lock = vars['lockBtn']:isChecked()
+    local res = 'res/ui/gauges/battle_pass_level_gg.png'
+    local board_size = vars['progressNode']:getContentSize()['width']
+    local cell_size = board_size/max_count
+    local start_pos = board_size/2
+    local l_horizontal_pos_list = getSortPosList(cell_size, max_count)
 
-    local struct_lair_stat = g_lairData:getLairStatInfo(self.m_lairId)
-    local stat_id = struct_lair_stat:getStatId()
+    for i = 1, curr_count do
+        local animator = MakeAnimator(res)
+        local interval = 5
+        local org_cell_size = animator:getContentSize()
+        local org_cell_width_size = (org_cell_size['width'] + interval)
+        local scale_ratio = cell_size/org_cell_width_size
 
-    local req_count = TableLair:getInstance():getLairRequireCount(self.m_lairId)
-    local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
-    is_available = is_available and stat_id ~= 0
+        vars['progressNode']:addChild(animator.m_node)
 
-    if is_available == false then
-        UIManager:toastNotificationRed(Str('아직 이용할 수 없습니다.'))
-        vars['lockBtn']:setChecked(not is_lock)
-        return
+        --animator:setDockPoint(cc.p(0.0, 0.5))
+        --animator:setAnchorPoint(cc.p(0.0, 0.5))
+        animator:setPositionX(l_horizontal_pos_list[i])
+        animator:setScaleX(scale_ratio)
+        animator:setScaleY(0.5)
     end
-
-    local success_cb = function ()
-        self:refresh()
-    end
-    
-    g_lairData:request_lairStatLock(self.m_lairId, is_lock, success_cb)
-end ]]
+end
