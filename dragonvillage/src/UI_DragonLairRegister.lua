@@ -4,6 +4,7 @@ local PARENT = UI
 -------------------------------------
 UI_DragonLairRegister = class(PARENT,{
     m_dragonTableView = 'TableVIew',
+    m_dragonCount = '',
     m_sortManagerDragon = '',
     m_availableDragonList = 'Lit<>',
     m_dragonPriorityMap = 'Map<did, combat_power, create_at>',
@@ -17,6 +18,7 @@ UI_DragonLairRegister = class(PARENT,{
 -------------------------------------
 function UI_DragonLairRegister:init(owner_ui)
     self.m_uiName = 'UI_DragonLairRegister'    
+    self.m_dragonCount = 0
     self.m_isRegistered = false
     self:load('dragon_lair_register.ui')
     UIManager:open(self, UIManager.POPUP, true)
@@ -27,7 +29,6 @@ function UI_DragonLairRegister:init(owner_ui)
     self:initTableView()
     self:initUI()
     self:initButton()
-    self:refresh()
 
     self.m_attrRadioButton:setSelectedButton('all')
 end
@@ -110,12 +111,16 @@ function UI_DragonLairRegister:getDragonList()
     if attr_option ~= 'all' then
         m_dragons = g_dragonsData:getDragonsListWithAttr(attr_option)
     else
+        self.m_dragonCount = 0
         m_dragons = g_dragonsData:getDragonsListRef()
     end
 
     local result_map = {}
     for key, struct_dragon_object in pairs(m_dragons) do
         if struct_dragon_object:getBirthGrade() >= 5 then
+            if attr_option == 'all' then
+                self.m_dragonCount = 1 + self.m_dragonCount
+            end
             result_map[key] = struct_dragon_object
         end
     end
@@ -135,6 +140,8 @@ function UI_DragonLairRegister:onChangeOption()
     self.m_dragonTableView:setItemList(l_item_list)
     --self.m_dragonTableView:update(0)
 
+    self:refresh()
+    
     -- 정렬
     self:apply_dragonSort()
 	self.m_preAttr = attr_option
@@ -286,8 +293,8 @@ function UI_DragonLairRegister:refresh()
     
     do
         local reg_count = g_lairData:getLairSlotCompleteCount()
-        local dragons_cnt = g_dragonsData:getDragonsCnt()
-        vars['dragonCountLabel']:setString(Str('등록한 드래곤 {1}/{2}', reg_count, dragons_cnt))
+        --local dragons_cnt = g_dragonsData:getDragonsCnt()
+        vars['dragonCountLabel']:setString(Str('등록한 드래곤 {1}/{2}', reg_count, self.m_dragonCount))
     end
 
     do
