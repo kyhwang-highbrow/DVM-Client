@@ -67,6 +67,7 @@ end
 function UI_DragonLairBlessingPopupItem:refresh()
     local vars = self.vars
     local is_exist = self.m_isExist
+    vars['optionLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 
     vars['progressNode']:removeAllChildren()
     vars['perLabel']:setVisible(false)
@@ -89,13 +90,13 @@ function UI_DragonLairBlessingPopupItem:refresh()
         if is_available == true then
             str = Str('축복 효과 없음')
             if stat_id > 0 then
+                vars['optionLabel']:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
                 str = TableLairBuffStatus:getInstance():getLairStatStrByIds({stat_id})
                 if is_max_level == true then
                     str = string.format('{@green}%s [MAX]{@}', str)
                 end
             end
         end
-
         vars['optionLabel']:setString(str)
     end
 
