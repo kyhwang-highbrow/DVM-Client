@@ -420,7 +420,7 @@ function ServerData_Lair:openSeasonPopup(close_cb)
     local season_id = self.m_seasonId or 0
     local save_key = 'lair_season'
 
-    if g_settingData:get(save_key) ~= season_id then
+    if g_settingData:get(save_key) ~= season_id and season_id > 101 then
         local ui = MakePopup('dragon_lair_open_popup.ui')
         ui.vars['titleLabel']:setString(self:getLairSeasonName())
         local text = Str('시즌 종료까지 {1}', g_lairData:getLairSeasonEndRemainTimeText())
