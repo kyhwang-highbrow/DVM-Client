@@ -283,10 +283,17 @@ end
 -------------------------------------
 function UI_DragonLairRegister:refresh()
     local vars = self.vars
-    --local count = table.count(self.m_availableDragonList)
-    local reg_count = g_lairData:getLairSlotCompleteCount()
-    local dragons_cnt = g_dragonsData:getDragonsCnt()
-    vars['dragonCountLabel']:setString(Str('등록한 드래곤 {1}/{2}', reg_count, dragons_cnt))
+    
+    do
+        local reg_count = g_lairData:getLairSlotCompleteCount()
+        local dragons_cnt = g_dragonsData:getDragonsCnt()
+        vars['dragonCountLabel']:setString(Str('등록한 드래곤 {1}/{2}', reg_count, dragons_cnt))
+    end
+
+    do
+        local count = table.count(self.m_availableDragonList)
+        vars['lairNotiSprite']:setVisible(count > 0)
+    end
 end
 
 -------------------------------------

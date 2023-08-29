@@ -103,10 +103,10 @@ function UI_DragonLair:refresh()
             else
                 vars[progress_label_str]:setString(string.format('{@ORANGE}%s(%d + {@green}%d{@}{@ORANGE}){@}',desc, option_value_sum, option_bonus_sum))
             end
-
-            local progress_bar_str =  string.format('%dTypeProgress%d', type, idx)
-            vars[progress_bar_str]:setPercentage(0)
         end
+
+        --local progress_bar_str =  string.format('%dTypeProgress', type)
+        --vars[progress_bar_str]:setPercentage(0)
     end
 
     do -- 레드닷
@@ -142,28 +142,6 @@ function UI_DragonLair:click_registerBtn()
     ui:setCloseCB(function ()
         self:refresh()
     end)
-end
-
--------------------------------------
--- function click_refreshBtn
--------------------------------------
-function UI_DragonLair:click_refreshBtn()
-    local ok_btn_cb = function ()
-        local success_cb = function (ret)
-            self:apply_dragonSort()
-            self:refresh()
-
-            
-            SoundMgr:playEffect('UI', 'ui_card_flip')
-        end
-    
-        g_lairData:request_lairReload(success_cb)
-    end
-
-    local msg = Str('말판 새로고침')
-    local submsg = Str('다이아 500개를 소모해서 새로고침 하시겠습니까?')
-    local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
-    ui:setPrice('cash', 500)
 end
 
 -------------------------------------
