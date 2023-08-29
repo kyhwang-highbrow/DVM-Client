@@ -148,8 +148,6 @@ end
 -- @function refreshTableView
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:refreshTableView(lair_id_list)
-    SoundMgr:playEffect('EFFECT', 'reward')
-
     local func_find = function(val)
         for i,v in ipairs(lair_id_list) do
             if v == val then

@@ -331,6 +331,8 @@ function UI_DragonLairRegister:click_registerBtn()
 
     local sucess_cb = function (ret)
         self.m_isRegistered = true
+        SoundMgr:playEffect('UI', 'ui_rune_success')
+
         local func = function()            
             self:close()
             UI_DragonLairRegisterResult.open(ticket_count, dragon_count)

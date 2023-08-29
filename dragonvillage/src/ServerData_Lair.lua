@@ -658,6 +658,9 @@ function ServerData_Lair:request_lairStatLock(ids, lock, finish_cb, fail_cb)
 
         self:applyLairInfo(ret['lair'])
 
+        -- 사운드 재생
+        SoundMgr:playEffect('EFFECT', 'dragon_levelup')
+
         if finish_cb then
             finish_cb(ret)
         end
