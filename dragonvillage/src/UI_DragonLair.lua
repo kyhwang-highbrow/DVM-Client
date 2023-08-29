@@ -54,6 +54,15 @@ function UI_DragonLair:initUI()
         local season_desc = g_lairData:getLairSeasonDesc()
         vars['seasonNameLabel']:setString(season_desc)
     end
+
+    do -- 특화 이펙트
+--[[         local type = g_lairData:getLairSeasonSpecialType()
+        local node_str = string.format('iconNode%d', type)
+        local animator = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
+        animator:changeAni('summon_hero', true)
+        animator:setScale(2.1)
+        vars[node_str]:addChild(animator.m_node) ]]
+    end
 end
 
 -------------------------------------
@@ -90,9 +99,6 @@ function UI_DragonLair:refresh()
             local option_value_sum, option_bonus_sum = g_lairData:getLairStatOptionValueSum(type ,option_key)
             local option_value_total = option_value_sum + option_bonus_sum
             local desc = table_option:getOptionDesc(option_key, option_value_total)
-
-            local label_str = string.format('%dTypeLabel%d', type, idx)
-            vars[label_str]:setVisible(false)
 
             local progress_label_str =  string.format('%dTypeProgressLabel%d', type, idx)
             if option_value_sum == 0 then
