@@ -210,7 +210,7 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
     local vars = self.vars
     local node = vars['optionNode']
     node:removeAllChildren()
-    local item_list = TableLair:getInstance():getLairIdListByType(curr_tab)
+    local item_list = TableLairBuff:getInstance():getLairIdListByType(curr_tab)
 
     local function create_func(ui, data)
         local lair_id = data
@@ -224,7 +224,7 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
         local click_lock = function()
             local struct_lair_stat = g_lairData:getLairStatInfo(lair_id)
             local is_lock = ui.vars['lockBtn']:isChecked()        
-            local req_count = TableLair:getInstance():getLairRequireCount(lair_id)
+            local req_count = TableLairBuff:getInstance():getLairRequireCount(lair_id)
             local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
         
             if is_available == false then

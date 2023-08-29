@@ -87,9 +87,7 @@ function UI_DragonLair:refresh()
     
     for type = 1, 5 do
         local option_key_list = g_lairData:getLairRepresentOptionKeyListByType(type)
-
         for idx, option_key in ipairs(option_key_list) do
-            
             local option_value_sum, option_bonus_sum = g_lairData:getLairStatOptionValueSum(type ,option_key)
             local option_value_total = option_value_sum + option_bonus_sum
             local desc = table_option:getOptionDesc(option_key, option_value_total)
@@ -105,8 +103,9 @@ function UI_DragonLair:refresh()
             end
         end
 
-        --local progress_bar_str =  string.format('%dTypeProgress', type)
-        --vars[progress_bar_str]:setPercentage(0)
+        local curr_progress, max_progress = g_lairData:getLairStatProgressInfo(type)
+        local progress_bar_str =  string.format('%dTypeProgress', type)
+        vars[progress_bar_str]:setPercentage(curr_progress*100/max_progress)
     end
 
     do -- 레드닷

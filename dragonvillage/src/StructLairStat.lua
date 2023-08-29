@@ -27,7 +27,6 @@ function StructLairStat:getThis()
     return THIS
 end
 
-
 -------------------------------------
 -- function initVariables
 -------------------------------------
@@ -83,13 +82,12 @@ end
 -------------------------------------
 function StructLairStat:getStatOptionMaxLevel()
     if self.opt == 0 then
-        return 1
+        return 10
     end
 
     local option_key = TableLairBuffStatus:getInstance():getLairStatOptionKey(self.opt)
     return TableLairBuffStatus:getInstance():getLairStatMaxLevelByOptionKey(option_key)
 end
-
 
 -------------------------------------
 -- function isStatOptionMaxLevel
@@ -97,7 +95,6 @@ end
 function StructLairStat:isStatOptionMaxLevel()
     return self:getStatOptionLevel() >= self:getStatOptionMaxLevel()
 end
-
 
 -------------------------------------
 -- function setStatReserveLock
@@ -112,7 +109,6 @@ end
 function StructLairStat:isStatReserveLock()
     return (self.reserve_lock == true)
 end
-
 
 -------------------------------------
 -- function isStatLock

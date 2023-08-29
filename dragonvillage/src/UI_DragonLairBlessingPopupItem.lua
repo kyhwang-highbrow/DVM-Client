@@ -12,7 +12,7 @@ UI_DragonLairBlessingPopupItem = class(PARENT, {
 -------------------------------------
 function UI_DragonLairBlessingPopupItem:init(data)
     self.m_lairId = data
-    self.m_isExist = TableLair:getInstance():exists(self.m_lairId)
+    self.m_isExist = TableLairBuff:getInstance():exists(self.m_lairId)
 
     self:load('dragon_lair_blessing_item.ui')
 
@@ -76,7 +76,7 @@ function UI_DragonLairBlessingPopupItem:refresh()
     end
 
     local struct_lair_stat = g_lairData:getLairStatInfo(self.m_lairId)
-    local req_count = TableLair:getInstance():getLairRequireCount(self.m_lairId)
+    local req_count = TableLairBuff:getInstance():getLairRequireCount(self.m_lairId)
     local stat_id = struct_lair_stat:getStatId()
     local reg_count = g_lairData:getLairSlotCompleteCount()
     local is_available = reg_count >= req_count

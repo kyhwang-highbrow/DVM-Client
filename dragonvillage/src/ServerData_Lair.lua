@@ -98,8 +98,7 @@ end
 -------------------------------------
 function ServerData_Lair:makeLairStatInfo()
     self.m_lairStatsInfoMap = {}
-    
-    local id_list = TableLair:getInstance():getLairIdListAll()
+    local id_list = TableLairBuff:getInstance():getLairIdListAll()
 
     for _, id in ipairs(id_list) do
         local struct_lair_stat = StructLairStat()
@@ -111,20 +110,37 @@ end
 -------------------------------------
 -- function getLairStatInfo
 -------------------------------------
-function ServerData_Lair:getLairStatInfo(buff_id)
-    return self.m_lairStatsInfoMap[buff_id]
+function ServerData_Lair:getLairStatInfo(lair_id)
+    return self.m_lairStatsInfoMap[lair_id]
+end
+
+-------------------------------------
+-- function getLairStatProgressInfo
+-------------------------------------
+function ServerData_Lair:getLairStatProgressInfo(type)
+    local id_list = TableLairBuff:getInstance():getLairIdListByType(type, true)
+    local curr_progress = 0
+    local max_progress = 0
+
+    for _, lair_id in ipairs(id_list) do
+        local struct_lair_stat = self:getLairStatInfo(lair_id)
+        max_progress = max_progress + struct_lair_stat:getStatOptionMaxLevel()
+        curr_progress = curr_progress + struct_lair_stat:getStatOptionLevel()
+    end
+
+    return curr_progress, max_progress
 end
 
 -------------------------------------
 -- function getLairStatBlessTargetIdList
 -------------------------------------
 function ServerData_Lair:getLairStatBlessTargetIdList(type)
-    local id_list = TableLair:getInstance():getLairIdListByType(type, true)
+    local id_list = TableLairBuff:getInstance():getLairIdListByType(type, true)
     local curr_count = self:getLairSlotCompleteCount()
     local result_id_list = {}
 
     for _, lair_id in ipairs(id_list) do
-        local req_count = TableLair:getInstance():getLairRequireCount(lair_id)
+        local req_count = TableLairBuff:getInstance():getLairRequireCount(lair_id)
         local struct_lair_stat = self:getLairStatInfo(lair_id)
 
         if curr_count >= req_count and struct_lair_stat:isStatLock() == false then
@@ -139,7 +155,7 @@ end
 -- function getLairStatIdList
 -------------------------------------
 function ServerData_Lair:getLairStatIdList(type)
-    local lair_id_list = TableLair:getInstance():getLairIdListByType(type, true)
+    local lair_id_list = TableLairBuff:getInstance():getLairIdListByType(type, true)
     local result_id_list = {}
 
     for _, lair_id in ipairs(lair_id_list) do
@@ -156,7 +172,7 @@ end
 -- function getLairOwnedStatOptionKeyMap
 -------------------------------------
 function ServerData_Lair:getLairOwnedStatOptionKeyMap(type)
-    local lair_id_list = TableLair:getInstance():getLairIdListByType(type, true)
+    local lair_id_list = TableLairBuff:getInstance():getLairIdListByType(type, true)
     local map = {}
 
     for _, lair_id in ipairs(lair_id_list) do

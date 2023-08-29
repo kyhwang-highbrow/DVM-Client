@@ -4,6 +4,7 @@ local PARENT = TableClass
 -------------------------------------
 TableLairBuffStatus = class(PARENT, {
     m_mapOptionMaxLevel = 'Map<string, number>',
+    m_mapTypeMaxLevel = 'Map<string, number>',
     m_listUniqueOptionId = 'List<number>',
 })
 
@@ -18,15 +19,28 @@ function TableLairBuffStatus:init()
 
     self.m_mapOptionMaxLevel = {}
     self.m_listUniqueOptionId = {}
+    self.m_mapTypeMaxLevel = {}
 
     for id, v in pairs(self.m_orgTable) do
         local key = v['key']
+        
         if self.m_mapOptionMaxLevel[key] == nil then
             self.m_mapOptionMaxLevel[key] = 1
             table.insert(self.m_listUniqueOptionId, id)
         else
             self.m_mapOptionMaxLevel[key] = self.m_mapOptionMaxLevel[key] + 1
         end
+--[[
+        local type = v['type']
+        local option_level = v['option_level'] 
+
+        if self.m_mapTypeMaxLevel[type] == nil then
+            self.m_mapTypeMaxLevel[type] = option_level
+        end
+
+        if self.m_mapTypeMaxLevel[type] < option_level then
+            self.m_mapTypeMaxLevel[type] = option_level
+        end ]]
     end
 
     table.sort(self.m_listUniqueOptionId, function(a, b) return a < b  end)
@@ -63,6 +77,14 @@ end
 function TableLairBuffStatus:getLairStatOptionValue(id)
     return self:getValue(id, 'key_value')
 end
+
+-------------------------------------
+-- function getLairStatMaxLevelByType
+-------------------------------------
+function TableLairBuffStatus:getLairStatMaxLevelByType(type)
+    return self.m_mapTypeMaxLevel[type]
+end
+
 
 -------------------------------------
 -- function getLairStatMaxLevelByOptionKey

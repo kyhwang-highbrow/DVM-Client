@@ -1,15 +1,15 @@
 local PARENT = TableClass
 -------------------------------------
--- class TableLair
+-- class TableLairBuff
 -------------------------------------
-TableLair = class(PARENT, {
+TableLairBuff = class(PARENT, {
 })
 
 local instance = nil
 -------------------------------------
 -- function init
 -------------------------------------
-function TableLair:init()
+function TableLairBuff:init()
     assert(instance == nil, 'Can not initalize twice')
     self.m_tableName = 'table_lair_buff'
     self.m_orgTable = TABLE:get(self.m_tableName)
@@ -17,11 +17,11 @@ end
 
 -------------------------------------
 -- function getInstance
----@return TableLair instance
+---@return TableLairBuff instance
 -------------------------------------
-function TableLair:getInstance()
+function TableLairBuff:getInstance()
     if (instance == nil) then
-        instance = TableLair()
+        instance = TableLairBuff()
     end
     return instance
 end
@@ -29,7 +29,7 @@ end
 -------------------------------------
 -- function getLairIdListByType
 -------------------------------------
-function TableLair:getLairIdListByType(type_id, is_not_include_dummy)
+function TableLairBuff:getLairIdListByType(type_id, is_not_include_dummy)
     local list = self:filterColumnList('type', type_id, 'id')
     table.sort(list, function (a, b) return a < b end)
 
@@ -45,7 +45,7 @@ end
 -------------------------------------
 -- function getLairIdListAll
 -------------------------------------
-function TableLair:getLairIdListAll()
+function TableLairBuff:getLairIdListAll()
     local list = self:getTableKeyList()
     table.sort(list, function (a, b) return a < b end)
     return list
@@ -56,6 +56,6 @@ end
 -------------------------------------
 -- function getLairRequireCount
 -------------------------------------
-function TableLair:getLairRequireCount(lair_id)
+function TableLairBuff:getLairRequireCount(lair_id)
     return self:getValue(lair_id, 'req_cnt')
 end
