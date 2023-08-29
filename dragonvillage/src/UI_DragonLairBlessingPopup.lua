@@ -226,6 +226,12 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
             local is_lock = ui.vars['lockBtn']:isChecked()        
             local req_count = TableLairBuff:getInstance():getLairRequireCount(lair_id)
             local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
+
+
+            local success_cb = function ()
+                self:refresh()
+                ui:refresh()
+            end
         
             if is_available == false then
                 UIManager:toastNotificationRed(Str('아직 이용할 수 없습니다.'))
@@ -236,15 +242,10 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
             if is_lock == false and struct_lair_stat:isStatOptionMaxLevel() == true then
                 MakeSimplePopup(POPUP_TYPE.YES_NO, Str('최대 옵션 수치를 달성한 상태입니다.\n그래도 잠금을 해제하시겠습니까?'),
                     function()
-                        ui.vars['lockBtn']:setChecked(is_lock)
+                        g_lairData:request_lairStatLock(tostring(lair_id), is_lock, success_cb)
                     end)
                 ui.vars['lockBtn']:setChecked(not is_lock)
                 return
-            end
-        
-            local success_cb = function ()
-                self:refresh()
-                ui:refresh()
             end
             
             g_lairData:request_lairStatLock(tostring(lair_id), is_lock, success_cb)
