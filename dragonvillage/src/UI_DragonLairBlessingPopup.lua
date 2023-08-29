@@ -50,9 +50,9 @@ function UI_DragonLairBlessingPopup:initUI()
     end
     
     do -- 이름
-        local season_name = g_lairData:getLairSeasonName()
+        --local season_name = g_lairData:getLairSeasonName()
         local season_desc = g_lairData:getLairSeasonDesc()
-        vars['titleLabel']:setString(string.format('%s {@R}(%s){@}', season_name, season_desc))
+        vars['titleLabel']:setString(season_desc)
     end
 
     local function update(dt)

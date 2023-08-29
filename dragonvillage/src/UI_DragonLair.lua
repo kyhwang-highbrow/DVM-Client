@@ -51,9 +51,8 @@ function UI_DragonLair:initUI()
     local vars = self.vars
 
     do -- 이름
-        local season_name = g_lairData:getLairSeasonName()
         local season_desc = g_lairData:getLairSeasonDesc()
-        vars['seasonNameLabel']:setString(string.format('%s {@R}(%s){@}', season_name, season_desc))
+        vars['seasonNameLabel']:setString(season_desc)
     end
 end
 
