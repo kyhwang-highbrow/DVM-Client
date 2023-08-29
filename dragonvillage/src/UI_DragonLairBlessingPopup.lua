@@ -99,11 +99,10 @@ end
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:refresh()
     local vars = self.vars
+    local type = self.m_currTab
 
     do -- 타입별 모든 능력치 
-        local table_option = TableOption()
-        
-        local type = self.m_currTab
+        local table_option = TableOption()        
         local option_key_list = g_lairData:getLairRepresentOptionKeyListByType(type)
 
         for idx, option_key in ipairs(option_key_list) do
@@ -121,14 +120,15 @@ function UI_DragonLairBlessingPopup:refresh()
                 vars[progress_label_str]:setString(string.format('{@ORANGE}%s(%d + {@green}%d{@}{@ORANGE}){@}',desc, option_value_sum, option_bonus_sum))
             end
 
-            -- 프로그레스 (무의미한거 같다)
-            local progress_bar_str =  string.format('TypeProgress%d', idx)
-            vars[progress_bar_str]:setPercentage(0)
-
             -- 보너스
             local bonus_label_str =  string.format('BonusLabel%d', idx)
             vars[bonus_label_str]:setVisible(false)
         end
+    end
+
+    do -- 프로그레스
+        local curr_progress, max_progress = g_lairData:getLairStatProgressInfo(type)
+        vars['TypeProgress']:setPercentage(curr_progress*100/max_progress)
     end
 
     do -- 가격
