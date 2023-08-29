@@ -57,11 +57,8 @@ function UI_DragonLair:initUI()
 
     do -- 특화 이펙트
         local type = g_lairData:getLairSeasonSpecialType()
-        local node_str = string.format('iconNode%d', type)
-        local animator = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
-        animator:changeAni('summon_hero', true)
-        animator:setScale(2.1)
-        vars[node_str]:addChild(animator.m_node)
+        local node_str = string.format('effectVisual%d', type)
+         vars[node_str]:setVisible(true)
     end
 end
 

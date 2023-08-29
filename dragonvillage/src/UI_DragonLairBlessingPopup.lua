@@ -225,7 +225,6 @@ function UI_DragonLairBlessingPopup:makeTableView(curr_tab)
             local req_count = TableLairBuff:getInstance():getLairRequireCount(lair_id)
             local is_available = g_lairData:getLairSlotCompleteCount() >= req_count
 
-
             local success_cb = function ()
                 self:refresh()
                 ui:refresh()
