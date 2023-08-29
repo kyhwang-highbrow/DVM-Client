@@ -621,6 +621,9 @@ function ServerData_Lair:request_lairStatPick(ids, finish_cb, fail_cb)
 
         self:applyLairInfo(ret['lair'])
 
+        -- 사운드 재생
+        SoundMgr:playEffect('EFFECT', 'fever')
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -659,7 +662,7 @@ function ServerData_Lair:request_lairStatLock(ids, lock, finish_cb, fail_cb)
         self:applyLairInfo(ret['lair'])
 
         -- 사운드 재생
-        SoundMgr:playEffect('EFFECT', 'dragon_levelup')
+        SoundMgr:playEffect('UI', 'ui_card_flip')
 
         if finish_cb then
             finish_cb(ret)
