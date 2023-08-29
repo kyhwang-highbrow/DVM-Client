@@ -291,8 +291,7 @@ function UI_DragonLairRegister:refresh()
     end
 
     do
-        local count = table.count(self.m_availableDragonList)
-        vars['lairNotiSprite']:setVisible(count > 0)
+        vars['lairNotiSprite']:setVisible(g_lairData:isAvailableRegisterDragons())
     end
 end
 
