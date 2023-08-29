@@ -106,10 +106,21 @@ end
 -------------------------------------
 function UI_DragonLairRegister:getDragonList()
     local attr_option = self.m_attrRadioButton.m_selectedButton
+    local m_dragons  = {}
     if attr_option ~= 'all' then
-        return g_dragonsData:getDragonsListWithAttr(attr_option)
+        m_dragons = g_dragonsData:getDragonsListWithAttr(attr_option)
+    else
+        m_dragons = g_dragonsData:getDragonsListRef()
     end
-    return g_dragonsData:getDragonsListRef()
+
+    local result_map = {}
+    for key, struct_dragon_object in pairs(m_dragons) do
+        if struct_dragon_object:getBirthGrade() >= 5 then
+            result_map[key] = struct_dragon_object
+        end
+    end
+
+    return result_map
 end
 
 -------------------------------------

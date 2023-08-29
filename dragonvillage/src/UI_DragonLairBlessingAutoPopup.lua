@@ -315,7 +315,7 @@ function UI_DragonLairBlessingAutoPopupItem:initUI()
 
     local save_val = g_settingData:getLairBlessingAutoSetting(self.m_optionKey)
     if save_val ~= nil and save_val <= max_value then
-        self.m_isChecked = true
+        --self.m_isChecked = true
         self.m_currValue = save_val
     end
 end

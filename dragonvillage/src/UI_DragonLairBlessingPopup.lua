@@ -277,6 +277,16 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
     local is_auto_stop = false
     local lock_id_list = {} -- 자동 중 최대 옵션이 나온 경우 잠근다
     
+    -- 컨트롤 함수    
+    local func_control_auto = function(on)
+        vars['ingMenu']:setVisible(on)
+        vars['blessAutoBtn']:setVisible(not on)
+        vars['blessAutoStopBtn']:setVisible(on)
+        vars['blockMenu']:setVisible(on)
+        UIManager:blockBackKey(on)
+        is_auto_stop = not on
+    end
+    
     -- 매 루프마다 만족하는 옵션이 나왔는지 체크
     local refresh_target_list = function() 
         local result_list = {}
@@ -305,15 +315,11 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
         return result_list, #result_list
     end
 
+    vars['blessAutoStopBtn']:registerScriptTapHandler(func_control_auto)
+
     local function coroutine_function(dt)
         local co = CoroutineHelper()
-        
-        UIManager:blockBackKey(true)
-        vars['blessAutoBtn']:setVisible(false)
-        vars['blessAutoStopBtn']:setVisible(true)
-        vars['blockMenu']:setVisible(true)
-        vars['blessAutoStopBtn']:registerScriptTapHandler(function() is_auto_stop = true end)
-        vars['ingMenu']:setVisible(true)
+        func_control_auto(true)
 
         while true do
             local target_id_list, target_id_count  = refresh_target_list()
@@ -369,16 +375,12 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
         -- 만족하는 옵션이 나왔을 경우 잠금 처리
         if #lock_id_list > 0 then
             co:work()
+            UIManager:toastNotificationGreen(Str('원하시는 옵션을 획득하여 잠금처리합니다.'))
             self:request_lair_lock(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
-        vars['ingMenu']:setVisible(false)
-        vars['blessAutoBtn']:setVisible(true)
-        vars['blessAutoStopBtn']:setVisible(false)
-        vars['blockMenu']:setVisible(false)
-        UIManager:blockBackKey(false)
-
+        func_control_auto(false)
         co:close()
     end
 
@@ -414,6 +416,19 @@ function UI_DragonLairBlessingPopup:request_lair_lock(success_cb, fail_cb)
 end
 
 --------------------------------------------------------------------------
+-- @function check_maxLevel
+--------------------------------------------------------------------------
+function UI_DragonLairBlessingPopup:check_maxLevel(target_id_list)
+    for _, lair_id in ipairs(target_id_list) do
+        local info = g_lairData:getLairStatInfo(lair_id)
+        if info:isStatOptionMaxLevel() == true then
+            return true
+        end
+    end
+    return false
+end
+
+--------------------------------------------------------------------------
 -- @function click_autoBtn
 --------------------------------------------------------------------------
 function UI_DragonLairBlessingPopup:click_autoBtn()
@@ -432,8 +447,18 @@ function UI_DragonLairBlessingPopup:click_autoBtn()
         self:begin_autoBlessingSeq(auto_count, target_option_list)
     end
 
-    local ui = UI_DragonLairBlessingAutoPopup(self.m_currTab, target_id_list)
-    ui:setOkCallback(ok_callback)
+    local function confirm_cb()
+        local ui = UI_DragonLairBlessingAutoPopup(self.m_currTab, target_id_list)
+        ui:setOkCallback(ok_callback)
+    end
+
+    if self:check_maxLevel(target_id_list) == true then
+        local msg = Str('최대 수치의 옵션이 포함되어 있습니다.\n그래도 진행하시겠습니까?')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, confirm_cb)
+        return
+    end
+
+    confirm_cb()
 end
 
 --------------------------------------------------------------------------
@@ -451,29 +476,40 @@ function UI_DragonLairBlessingPopup:click_blessBtn()
         return
     end
 
-    local ok_btn_cb = function()
-        local success_cb = function(ret)
-            for _, lair_id in ipairs(target_id_list) do
-                local struct_lair_stat = g_lairData:getLairStatInfo(lair_id)
-                if struct_lair_stat:isStatOptionMaxLevel() == true then
-                    struct_lair_stat:setStatReserveLock()
-                end
+    local success_cb = function(ret)
+        for _, lair_id in ipairs(target_id_list) do
+            local struct_lair_stat = g_lairData:getLairStatInfo(lair_id)
+            if struct_lair_stat:isStatOptionMaxLevel() == true then
+                struct_lair_stat:setStatReserveLock()
             end
-
-            self:refreshTableView(target_id_list)
-            self:refresh()
-            self:request_lair_lock(target_id_list)
         end
-    
+
+        self:refreshTableView(target_id_list)
+        self:refresh()
+        self:request_lair_lock(target_id_list)
+    end
+
+    local ok_btn_cb = function()    
         local str_ids = table.concat(target_id_list, ',')
         g_lairData:request_lairStatPick(str_ids, success_cb)
     end
-    
-    local msg = Str('축복 효과를 받으시겠습니까?')
-    local submsg = Str('{1}개의 축복 티켓이 사용됩니다.', need_count)
-    local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
-    ui:setPrice('blessing_ticket', need_count)
+
+    local confirm_cb = function()
+        local msg = Str('축복 효과를 받으시겠습니까?')
+        local submsg = Str('{1}개의 축복 티켓이 사용됩니다.', need_count)
+        local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+        ui:setPrice('blessing_ticket', need_count)
+    end
+
+    if self:check_maxLevel(target_id_list) == true then
+        local msg = Str('최대 수치의 옵션이 포함되어 있습니다.\n그래도 진행하시겠습니까?')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, confirm_cb)
+        return
+    end
+
+    confirm_cb()
 end
+
 
 --------------------------------------------------------------------------
 -- @function click_refreshBtn

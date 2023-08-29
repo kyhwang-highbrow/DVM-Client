@@ -39,7 +39,7 @@ function UI_DragonLairRegisterResult:initUI()
     local t_item = {}
 
     t_item['item_id'] = 700022
-    t_item['count'] = 10 --self.m_ticketCount
+    t_item['count'] = self.m_ticketCount
 
     local ui = MakeItemCard(t_item)
     --local price_icon = IconHelper:getItemIcon('blessing_ticket')
