@@ -243,12 +243,12 @@ function ServerData_Lair:getLairStatOptionValueSum(type, option_type)
         end
     end
 
-    local bonus_count = 3
+--[[     local bonus_count = 3
     for val, count in pairs(bonus_check_map) do
         if count >= bonus_count then
             bonus_sum = bonus_sum + (val * (count - bonus_count + 1))
         end
-    end
+    end ]]
 
     return sum + bonus_sum, bonus_sum
 end

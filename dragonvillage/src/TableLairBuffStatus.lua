@@ -23,7 +23,7 @@ function TableLairBuffStatus:init()
 
     for id, v in pairs(self.m_orgTable) do
         local key = v['key']
-        
+
         if self.m_mapOptionMaxLevel[key] == nil then
             self.m_mapOptionMaxLevel[key] = 1
             table.insert(self.m_listUniqueOptionId, id)
@@ -124,11 +124,11 @@ function TableLairBuffStatus:getLairStatsByIdList(l_ids)
     local count_map = {}
 
     for _ , id in ipairs(l_ids) do
-        if count_map[id] == nil then
+--[[         if count_map[id] == nil then
             count_map[id] = 1
         else
             count_map[id] = count_map[id] + 1
-        end
+        end ]]
 
         local key = self:getValue(id, 'key')
         local value = self:getValue(id, 'key_value')
@@ -140,7 +140,7 @@ function TableLairBuffStatus:getLairStatsByIdList(l_ids)
         table.insert(l_buffs, t_ret)
     end
 
-    for id, count in pairs(count_map) do
+--[[     for id, count in pairs(count_map) do
         local key = self:getValue(id, 'key')
         local value = self:getValue(id, 'key_value')
 
@@ -150,7 +150,7 @@ function TableLairBuffStatus:getLairStatsByIdList(l_ids)
             t_ret['buff_value'] = value * (count - 3 + 1)
             table.insert(l_buffs, t_ret)
         end
-    end
+    end ]]
 
     return l_buffs
 end
@@ -176,42 +176,6 @@ function TableLairBuffStatus:getLairStatStrByIds(l_ids)
     return str
 end
 
--------------------------------------
--- function getLairBonusStatStrByIds
--------------------------------------
-function TableLairBuffStatus:getLairBonusStatStrByIds(l_ids)
-    local table_option = TableOption()
-    local str = ''
-
-    local count_map = {}
-    for _ , id in ipairs(l_ids) do
-        if count_map[id] == nil then
-            count_map[id] = 1
-        else
-            count_map[id] = count_map[id] + 1
-        end
-    end
-
-
-    local idx = 1
-    for id, count in pairs(count_map) do
-        local option = self:getValue(id, 'key')
-        local value = self:getValue(id, 'key_value')
-
-        if count >= 3 then
-            value = value * (count - 3 + 1)
-            if idx > 1 then
-                str = str .. ', ' .. table_option:getOptionDesc(option, value)
-            else
-                str = str .. table_option:getOptionDesc(option, value)
-            end
-
-            idx = idx + 1
-        end
-    end
-
-    return str
-end
 
 -------------------------------------
 -- function getLairOverlapStatStrByIds

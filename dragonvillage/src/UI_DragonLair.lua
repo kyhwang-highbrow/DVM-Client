@@ -100,10 +100,16 @@ function UI_DragonLair:refresh()
             local desc = table_option:getOptionDesc(option_key, option_value_total)
 
             local progress_label_str =  string.format('%dTypeProgressLabel%d', type, idx)
-            if option_value_sum == 0 then
+--[[             if option_value_sum == 0 then
                 vars[progress_label_str]:setString(desc)
             else
                 vars[progress_label_str]:setString(string.format('{@ORANGE}%s(%d + {@green}%d{@}{@ORANGE}){@}',desc, option_value_sum, option_bonus_sum))
+            end ]]
+
+            if option_value_sum == 0 then
+                vars[progress_label_str]:setString(desc)
+            else
+                vars[progress_label_str]:setString(string.format('{@ORANGE}%s{@}',desc))
             end
         end
 

@@ -114,10 +114,16 @@ function UI_DragonLairBlessingPopup:refresh()
             local progress_label_str = string.format('TypeProgressLabel%d', idx)
             local desc = table_option:getOptionDesc(option_key, option_value_total)
             
-            if option_value_sum == 0 then
+--[[             if option_value_sum == 0 then
                 vars[progress_label_str]:setString(desc)
             else
                 vars[progress_label_str]:setString(string.format('{@ORANGE}%s(%d + {@green}%d{@}{@ORANGE}){@}',desc, option_value_sum, option_bonus_sum))
+            end ]]
+            
+            if option_value_sum == 0 then
+                vars[progress_label_str]:setString(desc)
+            else
+                vars[progress_label_str]:setString(string.format('{@ORANGE}%s{@}',desc))
             end
 
             -- 보너스
