@@ -513,8 +513,8 @@ function StatusCalculator:applyAdditionalOptions(buff_str)
 end
 
 -------------------------------------
--- function applyLairBuffs
--- @brief 라테아 보너스 적용
+-- function applyLairStats
+-- @brief 축복 보너스 적용
 -------------------------------------
 function StatusCalculator:applyLairStats(_l_lair_status_ids)
    local l_lair_status_ids = {}
@@ -940,7 +940,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
     local grade = t_dragon_data['grade']
     local evolution = t_dragon_data['evolution']
     local eclv = t_dragon_data['eclv']
-    local is_dm_gate_mode = g_gameScene and g_gameScene.m_gameMode == GAME_MODE_DIMENSION_GATE or false
+    local doid = t_dragon_data['id']
     local status_calc = MakeDragonStatusCalculator(dragon_id, lv, grade, evolution, eclv)
 	
 	-- 드래곤 강화 수치 와 친밀도(friendship)
@@ -1011,6 +1011,16 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
 
         for stat_type,value in pairs(l_multi_status) do
             status_calc:addMasteryMulti(stat_type, value)
+        end
+    end
+
+    -- 축복(mastery)
+    do
+        -- 소유중인 드래곤인지 판별 후 능력치 적용
+        -- 이렇게 처리하는게 맞는지 모르겠다.
+        if doid ~= nil and g_dragonsData:getDragonDataFromUid(doid) ~= nil then
+            local lair_stats = g_lairData:getLairStats()
+            status_calc:applyLairStats(lair_stats)
         end
     end
 
