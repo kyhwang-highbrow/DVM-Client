@@ -1014,10 +1014,10 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
         end
     end
 
-    -- 축복(mastery)
+    -- 축복(lair)
     do
         -- 소유중인 드래곤인지 판별 후 능력치 적용
-        -- 이렇게 처리하는게 맞는지 모르겠다.
+        -- 축복은 전체 옵션 개념이라 이렇게 처리하는게 맞는지 모르겠다.
         if doid ~= nil and g_dragonsData:getDragonDataFromUid(doid) ~= nil then
             local lair_stats = g_lairData:getLairStats()
             status_calc:applyLairStats(lair_stats)
