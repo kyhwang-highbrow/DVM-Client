@@ -42,6 +42,8 @@ function UI_DragonLair:init(doid)
 
     self:update()
     self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
+
+    self:directIntro()
 end
 
 -------------------------------------
@@ -105,13 +107,50 @@ function UI_DragonLair:refresh()
             end
         end
 
-        local curr_progress, max_progress = g_lairData:getLairStatProgressInfo(type)
-        local progress_bar_str =  string.format('%dTypeProgress', type)
-        vars[progress_bar_str]:setPercentage(curr_progress*100/max_progress)
+        do -- 프로그레스 바
+            local curr_progress, max_progress = g_lairData:getLairStatProgressInfo(type)
+            local percentage = curr_progress*100/max_progress
+            local progress_bar_str =  string.format('%dTypeProgress', type)
+            vars[progress_bar_str]:setPercentage(percentage)
+            --local progress_to = cc.EaseIn:create(cc.ProgressTo:create(0.3, percentage), 1)
+            --vars[progress_bar_str]:setPercentage(0)
+            --vars[progress_bar_str]:runAction(progress_to)
+        end
     end
 
     do -- 레드닷
         vars['lairNotiSprite']:setVisible(g_lairData:isAvailableRegisterDragons())
+    end
+end
+
+-------------------------------------
+-- function directIntro
+-------------------------------------
+function UI_DragonLair:directIntro()
+    local vars = self.vars
+
+    do -- 아이콘 노드
+        for idx = 1,5 do
+            local node_str = string.format('iconNode%d', idx)
+            --cca.fruitReact(vars[node_str], 0)
+            local elastic = cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1, 1), 0.3)
+            vars[node_str]:setScale(0.6)
+            vars[node_str]:stopAllActions()
+            vars[node_str]:runAction(elastic)
+        end
+    end
+
+
+    do -- 프로그레스 바
+        for type = 1, 5 do
+            local curr_progress, max_progress = g_lairData:getLairStatProgressInfo(type)
+            local percentage = curr_progress*100/max_progress
+            local progress_bar_str =  string.format('%dTypeProgress', type)
+            --vars[progress_bar_str]:setPercentage(curr_progress*100/max_progress)
+            local progress_to = cc.EaseIn:create(cc.ProgressTo:create(0.3, percentage), 1)
+            vars[progress_bar_str]:setPercentage(0)
+            vars[progress_bar_str]:runAction(progress_to)
+        end
     end
 end
 

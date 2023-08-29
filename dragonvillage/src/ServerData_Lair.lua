@@ -92,7 +92,8 @@ end
 function ServerData_Lair:getLairSeasonSpecialType()
     local season_id = self:getLairSeasonId()
     local type = TableLairSchedule:getInstance():getLairSpecialType(season_id)
-    return type
+    local ani = TableLairSchedule:getInstance():getLairTypeAni(season_id)
+    return type, ani
 end
 
 -------------------------------------

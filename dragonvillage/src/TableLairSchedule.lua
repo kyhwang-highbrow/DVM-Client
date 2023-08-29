@@ -51,3 +51,11 @@ end
 function TableLairSchedule:getLairSpecialType(season_id)
     return self:getValue(season_id, 'special_type') or 1
 end
+
+-------------------------------------
+-- function getLairTypeAni
+---@return number
+-------------------------------------
+function TableLairSchedule:getLairTypeAni(season_id)
+    return self:getValue(season_id, 'ani')
+end

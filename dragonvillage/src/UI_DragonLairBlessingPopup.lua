@@ -128,7 +128,11 @@ function UI_DragonLairBlessingPopup:refresh()
 
     do -- 프로그레스
         local curr_progress, max_progress = g_lairData:getLairStatProgressInfo(type)
-        vars['TypeProgress']:setPercentage(curr_progress*100/max_progress)
+        local percentage = curr_progress*100/max_progress
+        --vars['TypeProgress']:setPercentage(curr_progress*100/max_progress)
+        local progress_to = cc.EaseIn:create(cc.ProgressTo:create(0.3, percentage), 1)
+        vars['TypeProgress']:setPercentage(0)
+		vars['TypeProgress']:runAction(progress_to)
     end
 
     do -- 가격
@@ -195,8 +199,16 @@ function UI_DragonLairBlessingPopup:onEnterTab(tab, first)
     self.m_blessTargetIdList = g_lairData:getLairStatBlessTargetIdList(self.m_currTab)
 
     local animator = MakeAnimator(string.format('res/ui/icons/bless/bless_%d.png', tonumber(tab)))
-    vars['iconNode']:removeAllChildren()
-    vars['iconNode']:addChild(animator.m_node)
+    vars['iconNode1']:removeAllChildren()
+    vars['iconNode1']:addChild(animator.m_node)
+
+    cca.dropping(animator.m_node, 100)
+
+    local special_type, ani_type = g_lairData:getLairSeasonSpecialType()
+    vars['effectVisual1']:setVisible(tab == special_type)
+    vars['effectVisual1']:changeAni(ani_type, true)
+
+    cca.dropping(vars['effectVisual1'], 100)
 
     self:refresh()
 end
