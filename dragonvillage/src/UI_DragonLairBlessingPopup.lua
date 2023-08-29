@@ -486,7 +486,7 @@ function UI_DragonLairBlessingPopup:click_blessBtn()
 
         self:refreshTableView(target_id_list)
         self:refresh()
-        self:request_lair_lock(target_id_list)
+        self:request_lair_lock()
     end
 
     local ok_btn_cb = function()    
