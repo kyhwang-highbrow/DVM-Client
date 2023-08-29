@@ -87,6 +87,15 @@ function ServerData_Lair:getLairSeasonDesc()
 end
 
 -------------------------------------
+-- function getLairSeasonSpecialType
+-------------------------------------
+function ServerData_Lair:getLairSeasonSpecialType()
+    local season_id = self:getLairSeasonId()
+    local type = TableLairSchedule:getInstance():getLairSpecialType(season_id)
+    return type
+end
+
+-------------------------------------
 -- function getLairSlotCompleteCount
 -------------------------------------
 function ServerData_Lair:getLairSlotCompleteCount()

@@ -39,7 +39,15 @@ end
 -- function getLairSeasonDesc
 ---@return string
 -------------------------------------
-function TableLairSchedule:getLairSeasonDesc(birth_grade)
-    local str = self:getValue(birth_grade, 't_season_desc') or ''
+function TableLairSchedule:getLairSeasonDesc(season_id)
+    local str = self:getValue(season_id, 't_season_desc') or ''
     return Str(str)
+end
+
+-------------------------------------
+-- function getLairSpecialType
+---@return number
+-------------------------------------
+function TableLairSchedule:getLairSpecialType(season_id)
+    return self:getValue(season_id, 'special_type') or 1
 end

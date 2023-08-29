@@ -24,11 +24,10 @@ function UI_DragonLairRegisterResult:init(ticket_count, dragon_count)
     self:initUI()
     self:initButton()
     self:refresh()
-
-        -- @UI_ACTION
-    self:doActionReset()
-    self:doAction(nil, false)
 end
+
+
+
 
 -------------------------------------
 -- function initUI
@@ -63,6 +62,20 @@ end
 -------------------------------------
 function UI_DragonLairRegisterResult:refresh()
     local vars = self.vars
+    vars['contentMenu']:setVisible(false)
+
+    local animator = MakeAnimator('res/effect/effect_blesssing_dragon/bless.json')
+    animator:changeAni('bless')
+    animator:addAniHandler(function ()
+        animator:setVisible(false)
+        vars['contentMenu']:setVisible(true)
+        -- @UI_ACTION
+        self:doActionReset()
+        self:doAction(nil, false)
+    end)
+
+    vars['spineNode']:removeAllChildren()
+    vars['spineNode']:addChild(animator.m_node)
 end
 
 -------------------------------------

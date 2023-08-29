@@ -141,7 +141,7 @@ function UI_DragonLairRegister:onChangeOption()
     --self.m_dragonTableView:update(0)
 
     self:refresh()
-    
+
     -- 정렬
     self:apply_dragonSort()
 	self.m_preAttr = attr_option
@@ -303,6 +303,20 @@ function UI_DragonLairRegister:refresh()
 end
 
 -------------------------------------
+-- function sceneFadeOutAction
+-- @brief Scene 전환 페이드인 효과
+-------------------------------------
+function UI_DragonLairRegister:sceneFadeOutAction(finish_func)
+    finish_func = (finish_func or function() end)
+    local layerColor = cc.LayerColor:create( cc.c4b(0,0,0,0) )
+    layerColor:setDockPoint(cc.p(0.5, 0.5))
+    layerColor:setAnchorPoint(cc.p(0.5, 0.5))
+    layerColor:setRelativeSizeAndType(cc.size(MAX_RESOLUTION_X, MAX_RESOLUTION_Y), 1, false)
+    layerColor:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.CallFunc:create(finish_func)))
+    self.root:addChild(layerColor, 100)
+end
+
+-------------------------------------
 -- function click_registerBtn
 -------------------------------------
 function UI_DragonLairRegister:click_registerBtn()
@@ -315,26 +329,19 @@ function UI_DragonLairRegister:click_registerBtn()
         return
     end
 
-    local ok_btn_cb = function ()
-        local sucess_cb = function (ret)
-            self.m_isRegistered = true
-            local animator = MakeAnimator('res/effect/effect_blesssing_dragon/bless.json')
-            animator:changeAni('bless')
-            animator:addAniHandler(function ()
-                animator:setVisible(false)
-                local ui = UI_DragonLairRegisterResult.open(ticket_count, dragon_count)
-                ui:setCloseCB(function()
-                    self:close()
-                end)
-            end)
-
-            vars['spineNode']:removeAllChildren()
-            vars['spineNode']:addChild(animator.m_node)
+    local sucess_cb = function (ret)
+        self.m_isRegistered = true
+        local func = function()            
+            self:close()
+            UI_DragonLairRegisterResult.open(ticket_count, dragon_count)
         end
+        self:sceneFadeOutAction(func)
+    end
 
+    local ok_btn_cb = function ()
         local str_doids = self:getAvailableDragonDoids()
         g_lairData:request_lairAdd(str_doids, sucess_cb)
-    end    
+    end
 
     local msg = Str('드래곤들을 등록하시겠습니까?')
     local submsg = Str('총 {1}마리의 드래곤이 등록됩니다.\n\n획득 축복 티켓 {2}개', 
