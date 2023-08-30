@@ -78,7 +78,7 @@ function UI_DragonLairRegister:initUI()
 
     local sort_mgr = SortManager_Dragon()
     sort_mgr:addPreSortType('sort_lair_register', false, sort_lair_register)
-    sort_mgr:pushSortOrder('grade')
+    sort_mgr:pushSortOrder('rarity')
     self.m_sortManagerDragon = sort_mgr
     --self.m_sortManagerDragon:addPreSortType('sort_lair_register_available', false, sort_lair_register_available)
 
@@ -326,7 +326,20 @@ function UI_DragonLairRegister:initTableView()
         else
             ui.root:setColor(COLOR['deep_gray'])
         end
+           
+        local function tap_func()
+            if is_not_exist == true then
+                UI_BookDetailPopup.openWithFrame(data['did'], data['grade'], data['evolution'], 1, true)
+            else
+                local doid = data['id']
+                if doid and (doid ~= '') then
+                    UI_SimpleDragonInfoPopup(data)
+                end
+            end
+        end
 
+        ui.vars['clickBtn']:registerScriptTapHandler(tap_func)
+        ui.vars['clickBtn']:registerScriptPressHandler(function() end)
         ui:setHighlightSpriteVisible(is_register_available)
         return ui
     end
