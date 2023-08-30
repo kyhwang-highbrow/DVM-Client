@@ -136,19 +136,23 @@ function UI_DragonLairBlessingPopupItem:refreshProgress(curr_count, max_count)
     local start_pos = board_size/2
     local l_horizontal_pos_list = getSortPosList(cell_size, max_count)
 
-    for i = 1, curr_count do
+    for i = 1, max_count do
         local animator = MakeAnimator(res)
+        vars['progressNode']:addChild(animator.m_node)
+        
         local interval = 5
         local org_cell_size = animator:getContentSize()
         local org_cell_width_size = (org_cell_size['width'] + interval)
         local scale_ratio = cell_size/org_cell_width_size
-
-        vars['progressNode']:addChild(animator.m_node)
 
         --animator:setDockPoint(cc.p(0.0, 0.5))
         --animator:setAnchorPoint(cc.p(0.0, 0.5))
         animator:setPositionX(l_horizontal_pos_list[i])
         animator:setScaleX(scale_ratio)
         animator:setScaleY(0.5)
+
+        if i > curr_count then
+            animator:setColor(COLOR['deep_dark_gray'])
+        end
     end
 end

@@ -388,7 +388,11 @@ end
 -- function isAvailableRegisterDragons
 -------------------------------------
 function ServerData_Lair:isAvailableRegisterDragons()
-    --self.m_availableRegisterDirty = false
+    if self.m_availableRegisterDirty == false then
+        return self.m_isAvailableRegister
+    end
+
+    self.m_availableRegisterDirty = false
     local m_dragons = g_dragonsData:getDragonsListRef()
     for _, struct_dragon_data in pairs(m_dragons) do
         if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
@@ -400,6 +404,7 @@ function ServerData_Lair:isAvailableRegisterDragons()
             end
         end
     end
+    
     self.m_isAvailableRegister = false
     return false
 end
