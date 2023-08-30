@@ -53,7 +53,7 @@ function UI_HelpContentsListItem:initUI()
     end
 
     -- 컨텐츠 설명
-    local content_desc = t_contents['help_desc']
+    local content_desc = t_contents['t_help_desc']
     vars['infoLabel']:setString(Str(content_desc))
 
     -- 스크린 샷

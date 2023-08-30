@@ -70,7 +70,7 @@ function UI_ContentOpenPopup:initUI()
 
     local table_contents = TABLE:get('table_content_help')
     local t_contents = table_contents[content_type] or {}
-    local open_desc = t_contents['open_desc'] or ''
+    local open_desc = t_contents['t_open_desc'] or ''
     vars['infoLabel']:setString(Str(open_desc))
 end
 
