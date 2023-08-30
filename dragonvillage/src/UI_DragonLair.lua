@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_DragonLair
@@ -16,10 +16,9 @@ UI_DragonLair = class(PARENT,{
 function UI_DragonLair:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_DragonLair'
-    self.m_subCurrency = 'blessing_ticket'  -- 상단 유저 재화 정보 중 서브 재화
-    self.m_bVisible = true or false
+    self.m_subCurrency = 'blessing_ticket'  -- 상단 유저 재화 정보 중 서브 재화    
     self.m_titleStr = nil
-    self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+    self.m_bUseExitBtn = true -- click_exitBtn()함구 구현이 반드시 필요함
     self.m_bShowInvenBtn = true
 end
 
