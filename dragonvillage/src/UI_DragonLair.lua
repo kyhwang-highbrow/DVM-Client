@@ -27,19 +27,21 @@ end
 -- function init
 -------------------------------------
 function UI_DragonLair:init(doid)
-    local vars = self:load('dragon_lair.ui')
     self.m_cardList = {}
+
+    local vars = self:load('dragon_lair.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonLair')
 
-    self:sceneFadeInAction()
-    self:initUI()
 
+    self:doActionReset()
+	self:doAction(nil, false)
+
+    self:initUI()
     self:initButton()
     self:refresh()
-
     self:update()
     self.root:scheduleUpdateWithPriorityLua(function () self:update() end, 1)
 
