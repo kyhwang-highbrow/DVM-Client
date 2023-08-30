@@ -7,6 +7,7 @@ UI_DragonLairRegister = class(PARENT,{
     m_dragonCount = '',
     m_sortManagerDragon = '',
     m_availableDragonList = 'Lit<>',
+    m_allDragonsMap = 'Map<>',
     m_dragonPriorityMap = 'Map<did, combat_power, create_at>',
     m_preAttr = 'string',
     m_attrRadioButton = 'UIC_RadioButton',
@@ -20,6 +21,7 @@ function UI_DragonLairRegister:init(owner_ui)
     self.m_uiName = 'UI_DragonLairRegister'    
     self.m_dragonCount = 0
     self.m_isRegistered = false
+    self.m_allDragonsMap = nil
     self:load('dragon_lair_register.ui')
     UIManager:open(self, UIManager.POPUP, true)
 
@@ -46,7 +48,7 @@ function UI_DragonLairRegister:initUI()
         
         if self:isExistAvailableMap(did) == true then
             val = val + 100
-        elseif g_lairData:isRegisterLairDid(did, doid) == true then
+        elseif g_lairData:isRegisterLairDid(did) == true then
             val = val + 10
         elseif doid ~= nil then
             val = val + 1
@@ -109,25 +111,19 @@ end
 -------------------------------------
 function UI_DragonLairRegister:getDragonList()
     local attr_option = self.m_attrRadioButton.m_selectedButton
-    local m_dragons  = {}
---[[     if attr_option ~= 'all' then
-        m_dragons = g_dragonsData:getDragonsListWithAttr(attr_option)
-    else
-        self.m_dragonCount = 0
-        m_dragons = g_dragonsData:getDragonsListRef()
+
+    if self.m_allDragonsMap == nil then
+        self.m_allDragonsMap = self:getBookDragonList()
     end
 
     local result_map = {}
-    for key, struct_dragon_object in pairs(m_dragons) do
-        if struct_dragon_object:getBirthGrade() >= 5 then
-            if attr_option == 'all' then
-                self.m_dragonCount = 1 + self.m_dragonCount
-            end
-            result_map[key] = struct_dragon_object
+    for k, v in pairs(self.m_allDragonsMap) do
+        if (attr_option ~= 'all') and (attr_option ~= v:getAttr()) then
+        else
+            result_map[k] = v
         end
-    end ]]
+    end
 
-    local result_map = self:getBookDragonList(attr_option)
     return result_map
 end
 
@@ -141,6 +137,11 @@ function UI_DragonLairRegister:getBestDragonObjectByDid(did)
     local exist_combat_power = nil
 
     for k, struct_dragon_data in pairs(m_dragons) do
+        -- 이미 등록된 드래곤이라면 최우선 순위가 됨
+        if g_lairData:isRegisterLairDid(did, struct_dragon_data['id']) == true then
+            return struct_dragon_data
+        end
+
         if result_dragon == nil then          
             result_dragon = struct_dragon_data
             exist_combat_power = result_dragon:getCombatPower()
@@ -170,7 +171,7 @@ end
 -- function getBookDragonList
 -- @breif 도감 기준으로 모든 드래곤 리스트 얻어옴
 -------------------------------------
-function UI_DragonLairRegister:getBookDragonList(attr_type)
+function UI_DragonLairRegister:getBookDragonList()
     local role_type = 'all'
     local l_ret = {}
 
@@ -179,29 +180,25 @@ function UI_DragonLairRegister:getBookDragonList(attr_type)
     for i, v in pairs(table_dragon.m_orgTable) do
         -- 개발 중인 드래곤은 도감에 나타내지 않는다.
         if (not g_dragonsData:isReleasedDragon(v['did'])) then
-        -- 직업군, 속성 걸러내기
-		elseif (role_type ~= 'all') and (role_type ~= v['role']) then
+--[[         -- 속성 걸러내기		
         elseif (attr_type ~= 'all') and (attr_type ~= v['attr']) then
-
-        -- 위 조건들에 해당하지 않은 경우만 추가
+        -- 위 조건들에 해당하지 않은 경우만 추가 ]]
         else
             local did = v['did']
 			local key = did
-            
 			-- 자코는 진화하지 않으므로 evolution 1 만 담는다.
 			if (table_dragon:isUnderling(did)) then
             elseif (v['birthgrade'] < 5) then
 			else -- 진화도를 만들어준다.
-                local t_dragon = {}                
-                t_dragon['did'] = did
-                t_dragon['evolution'] = 3
-                t_dragon['grade'] = 6
-                t_dragon['lv'] = 0
-
                 local exist_dragon = self:getBestDragonObjectByDid(key)
                 if exist_dragon ~= nil then
-                    l_ret[key] = clone(exist_dragon)
+                    l_ret[key] = exist_dragon
                 else
+                    local t_dragon = {}                
+                    t_dragon['did'] = did
+                    t_dragon['evolution'] = 3
+                    t_dragon['grade'] = 6
+                    t_dragon['lv'] = 0
                     l_ret[key] = StructDragonObject(t_dragon)
                 end
 
@@ -243,18 +240,19 @@ function UI_DragonLairRegister:makeAvailableDragonList()
     self.m_dragonPriorityMap = {}
     for _, struct_dragon_data in pairs(m_dragons) do 
         if TableLairCondition:getInstance():isMeetCondition(struct_dragon_data) == true then
+            local did = struct_dragon_data['did']
             local is_add_ticket_count = g_lairData:getAdditionalBlessingTicketExpectCount(struct_dragon_data) > 0
-            local is_registered = g_lairData:isRegisterLairDid(struct_dragon_data['did'])
-            if is_registered == false or is_add_ticket_count == true then
-                local did = struct_dragon_data['did']
+            local is_registered = g_lairData:isRegisterLairDid(did)
+
+            if is_registered == false then
+                if did_map[did] == nil then
+                    did_map[did] = self:getBestDragonObjectByDid(did)
+                end
+            elseif is_add_ticket_count == true then
                 did_map[did] = struct_dragon_data
             end
         end
     end
-
---[[     for did, v in pairs(self.m_dragonPriorityMap) do
-        did_map[did] = g_dragonsData:getDragonDataFromUidRef(v['doid'])
-    end ]]
 
     self.m_availableDragonList = did_map
 end
@@ -317,14 +315,14 @@ function UI_DragonLairRegister:initTableView()
     local function create_func(ui, data)
         ui.root:setScale(0.66)
 
-        local is_registered = g_lairData:isRegisterLairDid(data['did'], data['id'])
+        local is_registered = g_lairData:isRegisterLairDid(data['did'])
         local is_register_available = self:isExistAvailableMap(data['did'])
         local is_not_exist = (data['id'] == nil)
 
-        if is_not_exist == true then
+        if is_registered == true or is_register_available == true then
+            ui.root:setColor(COLOR['white'])
+        elseif is_not_exist == true then
             ui.root:setColor(COLOR['deep_dark_gray'])
-        elseif is_registered == true or is_register_available == true then
-            ui.root:setColor(COLOR['white'])            
         else
             ui.root:setColor(COLOR['deep_gray'])
         end
