@@ -157,7 +157,8 @@ end
 --------------------------------------------------------------------------
 -- @function refreshTableView
 --------------------------------------------------------------------------
-function UI_DragonLairBlessingPopup:refreshTableView(lair_id_list)
+function UI_DragonLairBlessingPopup:refreshTableView(_lair_id_list)
+    local lair_id_list = _lair_id_list or {}
     local func_find = function(val)
         for i,v in ipairs(lair_id_list) do
             if v == val then
@@ -423,7 +424,7 @@ function UI_DragonLairBlessingPopup:request_lair_lock(success_cb, fail_cb)
 
     local str_ids = table.concat(lock_id_list, ',')
     g_lairData:request_lairStatLock(str_ids, true, function(ret) 
-        self:refreshTableView(lock_id_list)
+        self:refreshTableView()
         self:refresh()
         if success_cb ~= nil then
             success_cb()
