@@ -44,9 +44,11 @@ function UI_DragonLairRegister:initUI()
         local did = struct_dragon_data['did']
         local doid = struct_dragon_data['id']
         
-        if self:isExistAvailableMap(did, doid) == true then
-            val = val + 2
+        if self:isExistAvailableMap(did) == true then
+            val = val + 100
         elseif g_lairData:isRegisterLairDid(did, doid) == true then
+            val = val + 10
+        elseif doid ~= nil then
             val = val + 1
         end
 
@@ -108,7 +110,7 @@ end
 function UI_DragonLairRegister:getDragonList()
     local attr_option = self.m_attrRadioButton.m_selectedButton
     local m_dragons  = {}
-    if attr_option ~= 'all' then
+--[[     if attr_option ~= 'all' then
         m_dragons = g_dragonsData:getDragonsListWithAttr(attr_option)
     else
         self.m_dragonCount = 0
@@ -123,9 +125,92 @@ function UI_DragonLairRegister:getDragonList()
             end
             result_map[key] = struct_dragon_object
         end
+    end ]]
+
+    local result_map = self:getBookDragonList(attr_option)
+    return result_map
+end
+
+-------------------------------------
+-- function getBestDragonObjectByDid
+-- @breif 같은 did를 가진 개체 중에 최고의 드래곤 얻어오기
+-------------------------------------
+function UI_DragonLairRegister:getBestDragonObjectByDid(did)
+    local m_dragons = g_dragonsData:getDragonsByDid(did)
+    local result_dragon = nil
+    local exist_combat_power = nil
+
+    for k, struct_dragon_data in pairs(m_dragons) do
+        if result_dragon == nil then          
+            result_dragon = struct_dragon_data
+            exist_combat_power = result_dragon:getCombatPower()
+        else
+
+            local combat_power = struct_dragon_data:getCombatPower()
+            local exist_created_at = result_dragon['created_at']
+            local created_at = struct_dragon_data['created_at']
+
+            if exist_combat_power < combat_power then
+                result_dragon = struct_dragon_data
+                exist_combat_power = combat_power
+
+            elseif exist_combat_power == combat_power then
+                -- 전투력 다음 획득이 오래된 것을 우선 순위로 가져옴
+                if exist_created_at > created_at then
+                    result_dragon = struct_dragon_data
+                end
+            end
+        end
     end
 
-    return result_map
+    return result_dragon
+end
+
+-------------------------------------
+-- function getBookDragonList
+-- @breif 도감 기준으로 모든 드래곤 리스트 얻어옴
+-------------------------------------
+function UI_DragonLairRegister:getBookDragonList(attr_type)
+    local role_type = 'all'
+    local l_ret = {}
+
+    self.m_dragonCount = 0
+    local table_dragon = TableDragon()
+    for i, v in pairs(table_dragon.m_orgTable) do
+        -- 개발 중인 드래곤은 도감에 나타내지 않는다.
+        if (not g_dragonsData:isReleasedDragon(v['did'])) then
+        -- 직업군, 속성 걸러내기
+		elseif (role_type ~= 'all') and (role_type ~= v['role']) then
+        elseif (attr_type ~= 'all') and (attr_type ~= v['attr']) then
+
+        -- 위 조건들에 해당하지 않은 경우만 추가
+        else
+            local did = v['did']
+			local key = did
+            
+			-- 자코는 진화하지 않으므로 evolution 1 만 담는다.
+			if (table_dragon:isUnderling(did)) then
+            elseif (v['birthgrade'] < 5) then
+			else -- 진화도를 만들어준다.
+                local t_dragon = {}                
+                t_dragon['did'] = did
+                t_dragon['evolution'] = 3
+                t_dragon['grade'] = 6
+                t_dragon['lv'] = 0
+
+                local exist_dragon = self:getBestDragonObjectByDid(key)
+                if exist_dragon ~= nil then
+                    l_ret[key] = clone(exist_dragon)
+                else
+                    l_ret[key] = StructDragonObject(t_dragon)
+                end
+
+                self.m_dragonCount = self.m_dragonCount + 1
+			end
+        end
+    end
+
+    return l_ret
 end
 
 -------------------------------------
@@ -162,36 +247,14 @@ function UI_DragonLairRegister:makeAvailableDragonList()
             local is_registered = g_lairData:isRegisterLairDid(struct_dragon_data['did'])
             if is_registered == false or is_add_ticket_count == true then
                 local did = struct_dragon_data['did']
-
-                local t_data = {}
-                t_data['doid'] = struct_dragon_data['id']
-                t_data['power'] = struct_dragon_data:getCombatPower()
-                t_data['created_at'] = struct_dragon_data['created_at']
-
-                if self.m_dragonPriorityMap[did] == nil then                    
-                    self.m_dragonPriorityMap[did] = t_data
-                    
-                else
-                    -- 전투력으 우선순위로 가져옴
-                    local exist_data = self.m_dragonPriorityMap[did]
-                    if exist_data['power'] < t_data['power'] then
-                        self.m_dragonPriorityMap[did] = t_data
-
-                    elseif exist_data['power'] == t_data['power'] then
-                        -- 전투력 다음 획득이 오래된 것을 우선 순위로 가져옴
-                        if exist_data['created_at'] > t_data['created_at'] then
-                            self.m_dragonPriorityMap[did] = t_data
-                        end
-                    end
-                end
+                did_map[did] = struct_dragon_data
             end
         end
     end
 
-
-    for did, v in pairs(self.m_dragonPriorityMap) do
+--[[     for did, v in pairs(self.m_dragonPriorityMap) do
         did_map[did] = g_dragonsData:getDragonDataFromUidRef(v['doid'])
-    end
+    end ]]
 
     self.m_availableDragonList = did_map
 end
@@ -199,13 +262,13 @@ end
 -------------------------------------
 -- function isExistAvailableMap
 -------------------------------------
-function UI_DragonLairRegister:isExistAvailableMap(did, doid)
-    local info = self.m_dragonPriorityMap[did]
+function UI_DragonLairRegister:isExistAvailableMap(did)
+    local info = self.m_availableDragonList[did]
     if info == nil then
         return false
     end
 
-    return info['doid'] == doid
+    return true
 end
 
 -------------------------------------
@@ -255,11 +318,18 @@ function UI_DragonLairRegister:initTableView()
         ui.root:setScale(0.66)
 
         local is_registered = g_lairData:isRegisterLairDid(data['did'], data['id'])
-        local is_register_available = self:isExistAvailableMap(data['did'], data['id'])
+        local is_register_available = self:isExistAvailableMap(data['did'])
+        local is_not_exist = (data['id'] == nil)
 
-        ui.root:setColor((is_registered == true or is_register_available == true) and COLOR['white'] or COLOR['deep_gray'])
+        if is_not_exist == true then
+            ui.root:setColor(COLOR['deep_dark_gray'])
+        elseif is_registered == true or is_register_available == true then
+            ui.root:setColor(COLOR['white'])            
+        else
+            ui.root:setColor(COLOR['deep_gray'])
+        end
+
         ui:setHighlightSpriteVisible(is_register_available)
-
         return ui
     end
 
