@@ -133,11 +133,13 @@ function TableLairBuffStatus:getLairStatsByIdList(l_ids)
         local key = self:getValue(id, 'key')
         local value = self:getValue(id, 'key_value')
 
-        local t_ret = {}
-        t_ret['buff_type'] = key
-        t_ret['buff_value'] = value
+        if key ~= nil and value ~= nil then
+            local t_ret = {}
+            t_ret['buff_type'] = key
+            t_ret['buff_value'] = value
 
-        table.insert(l_buffs, t_ret)
+            table.insert(l_buffs, t_ret)
+        end
     end
 
 --[[     for id, count in pairs(count_map) do

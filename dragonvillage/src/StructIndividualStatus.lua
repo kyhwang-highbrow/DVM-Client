@@ -248,8 +248,13 @@ function StructIndividualStatus:calcT2_ExcludeMastery()
     -- 패시브 능력치
     local passive_multi = (self.m_passiveMulti / 100)
 
+    -- 축복 능력치
+    local lair_multi = (self.m_lairMulti / 100)
+
+
     -- 능력치 연산
-    local t2 = t1 + (t1 * (rune_multi + passive_multi)) + self.m_runeAdd + self.m_passiveAdd
+    local t2 = t1 + (t1 * (rune_multi + passive_multi + lair_multi)) 
+                    + self.m_runeAdd + self.m_passiveAdd  + self.m_lairAdd
 
     self.m_t2ExcludeMastery = t2
 
