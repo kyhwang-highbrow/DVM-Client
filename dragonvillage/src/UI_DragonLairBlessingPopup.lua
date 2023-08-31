@@ -309,13 +309,16 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
     -- 컨트롤 함수    
     local func_control_auto = function(on)
         vars['ingMenu']:setVisible(on)
-        vars['blessAutoBtn']:setVisible(not on)
+        --vars['blessAutoBtn']:setVisible(not on)
         vars['blessAutoStopBtn']:setVisible(on)
         vars['blockMenu']:setVisible(on)
+
         UIManager:blockBackKey(on)
         is_auto_stop = not on
     end
     
+
+
     -- 매 루프마다 만족하는 옵션이 나왔는지 체크
     local refresh_target_list = function() 
         local result_list = {}
@@ -345,6 +348,13 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
     end
 
     vars['blessAutoStopBtn']:registerScriptTapHandler(func_control_auto)
+
+    local ui = UI()
+    ui:load('empty.ui')
+    
+    vars['blockMenu']:addChild(ui.root)
+    UIManager:makeTouchBlock(ui, true)
+
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
@@ -410,6 +420,8 @@ function UI_DragonLairBlessingPopup:begin_autoBlessingSeq(_auto_count, _target_o
         end
 
         func_control_auto(false)
+        vars['blockMenu']:removeAllChildren()
+        vars['blockMenu']:setVisible(false)
         co:close()
     end
 
