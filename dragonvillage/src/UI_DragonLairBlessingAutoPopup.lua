@@ -307,6 +307,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonLairBlessingAutoPopupItem:initUI()
+    local vars = self.vars
     local min_value = 1
     local max_value = #self.m_optionIdList
     self.m_minValue = min_value
@@ -317,6 +318,18 @@ function UI_DragonLairBlessingAutoPopupItem:initUI()
     if save_val ~= nil and save_val <= max_value then
         --self.m_isChecked = true
         self.m_currValue = save_val
+    end
+
+    local season_option = g_lairData:getLairSeasonOption()
+    local season_color = g_lairData:getLairSeasonColor()
+
+    do
+        if string.find(self.m_optionKey, season_option) ~= nil then
+            vars['effectLayer']:setColor(COLOR[season_color])
+            vars['effectLayer']:setVisible(true)
+            vars['effectLayer']:stopAllActions()
+            vars['effectLayer']:runAction(cca.flash())
+        end
     end
 end
 

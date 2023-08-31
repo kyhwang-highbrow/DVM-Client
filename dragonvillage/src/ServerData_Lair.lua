@@ -92,6 +92,24 @@ function ServerData_Lair:getLairSeasonDesc()
 end
 
 -------------------------------------
+-- function getLairSeasonOption
+-------------------------------------
+function ServerData_Lair:getLairSeasonOption()
+    local season_id = self:getLairSeasonId()
+    local str = TableLairSchedule:getInstance():getLairSeasonOption(season_id)
+    return str
+end
+
+-------------------------------------
+-- function getLairSeasonOption
+-------------------------------------
+function ServerData_Lair:getLairSeasonColor()
+    local season_id = self:getLairSeasonId()
+    local str = TableLairSchedule:getInstance():getLairSeasonColor(season_id)
+    return str
+end
+
+-------------------------------------
 -- function getLairSeasonSpecialType
 -------------------------------------
 function ServerData_Lair:getLairSeasonSpecialType()

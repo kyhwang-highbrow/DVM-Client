@@ -59,3 +59,19 @@ end
 function TableLairSchedule:getLairTypeAni(season_id)
     return self:getValue(season_id, 'ani')
 end
+
+-------------------------------------
+-- function getLairSeasonColor
+---@return number
+-------------------------------------
+function TableLairSchedule:getLairSeasonColor(season_id)
+    return self:getValue(season_id, 'season_color')
+end
+
+-------------------------------------
+-- function getLairSeasonOption
+---@return number
+-------------------------------------
+function TableLairSchedule:getLairSeasonOption(season_id)
+    return self:getValue(season_id, 'option_type')
+end

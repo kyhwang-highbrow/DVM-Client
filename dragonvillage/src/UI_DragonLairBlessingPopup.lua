@@ -100,6 +100,8 @@ end
 function UI_DragonLairBlessingPopup:refresh()
     local vars = self.vars
     local type = self.m_currTab
+    local season_option = g_lairData:getLairSeasonOption()
+    local season_color = g_lairData:getLairSeasonColor()
 
     do -- 타입별 모든 능력치 
         local table_option = TableOption()        
@@ -129,6 +131,16 @@ function UI_DragonLairBlessingPopup:refresh()
             -- 보너스
             local bonus_label_str =  string.format('BonusLabel%d', idx)
             vars[bonus_label_str]:setVisible(false)
+
+            -- 활성화 이펙트
+            local effect_str =  string.format('TypeEffect%d', idx)
+            vars[effect_str]:setVisible(false)
+            if string.find(option_key, season_option) ~= nil then
+                vars[effect_str]:setColor(COLOR[season_color])
+                vars[effect_str]:setVisible(true)
+                vars[effect_str]:stopAllActions()
+                vars[effect_str]:runAction(cca.flash())
+            end
         end
     end
 

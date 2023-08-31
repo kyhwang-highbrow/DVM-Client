@@ -92,6 +92,8 @@ end
 function UI_DragonLair:refresh()
     local vars = self.vars
     local table_option = TableOption()
+    local season_option = g_lairData:getLairSeasonOption()
+    local season_color = g_lairData:getLairSeasonColor()
     
     for type = 1, 5 do
         local option_key_list = g_lairData:getLairRepresentOptionKeyListByType(type)
@@ -111,6 +113,14 @@ function UI_DragonLair:refresh()
                 vars[progress_label_str]:setString(desc)
             else
                 vars[progress_label_str]:setString(string.format('{@ORANGE}%s{@}',desc))
+            end
+
+            if string.find(option_key, season_option) ~= nil then
+                local effect_str =  string.format('%dTypeEffect%d', type, idx)
+                vars[effect_str]:setColor(COLOR[season_color])
+                vars[effect_str]:setVisible(true)
+                vars[effect_str]:stopAllActions()
+                vars[effect_str]:runAction(cca.flash())
             end
         end
 
