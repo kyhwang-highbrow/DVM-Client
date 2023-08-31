@@ -793,11 +793,13 @@ function TargetRule_getTargetList_active_cost(org_list, str)
 
 	-- 스킬 코스트가 같은 아이들을 추출한다
     for i = #t_char, 1, -1 do
-        local dragon_origin_mana_cost = t_char[i]:getOriginSkillManaCost()
-		if (active_cost == dragon_origin_mana_cost) then
-			table.insert(t_ret, t_char[i])
-			table.remove(t_char, i)
-		end
+        if t_char[i].m_charType == 'dragon' then
+            local dragon_origin_mana_cost = t_char[i]:getOriginSkillManaCost()
+            if (active_cost == dragon_origin_mana_cost) then
+                table.insert(t_ret, t_char[i])
+                table.remove(t_char, i)
+            end
+        end
 	end
     
     if (sub_type and sub_type ~= '' and sub_type ~= 'only') then
