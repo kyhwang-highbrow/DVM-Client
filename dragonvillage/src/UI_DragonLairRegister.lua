@@ -6,7 +6,7 @@ UI_DragonLairRegister = class(PARENT,{
     m_dragonTableView = 'TableVIew',
     m_dragonCount = '',
     m_sortManagerDragon = '',
-    m_availableDragonList = 'Lit<>',
+    m_availableDragonMap = 'Map<>',
     m_allDragonsMap = 'Map<>',
     m_dragonPriorityMap = 'Map<did, combat_power, create_at>',
     m_preAttr = 'string',
@@ -28,6 +28,7 @@ function UI_DragonLairRegister:init(owner_ui)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_DragonLairRegister')
 
+    self:makeAvailableDragonList()
     self:initTableView()
     self:initUI()
     self:initButton()
@@ -137,31 +138,12 @@ function UI_DragonLairRegister:getBestDragonObjectByDid(did)
     local exist_combat_power = nil
 
     for k, struct_dragon_data in pairs(m_dragons) do
-        -- 이미 등록된 드래곤이라면 최우선 순위가 됨
-        if g_lairData:isRegisterLairDid(did, struct_dragon_data['id']) == true then
-            return struct_dragon_data
+        -- 등록 가능한 드래곤이라면 최우선 노출 순위가 됨
+        if self.m_availableDragonMap[did] ~= nil then
+            return self.m_availableDragonMap[did]
         end
 
-        if result_dragon == nil then          
-            result_dragon = struct_dragon_data
-            exist_combat_power = result_dragon:getCombatPower()
-        else
-
-            local combat_power = struct_dragon_data:getCombatPower()
-            local exist_created_at = result_dragon['created_at']
-            local created_at = struct_dragon_data['created_at']
-
-            if exist_combat_power < combat_power then
-                result_dragon = struct_dragon_data
-                exist_combat_power = combat_power
-
-            elseif exist_combat_power == combat_power then
-                -- 전투력 다음 획득이 오래된 것을 우선 순위로 가져옴
-                if exist_created_at > created_at then
-                    result_dragon = struct_dragon_data
-                end
-            end
-        end
+        return struct_dragon_data
     end
 
     return result_dragon
@@ -214,7 +196,7 @@ end
 -- function onChangeOption
 -------------------------------------
 function UI_DragonLairRegister:onChangeOption()
-    self:makeAvailableDragonList()
+    
     local attr_option = self.m_attrRadioButton.m_selectedButton
     local l_item_list = self:getDragonList()
 
@@ -246,7 +228,22 @@ function UI_DragonLairRegister:makeAvailableDragonList()
 
             if is_registered == false then
                 if did_map[did] == nil then
-                    did_map[did] = self:getBestDragonObjectByDid(did)
+                    did_map[did] = struct_dragon_data
+                else
+                    local exist_dragon = did_map[did]
+                    local exist_combat_power = exist_dragon:getCombatPower()
+                    local exist_created_at = exist_dragon['created_at']
+
+                    local combat_power = struct_dragon_data:getCombatPower()
+                    local created_at = struct_dragon_data['created_at']
+
+                    if combat_power > exist_combat_power then
+                        did_map[did] = struct_dragon_data
+                    elseif combat_power == exist_combat_power then
+                        if exist_created_at > created_at then
+                            did_map[did] = struct_dragon_data
+                        end
+                    end
                 end
             elseif is_add_ticket_count == true then
                 did_map[did] = struct_dragon_data
@@ -254,14 +251,14 @@ function UI_DragonLairRegister:makeAvailableDragonList()
         end
     end
 
-    self.m_availableDragonList = did_map
+    self.m_availableDragonMap = did_map
 end
 
 -------------------------------------
 -- function isExistAvailableMap
 -------------------------------------
 function UI_DragonLairRegister:isExistAvailableMap(did)
-    local info = self.m_availableDragonList[did]
+    local info = self.m_availableDragonMap[did]
     if info == nil then
         return false
     end
@@ -274,7 +271,7 @@ end
 -------------------------------------
 function UI_DragonLairRegister:getAvailableDragonDoids()
     local doid_list = {}
-    for i,v in pairs(self.m_availableDragonList) do
+    for i,v in pairs(self.m_availableDragonMap) do
         table.insert(doid_list, v['id'])
     end
     return table.concat(doid_list, ',')
@@ -286,7 +283,7 @@ end
 function UI_DragonLairRegister:getAvailableTicketCount()
     local count = 0
     local basic_ticket = 3
-    for _, v in pairs(self.m_availableDragonList) do
+    for _, v in pairs(self.m_availableDragonMap) do
         if v:getBirthGrade() == 6 then
             if g_lairData:isRegisterLairDid(v['did']) == false then
                 count = count + basic_ticket + v:getDragonSkillLevelUpNum()
@@ -322,7 +319,7 @@ function UI_DragonLairRegister:initTableView()
         if is_registered == true or is_register_available == true then
             ui.root:setColor(COLOR['white'])
         elseif is_not_exist == true then
-            ui.root:setColor(COLOR['deep_dark_gray'])
+            ui.root:setColor(cc.c3b(40, 40, 40))
         else
             ui.root:setColor(COLOR['deep_gray'])
         end
@@ -402,7 +399,7 @@ end
 -------------------------------------
 function UI_DragonLairRegister:click_registerBtn()
     local vars = self.vars
-    local dragon_count = table.count(self.m_availableDragonList)
+    local dragon_count = table.count(self.m_availableDragonMap)
     local ticket_count = self:getAvailableTicketCount()
     
     if dragon_count == 0 then

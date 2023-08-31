@@ -405,7 +405,7 @@ function ServerData_Lair:isAvailableRegisterDragons()
             local is_registered = g_lairData:isRegisterLairDid(struct_dragon_data['did'])
             if is_registered == false or is_add_ticket_count == true then
                 self.m_isAvailableRegister = true
-                return true                
+                return true
             end
         end
     end
