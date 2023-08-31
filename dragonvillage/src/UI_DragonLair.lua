@@ -17,7 +17,7 @@ function UI_DragonLair:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_DragonLair'
     self.m_subCurrency = 'blessing_ticket'  -- 상단 유저 재화 정보 중 서브 재화    
-    self.m_titleStr = nil
+    self.m_titleStr = ''
     self.m_bUseExitBtn = true -- click_exitBtn()함구 구현이 반드시 필요함
     self.m_bShowInvenBtn = true
 end
