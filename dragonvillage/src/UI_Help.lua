@@ -106,7 +106,7 @@ function UI_Help:makeTableView_category()
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(200, 70 + 3)
+        table_view.m_defaultCellSize = cc.size(250, 70 + 3)
         table_view:setCellUIClass(self.makeCellUI_category, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList3(l_help_list)
