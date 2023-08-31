@@ -181,6 +181,7 @@ function UI_DragonLairRegister:getBookDragonList()
                     t_dragon['evolution'] = 3
                     t_dragon['grade'] = 6
                     t_dragon['lv'] = 0
+                    t_dragon['created_at'] = 0
                     l_ret[key] = StructDragonObject(t_dragon)
                 end
 

@@ -138,8 +138,6 @@ function UI_DragonLairBlessingPopup:refresh()
             if string.find(option_key, season_option) ~= nil then
                 vars[effect_str]:setColor(COLOR[season_color])
                 vars[effect_str]:setVisible(true)
-                vars[effect_str]:stopAllActions()
-                vars[effect_str]:runAction(cca.flash())
             end
         end
     end

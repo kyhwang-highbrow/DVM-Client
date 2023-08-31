@@ -327,8 +327,6 @@ function UI_DragonLairBlessingAutoPopupItem:initUI()
         if string.find(self.m_optionKey, season_option) ~= nil then
             vars['effectLayer']:setColor(COLOR[season_color])
             vars['effectLayer']:setVisible(true)
-            vars['effectLayer']:stopAllActions()
-            vars['effectLayer']:runAction(cca.flash())
         end
     end
 end
