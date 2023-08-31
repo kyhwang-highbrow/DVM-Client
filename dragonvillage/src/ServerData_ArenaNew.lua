@@ -815,7 +815,7 @@ function ServerData_ArenaNew:request_arenaFinish(is_win, play_time, finish_cb, f
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
     ui_network:setParam('gamekey', self.m_gameKey)
     ui_network:setParam('combat_power', combat_power)
-    ui_network:setParam('lair_stats', combat_power)
+    
 
     -- 서버 Log를 위해 클라에서 넘기는 값들
     do 
