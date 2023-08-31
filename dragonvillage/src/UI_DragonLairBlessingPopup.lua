@@ -171,9 +171,11 @@ function UI_DragonLairBlessingPopup:refreshTableView(_lair_id_list)
 
     for i,v in pairs(self.m_listView.m_itemList) do
         local ui = v['ui']
-        ui:refresh()
-        if func_find(v['data']) == true then
-            ui:showLabelEffect()
+        if ui ~= nil then
+            ui:refresh()
+            if func_find(v['data']) == true then
+                ui:showLabelEffect()
+            end
         end
     end
 end
