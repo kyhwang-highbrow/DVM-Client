@@ -8,6 +8,7 @@ ServerData_Lair = class({
 
     m_lairStats = 'list<number>',
     m_lairStatsInfoMap = 'list<number>',
+    m_lairStatsDirty = 'boolean',
 
     m_lairSlotCompleteCount = 'number',
     m_lairRegisterMap = 'map<number>',
@@ -30,6 +31,7 @@ end
 function ServerData_Lair:init_variables()
     self.m_lairStats = {}
     self.m_lairStatsInfoMap = {}
+    self.m_lairStatsDirty = true
 
     self.m_lairRegisterMap = {}
     self.m_lairSlotCompleteCount = 0
@@ -47,18 +49,21 @@ end
 -------------------------------------
 function ServerData_Lair:getLairStats()
     local list = {}
-
     if self:isLairSeasonEnd() == true then
         return list
     end
-    
-    for k, v in pairs(self.m_lairStatsInfoMap) do
-        if v:getStatId() > 0 then
-            table.insert(list, v:getStatId())
+
+    if self.m_lairStatsDirty == true then
+        self.m_lairStats = {}
+        for _, v in pairs(self.m_lairStatsInfoMap) do
+            if v:getStatId() > 0 then
+                table.insert(self.m_lairStats, v:getStatId())
+            end
         end
     end
 
-    return list
+    self.m_lairStatsDirty = false
+    return self.m_lairStats
 end
 
 -------------------------------------
@@ -404,7 +409,7 @@ function ServerData_Lair:isAvailableRegisterDragons()
             end
         end
     end
-    
+
     self.m_isAvailableRegister = false
     return false
 end
@@ -477,6 +482,7 @@ function ServerData_Lair:applyLairInfo(t_ret)
     end
 
     if t_ret['buff'] ~= nil then
+        self.m_lairStatsDirty = true
         local t_list = t_ret['buff']
         for k, v in pairs(t_list) do
             self.m_lairStatsInfoMap[tonumber(k)] = StructLairStat(v)
@@ -484,6 +490,7 @@ function ServerData_Lair:applyLairInfo(t_ret)
     end
 
     if t_ret['removed_buff'] ~= nil then
+        self.m_lairStatsDirty = true
         local t_list = t_ret['removed_buff']
         for _, id in ipairs(t_list) do
             local struct_lair_stat = self.m_lairStatsInfoMap[id]

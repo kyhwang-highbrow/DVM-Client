@@ -113,9 +113,6 @@ function UI_Help:makeTableView_category()
 
         table_view:update(0)
         table_view:relocateContainerFromIndex(focus_idx or 1)
-
-        cclog('focus_idx', focus_idx)
-        
     end
 end
 
@@ -141,9 +138,6 @@ function UI_Help:makeTableView_content(l_content)
         table_view:setItemList(l_content, true)
     end
 end
-
-
-
 
 -------------------------------------
 -- function makeCellUI_category

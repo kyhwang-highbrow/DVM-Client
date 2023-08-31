@@ -301,9 +301,6 @@ function GameWorld:makeHeroDeck()
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
 
-                -- 라테아 버프 적용
-                hero.m_statusCalc:applyLairStats(g_lairData:getLairStats())
-
                 hero:setStatusCalc(hero.m_statusCalc)
 
                 -- 팀보너스 적용
@@ -329,7 +326,7 @@ function GameWorld:makeFriendHero()
         return
     end
 
-    local t_dragon_data, l_runes_data, lair_stats = g_friendData:getParticipationFriendDragon()
+    local t_dragon_data, l_runes_data = g_friendData:getParticipationFriendDragon()
     if (not t_dragon_data) then return end
 
     local status_calc = g_friendData:makeFriendDragonStatusCalculator(t_dragon_data, l_runes_data)
@@ -344,7 +341,7 @@ function GameWorld:makeFriendHero()
         
         local idx = g_friendData:getFriendDragonSlotIdx()
         if (idx) then
-            self:joinFriendHero(idx, lair_stats)
+            self:joinFriendHero(idx)
             self.m_bUsedFriend = true
         end
     end
@@ -368,8 +365,6 @@ function GameWorld:joinFriendHero(posIdx, lair_stats)
     -- 스테이지 버프 적용
     self.m_friendDragon.m_statusCalc:applyStageBonus(self.m_stageID)
 
-    -- 친구 라테아 버프 적용
-    self.m_friendDragon.m_statusCalc:applyLairStats(lair_stats)
 
     self.m_friendDragon:setStatusCalc(self.m_friendDragon.m_statusCalc)
 

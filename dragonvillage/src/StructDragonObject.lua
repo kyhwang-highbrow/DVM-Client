@@ -56,8 +56,8 @@ StructDragonObject = class({
         dragon_skin = 'number',
 
         ----------------------------------------------
-        -- 드래곤 둥지 등록 여부
-        lair = 'boolean',
+        -- 드래곤 축복 버프
+        lair_stats = 'List<numebr>',
 
         ----------------------------------------------
         -- 지울 것들
@@ -77,6 +77,8 @@ function StructDragonObject:init(data)
     self.eclv = 0
     self.rlv = 0
     self.m_mRuneObjects = nil
+    self.lair_stats = {}
+
     if data then
         self:applyTableData(data)
     end
@@ -336,6 +338,52 @@ function StructDragonObject:getMasterySkillStatus(game_mode)
     --cclog('l_add_status : ' .. luadump(l_add_status))
     --cclog('l_multi_status : ' .. luadump(l_multi_status))
     
+    return l_add_status, l_multi_status
+end
+
+
+-------------------------------------
+-- function getLairStatus
+-------------------------------------
+function StructDragonObject:getLairStatus()
+    local l_lair_status_ids = {}
+    local doid = self['id']
+    
+    -- 내꺼는 전역에서 버프 정보를 얻어옴
+    if doid ~= nil and g_dragonsData:getDragonDataFromUid(doid) ~= nil then
+        l_lair_status_ids = g_lairData:getLairStats()
+    else --상대방꺼는 세팅된 정보로 얻어옴
+        l_lair_status_ids = self.lair_stats or {}
+    end
+
+    local l_buffs = TableLairBuffStatus:getInstance():getLairStatsByIdList(l_lair_status_ids)
+    local l_add_status = {}
+    local l_multi_status = {}
+    local t_option_instance = TableOption()
+
+    for _, v in ipairs(l_buffs) do
+        local buff_type = v['buff_type']
+        local buff_value = v['buff_value']
+        local t_option = t_option_instance:get(buff_type)
+    
+        if (t_option) then
+            local status_type = t_option['status']
+            if (status_type) then
+                if (t_option['action'] == 'multi') then
+                    if (not l_multi_status[status_type]) then
+                        l_multi_status[status_type] = 0
+                    end
+                    l_multi_status[status_type] = l_multi_status[status_type] + buff_value
+                elseif (t_option['action'] == 'add') then
+                    if (not l_add_status[status_type]) then
+                        l_add_status[status_type] = 0
+                    end
+                    l_add_status[status_type] = l_add_status[status_type] + buff_value
+                end
+            end
+        end
+    end
+
     return l_add_status, l_multi_status
 end
 

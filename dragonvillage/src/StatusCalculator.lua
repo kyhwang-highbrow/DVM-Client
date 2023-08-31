@@ -513,36 +513,6 @@ function StatusCalculator:applyAdditionalOptions(buff_str)
 end
 
 -------------------------------------
--- function applyLairStats
--- @brief 축복 보너스 적용
--------------------------------------
-function StatusCalculator:applyLairStats(_l_lair_status_ids)
-   local l_lair_status_ids = {}
-
-    if _l_lair_status_ids ~= nil then
-        l_lair_status_ids = _l_lair_status_ids
-    end
-
-    local l_buffs = TableLairBuffStatus:getInstance():getLairStatsByIdList(l_lair_status_ids)
-    for _, v in ipairs(l_buffs) do
-        local buff_type = v['buff_type']
-        local buff_value = v['buff_value']
-        local t_option = TableOption():get(buff_type)
-    
-        if (t_option) then
-            local status_type = t_option['status']
-            if (status_type) then
-                if (t_option['action'] == 'multi') then
-                    self:addStageMulti(status_type, buff_value)
-                elseif (t_option['action'] == 'add') then
-                    self:addStageAdd(status_type, buff_value)
-                end
-            end
-        end
-    end
-end
-
--------------------------------------
 -- function getCombatPower
 -- @brief 드래곤의 최종 전투력을 얻어옴
 --        UI에서 사용되는 함수이므로 패시브 발동은 제외
@@ -719,6 +689,41 @@ function StatusCalculator:addMasteryMulti(stat_type, value)
         indivisual_status:addMasteryAdd(value)
     else
         indivisual_status:addMasteryMulti(value)
+    end
+end
+
+-------------------------------------
+-- function addLairAdd
+-------------------------------------
+function StatusCalculator:addLairAdd(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    -- 특정 타입의 스텟들은 무조건 곱연산
+    if (M_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+        indivisual_status:addLairMulti(value)
+    else
+        indivisual_status:addLairAdd(value)
+    end
+end
+
+-------------------------------------
+-- function addLairMulti
+-- @brief
+-------------------------------------
+function StatusCalculator:addLairMulti(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    -- 특정 타입의 스텟들은 무조건 합연산
+    if (M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then
+        indivisual_status:addLairAdd(value)
+    else
+        indivisual_status:addLairMulti(value)
     end
 end
 
@@ -1016,11 +1021,13 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
 
     -- 축복(lair)
     do
-        -- 소유중인 드래곤인지 판별 후 능력치 적용
-        -- 축복은 전체 옵션 개념이라 이렇게 처리하는게 맞는지 모르겠다.
-        if doid ~= nil and g_dragonsData:getDragonDataFromUid(doid) ~= nil then
-            local lair_stats = g_lairData:getLairStats()
-            status_calc:applyLairStats(lair_stats)
+        local l_add_status, l_multi_status = t_dragon_data:getLairStatus()
+        for stat_type,value in pairs(l_add_status) do
+            status_calc:addLairAdd(stat_type, value)
+        end
+
+        for stat_type,value in pairs(l_multi_status) do
+            status_calc:addLairMulti(stat_type, value)
         end
     end
 

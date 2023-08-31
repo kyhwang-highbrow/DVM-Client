@@ -134,7 +134,7 @@ function ServerData_Arena:refresh_playerUserInfo(t_data, l_deck)
         local struct_user_info = StructUserInfoArena()
         struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info:setStructClan(g_clanData:getClanStruct())
-        struct_user_info:setLairStats(g_lairData:getLairStats())
+        
         self.m_playerUserInfo = struct_user_info
     end
 

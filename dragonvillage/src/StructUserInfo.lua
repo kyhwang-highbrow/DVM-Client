@@ -115,6 +115,10 @@ function StructUserInfo:applyDragonsDataList(l_data)
         local did = v['did']
         if table_dragon:get(did) then
             local struct_dragon_object = StructDragonObject(v)
+            
+            -- 축복 추가 능력치 적용
+            struct_dragon_object.lair_stats = self.m_lairStats
+
             local doid = v['id']
             self.m_dragonsObject[doid] = struct_dragon_object
         end
@@ -342,15 +346,6 @@ end
 -------------------------------------
 function StructUserInfo:getStructClan()
     return self.m_structClan
-end
-
-
--------------------------------------
--- function setLairStats
--- @breif
--------------------------------------
-function StructUserInfo:setLairStats(lair_Stats)
-    self.m_lairStats = lair_Stats
 end
 
 -------------------------------------

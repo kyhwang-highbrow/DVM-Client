@@ -45,6 +45,9 @@ StructIndividualStatus = class({
         m_masteryMulti = '',    -- 특성 곱연산
         m_masteryAdd = '',      -- 특성 합연산
 
+        m_lairMulti = '',       -- 축복 곱연산
+        m_lairAdd = '',         -- 축복 합연산
+
         ----------------------------------------------------
 
         ----------------------------------------------------
@@ -101,6 +104,9 @@ function StructIndividualStatus:init(status_name)
 
     self.m_masteryMulti = 0
     self.m_masteryAdd = 0
+
+    self.m_lairMulti = 0       -- 축복 곱연산
+    self.m_lairAdd = 0         -- 축복 합연산
 
     self.m_t1 = 0
     self.m_bDirtyT1 = true
@@ -216,8 +222,12 @@ function StructIndividualStatus:calcT2()
     
     local masteryAdd = self.m_masteryAdd
 
+    -- 축복 능력치
+    local lair_multi = (self.m_lairMulti / 100)
+
     -- 능력치 연산
-    local t2 = t1 + (t1 * (rune_multi + passive_multi + mastery_multi)) + self.m_runeAdd + self.m_passiveAdd + masteryAdd
+    local t2 = t1 + (t1 * (rune_multi + passive_multi + mastery_multi + lair_multi)) 
+                        + self.m_runeAdd + self.m_passiveAdd + masteryAdd + self.m_lairAdd
 
     self.m_t2 = t2
 
@@ -442,6 +452,23 @@ function StructIndividualStatus:addMasteryAdd(value)
     self.m_masteryAdd = (self.m_masteryAdd + value)
     self:setDirtyT2()
 end
+
+-------------------------------------
+-- function addLairMulti
+-------------------------------------
+function StructIndividualStatus:addLairMulti(value)
+    self.m_lairMulti = (self.m_lairMulti + value)
+    self:setDirtyT2()
+end
+
+-------------------------------------
+-- function addLairAdd
+-------------------------------------
+function StructIndividualStatus:addLairAdd(value)
+    self.m_lairAdd = (self.m_lairAdd + value)
+    self:setDirtyT2()
+end
+
 
 -------------------------------------
 -- function addFormationMulti

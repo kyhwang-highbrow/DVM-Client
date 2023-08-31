@@ -372,8 +372,7 @@ function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
     
 		struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info.m_lv = g_userData:get('lv')
-		struct_user_info.m_nickname = g_userData:get('nick')	
-        struct_user_info.m_lairStats = g_lairData:getLairStats()
+		struct_user_info.m_nickname = g_userData:get('nick')
 
 		local struct_clan = g_clanData:getClanStruct()
 		if (struct_clan) then
