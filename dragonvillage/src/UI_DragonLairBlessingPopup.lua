@@ -90,6 +90,7 @@ function UI_DragonLairBlessingPopup:initButton()
         vars['addTicketEdit']:registerScriptEditBoxHandler(editBoxTextEventHandle)
         vars['addTicketEdit']:setMaxLength(5)
         vars['addTicketEdit']:setVisible(true)
+        vars['addTicketBtn']:setVisible(true)
         vars['addTicketBtn']:registerScriptTapHandler(function() self:click_addTicketBtn() end)
     end
 end
