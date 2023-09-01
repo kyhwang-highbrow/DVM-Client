@@ -398,6 +398,11 @@ end
 -- function isAvailableRegisterDragons
 -------------------------------------
 function ServerData_Lair:isAvailableRegisterDragons()
+    local is_content_lock = g_contentLockData:isContentLock('lair')
+    if is_content_lock == true then
+        return false
+    end
+
     if self.m_availableRegisterDirty == false then
         return self.m_isAvailableRegister
     end

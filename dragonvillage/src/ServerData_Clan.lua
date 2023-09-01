@@ -1297,7 +1297,24 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Clan:isHighlightClan()
+    local is_content_lock = g_contentLockData:isContentLock('clan')
+    if is_content_lock == true then
+        return false
+    end
+
     if self.m_bAttdRewardNoti then
+        return true
+    end
+
+    if g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp() == true then
+        return true
+    end
+
+    if g_fevertimeData:isActiveFevertime_dungeonRuneUp() == true then
+        return true
+    end
+
+    if g_fevertimeData:isActiveFevertime_dungeonRgStDc() == true then
         return true
     end
 

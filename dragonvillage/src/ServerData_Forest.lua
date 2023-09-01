@@ -437,6 +437,11 @@ end
 -- @brief "드래곤의 숲"진입 버튼의 알림 표시 여부
 -------------------------------------
 function ServerData_Forest:isHighlightForest()
+    local is_content_lock = g_contentLockData:isContentLock('forest')
+    if is_content_lock == true then
+        return false
+    end
+
     -- reward가 있다면 트루
     if (self.m_hasReward) then
         return true

@@ -1224,12 +1224,7 @@ function UI_Lobby:update_highlight()
     vars['etcNotiSprite']:setVisible(is_etc_noti)
 
     -- 클랜
-    vars['clanNotiSprite']:setVisible(
-        g_clanData:isHighlightClan()
-        or g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
-        or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
-        or g_fevertimeData:isActiveFevertime_dungeonRgStDc()
-    )
+    vars['clanNotiSprite']:setVisible(g_clanData:isHighlightClan())
 
     do -- 황금 던전
         vars['goldDungeonNotiRed']:setVisible(false)
@@ -2619,15 +2614,15 @@ function UI_Lobby:update_bottomLeftButtons()
     --local l_content = {'quest', 'forest', 'tamer', 'runeForge', 'dragonManage'}
     local l_content = {'lair', 'tamer', 'runeForge', 'dragonManage'}
 
-
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
-        if (not is_content_lock or content_name == 'lair') then
-            table.insert(t_btn_name, btn_label)
-            vars[btn_label]:setVisible(true)
-        else
-            vars[btn_label]:setVisible(false)
+        table.insert(t_btn_name, btn_label)
+        vars[btn_label]:setVisible(true)
+
+        local lock_sprite_str = string.format('%sLockSprite', content_name)
+        if vars[lock_sprite_str] ~= nil then
+            vars[lock_sprite_str]:setVisible(is_content_lock)
         end
     end
     
@@ -2662,12 +2657,6 @@ function UI_Lobby:update_bottomLeftButtons()
         end
     end
 
-    do
-        local is_content_lock = g_contentLockData:isContentLock('lair')
-        --vars['lairLockSprite']:setCascadeColorEnabled(false)
-        --vars['lairLockSprite']:setColor(COLOR['white'])
-        vars['lairLockSprite']:setVisible(is_content_lock)
-    end
 end
 
 -------------------------------------
@@ -2682,11 +2671,12 @@ function UI_Lobby:update_bottomRightButtons()
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
-        if (not is_content_lock) then
-            table.insert(t_btn_name, btn_label)
-            vars[btn_label]:setVisible(true)
-        else
-            vars[btn_label]:setVisible(false)
+        table.insert(t_btn_name, btn_label)
+        vars[btn_label]:setVisible(true)
+
+        local lock_sprite_str = string.format('%sLockSprite', content_name)
+        if vars[lock_sprite_str] ~= nil then
+            vars[lock_sprite_str]:setVisible(is_content_lock)
         end
     end
     
