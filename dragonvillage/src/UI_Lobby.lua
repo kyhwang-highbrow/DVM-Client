@@ -2623,7 +2623,7 @@ function UI_Lobby:update_bottomLeftButtons()
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
-        if (not is_content_lock) then
+        if (not is_content_lock or content_name == 'lair') then
             table.insert(t_btn_name, btn_label)
             vars[btn_label]:setVisible(true)
         else
@@ -2660,6 +2660,13 @@ function UI_Lobby:update_bottomLeftButtons()
         if (v:getPositionX() ~= _pos_x) then
             v:setPositionX(_pos_x)
         end
+    end
+
+    do
+        local is_content_lock = g_contentLockData:isContentLock('lair')
+        --vars['lairLockSprite']:setCascadeColorEnabled(false)
+        --vars['lairLockSprite']:setColor(COLOR['white'])
+        vars['lairLockSprite']:setVisible(is_content_lock)
     end
 end
 
