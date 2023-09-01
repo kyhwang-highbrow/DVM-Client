@@ -294,30 +294,17 @@ function ServerData_Lair:isRegisterLairDid(did, doid)
 end
 
 -------------------------------------
--- function isRegisterLairByDoid
+-- function getRegisteredLairDragon
 -------------------------------------
-function ServerData_Lair:isRegisterLairByDoid(did, doid)
+function ServerData_Lair:getRegisteredLairDragon(did)
     local info = self.m_lairRegisterMap[did]
 
     if info == nil then
-        return false
-    end
-
-    return info['doid'] == doid
-end
-
--------------------------------------
--- function isRegisterLairDragonExist
--------------------------------------
-function ServerData_Lair:isRegisterLairDragonExist(did)
-    local info = self.m_lairRegisterMap[did]
-
-    if info == nil then
-        return false
+        return nil
     end
 
     local doid = info['doid']
-    return g_dragonsData:getDragonDataFromUid(doid) ~= nil
+    return g_dragonsData:getDragonDataFromUid(doid)
 end
 
 

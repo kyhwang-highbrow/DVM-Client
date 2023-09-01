@@ -133,20 +133,34 @@ end
 -- @breif 같은 did를 가진 개체 중에 최고의 드래곤 얻어오기
 -------------------------------------
 function UI_DragonLairRegister:getBestDragonObjectByDid(did)
-    local m_dragons = g_dragonsData:getDragonsByDid(did)
-    local result_dragon = nil
-    local exist_combat_power = nil
-
-    for k, struct_dragon_data in pairs(m_dragons) do
-        -- 등록 가능한 드래곤이라면 최우선 노출 순위가 됨
-        if self.m_availableDragonMap[did] ~= nil then
-            return self.m_availableDragonMap[did]
-        end
-
-        return struct_dragon_data
+    -- 이미 등록된 드래곤 1순위로 가져옴
+    local exist_dragon_object = g_lairData:getRegisteredLairDragon(did)
+    if exist_dragon_object ~= nil then
+        return exist_dragon_object
     end
 
-    return result_dragon
+    -- 등록 가능한 드래곤이라면 2순위로 가져옴
+    if self.m_availableDragonMap[did] ~= nil then
+        return self.m_availableDragonMap[did]
+    end
+
+    local sort_dragon = SortManager_Dragon()
+    local m_dragons = g_dragonsData:getDragonsByDid(did)
+    local l_dragons = {}    
+
+    for k, struct_dragon_data in pairs(m_dragons) do
+        table.insert(l_dragons, struct_dragon_data)
+    end
+
+    table.sort(l_dragons, function(a, b)
+        return sort_dragon:sort_combat_power(a, b, false)
+    end )
+
+    if #l_dragons > 0 then
+        return l_dragons[1]
+    end
+
+    return nil
 end
 
 -------------------------------------
