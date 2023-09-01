@@ -2619,8 +2619,16 @@ function UI_Lobby:update_bottomLeftButtons()
         local btn_label = content_name .. 'Btn'
         table.insert(t_btn_name, btn_label)
         vars[btn_label]:setVisible(true)
-
+        
+        --vars[btn_label].m_node:setCascadeColorEnabled(false)
+--[[         vars[btn_label]:setColor(is_content_lock and COLOR['deep_gray'] or COLOR['white'])
         local lock_sprite_str = string.format('%sLockSprite', content_name)
+        if vars[lock_sprite_str] ~= nil then
+            vars[lock_sprite_str]:setVisible(is_content_lock)
+            vars[lock_sprite_str]:setColor(COLOR['white'])
+        end ]]
+
+        local lock_sprite_str = string.format('%sLockMenu', content_name)
         if vars[lock_sprite_str] ~= nil then
             vars[lock_sprite_str]:setVisible(is_content_lock)
         end
@@ -2673,8 +2681,16 @@ function UI_Lobby:update_bottomRightButtons()
         local btn_label = content_name .. 'Btn'
         table.insert(t_btn_name, btn_label)
         vars[btn_label]:setVisible(true)
-
+        
+        --vars[btn_label].m_node:setCascadeColorEnabled(false)
+--[[         vars[btn_label]:setColor(is_content_lock and COLOR['deep_gray'] or COLOR['white'])
         local lock_sprite_str = string.format('%sLockSprite', content_name)
+        if vars[lock_sprite_str] ~= nil then
+            vars[lock_sprite_str]:setVisible(is_content_lock)
+            vars[lock_sprite_str]:setColor(COLOR['white'])
+        end ]]
+
+        local lock_sprite_str = string.format('%sLockMenu', content_name)
         if vars[lock_sprite_str] ~= nil then
             vars[lock_sprite_str]:setVisible(is_content_lock)
         end
