@@ -2358,15 +2358,22 @@ end
 -------------------------------------
 -- function isPossibleMove
 -------------------------------------
-function Character:isPossibleMove(order)
+function Character:isPossibleMove(order, is_change_home_pos)
     local order = order or 0
 
     if (self:isDead()) then
         return false
     end
 
-    if (isExistValue(self.m_state, 'delegate', 'stun')) then
-        return false
+    -- 스턴 제외(스턴은 최소한 웨이브 끝나고 신규 위치로는 이동되어야 한다)
+    if is_change_home_pos == true then 
+        if (isExistValue(self.m_state, 'delegate')) then
+            return false
+        end
+    else
+        if (isExistValue(self.m_state, 'delegate', 'stun')) then
+            return false
+        end
     end
 
     if (self.m_isOnTheMove and order < self.m_orderOnTheMove) then
@@ -2418,7 +2425,7 @@ function Character:changeHomePos(x, y, speed, order)
 
     self:setHomePos(x, y)
 
-    if (not self:isPossibleMove(order)) then return end
+    if (not self:isPossibleMove(order, true)) then return end
 
     local speed = speed or 500
     self:setMove(x, y, speed, order)
@@ -2432,7 +2439,7 @@ function Character:changeHomePosByTime(x, y, time, order)
 
     self:setHomePos(x, y)
 
-    if (not self:isPossibleMove(order)) then return end
+    if (not self:isPossibleMove(order, true)) then return end
 
     -- 거리를 계산하여 속도를 구함
     local cur_x, cur_y = self.pos.x, self.pos.y

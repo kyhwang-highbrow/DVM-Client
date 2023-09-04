@@ -469,7 +469,7 @@ end
 -------------------------------------
 -- function isPossibleMove
 -------------------------------------
-function Monster:isPossibleMove(order)
+function Monster:isPossibleMove(order, is_change_home_pos)
     local order = order or 0
 
     if (order < 0) then
