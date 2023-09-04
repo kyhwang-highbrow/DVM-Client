@@ -372,6 +372,7 @@ function ServerData_FriendMatch:refresh_matchList_Arena(match_info)
     struct_user_info.m_tier = match_info['tier']
     struct_user_info.m_rank = match_info['rank']
     struct_user_info.m_rankPercent = match_info['rate']
+    struct_user_info.m_lairStats = match_info['lair_stats']
 
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = match_info['rp']
