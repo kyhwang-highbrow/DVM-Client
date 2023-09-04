@@ -95,6 +95,11 @@ function GameWorldLeagueRaid:makeHeroDeck_internal(index)
         end
     end
 
+    -- 부활 스킬 사용 시 대상을 현재 파티에서 가져오지 않는 현상 수정
+    self.m_mUnitGroup[PHYS.HERO].m_lSurvivor = {}
+    self.m_mUnitGroup[PHYS.HERO].m_lDead = {}
+    self.m_mUnitGroup[PHYS.HERO].m_formationMgr = FormationMgr(true)
+
     -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
     self.m_myDragons = {}
     self.m_leftParticipants = {}
