@@ -245,20 +245,20 @@ end
 function UI_DragonRunes:getBubbleText(txt_str)
 	-- 베이스 노드
 	local node = cc.Node:create()
-	node:setDockPoint(cc.p(1.0, 0.5))
-	node:setAnchorPoint(cc.p(1.0, 0.5))
+	node:setDockPoint(cc.p(0.0, 0.5))
+	node:setAnchorPoint(cc.p(0.0, 0.5))
 
 	-- 말풍선 프레임
 	local frame = cc.Scale9Sprite:create('res/ui/frames/event_0202.png')
-	frame:setDockPoint(cc.p(0.5, 0.5))
-	frame:setAnchorPoint(cc.p(0.5, 0.5))
+	frame:setDockPoint(cc.p(1.0, 0.5))
+	frame:setAnchorPoint(cc.p(1.0, 0.5))
     frame:setScaleX(-1)
 
 
 	-- 텍스트 (rich_label)
 	local rich_label = UIC_RichLabel()
     rich_label:setString(txt_str)
-    rich_label:setFontSize(20)
+    rich_label:setFontSize(18)
     rich_label:setDimension(500, 70)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 	rich_label:setDockPoint(cc.p(0.5, 0.5))
