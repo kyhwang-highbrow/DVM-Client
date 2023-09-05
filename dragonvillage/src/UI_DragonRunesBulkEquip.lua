@@ -137,13 +137,13 @@ end
 function UI_DragonRunesBulkEquip:getBubbleText(txt_str)
 	-- 베이스 노드
 	local node = cc.Node:create()
-	node:setDockPoint(cc.p(0.5, 0.5))
-	node:setAnchorPoint(cc.p(0.5, 0.5))
+	node:setDockPoint(cc.p(1.0, 0.5))
+	node:setAnchorPoint(cc.p(1.0, 0.5))
 
 	-- 말풍선 프레임
 	local frame = cc.Scale9Sprite:create('res/ui/frames/event_0202.png')
-	frame:setDockPoint(cc.p(0.5, 0.5))
-	frame:setAnchorPoint(cc.p(0.5, 0.5))
+	frame:setDockPoint(cc.p(1.0, 0.5))
+	frame:setAnchorPoint(cc.p(1.0, 0.5))
     --frame:setScaleX(-1)
 
 
