@@ -228,7 +228,7 @@ function UI_DragonRunes:initButton()
         local user_level = g_userData:get('lv')
         local free_level = g_constant:get('INGAME', 'FREE_RUNE_UNEQUIP_USER_LV')
         if user_level <= free_level then
-            local text = Str('{@yellow}75레벨 이하 룬 해제비용 없음{@}')
+            local text = Str('{@yellow}75레벨 이하 룬 해제 비용 없음{@}')
             local node = self:getBubbleText(text)
 
             node:setPositionX(0)
