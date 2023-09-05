@@ -115,6 +115,62 @@ function UI_DragonRunesBulkEquip:initButton()
 
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
     vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
+
+    do
+        local user_level = g_userData:get('lv')
+        local free_level = g_constant:get('INGAME', 'FREE_RUNE_UNEQUIP_USER_LV')
+        if user_level <= free_level then
+            local text = Str('{@yellow}75레벨 이하 룬 해제비용 없음{@}')
+            local node = self:getBubbleText(text)
+
+            node:setPositionX(0)
+            node:setPositionY(50)
+
+            vars['equipBtn']:addChild(node)
+        end
+    end
+end
+
+-------------------------------------
+-- function getBubbleText
+-------------------------------------
+function UI_DragonRunesBulkEquip:getBubbleText(txt_str)
+	-- 베이스 노드
+	local node = cc.Node:create()
+	node:setDockPoint(cc.p(0.5, 0.5))
+	node:setAnchorPoint(cc.p(0.5, 0.5))
+
+	-- 말풍선 프레임
+	local frame = cc.Scale9Sprite:create('res/ui/frames/event_0202.png')
+	frame:setDockPoint(cc.p(0.5, 0.5))
+	frame:setAnchorPoint(cc.p(0.5, 0.5))
+    --frame:setScaleX(-1)
+
+
+	-- 텍스트 (rich_label)
+	local rich_label = UIC_RichLabel()
+    rich_label:setString(txt_str)
+    rich_label:setFontSize(20)
+    rich_label:setDimension(500, 70)
+    rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+	rich_label:setDockPoint(cc.p(0.5, 0.5))
+    rich_label:setAnchorPoint(cc.p(0.5, 0.5))
+	rich_label:setPosition(0, 5)
+    --rich_label.m_node:setScaleX(-1)
+
+	-- label 사이즈로 프레임 조정
+	local width = math_max(226, rich_label:getStringWidth() + 50)
+	local size = frame:getContentSize()
+	frame:setNormalSize(width, size['height'] + 10)
+
+	-- addChild
+	frame:addChild(rich_label.m_node)
+	node:addChild(frame)
+
+	-- fade out을 위해 설정
+	doAllChildren(node, function(node) node:setCascadeOpacityEnabled(true) end)
+
+	return node
 end
 
 -------------------------------------
@@ -183,9 +239,16 @@ function UI_DragonRunesBulkEquip:refreshPrice()
 
     -- 룬 할인 이벤트
 	local dc_value = g_hotTimeData:getDiscountEventValue('rune')
+    local user_level = g_userData:get('lv')
+    local free_level = g_constant:get('INGAME', 'FREE_RUNE_UNEQUIP_USER_LV')
+
 	if (dc_value) then
 		total_price = total_price * (1 - (dc_value / 100))
 	end
+
+    if user_level <= free_level then
+        total_price = 0
+    end
 
     if (self.m_price ~= total_price) then
         self.m_price = total_price

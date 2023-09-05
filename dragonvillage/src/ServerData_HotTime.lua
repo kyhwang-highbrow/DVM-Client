@@ -830,6 +830,16 @@ end
 -------------------------------------
 function ServerData_HotTime:getDiscountEventValue(dc_target)
 	local dc_value = 0
+    -- 75레벨 이하 룬 해제비용 삭제되서 할인 이벤트 적용 자체를 안하도록 수정
+    -- 띠지 노출 제거용
+    if dc_target == 'rune' then
+        local user_level = g_userData:get('lv')
+        local free_level = g_constant:get('INGAME', 'FREE_RUNE_UNEQUIP_USER_LV')
+        if user_level <= free_level then
+            return 0
+        end
+    end
+    
     local active_dc_event_table = (self.m_activeDcEventTable or {})
 	for target, v in pairs(active_dc_event_table) do
 		if (target == dc_target) then
