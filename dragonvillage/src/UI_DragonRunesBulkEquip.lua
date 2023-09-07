@@ -314,6 +314,8 @@ function UI_DragonRunesBulkEquip:click_equipBtn()
         rune_tab_ui:initTableView()
         local dragon_tab_ui = self.m_mTabData['dragon']['ui']
         dragon_tab_ui:initTableView()
+        local preset_tab_ui = self.m_mTabData['preset']['ui']
+        preset_tab_ui:refreshTableView()
 
         -- 돈 계산 
         self:refreshPrice()

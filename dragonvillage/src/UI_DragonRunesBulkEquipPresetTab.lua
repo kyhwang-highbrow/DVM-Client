@@ -24,7 +24,6 @@ function UI_DragonRunesBulkEquipPresetTab:setParentAndInit(parent_node)
     self:refresh()
 end
 
-
 -------------------------------------
 -- function initButton
 -------------------------------------
@@ -38,7 +37,6 @@ end
 function UI_DragonRunesBulkEquipPresetTab:onChangeTab(tab, first)
     self.m_selectPresetIdx = 0
     self.m_selectPresetRuneSlotIdx = 0
-    self.m_selectUI = nil
     self:makeTableView()
 end
 
@@ -64,13 +62,7 @@ function UI_DragonRunesBulkEquipPresetTab:makeTableView()
             self.m_selectPresetRuneSlotIdx = 0
 
             self:setFocusRuneSlotIndex(0)
-
             self.m_ownerUI:simulatePresetRune(l_roids)
-            self.m_selectUI = ui
-        end
-
-        if self.m_selectUI == nil then
-            self.m_selectUI = ui
         end
 
         ui.m_selectRuneCB = apply_preset_cb
