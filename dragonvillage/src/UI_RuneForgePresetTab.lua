@@ -26,12 +26,18 @@ function UI_RuneForgePresetTab:initTab()
     local vars = self.vars
     local type = 'rune'
 
+    self.m_bInitDefaultTab = false
+    self.m_prevTab = nil
+    self.m_currTab = nil
+    self.m_mTabData = {}
+
     local rune_tab = UI_DragonRunesBulkEquipRuneTab(self)
     local dragon_tab = UI_DragonRunesBulkEquipDragonTab(self)
-    
     -- 룬을 출력하는 TableView(runeTableViewNode)가 relative size의 영향을 받는다.
     -- UI가 생성되고 부모 노드에 addChild가 된 후에 해당 노드의 크기가 결정되므로 외부에서 호출하도록 한다.
     -- setTab -> onChangeTab -> initTableView 의 순서로 TableView가 생성됨.
+    vars['indivisualTabMenu']:removeAllChildren()
+
     rune_tab:setParentAndInit(vars['indivisualTabMenu'])
     dragon_tab:setParentAndInit(vars['indivisualTabMenu'])
 
@@ -47,11 +53,9 @@ end
 function UI_RuneForgePresetTab:onEnterTab(first)
     self.m_ownerUI:hideNpc() -- NPC 숨김
 
-    if (first == true) then
-        self:initUI()
-        self:initTab()
-        self:initButton()
-    end
+    self:initUI()
+    self:initTab()
+    self:initButton()
 end
 
 -------------------------------------
@@ -73,6 +77,7 @@ function UI_RuneForgePresetTab:initUI()
 
     do
         local ui = UI_RunePreset(self)
+        vars['runeList']:removeAllChildren()
         vars['runeList']:addChild(ui.root)
         self.m_presetUI = ui
     end
