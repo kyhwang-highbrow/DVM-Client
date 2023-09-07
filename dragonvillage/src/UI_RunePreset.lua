@@ -207,7 +207,7 @@ end
 -------------------------------------
 function UI_RunePreset:refresh()
     local vars = self.vars
-    
+
     if vars['tabNameLabel'] ~= nil then
         local struct_preset_group = self:getCurTabPresetGroup()
         local group_name = struct_preset_group:getPresetGroupName()
@@ -235,16 +235,21 @@ end
 -- function click_nameBtn
 -------------------------------------
 function UI_RunePreset:click_nameBtn()
-    local success_cb = function (name)
-        local struct_preset_group = self:getCurTabPresetGroup()
-        struct_preset_group:setPresetGroupName(name)
+    local ok_cb = function (name)
+        local success_cb = function()
+            local struct_preset_group = self:getCurTabPresetGroup()
+            struct_preset_group:setPresetGroupName(name)
+    
+            self:refresh()
+    
+            local t_tab_data = self.m_mTabData[self.m_currTab]
+            t_tab_data['label']:setString(name)
+        end
 
-        self:refresh()
-
-        local t_tab_data = self.m_mTabData[self.m_currTab]
-        t_tab_data['label']:setString(name)
+        g_runePresetData:setPresetGroupName(self.m_currTab, name)
+        g_runePresetData:request_setRunePreset(nil, success_cb)
     end
 
     require('UI_ChangePresetNamePopup')
-    local ui = UI_ChangePresetNamePopup(success_cb)
+    local ui = UI_ChangePresetNamePopup(ok_cb)
 end

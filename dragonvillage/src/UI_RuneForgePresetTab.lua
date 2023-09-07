@@ -182,6 +182,11 @@ end
 function UI_RuneForgePresetTab:click_saveBtn()
     local preset_data = self.m_presetUI:getCurrentPresetData()
 
+    if g_runePresetData:isSameWithCurrentPresetMap(preset_data) == true then
+        UIManager:toastNotificationRed(Str('변경된 정보가 없습니다.'))
+        return
+    end
+
     local success_cb = function()
         UIManager:toastNotificationGreen(Str('설정한 프리셋이 저장되었습니다.'))
     end

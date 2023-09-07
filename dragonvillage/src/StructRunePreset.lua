@@ -59,6 +59,12 @@ end
 -- function correctData
 -------------------------------------
 function StructRunePreset:correctData()
+    for idx = 1,5 do
+        local roid = self.l_runes[idx]
+        if roid ~= nil and g_runesData:getRuneObject(roid) == nil then
+            self.l_runes[idx] = nil
+        end
+    end
 end
 
 -------------------------------------

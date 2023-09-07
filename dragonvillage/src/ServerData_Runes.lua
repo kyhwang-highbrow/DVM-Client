@@ -573,7 +573,7 @@ end
 -------------------------------------
 function ServerData_Runes:getRuneObject(roid)
     if (not self.m_mRuneObjects[roid]) then
-        cclog('# 보유하지 않은 룬 검색 : ' .. roid)
+        --cclog('# 보유하지 않은 룬 검색 : ' .. roid)
 		return nil
     end
 
