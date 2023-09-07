@@ -526,7 +526,9 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info:applyDragonsDataList(data['dragons'])
 
     -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
-    struct_user_info:applyPvpDeckData(data['info']['deck'])
+    if data['info'] ~= nil and data['info']['deck'] ~= nil then
+        struct_user_info:applyPvpDeckData(data['info']['deck'])
+    end
 
     -- 클랜
     local struct_clan = nil

@@ -874,6 +874,7 @@ local t_module = {
 	'UIC_ExtendList_Image',
     'UIC_IconAndName',
     'UIC_Label_TypingEffect',
+    'UIC_ArenaRankingList',
 	
     -- UI : CARD
     'UI_Card',

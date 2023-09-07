@@ -77,7 +77,7 @@ function UI_ArenaNewRankPopup:makeArenaRankTableView(data)
 
     local make_my_rank_cb = function()
         local my_data = rank_data['my_info'] or {}
-        local me_rank = UI_ArenaNewRankingListItem(my_data)
+        local me_rank = UI_ArenaNewRankingListItem(my_data, 'arena_new_rank_popup_item_user_my_ranking.ui')
         vars['userMeNode']:addChild(me_rank.root)
         me_rank.vars['meSprite']:setVisible(true)
     end
@@ -101,7 +101,7 @@ function UI_ArenaNewRankPopup:makeArenaRankTableView(data)
         end
     end
     
-    local rank_list = UIC_RankingList()
+    local rank_list = UIC_ArenaRankingList()
     rank_list:setRankUIClass(UI_ArenaNewRankingListItem, create_cb)
     rank_list:setRankList(l_rank_list)
     rank_list:setEmptyStr(Str('랭킹 정보가 없습니다'))

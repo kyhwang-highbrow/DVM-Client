@@ -43,14 +43,16 @@ local PARENT = class(UI, IRankListItem:getCloneTable())
 -------------------------------------
 UI_ArenaNewRankingListItem = class(PARENT, {
         m_rankInfo = '',
+        m_matchUserRanking = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaNewRankingListItem:init(t_rank_info)
+function UI_ArenaNewRankingListItem:init(t_rank_info, ui_res)
     self.m_rankInfo = t_rank_info
-    local vars = self:load('arena_new_rank_popup_item_user_ranking.ui')
+    self.m_matchUserRanking = g_arenaNewData:makeMatchUserInfo(t_rank_info)
+    local vars = self:load(ui_res or 'arena_new_rank_popup_item_user_ranking.ui')
 
     -- 닉네임 정보가 없다면, 다음/이전 버튼 데이터
     if (not self.m_rankInfo['nick']) then
@@ -99,6 +101,23 @@ function UI_ArenaNewRankingListItem:initUI()
         vars['tierLabel']:setString(t_rank_info:getTierName())
     end
 
+    do -- 아레나 덱 드래곤 리스트
+        if vars['dragonNode1'] ~= nil then
+            local t_deck_dragon_list = self.m_matchUserRanking.m_dragonsObject
+            local dragonSlotIndex = 1
+
+            for i,v in pairs(t_deck_dragon_list) do
+                local node_str = 'dragonNode' .. dragonSlotIndex
+                if vars[node_str] ~= nil then
+                    local icon = UI_DragonCard(v)
+                    icon.root:setSwallowTouch(false)
+
+                    vars[node_str]:addChild(icon.root)
+                    dragonSlotIndex =  dragonSlotIndex + 1
+                end
+            end
+        end
+    end
 
     local struct_clan = t_rank_info:getStructClan()
     if (struct_clan) then
