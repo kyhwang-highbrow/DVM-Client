@@ -45,13 +45,13 @@ function StructRunePreset.createDefaultData(_idx)
     struct_rune_preset.l_runes = {}
     struct_rune_preset.idx = _idx
     struct_rune_preset.name = string.format('No. %d', _idx)
+    return struct_rune_preset
 end
 
 -------------------------------------
 -- function init
 -------------------------------------
 function StructRunePreset:init()
-    self.l_deck = {}
     self.idx = 0
 end
 
@@ -73,6 +73,13 @@ end
 -------------------------------------
 function StructRunePreset:getRunesMap()
     return self.l_runes or {}
+end
+
+-------------------------------------
+-- function setRune
+-------------------------------------
+function StructRunePreset:setRune(rune_slot, roid)
+    self.l_runes[rune_slot] = roid
 end
 
 -------------------------------------

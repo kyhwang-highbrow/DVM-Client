@@ -79,7 +79,6 @@ function ServerData_DeckPreset:makeDefaultDeck(deck_name, curr_deck_list)
     return true
 end
 
-
 -------------------------------------
 -- function applyPresetDeck
 -------------------------------------
@@ -89,11 +88,13 @@ function ServerData_DeckPreset:applyPresetDeck(t_data)
     end
 
     for deck_category_key, value in pairs(t_data) do
-        local t_category_deck_data = dkjson.decode(value)
-        self.m_presetMap[deck_category_key] = {}
-        for idx, t_deck_value  in pairs(t_category_deck_data) do
-            local struct_preset_deck = StructPresetDeck.create(t_deck_value)            
-            self.m_presetMap[deck_category_key][idx] = struct_preset_deck
+        if string.find(deck_category_key, 'rune_') == nil then
+            local t_category_deck_data = dkjson.decode(value)
+            self.m_presetMap[deck_category_key] = {}
+            for idx, t_deck_value  in pairs(t_category_deck_data) do
+                local struct_preset_deck = StructPresetDeck.create(t_deck_value)            
+                self.m_presetMap[deck_category_key][idx] = struct_preset_deck
+            end
         end
     end
 end
@@ -156,6 +157,8 @@ function ServerData_DeckPreset:request_info(finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
         self:applyPresetDeck(ret['preset'])
+
+        g_runePresetData:applyPresetRune(ret['preset'])
 
         if finish_cb then
             finish_cb(ret)

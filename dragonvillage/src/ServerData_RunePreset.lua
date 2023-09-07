@@ -6,7 +6,6 @@ ServerData_RunePreset = class({
     m_presetMap = 'Map<Key, Value>',
 })
 
-
 -------------------------------------
 -- function init
 -------------------------------------
@@ -19,15 +18,20 @@ end
 -- function makeDefaultPreset
 -------------------------------------
 function ServerData_RunePreset:makeDefaultPreset()
-    local make_group_count = 4
-    
-
-
+    local make_group_count = self:getPresetGroupCount()
     for idx = 1, make_group_count do
         local struct_group = StructRunePresetGroup.createDefaultData(idx)
-        local group_key = string.format('rune_%d', idx)
+        local group_key = 'rune_' .. idx
         self.m_presetMap[group_key] = struct_group
     end
+end
+
+-------------------------------------
+-- function getPresetGroupCount
+-------------------------------------
+function ServerData_RunePreset:getPresetGroupCount()
+    local make_group_count = 6
+    return make_group_count
 end
 
 -------------------------------------
@@ -38,11 +42,13 @@ function ServerData_RunePreset:applyPresetRune(t_data)
         return
     end
 
-    for rune_group_id, value in pairs(t_data) do
-        if string.find(rune_group_id, 'rune_') ~= nil then
-            local t_rune_tab_data = dkjson.decode(value)
-            self.m_presetMap[rune_group_id] = StructRunePresetGroup.create(t_rune_tab_data)
-        end
+    if t_data['rune_preset'] == nil then
+        return
+    end
+
+    local t_rune_prset = dkjson.decode(t_data['rune_preset'])
+    for rune_group_id, value in pairs(t_rune_prset) do
+        self.m_presetMap[rune_group_id] = StructRunePresetGroup.create(value)
     end
 end
 
@@ -60,35 +66,30 @@ end
 function ServerData_RunePreset:getRunePresets(rune_group_id)
     local key = string.format('rune_%d', rune_group_id)
     local m_preset = self:getRunePresetGroups()
-    return m_preset[key]
+    return m_preset[key].l_preset
 end
-
 
 -------------------------------------
 -- function getRunePresetGroups
 -------------------------------------
 function ServerData_RunePreset:getRunePresetGroups()
-    if table.count(self.m_presetMap) == 0 then
+    if table.count(self.m_presetMap) ~= self:getPresetGroupCount() then
         self:makeDefaultPreset()
     end
 
     return self.m_presetMap
 end
 
-
 -------------------------------------
 -- function request_setRunePreset
 -------------------------------------
-function ServerData_RunePreset:request_setRunePreset(rune_tab_id, value, finish_cb, fail_cb)
+function ServerData_RunePreset:request_setRunePreset(new_data, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
-    -- 룬 탭키
-    local key = string.format('rune_%d', rune_tab_id)
-
     -- 성공 콜백
     local function success_cb(ret)
-        self:applyPresetDeck(ret['modified_preset'])
+        self:applyPresetRune(ret['modified_preset'])
 
         if finish_cb then
             finish_cb(ret)
@@ -100,8 +101,8 @@ function ServerData_RunePreset:request_setRunePreset(rune_tab_id, value, finish_
     ui_network:setUrl('/preset/set')
     
     ui_network:setParam('uid', uid)
-    ui_network:setParam('key', key)
-    ui_network:setParam('value', value)
+    ui_network:setParam('key', 'rune_preset')
+    ui_network:setParam('value', dkjson.encode(new_data))
 
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)

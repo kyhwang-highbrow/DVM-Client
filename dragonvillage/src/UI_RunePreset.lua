@@ -1,20 +1,36 @@
-local PARENT = UI
+local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 -------------------------------------
 -- class UI_RunePreset
 -------------------------------------
 UI_RunePreset = class(PARENT, {
+    m_ownerUI = 'UI_RuneForgePresetTab',
     m_presetTableView = 'UIC_TableView',
-    m_selectGroup = 'number',
-     })
+    m_selectUI = '',
+    m_presetRuneData = '',
+    m_selectPresetIdx = 'number',
+    m_selectPresetRuneSlotIdx = 'number',
+})
+
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_RunePreset:init()
-    self.m_selectGroup = 1
+function UI_RunePreset:init(ower_ui)
+    self.m_ownerUI = ower_ui
+    self.m_selectUI = nil
+    self.m_selectPresetIdx = 1
+    self.m_selectPresetRuneSlotIdx = 1
+    self.m_presetRuneData = clone(g_runePresetData:getRunePresetGroups())
+    self:load_after()
+end
+
+-------------------------------------
+-- function load_after
+-------------------------------------
+function UI_RunePreset:load_after()
     self:load('rune_preset_list.ui')
+    self:initButton()
     self:initUI()
-	self:initButton()
-	self:refresh()
+    self:initTab()
 end
 
 -------------------------------------
@@ -22,42 +38,168 @@ end
 -------------------------------------
 function UI_RunePreset:initUI()
     local vars = self.vars
-    local m_rune_group = g_runePresetData:getRunePresetGroups()
-
-    for index, _ in ipairs(m_rune_group) do
-        local str_btn = string.format('%dGroupBtn', index)
-        vars[str_btn]:registerScriptTapHandler(function() self:click_groupBtn(index) end)
-    end
 end
 
 -------------------------------------
--- function initUI
+-- function initTab
+-------------------------------------
+function UI_RunePreset:initTab()
+    local vars = self.vars
+
+    for i = 1, g_runePresetData:getPresetGroupCount() do
+        local struct_preset_group = self.m_presetRuneData['rune_' .. i]
+        vars[i .. 'TabLabel']:setString(struct_preset_group:getPresetGroupName())
+        self:addTabAuto(i, vars)
+    end
+
+    self:setTab(1)
+end
+
+-------------------------------------
+-- function initButton
 -------------------------------------
 function UI_RunePreset:initButton()
     local vars = self.vars
+    vars['nameBtn']:registerScriptTapHandler(function() self:click_nameBtn() end)
 end
 
 -------------------------------------
--- function initCombineTableView
--- @brief 오른쪽 합성 테이블뷰 생성
+-- function getCurTabPresetGroup
 -------------------------------------
-function UI_RunePreset:initCombineTableView()
+function UI_RunePreset:getCurTabPresetGroup()
+    return self.m_presetRuneData['rune_' .. self.m_currTab]
+end
+
+-------------------------------------
+-- function makeTableView
+-------------------------------------
+function UI_RunePreset:makeTableView()
     local vars = self.vars
 
     local node = vars['itemList']
     node:removeAllChildren()
 
-    local function create_func(ui, data)
+    local function make_func(data)
+        return UI_RunePresetItem(data, self)
     end
 
-    local m_rune_group = g_runePresetData:getRunePresets(self.m_selectGroup)
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(530, 105)
-    table_view:setCellUIClass(UI_RuneForgeCombineItem, create_func)
+    local function create_func(ui, data)
+        local select_rune_cb = function (preset_idx, rune_slot_idx)
+            self.m_selectPresetIdx = preset_idx
+            self.m_selectPresetRuneSlotIdx = rune_slot_idx
+
+            self:setFocusRuneSlotIndex(rune_slot_idx)
+            
+            self.m_selectUI = ui
+            self.m_ownerUI:onFocusSlotIndex(rune_slot_idx)
+        end
+
+        if self.m_selectUI == nil then
+            self.m_selectUI = ui
+        end
+
+        ui.m_selectRuneCB = select_rune_cb
+    end
+
+    local m_rune_group = self:getCurTabPresetGroup()
+    local table_view = UIC_TableViewTD(node)
+    table_view.m_cellSize = cc.size(250, 168)
+    table_view:setCellUIClass(make_func, create_func)
+    table_view.m_nItemPerCell = 2
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-	table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
-    table_view:setItemList(m_rune_group)
+    table_view:setItemList(m_rune_group:getPresets())
+    table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
+    table_view:setCellCreatePerTick(3)
     self.m_presetTableView = table_view
+
+end
+
+-------------------------------------
+-- function refreshTableView
+-------------------------------------
+function UI_RunePreset:refreshTableView(refresh_func)
+    local struct_preset_group = self:getCurTabPresetGroup()
+    self.m_presetTableView:mergeItemList(struct_preset_group:getPresets(), refresh_func)
+end
+
+-------------------------------------
+-- function setFocusRune
+-------------------------------------
+function UI_RunePreset:setFocusRune(slot_idx, roid)
+    local struct_preset_group = self:getCurTabPresetGroup()
+    local preset_map = struct_preset_group:getPresets()
+    local struct_preset = preset_map[self.m_selectPresetIdx]
+
+    local function refresh_func(item, data)        
+        local ui = item['ui']
+        if ui ~= nil then
+            ui.m_presetRune =  data
+            ui:refresh()
+        end
+    end
+
+    if struct_preset ~= nil then
+        if roid == nil then
+            struct_preset:setRune(slot_idx, nil)
+        elseif type(roid) == 'table' then
+            struct_preset.l_runes = roid
+        else
+            struct_preset:setRune(slot_idx, roid)
+        end
+        
+        self:refreshTableView(refresh_func)
+    end
+end
+
+-------------------------------------
+-- function setFocusRuneSlotIndex
+-------------------------------------
+function UI_RunePreset:setFocusRuneSlotIndex(slot_idx)
+    self.m_selectPresetRuneSlotIdx = slot_idx
+
+    local function refresh_func(item, data)
+        local ui = item['ui']
+        if ui ~= nil then
+            ui.m_presetRune =  data
+            ui:refreshSelect()
+        end
+    end
+
+    self:refreshTableView(refresh_func)
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_RunePreset:onChangeTab(tab, first)
+    self.m_selectPresetIdx = 1
+    self.m_selectPresetRuneSlotIdx = 1
+    self.m_selectUI = nil
+    self.m_ownerUI:onFocusSlotIndex(self.m_selectPresetRuneSlotIdx)
+    
+    self:makeTableView()
+    self:refresh()
+end
+
+-------------------------------------
+-- function getSelectPresetIdx
+-------------------------------------
+function UI_RunePreset:getSelectPresetIdx()
+    return self.m_selectPresetIdx
+end
+
+-------------------------------------
+-- function getSelectPresetSlotIdx
+-------------------------------------
+function UI_RunePreset:getSelectPresetSlotIdx()
+    return self.m_selectPresetRuneSlotIdx
+end
+
+-------------------------------------
+-- function getCurrentPresetData
+-------------------------------------
+function UI_RunePreset:getCurrentPresetData()
+    return self.m_presetRuneData
 end
 
 -------------------------------------
@@ -65,29 +207,44 @@ end
 -------------------------------------
 function UI_RunePreset:refresh()
     local vars = self.vars
-    local m_rune_group = g_runePresetData:getRunePresetGroups()
+    
+    if vars['tabNameLabel'] ~= nil then
+        local struct_preset_group = self:getCurTabPresetGroup()
+        local group_name = struct_preset_group:getPresetGroupName()
+        vars['tabNameLabel']:setString(group_name)
 
-    for index, _ in ipairs(m_rune_group) do
-        local is_selected = self.m_selectGroup == index
+        local l_align_ui_list = {vars['tabNameLabel'], vars['nameBtn']}
+        AlignUIPos(l_align_ui_list, 'HORIZONTAL', 'HEAD', 5)
+    end
 
-        local str_btn = string.format('%dGroupBtn', index)
-        vars[str_btn]:setEnabled(is_selected)
-
-        local str_label = string.format('%GroupLabel', index)
-        local color = is_selected and COLOR['DESC'] or COLOR['b']
-        vars[str_label]:setColor(color)
+    for i = 1, g_runePresetData:getPresetGroupCount() do
+        local struct_preset_group = self.m_presetRuneData['rune_' .. i]
+        vars[i .. 'TabLabel']:setString(struct_preset_group:getPresetGroupName())
     end
 end
 
 -------------------------------------
--- function click_groupBtn
+-- function resetPresetData
 -------------------------------------
-function UI_RunePreset:click_groupBtn(group_num)
-    local vars = self.vars
+function UI_RunePreset:resetPresetData()
+    self.m_presetRuneData = clone(g_runePresetData:getRunePresetGroups())
+    self:onChangeTab()
+end
 
-    self.m_selectGroup = 1
+-------------------------------------
+-- function click_nameBtn
+-------------------------------------
+function UI_RunePreset:click_nameBtn()
+    local success_cb = function (name)
+        local struct_preset_group = self:getCurTabPresetGroup()
+        struct_preset_group:setPresetGroupName(name)
 
-    self:initCombineTableView()
+        self:refresh()
 
-    self:refresh()
+        local t_tab_data = self.m_mTabData[self.m_currTab]
+        t_tab_data['label']:setString(name)
+    end
+
+    require('UI_ChangePresetNamePopup')
+    local ui = UI_ChangePresetNamePopup(success_cb)
 end

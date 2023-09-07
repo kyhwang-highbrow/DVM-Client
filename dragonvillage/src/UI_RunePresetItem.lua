@@ -7,7 +7,8 @@ UI_RunePresetItem = class(PARENT, {
     m_presetRune = 'StructRunePreset',
     m_ownerUI = '',
     m_tableViewUI = 'UIC_TableViewTD',
-    })
+    m_selectRuneCB = 'function',
+})
 
 -------------------------------------
 -- function init
@@ -18,7 +19,7 @@ function UI_RunePresetItem:init(struct_rune_preset, owner_ui)
     self:load('rune_preset_list_item.ui')
     self:initUI()
     self:initButton()
-    self:refreshName()
+    self:refresh()
 end
 
 -------------------------------------
@@ -26,6 +27,14 @@ end
 -------------------------------------
 function UI_RunePresetItem:initUI()
     local vars = self.vars
+
+    -- 룬 활성화
+    for slot_idx = 1, 6 do
+        local node_name = 'selectSprite' .. slot_idx
+
+        vars[node_name]:stopAllActions()
+        vars[node_name]:runAction(cca.flash())
+    end
 end
 
 -------------------------------------
@@ -33,10 +42,11 @@ end
 -------------------------------------
 function UI_RunePresetItem:initButton()
     local vars = self.vars
-    --vars['importBtn']:registerScriptTapHandler(function() self:click_importBtn() end)
-    --vars['changeBtn']:registerScriptTapHandler(function() self:click_changeBtn() end)
-    --vars['nameBtn']:registerScriptTapHandler(function() self:click_nameBtn() end)
-    --vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn() end)
+    self.root:setSwallowTouch(false)
+    for slot_idx = 1, 6 do
+        local slot_node_str = 'runeSlotBtn' .. slot_idx
+        vars[slot_node_str]:registerScriptTapHandler(function() self:click_runeCard(slot_idx) end)
+    end
 end
 
 -------------------------------------
@@ -45,6 +55,7 @@ end
 function UI_RunePresetItem:refresh()
     self:refreshName()
     self:refreshRunes()
+    self:refreshSelect()
 end
 
 -------------------------------------
@@ -53,13 +64,13 @@ end
 function UI_RunePresetItem:refreshName()
     local vars = self.vars
     local struct_rune_preset = self.m_presetRune
-
+--[[ 
     do -- 이름
         vars['nameLabel']:setString(struct_rune_preset:getRunePresetName())
     end
 
     local l_align_ui_list = {vars['nameLabel'], vars['nameBtn']}
-    AlignUIPos(l_align_ui_list, 'HORIZONTAL', 'HEAD', 10)
+    AlignUIPos(l_align_ui_list, 'HORIZONTAL', 'HEAD', 10) ]]
 end
 
 -------------------------------------
@@ -68,17 +79,8 @@ end
 function UI_RunePresetItem:refreshRunes()
     local vars = self.vars
 
-    local struct_rune_preset = self.m_presetRune
-    local m_runes = struct_rune_preset:getRunesMap()
-
-    for idx = 1, 6 do
-        local roid = m_runes[idx] or 0
-        local t_rune_data = g_runesData:getRuneObject(roid)
-        local rune_card_ui = UI_RuneCardOption(t_rune_data)
-
-        rune_card_ui.root:setSwallowTouch(false)
-        rune_card_ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_rune() end)
-        vars['itemNode' .. idx]:addChild(rune_card_ui.root)
+    for slot_idx = 1, 6 do
+        self:refreshRuneCard(slot_idx)
     end
 
 --[[ 
@@ -119,6 +121,102 @@ function UI_RunePresetItem:refreshRunes()
         end
     end ]]
 
+end
+
+-------------------------------------
+-- function refreshRuneCard
+-- @brief 해당 함수는 룬 카드 변경이 필요할 때만 호출
+-------------------------------------
+function UI_RunePresetItem:refreshRuneCard(slot_idx)
+    local vars = self.vars
+    vars['runeSlot' .. slot_idx]:removeAllChildren()
+    local runes_map = self.m_presetRune:getRunesMap()
+       
+
+    local roid = runes_map[slot_idx] or ''
+    if (roid ~= '') then
+        local rune_obj = g_runesData:getRuneObject(roid)
+        local card = UI_RuneCardDragon(rune_obj)
+
+        card:makeDragonAttrIcon()
+        card:makeDragonIcon()
+
+        card.vars['clickBtn']:setEnabled(false)
+        --cca.uiReactionSlow(card.root)
+
+        vars['runeSlot' .. slot_idx]:removeAllChildren()
+        vars['runeSlot' .. slot_idx]:addChild(card.root)
+    end
+end
+
+-------------------------------------
+-- function refreshSelect
+-------------------------------------
+function UI_RunePresetItem:refreshSelect()
+    local vars = self.vars
+    local is_preset_selected = self.m_presetRune:getIndex() == self.m_ownerUI:getSelectPresetIdx()
+
+    -- 활성화 상태 표시
+    vars['selectLayer']:setVisible(is_preset_selected)
+
+    -- 룬 활성화
+    for slot_idx = 1, 6 do
+        local node_name = 'selectSprite' .. slot_idx
+        local is_slot_selected = slot_idx == self.m_ownerUI:getSelectPresetSlotIdx()
+        vars[node_name]:setVisible(is_preset_selected and is_slot_selected)
+    end
+end
+
+
+-------------------------------------
+-- function isFocusSlot
+-------------------------------------
+function UI_RunePresetItem:isFocusSlot(slot_idx)
+    local is_preset_selected = self.m_presetRune:getIndex() == self.m_ownerUI:getSelectPresetIdx()
+    local is_slot_selected = slot_idx == self.m_ownerUI:getSelectPresetSlotIdx()
+
+    return is_preset_selected and is_slot_selected
+end
+
+-------------------------------------
+-- function click_runeCard
+-------------------------------------
+function UI_RunePresetItem:click_runeCard(slot_idx)
+    local runes_map = self.m_presetRune:getRunesMap()
+
+    -- 현재 포커싱된 덱일 경우 클릭을 한 번 더 하면 지워짐
+    if self:isFocusSlot(slot_idx) == true then
+        if runes_map[slot_idx] ~= nil then
+            self.m_ownerUI:setFocusRune(slot_idx, nil)
+            return
+        end
+    end
+
+    if self.m_selectRuneCB ~= nil then
+        self.m_selectRuneCB(self.m_presetRune:getIndex(), slot_idx)
+    end
+
+    self:refreshSelect()
+
+
+--[[     local struct_rune = g_runesData:getRuneObject(roid)
+    local slot_idx = struct_rune['slot']
+
+    -- before인 경우 시뮬레이터에 기존 룬 장착
+    if (type == 'before') then
+        self.m_ownerUI:simulateRune(slot_idx, roid)
+
+    -- after인 경우 
+    else
+        -- 해당 룬 슬롯 인덱스에 포커싱되있던 경우 장착 해제
+        if (slot_idx == self.m_ownerUI:getRuneSlot()) then
+            self.m_ownerUI:simulateRune(slot_idx, nil)
+        
+        -- 해당 룬 슬롯 포커싱 안되있었다면 포커싱
+        else
+            self.m_ownerUI:changeRuneSlot(slot_idx)
+        end
+    end ]]
 end
 
 

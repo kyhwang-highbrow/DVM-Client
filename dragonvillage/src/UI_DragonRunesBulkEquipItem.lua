@@ -391,6 +391,21 @@ function UI_DragonRunesBulkEquipItem:simulateRune(slot_idx, roid)
 end
 
 -------------------------------------
+-- function simulatePresetRune
+-- @brief 프리셋룬 장착
+-------------------------------------
+function UI_DragonRunesBulkEquipItem:simulatePresetRune(l_runes)
+    self.m_lRoidList = l_runes
+
+    for slot_idx = 1, 6 do        
+        self:refreshRuneCard(slot_idx)
+    end
+
+    self:refreshStat()
+    self:refreshRuneSet()
+end
+
+-------------------------------------
 -- function focusSlotIndex
 -- @brief 룬 슬롯 빛나게
 -------------------------------------

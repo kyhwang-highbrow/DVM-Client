@@ -94,15 +94,18 @@ function UI_DragonRunesBulkEquip:initTab()
 
     local rune_tab = UI_DragonRunesBulkEquipRuneTab(self)
     local dragon_tab = UI_DragonRunesBulkEquipDragonTab(self)
+    local preset_tab = UI_DragonRunesBulkEquipPresetTab(self)
     
     -- 룬을 출력하는 TableView(runeTableViewNode)가 relative size의 영향을 받는다.
     -- UI가 생성되고 부모 노드에 addChild가 된 후에 해당 노드의 크기가 결정되므로 외부에서 호출하도록 한다.
     -- setTab -> onChangeTab -> initTableView 의 순서로 TableView가 생성됨.
     rune_tab:setParentAndInit(vars['indivisualTabMenu'])
     dragon_tab:setParentAndInit(vars['indivisualTabMenu'])
+    preset_tab:setParentAndInit(vars['indivisualTabMenu'])
 
     self:addTabWithTabUIAndLabel('rune', vars['runeTabBtn'], vars['runeTabLabel'], rune_tab)            -- 룬
     self:addTabWithTabUIAndLabel('dragon', vars['dragonTabBtn'], vars['dragonTabLabel'], dragon_tab)    -- 드래곤
+    self:addTabWithTabUIAndLabel('preset', vars['presetTabBtn'], vars['presetTabLabel'], preset_tab)    -- 드래곤
 
     self:setTab(type)
 end
@@ -336,6 +339,15 @@ end
 -------------------------------------
 function UI_DragonRunesBulkEquip:simulateDragonRune(doid)
     self.m_afterUI:simulateDragonRune(doid)
+    self:refreshPrice()
+end
+
+-------------------------------------
+-- function simulatePresetRune
+-- @brief 특정 드래곤의 룬 장착
+-------------------------------------
+function UI_DragonRunesBulkEquip:simulatePresetRune(l_runes)
+    self.m_afterUI:simulatePresetRune(l_runes)
     self:refreshPrice()
 end
    

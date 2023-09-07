@@ -883,6 +883,7 @@ local t_module = {
     'UI_ItemCard',
     'UI_RuneCard',
     'UI_RuneCardOption',
+    'UI_RuneCardDragon',
     'UI_MonsterCard',
     'UI_MonsterCustomCard',
 	'UI_RewardCard',
@@ -968,7 +969,7 @@ local t_module = {
     'UI_RuneForgeManageTab',
     'UI_RuneForgePresetTab',
     'UI_RuneForgeCombineTab',
-    'UI_RuneForgeGachaTicket',
+    'UI_RuneForgeGachaTicketTab',
     'UI_RuneForgeCombineItem',
     'UI_RuneForgeGachaTab',
     'UI_RuneForgeGachaInfo',
@@ -1508,7 +1509,7 @@ local t_module = {
     'UI_DragonRunesEnhance',
     'UI_DragonRunesBulkEquip',
     'UI_DragonRunesBulkEquipRuneTab',
-    'UI_DragonRunesBulkEquipDragonTab',
+    'UI_DragonRunesBulkEquipDragonTab',    
     'UI_DragonRunesBulkEquipItem',
     'UI_DragonRunesBulkEquipPopup',
     'UI_DragonRunesEquipPopup',
@@ -1766,6 +1767,12 @@ local t_module = {
     'UI_PresetDeckSetting',
     'UI_PresetDeckSetting_Select',
     'UI_PresetDeckSetting_Deck',
+
+    -- 룬 프리셋
+    'UI_RunePreset',
+    'UI_RunePresetItem',
+    'UI_RunePresetBulkSettingPopup',
+    'UI_DragonRunesBulkEquipPresetTab',
 
     -- Tutorial
     'UI_TutorialPlayer',

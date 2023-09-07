@@ -31,33 +31,31 @@ end
 -- function init
 -------------------------------------
 function StructRunePresetGroup.create(t_data)
-    local struct_rune_preset = StructRunePresetGroup()
+    local struct_rune_preset_group = StructRunePresetGroup(t_data)
     -- 서버에서 전달 받은 key를 클라이언트 데이터에 적합하게 변경
     local t_key_change = {}
-    struct_rune_preset:applyTableData(t_data, t_key_change)
-    struct_rune_preset.l_preset = {}
+    --struct_rune_preset:applyTableData(t_data, t_key_change)
+    struct_rune_preset_group.l_preset = {}
 
     local l_preset = t_data['l_preset'] or {}
     for idx, t_value in pairs(l_preset) do
         local struct_preset = StructRunePreset.create(t_value)
-        struct_rune_preset.l_preset[idx] = struct_preset
+        struct_rune_preset_group.l_preset[idx] = struct_preset
     end
 
-    return struct_rune_preset
+    return struct_rune_preset_group
 end
 
 -------------------------------------
 -- function createDefaultData
 -------------------------------------
 function StructRunePresetGroup.createDefaultData(_idx)
-    local struct_rune_preset_group = StructRunePresetGroup()
-    struct_rune_preset_group.l_preset = {}
-    struct_rune_preset_group.name = tostring(_idx)
+    local struct_rune_preset_group = StructRunePresetGroup()    
+    struct_rune_preset_group.name = tostring(Str('{1} 그룹',_idx))
 
-    local make_preset_count = 6
-    for idx = 1, make_preset_count do
-        local struct_rune_preset = StructRunePreset.createDefaultData(_idx)
-        struct_rune_preset_group.l_preset[idx] = struct_rune_preset
+    for idx = 1, 6 do
+        local struct_rune_preset = StructRunePreset.createDefaultData(idx)
+        table.insert(struct_rune_preset_group.l_preset, struct_rune_preset)
     end
 
     return struct_rune_preset_group
@@ -66,7 +64,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function StructRunePresetGroup:init()
+function StructRunePresetGroup:init(data)
     self.l_preset = {}
 end
 
@@ -80,15 +78,30 @@ function StructRunePresetGroup:correctData()
 end
 
 -------------------------------------
--- function setDeckMap
+-- function getPresets
 -------------------------------------
-function StructRunePresetGroup:setRunesMap(l_runes)
-    self.l_preset = l_runes
+function StructRunePresetGroup:getPresets()
+    return self.l_preset
 end
 
 -------------------------------------
--- function getRunesMap
+-- function setPresetGroupName
 -------------------------------------
-function StructRunePresetGroup:getRunesMap()
-    return self.l_preset or {}
+function StructRunePresetGroup:setPresetGroupName(_name)
+    self.name = _name
+end
+
+
+-------------------------------------
+-- function getPresetGroupName
+-------------------------------------
+function StructRunePresetGroup:getPresetGroupName()
+    return self.name
+end
+
+-------------------------------------
+-- function getPreset
+-------------------------------------
+function StructRunePresetGroup:getPreset(idx)
+    return self.l_preset[idx]
 end
