@@ -5,7 +5,7 @@ local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 UI_RunePreset = class(PARENT, {
     m_ownerUI = 'UI_RuneForgePresetTab',
     m_presetTableView = 'UIC_TableView',
-    m_selectUI = '',
+
     m_presetRuneData = '',
     m_selectPresetIdx = 'number',
     m_selectPresetRuneSlotIdx = 'number',
@@ -16,7 +16,6 @@ UI_RunePreset = class(PARENT, {
 -------------------------------------
 function UI_RunePreset:init(ower_ui)
     self.m_ownerUI = ower_ui
-    self.m_selectUI = nil
     self.m_selectPresetIdx = 1
     self.m_selectPresetRuneSlotIdx = 1
     self.m_presetRuneData = clone(g_runePresetData:getRunePresetGroups())
@@ -89,13 +88,7 @@ function UI_RunePreset:makeTableView()
             self.m_selectPresetRuneSlotIdx = rune_slot_idx
 
             self:setFocusRuneSlotIndex(rune_slot_idx)
-            
-            self.m_selectUI = ui
             self.m_ownerUI:onFocusSlotIndex(rune_slot_idx)
-        end
-
-        if self.m_selectUI == nil then
-            self.m_selectUI = ui
         end
 
         ui.m_selectRuneCB = select_rune_cb
@@ -117,9 +110,18 @@ end
 -------------------------------------
 -- function refreshTableView
 -------------------------------------
-function UI_RunePreset:refreshTableView(refresh_func)
+function UI_RunePreset:refreshTableView(_refresh_func)
+    local function refresh_func(item, data)        
+        local ui = item['ui']
+        if ui ~= nil then
+            ui.m_presetRune =  data
+            ui:refresh()
+        end
+    end
+
+
     local struct_preset_group = self:getCurTabPresetGroup()
-    self.m_presetTableView:mergeItemList(struct_preset_group:getPresets(), refresh_func)
+    self.m_presetTableView:mergeItemList(struct_preset_group:getPresets(), _refresh_func or refresh_func)
 end
 
 -------------------------------------
@@ -130,14 +132,6 @@ function UI_RunePreset:setFocusRune(slot_idx, roid)
     local preset_map = struct_preset_group:getPresets()
     local struct_preset = preset_map[self.m_selectPresetIdx]
 
-    local function refresh_func(item, data)        
-        local ui = item['ui']
-        if ui ~= nil then
-            ui.m_presetRune =  data
-            ui:refresh()
-        end
-    end
-
     if struct_preset ~= nil then
         if roid == nil then
             struct_preset:setRune(slot_idx, nil)
@@ -147,7 +141,7 @@ function UI_RunePreset:setFocusRune(slot_idx, roid)
             struct_preset:setRune(slot_idx, roid)
         end
         
-        self:refreshTableView(refresh_func)
+        self:refreshTableView()
     end
 end
 
@@ -174,7 +168,6 @@ end
 function UI_RunePreset:onChangeTab(tab, first)
     self.m_selectPresetIdx = 1
     self.m_selectPresetRuneSlotIdx = 1
-    self.m_selectUI = nil
     self.m_ownerUI:onFocusSlotIndex(self.m_selectPresetRuneSlotIdx)
     
     self:makeTableView()
@@ -228,7 +221,7 @@ end
 -------------------------------------
 function UI_RunePreset:resetPresetData()
     self.m_presetRuneData = clone(g_runePresetData:getRunePresetGroups())
-    self:onChangeTab()
+    self:refreshTableView()
 end
 
 -------------------------------------
