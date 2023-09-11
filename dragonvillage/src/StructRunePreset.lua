@@ -82,6 +82,31 @@ function StructRunePreset:getRunesMap()
 end
 
 -------------------------------------
+-- function getRunesIdMap
+-------------------------------------
+function StructRunePreset:getRunesIdMap()
+    local id_map = {}
+
+    for _, roid in pairs(self.l_runes) do
+        local struct_rune_object = g_runesData:getRuneObject(roid)
+        if struct_rune_object ~= nil then
+            table.insert(id_map, struct_rune_object.rid)
+        end
+    end
+
+    return id_map
+end
+
+-------------------------------------
+-- function getRunesSetMap
+-------------------------------------
+function StructRunePreset:getRunesSetMap()
+    local runes_map = self:getRunesIdMap()
+    local active_set_map = TableRuneSet:runeSetAnalysis(runes_map)
+    return active_set_map
+end
+
+-------------------------------------
 -- function setRune
 -------------------------------------
 function StructRunePreset:setRune(rune_slot, roid)

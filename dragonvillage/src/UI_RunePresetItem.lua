@@ -64,10 +64,9 @@ end
 -- function refreshRunes
 -------------------------------------
 function UI_RunePresetItem:refreshRunes()
-    local vars = self.vars
-
+    local active_set_map = self.m_presetRune:getRunesSetMap()
     for slot_idx = 1, 6 do
-        self:refreshRuneCard(slot_idx)
+        self:refreshRuneCard(slot_idx, active_set_map)
     end
 end
 
@@ -75,16 +74,28 @@ end
 -- function refreshRuneCard
 -- @brief 해당 함수는 룬 카드 변경이 필요할 때만 호출
 -------------------------------------
-function UI_RunePresetItem:refreshRuneCard(slot_idx)
+function UI_RunePresetItem:refreshRuneCard(slot_idx, active_set_map)
     local vars = self.vars
     vars['runeSlot' .. slot_idx]:removeAllChildren()
+
+    local visual = vars['runeVisual'..slot_idx]
+    visual:setVisible(false)
+
     local runes_map = self.m_presetRune:getRunesMap()
-    
     self.m_runeUIMap[slot_idx] = nil
+
     local roid = runes_map[slot_idx] or ''
     if (roid ~= '') then
         local rune_obj = g_runesData:getRuneObject(roid)
+        local set_id = TableRune:getRuneSetId(rune_obj.rid)
         local card = UI_RuneCardDragon(rune_obj)
+        local set_info = active_set_map[set_id]
+
+        if set_info ~= nil and set_info['active'] == true then
+            local ani_name = TableRuneSet:getRuneSetVisualName(slot_idx, set_id)
+            visual:setVisible(true)
+            visual:changeAni(ani_name, true)
+        end
 
         card:makeDragonAttrIcon()
         card:makeDragonIcon()
