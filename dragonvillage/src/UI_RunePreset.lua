@@ -90,13 +90,14 @@ function UI_RunePreset:makeTableView()
             self:setFocusRuneSlotIndex(rune_slot_idx)
             self.m_ownerUI:onFocusSlotIndex(rune_slot_idx)
         end
-
+        
+        ui.root:setScale(0.96)
         ui.m_selectRuneCB = select_rune_cb
     end
 
     local m_rune_group = self:getCurTabPresetGroup()
     local table_view = UIC_TableViewTD(node)
-    table_view.m_cellSize = cc.size(250, 168)
+    table_view.m_cellSize = cc.size(252, 172)
     table_view:setCellUIClass(make_func, create_func)
     table_view.m_nItemPerCell = 2
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)

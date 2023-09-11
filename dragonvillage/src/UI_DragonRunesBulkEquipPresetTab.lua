@@ -65,6 +65,7 @@ function UI_DragonRunesBulkEquipPresetTab:makeTableView()
             self.m_ownerUI:simulatePresetRune(l_roids)
         end
 
+        ui.root:setScale(0.96)
         ui.m_selectRuneCB = apply_preset_cb
         ui.vars['clickMenu']:setVisible(true)
         ui.vars['clickBtn']:registerScriptTapHandler(apply_preset_cb)
@@ -72,7 +73,7 @@ function UI_DragonRunesBulkEquipPresetTab:makeTableView()
 
     local m_rune_group = self:getCurTabPresetGroup()
     local table_view = UIC_TableViewTD(node)
-    table_view.m_cellSize = cc.size(250, 168)
+    table_view.m_cellSize = cc.size(252, 172)
     table_view:setCellUIClass(make_func, create_func)
     table_view.m_nItemPerCell = 2
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
