@@ -200,21 +200,22 @@ function TableRuneSet:runeSetAnalysis(l_rid)
 
     for _,rid in pairs(l_rid) do
         local set_id = TableRune:getRuneSetId(rid)
+        if self:getValue(set_id, 'key') ~= 'none' then
+            local t_set_data = rune_set_analysis[set_id]
+            if (not t_set_data) then
+                local need_equip = self:getValue(set_id, 'need_equip')
+                t_set_data = {['set_id'] = set_id, ['need_equip'] = need_equip, ['count'] = 0, ['active'] = false}
+                rune_set_analysis[set_id] = t_set_data
+            end
 
-        local t_set_data = rune_set_analysis[set_id]
-        if (not t_set_data) then
-            local need_equip = self:getValue(set_id, 'need_equip')
-            t_set_data = {['set_id'] = set_id, ['need_equip'] = need_equip, ['count'] = 0, ['active'] = false}
-            rune_set_analysis[set_id] = t_set_data
-        end
+            -- 장착 갯수 증가
+            t_set_data['count'] = t_set_data['count'] + 1
 
-        -- 장착 갯수 증가
-        t_set_data['count'] = t_set_data['count'] + 1
-
-        -- 필요한 갯수만큼 장착되었을 경우 활성화
-        if (t_set_data['need_equip'] <= t_set_data['count']) then
-            t_set_data['active'] = true
-            t_set_data['active_cnt'] = math_floor(t_set_data['count'] / t_set_data['need_equip'])
+            -- 필요한 갯수만큼 장착되었을 경우 활성화
+            if (t_set_data['need_equip'] <= t_set_data['count']) then
+                t_set_data['active'] = true
+                t_set_data['active_cnt'] = math_floor(t_set_data['count'] / t_set_data['need_equip'])
+            end
         end
     end
 
