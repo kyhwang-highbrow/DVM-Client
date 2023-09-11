@@ -19,6 +19,7 @@ function UI_RunePreset:init(ower_ui)
     self.m_selectPresetIdx = 1
     self.m_selectPresetRuneSlotIdx = 1
     self.m_presetRuneData = clone(g_runePresetData:getRunePresetGroups())
+    self:correctPresetData()
     self:load_after()
 end
 
@@ -218,10 +219,21 @@ function UI_RunePreset:refresh()
 end
 
 -------------------------------------
+-- function correctPresetData
+-------------------------------------
+function UI_RunePreset:correctPresetData()
+    -- 보정 처리(보유한 룬이 없을 경우)
+    for key, struct_rune_preset_group in pairs(self.m_presetRuneData) do
+        struct_rune_preset_group:correctData()
+    end
+end
+
+-------------------------------------
 -- function resetPresetData
 -------------------------------------
 function UI_RunePreset:resetPresetData()
     self.m_presetRuneData = clone(g_runePresetData:getRunePresetGroups())
+    self:correctPresetData()
     self:refreshTableView()
 end
 

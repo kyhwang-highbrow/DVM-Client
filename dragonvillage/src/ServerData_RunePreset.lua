@@ -102,12 +102,7 @@ function ServerData_RunePreset:getRunePresetGroups()
     if table.count(self.m_presetMap) ~= self:getPresetGroupCount() then
         self:makeDefaultPreset()
     end
-
-    -- 보정 처리(보유한 룬이 없을 경우)
-    for key, struct_rune_preset_group in pairs(self.m_presetMap) do
-        struct_rune_preset_group:correctData()
-    end
-
+    
     return self.m_presetMap
 end
 

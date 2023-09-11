@@ -63,7 +63,8 @@ function UI_RuneForgePresetTab:onEnterTab(first)
         rune_tab_ui:initTableView()
         local dragon_tab_ui = self.m_mTabData['dragon']['ui']
         dragon_tab_ui:initTableView()
-        
+
+        self.m_presetUI:correctPresetData()
         self.m_presetUI:makeTableView()
     end
 end
