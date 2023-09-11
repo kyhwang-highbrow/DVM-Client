@@ -53,9 +53,19 @@ end
 function UI_RuneForgePresetTab:onEnterTab(first)
     self.m_ownerUI:hideNpc() -- NPC 숨김
 
-    self:initUI()
-    self:initTab()
-    self:initButton()
+    if first == true then
+        self:initUI()
+        self:initTab()
+        self:initButton()
+    else
+        -- rune, dragon tab 갱신
+        local rune_tab_ui = self.m_mTabData['rune']['ui']
+        rune_tab_ui:initTableView()
+        local dragon_tab_ui = self.m_mTabData['dragon']['ui']
+        dragon_tab_ui:initTableView()
+        
+        self.m_presetUI:makeTableView()
+    end
 end
 
 -------------------------------------
