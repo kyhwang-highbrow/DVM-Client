@@ -592,6 +592,13 @@ function UI_DragonInfoBoard:refresh_dragonRunes(t_dragon_data)
             local set_name = TableRuneSet:getRuneSetName(set_id)
             ui.vars['runeSetLabel']:setString(set_name)
 
+            -- 툴팁 클릭
+            ui.vars['tooltipBtn']:registerScriptTapHandler(function()
+                local str = TableRuneSet:makeRuneSetFullNameRichText(set_id)
+                local tool_tip = UI_Tooltip_Skill(0, 0, str)
+                tool_tip:autoPositioning(ui.vars['tooltipBtn']) -- 자동 위치 지정
+            end)
+
             -- AddCHild, 위치 지정
             vars['runeSetNode']:addChild(ui.root)
             ui.root:setPositionY(l_pos[i])
