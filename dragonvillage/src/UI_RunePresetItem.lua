@@ -93,10 +93,15 @@ function UI_RunePresetItem:refreshRuneCard(slot_idx, active_set_map)
 
         if t_set_info ~= nil and t_set_info['active'] == true then
             t_set_info['count'] = t_set_info['count'] + 1
-            if t_set_info['need_equip'] >=  t_set_info['count'] then
+            if t_set_info['need_equip'] >=  t_set_info['count'] and t_set_info['active_cnt'] > 0 then
                 local ani_name = TableRuneSet:getRuneSetVisualName(slot_idx, set_id)
                 visual:setVisible(true)
                 visual:changeAni(ani_name, true)
+
+                if t_set_info['need_equip'] ==  t_set_info['count'] then
+                    t_set_info['active_cnt'] = t_set_info['active_cnt'] - 1
+                    t_set_info['count'] = 0
+                end
             end
         end
 
