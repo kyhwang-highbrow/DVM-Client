@@ -90,6 +90,8 @@ function UI_RuneForgePresetTab:initUI()
         local ui = UI_RunePreset(self)
         vars['runeList']:removeAllChildren()
         vars['runeList']:addChild(ui.root)
+        
+        ui.root:setRelativeSizeAndType(cc.size(0, 0), 3, false)
         self.m_presetUI = ui
     end
 end

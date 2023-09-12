@@ -98,7 +98,7 @@ function UI_RunePreset:makeTableView()
 
     local m_rune_group = self:getCurTabPresetGroup()
     local table_view = UIC_TableViewTD(node)
-    table_view.m_cellSize = cc.size(252, 172)
+    table_view.m_cellSize = cc.size(252, 168)
     table_view:setCellUIClass(make_func, create_func)
     table_view.m_nItemPerCell = 2
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
