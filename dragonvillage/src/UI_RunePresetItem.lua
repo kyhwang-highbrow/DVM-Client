@@ -84,39 +84,40 @@ function UI_RunePresetItem:refreshRuneCard(slot_idx, active_set_map)
     local runes_map = self.m_presetRune:getRunesMap()
     self.m_runeUIMap[slot_idx] = nil
 
-    local roid = runes_map[slot_idx] or ''
-    if (roid ~= '') then
-        local rune_obj = g_runesData:getRuneObject(roid)
-        local set_id = TableRune:getRuneSetId(rune_obj.rid)
-        local card = UI_RuneCardDragon(rune_obj)
-        local t_set_info = active_set_map[set_id]
+    local roid = runes_map[slot_idx]
+    if (roid == nil) then
+        return
+    end
 
-        if t_set_info ~= nil and t_set_info['active'] == true then
-            t_set_info['count'] = t_set_info['count'] + 1
-            if t_set_info['need_equip'] >=  t_set_info['count'] and t_set_info['active_cnt'] > 0 then
-                local ani_name = TableRuneSet:getRuneSetVisualName(slot_idx, set_id)
-                visual:setVisible(true)
-                visual:changeAni(ani_name, true)
+    local rune_obj = g_runesData:getRuneObject(roid)
+    local set_id = TableRune:getRuneSetId(rune_obj.rid)
+    local card = UI_RuneCardDragon(rune_obj)
+    local t_set_info = active_set_map[set_id]
 
-                if t_set_info['need_equip'] ==  t_set_info['count'] then
-                    t_set_info['active_cnt'] = t_set_info['active_cnt'] - 1
-                    t_set_info['count'] = 0
-                end
+    if t_set_info ~= nil and t_set_info['active'] == true then
+        t_set_info['count'] = t_set_info['count'] + 1
+        if t_set_info['need_equip'] >=  t_set_info['count'] and t_set_info['active_cnt'] > 0 then
+            local ani_name = TableRuneSet:getRuneSetVisualName(slot_idx, set_id)
+            visual:setVisible(true)
+            visual:changeAni(ani_name, true)
+
+            if t_set_info['need_equip'] ==  t_set_info['count'] then
+                t_set_info['active_cnt'] = t_set_info['active_cnt'] - 1
+                t_set_info['count'] = 0
             end
         end
-
-        card:makeDragonAttrIcon()
-        card:makeDragonIcon()
-        card:setCloseInfoCallback(function() self.m_ownerUI:refreshTableView()  end)
-
-        card.vars['clickBtn']:setEnabled(false)
-        --cca.uiReactionSlow(card.root)
-
-        vars['runeSlot' .. slot_idx]:removeAllChildren()
-        vars['runeSlot' .. slot_idx]:addChild(card.root)
-
-        self.m_runeUIMap[slot_idx] = card
     end
+
+    card:makeDragonAttrIcon()
+    card:makeDragonIcon()
+    card:setCloseInfoCallback(function() self.m_ownerUI:refreshTableView()  end)
+
+    card.vars['clickBtn']:setEnabled(false)
+    
+    vars['runeSlot' .. slot_idx]:removeAllChildren()
+    vars['runeSlot' .. slot_idx]:addChild(card.root)
+
+    self.m_runeUIMap[slot_idx] = card
 end
 
 -------------------------------------
