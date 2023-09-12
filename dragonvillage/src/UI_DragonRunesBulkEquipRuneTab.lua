@@ -49,6 +49,8 @@ function UI_DragonRunesBulkEquipRuneTab:setParentAndInit(parent_node)
     
     parent_node:addChild(self.root)
 
+    self.root:setRelativeSizeAndType(cc.size(0, 0), 3, false)
+
     self:initUI()
 
     self:initButton()
