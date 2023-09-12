@@ -103,6 +103,12 @@ end
 function StructRunePreset:getRunesSetMap()
     local runes_map = self:getRunesIdMap()
     local active_set_map = TableRuneSet:runeSetAnalysis(runes_map)
+
+    -- 0으로 세팅(count를 0부터 늘려가며 active_count와 비교하기 위해)
+    for _ , v in pairs(active_set_map) do
+        v['count'] = 0
+    end
+
     return active_set_map
 end
 

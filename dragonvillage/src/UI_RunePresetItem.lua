@@ -89,12 +89,15 @@ function UI_RunePresetItem:refreshRuneCard(slot_idx, active_set_map)
         local rune_obj = g_runesData:getRuneObject(roid)
         local set_id = TableRune:getRuneSetId(rune_obj.rid)
         local card = UI_RuneCardDragon(rune_obj)
-        local set_info = active_set_map[set_id]
+        local t_set_info = active_set_map[set_id]
 
-        if set_info ~= nil and set_info['active'] == true then
-            local ani_name = TableRuneSet:getRuneSetVisualName(slot_idx, set_id)
-            visual:setVisible(true)
-            visual:changeAni(ani_name, true)
+        if t_set_info ~= nil and t_set_info['active'] == true then
+            t_set_info['count'] = t_set_info['count'] + 1
+            if t_set_info['need_equip'] >=  t_set_info['count'] then
+                local ani_name = TableRuneSet:getRuneSetVisualName(slot_idx, set_id)
+                visual:setVisible(true)
+                visual:changeAni(ani_name, true)
+            end
         end
 
         card:makeDragonAttrIcon()
