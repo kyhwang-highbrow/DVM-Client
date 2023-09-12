@@ -51,7 +51,7 @@ end
 -------------------------------------
 function StructRunePresetGroup.createDefaultData(_idx)
     local struct_rune_preset_group = StructRunePresetGroup()    
-    struct_rune_preset_group.name = tostring(Str('{1} 그룹',_idx))
+    struct_rune_preset_group.name = string.format('No. %d', _idx)
 
     for idx = 1, 6 do
         local struct_rune_preset = StructRunePreset.createDefaultData(idx)
