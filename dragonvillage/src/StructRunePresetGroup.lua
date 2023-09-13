@@ -74,6 +74,11 @@ end
 -- function correctData
 -------------------------------------
 function StructRunePresetGroup:correctData()
+    local count = #self.l_preset
+    for idx = StructRunePresetGroup.PRESET_COUNT + 1, count do
+        self.l_preset[idx] = nil
+    end
+
     for idx, struct_rune_preset in pairs(self.l_preset) do
         struct_rune_preset:correctData()
     end
