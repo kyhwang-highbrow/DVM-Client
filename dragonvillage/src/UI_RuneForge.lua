@@ -114,14 +114,12 @@ function UI_RuneForge:initTab(type, focus_id)
     self:addTabWithTabUIAndLabel('gacha', vars['gachaTabBtn'], vars['gachaTabLabel'], gacha_tab) -- 가챠
     self:addTabWithTabUIAndLabel('gacha_ticket', vars['gacha_ticketTabBtn'], vars['gacha_ticketTabLabel'], gacha_ticket_tab) -- 교환
 
-    if IS_TEST_MODE() == true then
-        local preset_tab = UI_RuneForgePresetTab(self)
-        vars['indivisualTabMenu']:addChild(preset_tab.root)
-        self:addTabWithTabUIAndLabel('preset', vars['presetTabBtn'], vars['presetTabLabel'], preset_tab) -- 프리셋
-    end
+    local preset_tab = UI_RuneForgePresetTab(self)
+    vars['indivisualTabMenu']:addChild(preset_tab.root)
+    self:addTabWithTabUIAndLabel('preset', vars['presetTabBtn'], vars['presetTabLabel'], preset_tab) -- 프리셋
     
     local has_gacha_event = g_fevertimeData:isActiveFevertime_runeGachaUp() or g_hotTimeData:isActiveEvent('event_rune_gacha')
-
+    
     vars['gachaEventSprite']:setVisible(has_gacha_event)
 
     self:setTab(type)
