@@ -13,6 +13,9 @@ StructRunePresetGroup = class(PARENT, {
 })
 
 local THIS = StructRunePresetGroup
+
+StructRunePresetGroup.PRESET_COUNT = 20 -- 프리셋 카운트
+
 -------------------------------------
 -- virtual function getClassName override
 -------------------------------------
@@ -53,7 +56,7 @@ function StructRunePresetGroup.createDefaultData(_idx)
     local struct_rune_preset_group = StructRunePresetGroup()    
     struct_rune_preset_group.name = string.format('No. %d', _idx)
 
-    for idx = 1, 6 do
+    for idx = 1, StructRunePresetGroup.PRESET_COUNT do
         local struct_rune_preset = StructRunePreset.createDefaultData(idx)
         table.insert(struct_rune_preset_group.l_preset, struct_rune_preset)
     end

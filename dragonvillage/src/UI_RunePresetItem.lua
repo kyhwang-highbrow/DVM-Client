@@ -90,6 +90,10 @@ function UI_RunePresetItem:refreshRuneCard(slot_idx, active_set_map)
     end
 
     local rune_obj = g_runesData:getRuneObject(roid)
+    if rune_obj == nil then
+        return
+    end
+    
     local set_id = TableRune:getRuneSetId(rune_obj.rid)
     local card = UI_RuneCardDragon(rune_obj)
     local t_set_info = active_set_map[set_id]

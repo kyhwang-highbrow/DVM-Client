@@ -102,6 +102,14 @@ function ServerData_RunePreset:getRunePresetGroups()
     if table.count(self.m_presetMap) ~= self:getPresetGroupCount() then
         self:makeDefaultPreset()
     end
+
+    for _, struct_preset_group in pairs(self.m_presetMap) do
+        local count = #struct_preset_group.l_preset
+        for idx = count + 1, StructRunePresetGroup.PRESET_COUNT do
+            local struct_rune_preset = StructRunePreset.createDefaultData(idx)
+            table.insert(struct_preset_group.l_preset, struct_rune_preset)
+        end
+    end
     
     return self.m_presetMap
 end
