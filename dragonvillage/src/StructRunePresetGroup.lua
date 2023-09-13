@@ -13,8 +13,7 @@ StructRunePresetGroup = class(PARENT, {
 })
 
 local THIS = StructRunePresetGroup
-
-StructRunePresetGroup.PRESET_COUNT = 20 -- 프리셋 카운트
+StructRunePresetGroup.PRESET_COUNT = 12 -- 프리셋 탭별 갯수
 
 -------------------------------------
 -- virtual function getClassName override
