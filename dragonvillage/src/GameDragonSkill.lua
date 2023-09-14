@@ -324,6 +324,12 @@ function GameDragonSkill.st_playDragSkill(self, dt)
     elseif (self:getStep() == 5) then
         if (skip_skill_after or self:isPassedStepTime(0.5)) then
         --if (self:isPassedStepTime(0.5)) then
+
+            -- 액티브 스킬 사용 이벤트 발생
+            do
+                dragon:dispatch('dragon_active_skill', {}, dragon)
+            end
+
             self:nextStep()
         end
 
