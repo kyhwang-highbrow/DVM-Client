@@ -12,6 +12,9 @@ StructLanguage = class({
         m_fontSizeScale = 'number',
         m_fontScaleRateX = 'number',
         m_fontScaleRateY = 'number',
+        m_isRTL = 'boolean',
+        m_priority = 'number',
+        m_langCode = 'string',
     })
 
 local THIS = StructLanguage
@@ -22,7 +25,7 @@ local THIS = StructLanguage
 function StructLanguage:init()
     -- 기본값은 영어로 설정
     self.m_name = 'ENGLISH'
-    self.m_nameAlpha2 = 'en'
+    self.m_nameAlpha2 = 'en'    
     self.m_displayName = 'English'
     self.m_bActive = true
     self.m_translateFile = 'translate/lang_en'
@@ -30,6 +33,8 @@ function StructLanguage:init()
     self.m_fontSizeScale = 1
     self.m_fontScaleRateX = 1
     self.m_fontScaleRateY = 1
+    self.m_isRTL = false
+    self.m_priority = 0
 end
 
 -------------------------------------
@@ -79,9 +84,32 @@ function StructLanguage:patchLanguageMap()
     return language_map
 end
 
+-------------------------------------
+---@function getLanguageSimpleDisplayName
+---@brief 유저에게 표시될 이름 반환 (자국어로만 표기)
+---@return string 표시 이름
+-------------------------------------
+function StructLanguage:getLanguageSimpleDisplayName()
+    return self.m_displayName
+end
 
+-------------------------------------
+---@function getLanguageEnglishDisplayName
+---@brief 유저에게 표시될 이름 반환 (영어로만 표기)
+---@return string 표시 이름
+-------------------------------------
+function StructLanguage:getLanguageEnglishDisplayName()
+    return self.m_name
+end
 
-
+-------------------------------------
+---@function getLanguageCode
+---@brief ISO 639-1 코드 반환 
+---@return string ISO 639-1 코드
+-------------------------------------
+function StructLanguage:getLanguageCode()
+    return self.m_nameAlpha2
+end
 
 
 

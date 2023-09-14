@@ -142,6 +142,9 @@ local TableInfo = {
         table_lair_buff = {'table_lair_buff', 'id', false},
         table_lair_condition = {'table_lair_condition', 'birthgrade', false},
         table_lair_schedule = {'table_lair_schedule', 'lair_season_id', false},
+
+        -- 언어
+        table_language_config = {'table_language_config', 'lang_code', false},
     }
 
 -------------------------------------

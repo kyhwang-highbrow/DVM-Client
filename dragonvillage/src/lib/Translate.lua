@@ -15,7 +15,7 @@ Translate = {
 function Translate:init()
     -- 지원 언어의 구조체 리스트를 생성 (StructLanguage 참고)
     self.m_mStructLanguageMap = StructLanguage:makeStructLanguageMap()
-
+    
     -- getDeviceLang을 하면 중국어에서 zh-cn 으로 들어오고
 	-- 엔진에 있는 languageCode가 의도한대로 값이 들어와
 	-- getCurrentLanguageCode 함수를 사용하기로 함
@@ -255,6 +255,30 @@ function Translate:getFontSizeScale()
     local struct_language = self:getStructLanguage()
     local scale = struct_language.m_fontSizeScale
     return scale
+end
+
+
+-------------------------------------
+---@function getActiveLangList
+---지원 중인 언어 Language(Struct) 리스트
+-- @return list
+-------------------------------------
+function Translate:getActiveLangList()
+    local active_struct_language_list = {}
+
+    local struct_language_map = TableLanguageConfig:getInstance():getStructLanguageMap()
+    for lang, struct in pairs(struct_language_map) do
+        if (struct.m_bActive == true) then
+            table.insert(active_struct_language_list, struct)
+        end
+    end
+
+    -- 우선순위가 높은 순서대로 정렬
+    table.sort(active_struct_language_list, function(a, b)
+        return (a.m_priority > b.m_priority)
+    end)
+
+    return active_struct_language_list
 end
 
 -------------------------------------

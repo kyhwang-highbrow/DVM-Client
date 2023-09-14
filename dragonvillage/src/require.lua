@@ -510,6 +510,7 @@ local t_module = {
     'TableLairBuffStatus', -- 축복 돌림판 능력치 (컬렉션)
     'TableLairCondition', -- 축복 등록 조건
     'TableLairSchedule', -- 축복 시즌
+    'TableLanguageConfig', -- 언어 코드
 
     -- Scene
     'SceneCommon',
@@ -1130,6 +1131,7 @@ local t_module = {
 	-- UI : 해외
 	'UI_SelectServerPopup',
 	'UI_SelectLanguagePopup',
+    'UI_LanguagePopup',
 
     -- UI : 약관 동의
     'UI_TermsPopup',
@@ -1954,6 +1956,8 @@ function loadModuleForPatchScene()
 		-- UI : 햬외
 		'UI_SelectServerPopup',
 		'UI_SelectLanguagePopup',
+        'UI_LanguagePopup',
+        
 
 		-- Network
 		'Network',

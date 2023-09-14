@@ -274,6 +274,39 @@ function TableClass:getTableKeyList()
 end
 
 -------------------------------------
+---@function getUniqueValueList
+---해당 컬럼들의 유니크한 값 리스트
+---@param column_list table List<string> 유니크값 추출 원하는 칼럼 리스트
+---@param except_empty boolean 빈 문자열 제외 여부
+---@return table List<string> 유니크값 리스트
+-------------------------------------
+function TableClass:getUniqueValueList(column_list, except_empty)
+    local value_map = {}
+    if (isTable(column_list) == false) then
+        column_list = {column_list}
+    end
+
+    for _,v in pairs(self.m_orgTable) do
+        for _, column  in ipairs(column_list) do
+            local value = v[column]
+            if (value == nil) then
+            elseif ((value == '') and (except_empty == true)) then
+            else
+                value_map[value] = true
+            end
+        end
+    end
+
+    local l_ret = {}
+    for v,_ in pairs(value_map) do
+        table.insert(l_ret, v)
+    end
+
+    return l_ret
+end
+
+
+-------------------------------------
 -- function cloneOrgTable
 -------------------------------------
 function TableClass:cloneOrgTable()
