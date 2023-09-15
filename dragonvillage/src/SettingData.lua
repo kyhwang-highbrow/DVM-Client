@@ -711,18 +711,19 @@ function SettingData:getSkipInfoForFarewellWarningPopup()
 end
 
 -------------------------------------
--- function setSkipAddToLairConfimPopup
+-- function setSkipWarningTodayConfimPopup
 -------------------------------------
-function SettingData:setSkipAddToLairConfimPopup()
+function SettingData:setSkipWarningTodayConfimPopup(key)
     local time = ServerTime:getInstance():getMidnightTimeStampMilliseconds()
-    self:applySettingData(time, 'add_lair', 'skip_warning_popup')
+    self:applySettingData(time, key, 'skip_warning_popup')
 end
 
 -------------------------------------
--- function isSkipAddToLairConfimPopup
+-- function isSkipWarningTodayConfimPopup
 -------------------------------------
-function SettingData:isSkipAddToLairConfimPopup()
-   local midnighttime = self:get('add_lair', 'skip_warning_popup') or 0
+function SettingData:isSkipWarningTodayConfimPopup(key)
+   local midnighttime = self:get(key, 'skip_warning_popup') or 0
+   cclog('midnighttime', midnighttime)
    if midnighttime == 0 then
         return false
    end
