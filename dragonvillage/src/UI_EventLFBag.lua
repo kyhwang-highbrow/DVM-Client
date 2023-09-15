@@ -635,12 +635,10 @@ function UI_EventLFBag:click_openBtn()
 
     -- 누적보상 받지 못할 리스크가 있는 경우
     -- 3단계 한번만 안내한다
-    if (self.m_structLFBag:getLv() == 3 and g_settingData:isSkipWarningTodayConfimPopup('lfbag') == false) then
+    if (self.m_structLFBag:getLv() == 3) then
         local msg = Str('{1}을(를) 여시겠습니까?', self.m_eventItemName)
         local submsg = Str('{1} 단계 이상에서 열기에 실패하면,\n이전 단계까지 누적된 보상을 받을 수 없으니 신중하세요!', 3)
-        local ui = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, do_open)
-        ui:setCheckBoxCallback(function() g_settingData:setSkipWarningTodayConfimPopup('lfbag')  end)
-
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, do_open, nil, 'lfbag')
     else
         do_open()
     end

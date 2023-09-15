@@ -22,8 +22,20 @@ end
 -------------------------------------
 -- function MakeSimplePopup2
 -------------------------------------
-function MakeSimplePopup2(type, msg, submsg, ok_btn_cb, cancel_btn_cb)
+function MakeSimplePopup2(type, msg, submsg, ok_btn_cb, cancel_btn_cb, dont_show_today_key)
+    if dont_show_today_key ~= nil then
+        -- 스킵 상태일 경우
+        if g_settingData:isSkipWarningTodayConfimPopup(dont_show_today_key) == true then
+            SafeFuncCall(ok_btn_cb)
+            return
+        end
+    end
+
     local popup = UI_SimplePopup2(type, msg, submsg, ok_btn_cb, cancel_btn_cb)
+    if dont_show_today_key ~= nil then
+        popup:setCheckBoxCallback(function() g_settingData:setSkipWarningTodayConfimPopup(dont_show_today_key)  end)
+    end
+
     return popup
 end
 
