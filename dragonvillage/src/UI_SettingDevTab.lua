@@ -512,9 +512,9 @@ end
 
 -------------------------------------
 -- function click_newDragonEventBtn
--- @brief 태초의 고신 이벤트
 -------------------------------------
 function UI_Setting:click_newDragonEventBtn()
+    local ui = UI_LanguagePopup()
 end
 
 -------------------------------------

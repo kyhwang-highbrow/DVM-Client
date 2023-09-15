@@ -9,13 +9,13 @@ Translate = {
     m_gameLang = nil,
 }
 
+Translate.useMultipleLanguages = false
 -------------------------------------
 -- function init
 -------------------------------------
 function Translate:init()
     -- 지원 언어의 구조체 리스트를 생성 (StructLanguage 참고)
     self.m_mStructLanguageMap = StructLanguage:makeStructLanguageMap()
-    
     -- getDeviceLang을 하면 중국어에서 zh-cn 으로 들어오고
 	-- 엔진에 있는 languageCode가 의도한대로 값이 들어와
 	-- getCurrentLanguageCode 함수를 사용하기로 함
@@ -257,7 +257,6 @@ function Translate:getFontSizeScale()
     return scale
 end
 
-
 -------------------------------------
 ---@function getActiveLangList
 ---지원 중인 언어 Language(Struct) 리스트
@@ -302,6 +301,20 @@ function Translate:setDefaultFallbackFont()
 	-- th
 	cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_th.ttf', 'res/font/common_font_01.ttf')
 	--cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_th.ttf', 'res/font/common_font_01_ja.ttf')
+
+--[[     -- Fallback font 초기화
+    cc.Label:resetFallbackFontTTF()
+
+    -- FallBack Font 설정 (먼저 호출할수록 우선 순위가 높음)
+    local curr_font_name = self:getFontName()
+    local curr_font_path = self:getFontPath()
+    
+    local unique_font_name_list = TableLanguageConfig:getInstance():getUniqueFontNameList() -- 현재 존재하는 폰트 파일 리스트
+    table.removeItemFromList(unique_font_name_list, curr_font_name) -- 현재 언어가 사용 중인 폰트는 제외
+    table.removeItemFromList(unique_font_name_list, 'common_font_01_ja.ttf') -- common_font_01_ja.ttf 의 경우 일본어 전용 폰트이다. common_font_01과 일본어 한자 빼고 내용이 동일하다.
+    for idx, unique_font_name in ipairs(unique_font_name_list) do
+        cc.Label:addFallbackFontTTF(curr_font_path, 'res/font/' .. unique_font_name)
+    end ]]
 end
 
 -------------------------------------

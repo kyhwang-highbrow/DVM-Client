@@ -4,7 +4,7 @@ local PARENT = UI
 ---@class UI_LanguageChangePopup
 ---@brief popup_02.ui 사용하는 SimplePopup
 -------------------------------------
-UI_LanguageChangePopup = Class(PARENT,{
+UI_LanguageChangePopup = class(PARENT,{
         m_msg = 'string',
         m_subMsg = 'string',
         m_cbOKBtn = 'function',
@@ -21,7 +21,7 @@ function UI_LanguageChangePopup:init(msg, sub_msg, ok_btn_cb, close_btn_cb)
     self.m_cbOKBtn = ok_btn_cb
     self.m_cbCloseBtn = close_btn_cb
 
-    local vars = self:load('popup_language.ui')
+    local vars = self:load('change_language_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -76,10 +76,7 @@ end
 -------------------------------------
 function UI_LanguageChangePopup:click_okBtn()
     SafeFuncCall(self.m_cbOKBtn)
-
-    if (not self.m_isClosed) then
-        self:close()
-    end
+    self:close()
 end
 
 -------------------------------------
@@ -87,10 +84,7 @@ end
 -------------------------------------
 function UI_LanguageChangePopup:click_closeBtn()
     SafeFuncCall(self.m_cbCloseBtn)
-
-    if (not self.m_isClosed) then
-        self:close()
-    end
+    self:close()    
 end
 
 

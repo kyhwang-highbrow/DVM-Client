@@ -1919,6 +1919,7 @@ function loadModuleForPatchScene()
 		-- Table
 		'TableDragon',
 		'TableLoadingGuide',
+        'TableLanguageConfig',
 
 		-- Scene
 		--'SceneLogo',

@@ -111,8 +111,16 @@ function StructLanguage:getLanguageCode()
     return self.m_nameAlpha2
 end
 
-
-
+-------------------------------------
+---@function getLanguageFullDisplayName
+---@brief 유저에게 표시될 이름 반환 (자국어 + 영어로 표기)
+---@return string 표시 이름
+-------------------------------------
+function StructLanguage:getLanguageFullDisplayName()
+    local simple_name = self:getLanguageSimpleDisplayName()
+    local en_name = self:getLanguageEnglishDisplayName()
+    return string.format('%s (%s)', simple_name, en_name)
+end
 
 
 
@@ -134,7 +142,7 @@ function StructLanguage:makeStructLanguageMap()
         'es',
         'fa',
     }
-
+    
     local t_struct_lan = {}
     for _,lan in ipairs(l_lan) do
         local create_func = StructLanguage['create_' .. lan]

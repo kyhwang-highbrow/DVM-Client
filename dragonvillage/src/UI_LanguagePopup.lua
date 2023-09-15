@@ -53,20 +53,27 @@ end
 function UI_LanguagePopup:initTableView()
     local vars = self.vars
 
-    -- base node size (580, 820(vertical))
     local node = vars['cellListNode']
     require('UI_LanguageItem')
 
+    local idx = 1
+    local selected_idx = 1
     local function create_cb(ui, data)
         -- 선택된 것 표시
         local is_selected = (self.m_selectedLang == data:getLanguageCode())
+
+        if is_selected == true then
+            selected_idx = idx
+        end
+
+        idx = idx + 1        
         ui.vars['onBtn']:setVisible((is_selected == true))   
         ui.vars['offBtn']:setVisible((is_selected == false))
         ui.vars['offBtn']:registerScriptTapHandler(function() self:click_langBtn(data) end)
     end
     
     local table_view = UIC_TableViewTD(node)
-    
+
     table_view.m_nItemPerCell = 4
     --table_view.m_marginFinish = 200
     --table_view.m_refreshDuration = 0
@@ -74,10 +81,13 @@ function UI_LanguagePopup:initTableView()
     table_view.m_cellSize = cc.size(260, 76)
     table_view:setCellUIClass(UI_LanguageItem, create_cb)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
+    --table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     
     local item_list = Translate:getActiveLangList()
-    table_view:setItemList(item_list)
+    table_view:setItemList(item_list, true)
+    table_view:relocateContainerFromIndex(selected_idx)
+
+    cclog('현재 가용 언어 갯수', table.count(item_list))
 
 --[[     table_view:makeAllItemUICoroutine(function()
         local relocate_idx = 1
@@ -99,6 +109,7 @@ end
 function UI_LanguagePopup:initButton()
     local vars = self.vars
 
+    vars['okBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
@@ -114,8 +125,9 @@ end
 ---@brief 언어 버튼
 -------------------------------------
 function UI_LanguagePopup:click_langBtn(struct_lang)
-    local before_lang = LocalData_Setting:getInstance():getLang()
+    local before_lang = g_localData:getLang()
     local after_lang = struct_lang:getLanguageCode()
+    local display_name = struct_lang:getLanguageFullDisplayName()
 
     -- 이미 해당 언어
     if (before_lang == after_lang) then
@@ -123,7 +135,7 @@ function UI_LanguagePopup:click_langBtn(struct_lang)
     end
 
     local function ok_func()
-        LocalData_Setting:getInstance():setLang(after_lang)
+        g_localData:setLang(after_lang)
 
         if (self.m_needRestart == true) then
             Application:getInstance():restart()
@@ -133,8 +145,6 @@ function UI_LanguagePopup:click_langBtn(struct_lang)
         end
     end
 
-    local struct_language = Translate:getStructLanguage(after_lang)
-    local display_name = struct_language:getLanguageFullDisplayName()
     local sub_msg = ''
     -- 재시작 필요
     if (self.m_needRestart == true) then
@@ -142,6 +152,8 @@ function UI_LanguagePopup:click_langBtn(struct_lang)
     else
         sub_msg = Str('이후에도 설정에서 게임 언어를 변경할 수 있습니다.')
     end
+
+    require('UI_LanguageChangePopup')
     UI_LanguageChangePopup(display_name, sub_msg, ok_func)
 end
 
