@@ -1,4 +1,7 @@
-return {['받는 피해 증가']='Incremento del daño recibido',
+return {['불의 갑주']='La armadura de fuego',
+['불의 긍지']='Orgullo del fuego',
+['창염의 지배자']='El gobernante de la inflamación de oído',
+['받는 피해 증가']='Incremento del daño recibido',
 ['{1}덱으로 설정되었습니다.']='Se ha configurado a {1} mazo.',
 ['가져오기']='Traer',
 ['기본 덱']='Baraja básica',

@@ -1,4 +1,7 @@
-return {['{1}덱으로 설정되었습니다.']='It has been set to deck{1}.',
+return {['불의 갑주']='Flame Armor',
+['불의 긍지']='Pride of fire',
+['창염의 지배자']='The Dominator of Blue Flame',
+['{1}덱으로 설정되었습니다.']='It has been set to deck{1}.',
 ['가져오기']='bring',
 ['기본 덱']='Basic deck',
 ['덱 이름']='Deck name',
