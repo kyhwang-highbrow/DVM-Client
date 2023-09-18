@@ -74,7 +74,7 @@ function StructLanguage:patchLanguageMap()
                 end
             end
         else
-            if IS_TEST_MODE() == true then
+            if CppFunctions:isWin32() == true then
                 error(string.format('%s.lua 파일에 텍스트 오류가 있습니다.', patch_name))
             end
         end
