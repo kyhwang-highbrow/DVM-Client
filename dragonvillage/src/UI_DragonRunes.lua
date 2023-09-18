@@ -642,7 +642,7 @@ function UI_DragonRunes:getFilteredRuneList(slot_idx)
     -- TODO : 자신이 장착한 거 빼기
     local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
 
-    local equip_roid = dragon_obj['runes'][tostring(slot_idx)]
+    local equip_roid = dragon_obj['runes'] and dragon_obj['runes'][tostring(slot_idx)] or nil
     if (equip_roid ~= nil) then
         l_item_list[equip_roid] = nil
     end
