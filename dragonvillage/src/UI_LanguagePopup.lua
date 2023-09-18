@@ -66,6 +66,8 @@ function UI_LanguagePopup:initTableView()
             selected_idx = idx
         end
 
+        ui.vars['offLabel2']:setString(idx)
+
         idx = idx + 1        
         ui.vars['onBtn']:setVisible((is_selected == true))   
         ui.vars['offBtn']:setVisible((is_selected == false))
@@ -153,8 +155,7 @@ function UI_LanguagePopup:click_langBtn(struct_lang)
         sub_msg = Str('이후에도 설정에서 게임 언어를 변경할 수 있습니다.')
     end
 
-    require('UI_LanguageChangePopup')
-    UI_LanguageChangePopup(display_name, sub_msg, ok_func)
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, display_name, sub_msg, ok_func)
 end
 
 -------------------------------------
