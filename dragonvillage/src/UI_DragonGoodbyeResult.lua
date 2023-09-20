@@ -89,7 +89,7 @@ end
 -------------------------------------
 -- function showResult
 -------------------------------------
-function UI_DragonGoodbyeResult:showResult()
+function UI_DragonGoodbyeResult:showResult(is_skip)
     local vars = self.vars
     vars['skipBtn']:setVisible(false)
 
@@ -109,11 +109,17 @@ function UI_DragonGoodbyeResult:showResult()
 
 		-- 20-11-10 드래곤 레벨업 개편으로 경험치, 인연포인트, 특성재료 중 나옴
 		local ui = UI_ObtainPopup(l_item_list, nil, nil, true)
-		ui:setCloseCB(function() self:fadeOutClose() end)
+		ui:setCloseCB(function()
+            if is_skip ~= true then
+                self:fadeOutClose()
+            else
+                self:close()
+            end
+        end)
 	end
 
     -- 블럭 해제
-    UIManager:blockBackKey(false)
+    -- UIManager:blockBackKey(false)
 end
 
 -------------------------------------
@@ -157,7 +163,7 @@ function UI_DragonGoodbyeResult:click_skipBtn()
         visual:changeAni('result', false)
     end
 
-    self:showResult()
+    self:showResult(true)
 end
 
 function UI_DragonGoodbyeResult:click_exitBtn()
