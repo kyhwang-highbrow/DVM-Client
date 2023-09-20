@@ -178,7 +178,7 @@ function Analytics:userInfo()
 
     local uid = g_userData:get('uid')
     Adbrix:userInfo(uid)
-    Tapjoy:userInfo(uid)
+    --Tapjoy:userInfo(uid)
 end
 
 -------------------------------------
@@ -187,7 +187,7 @@ end
 function Analytics:setAppDataVersion()
     if (not IS_ENABLE_ANALYTICS()) then return end
 
-    Tapjoy:setAppDataVersion()
+    --Tapjoy:setAppDataVersion()
 end
 -------------------------------------
 -- function cohort
@@ -234,7 +234,7 @@ end
 function Analytics:trackEvent(category, event, value, param1)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
-    Tapjoy:trackEvent(category, event, value, param1)
+    --Tapjoy:trackEvent(category, event, value, param1)
 end
 
 -------------------------------------
@@ -268,7 +268,7 @@ function Analytics:purchase(product_id, sku, price_krw, price_usd, first_buy)
     Adbrix:buy(product_id, price_krw)
 
     -- @tapjoy
-    Tapjoy:trackPurchase(product_id, currency_code, currency_price)
+    -- Tapjoy:trackPurchase(product_id, currency_code, currency_price)
 
     -- @adjust
     do
