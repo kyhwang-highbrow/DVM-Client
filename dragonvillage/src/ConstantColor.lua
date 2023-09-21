@@ -94,7 +94,7 @@ COLOR = {
     ['diff_hard'] = cc.c4b(255, 115, 53, 255),
     ['diff_hell'] = cc.c4b(233, 88, 255, 255),
     ['diff_hellfire'] = cc.c4b(255,51,56,255),
-    ['diff_abyss_0'] = cc.c4b(1,5,85,255),
+    ['diff_abyss_0'] = cc.c4b(81,77,255,255),
     ['proofreading'] = cc.c4b(255, 100, 100, 255),
 
 

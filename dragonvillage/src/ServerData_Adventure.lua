@@ -584,6 +584,10 @@ function ServerData_Adventure:getStageCategoryStr(stage_id)
     elseif (difficulty == 3) then
         difficulty_str = Str('지옥')
 
+    elseif (difficulty == 4) then
+        difficulty_str = Str('불지옥')
+    elseif (difficulty == 5) then
+        difficulty_str = Str('심연0')
     else
         error('difficulty : ' .. difficulty)
 
