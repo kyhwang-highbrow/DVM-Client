@@ -45,9 +45,8 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
 		stage_id = COLOSSEUM_STAGE_ID
 	end
     self:init_MemberVariable(stage_id)
-
-    -- 모험모드에서만 친구사용
-    self.m_bWithFriend = (self.m_gameMode == GAME_MODE_ADVENTURE) and true or false
+    
+    self.m_bWithFriend = self:getWithFriendMode()
     self.m_bUseCash = false
 
     -- 아레나모드 (콜로세움 진입, 친구대전 진입시)
@@ -129,6 +128,19 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
 	local tutorial_key = TUTORIAL.FIRST_END
 	local check_step = 104
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
+end
+
+-------------------------------------
+-- function getWithFriendMode
+-------------------------------------
+function UI_ReadySceneNew:getWithFriendMode()
+    if self.m_gameMode == GAME_MODE_ADVENTURE then
+        return true
+    elseif self.m_gameMode == GAME_MODE_LEAGUE_RAID then
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------
