@@ -168,10 +168,16 @@ function UI_GameResultNew:init_difficultyIcon(stage_id)
         vars['difficultySprite']:setColor(COLOR['diff_hell'])
         vars['gradeLabel']:setString(Str('지옥'))
         vars['gradeLabel']:setColor(COLOR['diff_hell'])
+
     elseif (difficulty == 4) then
         vars['difficultySprite']:setColor(COLOR['diff_hellfire'])
         vars['gradeLabel']:setString(Str('불지옥'))
         vars['gradeLabel']:setColor(COLOR['diff_hellfire'])
+
+    elseif (difficulty == 5) then
+        vars['difficultySprite']:setColor(COLOR['diff_abyss_0'])
+        vars['gradeLabel']:setString(Str('심연 0'))
+        vars['gradeLabel']:setColor(COLOR['diff_abyss_0'])
     end
 end
 

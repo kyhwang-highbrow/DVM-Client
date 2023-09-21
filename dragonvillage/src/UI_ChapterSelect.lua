@@ -41,6 +41,7 @@ function UI_ChapterSelect:initUI()
     self:addTabWithLabel(2, vars['hardBtn'], vars['hardLabel'])
     self:addTabWithLabel(3, vars['hellBtn'], vars['hellLabel'])
     self:addTabWithLabel(4, vars['hellFireBtn'], vars['hellFireLabel'])
+    self:addTabWithLabel(5, vars['abyss_0Btn'], vars['abyss_0Label'])
     self:setTab(self.m_target)
 end
 

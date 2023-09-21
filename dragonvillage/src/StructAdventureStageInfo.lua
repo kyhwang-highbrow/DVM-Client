@@ -176,9 +176,14 @@ function StructAdventureStageInfo:getStageRichName()
     elseif (difficulty == 3) then
         color_str = 'diff_hell'
         diff_str = Str('지옥')
+
     elseif (difficulty == 4) then
         color_str = 'diff_hellfire'
         diff_str = Str('불지옥')
+
+    elseif (difficulty == 5) then
+        color_str = 'diff_abyss_0'
+        diff_str = Str('심연 0')
     end
 
     local ret_str = '{@' .. color_str .. '}' .. diff_str .. ' {@default}' .. chapter .. '-' .. stage
