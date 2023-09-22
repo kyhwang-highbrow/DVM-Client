@@ -727,11 +727,22 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     elseif (game_mode == GAME_MODE_LEAGUE_RAID) then
         -- 클리어 타입은 서버에서 안줌
         local is_success = (t_param['clear_type'] == 1) and true or false
-
         api_url = is_success and '/raid/finish' or '/raid/fail'
 
         total_damage = math_floor(g_leagueRaidData.m_currentDamage)
         ui_network:setParam('score', total_damage)
+
+        -- 친구 데려갈 UID 추가
+        local f_uid_list = {}
+        for i = 1,3 do
+            local str_deck_name = 'league_raid_' .. i
+            local f_uid = g_friendData:getSettedFriendUID(str_deck_name)
+            table.insert(f_uid_list, f_uid)
+        end
+
+        if #f_uid_list > 0 then
+            ui_network:setParam('friends', table.concat(f_uid_list, ','))
+        end
 
     elseif (game_mode == GAME_MODE_STORY_DUNGEON) then
         -- 스토리 던전
