@@ -1,4 +1,5 @@
-return {['받는 피해 증가']='Incremento del daño recibido',
+return {['응축된 창염이 해방되어 적을 삼킵니다. 자신의 방어력에 따라 위력이 크게 증가합니다. 100%확률로 대상에게 15초간 {@yellow}[갑옷 파괴]{@SKILL_DESC}효과를 부여합니다.\n타겟 중 수호를 발동한 대상에게 {@yellow}[갑옷 파괴]{@SKILL_DESC}효과를 추가로 부여합니다. \n{@yellow}[갑옷 파괴]{@SKILL_DESC}: 해로운 효과 제거로 제거할 수 없으며 받는 피해량이 25% 증가합니다.']='La llama condensada se libera y se encierra al enemigo.Incrementa enormemente el poder del jugador de acuerdo a su Defensa.100% de probabilidad de otorgar al objetivo el efecto de {@yellow}[Destrucción de armadura]{@SKILL_DESC} durante 15 segundos.\nAl objetivo afectado por Guardia, se le otorga el efecto adicional de {@yellow}[Destrucción de armadura]{@SKILL_DESC}.\n{@yellow}[Destrucción de armadura]{@SKILL_DESC} : No se puede eliminar con Eliminación Efecto Dañino y aumenta el daño recibido en un 25%.',
+['받는 피해 증가']='Incremento del daño recibido',
 ['{1}덱으로 설정되었습니다.']='Se ha configurado a {1} mazo.',
 ['가져오기']='Traer',
 ['기본 덱']='Baraja básica',

@@ -1,4 +1,5 @@
-return {['{1}덱으로 설정되었습니다.']='It has been set to deck{1}.',
+return {['응축된 창염이 해방되어 적을 삼킵니다. 자신의 방어력에 따라 위력이 크게 증가합니다. 100%확률로 대상에게 15초간 {@yellow}[갑옷 파괴]{@SKILL_DESC}효과를 부여합니다.\n타겟 중 수호를 발동한 대상에게 {@yellow}[갑옷 파괴]{@SKILL_DESC}효과를 추가로 부여합니다. \n{@yellow}[갑옷 파괴]{@SKILL_DESC}: 해로운 효과 제거로 제거할 수 없으며 받는 피해량이 25% 증가합니다.']='The condensed flame is released and engulfs the enemy. Damage is greatly increased, proportionally to your DEF.Give the target the {@yellow}[Armor Destruction]{@SKILL_DESC} effect for 15 seconds with a 100% chance.\nApply [Armor Destruction] effect to the target that triggers Guard, in addition to {@yellow}[Armor Destruction]{@SKILL_DESC} effect.\n{@yellow}[Armor Destruction]{@SKILL_DESC} : Cannot be removed by eliminating harmful effects and increases the amount of damage taken by 25%.',
+['{1}덱으로 설정되었습니다.']='It has been set to deck{1}.',
 ['가져오기']='bring',
 ['기본 덱']='Basic deck',
 ['덱 이름']='Deck name',
