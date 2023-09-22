@@ -347,11 +347,23 @@ function UI_LeagueRaidScene:updateDeckDotImage()
     table.insert(l_deck_cnt, deck_3_cnt)
 
     for i = 1, #l_deck_cnt do
+        local deck_name = string.format('league_raid_%d', i)
+        local is_setted_friend_dragon = g_friendData:getSettedFriendUID(deck_name) ~= nil
+
         for j = 1, 5 do
             local node_name = 'slotSprite' .. tostring(i) .. '_' .. tostring(j)
             local is_active = l_deck_cnt[i] >= j
         
+            vars[node_name]:setColor(COLOR['white'])
             vars[node_name]:setVisible(is_active)
+
+            if is_active == false then
+                if is_setted_friend_dragon == true then
+                    vars[node_name]:setColor(COLOR['light_green'])
+                    vars[node_name]:setVisible(true)
+                    is_setted_friend_dragon = false
+                end
+            end
         end
     end
 end

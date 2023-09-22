@@ -110,12 +110,24 @@ function UI_LeagueRaidDeckSettings:refresh_slotLight()
     local vars = self.vars
     local multi_deck_mgr = self.m_multiDeckMgr
     if (multi_deck_mgr) then
-        for i = 1,3 do 
+        for i = 1,3 do
             local down_deck_cnt = multi_deck_mgr:getDeckDragonCnt(i)            
+            local deck_name = string.format('league_raid_%d', i)
+            local is_setted_friend_dragon = g_friendData:getSettedFriendUID(deck_name) ~= nil
+
             local start_idx = (i - 1) * 5
             for idx = 1, 5 do
                 local slot_light = vars['slotSprite'..(idx + start_idx)]
-                slot_light:setVisible(idx <= down_deck_cnt)
+                local is_active = idx <= down_deck_cnt
+
+                slot_light:setColor(COLOR['white'])
+                slot_light:setVisible(is_active)
+
+                if idx == down_deck_cnt then
+                    if is_setted_friend_dragon == true then
+                        slot_light:setColor(COLOR['light_green'])
+                    end
+                end
             end
         end
     end
