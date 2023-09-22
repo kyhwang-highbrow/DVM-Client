@@ -63,8 +63,8 @@ function UI_ReadySceneNew_Deck_Raid:init_deck_friend()
 
     if friendDragonIndex and friendDragonId then
         self:setSlot(friendDragonIndex, friendDragonId, true)
-    else
-        g_friendData:delSettedFriendDragon(deck_name)
+    --else
+        --g_friendData:delSettedFriendDragon(deck_name)
     end
 end
 

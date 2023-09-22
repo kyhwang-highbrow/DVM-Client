@@ -29,6 +29,7 @@ ServerData_LeagueRaid = class({
     m_raidLobbyData = 'table', --  자세한건 applyServerData 에서 확인
 
     m_obtainRuneList = 'table',
+    m_friendUidList = 'List<string>', -- 친구 데려가기에 참여하는 친구 uid 콤마로 구분
     })
 
 
@@ -42,7 +43,7 @@ function ServerData_LeagueRaid:init()
 
     self.m_raidLobbyData = {}
     self.m_obtainRuneList = {}
-
+    self.m_friendUidList = {}
     self.m_lastScore = 0
 
     self.m_leagueRaidData = TABLE:get('table_league_raid_data')
@@ -522,4 +523,30 @@ function ServerData_LeagueRaid:getAdjacentItems(roid)
     end
 
     return last_item, next_item
+end
+
+-------------------------------------
+-- function setFriendUIDList
+-------------------------------------
+function ServerData_LeagueRaid:setFriendUIDList()
+    -- 친구 데려갈 UID 추가
+    self.m_friendUidList = {}
+    for i = 1,3 do
+        local str_deck_name = 'league_raid_' .. i
+        local f_uid = g_friendData:getSettedFriendUID(str_deck_name)
+        table.insert(self.m_friendUidList, f_uid)
+    end
+end
+
+-------------------------------------
+-- function getFriendUIDListString
+-------------------------------------
+function ServerData_LeagueRaid:getFriendUIDListString()
+    if #self.m_friendUidList == 0 then
+        return nil
+    end
+
+    local str = table.concat(self.m_friendUidList, ',')
+    self.m_friendUidList = {}
+    return str
 end

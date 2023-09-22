@@ -733,15 +733,9 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         ui_network:setParam('score', total_damage)
 
         -- 친구 데려갈 UID 추가
-        local f_uid_list = {}
-        for i = 1,3 do
-            local str_deck_name = 'league_raid_' .. i
-            local f_uid = g_friendData:getSettedFriendUID(str_deck_name)
-            table.insert(f_uid_list, f_uid)
-        end
-
-        if #f_uid_list > 0 then
-            ui_network:setParam('friends', table.concat(f_uid_list, ','))
+        local f_uids = g_leagueRaidData:getFriendUIDListString()
+        if f_uids ~= nil then
+            ui_network:setParam('friends', f_uids)
         end
 
     elseif (game_mode == GAME_MODE_STORY_DUNGEON) then

@@ -59,9 +59,6 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     local vars = self:load('battle_ready_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    -- 레디씬 진입시 선택된 친구정보 초기화
-    g_friendData:delSettedFriendDragon()
-
     -- 씬 전환 효과
     self:sceneFadeInAction()
 
@@ -173,6 +170,8 @@ function UI_ReadySceneNew:initParentVariable()
 		self.m_uiBgm = 'bgm_lobby'
 	end
 
+    -- 친구 드래곤 해제
+    g_friendData:delSettedFriendDragon()
 end
 
 -------------------------------------

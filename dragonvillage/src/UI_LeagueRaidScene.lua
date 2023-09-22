@@ -45,6 +45,9 @@ function UI_LeagueRaidScene:init()
     self:doActionReset()
     self:doAction(nil, false)
 
+    -- 친구 데려가기 정보 리셋
+    g_friendData:delSettedFriendDragon()
+
     self:initMember()
     self:initUI()
     self:initButton()
@@ -108,7 +111,6 @@ end
 ----------------------------------------------------------------------
 function UI_LeagueRaidScene:initUI()
     local vars = self.vars
-
     local member_count = g_leagueRaidData:getMemberCount()
     local my_info = g_leagueRaidData:getMyInfo()
     local member_list = g_leagueRaidData:getMemberList()
@@ -669,6 +671,10 @@ function UI_LeagueRaidScene:click_enterBtn()
 
     local finish_cb = function(ret)
         g_deckData:setSelectedDeck('league_raid_1')
+        
+        -- 친구 데려가기
+        g_leagueRaidData:setFriendUIDList()
+
         g_leagueRaidData.m_curStageData = ret
         local scene = SceneGame(ret, stage_id, stage_name, true)
         scene:runScene()

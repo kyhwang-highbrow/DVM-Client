@@ -797,7 +797,7 @@ end
 -- @brief 친구 드래곤, 정보 초기화
 -------------------------------------
 function ServerData_Friend:delSettedFriendDragon(_deck_key)
-    self.m_friendDragonSelector:delSettedFriendDragon(_deck_key or 'adv')
+    self.m_friendDragonSelector:delSettedFriendDragon(_deck_key)
     --self.m_selectedSharedFriendDragon = nil
     --self.m_selectedShareFriendData = nil
     self.m_bReleaseDragon = false

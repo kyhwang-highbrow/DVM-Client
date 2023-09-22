@@ -18,11 +18,14 @@ end
 -- @brief 친구 드래곤, 정보 초기화
 -------------------------------------
 function FriendDragonSelector:delSettedFriendDragon(_deck_key)
+    if _deck_key == nil then
+        self.m_selectedFriends = {}
+        return
+    end
+
     if self.m_selectedFriends[_deck_key] ~= nil then
         self.m_selectedFriends[_deck_key] = nil
     end
-
-    --self.m_selectedFriends = {}
 end
 
 -------------------------------------
