@@ -167,6 +167,7 @@ local t_module = {
     'StructRunePreset',
     'StructRunePresetGroup',
     'StructLairStat',
+    'StructBattleSelectFriend',
 
 	-- ServerData 
     'ServerData',
@@ -408,6 +409,7 @@ local t_module = {
     'GoogleHelper',
     'MasteryHelper',
     'LoginHelper',
+    'FriendDragonSelector',
 
     'ChatClientSocket',
     'ChatManager',
@@ -654,6 +656,7 @@ local t_module = {
     'EnemyMovementMgr',
     'MissileFactory',
     'MissileLauncher',
+    
     
 	-- COMMON MISSILE (공통탄)
 	'CommonMissile',

@@ -429,19 +429,13 @@ function UI_ReadySceneNew_Deck:init_deck()
 
     local l_deck, formation, deck_name, leader, tamer_id, formation_lv = g_deckData:getDeck()
 	l_deck = self:convertSimpleDeck(l_deck)
+    
 
 	self.m_currLeader = leader
     self.m_lDeckList = {}
     self.m_tDeckMap = {}
-    
-    local friendDragonIndex = g_friendData:getFriendDragonSlotIdx()
-    local friendDragonId = g_friendData:getSettedFriendDragonID()
-    
-    if friendDragonIndex and friendDragonId then
-        self:setSlot(friendDragonIndex, friendDragonId, true)
-    else
-        g_friendData:delSettedFriendDragon()
-    end
+
+    self:init_deck_friend()
 
     for idx,doid in pairs(l_deck) do
         local skip_sort = true
@@ -465,6 +459,20 @@ function UI_ReadySceneNew_Deck:init_deck()
     self:setFormation(formation)
     self:setFormationLv(formation_lv)
     self:setDirtyDeck()
+end
+
+-------------------------------------
+-- function init_deck_friend
+-------------------------------------
+function UI_ReadySceneNew_Deck:init_deck_friend()
+    local friendDragonIndex = g_friendData:getFriendDragonSlotIdx()
+    local friendDragonId = g_friendData:getSettedFriendDragonID()
+
+    if friendDragonIndex and friendDragonId then
+        self:setSlot(friendDragonIndex, friendDragonId, true)
+    else
+        g_friendData:delSettedFriendDragon()
+    end
 end
 
 -------------------------------------
@@ -734,7 +742,6 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
         self.m_tDeckMap[doid] = idx
 
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-
         self:makeSettedDragonCard(t_dragon_data, idx)
 
         -- 친구 드래곤 선택 체크
@@ -777,14 +784,9 @@ function UI_ReadySceneNew_Deck:checkSameDid(idx, doid)
         end
     end
 
-    -- @kwkang 2020-12-01 출전해있는 친구 드래곤과 겹치는지 검사
-    local friend_doid = g_friendData.m_selectedSharedFriendDragon
-    if (friend_doid) then 
-        local f_idx = g_friendData:getFriendDragonSlotIdx()
-        -- 같은 did이면서 idx가 다른 경우
-        if (g_dragonsData:isSameDid(friend_doid, doid)) and (idx ~= f_idx)then
-            return true
-        end
+    -- 데려가는 친구 드래곤 중에 같은 did가 있는지 검사
+    if g_friendData:checkSameDidInFriends(idx, doid) == true then
+        return true
     end
 
     return false
@@ -960,7 +962,8 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
                 end
 
                 return doid or nil          
-            end 
+            end
+            
         
             ui_network:setParam('edoid1', set_param(self.m_lDeckList[1]))
             ui_network:setParam('edoid2', set_param(self.m_lDeckList[2]))

@@ -320,28 +320,26 @@ end
 -------------------------------------
 -- function makeFriendHero
 -------------------------------------
-function GameWorld:makeFriendHero()
+function GameWorld:makeFriendHero(_deck_name)
     -- 이미 출전 드래곤이 5마리이면 패스시킴
     if (self.m_leftParticipants and table.count(self.m_leftParticipants) >= 5) then
         return
     end
 
-    local t_dragon_data, l_runes_data = g_friendData:getParticipationFriendDragon()
+    local t_dragon_data, l_runes_data, slot_idx = g_friendData:getParticipationFriendDragon(_deck_name or 'adv')
     if (not t_dragon_data) then return end
 
     local status_calc = g_friendData:makeFriendDragonStatusCalculator(t_dragon_data, l_runes_data)
     local is_right = false
 
-    self.m_friendDragon = self:makeDragonNew(t_dragon_data, is_right, status_calc)
+    self.m_friendDragon = self:makeDragonNew(t_dragon_data, is_right, status_calc)   
 
     if (self.m_friendDragon) then
         self.m_friendDragon:setActive(false)
 
-        self.m_worldNode:addChild(self.m_friendDragon.m_rootNode, WORLD_Z_ORDER.HERO)
-        
-        local idx = g_friendData:getFriendDragonSlotIdx()
-        if (idx) then
-            self:joinFriendHero(idx)
+        self.m_worldNode:addChild(self.m_friendDragon.m_rootNode, WORLD_Z_ORDER.HERO)        
+        if (slot_idx) then
+            self:joinFriendHero(slot_idx)
             self.m_bUsedFriend = true
         end
     end
@@ -350,7 +348,7 @@ end
 -------------------------------------
 -- function joinFriendHero
 -------------------------------------
-function GameWorld:joinFriendHero(posIdx, lair_stats)
+function GameWorld:joinFriendHero(posIdx)
     if (not self.m_friendDragon) then return end
 
     self.m_friendDragon:setPosIdx(posIdx)

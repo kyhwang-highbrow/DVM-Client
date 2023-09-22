@@ -52,6 +52,23 @@ function UI_ReadySceneNew_Deck_Raid:initUI()
 end
 
 -------------------------------------
+-- function init_deck_friend
+-------------------------------------
+function UI_ReadySceneNew_Deck_Raid:init_deck_friend()
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+    local deck_name = multi_deck_mgr:getDeckName(self.m_selTab)
+
+    local friendDragonIndex = g_friendData:getFriendDragonSlotIdx(deck_name)
+    local friendDragonId = g_friendData:getSettedFriendDragonID(deck_name)
+
+    if friendDragonIndex and friendDragonId then
+        self:setSlot(friendDragonIndex, friendDragonId, true)
+    else
+        g_friendData:delSettedFriendDragon(deck_name)
+    end
+end
+
+-------------------------------------
 -- function initTab
 -------------------------------------
 function UI_ReadySceneNew_Deck_Raid:initTab()
@@ -132,11 +149,14 @@ function UI_ReadySceneNew_Deck_Raid:click_dragonCard(t_dragon_data, skip_sort, i
     self:refreshFocusDeckSlot()
 end
 
+
 -------------------------------------
 -- function setSlot
 -------------------------------------
 function UI_ReadySceneNew_Deck_Raid:setSlot(idx, doid, skip_sort)
     local cur_deck = self.m_selTab
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+    local deck_name = multi_deck_mgr:getDeckName(cur_deck)
 
     do -- 갯수 체크
         local count = table.count(self.m_tDeckMap)
@@ -150,7 +170,7 @@ function UI_ReadySceneNew_Deck_Raid:setSlot(idx, doid, skip_sort)
     end
 
     -- 친구 드래곤 슬롯 검사 (동종 동속성 보다 먼저 검사)
-    if (not g_friendData:checkSetSlotCondition(doid)) then
+    if (not g_friendData:checkSetSlotCondition(doid, deck_name)) then
         return false
     end
 
@@ -160,8 +180,7 @@ function UI_ReadySceneNew_Deck_Raid:setSlot(idx, doid, skip_sort)
         return false
     end
 
-    -- 멀티 덱 - 다른 위치 덱 동종 동속성의 드래곤 제외
-    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+    -- 멀티 덱 - 다른 위치 덱 동종 동속성의 드래곤 제외    
     local deck_pos = self.m_selTab
     
     if (multi_deck_mgr) then
@@ -186,7 +205,7 @@ function UI_ReadySceneNew_Deck_Raid:setSlot(idx, doid, skip_sort)
         end
 
         -- 친구 드래곤 해제
-        g_friendData:delSettedFriendDragonCard(prev_doid)
+        g_friendData:delSettedFriendDragonCard(prev_doid, deck_name)
 
         -- 멀티 덱 해제
         if (multi_deck_mgr) then
@@ -203,7 +222,7 @@ function UI_ReadySceneNew_Deck_Raid:setSlot(idx, doid, skip_sort)
         self:makeSettedDragonCard(t_dragon_data, idx)
 
         -- 친구 드래곤 선택 체크
-        g_friendData:makeSettedFriendDragonCard(doid, idx)
+        g_friendData:makeSettedFriendDragonCard(doid, idx, deck_name)
 
         -- 멀티 덱 추가
         if (multi_deck_mgr) then

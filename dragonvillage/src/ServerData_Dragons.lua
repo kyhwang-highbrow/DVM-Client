@@ -1531,7 +1531,7 @@ function ServerData_Dragons:isSameDid(doid_a, doid_b)
     
     t_dragon_data = self:getDragonDataFromUidRef(doid_b)
     if (not t_dragon_data) then
-        t_dragon_data = g_friendData:getDragonDataFromDoid(doid_a)
+        t_dragon_data = g_friendData:getDragonDataFromDoid(doid_b)
     end
     if (not t_dragon_data) then
         return false

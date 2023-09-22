@@ -582,13 +582,10 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         -- 온전한 연속 전투 검사
         g_autoPlaySetting:setSequenceAutoPlay()
     end
-
-    local friend_uid = nil
-    if g_friendData.m_selectedShareFriendData then
-        friend_uid = g_friendData.m_selectedShareFriendData.m_uid
-    end
-
     
+    -- 삼뉴체크
+    local friend_uid = g_friendData:getSettedFriendUID()
+
     ui_network:setUrl(api_url)
     ui_network:setRevocable(true)
     ui_network:setParam('uid', uid)

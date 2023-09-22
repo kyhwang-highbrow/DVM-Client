@@ -19,11 +19,20 @@ end
 -------------------------------------
 ---@function getSelectFriendDoid
 -------------------------------------
-function StructBattleSelectFriend:getLanguageSimpleDisplayName()
+function StructBattleSelectFriend:getSelectFriendDoid()
+    return self.m_doid
 end
 
 -------------------------------------
----@function getLanguageEnglishDisplayName
+---@function getSelectFriendDragonSlotIdx
 -------------------------------------
-function StructBattleSelectFriend:getLanguageEnglishDisplayName()
+function StructBattleSelectFriend:getSelectFriendDragonSlotIdx()
+    return self.m_deckSlotIdx
+end
+
+-------------------------------------
+---@function getSelectFriendInfo
+-------------------------------------
+function StructBattleSelectFriend:getSelectFriendInfo()
+    return self.m_friendInfo
 end

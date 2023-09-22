@@ -23,14 +23,16 @@ ServerData_Friend = class({
         m_mSentFpUserList = 'map', -- 오늘 우정포인트를 보낸 유저 리스트
         
         -- 선택된 친구 드래곤 데이터
-        m_selectedSharedFriendDragon = '',
-        m_selectedSharedFriendDragonIdx = 'number',
+        -- m_selectedSharedFriendDragon = '',
+        -- m_selectedSharedFriendDragonIdx = 'number',
 
         -- 선택된 공유 친구 데이터
-        m_selectedShareFriendData = '',
+        -- m_selectedShareFriendData = '',
 
         -- 친구 드래곤 해제 유무 (연속 전투 시 종료)
         m_bReleaseDragon = '', 
+        m_friendDragonSelector = 'FriendDragonSelector',
+
     })
 
 -------------------------------------
@@ -39,6 +41,7 @@ ServerData_Friend = class({
 function ServerData_Friend:init(server_data)
     self.m_serverData           = server_data
     self.m_mInvitedUserList     = {}
+    self.m_friendDragonSelector = FriendDragonSelector()
 
     self.m_lFriendInviteResponseList = {}
     self.m_lFriendInviteRequestList = {}
@@ -324,42 +327,17 @@ function ServerData_Friend:checkInviteCondition(friend_uid)
 end
 
 -------------------------------------
--- function setSelectedShareFriendData
--- @brief
--------------------------------------
-function ServerData_Friend:setSelectedShareFriendData(t_friend_info)
-    self.m_selectedShareFriendData = t_friend_info
-end
-
--------------------------------------
--- function getSelectedShareFriendData
--- @brief
--------------------------------------
-function ServerData_Friend:getSelectedShareFriendData()
-    return self.m_selectedShareFriendData
-end
-
--------------------------------------
 -- function getParticipationFriendDragon
--- @brief
 -------------------------------------
-function ServerData_Friend:getParticipationFriendDragon()
-    local t_friend_info = self.m_selectedShareFriendData
-    
-    if (not t_friend_info) then
-        self.m_bReleaseDragon = false
-        return nil
+function ServerData_Friend:getParticipationFriendDragon(deck_key)
+    local dragon_object, rune_object, slot_idx = 
+                self.m_friendDragonSelector:getParticipationFriendDragon(deck_key or 'adv')
+
+    if dragon_object ~= nil then
+        self.m_bReleaseDragon = true
     end
-
-    self.m_selectedShareFriendData = nil
-    self.m_selectedSharedFriendDragon = nil
-    self.m_bReleaseDragon = true
-
-    local dragon_object = t_friend_info.m_leaderDragonObject
-    local rune_object = t_friend_info.m_runesObject
-    local lair_stats = t_friend_info.m_lairStats
-
-    return dragon_object, rune_object, lair_stats
+    
+    return dragon_object,rune_object,slot_idx
 end
 
 -------------------------------------
@@ -787,6 +765,13 @@ function ServerData_Friend:checkFriendDragonFromDoid(doid)
 end
 
 -------------------------------------
+-- function checkSameDidInFriends
+-------------------------------------
+function ServerData_Friend:checkSameDidInFriends(idx, doid)
+    return self.m_friendDragonSelector:checkSameDidInFriends(idx, doid)
+end
+
+-------------------------------------
 -- function getDragonCoolTimeFromDoid
 -- @brief 드래곤 쿨타임 정보는 드래곤객체가 아닌 친구객체에서 가져와야함
 -------------------------------------
@@ -811,9 +796,10 @@ end
 -- function delSettedFriendDragon
 -- @brief 친구 드래곤, 정보 초기화
 -------------------------------------
-function ServerData_Friend:delSettedFriendDragon()
-    self.m_selectedSharedFriendDragon = nil
-    self.m_selectedShareFriendData = nil
+function ServerData_Friend:delSettedFriendDragon(_deck_key)
+    self.m_friendDragonSelector:delSettedFriendDragon(_deck_key or 'adv')
+    --self.m_selectedSharedFriendDragon = nil
+    --self.m_selectedShareFriendData = nil
     self.m_bReleaseDragon = false
 end
 
@@ -821,72 +807,68 @@ end
 -- function delSettedFriendDragonCard
 -- @brief 친구 드래곤 슬롯 해제
 -------------------------------------
-function ServerData_Friend:delSettedFriendDragonCard(doid)
-    if (not self:checkFriendDragonFromDoid(doid)) then return end
+function ServerData_Friend:delSettedFriendDragonCard(doid, _deck_key)
+    self.m_friendDragonSelector:delSettedFriendDragonCard(doid, _deck_key or 'adv')
+--[[     if (not self:checkFriendDragonFromDoid(doid)) then return end
     if (self.m_selectedSharedFriendDragon) and
        (self.m_selectedSharedFriendDragon == doid) then
         self.m_selectedSharedFriendDragon = nil
         self.m_selectedShareFriendData = nil
-    end
+    end ]]
 end
 
 -------------------------------------
 -- function makeSettedFriendDragonCard
 -- @brief 친구 드래곤 슬롯 세팅
 -------------------------------------
-function ServerData_Friend:makeSettedFriendDragonCard(doid, idx)
-    if (not self:checkFriendDragonFromDoid(doid)) then return end
+function ServerData_Friend:makeSettedFriendDragonCard(doid, idx, _deck_key)
+    self.m_friendDragonSelector:makeSettedFriendDragonCard(doid, idx, _deck_key or 'adv')
+--[[     if (not self:checkFriendDragonFromDoid(doid)) then return end
     if (not self.m_selectedSharedFriendDragon) then
         self.m_selectedSharedFriendDragon = doid
         self.m_selectedSharedFriendDragonIdx = idx
         self.m_selectedShareFriendData = self:getFriendInfoFromDoid(self.m_selectedSharedFriendDragon)
-    end
+    end ]]
 end
 
 -------------------------------------
 -- function getFriendDragonSlotIdx
 -- @brief 친구 드래곤 슬롯 번호
 -------------------------------------
-function ServerData_Friend:getFriendDragonSlotIdx()
-    if (self.m_selectedSharedFriendDragonIdx) then
+function ServerData_Friend:getFriendDragonSlotIdx(_deck_key)
+    return self.m_friendDragonSelector:getFriendDragonSlotIdx(_deck_key or 'adv')
+--[[     if (self.m_selectedSharedFriendDragonIdx) then
         return self.m_selectedSharedFriendDragonIdx
     end
-    return nil
+    return nil ]]
 end
 
 -------------------------------------
 -- function getSettedFriendDragonID
 -- @brief 친구 드래곤 id
 -------------------------------------
-function ServerData_Friend:getSettedFriendDragonID()
-    if (self.m_selectedSharedFriendDragon) then
+function ServerData_Friend:getSettedFriendDragonID(_deck_key)
+    return self.m_friendDragonSelector:getSettedFriendDragonID(_deck_key or 'adv')
+--[[     if (self.m_selectedSharedFriendDragon) then
         return self.m_selectedSharedFriendDragon
     end
-    return nil
+    return nil ]]
+end
+
+-------------------------------------
+-- function getSettedFriendUID
+-- @brief 친구 uid
+-------------------------------------
+function ServerData_Friend:getSettedFriendUID(_deck_key)
+    return self.m_friendDragonSelector:getSettedFriendUID(_deck_key or 'adv')
 end
 
 -------------------------------------
 -- function checkSetSlotCondition
 -- @brief 친구 드래곤 슬롯 세팅 조건 검사
 -------------------------------------
-function ServerData_Friend:checkSetSlotCondition(doid)
-    if (not self:checkFriendDragonFromDoid(doid)) then 
-        return true 
-    end
-
-    -- 쿨타임 존재
-    if (not self:checkUseEnableDragon(doid)) then 
-        -- 따로 메세지 없음
-        return false 
-    end 
-
-    -- 이미 선택된 친구가 있음
-    if (self.m_selectedSharedFriendDragon) and (self.m_selectedSharedFriendDragon ~= doid) then 
-        UIManager:toastNotificationRed(Str('친구 드래곤은 전투에 한 명만 참여할 수 있습니다'))
-        return false
-    end
-
-    return true
+function ServerData_Friend:checkSetSlotCondition(doid, _deck_key)
+    return self.m_friendDragonSelector:checkSetSlotCondition(doid, _deck_key or 'adv')
 end
 
 -------------------------------------

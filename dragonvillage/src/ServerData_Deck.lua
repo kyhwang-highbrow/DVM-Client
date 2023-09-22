@@ -455,10 +455,22 @@ function ServerData_Deck:request_setDeckPvpCollection(deckname, formation, leade
     ui_network:setParam('formation', formation)
     ui_network:setParam('leader', leader)
     ui_network:setParam('tamer', tamer)
-    
+
+    -- 친구 드래곤 체크 (친구 드래곤일 경우 저장하지 않음)
+    local set_doid_param  = function(doid)
+        if string.find(_deckname, 'league_raid') == nil then
+            return doid
+        end
+
+        if doid and g_friendData:checkFriendDragonFromDoid(doid) then 
+            return nil 
+        end
+
+        return doid or nil
+    end
 
     for i,doid in pairs(l_edoid) do
-        ui_network:setParam('edoid' .. i, doid)
+        ui_network:setParam('edoid' .. i, set_doid_param(doid))
     end
 
     ui_network:setMethod('POST')

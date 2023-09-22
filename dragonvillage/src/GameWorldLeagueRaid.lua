@@ -64,7 +64,6 @@ function GameWorldLeagueRaid:appearDragonsByIndex(index)
     if (is_third) then self.m_myDragons = self.m_myDragons_3 end
 end
 
-
 -------------------------------------
 -- function makeHeroDeck_internal
 -------------------------------------
@@ -104,6 +103,9 @@ function GameWorldLeagueRaid:makeHeroDeck_internal(index)
     self.m_myDragons = {}
     self.m_leftParticipants = {}
     self.m_leftNonparticipants = {}
+
+    -- 친구 드래곤 출전
+    self:makeFriendHero(deck_name)
 
     for i, doid in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
