@@ -160,6 +160,14 @@ function UI_AdventureStageInfo:refresh()
         vars['titleLabel']:setString(stage_name)
 
         local string_width = vars['titleLabel']:getStringWidth()
+
+        -- 스페인어에서 폰트 너비 사이즈를 이상하게 가져온다.(실제 너비에 비해서 큰 값을 반환)
+        -- 스페인어에서 텍스트 너비를 이용한 정렬 쪽에서는 다 문제가 있을 것 같다.
+        -- 근본적으로 수정을 해야 하지만 시간 관계상 아래와 같이 처리한다.
+        if Translate:getGameLang() == 'es' then
+            string_width = string_width * 0.8
+        end
+
         local pos_x = -(string_width / 2)
         vars['difficultyLabel']:setPositionX(pos_x - 10)
     end
