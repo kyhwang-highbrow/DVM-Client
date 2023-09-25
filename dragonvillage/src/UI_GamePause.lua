@@ -101,7 +101,7 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
             
         elseif (difficulty == 5) then
             vars['difficultyLabel']:setColor(COLOR['diff_abyss_0'])
-            vars['difficultyLabel']:setString(Str('심연 0'))
+            vars['difficultyLabel']:setString(Str('심연'))
         end
 
 

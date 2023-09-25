@@ -176,7 +176,7 @@ function UI_GameResultNew:init_difficultyIcon(stage_id)
 
     elseif (difficulty == 5) then
         vars['difficultySprite']:setColor(COLOR['diff_abyss_0'])
-        vars['gradeLabel']:setString(Str('심연 0'))
+        vars['gradeLabel']:setString(Str('심연'))
         vars['gradeLabel']:setColor(COLOR['diff_abyss_0'])
     end
 end
