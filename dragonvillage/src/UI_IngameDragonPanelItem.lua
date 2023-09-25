@@ -104,6 +104,22 @@ function UI_IngameDragonPanelItem:initUI()
 		    vars['dragonNode']:addChild(sprite)
 	    end
     end
+
+    -- 친구 아이콘
+    if (vars['friendNode']) then
+        local doid = dragon.m_tDragonInfo['id']
+        local is_friend_dragon = g_friendData:checkFriendDragonFromDoid(doid)
+        if is_friend_dragon == true then
+            local res = 'ingame_panel_friend.png'
+            local icon = cc.Sprite:createWithSpriteFrameName(res)
+            if (icon) then
+                icon:setDockPoint(CENTER_POINT)
+                icon:setAnchorPoint(CENTER_POINT)
+                vars['friendNode']:addChild(icon)
+            end
+        end
+    end
+
     --[[
     do -- 드래그 스킬 아이콘
         local skill_icon
