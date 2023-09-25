@@ -350,7 +350,7 @@ function StructDragonObject:getLairStatus()
     local doid = self['id']
     
     -- 내꺼는 전역에서 버프 정보를 얻어옴
-    if doid ~= nil and g_dragonsData:getDragonDataFromUid(doid) ~= nil then
+    if doid ~= nil and g_dragonsData:getDragonDataFromUidRef(doid) ~= nil then
         l_lair_status_ids = g_lairData:getLairStats()
     else --상대방꺼는 세팅된 정보로 얻어옴
         l_lair_status_ids = self.lair_stats or {}
