@@ -43,7 +43,7 @@ UI_CharacterCard = class(PARENT, {
         m_charFrameRes = 'string',
         m_charLevelNumber = 'number',
         m_charSkinIconRes = 'string',
-
+        m_isFriendDragon = 'boolean',
         m_tag = '',
     })
 
@@ -52,6 +52,12 @@ UI_CharacterCard = class(PARENT, {
 -------------------------------------
 function UI_CharacterCard:init(t_dragon_data)
     self.ui_res = 'card_char.ui'
+    self.m_isFriendDragon = false
+    local doid = t_dragon_data['id']
+    if (doid) then
+        self.m_isFriendDragon = g_friendData:checkFriendDragonFromDoid(doid)        
+    end
+
     self:getUIInfo()
 
     self.m_dragonData = t_dragon_data
@@ -399,8 +405,17 @@ end
 function UI_CharacterCard:refresh_LeaderIcon()
     local t_dragon_data = self.m_dragonData
 	local is_leader = t_dragon_data:isLeader()
-	self:setLeaderSpriteVisible(is_leader)
+	self:setLeaderSpriteVisible(self.m_isFriendDragon == false and is_leader)
 end
+
+-------------------------------------
+-- function refresh_FriendIcon
+-- @brief 친구 아이콘 갱신
+-------------------------------------
+function UI_CharacterCard:refresh_FriendIcon()
+	self:setFriendSpriteVisible(self.m_isFriendDragon)
+end
+
 
 -- @ visible 관리
 
@@ -786,13 +801,8 @@ function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop, click_func)
     -- 신화 드래곤 전용 테두리
     --local isMythDragon = (rarity == 'myth')
     --ui:setMythSpriteVisible(isMythDragon)
-
-    -- 친구 드래곤일 경우 친구 마크 추가
-    local doid = t_dragon_data['id']
-    if (doid) then
-        local is_friend_dragon = g_friendData:checkFriendDragonFromDoid(doid)
-        ui:setFriendSpriteVisible(is_friend_dragon)
-    end
+    -- 친구 아이콘
+    ui:refresh_FriendIcon()
     
     -- 클릭시 유저 상세 정보 팝업 출력 하는 경우
 	-- @mskim 18.1.3 사용하는 곳이 없음!
