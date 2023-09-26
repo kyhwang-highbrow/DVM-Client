@@ -25,6 +25,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
 
 import com.android.billingclient.api.QueryPurchasesParams;
+
 import com.perplelab.PerpleSDK;
 import com.perplelab.PerpleSDKCallback;
 import com.perplelab.PerpleLog;
@@ -338,19 +339,23 @@ public class PerpleBilling implements PurchasesUpdatedListener {
 
                                             try {
                                                 JSONObject jitem = new JSONObject(json_str);
+                                                jitem.remove("oneTimePurchaseOfferDetails");
+                                                jitem.remove("localizedIn");
                                                 productDetailsJsonArray.put(jitem);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
+                                                PerpleLog.e(LOG_TAG, "Error getItemList Product String !!!!!!!");
                                             }
 
                                             PerpleLog.e(LOG_TAG, "getItemList Product String : " + json_str);
+
+
                                         }
 
                                         // json 문자열로 info를 전달
                                         // 100개에 해당하는 정보까지 정상동작함을 테스트함 @sgkim 2021.03.17
                                         info = productDetailsJsonArray.toString();
-                                        // e.g. [{"productId":"dvnew_default_1.1k","type":"inapp","price":"₩1,100","price_amount_micros":1100000000,"price_currency_code":"KRW","title":"1100원 상품 (Bubbly Operator)","description":"1100원 상품","skuDetailsToken":"AEuhp4IPSGPiSWeSqp5ik7wMKL5jDf-Dz6G9r8J8r9DrmfF5dOyqfR0QjKfORd5n2QY="},
-                                        // {"productId":"dvnew_default_3.3k","type":"inapp","price":"₩3,300","price_amount_micros":3300000000,"price_currency_code":"KRW","title":"3300원 상품 (Bubbly Operator)","description":"3300원 상품","skuDetailsToken":"AEuhp4JTWyaUFQKsx-DLo25w6nrywVBYepk7gaG9p5NDCbWk721CUajyfu-p4hX7PgY="}]
+                                        // e.g. {"productId":"dvm_3starpack_30k","type":"inapp","title":"3star 패키지 (드래곤빌리지 M)","name":"3star 패키지","description":"3star 패키지 입니다.","localizedIn":["en_US","ko_KR"],"skuDetailsToken":"AEuhp4JSZnDAHYy-xey9Cc8uHI28jMxpkouF7zXstFU9aoDgYs9J1_nIWKRbmJvXtkaF","oneTimePurchaseOfferDetails":{"priceAmountMicros":37000000000,"priceCurrencyCode":"KRW","formattedPrice":"₩37,000"}}
                                         callback.onSuccess(info); // success 콜백
                                         break;
 
