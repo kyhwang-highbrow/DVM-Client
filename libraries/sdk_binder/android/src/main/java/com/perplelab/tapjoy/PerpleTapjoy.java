@@ -84,16 +84,6 @@ public class PerpleTapjoy implements TJPlacementListener {
             PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
             return;
         }
-
-        /*
-        if (mIsTrackPurchase && PerpleSDK.getBillingService() != null) {
-            if (requestCode == PerpleSDK.RC_GOOGLE_PURCHASE_REQUEST ||
-                requestCode == PerpleSDK.RC_GOOGLE_SUBSCRIPTION_REQUEST) {
-                if (resultCode == Activity.RESULT_OK) {
-                    trackPurchase(data);
-                }
-            }
-        }*/
     }
 
     public void setTrackPurchase(boolean isTrackPurchase) {

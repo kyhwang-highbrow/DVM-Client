@@ -930,20 +930,21 @@ public class PerpleSDKLua {
 
     // @tapjoy
     public static void tapjoyEvent(final int funcID, String cmd, String arg0, String arg1) {
-        if (PerpleSDK.getTapjoy() != null) {
-             PerpleSDK.getTapjoy().setEvent(cmd, arg0, arg1);
-        }
+//        if (PerpleSDK.getTapjoy() != null) {
+//             PerpleSDK.getTapjoy().setEvent(cmd, arg0, arg1);
+//        }
     }
 
     // @tapjoy
     public static void tapjoySetTrackPurchase(final int funcID, int flag) {
-        if (PerpleSDK.getTapjoy() != null) {
-            PerpleSDK.getTapjoy().setTrackPurchase(flag == 1);
-        }
+//        if (PerpleSDK.getTapjoy() != null) {
+//            PerpleSDK.getTapjoy().setTrackPurchase(flag == 1);
+//        }
     }
 
     // @tapjoy
     public static void tapjoySetPlacement(final int funcID, String placementName) {
+        /*
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getTapjoy() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "error",
@@ -983,10 +984,12 @@ public class PerpleSDKLua {
             @Override
             public void onDismiss() {}
         });
+         */
     }
 
     // @tapjoy
     public static void tapjoyShowPlacement(final int funcID, String placementName) {
+        /*
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getTapjoy() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "error",
@@ -1022,10 +1025,13 @@ public class PerpleSDKLua {
             @Override
             public void onRewardRequest(String info) {}
         });
+
+         */
     }
 
     // @tapjoy
     public static void tapjoyGetCurrency(final int funcID) {
+        /*
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getTapjoy() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "fail",
@@ -1043,10 +1049,12 @@ public class PerpleSDKLua {
                 PerpleSDK.callSDKResult(pID, funcID, "fail", info);
             }
         });
+         */
     }
 
     // @tapjoy
     public static void tapjoySetEarnedCurrencyCallback(final int funcID) {
+        /*
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getTapjoy() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "error",
@@ -1064,10 +1072,12 @@ public class PerpleSDKLua {
                 PerpleSDK.callSDKResult(pID, funcID, "error", info);
             }
         });
+         */
     }
 
     // @tapjoy
     public static void tapjoySpendCurrency(final int funcID, int amount) {
+        /*
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getTapjoy() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "fail",
@@ -1085,10 +1095,13 @@ public class PerpleSDKLua {
                 PerpleSDK.callSDKResult(pID, funcID, "fail", info);
             }
         });
+
+         */
     }
 
     // @tapjoy
     public static void tapjoyAwardCurrency(final int funcID, int amount) {
+        /*
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getTapjoy() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "fail",
@@ -1106,6 +1119,7 @@ public class PerpleSDKLua {
                 PerpleSDK.callSDKResult(pID, funcID, "fail", info);
             }
         });
+         */
     }
 
     // @google - not assigned

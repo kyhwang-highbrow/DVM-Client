@@ -122,7 +122,7 @@ public class PerpleAdjust {
 
     public void trackEvent(String eventToken) {
         if (!mIsInit) {
-            PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
+            PerpleLog.e(LOG_TAG, "Adjust is not initialized.");
             return;
         }
 

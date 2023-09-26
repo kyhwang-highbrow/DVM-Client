@@ -24,7 +24,7 @@ import com.perplelab.firebase.PerpleCrashlytics;
 import com.perplelab.firebase.PerpleFirebase;
 import com.perplelab.google.PerpleGoogle;
 import com.perplelab.onestore.PerpleOnestore;
-import com.perplelab.tapjoy.PerpleTapjoy;
+//import com.perplelab.tapjoy.PerpleTapjoy;
 import com.perplelab.twitter.PerpleTwitter;
 import com.perplelab.adjust.PerpleAdjust;
 import com.perplelab.xsolla.PerpleXsolla;
@@ -148,7 +148,7 @@ public class PerpleSDK {
     private PerpleGoogle mGoogle;
     private PerpleFacebook mFacebook;
     private PerpleTwitter mTwitter;
-    private PerpleTapjoy mTapjoy;
+    //private PerpleTapjoy mTapjoy;
     private PerpleAdjust mAdjust;
     private SdkBinderAdMob mAdMob;
     private PerpleXsolla mXsolla;
@@ -282,8 +282,8 @@ public class PerpleSDK {
 
     // @tapjoy
     public void initTapjoy(String appKey, String senderId, boolean isDebug) {
-        mTapjoy = new PerpleTapjoy();
-        mTapjoy.init(appKey, senderId, isDebug);
+        //mTapjoy = new PerpleTapjoy();
+        //mTapjoy.init(appKey, senderId, isDebug);
     }
 
     // @Adjust
@@ -315,11 +315,6 @@ public class PerpleSDK {
     }
 
     public void onStart() {
-        // @tapjoy
-        if (mTapjoy != null) {
-            mTapjoy.onStart();
-        }
-
         // @firebase
         if (mFirebase != null) {
             mFirebase.onStart();
@@ -327,11 +322,6 @@ public class PerpleSDK {
     }
 
     public void onStop() {
-        // @tapjoy
-        if (mTapjoy != null) {
-            mTapjoy.onStop();
-        }
-
         // @firebase
         if (mFirebase != null) {
             mFirebase.onStop();
@@ -398,11 +388,6 @@ public class PerpleSDK {
             mBilling.onActivityResult(requestCode, resultCode, data);
         }
 
-        // @tapjoy
-        if (mTapjoy != null) {
-            mTapjoy.onActivityResult(requestCode, resultCode, data);
-        }
-
         // @google
         if (mGoogle != null) {
             mGoogle.onActivityResult(requestCode, resultCode, data);
@@ -466,11 +451,6 @@ public class PerpleSDK {
     // @twitter
     public static PerpleTwitter getTwitter() {
         return getInstance().mTwitter;
-    }
-
-    // @tapjoy
-    public static PerpleTapjoy getTapjoy() {
-        return getInstance().mTapjoy;
     }
 
     // @Adjust
