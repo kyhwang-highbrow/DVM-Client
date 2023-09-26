@@ -8,6 +8,7 @@
 
 #import "PerpleTapjoy.h"
 
+/*
 @implementation PerpleTapjoy
 
 #pragma mark - Properties
@@ -422,4 +423,6 @@ didRequestPurchase:(TJActionRequest *)request
     }
 }
 
+ 
 @end
+ */

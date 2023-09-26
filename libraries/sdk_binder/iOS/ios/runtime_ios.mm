@@ -443,16 +443,19 @@ void twitterComposeTweet(int funcID, const char* filePath) {
 #pragma mark - Tapjoy
 
 void tapjoyEvent(int funcID, const char* cmd, const char* arg0, const char* arg1) {
+    /*
     [[PerpleSDK sharedInstance] tapjoyEvent:[NSString stringWithUTF8String:cmd]
                                      param1:[NSString stringWithUTF8String:arg0]
                                      param2:[NSString stringWithUTF8String:arg1]];
+     */
 }
 
 void tapjoySetTrackPurchase(int funcID, int flag) {
-    [[PerpleSDK sharedInstance] tapjoySetTrackPurchase:(flag == 1)];
+    //[[PerpleSDK sharedInstance] tapjoySetTrackPurchase:(flag == 1)];
 }
 
 void tapjoySetPlacement(int funcID, const char* placementName) {
+    /*
     // success / fail / ready / purchase / reward / error
     const int processId = [PerpleSDK getProcessId];
     [[PerpleSDK sharedInstance] tapjoySetPlacement:[NSString stringWithUTF8String:placementName]
@@ -461,10 +464,12 @@ void tapjoySetPlacement(int funcID, const char* placementName) {
                                                 PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
                                             }
                                         }];
+     */
 }
 
 void tapjoyShowPlacement(int funcID, const char* placementName) {
     // show / wait / dismiss / error
+    /*
     const int processId = [PerpleSDK getProcessId];
     [[PerpleSDK sharedInstance] tapjoyShowPlacement:[NSString stringWithUTF8String:placementName]
                                          completion:^(NSString *result, NSString *info) {
@@ -472,30 +477,36 @@ void tapjoyShowPlacement(int funcID, const char* placementName) {
                                                  PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
                                              }
                                          }];
+     */
 }
 
 void tapjoyGetCurrency(int funcID) {
     // success / fail
+    /*
     const int processId = [PerpleSDK getProcessId];
     [[PerpleSDK sharedInstance] tapjoyGetCurrencyWithCompletion:^(NSString *result, NSString *info) {
         if ([PerpleSDK isCurrentProcessId:processId]) {
             PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
         }
     }];
+     */
 }
 
 void tapjoySetEarnedCurrencyCallback(int funcID) {
     // earn / error
+    /*
     const int processId = [PerpleSDK getProcessId];
     [[PerpleSDK sharedInstance] tapjoySetEarnedCurrencyCallback:^(NSString *result, NSString *info) {
         if ([PerpleSDK isCurrentProcessId:processId]) {
             PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
         }
     }];
+     */
 }
 
 void tapjoySpendCurrency(int funcID, int amount) {
     // success / fail
+    /*
     const int processId = [PerpleSDK getProcessId];
     [[PerpleSDK sharedInstance] tapjoySpendCurrency:amount
                                          completion:^(NSString *result, NSString *info) {
@@ -503,10 +514,12 @@ void tapjoySpendCurrency(int funcID, int amount) {
                                                  PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
                                              }
                                          }];
+     */
 }
 
 void tapjoyAwardCurrency(int funcID, int amount) {
     // success / fail
+    /*
     const int processId = [PerpleSDK getProcessId];
     [[PerpleSDK sharedInstance] tapjoyAwardCurrency:amount
                                          completion:^(NSString *result, NSString *info) {
@@ -514,6 +527,7 @@ void tapjoyAwardCurrency(int funcID, int amount) {
                                                  PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
                                              }
                                          }];
+     */
 }
 
 #pragma mark - Google

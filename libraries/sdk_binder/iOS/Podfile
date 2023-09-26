@@ -53,8 +53,8 @@ target 'sdk_binder' do
     #pod 'AdBrix', '= 2.2.8'
     # @sgkim 20190919 adbrix 정책 변경으로 인해 더이상 사용하지 않게되어 제거
 
-    # Pods for Tapjoy
-    pod 'TapjoySDK'
+    # @kyhwang 20230926 tapjoy analytics 지원 중단으로 인해 제거
+    # pod 'TapjoySDK'
     # Pods for Adjust
     pod 'Adjust', '4.29.6'
 end

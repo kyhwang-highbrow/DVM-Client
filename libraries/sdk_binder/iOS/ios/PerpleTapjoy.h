@@ -6,6 +6,7 @@
 //  Copyright © 2016년 PerpleLab. All rights reserved.
 //
 
+/*
 #import <Foundation/Foundation.h>
 #import <Tapjoy/Tapjoy.h>
 #import <Tapjoy/TJPlacement.h>
@@ -72,3 +73,4 @@
 - (void) payment:(SKPaymentTransaction *)transaction product:(SKProduct *)product;
 
 @end
+*/

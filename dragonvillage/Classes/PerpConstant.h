@@ -26,7 +26,7 @@
 
 // START
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#define APP_VER 143
+#define APP_VER 144
 #define TARGET_SERVER SERVER_LIVE
 #define USE_PATCH true
 #define USE_OBB false

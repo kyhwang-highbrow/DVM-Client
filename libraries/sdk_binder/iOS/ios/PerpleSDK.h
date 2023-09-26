@@ -124,7 +124,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @property (nonatomic, retain) PerpleGoogle *mGoogle;
 @property (nonatomic, retain) PerpleFacebook *mFacebook;
 @property (nonatomic, retain) PerpleTwitter *mTwitter;
-@property (nonatomic, retain) PerpleTapjoy *mTapjoy;
+//@property (nonatomic, retain) PerpleTapjoy *mTapjoy;
 @property (nonatomic, retain) PerpleGameCenter *mGameCenter;
 //@property (nonatomic, retain) PerpleUnityAds *mUnityAds;
 //@property (nonatomic, retain) PerpleAdColony *mAdColony;

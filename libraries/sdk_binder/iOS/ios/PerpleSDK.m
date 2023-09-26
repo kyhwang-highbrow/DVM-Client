@@ -11,7 +11,7 @@
 #import "PerpleGoogle.h"
 #import "PerpleFacebook.h"
 #import "PerpleTwitter.h"
-#import "PerpleTapjoy.h"
+//#import "PerpleTapjoy.h"
 #import "PerpleGameCenter.h"
 //#import "PerpleUnityAds.h"
 //#import "PerpleAdColony.h"
@@ -37,7 +37,7 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
 @synthesize mGoogle;
 @synthesize mFacebook;
 @synthesize mTwitter;
-@synthesize mTapjoy;
+//@synthesize mTapjoy;
 @synthesize mGameCenter;
 //@synthesize mUnityAds;
 //@synthesize mAdColony;
@@ -704,7 +704,7 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
         [self.mTwitter composeTweet:imageUri completion:callback];
     }
 }
-
+/*
 - (void) tapjoyEvent:(NSString *)cmd
               param1:(NSString *)param1
               param2:(NSString *)param2 {
@@ -788,6 +788,7 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     [self.mTapjoy awardCurrencyWithAmount:amount
                                completion:callback];
 }
+ */
 
 - (void) googleLogin:(PerpleSDKCallback)callback {
     if (self.mGoogle == nil) {
@@ -1195,12 +1196,14 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
 - (BOOL) initTapjoyWithAppKey:(NSString *)appKey
                       usePush:(BOOL)isUsePush
                         debug:(BOOL)isDebug {
-    self.mTapjoy = [[PerpleTapjoy alloc] initWithAppKey:appKey
+    /*self.mTapjoy = [[PerpleTapjoy alloc] initWithAppKey:appKey
                                                 usePush:isUsePush
                                                   debug:isDebug];
     if (self.mTapjoy == nil) {
         return NO;
     }
+     */
+    
     return YES;
 }
 
@@ -1276,7 +1279,7 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     self.mGoogle = nil;
     self.mFacebook = nil;
     self.mTwitter = nil;
-    self.mTapjoy = nil;
+    //self.mTapjoy = nil;
     self.mGameCenter = nil;
     //self.mUnityAds = nil;
     //self.mAdColony = nil;
@@ -1604,9 +1607,11 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
 
 // AppDelegate
 - (void) applicationWillEnterForeground:(UIApplication *)application {
+    /*
     if (self.mTapjoy != nil) {
         [self.mTapjoy applicationWillEnterForeground:application];
     }
+     */
 }
 
 // AppDelegate
@@ -1615,9 +1620,11 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
         [self.mFirebase applicationDidEnterBackground:application];
     }
 
+    /*
     if (self.mTapjoy != nil) {
         [self.mTapjoy applicationDidEnterBackground:application];
     }
+     */
 }
 
 // AppDelegate
@@ -1685,9 +1692,11 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
         [self.mFirebase application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
     }
 
+    /*
     if (self.mTapjoy != nil) {
         [self.mTapjoy application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
     }
+     */
 }
 
 // AppDelegate, Push notifications
@@ -1703,16 +1712,20 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
         [self.mFirebase application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
     }
 
+    /*
     if (self.mTapjoy != nil) {
         [self.mTapjoy application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
     }
+     */
 }
 
 - (void)payment:(SKPaymentTransaction *)transaction
         product:(SKProduct *)product {
+    /*
     if (self.mTapjoy != nil) {
         [self.mTapjoy payment:transaction product:product];
     }
+     */
 }
 
 //----------------------------------------------------------------------------------------------------
