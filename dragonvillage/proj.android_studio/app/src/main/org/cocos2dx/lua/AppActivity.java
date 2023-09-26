@@ -130,7 +130,7 @@ public class AppActivity extends Cocos2dxActivity{
         }
 
         // @tapjoy
-        perpleSdkInstance.initTapjoy(PerpleConfig.TAPJOY_SDK_KEY, "", isDebug);
+        // perpleSdkInstance.initTapjoy(PerpleConfig.TAPJOY_SDK_KEY, "", isDebug);
 
         // @adjust
         perpleSdkInstance.initAdjust(PerpleConfig.ADJUST_TOKKEN_ID, PerpleConfig.ADJUST_SECRET_KEY, isDebug);
