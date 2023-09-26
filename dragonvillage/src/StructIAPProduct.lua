@@ -19,6 +19,10 @@ StructIAPProduct = class(PARENT, {
     price_currency_code = 'string', -- e.g. 'KRW'
     name = 'string', -- e.g. "1,100원 캐시 상품"
 
+    -- 아래는 안드로이드에서 넘어오는 파싱 데이터인데 안씀(참고용으로 남겨둠)
+    oneTimePurchaseOfferDetails = 'Table', -- {"priceAmountMicros":37000000000,"priceCurrencyCode":"KRW","formattedPrice":"₩37,000"}
+    localizedIn = 'List', -- ["en_US","ja_JP","ko_KR","zh_TW"]
+
     -- android e.g.
     --{
     --    ['skuDetailsToken']='AEuhp4KgGu-Ibs03LV6HOsl-jf8B9pEHlmG6ly1AEG_GPr3CV0wMekvW53Rf9g6hweZx';
