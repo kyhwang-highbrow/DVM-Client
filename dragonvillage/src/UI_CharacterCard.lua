@@ -53,9 +53,9 @@ UI_CharacterCard = class(PARENT, {
 function UI_CharacterCard:init(t_dragon_data)
     self.ui_res = 'card_char.ui'
     self.m_isFriendDragon = false
-    local doid = t_dragon_data['id']
+    local doid = t_dragon_data and t_dragon_data['id'] or nil
     if (doid) then
-        self.m_isFriendDragon = g_friendData:checkFriendDragonFromDoid(doid)        
+        self.m_isFriendDragon = g_friendData:checkFriendDragonFromDoid(doid)
     end
 
     self:getUIInfo()
