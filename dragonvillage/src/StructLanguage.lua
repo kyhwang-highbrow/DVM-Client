@@ -81,7 +81,6 @@ function StructLanguage:patchLanguageMap()
                 end
             end
         end
-    
     end
 
     return language_map

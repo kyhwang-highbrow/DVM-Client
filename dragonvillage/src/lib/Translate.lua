@@ -169,14 +169,17 @@ function Translate:a2dTranslate(full_path)
     path = string.gsub(path,'res\\','')
     local typo_plist_path = string.format('res/%stypo/%s/%s.plist', path, game_lang, file_name)
 
-    -- 번역본 텍스트가 없을 경우 ko버전으로 나오도록 처리
+    -- 번역본 텍스트가 없을 경우 en버전으로 나오도록 처리
     if (not LuaBridge:isFileExist(typo_plist_path)) then
-        typo_plist_path = string.format('res/%stypo/ko/%s.plist', path, file_name)
+        typo_plist_path = string.format('res/%stypo/en/%s.plist', path, file_name)
         if (not LuaBridge:isFileExist(typo_plist_path)) then
-            return
+            -- 그래도 번역본 텍스트가 없을 경우 ko버전으로 나오도록 처리
+            typo_plist_path = string.format('res/%stypo/ko/%s.plist', path, file_name)
+            if (not LuaBridge:isFileExist(typo_plist_path)) then
+                return
+            end
         end
     end
-
     -- plist 등록
     cc.SpriteFrameCache:getInstance():addSpriteFrames(typo_plist_path)
 end
@@ -203,11 +206,16 @@ function Translate:getTranslatedPath(full_path)
     -- 대상 언어의 경로로 변환
 	local game_lang = self:getGameLang()
 	local translated_path = string.gsub(full_path, 'typo/ko', 'typo/' .. game_lang)
+    local translated_sub_path = string.gsub(full_path, 'typo/ko', 'typo/' .. 'en')
 
     -- 해당 경로에 파일이 없다면 기존 경로를 반환
 	if (string.find(full_path, 'res/') == nil and not LuaBridge:isFileExist('res/' .. translated_path)) then
+        -- 없으면 영어쪽 경로를 찾아서 있으면 반환
+        if LuaBridge:isFileExist('res/' .. translated_sub_path) == true then
+            return translated_sub_path
+        end
+
         cclog('do not exist translated png : ' .. full_path)
-        cclog('translated_path : ' .. translated_path )
 		return full_path
 	end
     
