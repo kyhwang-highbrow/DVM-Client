@@ -66,8 +66,6 @@ function UI_LanguagePopup:initTableView()
             selected_idx = idx
         end
 
-        ui.vars['offLabel2']:setString(idx)
-
         idx = idx + 1        
         ui.vars['onBtn']:setVisible((is_selected == true))   
         ui.vars['offBtn']:setVisible((is_selected == false))
@@ -75,7 +73,6 @@ function UI_LanguagePopup:initTableView()
     end
     
     local table_view = UIC_TableViewTD(node)
-
     table_view.m_nItemPerCell = 4
     --table_view.m_marginFinish = 200
     --table_view.m_refreshDuration = 0
@@ -140,7 +137,7 @@ function UI_LanguagePopup:click_langBtn(struct_lang)
         g_localData:setLang(after_lang)
 
         if (self.m_needRestart == true) then
-            Application:getInstance():restart()
+            CppFunctions:restart()
         else
             Translate:load(after_lang)
             self:click_closeBtn()
