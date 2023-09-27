@@ -46,13 +46,13 @@ function TableMastery:getRequiredAmorQuantity(dragon_rarity, mastery_lv)
         key = 4000
 
     else
-        return 0
+        return 0, 0
     end
 
     key = (key + mastery_lv)
     local package_item_str = self:getValue(key, 'price')
     if (not package_item_str) then
-        return 0
+        return 0, 0
     end
 
 
