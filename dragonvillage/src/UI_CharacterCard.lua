@@ -53,10 +53,6 @@ UI_CharacterCard = class(PARENT, {
 function UI_CharacterCard:init(t_dragon_data)
     self.ui_res = 'card_char.ui'
     self.m_isFriendDragon = false
-    local doid = t_dragon_data and t_dragon_data['id'] or nil
-    if (doid) then
-        self.m_isFriendDragon = g_friendData:checkFriendDragonFromDoid(doid)
-    end
 
     self:getUIInfo()
 
@@ -86,6 +82,11 @@ function UI_CharacterCard:refreshDragonInfo()
     local did = t_dragon_data['did']
     local attr = t_dragon_data:getAttr()
     local rarity = TableDragon:getValue(did, 'rarity')
+    self.m_isFriendDragon = false
+    local doid = t_dragon_data['id'] or nil
+    if (doid) then
+        self.m_isFriendDragon = g_friendData:checkFriendDragonFromDoid(doid)
+    end
 
     -- 속성 따른 배경 이미지
     self:makeBg(attr)
