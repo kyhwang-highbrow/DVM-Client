@@ -669,6 +669,10 @@ end
 -- function changeStageID
 -------------------------------------
 function UI_AdventureStageInfo:changeStageID(stage_id)
+    if stage_id == nil then
+        return
+    end
+
     if (self.m_stageID == stage_id) then
         return
     end
