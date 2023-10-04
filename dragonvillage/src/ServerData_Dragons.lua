@@ -986,7 +986,7 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
 
     -- 리더로 설정된 드래곤인지 체크
     if self:isLeaderDragon(doid) then
-        return false, Str('대표드래곤으로 설정된 드래곤입니다.')
+        return false, Str('대표 드래곤으로 설정된 드래곤입니다.')
     end
 
     -- 콜로세움 정보 확인
