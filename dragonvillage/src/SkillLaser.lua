@@ -6,6 +6,7 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 SkillLaser = class(PARENT, {
         m_linkEffect = '',  -- 레이저의 그래픽 리소스
         m_laserDir = '',
+        m_fireDistance = '', -- 드래곤과 발사 지점 사이의 거리 설정
 
         m_limitTime = '',
 
@@ -78,7 +79,7 @@ end
 -- function makeLaserLinkEffect
 -------------------------------------
 function SkillLaser:makeLaserLinkEffect(file_name)
-    local link_effect = EffectLink(file_name, nil, nil, nil, nil, nil, nil, self.m_owner:getAttribute()) 
+    local link_effect = EffectLink(file_name, nil, nil, nil, nil, nil, nil, self.m_owner:getAttribute(), self.m_fireDistance) 
 
     link_effect.m_bRotateEndEffect = false
 
@@ -225,7 +226,14 @@ function SkillLaser:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
+    local fire_distance = nil
+
+    if tonumber(t_skill['res_2']) ~= nil then
+        fire_distance = tonumber(t_skill['res_2'])
+    end
+
 	local hit = t_skill['hit']
+
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------	
@@ -233,6 +241,7 @@ function SkillLaser:makeSkillInstance(owner, t_skill, t_data)
     local skill = SkillLaser(nil)
 
 	-- 2. 초기화 관련 함수
+    skill.m_fireDistance = fire_distance
 	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(missile_res, hit)
 	skill:initState()

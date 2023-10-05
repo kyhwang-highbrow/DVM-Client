@@ -15,14 +15,14 @@ EffectLink = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function EffectLink:init(res, bar_visual, start_visual, end_visual, width, height, is_repeat, attr)
+function EffectLink:init(res, bar_visual, start_visual, end_visual, width, height, is_repeat, attr, fire_distance)
     local bar_visual = (bar_visual or 'bar_appear')
     local start_visual = (start_visual or 'start_appear')
     local end_visual = (end_visual or 'end_appear')
+    local fire_distance = fire_distance or 0
 
-    local width = (width or 320)
-    local height = (height or 300)
-
+    local width = (width or 600)
+    local height = (height or 600)
     local is_repeat = (is_repeat ~= nil) and is_repeat or true
 
     self.m_width = width
@@ -48,15 +48,15 @@ function EffectLink:init(res, bar_visual, start_visual, end_visual, width, heigh
     self.m_clippingNode:setStencil(self.m_stencil)
 
     -- effect
-    self.m_effectNode = self:createWithParent(self.m_clippingNode, 0, 0, 0, res, bar_visual, is_repeat, attr)
+    self.m_effectNode = self:createWithParent(self.m_clippingNode, 0, fire_distance, 0, res, bar_visual, is_repeat, attr)
     self.m_effectNode.m_node:setAnchorPoint(cc.p(0.5, 0))
 
     -- start
-    self.m_startPointNode = self:createWithParent(self.m_node, 0, 0, 0, res, start_visual, is_repeat, attr)
+    self.m_startPointNode = self:createWithParent(self.m_node, 0, fire_distance, 0, res, start_visual, is_repeat, attr)
     self.m_startPointNode.m_node:setAnchorPoint(cc.p(0.5, 0.5))
 
     -- end
-    self.m_endPointNode = self:createWithParent(self.m_node, 0, 0, 0, res, end_visual, is_repeat, attr)
+    self.m_endPointNode = self:createWithParent(self.m_node, 0, fire_distance, 0, res, end_visual, is_repeat, attr)
     self.m_endPointNode.m_node:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_endPointNode.m_node:setPositionY(height)
 
