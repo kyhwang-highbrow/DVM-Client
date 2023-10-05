@@ -226,7 +226,8 @@ function AnimatorHelper:getTitleAnimator(is_first_enter)
 	local lang = g_localData:getLang()
 
 	local res
-	if (lang == 'ja') then
+    -- bi 로고와 타이틀 스파인이 분리되어 아래 코드 쓰이지 않음 23.10.05 kyhwang
+--[[ 	if (lang == 'ja') then
 		res = 'res/ui/spine/title_ja/title_ja.spine'
 	elseif (lang == 'zh') then
 		res = 'res/ui/spine/title_zh/title_zh.spine'
@@ -234,14 +235,15 @@ function AnimatorHelper:getTitleAnimator(is_first_enter)
 		res = 'res/ui/spine/title_th/title_th.spine'
 	elseif (lang == 'es') then
 		res = 'res/ui/spine/title_es/title_es.spine'
-	else
-        if (self:isSameDate('04', '01') and not is_first_enter) then
-            res = 'res/ui/spine/title_april_fool/title.spine'
-        else
-            res = 'res/ui/spine/title/title.spine'
-        end
-	end
+	else ]]
+        
+    if (self:isSameDate('04', '01') and not is_first_enter) then
+        res = 'res/ui/spine/title_april_fool/title.spine'
+    else
+        res = 'res/ui/spine/title/title.spine'
+    end
 
+	--end
 	local animator = MakeAnimator(res)
 
     -- 2018.08.24 sgkim 추가 해상도 대응
