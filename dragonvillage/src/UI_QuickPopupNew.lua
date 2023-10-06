@@ -191,16 +191,11 @@ function UI_QuickPopupNew:checkLockContent(l_content)
             end)
 
             if content == 'story_dungeon' then
-                local season_id, code = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
+                local season_id, _ = g_eventDragonStoryDungeon:getStoryDungeonSeasonId()
                 local season_name = TableStoryDungeonEvent:getStoryDungeonEventName(season_id)
 
-                if season_name ~= nil then
-                    code = string.format('%sNode', code)
+                if season_name ~= nil then                    
                     vars['dungeonLabel']:setString(season_name)
-                end
-
-                if vars[code] ~= nil then
-                    vars[code]:setVisible(true)
                 end
             end
         end
