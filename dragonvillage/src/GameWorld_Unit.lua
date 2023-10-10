@@ -335,12 +335,19 @@ function GameWorld:makeFriendHero(_deck_name)
     self.m_friendDragon = self:makeDragonNew(t_dragon_data, is_right, status_calc)   
 
     if (self.m_friendDragon) then
+        local _, _, _, leader = g_deckData:getDeck()
         self.m_friendDragon:setActive(false)
 
         self.m_worldNode:addChild(self.m_friendDragon.m_rootNode, WORLD_Z_ORDER.HERO)        
         if (slot_idx) then
             self:joinFriendHero(slot_idx)
             self.m_bUsedFriend = true
+        end
+
+        -- 친구 리더 버프 적용
+        if leader == slot_idx then
+            cclog('친구 리더 버프 적용 !!!!!')
+            self.m_mUnitGroup[PHYS.HERO]:setLeader(self.m_friendDragon)
         end
     end
 end
