@@ -53,8 +53,19 @@ void ReloadLuaHelper::onEnter()
             _spine->setAnimation(0, "02_scene_replace", true);
             _spine->setToSetupPose();
             _spine->update(0);
-            this->addChild(_spine);
+            this->addChild(_spine);                  
+            this->setOpacity(0);
+
+            auto* sprite = Sprite::create("res/ui/typo/en/title_dvm_bi.png");
+            //sprite->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
+            sprite->setScale(1.1f, 1.1f);
+            sprite->setAnchorPoint(Vec2(1.f, 0.f));
+            sprite->setDockPoint(Vec2(1.f, 0.f));
+            sprite->setPosition(52, 44);
+            this->addChild(sprite);
         }
+
+        
 
         /*
         // 타이틀 화면이 PNG에서 A2D(vrp)로 변경되어 교체
@@ -78,6 +89,8 @@ void ReloadLuaHelper::onEnter()
             this->addChild(sprite);
         }
         */
+
+        
 	}
 
     CallFunc *runCallback = CallFunc::create(CC_CALLBACK_0(ReloadLuaHelper::run, this));
@@ -116,6 +129,27 @@ void ReloadLuaHelper::run()
         pDelegate->startLuaScript("entry_main.lua"); break;
     }
 }
+
+void ReloadLuaHelper::purgeEngine()
+{
+    // 각종 Cache정리, 사운드 정지
+    Director::getInstance()->getScheduler()->unscheduleAllWithMinPriority(Scheduler::PRIORITY_NON_SYSTEM_MIN);
+    Director::getInstance()->getTextureCache()->removeAllTextures();
+    SpriteFrameCache::getInstance()->removeSpriteFrames();
+    SimpleAudioEngine::end();
+
+    AzVRP::removeCacheAll();
+    SkeletonAnimation::removeCacheAll();
+    FileUtils::getInstance()->purgeCachedEntries();
+
+    // Label Fallback폰트 정리
+    cocos2d::Label::resetDefaultFallbackFontTTF();
+
+    AppDelegate* pDelegate = (AppDelegate*)Application::getInstance();
+    pDelegate->initLuaEngine();
+    pDelegate->startLuaScript("entry_main.lua");
+}
+
 
 AppDelegate::AppDelegate()
 {

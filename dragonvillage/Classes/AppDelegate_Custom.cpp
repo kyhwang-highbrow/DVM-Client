@@ -266,8 +266,12 @@ static int l_restart(lua_State* L)
 
 static int l_finishPatch(lua_State* L)
 {
-    auto scene = ReloadLuaHelper::create(ReloadLuaHelper::ENTRY_TITLE);
-    Director::getInstance()->replaceScene(scene);
+    //Director::getInstance()->replaceScene(scene);
+    auto* scene = ReloadLuaHelper::create(ReloadLuaHelper::ENTRY_TITLE);
+    CallFunc* runCallback = CallFunc::create(CC_CALLBACK_0(ReloadLuaHelper::purgeEngine, scene));
+    //scene->run();
+    //this->runAction(Sequence::create(DelayTime::create(0.001), runCallback, nullptr));
+    Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0.01f), runCallback, nullptr));
 
 	return 0;
 }
