@@ -256,4 +256,15 @@ void FontAtlasCache::resetDefaultFallbackFontTTF()
 }
 
 
+void FontAtlasCache::addFallbackFontTTF(const std::string& fontName, const std::string& fallbackFontName)
+{
+    FontFreeType::addFallbackFont(fontName, fallbackFontName);
+}
+
+void FontAtlasCache::resetFallbackFontTTF()
+{
+    FontFreeType::resetFallbackFont();
+}
+
+
 NS_CC_END

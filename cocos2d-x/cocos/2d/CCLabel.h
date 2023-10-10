@@ -443,6 +443,13 @@ private:
     CC_DISALLOW_COPY_AND_ASSIGN(Label);
 
     friend class LabelTextFormatter;
+
+
+public:
+    /* set default common fallback font name of all the label */
+    static void addFallbackFontTTF(const std::string& fontName, const std::string& fallbackFontName);
+    /* reset default common fallback font name of all the label */
+    static void resetFallbackFontTTF();
 };
 
 

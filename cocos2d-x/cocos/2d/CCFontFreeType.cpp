@@ -55,15 +55,26 @@ typedef struct _DataRef
 
 static std::unordered_map<std::string, DataRef> s_cacheFontData;
 static std::unordered_map<std::string, std::string> s_fallbackFontNames;
+static std::multimap<std::string, std::string> s_fallbackFontNameMultiMap;
 
 void FontFreeType::setFallbackFont(const std::string &fontName, const std::string &fallbackFontName)
 {
-	s_fallbackFontNames[fontName] = fallbackFontName;
+	//s_fallbackFontNames[fontName] = fallbackFontName;
+    addFallbackFont(fontName, fallbackFontName);
 }
 
 void FontFreeType::resetFallbackFont()
 {
 	s_fallbackFontNames.clear();
+    s_fallbackFontNameMultiMap.clear();
+}
+
+/**
+ * Add Fallback Font Name
+ */
+void FontFreeType::addFallbackFont(const std::string& fontName, const std::string& fallbackFontName)
+{
+    s_fallbackFontNameMultiMap.insert(std::pair<std::string, std::string>(fontName, fallbackFontName));
 }
 
 // @emoji
@@ -233,6 +244,8 @@ FT_Face FontFreeType::getFontObject(const std::string &fontName, int fontSize)
     return face;
 }
 
+
+
 FontFreeType::~FontFreeType()
 {
     if (_stroker)
@@ -246,6 +259,8 @@ FontFreeType::~FontFreeType()
 		releaseFontCache(_fontName);
 	}
 
+
+    /*
 	std::string fontName = _fontName;
 	while (!fontName.empty())
 	{
@@ -268,6 +283,32 @@ FontFreeType::~FontFreeType()
 			fontName.clear();
 		}
 	}
+    */
+
+    releaseFallbackFontRefs();
+}
+
+void FontFreeType::releaseFont(const std::string& fontName)
+{
+    auto item = s_cacheFontData.begin();
+    while (s_cacheFontData.end() != item)
+    {
+        if (item->first.find(fontName) != std::string::npos)
+            item = s_cacheFontData.erase(item);
+        else
+            item++;
+    }
+}
+
+/**
+ * Release Font ref map
+ */
+void FontFreeType::releaseFallbackFontRefs()
+{
+    for (auto iter = _fallbackFontRefMultiMap.begin(); iter != _fallbackFontRefMultiMap.end(); iter++) {
+        FT_Done_Face(iter->second.FontRef);
+        releaseFont(iter->second.FontName);
+    }
 }
 
 void FontFreeType::releaseFontCache(const std::string &fontName)
@@ -739,34 +780,41 @@ FT_UInt FontFreeType::getCharGlyphIndex(FT_Face &fontRef, unsigned int theChar)
 		return glyphIndex;
 	}
 
-	std::string fontName = _fontName;
-    for (auto it = s_fallbackFontNames.begin(); it != s_fallbackFontNames.end(); ++it)
-	{
-        fontName = it->second;
+    // 이하는 기본 폰트에서 글자를 못찾아 fallback font 탐색을 시도
 
-        auto it2 = _fallbackFontRefs.find(fontName);
-        if (it2 != _fallbackFontRefs.end())
-        {
-            fontRef = it2->second;
-        }
-        else
-        {
-            fontRef = getFontObject(fontName, _fontSize);
-            if (fontRef)
-            {
-                _fallbackFontRefs[fontName] = fontRef;
+    // fallback font name을 순회하며 fallback font ret 체크, 없으면 생성 있으면 get glyph 시도
+    auto equalRange = s_fallbackFontNameMultiMap.equal_range(_fontName);
+    for (auto iter = equalRange.first; iter != equalRange.second; iter++) {
+        std::string fallbackFontName = iter->second;
+        FT_Face fallbackFontRef = nullptr;
+
+        // 생성된 font ref 있는지 탐색
+        auto equalRange2 = _fallbackFontRefMultiMap.equal_range(_fontName);
+        for (auto iter2 = equalRange2.first; iter2 != equalRange2.second; iter2++) {
+            if (iter2->second.FontName == fallbackFontName) {
+                fallbackFontRef = iter2->second.FontRef;
             }
         }
 
-        if (fontRef)
+        // font 못찾은 것이니 생성
+        if (fallbackFontRef == nullptr) {
+            fallbackFontRef = getFontObject(fallbackFontName, _fontSize);
+            if (fallbackFontRef)
+                _fallbackFontRefMultiMap.insert(std::pair<std::string, FallbackFont>(_fontName, FallbackFont(fallbackFontName, fallbackFontRef)));
+            else
+                CCLOG("[FallbackFont] Failed to create font : %s", fallbackFontName.c_str());
+        }
+
+        // fallbackFontRef가 있으면 glyph 탐색, 0이면 다른 fallback font 시도
+        if (fallbackFontRef != nullptr)
         {
-            auto glyphIndex = FT_Get_Char_Index(fontRef, theChar);
-            if (glyphIndex != 0)
-            {
+            glyphIndex = FT_Get_Char_Index(fallbackFontRef, theChar);
+            if (glyphIndex != 0) {
+                fontRef = fallbackFontRef;
                 return glyphIndex;
             }
         }
-	}
+    }
 
     fontRef = nullptr;
     return 0;

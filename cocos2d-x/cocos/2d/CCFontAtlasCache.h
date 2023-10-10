@@ -57,6 +57,11 @@ public:
 private: 
     static std::string generateFontName(const std::string& fontFileName, int size, GlyphCollection theGlyphs, bool useDistanceField);
     static std::unordered_map<std::string, FontAtlas *> _atlasMap;
+
+public:
+    static void addFallbackFontTTF(const std::string& fontName, const std::string& fallbackFontName);
+    static void resetFallbackFontTTF();
+
 };
 
 NS_CC_END

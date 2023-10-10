@@ -5908,6 +5908,71 @@ tolua_lerror:
 	return 0;
 }
 
+static int lua_cocos2dx_Label_addFallbackFontTTF(lua_State* L)
+{
+    if (nullptr == L)
+        return 0;
+
+    int argc = 0;
+
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+    tolua_Error tolua_err;
+    if (!tolua_isusertable(L, 1, "cc.Label", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(L) - 1;
+    if (argc == 2)
+    {
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+        if (!tolua_isstring(L, 2, 0, &tolua_err) ||
+            !tolua_isstring(L, 3, 0, &tolua_err))
+        {
+            goto tolua_lerror;
+        }
+#endif
+        std::string fontName = tolua_tostring(L, 2, "");
+        std::string fallbackFontName = tolua_tostring(L, 3, "");
+
+        cocos2d::Label::addFallbackFontTTF(fontName, fallbackFontName);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "addFallbackFontTTF", argc, 2);
+    return 0;
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+    tolua_lerror:
+    tolua_error(L, "#ferror in function 'lua_cocos2dx_Label_addFallbackFontTTF'.", &tolua_err);
+#endif
+    return 0;
+}
+
+static int lua_cocos2dx_Label_resetFallbackFontTTF(lua_State* L)
+{
+    if (nullptr == L)
+        return 0;
+
+    int argc = 0;
+
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+    tolua_Error tolua_err;
+    if (!tolua_isusertable(L, 1, "cc.Label", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(L) - 1;
+    if (argc == 0)
+    {
+        cocos2d::Label::resetFallbackFontTTF();
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "resetFallbackFontTTF", argc, 0);
+    return 0;
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+    tolua_lerror:
+    tolua_error(L, "#ferror in function 'lua_cocos2dx_Label_resetFallbackFontTTF'.", &tolua_err);
+#endif
+
+    return 0;
+}
+
 static void extendLabel(lua_State* tolua_S)
 {
     lua_pushstring(tolua_S, "cc.Label");
@@ -5922,6 +5987,9 @@ static void extendLabel(lua_State* tolua_S)
         tolua_function(tolua_S, "setSharpTextInCustomStroke", lua_cocos2dx_Label_setSharpTextInCustomStroke);
 		tolua_function(tolua_S, "setDefaultFallbackFontTTF", lua_cocos2dx_Label_setDefaultFallbackFontTTF);
 		tolua_function(tolua_S, "resetDefaultFallbackFontTTF", lua_cocos2dx_Label_resetDefaultFallbackFontTTF);
+        
+        tolua_function(tolua_S, "addFallbackFontTTF", lua_cocos2dx_Label_addFallbackFontTTF);
+        tolua_function(tolua_S, "resetFallbackFontTTF", lua_cocos2dx_Label_resetFallbackFontTTF);
 	}
     lua_pop(tolua_S, 1);
 }

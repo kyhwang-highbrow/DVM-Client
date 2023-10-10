@@ -1683,6 +1683,16 @@ bool Label::isCustomStrokeActivated()
     return ((_strokeType == StrokeType::CUSTOM) && _strokeTexture);
 }
 
+void Label::addFallbackFontTTF(const std::string& fontName, const std::string& fallbackFontName)
+{
+    FontAtlasCache::addFallbackFontTTF(fontName, fallbackFontName);
+}
+
+void Label::resetFallbackFontTTF()
+{
+    FontAtlasCache::resetFallbackFontTTF();
+}
+
 void Label::setAdditionalKerning(float space)
 {
 	CCASSERT(_currentLabelType != LabelType::STRING_TEXTURE, "Not supported system font!");

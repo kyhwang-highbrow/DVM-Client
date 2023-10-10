@@ -47,6 +47,16 @@
 
 
 NS_CC_BEGIN
+struct FallbackFont {
+public:
+    FallbackFont(std::string fontName, FT_Face fontRef) {
+        this->FontName = fontName;
+        this->FontRef = fontRef;
+    }
+    std::string FontName;
+    FT_Face FontRef;
+};
+
 
 class CC_DLL FontFreeType : public Font
 {
@@ -58,6 +68,7 @@ public:
     static void shutdownFreeType();
     static void setFallbackFont(const std::string &fontName, const std::string &fallbackFontName);
 	static void resetFallbackFont();
+    static void addFallbackFont(const std::string& fontName, const std::string& fallbackFontName);
 
     static bool makeUTF32Char(const std::u16string& utf16String, int i, int length, unsigned int &utf32Char); // @emoji
 
@@ -73,10 +84,12 @@ public:
     virtual int           getFontMaxHeight() const override;  
     virtual int           getFontAscender() const;
 
+    static void releaseFont(const std::string& fontName);
 protected:
     
     FontFreeType(bool distanceFieldEnabled = false, int outline = 0);
     virtual ~FontFreeType();
+    void releaseFallbackFontRefs();
     void releaseFontCache(const std::string &fontName);
     bool createFontObject(const std::string &fontName, int fontSize);
     FT_Face getFontObject(const std::string &fontName, int fontSize);
@@ -102,6 +115,7 @@ private:
     bool              _isDualChannelOutput;
 
     std::unordered_map<std::string, FT_Face> _fallbackFontRefs;
+    std::multimap<std::string, FallbackFont> _fallbackFontRefMultiMap;
 };
 
 NS_CC_END
