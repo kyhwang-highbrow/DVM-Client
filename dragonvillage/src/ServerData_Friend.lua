@@ -330,14 +330,14 @@ end
 -- function getParticipationFriendDragon
 -------------------------------------
 function ServerData_Friend:getParticipationFriendDragon(deck_key)
-    local dragon_object, rune_object, slot_idx = 
+    local dragon_object, rune_object, slot_idx, is_leader = 
                 self.m_friendDragonSelector:getParticipationFriendDragon(deck_key or 'adv')
 
     if dragon_object ~= nil then
         self.m_bReleaseDragon = true
     end
     
-    return dragon_object,rune_object,slot_idx
+    return dragon_object, rune_object, slot_idx, is_leader
 end
 
 -------------------------------------
@@ -832,6 +832,23 @@ function ServerData_Friend:makeSettedFriendDragonCard(doid, idx, _deck_key)
         self.m_selectedShareFriendData = self:getFriendInfoFromDoid(self.m_selectedSharedFriendDragon)
     end ]]
 end
+
+-------------------------------------
+-- function setSelectFriendLeaderDragon
+-- @brief 친구 드래곤 리더 드래곤 설정
+-------------------------------------
+function ServerData_Friend:setSelectFriendLeaderDragon(_deck_key, is_leader)
+    self.m_friendDragonSelector:setSelectFriendLeaderDragon(_deck_key or 'adv', is_leader)
+end
+
+-------------------------------------
+-- function isSelectFriendLeaderDragon
+-- @brief 친구 드래곤 리더 드래곤 설정
+-------------------------------------
+function ServerData_Friend:isSelectFriendLeaderDragon(_deck_key)
+    return self.m_friendDragonSelector:isSelectFriendLeaderDragon(_deck_key or 'adv')
+end
+
 
 -------------------------------------
 -- function getFriendDragonSlotIdx

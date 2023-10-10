@@ -70,7 +70,34 @@ function FriendDragonSelector:makeSettedFriendDragonCard(doid, idx, _deck_key)
     struct_battle_select_friend.m_deckSlotIdx = idx
     struct_battle_select_friend.m_deckName = deck_key
     struct_battle_select_friend.m_friendInfo = g_friendData:getFriendInfoFromDoid(doid)
+    struct_battle_select_friend.m_isLeaderDragon = false
     self.m_selectedFriends[deck_key] = struct_battle_select_friend
+end
+
+-------------------------------------
+---@function setSelectFriendLeaderDragon
+-- @brief 친구 드래곤 리더 스킬 세팅
+-------------------------------------
+function FriendDragonSelector:setSelectFriendLeaderDragon(_deck_key, is_leader)
+    local struct_battle_select_friend = self.m_selectedFriends[_deck_key]
+    if struct_battle_select_friend == nil then
+        return
+    end
+
+    struct_battle_select_friend:setSelectFriendLeaderDragon(is_leader)
+end
+
+-------------------------------------
+---@function isSelectFriendLeaderDragon
+-- @brief 친구 드래곤 리더 스킬 세팅
+-------------------------------------
+function FriendDragonSelector:isSelectFriendLeaderDragon(_deck_key)
+    local struct_battle_select_friend = self.m_selectedFriends[_deck_key]
+    if struct_battle_select_friend == nil then
+        return
+    end
+
+    return struct_battle_select_friend:isSelectFriendLeaderDragon()
 end
 
 -------------------------------------
@@ -178,6 +205,7 @@ function FriendDragonSelector:getParticipationFriendDragon(_deck_key)
     local dragon_object = t_friend_info.m_leaderDragonObject
     local rune_object = t_friend_info.m_runesObject
     local slot_idx = struct_battle_select_friend:getSelectFriendDragonSlotIdx()
+    local is_leader = struct_battle_select_friend:isSelectFriendLeaderDragon()
     
-    return dragon_object, rune_object, slot_idx
+    return dragon_object, rune_object, slot_idx, is_leader
 end

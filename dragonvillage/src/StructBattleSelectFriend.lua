@@ -7,6 +7,7 @@ StructBattleSelectFriend = class({
     m_doid = 'string', -- 친구 드래곤 아이디
     m_deckName = 'string', -- 덱 이름
     m_deckSlotIdx = 'number',
+    m_isLeaderDragon = 'boolean', -- 리더드래곤
 })
 
 local THIS = StructBattleSelectFriend
@@ -35,4 +36,19 @@ end
 -------------------------------------
 function StructBattleSelectFriend:getSelectFriendInfo()
     return self.m_friendInfo
+end
+
+-------------------------------------
+---@function isSelectFriendLeaderDragon
+---@return boolean
+-------------------------------------
+function StructBattleSelectFriend:isSelectFriendLeaderDragon()
+    return self.m_isLeaderDragon
+end
+
+-------------------------------------
+---@function setSelectFriendLeaderDragon
+-------------------------------------
+function StructBattleSelectFriend:setSelectFriendLeaderDragon(is_leader)
+    self.m_isLeaderDragon = is_leader
 end

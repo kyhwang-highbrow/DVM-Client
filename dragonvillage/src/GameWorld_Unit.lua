@@ -326,7 +326,7 @@ function GameWorld:makeFriendHero(_deck_name)
         return
     end
 
-    local t_dragon_data, l_runes_data, slot_idx = g_friendData:getParticipationFriendDragon(_deck_name or 'adv')
+    local t_dragon_data, l_runes_data, slot_idx, is_leader = g_friendData:getParticipationFriendDragon(_deck_name or 'adv')
     if (not t_dragon_data) then return end
 
     local status_calc = g_friendData:makeFriendDragonStatusCalculator(t_dragon_data, l_runes_data)
@@ -345,8 +345,7 @@ function GameWorld:makeFriendHero(_deck_name)
         end
 
         -- 친구 리더 버프 적용
-        if leader == slot_idx then
-            cclog('친구 리더 버프 적용 !!!!!')
+        if leader == slot_idx or is_leader == true then            
             self.m_mUnitGroup[PHYS.HERO]:setLeader(self.m_friendDragon)
         end
     end

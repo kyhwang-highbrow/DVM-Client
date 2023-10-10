@@ -292,6 +292,43 @@ function UI_LeagueRaidDeckSettings:click_startBtn()
     check_dragon_inven()
 end
 
+-------------------------------------
+-- function click_leaderBtn
+-- @breif 리더 버프 드래곤 체크
+-------------------------------------
+function UI_LeagueRaidDeckSettings:click_leaderBtn()
+	local l_doid = self.m_readySceneDeck.m_lDeckList
+	local leader_idx = self.m_readySceneDeck.m_currLeader
+
+	-- 리더버프 있는 드래곤 체크
+	do
+		local cnt = 0
+		for _, doid in pairs(l_doid) do
+			if (g_dragonsData:haveLeaderSkill(doid)) then
+				cnt = cnt + 1
+			end
+		end
+	end
+
+	local ui = UI_ReadyScene_LeaderPopup(l_doid, leader_idx)
+	ui:setCloseCB(function() 
+		self.m_readySceneDeck.m_currLeader = ui.m_leaderIdx
+        self.m_readySceneDeck.m_currLeaderOID = l_doid[ui.m_leaderIdx]
+
+        local cur_deck = self.m_readySceneDeck.m_selTab        
+        local deck_name = self.m_multiDeckMgr:getDeckName(cur_deck)
+        local friendDragonIndex = g_friendData:getFriendDragonSlotIdx(deck_name)
+
+        if friendDragonIndex ~= nil and self.m_readySceneDeck.m_currLeader == friendDragonIndex then
+            g_friendData:setSelectFriendLeaderDragon(deck_name, true)
+        else
+            g_friendData:setSelectFriendLeaderDragon(deck_name, false)
+        end
+        
+        self:refresh_combatPower()
+		self:refresh_buffInfo()
+	end)
+end
 
 -------------------------------------
 -- function click_autoBtn
