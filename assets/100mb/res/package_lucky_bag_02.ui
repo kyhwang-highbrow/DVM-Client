@@ -807,7 +807,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 42;
-				text = '새해맞이 패키지 2';
+				text = '달빛축제 패키지 2';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };

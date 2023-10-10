@@ -35,6 +35,34 @@
 			};
 			[2] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				flag = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 930;
+				height = 640;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				screen_ui = 0;
+				lua_name = '';
+				file_name = 'ui/typo/ko/typo_dvc_promotion_01.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[3] =
+			{
 				type = 'LayerColor';
 				ui_name = '';
 				flag = '';
@@ -58,7 +86,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
@@ -128,7 +156,7 @@
 				disable = 'ui/temp/empty.png';
 				image_type = 1;
 			};
-			[4] =
+			[5] =
 			{
 				type = 'Button';
 				ui_name = '공지로 이동';
@@ -153,34 +181,6 @@
 				selected = 'ui/buttons/info_btn_0102.png';
 				disable = 'ui/buttons/info_btn_0102.png';
 				image_type = 0;
-			};
-			[5] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				flag = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 930;
-				height = 640;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				screen_ui = 0;
-				lua_name = '';
-				file_name = 'ui/typo/ko/event_dht_promotion.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
 			};
 			[6] =
 			{

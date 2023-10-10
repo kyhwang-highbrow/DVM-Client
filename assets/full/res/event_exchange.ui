@@ -63,7 +63,7 @@
 				dimension_width = 900;
 				dimension_height = 75;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -146,12 +146,12 @@
 				text = '게임을 플레이하고 아이템을 모아보세요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 0; };
+				color = { 0; 147; 0; };
 				opacity = 255;
 				dimension_width = 860;
 				dimension_height = 58;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = false;
@@ -1777,7 +1777,7 @@
 				text = '지금까지 수집한 아이템의 개수에 따라 보상을 획득할 수 있어요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 0; };
+				color = { 60; 179; 113; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;
@@ -1821,7 +1821,7 @@
 				text = '누적 보상은 최초 1회만 획득 가능합니다.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 215; 0; };
+				color = { 0; 106; 19; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;
@@ -1850,8 +1850,8 @@
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 430;
-				height = 74;
+				width = 428;
+				height = 65;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1860,7 +1860,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = '';
-				file_name = 'ui/typo/ko/ribbon_package_title_0101.png';
+				file_name = 'ui/typo/ko/ribbon_summer_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

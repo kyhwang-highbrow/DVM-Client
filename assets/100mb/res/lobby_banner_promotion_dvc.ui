@@ -89,9 +89,9 @@
 			screen_ui = 0;
 			lua_name = 'bannerBtn';
 			enable = true;
-			normal = 'ui/event/banner_promotion_dvc.png';
-			selected = 'ui/event/banner_promotion_dvc.png';
-			disable = 'ui/event/banner_promotion_dvc.png';
+			normal = 'ui/typo/ko/typo_lobby_banner_promotion_dvc.png';
+			selected = 'ui/typo/ko/typo_lobby_banner_promotion_dvc.png';
+			disable = 'ui/typo/ko/typo_lobby_banner_promotion_dvc.png';
 			image_type = 0;
 		};
 		type = 'Menu';

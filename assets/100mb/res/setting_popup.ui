@@ -2876,7 +2876,7 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
-						text = '태초의 고신 이벤트';
+						text = '신규 언어 팝업';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };

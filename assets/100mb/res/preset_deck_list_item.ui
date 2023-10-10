@@ -35,27 +35,6 @@
 			};
 			[2] =
 			{
-				type = 'Node';
-				ui_name = '';
-				flag = '';
-				x = 7.000000;
-				y = -20.000000;
-				dock_point = { 0.000000; 0.500000; };
-				anchor_point = { 0.000000; 0.500000; };
-				relative_size_type = 0;
-				width = 530;
-				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				screen_ui = 0;
-				lua_name = 'dragonListNode';
-			};
-			[3] =
-			{
 				[1] =
 				{
 					type = 'LabelTTF';
@@ -103,10 +82,10 @@
 				type = 'Button';
 				ui_name = '';
 				flag = '';
-				x = 283.000000;
-				y = -127.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
+				x = 1.000000;
+				y = -49.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 122;
 				height = 40;
@@ -124,7 +103,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[4] =
+			[3] =
 			{
 				[1] =
 				{
@@ -173,10 +152,10 @@
 				type = 'Button';
 				ui_name = '';
 				flag = '';
-				x = 283.000000;
-				y = -84.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
+				x = 1.000000;
+				y = -6.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 122;
 				height = 40;
@@ -194,7 +173,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[5] =
+			[4] =
 			{
 				[1] =
 				{
@@ -243,10 +222,10 @@
 				type = 'Button';
 				ui_name = '';
 				flag = '';
-				x = 283.000000;
-				y = -42.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
+				x = 1.000000;
+				y = 36.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 122;
 				height = 40;
@@ -264,7 +243,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[6] =
+			[5] =
 			{
 				[1] =
 				{
@@ -355,6 +334,27 @@
 				screen_ui = 0;
 				lua_name = '';
 			};
+			[6] =
+			{
+				type = 'Node';
+				ui_name = '';
+				flag = '';
+				x = -1.000000;
+				y = -26.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 490;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
+				lua_name = 'dragonListNode';
+			};
 			type = 'Menu';
 			ui_name = '';
 			flag = '';
@@ -363,7 +363,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 700;
+			width = 600;
 			height = 150;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -382,7 +382,7 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
-		width = -580;
+		width = -680;
 		height = -570;
 		scale_x = 1.000000;
 		scale_y = 1.000000;

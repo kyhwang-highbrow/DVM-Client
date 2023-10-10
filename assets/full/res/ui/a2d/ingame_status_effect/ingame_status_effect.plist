@@ -303,7 +303,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_dot_super.png</key>
+            <key>ingame_status_effect_dmg_add.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{552,52},{48,48}}</string>
@@ -316,7 +316,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_electric_shock.png</key>
+            <key>ingame_status_effect_dmg_add_super.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{602,2},{48,48}}</string>
@@ -329,7 +329,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_fury.png</key>
+            <key>ingame_status_effect_dot_super.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{602,52},{48,48}}</string>
@@ -342,7 +342,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_heal.png</key>
+            <key>ingame_status_effect_electric_shock.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{652,2},{48,48}}</string>
@@ -355,7 +355,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_heal_deny .png</key>
+            <key>ingame_status_effect_fury.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{652,52},{48,48}}</string>
@@ -368,7 +368,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_hit_rate_down.png</key>
+            <key>ingame_status_effect_heal.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{702,2},{48,48}}</string>
@@ -381,7 +381,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_hit_rate_up.png</key>
+            <key>ingame_status_effect_heal_deny .png</key>
             <dict>
                 <key>frame</key>
                 <string>{{702,52},{48,48}}</string>
@@ -394,7 +394,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_hp_down.png</key>
+            <key>ingame_status_effect_hit_rate_down.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{752,2},{48,48}}</string>
@@ -407,7 +407,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_hp_drain.png</key>
+            <key>ingame_status_effect_hit_rate_up.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{752,52},{48,48}}</string>
@@ -420,7 +420,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_hp_up.png</key>
+            <key>ingame_status_effect_hp_down.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{802,2},{48,48}}</string>
@@ -433,7 +433,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_immortal.png</key>
+            <key>ingame_status_effect_hp_drain.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{802,52},{48,48}}</string>
@@ -446,7 +446,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_immunity_debuff.png</key>
+            <key>ingame_status_effect_hp_up.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{852,2},{48,48}}</string>
@@ -459,7 +459,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_m_resist.png</key>
+            <key>ingame_status_effect_immortal.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{852,52},{48,48}}</string>
@@ -472,137 +472,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_num_0.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1152,2},{26,42}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{11,3},{26,42}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>ingame_status_effect_num_1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1264,44},{24,40}}</string>
-                <key>offset</key>
-                <string>{1,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{13,4},{24,40}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>ingame_status_effect_num_2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1152,46},{26,42}}</string>
-                <key>offset</key>
-                <string>{0,1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{11,2},{26,42}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>ingame_status_effect_num_3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1180,2},{26,42}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{11,3},{26,42}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>ingame_status_effect_num_4.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1252,2},{28,40}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{10,4},{28,40}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>ingame_status_effect_num_5.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1180,46},{26,42}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{11,3},{26,42}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>ingame_status_effect_num_6.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1208,2},{26,42}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{11,3},{26,42}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>ingame_status_effect_num_7.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1236,58},{26,40}}</string>
-                <key>offset</key>
-                <string>{-1,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{10,4},{26,40}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>ingame_status_effect_num_8.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1208,30},{26,42}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{11,3},{26,42}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>ingame_status_effect_num_9.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1208,58},{26,42}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{11,3},{26,42}}</string>
-                <key>sourceSize</key>
-                <string>{48,48}</string>
-            </dict>
-            <key>ingame_status_effect_p_resist.png</key>
+            <key>ingame_status_effect_immunity_debuff.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{902,2},{48,48}}</string>
@@ -615,7 +485,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_pierce.png</key>
+            <key>ingame_status_effect_m_resist.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{902,52},{48,48}}</string>
@@ -628,7 +498,137 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_poison.png</key>
+            <key>ingame_status_effect_num_0.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1202,2},{26,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_num_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1314,44},{24,40}}</string>
+                <key>offset</key>
+                <string>{1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{13,4},{24,40}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_num_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1202,46},{26,42}}</string>
+                <key>offset</key>
+                <string>{0,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{11,2},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_num_3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1230,2},{26,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_num_4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1302,2},{28,40}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{10,4},{28,40}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_num_5.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1230,46},{26,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_num_6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1258,2},{26,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_num_7.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1286,58},{26,40}}</string>
+                <key>offset</key>
+                <string>{-1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{10,4},{26,40}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_num_8.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1258,30},{26,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_num_9.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1258,58},{26,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{11,3},{26,42}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_p_resist.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{952,2},{48,48}}</string>
@@ -641,7 +641,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_recovery_add.png</key>
+            <key>ingame_status_effect_pierce.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{952,52},{48,48}}</string>
@@ -654,7 +654,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_recovery_dec.png</key>
+            <key>ingame_status_effect_poison.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1002,2},{48,48}}</string>
@@ -667,7 +667,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_silence.png</key>
+            <key>ingame_status_effect_recovery_add.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1002,52},{48,48}}</string>
@@ -680,7 +680,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_sleep.png</key>
+            <key>ingame_status_effect_recovery_dec.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1052,2},{48,48}}</string>
@@ -693,7 +693,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_stun.png</key>
+            <key>ingame_status_effect_silence.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1052,52},{48,48}}</string>
@@ -706,7 +706,7 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_target.png</key>
+            <key>ingame_status_effect_sleep.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1102,2},{48,48}}</string>
@@ -719,10 +719,36 @@
                 <key>sourceSize</key>
                 <string>{48,48}</string>
             </dict>
-            <key>ingame_status_effect_zombie.png</key>
+            <key>ingame_status_effect_stun.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1102,52},{48,48}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_target.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1152,2},{48,48}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{48,48}}</string>
+                <key>sourceSize</key>
+                <string>{48,48}</string>
+            </dict>
+            <key>ingame_status_effect_zombie.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1152,52},{48,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -740,9 +766,9 @@
             <key>realTextureFileName</key>
             <string>ingame_status_effect.png</string>
             <key>size</key>
-            <string>{1290,102}</string>
+            <string>{1340,102}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:75d32f42c3c6627582ce02b832ca7f6f:f5e406d896f9d5849966348f6d5907d4:5bac5130585617aa635dc1039f3d00de$</string>
+            <string>$TexturePacker:SmartUpdate:83aec430d1d0320a3e08132e36483146:aeb2d64bd1737956d68e5a7cef630146:5bac5130585617aa635dc1039f3d00de$</string>
             <key>textureFileName</key>
             <string>ingame_status_effect.png</string>
         </dict>

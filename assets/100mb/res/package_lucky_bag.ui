@@ -769,7 +769,7 @@
 				visible = true;
 				screen_ui = 0;
 				lua_name = 'titleSprite';
-				file_name = 'ui/typo/ko/ribbon_new_year_title_0101.png';
+				file_name = 'ui/typo/ko/ribbon_chuseok_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

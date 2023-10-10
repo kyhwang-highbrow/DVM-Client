@@ -102,7 +102,7 @@
 					visible = true;
 					screen_ui = 0;
 					lua_name = '';
-					file_name = 'ui/ads/self_ad_dva_730x410_ko_01.png';
+					file_name = 'ui/ads/self_ad_dvc_730x410_ko_01.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -302,7 +302,7 @@
 					visible = true;
 					screen_ui = 0;
 					lua_name = '';
-					file_name = 'ui/ads/self_ad_dva_123.png';
+					file_name = 'ui/ads/self_ad_dvc_123.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -351,7 +351,7 @@
 				lua_name = 'titleLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 42;
-				text = '드래곤 빌리지 아레나';
+				text = '드래곤빌리지 컬렉션';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 0; 0; };
@@ -383,7 +383,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 1230;
+				width = 1156;
 				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -395,12 +395,12 @@
 				lua_name = 'subLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '수집! 경쟁! 드래곤 RPG! 드래곤 빌리지 아레나는 언제 어디서나 손쉽게 즐길 수 있는 방치형 모바일 게임입니다.\n어디서도 본 적 없던 귀엽고 다양한 드래곤을 육성하여 최고의 테이머가 되어보세요!';
+				text = '마침내 드래곤빌리지 컬렉션! 게임, 카드, 책 모든 것을 수집해보세요! 탐험을 통해 얻은 수백가지 다양한 드래곤을 교배하면 새로운 드래곤을 더 발견할 수 있어요! 빌리지 꾸미기, 광장에서 다양한 친구와 소통! 드래곤 성격에 따라 개성을 표현해보세요!';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 102; 102; 102; };
 				opacity = 255;
-				dimension_width = 1230;
+				dimension_width = 1156;
 				dimension_height = 80;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -414,7 +414,7 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
-				use_auto_fontsize = false;
+				use_auto_fontsize = true;
 				has_bold = false;
 			};
 			[10] =
@@ -464,7 +464,7 @@
 				lua_name = 'topLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 42;
-				text = '다양한 드래곤을 모아보자!';
+				text = '모으는 내내 즐겁게!';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 0; 0; };

@@ -1,0 +1,293 @@
+
+bless.png
+size: 1979,1614
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effct_blessing
+  rotate: false
+  xy: 1475, 429
+  size: 292, 277
+  orig: 292, 277
+  offset: 0, 0
+  index: -1
+effect_debris_00003
+  rotate: false
+  xy: 1053, 1312
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00006
+  rotate: false
+  xy: 1355, 1312
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00008
+  rotate: false
+  xy: 1657, 1312
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00010
+  rotate: false
+  xy: 267, 965
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00011
+  rotate: false
+  xy: 267, 663
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00012
+  rotate: false
+  xy: 267, 361
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00013
+  rotate: false
+  xy: 569, 1047
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_debris_00014
+  rotate: false
+  xy: 569, 745
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00000
+  rotate: false
+  xy: 2, 9
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00001
+  rotate: false
+  xy: 1103, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00002
+  rotate: false
+  xy: 1103, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00003
+  rotate: false
+  xy: 1777, 1110
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00004
+  rotate: false
+  xy: 1777, 908
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00005
+  rotate: false
+  xy: 1777, 706
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00006
+  rotate: false
+  xy: 1769, 504
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00007
+  rotate: false
+  xy: 1305, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00008
+  rotate: false
+  xy: 1305, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00009
+  rotate: false
+  xy: 1507, 227
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00010
+  rotate: false
+  xy: 1507, 25
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00011
+  rotate: false
+  xy: 1769, 302
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_fire_rayup_00012
+  rotate: false
+  xy: 1709, 100
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+effect_flare_yellow
+  rotate: false
+  xy: 2, 1267
+  size: 345, 345
+  orig: 345, 345
+  offset: 0, 0
+  index: -1
+effect_particle_center_01
+  rotate: true
+  xy: 2, 915
+  size: 350, 263
+  orig: 350, 263
+  offset: 0, 0
+  index: -1
+effect_particle_center_02
+  rotate: false
+  xy: 349, 1349
+  size: 350, 263
+  orig: 350, 263
+  offset: 0, 0
+  index: -1
+effect_particle_center_03
+  rotate: true
+  xy: 2, 563
+  size: 350, 263
+  orig: 350, 263
+  offset: 0, 0
+  index: -1
+effect_particle_center_04
+  rotate: false
+  xy: 701, 1349
+  size: 350, 263
+  orig: 350, 263
+  offset: 0, 0
+  index: -1
+effect_particle_center_05
+  rotate: true
+  xy: 2, 211
+  size: 350, 263
+  orig: 350, 263
+  offset: 0, 0
+  index: -1
+effect_rainbow
+  rotate: false
+  xy: 569, 11
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect_round_p
+  rotate: false
+  xy: 871, 174
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00000
+  rotate: false
+  xy: 569, 443
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00001
+  rotate: false
+  xy: 267, 59
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00002
+  rotate: false
+  xy: 569, 141
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00003
+  rotate: false
+  xy: 871, 1010
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00004
+  rotate: false
+  xy: 871, 708
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00005
+  rotate: false
+  xy: 1173, 1010
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00006
+  rotate: false
+  xy: 871, 406
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00007
+  rotate: false
+  xy: 1173, 708
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00008
+  rotate: false
+  xy: 1475, 1010
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00009
+  rotate: false
+  xy: 1173, 406
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+effect_slash_radial_00010
+  rotate: false
+  xy: 1475, 708
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1

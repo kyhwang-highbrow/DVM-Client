@@ -9,6 +9,7 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -22,6 +23,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/event/bg_highbrow_vip.png';
 				color = { 255; 255; 255; };
@@ -37,6 +39,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -50,6 +53,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/frames/vip_letter_01.png';
 					color = { 255; 255; 255; };
@@ -61,6 +65,7 @@
 				};
 				type = 'Node';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -256.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -74,6 +79,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'frameNode';
 			};
 			[3] =
@@ -82,6 +88,7 @@
 				{
 					type = 'Visual';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -120.000000;
 					dock_point = { 0.500000; 1.000000; };
@@ -95,6 +102,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/a2d/result/result.vrp';
 					auto_play = true;
@@ -105,6 +113,7 @@
 				};
 				type = 'ClippingNode';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -118,6 +127,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 				stencil_type = 0;
 				stencil_img = '';
@@ -128,6 +138,7 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.000000; };
@@ -141,6 +152,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/typo/ko/event_cross_promotion_02.png';
 				color = { 255; 255; 255; };
@@ -154,6 +166,7 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
+				flag = '';
 				x = 327.000000;
 				y = 13.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -167,6 +180,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = '';
 				file_name = 'ui/typo/ko/cross_promrion_0202.png';
 				color = { 255; 255; 255; };
@@ -182,6 +196,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 3.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -195,6 +210,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'okLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 26;
@@ -217,9 +233,12 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -267.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -233,6 +252,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'okBtn';
 				enable = true;
 				normal = 'ui/buttons/highbrow_vip_btn_0101.png';
@@ -248,6 +268,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -261,6 +282,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 17;
@@ -283,9 +305,12 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = 211.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -299,6 +324,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'infoBtn';
 					enable = true;
 					normal = '';
@@ -312,6 +338,7 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = -12.000000;
 						y = 3.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -325,6 +352,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = false;
+						screen_ui = 0;
 						lua_name = 'checkSprite';
 						file_name = 'ui/icons/check_icon_0102.png';
 						color = { 255; 255; 255; };
@@ -338,6 +366,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						flag = '';
 						x = 151.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -351,6 +380,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 17;
@@ -373,9 +403,12 @@
 						shadow_opacity = 255;
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
+						use_auto_fontsize = false;
+						has_bold = false;
 					};
 					type = 'Button';
 					ui_name = '';
+					flag = '';
 					x = -100.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -389,6 +422,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'checkBtn';
 					enable = true;
 					normal = '';
@@ -398,6 +432,7 @@
 				};
 				type = 'Menu';
 				ui_name = '';
+				flag = '';
 				x = 10.000000;
 				y = -205.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -411,6 +446,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 			};
 			[8] =
@@ -419,6 +455,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = -181.000000;
 					y = -30.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -432,6 +469,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
@@ -454,11 +492,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[2] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = -181.000000;
 					y = 10.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -472,6 +513,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
@@ -494,11 +536,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = -181.000000;
 					y = 50.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -512,6 +557,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
@@ -534,11 +580,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[4] =
 				{
 					type = 'EditBox';
 					ui_name = '';
+					flag = '';
 					x = 50.000000;
 					y = -30.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -552,6 +601,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'emailEditBox';
 					enable = false;
 					input_mode = 6;
@@ -574,6 +624,7 @@
 				{
 					type = 'EditBox';
 					ui_name = '';
+					flag = '';
 					x = 50.000000;
 					y = 10.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -587,6 +638,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'phoneEditBox';
 					enable = false;
 					input_mode = 6;
@@ -609,6 +661,7 @@
 				{
 					type = 'EditBox';
 					ui_name = '';
+					flag = '';
 					x = 50.000000;
 					y = 50.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -622,6 +675,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'nameEditBox';
 					enable = false;
 					input_mode = 6;
@@ -642,6 +696,7 @@
 				};
 				type = 'Menu';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = -130.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -655,6 +710,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = '';
 			};
 			[9] =
@@ -663,105 +719,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = -22.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 515;
-					height = 40;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
-					text = '※ 멤버십 혜택은 입력하신 정보의 연락처로 쿠폰 발송됩니다.';
-					h_alignment = 0;
-					v_alignment = 1;
-					color = { 225; 110; 0; };
-					opacity = 255;
-					dimension_width = 515;
-					dimension_height = 40;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 1.000000;
-					stroke_color = { 255; 255; 255; };
-					has_shadow = false;
-					shadow_color = { 255; 255; 255; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
-				[2] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 12.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 515;
-					height = 51;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
-					text = '감사의 마음을 담아 소정의 게임 재화 쿠폰 및 하이브로 신규 게임 특별 쿠폰 등 다양한 선물을 지급할 예정입니다.';
-					h_alignment = 0;
-					v_alignment = 0;
-					color = { 75; 50; 30; };
-					opacity = 255;
-					dimension_width = 515;
-					dimension_height = 51;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 1.000000;
-					stroke_color = { 255; 255; 255; };
-					has_shadow = false;
-					shadow_color = { 255; 255; 255; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
-				type = 'Menu';
-				ui_name = '골드이상';
-				x = 0.000000;
-				y = -18.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 650;
-				height = 90;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'goldMenu';
-			};
-			[10] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = -26.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -775,10 +733,11 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 17;
-					text = '※ 새로운 소식과 추후 멤버십 혜택은 입력하신 정보의 연락처로 쿠폰이 발송됩니다.';
+					text = '※ 새로운 소식과 추후 멤버십 혜택은 입력하신 정보의 연락처로 발송됩니다.';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 225; 110; 0; };
@@ -797,34 +756,38 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[2] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 16.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 635;
-					height = 71;
+					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 17;
-					text = '하이브로의 다양한 이벤트 안내와 신규 게임 특별 쿠폰을 증정해 드리며,\n추후 골드 등급(10만원 이상) 달성시 추가 멤버십 혜택(다이아 51,000개 등)을 드립니다.\n앞으로도 많은 관심과 애정 부탁드립니다.';
+					text = '드래곤빌리지M을 사랑해 주셔서 감사합니다.\n하이브로는 새로운 이벤트 안내와 멤버십 혜택을 제공하기 위해 정보를 수집하고 있습니다.';
 					h_alignment = 1;
-					v_alignment = 1;
+					v_alignment = 0;
 					color = { 75; 50; 30; };
 					opacity = 255;
 					dimension_width = 635;
-					dimension_height = 71;
+					dimension_height = 50;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -837,9 +800,12 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				type = 'Menu';
 				ui_name = '실버';
+				flag = '';
 				x = 0.000000;
 				y = -17.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -852,13 +818,124 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
+				screen_ui = 0;
+				lua_name = 'goldMenu';
+			};
+			[10] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = -26.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 647;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 17;
+					text = '※ 새로운 소식과 추후 멤버십 혜택은 입력하신 정보의 연락처로 발송됩니다.';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 225; 110; 0; };
+					opacity = 255;
+					dimension_width = 647;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
+				};
+				[2] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					flag = '';
+					x = 0.000000;
+					y = 16.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 635;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					screen_ui = 0;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 17;
+					text = '드래곤빌리지M을 사랑해 주셔서 감사합니다.\n하이브로는 새로운 이벤트 안내와 멤버십 혜택을 제공하기 위해 정보를 수집하고 있습니다.';
+					h_alignment = 1;
+					v_alignment = 0;
+					color = { 75; 50; 30; };
+					opacity = 255;
+					dimension_width = 635;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
+				};
+				type = 'Menu';
+				ui_name = '실버';
+				flag = '';
+				x = 0.000000;
+				y = -17.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 650;
+				height = 90;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				screen_ui = 0;
 				lua_name = 'silverMenu';
 			};
 			[11] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
+				flag = '';
 				x = 0.000000;
 				y = 267.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -872,6 +949,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'titleLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 25;
@@ -894,6 +972,8 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
+				use_auto_fontsize = false;
+				has_bold = false;
 			};
 			[12] =
 			{
@@ -901,6 +981,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -914,6 +995,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/icons/vip_grade_01.png';
 					color = { 255; 255; 255; };
@@ -925,6 +1007,7 @@
 				};
 				type = 'Node';
 				ui_name = '';
+				flag = '';
 				x = -299.000000;
 				y = 257.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -938,6 +1021,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'iconNode';
 			};
 			[13] =
@@ -948,6 +1032,7 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -961,6 +1046,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/frames/vip_itembox_01.png';
 						color = { 255; 255; 255; };
@@ -972,6 +1058,7 @@
 					};
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -985,12 +1072,14 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'rewardFrameNode2';
 				};
 				[2] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 4.000000;
 					y = 69.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1004,6 +1093,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'benefitLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
@@ -1026,11 +1116,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
+					flag = '';
 					x = 2.000000;
 					y = -2.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1044,6 +1137,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					file_name = 'ui/icons/vip_gift2.png';
 					color = { 255; 255; 255; };
@@ -1057,6 +1151,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 1.000000;
 					y = -57.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1070,7 +1165,8 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = '';
+					screen_ui = 0;
+					lua_name = 'highbrowCouponLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 17;
 					text = '하이브로 신규 게임\n특별 쿠폰 지급!';
@@ -1092,9 +1188,12 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				type = 'Menu';
 				ui_name = '';
+				flag = '';
 				x = 105.000000;
 				y = 130.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -1108,6 +1207,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'rewardMenu2';
 			};
 			[14] =
@@ -1118,6 +1218,7 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1131,6 +1232,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/frames/vip_itembox_01.png';
 						color = { 255; 255; 255; };
@@ -1142,6 +1244,7 @@
 					};
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1155,12 +1258,14 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'rewardFrameNode1';
 				};
 				[2] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 69.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1174,6 +1279,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
@@ -1196,6 +1302,8 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[3] =
 				{
@@ -1203,6 +1311,7 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
+						flag = '';
 						x = 0.000000;
 						y = 4.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -1216,6 +1325,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/icons/item/shop_cash_02.png';
 						color = { 255; 255; 255; };
@@ -1227,6 +1337,7 @@
 					};
 					type = 'Node';
 					ui_name = '';
+					flag = '';
 					x = 0.000000;
 					y = 3.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1240,12 +1351,14 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'rewardNode';
 				};
 				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 2.000000;
 					y = -70.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1259,6 +1372,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 17;
@@ -1281,11 +1395,14 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
+					flag = '';
 					x = 2.000000;
 					y = -49.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1299,6 +1416,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
+					screen_ui = 0;
 					lua_name = 'rewardLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
@@ -1321,9 +1439,12 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+					use_auto_fontsize = false;
+					has_bold = false;
 				};
 				type = 'Menu';
 				ui_name = '';
+				flag = '';
 				x = -105.000000;
 				y = 130.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -1337,12 +1458,14 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
+				screen_ui = 0;
 				lua_name = 'rewardMenu1';
 			};
 			[15] =
 			{
 				type = 'Button';
 				ui_name = '';
+				flag = '';
 				x = -24.000000;
 				y = -24.000000;
 				dock_point = { 1.000000; 1.000000; };
@@ -1356,6 +1479,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
+				screen_ui = 0;
 				lua_name = 'closeBtn';
 				enable = true;
 				normal = 'ui/buttons/64_close_btn_0101.png';
@@ -1365,6 +1489,7 @@
 			};
 			type = 'Menu';
 			ui_name = '';
+			flag = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
@@ -1378,10 +1503,12 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
+			screen_ui = 0;
 			lua_name = '';
 		};
 		type = 'Menu';
 		ui_name = '';
+		flag = '';
 		x = 0.000000;
 		y = 0.000000;
 		dock_point = { 0.500000; 0.500000; };
@@ -1395,6 +1522,7 @@
 		skew_y = 0.000000;
 		rotation = 0.000000;
 		visible = true;
+		screen_ui = 0;
 		lua_name = '';
 	};
 };

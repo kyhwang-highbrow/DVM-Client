@@ -79,7 +79,7 @@
 					rotation = 0.000000;
 					visible = true;
 					screen_ui = 0;
-					lua_name = 'premiumItemLabel';
+					lua_name = '3ItemLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
 					text = '{1}';
@@ -148,7 +148,7 @@
 					rotation = 0.000000;
 					visible = true;
 					screen_ui = 0;
-					lua_name = 'premiumItemNode';
+					lua_name = '3ItemNode';
 				};
 				[4] =
 				{
@@ -169,7 +169,7 @@
 					rotation = 0.000000;
 					visible = false;
 					screen_ui = 0;
-					lua_name = 'premiumLockSprite';
+					lua_name = '3LockSprite';
 					file_name = 'ui/frames/battle_pass_3step_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 150;
@@ -197,7 +197,7 @@
 					rotation = 0.000000;
 					visible = true;
 					screen_ui = 0;
-					lua_name = 'premiumPurchaseSprite';
+					lua_name = '3PurchaseSprite';
 					file_name = 'ui/icons/lock_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -253,7 +253,7 @@
 					rotation = 0.000000;
 					visible = false;
 					screen_ui = 0;
-					lua_name = 'premiumClearSprite';
+					lua_name = '3ClearSprite';
 					file_name = 'ui/frames/battle_pass_3step_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 150;
@@ -309,7 +309,7 @@
 					rotation = 0.000000;
 					visible = false;
 					screen_ui = 0;
-					lua_name = 'premiumRewardBtn';
+					lua_name = '3RewardBtn';
 					enable = true;
 					normal = '';
 					selected = '';
@@ -384,7 +384,7 @@
 					rotation = 0.000000;
 					visible = true;
 					screen_ui = 0;
-					lua_name = 'passItemLabel';
+					lua_name = '2ItemLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
 					text = '{1}';
@@ -453,7 +453,7 @@
 					rotation = 0.000000;
 					visible = true;
 					screen_ui = 0;
-					lua_name = 'passItemNode';
+					lua_name = '2ItemNode';
 				};
 				[4] =
 				{
@@ -474,7 +474,7 @@
 					rotation = 0.000000;
 					visible = false;
 					screen_ui = 0;
-					lua_name = 'passLockSprite';
+					lua_name = '2LockSprite';
 					file_name = 'ui/frames/battle_pass_2step_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 150;
@@ -502,7 +502,7 @@
 					rotation = 0.000000;
 					visible = true;
 					screen_ui = 0;
-					lua_name = 'passPurchaseSprite';
+					lua_name = '2PurchaseSprite';
 					file_name = 'ui/icons/lock_0101.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -558,7 +558,7 @@
 					rotation = 0.000000;
 					visible = false;
 					screen_ui = 0;
-					lua_name = 'passClearSprite';
+					lua_name = '2ClearSprite';
 					file_name = 'ui/frames/battle_pass_2step_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 150;
@@ -614,7 +614,7 @@
 					rotation = 0.000000;
 					visible = false;
 					screen_ui = 0;
-					lua_name = 'passRewardBtn';
+					lua_name = '2RewardBtn';
 					enable = true;
 					normal = '';
 					selected = '';
@@ -689,7 +689,7 @@
 					rotation = 0.000000;
 					visible = true;
 					screen_ui = 0;
-					lua_name = 'normalItemLabel';
+					lua_name = '1ItemLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
 					text = '{1}';
@@ -758,7 +758,7 @@
 					rotation = 0.000000;
 					visible = true;
 					screen_ui = 0;
-					lua_name = 'normalItemNode';
+					lua_name = '1ItemNode';
 				};
 				[4] =
 				{
@@ -779,7 +779,7 @@
 					rotation = 0.000000;
 					visible = false;
 					screen_ui = 0;
-					lua_name = 'normalLockSprite';
+					lua_name = '1LockSprite';
 					file_name = 'ui/frames/battle_pass_1step_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -835,7 +835,7 @@
 					rotation = 0.000000;
 					visible = false;
 					screen_ui = 0;
-					lua_name = 'normalClearSprite';
+					lua_name = '1ClearSprite';
 					file_name = 'ui/frames/battle_pass_1step_0102.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -863,7 +863,7 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						screen_ui = 0;
 						lua_name = '';
 						file_name = 'ui/frames/battle_pass_1step_0103.png';
@@ -891,9 +891,9 @@
 					rotation = 0.000000;
 					visible = false;
 					screen_ui = 0;
-					lua_name = 'normalRewardBtn';
+					lua_name = '1RewardBtn';
 					enable = true;
-					normal = '';
+					normal = 'ui/frames/battle_pass_1step_0103.png';
 					selected = '';
 					disable = '';
 					image_type = 1;
@@ -918,6 +918,42 @@
 				lua_name = '';
 			};
 			[4] =
+			{
+				type = 'ProgressTimer';
+				ui_name = '';
+				flag = '';
+				x = 0.000000;
+				y = 78.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 120;
+				height = 19;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				action_type = 6;
+				action_delay_1 = 0.200000;
+				action_delay_2 = 0.000000;
+				action_duration = 0.300000;
+				screen_ui = 0;
+				lua_name = 'passGauge';
+				file_name = 'ui/gauges/battle_pass_level_gg.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+				progress_type = 4;
+				mid_point_x = 0.000000;
+				mid_point_y = 0.000000;
+				percentage = 100;
+			};
+			[5] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -945,7 +981,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[5] =
+			[6] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -973,7 +1009,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[6] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
