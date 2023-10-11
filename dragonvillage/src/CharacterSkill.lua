@@ -46,12 +46,14 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
         end
 	end
 
-    if (self.m_world.m_gameMode == GAME_MODE_LEAGUE_RAID) then
+    -- 레이드 이상 딜 현상 스킬 패턴 분석 로그
+    -- 파악 완료되어 주석 처리함 kyhwang    
+--[[     if (self.m_world.m_gameMode == GAME_MODE_LEAGUE_RAID) then
         if self.m_world.m_gameState.m_fightTimer ~= nil then            
             g_errorTracker:appendBattleSkillHistory(t_skill, self:getName(), self.m_world.m_gameState.m_fightTimer)
             g_errorTracker:sendErrorLog_RaidBattleLogHistory(self.m_world.m_gameState.m_fightTimer)
         end
-    end
+    end ]]
 
     -- @ E.T.
     g_errorTracker:appendSkillHistory(skill_id, self:getName())
