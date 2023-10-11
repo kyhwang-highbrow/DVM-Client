@@ -332,24 +332,49 @@ public class PerpleBilling implements PurchasesUpdatedListener {
                                         // ProductDetails를 json리스트로 변환
                                         JSONArray productDetailsJsonArray = new JSONArray();
                                         for (ProductDetails productDetails : productDetailsList) {
-                                            String itemInfo = productDetails.toString();
-
-                                            String[] str_arr = itemInfo.split("\'");
-                                            String json_str = str_arr[1];
 
                                             try {
-                                                JSONObject jitem = new JSONObject(json_str);
-                                                jitem.remove("oneTimePurchaseOfferDetails");
-                                                jitem.remove("localizedIn");
-                                                productDetailsJsonArray.put(jitem);
+                                                // 루아 전달을 위한 json 객체 생성
+                                                JSONObject json = new JSONObject();
+                                                
+                                                // oneTimePurchaseOfferDetails 에서 필요 정보 얻어옴
+                                                ProductDetails.OneTimePurchaseOfferDetails offer_details = productDetails.getOneTimePurchaseOfferDetails();
+
+                                                // (productId = sku)
+                                                String sku = productDetails.getProductId();
+                                                json.put("sku", sku);
+
+                                                // name
+                                                String name = productDetails.getName();
+                                                json.put("name", name);
+
+                                                // type
+                                                String type = productDetails.getProductType();
+                                                json.put("type", type);
+
+                                                // description
+                                                String description = productDetails.getDescription();
+                                                json.put("description", description);
+
+                                                // price
+                                                String price = offer_details.getFormattedPrice();
+                                                json.put("price", price);
+
+                                                // price_amount_micros
+                                                long price_amount_micros = offer_details.getPriceAmountMicros();
+                                                json.put("price_amount_micros", price_amount_micros);
+
+                                                // price_currency_code
+                                                String price_currency_code = offer_details.getPriceCurrencyCode();
+                                                json.put("price_currency_code", price_currency_code);
+
+                                                productDetailsJsonArray.put(json);
+
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                                 PerpleLog.e(LOG_TAG, "Error getItemList Product String !!!!!!!");
                                             }
-
-                                            PerpleLog.e(LOG_TAG, "getItemList Product String : " + json_str);
-
-
+                                            //PerpleLog.e(LOG_TAG, "getItemList Product String : " + productDetails.toString());
                                         }
 
                                         // json 문자열로 info를 전달
