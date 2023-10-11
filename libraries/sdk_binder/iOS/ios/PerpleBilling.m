@@ -408,7 +408,7 @@
     if (callback != nil) {
         callback(@"fail", [PerpleSDK getErrorInfo:@PERPLESDK_ERROR_BILLING_CHECKRECEIPT
                                           subcode:(subcode ? subcode : @"")
-                                              msg:msg]);
+                                              msg:msg ? msg : @""]);
     }
 }
 
