@@ -638,7 +638,7 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
 end
 
 -------------------------------------
--- function request_checkReceiptValidation
+-- function request_checkReceiptValidation_v3
 -- @breif 구글빌링 v3 대응
 -- 기존 로직을 살려야 할 수도 있기 때문에 새로운 함수로 작업함
 -------------------------------------
@@ -778,7 +778,7 @@ function ServerData_Shop:request_checkReceiptValidation_v3(product, validation_k
     ui_network:setSuccessCB(finish_cb)
     ui_network:setResponseStatusCB(status_cb)
     ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(false)
+    ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
 
