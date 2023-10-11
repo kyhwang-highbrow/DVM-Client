@@ -735,7 +735,9 @@ function UI_TitleScene:workCheckUserID()
         g_errorTracker:setAutoLoginFailedMsg(_msg)
 
         local ui = UI_LoginIntegratePopup(self)
+        self.vars['logoSprite']:setVisible(false)
         local function close_cb()
+            self.vars['logoSprite']:setVisible(true)
             self:doNextWork()
         end
         ui:setCloseCB(close_cb)
