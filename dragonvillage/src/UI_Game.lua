@@ -518,7 +518,9 @@ end
 -- function appendRaidBattleInputKeyLog
 -------------------------------------
 function UI_Game:appendRaidBattleInputKeyLog(input_type)
-    local world = self.m_gameScene.m_gameWorld
+    -- 레이드 이상 딜 현상 스킬 패턴 분석 로그
+    -- 파악 완료되어 주석 처리함 kyhwang    
+--[[     local world = self.m_gameScene.m_gameWorld
     if (not world) then return end
     if (not world.m_gameState) then return end
 
@@ -527,7 +529,7 @@ function UI_Game:appendRaidBattleInputKeyLog(input_type)
     if (game_mode == GAME_MODE_LEAGUE_RAID) then
         g_errorTracker:appendBattleKeyInputHistory(input_type, world.m_gameState.m_fightTimer)
         g_errorTracker:sendErrorLog_RaidBattleLogHistory(world.m_gameState.m_fightTimer)
-    end
+    end ]]
 end
 
 -------------------------------------
