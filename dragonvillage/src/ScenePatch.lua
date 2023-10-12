@@ -56,6 +56,17 @@ function ScenePatch:onEnter()
         patch_data:save()
     end
 
+    do -- copyright
+        local vars = self.m_vars
+        local date = os.date('*t')
+        local year = 2022
+        if (date and date.year) then
+            year = date.year
+        end
+        local str = Str('ⓒ {1}. highbrow Inc. all rights reserved.', year)
+        vars['copylightImage']:setString(str)
+    end
+
     do -- spine으로 리소스 변경
         -- 패치씬에서는 디폴트 배경을 노출하기 위해 파라미터 전달
         -- is_first_enter
