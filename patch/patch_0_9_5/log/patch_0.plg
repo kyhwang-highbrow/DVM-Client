@@ -18035,10 +18035,10 @@ res\ui\icons\inbox\inbox_staminas_tower.png	M2E2ZmE0ZjIxMjBlYTExNWY3MDU2ODViZjVk
 res\ui\icons\inbox\inbox_subjugation_ticket.png	NWYxMTJhNGEwNjRiN2U3MmVkMDQ5YWQxMWI1ZjBiNmU=
 res\ui\icons\inbox\inbox_summon_dragon_ticket.png	OGIwYjExODdjMGMyMGY0ZWJlNWUwOTg4YTZkZjViMTA=
 res\ui\icons\inbox\inbox_ticket_advanced_summon.png	MjllODIzMDc4Y2IxODY3YTc4YjFhZGJmODViZThjMDM=
-res\ui\icons\inbox\inbox_ticket_event_majesticlightningdragon.png	YTMyOGY5NGM2ODBiMGRmYmI2MDA0MzhlMTk4YjY5YTg=
+res\ui\icons\inbox\inbox_ticket_event_majesticlightningdragon.png	ODYwYWMyNmY3MDY0YTYyNmY2MWY0Zjc5Y2UwYjVlNzU=
 res\ui\icons\inbox\inbox_ticket_event_origindarknix.png	YTMyOGY5NGM2ODBiMGRmYmI2MDA0MzhlMTk4YjY5YTg=
 res\ui\icons\inbox\inbox_ticket_event_origingoddragon.png	ZDY1ZTVmMzgyMmY2ODEyYzUxYzNhZTAxNDM0Y2EwMmE=
-res\ui\icons\inbox\inbox_token_event_majesticlightningdragon.png	NDUyZjkyZjA1NjZmOTI2NGM1MGVkOGJiZjAxNDNmZDc=
+res\ui\icons\inbox\inbox_token_event_majesticlightningdragon.png	NDVlOTZhNjNkMDAzNWFhYTllZDQzNWQyMTUyNGRmNzA=
 res\ui\icons\inbox\inbox_token_event_origindarknix.png	NDUyZjkyZjA1NjZmOTI2NGM1MGVkOGJiZjAxNDNmZDc=
 res\ui\icons\inbox\inbox_token_event_origingoddragon.png	MDg4ZjI4ZTNjYmRjYWVhNjA5YjdhYTE4NzVjNGY3MTE=
 res\ui\icons\inbox\inbox_topaz.png	MTBlOTkyYTYyMzQ3YTAyOWNiNWJlYTk0M2JmZGRhNWI=
@@ -18340,7 +18340,7 @@ res\ui\icons\item\ticket_advanced_myth_talissah.png	ODdlNmMyNzMyYjgyZWYwMWFhNTNm
 res\ui\icons\item\ticket_advanced_myth_temperentina.png	OGI5MDczY2M2N2Q3NTM5YTc4NTFjNzJlYzQ5MWU3YTY=
 res\ui\icons\item\ticket_advanced_summon.png	ZmVlNWNjZWUwNmIyOWU2NDI3YzJlOTU5NWMyOGY3ZGY=
 res\ui\icons\item\ticket_common_dragon.png	NmViYTYxMDJjODFhYTA2NzRiMDhjMGI4OWQ0ZmIwN2E=
-res\ui\icons\item\ticket_event_majesticlightningdragon.png	NWMzNGNlMzVkZjMzMjE0NzU1Y2NhOWNlMDEwM2YzNWI=
+res\ui\icons\item\ticket_event_majesticlightningdragon.png	ODYwYWMyNmY3MDY0YTYyNmY2MWY0Zjc5Y2UwYjVlNzU=
 res\ui\icons\item\ticket_event_origindarknix.png	NWMzNGNlMzVkZjMzMjE0NzU1Y2NhOWNlMDEwM2YzNWI=
 res\ui\icons\item\ticket_event_origingoddragon.png	NTdlOGIyMGIzMjlkODVhYWUxYjczMTQ5ODU1MWQ1MzA=
 res\ui\icons\item\ticket_hero_choice.png	ZGUzNzU0OGQyM2UxZjdkNTc0ZWYxMGQ1MmFhODhmNmI=
@@ -18362,7 +18362,7 @@ res\ui\icons\item\ticket_pick_summon_rare.png	ZjQ0Y2JlNmVlODg3MTdlYTA1ZmZhZDIxNG
 res\ui\icons\item\ticket_raretohero_dragon.png	MDA5YTdjNDFlMmZhOWY2ZDcwZWY3ZmU1MzZlZDRiMTA=
 res\ui\icons\item\ticket_raretolegend_dragon.png	NWRmMmNhZTkyYzBiMzFiODBhNjllNjhlZWUzYjkzN2Y=
 res\ui\icons\item\ticket_tamer_costume_choice.png	NTUyZjM1MWYxYzgwYTM1MGEwYTA3N2EyZDY5OGMzMmE=
-res\ui\icons\item\token_event_majesticlightningdragon.png	ZDdhMmVlNzQ1NTE0YTNmNzM1ZjZhNDllMDExMmZhMWQ=
+res\ui\icons\item\token_event_majesticlightningdragon.png	NDVlOTZhNjNkMDAzNWFhYTllZDQzNWQyMTUyNGRmNzA=
 res\ui\icons\item\token_event_origindarknix.png	ZDdhMmVlNzQ1NTE0YTNmNzM1ZjZhNDllMDExMmZhMWQ=
 res\ui\icons\item\token_event_origingoddragon.png	ZDMzZWFlZjVkNmVhMjYxNWU5MjE0N2NjYjY0ZDE0NWY=
 res\ui\icons\item\topaz.png	YzRiNzUzYTVlZTY1Zjk4YmE4NjkwNTQwOWE2OGM0ZjM=
@@ -19411,6 +19411,7 @@ res\ui\icons\rune\nightmare_reward_1001.png	YWZiM2E1YjIxNjYyNzBjMWI1Mjk3MWU4YmE1
 res\ui\icons\rune\prefix_option_0101.png	NzRmNjczN2NiODJmZTIxM2E1NDhjMzRlY2UxMDJmNjU=
 res\ui\icons\rune\prefix_option_0102.png	YWVlM2U0MGQ1ZDJkYzEwODg4YmIxY2QwNmVmMDM2ODI=
 res\ui\icons\rune\prefix_option_0103.png	N2QxMTIzMDk3ZGJmMDJkNjFhYWNlYTU2ZjIzZTM1NDM=
+res\ui\icons\rune\rune_arms\01_arms.png	MWQ0YjZlYTI5MTg1MTU3ODM5MWNhNjcyNmEwMTMzZjg=
 res\ui\icons\rune\rune_bg_common.png	NGE4NzAwN2E1NGVmMzA0YzBmODEwYmEwYmVlNjQyOTM=
 res\ui\icons\rune\rune_bg_hero.png	ZWZhOGFiOGY5OTJhZGFhZjQ3NWJlMDcxMTRhMzUxMWY=
 res\ui\icons\rune\rune_bg_legend.png	MzE5MjRmY2ViMzFmNzFhYTM1YzI0Yzc0MGEzMTFjNGY=
