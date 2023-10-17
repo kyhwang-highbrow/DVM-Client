@@ -403,13 +403,22 @@ function TutorialManager:checkFullPopupBlock()
 	-- 1-1 start 완료 전에 block
 	local tutorial_key = TUTORIAL.FIRST_START
     if (not g_tutorialData:isTutorialDone(tutorial_key)) then
-        return true
+		-- 튜토리얼을 하지 않았는데 1-1스테이지를 클리어한 경우가 있음
+		-- 이 경우는 튜토리얼 데이터가 꼬인 것 같다. 1-1 스테이지를 클리어했으면 true반환을 하지 않도록 변경
+		local stage_id = 1110101
+		local clear_cnt = g_adventureData:getStageClearCnt(stage_id)		
+		if (clear_cnt == 0) then
+			return true
+		end
     end
+
+	
 	local stage_id = 1110101
 	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
 	if (clear_cnt == 0) then
 		return true
 	end
+
 	local is_master_road_clear = g_masterRoadData:isClearedRoad(10001)
 	if (not is_master_road_clear) then
 		return true
