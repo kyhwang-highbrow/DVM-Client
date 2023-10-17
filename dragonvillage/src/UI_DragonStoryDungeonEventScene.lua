@@ -49,10 +49,16 @@ end
 -------------------------------------
 function UI_DragonStoryDungeonEventScene:initUI()
     local vars = self.vars
+    local ui_menu = UI_BattleMenuItem_Adventure('story_dungeon', 4, true)
+    ui_menu.vars['timeSprite']:setVisible(true)
+
+    vars['dungeonNode']:removeAllChildren()
+    vars['dungeonNode']:addChild(ui_menu.root)   
 
     local function update(dt)
         local is_noti_on = g_highlightData:isHighlightStoryDungeonQuest()
         vars['notiSprite']:setVisible(is_noti_on)
+        ui_menu.vars['timeLabel']:setString(g_eventDragonStoryDungeon:getRemainTimeText())
     end
 
     if vars['notiSprite'] ~= nil then
@@ -105,28 +111,12 @@ function UI_DragonStoryDungeonEventScene:makeTableView()
     table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(stage_list, true)
---[[     table_view.m_cellUIAppearCB = function(ui)
-        local x, y = ui.root:getPosition()
-        local new_x = x + content_size['width']
-        ui.root:setPosition(new_x, y)
 
-        local force = true
-        ui:cellMoveTo(0.25, cc.p(x, y), force)
-    end ]]
 
     -- focus할 stage_id가 있을 경우 
     local stage_idx = g_eventDragonStoryDungeon:getLastStageIdx()
     table_view:relocateContainerFromIndex(stage_idx, false)
 
-    local ui_menu = UI_BattleMenuItem_Adventure('story_dungeon', 4, true)
-    vars['dungeonNode']:removeAllChildren()
-    vars['dungeonNode']:addChild(ui_menu.root)
---[[ 
-    ui_menu.vars['enterBtn']:setEnabled(false)
-    ui_menu.vars['storyEventNode']:setVisible(false)
-    ui_menu.vars['timeSprite']:setVisible(false)
-    ui_menu.vars['notiSprite']:notiSprite(false) ]]
-    
 end
 
 -------------------------------------

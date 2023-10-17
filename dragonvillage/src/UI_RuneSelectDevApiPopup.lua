@@ -136,6 +136,8 @@ function UI_RuneSelectDevApiPopup:initButton()
     vars['applyBtn']:registerScriptTapHandler(function() self:request(1) end)
     vars['applyBundleBtn']:registerScriptTapHandler(function() self:request(10) end)
     vars['applyBundle100Btn']:registerScriptTapHandler(function() self:request(100) end)
+
+    vars['sellAllRunesBtn']:registerScriptTapHandler(function() self:sellAllRunes(100) end)
     
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
@@ -442,6 +444,63 @@ function UI_RuneSelectDevApiPopup:setLv(lv)
         self.m_mVal['mopt'] = value
         self.vars['moptValueLabel']:setString(value)
     end
+end
+
+
+-------------------------------------
+-- function sellAllRunes
+-------------------------------------
+function UI_RuneSelectDevApiPopup:sellAllRunes()
+    local rune_list = g_runesData:getRuneList()
+    local rune_sell_list = {}
+    for _, struct_rune in pairs(rune_list) do
+        if struct_rune:isEquippedRune() == false then
+            table.insert(rune_sell_list, struct_rune)
+        end
+    end
+
+
+    local selected_item_count = #rune_sell_list
+    if (selected_item_count <= 0) then
+        UIManager:toastNotificationRed(Str('조건에 해당하는 룬이 없습니다.'))
+        return
+    end
+
+    local table_item = TableItem()
+    local total_price = 0
+
+    local rune_oids = nil
+    for i,v in ipairs(rune_sell_list) do
+        if v:isEquippedRune() == false then
+            local roid = v['roid']
+            local rid = v['rid']
+            if (not rune_oids) then
+                rune_oids = tostring(roid)
+            else
+                rune_oids = (rune_oids .. ',' .. tostring(roid))
+            end
+
+            local price = table_item:getValue(rid, 'sale_price')
+            total_price = total_price + price
+        end
+    end
+
+    local items = nil
+
+    local function cb(ret)
+        if self.m_sellCB then
+            self.m_sellCB(ret)
+        end
+
+        self:refresh()
+    end
+
+    local function request_item_sell()
+        g_inventoryData:request_itemSell(rune_oids, items, cb)
+    end
+
+    local msg = Str('{1}개의 룬을 {2}골드에 판매하시겠습니까?', selected_item_count, comma_value(total_price))
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
 end
 
 -------------------------------------

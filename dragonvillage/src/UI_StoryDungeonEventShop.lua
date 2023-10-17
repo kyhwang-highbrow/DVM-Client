@@ -86,6 +86,16 @@ function UI_StoryDungeonEventShop:initUI()
         vars['bgNode']:removeAllChildren()
         vars['bgNode']:addChild(animator.m_node)
     end
+
+
+    local function update(dt)
+        if vars['timeLabel'] ~= nil then
+            vars['timeLabel']:setString(g_eventDragonStoryDungeon:getRemainTimeText())
+        end
+    end
+
+    update()
+    self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
 end
 
 -------------------------------------

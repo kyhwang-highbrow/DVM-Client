@@ -421,6 +421,29 @@ function ServerData_StoryDungeonEvent:applyQuestInfo(t_quest_info)
     end
 end
 
+
+-------------------------------------
+--- @function getRemainTimeText
+--- @brief 남은 시간 텍스트 반환
+-------------------------------------
+function ServerData_StoryDungeonEvent:getRemainTimeText()
+    local season_id = self:getStoryDungeonSeasonId()
+    if season_id == nil then
+        return Str('이벤트 종료')
+    end
+
+    local timestamp = TableStoryDungeonEvent:getStoryDungeonEventEndTimeStamp(season_id)
+    timestamp = timestamp/1000
+    local remain_time = timestamp - ServerTime:getInstance():getCurrentTimestampSeconds()
+    if remain_time > 0 then
+        local time_str = ServerTime:getInstance():makeTimeDescToSec(remain_time, true)
+        return Str('{1} 남음', time_str)
+    else
+        return Str('이벤트 종료')
+    end
+end
+
+
 -------------------------------------
 -- function replaceStoryDungeonRelatedItems
 -- @brief 스토리 던전 관련 아이템을 시즌별로 다르게 보이도록 처리

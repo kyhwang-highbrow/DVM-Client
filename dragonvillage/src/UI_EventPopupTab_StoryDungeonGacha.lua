@@ -163,9 +163,14 @@ function UI_EventPopupTab_StoryDungeonGacha:initUI()
     end
 
     local function update(dt)
+        if vars['timeLabel'] ~= nil then
+            vars['timeLabel']:setString(g_eventDragonStoryDungeon:getRemainTimeText())
+        end
+
         self.m_mGoodsInfo:refresh()
     end
 
+    update()
     self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
 end
 

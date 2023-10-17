@@ -70,6 +70,8 @@ function UI_LobbyBanner:updateTime()
 
     if event_type == 'event_popularity' then
         vars['timeLabel']:setString(g_eventPopularityGacha:getStatusText(true))
+    elseif event_type == 'story_dungeon_gacha' then
+        vars['timeLabel']:setString(g_eventDragonStoryDungeon:getRemainTimeText())
     end
 end
 

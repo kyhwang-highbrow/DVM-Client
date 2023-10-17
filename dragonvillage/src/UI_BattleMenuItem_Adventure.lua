@@ -88,17 +88,8 @@ function UI_BattleMenuItem_Adventure:initUI_storyDungeon()
         vars['timeLabel']:setString('')
            
         local function update(dt)
-            local timestamp = TableStoryDungeonEvent:getStoryDungeonEventEndTimeStamp(season_id)
-            timestamp = timestamp/1000
-            local remain_time = timestamp - ServerTime:getInstance():getCurrentTimestampSeconds()
-            if remain_time > 0 then
-                local time_str = ServerTime:getInstance():makeTimeDescToSec(remain_time, true)
-                vars['timeLabel']:setString(Str('{1} 남음', time_str))
-            else
-                vars['timeLabel']:setString(Str('이벤트 종료'))
-                vars['timeLabel']:setColor(COLOR['red'])
-            end
-
+            vars['timeLabel']:setString(g_eventDragonStoryDungeon:getRemainTimeText())
+            
             -- 스토리 던전은 노티를 여기에서 처리
             local has_noti = g_highlightData:isHighlightStoryDungeonQuest()
             if vars['notiSprite'] ~= nil then
