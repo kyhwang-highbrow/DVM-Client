@@ -75,6 +75,27 @@ end
 
 
 -------------------------------------
+-- function makeRewardList
+-------------------------------------
+function UI_StoryDungeonEventQuestListItem:makeRewardList()
+    local l_total_reward = {}
+    local l_reward_info = self.m_questData:getRewardInfoList()
+    for _, v in ipairs(l_reward_info) do
+        table.insert(l_total_reward, v)
+    end
+    
+    -- 일퀘에만 적용
+    if (not self.m_questData:isDailyType()) then
+        l_total_reward = table.reverse(l_total_reward)
+        return l_total_reward
+    end
+
+    l_total_reward = table.reverse(l_total_reward)
+    return l_total_reward
+end
+
+
+-------------------------------------
 -- function setRewardCard
 -- @brief 보상 아이콘 표시
 -------------------------------------
@@ -90,44 +111,8 @@ function UI_StoryDungeonEventQuestListItem:setRewardCard()
             vars['rewardNode' .. i]:removeAllChildren()
         end
     end
-
-    -- @mskim UI에 출력할 순서에 따라 아래 보상 추가 로직의 순서를 변경한다.
-
+    
     local reward_idx = 1
-
-    -- 이벤트 보상 (3주년 신비의 알 100개 부화 이벤트, event_daily_quest)
-    -- @mskim 이벤트 보상은 이벤트 스프라이트를 표시한다.
-    if (self.m_questData:isDailyType()) then
-        local l_event_reward_list = self.m_questData:getEventRewardInfoList()
-        if (l_event_reward_list) then
-            for i, v in ipairs(l_event_reward_list) do
-                local reward_card = UI_ItemCard(v['item_id'], v['count'])
-                reward_card.root:setSwallowTouch(false)
-                local reward_node = vars['rewardNode' .. reward_idx]
-                if (reward_node) then
-                    if (reward_card) then
-                        reward_node:removeAllChildren()
-                        reward_node:addChild(reward_card.root)
-                        reward_idx = reward_idx + 1
-                        table.insert(l_rewardCardUI, reward_card)
-                    end
-                end
-                -- 아이템카드의 이벤트 스프라이트
-                if (reward_card.vars['eventSprite']) then
-                    reward_card.vars['eventSprite']:setVisible(true)
-                else                    
-                    local event_sprite = cc.Sprite:create('res/ui/icons/event_0103.png')
-                    if (event_sprite ~= nil) then
-                        event_sprite:setDockPoint(TOP_LEFT)
-                        event_sprite:setAnchorPoint(TOP_LEFT)
-                        
-                        reward_card.root:addChild(event_sprite)
-                    end
-                end
-            end
-        end
-    end
-
     -- 기본 퀘스트 보상
     for i, v in ipairs(l_reward_info) do
         local reward_card = UI_ItemCard(v['item_id'], v['count'])
@@ -143,23 +128,6 @@ function UI_StoryDungeonEventQuestListItem:setRewardCard()
         end
     end
 
-	-- 클랜 경험치
-	if (not g_clanData:isClanGuest()) then
-		local clan_exp = self.m_questData:getRewardClanExp()
-		if (clan_exp) then
-			local clan_exp_card = UI_ClanExpCard(clan_exp)
-            clan_exp_card.root:setSwallowTouch(false)
-			local reward_node = vars['rewardNode' .. reward_idx]
-			if (reward_node) then
-                if (clan_exp_card) then
-                    reward_node:removeAllChildren()
-				    reward_node:addChild(clan_exp_card.root)
-                    reward_idx = reward_idx + 1
-                    table.insert(l_rewardCardUI, clan_exp_card)
-                end
-            end
-		end
-	end
 
     local max_reward = reward_idx - 1
     -- 아이템 카드에 보상 받음 여부 표시(체크 표시)
