@@ -136,8 +136,11 @@ end
 function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
     local vars = self.vars
     local node = vars['reawardNode']
-    local myRankInfo = g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
+    if g_eventIncarnationOfSinsData.m_tMyRankInfo == nil then
+        return
+    end
 
+    local myRankInfo = g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
     -- 최조 한 번만 생성
     if (self.m_rewardTableView) then
         return

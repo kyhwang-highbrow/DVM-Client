@@ -1733,6 +1733,8 @@ local t_module = {
     'UI_ClanWarSelectSceneDefendHistoryItem',
     'UI_ClanWarSelectScene',
 	'UI_LoadingClanWar',
+    'UI_EventIncarnationOfSinsRankingPopup', -- 죄악의 화신 토벌작전 랭킹
+
 
     -- UI 둥지
     'UI_DragonLair', -- 메인
