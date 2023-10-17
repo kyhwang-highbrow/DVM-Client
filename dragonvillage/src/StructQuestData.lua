@@ -167,7 +167,7 @@ end
 -------------------------------------
 function StructQuestData:getRewardIndivPassExp()
 	local pass_exp = self['t_quest']['pass_exp']
-	if (pass_exp == '') then
+	if (pass_exp == '' or pass_exp == nil) then
 		return 0
 	end
 	return pass_exp
