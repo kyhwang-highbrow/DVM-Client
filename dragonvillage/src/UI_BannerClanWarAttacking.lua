@@ -70,12 +70,12 @@ function UI_BannerClanWarAttacking:update()
     local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local remain_time = (end_time - cur_time)
     if (remain_time > 0) then
-        vars['timeLabel']:setString(datetime.makeTimeDesc_timer_filledByZero(remain_time))
+        local time_str = ServerTime:getInstance():makeTimeDescToSec(remain_time/1000)
+        vars['timeLabel']:setString( Str('{1} 남음', time_str))
     else
         vars['timeLabel']:setString('')
     end
 end
-
 
 -------------------------------------
 -- function click_bannerBtn

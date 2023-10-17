@@ -98,7 +98,8 @@ function UI_BannerClanWar:update()
     local cur_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
     local remain_time = (end_time - cur_time)
     if (remain_time > 0) then
-        vars['timeLabel2']:setString(datetime.makeTimeDesc_timer_filledByZero(remain_time))
+        local time_str = ServerTime:getInstance():makeTimeDescToSec(remain_time/1000)
+        vars['timeLabel2']:setString( Str('{1} 남음', time_str))
     else
         vars['timeLabel2']:setString('')
     end
