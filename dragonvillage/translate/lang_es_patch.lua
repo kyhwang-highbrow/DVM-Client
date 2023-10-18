@@ -1,4 +1,7 @@
-return {['나의 영혼은 시련 앞에서 정의의 불길로 승화하리라. \n(업적 보상을 위한 도전 스테이지입니다.)']='Mi alma se elevará como una llama de justicia ante la adversidad. \n(Es una etapa desafiante para lograr una recompensa)',
+return {['일반적이지 않은 뇌룡포로 공격합니다. 일반 공격 대신 발동합니다. 지속피해 디버프가 걸린 경우, 모든 체력을 회복합니다.']='Ataco con Explosión de Dragón Trueno inusual. Ataque Normal Se activa en su lugar. Si se ve afectado por Daño Continuo Aura Negativa, se recupera de todas las Vida.',
+['적을 향해 매우 강력한 포격으로 공격합니다. 해로운 효과 상태일 경우, 공격력 감소 효과를 제외한 해로운 효과 1개당 피해량이 300% 증가합니다.']='Ataco con un bombardeo muy poderoso hacia el enemigo. Si el estado Efecto Dañino está activo, cada Efecto Dañino excluyendo Reducción de ATQ, aumentará Daño en un 300% por unidad.',
+['전기의 힘을 재충전합니다. 자신의 생명력을 회복합니다. 보유하고 있는 적중 감소를 제외한 중첩 가능한 해로운 효과(공격력 감소, 방어력 감소, 공격 속도 감소, 지속 피해)의 중첩 개수 1개당 회복량이 4배로 증가합니다.']='Recargaré la energía eléctrica. Valoro mi HP como Restauración. Excluding the one that you have Reducción de la Precisión, for each stackable Efecto Dañino (Reducción de ATQ,Reducción de la DEF,Reducción de la VEL,Daño Continuo Aura Negativa), the amount of Restauración increases four times per stack. ',
+['나의 영혼은 시련 앞에서 정의의 불길로 승화하리라. \n(업적 보상을 위한 도전 스테이지입니다.)']='Mi alma se elevará como una llama de justicia ante la adversidad. \n(Es una etapa desafiante para lograr una recompensa)',
 ['나의 의지는 절대로 흔들리지 않아! \n(업적 보상을 위한 도전 스테이지입니다.)']='¡Mi voluntad nunca se tambaleará! \n(Es una etapa desafiante para lograr una recompensa)',
 ['나의 정의는 억압된 이들에게 희망과 자유를 안겨줄 것이다! \n(업적 보상을 위한 도전 스테이지입니다.)']='¡Mi definición es dar esperanza y libertad a los oprimidos! \n(Es una etapa desafiante para lograr una recompensa)',
 ['드래곤 테이머와 번개고룡']='El domador dragón  y Dragón Relámpago',

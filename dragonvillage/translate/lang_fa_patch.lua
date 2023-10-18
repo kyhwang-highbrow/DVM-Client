@@ -1,4 +1,7 @@
-return {['번개고룡']='اژدهای اذرخش',
+return {['일반적이지 않은 뇌룡포로 공격합니다. 일반 공격 대신 발동합니다. 지속피해 디버프가 걸린 경우, 모든 체력을 회복합니다.']='I attack with unconventional Thunder Dragon Blast. Normal Attack will be triggered instead. When DOT Debuff, damage is active, all HP will be restored.',
+['적을 향해 매우 강력한 포격으로 공격합니다. 해로운 효과 상태일 경우, 공격력 감소 효과를 제외한 해로운 효과 1개당 피해량이 300% 증가합니다.']='We will attack the enemy with a very powerful bombardment. If the status is Harmful Effect, for each Harmful Effect except ATK down, Damage increases by 300%.',
+['전기의 힘을 재충전합니다. 자신의 생명력을 회복합니다. 보유하고 있는 적중 감소를 제외한 중첩 가능한 해로운 효과(공격력 감소, 방어력 감소, 공격 속도 감소, 지속 피해)의 중첩 개수 1개당 회복량이 4배로 증가합니다.']='I recharge the power of electricity. I recover my HP. Excluding the Decrease ACC that you possess, for each stackable Harmful Effect (ATK down,Decrease Defense,ATK Speed down,DOT damage), the amount of Recover increases by 4 times for each stack.',
+['번개고룡']='اژدهای اذرخش',
 ['나의 영혼은 시련 앞에서 정의의 불길로 승화하리라. \n(업적 보상을 위한 도전 스테이지입니다.)']='My soul will turn into the fire of justice in front of adversity. \n(This is a challenge stage for achievement rewards.)',
 ['나의 의지는 절대로 흔들리지 않아! \n(업적 보상을 위한 도전 스테이지입니다.)']='My will never wavers! \n(This is a challenge stage for achievement rewards.)',
 ['나의 정의는 억압된 이들에게 희망과 자유를 안겨줄 것이다! \n(업적 보상을 위한 도전 스테이지입니다.)']='My justice will give hope and freedom to the oppressed. \n(This is a challenge stage for achievement rewards.)',
