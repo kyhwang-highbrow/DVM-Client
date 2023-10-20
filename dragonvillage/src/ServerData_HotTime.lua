@@ -36,6 +36,7 @@ ServerData_HotTime = class({
         m_serverData = 'ServerData',
         m_hotTimeType = 'table',
         m_hotTimeInfoList = 'table', -- 서버에서 넘어오는 데이터 그대로를 저장
+        m_hotTimeInfoMap = 'Map<string, hottimeinfo>', -- 서버에서 넘어오는 데이터를 MAP으로 정제해서 저장
         m_activeEventList = 'table',
         m_listExpirationTime = 'timestamp',
 
@@ -72,6 +73,7 @@ BOOSTER_ITEM_STATE = {
 function ServerData_HotTime:init(server_data)
     self.m_serverData = server_data
     
+    self.m_hotTimeInfoMap = {}
 	self.m_activeEventList = {}
 	self.m_listExpirationTime = nil
 	
@@ -187,69 +189,20 @@ end
 -------------------------------------
 function ServerData_HotTime:response_hottime(ret, finish_cb)
     self.m_hotTimeInfoList = ret['all']
+    self.m_hotTimeInfoMap = {}
+
+    -- 핫타임 맵 생성
+    for _, v in ipairs(self.m_hotTimeInfoList) do
+        local event_key = v['event']
+        self.m_hotTimeInfoMap[event_key] = v
+    end
+
     self.m_listExpirationTime = nil
 	self.m_dcExpirationTime = nil
 
     if finish_cb then
         finish_cb(ret)
     end
-end
-
--------------------------------------
--- function refreshActiveList
--------------------------------------
-function ServerData_HotTime:refreshActiveList()
-    if (not self.m_hotTimeInfoList) then
-        return {}
-    end
-
-    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-
-    -- 아직 유효한 시간이면 체크를 하지 않음
-    if (self.m_listExpirationTime) and (curr_time < self.m_listExpirationTime) then
-        return
-    end
-
-    -- 오늘의 자정 시간을 지정
-    self.m_listExpirationTime = ServerTime:getInstance():getMidnightTimeStampSeconds()
-
-    -- 종료된 이벤트 삭제
-    for key,v in pairs(self.m_activeEventList) do
-        if ((v['enddate'] / 1000) < curr_time) then
-            self.m_activeEventList[key] = nil
-        end
-    end
-
-    -- 활성화된 항목 추출
-    self.m_activeEventList = {}
-
-    for i,v in pairs(self.m_hotTimeInfoList) do
-        local expiration_time = nil
-
-        -- 핫타임 시작 시간 전
-        if (curr_time < (v['begindate'] / 1000)) then
-            expiration_time = (v['begindate'] / 1000)
-
-        -- 핫타임 종료 후
-        elseif ((v['enddate'] / 1000) < curr_time) then
-
-        -- 활성 이벤트
-        else
-            local key = v['event']
-            self.m_activeEventList[key] = v
-            expiration_time = (v['enddate'] / 1000)
-        end
-
-        -- 리스트가 유효한 시간 저장
-        if expiration_time then
-            if (expiration_time < self.m_listExpirationTime) then
-                self.m_listExpirationTime = expiration_time
-            end
-        end
-    end
-
-    -- 활성화된 항목 추출할때 부스터 아이템 로비에서 상태 갱신
-    self.m_boosterInfoDirty = true
 end
 
 --[[
@@ -268,199 +221,119 @@ hottime event table 구조
       "event":"event_dice"
     }
 ]]
+
 -------------------------------------
--- function isActiveEvent
--- @brief event 항목의 이름 검사
+--- @function getHottimeEventInfo
+--- @brief map으로 바로 가져오도록 하는 함수
+-------------------------------------
+function ServerData_HotTime:getHottimeEventInfo(event_name)
+    return self.m_hotTimeInfoMap[event_name]
+end
+
+-------------------------------------
+--- @function isActiveEvent
+--- @brief event 항목의 이름 검사
 -------------------------------------
 function ServerData_HotTime:isActiveEvent(event_name)
-	self:refreshActiveList()
-
-    for _, t in pairs(self.m_activeEventList) do
-        if (t['event'] == event_name) then
-            return true
-        end
+    local t_event = self:getHottimeEventInfo(event_name)
+    if t_event == nil then
+        return false
     end
+
+    local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
+    local begin_time = t_event['begindate']
+    local end_time =t_event['enddate']
+    if begin_time <= curr_time and curr_time <= end_time then
+        return true
+    end
+
     return false
 end
 
 -------------------------------------
--- function getEventRemainTime
--- @brief event 항목의 남은 시간
--- @return sec
+--- @function getEventRemainTime
+--- @brief event 항목의 남은 시간 (sec)
 -------------------------------------
 function ServerData_HotTime:getEventRemainTime(event_name)
-	self:refreshActiveList()
-
-    for _, t in pairs(self.m_activeEventList) do
-        if (t['event'] == event_name) then
-            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-            local end_time = t['enddate']/1000
-            local time = (end_time - curr_time)
-
-            return time
-        end
+	local t_event = self:getHottimeEventInfo(event_name)
+    if t_event == nil then
+        return 0
     end
 
-    return nil
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local end_time = t_event['enddate']/1000
+    local time = (end_time - curr_time)
+    return time
 end
 
 -------------------------------------
--- function getEventStartTime
--- @brief event 항목의 시작 시간
--- @return sec
+--- @function getEventStartTime
+--- @brief event 항목의 시작 시간(sec)
 -------------------------------------
 function ServerData_HotTime:getEventStartTime(event_name)
-    self:refreshActiveList()
-    
-    for _, t in pairs(self.m_hotTimeInfoList) do
-        if (t['event'] == event_name) then
-            return t['begindate']/1000
-        end
+    local t_event = self:getHottimeEventInfo(event_name)
+    if t_event == nil then
+        return nil
     end
 
-    return nil
+    return t_event['begindate']/1000
 end
 
 -------------------------------------
--- function getEventEndTime
--- @brief event 항목의 종료 시간
--- @return sec
--------------------------------------
-function ServerData_HotTime:getEventEndTime(event_name)
-    self:refreshActiveList()
-    
-    for _, t in pairs(self.m_hotTimeInfoList) do
-        if (t['event'] == event_name) then
-            return  t['enddate']/1000
-        end
-    end
-
-    return nil
-end
-
--------------------------------------
--- function getEventBeginTime
--- @brief 이벤트 시작 날짜
--------------------------------------
-function ServerData_HotTime:getEventBeginTime(event_name)
-	self:refreshActiveList()
-
-    for _, t in pairs(self.m_activeEventList) do
-        if (t['event'] == event_name) then
-            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-            if (t['begindate']) then
-                local start_time = t['begindate']/1000
-                return start_time
-            end           
-        end
-    end
-
-    return nil
-end
-
--------------------------------------
--- function getChallengeMasterBeginTime
--- @brief 이벤트 시작 날짜
--------------------------------------
-function ServerData_HotTime:getChallengeMasterBeginTime()
-	self:refreshActiveList()
-
-    for _, t in pairs(self.m_hotTimeInfoList) do
-        if (t['event'] == 'event_challenge_master') then
-            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-            if (t['begindate']) then
-                local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-                local start_time = t['begindate']/1000
-                local time = start_time - curr_time
-                return time
-            end           
-        end
-    end
-
-    return nil
-end
-
--------------------------------------
--- function getEventRemainTimeText
--- @brief event 항목의 남은 시간 텍스트
+--- @function getEventRemainTimeText
+--- @brief event 항목의 남은 시간 텍스트
 -------------------------------------
 function ServerData_HotTime:getEventRemainTimeText(event_name)
-	self:refreshActiveList()
-
-    for _, t in pairs(self.m_activeEventList) do
-        if (t['event'] == event_name) then
-            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-            local end_time = t['enddate']/1000
-            local time = (end_time - curr_time)
-
-            return (time > 0) and Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true, true)) or ''
-        end
+    local remain_time = self:getEventRemainTime(event_name)
+    if (remain_time > 0) then
+        return Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(remain_time, true, true))
+    else
+        return ''
     end
-
-    return nil
 end
 
 -------------------------------------
--- function getEventRemainTimeTextDetail
--- @brief event 항목의 남은 시간 텍스트
+--- @function getEventRemainTimeTextDetail
+--- @brief event 항목의 남은 시간 텍스트
 -------------------------------------
 function ServerData_HotTime:getEventRemainTimeTextDetail(event_name)
-	self:refreshActiveList()
-
-    for _, t in pairs(self.m_activeEventList) do
-        if (t['event'] == event_name) then
-            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-            local end_time = t['enddate']/1000
-            local time = (end_time - curr_time)
-
-            return (time > 0) and Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(time, true, false)) or ''
-        end
+    local remain_time = self:getEventRemainTime(event_name)
+    if (remain_time > 0) then
+        return Str('{1} 남음', ServerTime:getInstance():makeTimeDescToSec(remain_time, true, false))
+    else
+        return ''
     end
-
-    return ''
 end
 
 -------------------------------------
--- function getEventRemainSec
--- @brief event 항목의 남은 초
+--- @function getEventRemainSec
+--- @brief event 항목의 남은 초
 -------------------------------------
 function ServerData_HotTime:getEventRemainSec(event_name)
-	self:refreshActiveList()
-
-    for _, t in pairs(self.m_activeEventList) do
-        if (t['event'] == event_name) then
-            local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
-            local end_time = t['enddate']/1000
-            local time = (end_time - curr_time)
-
-            return time
-        end
-    end
-
-    return nil
+    return self:getEventRemainTime(event_name)
 end
 
 -------------------------------------
--- function getActiveHotTimeInfo
--- @brief content 항목 검사 .. 이것들은 미리 정의되어야 한다
+--- @function getActiveHotTimeInfo
+--- @brief content 항목 검사 .. 이것들은 미리 정의되어야 한다
 -------------------------------------
 function ServerData_HotTime:getActiveHotTimeInfo(hottime_name)
-    self:refreshActiveList()
-
     local t_event = nil
-    for k,v in pairs(self.m_activeEventList) do
-        local l_contents = v['contents']
-        for _,name in ipairs(l_contents) do
-            if (hottime_name == name) then
+    for k, v in pairs(self.m_hotTimeInfoMap) do
+        if self:isActiveEvent(k) == true then
+            local l_contents = v['contents']
+            for _,name in ipairs(l_contents) do
+                if (hottime_name == name) then
+                    t_event = v
+                    break
+                end
+            end
+
+            -- 부스터 아이템은 contents가 아닌 이벤트 name으로 검사
+            if (hottime_name == k) then
                 t_event = v
                 break
             end
-        end
-
-        -- 부스터 아이템은 contents가 아닌 이벤트 name으로 검사
-        if (hottime_name == k) then
-            t_event = v
-            break
         end
     end
 
@@ -564,12 +437,12 @@ function ServerData_HotTime:isHighlightHotTime()
 end
 
 -------------------------------------
--- function getHotTimeBuffText
+--- @function getHotTimeBuffText
 -------------------------------------
 function ServerData_HotTime:getHotTimeBuffText(type)
     local state = BOOSTER_ITEM_STATE.NORMAL
     local str = ''
-    local t_info = g_hotTimeData:getActiveHotTimeInfo(type)
+    local t_info = self:getActiveHotTimeInfo(type)
 
     -- 현재 사용중
     if (t_info) then
