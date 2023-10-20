@@ -36,10 +36,7 @@ ServerData_HotTime = class({
         m_serverData = 'ServerData',
         m_hotTimeType = 'table',
         m_hotTimeInfoList = 'table', -- 서버에서 넘어오는 데이터 그대로를 저장
-        m_hotTimeInfoMap = 'Map<string, hottimeinfo>', -- 서버에서 넘어오는 데이터를 MAP으로 정제해서 저장
-        m_activeEventList = 'table',
-        m_listExpirationTime = 'timestamp',
-
+        m_hotTimeInfoMap = 'Map<string, hottimeinfo>', -- 서버에서 넘어오는 데이터를 MAP으로 정제해서 저장       
         m_currAdvGameKey = 'number',
         m_ingameHotTimeList = 'list',
 
@@ -72,10 +69,7 @@ BOOSTER_ITEM_STATE = {
 -------------------------------------
 function ServerData_HotTime:init(server_data)
     self.m_serverData = server_data
-    
     self.m_hotTimeInfoMap = {}
-	self.m_activeEventList = {}
-	self.m_listExpirationTime = nil
 	
 	self.m_activeDcEventTable = {}
     self.m_dcExpirationTime = nil
@@ -197,7 +191,7 @@ function ServerData_HotTime:response_hottime(ret, finish_cb)
         self.m_hotTimeInfoMap[event_key] = v
     end
 
-    self.m_listExpirationTime = nil
+    
 	self.m_dcExpirationTime = nil
 
     if finish_cb then
