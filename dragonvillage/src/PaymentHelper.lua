@@ -259,10 +259,19 @@ function PaymentHelper.payment(struct_product, cb_func)
         return
     end
 
-
+    local ui_block_popup = UI_BlockPopup()
+    local func_close_block = function()
+        if ui_block_popup ~= nil then
+            ui_block_popup:close()
+            ui_block_popup = nil
+            cclog('UI_BlockPopup() 해제!!!')
+        end
+    end
+    
+    cclog('UI_BlockPopup() 생성!!!')
     local function coroutine_function(dt)
         local co = CoroutineHelper()
-        co:setBlockPopup()
+        --co:setBlockPopup()
 
         -- 중간에 에러가 발생했을 경우 처리 (코루틴이 종료되는 시점에 무조건 호출되는 함수)
         local error_msg, error_info = nil
@@ -274,6 +283,9 @@ function PaymentHelper.payment(struct_product, cb_func)
 			elseif (error_info) then
 				PerpleSdkManager:makeErrorPopup(error_info)
             end
+
+            
+            func_close_block()
         end
         co:setCloseCB(coroutine_finidh_cb)
 
@@ -297,11 +309,13 @@ function PaymentHelper.payment(struct_product, cb_func)
                     local msg = '일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'
                     MakeSimplePopup(POPUP_TYPE.OK,  msg)
                     co.ESCAPE()
+                    func_close_block()
                 end        
             end
             local function fail_cb(ret)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
                 co.ESCAPE()
+                func_close_block()
             end
             g_shopDataNew:request_purchaseToken(market, sku, product_id, price, cb_func, fail_cb)
             if co:waitWork() then return end
@@ -345,16 +359,19 @@ function PaymentHelper.payment(struct_product, cb_func)
                     cclog('## 결제 실패')
                     error_info = info
                     co.ESCAPE()
+                    func_close_block()
 
                 elseif (ret == 'cancel') then
                     cclog('## 결제 취소')
                     error_msg = Str('결제를 취소하였습니다.')
                     co.ESCAPE()
+                    func_close_block()
 
                 else
                     cclog('## 결제 결과 (예외) : ' .. ret)
                     error_info = info
                     co.ESCAPE()
+                    func_close_block()
                 end
             end
 
@@ -374,6 +391,7 @@ function PaymentHelper.payment(struct_product, cb_func)
 				local msg = Str('결제에 성공하였습니다.')
 				MakeSimplePopup(POPUP_TYPE.OK, msg, function()
 						cb_func(ret)
+                        func_close_block()
 						co.NEXT()
 					end)
             end
@@ -381,6 +399,7 @@ function PaymentHelper.payment(struct_product, cb_func)
             local function fail_cb(ret)
                 ccdump(ret)
                 error_msg = Str('영수증 확인에 실패하였습니다.')
+                func_close_block()
                 co.ESCAPE()
             end
 
@@ -392,6 +411,7 @@ function PaymentHelper.payment(struct_product, cb_func)
                     cclog('#### ret : ')
                     ccdump(ret)
                     cb_func(ret)
+                    func_close_block()
                     co.NEXT()
                     return true
                 end
@@ -411,6 +431,8 @@ function PaymentHelper.payment(struct_product, cb_func)
             if orderId then
                 PaymentHelper.billingConfirm(orderId)
             end
+
+            cclog('여기로 들ㅓ오는게 맞ㅔ겟지?????????????')
         end
         --------------------------------------------------------
 
