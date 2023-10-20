@@ -217,10 +217,10 @@ hottime event table 구조
 ]]
 
 -------------------------------------
---- @function getHottimeEventInfo
+--- @function getHottimeEvent
 --- @brief map으로 바로 가져오도록 하는 함수
 -------------------------------------
-function ServerData_HotTime:getHottimeEventInfo(event_name)
+function ServerData_HotTime:getHottimeEvent(event_name)
     return self.m_hotTimeInfoMap[event_name]
 end
 
@@ -229,7 +229,7 @@ end
 --- @brief event 항목의 이름 검사
 -------------------------------------
 function ServerData_HotTime:isActiveEvent(event_name)
-    local t_event = self:getHottimeEventInfo(event_name)
+    local t_event = self:getHottimeEvent(event_name)
     if t_event == nil then
         return false
     end
@@ -249,7 +249,7 @@ end
 --- @brief event 항목의 남은 시간 (sec)
 -------------------------------------
 function ServerData_HotTime:getEventRemainTime(event_name)
-	local t_event = self:getHottimeEventInfo(event_name)
+	local t_event = self:getHottimeEvent(event_name)
     if t_event == nil then
         return 0
     end
@@ -265,7 +265,7 @@ end
 --- @brief event 항목의 시작 시간(sec)
 -------------------------------------
 function ServerData_HotTime:getEventStartTime(event_name)
-    local t_event = self:getHottimeEventInfo(event_name)
+    local t_event = self:getHottimeEvent(event_name)
     if t_event == nil then
         return nil
     end
