@@ -239,9 +239,8 @@ end
 
 
 -------------------------------------
--- function payment
--- legacy
--- @brief 결제 상품 처리
+--- @function payment
+--- @brief 결제 상품 처리 (사실상 iOS 인앱결제 전용 함수)
 -------------------------------------
 function PaymentHelper.payment(struct_product, cb_func)
     local is_billing_3 = false
@@ -263,16 +262,12 @@ function PaymentHelper.payment(struct_product, cb_func)
     local func_close_block = function()
         if ui_block_popup ~= nil then
             ui_block_popup:close()
-            ui_block_popup = nil
-            cclog('UI_BlockPopup() 해제!!!')
+            ui_block_popup = nil            
         end
     end
     
-    cclog('UI_BlockPopup() 생성!!!')
     local function coroutine_function(dt)
         local co = CoroutineHelper()
-        --co:setBlockPopup()
-
         -- 중간에 에러가 발생했을 경우 처리 (코루틴이 종료되는 시점에 무조건 호출되는 함수)
         local error_msg, error_info = nil
         local function coroutine_finidh_cb()
@@ -284,7 +279,6 @@ function PaymentHelper.payment(struct_product, cb_func)
 				PerpleSdkManager:makeErrorPopup(error_info)
             end
 
-            
             func_close_block()
         end
         co:setCloseCB(coroutine_finidh_cb)
@@ -425,20 +419,16 @@ function PaymentHelper.payment(struct_product, cb_func)
 
         --------------------------------------------------------
         cclog('#4. 결제 확인')
+        co:close()
         do
             -- 구매 완료 성공 콜백을 받은 후 게임 서버에서 정상적으로 상품 지급을 한 다음 다시 이 함수를 호출해서 구매 프로세스를 완료시킴
             -- 이 함수를 호출하면 구글 결제 가방에서 해당 Purchase 를 Consume 처리함.
             if orderId then
                 PaymentHelper.billingConfirm(orderId)
             end
-
-            cclog('여기로 들ㅓ오는게 맞ㅔ겟지?????????????')
         end
         --------------------------------------------------------
-
-        co:close()
     end
-
 
     Coroutine(coroutine_function, '#PAYMENT 코루틴')
 end
