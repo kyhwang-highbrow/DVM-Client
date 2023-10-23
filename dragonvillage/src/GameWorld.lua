@@ -350,7 +350,10 @@ function GameWorld:createComponents()
         elseif (self.m_gameMode == GAME_MODE_STORY_DUNGEON) then
             self.m_gameState = GameState_StoryDungeonEvent(self)
 
-        
+        -- 9. 딜킹 이벤트
+        elseif (self.m_gameMode ==  GAME_MODE_EVENT_DEALKING) then
+            self.m_gameState = GameState_DealkingEvent(self)
+
         end
         
         -- 7. 깜짝 출현 던전

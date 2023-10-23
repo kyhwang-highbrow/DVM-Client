@@ -6,8 +6,7 @@ local PARENT = GameWorld
 GameWorldDealkingEvent = class(PARENT, {
     })
 
-
-    -------------------------------------
+-------------------------------------
 --- @function makeHeroDeck
 --- @brief 덱 만들고 버프 부여하기
 -------------------------------------

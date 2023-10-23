@@ -251,6 +251,8 @@ function GameWorld:tryPatternMonster(t_monster, body)
         monster = MonsterLua_BossUseDeadMotion(t_monster['res'], body)
         monster:initAnimatorMonster(t_monster['res'], t_monster['attr'], nil, t_monster['size_type'])
         monster:initScript(script_name, t_monster['mid'], is_boss)
+    elseif (type == 'dealking_boss') then
+        monster = Monster_DealkingBoss(t_monster['res'], body)
 
     elseif (script and not is_pattern_ignore) then
         monster = MonsterLua_Boss(t_monster['res'], body)

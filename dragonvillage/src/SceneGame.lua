@@ -263,6 +263,8 @@ function SceneGame:onEnter()
 
     if (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
         self.m_inGameUI = UI_GameEventGold(self)
+    elseif self.m_gameMode == GAME_MODE_EVENT_DEALKING then
+        self.m_inGameUI = UI_GameEventDealking(self)
     else
         self.m_inGameUI = UI_Game(self)
     end
@@ -325,6 +327,10 @@ function SceneGame:prepare()
         
         elseif (self.m_gameMode == GAME_MODE_LEAGUE_RAID) then
             self.m_gameWorld = GameWorldLeagueRaid(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+
+        elseif (self.m_gameMode == GAME_MODE_EVENT_DEALKING) then -- 딜킹 이벤트
+            self.m_gameWorld = GameWorldDealkingEvent(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+
         else
             self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
         end
@@ -738,11 +744,13 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
             ui_network:setParam('friends', f_uids)
         end
 
-    elseif (game_mode == GAME_MODE_STORY_DUNGEON) then
-        -- 스토리 던전
+    elseif (game_mode == GAME_MODE_STORY_DUNGEON) then -- 스토리 던전
         api_url = '/game/story_dungeon/finish'
         auto = g_autoPlaySetting:getSequenceAutoPlay() and 1 or 0
 
+    elseif (game_mode == GAME_MODE_EVENT_DEALKING) then -- 딜킹 이벤트
+        api_url = '/event/dealking/finish'
+        ui_network:setParam('damage', t_param['damage'])
     end
     
     ui_network:setUrl(api_url)
@@ -868,6 +876,11 @@ end
 -------------------------------------
 function SceneGame:networkGameFinish_response_user_info(ret, t_result_ref)
     local user_levelup_data = t_result_ref['user_levelup_data']
+
+    -- 삼뉴체크
+    if t_result_ref['user_levelup_data'] == nil then
+        return
+    end
 
     -- 이전 레벨과 경험치
     user_levelup_data['prev_lv'] = g_userData:get('lv')

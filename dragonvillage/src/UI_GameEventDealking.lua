@@ -1,0 +1,53 @@
+local PARENT = UI_Game
+
+-------------------------------------
+-- class UI_GameEventDealking
+-------------------------------------
+UI_GameEventDealking = class(PARENT, {})
+
+-------------------------------------
+-- function getUIFileName
+-------------------------------------
+function UI_GameEventDealking:getUIFileName()
+    return 'ingame.ui'
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_GameEventDealking:initUI()
+    PARENT.initUI(self)
+
+    local vars = self.vars
+    
+    vars['clanRaidNode']:setVisible(true)
+    vars['autoStartButton']:setVisible(true)
+    vars['damageLabel']:setString('0')
+end
+
+-------------------------------------
+-- function init_timeUI
+-------------------------------------
+function UI_GameEventDealking:init_timeUI(display_wave, time)
+    local vars = self.vars
+
+    vars['timeNode']:setVisible(false)
+    vars['waveVisual']:setVisible(false)
+    
+    self.m_timeLabel = vars['clanRaidtimeLabel']
+    
+    if (time) then
+        self.m_timeLabel:setVisible(true)
+
+        self:setTime(time)
+    end
+end
+
+-------------------------------------
+-- function setTotalDamage
+-- @brief 총 피해량 표시
+-------------------------------------
+function UI_GameEventDealking:setTotalDamage(total_damage)
+    local vars = self.vars
+    vars['damageLabel']:setString(comma_value(total_damage))
+end

@@ -2089,8 +2089,11 @@ function UI_ReadySceneNew:networkGameStart()
     -- 그랜드 콜로세움 (이벤트 PvP 10대10)
     elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
         finish_cb(game_key)
-    --elseif (self.m_gameMode == GAME_MODE_DIMENSION_GATE) then
-        
+
+    -- 딜킹 이벤트(삼뉴체크)
+    elseif (self.m_gameMode == GAME_MODE_EVENT_DEALKING) then
+        g_eventDealkingData:request_eventDealkingStart(self.m_stageID, self.m_stageAttr, deck_name, finish_cb)
+
     else
         g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
     end

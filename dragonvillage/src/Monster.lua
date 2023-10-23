@@ -269,7 +269,10 @@ function Monster:makeHPGauge(hp_ui_offset, force)
         self.m_statusIconNode =   self.m_world.m_inGameUI.m_stackableDamageUI.vars['bossStatusNode']
         self.m_bFixedPosHpNode = true
         self.m_infoUI.m_targetMonster = self
-        return 
+        return
+    elseif (g_gameScene.m_gameMode == GAME_MODE_EVENT_DEALKING) then 
+        PARENT.makeHPGauge(self, hp_ui_offset)
+        return
     end
 
     if (force or (force == nil and self.m_charTable['rarity'] == 'boss')) then
@@ -398,7 +401,7 @@ function Monster:release()
     for effect, _ in pairs(self.m_mBoneEffect) do
         effect:release()
     end
-    
+
     PARENT.release(self)
 end
 

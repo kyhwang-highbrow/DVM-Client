@@ -549,8 +549,6 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
                 return true
             end
 
-
-
             return false
         end
 
@@ -587,9 +585,8 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         g_autoPlaySetting:setSequenceAutoPlay()
     end
     
-    -- 삼뉴체크
+    
     local friend_uid = g_friendData:getSettedFriendUID()
-
     ui_network:setUrl(api_url)
     ui_network:setRevocable(true)
     ui_network:setParam('uid', uid)

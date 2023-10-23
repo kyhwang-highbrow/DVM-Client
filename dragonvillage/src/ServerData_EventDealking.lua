@@ -401,26 +401,15 @@ function ServerData_EventDealking:request_EventIncarnationOfSinsAttrRanking(attr
 end
 
 -------------------------------------
--- function request_eventIncarnationOfSinsStart
--- @brief 죄악의 화신과 전투 시작 요청
--- @param stage : 전투한 스테이지 ID
--- @param attr : 전투한 보스 속성 (earth, water, fire, light, dark)
--- @param deck_name1 : 1번 덱 이름
--- @param deck_name2 : 2번 덱 이름
--- @param token1 : 1번 덱 검증 토큰
--- @param token2 : 2번 덱 검증 토큰
--- @param finish_cb : 통신 성공 처리할 콜백 함수
--- @param fail_cb : 통신 실패 처리할 콜백 함수
+--- @function request_eventDealkingStart
+--- @brief 딜킹 전투 시작 요청
+--- @param finish_cb : 통신 성공 처리할 콜백 함수
+--- @param fail_cb : 통신 실패 처리할 콜백 함수
 -------------------------------------
-function ServerData_EventDealking:request_eventIncarnationOfSinsStart(stage, attr, deck_name1, deck_name2, token1, token2, finish_cb, fail_cb)
+function ServerData_EventDealking:request_eventDealkingStart(stage, attr, deck_name, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
-    local stage = stage
-    local attr = attr
-    local deck_name1 = deck_name1
-    local deck_name2 = deck_name2
-    local token1 = token1
-    local token2 = token2
-        
+    local token = g_stageData:makeDragonToken(deck_name)
+
     local function success_cb(ret)
         self.m_gameState = true
 
@@ -450,10 +439,8 @@ function ServerData_EventDealking:request_eventIncarnationOfSinsStart(stage, att
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', stage)
     ui_network:setParam('attr', attr)
-    ui_network:setParam('deck_name1', deck_name1)
-    ui_network:setParam('deck_name2', deck_name2)
-    ui_network:setParam('token1', token1)
-    ui_network:setParam('token2', token2)
+    ui_network:setParam('deck_name', deck_name)    
+    ui_network:setParam('token', token)    
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

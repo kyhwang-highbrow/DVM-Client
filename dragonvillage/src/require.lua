@@ -590,6 +590,7 @@ local t_module = {
     'GameState_Dmgate',
     'GameState_LeagueRaid',
     'GameState_StoryDungeonEvent',
+    'GameState_DealkingEvent',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
@@ -651,6 +652,7 @@ local t_module = {
     'Monster_ClanRaidBoss',
     'Monster_AncientRuinDragon',
     'Monster_AncientRuinDragonBodyPart',
+    'Monster_DealkingBoss',
     'SummonedCreature',
     'Tamer',
 	'TamerSkill',
@@ -1641,10 +1643,12 @@ local t_module = {
     'UI_EventVoteRankingResult', -- 투표 월드 랭킹 결과
 
     -- 딜킹 이벤트
-    'UI_EventDealking',  -- 이벤트
-    'UI_EventDealkingTab',  -- 이벤트
+    'UI_EventDealking',  -- 메인 
+    'UI_EventDealkingTab',  -- 이벤트 탭
     'UI_EventDealkingRankingPopup',  -- 랭킹/보상
     'UI_EventDealkingEntryPopup', -- 스테이지 진입
+    'UI_GameEventDealking', -- 전투 화면
+    'UI_EventDealkingResult', -- 딜킹 전투 결과 화면
 
     -- 신화 드래곤 인기 가챠
     'UI_EventPopupTab_DragonPopularityGacha',
