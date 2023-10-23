@@ -212,6 +212,12 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if (g_eventDealkingData:isActive()) then
+            co:work('# 딜킹 이벤트 정보 받는 중')
+            g_eventDealkingData:request_eventDealkingInfo(co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
+        end
+
         if g_hotTimeData:isActiveEvent('event_arena_play') then
             co:work('# 콜로세움 참여 이벤트 정보 받는 중')
             g_eventArenaPlayData:request_eventData(co.NEXT, co.ESCAPE)

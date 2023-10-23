@@ -378,6 +378,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
         require('UI_EventIncarnationOfSins')
         ui = UI_EventIncarnationOfSins()
 
+    -- 딜킹 이벤트
+    elseif (tab == 'event_dealking') then
+        require('UI_EventDealking')
+        ui = UI_EventDealking()
+
     -- 신규 유저 환영 이벤트
 	elseif (tab == 'event_welcome_newbie') then
 		ui = UI_EventWelcomeNewbie()

@@ -145,6 +145,9 @@ local TableInfo = {
 
         -- 언어
         table_language_config = {'table_language_config', 'lang_code', false},
+
+        -- 딜킹 버프
+        table_dealking_buff = {'table_dealking_buff', 'stage', false},
     }
 
 -------------------------------------

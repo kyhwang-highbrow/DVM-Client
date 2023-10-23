@@ -369,6 +369,9 @@ function ServerData:getInstance()
     -- 라테아
     g_lairData = ServerData_Lair(g_serverData)
 
+    -- 딜킹 이벤트
+    g_eventDealkingData = ServerData_EventDealking(g_serverData)
+
     return g_serverData
 end
 

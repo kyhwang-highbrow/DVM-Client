@@ -235,6 +235,10 @@ function ServerData_Stage:isOpenStage(stage_id)
     elseif (game_mode == GAME_MODE_STORY_DUNGEON) then
         ret = g_eventDragonStoryDungeon:isOpenStage(stage_id)
 
+    -- 딜킹 이벤트
+    elseif (game_mode == GAME_MODE_EVENT_DEALKING) then
+        ret = g_eventDealkingData:canPlay()
+        
     end
 
     return ret

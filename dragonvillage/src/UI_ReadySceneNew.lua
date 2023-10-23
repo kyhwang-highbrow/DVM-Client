@@ -125,6 +125,10 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
 	local tutorial_key = TUTORIAL.FIRST_END
 	local check_step = 104
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
+
+
+    local deck_name = g_deckData:getSelectedDeckName()
+    cclog('선택 덱 이름', deck_name)
 end
 
 -------------------------------------

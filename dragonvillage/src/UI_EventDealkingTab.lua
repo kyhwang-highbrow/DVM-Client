@@ -1,45 +1,37 @@
-local PARENT = UI
-
+local PARENT = class(UI, ITabUI:getCloneTable())
 -------------------------------------
--- class UI_EventIncarnationOfSins
+-- class UI_EventDealkingTab
 -------------------------------------
-UI_EventIncarnationOfSins = class(PARENT,{
+UI_EventDealkingTab = class(PARENT,{
+    m_bossType = 'number',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventIncarnationOfSins:init()
-    local vars = self:load('event_incarnation_of_sins.ui')
-    
-    self:initUI()
-    self:initButton()
-    self:refresh()
-
-    self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
+function UI_EventDealkingTab:init(boss_type)
+    self.m_bossType = boss_type
+    self:load(string.format('event_dealking_%d_tab.ui', boss_type))
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_EventIncarnationOfSins:initUI()
+function UI_EventDealkingTab:initUI()
     local vars = self.vars
-
-    vars['dayLabel1']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('light'))
-    vars['dayLabel2']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('fire'))
-    vars['dayLabel3']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('water'))
-    vars['dayLabel4']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('earth'))
-    vars['dayLabel5']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('dark'))
+    local boss_name = g_eventDealkingData:getEventBossName(self.m_bossType)
+    vars['bossNameLabel']:setString(boss_name)
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_EventIncarnationOfSins:initButton()
+function UI_EventDealkingTab:initButton()
     local vars = self.vars
 
-    vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end)
-    vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
+    vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn(self.m_bossType) end)
+    vars['rankTotalBtn']:registerScriptTapHandler(function() self:click_rankBtn(0) end)
+
 
     vars['buyBtn1']:registerScriptTapHandler(function() self:click_attrBtn('light') end)
     vars['buyBtn2']:registerScriptTapHandler(function() self:click_attrBtn('fire') end)
@@ -49,9 +41,30 @@ function UI_EventIncarnationOfSins:initButton()
 end
 
 -------------------------------------
+-- function initUI
+-------------------------------------
+function UI_EventDealkingTab:onEnterTab(is_first)
+    local vars = self.vars
+    if (is_first == true) then
+        self:initUI()
+        self:initButton()
+        self:refresh()
+
+        self:scheduleUpdate(function(dt) self:update(dt) end, 1, true)
+    end
+end
+
+-------------------------------------
+-- function onEnterTab
+-------------------------------------
+function UI_EventDealkingTab:onExitTab()
+    local vars = self.vars
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
-function UI_EventIncarnationOfSins:refresh()
+function UI_EventDealkingTab:refresh()
     local vars = self.vars
 
     -- 현재 서버 데이터를 이용하여 버튼 설정
@@ -72,19 +85,19 @@ end
 -- @param score_label : UI 파일에서 점수를 적을 라벨
 -- @param lock_menu : 해당 속성 잠금 자물쇠 스프라이트, 없는 경우(total) nil로 설정
 -------------------------------------
-function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, lock_menu)
+function UI_EventDealkingTab:refreshButton(attr, rank_label, score_label, lock_menu)
     local vars = self.vars
 
     -- 현재 서버 데이터를 이용하여 순위 정보 표기
-    local rank = g_eventIncarnationOfSinsData:getMyRank(attr)
-    local score = g_eventIncarnationOfSinsData:getMyScore(attr)
+    local rank = g_eventDealkingData:getMyRank(attr)
+    local score = g_eventDealkingData:getMyScore(attr)
     
 	-- 내 랭킹이 0보다 작으면 {-위} 로 노출
     -- 0보다 큰 의미있는 값이면 그대로 노출
     if (rank < 0) then
         rank_label:setString(Str('순위 없음'))
     else
-        local ratio = g_eventIncarnationOfSinsData:getMyRate(attr)
+        local ratio = g_eventDealkingData:getMyRate(attr)
         local percent_text = string.format('%.2f', ratio * 100)
         rank_label:setString(Str('{1}위 ({2}%)', comma_value(rank), percent_text))
     end
@@ -98,7 +111,7 @@ function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, 
 
     -- 버튼 설정
     if (attr ~= 'total') then
-        if (g_eventIncarnationOfSinsData:isOpenAttr(attr)) then
+        if (g_eventDealkingData:isOpenAttr(attr)) then
             if (lock_menu ~= nil) then
                 lock_menu:setVisible(false)
             end
@@ -108,43 +121,31 @@ function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, 
             end
         end
     end
-
 end
 
--------------------------------------
--- function onEnterTab
--------------------------------------
-function UI_EventIncarnationOfSins:onEnterTab()
-    local vars = self.vars
-end
 
 ----------------------------------------------------------------------
 -- function update
 ----------------------------------------------------------------------
-function UI_EventIncarnationOfSins:update(dt)
+function UI_EventDealkingTab:update(dt)
     local vars = self.vars
-
-    local str = g_eventIncarnationOfSinsData:getRemainTimeString()
+    local str = g_eventDealkingData:getRemainTimeString()
     vars['timeLabel']:setString(str)
 end
 
 -------------------------------------
 -- function click_eventBtn
 -------------------------------------
-function UI_EventIncarnationOfSins:click_eventBtn()
+function UI_EventDealkingTab:click_eventBtn()
     local vars = self.vars
-
-    local event_type = 'event_incarnation_of_sins_popup'
-    g_fullPopupManager:showFullPopup(event_type)
 end
 
 -------------------------------------
 -- function click_rankBtn
 -------------------------------------
-function UI_EventIncarnationOfSins:click_rankBtn()
+function UI_EventDealkingTab:click_rankBtn(boss_type)
     local vars = self.vars
-
-    local ui = UI_EventIncarnationOfSinsRankingPopup()
+    local ui = UI_EventDealkingRankingPopup(boss_type)
 end
 
 -------------------------------------
@@ -152,19 +153,7 @@ end
 -- @brief 각 속성의 화신 버튼 클릭에 대한 콜백 함수
 -- @param attr : 속성 (string)
 -------------------------------------
-function UI_EventIncarnationOfSins:click_attrBtn(attr)
+function UI_EventDealkingTab:click_attrBtn(attr)
     local vars = self.vars
-
-    if (not g_eventIncarnationOfSinsData:isOpenAttr(attr)) then
-        UIManager:toastNotificationRed(Str('입장 가능한 시간이 아닙니다.'))
-        return
-    end
-
-    local ui = UI_EventIncarnationOfSinsEntryPopup(attr)
-    
-    local function close_cb()
-        self:refresh()
-    end
-
-    ui:setCloseCB()
+    local ui = UI_EventDealkingEntryPopup(attr, self.m_bossType)
 end

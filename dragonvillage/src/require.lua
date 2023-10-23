@@ -289,6 +289,7 @@ local t_module = {
     'ServerData_IndivPass', -- 개인 패스
     'ServerData_RunePreset', -- 룬 프리셋
     'ServerData_Lair', -- 라테아
+    'ServerData_EventDealking', -- 딜킹 이벤트
 
     -- Interface
     'IEventDispatcher',
@@ -513,6 +514,7 @@ local t_module = {
     'TableLairCondition', -- 축복 등록 조건
     'TableLairSchedule', -- 축복 시즌
     'TableLanguageConfig', -- 언어 코드
+    'TableDealkingBuff', -- 딜킹 스테이지 버프
 
     -- Scene
     'SceneCommon',
@@ -563,6 +565,7 @@ local t_module = {
     'GameWorldClanRaid',
     'GameWorldEventArena',
     'GameWorld_Illusion',
+    'GameWorldDealkingEvent',
     'GameState',
     'GameState_AncientRuin',
     'GameState_AncientTower',
@@ -1636,6 +1639,12 @@ local t_module = {
     'UI_EventVoteRankingItem',
     'UI_EventVoteDragonCard',
     'UI_EventVoteRankingResult', -- 투표 월드 랭킹 결과
+
+    -- 딜킹 이벤트
+    'UI_EventDealking',  -- 이벤트
+    'UI_EventDealkingTab',  -- 이벤트
+    'UI_EventDealkingRankingPopup',  -- 랭킹/보상
+    'UI_EventDealkingEntryPopup', -- 스테이지 진입
 
     -- 신화 드래곤 인기 가챠
     'UI_EventPopupTab_DragonPopularityGacha',

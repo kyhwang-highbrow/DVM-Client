@@ -1,0 +1,564 @@
+-------------------------------------
+-- class ServerData_EventDealking
+-- g_eventIncarnationOfSinsData
+-------------------------------------
+ServerData_EventDealking = class({
+    m_tMyRankInfo = 'table', -- 속성별 자신의 순위 정보가 들어있음 (light, dark, fire, water, earth, total(전체순위))
+    m_rewardStatus = 'number', -- 보상 받았는지 상태 저장
+    m_tReceiveReward = 'table', -- 획득하는 보상 정보 
+    m_lCloseRankers = 'list', -- 랭크 앞, 자신, 뒤 등수의 유저 정보
+
+    m_tRewardInfo = 'table', -- 랭킹 보상 정보
+    m_tAttrInfo = 'table', -- 요일별 입장 가능한 속성 정보
+    m_todayDow = 'number', -- 오늘 요일 (1 = 일요일, 2, 3, 4, 5, 6, 7 = 토요일)
+    m_gameState = 'boolean',
+    m_rankNoti = 'boolean',
+    m_isOpened = 'boolean',
+
+    m_tDealkingBossInfo = 'Map',
+})
+
+ServerData_EventDealking.STATE = {
+    ['INACTIVE'] = 1,	-- 이벤트 비활성화
+    ['OPEN'] = 2,		-- 이벤트 던전 입장 가능
+    ['REWARD'] = 3,		-- 보상 수령 가능
+    ['DONE'] = 4,		-- 보상 수령 후 
+}
+
+-------------------------------------
+-- function init
+-------------------------------------
+function ServerData_EventDealking:init()
+    self.m_rewardStatus = 0
+    self.m_rankNoti = true
+    self.m_isOpened = false
+    self:makeBossMap()
+end
+
+-------------------------------------
+-- function makeBossMap
+-------------------------------------
+function ServerData_EventDealking:makeBossMap()
+    self.m_tDealkingBossInfo = {}
+
+    -- 1번 보스
+    self.m_tDealkingBossInfo[1] = {
+        ['name'] = Str('딜킹 이벤트 보스명 A'),
+    }
+
+    -- 2번 보스
+    self.m_tDealkingBossInfo[2] = {
+        ['name'] = Str('딜킹 이벤트 보스명 B'),
+    }
+end
+
+-------------------------------------
+-- function getEventState
+-------------------------------------
+function ServerData_EventDealking:getEventState()
+    -- 예외처리
+    if (not g_hotTimeData) then
+        return ServerData_EventDealking.STATE['INACTIVE']
+
+    -- 이벤트 기간
+    elseif (g_hotTimeData:isActiveEvent('event_dealking')) then
+        return ServerData_EventDealking.STATE['OPEN']
+
+    -- 보상 수령 기간
+    elseif (g_hotTimeData:isActiveEvent('event_dealking_reward')) then
+        if (self.m_rewardStatus == 0) then
+            return ServerData_EventDealking.STATE['REWARD']
+
+        -- 보상 수령 후 (1 -> 이번 시즌 보상 받음, 2 -> 이번 시즌 보상 받을게 없음)
+        elseif (self.m_rewardStatus == 1) or (self.m_rewardStatus == 2) then
+            return ServerData_EventDealking.STATE['DONE']
+        end
+    end
+
+    -- 해당 없으면 비활성화
+    return ServerData_EventDealking.STATE['INACTIVE']
+end
+
+-------------------------------------
+-- function canPlay
+-- @brief 게임 플레이가 가능한가
+-------------------------------------
+function ServerData_EventDealking:canPlay()
+    return (self:getEventState() == ServerData_EventDealking.STATE['OPEN'])
+end
+
+-------------------------------------
+-- function canReward
+-- @brief 보상을 받을 수 있는가
+-------------------------------------
+function ServerData_EventDealking:canReward()
+    return (self:getEventState() == ServerData_EventDealking.STATE['REWARD'])
+end
+
+-------------------------------------
+-- function isPlaying
+-- @brief 죄악의 화신을 플레이 중인지
+-------------------------------------
+function ServerData_EventDealking:isPlaying()
+    if (self.m_gameState == true) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function getRankNoti
+-- @brief
+-------------------------------------
+function ServerData_EventDealking:getRankNoti()
+    return self.m_rankNoti
+end
+
+-------------------------------------
+-- function setRankNoti
+-- @brief
+-------------------------------------
+function ServerData_EventDealking:setRankNoti(v)
+    self.m_rankNoti = v
+end
+
+-------------------------------------
+-- function isActive
+-- @brief 활성화되어있는가
+-------------------------------------
+function ServerData_EventDealking:isActive()
+    return (self:getEventState() ~= ServerData_EventDealking.STATE['INACTIVE'])
+end
+
+-------------------------------------
+--- @function getEventDealkingStageId
+-------------------------------------
+function ServerData_EventDealking:getEventDealkingStageId(boss_type, selected_attr)
+    local attr_map = {
+        ['light'] = 1,
+        ['fire'] = 2,
+        ['water'] = 3,
+        ['earth'] = 4,
+        ['dark'] = 5,
+    }
+
+    local stage_id = 3100000 + ((boss_type - 1) * 5) + attr_map[selected_attr]
+    return stage_id
+end
+
+-------------------------------------
+-- function getMyRank
+-- @brief 내 랭킹 받아오기
+-------------------------------------
+function ServerData_EventDealking:getMyRank(type)
+    type = (type or 'total')
+
+    local result = -1
+
+    if (self.m_tMyRankInfo) then
+        result = self.m_tMyRankInfo[type]['rank']
+    end
+
+    return result
+end
+
+-------------------------------------
+-- function getMyScore
+-- @brief 내 랭킹점수 받아오기
+-------------------------------------
+function ServerData_EventDealking:getMyScore(type)
+    type = (type or 'total')    
+
+    local result = -1
+
+    if (self.m_tMyRankInfo) then
+        result = self.m_tMyRankInfo[type]['score']
+    end
+
+    return result
+end
+
+-------------------------------------
+-- function getMyRate
+-- @brief 내 랭킹 퍼센트 받아오기
+-------------------------------------
+function ServerData_EventDealking:getMyRate(type)
+    type = (type or 'total')    
+
+    local result = -1
+
+    if (self.m_tMyRankInfo) then
+        result = self.m_tMyRankInfo[type]['rate']
+    end
+
+    return result
+end
+
+-------------------------------------
+-- function getRemainTimeString
+-- @brief 이벤트 남은시간 받아오기
+-------------------------------------
+function ServerData_EventDealking:getRemainTimeString()
+    -- TODO : 구현을 해야한다.
+    return g_hotTimeData:getEventRemainTimeTextDetail('event_dealking') or ''
+end
+
+-------------------------------------
+-- function isOpenAttr
+-- @brief 해당 속성이 현재 열려있는지 판단
+-------------------------------------
+function ServerData_EventDealking:isOpenAttr(attr)    
+    -- 플레이 기간이 아닐 땐 모두 잠겨있음
+--[[     if (not self:canPlay()) then
+        return false
+    end ]]
+    return true
+end
+
+
+-------------------------------------
+-- function setCloseRankers
+-- @brief 앞뒤 등수 유저 정보 저장
+-- @param l_rankers : 앞, 자신, 뒤 최대 3명의 랭크 정보 리스트
+-------------------------------------
+function ServerData_EventDealking:setCloseRankers(l_rankers)
+    local uid = g_userData:get('uid')
+
+    self.m_lCloseRankers = {}
+    self.m_lCloseRankers['me_ranker'] = nil
+    self.m_lCloseRankers['upper_ranker'] = nil
+    self.m_lCloseRankers['lower_rank'] = nil
+
+    for _,data in ipairs(l_rankers) do
+        if (data['uid'] == uid) then
+            self.m_lCloseRankers['me_ranker'] = data
+        end
+    end
+
+    if (self.m_lCloseRankers['me_ranker'] == nil) then return end
+    local my_rank = self.m_lCloseRankers['me_ranker']['rank']
+    local upper_rank = my_rank - 1
+    local lower_rank = my_rank + 1
+
+    for _,data in ipairs(l_rankers) do
+        if (tonumber(data['rank']) == tonumber(upper_rank)) then
+            self.m_lCloseRankers['upper_ranker'] = data
+        end
+
+        if (tonumber(data['rank']) == tonumber(lower_rank)) then
+            self.m_lCloseRankers['lower_rank'] = data
+        end
+    end
+end
+
+-------------------------------------
+-- function getCloseRankers
+-- @brief 앞뒤 등수 유저 정보 반환 
+-------------------------------------
+function ServerData_EventDealking:getCloseRankers()
+    return self.m_lCloseRankers['upper_ranker'], self.m_lCloseRankers['me_ranker'], self.m_lCloseRankers['lower_rank']
+end
+
+-------------------------------------
+-- function getEventBossName
+-------------------------------------
+function ServerData_EventDealking:getEventBossName(boss_type)
+    local t_boss = self.m_tDealkingBossInfo[boss_type]
+    if t_boss == nil then
+        return ''
+    end
+    return t_boss.name
+end
+
+-------------------------------------
+-- function openRankingPopupForLobby
+-- @brief 로비에서 랭킹 팝업 바로 여는 경우 사용, 랭킹 보상이 있는지도 체크하여 출력한다.
+-------------------------------------
+function ServerData_EventDealking:openRankingPopupForLobby()
+    local function finish_cb()
+        -- 랭킹 팝업
+        UI_EventIncarnationOfSinsRankingPopup()
+
+        local last_info = self.m_tMyRankInfo['total']
+        local reward_info = self.m_tReceiveReward
+
+        -- 보상을 받을 수 있는 상태라면
+        if (last_info and reward_info) then
+            -- 랭킹 보상 팝업
+            UI_EventIncarnationOfSinsRewardPopup(last_info, reward_info)
+            g_highlightData:setHighlightMail()
+        end
+    end
+
+    self:request_eventIncarnationOfSinsInfo(true, finish_cb, nil)
+end
+
+local mInit = false
+-------------------------------------
+-- function request_eventDealkingInfo
+-- @brief 이벤트 정보를 요청
+-- @param include_reward : 이벤트 랭킹 보상을 받을지 여부
+-------------------------------------
+function ServerData_EventDealking:request_eventDealkingInfo(finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+    local include_tables = false    
+
+    -- 맨 처음 한번만 require
+    if (not mInit) then
+        mInit = true
+        include_tables = true
+    end
+
+    -- 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        self:response_eventIncarnationOfSinsInfo(ret)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/event/dealking/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('include_tables', include_tables) -- 정보 관련 테이블 내려받을지 여부     
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:hideBGLayerColor()
+    ui_network:request()
+end
+
+-------------------------------------
+-- function response_eventIncarnationOfSinsInfo
+-------------------------------------
+function ServerData_EventDealking:response_eventIncarnationOfSinsInfo(ret)
+    if (ret['rankinfo']) then
+        self.m_tMyRankInfo = ret['rankinfo']
+    end
+
+    if (ret['reward']) then
+        self.m_rewardStatus = ret['reward']
+    end 
+
+    if (ret['reward_info']) then
+        self.m_tReceiveReward = ret['reward_info']
+    else
+        self.m_tReceiveReward = nil
+    end
+
+    if (ret['table_dealking_rank']) then
+        self.m_tRewardInfo = ret['table_dealking_rank']
+    end
+end
+
+-------------------------------------
+-- function request_EventIncarnationOfSinsAttrRanking
+-- @brief 랭킹 정보를 요청하고, cb_func를 통해 랭킹 정보를 다룸
+-- @param attr_type : 속성 (earth, water, fire, light, dark, all(다섯가지 속성 전부 조회), total(합산 점수))
+-- @param search_type : 랭킹을 조회할 그룹 (world, clan, friend)
+-- @param offset : 랭킹 리스트의 offset 값 (-1 : 내 랭킹 기준, 0 : 상위 랭킹 기준, 20 : 랭킹의 20번째부터 조회..) 
+-- @param param_success_cb : 받은 데이터를 이용하여 처리할 콜백 함수
+-- @param param_fail_cb : 통신 실패 처리할 콜백 함수
+-------------------------------------
+function ServerData_EventDealking:request_EventIncarnationOfSinsAttrRanking(attr_type, search_type, offset, limit, param_success_cb, param_fail_cb)
+    local uid = g_userData:get('uid')
+    local attr = attr_type -- default : total
+    local type = search_type -- default : world
+    local offset = offset -- default : 0
+    local limit = limit -- default : 20
+
+    -- 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        self:response_eventIncarnationOfSinsInfo(ret)
+
+        if param_success_cb then
+            param_success_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/event/dealking/ranking')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('attr', attr) 
+    ui_network:setParam('type', type)
+    ui_network:setParam('offset', offset)
+    ui_network:setParam('limit', limit)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(param_fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:hideBGLayerColor()
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_eventIncarnationOfSinsStart
+-- @brief 죄악의 화신과 전투 시작 요청
+-- @param stage : 전투한 스테이지 ID
+-- @param attr : 전투한 보스 속성 (earth, water, fire, light, dark)
+-- @param deck_name1 : 1번 덱 이름
+-- @param deck_name2 : 2번 덱 이름
+-- @param token1 : 1번 덱 검증 토큰
+-- @param token2 : 2번 덱 검증 토큰
+-- @param finish_cb : 통신 성공 처리할 콜백 함수
+-- @param fail_cb : 통신 실패 처리할 콜백 함수
+-------------------------------------
+function ServerData_EventDealking:request_eventIncarnationOfSinsStart(stage, attr, deck_name1, deck_name2, token1, token2, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+    local stage = stage
+    local attr = attr
+    local deck_name1 = deck_name1
+    local deck_name2 = deck_name2
+    local token1 = token1
+    local token2 = token2
+        
+    local function success_cb(ret)
+        self.m_gameState = true
+
+        if (finish_cb) then
+            finish_cb(ret)
+        end
+    end
+
+    local function response_status_cb(ret)
+        -- 요일에 맞지 않는 속성
+        if (ret['status'] == -2150) then
+            -- 로비로 이동
+            local function ok_cb()
+                UINavigator:goTo('lobby')
+            end 
+
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이미 종료된 던전입니다.'), ok_cb)
+            return true
+        end
+
+        return false
+    end
+
+    local ui_network = UI_Network()
+    local api_url = '/event/dealking/start'
+    ui_network:setUrl(api_url)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage)
+    ui_network:setParam('attr', attr)
+    ui_network:setParam('deck_name1', deck_name1)
+    ui_network:setParam('deck_name2', deck_name2)
+    ui_network:setParam('token1', token1)
+    ui_network:setParam('token2', token2)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_eventIncarnationOfSinsFinish
+-- @brief 죄악의 화신과 전투 종료하고 점수 저장
+-- @param stage : 전투한 스테이지 ID
+-- @param attr : 전투한 보스 속성 (earth, water, fire, light, dark)
+-- @param damage : 보스에게 입힌 대미지
+-- @param choice_deck : 수동 조작한 덱 번호 (up : 1, down : 2)
+-- @param clear_time : 인게임에서 소요된 시간
+-- @param check_time : 타임스탬프
+-- @param finish_cb : 통신 성공 처리할 콜백 함수
+-- @param fail_cb : 통신 실패 처리할 콜백 함수
+-------------------------------------
+function ServerData_EventDealking:request_eventIncarnationOfSinsFinish(stage, attr, damage, choice_deck, clear_time, check_time, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+    local stage = stage
+    local attr = attr
+    local damage = damage
+    local choice_deck = choice_deck
+    local clear_time = clear_time
+    local check_time = check_time
+        
+    local function success_cb(ret)
+        self.m_gameState = false
+
+        if (finish_cb) then
+            finish_cb(ret)
+        end
+    end
+
+    local function response_status_cb(ret)
+        -- 현재 시간에 잠겨 있는 속성
+        if (ret['status'] == -1364) then
+            -- 로비로 이동
+            local function ok_cb()
+                UINavigator:goTo('lobby')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'), ok_cb)
+            return true
+        end
+
+        return false
+    end
+
+    local ui_network = UI_Network()
+    local api_url = '/event/dealking/finish'
+    ui_network:setUrl(api_url)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage)
+    ui_network:setParam('attr', attr)
+    ui_network:setParam('damage', damage)
+    ui_network:setParam('choice_deck', choice_deck)
+    ui_network:setParam('clear_time', clear_time)
+    ui_network:setParam('check_time', check_time)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function getPossibleReward_IncarnationsOfSins
+-- @brief 획득할 수 있는 보상 데이터를 반환
+-- @param my_rank : 현재 등수
+-- @param my_ratio : 현재 랭크 비율 
+-------------------------------------
+function ServerData_EventDealking:getPossibleReward_IncarnationsOfSins(my_rank, my_ratio)
+    local my_rank = tonumber(my_rank)
+    local my_rank_rate = tonumber(my_ratio) * 100
+
+    local l_rank_list = self.m_tRewardInfo
+
+    -- 한번도 플레이 하지 않은 경우, 최상위 보여줌
+    if (my_rank <= 0) then
+        return nil, 0
+    end
+
+    for i,data in ipairs(l_rank_list) do
+        
+        local rank_min = tonumber(data['rank_min'])
+        local rank_max = tonumber(data['rank_max'])
+
+        local ratio_min = tonumber(data['ratio_min'])
+        local ratio_max = tonumber(data['ratio_max'])
+
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= my_rank) and (my_rank <= rank_max) then
+                return data, i
+            end
+
+        -- 비율 필터
+        elseif (ratio_min and ratio_max) then
+            if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
+                return data, i
+            end
+        end
+    end
+
+    -- 마지막 보상 리턴
+    local last_ind = #l_rank_list
+    return l_rank_list[last_ind], last_ind or 0  
+end
