@@ -26,7 +26,7 @@ function UI_EventDealkingResult:init(stage_id, is_success, damage, t_data)
     self.m_data = t_data
     self.m_grade = t_data['dmg_rank']
 
-    local vars = self:load('clan_raid_result.ui')
+    local vars = self:load('event_dealking_result.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_EventDealkingResult'
 

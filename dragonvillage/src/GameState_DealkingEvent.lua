@@ -10,6 +10,8 @@ GameState_DealkingEvent = class(PARENT, {
         m_accumDamage = 'number',   -- 누적 데미지(정확히는 체력을 깍은 양)
         m_finalDamage = 'number',   -- 막타 데미지
         m_finalSkillId = 'number',   -- 막타 스킬 아이디
+
+        m_uiBossHp = 'UI_IngameSharedBossHp',
     })
 
 -------------------------------------
@@ -23,6 +25,7 @@ function GameState_DealkingEvent:init(world)
     self.m_finalDamage = 0
     self.m_finalSkillId = nil
     self.m_limitTime = 10
+    self.m_uiBossHp = nil
 end
 
 -------------------------------------
@@ -94,6 +97,38 @@ function GameState_DealkingEvent.update_start(self, dt)
 end
 
 -------------------------------------
+-- function doDirectionForIntermission
+-------------------------------------
+function GameState_DealkingEvent:doDirectionForIntermission()
+    local t_camera_info = {}
+    	
+    t_camera_info['pos_x'] = 0
+	t_camera_info['pos_y'] = 0
+	t_camera_info['time'] = getInGameConstant("WAVE_INTERMISSION_TIME")
+        
+    -- 카메라 액션 설정
+    self.m_world:changeCameraOption(t_camera_info)
+
+    self.m_world:changeHeroHomePosByCamera()
+end
+
+-------------------------------------
+-- function update_fight
+-------------------------------------
+function GameState_DealkingEvent.update_fight(self, dt)
+    local world = self.m_world
+    
+    if (self.m_stateTimer == 0) then
+        if (world.m_waveMgr:isFinalWave()) then
+            -- 보스 체력 게이지
+            self:makeBossHp()
+        end
+    end
+
+    PARENT.update_fight(self, dt)
+end
+
+-------------------------------------
 -- function update_result
 -------------------------------------
 function GameState_DealkingEvent.update_result(self, dt)
@@ -103,6 +138,32 @@ function GameState_DealkingEvent.update_result(self, dt)
         else
             self:makeResultUI(true)
         end
+    end
+end
+
+
+-------------------------------------
+-- function makeBossHp
+-------------------------------------
+function GameState_DealkingEvent:makeBossHp()
+    local world = self.m_world
+    local boss = world.m_waveMgr.m_lBoss[1]
+--[[     self.m_orgBossHp:set(hp)
+    self.m_bossHp:set(hp)
+    self.m_bossMaxHp:set(max_hp) ]]
+
+    -- 체력 게이지 UI 생성
+    if (not self.m_uiBossHp) then
+        local parent = world.m_inGameUI.root
+        local ui = UI_IngameSharedBossHp(parent, world.m_waveMgr.m_lBoss, false)
+        local attr = boss:getAttribute()
+        DragonInfoIconHelper.setDragonAttrBtn(attr, ui.vars['attrNode'])
+
+        ui.vars['bossHpGauge1']:setVisible(false)
+        ui.vars['bossHpGauge2']:setVisible(false)
+
+        ui.vars['hpInfiniteLabel']:setVisible(true)
+        self.m_uiBossHp = ui
     end
 end
 
@@ -228,7 +289,7 @@ function GameState_DealkingEvent:getTotalDamage()
     local total_damage = accum_damage + final_damage
     return total_damage
 end
-
+--[[ 
 -------------------------------------
 -- function updateFightTimer
 -------------------------------------
@@ -259,4 +320,4 @@ function GameState_DealkingEvent:updateFightTimer(dt)
     end
 
     self.m_world.m_inGameUI:setTime(time, has_limit)
-end
+end ]]
