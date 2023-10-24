@@ -208,14 +208,14 @@ end
 -- function isOpenAttr
 -- @brief 해당 속성이 현재 열려있는지 판단
 -------------------------------------
-function ServerData_EventDealking:isOpenAttr(attr)    
+function ServerData_EventDealking:isOpenAttr(attr)
     -- 플레이 기간이 아닐 땐 모두 잠겨있음
---[[     if (not self:canPlay()) then
+    if (not self:canPlay()) then
         return false
-    end ]]
+    end
+
     return true
 end
-
 
 -------------------------------------
 -- function setCloseRankers

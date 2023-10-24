@@ -199,9 +199,10 @@ function GameState_DealkingEvent:makeResultUI(is_success)
         local world = self.m_world
         local stage_id = world.m_stageID
         local damage = total_damage
+        local boss = world.m_waveMgr.m_lBoss[1]
 
         local ui = UI_EventDealkingResult(stage_id,
-            is_success,
+            boss,
             damage,
             t_result_ref)
     end

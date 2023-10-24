@@ -21,7 +21,7 @@ end
 -------------------------------------
 function UI_EventDealking:initUI()
     local vars = self.vars
-    local boss_type_list = {1,2}
+    local boss_type_list = {1}
 
     for _, type in ipairs(boss_type_list) do
         local ui = UI_EventDealkingTab(type)
@@ -37,6 +37,7 @@ end
 -------------------------------------
 function UI_EventDealking:initButton()
     local vars = self.vars
+    vars['2TabBtn']:setBlockMsg(Str('추후 오픈 예정입니다.'))
 end
 
 -------------------------------------

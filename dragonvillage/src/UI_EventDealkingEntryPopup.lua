@@ -46,6 +46,13 @@ end
 -------------------------------------
 function UI_EventDealkingEntryPopup:initUI()
     local vars = self.vars
+    local stage_id = self.m_stageId
+    local monster_id_list = g_stageData:getMonsterIDList(stage_id)
+    local boss_id = monster_id_list[1]
+
+    -- 보스 이름
+    local boss_name = TableMonster():getMonsterName(boss_id)
+    vars['bossNameLabel']:setString(boss_name)
 
     -- 속성
     local attr = self.m_selectedAttr
@@ -71,12 +78,13 @@ function UI_EventDealkingEntryPopup:initUI()
     end
     vars['scoreLabel']:setString(Str('{1}점', score))
 
-    local l_monster = TableStageDesc():getMonsterIDList_ClanMonster(attr)
-    for _, mid in ipairs(l_monster) do
+
+    -- 몬스터 스파인
+    for _, mid in ipairs(monster_id_list) do
         local res, attr, evolution = TableMonster:getMonsterRes(mid)
         local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
         if (animator) then
-            local zOrder = WORLD_Z_ORDER.BOSS
+--[[             local zOrder = WORLD_Z_ORDER.BOSS
             local idx = getDigit(mid, 10, 1)
             if (idx == 1) and (mid == boss_mid) then
                 zOrder = WORLD_Z_ORDER.BOSS     
@@ -86,9 +94,10 @@ function UI_EventDealkingEntryPopup:initUI()
                 zOrder = WORLD_Z_ORDER.BOSS
             else
                 zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
-            end
-            vars['bossNode']:addChild(animator.m_node, zOrder)
+            end ]]
 
+            animator:setScale(0.5)
+            vars['bossNode']:addChild(animator.m_node)
             animator:changeAni('idle', true)
         end
     end

@@ -5,6 +5,7 @@ UI_EventDealkingResult = class(UI, {
     m_stageID = 'number',
     m_bSuccess = 'boolean',
     m_data = '', -- 등급, 보상 정보
+    m_bossMonster = 'Monster',
     m_damage = 'number', -- 피해량
     m_grade = 'number', -- 보상 등급
     m_workIdx = 'number',
@@ -19,10 +20,10 @@ local ANI_DURATION = 0.2 -- 아이템 카드 보여주는 애니메이션 속도
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_EventDealkingResult:init(stage_id, is_success, damage, t_data)
-    self.m_stageID = stage_id
-    self.m_bSuccess = is_win
+function UI_EventDealkingResult:init(stage_id, boss, damage, t_data)
+    self.m_stageID = stage_id    
     self.m_damage = damage
+    self.m_bossMonster = boss
     self.m_data = t_data
     self.m_grade = t_data['dmg_rank']
 
@@ -311,39 +312,24 @@ end
 -------------------------------------
 function UI_EventDealkingResult:show_boss_hp()
     local vars = self.vars
-
---[[     local struct_raid = g_clanRaidData:getClanRaidStruct()
     vars['bossHpNode']:setVisible(true)
 
     -- 레벨, 이름
-    local is_rich_label = true
-    local name = struct_raid:getBossNameWithLv(is_rich_label)
+    local boss = self.m_bossMonster
+    local name = boss:getName()
     vars['levelLabel']:setString(name)
 
     -- 속성 아이콘
-    local attr = struct_raid:getAttr()
+    local attr = boss:getAttribute()
     local icon = IconHelper:getAttributeIconButton(attr)
     vars['attrNode']:removeAllChildren()
     vars['attrNode']:addChild(icon)
 
-    -- 체력 퍼센트
-    local tween_cb = function(number, label)
-        label:setString(string.format('%0.2f%%', number))
-    end
-
-    local hp_label = vars['hpLabel']
-    hp_label = NumberLabel(hp_label, 0, 0.3)
-    hp_label:setTweenCallback(tween_cb)
-
-    local rate = struct_raid:getHpRate()
-    hp_label:setNumber(rate, false)
-
-    -- 체력 게이지
-    local gauge = vars['bossHpGauge1']
-    gauge:setPercentage(0)
-    local action = cc.ProgressTo:create(0.3, rate)
-    gauge:runAction(action) ]]
-
+    vars['bossHpGauge1']:setVisible(false)
+    --hp_label = NumberLabel(hp_label, 0, 0.3)
+    --hp_label:setTweenCallback(tween_cb)
+    --local hp_label = vars['hpLabel']
+    --hp_label:setString(Str('체력 무한'))
     self:doNextWork()
 end
 
