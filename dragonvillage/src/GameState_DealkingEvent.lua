@@ -24,7 +24,7 @@ function GameState_DealkingEvent:init(world)
     self.m_accumDamage = SecurityNumberClass(0, false)
     self.m_finalDamage = 0
     self.m_finalSkillId = nil
-    self.m_limitTime = 10
+    self.m_limitTime = ServerData_EventDealking.GAME_TIME['LIMIT']
     self.m_uiBossHp = nil
 end
 

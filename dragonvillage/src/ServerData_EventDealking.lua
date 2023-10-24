@@ -25,6 +25,11 @@ ServerData_EventDealking.STATE = {
     ['DONE'] = 4,		-- 보상 수령 후 
 }
 
+ServerData_EventDealking.GAME_TIME = {
+    ['LIMIT'] = 60,	-- 제한 시간
+    ['FEVER'] = 20,	-- 피버 타임(마지막 20초)
+}
+
 -------------------------------------
 -- function init
 -------------------------------------
