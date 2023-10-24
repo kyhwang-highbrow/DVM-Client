@@ -2975,7 +2975,13 @@ function UI_Lobby:refresh_rightBanner()
                         end 
                     else
                         local data = v['m_eventData']
-                        banner = UI_LobbyBanner(data)
+                        local event_type = data['event_type']
+                        if string.find(event_type, 'event_dealking') ~= nil then
+                            require('UI_LobbyBannerDealkingEvent')
+                            banner = UI_LobbyBannerDealkingEvent(data)
+                        else
+                            banner = UI_LobbyBanner(data)
+                        end
                     end
 
                     table.insert(banner_list, banner)
