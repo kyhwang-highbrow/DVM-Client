@@ -12,6 +12,7 @@ GameState_DealkingEvent = class(PARENT, {
         m_finalSkillId = 'number',   -- 막타 스킬 아이디
 
         m_uiBossHp = 'UI_IngameSharedBossHp',
+        m_isFeverTime = 'boolean',
     })
 
 -------------------------------------
@@ -26,6 +27,8 @@ function GameState_DealkingEvent:init(world)
     self.m_finalSkillId = nil
     self.m_limitTime = ServerData_EventDealking.GAME_TIME['LIMIT']
     self.m_uiBossHp = nil
+    self.m_isFeverTime = false
+
 end
 
 -------------------------------------
@@ -290,35 +293,30 @@ function GameState_DealkingEvent:getTotalDamage()
     local total_damage = accum_damage + final_damage
     return total_damage
 end
---[[ 
+
 -------------------------------------
 -- function updateFightTimer
 -------------------------------------
 function GameState_DealkingEvent:updateFightTimer(dt)
-    -- 전투 상태에서만 타임 계산
-    if (not isExistValue(self.m_state, GAME_STATE_FIGHT)) then return end
-
-    local has_limit = (self.m_limitTime > 0)
-    local time = self.m_fightTimer
-
-    -- 플레이 시간 계산
-    self.m_fightTimer = self.m_fightTimer + dt
-
-    if (has_limit) then
-        -- 제한 시간이 있을 경우
-        if (self.m_fightTimer >= self.m_limitTime) then
-            self.m_fightTimer = self.m_limitTime
-
-            -- 제한 시간이 넘었을 경우 처리
-            self:processTimeOut()
+    PARENT.updateFightTimer(self, dt)
+    -- 님은 시간이 피버타임 이하면 스킬 발동
+    if self:getRemainTime() <= ServerData_EventDealking.GAME_TIME['FEVER'] then
+        if self.m_isFeverTime == false then
+            self.m_isFeverTime = true
+            local world = self.m_world
+            for _, v in ipairs(world.m_waveMgr.m_lBoss) do
+                local struct_status_effect = StructStatusEffect({
+                    type = 'cldg_dmg_add',
+                    target_type = 'self',
+                    target_count = 1,
+                    trigger = 'skill_idle',
+                    duration = 999,
+                    rate = 100,
+                    value = 250,
+                    source = '',
+                })
+                StatusEffectHelper:doStatusEffectByStruct(v, {v}, {struct_status_effect})
+            end
         end
-
-        -- 남은 제한 시간을 표시
-        time = self:getRemainTime()
-	else
-        -- 제한시간이 없을 경우 플레이 시간 표시
-        time = self.m_fightTimer
     end
-
-    self.m_world.m_inGameUI:setTime(time, has_limit)
-end ]]
+end
