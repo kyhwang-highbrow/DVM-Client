@@ -285,5 +285,34 @@ function ServerData_AccessTime:hasReward()
     return false
 end
 
+-------------------------------------
+--- @function request_userTimelog
+--- @brief 유저가 가지고 있는 (UTC시간 = 서버시간) 정보를 로그에 남김
+---        이벤트 조기 종료 이슈 분석 용도
+-------------------------------------
+function ServerData_AccessTime:request_userTimelog(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
 
+    -- 접속시간
+    local time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
 
+    -- 성공 콜백
+    local function success_cb(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/check/client_time')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('client_time', time)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+    return ui_network
+end
