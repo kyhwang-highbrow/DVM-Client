@@ -58,18 +58,10 @@ end
 ----------------------------------------------------------------------
 function UI_LobbyBannerDealkingEvent:updateTime()
     local vars = self.vars
---[[     if vars['timeLabel'] == nil then
+    if vars['timeLabel'] == nil then
         return
     end
-
-    local event_type = self.m_eventData['event_type']
-    --local event_id = self.m_eventData['event_id']
-
-    if event_type == 'event_popularity' then
-        vars['timeLabel']:setString(g_eventPopularityGacha:getStatusText(true))
-    elseif event_type == 'story_dungeon_gacha' then
-        vars['timeLabel']:setString(g_eventDragonStoryDungeon:getRemainTimeText())
-    end ]]
+    vars['timeLabel']:setString(g_eventDealkingData:getRemainTimeString())
 end
 
 ----------------------------------------------------------------------
@@ -99,12 +91,11 @@ end
 function UI_LobbyBannerDealkingEvent:refresh()
 end
 
-
 ----------------------------------------------------------------------
 -- class click_bannerBtn
 ----------------------------------------------------------------------
 function UI_LobbyBannerDealkingEvent:click_bannerBtn()
-
+    g_eventData:openEventPopup(self.m_eventData['event_type'])
 end
 
 -- @CHECK
