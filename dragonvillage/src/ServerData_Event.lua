@@ -199,6 +199,15 @@ function ServerData_Event:getEventPopupTabList()
         elseif (visible) and (event_id == 'limited') then
 			visible = g_hotTimeData:isActiveEvent(event_type)
 
+            -- 딜킹일 경우 탭이 하나만 노출되도록 처리
+            if (visible) and (string.find(event_type, 'event_dealking')) then
+                if event_type == 'event_dealking' then
+                    if g_eventDealkingData:canReward() == true then
+                        visible = false
+                    end
+                end
+            end
+
         elseif (visible) and (event_type == 'fevertime') then
             local item_list = g_fevertimeData:getAllStructFevertimeList()
 

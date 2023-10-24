@@ -381,7 +381,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     -- 딜킹 이벤트
     elseif (string.find(tab, 'event_dealking')) then
         require('UI_EventDealking')
-        ui = UI_EventDealking()
+        ui = UI_EventDealking(self, struct_event_popup_tab)
 
     -- 신규 유저 환영 이벤트
 	elseif (tab == 'event_welcome_newbie') then

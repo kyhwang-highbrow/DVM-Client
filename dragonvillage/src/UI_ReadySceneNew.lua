@@ -1665,7 +1665,11 @@ function UI_ReadySceneNew:check_startCondition(stage_id)
             return false
         end
     elseif (not is_advent) and (not g_stageData:isOpenStage(stage_id)) then
-        MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
+        if (self.m_gameMode == GAME_MODE_EVENT_DEALKING) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'))
+        else
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
+        end
         return false
     -- 스태미너 소모 체크
     elseif (stamina_charge) and (not g_staminasData:checkStageStamina(stage_id)) then

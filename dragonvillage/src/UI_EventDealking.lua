@@ -4,13 +4,17 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_EventDealking
 -------------------------------------
 UI_EventDealking = class(PARENT,{
+    m_ownerUI = 'UI_EventPopup',
+    m_structEvent = '',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventDealking:init()
+function UI_EventDealking:init(owner_ui, struct_event)
     local vars = self:load('event_dealking.ui')
+    self.m_ownerUI = owner_ui
+    self.m_structEvent = struct_event
     self:initUI()
     self:initButton()
     self:refresh()
@@ -21,7 +25,7 @@ end
 -------------------------------------
 function UI_EventDealking:initUI()
     local vars = self.vars
-    local boss_type_list = {1}
+    local boss_type_list = {1, 2}
 
     for _, type in ipairs(boss_type_list) do
         local ui = UI_EventDealkingTab(type)
@@ -37,7 +41,6 @@ end
 -------------------------------------
 function UI_EventDealking:initButton()
     local vars = self.vars
-    vars['2TabBtn']:setBlockMsg(Str('추후 오픈 예정입니다.'))
 end
 
 -------------------------------------

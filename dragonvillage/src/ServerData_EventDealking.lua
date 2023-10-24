@@ -65,10 +65,6 @@ function ServerData_EventDealking:getEventState()
     if (not g_hotTimeData) then
         return ServerData_EventDealking.STATE['INACTIVE']
 
-    -- 이벤트 기간
-    elseif (g_hotTimeData:isActiveEvent('event_dealking')) then
-        return ServerData_EventDealking.STATE['OPEN']
-
     -- 보상 수령 기간
     elseif (g_hotTimeData:isActiveEvent('event_dealking_reward')) then
         if (self.m_rewardStatus == 0) then
@@ -78,6 +74,10 @@ function ServerData_EventDealking:getEventState()
         elseif (self.m_rewardStatus == 1) or (self.m_rewardStatus == 2) then
             return ServerData_EventDealking.STATE['DONE']
         end
+
+    -- 이벤트 기간
+    elseif (g_hotTimeData:isActiveEvent('event_dealking')) then
+        return ServerData_EventDealking.STATE['OPEN']
     end
 
     -- 해당 없으면 비활성화

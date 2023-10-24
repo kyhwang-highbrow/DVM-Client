@@ -31,6 +31,7 @@ function UI_EventDealkingTab:initButton()
 
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn(self.m_bossType) end)
     vars['rankTotalBtn']:registerScriptTapHandler(function() self:click_rankBtn(0) end)
+    vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
 
 
     vars['buyBtn1']:registerScriptTapHandler(function() self:click_attrBtn('light') end)
@@ -149,11 +150,24 @@ function UI_EventDealkingTab:click_rankBtn(boss_type)
 end
 
 -------------------------------------
+-- function click_helpBtn
+-------------------------------------
+function UI_EventDealkingTab:click_helpBtn(boss_type)
+    UI_BattlePassInfoPopup('event_dealking_info_popup.ui')
+end
+
+-------------------------------------
 -- function click_attrBtn
 -- @brief 각 속성의 화신 버튼 클릭에 대한 콜백 함수
 -- @param attr : 속성 (string)
 -------------------------------------
 function UI_EventDealkingTab:click_attrBtn(attr)
     local vars = self.vars
+
+    if (not g_eventDealkingData:isOpenAttr(attr)) then
+        UIManager:toastNotificationRed(Str('입장 가능한 시간이 아닙니다.'))
+        return
+    end
+
     local ui = UI_EventDealkingEntryPopup(attr, self.m_bossType)
 end
