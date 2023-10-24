@@ -43,7 +43,8 @@ function GameTimeScale:init(world)
     end
 
     if (self.m_world.m_gameMode == GAME_MODE_INTRO) then
-    elseif (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
+    elseif (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID or 
+            self.m_world.m_gameMode == GAME_MODE_EVENT_DEALKING) then
         -- 클랜 던전일 경우 2배속 고정
         self.m_baseTimeScale = g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
     else

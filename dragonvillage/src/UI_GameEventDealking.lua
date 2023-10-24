@@ -21,8 +21,11 @@ function UI_GameEventDealking:initUI()
     local vars = self.vars
     
     vars['clanRaidNode']:setVisible(true)
-    vars['autoStartButton']:setVisible(true)
-    vars['damageLabel']:setString('0')
+    vars['speedVisual']:setVisible(false)
+    vars['speedButton']:setVisible(false)
+    vars['autoStartVisual']:setVisible(false)
+    vars['autoStartButton']:setVisible(false)
+    vars['effectBtn']:setVisible(false)
 end
 
 -------------------------------------
