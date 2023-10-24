@@ -162,16 +162,5 @@ function Monster_DealkingBoss:setDamage(attacker, defender, i_x, i_y, damage, t_
 
     -- 타임 아웃시 무적 처리
     self:dispatch('acc_damage', { damage = damage,}, self)
-
-    local prev_hp = self.m_hp
-    local bApplyDamage = PARENT.setDamage(self, attacker, defender, i_x, i_y, 0, t_info)
-
-    -- 막타 시 데미지 저장(일시 정지 상태일 경우는 모두 합산)
-    if (bApplyDamage and t_info and not t_info['is_definite_death']) then
-        if (self:isZeroHp()) then
-            if (prev_hp > 0 or self.m_temporaryPause) then
-                self:dispatch('clan_boss_final_damage', { damage = damage, skill_id = t_info['skill_id'] })
-            end
-        end
-    end
+    PARENT.setDamage(self, attacker, defender, i_x, i_y, 0, t_info)
 end

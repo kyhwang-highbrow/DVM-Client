@@ -28,7 +28,6 @@ function GameState_DealkingEvent:init(world)
     self.m_limitTime = ServerData_EventDealking.GAME_TIME['LIMIT']
     self.m_uiBossHp = nil
     self.m_isFeverTime = false
-
 end
 
 -------------------------------------
