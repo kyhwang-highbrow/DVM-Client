@@ -16,7 +16,7 @@ FULL_POPUP_TYPE = {
     INGAME_NOTICE = 'lobby_ingame_notice',
 
     LOBBY_BY_CONDITION = 5, -- 코드로 조건 체크하는 로비 풀팝업, table_lobby_popup 에 있는 항목들
-    EMERGENCY_PROMOTION = 6, -- 정말 긴급하고 중요한 팝업인 경우(ui_priority -1000 으로 설정된 하나만)
+    EMERGENCY_PROMOTION = 6, -- 정말 긴급하고 중요한 팝업인 경우(ui_priority 마이너스로 설정된 값)
 }
 -------------------------------------
 -- class FullPopupManager

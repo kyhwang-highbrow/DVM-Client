@@ -379,7 +379,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
         ui = UI_EventIncarnationOfSins()
 
     -- 딜킹 이벤트
-    elseif (tab == 'event_dealking') then
+    elseif (string.find(tab, 'event_dealking')) then
         require('UI_EventDealking')
         ui = UI_EventDealking()
 
