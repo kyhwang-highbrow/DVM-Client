@@ -2922,6 +2922,20 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
+    -- 딜킹 이벤트 배너
+    if (g_eventDealkingData:isActive()) then
+        if (not vars['banner_event_dealking']) then
+            require('UI_LobbyBannerDealkingEvent')
+            local banner = UI_LobbyBannerDealkingEvent()
+            vars['bannerMenu']:addChild(banner.root)
+            banner.root:setDockPoint(cc.p(1, 1))
+            banner.root:setAnchorPoint(cc.p(1, 1))
+            vars['banner_event_dealking'] = banner
+        else
+            vars['banner_event_dealking']:refresh()
+        end
+    end
+
     -- 차원문 오픈 배너
     if g_dmgateData:isShowLobbyBanner() then
         if (not vars['banner_dmgate']) then
@@ -2976,12 +2990,7 @@ function UI_Lobby:refresh_rightBanner()
                     else
                         local data = v['m_eventData']
                         local event_type = data['event_type']
-                        if string.find(event_type, 'event_dealking') ~= nil then
-                            require('UI_LobbyBannerDealkingEvent')
-                            banner = UI_LobbyBannerDealkingEvent(data)
-                        else
-                            banner = UI_LobbyBanner(data)
-                        end
+                        banner = UI_LobbyBanner(data)
                     end
 
                     table.insert(banner_list, banner)
@@ -3071,6 +3080,11 @@ function UI_Lobby:onRefresh_banner()
     -- 죄악의 화신 토벌작전 이벤트 배너
     if vars['banner_incarnation_of_sins'] then
         table.insert(l_node, vars['banner_incarnation_of_sins'].root)
+    end
+
+    -- 딜킹 이벤트 배너
+    if vars['banner_event_dealking'] then
+        table.insert(l_node, vars['banner_event_dealking'].root)
     end
 
     -- 차원문 오픈 배너

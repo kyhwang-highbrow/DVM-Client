@@ -167,6 +167,19 @@ function ServerData_EventDealking:getEventDealkingStageId(boss_type, selected_at
     return stage_id
 end
 
+
+-------------------------------------
+-- function getMyRankInfo
+-- @brief 내 랭킹 받아오기
+-------------------------------------
+function ServerData_EventDealking:getMyRankInfo(type)
+    if self.m_tMyRankInfo ~= nil then
+        return self.m_tMyRankInfo['total']
+    end
+
+    return nil
+end
+
 -------------------------------------
 -- function getMyRank
 -- @brief 내 랭킹 받아오기
@@ -297,22 +310,7 @@ end
 -------------------------------------
 function ServerData_EventDealking:openRankingPopupForLobby()
 
-    local function finish_cb(ret)
-        -- 랭킹 팝업
-        UI_EventDealkingRankingPopup()
 
-        local last_info = self.m_tMyRankInfo['total']
-        local reward_info = self.m_tReceiveReward
-
-        -- 보상을 받을 수 있는 상태라면
-        if (last_info and reward_info) then
-            -- 랭킹 보상 팝업
-            UI_EventIncarnationOfSinsRewardPopup(last_info, reward_info)
-            g_highlightData:setHighlightMail()
-        end
-    end
-
-    self:request_eventDealkingReward(finish_cb, nil)
 end
 
 local mInit = false
@@ -366,12 +364,6 @@ function ServerData_EventDealking:response_eventIncarnationOfSinsInfo(ret)
     if (ret['reward']) then
         self.m_rewardStatus = ret['reward']
     end 
-
-    if (ret['reward_info']) then
-        self.m_tReceiveReward = ret['reward_info']
-    else
-        self.m_tReceiveReward = nil
-    end
 
     if (ret['table_dealking_rank']) then
         self.m_tRewardInfo = ret['table_dealking_rank']
