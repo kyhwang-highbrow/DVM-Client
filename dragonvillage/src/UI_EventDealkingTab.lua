@@ -90,15 +90,15 @@ function UI_EventDealkingTab:refreshButton(attr, rank_label, score_label, lock_m
     local vars = self.vars
 
     -- 현재 서버 데이터를 이용하여 순위 정보 표기
-    local rank = g_eventDealkingData:getMyRank(attr)
-    local score = g_eventDealkingData:getMyScore(attr)
+    local rank = g_eventDealkingData:getMyRank(self.m_bossType, attr)
+    local score = g_eventDealkingData:getMyScore(self.m_bossType, attr)
     
 	-- 내 랭킹이 0보다 작으면 {-위} 로 노출
     -- 0보다 큰 의미있는 값이면 그대로 노출
     if (rank < 0) then
         rank_label:setString(Str('순위 없음'))
     else
-        local ratio = g_eventDealkingData:getMyRate(attr)
+        local ratio = g_eventDealkingData:getMyRate(self.m_bossType, attr)
         local percent_text = string.format('%.2f', ratio * 100)
         rank_label:setString(Str('{1}위 ({2}%)', comma_value(rank), percent_text))
     end

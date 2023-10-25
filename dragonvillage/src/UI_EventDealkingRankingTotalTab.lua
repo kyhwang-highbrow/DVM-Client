@@ -246,7 +246,7 @@ end
 function UI_EventDealkingRankingTotalTab:refreshRank(type) -- 다음/이전 버튼 눌렀을 경우 offset계산되어서 param으로 줌
     
     self.m_searchType = type
-    self.m_rankOffset = (type == 'my') and -1 or 1
+    self.m_rankOffset = 1
 
     self:request_EventDealkingTotalRanking()
 end
