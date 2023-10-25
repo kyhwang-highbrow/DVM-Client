@@ -16,7 +16,7 @@ UI_EventDealkingRankingPopup = class(PARENT,{
 -------------------------------------
 function UI_EventDealkingRankingPopup:init(boss_type)
     self.m_uiName = 'UI_EventDealkingRankingPopup'
-    self.m_bossType = boss_type
+    self.m_bossType = boss_type or 0
     self:load('event_dealking_rank_popup.ui')
     UIManager:open(self, UIManager.SCENE)
     

@@ -101,8 +101,8 @@ function ServerData_EventDealking:canReward()
 end
 
 -------------------------------------
--- function isPlaying
--- @brief 죄악의 화신을 플레이 중인지
+--- @function isPlaying
+--- @brief 딜킹을 플레이 중인지
 -------------------------------------
 function ServerData_EventDealking:isPlaying()
     if (self.m_gameState == true) then
@@ -111,6 +111,21 @@ function ServerData_EventDealking:isPlaying()
 
     return false
 end
+
+
+-------------------------------------
+--- @function isReceivedReward
+--- @brief 최종 보상을 받았는지?
+-------------------------------------
+function ServerData_EventDealking:isReceivedReward()
+    if (self.m_gameState == true) then
+        return true
+    end
+
+    return false
+end
+
+
 
 -------------------------------------
 -- function getRankNoti
@@ -281,9 +296,10 @@ end
 -- @brief 로비에서 랭킹 팝업 바로 여는 경우 사용, 랭킹 보상이 있는지도 체크하여 출력한다.
 -------------------------------------
 function ServerData_EventDealking:openRankingPopupForLobby()
-    local function finish_cb()
+
+    local function finish_cb(ret)
         -- 랭킹 팝업
-        UI_EventIncarnationOfSinsRankingPopup()
+        UI_EventDealkingRankingPopup()
 
         local last_info = self.m_tMyRankInfo['total']
         local reward_info = self.m_tReceiveReward
@@ -296,7 +312,7 @@ function ServerData_EventDealking:openRankingPopupForLobby()
         end
     end
 
-    self:request_eventIncarnationOfSinsInfo(true, finish_cb, nil)
+    self:request_eventDealkingReward(finish_cb, nil)
 end
 
 local mInit = false
@@ -509,6 +525,35 @@ function ServerData_EventDealking:request_eventIncarnationOfSinsFinish(stage, at
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:request()
+end
+
+-------------------------------------
+--- @function request_eventDealkingReward
+--- @brief 보상 요청(보상 정보가 있으면 보상 팝업까지 노출)
+-------------------------------------
+function ServerData_EventDealking:request_eventDealkingReward(finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+       
+    local function success_cb(ret)       
+        if (finish_cb) then
+            finish_cb(ret)
+        end
+    end
+
+    local function response_status_cb(ret)
+        return false
+    end
+
+
+    local ui_network = UI_Network()
+    local api_url = '/event/dealking/reward'
+    ui_network:setUrl(api_url)
+    ui_network:setParam('uid', uid)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+    return ui_network
 end
 
 -------------------------------------
