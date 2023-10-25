@@ -145,3 +145,11 @@ end
 function ServerData_EventRuneFestival:getAdventStageCount()
     return 1
 end
+
+-------------------------------------
+--- @function getEventVersionKey
+--- @return string
+-------------------------------------
+function ServerData_EventRuneFestival:getEventVersionKey()
+    return self.m_eventVersion
+end

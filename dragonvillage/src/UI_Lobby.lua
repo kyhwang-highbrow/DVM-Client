@@ -3144,8 +3144,15 @@ function UI_Lobby:refreshShopHottimeNoti()
 
     -- 룬 페스티발, 할로윈
     elseif g_hotTimeData:isActiveEvent('event_rune_festival') then
-        self:setShopSpecialNoti('noti_summer')
+        local version_key = g_eventRuneFestival:getEventVersionKey()
 
+        if string.find(version_key, 'halloween') ~= nil then
+            self:setShopSpecialNoti('noti_holoween')
+        elseif string.find(version_key, 'summer') ~= nil then
+            self:setShopSpecialNoti('noti_summer')
+        elseif string.find(version_key, 'whiteday') ~= nil then
+            self:setShopSpecialNoti('noti_summer')
+        end
     end
 end
 
