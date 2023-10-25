@@ -234,9 +234,16 @@ function ServerData_HotTime:isActiveEvent(event_name)
         return false
     end
 
-    local curr_time = ServerTime:getInstance():getCurrentTimestampMilliseconds()
-    local begin_time = t_event['begindate']
-    local end_time =t_event['enddate']
+    -- 단말기(local)의 타임존 (단위 : 초)
+    local timezone_local = datetime.getTimeZoneOffset()
+    -- 서버(server)의 타임존 (단위 : 초)
+    local timezone_server = Timer:getServerTimeZoneOffset()
+    local offset = (timezone_local - timezone_server)
+
+    local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
+    local begin_time = (t_event['begindate']/1000) + offset
+    local end_time = (t_event['enddate']/1000) + offset
+
     if begin_time <= curr_time and curr_time <= end_time then
         return true
     end
