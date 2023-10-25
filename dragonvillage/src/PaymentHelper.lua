@@ -124,7 +124,10 @@ function PaymentHelper.buy_iap(struct_product, cb_func)
                 if (info == 'cancel') then
                     MakeSimplePopup(POPUP_TYPE.OK, Str('결제를 취소하였습니다.'))
                 elseif (info == 'item_already_owned') then
-                    MakeSimplePopup(POPUP_TYPE.OK, Str('이미 보유하고 있는 아이템입니다.'))
+                    MakeSimplePopup(POPUP_TYPE.OK, Str('이미 보유하고 있는 아이템입니다.'), function()
+                        -- 이미 보유하고 있는 아이템일 경우 미지급 결제처리를 한번 더 진행해줌
+                        PaymentHelper.billingConfirmIncompletePurchases()
+                    end)
                 else
                     local msg = Str('알 수 없는 문제가 발생했습니다.')
                     local sub_msg = nil
@@ -1080,4 +1083,89 @@ function PaymentHelper.billingConfirm(order_id, purchase_token)
     else
         PerpleSDK:billingConfirm(order_id)
     end
+end
+
+-------------------------------------
+-- function billingConfirmIncompletePurchases
+-- @brief 미지급 결제건에 대해서 구매 절차 다시 진행(Android 전용)
+-------------------------------------
+function PaymentHelper.billingConfirmIncompletePurchases()
+    local finish_cb = function(ret, purchase_list)
+        local function coroutine_function(dt)
+            local co = CoroutineHelper()
+            local l_struct_iap_purchase = purchase_list
+            -- StructIAPPurchase
+            for i,struct_iap_purchase in ipairs(l_struct_iap_purchase) do
+                local validation_key = nil
+                local product_id = nil
+                local sale_id = nil
+    
+                local sku = struct_iap_purchase:getSku()
+                local purchase_time = struct_iap_purchase:getPurchaseTime()
+                local order_id = struct_iap_purchase:getOrderId()
+                local purchase_token = struct_iap_purchase:getPurchaseToken()
+                local test_purchase = false
+    
+                PaymentHelper.billingConfirm(order_id, purchase_token)
+
+                co:work()
+                -- 성공 시에는 billingConfirm으로 결제건 종료
+                local success_cb = function(ret)
+                    co.NEXT()
+                end
+    
+                -- 성공 이외의 값
+                local status_cb = function(ret)    
+                    if (IS_TEST_MODE() == true) then
+                        if (ret['status'] ~= 0) then
+                            local msg = '아이템 미지급 결제건 처리 도중 오류가 발생하였습니다. 결제건을 컨슘하시겠습니까?'
+                            local sub_msg = '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'
+    
+                            local function ok_btn_cb()
+                                -- PerpleSDK:billingConfirm(order_id(string))를 호출한 것과 같음
+                                -- PaymentHelper.billingConfirm(order_id, purchase_token)
+                                co.NEXT()
+                            end
+    
+                            local function cancel_btn_cb()
+                                co.NEXT()
+                            end
+    
+                            MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, ok_btn_cb, cancel_btn_cb)
+                            return true
+                        end
+                    elseif (ret['status'] == 107) then
+                        -- 이미 해당 order_id로 상품이 지급된 경우
+                        -- ALREADY_EXIST(107 , "already exist"),
+                        -- PaymentHelper.billingConfirm(order_id, purchase_token)
+                        
+                        co.NEXT()
+                        return true
+    
+                    else
+                        co.NEXT()
+                        return true
+                    end
+
+                    return false
+                end
+        
+                -- 실패시에도 게임 진행을 위해 다음으로 넘어감
+                g_shopDataNew:request_checkReceiptValidation_v3(nil, validation_key, product_id, sale_id,
+                    sku, purchase_time, order_id, purchase_token,
+                    success_cb, co.NEXT, status_cb, -- params: success_cb, fail_cb, status_cb
+                    test_purchase)
+                if co:waitWork() then return end
+            end
+        
+            co:close()
+        end
+
+        Coroutine(coroutine_function)
+    end
+
+    local fail_cb = function()
+    end
+
+    ServerData_IAP:getInstance():sdkBinder_BillingGetIncompletePurchaseList(finish_cb, fail_cb)
 end

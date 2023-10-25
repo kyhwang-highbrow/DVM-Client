@@ -178,7 +178,7 @@ function ServerData_IAP:sdkBinder_BillingGetIncompletePurchaseList(success_cb, f
             end
 
             ui:close()
-            success_cb(info)
+            success_cb(info, self.m_structIAPPurchaseList)
 
             -- 데이터 갱신 시점 기록
             self:setUpdateTimeForIAP()
