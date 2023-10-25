@@ -172,7 +172,7 @@ function UI_EventDealkingRankingTotalTab:makeRewardTableView()
     table_view:setCellUIClass(UI_EventDealkingRankingTotalTabRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_event_rank)
-    table_view:makeDefaultEmptyDescLabel(Str('보스별 보상은 제공되지 않습니다.'))
+    table_view:makeDefaultEmptyDescLabel(Str('보스에 대한 랭킹 보상은 제공되지 않습니다.'))
 
     table_view:update(0) -- 맨 처음 각 아이템별 위치값을 계산해줌
     table_view:relocateContainerFromIndex(idx) -- 해당하는 보상에 포커싱

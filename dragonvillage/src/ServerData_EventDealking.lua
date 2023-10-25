@@ -63,7 +63,7 @@ function ServerData_EventDealking:makeBossMap()
 end
 
 -------------------------------------
--- function makeMyDummyRanking
+-- function getMyDummyRanking
 -------------------------------------
 function ServerData_EventDealking:getMyDummyRanking()
     if self.m_myDummyRankingInfo ~= nil then
