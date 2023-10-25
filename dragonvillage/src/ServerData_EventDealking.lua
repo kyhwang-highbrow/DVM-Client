@@ -17,6 +17,7 @@ ServerData_EventDealking = class({
 
     m_tDealkingBossInfo = 'Map',
     m_includeTablesInfo = 'boolean', -- 처음 한번만 테이블 요청
+    m_myDummyRankingInfo = 'table', -- 더미 랭킹 정보
 })
 
 ServerData_EventDealking.STATE = {
@@ -40,7 +41,8 @@ function ServerData_EventDealking:init()
     self.m_isOpened = false
     self.m_includeTablesInfo = true
     self.m_tMyRankInfo = {}
-    self:makeBossMap()
+
+    self:makeBossMap()    
 end
 
 -------------------------------------
@@ -59,6 +61,57 @@ function ServerData_EventDealking:makeBossMap()
         ['name'] = Str('딜킹 이벤트 보스명 B'),
     }
 end
+
+-------------------------------------
+-- function makeMyDummyRanking
+-------------------------------------
+function ServerData_EventDealking:getMyDummyRanking()
+    if self.m_myDummyRankingInfo ~= nil then
+        return self.m_myDummyRankingInfo
+    end
+
+    self.m_myDummyRankingInfo = clone(self:getMyRankInfo())
+    self.m_myDummyRankingInfo['rank'] = -1
+    self.m_myDummyRankingInfo['score'] = -1
+    self.m_myDummyRankingInfo['total'] = 0
+    self.m_myDummyRankingInfo['rate'] = -1
+    return self.m_myDummyRankingInfo
+
+--[[     
+    "tier":"beginner",
+    "tamer":110002,
+    "total":0,
+    "score":-1,
+    "lv":18,
+    "challenge_score":0,
+    "rate":"-Infinity",
+    "last_tier":"beginner",
+    "arena_score":0,
+    "ancient_score":0,
+    "rp":-1,
+    "un":3239521,
+    "rank":-1,
+    "uid":"CaPwu0HcdwhafLAOTK229MNOZL93",
+    "nick":"밥먹고자기",
+    "leader":{
+      "lv":1,
+      "mastery_lv":0,
+      "grade":3,
+      "rlv":0,
+      "eclv":0,
+      "dragon_skin":0,
+      "did":120431,
+      "transform":1,
+      "mastery_skills":{
+      },
+      "evolution":1,
+      "mastery_point":0
+    },
+    "costume":730200,
+    "clear_time":0
+  } ]]
+end
+
 
 -------------------------------------
 -- function getEventState
@@ -195,6 +248,9 @@ function ServerData_EventDealking:getMyRank(_boss_type, type)
 
     local my_rank_info = self:getMyRankInfo(boss_type)
     if (my_rank_info) then
+        if my_rank_info[type] == nil then
+            return self:getMyDummyRanking()['rank']
+        end
         result = my_rank_info[type]['rank']
     end
 
@@ -211,6 +267,9 @@ function ServerData_EventDealking:getMyScore(_boss_type, type)
     local result = -1
     local my_rank_info = self:getMyRankInfo(boss_type)
     if (my_rank_info) then
+        if my_rank_info[type] == nil then
+            return self:getMyDummyRanking()['score']
+        end
         result = my_rank_info[type]['score']
     end
     return result
@@ -227,6 +286,9 @@ function ServerData_EventDealking:getMyRate(_boss_type, type)
 
     local my_rank_info = self:getMyRankInfo(boss_type)
     if (my_rank_info) then
+        if my_rank_info[type] == nil then
+            return self:getMyDummyRanking()['rate']
+        end
         result = my_rank_info[type]['rate']
     end
 
