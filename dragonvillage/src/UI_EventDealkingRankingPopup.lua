@@ -54,18 +54,22 @@ end
 -------------------------------------
 function UI_EventDealkingRankingPopup:initTab()
     local vars = self.vars
-
     require('UI_EventDealkingRankingTotalTab')
     require('UI_EventDealkingRankingAttributeTab')
 
+    
+
     local all_rank_tab = UI_EventDealkingRankingTotalTab(self)
-    local attr_rank_tab = UI_EventDealkingRankingAttributeTab(self)
-    
     vars['indivisualTabMenu']:addChild(all_rank_tab.root)
-    vars['indivisualTabMenu']:addChild(attr_rank_tab.root)
-    
     self:addTabWithTabUIAndLabel('allRank', vars['allRankTabBtn'], vars['allRankTabLabel'], all_rank_tab) -- 종합 랭킹
-    self:addTabWithTabUIAndLabel('attrRank', vars['attrRankTabBtn'], vars['attrRankTabLabel'], attr_rank_tab) -- 속성별 랭킹
+
+    vars['attrRankTabBtn']:setVisible(false)
+    if self.m_bossType ~= 0 then
+        local attr_rank_tab = UI_EventDealkingRankingAttributeTab(self)
+        vars['indivisualTabMenu']:addChild(attr_rank_tab.root)
+        self:addTabWithTabUIAndLabel('attrRank', vars['attrRankTabBtn'], vars['attrRankTabLabel'], attr_rank_tab) -- 속성별 랭킹
+        vars['attrRankTabBtn']:setVisible(true)
+    end
 
     self:setTab('allRank')
 end

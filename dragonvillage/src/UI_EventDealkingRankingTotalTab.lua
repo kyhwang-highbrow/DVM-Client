@@ -39,7 +39,6 @@ function UI_EventDealkingRankingTotalTab:onEnterTab(first)
         self:initUI()
         self:initButton()
         self.m_searchType = self.m_ownerUI.m_rankType
-
         self:refreshRank(self.m_searchType)
     end
 
@@ -157,7 +156,7 @@ function UI_EventDealkingRankingTotalTab:makeRewardTableView()
     -- 랭킹 보상 테이블
     local table_event_rank = g_eventDealkingData.m_tRewardInfo
     local struct_rank_reward = StructRankReward(table_event_rank, true)
-    local l_event_rank = struct_rank_reward:getRankRewardList()
+    local l_event_rank = self.m_bossType == 0 and struct_rank_reward:getRankRewardList() or {}
     self.m_structRankReward = struct_rank_reward
 
     local my_rank = myRankInfo['rank'] or 0
@@ -173,6 +172,7 @@ function UI_EventDealkingRankingTotalTab:makeRewardTableView()
     table_view:setCellUIClass(UI_EventDealkingRankingTotalTabRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_event_rank)
+    table_view:makeDefaultEmptyDescLabel(Str('보스별 보상은 제공되지 않습니다.'))
 
     table_view:update(0) -- 맨 처음 각 아이템별 위치값을 계산해줌
     table_view:relocateContainerFromIndex(idx) -- 해당하는 보상에 포커싱
