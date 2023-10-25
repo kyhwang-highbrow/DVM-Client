@@ -16,6 +16,7 @@ ServerData_EventDealking = class({
     m_isOpened = 'boolean',
 
     m_tDealkingBossInfo = 'Map',
+    m_includeTablesInfo = 'boolean', -- 처음 한번만 테이블 요청
 })
 
 ServerData_EventDealking.STATE = {
@@ -37,6 +38,8 @@ function ServerData_EventDealking:init()
     self.m_rewardStatus = 0
     self.m_rankNoti = true
     self.m_isOpened = false
+    self.m_includeTablesInfo = true
+    self.m_tMyRankInfo = {}
     self:makeBossMap()
 end
 
@@ -167,14 +170,15 @@ function ServerData_EventDealking:getEventDealkingStageId(boss_type, selected_at
     return stage_id
 end
 
-
 -------------------------------------
 -- function getMyRankInfo
 -- @brief 내 랭킹 받아오기
 -------------------------------------
-function ServerData_EventDealking:getMyRankInfo(type)
+function ServerData_EventDealking:getMyRankInfo(_boss_type)
+    local boss_type = _boss_type or 0
+
     if self.m_tMyRankInfo ~= nil then
-        return self.m_tMyRankInfo['total']
+        return self.m_tMyRankInfo[boss_type]
     end
 
     return nil
@@ -184,13 +188,14 @@ end
 -- function getMyRank
 -- @brief 내 랭킹 받아오기
 -------------------------------------
-function ServerData_EventDealking:getMyRank(type)
+function ServerData_EventDealking:getMyRank(_boss_type, type)
     type = (type or 'total')
-
+    local boss_type = _boss_type or 0
     local result = -1
 
-    if (self.m_tMyRankInfo) then
-        result = self.m_tMyRankInfo[type]['rank']
+    local my_rank_info = self:getMyRankInfo(boss_type)
+    if (my_rank_info) then
+        result = my_rank_info[type]['rank']
     end
 
     return result
@@ -200,15 +205,14 @@ end
 -- function getMyScore
 -- @brief 내 랭킹점수 받아오기
 -------------------------------------
-function ServerData_EventDealking:getMyScore(type)
+function ServerData_EventDealking:getMyScore(_boss_type, type)
     type = (type or 'total')    
-
+    local boss_type = _boss_type or 0
     local result = -1
-
-    if (self.m_tMyRankInfo) then
-        result = self.m_tMyRankInfo[type]['score']
+    local my_rank_info = self:getMyRankInfo(boss_type)
+    if (my_rank_info) then
+        result = my_rank_info[type]['score']
     end
-
     return result
 end
 
@@ -216,13 +220,14 @@ end
 -- function getMyRate
 -- @brief 내 랭킹 퍼센트 받아오기
 -------------------------------------
-function ServerData_EventDealking:getMyRate(type)
+function ServerData_EventDealking:getMyRate(_boss_type, type)
     type = (type or 'total')    
-
+    local boss_type = _boss_type or 0
     local result = -1
 
-    if (self.m_tMyRankInfo) then
-        result = self.m_tMyRankInfo[type]['rate']
+    local my_rank_info = self:getMyRankInfo(boss_type)
+    if (my_rank_info) then
+        result = my_rank_info[type]['rate']
     end
 
     return result
@@ -309,42 +314,33 @@ end
 -- @brief 로비에서 랭킹 팝업 바로 여는 경우 사용, 랭킹 보상이 있는지도 체크하여 출력한다.
 -------------------------------------
 function ServerData_EventDealking:openRankingPopupForLobby()
-
-
 end
 
-local mInit = false
 -------------------------------------
 -- function request_eventDealkingInfo
 -- @brief 이벤트 정보를 요청
 -- @param include_reward : 이벤트 랭킹 보상을 받을지 여부
 -------------------------------------
 function ServerData_EventDealking:request_eventDealkingInfo(finish_cb, fail_cb)
-    local uid = g_userData:get('uid')
-    local include_tables = false    
-
-    -- 맨 처음 한번만 require
-    if (not mInit) then
-        mInit = true
-        include_tables = true
-    end
+    local uid = g_userData:get('uid')    
 
     -- 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
-
-        self:response_eventIncarnationOfSinsInfo(ret)
+        self:response_eventDealkingInfo(ret)
 
         if finish_cb then
             finish_cb(ret)
         end
+
+        self.m_includeTablesInfo = false
     end
 
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/event/dealking/info')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('include_tables', include_tables) -- 정보 관련 테이블 내려받을지 여부     
+    ui_network:setParam('include_tables', self.m_includeTablesInfo) -- 정보 관련 테이블 내려받을지 여부     
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -354,11 +350,15 @@ function ServerData_EventDealking:request_eventDealkingInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function response_eventIncarnationOfSinsInfo
+-- function response_eventDealkingInfo
 -------------------------------------
-function ServerData_EventDealking:response_eventIncarnationOfSinsInfo(ret)
-    if (ret['rankinfo']) then
-        self.m_tMyRankInfo = ret['rankinfo']
+function ServerData_EventDealking:response_eventDealkingInfo(ret)
+    local boss_count = table.count(self.m_tDealkingBossInfo)
+    for i = 0, boss_count do
+        local str = string.format('rankinfo_%d', i)
+        if (ret[str] ~= nil) then            
+            self.m_tMyRankInfo[i] = clone(ret[str])
+        end
     end
 
     if (ret['reward']) then
@@ -371,7 +371,7 @@ function ServerData_EventDealking:response_eventIncarnationOfSinsInfo(ret)
 end
 
 -------------------------------------
--- function request_EventIncarnationOfSinsAttrRanking
+-- function request_EventDealkingRanking
 -- @brief 랭킹 정보를 요청하고, cb_func를 통해 랭킹 정보를 다룸
 -- @param attr_type : 속성 (earth, water, fire, light, dark, all(다섯가지 속성 전부 조회), total(합산 점수))
 -- @param search_type : 랭킹을 조회할 그룹 (world, clan, friend)
@@ -379,7 +379,7 @@ end
 -- @param param_success_cb : 받은 데이터를 이용하여 처리할 콜백 함수
 -- @param param_fail_cb : 통신 실패 처리할 콜백 함수
 -------------------------------------
-function ServerData_EventDealking:request_EventIncarnationOfSinsAttrRanking(attr_type, search_type, offset, limit, param_success_cb, param_fail_cb)
+function ServerData_EventDealking:request_EventDealkingRanking(boss_type, attr_type, search_type, offset, limit, param_success_cb, param_fail_cb)
     local uid = g_userData:get('uid')
     local attr = attr_type -- default : total
     local type = search_type -- default : world
@@ -390,7 +390,7 @@ function ServerData_EventDealking:request_EventIncarnationOfSinsAttrRanking(attr
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
 
-        self:response_eventIncarnationOfSinsInfo(ret)
+        self:response_eventDealkingInfo(ret)
 
         if param_success_cb then
             param_success_cb(ret)
@@ -401,8 +401,9 @@ function ServerData_EventDealking:request_EventIncarnationOfSinsAttrRanking(attr
     local ui_network = UI_Network()
     ui_network:setUrl('/event/dealking/ranking')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('rank_type', boss_type)
     ui_network:setParam('attr', attr) 
-    ui_network:setParam('type', type)
+    ui_network:setParam('filter', type)
     ui_network:setParam('offset', offset)
     ui_network:setParam('limit', limit)
     ui_network:setSuccessCB(success_cb)

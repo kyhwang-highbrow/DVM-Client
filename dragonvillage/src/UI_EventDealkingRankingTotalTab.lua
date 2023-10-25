@@ -8,7 +8,8 @@ UI_EventDealkingRankingTotalTab = class(PARENT,{
     m_rewardTableView = 'UIC_TableView',
     m_structRankReward = 'StructRankReward',
 
-    m_ownerUI = 'UI_EventIncarnationOfSinsRankingPopup', -- 현재 검색 타입에 대해 받아올 때 필요
+    m_ownerUI = 'UI_EventDealkingRankingPopup', -- 현재 검색 타입에 대해 받아올 때 필요
+    m_bossType = 'number', -- 보스 타입 (0 전체, 1 단일, 2 다중)
     m_searchType = 'string', -- 검색 타입 (world, clan, friend)
     ------------------------------------------------
     m_tRankData = 'table', -- 전체 랭크 정보
@@ -24,6 +25,7 @@ function UI_EventDealkingRankingTotalTab:init(owner_ui)
 
     self.m_ownerUI = owner_ui
     self.m_searchType = owner_ui.m_rankType
+    self.m_bossType = owner_ui.m_bossType
     self.m_tRankData = {}
     self.m_rankOffset = 1
 
@@ -70,7 +72,7 @@ function UI_EventDealkingRankingTotalTab:makeRankTableView(data)
     local vars = self.vars
     local rank_node = vars['rankListNode']
     local rank_data = data
-    local my_rank_data = data['total_my_info'] -- g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
+    local my_rank_data = data['total_my_info'] 
 
     vars['infoLabel']:setString(Str('종합 랭킹은 속성 점수를 합산하여 결정됩니다.'))
 
@@ -86,13 +88,13 @@ function UI_EventDealkingRankingTotalTab:makeRankTableView(data)
     -- 이전 랭킹 버튼 누른 후 콜백
     local function func_prev_cb(offset)
         self.m_rankOffset = offset
-        self:request_EventIncarnationOfSinsAttrRanking()
+        self:request_EventDealkingTotalRanking()
     end
 
     -- 다음 랭킹 버튼 누른 후 콜백
     local function func_next_cb(offset)
         self.m_rankOffset = offset
-        self:request_EventIncarnationOfSinsAttrRanking()
+        self:request_EventDealkingTotalRanking()
     end
 
     local uid = g_userData:get('uid')
@@ -136,19 +138,24 @@ end
 function UI_EventDealkingRankingTotalTab:makeRewardTableView()
     local vars = self.vars
     local node = vars['reawardNode']
-    if g_eventIncarnationOfSinsData.m_tMyRankInfo == nil then
+
+    local my_all_ranking_info = g_eventDealkingData:getMyRankInfo(self.m_bossType)
+    if my_all_ranking_info == nil then
         return
     end
 
-    local myRankInfo = g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
+    local myRankInfo = my_all_ranking_info['total']
+    if myRankInfo == nil then
+        return
+    end
+
     -- 최조 한 번만 생성
     if (self.m_rewardTableView) then
         return
     end
 
     -- 랭킹 보상 테이블
-    local table_event_rank = g_eventIncarnationOfSinsData.m_tRewardInfo
-
+    local table_event_rank = g_eventDealkingData.m_tRewardInfo
     local struct_rank_reward = StructRankReward(table_event_rank, true)
     local l_event_rank = struct_rank_reward:getRankRewardList()
     self.m_structRankReward = struct_rank_reward
@@ -171,8 +178,6 @@ function UI_EventDealkingRankingTotalTab:makeRewardTableView()
     table_view:relocateContainerFromIndex(idx) -- 해당하는 보상에 포커싱
 
     self.m_rewardTableView = table_view
-
-
     local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
 
     self.m_rewardTableView:update(0) -- 인덱스 포커싱을 위해 한번의 계산이 필요하다고 한다.
@@ -200,9 +205,9 @@ end
 
 
 -------------------------------------
--- function request_EventIncarnationOfSinsAttrRanking
+-- function request_EventDealkingTotalRanking
 -------------------------------------
-function UI_EventDealkingRankingTotalTab:request_EventIncarnationOfSinsAttrRanking()
+function UI_EventDealkingRankingTotalTab:request_EventDealkingTotalRanking()
     
     local type = 'total'
 
@@ -232,7 +237,7 @@ function UI_EventDealkingRankingTotalTab:request_EventIncarnationOfSinsAttrRanki
 
     local searchType = (self.m_searchType == 'my' or self.m_searchType == 'top') and 'world' or self.m_searchType
 
-    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking(type, searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, nil)
+    g_eventDealkingData:request_EventDealkingRanking(self.m_bossType, type, searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, nil)
 end
 
 -------------------------------------
@@ -243,12 +248,8 @@ function UI_EventDealkingRankingTotalTab:refreshRank(type) -- 다음/이전 버�
     self.m_searchType = type
     self.m_rankOffset = (type == 'my') and -1 or 1
 
-    self:request_EventIncarnationOfSinsAttrRanking()
+    self:request_EventDealkingTotalRanking()
 end
-
-
-
-
 
 
 
@@ -359,8 +360,6 @@ function UI_EventDealkingRankingTotalTabRewardListItem:init(t_reward_info)
     
     self:initUI()
 end
-
-
 
 -------------------------------------
 -- function initUI

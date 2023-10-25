@@ -1649,6 +1649,7 @@ local t_module = {
     'UI_EventDealkingEntryPopup', -- 스테이지 진입
     'UI_GameEventDealking', -- 전투 화면
     'UI_EventDealkingResult', -- 딜킹 전투 결과 화면
+    'UI_GamePause_EventDealking', -- 딜킹 일시 정지 화면
 
     -- 신화 드래곤 인기 가챠
     'UI_EventPopupTab_DragonPopularityGacha',

@@ -6,6 +6,8 @@ local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 UI_EventDealkingRankingAttributeTab = class(PARENT,{
         m_ownerUI = 'UI_EventIncarnationOfSinsRankingPopup', -- 현재 검색 타입에 대해 받아올 때 필요
         m_searchType = 'string', -- 검색 타입 (world, clan, friend)
+        m_bossType = 'number', -- 보스 타입 (0 전체, 1 단일, 2 다중)
+
         ------------------------------------------------
         m_tRankData = 'table', -- 각 속성별 랭크 정보
         m_tRankOffset = 'table', -- 각 속성별 오프셋
@@ -22,6 +24,7 @@ function UI_EventDealkingRankingAttributeTab:init(owner_ui)
     
     self.m_ownerUI = owner_ui
     self.m_searchType = owner_ui.m_rankType
+    self.m_bossType = owner_ui.m_bossType
     self.m_tRankData = {}
     self.m_tRankOffset = {}
 
@@ -60,9 +63,9 @@ function UI_EventDealkingRankingAttributeTab:initButton()
 end
 
 -------------------------------------
--- function request_EventIncarnationOfSinsAttrRanking
+-- function request_EventDealkingAttrRanking
 -------------------------------------
-function UI_EventDealkingRankingAttributeTab:request_EventIncarnationOfSinsAttrRanking(attr_type)
+function UI_EventDealkingRankingAttributeTab:request_EventDealkingAttrRanking(attr_type)
     local attr_type = attr_type or 'all'
     
     local function success_cb(ret)
@@ -112,7 +115,7 @@ function UI_EventDealkingRankingAttributeTab:request_EventIncarnationOfSinsAttrR
     local search_type = (self.m_searchType == 'top' or self.m_searchType == 'my') and 'world' or self.m_searchType
     local limit = SCORE_OFFSET_GAP
 
-    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking(attr_type, search_type, offset, limit, success_cb, nil)
+    g_eventDealkingData:request_EventDealkingRanking(self.m_bossType, attr_type, search_type, offset, limit, success_cb, nil)
 end
 
 -------------------------------------
@@ -212,7 +215,7 @@ function UI_EventDealkingRankingAttributeTab:makeAttrTableView(attr)
             -- offset이 마이너스값을 가지는것을 방지한다
             -- -1값을 가지게 되면 내 랭킹을 불러온다.
             self.m_tRankOffset[attr] = math_max(self.m_tRankOffset[attr], 0)
-            self:request_EventIncarnationOfSinsAttrRanking(attr)
+            self:request_EventDealkingAttrRanking(attr)
         end
         
         -- 다음 랭킹 보기
@@ -238,7 +241,7 @@ function UI_EventDealkingRankingAttributeTab:makeAttrTableView(attr)
 
             -- 여긴 대입만
             self.m_tRankOffset[attr] = next_idx
-            self:request_EventIncarnationOfSinsAttrRanking(attr)
+            self:request_EventDealkingAttrRanking(attr)
         end
 
         local uid = g_userData:get('uid')
@@ -323,7 +326,7 @@ function UI_EventDealkingRankingAttributeTab:refreshRank(type)
         self.m_tRankOffset[attr] =  offset
     end
 
-    self:request_EventIncarnationOfSinsAttrRanking('all')
+    self:request_EventDealkingAttrRanking('all')
 end
 
 
@@ -334,7 +337,7 @@ local CELL_PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_EventDealkingRankingAttributeTabListItem = class(CELL_PARENT,{
         m_tData = 'table',
-    })
+})
 
 -------------------------------------
 -- function init
@@ -345,8 +348,6 @@ function UI_EventDealkingRankingAttributeTabListItem:init(t_data)
 
     self:initUI()
 end
-
-
 
 -------------------------------------
 -- function initUI

@@ -150,10 +150,7 @@ end
 function GameState_DealkingEvent:makeBossHp()
     local world = self.m_world
     local boss = world.m_waveMgr.m_lBoss[1]
---[[     self.m_orgBossHp:set(hp)
-    self.m_bossHp:set(hp)
-    self.m_bossMaxHp:set(max_hp) ]]
-
+    
     -- 체력 게이지 UI 생성
     if (not self.m_uiBossHp) then
         local parent = world.m_inGameUI.root
