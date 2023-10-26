@@ -39,14 +39,17 @@ function TableDealkingBuff:makeAttrList()
 
     local all_attr_list = {'earth', 'water', 'fire', 'light', 'dark'}
     for _, attr in ipairs(all_attr_list) do
-        -- 상성은 자기 자신        
+               
         self.m_bonusAttrListMap[attr] = {}
-        table.insert(self.m_bonusAttrListMap[attr], attr)
 
-        -- 역상성은 자기 자신을 제외한 전부
+        -- 상성
+        local adv_attr = getAttrAdvantage(attr)
+        table.insert(self.m_bonusAttrListMap[attr], adv_attr)
+
+        -- 역상성은 상성을 제외한 전부
         self.m_penaltyAttrListMap[attr] = {}
         for _, other_attr in ipairs(all_attr_list) do
-            if attr ~= other_attr then
+            if adv_attr ~= other_attr then
                 table.insert(self.m_penaltyAttrListMap[attr], other_attr)
             end
         end

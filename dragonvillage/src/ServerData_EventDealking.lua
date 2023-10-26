@@ -28,8 +28,8 @@ ServerData_EventDealking.STATE = {
 }
 
 ServerData_EventDealking.GAME_TIME = {
-    ['LIMIT'] = 60,	-- 제한 시간
-    ['FEVER'] = 20,	-- 피버 타임(마지막 20초)
+    ['LIMIT'] = 120,	-- 제한 시간
+    ['FEVER'] = 40,	-- 피버 타임(마지막 40초)
 }
 
 -------------------------------------
