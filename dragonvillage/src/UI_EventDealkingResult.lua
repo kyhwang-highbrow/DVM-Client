@@ -453,7 +453,7 @@ end
 -- @brief "확인" 버튼
 -------------------------------------
 function UI_EventDealkingResult:click_okBtn()
-    UINavigator:goTo('lobby')
+    UINavigator:goTo('event_dealking')
 end
 
 -------------------------------------

@@ -1764,6 +1764,31 @@ function UINavigatorDefinition:goTo_event_incarnation_of_sins(...)
     end
 end
 
+
+-------------------------------------
+-- function goTo_event_dealking
+-- @brief 딜킹 이벤트 탭으로 이동
+-- @usage UINavigatorDefinition:goTo('event_dealking')
+-------------------------------------
+function UINavigatorDefinition:goTo_event_dealking(...)
+    local args = {...}
+
+    -- 이벤트 팝업이 열려있는 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_EventPopup')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        g_eventData:openEventPopup('event_dealking', close_cb)
+    end
+end
+
 -------------------------------------
 -- function goTo_battle_ready
 -- @brief 전투 준비 화면으로 이동
