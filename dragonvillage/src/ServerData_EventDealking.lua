@@ -53,13 +53,20 @@ function ServerData_EventDealking:makeBossMap()
 
     -- 1번 보스
     self.m_tDealkingBossInfo[1] = {
-        ['name'] = Str('딜킹 이벤트 보스명 A'),
+        ['name'] = Str('훈련용 가고일'),
     }
 
     -- 2번 보스
     self.m_tDealkingBossInfo[2] = {
-        ['name'] = Str('딜킹 이벤트 보스명 B'),
+        ['name'] = Str('훈련용 수정 거인'),
     }
+end
+
+-------------------------------------
+-- function getBossMap
+-------------------------------------
+function ServerData_EventDealking:getBossMap()
+    return self.m_tDealkingBossInfo
 end
 
 -------------------------------------

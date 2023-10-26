@@ -12,7 +12,7 @@ UI_EventDealking = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventDealking:init(owner_ui, struct_event)
-    local vars = self:load('event_dealking.ui')
+    self.vars = self:load('event_dealking.ui')
     self.m_ownerUI = owner_ui
     self.m_structEvent = struct_event
     self:initUI()
@@ -25,15 +25,20 @@ end
 -------------------------------------
 function UI_EventDealking:initUI()
     local vars = self.vars
-    local boss_type_list = {1, 2}
+    local boss_map = g_eventDealkingData:getBossMap()
 
-    for _, type in ipairs(boss_type_list) do
+    for type, t_data in pairs(boss_map) do
         local ui = UI_EventDealkingTab(type)
         vars['contentNode']:addChild(ui.root)
         self:addTabWithTabUIAuto(type, vars, ui)
+
+        local str =  string.format('%dTabLabel', type)
+        if vars[str] ~= nil then
+            vars[str]:setString(t_data['name'])
+        end
     end
 
-    self:setTab(boss_type_list[1])
+    self:setTab(1)
 end
 
 -------------------------------------
