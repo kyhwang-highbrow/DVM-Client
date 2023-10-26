@@ -1302,8 +1302,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     local bAccumulate = false
 
     if (self.m_isRaidMonster) then
-        bAccumulate = true
-        cclog('누적 처리로 들어오나??')
+        bAccumulate = true        
     elseif (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
         -- NOTHING TO DO
     elseif (t_info['is_definite_death']) then
