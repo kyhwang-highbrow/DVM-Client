@@ -194,16 +194,18 @@ function GameState_DealkingEvent:makeResultUI(is_success)
     end
 
     -- 2. UI 생성
-    func_ui_result = function()
+    func_ui_result = function(ret)
         local world = self.m_world
         local stage_id = world.m_stageID
         local damage = total_damage
         local boss = world.m_waveMgr.m_lBoss[1]
 
-        local ui = UI_EventDealkingResult(stage_id,
+        local ui = UI_EventDealkingResult(
+            stage_id,
             boss,
             damage,
-            t_result_ref)
+            t_result_ref,
+            ret)
     end
 
     -- 최초 실행
@@ -315,34 +317,4 @@ function GameState_DealkingEvent:updateFightTimer(dt)
             end
         end
     end
-end
-
--------------------------------------
--- function showLeaderBoard
--------------------------------------
-function GameState_DealkingEvent:showLeaderBoard()
-    local vars = self.vars
-    
-    -- 게임 후, 앞/뒤 랭커 정보
-    local t_upper, t_me, t_lower = g_eventIncarnationOfSinsData:getCloseRankers()
-    if (not t_me) then
-        self:doNextWork()
-        return
-    end
-
-    -- 게임 전 내 정보
-    local t_ex_me = g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
-    local t_ex_me = nil
-    if (not t_ex_me) then -- 처음 때린 사람
-        t_ex_me = {['score'] = 0, ['rank'] = t_me['rank'] + 1000, ['rate'] = 1}
-    end
-
-    
-    local ui_leader_board = UI_ResultLeaderBoard_IncarnationOfSins('incarnation_of_sins', true, true) -- type, is_move, is_popup
-    ui_leader_board:setScore(t_me['score'] - t_ex_me['score'], t_me['score']) -- param : 더해진 점수, 더해진 점수가 반영된 최종 점수
-    ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
-    ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])
-    ui_leader_board:setRanker(t_upper, t_me, t_lower)
-    ui_leader_board:setCurrentInfo()
-    ui_leader_board:startMoving()
 end

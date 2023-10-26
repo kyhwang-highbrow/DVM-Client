@@ -152,33 +152,13 @@ function UI_EventDealkingEntryPopup:initButton()
     vars['synastryInfoBtn']:setVisible(false)
 end
 
--------------------------------------
--- function getMaxHp
--------------------------------------
-function UI_EventDealkingEntryPopup:getMaxHp(stage_lv)
-    local stage_id = 1500000 + stage_lv
-    local table_clan_raid = TABLE:get('table_clan_dungeon')
-    local max_hp = table_clan_raid[stage_id]['boss_hp']
-    return max_hp
-end
 
 -------------------------------------
 -- function refreshInfo
 -------------------------------------
 function UI_EventDealkingEntryPopup:refreshInfo()
     local vars = self.vars   
-    
 
---[[     local max_hp = self:getMaxHp(stage_lv)
-    local stage_hp = max_hp
-
-    local hp_ratio = 100
-    vars['levelLabel']:setString(Str('Lv.{1}', comma_value(stage_lv)))
-    vars['hpLabel2']:setString(Str('{1}/{2}', comma_value(stage_hp), comma_value(max_hp)))
-
-    local hp_ratio_str = string.format('%0.2f%%', hp_ratio)
-    vars['hpLabel']:setString(hp_ratio_str, false)
-    vars['bossHpGauge1']:setPercentage(hp_ratio) ]]
 end
 
 -------------------------------------
@@ -186,17 +166,6 @@ end
 -------------------------------------
 function UI_EventDealkingEntryPopup:refresh()
     local vars = self.vars
-end
-
-------------------------
--- function getCostumedStructClanRaid
--------------------------------------
-function UI_EventDealkingEntryPopup:getCostumedStructClanRaid()
-    local struct_clan_raid = StructClanRaid()
-    struct_clan_raid['clan_raid_type'] = 'training'                        -- 타입 지정 (연습 모드인지 구분 용도)
-    struct_clan_raid['attr'] = 'earth'                         -- 연습 모드에서 커스텀한 속성
-    struct_clan_raid['stage'] = 1500001
-    return struct_clan_raid
 end
 
 -------------------------------------
@@ -211,20 +180,6 @@ end
 -- function click_applyBtn
 -------------------------------------
 function UI_EventDealkingEntryPopup:click_readyBtn()
---[[     
-    -- 스테이지 정보 세팅
-    local struct_clan_raid = g_clanRaidData.m_structClanRaid or StructClanRaid()
-    local max_hp = self:getMaxHp(self.m_selectStageLv)
-    local selected_stage_id = self.m_selectStageLv + 1500000
-    
-    struct_clan_raid['clan_raid_type'] = 'incarnation_of_sins'       
-    struct_clan_raid['attr'] = self.m_selectedAttr              -- 현재 선택된 속성
-    struct_clan_raid['stage'] = selected_stage_id               -- 선택한 레벨
-    struct_clan_raid['hp'] = SecurityNumberClass(max_hp)        -- 선택한 레벨의 체력
-    struct_clan_raid['max_hp'] = SecurityNumberClass(max_hp)
-    
-    g_clanRaidData.m_structClanRaid = struct_clan_raid ]]
-
     -- 스테이지 시간 세팅
     -- UI_ReadySceneNew UI가 열려있을 경우, 닫고 다시 연다
     local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_ReadySceneNew')

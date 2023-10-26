@@ -11,6 +11,7 @@ UI_EventDealkingResult = class(UI, {
     m_workIdx = 'number',
     m_lWorkList = 'list',
     m_sub_menu = 'cc.Menu', -- 보상이 올라가는 ui
+    m_lCloseRankers = 'Table', -- 가까운 랭커
 })
 
 local ITEM_CARD_SCALE = 0.65
@@ -20,12 +21,13 @@ local ANI_DURATION = 0.2 -- 아이템 카드 보여주는 애니메이션 속도
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_EventDealkingResult:init(stage_id, boss, damage, t_data)
+function UI_EventDealkingResult:init(stage_id, boss, damage, t_data, ret)
     self.m_stageID = stage_id    
     self.m_damage = damage
     self.m_bossMonster = boss
     self.m_data = t_data
     self.m_grade = t_data['dmg_rank']
+    self.m_ret = ret
 
     local vars = self:load('event_dealking_result.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -39,6 +41,7 @@ function UI_EventDealkingResult:init(stage_id, boss, damage, t_data)
 
     self:initUI()
     self:initButton()
+    self:makeCloseRankers(ret)
 
     self:setWorkList()
     self:doNextWork()
@@ -234,6 +237,44 @@ function UI_EventDealkingResult:direction_showReward()
 end
 
 -------------------------------------
+--- @function makeCloseRankers
+--- @brief 자신과 가까운 순위 계산
+-------------------------------------
+function UI_EventDealkingResult:makeCloseRankers(ret)
+    local l_rankers = ret['rank_list']
+    if l_rankers == nil then
+        return
+    end
+    
+    local uid = g_userData:get('uid')
+    self.m_lCloseRankers = {}
+    self.m_lCloseRankers['me_ranker'] = nil
+    self.m_lCloseRankers['upper_ranker'] = nil
+    self.m_lCloseRankers['lower_rank'] = nil
+
+    for _,data in ipairs(l_rankers) do
+        if (data['uid'] == uid) then
+            self.m_lCloseRankers['me_ranker'] = data
+        end
+    end
+
+    if (self.m_lCloseRankers['me_ranker'] == nil) then return end
+    local my_rank = self.m_lCloseRankers['me_ranker']['rank']
+    local upper_rank = my_rank - 1
+    local lower_rank = my_rank + 1
+
+    for _,data in ipairs(l_rankers) do
+        if (tonumber(data['rank']) == tonumber(upper_rank)) then
+            self.m_lCloseRankers['upper_ranker'] = data
+        end
+
+        if (tonumber(data['rank']) == tonumber(lower_rank)) then
+            self.m_lCloseRankers['lower_rank'] = data
+        end
+    end
+end
+
+-------------------------------------
 -- function show_item_reward
 -- @brief 아이템 팡팡 박히는 애니메이션
 -------------------------------------
@@ -420,115 +461,6 @@ function UI_EventDealkingResult:direction_end()
     end ]]
 end
 
--------------------------------------
--- function direction_end_click
--------------------------------------
-function UI_EventDealkingResult:direction_end_click()
-end
---[[ 
--------------------------------------
--- function showLeaderBoard
--------------------------------------
-function UI_EventDealkingResult:showLeaderBoard()
-    local vars = self.vars
-
-    -- 게임 후, 앞/뒤 랭커 정보
-    local t_upper, t_me, t_lower = g_clanRaidData:getCloseRankers()
-    if (not t_me) then
-        self:doNextWork()
-        return
-    end
-
-    -- 게임 전 내 정보
-    local t_ex_me = g_clanRaidData.m_tExMyClanInfo
-    if (not t_ex_me) then
-        self:doNextWork()
-        return
-    end
-
-    local ui_leader_board = UI_ResultLeaderBoard('clan_raid', true, true) -- type, is_move, is_popup
-    ui_leader_board:setScore(self.m_damage, t_me['score']) -- param : add_score, current_score (전투 후)데미지 값(=점수), (전투 후)최종 종합 점수
-    ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
-    ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])
-    ui_leader_board:setRanker(t_upper, t_me, t_lower)
-    ui_leader_board:setCurrentInfo()
-    ui_leader_board:startMoving()
-end ]]
---[[ 
--------------------------------------
--- function showLeaderBoard_IncarnationOfSins
--- @brief 죄악의 화신 토벌작전 전용 리더보드 생성
--------------------------------------
-function UI_EventDealkingResult:showLeaderBoard_IncarnationOfSins()
-    local vars = self.vars
-
-    -- 게임 후, 앞/뒤 랭커 정보
-    local t_upper, t_me, t_lower = g_eventIncarnationOfSinsData:getCloseRankers()
-    if (not t_me) then
-        self:doNextWork()
-        return
-    end
-
-    -- 게임 전 내 정보
-    local t_ex_me = g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
-    local t_ex_me = nil
-    if (not t_ex_me) then -- 처음 때린 사람
-        t_ex_me = {['score'] = 0, ['rank'] = t_me['rank'] + 1000, ['rate'] = 1}
-    end
-
-
-    local ui_leader_board = UI_ResultLeaderBoard_IncarnationOfSins('incarnation_of_sins', true, true) -- type, is_move, is_popup
-    ui_leader_board:setScore(t_me['score'] - t_ex_me['score'], t_me['score']) -- param : 더해진 점수, 더해진 점수가 반영된 최종 점수
-    ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
-    ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])
-    ui_leader_board:setRanker(t_upper, t_me, t_lower)
-    ui_leader_board:setCurrentInfo()
-    ui_leader_board:startMoving()
-end
- ]]
--------------------------------------
--- function direction_showLeaderBoard_click
--------------------------------------
-function UI_EventDealkingResult:direction_showLeaderBoard_click()
-end
---[[ 
--------------------------------------
--- function show_finalblowReward
--- @brief 파이널 블로우 추가 보상 팝업
--------------------------------------
-function UI_EventDealkingResult:show_finalblowReward(reward_info, cb_ok)
-    local ui = UI()
-    ui:load('clan_raid_clear_reward.ui')
-    UIManager:open(ui, UIManager.POPUP)
-
-    -- 닫힐 때, 콜백함수 있다면 호출
-    local cb_close = function()
-        ui:close() 
-        if (cb_ok) then
-            cb_ok()
-        end
-    end
-
-    local vars = ui.vars
-    vars['okBtn']:registerScriptTapHandler(function() cb_close() end)
-
-    table.sort(reward_info, function(a, b)
-        local a_item_id = tonumber(a['item_id'])
-        local b_item_id = tonumber(b['item_id'])
-        return a_item_id < b_item_id
-    end)
-
-    for i, item_data in ipairs(reward_info) do
-        local item_id = item_data['item_id']
-        local item_cnt = item_data['count']
-
-        local icon = IconHelper:getItemIcon(item_id, item_cnt)
-        if (vars['rewardNode'..i]) then
-            vars['rewardNode'..i]:addChild(icon)
-            vars['rewardLabel'..i]:setString(comma_value(item_cnt))
-        end
-    end
-end ]]
 
 -------------------------------------
 -- function doNextWork
@@ -587,4 +519,35 @@ function UI_EventDealkingResult:click_screenBtn()
     if func_name and (self[func_name]) then
         self[func_name](self)
     end
+end
+
+
+-------------------------------------
+-- function showLeaderBoard
+-------------------------------------
+function UI_EventDealkingResult:showLeaderBoard(ret)
+    local vars = self.vars
+    
+    -- 게임 후, 앞/뒤 랭커 정보
+    local t_upper, t_me, t_lower = g_eventIncarnationOfSinsData:getCloseRankers()
+    if (not t_me) then
+        self:doNextWork()
+        return
+    end
+
+    -- 게임 전 내 정보
+    local t_ex_me = g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
+    local t_ex_me = nil
+    if (not t_ex_me) then -- 처음 때린 사람
+        t_ex_me = {['score'] = 0, ['rank'] = t_me['rank'] + 1000, ['rate'] = 1}
+    end
+
+    
+    local ui_leader_board = UI_ResultLeaderBoard_IncarnationOfSins('incarnation_of_sins', true, true) -- type, is_move, is_popup
+    ui_leader_board:setScore(t_me['score'] - t_ex_me['score'], t_me['score']) -- param : 더해진 점수, 더해진 점수가 반영된 최종 점수
+    ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
+    ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])
+    ui_leader_board:setRanker(t_upper, t_me, t_lower)
+    ui_leader_board:setCurrentInfo()
+    ui_leader_board:startMoving()
 end

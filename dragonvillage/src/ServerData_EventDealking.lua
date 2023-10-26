@@ -219,7 +219,7 @@ function ServerData_EventDealking:getEventDealkingStageId(boss_type, selected_at
         ['dark'] = 5,
     }
 
-    local stage_id = 3100000 + ((boss_type - 1) * 5) + attr_map[selected_attr]
+    local stage_id = 3100000 + (boss_type * 100) + attr_map[selected_attr]
     return stage_id
 end
 
