@@ -26,8 +26,7 @@ function UI_EventDealkingResult:init(stage_id, boss, damage, t_data, ret)
     self.m_damage = damage
     self.m_bossMonster = boss
     self.m_data = t_data
-    self.m_grade = t_data['dmg_rank']
-    self.m_ret = ret
+    self.m_grade = t_data['dmg_rank']    
 
     local vars = self:load('event_dealking_result.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -236,43 +235,6 @@ function UI_EventDealkingResult:direction_showReward()
     ani_1()
 end
 
--------------------------------------
---- @function makeCloseRankers
---- @brief 자신과 가까운 순위 계산
--------------------------------------
-function UI_EventDealkingResult:makeCloseRankers(ret)
-    local l_rankers = ret['rank_list']
-    if l_rankers == nil then
-        return
-    end
-    
-    local uid = g_userData:get('uid')
-    self.m_lCloseRankers = {}
-    self.m_lCloseRankers['me_ranker'] = nil
-    self.m_lCloseRankers['upper_ranker'] = nil
-    self.m_lCloseRankers['lower_rank'] = nil
-
-    for _,data in ipairs(l_rankers) do
-        if (data['uid'] == uid) then
-            self.m_lCloseRankers['me_ranker'] = data
-        end
-    end
-
-    if (self.m_lCloseRankers['me_ranker'] == nil) then return end
-    local my_rank = self.m_lCloseRankers['me_ranker']['rank']
-    local upper_rank = my_rank - 1
-    local lower_rank = my_rank + 1
-
-    for _,data in ipairs(l_rankers) do
-        if (tonumber(data['rank']) == tonumber(upper_rank)) then
-            self.m_lCloseRankers['upper_ranker'] = data
-        end
-
-        if (tonumber(data['rank']) == tonumber(lower_rank)) then
-            self.m_lCloseRankers['lower_rank'] = data
-        end
-    end
-end
 
 -------------------------------------
 -- function show_item_reward
@@ -445,20 +407,22 @@ function UI_EventDealkingResult:direction_end()
         end
     end)
 
---[[     local func_show_leader = function()
-        local struct_raid = g_clanRaidData:getClanRaidStruct()
-        -- 연습모드에선 리더보드 안보여줌
-        if (not struct_raid:isTrainingMode()) then
-            
-            -- 죄악의 화신 토벌작전 이벤트에선 최고기록을 세웠을 때에만 보여줌
-            if (struct_raid:isEventIncarnationOfSinsMode()) then
-                self:showLeaderBoard_IncarnationOfSins()
+    -- 내 순위 정보가 내려오면 무조건 노출
+    if self.m_lCloseRankers['me_ranker'] ~= nil then
+        self:showLeaderBoard()
+    end
+end
 
-            else
-                self:showLeaderBoard()
-            end
-        end
-    end ]]
+-------------------------------------
+-- function direction_showLeaderBoard_click
+-------------------------------------
+function UI_EventDealkingResult:direction_showLeaderBoard_click()
+end
+
+-------------------------------------
+-- function direction_end_click
+-------------------------------------
+function UI_EventDealkingResult:direction_end_click()
 end
 
 
@@ -521,28 +485,65 @@ function UI_EventDealkingResult:click_screenBtn()
     end
 end
 
+-------------------------------------
+--- @function makeCloseRankers
+--- @brief 자신과 가까운 순위 계산
+-------------------------------------
+function UI_EventDealkingResult:makeCloseRankers(ret)
+    local l_rankers = ret['rank_list']
+    if l_rankers == nil then
+        return
+    end
+    
+    local uid = g_userData:get('uid')
+    self.m_lCloseRankers = {}
+    self.m_lCloseRankers['me_ranker'] = nil
+    self.m_lCloseRankers['upper_ranker'] = nil
+    self.m_lCloseRankers['lower_rank'] = nil
+
+    for _,data in ipairs(l_rankers) do
+        if (data['uid'] == uid) then
+            self.m_lCloseRankers['me_ranker'] = data
+        end
+    end
+
+    if (self.m_lCloseRankers['me_ranker'] == nil) then return end
+    local my_rank = self.m_lCloseRankers['me_ranker']['rank']
+    local upper_rank = my_rank - 1
+    local lower_rank = my_rank + 1
+
+    for _,data in ipairs(l_rankers) do
+        if (tonumber(data['rank']) == tonumber(upper_rank)) then
+            self.m_lCloseRankers['upper_ranker'] = data
+        end
+
+        if (tonumber(data['rank']) == tonumber(lower_rank)) then
+            self.m_lCloseRankers['lower_rank'] = data
+        end
+    end
+end
 
 -------------------------------------
--- function showLeaderBoard
+--- @function showLeaderBoard
+--- @brief 리더 보드 생성
 -------------------------------------
 function UI_EventDealkingResult:showLeaderBoard(ret)
-    local vars = self.vars
-    
     -- 게임 후, 앞/뒤 랭커 정보
-    local t_upper, t_me, t_lower = g_eventIncarnationOfSinsData:getCloseRankers()
+    local t_upper = self.m_lCloseRankers['upper_ranker']
+    local t_me = self.m_lCloseRankers['me_ranker'] 
+    local t_lower = self.m_lCloseRankers['lower_rank']
+
     if (not t_me) then
-        self:doNextWork()
         return
     end
 
-    -- 게임 전 내 정보
-    local t_ex_me = g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
-    local t_ex_me = nil
+    -- 게임 전 내 정보    
+    local t_ex_me = g_eventDealkingData:getMyRankInfoTotal()
     if (not t_ex_me) then -- 처음 때린 사람
         t_ex_me = {['score'] = 0, ['rank'] = t_me['rank'] + 1000, ['rate'] = 1}
     end
 
-    
+    -- 리더 보드 추가
     local ui_leader_board = UI_ResultLeaderBoard_IncarnationOfSins('incarnation_of_sins', true, true) -- type, is_move, is_popup
     ui_leader_board:setScore(t_me['score'] - t_ex_me['score'], t_me['score']) -- param : 더해진 점수, 더해진 점수가 반영된 최종 점수
     ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])

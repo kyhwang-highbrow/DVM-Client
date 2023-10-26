@@ -237,6 +237,24 @@ function ServerData_EventDealking:getMyRankInfo(_boss_type)
     return nil
 end
 
+
+-------------------------------------
+-- function getMyRankInfoTotal
+-- @brief 내 랭킹 받아오기
+-------------------------------------
+function ServerData_EventDealking:getMyRankInfoTotal()
+    local my_rank_info = self:getMyRankInfo()
+    if (my_rank_info) then
+        if my_rank_info['total'] == nil then
+            return nil
+        end
+        return my_rank_info['total']
+    end
+
+    return nil
+end
+
+
 -------------------------------------
 -- function getMyRank
 -- @brief 내 랭킹 받아오기
@@ -315,49 +333,6 @@ function ServerData_EventDealking:isOpenAttr(attr)
     end
 
     return true
-end
-
--------------------------------------
--- function setCloseRankers
--- @brief 앞뒤 등수 유저 정보 저장
--- @param l_rankers : 앞, 자신, 뒤 최대 3명의 랭크 정보 리스트
--------------------------------------
-function ServerData_EventDealking:setCloseRankers(l_rankers)
-    local uid = g_userData:get('uid')
-
-    self.m_lCloseRankers = {}
-    self.m_lCloseRankers['me_ranker'] = nil
-    self.m_lCloseRankers['upper_ranker'] = nil
-    self.m_lCloseRankers['lower_rank'] = nil
-
-    for _,data in ipairs(l_rankers) do
-        if (data['uid'] == uid) then
-            self.m_lCloseRankers['me_ranker'] = data
-        end
-    end
-
-    if (self.m_lCloseRankers['me_ranker'] == nil) then return end
-    local my_rank = self.m_lCloseRankers['me_ranker']['rank']
-    local upper_rank = my_rank - 1
-    local lower_rank = my_rank + 1
-
-    for _,data in ipairs(l_rankers) do
-        if (tonumber(data['rank']) == tonumber(upper_rank)) then
-            self.m_lCloseRankers['upper_ranker'] = data
-        end
-
-        if (tonumber(data['rank']) == tonumber(lower_rank)) then
-            self.m_lCloseRankers['lower_rank'] = data
-        end
-    end
-end
-
--------------------------------------
--- function getCloseRankers
--- @brief 앞뒤 등수 유저 정보 반환 
--------------------------------------
-function ServerData_EventDealking:getCloseRankers()
-    return self.m_lCloseRankers['upper_ranker'], self.m_lCloseRankers['me_ranker'], self.m_lCloseRankers['lower_rank']
 end
 
 -------------------------------------
@@ -516,7 +491,7 @@ function ServerData_EventDealking:request_eventDealkingStart(stage, attr, deck_n
     ui_network:setParam('stage', stage)
     ui_network:setParam('attr', attr)
     ui_network:setParam('deck_name', deck_name)    
-    ui_network:setParam('token', token)    
+    ui_network:setParam('token', token)
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -652,5 +627,5 @@ function ServerData_EventDealking:getPossibleReward_IncarnationsOfSins(my_rank, 
 
     -- 마지막 보상 리턴
     local last_ind = #l_rank_list
-    return l_rank_list[last_ind], last_ind or 0  
+    return l_rank_list[last_ind], last_ind or 0
 end
