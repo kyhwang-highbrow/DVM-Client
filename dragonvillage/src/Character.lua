@@ -1301,11 +1301,11 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     local bApplyDamage = false
     local bAccumulate = false
 
-    if (g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID and self.m_isRaidMonster) then
+    if (self.m_isRaidMonster) then
         bAccumulate = true
+        cclog('누적 처리로 들어오나??')
     elseif (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
         -- NOTHING TO DO
-
     elseif (t_info['is_definite_death']) then
         damage = self.m_hp
         bApplyDamage = true
@@ -1376,8 +1376,17 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     else
         self.m_world.m_logRecorder:recordLog('total_damage_to_enemy', damage)
 
-        if (bAccumulate) then g_leagueRaidData.m_currentDamage = g_leagueRaidData.m_currentDamage + damage end
-        if (self.m_world.m_inGameUI.m_stackableDamageUI) then self.m_world.m_inGameUI.m_stackableDamageUI:refresh() end
+        if (bAccumulate) then 
+            if g_gameScene.m_gameMode == GAME_MODE_LEAGUE_RAID then
+                if g_leagueRaidData.m_currentDamage ~= nil then
+                    g_leagueRaidData.m_currentDamage = g_leagueRaidData.m_currentDamage + damage 
+                end
+            end
+        end
+        
+        if (self.m_world.m_inGameUI.m_stackableDamageUI) then 
+            self.m_world.m_inGameUI.m_stackableDamageUI:refresh() 
+        end
     end
 
 
