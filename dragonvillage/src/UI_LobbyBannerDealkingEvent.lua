@@ -118,7 +118,7 @@ function UI_LobbyBannerDealkingEvent:click_bannerBtn()
     else
         local function finish_cb(ret)
             UI_EventDealkingRankingPopup() -- 랭킹 팝업
-            local last_info = g_eventDealkingData:getMyRankInfo()
+            local last_info = g_eventDealkingData:getMyRankInfoTotal()
             local reward_info = ret['reward_info']
 
             -- 보상을 받을 수 있는 상태라면
