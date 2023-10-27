@@ -594,12 +594,12 @@ function ServerData_EventDealking:request_eventDealkingReward(finish_cb, fail_cb
 end
 
 -------------------------------------
--- function getPossibleReward_IncarnationsOfSins
--- @brief 획득할 수 있는 보상 데이터를 반환
--- @param my_rank : 현재 등수
--- @param my_ratio : 현재 랭크 비율 
+--- @function getPossibleReward
+--- @brief 획득할 수 있는 보상 데이터를 반환
+--- @param integer : 현재 등수
+--- @param integer : 현재 랭크 비율 
 -------------------------------------
-function ServerData_EventDealking:getPossibleReward_IncarnationsOfSins(my_rank, my_ratio)
+function ServerData_EventDealking:getPossibleReward(my_rank, my_ratio)
     local my_rank = tonumber(my_rank)
     local my_rank_rate = tonumber(my_ratio) * 100
 

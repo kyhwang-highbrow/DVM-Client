@@ -1,0 +1,77 @@
+local PARENT = UI_ResultLeaderBoard_IncarnationOfSins
+-------------------------------------
+-- class UI_ResultLeaderBoard_EventDealking
+-------------------------------------
+UI_ResultLeaderBoard_EventDealking = class(PARENT, {
+    })
+
+    
+-------------------------------------
+-- function setCurrentInfo
+-------------------------------------
+function UI_ResultLeaderBoard_EventDealking:setCurrentInfo()
+    local vars = self.vars
+    local type = self.m_type
+
+    vars['gaugeSprite']:setVisible(self.m_isPopup)
+
+    -- 현재 점수
+    vars['scoreLabel']:setString(Str('{1}점', comma_value(self.m_cur_score)))     -- 점수
+    
+    -- 현재 랭킹
+    vars['rankLabel']:setString(Str('{1}위', comma_value(self.m_cur_rank)))       -- 랭킹
+
+    -- 보상 아이템
+    if g_eventIncarnationOfSinsData then
+        vars['rewardMenu']:removeAllChildren()
+
+        local cur_reward_data = g_eventDealkingData:getPossibleReward(self.m_cur_rank, self.m_cur_ratio)
+        local l_reward_data = g_itemData:parsePackageItemStr(cur_reward_data['reward'])
+        local reward_size = table.count(l_reward_data)
+        local icon_size = 150
+        local icon_scale = 0.666
+        local icon_interval = 5
+        local l_ui_pos_list = getSortPosList((icon_size * icon_scale) + icon_interval, reward_size)
+
+        for idx, item_info in ipairs(l_reward_data) do
+            local item_id = item_info['item_id']
+            local count = item_info['count']
+            local ui = UI_ItemCard(item_id, count)
+            ui.root:setScale(icon_scale)            
+            vars['rewardMenu']:addChild(ui.root)
+            ui.root:setPositionX(l_ui_pos_list[idx])
+        end
+    end
+
+    if (self.m_tUpperRank) then
+        -- 앞 순위 유저
+        local ui_upper = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tUpperRank, false)
+        if (ui_upper) then
+            cclog('upper')
+            vars['upperNode']:addChild(ui_upper.root)
+        end
+    end
+
+    if (self.m_tLowerRank) then
+        -- 뒤 순위 유저
+        local ui_lower = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tLowerRank, false) -- type, t_data, is_me,
+        if (ui_lower) then
+            cclog('lower')
+            vars['lowerNode']:addChild(ui_lower.root)
+        end
+    end
+
+    if (self.m_tMeRank) then
+        -- 자기 자신
+        local ui_me = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tMeRank, true)
+        if (ui_me) then
+            cclog('me')
+            vars['meNode']:addChild(ui_me.root)
+        end
+    end
+
+    vars['meNode']:setLocalZOrder(1)
+end
+
+--@CHECK
+UI:checkCompileError(UI_ResultLeaderBoard_EventDealking)

@@ -548,7 +548,7 @@ function UI_EventDealkingResult:showLeaderBoard(ret)
     end
 
     -- 리더 보드 추가
-    local ui_leader_board = UI_ResultLeaderBoard_IncarnationOfSins('incarnation_of_sins', true, true) -- type, is_move, is_popup
+    local ui_leader_board = UI_ResultLeaderBoard_EventDealking('event_dealking', true, true) -- type, is_move, is_popup
     ui_leader_board:setScore(t_me['score'] - t_ex_me['score'], t_me['score']) -- param : 더해진 점수, 더해진 점수가 반영된 최종 점수
     ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
     ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])
