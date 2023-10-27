@@ -601,7 +601,7 @@ function UI_ReadySceneNew:initUI()
     -- 멀티덱 예외처리 (클랜 던전, 고대 유적 던전)
     local multi_deck_mgr = self.m_multiDeckMgr
 
-    if (multi_deck_mgr and self.m_gameMode ~= GAME_MODE_LEAGUE_RAID) then
+    if ((multi_deck_mgr and self.m_gameMode ~= GAME_MODE_LEAGUE_RAID)) then
         vars['clanRaidMenu']:setVisible(true)
         vars['cpNode2']:setVisible(false)
         vars['formationNode']:setPositionX(-230)
@@ -666,6 +666,41 @@ function UI_ReadySceneNew:initUI()
                                         vars['panaltyTipsNode'..idx]
                     target_node:addChild(icon)
                 end
+            end
+        end
+    elseif (self.m_gameMode == GAME_MODE_EVENT_DEALKING) then
+        vars['synastryTipsMenu']:setVisible(true)
+        vars['synastryInfoBtn']:setVisible(false)
+        vars['attrInfoSprite']:setVisible(false)
+        vars['attrInfoBtn']:setVisible(false)
+        
+        do -- 보너스 속성
+            local str, map_attr = TableDealkingBuff:getInstance():getDealkingBonusInfo(self.m_stageID, self.m_stageAttr, true)
+            vars['bonusTipsDscLabel']:setString(str)
+
+            for k, v in pairs(map_attr) do
+                -- 속성 아이콘
+                local icon = IconHelper:getAttributeIconButton(k)
+                local target_node = vars['bonusTipsNode']
+                target_node:addChild(icon)
+            end
+        end
+
+        do -- 페널티 속성
+            local str, map_attr = TableDealkingBuff:getInstance():getDealkingBonusInfo(self.m_stageID, self.m_stageAttr, false)
+            vars['panaltyTipsDscLabel']:setString(str)
+
+            local cnt = table.count(map_attr)
+            local idx = 0
+
+            for k, v in pairs(map_attr) do
+                idx = idx + 1
+                -- 속성 아이콘
+                local icon = IconHelper:getAttributeIconButton(k)
+                local target_node = (cnt == 1) and 
+                                    vars['panaltyTipsNode'] or 
+                                    vars['panaltyTipsNode'..idx]
+                target_node:addChild(icon)
             end
         end
     end
