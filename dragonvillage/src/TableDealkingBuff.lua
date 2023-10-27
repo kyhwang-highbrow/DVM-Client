@@ -75,7 +75,7 @@ function TableDealkingBuff:getDealkingBonusInfo(stage_id, attr, is_buff)
             if (map_buff_type[buff_type] == nil) then
                 local str_buff = TableOption:getOptionDesc(buff_type, math_abs(buff_value))
                 -- 드래그 스킬은 맨 처음 출력
-                if (buff_type == 'drag_cool_add') then
+                if (string.find(buff_type, 'drag_cool_add')) then
                     str = (str == '') and str_buff or str_buff .. '\n' .. str
                 else
                     str = (str == '') and str_buff or str..'\n'..str_buff
