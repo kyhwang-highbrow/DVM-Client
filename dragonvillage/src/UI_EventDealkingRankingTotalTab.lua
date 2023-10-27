@@ -49,6 +49,11 @@ end
 -- function initUI
 -------------------------------------
 function UI_EventDealkingRankingTotalTab:initUI()
+    local vars = self.vars
+    --vars['rewardMenu']:setVisible(self.m_bossType == 0)
+    if self.m_bossType ~= 0 then
+        vars['rewardTitleLabel']:setString(Str('상위 랭커'))
+    end
 end
 
 -------------------------------------
@@ -62,7 +67,6 @@ end
 -------------------------------------
 function UI_EventDealkingRankingTotalTab:refresh()
 end
-
 
 -------------------------------------
 -- function makeRankTableView
@@ -132,11 +136,43 @@ end
 
 
 -------------------------------------
+--- @function makeRankHallOfFameView
+--- @brife 명예의 전당 형식으로 노출
+-------------------------------------
+function UI_EventDealkingRankingTotalTab:makeRankHallOfFameView(data)
+    local vars = self.vars
+    if self.m_bossType == 0 then
+        return
+    end
+
+    vars['fameMenu']:setVisible(true)
+    local rank_data = data
+    local l_rank_list = rank_data['total_list'] or {}
+
+    for idx = 1, 3 do
+        if (l_rank_list[idx]) then
+            local rank = l_rank_list[idx]['rank']
+            if (vars['itemNode' .. idx] and rank <= 3) then
+                local ui = UI_HallOfFameListItem(l_rank_list[idx], idx)
+		        vars['itemNode' .. idx]:addChild(ui.root)
+            end
+        else
+            -- 랭킹 정보가 없다면 없다는 표시를 출력
+            local ui = UI_HallOfFameListItem(nil)
+        end
+    end
+end
+
+-------------------------------------
 -- function makeRewardTableView
 -------------------------------------
 function UI_EventDealkingRankingTotalTab:makeRewardTableView()
     local vars = self.vars
     local node = vars['reawardNode']
+
+    if self.m_bossType ~= 0 then
+        return
+    end
 
     local my_all_ranking_info = g_eventDealkingData:getMyRankInfo(self.m_bossType)
     if my_all_ranking_info == nil then
@@ -172,7 +208,7 @@ function UI_EventDealkingRankingTotalTab:makeRewardTableView()
     table_view:setCellUIClass(UI_EventDealkingRankingTotalTabRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_event_rank)
-    table_view:makeDefaultEmptyDescLabel(Str('보스에 대한 랭킹 보상은 제공되지 않습니다.'))
+    --table_view:makeDefaultEmptyDescLabel(Str('보스에 대한 랭킹 보상은 제공되지 않습니다.'))
 
     table_view:update(0) -- 맨 처음 각 아이템별 위치값을 계산해줌
     table_view:relocateContainerFromIndex(idx) -- 해당하는 보상에 포커싱
@@ -202,14 +238,13 @@ function UI_EventDealkingRankingTotalTab:createRewardFunc(ui, data, my_info)
     end
 end
 
-
-
 -------------------------------------
 -- function request_EventDealkingTotalRanking
 -------------------------------------
 function UI_EventDealkingRankingTotalTab:request_EventDealkingTotalRanking()
     
     local type = 'total'
+    local searchType = (self.m_searchType == 'my' or self.m_searchType == 'top') and 'world' or self.m_searchType
 
     local function success_cb(ret)
         -- 밑바닥 유저를 위한 예외처리
@@ -225,17 +260,18 @@ function UI_EventDealkingRankingTotalTab:request_EventDealkingTotalRanking()
             if (l_rank_list and #l_rank_list <= 0) then
                 MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
                 return
-            end        
+            end
         end
 
         -- 랭킹 테이블 다시 만듬
         self:makeRankTableView(ret)
+        if searchType == 'world' then
+            self:makeRankHallOfFameView(ret)
+        end
+
         self:makeRewardTableView()
-
         self.m_rankOffset = tonumber(ret['total_offset'])
-    end  
-
-    local searchType = (self.m_searchType == 'my' or self.m_searchType == 'top') and 'world' or self.m_searchType
+    end
 
     g_eventDealkingData:request_EventDealkingRanking(self.m_bossType, type, searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, nil)
 end
