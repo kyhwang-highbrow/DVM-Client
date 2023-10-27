@@ -43,7 +43,7 @@ function TableDealkingBuff:makeAttrList()
         self.m_bonusAttrListMap[attr] = {}
 
         -- 상성
-        local adv_attr = getAttrAdvantage(attr)
+        local adv_attr = getAttrDisadvantage(attr)
         table.insert(self.m_bonusAttrListMap[attr], adv_attr)
 
         -- 역상성은 상성을 제외한 전부
