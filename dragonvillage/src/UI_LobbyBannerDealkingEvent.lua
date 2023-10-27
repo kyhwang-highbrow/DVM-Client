@@ -67,7 +67,6 @@ function UI_LobbyBannerDealkingEvent:updateNoti()
     if (g_eventDealkingData:canReward()) then
         vars['timeLabel']:setString('')
         vars['rankLabel']:setString(Str('보상'))
-    
     -- 이벤트 종료 및 보상 받을 것도 없는 상황
     else
         -- 내 랭킹이 0보다 작으면 {-위} 로 노출
@@ -94,6 +93,8 @@ function UI_LobbyBannerDealkingEvent:updateNoti()
             vars['timeLabel']:setString('')
         end
     end
+
+    vars['notiSprite']:setVisible(g_eventDealkingData:canReward())
 end
 
 ----------------------------------------------------------------------
