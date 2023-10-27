@@ -100,7 +100,6 @@ end
 -- class refresh
 ----------------------------------------------------------------------
 function UI_LobbyBannerDealkingEvent:refresh()
-
 end
 
 ----------------------------------------------------------------------
@@ -118,8 +117,7 @@ function UI_LobbyBannerDealkingEvent:click_bannerBtn()
     -- 보상 수령 및 랭킹확인 기간
     else
         local function finish_cb(ret)
-            -- 랭킹 팝업
-            local ui = UI_EventDealkingRankingPopup()
+            UI_EventDealkingRankingPopup() -- 랭킹 팝업
             local last_info = g_eventDealkingData:getMyRankInfo()
             local reward_info = ret['reward_info']
 
@@ -130,9 +128,13 @@ function UI_LobbyBannerDealkingEvent:click_bannerBtn()
                 g_highlightData:setHighlightMail()
             end
         end
-        -- 삼뉴체크
-        finish_cb({})
-        --g_eventDealkingData:request_eventDealkingReward(finish_cb, nil)
+
+        -- 보상이 있을 경우 보상 요청
+        if (g_eventDealkingData:canReward() == true) then
+            g_eventDealkingData:request_eventDealkingReward(finish_cb, nil)
+        else -- 보상이 없을 경우
+            finish_cb({})
+        end
     end
 end
 

@@ -45,9 +45,9 @@ function UI_EventDealkingRankingPopup:initParentVariable()
         self.m_titleStr = Str('{1} 랭킹', g_eventDealkingData:getEventBossName(self.m_bossType))
     end
 
-    vars['allRankTabLabel']:setString(self.m_titleStr)
+    --vars['allRankTabLabel']:setString(self.m_titleStr)
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'amethyst'
+    self.m_subCurrency = nil
 end
 
 -------------------------------------

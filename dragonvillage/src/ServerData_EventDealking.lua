@@ -571,7 +571,8 @@ end
 function ServerData_EventDealking:request_eventDealkingReward(finish_cb, fail_cb)
     local uid = g_userData:get('uid')
        
-    local function success_cb(ret)       
+    local function success_cb(ret)
+        self:response_eventDealkingInfo(ret)
         if (finish_cb) then
             finish_cb(ret)
         end
