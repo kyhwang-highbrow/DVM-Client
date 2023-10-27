@@ -35,6 +35,7 @@ end
 -- @brief
 -------------------------------------
 function UI_EventDealkingRankingPopup:initParentVariable()
+    local vars  = self.vars
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_EventDealkingRankingPopup'
 
@@ -44,7 +45,7 @@ function UI_EventDealkingRankingPopup:initParentVariable()
         self.m_titleStr = Str('{1} 랭킹', g_eventDealkingData:getEventBossName(self.m_bossType))
     end
 
-    
+    vars['allRankTabLabel']:setString(self.m_titleStr)
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'amethyst'
 end
@@ -63,8 +64,6 @@ function UI_EventDealkingRankingPopup:initTab()
     local vars = self.vars
     require('UI_EventDealkingRankingTotalTab')
     require('UI_EventDealkingRankingAttributeTab')
-
-    
 
     local all_rank_tab = UI_EventDealkingRankingTotalTab(self)
     vars['indivisualTabMenu']:addChild(all_rank_tab.root)

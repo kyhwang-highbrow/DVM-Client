@@ -130,7 +130,7 @@ function TableDealkingBuff:makeDealkingStageStageBuffList(stage_id, bonus_attr_l
         };
     --]]
 
-    --local cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()
+    --local cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()UI_EventDealkingRankingTotalTab
 
     local table_buff = TABLE:get('table_dealking_buff')
     local l_buff = {}

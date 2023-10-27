@@ -71,9 +71,9 @@ function UI_EventDealkingRankingTotalTab:makeRankTableView(data)
     local vars = self.vars
     local rank_node = vars['rankListNode']
     local rank_data = data
-    local my_rank_data = data['total_my_info'] 
+    local my_rank_data = data['total_my_info']
 
-    vars['infoLabel']:setString(Str('종합 랭킹은 속성 점수를 합산하여 결정됩니다.'))
+    vars['infoLabel']:setString(Str('전체 랭킹은 각 보스 점수를 합산하여 결정됩니다.'))
 
     local make_my_rank_cb = function()
         local my_data = my_rank_data or {}
