@@ -79,30 +79,6 @@ function UI_EventDealkingEntryPopup:initUI()
     vars['scoreLabel']:setString(Str('{1}점', score))
 
 
-    -- 몬스터 스파인
-    for _, mid in ipairs(monster_id_list) do
-        local res, attr, evolution = TableMonster:getMonsterRes(mid)
-        local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
-        if (animator) then
---[[             local zOrder = WORLD_Z_ORDER.BOSS
-            local idx = getDigit(mid, 10, 1)
-            if (idx == 1) and (mid == boss_mid) then
-                zOrder = WORLD_Z_ORDER.BOSS     
-            elseif (idx == 1) then
-                zOrder = WORLD_Z_ORDER.BOSS + 1
-            elseif (idx == 7) then
-                zOrder = WORLD_Z_ORDER.BOSS
-            else
-                zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
-            end ]]
-
-            animator:setScale(0.5)
-            vars['bossNode']:addChild(animator.m_node)
-            animator:changeAni('idle', true)
-        end
-    end
-
-
     do -- 보너스 속성
         local bonus_str, map_attr = 
             TableDealkingBuff:getInstance():getDealkingBonusInfo(self.m_stageId, self.m_selectedAttr, true)
@@ -141,7 +117,56 @@ function UI_EventDealkingEntryPopup:initUI()
         -- 패널티 속성      
         vars['panaltyTipsDscLabel']:setString(penalty_str)
     end
+
+    do -- 몬스터 배치
+        self[string.format('layout_boss_%d',self.m_bossType)](self)
+    end
 end
+
+-------------------------------------
+--- @function layout_boss_1
+--- @brief 훈련 가고일 한마리 배치
+-------------------------------------
+function UI_EventDealkingEntryPopup:layout_boss_1()
+    local vars = self.vars
+    local stage_id = self.m_stageId
+    local monster_id_list = g_stageData:getMonsterIDList(stage_id)
+    -- 몬스터 스파인
+    for _, mid in ipairs(monster_id_list) do
+        local res, attr, evolution = TableMonster:getMonsterRes(mid)
+        local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+        if (animator) then
+            animator:setScale(0.5)
+            vars['bossNode']:addChild(animator.m_node)
+            animator:changeAni('idle', true)
+        end
+    end
+end
+
+-------------------------------------
+--- @function layout_boss_2
+--- @brief 수정거인 두마리 배치
+-------------------------------------
+function UI_EventDealkingEntryPopup:layout_boss_2()
+    local vars = self.vars
+    local stage_id = self.m_stageId
+    local monster_id_list = g_stageData:getMonsterIDList(stage_id)
+    local mid = monster_id_list[1]
+    local pos_list = getSortPosList(280, 2)
+
+    -- 몬스터 스파인
+    for i = 1, 2 do
+        local res, attr, evolution = TableMonster:getMonsterRes(mid)
+        local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+        if (animator) then
+            animator:setScale(0.3)
+            vars['bossNode']:addChild(animator.m_node)
+            animator:changeAni('idle', true)
+            animator:setPositionX(pos_list[i])
+        end
+    end
+end
+
 
 -------------------------------------
 -- function initButton
