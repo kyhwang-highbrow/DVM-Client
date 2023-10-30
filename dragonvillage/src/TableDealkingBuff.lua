@@ -117,21 +117,9 @@ end
 -------------------------------------
 function TableDealkingBuff:makeDealkingStageStageBuffList(stage_id, bonus_attr_list, penalty_attr_list)
     
-    -- 1. 수치가 양수이면 보너스, 음수이면 패널티 버프로 분류
-    -- 2. 속성이 여러개일 경우, 해당 버프를 속성마다 부여 ex)  풀 : 공격력 증가 10%, 물 : 공격력 증가 10% ...
-    -- 3. drag_cool이 아니고 보스가 light or dark 속성이라면 수치의 반만 적용
-    -- 4. 아래와 같은 값을 가지는 버프 테이블 생성
-    --[[
-        {
-                ['condition_type']='attr';
-                ['condition_value']='light';
-                ['buff_type']='atk_multi';
-                ['buff_value']=5;
-        };
-    --]]
+    --if (string.find(buff_type, 'drag_cool_add')) then
 
     --local cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()UI_EventDealkingRankingTotalTab
-
     local table_buff = TABLE:get('table_dealking_buff')
     local l_buff = {}
     for buff_name, value in pairs(table_buff[stage_id]) do
@@ -153,21 +141,16 @@ function TableDealkingBuff:makeDealkingStageStageBuffList(stage_id, bonus_attr_l
                 _ret['buff_type'] = buff_name
                 _ret['buff_value'] = value
 
---[[                 -- 3. drag_cool이 아니고 light, dark 속성이라면 수치의 반만 적용, (light 와 dark의 보너스 속성은 그대로)
-                if (not string.match(buff_name, 'drag_cool')) then
-                    if (cur_clan_raid_attr == 'light' or cur_clan_raid_attr == 'dark') then
-                        if (getAttrAdvantage(cur_clan_raid_attr) == attr and tonumber(value) > 0) then
-                            _ret['buff_value'] = _ret['buff_value']
-                        else
-                            _ret['buff_value'] = _ret['buff_value']/2
-                        end
-                    end
-                end ]]
-
                 table.insert(l_buff, _ret)
             end
         end
     end
+
+    table.sort(l_buff, function(a, b)
+        local sort_val_a = a['buff_type']
+        local sort_val_b = b['buff_type']
+        return sort_val_a < sort_val_b
+    end)
 
     return l_buff
 end
