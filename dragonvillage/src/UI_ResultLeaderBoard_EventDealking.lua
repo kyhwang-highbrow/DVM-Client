@@ -43,6 +43,7 @@ function UI_ResultLeaderBoard_EventDealking:setCurrentInfo()
         end
     end
 
+    require('UI_ResultLeaderBoard_IncarnationOfSinsListItem')
     if (self.m_tUpperRank) then
         -- 앞 순위 유저
         local ui_upper = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tUpperRank, false)
