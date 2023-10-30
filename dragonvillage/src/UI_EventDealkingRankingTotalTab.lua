@@ -80,7 +80,7 @@ function UI_EventDealkingRankingTotalTab:makeRankTableView(data)
     vars['infoLabel']:setString(Str('전체 랭킹은 각 보스 점수를 합산하여 결정됩니다.'))
 
     local make_my_rank_cb = function()
-        local my_data = my_rank_data or {}
+        local my_data = my_rank_data or g_eventDealkingData:getMyRankInfoTotal()
         local me_rank = UI_EventDealkingRankingTotalTabRankingListItem(my_data)
         vars['rankMeNode']:addChild(me_rank.root)
         me_rank.vars['meSprite']:setVisible(true)
