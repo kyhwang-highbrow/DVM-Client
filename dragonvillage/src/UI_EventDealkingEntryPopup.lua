@@ -102,6 +102,7 @@ function UI_EventDealkingEntryPopup:initUI()
         end
     end
 
+
     do -- 보너스 속성
         local bonus_str, map_attr = 
             TableDealkingBuff:getInstance():getDealkingBonusInfo(self.m_stageId, self.m_selectedAttr, true)

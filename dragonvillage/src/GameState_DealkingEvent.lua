@@ -33,7 +33,6 @@ function GameState_DealkingEvent:init(world)
     self.m_isFeverTime = false
     self.m_bossType = math_floor((self.m_world.m_stageID - 3100000)/100)
     self.m_feverRemainTime = g_eventDealkingData:getEventBossFeverTime(self.m_bossType)
-    cclog('self.m_feverRemainTime', self.m_feverRemainTime)
 end
 
 -------------------------------------
