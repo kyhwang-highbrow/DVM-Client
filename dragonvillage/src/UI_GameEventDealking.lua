@@ -26,8 +26,21 @@ function UI_GameEventDealking:initUI()
     vars['autoStartVisual']:setVisible(false)
     vars['autoStartButton']:setVisible(false)
     vars['effectBtn']:setVisible(false)
-
+    
     vars['damageLabel']:setString('0')
+end
+
+
+-------------------------------------
+-- function initHotTimeUI
+-- @brief 핫타임 띄우지 않도록 처리
+-------------------------------------
+function UI_GameEventDealking:initHotTimeUI()
+	local vars = self.vars
+	vars['hotTimeStBtn']:setVisible(false)
+    vars['hotTimeGoldBtn']:setVisible(false)
+    vars['hotTimeExpBtn']:setVisible(false)
+    vars['hotTimeMarbleBtn']:setVisible(false)
 end
 
 -------------------------------------

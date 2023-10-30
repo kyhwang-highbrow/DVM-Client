@@ -163,7 +163,9 @@ function GameDragonSkill.st_playDragSkill(self, dt)
     elseif (self:getStep() == 0) then
         if (self:isBeginningStep()) then
             -- 특정 던전의 경우 배속 조절
-            if (world.m_gameMode == GAME_MODE_CLAN_RAID or world.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+            if (world.m_gameMode == GAME_MODE_CLAN_RAID or 
+                world.m_gameMode == GAME_MODE_ANCIENT_RUIN or 
+                world.m_gameMode == GAME_MODE_EVENT_DEALKING) then
                 world.m_gameTimeScale:set(1.33)
             end
 
@@ -336,7 +338,9 @@ function GameDragonSkill.st_playDragSkill(self, dt)
         if (skip_skill_after or (dragon.m_state ~= 'delegate')) then
         --if (dragon.m_state ~= 'delegate') then
             -- 특정 던전의 경우 배속 조절
-            if (world.m_gameMode == GAME_MODE_CLAN_RAID or world.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+            if (world.m_gameMode == GAME_MODE_CLAN_RAID 
+                or world.m_gameMode == GAME_MODE_ANCIENT_RUIN
+                or world.m_gameMode == GAME_MODE_EVENT_DEALKING) then
                 world.m_gameTimeScale:reset()
             end
 
@@ -767,7 +771,8 @@ function GameDragonSkill:doPlay(unit, skip)
             skip_mode = skip
         end
 
-        if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
+        if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID or 
+            self.m_world.m_gameMode == GAME_MODE_EVENT_DEALKING) then
             -- 클랜 던전의 경우 무조건 스킵
             skip_mode = true
 

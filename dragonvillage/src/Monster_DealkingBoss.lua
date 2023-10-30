@@ -165,7 +165,7 @@ function Monster_DealkingBoss:setDamage(attacker, defender, i_x, i_y, damage, t_
 
     -- 타임 아웃시 무적 처리
     self:dispatch('acc_damage', { damage = damage,}, self)
-    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)    
 end
 
 -------------------------------------
