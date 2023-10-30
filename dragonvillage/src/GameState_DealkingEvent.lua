@@ -13,6 +13,9 @@ GameState_DealkingEvent = class(PARENT, {
 
         m_uiBossHp = 'UI_IngameSharedBossHp',
         m_isFeverTime = 'boolean',
+
+        m_bossType = 'number',
+        m_feverRemainTime = 'number',
     })
 
 -------------------------------------
@@ -28,6 +31,9 @@ function GameState_DealkingEvent:init(world)
     self.m_limitTime = ServerData_EventDealking.GAME_TIME['LIMIT']
     self.m_uiBossHp = nil
     self.m_isFeverTime = false
+    self.m_bossType = math_floor((self.m_world.m_stageID - 3100000)/100)
+    self.m_feverRemainTime = g_eventDealkingData:getEventBossFeverTime(self.m_bossType)
+    cclog('self.m_feverRemainTime', self.m_feverRemainTime)
 end
 
 -------------------------------------
@@ -298,7 +304,7 @@ end
 function GameState_DealkingEvent:updateFightTimer(dt)
     PARENT.updateFightTimer(self, dt)
     -- 님은 시간이 피버타임 이하면 스킬 발동
-    if self:getRemainTime() <= ServerData_EventDealking.GAME_TIME['FEVER'] then
+    if self:getRemainTime() <= self.m_feverRemainTime then
         if self.m_isFeverTime == false then
             self.m_isFeverTime = true
             local world = self.m_world

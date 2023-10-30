@@ -5,6 +5,7 @@ local PARENT = Monster
 -- class Monster_DealkingBoss
 -------------------------------------
 Monster_DealkingBoss = class(PARENT, {
+    m_dmglist = '',
      })
 
 -------------------------------------
@@ -14,6 +15,7 @@ Monster_DealkingBoss = class(PARENT, {
 -------------------------------------
 function Monster_DealkingBoss:init(file_name, body, ...)
     self.m_isRaidMonster = true
+    self.m_dmglist = {}
 end
 
 -------------------------------------
@@ -164,4 +166,33 @@ function Monster_DealkingBoss:setDamage(attacker, defender, i_x, i_y, damage, t_
     -- 타임 아웃시 무적 처리
     self:dispatch('acc_damage', { damage = damage,}, self)
     PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+end
+
+-------------------------------------
+-- function insertStatusEffect
+-------------------------------------
+function Monster_DealkingBoss:insertStatusEffect(status_effect)    
+    if status_effect.m_statusEffectName ~= 'cldg_dmg_add' then
+        PARENT.insertStatusEffect(self, status_effect)
+        return
+    end
+
+    local body_list = self:getBodyList()
+    for i, body in ipairs(body_list) do
+        if i == 1 then
+            PARENT.insertStatusEffect(self, status_effect)
+            status_effect:setOffsetPos(body)
+        else
+            local struct_status_effect = StatusEffectHelper:makeStatusEffectInstance(self, self, 'cldg_dmg_add', 100, nil, 100)            
+            struct_status_effect:setOffsetPos(body)
+            struct_status_effect:addOverlabUnit(self, 0, 0, nil, 999)
+        end
+    end
+end
+
+-------------------------------------
+-- function getPosForFormation
+-------------------------------------
+function Monster_DealkingBoss:getPosForFormation()
+    return self:getCenterPos()
 end

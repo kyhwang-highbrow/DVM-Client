@@ -54,11 +54,13 @@ function ServerData_EventDealking:makeBossMap()
     -- 1번 보스
     self.m_tDealkingBossInfo[1] = {
         ['name'] = Str('훈련용 가고일'),
+        ['fever_time'] = 30,
     }
 
     -- 2번 보스
     self.m_tDealkingBossInfo[2] = {
         ['name'] = Str('훈련용 수정 거인'),
+        ['fever_time'] = 15,
     }
 end
 
@@ -343,7 +345,7 @@ function ServerData_EventDealking:isOpenAttr(attr)
 end
 
 -------------------------------------
--- function getEventBossName
+--- @function getEventBossName
 -------------------------------------
 function ServerData_EventDealking:getEventBossName(boss_type)
     local t_boss = self.m_tDealkingBossInfo[boss_type]
@@ -351,6 +353,17 @@ function ServerData_EventDealking:getEventBossName(boss_type)
         return ''
     end
     return t_boss.name
+end
+
+-------------------------------------
+--- @function getEventBossFeverTime
+-------------------------------------
+function ServerData_EventDealking:getEventBossFeverTime(boss_type)
+    local t_boss = self.m_tDealkingBossInfo[boss_type]
+    if t_boss == nil then
+        return 0
+    end
+    return t_boss['fever_time']
 end
 
 -------------------------------------

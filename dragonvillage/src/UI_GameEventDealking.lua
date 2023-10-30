@@ -26,6 +26,8 @@ function UI_GameEventDealking:initUI()
     vars['autoStartVisual']:setVisible(false)
     vars['autoStartButton']:setVisible(false)
     vars['effectBtn']:setVisible(false)
+
+    vars['damageLabel']:setString('0')
 end
 
 -------------------------------------
