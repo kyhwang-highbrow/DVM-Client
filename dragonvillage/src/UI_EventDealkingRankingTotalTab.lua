@@ -152,7 +152,8 @@ function UI_EventDealkingRankingTotalTab:makeRankHallOfFameView(data)
     for idx = 1, 3 do
         if (l_rank_list[idx]) then
             local rank = l_rank_list[idx]['rank']
-            if (vars['itemNode' .. idx] and rank <= 3) then
+            cclog('rank', rank)
+            if (vars['itemNode' .. idx] and isExistValue(rank, 1,2,3)) then
                 local ui = UI_HallOfFameListItem(l_rank_list[idx], idx)
 		        vars['itemNode' .. idx]:addChild(ui.root)
             end
