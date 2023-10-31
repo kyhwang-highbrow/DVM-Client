@@ -49,8 +49,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_EventDealkingRankingTotalTab:initUI()
-    local vars = self.vars
-    --vars['rewardMenu']:setVisible(self.m_bossType == 0)
+    local vars = self.vars    
     if self.m_bossType ~= 0 then
         vars['rewardTitleLabel']:setString(Str('상위 랭커'))
     end

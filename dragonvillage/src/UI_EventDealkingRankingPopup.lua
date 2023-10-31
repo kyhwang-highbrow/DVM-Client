@@ -40,7 +40,7 @@ function UI_EventDealkingRankingPopup:initParentVariable()
     self.m_uiName = 'UI_EventDealkingRankingPopup'
 
     if self.m_bossType == 0 then
-        self.m_titleStr = Str('전체 랭킹')
+        self.m_titleStr = Str('종합 랭킹')
     else
         self.m_titleStr = Str('{1} 랭킹', g_eventDealkingData:getEventBossName(self.m_bossType))
     end
