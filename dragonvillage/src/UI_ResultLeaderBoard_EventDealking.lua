@@ -13,7 +13,7 @@ function UI_ResultLeaderBoard_EventDealking:setCurrentInfo()
     local vars = self.vars
     local type = self.m_type
 
-    vars['gaugeSprite']:setVisible(self.m_isPopup)
+    vars['gaugeSprite']:setVisible(false)
 
     -- 현재 점수
     vars['scoreLabel']:setString(Str('{1}점', comma_value(self.m_cur_score)))     -- 점수
@@ -73,6 +73,63 @@ function UI_ResultLeaderBoard_EventDealking:setCurrentInfo()
 
     vars['meNode']:setLocalZOrder(1)
 end
+
+
+-------------------------------------
+-- function setChangeInfo
+-------------------------------------
+function UI_ResultLeaderBoard_EventDealking:setChangeInfo()
+    local vars = self.vars
+    local type = self.m_type
+
+    vars['gaugeSprite']:setVisible(false)
+
+    -- 콤마 라벨
+    local score_tween_cb = function(number, label)
+        local number = math.floor(number)
+        label:setString(Str('{1}점', comma_value(number)))
+    end
+    
+    -- 현재 점수
+    local score_label = NumberLabel(vars['scoreLabel'], 0, 2)
+    score_label:setTweenCallback(score_tween_cb)
+    score_label:setNumber(self.m_before_score, true)
+    score_label:setNumber(self.m_cur_score, false)
+
+
+    local rank_tween_cb = function(number, label)
+        local number = math.floor(number)
+        label:setString(Str('{1}위', number))
+    end
+
+    -- 현재 랭킹
+    local rank_label = NumberLabel(vars['rankLabel'], 0, 2)
+    rank_label:setTweenCallback(rank_tween_cb)
+    rank_label:setNumber(self.m_before_rank, true)
+    rank_label:setNumber(self.m_cur_rank, false)
+
+     -- + 콤마 라벨
+    local diff_tween_cb = function(number, label)
+        local number = math.floor(number)
+        if (number > 0) then
+            label:setString(string.format('+'..comma_value(number)))
+        else
+            label:setString(string.format(comma_value(number)))
+        end
+    end
+    
+    -- 점수 없을 때
+    if (self.m_before_score == -1) then
+        self.m_before_score = 0    
+    end
+
+
+    -- 랭킹 없을 때
+    if (self.m_before_rank == -1) then
+        self.m_before_rank = self.m_cur_rank
+    end
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_ResultLeaderBoard_EventDealking)

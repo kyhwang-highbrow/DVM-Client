@@ -72,14 +72,14 @@ function ServerData_EventDealking:getBossMap()
 end
 
 -------------------------------------
--- function getMyDummyRanking
+--- @function getMyDummyRanking
 -------------------------------------
 function ServerData_EventDealking:getMyDummyRanking()
     if self.m_myDummyRankingInfo ~= nil then
         return self.m_myDummyRankingInfo
     end
 
-    self.m_myDummyRankingInfo = clone(self:getMyRankInfo())
+    self.m_myDummyRankingInfo = clone(self:getMyRankInfo()['total'])
     self.m_myDummyRankingInfo['rank'] = -1
     self.m_myDummyRankingInfo['score'] = -1
     self.m_myDummyRankingInfo['total'] = 0
@@ -246,21 +246,20 @@ function ServerData_EventDealking:getMyRankInfo(_boss_type)
     return nil
 end
 
-
 -------------------------------------
 -- function getMyRankInfoTotal
 -- @brief 내 랭킹 받아오기
 -------------------------------------
-function ServerData_EventDealking:getMyRankInfoTotal()
-    local my_rank_info = self:getMyRankInfo()
+function ServerData_EventDealking:getMyRankInfoTotal(_boss_type)
+    local my_rank_info = self:getMyRankInfo(_boss_type)
     if (my_rank_info) then
         if my_rank_info['total'] == nil then
-            return nil
+            return self:getMyDummyRanking()
         end
         return my_rank_info['total']
     end
 
-    return nil
+    return self:getMyDummyRanking()
 end
 
 

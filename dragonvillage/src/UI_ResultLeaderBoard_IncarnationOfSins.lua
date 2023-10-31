@@ -117,7 +117,6 @@ function UI_ResultLeaderBoard_IncarnationOfSins:setCurrentInfo()
         -- 앞 순위 유저
         local ui_upper = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tUpperRank, false)
         if (ui_upper) then
-            cclog('upper')
             vars['upperNode']:addChild(ui_upper.root)
         end
     end
@@ -126,7 +125,6 @@ function UI_ResultLeaderBoard_IncarnationOfSins:setCurrentInfo()
         -- 뒤 순위 유저
         local ui_lower = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tLowerRank, false) -- type, t_data, is_me,
         if (ui_lower) then
-            cclog('lower')
             vars['lowerNode']:addChild(ui_lower.root)
         end
     end
@@ -135,7 +133,6 @@ function UI_ResultLeaderBoard_IncarnationOfSins:setCurrentInfo()
         -- 자기 자신
         local ui_me = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tMeRank, true)
         if (ui_me) then
-            cclog('me')
             vars['meNode']:addChild(ui_me.root)
         end
     end

@@ -74,13 +74,12 @@ function UI_EventDealkingRankingTotalTab:makeRankTableView(data)
     local vars = self.vars
     local rank_node = vars['rankListNode']
     local rank_data = data
-    local my_rank_data = data['total_my_info']
+    local my_rank_data = data['total_my_info'] or g_eventDealkingData:getMyDummyRanking()
 
     vars['infoLabel']:setString(Str('전체 랭킹은 각 보스 점수를 합산하여 결정됩니다.'))
 
-    local make_my_rank_cb = function()
-        local my_data = my_rank_data or g_eventDealkingData:getMyRankInfoTotal()
-        local me_rank = UI_EventDealkingRankingTotalTabRankingListItem(my_data)
+    local make_my_rank_cb = function()        
+        local me_rank = UI_EventDealkingRankingTotalTabRankingListItem(my_rank_data)
         vars['rankMeNode']:addChild(me_rank.root)
         me_rank.vars['meSprite']:setVisible(true)
     end
