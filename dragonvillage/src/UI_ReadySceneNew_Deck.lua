@@ -619,6 +619,12 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
         local _, penalty_info = raid_info:getPenaltySynastryInfo()
         ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
 		ui:setClanAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info), dragon_attr)
+
+    elseif (self.m_gameMode == GAME_MODE_EVENT_DEALKING) then
+        local _, bonus_info = TableDealkingBuff:getInstance():getDealkingBonusInfo(self.m_uiReadyScene.m_stageID, stage_attr, true)
+        local _, penalty_info = TableDealkingBuff:getInstance():getDealkingBonusInfo(self.m_uiReadyScene.m_stageID, stage_attr, false)
+        ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
+
     elseif (self.m_gameMode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 		ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
 		

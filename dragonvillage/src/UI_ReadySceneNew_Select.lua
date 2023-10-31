@@ -114,6 +114,10 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
             local _, bonus_info = raid_info:getBonusSynastryInfo()
             local _, penalty_info = raid_info:getPenaltySynastryInfo()
             ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
+        elseif (game_mode == GAME_MODE_EVENT_DEALKING) then
+            local _, bonus_info = TableDealkingBuff:getInstance():getDealkingBonusInfo(self.m_uiReadyScene.m_stageID, stage_attr, true)
+            local _, penalty_info = TableDealkingBuff:getInstance():getDealkingBonusInfo(self.m_uiReadyScene.m_stageID, stage_attr, false)
+            ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
         elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 			ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
 			if (g_illusionDungeonData:isIllusionDragon(data)) then
