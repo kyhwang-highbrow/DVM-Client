@@ -67,16 +67,17 @@ end
 -------------------------------------
 function UI_EventDealkingTab:refresh()
     local vars = self.vars
-
     -- 현재 서버 데이터를 이용하여 버튼 설정
-    self:refreshButton('total', vars['rankLabel'], vars['scoreLabel'], nil)
-    self:refreshButton('light', vars['rankLabel1'], vars['scoreLabel1'], vars['lockMenu1'])
-    self:refreshButton('fire', vars['rankLabel2'], vars['scoreLabel2'], vars['lockMenu2'])
-    self:refreshButton('water', vars['rankLabel3'], vars['scoreLabel3'], vars['lockMenu3'])
-    self:refreshButton('earth', vars['rankLabel4'], vars['scoreLabel4'], vars['lockMenu4'])
-    self:refreshButton('dark', vars['rankLabel5'], vars['scoreLabel5'], vars['lockMenu5'])
+    self:refreshButton('total', vars['totalRankLabel'], vars['totalScoreLabel'], nil, 0)
+    self:refreshButton('total', vars['rankLabel'], vars['scoreLabel'], nil, self.m_bossType)
+    self:refreshButton('light', vars['rankLabel1'], vars['scoreLabel1'], vars['lockMenu1'], self.m_bossType)
+    self:refreshButton('fire', vars['rankLabel2'], vars['scoreLabel2'], vars['lockMenu2'], self.m_bossType)
+    self:refreshButton('water', vars['rankLabel3'], vars['scoreLabel3'], vars['lockMenu3'], self.m_bossType)
+    self:refreshButton('earth', vars['rankLabel4'], vars['scoreLabel4'], vars['lockMenu4'], self.m_bossType)
+    self:refreshButton('dark', vars['rankLabel5'], vars['scoreLabel5'], vars['lockMenu5'], self.m_bossType)
 
     AlignUIPos({vars['infoLabel'], vars['rankLabel'], vars['scoreLabel']}, 'HORIZONTAL', 'CENTER', 60)
+    AlignUIPos({vars['totalInfoLabel'], vars['totalRankLabel'], vars['totalScoreLabel']}, 'HORIZONTAL', 'CENTER', 60)
 end
 
 -------------------------------------
@@ -86,19 +87,19 @@ end
 -- @param score_label : UI 파일에서 점수를 적을 라벨
 -- @param lock_menu : 해당 속성 잠금 자물쇠 스프라이트, 없는 경우(total) nil로 설정
 -------------------------------------
-function UI_EventDealkingTab:refreshButton(attr, rank_label, score_label, lock_menu)
+function UI_EventDealkingTab:refreshButton(attr, rank_label, score_label, lock_menu, boss_type)
     local vars = self.vars
 
     -- 현재 서버 데이터를 이용하여 순위 정보 표기
-    local rank = g_eventDealkingData:getMyRank(self.m_bossType, attr)
-    local score = g_eventDealkingData:getMyScore(self.m_bossType, attr)
+    local rank = g_eventDealkingData:getMyRank(boss_type, attr)
+    local score = g_eventDealkingData:getMyScore(boss_type, attr)
     
 	-- 내 랭킹이 0보다 작으면 {-위} 로 노출
     -- 0보다 큰 의미있는 값이면 그대로 노출
     if (rank < 0) then
         rank_label:setString(Str('순위 없음'))
     else
-        local ratio = g_eventDealkingData:getMyRate(self.m_bossType, attr)
+        local ratio = g_eventDealkingData:getMyRate(boss_type, attr)
         local percent_text = string.format('%.2f', ratio * 100)
         rank_label:setString(Str('{1}위 ({2}%)', comma_value(rank), percent_text))
     end
@@ -123,7 +124,6 @@ function UI_EventDealkingTab:refreshButton(attr, rank_label, score_label, lock_m
         end
     end
 end
-
 
 ----------------------------------------------------------------------
 -- function update
