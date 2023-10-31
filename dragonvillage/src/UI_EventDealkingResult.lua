@@ -6,6 +6,7 @@ UI_EventDealkingResult = class(UI, {
     m_bSuccess = 'boolean',
     m_data = '', -- 등급, 보상 정보
     m_bossMonster = 'Monster',
+    m_bossType = 'number',
     m_damage = 'number', -- 피해량
     m_grade = 'number', -- 보상 등급
     m_workIdx = 'number',
@@ -25,6 +26,7 @@ function UI_EventDealkingResult:init(stage_id, boss, damage, t_data, ret)
     self.m_stageID = stage_id    
     self.m_damage = damage
     self.m_bossMonster = boss
+    self.m_bossType = math_floor((stage_id - 3100000)/100)
     self.m_data = t_data
     self.m_grade = t_data['dmg_rank']    
 
@@ -462,7 +464,7 @@ end
 -- @brief "확인" 버튼
 -------------------------------------
 function UI_EventDealkingResult:click_okBtn()
-    UINavigator:goTo('event_dealking')
+    UINavigator:goTo('event_dealking', self.m_bossType)
 end
 
 -------------------------------------

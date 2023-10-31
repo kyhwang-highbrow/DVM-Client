@@ -19,7 +19,6 @@ UI_EventPopup = class(PARENT,{
 function UI_EventPopup:init(noti)
     self.m_noti = noti or false
     self.m_enterTabMap = {}
-
     local vars = self:load('event.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -155,7 +154,7 @@ end
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
-function UI_EventPopup:onChangeTab(tab, first)
+function UI_EventPopup:onChangeTab(tab, first, sub_tab)
     --전면 웹뷰가 아닌 부분 웹뷰일때는 방송, 채팅 꺼줌
     do
         local enable = (tab ~= 'notice') and (tab ~= 'highbrow_shop')
@@ -166,8 +165,8 @@ function UI_EventPopup:onChangeTab(tab, first)
     local item = self.m_tableView:getItem(tab)
 
     if first then
-        local container = self.m_lContainerForEachType[tab]
-        local ui = self:makeEventPopupTab(tab)
+        local container = self.m_lContainerForEachType[tab]        
+        local ui = self:makeEventPopupTab(tab, sub_tab)
         if ui then
             container:addChild(ui.root)
 
@@ -191,7 +190,7 @@ end
 -------------------------------------
 -- function makeEventPopupTab
 -------------------------------------
-function UI_EventPopup:makeEventPopupTab(tab)
+function UI_EventPopup:makeEventPopupTab(tab, sub_tab)
     if (not self.m_mTabUI) then
         self.m_mTabUI = {}
     end
@@ -381,7 +380,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     -- 딜킹 이벤트
     elseif (string.find(tab, 'event_dealking')) then
         require('UI_EventDealking')
-        ui = UI_EventDealking(self, struct_event_popup_tab)
+        ui = UI_EventDealking(self, struct_event_popup_tab, sub_tab)
 
     -- 신규 유저 환영 이벤트
 	elseif (tab == 'event_welcome_newbie') then

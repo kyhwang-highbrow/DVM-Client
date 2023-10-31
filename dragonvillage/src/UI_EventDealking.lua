@@ -11,11 +11,11 @@ UI_EventDealking = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventDealking:init(owner_ui, struct_event)
+function UI_EventDealking:init(owner_ui, struct_event, sub_tab)
     self.vars = self:load('event_dealking.ui')
     self.m_ownerUI = owner_ui
     self.m_structEvent = struct_event
-    self:initUI()
+    self:initUI(sub_tab)
     self:initButton()
     self:refresh()
 end
@@ -23,7 +23,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_EventDealking:initUI()
+function UI_EventDealking:initUI(sub_tab)
     local vars = self.vars
     local boss_map = g_eventDealkingData:getBossMap()
 
@@ -38,7 +38,11 @@ function UI_EventDealking:initUI()
         end
     end
 
-    self:setTab(1)
+    if sub_tab ~= nil then
+        self:setTab(sub_tab)
+    else
+        self:setTab(1)
+    end
 end
 
 -------------------------------------

@@ -11,8 +11,8 @@ ITabUI = {
     }
 
 -------------------------------------
--- function init
 -------------------------------------
+-- function init
 function ITabUI:init()
     self.m_bInitDefaultTab = false
     self.m_prevTab = nil
@@ -104,7 +104,7 @@ end
 -------------------------------------
 -- function setTab
 -------------------------------------
-function ITabUI:setTab(tab, force)
+function ITabUI:setTab(tab, force, sub_tab)
     if (not force) and (self.m_currTab == tab) then
         return
     end
@@ -130,7 +130,7 @@ function ITabUI:setTab(tab, force)
     self:activate(tab, first)
     self.m_mTabData[self.m_currTab]['first'] = false
 
-    self:onChangeTab(self.m_currTab, first)
+    self:onChangeTab(self.m_currTab, first, sub_tab)
 end
 
 -------------------------------------
@@ -200,9 +200,9 @@ end
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
-function ITabUI:onChangeTab(tab, first)
+function ITabUI:onChangeTab(tab, first, sub_tab)
     if self.m_cbChangeTab then
-        self.m_cbChangeTab(tab, first)
+        self.m_cbChangeTab(tab, first, sub_tab)
     end
 end
 

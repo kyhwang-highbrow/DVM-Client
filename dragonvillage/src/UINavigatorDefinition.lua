@@ -1785,7 +1785,7 @@ function UINavigatorDefinition:goTo_event_dealking(...)
             UINavigatorDefinition:goTo('lobby')
         end
 
-        g_eventData:openEventPopup('event_dealking', close_cb)
+        g_eventData:openEventPopup('event_dealking', close_cb, args[1])
     end
 end
 

@@ -858,7 +858,7 @@ end
 -------------------------------------
 -- function openEventPopup
 -------------------------------------
-function ServerData_Event:openEventPopup(tab, close_cb)
+function ServerData_Event:openEventPopup(tab, close_cb, sub_tab)
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
@@ -998,7 +998,7 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             local noti = false -- 탭 타겟을 정한 경우 이벤트 노티 체크하는 부분이랑 꼬임, 노티 꺼줌
             ui = UI_EventPopup(noti)
             if ui:existTab(tab) == true then
-                ui:setTab(tab, true)
+                ui:setTab(tab, true, sub_tab)
             else
                 UIManager:toastNotificationRed(Str('이벤트가 종료되었습니다.'))
             end
