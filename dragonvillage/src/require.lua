@@ -653,6 +653,7 @@ local t_module = {
     'Monster_AncientRuinDragon',
     'Monster_AncientRuinDragonBodyPart',
     'Monster_DealkingBoss',
+    'Monster_Bomb', -- 정방향, 역방향 폭탄
     'SummonedCreature',
     'Tamer',
 	'TamerSkill',
