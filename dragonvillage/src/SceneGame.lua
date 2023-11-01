@@ -750,7 +750,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
 
     elseif (game_mode == GAME_MODE_EVENT_DEALKING) then -- 딜킹 이벤트
         api_url = '/event/dealking/finish'
-        ui_network:setParam('damage', t_param['damage'])
+        ui_network:setParam('damage', math_floor(t_param['damage'])) -- 소수점 아래는 버려야 함
     end
     
     ui_network:setUrl(api_url)
