@@ -148,7 +148,6 @@ function GameState_DealkingEvent.update_result(self, dt)
     end
 end
 
-
 -------------------------------------
 -- function makeBossHp
 -------------------------------------
@@ -165,8 +164,7 @@ function GameState_DealkingEvent:makeBossHp()
 
         ui.vars['bossHpGauge1']:setVisible(false)
         ui.vars['bossHpGauge2']:setVisible(false)
-
-        --ui.vars['hpInfiniteSprite']:setVisible(true)
+        ui.vars['hpInfiniteSprite']:setVisible(true)
         self.m_uiBossHp = ui
     end
 end
