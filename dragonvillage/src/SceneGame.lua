@@ -876,8 +876,7 @@ end
 -------------------------------------
 function SceneGame:networkGameFinish_response_user_info(ret, t_result_ref)
     local user_levelup_data = t_result_ref['user_levelup_data']
-
-    -- 삼뉴체크
+    
     if t_result_ref['user_levelup_data'] == nil then
         return
     end

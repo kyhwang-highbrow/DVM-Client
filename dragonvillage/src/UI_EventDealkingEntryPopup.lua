@@ -139,6 +139,11 @@ function UI_EventDealkingEntryPopup:layout_boss_1()
             animator:setScale(0.5)
             vars['bossNode']:addChild(animator.m_node)
             animator:changeAni('idle', true)
+            
+            animator:setPositionY(-200)
+            local action = cc.EaseExponentialOut:create(cc.MoveTo:create(1.0, cc.p(0, 0)))
+            animator:stopAllActions()
+            animator:runAction(action)
         end
     end
 end
@@ -163,6 +168,11 @@ function UI_EventDealkingEntryPopup:layout_boss_2()
             vars['bossNode']:addChild(animator.m_node)
             animator:changeAni('idle', true)
             animator:setPositionX(pos_list[i])
+
+            animator:setPositionY(-100)
+            local action = cc.EaseExponentialOut:create(cc.MoveTo:create(0.5, cc.p(pos_list[i], 0)))
+            animator:stopAllActions()
+            animator:runAction(action)
         end
     end
 end

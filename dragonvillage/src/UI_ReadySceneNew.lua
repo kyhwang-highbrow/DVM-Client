@@ -2129,7 +2129,7 @@ function UI_ReadySceneNew:networkGameStart()
     elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
         finish_cb(game_key)
 
-    -- 딜킹 이벤트(삼뉴체크)
+    -- 딜킹 이벤트
     elseif (self.m_gameMode == GAME_MODE_EVENT_DEALKING) then
         g_eventDealkingData:request_eventDealkingStart(self.m_stageID, self.m_stageAttr, deck_name, finish_cb)
 
