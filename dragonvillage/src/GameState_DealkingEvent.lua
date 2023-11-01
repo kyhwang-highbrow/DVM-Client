@@ -175,6 +175,10 @@ end
 -- function makeResultUI
 -------------------------------------
 function GameState_DealkingEvent:makeResultUI(is_success)
+
+        -- @LOG : 스테이지 성공 시 클리어 시간
+    self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)
+
     self.m_world:setGameFinish()
 
     local total_damage = self:getTotalDamage()
@@ -217,31 +221,6 @@ function GameState_DealkingEvent:makeResultUI(is_success)
     func_network_game_finish()
 end
 
--------------------------------------
--- function makeGameFinishParam
--------------------------------------
-function GameState_DealkingEvent:makeGameFinishParam(is_success)
-    local t_param = {}
-
-    do-- 클리어 했는지 여부 ( 0 이면 실패, 1이면 성공)
-        t_param['clear_type'] = is_success and (1 or 0)
-    end
-
-    do-- 미션 성공 여부 (성공시 1, 실패시 0)
-		if (self.m_world.m_missionMgr) then
-			local t_mission = self.m_world.m_missionMgr:getCompleteClearMission()
-			for i = 1, 3 do
-				t_param['clear_mission_' .. i] = (is_success and t_mission['mission_' .. i])
-			end
-		end
-    end
-
-    do-- 사용한 덱 이름
-        t_param['deck_name'] = g_deckData:getSelectedDeckName()
-    end
-
-    return t_param
-end
 
 -------------------------------------
 -- function disappearAllDragon
