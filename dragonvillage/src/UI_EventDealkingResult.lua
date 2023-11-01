@@ -53,6 +53,9 @@ end
 -------------------------------------
 function UI_EventDealkingResult:initUI()
     local vars = self.vars
+    if vars['infiniteHpSprite'] ~= nil then
+        vars['infiniteHpSprite']:setVisible(true)
+    end
 end
 
 -------------------------------------
