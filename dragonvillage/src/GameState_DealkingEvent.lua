@@ -272,10 +272,10 @@ function GameState_DealkingEvent:onEvent(event_name, t_event, ...)
         local damage = t_event['damage']
         -- 누적 데미지 갱신(정확히는 체력을 깍은 양)
         local accum_damage = self.m_accumDamage:get() + damage
-        accum_damage = math_floor(math_max(accum_damage, 0))
+        accum_damage = math_max(accum_damage, 0)
         self.m_accumDamage:set(accum_damage)
         -- UI 갱신
-        self.m_world.m_inGameUI:setTotalDamage(accum_damage)
+        self.m_world.m_inGameUI:setTotalDamage(math_floor(accum_damage))
     end
 end
 
