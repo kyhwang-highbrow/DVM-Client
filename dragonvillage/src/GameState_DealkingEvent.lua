@@ -274,6 +274,16 @@ function GameState_DealkingEvent:getTotalDamage()
     return total_damage
 end
 
+
+-------------------------------------
+--- @function getRemainFeverTime
+--- @return integer
+-------------------------------------
+function GameState_DealkingEvent:getRemainFeverTime()
+    return self.m_feverRemainTime
+end
+
+
 -------------------------------------
 -- function updateFightTimer
 -------------------------------------

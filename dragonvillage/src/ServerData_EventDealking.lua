@@ -29,7 +29,7 @@ ServerData_EventDealking.STATE = {
 
 ServerData_EventDealking.GAME_TIME = {
     ['LIMIT'] = 120,	-- 제한 시간
-    ['FEVER'] = 40,	-- 피버 타임(마지막 40초)
+    --['FEVER'] = 40,	-- 피버 타임(마지막 40초)
 }
 
 -------------------------------------
@@ -517,64 +517,6 @@ function ServerData_EventDealking:request_eventDealkingStart(stage, attr, deck_n
     ui_network:request()
 end
 
--------------------------------------
--- function request_eventIncarnationOfSinsFinish
--- @brief 죄악의 화신과 전투 종료하고 점수 저장
--- @param stage : 전투한 스테이지 ID
--- @param attr : 전투한 보스 속성 (earth, water, fire, light, dark)
--- @param damage : 보스에게 입힌 대미지
--- @param choice_deck : 수동 조작한 덱 번호 (up : 1, down : 2)
--- @param clear_time : 인게임에서 소요된 시간
--- @param check_time : 타임스탬프
--- @param finish_cb : 통신 성공 처리할 콜백 함수
--- @param fail_cb : 통신 실패 처리할 콜백 함수
--------------------------------------
-function ServerData_EventDealking:request_eventIncarnationOfSinsFinish(stage, attr, damage, choice_deck, clear_time, check_time, finish_cb, fail_cb)
-    local uid = g_userData:get('uid')
-    local stage = stage
-    local attr = attr
-    local damage = damage
-    local choice_deck = choice_deck
-    local clear_time = clear_time
-    local check_time = check_time
-        
-    local function success_cb(ret)
-        self.m_gameState = false
-
-        if (finish_cb) then
-            finish_cb(ret)
-        end
-    end
-
-    local function response_status_cb(ret)
-        -- 현재 시간에 잠겨 있는 속성
-        if (ret['status'] == -1364) then
-            -- 로비로 이동
-            local function ok_cb()
-                UINavigator:goTo('lobby')
-            end 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'), ok_cb)
-            return true
-        end
-
-        return false
-    end
-
-    local ui_network = UI_Network()
-    local api_url = '/event/dealking/finish'
-    ui_network:setUrl(api_url)
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', stage)
-    ui_network:setParam('attr', attr)
-    ui_network:setParam('damage', damage)
-    ui_network:setParam('choice_deck', choice_deck)
-    ui_network:setParam('clear_time', clear_time)
-    ui_network:setParam('check_time', check_time)
-    ui_network:setResponseStatusCB(response_status_cb)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:request()
-end
 
 -------------------------------------
 --- @function request_eventDealkingReward

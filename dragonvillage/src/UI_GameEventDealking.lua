@@ -62,6 +62,33 @@ function UI_GameEventDealking:init_timeUI(display_wave, time)
 end
 
 -------------------------------------
+-- function setTime
+-------------------------------------
+function UI_GameEventDealking:setTime(sec, is_limit)
+    local sec = math_floor(sec)
+    local m = math_floor(sec / 60)
+    local s = sec % 60
+    local str = string.format('%02d:%02d', m, s)
+    self.m_timeLabel:setString(str)
+
+	-- 제한시간이 있는 경우에 색상 부여
+	if (is_limit) then
+
+        local world = self.m_gameScene.m_gameWorld
+        local game_state = world.m_gameState
+        
+		-- 피버 타임이면 붉은색으로 색상 변경
+		if (sec <= game_state:getRemainFeverTime()) then
+			self.m_timeLabel:setColor(cc.c3b(255, 0, 0))
+		-- 이상은 초록색
+		else
+			self.m_timeLabel:setColor(cc.c3b(0, 255, 0))
+		end
+	end
+end
+
+
+-------------------------------------
 -- function setTotalDamage
 -- @brief 총 피해량 표시
 -------------------------------------
