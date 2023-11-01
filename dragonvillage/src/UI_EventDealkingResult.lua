@@ -333,7 +333,7 @@ function UI_EventDealkingResult:show_boss_hp()
     vars['attrNode']:removeAllChildren()
     vars['attrNode']:addChild(icon)
 
-    vars['bossHpGauge1']:setVisible(false)
+    --vars['bossHpGauge1']:setVisible(false)
     --hp_label = NumberLabel(hp_label, 0, 0.3)
     --hp_label:setTweenCallback(tween_cb)
     --local hp_label = vars['hpLabel']

@@ -162,8 +162,8 @@ function GameState_DealkingEvent:makeBossHp()
         local attr = boss:getAttribute()
         DragonInfoIconHelper.setDragonAttrBtn(attr, ui.vars['attrNode'])
 
-        ui.vars['bossHpGauge1']:setVisible(false)
-        ui.vars['bossHpGauge2']:setVisible(false)
+        ui.vars['bossHpGauge1']:setVisible(true)
+        ui.vars['bossHpGauge2']:setVisible(true)
         ui.vars['hpInfiniteSprite']:setVisible(true)
         self.m_uiBossHp = ui
     end
