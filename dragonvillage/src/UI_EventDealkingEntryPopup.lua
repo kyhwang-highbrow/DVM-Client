@@ -18,7 +18,7 @@ function UI_EventDealkingEntryPopup:init(selected_attr, selected_boss)
     self.m_stageId = g_eventDealkingData:getEventDealkingStageId(selected_boss, selected_attr)
 
     local vars = self:load('event_dealking_ready.ui')
-    UIManager:open(self, UIManager.SCENE)
+    UIManager:open(self, UIManager.POPUP)
     
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_EventDealkingEntryPopup')
