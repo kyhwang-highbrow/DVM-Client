@@ -269,7 +269,7 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
             end
             
             if(tab_category == 'pass') then
-                if g_eventData:checkEventTime(start_date, end_date) then
+                if CheckValidDateFromTableDataValue(start_date, end_date) then
                     self:insertProduct(struct_product)
                 end
                

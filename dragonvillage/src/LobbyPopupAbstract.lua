@@ -108,7 +108,7 @@ function LobbyPopupAbstract:checkCondition()
     -- 기간 체크 (시작, 종료 시간)
     local start_date = data['start_date']
     local end_date = data['end_date']
-    local ret_val = ServerData_Event:checkEventTime(start_date, end_date)
+    local ret_val = CheckValidDateFromTableDataValue(start_date, end_date)
     if (ret_val == false) then
         return
     end

@@ -36,7 +36,7 @@ function TableSpotSale:getSortedSpotSaleList()
     -- table_spot_sale에서 start_date, end_date 값에 알맞는 상품만 판매 시작
     for pid, data in pairs(table_spot_sale) do
         if (data['start_date'] and data['end_date']) then
-            local is_valid = ServerData_Event:checkEventTime(data['start_date'], data['end_date'])
+            local is_valid = CheckValidDateFromTableDataValue(data['start_date'], data['end_date'])
             if (is_valid == true) then
                 t_spot_sale[pid] = data
             end

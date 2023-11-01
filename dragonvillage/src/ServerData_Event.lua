@@ -130,7 +130,7 @@ function ServerData_Event:getEventPopupTabList()
 
         -- 날짜 조건
         if (visible) and ((start_date ~= '') or (end_date ~= '')) then
-            visible = self:checkEventTime(start_date, end_date, v)
+            visible = self:isValidEventTime(v)
         end
         
         -- ui_priority가 없는 것은 등록하지 않는다.
@@ -385,7 +385,7 @@ function ServerData_Event:getEventFullPopupList(is_emergency_popup)
 
             -- 날짜 조건
             if (visible) and ((start_date ~= '') or (end_date ~= '')) then
-                visible = self:checkEventTime(start_date, end_date, v)
+                visible = self:isValidEventTime(v)
             end
 
             -- 단일 상품인 경우 (type:shop) event_id로 등록
@@ -622,8 +622,40 @@ function ServerData_Event:checkTargetServer(target_server)
 end
 
 -------------------------------------
--- function checkEventTime
--- @brief true : 활성화, false : 비활성화
+--- @function isValidEventTime
+--- @brief 서버가 내려준 타임스탬프로 직접 체크,
+--         checkEventTime 함수는 타임스탬프 변환 시 특정 로컬 타임존에서 문제가 생기는 것 같아서 이 함수로 대체
+--- @retrun true : 활성화, false : 비활성화
+-------------------------------------
+function ServerData_Event:isValidEventTime(event_data)
+    if event_data == nil then
+        return false
+    end
+
+    local curr_timestamp = ServerTime:getInstance():getCurrentTimestampMilliseconds()
+    local start_time = event_data['start_date_timestamp']
+    local end_time = event_data['end_date_timestamp']
+
+    if (start_time ~= nil) and (start_time ~= 0) then
+        -- 날짜 조건에 해당되지 않을 때 데이터 제거 
+        if (start_time > curr_timestamp) then 
+            return false
+        end
+    end
+
+    if (end_time ~= nil) and (end_time ~= 0) then        
+        -- 날짜 조건에 해당되지 않을 때 데이터 제거 
+        if (end_time < curr_timestamp) then 
+            return false
+        end
+    end
+
+    return true
+end
+
+-------------------------------------
+--- @function checkEventTime
+--- @brief true : 활성화, false : 비활성화
 -------------------------------------
 function ServerData_Event:checkEventTime(start_date, end_date, optional_data)
     local start_time
@@ -1124,7 +1156,7 @@ function ServerData_Event:setLobbyDecoData(table_lobbydeco)
     local start_date = table_lobbydeco['start_date']
     local end_date = table_lobbydeco['end_date']
 
-    if (self:checkEventTime(start_date, end_date, table_lobbydeco)) then
+    if CheckValidDateFromTableDataValue(start_date, end_date) then
         self.m_tLobbyDeco = table_lobbydeco
     end
 end

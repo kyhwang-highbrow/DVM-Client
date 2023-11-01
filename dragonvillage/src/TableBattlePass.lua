@@ -82,11 +82,6 @@ function TableBattlePass:updateTableMap()
         
         -- 상품정보를 받아온다.
         local struct_product = item_list[tonumber(pid)]
-
-        -- local start_date = struct_product['m_startDate'] or ''
-        -- local end_date = struct_product['m_endDate'] or ''
-        -- local isEventTime = g_eventData:checkEventTime(start_date, end_date)
-        
         
         -- 먼저 상품정보를 맵에 넣고
         if (not self.m_battlePassInfoMap[tostring(pid)]) then

@@ -111,7 +111,6 @@ function TableClass:filterColumnList(key, value, column)
     return l_ret
 end
 
-
 -------------------------------------
 -- function filterTable_condition
 -------------------------------------

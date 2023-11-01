@@ -301,7 +301,7 @@ function ServerData_HighbrowVip:isEventActive()
 
         -- 날짜 조건
         if (visible) and ((start_date ~= '') or (end_date ~= '')) then
-            visible = g_eventData:checkEventTime(start_date, end_date, t_data)
+            visible = g_eventData:isValidEventTime(t_data)
         end
 
         if (visible) and (string.find(feature, 'only_aos')) then

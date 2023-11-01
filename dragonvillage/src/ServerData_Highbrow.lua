@@ -74,7 +74,7 @@ function ServerData_Highbrow:getHBItemList()
         local start_date = v['start_date']
         local end_date = v['end_date']
         
-        if (g_eventData:checkEventTime(start_date, end_date)) then
+        if (CheckValidDateFromTableDataValue(start_date, end_date)) then
             table.insert(l_item_list, v)
         end
     end
