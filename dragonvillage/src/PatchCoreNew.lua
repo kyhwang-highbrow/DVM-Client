@@ -165,7 +165,7 @@ end
 
 -------------------------------------
 ---@function st_downloadPatchFile
----@brief 다운로드 요청
+---@brief 다운로드 요청(구현 체크)
 -------------------------------------
 function PatchCoreNew:st_downloadPatchFile()
     -- false를 리턴하면 다운받을 패치파일이 없다는 뜻
