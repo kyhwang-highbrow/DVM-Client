@@ -231,7 +231,7 @@ function PatchCoreNew:st_downloadPatchFile()
             downed_size = downed_size + size
         end
 
-        -- 다운로드 요청
+        -- 다운로드
         Network:download(web_path, local_path, success_cb, fail_cb, progress)
     end
 end
