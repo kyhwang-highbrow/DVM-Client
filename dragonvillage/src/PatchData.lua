@@ -94,11 +94,15 @@ end
 -------------------------------------
 function PatchData:load()
     local ret_json, success_load = LoadLocalSaveJson(self:getFilePath())
-
     if success_load then
         for k,v in pairs(ret_json) do
 			self.m_tData[k] = v
 		end
+
+        -- 언어 지원 확대
+        if (self.m_tData['language'] == nil) then
+            self.m_tData['language'] = {}
+        end
 
         return
     else
@@ -107,6 +111,7 @@ function PatchData:load()
 	    t_data['latest_app_ver'] = '0.0.0'
 	    t_data['patch_ver'] = 0
         t_data['res_ver'] = 0
+        t_data['language'] = {}
         self.m_tData = t_data
     end
 end
@@ -154,3 +159,43 @@ function PatchData:getInstance()
 
     return g_patchData
 end
+
+--#region Language Data
+
+-------------------------------------
+---@function _checkLanguageTable
+---@private
+---@param curr_app_ver string
+-------------------------------------
+function PatchData:_checkLanguageTable(curr_app_ver)
+    if (isTable(self.m_tData['language']) == false) then
+        self.m_tData['language'] = {}
+    end
+    if (isTable(self.m_tData['language'][curr_app_ver]) == false) then
+        self.m_tData['language'][curr_app_ver] = {}
+    end
+end
+
+-------------------------------------
+---@function setLanguage
+---@param lang_code string
+---@param lang_info table
+-------------------------------------
+function PatchData:setLanguage(lang_code, lang_info)
+    local curr_app_ver = getAppVer()
+    self:_checkLanguageTable(curr_app_ver)
+    self.m_tData['language'][curr_app_ver][lang_code] = lang_info
+end
+
+-------------------------------------
+---@function getLanguage
+---@param lang_code any
+---@return table language_info
+-------------------------------------
+function PatchData:getLanguage(lang_code)
+    local curr_app_ver = getAppVer()
+    self:_checkLanguageTable(curr_app_ver)
+    return self.m_tData['language'][curr_app_ver][lang_code] or {}
+end
+
+--#endregion

@@ -47,7 +47,11 @@ local t_module = {
     'SoundMgrController',
     'SoundMgrProtected',
     'PatchData',
+    'PatchAssetBase',
+    'PatchAssetResource',
+    'PatchAssetLanguage',
     'PatchCore',
+    'PatchCoreNew',
     'PatchChecker',
     'ApkExpansion',
     'Coroutine',
@@ -1901,7 +1905,14 @@ function loadModuleForPatchScene()
 		'SoundMgrController',
 		'SoundMgrProtected',
 		'PatchData',
+
+        'PatchAssetBase',
+        'PatchAssetResource',
+        'PatchAssetLanguage',
+
 		'PatchCore',
+        'PatchCoreNew',
+
 		--'PatchChecker',
 		'ApkExpansion',
 		'Coroutine',
