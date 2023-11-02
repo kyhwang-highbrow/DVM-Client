@@ -63,14 +63,12 @@ def iterfunc(workd_path, rootdir, subdir, hash_dic):
     
 
 def makePatchLog(source_path, plg_path):
-    # 1. 타겟 경로들의 모든 파일들의 md5를 생성
-    dirr_list = ['ps', 'data_dat', 'res', 'sound', 'translate']
-    
     # Dictionary<String, ByteStream>
     # String to ByteStream -> param.encode()
     # ByteStream to String -> param.decode()
     hash_dic = {}
     
+    # 1. 타겟 경로들의 모든 파일들의 md5를 생성
     # hash_dic에 파일들의 hash정보를 저장
     workd_path = source_path
     iterstart(workd_path, source_path, 'data_dat', hash_dic)
