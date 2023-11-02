@@ -750,6 +750,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
 
     elseif (game_mode == GAME_MODE_EVENT_DEALKING) then -- 딜킹 이벤트
         api_url = '/event/dealking/finish'
+        self.m_gameKey = nil
         ui_network:setParam('damage', math_floor(t_param['damage'])) -- 소수점 아래는 버려야 함
     end
     
@@ -876,7 +877,6 @@ end
 -------------------------------------
 function SceneGame:networkGameFinish_response_user_info(ret, t_result_ref)
     local user_levelup_data = t_result_ref['user_levelup_data']
-    
     if t_result_ref['user_levelup_data'] == nil then
         return
     end
