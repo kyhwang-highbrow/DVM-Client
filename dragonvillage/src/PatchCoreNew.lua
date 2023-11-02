@@ -25,7 +25,6 @@ PatchCoreNew = class(PARENT ,{
 
 -------------------------------------
 ---@function init
----@brief 구현체크
 -------------------------------------
 function PatchCoreNew:init(scene, type, app_ver)    
     self.m_currPatchAsset = nil
@@ -36,7 +35,7 @@ end
 
 -------------------------------------
 ---@function st_requestPatchInfo_successCB
----@brief  패치 파일 요청 성공 콜백(구현 체크)
+---@brief  패치 파일 요청 성공 콜백
 -------------------------------------
 function PatchCoreNew:st_requestPatchInfo_successCB(ret)
     if (not ret) or (not ret['cur_patch_ver']) or (not ret['list']) then
@@ -128,7 +127,7 @@ end
 
 -------------------------------------
 ---@function st_downloadPatchFile_setCurrDownloadRes
----@return boolean 현재 다운받을 파일이 있다는 뜻(구현 체크)
+---@return boolean 현재 다운받을 파일이 있다는 뜻
 -------------------------------------
 function PatchCoreNew:st_downloadPatchFile_setCurrDownloadRes()
     if self.m_currPatchInfo then
@@ -165,7 +164,7 @@ end
 
 -------------------------------------
 ---@function st_downloadPatchFile
----@brief 다운로드 요청(구현 체크)
+---@brief 다운로드 요청
 -------------------------------------
 function PatchCoreNew:st_downloadPatchFile()
     -- false를 리턴하면 다운받을 패치파일이 없다는 뜻
@@ -239,7 +238,7 @@ end
 
 -------------------------------------
 ---@function st_decompression
----@brief 다운받은 zip파일을 압축 해제(구현 체크)
+---@brief 다운받은 zip파일을 압축 해제
 -------------------------------------
 function PatchCoreNew:st_decompression()
     local t_download_res = self.m_currPatchInfo
