@@ -197,11 +197,12 @@ function ScenePatch:runPatchCore()
     local patch_core
 
     -- 추가 리소스 다운로드
-    if (getAppVerNum() > 1004004) or CppFunctions:isTestMode() == true then        
+    patch_core = PatchCore(self, 'patch', app_ver)
+--[[     if (getAppVerNum() > 1004004) or CppFunctions:isTestMode() == true then        
         patch_core = PatchCoreNew(self, 'patch', app_ver)
     else
         patch_core = PatchCore(self, 'patch', app_ver)
-    end
+    end ]]
 
 	self.m_patch_core = patch_core
     local function finish_cb()
