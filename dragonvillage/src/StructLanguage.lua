@@ -58,12 +58,19 @@ function StructLanguage:patchLanguageMap()
     local function getPatchTable(patch_path)
         return require(patch_path)
     end
-    
-    local language_map = nil
 
+    local language_map = nil
     if self.m_translateFile then
+        -- 개발 환경에서는 _temp 폴더에서 언어 리소스를 가져옴(언어 패치 시스템 변경으로 인해 잠시동안 폴더를 분리해서 관리)
+        if CppFunctions:isWin32() == true then
+            --local path = string.format('%s.lua', self.m_translateFile)
+            local path_new = string.format('%s.lua', string.gsub(self.m_translateFile, 'translate/', 'translate_temp/'))
+            if (cc.FileUtils:getInstance():isFileExist(path_new) == true) then
+                self.m_translateFile = string.gsub(self.m_translateFile, 'translate/', 'translate_temp/')
+            end
+        end
+
         language_map = require(self.m_translateFile) -- require 'translate/lang_en' 
-        
         local patch_name = self.m_translateFile .. '_patch' -- require 'translate/lang_en_patch'
         local b_result, patch_language_map = pcall(getPatchTable, patch_name)
         
