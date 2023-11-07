@@ -266,6 +266,13 @@ function GameAuto:makeSkillInfoListSortedByPriority(state)
 end
 
 -------------------------------------
+--- @function getSkillInfoListPerPriorityFilteredLock
+-------------------------------------
+function GameAuto:getSkillInfoListPerPriorityFilteredLock()
+    return self.m_lSkillInfoListPerPriority[self.m_curPriority]
+end
+
+-------------------------------------
 -- function doWork
 -------------------------------------
 function GameAuto:doWork(dt)
@@ -291,7 +298,7 @@ function GameAuto:doWork(dt)
     if (need_to_select_skill) then
         self.m_curSkill = nil
 
-        local list = self.m_lSkillInfoListPerPriority[self.m_curPriority]
+        local list = self:getSkillInfoListPerPriorityFilteredLock()
         local count = #list
         if (count > 0) then
             -- 사용횟수를 고려하여 뽑음
@@ -313,7 +320,7 @@ function GameAuto:doWork(dt)
                 local skill_indivisual_info = unit:findSkillInfoByID(skill_id)
 
                 if (skill_indivisual_info and skill_indivisual_info:isEnabled()) then
-                    local b, m_reason = unit:isPossibleActiveSkill()
+                    local _, m_reason = unit:isPossibleActiveSkill()
 
                     if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp') then
                         -- 콜로세움에서 쿨타임이 3초이하로 남은 경우는 기다림
@@ -321,14 +328,8 @@ function GameAuto:doWork(dt)
                         if (timer <= 3) then
                             m_reason[REASON_TO_DO_NOT_USE_SKILL.COOL_TIME] = nil
                         end
-
                         -- 마나 부족은 항상 기다림
                         m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
-                    end
-
-                    -- 드래그 스킬 잠금
-                    if self:isAutoDragSkillLocked(unit, struct_skill_info) == true then
-                        m_reason[REASON_TO_DO_NOT_USE_SKILL.LOCK] = true
                     end
 
                     if (table.isEmpty(m_reason)) then
@@ -348,11 +349,6 @@ function GameAuto:doWork(dt)
                 end
             end
         end
-    end
-
-    -- 드래그 스킬 잠금
-    if self.m_curSkill and self:isAutoDragSkillLocked(self.m_curSkill.m_unit, self.m_curSkill) == true then
-        self.m_curSkill = nil
     end
 
     local do_next = true
@@ -511,7 +507,7 @@ function GameAuto:getRandomSkill()
     -- 사용횟수를 고려하여 뽑음
     local l_temp = {}
     for i, unit in ipairs(self.m_lUnitList) do
-        if (unit:isDragon() and unit:isPossibleActiveSkill()) then           
+        if (unit:isDragon() and unit:isPossibleActiveSkill() and self:isAutoDragSkillLocked(unit) == false) then           
             table.insert(l_temp, unit)
             if (not self.m_mUsedCount[unit]) then
                 self.m_mUsedCount[unit] = 0

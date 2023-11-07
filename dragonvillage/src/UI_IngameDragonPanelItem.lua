@@ -523,6 +523,7 @@ function UI_IngameDragonPanelItem:click_autoDragSkillLockCheckBox()
         end
 
         if dirty == true then
+            self.m_world:dispatch('auto_skill_unlock', {}, self.m_dragon)
             UIManager:toastNotificationGreen(Str('{1}의 드래그 스킬 잠금 해제', dragon_name))
         end
     end

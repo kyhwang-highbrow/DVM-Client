@@ -196,7 +196,29 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
 	elseif (event_name == 'farming_changed') then
 		self:refreshSkillInfoListSortedByPriority()
 
+    elseif (event_name == 'auto_skill_unlock') then
+        local arg = {...}
+        local unit = arg[1]
+		self:unLockAutoDragSkill(unit)
     end
+end
+
+-------------------------------------
+--- @function unLockAutoDragSkill
+--- @brief 잠금해제 시에 사용 횟수를 조절하여 너무 높은 우선순위가 부여되지 않도록 만듦
+-------------------------------------
+function GameAuto_Hero:unLockAutoDragSkill(_unit)
+    local maxium_count = 0
+    for _, unit in ipairs(self.m_lUnitList) do
+        local used_count = self.m_mUsedCount[unit]
+        if maxium_count < used_count then
+            maxium_count = used_count
+        end
+    end
+
+    local result_used_count = math_max(maxium_count - 1, 0)
+    self.m_mUsedCount[_unit] = result_used_count
+    cclog('사용 횟수 조절 완료', self.m_mUsedCount[_unit])
 end
 
 -------------------------------------
@@ -236,6 +258,24 @@ function GameAuto_Hero:isAutoDragSkillLocked(unit, t_skill_info)
     end
 
     return false
+end
+
+-------------------------------------
+--- @function getSkillInfoListPerPriorityFilteredLock
+-------------------------------------
+function GameAuto_Hero:getSkillInfoListPerPriorityFilteredLock()
+    local list = self.m_lSkillInfoListPerPriority[self.m_curPriority]
+    local result_list = {}
+
+    for _, struct_skill_info in ipairs(list) do
+        local unit = struct_skill_info.m_unit
+        -- 드래그 스킬 잠금 제외
+        if self:isAutoDragSkillLocked(unit, struct_skill_info) == false then
+            table.insert(result_list, struct_skill_info)
+        end
+    end
+
+    return result_list
 end
 
 -------------------------------------

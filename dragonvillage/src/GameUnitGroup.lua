@@ -80,6 +80,7 @@ function GameUnitGroup:createAuto(ui)
             self.m_world:addListener('auto_start', self.m_auto)
             self.m_world:addListener('auto_end', self.m_auto)
 			self.m_world:addListener('farming_changed', self.m_auto)
+            self.m_world:addListener('auto_skill_unlock', self.m_auto)
         end
     else
         self.m_auto = GameAuto_Enemy(self.m_world, self.m_mana)
