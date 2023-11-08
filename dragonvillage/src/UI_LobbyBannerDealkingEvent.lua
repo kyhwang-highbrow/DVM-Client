@@ -63,16 +63,17 @@ end
 ----------------------------------------------------------------------
 function UI_LobbyBannerDealkingEvent:updateNoti()
     local vars = self.vars
+    local my_rank = g_eventDealkingData:getMyRank()
     -- 이벤트 종료 후 보상 획득 가능
-    if (g_eventDealkingData:canReward()) then
+    if (g_eventDealkingData:canReward() and my_rank > 0) then
         vars['timeLabel']:setString('')
         vars['rankLabel']:setString(Str('보상'))
+        vars['notiSprite']:setVisible(true)
     -- 이벤트 종료 및 보상 받을 것도 없는 상황
     else
         -- 내 랭킹이 0보다 작으면 {-위} 로 노출
         -- 0보다 큰 의미있는 값이면 그대로 노출
-        local my_rank = g_eventDealkingData:getMyRank()
-
+        vars['notiSprite']:setVisible(false)
         if (my_rank < 0) then
             vars['rankLabel']:setString(Str('순위 없음'))
         else
@@ -93,8 +94,6 @@ function UI_LobbyBannerDealkingEvent:updateNoti()
             vars['timeLabel']:setString('')
         end
     end
-
-    vars['notiSprite']:setVisible(g_eventDealkingData:canReward())
 end
 
 ----------------------------------------------------------------------
@@ -120,6 +119,7 @@ function UI_LobbyBannerDealkingEvent:click_bannerBtn()
         local function finish_cb(ret)
             UI_EventDealkingRankingPopup() -- 랭킹 팝업
             local last_info = g_eventDealkingData:getMyRankInfoTotal()
+            cclog('rank', last_info['rank'])
             local reward_info = ret['reward_info']
 
             -- 보상을 받을 수 있는 상태라면
@@ -129,13 +129,13 @@ function UI_LobbyBannerDealkingEvent:click_bannerBtn()
                 g_highlightData:setHighlightMail()
             end
         end
-
+        
         -- 보상이 있을 경우 보상 요청
         if (g_eventDealkingData:canReward() == true) then
             g_eventDealkingData:request_eventDealkingReward(finish_cb, nil)
         else -- 보상이 없을 경우
             finish_cb({})
-        end
+        end 
     end
 end
 

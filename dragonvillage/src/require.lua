@@ -519,6 +519,7 @@ local t_module = {
     'TableLairSchedule', -- 축복 시즌
     'TableLanguageConfig', -- 언어 코드
     'TableDealkingBuff', -- 딜킹 스테이지 버프
+    'TableResearch', -- 연구
 
     -- Scene
     'SceneCommon',
