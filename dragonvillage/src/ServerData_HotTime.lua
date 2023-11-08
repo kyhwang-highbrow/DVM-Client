@@ -184,13 +184,13 @@ end
 function ServerData_HotTime:response_hottime(ret, finish_cb)
     self.m_hotTimeInfoList = ret['all']
     self.m_hotTimeInfoMap = {}
+    self.m_boosterInfoDirty = true
 
     -- 핫타임 맵 생성
     for _, v in ipairs(self.m_hotTimeInfoList) do
         local event_key = v['event']
         self.m_hotTimeInfoMap[event_key] = v
     end
-
     
 	self.m_dcExpirationTime = nil
 
