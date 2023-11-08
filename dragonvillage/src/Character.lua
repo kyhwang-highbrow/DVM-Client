@@ -398,6 +398,21 @@ function Character:getTargetListByType(target_type, target_count, target_formati
     end
     	
 	if (target_count) and (type(target_count) == 'number') then
+        -- 적군을 랜덤하게 추출하는 과정에서 난격 스킬의 경우 죽은 상태의 체크가 불가능한 경우가 생겨 아래와 같이 걸러냄
+        if target_team == 'enemy' and target_rule == 'random' and is_active_skill == false then
+            local t1 = {}
+            local t2 = {}
+            for _, v in ipairs(t_ret) do
+                if v:isZeroHp() == true then
+                    table.insert(t2, v)
+                else
+                    table.insert(t1, v)
+                end
+            end
+            table.addList(t1, t2)
+            return table.getPartList(t1, target_count)
+        end
+
 		return table.getPartList(t_ret, target_count)
 	else
 		return t_ret
