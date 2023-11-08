@@ -125,6 +125,7 @@ function UI_LobbyBannerDealkingEvent:click_bannerBtn()
             -- 보상을 받을 수 있는 상태라면
             if (last_info and reward_info) then
                 -- 랭킹 보상 팝업
+                require('UI_EventIncarnationOfSinsRewardPopup')
                 UI_EventIncarnationOfSinsRewardPopup(last_info, reward_info)
                 g_highlightData:setHighlightMail()
             end
