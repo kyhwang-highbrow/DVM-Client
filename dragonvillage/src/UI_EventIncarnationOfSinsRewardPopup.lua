@@ -28,6 +28,7 @@ function UI_EventIncarnationOfSinsRewardPopup:initUI(user_info, reward_info)
     local vars = self.vars
     
     -- 플레이어 정보 받아 그림
+    require('UI_EventIncarnationOfSinsRankingTotalTab')
     local rank_ui = UI_EventIncarnationOfSinsRankingTotalTabRankingListItem(user_info)
     
     -- 랭킹 정보
