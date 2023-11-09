@@ -148,6 +148,9 @@ local TableInfo = {
 
         -- 딜킹 버프
         table_dealking_buff = {'table_dealking_buff', 'stage', false},
+
+        -- 연구
+        table_research = {'table_research', 'id', false},
     }
 
 -------------------------------------

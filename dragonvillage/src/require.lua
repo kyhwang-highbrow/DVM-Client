@@ -294,6 +294,7 @@ local t_module = {
     'ServerData_RunePreset', -- 룬 프리셋
     'ServerData_Lair', -- 라테아
     'ServerData_EventDealking', -- 딜킹 이벤트
+    'ServerData_Research', -- 연구
 
     -- Interface
     'IEventDispatcher',
@@ -1825,6 +1826,11 @@ local t_module = {
 
     -- 개인 패스
     'UI_IndivPassScene',
+
+    -- 연구
+    'UI_Research',
+    'UI_ResearchItem',
+    'UI_ResearchConfirmPopup',
 }
 
 -------------------------------------

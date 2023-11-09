@@ -372,6 +372,9 @@ function ServerData:getInstance()
     -- 딜킹 이벤트
     g_eventDealkingData = ServerData_EventDealking(g_serverData)
 
+    -- 연구
+    g_researchData = ServerData_Research(g_serverData)
+
     return g_serverData
 end
 

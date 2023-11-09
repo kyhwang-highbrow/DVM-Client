@@ -910,6 +910,14 @@ function UI_Lobby:initButton()
     vars['randomShopBtn']:registerScriptTapHandler(function() self:click_randomShopBtn() end) -- 랜덤 상점
     vars['randomShopBtn']:setVisible(true) 
 
+
+    -- 연구 버튼
+    if CppFunctions:isWin32() == true then
+        vars['researchBtn']:setVisible(true)
+        vars['researchBtn']:registerScriptTapHandler(function() self:click_researchBtn() end) -- 랜덤 상점
+    end
+
+
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
         etc_vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end) -- 설정
@@ -2087,6 +2095,13 @@ end
 -------------------------------------
 function UI_Lobby:click_randomShopBtn()
     UINavigator:goTo('shop_random')
+end
+
+-------------------------------------
+-- function click_researchBtn
+-------------------------------------
+function UI_Lobby:click_researchBtn()
+    local ui = UI_Research()
 end
 
 -------------------------------------
