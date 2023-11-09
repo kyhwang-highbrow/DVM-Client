@@ -36,12 +36,12 @@ end
 -------------------------------------
 function UI_ChapterSelect:initUI()
     local vars = self.vars
-    
     self:addTabWithLabel(1, vars['normalBtn'], vars['normalLabel'])
     self:addTabWithLabel(2, vars['hardBtn'], vars['hardLabel'])
     self:addTabWithLabel(3, vars['hellBtn'], vars['hellLabel'])
     self:addTabWithLabel(4, vars['hellFireBtn'], vars['hellFireLabel'])
     self:addTabWithLabel(5, vars['abyss_0Btn'], vars['abyss_0Label'])
+    self:addTabWithLabel(6, vars['abyss_1Btn'], vars['abyss_1Label'])
     self:setTab(self.m_target)
 end
 

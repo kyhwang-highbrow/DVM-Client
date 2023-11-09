@@ -67,11 +67,9 @@ function UI_AdventureStageButton:init_common(parent_ui, stage_id, vars)
     do -- 난이도에 따라 sprite표시
         if (difficulty == 1) then
             vars['easySprite']:setVisible(true)
-
         elseif (difficulty == 2) then
             vars['easySprite']:setVisible(false)
             vars['normalSprite']:setVisible(true)
-
         elseif (difficulty == 3) then
             vars['easySprite']:setVisible(false)
             vars['hardSprite']:setVisible(true)
@@ -81,6 +79,9 @@ function UI_AdventureStageButton:init_common(parent_ui, stage_id, vars)
         elseif (difficulty == 5) then
             vars['easySprite']:setVisible(false)
             vars['abyss_0Sprite']:setVisible(true)
+        elseif (difficulty == 6) then
+            vars['easySprite']:setVisible(false)
+            vars['abyss_1Sprite']:setVisible(true)
         else
             error('difficulty : ' .. difficulty)
         end

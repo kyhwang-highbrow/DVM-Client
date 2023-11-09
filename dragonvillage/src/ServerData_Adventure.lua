@@ -1,6 +1,6 @@
 MAX_ADVENTURE_CHAPTER = 12
 MAX_ADVENTURE_STAGE = 7
-MAX_ADVENTURE_DIFFICULTY = 5
+MAX_ADVENTURE_DIFFICULTY = 6
 
 -------------------------------------
 ---@class ServerData_Adventure
@@ -589,6 +589,9 @@ function ServerData_Adventure:getStageCategoryStr(stage_id)
 
     elseif (difficulty == 5) then
         difficulty_str = Str('심연')
+
+    elseif (difficulty == 6) then
+        difficulty_str = Str('심연 1')
 
     else
         error('difficulty : ' .. difficulty)

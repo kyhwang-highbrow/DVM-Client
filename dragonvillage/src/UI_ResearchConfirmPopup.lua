@@ -32,6 +32,10 @@ end
 -------------------------------------
 function UI_ResearchConfirmPopup:initUI()
 	local vars = self.vars
+
+    
+
+
 end
 
 -------------------------------------
