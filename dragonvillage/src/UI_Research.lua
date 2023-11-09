@@ -13,7 +13,7 @@ UI_Research = class(PARENT,{
 function UI_Research:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_Research'
-    self.m_subCurrency = 'blessing_ticket'  -- 상단 유저 재화 정보 중 서브 재화    
+    self.m_subCurrency = 705091  -- 상단 유저 재화 정보 중 서브 재화    
     self.m_titleStr = Str('연구')
     self.m_bUseExitBtn = true -- click_exitBtn()함구 구현이 반드시 필요함
     --self.m_bShowInvenBtn = true
@@ -78,7 +78,7 @@ function UI_Research:makeTableView()
 
         self.m_researchTableViewList[type] = table_view
         table_view:update(0)
-        table_view:relocateContainerFromIndex(100)
+        table_view:relocateContainerFromIndex(0)
     end
 end
 
@@ -92,7 +92,13 @@ end
 --- @function click_infoBtn
 -------------------------------------
 function UI_Research:click_infoBtn(research_id)
-    UI_ResearchConfirmPopup(research_id)
+    local research_type = TableResearch:getInstance():getResearchType(research_id)
+    local last_research_id = g_researchData:getLastResearchId(research_type)
+    if research_id <= last_research_id then
+        UI_ResearchConfirmPopup(research_id, 'view')
+    else
+        UI_ResearchConfirmPopup(research_id)
+    end
 end
 
 -------------------------------------

@@ -134,6 +134,9 @@ ITEM_ID_MAP['subjugation_ticket'] = 700110 -- 던전 토벌권
 ITEM_ID_MAP['indiv_pass_exp'] = 700113 -- 개인 패스 경험치
 ITEM_ID_MAP['blessing_ticket'] = 700022 -- 축복 티켓
 
+ITEM_ID_MAP['research_item'] = 705091 -- 아모르의 기운
+
+
 local ITEM_TYPE_MAP = {}
 for i,v in pairs(ITEM_ID_MAP) do
     ITEM_TYPE_MAP[v] = i
@@ -545,6 +548,20 @@ function TableItem:isDragonByItemId(item_id)
         return false
     end
     return true
+end
+
+
+-------------------------------------
+--- @function getInboxIconRes
+--- @brief inbox용 아이콘을 아이템 테이블에서 가져옴
+-------------------------------------
+function TableItem:getInboxIconRes(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local inbox_icon = self:getValue(item_id, 'inbox_icon')
+    return inbox_icon
 end
 
 -------------------------------------

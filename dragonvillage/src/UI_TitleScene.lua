@@ -1299,10 +1299,10 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-        -- 키바나 시간 로그 남기는 용도
+        -- 연구 시스템
         co:work()
         self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...') .. '(6)')
-        local ui_network = g_accessTimeData:request_userTimelog(co.NEXT, fail_cb)
+        local ui_network = g_researchData:request_researchInfo(co.NEXT, fail_cb)
         if ui_network then
             ui_network:hideLoading()
         end

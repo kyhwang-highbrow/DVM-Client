@@ -30,7 +30,7 @@ end
 function UI_GoodsInfo:initUI()
     local vars = self.vars
 
-    local icon = self:makeGoodsIcon(goods_name)
+    local icon = self:makeGoodsIcon()
     vars['iconNode']:addChild(icon)
 
     self.m_numberLabel = NumberLabel(vars['label'], 0, 0.3) -- param : label, number, actionDuration
@@ -58,20 +58,26 @@ function UI_GoodsInfo:refresh()
     local value = g_userData:get(goods_type)
 
     if (value == nil) then
+        -- 만약 숫자라면 아이템아이디를 전달받은 것
+        if isNumber(goods_type) then
+            local item_id = goods_type
+            local item_type = TableItem():getItemTypeFromItemID(item_id)
+            value = g_userData:get(item_type, tostring(item_id))
+        end
+    end
+
+    if value == nil then
         local goods_id = TableItem():getItemIDFromItemType(goods_type)
         local type_in_table_item = TABLE:get('item')[goods_id]['type'] -- type column in table_item.csv
-        local data = g_userData:get(type_in_table_item) -- 
-
-        -- 
+        local data = g_userData:get(type_in_table_item)
         if isExistValue(type_in_table_item, 'medal', 'memory') then 
             if type(data) == 'table' then
                 value = data[tostring(goods_id)]
             else
                 value = data
             end
-        end 
+        end
     end
-
 
     -- 캐시 중인 숫자가 다를 경우만 호출 (임의로 탑바의 숫자를 변경하는 경우에 동작하는 것을 방지하기 위함)
     if (self.m_realNumber ~= value) then
@@ -99,8 +105,19 @@ function UI_GoodsInfo:makeGoodsIcon(goods_name)
         goods_name = 'rune_box'
     end
 
+
+
     local res_icon = string.format('res/ui/icons/inbox/inbox_%s.png', goods_name)
     local icon = cc.Sprite:create(res_icon)
+
+    -- TableItem에 설정된 Inbox 아이콘이 있으면 그거를 먼저 불러옴
+    if not icon and isNumber(goods_name) then
+        local icon_res = TableItem:getInboxIconRes(goods_name)
+        if  icon_res ~= nil and icon_res ~= '' then
+            local res = string.format('res/ui/icons/inbox/inbox_%s.png', icon_res)
+            icon = IconHelper:getIcon(res)
+        end
+    end
     
     if (not icon) then
         local goods_id = TableItem():getItemIDFromItemType(goods_name)
@@ -113,7 +130,6 @@ function UI_GoodsInfo:makeGoodsIcon(goods_name)
         end
     end
     
-
     if (not icon) then
         icon = cc.Sprite:create('res/ui/icons/cha/developing.png')
     end
@@ -197,7 +213,13 @@ function UI_GoodsInfo:showToolTip()
         name = Str('친선전 입장권')
         desc = Str('친구가 된 테이머와 강함을 겨룰 수 있는 친선전 입장권.')
     else
-        local goods_id = TableItem():getItemIDFromItemType(goods_type)
+
+        if isNumber(goods_type) == true then
+            goods_id = goods_type
+        else
+            goods_id = TableItem():getItemIDFromItemType(goods_type)
+        end
+
         local t_item = TABLE:get('item')[goods_id]
         name = Str(t_item['t_name'])
         desc = Str(t_item['t_desc'])

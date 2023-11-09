@@ -35,37 +35,50 @@ end
 -------------------------------------
 function TableResearch:makeAccumulateBuffMap()
     local buff_list = {
-        'atk_per',
-        'def_per',
-        'hp_per',
-        'cri_chance',
-        'cri_dmg',
-        'cri_avoid',
-        'hit_rate',
-        'avoid',
-        'accuracy',
-        'resistance',
+        'atk_multi',
+        'def_multi',
+        'hp_multi',
+        'cri_chance_add',
+        'cri_dmg_add',
+        'cri_avoid_add',
+        'hit_rate_add',
+        'avoid_add',
+        'accuracy_add',
+        'resistance_add',
     }
 
     self.m_buffList = buff_list
     self.m_accAbilityMap = {}
     for type = 1,2 do
         local id_list = self:getIdListByType(type)
-        local acc_map = {}
-        for _, id in ipairs(id_list) do
-            for _, buff in ipairs(buff_list) do
-                local val = self:getValue(id, buff)
-                if val ~= nil and val ~= '' then
-                    if acc_map[buff] == nil then
-                        acc_map[buff] = 0
-                    end
-                    acc_map[buff] = acc_map[buff] + tonumber(val)
+        self:getBuffMapByIdList(id_list, self.m_accAbilityMap)
+    end
+end
+
+
+-------------------------------------
+---@function getBuffMapByIdList
+---@brief 능력치 맵 계산
+-------------------------------------
+function TableResearch:getBuffMapByIdList(id_list, acc_str_map)
+    local acc_map = {}
+    for _, id in ipairs(id_list) do
+        for _, buff in ipairs(self.m_buffList) do
+            local val = self:getValue(id, buff)
+            if val ~= nil and val ~= '' then
+                if acc_map[buff] == nil then
+                    acc_map[buff] = 0
                 end
+                acc_map[buff] = acc_map[buff] + tonumber(val)
             end
-            -- 누적 능력치를 문자열로 생성 저장
-            self.m_accAbilityMap[id] = self:getBuffMapToString(acc_map)
+
+            if acc_str_map ~= nil then
+                -- 누적 능력치를 문자열로 생성 저장
+                acc_str_map[id] = self:getBuffMapToString(acc_map)
+            end
         end
     end
+    return acc_map
 end
 
 -------------------------------------
@@ -134,12 +147,21 @@ function TableResearch:getResearchIconRes(research_id)
     return 'res/temp/DEV.png'
 end
 
+
+-------------------------------------
+---@function getResearchCostItemId
+---@brief 연구 소모 재화 아이템, 일단 아이템 아이디 고정으로 처리
+-------------------------------------
+function TableResearch:getResearchCostItemId(research_id)
+    return 705091
+end
+
 -------------------------------------
 ---@function getResearchCost
 ---@brief 연구 비용
 -------------------------------------
 function TableResearch:getResearchCost(research_id)
-    local val = self:getValue(research_id, 'cost')
+    local val = self:getValue(research_id, 'cost_eoa')
     return val
 end
 
@@ -157,6 +179,22 @@ end
 ---@brief 연구 타입
 -------------------------------------
 function TableResearch:getResearchType(research_id)
-    local val = self:getValue(research_id, 'type')
+    local val = math_floor(research_id/10000)
     return val
+end
+
+-------------------------------------
+--- @function getResearchBuffStr
+--- @brief 버프 문자열 반환
+-------------------------------------
+function TableResearch:getResearchBuffStr(research_id_list)
+    local ret = self:getBuffMapByIdList(research_id_list)
+    local str = '' 
+    for buff_type, buff_value in pairs(ret) do
+        local str_buff = TableOption:getOptionDesc(buff_type, math_abs(buff_value))
+        if str_buff ~= nil then
+            str = (str == '') and str_buff or str..'\n'..str_buff
+        end
+    end
+    return str
 end

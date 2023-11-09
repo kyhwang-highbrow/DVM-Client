@@ -705,6 +705,16 @@ function IconHelper:getPriceIcon(price_type)
         return nil
     end
 
+    -- TableItem에 설정된 Inbox 아이콘이 있으면 그거를 먼저 불러옴
+    if isNumber(price_type) then
+        local icon_res = TableItem:getInboxIconRes(price_type)
+        if  icon_res ~= nil and icon_res ~= '' then
+            local res = string.format('res/ui/icons/inbox/inbox_%s.png', icon_res)
+            local icon = IconHelper:getIcon(res)
+            return icon
+        end
+    end
+
     -- 아이템 인박스용 아이콘을 대체
     local price_type = TableItem:getInboxIconReplaceType(price_type)
     local res = string.format('res/ui/icons/inbox/inbox_%s.png', price_type)
