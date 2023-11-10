@@ -138,26 +138,21 @@ end
 -------------------------------------
 function UI_Research:click_resetBtn()
     local success_cb = function()
-        UIManager:toastNotificationGreen('리셋 완료')
         self:makeTableView()
         self:refresh()
     end
 
-
     local finish_cb = function()
         g_researchData:request_researchReset(success_cb)
     end
+
+    if g_researchData:isResearchResetAvailable() == false then
+        UIManager:toastNotificationRed('현재까지 연구 정보가 없습니다.')
+        return
+    end
     
-
-    local msg = Str('연구 초기화 하시겠습니까?')
-    MakeSimplePopup(POPUP_TYPE.OK, msg, finish_cb)
-end
-
--------------------------------------
---- @function click_statBtn
--------------------------------------
-function UI_Research:click_statBtn()
-    UI_ResearchAbilityPopup.open()
+    local msg = Str('연구 정보를 초기화 하시겠습니까?')
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, finish_cb)
 end
 
 -------------------------------------
@@ -165,6 +160,13 @@ end
 -------------------------------------
 function UI_Research:click_helpBtn()
     UI_Help('lair')
+end
+
+-------------------------------------
+--- @function click_statBtn
+-------------------------------------
+function UI_Research:click_statBtn()
+    UI_ResearchAbilityPopup.open()
 end
 
 -------------------------------------

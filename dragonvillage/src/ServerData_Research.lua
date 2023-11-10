@@ -38,6 +38,14 @@ function ServerData_Research:getResearchStatsStringData()
 end
 
 -------------------------------------
+--- @function isResearchResetAvailable
+--- @return boolean
+-------------------------------------
+function ServerData_Research:isResearchResetAvailable()
+    return self:getResearchStatsStringData() ~= ''
+end
+
+-------------------------------------
 --- @function getLastResearchId
 -------------------------------------
 function ServerData_Research:getLastResearchId(type)
@@ -240,6 +248,7 @@ function ServerData_Research:request_researchReset(finish_cb, fail_cb)
     -- 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
         self.m_lastResearchIdList = {}
         if finish_cb then
             finish_cb(ret)
