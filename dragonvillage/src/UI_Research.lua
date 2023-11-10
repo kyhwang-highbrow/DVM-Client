@@ -159,7 +159,7 @@ end
 --- @function click_helpBtn
 -------------------------------------
 function UI_Research:click_helpBtn()
-    UI_Help('lair')
+    UI_Help('research')
 end
 
 -------------------------------------

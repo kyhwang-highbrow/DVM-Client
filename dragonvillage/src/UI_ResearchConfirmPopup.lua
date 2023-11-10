@@ -76,7 +76,7 @@ function UI_ResearchConfirmPopup:initUI()
             end
 
             AlignUIPos({ vars['priceNode'], vars['priceLabel'] }, 'HORIZONTAL', 'CENTER', 10) -- 가로 방향으로 가운데 정렬, offset = 10
-            
+
             break
         end
     end
@@ -151,6 +151,11 @@ end
 --- @function click_upgradeBtn
 -------------------------------------
 function UI_ResearchConfirmPopup:click_upgradeBtn()
+    -- 잠겨있으면 불가능(따로 메시지를 처리하지 않음)
+    if (g_contentLockData:isContentLock('research')) then
+        return
+    end
+
     local success_cb = function(ret)
         UIManager:toastNotificationGreen(Str('연구가 완료되었습니다.'))
         self:close()
