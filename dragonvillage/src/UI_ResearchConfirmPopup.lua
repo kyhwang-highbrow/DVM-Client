@@ -70,11 +70,13 @@ function UI_ResearchConfirmPopup:initUI()
             vars['priceLabel']:setString(comma_value(price_value))
 
             if g_researchData:getUserRearchItem(item_id) < price_value then
-                vars['priceLabel']:setString(string.format('{@RED}%s{@}', comma_value(price_value)))
+                vars['priceLabel']:setStringArg(string.format('{@RED}%s{@}', comma_value(price_value)))
             else
-                vars['priceLabel']:setString(comma_value(price_value))
+                vars['priceLabel']:setStringArg(comma_value(price_value))
             end
 
+            AlignUIPos({ vars['priceNode'], vars['priceLabel'] }, 'HORIZONTAL', 'CENTER', 10) -- 가로 방향으로 가운데 정렬, offset = 10
+            
             break
         end
     end
