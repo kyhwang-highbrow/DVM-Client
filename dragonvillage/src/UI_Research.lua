@@ -91,9 +91,10 @@ function UI_Research:makeTableView()
         table_view:setItemList(item_list)
 
         self.m_researchTableViewList[type] = table_view
+        local select_idx = (g_researchData:getLastResearchId(type) + 1) % 10000
 
-        --table_view:update(0)
-        --table_view:relocateContainerFromIndex(0)
+        table_view:update(0)
+        table_view:relocateContainerFromIndex(select_idx)
     end
 end
 

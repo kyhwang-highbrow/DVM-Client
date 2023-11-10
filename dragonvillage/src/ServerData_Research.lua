@@ -112,8 +112,8 @@ end
 --- @brief 사용 가능한 researchId 계산
 -------------------------------------
 function ServerData_Research:calcAvailableLastResearchId(research_type)
-    local id_list, cost_map = self:getAvailableResearchIdList(nil, research_type)
-    local last_available_research_id = id_list[#id_list]
+    local id_list, _ = self:getAvailableResearchIdList(nil, research_type)
+    local last_available_research_id = #id_list > 0 and id_list[#id_list] or 0
 
     local t_data = {['last_id'] = last_available_research_id, ['cost'] = self:getUserRearchItemSum()}
     self.m_availableResearchIdList[research_type] = t_data
@@ -129,7 +129,10 @@ function ServerData_Research:isAvailableResearchId(research_id)
     end
 
     local research_type = TableResearch:getInstance():getResearchType(research_id)
+    local last_research_id = self:getLastResearchId(research_type)
     local t_data = self.m_availableResearchIdList[research_type]
+
+
 
     if t_data == nil or t_data['cost'] ~= self:getUserRearchItemSum() then
         self:calcAvailableLastResearchId(research_type)
@@ -137,7 +140,7 @@ function ServerData_Research:isAvailableResearchId(research_id)
     end
 
     local available_research_id = t_data['last_id']
-    return available_research_id > research_id
+    return available_research_id >= research_id and research_id > last_research_id
 end
 
 -------------------------------------
