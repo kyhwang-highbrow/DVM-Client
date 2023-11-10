@@ -909,15 +909,8 @@ function UI_Lobby:initButton()
     vars['ddayBtn']:registerScriptTapHandler(function() self:click_ddayBtn() end) -- 출석 이벤트탭 이동
     vars['randomShopBtn']:registerScriptTapHandler(function() self:click_randomShopBtn() end) -- 랜덤 상점
     vars['randomShopBtn']:setVisible(true) 
-
-
-    -- 연구 버튼
-    if CppFunctions:isWin32() == true then
-        vars['researchBtn']:setVisible(true)
-        vars['researchBtn']:registerScriptTapHandler(function() self:click_researchBtn() end) -- 랜덤 상점
-    end
-
-
+    vars['researchBtn']:registerScriptTapHandler(function() self:click_researchBtn() end) -- 랜덤 상점
+    
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
         etc_vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end) -- 설정
@@ -2604,6 +2597,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'eventBtn')
     table.insert(t_btn_name, 'battlePassBtn')
     table.insert(t_btn_name, 'cashShopBtn')
+    table.insert(t_btn_name, 'shopBtn')
     
     -- visible이 켜진 버튼들 리스트
     local l_btn_list = {}
@@ -2695,7 +2689,7 @@ end
 function UI_Lobby:update_bottomRightButtons()
     local vars = self.vars
     local t_btn_name = {}
-    local l_content = {'forest', 'clan','shop', 'draw', 'etc'}
+    local l_content = {'forest', 'clan', 'research', 'draw', 'etc'}
 
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
