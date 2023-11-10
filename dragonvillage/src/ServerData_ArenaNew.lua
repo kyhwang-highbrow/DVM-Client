@@ -501,6 +501,7 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_state = data['state']
     struct_user_info.m_power = data['power']
     struct_user_info.m_lairStats = data['lair_stats']
+    struct_user_info.m_researchStats = data['research_stats']
     
     if (not data['rank'] and data['rankInfo']) then
         if (not data['rank'] and data['rankInfo']['rank']) then
@@ -1111,6 +1112,9 @@ function ServerData_ArenaNew:makeDragonToken()
 
     -- 라테아 
     token = token .. g_lairData:getLairStatsStringData()
+
+    -- 연구
+    token = token .. g_researchData:getResearchStatsStringData()
 
     --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))

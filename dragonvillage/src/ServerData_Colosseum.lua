@@ -121,6 +121,7 @@ function ServerData_Colosseum:refresh_matchList(l_match_list)
             struct_user_info.m_leaderDragonObject = StructDragonObject(v['leader'])
             struct_user_info.m_tier = v['tier']
             struct_user_info.m_lairStats = v['lair_stats']
+            struct_user_info.m_researchStats = data['research_stats']
 
             -- 콜로세움 유저 정보
             struct_user_info.m_rp = v['rp']
@@ -814,6 +815,9 @@ function ServerData_Colosseum:makeDragonToken()
 
     -- 라테아 
     token = token .. g_lairData:getLairStatsStringData()
+
+    -- 연구
+    token = token .. g_researchData:getResearchStatsStringData()
 
     --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))

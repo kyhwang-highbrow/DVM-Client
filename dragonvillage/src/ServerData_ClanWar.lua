@@ -443,6 +443,7 @@ function ServerData_ClanWar:makeEnemyUserInfo(data)
     struct_user_info.m_rp = data['rp']
     struct_user_info.m_matchResult = data['match']
     struct_user_info.m_lairStats = data['lair_stats']
+    struct_user_info.m_researchStats = data['research_stats']
     
     struct_user_info:applyRunesDataList(data['runes'])
     struct_user_info:applyDragonsDataList(data['dragons'])
@@ -570,6 +571,9 @@ function ServerData_ClanWar:makeDragonToken()
 
     -- 라테아 
     token = token .. g_lairData:getLairStatsStringData()
+
+    -- 연구
+    token = token .. g_researchData:getResearchStatsStringData()
 
     --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))

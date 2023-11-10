@@ -56,8 +56,12 @@ StructDragonObject = class({
         dragon_skin = 'number',
 
         ----------------------------------------------
-        -- 드래곤 축복 버프
+        -- 드래곤 축복 능력치
         lair_stats = 'List<numebr>',
+
+        ----------------------------------------------
+        -- 드래곤 연구 능력치
+        research_stats = 'List<numebr>',
 
         ----------------------------------------------
         -- 지울 것들
@@ -78,6 +82,7 @@ function StructDragonObject:init(data)
     self.rlv = 0
     self.m_mRuneObjects = nil
     self.lair_stats = {}
+    self.research_stats = {}
 
     if data then
         self:applyTableData(data)
@@ -341,7 +346,6 @@ function StructDragonObject:getMasterySkillStatus(game_mode)
     return l_add_status, l_multi_status
 end
 
-
 -------------------------------------
 -- function getLairStatus
 -------------------------------------
@@ -366,6 +370,48 @@ function StructDragonObject:getLairStatus()
         local buff_value = v['buff_value']
         local t_option = t_option_instance:get(buff_type)
     
+        if (t_option) then
+            local status_type = t_option['status']
+            if (status_type) then
+                if (t_option['action'] == 'multi') then
+                    if (not l_multi_status[status_type]) then
+                        l_multi_status[status_type] = 0
+                    end
+                    l_multi_status[status_type] = l_multi_status[status_type] + buff_value
+                elseif (t_option['action'] == 'add') then
+                    if (not l_add_status[status_type]) then
+                        l_add_status[status_type] = 0
+                    end
+                    l_add_status[status_type] = l_add_status[status_type] + buff_value
+                end
+            end
+        end
+    end
+
+    return l_add_status, l_multi_status
+end
+
+-------------------------------------
+-- function getResearchStatus
+-------------------------------------
+function StructDragonObject:getResearchStatus()
+    local l_research_status_ids = {}
+    local doid = self['id']
+    
+    -- 내꺼는 전역에서 버프 정보를 얻어옴
+    if doid ~= nil and g_dragonsData:getDragonDataFromUidRef(doid) ~= nil then
+        l_research_status_ids = g_researchData:getResearchStats()
+    else --상대방꺼는 세팅된 정보로 얻어옴
+        l_research_status_ids = self.research_stats or {}
+    end
+
+    local buffs = TableResearch:getInstance():getAccumulatedBuffList(l_research_status_ids)
+    local l_add_status = {}
+    local l_multi_status = {}
+    local t_option_instance = TableOption()
+
+    for buff_type, buff_value in pairs(buffs) do
+        local t_option = t_option_instance:get(buff_type)
         if (t_option) then
             local status_type = t_option['status']
             if (status_type) then

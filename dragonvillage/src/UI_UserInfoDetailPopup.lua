@@ -538,6 +538,7 @@ function UI_UserInfoDetailPopup:click_dragonInfoBtn()
     local dragon_object = StructDragonObject(self.m_tUserInfo['leader'])
     dragon_object['id'] = nil
     dragon_object.lair_stats = self.m_tUserInfo['lair_stats']
+    dragon_object.research_stats = self.m_tUserInfo['research_stats']
     UI_SimpleDragonInfoPopup(dragon_object)
 end
 

@@ -178,6 +178,7 @@ function StructUserInfoArenaNew:createUserInfo(t_data)
     user_info.m_rp = t_data['rp']
     user_info.m_state = t_data['state']
     user_info.m_lairStats = t_data['lair_stats']
+    user_info.m_researchStats = t_data['research_stats']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     
@@ -205,6 +206,7 @@ function StructUserInfoArenaNew:init()
     self.m_straight = 0
     self.m_state = 0
     self.m_lairStats = {}
+    self.m_researchStats = {}
 
     self.m_matchScore = 0
 

@@ -19,6 +19,7 @@ StructUserInfo = class({
         m_tamerPosX = 'float',
         m_tamerPosY = 'float',
         m_lairStats = 'List<number>', -- 라테아 스탯
+        m_researchStats = 'List<number>', -- 연구 스탯
 
         -- 드래곤, 룬
         m_dragonsObject = 'StructDragonObject',
@@ -43,6 +44,7 @@ function StructUserInfo:init(data)
     self.m_dragonsObject = {}
     self.m_runesObject = {}
     self.m_lairStats = {}
+    self.m_researchStats = {}
 
     if data then
         self:applyTableData(data)
@@ -62,6 +64,7 @@ function StructUserInfo:applyTableData(data)
     replacement['lv'] = 'm_lv'
     replacement['leader_dragon_object'] = 'm_leaderDragonObject'
     replacement['lair_stats'] = 'm_lairStats'
+    replacement['research_stats'] = 'm_researchStats'
     
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
@@ -118,6 +121,9 @@ function StructUserInfo:applyDragonsDataList(l_data)
             
             -- 축복 추가 능력치 적용
             struct_dragon_object.lair_stats = self.m_lairStats
+
+            -- 연구 추가 능력치 적용
+            struct_dragon_object.research_stats = self.m_researchStats
 
             local doid = v['id']
             self.m_dragonsObject[doid] = struct_dragon_object
@@ -349,11 +355,19 @@ function StructUserInfo:getStructClan()
 end
 
 -------------------------------------
--- function getLairStats
--- @breif
+--- @function getLairStats
+--- @breif 축복 능력치
 -------------------------------------
 function StructUserInfo:getLairStats()
     return self.m_lairStats
+end
+
+-------------------------------------
+--- @function getResearchStats
+--- @breif 연구 능력치
+-------------------------------------
+function StructUserInfo:getResearchStats()
+    return self.m_researchStats
 end
 
 -------------------------------------

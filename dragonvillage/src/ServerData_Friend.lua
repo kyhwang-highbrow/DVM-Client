@@ -726,7 +726,7 @@ function ServerData_Friend:setDragonsList()
         local t_dragon_info = t_friend_info.m_leaderDragonObject
         local doid = t_dragon_info['id']
         t_dragon_info['lair_stats'] = v.m_lairStats
-        
+        t_dragon_info['research_stats'] = v.m_researchStats
         self.m_lFriendDragonsList[doid] = t_dragon_info
     end
 end

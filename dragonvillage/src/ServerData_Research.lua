@@ -17,6 +17,33 @@ function ServerData_Research:init(server_data)
 end
 
 -------------------------------------
+--- @function getResearchStats
+-------------------------------------
+function ServerData_Research:getResearchStats()
+    return self.m_lastResearchIdList
+end
+
+-------------------------------------
+--- @function getResearchStatsString
+-------------------------------------
+function ServerData_Research:getResearchStatsStringData()
+    local str = ''
+    local list = {}
+    for _, research_id in ipairs(self.m_lastResearchIdList) do
+        local id = math_floor(research_id/10000)
+        if id > 0 then            
+            table.insert(list, research_id)
+        end
+    end
+
+    if #list == 0 then
+        return ''
+    end
+
+    return table.concat(list, ',')
+end
+
+-------------------------------------
 --- @function getLastResearchId
 -------------------------------------
 function ServerData_Research:getLastResearchId(type)

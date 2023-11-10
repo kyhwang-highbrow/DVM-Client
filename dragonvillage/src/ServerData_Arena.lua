@@ -290,6 +290,7 @@ function ServerData_Arena:makeMatchUserInfo(data)
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
     struct_user_info.m_lairStats = data['lair_stats']
+    struct_user_info.m_researchStats = data['research_stats']
 
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = data['rp']
@@ -788,6 +789,9 @@ function ServerData_Arena:makeDragonToken()
 
     -- 라테아 
     token = token .. g_lairData:getLairStatsStringData()
+
+    -- 연구
+    token = token .. g_researchData:getResearchStatsStringData()
 
     --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))

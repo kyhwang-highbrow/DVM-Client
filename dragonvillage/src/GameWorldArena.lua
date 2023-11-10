@@ -403,9 +403,7 @@ end
 function GameWorldArena:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
     local user_info = g_gameScene:getStructUserInfo_Player()
-
-    local t_pvp_deck = user_info:getPvpDeck()
-    local lair_stats = user_info:getLairStats()
+    local t_pvp_deck = user_info:getPvpDeck()    
     local l_deck = user_info:getDeck_dragonList(true)
     local formation = t_pvp_deck['formation']
     local formation_lv = t_pvp_deck['formationlv']

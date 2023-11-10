@@ -41,6 +41,7 @@ function StructUserInfoFriend:create(t_data)
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     user_info.m_arenaTier = t_data['debris']['tier'] and t_data['debris']['tier'] or 'beginner'
     user_info.m_lairStats = t_data['lair_stats']
+    user_info.m_researchStats = t_data['research_stats']
 
     -- 친구 드래곤 룬 세팅
     user_info.m_leaderDragonObject:setRuneObjects(t_data['runes'])

@@ -286,6 +286,7 @@ function ServerData_FriendMatch:refresh_playerUserInfo(l_deck)
     struct_user_info.m_nickname = g_userData:get('nick')
     struct_user_info.m_lv = g_userData:get('lv')
     struct_user_info.m_lairStats = g_lairData:getLairStats()
+    struct_user_info.m_researchStats = g_researchData:getResearchStats()
     self.m_playerUserInfo = struct_user_info
 
     -- 덱 설정
@@ -342,6 +343,7 @@ function ServerData_FriendMatch:refresh_matchList(match_info)
     struct_user_info.m_leaderDragonObject = StructDragonObject(match_info['leader'])
     struct_user_info.m_tier = match_info['tier']
     struct_user_info.m_lairStats = match_info['lair_stats']
+    struct_user_info.m_researchStats = match_info['research_stats']
 
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = match_info['rp']
@@ -373,6 +375,7 @@ function ServerData_FriendMatch:refresh_matchList_Arena(match_info)
     struct_user_info.m_rank = match_info['rank']
     struct_user_info.m_rankPercent = match_info['rate']
     struct_user_info.m_lairStats = match_info['lair_stats']
+    struct_user_info.m_researchStats = match_info['research_stats']
 
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = match_info['rp']
@@ -415,6 +418,9 @@ function ServerData_FriendMatch:makeDragonToken()
     
     -- 라테아 
     token = token .. g_lairData:getLairStatsStringData()
+    
+    -- 연구
+    token = token .. g_researchData:getResearchStatsStringData()
 
     --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
