@@ -36,15 +36,23 @@ end
 -- function makeResearchIdList
 -------------------------------------
 function UI_ResearchConfirmPopup:makeResearchIdList(research_id, view_type)
+    local research_type = TableResearch:getInstance():getResearchType(research_id)
     if view_type == 'view' then
         self.m_researchIdList = {research_id}
         self.m_researchCostMap = {}
         local item_id = TableResearch:getInstance():getResearchCostItemId(research_id)
-        local cost = TableResearch:getInstance():getResearchCost(research_id)
-        self.m_researchCostMap[item_id] = cost
+        local is_available = g_researchData:isAvailableResearchId(research_id)
+        local last_research_id = g_researchData:getLastResearchId(research_type) 
+        
+        if is_available == false and research_id > last_research_id then
+            local _, cost_map  = g_researchData:getResearchIdList(research_id, research_type)
+            self.m_researchCostMap = cost_map
+        else
+            local cost = TableResearch:getInstance():getResearchCost(research_id)
+            self.m_researchCostMap[item_id] = cost
+        end
     else
-        local research_type = TableResearch:getInstance():getResearchType(research_id)
-        local item_list, cost_map  = g_researchData:getAvailableResearchIdList(research_id, research_type)
+        local item_list, cost_map  = g_researchData:getAvailableResearchIdList(research_type, research_id)
         self.m_researchIdList = item_list
         self.m_researchCostMap = cost_map
     end

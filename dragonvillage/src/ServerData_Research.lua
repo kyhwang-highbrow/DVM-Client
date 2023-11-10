@@ -14,8 +14,6 @@ function ServerData_Research:init(server_data)
     self.m_serverData = server_data
     self.m_lastResearchIdList = {}
     self.m_availableResearchIdList = {}
-
-
 end
 
 -------------------------------------
@@ -81,7 +79,7 @@ end
 --- @function getAvailableResearchIdList
 --- @return list, map
 -------------------------------------
-function ServerData_Research:getAvailableResearchIdList(_last_research_id, type)
+function ServerData_Research:getAvailableResearchIdList(type, _last_research_id)
     local begin_research_id = self:getLastResearchId(type)
     local all_list = TableResearch:getInstance():getIdListByType(type)
     local last_research_id = _last_research_id or all_list[#all_list]
@@ -110,11 +108,38 @@ function ServerData_Research:getAvailableResearchIdList(_last_research_id, type)
 end
 
 -------------------------------------
+--- @function getResearchIdList
+--- @return list, map
+-------------------------------------
+function ServerData_Research:getResearchIdList(_last_research_id, type)
+    local begin_research_id = self:getLastResearchId(type)
+    local all_list = TableResearch:getInstance():getIdListByType(type)
+    local last_research_id = _last_research_id or all_list[#all_list]
+    local result_list = {}
+    local cost_sum_map = {}
+
+    for research_id = begin_research_id + 1, last_research_id do
+        local cost = TableResearch:getInstance():getResearchCost(research_id)        
+        local cost_item_id = TableResearch:getInstance():getResearchCostItemId(research_id)        
+
+        if cost_sum_map[cost_item_id] == nil then
+            cost_sum_map[cost_item_id] = 0
+        end
+
+        local cost_sum = cost_sum_map[cost_item_id] + cost
+        table.insert(result_list, research_id)
+        cost_sum_map[cost_item_id] = cost_sum
+    end
+
+    return result_list, cost_sum_map
+end
+
+-------------------------------------
 --- @function calcAvailableLastResearchId
 --- @brief 사용 가능한 researchId 계산
 -------------------------------------
 function ServerData_Research:calcAvailableLastResearchId(research_type)
-    local id_list, _ = self:getAvailableResearchIdList(nil, research_type)
+    local id_list, _ = self:getAvailableResearchIdList(research_type)
     local last_available_research_id = #id_list > 0 and id_list[#id_list] or 0
 
     local t_data = {['last_id'] = last_available_research_id, ['cost'] = self:getUserRearchItemSum()}
