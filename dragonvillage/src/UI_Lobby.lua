@@ -2101,7 +2101,7 @@ end
 -- function click_researchBtn
 -------------------------------------
 function UI_Lobby:click_researchBtn()
-    local ui = UI_Research()
+    UINavigator:goTo('research')
 end
 
 -------------------------------------
