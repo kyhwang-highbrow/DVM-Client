@@ -1335,6 +1335,10 @@ function UI_Lobby:update_highlight()
     do -- 축복 
         vars['lairNotiSprite']:setVisible(g_lairData:isAvailableRegisterDragons())
     end
+
+    do -- 연구
+        vars['researchNotiSprite']:setVisible(g_researchData:isAvailableResearch())
+    end
 end
 
 -------------------------------------

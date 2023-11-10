@@ -137,6 +137,20 @@ function ServerData_Research:isAvailableResearchId(research_id)
 end
 
 -------------------------------------
+--- @function isAvailableResearch
+--- @return boolean 현재 연구가 가능한지?
+-------------------------------------
+function ServerData_Research:isAvailableResearch()
+    for _, last_research_id in ipairs(self.m_lastResearchIdList) do
+        local check_research_id = last_research_id + 1
+        if self:isAvailableResearchId(check_research_id) == true then
+            return true
+        end
+    end
+    return false
+end
+
+-------------------------------------
 --- @function getResearchCostSumMap
 --- @return map
 -------------------------------------
