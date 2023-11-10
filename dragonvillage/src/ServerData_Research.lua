@@ -28,19 +28,13 @@ end
 -------------------------------------
 function ServerData_Research:getResearchStatsStringData()
     local str = ''
-    local list = {}
-    for _, research_id in ipairs(self.m_lastResearchIdList) do
-        local id = math_floor(research_id/10000)
-        if id > 0 then            
-            table.insert(list, research_id)
+    for idx = 1,2 do
+        local research_id = self:getLastResearchId(idx)
+        if research_id % 10000 > 0 then
+            str = str .. ',' ..tostring(research_id)
         end
     end
-
-    if #list == 0 then
-        return ''
-    end
-
-    return table.concat(list, ',')
+    return str
 end
 
 -------------------------------------
