@@ -68,7 +68,24 @@ function UI_ResearchConfirmPopup:initUI()
             vars['priceNode']:removeAllChildren()
             vars['priceNode']:addChild(price_icon)            
             vars['priceLabel']:setString(comma_value(price_value))
+
+            if g_researchData:getUserRearchItem(item_id) < price_value then
+                vars['priceLabel']:setString(string.format('{@RED}%s{@}', comma_value(price_value)))
+            else
+                vars['priceLabel']:setString(comma_value(price_value))
+            end
+
             break
+        end
+    end
+
+    do -- 버튼
+        if self.m_viewType == 'view' then
+            vars['okBtn']:setBlockMsg('')
+            vars['okBtn']:setEnabled(false)
+        else
+            vars['okBtn']:setBlockMsg(nil)
+            vars['okBtn']:setEnabled(true)
         end
     end
 end
@@ -107,11 +124,25 @@ function UI_ResearchConfirmPopup:initButton()
         self:click_upgradeBtn()
     end)
 end
+--[[ 
+-------------------------------------
+--- @function isEnoughCost
+-- @boolean number
+-------------------------------------
+function UI_ResearchConfirmPopup:isEnoughCost()
+    for item_id, need_cost in pairs(self.m_researchCostMap) do
+        if need_cost > g_researchData:getUserRearchItem(item_id) then
+            return false
+        end
+    end
+    return true
+end ]]
 
 -------------------------------------
 --- @function refresh
 -------------------------------------
 function UI_ResearchConfirmPopup:refresh()
+    local vars = self.vars
 end
 
 -------------------------------------
@@ -126,8 +157,7 @@ function UI_ResearchConfirmPopup:click_upgradeBtn()
     local research_id = self.m_researchIdList[#self.m_researchIdList]
     local price = table.getFirst(self.m_researchCostMap)
 
-    UIManager:toastNotificationGreen('개발 중입니다.')
-   --g_researchData:request_researchUpgrade(research_id, price, success_cb)
+   g_researchData:request_researchUpgrade(research_id, price, success_cb)
 end
 
 -------------------------------------

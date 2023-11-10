@@ -5,7 +5,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 --------------------------------------------------------------------------
 UI_ResearchItem = class(PARENT, {
     m_researchId = 'number',
-    m_type = 'number',
+    m_researchType = 'number',
 })
 
 --------------------------------------------------------------------------
@@ -13,8 +13,8 @@ UI_ResearchItem = class(PARENT, {
 --------------------------------------------------------------------------
 function UI_ResearchItem:init(data)
     self.m_researchId = data
-    self.m_type = TableResearch:getInstance():getResearchType(data)
-    self:load(string.format('research_item_%d.ui', self.m_type))
+    self.m_researchType = TableResearch:getInstance():getResearchType(data)
+    self:load(string.format('research_item_%d.ui', self.m_researchType))
     self:initUI()
     self:initButton()
     self:refresh()
@@ -56,4 +56,24 @@ end
 --------------------------------------------------------------------------
 function UI_ResearchItem:refresh()
     local vars = self.vars
+    local last_research_id = g_researchData:getLastResearchId(self.m_researchType)
+
+
+    -- 잠금해제가 가능한 상태
+    local is_unlock_available = g_researchData:isAvailableResearchId(self.m_researchId)
+
+    -- 잠금된 상태
+    local is_locked = self.m_researchId > last_research_id and is_unlock_available == false
+    vars['lockSprite']:setVisible(is_locked)
+
+    -- 해제 상태 - 완료 체크
+    local is_unlocked = self.m_researchId <= last_research_id
+
+
+--[[     cclog('is_unlocked', is_unlocked, self.m_researchId, last_research_id)
+    ccdump(g_researchData.m_lastResearchIdList)
+    while true do end ]]
+
+
+    vars['clearSprite']:setVisible(is_unlocked)
 end

@@ -3,22 +3,24 @@
 -------------------------------------
 ServerData_Research = class({
     m_serverData = 'ServerData',
-    m_lastResearchIdList = 'List<number>'
+    m_lastResearchIdList = 'List<number>',
+    m_availableResearchIdList = 'List<number>',
 })
 
 -------------------------------------
 --- @function init
 -------------------------------------
 function ServerData_Research:init(server_data)
-    self.m_serverData = server_data    
+    self.m_serverData = server_data
     self.m_lastResearchIdList = {}
+    self.m_availableResearchIdList = {}
 end
 
 -------------------------------------
 --- @function getLastResearchId
 -------------------------------------
 function ServerData_Research:getLastResearchId(type)
-    return self.m_lastResearchIdList[type] or type*10000
+    return self.m_lastResearchIdList[type] or (type * 10000)
 end
 
 -------------------------------------
@@ -27,6 +29,21 @@ end
 -------------------------------------
 function ServerData_Research:getUserRearchItem(item_id)
     return g_userData:get('research_item', tostring(item_id)) or 0
+end
+
+-------------------------------------
+--- @function getUserRearchItemSum
+--- @return number
+-------------------------------------
+function ServerData_Research:getUserRearchItemSum()
+    local item_id_list = {705091}
+    local sum = 0
+
+    for _, item_id in ipairs(item_id_list) do
+        sum = sum + self:getUserRearchItem(item_id)
+    end
+    
+    return 0
 end
 
 -------------------------------------
@@ -41,7 +58,7 @@ function ServerData_Research:getAvailableResearchIdList(_last_research_id, type)
     local cost_sum_map = {}
 
     for research_id = begin_research_id + 1, last_research_id do
-        local cost = TableResearch:getInstance():getResearchCost(research_id)
+        local cost = TableResearch:getInstance():getResearchCost(research_id)        
         local cost_item_id = TableResearch:getInstance():getResearchCostItemId(research_id)
         local user_item_count = self:getUserRearchItem(cost_item_id)
 
@@ -59,6 +76,35 @@ function ServerData_Research:getAvailableResearchIdList(_last_research_id, type)
     end
 
     return result_list, cost_sum_map
+end
+
+-------------------------------------
+--- @function calcAvailableLastResearchId
+--- @brief 사용 가능한 researchId 계산
+-------------------------------------
+function ServerData_Research:calcAvailableLastResearchId(research_type)
+    local id_list, cost_map = self:getAvailableResearchIdList(nil, research_type)
+    local last_available_research_id = id_list[#id_list]
+
+    local t_data = {['last_id'] = last_available_research_id, ['cost'] = self:getUserRearchItemSum()}
+    self.m_availableResearchIdList[research_type] = t_data
+end
+
+-------------------------------------
+--- @function isAvailableResearchId
+--- @return boolean 현재 보유한 비용으로 사용이 가능한지?
+-------------------------------------
+function ServerData_Research:isAvailableResearchId(research_id)
+    local research_type = TableResearch:getInstance():getResearchType(research_id)
+    local t_data = self.m_availableResearchIdList[research_type]
+
+    if t_data == nil or t_data['cost'] ~= self:getUserRearchItemSum() then
+        self:calcAvailableLastResearchId(research_type)
+        t_data = self.m_availableResearchIdList[research_type]
+    end
+
+    local available_research_id = t_data['last_id']
+    return available_research_id > research_id
 end
 
 -------------------------------------
@@ -86,7 +132,7 @@ function ServerData_Research:response_researchInfo(ret)
         local t_research = ret['research']['r']
         if t_research ~= nil then
             for idx = 1,2 do
-                self.m_lastResearchIdList[idx] = t_research[tostring(idx)] or 0
+                self.m_lastResearchIdList[idx] = t_research[tostring(idx)] or idx*10000
             end
         end
     end
@@ -102,8 +148,7 @@ function ServerData_Research:request_researchInfo(finish_cb, fail_cb)
     -- 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
-        self:response_researchInfo(ret)
-
+        self:response_researchInfo(ret)        
         if finish_cb then
             finish_cb(ret)
         end
@@ -145,6 +190,34 @@ function ServerData_Research:request_researchUpgrade(research_id, price, finish_
     ui_network:setParam('id', research_id)
     ui_network:setParam('price', price)
 
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:hideBGLayerColor()
+    ui_network:request()
+end
+
+-------------------------------------
+--- @function request_researchReset
+--- @brief 리셋
+-------------------------------------
+function ServerData_Research:request_researchReset(finish_cb, fail_cb)
+    local uid = g_userData:get('uid')    
+
+    -- 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+        self.m_lastResearchIdList = {}
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/research/reset')
+    ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

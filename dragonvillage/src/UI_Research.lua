@@ -43,6 +43,8 @@ end
 -------------------------------------
 function UI_Research:initUI()
     local vars = self.vars
+    vars['resetBtn']:setVisible(IS_TEST_MODE() == true)
+
 end
 
 -------------------------------------
@@ -51,6 +53,10 @@ end
 -------------------------------------
 function UI_Research:initButton()
     local vars = self.vars
+
+    vars['resetBtn']:registerScriptTapHandler(function() 
+        self:click_resetBtn()
+    end)
 end
 
 -------------------------------------
@@ -68,8 +74,9 @@ function UI_Research:makeTableView()
 
     for type = 1,2 do
         local str = string.format('list%dNode', type)
-        local item_list = TableResearch:getInstance():getIdListByType(type)
+        vars[str]:removeAllChildren()
 
+        local item_list = TableResearch:getInstance():getIdListByType(type)
         local table_view = UIC_TableView(vars[str])
         table_view.m_defaultCellSize = cc.size(120, 200)
         table_view:setCellUIClass(UI_ResearchItem, create_func)
@@ -77,8 +84,9 @@ function UI_Research:makeTableView()
         table_view:setItemList(item_list)
 
         self.m_researchTableViewList[type] = table_view
-        table_view:update(0)
-        table_view:relocateContainerFromIndex(0)
+
+        --table_view:update(0)
+        --table_view:relocateContainerFromIndex(0)
     end
 end
 
@@ -94,11 +102,48 @@ end
 function UI_Research:click_infoBtn(research_id)
     local research_type = TableResearch:getInstance():getResearchType(research_id)
     local last_research_id = g_researchData:getLastResearchId(research_type)
-    if research_id <= last_research_id then
+
+    -- 잠금해제가 가능한 상태
+    local is_unlock_available = g_researchData:isAvailableResearchId(research_id)
+
+    -- 잠금된 상태
+    local is_locked = research_id > last_research_id and is_unlock_available == false
+
+    -- 해제 상태 - 완료 체크
+    local is_unlocked = research_id <= last_research_id
+
+    if is_unlocked == true then
+        UI_ResearchConfirmPopup(research_id, 'view')
+    elseif is_locked == true then
         UI_ResearchConfirmPopup(research_id, 'view')
     else
-        UI_ResearchConfirmPopup(research_id)
+        local ui = UI_ResearchConfirmPopup(research_id)
+        ui:setCloseCB(function()
+            if last_research_id ~= g_researchData:getLastResearchId(research_type) then
+                self:makeTableView()
+            end
+        end)
     end
+end
+
+-------------------------------------
+--- @function click_resetBtn
+-------------------------------------
+function UI_Research:click_resetBtn()
+    local success_cb = function()
+        UIManager:toastNotificationGreen('리셋 완료')
+        self:makeTableView()
+        self:refresh()
+    end
+
+
+    local finish_cb = function()
+        g_researchData:request_researchReset(success_cb)
+    end
+    
+
+    local msg = ('연구 초기화 하시겠습니까?')
+    MakeSimplePopup(POPUP_TYPE.OK, msg, finish_cb)
 end
 
 -------------------------------------
