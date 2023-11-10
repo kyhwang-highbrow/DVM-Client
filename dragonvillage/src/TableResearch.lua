@@ -55,7 +55,6 @@ function TableResearch:makeAccumulateBuffMap()
     end
 end
 
-
 -------------------------------------
 ---@function getBuffMapByIdList
 ---@brief 능력치 맵 계산
@@ -124,6 +123,33 @@ function TableResearch:getBuffList(research_id)
 end
 
 -------------------------------------
+---@function getAccumulatedBuffList
+---@brief 누적 능력치 스트링을 통상적으로 사용하는 리스트로 변환하여 반환
+-------------------------------------
+function TableResearch:getAccumulatedBuffList(research_id_list)
+    local buff_map = {}
+    for _, research_id in ipairs(research_id_list) do
+        local str = self.m_accAbilityMap[research_id]
+        if str ~= nil then
+            local buff_str_list = plSplit(str, ',')
+            for _, buff_str in ipairs(buff_str_list) do
+                local list = plSplit(buff_str, ':')
+                if list ~= nil then
+                    local buff_type = list[1]
+                    local buff_value = tonumber(list[2])
+                    if buff_map[buff_type] == nil then
+                        buff_map[buff_type] = buff_value
+                    else
+                        buff_map[buff_type] = buff_map[buff_type] + buff_value
+                    end
+                end
+            end
+        end
+    end
+    return buff_map
+end
+
+-------------------------------------
 ---@function getIdListByType
 ---@brief 타입별 아이디 반환
 -------------------------------------
@@ -189,8 +215,16 @@ end
 -------------------------------------
 function TableResearch:getResearchBuffStr(research_id_list)
     local ret = self:getBuffMapByIdList(research_id_list)
+    return self:getResearchBuffMapToStr(ret)
+end
+
+-------------------------------------
+--- @function getResearchBuffStr
+--- @brief 버프 문자열 반환
+-------------------------------------
+function TableResearch:getResearchBuffMapToStr(buff_map)
     local str = '' 
-    for buff_type, buff_value in pairs(ret) do
+    for buff_type, buff_value in pairs(buff_map) do
         local str_buff = TableOption:getOptionDesc(buff_type, math_abs(buff_value))
         if str_buff ~= nil then
             str = (str == '') and str_buff or str..'\n'..str_buff
@@ -198,3 +232,5 @@ function TableResearch:getResearchBuffStr(research_id_list)
     end
     return str
 end
+
+

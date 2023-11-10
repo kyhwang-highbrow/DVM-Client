@@ -16,7 +16,6 @@ function UI_Research:initParentVariable()
     self.m_subCurrency = 705091  -- 상단 유저 재화 정보 중 서브 재화    
     self.m_titleStr = Str('연구')
     self.m_bUseExitBtn = true -- click_exitBtn()함구 구현이 반드시 필요함
-    --self.m_bShowInvenBtn = true
 end
 
 -------------------------------------
@@ -60,6 +59,10 @@ function UI_Research:initButton()
 
     vars['helpBtn']:registerScriptTapHandler(function() 
         self:click_helpBtn()
+    end)
+
+    vars['statBtn']:registerScriptTapHandler(function() 
+        self:click_statBtn()
     end)
 end
 
@@ -146,12 +149,19 @@ function UI_Research:click_resetBtn()
     end
     
 
-    local msg = ('연구 초기화 하시겠습니까?')
+    local msg = Str('연구 초기화 하시겠습니까?')
     MakeSimplePopup(POPUP_TYPE.OK, msg, finish_cb)
 end
 
 -------------------------------------
--- function click_helpBtn
+--- @function click_statBtn
+-------------------------------------
+function UI_Research:click_statBtn()
+    UI_ResearchAbilityPopup.open()
+end
+
+-------------------------------------
+--- @function click_helpBtn
 -------------------------------------
 function UI_Research:click_helpBtn()
     UI_Help('lair')

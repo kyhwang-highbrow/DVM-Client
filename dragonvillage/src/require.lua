@@ -1831,6 +1831,7 @@ local t_module = {
     'UI_Research',
     'UI_ResearchItem',
     'UI_ResearchConfirmPopup',
+    'UI_ResearchAbilityPopup',
 }
 
 -------------------------------------

@@ -125,6 +125,15 @@ function ServerData_Research:getResearchCostSumMap(begin_research_id, last_resea
 end
 
 -------------------------------------
+--- @function getMyResearchAbilityMap
+--- @return table 현재 보유한 능력치 맵
+-------------------------------------
+function ServerData_Research:getMyResearchAbilityMap()
+    local list = TableResearch:getInstance():getAccumulatedBuffList(self.m_lastResearchIdList)
+    return list
+end
+
+-------------------------------------
 --- @function response_researchInfo
 -------------------------------------
 function ServerData_Research:response_researchInfo(ret)
@@ -177,7 +186,7 @@ function ServerData_Research:request_researchUpgrade(research_id, price, finish_
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
-        
+
         self:response_researchInfo(ret)
 
         if finish_cb then
