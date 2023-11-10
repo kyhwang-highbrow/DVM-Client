@@ -124,6 +124,10 @@ end
 --- @return boolean 현재 보유한 비용으로 사용이 가능한지?
 -------------------------------------
 function ServerData_Research:isAvailableResearchId(research_id)
+    if TableResearch:getInstance():exists(research_id) == false then
+        return false
+    end
+
     local research_type = TableResearch:getInstance():getResearchType(research_id)
     local t_data = self.m_availableResearchIdList[research_type]
 
