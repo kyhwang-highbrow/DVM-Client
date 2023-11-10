@@ -14,6 +14,8 @@ function ServerData_Research:init(server_data)
     self.m_serverData = server_data
     self.m_lastResearchIdList = {}
     self.m_availableResearchIdList = {}
+
+
 end
 
 -------------------------------------
@@ -72,7 +74,7 @@ function ServerData_Research:getUserRearchItemSum()
         sum = sum + self:getUserRearchItem(item_id)
     end
     
-    return 0
+    return sum
 end
 
 -------------------------------------
@@ -129,10 +131,8 @@ function ServerData_Research:isAvailableResearchId(research_id)
     end
 
     local research_type = TableResearch:getInstance():getResearchType(research_id)
-    local last_research_id = self:getLastResearchId(research_type)
-    local t_data = self.m_availableResearchIdList[research_type]
-
-
+    local last_research_id = self:getLastResearchId(research_type)    
+    local t_data = self.m_availableResearchIdList[research_type]    
 
     if t_data == nil or t_data['cost'] ~= self:getUserRearchItemSum() then
         self:calcAvailableLastResearchId(research_type)
@@ -148,7 +148,8 @@ end
 --- @return boolean 현재 연구가 가능한지?
 -------------------------------------
 function ServerData_Research:isAvailableResearch()
-    for _, last_research_id in ipairs(self.m_lastResearchIdList) do
+    for type = 1,2  do
+        local last_research_id = self:getLastResearchId(type)
         local check_research_id = last_research_id + 1
         if self:isAvailableResearchId(check_research_id) == true then
             return true
@@ -236,7 +237,7 @@ function ServerData_Research:request_researchUpgrade(research_id, price, finish_
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
-
+        g_highlightData:setDirty(true)
         self:response_researchInfo(ret)
 
         if finish_cb then
@@ -270,7 +271,9 @@ function ServerData_Research:request_researchReset(finish_cb, fail_cb)
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
+        g_highlightData:setDirty(true)
         self.m_lastResearchIdList = {}
+        self.m_availableResearchIdList = {}
         if finish_cb then
             finish_cb(ret)
         end
