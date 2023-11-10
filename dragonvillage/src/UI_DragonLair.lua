@@ -254,7 +254,6 @@ function UI_DragonLair:click_autoReloadBtn()
 end
  ]]
 
-
 -------------------------------------
 -- function click_helpBtn
 -------------------------------------

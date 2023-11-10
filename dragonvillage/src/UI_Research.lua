@@ -57,6 +57,10 @@ function UI_Research:initButton()
     vars['resetBtn']:registerScriptTapHandler(function() 
         self:click_resetBtn()
     end)
+
+    vars['helpBtn']:registerScriptTapHandler(function() 
+        self:click_helpBtn()
+    end)
 end
 
 -------------------------------------
@@ -150,7 +154,7 @@ end
 -- function click_helpBtn
 -------------------------------------
 function UI_Research:click_helpBtn()
-    --UI_Help('lair')
+    UI_Help('lair')
 end
 
 -------------------------------------

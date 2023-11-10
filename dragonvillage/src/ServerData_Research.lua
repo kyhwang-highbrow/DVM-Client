@@ -176,6 +176,8 @@ function ServerData_Research:request_researchUpgrade(research_id, price, finish_
     -- 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+        
         self:response_researchInfo(ret)
 
         if finish_cb then
