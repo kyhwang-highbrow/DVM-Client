@@ -58,9 +58,9 @@ function UI_ResearchItem:refresh()
     local vars = self.vars
     local last_research_id = g_researchData:getLastResearchId(self.m_researchType)
 
-
     -- 잠금해제가 가능한 상태
     local is_unlock_available = g_researchData:isAvailableResearchId(self.m_researchId)
+    vars['notiSprite']:setVisible(is_unlock_available)
 
     -- 잠금된 상태
     local is_locked = self.m_researchId > last_research_id and is_unlock_available == false
@@ -68,12 +68,5 @@ function UI_ResearchItem:refresh()
 
     -- 해제 상태 - 완료 체크
     local is_unlocked = self.m_researchId <= last_research_id
-
-
---[[     cclog('is_unlocked', is_unlocked, self.m_researchId, last_research_id)
-    ccdump(g_researchData.m_lastResearchIdList)
-    while true do end ]]
-
-
     vars['clearSprite']:setVisible(is_unlocked)
 end

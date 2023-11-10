@@ -978,7 +978,6 @@ function ServerData_Stage:makeDragonToken(deckname)
 
     -- 연구
     token = token .. g_researchData:getResearchStatsStringData()
-    cclog('token', g_researchData:getResearchStatsStringData())
 
     --cclog('token = ' .. token)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
