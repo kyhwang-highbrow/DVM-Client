@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_Research = class(PARENT,{
     m_researchTableViewList = 'List<TableView>',
+    m_researchIdList = 'List<List<number>>',
 })
 
 -------------------------------------
@@ -72,6 +73,7 @@ end
 function UI_Research:makeTableView()
     local vars = self.vars
     self.m_researchTableViewList = {}
+    self.m_researchIdList = {}
     -- 생성 콜백
     local function create_func(ui, data)
         ui.vars['infoBtn']:registerScriptTapHandler(function()
@@ -91,6 +93,7 @@ function UI_Research:makeTableView()
         table_view:setItemList(item_list)
 
         self.m_researchTableViewList[type] = table_view
+        self.m_researchIdList[type] = item_list
         local select_idx = (g_researchData:getLastResearchId(type) + 1) % 10000
 
         table_view:update(0)
@@ -98,10 +101,29 @@ function UI_Research:makeTableView()
     end
 end
 
+--------------------------------------------------------------------------
+-- @function refreshTableView
+--------------------------------------------------------------------------
+function UI_Research:refreshTableView()
+    local refresh_func = function(t_data, data)
+        if t_data['ui'] ~= nil then
+            t_data['ui']:refresh()
+        end
+
+        --ccdump(t_data)
+    end
+
+    for type = 1,2 do
+        local item_list = self.m_researchIdList[type]
+        self.m_researchTableViewList[type]:mergeItemList(item_list, refresh_func)
+    end
+end
+
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Research:refresh()
+
 end
 
 -------------------------------------
@@ -128,7 +150,7 @@ function UI_Research:click_infoBtn(research_id)
         local ui = UI_ResearchConfirmPopup(research_id)
         ui:setCloseCB(function()
             if last_research_id ~= g_researchData:getLastResearchId(research_type) then
-                self:makeTableView()
+                self:refreshTableView()
             end
         end)
     end
@@ -155,6 +177,7 @@ function UI_Research:click_resetBtn()
     local msg = Str('연구 정보를 초기화 하시겠습니까?')
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, finish_cb)
 end
+
 
 -------------------------------------
 --- @function click_helpBtn
