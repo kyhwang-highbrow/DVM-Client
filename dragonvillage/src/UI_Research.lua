@@ -97,7 +97,7 @@ function UI_Research:makeTableView()
         local select_idx = (g_researchData:getLastResearchId(type) + 1) % 10000
 
         table_view:update(0)
-        table_view:relocateContainerFromIndex(select_idx)
+        table_view:relocateContainerFromIndex(select_idx, true)
     end
 end
 
