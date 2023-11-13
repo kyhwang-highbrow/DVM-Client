@@ -10,7 +10,8 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import json
 
 from merge.merge import merge
-
+import G_sheet.spread_sheet as spread_sheet
+from util.util_quote import quote_row_dics
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
@@ -20,13 +21,20 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
 
 
 def merge_backup():
-    for merge_config in merge_config_list:
-        patch_sheet_name = merge_config['patch_sheet_name']
-        backup_sheet_name = merge_config['backup_sheet_name']
-        merge_method = merge_config['merge_method']
+    ss_list_sheet = spread_sheet.get_spread_sheet(spreadsheet_id).get_work_sheet('ss_list')    
+    ss_info_list = quote_row_dics(spread_sheet.make_rows_to_dic(ss_list_sheet.get_all_values()))
+    for row in ss_info_list:
+        ss_id = row['ss_id']
+        lang_code = row['lang_code']
+        lang_code_list = lang_code.split(',')
 
-        merge(merge_method, spreadsheet_id, patch_sheet_name, backup_sheet_name, locale_list)
-    
+        for merge_config in merge_config_list:
+            patch_sheet_name = merge_config['patch_sheet_name']
+            backup_sheet_name = merge_config['backup_sheet_name']
+            merge_method = merge_config['merge_method']
+            print('Merge Spread Sheet Id:', ss_id)            
+            merge(merge_method, ss_id, patch_sheet_name, backup_sheet_name, lang_code_list)
+
     print('\n*** 작업이 종료되었습니다.')
 
 

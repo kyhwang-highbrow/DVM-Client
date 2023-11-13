@@ -17,7 +17,6 @@ from util.util_quote import quote_row_dics
 from lang_codes.lang_codes import get_language_code_list
 from lang_codes.lang_codes import get_translation_file_list
 
-
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     lua_table_config = config_json['base_lua_table_config']
@@ -119,12 +118,20 @@ def backup_origin():
 
 
 def make_origin_lua_table():
-    backup_origin()
+    ss_list_sheet = spread_sheet.get_spread_sheet(spreadsheet_id).get_work_sheet('ss_list')
+    ss_id_list = [] #번역 스프레드시트 ID 리스트
     
-    
-    sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
-    for sheet_name in sheet_name_list:
-        work_sheets.append(sheet.get_work_sheet(sheet_name))
+    ss_info_list = quote_row_dics(spread_sheet.make_rows_to_dic(ss_list_sheet.get_all_values()))
+    for row in ss_info_list:
+        ss_id = row['ss_id']
+        ss_id_list.append(ss_id)
+
+    # 정리한 번역 스프레드시트 ID 리스트를 순회하며 필요한 시트 데이터 정리 및 병합
+    work_sheets = [] 
+    for ss_id in ss_id_list:
+        sheet = spread_sheet.get_spread_sheet(ss_id)
+        for sheet_name in sheet_name_list:
+            work_sheets.append(sheet.get_work_sheet(sheet_name))
 
     if not os.path.isdir(make_root):
         os.mkdir(make_root)
@@ -144,7 +151,9 @@ if __name__ == '__main__':
     
     print('\n*** 작업      : 원본 번역 파일을 생성합니다.' 
     +     '\n*** 작업 시트 : [', ', '.join(sheet_name_list), '].')
-    
+
+    backup_origin()
+
     make_origin_lua_table()
 
     os.system('pause')

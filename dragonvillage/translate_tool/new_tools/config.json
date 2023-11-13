@@ -6,7 +6,7 @@
     [
         {
             "patch_sheet_name" : "only_ingame"
-    
+
             ,"backup_sheet_name" : "only_ingame_backup"
     
             ,"upload_method" : "upload_DVM_plain_text"

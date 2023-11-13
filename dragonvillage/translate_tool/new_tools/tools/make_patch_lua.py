@@ -151,20 +151,29 @@ def save_file(file_name, data):
 
 
 def make_delta_lua_table():
-    sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
-    for sheet_name in sheet_name_list:
-        work_sheets.append(sheet.get_work_sheet(sheet_name))
-
     if not os.path.isdir(make_root):
         os.mkdir(make_root)
     
+    ss_list_sheet = spread_sheet.get_spread_sheet(spreadsheet_id).get_work_sheet('ss_list')
+    ss_id_list = [] #번역 스프레드시트 ID 리스트
+    
+    ss_info_list = quote_row_dics(spread_sheet.make_rows_to_dic(ss_list_sheet.get_all_values()))
+    for row in ss_info_list:
+        ss_id = row['ss_id']
+        ss_id_list.append(ss_id)
+
+    # 정리한 번역 스프레드시트 ID 리스트를 순회하며 필요한 시트 데이터 정리 및 병합
+    work_sheets = [] 
+    for ss_id in ss_id_list:
+        sheet = spread_sheet.get_spread_sheet(ss_id)
+        for sheet_name in sheet_name_list:
+            work_sheets.append(sheet.get_work_sheet(sheet_name))
+    
     all_data_list = merge_all_data(work_sheets)
 
-    for index, lua_table_name in enumerate(lua_table_config['make_file_name_list']):
+    for index, lua_table_name in enumerate(make_file_name_list):
         print('Start make delta lua table :', lua_table_name)
-
         lua_table = make_delta_lua(index, all_data_list)
-
         save_file(lua_table_name, lua_table)
 
     print('\n*** 작업이 종료되었습니다.')

@@ -10,11 +10,13 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import datetime
 import json
 
+import G_sheet.spread_sheet as spread_sheet
 from extract.extract import extract
 from sum_data.sum_data import sum_data
 from upload.upload import upload
+import util.util_file as util_file
+from util.util_quote import quote_row_dics
 from lang_codes.lang_codes import get_language_code_list
-
 
 # search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
@@ -23,13 +25,20 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     extract_config_list = config_json['extract_config_list']
     locale_list = get_language_code_list()
 
-
 def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_list):
-    print('Upload start :', spreadsheet_id)    
-    print('Upload method :', upload_method)
+    ss_list_sheet = spread_sheet.get_spread_sheet(spreadsheet_id).get_work_sheet('ss_list')
+    
+    ss_info_list = quote_row_dics(spread_sheet.make_rows_to_dic(ss_list_sheet.get_all_values()))
+    for row in ss_info_list:
+        ss_id = row['ss_id']
+        lang_code = row['lang_code']
+        lang_code_list = lang_code.split(',')        
 
-    # 새로 만들 시트의 헤더입니다.
-    upload(upload_method, patch_sheet_name, backup_sheet_name, spreadsheet_id, all_data_list, locale_list)
+        print('Upload start :', ss_id)    
+        print('Upload method :', upload_method)
+
+        # 새로 만들 시트의 헤더입니다.
+        upload(upload_method, patch_sheet_name, backup_sheet_name, ss_id, all_data_list, lang_code_list)
 
 def extract_text(extract_config):
     date = datetime.datetime.now()
