@@ -43,8 +43,6 @@ end
 -------------------------------------
 function UI_Research:initUI()
     local vars = self.vars
-    vars['resetBtn']:setVisible(IS_TEST_MODE() == true)
-
 end
 
 -------------------------------------
@@ -109,8 +107,6 @@ function UI_Research:refreshTableView()
         if t_data['ui'] ~= nil then
             t_data['ui']:refresh()
         end
-
-        --ccdump(t_data)
     end
 
     for type = 1,2 do

@@ -62,7 +62,7 @@ function UI_GoodsInfo:refresh()
         if isNumber(goods_type) then
             local item_id = goods_type
             local item_type = TableItem():getItemTypeFromItemID(item_id)
-            value = g_userData:get(item_type, tostring(item_id))
+            value = g_userData:get(item_type, tostring(item_id)) or 0
         end
     end
 
