@@ -196,7 +196,7 @@ function UI_AdventureSceneNew:makeUICSortList()
     uic:addSortType(3, Str('지옥'), {color = COLOR['diff_hell'], stroke = 0})
     uic:addSortType(4, Str('불지옥'), {color = COLOR['diff_hellfire'], stroke = 0})
     uic:addSortType(5, Str('심연'), {color = COLOR['diff_abyss_0'], stroke = 0})
-    uic:addSortType(5, Str('심연1'), {color = COLOR['diff_abyss_1'], stroke = 0})
+    uic:addSortType(6, Str('심연1'), {color = COLOR['diff_abyss_1'], stroke = 0})
 
 	self.m_uicSortList = uic
 	self.m_uicSortList:setSortChangeCB(function(sort_type) 
