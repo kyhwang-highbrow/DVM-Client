@@ -298,23 +298,54 @@ end
 
 
 -------------------------------------
--- function directActionStatChange
--- @brief 능력치 정보 갱신
+--- @function directActionStatChange
+--- @brief 능력치 정보 숫자 올라가는 연출
 -------------------------------------
 function UI_DragonInfoBoard:directActionStatChange(label, new_val, is_percent)
     local old_str = label:getString()    
-    old_str = string.gsub(old_str, ',|%%', '')
+    old_str = string.gsub(old_str, '%D', '')
     local old_val = tonumber(old_str)
-
     if old_val == nil then
         old_val = 0
     end
+
+    new_val = string.gsub(new_val, '%D', '')
+    new_val = tonumber(new_val)
 
     local function tween_cb(value, node)
         if is_percent == true then
             label:setString(string.format('%s%%', comma_value(math_floor(value))))
         else
             label:setString(string.format('%s', comma_value(math_floor(value))))
+        end
+    end
+
+    local tween_action = cc.ActionTweenForLua:create(0.2, old_val, new_val, tween_cb)
+    label:stopAllActions()
+    label:runAction(tween_action)
+end
+
+
+-------------------------------------
+--- @function directActionDeltaStatChange
+--- @brief 능력치 정보 숫자 올라가는 연출
+-------------------------------------
+function UI_DragonInfoBoard:directActionDeltaStatChange(label, new_val, is_percent)
+    local old_str = label:getString()    
+    old_str = string.gsub(old_str, '%D', '')
+    local old_val = tonumber(old_str)
+    if old_val == nil then
+        old_val = 0
+    end
+
+    new_val = string.gsub(new_val, '%D', '')
+    new_val = tonumber(new_val)
+
+    local function tween_cb(value, node)
+        if is_percent == true then
+            label:setString(string.format('(+ %s%%)', comma_value(math_floor(value))))
+        else
+            label:setString(string.format('(+ %s)', comma_value(math_floor(value))))
         end
     end
 
@@ -336,19 +367,22 @@ function UI_DragonInfoBoard:setStatInfo(status_calc, stat_key, exclude_stat_key_
     do -- 전체 스탯 라벨/바깥쪽 스탯 라벨
         local str_label = string.format('%s_label', stat_key)        
         total_val = status_calc and status_calc:getFinalStatDisplay(stat_key, is_percent, exclude_stat_key_list) or total_val
-        vars[str_label]:setString( total_val)
+        self:directActionStatChange(vars[str_label], total_val, is_percent)
+        vars[str_label]:setString(total_val)
     end
 
     do -- 증가분 스탯 라벨
         local str_label = string.format('%s_label2', stat_key)
         local stat_val = status_calc and status_calc:getDeltaStatDisplay(exclude_stat_key_list, stat_key) or total_val
+        self:directActionDeltaStatChange(vars[str_label], total_val, is_percent)
         vars[str_label]:setString(stat_val)
     end
 
     do -- 바깥쪽 스탯 라벨
         local str_label = string.format('%s_label3', stat_key)
+        local real_total_val = status_calc and status_calc:getFinalStatDisplay(stat_key, is_percent) or total_val
         if vars[str_label] ~= nil then
-            vars[str_label]:setString(total_val)
+            vars[str_label]:setString(real_total_val)
         end
     end
 
