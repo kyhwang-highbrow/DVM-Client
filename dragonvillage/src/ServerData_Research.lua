@@ -168,6 +168,27 @@ function ServerData_Research:isAvailableResearchId(research_id)
     return available_research_id >= research_id and research_id > last_research_id
 end
 
+
+-------------------------------------
+--- @function getAvailableLastResearchId
+--- @brief 사용 가능한 researchId 계산
+-------------------------------------
+function ServerData_Research:getAvailableLastResearchId(research_type)
+    local t_data = self.m_availableResearchIdList[research_type]
+
+    if t_data == nil or t_data['cost'] ~= self:getUserRearchItemSum() then
+        self:calcAvailableLastResearchId(research_type)
+        t_data = self.m_availableResearchIdList[research_type]
+    end
+
+    local available_research_id = t_data['last_id']
+    return available_research_id
+end
+
+
+
+
+
 -------------------------------------
 --- @function isAvailableResearch
 --- @return boolean 현재 연구가 가능한지?

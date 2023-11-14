@@ -92,10 +92,13 @@ function UI_Research:makeTableView()
 
         self.m_researchTableViewList[type] = table_view
         self.m_researchIdList[type] = item_list
-        local select_idx = (g_researchData:getLastResearchId(type) + 1) % 10000
+
+        local select_idx_1 = (g_researchData:getLastResearchId(type) + 1) % 10000
+        local select_idx_2 = (g_researchData:getAvailableLastResearchId(type)) % 10000
+        local select_idx = select_idx_2 > select_idx_1 and select_idx_2 or select_idx_1
 
         table_view:update(0)
-        table_view:relocateContainerFromIndex(select_idx, true)
+        table_view:relocateContainerFromIndex(select_idx)
     end
 end
 
@@ -169,9 +172,13 @@ function UI_Research:click_resetBtn()
         UIManager:toastNotificationRed('현재까지 연구 정보가 없습니다.')
         return
     end
-    
-    local msg = Str('연구 정보를 초기화 하시겠습니까?')
-    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, finish_cb)
+
+    -- 다이아 3000개
+    local need_count = 3000
+    local msg = Str('연구 정보 초기화')
+    local submsg = Str('연구 정보를 초기화 하시겠습니까?')
+    local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, finish_cb)
+    ui:setPrice('cash', need_count)
 end
 
 
