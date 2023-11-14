@@ -240,14 +240,35 @@ end
 -------------------------------------
 -- function getDeltaStatDisplay
 -------------------------------------
-function StatusCalculator:getDeltaStatDisplay(stat_type, use_percent)
+function StatusCalculator:getDeltaStatDisplay(stat_key_list, stat_type, use_percent)
     local indivisual_status = self.m_lStatusList[stat_type]
     if (not indivisual_status) then
         error('stat_type : ' .. stat_type)
     end
 
     local basic_stat = indivisual_status:getBasicStat()
-    local final_stat = indivisual_status:getFinalStat()
+    local final_stat = indivisual_status:getExcludedFinalStat(stat_key_list)
+    local dt_stat = comma_value(math_floor(final_stat - basic_stat))
+
+    if (use_percent) then
+        return string.format('(+ %s%%)', dt_stat)
+    else
+        return string.format('(+ %s)', dt_stat)
+    end
+end
+
+-------------------------------------
+--- @function getDeltaExcludedStatDisplay
+--- @brief 특정 능력치를 제외한 델타 스탯
+-------------------------------------
+function StatusCalculator:getDeltaExcludedStatDisplay(stat_key_list, stat_type, use_percent)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+    
+    local basic_stat = indivisual_status:getFinalStat()
+    local final_stat = indivisual_status:getExcludedFinalStat(stat_key_list)
     local dt_stat = comma_value(math_floor(final_stat - basic_stat))
 
     if (use_percent) then
@@ -260,7 +281,7 @@ end
 -------------------------------------
 -- function getFinalStat
 -------------------------------------
-function StatusCalculator:getFinalStat(stat_type, is_power) 
+function StatusCalculator:getFinalStat(stat_type, is_power)
     local indivisual_status = self.m_lStatusList[stat_type]
     if (not indivisual_status) then
         error('stat_type : ' .. stat_type)
@@ -287,11 +308,44 @@ function StatusCalculator:getFinalStat(stat_type, is_power)
     return final_stat
 end
 
+
+-------------------------------------
+--- @function getExcludedFinalStat
+--- @brief 특정 능력치 제외
+-------------------------------------
+function StatusCalculator:getExcludedFinalStat(stat_type, is_power, exclude_stat_key_list)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    local stat_key_list = exclude_stat_key_list or {}
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    local is_new_power = is_power == true and USE_NEW_COMBAT_POWER_CALC or false
+    local final_stat = is_new_power == true and indivisual_status:getFinalStat_ExcludeMastery() or indivisual_status:getExcludedFinalStat(stat_key_list)
+
+    -- 공속(aspd)값은 최소값을 50으로 고정
+    if (stat_type == 'aspd') then
+        final_stat = math_max(final_stat, 50)
+    elseif (stat_type == 'dmg_adj_rate') then
+        final_stat = math_max(final_stat, -80)
+    elseif (stat_type == 'guard_rear') then
+        final_stat = math_clamp(final_stat, 0, 100)
+
+    -- 특정 타입의 스텟들은 제외한 나머지는 최소값을 0으로 처리
+    elseif (not M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then
+        final_stat = math_max(final_stat, 0)
+    end
+
+    if (is_new_power) then final_stat = math.max(final_stat, 0) end
+
+    return final_stat
+end
+
 -------------------------------------
 -- function getFinalStatDisplay
 -------------------------------------
-function StatusCalculator:getFinalStatDisplay(stat_type, use_percent)
-    local stat_value = self:getFinalStat(stat_type)
+function StatusCalculator:getFinalStatDisplay(stat_type, use_percent, exclude_stat_key_list)
+    local stat_value = self:getExcludedFinalStat(stat_type, false, exclude_stat_key_list)
     local stat_str = comma_value(math_floor(stat_value))
     if (use_percent) then
         return string.format('%s%%', stat_str)
@@ -301,11 +355,11 @@ function StatusCalculator:getFinalStatDisplay(stat_type, use_percent)
 end
 
 -------------------------------------
--- function makePrettyPercentage
--- @brief 능력치 퍼센트를 예쁘게 계산한 프로그레스 액션 생성
+--- @function makePrettyPercentage
+--- @brief 능력치 퍼센트를 예쁘게 계산한 프로그레스 액션 생성
 -------------------------------------
-function StatusCalculator:makePrettyPercentage(key)
-	local src = self:getFinalStat(key)
+function StatusCalculator:makePrettyPercentage(key, exclude_stat_key_list)
+	local src = self:getExcludedFinalStat(key, false, exclude_stat_key_list)
 	local half = g_constant:get('UI', 'HALF_STAT', key)
 	local max = g_constant:get('UI', 'MAX_STAT', key)
 	
@@ -727,6 +781,43 @@ function StatusCalculator:addLairMulti(stat_type, value)
     end
 end
 
+
+-------------------------------------
+-- function addResearchAdd
+-------------------------------------
+function StatusCalculator:addResearchAdd(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    -- 특정 타입의 스텟들은 무조건 곱연산
+    if (M_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+        indivisual_status:addResearchMulti(value)
+    else
+        indivisual_status:addResearchAdd(value)
+    end
+end
+
+-------------------------------------
+-- function addLairMulti
+-- @brief
+-------------------------------------
+function StatusCalculator:addResearchMulti(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    -- 특정 타입의 스텟들은 무조건 합연산
+    if (M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then
+        indivisual_status:addResearchAdd(value)
+    else
+        indivisual_status:addResearchMulti(value)
+    end
+end
+
+
 -------------------------------------
 -- function addFormationAdd
 -- @brief
@@ -1035,11 +1126,11 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
     do
         local l_add_status, l_multi_status = t_dragon_data:getResearchStatus()
         for stat_type,value in pairs(l_add_status) do
-            status_calc:addLairAdd(stat_type, value)
+            status_calc:addResearchAdd(stat_type, value)
         end
 
         for stat_type,value in pairs(l_multi_status) do
-            status_calc:addLairMulti(stat_type, value)
+            status_calc:addResearchMulti(stat_type, value)
         end
     end
 

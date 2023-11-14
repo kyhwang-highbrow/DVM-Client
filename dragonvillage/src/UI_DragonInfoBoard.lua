@@ -7,8 +7,8 @@ UI_DragonInfoBoard = class(PARENT,{
         m_dragonObject = '',
 
         m_bIsBlockedPopup = 'boolean', -- UI_DragonInfoBoard를 통해 추가적인 팝업이 뜨지 않도록
-
         m_bSimpleMode = 'boolean',
+        m_checkBoxList = 'List<string>', -- 전투력 보기 체크박스
 
         m_bRuneInfoPopup = 'boolean',
         m_bIsMyDragon = 'boolean',
@@ -20,6 +20,7 @@ UI_DragonInfoBoard = class(PARENT,{
 function UI_DragonInfoBoard:init(is_simple_mode)
     self.m_bIsBlockedPopup = is_simple_mode or false
     self.m_bIsMyDragon = false
+    self.m_checkBoxList = {'lair'}
 
     local vars = self:load('dragon_info_board.ui')
     
@@ -51,6 +52,16 @@ function UI_DragonInfoBoard:initButton()
     vars['equipSlotBtn4']:registerScriptTapHandler(function() self:click_runeBtn(4) end)
     vars['equipSlotBtn5']:registerScriptTapHandler(function() self:click_runeBtn(5) end)
     vars['equipSlotBtn6']:registerScriptTapHandler(function() self:click_runeBtn(6) end)
+
+    for _, v in ipairs(self.m_checkBoxList) do
+        local btn_str = string.format('check%sAbilityBtn', v)
+        local sprite_str = string.format('check%sAbilitySprite', v)
+
+        if vars[btn_str] ~= nil and vars[sprite_str] ~= nil then
+		    vars[btn_str] = UIC_CheckBox(vars[btn_str].m_node, vars[sprite_str], true)
+		    vars[btn_str]:registerScriptTapHandler(function() self:click_checkAbilityBtn(v) end)
+        end
+	end
 end
 
 -------------------------------------
@@ -178,9 +189,9 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
         vars['runeVisual'..i]:setVisible(false)
     end
 
-    self:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
+    self:refresh_dragonSkillsInfo(t_dragon_data)
     self:refresh_icons(t_dragon_data)
-    self:refresh_status(t_dragon_data, t_dragon)
+    self:refresh_status(t_dragon_data)
     self:refresh_dragonRunes(t_dragon_data)
 end
 
@@ -188,7 +199,7 @@ end
 -- function refresh_dragonSkillsInfo
 -- @brief 드래곤 스킬 정보 갱신
 -------------------------------------
-function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
+function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data)
     local vars = self.vars
 
     -- 슬라임일 경우
@@ -270,39 +281,100 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data)
 end
 
 -------------------------------------
+--- @function getExcludeStatKeyList
+--- @brief 제외할 능력치 리스트 얻어옴
+-------------------------------------
+function UI_DragonInfoBoard:getExcludeStatKeyList()
+    local vars = self.vars
+    local stat_key_list = {}
+    for _, stat_key in ipairs(self.m_checkBoxList) do
+        local btn_str = string.format('check%sAbilityBtn',stat_key)
+        if vars[btn_str]:isChecked() == false then
+            table.insert(stat_key_list, stat_key)
+        end
+	end
+    return stat_key_list
+end
+
+
+-------------------------------------
+-- function directActionStatChange
+-- @brief 능력치 정보 갱신
+-------------------------------------
+function UI_DragonInfoBoard:directActionStatChange(label, new_val, is_percent)
+    local old_str = label:getString()    
+    old_str = string.gsub(old_str, ',|%%', '')
+    local old_val = tonumber(old_str)
+
+    if old_val == nil then
+        old_val = 0
+    end
+
+    local function tween_cb(value, node)
+        if is_percent == true then
+            label:setString(string.format('%s%%', comma_value(math_floor(value))))
+        else
+            label:setString(string.format('%s', comma_value(math_floor(value))))
+        end
+    end
+
+    local tween_action = cc.ActionTweenForLua:create(0.2, old_val, new_val, tween_cb)
+    label:stopAllActions()
+    label:runAction(tween_action)
+end
+
+
+-------------------------------------
+-- function setStatInfo
+-- @brief 능력치 정보 갱신
+-------------------------------------
+function UI_DragonInfoBoard:setStatInfo(status_calc, stat_key, exclude_stat_key_list)
+    local vars = self.vars
+    local is_percent = TableStatus():isPercentValue(stat_key)
+    local total_val = '0'
+
+    do -- 전체 스탯 라벨/바깥쪽 스탯 라벨
+        local str_label = string.format('%s_label', stat_key)        
+        total_val = status_calc and status_calc:getFinalStatDisplay(stat_key, is_percent, exclude_stat_key_list) or total_val
+        vars[str_label]:setString( total_val)
+    end
+
+    do -- 증가분 스탯 라벨
+        local str_label = string.format('%s_label2', stat_key)
+        local stat_val = status_calc and status_calc:getDeltaStatDisplay(exclude_stat_key_list, stat_key) or total_val
+        vars[str_label]:setString(stat_val)
+    end
+
+    do -- 바깥쪽 스탯 라벨
+        local str_label = string.format('%s_label3', stat_key)
+        if vars[str_label] ~= nil then
+            vars[str_label]:setString(total_val)
+        end
+    end
+
+    do -- 게이지 처리        
+        local str_gauge = string.format('%s_gauge', stat_key)
+        if vars[str_gauge] ~= nil then
+            local percent = status_calc and status_calc:makePrettyPercentage(stat_key, exclude_stat_key_list) or 0
+            vars[str_gauge]:runAction(cc.ProgressTo:create(0.2, percent * 100))
+        end
+    end
+end
+
+-------------------------------------
 -- function refresh_status
 -- @brief 능력치 정보 갱신
 -------------------------------------
-function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
+function UI_DragonInfoBoard:refresh_status(t_dragon_data)
     local vars = self.vars
+    local l_stat = {'hp', 'atk', 'def', 'aspd', 'cri_chance', 'cri_dmg', 'hit_rate', 'avoid', 'cri_avoid', 'accuracy', 'resistance'}
 
     -- 슬라임인지 드래곤인지 여부
     local is_slime_object = (t_dragon_data.m_objectType == 'slime')
     if is_slime_object then
-        vars['atk_label']:setString('0')
-        vars['aspd_label']:setString('0')
-        vars['cri_chance_label']:setString('0')
-        vars['def_label']:setString('0')
-        vars['hp_label']:setString('0')
-        vars['cri_avoid_label']:setString('0')
-        vars['avoid_label']:setString('0')
-        vars['hit_rate_label']:setString('0')
-        vars['cri_dmg_label']:setString('0')
-		
-		vars['hp_label3']:setString(0)
-        vars['atk_label3']:setString(0)
-        vars['def_label3']:setString(0)
-        vars['aspd_label3']:setString(0)
-        vars['cri_chance_label3']:setString(0)
-        vars['cri_dmg_label3']:setString(0)
-
-        local dr = 0.2
-        vars['hp_gauge']:runAction(cc.ProgressTo:create(dr, 0))
-        vars['atk_gauge']:runAction(cc.ProgressTo:create(dr, 0))
-        vars['def_gauge']:runAction(cc.ProgressTo:create(dr, 0))
-        vars['aspd_gauge']:runAction(cc.ProgressTo:create(dr, 0))
-        vars['cri_chance_gauge']:runAction(cc.ProgressTo:create(dr, 0))
-        vars['cri_dmg_gauge']:runAction(cc.ProgressTo:create(dr, 0))
+        for _, stat_key in ipairs(l_stat) do
+            self:setStatInfo(nil, stat_key)
+        end
 
         if vars['cp_label'] then
             vars['cp_label']:setString('0')
@@ -310,77 +382,15 @@ function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
         return
     end
 
+    -- 스탯 계산
+    local exclude_stat_key_list = self:getExcludeStatKeyList()
+
     -- 능력치 계산기
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
-    -- 모든 스탯 계산
-    local use_percent = true
-
-    local hp = status_calc:getFinalStatDisplay('hp')
-    local atk = status_calc:getFinalStatDisplay('atk')
-    local def = status_calc:getFinalStatDisplay('def')
-    local aspd = status_calc:getFinalStatDisplay('aspd', use_percent)
-    local cri_chance = status_calc:getFinalStatDisplay('cri_chance', use_percent)
-    local cri_dmg = status_calc:getFinalStatDisplay('cri_dmg', use_percent)
-    local hit_rate = status_calc:getFinalStatDisplay('hit_rate')
-    local avoid = status_calc:getFinalStatDisplay('avoid')
-    local cri_avoid = status_calc:getFinalStatDisplay('cri_avoid')
-    local accuracy = status_calc:getFinalStatDisplay('accuracy')
-    local resistance = status_calc:getFinalStatDisplay('resistance')
-
-    -- detail node : final stat
-    do
-        vars['hp_label']:setString(hp)
-        vars['atk_label']:setString(atk)
-        vars['def_label']:setString(def)
-        vars['aspd_label']:setString(aspd)
-        vars['cri_chance_label']:setString(cri_chance)
-        vars['cri_dmg_label']:setString(cri_dmg)
-        vars['hit_rate_label']:setString(hit_rate)
-        vars['avoid_label']:setString(avoid)
-        vars['cri_avoid_label']:setString(cri_avoid)
-        vars['accuracy_label']:setString(accuracy)
-        vars['resistance_label']:setString(resistance)
+    for _, stat_key in ipairs(l_stat) do
+        self:setStatInfo(status_calc, stat_key, exclude_stat_key_list)
     end
-    
-    -- detail node : rune stat delta
-    do
-        local dt_hp = status_calc:getDeltaStatDisplay('hp')
-        local dt_atk = status_calc:getDeltaStatDisplay('atk')
-        local dt_def = status_calc:getDeltaStatDisplay('def')
-        local dt_aspd = status_calc:getDeltaStatDisplay('aspd', use_percent)
-        local dt_cri_chance = status_calc:getDeltaStatDisplay('cri_chance', use_percent)
-        local dt_cri_dmg = status_calc:getDeltaStatDisplay('cri_dmg', use_percent)
-        local dt_hit_rate = status_calc:getDeltaStatDisplay('hit_rate')
-        local dt_avoid = status_calc:getDeltaStatDisplay('avoid')
-        local dt_cri_avoid = status_calc:getDeltaStatDisplay('cri_avoid')
-        local dt_accuracy = status_calc:getDeltaStatDisplay('accuracy')
-        local dt_resistance = status_calc:getDeltaStatDisplay('resistance')
-
-        vars['hp_label2']:setString(dt_hp)
-        vars['atk_label2']:setString(dt_atk)
-        vars['def_label2']:setString(dt_def)
-        vars['aspd_label2']:setString(dt_aspd)
-        vars['cri_chance_label2']:setString(dt_cri_chance)
-        vars['cri_dmg_label2']:setString(dt_cri_dmg)
-        vars['hit_rate_label2']:setString(dt_hit_rate)
-        vars['avoid_label2']:setString(dt_avoid)
-        vars['cri_avoid_label2']:setString(dt_cri_avoid)
-        vars['accuracy_label2']:setString(dt_accuracy)
-        vars['resistance_label2']:setString(dt_resistance)
-    end
-
-    -- detail node 2
-    do
-        vars['hp_label3']:setString(hp)
-        vars['atk_label3']:setString(atk)
-        vars['def_label3']:setString(def)
-        vars['aspd_label3']:setString(aspd)
-        vars['cri_chance_label3']:setString(cri_chance)
-        vars['cri_dmg_label3']:setString(cri_dmg)
-    end
-    
-    self:refresh_gauge(status_calc)
 
     if vars['cp_label'] then
         vars['cp_label']:setString(comma_value(t_dragon_data:getCombatPower()))
@@ -423,11 +433,13 @@ function UI_DragonInfoBoard:refresh_gauge(status_calc)
     end
 
     local status_calc = status_calc or MakeDragonStatusCalculator_fromDragonDataTable(self.m_dragonObject)
+    -- 스탯 계산
+    local stat_key_list = self:getExcludeStatKeyList()
 
 	-- stat gauge refresh
 	local l_stat = {'hp', 'atk', 'def', 'aspd', 'cri_chance', 'cri_dmg'}
 	for _, stat_key in ipairs(l_stat) do
-		local percent = status_calc:makePrettyPercentage(stat_key)
+		local percent = status_calc:makePrettyPercentage(stat_key, stat_key_list)
 		vars[stat_key .. '_gauge']:runAction(cc.ProgressTo:create(0.2, percent * 100))
 	end
 end
@@ -444,6 +456,18 @@ function UI_DragonInfoBoard:click_detailBtn()
     -- gauge action
     self:init_gauge()
     self:refresh_gauge()
+end
+
+-------------------------------------
+--- @function click_checkAbilityBtn
+--- @brief 전투력 정보
+-------------------------------------
+function UI_DragonInfoBoard:click_checkAbilityBtn(key)
+    local vars = self.vars
+
+    --self:init_gauge()
+    self:refresh_status(self.m_dragonObject)
+    --self:refresh_gauge()
 end
 
 -------------------------------------

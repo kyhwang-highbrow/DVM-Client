@@ -48,6 +48,9 @@ StructIndividualStatus = class({
         m_lairMulti = '',       -- 축복 곱연산
         m_lairAdd = '',         -- 축복 합연산
 
+        m_researchMulti = '',       -- 연구 곱연산
+        m_researchAdd = '',         -- 연구 합연산
+
         ----------------------------------------------------
 
         ----------------------------------------------------
@@ -107,6 +110,9 @@ function StructIndividualStatus:init(status_name)
 
     self.m_lairMulti = 0       -- 축복 곱연산
     self.m_lairAdd = 0         -- 축복 합연산
+
+    self.m_researchMulti = 0       -- 연구 곱연산
+    self.m_researchAdd = 0         -- 연구 합연산
 
     self.m_t1 = 0
     self.m_bDirtyT1 = true
@@ -220,14 +226,17 @@ function StructIndividualStatus:calcT2()
     -- 특성 능력치
     local mastery_multi = (self.m_masteryMulti / 100)
     
-    local masteryAdd = self.m_masteryAdd
+    --local masteryAdd = self.m_masteryAdd
 
     -- 축복 능력치
     local lair_multi = (self.m_lairMulti / 100)
 
+    -- 연구 능력치
+    local research_multi = (self.m_researchMulti / 100)
+
     -- 능력치 연산
-    local t2 = t1 + (t1 * (rune_multi + passive_multi + mastery_multi + lair_multi)) 
-                        + self.m_runeAdd + self.m_passiveAdd + masteryAdd + self.m_lairAdd
+    local t2 = t1 + (t1 * (rune_multi + passive_multi + mastery_multi + lair_multi + research_multi)) 
+                        + self.m_runeAdd + self.m_passiveAdd + self.m_masteryAdd + self.m_lairAdd + self.m_researchAdd
 
     self.m_t2 = t2
 
@@ -251,10 +260,12 @@ function StructIndividualStatus:calcT2_ExcludeMastery()
     -- 축복 능력치
     local lair_multi = (self.m_lairMulti / 100)
 
+    -- 연구 능력치
+    local research_multi = (self.m_researchMulti / 100)
 
     -- 능력치 연산
-    local t2 = t1 + (t1 * (rune_multi + passive_multi + lair_multi)) 
-                    + self.m_runeAdd + self.m_passiveAdd  + self.m_lairAdd
+    local t2 = t1 + (t1 * (rune_multi + passive_multi + lair_multi + research_multi)) 
+                    + self.m_runeAdd + self.m_passiveAdd  + self.m_lairAdd + self.m_researchAdd
 
     self.m_t2ExcludeMastery = t2
 
@@ -287,6 +298,35 @@ function StructIndividualStatus:getFinalStat()
         self:calcFinalStat()
     end
 
+    return self.m_finalStat
+end
+
+-------------------------------------
+--- @function getExcludedFinalStat
+--- @brief 특정 능력치를 제외한 파이널 스탯
+-------------------------------------
+function StructIndividualStatus:getExcludedFinalStat(stat_key_list)
+    local stat_origin_map = {}
+    for _, stat_key in ipairs(stat_key_list) do
+        local add_str = string.format('m_%sAdd', stat_key)
+        local multi_str = string.format('m_%sMulti', stat_key)
+        if self[add_str] ~= nil and self[multi_str] ~= nil then            
+            stat_origin_map[add_str] = self[add_str]
+            stat_origin_map[multi_str] = self[multi_str]
+            self[add_str] = 0
+            self[multi_str] = 0
+        end
+    end
+
+    self.m_bDirtyT2 = true
+    self:calcFinalStat()
+
+    for key, value in pairs(stat_origin_map) do
+        self[key] = value
+    end
+
+    self.m_bDirtyT2 = true
+    self.m_bDirtyFinalStat = true
     return self.m_finalStat
 end
 
@@ -474,6 +514,21 @@ function StructIndividualStatus:addLairAdd(value)
     self:setDirtyT2()
 end
 
+-------------------------------------
+-- function addResearchMulti
+-------------------------------------
+function StructIndividualStatus:addResearchMulti(value)
+    self.m_researchMulti = (self.m_researchMulti + value)
+    self:setDirtyT2()
+end
+
+-------------------------------------
+-- function addResearchAdd
+-------------------------------------
+function StructIndividualStatus:addResearchAdd(value)
+    self.m_researchAdd = (self.m_researchAdd + value)
+    self:setDirtyT2()
+end
 
 -------------------------------------
 -- function addFormationMulti
@@ -522,3 +577,4 @@ function StructIndividualStatus:addBuffAdd(value)
     self.m_buffAdd = (self.m_buffAdd + value)
     self:setDirtyFinalStat()
 end
+
