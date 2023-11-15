@@ -84,21 +84,32 @@ function GameAuto_Hero:prepare(unit_list)
         self.m_deckName = deck_name
     end
 
-    
     for i, doid in pairs(l_doid_list) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         if t_dragon_data ~= nil then
             self.m_mMainDeck[tonumber(t_dragon_data['did'])] = true
         end
     end
+
+    -- 친구 드래곤 추가
+    local friend_dragon_did = nil
+    for _, dragon in ipairs(self.m_lUnitList) do
+        if self.m_world.m_friendDragon == dragon then
+            local did = dragon:getCharacterId()
+            self.m_mMainDeck[tonumber(did)] = true
+            friend_dragon_did = tonumber(did)
+            break
+        end
+    end
+
     -- 보정 처리
-    self:correctDragSkillLock(self.m_deckName, l_doid_list)
+    self:correctDragSkillLock(self.m_deckName, l_doid_list, friend_dragon_did)
 end
 
 -------------------------------------
 -- function correctDragSkillLock
 -------------------------------------
-function GameAuto_Hero:correctDragSkillLock(deck_name, l_deck)
+function GameAuto_Hero:correctDragSkillLock(deck_name, l_deck, friend_dragon_did)
     local drag_did_list = g_settingData:getAutoDragSkillLockDidList(deck_name)    
     local deck_did_list = {}
     local dirty = false
@@ -108,6 +119,10 @@ function GameAuto_Hero:correctDragSkillLock(deck_name, l_deck)
         if (t_dragon_data) then
             table.insert(deck_did_list, t_dragon_data['did'])
         end
+    end
+
+    if friend_dragon_did ~= nil then
+        table.insert(deck_did_list, friend_dragon_did)
     end
     
     for idx = #drag_did_list, 1 , -1 do
@@ -217,8 +232,7 @@ function GameAuto_Hero:unLockAutoDragSkill(_unit)
     end
 
     local result_used_count = math_max(maxium_count - 1, 0)
-    self.m_mUsedCount[_unit] = result_used_count
-    cclog('사용 횟수 조절 완료', self.m_mUsedCount[_unit])
+    self.m_mUsedCount[_unit] = result_used_count    
 end
 
 -------------------------------------
@@ -237,8 +251,6 @@ function GameAuto_Hero:isAutoDragSkillLocked(unit, t_skill_info)
     if self.m_mMainDeck[did] ~= true then
         return false
     end
-
-
 
     -- 드래그 스킬 여부 체크
     if t_skill_info ~= nil then
