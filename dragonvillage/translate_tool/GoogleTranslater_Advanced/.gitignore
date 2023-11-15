@@ -1,0 +1,8 @@
+# @kwkang 21.11.18 몇몇 필수 파일만 관리
+*
+!tools/
+!tools/*
+!config.json
+!.gitignore
+!*.bat
+!dvc_glossary.csv
