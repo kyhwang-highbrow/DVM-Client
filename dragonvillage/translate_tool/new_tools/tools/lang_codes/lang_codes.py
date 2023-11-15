@@ -32,7 +32,7 @@ def get_language_code_list():
 
     return lang_code_list
 
-# 언어 코드별로 저장할 번역파일명을 담은 딕셔너리(코드명과 번역파일명이 규칙적으로 일치하지 않는 경우가 생기기 때문)
+# 언어 코드별로 저장할 번역파일명을 담은 리스트(코드명과 번역파일명이 규칙적으로 일치하지 않는 경우가 생기기 때문)
 def get_translation_file_list(add_keyword):
     file_list = list()
     dict_file = dict()
@@ -49,6 +49,21 @@ def get_translation_file_list(add_keyword):
         file_list.append(dict_file[lang_code])
 
     return file_list
+
+# 언어 코드별로 저장할 번역파일명을 담은 딕셔너리(코드명과 번역파일명이 규칙적으로 일치하지 않는 경우가 생기기 때문)
+def get_translation_file_dict(add_keyword):
+    dict_file = dict()
+
+    csv_file = open(table_language_config_file, "r", encoding="utf_8", errors="", newline="" )
+    f = csv.DictReader(csv_file, delimiter=",", doublequote=True, lineterminator="\r\n", quotechar='"', skipinitialspace=True)    
+
+    for row in f:
+        trans_file = row["translate_file"]
+        dict_file[row["lang_code"]] = trans_file.replace('translate/', '') + add_keyword + ".lua"
+
+    return dict_file
+
+
 
 if __name__ == '__main__':
     get_language_code_list()

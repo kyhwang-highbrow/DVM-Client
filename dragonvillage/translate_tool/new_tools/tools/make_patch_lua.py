@@ -15,21 +15,19 @@ import re
 import G_sheet.spread_sheet as spread_sheet
 import util.util_file as util_file
 from util.util_quote import quote_row_dics
-from lang_codes.lang_codes import get_language_code_list
-from lang_codes.lang_codes import get_translation_file_list
+from lang_codes.lang_codes import get_translation_file_dict
 
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     lua_table_config = config_json['patch_lua_table_config']
-    make_root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), lua_table_config['make_dir'])
-    locale_list = get_language_code_list()
-    make_file_name_list = get_translation_file_list('_patch')
+    make_root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), lua_table_config['make_dir'])    
 
-    compare_root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), lua_table_config['compare_dir'])
-    compare_file_name_list = get_translation_file_list('')
+    compare_root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), lua_table_config['compare_dir'])    
     spreadsheet_id = config_json['spreadsheet_id']
     sheet_name_list = lua_table_config['sheet_name_list']
+
+    make_patch_file_name_dict = get_translation_file_dict("_patch")
 
 print ("make directory :", make_root)
 sheet = None
@@ -44,13 +42,12 @@ def convert(data_list):
         arr.append("['" + data[0] + "']='" + data[1] + "'")
 
     text = text.replace('$', ',\n'.join(arr))
-
     return text
 
 
-def merge_all_data(work_sheets):
+def merge_all_data(work_sheets, locale_list, file_name_list):
     # 워크시트들의 정보를 병합하여 하나의 리스트에 담습니다.
-    all_data_list = [[] for _ in range(len(lua_table_config['make_file_name_list']))]
+    all_data_list = [[] for _ in range(len(file_name_list))]
     
     for work_sheet in work_sheets:
         row_dics = quote_row_dics(spread_sheet.make_rows_to_dic(work_sheet.get_all_values()))
@@ -105,11 +102,11 @@ def compare_data(data_list, data_dic):
             if v == data_dic[k]:
                 continue
         result.append([k, v])
-        print('== Find delta ==')
-        print('Sheet key :', k)
-        print('Sheet val :', v)
-        print('Lua   val :', data_dic[k] if k in data_dic.keys() else 'NO VALUE IN LUA')
-        print('================')
+        # print('== Find delta ==')
+        # print('Sheet key :', k)
+        # print('Sheet val :', v)
+        # print('Lua   val :', data_dic[k] if k in data_dic.keys() else 'NO VALUE IN LUA')
+        # print('================')
 
     return result
 
@@ -132,52 +129,52 @@ def get_lua_to_dic(path):
 
     return result
 
-
-def make_delta_lua(index, all_data_list):
-    compare_data_dic = get_lua_to_dic(os.path.join(compare_root, compare_file_name_list[index]))
-
+def make_delta_lua(index, all_data_list, compare_file_name, lang_code):
+    compare_data_dic = get_lua_to_dic(os.path.join(compare_root, compare_file_name))
     change_data_list = compare_data(all_data_list[index], compare_data_dic)
-    
-    print("Delta lua table text count :", len(change_data_list))
-
+    print_str = "({0})Delta lua table text count :".format(lang_code)
+    print(print_str, len(change_data_list))
     lua_table = convert(change_data_list)
-
     return lua_table
-
 
 def save_file(file_name, data):
     file_path = os.path.join(make_root, file_name)
     util_file.write_file(file_path, data)
 
-
 def make_delta_lua_table():
     if not os.path.isdir(make_root):
         os.mkdir(make_root)
     
-    ss_list_sheet = spread_sheet.get_spread_sheet(spreadsheet_id).get_work_sheet('ss_list')
-    ss_id_list = [] #번역 스프레드시트 ID 리스트
-    
+    idx = 1
+    ss_list_sheet = spread_sheet.get_spread_sheet(spreadsheet_id).get_work_sheet('ss_list')   
     ss_info_list = quote_row_dics(spread_sheet.make_rows_to_dic(ss_list_sheet.get_all_values()))
     for row in ss_info_list:
         ss_id = row['ss_id']
-        ss_id_list.append(ss_id)
+        lang_code = row['lang_code']
+        lang_code_list = lang_code.split(',')
 
-    # 정리한 번역 스프레드시트 ID 리스트를 순회하며 필요한 시트 데이터 정리 및 병합
-    work_sheets = [] 
-    for ss_id in ss_id_list:
+        make_file_name_list = []
+        for lang in lang_code_list:
+            make_file_name_list.append(make_patch_file_name_dict[lang])
+
+        progress_str = 'Make Patch Lua Start({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
+        print(progress_str)
+        idx = idx + 1
+
+        # 정리한 번역 스프레드시트 ID 리스트를 순회하며 필요한 시트 데이터 정리 및 병합
+        work_sheets = []         
         sheet = spread_sheet.get_spread_sheet(ss_id)
         for sheet_name in sheet_name_list:
             work_sheets.append(sheet.get_work_sheet(sheet_name))
-    
-    all_data_list = merge_all_data(work_sheets)
+        
+        all_data_list = merge_all_data(work_sheets, lang_code_list, make_file_name_list)
 
-    for index, lua_table_name in enumerate(make_file_name_list):
-        print('Start make delta lua table :', lua_table_name)
-        lua_table = make_delta_lua(index, all_data_list)
-        save_file(lua_table_name, lua_table)
+        for index, lua_table_name in enumerate(make_file_name_list):
+            compare_file_name = lua_table_name.replace("_patch", "")
+            lua_table = make_delta_lua(index, all_data_list, compare_file_name, lang_code_list[index])
+            save_file(lua_table_name, lua_table)
 
     print('\n*** 작업이 종료되었습니다.')
-
 
 
 if __name__ == '__main__':
