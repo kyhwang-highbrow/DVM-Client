@@ -10,6 +10,8 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import tools.G_sheet.spread_sheet as spread_sheet
 from tools.G_sheet.sheet_option import get_sheet_option
 from tools.util.util_quote import quote
+from lang_codes.lang_codes import get_language_code_list
+
 
 def removeStr(sheet, data_list, header, locale_list): # sheet과 datalist의 값 비교를 통해 중복을 제거한 data_list 반환합니다.
     remove_index = []
@@ -18,6 +20,7 @@ def removeStr(sheet, data_list, header, locale_list): # sheet과 datalist의 값
     for locale in locale_list:
         if locale in header:
             data_text_locale_index[locale] = header.index(locale)
+            
     for row in sheet.get_all_values():
         if row[0] == 'kr':
             row_text_locale_index = {}
@@ -35,9 +38,23 @@ def removeStr(sheet, data_list, header, locale_list): # sheet과 datalist의 값
 
 
 def upload_DVM_plain_text(delta_sheet_name, backup_sheet_name, spreadsheet_id, data_list, locale_list):
-    # 데이터를 KR 값을 이용하여 정렬합니다.
-    data_list.sort(key=lambda line: line[0]) 
+    # 힌트랑 날짜가 찍히지 않아서 찍히도록 수정
+    total_lang_list = get_language_code_list()
+    temp_data_list = []
+    for data in data_list:            
+        temp_data = []
+        temp_data.append(data[0])
+        start_idx = 1 + total_lang_list.index(locale_list[0])
+        for i in range(start_idx, start_idx + len(locale_list)):
+            temp_data.append(data[i])
+        temp_data.append(data[len(data) - 2])
+        temp_data.append(data[len(data) - 1])
+        temp_data_list.append(temp_data)
 
+    # 데이터를 KR 값을 이용하여 정렬합니다.
+    temp_data_list.sort(key=lambda line: line[0]) 
+
+    # 새로 만들 시트의 헤더입니다.
     # 헤더를 생성합니다.
     header = ['kr']
     for locale in locale_list:
@@ -62,7 +79,7 @@ def upload_DVM_plain_text(delta_sheet_name, backup_sheet_name, spreadsheet_id, d
         sheet_option = get_sheet_option('DVM_plain_text', sheet_id, col_size)
         sheet.batch_update(sheet_option)
     else: # 백업 시트가 존재한다면 백업 시트와의 중복 검사 실시
-        data_list = removeStr(backup_sheet, data_list, header, locale_list)
+        temp_data_list = removeStr(backup_sheet, temp_data_list, header, locale_list)
 
     # 데이터 리스트 사이즈를 바탕으로 시트를 작성합니다.
     delta_sheet = sheet.get_work_sheet(delta_sheet_name)
@@ -73,19 +90,19 @@ def upload_DVM_plain_text(delta_sheet_name, backup_sheet_name, spreadsheet_id, d
         delta_sheet = sheet.add_work_sheet(delta_sheet_name, delta_option)
         delta_sheet.insert_row(header, 1, value_input_option='RAW')
     else: # 기존의 뉴시트와 중복 검사
-        data_list = removeStr(delta_sheet, data_list, header, locale_list)
-    
+        temp_data_list = removeStr(delta_sheet, temp_data_list, header, locale_list)
+   
     # 시트에 데이터를 삽입합니다 
     # 시트의 빈 칸이 시작되는 행을 파악해서 넣습니다.
     exist_datas = delta_sheet.get_all_values()
     row_size = len(exist_datas) + 1
     delta_sheet.resize(rows=row_size)
-    if len(data_list) > 0:
-        delta_sheet.insert_rows(data_list, row_size, value_input_option='RAW')
+    if len(temp_data_list) > 0:
+        delta_sheet.insert_rows(temp_data_list, row_size, value_input_option='RAW')
 
     # 시트의 크기를 보기 좋게 조정합니다.
     sheet_id = delta_sheet._properties['sheetId']
     sheet_option = get_sheet_option('DVM_plain_text', sheet_id, col_size)
     sheet.batch_update(sheet_option)
 
-    print('Add text in [', delta_sheet_name, '] :', len(data_list))
+    print('Add text in [', delta_sheet_name, '] :', len(temp_data_list))

@@ -27,18 +27,19 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
 
 def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_list):
     ss_list_sheet = spread_sheet.get_spread_sheet(spreadsheet_id).get_work_sheet('ss_list')
-    
-    ss_info_list = quote_row_dics(spread_sheet.make_rows_to_dic(ss_list_sheet.get_all_values()))
+    ss_info_list = quote_row_dics(spread_sheet.make_rows_to_dic(ss_list_sheet.get_all_values()))    
+
+    idx = 1
     for row in ss_info_list:
         ss_id = row['ss_id']
         lang_code = row['lang_code']
         lang_code_list = lang_code.split(',')        
+        
+        progress_str = 'Upload start({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
+        print(progress_str)
 
-        print('Upload start :', ss_id)    
-        print('Upload method :', upload_method)
-
-        # 새로 만들 시트의 헤더입니다.
-        upload(upload_method, patch_sheet_name, backup_sheet_name, ss_id, all_data_list, lang_code_list)
+        upload(upload_method, patch_sheet_name, backup_sheet_name, ss_id, all_data_list, lang_code_list)        
+        idx = idx + 1
 
 def extract_text(extract_config):
     date = datetime.datetime.now()
@@ -82,6 +83,7 @@ def extract_text(extract_config):
  
     # 하나로 모은 데이터를 구글 스프레드 시트에 작성합니다
     start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_list) 
+    
 
 def extract_text_from_config_lists():    
     for extract_config in extract_config_list:

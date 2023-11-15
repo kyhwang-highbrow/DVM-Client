@@ -148,11 +148,11 @@ def make_origin_lua_table():
 
 if __name__ == '__main__':
     import tools.G_sheet.setup
-    
+    print('\n*** 작업      : 백업 파일을 생성상합니다.' )
+    backup_origin()
+
     print('\n*** 작업      : 원본 번역 파일을 생성합니다.' 
     +     '\n*** 작업 시트 : [', ', '.join(sheet_name_list), '].')
-
-    backup_origin()
 
     make_origin_lua_table()
 

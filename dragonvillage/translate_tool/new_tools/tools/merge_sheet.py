@@ -23,16 +23,21 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
 def merge_backup():
     ss_list_sheet = spread_sheet.get_spread_sheet(spreadsheet_id).get_work_sheet('ss_list')    
     ss_info_list = quote_row_dics(spread_sheet.make_rows_to_dic(ss_list_sheet.get_all_values()))
+
+    idx = 1
     for row in ss_info_list:
         ss_id = row['ss_id']
         lang_code = row['lang_code']
         lang_code_list = lang_code.split(',')
 
+        progress_str = 'Merge start({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
+        print(progress_str)
+        idx = idx + 1
+
         for merge_config in merge_config_list:
             patch_sheet_name = merge_config['patch_sheet_name']
             backup_sheet_name = merge_config['backup_sheet_name']
-            merge_method = merge_config['merge_method']
-            print('Merge Spread Sheet Id:', ss_id)            
+            merge_method = merge_config['merge_method']            
             merge(merge_method, ss_id, patch_sheet_name, backup_sheet_name, lang_code_list)
 
     print('\n*** 작업이 종료되었습니다.')
