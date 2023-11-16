@@ -6,7 +6,9 @@ import shutil
 import zipfile
 import module.md5_log_maker as md5
 import module.utility as utils
+import send_slack_message as slack
 from ui_resource_validator import check_ui_resource_validate
+from ui_resource_validator import check_ui_resource_validate_with_no_pause
 
 # 전역변수
 tar_server = ''
@@ -205,6 +207,12 @@ def copy(src_file, dst_dir):
     print(os.path.isdir(dst_dir))
     shutil.copy(src_file, dst_file)
     os.system(r"NET USE P: /DELETE")
+
+# 슬랙 함수
+def send_slack(msg):
+    str_title_build = '[{0}] {1} 젠킨스 패치'.format(TARGET_SERVER, app_ver)
+    slack.send_slack_message(str_title_build + msg, 'good')
+
     
 # 메인 함수
 def main():
@@ -213,9 +221,15 @@ def main():
     # 전역변수 초기화
     init_global_var()
 
+    #빌드 시작 슬랙 메시지 보내기
+    send_slack('\n빌드 시작!!')
+
     # UI Resource 체크
-    check_ui_resource_validate()
-    
+    is_wrong = check_ui_resource_validate_with_no_pause()
+    if is_wrong == True:
+        str_text = '\n😡😡😡 빌드 실패 by resource validation fail!!'
+        send_slack(str_text)
+
     # 1. 패치정보 받아오기
     latest_patch_ver = get_patch_info(app_ver)
     
@@ -228,6 +242,10 @@ def main():
     if exist_plg_file == False:
         md5.makePatchLog(source_path, latest_plg_path)
         print('ERROR: The latest "plg file" does not exist. : ' + latest_plg_path)
+
+        str_text = '\n😡😡😡 빌드 실패 by ERROR: The latest "plg file" does not exist.' + latest_plg_path
+        send_slack(str_text)
+
         exit(-1)
     else:
         latest_plg_hash = md5.loadPatchLog(latest_plg_path)
@@ -239,6 +257,10 @@ def main():
     if len(new_plg_hash) == 0:
         os.remove(next_plg_path)
         print('# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')')
+
+        str_text = '\n😡😡😡 빌드 실패 by ' + '# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')'
+        send_slack(str_text)
+
         exit(0)
     
     # 4. 패치파일 복사, 압축
@@ -278,9 +300,22 @@ def main():
 
     print('----------------------------------------')
     print('DONE')
+
+    #빌드 종료 슬랙 메시지 보내기
+    zip_size = zip_size/1024*1024
+    str_text = '\n😄😄 빌드 완료 patch {:d}, size {:.2f} MB'.format(new_patch_ver, zip_size)
+
+    #패치 사이즈가 20MB가 넘을 경우 경고
+    if zip_size > 20:
+        str_text = '\n😡😡 패치사이즈 용량 20MB 초과 확인요망'
+
+    send_slack(str_text)
+
+
     print('----------------------------------------')
 
 if __name__ == '__main__':
     print('----------------------------------------')
-    main()
+    #main()
+
     print('----------------------------------------')

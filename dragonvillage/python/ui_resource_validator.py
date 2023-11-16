@@ -54,6 +54,17 @@ def check_ui_resource_validate():
         os.system('pause')
 
 
+def check_ui_resource_validate_with_no_pause():
+    print("# Validate UI resources path")
+
+    search_ui_file(ROOT)
+
+    if IS_WRONG_RESOURCE == True:
+        print('# Check above resources')        
+
+    return IS_WRONG_RESOURCE
+
+
 if __name__ == '__main__':
     check_ui_resource_validate()
          

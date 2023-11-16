@@ -3,7 +3,7 @@ import json
 import module.utility as utils
 
 # 메인 함수
-def send_slack_message(text, ):    
+def send_slack_message(msg, color):    
         # import requests
     utils.install_and_import('requests', globals())
     # print('테스트 슬랙 메시지 전송')
@@ -12,14 +12,12 @@ def send_slack_message(text, ):
         url = "https://hooks.slack.com/services/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"
         header = {'Content-type': 'application/json'}
         icon_emoji = ":slack:"
-        username = "TEST"
+        username = "DVM"
         attachments = [{
-            "color": "good",
-            "text": "😎😎😎\n TEST Message 전송"
+            "color": color,
+            "text": msg
         }]
 
-        data = {"username": username, "attachments": attachments, "icon_emoji": icon_emoji}
-        text = {"text" : "테스트 메시지 전송"}
         params = {
             #"uid" : "MFqooDQK9maoJkK3UzMKQ5zFhLB2",
             #"timestamp" : "0",
