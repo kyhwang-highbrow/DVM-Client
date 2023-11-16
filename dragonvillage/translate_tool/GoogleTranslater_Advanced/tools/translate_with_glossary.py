@@ -13,7 +13,6 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     PROJECT_ID = config_json['project_id']
     GLOSSARY_PREFIX = config_json['glossary_id_prefix']
 
-
 TARGET_LIST_MAP = {}
 DATETIME_STR = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
 
@@ -92,10 +91,46 @@ def translate_text_with_glossary(
 
 
 # 메인 함수
-def main():
-    # 1. input.csv 파일을 읽는다.
+def translate_price_info(text_unique_list):
+    source_list = []    
+    cur_text_size = 0
+
+    for source_text in text_unique_list:        
+        cur_text_size += len(source_text)
+
+    lang_count = 126
+    print('최종 번역 요청 문자 수', cur_text_size)
+    print('최종 번역 요청 문자 수 x 언어 갯수 포함', lang_count, cur_text_size * lang_count)
+
+    total_count = cur_text_size * lang_count
+    total_count = total_count - 500000
+    total_count = (total_count/1000000) * 20
+
+    print('예상 비용', total_count)
+    
+# 메인 함수
+def make_unique_text_list(text_unique_list, column_list):
+        # 1. input.csv 파일을 읽는다.
     f = open('input.csv', 'r', encoding='utf-8')
-    rdr = csv.reader(f)
+    rdr = csv.reader(f)    
+    text_set = set()
+
+    for line in rdr:
+        if column_list is None:
+            column_list = line
+        else:
+            source_text = line[0]            
+            if not source_text in text_set and source_text != '':
+                text_unique_list.append(source_text)
+                text_set.add(source_text)
+
+    f.close()
+    #print(('\n').join(text_unique_list))
+    translate_price_info(text_unique_list)
+    #return text_unique_list
+
+# 메인 함수
+def main():
     column_list = None
     total_source_list = [] # 하나의 리스트에 모든 번역 텍스트 넣은 것
     source_list_list = [] # API 분할 요청 사이즈대로 작게 나눈 리스트를 모은 리스트 
@@ -103,29 +138,42 @@ def main():
     max_text_size = 25000 # 한 번의 API에서 최대로 요청보낼 수 있는 텍스트 사이즈
     cur_text_size = 0
 
-    for line in rdr:
-        if column_list is None:
-            column_list = line
-        else:
-            source_text = line[0]
-            source_list.append(source_text)
-            total_source_list.append(source_text)
+    make_unique_text_list(total_source_list, column_list)
 
-            cur_text_size += len(source_text)
-            # 한 번에 너무 많은 번역은 불가능하다. 이에 따라 한 번에 보낼 수 있는 API 사이즈 정도로 구분한다.
-            # Advanced는 
-            # 1. 한번에 3만자를 요청할 수 있다.
-            # 2. 한 번에 최대 1024 문장 번역을 요청할 수 있다.
-            if (max_text_size <= cur_text_size) or (len(source_list) >= 1024):
-                source_list_list.append(source_list)
-                source_list = []
-                cur_text_size = 0
+    # for line in rdr:
+    #     if column_list is None:
+    #         column_list = line
+    #     else:
+    #         source_text = line[0]
+    #         source_list.append(source_text)
+    #         total_source_list.append(source_text)
+
+    #         cur_text_size += len(source_text)          
+    #         # 한 번에 너무 많은 번역은 불가능하다. 이에 따라 한 번에 보낼 수 있는 API 사이즈 정도로 구분한다.
+    #         # Advanced는 
+    #         # 1. 한번에 3만자를 요청할 수 있다.
+    #         # 2. 한 번에 최대 1024 문장 번역을 요청할 수 있다.
+    #         if (max_text_size <= cur_text_size) or (len(source_list) >= 1024):
+    #             source_list_list.append(source_list)
+    #             source_list = []
+    #             cur_text_size = 0
+
+    for source_text in total_source_list:        
+        source_list.append(source_text)
+        total_source_list.append(source_text)
+
+        cur_text_size += len(source_text)          
+        # 한 번에 너무 많은 번역은 불가능하다. 이에 따라 한 번에 보낼 수 있는 API 사이즈 정도로 구분한다.
+        # Advanced는 
+        # 1. 한번에 3만자를 요청할 수 있다.
+        # 2. 한 번에 최대 1024 문장 번역을 요청할 수 있다.
+        if (max_text_size <= cur_text_size) or (len(source_list) >= 1024):
+            source_list_list.append(source_list)
+            source_list = []
+            cur_text_size = 0
 
     if cur_text_size > 0:
         source_list_list.append(source_list)
-
-    f.close()
-
 
     # 2. 첫 번째 칼럼의 언어 코드를 기준으로 두 번째 칼럼부터 마지막 칼럼까지 번역한다.
     threads = []
@@ -140,11 +188,11 @@ def main():
     for thread in threads:
         thread.join()    
 
-
     # 3. result_{날짜및시간}.csv 파일을 생성하고 종료. (소중한 결과물이 덮어쓰기로 지워지지 않도록 unique한 파일명)
     file_name = 'result_{0}.csv'.format(DATETIME_STR)
     f = open(file_name, 'w', encoding='utf-8', newline='')
     wr = csv.writer(f)
+
     wr.writerow(column_list) # 칼럼 작성
     for i, source_lang in enumerate(total_source_list):
         line = []
