@@ -217,19 +217,29 @@ def send_slack(msg):
 # 메인 함수
 def main():
     global latest_patch_ver
-    
+
     # 전역변수 초기화
     init_global_var()
 
     #빌드 시작 슬랙 메시지 보내기
-    send_slack('\n빌드 시작!!')
+    send_slack('\n빌드 진행 중..')
+    
+    #리소스 유효성 검사
+    os.chdir("../bat")
+    result = os.system('0_PATCH_VALIDATOR.bat')
+    
+    if result == 101:
+        str_text = '\n빌드 실패 by Resource Validation Failed!!' + '😡😡😡'
+        send_slack(str_text)
+        exit(0)
+
+    #패치 파일 만들기
+    os.chdir("../python")
+    os.system('py xor.py')
+    os.system('py xor_data.py')
 
     # UI Resource 체크
-    is_wrong = check_ui_resource_validate_with_no_pause()
-    if is_wrong == True:
-        str_text = '\n😡😡😡 빌드 실패 by resource validation fail!!'
-        send_slack(str_text)
-        exit(-1)
+    check_ui_resource_validate()
 
     # 1. 패치정보 받아오기
     latest_patch_ver = get_patch_info(app_ver)
@@ -244,7 +254,7 @@ def main():
         md5.makePatchLog(source_path, latest_plg_path)
         print('ERROR: The latest "plg file" does not exist. : ' + latest_plg_path)
 
-        str_text = '\n😡😡😡 빌드 실패 by ERROR: The latest "plg file" does not exist.' + latest_plg_path
+        str_text = '\n빌드 실패 by ERROR: The latest "plg file" does not exist.' + latest_plg_path + '😡😡😡'
         send_slack(str_text)
 
         exit(-1)
@@ -259,7 +269,7 @@ def main():
         os.remove(next_plg_path)
         print('# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')')
 
-        str_text = '\n😡😡😡 빌드 실패 by ' + '# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')'
+        str_text = '\n빌드 실패 by ' + '# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')' + '😡😡😡'
         send_slack(str_text)
 
         exit(0)
@@ -308,7 +318,7 @@ def main():
 
     #패치 사이즈가 20MB가 넘을 경우 경고
     if zip_size > 20:
-        str_text = '\n😡😡 패치사이즈 용량 20MB 초과 확인요망'
+        str_text = '\n😡😡😡 패치사이즈 용량 20MB 초과 확인요망'
 
     send_slack(str_text)
 
