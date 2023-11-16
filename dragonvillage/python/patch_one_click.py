@@ -233,7 +233,7 @@ def main():
         send_slack(str_text)
         exit(-1)
 
-    #패치 파일 만들기
+    #패치를 위한 암호화 파일 만들기
     os.chdir("../python")
     os.system('py xor.py')
     os.system('py xor_data.py')
@@ -314,11 +314,11 @@ def main():
 
     #빌드 종료 슬랙 메시지 보내기
     zip_size = zip_size/1024*1024
-    str_text = '\n😄😄 빌드 완료 patch {:d}, size {:.2f} MB'.format(new_patch_ver, zip_size)
+    str_text = '\n빌드 성공 patch {:d}, size {:.2f} MB'.format(new_patch_ver, zip_size) + '😄😄😄'
 
     #패치 사이즈가 20MB가 넘을 경우 경고
     if zip_size > 20:
-        str_text = '\n😡😡😡 패치사이즈 용량 20MB 초과 확인요망'
+        str_text = '\n패치사이즈 용량 20MB 초과 확인요망' + '👿👿👿'
 
     send_slack(str_text)
 
