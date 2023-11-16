@@ -229,6 +229,7 @@ def main():
     if is_wrong == True:
         str_text = '\n😡😡😡 빌드 실패 by resource validation fail!!'
         send_slack(str_text)
+        exit(-1)
 
     # 1. 패치정보 받아오기
     latest_patch_ver = get_patch_info(app_ver)
