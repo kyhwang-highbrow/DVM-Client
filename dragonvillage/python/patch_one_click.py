@@ -231,7 +231,7 @@ def main():
     if result == 101:
         str_text = '\n빌드 실패 by Resource Validation Failed!!' + '😡😡😡'
         send_slack(str_text)
-        exit(0)
+        exit(-1)
 
     #패치 파일 만들기
     os.chdir("../python")
@@ -272,7 +272,7 @@ def main():
         str_text = '\n빌드 실패 by ' + '# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')' + '😡😡😡'
         send_slack(str_text)
 
-        exit(0)
+        exit(-1)
     
     # 4. 패치파일 복사, 압축
     new_patch_ver = latest_patch_ver + 1
