@@ -109,7 +109,7 @@ def translate_price_info(text_unique_list):
     print('예상 비용', total_count)
     
 # 메인 함수
-def make_unique_text_list(text_unique_list, column_list):
+def make_unique_text_list(total_source_list, text_unique_list, column_list):
         # 1. input.csv 파일을 읽는다.
     f = open('input.csv', 'r', encoding='utf-8')
     rdr = csv.reader(f)    
@@ -120,6 +120,7 @@ def make_unique_text_list(text_unique_list, column_list):
             column_list = line
         else:
             source_text = line[0]            
+            total_source_list.append(source_text)
             if not source_text in text_set and source_text != '':
                 text_unique_list.append(source_text)
                 text_set.add(source_text)
@@ -133,12 +134,13 @@ def make_unique_text_list(text_unique_list, column_list):
 def main():
     column_list = None
     total_source_list = [] # 하나의 리스트에 모든 번역 텍스트 넣은 것
+    unique_text_list = []
     source_list_list = [] # API 분할 요청 사이즈대로 작게 나눈 리스트를 모은 리스트 
     source_list = []
     max_text_size = 25000 # 한 번의 API에서 최대로 요청보낼 수 있는 텍스트 사이즈
     cur_text_size = 0
 
-    make_unique_text_list(total_source_list, column_list)
+    make_unique_text_list(total_source_list, unique_text_list, column_list)
 
     # for line in rdr:
     #     if column_list is None:
@@ -158,10 +160,8 @@ def main():
     #             source_list = []
     #             cur_text_size = 0
 
-    for source_text in total_source_list:        
+    for source_text in unique_text_list:        
         source_list.append(source_text)
-        total_source_list.append(source_text)
-
         cur_text_size += len(source_text)          
         # 한 번에 너무 많은 번역은 불가능하다. 이에 따라 한 번에 보낼 수 있는 API 사이즈 정도로 구분한다.
         # Advanced는 
@@ -192,17 +192,40 @@ def main():
     file_name = 'result_{0}.csv'.format(DATETIME_STR)
     f = open(file_name, 'w', encoding='utf-8', newline='')
     wr = csv.writer(f)
-
     wr.writerow(column_list) # 칼럼 작성
-    for i, source_lang in enumerate(total_source_list):
+    lang_dict = dict()
+    for i, source_lang in enumerate(unique_text_list):
         line = []
         line.append(source_lang)
+        line_dict = dict()
         for target_lang in column_list[1:]:
             line.append(TARGET_LIST_MAP[target_lang][i])
+            line_dict[target_lang] = i
+        lang_dict[source_lang] = line_dict
         wr.writerow(line)
             
     print('{0} 생성 완료!'.format(file_name))
     f.close()
+
+    # 4. result_{날짜및시간}.csv 파일을 생성하고 종료. (소중한 결과물이 덮어쓰기로 지워지지 않도록 unique한 파일명)
+    file_name = 'result_{0}_2.csv'.format(DATETIME_STR)
+    f = open(file_name, 'w', encoding='utf-8', newline='')
+    wr = csv.writer(f)
+    wr.writerow(column_list) # 칼럼 작성    
+    for i, source_lang in enumerate(total_source_list):
+        line = []
+        line.append(source_lang)
+        for target_lang in column_list[1:]:
+            idx = lang_dict[source_lang][target_lang]
+            find_text = TARGET_LIST_MAP[target_lang][idx]
+            if find_text is not None:
+                line.append(find_text)
+            else:
+                line.append('')
+        wr.writerow(line)
+    print('{0} 생성 완료!'.format(file_name))
+    f.close()
+
 
 
 if __name__ == '__main__':
