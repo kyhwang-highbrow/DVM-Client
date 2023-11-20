@@ -1,6 +1,7 @@
 {
     "table_language_config_file" : "..\\..\\data\\table_language_config.csv"
     ,"spreadsheet_id" : "1Ydu5g8DNdQEtqMJFYB9OSRGSg9z159L2Gyn8xrSZ0Bs"
+    ,"integration_spreadsheet_id" : "1SaP6WO5ciNcWKBnVSvjy5i9w-3kqmVjGzLXy4z32dE8"
 
     ,"extract_config_list" :
     [
@@ -12,7 +13,7 @@
             ,"upload_method" : "upload_DVM_plain_text"
             
             ,"sum_data_method" : "sum_DVM_plain_text"
-    
+
             ,"extract_method_list": 
             [
                 {
@@ -296,4 +297,16 @@
             }
         ]
     }
+
+
+    ,"make_integration_sheets": 
+    [
+        {
+            "sheet_name" : "only_ingame"
+        }
+        
+        ,{
+            "sheet_name" : "only_scenario"               
+        }
+    ]
 }
