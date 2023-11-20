@@ -1123,7 +1123,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
     end
 
     -- 연구(research) , 삼뉴체크
---[[     do
+     do
         local l_add_status, l_multi_status = t_dragon_data:getResearchStatus()
         for stat_type,value in pairs(l_add_status) do
             status_calc:addResearchAdd(stat_type, value)
@@ -1132,7 +1132,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
         for stat_type,value in pairs(l_multi_status) do
             status_calc:addResearchMulti(stat_type, value)
         end
-    end ]]
+    end
 
     return status_calc
 end

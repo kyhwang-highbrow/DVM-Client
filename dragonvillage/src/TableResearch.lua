@@ -103,7 +103,7 @@ end
 -------------------------------------
 function TableResearch:getAccumulatedBuffList(research_id_list)
     local buff_map = {}
-    for _, research_id in ipairs(research_id_list) do
+    for _, research_id in pairs(research_id_list) do
         local str = self.m_accAbilityMap[research_id]
         if str ~= nil then
             local buff_str_list = plSplit(str, ',')
@@ -198,11 +198,16 @@ end
 --- @brief 버프 문자열 반환
 -------------------------------------
 function TableResearch:getResearchBuffMapToStr(buff_map)
-    local str = '' 
-    for buff_type, buff_value in pairs(buff_map) do
-        local str_buff = TableOption:getOptionDesc(buff_type, math_abs(buff_value))
-        if str_buff ~= nil then
-            str = (str == '') and str_buff or str..'\n'..str_buff
+    local str = ''
+    -- 순서대로 정렬을 위해 리스트를 사용
+    for _, key in ipairs(self.m_buffList) do
+        if buff_map[key] ~= nil then
+            buff_type = key
+            buff_value = buff_map[key]
+            local str_buff = TableOption:getOptionDesc(buff_type, math_abs(buff_value))
+            if str_buff ~= nil then
+                str = (str == '') and str_buff or str..'\n'..str_buff
+            end
         end
     end
     return str
