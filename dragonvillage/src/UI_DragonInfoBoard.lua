@@ -367,7 +367,7 @@ end
 function UI_DragonInfoBoard:setStatInfo(status_calc, stat_key, exclude_stat_key_list)
     local vars = self.vars
     local is_percent = TableStatus():isPercentValue(stat_key)
-    local total_val = '0'
+    local total_val = '0' --
 
     do -- 전체 스탯 라벨/바깥쪽 스탯 라벨
         local str_label = string.format('%s_label', stat_key)        
