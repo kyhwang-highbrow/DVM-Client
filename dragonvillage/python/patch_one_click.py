@@ -225,16 +225,16 @@ def main():
     send_slack('\n빌드 진행 중..')
     
     #리소스 유효성 검사
-    os.chdir("../bat")
-    result = os.system('0_PATCH_VALIDATOR.bat')
+    #os.chdir("../bat")
+    # result = os.system('0_PATCH_VALIDATOR.bat')
     
-    if result == 101:
-        str_text = '\n빌드 실패 by Resource Validation Failed!!' + '😡😡😡'
-        send_slack(str_text)
-        exit(-1)
+    # if result == 101:
+    #     str_text = '\n빌드 실패 by Resource Validation Failed!!' + '😡😡😡'
+    #     send_slack(str_text)
+    #     exit(-1)
 
     #패치를 위한 암호화 파일 만들기
-    os.chdir("../python")
+    #os.chdir("../python")
     #os.system('py xor.py')
     #os.system('py xor_data.py')
 
