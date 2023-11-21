@@ -136,7 +136,7 @@ end
 
 -------------------------------------
 ---@function getResearchIconRes
----@brief 아이콘
+---@brief 아이콘 가져오기
 -------------------------------------
 function TableResearch:getResearchIconRes(research_id)
     for _, buff in ipairs(self.m_buffList) do
