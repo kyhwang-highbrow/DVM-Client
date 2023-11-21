@@ -17,13 +17,13 @@ def makeLuaClassFile(class_name):
     fw.close()
 
 if __name__ == '__main__':
-    print('UI LUA CLASS MAKER'
-    print
-    print('Type class name which you want to make.'
+    print('UI LUA CLASS MAKER')
+    
+    print('Type class name which you want to make.')
 
     class_name = raw_input()
 
     makeLuaClassFile(class_name)
 
-    print('...........Complete'
+    print('...........Complete')
     os.system("PAUSE")

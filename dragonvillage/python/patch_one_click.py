@@ -6,7 +6,9 @@ import shutil
 import zipfile
 import module.md5_log_maker as md5
 import module.utility as utils
+import send_slack_message as slack
 from ui_resource_validator import check_ui_resource_validate
+
 
 # 전역변수
 tar_server = ''
@@ -205,18 +207,40 @@ def copy(src_file, dst_dir):
     print(os.path.isdir(dst_dir))
     shutil.copy(src_file, dst_file)
     os.system(r"NET USE P: /DELETE")
+
+# 슬랙 함수
+def send_slack(msg):
+    str_title_build = '[{0}] {1} 젠킨스 패치'.format(TARGET_SERVER, app_ver)
+    slack.send_slack_message(str_title_build + msg, 'good')
+
     
 # 메인 함수
 def main():
     global latest_patch_ver
-    print('젠킨스 빌드 여기 들어오나??')
-    
+
     # 전역변수 초기화
     init_global_var()
 
+    #빌드 시작 슬랙 메시지 보내기
+    send_slack('\n빌드 진행 중..')
+    
+    #리소스 유효성 검사
+    os.chdir("../bat")
+    result = os.system('0_PATCH_VALIDATOR.bat')
+    
+    if result == 101:
+        str_text = '\n빌드 실패 by Resource Validation Failed!!' + '😡😡😡'
+        send_slack(str_text)
+        exit(-1)
+
+    #패치를 위한 암호화 파일 만들기
+    os.chdir("../python")
+    os.system('py xor.py')
+    os.system('py xor_data.py')
+
     # UI Resource 체크
     check_ui_resource_validate()
-    
+
     # 1. 패치정보 받아오기
     latest_patch_ver = get_patch_info(app_ver)
     
@@ -229,6 +253,10 @@ def main():
     if exist_plg_file == False:
         md5.makePatchLog(source_path, latest_plg_path)
         print('ERROR: The latest "plg file" does not exist. : ' + latest_plg_path)
+
+        str_text = '\n빌드 실패 by ERROR: The latest "plg file" does not exist.' + latest_plg_path + '😡😡😡'
+        send_slack(str_text)
+
         exit(-1)
     else:
         latest_plg_hash = md5.loadPatchLog(latest_plg_path)
@@ -240,7 +268,11 @@ def main():
     if len(new_plg_hash) == 0:
         os.remove(next_plg_path)
         print('# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')')
-        exit(0)
+
+        str_text = '\n빌드 실패 by ' + '# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')' + '😡😡😡'
+        send_slack(str_text)
+
+        exit(-1)
     
     # 4. 패치파일 복사, 압축
     new_patch_ver = latest_patch_ver + 1
@@ -280,6 +312,16 @@ def main():
     print('----------------------------------------')
     print('DONE')
     print('----------------------------------------')
+
+    #빌드 종료 슬랙 메시지 보내기
+    zip_size = zip_size/1024*1024
+    str_text = '\n빌드 성공 patch {:d}, size {:.2f} MB'.format(new_patch_ver, zip_size) + '😄😄😄'
+
+    #패치 사이즈가 20MB가 넘을 경우 경고
+    if zip_size > 20:
+        str_text = '\n패치사이즈 용량 20MB 초과 확인요망' + '👿👿👿'
+
+    send_slack(str_text)
 
 if __name__ == '__main__':
     print('----------------------------------------')
