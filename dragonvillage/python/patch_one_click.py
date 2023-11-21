@@ -235,8 +235,8 @@ def main():
 
     #패치를 위한 암호화 파일 만들기
     os.chdir("../python")
-    os.system('py xor.py')
-    os.system('py xor_data.py')
+    #os.system('py xor.py')
+    #os.system('py xor_data.py')
 
     # UI Resource 체크
     check_ui_resource_validate()
