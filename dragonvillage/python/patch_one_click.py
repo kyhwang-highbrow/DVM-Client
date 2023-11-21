@@ -209,6 +209,7 @@ def copy(src_file, dst_dir):
 # 메인 함수
 def main():
     global latest_patch_ver
+    print('젠킨스 빌드 여기 들어오나??')
     
     # 전역변수 초기화
     init_global_var()
