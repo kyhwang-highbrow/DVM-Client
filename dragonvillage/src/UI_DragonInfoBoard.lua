@@ -20,7 +20,7 @@ UI_DragonInfoBoard = class(PARENT,{
 function UI_DragonInfoBoard:init(is_simple_mode)
     self.m_bIsBlockedPopup = is_simple_mode or false
     self.m_bIsMyDragon = false
-    self.m_checkBoxList = {'lair'}
+    self.m_checkBoxList = {'lair', 'research'}
 
     local vars = self:load('dragon_info_board.ui')
     
@@ -53,6 +53,7 @@ function UI_DragonInfoBoard:initButton()
     vars['equipSlotBtn5']:registerScriptTapHandler(function() self:click_runeBtn(5) end)
     vars['equipSlotBtn6']:registerScriptTapHandler(function() self:click_runeBtn(6) end)
 
+    local check_btn_list = {}
     for _, v in ipairs(self.m_checkBoxList) do
         local btn_str = string.format('check%sAbilityBtn', v)
         local sprite_str = string.format('check%sAbilitySprite', v)
@@ -60,8 +61,12 @@ function UI_DragonInfoBoard:initButton()
         if vars[btn_str] ~= nil and vars[sprite_str] ~= nil then
 		    vars[btn_str] = UIC_CheckBox(vars[btn_str].m_node, vars[sprite_str], true)
 		    vars[btn_str]:registerScriptTapHandler(function() self:click_checkAbilityBtn(v) end)
+
+            table.insert(check_btn_list, vars[btn_str])
         end
 	end
+
+    --AlignUIPos(check_btn_list, 'HORIZONTAL', 'CENTER', 10)
 end
 
 -------------------------------------
