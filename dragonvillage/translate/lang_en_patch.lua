@@ -1,4 +1,6 @@
-return {['숭고한 번개']='Majestic lightning',
+return {['영혼']='Soul',
+['육체']='Body',
+['숭고한 번개']='Majestic lightning',
 ['숭고한 번개 소환권']='Majestic lightning Summon',
 ['숭고한 번개 소환권 1+1개']='1+1\nMajestic lightning Summon',
 ['숭고한 번개 소환권 15+15개']='15+15\nMajestic lightning Summon',
