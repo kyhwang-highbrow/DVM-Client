@@ -64,6 +64,13 @@ function UI_Research:initButton()
     vars['statBtn']:registerScriptTapHandler(function() 
         self:click_statBtn()
     end)
+
+    for idx = 1,2 do
+        local str = string.format('researchAll%dBtn', idx)
+        vars[str]:registerScriptTapHandler(function()
+            self:click_researchAllBtn(idx)
+        end)
+    end
 end
 
 -------------------------------------
@@ -218,6 +225,27 @@ end
 -------------------------------------
 function UI_Research:click_statBtn()
     UI_ResearchAbilityPopup.open()
+end
+
+-------------------------------------
+--- @function click_researchAllBtn
+-------------------------------------
+function UI_Research:click_researchAllBtn(type)
+    local vars = self.vars
+    do -- 능력치 텍스트
+        local last_research_id = g_researchData:getLastResearchId(type)
+        local map = TableResearch:getInstance():getAccumulatedBuffList({last_research_id})
+        local str = TableResearch:getInstance():getResearchBuffMapToStr(map)
+        if str == '' then
+            str = Str('아직 연구 정보가 없습니다.')
+        end
+
+        local tooltip = UI_Tooltip_Skill(0, 0, string.format('{@green}%s', str))
+        if (tooltip) then
+            local btn_str = string.format('researchAll%dBtn', type)
+            tooltip:autoPositioning(vars[btn_str])
+        end
+    end
 end
 
 -------------------------------------
