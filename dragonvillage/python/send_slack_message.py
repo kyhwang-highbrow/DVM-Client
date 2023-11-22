@@ -12,7 +12,7 @@ def send_slack_message(msg, color):
         url = "https://hooks.slack.com/services/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"
         header = {'Content-type': 'application/json'}
         icon_emoji = ":slack:"
-        username = "DVM"
+        username = "DVM-client"
         attachments = [{
             "color": color,
             "text": msg
