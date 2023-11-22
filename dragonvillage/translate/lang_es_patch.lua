@@ -1,4 +1,5 @@
-return {['나의 영혼은 시련 앞에서 정의의 불길로 승화하리라. \n(업적 보상을 위한 도전 스테이지입니다.)']='Mi alma se elevará como una llama de justicia ante la adversidad. \n(Es una etapa desafiante para lograr una recompensa)',
+return {['아모르가 유타칸 대륙 곳곳에 적들을 상대할 수 있도록 자신의 기운({@YELLOW}아모르의 기운{@DEFAULT})을 남겼습니다.\n\n기운을 회수하고 {@YELLOW}연구{@DEFAULT}하면 강해진 적을 상대할 수 있습니다.']='Amor Poder enfrentar a los enemigos en todo el continente de Yukatan.He dejado mi energía ({@YELLOW}Energía de Amor{@DEFAULT}).\n\nReclama tu energía y {@YELLOW}nvestigación{@DEFAULT} para enfrentarse a un enemigo más fuerte.',
+['나의 영혼은 시련 앞에서 정의의 불길로 승화하리라. \n(업적 보상을 위한 도전 스테이지입니다.)']='Mi alma se elevará como una llama de justicia ante la adversidad. \n(Es una etapa desafiante para lograr una recompensa)',
 ['나의 의지는 절대로 흔들리지 않아! \n(업적 보상을 위한 도전 스테이지입니다.)']='¡Mi voluntad nunca se tambaleará! \n(Es una etapa desafiante para lograr una recompensa)',
 ['나의 정의는 억압된 이들에게 희망과 자유를 안겨줄 것이다! \n(업적 보상을 위한 도전 스테이지입니다.)']='¡Mi definición es dar esperanza y libertad a los oprimidos! \n(Es una etapa desafiante para lograr una recompensa)',
 ['드래곤 테이머와 번개고룡']='El domador dragón  y Dragón Relámpago',

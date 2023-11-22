@@ -1,4 +1,5 @@
-return {['숭고한 번개']='Majestic lightning',
+return {['아모르가 유타칸 대륙 곳곳에 적들을 상대할 수 있도록 자신의 기운({@YELLOW}아모르의 기운{@DEFAULT})을 남겼습니다.\n\n기운을 회수하고 {@YELLOW}연구{@DEFAULT}하면 강해진 적을 상대할 수 있습니다.']='Amor in order to be able to face enemies in various parts of the Yutakan continent.I left my energy ({@YELLOW}The force of amor{@DEFAULT}).\n\nReclaim your energy and {@YELLOW}Research{@DEFAULT} to take on a stronger enemy.',
+['숭고한 번개']='Majestic lightning',
 ['숭고한 번개 소환권']='Majestic lightning Summon',
 ['숭고한 번개 소환권 1+1개']='1+1\nMajestic lightning Summon',
 ['숭고한 번개 소환권 15+15개']='15+15\nMajestic lightning Summon',
