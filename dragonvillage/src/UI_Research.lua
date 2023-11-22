@@ -241,10 +241,10 @@ function UI_Research:click_researchAllBtn(type)
             str = Str('아직 연구 정보가 없습니다.')
         else
             local cost = TableResearch:getInstance():getResearchAccCost(last_research_id)
-            cost_str = string.format('{@ORANGE}%s %s{@}', Str('연구 비용'), comma_value(cost))
+            cost_str = string.format('\n{@ORANGE}%s %s{@}', Str('연구 비용'), comma_value(cost))
         end
 
-        local tooltip = UI_Tooltip_Skill(0, 0, string.format('{@green}%s\n%s', str, cost_str))
+        local tooltip = UI_Tooltip_Skill(0, 0, string.format('{@green}%s%s', str, cost_str))
         if (tooltip) then
             local btn_str = string.format('researchAll%dBtn', type)
             tooltip:autoPositioning(vars[btn_str])
