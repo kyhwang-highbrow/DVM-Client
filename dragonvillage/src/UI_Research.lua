@@ -43,6 +43,7 @@ end
 -------------------------------------
 function UI_Research:initUI()
     local vars = self.vars
+
 end
 
 -------------------------------------
@@ -77,6 +78,15 @@ function UI_Research:makeTableView()
         ui.vars['infoBtn']:registerScriptTapHandler(function()
             self:click_infoBtn(data)
         end)
+
+        ui.vars['infoBtn']:registerScriptPressHandler(function()
+            local research_id = data
+            local tooltip_str = TableResearch:getInstance():getResearchTooltipStr(research_id)
+            local tooltip = UI_Tooltip_Skill(0, 0, tooltip_str)
+            if (tooltip) then
+                tooltip:autoPositioning(ui.vars['infoBtn'])
+            end
+        end)
     end
 
     for type = 1,2 do
@@ -85,7 +95,7 @@ function UI_Research:makeTableView()
 
         local item_list = TableResearch:getInstance():getIdListByType(type)
         local table_view = UIC_TableView(vars[str])
-        table_view.m_defaultCellSize = cc.size(120, 200)
+        table_view.m_defaultCellSize = cc.size(140, 200)
         table_view:setCellUIClass(UI_ResearchItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
         table_view:setItemList(item_list)
@@ -122,7 +132,19 @@ end
 -- function refresh
 -------------------------------------
 function UI_Research:refresh()
+    local vars = self.vars
+    for type = 1,2 do
+        local str = string.format('level%dLabel', type)
+        local lv = g_researchData:getLastResearchId(type) % 10000
 
+        if lv == 0 then
+            vars[str]:setString(Str('없음'))
+        else
+            vars[str]:setString(string.format('Lv. %d', lv))
+        end
+    end
+
+    self:refreshTableView()
 end
 
 -------------------------------------
@@ -149,7 +171,7 @@ function UI_Research:click_infoBtn(research_id)
         local ui = UI_ResearchConfirmPopup(research_id)
         ui:setCloseCB(function()
             if last_research_id ~= g_researchData:getLastResearchId(research_type) then
-                self:refreshTableView()
+                self:refresh()
             end
         end)
     end

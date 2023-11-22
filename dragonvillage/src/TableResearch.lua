@@ -202,8 +202,8 @@ function TableResearch:getResearchBuffMapToStr(buff_map)
     -- 순서대로 정렬을 위해 리스트를 사용
     for _, key in ipairs(self.m_buffList) do
         if buff_map[key] ~= nil then
-            buff_type = key
-            buff_value = buff_map[key]
+            local buff_type = key
+            local buff_value = buff_map[key]
             local str_buff = TableOption:getOptionDesc(buff_type, math_abs(buff_value))
             if str_buff ~= nil then
                 str = (str == '') and str_buff or str..'\n'..str_buff
@@ -213,4 +213,15 @@ function TableResearch:getResearchBuffMapToStr(buff_map)
     return str
 end
 
-
+-------------------------------------
+--- @function getResearchTooltipStr
+--- @brief 연구 아이디 하나에 대한 툴팁 텍스트 반환
+-------------------------------------
+function TableResearch:getResearchTooltipStr(research_id)
+    local str = self:getResearchBuffStr({research_id})
+    str = string.format('{@G}%s{@}     \n', str)
+    local cost = self:getResearchCost(research_id)
+    local cost_str = string.format('{@ORANGE}%s %s{@}', Str('연구 비용'), comma_value(cost))
+    str = str .. cost_str
+    return str
+end

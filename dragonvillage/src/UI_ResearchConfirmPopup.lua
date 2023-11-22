@@ -106,15 +106,22 @@ end
 function UI_ResearchConfirmPopup:makeTableView()
     local vars = self.vars
     local item_list = self.m_researchIdList
+    
     -- 생성 콜백
     local function create_func(ui, data)
         ui.vars['infoBtn']:registerScriptTapHandler(function()
+            local research_id = data
+            local tooltip_str = TableResearch:getInstance():getResearchTooltipStr(research_id)
+            local tooltip = UI_Tooltip_Skill(0, 0, tooltip_str)
 
+            if (tooltip) then
+                tooltip:autoPositioning(ui.vars['infoBtn'])
+            end
         end)
     end
     
     local table_view = UIC_TableView(vars['listNode'])
-    table_view.m_defaultCellSize = cc.size(120, 200)
+    table_view.m_defaultCellSize = cc.size(140, 200)
     table_view:setCellUIClass(UI_ResearchItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(item_list)

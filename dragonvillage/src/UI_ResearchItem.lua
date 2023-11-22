@@ -29,11 +29,7 @@ function UI_ResearchItem:initUI()
 
     do -- 이름
         local name =  TableResearch:getInstance():getResearchName(research_id)
-        if (IS_TEST_MODE() == true) then
-            vars['nameLabel']:setString(string.format('(%d)%s',research_id%10000, name))
-        else
-            vars['nameLabel']:setString(name)
-        end
+        vars['nameLabel']:setString(string.format('%d.%s',research_id%10000, name))
     end
 
     do -- 아이콘
