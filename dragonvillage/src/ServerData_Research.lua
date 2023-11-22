@@ -185,10 +185,6 @@ function ServerData_Research:getAvailableLastResearchId(research_type)
     return available_research_id
 end
 
-
-
-
-
 -------------------------------------
 --- @function isAvailableResearch
 --- @return boolean 현재 연구가 가능한지?
@@ -219,6 +215,19 @@ function ServerData_Research:getResearchCostSumMap(begin_research_id, last_resea
         cost_sum_map[cost_item_id] = cost_sum_map[cost_item_id] + cost
     end
     return cost_sum_map
+end
+
+-------------------------------------
+--- @function getResearchAccCost
+--- @brief 현재까지 소모한 연구 비용
+-------------------------------------
+function ServerData_Research:getResearchAccCost()
+    local sum = 0
+    for type = 1,2  do
+        local research_id = self:getLastResearchId(type)        
+        sum = sum + TableResearch:getInstance():getResearchAccCost(research_id)        
+    end
+    return sum
 end
 
 -------------------------------------

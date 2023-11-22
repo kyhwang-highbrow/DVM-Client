@@ -167,6 +167,15 @@ function TableResearch:getResearchCost(research_id)
 end
 
 -------------------------------------
+---@function getResearchAccCost
+---@brief 누적 연구 비용 
+-------------------------------------
+function TableResearch:getResearchAccCost(research_id)
+    local val = self:getValue(research_id, 'cost_eoa_acc') or 0
+    return val
+end
+
+-------------------------------------
 ---@function getResearchName
 ---@brief 연구 이름
 -------------------------------------

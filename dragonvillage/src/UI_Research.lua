@@ -113,7 +113,7 @@ function UI_Research:makeTableView()
 end
 
 --------------------------------------------------------------------------
--- @function refreshTableView
+--- @function refreshTableView
 --------------------------------------------------------------------------
 function UI_Research:refreshTableView()
     local refresh_func = function(t_data, data)
@@ -129,7 +129,7 @@ function UI_Research:refreshTableView()
 end
 
 -------------------------------------
--- function refresh
+--- @function refresh
 -------------------------------------
 function UI_Research:refresh()
     local vars = self.vars
@@ -197,12 +197,14 @@ function UI_Research:click_resetBtn()
 
     -- 다이아 3000개
     local need_count = 3000
-    local msg = Str('연구 정보 초기화')
-    local submsg = Str('연구 정보를 초기화 하시겠습니까?')
+    local cost = g_researchData:getResearchAccCost()
+    local item_id = TableResearch:getInstance():getResearchCostItemId()
+    local item_name = TableItem:getItemName(item_id)
+    local msg = Str('연구 정보를 초기화 하시겠습니까?')
+    local submsg = Str('지금까지의 연구 정보는 모두 초기화되며 {1}개의 {2}(을)를 돌려받습니다.', comma_value(cost), item_name)
     local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, finish_cb)
     ui:setPrice('cash', need_count)
 end
-
 
 -------------------------------------
 --- @function click_helpBtn
