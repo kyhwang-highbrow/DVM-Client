@@ -245,9 +245,11 @@ end
 function ServerData_Research:response_researchInfo(ret)
     if ret['research'] ~= nil then
         local t_research = ret['research']['r']
-        if t_research ~= nil then
+        if t_research ~= nil then            
             for idx = 1,2 do
-                self.m_lastResearchIdList[idx] = t_research[tostring(idx)] or idx*10000
+                if t_research[tostring(idx)] ~= nil then
+                    self.m_lastResearchIdList[idx] = t_research[tostring(idx)]
+                end
             end
         end
     end
