@@ -29,7 +29,8 @@ function UI_ResearchItem:initUI()
 
     do -- 이름
         local name =  TableResearch:getInstance():getResearchName(research_id)
-        vars['nameLabel']:setString(string.format('%d.%s',research_id%10000, name))
+        --vars['nameLabel']:setString(string.format('%d.%s',research_id%10000, name))
+        vars['nameLabel']:setString(name)
     end
 
     do -- 아이콘
