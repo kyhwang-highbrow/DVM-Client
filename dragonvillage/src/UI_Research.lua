@@ -191,17 +191,17 @@ function UI_Research:click_resetBtn()
     end
 
     if g_researchData:isResearchResetAvailable() == false then
-        UIManager:toastNotificationRed('현재까지 연구 정보가 없습니다.')
+        UIManager:toastNotificationRed(Str('현재까지 연구 정보가 없습니다.'))
         return
     end
 
-    -- 다이아 3000개
     local need_count = 3000
+    -- 다이아 3000개
     local cost = g_researchData:getResearchAccCost()
     local item_id = TableResearch:getInstance():getResearchCostItemId()
     local item_name = TableItem:getItemName(item_id)
     local msg = Str('연구 정보를 초기화 하시겠습니까?')
-    local submsg = Str('지금까지의 연구 정보는 모두 초기화되며 {1}개의 {2}(을)를 돌려받습니다.', comma_value(cost), item_name)
+    local submsg = Str('{@orange}지금까지의 연구 정보는 모두 초기화되며 {@G}{1}{@}{@orange}개의 {2}(을)를 돌려받습니다.', comma_value(cost), item_name)
     local ui = MakeSimplePricePopup(POPUP_TYPE.YES_NO, msg, submsg, finish_cb)
     ui:setPrice('cash', need_count)
 end
