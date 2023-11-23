@@ -72,9 +72,6 @@ def extract_text(extract_config):
     sum_data_method = extract_config['sum_data_method']
     upload_method = extract_config['upload_method']
 
-    if upload_method == 'upload_DVM_plain_text' :
-        return
-
     # 각 파일로부터 데이터를 추출하고 모읍니다.
     from_src_list = []
     for extract_method in extract_method_list:
