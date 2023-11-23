@@ -7,11 +7,20 @@ from google.cloud import translate
 from google.api_core.exceptions import DeadlineExceeded
 from google.api_core.exceptions import ResourceExhausted
 
+
+total_source_list = [] # 하나의 리스트에 모든 번역 텍스트 넣은 것
+unique_text_list = []
+source_list_list = [] # API 분할 요청 사이즈대로 작게 나눈 리스트를 모은 리스트 
+column_list = []
+
 # search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     PROJECT_ID = config_json['project_id']
     GLOSSARY_PREFIX = config_json['glossary_id_prefix']
+    total_source_list = [] # 하나의 리스트에 모든 번역 텍스트 넣은 것
+    unique_text_list = []
+    source_list_list = [] # API 분할 요청 사이즈대로 작게 나눈 리스트를 모은 리스트 
 
 TARGET_LIST_MAP = {}
 DATETIME_STR = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
@@ -50,7 +59,7 @@ def translate_text_with_glossary(
     glossary = client.glossary_path(
         PROJECT_ID, "us-central1", glossary_id  # The location of the glossary
     )
-
+        
     glossary_config = translate.TranslateTextGlossaryConfig(glossary=glossary)
     model_path = f"projects/{PROJECT_ID}/locations/us-central1/models/general/nmt" # 기본적인 인공신경망 번역 모델
 
@@ -91,74 +100,51 @@ def translate_text_with_glossary(
 
 
 # 메인 함수
-def translate_price_info(text_unique_list):
-    source_list = []    
+def translate_price_info(text_unique_list):    
     cur_text_size = 0
 
     for source_text in text_unique_list:        
         cur_text_size += len(source_text)
 
     lang_count = 126
-    print('최종 번역 요청 문자 수', cur_text_size)
-    print('최종 번역 요청 문자 수 x 언어 갯수 포함', lang_count, cur_text_size * lang_count)
+    print('최종 번역 요청 문자 수 : ', cur_text_size)
+    print('최종 번역 요청 문자 수 x 언어 갯수 포함 : ', cur_text_size * lang_count)
 
     total_count = cur_text_size * lang_count
     total_count = total_count - 500000
     total_count = (total_count/1000000) * 20
 
-    print('예상 비용', total_count)
+    if total_count < 0:
+        total_count = 0
+
+    print('예상 비용(USD) : {0}달러'.format(total_count))
     
 # 메인 함수
-def make_unique_text_list(total_source_list, text_unique_list, column_list):
+def make_unique_text_list():
         # 1. input.csv 파일을 읽는다.
     f = open('input.csv', 'r', encoding='utf-8')
     rdr = csv.reader(f)    
     text_set = set()
-
-    for line in rdr:
-        if column_list is None:
-            column_list = line
+    
+    for idx, line in enumerate(rdr):
+        if idx == 0:
+            column_list.extend(line)
         else:
-            source_text = line[0]            
+            source_text = line[1]            
             total_source_list.append(source_text)
             if not source_text in text_set and source_text != '':
-                text_unique_list.append(source_text)
-                text_set.add(source_text)
-
+                unique_text_list.append(source_text)
+                text_set.add(source_text)    
     f.close()
-    #print(('\n').join(text_unique_list))
-    translate_price_info(text_unique_list)
-    #return text_unique_list
+    translate_price_info(unique_text_list)
 
 # 메인 함수
 def main():
-    column_list = None
-    total_source_list = [] # 하나의 리스트에 모든 번역 텍스트 넣은 것
-    unique_text_list = []
-    source_list_list = [] # API 분할 요청 사이즈대로 작게 나눈 리스트를 모은 리스트 
     source_list = []
     max_text_size = 25000 # 한 번의 API에서 최대로 요청보낼 수 있는 텍스트 사이즈
     cur_text_size = 0
 
-    make_unique_text_list(total_source_list, unique_text_list, column_list)
-
-    # for line in rdr:
-    #     if column_list is None:
-    #         column_list = line
-    #     else:
-    #         source_text = line[0]
-    #         source_list.append(source_text)
-    #         total_source_list.append(source_text)
-
-    #         cur_text_size += len(source_text)          
-    #         # 한 번에 너무 많은 번역은 불가능하다. 이에 따라 한 번에 보낼 수 있는 API 사이즈 정도로 구분한다.
-    #         # Advanced는 
-    #         # 1. 한번에 3만자를 요청할 수 있다.
-    #         # 2. 한 번에 최대 1024 문장 번역을 요청할 수 있다.
-    #         if (max_text_size <= cur_text_size) or (len(source_list) >= 1024):
-    #             source_list_list.append(source_list)
-    #             source_list = []
-    #             cur_text_size = 0
+    make_unique_text_list()
 
     for source_text in unique_text_list:        
         source_list.append(source_text)
@@ -175,11 +161,12 @@ def main():
     if cur_text_size > 0:
         source_list_list.append(source_list)
 
+
     # 2. 첫 번째 칼럼의 언어 코드를 기준으로 두 번째 칼럼부터 마지막 칼럼까지 번역한다.
     threads = []
-    source_lang = column_list[0]
+    source_lang = column_list[1]           
 
-    for target_lang in column_list[1:]:
+    for target_lang in column_list[2:-1]:
         thread = threading.Thread(target=translate_text_with_glossary_thread, args=(source_list_list, source_lang, target_lang))
         thread.start()
         threads.append(thread)
@@ -198,7 +185,7 @@ def main():
         line = []
         line.append(source_lang)
         line_dict = dict()
-        for target_lang in column_list[1:]:
+        for target_lang in column_list[2:-1]:
             line.append(TARGET_LIST_MAP[target_lang][i])
             line_dict[target_lang] = i
         lang_dict[source_lang] = line_dict
@@ -215,7 +202,7 @@ def main():
     for i, source_lang in enumerate(total_source_list):
         line = []
         line.append(source_lang)
-        for target_lang in column_list[1:]:
+        for target_lang in column_list[2:-1]:
             idx = lang_dict[source_lang][target_lang]
             find_text = TARGET_LIST_MAP[target_lang][idx]
             if find_text is not None:
@@ -225,8 +212,6 @@ def main():
         wr.writerow(line)
     print('{0} 생성 완료!'.format(file_name))
     f.close()
-
-
 
 if __name__ == '__main__':
     main()

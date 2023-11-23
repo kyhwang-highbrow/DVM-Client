@@ -25,6 +25,7 @@ def translate_text_with_glossary(
         PROJECT_ID, "us-central1", glossary_id  # The location of the glossary
     )
 
+    print('glossary path', glossary)
     glossary_config = translate.TranslateTextGlossaryConfig(glossary=glossary)
     model_path = f"projects/{PROJECT_ID}/locations/us-central1/models/general/nmt" # 기본적인 인공신경망 번역 모델
 
@@ -48,16 +49,8 @@ def translate_text_with_glossary(
         if translation.translated_text == "": 
             apply_glossary = False
             break
-        # print(f"\t {translation.translated_text}")
-        # return_list.append(html.unescape(translation.translated_text))
 
-    #용어집 지원 안하는 언어는 일반 텍스트 번역
-    # if apply_glossary == False:
-        # for translation in response.translations: #이거는 용어집 적용 안된 버전
-            # print(f"\t {translation.translated_text}")
-            # return_list.append(html.unescape(translation.translated_text))
-
-    return_list.append(str(apply_glossary))
+        return_list.append(str(apply_glossary))
     return return_list
 
 
@@ -77,7 +70,7 @@ def main():
         if column_list is None:
             column_list = line
         else:
-            source_text = line[0]
+            source_text = line[1]
             source_list.append(source_text)
             total_source_list.append(source_text)
 
@@ -90,6 +83,9 @@ def main():
                 source_list_list.append(source_list)
                 source_list = []
                 cur_text_size = 0
+            
+            # check 를 위한 용도이므로 한줄만 처리
+            break
 
     if cur_text_size > 0:
         source_list_list.append(source_list)
@@ -97,11 +93,11 @@ def main():
     f.close()
 
     # 2. 첫 번째 칼럼의 언어 코드를 기준으로 두 번째 칼럼부터 마지막 칼럼까지 번역한다.
-    source_lang = column_list[0]
+    source_lang = column_list[1]
     target_list_map = {}
     datetime_str = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
 
-    for target_lang in column_list[1:]:
+    for target_lang in column_list[2:-1]:
         result_list = []
         for _, small_source_list in enumerate(source_list_list):
             small_result_list = translate_text_with_glossary(small_source_list, source_lang, target_lang)
@@ -115,8 +111,10 @@ def main():
     wr.writerow(column_list) # 칼럼 작성
     for i, source_lang in enumerate(total_source_list):
         line = []
-        line.append(source_lang)
-        for target_lang in column_list[1:]:
+        line.append(source_lang)        
+        for target_lang in column_list[2:-1]:
+            #print('{0}번째 {1}'.format(i, source_lang))
+            #print('{0}개의 인덱스 {1}'.format(len(target_list_map[target_lang]), i))
             line.append(target_list_map[target_lang][i])
         wr.writerow(line)
             

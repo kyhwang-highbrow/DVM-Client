@@ -3,9 +3,9 @@
    "glossary_uri" : "gs://dvm_translate/dvm_glossary.csv",
    "glossary_id_prefix" : "dvm_glossary",
 
-   "source_lang" : "ko",
+   "source_lang" : "en",
    "target_lang_list" : [
-      "en",
+      "ko",
       "ja",
       "zh-TW",
       "th",
