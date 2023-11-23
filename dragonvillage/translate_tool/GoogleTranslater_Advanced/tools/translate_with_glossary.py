@@ -175,30 +175,19 @@ def main():
     for thread in threads:
         thread.join()    
 
-    # 3. result_{날짜및시간}.csv 파일을 생성하고 종료. (소중한 결과물이 덮어쓰기로 지워지지 않도록 unique한 파일명)
-    file_name = 'result_{0}.csv'.format(DATETIME_STR)
-    f = open(file_name, 'w', encoding='utf-8', newline='')
-    wr = csv.writer(f)
-    wr.writerow(column_list) # 칼럼 작성
+    # 3. 중복 제거된 라인 인덱스 map 생성
     lang_dict = dict()
     for i, source_lang in enumerate(unique_text_list):
-        line = []
-        line.append(source_lang)
         line_dict = dict()
         for target_lang in column_list[2:-1]:
-            line.append(TARGET_LIST_MAP[target_lang][i])
             line_dict[target_lang] = i
         lang_dict[source_lang] = line_dict
-        wr.writerow(line)
-            
-    print('{0} 생성 완료!'.format(file_name))
-    f.close()
-
+    
     # 4. result_{날짜및시간}.csv 파일을 생성하고 종료. (소중한 결과물이 덮어쓰기로 지워지지 않도록 unique한 파일명)
-    file_name = 'result_{0}_2.csv'.format(DATETIME_STR)
+    file_name = 'result_{0}.csv'.format(DATETIME_STR)
     f = open(file_name, 'w', encoding='utf-8', newline='')
-    wr = csv.writer(f)
-    wr.writerow(column_list) # 칼럼 작성    
+    wr = csv.writer(f)    
+    wr.writerow(column_list[1:-1]) # 칼럼 작성
     for i, source_lang in enumerate(total_source_list):
         line = []
         line.append(source_lang)
