@@ -50,7 +50,7 @@ def translate_text_with_glossary(
             apply_glossary = False
             break
 
-        return_list.append(str(apply_glossary))
+    return_list.append(str(apply_glossary))
     return return_list
 
 
@@ -112,10 +112,8 @@ def main():
     for i, source_lang in enumerate(total_source_list):
         line = []
         line.append(source_lang)        
-        for target_lang in column_list[2:-1]:
-            #print('{0}번째 {1}'.format(i, source_lang))
-            #print('{0}개의 인덱스 {1}'.format(len(target_list_map[target_lang]), i))
-            line.append(target_list_map[target_lang][i])
+        for target_lang in column_list[2:-1]:            
+            line.append(target_list_map[target_lang][i])        
         wr.writerow(line)
             
     print('{0} 생성 완료!'.format(file_name))
