@@ -58,7 +58,7 @@ end
 -------------------------------------
 ---@function getBuffMapByIdList
 ---@brief 능력치 맵 계산
--------------------------------------
+----------------------------------
 function TableResearch:getBuffMapByIdList(id_list, acc_str_map)
     local acc_map = {}
     for _, id in ipairs(id_list) do
