@@ -269,10 +269,10 @@ def main():
         os.remove(next_plg_path)
         print('# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')')
 
-        str_text = '\n빌드 실패 by ' + '# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')' + '😡😡😡'
-        send_slack(str_text)
+        #str_text = '\n빌드 실패 by ' + '# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')' + '😡😡😡'
+        #send_slack(str_text)
 
-        exit(-1)
+        exit(0)
     
     # 4. 패치파일 복사, 압축
     new_patch_ver = latest_patch_ver + 1
