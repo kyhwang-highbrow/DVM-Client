@@ -55,29 +55,39 @@ end
 -- @brief 델타 번역파일까지 반영한 번역파일을 반환
 -------------------------------------
 function StructLanguage:patchLanguageMap()
-    local function getPatchTable(patch_path)
-        return require(patch_path)
-    end
-
     local language_map = nil
     if self.m_translateFile then
-        language_map = require(self.m_translateFile) -- require 'translate/lang_en' 
-        local patch_name = self.m_translateFile .. '_patch' -- require 'translate/lang_en_patch'
-        local b_result, patch_language_map = pcall(getPatchTable, patch_name)
+        language_map = {}
+        -- 1. 빌드 번역 파일 로드 (모든 언어 빌드 시 포함하여 언어가 중간에 추가되지 않는 한 항상 존재)
+        local build_name = self.m_translateFile .. '_build' -- require 'translate/lang_en_build'
+        local build_file_path = string.format('%s.lua', build_name)
+        -- 빌드 번역 파일이 있는 경우
+        if (cc.FileUtils:getInstance():isFileExist(build_file_path) == true) then
+            local build_language_map = require(build_name)
+            table.merge(language_map, build_language_map) -- 빌드 번역 파일 덮어씌우기
+        end
+
+        -- 해당 언어의 언어 에셋이 없는 경우 영어 사용, 영어는 빌드 시 포함하여 항상 존재
+        if (cc.FileUtils:getInstance():isFileExist(self.m_translateFile .. '.lua') == false) then
+            self.m_translateFile = 'translate/lang_en'
+        end
+
+        -- 2. 원본 번역 파일 로드
+        local base_name = self.m_translateFile -- require 'translate/lang_en'
+        local base_file_path = string.format('%s.lua', base_name)
+        -- 원본 번역 파일이 있는 경우
+        if (cc.FileUtils:getInstance():isFileExist(base_file_path) == true) then
+            local base_language_map = require(base_name)
+            table.merge(language_map, base_language_map) -- 원본 번역 파일 덮어씌우기
+        end
         
-        if b_result then
-            for k, v in pairs(patch_language_map) do
-                if language_map[k] ~= v then
-                    language_map[k] = v
-                end
-            end
-        else
-            if CppFunctions:isWin32() == true then
-                local path = string.format('%s.lua', patch_name)
-                if (cc.FileUtils:getInstance():isFileExist(path) == true) then
-                    error(string.format('%s.lua 파일에 텍스트 오류가 있습니다.', patch_name))
-                end
-            end
+        -- 3. 패치 번역 파일 로드
+        local patch_name = self.m_translateFile .. '_patch' -- require 'translate/lang_en_patch'
+        local patch_file_path = string.format('%s.lua', patch_name)
+        -- 패치 번역 파일이 있는 경우
+        if (cc.FileUtils:getInstance():isFileExist(patch_file_path) == true) then
+            local patch_language_map = require(patch_name)
+            table.merge(language_map, patch_language_map) -- 패치 번역 파일 덮어씌우기
         end
     end
 
