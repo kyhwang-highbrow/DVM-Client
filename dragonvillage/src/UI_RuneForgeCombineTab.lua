@@ -139,7 +139,8 @@ function UI_RuneForgeCombineTab:getFilteredRuneList()
     local grade = self.m_sortGrade
     local runeType = self.m_runeType
     local lock_include = false
-    local l_rune_list = g_runesData:getUnequippedRuneList(set_id, grade, lock_include, runeType, l_mopt_list, l_sopt_list) -- param : set_id, grade, lock_include
+    
+    local l_rune_list = g_runesData:getUnequippedRuneList(nil, grade, lock_include, runeType, l_mopt_list, l_sopt_list, set_id) -- param : set_id, grade, lock_include
     local l_rune_no_ancient_list = {}
 
     for roid, t_rune_data in pairs(l_rune_list) do

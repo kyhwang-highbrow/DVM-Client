@@ -472,7 +472,7 @@ end
 -- function getUnequippedRuneList
 -- @brief 장착되지 않은 룬 리스트
 -------------------------------------
-function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include, runeType, l_mopt_list, l_sopt_list)
+function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include, runeType, l_mopt_list, l_sopt_list, set_id)
     if (slot_idx == nil) then
         -- 전체
         slot_idx = 0
@@ -482,6 +482,17 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include, r
         -- 전체
         grade = 0
     end
+
+    if (set_id == 0) then
+        set_id = nil
+    elseif (set_id == 'normal') then
+        set_id = {1, 2, 3, 4, 5, 6, 7, 8}
+    elseif (set_id == 'ancient') then
+        set_id = {9, 10, 11, 12, 13, 14}
+    elseif (set_id ~= nil) then
+        set_id = {set_id}
+    end
+
 
     if (lock_include == nil) then
         lock_include = true
@@ -500,6 +511,8 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include, r
         elseif (not lock_include) and (v['lock']) then
         -- 장착 여부 확인
         elseif v:isEquippedRune() then
+        -- 세트 필터
+        elseif set_id and (table.find(set_id, v['set_id']) == nil) then
         -- 주옵션 필터
         elseif l_mopt_list and (not v:hasMainOption(l_mopt_list)) then
         -- 보조옵션 필터
