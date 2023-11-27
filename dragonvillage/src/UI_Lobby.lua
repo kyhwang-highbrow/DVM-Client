@@ -249,10 +249,16 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        do -- 배틀 패스            
-            co:work('# 둥지 정보 받는 중')
+        do -- 축복 정보
+            co:work('# 축복 정보 받는 중')
             g_lairData:request_lairInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
+
+            if g_lairData:isLairSeasonEnd() == true then
+                co:work('# 축복 정보 초기화 중')                
+                g_lairData:request_lairSeasonReset(co.NEXT, co.ESCAPE)
+                if co:waitWork() then return end
+            end
         end
 
         -- 차원문 

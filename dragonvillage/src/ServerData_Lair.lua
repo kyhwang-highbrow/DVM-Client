@@ -482,6 +482,8 @@ function ServerData_Lair:applyLairInfo(t_ret)
 
     if t_ret['season_id'] ~= nil then
         self.m_seasonId = t_ret['season_id']
+
+        cclog('self.m_seasonId', self.m_seasonId)
     end
 
     if t_ret['list'] ~= nil then
@@ -732,6 +734,42 @@ function ServerData_Lair:request_lairStatReset(ids, finish_cb, fail_cb)
     ui_network:setUrl('/lair/buff/reset')
     ui_network:setParam('uid', uid)
     ui_network:setParam('ids', ids)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+    return ui_network
+end
+
+-------------------------------------
+-- function request_lairSeasonReset
+-------------------------------------
+function ServerData_Lair:request_lairSeasonReset(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        self:init_variables()
+
+        self:applyLairInfo(ret['lair'])
+        
+        -- dirty flag
+        self:setAvailableRegisterDragonsDirty(true)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/lair/reset')
+    ui_network:setParam('uid', uid)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
