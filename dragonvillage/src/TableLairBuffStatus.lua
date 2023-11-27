@@ -6,6 +6,7 @@ TableLairBuffStatus = class(PARENT, {
     m_mapOptionMaxLevel = 'Map<string, number>',
     m_mapTypeMaxLevel = 'Map<string, number>',
     m_listUniqueOptionId = 'List<number>',
+    m_lastCalcsSeasonId = 'number',
 })
 
 local instance = nil
@@ -17,33 +18,22 @@ function TableLairBuffStatus:init()
     self.m_tableName = 'table_lair_buff_status'
     self.m_orgTable = TABLE:get(self.m_tableName)
 
-    self.m_mapOptionMaxLevel = {}
-    self.m_listUniqueOptionId = {}
-    self.m_mapTypeMaxLevel = {}
+    -- self.m_mapOptionMaxLevel = {}
+    -- self.m_listUniqueOptionId = {}    
+    -- self.m_lastCalcsSeasonId = nil
 
-    for id, v in pairs(self.m_orgTable) do
-        local key = v['key']
+    -- for id, v in pairs(self.m_orgTable) do
+    --     local key = v['key']
 
-        if self.m_mapOptionMaxLevel[key] == nil then
-            self.m_mapOptionMaxLevel[key] = 1
-            table.insert(self.m_listUniqueOptionId, id)
-        else
-            self.m_mapOptionMaxLevel[key] = self.m_mapOptionMaxLevel[key] + 1
-        end
---[[
-        local type = v['type']
-        local option_level = v['option_level'] 
+    --     if self.m_mapOptionMaxLevel[key] == nil then
+    --         self.m_mapOptionMaxLevel[key] = 1
+    --         table.insert(self.m_listUniqueOptionId, id)
+    --     else
+    --         self.m_mapOptionMaxLevel[key] = self.m_mapOptionMaxLevel[key] + 1
+    --     end
+    -- end
 
-        if self.m_mapTypeMaxLevel[type] == nil then
-            self.m_mapTypeMaxLevel[type] = option_level
-        end
-
-        if self.m_mapTypeMaxLevel[type] < option_level then
-            self.m_mapTypeMaxLevel[type] = option_level
-        end ]]
-    end
-
-    table.sort(self.m_listUniqueOptionId, function(a, b) return a < b  end)
+    -- table.sort(self.m_listUniqueOptionId, function(a, b) return a < b  end)
 end
 
 -------------------------------------
@@ -79,17 +69,10 @@ function TableLairBuffStatus:getLairStatOptionValue(id)
 end
 
 -------------------------------------
--- function getLairStatMaxLevelByType
--------------------------------------
-function TableLairBuffStatus:getLairStatMaxLevelByType(type)
-    return self.m_mapTypeMaxLevel[type]
-end
-
-
--------------------------------------
 -- function getLairStatMaxLevelByOptionKey
 -------------------------------------
 function TableLairBuffStatus:getLairStatMaxLevelByOptionKey(option_key)
+    self:calcMaxLevel(option_key)
     return self.m_mapOptionMaxLevel[option_key] or 1
 end
 
@@ -98,8 +81,16 @@ end
 -------------------------------------
 function TableLairBuffStatus:getLairStatOptionIdList(option_key)
     local id_list = self:filterColumnList('key', option_key, 'lid')
-    table.sort(id_list, function(a, b) return a < b end)
-    return id_list
+    local res_id_list = {}
+
+    for _, id in ipairs(id_list) do
+        if self:getValue(id, 'season_id') == self.m_lastCalcsSeasonId then
+            table.insert(res_id_list, id)
+        end
+    end
+    
+    table.sort(res_id_list, function(a, b) return a < b end)
+    return res_id_list
 end
 
 -------------------------------------
@@ -107,6 +98,8 @@ end
 -------------------------------------
 function TableLairBuffStatus:getLairRepresentOptionKeyListByType(type_id)
     local result = {}
+
+    self:calcMaxLevel()
     for _, id in ipairs(self.m_listUniqueOptionId) do
         local key = self:getLairStatOptionKey(id)
         if self:getValue(id, 'type') == type_id then
@@ -155,6 +148,35 @@ function TableLairBuffStatus:getLairStatsByIdList(l_ids)
     end ]]
 
     return l_buffs
+end
+
+-------------------------------------
+-- function calcMaxLevel
+-------------------------------------
+function TableLairBuffStatus:calcMaxLevel()
+    if self.m_lastCalcsSeasonId == g_lairData:getLairSeasonId() then
+        return
+    end
+
+    self.m_lastCalcsSeasonId = g_lairData:getLairSeasonId()
+    self.m_mapOptionMaxLevel = {}
+    self.m_listUniqueOptionId = {}    
+
+    for id, v in pairs(self.m_orgTable) do
+        local key = v['key']
+        local season_id = v['season_id']
+
+        if season_id == self.m_lastCalcsSeasonId then
+            if self.m_mapOptionMaxLevel[key] == nil then
+                self.m_mapOptionMaxLevel[key] = 1
+                table.insert(self.m_listUniqueOptionId, id)
+            else
+                self.m_mapOptionMaxLevel[key] = self.m_mapOptionMaxLevel[key] + 1
+            end
+        end
+    end
+
+    table.sort(self.m_listUniqueOptionId, function(a, b) return a < b  end)
 end
 
 -------------------------------------
