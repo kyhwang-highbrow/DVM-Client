@@ -248,34 +248,17 @@ function StatusCalculator:getDeltaStatDisplay(stat_key_list, stat_type, use_perc
 
     local basic_stat = indivisual_status:getBasicStat()
     local final_stat = indivisual_status:getExcludedFinalStat(stat_key_list)
-    local dt_stat = comma_value(math_floor(final_stat - basic_stat))
+    local dt_stat = math_floor(final_stat - basic_stat)    
+    return dt_stat
 
-    if (use_percent) then
-        return string.format('(+ %s%%)', dt_stat)
-    else
-        return string.format('(+ %s)', dt_stat)
-    end
-end
-
--------------------------------------
---- @function getDeltaExcludedStatDisplay
---- @brief 특정 능력치를 제외한 델타 스탯
--------------------------------------
-function StatusCalculator:getDeltaExcludedStatDisplay(stat_key_list, stat_type, use_percent)
-    local indivisual_status = self.m_lStatusList[stat_type]
-    if (not indivisual_status) then
-        error('stat_type : ' .. stat_type)
-    end
     
-    local basic_stat = indivisual_status:getFinalStat()
-    local final_stat = indivisual_status:getExcludedFinalStat(stat_key_list)
-    local dt_stat = comma_value(math_floor(final_stat - basic_stat))
+    -- dt_stat = comma_value(dt_stat)
 
-    if (use_percent) then
-        return string.format('(+ %s%%)', dt_stat)
-    else
-        return string.format('(+ %s)', dt_stat)
-    end
+    -- if (use_percent) then
+    --     return string.format('(+ %s%%)', dt_stat)
+    -- else
+    --     return string.format('(+ %s)', dt_stat)
+    -- end
 end
 
 -------------------------------------

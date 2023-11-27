@@ -308,13 +308,15 @@ end
 -------------------------------------
 function UI_DragonInfoBoard:directActionStatChange(label, new_val, is_percent)
     local old_str = label:getString()    
-    old_str = string.gsub(old_str, '%D', '')
+    old_str = string.gsub(old_str, ',', '')
+    old_str = string.gsub(old_str, '%%', '')
     local old_val = tonumber(old_str)
     if old_val == nil then
         old_val = 0
     end
 
-    new_val = string.gsub(new_val, '%D', '')
+    new_val = string.gsub(new_val, ',', '')
+    new_val = string.gsub(new_val, '%%', '')
     new_val = tonumber(new_val)
 
     local function tween_cb(value, node)
@@ -343,9 +345,6 @@ function UI_DragonInfoBoard:directActionDeltaStatChange(label, new_val, is_perce
         old_val = 0
     end
 
-    new_val = string.gsub(new_val, '%D', '')
-    new_val = tonumber(new_val)
-
     local function tween_cb(value, node)
         if is_percent == true then
             label:setString(string.format('(+ %s%%)', comma_value(math_floor(value))))
@@ -358,7 +357,6 @@ function UI_DragonInfoBoard:directActionDeltaStatChange(label, new_val, is_perce
     label:stopAllActions()
     label:runAction(tween_action)
 end
-
 
 -------------------------------------
 -- function setStatInfo
@@ -379,8 +377,8 @@ function UI_DragonInfoBoard:setStatInfo(status_calc, stat_key, exclude_stat_key_
     do -- 증가분 스탯 라벨
         local str_label = string.format('%s_label2', stat_key)
         local stat_val = status_calc and status_calc:getDeltaStatDisplay(exclude_stat_key_list, stat_key) or total_val
-        self:directActionDeltaStatChange(vars[str_label], total_val, is_percent)
-        vars[str_label]:setString(stat_val)
+        self:directActionDeltaStatChange(vars[str_label], stat_val, is_percent)
+        --vars[str_label]:setString(stat_val)
     end
 
     do -- 바깥쪽 스탯 라벨
