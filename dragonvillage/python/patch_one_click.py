@@ -231,37 +231,35 @@ def is_ignore_translation_files(file_name):
             return True
     return False
 
-# # 패치 대상 파일만 남기고 translate -> translate_temp 로 이동
-# def move_translation_files():
-#     src = '../translate/'
-#     dest = '../translate_temp/'
-#     files = os.listdir(src)
+# 패치 대상 파일만 남기고 translate -> translate_temp 로 이동
+def move_translation_files():
+    src = '../translate/'
+    dest = '../translate_temp/'
+    files = os.listdir(src)
     
-#     if os.path.exists(dest) == False:
-#         os.mkdir(dest)
+    if os.path.exists(dest) == False:
+        os.mkdir(dest)
 
-#     for f in files:
-#         filename = os.path.basename(f)
-#         if is_ignore_translation_files(filename) == False:
-#             if os.path.exists(os.path.join(dest, f)) == True:
-#                 os.remove(os.path.join(dest, f))
-#             shutil.move(src + f, dest)
+    for f in files:
+        filename = os.path.basename(f)
+        if is_ignore_translation_files(filename) == False:
+            if os.path.exists(os.path.join(dest, f)) == True:
+                os.remove(os.path.join(dest, f))
+            shutil.move(src + f, dest)
 
-# # translate_temp -> translate 로 이동
-# def move_translation_files_to_origin_path():
-#     src = '../translate_temp/'
-#     dest = '../translate/'    
-#     files = os.listdir(src)
-    
-#     if os.path.exists(dest) == False:
-#         os.mkdir(dest)
+# translate_temp -> translate 로 다시 복사
+def move_translation_files_to_origin_path():
+    src = '../translate_temp/'
+    dest = '../translate/'    
+    files = os.listdir(src)
 
-#     for f in files:        
-#         if os.path.exists(os.path.join(dest, f)) == True:
-#             os.remove(os.path.join(dest, f))
-#         shutil.move(src + f, dest)
+    if os.path.exists(dest) == False:
+        os.mkdir(dest)
 
-    
+    for f in files:        
+        shutil.copy(src + f, dest)
+
+
 # 메인 함수
 def main():
     global latest_patch_ver
@@ -271,6 +269,9 @@ def main():
 
     #빌드 시작 슬랙 메시지 보내기
     send_slack('\n빌드 진행 중..')
+
+    print('# [tool] move translation files')
+    move_translation_files()
     
     #리소스 유효성 검사
     os.chdir("../bat")
@@ -354,6 +355,9 @@ def main():
     print(data)
     r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
     print(r.text)
+
+    print('# [tool] move translation files to origin path!!')
+    move_translation_files_to_origin_path()
 
     print('----------------------------------------')
     print('DONE')
