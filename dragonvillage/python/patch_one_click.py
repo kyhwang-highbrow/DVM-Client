@@ -356,9 +356,6 @@ def main():
     r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
     print(r.text)
 
-    print('# [tool] move translation files to origin path!!')
-    move_translation_files_to_origin_path()
-
     print('----------------------------------------')
     print('DONE')
     print('----------------------------------------')
