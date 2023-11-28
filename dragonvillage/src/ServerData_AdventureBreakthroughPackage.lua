@@ -149,7 +149,6 @@ function ServerData_AdventureBreakthroughPackage:request_info(product_id, succes
 
     -- 콜백 함수
     local function response_callback(ret)
-
         table.sort(ret['received_list'], function(a, b)
             return a < b
         end)
@@ -160,8 +159,6 @@ function ServerData_AdventureBreakthroughPackage:request_info(product_id, succes
         }
 
         self:response_info(product_id, temp)
-
-
 
         if (success_cb) then 
             success_cb(ret) 

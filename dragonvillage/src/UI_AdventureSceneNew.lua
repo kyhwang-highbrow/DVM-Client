@@ -151,8 +151,15 @@ function UI_AdventureSceneNew:refresh()
         -- 모험돌파 버튼 .. 지정 스테이지 클리어한 후에는 구매 후 보상 전부 수령할 때까지 노출
         local product_id = g_adventureBreakthroughPackageData:getRecentPid()
         
-        local is_visible = (g_adventureData:getStageClearCnt(g_personalpackData:getStartSid()) > 0) 
-                            and (g_adventureBreakthroughPackageData:isButtonVisible(product_id) == true)
+        local is_visible = (g_adventureData:getStageClearCnt(g_personalpackData:getStartSid()) > 0) and 
+                            (g_adventureBreakthroughPackageData:isButtonVisible(product_id) == true)
+
+        if is_visible == false then
+            product_id = g_adventureBreakthroughAbyssPackageData:getRecentPid()
+            is_visible = (g_adventureData:getStageClearCnt(g_personalpackData:getStartSid()) > 0) and 
+                            (g_adventureBreakthroughAbyssPackageData:isButtonVisible(product_id) == true)
+        end
+
         vars['adventureClearBtn03']:setVisible(is_visible)
 
         -- 모험돌파 버튼 연출 추가

@@ -342,8 +342,8 @@ end
 -- @brief 상품 노출 여부
 -------------------------------------
 function StructProduct:isDisplayed()
-
     if self.m_tabCategory == 'pass' then return true end
+    if self.m_tabCategory == 'abyss_pass' then return true end
 
     local sku = self['sku']
 

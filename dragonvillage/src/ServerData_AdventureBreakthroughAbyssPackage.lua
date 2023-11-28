@@ -38,9 +38,11 @@ end
 --- @function getAdventureBreakThroughAbyssProduct
 -------------------------------------
 function ServerData_AdventureBreakthroughAbyssPackage:getAdventureBreakThroughAbyssProduct()
-    local struct_product_list = g_shopDataNew:getProductList('abyss_pass')    
-    if table.count(struct_product_list) > 0 then
-        return table.getFirst(struct_product_list)
+    local struct_product_list = g_shopDataNew:getProductList('abyss_pass')
+    for product_id, v in pairs(struct_product_list) do
+        if self:checkPackage(product_id) == true and self:isButtonVisible(product_id) == true then
+            return v
+        end
     end
     return nil
 end
