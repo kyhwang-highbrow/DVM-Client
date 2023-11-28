@@ -383,10 +383,52 @@ function GameState_ArenaNew:processTimeOut()
     --                 스피드핵을 통해 1초만에 게임을 종료시키고 체력으로 이기는 어뷰징 발생
     --                 스피드 핵은 서버에서 게임 시간을 별도로 체크하고 추가로 체력이 같으면 적군이 이기도록 변경
     if (hero_hp <= enemy_hp) then
-        self:changeState(GAME_STATE_FAILURE)
+        if hero_hp == enemy_hp then
+            if self:getHeroAliveCount() > self:getEnemyAliveCount() then
+                self:changeState(GAME_STATE_SUCCESS_WAIT)
+            else
+                self:changeState(GAME_STATE_FAILURE)
+            end
+        else
+            self:changeState(GAME_STATE_FAILURE)
+        end
     else
         self:changeState(GAME_STATE_SUCCESS_WAIT)
     end
+end
+
+-------------------------------------
+--- @function getHeroAliveCount
+-------------------------------------
+function GameState_ArenaNew:getHeroAliveCount()
+    local unitList = self.m_world.m_myDragons
+    local alive_count = 0
+
+    -- 진형에 따라 HP게이지 갱신
+    for _, v in pairs(unitList) do
+        if v:isDead() == false then
+            alive_count = alive_count + 1
+        end
+    end
+
+    return alive_count
+end
+
+-------------------------------------
+--- @function getEnemyAliveCount
+-------------------------------------
+function GameState_ArenaNew:getEnemyAliveCount()
+    local unitList = self.m_world.m_lEnemyDragons
+    local alive_count = 0
+
+    -- 진형에 따라 HP게이지 갱신
+    for _, v in pairs(unitList) do
+        if v:isDead() == false then
+            alive_count = alive_count + 1
+        end
+    end
+
+    return alive_count
 end
 
 -------------------------------------
