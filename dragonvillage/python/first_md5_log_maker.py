@@ -120,7 +120,7 @@ def main():
     iterstart(root_dir, 'ps', hash_dic)
     iterstart(root_dir, 'res', hash_dic)
     iterstart(root_dir, 'sound', hash_dic)
-    iterstart(root_dir, 'translate', hash_dic)
+    #iterstart(root_dir, 'translate', hash_dic)
     
     # plg 파일 세이브
     savePatchLog(root_dir, hash_dic)
