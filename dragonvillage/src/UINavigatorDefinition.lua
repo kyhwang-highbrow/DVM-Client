@@ -2386,8 +2386,12 @@ function UINavigatorDefinition:goTo_lair(...)
     local function finish_cb()
         local ui = UI_DragonLair()
     end
-     
-	g_lairData:request_lairInfo(finish_cb)
+
+    if g_lairData:isLairSeasonEnd() == true then
+        g_lairData:request_lairSeasonReset(finish_cb)
+    else
+        g_lairData:request_lairInfo(finish_cb)
+    end
 end
 
 -------------------------------------
