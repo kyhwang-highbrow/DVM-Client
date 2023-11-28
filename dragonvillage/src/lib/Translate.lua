@@ -14,13 +14,11 @@ Translate.use133Languages = false -- 133개 언어 제공 사용
 -- function init
 -------------------------------------
 function Translate:init()
-    local app_ver = getAppVerNum()
-    if (app_ver >= 1004004 or (app_ver < 1000000 and app_ver > 9003)) then
+    local app_ver = getAppVerNum()    
+    if ((app_ver >= 1004005) or (app_ver < 1000000 and app_ver >= 9006) or app_ver == 9009009) then
         -- 앱 버전을 만족해도 아래 조건을 추가적으로 걸어둠
         -- 실제로 서비스하게 될 떄 조건을 해제해줌
-        if CppFunctions:isTestMode() == true then
-            Translate.use133Languages = false
-        end
+        Translate.use133Languages = true
     end
 
     -- 지원 언어의 구조체 리스트를 생성 (StructLanguage 참고)
