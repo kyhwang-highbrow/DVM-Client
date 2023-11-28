@@ -94,11 +94,15 @@ end
 -------------------------------------
 function AssetMaker:deletePatchTranslation()
     cclog('## AssetMaker:deletePatchTranslation')
-    
+
     local function removeIfPatchTranslation(path, file)
-        if string.find(file, 'lang_') and string.find(file, '_patch') then
-            cclog('## AssetMaker:deletePatchTranslation - ' .. string.format('%s\\%s', path, file))
-            os.remove(string.format('%s\\%s', path, file))
+        -- _build가 들어가지 않은 lang_ 파일 모두 삭제
+        if string.find(file, 'lang_') and not string.find(file, '_build') then
+            -- 영어는 예외, 빌트인
+            if string.find(file, 'lang_en') == nil then
+                cclog('## AssetMaker:deletePatchTranslation - ' .. string.format('%s\\%s', path, file))
+                os.remove(string.format('%s\\%s', path, file))
+            end
         end
     end
 
