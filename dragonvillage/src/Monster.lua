@@ -46,6 +46,7 @@ function Monster:init_monster(t_monster, monster_id, level)
 		self:makeCastingNode()
 		self:initTriggerListener()
 		self:initLogRecorder(monster_id)
+        self:initStartCooltime()
 	end
 
     -- 피격 처리
@@ -207,6 +208,23 @@ function Monster:initState()
     self:addState('casting', Monster.st_casting, 'idle', true)
 
     self:addState('wait', Monster.st_wait, 'idle', true)
+end
+
+-------------------------------------
+--- @function initStartCooltime
+-------------------------------------
+function Monster:initStartCooltime()
+    if (not self.m_lSkillInfo) then return end
+    for type, list in pairs(self.m_lSkillInfo) do
+        --cclog('type', type)
+        if (not isExistValue(type, 'active', 'basic', 'leader')) then
+            for _, v in pairs(list) do            
+                local extra_start_cooldown_sec = v:getStartExtraCooldownSec()
+                v:setCoolTime(extra_start_cooldown_sec)
+                
+            end
+        end
+    end
 end
 
 -------------------------------------
