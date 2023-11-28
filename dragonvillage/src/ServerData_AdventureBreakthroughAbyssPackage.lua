@@ -40,11 +40,23 @@ end
 function ServerData_AdventureBreakthroughAbyssPackage:getAdventureBreakThroughAbyssProduct()
     local struct_product_list = g_shopDataNew:getProductList('abyss_pass')
     for product_id, v in pairs(struct_product_list) do
-        if self:checkPackage(product_id) == true and self:isButtonVisible(product_id) == true then
+        if self:isButtonVisible(product_id) == true then
             return v
         end
     end
     return nil
+end
+
+-------------------------------------
+--- @function isRecentPackage
+-------------------------------------
+function ServerData_AdventureBreakthroughAbyssPackage:isRecentPackage(product_id)
+    if (type(product_id) ~= 'number') then
+        product_id = tonumber(product_id) 
+    end
+
+    local index = self:getIndexFromProductId(product_id) - 4
+    return (table.getn(self.m_productIdList) == index)
 end
 
 -------------------------------------

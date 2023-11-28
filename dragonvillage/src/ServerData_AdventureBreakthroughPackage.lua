@@ -371,9 +371,9 @@ function ServerData_AdventureBreakthroughPackage:isButtonVisible(product_id)
     if (product_id ~= nil) then
         if (self:checkPackage(product_id) == true) then
             if (self:isActive(product_id) == false) and (self:isRecentPackage(product_id) == false) then
-
+                
             elseif(self:isLeftRewardExist(product_id) == false) then
-
+                
             else
                 is_visible = is_visible or true
             end
