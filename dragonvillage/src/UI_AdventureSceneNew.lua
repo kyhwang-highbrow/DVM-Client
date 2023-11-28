@@ -165,7 +165,8 @@ function UI_AdventureSceneNew:refresh()
         vars['adventureClearBtn03']:setVisible(is_visible)
 
         -- 모험돌파 버튼 연출 추가
-        if (is_visible) then
+        if (is_visible) then            
+            vars['adventureClearBtn03']:setPositionY(-130)
             vars['adventureClearBtn03']:stopAllActions()
             cca.pickMePickMe(vars['adventureClearBtn03'], 10)
         end
