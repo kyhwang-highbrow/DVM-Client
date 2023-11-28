@@ -30,22 +30,20 @@ end
 -------------------------------------
 function UI_Package_AdventureBreakthroughAbyss:refresh()
     local vars = self.vars    
-    
+--[[     
 	local struct_product = g_shopDataNew:getProduct('abyss_pass', self.m_selectProductId)
     if (not struct_product) then
         return
     end
 
     local is_noti_visible = false
-    local purchased_num = g_shopDataNew:getBuyCount(struct_product:getProductID())
-    local limit = struct_product:getMaxBuyCount()
     self:initEachProduct(index, struct_product)
 
     is_noti_visible = (struct_product:getPrice() == 0) and (struct_product:isItBuyable())
 
     if vars['notiSprite'] then 
         vars['notiSprite']:setVisible(is_noti_visible)
-    end
+    end ]]
 end
 
 -------------------------------------
@@ -62,7 +60,14 @@ function UI_Package_AdventureBreakthroughAbyss:init_tabTableView()
             self.m_selectProductId = data
             self:make_stageTableView()
             self:refresh_tabTableView()
-            self:refresh()
+        end)
+
+        ui:setBuyCB(function() 
+            local product_id = self.m_selectProductId
+            g_adventureBreakthroughPackageData:request_info(product_id, function() 
+                self:make_stageTableView()
+                self:refresh_tabTableView(true)
+            end)
         end)
 
         ui.vars['notiSprite']:setVisible(g_adventureBreakthroughAbyssPackageData:isNotiVisible(data))
@@ -70,7 +75,7 @@ function UI_Package_AdventureBreakthroughAbyss:init_tabTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(400, 85)
+    table_view.m_defaultCellSize = cc.size(340, 125)
     table_view:setCellUIClass(UI_Package_AdventureBreakthroughAbyssTabButton, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList3(l_item_list, sort_func)
@@ -80,13 +85,16 @@ end
 --------------------------------------------------------------------------
 --- @function refresh_tabTableView
 --------------------------------------------------------------------------
-function UI_Package_AdventureBreakthroughAbyss:refresh_tabTableView()
+function UI_Package_AdventureBreakthroughAbyss:refresh_tabTableView(is_after_buy)
     local vars = self.vars
     for i , v in pairs(self.m_tableView.m_itemList) do
         local pid = v['data']
         local ui = v['ui']
         ui.vars['selectSprite']:setVisible(pid == self.m_selectProductId)
         ui.vars['notiSprite']:setVisible(g_adventureBreakthroughAbyssPackageData:isNotiVisible(pid))
+        if is_after_buy == true then
+            ui:refresh()
+        end
     end
 end
 
@@ -134,58 +142,6 @@ function UI_Package_AdventureBreakthroughAbyss:make_stageTableView()
     table_view:makeDefaultEmptyDescLabel('')
 end
 
--------------------------------------
--- function click_buyBtn
--------------------------------------
-function UI_Package_AdventureBreakthroughAbyss:click_buyBtn()
-    self:setBuyCB(function() 
-        local product_id = self.m_selectProductId
-        g_adventureBreakthroughPackageData:request_info(product_id, function() 
-            self:make_stageTableView()
-            self:refresh_tabTableView()
-            self:refresh()
-        end)
-    end)
-
-	local struct_product = g_shopDataNew:getProduct('abyss_pass', self.m_selectProductId)
-    if (not struct_product) then
-        return
-    end
-
-	local function cb_func(ret)
-        if struct_product:isOnlyContain('rune_box') then
-            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX, self.m_obtainResultCloseCb)
-        else        
-            local is_basic_goods_shown = false
-            if self.m_package_name and (string.find(self.m_package_name, 'package_lucky_box')) then
-                is_basic_goods_shown = true
-            end
-
-            if (self.m_mailSelectType ~= MAIL_SELECT_TYPE.NONE) then
-                ItemObtainResult_ShowMailBox(ret, self.m_mailSelectType, self.m_obtainResultCloseCb)
-            else
-                -- 아이템 획득 결과창
-                ItemObtainResult_Shop(ret, is_basic_goods_shown, self.m_obtainResultCloseCb)
-            end
-        end
-
-        -- 갱신이 필요한 상태일 경우
-        if ret['need_refresh'] then
-            self:refresh()
-            g_eventData.m_bDirty = true
-
-        elseif (self.m_isPopup == true) then
-            self:close()
-		end
-
-        if (self.m_cbBuy) then
-            self.m_cbBuy(ret)
-        end
-	end
-
-	struct_product:buy(cb_func)
-    --UIManager:toastNotificationRed(('준비 중입니다.'))
-end
 
 
 

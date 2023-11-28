@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITableViewCell:getCloneTable())
+local PARENT = class(UI_Package, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_Package_AdventureBreakthroughAbyssTabButton
@@ -47,4 +47,20 @@ end
 -------------------------------------
 function UI_Package_AdventureBreakthroughAbyssTabButton:refresh()
     local vars = self.vars
+
+    local struct_product = g_shopDataNew:getProduct('abyss_pass', self.m_productId)
+    if (not struct_product) then
+        return
+    end
+
+    self.m_productList = {struct_product}
+
+    local is_noti_visible = false
+    self:initEachProduct(index, struct_product)
+
+    is_noti_visible = (struct_product:getPrice() == 0) and (struct_product:isItBuyable())
+
+    if vars['notiSprite'] then 
+        vars['notiSprite']:setVisible(is_noti_visible)
+    end
 end

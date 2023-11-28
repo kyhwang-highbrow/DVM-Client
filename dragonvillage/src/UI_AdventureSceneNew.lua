@@ -149,12 +149,14 @@ function UI_AdventureSceneNew:refresh()
     -- 모험돌파 버튼 3 2020.08.24
     do
         -- 모험돌파 버튼 .. 지정 스테이지 클리어한 후에는 구매 후 보상 전부 수령할 때까지 노출
-        local product_id = g_adventureBreakthroughPackageData:getRecentPid()
-        
-        local is_visible = (g_adventureData:getStageClearCnt(g_personalpackData:getStartSid()) > 0) and 
-                            (g_adventureBreakthroughPackageData:isButtonVisible(product_id) == true)
+        local product_id
+        local is_visible
+        if self.m_currDifficulty <= 4 then
+            product_id = g_adventureBreakthroughPackageData:getRecentPid()
+            is_visible = (g_adventureData:getStageClearCnt(g_personalpackData:getStartSid()) > 0) and 
+                                (g_adventureBreakthroughPackageData:isButtonVisible(product_id) == true)
 
-        if is_visible == false then
+        else
             product_id = g_adventureBreakthroughAbyssPackageData:getRecentPid()
             is_visible = (g_adventureData:getStageClearCnt(g_personalpackData:getStartSid()) > 0) and 
                             (g_adventureBreakthroughAbyssPackageData:isButtonVisible(product_id) == true)
@@ -164,6 +166,7 @@ function UI_AdventureSceneNew:refresh()
 
         -- 모험돌파 버튼 연출 추가
         if (is_visible) then
+            vars['adventureClearBtn03']:stopAllActions()
             cca.pickMePickMe(vars['adventureClearBtn03'], 10)
         end
 
@@ -409,31 +412,30 @@ function UI_AdventureSceneNew:click_starBoxBtn(star)
     ui:setCloseCB(close_cb)
 end
 
-
-
 -------------------------------------
 -- function click_adventureClearBtn
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
 function UI_AdventureSceneNew:click_adventureClearBtn()
-    local product_id = g_adventureBreakthroughPackageData:getRecentPid()
-    if g_adventureBreakthroughPackageData:isButtonVisible(product_id) == true then        
-        local struct_product = g_shopDataNew:getProduct('pass', product_id)
-
-        local is_popup = true    
-        local ui = struct_product:getPackageUI(is_popup)
-        return
-    end
-
-    product_id = g_adventureBreakthroughAbyssPackageData:getRecentPid()
-    if g_adventureBreakthroughAbyssPackageData:isButtonVisible(product_id) == true then        
-        local struct_product = g_shopDataNew:getProduct('abyss_pass', product_id)
-        local is_popup = true    
-        local ui = struct_product:getPackageUI(is_popup)
-        return
+    if self.m_currDifficulty <= 4 then
+        local product_id = g_adventureBreakthroughPackageData:getRecentPid()
+        if g_adventureBreakthroughPackageData:isButtonVisible(product_id) == true then        
+            local struct_product = g_shopDataNew:getProduct('pass', product_id)
+    
+            local is_popup = true    
+            local ui = struct_product:getPackageUI(is_popup)
+            return
+        end
+    else
+        local product_id = g_adventureBreakthroughAbyssPackageData:getRecentPid()
+        if g_adventureBreakthroughAbyssPackageData:isButtonVisible(product_id) == true then        
+            local struct_product = g_shopDataNew:getProduct('abyss_pass', product_id)
+            local is_popup = true    
+            local ui = struct_product:getPackageUI(is_popup)
+            return
+        end
     end
 end
-
 
 -------------------------------------
 -- function refreshChapter
@@ -518,6 +520,7 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
 
     -- 일반 챕터
     self:refreshChapter_common(chapter, difficulty, stage)
+    self:refresh()
 end
 
 -------------------------------------
