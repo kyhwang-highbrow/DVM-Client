@@ -410,11 +410,21 @@ end
 -------------------------------------
 function UI_AdventureSceneNew:click_adventureClearBtn()
     local product_id = g_adventureBreakthroughPackageData:getRecentPid()
+    if g_adventureBreakthroughPackageData:isButtonVisible(product_id) == true then        
+        local struct_product = g_shopDataNew:getProduct('pass', product_id)
 
-    local struct_product = g_shopDataNew:getProduct('pass', product_id)
+        local is_popup = true    
+        local ui = struct_product:getPackageUI(is_popup)
+        return
+    end
 
-    local is_popup = true
-    local ui = struct_product:getPackageUI(is_popup)
+    product_id = g_adventureBreakthroughAbyssPackageData:getRecentPid()
+    if g_adventureBreakthroughAbyssPackageData:isButtonVisible(product_id) == true then        
+        local struct_product = g_shopDataNew:getProduct('abyss_pass', product_id)
+        local is_popup = true    
+        local ui = struct_product:getPackageUI(is_popup)
+        return
+    end
 end
 
 

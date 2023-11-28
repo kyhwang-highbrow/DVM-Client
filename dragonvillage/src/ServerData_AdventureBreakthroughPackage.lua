@@ -72,6 +72,12 @@ function ServerData_AdventureBreakthroughPackage:getIndexFromProductId(product_i
     return index
 end
 
+-------------------------------------
+-- function getDataList
+-------------------------------------
+function ServerData_AdventureBreakthroughPackage:getDataList()
+    return self.m_dataList
+end
 
 -------------------------------------
 -- function checkPackage
@@ -113,8 +119,7 @@ end
 -------------------------------------
 function ServerData_AdventureBreakthroughPackage:getRewardListFromProductId(product_id)
     -- 모험돌파 n번 상품 (01, 02, ...) - csv 파일
-    local index = table.find(self.m_productIdList, product_id)
-
+    local index = self:getIndexFromProductId(product_id)
     local table_name = string.format(self.m_tableKeyword, index)
     
     -- 모험돌파 n번 상품의 보상 정보 - csv 파일
@@ -242,7 +247,8 @@ function ServerData_AdventureBreakthroughPackage:isActive(product_id)
         product_id = tonumber(product_id) 
     end
     
-    local data = self.m_dataList[product_id]
+    local data_list = self:getDataList()
+    local data = data_list[product_id]
 
     if (data == nil) then return false end
 
@@ -289,7 +295,8 @@ function ServerData_AdventureBreakthroughPackage:isReceivedReward(product_id, ta
         product_id = tonumber(product_id)
     end
 
-    local data = self.m_dataList[product_id]
+    local data_list = self:getDataList()
+    local data = data_list[product_id]
     
     if (data == nil) then return false end
 
@@ -317,7 +324,8 @@ function ServerData_AdventureBreakthroughPackage:isLeftRewardExist(product_id)
     local reward_number = table.getn(reward_list)
 
     -- 유저 정보
-    local data = self.m_dataList[product_id]
+    local data_list = self:getDataList()
+    local data = data_list[product_id]
     
     if (data == nil) then return true end
 
@@ -341,7 +349,7 @@ function ServerData_AdventureBreakthroughPackage:isReceivableRewardExist(product
     if (type(product_id) ~= 'number') then
         product_id = tonumber(product_id) 
     end
-    local index = table.find(self.m_productIdList, product_id)
+    local index = self:getIndexFromProductId(product_id)
     
     local reward_list = TABLE:get(string.format(self.m_tableKeyword, index))
 
@@ -356,7 +364,6 @@ function ServerData_AdventureBreakthroughPackage:isReceivableRewardExist(product
 
     return false
 end
-
 
 -------------------------------------
 -- function isButtonVisible

@@ -1,0 +1,50 @@
+local PARENT = class(UI, ITableViewCell:getCloneTable())
+
+-------------------------------------
+-- class UI_Package_AdventureBreakthroughAbyssTabButton
+-------------------------------------
+UI_Package_AdventureBreakthroughAbyssTabButton = class(PARENT, {
+        m_productId = 'number',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_Package_AdventureBreakthroughAbyssTabButton:init(stage_id)
+    self.m_productId = stage_id
+    self:load('package_adventure_clear_abyss_item.ui')
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_Package_AdventureBreakthroughAbyssTabButton:initUI()
+    local vars = self.vars   
+    local reward_list = g_adventureBreakthroughAbyssPackageData:getRewardListFromProductId(self.m_productId)
+
+    if #reward_list > 0 then
+        local t_data = reward_list[1]
+        -- 스테이지
+        local stage_id = t_data['stage']        
+        local str = g_adventureData:getStageCategoryStr(stage_id)
+        vars['listLabel']:setString(str)
+    end
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_Package_AdventureBreakthroughAbyssTabButton:initButton()
+    local vars = self.vars
+    --vars['listBtn']:registerScriptTapHandler(function() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Package_AdventureBreakthroughAbyssTabButton:refresh()
+    local vars = self.vars
+end

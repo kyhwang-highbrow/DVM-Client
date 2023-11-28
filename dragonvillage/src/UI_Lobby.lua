@@ -2528,6 +2528,7 @@ function UI_Lobby:update_rightButtons()
 
     do -- 배틀 패스
         local is_button_visible = (g_adventureBreakthroughPackageData:isButtonVisible() == true)
+                            or (g_adventureBreakthroughAbyssPackageData:isButtonVisible() == true)
                             or (g_levelUpPackageData:isButtonVisible() == true)
                             or (g_dmgatePackageData:isVisibleAtBattlePassShop() == true)
                             or (g_clanDungeonEarthPackageData:isVisibleAtBattlePassShop() == true)
@@ -2539,6 +2540,7 @@ function UI_Lobby:update_rightButtons()
         vars['battlePassBtn']:setVisible(is_button_visible)
 
         local is_noti_visible = (g_adventureBreakthroughPackageData:isNotiVisible() == true)
+                            or (g_adventureBreakthroughAbyssPackageData:isNotiVisible() == true)
                             or (g_levelUpPackageData:isNotiVisible() == true)
                             or (g_dmgatePackageData:isNotiVisible() == true)
                             or (g_clanDungeonEarthPackageData:isNotiVisible() == true)

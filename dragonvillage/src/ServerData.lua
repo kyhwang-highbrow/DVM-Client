@@ -232,6 +232,9 @@ function ServerData:getInstance()
     -- 모험 돌파 패키지
     g_adventureBreakthroughPackageData = ServerData_AdventureBreakthroughPackage(g_serverData)
 
+    -- 모험 돌파 패키지(심연)
+    g_adventureBreakthroughAbyssPackageData = ServerData_AdventureBreakthroughAbyssPackage(g_serverData)
+
     -- 시험의 탑 정복 선물 패키지 (2020.11.25)
     g_attrTowerPackageData = ServerData_AttrTowerPackage(g_serverData)
 

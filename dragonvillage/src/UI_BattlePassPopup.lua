@@ -168,6 +168,12 @@ function UI_BattlePassPopup:initTableView()
         end
     end
 
+    -- 심연 모험 돌파 패키지
+    local struct_product = g_adventureBreakthroughAbyssPackageData:getAdventureBreakThroughAbyssProduct()
+    if struct_product ~= nil then        
+        table.insert(tabList, struct_product)
+    end
+
     local tableView = UIC_TableView(self.m_listNode)
     -- TODO (YOUNGJIN) : ui 파일에서 노드 생성후 사이즈 적용으로 바꾸기
     tableView.m_defaultCellSize = cc.size(264, 104 + 5)
@@ -272,13 +278,8 @@ end
 -- @brief
 --------------------------------------------------------------------------
 function UI_BattlePassPopup:makeEventPopupTab(tab_id)
-
     local item = self.m_tableView:getItem(tab_id)
     local struct_product = item['data']
-    local package_res = item['data']['package_res']
-    local product_id = item['data']['product_id']
-    local package_name = TablePackageBundle:getPackageNameWithPid(product_id)
-
     local ui = UI_EventPopupTab_Package(struct_product)
     return ui
 end
