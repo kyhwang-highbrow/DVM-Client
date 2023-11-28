@@ -153,12 +153,11 @@ function StructAdventureStageInfo:getFirstClearRewardState()
     end
 end
 
-
 -------------------------------------
--- function getStageRichName
--- @brief "{@diff_normal'}보통 {@default}1-7" 형태의 텍스트 출력
+-- function getOnlyStageRichName
+-- @brief "{@diff_normal'}보통" 형태의 텍스트 출력
 -------------------------------------
-function StructAdventureStageInfo:getStageRichName()
+function StructAdventureStageInfo:getOnlyStageRichName()
     local stage_id = self['stage_id']
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
@@ -191,6 +190,18 @@ function StructAdventureStageInfo:getStageRichName()
 
     end
 
-    local ret_str = '{@' .. color_str .. '}' .. diff_str .. ' {@default}' .. chapter .. '-' .. stage
+    local ret_str = '{@' .. color_str .. '}' .. diff_str
+    return ret_str
+end
+
+
+-------------------------------------
+-- function getStageRichName
+-- @brief "{@diff_normal'}보통 {@default}1-7" 형태의 텍스트 출력
+-------------------------------------
+function StructAdventureStageInfo:getStageRichName()
+    local stage_id = self['stage_id']
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+    local ret_str = self:getOnlyStageRichName() .. ' {@default}' .. chapter .. '-' .. stage
     return ret_str
 end

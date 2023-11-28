@@ -27,9 +27,9 @@ function UI_Package_AdventureBreakthroughAbyssTabButton:initUI()
 
     if #reward_list > 0 then
         local t_data = reward_list[1]
-        -- 스테이지
-        local stage_id = t_data['stage']        
-        local str = g_adventureData:getStageCategoryStr(stage_id)
+        local stage_id = t_data['stage']
+        local stage_info = g_adventureData:getStageInfo(stage_id) -- StructAdventureStageInfo
+        local str = stage_info:getOnlyStageRichName()
         vars['listLabel']:setString(str)
     end
 end
