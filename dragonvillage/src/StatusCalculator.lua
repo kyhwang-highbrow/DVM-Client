@@ -1105,7 +1105,7 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
         end
     end
 
-    -- 연구(research) , 삼뉴체크
+    -- 연구(research)
      do
         local l_add_status, l_multi_status = t_dragon_data:getResearchStatus()
         for stat_type,value in pairs(l_add_status) do

@@ -12,7 +12,7 @@ function ServerData_AdventureBreakthroughAbyssPackage:init(server_data)
     self.m_serverData = server_data
     --90057, 110281, 110282, 110283
     --self.m_productIdList = {122458, 122459} -- 모험 돌파 패키지 1, 2, 3, 4    
-    self.m_productIdList = {90057, 110281} -- 모험 돌파 패키지 1, 2, 3, 4    
+    self.m_productIdList = {122458, 122459} -- 모험 돌파 패키지 1, 2, 3, 4    
     self.m_tableKeyword = 'table_package_stage_%02d'
     self.m_dataList = {}
 end
@@ -26,6 +26,11 @@ function ServerData_AdventureBreakthroughAbyssPackage:getIndexFromProductId(prod
     end
 
     local index = table.find(self.m_productIdList, product_id)
+
+    if index ~= nil then
+        return index + 4
+    end
+
     return index
 end
 
