@@ -76,7 +76,7 @@ def __check_lang_patch_same(app_ver, target_server_url, zip_path):
 # 언어 패치 생성
 def make_language_patch(app_ver, target_server_url, curr_dir):
     app_ver_dash = app_ver.replace('.', '_')
-    src_dir = os.path.abspath(os.path.join(curr_dir, '../translate_temp'))
+    src_dir = os.path.abspath(os.path.join(curr_dir, '../translate'))
     dst_dir = os.path.abspath(os.path.join(curr_dir, f'../../patch/patch_{app_ver_dash}/translate'))
     
     # destination directory 삭제 및 재생성
