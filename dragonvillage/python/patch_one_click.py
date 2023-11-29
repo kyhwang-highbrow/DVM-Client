@@ -321,6 +321,9 @@ def main():
         send_slack(str_text)
         exit(-1)
     
+    print('# [tool] move translation files to origin path')
+    move_translation_files_to_origin_path()
+    
     # 4. 패치파일 복사, 압축
     new_patch_ver = latest_patch_ver + 1
     zip_file = patch_files_copy_and_zip(source_path, patch_work_path, app_ver, new_patch_ver, new_plg_hash)
