@@ -236,6 +236,11 @@ def main():
         }
         print(data)
         # r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
+        
+    # 패치 업로드 요청
+    print('# [tool] upload_patch_dv')
+    r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
+
     print('----------------------------------------')
     print('Translation Patch DONE')
     print('----------------------------------------')
