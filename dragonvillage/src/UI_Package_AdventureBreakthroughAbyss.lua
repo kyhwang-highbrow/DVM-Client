@@ -63,8 +63,9 @@ function UI_Package_AdventureBreakthroughAbyss:init_tabTableView()
         end)
 
         ui:setBuyCB(function() 
-            local product_id = self.m_selectProductId
+            local product_id = ui.m_productId
             g_adventureBreakthroughPackageData:request_info(product_id, function() 
+                self.m_selectProductId = product_id
                 self:make_stageTableView()
                 self:refresh_tabTableView(true)
             end)
