@@ -362,6 +362,10 @@ end
 -- function isSeasonEnd
 -------------------------------------
 function ServerData_Lair:isLairSeasonEnd()
+    if self.m_seasonEndTime == 0 then
+        return false
+    end
+
     local curr_time = ServerTime:getInstance():getCurrentTimestampSeconds()
     local end_time = self.m_seasonEndTime/1000
     local time = (end_time - curr_time)
