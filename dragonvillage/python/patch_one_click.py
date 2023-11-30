@@ -217,7 +217,7 @@ def send_slack(msg):
 # 슬랙 함수
 def is_ignore_translation_files(file_name):
     ignore_list = [
-        'checkLua'
+        'checkLua',
         'lang_en',
         'lang_jp',
         'lang_th',
