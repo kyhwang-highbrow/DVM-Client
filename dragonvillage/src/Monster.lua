@@ -220,8 +220,9 @@ function Monster:initStartCooltime()
         if (not isExistValue(type, 'active', 'basic', 'leader')) then
             for _, v in pairs(list) do            
                 local extra_start_cooldown_sec = v:getStartExtraCooldownSec()
-                v:setCoolTime(extra_start_cooldown_sec)
-                
+                if extra_start_cooldown_sec > 0 then
+                    v:setCoolTime(v.m_cooldownTimer + extra_start_cooldown_sec)
+                end
             end
         end
     end
