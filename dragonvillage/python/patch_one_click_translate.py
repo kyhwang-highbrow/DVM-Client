@@ -6,7 +6,6 @@ import shutil
 import zipfile
 import module.md5_log_maker as md5
 import module.utility as utils
-import module.checksum as checksum
 import module.translation_patch_maker as translation_patch_maker
 from ui_resource_validator import check_ui_resource_validate
 

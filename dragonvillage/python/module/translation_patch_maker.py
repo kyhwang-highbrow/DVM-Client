@@ -11,7 +11,6 @@ import datetime
 import re
 import module.md5_log_maker as md5
 import module.utility as utils
-import module.checksum as checksum
 
 # import requests
 utils.install_and_import('requests', globals())
@@ -130,7 +129,7 @@ def make_language_patch(app_ver, target_server_url, curr_dir):
             os.remove(zip_path)
         else:
             zip_path_list.append(zip_path)
-            
+
 
         print(f'{idx}. processing {translate_file} / {is_same}', local_checksum)
         idx = idx + 1
