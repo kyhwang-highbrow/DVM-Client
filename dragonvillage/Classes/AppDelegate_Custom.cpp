@@ -113,6 +113,7 @@ void AppDelegate::setPathForPatch()
 
 	// 패치 폴더 생성
     SupportPatch::makePath(writable_path + patch_path);
+    SupportPatch::makePath(writable_path + patch_path + "translate/");
     SupportPatch::makePath(writable_path + res_path);
 
 	// dump 폴더 생성
