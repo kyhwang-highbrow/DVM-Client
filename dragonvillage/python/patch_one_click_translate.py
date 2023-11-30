@@ -228,7 +228,7 @@ def main():
         print('# [platform] add patch info')
         zip_file_name = os.path.basename(zip_file_path)
         zip_path = '%s/translate/%s' % (dst_forder, zip_file_name)
-        zip_md5 = checksum.get_checksum_md5(zip_file_path)
+        zip_md5 = md5.file2md5(zip_file_path)
         zip_size = os.path.getsize(zip_file_path)
         data = {
             'app_ver': app_ver,

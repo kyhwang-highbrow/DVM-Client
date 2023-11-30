@@ -9,6 +9,7 @@ import shutil
 import zipfile
 import datetime
 import re
+import module.md5_log_maker as md5
 import module.utility as utils
 import module.checksum as checksum
 
@@ -68,7 +69,7 @@ def __check_lang_patch_same(app_ver, target_server_url, zip_path):
         return False
 
     server_checksum = patch_info['md5']
-    local_checksum = checksum.get_checksum_md5(zip_path)
+    local_checksum = md5.file2md5(zip_path)
 
     return server_checksum == local_checksum
 
