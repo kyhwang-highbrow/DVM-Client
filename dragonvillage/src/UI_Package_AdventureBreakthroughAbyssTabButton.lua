@@ -7,7 +7,7 @@ UI_Package_AdventureBreakthroughAbyssTabButton = class(PARENT, {
         m_productId = 'number',
     })
 
--------------------------------------
+---------------------- ---------------
 -- function init
 -------------------------------------
 function UI_Package_AdventureBreakthroughAbyssTabButton:init(stage_id)
