@@ -210,6 +210,9 @@ def copy(src_file, dst_dir):
     
 # 메인 함수
 def main():
+    # import requests
+    utils.install_and_import('requests', globals())
+    
     global latest_patch_ver
     # 전역변수 초기화
     init_global_var()
