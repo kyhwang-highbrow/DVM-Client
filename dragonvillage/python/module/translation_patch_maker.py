@@ -123,10 +123,11 @@ def make_language_patch(app_ver, target_server_url, curr_dir):
         is_same = __check_lang_patch_same(app_ver, target_server_url, zip_path)
 
         local_checksum = md5.file2md5(zip_path)
-        print(local_checksum)
+        print(checksum)
 
         if (is_same):
-            os.remove(zip_path)
+            #os.remove(zip_path)
+            a = 0
         else:
             zip_path_list.append(zip_path)
 
