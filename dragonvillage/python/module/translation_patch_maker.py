@@ -122,12 +122,16 @@ def make_language_patch(app_ver, target_server_url, curr_dir):
 
         # 서버에 있는 패치 파일과 같다면 삭제
         is_same = __check_lang_patch_same(app_ver, target_server_url, zip_path)
+
+        local_checksum = md5.file2md5(zip_path)
+        print(checksum)
+
         if (is_same):
             os.remove(zip_path)
         else:
             zip_path_list.append(zip_path)
 
-        print(f'{idx}. processing {translate_file} / {is_same}')
+            print(f'{idx}. processing {translate_file} / {is_same}', local_checksum)
         idx = idx + 1
 
     return zip_path_list
