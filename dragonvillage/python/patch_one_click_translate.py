@@ -237,6 +237,8 @@ def main():
             'md5' : zip_md5,
             'size' : zip_size
         }
+
+        print(f'result {zip_file_name} / {zip_md5}')
         print(data)
         # r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
         

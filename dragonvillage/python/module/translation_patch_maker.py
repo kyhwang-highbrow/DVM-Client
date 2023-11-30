@@ -130,8 +130,9 @@ def make_language_patch(app_ver, target_server_url, curr_dir):
             os.remove(zip_path)
         else:
             zip_path_list.append(zip_path)
+            
 
-            print(f'{idx}. processing {translate_file} / {is_same}', local_checksum)
+        print(f'{idx}. processing {translate_file} / {is_same}', local_checksum)
         idx = idx + 1
 
     return zip_path_list
