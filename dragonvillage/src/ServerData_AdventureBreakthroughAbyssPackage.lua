@@ -60,6 +60,37 @@ function ServerData_AdventureBreakthroughAbyssPackage:isRecentPackage(product_id
 end
 
 -------------------------------------
+--- @function isReceivedReward
+--- @breif 보상 수령 여부
+-------------------------------------
+function ServerData_AdventureBreakthroughAbyssPackage:isReceivableReward(product_id, target_stage_id) -- isReceived
+    if (type(product_id) ~= 'number') then
+        product_id = tonumber(product_id)
+    end
+ 
+    -- 모험돌파 n번 상품의 보상 정보 - csv 파일
+    local reward_list = self:getRewardListFromProductId(product_id)
+
+    for index, reward in pairs(reward_list) do
+        local stage_id = reward['stage']
+
+        if (stage_id == target_stage_id) and (self:isReceivedReward(product_id, stage_id) == false) then
+            local stage_info = g_adventureData:getStageInfo(stage_id)
+            local star = stage_info:getNumberOfStars()
+
+            cclog('target_stage_id', target_stage_id, star)
+            
+            -- 보상 조건인 별 3개인 경우 혹은 판매 종료 된 패키지인 경우
+            if (star >= 3) then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
 --- @function getAbyssProductIdList
 -------------------------------------
 function ServerData_AdventureBreakthroughAbyssPackage:getAbyssProductIdList()
