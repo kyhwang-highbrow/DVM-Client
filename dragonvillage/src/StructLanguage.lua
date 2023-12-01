@@ -65,6 +65,7 @@ function StructLanguage:patchLanguageMap()
 
     if self.m_translateFile then
         language_map = {}
+        local build_translate_file = self.m_translateFile
 
         -- 해당 언어의 언어 에셋이 없는 경우 영어 사용, 영어는 빌드 시 포함하여 항상 존재
         if (cc.FileUtils:getInstance():isFileExist(self.m_translateFile .. '.lua') == false) then
@@ -81,7 +82,7 @@ function StructLanguage:patchLanguageMap()
         end
 
         -- 2. 빌드 번역 파일 로드 (모든 언어 빌드 시 포함하여 언어가 중간에 추가되지 않는 한 항상 존재)
-        local build_name = self.m_translateFile .. '_build' -- require 'translate/lang_en_build'
+        local build_name = build_translate_file .. '_build' -- require 'translate/lang_en_build'
         local build_file_path = string.format('%s.lua', build_name)
         -- 빌드 번역 파일이 있는 경우
         if (cc.FileUtils:getInstance():isFileExist(build_file_path) == true) then
