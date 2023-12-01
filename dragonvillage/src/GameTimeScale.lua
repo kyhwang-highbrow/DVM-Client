@@ -40,6 +40,8 @@ function GameTimeScale:init(world)
         self.m_maxTimeScaleStep = 3
     elseif (self.m_world.m_gameMode == GAME_MODE_CHALLENGE_MODE) then -- 그림자 신전
         self.m_maxTimeScaleStep = 3
+    elseif (self.m_world.m_gameMode == GAME_MODE_EVENT_ARENA) then -- 그랜드 콜로세움
+        self.m_maxTimeScaleStep = 3
     end
 
     if (self.m_world.m_gameMode == GAME_MODE_INTRO) then
