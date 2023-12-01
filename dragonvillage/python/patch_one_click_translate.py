@@ -223,8 +223,7 @@ def main():
         dst_forder = 'patch_' + app_ver.replace('.', '_')
         dst_dir = os.path.join(dest_path, dst_forder, 'translate')
         copy(zip_file_path, dst_dir)        
-        # 플랫폼 서버에 패치 정보 전달
-        print('# [platform] add patch info')
+
         zip_file_name = os.path.basename(zip_file_path)
         zip_path = '%s/translate/%s' % (dst_forder, zip_file_name)
         zip_md5 = md5.file2md5(zip_file_path)
@@ -235,11 +234,8 @@ def main():
             'name' : zip_path,
             'md5' : zip_md5,
             'size' : zip_size
-        }
-
-        print(f'result {zip_file_name} / {zip_md5}')
+        }        
         print(data)
-        # r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
         
     # 패치 업로드 요청
     print('# [tool] upload_patch_dv')
