@@ -48,6 +48,9 @@ function PatchCoreNew:st_requestPatchInfo_successCB(ret)
 
     -- 다운로드 받을 파일 확인
     do
+        cclog('/versions/getPatchInfo dump')
+        ccdump(ret)
+
         -- 1. 일반 에셋 (한글, 영어 에셋 포함)
         self.m_patchAssetRes:applyPatchList(ret['list'], self.m_currPatchVer, self.m_latestPatchVer)
         -- 2. 요청한 언어 에셋
@@ -154,7 +157,7 @@ function PatchCoreNew:st_downloadPatchFile_setCurrDownloadRes()
     --local에 파일로 저장할땐 web에 업로드된 패스와 상관없이
     --writeable경로에 저장하기 위해 파일명만 추출
     do
-        local download_url = self.m_currPatchInfo['name']
+        local download_url = self.m_currPatchInfo['name']        
         self.m_currPatchInfo['web_path'] = GetPatchServer() .. '/' .. download_url
         self.m_currPatchInfo['local_path'] = self.m_currPatchAsset:getLocalPath(download_url)
     end
@@ -180,7 +183,7 @@ function PatchCoreNew:st_downloadPatchFile()
     -- 다운받고자 하는 zip파일이 존재하고, 용량까지 같은 경우 true 리턴
     -- 다운로드 과정을 건너뛰고 압축 해제로 상태 변경
     if self.m_currPatchAsset:checkFileExist(curr_patch_info['name'], curr_patch_info['size']) then
-        -- 다음 스텝으로 이동
+        -- 다음 스텝으로 이동        
         self.m_state = PATCH_STATE.decompression
         self:doStep()
         return
@@ -189,6 +192,9 @@ function PatchCoreNew:st_downloadPatchFile()
     do -- 다운로드 진행
         local local_path = curr_patch_info['local_path']
         local web_path = curr_patch_info['web_path']
+
+        cclog('web_path', self.m_currPatchInfo['web_path'])        
+        cclog('local_path', self.m_currPatchInfo['local_path'])
 
         -- 다운로드 검증용
         local total_size = curr_patch_info['size']
@@ -236,17 +242,17 @@ function PatchCoreNew:st_downloadPatchFile()
     end
 end
 
+
 -------------------------------------
 ---@function st_decompression
 ---@brief 다운받은 zip파일을 압축 해제
 -------------------------------------
 function PatchCoreNew:st_decompression()
     local t_download_res = self.m_currPatchInfo
-
     local local_path = t_download_res['local_path']
     local download_path = self.m_currPatchAsset:getDownloadPath()
     local md5 = t_download_res['md5']
-
+    
     local function result_cb(ret)
         if (ret == 0) then
             -- 압축해제가 완료된 zip파일은 삭제
@@ -269,7 +275,7 @@ function PatchCoreNew:st_decompression()
 
 			-- UNZ_MD5ERROR : MD5 error
             if ret == -111 then
-                msg = Str('다운로드 받은 패치 파일에 오류가 있습니다. 다운로드를 다시 시도하시겠습니까?')
+                msg = Str('다운로드받은 패치 파일에 오류가 있습니다. 다운로드를 다시 시도하시겠습니까?')
 
 			-- UNZ_TARGETFILE_OPENFAIL : 읽기 오류
             elseif ret == -112 then

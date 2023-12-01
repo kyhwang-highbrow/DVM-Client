@@ -65,27 +65,28 @@ function StructLanguage:patchLanguageMap()
 
     if self.m_translateFile then
         language_map = {}
-        -- 1. 빌드 번역 파일 로드 (모든 언어 빌드 시 포함하여 언어가 중간에 추가되지 않는 한 항상 존재)
-        local build_name = self.m_translateFile .. '_build' -- require 'translate/lang_en_build'
-        local build_file_path = string.format('%s.lua', build_name)
-        -- 빌드 번역 파일이 있는 경우
-        if (cc.FileUtils:getInstance():isFileExist(build_file_path) == true) then
-            local build_language_map = require(build_name)
-            table_merge(language_map, build_language_map) -- 빌드 번역 파일 덮어씌우기
-        end
 
         -- 해당 언어의 언어 에셋이 없는 경우 영어 사용, 영어는 빌드 시 포함하여 항상 존재
         if (cc.FileUtils:getInstance():isFileExist(self.m_translateFile .. '.lua') == false) then
             self.m_translateFile = 'translate/lang_en'
         end
 
-        -- 2. 원본 번역 파일 로드
+        -- 1. 원본 번역 파일 로드
         local base_name = self.m_translateFile -- require 'translate/lang_en'
         local base_file_path = string.format('%s.lua', base_name)
         -- 원본 번역 파일이 있는 경우
         if (cc.FileUtils:getInstance():isFileExist(base_file_path) == true) then
             local base_language_map = require(base_name)
             table_merge(language_map, base_language_map) -- 원본 번역 파일 덮어씌우기
+        end
+
+        -- 2. 빌드 번역 파일 로드 (모든 언어 빌드 시 포함하여 언어가 중간에 추가되지 않는 한 항상 존재)
+        local build_name = self.m_translateFile .. '_build' -- require 'translate/lang_en_build'
+        local build_file_path = string.format('%s.lua', build_name)
+        -- 빌드 번역 파일이 있는 경우
+        if (cc.FileUtils:getInstance():isFileExist(build_file_path) == true) then
+            local build_language_map = require(build_name)
+            table_merge(language_map, build_language_map) -- 빌드 번역 파일 덮어씌우기
         end
         
         -- 3. 패치 번역 파일 로드

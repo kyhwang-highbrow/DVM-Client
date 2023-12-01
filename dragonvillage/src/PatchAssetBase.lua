@@ -119,8 +119,8 @@ end
 -------------------------------------
 function PatchAssetBase:getDownloadPath()
 	if (not self.m_downloadPath) then
-        local path = cc.FileUtils:getInstance():getWritablePath()
-        local ver_folder = string.gsub(self.m_appVer, '[.]', '_')
+        local path = cc.FileUtils:getInstance():getWritablePath()        
+        local ver_folder = string.gsub(self.m_appVer, '%D', '_')
         self.m_downloadPath = string.format('%spatch_%s/', path, ver_folder)
 	end
 

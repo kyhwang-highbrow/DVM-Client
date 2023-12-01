@@ -1,29 +1,4 @@
 -------------------------------------
--- function Network_get_patch_info
--- @breif 패치 정보 요청
--------------------------------------
-function Network_get_patch_info(app_ver, success_cb, fail_cb)
-    -- 파라미터 셋팅
-    local t_data = {}
-    t_data['app_ver'] = app_ver -- '0.0.0'
-
-    -- 요청 정보 설정
-    local t_request = {}
-    t_request['url'] = '/get_patch_info'
-    t_request['data'] = t_data
-    t_request['method'] = 'GET'
-
-    -- 성공 시 콜백 함수
-    t_request['success'] = success_cb
-
-    -- 실패 시 콜백 함수
-    t_request['fail'] = fail_cb
-
-    -- 네트워크 통신
-    Network:HMacRequest(t_request)
-end
-
--------------------------------------
 -- function MakeGameServerUid
 -- @breif firebase uid와 게임 서버 이름으로 uid 생성
 -------------------------------------
@@ -334,19 +309,30 @@ end
 --          app_ver : app_ver
 -------------------------------------
 function Network_platform_getPatchVersionInfo(app_ver, success_cb, fail_cb)
+    local lang = Translate:isNeedTranslate() and Translate:getGameLang() or nil
+
+    -- 일본어랑 중국어번체는 코드를 아래와 같이 하드코딩함.
+    -- 다국어 지원 적용하지 않은 빌드 버전과 공존하기 위해 부득이하게 아래와 같이 처리
+    if lang == 'ja' then
+        lang = 'jp'
+    end
+
+    if lang == 'zh-TW' then
+        lang = 'zhtw'
+    end
 
     -- 파라미터 셋팅
     local t_data = {}
     t_data['game_id'] = 1003
     t_data['app_ver'] = app_ver
     t_data['server'] = CppFunctions:getTargetServer()
+    t_data['lang'] = lang
 
     -- 요청 정보 설정
     local t_request = {}
     t_request['full_url'] = GetPlatformApiUrl() .. '/versions/getPatchInfo'
     t_request['method'] = 'POST'
     t_request['data'] = t_data
-
     t_request['check_hmac_md5'] = false
 
     -- 성공 시 콜백 함수

@@ -23,7 +23,8 @@ end
 function PatchAssetLanguage:applyPatchList(patch_list)
     if (patch_list == nil) then
         return
-    end
+    end 
+
     local lang_code = Translate:getGameLang()
     local curr_patch_lang_info = PatchData:getInstance():getLanguage(lang_code) or {}
     for _, patch_info in ipairs(patch_list) do
@@ -55,7 +56,8 @@ end
 function PatchAssetLanguage:getDownloadPath()
 	if (not self.m_downloadPath) then
         local path = cc.FileUtils:getInstance():getWritablePath()
-        self.m_downloadPath = string.format('%spatch_%s/translate/', path, self.m_appVer)
+        local ver_folder = string.gsub(self.m_appVer, '%D', '_')
+        self.m_downloadPath = string.format('%spatch_%s/translate/', path, ver_folder)
 	end
     return self.m_downloadPath
 end

@@ -102,6 +102,9 @@ function PatchData:load()
         -- 언어 지원 확대
         if (self.m_tData['language'] == nil) then
             self.m_tData['language'] = {}
+
+            local cur_app_ver = getAppVer()
+            self.m_tData['language'][cur_app_ver] = {}
         end
 
         return
@@ -112,6 +115,9 @@ function PatchData:load()
 	    t_data['patch_ver'] = 0
         t_data['res_ver'] = 0
         t_data['language'] = {}
+        local cur_app_ver = getAppVer()
+        t_data['language'][cur_app_ver] = {}
+        
         self.m_tData = t_data
     end
 end
@@ -168,10 +174,11 @@ end
 ---@param curr_app_ver string
 -------------------------------------
 function PatchData:_checkLanguageTable(curr_app_ver)
-    if (isTable(self.m_tData['language']) == false) then
+    if (self.m_tData['language'] == nil) then
         self.m_tData['language'] = {}
     end
-    if (isTable(self.m_tData['language'][curr_app_ver]) == false) then
+    
+    if (self.m_tData['language'][curr_app_ver] == nil) then
         self.m_tData['language'][curr_app_ver] = {}
     end
 end
