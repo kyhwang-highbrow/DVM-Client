@@ -66,9 +66,10 @@ function UI_LanguagePopup:initTableView()
             selected_idx = idx
         end
 
-        idx = idx + 1        
-        ui.vars['onBtn']:setVisible((is_selected == true))   
-        ui.vars['offBtn']:setVisible((is_selected == false))
+        idx = idx + 1
+        ui.vars['onRadioSprite']:setVisible(is_selected == true)
+        ui.vars['onBtn']:setVisible(is_selected == true)   
+        ui.vars['offBtn']:setVisible(is_selected == false)
         ui.vars['offBtn']:registerScriptTapHandler(function() self:click_langBtn(data) end)
     end
     
