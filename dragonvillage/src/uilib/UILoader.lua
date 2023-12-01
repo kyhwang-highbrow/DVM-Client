@@ -888,8 +888,8 @@ function UILoader:createWithTTF(text, font, fontSize, outlineSize, dimensions, h
     local label = nil
     local available_ttf = true
 
-    -- 페르시아어는 RTL이슈로 인해 시스템 폰트를 사용해야 함
-    if (Translate:getGameLang() == 'fa') then
+    -- RTL은 이슈로 인해 시스템 폰트를 사용해야 함
+    if (Translate:isRTLLanguage()) then
         available_ttf = false
     end
 

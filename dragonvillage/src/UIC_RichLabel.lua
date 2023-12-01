@@ -102,7 +102,6 @@ end
 -- function setString
 -------------------------------------
 function UIC_RichLabel:setString(text)
-    
     -- 페르시아어(fa)의 경우 숫자를 페르시아 언어로 출력
     local game_lang = Translate:getGameLang()
     if (game_lang == 'fa') then
@@ -195,12 +194,11 @@ end
 -------------------------------------
 function UIC_RichLabel:updateAlignmnet()
 
-    -- 페르시아어이고, 페르시아어가 포함된 텍스트일 경우
-    if (Translate:getGameLang() == 'fa') then
-        if string.match(self.m_orgRichText, '[آ-ی]+') then
-            self:updateAlignmnet_forRtl()
-            return
-        end
+    -- RTL언어일 경우
+    if (Translate:isRTLLanguage()) then
+        --if string.match(self.m_orgRichText, '[آ-ی]+') then
+        self:updateAlignmnet_forRtl()
+        return
     end
 
     local line_height = self.m_fontSize * self.m_lineHeight
@@ -331,7 +329,12 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
             label:setDockPoint(cc.p(0, 1))
             label:setAnchorPoint(cc.p(0, 1))
-            label:setAdditionalKerning(self.m_wordSpacing)
+
+
+            -- RTL 언어일 경우 아래 함수에서 미구현으로 ASSERT가 노출
+            if Translate:isRTLLanguage() == false then
+                label:setAdditionalKerning(self.m_wordSpacing)
+            end
 
 
             local pre_text = work_text

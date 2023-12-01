@@ -396,3 +396,17 @@ function Translate:persianNumberConvert(str)
 
     return ret_str
 end
+
+-------------------------------------
+--- @function isRTLLanguage
+--- @brief RTL 언어인지 반환
+-------------------------------------
+function Translate:isRTLLanguage()
+    if Translate.use133Languages == false then
+        local lang = self.m_gameLang
+        return lang == 'fa'
+    end
+
+    local struct_lang = self:getStructLanguage()
+    return struct_lang.m_isRTL or false
+end
