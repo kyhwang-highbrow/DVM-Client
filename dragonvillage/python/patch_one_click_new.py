@@ -8,6 +8,7 @@ import module.md5_log_maker_new as md5
 import module.utility as utils
 import send_slack_message as slack
 from ui_resource_validator import check_ui_resource_validate
+import module.translation_patch_maker as translation_patch_maker
 
 
 # 전역변수
@@ -289,13 +290,36 @@ def main():
     # UI Resource 체크
     check_ui_resource_validate()
 
-    # 1. 패치정보 받아오기
+    # 1. 언어 패치 생성
+    print('### 언어 패치 생성 시작')
+    translation_zip_file_list = translation_patch_maker.make_language_patch(app_ver, SERVER_PATH, os.path.curdir)
+    # Nas에 복사 및 패치 정보 전송
+    for zip_file_path in translation_zip_file_list:
+        # 언어 패치 NAS에 복사
+        dst_forder = 'patch_' + app_ver.replace('.', '_')
+        dst_dir = os.path.join(dest_path, dst_forder, 'translate')
+        copy(zip_file_path, dst_dir)        
+
+        zip_file_name = os.path.basename(zip_file_path)
+        zip_path = '%s/translate/%s' % (dst_forder, zip_file_name)
+        zip_md5 = md5.file2md5(zip_file_path)
+        zip_size = os.path.getsize(zip_file_path)
+        data = {
+            'app_ver': app_ver,
+            'version' : 0,
+            'name' : zip_path,
+            'md5' : zip_md5,
+            'size' : zip_size
+        }
+    print(f'### 언어 패치 생성 완료 {len(translation_zip_file_list)}개 파일')
+
+    # 2. 패치정보 받아오기
     latest_patch_ver = get_patch_info(app_ver)
     
-    # 2. 패치 로그 파일 찾기
+    # 3. 패치 로그 파일 찾기
     exist_plg_file, latest_plg_path, next_plg_path = find_patch_log(patch_work_path, app_ver, latest_patch_ver)
     
-    # 2-1. 기본 패치파일 생성
+    # 3-1. 기본 패치파일 생성
     latest_plg_hash = {}
     next_plg_hash = {}
     if exist_plg_file == False:
@@ -310,7 +334,7 @@ def main():
         latest_plg_hash = md5.loadPatchLog(latest_plg_path)
         next_plg_hash = make_next_plg(source_path, next_plg_path)
 
-    # 3. 패치파일 리스트 추출(변경된 파일만 추출)
+    # 4. 패치파일 리스트 추출(변경된 파일만 추출)
     new_plg_hash = get_patch_list(latest_plg_hash, next_plg_hash)
     
     if len(new_plg_hash) == 0:
@@ -320,11 +344,11 @@ def main():
         send_slack(str_text)
         exit(-1)
     
-    # 4. 패치파일 복사, 압축
+    # 5. 패치파일 복사, 압축
     new_patch_ver = latest_patch_ver + 1
     zip_file = patch_files_copy_and_zip(source_path, patch_work_path, app_ver, new_patch_ver, new_plg_hash)
     
-    # 5. NAS에 복사
+    # 6. NAS에 복사
     dst_forder = 'patch_' + app_ver.replace('.', '_')
     dst_dir = os.path.join(dest_path, dst_forder)
     copy(zip_file, dst_dir)
