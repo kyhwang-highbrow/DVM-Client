@@ -166,7 +166,7 @@ def main():
     threads = []
     source_lang = column_list[1]           
 
-    for target_lang in column_list[2:-1]:
+    for target_lang in column_list[2:]:
         thread = threading.Thread(target=translate_text_with_glossary_thread, args=(source_list_list, source_lang, target_lang))
         thread.start()
         threads.append(thread)
@@ -179,7 +179,7 @@ def main():
     lang_dict = dict()
     for i, source_lang in enumerate(unique_text_list):
         line_dict = dict()
-        for target_lang in column_list[2:-1]:
+        for target_lang in column_list[2:]:
             line_dict[target_lang] = i
         lang_dict[source_lang] = line_dict
     
@@ -187,17 +187,21 @@ def main():
     file_name = 'result_{0}.csv'.format(DATETIME_STR)
     f = open(file_name, 'w', encoding='utf-8', newline='')
     wr = csv.writer(f)    
-    wr.writerow(column_list[1:-1]) # 칼럼 작성
+    wr.writerow(column_list[1:]) # 칼럼 작성
     for i, source_lang in enumerate(total_source_list):
         line = []
         line.append(source_lang)
-        for target_lang in column_list[2:-1]:
-            idx = lang_dict[source_lang][target_lang]
-            find_text = TARGET_LIST_MAP[target_lang][idx]
-            if find_text is not None:
-                line.append(find_text)
-            else:
+        for target_lang in column_list[2:]:
+            if source_lang == '':
                 line.append('')
+            else:
+                idx = lang_dict[source_lang][target_lang]
+                find_text = TARGET_LIST_MAP[target_lang][idx]
+                if find_text is not None:
+                    line.append(find_text)
+                else:
+                    line.append('')
+
         wr.writerow(line)
     print('{0} 생성 완료!'.format(file_name))
     f.close()
