@@ -166,3 +166,48 @@ function GoToPersonalInfoUrl()
     end
     UI_WebView(url)
 end
+
+-- 고객센터 URL 연결
+function GetCustomerCenterUrl()
+    local is_not_global = (g_localData:getLang() == 'ko')
+    local access_key = (is_not_global and 'a93d04e5bb650d54') or '88aa568a2ff202f6'
+    local url_param = 'access_key=' .. access_key
+
+    local secret_key = (is_not_global and '61313ed352410a4586c3e9d956a6cf40') or '1426e06449ea8a3ae5f0370fb7e77825'
+    url_param = url_param .. '&secret_key=' .. secret_key
+
+    local brand_key = (is_not_global and 'dvm') or 'dvm_g'
+    url_param = url_param .. '&brand_key1=' .. brand_key
+
+    local user_name = g_userData:get('nick')
+    if CppFunctions:isIos() and (IS_TEST_MODE() == false) and (getAppVerNum() < 1003007) then -- @yjkil 22.06.07 - 1.3.7 빌드 및 1.3.6 지원 종료 시 코드 제거해야 함
+    elseif user_name then
+        url_param = url_param .. '&userName=' .. user_name
+    end
+
+    local market, os = GetMarketAndOS()
+    if os then
+        url_param = url_param .. '&operatingSystem=' .. os
+    end
+
+    local device = ErrorTracker:getDevice()
+    if device then
+        url_param = url_param .. '&deviceModel=' .. device
+    end
+
+    local uid = g_userData:get('uid')
+    local server = ServerListData.getInstance():getSelectServer()
+    if uid then
+        url_param = url_param .. '&extra_field1=' .. uid
+    end
+    if server then
+        url_param = url_param .. '&extra_field2=' .. server
+    end
+
+    if market then
+        url_param = url_param .. '&extra_field3=' .. market
+    end
+
+    local url = 'https://highbrow.oqupie.com/portals/finder?' .. url_param
+    return url
+end

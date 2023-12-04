@@ -62,6 +62,8 @@ function UI_ArenaNewResult:initButton()
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
     vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
+    vars['reportBtn']:registerScriptTapHandler(function() self:click_reportBtn() end)
+
     if (vars['infoBtn']) then
         vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfo() end)
         vars['infoBtn']:setVisible(true)
@@ -659,6 +661,26 @@ function UI_ArenaNewResult:click_homeBtn()
 	local is_use_loading = true
     local scene = SceneLobby(is_use_loading)
     scene:runScene()
+end
+
+-------------------------------------
+--- @function click_reportBtn
+--- @brief 신고하기
+-------------------------------------
+function UI_ArenaNewResult:click_reportBtn()
+    local hoid = self.m_resultData['hoid']
+    if hoid == nil then
+        return
+    end
+
+    SDKManager:copyOntoClipBoard(hoid)
+    UIManager:toastNotificationRed(Str('신고를 위해 전투코드를 복사하였습니다.'))
+
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(0.5), 
+        cc.CallFunc:create(function() 
+            SDKManager:goToWeb(GetCustomerCenterUrl())  
+        end))
+    )
 end
 
 -------------------------------------

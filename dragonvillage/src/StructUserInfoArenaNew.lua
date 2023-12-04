@@ -74,7 +74,8 @@ StructUserInfoArenaNew = class(PARENT, {
         m_history_id = 'number',
         m_retry_cnt = 'number', -- 재도전, 복수전 가능 회수
         m_rerty_max_cnt = 'number', -- 재도전, 복수전 최대 가능 회수
-        m_state = 'number'  -- 공략 상태 0 공격 전 1 승리 2 패배
+        m_state = 'number',  -- 공략 상태 0 공격 전 1 승리 2 패배
+        m_hoid = 'string', --  전투 히스토리 아이디
     })
 
 -------------------------------------
@@ -179,6 +180,7 @@ function StructUserInfoArenaNew:createUserInfo(t_data)
     user_info.m_state = t_data['state']
     user_info.m_lairStats = t_data['lair_stats']
     user_info.m_researchStats = t_data['research_stats']
+    user_info.m_hoid = t_data['hoid']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     

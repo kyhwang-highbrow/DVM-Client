@@ -502,6 +502,7 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
     struct_user_info.m_power = data['power']
     struct_user_info.m_lairStats = data['lair_stats']
     struct_user_info.m_researchStats = data['research_stats']
+    struct_user_info.m_hoid = data['hoid']
     
     if (not data['rank'] and data['rankInfo']) then
         if (not data['rank'] and data['rankInfo']['rank']) then

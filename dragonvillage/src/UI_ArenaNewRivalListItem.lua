@@ -83,6 +83,15 @@ function UI_ArenaNewRivalListItem:initUI()
         vars['winNode']:setVisible(false)
         self.m_isReChallenge = true
     end
+
+    -- 신고 기능 처리
+    vars['reportBtn']:setVisible(false)
+    if t_rival_info.m_hoid ~= nil then
+        vars['reportBtn']:setVisible(true)
+        local pos_x = vars['userLabel']:getPositionX()
+        pos_x = pos_x + vars['reportBtn']:getContentSize()['width'] + 2
+        vars['userLabel']:setPositionX(pos_x)
+    end
 end
 
 -------------------------------------
@@ -93,6 +102,7 @@ function UI_ArenaNewRivalListItem:initButton()
 
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)    
     vars['reStartBtn']:registerScriptTapHandler(function() self:click_restartBtn() end)   
+    vars['reportBtn']:registerScriptTapHandler(function() self:click_reportBtn() end)   
 end
 
 -------------------------------------
@@ -186,4 +196,25 @@ function UI_ArenaNewRivalListItem:click_startBtn()
         UI_LoadingArenaNew(nil, self.m_isReChallenge)
     end
 
+end
+
+-------------------------------------
+--- @function click_reportBtn
+--- @brief 신고하기
+-------------------------------------
+function UI_ArenaNewRivalListItem:click_reportBtn()
+    local t_rival_info = self.m_rivalInfo
+    local hoid = t_rival_info.m_hoid
+    if hoid == nil then
+        return
+    end
+
+    SDKManager:copyOntoClipBoard(hoid)
+    UIManager:toastNotificationRed(Str('신고를 위해 전투코드를 복사하였습니다.'))
+
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(0.5), 
+        cc.CallFunc:create(function() 
+            SDKManager:goToWeb(GetCustomerCenterUrl())  
+        end))
+    )
 end
