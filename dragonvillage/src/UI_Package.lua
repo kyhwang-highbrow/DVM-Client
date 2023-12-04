@@ -525,6 +525,8 @@ function UI_Package:click_nextPackageBtn(num)
         end
     end
 
+    UIManager:makeTouchBlock(ui, false)
+
     vars['dependencyMenu']:removeAllChildren()
     vars['dependencyMenu']:addChild(ui.root)
 end
