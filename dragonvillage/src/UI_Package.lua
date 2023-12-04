@@ -54,8 +54,6 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
         return 
     end
 
-    cclog('여기 들어오나/? UI_Package', ui_name)
-
     self.m_isPopup = is_popup or false
     self.m_isRefreshedDependency = false
 	self.m_uiName = 'UI_Package'
@@ -522,7 +520,7 @@ function UI_Package:click_nextPackageBtn(num)
     if ui.vars['dependancyLabel'] ~= nil then
         local struct_product_rev = self.m_dependencyProductList[next_idx - 1]
         if struct_product_rev ~= nil then            
-            ui.vars['dependancyLabel']:setString(Str('이전 패키지의 구매 후 구매가 가능합니다.'))
+            ui.vars['dependancyLabel']:setString(Str('이전 단계의 패키지 구매 시 구매가 가능합니다. '))
             ui.vars['dependancyLabel']:setVisible(true)
         end
     end
