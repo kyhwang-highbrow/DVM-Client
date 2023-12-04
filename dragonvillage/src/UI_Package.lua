@@ -525,10 +525,12 @@ function UI_Package:click_nextPackageBtn(num)
         end
     end
 
-    UIManager:makeTouchBlock(ui, false)
-
     vars['dependencyMenu']:removeAllChildren()
     vars['dependencyMenu']:addChild(ui.root)
+
+    -- 블록 추가
+    local block_ui = UI_BlockObject(800,800)
+    vars['dependencyMenu']:addChild(block_ui.root)
 end
 
 -------------------------------------
