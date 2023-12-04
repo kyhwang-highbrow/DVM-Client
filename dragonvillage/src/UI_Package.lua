@@ -7,6 +7,8 @@ UI_Package = class(PARENT, {
         m_package_name = 'string',
         m_structProduct = 'StructProduct',
         m_productList = 'List[StructProduct]',
+        m_dependencyProductList = 'List[StructProduct]',        
+        m_dependencyProductIdx = 'number',
         m_bundleNum = 'number',
 
         m_isPopup = 'boolean',
@@ -36,7 +38,10 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     local pid = struct_product:getProductID()
     self.m_bundleNum = TablePackageBundle:getPidsNum(pid)
     self.m_structProduct = struct_product
-    self.m_productList = struct_product_list
+    self.m_productList = struct_product_list    
+    self.m_dependencyProductList = self:makeDependencyProductList()
+    self.m_dependencyProductIdx = 1
+    --self.m_productList = self.m_dependencyProductList
 
     local ui_name
     if is_popup and (struct_product['package_res_2']) and (struct_product['package_res_2'] ~= '') then
@@ -48,6 +53,8 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     if (not ui_name) then 
         return 
     end
+
+    cclog('여기 들어오나/? UI_Package', ui_name)
 
     self.m_isPopup = is_popup or false
     self.m_isRefreshedDependency = false
@@ -69,6 +76,7 @@ function UI_Package:init(struct_product_list, is_popup, package_name)
     self:initUI()
 	self:initButton()
     self:refresh()
+    self:refresh_dependency()
 
 
     if vars['timeLabel'] then
@@ -103,8 +111,26 @@ function UI_Package:initUI()
             vars['titleLabel']:setString(product_name)
         end
     end
+end
 
+-------------------------------------
+--- @function makeDependencyProductList
+-------------------------------------
+function UI_Package:makeDependencyProductList()
+    local struct_product = self.m_productList[1]
+    local product_list = {}
 
+    table.insert(product_list, struct_product)
+    if struct_product:getClassName() == 'StructProduct' then
+        local dependency = struct_product:getDependency()
+        while dependency ~= nil do
+            local struct_product_next = g_shopDataNew:getTargetProduct(dependency)
+            dependency = struct_product_next:getDependency()
+            table.insert(product_list, struct_product_next)
+        end
+    end
+    
+    return product_list
 end
 
 -------------------------------------
@@ -292,13 +318,29 @@ function UI_Package:refresh()
         end
 
         self:initEachProduct(index, struct_product)
-
         is_noti_visible = (struct_product:getPrice() == 0) and (struct_product:isItBuyable())
     end
 
     if self.vars['notiSprite'] then 
         self.vars['notiSprite']:setVisible(is_noti_visible)
-    end
+    end    
+end
+
+-------------------------------------
+-- function refresh_dependency
+-------------------------------------
+function UI_Package:refresh_dependency()
+    local vars  = self.vars
+    local count = #self.m_dependencyProductList
+    local idx = self.m_dependencyProductIdx
+
+    if (vars['prevPackageBtn']) then
+		vars['prevPackageBtn']:setVisible(idx > 1)
+	end
+
+    if (vars['nextPackageBtn']) then
+		vars['nextPackageBtn']:setVisible(idx < count)
+	end
 end
 
 -------------------------------------
@@ -349,6 +391,23 @@ function UI_Package:initButton()
 	if (vars['infoBtn']) then
 		vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 	end
+
+    if (vars['prevPackageBtn']) then
+		vars['prevPackageBtn']:registerScriptTapHandler(function() self:click_nextPackageBtn(-1) end)
+        ---vars['prevPackageBtn']:runAction(action)
+	end
+
+    if (vars['nextPackageBtn']) then
+		vars['nextPackageBtn']:registerScriptTapHandler(function() self:click_nextPackageBtn(1) end)
+        --local action = cca.repeatScaleInOut(2, 1, 0.8)
+        --vars['nextPackageBtn']:runAction(action)
+	end
+
+    if vars['dependencyBtnMenu'] ~= nil then
+        local action = cca.repeatScaleInOut(2, 1, 0.95)
+        vars['dependencyBtnMenu']:stopAllActions()
+        vars['dependencyBtnMenu']:runAction(action)
+    end
 end
 
 -------------------------------------
@@ -424,6 +483,52 @@ function UI_Package:click_infoBtn()
     end
 
     g_shopDataNew:request_randomBoxInfo(finish_cb)
+end
+
+-------------------------------------
+-- function click_nextPackageBtn
+-- @brief 단계별 상품 정보
+-------------------------------------
+function UI_Package:click_nextPackageBtn(num)
+    local vars = self.vars
+    local next_idx = self.m_dependencyProductIdx + num
+    if self.m_dependencyProductList[next_idx] == nil then
+        return
+    end
+
+    self.m_dependencyProductIdx = next_idx
+    self:refresh_dependency()
+
+    if next_idx == 1 then
+        vars['dependencyMenu']:removeAllChildren()
+        return
+    end
+
+    local struct_product = self.m_dependencyProductList[next_idx]
+    local ui = UI_Package({struct_product}, nil, self.m_package_name)
+    
+    if ui.vars['prevPackageBtn'] ~= nil then
+        ui.vars['prevPackageBtn']:setVisible(false)
+    end
+
+    if ui.vars['nextPackageBtn'] ~= nil then
+        ui.vars['nextPackageBtn']:setVisible(false)
+    end
+
+    if ui.vars['buyBtn1'] ~= nil then
+        ui.vars['buyBtn1']:setVisible(false)
+    end
+
+    if ui.vars['dependancyLabel'] ~= nil then
+        local struct_product_rev = self.m_dependencyProductList[next_idx - 1]
+        if struct_product_rev ~= nil then            
+            ui.vars['dependancyLabel']:setString(Str('이전 패키지의 구매 후 구매가 가능합니다.'))
+            ui.vars['dependancyLabel']:setVisible(true)
+        end
+    end
+
+    vars['dependencyMenu']:removeAllChildren()
+    vars['dependencyMenu']:addChild(ui.root)
 end
 
 -------------------------------------
