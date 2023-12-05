@@ -9,29 +9,55 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 import datetime
 import json
+import re
+import G_sheet.spread_sheet as spread_sheet
+from tools.G_sheet.sheet_option import get_sheet_option
+import time
 
 from extract.extract import extract
 from sum_data.sum_data import sum_data
 from upload.upload import upload
+import util.util_file as util_file
+from util.util_quote import quote_row_dics
+from functools import cmp_to_key
+from tools.util.util_sort import cmp_scenario
+from lang_codes.lang_codes import get_language_code_list
 
 
+plain_text_list = []
 # search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
-    locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
     extract_config_list = config_json['extract_config_list']
-
+    integration_spreadsheet_id = config_json['integration_spreadsheet_id']
+    locale_list = get_language_code_list()
 
 def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_list):
-    print('Upload start :', spreadsheet_id)
-    print('Locale list :', ', '.join(locale_list))
-    print('Upload method :', upload_method)
-
-    # 새로 만들 시트의 헤더입니다.
+    ss_list_sheet = spread_sheet.get_spread_sheet(spreadsheet_id).get_work_sheet('ss_list')
+    ss_info_list = quote_row_dics(spread_sheet.make_rows_to_dic(ss_list_sheet.get_all_values()))    
     
-    upload(upload_method, patch_sheet_name, backup_sheet_name, spreadsheet_id, all_data_list, locale_list)
+    # 1번째만 백업 시트와 비교 후 정석대로 업로드
+    row = ss_info_list[0]
+    ss_id = row['ss_id']
+    lang_code = row['lang_code']
+    lang_code_list = lang_code.split(',')
+    data_list = upload(upload_method, patch_sheet_name, backup_sheet_name, ss_id, all_data_list, lang_code_list)    
+    progress_str = 'Upload Complete({0}/{1}) : {2}'.format(1, len(ss_info_list), lang_code)
+    print(progress_str)   
 
+    idx = 2
+    # 2번째부터는 1번째에 추출된 텍스트 리스트를 토대로 동기화(매번 비교하면 퍼포먼스가 느림)
+    for row in ss_info_list[1:]:
+        ss_id = row['ss_id']
+        lang_code = row['lang_code']
+        lang_code_list = lang_code.split(',')
+        direct_upload_method = 'direct_' + upload_method
+        upload(direct_upload_method, patch_sheet_name, backup_sheet_name, ss_id, data_list, lang_code_list)
+        progress_str = 'Sync Complete({0}/{1}) : {2}'.format(idx, len(ss_info_list), lang_code)
+        idx = idx + 1
+        print(progress_str)
+        time.sleep(5)
 
 def extract_text(extract_config):
     date = datetime.datetime.now()
@@ -59,6 +85,9 @@ def extract_text(extract_config):
         # 설정으로부터 추출된 데이터, 리스트 형태일수도 딕셔너리 형태일수도 있음
         from_data = extract(extract_func, source_dir, ignore_files, ignore_folders, ignore_krs)
 
+        print('current working info')
+        print('source_dir : ', source_dir)
+
         # 데이터 합치기
         sum_data(sum_data_method, all_data_list, all_data_dic, from_data, locale_list, date_str)
         
@@ -71,22 +100,31 @@ def extract_text(extract_config):
         print('\t', from_src['name'], '-', from_src['data_length'])
  
     # 하나로 모은 데이터를 구글 스프레드 시트에 작성합니다
-    start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_list) 
+    start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_list)    
+    return all_data_list
 
+def find_all_color_codes():
+    set_colors = set()
+    text_color_list = []
+    for rows in plain_text_list:
+        list_result = re.findall(r'({@\w+[\w\.]*})', rows[0])        
+        for color_code in list_result:
+            if color_code not in set_colors:
+                set_colors.add(color_code)
+                text_color_list.append(color_code)
+                print(color_code)
+    #print(text_color_list)
 
 def extract_text_from_config_lists():
-    
     for extract_config in extract_config_list:
         extract_text(extract_config)
-
+    # 통합 시트에 올리기
+    # upload_integration_sheet()
+    # 색상 코드 추출
+    # find_all_color_codes()
     print('\n*** 작업이 종료되었습니다.')
 
-
 if __name__ == '__main__':
-    import tools.G_sheet.setup
-
     print('\n*** 작업      : 프로젝트에서 텍스트를 추출합니다.')
-    
     extract_text_from_config_lists()
-    
     os.system('pause')

@@ -26,6 +26,10 @@ class spreadSheet:
     def add_work_sheet(self, title, option):
         self.doc.add_worksheet(title, option['rows'], option['cols'], 0)
         return self.doc.worksheet(title)
+    
+    def del_work_sheet(self, sheet):
+        self.doc.del_worksheet(sheet)
+        sheet = None
 
 
     def batch_update(self, body):

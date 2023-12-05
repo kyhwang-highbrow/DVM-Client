@@ -1,27 +1,19 @@
 {
-    "locale_list" : 
-    [                                                             
-        "en",                                                               
-        "jp",
-        "zhtw",
-        "th",
-        "es",
-        "fa"
-    ]
-
-    ,"spreadsheet_id" : "1M_in-ZIMHsXvkSu_EBktrtDxBVpKXSbl0l4wpljU1gw"
+    "table_language_config_file" : "..\\..\\data\\table_language_config.csv"
+    ,"spreadsheet_id" : "1Ydu5g8DNdQEtqMJFYB9OSRGSg9z159L2Gyn8xrSZ0Bs"
+    ,"integration_spreadsheet_id" : "10EmCk8BJJ890Pd--ouRRfPjnwnlBxsIC8TQEfNfkECs"
 
     ,"extract_config_list" :
     [
         {
             "patch_sheet_name" : "only_ingame"
-    
+
             ,"backup_sheet_name" : "only_ingame_backup"
     
             ,"upload_method" : "upload_DVM_plain_text"
             
             ,"sum_data_method" : "sum_DVM_plain_text"
-    
+
             ,"extract_method_list": 
             [
                 {
@@ -147,26 +139,16 @@
             ,"only_scenario_backup"
         ]
 
-        ,"make_file_name_list" : 
-        [
-            "lang_en.lua"
-            ,"lang_jp.lua"
-            ,"lang_zhtw.lua"
-            ,"lang_th.lua"
-            ,"lang_es.lua"
-            ,"lang_fa.lua"
-        ]
-
         ,"key_value_list" : 
         [
             {
                 "key" : "kr"
-                ,"value_list" : ["en", "jp", "zhtw", "th", "es", "fa"]
+                ,"keyword" : ""                
                 ,"replace_list" : ["en"]
             }
             ,{
                 "key" : "speaker_kr"
-                ,"value_list" : ["speaker_en", "speaker_jp", "speaker_zhtw", "speaker_th", "speaker_es", "speaker_fa"]
+                ,"keyword" : "speaker_"                
                 ,"replace_list" : ["speaker_en"]
             }
         ]
@@ -175,7 +157,6 @@
     ,"patch_lua_table_config" : 
     {
         "make_dir": "..\\..\\translate"
-
         ,"compare_dir": "..\\..\\translate"
      
         ,"sheet_name_list" : 
@@ -186,37 +167,78 @@
             ,"only_scenario_backup"
         ]
 
-        ,"make_file_name_list" : 
-        [
-            "lang_en_patch.lua"
-            ,"lang_jp_patch.lua"
-            ,"lang_zhtw_patch.lua"
-            ,"lang_th_patch.lua"
-            ,"lang_es_patch.lua"
-            ,"lang_fa_patch.lua"
-        ]
-
-        ,"compare_file_name_list" : 
-        [
-            "lang_en.lua"
-            ,"lang_jp.lua"
-            ,"lang_zhtw.lua"
-            ,"lang_th.lua"
-            ,"lang_es.lua"
-            ,"lang_fa.lua"
-        ]
-
         ,"key_value_list" : 
         [
             {
                 "key" : "kr"
-                ,"value_list" : ["en", "jp", "zhtw", "th", "es", "fa"]
+                ,"keyword" : ""                
                 ,"replace_list" : ["en"]
             }
             ,{
                 "key" : "speaker_kr"
-                ,"value_list" : ["speaker_en", "speaker_jp", "speaker_zhtw", "speaker_th", "speaker_es", "speaker_fa"]
+                ,"keyword" : "speaker_"                                
                 ,"replace_list" : ["speaker_en"]
+            }
+        ]
+    }
+
+    ,"build_lua_table_config" : 
+    {
+        "make_dir": "..\\..\\translate"
+     
+        ,"sheet_name_list" : 
+        [
+            "only_ingame"
+            ,"only_scenario"
+            ,"only_ingame_backup"   
+            ,"only_scenario_backup"
+        ]
+      
+        ,"lang_key" : "ko"
+
+        ,"lang_replace_list" : ["en"]
+
+        ,"sum_data_method" : "sum_DVN_text"
+
+        ,"extract_method_list": 
+        [
+            {
+                "name": "UI"
+                ,"src" : "..\\..\\main\\res"
+                ,"func" : "extract_DVM_ui"
+                ,"ignore_files" : 
+                [
+                ]
+                ,"ignore_folders" :
+                [
+                ]
+                ,"ignore_krs" :
+                [
+                ]
+                ,"only_include_files" : 
+                [
+                    "title.ui"
+                    ,"popup_01.ui"
+                ]
+            }
+            ,{
+                "name": "LUA"
+                ,"src" : "..\\..\\main\\src"
+                ,"func" : "extract_DVM_lua"
+                ,"ignore_files" : 
+                [
+                ]
+                ,"ignore_folders" :
+                [
+                ]
+                ,"ignore_krs" :
+                [
+                ]
+                ,"only_include_files" : 
+                [
+                    "Global.lua"
+                    ,"ScenePatch.lua"
+                ]
             }
         ]
     }
@@ -237,6 +259,54 @@
             ,"backup_sheet_name" : "only_scenario_backup"
     
             ,"merge_method" : "merge_DVM_scenario_text"
+        }
+    ]
+
+
+    ,"make_sheet_form_config" : 
+    {
+        "sheet_id_list" : 
+        [
+            "10-DHhJf4mvC5lwwOYZlsA7rn9ESKEELgjxbu1yUcv5c"
+            ,"1ULn-cHVVXvfpWMyO6Q9c_J8gJz9GTZjKL_hN6U9SBtY"
+            ,"1EDkOAWCNizAHD0v7ha7X_tobtvrHzjV97Qb3EI9oDeE"   
+            ,"1Fb8vJSjqFyb8BiDdp_W8BaaaVXvQ66Gc8u_8fyiVqkM"
+            ,"1ZhiT-HJgybA4j_SBVp-SBzRu926RUkSN0GRlIJI0qs0"
+            ,"1n5AYIXB42eMnMCHuWXMVTG2n2vmx7kMN-zGYuCQGQ34"
+            ,"13fF8uPodK5lPWi47VJzwpgaYhBLfeexV7vDwYU47G78"
+            ,"1NKJovY_8jRzzhvm3C8kGYU5SGcRwZImDQgCodoRfE_A"
+            ,"1fcBzqJT5dCQOLbZSniGhrSh-89R5_tecHjOFrixVcaw"
+            ,"1Xg-DgEf4tvLJk5jX3m_6yLK-R7F6Jb9v--6fwBsGbLM"
+            ,"1xQa2f961w50I9f4XTdtCqi4VMXqyVvmctwJexbBM2iw"
+            ,"15n0ZrsDOonGqJDBLwnMT7DPXqknbiv1SmRlemoHLpYI"
+            ,"1QEIstXtCJqYqNLqRM2SWb_iz0ELqNNCkYz30KHJKlc4"
+            ,"1Q7PDk5O4PNZ64yMJsvC7FjiRPjT2xbQcBTIft0rUoM4"
+        ]
+
+        ,"sheet_form_method_list": 
+        [
+            {
+                "patch_sheet_name" : "only_scenario"
+                ,"backup_sheet_name" : "only_scenario_backup"
+                ,"make_method" : "make_DVM_scenario_text"
+            }
+            ,{
+                "patch_sheet_name" : "only_ingame"
+                ,"backup_sheet_name" : "only_ingame_backup"
+                ,"make_method" : "make_DVM_plain_text"
+            }
+        ]
+    }
+
+
+    ,"make_integration_sheets": 
+    [
+        {
+            "sheet_name" : "only_ingame"
+        }
+        
+        ,{
+            "sheet_name" : "only_scenario"               
         }
     ]
 }
