@@ -317,7 +317,8 @@ def main():
 
     if len(translation_zip_file_list) > 0:
         data = {
-        'app_ver': app_ver
+        'app_ver': app_ver,
+        'is_update': True
         }
         r = requests.post(SERVER_PATH + '/manage/patch_language', data = data)
         print(r)
