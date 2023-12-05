@@ -185,62 +185,63 @@
     ,"build_lua_table_config" : 
     {
         "make_dir": "..\\..\\translate"
-     
-        ,"sheet_name_list" : 
-        [
-            "only_ingame"
-            ,"only_scenario"
-            ,"only_ingame_backup"   
-            ,"only_scenario_backup"
-        ]
-      
-        ,"lang_key" : "ko"
-
-        ,"lang_replace_list" : ["en"]
-
-        ,"sum_data_method" : "sum_DVN_text"
-
-        ,"extract_method_list": 
+        ,"extract_list":
         [
             {
-                "name": "UI"
-                ,"src" : "..\\..\\main\\res"
-                ,"func" : "extract_DVM_ui"
-                ,"ignore_files" : 
+                "patch_sheet_name" : "only_ingame"    
+                ,"backup_sheet_name" : "only_ingame_backup"        
+                ,"upload_method" : "upload_DVM_plain_text"                
+                ,"sum_data_method" : "sum_DVM_plain_text"
+                ,"lang_key" : "ko"
+                ,"lang_replace_list" : ["en"]
+
+                ,"extract_method_list": 
                 [
-                ]
-                ,"ignore_folders" :
-                [
-                ]
-                ,"ignore_krs" :
-                [
-                ]
-                ,"only_include_files" : 
-                [
-                    "title.ui"
-                    ,"popup_01.ui"
+                    {
+                        "name": "LUA"
+                        ,"src" : "..\\..\\src"
+                        ,"func" : "extract_DVM_lua"
+                        ,"ignore_files" : 
+                        [
+                        ]
+                        ,"ignore_folders" :
+                        [
+                        ]
+                        ,"ignore_krs" :
+                        [
+                        ]
+                        ,"only_include_files" : 
+                        [
+                            "Global.lua"
+                            ,"ScenePatch.lua"
+                        ]
+                    }
+                    ,{
+                        "name": "UI"
+                        ,"src" : "..\\..\\res"
+                        ,"func" : "extract_DVM_ui"
+                        ,"only_include_files" : 
+                        [
+                            "title.ui"
+                            ,"popup_01.ui"
+                        ]
+                        ,"ignore_files" : 
+                        [
+                            "rune_select_dev_api_popup.ui",
+                            "rune_dev_api_popup.ui"
+                        ]
+                        ,"ignore_folders" :
+                        [
+                        ]
+                        ,"ignore_krs" :
+                        [
+                        ]
+                    }
                 ]
             }
-            ,{
-                "name": "LUA"
-                ,"src" : "..\\..\\main\\src"
-                ,"func" : "extract_DVM_lua"
-                ,"ignore_files" : 
-                [
-                ]
-                ,"ignore_folders" :
-                [
-                ]
-                ,"ignore_krs" :
-                [
-                ]
-                ,"only_include_files" : 
-                [
-                    "Global.lua"
-                    ,"ScenePatch.lua"
-                ]
-            }
-        ]
+        ]        
+
+        ,"sum_data_method" : "sum_DVN_text"
     }
 
     ,"merge_config_list" :

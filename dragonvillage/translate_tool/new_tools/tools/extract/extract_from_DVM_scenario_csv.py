@@ -66,7 +66,7 @@ def get_str(result_data, file_path, ignore_krs):
         os.system('pause')
 
 
-def extract_from_DVM_scenario_csv(path, ignoreFiles, ignoreFolders, ignore_krs): # 리스트 반환
+def extract_from_DVM_scenario_csv(path, ignoreFiles, ignoreFolders, ignore_krs, only_include_files = None): # 리스트 반환
     result_data = []
     
     option = {}
@@ -78,6 +78,10 @@ def extract_from_DVM_scenario_csv(path, ignoreFiles, ignoreFolders, ignore_krs):
 
     for file in files:
         # print(file)
+        if only_include_files is not None:
+            filename = os.path.basename(file)
+            if filename not in only_include_files:
+                continue
         get_str(result_data, file, ignore_krs)
 
     # print(result_data)

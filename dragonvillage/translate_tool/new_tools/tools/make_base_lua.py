@@ -10,6 +10,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import datetime
 import json
 import shutil
+import copy
 
 import G_sheet.spread_sheet as spread_sheet
 import util.util_file as util_file
@@ -24,7 +25,10 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
 
     backup_root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), lua_table_config['backup_dir'])
     spreadsheet_id = config_json['spreadsheet_id']
-    sheet_name_list = lua_table_config['sheet_name_list']
+    sheet_name_list = lua_table_config['sheet_name_list']   
+
+    row_replace_dic = {}
+
 
 print ("make directory :", make_root)
 sheet = None
@@ -49,9 +53,10 @@ def merge_all_data(work_sheets, locale_list, file_name_list):
     
     for work_sheet in work_sheets:
         row_dics = quote_row_dics(spread_sheet.make_rows_to_dic(work_sheet.get_all_values()))
+
         for row_dic in row_dics:
             # 이미 담은 단어인지 판단합니다.
-            for key_value_config in lua_table_config['key_value_list']:
+            for key_value_config in lua_table_config['key_value_list']:                
                 key = key_value_config['key']
                 if key not in row_dic:
                     continue
@@ -65,7 +70,7 @@ def merge_all_data(work_sheets, locale_list, file_name_list):
                     ignore_this = True
                 
                 if ignore_this:
-                    continue
+                    continue                    
                 
                 # 번역어 담기, 만약 없다면 영어, 영어도 없다면 한국어를 담습니다.
                 value_list = locale_list
@@ -76,10 +81,17 @@ def merge_all_data(work_sheets, locale_list, file_name_list):
                         tr_str = row_dic[col_name]
                     
                     for replace_value in key_value_config['replace_list']:
+                        if replace_value in row_dic:
+                            if replace_value not in row_replace_dic :
+                                row_replace_dic[replace_value] = {}
+
+                            row_replace_dic[replace_value][row_dic[key]] = row_dic[replace_value]                            
+
                         if tr_str != '':
                             break
-                        if replace_value in row_dic:
-                            tr_str = row_dic[replace_value]
+
+                        if replace_value in row_replace_dic:
+                            tr_str = row_replace_dic[replace_value][row_dic[key]] #row_dic[replace_value]
 
                     if tr_str == '':
                         tr_str = row_dic[key]
@@ -116,7 +128,7 @@ def make_origin_lua_table():
         ss_id = row['ss_id']
         lang_code = row['lang_code']
         lang_code_list = lang_code.split(',')
-        make_file_name_list = []
+        make_file_name_list = [] 
 
         for lang in lang_code_list:
             make_file_name_list.append(make_file_name_dict[lang])

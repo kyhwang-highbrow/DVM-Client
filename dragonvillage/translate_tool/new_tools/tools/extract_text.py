@@ -81,9 +81,10 @@ def extract_text(extract_config):
         ignore_files = extract_method['ignore_files']
         ignore_folders = extract_method['ignore_folders']
         ignore_krs = extract_method['ignore_krs']
+        only_include_files = extract_method['only_include_files']
         
         # 설정으로부터 추출된 데이터, 리스트 형태일수도 딕셔너리 형태일수도 있음
-        from_data = extract(extract_func, source_dir, ignore_files, ignore_folders, ignore_krs)
+        from_data = extract(extract_func, source_dir, ignore_files, ignore_folders, ignore_krs, only_include_files)
 
         print('current working info')
         print('source_dir : ', source_dir)
