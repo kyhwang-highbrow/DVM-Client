@@ -212,9 +212,11 @@ function UI_ArenaNewRivalListItem:click_reportBtn()
     SDKManager:copyOntoClipBoard(hoid)
     UIManager:toastNotificationRed(Str('신고를 위해 전투코드를 복사하였습니다.'))
 
-    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(0.5), 
-        cc.CallFunc:create(function() 
-            SDKManager:goToWeb(GetCustomerCenterUrl())  
-        end))
-    )
+    local ok_cb = function()
+        SDKManager:goToWeb(GetCustomerCenterUrl())
+    end
+    
+    local msg = Str('상대 유저를 신고하시겠습니까?')
+    local sub_msg = Str('상세 설명과 함께 복사된 전투코드를 첨부 후\n[고객센터 > 전투 신고] 를 통해 문의 해주세요.')
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, ok_cb)
 end
