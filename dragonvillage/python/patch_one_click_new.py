@@ -291,6 +291,9 @@ def main():
     check_ui_resource_validate()
 
     # 1. 언어 패치 생성
+    # import requests
+    utils.install_and_import('requests', globals())
+
     print('### 언어 패치 생성 시작')
     translation_zip_file_list = translation_patch_maker.make_language_patch(app_ver, SERVER_PATH, os.path.curdir)
     # Nas에 복사 및 패치 정보 전송
