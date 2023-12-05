@@ -130,6 +130,10 @@ function UI_UserInfoDetailPopup:initUI()
     if (g_userData:get('uid') == self.m_tUserInfo['uid']) then
         visit = false
     end
+
+    -- 신고 버튼
+    vars['reportBtn']:setVisible(self.m_tUserInfo['hoid'] ~= nil)
+
 	self:setVisitMode(visit)
 end
 
@@ -145,6 +149,7 @@ function UI_UserInfoDetailPopup:initButton()
     vars['titleChangeBtn']:registerScriptTapHandler(function() self:click_titleChangeBtn() end)
     vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
     vars['changeBtn']:registerScriptTapHandler(function() self:click_changeNickBtn() end)
+    vars['reportBtn']:registerScriptTapHandler(function() self:click_reportBtn() end)
 
     if (self.m_hasClan) then
         vars['clanBtn1']:registerScriptTapHandler(function() self:click_clanBtn() end)
@@ -602,29 +607,48 @@ function UI_UserInfoDetailPopup:click_changeNickBtn()
     UI_SelectNickname(nil, cb_finish)
 end
 
+-------------------------------------
+--- @function click_reportBtn
+--- @brief 신고 하기
+-------------------------------------
+function UI_UserInfoDetailPopup:click_reportBtn()    
+    local hoid = self.m_tUserInfo['hoid']
+    if hoid == nil then
+        return
+    end
 
+    SDKManager:copyOntoClipBoard(hoid)
+    UIManager:toastNotificationRed(Str('신고를 위해 전투코드를 복사하였습니다.'))
 
-
+    local ok_cb = function()
+        SDKManager:goToWeb(GetCustomerCenterUrl())
+    end
+    
+    local msg = Str('상대 유저를 신고하시겠습니까?')
+    local sub_msg = Str('상세 설명과 함께 복사된 전투코드를 첨부 후\n[고객센터 > 전투 신고] 를 통해 문의 해주세요.')
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, ok_cb)
+end
 
 -------------------------------------
 -- function open
 -- @brief
 -------------------------------------
-function UI_UserInfoDetailPopup:open(user_info, is_visit, close_cb)
+function UI_UserInfoDetailPopup:open(user_info, is_visit, close_cb, hoid)
 	local peer_uid = user_info:getUid()
-	RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb)
+	RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb, hoid)
 end
 
 -------------------------------------
 -- function RequestUserInfoDetailPopup
 -------------------------------------
-function RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb)
+function RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb, hoid)
 	-- 유저 ID
     local uid = g_userData:get('uid')
 	local peer_uid = peer_uid
 
     local function success_cb(ret)
 		local t_user_info = ret['user_info']
+        t_user_info['hoid'] = hoid
         local ui = UI_UserInfoDetailPopup(t_user_info, is_visit)
 		ui:setCloseCB(close_cb)
     end

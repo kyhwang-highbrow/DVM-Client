@@ -489,7 +489,7 @@ function ServerData_ArenaNew:makeMatchUserInfo(data)
 
     -- 기본 유저 정보
     struct_user_info.m_no = data['no']
-    struct_user_info.m_uid = data['uid']
+    struct_user_info.m_uid = data['enemy_uid']
     struct_user_info.m_nickname = data['nick']
     struct_user_info.m_lv = data['lv'] and data['lv'] or userLevel
     struct_user_info.m_tamerID = data['tamer']

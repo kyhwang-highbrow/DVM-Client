@@ -83,15 +83,6 @@ function UI_ArenaNewRivalListItem:initUI()
         vars['winNode']:setVisible(false)
         self.m_isReChallenge = true
     end
-
-    -- 신고 기능 처리
-    vars['reportBtn']:setVisible(false)
-    if t_rival_info.m_hoid ~= nil then
-        vars['reportBtn']:setVisible(true)
-        local pos_x = vars['userLabel']:getPositionX()
-        pos_x = pos_x + vars['reportBtn']:getContentSize()['width'] + 2
-        vars['userLabel']:setPositionX(pos_x)
-    end
 end
 
 -------------------------------------
@@ -102,7 +93,7 @@ function UI_ArenaNewRivalListItem:initButton()
 
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)    
     vars['reStartBtn']:registerScriptTapHandler(function() self:click_restartBtn() end)   
-    vars['reportBtn']:registerScriptTapHandler(function() self:click_reportBtn() end)   
+    vars['userInfoBtn']:registerScriptTapHandler(function() self:click_profileBtn() end)   
 end
 
 -------------------------------------
@@ -199,24 +190,12 @@ function UI_ArenaNewRivalListItem:click_startBtn()
 end
 
 -------------------------------------
---- @function click_reportBtn
---- @brief 신고하기
+--- @function click_profileBtn
+--- @brief 프로필 정보
 -------------------------------------
-function UI_ArenaNewRivalListItem:click_reportBtn()
-    local t_rival_info = self.m_rivalInfo
+function UI_ArenaNewRivalListItem:click_profileBtn()
+    local t_rival_info = self.m_rivalInfo    
     local hoid = t_rival_info.m_hoid
-    if hoid == nil then
-        return
-    end
-
-    SDKManager:copyOntoClipBoard(hoid)
-    UIManager:toastNotificationRed(Str('신고를 위해 전투코드를 복사하였습니다.'))
-
-    local ok_cb = function()
-        SDKManager:goToWeb(GetCustomerCenterUrl())
-    end
-    
-    local msg = Str('상대 유저를 신고하시겠습니까?')
-    local sub_msg = Str('상세 설명과 함께 복사된 전투코드를 첨부 후\n[고객센터 > 전투 신고] 를 통해 문의 해주세요.')
-    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, ok_cb)
+    local peer_uid = t_rival_info.m_uid
+    RequestUserInfoDetailPopup(peer_uid, true, nil, hoid)
 end
