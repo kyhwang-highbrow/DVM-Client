@@ -311,6 +311,13 @@ def main():
             'md5' : zip_md5,
             'size' : zip_size
         }
+
+    if len(translation_zip_file_list) > 0:
+        data = {
+        'app_ver': app_ver
+        }
+        r = requests.post(SERVER_PATH + '/manage/patch_language', data = data)
+
     print(f'### 언어 패치 생성 완료 {len(translation_zip_file_list)}개 파일')
 
     # 2. 패치정보 받아오기
