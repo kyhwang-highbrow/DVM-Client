@@ -320,6 +320,7 @@ def main():
         'app_ver': app_ver
         }
         r = requests.post(SERVER_PATH + '/manage/patch_language', data = data)
+        print(r)
 
     print(f'### 언어 패치 생성 완료 {len(translation_zip_file_list)}개 파일')
 
