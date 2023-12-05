@@ -83,7 +83,11 @@ def extract_text(extract_config):
         only_include_files = extract_method['only_include_files']
         
         # 설정으로부터 추출된 데이터, 리스트 형태일수도 딕셔너리 형태일수도 있음
-        from_data = extract(extract_func, source_dir, ignore_files, ignore_folders, ignore_krs, only_include_files)
+        only_include_file_count = len(only_include_files)
+        if only_include_file_count == 0:
+            from_data = extract(extract_func, source_dir, ignore_files, ignore_folders, ignore_krs)
+        else:
+            from_data = extract(extract_func, source_dir, ignore_files, ignore_folders, ignore_krs, only_include_files)
 
         print('current working info')
         print('source_dir : ', source_dir)
