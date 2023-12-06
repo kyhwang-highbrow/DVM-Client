@@ -83,8 +83,15 @@ end
 function UI_ArenaNewHistoryListItem:click_reportBtn()
     local vars = self.vars
     local t_rival_info = self.m_rivalInfo
+    local uid = t_rival_info:getUid()
 
-    local hoid = 'nick_code_' .. t_rival_info:getNickname()
+    --cclog('uid', uid)
+    local enc_uid = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), uid))
+    --cclog('enc uid', enc_uid)
+    --local dec_uid = AES_Decrypt(HEX2BIN(CONSTANT['AES_KEY']), HEX2BIN(enc_uid))
+    --cclog('dec uid', dec_uid)
+
+    local hoid = 'code_' .. enc_uid
     if hoid == nil then
         return
     end
