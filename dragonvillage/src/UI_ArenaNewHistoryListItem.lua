@@ -67,10 +67,37 @@ end
 function UI_ArenaNewHistoryListItem:initButton()
     local vars = self.vars 
     --vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)    
+
+    vars['reportBtn']:registerScriptTapHandler(function() self:click_reportBtn() end)    
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ArenaNewHistoryListItem:refresh()
+end
+
+-------------------------------------
+-- function click_reportBtn
+-------------------------------------
+function UI_ArenaNewHistoryListItem:click_reportBtn()
+    local vars = self.vars
+    local t_rival_info = self.m_rivalInfo
+
+    local hoid = 'nick_code_' .. t_rival_info:getNickname()
+    if hoid == nil then
+        return
+    end
+
+    SDKManager:copyOntoClipBoard(hoid)
+    UIManager:toastNotificationRed(Str('신고를 위해 전투코드를 복사하였습니다.'))
+
+    local ok_cb = function()
+        SDKManager:goToWeb(GetCustomerCenterUrl())
+    end
+    
+    local msg = Str('상대 유저를 신고하시겠습니까?')
+    local sub_msg = Str('상세 설명과 함께 복사된 전투코드를 첨부 후\n[고객센터 > 전투 신고] 를 통해 문의 해주세요.')
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, ok_cb)
+
 end

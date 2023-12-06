@@ -486,8 +486,6 @@ function ServerData_Lair:applyLairInfo(t_ret)
 
     if t_ret['season_id'] ~= nil then
         self.m_seasonId = t_ret['season_id']
-
-        cclog('self.m_seasonId', self.m_seasonId)
     end
 
     if t_ret['list'] ~= nil then
