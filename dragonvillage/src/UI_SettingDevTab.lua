@@ -516,6 +516,8 @@ end
 function UI_Setting:click_appTranslationBtn()
     local text = 'まだ研究情報はありません。'
 
+    UIManager:toastNotificationGreen(text)
+
     local success_cb = function(translated_text)
         UIManager:toastNotificationGreen(translated_text)
     end
