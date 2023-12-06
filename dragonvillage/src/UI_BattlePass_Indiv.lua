@@ -202,7 +202,7 @@ function UI_BattlePass_Indiv:refreshButtons()
         --self.m_passRewardCards
         local reward_node_str = string.format('rewardNode%d', type_id)
         if vars[reward_node_str] ~= nil then
-            local max_level = #self.m_passLevelList
+            local max_level = 5--#self.m_passLevelList
             local reward_id = (self.m_passId * 10000) + (type_id * 100) + max_level
             local is_rewarded = struct_indiv_pass:isIndivPassReceivedReward(reward_id)
 
