@@ -23,7 +23,7 @@ function GoogleTranslater:init()
     elseif (CppFunctionsClass:isAndroid() == true) then
         self.m_apiKey = "AIzaSyCEHGL5Ks21LHlKcSYkzeOFAzQmAgSyhgQ" -- Android & Translation API만 허용
     else
-        self.m_apiKey = "AIzaSyCNoX1UWvU2nM3HY5X1newk3rIgAjY8K6k" -- 본사 사무실 IP만 허용
+        self.m_apiKey = "AIzaSyCNoX1UWvU2nM3HY5X1newk3rIgAjY8K6k" 
     end
     self.m_cachedTranslatedMap = {}
     self.m_cachedDetectedLangMap = {}
