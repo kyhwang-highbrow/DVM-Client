@@ -74,6 +74,7 @@ local t_module = {
     'FullPopupManager',
     'ServerListData',
     'ExperationTime',
+    'GoogleTranslater',
 
 	-- CONSTANT 
     'Constant',

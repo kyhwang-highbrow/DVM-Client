@@ -37,7 +37,7 @@ function UI_Setting:init_devTab()
     vars['eggSimulBtn']:registerScriptTapHandler(function() self:click_eggSimulBtn() end)
     vars['translationViewerBtn']:registerScriptTapHandler(function() self:click_translationViewerBtn() end)
     vars['presetDeckBtn']:registerScriptTapHandler(function() self:click_presetDeckBtn() end)
-    vars['newDragonEventBtn']:registerScriptTapHandler(function() self:click_newDragonEventBtn() end)
+    vars['newDragonEventBtn']:registerScriptTapHandler(function() self:click_appTranslationBtn() end)
     
     vars['testCodeBtn']:registerScriptTapHandler(function() UI_SettingTestCode() end)
     
@@ -511,10 +511,16 @@ function UI_Setting:click_allStaminaBtn()
 end
 
 -------------------------------------
--- function click_newDragonEventBtn
+-- function click_appTranslationBtn
 -------------------------------------
-function UI_Setting:click_newDragonEventBtn()
-    local ui = UI_LanguagePopup()
+function UI_Setting:click_appTranslationBtn()
+    local text = 'まだ研究情報はありません。'
+
+    local success_cb = function(translated_text)
+        UIManager:toastNotificationGreen(translated_text)
+    end
+
+    GoogleTranslater:getInstance():request_translate(text, success_cb)
 end
 
 -------------------------------------
