@@ -1008,7 +1008,11 @@ void Director::purgeDirector()
     }
 
     // delete Director
-    release();
+    // 앱 종료 시 다른 인스턴스들과 종료 시점이 꼬여 크래시 유발
+    // Director는 앱 수명 주기 내내 싱글톤으로 관리되기 때문에 앱 종료 시까지 살려둠
+    // 어차피 종료 시 해제하지 않아도 OS에 의해 프로세스 메모리가 해제됨
+    // 단 Director 객체를 2번 이상 만든다면 문제됨
+    // release();
 }
 
 void Director::setNextScene()
