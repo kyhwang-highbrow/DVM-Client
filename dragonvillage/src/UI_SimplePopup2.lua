@@ -34,6 +34,8 @@ function UI_SimplePopup2:init(popup_type, msg, submsg, ok_btn_cb, cancel_btn_cb,
     self:initUI()
     self:initButton()
     self:refresh()
+
+    MakeSimplePopupLog(msg, submsg)
 end
 
 -------------------------------------

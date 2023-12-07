@@ -6,6 +6,20 @@ POPUP_TYPE = {
     YES_NO = 2,        -- 예, 아니오
 }
 
+
+-------------------------------------
+-- function MakeSimplePopupLog
+-------------------------------------
+function MakeSimplePopupLog(msg, submsg)
+    do -- 
+        --if (CppFunctions:isIos()) then
+            local log = 'Popup Message => ' .. (msg or '') .. '/' .. (submsg or '')
+            cclog(log)
+            PerpleSdkManager.getCrashlytics():setLog(log)
+        --end
+    end
+end
+
 -------------------------------------
 -- function MakeSimplePopup
 -------------------------------------
