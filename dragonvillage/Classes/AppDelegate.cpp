@@ -158,7 +158,7 @@ AppDelegate::AppDelegate()
 AppDelegate::~AppDelegate()
 {
 	// HttpClient 사용시 앱 종료 때 crash나는 cocos2d 자체의 버그로 추가함(jjo)
-	network::HttpClient::getInstance()->destroyInstance();
+	network::HttpClient::destroyInstance();
 
     SupportPatch::endUnzipThread();
 
